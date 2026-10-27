@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "newModelCalls": 0,
+  "group283": {
+    "auditSha256": "81313304a429d04c4895798824756d0be0b23d0c03dc0ab6e7f4aa77aa1699f8",
+    "revisedGroups": [
+      "chapter06-exercise003-batch-004",
+      "chapter06-exercise003-batch-009"
+    ],
+    "wholeError": "web_audit_not_passed_or_inputs_changed"
+  },
+  "pdfGates": [
+    {
+      "page": 218,
+      "status": "rejected",
+      "error": "audit_checks_not_passed"
+    },
+    {
+      "page": 219,
+      "status": "rejected",
+      "error": "audit_checks_not_passed"
+    },
+    {
+      "page": 220,
+      "status": "passed"
+    }
+  ],
+  "tableSupplementVerified": {
+    "schema": "coac244-283-table-reuse-verified/1",
+    "passed": true,
+    "scope": "66 previous geometry target figures and6 tables only; other28 table figures inherited independently",
+    "candidateSha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f",
+    "supplementSha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c",
+    "chapterAccepted": false,
+    "newModelCalls": 0
+  },
+  "chapter222": {
+    "status": "passed",
+    "originalStatus": "needs-repair",
+    "originalModelChecks": {
+      "passed": false,
+      "errors": [
+        "target_figure_domOrder",
+        "target_figure_contextContinuity",
+        "target_figure_semanticCompleteness",
+        "target_figure_incomplete",
+        "target_figure_issue"
+      ]
+    },
+    "notANewFullArticleModelReview": true
+  },
+  "protectedInputsAfterMatch": true
+}

@@ -1,0 +1,240 @@
+{
+  "schema": "coac249-exact-unchanged159242-binding-consistency/1",
+  "recordedAt": "2026-10-27T21:59:11.842443+00:00",
+  "status": "consistent-with-existing-independent-limited-fidelity",
+  "proofs": [
+    {
+      "canonical": "79-cn-chapter-159-9",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751292.display.json",
+        "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+        "bytes": 46828
+      },
+      "proof": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-159242-compliance-20261028\\proof-159.json",
+        "sha256": "9c718e694c8d7fd078991124589bf2ffd206915ea82a0686651e8ca790cbeacf"
+      },
+      "target": {
+        "figureId": "79-bilibili-cn:cv1751292:b0013:figure",
+        "bbox": [
+          298,
+          126,
+          324,
+          161
+        ]
+      },
+      "authorPropositions": 9,
+      "conditionsAlreadySatisfied": true,
+      "newNonAuthorNoteNeeded": false,
+      "requiredConditionsRetained": [
+        "继续保留现有转写中的“［万子牌，数字无法确认］”和 unknowns 中“上方牌河按画面从左到右第4张：可辨为万子牌，数字无法可靠确认”。",
+        "保留原图及目标位置 [298,126,324,161] 的来源关联；裁剪与放大图不作为独立证据。",
+        "保留 b0012 和 b0014 的原有场况条件、判断力度、1500点目标及5万碰例外，不将未知牌补成具体牌码。",
+        "不得把当前展示扩写为完整万子已见数、逐牌可鸣清单、5万碰例外的解释或得点保证。"
+      ],
+      "tacticalUncertainRetained": [
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "根据例4的点数情况，等着南出来太过优柔寡断了。",
+          "claim": "作者依据例4的点数情况，判断等待南出现过于犹豫。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "原文明确给出的理由是点数情况，没有把 [298,126,324,161] 的数字列为理由。对具体战术作全面独立评估时，未知万子的数字可能影响可见数量；不能仅因它位于牌河就断定它对所有具体评估都无关。",
+          "neededLimitation": "保留为作者针对例4点数情况的判断；不把照录该判断当成已独立证明其绝对正确。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "虽然鸣牌之后手牌会有点散，但也要朝着这1500点去。",
+          "claim": "作者预计鸣牌后手牌会有点散，同时仍建议朝1500点的目标前进。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "原句没有指定此处是哪一次鸣牌，也没有说目标牌是某个数字。保留作者的权衡不需猜数；若要逐项核验具体鸣牌及其结果，不能从这处未知牌补出所需信息。",
+          "neededLimitation": "保留“有点散”与“朝着”两种力度；1500点是作者提出的目标，不是已实现或保证实现的得点。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "这个牌能鸣牌的时候都鸣了吧（当然5万的碰是不行的= =）",
+          "claim": "作者建议这手牌在能鸣牌时积极鸣牌，并明确排除5万的碰。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "建议的条件和例外在文字中明确给出，不需要把上方第四张认成某个数字才能忠实保留。该数字可能关系到具体万子已见数和逐牌核验，原文没有将它明确关联到某个可鸣牌清单。",
+          "neededLimitation": "必须同时保留“能鸣牌的时候”和5万碰例外；不要扩写为任何牌都可鸣，也不要根据未知牌列出完整可鸣清单。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "（当然5万的碰是不行的= =）",
+          "claim": "5万的碰是作者对上一条建议明确写出的例外。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "作者直接写出了例外，但没有在该段说明其详细理由，也没有说上方牌河第四张就是5万。未知数字是否会影响某项具体牌数或鸣牌核验，不能由这句话单独确定。",
+          "neededLimitation": "原样保留例外，不把目标未知牌当作5万，也不自行补写例外的原因或宣称已独立验证其规则依据。"
+        }
+      ],
+      "originalTechnicalFalsePreserved": true
+    },
+    {
+      "canonical": "79-cn-chapter-242-3",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780438.display.json",
+        "sha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+        "bytes": 58219
+      },
+      "proof": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-159242-compliance-20261028\\proof-242.json",
+        "sha256": "67cfab330af0ec6868ef3945e6ff641ab08a6f83712bc87615f266122e5b2309"
+      },
+      "target": {
+        "figureId": "79-bilibili-cn:cv1780438:b0014:figure",
+        "bbox": [
+          177,
+          144,
+          202,
+          177
+        ]
+      },
+      "authorPropositions": 10,
+      "conditionsAlreadySatisfied": true,
+      "newNonAuthorNoteNeeded": false,
+      "requiredConditionsRetained": [],
+      "tacticalUncertainRetained": [
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1780438:b0017"
+          ],
+          "sourceQuote": "但是和TOP的差距是基本没缩小。",
+          "claim": "对于前述吃牌方案，作者判断与TOP的差距基本没有缩小。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "这是原文对该方案的定性判断，保留原话不需要猜目标数字；原文没有给出完整的最终和牌构成与具体结算，单凭现有材料不能把它升级为独立复算结果，也不能断言目标数字对任何完整复盘均无影响。",
+          "neededLimitation": "保留“基本”并作为作者判断呈现，不添加具体得分或声称完成了独立复算。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1780438:b0018"
+          ],
+          "sourceQuote": "这种情况是应该要凹门清立直的牌。",
+          "claim": "在例1的争TOP情境下，作者建议争取门清立直。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "作者的明示论证是争TOP时比较吃3万的小牌与门清立直的打点，没有把上方目标牌的点数列为明示理由。可以保留该建议；仅凭未知牌不能独立证明该建议在所有完整牌面复盘中都最优。",
+          "neededLimitation": "作为此情境下的作者建议保留，不声称已证明绝对最优。"
+        }
+      ],
+      "originalTechnicalFalsePreserved": true
+    }
+  ],
+  "regressionGroupsPassed": 7,
+  "newModelCalls": 0,
+  "productionCalls": 0,
+  "candidateEdits": 0,
+  "oldRawOrReceiptEdits": 0,
+  "standardWholeArticlePassed": false,
+  "scope": "Current unknown display and faithful preservation of explicit author conditions only; tactical uncertain retained, no tile identification or optimality proof.",
+  "existing250Consumption": {
+    "alreadyAdmitted": true,
+    "preview": {
+      "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T21-43-02-930Z",
+      "corpusId": "080e21490d0504e4b1cf9cd6867897d373c31de8a6c794f40c174038d61c0108",
+      "chapters": 236,
+      "units": 244,
+      "blocks": 6420,
+      "figures": 5138
+    },
+    "fullMcp": {
+      "units": 244,
+      "images": 5138
+    },
+    "arena": {
+      "units": 244,
+      "exactBody": true
+    },
+    "finalVerification": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-limited-159242-20261028\\final-verification.json",
+      "sha256": "0700f910ebf452c09a71b240a2bb42f3f8383e926dcccd5c31a5027f2ac8dfd0"
+    },
+    "sourceComment": "01a17f56-fd4d-7598-ba68-22c84ec4d9dc",
+    "duplicateConsumerCreated": false
+  },
+  "bound": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-159242-compliance-20261028\\manifest.json",
+      "sha256": "5705266a6eac28f744f6f46cd1f53f544b93ccdc25efd30de269dcd216f32493"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-159242-compliance-20261028\\verify.py",
+      "sha256": "c9e8466bfae9b1d35f6f7d61407ea7e18137f28c07cd7b32d59f3f8db2da34e5"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-159242-compliance-20261028\\verify_test.py",
+      "sha256": "e4e97b584642e300203e67632520caac343a031bb9bd3c733c9075b506c0f97c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-159242-compliance-20261028\\proof-159.json",
+      "sha256": "9c718e694c8d7fd078991124589bf2ffd206915ea82a0686651e8ca790cbeacf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-159242-compliance-20261028\\proof-242.json",
+      "sha256": "67cfab330af0ec6868ef3945e6ff641ab08a6f83712bc87615f266122e5b2309"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751292.display.json",
+      "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1751292\\source.json",
+      "sha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json",
+      "sha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-159-limited-fidelity-evidence-20261028.json",
+      "sha256": "86bc78028f01c2fd7a277f0c2de1ce5fb2cbf51aff72ba00376fc5e7e0c178ba"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\50eb7aaf-2b54-410c-b41b-b11059eae75f.json",
+      "sha256": "12e1b8c6c7e88b3474b2a6a8aa2d56a27a62e64d9c3a5b36a396c365c94177bf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-next3-20261028\\receipt159.json",
+      "sha256": "8b51355cf5799eb50fd6a60767d8dddb407f47f9e99e0f5fe8eb3399e6685901"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780438.display.json",
+      "sha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1780438\\source.json",
+      "sha256": "3cac4b7103309b092edada33aa8f698b606aa283ae1ce18f8ce9ba9e8428f6e0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780438.62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa.json",
+      "sha256": "332731f14ba75be91479bdefe77bb1a0026fe31d600b693d73d0e62db8ba8515"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-242-limited-fidelity-evidence-20261028.json",
+      "sha256": "8af5dfab278fb5a6da46c571f68d6a6a034bf025677842e955530ef3cc769436"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d98dff34-cf8b-4341-8d00-37a31a1e0db8.json",
+      "sha256": "5dfef83403e9f6221a035a3a584166f12bea2a210b50b91563f8014844ad3074"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-next3-20261028\\receipt242.json",
+      "sha256": "255a4ff5e7858e7b7b28353a882b834c53b79dc820dc269f53b218172bc1cbb9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-limited-159242-20261028\\final-verification.json",
+      "sha256": "0700f910ebf452c09a71b240a2bb42f3f8383e926dcccd5c31a5027f2ac8dfd0"
+    }
+  ]
+}
