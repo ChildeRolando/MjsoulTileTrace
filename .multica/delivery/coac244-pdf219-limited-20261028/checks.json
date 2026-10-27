@@ -1,0 +1,157 @@
+{
+  "status": "passed",
+  "newModelCalls": 0,
+  "negativeTests": [
+    {
+      "name": "wrongCandidateSha",
+      "rejected": true
+    },
+    {
+      "name": "missingUnknown",
+      "rejected": true
+    },
+    {
+      "name": "guessedRiverRank",
+      "rejected": true
+    },
+    {
+      "name": "changedAuthorModality",
+      "rejected": true
+    },
+    {
+      "name": "missingIndependentPermission",
+      "rejected": true
+    },
+    {
+      "name": "fakeWholePagePass",
+      "rejected": true
+    },
+    {
+      "name": "changedParentNonTarget",
+      "rejected": true
+    },
+    {
+      "name": "changedIssueToResolved",
+      "rejected": true
+    },
+    {
+      "name": "changedQuoteRange",
+      "rejected": true
+    },
+    {
+      "name": "missingParentBodyCoverage",
+      "rejected": true
+    }
+  ],
+  "priorTargetTechnicalResults": [
+    {
+      "schema": "coac249-exact-pdf-target-verification/1",
+      "page": 218,
+      "candidate": {
+        "path": "production/coac247-pdf218219-target-fix-v2-20261028/candidates/79-cn/page-0218.json",
+        "sha256": "5d0091cb957cc14b4436947ffa8207b65838302a1438442aca854664f05667c8"
+      },
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218219-target-20261028\\receipt-218.json",
+        "sha256": "d50eb164b82dda0ee11ee92a700c9c63ca17d206edbac56354fa74b0edd05c11"
+      },
+      "status": "needs-repair",
+      "transportCompleted": true,
+      "scopedTargetPassed": false,
+      "standardWholePagePassed": false,
+      "wholeChapterAccepted": false,
+      "unresolvedOriginalIssues": [
+        {
+          "issueId": "original-2",
+          "outcome": "unresolved",
+          "evidence": "已逐项查看东家第2、3、5、10、11张和北家第1、6、7张舍牌；所给图像不足以可靠确认这些风牌的风向或数牌的点数。候选保留了未知，但这些可见牌尚未完整辨认。"
+        },
+        {
+          "issueId": "original-3",
+          "outcome": "unresolved",
+          "evidence": "南家手牌第一张索子的点数仍不能独立确认。候选末尾及unknowns承认该牌未确认，但前文仍将手牌确定写成67s，存在矛盾。"
+        },
+        {
+          "issueId": "original-4",
+          "outcome": "uncertain",
+          "evidence": "图面写有“ドラ”并显示非赤5m；候选已撤去确定的“宝牌指示牌”表述。仅凭图面仍不能确认界面显示的是宝牌本身还是指示牌。"
+        }
+      ],
+      "blockingIssues": [
+        {
+          "severity": "error",
+          "location": "79-cn-p218-r1.transcription，南家手牌",
+          "evidence": "候选先写“11334789m 234p 67s”，后又写“原稿所记67s中的第一张6s未能由独审确认，仍为未确认牌”。",
+          "description": "确定牌码与未确认说明互相矛盾。应将首张索子直接表示为点数未知，再单独注明原稿记为6s但尚未核实；不要猜改成另一牌码。"
+        },
+        {
+          "severity": "uncertain",
+          "location": "79-cn-p218-r1，东家及北家牌河",
+          "evidence": "东家第2、3、5、10、11张及北家第1、6、7张在图中可见，但所给图像不足以可靠辨认各自风向或点数。",
+          "description": "这些牌仍需保持未确认。它们限制对全部舍牌及正文役种推断的独立复核。"
+        },
+        {
+          "severity": "uncertain",
+          "location": "79-cn-p218-r1，中央ドラ标签",
+          "evidence": "图面显示“ドラ”和非赤5m，没有说明该界面使用宝牌本身还是指示牌。",
+          "description": "候选已准确保留语义未知；在取得界面规则依据之前，不能进一步确定其含义。"
+        }
+      ],
+      "checks": {
+        "passed": false,
+        "configOkay": true,
+        "errors": [
+          "target_not_faithful",
+          "original_issue_not_resolved:original-2",
+          "original_issue_not_resolved:original-3",
+          "original_issue_not_resolved:original-4",
+          "unresolved_model_issues"
+        ]
+      },
+      "newCallsDuringVerification": 0
+    },
+    {
+      "schema": "coac249-exact-pdf-target-verification/1",
+      "page": 219,
+      "candidate": {
+        "path": "production/coac247-pdf218219-target-fix-v2-20261028/candidates/79-cn/page-0219.json",
+        "sha256": "464c607a262b415dece3f35b213aef19b632266f7c4917f3107a04d5e1971bc9"
+      },
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218219-target-20261028\\receipt-219.json",
+        "sha256": "8a0000a6a8ea3714d6bbfe2abef7f10f859457035f8e5fa8a84eb00dd2bcfb54"
+      },
+      "status": "needs-repair",
+      "transportCompleted": true,
+      "scopedTargetPassed": false,
+      "standardWholePagePassed": false,
+      "wholeChapterAccepted": false,
+      "unresolvedOriginalIssues": [
+        {
+          "issueId": "original-2",
+          "outcome": "uncertain",
+          "evidence": "西家靠中央一行自右向左第2张是字牌、第6张是万子，但图中倒置且模糊，不能可靠确认具体牌名。候选已明确保留这两处未知，牌名本身仍未核实。"
+        }
+      ],
+      "blockingIssues": [
+        {
+          "severity": "uncertain",
+          "location": "西家靠中央一行，自右向左第2张和第6张",
+          "evidence": "两张牌面可见但倒置模糊，只能分别辨为字牌和万子，无法可靠读取具体牌名。",
+          "description": "候选已明确标为未知，但西家河牌的具体牌码尚不能完整核实。"
+        }
+      ],
+      "checks": {
+        "passed": false,
+        "configOkay": true,
+        "errors": [
+          "target_not_faithful",
+          "original_issue_not_resolved:original-2",
+          "unresolved_model_issues"
+        ]
+      },
+      "newCallsDuringVerification": 0
+    }
+  ],
+  "protectedInputsUnchanged": true
+}

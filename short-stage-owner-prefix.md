@@ -1,3 +1,12 @@
+219限定准入已零模型实际验真并交接：候选464c607a、独审9c0751f9（terra/max真实3图，196.468秒），原targetVerdict uncertain/receipt needs-repair/technical checks false及raw全部不改。原7文本与r1独立faithful、未改body SHA658bd505、b5/b7逐原行映射、原unknown4项及raw UTF8[500,599)明确允许“不妨碍理解条件性论证”的陈述绑定。新状态accepted-for-specific-pdf219-conditional-argument-display，仅b5/b9/b7范围；standardWholePagePassed/scopedTargetPassed/wholeChapterAccepted全false，不证明完整牌河/暗手/听牌/打点/具体概率。10项错SHA/缺unknown/猜牌/变条件/缺独立允许/伪全页pass/改非靶父图/改uncertain/错摘录/父覆盖不足拒绝；原verifyPdfTargetReceipt两页仍needs-repair，30冻结文件未改。218候选5d0091cb仍有3项真实阻断（首张索子确定码矛盾error、河牌未知uncertain、ドラ语义uncertain），original-1牌背数量已独立resolved；首次67s→?s 7s只写精确修订目标，未改候选。省下2制作额度不转审，原独审2/2余0。本轮模型/制作/候选0。现有两个remaining register仅217canonical更新PDF路线3项及219限定证据，原替代网页问题存历史、原raw不改；217整章仍hold，217限定图＋218-b3强制注/220pass/215保持。共享交接E:\AgentData\Coach\knowledge\processing\integration\coac244-pdf219-limited-20261028\handoff.json SHA190b37dcb93a3aec7402c4fed3aa6fd052faacac817f6c47fd6b45f1fbbfa569。
+
+219本轮零模型限定组合合同：只消费独立call9c0751f9对“这些未知不妨碍理解上述条件性论证”的真实陈述。仅候选464c607a、r2、原页b5/b7的作者条件性论证与b9图的忠实展示可获单独限定准入。须实跑原verifyPdfTargetReceipt，绑定新raw417ea130/收据8a0000a6、父候选4ed39627/父完整审485247f1/原生产raw、30冻结依赖、真实3图、原unknown4项；完整body SHA658bd505不变、另一图r1及原caption/顺序原样。原7文本faithful/非靶图faithful继承；新resolved仅original-1。原targetVerdict=uncertain/original-2=uncertain/技术needs-repair及source-note全部保留。
+
+限定状态明确不叫passed，standardWholePagePassed=false、scopedTargetPassed=false、wholeChapterAccepted=false。不得借此证明完整牌河/暗手/实际听牌/打点/具体吃牌概率或推出未知牌码。现稿原文“听牌与否以及打点多少都还不清楚”、已有unknown与图中条件足以维持新独立陈述；若缺任一绑定、原文条件、unknown、独立原句或原父审覆盖，拒绝。本准入不改219候选/旧审/raw、不加校注，不接入普通全页passed门禁。219新补证只交250登记待整体22块装配，217章仍hold。
+
+218不准入、不修改候选；仅登记“前文67s确定牌码与末尾首张未确认矛盾”的最小合法修订目标，拟把首次手牌贡献中的首张索子表示为?s，保留原稿记6s的说明。其余河牌/ドラ标签不确定性原样。任何实际修订/新独审不在本轮授权内，已省的2制作额度不得转审。本轮模型/制作/候选0，不增加消费者或改变正式active。
+
+
 本轮249两批唤醒零模型收证（PDF218–220＋283 b0396/b0962）：原交接db25a729/ daf68062均实读验SHA；228项绑定检查、143受保护输入前后不变，冻结PDF30文件/220父30文件/28332文件逐个核验。未制作/审校/识字/新增消费者或唤醒。
 
 79-cn-chapter-217-4：复用247现有coac247-pdf217220-review-disposition-20261028和250既有assembly-intake，不再覆写两份已正确register。218(9ff64a45)原terra/max独审a4bfda32：r1四阻断＝漏北13/东10/西13牌背；东河2/3/5/10/11和北河1/6/7未确认；南手首张6s未独立确认；ドラ:5m身份未证。219(4ed39627)独审ac6bf0ed：r2两阻断＝漏西13/北13/南10牌背及未见立直横置说明；西河靠中央行自右至左2字/6万未知。各暗手牌面仍未知；219“会吃得概率”原字保留、疑笔误只source-note。两页正常门禁均audit_checks_not_passed，不是transport失败。220(49df5a1c)独审8af52b0c整物理页8文本/2图passed且当前冻结verifyAuditForCandidate实际passed；b1/b3归217章，另8块含b9/b10两图归79-cn-chapter-220-4，22块217装配仍不可整章通过。217限定图＋218-b3强制非原文注、215已入成果保持。原2182194/4、2202/2均余0，未经新授权不修/复审。

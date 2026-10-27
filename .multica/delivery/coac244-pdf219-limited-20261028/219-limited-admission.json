@@ -1,0 +1,438 @@
+{
+  "schema": "coac244-exact-pdf219-limited-conditional-fidelity/1",
+  "status": "accepted-for-specific-pdf219-conditional-argument-display",
+  "canonical": "79-cn-chapter-217-4",
+  "page": 219,
+  "targetFigureId": "79-cn-p219-r2",
+  "sourceBlockIds": [
+    "79-cn-p219-b5",
+    "79-cn-p219-b9",
+    "79-cn-p219-b7"
+  ],
+  "candidate": {
+    "path": "production/coac247-pdf218219-target-fix-v2-20261028/candidates/79-cn/page-0219.json",
+    "sha256": "464c607a262b415dece3f35b213aef19b632266f7c4917f3107a04d5e1971bc9"
+  },
+  "receipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218219-target-20261028\\receipt-219.json",
+    "sha256": "8a0000a6a8ea3714d6bbfe2abef7f10f859457035f8e5fa8a84eb00dd2bcfb54"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\9c0751f9-9535-49dd-b156-97f2805bc605.json",
+    "sha256": "417ea1301bcc3d49ce8ab1e1e47c1a50e2e4f32e527bf8a0d78a453dcd85ddbb"
+  },
+  "callId": "9c0751f9-9535-49dd-b156-97f2805bc605",
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\candidates\\79-cn\\page-0219.json",
+    "sha256": "4ed396279c5eff45b5c9d399f7950394ac1c36b0cc638b22f67d0f30fb03ff54"
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0219.4ed396279c5eff45b5c9d399f7950394ac1c36b0cc638b22f67d0f30fb03ff54.38f0d64d609b.json",
+    "sha256": "485247f1aabde12801df12bdd4e989a1fa3071148a17acd7a68dfd1285b15c14"
+  },
+  "originalModelVerdict": "uncertain",
+  "originalTechnicalStatus": "needs-repair",
+  "originalChecks": {
+    "passed": false,
+    "configOkay": true,
+    "errors": [
+      "target_not_faithful",
+      "original_issue_not_resolved:original-2",
+      "unresolved_model_issues"
+    ]
+  },
+  "standardWholePagePassed": false,
+  "scopedTargetPassed": false,
+  "wholeChapterAccepted": false,
+  "limitedFidelityAdmission": true,
+  "proof": {
+    "mapping": [
+      {
+        "sourceBlockId": "79-cn-p219-b5",
+        "source": {
+          "id": "79-cn-p219-b5",
+          "bbox": [
+            90.02400207519531,
+            291.7819519042969,
+            411.2200012207031,
+            350.94195556640625
+          ],
+          "type": "text",
+          "lines": [
+            {
+              "bbox": [
+                90.02400207519531,
+                291.7819519042969,
+                411.2200012207031,
+                303.7819519042969
+              ],
+              "text": "要是纯粹的何切问题，这里从牌效率以及摸到4 索可以走断幺来考虑 ",
+              "spans": [
+                {
+                  "text": "要是纯粹的何切问题，这里从牌效率以及摸到4 索可以走断幺来考虑",
+                  "size": 10.5600004196167,
+                  "font": "å®ä½",
+                  "flags": 4,
+                  "color": 5592405
+                },
+                {
+                  "text": " ",
+                  "size": 12,
+                  "font": "å®ä½",
+                  "flags": 4,
+                  "color": 0
+                }
+              ]
+            },
+            {
+              "bbox": [
+                90.02400207519531,
+                307.3819885253906,
+                201.0500030517578,
+                319.3819885253906
+              ],
+              "text": "切1 饼是绝对的答案。 ",
+              "spans": [
+                {
+                  "text": "切1 饼是绝对的答案。",
+                  "size": 10.5600004196167,
+                  "font": "å®ä½",
+                  "flags": 4,
+                  "color": 5592405
+                },
+                {
+                  "text": " ",
+                  "size": 12,
+                  "font": "å®ä½",
+                  "flags": 4,
+                  "color": 0
+                }
+              ]
+            },
+            {
+              "bbox": [
+                90.02400207519531,
+                322.9819641113281,
+                232.61000061035156,
+                334.9819641113281
+              ],
+              "text": "但是，这样的情况怎么样呢？ ",
+              "spans": [
+                {
+                  "text": "但是，这样的情况怎么样呢？",
+                  "size": 10.5600004196167,
+                  "font": "å®ä½",
+                  "flags": 4,
+                  "color": 5592405
+                },
+                {
+                  "text": " ",
+                  "size": 12,
+                  "font": "å®ä½",
+                  "flags": 4,
+                  "color": 0
+                }
+              ]
+            },
+            {
+              "bbox": [
+                90.02400207519531,
+                338.94195556640625,
+                96.02400207519531,
+                350.94195556640625
+              ],
+              "text": " ",
+              "spans": [
+                {
+                  "text": " ",
+                  "size": 12,
+                  "font": "å®ä½",
+                  "flags": 4,
+                  "color": 0
+                }
+              ]
+            }
+          ]
+        },
+        "unchangedCandidateBlock": {
+          "type": "text",
+          "sourceBlockIds": [
+            "79-cn-p219-b4",
+            "79-cn-p219-b5"
+          ],
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1",
+          "titleSource": false,
+          "sourceText": " 要是纯粹的何切问题，这里从牌效率以及摸到4 索可以走断幺来考虑 切1 饼是绝对的答案。 但是，这样的情况怎么样呢？  ",
+          "text": " 要是纯粹的何切问题，这里从牌效率以及摸到4 索可以走断幺来考虑 切1 饼是绝对的答案。 但是，这样的情况怎么样呢？  ",
+          "inlineContent": [
+            {
+              "type": "text",
+              "text": " 要是纯粹的何切问题，这里从牌效率以及摸到4 索可以走断幺来考虑 切1 饼是绝对的答案。 但是，这样的情况怎么样呢？  "
+            }
+          ],
+          "inlineFigureIds": [],
+          "rawSlotText": " 要是纯粹的何切问题，这里从牌效率以及摸到4 索可以走断幺来考虑 切1 饼是绝对的答案。 但是，这样的情况怎么样呢？  "
+        },
+        "parentIndependentCheck": {
+          "id": "79-cn-p219-b5",
+          "verdict": "faithful",
+          "explanation": "牌效率、摸到4索可走断幺、切1饼是绝对答案及转入实际情况的提问均原样保留。"
+        },
+        "sourceLineToCandidateOffsets": [
+          {
+            "sourceText": "要是纯粹的何切问题，这里从牌效率以及摸到4 索可以走断幺来考虑 ",
+            "candidateUtf16Offset": 1
+          },
+          {
+            "sourceText": "切1 饼是绝对的答案。 ",
+            "candidateUtf16Offset": 33
+          },
+          {
+            "sourceText": "但是，这样的情况怎么样呢？ ",
+            "candidateUtf16Offset": 45
+          },
+          {
+            "sourceText": " ",
+            "candidateUtf16Offset": 0
+          }
+        ]
+      },
+      {
+        "sourceBlockId": "79-cn-p219-b7",
+        "source": {
+          "id": "79-cn-p219-b7",
+          "bbox": [
+            90.02400207519531,
+            713.3919677734375,
+            316.6300048828125,
+            756.22802734375
+          ],
+          "type": "text",
+          "lines": [
+            {
+              "bbox": [
+                90.02400207519531,
+                713.3919677734375,
+                96.02400207519531,
+                725.3919677734375
+              ],
+              "text": " ",
+              "spans": [
+                {
+                  "text": " ",
+                  "size": 12,
+                  "font": "å®ä½",
+                  "flags": 4,
+                  "color": 0
+                }
+              ]
+            },
+            {
+              "bbox": [
+                90.02400207519531,
+                728.6320190429688,
+                316.6300048828125,
+                740.6320190429688
+              ],
+              "text": "下家的副露听牌与否以及打点多少都还不清楚。 ",
+              "spans": [
+                {
+                  "text": "下家的副露听牌与否以及打点多少都还不清楚。",
+                  "size": 10.5600004196167,
+                  "font": "å®ä½",
+                  "flags": 4,
+                  "color": 5592405
+                },
+                {
+                  "text": " ",
+                  "size": 12,
+                  "font": "å®ä½",
+                  "flags": 4,
+                  "color": 0
+                }
+              ]
+            },
+            {
+              "bbox": [
+                90.02400207519531,
+                744.22802734375,
+                316.6300048828125,
+                756.22802734375
+              ],
+              "text": "但是切掉1 饼的话，不能无视下家会吃得概率。 ",
+              "spans": [
+                {
+                  "text": "但是切掉1 饼的话，不能无视下家会吃得概率。",
+                  "size": 10.5600004196167,
+                  "font": "å®ä½",
+                  "flags": 4,
+                  "color": 5592405
+                },
+                {
+                  "text": " ",
+                  "size": 12,
+                  "font": "å®ä½",
+                  "flags": 4,
+                  "color": 0
+                }
+              ]
+            }
+          ]
+        },
+        "unchangedCandidateBlock": {
+          "type": "text",
+          "sourceBlockIds": [
+            "79-cn-p219-b6",
+            "79-cn-p219-b7"
+          ],
+          "chapterId": "79-cn-chapter-217-4",
+          "unitId": "79-cn-chapter-217-4-unit-1",
+          "titleSource": false,
+          "sourceText": "  下家的副露听牌与否以及打点多少都还不清楚。 但是切掉1 饼的话，不能无视下家会吃得概率。 ",
+          "text": "  下家的副露听牌与否以及打点多少都还不清楚。 但是切掉1 饼的话，不能无视下家会吃得概率。 ",
+          "inlineContent": [
+            {
+              "type": "text",
+              "text": "  下家的副露听牌与否以及打点多少都还不清楚。 但是切掉1 饼的话，不能无视下家会吃得概率。 "
+            }
+          ],
+          "inlineFigureIds": [],
+          "rawSlotText": "  下家的副露听牌与否以及打点多少都还不清楚。 但是切掉1 饼的话，不能无视下家会吃得概率。 "
+        },
+        "parentIndependentCheck": {
+          "id": "79-cn-p219-b7",
+          "verdict": "faithful",
+          "explanation": "下家副露听牌和打点尚不清楚，以及不能无视其吃1饼的概率，均按源文保留。"
+        },
+        "sourceLineToCandidateOffsets": [
+          {
+            "sourceText": " ",
+            "candidateUtf16Offset": 0
+          },
+          {
+            "sourceText": "下家的副露听牌与否以及打点多少都还不清楚。 ",
+            "candidateUtf16Offset": 2
+          },
+          {
+            "sourceText": "但是切掉1 饼的话，不能无视下家会吃得概率。 ",
+            "candidateUtf16Offset": 24
+          }
+        ]
+      }
+    ],
+    "independentImpact": "图中自家有两张1p及1s、2s、3s，南家已有白牌副露。若南家暗手有2p和3p，便可能吃自家打出的1p；这是条件性的可能，不能据图断言南家持有这两张牌、已听牌或有某个打点。摸到4s也可为把1s、2s、3s改成2s、3s、4s提供向断幺发展的机会，并非立即证明成和。西家两张未辨明的可见牌分别属于字牌和万子，不是2p或3p；灰格及暗手仍未知，完整牌河和具体吃牌概率不能由此核定。因此这些未知不妨碍理解上述条件性论证，但仍须保留原问题的不确定性。",
+    "quote": {
+      "jsonPointer": "/output/unknownTeachingImpact",
+      "fullFieldSha256": "0ce37f68b27182767c5818a56f50804f19c89c116b30db9eca5b076135e542c3",
+      "utf8Range": [
+        500,
+        599
+      ],
+      "exactQuote": "因此这些未知不妨碍理解上述条件性论证，但仍须保留原问题的不确定性。"
+    },
+    "unknowns": [
+      "西家靠中央一行的第2张字牌倒置且字形模糊，无法可靠辨认牌名。",
+      "西家靠中央一行的第6张万子数字倒置且模糊，无法可靠辨认。",
+      "西家靠中央一行的第4格为灰色空位，原牌面不可见。",
+      "其他三家的手牌牌面、各家点数和宝牌指示牌未另行显示。"
+    ],
+    "retainedOriginalIssue2": {
+      "issueId": "original-2",
+      "outcome": "uncertain",
+      "evidence": "西家靠中央一行自右向左第2张是字牌、第6张是万子，但图中倒置且模糊，不能可靠确认具体牌名。候选已明确保留这两处未知，牌名本身仍未核实。"
+    },
+    "retainedModelIssues": [
+      {
+        "severity": "uncertain",
+        "location": "西家靠中央一行，自右向左第2张和第6张",
+        "evidence": "两张牌面可见但倒置模糊，只能分别辨为字牌和万子，无法可靠读取具体牌名。",
+        "description": "候选已明确标为未知，但西家河牌的具体牌码尚不能完整核实。"
+      },
+      {
+        "severity": "source-note",
+        "location": "西家靠中央一行，自右向左第4格",
+        "evidence": "原图该格呈灰色，没有可读取的牌面；候选将原牌面列为不可见。",
+        "description": "这是源图的信息限制，不能据灰格推定原牌名或判断该处原牌是否横置。"
+      }
+    ]
+  },
+  "independentLimitsSource": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218219-target-20261028\\219-independent-limits.json",
+    "sha256": "8ac4991c4a970cb1ed6facf183c791a808d6f409e855e12db1caf0633bca0ac6"
+  },
+  "protectedInputs": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-pdf218219-target-results-20261028.json",
+      "sha256": "b4755f133f70298679b6115b14933d807a5b70c31f099a9ab89534ef3379900b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218219-target-20261028\\receipt-219.json",
+      "sha256": "8a0000a6a8ea3714d6bbfe2abef7f10f859457035f8e5fa8a84eb00dd2bcfb54"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-target-fix-v2-20261028\\candidates\\79-cn\\page-0219.json",
+      "sha256": "464c607a262b415dece3f35b213aef19b632266f7c4917f3107a04d5e1971bc9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\9c0751f9-9535-49dd-b156-97f2805bc605.json",
+      "sha256": "417ea1301bcc3d49ce8ab1e1e47c1a50e2e4f32e527bf8a0d78a453dcd85ddbb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218219-target-20261028\\219-independent-limits.json",
+      "sha256": "8ac4991c4a970cb1ed6facf183c791a808d6f409e855e12db1caf0633bca0ac6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\candidates\\79-cn\\page-0219.json",
+      "sha256": "4ed396279c5eff45b5c9d399f7950394ac1c36b0cc638b22f67d0f30fb03ff54"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0219.4ed396279c5eff45b5c9d399f7950394ac1c36b0cc638b22f67d0f30fb03ff54.38f0d64d609b.json",
+      "sha256": "485247f1aabde12801df12bdd4e989a1fa3071148a17acd7a68dfd1285b15c14"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\ac6bf0ed-e84d-4bc7-b64c-cecf3550dd86.json",
+      "sha256": "314d27f4981a93efe9c448cd541bba62e75d0fbe6f3d3fe97692d5daf4ab8f94"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\219.json",
+      "sha256": "27ae7567c1ba544cf5b5bdbf3a75abeb95e650c84ba9ce2114b2143340d99a28"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\raw-calls\\717d547b-6aac-4e2a-8ef2-cccbbdcfdd07.json",
+      "sha256": "eb9c196deb5be95e2ffe0cddc654550ee6941d9387859389374f69c486ba3c55"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\approval-219.json",
+      "sha256": "231d24c07eea42e19cd1a1720444d39b7cf1c142cfb47ca19cd4dce107cd74f8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\proof-219.json",
+      "sha256": "767b706ccba86e9fce04ae60d4e8eadbcf18a7551fc2b6109994ef8528c02608"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\target-request-219.json",
+      "sha256": "901bceb588631e7c01e2dedc12b870722939e50d198a9c5f8fd9d6181e4a7c68"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime-manifest.json",
+      "sha256": "22467ecebc38c4cd32e8d535e2b1344e57fd7f4518a77a7a7a03c7e298e07c23"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218219-target-20261028\\verify.mjs",
+      "sha256": "e965aceb28f35215a61a1394aa4d19782b08af755adac47f64c2ff7a306366ba"
+    }
+  ],
+  "forbiddenInferences": [
+    "完整牌河已核定",
+    "推补西家两张未知牌",
+    "对手暗手牌面已知",
+    "实际已听牌或具体打点",
+    "具体吃牌概率或立即成和已证明"
+  ],
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "candidateModified": false,
+  "oldRawOrVerdictsModified": false,
+  "sourceNoteRetained": true
+}

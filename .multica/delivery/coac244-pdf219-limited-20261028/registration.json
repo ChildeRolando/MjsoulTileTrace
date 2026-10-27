@@ -1,0 +1,34 @@
+{
+  "schema": "coac244-pdf219-limited-intake-registration/1",
+  "handoff": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-pdf219-limited-20261028\\handoff.json",
+    "sha256": "190b37dcb93a3aec7402c4fed3aa6fd052faacac817f6c47fd6b45f1fbbfa569"
+  },
+  "registers": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-remaining26-closure-register-20261028.json",
+      "beforeSha256": "f8156a485c868afd3a3a5519728ae0278d35817f49424cdc5c383b2cc136ca73",
+      "afterSha256": "70e34c1944ea44c4752594a010e1ce125a6ae6591e895141b210b9c4c39bcad9",
+      "onlyCanonical": "79-cn-chapter-217-4",
+      "coverageUnchanged": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-uncovered-chapter-continuation-register-20261027b.json",
+      "beforeSha256": "0d8e531f8feb878a3adf187db5104daf211f9f8cfe461725baa606aa2a8e40f1",
+      "afterSha256": "63469abf79df28cdd7064fb8d501fc14dd6bd5014fe8626aa1414c846daa6e9e",
+      "onlyCanonical": "79-cn-chapter-217-4",
+      "coverageUnchanged": true
+    }
+  ],
+  "status": "accepted-for-specific-pdf219-conditional-argument-display",
+  "pdf218Remaining": 3,
+  "pdf219UnknownsRetained": 4,
+  "oldVerdictsUnchanged": true,
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "candidateWrites": 0,
+  "semanticFullPagePassesCreated": 0,
+  "negativeChecks": 10,
+  "bookComplete": false,
+  "formalActiveChanged": false
+}

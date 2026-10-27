@@ -1,0 +1,27 @@
+{
+  "schema": "coac244-pdf218-exact-unknown-contradiction-repair-goal/1",
+  "candidate": {
+    "path": "production/coac247-pdf218219-target-fix-v2-20261028/candidates/79-cn/page-0218.json",
+    "sha256": "5d0091cb957cc14b4436947ffa8207b65838302a1438442aca854664f05667c8"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7160c860-7aaf-429a-a7a5-8321d9a96694.json",
+    "sha256": "72ee756127b8b30d0898ff6974ca8835b7a17f626c2eda13eec1c2730b4dc820"
+  },
+  "receipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218219-target-20261028\\receipt-218.json",
+    "sha256": "d50eb164b82dda0ee11ee92a700c9c63ca17d206edbac56354fa74b0edd05c11"
+  },
+  "targetFigureId": "79-cn-p218-r1",
+  "field": "transcription",
+  "before": "南家手牌从左至右为11334789m 234p 67s，最右侧新摸入1z（东）。",
+  "expected": "南家手牌从左至右为11334789m 234p ?s 7s，最右侧新摸入1z（东）。",
+  "occurrences": 1,
+  "onlyChange": "Remove unsupported certainty of first souzu rank; retain original-record6s explanation, known7s, all other text/unknowns/body/images/captions/order.",
+  "expectedIsNotProduction": true,
+  "candidateCreated": false,
+  "newModelCalls": 0,
+  "authorizedExecution": false,
+  "remainingStageCalls": 0,
+  "savedMakerAllowanceNotTransferable": true
+}
