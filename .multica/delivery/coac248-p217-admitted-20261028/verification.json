@@ -1,0 +1,24 @@
+{
+  "schema": "coac248-p217-deterministic-verification/1",
+  "candidate": {
+    "path": "integration/coac248-p217-admitted-20261028/page-0217.rev6.json",
+    "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54"
+  },
+  "classification": "exact-fields-installed-pending-independent-evidence-consistency",
+  "inputBindings": 29,
+  "authorBodyUnchanged": true,
+  "captionUnchanged": true,
+  "northSecond9mUnchanged": true,
+  "nonTargetSerializedBytesRestoredToParentSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+  "unknownCount": 2,
+  "noteInstalledAfterArgument": true,
+  "originalRawEdited": false,
+  "oldAuditEdited": false,
+  "newModelCalls": 0,
+  "pageOrChapterPassed": false,
+  "requires": "COAC249 zero-call evidence consistency",
+  "remainingScope": [
+    "PDF218–220完整候选及章节覆盖未由本次装配验收",
+    "网页变体不在本次修订范围"
+  ]
+}

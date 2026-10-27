@@ -1,0 +1,261 @@
+{
+  "schema": "coach-textbook-page-draft/3",
+  "status": "draft",
+  "productionStatus": "draft-awaiting-independent-review",
+  "manifestSha256": "159975081c5e7c6edf887cae47bab49c99b4f63868538ac621b8feb1bd8c0d7f",
+  "runnerSha256": "56dc3937e2f6fc61100de88fc157077500eaa1d04adfbb0df0c45cd652f11af5",
+  "source": {
+    "sourceId": "79-cn",
+    "pdfSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+    "page": 217,
+    "pageDataSha256": "f8de2eddd4ba2939ae40796ffd8d1d1f971d49474dede72d108e61809ef1d6f8"
+  },
+  "body": {
+    "language": "zh-CN",
+    "mode": "verbatim",
+    "flowOrder": "model-reading-flow",
+    "blocks": [
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-cn-p217-b1"
+        ],
+        "chapterId": "79-cn-chapter-215-4",
+        "unitId": "79-cn-chapter-215-4-unit-1",
+        "titleSource": false,
+        "sourceText": " ",
+        "text": " "
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-cn-p217-b3"
+        ],
+        "chapterId": "79-cn-chapter-215-4",
+        "unitId": "79-cn-chapter-215-4-unit-1",
+        "titleSource": false,
+        "sourceText": "只有被碰了之后非常危险的牌（比如宝牌等）才会去扣牌。  1~4 并不是需要全部满足， 但是如果两个都满足不了，还是不要扣牌了。  下一回就来看看具体的“扣牌”。  （待续）  ",
+        "text": "只有被碰了之后非常危险的牌（比如宝牌等）才会去扣牌。  1~4 并不是需要全部满足， 但是如果两个都满足不了，还是不要扣牌了。  下一回就来看看具体的“扣牌”。  （待续）  "
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-cn-p217-b4"
+        ],
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1",
+        "titleSource": true,
+        "sourceText": "防守12—扣牌（2） ",
+        "text": "防守12—扣牌（2） "
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-cn-p217-b5"
+        ],
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1",
+        "titleSource": false,
+        "sourceText": "扣牌2： 我们来看看扣牌的具体例子。  ------------------------------------------------------------------------------------下家染手 -------------------------------------------------------------------------------",
+        "text": "扣牌2： 我们来看看扣牌的具体例子。  ------------------------------------------------------------------------------------下家染手 -------------------------------------------------------------------------------"
+      },
+      {
+        "type": "figure",
+        "figureId": "79-cn-p217-r1"
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-cn-p217-b6"
+        ],
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1",
+        "titleSource": false,
+        "sourceText": "----- ",
+        "text": "----- "
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-cn-p217-b7"
+        ],
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1",
+        "titleSource": false,
+        "sourceText": " 扣牌很多时候都是在下家染手时进行的。 这个例子，很明显下家是索子的一色手。  ",
+        "text": " 扣牌很多时候都是在下家染手时进行的。 这个例子，很明显下家是索子的一色手。  "
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-cn-p217-b2"
+        ],
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1",
+        "titleSource": false,
+        "sourceText": " 第 217 页 共 340 页 ",
+        "text": " 第 217 页 共 340 页 "
+      }
+    ]
+  },
+  "figures": [
+    {
+      "figureId": "79-cn-p217-r1",
+      "bbox": [
+        98.27999877929688,
+        323.3999938964844,
+        456.9599914550781,
+        706.7999877929688
+      ],
+      "pageImageSha256": "c52048b9b1a0650b9041cc74a18cb0576c71eb68ccb61c5c4b482dffd79a1ba0",
+      "croppedImagePath": "production/sol-high-fallback-finite-20261024-schemafix/renders/79-cn/page-0217-r1.png",
+      "croppedImageSha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0",
+      "chapterId": "79-cn-chapter-217-4",
+      "unitId": "79-cn-chapter-217-4-unit-1",
+      "sourceImageBlockIds": [
+        "79-cn-p217-b8"
+      ],
+      "sourceImageSha256s": [
+        "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978"
+      ],
+      "inlineWithTextBlockIds": [
+        "79-cn-p217-b5",
+        "79-cn-p217-b6",
+        "79-cn-p217-b7"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "牌码：m=万，p=饼，s=索；1z=东、2z=南、3z=西、4z=北、5z=白、6z=发、7z=中。可辨认的明牌中无赤五。\n中央文字：南3局1本场，立直棒0根。座位：下方北家、右方东家、上方南家、左方西家；东家为庄家。中央“ドラ”栏显示西（3z），画面未注明该栏为宝牌还是宝牌指示牌。\n画面显示值：北家+16900，东家△4900，南家△17500，西家+5500。\n北家手牌从左至右：8m 8m 1s 2s 3s 6s 9s 1p 2p 3p 5p 7p 9p；右侧分开的摸牌为6s。其余三家的暗手牌背面朝外，牌种未知（画面可见南家13张、西家13张、东家10张）。\n北家舍牌，按其自身视角逐行从左至右：第一行1z 8s 1m 8s 1p 3z；第二行5m 9m。\n东家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，各列自下向上）：第一行8p 2m 1p 3p 7m 7z；第二行2z 9m 5p 4z。右上角副露为碰5z 5z 5z，中间一张横置，来自对家西家。\n南家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一行，自右向左）：第一行2z 1z 7z 4z 3z 2s；第二行3m 5p 5z 1s 9p。\n西家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，自上向下）：第一行9p 1s 1m 6z 8s 2p；第二行7z 8m 2m 6m。",
+      "unknowns": [],
+      "caption": "“下家染手”扣牌例图，北家视角。"
+    }
+  ],
+  "imageCoverage": [
+    {
+      "blockId": "79-cn-p217-b8",
+      "imageSha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+      "regionId": "79-cn-p217-r1",
+      "chapterId": "79-cn-chapter-217-4",
+      "unitId": "79-cn-chapter-217-4-unit-1",
+      "status": "mapped-to-visual-region"
+    }
+  ],
+  "coverage": {
+    "textBlockCount": 7,
+    "coveredTextBlockCount": 7,
+    "imageBlockCount": 1,
+    "coveredImageBlockCount": 1,
+    "pageImageSha256": "c52048b9b1a0650b9041cc74a18cb0576c71eb68ccb61c5c4b482dffd79a1ba0"
+  },
+  "provenance": {
+    "runId": "sol-high-fallback-finite-20261024-schemafix",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "promptVersion": "textbook-page-transcription/4",
+    "schemaVersion": "coach-textbook-page-draft/3",
+    "schemaSha256": "2fd2e6ed795b8296ece77d6ffce8f46f2e870ebdab49ab5c4d2f2f6b1c30e0fa",
+    "promptSha256": "5112b69d5e5def3f2516f3610b5e136a657533d76d3851de962f9558951532ee",
+    "contextPages": [
+      {
+        "page": 216,
+        "pageDataSha256": "6f9741b0693fd8b422893a987cc239caacef611a09d64cc617254acc3e33ac33"
+      },
+      {
+        "page": 218,
+        "pageDataSha256": "83d1909e9e92a9622c46c9ba0ea46efca12bef60cb27ec5b35d72fcbd8f92abd"
+      }
+    ],
+    "chapterMapSha256": "d38bbd1a72defef709f4e2f336b3447e4fc677183b88b7e8d6aa050258017a8e",
+    "ownershipSha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60",
+    "revision": null,
+    "flowValidation": "unique-complete-source-ID-set and same-unit paragraph checks; visual order pending independent audit",
+    "semanticStatus": "not-reviewed",
+    "usage": {
+      "inputTokens": 18869,
+      "cachedInputTokens": 0,
+      "outputTokens": 7490
+    },
+    "attempts": [
+      {
+        "callId": "e12aa4a6-65f4-4a23-9579-09f887f568be",
+        "sourceId": "79-cn",
+        "page": 217,
+        "pageDataSha256": "f8de2eddd4ba2939ae40796ffd8d1d1f971d49474dede72d108e61809ef1d6f8",
+        "pdfSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+        "attempt": 1,
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "promptVersion": "textbook-page-transcription/4",
+        "schemaVersion": "coach-textbook-page-draft/3",
+        "runnerSha256": "56dc3937e2f6fc61100de88fc157077500eaa1d04adfbb0df0c45cd652f11af5",
+        "schemaSha256": "2fd2e6ed795b8296ece77d6ffce8f46f2e870ebdab49ab5c4d2f2f6b1c30e0fa",
+        "cliVersion": "codex-cli 0.162.1",
+        "cliArguments": [
+          "exec",
+          "--model",
+          "gpt-6.1-sol",
+          "--config model_reasoning_effort=high",
+          "--config web_search=disabled",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox read-only",
+          "--strict-config",
+          "--skip-git-repo-check",
+          "--json",
+          "--output-schema <temp>",
+          "--output-last-message <temp>",
+          "--cd <temp>",
+          "-i <full-page>",
+          "-i <one-crop-per-region>",
+          "--disable <tool-features>",
+          "-"
+        ],
+        "startedAt": "2026-10-23T22:12:23.012Z",
+        "durationMs": 207741,
+        "usage": {
+          "inputTokens": 18869,
+          "cachedInputTokens": 0,
+          "outputTokens": 7490
+        },
+        "transportStatus": "completed",
+        "schemaStatus": "valid",
+        "coverageStatus": "pending",
+        "semanticStatus": "not-reviewed",
+        "success": true,
+        "failure": null,
+        "terminalEvents": [],
+        "stderr": "",
+        "pageImageSha256": "c52048b9b1a0650b9041cc74a18cb0576c71eb68ccb61c5c4b482dffd79a1ba0",
+        "regionImageSha256s": [
+          {
+            "regionId": "79-cn-p217-r1",
+            "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0"
+          }
+        ],
+        "outputSha256": "2e13f0e22258796031174743feb6ea697c7b8333ed8abc9020bdff58dff5324d",
+        "rawArtifactPath": "raw-calls/e12aa4a6-65f4-4a23-9579-09f887f568be.json",
+        "cliEventTypes": [
+          "thread.started",
+          "turn.started",
+          "item.completed",
+          "turn.completed"
+        ],
+        "rawArtifactSha256": "6112c207fc1d5922e88af671f0a02b7e13623af7edee15a18a9b0c76bed59203",
+        "requestPromptSha256": "fa69d6eb2c3fc3dc164deab1422c602585ca60f4637de4294e3f3e569bb54923",
+        "semanticPromptSha256": "5112b69d5e5def3f2516f3610b5e136a657533d76d3851de962f9558951532ee"
+      }
+    ],
+    "renderedPage": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\renders\\79-cn\\page-0217.png",
+      "sha256": "c52048b9b1a0650b9041cc74a18cb0576c71eb68ccb61c5c4b482dffd79a1ba0"
+    },
+    "renderedRegions": [
+      {
+        "regionId": "79-cn-p217-r1",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\renders\\79-cn\\page-0217-r1.png",
+        "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0"
+      }
+    ]
+  },
+  "candidateSha256": "a702496673d9ca26d533608ed718f314c95ef08496dad6e2ddf1c94326ff24d9"
+}

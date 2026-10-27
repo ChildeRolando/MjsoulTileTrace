@@ -1,0 +1,30 @@
+✔ real loader admits the exact derived candidate and preserves legacy flow identity (45.2739ms)
+✔ rejects body edit (20.3639ms)
+✔ rejects caption edit (16.8569ms)
+✔ rejects non-whitelisted tile (20.6759ms)
+✔ rejects resolved north second changed (20.3752ms)
+✔ rejects body order changed (20.7265ms)
+✔ rejects duplicate unknown (20.1283ms)
+✔ rejects unknown deletion (19.5727ms)
+✔ rejects other chapter (18.138ms)
+✔ rejects wrong candidate SHA (18.0757ms)
+✔ rejects wrong parent SHA (21.6438ms)
+✔ rejects wrong source SHA (18.649ms)
+✔ rejects note without evidence (18.8399ms)
+✔ rejects note before argument ends (22.6158ms)
+✔ rejects changed impact judgment (17.9177ms)
+✔ rejects wrong north first coordinate (17.6132ms)
+✔ rejects raw receipt mismatch (19.7843ms)
+✔ rejects changed source paragraph (18.4643ms)
+✔ rejects extra unresolved parent error (21.5659ms)
+✔ annotation restores exact source text after removing only the non-author segment (0.2288ms)
+✔ wrong physical source bytes and approval bytes are rejected by the actual loader (64.9684ms)
+✔ all previous approved page pins stay exactly unchanged (0.197ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 657.7357

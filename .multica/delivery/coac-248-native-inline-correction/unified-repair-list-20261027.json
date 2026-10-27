@@ -277,13 +277,13 @@
     "error:79-cn-p217-r1",
     "uncertain:79-cn-p217-r1"
    ],
-   "currentDisposition": "west-impact-semantically-closed-exact-display-draft-pending-217-contract-admission",
+   "currentDisposition": "exact-fields-and-note-installed-pending-249-zero-call-consistency",
    "origin": "COAC-248 old PDF 12",
    "newThisStage": false,
    "revisionChain": "receipt-p217-revision-chain-20261027.json",
    "adjudication": "adjudication-p217-tile-20261027.json",
    "candidateSelfSha256": "953b58901a062f166820ba61cc5660a0146c8c2866058b088064c62f67ac1c62",
-   "nextAction": "Existing244 owner: register exact217 native-inline/raw-overlay job, support only its bound unknown-array insertion, and place limitation note after complete218-b3 argument. No recognition or impact-model re-review is needed; current rev5 remains selected unchanged until legal admission.",
+   "nextAction": "249 zero-call consistency of derived a3b8eaf8 + proof +218 annotation projection; then250 limited acceptance only; no model calls.",
    "handoff249": "integration/coac249-p217-single-tile-read-20261027.json",
    "stage20261027T1419": "owner本阶段暂分流；保留已有证据与unknown，不追加研究、制作、整页审校，不阻塞090-6。",
    "chapterId": "79-cn-chapter-217-4",
@@ -471,6 +471,66 @@
     "newCalls": 0,
     "newAcceptedPages": 0,
     "newAcceptedChapters": 0
+   },
+   "exactAssembly20261028": {
+    "recordedAt": "2026-10-27T20:33:02.835668+00:00",
+    "candidate": {
+     "path": "integration/coac248-p217-admitted-20261028/page-0217.rev6.json",
+     "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54"
+    },
+    "parentSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+    "handoff": {
+     "path": "integration/coac248-p217-admitted-20261028.json",
+     "sha256": "f4b7983a77deb15932119c2a30f3806bf29e18f0910c1004d40e4c27417e124e"
+    },
+    "deterministicVerification": {
+     "schema": "coac248-p217-deterministic-verification/1",
+     "candidate": {
+      "path": "integration/coac248-p217-admitted-20261028/page-0217.rev6.json",
+      "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54"
+     },
+     "classification": "exact-fields-installed-pending-independent-evidence-consistency",
+     "inputBindings": 29,
+     "authorBodyUnchanged": true,
+     "captionUnchanged": true,
+     "northSecond9mUnchanged": true,
+     "nonTargetSerializedBytesRestoredToParentSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+     "unknownCount": 2,
+     "noteInstalledAfterArgument": true,
+     "originalRawEdited": false,
+     "oldAuditEdited": false,
+     "newModelCalls": 0,
+     "pageOrChapterPassed": false,
+     "requires": "COAC249 zero-call evidence consistency",
+     "remainingScope": [
+      "PDF218–220完整候选及章节覆盖未由本次装配验收",
+      "网页变体不在本次修订范围"
+     ]
+    },
+    "runtimeManifestSha256": "e039ca388aefec50a88ee33f84f2d5fc41d70a82014282c701ba89652ba8eae9",
+    "status": "exact-fields-and-note-installed-pending-249-zero-call-consistency",
+    "newCalls": 0,
+    "oldRawAndAuditsUnchanged": true,
+    "oldSelectedRev5StillQuarantined": true,
+    "passed": false,
+    "remainingItems": [
+     {
+      "id": "217-derived-evidence-consistency",
+      "owner": "COAC-249",
+      "action": "zero-call check of this exact SHA, inherited full-page review and three independent receipts; source-note/limited unknown contract, never majority vote"
+     },
+     {
+      "id": "PDF218-220-full-coverage",
+      "owner": "existing244/250 chapter owner",
+      "action": "separate existing candidate/coverage acceptance; this218-b3 annotation projection is not whole218 candidate or whole217-4 pass"
+     },
+     {
+      "id": "web-variant",
+      "owner": "existing244 owner",
+      "action": "original separate web candidate errors/unknowns unchanged"
+     }
+    ],
+    "recognitionOrWestImpactReReviewNeeded": false
    }
   },
   {

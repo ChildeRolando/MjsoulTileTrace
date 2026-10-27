@@ -1,0 +1,249 @@
+{
+  "kind": "pdf-page-point-evidence",
+  "objectId": "79-cn:page:217",
+  "chapterId": "79-cn-chapter-217-4",
+  "candidateSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+  "latestPointEvidence": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-point-222-p217-20261028.json",
+    "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9"
+  },
+  "limitedRevisionRequirement": {
+    "chapterId": "79-cn-chapter-217-4",
+    "targetId": "79-cn-p217-r1",
+    "bbox": [
+      150,
+      325,
+      175,
+      357
+    ],
+    "classification": "unreadable",
+    "tileCode": "unknown",
+    "callId": "09362d05-d221-427e-b474-a79017ff7619",
+    "candidatePath": "production/sol-high-field-repair26-20261027-p217e/candidates/79-cn/page-0217.json",
+    "candidateSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+    "field": "/figures/0/transcription and /figures/0/unknowns",
+    "limitedRevisionRequirement": "At this FIRST/LEFT tile only, a future authorized revision must use 万子（数字未辨清） and a coordinate-bound unknown entry, rather than asserting 5m or 6m. Keep the right/second tile outside this evidence.",
+    "teachingImpact": "点数不明不妨碍理解原文关于下家染索子一色手及扣牌的总体说明，但会限制对这张牌的精确记录和具体牌谱复盘。",
+    "historicalLocatorConflict": {
+      "oldRequest": "北家舍牌第二行第二张",
+      "currentAuthorizedPacket": "北家舍牌第二行第一张, bbox [150,325,175,357)",
+      "resolution": "Current trigger explicitly selects commit394b830 packet; FIRST tile adjudication only. Do not claim closure of the old SECOND tile 8m/9m dispute."
+    },
+    "otherOpenItems": "The existing west discard unknown, second/right North discard, web b0004/b0010 and other page issues are not adjudicated. Ownership b8 belongs to217-4, not215-4."
+  },
+  "coordinateReconciliation": {
+    "chapterId": "79-cn-chapter-217-4",
+    "figureId": "79-cn-p217-r1",
+    "sourceImageBlockId": "79-cn-p217-b8",
+    "originalRequest": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-single-tile-read-20261027.json",
+      "sha256": "a4b5f827e94d510ca43558f893e5c58796ad30f6af4730e9303f9701a33b6b25"
+    },
+    "originalPosition": "北家舍牌第二行第二张",
+    "originalCandidateCode": "9m",
+    "historicalReviewerReading": "8m",
+    "originalSecondTileBBox": null,
+    "originalSecondTileBBoxNote": "Old request is a named location, without an explicit crop bbox. Do not assign the first-tile bbox to it.",
+    "currentAdjudicatedPosition": "北家舍牌第二行第一张",
+    "currentBBox": [
+      150,
+      325,
+      175,
+      357
+    ],
+    "currentCandidateCode": "5m",
+    "independentReading": "万子（数字未辨清）",
+    "secondTileDisputeResolved": false,
+    "candidateChanged": false,
+    "otherOpenLocations": [
+      "北家第二行第二张8m/9m",
+      "西家第二行第二张万子unknown"
+    ],
+    "notCovered": [
+      "web b0004",
+      "web b0010",
+      "other unknowns",
+      "chapter215-4"
+    ],
+    "owner": "COAC-244 existing source/parent adjudication",
+    "teachingImpact": "点数不明不妨碍理解原文关于下家染索子一色手及扣牌的总体说明，但会限制对这张牌的精确记录和具体牌谱复盘。",
+    "acceptanceWaiver": false
+  },
+  "candidateChanged": false,
+  "integrationAllowed": false,
+  "disposition": "west-impact-semantically-closed-exact-display-draft-pending-217-contract-admission",
+  "secondTilePointIntake": {
+    "recordedAt": "2026-10-27T19:39:47.111053+00:00",
+    "callId": "20ba52ad-a36c-4edb-b7aa-ae8ff9b89ec6",
+    "chapterId": "79-cn-chapter-217-4",
+    "figureId": "79-cn-p217-r1",
+    "sourceImageBlockId": "79-cn-p217-b8",
+    "bbox": [
+      174,
+      325,
+      196,
+      357
+    ],
+    "classification": "readable",
+    "tileCode": "9m",
+    "handoff": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-second-point-20261028.json",
+      "sha256": "b1ee9973976f05f59d32acc9594e78b4d6dc2928a8061bc82a009b709c5cc70d"
+    },
+    "receipt": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-p217-second-20261028\\receipt.json",
+      "sha256": "f87b7abce172df4b85910d5ed4b6269f24a8bb08f36274cdadad8d3d8cac063f"
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-p217-second-20261028\\raw.json",
+      "sha256": "c052de0b93273a683f70e8746fe53b03eb805e6f4ce06ef36aef7aeea6b1e29d"
+    },
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "usage": {
+      "inputTokens": 12207,
+      "cachedInputTokens": 0,
+      "outputTokens": 1343
+    },
+    "durationMs": 41460,
+    "manifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+    "remoteWeights": "unknown",
+    "candidateMatches": true,
+    "candidateChanged": false,
+    "revisionRequiredForThisPoint": false,
+    "historical8mReadingsPreserved": true,
+    "majorityVoteUsed": false,
+    "pageOrChapterPassed": false,
+    "limits": [
+      "First/left tile unknown from previous independent call remains.",
+      "Existing west-discard unknown remains.",
+      "This point result does not verify the rest of the figure, PDF page, web b0004/b0010 or full chapter.",
+      "Model reports low source resolution/pixelated edges but visible strokes sufficient for9m; remote gateway weights remain unknown."
+    ],
+    "newCallsBy249": 1,
+    "newCallsByThisIntake": 0,
+    "additionalBudget": 0,
+    "sourceResolutionLimitation": "原图分辨率较低，字形边缘有像素化，但可辨认的笔画足以支持该牌码。",
+    "visualReasonFromIndependentCall": [
+      "牌面上部黑字可辨出向左下的撇，以及右侧折下后向右弯钩的笔画，构成“九”。",
+      "牌面下部为红色“萬”，合起来是九万。"
+    ]
+  },
+  "zeroModelCloseoutReview": {
+    "path": "integration\\coac248-p217-unknowns-closeout-proposal-20261028.json",
+    "sha256": "c7fe2cccc98750c81582cab5e77762141b882458bbd5465a18632b89308b8620",
+    "remainingVisibleUnknowns": 2,
+    "northFirst": "independently-general-noncritical-but5m-assertion-still-needs-unknown-display",
+    "west": "unknown-display-present-but-teaching-impact-not-independently-confirmed",
+    "northSecond": "resolved9m-no-further-repair",
+    "proposalOnly": true,
+    "newCalls": 0,
+    "newCandidates": 0,
+    "newCompleteChaptersClosable": 0,
+    "exactWebB0004PixelsMatchPdf": true,
+    "webRouteKnownFieldDifferencesRecorded": 5
+  },
+  "westImpactImplementation20261028": {
+    "recordedAt": "2026-10-27T20:11:40.668818+00:00",
+    "handoffPath": "integration\\coac248-p217-west-implementation-20261028\\implementation-plan.json",
+    "handoffSha256": "577b38c5d962773b8d8d55d95855c6a1cfa8118ca31dcaead4ba3c507693c77f",
+    "westImpact": "limited-unknown-acceptable-closed-with-conditions",
+    "westImpactCallId": "6dd8a1d9-44a7-4a8b-958e-cf6a64c18636",
+    "westRequiresFurtherTileReading": false,
+    "westRequiresFurtherImpactReview": false,
+    "northSecond": "resolved9m-no-change",
+    "northFirst": "unreadable-manzu-no-number-inference",
+    "draftSha256": "fd9f781c25a7cae0d66aaf79031ce495420d5ca773bb9120c944a6f18f0e41a0",
+    "draftAdmitted": false,
+    "displayActuallyInstalled": false,
+    "actualGateError": "Error: audit_native_inline_correction_unapproved_page",
+    "remainingTechnicalItems": [
+      {
+        "id": "page-registration",
+        "actual": "knownNativeInlineCorrections has no79-cn:217 approval/job pin; actual loader check recorded separately.",
+        "needed": "One exact217 approval/job binding real original raw, audited parent chain, new draft SHA, independent point/impact receipts and only these fields.",
+        "legacyFlowEvidence": {
+          "flowMode": null,
+          "bodyMode": "verbatim",
+          "nativeSourceFlowPlanPresent": false,
+          "requiredBoundary": "Do not relabel legacy provenance as native. Any217 exact approval must genuinely bridge this preserved raw representation through the existing correction/validation contract."
+        }
+      },
+      {
+        "id": "unknown-array-cardinality",
+        "actual": "Existing approved array operation replaces entries only. Original model raw has0 entries; rev5 has1; requested explicit coordinates require2. Inserting is rejected by the existing contract.",
+        "needed": "A page-specific exact0→2 corrected-raw overlay/approved chain for217, retaining original raw and strict from/to SHA. No general unknown acceptance relaxation."
+      },
+      {
+        "id": "limitation-note-placement",
+        "actual": "The original example continues inPDF218-b3. No accepted PDF218 candidate exists in the current chapter register, and current217 legacy verbatim mode has no approved after-argument annotation slot.",
+        "needed": "Use the existing assembly/editorial-note contract at the exact218-b3 after-argument anchor, preserving author words; no new model transcription or premature caption note."
+      }
+    ],
+    "remainingModelBudget": 0,
+    "newCalls": 0,
+    "newAcceptedPages": 0,
+    "newAcceptedChapters": 0
+  },
+  "exactAssembly20261028": {
+    "recordedAt": "2026-10-27T20:33:02.835668+00:00",
+    "candidate": {
+      "path": "integration/coac248-p217-admitted-20261028/page-0217.rev6.json",
+      "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54"
+    },
+    "parentSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+    "handoff": {
+      "path": "integration/coac248-p217-admitted-20261028.json",
+      "sha256": "f4b7983a77deb15932119c2a30f3806bf29e18f0910c1004d40e4c27417e124e"
+    },
+    "deterministicVerification": {
+      "schema": "coac248-p217-deterministic-verification/1",
+      "candidate": {
+        "path": "integration/coac248-p217-admitted-20261028/page-0217.rev6.json",
+        "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54"
+      },
+      "classification": "exact-fields-installed-pending-independent-evidence-consistency",
+      "inputBindings": 29,
+      "authorBodyUnchanged": true,
+      "captionUnchanged": true,
+      "northSecond9mUnchanged": true,
+      "nonTargetSerializedBytesRestoredToParentSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+      "unknownCount": 2,
+      "noteInstalledAfterArgument": true,
+      "originalRawEdited": false,
+      "oldAuditEdited": false,
+      "newModelCalls": 0,
+      "pageOrChapterPassed": false,
+      "requires": "COAC249 zero-call evidence consistency",
+      "remainingScope": [
+        "PDF218–220完整候选及章节覆盖未由本次装配验收",
+        "网页变体不在本次修订范围"
+      ]
+    },
+    "runtimeManifestSha256": "e039ca388aefec50a88ee33f84f2d5fc41d70a82014282c701ba89652ba8eae9",
+    "status": "exact-fields-and-note-installed-pending-249-zero-call-consistency",
+    "newCalls": 0,
+    "oldRawAndAuditsUnchanged": true,
+    "oldSelectedRev5StillQuarantined": true,
+    "passed": false,
+    "remainingItems": [
+      {
+        "id": "217-derived-evidence-consistency",
+        "owner": "COAC-249",
+        "action": "zero-call check of this exact SHA, inherited full-page review and three independent receipts; source-note/limited unknown contract, never majority vote"
+      },
+      {
+        "id": "PDF218-220-full-coverage",
+        "owner": "existing244/250 chapter owner",
+        "action": "separate existing candidate/coverage acceptance; this218-b3 annotation projection is not whole218 candidate or whole217-4 pass"
+      },
+      {
+        "id": "web-variant",
+        "owner": "existing244 owner",
+        "action": "original separate web candidate errors/unknowns unchanged"
+      }
+    ],
+    "recognitionOrWestImpactReReviewNeeded": false
+  },
+  "nextAction": "exact-fields-and-note-installed-pending-249-zero-call-consistency"
+}

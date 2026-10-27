@@ -1,0 +1,60 @@
+{
+  "recordedAt": "2026-10-27T20:33:02.835668+00:00",
+  "candidate": {
+    "path": "integration/coac248-p217-admitted-20261028/page-0217.rev6.json",
+    "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54"
+  },
+  "parentSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+  "handoff": {
+    "path": "integration/coac248-p217-admitted-20261028.json",
+    "sha256": "f4b7983a77deb15932119c2a30f3806bf29e18f0910c1004d40e4c27417e124e"
+  },
+  "deterministicVerification": {
+    "schema": "coac248-p217-deterministic-verification/1",
+    "candidate": {
+      "path": "integration/coac248-p217-admitted-20261028/page-0217.rev6.json",
+      "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54"
+    },
+    "classification": "exact-fields-installed-pending-independent-evidence-consistency",
+    "inputBindings": 29,
+    "authorBodyUnchanged": true,
+    "captionUnchanged": true,
+    "northSecond9mUnchanged": true,
+    "nonTargetSerializedBytesRestoredToParentSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+    "unknownCount": 2,
+    "noteInstalledAfterArgument": true,
+    "originalRawEdited": false,
+    "oldAuditEdited": false,
+    "newModelCalls": 0,
+    "pageOrChapterPassed": false,
+    "requires": "COAC249 zero-call evidence consistency",
+    "remainingScope": [
+      "PDF218–220完整候选及章节覆盖未由本次装配验收",
+      "网页变体不在本次修订范围"
+    ]
+  },
+  "runtimeManifestSha256": "e039ca388aefec50a88ee33f84f2d5fc41d70a82014282c701ba89652ba8eae9",
+  "status": "exact-fields-and-note-installed-pending-249-zero-call-consistency",
+  "newCalls": 0,
+  "oldRawAndAuditsUnchanged": true,
+  "oldSelectedRev5StillQuarantined": true,
+  "passed": false,
+  "remainingItems": [
+    {
+      "id": "217-derived-evidence-consistency",
+      "owner": "COAC-249",
+      "action": "zero-call check of this exact SHA, inherited full-page review and three independent receipts; source-note/limited unknown contract, never majority vote"
+    },
+    {
+      "id": "PDF218-220-full-coverage",
+      "owner": "existing244/250 chapter owner",
+      "action": "separate existing candidate/coverage acceptance; this218-b3 annotation projection is not whole218 candidate or whole217-4 pass"
+    },
+    {
+      "id": "web-variant",
+      "owner": "existing244 owner",
+      "action": "original separate web candidate errors/unknowns unchanged"
+    }
+  ],
+  "recognitionOrWestImpactReReviewNeeded": false
+}
