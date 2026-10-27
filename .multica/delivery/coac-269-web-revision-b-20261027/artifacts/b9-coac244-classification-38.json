@@ -1,0 +1,412 @@
+{
+ "schema": "coac244-remaining-classification/1",
+ "recordedAt": "2026-10-27T11:33:43.116Z",
+ "basis": {
+  "register": "integration/coac250-unified-chapter-register-20261027b.json",
+  "registerRecordedAt": "2026-10-27T11:06:27.653Z",
+  "preview": "integration/accepted-preview-current.json",
+  "previewChapters": 214,
+  "realPassedNotStaged": [
+   "nemata-jp-chapter-199-1",
+   "nemata-jp-chapter-142-1",
+   "nemata-jp-chapter-127-1",
+   "nemata-jp-chapter-027-1"
+  ],
+  "excluded215_4": "nemata-jp-chapter-215-4 already covered-effective (rev2 passed 09:32:50, staged in 214); 79-cn-chapter-215-4 is a different original chapter and remains PDF p217",
+  "entryGate": {
+   "runtime": "audit/runtimes/e89dcffe73c9100a12218b79dfba66da3f1bb08d7adaf2b64e87d9eb34619a49",
+   "function": "verifyWebRevisionContent(candidate,parent,notes)",
+   "modelCalls": 0
+  }
+ },
+ "totalRemaining": 38,
+ "counts": {
+  "figure-targeted-executable": 10,
+  "parent-evidence-or-adjudication": 21,
+  "source-recapture-or-pdf": 5,
+  "text-multi-block-executable": 2
+ },
+ "missing": [],
+ "rows": [
+  {
+   "chapterId": "79-cn-chapter-081-8",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "figure-targeted-executable",
+   "entryPass": true,
+   "entryDirection": "figure",
+   "entryError": null,
+   "declaredErrorTargets": 4
+  },
+  {
+   "chapterId": "79-cn-chapter-090-6",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "figure-targeted-executable",
+   "entryPass": true,
+   "entryDirection": "figure",
+   "entryError": null,
+   "declaredErrorTargets": 3
+  },
+  {
+   "chapterId": "79-cn-chapter-109-4",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "web_revision_notes_scope",
+   "declaredErrorTargets": 2
+  },
+  {
+   "chapterId": "79-cn-chapter-128-14",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "figure-targeted-executable",
+   "entryPass": true,
+   "entryDirection": "figure",
+   "entryError": null,
+   "declaredErrorTargets": 1
+  },
+  {
+   "chapterId": "79-cn-chapter-145-4",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "figure-targeted-executable",
+   "entryPass": true,
+   "entryDirection": "figure",
+   "entryError": null,
+   "declaredErrorTargets": 1
+  },
+  {
+   "chapterId": "79-cn-chapter-155-4",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "web_revision_changed_body_or_scope",
+   "declaredErrorTargets": 1
+  },
+  {
+   "chapterId": "79-cn-chapter-157-11",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "figure-targeted-executable",
+   "entryPass": true,
+   "entryDirection": "figure",
+   "entryError": null,
+   "declaredErrorTargets": 5
+  },
+  {
+   "chapterId": "79-cn-chapter-159-9",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "parent-audit-declares-no-error-target",
+   "declaredErrorTargets": 0
+  },
+  {
+   "chapterId": "79-cn-chapter-162-3",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "web_revision_changed_body_or_scope",
+   "declaredErrorTargets": 2
+  },
+  {
+   "chapterId": "79-cn-chapter-167-4",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "web_revision_notes_scope",
+   "declaredErrorTargets": 1
+  },
+  {
+   "chapterId": "79-cn-chapter-182-5",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "web_revision_changed_body_or_scope",
+   "declaredErrorTargets": 1
+  },
+  {
+   "chapterId": "79-cn-chapter-193-4",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "parent-audit-declares-no-error-target",
+   "declaredErrorTargets": 0
+  },
+  {
+   "chapterId": "79-cn-chapter-201-6",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "web_revision_changed_body_or_scope",
+   "declaredErrorTargets": 2
+  },
+  {
+   "chapterId": "79-cn-chapter-205-5",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "figure-targeted-executable",
+   "entryPass": true,
+   "entryDirection": "figure",
+   "entryError": null,
+   "declaredErrorTargets": 1
+  },
+  {
+   "chapterId": "79-cn-chapter-208-4",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "parent-audit-declares-no-error-target",
+   "declaredErrorTargets": 0
+  },
+  {
+   "chapterId": "79-cn-chapter-215-4",
+   "sourceId": null,
+   "bodyMode": null,
+   "category": "source-recapture-or-pdf",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": null,
+   "declaredErrorTargets": null
+  },
+  {
+   "chapterId": "79-cn-chapter-217-4",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "web_revision_parent_has_other_unresolved_checks",
+   "declaredErrorTargets": 2
+  },
+  {
+   "chapterId": "79-cn-chapter-222-5",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "figure-targeted-executable",
+   "entryPass": true,
+   "entryDirection": "figure",
+   "entryError": null,
+   "declaredErrorTargets": 1
+  },
+  {
+   "chapterId": "79-cn-chapter-234-12",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "web_revision_changed_body_or_scope",
+   "declaredErrorTargets": 1
+  },
+  {
+   "chapterId": "79-cn-chapter-242-3",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "parent-audit-declares-no-error-target",
+   "declaredErrorTargets": 0
+  },
+  {
+   "chapterId": "79-cn-chapter-246-3",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "figure-targeted-executable",
+   "entryPass": true,
+   "entryDirection": "figure",
+   "entryError": null,
+   "declaredErrorTargets": 3
+  },
+  {
+   "chapterId": "79-cn-chapter-256-18",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "figure-targeted-executable",
+   "entryPass": true,
+   "entryDirection": "figure",
+   "entryError": null,
+   "declaredErrorTargets": 1
+  },
+  {
+   "chapterId": "79-cn-chapter-276-4",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "figure-targeted-executable",
+   "entryPass": true,
+   "entryDirection": "figure",
+   "entryError": null,
+   "declaredErrorTargets": 1
+  },
+  {
+   "chapterId": "79-cn-chapter-311-18",
+   "sourceId": "79-cn",
+   "bodyMode": "verbatim",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "web_revision_notes_scope",
+   "declaredErrorTargets": 2
+  },
+  {
+   "chapterId": "nemata-jp-chapter-001-64",
+   "sourceId": null,
+   "bodyMode": null,
+   "category": "source-recapture-or-pdf",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": null,
+   "declaredErrorTargets": null
+  },
+  {
+   "chapterId": "nemata-jp-chapter-060-1",
+   "sourceId": "nemata-jp",
+   "bodyMode": "translated",
+   "category": "text-multi-block-executable",
+   "entryPass": true,
+   "entryDirection": "text",
+   "entryError": null,
+   "declaredErrorTargets": 2
+  },
+  {
+   "chapterId": "nemata-jp-chapter-089-1",
+   "sourceId": "nemata-jp",
+   "bodyMode": "translated",
+   "category": "text-multi-block-executable",
+   "entryPass": true,
+   "entryDirection": "text",
+   "entryError": null,
+   "declaredErrorTargets": 4
+  },
+  {
+   "chapterId": "nemata-jp-chapter-100-1",
+   "sourceId": "nemata-jp",
+   "bodyMode": "translated",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "parent-audit-declares-no-error-target",
+   "declaredErrorTargets": 0
+  },
+  {
+   "chapterId": "nemata-jp-chapter-183-1",
+   "sourceId": "nemata-jp",
+   "bodyMode": "translated",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "parent-audit-declares-no-error-target",
+   "declaredErrorTargets": 0
+  },
+  {
+   "chapterId": "nemata-jp-chapter-193-1",
+   "sourceId": "nemata-jp",
+   "bodyMode": "translated",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "web_revision_notes_scope",
+   "declaredErrorTargets": 2
+  },
+  {
+   "chapterId": "nemata-jp-chapter-213-1",
+   "sourceId": "nemata-jp",
+   "bodyMode": "translated",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "web_revision_notes_scope",
+   "declaredErrorTargets": 2
+  },
+  {
+   "chapterId": "nemata-jp-chapter-224-1",
+   "sourceId": "nemata-jp",
+   "bodyMode": "translated",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "web_revision_changed_body_or_scope",
+   "declaredErrorTargets": 1
+  },
+  {
+   "chapterId": "nemata-jp-chapter-232-1",
+   "sourceId": "nemata-jp",
+   "bodyMode": "translated",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "web_revision_notes_scope",
+   "declaredErrorTargets": 3
+  },
+  {
+   "chapterId": "nemata-jp-chapter-236-1",
+   "sourceId": "nemata-jp",
+   "bodyMode": "translated",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "parent-audit-declares-no-error-target",
+   "declaredErrorTargets": 0
+  },
+  {
+   "chapterId": "nemata-jp-chapter-250-1",
+   "sourceId": null,
+   "bodyMode": null,
+   "category": "source-recapture-or-pdf",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": null,
+   "declaredErrorTargets": null
+  },
+  {
+   "chapterId": "nemata-jp-chapter-283-1",
+   "sourceId": "nemata-jp",
+   "bodyMode": "translated",
+   "category": "source-recapture-or-pdf",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "web_revision_unknown_target_text",
+   "declaredErrorTargets": 13
+  },
+  {
+   "chapterId": "nemata-jp-chapter-317-51",
+   "sourceId": null,
+   "bodyMode": null,
+   "category": "source-recapture-or-pdf",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": null,
+   "declaredErrorTargets": null
+  },
+  {
+   "chapterId": "nemata-jp-chapter-347-1",
+   "sourceId": "nemata-jp",
+   "bodyMode": "translated",
+   "category": "parent-evidence-or-adjudication",
+   "entryPass": false,
+   "entryDirection": null,
+   "entryError": "web_revision_notes_scope",
+   "declaredErrorTargets": 1
+  }
+ ]
+}

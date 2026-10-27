@@ -1,0 +1,212 @@
+{
+  "schema": "coac269-web-revision-production/1",
+  "batch": "b9",
+  "ticket": "COAC-269",
+  "line": "B",
+  "startedAt": "2026-10-27T14:46:05.214756+00:00",
+  "variant": "coac269rev1",
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "entry": "existing figure-targeted revision entry of the frozen web production runner (Chinese source: scope = parent-audit non-source-note issue targetIds)",
+  "budget": {
+    "productionCallsAllowedPerChapter": 1,
+    "firstAuditCallsAllowedPerChapter": 1,
+    "retries": 0,
+    "spentBy249NotHere": "first independent audit per candidate sha"
+  },
+  "slotEntry": {
+    "mechanism": "parallel/slots.mjs",
+    "lane": "B",
+    "owner": "COAC-269 Ticket executor",
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-B.json"
+  },
+  "legacyLock": {
+    "acquired": false,
+    "before": {
+      "bytes": "30",
+      "mtime": "2026-10-25T15:40:57.878891+00:00"
+    },
+    "rule": "COAC-244 dual-slot contract: old lock is not deleted, rewritten or bypassed; B capacity is maker-B.",
+    "after": {
+      "bytes": "30",
+      "mtime": "2026-10-25T15:40:57.878891+00:00"
+    },
+    "unchanged": true
+  },
+  "frozenRuntime": {
+    "textbook-production-web.mjs": "4a5ce8ab361e659bf7a8e822d3e013ccf413701cfa604aaa1c58c688beab8ca9",
+    "textbook-production-cli.mjs": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1",
+    "textbook-production-web-visual.py": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+  },
+  "chapters": [
+    {
+      "chapterId": "79-cn-chapter-205-5",
+      "articleId": "cv1770234",
+      "state": "produced-awaiting-independent-audit",
+      "dispatchGuard": {
+        "ok": true,
+        "reasons": [],
+        "receipt": "web-production/v1/coac269-20261027/preflight/dispatch-guard-2026-10-27T14-46-06-305Z-19739ace.json",
+        "joint": {
+          "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-v3-2026-10-27T14-46-06-253Z-f65a20cd.json",
+          "sha256": "9a53d344ab40d55ca88b1f35e52e0483593aa8b6b8fda2bcdfe19110328f2d39",
+          "recordedAt": "2026-10-27T14:46:06.253Z",
+          "ageSeconds": 0
+        },
+        "sharedClaim": {
+          "owner": "COAC-269 Ticket executor",
+          "sha": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6",
+          "record": "parallel/claims/79-cn-chapter-205-5.json"
+        },
+        "exitCode": 0
+      },
+      "command": "E:/IDE/NodeJS/node.exe E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\coac269-20261027\\frozen-runtime\\textbook-production-web.mjs --source web-sources/v1/79-bilibili-cn/articles/cv1770234/source.json --revision-from web-production/v1/candidates/79-bilibili-cn/cv1770234.display.json --revision-notes audit/web/articles/79-bilibili-cn/cv1770234.181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6.json --variant coac269rev1 --reuse web-production/v1/reuse-maps/ee34bc2dea7dfa95ce62ec91ec3d83a6841ee50d315c4af2559cc7d390b152ce.json --timeout-ms 480000",
+      "startedAt": "2026-10-27T14:46:06.316156+00:00",
+      "jointExclusionAtDispatch": {
+        "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-v3-2026-10-27T14-46-06-253Z-f65a20cd.json",
+        "sha256": "9a53d344ab40d55ca88b1f35e52e0483593aa8b6b8fda2bcdfe19110328f2d39",
+        "recordedAt": "2026-10-27T14:46:06.253Z",
+        "ageSeconds": 0
+      },
+      "sharedClaimAtDispatch": {
+        "owner": "COAC-269 Ticket executor",
+        "sha": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6",
+        "record": "parallel/claims/79-cn-chapter-205-5.json"
+      },
+      "durationSeconds": 306.5,
+      "exitCode": 0,
+      "stdoutTail": "{\"sourceId\":\"79-bilibili-cn\",\"articleId\":\"cv1770234\",\"candidatePath\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\web-production\\\\v1\\\\candidates\\\\79-bilibili-cn\\\\cv1770234.coac269rev1.json\",\"textBlocks\":5,\"figures\":2,\"modelCalls\":1,\"usage\":{\"inputTokens\":16342,\"cachedInputTokens\":0,\"outputTokens\":7186},\"candidateFileSha256\":\"8c0cfff82dbf0c339dc1474ad84e51a4b9c55554ab62a64dfc472f6604a555ec\"}\n",
+      "stderrTail": "",
+      "actualCalls": [
+        {
+          "callId": "358f4e70-5660-4e0c-8918-6ad8a4287011",
+          "startedAt": "2026-10-27T14:46:06.763Z",
+          "durationMs": 305971,
+          "success": true,
+          "usage": {
+            "inputTokens": 16342,
+            "cachedInputTokens": 0,
+            "outputTokens": 7186
+          },
+          "failureClass": null,
+          "transportStatus": "completed",
+          "rawArtifactPath": "raw-calls/358f4e70-5660-4e0c-8918-6ad8a4287011.json",
+          "rawArtifactSha256": "4cf399c450ced144a4c36627f53a677ef83145872e34449fab4e145852a85fa5",
+          "promptSha256": "4da78ba1cd4a2bf77df4eb6d0dd5ce9f8d650d03740c58bc22fd19f4bf519c3e",
+          "semanticPromptSha256": "f4ad87d1b78ad881a421058c60b0b55b55facb1bda84c130a727bfe6406ef2c5",
+          "targets": {
+            "textIds": [],
+            "figureIds": [
+              "79-bilibili-cn:cv1770234:b0004"
+            ]
+          },
+          "revision": {
+            "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1770234.display.json",
+            "parentSha256": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6",
+            "notesPath": "audit/web/articles/79-bilibili-cn/cv1770234.181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6.json",
+            "notesSha256": "6e42e3767953de3f6e4b7173392ad36292c4f8dce0c29e4922d9f629c0534711",
+            "figureIds": [
+              "79-bilibili-cn:cv1770234:b0004:figure"
+            ]
+          }
+        }
+      ],
+      "candidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1770234.coac269rev1.json",
+        "sha256": "8c0cfff82dbf0c339dc1474ad84e51a4b9c55554ab62a64dfc472f6604a555ec"
+      },
+      "candidateRevision": {
+        "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1770234.display.json",
+        "parentSha256": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6",
+        "notesPath": "audit/web/articles/79-bilibili-cn/cv1770234.181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6.json",
+        "notesSha256": "6e42e3767953de3f6e4b7173392ad36292c4f8dce0c29e4922d9f629c0534711",
+        "figureIds": [
+          "79-bilibili-cn:cv1770234:b0004:figure"
+        ]
+      },
+      "targetFigureChanged": {
+        "79-bilibili-cn:cv1770234:b0004:figure": "中央文字：东2局1本场；立直棒1根；宝牌：3p。宝牌标签位于3p左侧。中央上缘横放1根白色立直棒，中央有红点。\n座位风：下侧北（4z），标签位于中央区域左下角；左侧西（3z），标签位于左上角；上侧南（2z），标签位于右上角；右侧东（1z），标签位于右下角。\n下侧手牌从左到右：1m 2m 6m 8m 3p 5p 7p 7p 9p 2s 3s 3s 6s；右侧间隔后摸入8s。\n左侧副露位于画面左下方，从上到下：1m 1m 1m，为一万的碰。第一张在画面中正立，相对于左侧玩家的通常牌面横置；第二、第三张在画面中顺时针旋转90°。\n其余暗手：上侧13张牌背，左侧10张牌背，右侧13张牌背。\n以下弃牌均按画面从上到下逐行记录，每行从左到右。上侧普通弃牌倒置；左侧普通弃牌顺时针旋转90°；右侧普通弃牌逆时针旋转90°；下侧弃牌正立。空位不计作白板。\n上侧弃牌区：最上行：3m 1p 6m 7s。其中7s为立直宣言牌，在画面中顺时针旋转90°，与本行其他牌下缘对齐。靠中央一行：8p 2m 6p 2z 6z 9s；该行比上一行向左多伸出两格。\n左侧弃牌区：第1行：2p 6z；第2行：8m 6s；第3行：3z 1s；第4行：3z 2s；第5行：3z 9s；第6行：9s，与前五行右格对齐。第2行右格6s在画面中顺时针旋转90°。\n右侧弃牌区：第1行：3s；第2行：5z；第3行：7z 1p；第4行：1z 7s；第5行：2z 7s；第6行：3z 9m。前两行与后四行左格对齐。\n下侧弃牌区：第1行：2z 4z 6z 9s 1z 2z；第2行：4s 2m 2m 6p，与上一行左侧四格对齐。\n未见赤牌或摸切箭头。"
+      },
+      "finishedAt": "2026-10-27T14:51:12.771928+00:00"
+    }
+  ],
+  "preSlotJointExclusion": {
+    "tag": "pre-slot-capacity",
+    "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-v3-2026-10-27T14-46-05-643Z-f65a20cd.json",
+    "sha256": "d0f49eeb1232b04e05901090bc740f69c5da0de8f59e01658959d74eac7d2267",
+    "scriptVersion": 3,
+    "recordedAt": "2026-10-27T14:46:05.643Z",
+    "eligible": [
+      "nemata-jp-chapter-347-1",
+      "79-cn-chapter-311-18",
+      "79-cn-chapter-276-4",
+      "79-cn-chapter-256-18",
+      "79-cn-chapter-246-3",
+      "79-cn-chapter-242-3",
+      "79-cn-chapter-234-12",
+      "nemata-jp-chapter-232-1",
+      "nemata-jp-chapter-224-1",
+      "79-cn-chapter-222-5",
+      "nemata-jp-chapter-213-1",
+      "79-cn-chapter-208-4",
+      "79-cn-chapter-205-5",
+      "79-cn-chapter-193-4",
+      "nemata-jp-chapter-193-1",
+      "79-cn-chapter-182-5",
+      "79-cn-chapter-167-4",
+      "79-cn-chapter-162-3",
+      "79-cn-chapter-159-9",
+      "79-cn-chapter-157-11",
+      "79-cn-chapter-155-4",
+      "79-cn-chapter-109-4",
+      "nemata-jp-chapter-100-1"
+    ],
+    "controlsOk": true
+  },
+  "makerSlot": {
+    "acquireExit": 0,
+    "acquireStdout": "{\"ok\":true,\"action\":\"acquire\",\"slot\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\parallel\\\\slots\\\\maker-B.json\",\"record\":{\"schema\":\"coach-textbook-maker-slot/1\",\"slot\":\"maker-B\",\"lane\":\"B\",\"owner\":\"COAC-269 Ticket executor\",\"pid\":67992,\"claimedAt\":\"2026-10-27T14:46:05.731Z\",\"heartbeatAt\":\"2026-10-27T14:46:05.731Z\",\"ttlMinutes\":20}}",
+    "acquireStderr": "",
+    "acquiredAt": "2026-10-27T14:46:05.746190+00:00",
+    "releasedAt": "2026-10-27T14:51:12.894949+00:00",
+    "released": true,
+    "record": {
+      "schema": "coach-textbook-maker-slot/1",
+      "slot": "maker-B",
+      "lane": "B",
+      "owner": "COAC-269 Ticket executor",
+      "pid": 67992,
+      "claimedAt": "2026-10-27T14:46:05.731Z",
+      "heartbeatAt": "2026-10-27T14:46:05.731Z",
+      "ttlMinutes": 20
+    },
+    "releaseExit": 0,
+    "releaseStdout": "{\"ok\":true,\"action\":\"release\",\"slot\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\parallel\\\\slots\\\\maker-B.json\",\"released\":\"maker-B\"}",
+    "releaseStderr": ""
+  },
+  "heartbeats": [
+    {
+      "at": "2026-10-27T14:51:12.833756+00:00",
+      "exit": 0
+    }
+  ],
+  "result": "produced",
+  "finishedAt": "2026-10-27T14:51:12.894949+00:00",
+  "modelCalls": 1,
+  "usageTotal": {
+    "inputTokens": 16342,
+    "cachedInputTokens": 0,
+    "outputTokens": 7186
+  },
+  "realModelCallOverlap": {
+    "productionCalls": [
+      {
+        "callId": "358f4e70-5660-4e0c-8918-6ad8a4287011",
+        "articleId": "cv1770234",
+        "start": "2026-10-27T14:46:06.763000+00:00",
+        "end": "2026-10-27T14:51:12.734000+00:00"
+      }
+    ],
+    "overlaps": []
+  }
+}

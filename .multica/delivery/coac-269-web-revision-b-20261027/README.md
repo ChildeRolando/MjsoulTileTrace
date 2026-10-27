@@ -586,3 +586,103 @@ the entry) and are handed to 249 as explicit questions rather than presented as 
 No shared list, selection, pointer, register or formal library was written; no gate or runtime was
 edited; no model call beyond the two budgeted productions; no pass, no staging and no integration is
 claimed here. Pass remains 249's and integration remains 250's.
+
+## Batch 9 — second 79-cn figure dispatch: one chapter withheld, one produced and voided (2026-10-27T14:36–14:51Z)
+
+Owner dispatch 2026-10-27T13:32:19Z (comment `01a17d8f`): line B takes exactly two chapters from
+COAC-244's `6145c9f` classification — `79-cn-chapter-157-11` and `79-cn-chapter-205-5` — with the full
+canonical ids resolved from that record (`figure-targeted-executable`, `entryPass: true`, declared
+error targets 5 and 1). Neither chapter had been claimed by line A (`090-6`, `081-8`, `217-4`) and
+neither overlaps the candidates already with COAC-249 (`128-14`, `145-4`).
+
+The batch ended with **no revision handed to COAC-249 and no write to COAC-250**: one chapter was
+withheld before dispatch because its declared errors do not exist, and the other was produced with one
+budgeted call and then voided because the model's output contradicts the bound source. Both chapters
+stay `needs-repair`; nothing here is claimed as passed, staged or integrated.
+
+### 157-11 — withheld before dispatch (source contradicts the parent audit)
+
+`artifacts/b9-157-11-source-conflict.json` (SHA256 `f5f6af43…b80f3`), zero model calls.
+
+The parent audit (`cv1751276` … `retry-1792948857228-d69c915c.json`) declares five `error` issues,
+all the same claim: a hand tile transcribed as `4s` is really `6s` ("两列、每列三根索子"). Re-reading
+the five bound source images (which are exact matches of the book pages —
+`chinese-source-body-correspondence.json` `exactSourceMatches`) shows a **2 columns × 2 rows** bamboo
+tile in every one of them, i.e. `4s`:
+
+| figure | disputed tile | parent | audit | source read (row bands × column bands) |
+| --- | --- | --- | --- | --- |
+| b0005 | hand #8 | 4s | 6s | 2 × 2 = 4 sticks |
+| b0007 | hand #7 | 4s | 6s | 2 × 2 |
+| b0009 | hand #5 | 4s | 6s | 2 × 2 |
+| b0011 | hand #8 | 4s | 6s | 2 × 2 |
+| b0013 | hand #8 | 4s | 6s | 2 × 2 |
+
+Same-artwork references separate the two glyphs mechanically: the article's own `7s` tiles are
+1 red + 6 green in 3 columns × 2 rows, and a same-book anchor pair (`cv1708627` b0008, transcribed
+`… 4s 5s 6s 6s 7s`, unflagged) reads 2×2 for the `4s` and 3×2 for the `6s`. The audit's "每列三根"
+does not match the pixels.
+
+One genuine but **undeclared** parent defect was found and deliberately not repaired: in `b0011` the
+dora indicator is labelled `6s` while the glyph is the same 2×2 `4s`. Fixing it was not the dispatched
+scope, and a figure revision here would re-transcribe five figures whose content is already faithful —
+at best a no-op revision, at worst copying the audit's `6s` and corrupting four verbatim figures.
+Per the ticket rule (只修具体问题 / 未知不猜 / 不能盲发模型) the chapter was **not dispatched**; it needs
+adjudication of the parent audit, not a new revision. Recommended next step is recorded in the
+artifact.
+
+### 205-5 — produced with the single budgeted call, then voided (semantic failure)
+
+Entry, claim, preflight, slot and gates all behaved; the model output did not.
+
+- Fresh three-source joint exclusion (v3) four times, each with its own receipt: preflight
+  `14:40:49`, at claim `14:41:31`, pre-slot `14:46:05`, at dispatch `14:46:06`; incident controls
+  green (246/237/131 covered, 183 uncovered) and the active preview pointer did not move.
+- Atomic shared claim `parallel/claims/79-cn-chapter-205-5.json` (owner `COAC-269 Ticket executor`,
+  candidate sha `181e5da0…`) read back before the ticket-local claim was written.
+- Zero-call preflight `b9-preflight.json` (SHA256 `e2912ec7…fde90`, `ok: true`): bindings, verbatim
+  body, 2 figures with 1 pending, target assets sha-verified, and the real frozen entry run with
+  `--preflight-only` (`preflightPassed: true`, `figureRuns 2`, `pendingFigureRuns 1`, `modelCalls 0`).
+- maker-B acquired `14:46:05.746Z`, released `14:51:12.895Z`, both exit 0; legacy
+  `production-lane.lock` never acquired, byte-identical before/after.
+
+| chapter | callId | in/out | duration | candidate SHA256 |
+| --- | --- | --- | --- | --- |
+| 205-5 | `358f4e70-5660-4e0c-8918-6ad8a4287011` | 16,342 / 7,186 | 306.0 s | `8c0cfff82dbf0c339dc1474ad84e51a4b9c55554ab62a64dfc472f6604a555ec` |
+
+One production call for one chapter, 0 retries. The frozen gates pass — `verifyWebRevisionContent`,
+`verifyWebProductionCall` and `webDeterministicChecks` are all ok in `b9-selfcheck.json` (SHA256
+`250600ef…f9a54`) — because those gates verify bindings and scope, not whether the model read the
+image correctly.
+
+**The transcription is wrong.** `artifacts/b9-205-5-semantic-failure.json` (SHA256 `4d024735…62a6`)
+re-reads the disputed areas against the bound screenshot and finds the parent right and the model
+wrong in at least five places:
+
+| area | parent (and source) | model output |
+| --- | --- | --- |
+| 下侧手牌 #2 | 1m | 2m |
+| 下侧手牌 #13 | 4s | 6s |
+| 摸入牌 | 6s | 8s |
+| 左下副露 | 2m、1m、3m 的吃 | 1m 1m 1m 的碰 |
+| 下侧弃牌区第 2 行第 1 张 | 8s | 4s |
+| 上侧弃牌区外侧一行第 3 张 | 9m（九萬） | 6m |
+
+The audit-targeted tile (`左侧弃牌区第 2 行：8m 6s`, replacing `8m 未辨明索子牌` and dropping the
+corresponding `unknowns` entry) *is* correct in the candidate — but it arrives inside a transcription
+that broke five other things, which is not a repair.
+
+Consequences, per the batch rules (每章最多 1 次制作，失败 void 也计、不自动重试):
+
+- the chapter's 1 production call is spent; the candidate and raw call are kept exactly as produced
+  (no hand edits, no retry), and the candidate is **not** presented as a valid revision;
+- it was **not** handed to COAC-249, so the first-audit budget for this chapter was not spent and no
+  wrong candidate can reach 250;
+- the parent remains the only `needs-repair` candidate on the current source sha; a further attempt
+  needs a new budget decision from the owner, not an automatic retry from this line.
+
+### Boundaries
+
+No shared list, selection, pointer, register or formal library was written; no gate or runtime was
+edited. The only model call in the batch is the one `205-5` production above. `157-11` consumed none.
+Pass remains 249's and integration remains 250's.

@@ -1,0 +1,136 @@
+{
+  "schema": "coac269-revision-selfcheck/2",
+  "ticket": "COAC-269",
+  "batch": "b9",
+  "recordedAt": "2026-10-27T15:19:04.391Z",
+  "modelCalls": 0,
+  "chapters": [
+    {
+      "chapterId": "79-cn-chapter-205-5",
+      "articleId": "cv1770234",
+      "errors": [],
+      "candidateSha256": "8c0cfff82dbf0c339dc1474ad84e51a4b9c55554ab62a64dfc472f6604a555ec",
+      "parentSha256": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6",
+      "notesSha256": "6e42e3767953de3f6e4b7173392ad36292c4f8dce0c29e4922d9f629c0534711",
+      "sourceSha256": "ac055129f64d27bb1f71561eac96c5b304b299803b51680b9c3e2e56df56cda1",
+      "candidateSelfConsistent": true,
+      "revision": {
+        "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1770234.display.json",
+        "parentSha256": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6",
+        "notesPath": "audit/web/articles/79-bilibili-cn/cv1770234.181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6.json",
+        "notesSha256": "6e42e3767953de3f6e4b7173392ad36292c4f8dce0c29e4922d9f629c0534711",
+        "figureIds": [
+          "79-bilibili-cn:cv1770234:b0004:figure"
+        ]
+      },
+      "figureDiffs": [
+        {
+          "figureId": "79-bilibili-cn:cv1770234:b0004:figure",
+          "changedFields": [
+            "transcription",
+            "unknowns",
+            "caption",
+            "sourceNotes",
+            "provenance"
+          ],
+          "transcription": {
+            "from": "中央文字及标记：东2局1本场；立直棒1根；宝牌：3p。中央上缘横放1根白色、中央带红点的立直棒。\n座位风：下侧北（4z），右侧东（1z），上侧南（2z），左侧西（3z）。\n下侧手牌从左到右：1m 1m 6m 8m 3p 5p 7p 7p 9p 2s 3s 3s 4s；右侧间隔后摸入6s。\n其他三家的暗手：上侧13张牌背，右侧13张牌背，左侧10张牌背。\n弃牌区以下均按画面从上到下逐行记录，每行从左到右；无牌位置不计作5z。上侧普通弃牌倒置，左侧普通弃牌顺时针旋转90°，右侧普通弃牌逆时针旋转90°，下侧弃牌正立。\n上侧弃牌区：外侧一行：3m 1p 9m 7s；其中最右7s为立直宣言牌，画面横置，与该行其他牌的下缘对齐。靠中央一行：8p 2m 6p 2z 6z 9s。\n左侧弃牌区：第1行：2p 6z；第2行：8m 未辨明索子牌；第3行：3z 1s；第4行：3z 2s；第5行：3z 9s；第6行：左格无牌，右格9s。\n右侧弃牌区：第1行：左格3s，右格无牌；第2行：左格5z，右格无牌；第3行：7z 1p；第4行：1z 7s；第5行：2z 7s；第6行：3z 6m。\n下侧弃牌区：第1行：2z 4z 6z 9s 1z 2z；第2行：8s 2m 2m 6p。\n左下方副露属于左侧玩家：按画面从上到下为2m、1m、3m，组成123m的吃。2m在画面中正立，为被吃入后相对于该家通常牌面横置的一张；1m、3m均顺时针旋转90°。\n未见赤牌。",
+            "to": "中央文字：东2局1本场；立直棒1根；宝牌：3p。宝牌标签位于3p左侧。中央上缘横放1根白色立直棒，中央有红点。\n座位风：下侧北（4z），标签位于中央区域左下角；左侧西（3z），标签位于左上角；上侧南（2z），标签位于右上角；右侧东（1z），标签位于右下角。\n下侧手牌从左到右：1m 2m 6m 8m 3p 5p 7p 7p 9p 2s 3s 3s 6s；右侧间隔后摸入8s。\n左侧副露位于画面左下方，从上到下：1m 1m 1m，为一万的碰。第一张在画面中正立，相对于左侧玩家的通常牌面横置；第二、第三张在画面中顺时针旋转90°。\n其余暗手：上侧13张牌背，左侧10张牌背，右侧13张牌背。\n以下弃牌均按画面从上到下逐行记录，每行从左到右。上侧普通弃牌倒置；左侧普通弃牌顺时针旋转90°；右侧普通弃牌逆时针旋转90°；下侧弃牌正立。空位不计作白板。\n上侧弃牌区：最上行：3m 1p 6m 7s。其中7s为立直宣言牌，在画面中顺时针旋转90°，与本行其他牌下缘对齐。靠中央一行：8p 2m 6p 2z 6z 9s；该行比上一行向左多伸出两格。\n左侧弃牌区：第1行：2p 6z；第2行：8m 6s；第3行：3z 1s；第4行：3z 2s；第5行：3z 9s；第6行：9s，与前五行右格对齐。第2行右格6s在画面中顺时针旋转90°。\n右侧弃牌区：第1行：3s；第2行：5z；第3行：7z 1p；第4行：1z 7s；第5行：2z 7s；第6行：3z 9m。前两行与后四行左格对齐。\n下侧弃牌区：第1行：2z 4z 6z 9s 1z 2z；第2行：4s 2m 2m 6p，与上一行左侧四格对齐。\n未见赤牌或摸切箭头。"
+          },
+          "unknowns": {
+            "from": [
+              "左侧弃牌区第2行右格为索子牌，但其点数无法可靠辨认；该格只有1张牌，牌面顺时针旋转90°。"
+            ],
+            "to": []
+          },
+          "caption": {
+            "from": "例1：东2局1本场，对家立直后的弃和局面。",
+            "to": "例1：东2局1本场，北家面对南家立直的牌局。"
+          },
+          "sourceNotes": {
+            "from": [
+              "附件1为原图，附件2为同一原图的2倍最近邻放大视图；两者仅对应一次图源出现。",
+              "牌背旁的黄色窄边为牌的侧面，不另计为牌。",
+              "万字的红色字形、饼牌的常规红色圆点以及索牌的常规红色部分均不另标作赤牌。"
+            ],
+            "to": [
+              "附件1为原图，附件2为同一原图的2倍最近邻放大视图；两者仅对应一次图源出现。"
+            ]
+          },
+          "provenance": {
+            "from": {
+              "method": "model-transcription",
+              "callId": "3eecbd03-dd75-48fb-8186-38835f6473c0",
+              "outputSourceBlockId": "79-bilibili-cn:cv1770234:b0004"
+            },
+            "to": {
+              "method": "model-transcription",
+              "callId": "358f4e70-5660-4e0c-8918-6ad8a4287011",
+              "outputSourceBlockId": "79-bilibili-cn:cv1770234:b0004"
+            }
+          }
+        }
+      ],
+      "targetTranscriptionChanged": true,
+      "verifyWebRevisionContent": {
+        "ok": true
+      },
+      "verifyWebProductionCall": {
+        "ok": true,
+        "revision": {
+          "revision": {
+            "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1770234.display.json",
+            "parentSha256": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6",
+            "notesPath": "audit/web/articles/79-bilibili-cn/cv1770234.181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6.json",
+            "notesSha256": "6e42e3767953de3f6e4b7173392ad36292c4f8dce0c29e4922d9f629c0534711",
+            "figureIds": [
+              "79-bilibili-cn:cv1770234:b0004:figure"
+            ]
+          },
+          "parentAudit": {
+            "path": "audit/web/articles/79-bilibili-cn/cv1770234.181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6.json",
+            "sha256": "6e42e3767953de3f6e4b7173392ad36292c4f8dce0c29e4922d9f629c0534711",
+            "originalStatus": "needs-repair"
+          },
+          "parentCall": {
+            "callId": "0970d390-310e-471a-8dfe-0e5d67a0c059",
+            "path": "audit/calls/0970d390-310e-471a-8dfe-0e5d67a0c059.json",
+            "sha256": "4274c0d3aa752b16808a47cf46ce06dd6ae74e8408ee8567b21ec9d32119e90a"
+          },
+          "inheritedAssetIds": [
+            "79-bilibili-cn:d099bf67a709277837ec2a9c"
+          ]
+        },
+        "visualInputs": {
+          "inputs": 2
+        }
+      },
+      "webDeterministicChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "productionCall": {
+        "callId": "358f4e70-5660-4e0c-8918-6ad8a4287011",
+        "success": true,
+        "usage": {
+          "inputTokens": 16342,
+          "cachedInputTokens": 0,
+          "outputTokens": 7186
+        },
+        "durationMs": 305971,
+        "rawArtifactPath": "raw-calls/358f4e70-5660-4e0c-8918-6ad8a4287011.json",
+        "rawArtifactSha256": "4cf399c450ced144a4c36627f53a677ef83145872e34449fab4e145852a85fa5",
+        "targets": {
+          "textIds": [],
+          "figureIds": [
+            "79-bilibili-cn:cv1770234:b0004"
+          ]
+        },
+        "visualInputs": 2
+      },
+      "ok": true
+    }
+  ],
+  "errors": [],
+  "ok": true
+}

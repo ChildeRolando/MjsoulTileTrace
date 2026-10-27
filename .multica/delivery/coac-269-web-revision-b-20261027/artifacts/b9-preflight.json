@@ -1,0 +1,218 @@
+{
+  "schema": "coac269-web-revision-preflight/1",
+  "ticket": "COAC-269",
+  "line": "B",
+  "batch": "b9",
+  "recordedAt": "2026-10-27T14:40:49.232Z",
+  "purpose": "zero-call preflight of the dispatched 79-cn figure revision (157-11 withheld: parent audit targets contradicted by the bound source) through the frozen entry",
+  "variant": "coac269rev1",
+  "budget": {
+    "productionCallsAllowedPerChapter": 1,
+    "firstAuditCallsAllowedPerChapter": 1,
+    "retries": 0
+  },
+  "frozenRuntime": {
+    "textbook-production-web.mjs": "4a5ce8ab361e659bf7a8e822d3e013ccf413701cfa604aaa1c58c688beab8ca9",
+    "textbook-production-cli.mjs": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1",
+    "textbook-production-web-visual.py": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+  },
+  "chapters": [
+    {
+      "chapterId": "79-cn-chapter-205-5",
+      "articleId": "cv1770234",
+      "checks": {
+        "joint_eligible": {
+          "ok": true,
+          "detail": {
+            "chapterId": "79-cn-chapter-205-5",
+            "parentSha256": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6",
+            "direction": "figure",
+            "sourceId": "79-bilibili-cn"
+          }
+        },
+        "parent_sha": {
+          "ok": true,
+          "detail": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6"
+        },
+        "notes_production_binding": {
+          "ok": true,
+          "detail": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6"
+        },
+        "notes_source_binding": {
+          "ok": true,
+          "detail": "ac055129f64d27bb1f71561eac96c5b304b299803b51680b9c3e2e56df56cda1"
+        },
+        "parent_source_binding": {
+          "ok": true,
+          "detail": "ac055129f64d27bb1f71561eac96c5b304b299803b51680b9c3e2e56df56cda1"
+        },
+        "parent_identity": {
+          "ok": true,
+          "detail": "79-bilibili-cn/cv1770234"
+        },
+        "notes_status": {
+          "ok": true,
+          "detail": "needs-repair"
+        },
+        "source_status": {
+          "ok": true,
+          "detail": "captured-not-translated-or-audited"
+        },
+        "source_assets": {
+          "ok": true,
+          "detail": "2 downloaded"
+        },
+        "parent_body_mode": {
+          "ok": true,
+          "detail": "verbatim"
+        },
+        "target_figure_ids": {
+          "ok": true,
+          "detail": [
+            "79-bilibili-cn:cv1770234:b0004:figure"
+          ]
+        },
+        "target_in_parent": {
+          "ok": true,
+          "detail": "1 target(s) present"
+        },
+        "non_target_figures_faithful": {
+          "ok": true,
+          "detail": "1 non-target figures all faithful"
+        },
+        "figure_count": {
+          "ok": true,
+          "detail": 2
+        },
+        "target_verdict": {
+          "ok": true,
+          "detail": "[{\"id\":\"79-bilibili-cn:cv1770234:b0004:figure\",\"verdicts\":[\"needs-repair\"]}]"
+        },
+        "target_asset_bindings": {
+          "ok": true,
+          "detail": "1 bound source asset(s), sha verified"
+        },
+        "reuse_binding": {
+          "ok": true,
+          "detail": {
+            "path": "web-production/v1/reuse-maps/ee34bc2dea7dfa95ce62ec91ec3d83a6841ee50d315c4af2559cc7d390b152ce.json",
+            "sha256": "ee34bc2dea7dfa95ce62ec91ec3d83a6841ee50d315c4af2559cc7d390b152ce",
+            "images": 2
+          }
+        },
+        "output_absent": {
+          "ok": true,
+          "detail": "web-production/v1/candidates/79-bilibili-cn/cv1770234.coac269rev1.json"
+        },
+        "no_passed_candidate": {
+          "ok": true,
+          "detail": "0 passed receipts for the current source sha"
+        },
+        "stop_file": {
+          "ok": true,
+          "detail": "absent"
+        },
+        "maker_b_slot": {
+          "ok": true,
+          "detail": "no live maker-B"
+        },
+        "frozen_entry_preflight": {
+          "ok": true,
+          "detail": {
+            "figureRuns": 2,
+            "pendingFigureRuns": 1,
+            "modelCalls": 0
+          }
+        }
+      },
+      "failures": [],
+      "targetChecks": [
+        {
+          "id": "79-bilibili-cn:cv1770234:b0004:figure",
+          "verdicts": [
+            "needs-repair"
+          ]
+        }
+      ],
+      "target": {
+        "figureId": "79-bilibili-cn:cv1770234:b0004:figure",
+        "transcription": "中央文字及标记：东2局1本场；立直棒1根；宝牌：3p。中央上缘横放1根白色、中央带红点的立直棒。\n座位风：下侧北（4z），右侧东（1z），上侧南（2z），左侧西（3z）。\n下侧手牌从左到右：1m 1m 6m 8m 3p 5p 7p 7p 9p 2s 3s 3s 4s；右侧间隔后摸入6s。\n其他三家的暗手：上侧13张牌背，右侧13张牌背，左侧10张牌背。\n弃牌区以下均按画面从上到下逐行记录，每行从左到右；无牌位置不计作5z。上侧普通弃牌倒置，左侧普通弃牌顺时针旋转90°，右侧普通弃牌逆时针旋转90°，下侧弃牌正立。\n上侧弃牌区：外侧一行：3m 1p 9m 7s；其中最右7s为立直宣言牌，画面横置，与该行其他牌的下缘对齐。靠中央一行：8p 2m 6p 2z 6z 9s。\n左侧弃牌区：第1行：2p 6z；第2行：8m 未辨明索子牌；第3行：3z 1s；第4行：3z 2s；第5行：3z 9s；第6行：左格无牌，右格9s。\n右侧弃牌区：第1行：左格3s，右格无牌；第2行：左格5z，右格无牌；第3行：7z 1p；第4行：1z 7s；第5行：2z 7s；第6行：3z 6m。\n下侧弃牌区：第1行：2z 4z 6z 9s 1z 2z；第2行：8s 2m 2m 6p。\n左下方副露属于左侧玩家：按画面从上到下为2m、1m、3m，组成123m的吃。2m在画面中正立，为被吃入后相对于该家通常牌面横置的一张；1m、3m均顺时针旋转90°。\n未见赤牌。",
+        "assets": [
+          {
+            "path": "web-sources/v1/79-bilibili-cn/assets/104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67.png",
+            "sha256": "104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67",
+            "fileOk": true
+          }
+        ]
+      },
+      "frozenEntry": {
+        "command": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\coac269-20261027\\frozen-runtime\\textbook-production-web.mjs --source web-sources/v1/79-bilibili-cn/articles/cv1770234/source.json --revision-from web-production/v1/candidates/79-bilibili-cn/cv1770234.display.json --revision-notes audit/web/articles/79-bilibili-cn/cv1770234.181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6.json --variant coac269rev1 --reuse web-production/v1/reuse-maps/ee34bc2dea7dfa95ce62ec91ec3d83a6841ee50d315c4af2559cc7d390b152ce.json --timeout-ms 480000 --preflight-only",
+        "exitCode": 0,
+        "output": {
+          "preflightPassed": true,
+          "sourceId": "79-bilibili-cn",
+          "articleId": "cv1770234",
+          "sourceBlocks": 7,
+          "textBlocks": 5,
+          "figureRuns": 2,
+          "pendingFigureRuns": 1,
+          "imageOccurrences": 2,
+          "modelCalls": 0
+        },
+        "error": null
+      },
+      "ok": true,
+      "errorObserved": "父稿 b0004 左侧弃牌区第 2 行右格记为「未辨明索子牌」（另有 unknowns 条目）；绑定源图为 6 索（画面顺时针旋转 90°，3 列 × 2 根）。",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1770234.display.json",
+        "sha256": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6"
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1770234.181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6.json",
+        "sha256": "6e42e3767953de3f6e4b7173392ad36292c4f8dce0c29e4922d9f629c0534711"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1770234/source.json",
+        "sha256": "ac055129f64d27bb1f71561eac96c5b304b299803b51680b9c3e2e56df56cda1"
+      },
+      "targets": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770234:b0004:figure",
+          "kind": "figure"
+        }
+      ],
+      "outputPath": "web-production/v1/candidates/79-bilibili-cn/cv1770234.coac269rev1.json"
+    }
+  ],
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "jointExclusion": {
+    "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-v3-2026-10-27T14-40-49-646Z-f65a20cd.json",
+    "sha256": "5bd02011c97f013f87dcc122d429d49ee3f0b2d6bb4526ac21c3b67e29b94a50",
+    "recordedAt": "2026-10-27T14:40:49.646Z",
+    "ageSeconds": 0,
+    "scriptVersion": 3,
+    "controlsOk": true,
+    "pointerSha256": "73c0bbbf3c649f225c9532d8d0db811523363f261362d1b13a403c5dcd22c3d5",
+    "eligibleCount": 23,
+    "denominators": {
+      "scopeChapters": 231,
+      "coveredByUnion": 201,
+      "uncoveredByUnion": 30,
+      "bySource": {
+        "modern-yabejp-ja": {
+          "mapped": 150,
+          "covered": 140,
+          "uncovered": 10
+        },
+        "79-bilibili-cn": {
+          "mapped": 81,
+          "covered": 61,
+          "uncovered": 20
+        }
+      }
+    }
+  },
+  "ok": true,
+  "finishedAt": "2026-10-27T14:40:49.765Z"
+}
