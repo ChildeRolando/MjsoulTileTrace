@@ -16,12 +16,13 @@
   "totalTracked": 38
  },
  "countsCurrent": {
-  "needsRepair": 47,
+  "needsRepair": 42,
+  "awaitingIndependentReview": 1,
   "decisionHold": 1,
-  "failedSeparate": 1,
-  "resolvedThisStage": 11,
-  "totalTracked": 61,
-  "resolvedTotal": 15
+  "resolvedTotal": 19,
+  "totalTracked": 63,
+  "failedSeparateHistoryRecords": 1,
+  "scope": "Stored objects inventory only, not remaining original-chapter count. Historical failedSeparate records are retained outside this total; none represents a new failed call this round. No global selection or passed audit was refreshed."
  },
  "breakdown": {
   "oldPdfRemaining": 3,
@@ -47,8 +48,6 @@
     "nemata-jp:page:2",
     "nemata-jp:page:3",
     "nemata-jp:page:317",
-    "web-chapter:79-cn-chapter-081-8",
-    "web-chapter:79-cn-chapter-090-6",
     "web-chapter:79-cn-chapter-109-4",
     "web-chapter:79-cn-chapter-128-14",
     "web-chapter:79-cn-chapter-145-4",
@@ -74,6 +73,17 @@
     "web-chapter:nemata-jp-chapter-089-1",
     "web-chapter:nemata-jp-chapter-127-1",
     "web-chapter:nemata-jp-chapter-142-1",
+    "web-chapter:nemata-jp-chapter-236-1",
+    "web-chapter:nemata-jp-chapter-347-1"
+   ],
+   "decisionHold": [
+    "web-chapter:nemata-jp-chapter-183-1"
+   ],
+   "resolved": [
+    "79-cn:page:50",
+    "79-cn:page:263",
+    "nemata-jp:page:261",
+    "web-chapter:79-cn-chapter-081-8",
     "web-chapter:nemata-jp-chapter-173-1",
     "web-chapter:nemata-jp-chapter-174-1",
     "web-chapter:nemata-jp-chapter-187-1",
@@ -84,21 +94,14 @@
     "web-chapter:nemata-jp-chapter-215-4",
     "web-chapter:nemata-jp-chapter-222-1",
     "web-chapter:nemata-jp-chapter-227-1",
-    "web-chapter:nemata-jp-chapter-236-1",
-    "web-chapter:nemata-jp-chapter-246-1",
-    "web-chapter:nemata-jp-chapter-347-1",
-    "web-chapter:nemata-jp-chapter-116-1",
-    "web-chapter:nemata-jp-chapter-131-1"
-   ],
-   "decisionHold": [
-    "web-chapter:nemata-jp-chapter-183-1"
-   ],
-   "resolved": [
-    "79-cn:page:50",
-    "79-cn:page:263",
-    "nemata-jp:page:261",
     "web-chapter:nemata-jp-chapter-237-1",
+    "web-chapter:nemata-jp-chapter-246-1",
+    "web-chapter:nemata-jp-chapter-116-1",
+    "web-chapter:nemata-jp-chapter-131-1",
     "web-chapter:nemata-jp-chapter-197-1"
+   ],
+   "awaitingIndependentReview": [
+    "web-chapter:79-cn-chapter-090-6"
    ]
   }
  },
@@ -280,8 +283,9 @@
    "revisionChain": "receipt-p217-revision-chain-20261027.json",
    "adjudication": "adjudication-p217-tile-20261027.json",
    "candidateSelfSha256": "953b58901a062f166820ba61cc5660a0146c8c2866058b088064c62f67ac1c62",
-   "nextAction": "等 249/owner 对该牌的限定结论；有确定读法才落 rev6 + 1 次页审校，否则留 unknown",
-   "handoff249": "integration/coac249-p217-single-tile-read-20261027.json"
+   "nextAction": "等待owner下一有限阶段安排；本阶段不派调用。",
+   "handoff249": "integration/coac249-p217-single-tile-read-20261027.json",
+   "stage20261027T1419": "owner本阶段暂分流；保留已有证据与unknown，不追加研究、制作、整页审校，不阻塞090-6。"
   },
   {
    "objectId": "79-cn:page:263",
@@ -405,7 +409,7 @@
    "dedupeNote": "COAC-247 page 257 candidate SHA 6283c249… equals the old-list candidate; one unresolved object.",
    "classification": "非入口限制，属源证据不足；同一张源图牌距约 33 像素、牌面约 28 像素",
    "sourceCheck": "source-check-p257-20261027.json",
-   "nextAction": "把 zoomRead 的 5 条确认读出 + 1 条中置信（右方#2=5m）做成一次定点 revision，然后派 1 次页审校，同轮验证同源争议（上方#1 与左方#2/#3/#4）；审校未过或证据仍冲突的位置保持 unknown。",
+   "nextAction": "等待owner下一有限阶段安排；本阶段不派调用。",
    "zoomRead": {
     "recordedAt": "2026-10-27T13:40:00.000Z",
     "modelCalls": 0,
@@ -422,7 +426,8 @@
      "right#13": "读不出(1m或9m)"
     },
     "collateral": "左方#2/#3 读作 南(2z)、#4 读作 北(4z)，与候选 3z/3z/2z 冲突；仅留证，未改字段"
-   }
+   },
+   "stage20261027T1419": "owner本阶段暂分流；保留已有证据与unknown，不追加研究、制作、整页审校，不阻塞090-6。"
   },
   {
    "objectId": "nemata-jp:page:261",
@@ -861,11 +866,11 @@
    "chapterId": "79-cn-chapter-090-6",
    "sourceId": "79-bilibili-cn",
    "articleId": "cv1721510",
-   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1721510.display.json",
-   "candidateSha256": "4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f",
-   "auditPath": "audit/web/articles/79-bilibili-cn/cv1721510.4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f.retry-1792942848957-13e1430c.json",
-   "auditStatus": "needs-repair",
-   "issueCount": 10,
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1721510.r1.json",
+   "candidateSha256": "82d7550d6035c51c3874d7fa9faa923978834fc5d5527bdf028770270ff2110c",
+   "auditPath": null,
+   "auditStatus": "awaiting-independent-review",
+   "issueCount": null,
    "unitCount": 1,
    "blockCount": 28,
    "pdfPages": [
@@ -874,12 +879,52 @@
     92,
     93
    ],
-   "currentDisposition": "needs-repair",
+   "currentDisposition": "revision-produced-awaiting-COAC-249-first-full-article-review",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
-   "auditRecordedAt": "2026-10-25T15:40:48.957Z",
+   "auditRecordedAt": null,
    "auditSourceStale": false,
-   "diskShaVerified": true
+   "diskShaVerified": true,
+   "parentVersion": {
+    "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1721510.display.json",
+    "candidateSha256": "4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f",
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1721510.4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f.retry-1792942848957-13e1430c.json",
+    "auditStatus": "needs-repair",
+    "issueCount": 10,
+    "auditRecordedAt": "2026-10-25T15:40:48.957Z"
+   },
+   "auditSha256": null,
+   "revision": {
+    "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1721510.display.json",
+    "parentSha256": "4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f",
+    "parentAuditPath": "audit/web/articles/79-bilibili-cn/cv1721510.4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f.retry-1792942848957-13e1430c.json",
+    "parentAuditSha256": "341cb06d35830aeff64c7c620ba71742c959d910d03b2d6d0e2d5037fe96d5db",
+    "sourceSha256": "43ad9dcee6d721ee0f47866cac6f98d311a59f96cdd1b10a0a70ede0c3dbd2fe",
+    "targets": [
+     "79-bilibili-cn:cv1721510:b0004:figure",
+     "79-bilibili-cn:cv1721510:b0008:figure",
+     "79-bilibili-cn:cv1721510:b0012:figure"
+    ],
+    "productionCallId": "03ab4b7c-0e68-4e01-857a-c500a7c59a0f",
+    "productionUsage": {
+     "inputTokens": 18554,
+     "cachedInputTokens": 0,
+     "outputTokens": 975
+    },
+    "evidence": "receipt-web090-6.rev1-awaiting-review.json",
+    "handoff249": "integration/coac249-incremental-090-6-20261027.json",
+    "wakeup249": "01a17dc0-8bbe-7249-88cf-6ff847bf7000",
+    "modelCalls": {
+     "production": 1,
+     "audit": 0,
+     "void": 0,
+     "failed": 0
+    },
+    "independentAuditBudgetRemaining": 1,
+    "retryBudget": 0,
+    "changed": "例1两处6s→4s；例3末四张3s 6s 7s 9s→3s 4s 5s 6s；例5两处6s→4s、摸入7s→5s。目标caption/sourceNotes变化完整保留；正文与其余三图教学内容不变。",
+    "semanticAcceptance": null
+   }
   },
   {
    "objectId": "web-chapter:79-cn-chapter-109-4",
@@ -3501,7 +3546,7 @@
   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter03-section011.6ad44173945b9347cd8dd7c44640fa3341bf8e83109695e4cd8aacc6d3d98b21.json",
   "note": "Isolated revision from the 249/250 register set; parent receipt, parent candidate and raw preserved."
  },
- "refreshedAt": "2026-10-27T11:58:00.000Z",
+ "refreshedAt": "2026-10-27T14:27:16.597099+00:00",
  "byOrigin": {
   "COAC-248 old PDF 12": 5,
   "COAC-247 new PDF return": 3,
@@ -3763,21 +3808,17 @@
   "bodyTextImpact": "none of the missing microprint is cited by any paragraph on those pages"
  },
  "latestRound": {
-  "at": "2026-10-27T10:50:00.000000+00:00",
+  "at": "2026-10-27T14:27:16.597099+00:00",
   "objects": [
-   "web-chapter:nemata-jp-chapter-199-1",
-   "79-cn:page:217"
+   "web-chapter:79-cn-chapter-090-6"
   ],
-  "productionModelCalls": 0,
-  "auditModelCalls": 4,
+  "productionModelCalls": 1,
+  "auditModelCalls": 0,
   "voidModelCalls": 0,
+  "failedModelCalls": 0,
   "deterministicRejections": 0,
-  "note": "199-1 passed on the single authorised retry and handed to 250; 79-cn:page:217 went rev1→rev4 on four verified source checks with three page audits, all suits fixes accepted, one 萬 tile disputed with anchor evidence",
-  "stillOpen": [
-   "79-cn:page:217",
-   "nemata-jp-chapter-215-4",
-   "nemata-jp-chapter-236-1"
-  ]
+  "note": "090-6新稿已产，确定性校验通过，交249首次全章独审；本线未自审，未判passed。",
+  "nextBatch": "按14:19最新owner边界退出，不另建248相同目标或兜底触发；先报本批真实结果再决定下一有限批。"
  },
  "relatedNonRepair": {
   "note": "COAC-246 chapters that are not 248 repair objects; their actions belong to 249 (audit) and 250 (staging/selection).",
@@ -4760,5 +4801,23 @@
   "notes": [
    "215-4 已按 owner 更新移出卡点；211 已并入 250 预览；183-1 属 B 线 decision-hold；p217 交 249 单张限定核读；p257 保持 unknown 且不阻塞。"
   ]
+ },
+ "countsPriorSnapshot20261027T1340": {
+  "needsRepair": 47,
+  "decisionHold": 1,
+  "failedSeparate": 1,
+  "resolvedThisStage": 11,
+  "totalTracked": 61,
+  "resolvedTotal": 15
+ },
+ "round20261027T1425": {
+  "record": "round-20261027T1425.json",
+  "result": "produced-and-handed-to-independent-COAC-249-review; not passed",
+  "modelCalls": {
+   "production": 1,
+   "audit": 0,
+   "void": 0,
+   "failed": 0
+  }
  }
 }

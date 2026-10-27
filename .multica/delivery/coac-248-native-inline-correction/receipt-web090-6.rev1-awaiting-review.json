@@ -1,0 +1,572 @@
+{
+  "schema": "coac248-090-6-production-evidence/1",
+  "recordedAt": "2026-10-27T14:24:56.394Z",
+  "chapterId": "79-cn-chapter-090-6",
+  "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1721510/source.json",
+  "sourceSha256": "43ad9dcee6d721ee0f47866cac6f98d311a59f96cdd1b10a0a70ede0c3dbd2fe",
+  "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1721510.display.json",
+  "parentSha256": "4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f",
+  "parentAuditPath": "audit/web/articles/79-bilibili-cn/cv1721510.4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f.retry-1792942848957-13e1430c.json",
+  "parentAuditSha256": "341cb06d35830aeff64c7c620ba71742c959d910d03b2d6d0e2d5037fe96d5db",
+  "parentAuditStatus": "needs-repair",
+  "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1721510.r1.json",
+  "candidateSha256": "82d7550d6035c51c3874d7fa9faa923978834fc5d5527bdf028770270ff2110c",
+  "internalDigest": "91297e2487e5f8c468386d25d5a3fc239e6d8835cb89325080bb017fe007428d",
+  "targets": [
+    "79-bilibili-cn:cv1721510:b0004:figure",
+    "79-bilibili-cn:cv1721510:b0008:figure",
+    "79-bilibili-cn:cv1721510:b0012:figure"
+  ],
+  "modelCalls": {
+    "production": 1,
+    "audit": 0,
+    "void": 0,
+    "failed": 0
+  },
+  "productionAttempt": {
+    "callId": "03ab4b7c-0e68-4e01-857a-c500a7c59a0f",
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1721510",
+    "sourceSha256": "43ad9dcee6d721ee0f47866cac6f98d311a59f96cdd1b10a0a70ede0c3dbd2fe",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "timeoutMs": 900000,
+    "startedAt": "2026-10-27T14:23:07.655Z",
+    "durationMs": 94882,
+    "usage": {
+      "inputTokens": 18554,
+      "cachedInputTokens": 0,
+      "outputTokens": 975
+    },
+    "success": true,
+    "failureClass": null,
+    "transportStatus": "completed",
+    "rawArtifactPath": "raw-calls/03ab4b7c-0e68-4e01-857a-c500a7c59a0f.json",
+    "rawArtifactSha256": "c7710f18c896c5faaa944e85d61c40fbcfe85d93cd7718a2b8ef86872bec2d9c",
+    "outputSha256": "8f49264a8e9fa3185fe1bc4746b081cb231e1cb23647d992e1e3ff2ed36184c0",
+    "schemaSha256": "7a9946c9308e29ff9b82682d3fde57ac7db6e80f4aa8a703045b7d0c4a5f2e3b",
+    "promptSha256": "63131c9aa86dc7776fb552247dbc662cb9b9ba68a097405b6910f7633e5693c5",
+    "semanticPromptSha256": "b544fe67dc306257f4a81b273ee15e57f8231c74d57ef3b03552e0fd9486a823",
+    "cliSnapshot": {
+      "path": "web-production/v1/runners/3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1.cli.mjs",
+      "sha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+    },
+    "targets": {
+      "textIds": [],
+      "figureIds": [
+        "79-bilibili-cn:cv1721510:b0004",
+        "79-bilibili-cn:cv1721510:b0008",
+        "79-bilibili-cn:cv1721510:b0012"
+      ]
+    },
+    "terminalEvents": [
+      {
+        "type": "error",
+        "code": null,
+        "message": "Reconnecting... 2/5 (workspace routing discovery timed out)",
+        "param": null
+      },
+      {
+        "type": "error",
+        "code": null,
+        "message": "Reconnecting... 3/5 (workspace routing discovery timed out)",
+        "param": null
+      }
+    ],
+    "visualInputs": [
+      {
+        "assetId": "79-bilibili-cn:c010915920cc753853a5c278",
+        "sourcePath": "web-sources/v1/79-bilibili-cn/assets/f2334864d0adfb2b7d1e46aedb3da616516e1622157b69df56b01574b7f35b23.png",
+        "sourceSha256": "f2334864d0adfb2b7d1e46aedb3da616516e1622157b69df56b01574b7f35b23",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-sources/v1/79-bilibili-cn/assets/f2334864d0adfb2b7d1e46aedb3da616516e1622157b69df56b01574b7f35b23.png",
+        "sha256": "f2334864d0adfb2b7d1e46aedb3da616516e1622157b69df56b01574b7f35b23",
+        "role": "original",
+        "scale": 1,
+        "resampling": "none",
+        "width": 545,
+        "height": 68
+      },
+      {
+        "assetId": "79-bilibili-cn:c010915920cc753853a5c278",
+        "sourcePath": "web-sources/v1/79-bilibili-cn/assets/f2334864d0adfb2b7d1e46aedb3da616516e1622157b69df56b01574b7f35b23.png",
+        "sourceSha256": "f2334864d0adfb2b7d1e46aedb3da616516e1622157b69df56b01574b7f35b23",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/f2334864d0adfb2b7d1e46aedb3da616516e1622157b69df56b01574b7f35b23.x4.png",
+        "sha256": "fb42a57361b09bb279f1ecd6d1869649838a7ecec7f3a47ec18e16ac02431071",
+        "role": "nearest-neighbor-enlargement",
+        "scale": 4,
+        "resampling": "nearest",
+        "width": 2180,
+        "height": 272
+      },
+      {
+        "assetId": "79-bilibili-cn:c4e89cd8e3d11a4eb7200ce8",
+        "sourcePath": "web-sources/v1/79-bilibili-cn/assets/bbea0e03b1da18f17ed658ba10c1082b163ceeec7ac35647bcc588df88d9d26d.png",
+        "sourceSha256": "bbea0e03b1da18f17ed658ba10c1082b163ceeec7ac35647bcc588df88d9d26d",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-sources/v1/79-bilibili-cn/assets/bbea0e03b1da18f17ed658ba10c1082b163ceeec7ac35647bcc588df88d9d26d.png",
+        "sha256": "bbea0e03b1da18f17ed658ba10c1082b163ceeec7ac35647bcc588df88d9d26d",
+        "role": "original",
+        "scale": 1,
+        "resampling": "none",
+        "width": 466,
+        "height": 66
+      },
+      {
+        "assetId": "79-bilibili-cn:c4e89cd8e3d11a4eb7200ce8",
+        "sourcePath": "web-sources/v1/79-bilibili-cn/assets/bbea0e03b1da18f17ed658ba10c1082b163ceeec7ac35647bcc588df88d9d26d.png",
+        "sourceSha256": "bbea0e03b1da18f17ed658ba10c1082b163ceeec7ac35647bcc588df88d9d26d",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/bbea0e03b1da18f17ed658ba10c1082b163ceeec7ac35647bcc588df88d9d26d.x4.png",
+        "sha256": "b77d7985752da35b041a84b7b455ea16e452a17b3da02a8315a2b314e35ee0e1",
+        "role": "nearest-neighbor-enlargement",
+        "scale": 4,
+        "resampling": "nearest",
+        "width": 1864,
+        "height": 264
+      },
+      {
+        "assetId": "79-bilibili-cn:13060ca371002f1da4d9591f",
+        "sourcePath": "web-sources/v1/79-bilibili-cn/assets/f7dd828d85b75d7bce57068055dd85cb2b1f82f7b30841e43866d1fd3a8cd5b3.png",
+        "sourceSha256": "f7dd828d85b75d7bce57068055dd85cb2b1f82f7b30841e43866d1fd3a8cd5b3",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-sources/v1/79-bilibili-cn/assets/f7dd828d85b75d7bce57068055dd85cb2b1f82f7b30841e43866d1fd3a8cd5b3.png",
+        "sha256": "f7dd828d85b75d7bce57068055dd85cb2b1f82f7b30841e43866d1fd3a8cd5b3",
+        "role": "original",
+        "scale": 1,
+        "resampling": "none",
+        "width": 480,
+        "height": 68
+      },
+      {
+        "assetId": "79-bilibili-cn:13060ca371002f1da4d9591f",
+        "sourcePath": "web-sources/v1/79-bilibili-cn/assets/f7dd828d85b75d7bce57068055dd85cb2b1f82f7b30841e43866d1fd3a8cd5b3.png",
+        "sourceSha256": "f7dd828d85b75d7bce57068055dd85cb2b1f82f7b30841e43866d1fd3a8cd5b3",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/f7dd828d85b75d7bce57068055dd85cb2b1f82f7b30841e43866d1fd3a8cd5b3.x4.png",
+        "sha256": "1a2b7f81bdea244380ecfcb05271a25bb2220f3efa1046dec27708774bb8959f",
+        "role": "nearest-neighbor-enlargement",
+        "scale": 4,
+        "resampling": "nearest",
+        "width": 1920,
+        "height": 272
+      }
+    ],
+    "revision": {
+      "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1721510.display.json",
+      "parentSha256": "4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f",
+      "notesPath": "audit/web/articles/79-bilibili-cn/cv1721510.4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f.retry-1792942848957-13e1430c.json",
+      "notesSha256": "341cb06d35830aeff64c7c620ba71742c959d910d03b2d6d0e2d5037fe96d5db",
+      "figureIds": [
+        "79-bilibili-cn:cv1721510:b0004:figure",
+        "79-bilibili-cn:cv1721510:b0008:figure",
+        "79-bilibili-cn:cv1721510:b0012:figure"
+      ]
+    }
+  },
+  "checks": {
+    "passed": true,
+    "errors": [],
+    "textBlocks": 9,
+    "imageRuns": 6,
+    "imageOccurrences": 6,
+    "figures": 6
+  },
+  "productionProof": {
+    "callId": "03ab4b7c-0e68-4e01-857a-c500a7c59a0f",
+    "rawArtifactPath": "raw-calls/03ab4b7c-0e68-4e01-857a-c500a7c59a0f.json",
+    "rawArtifactSha256": "c7710f18c896c5faaa944e85d61c40fbcfe85d93cd7718a2b8ef86872bec2d9c",
+    "revision": {
+      "revision": {
+        "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1721510.display.json",
+        "parentSha256": "4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f",
+        "notesPath": "audit/web/articles/79-bilibili-cn/cv1721510.4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f.retry-1792942848957-13e1430c.json",
+        "notesSha256": "341cb06d35830aeff64c7c620ba71742c959d910d03b2d6d0e2d5037fe96d5db",
+        "figureIds": [
+          "79-bilibili-cn:cv1721510:b0004:figure",
+          "79-bilibili-cn:cv1721510:b0008:figure",
+          "79-bilibili-cn:cv1721510:b0012:figure"
+        ]
+      },
+      "parentAudit": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1721510.4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f.retry-1792942848957-13e1430c.json",
+        "sha256": "341cb06d35830aeff64c7c620ba71742c959d910d03b2d6d0e2d5037fe96d5db",
+        "originalStatus": "needs-repair"
+      },
+      "parentCall": {
+        "callId": "a49ddcee-950e-4bcf-a20d-6620c55f42f2",
+        "path": "audit/calls/a49ddcee-950e-4bcf-a20d-6620c55f42f2.json",
+        "sha256": "36e9d9cf231793c6bffbc92b742e7f515b88e6cb78b937bd816246de20331cbc"
+      },
+      "inheritedAssetIds": [
+        "79-bilibili-cn:6bf78e9457569e3deb002aee",
+        "79-bilibili-cn:285ff3d6589ab8031cca899f",
+        "79-bilibili-cn:28bf11989ee5172153349b52"
+      ]
+    },
+    "visualInputs": {
+      "inputs": [
+        {
+          "assetId": "79-bilibili-cn:c010915920cc753853a5c278",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/f2334864d0adfb2b7d1e46aedb3da616516e1622157b69df56b01574b7f35b23.png",
+          "sourceSha256": "f2334864d0adfb2b7d1e46aedb3da616516e1622157b69df56b01574b7f35b23",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/f2334864d0adfb2b7d1e46aedb3da616516e1622157b69df56b01574b7f35b23.png",
+          "sha256": "f2334864d0adfb2b7d1e46aedb3da616516e1622157b69df56b01574b7f35b23",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 545,
+          "height": 68
+        },
+        {
+          "assetId": "79-bilibili-cn:c010915920cc753853a5c278",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/f2334864d0adfb2b7d1e46aedb3da616516e1622157b69df56b01574b7f35b23.png",
+          "sourceSha256": "f2334864d0adfb2b7d1e46aedb3da616516e1622157b69df56b01574b7f35b23",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/f2334864d0adfb2b7d1e46aedb3da616516e1622157b69df56b01574b7f35b23.x4.png",
+          "sha256": "fb42a57361b09bb279f1ecd6d1869649838a7ecec7f3a47ec18e16ac02431071",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 2180,
+          "height": 272
+        },
+        {
+          "assetId": "79-bilibili-cn:c4e89cd8e3d11a4eb7200ce8",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/bbea0e03b1da18f17ed658ba10c1082b163ceeec7ac35647bcc588df88d9d26d.png",
+          "sourceSha256": "bbea0e03b1da18f17ed658ba10c1082b163ceeec7ac35647bcc588df88d9d26d",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/bbea0e03b1da18f17ed658ba10c1082b163ceeec7ac35647bcc588df88d9d26d.png",
+          "sha256": "bbea0e03b1da18f17ed658ba10c1082b163ceeec7ac35647bcc588df88d9d26d",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 466,
+          "height": 66
+        },
+        {
+          "assetId": "79-bilibili-cn:c4e89cd8e3d11a4eb7200ce8",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/bbea0e03b1da18f17ed658ba10c1082b163ceeec7ac35647bcc588df88d9d26d.png",
+          "sourceSha256": "bbea0e03b1da18f17ed658ba10c1082b163ceeec7ac35647bcc588df88d9d26d",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/bbea0e03b1da18f17ed658ba10c1082b163ceeec7ac35647bcc588df88d9d26d.x4.png",
+          "sha256": "b77d7985752da35b041a84b7b455ea16e452a17b3da02a8315a2b314e35ee0e1",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 1864,
+          "height": 264
+        },
+        {
+          "assetId": "79-bilibili-cn:13060ca371002f1da4d9591f",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/f7dd828d85b75d7bce57068055dd85cb2b1f82f7b30841e43866d1fd3a8cd5b3.png",
+          "sourceSha256": "f7dd828d85b75d7bce57068055dd85cb2b1f82f7b30841e43866d1fd3a8cd5b3",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/f7dd828d85b75d7bce57068055dd85cb2b1f82f7b30841e43866d1fd3a8cd5b3.png",
+          "sha256": "f7dd828d85b75d7bce57068055dd85cb2b1f82f7b30841e43866d1fd3a8cd5b3",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 480,
+          "height": 68
+        },
+        {
+          "assetId": "79-bilibili-cn:13060ca371002f1da4d9591f",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/f7dd828d85b75d7bce57068055dd85cb2b1f82f7b30841e43866d1fd3a8cd5b3.png",
+          "sourceSha256": "f7dd828d85b75d7bce57068055dd85cb2b1f82f7b30841e43866d1fd3a8cd5b3",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/f7dd828d85b75d7bce57068055dd85cb2b1f82f7b30841e43866d1fd3a8cd5b3.x4.png",
+          "sha256": "1a2b7f81bdea244380ecfcb05271a25bb2220f3efa1046dec27708774bb8959f",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 1920,
+          "height": 272
+        }
+      ],
+      "pixels": {
+        "passed": true,
+        "inputs": 6
+      }
+    }
+  },
+  "validator": {
+    "path": "audit/runtimes/e89dcffe73c9100a12218b79dfba66da3f1bb08d7adaf2b64e87d9eb34619a49/textbook-audit-web.mjs",
+    "sha256": "a585d2fc9858c2f894355146d8a0b779e53b1a405021fec573613786a186ea75"
+  },
+  "unchangedBody": {
+    "sha256": "791078cd32960f6ca63e06357aa6d94f325352cf522550cb58b82e0ca5a29e6d",
+    "textBlocks": 9
+  },
+  "unchangedFigures": [
+    {
+      "figureId": "79-bilibili-cn:cv1721510:b0006:figure",
+      "contentSha256": "2d463d7afdda92d9765cc9de88c912857ed12b2395bdb6a522b6f46c618b4092",
+      "presentationAssetRemoved": true
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1721510:b0010:figure",
+      "contentSha256": "8325e6eae61e0ed59a03c59579b0332f9cb2e5f90e4bd1b128d657d0dae04071",
+      "presentationAssetRemoved": true
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1721510:b0014:figure",
+      "contentSha256": "863785919da8d3a475e114b899aed5e8b0a30aaf99dbcc1dba087ae6b3b370e7",
+      "presentationAssetRemoved": true
+    }
+  ],
+  "changes": [
+    {
+      "figureId": "79-bilibili-cn:cv1721510:b0004:figure",
+      "fields": [
+        {
+          "field": "transcription",
+          "from": "例1\n手牌从左至右：2m 2m 5m 6m 7m 4p 5p 5p 6p 1s 2s 3s 6s\n手牌右侧「摸入」标签后的牌：6s\n更右侧「宝牌」标签后的牌：3p",
+          "to": "手牌左侧：例1\n手牌从左至右：2m 2m 5m 6m 7m 4p 5p 5p 6p 1s 2s 3s 4s\n手牌右侧「摸入」标签后的牌：4s\n摸入牌右侧「宝牌」标签后的牌：3p"
+        },
+        {
+          "field": "caption",
+          "from": "例1：13张手牌、摸入牌及宝牌。",
+          "to": "例1：13张手牌、摸入的4s及宝牌3p。"
+        },
+        {
+          "field": "sourceNotes",
+          "from": [
+            "原图与放大图为同一图像，仅记录一次。",
+            "所有牌均直立，无赤牌；牌顶金色边线及灰色阴影属于牌图外观。"
+          ],
+          "to": [
+            "附件1与附件2为同一原图及其放大视图，仅计一次。",
+            "所有牌均正向放置，无横置牌或赤牌。"
+          ]
+        },
+        {
+          "field": "provenance",
+          "from": {
+            "method": "model-transcription",
+            "callId": "60d5152a-b2c7-4deb-a3ee-d57f8797d77d",
+            "outputSourceBlockId": "79-bilibili-cn:cv1721510:b0004"
+          },
+          "to": {
+            "method": "model-transcription",
+            "callId": "03ab4b7c-0e68-4e01-857a-c500a7c59a0f",
+            "outputSourceBlockId": "79-bilibili-cn:cv1721510:b0004"
+          }
+        },
+        {
+          "field": "presentationAsset",
+          "from": {
+            "path": "web-production/v1/presentations/79-bilibili-cn/cv1721510/afe5bb2c19e6add3/figure-0001.png",
+            "sha256": "156a6ec4818199833d3f421f4bbbb89243940c8687788460a49c2b3ac3f0f94f",
+            "width": 545,
+            "height": 68,
+            "derivation": {
+              "kind": "single-source-image-rgba-to-png",
+              "alignment": "original-size",
+              "sourceAssetBindings": [
+                {
+                  "assetId": "79-bilibili-cn:c010915920cc753853a5c278",
+                  "path": "web-sources/v1/79-bilibili-cn/assets/f2334864d0adfb2b7d1e46aedb3da616516e1622157b69df56b01574b7f35b23.png",
+                  "sha256": "f2334864d0adfb2b7d1e46aedb3da616516e1622157b69df56b01574b7f35b23",
+                  "url": "https://i0.hdslb.com/bfs/article/611ab8ec03e094ae4989e0b3e54b3c617aa45c01.png"
+                }
+              ],
+              "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+            }
+          },
+          "to": null
+        }
+      ]
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1721510:b0008:figure",
+      "fields": [
+        {
+          "field": "transcription",
+          "from": "例3\n手牌从左至右：4m 5m 7m 8m 8m 1p 2p 4p 4p 3s 6s 7s 9s\n手牌右侧「摸入」标签后的牌：6m",
+          "to": "手牌左侧：例3\n手牌从左至右：4m 5m 7m 8m 8m 1p 2p 4p 4p 3s 4s 5s 6s\n手牌右侧「摸入」标签后的牌：6m"
+        },
+        {
+          "field": "sourceNotes",
+          "from": [
+            "原图与放大图为同一图像，仅记录一次。",
+            "所有牌均直立，无赤牌；牌顶金色边线及灰色阴影属于牌图外观。"
+          ],
+          "to": [
+            "附件3与附件4为同一原图及其放大视图，仅计一次。",
+            "所有牌均正向放置，无横置牌或赤牌；5s中央的红色竹节是普通牌面图案。"
+          ]
+        },
+        {
+          "field": "provenance",
+          "from": {
+            "method": "model-transcription",
+            "callId": "60d5152a-b2c7-4deb-a3ee-d57f8797d77d",
+            "outputSourceBlockId": "79-bilibili-cn:cv1721510:b0008"
+          },
+          "to": {
+            "method": "model-transcription",
+            "callId": "03ab4b7c-0e68-4e01-857a-c500a7c59a0f",
+            "outputSourceBlockId": "79-bilibili-cn:cv1721510:b0008"
+          }
+        },
+        {
+          "field": "presentationAsset",
+          "from": {
+            "path": "web-production/v1/presentations/79-bilibili-cn/cv1721510/afe5bb2c19e6add3/figure-0003.png",
+            "sha256": "26516132dca6f6b4b74a2fc8b30bf0424b791b6b8077094fa90f864ecef61c71",
+            "width": 466,
+            "height": 66,
+            "derivation": {
+              "kind": "single-source-image-rgba-to-png",
+              "alignment": "original-size",
+              "sourceAssetBindings": [
+                {
+                  "assetId": "79-bilibili-cn:c4e89cd8e3d11a4eb7200ce8",
+                  "path": "web-sources/v1/79-bilibili-cn/assets/bbea0e03b1da18f17ed658ba10c1082b163ceeec7ac35647bcc588df88d9d26d.png",
+                  "sha256": "bbea0e03b1da18f17ed658ba10c1082b163ceeec7ac35647bcc588df88d9d26d",
+                  "url": "https://i0.hdslb.com/bfs/article/6e61a8b679706ff6963fe36695ec6f1524a812af.png"
+                }
+              ],
+              "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+            }
+          },
+          "to": null
+        }
+      ]
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1721510:b0012:figure",
+      "fields": [
+        {
+          "field": "transcription",
+          "from": "例5\n手牌从左至右：4m 5m 6m 7m 4p 5p 7p 9p 3s 6s 6s 8s 8s\n手牌右侧「摸入」标签后的牌：7s",
+          "to": "手牌左侧：例5\n手牌从左至右：4m 5m 6m 7m 4p 5p 7p 9p 3s 4s 4s 8s 8s\n手牌右侧「摸入」标签后的牌：5s"
+        },
+        {
+          "field": "caption",
+          "from": "例5：13张手牌及摸入的7s。",
+          "to": "例5：13张手牌及摸入的5s。"
+        },
+        {
+          "field": "sourceNotes",
+          "from": [
+            "原图与放大图为同一图像，仅记录一次。",
+            "所有牌均直立，无赤牌；牌顶金色边线及灰色阴影属于牌图外观。"
+          ],
+          "to": [
+            "附件5与附件6为同一原图及其放大视图，仅计一次。",
+            "所有牌均正向放置，无横置牌或赤牌；摸入的5s中央的红色竹节是普通牌面图案。"
+          ]
+        },
+        {
+          "field": "provenance",
+          "from": {
+            "method": "model-transcription",
+            "callId": "60d5152a-b2c7-4deb-a3ee-d57f8797d77d",
+            "outputSourceBlockId": "79-bilibili-cn:cv1721510:b0012"
+          },
+          "to": {
+            "method": "model-transcription",
+            "callId": "03ab4b7c-0e68-4e01-857a-c500a7c59a0f",
+            "outputSourceBlockId": "79-bilibili-cn:cv1721510:b0012"
+          }
+        },
+        {
+          "field": "presentationAsset",
+          "from": {
+            "path": "web-production/v1/presentations/79-bilibili-cn/cv1721510/afe5bb2c19e6add3/figure-0005.png",
+            "sha256": "82d398089046c5cb4f83f99ea4f129811a025c544b32768402af2722c21905da",
+            "width": 480,
+            "height": 68,
+            "derivation": {
+              "kind": "single-source-image-rgba-to-png",
+              "alignment": "original-size",
+              "sourceAssetBindings": [
+                {
+                  "assetId": "79-bilibili-cn:13060ca371002f1da4d9591f",
+                  "path": "web-sources/v1/79-bilibili-cn/assets/f7dd828d85b75d7bce57068055dd85cb2b1f82f7b30841e43866d1fd3a8cd5b3.png",
+                  "sha256": "f7dd828d85b75d7bce57068055dd85cb2b1f82f7b30841e43866d1fd3a8cd5b3",
+                  "url": "https://i0.hdslb.com/bfs/article/3c4330075c1fdd300ed81b1ea9b8a7b3d846b379.png"
+                }
+              ],
+              "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+            }
+          },
+          "to": null
+        }
+      ]
+    }
+  ],
+  "presentationNote": "Existing runner removes derived presentationAsset references on all six figures; source bindings and non-target semantic figure objects remain identical. Source and previous presentation files are retained.",
+  "slotAcquired": {
+    "at": "2026-10-27T14:23:07.181478+00:00",
+    "slot": {
+      "ok": true,
+      "action": "acquire",
+      "slot": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-A.json",
+      "record": {
+        "schema": "coach-textbook-maker-slot/1",
+        "slot": "maker-A",
+        "lane": "A",
+        "owner": "COAC-248 Mika",
+        "pid": null,
+        "claimedAt": "2026-10-27T14:23:07.101Z",
+        "heartbeatAt": "2026-10-27T14:23:07.101Z",
+        "ttlMinutes": 20
+      }
+    },
+    "chapter": {
+      "ok": true,
+      "action": "check-chapter",
+      "chapter": "79-cn-chapter-090-6",
+      "held": true,
+      "bySelf": true,
+      "record": {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "79-cn-chapter-090-6",
+        "candidateSha256": "4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f",
+        "lane": "A",
+        "owner": "COAC-248 Mika",
+        "slot": null,
+        "claimedAt": "2026-10-27T14:23:07.020Z"
+      }
+    },
+    "stopFiles": {
+      "STOP": false,
+      "web-production/v1/STOP": false,
+      "model-admission-stop.json": false
+    },
+    "argv": [
+      "E:/IDE/NodeJS/node.exe",
+      "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac248-web-090-6-r1-20261027\\frozen-runner\\textbook-production-web.mjs",
+      "--source",
+      "web-sources/v1/79-bilibili-cn/articles/cv1721510/source.json",
+      "--revision-from",
+      "web-production/v1/candidates/79-bilibili-cn/cv1721510.display.json",
+      "--revision-notes",
+      "audit/web/articles/79-bilibili-cn/cv1721510.4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f.retry-1792942848957-13e1430c.json",
+      "--reuse",
+      "web-production/v1/reuse-maps/feba91e5e2cc3c289812d93d9a9e557201e0f1bf30edded28d5704384bad6f58.json",
+      "--variant",
+      "r1",
+      "--stop-file",
+      "STOP",
+      "--timeout-ms",
+      "900000"
+    ]
+  },
+  "slotReleased": {
+    "at": "2026-10-27T14:24:42.633738+00:00",
+    "release": {
+      "ok": true,
+      "action": "release",
+      "slot": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-A.json",
+      "released": "maker-A"
+    }
+  },
+  "reviewStatus": "awaiting-independent-COAC-249-full-article-review",
+  "semanticAcceptance": null
+}

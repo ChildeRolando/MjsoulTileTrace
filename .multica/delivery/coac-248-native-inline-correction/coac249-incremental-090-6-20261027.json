@@ -1,0 +1,55 @@
+{
+  "schema": "coac248-incremental-independent-review-handoff/1",
+  "recordedAt": "2026-10-27T14:24:56.394Z",
+  "from": "COAC-248",
+  "to": "COAC-249",
+  "auditConfig": {
+    "path": "audit/explicit-targets-coac248-090-6-rev1-20261027.json",
+    "sha256": "7bc61feb030942e5dd3103630c133de10f0e61a3b1d991770b0d8688ddec0753"
+  },
+  "targets": [
+    {
+      "kind": "complete-web-candidate",
+      "chapterId": "79-cn-chapter-090-6",
+      "articleId": "cv1721510",
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1721510.r1.json",
+      "sourceId": "79-bilibili-cn",
+      "sourceSha256": "43ad9dcee6d721ee0f47866cac6f98d311a59f96cdd1b10a0a70ede0c3dbd2fe",
+      "sha256": "82d7550d6035c51c3874d7fa9faa923978834fc5d5527bdf028770270ff2110c",
+      "parentSha256": "4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f",
+      "parentAuditSha256": "341cb06d35830aeff64c7c620ba71742c959d910d03b2d6d0e2d5037fe96d5db",
+      "category": "coac248-line-a-targeted-figure-revision",
+      "targets": [
+        "79-bilibili-cn:cv1721510:b0004:figure",
+        "79-bilibili-cn:cv1721510:b0008:figure",
+        "79-bilibili-cn:cv1721510:b0012:figure"
+      ]
+    }
+  ],
+  "parent": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1721510.display.json",
+    "sha256": "4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f",
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1721510.4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f.retry-1792942848957-13e1430c.json",
+    "auditSha256": "341cb06d35830aeff64c7c620ba71742c959d910d03b2d6d0e2d5037fe96d5db"
+  },
+  "productionEvidence": {
+    "path": "web-production/v1/runs/coac248-web-090-6-r1-20261027/production-evidence.json",
+    "sha256": "d896cf5fc8cd222b917ee2ef85ed0ee2f3c2d501a064f291b31f2fd36a80789c"
+  },
+  "sourcePrecheck": {
+    "path": "web-production/v1/runs/coac248-web-090-6-r1-20261027/preflight.json",
+    "sha256": "94f99057dd8b7e7ac57e1bb02763c5319247b0b9e3652f1069629cab632a9ad5"
+  },
+  "limits": {
+    "firstIndependentFullArticleReview": 1,
+    "retries": 0,
+    "failedAndVoidConsumeBudget": true
+  },
+  "instructions": "核源SHA、候选SHA、父审、真实制作raw/usage和冻结依赖；按完整原文原图逐章独审。父审是定位信息，不是答案。不自审、不重复任何终态同SHA；failed/void也占1次额度，失败即停。passed后交250，needs-repair反馈248。p217/p257本阶段不派。",
+  "excluded": [
+    "081-8 already passed",
+    "p217/p257 deferred by owner",
+    "B-line claims"
+  ],
+  "semanticAcceptance": null
+}

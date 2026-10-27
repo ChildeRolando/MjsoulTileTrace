@@ -1,0 +1,2 @@
+# Preserve the exact file SHA recorded in production handoffs.
+candidates/*.json -text

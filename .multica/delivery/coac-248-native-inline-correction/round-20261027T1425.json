@@ -1,0 +1,93 @@
+{
+ "schema": "coac-248-round-record/1",
+ "recordedAt": "2026-10-27T14:27:16.597099+00:00",
+ "trigger": "Assigned recovery run 01a17dba-a795-7ba2-8e30-dbb4424d823e; owner current description 2026-10-27T14:19Z overrides joined old 090/p257 triggers.",
+ "scope": [
+  "79-cn-chapter-090-6"
+ ],
+ "result": "produced-and-handed-to-independent-COAC-249-review; not passed",
+ "object": {
+  "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1721510.display.json",
+  "parentSha256": "4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f",
+  "parentAuditPath": "audit/web/articles/79-bilibili-cn/cv1721510.4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f.retry-1792942848957-13e1430c.json",
+  "parentAuditSha256": "341cb06d35830aeff64c7c620ba71742c959d910d03b2d6d0e2d5037fe96d5db",
+  "sourceSha256": "43ad9dcee6d721ee0f47866cac6f98d311a59f96cdd1b10a0a70ede0c3dbd2fe",
+  "targets": [
+   "79-bilibili-cn:cv1721510:b0004:figure",
+   "79-bilibili-cn:cv1721510:b0008:figure",
+   "79-bilibili-cn:cv1721510:b0012:figure"
+  ],
+  "productionCallId": "03ab4b7c-0e68-4e01-857a-c500a7c59a0f",
+  "productionUsage": {
+   "inputTokens": 18554,
+   "cachedInputTokens": 0,
+   "outputTokens": 975
+  },
+  "evidence": "receipt-web090-6.rev1-awaiting-review.json",
+  "handoff249": "integration/coac249-incremental-090-6-20261027.json",
+  "wakeup249": "01a17dc0-8bbe-7249-88cf-6ff847bf7000",
+  "modelCalls": {
+   "production": 1,
+   "audit": 0,
+   "void": 0,
+   "failed": 0
+  },
+  "independentAuditBudgetRemaining": 1,
+  "retryBudget": 0,
+  "changed": "例1两处6s→4s；例3末四张3s 6s 7s 9s→3s 4s 5s 6s；例5两处6s→4s、摸入7s→5s。目标caption/sourceNotes变化完整保留；正文与其余三图教学内容不变。",
+  "semanticAcceptance": null
+ },
+ "candidate": {
+  "path": "web-production/v1/candidates/79-bilibili-cn/cv1721510.r1.json",
+  "sha256": "82d7550d6035c51c3874d7fa9faa923978834fc5d5527bdf028770270ff2110c"
+ },
+ "zeroCallChecks": {
+  "sourcePrecheck": "source-check-web090-6-20261027.json",
+  "sourceCandidateParentBindings": true,
+  "revisionScope": true,
+  "productionRawBinding": true,
+  "bodyUnchanged": true,
+  "nonTargetSemanticFiguresUnchanged": 3,
+  "derivedPresentationReferencesRemovedByExistingRunner": 6,
+  "explicitTargetSelection": {
+   "selected": 1,
+   "terminalSkips": 0,
+   "pendingBefore": 1,
+   "modelCalls": 0
+  }
+ },
+ "modelCalls": {
+  "production": 1,
+  "audit": 0,
+  "void": 0,
+  "failed": 0
+ },
+ "usage": {
+  "inputTokens": 18554,
+  "cachedInputTokens": 0,
+  "outputTokens": 975
+ },
+ "slot": {
+  "acquiredAt": "2026-10-27T14:23:07.101Z",
+  "releasedAt": "2026-10-27T14:24:42.633738+00:00",
+  "releaseConfirmed": true
+ },
+ "policy": {
+  "reviewer": "COAC-249",
+  "firstIndependentAuditBudget": 1,
+  "retry": 0,
+  "p217p257": "deferred, evidence/unknown retained, no calls",
+  "BLineUntouched": true,
+  "old0818": "already passed; no reproduction",
+  "qualityOrAdmissionGateChanged": false,
+  "next248WakeupCreated": false,
+  "reason": "Latest owner explicitly asks to exit this finite chapter boundary before deciding next batch."
+ },
+ "delivery": {
+  "handoff": "integration/coac249-incremental-090-6-20261027.json",
+  "wakeup249": "01a17dc0-8bbe-7249-88cf-6ff847bf7000",
+  "productCodeChanged": false,
+  "pullRequestRequired": false
+ },
+ "bookCounts": "Unified list counts are recomputed only from stored objects; denominator and old failures are historical, not a fresh full-book remainder claim."
+}
