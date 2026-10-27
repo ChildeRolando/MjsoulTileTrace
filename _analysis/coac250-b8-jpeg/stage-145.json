@@ -1,0 +1,118 @@
+{
+  "schema": "coach-textbook-web-stage/1",
+  "status": "independently-audited-chapter-preview",
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1744266.coac269rev1.json",
+  "candidateSha256": "07a511d4efb0dc246763ba7d2b114ac7203ab9b7109f7fcc12cfe4302751d284",
+  "sourceSha256": "baf759cb6de68be0a0f5cd66957aae705ee59bb8350ef8530138e714b484e1b4",
+  "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1744266.07a511d4efb0dc246763ba7d2b114ac7203ab9b7109f7fcc12cfe4302751d284.transport-recovery.json",
+  "auditStatus": "passed-after-transport-recovery",
+  "transportRecovery": {
+    "originalAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1744266.07a511d4efb0dc246763ba7d2b114ac7203ab9b7109f7fcc12cfe4302751d284.json",
+      "sha256": "b5dd725ab0946c81604a12d0816101f066564e4cf86cf34aabfd8e24353b74fe"
+    },
+    "originalCall": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\173e0c99-d6f8-430f-855c-add4848d7543.json",
+      "sha256": "bb84ae1dc046435d811656019915563d7dfe57c463230b8b5ecef9064531ab77",
+      "callId": "173e0c99-d6f8-430f-855c-add4848d7543"
+    },
+    "reason": "Known TLS/WebSocket fallback diagnostics preceded a completed valid turn. Original failed classification and call remain unchanged.",
+    "verifier": {
+      "path": "audit/web/auditors/37e1be6ba9eaa3cab379ff621f0e4a737e9f0cc92c36a2448d9db2c242f4fe17.json",
+      "sha256": "cc22ef78d8bc532ece4d5b23e0449d46ff7d4fe28eb05511fc205d95db10fde2",
+      "combinedSha256": "37e1be6ba9eaa3cab379ff621f0e4a737e9f0cc92c36a2448d9db2c242f4fe17"
+    }
+  },
+  "imageDerivations": [
+    {
+      "path": "assets/79-bilibili-cn-cv1744266-b5.png",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/assets/f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3.jpg",
+      "originalCopy": "source-assets/f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3.jpg",
+      "sourceMimeType": "image/jpeg",
+      "sourceSha256": "f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3",
+      "width": 431,
+      "height": 51,
+      "decodedRgbaSha256": "aa5c44048d52835b55ff52ea80c05cce3834a0712ced1ee1972a8f1a7b5d4be0",
+      "derived": true,
+      "derivedMimeType": "image/png",
+      "derivedSha256": "62aa741c0a05c367f3a47c73efa96f15a3687d799a3edbbb43403fb2e32646e7",
+      "derivedRgbaSha256": "aa5c44048d52835b55ff52ea80c05cce3834a0712ced1ee1972a8f1a7b5d4be0",
+      "pixelExact": true,
+      "method": "single-source-jpeg-lossless-decoded-rgba-to-png"
+    },
+    {
+      "path": "assets/79-bilibili-cn-cv1744266-b7.png",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/assets/48907782fa469940489d5cfa18c8d5695ca91adee9e72b683f4c8ddd636b89c0.jpg",
+      "originalCopy": "source-assets/48907782fa469940489d5cfa18c8d5695ca91adee9e72b683f4c8ddd636b89c0.jpg",
+      "sourceMimeType": "image/jpeg",
+      "sourceSha256": "48907782fa469940489d5cfa18c8d5695ca91adee9e72b683f4c8ddd636b89c0",
+      "width": 543,
+      "height": 58,
+      "decodedRgbaSha256": "c5159bfa34b86b5275f23251e5a37033b4aa0929fff6746d6fc6267ac7d84044",
+      "derived": true,
+      "derivedMimeType": "image/png",
+      "derivedSha256": "e3587f7cd051ba9dc797216bd78004ad3e1e1188a4b9366629250867233c2e25",
+      "derivedRgbaSha256": "c5159bfa34b86b5275f23251e5a37033b4aa0929fff6746d6fc6267ac7d84044",
+      "pixelExact": true,
+      "method": "single-source-jpeg-lossless-decoded-rgba-to-png"
+    },
+    {
+      "path": "assets/79-bilibili-cn-cv1744266-b9.png",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/assets/9f5138f4b4bf41ac47f68edeea5b1713855b625f7784fa8e4b0b9cc2af9795c2.jpg",
+      "originalCopy": "source-assets/9f5138f4b4bf41ac47f68edeea5b1713855b625f7784fa8e4b0b9cc2af9795c2.jpg",
+      "sourceMimeType": "image/jpeg",
+      "sourceSha256": "9f5138f4b4bf41ac47f68edeea5b1713855b625f7784fa8e4b0b9cc2af9795c2",
+      "width": 432,
+      "height": 51,
+      "decodedRgbaSha256": "68fc2f480a78931ea3991ed73fc89cd5b12f1e2304186d8d173dcf1d9c4b6295",
+      "derived": true,
+      "derivedMimeType": "image/png",
+      "derivedSha256": "80671b538b6c656cce57eac389d6d26138c6b83b2f1dabdd6dc6cc69ab9e06ff",
+      "derivedRgbaSha256": "68fc2f480a78931ea3991ed73fc89cd5b12f1e2304186d8d173dcf1d9c4b6295",
+      "pixelExact": true,
+      "method": "single-source-jpeg-lossless-decoded-rgba-to-png"
+    },
+    {
+      "path": "assets/79-bilibili-cn-cv1744266-b11.png",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/assets/401ab8c53acc31ee16f70a225881fce8e9810ca0c7e90c7fc5ef552e01f03d47.jpg",
+      "originalCopy": "source-assets/401ab8c53acc31ee16f70a225881fce8e9810ca0c7e90c7fc5ef552e01f03d47.jpg",
+      "sourceMimeType": "image/jpeg",
+      "sourceSha256": "401ab8c53acc31ee16f70a225881fce8e9810ca0c7e90c7fc5ef552e01f03d47",
+      "width": 430,
+      "height": 55,
+      "decodedRgbaSha256": "0214a990126a36233a03b0dcedf704cd3c582fe0ee1da760d50c4a281701a36f",
+      "derived": true,
+      "derivedMimeType": "image/png",
+      "derivedSha256": "327e664d523c606bf918069a774f6fec052f2807a7fab70519579490aad9505c",
+      "derivedRgbaSha256": "0214a990126a36233a03b0dcedf704cd3c582fe0ee1da760d50c4a281701a36f",
+      "pixelExact": true,
+      "method": "single-source-jpeg-lossless-decoded-rgba-to-png"
+    },
+    {
+      "path": "assets/79-bilibili-cn-cv1744266-b13.png",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/assets/f36dfeaec69007b73761681e0b3181c3e850248b99b575e1400293efb674b249.jpg",
+      "originalCopy": "source-assets/f36dfeaec69007b73761681e0b3181c3e850248b99b575e1400293efb674b249.jpg",
+      "sourceMimeType": "image/jpeg",
+      "sourceSha256": "f36dfeaec69007b73761681e0b3181c3e850248b99b575e1400293efb674b249",
+      "width": 387,
+      "height": 143,
+      "decodedRgbaSha256": "28b7ef2cd372ed498aed9e8fa13ee1cba39b94e3a8e60da71f8aa1ff57216956",
+      "derived": true,
+      "derivedMimeType": "image/png",
+      "derivedSha256": "ee7426075f88502a5081cae9f460ed4618e57129cd0b471eb40945a2c781729a",
+      "derivedRgbaSha256": "28b7ef2cd372ed498aed9e8fa13ee1cba39b94e3a8e60da71f8aa1ff57216956",
+      "pixelExact": true,
+      "method": "single-source-jpeg-lossless-decoded-rgba-to-png"
+    }
+  ],
+  "chapters": 1,
+  "units": 1,
+  "blocks": 14,
+  "figures": 5,
+  "corpusId": "b2bd00605e5fd1c2068980f42311473c120cf6300f48c521827c8d34712a6f33",
+  "bodySha256": "8468cfaab808761e7193e9b6df8aec007c983b79e243fd2ab87ddd0552e3ab91",
+  "maxUnitBytes": 11194,
+  "modelCalls": 0,
+  "activeLibraryChanged": false,
+  "humanReview": "pending"
+}

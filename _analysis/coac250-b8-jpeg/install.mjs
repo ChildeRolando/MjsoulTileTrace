@@ -1,0 +1,41 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile,copyFile,mkdir} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+const repo='E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach',dir='_analysis/coac250-b8-jpeg';
+const sha=b=>createHash('sha256').update(b).digest('hex');
+await mkdir(dir,{recursive:true});
+const path=repo+'/scripts/textbook-processing/stage-web-textbook.mjs',beforeRaw=await readFile(path,'utf8'),before=beforeRaw.replace(/\r\n/g,'\n');
+await writeFile(dir+'/stage-web-textbook.before.mjs',beforeRaw);
+let text=before.replace("import {createHash} from 'node:crypto';",`import {createHash} from 'node:crypto';
+import {spawn} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+// A display conversion only: independent semantic/source/candidate gates above remain mandatory.
+export async function decodeWebStageImage(path,asset,sourceAsset){
+ if(sourceAsset&&sourceAsset.sha256!==asset.sha256)throw Error('web_stage_image_source_binding');
+ return new Promise((done,reject)=>{
+  const child=spawn('python',[fileURLToPath(new URL('./stage-web-image.py',import.meta.url))],{shell:false,windowsHide:true,env:{...process.env,PYTHONIOENCODING:'utf-8'},stdio:['pipe','pipe','pipe']}),out=[],err=[];
+  child.stdout.on('data',b=>out.push(b));child.stderr.on('data',b=>err.push(b));child.once('error',reject);
+  child.once('close',code=>{if(code)return reject(Error('web_stage_image_decode:'+Buffer.concat(err).toString()));try{done(JSON.parse(Buffer.concat(out).toString()));}catch(e){reject(e);}});
+  child.stdin.end(JSON.stringify({path,sha256:asset.sha256,contentType:sourceAsset?.contentType??asset.contentType??asset.mimeType}));
+ });
+}`);
+const from="const imagePath=await contained(processingRoot,asset.path),image=await readFile(imagePath);if(sha(image)!==asset.sha256||!image.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])))throw Error('web_stage_image_identity');\n   const id=`${sourceId}-b${rawBlocks.length+1}`,src=`assets/${id}.png`;images.push({from:imagePath,to:src});";
+const to=`const imagePath=await contained(processingRoot,asset.path),image=await readFile(imagePath);if(sha(image)!==asset.sha256)throw Error('web_stage_image_identity');
+   const sourceAsset=source.assets?.find(a=>a.assetId===asset.assetId&&asset.assetId);
+   const decoded=await decodeWebStageImage(imagePath,asset,sourceAsset);
+   const id=\x60\x24{sourceId}-b\x24{rawBlocks.length+1}\x60,src=\x60assets/\x24{id}.png\x60;
+   const {pngBase64,...imageDecode}=decoded;
+   images.push({from:imagePath,to:src,...(decoded.derived?{bytes:Buffer.from(pngBase64,'base64'),original:asset.path,originalCopy:'source-assets/'+asset.sha256+'.jpg',imageDecode}: {})});`;
+assert.equal(text.split(from).length,2,'one PNG-only anchor');text=text.replace(from,to);
+text=text.replace("...(presentationAsset?{imageProvenance:","...(decoded.derived?{imageDecode:{...imageDecode,sourcePath:asset.path,originalCopy:'source-assets/'+asset.sha256+'.jpg'},imageProvenance:{kind:'derived-source-assets',method:decoded.method,sourceAssetSha256s:[asset.sha256]}}:presentationAsset?{imageProvenance:");
+const copy="for(const image of images)await copyFile(image.from,join(destination,image.to));";
+assert.equal(text.split(copy).length,2);text=text.replace(copy,`for(const image of images){if(image.bytes){await mkdir(join(destination,'source-assets'),{recursive:true});await writeFile(join(destination,image.to),image.bytes);await copyFile(image.from,join(destination,image.originalCopy));}else await copyFile(image.from,join(destination,image.to));}`);
+text=text.replace("...build,modelCalls:0,activeLibraryChanged:false,humanReview:'pending'","imageDerivations:images.filter(i=>i.imageDecode).map(i=>({path:i.to,sourcePath:i.original,originalCopy:i.originalCopy,...i.imageDecode})),...build,modelCalls:0,activeLibraryChanged:false,humanReview:'pending'");
+assert.notEqual(text,before);await writeFile(path,text);await writeFile(dir+'/stage-web-textbook.after.mjs',text);
+await copyFile(dir+'/stage-web-image.py',repo+'/scripts/textbook-processing/stage-web-image.py');
+const owner=repo+'/docs/plans/2026-10-24-full-textbook-processing.md',ownerBefore=await readFile(owner,'utf8');
+await writeFile(dir+'/owner.before.md',ownerBefore);
+const note='\nJPEG 来源图的装配兼容：源图真实 MIME、字节 SHA、原候选和审校回执保持不变。现有 corpus/MCP 的 PNG 路径契约继续使用；装配层以现有 Pillow 完整解码单帧 JPEG，生成相同尺寸、逐 RGBA 像素一致的 PNG 展示件。stage 收据单列原 JPEG／PNG／解码像素 SHA 与衍生关系，原 JPEG 随 source-assets 保留；MCP 的 imageProvenance 标为派生件，不称为源 PNG。声明 MIME 与真实格式不符、SHA 不符、损坏或多帧文件拒绝，不豁免语义或独立审核门禁。\n';
+const anchor='## 轻量 MCP 装配';assert.ok(ownerBefore.includes(anchor));const ownerAfter=ownerBefore.replace(anchor,note+'\n'+anchor);await writeFile(owner,ownerAfter);await writeFile(dir+'/owner.after.md',ownerAfter);
+await writeFile(dir+'/install-receipt.json',JSON.stringify({stage:{path,beforeSha256:sha(beforeRaw),afterSha256:sha(text)},workerSha256:sha(await readFile(dir+'/stage-web-image.py')),owner:{path:owner,beforeSha256:sha(ownerBefore),afterSha256:sha(ownerAfter)},modelCalls:0},null,2)+'\n');
+console.log('installed bounded JPEG display compatibility');

@@ -1,0 +1,294 @@
+{
+  "schema": "coac250-incremental-staging-receipt/1",
+  "recordedAt": "2026-10-27T13:41:42.420Z",
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "from_": "COAC-249",
+  "to": "COAC-250",
+  "batchId": "coac249-batch8-269-b8",
+  "batchSize": 2,
+  "batchRule": "Wakeup 01a17d79 instruction 2026-10-27T13:08:58Z: first independent audit of the two COAC-269 b8 figure-revision candidates, one audit per chapter, failed/void counts, no retry loop; hand passes to COAC-250 single-writer ingest.",
+  "note": "Independent first-audit results for COAC-269 line-B batch b8 (79-cn-chapter-128-14, 79-cn-chapter-145-4), both passed. Handoff receipt only: no shared register, pointer, selection, candidate or audit receipt was modified. Acceptance of the incidental caption/sourceNote changes remains the ticket owner's call.",
+  "origin": {
+    "tickets": [
+      "COAC-269"
+    ],
+    "handoffs": [
+      {
+        "path": "web-production/v1/coac269-20261027/handoff/handoff-b8-0e18bc298e9a64b6.json",
+        "sha256": "72af89a06da93bdcb80b4abf6ddcbe9ceeb29d9b70b0eaa5d155f29e91406a71"
+      }
+    ],
+    "explicitTargets": [
+      {
+        "path": "web-production/v1/coac269-20261027/handoff/explicit-targets-b8-0b7c7d8ddbc6b99a.json",
+        "sha256": "2098ab0e4e25d372372f0f1382ea72f935c1a1792f794392deaf2ee00097eef4"
+      }
+    ]
+  },
+  "dedup": "Both candidate SHAs were unseen before this batch: 0 prior receipts and 0 prior results rows each; select-only before dispatch pendingBefore 2 / terminalSkips 0, after dispatch selected 0 / terminalSkips 2.",
+  "transportNote": "Both first-audit calls completed a valid turn (turn.completed, finite usage, full schema review) but were classified failed because the WebSocket->HTTPS fallback diagnostic wording \"workspace routing discovery timed out\" was not among the runtime's exact allowed transport diagnostics. A frozen snapshot web-b8-transport-diag-20261027 adds only that literal (zero-model test: 11 cases, real tool items/other messages/turn.failed still rejected); recovery re-derived both verdicts from the already-recorded raw output with 0 new model calls, keeping the original failed receipts and calls byte-unchanged.",
+  "runtime": {
+    "snapshot": "audit/runtimes/web-b8-transport-diag-20261027",
+    "baseOf": "audit/runtimes/web-target-text-chain-20261027",
+    "manifestSha256": "56287cda5a49ca62a6f688e3c19dbccee2e3e5ddce5cfd9cff3717f78f56de35",
+    "files": 9,
+    "changedFile": {
+      "name": "textbook-production-cli.mjs",
+      "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+    }
+  },
+  "exemption": "none — neither candidate is on the do-not-audit list; 183-1, 090-6, 081-8, 089-1, 060-1 were not audited in this batch.",
+  "chapters": [
+    {
+      "chapterId": "79-cn-chapter-128-14",
+      "articleId": "cv1734739",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1734739/source.json",
+      "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1734739.display.json",
+      "parentAuditPath": "audit/web/articles/79-bilibili-cn/cv1734739.2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec.retry-1792944840664-30f5eb57.json",
+      "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1734739.coac269rev1.json",
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1734739.c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae.transport-recovery.json",
+      "originalFailedAuditPath": "audit/web/articles/79-bilibili-cn/cv1734739.c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae.json",
+      "productionCallId": "21f6e4f9-868e-4bcf-82ad-91d904d95cd6",
+      "productionUsage": {
+        "inputTokens": 16565,
+        "cachedInputTokens": 0,
+        "outputTokens": 267
+      },
+      "auditCallId": "74758209-082b-4b1c-913f-969162d93c9d",
+      "auditUsage": {
+        "inputTokens": 22329,
+        "cachedInputTokens": 0,
+        "outputTokens": 3677
+      },
+      "changed": "单 figure 定点修订：b0013 转录第 2 张 3m → 2m（手牌成为 2m 2m 4m 5m 6m 2p 3p 3p 4p 6p 4s 5s 6s 7s）；其余文本块、flow 与另外 6 张 figure 与父稿逐字节一致。",
+      "independentImageCheck": "独审重读绑定原图 15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855.png（按 6x 放大分区核读）：前两张均为二萬（2m 2m），随后 四萬 五萬 六萬，饼子 2p 3p 3p 4p 6p，索子 4s 5s 6s 7s；右侧「ドラ」标签对应 3p。修正成立。",
+      "incidentalCaptionAndNotes": "目标 figure 内模型自改 caption：例5：手牌与宝牌。 → 例5：手牌与宝牌（丢句号）。非教学语义；但同篇其余 6 条 caption 均保留句号，属排版不一致，建议合库时统一，不构成阻断。",
+      "targetFigureId": "79-bilibili-cn:cv1734739:b0013:figure",
+      "targetBlockIds": [
+        "79-bilibili-cn:cv1734739:b0013"
+      ],
+      "sourceSha256": "962fdd8860f2f756f1bc76054a5ef9ea2a5f82959e36da44aff79c57aee1d5ca",
+      "parentSha256": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec",
+      "parentAuditSha256": "24ebc92c728006d8a4283c3f2bcf46790b4876bb094d6363d05decf8578b1f59",
+      "candidateSha256": "c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae",
+      "auditSha256": "fd888b9931b599d1238a2eb4866baae06971feb1ee32624c1b23fa60093eca49",
+      "originalFailedAuditSha256": "28b577cc9da9717578782c1924fae3cb427750e149f0df7a790ebb80c595a74f",
+      "originalFailedAuditStatus": "failed",
+      "auditStatus": "passed-after-transport-recovery",
+      "auditMethod": "independent-sol-high-full-article-review",
+      "auditModel": "gpt-6.1-sol",
+      "auditReasoningEffort": "high",
+      "auditorSnapshotSha256": "856dad9d46d2d0d47436388e792caa2aac251ad68b4b8d03ff2e1fbd03158881",
+      "dependencyManifestSha256": "56287cda5a49ca62a6f688e3c19dbccee2e3e5ddce5cfd9cff3717f78f56de35",
+      "transportRecovery": {
+        "originalCall": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\74758209-082b-4b1c-913f-969162d93c9d.json",
+          "sha256": "843045050e0513a47a99c6d1e62607634a9162eb8abcd7bfd3c894c0a489af30",
+          "callId": "74758209-082b-4b1c-913f-969162d93c9d"
+        },
+        "reason": "Known TLS/WebSocket fallback diagnostics preceded a completed valid turn. Original failed classification and call remain unchanged.",
+        "originalTransportCompleted": true,
+        "diagnosticItems": [
+          "Falling back from WebSockets to HTTPS transport. workspace routing discovery timed out"
+        ]
+      },
+      "auditModelCalls": 1,
+      "reauditModelCalls": 0,
+      "figureChecks": 7,
+      "blockChecks": 18,
+      "imageChecks": 7,
+      "targetVerdict": {
+        "blockChecks": [
+          {
+            "id": "79-bilibili-cn:cv1734739:b0013",
+            "verdict": "faithful",
+            "evidence": "例5手牌及宝牌与本次所附原图、放大图逐牌相符，例号和教学标签完整。"
+          }
+        ],
+        "figure": {
+          "id": "79-bilibili-cn:cv1734739:b0013:figure",
+          "verdict": "faithful",
+          "evidence": "独立视觉核对所附原图及放大图：左侧为例5，手牌依次2m 2m 4m 5m 6m 2p 3p 3p 4p 6p 4s 5s 6s 7s，共14张，均直置，无赤牌；右侧“ドラ”译为宝牌，对应3p。转录完整准确，两张3p与正文宝牌2一致。"
+        }
+      },
+      "effectiveIssues": [],
+      "semanticCompleteness": {
+        "complete": true,
+        "evidence": "全部18个正文块、7个figure及7次图片出现均已审阅。中文正文、原文地址、译者署名、数字、判断条件、论证及两处绿色强调完整保留；例1至例7的牌序、宝牌及例3副露完整表示。例5经本次附图独立视觉核对，其余六图按提供的已核原图复用证据逐次核对。源数据无表格。"
+      },
+      "modelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "preflight": {
+        "file": "preflight-cv1734739.json",
+        "checks": {
+          "candidateShaMatches": true,
+          "sourceShaMatches": true,
+          "sourceFileBytesMatch": true,
+          "parentBytesMatch": true,
+          "parentAuditBytesMatch": true,
+          "parentShaMatches": true,
+          "parentNotesShaMatches": true,
+          "parentStatus": "needs-repair",
+          "parentCompleteArticleCompared": true,
+          "parentDomOrderFaithful": true,
+          "parentNonSourceNoteIssues": 1,
+          "parentIssueScopeIsTargetOnly": true,
+          "dedupPriorReceipts": 0,
+          "dedupResultRows": [],
+          "bodyIdentical": true,
+          "figureOrderSame": true,
+          "nonTargetFiguresIdentical": true,
+          "targetFigureFieldsChanged": [
+            "79-bilibili-cn:cv1734739:b0013:figure:transcription,caption,provenance"
+          ],
+          "targetFigureAssetAttached": true,
+          "attachedOriginalAssets": [
+            "79-bilibili-cn:5c7f558c5e4fb6d5c22d9fdb"
+          ],
+          "manifestVerified": true
+        },
+        "productionError": null,
+        "manifestSha256": "0aa071a4b6ad74acdf4dceb6538438f88b5c8278800ea21acf0687b0aa0cd789"
+      },
+      "batch": "b8",
+      "handoffPath": "web-production/v1/coac269-20261027/handoff/handoff-b8-0e18bc298e9a64b6.json",
+      "handoffSha256": "72af89a06da93bdcb80b4abf6ddcbe9ceeb29d9b70b0eaa5d155f29e91406a71",
+      "explicitTargetsConfig": {
+        "path": "web-production/v1/coac269-20261027/handoff/explicit-targets-b8-0b7c7d8ddbc6b99a.json",
+        "sha256": "2098ab0e4e25d372372f0f1382ea72f935c1a1792f794392deaf2ee00097eef4"
+      },
+      "attestation": {
+        "file": "attestation-cv1734739-c14911aa.json",
+        "sha256": "2b0ed03cae13a113f621d2c0be568deb9de760c6ca249a9c4b78d53a93a414c0"
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-145-4",
+      "articleId": "cv1744266",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1744266/source.json",
+      "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1744266.display.json",
+      "parentAuditPath": "audit/web/articles/79-bilibili-cn/cv1744266.7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a.retry-1792948017171-19a0c0ed.json",
+      "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1744266.coac269rev1.json",
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1744266.07a511d4efb0dc246763ba7d2b114ac7203ab9b7109f7fcc12cfe4302751d284.transport-recovery.json",
+      "originalFailedAuditPath": "audit/web/articles/79-bilibili-cn/cv1744266.07a511d4efb0dc246763ba7d2b114ac7203ab9b7109f7fcc12cfe4302751d284.json",
+      "productionCallId": "c1a7d02f-b322-48df-96f9-a80a1ea8a8cf",
+      "productionUsage": {
+        "inputTokens": 15670,
+        "cachedInputTokens": 0,
+        "outputTokens": 515
+      },
+      "auditCallId": "173e0c99-d6f8-430f-855c-add4848d7543",
+      "auditUsage": {
+        "inputTokens": 20592,
+        "cachedInputTokens": 0,
+        "outputTokens": 2603
+      },
+      "changed": "单 figure 定点修订：b0005 转录第 12 张 2z（南）→ 1z（東），第 13 张 7z（中）不变（2m 6m 2p 2p 4p 7p 5s 5s 5s 8s 9s 1z 7z）；其余文本块、flow 与另外 4 张 figure 与父稿逐字节一致。",
+      "independentImageCheck": "独审重读绑定原图 f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3.jpg（431×51，按 8x 放大分区核读）：第 12 张为東（1z），第 13 张为中（7z），右侧「ツモ」为 5s。修正成立。",
+      "incidentalCaptionAndNotes": "目标 figure 内模型自改 caption：例1：手牌与摸入的5s。 → 例1：手牌及右侧摸入的5s。（丢句号并加「右侧」）。与图一致（13 张手牌右侧另置摸入的 5s），且与正文「上面这样的手牌」语境相符，属更精确表述；同时父稿 sourceNote「原图与近邻放大图为同一图像，仅计一次。」未被重现。该 note 是重复图像计数说明，候选的 sourceAssetBindings/发生率与父稿逐字节相同，计数事实未变；丢失属来源注记的降级，不影响教学语义与图文一致，建议作为合库备注保留，不构成阻断。",
+      "targetFigureId": "79-bilibili-cn:cv1744266:b0005:figure",
+      "targetBlockIds": [
+        "79-bilibili-cn:cv1744266:b0005"
+      ],
+      "sourceSha256": "baf759cb6de68be0a0f5cd66957aae705ee59bb8350ef8530138e714b484e1b4",
+      "parentSha256": "7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a",
+      "parentAuditSha256": "b349c80320f24c247e9e3b33f6b0e6dc3aba1970401340656e6b7fd91fc6103d",
+      "candidateSha256": "07a511d4efb0dc246763ba7d2b114ac7203ab9b7109f7fcc12cfe4302751d284",
+      "auditSha256": "d3d2fe4bbf563afaeeadf5e5ad963b21143e228aa3f9cfcea54d33e9f7824b4d",
+      "originalFailedAuditSha256": "b5dd725ab0946c81604a12d0816101f066564e4cf86cf34aabfd8e24353b74fe",
+      "originalFailedAuditStatus": "failed",
+      "auditStatus": "passed-after-transport-recovery",
+      "auditMethod": "independent-sol-high-full-article-review",
+      "auditModel": "gpt-6.1-sol",
+      "auditReasoningEffort": "high",
+      "auditorSnapshotSha256": "856dad9d46d2d0d47436388e792caa2aac251ad68b4b8d03ff2e1fbd03158881",
+      "dependencyManifestSha256": "56287cda5a49ca62a6f688e3c19dbccee2e3e5ddce5cfd9cff3717f78f56de35",
+      "transportRecovery": {
+        "originalCall": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\173e0c99-d6f8-430f-855c-add4848d7543.json",
+          "sha256": "bb84ae1dc046435d811656019915563d7dfe57c463230b8b5ecef9064531ab77",
+          "callId": "173e0c99-d6f8-430f-855c-add4848d7543"
+        },
+        "reason": "Known TLS/WebSocket fallback diagnostics preceded a completed valid turn. Original failed classification and call remain unchanged.",
+        "originalTransportCompleted": true,
+        "diagnosticItems": [
+          "Falling back from WebSockets to HTTPS transport. workspace routing discovery timed out"
+        ]
+      },
+      "auditModelCalls": 1,
+      "reauditModelCalls": 0,
+      "figureChecks": 5,
+      "blockChecks": 14,
+      "imageChecks": 5,
+      "targetVerdict": {
+        "blockChecks": [
+          {
+            "id": "79-bilibili-cn:cv1744266:b0005",
+            "verdict": "faithful",
+            "evidence": "例1图的13张手牌、右侧摸入5索及例号均完整转录。"
+          }
+        ],
+        "figure": {
+          "id": "79-bilibili-cn:cv1744266:b0005:figure",
+          "verdict": "faithful",
+          "evidence": "附图可见例1；手牌依次为2m 6m 2p 2p 4p 7p 5s 5s 5s 8s 9s 1z 7z，右侧为5s，与转录一致。“ツモ”完整译为“摸入”。"
+        }
+      },
+      "effectiveIssues": [],
+      "semanticCompleteness": {
+        "complete": true,
+        "evidence": "全部14个正文块及5次图片出现均已核对。中文正文、原文地址、译者署名、六节论述、条件与例外、数字和公式、原有强调，以及图中牌序、例号与摸牌标记均完整保留；源无表格。"
+      },
+      "modelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "preflight": {
+        "file": "preflight-cv1744266.json",
+        "checks": {
+          "candidateShaMatches": true,
+          "sourceShaMatches": true,
+          "sourceFileBytesMatch": true,
+          "parentBytesMatch": true,
+          "parentAuditBytesMatch": true,
+          "parentShaMatches": true,
+          "parentNotesShaMatches": true,
+          "parentStatus": "needs-repair",
+          "parentCompleteArticleCompared": true,
+          "parentDomOrderFaithful": true,
+          "parentNonSourceNoteIssues": 1,
+          "parentIssueScopeIsTargetOnly": true,
+          "dedupPriorReceipts": 0,
+          "dedupResultRows": [],
+          "bodyIdentical": true,
+          "figureOrderSame": true,
+          "nonTargetFiguresIdentical": true,
+          "targetFigureFieldsChanged": [
+            "79-bilibili-cn:cv1744266:b0005:figure:transcription,caption,sourceNotes,provenance"
+          ],
+          "targetFigureAssetAttached": true,
+          "attachedOriginalAssets": [
+            "79-bilibili-cn:fbec021f4caea2d000f1efc1"
+          ],
+          "manifestVerified": true
+        },
+        "productionError": null,
+        "manifestSha256": "0aa071a4b6ad74acdf4dceb6538438f88b5c8278800ea21acf0687b0aa0cd789"
+      },
+      "batch": "b8",
+      "handoffPath": "web-production/v1/coac269-20261027/handoff/handoff-b8-0e18bc298e9a64b6.json",
+      "handoffSha256": "72af89a06da93bdcb80b4abf6ddcbe9ceeb29d9b70b0eaa5d155f29e91406a71",
+      "explicitTargetsConfig": {
+        "path": "web-production/v1/coac269-20261027/handoff/explicit-targets-b8-0b7c7d8ddbc6b99a.json",
+        "sha256": "2098ab0e4e25d372372f0f1382ea72f935c1a1792f794392deaf2ee00097eef4"
+      },
+      "attestation": {
+        "file": "attestation-cv1744266-07a511d4.json",
+        "sha256": "bbf3fc69be83090359907f9e9d7840bbbfa8b0d8e316d98ae1c11510194c101b"
+      }
+    }
+  ]
+}

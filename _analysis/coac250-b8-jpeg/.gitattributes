@@ -1,0 +1,5 @@
+* -text whitespace=cr-at-eol
+# Unified patches contain significant context-line spaces.
+*.patch -whitespace
+*.log whitespace=cr-at-eol,-blank-at-eof
+stage-web-textbook.*.mjs whitespace=cr-at-eol,-blank-at-eof

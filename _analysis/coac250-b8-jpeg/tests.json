@@ -1,0 +1,69 @@
+{
+  "recordedAt": "2026-10-27T14:58:03.370Z",
+  "checks": [
+    {
+      "name": "compatibility",
+      "command": [
+        "E:\\IDE\\NodeJS\\node.exe",
+        "--test",
+        "_analysis/coac250-b8-jpeg/compatibility.test.mjs"
+      ],
+      "cwd": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-250-48e7983e5601\\worktree",
+      "exitCode": 0,
+      "log": "compatibility.log"
+    },
+    {
+      "name": "stage-regressions",
+      "command": [
+        "E:\\IDE\\NodeJS\\node.exe",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "scripts/textbook-processing/stage-web-textbook.test.mjs",
+        "scripts/textbook-processing/stage-web-tables.test.mjs",
+        "scripts/textbook-processing/stage-inline-chunks.test.mjs",
+        "--no-file-parallelism",
+        "--testTimeout",
+        "30000"
+      ],
+      "cwd": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach",
+      "exitCode": 0,
+      "log": "stage-regressions.log"
+    },
+    {
+      "name": "architecture",
+      "command": [
+        "E:\\IDE\\NodeJS\\node.exe",
+        "scripts/check-architecture.mjs"
+      ],
+      "cwd": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach",
+      "exitCode": 0,
+      "log": "architecture.log"
+    },
+    {
+      "name": "package-smoke",
+      "command": [
+        "E:\\IDE\\NodeJS\\node.exe",
+        "--test",
+        "smoke/package-import-smoke.mjs"
+      ],
+      "cwd": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach",
+      "exitCode": 0,
+      "log": "package-smoke.log"
+    },
+    {
+      "name": "desktop-types",
+      "command": [
+        "E:\\IDE\\NodeJS\\node.exe",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "-p",
+        "packages/desktop/tsconfig.json"
+      ],
+      "cwd": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach",
+      "exitCode": 0,
+      "log": "desktop-types.log"
+    }
+  ],
+  "allPassed": true,
+  "modelCalls": 0
+}

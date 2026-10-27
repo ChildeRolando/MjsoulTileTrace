@@ -1,0 +1,121 @@
+{
+  "schema": "coach-textbook-audit-dependency-attestation/1",
+  "recordedAt": "2026-10-27T13:39:51.927Z",
+  "kind": "present-deterministic-reverification",
+  "base": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/web-b8-transport-diag-20261027",
+  "entry": "textbook-audit-web.mjs",
+  "verifier": {
+    "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\textbook-audit-verification-dependencies.mjs",
+    "sha256": "139b5fa3650978d34d9bf0bfe062db03ec203f51f1e0eabfd7669506f1fe6c19"
+  },
+  "manifest": {
+    "schema": "coach-textbook-audit-verification-dependencies/1",
+    "entry": "textbook-audit-web.mjs",
+    "files": [
+      {
+        "name": "textbook-audit-pdf-layout.mjs",
+        "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+      },
+      {
+        "name": "textbook-audit-pdf-native.mjs",
+        "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+      },
+      {
+        "name": "textbook-audit-pdf-scope.mjs",
+        "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+      },
+      {
+        "name": "textbook-audit-pdf-source-corrections.mjs",
+        "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+      },
+      {
+        "name": "textbook-audit-tile-dictionary.mjs",
+        "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+      },
+      {
+        "name": "textbook-audit-web-batches.mjs",
+        "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+      },
+      {
+        "name": "textbook-audit-web.mjs",
+        "sha256": "5bb4ec04770205d7e1ee13cad6e94e3edeff56cf6fc2d0af9ef6018d9c22e7ed"
+      },
+      {
+        "name": "textbook-audit.mjs",
+        "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+      },
+      {
+        "name": "textbook-production-cli.mjs",
+        "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+      }
+    ],
+    "pageApprovals": [],
+    "manifestSha256": "56287cda5a49ca62a6f688e3c19dbccee2e3e5ddce5cfd9cff3717f78f56de35"
+  },
+  "manifestVerify": {
+    "ok": true,
+    "manifestSha256": "56287cda5a49ca62a6f688e3c19dbccee2e3e5ddce5cfd9cff3717f78f56de35",
+    "files": null
+  },
+  "receipt": {
+    "path": "audit/web/articles/79-bilibili-cn/cv1734739.c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae.transport-recovery.json",
+    "sha256": "fd888b9931b599d1238a2eb4866baae06971feb1ee32624c1b23fa60093eca49",
+    "status": "passed-after-transport-recovery",
+    "method": "independent-sol-high-full-article-review",
+    "originalStatus": "failed",
+    "productionSha256": "c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae",
+    "sourceId": "79-bilibili-cn",
+    "recordedAt": "2026-10-27T13:37:24.865Z",
+    "reverifyStatus": "passed-after-transport-recovery",
+    "reverifyAuditSha256": "fd888b9931b599d1238a2eb4866baae06971feb1ee32624c1b23fa60093eca49"
+  },
+  "originalFailedReceipt": {
+    "path": "audit/web/articles/79-bilibili-cn/cv1734739.c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae.json",
+    "sha256": "28b577cc9da9717578782c1924fae3cb427750e149f0df7a790ebb80c595a74f",
+    "status": "failed",
+    "unchanged": true
+  },
+  "transportRecovery": {
+    "reason": "Known TLS/WebSocket fallback diagnostics preceded a completed valid turn. Original failed classification and call remain unchanged.",
+    "originalAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1734739.c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae.json",
+      "sha256": "28b577cc9da9717578782c1924fae3cb427750e149f0df7a790ebb80c595a74f"
+    },
+    "originalCall": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\74758209-082b-4b1c-913f-969162d93c9d.json",
+      "sha256": "843045050e0513a47a99c6d1e62607634a9162eb8abcd7bfd3c894c0a489af30",
+      "callId": "74758209-082b-4b1c-913f-969162d93c9d"
+    }
+  },
+  "originalModelCalls": [
+    {
+      "callId": "74758209-082b-4b1c-913f-969162d93c9d",
+      "path": "audit/calls/74758209-082b-4b1c-913f-969162d93c9d.json",
+      "sha256": "843045050e0513a47a99c6d1e62607634a9162eb8abcd7bfd3c894c0a489af30",
+      "success": false,
+      "startedAt": "2026-10-27T13:25:13.050Z",
+      "durationMs": 229491,
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "outputSha256": "9d30b7b97c736467a59d25184dfe527ffc3774d867931eca84c89c3e98af98d5",
+      "requestPromptSha256": "de1426df109600e93d70f622c0a8b9a235c09d361324a1e7671ad7c2dd651336",
+      "usage": {
+        "inputTokens": 22329,
+        "cachedInputTokens": 0,
+        "outputTokens": 3677
+      },
+      "transportCompleted": true,
+      "unexpectedTool": true,
+      "diagnosticItems": [
+        "Falling back from WebSockets to HTTPS transport. workspace routing discovery timed out"
+      ]
+    }
+  ],
+  "limits": {
+    "receiptIdentity": "auditorScriptSha256 covers only textbook-audit.mjs + textbook-production-cli.mjs; it does not identify the imported modules or the page approval file.",
+    "manifestIdentity": "manifest describes the base directory observed when this attestation was recorded; it does not by itself prove which dependency bytes the original model call used.",
+    "transportRecovery": "the recovery derives the verdict from the already-recorded raw output of the original call; it neither re-dispatches nor re-prices the call, and the original failed receipt and call bytes remain unchanged.",
+    "receiptUntouched": true,
+    "modelCalls": 0
+  }
+}

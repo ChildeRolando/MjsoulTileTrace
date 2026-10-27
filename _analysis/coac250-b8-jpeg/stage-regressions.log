@@ -1,0 +1,13 @@
+
+ RUN  v3.2.7 E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach
+
+ ✓ scripts/textbook-processing/stage-web-textbook.test.mjs (3 tests) 2879ms
+   ✓ stages an independently accepted web chapter through the same corpus with real DOM locations and complete Chinese examples  2875ms
+ ✓ scripts/textbook-processing/stage-web-tables.test.mjs (3 tests) 7ms
+ ✓ scripts/textbook-processing/stage-inline-chunks.test.mjs (2 tests) 8ms
+
+ Test Files  3 passed (3)
+      Tests  8 passed (8)
+   Start at  22:57:48
+   Duration  4.73s (transform 232ms, setup 0ms, collect 1.27s, tests 2.89s, environment 0ms, prepare 186ms)
+

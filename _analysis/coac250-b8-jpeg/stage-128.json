@@ -1,0 +1,37 @@
+{
+  "schema": "coach-textbook-web-stage/1",
+  "status": "independently-audited-chapter-preview",
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1734739.coac269rev1.json",
+  "candidateSha256": "c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae",
+  "sourceSha256": "962fdd8860f2f756f1bc76054a5ef9ea2a5f82959e36da44aff79c57aee1d5ca",
+  "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1734739.c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae.transport-recovery.json",
+  "auditStatus": "passed-after-transport-recovery",
+  "transportRecovery": {
+    "originalAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1734739.c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae.json",
+      "sha256": "28b577cc9da9717578782c1924fae3cb427750e149f0df7a790ebb80c595a74f"
+    },
+    "originalCall": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\74758209-082b-4b1c-913f-969162d93c9d.json",
+      "sha256": "843045050e0513a47a99c6d1e62607634a9162eb8abcd7bfd3c894c0a489af30",
+      "callId": "74758209-082b-4b1c-913f-969162d93c9d"
+    },
+    "reason": "Known TLS/WebSocket fallback diagnostics preceded a completed valid turn. Original failed classification and call remain unchanged.",
+    "verifier": {
+      "path": "audit/web/auditors/37e1be6ba9eaa3cab379ff621f0e4a737e9f0cc92c36a2448d9db2c242f4fe17.json",
+      "sha256": "cc22ef78d8bc532ece4d5b23e0449d46ff7d4fe28eb05511fc205d95db10fde2",
+      "combinedSha256": "37e1be6ba9eaa3cab379ff621f0e4a737e9f0cc92c36a2448d9db2c242f4fe17"
+    }
+  },
+  "imageDerivations": [],
+  "chapters": 1,
+  "units": 1,
+  "blocks": 18,
+  "figures": 7,
+  "corpusId": "e2ae728e54ba78ef2a96a8153d331323d6bf8843c96a39f5140ff40ef66fc8f8",
+  "bodySha256": "b26315ebeb4772c00c0bf0c6dd0cc27e849847e9b06e5fa472eca988d98a26f7",
+  "maxUnitBytes": 12892,
+  "modelCalls": 0,
+  "activeLibraryChanged": false,
+  "humanReview": "pending"
+}
