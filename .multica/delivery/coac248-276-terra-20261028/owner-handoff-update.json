@@ -1,0 +1,44 @@
+{
+  "path": "integration\\coac248-repair-handoff-20261027.json",
+  "previousSha256": "9703574f670f95c880a84e571edd87316978c64ac8bb5a9f8f440148dda62be9",
+  "sha256": "ffb757d0696a58a53ac3d7b26421968be3e5d0a7aa216dc1014f0f3a19630d26",
+  "otherItemsPreserved": true,
+  "addedItem": {
+    "kind": "web-article-revision",
+    "chapterId": "79-cn-chapter-276-4",
+    "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1793434.r2.display.json",
+    "candidateSha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+    "auditStatus": "awaiting-independent-review",
+    "handoff249": {
+      "path": "integration\\coac249-incremental-276-4-20261028.json",
+      "sha256": "5d8ea3d5606e4008b3fc57e7bfc885b1fe4e5cd4260e5dbc7dbb418e3e47db69"
+    },
+    "limits": {
+      "production": 0,
+      "firstIndependentReview": 1,
+      "retry": 0
+    },
+    "potentialRegression": {
+      "count": 4,
+      "positions": [
+        "left discard4 (parent3z)",
+        "left discard5 (parent2z)",
+        "right discard2 (parent3z)",
+        "right discard5 (parent4z)"
+      ],
+      "disposition": "New model output replaced four prior concrete wind codes with unknowns. This is a potential regression; do not grant passed by checking only9m. Independently inspect original image and the whole target, no guessing or producer field restoration."
+    },
+    "oldFailure": {
+      "callId": "2375640c-3a8d-45e7-9601-4b810fe87e80",
+      "rawPath": "web-production\\v1\\raw-calls\\2375640c-3a8d-45e7-9601-4b810fe87e80.json",
+      "rawSha256": "4060ca8c826094fda356bb4f3c50a3f59625e6660110f20feba1f8c0afa91ba9",
+      "usage": null,
+      "preserved": true,
+      "recoverable": false
+    },
+    "runtimeManifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+    "productionCallId": "7af07271-5848-47a7-a2cb-54be1cca4c64",
+    "productionModel": "gpt-6.1-terra",
+    "productionReasoningEffort": "max"
+  }
+}

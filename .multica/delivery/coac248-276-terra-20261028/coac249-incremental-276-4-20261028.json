@@ -1,0 +1,429 @@
+{
+  "schema": "coac248-incremental-independent-review-handoff/1",
+  "recordedAt": "2026-10-27T18:29:11.917Z",
+  "from": "COAC-248",
+  "to": "COAC-249",
+  "targets": [
+    {
+      "kind": "complete-web-candidate",
+      "chapterId": "79-cn-chapter-276-4",
+      "articleId": "cv1793434",
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1793434.r2.display.json",
+      "sourceId": "79-bilibili-cn",
+      "sourceSha256": "db1218e9226ef5ccaf978ec6b6801bd07498017b821973647d0e551ed518439f",
+      "sha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+      "parentSha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+      "parentAuditSha256": "8c7e8145f051809f5ad3d80eb4c8e7c4b9d669739c200fbec98e4f26307a9370",
+      "category": "coac248-line-a-targeted-figure-revision",
+      "targets": [
+        "79-bilibili-cn:cv1793434:b0005:figure"
+      ]
+    }
+  ],
+  "auditConfig": {
+    "path": "audit/explicit-targets-coac248-276-4-r2-20261028.json",
+    "sha256": "046dea2e316e0224a8f731e64b82d0b716ddbb9fe838d952a4a918ff4749a465"
+  },
+  "evidence": {
+    "path": "web-production/v1/runs/coac248-web-276-4-r2-20261028/production-evidence.json",
+    "sha256": "34186222c7cc8e5f496644358a059c3e119aa8f6220b2032c59236859bb06456"
+  },
+  "parent": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1793434.display.json",
+    "sha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1793434.34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af.json",
+    "auditSha256": "8c7e8145f051809f5ad3d80eb4c8e7c4b9d669739c200fbec98e4f26307a9370"
+  },
+  "rawCandidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1793434.r2.json",
+    "sha256": "e6d73075fad15822b5c746a313d22beecc5aff3b77a121053f9dfa2ad70e54a8",
+    "role": "unpresented intermediate of same production call; do not separately review or integrate"
+  },
+  "transportRecovery": null,
+  "limits": {
+    "firstIndependentFullArticleReview": 1,
+    "retry": 0,
+    "failedVoidCount": true
+  },
+  "instructions": "Only276-4 new display SHA, one first independent full-article review; failed/void consumes budget, no retry. Use owner Terra/max runtime12a058d4, check actual args/images/requestExecution, all prior STOP and guard gates. Passed goes to250; exact return goes to248. Do not review intermediate r2.json,157 or other chapters.",
+  "semanticAcceptance": null,
+  "runtime": {
+    "path": "audit\\runtimes\\coac244-vision-terra-max-v1-20261027",
+    "manifestPath": "audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\runtime-manifest.json",
+    "manifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+    "manifest": {
+      "schema": "coac244-vision-runtime/1",
+      "authorization": "01a17e76-a0e3-7cdc-a555-5f856576e671",
+      "runtime": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027",
+      "imageRequest": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max",
+        "retry": 0
+      },
+      "textRequest": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "existingFrozenTextRuntimeUnchanged": true
+      },
+      "files": [
+        {
+          "path": "capability-evidence.json",
+          "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2"
+        },
+        {
+          "path": "textbook-audit-definition.mjs",
+          "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711"
+        },
+        {
+          "path": "textbook-audit-legacy.mjs",
+          "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619"
+        },
+        {
+          "path": "textbook-audit-pdf-layout.mjs",
+          "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06"
+        },
+        {
+          "path": "textbook-audit-pdf-native-corrections.mjs",
+          "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05"
+        },
+        {
+          "path": "textbook-audit-pdf-native-structure-corrections.mjs",
+          "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b"
+        },
+        {
+          "path": "textbook-audit-pdf-native.mjs",
+          "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+        },
+        {
+          "path": "textbook-audit-pdf-scope.mjs",
+          "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf"
+        },
+        {
+          "path": "textbook-audit-pdf-source-corrections.mjs",
+          "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff"
+        },
+        {
+          "path": "textbook-audit-tile-dictionary.mjs",
+          "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30"
+        },
+        {
+          "path": "textbook-audit-verification-dependencies.mjs",
+          "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08"
+        },
+        {
+          "path": "textbook-audit-web-batches.mjs",
+          "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69"
+        },
+        {
+          "path": "textbook-audit-web-source.py",
+          "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+        },
+        {
+          "path": "textbook-audit-web.mjs",
+          "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b"
+        },
+        {
+          "path": "textbook-audit.mjs",
+          "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+        },
+        {
+          "path": "textbook-production-cli.mjs",
+          "sha256": "403eb168fb725aa990792089eb7d6e29d55903fcf9e22d2cfce253fd675a3d01"
+        },
+        {
+          "path": "textbook-production-pdf-flow.mjs",
+          "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3"
+        },
+        {
+          "path": "textbook-production-web-batches.mjs",
+          "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+        },
+        {
+          "path": "textbook-production-web-dictionary.mjs",
+          "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824"
+        },
+        {
+          "path": "textbook-production-web-formal.mjs",
+          "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd"
+        },
+        {
+          "path": "textbook-production-web-labels.mjs",
+          "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274"
+        },
+        {
+          "path": "textbook-production-web-present.py",
+          "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+        },
+        {
+          "path": "textbook-production-web-sources.py",
+          "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f"
+        },
+        {
+          "path": "textbook-production-web-visual.py",
+          "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+        },
+        {
+          "path": "textbook-production-web.mjs",
+          "sha256": "c7bd6f353f78d891f466d8f47c2aa37d9fed1a66dacdbf996018ddf2e001eee1"
+        },
+        {
+          "path": "textbook-production.mjs",
+          "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355"
+        },
+        {
+          "path": "verification-dependencies.json",
+          "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68"
+        }
+      ],
+      "historicalModelPairs": [
+        "gpt-6.1-sol/high",
+        "gpt-6.1-terra/max with requestExecution"
+      ],
+      "source": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study",
+      "firstAuthorizedImageCall": null,
+      "entrypoints": {
+        "webProduction": "textbook-production-web.mjs",
+        "webCompleteUnitProduction": "textbook-production-web-batches.mjs (delegates to web producer)",
+        "pdfProduction": "textbook-production.mjs (new run only, explicit --model gpt-6.1-terra, --attempts 1)",
+        "webIndependentReview": "textbook-audit-web.mjs",
+        "pdfNativeIndependentReview": "textbook-audit.mjs + original native/scope/layout modules",
+        "tileDictionaryProduction": "textbook-production-web-dictionary.mjs",
+        "tileDictionaryReview": "textbook-audit-tile-dictionary.mjs",
+        "legacyImageReview": "textbook-audit-legacy.mjs"
+      },
+      "tests": {
+        "mockRequestCases": 13,
+        "webAndImageBindingRegressionTests": 41,
+        "realModelCalls": 0
+      },
+      "capability": {
+        "schema": "coac244-local-model-capability/1",
+        "catalogPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-244-062de7426504\\codex-home\\models_cache.json",
+        "catalogSha256": "c3a482817b01f79b339fbb57d09e79d3eb6b6b8141a32f12abcfaa8a2bf1b877",
+        "fetchedAt": "2026-10-27T17:51:52.318004500Z",
+        "clientVersion": "0.162.1",
+        "model": "gpt-6.1-terra",
+        "inputModalities": [
+          "text",
+          "image"
+        ],
+        "supportedEfforts": [
+          "low",
+          "medium",
+          "high",
+          "xhigh",
+          "max",
+          "ultra"
+        ],
+        "remoteBackendVerified": false
+      }
+    }
+  },
+  "requiredIndependentReviewModel": {
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "fallback": false,
+    "snapshotOwner": "COAC-244"
+  },
+  "historicalFailedRevision": {
+    "callId": "2375640c-3a8d-45e7-9601-4b810fe87e80",
+    "rawPath": "web-production\\v1\\raw-calls\\2375640c-3a8d-45e7-9601-4b810fe87e80.json",
+    "rawSha256": "4060ca8c826094fda356bb4f3c50a3f59625e6660110f20feba1f8c0afa91ba9",
+    "usage": null,
+    "preserved": true,
+    "recoverable": false
+  },
+  "productionRequestExecution": {
+    "schema": "coach-textbook-cli-request/1",
+    "policy": "coac244-vision-terra-max-v1-20261027",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "callerRequested": {
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high"
+    },
+    "args": [
+      "exec",
+      "--model",
+      "gpt-6.1-terra",
+      "--config",
+      "model_reasoning_effort=\"max\"",
+      "--config",
+      "web_search=\"disabled\"",
+      "--ephemeral",
+      "--ignore-user-config",
+      "--ignore-rules",
+      "--sandbox",
+      "read-only",
+      "--strict-config",
+      "--skip-git-repo-check",
+      "--json",
+      "--output-schema",
+      "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-TCTSaG\\output.schema.json",
+      "--output-last-message",
+      "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-TCTSaG\\final.json",
+      "--cd",
+      "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-TCTSaG",
+      "-i",
+      "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+      "-i",
+      "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+      "--disable",
+      "apps",
+      "--disable",
+      "auth_elicitation",
+      "--disable",
+      "browser_use",
+      "--disable",
+      "browser_use_external",
+      "--disable",
+      "browser_use_full_cdp_access",
+      "--disable",
+      "computer_use",
+      "--disable",
+      "fast_mode",
+      "--disable",
+      "goals",
+      "--disable",
+      "guardian_approval",
+      "--disable",
+      "hooks",
+      "--disable",
+      "image_generation",
+      "--disable",
+      "in_app_browser",
+      "--disable",
+      "in_app_chat",
+      "--disable",
+      "in_app_dictation",
+      "--disable",
+      "in_app_local_automation",
+      "--disable",
+      "in_app_updates",
+      "--disable",
+      "memories",
+      "--disable",
+      "mentions_v2",
+      "--disable",
+      "multi_agent",
+      "--disable",
+      "plugin_sharing",
+      "--disable",
+      "plugins",
+      "--disable",
+      "remote_plugin",
+      "--disable",
+      "shell_snapshot",
+      "--disable",
+      "shell_tool",
+      "--disable",
+      "skill_mcp_dependency_install",
+      "--disable",
+      "skill_search",
+      "--disable",
+      "sleep_tool",
+      "--disable",
+      "tool_call_mcp_elicitation",
+      "--disable",
+      "tool_suggest",
+      "--disable",
+      "unbounded_connection_retries",
+      "--disable",
+      "unified_exec",
+      "--disable",
+      "unified_exec_tty",
+      "--disable",
+      "view_image",
+      "--disable",
+      "workspace_dependencies",
+      "-"
+    ],
+    "images": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+        "sha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+        "bytes": 50751
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+        "sha256": "ff130bb4c934f7d58794ecde92422eacd097f589e27fe18a0e721da007236ed4",
+        "bytes": 188382
+      }
+    ],
+    "remoteBackend": "unverified; request arguments and returned events only"
+  },
+  "additionalReviewFocus": {
+    "fullChangedFigure": [
+      "79-bilibili-cn:cv1793434:b0005:figure"
+    ],
+    "allChangedFields": [
+      {
+        "figureId": "79-bilibili-cn:cv1793434:b0005:figure",
+        "fields": [
+          {
+            "field": "transcription",
+            "from": "中央：东2局0本场。白色立直棒右侧标示1根；下方“宝牌”标签右侧为9p。\n座位及点数：下方东家24000，右侧南家25000，上方西家27000，左侧北家23000。\n下方手牌，按屏幕从左至右：3m 4m 5m 7m 8m 9p 9p 3s 4s 6s 7s 8s 6z。右侧隔开的一张：6m。\n下方弃牌，从左至右：1p 1s 1z 6p 7s 2m。\n上方弃牌，按屏幕从左至右：6s（相对上家正常牌向横置）5z 6p [万子数字未辨明] 7z 1z；除横置6s外，牌面均朝向上家，相对屏幕倒置。\n左侧弃牌，按屏幕从上至下：1m 9m 7z 3z 2z 3p；牌面相对屏幕顺时针旋转90°。\n右侧弃牌，按屏幕从上至下：9s 3z 5z 7z 4z 9m；牌面相对屏幕逆时针旋转90°。\n上方、左侧、右侧各有13张背面朝上的手牌。未见副露或红五牌。",
+            "to": "中央：东2局0本场。白色立直棒右侧标示1根；下方“宝牌”标签右侧为9p。\n座位及点数：下方东家24000，右侧南家25000，上方西家27000，左侧北家23000。\n下方手牌，按屏幕从左至右：3m 4m 5m 7m 8m 9p 9p 3s 4s 6s 7s 8s 6z。右侧隔开的一张：6m。\n下方弃牌，按屏幕从左至右：1p 1s 1z 6p 7s 2m。\n上方弃牌，按屏幕从左至右：6s（相对上家正常牌向横置）5z 6p 9m 7z 1z。除横置的6s外，牌面相对屏幕倒置。\n左侧弃牌，按屏幕从上至下：1m 9m 7z [风牌未辨明] [风牌未辨明] 3p。牌面相对屏幕顺时针旋转90°。\n右侧弃牌，按屏幕从上至下：9s [风牌未辨明] 5z 7z [风牌未辨明] 9m。牌面相对屏幕逆时针旋转90°。\n上方、左侧、右侧各有13张背面朝上的手牌。未见副露。"
+          },
+          {
+            "field": "unknowns",
+            "from": [
+              "上方弃牌按屏幕从左至右第4张，即6p与7z之间的万子牌，其数字无法可靠辨认。"
+            ],
+            "to": [
+              "左侧弃牌从上至下第4张的风牌牌码未辨明。",
+              "左侧弃牌从上至下第5张的风牌牌码未辨明。",
+              "右侧弃牌从上至下第2张的风牌牌码未辨明。",
+              "右侧弃牌从上至下第5张的风牌牌码未辨明。"
+            ]
+          },
+          {
+            "field": "caption",
+            "from": "例1：东2局，东家手牌与四家弃牌。",
+            "to": "例1"
+          },
+          {
+            "field": "sourceNotes",
+            "from": [
+              "附件1为原图，附件2为同一原图的2倍近邻放大视图，仅计一次。",
+              "弃牌顺序均以注明的屏幕方向记录；横置以所属玩家的正常牌向为参照。",
+              "中央“宝牌”按可见标签记录，未将其改称宝牌指示牌。"
+            ],
+            "to": [
+              "附件1为原图，附件2为同一原图的2倍近邻放大视图，仅计一次。"
+            ]
+          },
+          {
+            "field": "provenance",
+            "from": {
+              "method": "model-transcription",
+              "callId": "bb90022e-1fda-4eb3-8f71-779df2bdd169",
+              "outputSourceBlockId": "79-bilibili-cn:cv1793434:b0005"
+            },
+            "to": {
+              "method": "model-transcription",
+              "callId": "7af07271-5848-47a7-a2cb-54be1cca4c64",
+              "outputSourceBlockId": "79-bilibili-cn:cv1793434:b0005"
+            }
+          }
+        ]
+      }
+    ],
+    "instruction": "Review original images and full new article; parent only locates the issue. All target caption/sourceNotes/transcription changes are explicit. No producer-granted passed.",
+    "newUnknowns": {
+      "count": 4,
+      "positions": [
+        "left discard4 (parent3z)",
+        "left discard5 (parent2z)",
+        "right discard2 (parent3z)",
+        "right discard5 (parent4z)"
+      ],
+      "disposition": "New model output replaced four prior concrete wind codes with unknowns. This is a potential regression; do not grant passed by checking only9m. Independently inspect original image and the whole target, no guessing or producer field restoration."
+    },
+    "captionAndNotes": {
+      "captionFrom": "Example1: East2, East hand and four discards",
+      "captionTo": "Example1",
+      "sourceNotes": "Original3 notes reduced to only the attachment-pairing note. Two direction/dora-label notes removed. Full original Chinese from/to is in evidence.changes."
+    }
+  }
+}

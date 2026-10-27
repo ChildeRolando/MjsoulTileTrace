@@ -1,0 +1,5 @@
+*.json -text whitespace=cr-at-eol
+candidates/** -text whitespace=cr-at-eol
+evidence/** -text whitespace=cr-at-eol
+scripts/*.py text eol=lf
+scripts/*.mjs text eol=lf

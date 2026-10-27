@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "newModelCalls": {
+    "production": 1,
+    "audit": 0,
+    "failed": 0,
+    "void": 0
+  },
+  "automaticRetry": 0,
+  "firstIndependentReviewRemaining": 1,
+  "rawAndRequestExecutionVerified": true,
+  "actualLiveProcessCaptured": true,
+  "processExited": true,
+  "makerAndChapterReleased": true,
+  "unchangedTextBlocks": 39,
+  "unchangedCompleteFigures": 2,
+  "figureOrderPreserved": true,
+  "newUnknownsExplicitlyFlagged": 4,
+  "runtimeDependenciesVerified": 27,
+  "historicalFailedRevisionPreserved": true,
+  "historicalUsage": null,
+  "semanticPassed": false,
+  "unrelatedInventoryRowsPreserved": 61,
+  "157ActualPassedReceiptReusedWithZeroCalls": true
+}

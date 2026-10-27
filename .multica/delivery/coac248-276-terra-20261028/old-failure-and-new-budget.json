@@ -1,0 +1,26 @@
+{
+  "recordedAt": "2026-10-27T18:25:28.574888+00:00",
+  "modelCallsForThisProof": 0,
+  "originalFailedRevision": {
+    "callId": "2375640c-3a8d-45e7-9601-4b810fe87e80",
+    "path": "web-production\\v1\\raw-calls\\2375640c-3a8d-45e7-9601-4b810fe87e80.json",
+    "sha256": "4060ca8c826094fda356bb4f3c50a3f59625e6660110f20feba1f8c0afa91ba9",
+    "rawLastMessage": null,
+    "parsedOutput": null,
+    "usage": null,
+    "recoverable": false,
+    "preserved": true
+  },
+  "newAttemptBudget": {
+    "production": 1,
+    "independentFirstReview": 1,
+    "failedVoidCount": true,
+    "automaticRetry": 0
+  },
+  "runtime": {
+    "path": "audit\\runtimes\\coac244-vision-terra-max-v1-20261027",
+    "manifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6"
+  },
+  "actualLiveProcessEvidence": "live-process-during.json",
+  "scope": "Only276-4;157 passed is reused without calls."
+}

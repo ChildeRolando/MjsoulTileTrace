@@ -16,10 +16,10 @@
   "totalTracked": 38
  },
  "countsCurrent": {
-  "needsRepair": 40,
+  "needsRepair": 39,
   "awaitingIndependentReview": 2,
   "decisionHold": 1,
-  "resolvedTotal": 20,
+  "resolvedTotal": 21,
   "totalTracked": 63,
   "failedSeparateHistoryRecords": 1,
   "scope": "Stored objects only, not a fresh whole-book remainder. Unrelated rows are inherited without refreshing their current external audit state; no new passed status inferred."
@@ -1035,9 +1035,9 @@
    "articleId": "cv1751276",
    "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1751276.r1.display.json",
    "candidateSha256": "1807377cc8f71afec95718f5050584a596690efac5658042cf75563f3d69dadc",
-   "auditPath": null,
-   "auditStatus": "awaiting-independent-review",
-   "issueCount": null,
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751276.1807377cc8f71afec95718f5050584a596690efac5658042cf75563f3d69dadc.json",
+   "auditStatus": "passed",
+   "issueCount": 0,
    "unitCount": 1,
    "blockCount": 29,
    "pdfPages": [
@@ -1045,13 +1045,13 @@
     158,
     159
    ],
-   "currentDisposition": "revision-produced-independent-review-paused-until-244-terra-max-snapshot",
+   "currentDisposition": "independent-terra-max-passed-already-handed-to250",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
-   "auditRecordedAt": null,
+   "auditRecordedAt": "2026-10-27T18:03:28.353Z",
    "auditSourceStale": false,
    "diskShaVerified": true,
-   "auditSha256": null,
+   "auditSha256": "64ad7a838e91381e568950b735f409a4d3b77d641a876cbd3723ec0c6719d32f",
    "parentVersion": {
     "objectId": "web-chapter:79-cn-chapter-157-11",
     "kind": "web-article",
@@ -1108,7 +1108,15 @@
     },
     "independentAuditBudget": 1,
     "retryBudget": 0,
-    "semanticAcceptance": null
+    "semanticAcceptance": null,
+    "independentReview": {
+     "callId": "eff9a0e4-5072-4f54-ad15-8d065c9b98dd",
+     "model": "gpt-6.1-terra",
+     "reasoningEffort": "max",
+     "status": "passed",
+     "newCallsThisRun": 0,
+     "evidence": "integration/coac249-reviewed-157-11-terra-20261028.json"
+    }
    }
   },
   {
@@ -1655,11 +1663,11 @@
    "chapterId": "79-cn-chapter-276-4",
    "sourceId": "79-bilibili-cn",
    "articleId": "cv1793434",
-   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1793434.display.json",
-   "candidateSha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
-   "auditPath": "audit/web/articles/79-bilibili-cn/cv1793434.34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af.json",
-   "auditStatus": "needs-repair",
-   "issueCount": 4,
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1793434.r2.display.json",
+   "candidateSha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+   "auditPath": null,
+   "auditStatus": "awaiting-independent-review",
+   "issueCount": null,
    "unitCount": 1,
    "blockCount": 64,
    "pdfPages": [
@@ -1668,10 +1676,10 @@
     278,
     279
    ],
-   "currentDisposition": "production-failed-no-output-parent-preserved-no-automatic-retry",
+   "currentDisposition": "explicit-retry-produced-awaiting-249-four-new-unknowns-flagged",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
-   "auditRecordedAt": "2026-10-25T23:23:53.771Z",
+   "auditRecordedAt": null,
    "auditSourceStale": false,
    "diskShaVerified": true,
    "lastProductionFailure": {
@@ -1817,6 +1825,228 @@
     "evidence": "receipt-web276-4.rev1-failed.json",
     "retryBudget": 0,
     "sourceAndParentPreserved": true
+   },
+   "auditSha256": null,
+   "parentVersion": {
+    "objectId": "web-chapter:79-cn-chapter-276-4",
+    "kind": "web-article",
+    "chapterId": "79-cn-chapter-276-4",
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1793434",
+    "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1793434.display.json",
+    "candidateSha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1793434.34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af.json",
+    "auditStatus": "needs-repair",
+    "issueCount": 4,
+    "unitCount": 1,
+    "blockCount": 64,
+    "pdfPages": [
+     276,
+     277,
+     278,
+     279
+    ],
+    "currentDisposition": "production-failed-no-output-parent-preserved-no-automatic-retry",
+    "origin": "COAC-246 coverage verification 2026-10-27",
+    "newThisStage": true,
+    "auditRecordedAt": "2026-10-25T23:23:53.771Z",
+    "auditSourceStale": false,
+    "diskShaVerified": true,
+    "lastProductionFailure": {
+     "call": {
+      "callId": "2375640c-3a8d-45e7-9601-4b810fe87e80",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1793434",
+      "sourceSha256": "db1218e9226ef5ccaf978ec6b6801bd07498017b821973647d0e551ed518439f",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "timeoutMs": 900000,
+      "startedAt": "2026-10-27T15:39:08.211Z",
+      "durationMs": 217322,
+      "usage": null,
+      "success": false,
+      "failureClass": null,
+      "transportStatus": "failed",
+      "rawArtifactPath": "raw-calls/2375640c-3a8d-45e7-9601-4b810fe87e80.json",
+      "rawArtifactSha256": "4060ca8c826094fda356bb4f3c50a3f59625e6660110f20feba1f8c0afa91ba9",
+      "outputSha256": null,
+      "schemaSha256": "3873f043f7eba9458c36e9a4e00e0594415b76465f5fad76781ca3f8eb53819c",
+      "promptSha256": "4ea8cc24af54e0793b7939258f6de0e3c979a91812b1fe70ea0f3ddf90ed073d",
+      "semanticPromptSha256": "0306589018c2c57afea2a6d4307375d797981582650b241e3e09b59950672070",
+      "cliSnapshot": {
+       "path": "web-production/v1/runners/ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a.cli.mjs",
+       "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+      },
+      "targets": {
+       "textIds": [],
+       "figureIds": [
+        "79-bilibili-cn:cv1793434:b0005"
+       ]
+      },
+      "terminalEvents": [
+       {
+        "type": "error",
+        "code": null,
+        "message": "Reconnecting... 2/5 (workspace routing discovery timed out)",
+        "param": null
+       },
+       {
+        "type": "error",
+        "code": null,
+        "message": "Reconnecting... 3/5 (workspace routing discovery timed out)",
+        "param": null
+       },
+       {
+        "type": "error",
+        "code": null,
+        "message": "Reconnecting... 4/5 (workspace routing discovery timed out)",
+        "param": null
+       },
+       {
+        "type": "error",
+        "code": null,
+        "message": "Reconnecting... 5/5 (workspace routing discovery timed out)",
+        "param": null
+       },
+       {
+        "type": "error",
+        "code": null,
+        "message": "Reconnecting... 1/5 (workspace routing discovery timed out)",
+        "param": null
+       },
+       {
+        "type": "error",
+        "code": null,
+        "message": "Reconnecting... 2/5 (workspace routing discovery timed out)",
+        "param": null
+       },
+       {
+        "type": "error",
+        "code": null,
+        "message": "Reconnecting... 3/5 (workspace routing discovery timed out)",
+        "param": null
+       },
+       {
+        "type": "error",
+        "code": null,
+        "message": "Reconnecting... 4/5 (workspace routing discovery timed out)",
+        "param": null
+       },
+       {
+        "type": "error",
+        "code": null,
+        "message": "Reconnecting... 5/5 (workspace routing discovery timed out)",
+        "param": null
+       },
+       {
+        "type": "error",
+        "code": null,
+        "message": "workspace routing discovery timed out",
+        "param": null
+       },
+       {
+        "type": "turn.failed",
+        "code": null,
+        "message": "workspace routing discovery timed out",
+        "param": null
+       }
+      ],
+      "visualInputs": [
+       {
+        "assetId": "79-bilibili-cn:e6d9adffb5691e034df6786d",
+        "sourcePath": "web-sources/v1/79-bilibili-cn/assets/4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+        "sourceSha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-sources/v1/79-bilibili-cn/assets/4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+        "sha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+        "role": "original",
+        "scale": 1,
+        "resampling": "none",
+        "width": 500,
+        "height": 499
+       },
+       {
+        "assetId": "79-bilibili-cn:e6d9adffb5691e034df6786d",
+        "sourcePath": "web-sources/v1/79-bilibili-cn/assets/4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+        "sourceSha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+        "sha256": "ff130bb4c934f7d58794ecde92422eacd097f589e27fe18a0e721da007236ed4",
+        "role": "nearest-neighbor-enlargement",
+        "scale": 2,
+        "resampling": "nearest",
+        "width": 1000,
+        "height": 998
+       }
+      ],
+      "revision": {
+       "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1793434.display.json",
+       "parentSha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+       "notesPath": "audit/web/articles/79-bilibili-cn/cv1793434.34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af.json",
+       "notesSha256": "8c7e8145f051809f5ad3d80eb4c8e7c4b9d669739c200fbec98e4f26307a9370",
+       "figureIds": [
+        "79-bilibili-cn:cv1793434:b0005:figure"
+       ]
+      }
+     },
+     "failure": "workspace routing discovery timed out; actual turn.failed; no complete output, no recovery eligible",
+     "usage": null,
+     "newCandidateSha256": null,
+     "evidence": "receipt-web276-4.rev1-failed.json",
+     "retryBudget": 0,
+     "sourceAndParentPreserved": true
+    }
+   },
+   "latestStage": "coac248-276-terra-20261028/round-276-terra.json",
+   "revision": {
+    "parentSha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+    "parentAuditSha256": "8c7e8145f051809f5ad3d80eb4c8e7c4b9d669739c200fbec98e4f26307a9370",
+    "sourceSha256": "db1218e9226ef5ccaf978ec6b6801bd07498017b821973647d0e551ed518439f",
+    "productionCallId": "7af07271-5848-47a7-a2cb-54be1cca4c64",
+    "productionModel": "gpt-6.1-terra",
+    "productionReasoningEffort": "max",
+    "productionUsage": {
+     "inputTokens": 18661,
+     "cachedInputTokens": 0,
+     "outputTokens": 15679
+    },
+    "modelCalls": {
+     "production": 1,
+     "audit": 0,
+     "failed": 0,
+     "void": 0,
+     "automaticRetries": 0
+    },
+    "independentAuditBudget": 1,
+    "retryBudget": 0,
+    "historicalFailedRevision": {
+     "callId": "2375640c-3a8d-45e7-9601-4b810fe87e80",
+     "rawPath": "web-production\\v1\\raw-calls\\2375640c-3a8d-45e7-9601-4b810fe87e80.json",
+     "rawSha256": "4060ca8c826094fda356bb4f3c50a3f59625e6660110f20feba1f8c0afa91ba9",
+     "usage": null,
+     "preserved": true,
+     "recoverable": false
+    },
+    "potentialRegression": {
+     "count": 4,
+     "positions": [
+      "left discard4 (parent3z)",
+      "left discard5 (parent2z)",
+      "right discard2 (parent3z)",
+      "right discard5 (parent4z)"
+     ],
+     "disposition": "New model output replaced four prior concrete wind codes with unknowns. This is a potential regression; do not grant passed by checking only9m. Independently inspect original image and the whole target, no guessing or producer field restoration."
+    },
+    "handoff249": {
+     "path": "integration\\coac249-incremental-276-4-20261028.json",
+     "sha256": "5d8ea3d5606e4008b3fc57e7bfc885b1fe4e5cd4260e5dbc7dbb418e3e47db69"
+    },
+    "wakeup249": {
+     "id": "01a17ea0-9fe3-791e-89f0-24fab815ebb4",
+     "confirmedCreatedAt": "2026-10-27T18:30:18.340285Z",
+     "remainingAuditCalls": 1
+    },
+    "semanticAcceptance": null
    }
   },
   {
@@ -3953,7 +4183,7 @@
   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter03-section011.6ad44173945b9347cd8dd7c44640fa3341bf8e83109695e4cd8aacc6d3d98b21.json",
   "note": "Isolated revision from the 249/250 register set; parent receipt, parent candidate and raw preserved."
  },
- "refreshedAt": "2026-10-27T17:48:25.011959+00:00",
+ "refreshedAt": "2026-10-27T18:30:57.795487+00:00",
  "byOrigin": {
   "COAC-248 old PDF 12": 5,
   "COAC-247 new PDF return": 3,
@@ -6162,6 +6392,494 @@
    "confirmedCreatedAt": "2026-10-27T17:48:26.064382Z",
    "instructionFile": "wakeup-249-157-20261028.md",
    "requiresOwnerTerraMaxSnapshot": true
+  }
+ },
+ "countsPriorResumed276": {
+  "needsRepair": 40,
+  "awaitingIndependentReview": 2,
+  "decisionHold": 1,
+  "resolvedTotal": 20,
+  "totalTracked": 63,
+  "failedSeparateHistoryRecords": 1,
+  "scope": "Stored objects only, not a fresh whole-book remainder. Unrelated rows are inherited without refreshing their current external audit state; no new passed status inferred."
+ },
+ "resumed276Terra20261028": {
+  "schema": "coac248-resumed276-finite-stage/1",
+  "recordedAt": "2026-10-27T18:29:12.130718+00:00",
+  "triggerCommentId": "01a17e99-7226-70fa-bd52-6aff4ef4e4ce",
+  "chapterId": "79-cn-chapter-276-4",
+  "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1793434.r2.display.json",
+  "candidateSha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+  "sourceSha256": "db1218e9226ef5ccaf978ec6b6801bd07498017b821973647d0e551ed518439f",
+  "parentSha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+  "parentAuditSha256": "8c7e8145f051809f5ad3d80eb4c8e7c4b9d669739c200fbec98e4f26307a9370",
+  "newModelCalls": {
+   "production": 1,
+   "audit": 0,
+   "failed": 0,
+   "void": 0,
+   "automaticRetries": 0
+  },
+  "remainingBudget": {
+   "production": 0,
+   "firstIndependentReview": 1,
+   "retry": 0
+  },
+  "productionAttempt": {
+   "callId": "7af07271-5848-47a7-a2cb-54be1cca4c64",
+   "sourceId": "79-bilibili-cn",
+   "articleId": "cv1793434",
+   "sourceSha256": "db1218e9226ef5ccaf978ec6b6801bd07498017b821973647d0e551ed518439f",
+   "model": "gpt-6.1-terra",
+   "reasoningEffort": "max",
+   "requestExecution": {
+    "schema": "coach-textbook-cli-request/1",
+    "policy": "coac244-vision-terra-max-v1-20261027",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "callerRequested": {
+     "model": "gpt-6.1-sol",
+     "reasoningEffort": "high"
+    },
+    "args": [
+     "exec",
+     "--model",
+     "gpt-6.1-terra",
+     "--config",
+     "model_reasoning_effort=\"max\"",
+     "--config",
+     "web_search=\"disabled\"",
+     "--ephemeral",
+     "--ignore-user-config",
+     "--ignore-rules",
+     "--sandbox",
+     "read-only",
+     "--strict-config",
+     "--skip-git-repo-check",
+     "--json",
+     "--output-schema",
+     "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-TCTSaG\\output.schema.json",
+     "--output-last-message",
+     "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-TCTSaG\\final.json",
+     "--cd",
+     "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-TCTSaG",
+     "-i",
+     "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+     "-i",
+     "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+     "--disable",
+     "apps",
+     "--disable",
+     "auth_elicitation",
+     "--disable",
+     "browser_use",
+     "--disable",
+     "browser_use_external",
+     "--disable",
+     "browser_use_full_cdp_access",
+     "--disable",
+     "computer_use",
+     "--disable",
+     "fast_mode",
+     "--disable",
+     "goals",
+     "--disable",
+     "guardian_approval",
+     "--disable",
+     "hooks",
+     "--disable",
+     "image_generation",
+     "--disable",
+     "in_app_browser",
+     "--disable",
+     "in_app_chat",
+     "--disable",
+     "in_app_dictation",
+     "--disable",
+     "in_app_local_automation",
+     "--disable",
+     "in_app_updates",
+     "--disable",
+     "memories",
+     "--disable",
+     "mentions_v2",
+     "--disable",
+     "multi_agent",
+     "--disable",
+     "plugin_sharing",
+     "--disable",
+     "plugins",
+     "--disable",
+     "remote_plugin",
+     "--disable",
+     "shell_snapshot",
+     "--disable",
+     "shell_tool",
+     "--disable",
+     "skill_mcp_dependency_install",
+     "--disable",
+     "skill_search",
+     "--disable",
+     "sleep_tool",
+     "--disable",
+     "tool_call_mcp_elicitation",
+     "--disable",
+     "tool_suggest",
+     "--disable",
+     "unbounded_connection_retries",
+     "--disable",
+     "unified_exec",
+     "--disable",
+     "unified_exec_tty",
+     "--disable",
+     "view_image",
+     "--disable",
+     "workspace_dependencies",
+     "-"
+    ],
+    "images": [
+     {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+      "sha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+      "bytes": 50751
+     },
+     {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+      "sha256": "ff130bb4c934f7d58794ecde92422eacd097f589e27fe18a0e721da007236ed4",
+      "bytes": 188382
+     }
+    ],
+    "remoteBackend": "unverified; request arguments and returned events only"
+   },
+   "timeoutMs": 900000,
+   "startedAt": "2026-10-27T18:24:01.024Z",
+   "durationMs": 290117,
+   "usage": {
+    "inputTokens": 18661,
+    "cachedInputTokens": 0,
+    "outputTokens": 15679
+   },
+   "success": true,
+   "failureClass": null,
+   "transportStatus": "completed",
+   "rawArtifactPath": "raw-calls/7af07271-5848-47a7-a2cb-54be1cca4c64.json",
+   "rawArtifactSha256": "9550a583ea0d8d0443bb37ace0e56e5cfb668869e81e9740f42b9b57bf96750c",
+   "outputSha256": "3c59436240e97cfb33d6265772db448357c193aaee6c2ebd676356d9402699c2",
+   "schemaSha256": "3873f043f7eba9458c36e9a4e00e0594415b76465f5fad76781ca3f8eb53819c",
+   "promptSha256": "4ea8cc24af54e0793b7939258f6de0e3c979a91812b1fe70ea0f3ddf90ed073d",
+   "semanticPromptSha256": "0306589018c2c57afea2a6d4307375d797981582650b241e3e09b59950672070",
+   "cliSnapshot": {
+    "path": "web-production/v1/runners/403eb168fb725aa990792089eb7d6e29d55903fcf9e22d2cfce253fd675a3d01.cli.mjs",
+    "sha256": "403eb168fb725aa990792089eb7d6e29d55903fcf9e22d2cfce253fd675a3d01"
+   },
+   "targets": {
+    "textIds": [],
+    "figureIds": [
+     "79-bilibili-cn:cv1793434:b0005"
+    ]
+   },
+   "terminalEvents": [],
+   "visualInputs": [
+    {
+     "assetId": "79-bilibili-cn:e6d9adffb5691e034df6786d",
+     "sourcePath": "web-sources/v1/79-bilibili-cn/assets/4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+     "sourceSha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+     "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+     "path": "web-sources/v1/79-bilibili-cn/assets/4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+     "sha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+     "role": "original",
+     "scale": 1,
+     "resampling": "none",
+     "width": 500,
+     "height": 499
+    },
+    {
+     "assetId": "79-bilibili-cn:e6d9adffb5691e034df6786d",
+     "sourcePath": "web-sources/v1/79-bilibili-cn/assets/4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+     "sourceSha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+     "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+     "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+     "sha256": "ff130bb4c934f7d58794ecde92422eacd097f589e27fe18a0e721da007236ed4",
+     "role": "nearest-neighbor-enlargement",
+     "scale": 2,
+     "resampling": "nearest",
+     "width": 1000,
+     "height": 998
+    }
+   ],
+   "revision": {
+    "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1793434.display.json",
+    "parentSha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+    "notesPath": "audit/web/articles/79-bilibili-cn/cv1793434.34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af.json",
+    "notesSha256": "8c7e8145f051809f5ad3d80eb4c8e7c4b9d669739c200fbec98e4f26307a9370",
+    "figureIds": [
+     "79-bilibili-cn:cv1793434:b0005:figure"
+    ]
+   }
+  },
+  "requestExecution": {
+   "schema": "coach-textbook-cli-request/1",
+   "policy": "coac244-vision-terra-max-v1-20261027",
+   "model": "gpt-6.1-terra",
+   "reasoningEffort": "max",
+   "callerRequested": {
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high"
+   },
+   "args": [
+    "exec",
+    "--model",
+    "gpt-6.1-terra",
+    "--config",
+    "model_reasoning_effort=\"max\"",
+    "--config",
+    "web_search=\"disabled\"",
+    "--ephemeral",
+    "--ignore-user-config",
+    "--ignore-rules",
+    "--sandbox",
+    "read-only",
+    "--strict-config",
+    "--skip-git-repo-check",
+    "--json",
+    "--output-schema",
+    "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-TCTSaG\\output.schema.json",
+    "--output-last-message",
+    "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-TCTSaG\\final.json",
+    "--cd",
+    "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-TCTSaG",
+    "-i",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+    "-i",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+    "--disable",
+    "apps",
+    "--disable",
+    "auth_elicitation",
+    "--disable",
+    "browser_use",
+    "--disable",
+    "browser_use_external",
+    "--disable",
+    "browser_use_full_cdp_access",
+    "--disable",
+    "computer_use",
+    "--disable",
+    "fast_mode",
+    "--disable",
+    "goals",
+    "--disable",
+    "guardian_approval",
+    "--disable",
+    "hooks",
+    "--disable",
+    "image_generation",
+    "--disable",
+    "in_app_browser",
+    "--disable",
+    "in_app_chat",
+    "--disable",
+    "in_app_dictation",
+    "--disable",
+    "in_app_local_automation",
+    "--disable",
+    "in_app_updates",
+    "--disable",
+    "memories",
+    "--disable",
+    "mentions_v2",
+    "--disable",
+    "multi_agent",
+    "--disable",
+    "plugin_sharing",
+    "--disable",
+    "plugins",
+    "--disable",
+    "remote_plugin",
+    "--disable",
+    "shell_snapshot",
+    "--disable",
+    "shell_tool",
+    "--disable",
+    "skill_mcp_dependency_install",
+    "--disable",
+    "skill_search",
+    "--disable",
+    "sleep_tool",
+    "--disable",
+    "tool_call_mcp_elicitation",
+    "--disable",
+    "tool_suggest",
+    "--disable",
+    "unbounded_connection_retries",
+    "--disable",
+    "unified_exec",
+    "--disable",
+    "unified_exec_tty",
+    "--disable",
+    "view_image",
+    "--disable",
+    "workspace_dependencies",
+    "-"
+   ],
+   "images": [
+    {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+     "sha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+     "bytes": 50751
+    },
+    {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+     "sha256": "ff130bb4c934f7d58794ecde92422eacd097f589e27fe18a0e721da007236ed4",
+     "bytes": 188382
+    }
+   ],
+   "remoteBackend": "unverified; request arguments and returned events only"
+  },
+  "remoteBackendWeights": null,
+  "responseEvidence": "Original complete raw/events retained; no inference about invisible gateway weights.",
+  "historicalFailedRevision": {
+   "callId": "2375640c-3a8d-45e7-9601-4b810fe87e80",
+   "rawPath": "web-production\\v1\\raw-calls\\2375640c-3a8d-45e7-9601-4b810fe87e80.json",
+   "rawSha256": "4060ca8c826094fda356bb4f3c50a3f59625e6660110f20feba1f8c0afa91ba9",
+   "usage": null,
+   "preserved": true,
+   "recoverable": false
+  },
+  "oldPlusNewTotalUsage": null,
+  "knownNewUsage": {
+   "inputTokens": 18661,
+   "cachedInputTokens": 0,
+   "outputTokens": 15679
+  },
+  "mechanicalChecks": {
+   "passed": true,
+   "errors": [],
+   "textBlocks": 39,
+   "imageRuns": 3,
+   "imageOccurrences": 3,
+   "figures": 3
+  },
+  "preservation": {
+   "bodySha256": "a4622b1df19cc33a729e493467c9a0b6f4974567aa2f846304fb356e46f98ebc",
+   "textBlocks": 39,
+   "completeNonTargetFigures": [
+    {
+     "figureId": "79-bilibili-cn:cv1793434:b0014:figure",
+     "completeObjectSha256": "5ca5d06312f40429ee1e5b56492ba7294e546d530d34a2bf532c9c20cb05aff9"
+    },
+    {
+     "figureId": "79-bilibili-cn:cv1793434:b0025:figure",
+     "completeObjectSha256": "6a88f2f9978e4c79b85880e9f5942a9f37a827db784a9cebbabc55eafd31e688"
+    }
+   ],
+   "figureOrder": [
+    "79-bilibili-cn:cv1793434:b0005:figure",
+    "79-bilibili-cn:cv1793434:b0014:figure",
+    "79-bilibili-cn:cv1793434:b0025:figure"
+   ],
+   "allNonTargetBytesPreserved": true
+  },
+  "changes": [
+   {
+    "figureId": "79-bilibili-cn:cv1793434:b0005:figure",
+    "fields": [
+     {
+      "field": "transcription",
+      "from": "中央：东2局0本场。白色立直棒右侧标示1根；下方“宝牌”标签右侧为9p。\n座位及点数：下方东家24000，右侧南家25000，上方西家27000，左侧北家23000。\n下方手牌，按屏幕从左至右：3m 4m 5m 7m 8m 9p 9p 3s 4s 6s 7s 8s 6z。右侧隔开的一张：6m。\n下方弃牌，从左至右：1p 1s 1z 6p 7s 2m。\n上方弃牌，按屏幕从左至右：6s（相对上家正常牌向横置）5z 6p [万子数字未辨明] 7z 1z；除横置6s外，牌面均朝向上家，相对屏幕倒置。\n左侧弃牌，按屏幕从上至下：1m 9m 7z 3z 2z 3p；牌面相对屏幕顺时针旋转90°。\n右侧弃牌，按屏幕从上至下：9s 3z 5z 7z 4z 9m；牌面相对屏幕逆时针旋转90°。\n上方、左侧、右侧各有13张背面朝上的手牌。未见副露或红五牌。",
+      "to": "中央：东2局0本场。白色立直棒右侧标示1根；下方“宝牌”标签右侧为9p。\n座位及点数：下方东家24000，右侧南家25000，上方西家27000，左侧北家23000。\n下方手牌，按屏幕从左至右：3m 4m 5m 7m 8m 9p 9p 3s 4s 6s 7s 8s 6z。右侧隔开的一张：6m。\n下方弃牌，按屏幕从左至右：1p 1s 1z 6p 7s 2m。\n上方弃牌，按屏幕从左至右：6s（相对上家正常牌向横置）5z 6p 9m 7z 1z。除横置的6s外，牌面相对屏幕倒置。\n左侧弃牌，按屏幕从上至下：1m 9m 7z [风牌未辨明] [风牌未辨明] 3p。牌面相对屏幕顺时针旋转90°。\n右侧弃牌，按屏幕从上至下：9s [风牌未辨明] 5z 7z [风牌未辨明] 9m。牌面相对屏幕逆时针旋转90°。\n上方、左侧、右侧各有13张背面朝上的手牌。未见副露。"
+     },
+     {
+      "field": "unknowns",
+      "from": [
+       "上方弃牌按屏幕从左至右第4张，即6p与7z之间的万子牌，其数字无法可靠辨认。"
+      ],
+      "to": [
+       "左侧弃牌从上至下第4张的风牌牌码未辨明。",
+       "左侧弃牌从上至下第5张的风牌牌码未辨明。",
+       "右侧弃牌从上至下第2张的风牌牌码未辨明。",
+       "右侧弃牌从上至下第5张的风牌牌码未辨明。"
+      ]
+     },
+     {
+      "field": "caption",
+      "from": "例1：东2局，东家手牌与四家弃牌。",
+      "to": "例1"
+     },
+     {
+      "field": "sourceNotes",
+      "from": [
+       "附件1为原图，附件2为同一原图的2倍近邻放大视图，仅计一次。",
+       "弃牌顺序均以注明的屏幕方向记录；横置以所属玩家的正常牌向为参照。",
+       "中央“宝牌”按可见标签记录，未将其改称宝牌指示牌。"
+      ],
+      "to": [
+       "附件1为原图，附件2为同一原图的2倍近邻放大视图，仅计一次。"
+      ]
+     },
+     {
+      "field": "provenance",
+      "from": {
+       "method": "model-transcription",
+       "callId": "bb90022e-1fda-4eb3-8f71-779df2bdd169",
+       "outputSourceBlockId": "79-bilibili-cn:cv1793434:b0005"
+      },
+      "to": {
+       "method": "model-transcription",
+       "callId": "7af07271-5848-47a7-a2cb-54be1cca4c64",
+       "outputSourceBlockId": "79-bilibili-cn:cv1793434:b0005"
+      }
+     }
+    ]
+   }
+  ],
+  "semanticAcceptance": null,
+  "handoff249": {
+   "path": "integration\\coac249-incremental-276-4-20261028.json",
+   "sha256": "5d8ea3d5606e4008b3fc57e7bfc885b1fe4e5cd4260e5dbc7dbb418e3e47db69"
+  },
+  "runtimeManifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+  "released": {
+   "makerA": {
+    "at": "2026-10-27T18:28:51.196301+00:00",
+    "release": {
+     "ok": true,
+     "action": "release",
+     "slot": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-A.json",
+     "released": "maker-A"
+    }
+   },
+   "chapter": {
+    "ok": true,
+    "action": "unclaim",
+    "chapter": "79-cn-chapter-276-4",
+    "released": {
+     "schema": "coach-textbook-chapter-claim/1",
+     "chapterId": "79-cn-chapter-276-4",
+     "candidateSha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+     "lane": "A",
+     "owner": "COAC-248 Mika",
+     "slot": null,
+     "claimedAt": "2026-10-27T18:24:00.473Z"
+    }
+   }
+  },
+  "157": "Already passed and handed250; no additional production or audit.",
+  "potentialRegression": {
+   "count": 4,
+   "positions": [
+    "left discard4 (parent3z)",
+    "left discard5 (parent2z)",
+    "right discard2 (parent3z)",
+    "right discard5 (parent4z)"
+   ],
+   "disposition": "New model output replaced four prior concrete wind codes with unknowns. This is a potential regression; do not grant passed by checking only9m. Independently inspect original image and the whole target, no guessing or producer field restoration."
+  },
+  "status": "awaiting-independent-review-new-unknowns-explicitly-flagged",
+  "wakeup249": {
+   "id": "01a17ea0-9fe3-791e-89f0-24fab815ebb4",
+   "confirmedCreatedAt": "2026-10-27T18:30:18.340285Z",
+   "remainingAuditCalls": 1
   }
  }
 }
