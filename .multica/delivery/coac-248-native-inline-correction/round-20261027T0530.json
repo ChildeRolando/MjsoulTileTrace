@@ -67,7 +67,8 @@
   },
   "list": {
     "path": ".multica/delivery/coac-248-native-inline-correction/unified-repair-list-20261027.json",
-    "sha256": "d2c95958b17f6a4c0547a544509de0336d0c6efea592b55666e6edc3c4b5ccee"
+    "sha256": "5de9b7266a60571904120993c2d4f96267417c7ed659a6d17b6b55196b1117bd",
+    "hashConvention": "sha256 of the LF content, i.e. the committed blob, not the CRLF working copy"
   },
   "stillOpen": {
     "needsRepair": 53,
