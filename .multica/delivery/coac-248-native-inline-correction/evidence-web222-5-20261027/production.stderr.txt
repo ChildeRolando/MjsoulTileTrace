@@ -1,0 +1,8 @@
+file:///E:/AgentData/Coach/knowledge/processing/web-production/v1/runs/coac248-web-222-5-r1-20261027/frozen-runner/textbook-production-web.mjs:170
+ if(!call.success)throw Error('web_translation_call_failed_raw_preserved');
+                        ^
+
+Error: web_translation_call_failed_raw_preserved
+    at file:///E:/AgentData/Coach/knowledge/processing/web-production/v1/runs/coac248-web-222-5-r1-20261027/frozen-runner/textbook-production-web.mjs:170:25
+
+Node.js v24.15.0

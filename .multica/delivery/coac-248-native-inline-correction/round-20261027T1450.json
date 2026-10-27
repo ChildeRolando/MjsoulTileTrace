@@ -1,0 +1,222 @@
+{
+ "schema": "coac-248-round-record/1",
+ "recordedAt": "2026-10-27T15:04:10.086556+00:00",
+ "triggerComment": "01a17dd3-6468-7817-bf65-ee5a868503da",
+ "scope": [
+  "79-cn-chapter-222-5",
+  "79-cn-chapter-246-3"
+ ],
+ "objects": [
+  {
+   "chapterId": "79-cn-chapter-222-5",
+   "articleId": "cv1775262",
+   "parentSha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4",
+   "candidateSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+   "sourceSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+   "targets": [
+    "79-bilibili-cn:cv1775262:b0018:figure"
+   ],
+   "status": "awaiting-COAC-249-first-independent-full-article-review",
+   "calls": {
+    "production": 1,
+    "audit": 0,
+    "void": 0,
+    "failed": 1,
+    "recoveredWithoutNewCall": 1
+   },
+   "usage": {
+    "inputTokens": 20162,
+    "cachedInputTokens": 0,
+    "outputTokens": 348
+   },
+   "callId": "20d7f5e0-2640-4b87-bde1-e6505d839822",
+   "slot": {
+    "acquired": "2026-10-27T14:49:50.003Z",
+    "released": "2026-10-27T14:53:29.104003+00:00"
+   },
+   "bodyTextBlocks": 13,
+   "unchangedCompleteFigures": 9,
+   "changedTargetFields": [
+    {
+     "figureId": "79-bilibili-cn:cv1775262:b0018:figure",
+     "fields": [
+      "transcription",
+      "caption",
+      "sourceNotes",
+      "provenance"
+     ]
+    }
+   ],
+   "handoff": "integration/coac249-incremental-222-5-20261027.json",
+   "wakeup249": "01a17de4-cab5-7367-9039-b34d9789e27a",
+   "evidence": "receipt-web222-5.rev1-awaiting-review.json"
+  },
+  {
+   "chapterId": "79-cn-chapter-246-3",
+   "articleId": "cv1785741",
+   "parentSha256": "06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713",
+   "candidateSha256": "fc0027a140fb57b07aa1436c5c2bf26785942bd4bc8d88cf546f4f1362492d45",
+   "sourceSha256": "ec4a726459f21d98599722ba4ccb5d8a95a5e96473a7a91be9f6cc88c8250c51",
+   "targets": [
+    "79-bilibili-cn:cv1785741:b0025:figure",
+    "79-bilibili-cn:cv1785741:b0037:figure",
+    "79-bilibili-cn:cv1785741:b0047:figure"
+   ],
+   "status": "awaiting-COAC-249-first-independent-full-article-review",
+   "calls": {
+    "production": 1,
+    "audit": 0,
+    "void": 0,
+    "failed": 0,
+    "recoveredWithoutNewCall": 0
+   },
+   "usage": {
+    "inputTokens": 22648,
+    "cachedInputTokens": 0,
+    "outputTokens": 8099
+   },
+   "callId": "421c66e9-cb07-4981-bb9d-d9596d107e22",
+   "slot": {
+    "acquired": "2026-10-27T14:57:31.597Z",
+    "released": "2026-10-27T15:02:52.846141+00:00"
+   },
+   "bodyTextBlocks": 57,
+   "unchangedCompleteFigures": 2,
+   "changedTargetFields": [
+    {
+     "figureId": "79-bilibili-cn:cv1785741:b0025:figure",
+     "fields": [
+      "transcription",
+      "caption",
+      "sourceNotes",
+      "provenance"
+     ]
+    },
+    {
+     "figureId": "79-bilibili-cn:cv1785741:b0037:figure",
+     "fields": [
+      "transcription",
+      "caption",
+      "sourceNotes",
+      "provenance"
+     ]
+    },
+    {
+     "figureId": "79-bilibili-cn:cv1785741:b0047:figure",
+     "fields": [
+      "transcription",
+      "caption",
+      "sourceNotes",
+      "provenance"
+     ]
+    }
+   ],
+   "handoff": "integration/coac249-incremental-246-3-20261027.json",
+   "wakeup249": "01a17de4-cab5-7367-9039-b34d9789e27a",
+   "evidence": "receipt-web246-3.rev1-awaiting-review.json"
+  }
+ ],
+ "modelCalls": {
+  "production": 2,
+  "audit": 0,
+  "void": 0,
+  "failed": 1,
+  "recoveredWithoutNewCall": 1
+ },
+ "policy": {
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "productionPerChapterLimit": 1,
+  "automaticRetry": false,
+  "independentReviewBy": "COAC-249",
+  "independentReviewPerCandidateLimit": 1,
+  "BLine15711And2055Untouched": true,
+  "p217p257Calls": 0,
+  "newFrameworkOrIssueOrWorkTask": false
+ },
+ "preservation": "Original source, parents, old audits, raw and unpresented producer output retained. New display candidates use verified existing presentation derivation; complete non-target objects, body and order are byte-identical under JSON serialization. All target-field changes are listed in per-chapter evidence.",
+ "semanticAcceptance": null,
+ "productCodeChanged": false,
+ "pullRequestRequired": false,
+ "next": "Finish at this finite two-chapter boundary after handing available candidates to249; no whole-book wait, no new A production wakeup.",
+ "wakeup249": {
+  "id": "01a17de4-cab5-7367-9039-b34d9789e27a",
+  "nextFireAt": "2026-10-27T15:06:08.530921Z",
+  "issueId": "01a17471-1595-79d5-bdfa-6feaa65172c0"
+ },
+ "chapterClaimRelease": [
+  {
+   "ok": true,
+   "action": "unclaim",
+   "chapter": "79-cn-chapter-222-5",
+   "released": {
+    "schema": "coach-textbook-chapter-claim/1",
+    "chapterId": "79-cn-chapter-222-5",
+    "candidateSha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4",
+    "lane": "A",
+    "owner": "COAC-248 Mika",
+    "slot": null,
+    "claimedAt": "2026-10-27T14:49:49.936Z"
+   }
+  },
+  {
+   "ok": true,
+   "action": "unclaim",
+   "chapter": "79-cn-chapter-246-3",
+   "released": {
+    "schema": "coach-textbook-chapter-claim/1",
+    "chapterId": "79-cn-chapter-246-3",
+    "candidateSha256": "06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713",
+    "lane": "A",
+    "owner": "COAC-248 Mika",
+    "slot": null,
+    "claimedAt": "2026-10-27T14:57:31.533Z"
+   }
+  }
+ ],
+ "deliveryStatus": "both-ready-candidates-handed-to-249-and-wakeup-confirmed",
+ "runtimeManifest": {
+  "schema": "coach-textbook-audit-verification-dependencies/1",
+  "entry": "textbook-audit-web.mjs",
+  "files": [
+   {
+    "name": "textbook-audit-pdf-layout.mjs",
+    "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+   },
+   {
+    "name": "textbook-audit-pdf-native.mjs",
+    "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+   },
+   {
+    "name": "textbook-audit-pdf-scope.mjs",
+    "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+   },
+   {
+    "name": "textbook-audit-pdf-source-corrections.mjs",
+    "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+   },
+   {
+    "name": "textbook-audit-tile-dictionary.mjs",
+    "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+   },
+   {
+    "name": "textbook-audit-web-batches.mjs",
+    "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+   },
+   {
+    "name": "textbook-audit-web.mjs",
+    "sha256": "5bb4ec04770205d7e1ee13cad6e94e3edeff56cf6fc2d0af9ef6018d9c22e7ed"
+   },
+   {
+    "name": "textbook-audit.mjs",
+    "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+   },
+   {
+    "name": "textbook-production-cli.mjs",
+    "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+   }
+  ],
+  "pageApprovals": [],
+  "manifestSha256": "56287cda5a49ca62a6f688e3c19dbccee2e3e5ddce5cfd9cff3717f78f56de35"
+ }
+}

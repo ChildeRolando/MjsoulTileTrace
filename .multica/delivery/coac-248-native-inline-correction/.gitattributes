@@ -1,2 +1,4 @@
 # Preserve the exact file SHA recorded in production handoffs.
 candidates/*.json -text
+# Immutable recorded logs retain their original Windows line endings.
+evidence-web*-20261027/* -text whitespace=cr-at-eol,-blank-at-eof

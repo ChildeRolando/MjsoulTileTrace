@@ -1,0 +1,50 @@
+// Isolated zero-call recovery using the existing completed-transport recovery contract.
+import {readFile,writeFile,mkdir,appendFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {join,relative,dirname} from 'node:path';
+import assert from 'node:assert/strict';
+import {parseTextbookCliResult,isTextbookTransportDiagnosticItem,textbookClosedPrompt} from 'file:///E:/AgentData/Coach/knowledge/processing/audit/runtimes/web-b8-transport-diag-20261027/textbook-production-cli.mjs';
+const root='E:/AgentData/Coach/knowledge/processing',run=join(root,'web-production/v1');
+const id='20d7f5e0-2640-4b87-bde1-e6505d839822',sha=b=>createHash('sha256').update(b).digest('hex');
+const matches=(await readFile(join(run,'calls.jsonl'),'utf8')).trim().split(/\r?\n/).filter(l=>JSON.parse(l).callId===id);
+assert.equal(matches.length,1);const original=JSON.parse(matches[0]);
+assert.equal(original.success,false);assert.equal(original.articleId,'cv1775262');assert.equal(original.sourceId,'79-bilibili-cn');
+const rawPath=join(run,original.rawArtifactPath),rawBytes=await readFile(rawPath),raw=JSON.parse(rawBytes);
+assert.equal(sha(rawBytes),'29f20bf007f3fed7ab1cf0ed1e6dd21b3d8c2d4dfccea5cf1187095bd759a579');
+assert.equal(sha(rawBytes),original.rawArtifactSha256);assert.equal(raw.callId,id);
+assert.equal(sha(raw.rawLastMessage),original.outputSha256);assert.deepEqual(JSON.parse(raw.rawLastMessage),raw.parsedOutput);
+assert.equal(sha(JSON.stringify(raw.schema)),original.schemaSha256);assert.equal(raw.requestPrompt,textbookClosedPrompt(raw.semanticPrompt));
+assert.equal(sha(raw.requestPrompt),original.promptSha256);assert.equal(sha(raw.semanticPrompt),original.semanticPromptSha256);
+assert.deepEqual(raw.visualInputs,original.visualInputs);
+const items=raw.events.filter(e=>e.item&&!['reasoning','agent_message'].includes(e.item.type));
+assert.equal(items.length,1);assert.equal(items[0].item.message,'Falling back from WebSockets to HTTPS transport. workspace routing discovery timed out');
+assert(isTextbookTransportDiagnosticItem(items[0]));
+const parsed=parseTextbookCliResult({code:raw.exitCode,timedOut:raw.timedOut,overflow:raw.outputOverflow,stderr:raw.stderr,stdout:raw.rawStdout},raw.rawLastMessage);
+assert(parsed.success);assert.deepEqual(parsed.usage,original.usage);
+const rev=original.revision,pb=await readFile(join(root,rev.parentPath)),p=JSON.parse(pb),nb=await readFile(join(root,rev.notesPath)),notes=JSON.parse(nb);
+assert.equal(sha(pb),rev.parentSha256);assert.equal(sha(nb),rev.notesSha256);assert.equal(notes.production.sha256,sha(pb));
+assert.equal(p.source.sourceSha256,original.sourceSha256);assert.equal(p.body.mode,'verbatim');
+assert.deepEqual(rev.figureIds,['79-bilibili-cn:cv1775262:b0018:figure']);
+const output=raw.parsedOutput;assert.deepEqual(output.translations,[]);assert.equal(output.figures.length,1);
+assert.equal(output.figures[0].sourceBlockId+':figure',rev.figureIds[0]);
+const helperBytes=await readFile(join(root,'audit/runtimes/web-b8-transport-diag-20261027/textbook-production-cli.mjs'));
+assert.equal(sha(helperBytes),'ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a');
+const helperPath=join(run,'runners',sha(helperBytes)+'.cli.mjs');await writeFile(helperPath,helperBytes);
+const recordPath=join(run,'recoveries',id+'.original-ledger.json');await mkdir(dirname(recordPath),{recursive:true});await writeFile(recordPath,matches[0]+'\n',{flag:'wx'});
+const recovery={schema:'coach-textbook-production-transport-recovery/1',classification:'exact-websocket-https-tls-fallback-item-after-completed-turn',
+ originalLedgerRecord:{path:relative(root,recordPath).replaceAll('\\','/'),sha256:sha(await readFile(recordPath))},
+ rawArtifact:{path:relative(root,rawPath).replaceAll('\\','/'),sha256:sha(rawBytes)},classifierHelper:{path:relative(root,helperPath).replaceAll('\\','/'),sha256:sha(helperBytes)},
+ diagnostic:items[0].item.message,recoveredAt:new Date().toISOString(),newModelCalls:0};
+const candidate=structuredClone(p);delete candidate.candidateSha256;delete candidate.provenance.derivedFromCandidate;delete candidate.provenance.presentationRendererSha256;
+for(const f of candidate.figures)delete f.presentationAsset;
+const replacement=output.figures[0],f=candidate.figures.find(f=>f.figureId===rev.figureIds[0]);
+for(const k of ['kind','transcription','unknowns','caption','sourceNotes'])f[k]=replacement[k];
+f.provenance={method:'model-transcription',callId:id,outputSourceBlockId:replacement.sourceBlockId};
+const runnerBytes=await readFile(join(run,'runs/coac248-web-222-5-r1-20261027/frozen-runner/textbook-production-web.mjs'));
+candidate.provenance.runnerSha256=sha(runnerBytes);await writeFile(join(run,'runners',sha(runnerBytes)+'.mjs'),runnerBytes);
+candidate.provenance.attempts=[{...original,success:true,transportStatus:'completed',transportRecovery:recovery}];
+candidate.provenance.modelCalls=1;candidate.provenance.usage=original.usage;candidate.provenance.revision=rev;candidate.provenance.transportRecovery=recovery;
+candidate.candidateSha256=sha(JSON.stringify(candidate));
+const path=join(run,'candidates/79-bilibili-cn/cv1775262.r1.json');await writeFile(path,JSON.stringify(candidate,null,2)+'\n',{flag:'wx'});
+await appendFile(join(run,'recoveries.jsonl'),JSON.stringify({callId:id,candidatePath:path,candidateSha256:sha(await readFile(path)),...recovery})+'\n');
+console.log(JSON.stringify({candidatePath:path,candidateSha256:sha(await readFile(path)),originalLedgerFailed:true,newModelCalls:0}));

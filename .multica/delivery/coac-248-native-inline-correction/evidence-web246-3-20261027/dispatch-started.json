@@ -1,0 +1,193 @@
+{
+  "at": "2026-10-27T14:57:31.723500+00:00",
+  "jointExclusion": {
+    "at": "2026-10-27T14:57:31.660523+00:00",
+    "activePreview": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T14-51-46-276Z",
+    "pointerSha256": "ee90c77f748358ac2280cacf159969863eda7b6a66b562c4115c2e05f3a242cf",
+    "registerSha256": "e040f67b5051c896a6c4bd2eca4ccaaa3f43766d2cb13768c2813c2dad658828",
+    "registerRow": {
+      "chapterId": "79-cn-chapter-246-3",
+      "originalChapterId": "79-cn-chapter-246-3",
+      "sourceId": "79-cn",
+      "title": "状况判断6—状况与立直判断",
+      "units": 1,
+      "ownedSourceBlocks": 89,
+      "adjudicationGroup": "confirmed-produced-not-covered",
+      "covered": false,
+      "coverageRoute": null,
+      "approvedWebCorrespondence": {
+        "articleId": "cv1785741",
+        "webSourceId": "79-bilibili-cn",
+        "tier": "body",
+        "evidencePath": "integration/chinese-source-body-correspondence.json",
+        "substitutionAllowed": true,
+        "bodyEquivalenceConfirmed": true,
+        "articleInPreview": false
+      },
+      "existingCandidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1785741.display.json",
+        "sha256": "06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713",
+        "bodyBlocks": 62,
+        "sourceSha256": "ec4a726459f21d98599722ba4ccb5d8a95a5e96473a7a91be9f6cc88c8250c51",
+        "currentSourceSha256": "ec4a726459f21d98599722ba4ccb5d8a95a5e96473a7a91be9f6cc88c8250c51",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/79-bilibili-cn/cv1785741.06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713.json",
+        "auditRecordedAt": "2026-10-25T23:05:00.770Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 5,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          246,
+          247,
+          248,
+          249,
+          250
+        ],
+        "pagesDetail": [
+          {
+            "page": 246,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 24
+          },
+          {
+            "page": 247,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 13
+          },
+          {
+            "page": 248,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 13
+          },
+          {
+            "page": 249,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 14
+          },
+          {
+            "page": 250,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 25
+          }
+        ]
+      },
+      "gaps": {
+        "ownedSourceBlocks": 89,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 89,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 89,
+        "acceptanceGapPages": [
+          246,
+          247,
+          248,
+          249,
+          250
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          246,
+          247,
+          248,
+          249,
+          250
+        ]
+      },
+      "verdict": "produced-needs-repair",
+      "coac246": {
+        "action": "repair",
+        "auditStatus": "needs-repair",
+        "candidateSha256": "06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713",
+        "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1785741.display.json",
+        "repairErrors": 10,
+        "units": 1,
+        "blocks": 89
+      }
+    },
+    "selectedWeb": [],
+    "selectedPdf": [],
+    "boundPassedReceipts": [],
+    "priorCallIds": [
+      "ed6cad34-0896-404a-bb77-03026a78d6e3",
+      "fa7ab649-c0d9-4afe-8f08-315ba7a531cd"
+    ],
+    "existingCandidates": [
+      "cv1785741.display.json",
+      "cv1785741.json"
+    ]
+  },
+  "slot": {
+    "ok": true,
+    "action": "acquire",
+    "slot": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-A.json",
+    "record": {
+      "schema": "coach-textbook-maker-slot/1",
+      "slot": "maker-A",
+      "lane": "A",
+      "owner": "COAC-248 Mika",
+      "pid": 18268,
+      "claimedAt": "2026-10-27T14:57:31.597Z",
+      "heartbeatAt": "2026-10-27T14:57:31.597Z",
+      "ttlMinutes": 20
+    }
+  },
+  "stopFiles": {
+    "STOP": false,
+    "web-production/v1/STOP": false,
+    "model-admission-stop.json": false
+  },
+  "chapter": {
+    "ok": true,
+    "action": "check-chapter",
+    "chapter": "79-cn-chapter-246-3",
+    "held": true,
+    "bySelf": true,
+    "record": {
+      "schema": "coach-textbook-chapter-claim/1",
+      "chapterId": "79-cn-chapter-246-3",
+      "candidateSha256": "06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713",
+      "lane": "A",
+      "owner": "COAC-248 Mika",
+      "slot": null,
+      "claimedAt": "2026-10-27T14:57:31.533Z"
+    }
+  },
+  "argv": [
+    "E:/IDE/NodeJS/node.exe",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac248-web-246-3-r1-20261027\\frozen-runner\\textbook-production-web.mjs",
+    "--source",
+    "web-sources/v1/79-bilibili-cn/articles/cv1785741/source.json",
+    "--revision-from",
+    "web-production/v1/candidates/79-bilibili-cn/cv1785741.display.json",
+    "--revision-notes",
+    "audit/web/articles/79-bilibili-cn/cv1785741.06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713.json",
+    "--reuse",
+    "web-production/v1/reuse-maps/066163651f599bee375e8533bbc67ae97ccff8a8069d603f524459bc248ac789.json",
+    "--variant",
+    "r1",
+    "--stop-file",
+    "STOP",
+    "--timeout-ms",
+    "900000"
+  ]
+}

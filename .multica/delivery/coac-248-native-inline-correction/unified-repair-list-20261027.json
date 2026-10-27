@@ -16,13 +16,13 @@
   "totalTracked": 38
  },
  "countsCurrent": {
-  "needsRepair": 42,
-  "awaitingIndependentReview": 1,
+  "needsRepair": 40,
+  "awaitingIndependentReview": 3,
   "decisionHold": 1,
   "resolvedTotal": 19,
   "totalTracked": 63,
   "failedSeparateHistoryRecords": 1,
-  "scope": "Stored objects inventory only, not remaining original-chapter count. Historical failedSeparate records are retained outside this total; none represents a new failed call this round. No global selection or passed audit was refreshed."
+  "scope": "Stored objects only, not a fresh whole-book remainder. Unrelated rows are inherited without refreshing their current external audit state; no new passed status inferred."
  },
  "breakdown": {
   "oldPdfRemaining": 3,
@@ -61,10 +61,8 @@
     "web-chapter:79-cn-chapter-201-6",
     "web-chapter:79-cn-chapter-205-5",
     "web-chapter:79-cn-chapter-208-4",
-    "web-chapter:79-cn-chapter-222-5",
     "web-chapter:79-cn-chapter-234-12",
     "web-chapter:79-cn-chapter-242-3",
-    "web-chapter:79-cn-chapter-246-3",
     "web-chapter:79-cn-chapter-256-18",
     "web-chapter:79-cn-chapter-276-4",
     "web-chapter:79-cn-chapter-311-18",
@@ -101,7 +99,9 @@
     "web-chapter:nemata-jp-chapter-197-1"
    ],
    "awaitingIndependentReview": [
-    "web-chapter:79-cn-chapter-090-6"
+    "web-chapter:79-cn-chapter-090-6",
+    "web-chapter:79-cn-chapter-222-5",
+    "web-chapter:79-cn-chapter-246-3"
    ]
   }
  },
@@ -1261,11 +1261,11 @@
    "chapterId": "79-cn-chapter-222-5",
    "sourceId": "79-bilibili-cn",
    "articleId": "cv1775262",
-   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1775262.display.json",
-   "candidateSha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4",
-   "auditPath": "audit/web/articles/79-bilibili-cn/cv1775262.b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4.json",
-   "auditStatus": "needs-repair",
-   "issueCount": 4,
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.display.json",
+   "candidateSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+   "auditPath": null,
+   "auditStatus": "awaiting-independent-review",
+   "issueCount": null,
    "unitCount": 1,
    "blockCount": 36,
    "pdfPages": [
@@ -1275,12 +1275,72 @@
     225,
     226
    ],
-   "currentDisposition": "needs-repair",
+   "currentDisposition": "revision-produced-awaiting-COAC-249-first-full-article-review",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
-   "auditRecordedAt": "2026-10-25T22:04:04.447Z",
+   "auditRecordedAt": null,
    "auditSourceStale": false,
-   "diskShaVerified": true
+   "diskShaVerified": true,
+   "parentVersion": {
+    "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1775262.display.json",
+    "candidateSha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4",
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1775262.b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4.json",
+    "auditStatus": "needs-repair",
+    "issueCount": 4,
+    "auditRecordedAt": "2026-10-25T22:04:04.447Z"
+   },
+   "auditSha256": null,
+   "revision": {
+    "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1775262.display.json",
+    "parentSha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4",
+    "parentAuditPath": "audit/web/articles/79-bilibili-cn/cv1775262.b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4.json",
+    "parentAuditSha256": "7fc9a1172bf463691aa08b8ebf3d69e788d7ec1ff5e9e526b498b2c5b53a8199",
+    "sourceSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+    "targets": [
+     "79-bilibili-cn:cv1775262:b0018:figure"
+    ],
+    "productionCallId": "20d7f5e0-2640-4b87-bde1-e6505d839822",
+    "productionUsage": {
+     "inputTokens": 20162,
+     "cachedInputTokens": 0,
+     "outputTokens": 348
+    },
+    "evidence": "receipt-web222-5.rev1-awaiting-review.json",
+    "handoff249": "integration/coac249-incremental-222-5-20261027.json",
+    "wakeup249": "01a17de4-cab5-7367-9039-b34d9789e27a",
+    "modelCalls": {
+     "production": 1,
+     "audit": 0,
+     "void": 0,
+     "failed": 1,
+     "recoveredWithoutNewCall": 1
+    },
+    "independentAuditBudget": 1,
+    "retryBudget": 0,
+    "semanticAcceptance": null,
+    "transportRecovery": {
+     "schema": "coach-textbook-production-transport-recovery/1",
+     "classification": "exact-websocket-https-tls-fallback-item-after-completed-turn",
+     "originalLedgerRecord": {
+      "path": "web-production/v1/recoveries/20d7f5e0-2640-4b87-bde1-e6505d839822.original-ledger.json",
+      "sha256": "e50fdbed3507769aa27d11d909cddb46597fa5c6c906cb1a951f6b976cb86671"
+     },
+     "rawArtifact": {
+      "path": "web-production/v1/raw-calls/20d7f5e0-2640-4b87-bde1-e6505d839822.json",
+      "sha256": "29f20bf007f3fed7ab1cf0ed1e6dd21b3d8c2d4dfccea5cf1187095bd759a579"
+     },
+     "classifierHelper": {
+      "path": "web-production/v1/runners/ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a.cli.mjs",
+      "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+     },
+     "diagnostic": "Falling back from WebSockets to HTTPS transport. workspace routing discovery timed out",
+     "recoveredAt": "2026-10-27T14:57:16.892Z",
+     "newModelCalls": 0
+    },
+    "nonTargetBytesPreserved": true,
+    "intermediateUnpresentedCandidate": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.json",
+    "intermediatePolicy": "same production call; do not separately review/integrate"
+   }
   },
   {
    "objectId": "web-chapter:79-cn-chapter-234-12",
@@ -1338,11 +1398,11 @@
    "chapterId": "79-cn-chapter-246-3",
    "sourceId": "79-bilibili-cn",
    "articleId": "cv1785741",
-   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1785741.display.json",
-   "candidateSha256": "06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713",
-   "auditPath": "audit/web/articles/79-bilibili-cn/cv1785741.06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713.json",
-   "auditStatus": "needs-repair",
-   "issueCount": 10,
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1785741.r1.display.json",
+   "candidateSha256": "fc0027a140fb57b07aa1436c5c2bf26785942bd4bc8d88cf546f4f1362492d45",
+   "auditPath": null,
+   "auditStatus": "awaiting-independent-review",
+   "issueCount": null,
    "unitCount": 1,
    "blockCount": 89,
    "pdfPages": [
@@ -1352,12 +1412,56 @@
     249,
     250
    ],
-   "currentDisposition": "needs-repair",
+   "currentDisposition": "revision-produced-awaiting-COAC-249-first-full-article-review",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
-   "auditRecordedAt": "2026-10-25T23:05:00.770Z",
+   "auditRecordedAt": null,
    "auditSourceStale": false,
-   "diskShaVerified": true
+   "diskShaVerified": true,
+   "parentVersion": {
+    "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1785741.display.json",
+    "candidateSha256": "06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713",
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1785741.06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713.json",
+    "auditStatus": "needs-repair",
+    "issueCount": 10,
+    "auditRecordedAt": "2026-10-25T23:05:00.770Z"
+   },
+   "auditSha256": null,
+   "revision": {
+    "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1785741.display.json",
+    "parentSha256": "06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713",
+    "parentAuditPath": "audit/web/articles/79-bilibili-cn/cv1785741.06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713.json",
+    "parentAuditSha256": "147664fd484518e73bb5d750e5ee1da4b1b373317816dd1e23b0a032d3259e72",
+    "sourceSha256": "ec4a726459f21d98599722ba4ccb5d8a95a5e96473a7a91be9f6cc88c8250c51",
+    "targets": [
+     "79-bilibili-cn:cv1785741:b0025:figure",
+     "79-bilibili-cn:cv1785741:b0037:figure",
+     "79-bilibili-cn:cv1785741:b0047:figure"
+    ],
+    "productionCallId": "421c66e9-cb07-4981-bb9d-d9596d107e22",
+    "productionUsage": {
+     "inputTokens": 22648,
+     "cachedInputTokens": 0,
+     "outputTokens": 8099
+    },
+    "evidence": "receipt-web246-3.rev1-awaiting-review.json",
+    "handoff249": "integration/coac249-incremental-246-3-20261027.json",
+    "wakeup249": "01a17de4-cab5-7367-9039-b34d9789e27a",
+    "modelCalls": {
+     "production": 1,
+     "audit": 0,
+     "void": 0,
+     "failed": 0,
+     "recoveredWithoutNewCall": 0
+    },
+    "independentAuditBudget": 1,
+    "retryBudget": 0,
+    "semanticAcceptance": null,
+    "transportRecovery": null,
+    "nonTargetBytesPreserved": true,
+    "intermediateUnpresentedCandidate": "web-production/v1/candidates/79-bilibili-cn/cv1785741.r1.json",
+    "intermediatePolicy": "same production call; do not separately review/integrate"
+   }
   },
   {
    "objectId": "web-chapter:79-cn-chapter-256-18",
@@ -3546,7 +3650,7 @@
   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter03-section011.6ad44173945b9347cd8dd7c44640fa3341bf8e83109695e4cd8aacc6d3d98b21.json",
   "note": "Isolated revision from the 249/250 register set; parent receipt, parent candidate and raw preserved."
  },
- "refreshedAt": "2026-10-27T14:27:16.597099+00:00",
+ "refreshedAt": "2026-10-27T15:04:10.086556+00:00",
  "byOrigin": {
   "COAC-248 old PDF 12": 5,
   "COAC-247 new PDF return": 3,
@@ -3808,17 +3912,18 @@
   "bodyTextImpact": "none of the missing microprint is cited by any paragraph on those pages"
  },
  "latestRound": {
-  "at": "2026-10-27T14:27:16.597099+00:00",
+  "at": "2026-10-27T15:04:10.086556+00:00",
   "objects": [
-   "web-chapter:79-cn-chapter-090-6"
+   "web-chapter:79-cn-chapter-222-5",
+   "web-chapter:79-cn-chapter-246-3"
   ],
-  "productionModelCalls": 1,
+  "productionModelCalls": 2,
   "auditModelCalls": 0,
   "voidModelCalls": 0,
-  "failedModelCalls": 0,
-  "deterministicRejections": 0,
-  "note": "090-6新稿已产，确定性校验通过，交249首次全章独审；本线未自审，未判passed。",
-  "nextBatch": "按14:19最新owner边界退出，不另建248相同目标或兜底触发；先报本批真实结果再决定下一有限批。"
+  "failedModelCalls": 1,
+  "recoveredWithoutNewCall": 1,
+  "note": "Authorized 222-5/246-3 finite figure revisions; ready candidates handed to249, no self audit or passed claim.",
+  "record": "round-20261027T1450.json"
  },
  "relatedNonRepair": {
   "note": "COAC-246 chapters that are not 248 repair objects; their actions belong to 249 (audit) and 250 (staging/selection).",
@@ -4819,5 +4924,66 @@
    "void": 0,
    "failed": 0
   }
+ },
+ "countsPriorSnapshot20261027T1427": {
+  "needsRepair": 42,
+  "awaitingIndependentReview": 1,
+  "decisionHold": 1,
+  "resolvedTotal": 19,
+  "totalTracked": 63,
+  "failedSeparateHistoryRecords": 1,
+  "scope": "Stored objects inventory only, not remaining original-chapter count. Historical failedSeparate records are retained outside this total; none represents a new failed call this round. No global selection or passed audit was refreshed."
+ },
+ "productionFailureHistory": [
+  {
+   "callId": "20d7f5e0-2640-4b87-bde1-e6505d839822",
+   "chapterId": "79-cn-chapter-222-5",
+   "originalLedgerStatus": "failed",
+   "rawArtifact": {
+    "path": "web-production/v1/raw-calls/20d7f5e0-2640-4b87-bde1-e6505d839822.json",
+    "sha256": "29f20bf007f3fed7ab1cf0ed1e6dd21b3d8c2d4dfccea5cf1187095bd759a579"
+   },
+   "originalLedgerRecord": {
+    "path": "web-production/v1/recoveries/20d7f5e0-2640-4b87-bde1-e6505d839822.original-ledger.json",
+    "sha256": "e50fdbed3507769aa27d11d909cddb46597fa5c6c906cb1a951f6b976cb86671"
+   },
+   "recovery": {
+    "schema": "coach-textbook-production-transport-recovery/1",
+    "classification": "exact-websocket-https-tls-fallback-item-after-completed-turn",
+    "originalLedgerRecord": {
+     "path": "web-production/v1/recoveries/20d7f5e0-2640-4b87-bde1-e6505d839822.original-ledger.json",
+     "sha256": "e50fdbed3507769aa27d11d909cddb46597fa5c6c906cb1a951f6b976cb86671"
+    },
+    "rawArtifact": {
+     "path": "web-production/v1/raw-calls/20d7f5e0-2640-4b87-bde1-e6505d839822.json",
+     "sha256": "29f20bf007f3fed7ab1cf0ed1e6dd21b3d8c2d4dfccea5cf1187095bd759a579"
+    },
+    "classifierHelper": {
+     "path": "web-production/v1/runners/ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a.cli.mjs",
+     "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+    },
+    "diagnostic": "Falling back from WebSockets to HTTPS transport. workspace routing discovery timed out",
+    "recoveredAt": "2026-10-27T14:57:16.892Z",
+    "newModelCalls": 0
+   },
+   "newModelCallsForRecovery": 0,
+   "candidateSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+   "semanticAcceptance": null,
+   "note": "Historical failed classification retained; exact known transport diagnostic recovered from completed output, never a retry."
+  }
+ ],
+ "round20261027T1450": {
+  "at": "2026-10-27T15:04:10.086556+00:00",
+  "objects": [
+   "web-chapter:79-cn-chapter-222-5",
+   "web-chapter:79-cn-chapter-246-3"
+  ],
+  "productionModelCalls": 2,
+  "auditModelCalls": 0,
+  "voidModelCalls": 0,
+  "failedModelCalls": 1,
+  "recoveredWithoutNewCall": 1,
+  "note": "Authorized 222-5/246-3 finite figure revisions; ready candidates handed to249, no self audit or passed claim.",
+  "record": "round-20261027T1450.json"
  }
 }

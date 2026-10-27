@@ -1,0 +1,132 @@
+{
+  "schema": "coac248-incremental-independent-review-handoff/1",
+  "recordedAt": "2026-10-27T14:57:20.371Z",
+  "from": "COAC-248",
+  "to": "COAC-249",
+  "targets": [
+    {
+      "kind": "complete-web-candidate",
+      "chapterId": "79-cn-chapter-222-5",
+      "articleId": "cv1775262",
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.display.json",
+      "sourceId": "79-bilibili-cn",
+      "sourceSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+      "sha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+      "parentSha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4",
+      "parentAuditSha256": "7fc9a1172bf463691aa08b8ebf3d69e788d7ec1ff5e9e526b498b2c5b53a8199",
+      "category": "coac248-line-a-targeted-figure-revision",
+      "targets": [
+        "79-bilibili-cn:cv1775262:b0018:figure"
+      ]
+    }
+  ],
+  "auditConfig": {
+    "path": "audit/explicit-targets-coac248-222-5-rev1-20261027.json",
+    "sha256": "4eb5873cc2a23f592d5a3987777366208ed8f153b468d81d96faed03bf171815"
+  },
+  "evidence": {
+    "path": "web-production/v1/runs/coac248-web-222-5-r1-20261027/production-evidence.json",
+    "sha256": "b5467248084d823b177bcabd65fd6ca36399f92f3afe20eb7dacf93d58af5532"
+  },
+  "parent": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1775262.display.json",
+    "sha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4",
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1775262.b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4.json",
+    "auditSha256": "7fc9a1172bf463691aa08b8ebf3d69e788d7ec1ff5e9e526b498b2c5b53a8199"
+  },
+  "rawCandidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.json",
+    "sha256": "9ac44dcd61b8228464689b9d7754ff1fc49ebd4d6d9337da4d3d2c33540a9623",
+    "role": "unpresented intermediate of same production call; do not separately review or integrate"
+  },
+  "limits": {
+    "firstIndependentFullArticleReview": 1,
+    "retry": 0,
+    "failedVoidCount": true
+  },
+  "instructions": "独立核完整原文/原图/新稿；父审仅定位。完整from/to含目标caption/sourceNotes，非目标全部字节保留，lossless display逐像素机械验过。只审display交付SHA，不为未展示中间稿另派；passed交250，退回反馈248，不自动重试。B线157-11/205-5、p217/p257、已交090-6不属本件。",
+  "semanticAcceptance": null,
+  "transportRecovery": {
+    "schema": "coach-textbook-production-transport-recovery/1",
+    "classification": "exact-websocket-https-tls-fallback-item-after-completed-turn",
+    "originalLedgerRecord": {
+      "path": "web-production/v1/recoveries/20d7f5e0-2640-4b87-bde1-e6505d839822.original-ledger.json",
+      "sha256": "e50fdbed3507769aa27d11d909cddb46597fa5c6c906cb1a951f6b976cb86671"
+    },
+    "rawArtifact": {
+      "path": "web-production/v1/raw-calls/20d7f5e0-2640-4b87-bde1-e6505d839822.json",
+      "sha256": "29f20bf007f3fed7ab1cf0ed1e6dd21b3d8c2d4dfccea5cf1187095bd759a579"
+    },
+    "classifierHelper": {
+      "path": "web-production/v1/runners/ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a.cli.mjs",
+      "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+    },
+    "diagnostic": "Falling back from WebSockets to HTTPS transport. workspace routing discovery timed out",
+    "recoveredAt": "2026-10-27T14:57:16.892Z",
+    "newModelCalls": 0
+  },
+  "verifiedExistingRuntimeManifest": {
+    "schema": "coach-textbook-audit-verification-dependencies/1",
+    "recordedAt": "2026-10-27T15:00:44.121Z",
+    "base": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/web-b8-transport-diag-20261027",
+    "entry": "textbook-audit-web.mjs",
+    "manifest": {
+      "schema": "coach-textbook-audit-verification-dependencies/1",
+      "entry": "textbook-audit-web.mjs",
+      "files": [
+        {
+          "name": "textbook-audit-pdf-layout.mjs",
+          "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+        },
+        {
+          "name": "textbook-audit-pdf-native.mjs",
+          "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+        },
+        {
+          "name": "textbook-audit-pdf-scope.mjs",
+          "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+        },
+        {
+          "name": "textbook-audit-pdf-source-corrections.mjs",
+          "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+        },
+        {
+          "name": "textbook-audit-tile-dictionary.mjs",
+          "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+        },
+        {
+          "name": "textbook-audit-web-batches.mjs",
+          "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+        },
+        {
+          "name": "textbook-audit-web.mjs",
+          "sha256": "5bb4ec04770205d7e1ee13cad6e94e3edeff56cf6fc2d0af9ef6018d9c22e7ed"
+        },
+        {
+          "name": "textbook-audit.mjs",
+          "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+        },
+        {
+          "name": "textbook-production-cli.mjs",
+          "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+        }
+      ],
+      "pageApprovals": [],
+      "manifestSha256": "56287cda5a49ca62a6f688e3c19dbccee2e3e5ddce5cfd9cff3717f78f56de35"
+    },
+    "verified": {
+      "ok": true,
+      "manifestSha256": "56287cda5a49ca62a6f688e3c19dbccee2e3e5ddce5cfd9cff3717f78f56de35",
+      "files": 9,
+      "pageApprovals": 0,
+      "diff": {
+        "added": [],
+        "removed": [],
+        "changed": []
+      }
+    },
+    "role": "Existing COAC-249 frozen b8 runtime dependency closure, reproduced with existing verifier; no runtime or gate changed",
+    "helperSha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+  },
+  "originalLedgerFailedCount": 1
+}
