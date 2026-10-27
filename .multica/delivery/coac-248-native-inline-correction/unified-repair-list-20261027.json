@@ -16,8 +16,8 @@
   "totalTracked": 38
  },
  "countsCurrent": {
-  "needsRepair": 40,
-  "awaitingIndependentReview": 2,
+  "needsRepair": 41,
+  "awaitingIndependentReview": 1,
   "decisionHold": 1,
   "resolvedTotal": 20,
   "totalTracked": 63,
@@ -1493,9 +1493,9 @@
    "articleId": "cv1785770",
    "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1785770.r1.display.json",
    "candidateSha256": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2",
-   "auditPath": null,
-   "auditStatus": "awaiting-independent-review",
-   "issueCount": null,
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1785770.56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 3,
    "unitCount": 1,
    "blockCount": 62,
    "pdfPages": [
@@ -1505,10 +1505,10 @@
     259,
     260
    ],
-   "currentDisposition": "revision-produced-awaiting-COAC-249-first-full-article-review",
+   "currentDisposition": "terminal-needs-repair-tile-error-and-two-unresolved-discards-awaiting-owner",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
-   "auditRecordedAt": null,
+   "auditRecordedAt": "2026-10-27T15:46:52.626Z",
    "auditSourceStale": false,
    "diskShaVerified": true,
    "parentVersion": {
@@ -1519,7 +1519,7 @@
     "issueCount": 4,
     "auditRecordedAt": "2026-10-25T23:09:07.932Z"
    },
-   "auditSha256": null,
+   "auditSha256": "8341055fc9fec8aacf5c8dd6344cb5af99cfc6998f76105f7dc7d8e13a9a4b21",
    "revision": {
     "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1785770.display.json",
     "parentSha256": "84f27b9562fc5341a15ff938abf2db84a2ba0ba25cd30241e84996101500df69",
@@ -1551,8 +1551,44 @@
     "transportRecovery": null,
     "nonTargetBytesPreserved": true,
     "intermediateUnpresentedCandidate": "web-production/v1/candidates/79-bilibili-cn/cv1785770.r1.json",
-    "intermediatePolicy": "same production call; do not separately review/integrate"
-   }
+    "intermediatePolicy": "same production call; do not separately review/integrate",
+    "independentReview": {
+     "callId": "6bf6cb0d-1123-45f8-a4b0-975dd270b4c0",
+     "status": "needs-repair",
+     "candidateSha256": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2",
+     "auditPath": "audit/web/articles/79-bilibili-cn/cv1785770.56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2.json",
+     "auditSha256": "8341055fc9fec8aacf5c8dd6344cb5af99cfc6998f76105f7dc7d8e13a9a4b21",
+     "callsUsed": 1,
+     "callsRemaining": 0,
+     "retries": 0
+    }
+   },
+   "integrationAllowed": false,
+   "ownerDecision": "COAC-244 existing stage source/parent adjudication",
+   "latestFeedback": "receipt-256-18-review-return-20261027.json",
+   "originalIndependentIssues": [
+    {
+     "severity": "error",
+     "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+     "sourceEvidence": "例2原图及放大图下方手牌第12张，位于7s与9s之间，可辨为8s；候选写作“[索子，数字不明]”。",
+     "description": "可辨认的教学手牌仍用占位描述，漏失具体牌码。",
+     "suggestedRepair": "将该位置改为8s，并删除unknowns中对应条目。"
+    },
+    {
+     "severity": "uncertain",
+     "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+     "sourceEvidence": "候选将上方弃牌第二行1p右侧的万子及右方靠中央一列最上方的索子记为数字不明；两者均是原图中的实际弃牌。",
+     "description": "两张弃牌的具体牌码尚未可靠确定，无法确认例2完整牌河忠实性，不能以unknowns声明替代完整教学转录。",
+     "suggestedRepair": "逐牌确认这两处牌面并补入确定牌码；确认前保持阻断，不依据正文或牌序推补。"
+    },
+    {
+     "severity": "source-note",
+     "targetId": "79-bilibili-cn:cv1785770:b0006:figure",
+     "sourceEvidence": "例1备注称“附件1与附件2”属于例1，但本次附件1、2绑定的是例2；例3、例4备注另引用附件5至8。",
+     "description": "加工附件编号与本次附图编号不对应，不影响已核原图的教学语义。",
+     "suggestedRepair": "将附件说明改为按对应图例或assetId描述原图与放大图，避免沿用其他批次的附件编号。"
+    }
+   ]
   },
   {
    "objectId": "web-chapter:79-cn-chapter-276-4",
@@ -3858,7 +3894,7 @@
   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter03-section011.6ad44173945b9347cd8dd7c44640fa3341bf8e83109695e4cd8aacc6d3d98b21.json",
   "note": "Isolated revision from the 249/250 register set; parent receipt, parent candidate and raw preserved."
  },
- "refreshedAt": "2026-10-27T15:53:38.717651+00:00",
+ "refreshedAt": "2026-10-27T16:02:14.560180+00:00",
  "byOrigin": {
   "COAC-248 old PDF 12": 5,
   "COAC-247 new PDF return": 3,
@@ -5460,5 +5496,172 @@
    "246-3": "same handoff passed, already handed to250; no new review"
   },
   "newProductionBatch": false
+ },
+ "countsPriorFeedback256": {
+  "needsRepair": 40,
+  "awaitingIndependentReview": 2,
+  "decisionHold": 1,
+  "resolvedTotal": 20,
+  "totalTracked": 63,
+  "failedSeparateHistoryRecords": 1,
+  "scope": "Stored objects only, not a fresh whole-book remainder. Unrelated rows are inherited without refreshing their current external audit state; no new passed status inferred."
+ },
+ "feedback25620261027": {
+  "schema": "coach-repair-independent-feedback-intake/1",
+  "recordedAt": "2026-10-27T16:02:14.560180+00:00",
+  "issue": "COAC-248",
+  "wakeupId": "01a17e0f-e951-7e87-be6d-7f5bc358eef3",
+  "chapterId": "79-cn-chapter-256-18",
+  "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1785770.r1.display.json",
+  "candidateSha256": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2",
+  "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1785770/source.json",
+  "sourceSha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23",
+  "auditPath": "audit/web/articles/79-bilibili-cn/cv1785770.56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2.json",
+  "auditSha256": "8341055fc9fec8aacf5c8dd6344cb5af99cfc6998f76105f7dc7d8e13a9a4b21",
+  "auditStatus": "needs-repair",
+  "auditCallId": "6bf6cb0d-1123-45f8-a4b0-975dd270b4c0",
+  "priorAuditUsage": {
+   "inputTokens": 24940,
+   "cachedInputTokens": 0,
+   "outputTokens": 7321
+  },
+  "priorIndependentAuditCalls": 1,
+  "reviewCoverage": {
+   "blocks": 42,
+   "figures": 4,
+   "imageOccurrences": 4
+  },
+  "originalIndependentIssues": [
+   {
+    "severity": "error",
+    "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+    "sourceEvidence": "例2原图及放大图下方手牌第12张，位于7s与9s之间，可辨为8s；候选写作“[索子，数字不明]”。",
+    "description": "可辨认的教学手牌仍用占位描述，漏失具体牌码。",
+    "suggestedRepair": "将该位置改为8s，并删除unknowns中对应条目。"
+   },
+   {
+    "severity": "uncertain",
+    "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+    "sourceEvidence": "候选将上方弃牌第二行1p右侧的万子及右方靠中央一列最上方的索子记为数字不明；两者均是原图中的实际弃牌。",
+    "description": "两张弃牌的具体牌码尚未可靠确定，无法确认例2完整牌河忠实性，不能以unknowns声明替代完整教学转录。",
+    "suggestedRepair": "逐牌确认这两处牌面并补入确定牌码；确认前保持阻断，不依据正文或牌序推补。"
+   },
+   {
+    "severity": "source-note",
+    "targetId": "79-bilibili-cn:cv1785770:b0006:figure",
+    "sourceEvidence": "例1备注称“附件1与附件2”属于例1，但本次附件1、2绑定的是例2；例3、例4备注另引用附件5至8。",
+    "description": "加工附件编号与本次附图编号不对应，不影响已核原图的教学语义。",
+    "suggestedRepair": "将附件说明改为按对应图例或assetId描述原图与放大图，避免沿用其他批次的附件编号。"
+   }
+  ],
+  "reviewerReadingOnly": {
+   "bottomHand12": "8s per independent reviewer; no local source adjudication or edit in this intake",
+   "topDiscardSecondRowRightOf1p": "unresolved man tile; remains blocking",
+   "rightDiscardInnermostColumnTop": "unresolved bamboo tile; remains blocking"
+  },
+  "sourceNotesDisposition": "Original non-target notes preserved; source-note is non-blocking, not cleared.",
+  "owner": "COAC-244 existing stage source/parent adjudication",
+  "disposition": "terminal-needs-repair-tile-error-and-two-unresolved-discards-awaiting-owner",
+  "integrationAllowed": false,
+  "automaticRepairAllowed": false,
+  "independentAuditBudgetRemaining": 0,
+  "retryBudget": 0,
+  "newModelCalls": {
+   "production": 0,
+   "audit": 0,
+   "failed": 0,
+   "void": 0
+  },
+  "handoff": {
+   "path": "integration\\coac249-reviewed-256-18-20261027.json",
+   "sha256": "e4ff6da0fae92b6b0b1d084b436691b529d80c5d9409ea9450924a973dc0b553"
+  },
+  "originalAuditRaw": {
+   "path": "audit/calls/6bf6cb0d-1123-45f8-a4b0-975dd270b4c0.json",
+   "sha256": "6ed8519078198ecb6310bf2ed36dc5aaddff786ea5b79a82afdf555146ffcf1c",
+   "exitCode": 0,
+   "timedOut": false,
+   "durationMs": 224988,
+   "success": true
+  },
+  "productionCallId": "8edb9889-e306-4695-8b5a-1bc1dc8cf37e",
+  "productionRaw": {
+   "path": "web-production/v1/raw-calls/8edb9889-e306-4695-8b5a-1bc1dc8cf37e.json",
+   "sha256": "cc04bdd2b664b500720396e8c6a089716f3324900aa5000ffe7d05b26115a9b8"
+  },
+  "parent": {
+   "path": "web-production/v1/candidates/79-bilibili-cn/cv1785770.display.json",
+   "sha256": "84f27b9562fc5341a15ff938abf2db84a2ba0ba25cd30241e84996101500df69",
+   "auditPath": "audit/web/articles/79-bilibili-cn/cv1785770.84f27b9562fc5341a15ff938abf2db84a2ba0ba25cd30241e84996101500df69.json",
+   "auditSha256": "fa8e60a40557c01c5cc5d88805cbbbfcb94a04b09bbad3773ca5656e9237fa58"
+  },
+  "intermediateCandidate": {
+   "path": "web-production/v1/candidates/79-bilibili-cn/cv1785770.r1.json",
+   "sha256": "5b2bfbb5c574661f3e412917ee4434028b8cafaec5753f2de12ce9e9341cbd49",
+   "role": "unpresented intermediate of same production call; do not separately review or integrate"
+  },
+  "runtimeManifest": {
+   "schema": "coach-textbook-audit-verification-dependencies/1",
+   "entry": "textbook-audit-web.mjs",
+   "files": [
+    {
+     "name": "textbook-audit-pdf-layout.mjs",
+     "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+    },
+    {
+     "name": "textbook-audit-pdf-native.mjs",
+     "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+    },
+    {
+     "name": "textbook-audit-pdf-scope.mjs",
+     "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+    },
+    {
+     "name": "textbook-audit-pdf-source-corrections.mjs",
+     "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+    },
+    {
+     "name": "textbook-audit-tile-dictionary.mjs",
+     "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+    },
+    {
+     "name": "textbook-audit-web-batches.mjs",
+     "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+    },
+    {
+     "name": "textbook-audit-web.mjs",
+     "sha256": "5bb4ec04770205d7e1ee13cad6e94e3edeff56cf6fc2d0af9ef6018d9c22e7ed"
+    },
+    {
+     "name": "textbook-audit.mjs",
+     "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+    },
+    {
+     "name": "textbook-production-cli.mjs",
+     "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+    }
+   ],
+   "pageApprovals": [],
+   "manifestSha256": "56287cda5a49ca62a6f688e3c19dbccee2e3e5ddce5cfd9cff3717f78f56de35"
+  },
+  "selectionAfter": {
+   "schema": "coach-explicit-audit-selection/1",
+   "configPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\explicit-targets-coac248-256-18-rev1-20261027.json",
+   "maxTargets": 1,
+   "retryFailed": false,
+   "selected": [],
+   "terminalSkips": [
+    {
+     "key": "cv1785770:56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2",
+     "status": "needs-repair",
+     "source": "receipt",
+     "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1785770.56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2.json"
+    }
+   ],
+   "pendingBefore": 0,
+   "modelCalls": 0
+  },
+  "newProductionBatch": false,
+  "preservedOtherWork": "276-4 already failed without output; no retry. 222/246/090/081/B and PDF evidence unchanged."
  }
 }

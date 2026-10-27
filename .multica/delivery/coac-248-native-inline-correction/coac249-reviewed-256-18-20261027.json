@@ -1,0 +1,480 @@
+{
+  "schema": "coac250-incremental-staging-receipt/1",
+  "recordedAt": "2026-10-27T15:50:46.613Z",
+  "from_": "COAC-249",
+  "batchId": "coac249-A-256-18-20261027",
+  "batchSize": 1,
+  "modelCalls": 0,
+  "auditModelCalls": 1,
+  "retries": 0,
+  "chapters": [
+    {
+      "chapterId": "79-cn-chapter-256-18",
+      "articleId": "cv1785770",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1785770.r1.display.json",
+      "candidateSha256": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2",
+      "sourceSha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1785770/source.json",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1785770.display.json",
+        "sha256": "84f27b9562fc5341a15ff938abf2db84a2ba0ba25cd30241e84996101500df69",
+        "auditPath": "audit/web/articles/79-bilibili-cn/cv1785770.84f27b9562fc5341a15ff938abf2db84a2ba0ba25cd30241e84996101500df69.json",
+        "auditSha256": "fa8e60a40557c01c5cc5d88805cbbbfcb94a04b09bbad3773ca5656e9237fa58"
+      },
+      "rawCandidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1785770.r1.json",
+        "sha256": "5b2bfbb5c574661f3e412917ee4434028b8cafaec5753f2de12ce9e9341cbd49",
+        "role": "unpresented intermediate of same production call; do not separately review or integrate"
+      },
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1785770.56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2.json",
+      "auditSha256": "8341055fc9fec8aacf5c8dd6344cb5af99cfc6998f76105f7dc7d8e13a9a4b21",
+      "auditStatus": "needs-repair",
+      "auditMethod": "independent-sol-high-full-article-review",
+      "auditCallId": "6bf6cb0d-1123-45f8-a4b0-975dd270b4c0",
+      "auditUsage": {
+        "inputTokens": 24940,
+        "cachedInputTokens": 0,
+        "outputTokens": 7321
+      },
+      "auditModel": "gpt-6.1-sol",
+      "auditReasoningEffort": "high",
+      "auditModelCalls": 1,
+      "retries": 0,
+      "failedVoidConsumesBudget": true,
+      "auditRaw": {
+        "path": "audit/calls/6bf6cb0d-1123-45f8-a4b0-975dd270b4c0.json",
+        "sha256": "6ed8519078198ecb6310bf2ed36dc5aaddff786ea5b79a82afdf555146ffcf1c",
+        "exitCode": 0,
+        "timedOut": false,
+        "durationMs": 224988,
+        "success": true
+      },
+      "reverifiedStatus": null,
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:79-bilibili-cn:cv1785770:b0016",
+          "needs-repair:79-bilibili-cn:cv1785770:b0016:figure",
+          "semantic_information_missing",
+          "error:79-bilibili-cn:cv1785770:b0016:figure",
+          "uncertain:79-bilibili-cn:cv1785770:b0016:figure"
+        ]
+      },
+      "modelReview": {
+        "blockChecks": [
+          {
+            "id": "79-bilibili-cn:cv1785770:b0001",
+            "verdict": "faithful",
+            "evidence": "免责声明、原作者权利说明、译者SeventhTG（XD）、转载要求及原文地址完整保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0002",
+            "verdict": "faithful",
+            "evidence": "AL立直判断的主题原文保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0003",
+            "verdict": "faithful",
+            "evidence": "根据AL状况调整通常立直判断的条件完整保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0004",
+            "verdict": "faithful",
+            "evidence": "立直供托可能导致顺位下降的理由完整保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0005",
+            "verdict": "faithful",
+            "evidence": "例1标签保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0006",
+            "verdict": "faithful",
+            "evidence": "已核原图对应的例1牌局转录完整，点数、手牌、摸牌、四家弃牌及朝向均有表示。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0007",
+            "verdict": "faithful",
+            "evidence": "TOP进入AL及避免无效立直的目标逐字保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0008",
+            "verdict": "faithful",
+            "evidence": "2、5饼立直做满贯及平场打法的判断保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0009",
+            "verdict": "faithful",
+            "evidence": "当前点数条件、默听及选择1、4索的判断力度完整保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0010",
+            "verdict": "faithful",
+            "evidence": "总结标签及强调标记保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0011",
+            "verdict": "faithful",
+            "evidence": "AL自己TOP且有役听牌应默听的结论及强调保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0012",
+            "verdict": "faithful",
+            "evidence": "他家食断缺乏翻盘机会时可以立直的例外完整保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0013",
+            "verdict": "faithful",
+            "evidence": "第二位满贯直击仍不能逆转、立直需18000点差及机会少的限定保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0014",
+            "verdict": "faithful",
+            "evidence": "原分隔线保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0015",
+            "verdict": "faithful",
+            "evidence": "例2标签保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0016",
+            "verdict": "needs-repair",
+            "evidence": "例2已表示场况、点数、副露及牌河，但手牌第12张和两张弃牌仍以数字不明代替，教学牌码未完整转录。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0017",
+            "verdict": "faithful",
+            "evidence": "容易被第二位逆转时应进攻，以及微差供托的影响均保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0018",
+            "verdict": "faithful",
+            "evidence": "对家已满足逆转条件，因此例2可以立直的理由保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0019",
+            "verdict": "faithful",
+            "evidence": "4、7万可默听和牌，1万无役不能和的区别完整保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0020",
+            "verdict": "faithful",
+            "evidence": "对家食断、可能打出1万、缺少有效改良及应立直的论证保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0021",
+            "verdict": "faithful",
+            "evidence": "供托后可能因上下家自摸掉位、目前两家未听牌及进攻结论保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0022",
+            "verdict": "faithful",
+            "evidence": "原分隔线保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0023",
+            "verdict": "faithful",
+            "evidence": "例3标签保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0024",
+            "verdict": "faithful",
+            "evidence": "已核原图对应的例3转录包含场况、供托、点数、手牌、摸牌、四家弃牌及立直横置牌。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0025",
+            "verdict": "faithful",
+            "evidence": "应对第四位立直的主题保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0026",
+            "verdict": "faithful",
+            "evidence": "切中保持默听的判断逐字保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0027",
+            "verdict": "faithful",
+            "evidence": "下家任何自摸均终局、无需正面对决的条件和理由保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0028",
+            "verdict": "faithful",
+            "evidence": "切中、期待自摸2或5万，以及摸危险牌继续拆中弃和的步骤保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0029",
+            "verdict": "faithful",
+            "evidence": "弃和基本保TOP时不应立直的强烈判断保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0030",
+            "verdict": "faithful",
+            "evidence": "原分隔线保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0031",
+            "verdict": "faithful",
+            "evidence": "转入改良默听话题的原文保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0032",
+            "verdict": "faithful",
+            "evidence": "AL少有等待改良机会、通常期待一发或里宝更好的比较保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0033",
+            "verdict": "faithful",
+            "evidence": "例4标签保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0034",
+            "verdict": "faithful",
+            "evidence": "已核原图对应的十三张手牌、摸入2p、宝牌3z及标签中文均完整表示。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0035",
+            "verdict": "faithful",
+            "evidence": "AL第二位及差一手三色听牌的条件保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0036",
+            "verdict": "faithful",
+            "evidence": "一发中里宝或自摸中1里宝可逆转时应即立的条件保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0037",
+            "verdict": "faithful",
+            "evidence": "3900点以内点差及默听损失非常大的判断保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0038",
+            "verdict": "faithful",
+            "evidence": "摸6万与一发或里宝概率的比较完整保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0039",
+            "verdict": "faithful",
+            "evidence": "必须自摸满贯时可默听等待6万改良的例外保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0040",
+            "verdict": "faithful",
+            "evidence": "改良前仍应荣和、仅一种改良牌及改良后仍需高目的限制完整保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0041",
+            "verdict": "faithful",
+            "evidence": "禁止过度期待苛刻条件的判断力度保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0042",
+            "verdict": "faithful",
+            "evidence": "待续标记保留。"
+          }
+        ],
+        "figureChecks": [
+          {
+            "id": "79-bilibili-cn:cv1785770:b0006:figure",
+            "verdict": "faithful",
+            "evidence": "使用已独立核过的有限原图复用证据。南4局1本场、供托0根、四家点数、手牌与摸入6s、全部弃牌和方向均已转录；与正文2、5饼立直及1、4索默听的说明对应。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0016:figure",
+            "verdict": "needs-repair",
+            "evidence": "附图可核南4局0本场、供托0根、东31700／南22300／西30000／北26000及对家副露。候选手牌第12张仍写数字不明，而图中可辨为8s；上方第二行最右万子和右方弃牌首张也仍未给出确定牌码，不能判定完整。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0024:figure",
+            "verdict": "faithful",
+            "evidence": "使用已独立核过的有限原图复用证据。场况、1根供托、四家点数、摸入7p、三张中及各家牌河均有表示，右家6s的立直横置方向单独注明；与切中默听等待2、5万的正文对应。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:b0034:figure",
+            "verdict": "faithful",
+            "evidence": "使用已独立核过的有限原图复用证据。十三张手牌次序、摸入2p、宝牌3z及两个标签完整表示，与等待6万改良三色及高目限制的正文对应。"
+          }
+        ],
+        "imageChecks": [
+          {
+            "id": "79-bilibili-cn:cv1785770:i00001",
+            "disposition": "represented",
+            "evidence": "对应例1图例，已核原图复用，教学牌局信息有完整转录。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:i00002",
+            "disposition": "represented",
+            "evidence": "对应例2图例，本次原图及放大图均已提供；图例已表示，但三处牌码占位须修复。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:i00003",
+            "disposition": "represented",
+            "evidence": "对应例3图例，已核原图复用，包含立直横置牌及全部可见牌局信息。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1785770:i00004",
+            "disposition": "represented",
+            "evidence": "对应例4图例，已核原图复用，手牌、摸牌、宝牌和标签均有表示。"
+          }
+        ],
+        "domOrder": {
+          "faithful": true,
+          "evidence": "42个正文块按源顺序逐一对应；四幅图分别位于例1至例4标签之后，段落、总结强调、分隔线及待续均未移位或重复。"
+        },
+        "semanticCompleteness": {
+          "complete": false,
+          "evidence": "全部中文正文、署名、原文地址及强调均保留，四次图片出现均有对应图例；但例2转录明确留下手牌第12张、上方第二行最右万子、右方弃牌首张三处牌码缺失，影响完整牌姿和牌河，阻断通过。"
+        },
+        "issues": [
+          {
+            "severity": "error",
+            "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+            "sourceEvidence": "例2原图及放大图下方手牌第12张，位于7s与9s之间，可辨为8s；候选写作“[索子，数字不明]”。",
+            "description": "可辨认的教学手牌仍用占位描述，漏失具体牌码。",
+            "suggestedRepair": "将该位置改为8s，并删除unknowns中对应条目。"
+          },
+          {
+            "severity": "uncertain",
+            "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+            "sourceEvidence": "候选将上方弃牌第二行1p右侧的万子及右方靠中央一列最上方的索子记为数字不明；两者均是原图中的实际弃牌。",
+            "description": "两张弃牌的具体牌码尚未可靠确定，无法确认例2完整牌河忠实性，不能以unknowns声明替代完整教学转录。",
+            "suggestedRepair": "逐牌确认这两处牌面并补入确定牌码；确认前保持阻断，不依据正文或牌序推补。"
+          },
+          {
+            "severity": "source-note",
+            "targetId": "79-bilibili-cn:cv1785770:b0006:figure",
+            "sourceEvidence": "例1备注称“附件1与附件2”属于例1，但本次附件1、2绑定的是例2；例3、例4备注另引用附件5至8。",
+            "description": "加工附件编号与本次附图编号不对应，不影响已核原图的教学语义。",
+            "suggestedRepair": "将附件说明改为按对应图例或assetId描述原图与放大图，避免沿用其他批次的附件编号。"
+          }
+        ],
+        "completeArticleCompared": true,
+        "summary": "已逐项核对全文42块、4幅图例及4次图片出现。正文和顺序忠实；例2仍缺三处确定牌码，语义完整性未通过。"
+      },
+      "failure": null,
+      "production": {
+        "callId": "8edb9889-e306-4695-8b5a-1bc1dc8cf37e",
+        "usage": {
+          "inputTokens": 18608,
+          "cachedInputTokens": 0,
+          "outputTokens": 8364
+        },
+        "modelCalls": {
+          "production": 1,
+          "audit": 0,
+          "void": 0,
+          "failed": 0,
+          "recoveredWithoutNewCall": 0
+        },
+        "recovery": null,
+        "release": {
+          "at": "2026-10-27T15:37:31.090348+00:00",
+          "release": {
+            "ok": true,
+            "action": "release",
+            "slot": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-A.json",
+            "released": "maker-A"
+          }
+        }
+      },
+      "productionEvidence": {
+        "path": "web-production/v1/runs/coac248-web-256-18-r1-20261027/production-evidence.json",
+        "sha256": "7d71a5847b4532676913f1bd0aa4c31176dcc379b6853928e242c35a445e7ddf"
+      },
+      "producerHandoff": "integration/coac249-incremental-256-18-20261027.json",
+      "runtime": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\web-b8-transport-diag-20261027",
+        "manifest": {
+          "schema": "coach-textbook-audit-verification-dependencies/1",
+          "entry": "textbook-audit-web.mjs",
+          "files": [
+            {
+              "name": "textbook-audit-pdf-layout.mjs",
+              "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+            },
+            {
+              "name": "textbook-audit-pdf-native.mjs",
+              "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+            },
+            {
+              "name": "textbook-audit-pdf-scope.mjs",
+              "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+            },
+            {
+              "name": "textbook-audit-pdf-source-corrections.mjs",
+              "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+            },
+            {
+              "name": "textbook-audit-tile-dictionary.mjs",
+              "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+            },
+            {
+              "name": "textbook-audit-web-batches.mjs",
+              "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+            },
+            {
+              "name": "textbook-audit-web.mjs",
+              "sha256": "5bb4ec04770205d7e1ee13cad6e94e3edeff56cf6fc2d0af9ef6018d9c22e7ed"
+            },
+            {
+              "name": "textbook-audit.mjs",
+              "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+            },
+            {
+              "name": "textbook-production-cli.mjs",
+              "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+            }
+          ],
+          "pageApprovals": [],
+          "manifestSha256": "56287cda5a49ca62a6f688e3c19dbccee2e3e5ddce5cfd9cff3717f78f56de35"
+        },
+        "postVerify": {
+          "ok": true,
+          "manifestSha256": "56287cda5a49ca62a6f688e3c19dbccee2e3e5ddce5cfd9cff3717f78f56de35",
+          "files": 9,
+          "pageApprovals": 0,
+          "diff": {
+            "added": [],
+            "removed": [],
+            "changed": []
+          }
+        }
+      },
+      "targetFigureIds": [
+        "79-bilibili-cn:cv1785770:b0016:figure"
+      ],
+      "targetVerdicts": [
+        {
+          "id": "79-bilibili-cn:cv1785770:b0016:figure",
+          "verdict": "needs-repair",
+          "evidence": "附图可核南4局0本场、供托0根、东31700／南22300／西30000／北26000及对家副露。候选手牌第12张仍写数字不明，而图中可辨为8s；上方第二行最右万子和右方弃牌首张也仍未给出确定牌码，不能判定完整。"
+        }
+      ],
+      "sourceNotesDisposition": "Preserve every source-note and the original candidate SHA. Attachment numbering and visual source-note changes are part of the independent verdict; do not silently edit candidate or clear issues.",
+      "reviewConflict": null,
+      "selectionAfter": {
+        "schema": "coach-explicit-audit-selection/1",
+        "configPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\explicit-targets-coac248-256-18-rev1-20261027.json",
+        "maxTargets": 1,
+        "retryFailed": false,
+        "selected": [],
+        "terminalSkips": [
+          {
+            "key": "cv1785770:56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2",
+            "status": "needs-repair",
+            "source": "receipt",
+            "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1785770.56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2.json"
+          }
+        ],
+        "pendingBefore": 0,
+        "modelCalls": 0
+      }
+    }
+  ],
+  "passed": [],
+  "returned": [
+    "79-cn-chapter-256-18"
+  ],
+  "productionHistory": "One production call, directly successful. No original ledger failure or transport recovery.",
+  "scope": "Only the delivered 256-18 display candidate. Intermediate r1 candidate was hashed as lineage but never reviewed separately. No changes to source, candidate, old receipt/runtime, selection, register, preview pointer or B-line claims. No new production batch."
+}
