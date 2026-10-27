@@ -3,12 +3,15 @@
 Ticket-local evidence bundle for the Multica ticket `COAC-269` (line B of the parallel editing split
 authorised 2026-10-27T09:23Z). Shared code, the unified register, selection and pointers were not modified.
 
-Current state: **b1017/b1181 produced on the latest parent; first target audits handed to249**.
-Candidate `b90f7c4f…507458` extends actual `00074d1c…09cbe2`; only these two text fields changed.
-The new allowance used **2 production /0 audit here, maximum4, two first audits reserved, retry0**.
-All1193 non-target blocks and524 figures, including passed b0168/b0396/b0962 and table/Q8 scope,
-retain their parent bytes and order. Effective blockers remain7 until genuine new review results.
-See Batch20 for exact targets, real calls, request constraints and handoff.
+Current state: **b1181 passed its real first target audit; b1017 remains needs-repair**.
+Candidate `b90f7c4f…507458` extends actual `00074d1c…09cbe2` and is unchanged after review.
+This allowance used **2 production +2 first independent audits =4/4, remaining0, failed/void0,
+retry0**. Batch21 registered the results with **0 new model calls**. The independent1017 error
+finds the added 小三元／大三元 parenthesis narrows the source term; preserve the error and raw,
+without editing or re-reviewing this candidate. All1193 non-target blocks and524 figures,
+including passed b0168/b0396/b0962 and table/Q8 scope, retain their parent bytes and order.
+The ticket-local effective view has6 remaining blockers plus2 source-notes. Whole283 remains
+needs-repair/unaccepted. See Batch20 for production and Batch21 for the genuine review outcomes.
 
 b0396/b0962's independent first target passes remain valid. Their distinct previous allowance used
 **2 production +2 independent first audits =4/4, remaining0, failed/void0, retry0** (Batch18/19).
@@ -1420,3 +1423,66 @@ Both target and generic whole-article verifier outcomes must be collected; expec
 needs-repair refusal cannot cause a retry. Genuine results return to this authorization thread and
 existing244/250 item aggregation. No new independent pass, reduced effective blocking count,
 whole-chapter integration or active-pointer change is claimed here. Ticket and draft PR remain open.
+
+## Batch21 — register mixed1017/1181 first-audit results (zero new calls)
+
+COAC-249 completed both real first target audits on the exact Batch20 candidate. Result
+`integration/coac249-283-10171181-reviewed-20261028.json` SHA
+`6b466c5f6ec7552960fd321f74c4016fd51f62c802437e4ca7657623ca80cf1f`; explicit scope inheritance
+`integration/coac249-283-10171181-scope-inheritance-20261028.json` SHA
+`a5765f56d01f99f16a54819a0c2ff674e2828a861acf234e8cc1d148336efae9`.
+
+| target | first independent call | actual model/effort/images | input/cache/output | ms | status |
+| --- | --- | --- | --- | --- | --- |
+| b1017/group009 | 53722d02-3924-4fba-b304-68df1b2b45f0 | gpt-6.1-terra/max/11 | 54986/0/2925 | 62530 | needs-repair |
+| b1181/group011 | 236cb892-1825-4c9d-801e-e889c71681d5 | gpt-6.1-terra/max/15 | 35773/0/1189 | 26866 | passed |
+
+1017's complete new review says the source 三元役 is not explicitly restricted to 小三元／大三元;
+the added parenthesis introduces an unsupported restriction. Its actual error and modelChecks=false
+are retained. Independent minimal suggestion: remove the parenthesis, retaining 三元役 rather than
+the old 三元牌役种. This is recorded only for future authorized work; no candidate edit, production,
+retry or re-review is authorized by this return. Q65's dora6s, honitsu/toitoi,2m comparison and
+context continuity were faithful. Checkpoint SHA
+`109b6aefd9597ea6c0b74c3d1069515a7edfb9a69761ddab9a6bd1bb00085c49`, raw SHA
+`da68153eccbd6de19017bafd73c67404e0c31f56dbcda103264d9a6167c2b1e9`.
+
+1181's review confirms the concession even if3m is not dora, preserving the comparison direction
+and complete Q78 duplicate-acceptance reasoning. Checkpoint SHA
+`a7d7d184db39c9bb4ea73ae7bf0a895fe555e0b5fdce9ec44fc24d2d71e268c3`, raw SHA
+`a9d691972b6443f956e81277717ed1f26f518bbf8309879bf3a87ae85626914e`.
+
+The standard aggregate SHA is
+`93366b71af9e39d56305d20f7cf2b88a9a5b84ce24b80c2cbcf135008f0616df`, still needs-repair.
+`node artifacts/b21-return/verify-return.mjs` passed424 hash checks before/after read-only validation,
+including99 captured immutable files and all32 frozen dependencies. It verifies both checkpoints,
+full modelReview/raw/session/events, actual CLI model/effort/image arguments and11/15 image hashes,
+byte sizes and order against Batch20's published review requests. Same-SHA standard ledger has
+exactly these two independent calls. `verifyGroupRevisionAudit` verifies the real checkpoints,
+parent chain and merged aggregate; `verifyAuditForWebCandidate` still rejects
+`web_audit_not_passed_or_inputs_changed`. Expected whole-chapter refusal is not transport failure.
+
+The verifier independently preserves1193 non-target blocks and524 figure objects,9 inherited groups
+including batch010113 passed blocks,0168/0396/0962 original passed evidence (0962 remains inherited
+despite009's new1017 target), six-table137 blocks/94 figures, and Q8's21 blocks/7 figures and original
+unknown limits. All12 original non-target deferred blocking issues and2 source-notes retain their
+original issue SHA/severity;1017's new independent error is separately preserved, not overwritten
+with its older suggested repair. No source/candidate/raw/audit/frozen runtime was modified.
+
+`artifacts/b21-return/effective-remaining.json` is a ticket-local view of the exact pinned250
+7-blocker register plus these two real review results. It closes only1181;1017 remains open with
+its complete current independent issue and SHA, while preserving the original issue/SHA as lineage.
+All other rows are byte-equivalent as JSON objects. Of19 original findings,11 are resolved,
+6 blockers remain across b0785:figure(3), b0947:figure(2), b1017(1), plus2 unchanged source-notes.
+The aggregate still retains12 non-target blocking findings (7 already have separate accepted
+supplements) plus the current1017 error. Historical raw findings are not new remaining gaps.
+Shared244/250 registers, other branches, integration selection and active pointer remain untouched.
+
+Final batch ledger: maker2 + first independent audit2 = **4/4, remaining0, failed/void0, retry0**.
+Totals143679 input/0 cached/4349 output tokens,133731ms summed durations. Both audits completed
+transport successfully;1017's semantic needs-repair does not erase its call. Money, remote weights
+and upstream actual execution total are unknown.249 reports its original guard released normally.
+Original249 wakeup fired once; the current return rule is once/already disabled, so no extra wakeup
+was created. Existing244 wakeup `01a17f8b-0142-783a-9187-28224a55f195` and250 wakeup
+`01a17f8b-04d6-7d86-8359-fb7f6fb1e66d` have each fired once for this evidence. No new consumer,
+model call, chapter admission or full-chapter pass was added here. Ticket remains in_progress while
+existing owners aggregate the exact results; the draft software PR is not textbook acceptance.

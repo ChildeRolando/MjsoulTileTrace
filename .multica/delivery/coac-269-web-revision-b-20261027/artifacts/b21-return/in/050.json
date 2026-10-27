@@ -1,0 +1,1931 @@
+{
+  "schema": "coach-web-complete-unit-audit-checkpoint/1",
+  "status": "needs-repair",
+  "source": {
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter06-exercise003",
+    "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+    "title": "「鴉〃の麻雀解説」サイト問題",
+    "language": "ja",
+    "fetchedAt": "2026-10-23T20:46:35.756521+00:00",
+    "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter06-exercise003/source.v3.json",
+    "sourceSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+    "htmlSha256": "8ea482140920fc3bfb392305d72b5755f014b73a5aa0bb71e6d46ca0e455dd66",
+    "mainSha256": "4b452ad5d84c973571f5944931a8afcc119f8b047244a0e7d81efa60ea0609cc"
+  },
+  "production": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev1.json",
+    "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899"
+  },
+  "planSha256": "554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421",
+  "group": {
+    "batchId": "chapter06-exercise003-batch-005",
+    "unitIds": [
+      "modern-yabejp-ja-chapter06-exercise003-u31",
+      "modern-yabejp-ja-chapter06-exercise003-u32",
+      "modern-yabejp-ja-chapter06-exercise003-u33",
+      "modern-yabejp-ja-chapter06-exercise003-u34",
+      "modern-yabejp-ja-chapter06-exercise003-u35",
+      "modern-yabejp-ja-chapter06-exercise003-u36"
+    ],
+    "sourceBlockIds": [
+      "modern-yabejp-ja:chapter06-exercise003:b0461",
+      "modern-yabejp-ja:chapter06-exercise003:b0462",
+      "modern-yabejp-ja:chapter06-exercise003:b0463",
+      "modern-yabejp-ja:chapter06-exercise003:b0464",
+      "modern-yabejp-ja:chapter06-exercise003:b0465",
+      "modern-yabejp-ja:chapter06-exercise003:b0466",
+      "modern-yabejp-ja:chapter06-exercise003:b0467",
+      "modern-yabejp-ja:chapter06-exercise003:b0468",
+      "modern-yabejp-ja:chapter06-exercise003:b0469",
+      "modern-yabejp-ja:chapter06-exercise003:b0470",
+      "modern-yabejp-ja:chapter06-exercise003:b0471",
+      "modern-yabejp-ja:chapter06-exercise003:b0472",
+      "modern-yabejp-ja:chapter06-exercise003:b0473",
+      "modern-yabejp-ja:chapter06-exercise003:b0474",
+      "modern-yabejp-ja:chapter06-exercise003:b0475",
+      "modern-yabejp-ja:chapter06-exercise003:b0476",
+      "modern-yabejp-ja:chapter06-exercise003:b0477",
+      "modern-yabejp-ja:chapter06-exercise003:b0478",
+      "modern-yabejp-ja:chapter06-exercise003:b0479",
+      "modern-yabejp-ja:chapter06-exercise003:b0480",
+      "modern-yabejp-ja:chapter06-exercise003:b0481",
+      "modern-yabejp-ja:chapter06-exercise003:b0482",
+      "modern-yabejp-ja:chapter06-exercise003:b0483",
+      "modern-yabejp-ja:chapter06-exercise003:b0484",
+      "modern-yabejp-ja:chapter06-exercise003:b0485",
+      "modern-yabejp-ja:chapter06-exercise003:b0486",
+      "modern-yabejp-ja:chapter06-exercise003:b0487",
+      "modern-yabejp-ja:chapter06-exercise003:b0488",
+      "modern-yabejp-ja:chapter06-exercise003:b0489",
+      "modern-yabejp-ja:chapter06-exercise003:b0490",
+      "modern-yabejp-ja:chapter06-exercise003:b0491",
+      "modern-yabejp-ja:chapter06-exercise003:b0492",
+      "modern-yabejp-ja:chapter06-exercise003:b0493",
+      "modern-yabejp-ja:chapter06-exercise003:b0494",
+      "modern-yabejp-ja:chapter06-exercise003:b0495",
+      "modern-yabejp-ja:chapter06-exercise003:b0496",
+      "modern-yabejp-ja:chapter06-exercise003:b0497",
+      "modern-yabejp-ja:chapter06-exercise003:b0498",
+      "modern-yabejp-ja:chapter06-exercise003:b0499",
+      "modern-yabejp-ja:chapter06-exercise003:b0500",
+      "modern-yabejp-ja:chapter06-exercise003:b0501",
+      "modern-yabejp-ja:chapter06-exercise003:b0502",
+      "modern-yabejp-ja:chapter06-exercise003:b0503",
+      "modern-yabejp-ja:chapter06-exercise003:b0504",
+      "modern-yabejp-ja:chapter06-exercise003:b0505",
+      "modern-yabejp-ja:chapter06-exercise003:b0506",
+      "modern-yabejp-ja:chapter06-exercise003:b0507",
+      "modern-yabejp-ja:chapter06-exercise003:b0508",
+      "modern-yabejp-ja:chapter06-exercise003:b0509",
+      "modern-yabejp-ja:chapter06-exercise003:b0510",
+      "modern-yabejp-ja:chapter06-exercise003:b0511",
+      "modern-yabejp-ja:chapter06-exercise003:b0512",
+      "modern-yabejp-ja:chapter06-exercise003:b0513",
+      "modern-yabejp-ja:chapter06-exercise003:b0514",
+      "modern-yabejp-ja:chapter06-exercise003:b0515",
+      "modern-yabejp-ja:chapter06-exercise003:b0516",
+      "modern-yabejp-ja:chapter06-exercise003:b0517",
+      "modern-yabejp-ja:chapter06-exercise003:b0518",
+      "modern-yabejp-ja:chapter06-exercise003:b0519",
+      "modern-yabejp-ja:chapter06-exercise003:b0520",
+      "modern-yabejp-ja:chapter06-exercise003:b0521",
+      "modern-yabejp-ja:chapter06-exercise003:b0522",
+      "modern-yabejp-ja:chapter06-exercise003:b0523",
+      "modern-yabejp-ja:chapter06-exercise003:b0524",
+      "modern-yabejp-ja:chapter06-exercise003:b0525",
+      "modern-yabejp-ja:chapter06-exercise003:b0526",
+      "modern-yabejp-ja:chapter06-exercise003:b0527",
+      "modern-yabejp-ja:chapter06-exercise003:b0528",
+      "modern-yabejp-ja:chapter06-exercise003:b0529",
+      "modern-yabejp-ja:chapter06-exercise003:b0530",
+      "modern-yabejp-ja:chapter06-exercise003:b0531",
+      "modern-yabejp-ja:chapter06-exercise003:b0532",
+      "modern-yabejp-ja:chapter06-exercise003:b0533",
+      "modern-yabejp-ja:chapter06-exercise003:b0534",
+      "modern-yabejp-ja:chapter06-exercise003:b0535",
+      "modern-yabejp-ja:chapter06-exercise003:b0536",
+      "modern-yabejp-ja:chapter06-exercise003:b0537",
+      "modern-yabejp-ja:chapter06-exercise003:b0538",
+      "modern-yabejp-ja:chapter06-exercise003:b0539",
+      "modern-yabejp-ja:chapter06-exercise003:b0540",
+      "modern-yabejp-ja:chapter06-exercise003:b0541",
+      "modern-yabejp-ja:chapter06-exercise003:b0542",
+      "modern-yabejp-ja:chapter06-exercise003:b0543",
+      "modern-yabejp-ja:chapter06-exercise003:b0544",
+      "modern-yabejp-ja:chapter06-exercise003:b0545",
+      "modern-yabejp-ja:chapter06-exercise003:b0546",
+      "modern-yabejp-ja:chapter06-exercise003:b0547",
+      "modern-yabejp-ja:chapter06-exercise003:b0548",
+      "modern-yabejp-ja:chapter06-exercise003:b0549",
+      "modern-yabejp-ja:chapter06-exercise003:b0550",
+      "modern-yabejp-ja:chapter06-exercise003:b0551",
+      "modern-yabejp-ja:chapter06-exercise003:b0552",
+      "modern-yabejp-ja:chapter06-exercise003:b0553",
+      "modern-yabejp-ja:chapter06-exercise003:b0554",
+      "modern-yabejp-ja:chapter06-exercise003:b0555",
+      "modern-yabejp-ja:chapter06-exercise003:b0556",
+      "modern-yabejp-ja:chapter06-exercise003:b0557",
+      "modern-yabejp-ja:chapter06-exercise003:b0558",
+      "modern-yabejp-ja:chapter06-exercise003:b0559",
+      "modern-yabejp-ja:chapter06-exercise003:b0560",
+      "modern-yabejp-ja:chapter06-exercise003:b0561",
+      "modern-yabejp-ja:chapter06-exercise003:b0562",
+      "modern-yabejp-ja:chapter06-exercise003:b0563",
+      "modern-yabejp-ja:chapter06-exercise003:b0564",
+      "modern-yabejp-ja:chapter06-exercise003:b0565",
+      "modern-yabejp-ja:chapter06-exercise003:b0566",
+      "modern-yabejp-ja:chapter06-exercise003:b0567",
+      "modern-yabejp-ja:chapter06-exercise003:b0568",
+      "modern-yabejp-ja:chapter06-exercise003:b0569",
+      "modern-yabejp-ja:chapter06-exercise003:b0570",
+      "modern-yabejp-ja:chapter06-exercise003:b0571",
+      "modern-yabejp-ja:chapter06-exercise003:b0572",
+      "modern-yabejp-ja:chapter06-exercise003:b0573"
+    ],
+    "contextSourceBlockIds": [
+      "modern-yabejp-ja:chapter06-exercise003:b0001",
+      "modern-yabejp-ja:chapter06-exercise003:b0002",
+      "modern-yabejp-ja:chapter06-exercise003:b0003",
+      "modern-yabejp-ja:chapter06-exercise003:b0004",
+      "modern-yabejp-ja:chapter06-exercise003:b0005",
+      "modern-yabejp-ja:chapter06-exercise003:b0006",
+      "modern-yabejp-ja:chapter06-exercise003:b0007",
+      "modern-yabejp-ja:chapter06-exercise003:b0008",
+      "modern-yabejp-ja:chapter06-exercise003:b0009"
+    ],
+    "sourceCharacters": 365,
+    "imageOccurrences": 124,
+    "sourceBlocks": 113,
+    "completeQuestionAnswers": true,
+    "completeHtmlTables": true,
+    "largeIntactCluster": false
+  },
+  "auditor": {
+    "path": "audit/web/auditors/453ba938015d244e36a1b8aad05e7500c598de7a5dd97768f2defab4b973b8e1.json",
+    "sha256": "3cd55e4a54a0e8f720a689a33e267967f52b7ea4c6782038e191a6911c7d295f",
+    "combinedSha256": "453ba938015d244e36a1b8aad05e7500c598de7a5dd97768f2defab4b973b8e1"
+  },
+  "calls": [
+    {
+      "callId": "41594bdf-dc8e-4efc-8642-4a4619b32d2b",
+      "scope": "textbook-web-complete-unit-batch-audit",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter06-exercise003",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 65926,
+        "cachedInputTokens": 0,
+        "outputTokens": 14103
+      },
+      "auditor": {
+        "path": "audit/web/auditors/453ba938015d244e36a1b8aad05e7500c598de7a5dd97768f2defab4b973b8e1.json",
+        "sha256": "3cd55e4a54a0e8f720a689a33e267967f52b7ea4c6782038e191a6911c7d295f",
+        "combinedSha256": "453ba938015d244e36a1b8aad05e7500c598de7a5dd97768f2defab4b973b8e1"
+      },
+      "promptSha256": "41a322a97a7aaf3578541e6dc15c3464222547fc838e90d6affac2da5bfb156e",
+      "semanticPromptSha256": "a276bb345f471ca42dd940a740358c499974c9fc77fcde3fe13b6b55245ecac3",
+      "schemaSha256": "2faae9cf3900ab521ef461b9ddf9c806bc71f376362582aaee8e22afa7dae4ff",
+      "outputSha256": "62962bd0bc966fc85751176f14652ee3049f59c037a3dcebdfab0508baaee6da",
+      "binding": {
+        "productionSha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+        "sourceFileSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+        "auditorSnapshotSha256": "3cd55e4a54a0e8f720a689a33e267967f52b7ea4c6782038e191a6911c7d295f",
+        "semanticProjectionSha256": "5b6c1df9131e3ea41f1c228455c74b65c2927df29e54530b3b8ce3720d8b94e2",
+        "batch": {
+          "planSha256": "554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421",
+          "group": {
+            "batchId": "chapter06-exercise003-batch-005",
+            "unitIds": [
+              "modern-yabejp-ja-chapter06-exercise003-u31",
+              "modern-yabejp-ja-chapter06-exercise003-u32",
+              "modern-yabejp-ja-chapter06-exercise003-u33",
+              "modern-yabejp-ja-chapter06-exercise003-u34",
+              "modern-yabejp-ja-chapter06-exercise003-u35",
+              "modern-yabejp-ja-chapter06-exercise003-u36"
+            ],
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter06-exercise003:b0461",
+              "modern-yabejp-ja:chapter06-exercise003:b0462",
+              "modern-yabejp-ja:chapter06-exercise003:b0463",
+              "modern-yabejp-ja:chapter06-exercise003:b0464",
+              "modern-yabejp-ja:chapter06-exercise003:b0465",
+              "modern-yabejp-ja:chapter06-exercise003:b0466",
+              "modern-yabejp-ja:chapter06-exercise003:b0467",
+              "modern-yabejp-ja:chapter06-exercise003:b0468",
+              "modern-yabejp-ja:chapter06-exercise003:b0469",
+              "modern-yabejp-ja:chapter06-exercise003:b0470",
+              "modern-yabejp-ja:chapter06-exercise003:b0471",
+              "modern-yabejp-ja:chapter06-exercise003:b0472",
+              "modern-yabejp-ja:chapter06-exercise003:b0473",
+              "modern-yabejp-ja:chapter06-exercise003:b0474",
+              "modern-yabejp-ja:chapter06-exercise003:b0475",
+              "modern-yabejp-ja:chapter06-exercise003:b0476",
+              "modern-yabejp-ja:chapter06-exercise003:b0477",
+              "modern-yabejp-ja:chapter06-exercise003:b0478",
+              "modern-yabejp-ja:chapter06-exercise003:b0479",
+              "modern-yabejp-ja:chapter06-exercise003:b0480",
+              "modern-yabejp-ja:chapter06-exercise003:b0481",
+              "modern-yabejp-ja:chapter06-exercise003:b0482",
+              "modern-yabejp-ja:chapter06-exercise003:b0483",
+              "modern-yabejp-ja:chapter06-exercise003:b0484",
+              "modern-yabejp-ja:chapter06-exercise003:b0485",
+              "modern-yabejp-ja:chapter06-exercise003:b0486",
+              "modern-yabejp-ja:chapter06-exercise003:b0487",
+              "modern-yabejp-ja:chapter06-exercise003:b0488",
+              "modern-yabejp-ja:chapter06-exercise003:b0489",
+              "modern-yabejp-ja:chapter06-exercise003:b0490",
+              "modern-yabejp-ja:chapter06-exercise003:b0491",
+              "modern-yabejp-ja:chapter06-exercise003:b0492",
+              "modern-yabejp-ja:chapter06-exercise003:b0493",
+              "modern-yabejp-ja:chapter06-exercise003:b0494",
+              "modern-yabejp-ja:chapter06-exercise003:b0495",
+              "modern-yabejp-ja:chapter06-exercise003:b0496",
+              "modern-yabejp-ja:chapter06-exercise003:b0497",
+              "modern-yabejp-ja:chapter06-exercise003:b0498",
+              "modern-yabejp-ja:chapter06-exercise003:b0499",
+              "modern-yabejp-ja:chapter06-exercise003:b0500",
+              "modern-yabejp-ja:chapter06-exercise003:b0501",
+              "modern-yabejp-ja:chapter06-exercise003:b0502",
+              "modern-yabejp-ja:chapter06-exercise003:b0503",
+              "modern-yabejp-ja:chapter06-exercise003:b0504",
+              "modern-yabejp-ja:chapter06-exercise003:b0505",
+              "modern-yabejp-ja:chapter06-exercise003:b0506",
+              "modern-yabejp-ja:chapter06-exercise003:b0507",
+              "modern-yabejp-ja:chapter06-exercise003:b0508",
+              "modern-yabejp-ja:chapter06-exercise003:b0509",
+              "modern-yabejp-ja:chapter06-exercise003:b0510",
+              "modern-yabejp-ja:chapter06-exercise003:b0511",
+              "modern-yabejp-ja:chapter06-exercise003:b0512",
+              "modern-yabejp-ja:chapter06-exercise003:b0513",
+              "modern-yabejp-ja:chapter06-exercise003:b0514",
+              "modern-yabejp-ja:chapter06-exercise003:b0515",
+              "modern-yabejp-ja:chapter06-exercise003:b0516",
+              "modern-yabejp-ja:chapter06-exercise003:b0517",
+              "modern-yabejp-ja:chapter06-exercise003:b0518",
+              "modern-yabejp-ja:chapter06-exercise003:b0519",
+              "modern-yabejp-ja:chapter06-exercise003:b0520",
+              "modern-yabejp-ja:chapter06-exercise003:b0521",
+              "modern-yabejp-ja:chapter06-exercise003:b0522",
+              "modern-yabejp-ja:chapter06-exercise003:b0523",
+              "modern-yabejp-ja:chapter06-exercise003:b0524",
+              "modern-yabejp-ja:chapter06-exercise003:b0525",
+              "modern-yabejp-ja:chapter06-exercise003:b0526",
+              "modern-yabejp-ja:chapter06-exercise003:b0527",
+              "modern-yabejp-ja:chapter06-exercise003:b0528",
+              "modern-yabejp-ja:chapter06-exercise003:b0529",
+              "modern-yabejp-ja:chapter06-exercise003:b0530",
+              "modern-yabejp-ja:chapter06-exercise003:b0531",
+              "modern-yabejp-ja:chapter06-exercise003:b0532",
+              "modern-yabejp-ja:chapter06-exercise003:b0533",
+              "modern-yabejp-ja:chapter06-exercise003:b0534",
+              "modern-yabejp-ja:chapter06-exercise003:b0535",
+              "modern-yabejp-ja:chapter06-exercise003:b0536",
+              "modern-yabejp-ja:chapter06-exercise003:b0537",
+              "modern-yabejp-ja:chapter06-exercise003:b0538",
+              "modern-yabejp-ja:chapter06-exercise003:b0539",
+              "modern-yabejp-ja:chapter06-exercise003:b0540",
+              "modern-yabejp-ja:chapter06-exercise003:b0541",
+              "modern-yabejp-ja:chapter06-exercise003:b0542",
+              "modern-yabejp-ja:chapter06-exercise003:b0543",
+              "modern-yabejp-ja:chapter06-exercise003:b0544",
+              "modern-yabejp-ja:chapter06-exercise003:b0545",
+              "modern-yabejp-ja:chapter06-exercise003:b0546",
+              "modern-yabejp-ja:chapter06-exercise003:b0547",
+              "modern-yabejp-ja:chapter06-exercise003:b0548",
+              "modern-yabejp-ja:chapter06-exercise003:b0549",
+              "modern-yabejp-ja:chapter06-exercise003:b0550",
+              "modern-yabejp-ja:chapter06-exercise003:b0551",
+              "modern-yabejp-ja:chapter06-exercise003:b0552",
+              "modern-yabejp-ja:chapter06-exercise003:b0553",
+              "modern-yabejp-ja:chapter06-exercise003:b0554",
+              "modern-yabejp-ja:chapter06-exercise003:b0555",
+              "modern-yabejp-ja:chapter06-exercise003:b0556",
+              "modern-yabejp-ja:chapter06-exercise003:b0557",
+              "modern-yabejp-ja:chapter06-exercise003:b0558",
+              "modern-yabejp-ja:chapter06-exercise003:b0559",
+              "modern-yabejp-ja:chapter06-exercise003:b0560",
+              "modern-yabejp-ja:chapter06-exercise003:b0561",
+              "modern-yabejp-ja:chapter06-exercise003:b0562",
+              "modern-yabejp-ja:chapter06-exercise003:b0563",
+              "modern-yabejp-ja:chapter06-exercise003:b0564",
+              "modern-yabejp-ja:chapter06-exercise003:b0565",
+              "modern-yabejp-ja:chapter06-exercise003:b0566",
+              "modern-yabejp-ja:chapter06-exercise003:b0567",
+              "modern-yabejp-ja:chapter06-exercise003:b0568",
+              "modern-yabejp-ja:chapter06-exercise003:b0569",
+              "modern-yabejp-ja:chapter06-exercise003:b0570",
+              "modern-yabejp-ja:chapter06-exercise003:b0571",
+              "modern-yabejp-ja:chapter06-exercise003:b0572",
+              "modern-yabejp-ja:chapter06-exercise003:b0573"
+            ],
+            "contextSourceBlockIds": [
+              "modern-yabejp-ja:chapter06-exercise003:b0001",
+              "modern-yabejp-ja:chapter06-exercise003:b0002",
+              "modern-yabejp-ja:chapter06-exercise003:b0003",
+              "modern-yabejp-ja:chapter06-exercise003:b0004",
+              "modern-yabejp-ja:chapter06-exercise003:b0005",
+              "modern-yabejp-ja:chapter06-exercise003:b0006",
+              "modern-yabejp-ja:chapter06-exercise003:b0007",
+              "modern-yabejp-ja:chapter06-exercise003:b0008",
+              "modern-yabejp-ja:chapter06-exercise003:b0009"
+            ],
+            "sourceCharacters": 365,
+            "imageOccurrences": 124,
+            "sourceBlocks": 113,
+            "completeQuestionAnswers": true,
+            "completeHtmlTables": true,
+            "largeIntactCluster": false
+          }
+        },
+        "originalImageAssetIds": [
+          "modern-yabejp-ja:9da9b8a56900c3b0b5e431c4",
+          "modern-yabejp-ja:a9f17b7a69c9af312e62687f",
+          "modern-yabejp-ja:642ddd0dab75b2ca1f3ad744",
+          "modern-yabejp-ja:fdb2ccb08161e856627296f4",
+          "modern-yabejp-ja:4b9b5b49b46fc7c263ec64ba",
+          "modern-yabejp-ja:66f4fc88f899af0258244da2",
+          "modern-yabejp-ja:e55f2661c108fb3854242c3f",
+          "modern-yabejp-ja:47f82ab50e8c424dc7c0cd42",
+          "modern-yabejp-ja:67422e7f1a2aaedf226710e6",
+          "modern-yabejp-ja:86ff3e6aae7c47c4bd14a3be",
+          "modern-yabejp-ja:ddfc65a49b12ba9eaad31799",
+          "modern-yabejp-ja:137d504c6d5d4ca4ea9af8d7",
+          "modern-yabejp-ja:86934245281c06c2cec288f1",
+          "modern-yabejp-ja:1fb8aead333bdac6123885c6",
+          "modern-yabejp-ja:51df8a5007948f0751d3d34b",
+          "modern-yabejp-ja:accdd2038d23f16c33ec76f9",
+          "modern-yabejp-ja:947ac9e4290a3efde47c8a0e",
+          "modern-yabejp-ja:efde650fe35a084958cfb03f",
+          "modern-yabejp-ja:fae4f4d8fc74f83a0364ba1a",
+          "modern-yabejp-ja:283d95909f085c408e33545e",
+          "modern-yabejp-ja:c2e1bc47e16951c65ef2acaa",
+          "modern-yabejp-ja:0eab0782a1bb23c7d0cbcef9",
+          "modern-yabejp-ja:865231b0b04f914254e01fc9",
+          "modern-yabejp-ja:aaaa5fd72ccc12bd7da6f6aa",
+          "modern-yabejp-ja:ac29a8b21c23ff38fc7d51a9",
+          "modern-yabejp-ja:4e968347146a35ff5443c3aa",
+          "modern-yabejp-ja:d6c739855bf27cf6d6fd7edc",
+          "modern-yabejp-ja:992bb6d06b0ac927cdb331f0",
+          "modern-yabejp-ja:86787a464c55cee59c8cbf74",
+          "modern-yabejp-ja:328555e7a72fc7783dd5d75d",
+          "modern-yabejp-ja:ff0605857cc5c60bc5c303e3",
+          "modern-yabejp-ja:6945083368c6f77f6778988a",
+          "modern-yabejp-ja:671c241a7724bea7f265859b",
+          "modern-yabejp-ja:f1099e8dcac012a1e37c78cf",
+          "modern-yabejp-ja:3e03d661064b04283aeea2c5",
+          "modern-yabejp-ja:13fefae159ce62a1e4cf2f11",
+          "modern-yabejp-ja:31607e0c4823773206eee230",
+          "modern-yabejp-ja:91f021916047e51111e56542",
+          "modern-yabejp-ja:e11b4a7fa60544eb721099fb",
+          "modern-yabejp-ja:467a28670ed2e68ea26a8f36",
+          "modern-yabejp-ja:fa4ca8dbce129a7a05fc2fa8",
+          "modern-yabejp-ja:4131b7ca6d3b46f3e009f207",
+          "modern-yabejp-ja:980a15d32d9378aab6e30fb4",
+          "modern-yabejp-ja:cd5d183cae88a0cb2d844d20",
+          "modern-yabejp-ja:5323955b942f8b4fbeab214c",
+          "modern-yabejp-ja:59887c6a14f55b27663151a1"
+        ],
+        "supplementalInputs": []
+      },
+      "recordedAt": "2026-10-27T04:12:30.574Z"
+    }
+  ],
+  "originalCall": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\41594bdf-dc8e-4efc-8642-4a4619b32d2b.json",
+    "sha256": "5c8ef615b2a5e0806279d232bd8b8d19fe5b492a263e987252da5b53fe99b10f",
+    "callId": "41594bdf-dc8e-4efc-8642-4a4619b32d2b"
+  },
+  "modelReview": {
+    "blockChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0461",
+        "verdict": "faithful",
+        "evidence": "问题30编号及出处链接保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0462",
+        "verdict": "faithful",
+        "evidence": "东1局、0本场、东家、第5巡及宝牌标签准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0463",
+        "verdict": "faithful",
+        "evidence": "宝牌9m准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0464",
+        "verdict": "faithful",
+        "evidence": "13张手牌及牌序准确：11245679m23p344s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0465",
+        "verdict": "faithful",
+        "evidence": "摸入标签准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0466",
+        "verdict": "faithful",
+        "evidence": "摸入3m准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0467",
+        "verdict": "faithful",
+        "evidence": "解答与解说标题准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0468",
+        "verdict": "faithful",
+        "evidence": "打牌动作与后续3s衔接准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0469",
+        "verdict": "faithful",
+        "evidence": "答案打3s准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0470",
+        "verdict": "faithful",
+        "evidence": "宝牌标签与后续9m衔接准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0471",
+        "verdict": "faithful",
+        "evidence": "句中宝牌9m准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0472",
+        "verdict": "faithful",
+        "evidence": "因宝牌为9m而取一气通贯确定形，因果与确定性保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0473",
+        "verdict": "faithful",
+        "evidence": "问题31编号及出处链接保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0474",
+        "verdict": "faithful",
+        "evidence": "东1局、0本场、东家、第4巡及宝牌标签准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0475",
+        "verdict": "faithful",
+        "evidence": "宝牌6s准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0476",
+        "verdict": "faithful",
+        "evidence": "13张手牌及牌序准确：234777m3445556s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0477",
+        "verdict": "faithful",
+        "evidence": "摸入标签准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0478",
+        "verdict": "faithful",
+        "evidence": "摸入6s准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0479",
+        "verdict": "faithful",
+        "evidence": "解答与解说标题准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0480",
+        "verdict": "faithful",
+        "evidence": "打牌动作与后续7m衔接准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0481",
+        "verdict": "faithful",
+        "evidence": "答案打7m准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0482",
+        "verdict": "faithful",
+        "evidence": "立直指示准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0483",
+        "verdict": "faithful",
+        "evidence": "第4巡这一条件及即使默听满贯也立直的力度保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0484",
+        "verdict": "faithful",
+        "evidence": "问题32编号及出处链接保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0485",
+        "verdict": "faithful",
+        "evidence": "东1局、0本场、东家、第5巡及宝牌标签准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0486",
+        "verdict": "faithful",
+        "evidence": "宝牌4m准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0487",
+        "verdict": "faithful",
+        "evidence": "13张手牌及牌序准确：123m234p2356789s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0488",
+        "verdict": "faithful",
+        "evidence": "摸入标签准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0489",
+        "verdict": "faithful",
+        "evidence": "摸入4s准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0490",
+        "verdict": "faithful",
+        "evidence": "解答与解说标题准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0491",
+        "verdict": "faithful",
+        "evidence": "打牌动作与后续2s衔接准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0492",
+        "verdict": "faithful",
+        "evidence": "答案打2s准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0493",
+        "verdict": "faithful",
+        "evidence": "立直指示准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0494",
+        "verdict": "faithful",
+        "evidence": "优先听端牌及不等待手牌改良，两项判断完整保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0495",
+        "verdict": "faithful",
+        "evidence": "问题33编号及出处链接保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0496",
+        "verdict": "faithful",
+        "evidence": "东2局、西家、第6巡及宝牌标签准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0497",
+        "verdict": "faithful",
+        "evidence": "宝牌發（6z）准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0498",
+        "verdict": "faithful",
+        "evidence": "13张手牌及牌序准确：67m56789p5566s11z。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0499",
+        "verdict": "faithful",
+        "evidence": "摸入标签准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0500",
+        "verdict": "faithful",
+        "evidence": "摸入5m准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0501",
+        "verdict": "faithful",
+        "evidence": "南家向北家放铳2,600点后进入本局，方向、点数与时间关系准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0502",
+        "verdict": "faithful",
+        "evidence": "弃牌表题及caption关联保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0503",
+        "verdict": "faithful",
+        "evidence": "↓及表格位置(0,3)、1×1跨度保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0504",
+        "verdict": "faithful",
+        "evidence": "↓及表格位置(0,4)、1×1跨度保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0505",
+        "verdict": "faithful",
+        "evidence": "↓及表格位置(0,6)、1×1跨度保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0506",
+        "verdict": "faithful",
+        "evidence": "东家行标题及位置(1,0)、表头属性保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0507",
+        "verdict": "needs-repair",
+        "evidence": "西（3z）准确，但候选图块缺少源表格位置(1,1)及1×1跨度。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0508",
+        "verdict": "needs-repair",
+        "evidence": "白（5z）准确，但候选图块缺少源表格位置(1,2)及1×1跨度。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0509",
+        "verdict": "needs-repair",
+        "evidence": "中（7z）准确，但候选图块缺少源表格位置(1,3)及与↓的格位关联。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0510",
+        "verdict": "needs-repair",
+        "evidence": "1m准确，但候选图块缺少源表格位置(1,4)及与↓的格位关联。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0511",
+        "verdict": "needs-repair",
+        "evidence": "3p准确，但候选图块缺少源表格位置(1,5)及1×1跨度。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0512",
+        "verdict": "needs-repair",
+        "evidence": "南（2z）准确，但候选图块缺少源表格位置(1,6)及与↓的格位关联。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0513",
+        "verdict": "faithful",
+        "evidence": "↓及表格位置(2,4)、1×1跨度保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0514",
+        "verdict": "faithful",
+        "evidence": "↓及表格位置(2,5)、1×1跨度保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0515",
+        "verdict": "faithful",
+        "evidence": "南家行标题及位置(3,0)、表头属性保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0516",
+        "verdict": "needs-repair",
+        "evidence": "南（2z）准确，但候选图块缺少源表格位置(3,1)及1×1跨度。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0517",
+        "verdict": "needs-repair",
+        "evidence": "白（5z）准确，但候选图块缺少源表格位置(3,2)及1×1跨度。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0518",
+        "verdict": "needs-repair",
+        "evidence": "1s准确，但候选图块缺少源表格位置(3,3)及1×1跨度。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0519",
+        "verdict": "needs-repair",
+        "evidence": "4s准确，但候选图块缺少源表格位置(3,4)及与↓的格位关联。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0520",
+        "verdict": "needs-repair",
+        "evidence": "5m准确，但候选图块缺少源表格位置(3,5)及与↓的格位关联。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0521",
+        "verdict": "needs-repair",
+        "evidence": "西（3z）准确，但候选图块缺少源表格位置(3,6)及1×1跨度。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0522",
+        "verdict": "faithful",
+        "evidence": "↓及表格位置(4,1)、1×1跨度保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0523",
+        "verdict": "faithful",
+        "evidence": "↓及表格位置(4,4)、1×1跨度保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0524",
+        "verdict": "faithful",
+        "evidence": "↓及表格位置(4,5)、1×1跨度保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0525",
+        "verdict": "faithful",
+        "evidence": "西家行标题及位置(5,0)、表头属性保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0526",
+        "verdict": "needs-repair",
+        "evidence": "北（4z）准确，但候选图块缺少源表格位置(5,1)及与↓的格位关联。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0527",
+        "verdict": "needs-repair",
+        "evidence": "1m准确，但候选图块缺少源表格位置(5,2)及1×1跨度。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0528",
+        "verdict": "needs-repair",
+        "evidence": "3s准确，但候选图块缺少源表格位置(5,3)及1×1跨度。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0529",
+        "verdict": "needs-repair",
+        "evidence": "8s准确，但候选图块缺少源表格位置(5,4)及与↓的格位关联。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0530",
+        "verdict": "needs-repair",
+        "evidence": "白（5z）准确，但候选图块缺少源表格位置(5,5)及与↓的格位关联。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0531",
+        "verdict": "faithful",
+        "evidence": "↓及表格位置(6,1)、1×1跨度保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0532",
+        "verdict": "faithful",
+        "evidence": "↓及表格位置(6,2)、1×1跨度保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0533",
+        "verdict": "faithful",
+        "evidence": "↓及表格位置(6,3)、1×1跨度保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0534",
+        "verdict": "faithful",
+        "evidence": "↓及表格位置(6,6)、1×1跨度保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0535",
+        "verdict": "faithful",
+        "evidence": "北家行标题及位置(7,0)、表头属性保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0536",
+        "verdict": "needs-repair",
+        "evidence": "西（3z）准确，但候选图块缺少源表格位置(7,1)及与↓的格位关联。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0537",
+        "verdict": "needs-repair",
+        "evidence": "北（4z）准确，但候选图块缺少源表格位置(7,2)及与↓的格位关联。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0538",
+        "verdict": "needs-repair",
+        "evidence": "中（7z）准确，但候选图块缺少源表格位置(7,3)及与↓的格位关联。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0539",
+        "verdict": "needs-repair",
+        "evidence": "2s准确，但候选图块缺少源表格位置(7,4)及1×1跨度。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0540",
+        "verdict": "needs-repair",
+        "evidence": "3s准确，但候选图块缺少源表格位置(7,5)及1×1跨度。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0541",
+        "verdict": "needs-repair",
+        "evidence": "中（7z）准确，但候选图块缺少源表格位置(7,6)及与↓的格位关联。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0542",
+        "verdict": "faithful",
+        "evidence": "解答与解说标题准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0543",
+        "verdict": "faithful",
+        "evidence": "打牌动作与后续6s衔接准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0544",
+        "verdict": "faithful",
+        "evidence": "答案打6s准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0545",
+        "verdict": "faithful",
+        "evidence": "比较方案的打牌动作保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0546",
+        "verdict": "faithful",
+        "evidence": "比较方案打9p准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0547",
+        "verdict": "faithful",
+        "evidence": "条件连接“的话”准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0548",
+        "verdict": "faithful",
+        "evidence": "条件中的摸入7s准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0549",
+        "verdict": "faithful",
+        "evidence": "打9p后摸7s可确定三色，但仍因进张选择答案打6s，比较关系完整。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0550",
+        "verdict": "faithful",
+        "evidence": "问题34编号及出处链接保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0551",
+        "verdict": "faithful",
+        "evidence": "东1局、西家、第5巡及宝牌标签准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0552",
+        "verdict": "faithful",
+        "evidence": "宝牌5m准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0553",
+        "verdict": "faithful",
+        "evidence": "13张手牌及牌序准确：34556m56p234567s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0554",
+        "verdict": "faithful",
+        "evidence": "摸入标签准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0555",
+        "verdict": "faithful",
+        "evidence": "摸入2s准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0556",
+        "verdict": "faithful",
+        "evidence": "解答与解说标题准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0557",
+        "verdict": "faithful",
+        "evidence": "打牌动作与后续2s衔接准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0558",
+        "verdict": "faithful",
+        "evidence": "答案打2s准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0559",
+        "verdict": "faithful",
+        "evidence": "取③形准确，③与共享前提的无雀头形定义衔接。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0560",
+        "verdict": "faithful",
+        "evidence": "问题35编号及出处链接保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0561",
+        "verdict": "faithful",
+        "evidence": "东1局、西家、第4巡及宝牌标签准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0562",
+        "verdict": "faithful",
+        "evidence": "宝牌9m准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0563",
+        "verdict": "faithful",
+        "evidence": "13张手牌及牌序准确：3455667m5p45567s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0564",
+        "verdict": "faithful",
+        "evidence": "摸入标签准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0565",
+        "verdict": "faithful",
+        "evidence": "摸入7p准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0566",
+        "verdict": "faithful",
+        "evidence": "解答与解说标题准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0567",
+        "verdict": "faithful",
+        "evidence": "打牌动作与后续7p衔接准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0568",
+        "verdict": "faithful",
+        "evidence": "答案打7p准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0569",
+        "verdict": "faithful",
+        "evidence": "愚形、三色不确定及万子延伸后成为强③形，条件与判断完整。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0570",
+        "verdict": "faithful",
+        "evidence": "后续变化摸入4p准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0571",
+        "verdict": "faithful",
+        "evidence": "与前后牌图组成摸4p时打3m，动作关系准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0572",
+        "verdict": "faithful",
+        "evidence": "后续变化打3m准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0573",
+        "verdict": "faithful",
+        "evidence": "句末标点保留。"
+      }
+    ],
+    "figureChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0463:figure",
+        "verdict": "faithful",
+        "evidence": "9m，牌面、非赤属性和直立方向一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0464:figure",
+        "verdict": "faithful",
+        "evidence": "1m 1m 2m 4m 5m 6m 7m 9m 2p 3p 3s 4s 4s；13张顺序一致，均非赤、直立。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0466:figure",
+        "verdict": "faithful",
+        "evidence": "3m，摸牌位置及牌面一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0469:figure",
+        "verdict": "faithful",
+        "evidence": "3s，答案牌面一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0471:figure",
+        "verdict": "faithful",
+        "evidence": "9m，句中宝牌一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0475:figure",
+        "verdict": "faithful",
+        "evidence": "6s，宝牌一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0476:figure",
+        "verdict": "faithful",
+        "evidence": "2m 3m 4m 7m 7m 7m 3s 4s 4s 5s 5s 5s 6s；13张顺序一致，均非赤、直立。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0478:figure",
+        "verdict": "faithful",
+        "evidence": "6s，摸牌一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0481:figure",
+        "verdict": "faithful",
+        "evidence": "7m，立直宣言牌一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0486:figure",
+        "verdict": "faithful",
+        "evidence": "4m，宝牌一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0487:figure",
+        "verdict": "faithful",
+        "evidence": "1m 2m 3m 2p 3p 4p 2s 3s 5s 6s 7s 8s 9s；13张顺序一致，均非赤、直立。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0489:figure",
+        "verdict": "faithful",
+        "evidence": "4s，摸牌一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0492:figure",
+        "verdict": "faithful",
+        "evidence": "2s，立直宣言牌一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0497:figure",
+        "verdict": "faithful",
+        "evidence": "發（6z），宝牌一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0498:figure",
+        "verdict": "faithful",
+        "evidence": "6m 7m 5p 6p 7p 8p 9p 5s 5s 6s 6s 1z 1z；13张顺序一致，均非赤、直立。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0500:figure",
+        "verdict": "faithful",
+        "evidence": "5m，摸牌一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0507:figure",
+        "verdict": "needs-repair",
+        "evidence": "3z牌面准确；缺少东家牌河表格格位(1,1)。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0508:figure",
+        "verdict": "needs-repair",
+        "evidence": "5z牌面准确；缺少东家牌河表格格位(1,2)。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0509:figure",
+        "verdict": "needs-repair",
+        "evidence": "7z牌面准确；缺少东家牌河格位(1,3)及上方↓对应关系。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0510:figure",
+        "verdict": "needs-repair",
+        "evidence": "1m牌面准确；缺少东家牌河格位(1,4)及上方↓对应关系。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0511:figure",
+        "verdict": "needs-repair",
+        "evidence": "3p牌面准确；缺少东家牌河表格格位(1,5)。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0512:figure",
+        "verdict": "needs-repair",
+        "evidence": "2z牌面准确；缺少东家牌河格位(1,6)及上方↓对应关系。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0516:figure",
+        "verdict": "needs-repair",
+        "evidence": "2z牌面准确；缺少南家牌河表格格位(3,1)。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0517:figure",
+        "verdict": "needs-repair",
+        "evidence": "5z牌面准确；缺少南家牌河表格格位(3,2)。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0518:figure",
+        "verdict": "needs-repair",
+        "evidence": "1s牌面准确；缺少南家牌河表格格位(3,3)。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0519:figure",
+        "verdict": "needs-repair",
+        "evidence": "4s牌面准确；缺少南家牌河格位(3,4)及上方↓对应关系。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0520:figure",
+        "verdict": "needs-repair",
+        "evidence": "5m牌面准确；缺少南家牌河格位(3,5)及上方↓对应关系。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0521:figure",
+        "verdict": "needs-repair",
+        "evidence": "3z牌面准确；缺少南家牌河表格格位(3,6)。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0526:figure",
+        "verdict": "needs-repair",
+        "evidence": "4z牌面准确；缺少西家牌河格位(5,1)及上方↓对应关系。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0527:figure",
+        "verdict": "needs-repair",
+        "evidence": "1m牌面准确；缺少西家牌河表格格位(5,2)。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0528:figure",
+        "verdict": "needs-repair",
+        "evidence": "3s牌面准确；缺少西家牌河表格格位(5,3)。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0529:figure",
+        "verdict": "needs-repair",
+        "evidence": "8s牌面准确；缺少西家牌河格位(5,4)及上方↓对应关系。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0530:figure",
+        "verdict": "needs-repair",
+        "evidence": "5z牌面准确；缺少西家牌河格位(5,5)及上方↓对应关系。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0536:figure",
+        "verdict": "needs-repair",
+        "evidence": "3z牌面准确；缺少北家牌河格位(7,1)及上方↓对应关系。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0537:figure",
+        "verdict": "needs-repair",
+        "evidence": "4z牌面准确；缺少北家牌河格位(7,2)及上方↓对应关系。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0538:figure",
+        "verdict": "needs-repair",
+        "evidence": "7z牌面准确；缺少北家牌河格位(7,3)及上方↓对应关系。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0539:figure",
+        "verdict": "needs-repair",
+        "evidence": "2s牌面准确；缺少北家牌河表格格位(7,4)。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0540:figure",
+        "verdict": "needs-repair",
+        "evidence": "3s牌面准确；缺少北家牌河表格格位(7,5)。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0541:figure",
+        "verdict": "needs-repair",
+        "evidence": "7z牌面准确；缺少北家牌河格位(7,6)及上方↓对应关系。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0544:figure",
+        "verdict": "faithful",
+        "evidence": "6s，答案牌面一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0546:figure",
+        "verdict": "faithful",
+        "evidence": "9p，比较方案牌面一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0548:figure",
+        "verdict": "faithful",
+        "evidence": "7s，条件摸牌一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0552:figure",
+        "verdict": "faithful",
+        "evidence": "5m，宝牌一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0553:figure",
+        "verdict": "faithful",
+        "evidence": "3m 4m 5m 5m 6m 5p 6p 2s 3s 4s 5s 6s 7s；13张顺序一致，均非赤、直立。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0555:figure",
+        "verdict": "faithful",
+        "evidence": "2s，摸牌一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0558:figure",
+        "verdict": "faithful",
+        "evidence": "2s，答案牌面一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0562:figure",
+        "verdict": "faithful",
+        "evidence": "9m，宝牌一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0563:figure",
+        "verdict": "faithful",
+        "evidence": "3m 4m 5m 5m 6m 6m 7m 5p 4s 5s 5s 6s 7s；13张顺序一致，均非赤、直立。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0565:figure",
+        "verdict": "faithful",
+        "evidence": "7p，摸牌一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0568:figure",
+        "verdict": "faithful",
+        "evidence": "7p，答案牌面一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0570:figure",
+        "verdict": "faithful",
+        "evidence": "4p，后续变化摸牌一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0572:figure",
+        "verdict": "faithful",
+        "evidence": "3m，后续变化弃牌一致。"
+      }
+    ],
+    "imageChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00566",
+        "disposition": "represented",
+        "evidence": "9m；原图一致，非赤、直立。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00567",
+        "disposition": "represented",
+        "evidence": "1m；原图一致，非赤、直立。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00568",
+        "disposition": "represented",
+        "evidence": "1m；重复牌独立保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00569",
+        "disposition": "represented",
+        "evidence": "2m；原图一致，非赤、直立。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00570",
+        "disposition": "represented",
+        "evidence": "4m；原图一致，非赤、直立。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00571",
+        "disposition": "represented",
+        "evidence": "5m；原图一致，非赤、直立。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00572",
+        "disposition": "represented",
+        "evidence": "6m；原图一致，非赤、直立。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00573",
+        "disposition": "represented",
+        "evidence": "7m；原图一致，非赤、直立。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00574",
+        "disposition": "represented",
+        "evidence": "9m；原图一致，非赤、直立。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00575",
+        "disposition": "represented",
+        "evidence": "2p；原图两筒准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00576",
+        "disposition": "represented",
+        "evidence": "3p；原图三筒准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00577",
+        "disposition": "represented",
+        "evidence": "3s；原图三索准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00578",
+        "disposition": "represented",
+        "evidence": "4s；原图四索准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00579",
+        "disposition": "represented",
+        "evidence": "4s；重复牌独立保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00580",
+        "disposition": "represented",
+        "evidence": "3m；摸牌准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00581",
+        "disposition": "represented",
+        "evidence": "3s；答案弃牌准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00582",
+        "disposition": "represented",
+        "evidence": "9m；句中宝牌准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00583",
+        "disposition": "represented",
+        "evidence": "6s；原图六索准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00584",
+        "disposition": "represented",
+        "evidence": "2m；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00585",
+        "disposition": "represented",
+        "evidence": "3m；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00586",
+        "disposition": "represented",
+        "evidence": "4m；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00587",
+        "disposition": "represented",
+        "evidence": "7m；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00588",
+        "disposition": "represented",
+        "evidence": "7m；第二张独立保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00589",
+        "disposition": "represented",
+        "evidence": "7m；第三张独立保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00590",
+        "disposition": "represented",
+        "evidence": "3s；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00591",
+        "disposition": "represented",
+        "evidence": "4s；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00592",
+        "disposition": "represented",
+        "evidence": "4s；重复牌独立保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00593",
+        "disposition": "represented",
+        "evidence": "5s；原图五索准确，非赤。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00594",
+        "disposition": "represented",
+        "evidence": "5s；第二张独立保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00595",
+        "disposition": "represented",
+        "evidence": "5s；第三张独立保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00596",
+        "disposition": "represented",
+        "evidence": "6s；原图六索准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00597",
+        "disposition": "represented",
+        "evidence": "6s；摸牌准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00598",
+        "disposition": "represented",
+        "evidence": "7m；立直宣言牌准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00599",
+        "disposition": "represented",
+        "evidence": "4m；宝牌准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00600",
+        "disposition": "represented",
+        "evidence": "1m；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00601",
+        "disposition": "represented",
+        "evidence": "2m；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00602",
+        "disposition": "represented",
+        "evidence": "3m；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00603",
+        "disposition": "represented",
+        "evidence": "2p；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00604",
+        "disposition": "represented",
+        "evidence": "3p；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00605",
+        "disposition": "represented",
+        "evidence": "4p；原图四筒准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00606",
+        "disposition": "represented",
+        "evidence": "2s；原图二索准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00607",
+        "disposition": "represented",
+        "evidence": "3s；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00608",
+        "disposition": "represented",
+        "evidence": "5s；原图一致，非赤。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00609",
+        "disposition": "represented",
+        "evidence": "6s；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00610",
+        "disposition": "represented",
+        "evidence": "7s；原图七索准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00611",
+        "disposition": "represented",
+        "evidence": "8s；原图八索准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00612",
+        "disposition": "represented",
+        "evidence": "9s；原图九索准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00613",
+        "disposition": "represented",
+        "evidence": "4s；摸牌准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00614",
+        "disposition": "represented",
+        "evidence": "2s；立直宣言牌准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00615",
+        "disposition": "represented",
+        "evidence": "6z；原图绿發准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00616",
+        "disposition": "represented",
+        "evidence": "6m；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00617",
+        "disposition": "represented",
+        "evidence": "7m；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00618",
+        "disposition": "represented",
+        "evidence": "5p；原图五筒准确，非赤。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00619",
+        "disposition": "represented",
+        "evidence": "6p；原图六筒准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00620",
+        "disposition": "represented",
+        "evidence": "7p；原图七筒准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00621",
+        "disposition": "represented",
+        "evidence": "8p；原图八筒准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00622",
+        "disposition": "represented",
+        "evidence": "9p；原图九筒准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00623",
+        "disposition": "represented",
+        "evidence": "5s；原图一致，非赤。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00624",
+        "disposition": "represented",
+        "evidence": "5s；重复牌独立保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00625",
+        "disposition": "represented",
+        "evidence": "6s；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00626",
+        "disposition": "represented",
+        "evidence": "6s；重复牌独立保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00627",
+        "disposition": "represented",
+        "evidence": "1z；原图东准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00628",
+        "disposition": "represented",
+        "evidence": "1z；第二张东独立保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00629",
+        "disposition": "represented",
+        "evidence": "5m；摸牌准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00630",
+        "disposition": "represented",
+        "evidence": "3z；西准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00631",
+        "disposition": "represented",
+        "evidence": "5z；原图空白牌面为白，已准确编码。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00632",
+        "disposition": "represented",
+        "evidence": "7z；红中准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00633",
+        "disposition": "represented",
+        "evidence": "1m；牌面准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00634",
+        "disposition": "represented",
+        "evidence": "3p；三筒准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00635",
+        "disposition": "represented",
+        "evidence": "2z；南准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00636",
+        "disposition": "represented",
+        "evidence": "2z；南准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00637",
+        "disposition": "represented",
+        "evidence": "5z；白准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00638",
+        "disposition": "represented",
+        "evidence": "1s；一索准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00639",
+        "disposition": "represented",
+        "evidence": "4s；四索准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00640",
+        "disposition": "represented",
+        "evidence": "5m；五万准确、非赤，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00641",
+        "disposition": "represented",
+        "evidence": "3z；西准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00642",
+        "disposition": "represented",
+        "evidence": "4z；北准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00643",
+        "disposition": "represented",
+        "evidence": "1m；牌面准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00644",
+        "disposition": "represented",
+        "evidence": "3s；三索准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00645",
+        "disposition": "represented",
+        "evidence": "8s；八索准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00646",
+        "disposition": "represented",
+        "evidence": "5z；白准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00647",
+        "disposition": "represented",
+        "evidence": "3z；西准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00648",
+        "disposition": "represented",
+        "evidence": "4z；北准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00649",
+        "disposition": "represented",
+        "evidence": "7z；红中准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00650",
+        "disposition": "represented",
+        "evidence": "2s；二索准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00651",
+        "disposition": "represented",
+        "evidence": "3s；三索准确，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00652",
+        "disposition": "represented",
+        "evidence": "7z；第二张中独立保留，表格格位缺失另见图检查。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00653",
+        "disposition": "represented",
+        "evidence": "6s；答案弃牌准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00654",
+        "disposition": "represented",
+        "evidence": "9p；比较方案弃牌准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00655",
+        "disposition": "represented",
+        "evidence": "7s；条件摸牌准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00656",
+        "disposition": "represented",
+        "evidence": "5m；宝牌准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00657",
+        "disposition": "represented",
+        "evidence": "3m；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00658",
+        "disposition": "represented",
+        "evidence": "4m；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00659",
+        "disposition": "represented",
+        "evidence": "5m；原图一致，非赤。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00660",
+        "disposition": "represented",
+        "evidence": "5m；重复牌独立保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00661",
+        "disposition": "represented",
+        "evidence": "6m；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00662",
+        "disposition": "represented",
+        "evidence": "5p；原图一致，非赤。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00663",
+        "disposition": "represented",
+        "evidence": "6p；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00664",
+        "disposition": "represented",
+        "evidence": "2s；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00665",
+        "disposition": "represented",
+        "evidence": "3s；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00666",
+        "disposition": "represented",
+        "evidence": "4s；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00667",
+        "disposition": "represented",
+        "evidence": "5s；原图一致，非赤。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00668",
+        "disposition": "represented",
+        "evidence": "6s；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00669",
+        "disposition": "represented",
+        "evidence": "7s；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00670",
+        "disposition": "represented",
+        "evidence": "2s；摸牌准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00671",
+        "disposition": "represented",
+        "evidence": "2s；答案弃牌准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00672",
+        "disposition": "represented",
+        "evidence": "9m；宝牌准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00673",
+        "disposition": "represented",
+        "evidence": "3m；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00674",
+        "disposition": "represented",
+        "evidence": "4m；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00675",
+        "disposition": "represented",
+        "evidence": "5m；原图一致，非赤。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00676",
+        "disposition": "represented",
+        "evidence": "5m；重复牌独立保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00677",
+        "disposition": "represented",
+        "evidence": "6m；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00678",
+        "disposition": "represented",
+        "evidence": "6m；重复牌独立保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00679",
+        "disposition": "represented",
+        "evidence": "7m；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00680",
+        "disposition": "represented",
+        "evidence": "5p；原图一致，非赤。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00681",
+        "disposition": "represented",
+        "evidence": "4s；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00682",
+        "disposition": "represented",
+        "evidence": "5s；原图一致，非赤。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00683",
+        "disposition": "represented",
+        "evidence": "5s；重复牌独立保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00684",
+        "disposition": "represented",
+        "evidence": "6s；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00685",
+        "disposition": "represented",
+        "evidence": "7s；原图一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00686",
+        "disposition": "represented",
+        "evidence": "7p；摸牌准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00687",
+        "disposition": "represented",
+        "evidence": "7p；答案弃牌准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00688",
+        "disposition": "represented",
+        "evidence": "4p；后续变化摸牌准确。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:i00689",
+        "disposition": "represented",
+        "evidence": "3m；后续变化弃牌准确。"
+      }
+    ],
+    "domOrder": {
+      "faithful": true,
+      "evidence": "本组问题30至35的题设、宝牌、13张手牌、摸牌、答案及句中牌图均按源顺序排列；牌河图块的表格格位缺失另列修复项。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "正文与题解无摘要或实质漏译，124处牌面均准确表示；但问题33的23个牌河图块未保留tableContext，缺少牌面与座次、弃牌列及↓标记的明确格位关联，表格语义尚不完整。"
+    },
+    "issues": [
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+        "sourceEvidence": "问题33弃牌表为8行7列，各格rowspan、colspan均为1。东家行1列1—6为西、白、中、1m、3p、南；南家行3列1—6为南、白、1s、4s、5m、西；西家行5列1—5为北、1m、3s、8s、白，列6为空；北家行7列1—6为西、北、中、2s、3s、中。箭头行0位于列3、4、6，行2位于列4、5，行4位于列1、4、5，行6位于列1、2、3、6。",
+        "description": "候选保留了表题、座次和箭头文本的tableContext，但23个牌河figure块及其figure记录均无表格格位。牌面编码虽然正确，仍不能完整表达各牌所在单元格及其与上方箭头的对应关系。",
+        "suggestedRepair": "为b0507—b0512、b0516—b0521、b0526—b0530、b0536—b0541的候选figure块恢复源tableContext，包括同一tableId、对应row/column、rowspan=1、colspan=1、header=false；完整保留8×7表格的空格，尤其西家第6张弃牌位置为空，并保持箭头与牌面的列对齐。"
+      }
+    ],
+    "summary": "已完整比对本组6题、113个目标block、52个figure及124处image occurrence。文字与牌面忠实；问题33牌河的23个图块缺少表格格位，修复前不能通过。",
+    "completeBatchCompared": true,
+    "contextContinuity": {
+      "faithful": true,
+      "evidence": "共享规则、默认场况及①—④一向听类型定义与本组题解关联完整；问题34、35中的③均承接无雀头形定义。问题33明确提供的实际牌河作为具体题设覆盖默认弃牌状况，未将默认条件误套于该题。"
+    }
+  },
+  "modelChecks": {
+    "passed": false,
+    "errors": [
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0507",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0508",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0509",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0510",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0511",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0512",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0516",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0517",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0518",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0519",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0520",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0521",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0526",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0527",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0528",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0529",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0530",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0536",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0537",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0538",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0539",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0540",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0541",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0507:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0508:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0509:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0510:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0511:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0512:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0516:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0517:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0518:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0519:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0520:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0521:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0526:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0527:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0528:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0529:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0530:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0536:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0537:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0538:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0539:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0540:figure",
+      "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0541:figure",
+      "semantic_information_missing",
+      "error:modern-yabejp-ja:chapter06-exercise003:b0502"
+    ]
+  },
+  "recordedAt": "2026-10-27T04:12:30.584Z"
+}
