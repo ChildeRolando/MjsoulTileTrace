@@ -1,0 +1,33 @@
+{
+ "ok": true,
+ "startedAt": "2026-10-27T10:01:30.634Z",
+ "finishedAt": "2026-10-27T10:03:34.014Z",
+ "receipt": {
+  "status": "passed",
+  "method": "independent-target-text-review-plus-unchanged-parent-audit",
+  "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section013.3d93eb869db859bf35ff7b6ab832cc88b45fbd035bc78018ace54b33ae293ec8.retry-1793095290967-e15ea7b7.json",
+  "calls": [
+   {
+    "callId": "8c774f65-879e-4ab6-93c1-7e34414bc610",
+    "scope": "textbook-web-target-text-audit",
+    "success": true,
+    "usage": {
+     "inputTokens": 21545,
+     "cachedInputTokens": 0,
+     "outputTokens": 2401
+    }
+   }
+  ],
+  "modelChecks": {
+   "passed": true,
+   "errors": []
+  },
+  "effectiveModelChecks": {
+   "passed": true,
+   "errors": []
+  }
+ },
+ "verify": {
+  "status": "passed"
+ }
+}
