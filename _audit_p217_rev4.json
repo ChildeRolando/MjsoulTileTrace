@@ -1,0 +1,56 @@
+{"preflight":{"sourceId":"79-cn","page":217,"productionRoot":"E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair25-20261027-p217d","runtime":"E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\e89dcffe73c9100a12218b79dfba66da3f1bb08d7adaf2b64e87d9eb34619a49"}}
+{
+ "schema": "coach-textbook-audit-run/1",
+ "model": "gpt-6.1-sol",
+ "reasoningEffort": "high",
+ "startedAt": "2026-10-27T10:58:54.479Z",
+ "finishedAt": "2026-10-27T11:02:24.452Z",
+ "durationMs": 209972,
+ "expectedPages": 1,
+ "candidatesReady": 1,
+ "attempted": 1,
+ "passed": 0,
+ "needsRepair": 1,
+ "failed": 0,
+ "skipped": 0,
+ "results": [
+  {
+   "sourceId": "79-cn",
+   "page": 217,
+   "status": "needs-repair",
+   "skipped": false,
+   "productionSha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101",
+   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+   "usage": [
+    {
+     "inputTokens": 20676,
+     "cachedInputTokens": 0,
+     "outputTokens": 5116
+    }
+   ],
+   "errors": [
+    "needs-repair:79-cn-p217-r1",
+    "error:79-cn-p217-r1",
+    "uncertain:79-cn-p217-r1"
+   ],
+   "error": null
+  }
+ ],
+ "cumulativeUsage": {
+  "totalCalls": 680,
+  "successfulCalls": 529,
+  "failedCalls": 151,
+  "reportedUsage": {
+   "inputTokens": 16577853,
+   "cachedInputTokens": 1330560,
+   "outputTokens": 2817400
+  },
+  "unknownUsageCalls": 142,
+  "unknownUsageByField": {
+   "inputTokens": 142,
+   "cachedInputTokens": 142,
+   "outputTokens": 142
+  }
+ },
+ "runPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\run-1793098944528.json"
+}

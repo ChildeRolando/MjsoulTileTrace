@@ -1,0 +1,45 @@
+{
+ "schema": "coac-248-source-check/1",
+ "recordedAt": "2026-10-27T11:12:00.000Z",
+ "objectId": "nemata-jp:page:257",
+ "candidateSha256": "6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88",
+ "auditPath": "audit/pages/nemata-jp/page-0257.6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88.6baa4a7e1404.json",
+ "auditSha256": "82b49d1750bc01c1c0bdee87ccd6190a78c7e0645fd7d738f802fb7b8b712144",
+ "auditRecordedAt": "2026-10-26T10:09:22.995Z",
+ "modelCalls": 0,
+ "deterministicFacts": {
+  "deterministicChecks": "passed (10 text blocks / 5 image blocks / 4 figures)",
+  "modelChecksErrors": [
+   "uncertain:nemata-jp-p257-r1",
+   "uncertain:nemata-jp-p257-r1"
+  ],
+  "issueSeverities": [
+   "uncertain"
+  ],
+  "failureClass": "unresolved-evidence-or-model-uncertainty",
+  "bodyAndOtherFigures": "b1,b2,b5-b12 与 r2/r3/r4 均为 faithful，仅 r1 一项 uncertain"
+ },
+ "sameClassAs215_4_or_236_1": false,
+ "classExplanation": "症状同为“只剩 uncertain”，但机制不同：215-4/236-1 是 web 文章修订验证器拒绝（要求目标带 severity=error、要求 full-article notes 回执），属入口限制，改数据也没用。p257 是 PDF 页，页级修订没有这种验证器——217 页刚刚用新 production root 连改四版、连审五次。p257 的 uncertain 是审校说“这些可见河牌我没法确认”，属证据不足，不是入口拒绝。",
+ "whatTheAuditWants": [
+  "上方牌河第1张（1s 或 6z）",
+  "上方牌河第6张（红绿深色）",
+  "上方牌河第17张（红绿深色）",
+  "左方牌河第16张（万子，2m 或 3m）",
+  "右方牌河第1、2、13、14张（万子数字）",
+  "右方牌河第7张（8s 或 6z）"
+ ],
+ "sourceResolution": {
+  "figureRender": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0257-r1.png",
+  "figurePixels": [
+   2719,
+   3081
+  ],
+  "method": "对 CPU 结果画面的上方牌河做横向亮度切片，按牌面/间隙交替统计列宽",
+  "tilePitchPx": 33,
+  "tileFacePx": 28,
+  "reading": "牌距约 33 像素、牌面约 28 像素。四格漫画里的游戏截图本身嵌入分辨率就低，再叠红/绿深色图案，28 像素牌面辨 1s/6z、8s/6z、万子数字属临界。"
+ },
+ "conclusion": "这不是入口限制，也不是能靠调整门禁放行的一项。可产出的路径只有一条：按 217 页的做法对这些位置做逐张放大核读（确定性像素工作、0 模型调用），能读出的写进新候选、读不出的在 unknowns 里落位，然后再审 1 次。本轮只做到分类与分辨率取证，未逐张核读、未产新候选、未派审校。",
+ "notDone": "未做逐张放大核读；未改候选；未派审校；未改任何门禁"
+}

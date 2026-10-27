@@ -1,0 +1,56 @@
+{
+ "schema": "coac-248-round-record/1",
+ "recordedAt": "2026-10-27T11:15:00.000Z",
+ "round": "2026-10-27T10:53-11:15Z",
+ "trigger": "wakeup 01a17cfc：按上轮收尾里写好的下一有限批执行（p217 rev4 审 1 次 + p257 免费源核），不等到整点",
+ "objects": [
+  {
+   "objectId": "79-cn:page:217",
+   "result": "rev4 审校 needs-repair（1 error + 1 uncertain）；rev5 已产出，未审",
+   "audit": {
+    "path": "audit/pages/79-cn/page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+    "sha256": "44e101c7fbf8813d9db7a18af177a42b27b51ebaf92945761787b8b25764b3ec",
+    "callId": "4f760999-1648-410e-8452-1c1b4794503f",
+    "usage": {
+     "inputTokens": 20676,
+     "cachedInputTokens": 0,
+     "outputTokens": 5116
+    },
+    "failureClass": "candidate-content-error"
+   },
+   "revision5": {
+    "root": "production/sol-high-field-repair26-20261027-p217e",
+    "fileSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+    "selfSha256": "953b58901a062f166820ba61cc5660a0146c8c2866058b088064c62f67ac1c62",
+    "modelCalls": 0,
+    "preflight": "deterministic checks passed; manifest+ownership binding true"
+   },
+   "open": "北家舍牌第二行第二张 8m vs 9m，五次审校读 8m，本线图像锚点证据指向非 8m；等 owner 或 249 单张裁决"
+  },
+  {
+   "objectId": "nemata-jp:page:257",
+   "result": "免费源核完成，未派审校",
+   "evidence": "source-check-p257-20261027.json",
+   "finding": "与 215-4/236-1 不是同一类：不是入口拒绝，是源图分辨率不足导致的审校 uncertain（牌距约 33 像素、牌面约 28 像素）"
+  }
+ ],
+ "modelCalls": {
+  "production": 0,
+  "audit": 1,
+  "void": 0,
+  "failedNoCall": 1
+ },
+ "failedNoCallNote": "第一次启动分钟级审校时输出重定向写到了不存在的路径，命令在 node 启动前退出，0 调用、无回执；修正路径后重跑，只有 1 次有效审校。",
+ "entryIntegration": {
+  "claim": "79-cn-chapter-217-4 仍在本线（parallel/claims，lane A / COAC-248 Mika），未释放，未动 maker 槽",
+  "checkChapter": "派发前用 slots.mjs check-chapter 核对：217 为自持（需带 --owner），257 未被任何线认领",
+  "blockersHandedTo244": "entry-blockers-for-244-20261027.json（215-4 target-text 父回执、236-1 uncertain-only 父审），未改门禁"
+ },
+ "stillOpen": [
+  "79-cn:page:217（待单张裁决）",
+  "nemata-jp:page:257（待逐张核读）",
+  "nemata-jp-chapter-215-4（入口）",
+  "nemata-jp-chapter-236-1（入口）"
+ ],
+ "nextBatch": "p257 的 9 个位置逐张放大核读（0 模型调用，按 217 的锚点相关法）；p217 只等裁决，不再加审校；如 244 回入口裁决再动 215-4/236-1"
+}

@@ -1,8 +1,8 @@
 {
  "schema": "coac-248-object-receipt/1",
  "objectId": "79-cn:page:217",
- "recordedAt": "2026-10-27T10:50:00.000Z",
- "status": "revision4-produced-not-audited; one tile disputed by four audits, image evidence says not-8m; one position disclosed as unknown",
+ "recordedAt": "2026-10-27T11:10:00.000Z",
+ "status": "rev4 audited needs-repair (1 disputed tile + 1 assertion defect); rev5 produced deterministically, not audited; adjudication handed to owner",
  "parentCandidateSha256": "73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add",
  "chain": [
   {
@@ -63,13 +63,39 @@
    "rev": "rev4",
    "root": "production/sol-high-field-repair25-20261027-p217d",
    "candidateSha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101",
+   "auditPath": "audit/pages/79-cn/page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+   "auditStatus": "needs-repair",
+   "auditUsage": {
+    "inputTokens": 20676,
+    "cachedInputTokens": 0,
+    "outputTokens": 5116
+   },
+   "changes": [
+    "西家第二行第二张加待核标注（旋转万子牌，数字低于位图分辨率）"
+   ],
+   "rejected": [],
+   "auditCallId": "4f760999-1648-410e-8452-1c1b4794503f",
+   "auditRecordedAt": "2026-10-27T11:02:24.451Z",
+   "auditFindings": [
+    "error 79-cn-p217-r1 北家舍牌第二行第二张：审校读作 8m，候选为 9m（争议项，见 adjudication）",
+    "uncertain 79-cn-p217-r1 西家舍牌第二行第二张：候选虽加待核字样，仍赋值 8m 且 unknowns 为空"
+   ]
+  },
+  {
+   "rev": "rev5",
+   "root": "production/sol-high-field-repair26-20261027-p217e",
+   "candidateFileSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+   "candidateSelfSha256": "953b58901a062f166820ba61cc5660a0146c8c2866058b088064c62f67ac1c62",
    "auditPath": null,
    "auditStatus": "not-audited",
    "auditUsage": null,
    "changes": [
-    "西家第二行第二张加待核标注（旋转万子牌，数字低于位图分辨率）"
+    "西家舍牌第二行第二张由“按8m记录并标为待核”改为“万子（数字未辨清）”，不再赋确定牌码",
+    "unknowns 由 [] 补为该位置一条，写明清扫条件与不推断原则"
    ],
-   "rejected": []
+   "basis": "审校 rev4 的 uncertain 项给出的精确修复要求",
+   "modelCalls": 0,
+   "preflight": "deterministic checks passed (7 text / 1 image / 1 figure), manifest+ownership binding true, 0 model calls"
   }
  ],
  "claim": {
@@ -77,5 +103,5 @@
   "lane": "A",
   "owner": "COAC-248 Mika"
  },
- "nextBatch": "对 rev4 跑 1 次页审校；若仍只剩该张万子争议，把 adjudication-p217-tile-20261027.json 交 owner 或 249 做仅限该牌的裁决"
+ "nextBatch": "owner 或 249 只裁北家舍牌第二行第二张（8m vs 9m）；裁决后对 rev5 跑 1 次页审校，同时验证该争议与西家待核项"
 }

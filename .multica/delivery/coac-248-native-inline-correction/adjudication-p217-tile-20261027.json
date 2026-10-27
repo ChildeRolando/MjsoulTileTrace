@@ -1,6 +1,6 @@
 {
  "schema": "coac-248-p217-tile-adjudication/1",
- "recordedAt": "2026-10-27T10:50:00.000Z",
+ "recordedAt": "2026-10-27T11:10:00.000Z",
  "objectId": "79-cn:page:217",
  "figure": "79-cn-p217-r1",
  "assetPath": "assets/64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
@@ -51,6 +51,15 @@
    "rev": "rev3",
    "auditPath": "audit/pages/79-cn/page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json",
    "auditStatus": "needs-repair"
+  },
+  {
+   "rev": "rev4",
+   "auditPath": "audit/pages/79-cn/page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+   "auditStatus": "needs-repair",
+   "reading": "第五次独立审校仍读作 8m；同轮另指出西家第二行第二张仍被赋值为 8m 且 unknowns 为空"
   }
- ]
+ ],
+ "fiveAudits": "rev1-rev4 共五次独立审校一致读作 8m；本轮的图像锚点相关性证据（数字半部 0.27-0.30 vs 0.92）尚未被独立复核",
+ "rev5Note": "rev5 只修掉“西家第二行第二张被赋值 8m”这条确定性缺陷，未改北家那张；争议牌保持 9m 原样，等裁决",
+ "requestedDecision": "请 owner 或 COAC-249 做一次仅限该牌的独立裁决：源图北家舍牌第二行第二张是 8m 还是 9m。两种结果都能直接落到 rev5 上，不需要重做整页"
 }

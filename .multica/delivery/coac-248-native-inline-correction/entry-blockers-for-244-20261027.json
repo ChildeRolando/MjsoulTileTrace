@@ -1,0 +1,24 @@
+{
+ "schema": "coac-248-entry-blockers-for-244/1",
+ "recordedAt": "2026-10-27T11:12:00.000Z",
+ "note": "以下两段可直接转给 244。两条都只是入口口径问题，数据侧已经做到位，不要改门禁，等 244 给入口裁决。",
+ "blockers": [
+  {
+   "objectId": "web-chapter:nemata-jp-chapter-215-4",
+   "articleId": "chapter03-section027",
+   "readyState": "rev2 已产出（a75742e9c2bcb5b1c39453c6d8f795bea24cc5a431657b318ec7f5280a431817），0 次审校，无回执",
+   "blockedAt": "web_revision_notes_scope（默认冻结运行时 audit/audit-explicit-targets.mjs）；另一路径 web_revision_parent_receipt_changed（tentative 运行时 + effective-review scope 补丁）",
+   "reason": "修订验证器只接受 full-article notes 回执：需要 completeArticleCompared、domOrder、每个未命中块的 faithful blockCheck，且 modelChecks 必须等于 validateWebReview(modelReview)。而 rev1 的父回执是 target-text 口径，只带目标范围与 target_text_* 码，所以第二代定点修订无法被现有入口验证。",
+   "asked": "244 给一个入口裁决：要么允许父回执为 target-text 口径的定点修订，要么指定用 full-article 审校重跑父级。两者都会花模型调用，所以没有自行选。"
+  },
+  {
+   "objectId": "web-chapter:nemata-jp-chapter-236-1",
+   "articleId": "chapter04-section015",
+   "readyState": "display 候选 51da8dd9…，审校 needs-repair，issueCount 3",
+   "blockedAt": "verifyWebRevisionContent",
+   "reason": "该候选唯一非 faithful 项 b0003 的 severity 是 uncertain，不是 error。验证器要求目标必须带 severity=error 的 issue 且 blockCheck 为 needs-repair，并拒绝任何 severity≠error 的非 source-note issue；所以 uncertain-only 的父审一定在 web_revision_notes_scope 被拒。生产侧的目标推导会选中该块，但审校永远接受不了由此产出的修订。",
+   "asked": "244 二选一：给 uncertain 目标开入口裁决，或指定走源裁（source-adjudication）路线。按现有门禁不改。"
+  }
+ ],
+ "modelCalls": 0
+}

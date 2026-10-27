@@ -1,6 +1,6 @@
 {
  "schema": "coach-unified-repair-list/1",
- "recordedAt": "2026-10-27T02:15:00.000Z",
+ "recordedAt": "2026-10-27T11:14:00.000Z",
  "denominator": {
   "originalChapters": 256,
   "completeOriginalChapters": 186,
@@ -265,23 +265,22 @@
    "kind": "pdf-page",
    "sourceId": "79-cn",
    "page": 217,
-   "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair25-20261027-p217d/candidates/79-cn/page-0217.json",
-   "candidateSha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101",
-   "auditPath": "audit/pages/79-cn/page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json",
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair26-20261027-p217e/candidates/79-cn/page-0217.json",
+   "candidateSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+   "auditPath": "audit/pages/79-cn/page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
    "auditStatus": "needs-repair",
    "issueCount": 2,
    "reviewErrors": [
-    "needs-repair:79-cn-p217-r1",
-    "error:79-cn-p217-r1",
-    "error:79-cn-p217-r1",
     "error:79-cn-p217-r1",
     "uncertain:79-cn-p217-r1"
    ],
-   "currentDisposition": "revision4-produced-not-audited; all suits fixes accepted by audit3; only the north second-row 9m/8m dispute (image evidence: not 8m) and one disclosed unknown remain",
+   "currentDisposition": "rev4 已审（needs-repair，2 项）；rev5 已按审校的确定修复要求改掉西家待核项，0 模型调用，未再审；只剩北家舍牌第二行第二张 8m/9m 待 owner 或 249 裁决",
    "origin": "COAC-248 old PDF 12",
    "newThisStage": false,
    "revisionChain": "receipt-p217-revision-chain-20261027.json",
-   "adjudication": "adjudication-p217-tile-20261027.json"
+   "adjudication": "adjudication-p217-tile-20261027.json",
+   "candidateSelfSha256": "953b58901a062f166820ba61cc5660a0146c8c2866058b088064c62f67ac1c62",
+   "nextAction": "裁决那张牌后对 rev5 跑 1 次页审校"
   },
   {
    "objectId": "79-cn:page:263",
@@ -398,11 +397,14 @@
     "uncertain:nemata-jp-p257-r1",
     "uncertain:nemata-jp-p257-r1"
    ],
-   "currentDisposition": "needs-repair",
+   "currentDisposition": "needs-repair（仅 uncertain）",
    "origin": "COAC-248 old PDF 12",
    "newThisStage": false,
    "alsoReportedBy": "COAC-247",
-   "dedupeNote": "COAC-247 page 257 candidate SHA 6283c249… equals the old-list candidate; one unresolved object."
+   "dedupeNote": "COAC-247 page 257 candidate SHA 6283c249… equals the old-list candidate; one unresolved object.",
+   "classification": "非入口限制，属源证据不足；同一张源图牌距约 33 像素、牌面约 28 像素",
+   "sourceCheck": "source-check-p257-20261027.json",
+   "nextAction": "按 217 的做法对 9 个位置逐张放大核读（0 模型调用），能读出的写进新候选，读不出的落 unknowns，再审 1 次"
   },
   {
    "objectId": "nemata-jp:page:261",
