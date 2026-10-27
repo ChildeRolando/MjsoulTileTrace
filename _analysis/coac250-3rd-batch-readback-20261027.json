@@ -1,0 +1,125 @@
+{
+  "checkedAt": "2026-10-27T04:25:02.568Z",
+  "preview": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T04-01-46-235Z",
+  "corpusId": "8d2a35db598c7e368460ba9a72cff1340f28765f643ceb323f815094b82569f1",
+  "catalogEntries": 201,
+  "rows": [
+    {
+      "chapterId": "modern-yabejp-ja-chapter03-section011-chapter",
+      "unitId": "modern-yabejp-ja-chapter03-section011-argument",
+      "catalogPresent": true,
+      "catalogTitle": "拆搭子２",
+      "corpusBlocks": 6,
+      "readBlocks": 6,
+      "exactBody": true,
+      "searchTop3": [
+        "modern-yabejp-ja-chapter03-section011-argument",
+        "modern-yabejp-ja-chapter03-section010-argument",
+        "79-bilibili-cn-cv1704202-argument"
+      ],
+      "searchHitsChapter": true
+    },
+    {
+      "chapterId": "modern-yabejp-ja-chapter04-section016-chapter",
+      "unitId": "modern-yabejp-ja-chapter04-section016-argument",
+      "catalogPresent": true,
+      "catalogTitle": "供托与积棒的应对",
+      "corpusBlocks": 4,
+      "readBlocks": 4,
+      "exactBody": true,
+      "searchTop3": [
+        "modern-yabejp-ja-chapter04-section016-argument",
+        "modern-yabejp-ja-chapter02-section015-argument",
+        "modern-yabejp-ja-chapter02-section017-argument"
+      ],
+      "searchHitsChapter": true
+    },
+    {
+      "chapterId": "modern-yabejp-ja-chapter01-section049-chapter",
+      "unitId": "modern-yabejp-ja-chapter01-section049-argument",
+      "catalogPresent": true,
+      "catalogTitle": "2面子余张形与完全形的选择3",
+      "corpusBlocks": 50,
+      "readBlocks": 50,
+      "exactBody": true,
+      "searchTop3": [
+        "modern-yabejp-ja-chapter01-section048-argument",
+        "modern-yabejp-ja-chapter01-section045-argument",
+        "modern-yabejp-ja-chapter01-section052-argument"
+      ],
+      "searchHitsChapter": false
+    },
+    {
+      "chapterId": "79-bilibili-cn-cv1726202-chapter",
+      "unitId": "79-bilibili-cn-cv1726202-argument",
+      "catalogPresent": true,
+      "catalogTitle": "【日本麻雀讲座译文】手役5—断幺",
+      "corpusBlocks": 15,
+      "readBlocks": 15,
+      "exactBody": true,
+      "searchTop3": [
+        "79-cn-chapter-095-6-unit-1",
+        "modern-yabejp-ja-chapter01-section029-argument",
+        "79-bilibili-cn-cv1708652-argument"
+      ],
+      "searchHitsChapter": false
+    },
+    {
+      "chapterId": "79-cn-chapter-260-18",
+      "unitId": "79-cn-chapter-260-18-unit-1",
+      "catalogPresent": true,
+      "catalogTitle": "状况判断9—ALL LAST 的战术（三）",
+      "corpusBlocks": 49,
+      "readBlocks": 49,
+      "exactBody": true,
+      "searchTop3": [
+        "79-cn-chapter-251-3-unit-1",
+        "79-cn-chapter-260-18-unit-1",
+        "79-cn-chapter-001-3-unit-1"
+      ],
+      "searchHitsChapter": true
+    }
+  ],
+  "maxTextBytes": 14797,
+  "totalCallMs": 48,
+  "modelCalls": 0,
+  "supplementarySearches": [
+    {
+      "query": "手役5 断幺",
+      "hits": [
+        "79-bilibili-cn-cv1721517-argument",
+        "79-bilibili-cn-cv1726169-argument",
+        "79-bilibili-cn-cv1726202-argument"
+      ],
+      "targetRank": 3
+    },
+    {
+      "query": "断幺 副露 食断",
+      "hits": [
+        "modern-yabejp-ja-chapter03-section016-argument",
+        "79-bilibili-cn-cv1726202-argument",
+        "79-bilibili-cn-cv1771570-argument"
+      ],
+      "targetRank": 2
+    },
+    {
+      "query": "余剰牌形 完全形",
+      "hits": [
+        "modern-yabejp-ja-chapter01-section048-argument",
+        "modern-yabejp-ja-chapter01-section046-argument",
+        "modern-yabejp-ja-chapter01-section049-argument"
+      ],
+      "targetRank": 3
+    },
+    {
+      "query": "２面子余剰牌形か完全形の選択",
+      "hits": [
+        "modern-yabejp-ja-chapter01-section045-argument",
+        "modern-yabejp-ja-chapter01-section048-argument",
+        "modern-yabejp-ja-chapter01-section049-argument"
+      ],
+      "targetRank": 3
+    }
+  ],
+  "searchNote": "First-pass ad-hoc queries hit the new unit in top 3 for section011, section016 and 260-18 but not for section049/cv1726202; wording-adjusted queries above do put both in the top 3. Search ranking is a separate concern from body integrity; every new unit body read back exact."
+}
