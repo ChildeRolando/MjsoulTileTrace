@@ -1,0 +1,693 @@
+{
+  "id": "efb0992cb0faa213fe5b99ce",
+  "observation": {
+    "schemaVersion": "blind-discard-arena-observation/v1",
+    "caseRef": "arena-case:v1:7179057e-a60a-4970-bbe7-1fbc614b8d5a",
+    "ruleSet": {
+      "length": "south",
+      "redFives": {
+        "man": 1,
+        "pin": 1,
+        "sou": 1
+      },
+      "openTanyao": true,
+      "atamahane": false,
+      "westExtension": "unknown",
+      "ippatsuCancelledByAnkan": "unknown"
+    },
+    "decision": {
+      "selfActor": 2,
+      "windowKind": "post_call_discard",
+      "roundOrdinal": 9
+    },
+    "visibleState": {
+      "roundWind": "S",
+      "hand": 3,
+      "honba": 1,
+      "riichiSticks": 0,
+      "dealer": 2,
+      "scores": [
+        38700,
+        33100,
+        8100,
+        20100
+      ],
+      "seatWinds": [
+        "W",
+        "N",
+        "E",
+        "S"
+      ],
+      "remainingDraws": 58,
+      "doraIndicators": [
+        {
+          "id": "8s",
+          "red": false
+        }
+      ],
+      "rivers": [
+        [
+          {
+            "sourceRef": "arena-ref:v1:c2c0d7a7-ad7a-4c10-80c1-8e94fdef0b2b",
+            "actor": 0,
+            "tile": {
+              "id": "1z",
+              "red": false
+            },
+            "discardMode": "tedashi",
+            "riichiDeclarationRef": null,
+            "calledByRef": null
+          },
+          {
+            "sourceRef": "arena-ref:v1:2597d6b7-b16f-4d27-bf1b-679fe2da4450",
+            "actor": 0,
+            "tile": {
+              "id": "3z",
+              "red": false
+            },
+            "discardMode": "tedashi",
+            "riichiDeclarationRef": null,
+            "calledByRef": null
+          },
+          {
+            "sourceRef": "arena-ref:v1:3c7cb050-86e2-4982-ba67-205df824a47e",
+            "actor": 0,
+            "tile": {
+              "id": "5z",
+              "red": false
+            },
+            "discardMode": "tedashi",
+            "riichiDeclarationRef": null,
+            "calledByRef": null
+          }
+        ],
+        [
+          {
+            "sourceRef": "arena-ref:v1:484a9295-ae94-461f-bf9d-0b5d6a0b8e80",
+            "actor": 1,
+            "tile": {
+              "id": "1z",
+              "red": false
+            },
+            "discardMode": "tedashi",
+            "riichiDeclarationRef": null,
+            "calledByRef": null
+          },
+          {
+            "sourceRef": "arena-ref:v1:2874e770-047d-486a-8126-59287e9fa646",
+            "actor": 1,
+            "tile": {
+              "id": "4z",
+              "red": false
+            },
+            "discardMode": "tedashi",
+            "riichiDeclarationRef": null,
+            "calledByRef": null
+          },
+          {
+            "sourceRef": "arena-ref:v1:ab7397d0-23d8-4ffc-a86a-0a17cec64a06",
+            "actor": 1,
+            "tile": {
+              "id": "5m",
+              "red": false
+            },
+            "discardMode": "tedashi",
+            "riichiDeclarationRef": null,
+            "calledByRef": "arena-ref:v1:817f9bc1-1a49-460a-8224-1ffe254c251c"
+          }
+        ],
+        [
+          {
+            "sourceRef": "arena-ref:v1:6b63010d-ae9c-4a11-939c-336b626a759f",
+            "actor": 2,
+            "tile": {
+              "id": "3z",
+              "red": false
+            },
+            "discardMode": "tedashi",
+            "riichiDeclarationRef": null,
+            "calledByRef": null
+          },
+          {
+            "sourceRef": "arena-ref:v1:6df47d78-a47e-4de0-af4c-91762699a9ed",
+            "actor": 2,
+            "tile": {
+              "id": "1m",
+              "red": false
+            },
+            "discardMode": "tedashi",
+            "riichiDeclarationRef": null,
+            "calledByRef": null
+          },
+          {
+            "sourceRef": "arena-ref:v1:e6ec706f-8afd-4fc2-8e72-5adf7519d959",
+            "actor": 2,
+            "tile": {
+              "id": "6z",
+              "red": false
+            },
+            "discardMode": "tedashi",
+            "riichiDeclarationRef": null,
+            "calledByRef": null
+          }
+        ],
+        [
+          {
+            "sourceRef": "arena-ref:v1:2207935c-0ec2-4ceb-b8ee-949a1c5d289f",
+            "actor": 3,
+            "tile": {
+              "id": "3z",
+              "red": false
+            },
+            "discardMode": "tedashi",
+            "riichiDeclarationRef": null,
+            "calledByRef": null
+          },
+          {
+            "sourceRef": "arena-ref:v1:e94dead6-8c39-42db-905f-279c59045909",
+            "actor": 3,
+            "tile": {
+              "id": "9p",
+              "red": false
+            },
+            "discardMode": "tedashi",
+            "riichiDeclarationRef": null,
+            "calledByRef": null
+          },
+          {
+            "sourceRef": "arena-ref:v1:cdd0ae03-a905-469d-a425-2bf5ea195919",
+            "actor": 3,
+            "tile": {
+              "id": "1m",
+              "red": false
+            },
+            "discardMode": "tedashi",
+            "riichiDeclarationRef": null,
+            "calledByRef": null
+          }
+        ]
+      ],
+      "melds": [
+        {
+          "meldRef": "arena-ref:v1:817f9bc1-1a49-460a-8224-1ffe254c251c",
+          "actor": 2,
+          "createdEventRef": "arena-ref:v1:817f9bc1-1a49-460a-8224-1ffe254c251c",
+          "latestEventRef": "arena-ref:v1:817f9bc1-1a49-460a-8224-1ffe254c251c",
+          "kind": "chi",
+          "targetActor": 1,
+          "calledTile": {
+            "id": "5m",
+            "red": false
+          },
+          "consumedTiles": [
+            {
+              "id": "4m",
+              "red": false
+            },
+            {
+              "id": "6m",
+              "red": false
+            }
+          ],
+          "calledDiscardEventRef": "arena-ref:v1:ab7397d0-23d8-4ffc-a86a-0a17cec64a06"
+        }
+      ],
+      "riichiStates": [
+        {
+          "actor": 0,
+          "status": "none",
+          "declarationEventRef": null,
+          "acceptanceEventRef": null,
+          "ippatsuAlive": false
+        },
+        {
+          "actor": 1,
+          "status": "none",
+          "declarationEventRef": null,
+          "acceptanceEventRef": null,
+          "ippatsuAlive": false
+        },
+        {
+          "actor": 2,
+          "status": "none",
+          "declarationEventRef": null,
+          "acceptanceEventRef": null,
+          "ippatsuAlive": false
+        },
+        {
+          "actor": 3,
+          "status": "none",
+          "declarationEventRef": null,
+          "acceptanceEventRef": null,
+          "ippatsuAlive": false
+        }
+      ],
+      "self": {
+        "concealedTiles": [
+          {
+            "id": "4p",
+            "red": false
+          },
+          {
+            "id": "5p",
+            "red": true
+          },
+          {
+            "id": "6p",
+            "red": false
+          },
+          {
+            "id": "7p",
+            "red": false
+          },
+          {
+            "id": "7p",
+            "red": false
+          },
+          {
+            "id": "2s",
+            "red": false
+          },
+          {
+            "id": "2s",
+            "red": false
+          },
+          {
+            "id": "3s",
+            "red": false
+          },
+          {
+            "id": "6s",
+            "red": false
+          },
+          {
+            "id": "8s",
+            "red": false
+          },
+          {
+            "id": "9s",
+            "red": false
+          }
+        ],
+        "currentDraw": null,
+        "meldRefs": [
+          "arena-ref:v1:817f9bc1-1a49-460a-8224-1ffe254c251c"
+        ],
+        "furiten": {
+          "discard": {
+            "status": "unknown",
+            "evidenceIds": []
+          },
+          "temporary": {
+            "status": "unknown",
+            "evidenceIds": []
+          },
+          "riichi": {
+            "status": "unknown",
+            "evidenceIds": []
+          }
+        },
+        "evidenceRefs": [
+          "arena-ref:v1:8d21c946-e72b-432d-b16e-4e99d76dc345",
+          "arena-ref:v1:429644c8-4b9c-4007-a80a-b9e7413f1504",
+          "arena-ref:v1:6b63010d-ae9c-4a11-939c-336b626a759f",
+          "arena-ref:v1:e07ece8b-0172-4a4b-83dc-9c3cadb2fedd",
+          "arena-ref:v1:6df47d78-a47e-4de0-af4c-91762699a9ed",
+          "arena-ref:v1:0a5af595-ba12-422f-8ec6-49e49d0010ae",
+          "arena-ref:v1:e6ec706f-8afd-4fc2-8e72-5adf7519d959",
+          "arena-ref:v1:817f9bc1-1a49-460a-8224-1ffe254c251c"
+        ]
+      },
+      "completeness": {
+        "roundContext": "complete",
+        "ruleSet": "partial",
+        "scores": "complete",
+        "doraIndicators": "complete",
+        "rivers": "complete",
+        "calledDiscardMarkers": "complete",
+        "melds": "complete",
+        "remainingDraws": "complete",
+        "concealedTiles": "complete",
+        "currentDraw": "complete",
+        "responseOpportunities": "complete",
+        "furiten": "unknown"
+      }
+    },
+    "candidates": [
+      {
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%222s%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "tile": {
+          "id": "2s",
+          "red": false
+        },
+        "discardMode": "tedashi"
+      },
+      {
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%223s%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "tile": {
+          "id": "3s",
+          "red": false
+        },
+        "discardMode": "tedashi"
+      },
+      {
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%224p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "tile": {
+          "id": "4p",
+          "red": false
+        },
+        "discardMode": "tedashi"
+      },
+      {
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Ctrue%5D%2C%22tedashi%22%5D",
+        "tile": {
+          "id": "5p",
+          "red": true
+        },
+        "discardMode": "tedashi"
+      },
+      {
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%226p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "tile": {
+          "id": "6p",
+          "red": false
+        },
+        "discardMode": "tedashi"
+      },
+      {
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%226s%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "tile": {
+          "id": "6s",
+          "red": false
+        },
+        "discardMode": "tedashi"
+      },
+      {
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%227p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "tile": {
+          "id": "7p",
+          "red": false
+        },
+        "discardMode": "tedashi"
+      },
+      {
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%228s%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "tile": {
+          "id": "8s",
+          "red": false
+        },
+        "discardMode": "tedashi"
+      },
+      {
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%229s%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "tile": {
+          "id": "9s",
+          "red": false
+        },
+        "discardMode": "tedashi"
+      }
+    ],
+    "tools": {
+      "description": "No Arena tools are available for this case yet.",
+      "supportedCapabilities": []
+    }
+  },
+  "facts": {
+    "version": "scene-pattern-facts/v1",
+    "caseRef": "arena-case:v1:7179057e-a60a-4970-bbe7-1fbc614b8d5a",
+    "selfActor": 2,
+    "noMeldOrKan": false,
+    "selfDora": 2,
+    "selfYakuhaiPairKinds": [],
+    "selfSuitCounts": [
+      3,
+      5,
+      6
+    ],
+    "acceptedRiichiActors": [],
+    "opponents": [
+      {
+        "actor": 0,
+        "openMeldCount": 0,
+        "exposedYakuhai": false,
+        "exposedDora": 0,
+        "openNumericSuits": [],
+        "evidenceRefs": [
+          "arena-ref:v1:212fcdd3-ef63-4df3-a1cb-8af5f46a9d45"
+        ]
+      },
+      {
+        "actor": 1,
+        "openMeldCount": 0,
+        "exposedYakuhai": false,
+        "exposedDora": 0,
+        "openNumericSuits": [],
+        "evidenceRefs": [
+          "arena-ref:v1:212fcdd3-ef63-4df3-a1cb-8af5f46a9d45"
+        ]
+      },
+      {
+        "actor": 3,
+        "openMeldCount": 0,
+        "exposedYakuhai": false,
+        "exposedDora": 0,
+        "openNumericSuits": [],
+        "evidenceRefs": [
+          "arena-ref:v1:212fcdd3-ef63-4df3-a1cb-8af5f46a9d45"
+        ]
+      }
+    ],
+    "recentNonGenbutsu": [],
+    "remainingDraws": 58,
+    "southFourHanchan": false,
+    "scoresKnown": true,
+    "candidates": [
+      {
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%222s%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "tile34": 19,
+        "exactPairKinds": [
+          15
+        ],
+        "yakuhaiPairKinds": [],
+        "suitCounts": [
+          3,
+          5,
+          5
+        ],
+        "shanten": 1,
+        "standardShanten": 1,
+        "chiitoitsuShanten": null,
+        "ukeire": 12,
+        "dora": 2,
+        "waits": [],
+        "furiten": null,
+        "safety": [],
+        "evidenceRefs": [
+          "arena-ref:v1:0d23142d-3e6b-4f79-98f6-933bdc673b7b"
+        ]
+      },
+      {
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%223s%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "tile34": 20,
+        "exactPairKinds": [
+          15,
+          19
+        ],
+        "yakuhaiPairKinds": [],
+        "suitCounts": [
+          3,
+          5,
+          5
+        ],
+        "shanten": 1,
+        "standardShanten": 1,
+        "chiitoitsuShanten": null,
+        "ukeire": 8,
+        "dora": 2,
+        "waits": [],
+        "furiten": null,
+        "safety": [],
+        "evidenceRefs": [
+          "arena-ref:v1:ec1a8a71-5cb0-404c-b5b1-788b8254114d"
+        ]
+      },
+      {
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%224p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "tile34": 12,
+        "exactPairKinds": [
+          15,
+          19
+        ],
+        "yakuhaiPairKinds": [],
+        "suitCounts": [
+          3,
+          4,
+          6
+        ],
+        "shanten": 2,
+        "standardShanten": 2,
+        "chiitoitsuShanten": null,
+        "ukeire": 47,
+        "dora": 2,
+        "waits": [],
+        "furiten": null,
+        "safety": [],
+        "evidenceRefs": [
+          "arena-ref:v1:a1fcf1c8-22e5-45b2-81b2-29ef16643bc5"
+        ]
+      },
+      {
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%225p%22%2Ctrue%5D%2C%22tedashi%22%5D",
+        "tile34": 13,
+        "exactPairKinds": [
+          15,
+          19
+        ],
+        "yakuhaiPairKinds": [],
+        "suitCounts": [
+          3,
+          4,
+          6
+        ],
+        "shanten": 2,
+        "standardShanten": 2,
+        "chiitoitsuShanten": null,
+        "ukeire": 19,
+        "dora": 1,
+        "waits": [],
+        "furiten": null,
+        "safety": [],
+        "evidenceRefs": [
+          "arena-ref:v1:87762e27-5153-4fda-a532-79cc16f260fd"
+        ]
+      },
+      {
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%226p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "tile34": 14,
+        "exactPairKinds": [
+          15,
+          19
+        ],
+        "yakuhaiPairKinds": [],
+        "suitCounts": [
+          3,
+          4,
+          6
+        ],
+        "shanten": 2,
+        "standardShanten": 2,
+        "chiitoitsuShanten": null,
+        "ukeire": 23,
+        "dora": 2,
+        "waits": [],
+        "furiten": null,
+        "safety": [],
+        "evidenceRefs": [
+          "arena-ref:v1:e215e9b2-4d73-4189-b8c2-a22c8afff56d"
+        ]
+      },
+      {
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%226s%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "tile34": 23,
+        "exactPairKinds": [
+          15,
+          19
+        ],
+        "yakuhaiPairKinds": [],
+        "suitCounts": [
+          3,
+          5,
+          5
+        ],
+        "shanten": 1,
+        "standardShanten": 1,
+        "chiitoitsuShanten": null,
+        "ukeire": 16,
+        "dora": 2,
+        "waits": [],
+        "furiten": null,
+        "safety": [],
+        "evidenceRefs": [
+          "arena-ref:v1:f6a89b49-f88f-42b6-8869-a1dda49da5fa"
+        ]
+      },
+      {
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%227p%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "tile34": 15,
+        "exactPairKinds": [
+          19
+        ],
+        "yakuhaiPairKinds": [],
+        "suitCounts": [
+          3,
+          4,
+          6
+        ],
+        "shanten": 2,
+        "standardShanten": 2,
+        "chiitoitsuShanten": null,
+        "ukeire": 55,
+        "dora": 2,
+        "waits": [],
+        "furiten": null,
+        "safety": [],
+        "evidenceRefs": [
+          "arena-ref:v1:8edccf2b-511d-4f9a-9235-984d2c83452c"
+        ]
+      },
+      {
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%228s%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "tile34": 25,
+        "exactPairKinds": [
+          15,
+          19
+        ],
+        "yakuhaiPairKinds": [],
+        "suitCounts": [
+          3,
+          5,
+          5
+        ],
+        "shanten": 2,
+        "standardShanten": 2,
+        "chiitoitsuShanten": null,
+        "ukeire": 31,
+        "dora": 2,
+        "waits": [],
+        "furiten": null,
+        "safety": [],
+        "evidenceRefs": [
+          "arena-ref:v1:5c58228b-3461-438d-8288-0d2d2fba8413"
+        ]
+      },
+      {
+        "actionRef": "action:v1:%5B%22discard%22%2C%5B%229s%22%2Cfalse%5D%2C%22tedashi%22%5D",
+        "tile34": 26,
+        "exactPairKinds": [
+          15,
+          19
+        ],
+        "yakuhaiPairKinds": [],
+        "suitCounts": [
+          3,
+          5,
+          5
+        ],
+        "shanten": 1,
+        "standardShanten": 1,
+        "chiitoitsuShanten": null,
+        "ukeire": 16,
+        "dora": 1,
+        "waits": [],
+        "furiten": null,
+        "safety": [],
+        "evidenceRefs": [
+          "arena-ref:v1:0fe34e23-8d8e-4cc6-a5bb-6e7f243766a7"
+        ]
+      }
+    ],
+    "evidenceRefs": [
+      "arena-ref:v1:212fcdd3-ef63-4df3-a1cb-8af5f46a9d45"
+    ]
+  }
+}
