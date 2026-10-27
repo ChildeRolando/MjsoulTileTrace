@@ -1,0 +1,97 @@
+{
+  "schema": "coac244-terra-max-delivery/1",
+  "configurationCommit": "34e5f3c",
+  "runtime": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027",
+  "manifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\runtime-manifest.json",
+    "sha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6"
+  },
+  "changedPaths": [
+    "textbook-production-cli.mjs",
+    "textbook-production-web.mjs",
+    "textbook-production.mjs",
+    "textbook-production-web-dictionary.mjs",
+    "textbook-audit-web.mjs",
+    "textbook-audit.mjs",
+    "textbook-audit-web-batches.mjs",
+    "textbook-audit-tile-dictionary.mjs",
+    "textbook-audit-legacy.mjs"
+  ],
+  "imageModel": "gpt-6.1-terra",
+  "imageEffort": "max",
+  "textRuntimeUnchanged": true,
+  "oldTextDependencyFilesVerified": 15,
+  "regressionCases": {
+    "requestMock": 13,
+    "semanticAndImageBinding": 41,
+    "paidTests": 0
+  },
+  "ownersSynchronized": [
+    "244",
+    "248-A",
+    "269-B",
+    "249"
+  ],
+  "oldInFlight": {
+    "chapter": "79-cn-chapter-157-11",
+    "callId": "940cf63b-732f-417f-b4a5-c1469ac6e202",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "finishedBeforeSwitch": true
+  },
+  "firstLive": {
+    "chapterId": "79-cn-chapter-157-11",
+    "candidateSha256": "1807377cc8f71afec95718f5050584a596690efac5658042cf75563f3d69dadc",
+    "callId": "eff9a0e4-5072-4f54-ad15-8d065c9b98dd",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "images": 10,
+    "originals": 5,
+    "enlargements": 5,
+    "auditStatus": "passed",
+    "auditSha256": "64ad7a838e91381e568950b735f409a4d3b77d641a876cbd3723ec0c6719d32f",
+    "raw": {
+      "path": "audit/calls/eff9a0e4-5072-4f54-ad15-8d065c9b98dd.json",
+      "sha256": "1128787d5cb8ad7b295a62b588c6d9bfeab12589eb5f71987b9dd977cf0d2507",
+      "success": true,
+      "exitCode": 0,
+      "timedOut": false,
+      "durationMs": 84709,
+      "startedAt": "2026-10-27T18:03:29.980Z"
+    },
+    "sessionId": "01a17e88-1596-7fb0-84ee-bd1d2524116f",
+    "usage": {
+      "inputTokens": 24497,
+      "cachedInputTokens": 0,
+      "outputTokens": 5990
+    },
+    "responseModel": null,
+    "responseEffort": null,
+    "remoteWeights": "unknown",
+    "guardNormallyReleased": true,
+    "retries": 0,
+    "counts": {
+      "blocks": 18,
+      "figures": 7,
+      "occurrences": 7
+    }
+  },
+  "budget": {
+    "firstLiveCalls": 1,
+    "extraPaidTests": 0,
+    "A157276TotalAuthorized": 4,
+    "A157ProductionUsed": 1,
+    "A157AuditUsed": 1,
+    "A276RemainingMaximum": 2,
+    "moneyCost": null
+  },
+  "platformRecovery": {
+    "failedStartRun": "01a17e83-a2ea-73eb-b8ea-77b3b456a38a",
+    "failure": "start POST EOF; started_at null; no model call",
+    "supportedRerun": "01a17e84-d92f-745b-b1a4-20bf7baa7083",
+    "startedAt": "2026-10-27T18:00:05Z"
+  },
+  "coverage": "157 is passed and handed to250; do not increase original coverage until actual integration receipt",
+  "formalActiveChanged": false,
+  "productCodeChanged": false
+}
