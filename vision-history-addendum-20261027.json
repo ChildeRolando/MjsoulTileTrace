@@ -1,0 +1,28 @@
+{
+  "schema": "coac244-historical-p217-run-addendum/1",
+  "evidenceLevel": "platform issue runs response and saved result output, not full tool input logs",
+  "knownCandidateFileSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+  "finding": "Old host pixel/visual assertions affected p217 revision chain; rev5 still lacks same-SHA independent pass. Preserve as disputed draft.",
+  "runs": [
+    {
+      "id": "01a17cfe-6e52-7947-bc84-498646a2453d",
+      "agent_id": "b144c077-cadd-4749-a53d-4b9cb98191b8",
+      "runtime_id": "0b72e5d1-8839-4d7e-b0a1-298e457c3d1e",
+      "created_at": "2026-10-27T10:53:31Z",
+      "started_at": "2026-10-27T10:54:36Z",
+      "completed_at": "2026-10-27T11:12:55Z",
+      "status": "completed",
+      "resultOutput": "本轮完成，工作已提交到 `agent/mika/coac-248`（两个提交，工作树干净）。\n\n**做了什么**\n\n1. **p217 rev4 审校 1 次**（有效调用 20676/0/5116，回执 `4f760999…`）：`needs-repair`，仅两项——北家舍牌第二行第二张（审校第五次读 8m，候选 9m，争议项）、西家第二行第二张（rev4 自己造成：写了\"待核\"却仍赋值 8m、`unknowns` 为空）。\n2. **产出 rev5**（`production/sol-high-field-repair26-20261027-p217e`，文件 `7766c221…`）：只修西家那条，按审校给的精确要求改写成\"万子（数字未辨清）\"并把该位置落进 `unknowns`。零模型调用，零调用预检全过（正文/图/figure 计数、manifest 与章归属绑定均 true）。**没有再送审**——再审必然还卡在同一张万子上。\n3. **p257 免费源核**：结论是它跟 215-4/236-1 **不是同一类**。那两条是入口验证器拒绝（target-text 父回执 / uncertain-only 父审），p257 是审校\"确认不了这些可见河牌\"，属源证据不足；页级修订没有那种验证器。量了源图：CPU 结果画面牌距约 33 像素、牌面约 28 像素，属临界分辨率。本轮只做分类与取证，未逐张核读、未派审校。\n4. **215-4 / 236-1 的阻塞文字**已整理为 `entry-blockers-for-244-20261027.json`，可直接转 244；门禁一处未动。\n\n**记录**：`round-20261027T1120.json`、`source-check-p257-20261027.json`、更新后的修订链回执与 adjudication、统一返修清单；评论已发到票上。\n\n**下一批**：已建 11:16:23Z 触发（`01a17d0f…`，非整点），任务是 p257 那 9 个位置逐张放大核读（0 模型调用）；p217 停在等 owner/249 那张牌的裁决。"
+    },
+    {
+      "id": "01a17cca-0a22-7df1-9818-f36510ad38d9",
+      "agent_id": "b144c077-cadd-4749-a53d-4b9cb98191b8",
+      "runtime_id": "0b72e5d1-8839-4d7e-b0a1-298e457c3d1e",
+      "created_at": "2026-10-27T09:56:18Z",
+      "started_at": "2026-10-27T09:56:37Z",
+      "completed_at": "2026-10-27T10:54:27Z",
+      "status": "completed",
+      "resultOutput": "本轮已完成并提交到 `agent/mika/coac-248`（`aae17e9`），结果已作为评论回复到触发线程。\n\n**做了什么**\n- **199-1 → passed，交 250**：按「继续199」授权只重试 1 次审校即通过（21545/0/2401），void 回执原样保留并用 `retryOfAudit` 指回；交接 `integration/coac250-incremental-199-1-20261027.json`（`5ba224af…`）。\n- **79-cn:page:217 rev1→rev4**（3 次页审校，0 制作）：按同书已过审 p254 的东家写法修正牌河方向；用红/绿像素量确认 4 处 8s/9s 抄反并修掉；给西家一张旋转万子加待核标注。\n- **唯一保留的争议**：北家舍牌第二行第二张。四次审校都读 8m，但同图锚点切半相关显示不是 8m（萬半部 0.87–0.94，数字半部仅 0.27–0.30），故未改回，证据写进 `adjudication-p217-tile-20261027.json`，交由你或 249 做仅限该牌的裁决。\n- **并行入口**：用 244 的 `slots.mjs` 认领 `79-cn-chapter-217-4`（lane A）；本轮无制作调用，未占 maker 槽，旧 `production-lane.lock` 未动。入口没卡住；真正的阻塞是 215-4/236-1 的修订入口口径（已记账，未绕门禁）。\n- **定时等待**：11:00Z 整点唤醒已 disable，改为阶段结束即触发，下一批已在 10:53Z 启动。\n\n模型调用共 4 次（全为审校，0 制作、0 void），无确定性拒绝。"
+    }
+  ]
+}
