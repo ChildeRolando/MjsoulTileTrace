@@ -1,0 +1,29 @@
+{
+  "schema": "coac249-p217-second-collection/1",
+  "passed": true,
+  "recordedAt": "2026-10-27T19:34:33.978842+00:00",
+  "calls": 1,
+  "retry": 0,
+  "callId": "20ba52ad-a36c-4edb-b7aa-ae8ff9b89ec6",
+  "rawAndParsedOutputIdentical": true,
+  "exactPayload": 5,
+  "runtimeFilesUnchanged": 27,
+  "protectedFilesUnchanged": 30,
+  "guardReleased": true,
+  "callTempRemoved": true,
+  "oldFirstTileUnknownPreserved": true,
+  "onlySecondTileAdjudicated": true,
+  "candidateUnchanged": true,
+  "handoff": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-second-point-20261028.json",
+    "sha256": "b1ee9973976f05f59d32acc9594e78b4d6dc2928a8061bc82a009b709c5cc70d"
+  },
+  "receipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-p217-second-20261028\\receipt.json",
+    "sha256": "f87b7abce172df4b85910d5ed4b6269f24a8bb08f36274cdadad8d3d8cac063f"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-p217-second-20261028\\raw.json",
+    "sha256": "c052de0b93273a683f70e8746fe53b03eb805e6f4ce06ef36aef7aeea6b1e29d"
+  }
+}

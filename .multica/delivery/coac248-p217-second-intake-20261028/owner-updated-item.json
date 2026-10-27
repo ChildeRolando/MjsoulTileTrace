@@ -1,0 +1,132 @@
+{
+  "kind": "pdf-page-point-evidence",
+  "objectId": "79-cn:page:217",
+  "chapterId": "79-cn-chapter-217-4",
+  "candidateSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+  "latestPointEvidence": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-point-222-p217-20261028.json",
+    "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9"
+  },
+  "limitedRevisionRequirement": {
+    "chapterId": "79-cn-chapter-217-4",
+    "targetId": "79-cn-p217-r1",
+    "bbox": [
+      150,
+      325,
+      175,
+      357
+    ],
+    "classification": "unreadable",
+    "tileCode": "unknown",
+    "callId": "09362d05-d221-427e-b474-a79017ff7619",
+    "candidatePath": "production/sol-high-field-repair26-20261027-p217e/candidates/79-cn/page-0217.json",
+    "candidateSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+    "field": "/figures/0/transcription and /figures/0/unknowns",
+    "limitedRevisionRequirement": "At this FIRST/LEFT tile only, a future authorized revision must use 万子（数字未辨清） and a coordinate-bound unknown entry, rather than asserting 5m or 6m. Keep the right/second tile outside this evidence.",
+    "teachingImpact": "点数不明不妨碍理解原文关于下家染索子一色手及扣牌的总体说明，但会限制对这张牌的精确记录和具体牌谱复盘。",
+    "historicalLocatorConflict": {
+      "oldRequest": "北家舍牌第二行第二张",
+      "currentAuthorizedPacket": "北家舍牌第二行第一张, bbox [150,325,175,357)",
+      "resolution": "Current trigger explicitly selects commit394b830 packet; FIRST tile adjudication only. Do not claim closure of the old SECOND tile 8m/9m dispute."
+    },
+    "otherOpenItems": "The existing west discard unknown, second/right North discard, web b0004/b0010 and other page issues are not adjudicated. Ownership b8 belongs to217-4, not215-4."
+  },
+  "coordinateReconciliation": {
+    "chapterId": "79-cn-chapter-217-4",
+    "figureId": "79-cn-p217-r1",
+    "sourceImageBlockId": "79-cn-p217-b8",
+    "originalRequest": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-single-tile-read-20261027.json",
+      "sha256": "a4b5f827e94d510ca43558f893e5c58796ad30f6af4730e9303f9701a33b6b25"
+    },
+    "originalPosition": "北家舍牌第二行第二张",
+    "originalCandidateCode": "9m",
+    "historicalReviewerReading": "8m",
+    "originalSecondTileBBox": null,
+    "originalSecondTileBBoxNote": "Old request is a named location, without an explicit crop bbox. Do not assign the first-tile bbox to it.",
+    "currentAdjudicatedPosition": "北家舍牌第二行第一张",
+    "currentBBox": [
+      150,
+      325,
+      175,
+      357
+    ],
+    "currentCandidateCode": "5m",
+    "independentReading": "万子（数字未辨清）",
+    "secondTileDisputeResolved": false,
+    "candidateChanged": false,
+    "otherOpenLocations": [
+      "北家第二行第二张8m/9m",
+      "西家第二行第二张万子unknown"
+    ],
+    "notCovered": [
+      "web b0004",
+      "web b0010",
+      "other unknowns",
+      "chapter215-4"
+    ],
+    "owner": "COAC-244 existing source/parent adjudication",
+    "teachingImpact": "点数不明不妨碍理解原文关于下家染索子一色手及扣牌的总体说明，但会限制对这张牌的精确记录和具体牌谱复盘。",
+    "acceptanceWaiver": false
+  },
+  "candidateChanged": false,
+  "integrationAllowed": false,
+  "disposition": "quarantined-rev5-second-tile9m-supported-first-and-west-unknown-remain",
+  "secondTilePointIntake": {
+    "recordedAt": "2026-10-27T19:39:47.111053+00:00",
+    "callId": "20ba52ad-a36c-4edb-b7aa-ae8ff9b89ec6",
+    "chapterId": "79-cn-chapter-217-4",
+    "figureId": "79-cn-p217-r1",
+    "sourceImageBlockId": "79-cn-p217-b8",
+    "bbox": [
+      174,
+      325,
+      196,
+      357
+    ],
+    "classification": "readable",
+    "tileCode": "9m",
+    "handoff": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-second-point-20261028.json",
+      "sha256": "b1ee9973976f05f59d32acc9594e78b4d6dc2928a8061bc82a009b709c5cc70d"
+    },
+    "receipt": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-p217-second-20261028\\receipt.json",
+      "sha256": "f87b7abce172df4b85910d5ed4b6269f24a8bb08f36274cdadad8d3d8cac063f"
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-p217-second-20261028\\raw.json",
+      "sha256": "c052de0b93273a683f70e8746fe53b03eb805e6f4ce06ef36aef7aeea6b1e29d"
+    },
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "usage": {
+      "inputTokens": 12207,
+      "cachedInputTokens": 0,
+      "outputTokens": 1343
+    },
+    "durationMs": 41460,
+    "manifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+    "remoteWeights": "unknown",
+    "candidateMatches": true,
+    "candidateChanged": false,
+    "revisionRequiredForThisPoint": false,
+    "historical8mReadingsPreserved": true,
+    "majorityVoteUsed": false,
+    "pageOrChapterPassed": false,
+    "limits": [
+      "First/left tile unknown from previous independent call remains.",
+      "Existing west-discard unknown remains.",
+      "This point result does not verify the rest of the figure, PDF page, web b0004/b0010 or full chapter.",
+      "Model reports low source resolution/pixelated edges but visible strokes sufficient for9m; remote gateway weights remain unknown."
+    ],
+    "newCallsBy249": 1,
+    "newCallsByThisIntake": 0,
+    "additionalBudget": 0,
+    "sourceResolutionLimitation": "原图分辨率较低，字形边缘有像素化，但可辨认的笔画足以支持该牌码。",
+    "visualReasonFromIndependentCall": [
+      "牌面上部黑字可辨出向左下的撇，以及右侧折下后向右弯钩的笔画，构成“九”。",
+      "牌面下部为红色“萬”，合起来是九万。"
+    ]
+  }
+}

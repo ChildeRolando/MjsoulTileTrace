@@ -1,0 +1,285 @@
+{
+  "schema": "coac248-p217-second-point-intake/1",
+  "recordedAt": "2026-10-27T19:39:47.111053+00:00",
+  "result": {
+    "recordedAt": "2026-10-27T19:39:47.111053+00:00",
+    "callId": "20ba52ad-a36c-4edb-b7aa-ae8ff9b89ec6",
+    "chapterId": "79-cn-chapter-217-4",
+    "figureId": "79-cn-p217-r1",
+    "sourceImageBlockId": "79-cn-p217-b8",
+    "bbox": [
+      174,
+      325,
+      196,
+      357
+    ],
+    "classification": "readable",
+    "tileCode": "9m",
+    "handoff": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-second-point-20261028.json",
+      "sha256": "b1ee9973976f05f59d32acc9594e78b4d6dc2928a8061bc82a009b709c5cc70d"
+    },
+    "receipt": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-p217-second-20261028\\receipt.json",
+      "sha256": "f87b7abce172df4b85910d5ed4b6269f24a8bb08f36274cdadad8d3d8cac063f"
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-p217-second-20261028\\raw.json",
+      "sha256": "c052de0b93273a683f70e8746fe53b03eb805e6f4ce06ef36aef7aeea6b1e29d"
+    },
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "usage": {
+      "inputTokens": 12207,
+      "cachedInputTokens": 0,
+      "outputTokens": 1343
+    },
+    "durationMs": 41460,
+    "manifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+    "remoteWeights": "unknown",
+    "candidateMatches": true,
+    "candidateChanged": false,
+    "revisionRequiredForThisPoint": false,
+    "historical8mReadingsPreserved": true,
+    "majorityVoteUsed": false,
+    "pageOrChapterPassed": false,
+    "limits": [
+      "First/left tile unknown from previous independent call remains.",
+      "Existing west-discard unknown remains.",
+      "This point result does not verify the rest of the figure, PDF page, web b0004/b0010 or full chapter.",
+      "Model reports low source resolution/pixelated edges but visible strokes sufficient for9m; remote gateway weights remain unknown."
+    ],
+    "newCallsBy249": 1,
+    "newCallsByThisIntake": 0,
+    "additionalBudget": 0,
+    "sourceResolutionLimitation": "原图分辨率较低，字形边缘有像素化，但可辨认的笔画足以支持该牌码。",
+    "visualReasonFromIndependentCall": [
+      "牌面上部黑字可辨出向左下的撇，以及右侧折下后向右弯钩的笔画，构成“九”。",
+      "牌面下部为红色“萬”，合起来是九万。"
+    ]
+  },
+  "requestExecution": {
+    "schema": "coach-textbook-cli-request/1",
+    "policy": "coac244-vision-terra-max-v1-20261027",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "callerRequested": {
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max"
+    },
+    "args": [
+      "exec",
+      "--model",
+      "gpt-6.1-terra",
+      "--config",
+      "model_reasoning_effort=\"max\"",
+      "--config",
+      "web_search=\"disabled\"",
+      "--ephemeral",
+      "--ignore-user-config",
+      "--ignore-rules",
+      "--sandbox",
+      "read-only",
+      "--strict-config",
+      "--skip-git-repo-check",
+      "--json",
+      "--output-schema",
+      "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-mHhi3R\\output.schema.json",
+      "--output-last-message",
+      "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-mHhi3R\\final.json",
+      "--cd",
+      "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-mHhi3R",
+      "-i",
+      "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-99bba7252384\\worktree\\.multica\\delivery\\coac249-p217-second-20261028\\inputs\\p217-second-tile-packet\\original.png",
+      "-i",
+      "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-99bba7252384\\worktree\\.multica\\delivery\\coac249-p217-second-20261028\\supplemental\\context-three-columns.png",
+      "-i",
+      "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-99bba7252384\\worktree\\.multica\\delivery\\coac249-p217-second-20261028\\supplemental\\context-three-columns-nearest4x.png",
+      "-i",
+      "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-99bba7252384\\worktree\\.multica\\delivery\\coac249-p217-second-20261028\\inputs\\p217-second-tile-packet\\old-dispute-second-row2-col2.png",
+      "-i",
+      "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-99bba7252384\\worktree\\.multica\\delivery\\coac249-p217-second-20261028\\inputs\\p217-second-tile-packet\\old-dispute-second-row2-col2-nearest4x.png",
+      "--disable",
+      "apps",
+      "--disable",
+      "auth_elicitation",
+      "--disable",
+      "browser_use",
+      "--disable",
+      "browser_use_external",
+      "--disable",
+      "browser_use_full_cdp_access",
+      "--disable",
+      "computer_use",
+      "--disable",
+      "fast_mode",
+      "--disable",
+      "goals",
+      "--disable",
+      "guardian_approval",
+      "--disable",
+      "hooks",
+      "--disable",
+      "image_generation",
+      "--disable",
+      "in_app_browser",
+      "--disable",
+      "in_app_chat",
+      "--disable",
+      "in_app_dictation",
+      "--disable",
+      "in_app_local_automation",
+      "--disable",
+      "in_app_updates",
+      "--disable",
+      "memories",
+      "--disable",
+      "mentions_v2",
+      "--disable",
+      "multi_agent",
+      "--disable",
+      "plugin_sharing",
+      "--disable",
+      "plugins",
+      "--disable",
+      "remote_plugin",
+      "--disable",
+      "shell_snapshot",
+      "--disable",
+      "shell_tool",
+      "--disable",
+      "skill_mcp_dependency_install",
+      "--disable",
+      "skill_search",
+      "--disable",
+      "sleep_tool",
+      "--disable",
+      "tool_call_mcp_elicitation",
+      "--disable",
+      "tool_suggest",
+      "--disable",
+      "unbounded_connection_retries",
+      "--disable",
+      "unified_exec",
+      "--disable",
+      "unified_exec_tty",
+      "--disable",
+      "view_image",
+      "--disable",
+      "workspace_dependencies",
+      "-"
+    ],
+    "images": [
+      {
+        "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-99bba7252384\\worktree\\.multica\\delivery\\coac249-p217-second-20261028\\inputs\\p217-second-tile-packet\\original.png",
+        "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+        "bytes": 24419
+      },
+      {
+        "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-99bba7252384\\worktree\\.multica\\delivery\\coac249-p217-second-20261028\\supplemental\\context-three-columns.png",
+        "sha256": "8b187d76d57f69b3674b1b199d5b90c078d99c55fe8178d831468ef5f2792956",
+        "bytes": 5310
+      },
+      {
+        "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-99bba7252384\\worktree\\.multica\\delivery\\coac249-p217-second-20261028\\supplemental\\context-three-columns-nearest4x.png",
+        "sha256": "bb5d6adf4499c864b456efa2c643ea5fac5a67af5b1a7f8002eedbd23563ea6a",
+        "bytes": 7815
+      },
+      {
+        "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-99bba7252384\\worktree\\.multica\\delivery\\coac249-p217-second-20261028\\inputs\\p217-second-tile-packet\\old-dispute-second-row2-col2.png",
+        "sha256": "8d4c2fecea3712a6b325e3db2bb78bd2e5a31d5b4712fe92d4618eb8a54e9ede",
+        "bytes": 992
+      },
+      {
+        "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-99bba7252384\\worktree\\.multica\\delivery\\coac249-p217-second-20261028\\inputs\\p217-second-tile-packet\\old-dispute-second-row2-col2-nearest4x.png",
+        "sha256": "ca6cc4592b456a0e58c2d79e3779af447812f4dda4584ffe11b37b837a18b5fb",
+        "bytes": 1470
+      }
+    ],
+    "remoteBackend": "unverified; request arguments and returned events only"
+  },
+  "restoredInputs": [
+    {
+      "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-99bba7252384\\worktree\\.multica\\delivery\\coac249-p217-second-20261028\\inputs\\p217-second-tile-packet\\original.png",
+      "gitCommit": "af82e36b5704125dc500b1267b6b0c4dfb17a4bb",
+      "gitPath": ".multica/delivery/coac249-p217-second-20261028/inputs/p217-second-tile-packet/original.png",
+      "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+      "bytes": 24419,
+      "localPath": "inputs\\1-original.png"
+    },
+    {
+      "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-99bba7252384\\worktree\\.multica\\delivery\\coac249-p217-second-20261028\\supplemental\\context-three-columns.png",
+      "gitCommit": "af82e36b5704125dc500b1267b6b0c4dfb17a4bb",
+      "gitPath": ".multica/delivery/coac249-p217-second-20261028/supplemental/context-three-columns.png",
+      "sha256": "8b187d76d57f69b3674b1b199d5b90c078d99c55fe8178d831468ef5f2792956",
+      "bytes": 5310,
+      "localPath": "inputs\\2-context-three-columns.png"
+    },
+    {
+      "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-99bba7252384\\worktree\\.multica\\delivery\\coac249-p217-second-20261028\\supplemental\\context-three-columns-nearest4x.png",
+      "gitCommit": "af82e36b5704125dc500b1267b6b0c4dfb17a4bb",
+      "gitPath": ".multica/delivery/coac249-p217-second-20261028/supplemental/context-three-columns-nearest4x.png",
+      "sha256": "bb5d6adf4499c864b456efa2c643ea5fac5a67af5b1a7f8002eedbd23563ea6a",
+      "bytes": 7815,
+      "localPath": "inputs\\3-context-three-columns-nearest4x.png"
+    },
+    {
+      "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-99bba7252384\\worktree\\.multica\\delivery\\coac249-p217-second-20261028\\inputs\\p217-second-tile-packet\\old-dispute-second-row2-col2.png",
+      "gitCommit": "af82e36b5704125dc500b1267b6b0c4dfb17a4bb",
+      "gitPath": ".multica/delivery/coac249-p217-second-20261028/inputs/p217-second-tile-packet/old-dispute-second-row2-col2.png",
+      "sha256": "8d4c2fecea3712a6b325e3db2bb78bd2e5a31d5b4712fe92d4618eb8a54e9ede",
+      "bytes": 992,
+      "localPath": "inputs\\4-old-dispute-second-row2-col2.png"
+    },
+    {
+      "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-99bba7252384\\worktree\\.multica\\delivery\\coac249-p217-second-20261028\\inputs\\p217-second-tile-packet\\old-dispute-second-row2-col2-nearest4x.png",
+      "gitCommit": "af82e36b5704125dc500b1267b6b0c4dfb17a4bb",
+      "gitPath": ".multica/delivery/coac249-p217-second-20261028/inputs/p217-second-tile-packet/old-dispute-second-row2-col2-nearest4x.png",
+      "sha256": "ca6cc4592b456a0e58c2d79e3779af447812f4dda4584ffe11b37b837a18b5fb",
+      "bytes": 1470,
+      "localPath": "inputs\\5-old-dispute-second-row2-col2-nearest4x.png"
+    }
+  ],
+  "pixelVerification": "Exact original/context/target/nearest4x; no semantic re-reading or generated detail.",
+  "runtimeFilesReverified": 27,
+  "upstreamProtectedInputCount": 30,
+  "currentCandidateSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+  "candidateUnchanged": true,
+  "firstTileEvidencePreserved": {
+    "callId": "09362d05-d221-427e-b474-a79017ff7619",
+    "bbox": [
+      150,
+      325,
+      175,
+      357
+    ],
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-p217-north-second-row.raw.json",
+      "sha256": "cc7f332d563cfc25106e77b06a097ddcb797450e8c4dbac69110901a8b51e516"
+    },
+    "outcome": "unreadable",
+    "tileCode": "unknown",
+    "unchanged": true,
+    "notAnswerToCurrentTarget": true
+  },
+  "westUnknownPreserved": [
+    "西家舍牌第二行第二张为旋转万子牌，数字笔画在当前嵌入位图分辨率下不能可靠辨定；未确认前不赋具体牌码，不据暗手或牌河推断补全。"
+  ],
+  "changedInventoryRows": [
+    1
+  ],
+  "unrelatedRowsPreserved": 62,
+  "countsUnchanged": true,
+  "failureHistoryUnchanged": true,
+  "ownerUpdate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-repair-handoff-20261027.json",
+    "beforeSha256": "129cd1ef988b0624f069a1eb76a853494ae9653ad7e62bc1cf5f80216ee7da77",
+    "afterSha256": "f295366ed42eadbb02fa240009a5638687ee4c1a1861a288f96faeb113739ca3",
+    "existingItemCountUnchanged": true
+  },
+  "newCalls": 0,
+  "newCandidates": 0,
+  "newPageAudits": 0,
+  "additionalBudget": 0,
+  "issueStatus": "in_progress"
+}
