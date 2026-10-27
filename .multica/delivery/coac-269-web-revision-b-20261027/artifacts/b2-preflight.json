@@ -1,0 +1,168 @@
+{
+  "schema": "coac269-web-revision-preflight/1",
+  "batch": "b2",
+  "recordedAt": "2026-10-27T10:07:36.675Z",
+  "ticket": "COAC-269",
+  "line": "B-ordinary-web-targeted-revision",
+  "variant": "coac269rev1",
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "selectionRule": "current produced-needs-repair web chapters, canonical chapterId descending, existing revision entry, real parent needs-repair audit, excluding 248 reserved 198/187/199/201/215-4/236/283, passed chapters, already claimed chapters and metadata/PDF",
+  "excluded": {
+    "nemata-jp-chapter-347-1": "current parent archive01-section008.r1.display.json audit has 0 figureChecks and 38 non-target text blocks without faithful evidence; the revision guard would reject it",
+    "nemata-jp-chapter-319-1": "already passed by its r1 audit (archive01-section002.r1.display.json status passed)",
+    "nemata-jp-chapter-335-1": "already passed by source-note-v2 audit (passed-after-specific-source-editorial-note)",
+    "nemata-jp-chapter-232-1": "parent audit targets are not single text blocks; not revisable by the current entry",
+    "nemata-jp-chapter-224-1": "parent audit targets are not single text blocks; one figure lacks faithful check",
+    "nemata-jp-chapter-213-1": "parent audit targets are not single text blocks; 24 figures lack faithful checks",
+    "nemata-jp-chapter-193-1": "parent audit targets are not single text blocks; 41 figures lack faithful checks"
+  },
+  "slotEntry": {
+    "mechanism": "parallel/slots.mjs",
+    "owner": "COAC-269 Ticket executor",
+    "lane": "B",
+    "maxMakerSlots": 2,
+    "maxLiveSlotsVerified": 15,
+    "verification": "parallel/verification-20261027.json"
+  },
+  "legacyLock": {
+    "path": "production-lane.lock",
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+    "size": 1,
+    "mtime": "2026-10-25T15:40:57.879Z",
+    "contentHex": "30",
+    "note": "read-only evidence; the dual-slot contract keeps this legacy lock untouched (not deleted, not rewritten, not released). B capacity is the maker-B slot."
+  },
+  "dictionary": {
+    "path": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+    "sha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+  },
+  "verifiedAssets": {
+    "path": "audit/web/verified-assets/modern-ch01-s001-exact-42.json",
+    "sha256": "dd3058698dc2630a1767e27791b07ce3617c0e141957d8000bcd9e97331df193"
+  },
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-246-1",
+      "articleId": "chapter06-section002",
+      "checks": [
+        "source_binding",
+        "parent_self_sha",
+        "notes_binding",
+        "target_projection",
+        "non_target_faithful_blocks",
+        "all_figures_faithful",
+        "dictionary_coverage",
+        "no_existing_variant"
+      ],
+      "errors": [],
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter06-section002/source.json",
+        "sha256": "8ea3a7139a78ed4fcdfd36f663c2a47d0eb15efb8c4b88d4aff07336642f2933",
+        "language": "ja",
+        "status": "captured-not-translated-or-audited",
+        "blocks": 96,
+        "assets": 5
+      },
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-section002.display.json",
+        "sha256": "eb4caf1b93fc906a5a7286419009256337e9f886ce82123091931c8c5e5c4fc4",
+        "schema": "coach-textbook-web-article-draft/1",
+        "textBlocks": 86,
+        "figures": 10
+      },
+      "notes": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter06-section002.eb4caf1b93fc906a5a7286419009256337e9f886ce82123091931c8c5e5c4fc4.json",
+        "sha256": "53f38a52975a3a4545ff4c405f981127e706aaef104fe1b173505d84a4d22dab",
+        "schema": "coach-textbook-web-article-audit/1",
+        "status": "needs-repair",
+        "recordedAt": "2026-10-26T05:44:35.577Z"
+      },
+      "targets": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter06-section002:b0070",
+          "sourceText": "世界コンピュータ将棋選手権は将棋ソフト同士が実力を競う大会。３〜５日に４０チームが参加して開かれ、「激指（げきさし）」が３年ぶりに優勝、「棚瀬将棋」が準優勝した。エキシビションでは、加藤さんが棚瀬将棋と、清水上さんが激指と対戦した。持ち時間は１５分、無くなると１手３０秒未満で指すルール。加藤さんは攻め倒され、清水上さんは中終盤の競り合いで負けた。",
+          "priorTranslation": "世界计算机将棋锦标赛是将棋软件之间较量实力的赛事。本届于３～５日举行，共有４０支队伍参赛，“激指（Gekisashi）”时隔３年再次夺冠，“棚濑将棋”获得亚军。表演赛中，加藤与棚濑将棋对战，清水上与激指对战。规则为每方有１５分钟用时，用完后每步必须在３０秒以内走出。加藤被攻垮，清水上则在中残局的激烈较量中败北。",
+          "paragraphId": "modern-yabejp-ja:chapter06-section002:p0025",
+          "contextIds": [
+            "modern-yabejp-ja:chapter06-section002:b0068",
+            "modern-yabejp-ja:chapter06-section002:b0069",
+            "modern-yabejp-ja:chapter06-section002:b0070",
+            "modern-yabejp-ja:chapter06-section002:b0071",
+            "modern-yabejp-ja:chapter06-section002:b0072"
+          ]
+        }
+      ],
+      "contextBlockIds": [
+        "modern-yabejp-ja:chapter06-section002:b0068",
+        "modern-yabejp-ja:chapter06-section002:b0069",
+        "modern-yabejp-ja:chapter06-section002:b0070",
+        "modern-yabejp-ja:chapter06-section002:b0071",
+        "modern-yabejp-ja:chapter06-section002:b0072"
+      ],
+      "dictionaryUnboundImages": 0,
+      "outputPath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-section002.coac269rev1.json"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-237-1",
+      "articleId": "chapter04-section016",
+      "checks": [
+        "source_binding",
+        "parent_self_sha",
+        "notes_binding",
+        "target_projection",
+        "non_target_faithful_blocks",
+        "all_figures_faithful",
+        "dictionary_coverage",
+        "no_existing_variant"
+      ],
+      "errors": [],
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter04-section016/source.json",
+        "sha256": "046ce78d8fb40ed0ca560ee7cc440f42ef92cab782178369069b6c2011d91e41",
+        "language": "ja",
+        "status": "captured-not-translated-or-audited",
+        "blocks": 4,
+        "assets": 0
+      },
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section016.display.json",
+        "sha256": "5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959",
+        "schema": "coach-textbook-web-article-draft/1",
+        "textBlocks": 4,
+        "figures": 0
+      },
+      "notes": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter04-section016.5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959.json",
+        "sha256": "26e737619dfca6c940aeac348645802e2feebb240a6d38a2d917e4ef5b1fc41c",
+        "schema": "coach-textbook-web-article-audit/1",
+        "status": "needs-repair",
+        "recordedAt": "2026-10-25T16:10:47.171Z"
+      },
+      "targets": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter04-section016:b0002",
+          "sourceText": "供託リーチ棒や積み棒によって打ち方が変わる場合もあります。特に積み棒が1,500点のルールだと影響が大きくなります。供託２本なら和了した場合に2,000点追加、積み棒1,500点のルールで２本積まれていれば、和了、放銃にそれぞれ3,000点、被ツモに1,000点追加というように換算して手作り、押し引きを決めていけばいいです。供託や積み棒が多ければより早アガリが有効になりますが、あまりシビアに考える必要はありません。ダマ満貫未満の手は供託が相当多いわけでもなければ即リーチの方が収支期待値上勝りますし、手作りに関してもそこまで大きく変化するわけではありません。（供託や積み棒を考えない場合に）どちらの選択が優れているか迷うような場合に、供託や積み棒が多ければ和了率重視（積み棒が多く先手を取られていれば放銃回避重視）の選択を優先するくらいで良いでしょう。",
+          "priorTranslation": "供托立直棒和积棒有时也会改变打法。尤其是在每根积棒计1,500点的规则下，影响会更大。有2根供托时，和牌所得增加2,000点；在每根积棒计1,500点的规则下，若已积了2根，则和牌所得、放铳失点分别增加3,000点，被自摸时的失点增加1,000点。按这样的方式换算，再决定做牌和攻守判断即可。供托或积棒较多时，速和会更有效，但不必考虑得太过精细。对于默听时不足满贯的牌，除非供托相当多，否则立即立直在收支期望值上更优；做牌方面也不会发生那么大的变化。在（不考虑供托或积棒时）难以判断哪种选择更优的情况下，若供托或积棒较多，优先选择*重视和牌率*的打法（若积棒较多且对手已抢得先手，则重视避免放铳），做到这种程度应该就可以了。",
+          "paragraphId": "modern-yabejp-ja:chapter04-section016:p0002",
+          "contextIds": [
+            "modern-yabejp-ja:chapter04-section016:b0001",
+            "modern-yabejp-ja:chapter04-section016:b0002",
+            "modern-yabejp-ja:chapter04-section016:b0003",
+            "modern-yabejp-ja:chapter04-section016:b0004"
+          ]
+        }
+      ],
+      "contextBlockIds": [
+        "modern-yabejp-ja:chapter04-section016:b0001",
+        "modern-yabejp-ja:chapter04-section016:b0002",
+        "modern-yabejp-ja:chapter04-section016:b0003",
+        "modern-yabejp-ja:chapter04-section016:b0004"
+      ],
+      "dictionaryUnboundImages": 0,
+      "outputPath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section016.coac269rev1.json"
+    }
+  ],
+  "ok": true,
+  "errors": []
+}

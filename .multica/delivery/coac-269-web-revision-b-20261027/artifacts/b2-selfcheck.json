@@ -1,0 +1,103 @@
+{
+  "schema": "coac269-revision-selfcheck/1",
+  "ticket": "COAC-269",
+  "batch": "b2",
+  "recordedAt": "2026-10-27T10:11:10.099Z",
+  "modelCalls": 0,
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-246-1",
+      "candidateSha256": "832aaae0860ab8792778355b0259469f30d633336ac84cc142ffbb9546a938c4",
+      "parentSha256": "eb4caf1b93fc906a5a7286419009256337e9f886ce82123091931c8c5e5c4fc4",
+      "notesSha256": "53f38a52975a3a4545ff4c405f981127e706aaef104fe1b173505d84a4d22dab",
+      "sourceSha256": "8ea3a7139a78ed4fcdfd36f663c2a47d0eb15efb8c4b88d4aff07336642f2933",
+      "candidateSelfConsistent": true,
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-section002.display.json",
+        "parentSha256": "eb4caf1b93fc906a5a7286419009256337e9f886ce82123091931c8c5e5c4fc4",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter06-section002.eb4caf1b93fc906a5a7286419009256337e9f886ce82123091931c8c5e5c4fc4.json",
+        "notesSha256": "53f38a52975a3a4545ff4c405f981127e706aaef104fe1b173505d84a4d22dab",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter06-section002:b0070"
+        ]
+      },
+      "productionCall": {
+        "callId": "5bef56bd-fac6-4730-a40a-0aaed5071888",
+        "success": true,
+        "usage": {
+          "inputTokens": 13182,
+          "cachedInputTokens": 0,
+          "outputTokens": 380
+        },
+        "durationMs": 70066,
+        "rawArtifactPath": "raw-calls/5bef56bd-fac6-4730-a40a-0aaed5071888.json",
+        "rawArtifactSha256": "07b18610d1fdc3ef7fa942fe765346011fe7bf1e9e5fdb67c0cd923e948424e0",
+        "targets": {
+          "textIds": [
+            "modern-yabejp-ja:chapter06-section002:b0070"
+          ],
+          "figureIds": []
+        }
+      },
+      "targets": [
+        "modern-yabejp-ja:chapter06-section002:b0070"
+      ],
+      "changed": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter06-section002:b0070",
+          "before": "世界计算机将棋锦标赛是将棋软件之间较量实力的赛事。本届于３～５日举行，共有４０支队伍参赛，“激指（Gekisashi）”时隔３年再次夺冠，“棚濑将棋”获得亚军。表演赛中，加藤与棚濑将棋对战，清水上与激指对战。规则为每方有１５分钟用时，用完后每步必须在３０秒以内走出。加藤被攻垮，清水上则在中残局的激烈较量中败北。",
+          "after": "世界计算机将棋锦标赛是将棋软件之间较量实力的赛事。本届于３～５日举行，共有４０支队伍参赛，“激指（Gekisashi）”时隔３年再次夺冠，“棚濑将棋”获得亚军。表演赛中，加藤与棚濑将棋对战，清水上与激指对战。规则为每方有１５分钟用时，用完后每步的行棋时间必须少于３０秒。加藤被攻垮，清水上则在中盘和残局阶段的较量中落败。"
+        }
+      ]
+    },
+    {
+      "chapterId": "nemata-jp-chapter-237-1",
+      "candidateSha256": "04a4f6f881b10f9f18c55132e9c771214d877235267bc5f3b5daec2c2eb05295",
+      "parentSha256": "5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959",
+      "notesSha256": "26e737619dfca6c940aeac348645802e2feebb240a6d38a2d917e4ef5b1fc41c",
+      "sourceSha256": "046ce78d8fb40ed0ca560ee7cc440f42ef92cab782178369069b6c2011d91e41",
+      "candidateSelfConsistent": true,
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section016.display.json",
+        "parentSha256": "5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter04-section016.5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959.json",
+        "notesSha256": "26e737619dfca6c940aeac348645802e2feebb240a6d38a2d917e4ef5b1fc41c",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter04-section016:b0002"
+        ]
+      },
+      "productionCall": {
+        "callId": "394ff5d0-31fb-4f82-b30e-47b0dce5c3a3",
+        "success": true,
+        "usage": {
+          "inputTokens": 12812,
+          "cachedInputTokens": 0,
+          "outputTokens": 808
+        },
+        "durationMs": 57117,
+        "rawArtifactPath": "raw-calls/394ff5d0-31fb-4f82-b30e-47b0dce5c3a3.json",
+        "rawArtifactSha256": "21069d01d5ecbcfe0924d372258b42af568280b3f31f6b83379d992c9d760cd8",
+        "targets": {
+          "textIds": [
+            "modern-yabejp-ja:chapter04-section016:b0002"
+          ],
+          "figureIds": []
+        }
+      },
+      "targets": [
+        "modern-yabejp-ja:chapter04-section016:b0002"
+      ],
+      "changed": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter04-section016:b0002",
+          "before": "供托立直棒和积棒有时也会改变打法。尤其是在每根积棒计1,500点的规则下，影响会更大。有2根供托时，和牌所得增加2,000点；在每根积棒计1,500点的规则下，若已积了2根，则和牌所得、放铳失点分别增加3,000点，被自摸时的失点增加1,000点。按这样的方式换算，再决定做牌和攻守判断即可。供托或积棒较多时，速和会更有效，但不必考虑得太过精细。对于默听时不足满贯的牌，除非供托相当多，否则立即立直在收支期望值上更优；做牌方面也不会发生那么大的变化。在（不考虑供托或积棒时）难以判断哪种选择更优的情况下，若供托或积棒较多，优先选择*重视和牌率*的打法（若积棒较多且对手已抢得先手，则重视避免放铳），做到这种程度应该就可以了。",
+          "after": "供托立直棒和积棒有时也会改变打法。尤其是在每根积棒计1,500点的规则下，影响会更大。有2根供托时，和牌所得增加2,000点；在每根积棒计1,500点的规则下，若已积了2根，则和牌所得、放铳失点分别增加3,000点，被自摸时的失点增加1,000点。按这样的方式换算，再决定做牌和攻守判断即可。供托或积棒较多时，速和会更有效，但不必考虑得太过精细。对于默听时不足满贯的牌，除非供托相当多，否则立即立直在收支期望值上更优；做牌方面也不会发生那么大的变化。在（不考虑供托或积棒时）难以判断哪种选择更优的情况下，*若供托或积棒较多，就重视和牌率*（若积棒较多且对手已抢得先手，则重视避免放铳），优先作出这样的选择，应该就可以了。"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "ok": true
+}

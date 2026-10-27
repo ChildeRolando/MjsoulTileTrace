@@ -1,0 +1,86 @@
+{
+  "schema": "coac269-web-revision-production/1",
+  "ticket": "COAC-269",
+  "line": "B",
+  "startedAt": "2026-10-27T09:38:07.269099+00:00",
+  "variant": "coac269rev1",
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "budget": {
+    "productionCallsAllowed": 2,
+    "firstAuditCallsAllowed": 2,
+    "retries": 0
+  },
+  "frozenRuntime": {
+    "textbook-production-web.mjs": "4a5ce8ab361e659bf7a8e822d3e013ccf413701cfa604aaa1c58c688beab8ca9",
+    "textbook-production-cli.mjs": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1",
+    "textbook-audit.mjs": "8660208dbb9ab80bff445d84402e169a0294b5485316c3ef1c080b42ea095893"
+  },
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-338-1",
+      "articleId": "archive01-section006",
+      "state": "produced-awaiting-independent-audit",
+      "command": "E:/IDE/NodeJS/node.exe E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\coac269-20261027\\frozen-runtime\\textbook-production-web.mjs --source web-sources/v1/modern-yabejp-ja/articles/archive01-section006/source.json --revision-from web-production/v1/candidates/modern-yabejp-ja/archive01-section006.display.json --revision-notes audit/web/articles/modern-yabejp-ja/archive01-section006.04ab76405f88fa1df61d68c2047cf3cb344b8db8644f193c520fee805b83c427.json --variant coac269rev1 --dictionary web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json --verified-assets audit/web/verified-assets/modern-ch01-s001-exact-42.json --timeout-ms 480000",
+      "startedAt": "2026-10-27T09:38:07.275941+00:00",
+      "durationSeconds": 57.7,
+      "exitCode": 0,
+      "stdoutTail": "{\"sourceId\":\"modern-yabejp-ja\",\"articleId\":\"archive01-section006\",\"candidatePath\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\web-production\\\\v1\\\\candidates\\\\modern-yabejp-ja\\\\archive01-section006.coac269rev1.json\",\"textBlocks\":328,\"figures\":260,\"modelCalls\":1,\"usage\":{\"inputTokens\":12333,\"cachedInputTokens\":0,\"outputTokens\":315},\"candidateFileSha256\":\"ff5a9b524d8e10c62f97011bde7f6a5a837f58e8557230ca60c67581b426f782\"}\n",
+      "stderrTail": "",
+      "actualCalls": [
+        {
+          "callId": "7b9806f0-3aed-4175-b454-b60a81abcd91",
+          "success": true,
+          "usage": {
+            "inputTokens": 12333,
+            "cachedInputTokens": 0,
+            "outputTokens": 315
+          },
+          "durationMs": 57547,
+          "failureClass": null,
+          "transportStatus": "completed",
+          "rawArtifactPath": "raw-calls/7b9806f0-3aed-4175-b454-b60a81abcd91.json",
+          "rawArtifactSha256": "338e534912caa6266cf01a6ed5fe86484eaba06a8ad7d6157fec2ab584a3d63b",
+          "promptSha256": "8e8ac656a18ad81b286d3f15a3e1ba52ca45bace18c1148f59396b29ef4b8cff",
+          "semanticPromptSha256": "a03f356f49595fae9e31aa52b617fea57f91c2e5cedd1cfcc2520f83c0a2ebd4",
+          "targets": {
+            "textIds": [
+              "modern-yabejp-ja:archive01-section006:b0518"
+            ],
+            "figureIds": []
+          },
+          "revision": {
+            "parentPath": "web-production/v1/candidates/modern-yabejp-ja/archive01-section006.display.json",
+            "parentSha256": "04ab76405f88fa1df61d68c2047cf3cb344b8db8644f193c520fee805b83c427",
+            "notesPath": "audit/web/articles/modern-yabejp-ja/archive01-section006.04ab76405f88fa1df61d68c2047cf3cb344b8db8644f193c520fee805b83c427.json",
+            "notesSha256": "6d41a520affd04f57c515e02d37ef58746e88794149f385d701a9814c0be5597",
+            "figureIds": [],
+            "textBlockIds": [
+              "modern-yabejp-ja:archive01-section006:b0518"
+            ]
+          }
+        }
+      ],
+      "candidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/archive01-section006.coac269rev1.json",
+        "sha256": "ff5a9b524d8e10c62f97011bde7f6a5a837f58e8557230ca60c67581b426f782"
+      },
+      "finishedAt": "2026-10-27T09:39:04.971635+00:00"
+    }
+  ],
+  "makerLane": {
+    "lockPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production-lane.lock",
+    "acquired": true,
+    "waitedSeconds": 0.0,
+    "lastError": null,
+    "releasedAt": "2026-10-27T09:39:04.971635+00:00"
+  },
+  "result": "produced",
+  "finishedAt": "2026-10-27T09:39:04.971635+00:00",
+  "modelCalls": 1,
+  "usageTotal": {
+    "inputTokens": 12333,
+    "cachedInputTokens": 0,
+    "outputTokens": 315
+  }
+}

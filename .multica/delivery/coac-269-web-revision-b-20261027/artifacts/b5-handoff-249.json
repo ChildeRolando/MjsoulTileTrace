@@ -1,0 +1,132 @@
+{
+  "schema": "coac269-to-coac249-handoff/1",
+  "ticket": "COAC-269",
+  "batch": "b5",
+  "to": "COAC-249",
+  "recordedAt": "2026-10-27T11:08:43.322Z",
+  "modelCalls": 0,
+  "scope": "first independent semantic audit per candidate SHA; do not re-audit passed SHAs",
+  "budget": "one first audit per chapter for this batch; failed or void audits count, no retry loop",
+  "jointExclusionAtDispatch": {
+    "tag": "pre-dispatch",
+    "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-2026-10-27T11-05-54-336Z-6df4fae8.json",
+    "sha256": "dd7928dc91b357bc5be366527e9347255d2177333c2b0d988bcf08954adbf9c5",
+    "recordedAt": "2026-10-27T11:05:54.336Z",
+    "eligible": [
+      "nemata-jp-chapter-347-1",
+      "nemata-jp-chapter-232-1",
+      "nemata-jp-chapter-224-1",
+      "nemata-jp-chapter-213-1",
+      "nemata-jp-chapter-193-1",
+      "nemata-jp-chapter-142-1",
+      "nemata-jp-chapter-127-1",
+      "nemata-jp-chapter-100-1",
+      "nemata-jp-chapter-089-1",
+      "nemata-jp-chapter-060-1",
+      "nemata-jp-chapter-027-1"
+    ],
+    "controlsOk": true
+  },
+  "excludedThisBatch": {
+    "nemata-jp-chapter-183-1": "pending adjudication (see handoff/notice-249-do-not-audit-183-1-*.json): do not audit the b3 candidate, it is evidence only",
+    "nemata-jp-chapter-246-1": "withdrawn duplicate; covered by passed chapter06-section002.rev1.json",
+    "nemata-jp-chapter-237-1": "withdrawn duplicate; covered by passed chapter04-section016.rev1.json",
+    "nemata-jp-chapter-131-1": "withdrawn duplicate; covered by passed chapter01-section049.rev1.json"
+  },
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-142-1",
+      "articleId": "chapter01-section054",
+      "candidate": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section054.coac269rev1.json",
+      "parent": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section054.display.json",
+      "parentAudit": "audit/web/articles/modern-yabejp-ja/chapter01-section054.264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e.retry-1792969500839-d3667291.json",
+      "source": "web-sources/v1/modern-yabejp-ja/articles/chapter01-section054/source.json",
+      "targets": [
+        "modern-yabejp-ja:chapter01-section054:b0173"
+      ],
+      "notes": "b0173: parent audit rejected the translation for dropping 「引きでも」 (the draw condition) — original 「引きでもリャンメンテンパイになる。」. The revision now reads 「，摸到其中任意一张也能形成两面听牌。」 so the draw condition is explicit and the two tiles come from the preceding block b0172. Verify the draw condition is preserved, that no tile identity was invented, and that nothing else moved.",
+      "candidateSha256": "f3570e7bbe61e0ef99e45a2f4185ed3f0c1fe1840f670783c7fd2402352dedca",
+      "parentSha256": "264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e",
+      "parentAuditSha256": "78ffbdda38185f4ae14f4caeae0a4e9ac015998658f831714e0bf856cd2a6872",
+      "sourceSha256": "89afec31ea77168cb86f94a4919bd5ef813f59029e4452f77e3874dee88676cc",
+      "productionCall": [
+        {
+          "callId": "1e6b913f-714d-4417-8ca4-d46915d06a2c",
+          "success": true,
+          "usage": {
+            "inputTokens": 11894,
+            "cachedInputTokens": 0,
+            "outputTokens": 419
+          },
+          "durationMs": 50076,
+          "rawArtifactPath": "raw-calls/1e6b913f-714d-4417-8ca4-d46915d06a2c.json",
+          "rawArtifactSha256": "8881a2a0ea505e3fb8bb9b14c1325d8bc05aadf891cbe62d5d177d21e2e49a2b",
+          "promptSha256": "9f1a2fe1fdea7cffd97407c3d5923c5325f05b1621577790125774f2af31e0fa",
+          "semanticPromptSha256": "baf042f4a4d8d1468c8f2be8fe93c81d258606509f7ef5b40cc5ea34802d6ece",
+          "runnerSha256": "4a5ce8ab361e659bf7a8e822d3e013ccf413701cfa604aaa1c58c688beab8ca9",
+          "cliSha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+        }
+      ],
+      "rawArtifactSha256Verified": [
+        true
+      ],
+      "attemptCount": 1,
+      "changed": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section054:b0173",
+          "before": "，也能形成两面听牌。",
+          "after": "，摸到其中任意一张也能形成两面听牌。"
+        }
+      ],
+      "selfCheckReceipt": "web-production/v1/coac269-20261027/receipts/selfcheck-b5-31d78fb246d54415.json",
+      "selfCheckOk": true
+    },
+    {
+      "chapterId": "nemata-jp-chapter-127-1",
+      "articleId": "chapter01-section047",
+      "candidate": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section047.coac269rev1.json",
+      "parent": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section047.display.json",
+      "parentAudit": "audit/web/articles/modern-yabejp-ja/chapter01-section047.0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc.retry-1792965844463-86544923.json",
+      "source": "web-sources/v1/modern-yabejp-ja/articles/chapter01-section047/source.json",
+      "targets": [
+        "modern-yabejp-ja:chapter01-section047:b0030"
+      ],
+      "notes": "b0030: parent audit required リーチのみ (riichi as the only yaku) to be translated instead of the untranslated loanword 「立直nomi」. The revision now reads 「不过，如果没有宝牌，而且处于希望避免仅有立直一役的愚形立直的局面（参见攻守判断论），那么打」. Verify ドラ無し = 没有宝牌, リーチのみ = 仅有立直一役, 愚形 = 愚形, the parenthetical reference is intact, and the trailing 那么打 still binds to the following tile figure.",
+      "candidateSha256": "363fd45cc99f099cfbaec296a1102af0d6dd5519596af707697c21154280c86d",
+      "parentSha256": "0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc",
+      "parentAuditSha256": "3d5a7175621388527f9a3af6158cb21eb8bb83338acdcf2d0d214a8d691aad5a",
+      "sourceSha256": "15fa058ba54622b1c812b29dd0b1d8b2b612d68b8fe1386a8f501cb6b4f83371",
+      "productionCall": [
+        {
+          "callId": "154b724a-171f-48ab-85c9-270b82c22579",
+          "success": true,
+          "usage": {
+            "inputTokens": 11966,
+            "cachedInputTokens": 0,
+            "outputTokens": 293
+          },
+          "durationMs": 45144,
+          "rawArtifactPath": "raw-calls/154b724a-171f-48ab-85c9-270b82c22579.json",
+          "rawArtifactSha256": "944edf85910440868f7c3ac7a5a68ac87f0748b750acbad1acc95aeb78ca5777",
+          "promptSha256": "8ff8745c569b1904771aee28b402648e120b2c4601e0c095ac45f3bc900411f1",
+          "semanticPromptSha256": "ff906923d4437d926754f9ac1e3d06f38cc1a3e0713c16391c2dbce3e94f4bc3",
+          "runnerSha256": "4a5ce8ab361e659bf7a8e822d3e013ccf413701cfa604aaa1c58c688beab8ca9",
+          "cliSha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+        }
+      ],
+      "rawArtifactSha256Verified": [
+        true
+      ],
+      "attemptCount": 1,
+      "changed": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section047:b0030",
+          "before": "不过，如果没有宝牌，而且局面上希望避免愚形立直nomi（参见攻守判断论），那么打",
+          "after": "不过，如果没有宝牌，而且处于希望避免仅有立直一役的愚形立直的局面（参见攻守判断论），那么打"
+        }
+      ],
+      "selfCheckReceipt": "web-production/v1/coac269-20261027/receipts/selfcheck-b5-31d78fb246d54415.json",
+      "selfCheckOk": true
+    }
+  ]
+}

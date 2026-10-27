@@ -1,0 +1,114 @@
+{
+  "schema": "coac269-joint-exclusion-test/1",
+  "recordedAt": "2026-10-27T10:40:38.794Z",
+  "modelCalls": 0,
+  "inputs": {
+    "jointExclusion": {
+      "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-6df4fae82fdfa6f3.json",
+      "sha256": "2b881fc53b86907e0db05353928d1dc15e56d92d9a5b071c2dd6f603135b76e6"
+    },
+    "oldB2": {
+      "path": "web-production/v1/coac269-20261027/preflight/preflight-b2-7818f51dc4b3718c.json",
+      "accepted": [
+        "nemata-jp-chapter-246-1",
+        "nemata-jp-chapter-237-1"
+      ]
+    },
+    "oldB3": {
+      "path": "web-production/v1/coac269-20261027/preflight/preflight-b3-3b846f9db751ee3e.json",
+      "accepted": [
+        "nemata-jp-chapter-183-1",
+        "nemata-jp-chapter-131-1"
+      ]
+    }
+  },
+  "defectReproduced": true,
+  "fixVerified": true,
+  "results": [
+    {
+      "phase": "defect-old-protocol",
+      "name": "nemata-jp-chapter-246-1 accepted by old preflight (expected: yes)",
+      "passed": true,
+      "detail": "old preflight accepted a chapter that the active preview/register already covers"
+    },
+    {
+      "phase": "defect-old-protocol",
+      "name": "nemata-jp-chapter-237-1 accepted by old preflight (expected: yes)",
+      "passed": true,
+      "detail": "old preflight accepted a chapter that the active preview/register already covers"
+    },
+    {
+      "phase": "defect-old-protocol",
+      "name": "nemata-jp-chapter-131-1 accepted by old preflight (expected: yes)",
+      "passed": true,
+      "detail": "old preflight accepted a chapter that the active preview/register already covers"
+    },
+    {
+      "phase": "defect-old-protocol",
+      "name": "old no_existing_variant only tested the ticket variant file",
+      "passed": true,
+      "detail": "preflight-b2 checks only <article>.coac269rev1.json existence"
+    },
+    {
+      "phase": "fix-joint-exclusion",
+      "name": "nemata-jp-chapter-246-1 covered by the canonical union",
+      "passed": true,
+      "detail": "active-preview-selectedWeb + unified-register-covered-effective + latest-passed-audit-current-source + active-preview-unit-map"
+    },
+    {
+      "phase": "fix-joint-exclusion",
+      "name": "nemata-jp-chapter-237-1 covered by the canonical union",
+      "passed": true,
+      "detail": "active-preview-selectedWeb + unified-register-covered-effective + latest-passed-audit-current-source + active-preview-unit-map"
+    },
+    {
+      "phase": "fix-joint-exclusion",
+      "name": "nemata-jp-chapter-131-1 covered by the canonical union",
+      "passed": true,
+      "detail": "active-preview-selectedWeb + unified-register-covered-effective + latest-passed-audit-current-source + active-preview-unit-map"
+    },
+    {
+      "phase": "fix-joint-exclusion",
+      "name": "no covered chapter is offered as an eligible repair target",
+      "passed": true,
+      "detail": "eligible targets: 11"
+    },
+    {
+      "phase": "fix-joint-exclusion",
+      "name": "incident controls pass inside the receipt",
+      "passed": true,
+      "detail": "zero-call"
+    },
+    {
+      "phase": "fix-next-batch",
+      "name": "batch-4 preflight ok with zero model calls",
+      "passed": true,
+      "detail": "nemata-jp-chapter-142-1, nemata-jp-chapter-127-1"
+    },
+    {
+      "phase": "fix-next-batch",
+      "name": "batch-4 chapters are exactly the two eligible targets",
+      "passed": true,
+      "detail": "nemata-jp-chapter-142-1, nemata-jp-chapter-127-1"
+    },
+    {
+      "phase": "fix-next-batch",
+      "name": "each batch-4 claim is keyed by chapterId + current candidateSHA",
+      "passed": true,
+      "detail": "nemata-jp-chapter-142-1, nemata-jp-chapter-127-1"
+    },
+    {
+      "phase": "fix-next-batch",
+      "name": "batch-4 regression block refuses the three incident chapters",
+      "passed": true,
+      "detail": "refused: nemata-jp-chapter-246-1, nemata-jp-chapter-237-1, nemata-jp-chapter-131-1"
+    },
+    {
+      "phase": "status-183-1",
+      "name": "183-1 is not covered and has no passed candidate",
+      "passed": true,
+      "detail": "not covered, not passed, no audit receipt for the new candidate sha"
+    }
+  ],
+  "ok": true
+}

@@ -1,0 +1,91 @@
+{
+  "schema": "coac269-dispatch-guard/1",
+  "ticket": "COAC-269",
+  "line": "B",
+  "batch": "b7",
+  "recordedAt": "2026-10-27T11:53:06.908Z",
+  "purpose": "per-dispatch gate: fresh three-source joint exclusion + shared-claim ownership + binding checks, zero model calls",
+  "chapterId": "nemata-jp-chapter-060-1",
+  "articleId": "chapter01-section021-06",
+  "parentSha256": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+  "plannedOutput": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-06.coac269rev1.json",
+  "joint": {
+    "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-2026-10-27T11-53-06-864Z-e17cc5c1.json",
+    "sha256": "ecd49779cb6f781c3745d4e334afe74da589daf3af780d52c6873c7298aa2bf4",
+    "recordedAt": "2026-10-27T11:53:06.864Z",
+    "ageSecondsAtUse": 0,
+    "pointerSha256": "3927fdab261bd3b1f4a8caa6b59314650f3e09687b4a009716a64894b6f63ea7",
+    "eligibleRepairTargets": [
+      "nemata-jp-chapter-347-1",
+      "nemata-jp-chapter-232-1",
+      "nemata-jp-chapter-224-1",
+      "nemata-jp-chapter-213-1",
+      "nemata-jp-chapter-193-1",
+      "nemata-jp-chapter-100-1",
+      "nemata-jp-chapter-089-1",
+      "nemata-jp-chapter-060-1"
+    ]
+  },
+  "activePreviewPointerSha256": "3927fdab261bd3b1f4a8caa6b59314650f3e09687b4a009716a64894b6f63ea7",
+  "sharedClaim": {
+    "path": "parallel/claims/nemata-jp-chapter-060-1.json",
+    "sha256": "5f2ffa52d363d46e389ec5e1164588ff9f906304eed1bfa87e80ec55def06187",
+    "chapterId": "nemata-jp-chapter-060-1",
+    "owner": "COAC-269 Ticket executor",
+    "candidateSha256": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+    "claimedAt": "2026-10-27T11:51:37.235Z"
+  },
+  "ticketClaim": {
+    "path": "web-production/v1/coac269-20261027/claims/claim-b7-nemata-jp-chapter-060-1-ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828.json",
+    "sha256": "5e64c2c0d582ed675f2c208fe6c25b4c100f0123e17503767900e1f2c3f1afd2",
+    "chapterId": "nemata-jp-chapter-060-1",
+    "claimKey": "nemata-jp-chapter-060-1:ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+    "parentSha256": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+    "sharedClaimSha256": "5f2ffa52d363d46e389ec5e1164588ff9f906304eed1bfa87e80ec55def06187"
+  },
+  "held": null,
+  "outputExists": false,
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "verdict": {
+    "ok": true,
+    "reasons": [],
+    "checks": [
+      {
+        "name": "joint_receipt_fresh",
+        "ok": true,
+        "detail": "0s <= 900s, receipt ecd49779cb6f781c"
+      },
+      {
+        "name": "pointer_stable",
+        "ok": true,
+        "detail": "3927fdab261bd3b1f4a8caa6b59314650f3e09687b4a009716a64894b6f63ea7"
+      },
+      {
+        "name": "joint_eligible",
+        "ok": true,
+        "detail": "nemata-jp-chapter-060-1 with parent ff1f57ff633d050e"
+      },
+      {
+        "name": "shared_claim",
+        "ok": true,
+        "detail": "COAC-269 Ticket executor @ ff1f57ff633d050e"
+      },
+      {
+        "name": "ticket_claim",
+        "ok": true,
+        "detail": "nemata-jp-chapter-060-1:ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828"
+      },
+      {
+        "name": "ticket_hold",
+        "ok": true,
+        "detail": "none"
+      },
+      {
+        "name": "output_absent",
+        "ok": true,
+        "detail": "no variant output yet"
+      }
+    ]
+  }
+}

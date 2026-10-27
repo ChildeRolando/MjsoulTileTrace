@@ -1,0 +1,23 @@
+{
+  "schema": "coac269-claim-batch/1",
+  "ticket": "COAC-269",
+  "batch": "b3",
+  "recordedAt": "2026-10-27T10:17:06.733938+00:00",
+  "claims": [
+    {
+      "chapterId": "nemata-jp-chapter-183-1",
+      "claimPath": "web-production/v1/coac269-20261027/claims/claim-889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+      "created": true
+    },
+    {
+      "chapterId": "nemata-jp-chapter-131-1",
+      "claimPath": "web-production/v1/coac269-20261027/claims/claim-470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac.json",
+      "created": true
+    }
+  ],
+  "parallelClaims": [
+    "parallel/claims/nemata-jp-chapter-183-1.json",
+    "parallel/claims/nemata-jp-chapter-131-1.json"
+  ],
+  "preflight": "web-production/v1/coac269-20261027/preflight/preflight-b3-f58c2db60d9293da.json"
+}

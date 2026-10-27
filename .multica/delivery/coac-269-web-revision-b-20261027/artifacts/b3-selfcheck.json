@@ -1,0 +1,103 @@
+{
+  "schema": "coac269-revision-selfcheck/1",
+  "ticket": "COAC-269",
+  "batch": "b3",
+  "recordedAt": "2026-10-27T10:18:41.934Z",
+  "modelCalls": 0,
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-183-1",
+      "candidateSha256": "5083143622906fd318dfd9847c1a446f59deb78ff613a31adb44dd81df299ccd",
+      "parentSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+      "notesSha256": "c66a9bab86228f8f865d1f74b1c2d033de57f133892f87e2205480a09628373a",
+      "sourceSha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+      "candidateSelfConsistent": true,
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json",
+        "parentSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+        "notesSha256": "c66a9bab86228f8f865d1f74b1c2d033de57f133892f87e2205480a09628373a",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0018"
+        ]
+      },
+      "productionCall": {
+        "callId": "35508223-36a6-4982-a382-aa5d6683c9a1",
+        "success": true,
+        "usage": {
+          "inputTokens": 12597,
+          "cachedInputTokens": 12416,
+          "outputTokens": 500
+        },
+        "durationMs": 61503,
+        "rawArtifactPath": "raw-calls/35508223-36a6-4982-a382-aa5d6683c9a1.json",
+        "rawArtifactSha256": "d6e2f1e913a0ea727fcdfca331ffed57f89ef7a0fd37f0f4cd8f69cc0cb8d8b8",
+        "targets": {
+          "textIds": [
+            "modern-yabejp-ja:chapter03-section003:b0018"
+          ],
+          "figureIds": []
+        }
+      },
+      "targets": [
+        "modern-yabejp-ja:chapter03-section003:b0018"
+      ],
+      "changed": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter03-section003:b0018",
+          "before": "*对于已打出1张、能看到1张的字牌，役牌的放铳率比客风牌低*。这或许是因为役牌更常在第一张被打出时就被碰走，以及在选择单骑待牌时，牌手会考虑到单骑客风牌更容易荣和。",
+          "after": "*对于已打出1张、可见1张的字牌，役牌的放铳率比客风牌低*。这或许是因为役牌更常在第一张被打出时就被碰走，加上在选择单骑待牌时，牌手会受到客风牌单骑更容易争取荣和这一想法的影响。"
+        }
+      ]
+    },
+    {
+      "chapterId": "nemata-jp-chapter-131-1",
+      "candidateSha256": "40da07ac8cac2acd378963d8e297d28be52d894d31b35712c1ce9f87c4995096",
+      "parentSha256": "470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac",
+      "notesSha256": "8875bb9c2dec37ce1ca1dcc36edc24d7a04ec489ffe604d9dd610e04b77ba552",
+      "sourceSha256": "a463edd2bf6d41428d46be506a60cf27615b2bd7c698b16dd39ced7ee30968bd",
+      "candidateSelfConsistent": true,
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section049.display.json",
+        "parentSha256": "470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter01-section049.470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac.json",
+        "notesSha256": "8875bb9c2dec37ce1ca1dcc36edc24d7a04ec489ffe604d9dd610e04b77ba552",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter01-section049:b0123"
+        ]
+      },
+      "productionCall": {
+        "callId": "c045a2dc-bbca-4e75-ae8f-97b1c4d5110a",
+        "success": true,
+        "usage": {
+          "inputTokens": 11751,
+          "cachedInputTokens": 0,
+          "outputTokens": 136
+        },
+        "durationMs": 26756,
+        "rawArtifactPath": "raw-calls/c045a2dc-bbca-4e75-ae8f-97b1c4d5110a.json",
+        "rawArtifactSha256": "322bd851872bc8a6482742688b29157cf6059b04b53c997587f95d1c2fd7f883",
+        "targets": {
+          "textIds": [
+            "modern-yabejp-ja:chapter01-section049:b0123"
+          ],
+          "figureIds": []
+        }
+      },
+      "targets": [
+        "modern-yabejp-ja:chapter01-section049:b0123"
+      ],
+      "changed": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section049:b0123",
+          "before": "。（因为有断幺九，所以失去七对子的可能性也不太令人介意。）",
+          "after": "。（因为有断幺九，所以七对子方面的损失也不太令人介意。）"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "ok": true
+}

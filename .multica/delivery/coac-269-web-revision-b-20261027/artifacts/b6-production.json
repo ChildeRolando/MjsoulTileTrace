@@ -1,0 +1,164 @@
+{
+  "schema": "coac269-web-revision-production/1",
+  "batch": "b6",
+  "ticket": "COAC-269",
+  "line": "B",
+  "startedAt": "2026-10-27T11:11:40.608167+00:00",
+  "variant": "coac269rev1",
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "budget": {
+    "productionCallsAllowedPerChapter": 1,
+    "firstAuditCallsAllowedPerChapter": 1,
+    "retries": 0,
+    "spentBy249NotHere": "first independent audit per candidate sha"
+  },
+  "slotEntry": {
+    "mechanism": "parallel/slots.mjs",
+    "lane": "B",
+    "owner": "COAC-269 Ticket executor",
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-B.json"
+  },
+  "legacyLock": {
+    "acquired": false,
+    "before": {
+      "bytes": "30",
+      "mtime": "2026-10-25T15:40:57.878891+00:00"
+    },
+    "rule": "COAC-244 dual-slot contract: old lock is not deleted, rewritten or bypassed; B capacity is maker-B.",
+    "after": {
+      "bytes": "30",
+      "mtime": "2026-10-25T15:40:57.878891+00:00"
+    },
+    "unchanged": true
+  },
+  "frozenRuntime": {
+    "textbook-production-web.mjs": "4a5ce8ab361e659bf7a8e822d3e013ccf413701cfa604aaa1c58c688beab8ca9",
+    "textbook-production-cli.mjs": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1",
+    "textbook-audit.mjs": "8660208dbb9ab80bff445d84402e169a0294b5485316c3ef1c080b42ea095893"
+  },
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-027-1",
+      "articleId": "chapter01-section010",
+      "state": "produced-awaiting-independent-audit",
+      "command": "E:/IDE/NodeJS/node.exe E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\coac269-20261027\\frozen-runtime\\textbook-production-web.mjs --source web-sources/v1/modern-yabejp-ja/articles/chapter01-section010/source.json --revision-from web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.display.json --revision-notes audit/web/articles/modern-yabejp-ja/chapter01-section010.7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b.json --variant coac269rev1 --dictionary web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json --verified-assets audit/web/verified-assets/modern-ch01-s001-exact-42.json --timeout-ms 480000",
+      "startedAt": "2026-10-27T11:11:41.014453+00:00",
+      "jointExclusionAtDispatch": {
+        "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-2026-10-27T11-11-40-919Z-6df4fae8.json",
+        "sha256": "e231a801a3a86c400258b3c38bcee7c70c428a68d4b9582d73fa97cafd7ca421",
+        "recordedAt": "2026-10-27T11:11:40.919Z"
+      },
+      "durationSeconds": 42.6,
+      "exitCode": 0,
+      "stdoutTail": "{\"sourceId\":\"modern-yabejp-ja\",\"articleId\":\"chapter01-section010\",\"candidatePath\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\web-production\\\\v1\\\\candidates\\\\modern-yabejp-ja\\\\chapter01-section010.coac269rev1.json\",\"textBlocks\":83,\"figures\":77,\"modelCalls\":1,\"usage\":{\"inputTokens\":15470,\"cachedInputTokens\":0,\"outputTokens\":301},\"candidateFileSha256\":\"44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c\"}\n",
+      "stderrTail": "",
+      "actualCalls": [
+        {
+          "callId": "daa27aa1-c3a2-43e1-80b4-81026bfe6667",
+          "startedAt": "2026-10-27T11:11:41.091Z",
+          "durationMs": 42528,
+          "success": true,
+          "usage": {
+            "inputTokens": 15470,
+            "cachedInputTokens": 0,
+            "outputTokens": 301
+          },
+          "failureClass": null,
+          "transportStatus": "completed",
+          "rawArtifactPath": "raw-calls/daa27aa1-c3a2-43e1-80b4-81026bfe6667.json",
+          "rawArtifactSha256": "2c834f334d117f4973eed8856357e0d6a16dcebd91d97e5bdf548f18fbf4bb06",
+          "promptSha256": "29f6f407a0eddb140a099dbfdd9cf0b26ef0de77fdfc71b242afd309647b635f",
+          "semanticPromptSha256": "e69bb8817cd5ad1f699cfca280cd24e42168ab2cbbd149a8098338aac04fdd60",
+          "targets": {
+            "textIds": [
+              "modern-yabejp-ja:chapter01-section010:b0056"
+            ],
+            "figureIds": []
+          },
+          "revision": {
+            "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.display.json",
+            "parentSha256": "7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b",
+            "notesPath": "audit/web/articles/modern-yabejp-ja/chapter01-section010.7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b.json",
+            "notesSha256": "57d283a67ea10b4ba1ec399700a8c31fc849d625ca001bb03f5dac41ac8dd6f4",
+            "figureIds": [],
+            "textBlockIds": [
+              "modern-yabejp-ja:chapter01-section010:b0056"
+            ]
+          }
+        }
+      ],
+      "candidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.coac269rev1.json",
+        "sha256": "44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c"
+      },
+      "finishedAt": "2026-10-27T11:12:23.655998+00:00"
+    }
+  ],
+  "jointExclusion": {
+    "tag": "pre-dispatch",
+    "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-2026-10-27T11-11-40-919Z-6df4fae8.json",
+    "sha256": "e231a801a3a86c400258b3c38bcee7c70c428a68d4b9582d73fa97cafd7ca421",
+    "recordedAt": "2026-10-27T11:11:40.919Z",
+    "eligible": [
+      "nemata-jp-chapter-347-1",
+      "nemata-jp-chapter-232-1",
+      "nemata-jp-chapter-224-1",
+      "nemata-jp-chapter-213-1",
+      "nemata-jp-chapter-193-1",
+      "nemata-jp-chapter-142-1",
+      "nemata-jp-chapter-127-1",
+      "nemata-jp-chapter-100-1",
+      "nemata-jp-chapter-089-1",
+      "nemata-jp-chapter-060-1",
+      "nemata-jp-chapter-027-1"
+    ],
+    "controlsOk": true
+  },
+  "makerSlot": {
+    "acquireExit": 0,
+    "acquireStdout": "{\"ok\":true,\"action\":\"acquire\",\"slot\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\parallel\\\\slots\\\\maker-B.json\",\"record\":{\"schema\":\"coach-textbook-maker-slot/1\",\"slot\":\"maker-B\",\"lane\":\"B\",\"owner\":\"COAC-269 Ticket executor\",\"pid\":44252,\"claimedAt\":\"2026-10-27T11:11:40.997Z\",\"heartbeatAt\":\"2026-10-27T11:11:40.997Z\",\"ttlMinutes\":20}}",
+    "acquireStderr": "",
+    "acquiredAt": "2026-10-27T11:11:41.009568+00:00",
+    "releasedAt": "2026-10-27T11:12:23.771547+00:00",
+    "released": true,
+    "record": {
+      "schema": "coach-textbook-maker-slot/1",
+      "slot": "maker-B",
+      "lane": "B",
+      "owner": "COAC-269 Ticket executor",
+      "pid": 44252,
+      "claimedAt": "2026-10-27T11:11:40.997Z",
+      "heartbeatAt": "2026-10-27T11:11:40.997Z",
+      "ttlMinutes": 20
+    },
+    "releaseExit": 0,
+    "releaseStdout": "{\"ok\":true,\"action\":\"release\",\"slot\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\parallel\\\\slots\\\\maker-B.json\",\"released\":\"maker-B\"}",
+    "releaseStderr": ""
+  },
+  "heartbeats": [
+    {
+      "at": "2026-10-27T11:12:23.714393+00:00",
+      "exit": 0
+    }
+  ],
+  "result": "produced",
+  "finishedAt": "2026-10-27T11:12:23.771547+00:00",
+  "modelCalls": 1,
+  "usageTotal": {
+    "inputTokens": 15470,
+    "cachedInputTokens": 0,
+    "outputTokens": 301
+  },
+  "realModelCallOverlap": {
+    "productionCalls": [
+      {
+        "callId": "daa27aa1-c3a2-43e1-80b4-81026bfe6667",
+        "articleId": "chapter01-section010",
+        "start": "2026-10-27T11:11:41.091000+00:00",
+        "end": "2026-10-27T11:12:23.619000+00:00"
+      }
+    ],
+    "overlaps": []
+  }
+}

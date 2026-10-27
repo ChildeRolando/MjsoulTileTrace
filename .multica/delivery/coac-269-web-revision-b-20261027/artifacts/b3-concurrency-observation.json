@@ -1,0 +1,71 @@
+{
+  "schema": "coac269-concurrency-observation/1",
+  "ticket": "COAC-269",
+  "batch": "b3",
+  "recordedAt": "2026-10-27T10:23:53.861062+00:00",
+  "modelCalls": 0,
+  "source": "audit/calls/95502be0-996e-40be-bcec-1d37e4dbb695.json (written at audit-call completion, after the production receipt snapshot) + web-production/v1/calls.jsonl",
+  "note": "The production receipt was written at 10:18:35Z, before this audit call artifact existed, so its snapshot listed no overlap. The audit call completed at 10:21:46Z; the overlap below is measured from real startedAt+durationMs and supersedes that snapshot.",
+  "productionWindows": [
+    {
+      "callId": "5bef56bd-fac6-4730-a40a-0aaed5071888",
+      "articleId": "chapter06-section002",
+      "start": "2026-10-27T10:08:42.380Z",
+      "durationMs": 70066
+    },
+    {
+      "callId": "394ff5d0-31fb-4f82-b30e-47b0dce5c3a3",
+      "articleId": "chapter04-section016",
+      "start": "2026-10-27T10:09:52.594Z",
+      "durationMs": 57117
+    },
+    {
+      "callId": "35508223-36a6-4982-a382-aa5d6683c9a1",
+      "articleId": "chapter03-section003",
+      "start": "2026-10-27T10:17:06.997Z",
+      "durationMs": 61503
+    },
+    {
+      "callId": "c045a2dc-bbca-4e75-ae8f-97b1c4d5110a",
+      "articleId": "chapter01-section049",
+      "start": "2026-10-27T10:18:08.675Z",
+      "durationMs": 26756
+    }
+  ],
+  "auditWindow": {
+    "callId": "95502be0-996e-40be-bcec-1d37e4dbb695",
+    "start": "2026-10-27T10:17:25.809Z",
+    "durationMs": 260912,
+    "articleId": null,
+    "scope": null,
+    "note": "audit ledger rows for this call carry null scope/articleId; it is recorded as an audit-line model call, not attributed to a specific chapter."
+  },
+  "overlaps": [
+    {
+      "productionCall": "35508223-36a6-4982-a382-aa5d6683c9a1",
+      "productionArticle": "chapter03-section003",
+      "productionStart": "2026-10-27T10:17:06.997000+00:00",
+      "productionEnd": "2026-10-27T10:18:08.500000+00:00",
+      "auditCall": "95502be0-996e-40be-bcec-1d37e4dbb695",
+      "auditStart": "2026-10-27T10:17:25.809000+00:00",
+      "auditEnd": "2026-10-27T10:21:46.721000+00:00",
+      "overlapStart": "2026-10-27T10:17:25.809000+00:00",
+      "overlapEnd": "2026-10-27T10:18:08.500000+00:00",
+      "overlapSeconds": 42.7
+    },
+    {
+      "productionCall": "c045a2dc-bbca-4e75-ae8f-97b1c4d5110a",
+      "productionArticle": "chapter01-section049",
+      "productionStart": "2026-10-27T10:18:08.675000+00:00",
+      "productionEnd": "2026-10-27T10:18:35.431000+00:00",
+      "auditCall": "95502be0-996e-40be-bcec-1d37e4dbb695",
+      "auditStart": "2026-10-27T10:17:25.809000+00:00",
+      "auditEnd": "2026-10-27T10:21:46.721000+00:00",
+      "overlapStart": "2026-10-27T10:18:08.675000+00:00",
+      "overlapEnd": "2026-10-27T10:18:35.431000+00:00",
+      "overlapSeconds": 26.8
+    }
+  ],
+  "makerVsMakerOverlap": 0,
+  "conclusion": "Batch 3 had a real production/audit model-call overlap (42.7s + 26.8s). Maker-vs-maker concurrency remained 1: no A-line production call ran inside either window. Batch 2 had 0 overlap."
+}

@@ -1,0 +1,172 @@
+{
+  "schema": "coac269-shared-claim-batch/1",
+  "ticket": "COAC-269",
+  "line": "B",
+  "batch": "b7",
+  "recordedAt": "2026-10-27T11:51:37.249Z",
+  "modelCalls": 0,
+  "interface": {
+    "script": "parallel/slots.mjs",
+    "sharedDir": "parallel/claims",
+    "verification": "owner + candidateSha256 read back after claim"
+  },
+  "jointExclusion": {
+    "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-2026-10-27T11-51-37-091Z-e17cc5c1.json",
+    "sha256": "1fd481dd6745d5c07c0a7d2cd19c1eb953a478384441d6f25a4f7a8a5c907f92",
+    "recordedAt": "2026-10-27T11:51:37.091Z",
+    "ageSecondsAtClaim": 0
+  },
+  "registrationKind": "pre-dispatch",
+  "claims": [
+    {
+      "chapterId": "nemata-jp-chapter-089-1",
+      "articleId": "chapter01-section031",
+      "state": "claimed",
+      "sharedClaimCreated": true,
+      "sharedClaim": {
+        "path": "parallel/claims/nemata-jp-chapter-089-1.json",
+        "sha256": "2f6487be7410a13aa60a419e015731faacea7a214b6ec1151659560773232ed7",
+        "owner": "COAC-269 Ticket executor",
+        "candidateSha256": "9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb",
+        "claimedAt": "2026-10-27T11:51:37.176Z",
+        "created": true
+      },
+      "ticketClaim": {
+        "path": "web-production/v1/coac269-20261027/claims/claim-b7-nemata-jp-chapter-089-1-9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb.json",
+        "data": {
+          "schema": "coac269-candidate-claim/3",
+          "ticket": "COAC-269",
+          "line": "B",
+          "batch": "b7",
+          "claimedAt": "2026-10-27T11:51:37.188Z",
+          "owner": "COAC-269 Ticket executor",
+          "claimKey": "nemata-jp-chapter-089-1:9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb",
+          "chapterId": "nemata-jp-chapter-089-1",
+          "articleId": "chapter01-section031",
+          "parentCandidate": {
+            "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section031.display.json",
+            "sha256": "9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb"
+          },
+          "parentAudit": {
+            "path": "audit/web/articles/modern-yabejp-ja/chapter01-section031.9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb.retry-1792951706280-1a9d74d2.json",
+            "sha256": "38463b0c66018574d1cca6a52a4c667346b70864ad5bcf2e84454f759e2fdba9"
+          },
+          "source": {
+            "path": "web-sources/v1/modern-yabejp-ja/articles/chapter01-section031/source.json",
+            "sha256": "c69694f31974fc506ba30b69434ed64a700112dc6d7bb2d67916aa9ef19126a4"
+          },
+          "targets": [
+            "modern-yabejp-ja:chapter01-section031:b0042",
+            "modern-yabejp-ja:chapter01-section031:b0084",
+            "modern-yabejp-ja:chapter01-section031:b0102",
+            "modern-yabejp-ja:chapter01-section031:b0153"
+          ],
+          "plannedOutput": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section031.coac269rev1.json",
+          "variant": "coac269rev1",
+          "sharedClaim": {
+            "interface": "parallel/slots.mjs claim",
+            "path": "parallel/claims/nemata-jp-chapter-089-1.json",
+            "sha256": "2f6487be7410a13aa60a419e015731faacea7a214b6ec1151659560773232ed7",
+            "owner": "COAC-269 Ticket executor",
+            "candidateSha256": "9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb",
+            "claimedAt": "2026-10-27T11:51:37.176Z",
+            "created": true,
+            "verifiedAt": "2026-10-27T11:51:37.189Z",
+            "registrationKind": "pre-dispatch"
+          },
+          "selectionProof": {
+            "rule": "canonical chapter id absent from the union of active preview selection/unit-map, latest unified register, and every passed receipt bound to the current source sha",
+            "jointExclusion": {
+              "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-2026-10-27T11-51-37-091Z-e17cc5c1.json",
+              "sha256": "1fd481dd6745d5c07c0a7d2cd19c1eb953a478384441d6f25a4f7a8a5c907f92",
+              "recordedAt": "2026-10-27T11:51:37.091Z",
+              "ageSecondsAtClaim": 0,
+              "pointerSha256": "3927fdab261bd3b1f4a8caa6b59314650f3e09687b4a009716a64894b6f63ea7"
+            },
+            "preflight": {
+              "path": "web-production/v1/coac269-20261027/preflight/preflight-b7-2026-10-27T11-51-31-209Z-01ba0dac5f953810.json",
+              "sha256": "6ea606df7c190c0db7e00bd0e0c8fab1b1186504a8bd45816d5af52cefc4c79e"
+            }
+          },
+          "writes": "shared ownership in parallel/claims (the only surface line A reads); detail record in the ticket namespace; no shared list, selection, pointer or formal library write"
+        }
+      },
+      "claimKey": "nemata-jp-chapter-089-1:9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-060-1",
+      "articleId": "chapter01-section021-06",
+      "state": "claimed",
+      "sharedClaimCreated": true,
+      "sharedClaim": {
+        "path": "parallel/claims/nemata-jp-chapter-060-1.json",
+        "sha256": "5f2ffa52d363d46e389ec5e1164588ff9f906304eed1bfa87e80ec55def06187",
+        "owner": "COAC-269 Ticket executor",
+        "candidateSha256": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+        "claimedAt": "2026-10-27T11:51:37.235Z",
+        "created": true
+      },
+      "ticketClaim": {
+        "path": "web-production/v1/coac269-20261027/claims/claim-b7-nemata-jp-chapter-060-1-ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828.json",
+        "data": {
+          "schema": "coac269-candidate-claim/3",
+          "ticket": "COAC-269",
+          "line": "B",
+          "batch": "b7",
+          "claimedAt": "2026-10-27T11:51:37.246Z",
+          "owner": "COAC-269 Ticket executor",
+          "claimKey": "nemata-jp-chapter-060-1:ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+          "chapterId": "nemata-jp-chapter-060-1",
+          "articleId": "chapter01-section021-06",
+          "parentCandidate": {
+            "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-06.display.json",
+            "sha256": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828"
+          },
+          "parentAudit": {
+            "path": "audit/web/articles/modern-yabejp-ja/chapter01-section021-06.ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828.json",
+            "sha256": "f13f9da62cd633bf21c036ba4439b913e987b5334a4660e465ad80f0772d0cf7"
+          },
+          "source": {
+            "path": "web-sources/v1/modern-yabejp-ja/articles/chapter01-section021-06/source.json",
+            "sha256": "febc8cef9c299b375c225843e4d33a27a2167c3729bf8c590e472433f548eda5"
+          },
+          "targets": [
+            "modern-yabejp-ja:chapter01-section021-06:b0027",
+            "modern-yabejp-ja:chapter01-section021-06:b0033"
+          ],
+          "plannedOutput": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-06.coac269rev1.json",
+          "variant": "coac269rev1",
+          "sharedClaim": {
+            "interface": "parallel/slots.mjs claim",
+            "path": "parallel/claims/nemata-jp-chapter-060-1.json",
+            "sha256": "5f2ffa52d363d46e389ec5e1164588ff9f906304eed1bfa87e80ec55def06187",
+            "owner": "COAC-269 Ticket executor",
+            "candidateSha256": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+            "claimedAt": "2026-10-27T11:51:37.235Z",
+            "created": true,
+            "verifiedAt": "2026-10-27T11:51:37.246Z",
+            "registrationKind": "pre-dispatch"
+          },
+          "selectionProof": {
+            "rule": "canonical chapter id absent from the union of active preview selection/unit-map, latest unified register, and every passed receipt bound to the current source sha",
+            "jointExclusion": {
+              "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-2026-10-27T11-51-37-091Z-e17cc5c1.json",
+              "sha256": "1fd481dd6745d5c07c0a7d2cd19c1eb953a478384441d6f25a4f7a8a5c907f92",
+              "recordedAt": "2026-10-27T11:51:37.091Z",
+              "ageSecondsAtClaim": 0,
+              "pointerSha256": "3927fdab261bd3b1f4a8caa6b59314650f3e09687b4a009716a64894b6f63ea7"
+            },
+            "preflight": {
+              "path": "web-production/v1/coac269-20261027/preflight/preflight-b7-2026-10-27T11-51-31-209Z-01ba0dac5f953810.json",
+              "sha256": "6ea606df7c190c0db7e00bd0e0c8fab1b1186504a8bd45816d5af52cefc4c79e"
+            }
+          },
+          "writes": "shared ownership in parallel/claims (the only surface line A reads); detail record in the ticket namespace; no shared list, selection, pointer or formal library write"
+        }
+      },
+      "claimKey": "nemata-jp-chapter-060-1:ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828"
+    }
+  ],
+  "errors": [],
+  "ok": true
+}

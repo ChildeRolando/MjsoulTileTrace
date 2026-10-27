@@ -1,0 +1,57 @@
+{
+  "schema": "coac269-revision-selfcheck/1",
+  "ticket": "COAC-269",
+  "batch": "b6",
+  "recordedAt": "2026-10-27T11:12:32.090Z",
+  "modelCalls": 0,
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-027-1",
+      "candidateSha256": "44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c",
+      "parentSha256": "7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b",
+      "notesSha256": "57d283a67ea10b4ba1ec399700a8c31fc849d625ca001bb03f5dac41ac8dd6f4",
+      "sourceSha256": "eead468938ab9770eecc8b2323f72be0dd4dae72618355e4c9bee227dd527387",
+      "candidateSelfConsistent": true,
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.display.json",
+        "parentSha256": "7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter01-section010.7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b.json",
+        "notesSha256": "57d283a67ea10b4ba1ec399700a8c31fc849d625ca001bb03f5dac41ac8dd6f4",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter01-section010:b0056"
+        ]
+      },
+      "productionCall": {
+        "callId": "daa27aa1-c3a2-43e1-80b4-81026bfe6667",
+        "success": true,
+        "usage": {
+          "inputTokens": 15470,
+          "cachedInputTokens": 0,
+          "outputTokens": 301
+        },
+        "durationMs": 42528,
+        "rawArtifactPath": "raw-calls/daa27aa1-c3a2-43e1-80b4-81026bfe6667.json",
+        "rawArtifactSha256": "2c834f334d117f4973eed8856357e0d6a16dcebd91d97e5bdf548f18fbf4bb06",
+        "targets": {
+          "textIds": [
+            "modern-yabejp-ja:chapter01-section010:b0056"
+          ],
+          "figureIds": []
+        }
+      },
+      "targets": [
+        "modern-yabejp-ja:chapter01-section010:b0056"
+      ],
+      "changed": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section010:b0056",
+          "before": "的情况与此不同：若打出",
+          "after": "与后一个牌形不同，前一个牌形若打出"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "ok": true
+}

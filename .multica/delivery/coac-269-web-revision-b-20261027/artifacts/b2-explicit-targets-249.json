@@ -1,0 +1,38 @@
+{
+  "schema": "coach-explicit-audit-targets/1",
+  "createdAt": "2026-10-27T10:12:11.134Z",
+  "source": "COAC-269 line B batch-2 produced candidates on their needs-repair display parents; prepared from B claim/preflight/production/selfcheck receipts. No audit dispatched here.",
+  "totalTargets": 2,
+  "targets": [
+    {
+      "kind": "complete-web-candidate",
+      "chapterId": "nemata-jp-chapter-246-1",
+      "articleId": "chapter06-section002",
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter06-section002.coac269rev1.json",
+      "sourceId": "modern-yabejp-ja",
+      "sourceSha256": "8ea3a7139a78ed4fcdfd36f663c2a47d0eb15efb8c4b88d4aff07336642f2933",
+      "sha256": "832aaae0860ab8792778355b0259469f30d633336ac84cc142ffbb9546a938c4",
+      "parentSha256": "eb4caf1b93fc906a5a7286419009256337e9f886ce82123091931c8c5e5c4fc4",
+      "parentAuditSha256": "53f38a52975a3a4545ff4c405f981127e706aaef104fe1b173505d84a4d22dab",
+      "category": "coac269-line-b-targeted-revision",
+      "targets": [
+        "modern-yabejp-ja:chapter06-section002:b0070"
+      ]
+    },
+    {
+      "kind": "complete-web-candidate",
+      "chapterId": "nemata-jp-chapter-237-1",
+      "articleId": "chapter04-section016",
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter04-section016.coac269rev1.json",
+      "sourceId": "modern-yabejp-ja",
+      "sourceSha256": "046ce78d8fb40ed0ca560ee7cc440f42ef92cab782178369069b6c2011d91e41",
+      "sha256": "04a4f6f881b10f9f18c55132e9c771214d877235267bc5f3b5daec2c2eb05295",
+      "parentSha256": "5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959",
+      "parentAuditSha256": "26e737619dfca6c940aeac348645802e2feebb240a6d38a2d917e4ef5b1fc41c",
+      "category": "coac269-line-b-targeted-revision",
+      "targets": [
+        "modern-yabejp-ja:chapter04-section016:b0002"
+      ]
+    }
+  ]
+}

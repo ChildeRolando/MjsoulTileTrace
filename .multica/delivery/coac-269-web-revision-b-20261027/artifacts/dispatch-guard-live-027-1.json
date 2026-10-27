@@ -1,0 +1,16 @@
+{
+  "ok": false,
+  "reasons": [
+    "joint_eligible: nemata-jp-chapter-027-1 is not an eligible repair target in the fresh joint exclusion",
+    "shared_claim_present: no parallel/claims record for nemata-jp-chapter-027-1",
+    "output_absent: a candidate for this variant already exists"
+  ],
+  "receipt": "web-production/v1/coac269-20261027/preflight/dispatch-guard-2026-10-27T11-39-33-839Z-3d7aa15d.json",
+  "joint": {
+    "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-2026-10-27T11-39-33-796Z-e17cc5c1.json",
+    "sha256": "4143a36996d25af8f4c9867d63096c2df2693547c4772dc28c68452899fbc398",
+    "recordedAt": "2026-10-27T11:39:33.796Z",
+    "ageSeconds": 0
+  },
+  "sharedClaim": null
+}

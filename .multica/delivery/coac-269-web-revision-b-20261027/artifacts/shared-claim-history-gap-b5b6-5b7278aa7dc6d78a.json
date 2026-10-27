@@ -1,0 +1,168 @@
+{
+  "schema": "coac269-shared-claim-history-gap/1",
+  "ticket": "COAC-269",
+  "line": "B",
+  "recordedAt": "2026-10-27T11:37:04.326Z",
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "auditCalls": 0,
+  "summary": "batch-5 and batch-6 productions held only ticket-local claims; the shared COAC-244 claim was never taken. Historical fact recorded, no timestamp backdated, no retroactive claim written because all three chapters have since passed independent audit.",
+  "items": [
+    {
+      "chapterId": "nemata-jp-chapter-142-1",
+      "batch": "b5",
+      "productionReceipt": {
+        "path": "web-production/v1/coac269-20261027/receipts/production-b5-d8973bee19a1e53d.json",
+        "sha256": "e6f0acf0ab63cb38df473d80869c728f6fcb8dd0dbb4452881e6e6a2bdba6638"
+      },
+      "productionCallIds": [
+        "1e6b913f-714d-4417-8ca4-d46915d06a2c"
+      ],
+      "dispatchedAt": "2026-10-27T11:05:54.429797+00:00",
+      "parentCandidateSha256": "264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e",
+      "candidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section054.coac269rev1.json",
+        "sha256": "f3570e7bbe61e0ef99e45a2f4185ed3f0c1fe1840f670783c7fd2402352dedca"
+      },
+      "ticketLocalClaim": {
+        "path": "web-production/v1/coac269-20261027/claims/claim-b5-nemata-jp-chapter-142-1-264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e.json",
+        "sha256": "51086f60581f301a8d97e1904ebf76d3b4020b49842abe5ac200a5cf542d9472",
+        "claimKey": "nemata-jp-chapter-142-1:264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e"
+      },
+      "sharedClaimAtProduction": null,
+      "sharedClaimNow": null,
+      "independentAudit": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter01-section054.f3570e7bbe61e0ef99e45a2f4185ed3f0c1fe1840f670783c7fd2402352dedca.json",
+        "sha256": "5a8a41e7362719b52dd9b013859f9bb406d43865e33fdb548300e00fb60badff",
+        "status": "passed",
+        "recordedAt": "2026-10-27T11:25:33.775Z"
+      },
+      "retroactiveClaimTaken": false,
+      "whyNoRetroactiveClaim": "the chapter passed its first independent audit, so the COAC-244 reservation is finished; a claim written now would block line A on a completed chapter without protecting anything"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-127-1",
+      "batch": "b5",
+      "productionReceipt": {
+        "path": "web-production/v1/coac269-20261027/receipts/production-b5-d8973bee19a1e53d.json",
+        "sha256": "e6f0acf0ab63cb38df473d80869c728f6fcb8dd0dbb4452881e6e6a2bdba6638"
+      },
+      "productionCallIds": [
+        "154b724a-171f-48ab-85c9-270b82c22579"
+      ],
+      "dispatchedAt": "2026-10-27T11:06:44.684378+00:00",
+      "parentCandidateSha256": "0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc",
+      "candidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section047.coac269rev1.json",
+        "sha256": "363fd45cc99f099cfbaec296a1102af0d6dd5519596af707697c21154280c86d"
+      },
+      "ticketLocalClaim": {
+        "path": "web-production/v1/coac269-20261027/claims/claim-b5-nemata-jp-chapter-127-1-0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc.json",
+        "sha256": "44630c717bb19e0a0b35e8ca411db3a717a18fcfe3089f57b75680bcac734940",
+        "claimKey": "nemata-jp-chapter-127-1:0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc"
+      },
+      "sharedClaimAtProduction": null,
+      "sharedClaimNow": null,
+      "independentAudit": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter01-section047.363fd45cc99f099cfbaec296a1102af0d6dd5519596af707697c21154280c86d.json",
+        "sha256": "05be99be66bf8c579814b0cb392c9c57f82fdde0b40dc47e63cc374e49702696",
+        "status": "passed",
+        "recordedAt": "2026-10-27T11:27:18.817Z"
+      },
+      "retroactiveClaimTaken": false,
+      "whyNoRetroactiveClaim": "the chapter passed its first independent audit, so the COAC-244 reservation is finished; a claim written now would block line A on a completed chapter without protecting anything"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-027-1",
+      "batch": "b6",
+      "productionReceipt": {
+        "path": "web-production/v1/coac269-20261027/receipts/production-b6-623085d17b4c5314.json",
+        "sha256": "86e989a4525e01870957c283cc45578854c19ccef813abc000106c270d6515cd"
+      },
+      "productionCallIds": [
+        "daa27aa1-c3a2-43e1-80b4-81026bfe6667"
+      ],
+      "dispatchedAt": "2026-10-27T11:11:41.014453+00:00",
+      "parentCandidateSha256": "7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b",
+      "candidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.coac269rev1.json",
+        "sha256": "44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c"
+      },
+      "ticketLocalClaim": {
+        "path": "web-production/v1/coac269-20261027/claims/claim-b6-nemata-jp-chapter-027-1-7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b.json",
+        "sha256": "9d58414d424b16e763c3b6be1de7e6cef70929d457dc5479bab134ad062e5b3c",
+        "claimKey": "nemata-jp-chapter-027-1:7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b"
+      },
+      "sharedClaimAtProduction": null,
+      "sharedClaimNow": null,
+      "independentAudit": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter01-section010.44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c.json",
+        "sha256": "bdb29387e6fdbb875ca7150223b18659a06a8964ad6afceda4b562088450b5e0",
+        "status": "passed",
+        "recordedAt": "2026-10-27T11:27:18.797Z"
+      },
+      "retroactiveClaimTaken": false,
+      "whyNoRetroactiveClaim": "the chapter passed its first independent audit, so the COAC-244 reservation is finished; a claim written now would block line A on a completed chapter without protecting anything"
+    }
+  ],
+  "gapEvidence": {
+    "sharedClaimsDirectory": {
+      "path": "parallel/claims",
+      "filesAtFixTime": [
+        "79-cn-chapter-081-8.json",
+        "79-cn-chapter-217-4.json",
+        "nemata-jp-chapter-131-1.json",
+        "nemata-jp-chapter-183-1.json",
+        "nemata-jp-chapter-237-1.json",
+        "nemata-jp-chapter-246-1.json",
+        "nemata-jp-chapter-273-1.json",
+        "nemata-jp-chapter-338-1.json"
+      ],
+      "note": "none of the three chapterIds is present; the earlier b2/b3 claims (338-1, 273-1, 246-1, 237-1, 183-1, 131-1) are"
+    },
+    "sharedClaimEvents": {
+      "nemata-jp-chapter-142-1": 0,
+      "nemata-jp-chapter-127-1": 0,
+      "nemata-jp-chapter-027-1": 0
+    },
+    "lineAVisibility": "with no shared claim, slots.mjs check-chapter returned held:false for line A (exit 0) instead of exit 7, so line A could not see these productions as in flight"
+  },
+  "currentCoverage": {
+    "jointExclusion": {
+      "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-2026-10-27T11-33-54-678Z-e17cc5c1.json",
+      "sha256": "226a118ab07be54d0a90d6e7955b41206f1e7dcd7048881e7c7a9fe7013bdf54",
+      "recordedAt": "2026-10-27T11:33:54.678Z"
+    },
+    "denominator": {
+      "scopeChapters": 150,
+      "coveredByUnion": 138,
+      "uncoveredByUnion": 12
+    },
+    "eligibleRepairTargets": [
+      "nemata-jp-chapter-347-1",
+      "nemata-jp-chapter-232-1",
+      "nemata-jp-chapter-224-1",
+      "nemata-jp-chapter-213-1",
+      "nemata-jp-chapter-193-1",
+      "nemata-jp-chapter-100-1",
+      "nemata-jp-chapter-089-1",
+      "nemata-jp-chapter-060-1"
+    ],
+    "note": "the three chapters are no longer eligible: the coverage union covers them through their freshly passed audits, so line A cannot re-produce them even without a claim"
+  },
+  "mechanismFix": {
+    "sharedClaimScript": {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/coac269-claim-shared.mjs",
+      "interface": "parallel/slots.mjs claim → read-back owner+sha → ticket-local detail claim"
+    },
+    "dispatchGuard": {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/coac269-dispatch-guard.mjs",
+      "rule": "no dispatch without a shared claim held by COAC-269 Ticket executor for the exact parent candidate sha"
+    },
+    "producers": [
+      "coac269-produce-b5.py",
+      "coac269-produce-b6.py"
+    ],
+    "regressionTest": "coac269-dispatch-guard.test.mjs (two-lane race + per-dispatch drift, zero model calls)"
+  }
+}

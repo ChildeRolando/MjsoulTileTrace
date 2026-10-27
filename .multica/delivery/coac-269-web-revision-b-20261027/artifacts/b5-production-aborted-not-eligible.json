@@ -1,0 +1,56 @@
+{
+  "schema": "coac269-web-revision-production/1",
+  "batch": "b5",
+  "ticket": "COAC-269",
+  "line": "B",
+  "startedAt": "2026-10-27T11:04:32.343180+00:00",
+  "variant": "coac269rev1",
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "budget": {
+    "productionCallsAllowedPerChapter": 1,
+    "firstAuditCallsAllowedPerChapter": 1,
+    "retries": 0,
+    "spentBy249NotHere": "first independent audit per candidate sha"
+  },
+  "slotEntry": {
+    "mechanism": "parallel/slots.mjs",
+    "lane": "B",
+    "owner": "COAC-269 Ticket executor",
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-B.json"
+  },
+  "legacyLock": {
+    "acquired": false,
+    "before": {
+      "bytes": "30",
+      "mtime": "2026-10-25T15:40:57.878891+00:00"
+    },
+    "rule": "COAC-244 dual-slot contract: old lock is not deleted, rewritten or bypassed; B capacity is maker-B."
+  },
+  "frozenRuntime": {
+    "textbook-production-web.mjs": "4a5ce8ab361e659bf7a8e822d3e013ccf413701cfa604aaa1c58c688beab8ca9",
+    "textbook-production-cli.mjs": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1",
+    "textbook-audit.mjs": "8660208dbb9ab80bff445d84402e169a0294b5485316c3ef1c080b42ea095893"
+  },
+  "chapters": [],
+  "jointExclusion": {
+    "tag": "pre-dispatch",
+    "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-2026-10-27T11-04-32-652Z-d53b9853.json",
+    "sha256": "affab7e71ceda7b9f57b50eeb7ad4caf166382eac5a74a4dd919209cc4db37b4",
+    "recordedAt": "2026-10-27T11:04:32.652Z",
+    "eligible": [
+      "nemata-jp-chapter-347-1",
+      "nemata-jp-chapter-232-1",
+      "nemata-jp-chapter-224-1",
+      "nemata-jp-chapter-213-1",
+      "nemata-jp-chapter-193-1",
+      "nemata-jp-chapter-100-1",
+      "nemata-jp-chapter-089-1",
+      "nemata-jp-chapter-060-1",
+      "nemata-jp-chapter-027-1"
+    ],
+    "controlsOk": true
+  },
+  "result": "aborted-not-eligible",
+  "finishedAt": "2026-10-27T11:04:32.685717+00:00"
+}
