@@ -1,0 +1,142 @@
+TAP version 13
+# Subtest: real loader admits the exact derived candidate and preserves legacy flow identity
+ok 1 - real loader admits the exact derived candidate and preserves legacy flow identity
+  ---
+  duration_ms: 30.3455
+  type: 'test'
+  ...
+# Subtest: rejects body edit
+ok 2 - rejects body edit
+  ---
+  duration_ms: 21.7247
+  type: 'test'
+  ...
+# Subtest: rejects caption edit
+ok 3 - rejects caption edit
+  ---
+  duration_ms: 18.9924
+  type: 'test'
+  ...
+# Subtest: rejects non-whitelisted tile
+ok 4 - rejects non-whitelisted tile
+  ---
+  duration_ms: 20.5578
+  type: 'test'
+  ...
+# Subtest: rejects resolved north second changed
+ok 5 - rejects resolved north second changed
+  ---
+  duration_ms: 20.7125
+  type: 'test'
+  ...
+# Subtest: rejects body order changed
+ok 6 - rejects body order changed
+  ---
+  duration_ms: 17.9201
+  type: 'test'
+  ...
+# Subtest: rejects duplicate unknown
+ok 7 - rejects duplicate unknown
+  ---
+  duration_ms: 21.1739
+  type: 'test'
+  ...
+# Subtest: rejects unknown deletion
+ok 8 - rejects unknown deletion
+  ---
+  duration_ms: 21.0237
+  type: 'test'
+  ...
+# Subtest: rejects other chapter
+ok 9 - rejects other chapter
+  ---
+  duration_ms: 17.3568
+  type: 'test'
+  ...
+# Subtest: rejects wrong candidate SHA
+ok 10 - rejects wrong candidate SHA
+  ---
+  duration_ms: 20.8214
+  type: 'test'
+  ...
+# Subtest: rejects wrong parent SHA
+ok 11 - rejects wrong parent SHA
+  ---
+  duration_ms: 23.1824
+  type: 'test'
+  ...
+# Subtest: rejects wrong source SHA
+ok 12 - rejects wrong source SHA
+  ---
+  duration_ms: 16.4291
+  type: 'test'
+  ...
+# Subtest: rejects note without evidence
+ok 13 - rejects note without evidence
+  ---
+  duration_ms: 19.0543
+  type: 'test'
+  ...
+# Subtest: rejects note before argument ends
+ok 14 - rejects note before argument ends
+  ---
+  duration_ms: 24.359
+  type: 'test'
+  ...
+# Subtest: rejects changed impact judgment
+ok 15 - rejects changed impact judgment
+  ---
+  duration_ms: 18.3207
+  type: 'test'
+  ...
+# Subtest: rejects wrong north first coordinate
+ok 16 - rejects wrong north first coordinate
+  ---
+  duration_ms: 19.835
+  type: 'test'
+  ...
+# Subtest: rejects raw receipt mismatch
+ok 17 - rejects raw receipt mismatch
+  ---
+  duration_ms: 18.7732
+  type: 'test'
+  ...
+# Subtest: rejects changed source paragraph
+ok 18 - rejects changed source paragraph
+  ---
+  duration_ms: 23.4368
+  type: 'test'
+  ...
+# Subtest: rejects extra unresolved parent error
+ok 19 - rejects extra unresolved parent error
+  ---
+  duration_ms: 19.6732
+  type: 'test'
+  ...
+# Subtest: annotation restores exact source text after removing only the non-author segment
+ok 20 - annotation restores exact source text after removing only the non-author segment
+  ---
+  duration_ms: 0.2241
+  type: 'test'
+  ...
+# Subtest: wrong physical source bytes and approval bytes are rejected by the actual loader
+ok 21 - wrong physical source bytes and approval bytes are rejected by the actual loader
+  ---
+  duration_ms: 66.0228
+  type: 'test'
+  ...
+# Subtest: all previous approved page pins stay exactly unchanged
+ok 22 - all previous approved page pins stay exactly unchanged
+  ---
+  duration_ms: 0.1693
+  type: 'test'
+  ...
+1..22
+# tests 22
+# suites 0
+# pass 22
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 566.2587

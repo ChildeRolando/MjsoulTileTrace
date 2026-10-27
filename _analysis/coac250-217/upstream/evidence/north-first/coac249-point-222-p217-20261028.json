@@ -1,0 +1,192 @@
+{
+  "schema": "coac249-two-point-handoff/1",
+  "recordedAt": "2026-10-27T19:07:27.488630+00:00",
+  "authorizationComment": "01a17ebb-0fc9-73cb-9665-cad650511286",
+  "packetCommit": "394b830d7cd76ac3c97f480e93a54b14913501f4",
+  "runtimeManifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+  "recipients": [
+    "COAC-248",
+    "COAC-250"
+  ],
+  "status": "point-evidence-delivered-candidates-unchanged",
+  "calls": [
+    {
+      "schema": "coac249-independent-point-receipt/1",
+      "callId": "55d504fb-96bb-4685-8842-229ff3779df1",
+      "key": "image-222-sixth-tile",
+      "recordedAt": "2026-10-27T19:06:00.999Z",
+      "chapterId": "79-cn-chapter-222-5",
+      "targetId": "79-bilibili-cn:cv1775262:b0018:figure",
+      "bbox": [
+        170,
+        28,
+        196,
+        65
+      ],
+      "packetSha256": "d62305b3ca80095445cf9af92bd48de62d016df9b11a73d582ce11e4b4f185c6",
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-222-sixth-tile.raw.json",
+        "sha256": "32007944f5764cf41e03c336005e438ff02cb5ac17269aba2afa1be26403f3d6"
+      },
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "recordedModel": true,
+      "payloadOK": true,
+      "identityOK": true,
+      "valid": true,
+      "classification": "readable",
+      "result": {
+        "chapterId": "79-cn-chapter-222-5",
+        "targetId": "79-bilibili-cn:cv1775262:b0018:figure",
+        "targetBBox": [
+          170,
+          28,
+          196,
+          65
+        ],
+        "outcome": "readable",
+        "tileCode": "1m",
+        "locationCheck": "原图中该坐标对应从左数第六张牌，位于第一个向下箭头下方；左邻另一张万字牌，右邻北牌，与目标裁剪及上下文相符。",
+        "visualEvidence": [
+          "牌面上部是一条黑色横画，左侧略向下、右侧略上扬，未见另一条独立横画。",
+          "下部可辨红色的「萬」字，与上部单横合读为一万。"
+        ],
+        "uncertainty": "原图分辨率较低，但可见笔画足以辨认为一万；四倍图没有新增细节。",
+        "teachingImpact": "本牌可读。邻近原文讨论拆除23饼两面搭子与14饼听牌；本次单点判读不能验证整幅牌例或其推理前提。",
+        "scopeLimit": "此裁决仅适用于原图所给坐标内的牌，不代表其他牌或全章通过。"
+      },
+      "usage": {
+        "inputTokens": 12150,
+        "cachedInputTokens": 0,
+        "outputTokens": 1358
+      },
+      "durationMs": 73154,
+      "threadIds": [
+        "01a17ec0-3437-7430-9d67-545ced38bec1"
+      ],
+      "runtimeManifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+      "remoteGatewayWeights": "unknown",
+      "newCalls": 1,
+      "retry": 0,
+      "candidateChanged": false,
+      "pageOrChapterPassed": false
+    },
+    {
+      "schema": "coac249-independent-point-receipt/1",
+      "callId": "09362d05-d221-427e-b474-a79017ff7619",
+      "key": "image-p217-north-second-row",
+      "recordedAt": "2026-10-27T19:06:36.127Z",
+      "chapterId": "79-cn-chapter-217-4",
+      "targetId": "79-cn-p217-r1",
+      "bbox": [
+        150,
+        325,
+        175,
+        357
+      ],
+      "packetSha256": "5c8638af53c2618bcb2d130bd0279e5e4086bc0abc315bd76ecfa5d7c85b3c64",
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-p217-north-second-row.raw.json",
+        "sha256": "cc7f332d563cfc25106e77b06a097ddcb797450e8c4dbac69110901a8b51e516"
+      },
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "recordedModel": true,
+      "payloadOK": true,
+      "identityOK": true,
+      "valid": true,
+      "classification": "unreadable",
+      "result": {
+        "chapterId": "79-cn-chapter-217-4",
+        "targetId": "79-cn-p217-r1",
+        "targetBBox": [
+          150,
+          325,
+          175,
+          357
+        ],
+        "outcome": "unreadable",
+        "tileCode": "unknown",
+        "locationCheck": "原图坐标对应底部北家舍牌区第二行的左侧牌，位于东风牌下方；与目标裁剪和邻近上下文一致。右侧相邻牌不作为裁决对象。",
+        "visualEvidence": [
+          "目标牌下部可见红色「萬」字。",
+          "上部黑色数字字形的部分笔画粘连，笔画起止和连接关系不够清楚，无法可靠确定点数。"
+        ],
+        "uncertainty": "可辨出万子，但不能仅凭现有字形可靠辨认其数字。四倍图只是最近邻放大，没有增加笔画细节。",
+        "teachingImpact": "点数不明不妨碍理解原文关于下家染索子一色手及扣牌的总体说明，但会限制对这张牌的精确记录和具体牌谱复盘。",
+        "scopeLimit": "本证据仅适用于该坐标内的目标牌，不代表其他牌或全章通过。"
+      },
+      "usage": {
+        "inputTokens": 14682,
+        "cachedInputTokens": 0,
+        "outputTokens": 4086
+      },
+      "durationMs": 108282,
+      "threadIds": [
+        "01a17ec0-3437-7a22-bca8-b5052dacd72a"
+      ],
+      "runtimeManifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+      "remoteGatewayWeights": "unknown",
+      "newCalls": 1,
+      "retry": 0,
+      "candidateChanged": false,
+      "pageOrChapterPassed": false
+    }
+  ],
+  "limitedRevisionRequirements": [
+    {
+      "chapterId": "79-cn-chapter-222-5",
+      "targetId": "79-bilibili-cn:cv1775262:b0018:figure",
+      "bbox": [
+        170,
+        28,
+        196,
+        65
+      ],
+      "classification": "readable",
+      "tileCode": "1m",
+      "callId": "55d504fb-96bb-4685-8842-229ff3779df1",
+      "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.display.json",
+      "candidateSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+      "field": "/figures/7/transcription",
+      "limitedRevisionRequirement": "The sixth tile token and first downward-arrow reference are currently 2m. The independent coordinate-bound reading is 1m. A future authorized revision must consistently correct only these two references; do not silently overwrite the original or change other tiles.",
+      "existingCandidateText": "牌序从左至右：2z 3z 6z 8m 5m 2m 4z 3p 2p；两支向下箭头分别位于第6张2m、第7张4z的正上方。",
+      "otherOpenItems": "Retain existing sourceNotes attachment-pairing note and original audit. Point evidence does not resolve other fields or pass the candidate."
+    },
+    {
+      "chapterId": "79-cn-chapter-217-4",
+      "targetId": "79-cn-p217-r1",
+      "bbox": [
+        150,
+        325,
+        175,
+        357
+      ],
+      "classification": "unreadable",
+      "tileCode": "unknown",
+      "callId": "09362d05-d221-427e-b474-a79017ff7619",
+      "candidatePath": "production/sol-high-field-repair26-20261027-p217e/candidates/79-cn/page-0217.json",
+      "candidateSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+      "field": "/figures/0/transcription and /figures/0/unknowns",
+      "limitedRevisionRequirement": "At this FIRST/LEFT tile only, a future authorized revision must use 万子（数字未辨清） and a coordinate-bound unknown entry, rather than asserting 5m or 6m. Keep the right/second tile outside this evidence.",
+      "teachingImpact": "点数不明不妨碍理解原文关于下家染索子一色手及扣牌的总体说明，但会限制对这张牌的精确记录和具体牌谱复盘。",
+      "historicalLocatorConflict": {
+        "oldRequest": "北家舍牌第二行第二张",
+        "currentAuthorizedPacket": "北家舍牌第二行第一张, bbox [150,325,175,357)",
+        "resolution": "Current trigger explicitly selects commit394b830 packet; FIRST tile adjudication only. Do not claim closure of the old SECOND tile 8m/9m dispute."
+      },
+      "otherOpenItems": "The existing west discard unknown, second/right North discard, web b0004/b0010 and other page issues are not adjudicated. Ownership b8 belongs to217-4, not215-4."
+    }
+  ],
+  "newCalls": 2,
+  "failedVoid": 0,
+  "retry": 0,
+  "productionCalls": 0,
+  "fullPageOrChapterAudits": 0,
+  "additionalBudget": 0,
+  "pageOrChapterPassed": false,
+  "remoteGatewayWeights": "unknown",
+  "teachingPolicy": "Unknown is retained; the overall lesson being understandable is not a waiver of faithful precise transcription. No candidate edits or acceptance promotion are authorized by these receipts.",
+  "downstream248": "Record constrained revision requirements and unresolved exact locations in the existing repair list. No new production or review calls from this handoff.",
+  "downstream250": "Archive/reuse original single-point evidence with source/target/bbox/hash binding. Keep both chapters unaccepted unless independently completed under existing full acceptance rules. Do not reuse p217 proof for chapter215 ownership."
+}

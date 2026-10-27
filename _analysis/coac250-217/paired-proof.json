@@ -1,0 +1,93 @@
+{
+  "schema": "coac250-p217-paired-limited-proof/1",
+  "chapterId": "79-cn-chapter-217-4",
+  "candidate": {
+    "path": "integration/coac248-p217-admitted-20261028/page-0217.rev6.json",
+    "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54"
+  },
+  "projection": {
+    "path": "integration/coac248-p217-admitted-20261028/assembled-display.json",
+    "sha256": "982fda3554c0ec35425390968204fa4a9d6a5bf99afa15d8c3f02d9b3ba0d65e"
+  },
+  "sourceImage": {
+    "path": "integration/coac248-p217-admitted-20261028/evidence/image/64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+    "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+    "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png"
+  },
+  "parent": {
+    "path": "integration/coac248-p217-admitted-20261028/evidence/parent/page-0217.json",
+    "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+    "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\candidates\\79-cn\\page-0217.json"
+  },
+  "admission": {
+    "path": "audit/source-corrections/native-inline-field-corrections.p217.root-acceptance.json",
+    "sha256": "5fc316e8150c927e0c49bfb49b120a348040ee6c7707847984d585b8023cf8f7"
+  },
+  "consistencyProof": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-evidence-consistency-20261028.json",
+    "sha256": "7c3777799cc164f7d46d7872d4e415c10e4357d194ee481c9cffc4b08d87474b"
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\runtime-manifest.json",
+    "sha256": "e039ca388aefec50a88ee33f84f2d5fc41d70a82014282c701ba89652ba8eae9",
+    "files": 5
+  },
+  "figureId": "79-cn-p217-r1",
+  "sourceBlockId": "79-cn-p217-b8",
+  "requiredAnnotation": {
+    "sourceBlockId": "79-cn-p218-b3",
+    "afterCharacterOffset": 165,
+    "authorText": false,
+    "text": "【审校注（非原文）：图中北家舍牌第二行第一张及西家舍牌第二行第二张均为万子，数字未辨清。西家该数字不影响本段亲家染索、南场领先、无役愚形一向听、留两家切过的9饼、拆8万对子扣索及争取亲家未听下庄的六项论证；北家第一张的未知不妨碍总体扣牌说明。两处未知限制精确牌谱复原，不能据此确定相关万子的精确可见张数、余张、进张和安全度。原文“现在亲家应该还没有听牌吧”为推测，扣索是战术意图，不证明对手暗手、实际结局、打法绝对安全或最优。】"
+  },
+  "consumptionPolicy": "Consume the exact figure and mandatory non-author annotation together through the pinned exact correction gate. Neither alone is eligible. No whole-page/chapter passed claim.",
+  "unknownCount": 2,
+  "northSecond": "9m unchanged",
+  "recognitionTodoRequired": false,
+  "westImpactReviewRequired": false,
+  "limitedEvidenceAccepted": true,
+  "pageOrChapterPassed": false,
+  "previewEligible": false,
+  "remainingScope": [
+    {
+      "page": 218,
+      "candidatePaths": [],
+      "owner": "COAC-244 existing PDF chapter production/acceptance; COAC-250 final scope assembly/readback",
+      "requiredSourceBlockIds": [
+        "79-cn-p218-b1",
+        "79-cn-p218-b3",
+        "79-cn-p218-b5",
+        "79-cn-p218-b4",
+        "79-cn-p218-b2"
+      ],
+      "status": "no complete PDF candidate or passed full-page receipt; source paragraph projection is not a full candidate"
+    },
+    {
+      "page": 219,
+      "candidatePaths": [],
+      "owner": "COAC-244 existing PDF chapter production/acceptance; COAC-250 final scope assembly/readback",
+      "requiredSourceBlockIds": [
+        "79-cn-p219-b1",
+        "79-cn-p219-b3",
+        "79-cn-p219-b8",
+        "79-cn-p219-b4",
+        "79-cn-p219-b5",
+        "79-cn-p219-b9",
+        "79-cn-p219-b6",
+        "79-cn-p219-b7",
+        "79-cn-p219-b2"
+      ],
+      "status": "no complete PDF candidate or passed full-page receipt; source paragraph projection is not a full candidate"
+    },
+    {
+      "page": 220,
+      "candidatePaths": [],
+      "owner": "COAC-244 existing PDF chapter production/acceptance; COAC-250 final scope assembly/readback",
+      "requiredSourceBlockIds": [
+        "79-cn-p220-b1",
+        "79-cn-p220-b3"
+      ],
+      "status": "no complete PDF candidate or passed full-page receipt; source paragraph projection is not a full candidate"
+    }
+  ]
+}

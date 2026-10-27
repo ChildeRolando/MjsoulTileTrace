@@ -1,0 +1,62 @@
+{
+  "parent": {
+    "path": "integration/coac248-p217-admitted-20261028/evidence/parent/page-0217.json",
+    "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+    "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\candidates\\79-cn\\page-0217.json"
+  },
+  "candidate": {
+    "path": "integration/coac248-p217-admitted-20261028/page-0217.rev6.json",
+    "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54"
+  },
+  "changes": [
+    {
+      "target": "figure",
+      "figureId": "79-cn-p217-r1",
+      "field": "transcription",
+      "fromValue": "牌码：m=万，p=饼，s=索；1z=东、2z=南、3z=西、4z=北、5z=白、6z=发、7z=中。可辨认的明牌中无赤五。\n中央文字：南3局1本场，立直棒0根。座位：下方北家、右方东家、上方南家、左方西家；东家为庄家。中央“ドラ”栏显示西（3z），画面未注明该栏为宝牌还是宝牌指示牌。\n画面显示值：北家+16900，东家△4900，南家△17500，西家+5500。\n北家手牌从左至右：8m 8m 1s 2s 3s 6s 8s 1p 2p 3p 5p 7p 9p；右侧分开的摸牌为6s。其余三家的暗手牌背面朝外，牌种未知（画面可见南家13张、西家13张、东家10张）。\n北家舍牌，按其自身视角逐行从左至右：第一行1z 9s 1m 9s 1p 3z；第二行5m 9m。\n东家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，各列自下向上）：第一行8p 2m 1p 3p 7m 7z；第二行2z 9m 5p 4z。右上角副露为碰5z 5z 5z，中间一张横置，来自对家西家。\n南家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一行，自右向左）：第一行2z 1z 7z 4z 3z 2s；第二行3m 5p 5z 1s 9p。\n西家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，自上向下）：第一行9p 1s 1m 6z 9s 2p；第二行7z 万子（数字未辨清）2m 6m。",
+      "toValue": "牌码：m=万，p=饼，s=索；1z=东、2z=南、3z=西、4z=北、5z=白、6z=发、7z=中。可辨认的明牌中无赤五。\n中央文字：南3局1本场，立直棒0根。座位：下方北家、右方东家、上方南家、左方西家；东家为庄家。中央“ドラ”栏显示西（3z），画面未注明该栏为宝牌还是宝牌指示牌。\n画面显示值：北家+16900，东家△4900，南家△17500，西家+5500。\n北家手牌从左至右：8m 8m 1s 2s 3s 6s 8s 1p 2p 3p 5p 7p 9p；右侧分开的摸牌为6s。其余三家的暗手牌背面朝外，牌种未知（画面可见南家13张、西家13张、东家10张）。\n北家舍牌，按其自身视角逐行从左至右：第一行1z 9s 1m 9s 1p 3z；第二行万子（数字未辨清） 9m。\n东家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，各列自下向上）：第一行8p 2m 1p 3p 7m 7z；第二行2z 9m 5p 4z。右上角副露为碰5z 5z 5z，中间一张横置，来自对家西家。\n南家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一行，自右向左）：第一行2z 1z 7z 4z 3z 2s；第二行3m 5p 5z 1s 9p。\n西家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，自上向下）：第一行9p 1s 1m 6z 9s 2p；第二行7z 万子（数字未辨清）2m 6m。",
+      "replacements": [
+        {
+          "from": "第二行5m 9m。",
+          "to": "第二行万子（数字未辨清） 9m。",
+          "occurrences": 1
+        }
+      ]
+    },
+    {
+      "target": "figure",
+      "figureId": "79-cn-p217-r1",
+      "field": "unknowns",
+      "fromValue": [
+        "西家舍牌第二行第二张为旋转万子牌，数字笔画在当前嵌入位图分辨率下不能可靠辨定；未确认前不赋具体牌码，不据暗手或牌河推断补全。"
+      ],
+      "toValue": [
+        "西家舍牌第二行第二张为旋转万子牌，数字笔画在当前嵌入位图分辨率下不能可靠辨定；未确认前不赋具体牌码，不据暗手或牌河推断补全。 原嵌图坐标[81,175,112,199)，西家自身第二行第二张；保留未知，不赋点数。",
+        "北家舍牌第二行第一张为万子，数字未辨清；原嵌图坐标[150,325,175,357)，不再赋5m或6m。第二张9m另有独立坐标裁决，保持不变。"
+      ],
+      "requiresExistingEntryReplacementAndOneBoundedInsertion": true
+    }
+  ],
+  "addedEditorialAnnotation": {
+    "kind": "non-author-limitation",
+    "chapterId": "79-cn-chapter-217-4",
+    "text": "【审校注（非原文）：图中北家舍牌第二行第一张及西家舍牌第二行第二张均为万子，数字未辨清。西家该数字不影响本段亲家染索、南场领先、无役愚形一向听、留两家切过的9饼、拆8万对子扣索及争取亲家未听下庄的六项论证；北家第一张的未知不妨碍总体扣牌说明。两处未知限制精确牌谱复原，不能据此确定相关万子的精确可见张数、余张、进张和安全度。原文“现在亲家应该还没有听牌吧”为推测，扣索是战术意图，不证明对手暗手、实际结局、打法绝对安全或最优。】",
+    "sourceBlockId": "79-cn-p218-b3",
+    "sourcePageSha256": "83d1909e9e92a9622c46c9ba0ea46efca12bef60cb27ec5b35d72fcbd8f92abd",
+    "afterExactText": "施行让亲家未听下庄的战术。",
+    "afterCharacterOffset": 165,
+    "evidenceIds": [
+      "north-first",
+      "north-second",
+      "west-impact"
+    ]
+  },
+  "originalRawChanged": false,
+  "authorBodyChanged": false,
+  "captionChanged": false,
+  "northSecond9mUnchanged": true,
+  "metadataChanges": [
+    "/provenance/sourceFieldCorrection",
+    "/candidateSha256"
+  ]
+}

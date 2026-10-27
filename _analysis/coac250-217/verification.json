@@ -1,0 +1,909 @@
+{
+  "schema": "coac250-p217-limited-evidence-intake/1",
+  "recordedAt": "2026-10-27T20:57:37.248Z",
+  "status": "paired-limited-evidence-registered-awaiting-continuation-scope",
+  "candidate": {
+    "path": "integration/coac248-p217-admitted-20261028/page-0217.rev6.json",
+    "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54"
+  },
+  "consistencyProof": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-evidence-consistency-20261028.json",
+    "sha256": "7c3777799cc164f7d46d7872d4e415c10e4357d194ee481c9cffc4b08d87474b"
+  },
+  "producerHandoff": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028.json",
+    "sha256": "f4b7983a77deb15932119c2a30f3806bf29e18f0910c1004d40e4c27417e124e"
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\runtime-manifest.json",
+    "sha256": "e039ca388aefec50a88ee33f84f2d5fc41d70a82014282c701ba89652ba8eae9",
+    "files": 5
+  },
+  "runtimeFilesVerified": 5,
+  "inputBindingsVerified": 29,
+  "consistencyInputsVerified": 42,
+  "protectedFiles": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028.json",
+      "sha256": "f4b7983a77deb15932119c2a30f3806bf29e18f0910c1004d40e4c27417e124e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\runtime-manifest.json",
+      "sha256": "e039ca388aefec50a88ee33f84f2d5fc41d70a82014282c701ba89652ba8eae9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\runtime\\textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "532e7a0c1baa33024e9ef52a7a806b6cbeff2125455d9cdc6b73fd8a92d01e71"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\runtime\\textbook-audit-pdf-p217-correction.mjs",
+      "sha256": "2e3d02dc0c807c6fe0283aeee9e8198a83e0a7e5a0ecd60822b29e396877fad8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\verify.mjs",
+      "sha256": "deec89482c7a3ec5d2f530933d29d29036f9854139fd9562ae5abfff588a6eb3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\correction.test.mjs",
+      "sha256": "77349fd9179875116c6c8f388ee5f28f63ea45a7883118bf9e059e9f2608d494"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\native-inline-field-corrections.p217.root-acceptance.json",
+      "sha256": "5fc316e8150c927e0c49bfb49b120a348040ee6c7707847984d585b8023cf8f7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\parent\\page-0217.json",
+      "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\originalRaw\\e12aa4a6-65f4-4a23-9579-09f887f568be.json",
+      "sha256": "6112c207fc1d5922e88af671f0a02b7e13623af7edee15a18a9b0c76bed59203"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\page217\\217.json",
+      "sha256": "f8de2eddd4ba2939ae40796ffd8d1d1f971d49474dede72d108e61809ef1d6f8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\page218\\218.json",
+      "sha256": "83d1909e9e92a9622c46c9ba0ea46efca12bef60cb27ec5b35d72fcbd8f92abd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\image\\64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+      "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev1\\page-0217.json",
+      "sha256": "279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev1Audit\\page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json",
+      "sha256": "48188a41382d98a5af7272851ba96f8d209213ee5befb3f4fd2fbf0b738574be"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev1AuditRaw\\95502be0-996e-40be-bcec-1d37e4dbb695.json",
+      "sha256": "2423c2a1205e5b84e5f5ba2cf40a6d8983cbee01a33db324058ce97168081f74"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev2\\page-0217.json",
+      "sha256": "2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev2Audit\\page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json",
+      "sha256": "70e67fec9ff86c6eeb77019a488c68b2b8836d7610b1b88eee3bb1785348c1b4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev2AuditRaw\\2b9d82cb-d3fa-4578-ad15-4b8cb22b70d0.json",
+      "sha256": "f483dfb21097c6a738a87a6fe2dbe39dd1b20dca844aabf91acee67459e69f16"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev3\\page-0217.json",
+      "sha256": "ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev3Audit\\page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json",
+      "sha256": "7dc668f386cbc8c4a5f7ee7c253d0958b688f76de48ac6a82edba24e770bb33c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev3AuditRaw\\a67e7181-9217-47e7-b944-4373d83e5280.json",
+      "sha256": "290cc79e73e41d9c45aacb1b85610b438fcfdb0faffb5708db86a154811174ed"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev4\\page-0217.json",
+      "sha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\parentAudit\\page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+      "sha256": "44e101c7fbf8813d9db7a18af177a42b27b51ebaf92945761787b8b25764b3ec"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev4AuditRaw\\4f760999-1648-410e-8452-1c1b4794503f.json",
+      "sha256": "accbddb2fafe11ce150f26ecd6ba2c13f93a4c16fd760cb8eb82299ffc1e729d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev5\\page-0217.json",
+      "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\north-first\\coac249-point-222-p217-20261028.json",
+      "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\north-first-raw\\image-p217-north-second-row.raw.json",
+      "sha256": "cc7f332d563cfc25106e77b06a097ddcb797450e8c4dbac69110901a8b51e516"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\north-second\\coac249-p217-second-point-20261028.json",
+      "sha256": "b1ee9973976f05f59d32acc9594e78b4d6dc2928a8061bc82a009b709c5cc70d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\north-second-raw\\raw.json",
+      "sha256": "c052de0b93273a683f70e8746fe53b03eb805e6f4ce06ef36aef7aeea6b1e29d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\west-impact\\coac249-p217-west-impact-20261028.json",
+      "sha256": "1fe84448edbf053d6a61ea4bb550518d6a4875df566347b72964ad8f8a65dedd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\west-impact-raw\\raw.json",
+      "sha256": "fa68f2f3be0e6b2eb496007d6d5638c7cc7aabd322975cfa24e048d96e849e81"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\west-impact-receipt\\receipt.json",
+      "sha256": "5f2e2fd009758c3df6d435073bf1f9dcb80c6f033f06213d931a668ef957e18b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\chapter-map\\chapter-map.json",
+      "sha256": "d38bbd1a72defef709f4e2f336b3447e4fc677183b88b7e8d6aa050258017a8e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\ownership\\source-block-ownership.json",
+      "sha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\revision-chain\\receipt-p217-revision-chain-20261027.json",
+      "sha256": "9ab2668f250b53c1bc2408025f7b1bd042454150bf980ddcff97cf978287b9bb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\original-render\\page-0217-r1.png",
+      "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\page-0217.rev6.json",
+      "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\parent\\page-0217.json",
+      "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\source-corrections\\native-inline-field-corrections.p217.root-acceptance.json",
+      "sha256": "5fc316e8150c927e0c49bfb49b120a348040ee6c7707847984d585b8023cf8f7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\correction-proof.json",
+      "sha256": "a427384e7682f3189e9758ca83bba6916d94fbdd8544f93c1ed59a7cf49951b1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\assembled-display.json",
+      "sha256": "982fda3554c0ec35425390968204fa4a9d6a5bf99afa15d8c3f02d9b3ba0d65e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\verification.json",
+      "sha256": "e770699f3e80e3cf2eb82a1cb357a27cff74d10d8d925b0afa061facc141971d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\diff.json",
+      "sha256": "b7827cfbda97fa1658d76e0e495572e51d55131b1e2426e3632a211b3c1f6442"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\runtime-manifest.json",
+      "sha256": "e039ca388aefec50a88ee33f84f2d5fc41d70a82014282c701ba89652ba8eae9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\runtime\\textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "532e7a0c1baa33024e9ef52a7a806b6cbeff2125455d9cdc6b73fd8a92d01e71"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\runtime\\textbook-audit-pdf-p217-correction.mjs",
+      "sha256": "2e3d02dc0c807c6fe0283aeee9e8198a83e0a7e5a0ecd60822b29e396877fad8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\verify.mjs",
+      "sha256": "deec89482c7a3ec5d2f530933d29d29036f9854139fd9562ae5abfff588a6eb3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\correction.test.mjs",
+      "sha256": "77349fd9179875116c6c8f388ee5f28f63ea45a7883118bf9e059e9f2608d494"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\native-inline-field-corrections.p217.root-acceptance.json",
+      "sha256": "5fc316e8150c927e0c49bfb49b120a348040ee6c7707847984d585b8023cf8f7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\page-0217.rev6.json",
+      "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\parent\\page-0217.json",
+      "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\image\\64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+      "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\assembled-display.json",
+      "sha256": "982fda3554c0ec35425390968204fa4a9d6a5bf99afa15d8c3f02d9b3ba0d65e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\correction-proof.json",
+      "sha256": "a427384e7682f3189e9758ca83bba6916d94fbdd8544f93c1ed59a7cf49951b1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\parent\\page-0217.json",
+      "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\originalRaw\\e12aa4a6-65f4-4a23-9579-09f887f568be.json",
+      "sha256": "6112c207fc1d5922e88af671f0a02b7e13623af7edee15a18a9b0c76bed59203"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\page217\\217.json",
+      "sha256": "f8de2eddd4ba2939ae40796ffd8d1d1f971d49474dede72d108e61809ef1d6f8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\page218\\218.json",
+      "sha256": "83d1909e9e92a9622c46c9ba0ea46efca12bef60cb27ec5b35d72fcbd8f92abd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\image\\64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+      "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev1\\page-0217.json",
+      "sha256": "279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev1Audit\\page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json",
+      "sha256": "48188a41382d98a5af7272851ba96f8d209213ee5befb3f4fd2fbf0b738574be"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev1AuditRaw\\95502be0-996e-40be-bcec-1d37e4dbb695.json",
+      "sha256": "2423c2a1205e5b84e5f5ba2cf40a6d8983cbee01a33db324058ce97168081f74"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev2\\page-0217.json",
+      "sha256": "2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev2Audit\\page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json",
+      "sha256": "70e67fec9ff86c6eeb77019a488c68b2b8836d7610b1b88eee3bb1785348c1b4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev2AuditRaw\\2b9d82cb-d3fa-4578-ad15-4b8cb22b70d0.json",
+      "sha256": "f483dfb21097c6a738a87a6fe2dbe39dd1b20dca844aabf91acee67459e69f16"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev3\\page-0217.json",
+      "sha256": "ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev3Audit\\page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json",
+      "sha256": "7dc668f386cbc8c4a5f7ee7c253d0958b688f76de48ac6a82edba24e770bb33c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev3AuditRaw\\a67e7181-9217-47e7-b944-4373d83e5280.json",
+      "sha256": "290cc79e73e41d9c45aacb1b85610b438fcfdb0faffb5708db86a154811174ed"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev4\\page-0217.json",
+      "sha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\parentAudit\\page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+      "sha256": "44e101c7fbf8813d9db7a18af177a42b27b51ebaf92945761787b8b25764b3ec"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev4AuditRaw\\4f760999-1648-410e-8452-1c1b4794503f.json",
+      "sha256": "accbddb2fafe11ce150f26ecd6ba2c13f93a4c16fd760cb8eb82299ffc1e729d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev5\\page-0217.json",
+      "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\north-first\\coac249-point-222-p217-20261028.json",
+      "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\north-first-raw\\image-p217-north-second-row.raw.json",
+      "sha256": "cc7f332d563cfc25106e77b06a097ddcb797450e8c4dbac69110901a8b51e516"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\north-second\\coac249-p217-second-point-20261028.json",
+      "sha256": "b1ee9973976f05f59d32acc9594e78b4d6dc2928a8061bc82a009b709c5cc70d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\north-second-raw\\raw.json",
+      "sha256": "c052de0b93273a683f70e8746fe53b03eb805e6f4ce06ef36aef7aeea6b1e29d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\west-impact\\coac249-p217-west-impact-20261028.json",
+      "sha256": "1fe84448edbf053d6a61ea4bb550518d6a4875df566347b72964ad8f8a65dedd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\west-impact-raw\\raw.json",
+      "sha256": "fa68f2f3be0e6b2eb496007d6d5638c7cc7aabd322975cfa24e048d96e849e81"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\west-impact-receipt\\receipt.json",
+      "sha256": "5f2e2fd009758c3df6d435073bf1f9dcb80c6f033f06213d931a668ef957e18b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\chapter-map\\chapter-map.json",
+      "sha256": "d38bbd1a72defef709f4e2f336b3447e4fc677183b88b7e8d6aa050258017a8e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\ownership\\source-block-ownership.json",
+      "sha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\revision-chain\\receipt-p217-revision-chain-20261027.json",
+      "sha256": "9ab2668f250b53c1bc2408025f7b1bd042454150bf980ddcff97cf978287b9bb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\original-render\\page-0217-r1.png",
+      "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\source-corrections\\native-inline-field-corrections.p217.root-acceptance.json",
+      "sha256": "5fc316e8150c927e0c49bfb49b120a348040ee6c7707847984d585b8023cf8f7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\verification.json",
+      "sha256": "e770699f3e80e3cf2eb82a1cb357a27cff74d10d8d925b0afa061facc141971d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\diff.json",
+      "sha256": "b7827cfbda97fa1658d76e0e495572e51d55131b1e2426e3632a211b3c1f6442"
+    }
+  ],
+  "pair": {
+    "schema": "coac250-p217-paired-limited-proof/1",
+    "chapterId": "79-cn-chapter-217-4",
+    "candidate": {
+      "path": "integration/coac248-p217-admitted-20261028/page-0217.rev6.json",
+      "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54"
+    },
+    "projection": {
+      "path": "integration/coac248-p217-admitted-20261028/assembled-display.json",
+      "sha256": "982fda3554c0ec35425390968204fa4a9d6a5bf99afa15d8c3f02d9b3ba0d65e"
+    },
+    "sourceImage": {
+      "path": "integration/coac248-p217-admitted-20261028/evidence/image/64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+      "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png"
+    },
+    "parent": {
+      "path": "integration/coac248-p217-admitted-20261028/evidence/parent/page-0217.json",
+      "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\candidates\\79-cn\\page-0217.json"
+    },
+    "admission": {
+      "path": "audit/source-corrections/native-inline-field-corrections.p217.root-acceptance.json",
+      "sha256": "5fc316e8150c927e0c49bfb49b120a348040ee6c7707847984d585b8023cf8f7"
+    },
+    "consistencyProof": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-evidence-consistency-20261028.json",
+      "sha256": "7c3777799cc164f7d46d7872d4e415c10e4357d194ee481c9cffc4b08d87474b"
+    },
+    "runtime": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\runtime-manifest.json",
+      "sha256": "e039ca388aefec50a88ee33f84f2d5fc41d70a82014282c701ba89652ba8eae9",
+      "files": 5
+    },
+    "figureId": "79-cn-p217-r1",
+    "sourceBlockId": "79-cn-p217-b8",
+    "requiredAnnotation": {
+      "sourceBlockId": "79-cn-p218-b3",
+      "afterCharacterOffset": 165,
+      "authorText": false,
+      "text": "【审校注（非原文）：图中北家舍牌第二行第一张及西家舍牌第二行第二张均为万子，数字未辨清。西家该数字不影响本段亲家染索、南场领先、无役愚形一向听、留两家切过的9饼、拆8万对子扣索及争取亲家未听下庄的六项论证；北家第一张的未知不妨碍总体扣牌说明。两处未知限制精确牌谱复原，不能据此确定相关万子的精确可见张数、余张、进张和安全度。原文“现在亲家应该还没有听牌吧”为推测，扣索是战术意图，不证明对手暗手、实际结局、打法绝对安全或最优。】"
+    },
+    "consumptionPolicy": "Consume the exact figure and mandatory non-author annotation together through the pinned exact correction gate. Neither alone is eligible. No whole-page/chapter passed claim.",
+    "unknownCount": 2,
+    "northSecond": "9m unchanged",
+    "recognitionTodoRequired": false,
+    "westImpactReviewRequired": false,
+    "limitedEvidenceAccepted": true,
+    "pageOrChapterPassed": false,
+    "previewEligible": false,
+    "remainingScope": [
+      {
+        "page": 218,
+        "candidatePaths": [],
+        "owner": "COAC-244 existing PDF chapter production/acceptance; COAC-250 final scope assembly/readback",
+        "requiredSourceBlockIds": [
+          "79-cn-p218-b1",
+          "79-cn-p218-b3",
+          "79-cn-p218-b5",
+          "79-cn-p218-b4",
+          "79-cn-p218-b2"
+        ],
+        "status": "no complete PDF candidate or passed full-page receipt; source paragraph projection is not a full candidate"
+      },
+      {
+        "page": 219,
+        "candidatePaths": [],
+        "owner": "COAC-244 existing PDF chapter production/acceptance; COAC-250 final scope assembly/readback",
+        "requiredSourceBlockIds": [
+          "79-cn-p219-b1",
+          "79-cn-p219-b3",
+          "79-cn-p219-b8",
+          "79-cn-p219-b4",
+          "79-cn-p219-b5",
+          "79-cn-p219-b9",
+          "79-cn-p219-b6",
+          "79-cn-p219-b7",
+          "79-cn-p219-b2"
+        ],
+        "status": "no complete PDF candidate or passed full-page receipt; source paragraph projection is not a full candidate"
+      },
+      {
+        "page": 220,
+        "candidatePaths": [],
+        "owner": "COAC-244 existing PDF chapter production/acceptance; COAC-250 final scope assembly/readback",
+        "requiredSourceBlockIds": [
+          "79-cn-p220-b1",
+          "79-cn-p220-b3"
+        ],
+        "status": "no complete PDF candidate or passed full-page receipt; source paragraph projection is not a full candidate"
+      }
+    ]
+  },
+  "independentEvidence": [
+    {
+      "callId": "09362d05-d221-427e-b474-a79017ff7619",
+      "bbox": [
+        150,
+        325,
+        175,
+        357
+      ],
+      "result": {
+        "chapterId": "79-cn-chapter-217-4",
+        "targetId": "79-cn-p217-r1",
+        "targetBBox": [
+          150,
+          325,
+          175,
+          357
+        ],
+        "outcome": "unreadable",
+        "tileCode": "unknown",
+        "locationCheck": "原图坐标对应底部北家舍牌区第二行的左侧牌，位于东风牌下方；与目标裁剪和邻近上下文一致。右侧相邻牌不作为裁决对象。",
+        "visualEvidence": [
+          "目标牌下部可见红色「萬」字。",
+          "上部黑色数字字形的部分笔画粘连，笔画起止和连接关系不够清楚，无法可靠确定点数。"
+        ],
+        "uncertainty": "可辨出万子，但不能仅凭现有字形可靠辨认其数字。四倍图只是最近邻放大，没有增加笔画细节。",
+        "teachingImpact": "点数不明不妨碍理解原文关于下家染索子一色手及扣牌的总体说明，但会限制对这张牌的精确记录和具体牌谱复盘。",
+        "scopeLimit": "本证据仅适用于该坐标内的目标牌，不代表其他牌或全章通过。"
+      }
+    },
+    {
+      "callId": "20ba52ad-a36c-4edb-b7aa-ae8ff9b89ec6",
+      "bbox": [
+        174,
+        325,
+        196,
+        357
+      ],
+      "result": {
+        "chapterId": "79-cn-chapter-217-4",
+        "targetId": "79-cn-p217-r1",
+        "targetBBox": [
+          174,
+          325,
+          196,
+          357
+        ],
+        "outcome": "readable",
+        "tileCode": "9m",
+        "locationCheck": "原图和上下文显示，目标位于下方北家舍牌第二行第二列，与第一行第二列对齐，右侧第三格为空。目标裁剪及其放大图与该位置一致。",
+        "visualEvidence": [
+          "牌面上部黑字可辨出向左下的撇，以及右侧折下后向右弯钩的笔画，构成“九”。",
+          "牌面下部为红色“萬”，合起来是九万。"
+        ],
+        "uncertainty": "原图分辨率较低，字形边缘有像素化，但可辨认的笔画足以支持该牌码。",
+        "teachingImpact": "此坐标的牌可确定为九万；相邻文字仅用于理解教学背景，未用于推断牌码。单凭此牌不能判断整段教学内容是否正确。",
+        "scopeLimit": "只裁决指定的第二行第二张牌，不改变其他牌、候选或整页状态。"
+      }
+    },
+    {
+      "callId": "6dd8a1d9-44a7-4a8b-958e-cf6a64c18636",
+      "bbox": [
+        81,
+        175,
+        112,
+        199
+      ],
+      "result": {
+        "chapterId": "79-cn-chapter-217-4",
+        "figureId": "79-cn-p217-r1",
+        "targetBBox": [
+          81,
+          175,
+          112,
+          199
+        ],
+        "classification": "limited-unknown-acceptable",
+        "locationCheck": "按所给原图和裁剪图，目标位于画面左侧西家舍牌外列自上第二格：上方是一张字牌，下方还有两格，右侧是内列。它对应现有转录中西家自身第二行第二张的“万子（数字未辨清）”，也对应指定的 unknown 条目。使用题给 bbox，未辨读目标点数。",
+        "unknownDisplayFaithful": true,
+        "tileRankReadAttempted": false,
+        "completeRelevantTextCompared": true,
+        "premiseChecks": [
+          {
+            "claimId": "dealer-souzu-dye",
+            "dependency": "independent-of-target-number",
+            "evidence": "正文称“很明显下家是索子的一色手”，并称下家为亲家。现有图示将右侧下家列为东家，其舍牌列为万、饼、字牌，并显示白牌副露；目标则是另一家的万子舍牌，其具体数字不决定这些观察。染索是作者依据场面的判断，东家暗手并未展示，不能说已经证实。"
+          },
+          {
+            "claimId": "south-round-lead",
+            "dependency": "independent-of-target-number",
+            "evidence": "正文说“自己在南场是TOP”。图示为南3局1本场，北家显示 +16900，其他三家显示 +5500、△4900、△17500。局次和显示值均不取决于西家这张万子的数字。"
+          },
+          {
+            "claimId": "shanten-yakuless-poor-wait",
+            "dependency": "independent-of-target-number",
+            "evidence": "正文说自己“一向听，但是是无役的愚型”。现有手牌转录中，本家有8万对子、两组已成顺子，以及尚未完成的索子和饼子组合；该判断针对本家手牌形状，西家这张万子的具体数字不是该形状的组成部分。未知数字可能影响特定万子的可见张数，不能据此断言精确进张或所有后续牌形。"
+          },
+          {
+            "claimId": "retain-9p-safety",
+            "dependency": "independent-of-target-number",
+            "evidence": "正文说“9饼有两家切掉了，以防有人立直是应该留下的”。现有图示转录列出南家和西家各舍过9饼，本家持有9饼；目标已知是万子，不属于这两张9饼。留下它是作者提出的防守准备，不等于它对所有对手都安全。"
+          },
+          {
+            "claimId": "break-8m-pair-hold-souzu",
+            "dependency": "independent-of-target-number",
+            "evidence": "正文建议“拆掉8万的对子，把索子紧紧扣住”。现有本家手牌显示8万对子和索子；目标是西家的万子，不是本家对子中的牌，也不是要扣住的索子。因此提出该操作不需要目标的具体数字。具体万子数字仍可能影响逐张计数、对西家的安全判断及打法比较，不能据此宣称8万绝对安全或必然最优。"
+          },
+          {
+            "claimId": "prevent-dealer-repeat",
+            "dependency": "independent-of-target-number",
+            "evidence": "作者先说“现在亲家应该还没有听牌吧”，再提出扣索以“施行让亲家未听下庄的战术”。对推测染索的下家扣住索子，是为了减少向其送出可用索子的机会；西家所舍万子的具体数字不是这一战术意图的必要前提。原图不能证明东家当时未听，也不能证明最后一定未听下庄。"
+          }
+        ],
+        "impactConclusion": "可对这一处缺口限定验收：保留西家目标牌为万子、点数未知，并保留作者的六项论证及其推测语气。该结论支持忠实呈现作者的判断和战术意图，不证明东家暗手、实际结局或该打法的绝对安全性与最优性。",
+        "acceptanceConditions": [
+          "在西家自身第二行第二张明确显示“万子（数字未辨清）”，并保留对应 unknown；不赋具体牌码，也不依据牌河或暗手补猜。",
+          "附非原文审校注，说明该万子的数字未知，因此不能复原该张的精确牌码、完整精确牌谱，或据它确定相关万子的精确可见张数、余张、进张和安全度。",
+          "忠实保留“应该还没有听牌吧”的推测语气，以及争取亲家未听下庄的战术表述；不改写成已证实的听牌状态或实际结果。",
+          "本结论只验收西家这一处 unknown 的教学影响。北家另有的既有修正按原有证据处理，当前转录中待改的牌码不得作为本次结论的依据。"
+        ],
+        "evidenceLimits": [
+          "已比较所附 PDF217-b7、PDF218-b3 的连续说明与完整平行网页段落；相关论证至“让亲家未听下庄”为止，“后付的字牌”为下一节边界。",
+          "目标点数未读取；其他牌码和方向沿用所附现有展示作为本次影响分析的数据，未逐项重新审校。",
+          "其他三家暗手未知；中央“ドラ”栏所示牌究竟是宝牌还是宝牌指示牌，图中未注明，仍保持未知。",
+          "没有能够据此确认目标精确点数、东家真实手牌或该局最终结果的证据。"
+        ],
+        "scopeLimit": "仅裁定指定西家 unknown 对所附这一教学论证和结论的影响；不重审北家两处既有处理、其他牌码或方向、后续牌例，也不宣称整页或全章通过。"
+      }
+    }
+  ],
+  "deterministicVerification": {
+    "schema": "coac248-p217-deterministic-verification/1",
+    "candidate": {
+      "path": "integration/coac248-p217-admitted-20261028/page-0217.rev6.json",
+      "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54"
+    },
+    "classification": "exact-fields-installed-pending-independent-evidence-consistency",
+    "inputBindings": 29,
+    "authorBodyUnchanged": true,
+    "captionUnchanged": true,
+    "northSecond9mUnchanged": true,
+    "nonTargetSerializedBytesRestoredToParentSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+    "unknownCount": 2,
+    "noteInstalledAfterArgument": true,
+    "originalRawEdited": false,
+    "oldAuditEdited": false,
+    "newModelCalls": 0,
+    "pageOrChapterPassed": false,
+    "requires": "COAC249 zero-call evidence consistency",
+    "remainingScope": [
+      "PDF218–220完整候选及章节覆盖未由本次装配验收",
+      "网页变体不在本次修订范围"
+    ]
+  },
+  "tests": {
+    "passed": 22,
+    "failed": 0
+  },
+  "inventory": {
+    "pageCandidates": [
+      "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair7-20261027-p153\\candidates\\79-cn\\page-0217.json",
+      "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair6-20261027-p263\\candidates\\79-cn\\page-0217.json",
+      "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair5-20261027-p254\\candidates\\79-cn\\page-0217.json",
+      "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\candidates\\79-cn\\page-0217.json",
+      "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair25-20261027-p217d\\candidates\\79-cn\\page-0217.json",
+      "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair24-20261027-p217c\\candidates\\79-cn\\page-0217.json",
+      "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair23-20261027-p217b\\candidates\\79-cn\\page-0217.json",
+      "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair22-20261027-p217\\candidates\\79-cn\\page-0217.json",
+      "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair12-20261027-p263\\candidates\\79-cn\\page-0217.json",
+      "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair-20261027-p263\\candidates\\79-cn\\page-0217.json",
+      "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0217.json"
+    ],
+    "selectedPdfPages": [],
+    "ownedSourceBlocks": [
+      {
+        "sourceId": "79-cn",
+        "page": 217,
+        "sourceBlockId": "79-cn-p217-b4",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 217,
+        "sourceBlockId": "79-cn-p217-b5",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 217,
+        "sourceBlockId": "79-cn-p217-b8",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 217,
+        "sourceBlockId": "79-cn-p217-b6",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 217,
+        "sourceBlockId": "79-cn-p217-b7",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 217,
+        "sourceBlockId": "79-cn-p217-b2",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 218,
+        "sourceBlockId": "79-cn-p218-b1",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 218,
+        "sourceBlockId": "79-cn-p218-b3",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 218,
+        "sourceBlockId": "79-cn-p218-b5",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 218,
+        "sourceBlockId": "79-cn-p218-b4",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 218,
+        "sourceBlockId": "79-cn-p218-b2",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 219,
+        "sourceBlockId": "79-cn-p219-b1",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 219,
+        "sourceBlockId": "79-cn-p219-b3",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 219,
+        "sourceBlockId": "79-cn-p219-b8",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 219,
+        "sourceBlockId": "79-cn-p219-b4",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 219,
+        "sourceBlockId": "79-cn-p219-b5",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 219,
+        "sourceBlockId": "79-cn-p219-b9",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 219,
+        "sourceBlockId": "79-cn-p219-b6",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 219,
+        "sourceBlockId": "79-cn-p219-b7",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 219,
+        "sourceBlockId": "79-cn-p219-b2",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 220,
+        "sourceBlockId": "79-cn-p220-b1",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 220,
+        "sourceBlockId": "79-cn-p220-b3",
+        "chapterId": "79-cn-chapter-217-4",
+        "unitId": "79-cn-chapter-217-4-unit-1"
+      }
+    ],
+    "remainingScope": [
+      {
+        "page": 218,
+        "candidatePaths": [],
+        "owner": "COAC-244 existing PDF chapter production/acceptance; COAC-250 final scope assembly/readback",
+        "requiredSourceBlockIds": [
+          "79-cn-p218-b1",
+          "79-cn-p218-b3",
+          "79-cn-p218-b5",
+          "79-cn-p218-b4",
+          "79-cn-p218-b2"
+        ],
+        "status": "no complete PDF candidate or passed full-page receipt; source paragraph projection is not a full candidate"
+      },
+      {
+        "page": 219,
+        "candidatePaths": [],
+        "owner": "COAC-244 existing PDF chapter production/acceptance; COAC-250 final scope assembly/readback",
+        "requiredSourceBlockIds": [
+          "79-cn-p219-b1",
+          "79-cn-p219-b3",
+          "79-cn-p219-b8",
+          "79-cn-p219-b4",
+          "79-cn-p219-b5",
+          "79-cn-p219-b9",
+          "79-cn-p219-b6",
+          "79-cn-p219-b7",
+          "79-cn-p219-b2"
+        ],
+        "status": "no complete PDF candidate or passed full-page receipt; source paragraph projection is not a full candidate"
+      },
+      {
+        "page": 220,
+        "candidatePaths": [],
+        "owner": "COAC-244 existing PDF chapter production/acceptance; COAC-250 final scope assembly/readback",
+        "requiredSourceBlockIds": [
+          "79-cn-p220-b1",
+          "79-cn-p220-b3"
+        ],
+        "status": "no complete PDF candidate or passed full-page receipt; source paragraph projection is not a full candidate"
+      }
+    ]
+  },
+  "canonicalBefore": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+      "sha256": "c2edd37979cf5f8025447206c3e49c680260df1ac6c919fe1c3fb7037e5cf4f6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\specific-web-variant-selection.v24.json",
+      "sha256": "d7f2792acecbd12a1d3192e9f6cf79a86ce3f1a5a1ee8c9a598a13030a362d39"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\current-web-candidate-selection.json",
+      "sha256": "fd8c112cfca1163e8ca5128c045a1c06f96c36610f65144adeee8f2718c08f87"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\current-candidate-selection.json",
+      "sha256": "621e4d88cf890f901a41506adbb42ab3b37febafa95d62cfb2bc4abbab0e78aa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\build-accepted-preview.mjs",
+      "sha256": "842b03249b35f637bd6adf6c20d82386716a0298cf5765840b684a78907be8a0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\source-structure-holds.json",
+      "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\candidate-exclusions.json",
+      "sha256": "4835655ad7fa323e2acc94d4e04824dc1c56b4b67ceec1b1449617c79c3411a3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\definition-boundary-stage-selection.json",
+      "sha256": "b3cbef8bc3a2216438edbe6b842ef3ee76f57082ead3608c053fddf946921419"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/review/textbook-corpus.json",
+      "sha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+    }
+  ],
+  "canonicalUnchanged": true,
+  "register": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+    "beforeSha256": "b16d2501053239188ac019e1e616acc3c92ce63e45a026648cab4ad775a79f3b",
+    "afterSha256": "a0f5e902b8462607481213bef70014bc95b8b547b6eff7dfb410090aced2eba3",
+    "changedRows": [
+      "79-cn-chapter-217-4"
+    ],
+    "otherRowsUnchanged": 79,
+    "countsUnchanged": true
+  },
+  "coverage": {
+    "originalChaptersCovered": 232,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 264,
+    "originalUnitsTotal": 303,
+    "remainingChapters": 24,
+    "increment": 0
+  },
+  "selectionVersion": 24,
+  "previewCorpusId": "bd07bd53701d3a93b330807046e7e8bf135b000da2e92f23260f416369116592",
+  "previewBuilt": false,
+  "mcpReadbackPerformed": false,
+  "arenaReadbackPerformed": false,
+  "readbackReason": "No accepted complete continuation chapter exists; retained only exact paired supplement evidence, no new preview to read.",
+  "writer": {
+    "pid": 53632,
+    "lock": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-consumer.lock",
+    "consumerStarted": false
+  },
+  "formalActiveChanged": false,
+  "productionCalls": 0,
+  "modelCalls": 0,
+  "pageOrChapterPassed": false,
+  "registration": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-p217-limited-evidence-intake-20261028.json"
+}

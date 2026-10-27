@@ -1,0 +1,122 @@
+{
+  "schema": "coac249-p217-west-impact-review/1",
+  "recordedAt": "2026-10-27T20:02:01.645Z",
+  "callId": "6dd8a1d9-44a7-4a8b-958e-cf6a64c18636",
+  "target": {
+    "chapterId": "79-cn-chapter-217-4",
+    "figureId": "79-cn-p217-r1",
+    "sourceImageBlockId": "79-cn-p217-b8",
+    "position": "西家自身第二行第二张；画面左侧外列自上第二张，横向万子",
+    "bbox": [
+      81,
+      175,
+      112,
+      199
+    ],
+    "original": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+      "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+      "pixels": [
+        430,
+        463
+      ]
+    },
+    "candidate": {
+      "label": "current-rev5",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\candidates\\79-cn\\page-0217.json",
+      "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+      "copy": "evidence/current-rev5.json"
+    },
+    "unknownField": "/figures/0/unknowns/0",
+    "currentUnknown": "西家舍牌第二行第二张为旋转万子牌，数字笔画在当前嵌入位图分辨率下不能可靠辨定；未确认前不赋具体牌码，不据暗手或牌河推断补全。"
+  },
+  "impactScopeSha256": "2d7e0b95bb40dda273a6dd812021cdcfeaec6fb09bc59db72c6161d5b7bc2e32",
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-p217-west-impact-20261028\\raw.json",
+    "sha256": "fa68f2f3be0e6b2eb496007d6d5638c7cc7aabd322975cfa24e048d96e849e81"
+  },
+  "model": "gpt-6.1-terra",
+  "reasoningEffort": "max",
+  "recordedModel": true,
+  "payloadOK": true,
+  "identityOK": true,
+  "claimsOK": true,
+  "valid": true,
+  "classification": "limited-unknown-acceptable",
+  "result": {
+    "chapterId": "79-cn-chapter-217-4",
+    "figureId": "79-cn-p217-r1",
+    "targetBBox": [
+      81,
+      175,
+      112,
+      199
+    ],
+    "classification": "limited-unknown-acceptable",
+    "locationCheck": "按所给原图和裁剪图，目标位于画面左侧西家舍牌外列自上第二格：上方是一张字牌，下方还有两格，右侧是内列。它对应现有转录中西家自身第二行第二张的“万子（数字未辨清）”，也对应指定的 unknown 条目。使用题给 bbox，未辨读目标点数。",
+    "unknownDisplayFaithful": true,
+    "tileRankReadAttempted": false,
+    "completeRelevantTextCompared": true,
+    "premiseChecks": [
+      {
+        "claimId": "dealer-souzu-dye",
+        "dependency": "independent-of-target-number",
+        "evidence": "正文称“很明显下家是索子的一色手”，并称下家为亲家。现有图示将右侧下家列为东家，其舍牌列为万、饼、字牌，并显示白牌副露；目标则是另一家的万子舍牌，其具体数字不决定这些观察。染索是作者依据场面的判断，东家暗手并未展示，不能说已经证实。"
+      },
+      {
+        "claimId": "south-round-lead",
+        "dependency": "independent-of-target-number",
+        "evidence": "正文说“自己在南场是TOP”。图示为南3局1本场，北家显示 +16900，其他三家显示 +5500、△4900、△17500。局次和显示值均不取决于西家这张万子的数字。"
+      },
+      {
+        "claimId": "shanten-yakuless-poor-wait",
+        "dependency": "independent-of-target-number",
+        "evidence": "正文说自己“一向听，但是是无役的愚型”。现有手牌转录中，本家有8万对子、两组已成顺子，以及尚未完成的索子和饼子组合；该判断针对本家手牌形状，西家这张万子的具体数字不是该形状的组成部分。未知数字可能影响特定万子的可见张数，不能据此断言精确进张或所有后续牌形。"
+      },
+      {
+        "claimId": "retain-9p-safety",
+        "dependency": "independent-of-target-number",
+        "evidence": "正文说“9饼有两家切掉了，以防有人立直是应该留下的”。现有图示转录列出南家和西家各舍过9饼，本家持有9饼；目标已知是万子，不属于这两张9饼。留下它是作者提出的防守准备，不等于它对所有对手都安全。"
+      },
+      {
+        "claimId": "break-8m-pair-hold-souzu",
+        "dependency": "independent-of-target-number",
+        "evidence": "正文建议“拆掉8万的对子，把索子紧紧扣住”。现有本家手牌显示8万对子和索子；目标是西家的万子，不是本家对子中的牌，也不是要扣住的索子。因此提出该操作不需要目标的具体数字。具体万子数字仍可能影响逐张计数、对西家的安全判断及打法比较，不能据此宣称8万绝对安全或必然最优。"
+      },
+      {
+        "claimId": "prevent-dealer-repeat",
+        "dependency": "independent-of-target-number",
+        "evidence": "作者先说“现在亲家应该还没有听牌吧”，再提出扣索以“施行让亲家未听下庄的战术”。对推测染索的下家扣住索子，是为了减少向其送出可用索子的机会；西家所舍万子的具体数字不是这一战术意图的必要前提。原图不能证明东家当时未听，也不能证明最后一定未听下庄。"
+      }
+    ],
+    "impactConclusion": "可对这一处缺口限定验收：保留西家目标牌为万子、点数未知，并保留作者的六项论证及其推测语气。该结论支持忠实呈现作者的判断和战术意图，不证明东家暗手、实际结局或该打法的绝对安全性与最优性。",
+    "acceptanceConditions": [
+      "在西家自身第二行第二张明确显示“万子（数字未辨清）”，并保留对应 unknown；不赋具体牌码，也不依据牌河或暗手补猜。",
+      "附非原文审校注，说明该万子的数字未知，因此不能复原该张的精确牌码、完整精确牌谱，或据它确定相关万子的精确可见张数、余张、进张和安全度。",
+      "忠实保留“应该还没有听牌吧”的推测语气，以及争取亲家未听下庄的战术表述；不改写成已证实的听牌状态或实际结果。",
+      "本结论只验收西家这一处 unknown 的教学影响。北家另有的既有修正按原有证据处理，当前转录中待改的牌码不得作为本次结论的依据。"
+    ],
+    "evidenceLimits": [
+      "已比较所附 PDF217-b7、PDF218-b3 的连续说明与完整平行网页段落；相关论证至“让亲家未听下庄”为止，“后付的字牌”为下一节边界。",
+      "目标点数未读取；其他牌码和方向沿用所附现有展示作为本次影响分析的数据，未逐项重新审校。",
+      "其他三家暗手未知；中央“ドラ”栏所示牌究竟是宝牌还是宝牌指示牌，图中未注明，仍保持未知。",
+      "没有能够据此确认目标精确点数、东家真实手牌或该局最终结果的证据。"
+    ],
+    "scopeLimit": "仅裁定指定西家 unknown 对所附这一教学论证和结论的影响；不重审北家两处既有处理、其他牌码或方向、后续牌例，也不宣称整页或全章通过。"
+  },
+  "usage": {
+    "inputTokens": 16704,
+    "cachedInputTokens": 0,
+    "outputTokens": 8879
+  },
+  "durationMs": 143554,
+  "threadIds": [
+    "01a17ef2-68c6-7743-8d63-ede782afdc41"
+  ],
+  "manifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+  "remoteGatewayWeights": "unknown",
+  "newCalls": 1,
+  "retry": 0,
+  "candidateChanged": false,
+  "pageOrChapterPassed": false
+}
