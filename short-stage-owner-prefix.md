@@ -1,3 +1,13 @@
+## 2026-10-28 26章闭合：零模型准备已完成
+
+最新基线v21为230/256原章、262/303原单元。完整canonical闭合register为 `integration/coac244-remaining26-closure-register-20261028.json`；现有continuation register仅增加26行closurePlan，covered计数/正式active不变。可审查交付在 `.multica/delivery/coac244-closure26-zero-20261028`。
+
+79-cn-193缺的两句已由PDF193/b6及真实passed父稿046188e3、独审eb2060c9补证；原网页不改，图b0042仍单列。215章只拥有PDF217/b1、b3，b8牌图属于217章，勿混淆阻断范围。283六表94牌块tableContext逐格存在，勿重复补坐标；封面微字、Q8外链场况等原uncertain未放行。
+
+下一文字提案仅 nemata-jp-chapter-183-1/b0018 和 nemata-jp-chapter-236-1/b0003，各最多1制作+1独立目标审，全批4、失败void计、0重试、尚未授权派发。旧入口预检通过但后续继承只接受error；现新建只绑定两章源/父/notes SHA和单段target的文字uncertain草稿兼容快照 `audit/runtimes/coac244-text-uncertain-183236-v1-20261028`，manifest fdac719dc8237db59f7a2abd6cd2bdac44f895a03519abe67cf408242e392548。完整原父链通过，18项门禁回归通过；不将uncertain改error，新独审若仍uncertain继续阻断。图片在此文字快照禁止，纯文字仍sol/high；旧快照/terra入口不改。
+
+图提案222第6张及PDF217北家第二行首张已备真实源图/邻牌/最近邻4倍包，各最多1单点独审，总另2，不是同SHA全章重审，也不判章pass。234旧ba432ee3本地一次生产，900s超时、两条重连提示，无最终raw/candidate可恢复；远端请求/执行次数与费用unknown，不能推断3次/5次。重试须另批明确追加1制作+原未用首审1，未来最多2，旧批已观察3次，追加后最多5次；不自动派发。三提案若全授权为最多8个未来本地call，当前新增模型0。276原授权1制作+1首审现已自然结束，r2 94b2d56a退回needs-repair，两次已用尽；本阶段未追加、不重派。
+
 ## 2026-10-27 短阶段零模型推进与追加预算边界
 
 基于248提交d67ed67的225/256覆盖快照，剩31章不是全量重算。本轮仅零模型收证和准备精确补丁，没有授权自动追加收费调用。155-4/b0008及347-1/b0066的既有独审建议已制作父SHA绑定补丁，仅替换目标text，图和sourceSegments/原文强调记录不变；尚未通过合法生产入口或新SHA独审。155仍有verbatim规则阻断，不得伪造模型provenance绕入口。

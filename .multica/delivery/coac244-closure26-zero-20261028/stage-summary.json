@@ -1,0 +1,93 @@
+{
+  "schema": "coac244-closure26-zero-stage/1",
+  "modelCalls": 0,
+  "canonicalRowsUpdated": 26,
+  "coverageBase": {
+    "originalChapters": 230,
+    "originalUnits": 262,
+    "remainingOriginalChapters": 26,
+    "formalActiveChanged": false
+  },
+  "textProposal": {
+    "chapters": [
+      "nemata-jp-chapter-183-1",
+      "nemata-jp-chapter-236-1"
+    ],
+    "productionPerChapter": 1,
+    "firstTargetAuditPerChapter": 1,
+    "totalMaximumFutureCalls": 4,
+    "automaticRetry": 0,
+    "uncertainPreserved": true,
+    "bothActualEntryPreflightsPassed": true,
+    "requiresAuthorization": true,
+    "boundedRuntime": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028",
+      "manifestPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\bounded-runtime-manifest.json",
+      "sha256": "fdac719dc8237db59f7a2abd6cd2bdac44f895a03519abe67cf408242e392548"
+    },
+    "originalGateOnlyAcceptedErrors": true,
+    "boundUncertainDraftAdmissionRegressionCases": 18,
+    "independentUncertainStillBlocksPass": true
+  },
+  "imageProposal": {
+    "targets": [
+      "79-cn-chapter-222-5 / b0018 sixth tile",
+      "79-cn-chapter-217-4 / PDF217 north river second-row first tile"
+    ],
+    "maximumIndependentTargetCalls": 2,
+    "newProductionCalls": 0,
+    "sameShaFullReauditForbidden": true,
+    "requiresAuthorization": true
+  },
+  "234Proposal": {
+    "newProduction": 1,
+    "unusedExistingFirstAudit": 1,
+    "maximumFutureCalls": 2,
+    "upstreamExecutedRequests": null,
+    "usage": null,
+    "currentlyDispatched": false,
+    "separateAuthorizationRequired": true
+  },
+  "aggregateIfAllThreeProposalsAuthorized": {
+    "text": 4,
+    "imageAdjudications": 2,
+    "234": 2,
+    "maximumFutureLocalCalls": 8,
+    "automaticallyAuthorizedNow": 0,
+    "moneyCost": null
+  },
+  "sourceRecovery": "79-cn-chapter-193-4: two missing web source sentences found in PDF193/b6 and actual passed parent046188e3 / call eb2060c9; no new model needed for exact passed PDF text contribution",
+  "boundaryRecovery": "79-cn-chapter-215-4 owns only PDF217/b1,b3; contested figure b8 belongs79-cn-chapter-217-4",
+  "A276": {
+    "status": "needs-repair",
+    "candidateSha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+    "auditSha256": "df0393cf90c3d9b7010ef7a0678cd2a90aa4e5818ce129ee47c2fb335a08b4fc",
+    "productionCallIds": [
+      "7af07271-5848-47a7-a2cb-54be1cca4c64"
+    ],
+    "auditCallIds": [
+      "5d32d29f-8e4a-49fe-976d-3e25debab6ed"
+    ],
+    "existingAuthorizedCallsUsed": 2,
+    "remaining": 0,
+    "thisCoordinatorNewCalls": 0,
+    "automaticRetry": false
+  },
+  "deferredWithoutNewModel": [
+    "100 exact A/B context bundled; audit context input adapter required before <=1 group review",
+    "182 HTML and PDF183 both retain 对日; upstream collation still missing",
+    "283 94 tableContext fields already present; renderer/arrow verification + Q8 external source and b0168 scope remain separate",
+    "metadata p1/2/3/317 cover microtext unresolved; no silent downgrade to navigation"
+  ],
+  "registerUpdate": {
+    "existingContinuationPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-uncovered-chapter-continuation-register-20261027b.json",
+    "beforeSha256": "2d0656f774093072d6ed187a4e146792530fa0dbb68fdffc693ef6cd0d34ca06",
+    "afterSha256": "c1d6985919b290818c2cb0dcf5a04e9fbc08f9ef7ff81796b24af40a7ebe1b4f",
+    "updatedCanonicalRows": 26,
+    "coveredRowsChanged": 0,
+    "masterRegisterUnchanged": true,
+    "masterBeforeSha256": "a3f67db91a66a8f19a76871d10b694da269d5e9476bd957775ae27d78b48da66",
+    "masterAfterSha256": "a3f67db91a66a8f19a76871d10b694da269d5e9476bd957775ae27d78b48da66",
+    "modelCalls": 0
+  }
+}

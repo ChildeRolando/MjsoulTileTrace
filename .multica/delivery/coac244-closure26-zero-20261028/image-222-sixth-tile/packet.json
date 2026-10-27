@@ -1,0 +1,349 @@
+{
+  "schema": "coac244-single-target-image-evidence/1",
+  "status": "prepared-not-adjudicated",
+  "modelCalls": 0,
+  "original": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+    "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+    "bytes": 3492
+  },
+  "width": 304,
+  "height": 74,
+  "derivatives": [
+    {
+      "role": "context",
+      "originalPixelBBox": [
+        142,
+        0,
+        223,
+        74
+      ],
+      "crop": {
+        "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-244-de007c293a14\\worktree\\.multica\\delivery\\coac244-closure26-zero-20261028\\image-222-sixth-tile\\context.png",
+        "sha256": "9ba90281aef8fd743afefd1512a9f258a677ffe8ad625c4bd538c081baf07068",
+        "bytes": 1361
+      },
+      "enlargement": {
+        "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-244-de007c293a14\\worktree\\.multica\\delivery\\coac244-closure26-zero-20261028\\image-222-sixth-tile\\context-x4.png",
+        "sha256": "92b6a06ea1c064479746d7a3b9d5a2b889af57fd8ebf46c01daf130d467adb22",
+        "bytes": 2521
+      },
+      "scale": 4,
+      "resampling": "nearest",
+      "generatedDetails": false,
+      "deliveredCrop": "image-222-sixth-tile/context.png",
+      "deliveredEnlargement": "image-222-sixth-tile/context-x4.png"
+    },
+    {
+      "role": "target",
+      "originalPixelBBox": [
+        170,
+        28,
+        196,
+        65
+      ],
+      "crop": {
+        "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-244-de007c293a14\\worktree\\.multica\\delivery\\coac244-closure26-zero-20261028\\image-222-sixth-tile\\target.png",
+        "sha256": "96c07caff4d5c6401b1f2f705e1d5926f472ad1ddb2a80924bac95dc329c8a9d",
+        "bytes": 578
+      },
+      "enlargement": {
+        "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-244-de007c293a14\\worktree\\.multica\\delivery\\coac244-closure26-zero-20261028\\image-222-sixth-tile\\target-x4.png",
+        "sha256": "70bd6778330696a84064a51dee2258d111e649264831408be68aaf9dc546ef30",
+        "bytes": 995
+      },
+      "scale": 4,
+      "resampling": "nearest",
+      "generatedDetails": false,
+      "deliveredCrop": "image-222-sixth-tile/target.png",
+      "deliveredEnlargement": "image-222-sixth-tile/target-x4.png"
+    }
+  ],
+  "chapterId": "79-cn-chapter-222-5",
+  "targetId": "79-bilibili-cn:cv1775262:b0018:figure",
+  "locator": "例5第6张，5m之后、北之前，第一支向下箭头下；记录1m/2m冲突，主控不裁决",
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1775262\\source.json",
+    "sha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+    "bytes": 60911
+  },
+  "neighboringSource": [
+    {
+      "id": "79-bilibili-cn:cv1775262:b0017",
+      "paragraphId": "79-bilibili-cn:cv1775262:p0017",
+      "tag": "p",
+      "domPath": "main/p[16]",
+      "tableContext": null,
+      "type": "text",
+      "text": "（之后是摸切）  有一个常常被误解的东西，这里需要事先说明以下。 例4中58索是间四间的危险牌， 但是终盘切出的6饼并不能说明25饼是危险的。  如果是单纯的346饼的话，6饼应该被更早切出。 间四间确实是危险的， 但是不能正确掌握间四间的条件也是毫无意义的。  ------------------------------------------------------------------------------------ 被拆掉的两面搭子的里筋 ------------------------------------------------------------------------------------ 这是由“二度进张不利”的牌理反过来推导的逻辑。 ",
+      "segments": [
+        {
+          "text": "（之后是摸切）",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "有一个常常被误解的东西，这里需要事先说明以下。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "例4中58索是间四间的危险牌，",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "但是终盘切出的6饼并不能说明25饼是危险的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "如果是单纯的346饼的话，6饼应该被更早切出。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "间四间确实是危险的，",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "但是不能正确掌握间四间的条件也是毫无意义的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "被拆掉的两面搭子的里筋",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这是由“二度进张不利”的牌理反过来推导的逻辑。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "79-bilibili-cn:cv1775262:b0018",
+      "paragraphId": "79-bilibili-cn:cv1775262:p0018",
+      "tag": "div",
+      "domPath": "main/div[17]/div[0]/div[0]/div[0]/div[0]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "79-bilibili-cn:cv1775262:i00008",
+          "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+          "sourceUrls": [
+            "https://i0.hdslb.com/bfs/article/dc53a3abb116b4afb2cab4e787e7746d4ef8a975.png",
+            "https://i0.hdslb.com/bfs/article/dc53a3abb116b4afb2cab4e787e7746d4ef8a975.png@608w_148h"
+          ],
+          "alt": "",
+          "title": "",
+          "width": null,
+          "height": null,
+          "tileHint": null
+        }
+      ]
+    },
+    {
+      "id": "79-bilibili-cn:cv1775262:b0019",
+      "paragraphId": "79-bilibili-cn:cv1775262:p0019",
+      "tag": "p",
+      "domPath": "main/p[18]",
+      "tableContext": null,
+      "type": "text",
+      "text": "（之后摸切）  例5的立直很显眼的地方就是拆掉了23饼的两面搭子。 “正是因为拆掉了，所以才不会是14饼听牌啊”，这样的想法只是初学者的天真想法…… 实际上14饼才是关键啊，不是吗？ ",
+      "segments": [
+        {
+          "text": "（之后摸切）",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "例5的立直很显眼的地方就是拆掉了23饼的两面搭子。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "“正是因为拆掉了，所以才不会是14饼听牌啊”，这样的想法只是初学者的天真想法……",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "实际上14饼才是关键啊，不是吗？",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        }
+      ]
+    }
+  ],
+  "existingIndependentAudits": [
+    {
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4.json",
+        "sha256": "7fc9a1172bf463691aa08b8ebf3d69e788d7ec1ff5e9e526b498b2c5b53a8199",
+        "bytes": 41592
+      },
+      "production": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.display.json",
+        "sha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4"
+      },
+      "status": "needs-repair",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1775262:b0018:figure",
+          "sourceEvidence": "附件8及放大图18：例5第6张为二万，位于五万之后、北之前，且有向下箭头。",
+          "description": "候选将第6张二万2m误录为一万1m，牌序和箭头说明两处均错误。",
+          "suggestedRepair": "将牌序改为“2z 3z 6z 8m 5m 2m 4z 3p 2p”，并将箭头说明改为“第6张2m、第7张4z的正上方”。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "candidate.figures[*].sourceNotes",
+          "sourceEvidence": "请求中原图为附件1至10，对应放大图为附件11至20；候选sourceNotes却按1与2、3与4等连续编号配对。",
+          "description": "十处原图与放大图的加工附件配对说明编号错误；此问题本身不影响教材教学语义。",
+          "suggestedRepair": "按figure出现顺序，将配对编号依次改为1与11、2与12、3与13、4与14、5与15、6与16、7与17、8与18、9与19、10与20。"
+        }
+      ],
+      "callIds": [
+        "3e9688bc-151a-4a97-9ee7-672f12a89d16"
+      ]
+    },
+    {
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+        "sha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec",
+        "bytes": 20368
+      },
+      "production": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.r1.display.json",
+        "sha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6"
+      },
+      "status": "needs-repair",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1775262:b0018:figure",
+          "sourceEvidence": "附件1及附件2中，例5第5张5万之后、第7张北之前的第6张牌为一万；第一支向下箭头位于该一万上方。",
+          "description": "候选牌序将第6张一万误录为2m，箭头说明亦将该牌重复标为2m。",
+          "suggestedRepair": "将牌序中的第6张2m改为1m，并将箭头说明中的“第6张2m”改为“第6张1m”。修正后牌序为2z 3z 6z 8m 5m 1m 4z 3p 2p，第9张2p横置。"
+        }
+      ],
+      "callIds": [
+        "f64f0d4f-8833-475e-96dd-a9c5f80e2ba9"
+      ]
+    }
+  ],
+  "sameCandidateFullReauditAllowed": false,
+  "newEvidenceScope": "same original pixels with a source-bound single-target crop/adjacent arrows; at most one explicitly authorized target adjudication, not an entire-candidate repeat",
+  "futureMaximumTargetReviewCalls": 1,
+  "deliveredOriginal": "image-222-sixth-tile/original.png",
+  "modelPayloadPolicy": "First read original/crop/context only with neutral sixth-tile-between-neighbors locator; exclude candidate codes and prior reviewer answers from the model payload. Compare against historical claims after the single call. Unknown stays unknown."
+}

@@ -1,0 +1,75 @@
+{
+  "sourceOwnership": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\source-block-ownership.json",
+    "sha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\217.json",
+    "sha256": "f8de2eddd4ba2939ae40796ffd8d1d1f971d49474dede72d108e61809ef1d6f8"
+  },
+  "rows": [
+    {
+      "sourceId": "79-cn",
+      "page": 217,
+      "sourceBlockId": "79-cn-p217-b1",
+      "chapterId": "79-cn-chapter-215-4",
+      "unitId": "79-cn-chapter-215-4-unit-1"
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 217,
+      "sourceBlockId": "79-cn-p217-b3",
+      "chapterId": "79-cn-chapter-215-4",
+      "unitId": "79-cn-chapter-215-4-unit-1"
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 217,
+      "sourceBlockId": "79-cn-p217-b4",
+      "chapterId": "79-cn-chapter-217-4",
+      "unitId": "79-cn-chapter-217-4-unit-1"
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 217,
+      "sourceBlockId": "79-cn-p217-b5",
+      "chapterId": "79-cn-chapter-217-4",
+      "unitId": "79-cn-chapter-217-4-unit-1"
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 217,
+      "sourceBlockId": "79-cn-p217-b8",
+      "chapterId": "79-cn-chapter-217-4",
+      "unitId": "79-cn-chapter-217-4-unit-1"
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 217,
+      "sourceBlockId": "79-cn-p217-b6",
+      "chapterId": "79-cn-chapter-217-4",
+      "unitId": "79-cn-chapter-217-4-unit-1"
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 217,
+      "sourceBlockId": "79-cn-p217-b7",
+      "chapterId": "79-cn-chapter-217-4",
+      "unitId": "79-cn-chapter-217-4-unit-1"
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 217,
+      "sourceBlockId": "79-cn-p217-b2",
+      "chapterId": "79-cn-chapter-217-4",
+      "unitId": "79-cn-chapter-217-4-unit-1"
+    }
+  ],
+  "chapter215OwnedIds": [
+    "79-cn-p217-b1",
+    "79-cn-p217-b3"
+  ],
+  "figureBelongsTo": "79-cn-chapter-217-4",
+  "next": "215 only owns b1/b3 of p217. Reuse audited faithful text contribution and existing215/216 accepted pages; prove scope assembly through existing boundary gate before claiming acceptance. If the stager requires whole-page passed, fix only scope admission with bound original full raw/ownership proof, not a new figure review or fabricated page pass.",
+  "modelCalls": 0
+}

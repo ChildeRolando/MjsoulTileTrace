@@ -1,0 +1,1362 @@
+{
+  "chapterId": "nemata-jp-chapter-100-1",
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter01-section035\\source.json",
+    "sha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+    "bytes": 774629
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.display.json",
+    "sha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+    "bytes": 1236462
+  },
+  "audit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json",
+    "sha256": "51a7871f3be891b712baa492b6a190e0b6b28f9931f4670f505f32842e1d7e9a",
+    "bytes": 513435
+  },
+  "productionPlan": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\batch-plans\\92aad718c9538143ec227620e42a933f8927242ebb1d1c92edc688ec476c27c9.json",
+    "sha256": "92aad718c9538143ec227620e42a933f8927242ebb1d1c92edc688ec476c27c9",
+    "bytes": 19756
+  },
+  "affectedGroups": [
+    {
+      "batchId": "chapter01-section035-batch-002",
+      "unitIds": [
+        "modern-yabejp-ja-chapter01-section035-u4"
+      ],
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter01-section035:b0040",
+        "modern-yabejp-ja:chapter01-section035:b0041",
+        "modern-yabejp-ja:chapter01-section035:b0042",
+        "modern-yabejp-ja:chapter01-section035:b0043",
+        "modern-yabejp-ja:chapter01-section035:b0044",
+        "modern-yabejp-ja:chapter01-section035:b0045",
+        "modern-yabejp-ja:chapter01-section035:b0046",
+        "modern-yabejp-ja:chapter01-section035:b0047",
+        "modern-yabejp-ja:chapter01-section035:b0048",
+        "modern-yabejp-ja:chapter01-section035:b0049",
+        "modern-yabejp-ja:chapter01-section035:b0050",
+        "modern-yabejp-ja:chapter01-section035:b0051",
+        "modern-yabejp-ja:chapter01-section035:b0052",
+        "modern-yabejp-ja:chapter01-section035:b0053",
+        "modern-yabejp-ja:chapter01-section035:b0054",
+        "modern-yabejp-ja:chapter01-section035:b0055",
+        "modern-yabejp-ja:chapter01-section035:b0056",
+        "modern-yabejp-ja:chapter01-section035:b0057",
+        "modern-yabejp-ja:chapter01-section035:b0058",
+        "modern-yabejp-ja:chapter01-section035:b0059",
+        "modern-yabejp-ja:chapter01-section035:b0060",
+        "modern-yabejp-ja:chapter01-section035:b0061",
+        "modern-yabejp-ja:chapter01-section035:b0062",
+        "modern-yabejp-ja:chapter01-section035:b0063",
+        "modern-yabejp-ja:chapter01-section035:b0064",
+        "modern-yabejp-ja:chapter01-section035:b0065",
+        "modern-yabejp-ja:chapter01-section035:b0066",
+        "modern-yabejp-ja:chapter01-section035:b0067",
+        "modern-yabejp-ja:chapter01-section035:b0068",
+        "modern-yabejp-ja:chapter01-section035:b0069",
+        "modern-yabejp-ja:chapter01-section035:b0070",
+        "modern-yabejp-ja:chapter01-section035:b0071",
+        "modern-yabejp-ja:chapter01-section035:b0072",
+        "modern-yabejp-ja:chapter01-section035:b0073",
+        "modern-yabejp-ja:chapter01-section035:b0074",
+        "modern-yabejp-ja:chapter01-section035:b0075",
+        "modern-yabejp-ja:chapter01-section035:b0076",
+        "modern-yabejp-ja:chapter01-section035:b0077",
+        "modern-yabejp-ja:chapter01-section035:b0078",
+        "modern-yabejp-ja:chapter01-section035:b0079",
+        "modern-yabejp-ja:chapter01-section035:b0080",
+        "modern-yabejp-ja:chapter01-section035:b0081",
+        "modern-yabejp-ja:chapter01-section035:b0082",
+        "modern-yabejp-ja:chapter01-section035:b0083",
+        "modern-yabejp-ja:chapter01-section035:b0084",
+        "modern-yabejp-ja:chapter01-section035:b0085",
+        "modern-yabejp-ja:chapter01-section035:b0086",
+        "modern-yabejp-ja:chapter01-section035:b0087",
+        "modern-yabejp-ja:chapter01-section035:b0088",
+        "modern-yabejp-ja:chapter01-section035:b0089",
+        "modern-yabejp-ja:chapter01-section035:b0090",
+        "modern-yabejp-ja:chapter01-section035:b0091",
+        "modern-yabejp-ja:chapter01-section035:b0092",
+        "modern-yabejp-ja:chapter01-section035:b0093",
+        "modern-yabejp-ja:chapter01-section035:b0094",
+        "modern-yabejp-ja:chapter01-section035:b0095",
+        "modern-yabejp-ja:chapter01-section035:b0096",
+        "modern-yabejp-ja:chapter01-section035:b0097",
+        "modern-yabejp-ja:chapter01-section035:b0098",
+        "modern-yabejp-ja:chapter01-section035:b0099",
+        "modern-yabejp-ja:chapter01-section035:b0100",
+        "modern-yabejp-ja:chapter01-section035:b0101",
+        "modern-yabejp-ja:chapter01-section035:b0102",
+        "modern-yabejp-ja:chapter01-section035:b0103",
+        "modern-yabejp-ja:chapter01-section035:b0104",
+        "modern-yabejp-ja:chapter01-section035:b0105",
+        "modern-yabejp-ja:chapter01-section035:b0106",
+        "modern-yabejp-ja:chapter01-section035:b0107"
+      ],
+      "contextSourceBlockIds": [
+        "modern-yabejp-ja:chapter01-section035:b0001",
+        "modern-yabejp-ja:chapter01-section035:b0002"
+      ],
+      "sourceCharacters": 1289,
+      "imageOccurrences": 135,
+      "sourceBlocks": 68,
+      "completeQuestionAnswers": true,
+      "completeHtmlTables": true,
+      "largeIntactCluster": false
+    }
+  ],
+  "sourceAndTranslation": [
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0001",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0001",
+        "tag": "h2",
+        "domPath": "main/h2[3]",
+        "tableContext": null,
+        "type": "text",
+        "text": "一色手（混一色･清一色）",
+        "segments": [
+          {
+            "text": "一色手（混一色･清一色）",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0001"
+          ],
+          "sourceText": "一色手（混一色･清一色）",
+          "text": "染手（混一色、清一色）",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0001",
+          "sourceSegments": [
+            {
+              "text": "一色手（混一色･清一色）",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0002",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0002",
+        "tag": "p",
+        "domPath": "main/p[5]",
+        "tableContext": null,
+        "type": "text",
+        "text": "鳴いても高打点が見込めるのでコストパフォーマンスが良く、テンパイに遠いところから強引に染めていくこともしばしばある。その為、一色手を狙うかどうかの判断が難しい局面も多々ある。今回は、その判断が難しい染め手狙いについて、できるだけ明確な判断基準を設けることを試みる。",
+        "segments": [
+          {
+            "text": "鳴いても高打点が見込めるのでコストパフォーマンスが良く、テンパイに遠いところから強引に染めていくこともしばしばある。その為、一色手を狙うかどうかの判断が難しい局面も多々ある。今回は、その判断が難しい染め手狙いについて、できるだけ明確な判断基準を設けることを試みる。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0002"
+          ],
+          "sourceText": "鳴いても高打点が見込めるのでコストパフォーマンスが良く、テンパイに遠いところから強引に染めていくこともしばしばある。その為、一色手を狙うかどうかの判断が難しい局面も多々ある。今回は、その判断が難しい染め手狙いについて、できるだけ明確な判断基準を設けることを試みる。",
+          "text": "即使副露也有望获得高打点，因此性价比很高，也经常会从离听牌还很远的阶段强行做染手。正因如此，很多局面都难以判断是否应该以染手为目标。这次就尝试为这种难以判断的染手选择，设立尽可能明确的判断标准。",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0002",
+          "sourceSegments": [
+            {
+              "text": "鳴いても高打点が見込めるのでコストパフォーマンスが良く、テンパイに遠いところから強引に染めていくこともしばしばある。その為、一色手を狙うかどうかの判断が難しい局面も多々ある。今回は、その判断が難しい染め手狙いについて、できるだけ明確な判断基準を設けることを試みる。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0003",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0003",
+        "tag": "h3",
+        "domPath": "main/h3[7]",
+        "tableContext": null,
+        "type": "text",
+        "text": "一色手に決め打ちできる基準",
+        "segments": [
+          {
+            "text": "一色手に決め打ちできる基準",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0003"
+          ],
+          "sourceText": "一色手に決め打ちできる基準",
+          "text": "可以确定专攻染手的标准",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0003",
+          "sourceSegments": [
+            {
+              "text": "一色手に決め打ちできる基準",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0004",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0004",
+        "tag": "p",
+        "domPath": "main/p[9]",
+        "tableContext": null,
+        "type": "text",
+        "text": "（１）染め色の数牌＋字牌（２枚切れ字牌除く）が10枚以上あり、面子候補が４組以上存在する。",
+        "segments": [
+          {
+            "text": "（１）染め色の数牌＋字牌（２枚切れ字牌除く）が10枚以上あり、面子候補が４組以上存在する。",
+            "marks": [
+              "strong::big"
+            ],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0004"
+          ],
+          "sourceText": "（１）染め色の数牌＋字牌（２枚切れ字牌除く）が10枚以上あり、面子候補が４組以上存在する。",
+          "text": "**（１）目标花色的数牌＋字牌（不计已被打出2张的字牌）合计有10张以上，且有4组以上面子候选。**",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0004",
+          "sourceSegments": [
+            {
+              "text": "（１）染め色の数牌＋字牌（２枚切れ字牌除く）が10枚以上あり、面子候補が４組以上存在する。",
+              "marks": [
+                "strong::big"
+              ],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0005",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0005",
+        "tag": "p",
+        "domPath": "main/p[11]",
+        "tableContext": null,
+        "type": "text",
+        "text": "（２）非染め色に面子が無い。",
+        "segments": [
+          {
+            "text": "（２）非染め色に面子が無い。",
+            "marks": [
+              "strong::big"
+            ],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0005"
+          ],
+          "sourceText": "（２）非染め色に面子が無い。",
+          "text": "**（２）其他花色中没有面子。**",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0005",
+          "sourceSegments": [
+            {
+              "text": "（２）非染め色に面子が無い。",
+              "marks": [
+                "strong::big"
+              ],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0006",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0006",
+        "tag": "p",
+        "domPath": "main/p[13]",
+        "tableContext": null,
+        "type": "text",
+        "text": "非染め色に面子があって染めにいくのは、染めなければ安手愚形濃厚で、染め狙いならどこからでも喰い仕掛けが効いて高打点も見込める場合くらいである。",
+        "segments": [
+          {
+            "text": "非染め色に面子があって染めにいくのは、染めなければ安手愚形濃厚で、染め狙いならどこからでも喰い仕掛けが効いて高打点も見込める場合くらいである。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0006"
+          ],
+          "sourceText": "非染め色に面子があって染めにいくのは、染めなければ安手愚形濃厚で、染め狙いならどこからでも喰い仕掛けが効いて高打点も見込める場合くらいである。",
+          "text": "其他花色中已有面子却仍去做染手的情况，大致也就限于：不做染手就很可能成为低打点、愚形的手牌，而以染手为目标则无论从哪里都能开始副露，并且有望获得高打点。",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0006",
+          "sourceSegments": [
+            {
+              "text": "非染め色に面子があって染めにいくのは、染めなければ安手愚形濃厚で、染め狙いならどこからでも喰い仕掛けが効いて高打点も見込める場合くらいである。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0007",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0007",
+        "tag": "p",
+        "domPath": "main/p[15]",
+        "tableContext": null,
+        "type": "text",
+        "text": "例：",
+        "segments": [
+          {
+            "text": "例：",
+            "marks": [
+              "span::bold"
+            ],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0007"
+          ],
+          "sourceText": "例：",
+          "text": "**例：**",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0007",
+          "sourceSegments": [
+            {
+              "text": "例：",
+              "marks": [
+                "span::bold"
+              ],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0009",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0007",
+        "tag": "p",
+        "domPath": "main/p[15]",
+        "tableContext": null,
+        "type": "text",
+        "text": "　→マンズ落とし",
+        "segments": [
+          {
+            "text": "　→マンズ落とし",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0009"
+          ],
+          "sourceText": "　→マンズ落とし",
+          "text": "　→拆掉万子",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0007",
+          "sourceSegments": [
+            {
+              "text": "　→マンズ落とし",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0010",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0008",
+        "tag": "p",
+        "domPath": "main/p[17]",
+        "tableContext": null,
+        "type": "text",
+        "text": "（３）非染め色に手を掛けづらい強いターツ＋トイツが２組以上無い。",
+        "segments": [
+          {
+            "text": "（３）非染め色に手を掛けづらい強いターツ＋トイツが２組以上無い。",
+            "marks": [
+              "strong::big"
+            ],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0010"
+          ],
+          "sourceText": "（３）非染め色に手を掛けづらい強いターツ＋トイツが２組以上無い。",
+          "text": "**（３）其他花色中，难以拆掉的强搭子与对子合计不足2组。**",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0008",
+          "sourceSegments": [
+            {
+              "text": "（３）非染め色に手を掛けづらい強いターツ＋トイツが２組以上無い。",
+              "marks": [
+                "strong::big"
+              ],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0011",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0009",
+        "tag": "p",
+        "domPath": "main/p[19]",
+        "tableContext": null,
+        "type": "text",
+        "text": "１つだけであればツモによっては強いターツを落としてまで一色手に渡れる場合もあるし、ターツオーバーの場合や、非ターツオーバーだがメンゼンでは遅く他に手役もない場合は、非染め色の弱いターツを１つ落としつつ、ツモによって更にもう一方の非染め色のターツも落として結果的に染まることも有り得るが、手を掛けづらいターツかトイツが２組以上あるのであればもう染め狙いは無理筋ということになる。",
+        "segments": [
+          {
+            "text": "１つだけであればツモによっては強いターツを落としてまで一色手に渡れる場合もあるし、ターツオーバーの場合や、非ターツオーバーだがメンゼンでは遅く他に手役もない場合は、非染め色の弱いターツを１つ落としつつ、ツモによって更にもう一方の非染め色のターツも落として結果的に染まることも有り得るが、手を掛けづらいターツかトイツが２組以上あるのであればもう染め狙いは無理筋ということになる。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0011"
+          ],
+          "sourceText": "１つだけであればツモによっては強いターツを落としてまで一色手に渡れる場合もあるし、ターツオーバーの場合や、非ターツオーバーだがメンゼンでは遅く他に手役もない場合は、非染め色の弱いターツを１つ落としつつ、ツモによって更にもう一方の非染め色のターツも落として結果的に染まることも有り得るが、手を掛けづらいターツかトイツが２組以上あるのであればもう染め狙いは無理筋ということになる。",
+          "text": "如果只有1组，根据摸牌，有时也可以不惜拆掉强搭子来转向染手；而在搭子过剩的情况下，或虽不搭子过剩，但保持门清进展缓慢、又没有其他役的情况下，也可能一边拆掉其他花色的1组弱搭子，一边根据摸牌进一步拆掉另一种其他花色的搭子，最终做成染手。不过，如果有2组以上难以拆掉的搭子或对子，那么再以染手为目标就已经不切实际了。",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0009",
+          "sourceSegments": [
+            {
+              "text": "１つだけであればツモによっては強いターツを落としてまで一色手に渡れる場合もあるし、ターツオーバーの場合や、非ターツオーバーだがメンゼンでは遅く他に手役もない場合は、非染め色の弱いターツを１つ落としつつ、ツモによって更にもう一方の非染め色のターツも落として結果的に染まることも有り得るが、手を掛けづらいターツかトイツが２組以上あるのであればもう染め狙いは無理筋ということになる。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0012",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0010",
+        "tag": "p",
+        "domPath": "main/p[21]",
+        "tableContext": null,
+        "type": "text",
+        "text": "例：",
+        "segments": [
+          {
+            "text": "例：",
+            "marks": [
+              "span::bold"
+            ],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0012"
+          ],
+          "sourceText": "例：",
+          "text": "**例：**",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0010",
+          "sourceSegments": [
+            {
+              "text": "例：",
+              "marks": [
+                "span::bold"
+              ],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0014",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0010",
+        "tag": "p",
+        "domPath": "main/p[21]",
+        "tableContext": null,
+        "type": "text",
+        "text": "　→打",
+        "segments": [
+          {
+            "text": "　→打",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0014"
+          ],
+          "sourceText": "　→打",
+          "text": "　→打",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0010",
+          "sourceSegments": [
+            {
+              "text": "　→打",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0016",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0010",
+        "tag": "p",
+        "domPath": "main/p[21]",
+        "tableContext": null,
+        "type": "text",
+        "text": " マンズは10枚あるが不確定とはいえ純チャン三色の１シャンテンでもある、流石に手をつけるわけにいかないので打",
+        "segments": [
+          {
+            "text": " マンズは10枚あるが不確定とはいえ純チャン三色の１シャンテンでもある、流石に手をつけるわけにいかないので打",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0016"
+          ],
+          "sourceText": " マンズは10枚あるが不確定とはいえ純チャン三色の１シャンテンでもある、流石に手をつけるわけにいかないので打",
+          "text": " 万子虽有10张，但这也是纯全带幺九、三色同顺的1向听，尽管这些役还不确定能否做成，也实在不能动其他花色的搭子，所以打",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0010",
+          "sourceSegments": [
+            {
+              "text": " マンズは10枚あるが不確定とはいえ純チャン三色の１シャンテンでもある、流石に手をつけるわけにいかないので打",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0018",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0010",
+        "tag": "p",
+        "domPath": "main/p[21]",
+        "tableContext": null,
+        "type": "text",
+        "text": "。",
+        "segments": [
+          {
+            "text": "。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0018"
+          ],
+          "sourceText": "。",
+          "text": "。",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0010",
+          "sourceSegments": [
+            {
+              "text": "。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0019",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0011",
+        "tag": "p",
+        "domPath": "main/p[23]",
+        "tableContext": null,
+        "type": "text",
+        "text": "（４）他の鳴いても役になる手役（役牌等）＋ドラが２枚以上無い。",
+        "segments": [
+          {
+            "text": "（４）他の鳴いても役になる手役（役牌等）＋ドラが２枚以上無い。",
+            "marks": [
+              "strong::big"
+            ],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0019"
+          ],
+          "sourceText": "（４）他の鳴いても役になる手役（役牌等）＋ドラが２枚以上無い。",
+          "text": "**（４）不存在“其他副露后也成立的役（役牌等）＋2张以上宝牌”的组合。**",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0011",
+          "sourceSegments": [
+            {
+              "text": "（４）他の鳴いても役になる手役（役牌等）＋ドラが２枚以上無い。",
+              "marks": [
+                "strong::big"
+              ],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0020",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0012",
+        "tag": "p",
+        "domPath": "main/p[25]",
+        "tableContext": null,
+        "type": "text",
+        "text": "染めなくても最低でも3,900点以上確定で満貫以上になることも多いので無理に染めなくてもよくなる。もちろん、染めてもそこまで速度が落ちないようであれば染める。",
+        "segments": [
+          {
+            "text": "染めなくても最低でも3,900点以上確定で満貫以上になることも多いので無理に染めなくてもよくなる。もちろん、染めてもそこまで速度が落ちないようであれば染める。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0020"
+          ],
+          "sourceText": "染めなくても最低でも3,900点以上確定で満貫以上になることも多いので無理に染めなくてもよくなる。もちろん、染めてもそこまで速度が落ちないようであれば染める。",
+          "text": "因为即使不做染手，也确定至少有3,900点，而且经常能达到满贯以上，所以不必勉强做染手。当然，如果做染手也不会让速度下降太多，那就做染手。",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0012",
+          "sourceSegments": [
+            {
+              "text": "染めなくても最低でも3,900点以上確定で満貫以上になることも多いので無理に染めなくてもよくなる。もちろん、染めてもそこまで速度が落ちないようであれば染める。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0021",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0013",
+        "tag": "p",
+        "domPath": "main/p[27]",
+        "tableContext": null,
+        "type": "text",
+        "text": "例：６巡目程度　ドラ",
+        "segments": [
+          {
+            "text": "例：",
+            "marks": [
+              "span::bold"
+            ],
+            "href": null
+          },
+          {
+            "text": "６巡目程度　ドラ",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0021"
+          ],
+          "sourceText": "例：６巡目程度　ドラ",
+          "text": "**例：**第6巡左右　宝牌",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0013",
+          "sourceSegments": [
+            {
+              "text": "例：",
+              "marks": [
+                "span::bold"
+              ],
+              "href": null
+            },
+            {
+              "text": "６巡目程度　ドラ",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0024",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0013",
+        "tag": "p",
+        "domPath": "main/p[27]",
+        "tableContext": null,
+        "type": "text",
+        "text": "　ポン",
+        "segments": [
+          {
+            "text": "　ポン",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0024"
+          ],
+          "sourceText": "　ポン",
+          "text": "　碰",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0013",
+          "sourceSegments": [
+            {
+              "text": "　ポン",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0026",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0013",
+        "tag": "p",
+        "domPath": "main/p[27]",
+        "tableContext": null,
+        "type": "text",
+        "text": " 染めなくても最低3,900点で満貫になることもあるのでこれくらいなら打",
+        "segments": [
+          {
+            "text": " 染めなくても最低3,900点で満貫になることもあるのでこれくらいなら打",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0026"
+          ],
+          "sourceText": " 染めなくても最低3,900点で満貫になることもあるのでこれくらいなら打",
+          "text": " 即使不做染手也至少有3,900点，有时还能达到满贯，所以像这种程度就打",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0013",
+          "sourceSegments": [
+            {
+              "text": " 染めなくても最低3,900点で満貫になることもあるのでこれくらいなら打",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0028",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0013",
+        "tag": "p",
+        "domPath": "main/p[27]",
+        "tableContext": null,
+        "type": "text",
+        "text": "。ただテンパイに取ると2,000点になってしまう",
+        "segments": [
+          {
+            "text": "。ただテンパイに取ると2,000点になってしまう",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0028"
+          ],
+          "sourceText": "。ただテンパイに取ると2,000点になってしまう",
+          "text": "。不过，选择听牌就会变成2,000点的",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0013",
+          "sourceSegments": [
+            {
+              "text": "。ただテンパイに取ると2,000点になってしまう",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0030",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0013",
+        "tag": "p",
+        "domPath": "main/p[27]",
+        "tableContext": null,
+        "type": "text",
+        "text": "ツモは巡目が深くなければテンパイ取らずで染める。マンズ部分が愚形ならマンズ落し。",
+        "segments": [
+          {
+            "text": "ツモは巡目が深くなければテンパイ取らずで染める。マンズ部分が愚形ならマンズ落し。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0030"
+          ],
+          "sourceText": "ツモは巡目が深くなければテンパイ取らずで染める。マンズ部分が愚形ならマンズ落し。",
+          "text": "摸入时，如果巡目还不深，就先不听牌，转做染手。如果万子部分是愚形，就拆掉万子。",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0013",
+          "sourceSegments": [
+            {
+              "text": "ツモは巡目が深くなければテンパイ取らずで染める。マンズ部分が愚形ならマンズ落し。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0031",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0014",
+        "tag": "p",
+        "domPath": "main/p[29]",
+        "tableContext": null,
+        "type": "text",
+        "text": "（１）（２）（３）（４）を満たす手牌であれば染め一直線で構わない。",
+        "segments": [
+          {
+            "text": "（１）（２）（３）（４）を満たす手牌であれば染め一直線で構わない。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0031"
+          ],
+          "sourceText": "（１）（２）（３）（４）を満たす手牌であれば染め一直線で構わない。",
+          "text": "如果手牌满足（１）（２）（３）（４），就可以一心做染手。",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0014",
+          "sourceSegments": [
+            {
+              "text": "（１）（２）（３）（４）を満たす手牌であれば染め一直線で構わない。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0033",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0014",
+        "tag": "p",
+        "domPath": "main/p[29]",
+        "tableContext": null,
+        "type": "text",
+        "text": "（",
+        "segments": [
+          {
+            "text": "（",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0033"
+          ],
+          "sourceText": "（",
+          "text": "（",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0014",
+          "sourceSegments": [
+            {
+              "text": "（",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0035",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0014",
+        "tag": "p",
+        "domPath": "main/p[29]",
+        "tableContext": null,
+        "type": "text",
+        "text": "は客風）のように非常に手広く（マンズは何を引いてもリャンメン以上のテンパイ）、鳴くと安くなってしまうような手であればなるだけメンゼンで進めるが、そうでなければ手が進むものはどんどん仕掛けていって良い。",
+        "segments": [
+          {
+            "text": "は客風）のように非常に手広く（マンズは何を引いてもリャンメン以上のテンパイ）、鳴くと安くなってしまうような手であればなるだけメンゼンで進めるが、そうでなければ手が進むものはどんどん仕掛けていって良い。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0035"
+          ],
+          "sourceText": "は客風）のように非常に手広く（マンズは何を引いてもリャンメン以上のテンパイ）、鳴くと安くなってしまうような手であればなるだけメンゼンで進めるが、そうでなければ手が進むものはどんどん仕掛けていって良い。",
+          "text": "是客风）这样的手牌，进张范围极广（摸到任何万子都能听成两面或更好的形状），而且副露会使打点降低，就应尽量保持门清推进；否则，凡是能推进手牌的牌，都可以积极副露。",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0014",
+          "sourceSegments": [
+            {
+              "text": "は客風）のように非常に手広く（マンズは何を引いてもリャンメン以上のテンパイ）、鳴くと安くなってしまうような手であればなるだけメンゼンで進めるが、そうでなければ手が進むものはどんどん仕掛けていって良い。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0036",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0015",
+        "tag": "p",
+        "domPath": "main/p[31]",
+        "tableContext": null,
+        "type": "text",
+        "text": "但しこれは、”一色手に決め打ちできる”条件である。実際は（２）（３）（４）のいずれかの逆、即ち、一色手を見切る条件を満たさないうちは染め手に移行する可能性が残っていると言える。このような場合に一色手を見るか、あるいは見切るか、もしくはある程度までは両天秤で進めていくかの判断は難しい。どのように考えていけば良いだろうか。ここで、一色手に決め打つ条件を条件A、見切る条件を条件Bとする。",
+        "segments": [
+          {
+            "text": "但しこれは、”",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "一色手に決め打ちできる",
+            "marks": [
+              "em::"
+            ],
+            "href": null
+          },
+          {
+            "text": "”条件である。実際は（２）（３）（４）のいずれかの逆、即ち、一色手を見切る条件を満たさないうちは染め手に移行する可能性が残っていると言える。このような場合に一色手を見るか、あるいは見切るか、もしくはある程度までは両天秤で進めていくかの判断は難しい。どのように考えていけば良いだろうか。ここで、一色手に決め打つ条件を条件A、見切る条件を条件Bとする。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0036"
+          ],
+          "sourceText": "但しこれは、”一色手に決め打ちできる”条件である。実際は（２）（３）（４）のいずれかの逆、即ち、一色手を見切る条件を満たさないうちは染め手に移行する可能性が残っていると言える。このような場合に一色手を見るか、あるいは見切るか、もしくはある程度までは両天秤で進めていくかの判断は難しい。どのように考えていけば良いだろうか。ここで、一色手に決め打つ条件を条件A、見切る条件を条件Bとする。",
+          "text": "不过，这些是“*可以确定专攻染手*”的条件。实际上，只要尚未满足（２）（３）（４）中任意一条的反面，也就是放弃染手的条件，就可以说仍然存在转向染手的可能。在这种情况下，是考虑染手，还是放弃染手，或是在一定阶段之前兼顾两条路线，判断起来很困难。应该如何思考呢？这里把确定专攻染手的条件称为条件A，把放弃染手的条件称为条件B。",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0015",
+          "sourceSegments": [
+            {
+              "text": "但しこれは、”",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "一色手に決め打ちできる",
+              "marks": [
+                "em::"
+              ],
+              "href": null
+            },
+            {
+              "text": "”条件である。実際は（２）（３）（４）のいずれかの逆、即ち、一色手を見切る条件を満たさないうちは染め手に移行する可能性が残っていると言える。このような場合に一色手を見るか、あるいは見切るか、もしくはある程度までは両天秤で進めていくかの判断は難しい。どのように考えていけば良いだろうか。ここで、一色手に決め打つ条件を条件A、見切る条件を条件Bとする。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0037",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0016",
+        "tag": "h3",
+        "domPath": "main/h3[33]",
+        "tableContext": null,
+        "type": "text",
+        "text": "条件A、Bを満たす頻度がそれぞれどの程度あるかを考慮する",
+        "segments": [
+          {
+            "text": "条件A、Bを満たす頻度がそれぞれどの程度あるかを考慮する",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0037"
+          ],
+          "sourceText": "条件A、Bを満たす頻度がそれぞれどの程度あるかを考慮する",
+          "text": "考虑满足条件A、B的频率各有多高",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0016",
+          "sourceSegments": [
+            {
+              "text": "条件A、Bを満たす頻度がそれぞれどの程度あるかを考慮する",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0038",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0017",
+        "tag": "p",
+        "domPath": "main/p[35]",
+        "tableContext": null,
+        "type": "text",
+        "text": "例えば他色にターツがあるのでここが面子化すれば条件Bを満たすことになるが、先に最も多い色の牌や字牌をツモった場合や他家から鳴ける牌が出た場合は一色手に持ち込むほうがメンゼンより速度で勝りそうな手牌であれば、条件Aを満たす頻度が遥かに多いことになる。（条件Bを満たす場合はまさに特定のターツが面子化するツモだけだが、条件Aを満たすツモ（あるいは鳴き）は何通りもある。）このような場合はこの時点で非染め色のターツを先に落としてしまって染め色の孤立数牌や生きている（２枚以上切れてない）孤立字牌を抱えたり、多少染めるには面子候補が足りない段階から客風を仕掛けるなど一色手に決め打つような仕掛けをするのが良い。これもテンパイに近い段階（条件Aを満たした段階）における受け入れを重視するという原則と合致する。どちらを満たすケースも相応にあるのであれば孤立字牌を残してまで決め打ちすることはせず、今後のツモによってどちらにでも移行できるように構えるのが良い。",
+        "segments": [
+          {
+            "text": "例えば他色にターツがあるのでここが面子化すれば条件Bを満たすことになるが、先に最も多い色の牌や字牌をツモった場合や他家から鳴ける牌が出た場合は一色手に持ち込むほうがメンゼンより速度で勝りそうな手牌であれば、条件Aを満たす頻度が遥かに多いことになる。（条件Bを満たす場合はまさに特定のターツが面子化するツモだけだが、条件Aを満たすツモ（あるいは鳴き）は何通りもある。）このような場合はこの時点で非染め色のターツを先に落としてしまって染め色の孤立数牌や生きている（２枚以上切れてない）孤立字牌を抱えたり、多少染めるには面子候補が足りない段階から客風を仕掛けるなど一色手に決め打つような仕掛けをするのが良い。これもテンパイに近い段階（条件Aを満たした段階）における受け入れを重視するという原則と合致する。どちらを満たすケースも相応にあるのであれば孤立字牌を残してまで決め打ちすることはせず、今後のツモによってどちらにでも移行できるように構えるのが良い。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0038"
+          ],
+          "sourceText": "例えば他色にターツがあるのでここが面子化すれば条件Bを満たすことになるが、先に最も多い色の牌や字牌をツモった場合や他家から鳴ける牌が出た場合は一色手に持ち込むほうがメンゼンより速度で勝りそうな手牌であれば、条件Aを満たす頻度が遥かに多いことになる。（条件Bを満たす場合はまさに特定のターツが面子化するツモだけだが、条件Aを満たすツモ（あるいは鳴き）は何通りもある。）このような場合はこの時点で非染め色のターツを先に落としてしまって染め色の孤立数牌や生きている（２枚以上切れてない）孤立字牌を抱えたり、多少染めるには面子候補が足りない段階から客風を仕掛けるなど一色手に決め打つような仕掛けをするのが良い。これもテンパイに近い段階（条件Aを満たした段階）における受け入れを重視するという原則と合致する。どちらを満たすケースも相応にあるのであれば孤立字牌を残してまで決め打ちすることはせず、今後のツモによってどちらにでも移行できるように構えるのが良い。",
+          "text": "例如，其他花色中有搭子，这组搭子一旦组成面子，就会满足条件B；但如果手牌在先摸到数量最多的花色的牌或字牌，或其他家打出可以副露的牌时，转做染手看起来会比保持门清更快，那么满足条件A的频率就会高得多。（能满足条件B的，恰好只有让特定搭子组成面子的摸牌；而能满足条件A的摸牌或副露则有许多种。）这种情况下，适合采取确定专攻染手的打法，例如此时就先拆掉其他花色的搭子，保留目标花色的孤张数牌以及仍然有效（尚未被打出2张以上）的孤张字牌，或在做染手的面子候选还稍显不足的阶段就碰客风等。这也符合重视接近听牌的阶段（满足条件A的阶段）的进张这一原则。如果满足两种条件的情况都有相当的可能，就不应为了确定专攻染手而特意保留孤张字牌，而应做好准备，以便根据今后的摸牌转向任一条路线。",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0017",
+          "sourceSegments": [
+            {
+              "text": "例えば他色にターツがあるのでここが面子化すれば条件Bを満たすことになるが、先に最も多い色の牌や字牌をツモった場合や他家から鳴ける牌が出た場合は一色手に持ち込むほうがメンゼンより速度で勝りそうな手牌であれば、条件Aを満たす頻度が遥かに多いことになる。（条件Bを満たす場合はまさに特定のターツが面子化するツモだけだが、条件Aを満たすツモ（あるいは鳴き）は何通りもある。）このような場合はこの時点で非染め色のターツを先に落としてしまって染め色の孤立数牌や生きている（２枚以上切れてない）孤立字牌を抱えたり、多少染めるには面子候補が足りない段階から客風を仕掛けるなど一色手に決め打つような仕掛けをするのが良い。これもテンパイに近い段階（条件Aを満たした段階）における受け入れを重視するという原則と合致する。どちらを満たすケースも相応にあるのであれば孤立字牌を残してまで決め打ちすることはせず、今後のツモによってどちらにでも移行できるように構えるのが良い。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0039",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0018",
+        "tag": "p",
+        "domPath": "main/p[37]",
+        "tableContext": null,
+        "type": "text",
+        "text": "多い色の牌の枚数が多いほうが条件Aを満たしやすいが、そればかりではなく他の色の形がどの程度整っているか、即ち条件Bを満たす可能性がどの程度あるかも同様に重要である。前者は多くの打ち手が認識できているが、後者を見落としがちな打ち手は多い。面子が一つも無くターツも少ないような手であれば条件Bを満たすことも少ないので、少ない枚数から染めを見ることも多い。（一色手以外で和了するのが困難というのも大きい。）序盤でこのような手で、他に特に手役も見えないようであれば、最も多い色の牌や孤立字牌は残してうまくいけば染め手になる可能性を残しておきたい。",
+        "segments": [
+          {
+            "text": "多い色の牌の枚数が多いほうが条件Aを満たしやすいが、そればかりではなく他の色の形がどの程度整っているか、即ち条件Bを満たす可能性がどの程度あるかも同様に重要である。前者は多くの打ち手が認識できているが、後者を見落としがちな打ち手は多い。面子が一つも無くターツも少ないような手であれば条件Bを満たすことも少ないので、少ない枚数から染めを見ることも多い。（一色手以外で和了するのが困難というのも大きい。）序盤でこのような手で、他に特に手役も見えないようであれば、最も多い色の牌や孤立字牌は残してうまくいけば染め手になる可能性を残しておきたい。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0039"
+          ],
+          "sourceText": "多い色の牌の枚数が多いほうが条件Aを満たしやすいが、そればかりではなく他の色の形がどの程度整っているか、即ち条件Bを満たす可能性がどの程度あるかも同様に重要である。前者は多くの打ち手が認識できているが、後者を見落としがちな打ち手は多い。面子が一つも無くターツも少ないような手であれば条件Bを満たすことも少ないので、少ない枚数から染めを見ることも多い。（一色手以外で和了するのが困難というのも大きい。）序盤でこのような手で、他に特に手役も見えないようであれば、最も多い色の牌や孤立字牌は残してうまくいけば染め手になる可能性を残しておきたい。",
+          "text": "数量最多的花色，其牌张数越多，就越容易满足条件A；但不仅如此，其他花色的牌形有多完整，也就是满足条件B的可能性有多高，同样重要。许多牌手都能认识到前者，却有不少牌手容易忽略后者。如果手牌一个面子都没有，搭子也很少，那么满足条件B的情况也少，因此经常会从目标花色牌张数较少的阶段就考虑染手。（除染手以外很难和牌，也是一个重要原因。）如果序盘拿到这样的手牌，又看不到其他什么役，就应保留数量最多的花色的牌和孤张字牌，留下进展顺利时做成染手的可能。",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0018",
+          "sourceSegments": [
+            {
+              "text": "多い色の牌の枚数が多いほうが条件Aを満たしやすいが、そればかりではなく他の色の形がどの程度整っているか、即ち条件Bを満たす可能性がどの程度あるかも同様に重要である。前者は多くの打ち手が認識できているが、後者を見落としがちな打ち手は多い。面子が一つも無くターツも少ないような手であれば条件Bを満たすことも少ないので、少ない枚数から染めを見ることも多い。（一色手以外で和了するのが困難というのも大きい。）序盤でこのような手で、他に特に手役も見えないようであれば、最も多い色の牌や孤立字牌は残してうまくいけば染め手になる可能性を残しておきたい。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0040",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0019",
+        "tag": "h3",
+        "domPath": "main/h3[39]",
+        "tableContext": null,
+        "type": "text",
+        "text": "条件A、Bを満たした場合の強さを考慮する",
+        "segments": [
+          {
+            "text": "条件A、Bを満たした場合の強さを考慮する",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0040"
+          ],
+          "sourceText": "条件A、Bを満たした場合の強さを考慮する",
+          "text": "考虑满足条件A、B时的强度",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0019",
+          "sourceSegments": [
+            {
+              "text": "条件A、Bを満たした場合の強さを考慮する",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0041",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0020",
+        "tag": "p",
+        "domPath": "main/p[41]",
+        "tableContext": null,
+        "type": "text",
+        "text": "簡単に言えば一色手になった場合と他の面子手になった場合の打点の比較である。役牌トイツが２組（もしくは役牌トイツ１組＋生きている字牌２〜３種）あったり、ドラが染め色や字牌であれば容易に満貫クラスの手になるので尚積極的に染める方が良くなる。特に役牌トイツ２組の手はなるだけホンイツやトイトイ、ドラ等で満貫クラスの手に仕上げたい。一方、染めなくても満貫クラスが見込めるような手や他色にドラや赤がある手であれば無理に孤立字牌を残したりせず、役牌＋αを本線にしつつツモが良ければ染める程度でよい。孤立役牌を残すかどうかを選択する場合も、孤立役牌が重なることでホンイツに移行する可能性が残る、即ち条件Aを満たしうる可能性が出てくるときは尚役牌残しが良くなる。",
+        "segments": [
+          {
+            "text": "簡単に言えば一色手になった場合と他の面子手になった場合の打点の比較である。役牌トイツが２組（もしくは役牌トイツ１組＋生きている字牌２〜３種）あったり、ドラが染め色や字牌であれば容易に満貫クラスの手になるので尚積極的に染める方が良くなる。特に役牌トイツ２組の手はなるだけホンイツやトイトイ、ドラ等で満貫クラスの手に仕上げたい。一方、染めなくても満貫クラスが見込めるような手や他色にドラや赤がある手であれば無理に孤立字牌を残したりせず、役牌＋αを本線にしつつツモが良ければ染める程度でよい。孤立役牌を残すかどうかを選択する場合も、孤立役牌が重なることでホンイツに移行する可能性が残る、即ち条件Aを満たしうる可能性が出てくるときは尚役牌残しが良くなる。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0041"
+          ],
+          "sourceText": "簡単に言えば一色手になった場合と他の面子手になった場合の打点の比較である。役牌トイツが２組（もしくは役牌トイツ１組＋生きている字牌２〜３種）あったり、ドラが染め色や字牌であれば容易に満貫クラスの手になるので尚積極的に染める方が良くなる。特に役牌トイツ２組の手はなるだけホンイツやトイトイ、ドラ等で満貫クラスの手に仕上げたい。一方、染めなくても満貫クラスが見込めるような手や他色にドラや赤がある手であれば無理に孤立字牌を残したりせず、役牌＋αを本線にしつつツモが良ければ染める程度でよい。孤立役牌を残すかどうかを選択する場合も、孤立役牌が重なることでホンイツに移行する可能性が残る、即ち条件Aを満たしうる可能性が出てくるときは尚役牌残しが良くなる。",
+          "text": "简单来说，就是比较做成染手和做成其他面子手时的打点。如果有2组役牌对子（或1组役牌对子＋仍有剩余的字牌2～3种），或宝牌属于目标花色或字牌，就很容易做成满贯级别的手牌，因此更适合积极地做染手。尤其是有2组役牌对子的手牌，希望尽可能通过混一色、对对和、宝牌等做成满贯级别的手牌。另一方面，如果不做染手也有望达到满贯级别，或其他花色中有宝牌或赤宝牌，就不必勉强保留孤立字牌，以役牌＋α为主线，摸牌顺利时再做染手即可。在选择是否保留孤立役牌时，如果该役牌成对后仍有转向混一色的可能，也就是有可能满足条件A，那么保留役牌就更有利。",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0020",
+          "sourceSegments": [
+            {
+              "text": "簡単に言えば一色手になった場合と他の面子手になった場合の打点の比較である。役牌トイツが２組（もしくは役牌トイツ１組＋生きている字牌２〜３種）あったり、ドラが染め色や字牌であれば容易に満貫クラスの手になるので尚積極的に染める方が良くなる。特に役牌トイツ２組の手はなるだけホンイツやトイトイ、ドラ等で満貫クラスの手に仕上げたい。一方、染めなくても満貫クラスが見込めるような手や他色にドラや赤がある手であれば無理に孤立字牌を残したりせず、役牌＋αを本線にしつつツモが良ければ染める程度でよい。孤立役牌を残すかどうかを選択する場合も、孤立役牌が重なることでホンイツに移行する可能性が残る、即ち条件Aを満たしうる可能性が出てくるときは尚役牌残しが良くなる。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0056",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0024",
+        "tag": "p",
+        "domPath": "main/p[49]",
+        "tableContext": null,
+        "type": "text",
+        "text": "ピンズか字牌でターツ（トイツ）が出来れば条件Aを満たすし、速度や打点面でもホンイツ有利。字牌より先にもうマンズのリャンカンを払っていく。",
+        "segments": [
+          {
+            "text": "ピンズか字牌でターツ（トイツ）が出来れば条件Aを満たすし、速度や打点面でもホンイツ有利。字牌より先にもうマンズのリャンカンを払っていく。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0056"
+          ],
+          "sourceText": "ピンズか字牌でターツ（トイツ）が出来れば条件Aを満たすし、速度や打点面でもホンイツ有利。字牌より先にもうマンズのリャンカンを払っていく。",
+          "text": "筒子或字牌只要形成搭子（对子），就能满足条件A，而且从速度和打点来看，混一色也更有利。现在就先于字牌拆掉万子的两嵌。",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0024",
+          "sourceSegments": [
+            {
+              "text": "ピンズか字牌でターツ（トイツ）が出来れば条件Aを満たすし、速度や打点面でもホンイツ有利。字牌より先にもうマンズのリャンカンを払っていく。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "modern-yabejp-ja:chapter01-section035:b0065",
+        "paragraphId": "modern-yabejp-ja:chapter01-section035:p0026",
+        "tag": "p",
+        "domPath": "main/p[53]",
+        "tableContext": null,
+        "type": "text",
+        "text": "引きで条件Bを満たすケースも無視できない（手役もタンヤオや三色がある）。決め打ちせずに打",
+        "segments": [
+          {
+            "text": "引きで条件Bを満たすケースも無視できない（手役もタンヤオや三色がある）。決め打ちせずに打",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0065"
+          ],
+          "sourceText": "引きで条件Bを満たすケースも無視できない（手役もタンヤオや三色がある）。決め打ちせずに打",
+          "text": "的摸入使牌形满足条件B的情况，也不能忽视（役种方面也有断幺九或三色同顺）。不预先限定路线，切",
+          "paragraphId": "modern-yabejp-ja:chapter01-section035:p0026",
+          "sourceSegments": [
+            {
+              "text": "引きで条件Bを満たすケースも無視できない（手役もタンヤオや三色がある）。決め打ちせずに打",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    }
+  ],
+  "next": "Bind b0004/b0005/b0010/b0019/b0031/b0036 as shared premises in independent audit input. Existing production plan/raw unchanged. Frozen current reviewer has no arbitrary context override: explicit hash-bound audit-context compatibility is needed before one new target/group review. No 311-block reproduction.",
+  "futureMaximumCalls": 1,
+  "modelCalls": 0
+}

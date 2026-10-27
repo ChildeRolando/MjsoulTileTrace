@@ -1,0 +1,248 @@
+{
+  "chapterId": "79-cn-chapter-234-12",
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\ba432ee3-0d28-42b9-ad34-cde09c97313e.json",
+    "sha256": "0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734",
+    "bytes": 35030
+  },
+  "localLedgerRows": [
+    {
+      "callId": "ba432ee3-0d28-42b9-ad34-cde09c97313e",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1780400",
+      "sourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "timeoutMs": 900000,
+      "startedAt": "2026-10-27T17:27:03.855Z",
+      "durationMs": 900007,
+      "usage": null,
+      "success": false,
+      "failureClass": null,
+      "transportStatus": "timeout",
+      "rawArtifactPath": "raw-calls/ba432ee3-0d28-42b9-ad34-cde09c97313e.json",
+      "rawArtifactSha256": "0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734",
+      "outputSha256": null,
+      "schemaSha256": "8d0c42e22567992c361fa1d14006c3b017f3f4b0c190128d18528a52d3786705",
+      "promptSha256": "038d24e5734623a760827333f120c34e75c1a59ccab0ccd452735a9e07594119",
+      "semanticPromptSha256": "89e2b34c820743f0265e67d10a8f3997755d1ac6ead369fd373cda235e10797f",
+      "cliSnapshot": {
+        "path": "web-production/v1/runners/ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a.cli.mjs",
+        "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+      },
+      "targets": {
+        "textIds": [
+          "79-bilibili-cn:cv1780400:b0003"
+        ],
+        "figureIds": []
+      },
+      "terminalEvents": [
+        {
+          "type": "error",
+          "code": null,
+          "message": "Reconnecting... 2/5 (request timed out)",
+          "param": null
+        },
+        {
+          "type": "error",
+          "code": null,
+          "message": "Reconnecting... 3/5 (request timed out)",
+          "param": null
+        }
+      ],
+      "visualInputs": [],
+      "revision": {
+        "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+        "parentSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+        "notesPath": "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+        "notesSha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+        "figureIds": [],
+        "textBlockIds": [
+          "79-bilibili-cn:cv1780400:b0003"
+        ],
+        "inlineJapanese": {
+          "path": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-234.json",
+          "sha256": "7b6381704a680a91012cca7f248d9a8524a9a248829c39a8c4decc26dbdaf504",
+          "plan": {
+            "schema": "coach-inline-japanese-revision/1",
+            "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+            "chapterId": "79-cn-chapter-234-12",
+            "bindings": {
+              "parentSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+              "notesSha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+              "sourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57"
+            },
+            "edits": [
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+                "quotedText": "ゴットー",
+                "operation": "gloss"
+              },
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+                "quotedText": "ワンツー",
+                "operation": "gloss"
+              },
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+                "quotedText": "ワンスリー",
+                "operation": "gloss"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "dispatchFinished": {
+    "at": "2026-10-27T17:42:03.881274+00:00",
+    "exitCode": 1,
+    "candidateExists": false
+  },
+  "events": [
+    {
+      "type": "thread.started",
+      "thread_id": "01a17e66-b9fa-7be2-a9bd-0813aa7ba763"
+    },
+    {
+      "type": "turn.started"
+    },
+    {
+      "type": "error",
+      "message": "Reconnecting... 2/5 (request timed out)"
+    },
+    {
+      "type": "error",
+      "message": "Reconnecting... 3/5 (request timed out)"
+    }
+  ],
+  "rawLastMessage": null,
+  "usage": null,
+  "rawStdout": "{\"type\":\"thread.started\",\"thread_id\":\"01a17e66-b9fa-7be2-a9bd-0813aa7ba763\"}\n{\"type\":\"turn.started\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... 2/5 (request timed out)\"}\n{\"type\":\"error\",\"message\":\"Reconnecting... 3/5 (request timed out)\"}\n",
+  "stderr": "2026-10-27T17:31:43.476948Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n2026-10-27T17:36:18.472441Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n",
+  "existingCandidates": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.display.json",
+      "sha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+      "bytes": 25107
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.json",
+      "sha256": "d34379e7b22e184db97de723c301c28c101fee74c63c899dfa1991e4b5ed4024",
+      "bytes": 23094
+    }
+  ],
+  "trace": {
+    "binding": {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-269-2e6698c50769\\codex-home\\sessions\\2026\\10\\28\\rollout-2026-10-28T01-17-28-01a17e5d-de92-75a1-8aa9-62c049d6cc68.jsonl",
+      "sha256": "623b3ead5d411a0f7bf53b3cef360e36320889e16617cd3a3bb23688fc2d8a28",
+      "bytes": 2393365
+    },
+    "hits": [
+      {
+        "line": 517,
+        "timestamp": "2026-10-27T17:42:12.102Z",
+        "type": "event_msg",
+        "sha256": "f37805ab0851c1bc8423e571214ba8e9183ebab424a4d61f29adad077b107a6d"
+      },
+      {
+        "line": 518,
+        "timestamp": "2026-10-27T17:42:12.113Z",
+        "type": "response_item",
+        "sha256": "1dab4d0c61b2a4d7fda9b858eafc2709d67d7e8a383ea0d60308d4ce9a076179"
+      },
+      {
+        "line": 529,
+        "timestamp": "2026-10-27T17:42:52.373Z",
+        "type": "event_msg",
+        "sha256": "731b19c9f96aec5067f22a42997445ad39c7589f4c6afe7c93f5a9281e470047"
+      },
+      {
+        "line": 530,
+        "timestamp": "2026-10-27T17:42:52.384Z",
+        "type": "response_item",
+        "sha256": "47fa3202d3f1091c9de1d6c575492bd1e63b74a893e44390610baf4beb98bbb3"
+      },
+      {
+        "line": 553,
+        "timestamp": "2026-10-27T17:45:17.961Z",
+        "type": "response_item",
+        "sha256": "fceb0c4a23968c1dd1e176e25ac4821b8ddfcfb94ec4ad636ef189a215438ff7"
+      },
+      {
+        "line": 555,
+        "timestamp": "2026-10-27T17:45:18.079Z",
+        "type": "event_msg",
+        "sha256": "401e0a8d2e83a2ebac0e93c62d46466fe4f4905aa035722c8602e1d211aca0d1"
+      },
+      {
+        "line": 638,
+        "timestamp": "2026-10-27T17:49:27.002Z",
+        "type": "response_item",
+        "sha256": "a5ee34198fe8231fff151731ad6edf7840a8e904cc7f3c59cf59c8f9123343c6"
+      },
+      {
+        "line": 639,
+        "timestamp": "2026-10-27T17:49:27.108Z",
+        "type": "event_msg",
+        "sha256": "3389c23795a7f6bf94225c525c0edfcf253164b670f4d2e739c1c600d1023de4"
+      },
+      {
+        "line": 699,
+        "timestamp": "2026-10-27T17:52:19.804Z",
+        "type": "event_msg",
+        "sha256": "6a46827b04ea25f2326e08155504d7d68f6f0e189a97c4a5e676b718b99412c5"
+      },
+      {
+        "line": 700,
+        "timestamp": "2026-10-27T17:52:19.825Z",
+        "type": "response_item",
+        "sha256": "14a2d9fb5acd90abb12d12222ba69a2ab544038a6f27221fb907145d84581bd0"
+      },
+      {
+        "line": 710,
+        "timestamp": "2026-10-27T17:53:23.767Z",
+        "type": "response_item",
+        "sha256": "f413a69a964955a1beb2e5c84267c2e74f1c1910f18518dbba0c8636e16064de"
+      },
+      {
+        "line": 712,
+        "timestamp": "2026-10-27T17:53:28.263Z",
+        "type": "event_msg",
+        "sha256": "38d14cac5c2a4d61a451cf04b8db124d8ba0e08f5e945b4f5d6ab87378927694"
+      }
+    ],
+    "fullTraceNotPublished": true,
+    "reason": "root-agent transcript is not a provider request log"
+  },
+  "recovery": {
+    "completeRaw": false,
+    "recoverableCandidate": false,
+    "conclusion": "Preserved complete capture contains no final message, turn.completed, usage or candidate. Root transcript contains observations, not a hidden successful response."
+  },
+  "countBoundary": {
+    "observableLocalProductionInvocations": 1,
+    "logicalThreadsObserved": 1,
+    "retryNotices": 2,
+    "retryNoticeLabels": [
+      "2/5",
+      "3/5"
+    ],
+    "upstreamHTTPRequests": null,
+    "upstreamExecutedGenerations": null,
+    "actualServerCost": null,
+    "doNotInferThreeOrFiveCalls": true
+  },
+  "nextMinimumRequest": {
+    "scope": "only cv1780400:b0003, three Japanese labels with whole Chinese paragraph + bound parent; images:[]",
+    "newProductionAllowanceNeeded": 1,
+    "existingUnusedFirstAuditAllowance": 1,
+    "futureMaximumLocalCalls": 2,
+    "priorBatchObservedCalls": 3,
+    "observedTotalAfterThisProposalMaximum": 5,
+    "automaticRetry": 0,
+    "currentlyAuthorizedNewRetry": false,
+    "limitation": "Current CLI does not expose acknowledged upstream attempt IDs. One local invocation cannot prove one upstream generation. Before a hard remote-call cap can be accepted, require transport/server request-id/attempt records; no model/provider/gateway settings changed here."
+  },
+  "modelCallsThisStage": 0
+}
