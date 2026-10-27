@@ -1,0 +1,37 @@
+{
+  "allPassed": true,
+  "exactCandidateFrozenGate": "passed",
+  "checks": [
+    {
+      "name": "candidate-sha",
+      "rejected": true
+    },
+    {
+      "name": "manifest-sha",
+      "rejected": true
+    },
+    {
+      "name": "dependency-sha",
+      "rejected": true
+    },
+    {
+      "name": "stage-sha",
+      "rejected": true
+    },
+    {
+      "name": "audit-sha",
+      "rejected": true
+    },
+    {
+      "name": "raw-sha",
+      "rejected": true
+    },
+    {
+      "name": "call-id",
+      "rejected": true
+    }
+  ],
+  "syntaxFiles": 5,
+  "existingInlineAndDefaultRoutesRetained": true,
+  "modelCalls": 0
+}

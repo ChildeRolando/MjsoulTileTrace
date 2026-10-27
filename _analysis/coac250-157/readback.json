@@ -1,0 +1,143 @@
+{
+  "schema": "coac250-157-readback/1",
+  "recordedAt": "2026-10-27T18:16:49.434Z",
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T18-16-16-590Z",
+    "corpusId": "a43aba7e2123f2b4e7a3e7caf235cb2f1c37ce5c66bfccaa3c8ff97b45831e04",
+    "chapters": 230,
+    "units": 238,
+    "blocks": 6330,
+    "figures": 5128
+  },
+  "rows": [
+    {
+      "unitId": "79-bilibili-cn-cv1751276-argument",
+      "blocks": 18,
+      "pages": [
+        {
+          "offset": 0,
+          "blocks": 18,
+          "nextOffset": null
+        }
+      ],
+      "exactBody": true,
+      "images": 7,
+      "searchHit": true,
+      "sourceArticle": "cv1751276"
+    }
+  ],
+  "images": [
+    {
+      "figureId": "79-bilibili-cn-cv1751276-b5",
+      "sha256": "83164377b0c8b9065cc8fa57aef140cb9df82641a21a631b7165b6b5c0a4657e",
+      "exactMcpBytes": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1751276-b7",
+      "sha256": "f56d58c978ca7ddb560d262e96f03f615ee4e307d5dad9cf2ac7de09aac468d7",
+      "exactMcpBytes": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1751276-b9",
+      "sha256": "39c3ce11bd8e7c8d6fa0929573aa524e5c22d903a07f272684d1335eea89b090",
+      "exactMcpBytes": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1751276-b11",
+      "sha256": "c587a21bbf760e77042a15c975d22303b7e39bfe63187939649aeeb048b48d86",
+      "exactMcpBytes": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1751276-b13",
+      "sha256": "039528017c49e6cba280dbb427351ec1684ed774b151837d1e67c4d49c5ec9d7",
+      "exactMcpBytes": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1751276-b15",
+      "sha256": "09f380807973c85902582e81856c21a5aba29f3fda2cfe0c1dcb5174aef0ca73",
+      "exactMcpBytes": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1751276-b17",
+      "sha256": "022bf9c80bb34c2083f0032b460f6bc85e029d9c990baa2578216f2ae9f0b19d",
+      "exactMcpBytes": true
+    }
+  ],
+  "targetMcpCalls": 21,
+  "maxTargetTextBytes": 13048,
+  "originalTextBlocks": 11,
+  "originalTextExact": true,
+  "sourceOccurrences": 7,
+  "sourceBindingsAndTranscriptionsExact": true,
+  "retainedFigureUncertainties": [],
+  "intakeAnnotations": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T18-16-16-590Z/157-11-intake-annotations.json",
+    "sha256": "23691a7d3851a04e641e78fe3e18bb38d43a7d287d654ebc841b5b72e12c3670",
+    "issues": 0
+  },
+  "nonblockingIssues": [],
+  "reviewScope": {
+    "method": "independent-full-article-review-with-original-images-and-authenticated-prior-image-reuse",
+    "bodyBlocks": 18,
+    "textBlocks": 11,
+    "figures": 7,
+    "imageOccurrences": 7,
+    "newOriginalImageTargets": [
+      "79-bilibili-cn:cv1751276:b0005:figure",
+      "79-bilibili-cn:cv1751276:b0007:figure",
+      "79-bilibili-cn:cv1751276:b0009:figure",
+      "79-bilibili-cn:cv1751276:b0011:figure",
+      "79-bilibili-cn:cv1751276:b0013:figure"
+    ],
+    "originalsSent": 5,
+    "enlargementsSent": 5,
+    "priorImageReuse": 2,
+    "newImageReview": true,
+    "callId": "eff9a0e4-5072-4f54-ad15-8d065c9b98dd",
+    "actualRequest": {
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max"
+    },
+    "remoteWeights": "unknown",
+    "rawLegacyMethodLabel": "independent-sol-high-full-article-review"
+  },
+  "sourceCorrespondence": {
+    "articleId": "cv1751276",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+  },
+  "historyPreserved": true,
+  "emphasis": {
+    "allTextCharactersMarksHrefExact": true,
+    "mcpTranslatedTextExact": true,
+    "mcpCarriesDisplaySegments": false,
+    "htmlFullChapterExact": true,
+    "sourceTextBlocks": 11
+  },
+  "sourceBodyBlocks": 18,
+  "priorUnitsUnchanged": 237,
+  "prior027Preserved": true,
+  "priorJpegOriginalsRetained": 5,
+  "canonicalArticles": 201,
+  "sourceCollisions": 0,
+  "allProtectedInputsUnchanged": true,
+  "otherHoldsAndDefinitionBindingsUnchanged": true,
+  "activeLibraryChanged": false,
+  "formalSha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2",
+  "fullMcp": {
+    "units": 238,
+    "images": 5128,
+    "maxTextBytes": 14883
+  },
+  "arena": {
+    "units": 238,
+    "exactBody": true,
+    "maxEnvelopeBytes": 15066
+  },
+  "modelCalls": 0,
+  "productionCalls": 0
+}

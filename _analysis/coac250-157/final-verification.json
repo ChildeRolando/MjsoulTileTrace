@@ -1,0 +1,106 @@
+{
+  "schema": "coac250-157-final-verification/1",
+  "recordedAt": "2026-10-27T18:16:54.536Z",
+  "allPassed": true,
+  "checks": [
+    {
+      "name": "builder-syntax",
+      "exitCode": 0
+    },
+    {
+      "name": "full-MCP",
+      "units": 238,
+      "exactImages": 5128
+    },
+    {
+      "name": "full-Arena",
+      "units": 238,
+      "exactBody": true
+    },
+    {
+      "name": "target-MCP-readback-before-publication",
+      "sourceBlocks": 18,
+      "images": 7,
+      "exactBody": true
+    },
+    {
+      "name": "source-deduplication",
+      "collisions": 0
+    }
+  ],
+  "coverage": {
+    "originalChaptersCovered": 230,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 262,
+    "originalUnitsTotal": 303
+  },
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T18-16-16-590Z",
+    "corpusId": "a43aba7e2123f2b4e7a3e7caf235cb2f1c37ce5c66bfccaa3c8ff97b45831e04",
+    "chapters": 230,
+    "units": 238,
+    "blocks": 6330,
+    "figures": 5128
+  },
+  "history": "E:/AgentData/Coach/knowledge/processing/integration/coac250-157-history-20261028",
+  "files": {
+    "selection-pin.patch": "e13b30087538f127682ecc954c45eab932441f351953b026459a5134e707a2f9",
+    "runtime-manifest.json": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+    "builder.after.mjs": "cc85cacfdf6c39404310d2dd8e4dd801546b1e33c552124848cd6505d5ce1654",
+    "variants.after.json": "ca4af6ef8ecaefd2a9bef3efdc42357b6c33da78fafd5a0e1c14b7b3be12a786",
+    "handoff.json": "ba00d7d34366431e5e7fca4b52f6356e699cdcd49946545d870e4562cd5ebfd6",
+    "preconsume.json": "916d6a5fe703a0f148a96ee8a52c2e73aa145f09444a4f8d9b248662dc90b898",
+    "gate-reverified.json": "d689db6cc9d9f9e358359c7e27e59588907856bfac5c8e323d27e77ff5d813bc",
+    "stage-receipt.json": "0138f69e9297cd8eaa063558ef0cc6a351a839bdf90f37f9d81f1805eb60b907",
+    "intake-annotations.json": "23691a7d3851a04e641e78fe3e18bb38d43a7d287d654ebc841b5b72e12c3670",
+    "readback.json": "9d52b0f17c096c8fae22b70bf01dcda2085c1bb9173bbc7d017a50b90e3dce2d",
+    "coverage.json": "dd3952b4cc3c2f5bac7546b0df06944071ad23fc7848e92cfaf528a18a4eb8e7",
+    "publication-journal.json": "6c5d66c5ae82bddcbaedab21d0abb54e70e5c05c581117dde5ab6138f0d9b630"
+  },
+  "upstreamReviewScope": {
+    "method": "independent-full-article-review-with-original-images-and-authenticated-prior-image-reuse",
+    "bodyBlocks": 18,
+    "textBlocks": 11,
+    "figures": 7,
+    "imageOccurrences": 7,
+    "newOriginalImageTargets": [
+      "79-bilibili-cn:cv1751276:b0005:figure",
+      "79-bilibili-cn:cv1751276:b0007:figure",
+      "79-bilibili-cn:cv1751276:b0009:figure",
+      "79-bilibili-cn:cv1751276:b0011:figure",
+      "79-bilibili-cn:cv1751276:b0013:figure"
+    ],
+    "originalsSent": 5,
+    "enlargementsSent": 5,
+    "priorImageReuse": 2,
+    "newImageReview": true,
+    "callId": "eff9a0e4-5072-4f54-ad15-8d065c9b98dd",
+    "actualRequest": {
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max"
+    },
+    "remoteWeights": "unknown",
+    "rawLegacyMethodLabel": "independent-sol-high-full-article-review"
+  },
+  "originalProductionHistory": {
+    "productionCallId": "940cf63b-732f-417f-b4a5-c1469ac6e202",
+    "productionModel": "gpt-6.1-sol",
+    "productionEffort": "high",
+    "rawSha256": "5609f50d91ae5a39fd8fea3b821834adeb6c68719ff33b91624110de72aa6c3b",
+    "parentCandidate": "30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de",
+    "parentAudit": "59fb75343e72036d123cbd546d50ffc462f20800e340f9015af769e0de6f4f15",
+    "upstreamReviewCalls": 1,
+    "upstreamReviewRetries": 0
+  },
+  "protectedInputsUnchanged": 160,
+  "unchangedOtherRegisterRows": 79,
+  "prior237UnitsIncluding162155205347246090And027Unchanged": true,
+  "allOtherSelectionJobsUnchanged": true,
+  "otherHoldsAndDefinitionBindingsUnchanged": true,
+  "stagingCodeUnchanged": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a",
+  "builderPinsVerified": true,
+  "writerLocksAbsent": true,
+  "activeLibraryChanged": false,
+  "modelCalls": 0,
+  "productionCalls": 0
+}

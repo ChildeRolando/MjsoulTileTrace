@@ -1,0 +1,99 @@
+{
+  "schema": "coach-textbook-web-stage/1",
+  "status": "independently-audited-chapter-preview",
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751276.r1.display.json",
+  "candidateSha256": "1807377cc8f71afec95718f5050584a596690efac5658042cf75563f3d69dadc",
+  "sourceSha256": "797e9393790395bf88d680cfda77c27a406744455d487aad334110d2b5712ccc",
+  "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751276.1807377cc8f71afec95718f5050584a596690efac5658042cf75563f3d69dadc.json",
+  "auditStatus": "passed",
+  "imageDerivations": [],
+  "chapters": 1,
+  "units": 1,
+  "blocks": 18,
+  "figures": 7,
+  "corpusId": "c9bf060e95d66b779d4f72b1a10056d209487aeac9d03cec3d9ddab44e52ebef",
+  "bodySha256": "806e03965ee913a3d1f36986e7817ff664f4385bb07b97cb4dc7451442899a98",
+  "maxUnitBytes": 12722,
+  "modelCalls": 0,
+  "activeLibraryChanged": false,
+  "humanReview": "pending",
+  "visionReview": {
+    "candidateSha256": "1807377cc8f71afec95718f5050584a596690efac5658042cf75563f3d69dadc",
+    "runtime": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027",
+    "manifest": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\runtime-manifest.json",
+      "sha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6"
+    },
+    "dependencyManifest": {
+      "schema": "coach-textbook-audit-verification-dependencies/1",
+      "entry": "textbook-audit-web.mjs",
+      "files": [
+        {
+          "name": "textbook-audit-pdf-layout.mjs",
+          "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06"
+        },
+        {
+          "name": "textbook-audit-pdf-native-corrections.mjs",
+          "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05"
+        },
+        {
+          "name": "textbook-audit-pdf-native-structure-corrections.mjs",
+          "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b"
+        },
+        {
+          "name": "textbook-audit-pdf-native.mjs",
+          "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+        },
+        {
+          "name": "textbook-audit-pdf-scope.mjs",
+          "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf"
+        },
+        {
+          "name": "textbook-audit-pdf-source-corrections.mjs",
+          "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff"
+        },
+        {
+          "name": "textbook-audit-tile-dictionary.mjs",
+          "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30"
+        },
+        {
+          "name": "textbook-audit-web-batches.mjs",
+          "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69"
+        },
+        {
+          "name": "textbook-audit-web.mjs",
+          "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b"
+        },
+        {
+          "name": "textbook-audit.mjs",
+          "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+        },
+        {
+          "name": "textbook-production-cli.mjs",
+          "sha256": "403eb168fb725aa990792089eb7d6e29d55903fcf9e22d2cfce253fd675a3d01"
+        }
+      ],
+      "pageApprovals": [],
+      "manifestSha256": "e47baa835ba4b862ce1659bab9015491397aafdd582d81399fc2e0b8d37e0e8a"
+    },
+    "stage": {
+      "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/stage-web-textbook.mjs",
+      "sha256": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a"
+    },
+    "audit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751276.1807377cc8f71afec95718f5050584a596690efac5658042cf75563f3d69dadc.json",
+      "sha256": "64ad7a838e91381e568950b735f409a4d3b77d641a876cbd3723ec0c6719d32f"
+    },
+    "requestEvidence": {
+      "callId": "eff9a0e4-5072-4f54-ad15-8d065c9b98dd",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\eff9a0e4-5072-4f54-ad15-8d065c9b98dd.json",
+        "sha256": "1128787d5cb8ad7b295a62b588c6d9bfeab12589eb5f71987b9dd977cf0d2507"
+      },
+      "remoteWeights": "unknown",
+      "legacyMethodLabel": "independent-sol-high-full-article-review"
+    }
+  }
+}

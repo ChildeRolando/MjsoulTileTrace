@@ -1,0 +1,15 @@
+{
+  "schema": "coac249-platform-delivery-blocker/1",
+  "candidateSha256": "1807377cc8f71afec95718f5050584a596690efac5658042cf75563f3d69dadc",
+  "reviewStatus": "passed",
+  "sharedHandoffWritten": true,
+  "owner244FirstLiveEvidenceWritten": true,
+  "wakeup250Confirmed": false,
+  "finalIssueCommentConfirmed": false,
+  "finalCommentAttemptExitCode": 1,
+  "lastIssueStatusObserved": "in_progress",
+  "finalStatusReadConfirmed": false,
+  "error": "Could not reach the Multica server. Check your network connection.",
+  "debugCause": "GET /api/issues/01a17471-1595-79d5-bdfa-6feaa65172c0: EOF; kind=network_offline",
+  "recovery": "Read current issue comments and 250 wakeups first; match candidate and handoff SHA, then post only missing final comment and create only missing once wakeup. Never repeat the model call."
+}

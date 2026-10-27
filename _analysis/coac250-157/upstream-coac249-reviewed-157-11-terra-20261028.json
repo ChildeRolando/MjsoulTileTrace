@@ -1,0 +1,528 @@
+{
+  "schema": "coac250-incremental-staging-receipt/1",
+  "recordedAt": "2026-10-27T18:05:09.868Z",
+  "from_": "COAC-249",
+  "batchId": "coac249-157-terra-first-20261028",
+  "batchSize": 1,
+  "modelCalls": 0,
+  "auditModelCalls": 1,
+  "retries": 0,
+  "chapters": [
+    {
+      "schema": "coac249-first-terra-review/1",
+      "recordedAt": "2026-10-27T18:05:09.864Z",
+      "chapterId": "79-cn-chapter-157-11",
+      "articleId": "cv1751276",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1751276.r1.display.json",
+      "candidateSha256": "1807377cc8f71afec95718f5050584a596690efac5658042cf75563f3d69dadc",
+      "sourceSha256": "797e9393790395bf88d680cfda77c27a406744455d487aad334110d2b5712ccc",
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1751276.1807377cc8f71afec95718f5050584a596690efac5658042cf75563f3d69dadc.json",
+      "auditSha256": "64ad7a838e91381e568950b735f409a4d3b77d641a876cbd3723ec0c6719d32f",
+      "auditStatus": "passed",
+      "reverifiedStatus": "passed",
+      "auditModelCalls": 1,
+      "productionCalls": 0,
+      "retries": 0,
+      "failedVoidConsumesBudget": true,
+      "callId": "eff9a0e4-5072-4f54-ad15-8d065c9b98dd",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "requestExecution": {
+        "schema": "coach-textbook-cli-request/1",
+        "policy": "coac244-vision-terra-max-v1-20261027",
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max",
+        "callerRequested": {
+          "model": "gpt-6.1-sol",
+          "reasoningEffort": "high"
+        },
+        "args": [
+          "exec",
+          "--model",
+          "gpt-6.1-terra",
+          "--config",
+          "model_reasoning_effort=\"max\"",
+          "--config",
+          "web_search=\"disabled\"",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox",
+          "read-only",
+          "--strict-config",
+          "--skip-git-repo-check",
+          "--json",
+          "--output-schema",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-SeMhHD\\output.schema.json",
+          "--output-last-message",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-SeMhHD\\final.json",
+          "--cd",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-SeMhHD",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\e92e6087d49744690943048bc34d8320e78cc8113865767420007920c267711b.png",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\2646f88102f2261097f98d5da21820c1d51d9ef331feffda746c0e29881cbd5b.png",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\885adeefbaa457fa67014cb6a36a08938aca7b75fa9226dc106ac5a231e5cfe2.png",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\52934939c05078b749f6a7fda16e62ce8a50ee2d8d0d9b786c719736a27c89fb.png",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\fa77cc00b99926da7f6dc8a626a1dec41b4a83bcf19376fe9692d4ed502c9156.png",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\e92e6087d49744690943048bc34d8320e78cc8113865767420007920c267711b.x4.png",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\2646f88102f2261097f98d5da21820c1d51d9ef331feffda746c0e29881cbd5b.x4.png",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\885adeefbaa457fa67014cb6a36a08938aca7b75fa9226dc106ac5a231e5cfe2.x4.png",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\52934939c05078b749f6a7fda16e62ce8a50ee2d8d0d9b786c719736a27c89fb.x4.png",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\fa77cc00b99926da7f6dc8a626a1dec41b4a83bcf19376fe9692d4ed502c9156.x4.png",
+          "--disable",
+          "apps",
+          "--disable",
+          "auth_elicitation",
+          "--disable",
+          "browser_use",
+          "--disable",
+          "browser_use_external",
+          "--disable",
+          "browser_use_full_cdp_access",
+          "--disable",
+          "computer_use",
+          "--disable",
+          "fast_mode",
+          "--disable",
+          "goals",
+          "--disable",
+          "guardian_approval",
+          "--disable",
+          "hooks",
+          "--disable",
+          "image_generation",
+          "--disable",
+          "in_app_browser",
+          "--disable",
+          "in_app_chat",
+          "--disable",
+          "in_app_dictation",
+          "--disable",
+          "in_app_local_automation",
+          "--disable",
+          "in_app_updates",
+          "--disable",
+          "memories",
+          "--disable",
+          "mentions_v2",
+          "--disable",
+          "multi_agent",
+          "--disable",
+          "plugin_sharing",
+          "--disable",
+          "plugins",
+          "--disable",
+          "remote_plugin",
+          "--disable",
+          "shell_snapshot",
+          "--disable",
+          "shell_tool",
+          "--disable",
+          "skill_mcp_dependency_install",
+          "--disable",
+          "skill_search",
+          "--disable",
+          "sleep_tool",
+          "--disable",
+          "tool_call_mcp_elicitation",
+          "--disable",
+          "tool_suggest",
+          "--disable",
+          "unbounded_connection_retries",
+          "--disable",
+          "unified_exec",
+          "--disable",
+          "unified_exec_tty",
+          "--disable",
+          "view_image",
+          "--disable",
+          "workspace_dependencies",
+          "-"
+        ],
+        "images": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\e92e6087d49744690943048bc34d8320e78cc8113865767420007920c267711b.png",
+            "sha256": "e92e6087d49744690943048bc34d8320e78cc8113865767420007920c267711b",
+            "bytes": 12101
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\2646f88102f2261097f98d5da21820c1d51d9ef331feffda746c0e29881cbd5b.png",
+            "sha256": "2646f88102f2261097f98d5da21820c1d51d9ef331feffda746c0e29881cbd5b",
+            "bytes": 12360
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\885adeefbaa457fa67014cb6a36a08938aca7b75fa9226dc106ac5a231e5cfe2.png",
+            "sha256": "885adeefbaa457fa67014cb6a36a08938aca7b75fa9226dc106ac5a231e5cfe2",
+            "bytes": 13726
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\52934939c05078b749f6a7fda16e62ce8a50ee2d8d0d9b786c719736a27c89fb.png",
+            "sha256": "52934939c05078b749f6a7fda16e62ce8a50ee2d8d0d9b786c719736a27c89fb",
+            "bytes": 13013
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\fa77cc00b99926da7f6dc8a626a1dec41b4a83bcf19376fe9692d4ed502c9156.png",
+            "sha256": "fa77cc00b99926da7f6dc8a626a1dec41b4a83bcf19376fe9692d4ed502c9156",
+            "bytes": 11111
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\e92e6087d49744690943048bc34d8320e78cc8113865767420007920c267711b.x4.png",
+            "sha256": "f9445f40132759a801abf1e794533da227f635dd00b75fb4b67af75a543cbbd1",
+            "bytes": 20364
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\2646f88102f2261097f98d5da21820c1d51d9ef331feffda746c0e29881cbd5b.x4.png",
+            "sha256": "cefb9b8a934a5259d8ffc7dd8d3e8e54b5e90c1d1b5bec2a60442744db151e95",
+            "bytes": 20677
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\885adeefbaa457fa67014cb6a36a08938aca7b75fa9226dc106ac5a231e5cfe2.x4.png",
+            "sha256": "7f2f18d5a2d2e30979213e3d2611d912d4c9b4120f2b30ba478bec0a4e505b4c",
+            "bytes": 22744
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\52934939c05078b749f6a7fda16e62ce8a50ee2d8d0d9b786c719736a27c89fb.x4.png",
+            "sha256": "4a76997ed5bfbed4020e729551a089a88e5f3fac1282f3c9f2dbd7376ef9b0e3",
+            "bytes": 21475
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\fa77cc00b99926da7f6dc8a626a1dec41b4a83bcf19376fe9692d4ed502c9156.x4.png",
+            "sha256": "8c72954a0d14117fb292a5100c6bad0f07cd8f4c09f3cf9cf1df79a7ced4d96d",
+            "bytes": 19143
+          }
+        ],
+        "remoteBackend": "unverified; request arguments and returned events only"
+      },
+      "usage": {
+        "inputTokens": 24497,
+        "cachedInputTokens": 0,
+        "outputTokens": 5990
+      },
+      "cost": null,
+      "raw": {
+        "path": "audit/calls/eff9a0e4-5072-4f54-ad15-8d065c9b98dd.json",
+        "sha256": "1128787d5cb8ad7b295a62b588c6d9bfeab12589eb5f71987b9dd977cf0d2507",
+        "success": true,
+        "exitCode": 0,
+        "timedOut": false,
+        "durationMs": 84709,
+        "startedAt": "2026-10-27T18:03:29.980Z"
+      },
+      "returnedEvents": [
+        {
+          "type": "thread.started",
+          "thread_id": "01a17e88-1596-7fb0-84ee-bd1d2524116f"
+        },
+        {
+          "type": "turn.started"
+        },
+        {
+          "type": "turn.completed",
+          "usage": {
+            "input_tokens": 24497,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 5990,
+            "reasoning_output_tokens": 3624
+          }
+        }
+      ],
+      "returnedModelFields": [
+        {
+          "path": "events.0.thread_id",
+          "value": "01a17e88-1596-7fb0-84ee-bd1d2524116f"
+        }
+      ],
+      "remoteWeights": "unknown",
+      "rawLegacyMethodLabel": "independent-sol-high-full-article-review",
+      "methodLabelCaveat": "Frozen receipt method retains its historical sol-high name; actual requestExecution and call records above determine this attempt model/effort. Original receipt is unchanged.",
+      "projection": {
+        "sha256": "70b1998cf8e0dcefdef166b925476f44d9cb86f2eae48540ba97c616c270b178",
+        "sourceBlocks": 18,
+        "figures": 7,
+        "imageOccurrences": 7
+      },
+      "modelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "modelReview": {
+        "blockChecks": [
+          {
+            "id": "79-bilibili-cn:cv1751276:b0001",
+            "verdict": "faithful",
+            "evidence": "“免责声明：”原文完整保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0002",
+            "verdict": "faithful",
+            "evidence": "版权声明、译者 SeventhTG（XD）及转载注明要求均完整保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0003",
+            "verdict": "faithful",
+            "evidence": "原文地址、分隔线和“后付1：”均按原文保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0004",
+            "verdict": "faithful",
+            "evidence": "图1手牌的引入语与原文一致。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0005",
+            "verdict": "faithful",
+            "evidence": "图1对应的图片出现被关联到图1牌例，牌码与原图一致。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0006",
+            "verdict": "faithful",
+            "evidence": "碰中属于比较普通的鸣牌及图2引用均按原文保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0007",
+            "verdict": "faithful",
+            "evidence": "图2对应的图片出现被关联到碰中后的牌例。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0008",
+            "verdict": "faithful",
+            "evidence": "上家打出4饼或6饼时鸣牌形成翻牌后付形的原文及图3引用均保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0009",
+            "verdict": "faithful",
+            "evidence": "图3对应的图片出现被关联到吃6饼后的牌例。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0010",
+            "verdict": "faithful",
+            "evidence": "图2、图3的和牌与防御比较、摸4万转断幺、拆中撑2巡、后付条件及赤牌速度麻将的论述完整保留；“以防御力优先的鸣牌”的强调标记也保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0011",
+            "verdict": "faithful",
+            "evidence": "赤5饼及宝牌6索的牌例对应原图。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0012",
+            "verdict": "faithful",
+            "evidence": "3900点、上家的4饼或6饼、宝牌2张以上及速度优先的原文完整保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0013",
+            "verdict": "faithful",
+            "evidence": "图4对应的图片出现被关联到宝牌为8索的牌例。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0014",
+            "verdict": "faithful",
+            "evidence": "图4实战中能够鸣的牌都应鸣及分隔线均按原文保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0015",
+            "verdict": "faithful",
+            "evidence": "图5使用已审原图复用，其牌码与后文东场亲家、发为宝牌及1万和7索的讨论相符。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0016",
+            "verdict": "faithful",
+            "evidence": "东场亲家、确定满贯、对上级者的限制、不宜吃1万和7索，以及避免暴露役牌后付的原文均保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0017",
+            "verdict": "faithful",
+            "evidence": "已审原图复用对应7张未知牌背及碰8索、吃1万2万3万的副露。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0018",
+            "verdict": "faithful",
+            "evidence": "对打出宝牌发和双东的判断、图4看似断幺的说明及“待续”均按原文保留。"
+          }
+        ],
+        "figureChecks": [
+          {
+            "id": "79-bilibili-cn:cv1751276:b0005:figure",
+            "verdict": "faithful",
+            "evidence": "原图标注图1；牌序为5m 7m 7m 3p 5p 7p 3s 6s 7s 7s 8s 7z 7z，与转录一致。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0007:figure",
+            "verdict": "faithful",
+            "evidence": "原图标注图2；暗手及右侧三张中的碰牌与转录一致，末张中横置。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0009:figure",
+            "verdict": "faithful",
+            "evidence": "原图标注图3；暗手牌序与转录一致，右侧副露为横置6p、5p、7p。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0011:figure",
+            "verdict": "faithful",
+            "evidence": "手牌牌序、赤5p及右侧“宝牌”6s均与原图一致；日文“ドラ”已译为中文。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0013:figure",
+            "verdict": "faithful",
+            "evidence": "原图标注图4；13张手牌及右侧宝牌8s与转录一致。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0015:figure",
+            "verdict": "faithful",
+            "evidence": "该图属于已审原图复用；所列13张牌、宝牌6z与后文可吃1m或7s、发为宝牌及东场亲家的语境相符。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:b0017:figure",
+            "verdict": "faithful",
+            "evidence": "该图属于已审原图复用；碰8s和吃1m 2m 3m与图5及后文讨论相符，7张牌背的具体牌种已注明未展示。"
+          }
+        ],
+        "imageChecks": [
+          {
+            "id": "79-bilibili-cn:cv1751276:i00001",
+            "disposition": "represented",
+            "evidence": "对应图1牌例；例号及13张牌均已转录。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:i00002",
+            "disposition": "represented",
+            "evidence": "对应图2牌例；暗手和碰中的横置副露均已转录。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:i00003",
+            "disposition": "represented",
+            "evidence": "对应图3牌例；暗手和吃6p的副露均已转录。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:i00004",
+            "disposition": "represented",
+            "evidence": "赤5p手牌和标注为宝牌的6s均已转录。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:i00005",
+            "disposition": "represented",
+            "evidence": "图4例号、13张手牌和宝牌8s均已转录。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:i00006",
+            "disposition": "represented",
+            "evidence": "图5为已审原图复用；牌序和宝牌已转录，并与相邻教学文字相符。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1751276:i00007",
+            "disposition": "represented",
+            "evidence": "该副露图为已审原图复用；两组副露和7张未揭示牌种的牌背均已表示。"
+          }
+        ],
+        "domOrder": {
+          "faithful": true,
+          "evidence": "候选按源正文b0001至b0018的顺序依次保留文本和七次图片出现；图例均位于对应正文位置。"
+        },
+        "semanticCompleteness": {
+          "complete": true,
+          "evidence": "全文中文原文、署名和原文地址完整保留；七个图例的牌码、例号、横置副露、赤牌及宝牌标注均有对应表示。图5及其副露图使用已审原图复用，牌码与相邻论述相符；牌背的具体牌种明确未展示。"
+        },
+        "issues": [],
+        "completeArticleCompared": true,
+        "summary": "全文18个正文块、7个图例和7次图片出现均已逐项核对，未发现需要修复的教学语义缺失或偏差。"
+      },
+      "failure": null,
+      "uniqueCandidateBefore": 0,
+      "uniqueCandidateAfter": 1,
+      "resultRowsForSHA": 1,
+      "selectionAfter": {
+        "schema": "coach-explicit-audit-selection/1",
+        "configPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\explicit-targets-coac248-157-11-r1-20261028.json",
+        "maxTargets": 1,
+        "retryFailed": false,
+        "selected": [],
+        "terminalSkips": [
+          {
+            "key": "cv1751276:1807377cc8f71afec95718f5050584a596690efac5658042cf75563f3d69dadc",
+            "status": "passed",
+            "source": "receipt",
+            "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751276.1807377cc8f71afec95718f5050584a596690efac5658042cf75563f3d69dadc.json"
+          }
+        ],
+        "pendingBefore": 0,
+        "modelCalls": 0
+      },
+      "manifest": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\runtime-manifest.json",
+        "sha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+        "files": 27
+      },
+      "dependencyManifest": {
+        "schema": "coach-textbook-audit-verification-dependencies/1",
+        "entry": "textbook-audit-web.mjs",
+        "files": [
+          {
+            "name": "textbook-audit-pdf-layout.mjs",
+            "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06"
+          },
+          {
+            "name": "textbook-audit-pdf-native-corrections.mjs",
+            "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05"
+          },
+          {
+            "name": "textbook-audit-pdf-native-structure-corrections.mjs",
+            "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b"
+          },
+          {
+            "name": "textbook-audit-pdf-native.mjs",
+            "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+          },
+          {
+            "name": "textbook-audit-pdf-scope.mjs",
+            "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf"
+          },
+          {
+            "name": "textbook-audit-pdf-source-corrections.mjs",
+            "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff"
+          },
+          {
+            "name": "textbook-audit-tile-dictionary.mjs",
+            "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30"
+          },
+          {
+            "name": "textbook-audit-web-batches.mjs",
+            "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69"
+          },
+          {
+            "name": "textbook-audit-web.mjs",
+            "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b"
+          },
+          {
+            "name": "textbook-audit.mjs",
+            "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+          },
+          {
+            "name": "textbook-production-cli.mjs",
+            "sha256": "403eb168fb725aa990792089eb7d6e29d55903fcf9e22d2cfce253fd675a3d01"
+          }
+        ],
+        "pageApprovals": [],
+        "manifestSha256": "e47baa835ba4b862ce1659bab9015491397aafdd582d81399fc2e0b8d37e0e8a"
+      },
+      "reviewIsolation": "Unmodified frozen full source/candidate projection; no producer conclusions or coordinator readings appended.",
+      "historicalProduction": {
+        "callId": "940cf63b-732f-417f-b4a5-c1469ac6e202",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "unchanged": true
+      }
+    }
+  ],
+  "passed": [
+    "79-cn-chapter-157-11"
+  ],
+  "returned": []
+}
