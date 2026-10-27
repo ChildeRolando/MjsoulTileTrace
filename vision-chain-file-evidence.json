@@ -1,0 +1,1814 @@
+{
+  "schema": "coac244-vision-chain-file-evidence/1",
+  "scope": "081-8,128-14,145-4,205-5 sampled existing calls; no new model calls",
+  "cases": [
+    {
+      "selection": {
+        "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1721475.r1.json",
+        "candidateSha256": "d1fc1ea8f072cc73c3c1a1649f3a7608f6fd55ecb38be8ff19a34340d5c2a3dd",
+        "stageReceiptPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T13-28-23-528Z\\stages\\79-bilibili-cn-cv1721475\\web-stage-receipt.json",
+        "auditStatus": "passed",
+        "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1721475.d1fc1ea8f072cc73c3c1a1649f3a7608f6fd55ecb38be8ff19a34340d5c2a3dd.json",
+        "chapterIds": [
+          "79-bilibili-cn-cv1721475-chapter"
+        ]
+      },
+      "candidateHashMatches": true,
+      "auditSha256": "f1328e6a67ddce5f3df448d8533ac7e83009a7e18132ae7e6c070d5385468458",
+      "auditStatus": "passed",
+      "method": "independent-sol-high-full-article-review",
+      "verification": "automatic-independent-review-not-user-human-gold-standard",
+      "calls": [
+        {
+          "callId": "563fb29b-10ba-471f-bb8c-e91e1e2cb224",
+          "scope": "textbook-web-article-audit",
+          "sourceId": "79-bilibili-cn",
+          "articleId": "cv1721475",
+          "model": "gpt-6.1-sol",
+          "reasoningEffort": "high",
+          "success": true,
+          "usage": {
+            "inputTokens": 27327,
+            "cachedInputTokens": 0,
+            "outputTokens": 3705
+          },
+          "promptSha256": "17eaddcb39e864e20ce2c26c3f8b4af138ddd60ef5c9cc409d39db70582013b6",
+          "semanticPromptSha256": "1a877af55e8a2bf2c465ad8ce51093c79dcae08c9446a4f7be8a877c5f26dd4c",
+          "schemaSha256": "4c1183571162b4ea6540e02f0775f6570b0ec8e91ad5d10301324bf1da3a2d9e",
+          "outputSha256": "fb29bc840e9988124a265acb1a4e9c5759179b1bceda74dccbabfa1de5b7adb9",
+          "requestPromptBytes": 32048,
+          "semanticPromptBytes": 31566,
+          "binding": {
+            "productionSha256": "d1fc1ea8f072cc73c3c1a1649f3a7608f6fd55ecb38be8ff19a34340d5c2a3dd",
+            "sourceFileSha256": "f0f3fe12b457bc7d0ffcb34cfc6b1e4e5e37781759f55ebe22cbfdc8343b55f3",
+            "auditorSnapshotSha256": "3cd55e4a54a0e8f720a689a33e267967f52b7ea4c6782038e191a6911c7d295f",
+            "semanticProjectionSha256": "1dc12a98dfc77b0f23e4741d33e179cb26f5bb7a2ea0e614b01736dc5f6c4b65",
+            "semanticProjectionVersion": 2,
+            "verifiedAssetIds": [
+              "79-bilibili-cn:3e68b823a60677add5db2e0c",
+              "79-bilibili-cn:ba51446343b1c67b3a7ae429",
+              "79-bilibili-cn:44974f93afd9947b7031c8dd",
+              "79-bilibili-cn:92b3e53ccff7f5f895e98b4d"
+            ],
+            "originalImageAssetIds": [
+              "79-bilibili-cn:ab9cc71a1af86bf64f6da122",
+              "79-bilibili-cn:833e19ed86bffbabb4d3d891",
+              "79-bilibili-cn:a51ceb00107add7f64c93800",
+              "79-bilibili-cn:fe4a23c22dc5db2d844260a6"
+            ],
+            "supplementalInputs": [
+              {
+                "assetId": "79-bilibili-cn:ab9cc71a1af86bf64f6da122",
+                "sourcePath": "web-sources/v1/79-bilibili-cn/assets/36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506.png",
+                "sourceSha256": "36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506",
+                "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+                "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506.x2.png",
+                "sha256": "662e2fdad9c01e73653221bbaf5914585876c72cbed8b15815d453c380e4196c",
+                "role": "nearest-neighbor-enlargement",
+                "scale": 2,
+                "resampling": "nearest",
+                "width": 924,
+                "height": 546
+              },
+              {
+                "assetId": "79-bilibili-cn:833e19ed86bffbabb4d3d891",
+                "sourcePath": "web-sources/v1/79-bilibili-cn/assets/2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56.png",
+                "sourceSha256": "2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56",
+                "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+                "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56.x4.png",
+                "sha256": "902e9be25bb5a214f39f73a5ed2bfa702051c5266b9f9d1a1c247b83faeba7f2",
+                "role": "nearest-neighbor-enlargement",
+                "scale": 4,
+                "resampling": "nearest",
+                "width": 2160,
+                "height": 676
+              },
+              {
+                "assetId": "79-bilibili-cn:a51ceb00107add7f64c93800",
+                "sourcePath": "web-sources/v1/79-bilibili-cn/assets/ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825.png",
+                "sourceSha256": "ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825",
+                "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+                "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825.x4.png",
+                "sha256": "4cb88e83f08cfeeaa21425fb3eb98efae3c4051ececfc830ac5714b06e099429",
+                "role": "nearest-neighbor-enlargement",
+                "scale": 4,
+                "resampling": "nearest",
+                "width": 2096,
+                "height": 448
+              },
+              {
+                "assetId": "79-bilibili-cn:fe4a23c22dc5db2d844260a6",
+                "sourcePath": "web-sources/v1/79-bilibili-cn/assets/eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5.png",
+                "sourceSha256": "eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5",
+                "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+                "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5.x4.png",
+                "sha256": "72c6363a29751641547fe3dd24eeca5e0be0bdc0bd87d22cfcfaafe9f96d6f04",
+                "role": "nearest-neighbor-enlargement",
+                "scale": 4,
+                "resampling": "nearest",
+                "width": 1856,
+                "height": 880
+              }
+            ]
+          },
+          "recordedAt": "2026-10-27T11:53:34.858Z"
+        }
+      ],
+      "exactReuse": null,
+      "auditor": {
+        "path": "audit/web/auditors/453ba938015d244e36a1b8aad05e7500c598de7a5dd97768f2defab4b973b8e1.json",
+        "sha256": "3cd55e4a54a0e8f720a689a33e267967f52b7ea4c6782038e191a6911c7d295f",
+        "combinedSha256": "453ba938015d244e36a1b8aad05e7500c598de7a5dd97768f2defab4b973b8e1"
+      },
+      "verifiedAssets": null,
+      "revisionInheritance": {
+        "revision": {
+          "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1721475.display.json",
+          "parentSha256": "50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853",
+          "notesPath": "audit/web/articles/79-bilibili-cn/cv1721475.50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853.json",
+          "notesSha256": "c5513deefd2d8863fdfed92bbd725fb934199174a0556a9c18e6774b143aea86",
+          "figureIds": [
+            "79-bilibili-cn:cv1721475:b0004:figure",
+            "79-bilibili-cn:cv1721475:b0006:figure",
+            "79-bilibili-cn:cv1721475:b0008:figure",
+            "79-bilibili-cn:cv1721475:b0018:figure"
+          ]
+        },
+        "parentAudit": {
+          "path": "audit/web/articles/79-bilibili-cn/cv1721475.50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853.json",
+          "sha256": "c5513deefd2d8863fdfed92bbd725fb934199174a0556a9c18e6774b143aea86",
+          "originalStatus": "needs-repair"
+        },
+        "parentCall": {
+          "callId": "164a2e0d-7fa4-46d3-839f-30fa57d47064",
+          "path": "audit/calls/164a2e0d-7fa4-46d3-839f-30fa57d47064.json",
+          "sha256": "94e4d5e8500d54c8c6038d8761cd8f74a0b2dae9c49f41ff1365d720b1f79fd6"
+        },
+        "inheritedAssetIds": [
+          "79-bilibili-cn:3e68b823a60677add5db2e0c",
+          "79-bilibili-cn:ba51446343b1c67b3a7ae429",
+          "79-bilibili-cn:44974f93afd9947b7031c8dd",
+          "79-bilibili-cn:92b3e53ccff7f5f895e98b4d"
+        ]
+      },
+      "modelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "issues": [],
+      "figureChecks": [
+        {
+          "id": "79-bilibili-cn:cv1721475:b0004:figure",
+          "verdict": "faithful",
+          "evidence": "例1为1222m11237p5567s，摸8p。切1m对应1p4p6p9p5s8s、20张；切1p对应1m2m6p9p5s8s、21张；切5s对应1m2m1p4p6p9p、21张。空白首列表头及其余表头保留，“ツモ”“切り”已译。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721475:b0006:figure",
+          "verdict": "faithful",
+          "evidence": "变化A为222m12378p45567s、10种33张；变化B为222m12378p55677s、9种29张。例2为136778m2234p278s，摸2m。三行标签、牌序及数字均相符。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721475:b0008:figure",
+          "verdict": "faithful",
+          "evidence": "变化A为12356778m234p78s、10种33张；变化B为12367789m234p78s、9种29张。两行标签与全部牌位相符。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721475:b0010:figure",
+          "verdict": "faithful",
+          "evidence": "采用已独立视觉校验的有限原图复用；例3转录为89m4445567p1236s，摸3s，例号与摸牌标签完整，对应后文切8万、切5饼的比较。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721475:b0012:figure",
+          "verdict": "faithful",
+          "evidence": "采用已审原图复用；空白首列表头、听牌机会与进张数均保留。切8m行依次为9m3p5p6p8p2s5s、23张；切5p行为7m8m9m1s2s3s6s5s、25张，符合正文两张进张差。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721475:b0014:figure",
+          "verdict": "faithful",
+          "evidence": "采用已审原图复用；例4转录为11233456m23556p，摸5p，例号、摸牌及重复牌数量完整，对应后续切6饼与切3万。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721475:b0016:figure",
+          "verdict": "faithful",
+          "evidence": "采用已审原图复用；切6p行为1m2m3m4m6m7m1p2p3p4p、31张；切3m行为1m4m7m1p4p6p7p、24张。表头、两行格位及牌序完整。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721475:b0018:figure",
+          "verdict": "faithful",
+          "evidence": "例5为56m12367p234666s，摸5s。切6m行为5m5p8p1s2s4s5s7s、28张；切2s行为4m5m6m7m5p6p7p8p、28张。鸟形牌为1s，例号、表头和全部格位完整。"
+        }
+      ],
+      "recovery": {},
+      "rawCalls": [
+        {
+          "path": "audit\\calls\\563fb29b-10ba-471f-bb8c-e91e1e2cb224.json",
+          "sha256": "a2f5fa625133ba7acf0b85ee530410eec69ceeafb9a568079d5c768a3b682340",
+          "keys": [
+            "output",
+            "rawLastMessage",
+            "rawStdout",
+            "usage",
+            "events",
+            "terminalEvents",
+            "usageLimitReached",
+            "unexpectedTool",
+            "exitCode",
+            "timedOut",
+            "outputOverflow",
+            "stderr",
+            "success",
+            "durationMs",
+            "startedAt",
+            "requestPrompt",
+            "requestPromptSha256",
+            "usageLimitCanary",
+            "callId",
+            "scope",
+            "sourceId",
+            "articleId",
+            "model",
+            "reasoningEffort",
+            "promptSha256",
+            "semanticPromptSha256",
+            "schemaSha256",
+            "outputSha256",
+            "requestPromptBytes",
+            "semanticPromptBytes",
+            "binding",
+            "recordedAt",
+            "prompt",
+            "schema"
+          ],
+          "callId": "563fb29b-10ba-471f-bb8c-e91e1e2cb224",
+          "usage": {
+            "inputTokens": 27327,
+            "cachedInputTokens": 0,
+            "outputTokens": 3705
+          },
+          "exitCode": 0,
+          "timedOut": false,
+          "unexpectedTool": false,
+          "success": true,
+          "durationMs": 103021,
+          "startedAt": "2026-10-27T11:51:51.834Z",
+          "model": "gpt-6.1-sol",
+          "reasoningEffort": "high",
+          "requestPromptSha256": "17eaddcb39e864e20ce2c26c3f8b4af138ddd60ef5c9cc409d39db70582013b6",
+          "visualInputs": [],
+          "binding": {
+            "productionSha256": "d1fc1ea8f072cc73c3c1a1649f3a7608f6fd55ecb38be8ff19a34340d5c2a3dd",
+            "sourceFileSha256": "f0f3fe12b457bc7d0ffcb34cfc6b1e4e5e37781759f55ebe22cbfdc8343b55f3",
+            "auditorSnapshotSha256": "3cd55e4a54a0e8f720a689a33e267967f52b7ea4c6782038e191a6911c7d295f",
+            "semanticProjectionSha256": "1dc12a98dfc77b0f23e4741d33e179cb26f5bb7a2ea0e614b01736dc5f6c4b65",
+            "semanticProjectionVersion": 2,
+            "verifiedAssetIds": [
+              "79-bilibili-cn:3e68b823a60677add5db2e0c",
+              "79-bilibili-cn:ba51446343b1c67b3a7ae429",
+              "79-bilibili-cn:44974f93afd9947b7031c8dd",
+              "79-bilibili-cn:92b3e53ccff7f5f895e98b4d"
+            ],
+            "originalImageAssetIds": [
+              "79-bilibili-cn:ab9cc71a1af86bf64f6da122",
+              "79-bilibili-cn:833e19ed86bffbabb4d3d891",
+              "79-bilibili-cn:a51ceb00107add7f64c93800",
+              "79-bilibili-cn:fe4a23c22dc5db2d844260a6"
+            ],
+            "supplementalInputs": [
+              {
+                "assetId": "79-bilibili-cn:ab9cc71a1af86bf64f6da122",
+                "sourcePath": "web-sources/v1/79-bilibili-cn/assets/36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506.png",
+                "sourceSha256": "36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506",
+                "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+                "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506.x2.png",
+                "sha256": "662e2fdad9c01e73653221bbaf5914585876c72cbed8b15815d453c380e4196c",
+                "role": "nearest-neighbor-enlargement",
+                "scale": 2,
+                "resampling": "nearest",
+                "width": 924,
+                "height": 546
+              },
+              {
+                "assetId": "79-bilibili-cn:833e19ed86bffbabb4d3d891",
+                "sourcePath": "web-sources/v1/79-bilibili-cn/assets/2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56.png",
+                "sourceSha256": "2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56",
+                "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+                "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56.x4.png",
+                "sha256": "902e9be25bb5a214f39f73a5ed2bfa702051c5266b9f9d1a1c247b83faeba7f2",
+                "role": "nearest-neighbor-enlargement",
+                "scale": 4,
+                "resampling": "nearest",
+                "width": 2160,
+                "height": 676
+              },
+              {
+                "assetId": "79-bilibili-cn:a51ceb00107add7f64c93800",
+                "sourcePath": "web-sources/v1/79-bilibili-cn/assets/ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825.png",
+                "sourceSha256": "ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825",
+                "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+                "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825.x4.png",
+                "sha256": "4cb88e83f08cfeeaa21425fb3eb98efae3c4051ececfc830ac5714b06e099429",
+                "role": "nearest-neighbor-enlargement",
+                "scale": 4,
+                "resampling": "nearest",
+                "width": 2096,
+                "height": 448
+              },
+              {
+                "assetId": "79-bilibili-cn:fe4a23c22dc5db2d844260a6",
+                "sourcePath": "web-sources/v1/79-bilibili-cn/assets/eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5.png",
+                "sourceSha256": "eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5",
+                "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+                "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5.x4.png",
+                "sha256": "72c6363a29751641547fe3dd24eeca5e0be0bdc0bd87d22cfcfaafe9f96d6f04",
+                "role": "nearest-neighbor-enlargement",
+                "scale": 4,
+                "resampling": "nearest",
+                "width": 1856,
+                "height": 880
+              }
+            ]
+          },
+          "supplementalInputs": [
+            {
+              "assetId": "79-bilibili-cn:ab9cc71a1af86bf64f6da122",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506.png",
+              "sourceSha256": "36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506.x2.png",
+              "sha256": "662e2fdad9c01e73653221bbaf5914585876c72cbed8b15815d453c380e4196c",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 2,
+              "resampling": "nearest",
+              "width": 924,
+              "height": 546,
+              "exists": true,
+              "actualSha256": "662e2fdad9c01e73653221bbaf5914585876c72cbed8b15815d453c380e4196c",
+              "hashMatches": true,
+              "actualDimensions": [
+                924,
+                546
+              ],
+              "exactFullImageNearestNeighbor": true
+            },
+            {
+              "assetId": "79-bilibili-cn:833e19ed86bffbabb4d3d891",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56.png",
+              "sourceSha256": "2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56.x4.png",
+              "sha256": "902e9be25bb5a214f39f73a5ed2bfa702051c5266b9f9d1a1c247b83faeba7f2",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 2160,
+              "height": 676,
+              "exists": true,
+              "actualSha256": "902e9be25bb5a214f39f73a5ed2bfa702051c5266b9f9d1a1c247b83faeba7f2",
+              "hashMatches": true,
+              "actualDimensions": [
+                2160,
+                676
+              ],
+              "exactFullImageNearestNeighbor": true
+            },
+            {
+              "assetId": "79-bilibili-cn:a51ceb00107add7f64c93800",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825.png",
+              "sourceSha256": "ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825.x4.png",
+              "sha256": "4cb88e83f08cfeeaa21425fb3eb98efae3c4051ececfc830ac5714b06e099429",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 2096,
+              "height": 448,
+              "exists": true,
+              "actualSha256": "4cb88e83f08cfeeaa21425fb3eb98efae3c4051ececfc830ac5714b06e099429",
+              "hashMatches": true,
+              "actualDimensions": [
+                2096,
+                448
+              ],
+              "exactFullImageNearestNeighbor": true
+            },
+            {
+              "assetId": "79-bilibili-cn:fe4a23c22dc5db2d844260a6",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5.png",
+              "sourceSha256": "eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5.x4.png",
+              "sha256": "72c6363a29751641547fe3dd24eeca5e0be0bdc0bd87d22cfcfaafe9f96d6f04",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 1856,
+              "height": 880,
+              "exists": true,
+              "actualSha256": "72c6363a29751641547fe3dd24eeca5e0be0bdc0bd87d22cfcfaafe9f96d6f04",
+              "hashMatches": true,
+              "actualDimensions": [
+                1856,
+                880
+              ],
+              "exactFullImageNearestNeighbor": true
+            }
+          ],
+          "sourceFileHashMatches": true,
+          "originalInputs": [
+            {
+              "assetId": "79-bilibili-cn:ab9cc71a1af86bf64f6da122",
+              "path": "web-sources/v1/79-bilibili-cn/assets/36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506.png",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506.png",
+              "sha256": "36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506",
+              "role": "original",
+              "scale": 1,
+              "width": null,
+              "height": null,
+              "exists": true,
+              "actualSha256": "36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506",
+              "hashMatches": true,
+              "actualDimensions": [
+                462,
+                273
+              ],
+              "exactFullImageNearestNeighbor": true
+            },
+            {
+              "assetId": "79-bilibili-cn:833e19ed86bffbabb4d3d891",
+              "path": "web-sources/v1/79-bilibili-cn/assets/2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56.png",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56.png",
+              "sha256": "2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56",
+              "role": "original",
+              "scale": 1,
+              "width": null,
+              "height": null,
+              "exists": true,
+              "actualSha256": "2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56",
+              "hashMatches": true,
+              "actualDimensions": [
+                540,
+                169
+              ],
+              "exactFullImageNearestNeighbor": true
+            },
+            {
+              "assetId": "79-bilibili-cn:a51ceb00107add7f64c93800",
+              "path": "web-sources/v1/79-bilibili-cn/assets/ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825.png",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825.png",
+              "sha256": "ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825",
+              "role": "original",
+              "scale": 1,
+              "width": null,
+              "height": null,
+              "exists": true,
+              "actualSha256": "ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825",
+              "hashMatches": true,
+              "actualDimensions": [
+                524,
+                112
+              ],
+              "exactFullImageNearestNeighbor": true
+            },
+            {
+              "assetId": "79-bilibili-cn:fe4a23c22dc5db2d844260a6",
+              "path": "web-sources/v1/79-bilibili-cn/assets/eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5.png",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5.png",
+              "sha256": "eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5",
+              "role": "original",
+              "scale": 1,
+              "width": null,
+              "height": null,
+              "exists": true,
+              "actualSha256": "eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5",
+              "hashMatches": true,
+              "actualDimensions": [
+                464,
+                220
+              ],
+              "exactFullImageNearestNeighbor": true
+            }
+          ],
+          "rawEventTypes": [
+            "thread.started",
+            "turn.started",
+            "item.completed",
+            "turn.completed"
+          ],
+          "rawOutputModelFields": [],
+          "stderr": "",
+          "rawVerdict": {
+            "figureChecks": [
+              {
+                "id": "79-bilibili-cn:cv1721475:b0004:figure",
+                "verdict": "faithful",
+                "evidence": "例1为1222m11237p5567s，摸8p。切1m对应1p4p6p9p5s8s、20张；切1p对应1m2m6p9p5s8s、21张；切5s对应1m2m1p4p6p9p、21张。空白首列表头及其余表头保留，“ツモ”“切り”已译。"
+              },
+              {
+                "id": "79-bilibili-cn:cv1721475:b0006:figure",
+                "verdict": "faithful",
+                "evidence": "变化A为222m12378p45567s、10种33张；变化B为222m12378p55677s、9种29张。例2为136778m2234p278s，摸2m。三行标签、牌序及数字均相符。"
+              },
+              {
+                "id": "79-bilibili-cn:cv1721475:b0008:figure",
+                "verdict": "faithful",
+                "evidence": "变化A为12356778m234p78s、10种33张；变化B为12367789m234p78s、9种29张。两行标签与全部牌位相符。"
+              },
+              {
+                "id": "79-bilibili-cn:cv1721475:b0010:figure",
+                "verdict": "faithful",
+                "evidence": "采用已独立视觉校验的有限原图复用；例3转录为89m4445567p1236s，摸3s，例号与摸牌标签完整，对应后文切8万、切5饼的比较。"
+              },
+              {
+                "id": "79-bilibili-cn:cv1721475:b0012:figure",
+                "verdict": "faithful",
+                "evidence": "采用已审原图复用；空白首列表头、听牌机会与进张数均保留。切8m行依次为9m3p5p6p8p2s5s、23张；切5p行为7m8m9m1s2s3s6s5s、25张，符合正文两张进张差。"
+              },
+              {
+                "id": "79-bilibili-cn:cv1721475:b0014:figure",
+                "verdict": "faithful",
+                "evidence": "采用已审原图复用；例4转录为11233456m23556p，摸5p，例号、摸牌及重复牌数量完整，对应后续切6饼与切3万。"
+              },
+              {
+                "id": "79-bilibili-cn:cv1721475:b0016:figure",
+                "verdict": "faithful",
+                "evidence": "采用已审原图复用；切6p行为1m2m3m4m6m7m1p2p3p4p、31张；切3m行为1m4m7m1p4p6p7p、24张。表头、两行格位及牌序完整。"
+              },
+              {
+                "id": "79-bilibili-cn:cv1721475:b0018:figure",
+                "verdict": "faithful",
+                "evidence": "例5为56m12367p234666s，摸5s。切6m行为5m5p8p1s2s4s5s7s、28张；切2s行为4m5m6m7m5p6p7p8p、28张。鸟形牌为1s，例号、表头和全部格位完整。"
+              }
+            ],
+            "semanticCompleteness": {
+              "complete": true,
+              "evidence": "已核对全部正文、8个figure及8次图片出现。中文原文、署名、原文地址、条件、判断力度、数字、总结强调及待续均保留；附图中的例号、日文标签、逐牌顺序和表格格位完整。其余4图按明确提供的已审原图复用证据核对，无教学语义缺失。"
+            },
+            "issues": [],
+            "completeArticleCompared": true,
+            "summary": "全文及全部图片出现均忠实对应，教学语义完整，无需修复。"
+          },
+          "promptBytes": 32048,
+          "promptHasReplacementCharacter": false
+        }
+      ],
+      "rawReviewEqualsReceipt": true
+    },
+    {
+      "selection": {
+        "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1734739.coac269rev1.json",
+        "candidateSha256": "c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae",
+        "stageReceiptPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T14-51-46-276Z/stages/79-bilibili-cn-cv1734739/web-stage-receipt.json",
+        "auditStatus": "passed-after-transport-recovery",
+        "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1734739.c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae.transport-recovery.json",
+        "chapterIds": [
+          "79-bilibili-cn-cv1734739-chapter"
+        ],
+        "transportRecovery": {
+          "originalAudit": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1734739.c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae.json",
+            "sha256": "28b577cc9da9717578782c1924fae3cb427750e149f0df7a790ebb80c595a74f"
+          },
+          "originalCall": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\74758209-082b-4b1c-913f-969162d93c9d.json",
+            "sha256": "843045050e0513a47a99c6d1e62607634a9162eb8abcd7bfd3c894c0a489af30",
+            "callId": "74758209-082b-4b1c-913f-969162d93c9d"
+          },
+          "reason": "Known TLS/WebSocket fallback diagnostics preceded a completed valid turn. Original failed classification and call remain unchanged.",
+          "verifier": {
+            "path": "audit/web/auditors/37e1be6ba9eaa3cab379ff621f0e4a737e9f0cc92c36a2448d9db2c242f4fe17.json",
+            "sha256": "cc22ef78d8bc532ece4d5b23e0449d46ff7d4fe28eb05511fc205d95db10fde2",
+            "combinedSha256": "37e1be6ba9eaa3cab379ff621f0e4a737e9f0cc92c36a2448d9db2c242f4fe17"
+          }
+        },
+        "ingestProvenancePath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T14-51-46-276Z/b8-source-notes.json"
+      },
+      "candidateHashMatches": true,
+      "auditSha256": "fd888b9931b599d1238a2eb4866baae06971feb1ee32624c1b23fa60093eca49",
+      "auditStatus": "passed-after-transport-recovery",
+      "method": "independent-sol-high-full-article-review",
+      "verification": "automatic-independent-review-not-user-human-gold-standard",
+      "calls": [
+        {
+          "callId": "74758209-082b-4b1c-913f-969162d93c9d",
+          "scope": "textbook-web-article-audit",
+          "sourceId": "79-bilibili-cn",
+          "articleId": "cv1734739",
+          "model": "gpt-6.1-sol",
+          "reasoningEffort": "high",
+          "success": false,
+          "usage": {
+            "inputTokens": 22329,
+            "cachedInputTokens": 0,
+            "outputTokens": 3677
+          },
+          "promptSha256": "de1426df109600e93d70f622c0a8b9a235c09d361324a1e7671ad7c2dd651336",
+          "semanticPromptSha256": "9036f476ee9fccc52c1c0b6ff7d072a481f54620abec3deeed12796f000fbb49",
+          "schemaSha256": "ccf9492dd30288728a56a9607e4cd91f78dd4c1c8acaf5a7d81ef18f95f83786",
+          "outputSha256": "9d30b7b97c736467a59d25184dfe527ffc3774d867931eca84c89c3e98af98d5",
+          "requestPromptBytes": 37385,
+          "semanticPromptBytes": 36903,
+          "binding": {
+            "productionSha256": "c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae",
+            "sourceFileSha256": "962fdd8860f2f756f1bc76054a5ef9ea2a5f82959e36da44aff79c57aee1d5ca",
+            "auditorSnapshotSha256": "f48b78aa24295d116ae728dac71e3a6c1612114fc1879761865aea37b1e774e3",
+            "semanticProjectionSha256": "b1e0c1a7edf996ece28d9af3e7a9ff2052c938a4695bed1ddae0d52075dbf90d",
+            "semanticProjectionVersion": 2,
+            "verifiedAssetIds": [
+              "79-bilibili-cn:0e75de2bbde88050412ad5d9",
+              "79-bilibili-cn:08d3ada15b8fab9d2dfd9de8",
+              "79-bilibili-cn:50741c83a2d7e4d0993b3c07",
+              "79-bilibili-cn:c7f50a1ca058925068108f4d",
+              "79-bilibili-cn:da84148ecc010076b55bf551",
+              "79-bilibili-cn:fe9d434a6671f18fad70f4a8"
+            ],
+            "originalImageAssetIds": [
+              "79-bilibili-cn:5c7f558c5e4fb6d5c22d9fdb"
+            ],
+            "supplementalInputs": [
+              {
+                "assetId": "79-bilibili-cn:5c7f558c5e4fb6d5c22d9fdb",
+                "sourcePath": "web-sources/v1/79-bilibili-cn/assets/15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855.png",
+                "sourceSha256": "15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855",
+                "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+                "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855.x4.png",
+                "sha256": "54f6865635147cb9ae4198816f46e22b4fbb80f3d69bf318c457145757384bdb",
+                "role": "nearest-neighbor-enlargement",
+                "scale": 4,
+                "resampling": "nearest",
+                "width": 1880,
+                "height": 264
+              }
+            ]
+          },
+          "recordedAt": "2026-10-27T13:29:02.544Z"
+        }
+      ],
+      "exactReuse": null,
+      "auditor": {
+        "path": "audit/web/auditors/856dad9d46d2d0d47436388e792caa2aac251ad68b4b8d03ff2e1fbd03158881.json",
+        "sha256": "f48b78aa24295d116ae728dac71e3a6c1612114fc1879761865aea37b1e774e3",
+        "combinedSha256": "856dad9d46d2d0d47436388e792caa2aac251ad68b4b8d03ff2e1fbd03158881"
+      },
+      "verifiedAssets": null,
+      "revisionInheritance": {
+        "revision": {
+          "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1734739.display.json",
+          "parentSha256": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec",
+          "notesPath": "audit/web/articles/79-bilibili-cn/cv1734739.2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec.retry-1792944840664-30f5eb57.json",
+          "notesSha256": "24ebc92c728006d8a4283c3f2bcf46790b4876bb094d6363d05decf8578b1f59",
+          "figureIds": [
+            "79-bilibili-cn:cv1734739:b0013:figure"
+          ]
+        },
+        "parentAudit": {
+          "path": "audit/web/articles/79-bilibili-cn/cv1734739.2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec.retry-1792944840664-30f5eb57.json",
+          "sha256": "24ebc92c728006d8a4283c3f2bcf46790b4876bb094d6363d05decf8578b1f59",
+          "originalStatus": "needs-repair"
+        },
+        "parentCall": {
+          "callId": "3d3b6a32-9f78-4cbf-810e-49d96c572c93",
+          "path": "audit/calls/3d3b6a32-9f78-4cbf-810e-49d96c572c93.json",
+          "sha256": "258c6595d610241cf60ea73b8703f8e4d1541210df50b291b8f1026106426c04"
+        },
+        "inheritedAssetIds": [
+          "79-bilibili-cn:0e75de2bbde88050412ad5d9",
+          "79-bilibili-cn:08d3ada15b8fab9d2dfd9de8",
+          "79-bilibili-cn:50741c83a2d7e4d0993b3c07",
+          "79-bilibili-cn:c7f50a1ca058925068108f4d",
+          "79-bilibili-cn:da84148ecc010076b55bf551",
+          "79-bilibili-cn:fe9d434a6671f18fad70f4a8"
+        ]
+      },
+      "modelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "issues": [],
+      "figureChecks": [
+        {
+          "id": "79-bilibili-cn:cv1734739:b0005:figure",
+          "verdict": "faithful",
+          "evidence": "依已核原图复用证据核对：例1，手牌2m 3m 4m 2p 3p 4p 7p 8p 9p 9p 9p 2s 4s 4s，宝牌4s；与切2索保留三面听及嵌3索比较的正文对应。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1734739:b0007:figure",
+          "verdict": "faithful",
+          "evidence": "依已核原图复用证据核对：例2，手牌1m 2m 3m 3p 4p 4p 1s 1s 3s 4s 5s 5s 6s 7s，宝牌4p；支持正文切宝牌取平和的比较。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1734739:b0009:figure",
+          "verdict": "faithful",
+          "evidence": "依已核原图复用证据核对：例3，手牌3p 4p 4p 2m 2m 6m 6m 6m；碰2s 2s横置 2s及7z横置 7z 7z，宝牌3p；两处碰标签及横置位置保留，与切3饼做对对的正文对应。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1734739:b0011:figure",
+          "verdict": "faithful",
+          "evidence": "依已核原图复用证据核对：例4，手牌2m 3m 4m 6m 7m 3p 4p 8p 8p 9p 9p 9p 2s 3s，宝牌6m；234三色、宝牌搭子及8饼9饼的正文讨论均有对应。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1734739:b0013:figure",
+          "verdict": "faithful",
+          "evidence": "独立视觉核对所附原图及放大图：左侧为例5，手牌依次2m 2m 4m 5m 6m 2p 3p 3p 4p 6p 4s 5s 6s 7s，共14张，均直置，无赤牌；右侧“ドラ”译为宝牌，对应3p。转录完整准确，两张3p与正文宝牌2一致。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1734739:b0015:figure",
+          "verdict": "faithful",
+          "evidence": "依已核原图复用证据核对：例6，手牌4m 5m 6m 7m 2p 2p 3p 4p 5p 8p 3s 4s 5s 5s，宝牌8p；与切宝牌做断平三色的正文对应。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1734739:b0017:figure",
+          "verdict": "faithful",
+          "evidence": "依已核原图复用证据核对：例7，手牌1m 3m 3m 4m 5m 7m 8m 5p 7p 5s 5z 5z 1z 7z，宝牌5s；白板说明明确，东、中及5饼7饼搭子均与正文对应。"
+        }
+      ],
+      "recovery": {
+        "transportRecovery": {
+          "originalAudit": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1734739.c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae.json",
+            "sha256": "28b577cc9da9717578782c1924fae3cb427750e149f0df7a790ebb80c595a74f"
+          },
+          "originalCall": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\74758209-082b-4b1c-913f-969162d93c9d.json",
+            "sha256": "843045050e0513a47a99c6d1e62607634a9162eb8abcd7bfd3c894c0a489af30",
+            "callId": "74758209-082b-4b1c-913f-969162d93c9d"
+          },
+          "reason": "Known TLS/WebSocket fallback diagnostics preceded a completed valid turn. Original failed classification and call remain unchanged.",
+          "verifier": {
+            "path": "audit/web/auditors/37e1be6ba9eaa3cab379ff621f0e4a737e9f0cc92c36a2448d9db2c242f4fe17.json",
+            "sha256": "cc22ef78d8bc532ece4d5b23e0449d46ff7d4fe28eb05511fc205d95db10fde2",
+            "combinedSha256": "37e1be6ba9eaa3cab379ff621f0e4a737e9f0cc92c36a2448d9db2c242f4fe17"
+          }
+        }
+      },
+      "rawCalls": [
+        {
+          "path": "audit\\calls\\74758209-082b-4b1c-913f-969162d93c9d.json",
+          "sha256": "843045050e0513a47a99c6d1e62607634a9162eb8abcd7bfd3c894c0a489af30",
+          "keys": [
+            "output",
+            "rawLastMessage",
+            "rawStdout",
+            "usage",
+            "events",
+            "terminalEvents",
+            "usageLimitReached",
+            "unexpectedTool",
+            "exitCode",
+            "timedOut",
+            "outputOverflow",
+            "stderr",
+            "success",
+            "durationMs",
+            "startedAt",
+            "requestPrompt",
+            "requestPromptSha256",
+            "usageLimitCanary",
+            "callId",
+            "scope",
+            "sourceId",
+            "articleId",
+            "model",
+            "reasoningEffort",
+            "promptSha256",
+            "semanticPromptSha256",
+            "schemaSha256",
+            "outputSha256",
+            "requestPromptBytes",
+            "semanticPromptBytes",
+            "binding",
+            "recordedAt",
+            "prompt",
+            "schema"
+          ],
+          "callId": "74758209-082b-4b1c-913f-969162d93c9d",
+          "usage": {
+            "inputTokens": 22329,
+            "cachedInputTokens": 0,
+            "outputTokens": 3677
+          },
+          "exitCode": 0,
+          "timedOut": false,
+          "unexpectedTool": true,
+          "success": false,
+          "durationMs": 229491,
+          "startedAt": "2026-10-27T13:25:13.050Z",
+          "model": "gpt-6.1-sol",
+          "reasoningEffort": "high",
+          "requestPromptSha256": "de1426df109600e93d70f622c0a8b9a235c09d361324a1e7671ad7c2dd651336",
+          "visualInputs": [],
+          "binding": {
+            "productionSha256": "c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae",
+            "sourceFileSha256": "962fdd8860f2f756f1bc76054a5ef9ea2a5f82959e36da44aff79c57aee1d5ca",
+            "auditorSnapshotSha256": "f48b78aa24295d116ae728dac71e3a6c1612114fc1879761865aea37b1e774e3",
+            "semanticProjectionSha256": "b1e0c1a7edf996ece28d9af3e7a9ff2052c938a4695bed1ddae0d52075dbf90d",
+            "semanticProjectionVersion": 2,
+            "verifiedAssetIds": [
+              "79-bilibili-cn:0e75de2bbde88050412ad5d9",
+              "79-bilibili-cn:08d3ada15b8fab9d2dfd9de8",
+              "79-bilibili-cn:50741c83a2d7e4d0993b3c07",
+              "79-bilibili-cn:c7f50a1ca058925068108f4d",
+              "79-bilibili-cn:da84148ecc010076b55bf551",
+              "79-bilibili-cn:fe9d434a6671f18fad70f4a8"
+            ],
+            "originalImageAssetIds": [
+              "79-bilibili-cn:5c7f558c5e4fb6d5c22d9fdb"
+            ],
+            "supplementalInputs": [
+              {
+                "assetId": "79-bilibili-cn:5c7f558c5e4fb6d5c22d9fdb",
+                "sourcePath": "web-sources/v1/79-bilibili-cn/assets/15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855.png",
+                "sourceSha256": "15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855",
+                "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+                "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855.x4.png",
+                "sha256": "54f6865635147cb9ae4198816f46e22b4fbb80f3d69bf318c457145757384bdb",
+                "role": "nearest-neighbor-enlargement",
+                "scale": 4,
+                "resampling": "nearest",
+                "width": 1880,
+                "height": 264
+              }
+            ]
+          },
+          "supplementalInputs": [
+            {
+              "assetId": "79-bilibili-cn:5c7f558c5e4fb6d5c22d9fdb",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855.png",
+              "sourceSha256": "15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855.x4.png",
+              "sha256": "54f6865635147cb9ae4198816f46e22b4fbb80f3d69bf318c457145757384bdb",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 1880,
+              "height": 264,
+              "exists": true,
+              "actualSha256": "54f6865635147cb9ae4198816f46e22b4fbb80f3d69bf318c457145757384bdb",
+              "hashMatches": true,
+              "actualDimensions": [
+                1880,
+                264
+              ],
+              "exactFullImageNearestNeighbor": true
+            }
+          ],
+          "sourceFileHashMatches": true,
+          "originalInputs": [
+            {
+              "assetId": "79-bilibili-cn:5c7f558c5e4fb6d5c22d9fdb",
+              "path": "web-sources/v1/79-bilibili-cn/assets/15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855.png",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855.png",
+              "sha256": "15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855",
+              "role": "original",
+              "scale": 1,
+              "width": null,
+              "height": null,
+              "exists": true,
+              "actualSha256": "15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855",
+              "hashMatches": true,
+              "actualDimensions": [
+                470,
+                66
+              ],
+              "exactFullImageNearestNeighbor": true
+            }
+          ],
+          "rawEventTypes": [
+            "thread.started",
+            "turn.started",
+            "error",
+            "error",
+            "error",
+            "error",
+            "item.completed",
+            "item.completed",
+            "turn.completed"
+          ],
+          "rawOutputModelFields": [],
+          "stderr": "2026-10-27T13:25:18.253870Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n2026-10-27T13:25:18.258145Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n",
+          "rawVerdict": {
+            "figureChecks": [
+              {
+                "id": "79-bilibili-cn:cv1734739:b0005:figure",
+                "verdict": "faithful",
+                "evidence": "依已核原图复用证据核对：例1，手牌2m 3m 4m 2p 3p 4p 7p 8p 9p 9p 9p 2s 4s 4s，宝牌4s；与切2索保留三面听及嵌3索比较的正文对应。"
+              },
+              {
+                "id": "79-bilibili-cn:cv1734739:b0007:figure",
+                "verdict": "faithful",
+                "evidence": "依已核原图复用证据核对：例2，手牌1m 2m 3m 3p 4p 4p 1s 1s 3s 4s 5s 5s 6s 7s，宝牌4p；支持正文切宝牌取平和的比较。"
+              },
+              {
+                "id": "79-bilibili-cn:cv1734739:b0009:figure",
+                "verdict": "faithful",
+                "evidence": "依已核原图复用证据核对：例3，手牌3p 4p 4p 2m 2m 6m 6m 6m；碰2s 2s横置 2s及7z横置 7z 7z，宝牌3p；两处碰标签及横置位置保留，与切3饼做对对的正文对应。"
+              },
+              {
+                "id": "79-bilibili-cn:cv1734739:b0011:figure",
+                "verdict": "faithful",
+                "evidence": "依已核原图复用证据核对：例4，手牌2m 3m 4m 6m 7m 3p 4p 8p 8p 9p 9p 9p 2s 3s，宝牌6m；234三色、宝牌搭子及8饼9饼的正文讨论均有对应。"
+              },
+              {
+                "id": "79-bilibili-cn:cv1734739:b0013:figure",
+                "verdict": "faithful",
+                "evidence": "独立视觉核对所附原图及放大图：左侧为例5，手牌依次2m 2m 4m 5m 6m 2p 3p 3p 4p 6p 4s 5s 6s 7s，共14张，均直置，无赤牌；右侧“ドラ”译为宝牌，对应3p。转录完整准确，两张3p与正文宝牌2一致。"
+              },
+              {
+                "id": "79-bilibili-cn:cv1734739:b0015:figure",
+                "verdict": "faithful",
+                "evidence": "依已核原图复用证据核对：例6，手牌4m 5m 6m 7m 2p 2p 3p 4p 5p 8p 3s 4s 5s 5s，宝牌8p；与切宝牌做断平三色的正文对应。"
+              },
+              {
+                "id": "79-bilibili-cn:cv1734739:b0017:figure",
+                "verdict": "faithful",
+                "evidence": "依已核原图复用证据核对：例7，手牌1m 3m 3m 4m 5m 7m 8m 5p 7p 5s 5z 5z 1z 7z，宝牌5s；白板说明明确，东、中及5饼7饼搭子均与正文对应。"
+              }
+            ],
+            "semanticCompleteness": {
+              "complete": true,
+              "evidence": "全部18个正文块、7个figure及7次图片出现均已审阅。中文正文、原文地址、译者署名、数字、判断条件、论证及两处绿色强调完整保留；例1至例7的牌序、宝牌及例3副露完整表示。例5经本次附图独立视觉核对，其余六图按提供的已核原图复用证据逐次核对。源数据无表格。"
+            },
+            "issues": [],
+            "completeArticleCompared": true,
+            "summary": "全文及七次教学图片出现均忠实完整，例5附图逐牌核对一致，无需修复。"
+          },
+          "promptBytes": 37385,
+          "promptHasReplacementCharacter": false
+        }
+      ],
+      "rawReviewEqualsReceipt": true,
+      "originalCallHashMatches": true
+    },
+    {
+      "selection": {
+        "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1744266.coac269rev1.json",
+        "candidateSha256": "07a511d4efb0dc246763ba7d2b114ac7203ab9b7109f7fcc12cfe4302751d284",
+        "stageReceiptPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T14-51-46-276Z/stages/79-bilibili-cn-cv1744266/web-stage-receipt.json",
+        "auditStatus": "passed-after-transport-recovery",
+        "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1744266.07a511d4efb0dc246763ba7d2b114ac7203ab9b7109f7fcc12cfe4302751d284.transport-recovery.json",
+        "chapterIds": [
+          "79-bilibili-cn-cv1744266-chapter"
+        ],
+        "transportRecovery": {
+          "originalAudit": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1744266.07a511d4efb0dc246763ba7d2b114ac7203ab9b7109f7fcc12cfe4302751d284.json",
+            "sha256": "b5dd725ab0946c81604a12d0816101f066564e4cf86cf34aabfd8e24353b74fe"
+          },
+          "originalCall": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\173e0c99-d6f8-430f-855c-add4848d7543.json",
+            "sha256": "bb84ae1dc046435d811656019915563d7dfe57c463230b8b5ecef9064531ab77",
+            "callId": "173e0c99-d6f8-430f-855c-add4848d7543"
+          },
+          "reason": "Known TLS/WebSocket fallback diagnostics preceded a completed valid turn. Original failed classification and call remain unchanged.",
+          "verifier": {
+            "path": "audit/web/auditors/37e1be6ba9eaa3cab379ff621f0e4a737e9f0cc92c36a2448d9db2c242f4fe17.json",
+            "sha256": "cc22ef78d8bc532ece4d5b23e0449d46ff7d4fe28eb05511fc205d95db10fde2",
+            "combinedSha256": "37e1be6ba9eaa3cab379ff621f0e4a737e9f0cc92c36a2448d9db2c242f4fe17"
+          }
+        },
+        "ingestProvenancePath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T14-51-46-276Z/b8-source-notes.json"
+      },
+      "candidateHashMatches": true,
+      "auditSha256": "d3d2fe4bbf563afaeeadf5e5ad963b21143e228aa3f9cfcea54d33e9f7824b4d",
+      "auditStatus": "passed-after-transport-recovery",
+      "method": "independent-sol-high-full-article-review",
+      "verification": "automatic-independent-review-not-user-human-gold-standard",
+      "calls": [
+        {
+          "callId": "173e0c99-d6f8-430f-855c-add4848d7543",
+          "scope": "textbook-web-article-audit",
+          "sourceId": "79-bilibili-cn",
+          "articleId": "cv1744266",
+          "model": "gpt-6.1-sol",
+          "reasoningEffort": "high",
+          "success": false,
+          "usage": {
+            "inputTokens": 20592,
+            "cachedInputTokens": 0,
+            "outputTokens": 2603
+          },
+          "promptSha256": "0714b56adfcc3daad2eb242970e32f2d672edfb188c798d97edd2f68ec099e46",
+          "semanticPromptSha256": "ed51a9f91ddac720ecaf1847498add9b87f46c2327c22b68bf3a0f4a4ece6e9a",
+          "schemaSha256": "de1554261c6f1d91cac597abf0a9dd9f6ef4acc9b922a79c14082b18d5125311",
+          "outputSha256": "58fe8d76badbc3911b7ae2986c0705f5d4fa510f4f95d2af085029c2a33b3977",
+          "requestPromptBytes": 34022,
+          "semanticPromptBytes": 33540,
+          "binding": {
+            "productionSha256": "07a511d4efb0dc246763ba7d2b114ac7203ab9b7109f7fcc12cfe4302751d284",
+            "sourceFileSha256": "baf759cb6de68be0a0f5cd66957aae705ee59bb8350ef8530138e714b484e1b4",
+            "auditorSnapshotSha256": "f48b78aa24295d116ae728dac71e3a6c1612114fc1879761865aea37b1e774e3",
+            "semanticProjectionSha256": "d0455950fa0f067c2c48186968c89c8139ab323d508e7bfe61aa0debcce88020",
+            "semanticProjectionVersion": 2,
+            "verifiedAssetIds": [
+              "79-bilibili-cn:d87fedf01ef1637960417690",
+              "79-bilibili-cn:d236f72045f797165ff8bf81",
+              "79-bilibili-cn:50ce6ccbf077fe0a5a68950d",
+              "79-bilibili-cn:828813d8a1dc06b8ff386f44"
+            ],
+            "originalImageAssetIds": [
+              "79-bilibili-cn:fbec021f4caea2d000f1efc1"
+            ],
+            "supplementalInputs": [
+              {
+                "assetId": "79-bilibili-cn:fbec021f4caea2d000f1efc1",
+                "sourcePath": "web-sources/v1/79-bilibili-cn/assets/f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3.jpg",
+                "sourceSha256": "f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3",
+                "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+                "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3.x4.png",
+                "sha256": "6be0dfd797f7aa8a9c5cd8f64683d997c898d02a86b6388905cc6183f4ce997e",
+                "role": "nearest-neighbor-enlargement",
+                "scale": 4,
+                "resampling": "nearest",
+                "width": 1724,
+                "height": 204
+              }
+            ]
+          },
+          "recordedAt": "2026-10-27T13:33:25.016Z"
+        }
+      ],
+      "exactReuse": null,
+      "auditor": {
+        "path": "audit/web/auditors/856dad9d46d2d0d47436388e792caa2aac251ad68b4b8d03ff2e1fbd03158881.json",
+        "sha256": "f48b78aa24295d116ae728dac71e3a6c1612114fc1879761865aea37b1e774e3",
+        "combinedSha256": "856dad9d46d2d0d47436388e792caa2aac251ad68b4b8d03ff2e1fbd03158881"
+      },
+      "verifiedAssets": null,
+      "revisionInheritance": {
+        "revision": {
+          "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1744266.display.json",
+          "parentSha256": "7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a",
+          "notesPath": "audit/web/articles/79-bilibili-cn/cv1744266.7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a.retry-1792948017171-19a0c0ed.json",
+          "notesSha256": "b349c80320f24c247e9e3b33f6b0e6dc3aba1970401340656e6b7fd91fc6103d",
+          "figureIds": [
+            "79-bilibili-cn:cv1744266:b0005:figure"
+          ]
+        },
+        "parentAudit": {
+          "path": "audit/web/articles/79-bilibili-cn/cv1744266.7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a.retry-1792948017171-19a0c0ed.json",
+          "sha256": "b349c80320f24c247e9e3b33f6b0e6dc3aba1970401340656e6b7fd91fc6103d",
+          "originalStatus": "needs-repair"
+        },
+        "parentCall": {
+          "callId": "41eb9844-a3ae-49b5-a88e-283a3299d453",
+          "path": "audit/calls/41eb9844-a3ae-49b5-a88e-283a3299d453.json",
+          "sha256": "610b2edb8478c4a85361e1b6f67d897ea3582b879b01d2d5c6ebd1f3fee7e83c"
+        },
+        "inheritedAssetIds": [
+          "79-bilibili-cn:d87fedf01ef1637960417690",
+          "79-bilibili-cn:d236f72045f797165ff8bf81",
+          "79-bilibili-cn:50ce6ccbf077fe0a5a68950d",
+          "79-bilibili-cn:828813d8a1dc06b8ff386f44"
+        ]
+      },
+      "modelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "issues": [],
+      "figureChecks": [
+        {
+          "id": "79-bilibili-cn:cv1744266:b0005:figure",
+          "verdict": "faithful",
+          "evidence": "附图可见例1；手牌依次为2m 6m 2p 2p 4p 7p 5s 5s 5s 8s 9s 1z 7z，右侧为5s，与转录一致。“ツモ”完整译为“摸入”。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1744266:b0007:figure",
+          "verdict": "faithful",
+          "evidence": "依已核原图复用记录，例2为2s 3s 4s 4s 6s 6s 6s，摸入6s，另有123s吃和999s碰；顺序、横置标记及例号完整，与正文杠6索会失去5索听牌的说明对应。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1744266:b0009:figure",
+          "verdict": "faithful",
+          "evidence": "依已核原图复用记录，例3为2m 3m 3m 5m 6m 5p 5p 6p 6p 6p 3s 4s 5s，摸入6p；例号和牌序完整，与正文进张及切2万的分析对应。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1744266:b0011:figure",
+          "verdict": "faithful",
+          "evidence": "依已核原图复用记录，例4为7m 8m 9m 4p 5p 7p 8p 9p 7s 8s 4z 4z 4z，摸入4z；例号和牌序完整，与正文平和及789三色可能性的说明对应。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1744266:b0013:figure",
+          "verdict": "faithful",
+          "evidence": "依已核原图复用记录，上排13张手牌、右侧打出的1z、向下箭头、下排10张手牌及四张1z副露均完整记录；与未听牌时大明杠的反例对应。"
+        }
+      ],
+      "recovery": {
+        "transportRecovery": {
+          "originalAudit": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1744266.07a511d4efb0dc246763ba7d2b114ac7203ab9b7109f7fcc12cfe4302751d284.json",
+            "sha256": "b5dd725ab0946c81604a12d0816101f066564e4cf86cf34aabfd8e24353b74fe"
+          },
+          "originalCall": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\173e0c99-d6f8-430f-855c-add4848d7543.json",
+            "sha256": "bb84ae1dc046435d811656019915563d7dfe57c463230b8b5ecef9064531ab77",
+            "callId": "173e0c99-d6f8-430f-855c-add4848d7543"
+          },
+          "reason": "Known TLS/WebSocket fallback diagnostics preceded a completed valid turn. Original failed classification and call remain unchanged.",
+          "verifier": {
+            "path": "audit/web/auditors/37e1be6ba9eaa3cab379ff621f0e4a737e9f0cc92c36a2448d9db2c242f4fe17.json",
+            "sha256": "cc22ef78d8bc532ece4d5b23e0449d46ff7d4fe28eb05511fc205d95db10fde2",
+            "combinedSha256": "37e1be6ba9eaa3cab379ff621f0e4a737e9f0cc92c36a2448d9db2c242f4fe17"
+          }
+        }
+      },
+      "rawCalls": [
+        {
+          "path": "audit\\calls\\173e0c99-d6f8-430f-855c-add4848d7543.json",
+          "sha256": "bb84ae1dc046435d811656019915563d7dfe57c463230b8b5ecef9064531ab77",
+          "keys": [
+            "output",
+            "rawLastMessage",
+            "rawStdout",
+            "usage",
+            "events",
+            "terminalEvents",
+            "usageLimitReached",
+            "unexpectedTool",
+            "exitCode",
+            "timedOut",
+            "outputOverflow",
+            "stderr",
+            "success",
+            "durationMs",
+            "startedAt",
+            "requestPrompt",
+            "requestPromptSha256",
+            "usageLimitCanary",
+            "callId",
+            "scope",
+            "sourceId",
+            "articleId",
+            "model",
+            "reasoningEffort",
+            "promptSha256",
+            "semanticPromptSha256",
+            "schemaSha256",
+            "outputSha256",
+            "requestPromptBytes",
+            "semanticPromptBytes",
+            "binding",
+            "recordedAt",
+            "prompt",
+            "schema"
+          ],
+          "callId": "173e0c99-d6f8-430f-855c-add4848d7543",
+          "usage": {
+            "inputTokens": 20592,
+            "cachedInputTokens": 0,
+            "outputTokens": 2603
+          },
+          "exitCode": 0,
+          "timedOut": false,
+          "unexpectedTool": true,
+          "success": false,
+          "durationMs": 245075,
+          "startedAt": "2026-10-27T13:29:19.939Z",
+          "model": "gpt-6.1-sol",
+          "reasoningEffort": "high",
+          "requestPromptSha256": "0714b56adfcc3daad2eb242970e32f2d672edfb188c798d97edd2f68ec099e46",
+          "visualInputs": [],
+          "binding": {
+            "productionSha256": "07a511d4efb0dc246763ba7d2b114ac7203ab9b7109f7fcc12cfe4302751d284",
+            "sourceFileSha256": "baf759cb6de68be0a0f5cd66957aae705ee59bb8350ef8530138e714b484e1b4",
+            "auditorSnapshotSha256": "f48b78aa24295d116ae728dac71e3a6c1612114fc1879761865aea37b1e774e3",
+            "semanticProjectionSha256": "d0455950fa0f067c2c48186968c89c8139ab323d508e7bfe61aa0debcce88020",
+            "semanticProjectionVersion": 2,
+            "verifiedAssetIds": [
+              "79-bilibili-cn:d87fedf01ef1637960417690",
+              "79-bilibili-cn:d236f72045f797165ff8bf81",
+              "79-bilibili-cn:50ce6ccbf077fe0a5a68950d",
+              "79-bilibili-cn:828813d8a1dc06b8ff386f44"
+            ],
+            "originalImageAssetIds": [
+              "79-bilibili-cn:fbec021f4caea2d000f1efc1"
+            ],
+            "supplementalInputs": [
+              {
+                "assetId": "79-bilibili-cn:fbec021f4caea2d000f1efc1",
+                "sourcePath": "web-sources/v1/79-bilibili-cn/assets/f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3.jpg",
+                "sourceSha256": "f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3",
+                "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+                "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3.x4.png",
+                "sha256": "6be0dfd797f7aa8a9c5cd8f64683d997c898d02a86b6388905cc6183f4ce997e",
+                "role": "nearest-neighbor-enlargement",
+                "scale": 4,
+                "resampling": "nearest",
+                "width": 1724,
+                "height": 204
+              }
+            ]
+          },
+          "supplementalInputs": [
+            {
+              "assetId": "79-bilibili-cn:fbec021f4caea2d000f1efc1",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3.jpg",
+              "sourceSha256": "f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3.x4.png",
+              "sha256": "6be0dfd797f7aa8a9c5cd8f64683d997c898d02a86b6388905cc6183f4ce997e",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 1724,
+              "height": 204,
+              "exists": true,
+              "actualSha256": "6be0dfd797f7aa8a9c5cd8f64683d997c898d02a86b6388905cc6183f4ce997e",
+              "hashMatches": true,
+              "actualDimensions": [
+                1724,
+                204
+              ],
+              "exactFullImageNearestNeighbor": true
+            }
+          ],
+          "sourceFileHashMatches": true,
+          "originalInputs": [
+            {
+              "assetId": "79-bilibili-cn:fbec021f4caea2d000f1efc1",
+              "path": "web-sources/v1/79-bilibili-cn/assets/f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3.jpg",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3.jpg",
+              "sha256": "f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3",
+              "role": "original",
+              "scale": 1,
+              "width": null,
+              "height": null,
+              "exists": true,
+              "actualSha256": "f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3",
+              "hashMatches": true,
+              "actualDimensions": [
+                431,
+                51
+              ],
+              "exactFullImageNearestNeighbor": true
+            }
+          ],
+          "rawEventTypes": [
+            "thread.started",
+            "turn.started",
+            "error",
+            "error",
+            "error",
+            "error",
+            "item.completed",
+            "error",
+            "error",
+            "error",
+            "item.completed",
+            "turn.completed"
+          ],
+          "rawOutputModelFields": [],
+          "stderr": "2026-10-27T13:29:25.121533Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n",
+          "rawVerdict": {
+            "figureChecks": [
+              {
+                "id": "79-bilibili-cn:cv1744266:b0005:figure",
+                "verdict": "faithful",
+                "evidence": "附图可见例1；手牌依次为2m 6m 2p 2p 4p 7p 5s 5s 5s 8s 9s 1z 7z，右侧为5s，与转录一致。“ツモ”完整译为“摸入”。"
+              },
+              {
+                "id": "79-bilibili-cn:cv1744266:b0007:figure",
+                "verdict": "faithful",
+                "evidence": "依已核原图复用记录，例2为2s 3s 4s 4s 6s 6s 6s，摸入6s，另有123s吃和999s碰；顺序、横置标记及例号完整，与正文杠6索会失去5索听牌的说明对应。"
+              },
+              {
+                "id": "79-bilibili-cn:cv1744266:b0009:figure",
+                "verdict": "faithful",
+                "evidence": "依已核原图复用记录，例3为2m 3m 3m 5m 6m 5p 5p 6p 6p 6p 3s 4s 5s，摸入6p；例号和牌序完整，与正文进张及切2万的分析对应。"
+              },
+              {
+                "id": "79-bilibili-cn:cv1744266:b0011:figure",
+                "verdict": "faithful",
+                "evidence": "依已核原图复用记录，例4为7m 8m 9m 4p 5p 7p 8p 9p 7s 8s 4z 4z 4z，摸入4z；例号和牌序完整，与正文平和及789三色可能性的说明对应。"
+              },
+              {
+                "id": "79-bilibili-cn:cv1744266:b0013:figure",
+                "verdict": "faithful",
+                "evidence": "依已核原图复用记录，上排13张手牌、右侧打出的1z、向下箭头、下排10张手牌及四张1z副露均完整记录；与未听牌时大明杠的反例对应。"
+              }
+            ],
+            "semanticCompleteness": {
+              "complete": true,
+              "evidence": "全部14个正文块及5次图片出现均已核对。中文正文、原文地址、译者署名、六节论述、条件与例外、数字和公式、原有强调，以及图中牌序、例号与摸牌标记均完整保留；源无表格。"
+            },
+            "issues": [],
+            "completeArticleCompared": true,
+            "summary": "本次提供的完整教学语义核对通过，未发现需要修复或阻断的不确定项。"
+          },
+          "promptBytes": 34022,
+          "promptHasReplacementCharacter": false
+        }
+      ],
+      "rawReviewEqualsReceipt": true,
+      "originalCallHashMatches": true
+    }
+  ],
+  "production": [
+    {
+      "path": "web-production\\v1\\raw-calls\\64227eb7-60cb-482f-a24b-0f26ce33fa51.json",
+      "sha256": "ba67e2eba922585410c2d42eb86c5eb584d0af202350c4d788789bf9634d6536",
+      "keys": [
+        "callId",
+        "rawLastMessage",
+        "rawStdout",
+        "parsedOutput",
+        "events",
+        "terminalEvents",
+        "stderr",
+        "usage",
+        "requestPrompt",
+        "requestPromptSha256",
+        "semanticPrompt",
+        "schema",
+        "cliSha256",
+        "visualInputs",
+        "unexpectedTool",
+        "exitCode",
+        "timedOut",
+        "outputOverflow",
+        "timeoutMs",
+        "usageLimitReached",
+        "admissionStopWriteError"
+      ],
+      "callId": "64227eb7-60cb-482f-a24b-0f26ce33fa51",
+      "usage": {
+        "inputTokens": 22164,
+        "cachedInputTokens": 0,
+        "outputTokens": 2013
+      },
+      "exitCode": 0,
+      "timedOut": false,
+      "unexpectedTool": false,
+      "requestPromptSha256": "99c700793a36866882966e92bc68134152993b56fd1ed8028cca2c4b851a3967",
+      "cliSha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1",
+      "visualInputs": [
+        {
+          "assetId": "79-bilibili-cn:ab9cc71a1af86bf64f6da122",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506.png",
+          "sourceSha256": "36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506.png",
+          "sha256": "36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 462,
+          "height": 273,
+          "exists": true,
+          "actualSha256": "36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506",
+          "hashMatches": true,
+          "actualDimensions": [
+            462,
+            273
+          ],
+          "exactFullImageNearestNeighbor": true
+        },
+        {
+          "assetId": "79-bilibili-cn:ab9cc71a1af86bf64f6da122",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506.png",
+          "sourceSha256": "36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/36c5a7c1755a8ce1a9c7216b5ceaf5ae8550bfb19d129593acc1061f7c0f1506.x2.png",
+          "sha256": "662e2fdad9c01e73653221bbaf5914585876c72cbed8b15815d453c380e4196c",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 2,
+          "resampling": "nearest",
+          "width": 924,
+          "height": 546,
+          "exists": true,
+          "actualSha256": "662e2fdad9c01e73653221bbaf5914585876c72cbed8b15815d453c380e4196c",
+          "hashMatches": true,
+          "actualDimensions": [
+            924,
+            546
+          ],
+          "exactFullImageNearestNeighbor": true
+        },
+        {
+          "assetId": "79-bilibili-cn:833e19ed86bffbabb4d3d891",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56.png",
+          "sourceSha256": "2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56.png",
+          "sha256": "2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 540,
+          "height": 169,
+          "exists": true,
+          "actualSha256": "2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56",
+          "hashMatches": true,
+          "actualDimensions": [
+            540,
+            169
+          ],
+          "exactFullImageNearestNeighbor": true
+        },
+        {
+          "assetId": "79-bilibili-cn:833e19ed86bffbabb4d3d891",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56.png",
+          "sourceSha256": "2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/2e074a4f03a651235c65b84bcfee0b70982872133c66ad9c05b7bb4147d8fd56.x4.png",
+          "sha256": "902e9be25bb5a214f39f73a5ed2bfa702051c5266b9f9d1a1c247b83faeba7f2",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 2160,
+          "height": 676,
+          "exists": true,
+          "actualSha256": "902e9be25bb5a214f39f73a5ed2bfa702051c5266b9f9d1a1c247b83faeba7f2",
+          "hashMatches": true,
+          "actualDimensions": [
+            2160,
+            676
+          ],
+          "exactFullImageNearestNeighbor": true
+        },
+        {
+          "assetId": "79-bilibili-cn:a51ceb00107add7f64c93800",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825.png",
+          "sourceSha256": "ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825.png",
+          "sha256": "ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 524,
+          "height": 112,
+          "exists": true,
+          "actualSha256": "ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825",
+          "hashMatches": true,
+          "actualDimensions": [
+            524,
+            112
+          ],
+          "exactFullImageNearestNeighbor": true
+        },
+        {
+          "assetId": "79-bilibili-cn:a51ceb00107add7f64c93800",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825.png",
+          "sourceSha256": "ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/ebd4f2c41b1401487df66adf2f68059e266a157d89869cbe247f7488263f1825.x4.png",
+          "sha256": "4cb88e83f08cfeeaa21425fb3eb98efae3c4051ececfc830ac5714b06e099429",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 2096,
+          "height": 448,
+          "exists": true,
+          "actualSha256": "4cb88e83f08cfeeaa21425fb3eb98efae3c4051ececfc830ac5714b06e099429",
+          "hashMatches": true,
+          "actualDimensions": [
+            2096,
+            448
+          ],
+          "exactFullImageNearestNeighbor": true
+        },
+        {
+          "assetId": "79-bilibili-cn:fe4a23c22dc5db2d844260a6",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5.png",
+          "sourceSha256": "eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5.png",
+          "sha256": "eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 464,
+          "height": 220,
+          "exists": true,
+          "actualSha256": "eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5",
+          "hashMatches": true,
+          "actualDimensions": [
+            464,
+            220
+          ],
+          "exactFullImageNearestNeighbor": true
+        },
+        {
+          "assetId": "79-bilibili-cn:fe4a23c22dc5db2d844260a6",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5.png",
+          "sourceSha256": "eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/eb15601a130ecd670091ef8240f5b831d9982388819d04c378e3f799707362b5.x4.png",
+          "sha256": "72c6363a29751641547fe3dd24eeca5e0be0bdc0bd87d22cfcfaafe9f96d6f04",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 1856,
+          "height": 880,
+          "exists": true,
+          "actualSha256": "72c6363a29751641547fe3dd24eeca5e0be0bdc0bd87d22cfcfaafe9f96d6f04",
+          "hashMatches": true,
+          "actualDimensions": [
+            1856,
+            880
+          ],
+          "exactFullImageNearestNeighbor": true
+        }
+      ],
+      "binding": null,
+      "rawEventTypes": [
+        "thread.started",
+        "turn.started",
+        "item.completed",
+        "turn.completed"
+      ],
+      "rawOutputModelFields": [],
+      "stderr": "2026-10-27T11:50:12.106481Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n",
+      "rawVerdict": {},
+      "promptBytes": 17439,
+      "promptHasReplacementCharacter": false
+    },
+    {
+      "path": "web-production\\v1\\raw-calls\\21f6e4f9-868e-4bcf-82ad-91d904d95cd6.json",
+      "sha256": "9ec9bf0e84c62185b2258294946371ac90918f0745248bdffbd77c6f095759f5",
+      "keys": [
+        "callId",
+        "rawLastMessage",
+        "rawStdout",
+        "parsedOutput",
+        "events",
+        "terminalEvents",
+        "stderr",
+        "usage",
+        "requestPrompt",
+        "requestPromptSha256",
+        "semanticPrompt",
+        "schema",
+        "cliSha256",
+        "visualInputs",
+        "unexpectedTool",
+        "exitCode",
+        "timedOut",
+        "outputOverflow",
+        "timeoutMs",
+        "usageLimitReached",
+        "admissionStopWriteError"
+      ],
+      "callId": "21f6e4f9-868e-4bcf-82ad-91d904d95cd6",
+      "usage": {
+        "inputTokens": 16565,
+        "cachedInputTokens": 0,
+        "outputTokens": 267
+      },
+      "exitCode": 0,
+      "timedOut": false,
+      "unexpectedTool": false,
+      "requestPromptSha256": "cd1aeb50e20658171a43822a009d5e945430ce33600e58cca4d194d5d2ea2abf",
+      "cliSha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1",
+      "visualInputs": [
+        {
+          "assetId": "79-bilibili-cn:5c7f558c5e4fb6d5c22d9fdb",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855.png",
+          "sourceSha256": "15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855.png",
+          "sha256": "15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 470,
+          "height": 66,
+          "exists": true,
+          "actualSha256": "15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855",
+          "hashMatches": true,
+          "actualDimensions": [
+            470,
+            66
+          ],
+          "exactFullImageNearestNeighbor": true
+        },
+        {
+          "assetId": "79-bilibili-cn:5c7f558c5e4fb6d5c22d9fdb",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855.png",
+          "sourceSha256": "15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855.x4.png",
+          "sha256": "54f6865635147cb9ae4198816f46e22b4fbb80f3d69bf318c457145757384bdb",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 1880,
+          "height": 264,
+          "exists": true,
+          "actualSha256": "54f6865635147cb9ae4198816f46e22b4fbb80f3d69bf318c457145757384bdb",
+          "hashMatches": true,
+          "actualDimensions": [
+            1880,
+            264
+          ],
+          "exactFullImageNearestNeighbor": true
+        }
+      ],
+      "binding": null,
+      "rawEventTypes": [
+        "thread.started",
+        "turn.started",
+        "error",
+        "error",
+        "error",
+        "item.completed",
+        "turn.completed"
+      ],
+      "rawOutputModelFields": [],
+      "stderr": "2026-10-27T12:42:15.764217Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n2026-10-27T12:42:15.769474Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n",
+      "rawVerdict": {},
+      "promptBytes": 19060,
+      "promptHasReplacementCharacter": false
+    },
+    {
+      "path": "web-production\\v1\\raw-calls\\c1a7d02f-b322-48df-96f9-a80a1ea8a8cf.json",
+      "sha256": "4b17b1c9cfa114eabcdffcb244ccb84e4f23181dc3c8b7528d0aa2b7fea25a82",
+      "keys": [
+        "callId",
+        "rawLastMessage",
+        "rawStdout",
+        "parsedOutput",
+        "events",
+        "terminalEvents",
+        "stderr",
+        "usage",
+        "requestPrompt",
+        "requestPromptSha256",
+        "semanticPrompt",
+        "schema",
+        "cliSha256",
+        "visualInputs",
+        "unexpectedTool",
+        "exitCode",
+        "timedOut",
+        "outputOverflow",
+        "timeoutMs",
+        "usageLimitReached",
+        "admissionStopWriteError"
+      ],
+      "callId": "c1a7d02f-b322-48df-96f9-a80a1ea8a8cf",
+      "usage": {
+        "inputTokens": 15670,
+        "cachedInputTokens": 0,
+        "outputTokens": 515
+      },
+      "exitCode": 0,
+      "timedOut": false,
+      "unexpectedTool": false,
+      "requestPromptSha256": "d085a598142744d4bd9612c55c2ed8a54fab1ecbc008515a53fab4e087160808",
+      "cliSha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1",
+      "visualInputs": [
+        {
+          "assetId": "79-bilibili-cn:fbec021f4caea2d000f1efc1",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3.jpg",
+          "sourceSha256": "f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3.jpg",
+          "sha256": "f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 431,
+          "height": 51,
+          "exists": true,
+          "actualSha256": "f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3",
+          "hashMatches": true,
+          "actualDimensions": [
+            431,
+            51
+          ],
+          "exactFullImageNearestNeighbor": true
+        },
+        {
+          "assetId": "79-bilibili-cn:fbec021f4caea2d000f1efc1",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3.jpg",
+          "sourceSha256": "f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3.x4.png",
+          "sha256": "6be0dfd797f7aa8a9c5cd8f64683d997c898d02a86b6388905cc6183f4ce997e",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 1724,
+          "height": 204,
+          "exists": true,
+          "actualSha256": "6be0dfd797f7aa8a9c5cd8f64683d997c898d02a86b6388905cc6183f4ce997e",
+          "hashMatches": true,
+          "actualDimensions": [
+            1724,
+            204
+          ],
+          "exactFullImageNearestNeighbor": true
+        }
+      ],
+      "binding": null,
+      "rawEventTypes": [
+        "thread.started",
+        "turn.started",
+        "item.completed",
+        "turn.completed"
+      ],
+      "rawOutputModelFields": [],
+      "stderr": "2026-10-27T12:43:57.757340Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n",
+      "rawVerdict": {},
+      "promptBytes": 17505,
+      "promptHasReplacementCharacter": false
+    },
+    {
+      "path": "web-production\\v1\\raw-calls\\358f4e70-5660-4e0c-8918-6ad8a4287011.json",
+      "sha256": "4cf399c450ced144a4c36627f53a677ef83145872e34449fab4e145852a85fa5",
+      "keys": [
+        "callId",
+        "rawLastMessage",
+        "rawStdout",
+        "parsedOutput",
+        "events",
+        "terminalEvents",
+        "stderr",
+        "usage",
+        "requestPrompt",
+        "requestPromptSha256",
+        "semanticPrompt",
+        "schema",
+        "cliSha256",
+        "visualInputs",
+        "unexpectedTool",
+        "exitCode",
+        "timedOut",
+        "outputOverflow",
+        "timeoutMs",
+        "usageLimitReached",
+        "admissionStopWriteError"
+      ],
+      "callId": "358f4e70-5660-4e0c-8918-6ad8a4287011",
+      "usage": {
+        "inputTokens": 16342,
+        "cachedInputTokens": 0,
+        "outputTokens": 7186
+      },
+      "exitCode": 0,
+      "timedOut": false,
+      "unexpectedTool": false,
+      "requestPromptSha256": "4da78ba1cd4a2bf77df4eb6d0dd5ce9f8d650d03740c58bc22fd19f4bf519c3e",
+      "cliSha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1",
+      "visualInputs": [
+        {
+          "assetId": "79-bilibili-cn:247d210fdf40ab8a4a581955",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67.png",
+          "sourceSha256": "104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67.png",
+          "sha256": "104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 471,
+          "height": 501,
+          "exists": true,
+          "actualSha256": "104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67",
+          "hashMatches": true,
+          "actualDimensions": [
+            471,
+            501
+          ],
+          "exactFullImageNearestNeighbor": true
+        },
+        {
+          "assetId": "79-bilibili-cn:247d210fdf40ab8a4a581955",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67.png",
+          "sourceSha256": "104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67.x2.png",
+          "sha256": "e4d06edc7ff8f5d7523842b078cca3a0822993ec6a090f68ea3230f06fa41a62",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 2,
+          "resampling": "nearest",
+          "width": 942,
+          "height": 1002,
+          "exists": true,
+          "actualSha256": "e4d06edc7ff8f5d7523842b078cca3a0822993ec6a090f68ea3230f06fa41a62",
+          "hashMatches": true,
+          "actualDimensions": [
+            942,
+            1002
+          ],
+          "exactFullImageNearestNeighbor": true
+        }
+      ],
+      "binding": null,
+      "rawEventTypes": [
+        "thread.started",
+        "turn.started",
+        "item.completed",
+        "turn.completed"
+      ],
+      "rawOutputModelFields": [],
+      "stderr": "2026-10-27T14:46:12.072592Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n2026-10-27T14:46:12.078446Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n2026-10-27T14:50:47.069400Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n",
+      "rawVerdict": {},
+      "promptBytes": 14905,
+      "promptHasReplacementCharacter": false
+    }
+  ]
+}

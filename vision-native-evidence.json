@@ -1,0 +1,421 @@
+[
+  {
+    "path": "production/sol-high-field-repair26-20261027-p217e/candidates/79-cn/page-0217.json",
+    "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+    "status": "draft",
+    "candidateSha256": "953b58901a062f166820ba61cc5660a0146c8c2866058b088064c62f67ac1c62",
+    "calls": null,
+    "modelChecks": null,
+    "issues": null
+  },
+  {
+    "path": "audit/pages/nemata-jp/page-0257.6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88.6baa4a7e1404.json",
+    "sha256": "82b49d1750bc01c1c0bdee87ccd6190a78c7e0645fd7d738f802fb7b8b712144",
+    "status": "needs-repair",
+    "candidateSha256": null,
+    "calls": [
+      {
+        "schema": "coach-textbook-audit-call/1",
+        "callId": "f860de79-0df7-40dd-a1a2-0fa4bdedecb5",
+        "source": {
+          "sourceId": "nemata-jp",
+          "pdfSha256": "4d1c12042589a1b34d6e1f874b79b4ee1d79f4c1c26c62bda0ba94394e47250a",
+          "page": 257,
+          "pageDataSha256": "ca63823638f042d84419560d2618879b80972410d0e290f6b12c9860e19639a6"
+        },
+        "productionSha256": "6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88",
+        "pageImageSha256": "38ed79548927bc598b53cf6b7efd3e03a5235500a5321b0fcb8abad61f3541e9",
+        "auditorScriptSha256": "6baa4a7e14041a0ccb80f41ed4ee994428a9cda94b8bd420aeb70f4342c0b6da",
+        "imageBindings": [
+          {
+            "figureId": "nemata-jp-p257-r1",
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0257-r1.png",
+            "sha256": "62a6a6c4f94a754ca7e41d82bc32964736fd525331c29eafd9cb5ce68ca05397"
+          },
+          {
+            "figureId": "nemata-jp-p257-r2",
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0257-r2.png",
+            "sha256": "b6200260c2bafc289bc5526d92f7f2828dc4a57e272b863d1c297245e689cdde"
+          },
+          {
+            "figureId": "nemata-jp-p257-r3",
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0257-r3.png",
+            "sha256": "de1e1c5582eb48e447c14c5c9d3af1092759aaf14b64f6a1932b92f9dbc0993c"
+          },
+          {
+            "figureId": "nemata-jp-p257-r4",
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0257-r4.png",
+            "sha256": "5a58950b9b492a8dd3cf59c60cd19f2ec3e1380942f3cbb529ac06e0f4d0db92"
+          }
+        ],
+        "startedAt": "2026-10-26T10:07:00.500Z",
+        "finishedAt": "2026-10-26T10:09:22.992Z",
+        "durationMs": 142489,
+        "cliVersion": "codex-cli 0.162.1",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "parameters": {
+          "webSearch": "disabled",
+          "tools": "capability-restricted; unexpected-tool-events-rejected",
+          "ephemeral": true,
+          "ignoreUserConfig": true,
+          "ignoreRules": true,
+          "sandbox": "read-only",
+          "timeoutMs": 900000
+        },
+        "promptSha256": "1914c3db80a9c8f70fc66b8556cbd8c32609f7f6da79ae4e5b6fe3230948df94",
+        "semanticPromptSha256": "1914c3db80a9c8f70fc66b8556cbd8c32609f7f6da79ae4e5b6fe3230948df94",
+        "requestPromptSha256": "a9361e13f53707e42730ea84679cd28fe3af44e67aa34979807a197c5934f762",
+        "schemaSha256": "fc7fa4449ebc48f8afdb2a142825695c75649ec8e51af93cb0847061f81eafc8",
+        "success": true,
+        "usage": {
+          "inputTokens": 24533,
+          "cachedInputTokens": 0,
+          "outputTokens": 3100
+        },
+        "exitCode": 0,
+        "timedOut": false,
+        "outputOverflow": false,
+        "unexpectedTool": false,
+        "transportDiagnostics": [],
+        "failure": null,
+        "outputSha256": "8f22255493ef7de289ab585916de42c79b7eab1ac29b5adbaff47adbe8e032c9",
+        "structuredOutput": {
+          "bodyChecks": [
+            {
+              "id": "nemata-jp-p257-b1",
+              "verdict": "faithful",
+              "explanation": "保留了本页跨页残句的含义：诈唬属次要目的，主要目标仍是和牌，此类做法也有效。"
+            },
+            {
+              "id": "nemata-jp-p257-b2",
+              "verdict": "faithful",
+              "explanation": "游戏名称、复式模式及与CPU比较结果的含义完整。"
+            },
+            {
+              "id": "nemata-jp-p257-b5",
+              "verdict": "faithful",
+              "explanation": "问题10标题准确。"
+            },
+            {
+              "id": "nemata-jp-p257-b6",
+              "verdict": "faithful",
+              "explanation": "准确保留续接问题5的关系。"
+            },
+            {
+              "id": "nemata-jp-p257-b7",
+              "verdict": "faithful",
+              "explanation": "南1局、西家、第6巡、宝牌7s、持点21,000及一发、里宝牌、赤宝牌的5,000点相当祝仪条件均已保留。"
+            },
+            {
+              "id": "nemata-jp-p257-b8",
+              "verdict": "faithful",
+              "explanation": "与前块合译完整，保留赤宝牌鸣牌后仍有祝仪的条件。"
+            },
+            {
+              "id": "nemata-jp-p257-b9",
+              "verdict": "faithful",
+              "explanation": "答案与解说标题准确，位置正确。"
+            },
+            {
+              "id": "nemata-jp-p257-b10",
+              "verdict": "faithful",
+              "explanation": "“打”与句内7s图例正确组成“打出7s”。"
+            },
+            {
+              "id": "nemata-jp-p257-b11",
+              "verdict": "faithful",
+              "explanation": "页眉题名及网址均保留，放在视觉页首符合原页。"
+            },
+            {
+              "id": "nemata-jp-p257-b12",
+              "verdict": "faithful",
+              "explanation": "页码、总页数及日期时间准确。"
+            }
+          ],
+          "figureChecks": [
+            {
+              "id": "nemata-jp-p257-r1",
+              "verdict": "uncertain",
+              "explanation": "四幅画面的比较关系、起始手牌、和牌展示、役种及点数与原图相符。但CPU结果的多张可见河牌仍被记为无法辨认或多个候选，不能完成全部牌河的逐张核验；这些牌面不能按背面朝上的未知暗手处理。"
+            },
+            {
+              "id": "nemata-jp-p257-r2",
+              "verdict": "faithful",
+              "explanation": "原图为普通7s；正文标为宝牌，候选没有误作宝牌指示牌。"
+            },
+            {
+              "id": "nemata-jp-p257-r3",
+              "verdict": "faithful",
+              "explanation": "14张牌为0666888m 56677p 07s，赤五万、赤五索及普通五筒均准确；没有擅自指定摸牌或副露。"
+            },
+            {
+              "id": "nemata-jp-p257-r4",
+              "verdict": "faithful",
+              "explanation": "指定舍牌为普通7s，与原图及相邻“打”字一致。"
+            }
+          ],
+          "imageChecks": [
+            {
+              "id": "nemata-jp-p257-b3",
+              "disposition": "represented",
+              "figureIds": [
+                "nemata-jp-p257-r1"
+              ],
+              "explanation": "由r1上排两幅起始画面承接。"
+            },
+            {
+              "id": "nemata-jp-p257-b4",
+              "disposition": "represented",
+              "figureIds": [
+                "nemata-jp-p257-r1"
+              ],
+              "explanation": "由r1下排两幅结果画面承接；CPU牌河的辨认问题另列为待核。"
+            },
+            {
+              "id": "nemata-jp-p257-b13",
+              "disposition": "represented",
+              "figureIds": [
+                "nemata-jp-p257-r2"
+              ],
+              "explanation": "宝牌7s已作为条件段落中的句内图表示。"
+            },
+            {
+              "id": "nemata-jp-p257-b14",
+              "disposition": "represented",
+              "figureIds": [
+                "nemata-jp-p257-r3"
+              ],
+              "explanation": "完整14张手牌由r3表示。"
+            },
+            {
+              "id": "nemata-jp-p257-b15",
+              "disposition": "represented",
+              "figureIds": [
+                "nemata-jp-p257-r4"
+              ],
+              "explanation": "答案中的舍牌7s已由r4表示。"
+            }
+          ],
+          "issues": [
+            {
+              "severity": "uncertain",
+              "targetId": "nemata-jp-p257-r1",
+              "sourceEvidence": "CPU结果画面中的牌河均为公开牌面。候选对上方第1、6、17张、左方第16张、右方第1、2、7、13、14张仍注明无法辨认或存在多个候选。",
+              "description": "这些属于已显示但未能确认的教学信息。候选如实说明了辨认限制，但尚不足以判定整幅图逐牌转录忠实。",
+              "suggestedRepair": "保留原图并将上述具体河牌标为待核；依据更清晰的源图逐张确认牌码及可能涉及的赤五状态，补全后再复核r1。不能通过推断暗手或牌数补出牌面。"
+            }
+          ],
+          "flowCheck": {
+            "verdict": "faithful",
+            "explanation": "页眉、跨页残句、参考案例及四幅比较图、问题10、问题5续题条件与句内宝牌、手牌、答案及句内舍牌、页脚的顺序正确。左右比较关系清楚，没有将邻页解说重复纳入本页。"
+          },
+          "completePageCompared": true,
+          "summary": "正文、顺序及三个独立牌例忠实，全部源图片均有承接。r1的CPU牌河仍有多张可见牌无法确认，整页暂不能全部通过。"
+        },
+        "figureBindingHashChecks": [
+          {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0257-r1.png",
+            "match": true
+          },
+          {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0257-r2.png",
+            "match": true
+          },
+          {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0257-r3.png",
+            "match": true
+          },
+          {
+            "path": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0257-r4.png",
+            "match": true
+          }
+        ]
+      }
+    ],
+    "modelChecks": {
+      "passed": false,
+      "errors": [
+        "uncertain:nemata-jp-p257-r1",
+        "uncertain:nemata-jp-p257-r1"
+      ]
+    },
+    "issues": [
+      {
+        "severity": "uncertain",
+        "targetId": "nemata-jp-p257-r1",
+        "sourceEvidence": "CPU结果画面中的牌河均为公开牌面。候选对上方第1、6、17张、左方第16张、右方第1、2、7、13、14张仍注明无法辨认或存在多个候选。",
+        "description": "这些属于已显示但未能确认的教学信息。候选如实说明了辨认限制，但尚不足以判定整幅图逐牌转录忠实。",
+        "suggestedRepair": "保留原图并将上述具体河牌标为待核；依据更清晰的源图逐张确认牌码及可能涉及的赤五状态，补全后再复核r1。不能通过推断暗手或牌数补出牌面。"
+      }
+    ]
+  },
+  {
+    "path": "audit/pages/79-cn/page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+    "sha256": "44e101c7fbf8813d9db7a18af177a42b27b51ebaf92945761787b8b25764b3ec",
+    "status": "needs-repair",
+    "candidateSha256": null,
+    "calls": [
+      {
+        "schema": "coach-textbook-audit-call/1",
+        "callId": "4f760999-1648-410e-8452-1c1b4794503f",
+        "source": {
+          "sourceId": "79-cn",
+          "pdfSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+          "page": 217,
+          "pageDataSha256": "f8de2eddd4ba2939ae40796ffd8d1d1f971d49474dede72d108e61809ef1d6f8"
+        },
+        "productionSha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101",
+        "pageImageSha256": "c52048b9b1a0650b9041cc74a18cb0576c71eb68ccb61c5c4b482dffd79a1ba0",
+        "auditorScriptSha256": "6baa4a7e14041a0ccb80f41ed4ee994428a9cda94b8bd420aeb70f4342c0b6da",
+        "imageBindings": [
+          {
+            "figureId": "79-cn-p217-r1",
+            "path": "production/sol-high-fallback-finite-20261024-schemafix/renders/79-cn/page-0217-r1.png",
+            "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0"
+          }
+        ],
+        "startedAt": "2026-10-27T10:58:54.531Z",
+        "finishedAt": "2026-10-27T11:02:24.449Z",
+        "durationMs": 209913,
+        "cliVersion": "codex-cli 0.162.1",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "parameters": {
+          "webSearch": "disabled",
+          "tools": "capability-restricted; unexpected-tool-events-rejected",
+          "ephemeral": true,
+          "ignoreUserConfig": true,
+          "ignoreRules": true,
+          "sandbox": "read-only",
+          "timeoutMs": 900000
+        },
+        "promptSha256": "2d6e0ffc638d56b89bcc22f4287c9efc8657a8397c19c399a28f8f2971278e5b",
+        "semanticPromptSha256": "2d6e0ffc638d56b89bcc22f4287c9efc8657a8397c19c399a28f8f2971278e5b",
+        "requestPromptSha256": "a2fd2d74714a18928b2467f2500cde94a5296b4bbb214d9e80740460d3b08b61",
+        "schemaSha256": "d138e1eba90512eba8d89ec251bafc05f556ffcd25075d78c0d8adea5b11c989",
+        "success": true,
+        "usage": {
+          "inputTokens": 20676,
+          "cachedInputTokens": 0,
+          "outputTokens": 5116
+        },
+        "exitCode": 0,
+        "timedOut": false,
+        "outputOverflow": false,
+        "unexpectedTool": false,
+        "transportDiagnostics": [],
+        "failure": null,
+        "outputSha256": "4c822c4d9f67f302e186ce0e4c5de3313dbd671d7060567e8bb03d9f67d2308b",
+        "structuredOutput": {
+          "bodyChecks": [
+            {
+              "id": "79-cn-p217-b1",
+              "verdict": "faithful",
+              "explanation": "空白块原样保留。"
+            },
+            {
+              "id": "79-cn-p217-b2",
+              "verdict": "faithful",
+              "explanation": "页码文字完整，位于阅读顺序末尾，与原页一致。"
+            },
+            {
+              "id": "79-cn-p217-b3",
+              "verdict": "faithful",
+              "explanation": "正文、条件、判断力度及“（待续）”均原样保留，未重复邻页内容。"
+            },
+            {
+              "id": "79-cn-p217-b4",
+              "verdict": "faithful",
+              "explanation": "标题原样保留。"
+            },
+            {
+              "id": "79-cn-p217-b5",
+              "verdict": "faithful",
+              "explanation": "引入文字、“下家染手”小标题及分隔线完整保留，与后接牌例对应。"
+            },
+            {
+              "id": "79-cn-p217-b6",
+              "verdict": "faithful",
+              "explanation": "图下分隔线保留。"
+            },
+            {
+              "id": "79-cn-p217-b7",
+              "verdict": "faithful",
+              "explanation": "两句正文完全保留，“很多时候”“很明显”等判断力度未改变。"
+            }
+          ],
+          "figureChecks": [
+            {
+              "id": "79-cn-p217-r1",
+              "verdict": "needs-repair",
+              "explanation": "已比较完整牌图。北家第二行第二张舍牌为8m，候选误记9m。西家第二行第二张万子的数字仍不能可靠确认，候选虽注明待核，却仍赋值8m且unknowns为空。其余可辨手牌、独立摸牌、河牌顺序、白板碰牌方向、座位、场局与显示值对应；“ドラ”栏的宝牌／指示牌性质未擅自推断。"
+            }
+          ],
+          "imageChecks": [
+            {
+              "id": "79-cn-p217-b8",
+              "disposition": "represented",
+              "figureIds": [
+                "79-cn-p217-r1"
+              ],
+              "explanation": "教学牌例由该figure完整承接，原图可见内容均在裁图内；转录仍有错误和待核项。"
+            }
+          ],
+          "issues": [
+            {
+              "severity": "error",
+              "targetId": "79-cn-p217-r1",
+              "sourceEvidence": "源图北家舍牌第二行从左至右为5m、8m；第二张上部为“八”。候选写作“第二行5m 9m”。",
+              "description": "北家第二行第二张舍牌数字抄错。",
+              "suggestedRepair": "将北家舍牌第二行改为“5m 8m”。"
+            },
+            {
+              "severity": "uncertain",
+              "targetId": "79-cn-p217-r1",
+              "sourceEvidence": "西家舍牌外侧一列第二张为横向万子牌，数字笔画不能可靠辨清。候选同时写“8m”和“数字……不能可靠辨定”，但unknowns为[]。",
+              "description": "该张可见牌尚未核清，8m不能作为已确认转录。",
+              "suggestedRepair": "核清西家第二行第二张万子的数字；确认前明确记录“万子，数字未辨清”，并在unknowns中列出该位置，避免将8m作为确定牌码。"
+            }
+          ],
+          "flowCheck": {
+            "verdict": "faithful",
+            "explanation": "前节续文、待续标记、新节标题、例子引入、“下家染手”、牌图及图后说明的视觉和语义顺序正确，页码位置合理，未混入邻页正文。"
+          },
+          "completePageCompared": true,
+          "summary": "正文与阅读顺序忠实；牌图已完整承接，但有一张舍牌误抄，另有一张万子数字待核，需修复。"
+        },
+        "figureBindingHashChecks": [
+          {
+            "path": "production/sol-high-fallback-finite-20261024-schemafix/renders/79-cn/page-0217-r1.png",
+            "match": true
+          }
+        ]
+      }
+    ],
+    "modelChecks": {
+      "passed": false,
+      "errors": [
+        "needs-repair:79-cn-p217-r1",
+        "error:79-cn-p217-r1",
+        "uncertain:79-cn-p217-r1"
+      ]
+    },
+    "issues": [
+      {
+        "severity": "error",
+        "targetId": "79-cn-p217-r1",
+        "sourceEvidence": "源图北家舍牌第二行从左至右为5m、8m；第二张上部为“八”。候选写作“第二行5m 9m”。",
+        "description": "北家第二行第二张舍牌数字抄错。",
+        "suggestedRepair": "将北家舍牌第二行改为“5m 8m”。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "79-cn-p217-r1",
+        "sourceEvidence": "西家舍牌外侧一列第二张为横向万子牌，数字笔画不能可靠辨清。候选同时写“8m”和“数字……不能可靠辨定”，但unknowns为[]。",
+        "description": "该张可见牌尚未核清，8m不能作为已确认转录。",
+        "suggestedRepair": "核清西家第二行第二张万子的数字；确认前明确记录“万子，数字未辨清”，并在unknowns中列出该位置，避免将8m作为确定牌码。"
+      }
+    ]
+  }
+]
