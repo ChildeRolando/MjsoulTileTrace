@@ -1,0 +1,101 @@
+{
+ "schema": "coac248-round-20261027/1",
+ "recordedAt": "2026-10-27T02:20:00.000Z",
+ "round": "79-cn:263 passed + COAC-246 48-chapter merge",
+ "productionModelCalls": 0,
+ "auditModelCalls": 2,
+ "runtime": "audit/runtimes/native-repair-d0782d5041cfb2",
+ "manifestSha256": "03052928bac4af79b7db51c9cb4cf260f2b8276e2ddbc08dd9c6643321c00258",
+ "nativeModuleChanges": false,
+ "note": "The audit runtime and verification manifest are unchanged this round: no gate module was edited, so no refreeze or manifest rebuild was required.",
+ "p263": {
+  "parent": {
+   "path": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0263.json",
+   "sha256": "7fea090b5ca70f172889164cecd3ba8bd40eed5dc3c0af51a9b354cbed272fcc"
+  },
+  "candidate": {
+   "path": "production/sol-high-field-repair-20261027-p263/candidates/79-cn/page-0263.json",
+   "sha256": "4fb2bd6dd485f463498671be4c7e7898e5f24da88390bf7938f47f0450aed61c"
+  },
+  "audit": {
+   "path": "audit/pages/79-cn/page-0263.4fb2bd6dd485f463498671be4c7e7898e5f24da88390bf7938f47f0450aed61c.d0782d5041cf.json",
+   "status": "passed",
+   "callId": "2feaa474-7288-4ab4-9930-5637b9af023e",
+   "usage": {
+    "inputTokens": 20560,
+    "cachedInputTokens": 0,
+    "outputTokens": 4668
+   }
+  },
+  "superseded": [
+   {
+    "attempt": "rev1",
+    "result": "deterministic candidate_internal_digest",
+    "modelCalls": 0
+   },
+   {
+    "attempt": "rev2",
+    "audit": "audit/pages/79-cn/page-0263.5d2203d8a6cae557499595de19b7372a5669575245f987c8e452c7ff62be05a6.d0782d5041cf.json",
+    "status": "needs-repair",
+    "callId": "d70c5af3-add5-4f42-ae4f-c76e4f1c9518",
+    "usage": {
+     "inputTokens": 20547,
+     "cachedInputTokens": 0,
+     "outputTokens": 3890
+    },
+    "remaining": "called the ドラ column a dora indicator"
+   }
+  ],
+  "changes": [
+   "legend 5z=白,6z=發,7z=中 (book-wide convention) and the three in-page dragon codes swapped with it",
+   "dora tile 3s -> 2s (two bamboo sticks)",
+   "chi group: sideways tile is 3s, so the called tile is the 3s, not the 2s; visual order 3s,2s,4s recorded",
+   "the ドラ column is described as the image labels it, with its dora/dora-indicator nature left open"
+  ],
+  "evidence": [
+   "evidence/p263-dora-chi-x.png",
+   "receipt-p263.passed.json",
+   "receipt-p263.rev2-needs-repair.json",
+   "receipt-p263.rev1-digest-rejected.json"
+  ]
+ },
+ "coac246Merge": {
+  "source": "COAC-246 comment 01a17af4-cb95-78da-9d85-a3097bdaacc1 attachment coac246-57-verification-summary.json",
+  "chaptersRead": 57,
+  "candidateShaVerifiedOnDisk": 56,
+  "repairChapters": 48,
+  "addedNew": 41,
+  "dedupedAgainstExistingWeb7": 7,
+  "dedupedObjects": [
+   "web:chapter01-section035",
+   "web:chapter03-section009",
+   "web:chapter03-section026",
+   "web:chapter04-section005",
+   "web:chapter04-section012",
+   "web:chapter06-exercise002-02",
+   "web:archive01-section006"
+  ],
+  "nonRepairChapters": 9,
+  "note": "unit/block counts and per-chapter audit errors come from the COAC-246 report; this round only merged identities, it did not re-audit or re-produce any web chapter."
+ },
+ "listAfter": {
+  "needsRepair": 56,
+  "web": 48,
+  "oldPdfRemaining": 3,
+  "metadataFrontMatter": 4,
+  "protectedSupplement": 1,
+  "failedSeparate": 2
+ },
+ "deferred": {
+  "79-cn:217": {
+   "state": "source-check only, not revised",
+   "confirmed": "north river second row first tile is 六萬 (6m); the candidate has 5m",
+   "open": "the second tile of that row reads 九-shaped in this font and is not settled against 八萬; the east river needs rotation-aware re-reading before any rewrite",
+   "decision": "no candidate change until both are settled"
+  },
+  "nemata-jp:98": "12 flagged items, untouched",
+  "nemata-jp:257": "r1 river tiles, untouched",
+  "p317 b5": "untouched",
+  "failed 2": "untouched, no retry"
+ }
+}
