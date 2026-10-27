@@ -1,0 +1,70 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "name": "wrong-source",
+      "rejected": true
+    },
+    {
+      "name": "missing-unknown",
+      "rejected": true
+    },
+    {
+      "name": "invented-signature",
+      "rejected": true
+    },
+    {
+      "name": "old-provisional-meaning",
+      "rejected": true
+    },
+    {
+      "name": "unsynchronized-field",
+      "rejected": true
+    },
+    {
+      "name": "other-body-change",
+      "rejected": true
+    },
+    {
+      "name": "other-figure-change",
+      "rejected": true
+    },
+    {
+      "name": "missing-inherited-scope",
+      "rejected": true
+    },
+    {
+      "name": "new-whole-page-pass",
+      "rejected": true
+    },
+    {
+      "name": "missing-independent-limit",
+      "rejected": true
+    },
+    {
+      "name": "old-flow-not-faithful",
+      "rejected": true
+    },
+    {
+      "name": "wrong-sha",
+      "rejected": true
+    },
+    {
+      "name": "missing-actual-note",
+      "rejected": true
+    },
+    {
+      "name": "missing-emphasis",
+      "rejected": true
+    },
+    {
+      "name": "hidden-unknown",
+      "rejected": true
+    },
+    {
+      "name": "missing-image",
+      "rejected": true
+    }
+  ],
+  "models": 0
+}

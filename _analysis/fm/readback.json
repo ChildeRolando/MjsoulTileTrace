@@ -1,0 +1,472 @@
+{
+  "schema": "coac250-exact317-readback/1",
+  "allPassed": true,
+  "preview": {
+    "chapters": 243,
+    "units": 251,
+    "blocks": 6706,
+    "figures": 5311,
+    "corpusId": "abc641515de7affeaddbfb6ab9dcf82a86c855095f985a3b1c29ff4971ae29a1",
+    "bodySha256": "8891b195d83a2995e8d30bc41f32efbcfa0b42d288b2bbd2ad1f1d662492cbfb",
+    "maxUnitBytes": 358204,
+    "modelCalls": 0,
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T23-29-38-260Z",
+    "stage": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T23-29-38-260Z/stages/pdf317",
+    "priorUnitsUnchanged": 250,
+    "models": 0
+  },
+  "canonical": "nemata-jp-chapter-317-51",
+  "ownedSourceBlocks": 58,
+  "compiledBlocks": 21,
+  "originalFigures": 22,
+  "inlineFigures": 17,
+  "pages": [
+    {
+      "offset": 0,
+      "blocks": 21,
+      "next": null
+    }
+  ],
+  "images": [
+    {
+      "figureId": "nemata-jp-p317-r1",
+      "sha256": "f4daa1d4b778743296e5f3a546171cf7ae5b867d0121129db29fbf61dc36457b",
+      "bytes": 281141,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r2",
+      "sha256": "c4dde919f0e3989959f32326c9814e15cab0aba599550e359bef29a76a0d30ae",
+      "bytes": 432636,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r3",
+      "sha256": "9016b5bd3d5ea6f56676c7adcc08e6f8f4a107004c80381820fdc683ad31848a",
+      "bytes": 14494,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r4",
+      "sha256": "811251746786cd868b5602ed4054c3ce58957c77ec392bbdbb67a28c173d821b",
+      "bytes": 30146,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r5",
+      "sha256": "add1b26106d5f037bde059a55abbbb04b73951918a6671403e658aa3dc2bdfbb",
+      "bytes": 29172,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r6",
+      "sha256": "8aaa46b328c426b9e2c31f0ff73c70761c05747cbc7a57c973e9d1b939d22668",
+      "bytes": 1062020,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r7",
+      "sha256": "7b1ba078f49f14bb54e69718324d0a8585e84381fa52893987df8dcaf246b05f",
+      "bytes": 14655,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r8",
+      "sha256": "dc8f455d7b9bb56f66bf7dbf9bfe9dbc46d539f2d03ca3a9ce79e6f4633c5599",
+      "bytes": 15310,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r9",
+      "sha256": "77cb61b02fba6048c8c6d029cde194d5c07d2c22cbd1243d460c6bd12ce1759b",
+      "bytes": 15297,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r10",
+      "sha256": "1472898ab87026ba214eeee1544f0d6813b899c1ccc3d346e49c9f2a3a51fe79",
+      "bytes": 14383,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r11",
+      "sha256": "00ddeb9902daa93eb3a9ab39b9558ef4fce1df4cf10d1112d49a7557dd5993c5",
+      "bytes": 12157,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r12",
+      "sha256": "8e28c0f51731ac7eba1d4e8cfafd5f190d7e1ff6b23457b50cd0257e3ccd468a",
+      "bytes": 12201,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r13",
+      "sha256": "5d7d95f8133c882c89dcedd7729f9ffc8214c8115c5f5cce5d143ebbbaf241d9",
+      "bytes": 12882,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r14",
+      "sha256": "67a1d0a0595d3c58cc3dead11485ddd57373280f32baa202066bba03883f79c1",
+      "bytes": 11994,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r15",
+      "sha256": "81ab42fc2ccb4779e8e5ff44655a8736a570ff4ee56ff69877f93d41f78724aa",
+      "bytes": 10469,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r16",
+      "sha256": "a47a60cb19aadc3b2f49ae1adec43e174f785c34a76b5010188bbbc115e12f9e",
+      "bytes": 12432,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r17",
+      "sha256": "e5c67afebe8e0fb6e88f00e1d39a9879a18e410e7616fd7c6f4c642d503b029a",
+      "bytes": 13668,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r18",
+      "sha256": "78cdad1581be52383923b7176a3640723cdb338d8b96d0d55e2ae2ffc41aa9ca",
+      "bytes": 13946,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r19",
+      "sha256": "ec93ee099cf358f7a87ccd6682ad805a677016351dec83bced99f7362c6b2bd8",
+      "bytes": 14197,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r20",
+      "sha256": "91e63187e78ba95a3f5c976b7a8234e53f32991ef298949c71143af9ab2ed546",
+      "bytes": 14807,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r21",
+      "sha256": "fdf09705a73838921fe00bbed11f199427dcadac4c9167bae28521ff9dc3f128",
+      "bytes": 14180,
+      "exact": true
+    },
+    {
+      "figureId": "nemata-jp-p317-r22",
+      "sha256": "82b0255a0ca9dddb915d24320902b68c981fd807a088f0e071290c00318d4e42",
+      "bytes": 10428,
+      "exact": true
+    }
+  ],
+  "mandatoryLimits": 6,
+  "explicitUnknowns": 4,
+  "allAuthorTextPreserved": true,
+  "threeRevisedFieldsConsistent": true,
+  "emphasisRendered": true,
+  "eightItemDirectoryComplete": true,
+  "versionAndUrlWarningPresent": true,
+  "originalRawAndNeedsRepairPreserved": true,
+  "standardWholePagePassed": false,
+  "priorUnitsUnchanged": 250,
+  "otherOriginalChapterHoldsUnchanged": true,
+  "fullMcp": {
+    "units": 251,
+    "images": 5311
+  },
+  "arena": {
+    "exactBody": true,
+    "units": 251,
+    "reads": [
+      {
+        "offset": 0,
+        "blocks": 21,
+        "next": null,
+        "bytes": 14980,
+        "sourceRefs": 1
+      }
+    ],
+    "completeReadRequiredBeforeCitation": true
+  },
+  "completeCanonicalCatalog": true,
+  "crossChapterSourceCollisions": 0,
+  "calls": [
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 0,
+        "limit": 20
+      },
+      "textBytes": 4758
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 20,
+        "limit": 20
+      },
+      "textBytes": 4852
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 40,
+        "limit": 20
+      },
+      "textBytes": 4910
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 60,
+        "limit": 20
+      },
+      "textBytes": 5054
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 80,
+        "limit": 20
+      },
+      "textBytes": 5122
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 100,
+        "limit": 20
+      },
+      "textBytes": 5127
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 120,
+        "limit": 20
+      },
+      "textBytes": 5098
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 140,
+        "limit": 20
+      },
+      "textBytes": 5011
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 160,
+        "limit": 20
+      },
+      "textBytes": 5060
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 180,
+        "limit": 20
+      },
+      "textBytes": 4392
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 200,
+        "limit": 20
+      },
+      "textBytes": 2817
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 220,
+        "limit": 20
+      },
+      "textBytes": 4575
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 240,
+        "limit": 20
+      },
+      "textBytes": 870
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "nemata-jp-chapter-317-51-unit-1",
+        "blockOffset": 0
+      },
+      "textBytes": 14797
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r1"
+      },
+      "textBytes": 608
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r2"
+      },
+      "textBytes": 721
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r3"
+      },
+      "textBytes": 557
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r4"
+      },
+      "textBytes": 588
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r5"
+      },
+      "textBytes": 606
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r6"
+      },
+      "textBytes": 2100
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r7"
+      },
+      "textBytes": 633
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r8"
+      },
+      "textBytes": 627
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r9"
+      },
+      "textBytes": 633
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r10"
+      },
+      "textBytes": 626
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r11"
+      },
+      "textBytes": 670
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r12"
+      },
+      "textBytes": 640
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r13"
+      },
+      "textBytes": 635
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r14"
+      },
+      "textBytes": 655
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r15"
+      },
+      "textBytes": 625
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r16"
+      },
+      "textBytes": 628
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r17"
+      },
+      "textBytes": 625
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r18"
+      },
+      "textBytes": 622
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r19"
+      },
+      "textBytes": 646
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r20"
+      },
+      "textBytes": 631
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r21"
+      },
+      "textBytes": 625
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p317-r22"
+      },
+      "textBytes": 622
+    },
+    {
+      "name": "search_textbook",
+      "args": {
+        "query": "以暂定版形式公开"
+      },
+      "textBytes": 2205
+    }
+  ],
+  "newModelCalls": 0,
+  "formalActiveChanged": false
+}

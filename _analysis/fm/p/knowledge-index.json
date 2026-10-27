@@ -1,0 +1,54 @@
+{
+  "schema": "coach-textbook-index/1",
+  "status": "accepted-subset-preview",
+  "title": "中文教材审阅",
+  "repository": "Jackey-Marine/Mahjong-B2D",
+  "sourceCommit": "30c39292ebb007eca96302f4d14cc37e4f6f529f",
+  "policy": {
+    "cardRole": "index-only",
+    "bodyRole": "complete-source-body-with-chinese-translation",
+    "rewrittenTeachingText": false,
+    "modelExperiments": false,
+    "reviewStatus": "pending-user-review",
+    "sourceTextVerifiedAgainstJapanese": false,
+    "translationPolicy": "Full paragraph translation; no summary replacement; preserve author modality and conditions.",
+    "oldSummaryCards": "not-part-of-current-library"
+  },
+  "sources": [
+    {
+      "id": "nemata-jp",
+      "filename": "現代麻雀技術論.pdf",
+      "title": "现代麻雀技术论 · 日文 PDF",
+      "language": "ja",
+      "format": "pdf",
+      "pages": 347,
+      "bytes": 71696799,
+      "sha256": "4d1c12042589a1b34d6e1f874b79b4ee1d79f4c1c26c62bda0ba94394e47250a",
+      "gitBlob": "33c9c207d016e415f91f954b0bcb6ebca8b7c0cc",
+      "attribution": "用户指定日文 PDF；七对子书签为 1.34.七対子，物理页 98–99。",
+      "sourceNote": "第 98–99 页七对子全文已逐段译成中文，牌图及文中引用牌已核对；待用户审核。",
+      "role": "pilot-reading-source",
+      "locatedSections": [
+        {
+          "title": "七对子",
+          "startPage": 98,
+          "endPage": 99
+        }
+      ]
+    }
+  ],
+  "chapters": [
+    {
+      "id": "nemata-jp-chapter-317-51",
+      "title": "研究资料目录与说明",
+      "sourceId": "nemata-jp",
+      "startPage": 317,
+      "bodyStartPage": 317,
+      "endPage": 317,
+      "topics": [],
+      "anchors": [],
+      "relatedChapterIds": [],
+      "reviewFocus": "研究说明、完整目录、原图和显式unknown；精确靶审与未改父审范围组合，不是新的普通整页审。"
+    }
+  ]
+}

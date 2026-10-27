@@ -1,0 +1,11 @@
+本补充属于既有 COAC-246 / COAC-244 的现代教材目录、前言、研究说明 owner，不改变完成标准。授权来源为246评论 01a17f97-a338-7198-813b-4bf67969aaaa 和249本次真实终态；不增加模型额度。
+
+允许的组合仅为 contract.json 固定的4个派生SHA、13个实际字段：A实际独审的p1-r4、p2-r15、p3-r1、p3-r3共8字段；B实际独审的317-b5三字段、317-r6两字段。p2-r11没有修订，沿真实独审的faithful-with-unknown限制继承，exactRepairAccepted=false为“不适用”。
+
+A原收据的invalid-scope-evidence、scopeVerdict=uncertain、completeTargetScopeCompared=false、authorProseDirectoryEmphasisAndVersionNotesPreserved=false、displayFaithfulWithExplicitUnknowns=false全部原样保留。A共享提示误要求317正文、完整目录及强调，但context只有1–3正文和317图对象。只可用B针对同一317派生候选的完整输入和实际独立接受结论补该缺口；不能把A原全局false重标true。验证必须检查两边的317图对象逐字相同、B确有完整body且三个b5字段一致、全部非靶树和原文来源未变。A发现其它错误、B不完整、候选SHA/字段/限制变化时均拒绝。
+
+158旧文字、56其它图、中文目录18块和p2-b61→p3-b23跨页书评只按既有独立审继承。六项封面未知已独立确认非相邻论证核心；仅该精确显示可进入250限定预览回读。完整署名、假名、微字及微牌unknown不得删减，不按旧拼写或相邻书目反填人名出版信息；清晰书评/书目仍为作者正文。317仅修已证实的暂定版语义，标题、八项目录、强调和结构/URL变更提示均保持。
+
+普通readApprovedPdfPage和native-inline固定名单没有本组合入口，不能把回调伪装为passed或借159/242-only合同。verify-composition.mjs提供单独的loadFrontmatterPreviewPages：每次重算全部绑定，输出与既有assembleApprovedPdfPages相同的source/candidate/page结构，并附verified-exact-frontmatter-composition限定状态。250可在其既有组装点只为这4个固定SHA使用该入口；其它页仍走原门禁。该入口仅准备用于限定预览，不写production audit、不授正式发布、不改active、不计覆盖。
+
+250须实际MCP/Arena逐页读回完整目录、全部文字/图片和下游父单元，核对源block映射、顺序、unknown及mandatoryLimits。实际回读前admissionGranted/fullPagePassed/wholeChapterPassed均为false，两个原章covered继续false；226源block齐不构成语义pass。B已由249单独交250，本补充只交A组合范围，不能重复派B或重审任何同SHA。制作0、复审余0、retry0。
