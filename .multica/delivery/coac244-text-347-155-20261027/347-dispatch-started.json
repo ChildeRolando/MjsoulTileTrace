@@ -1,0 +1,154 @@
+{
+  "at": "2026-10-27T16:29:19.642155+00:00",
+  "jointExclusion": {
+    "at": "2026-10-27T16:29:19.635733+00:00",
+    "chapterId": "nemata-jp-chapter-347-1",
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "archive01-section008",
+    "registerSha256": "c56b485486bfe861d42d977a451ef7f40c0f35a6cde9a589b99d1240870d68a9",
+    "previewSha256": "4ac01424f64328f350c27d25318e5a119eaba8855088e7875fae3ead37ec6b05",
+    "registerRow": {
+      "chapterId": "nemata-jp-chapter-347-1",
+      "originalChapterId": "nemata-jp-chapter-347-1",
+      "sourceId": "nemata-jp",
+      "title": "８　面子の理論",
+      "units": 1,
+      "ownedSourceBlocks": 58,
+      "adjudicationGroup": "confirmed-produced-not-covered",
+      "covered": false,
+      "coverageRoute": null,
+      "approvedWebCorrespondence": {
+        "articleId": "archive01-section008",
+        "webSourceId": "modern-yabejp-ja",
+        "tier": "url-header",
+        "evidencePath": "integration/modern-pdf-url-coverage.json",
+        "substitutionAllowed": true,
+        "bodyEquivalenceConfirmed": false,
+        "articleInPreview": false
+      },
+      "existingCandidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/archive01-section008.r1.display.json",
+        "sha256": "5051732a44803c58f82b528b6ac8ccc9657c560a28fa869b97a68241004f4cd7",
+        "bodyBlocks": 66,
+        "sourceSha256": "62523932b13fc685e8c46c0ea7b2a765d1dff51ea39746ea9e2585cf92cfee21",
+        "currentSourceSha256": "62523932b13fc685e8c46c0ea7b2a765d1dff51ea39746ea9e2585cf92cfee21",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/archive01-section008.5051732a44803c58f82b528b6ac8ccc9657c560a28fa869b97a68241004f4cd7.json",
+        "auditRecordedAt": "2026-10-23T22:42:27.308Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 1,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          347
+        ],
+        "pagesDetail": [
+          {
+            "page": 347,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 58
+          }
+        ]
+      },
+      "gaps": {
+        "ownedSourceBlocks": 58,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 58,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 58,
+        "acceptanceGapPages": [
+          347
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          347
+        ]
+      },
+      "verdict": "produced-needs-repair",
+      "coac246": {
+        "action": "repair",
+        "auditStatus": "needs-repair",
+        "candidateSha256": "5051732a44803c58f82b528b6ac8ccc9657c560a28fa869b97a68241004f4cd7",
+        "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\archive01-section008.r1.display.json",
+        "repairErrors": 3,
+        "units": 1,
+        "blocks": 58
+      }
+    },
+    "selectedWeb": [],
+    "selectedPdf": [],
+    "boundPassedAlternatives": [],
+    "claim": {
+      "ok": true,
+      "action": "check-chapter",
+      "chapter": "nemata-jp-chapter-347-1",
+      "held": true,
+      "bySelf": true,
+      "record": {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "nemata-jp-chapter-347-1",
+        "candidateSha256": "522447de46fb090753f5a89bf76a50a4cacd4bb729884f872ee764f3e0461911",
+        "lane": "A",
+        "owner": "COAC-244 Mika text347155",
+        "slot": null,
+        "claimedAt": "2026-10-27T16:29:19.291Z"
+      }
+    },
+    "existingCandidateNames": [
+      "archive01-section008.display.json",
+      "archive01-section008.r1.display.json",
+      "archive01-section008.r1.json"
+    ],
+    "priorCallIds": [
+      "8d1b92c7-f5cc-44a3-9ea7-08365dbebaf4",
+      "cddc1f13-63ed-4463-aa67-8f8ee5196f49"
+    ]
+  },
+  "slot": {
+    "ok": true,
+    "action": "acquire",
+    "slot": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-A.json",
+    "record": {
+      "schema": "coach-textbook-maker-slot/1",
+      "slot": "maker-A",
+      "lane": "A",
+      "owner": "COAC-244 Mika text347155",
+      "pid": 71060,
+      "claimedAt": "2026-10-27T16:29:19.347Z",
+      "heartbeatAt": "2026-10-27T16:29:19.347Z",
+      "ttlMinutes": 20
+    }
+  },
+  "stopFiles": {
+    "STOP": false,
+    "web-production/v1/STOP": false,
+    "model-admission-stop.json": false
+  },
+  "args": [
+    "E:/IDE/NodeJS/node.exe",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-text-347-20261027\\frozen-runner\\textbook-production-web.mjs",
+    "--source",
+    "web-sources/v1/modern-yabejp-ja/articles/archive01-section008/source.json",
+    "--revision-from",
+    "web-production/v1/candidates/modern-yabejp-ja/archive01-section008.display.json",
+    "--revision-notes",
+    "audit/web/articles/modern-yabejp-ja/archive01-section008.522447de46fb090753f5a89bf76a50a4cacd4bb729884f872ee764f3e0461911.json",
+    "--variant",
+    "coac244text20261027",
+    "--stop-file",
+    "STOP",
+    "--timeout-ms",
+    "900000",
+    "--dictionary",
+    "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+    "--revision-context",
+    "web-production/v1/runs/coac244-text-347-20261027/term-source-context.json"
+  ]
+}

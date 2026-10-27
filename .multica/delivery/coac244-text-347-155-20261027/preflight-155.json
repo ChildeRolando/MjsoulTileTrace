@@ -1,0 +1,600 @@
+{
+  "at": "2026-10-27T16:27:19.981757+00:00",
+  "chapterId": "79-cn-chapter-155-4",
+  "exitCode": 1,
+  "stdout": "",
+  "stderr": "file:///E:/AgentData/Coach/knowledge/processing/web-production/v1/runs/coac244-text-155-20261027/frozen-runner/textbook-production-web.mjs:45\n  if(!figureIds.length||figureIds.some(id=>!parent.figures.some(f=>f.figureId===id))||parent.figures.some(f=>!figureIds.includes(f.figureId)&&!notes.modelReview.figureChecks.some(c=>c.id===f.figureId&&c.verdict==='faithful')))throw Error('web_revision_is_not_isolated_figure_repair');\n                                                                                                                                                                                                                                        ^\n\nError: web_revision_is_not_isolated_figure_repair\n    at file:///E:/AgentData/Coach/knowledge/processing/web-production/v1/runs/coac244-text-155-20261027/frozen-runner/textbook-production-web.mjs:45:233\n\nNode.js v24.15.0\n",
+  "modelCalls": 0,
+  "args": [
+    "E:/IDE/NodeJS/node.exe",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-text-155-20261027\\frozen-runner\\textbook-production-web.mjs",
+    "--source",
+    "web-sources/v1/79-bilibili-cn/articles/cv1751265/source.json",
+    "--revision-from",
+    "web-production/v1/candidates/79-bilibili-cn/cv1751265.display.json",
+    "--revision-notes",
+    "audit/web/articles/79-bilibili-cn/cv1751265.20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f.retry-1792948405214-96b97389.json",
+    "--variant",
+    "coac244text20261027",
+    "--stop-file",
+    "STOP",
+    "--timeout-ms",
+    "900000",
+    "--reuse",
+    "web-production/v1/reuse-maps/985ff2495cf78f47cd545320540d655c5f3eb5fa799728e61a571ddeb1ed24d3.json"
+  ],
+  "jointExclusion": {
+    "at": "2026-10-27T16:27:19.590805+00:00",
+    "chapterId": "79-cn-chapter-155-4",
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1751265",
+    "registerSha256": "c56b485486bfe861d42d977a451ef7f40c0f35a6cde9a589b99d1240870d68a9",
+    "previewSha256": "4ac01424f64328f350c27d25318e5a119eaba8855088e7875fae3ead37ec6b05",
+    "registerRow": {
+      "chapterId": "79-cn-chapter-155-4",
+      "originalChapterId": "79-cn-chapter-155-4",
+      "sourceId": "79-cn",
+      "title": "鸣牌10—混一色",
+      "units": 1,
+      "ownedSourceBlocks": 36,
+      "adjudicationGroup": "confirmed-produced-not-covered",
+      "covered": false,
+      "coverageRoute": null,
+      "approvedWebCorrespondence": {
+        "articleId": "cv1751265",
+        "webSourceId": "79-bilibili-cn",
+        "tier": "body",
+        "evidencePath": "integration/chinese-source-body-correspondence.json",
+        "substitutionAllowed": true,
+        "bodyEquivalenceConfirmed": true,
+        "articleInPreview": false
+      },
+      "existingCandidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1751265.display.json",
+        "sha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+        "bodyBlocks": 32,
+        "sourceSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+        "currentSourceSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/79-bilibili-cn/cv1751265.20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f.retry-1792948405214-96b97389.json",
+        "auditRecordedAt": "2026-10-25T17:13:25.214Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 3,
+        "pagesWithCandidate": 1,
+        "pagesWithPassedCandidate": 1,
+        "missingPassedPages": [
+          156,
+          157
+        ],
+        "pagesDetail": [
+          {
+            "page": 155,
+            "candidates": 6,
+            "receiptStatus": "passed",
+            "sourceBound": true,
+            "selected": true,
+            "blocks": 10
+          },
+          {
+            "page": 156,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 15
+          },
+          {
+            "page": 157,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 20
+          }
+        ]
+      },
+      "gaps": {
+        "ownedSourceBlocks": 36,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 36,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 36,
+        "acceptanceGapPages": [
+          156,
+          157
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          156,
+          157
+        ]
+      },
+      "verdict": "produced-needs-repair",
+      "coac246": {
+        "action": "repair",
+        "auditStatus": "needs-repair",
+        "candidateSha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+        "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1751265.display.json",
+        "repairErrors": 3,
+        "units": 1,
+        "blocks": 36
+      }
+    },
+    "selectedWeb": [],
+    "selectedPdf": [],
+    "boundPassedAlternatives": [],
+    "claim": {
+      "ok": true,
+      "action": "check-chapter",
+      "chapter": "79-cn-chapter-155-4",
+      "held": false
+    },
+    "existingCandidateNames": [
+      "cv1751265.display.json"
+    ],
+    "priorCallIds": [
+      "25e64523-a27d-4a53-8a77-a889527809e6"
+    ]
+  },
+  "target": {
+    "chapterId": "79-cn-chapter-155-4",
+    "targetId": "79-bilibili-cn:cv1751265:b0008",
+    "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1751265.display.json",
+    "parentFileSha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+    "parentCandidateSha256": "74c05811edb31a23a548b39887bf6f5e72f859de218d70fd93d7c831c6fa66ed",
+    "source": {
+      "path": "web-sources/v1/79-bilibili-cn/articles/cv1751265/source.json",
+      "sha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+      "parentSourceMatches": true
+    },
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1751265.20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f.retry-1792948405214-96b97389.json",
+    "auditFileSha256": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627",
+    "auditIssue": {
+      "severity": "error",
+      "targetId": "79-bilibili-cn:cv1751265:b0008",
+      "sourceEvidence": "原文包含粗体“大丈夫だ，問題ない！”，候选正文仍保留该日文。",
+      "description": "日文引语未译成中文。",
+      "suggestedRepair": "将该引语译为“没关系，没问题！”，保留原有粗体强调，其余中文原文保持不变。"
+    },
+    "operations": [
+      {
+        "op": "test",
+        "path": "/body/blocks/7/text",
+        "value": "例2的形，东和北场上都已经切出了2张。 这种情况也是常有的。 “大丈夫だ，問題ない！”而去碰牌的人也不少 有死对子的情况去做门混七对子才是比较好的策略。"
+      },
+      {
+        "op": "replace",
+        "path": "/body/blocks/7/text",
+        "value": "例2的形，东和北场上都已经切出了2张。 这种情况也是常有的。 “没关系，没问题！”而去碰牌的人也不少 有死对子的情况去做门混七对子才是比较好的策略。"
+      }
+    ],
+    "verified": {
+      "exactOneReplacement": true,
+      "allOtherFieldsUnchanged": true,
+      "figuresAndSourceSegmentsUnchanged": true
+    },
+    "state": "prepared-exact-patch-not-production-or-independent-pass",
+    "entryConstraint": {
+      "passed": false,
+      "error": "web_revision_changed_body_or_scope",
+      "figureTargets": [],
+      "textTargets": [
+        "79-bilibili-cn:cv1751265:b0008"
+      ]
+    }
+  },
+  "frozenFiles": [
+    {
+      "name": "_grouprev-audit.log",
+      "sha256": "5fbeb3bae5881172327d3f6365d988a9b354e7385e914672afd73ca5d4ef9ea9"
+    },
+    {
+      "name": "_grouprev-block.mjs",
+      "sha256": "c1aefe40c7c78c27f52e0e3cf025695bbc012b08d22f61ceea7e3d3ce8471fe7"
+    },
+    {
+      "name": "_grouprev-drycheck.mjs",
+      "sha256": "b378c55aab5ba265d76bc227fc51481dcda2a86acb8b6e65545bfe0e66ced662"
+    },
+    {
+      "name": "_grouprev-produce.log",
+      "sha256": "43b57a7e6455f2fa1778ec0e39706e946a431d3b663e67ecc7433a4f44a48823"
+    },
+    {
+      "name": "_grouprev-verify-prod.mjs",
+      "sha256": "4c0c56c51455e05bd0ba1159c034124fa3f4720ac18043852f666a84b0af0cdb"
+    },
+    {
+      "name": "_mk_targets.py",
+      "sha256": "9b0e70430734f8a0d52a725b4bc16397d57f25c3919055f97a64543ec56e804c"
+    },
+    {
+      "name": "_patch-production.py",
+      "sha256": "f4d843502f79ce9df6c0a2ab5ef125909eb8870e442bedc34e70ff592dea185e"
+    },
+    {
+      "name": "_verify_grouprev_audit.mjs",
+      "sha256": "1ef359e0aca13b2713fdd831ef392ba934a602c8871db49c97c6d209583786d1"
+    },
+    {
+      "name": "_write_283_summary.py",
+      "sha256": "a6a73f6bb3ce2722aa8b42830ad621d3e5b17d5de44f909000956a3880c1d462"
+    },
+    {
+      "name": "annotate.mjs",
+      "sha256": "f2c74515641823cea58796e3e2fbe5b23394295b66d23a1d9898d5945faef44e"
+    },
+    {
+      "name": "annotate.test.mjs",
+      "sha256": "000e61b4cca3ee4095252930624d7b13630e3cd708e2380f18007abb3e642d5b"
+    },
+    {
+      "name": "apply-textbook-figure-transcriptions.mjs",
+      "sha256": "60f625108f706a9106fba482e0f7faf0587e5e501b2e83dff443e0bbffaf163b"
+    },
+    {
+      "name": "cards.tsv",
+      "sha256": "db2edb82f0340417f5581f955148d17dd871114ab96491cf1738e387136a51ee"
+    },
+    {
+      "name": "chapter-map.json",
+      "sha256": "828a68e781a01e1a44f3f47d1742038addf7a68b8a0f9a7f9f4d2d51680ef1ea"
+    },
+    {
+      "name": "chapter-picker.js",
+      "sha256": "7822d157cae6f5f5b8a6eaac98bbc2a2ae6ea5345d8bcf1178727d1f13ccbed7"
+    },
+    {
+      "name": "common.mjs",
+      "sha256": "1a4ae2a641985b7ec98a3ba3cbe292c77a4c7d2ab4ed5b9a0d84c8cadea34335"
+    },
+    {
+      "name": "compare-annotations.mjs",
+      "sha256": "32f3cd40fa0307d79e6155a4ba17cc5f8c43ce89a7a90761aa451014a49f0805"
+    },
+    {
+      "name": "compile-textbook-corpus.mjs",
+      "sha256": "b4a8fb7432847e54b3c922a5b83e88b3d957abd6a16e726c772188fa5db4a2db"
+    },
+    {
+      "name": "evaluate.mjs",
+      "sha256": "4f4ae9117e8573b717fb5eb382f61c15ac516fc8d0699f1827fd606acb169b75"
+    },
+    {
+      "name": "evaluate.test.mjs",
+      "sha256": "33e272d308f9c406e9cf38aeead0fcebd92f3dd28521bec9663168a1bad0e3b3"
+    },
+    {
+      "name": "fetch-sources.py",
+      "sha256": "7a5d3b2f56183b68e5414536a136bf8a34b8afc1a08b420ea5aca01a5fe65ed9"
+    },
+    {
+      "name": "inventory-textbooks.py",
+      "sha256": "4c2761becaf8f73c7ba792e536fbd05abcf5d56034a322cb02d87a0aa56b4bea"
+    },
+    {
+      "name": "knowledge-reader.css",
+      "sha256": "ca7f4b96446dad19686963856a348f6cd63b3f8e5d49f0a5247f465bb7a6fb47"
+    },
+    {
+      "name": "knowledge-reader.mjs",
+      "sha256": "7ee5e97b761e2738c3cb3276c422658c125011559feb4148de3529884504840d"
+    },
+    {
+      "name": "knowledge-revision.test.mjs",
+      "sha256": "10f8453d993cfae4f582673d6b768c87a9cf07b415c5615449e7a23e6f2781f0"
+    },
+    {
+      "name": "knowledge-v2-revisions.json",
+      "sha256": "eb348cc718d5d9485c17ccf2b203e343dc71414e2f8fbc39d9c19539669ce977"
+    },
+    {
+      "name": "knowledge-v2.json",
+      "sha256": "dabf55beb7a14c9222879a56c60dc6e8ad263e67bba7eb1712bcea00cdc196c0"
+    },
+    {
+      "name": "knowledge.json",
+      "sha256": "f16b4f15bc50497e25285c0b1541791de4dddf7ee2eaae0483781faac043d983"
+    },
+    {
+      "name": "knowledge.mjs",
+      "sha256": "ca132dcbd7e1e0c0d4b9bc698ca9ae7e4700a3076be2acd8d5ed9ac59e52e611"
+    },
+    {
+      "name": "materials.mjs",
+      "sha256": "ac6227f77cd3af06de17e0ee723a1d6ec68d4dcda219b185efc1c6449b4ad578"
+    },
+    {
+      "name": "prepare-textbook-bodies.py",
+      "sha256": "384e3b107502cf4f7773a725f5ff33b6bac6e80d2088c0bed8a12f33a3a45243"
+    },
+    {
+      "name": "prepare.mjs",
+      "sha256": "d3aeda1fa505f0a36d622a59a30e276b1b94de164475a9f01f3026ec791cc806"
+    },
+    {
+      "name": "render-textbook-page.py",
+      "sha256": "6219e82ebb07a5f69e91b6e45ccadda00d85138c33bb67adaf6b40dd4a5f8c04"
+    },
+    {
+      "name": "render-textbook-region.py",
+      "sha256": "488de7788ec5a2b95b411f31acdece59d806e59360c32bdb2bf20f76f1093fec"
+    },
+    {
+      "name": "retry-annotations.mjs",
+      "sha256": "5584c8cb66abbd8628d1b6ca32e5206779a7e4cdc74d3747241ef0bd1c25694f"
+    },
+    {
+      "name": "retry-annotations.test.mjs",
+      "sha256": "eb6f3a8eb773e9290685f286c0d1ea948460104f56f35b9dda0b3acf2154634b"
+    },
+    {
+      "name": "review-client.js",
+      "sha256": "3118cdd73a6a4c3514edd43244301095df4f7ecf20c0b36d55cb214bfa7bdf52"
+    },
+    {
+      "name": "review-presentation.mjs",
+      "sha256": "aa8cae8f61b03e51f5bf966d2b19825ad880af038eeb5b54785aa6c9405c397a"
+    },
+    {
+      "name": "review.css",
+      "sha256": "a06119fa0a7b66a78750be84147dda31239625ca447764cf230641653d50f915"
+    },
+    {
+      "name": "revise-knowledge.mjs",
+      "sha256": "946d595315533651392b80a74433f6413424935942d0ed83690895e22bdf7b5f"
+    },
+    {
+      "name": "study.mjs",
+      "sha256": "a4ac29386bcd9553fa3fd856383d591392628c00e96eefaf4e64f3f0048cacc6"
+    },
+    {
+      "name": "study.test.mjs",
+      "sha256": "b67d1f794a435ebe83b7f03bab10550325ebbb0f6a95f0061b33c03a1bcf6443"
+    },
+    {
+      "name": "summarize-annotations.mjs",
+      "sha256": "47210e4dcda294699029343413a0b0cd3def2c198a952b32a2207b09c1432e27"
+    },
+    {
+      "name": "textbook-audit-definition.mjs",
+      "sha256": "5d34e42077540b3aa171f4c4d9f1dd80222807f0ffd4e9f96c8d143b8fdfdcbd"
+    },
+    {
+      "name": "textbook-audit-definition.test.mjs",
+      "sha256": "ea21793c5be8e52c5577f510803d63c4fb3bc1a5bd925e097ed5de4ec731f5e2"
+    },
+    {
+      "name": "textbook-audit-image-binding.test.mjs",
+      "sha256": "1e8968987bd3082740c7044855379c4f193ce9c4d13470c32a1ae1fd4593f832"
+    },
+    {
+      "name": "textbook-audit-legacy.mjs",
+      "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1"
+    },
+    {
+      "name": "textbook-audit-legacy.test.mjs",
+      "sha256": "83016cc1c141b6b3b0e801360eb8b7476fc68450b4e73c9ee99b69cab542eec8"
+    },
+    {
+      "name": "textbook-audit-pdf-layout.mjs",
+      "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+    },
+    {
+      "name": "textbook-audit-pdf-layout.test.mjs",
+      "sha256": "5f77f9e27eacd0de4f40ba491bc4fe8fd9e7812070a040177be8316914915e69"
+    },
+    {
+      "name": "textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "31b8c8022ab00e8f3f89d85d8889ad9f1fd61269d6449da736c0ab142b90f74b"
+    },
+    {
+      "name": "textbook-audit-pdf-native-corrections.test.mjs",
+      "sha256": "a7e243d0d34f47d59d202a20af03244886a42c6bd6dee99c659cb56fb29e6049"
+    },
+    {
+      "name": "textbook-audit-pdf-native-structure-corrections.mjs",
+      "sha256": "a7079d3bf1114377dc5d2a2bcab317ad96f4dbd500b3414eb5687560b7d7cf2d"
+    },
+    {
+      "name": "textbook-audit-pdf-native-structure-corrections.test.mjs",
+      "sha256": "03d88a45596fb3b6278541d5b7133e9928075f3c078d92f03cd48a66070ee82c"
+    },
+    {
+      "name": "textbook-audit-pdf-native.mjs",
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+    },
+    {
+      "name": "textbook-audit-pdf-native.test.mjs",
+      "sha256": "57d883f64b2f1eb33a2b94e8e34eb2a24a3ccaedccc0460f1b346cd11d6c2ff4"
+    },
+    {
+      "name": "textbook-audit-pdf-scope.mjs",
+      "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+    },
+    {
+      "name": "textbook-audit-pdf-scope.test.mjs",
+      "sha256": "deb09c482fc9365bee3a1e08aea834156caeef8ff03955696930af350718cd9a"
+    },
+    {
+      "name": "textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+    },
+    {
+      "name": "textbook-audit-pdf-source-corrections.test.mjs",
+      "sha256": "0ec10edecc2ac24effb103356981e2b47b1af3fb4e41f4804fd166a576c1c69b"
+    },
+    {
+      "name": "textbook-audit-tile-dictionary.mjs",
+      "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+    },
+    {
+      "name": "textbook-audit-tile-dictionary.test.mjs",
+      "sha256": "c8fbb3162a8381c63570078382229c8b59b219aad68284fb1d0b54222ddde32c"
+    },
+    {
+      "name": "textbook-audit-verification-dependencies.mjs",
+      "sha256": "139b5fa3650978d34d9bf0bfe062db03ec203f51f1e0eabfd7669506f1fe6c19"
+    },
+    {
+      "name": "textbook-audit-verification-dependencies.test.mjs",
+      "sha256": "c28a0239d37aaf6e710da0a3b4c28c3a983fd1b511d52badfa3097cf18434e7a"
+    },
+    {
+      "name": "textbook-audit-web-batch-parent.test.mjs",
+      "sha256": "ef96208b74387f28dfcbaa6dc547754b45a94c7f62fa6310e64717ed655a8068"
+    },
+    {
+      "name": "textbook-audit-web-batch-retry.test.mjs",
+      "sha256": "677265c23879cdf66eaf37b4c8875fa35e1d875ed52e655f66b51c7a45738304"
+    },
+    {
+      "name": "textbook-audit-web-batches.mjs",
+      "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+    },
+    {
+      "name": "textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "name": "textbook-audit-web.mjs",
+      "sha256": "320e89cedf7079b2d24fe2152fcc2cdc6b56ae21195e2d88799d141fde672a35"
+    },
+    {
+      "name": "textbook-audit-web.mjs.orig-coac248-grouprev",
+      "sha256": "0d501787d64227d848a0c06c0dc0b37c3fedf15474fc5f9c1b5ec6b1e6930f1f"
+    },
+    {
+      "name": "textbook-audit-web.mjs.orig-coac249",
+      "sha256": "a585d2fc9858c2f894355146d8a0b779e53b1a405021fec573613786a186ea75"
+    },
+    {
+      "name": "textbook-audit-web.mjs.orig-coac250-firstrev",
+      "sha256": "dfdfbcc21a8a457fc2751eb86bfab71ea689f9b167ce63d603959b434acba4ec"
+    },
+    {
+      "name": "textbook-audit-web.test.mjs",
+      "sha256": "018bdb1c0cff83b7dcbe9f4f2276bcebf08bd9827934f88afd9ae4306b3449c7"
+    },
+    {
+      "name": "textbook-audit.mjs",
+      "sha256": "8660208dbb9ab80bff445d84402e169a0294b5485316c3ef1c080b42ea095893"
+    },
+    {
+      "name": "textbook-audit.test.mjs",
+      "sha256": "0d2832d51778d52f77f1eb12ab4ef6889bf53b6592133b259560deb1fe3e5005"
+    },
+    {
+      "name": "textbook-figure-transcriptions.json",
+      "sha256": "2f54c2741a0dad2ef8e1995d12e35477ef6fa114583486b24b7540a2062f1b3b"
+    },
+    {
+      "name": "textbook-figure-transcriptions.test.mjs",
+      "sha256": "e08a881bff5ac697affe6b0edf457a31d90e62616ca49e93e78180ddaeb3eec5"
+    },
+    {
+      "name": "textbook-library.json",
+      "sha256": "210577f880dc3b458f7f70eb4604d987bee92d90e9d0185f62ce12ff6d2547ff"
+    },
+    {
+      "name": "textbook-nemata-translation.json",
+      "sha256": "a59c36dc61fb6464bbdefa2765f2c68f75e78724dc05ed3d8c40dae762524ebf"
+    },
+    {
+      "name": "textbook-production-cli.mjs",
+      "sha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+    },
+    {
+      "name": "textbook-production-fetch.ps1",
+      "sha256": "c3c0d6bc17b917e50b5e470bb231c9e23e18c8e8bbd950e1fff4613971305ed5"
+    },
+    {
+      "name": "textbook-production-pdf-flow.mjs",
+      "sha256": "3645d394ceab227e4204534822273ab0ad2ff17cfac59ce1443633e55b0f3423"
+    },
+    {
+      "name": "textbook-production-pdf-flow.test.mjs",
+      "sha256": "a36afb0c98afd3c751945d74423d7a2bb332820798a346a5bf1a8da67810cd4e"
+    },
+    {
+      "name": "textbook-production-scope.test.mjs",
+      "sha256": "47ffbbfda2495ee8cf3e2a04a91bc1b5dcb5f93ebb4d435919b5eb26ec03a009"
+    },
+    {
+      "name": "textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+    },
+    {
+      "name": "textbook-production-web-batches.test.mjs",
+      "sha256": "511160c2407d4989ea65ec61230276bb096b69ad74d4ce2f8db0f9a17773cc35"
+    },
+    {
+      "name": "textbook-production-web-dictionary.mjs",
+      "sha256": "dab4ce62c7fe557be5978a138efe8121456a0fab226a75123bcb40cb0727069e"
+    },
+    {
+      "name": "textbook-production-web-formal.mjs",
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd"
+    },
+    {
+      "name": "textbook-production-web-labels.mjs",
+      "sha256": "a451885eb396e489010c2aca99c681c529b1c9ac24842ba72d0baba60ab1b45b"
+    },
+    {
+      "name": "textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    {
+      "name": "textbook-production-web-sources.py",
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f"
+    },
+    {
+      "name": "textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "name": "textbook-production-web.mjs",
+      "sha256": "4a5ce8ab361e659bf7a8e822d3e013ccf413701cfa604aaa1c58c688beab8ca9"
+    },
+    {
+      "name": "textbook-production-web.mjs.orig-coac248-grouprev",
+      "sha256": "f31c255e0654af7c88f240067b886cc92f6de5aa9242eeca12292b52eee3945c"
+    },
+    {
+      "name": "textbook-production.mjs",
+      "sha256": "5f2d01c5ac815083a7d337bf569be80d8f55c8fe4f4d482ac5284fde4555e746"
+    },
+    {
+      "name": "textbook-production.README.md",
+      "sha256": "98b985ae5148243b14fd057b669cc962dca557963ef5aef1fcdf12c1df0058d1"
+    },
+    {
+      "name": "textbook-review-client.js",
+      "sha256": "23c064a2516a75994c70d22892ec4fcbad6cbc63912b2d08d92fd890bb73d4b2"
+    },
+    {
+      "name": "textbook-review.css",
+      "sha256": "6b650443592266f44273b69e40cf3aae8572d76122e56d6c4c5d35f68a0f665f"
+    },
+    {
+      "name": "textbook-review.mjs",
+      "sha256": "11b3b9c1dcb41b2cdde72517dca733a84a352e75eea154edea5acc36408c7edf"
+    },
+    {
+      "name": "textbook-units.json",
+      "sha256": "6770bb6e9d0b2582984c50c951a146e428a13138205e93620e0698a187a543e7"
+    },
+    {
+      "name": "verify-textbook-diagrams.mjs",
+      "sha256": "4feec2f5ef8397177ca2ce993069d96222df65722ba3b389683fa75952092607"
+    },
+    {
+      "name": "verify-textbook-mcp.mjs",
+      "sha256": "221c7bc5486a403c44e0419e0892e454275418b25557f1e17896d1ea76a97355"
+    }
+  ]
+}

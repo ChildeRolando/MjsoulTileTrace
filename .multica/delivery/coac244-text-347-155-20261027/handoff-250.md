@@ -1,0 +1,13 @@
+本次只增量集成已真实独审pass的nemata-jp-chapter-347-1，不等待整书。主票COAC-244用户触发01a17e29-722d-7553-80a6-6a91f6da3f77已授权逐章交250；本指令优先于250描述里的旧批次范围，延续已有单写者及不切正式active边界。
+
+先读取交接包 E:/AgentData/Coach/knowledge/processing/integration/coac244-reviewed-text347-155-20261027.json，SHA256=9394aca872a7a8b712198ef3e141915e4a4bde5fa7fc5172edb97cb5e00172b8。归档复核重新写入了打包时间，因此仅交接包摘要取代唤醒最初的764263db；候选、源、独审、raw摘要均未变，按下列原始证据独立复验。此更正已同步250当前描述，无需重复派发。
+
+唯一新增目标：modern-yabejp-ja/archive01-section008。候选 web-production/v1/candidates/modern-yabejp-ja/archive01-section008.coac244text20261027.display.json，文件SHA256=45b67ef632f54a213a8c33bc4cc4c7b656e10d47123a35b8ec57f0d17abb6814。源文件SHA256=62523932b13fc685e8c46c0ea7b2a765d1dff51ea39746ea9e2585cf92cfee21。
+
+真实首审回执 audit/web/articles/modern-yabejp-ja/archive01-section008.45b67ef632f54a213a8c33bc4cc4c7b656e10d47123a35b8ec57f0d17abb6814.json，文件SHA256=5215961e821d727ef1b5ac2e3f19fe0664cbe01f1181e44d8a082ef18049dbae，passed，调用cfc3e7a6-ca0e-417c-8157-3b126ae55d1b。新制作调用b8e3bd21-b7ae-4f09-a15b-345b1bba167a。审校方法为独立目标文字审校+已认证且未改范围的完整父审继承；不声称本次新审图片。仅b0066文字修订，其他正文及figure语义字段与已注册r1相同；完整scope有66正文块、27figure。
+
+父链复用原完整display候选522447de46fb090753f5a89bf76a50a4cacd4bb729884f872ee764f3e0461911、真实完整父审f10c5c6f3cab0fb7d6d827123e3336febfe1ff9fcfc8c2d0ff39f506c390c8c1，未改原回执。对争议术语通过既有revision-context绑定同书原始定义，新独审确认“易得、易出程度”，不得回退成“安全程度”。可在当前主票分支新增提交的.multica/delivery/coac244-text-347-155-20261027查详细继承证明及原始调用。
+
+开始前读250现状、最新canonical register/preview/selection，依已有排除逻辑去重；沿现有合法替换对应与版本来源标识，不能将网页与PDF字面正文等同。按现有锁正常取得唯一集成写者，遇占用报实际owner，不删锁，不起第二消费者。保留先前225章及已集成246；由真实分页MCP/Arena整章回读、66块/27figure及asset绑定验证后才增加覆盖。最新确认选择为v16，若已有更新以实时状态为准，保留回滚版本。
+
+155仅零调用预检被现有中文逐字/figure-only门禁拒绝，无新候选、无pass，绝不集成；276不重试，222及源图争议hold，p217草案继续隔离。不得新调模型、改provider/runtime、改审校或父证据门禁、切正式active。完成后在250发真实增量结果与实际覆盖，保持主书未全部完成。

@@ -1,0 +1,27 @@
+{
+  "schema": "coach-source-grounded-term-review/1",
+  "primaryEvidence": [
+    {
+      "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section023/source.json",
+      "sourceFileSha256": "9c992e05d999367112af5ca275a09cc94fdd57a751c8cc99f30cac872b28a833",
+      "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section023.html",
+      "blocks": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter03-section023:b0003",
+          "sourceText": "場に高いかどうかは、河を見ればすぐに判る（切れれている牌が少ない色ほど高い、一色手狙いがいれば特に顕著になる）ので簡単です。前回述べたような順子のできやすさから読む場合ほどの差は出ませんが、場に高い色ほど牌の組み合わせが多くなるので、他家がそこで面子を作っている可能性が高くなる分、山に残っている枚数は少なくなります。安い色の場合はその逆です。場に安い色は、順子として構成されにくい牌と同様に、山に残っている可能性も高く、他家が面子として使いづらいので出やすくなります（テンパイした時にあがり易い、仕掛けもし易い）。"
+        }
+      ]
+    },
+    {
+      "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter01-section053/source.json",
+      "sourceFileSha256": "8ef5a4a2fc65f285b718cf08a424d6173a0118b520173660653e6d1011ab3daf",
+      "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter01/section053.html",
+      "blocks": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section053:b0174",
+          "sourceText": "但し、どちらを選んでもそこまで和了率に差が出るわけではない。よって明確な打点差があればそちらを選択する。場に高い色なのでリャンメンターツとはいえそこまで自信が持てず、一方多メンチャンの色が場に安く待ちとして残れば極めて和了易いとみるならリャンメン落としもある。"
+        }
+      ]
+    }
+  ]
+}

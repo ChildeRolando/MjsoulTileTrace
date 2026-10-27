@@ -1,0 +1,95 @@
+{
+  "modelCalls": 0,
+  "inheritance": {
+    "revision": {
+      "parentPath": "web-production/v1/candidates/modern-yabejp-ja/archive01-section008.display.json",
+      "parentSha256": "522447de46fb090753f5a89bf76a50a4cacd4bb729884f872ee764f3e0461911",
+      "notesPath": "audit/web/articles/modern-yabejp-ja/archive01-section008.522447de46fb090753f5a89bf76a50a4cacd4bb729884f872ee764f3e0461911.json",
+      "notesSha256": "f10c5c6f3cab0fb7d6d827123e3336febfe1ff9fcfc8c2d0ff39f506c390c8c1",
+      "figureIds": [],
+      "textBlockIds": [
+        "modern-yabejp-ja:archive01-section008:b0066"
+      ],
+      "context": {
+        "path": "web-production/v1/runs/coac244-text-347-20261027/term-source-context.json",
+        "sha256": "5f42051703b4d23a0ccc8c2285a6e2ca850cc4f5d90a2b4a5e737c4f888a57f7"
+      }
+    },
+    "parentAudit": {
+      "path": "audit/web/articles/modern-yabejp-ja/archive01-section008.522447de46fb090753f5a89bf76a50a4cacd4bb729884f872ee764f3e0461911.json",
+      "sha256": "f10c5c6f3cab0fb7d6d827123e3336febfe1ff9fcfc8c2d0ff39f506c390c8c1",
+      "originalStatus": "needs-repair"
+    },
+    "parentCall": {
+      "callId": "eb0ed1db-bc9a-4c46-a726-c2b8a7126160",
+      "path": "audit/calls/eb0ed1db-bc9a-4c46-a726-c2b8a7126160.json",
+      "sha256": "91c5075d1bf84fc482802f2be9aac53c95e309bfd484fa13e12e55b17bc22afa"
+    },
+    "inheritedAssetIds": [
+      "modern-yabejp-ja:e11b4a7fa60544eb721099fb",
+      "modern-yabejp-ja:cf903c27e3d6d79024397f25",
+      "modern-yabejp-ja:fa4ca8dbce129a7a05fc2fa8",
+      "modern-yabejp-ja:fae4f4d8fc74f83a0364ba1a",
+      "modern-yabejp-ja:aaaa5fd72ccc12bd7da6f6aa",
+      "modern-yabejp-ja:283d95909f085c408e33545e",
+      "modern-yabejp-ja:137d504c6d5d4ca4ea9af8d7",
+      "modern-yabejp-ja:86934245281c06c2cec288f1",
+      "modern-yabejp-ja:4e968347146a35ff5443c3aa",
+      "modern-yabejp-ja:4cb53a69898dd190016b477e",
+      "modern-yabejp-ja:a9f17b7a69c9af312e62687f",
+      "modern-yabejp-ja:642ddd0dab75b2ca1f3ad744",
+      "modern-yabejp-ja:51df8a5007948f0751d3d34b",
+      "modern-yabejp-ja:accdd2038d23f16c33ec76f9",
+      "modern-yabejp-ja:efde650fe35a084958cfb03f",
+      "modern-yabejp-ja:66f4fc88f899af0258244da2",
+      "modern-yabejp-ja:e55f2661c108fb3854242c3f",
+      "modern-yabejp-ja:67422e7f1a2aaedf226710e6",
+      "modern-yabejp-ja:865231b0b04f914254e01fc9",
+      "modern-yabejp-ja:113916eafff92e1ddd5d5360",
+      "modern-yabejp-ja:4d318826f6a4e9aecadb6da9",
+      "modern-yabejp-ja:31607e0c4823773206eee230",
+      "modern-yabejp-ja:3d679855094c9151924672ea",
+      "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+      "modern-yabejp-ja:86ff3e6aae7c47c4bd14a3be",
+      "modern-yabejp-ja:13fefae159ce62a1e4cf2f11",
+      "modern-yabejp-ja:25a799fb49374029201271a6",
+      "modern-yabejp-ja:9da9b8a56900c3b0b5e431c4",
+      "modern-yabejp-ja:5323955b942f8b4fbeab214c"
+    ],
+    "sourceContext": {
+      "binding": {
+        "path": "web-production/v1/runs/coac244-text-347-20261027/term-source-context.json",
+        "sha256": "5f42051703b4d23a0ccc8c2285a6e2ca850cc4f5d90a2b4a5e737c4f888a57f7"
+      },
+      "sources": [
+        {
+          "path": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section023/source.json",
+          "sha256": "9c992e05d999367112af5ca275a09cc94fdd57a751c8cc99f30cac872b28a833",
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section023.html",
+          "htmlSha256": "937cfdeca441d11fe85b015f96b7ca442a073fa891a4411bb475cf3183918fcb",
+          "mainSha256": "c37ac534139ffb51400aeaed05707673f233bc138b2fe1dc71550ed169af0059"
+        },
+        {
+          "path": "web-sources/v1/modern-yabejp-ja/articles/chapter01-section053/source.json",
+          "sha256": "8ef5a4a2fc65f285b718cf08a424d6173a0118b520173660653e6d1011ab3daf",
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter01/section053.html",
+          "htmlSha256": "dc9618a9e0e2a56c0e72e288e977910e3c63211705026cce73c6a86faf660ea6",
+          "mainSha256": "c94aa4deaf2199b6fe717a8214e2c308ac7c62ebf8684df7c1cff243d179a8c5"
+        }
+      ],
+      "quotes": [
+        {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section023.html",
+          "sourceBlockId": "modern-yabejp-ja:chapter03-section023:b0003",
+          "sourceText": "場に高いかどうかは、河を見ればすぐに判る（切れれている牌が少ない色ほど高い、一色手狙いがいれば特に顕著になる）ので簡単です。前回述べたような順子のできやすさから読む場合ほどの差は出ませんが、場に高い色ほど牌の組み合わせが多くなるので、他家がそこで面子を作っている可能性が高くなる分、山に残っている枚数は少なくなります。安い色の場合はその逆です。場に安い色は、順子として構成されにくい牌と同様に、山に残っている可能性も高く、他家が面子として使いづらいので出やすくなります（テンパイした時にあがり易い、仕掛けもし易い）。"
+        },
+        {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter01/section053.html",
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section053:b0174",
+          "sourceText": "但し、どちらを選んでもそこまで和了率に差が出るわけではない。よって明確な打点差があればそちらを選択する。場に高い色なのでリャンメンターツとはいえそこまで自信が持てず、一方多メンチャンの色が場に安く待ちとして残れば極めて和了易いとみるならリャンメン落としもある。"
+        }
+      ],
+      "verification": "independent exact same-book raw-HTML and main-text quotations; not a model answer label"
+    }
+  }
+}
