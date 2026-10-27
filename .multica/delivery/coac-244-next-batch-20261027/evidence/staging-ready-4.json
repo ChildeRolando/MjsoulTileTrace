@@ -1,0 +1,48 @@
+{
+ "schema": "coac244-staging-ready/1",
+ "recordedAt": "2026-10-27T11:34:14.009Z",
+ "modelCalls": 0,
+ "preview": {
+  "corpusId": "5eebf4df6b1593749040570ed8e789b2809b1579cf51f2bf50f43dd2516f37fe",
+  "chapters": 214
+ },
+ "note": "these four have real passed independent reviews and bound current sources but are neither selectedWeb nor pendingWeb in the current preview; register still counts them as needs-repair (produced-passed-not-staged=0 is stale)",
+ "items": [
+  {
+   "chapterId": "nemata-jp-chapter-199-1",
+   "articleId": "chapter03-section013",
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section013.rev1.json",
+   "candidateSha256": "3d93eb869db859bf35ff7b6ab832cc88b45fbd035bc78018ace54b33ae293ec8",
+   "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section013.3d93eb869db859bf35ff7b6ab832cc88b45fbd035bc78018ace54b33ae293ec8.retry-1793095290967-e15ea7b7.json",
+   "auditSha256": "2247cb220cf2b82a291510f5ca06573c3c8c13720065d63d884bf2499d5c0563",
+   "auditStatus": "passed"
+  },
+  {
+   "chapterId": "nemata-jp-chapter-142-1",
+   "articleId": "chapter01-section054",
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section054.coac269rev1.json",
+   "candidateSha256": "f3570e7bbe61e0ef99e45a2f4185ed3f0c1fe1840f670783c7fd2402352dedca",
+   "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section054.f3570e7bbe61e0ef99e45a2f4185ed3f0c1fe1840f670783c7fd2402352dedca.json",
+   "auditSha256": "5a8a41e7362719b52dd9b013859f9bb406d43865e33fdb548300e00fb60badff",
+   "auditStatus": "passed"
+  },
+  {
+   "chapterId": "nemata-jp-chapter-127-1",
+   "articleId": "chapter01-section047",
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section047.coac269rev1.json",
+   "candidateSha256": "363fd45cc99f099cfbaec296a1102af0d6dd5519596af707697c21154280c86d",
+   "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section047.363fd45cc99f099cfbaec296a1102af0d6dd5519596af707697c21154280c86d.json",
+   "auditSha256": "05be99be66bf8c579814b0cb392c9c57f82fdde0b40dc47e63cc374e49702696",
+   "auditStatus": "passed"
+  },
+  {
+   "chapterId": "nemata-jp-chapter-027-1",
+   "articleId": "chapter01-section010",
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.coac269rev1.json",
+   "candidateSha256": "44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c",
+   "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section010.44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c.json",
+   "auditSha256": "bdb29387e6fdbb875ca7150223b18659a06a8964ad6afceda4b562088450b5e0",
+   "auditStatus": "passed"
+  }
+ ]
+}

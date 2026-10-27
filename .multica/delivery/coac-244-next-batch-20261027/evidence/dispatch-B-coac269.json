@@ -1,0 +1,86 @@
+{
+ "schema": "coac244-batch-dispatch/1",
+ "recordedAt": "2026-10-27T11:34:14.006Z",
+ "modelCalls": 0,
+ "lane": "B",
+ "owner": "COAC-269 Ticket executor",
+ "ticket": "01a17cae-06e4-7b30-a93f-3a030d1ae63f",
+ "category": "text-multi-block-executable",
+ "chapter": {
+  "chapterId": "nemata-jp-chapter-089-1",
+  "title": "三色同順",
+  "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section031.display.json",
+  "candidateSha256": "9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb",
+  "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section031.9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb.retry-1792951706280-1a9d74d2.json",
+  "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter01-section031/source.json",
+  "sourceSha256": "c69694f31974fc506ba30b69434ed64a700112dc6d7bb2d67916aa9ef19126a4",
+  "bodyMode": "translated",
+  "bodyBlocks": 159,
+  "figures": 75
+ },
+ "revisionScope": {
+  "figureIds": [],
+  "textBlockIds": [
+   "modern-yabejp-ja:chapter01-section031:b0042",
+   "modern-yabejp-ja:chapter01-section031:b0084",
+   "modern-yabejp-ja:chapter01-section031:b0102",
+   "modern-yabejp-ja:chapter01-section031:b0153"
+  ]
+ },
+ "entryGate": {
+  "runtime": "audit/runtimes/e89dcffe73c9100a12218b79dfba66da3f1bb08d7adaf2b64e87d9eb34619a49/",
+  "textbookAuditWebSha256": "a585d2fc9858c2f894355146d8a0b779e53b1a405021fec573613786a186ea75",
+  "function": "verifyWebRevisionContent(candidate,parent,notes)",
+  "result": "PASS",
+  "verifiedAt": "2026-10-27T11:34:14.004Z",
+  "modelCalls": 0
+ },
+ "nextInQueue": {
+  "chapter": {
+   "chapterId": "nemata-jp-chapter-060-1",
+   "title": "待ち受け選択",
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-06.display.json",
+   "candidateSha256": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+   "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section021-06.ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828.json",
+   "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter01-section021-06/source.json",
+   "sourceSha256": "febc8cef9c299b375c225843e4d33a27a2167c3729bf8c590e472433f548eda5",
+   "bodyMode": "translated",
+   "bodyBlocks": 129,
+   "figures": 50
+  },
+  "revisionScope": {
+   "figureIds": [],
+   "textBlockIds": [
+    "modern-yabejp-ja:chapter01-section021-06:b0027",
+    "modern-yabejp-ja:chapter01-section021-06:b0033"
+   ]
+  },
+  "entryGate": {
+   "runtime": "audit/runtimes/e89dcffe73c9100a12218b79dfba66da3f1bb08d7adaf2b64e87d9eb34619a49/",
+   "textbookAuditWebSha256": "a585d2fc9858c2f894355146d8a0b779e53b1a405021fec573613786a186ea75",
+   "function": "verifyWebRevisionContent(candidate,parent,notes)",
+   "result": "PASS",
+   "verifiedAt": "2026-10-27T11:34:14.006Z",
+   "modelCalls": 0
+  }
+ },
+ "budget": {
+  "productionCallsPerChapter": 1,
+  "firstAuditPerChapter": 1,
+  "retriesAllowed": 0
+ },
+ "constraints": [
+  "textBlockIds only, figureIds empty; body.mode stays translated",
+  "multi-target text revision is already supported by the existing entry (no relaxation, no new exemption, no gate edit)",
+  "PR #71 platform code review is not a prerequisite for this batch; keep the normal review running in parallel",
+  "re-read the active preview pointer at claim time and again immediately before dispatch; never reuse a preflight older than the current pointer",
+  "each target block has a parent-audit error issue with a suggestedRepair; do not rewrite non-target text, figures, DOM order or provenance",
+  "after production, write the explicit-targets config and wake COAC-249 (agent b144c077-cadd-4749-a53d-4b9cb98191b8) with --kind at --after 1m; do not self-approve"
+ ],
+ "knownRepairs": [
+  "b0042: 拆掉是值得考虑的选择 -> 拆掉是有力选择 (keep the three-colour condition)",
+  "b0084: 很多情况下兼顾两种路线是值得考虑的选择 -> ...是有力选择",
+  "b0102: 是值得考虑的选择 -> 是有力选择",
+  "b0153: 是值得考虑的选择 -> 是有力选择"
+ ]
+}

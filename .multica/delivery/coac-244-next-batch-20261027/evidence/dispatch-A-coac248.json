@@ -1,0 +1,57 @@
+{
+ "schema": "coac244-batch-dispatch/1",
+ "recordedAt": "2026-10-27T11:34:14.005Z",
+ "modelCalls": 0,
+ "lane": "A",
+ "owner": "COAC-248 Mika",
+ "ticket": "01a17471-0529-7d3d-bd8d-8b54ef38290d",
+ "category": "figure-targeted-executable",
+ "chapter": {
+  "chapterId": "79-cn-chapter-081-8",
+  "title": "牌效率17—一向听的牌理（五）",
+  "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1721475.display.json",
+  "candidateSha256": "50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853",
+  "auditPath": "audit/web/articles/79-bilibili-cn/cv1721475.50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853.json",
+  "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1721475/source.json",
+  "sourceSha256": "f0f3fe12b457bc7d0ffcb34cfc6b1e4e5e37781759f55ebe22cbfdc8343b55f3",
+  "bodyMode": "verbatim",
+  "bodyBlocks": 19,
+  "figures": 8
+ },
+ "revisionScope": {
+  "figureIds": [
+   "79-bilibili-cn:cv1721475:b0004:figure",
+   "79-bilibili-cn:cv1721475:b0006:figure",
+   "79-bilibili-cn:cv1721475:b0008:figure",
+   "79-bilibili-cn:cv1721475:b0018:figure"
+  ],
+  "textBlockIds": []
+ },
+ "entryGate": {
+  "runtime": "audit/runtimes/e89dcffe73c9100a12218b79dfba66da3f1bb08d7adaf2b64e87d9eb34619a49/",
+  "textbookAuditWebSha256": "a585d2fc9858c2f894355146d8a0b779e53b1a405021fec573613786a186ea75",
+  "function": "verifyWebRevisionContent(candidate,parent,notes)",
+  "result": "PASS",
+  "verifiedAt": "2026-10-27T11:34:14.004Z",
+  "modelCalls": 0
+ },
+ "budget": {
+  "productionCallsPerChapter": 1,
+  "firstAuditPerChapter": 1,
+  "retriesAllowed": 0,
+  "note": "failed/void/transport-error calls all consume the budget"
+ },
+ "constraints": [
+  "body.mode must stay verbatim; textBlockIds must stay empty (text+figure mixed revisions are rejected by the gate)",
+  "only the four declared figures may differ; every other body block and figure stays byte-identical",
+  "the parent audit already declares each of the four targets needs-repair with an error issue; do not re-audit the parent and do not edit the parent",
+  "do not touch production-lane.lock, the shared variant selection, the preview pointer or the register",
+  "candidate namespace: write only under this ticket's own run directory; hand the candidate path+SHA to 249"
+ ],
+ "knownRepairs": [
+  "b0004 figure: last hand tile 9s -> 7s",
+  "b0006 figure: four 9s -> 7s across changes A/B and example 2",
+  "b0008 figure: two closing 9s -> 7s",
+  "b0018 figure: row-end 9s -> 7s (cut 6m row) and 4p -> 5p (cut 2s row)"
+ ]
+}

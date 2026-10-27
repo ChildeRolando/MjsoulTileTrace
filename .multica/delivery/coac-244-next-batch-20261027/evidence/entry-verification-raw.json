@@ -1,0 +1,520 @@
+{
+ "checkedAt": "2026-10-27T11:30:32.390Z",
+ "runtime": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/e89dcffe73c9100a12218b79dfba66da3f1bb08d7adaf2b64e87d9eb34619a49",
+ "modelCalls": 0,
+ "total": 38,
+ "executable": 12,
+ "results": [
+  {
+   "chapter": "79-cn-chapter-081-8",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 4,
+   "attempts": [
+    {
+     "dir": "figure",
+     "figTargets": 4,
+     "ok": true
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-090-6",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 3,
+   "attempts": [
+    {
+     "dir": "figure",
+     "figTargets": 3,
+     "ok": true
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-109-4",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 2,
+   "attempts": [
+    {
+     "dir": "figure",
+     "figTargets": 2,
+     "ok": false,
+     "error": "web_revision_notes_scope"
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-128-14",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 1,
+   "attempts": [
+    {
+     "dir": "figure",
+     "figTargets": 1,
+     "ok": true
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-145-4",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 1,
+   "attempts": [
+    {
+     "dir": "figure",
+     "figTargets": 1,
+     "ok": true
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-155-4",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 1,
+   "attempts": [
+    {
+     "dir": "text",
+     "nonfigTargets": 1,
+     "ok": false,
+     "error": "web_revision_changed_body_or_scope"
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-157-11",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 5,
+   "attempts": [
+    {
+     "dir": "figure",
+     "figTargets": 5,
+     "ok": true
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-159-9",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 0,
+   "attempts": [
+    {
+     "dir": "none",
+     "ok": false,
+     "error": "parent-audit-declares-no-error-target"
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-162-3",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 2,
+   "attempts": [
+    {
+     "dir": "text",
+     "nonfigTargets": 2,
+     "ok": false,
+     "error": "web_revision_changed_body_or_scope"
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-167-4",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 1,
+   "attempts": [
+    {
+     "dir": "figure",
+     "figTargets": 1,
+     "ok": false,
+     "error": "web_revision_notes_scope"
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-182-5",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 1,
+   "attempts": [
+    {
+     "dir": "text",
+     "nonfigTargets": 1,
+     "ok": false,
+     "error": "web_revision_changed_body_or_scope"
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-193-4",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 0,
+   "attempts": [
+    {
+     "dir": "none",
+     "ok": false,
+     "error": "parent-audit-declares-no-error-target"
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-201-6",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 2,
+   "attempts": [
+    {
+     "dir": "text",
+     "nonfigTargets": 1,
+     "ok": false,
+     "error": "web_revision_changed_body_or_scope"
+    },
+    {
+     "dir": "figure",
+     "figTargets": 1,
+     "ok": false,
+     "error": "web_revision_notes_scope"
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-205-5",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 1,
+   "attempts": [
+    {
+     "dir": "figure",
+     "figTargets": 1,
+     "ok": true
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-208-4",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 0,
+   "attempts": [
+    {
+     "dir": "none",
+     "ok": false,
+     "error": "parent-audit-declares-no-error-target"
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-215-4",
+   "kind": "pdf/no-cand",
+   "ok": false,
+   "error": "no-web-candidate"
+  },
+  {
+   "chapter": "79-cn-chapter-217-4",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 2,
+   "attempts": [
+    {
+     "dir": "figure",
+     "figTargets": 2,
+     "ok": false,
+     "error": "web_revision_parent_has_other_unresolved_checks"
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-222-5",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 1,
+   "attempts": [
+    {
+     "dir": "figure",
+     "figTargets": 1,
+     "ok": true
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-234-12",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 1,
+   "attempts": [
+    {
+     "dir": "text",
+     "nonfigTargets": 1,
+     "ok": false,
+     "error": "web_revision_changed_body_or_scope"
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-242-3",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 0,
+   "attempts": [
+    {
+     "dir": "none",
+     "ok": false,
+     "error": "parent-audit-declares-no-error-target"
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-246-3",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 3,
+   "attempts": [
+    {
+     "dir": "figure",
+     "figTargets": 3,
+     "ok": true
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-256-18",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 1,
+   "attempts": [
+    {
+     "dir": "figure",
+     "figTargets": 1,
+     "ok": true
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-276-4",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 1,
+   "attempts": [
+    {
+     "dir": "figure",
+     "figTargets": 1,
+     "ok": true
+    }
+   ]
+  },
+  {
+   "chapter": "79-cn-chapter-311-18",
+   "source": "79-cn",
+   "mode": "verbatim",
+   "declaredErrors": 2,
+   "attempts": [
+    {
+     "dir": "figure",
+     "figTargets": 2,
+     "ok": false,
+     "error": "web_revision_notes_scope"
+    }
+   ]
+  },
+  {
+   "chapter": "nemata-jp-chapter-001-64",
+   "kind": "pdf/no-cand",
+   "ok": false,
+   "error": "no-web-candidate"
+  },
+  {
+   "chapter": "nemata-jp-chapter-060-1",
+   "source": "nemata-jp",
+   "mode": "translated",
+   "declaredErrors": 2,
+   "attempts": [
+    {
+     "dir": "text",
+     "nonfigTargets": 2,
+     "ok": true
+    }
+   ]
+  },
+  {
+   "chapter": "nemata-jp-chapter-089-1",
+   "source": "nemata-jp",
+   "mode": "translated",
+   "declaredErrors": 4,
+   "attempts": [
+    {
+     "dir": "text",
+     "nonfigTargets": 4,
+     "ok": true
+    }
+   ]
+  },
+  {
+   "chapter": "nemata-jp-chapter-100-1",
+   "source": "nemata-jp",
+   "mode": "translated",
+   "declaredErrors": 0,
+   "attempts": [
+    {
+     "dir": "none",
+     "ok": false,
+     "error": "parent-audit-declares-no-error-target"
+    }
+   ]
+  },
+  {
+   "chapter": "nemata-jp-chapter-183-1",
+   "source": "nemata-jp",
+   "mode": "translated",
+   "declaredErrors": 0,
+   "attempts": [
+    {
+     "dir": "none",
+     "ok": false,
+     "error": "parent-audit-declares-no-error-target"
+    }
+   ]
+  },
+  {
+   "chapter": "nemata-jp-chapter-193-1",
+   "source": "nemata-jp",
+   "mode": "translated",
+   "declaredErrors": 2,
+   "attempts": [
+    {
+     "dir": "text",
+     "nonfigTargets": 1,
+     "ok": false,
+     "error": "web_revision_notes_scope"
+    },
+    {
+     "dir": "figure",
+     "figTargets": 1,
+     "ok": false,
+     "error": "web_revision_changed_body_or_scope"
+    }
+   ]
+  },
+  {
+   "chapter": "nemata-jp-chapter-213-1",
+   "source": "nemata-jp",
+   "mode": "translated",
+   "declaredErrors": 2,
+   "attempts": [
+    {
+     "dir": "text",
+     "nonfigTargets": 1,
+     "ok": false,
+     "error": "web_revision_notes_scope"
+    },
+    {
+     "dir": "figure",
+     "figTargets": 1,
+     "ok": false,
+     "error": "web_revision_changed_body_or_scope"
+    }
+   ]
+  },
+  {
+   "chapter": "nemata-jp-chapter-224-1",
+   "source": "nemata-jp",
+   "mode": "translated",
+   "declaredErrors": 1,
+   "attempts": [
+    {
+     "dir": "figure",
+     "figTargets": 1,
+     "ok": false,
+     "error": "web_revision_changed_body_or_scope"
+    }
+   ]
+  },
+  {
+   "chapter": "nemata-jp-chapter-232-1",
+   "source": "nemata-jp",
+   "mode": "translated",
+   "declaredErrors": 3,
+   "attempts": [
+    {
+     "dir": "text",
+     "nonfigTargets": 2,
+     "ok": false,
+     "error": "web_revision_notes_scope"
+    },
+    {
+     "dir": "figure",
+     "figTargets": 1,
+     "ok": false,
+     "error": "web_revision_changed_body_or_scope"
+    }
+   ]
+  },
+  {
+   "chapter": "nemata-jp-chapter-236-1",
+   "source": "nemata-jp",
+   "mode": "translated",
+   "declaredErrors": 0,
+   "attempts": [
+    {
+     "dir": "none",
+     "ok": false,
+     "error": "parent-audit-declares-no-error-target"
+    }
+   ]
+  },
+  {
+   "chapter": "nemata-jp-chapter-250-1",
+   "kind": "pdf/no-cand",
+   "ok": false,
+   "error": "no-web-candidate"
+  },
+  {
+   "chapter": "nemata-jp-chapter-283-1",
+   "source": "nemata-jp",
+   "mode": "translated",
+   "declaredErrors": 13,
+   "attempts": [
+    {
+     "dir": "text",
+     "nonfigTargets": 11,
+     "ok": false,
+     "error": "web_revision_unknown_target_text"
+    },
+    {
+     "dir": "figure",
+     "figTargets": 2,
+     "ok": false,
+     "error": "web_revision_changed_body_or_scope"
+    }
+   ]
+  },
+  {
+   "chapter": "nemata-jp-chapter-317-51",
+   "kind": "pdf/no-cand",
+   "ok": false,
+   "error": "no-web-candidate"
+  },
+  {
+   "chapter": "nemata-jp-chapter-347-1",
+   "source": "nemata-jp",
+   "mode": "translated",
+   "declaredErrors": 1,
+   "attempts": [
+    {
+     "dir": "text",
+     "nonfigTargets": 1,
+     "ok": false,
+     "error": "web_revision_notes_scope"
+    }
+   ]
+  }
+ ]
+}

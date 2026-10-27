@@ -1,0 +1,20 @@
+{
+ "schema": "coac244-revision-entry-verification/1",
+ "recordedAt": "2026-10-27T11:35:00Z",
+ "modelCalls": 0,
+ "runtime": "audit/runtimes/e89dcffe73c9100a12218b79dfba66da3f1bb08d7adaf2b64e87d9eb34619a49",
+ "function": "verifyWebRevisionContent(candidate,parent,notes)",
+ "method": "同内容 revision 视图：父候选 + provenance.revision{parentPath,parentSha256,notesPath,notesSha256,textBlockIds|figureIds}，targets 取父审 error issue 的 targetId；按父审声明的方向分别试 text / figure",
+ "result": {
+  "pass": ["nemata-jp-chapter-089-1:text(4)", "nemata-jp-chapter-060-1:text(2)", "79-cn-chapter-081-8:figure(4)", "79-cn-chapter-090-6:figure(3)", "79-cn-chapter-128-14:figure(1)", "79-cn-chapter-145-4:figure(1)", "79-cn-chapter-157-11:figure(5)", "79-cn-chapter-205-5:figure(1)", "79-cn-chapter-222-5:figure(1)", "79-cn-chapter-246-3:figure(3)", "79-cn-chapter-256-18:figure(1)", "79-cn-chapter-276-4:figure(1)"],
+  "fail": ["79-cn-chapter-109-4", "79-cn-chapter-155-4", "79-cn-chapter-159-9", "79-cn-chapter-162-3", "79-cn-chapter-167-4", "79-cn-chapter-182-5", "79-cn-chapter-193-4", "79-cn-chapter-201-6", "79-cn-chapter-208-4", "79-cn-chapter-217-4", "79-cn-chapter-234-12", "79-cn-chapter-242-3", "79-cn-chapter-311-18", "nemata-jp-chapter-100-1", "nemata-jp-chapter-183-1", "nemata-jp-chapter-193-1", "nemata-jp-chapter-213-1", "nemata-jp-chapter-224-1", "nemata-jp-chapter-232-1", "nemata-jp-chapter-236-1", "nemata-jp-chapter-347-1"]
+ },
+ "gateFacts": {
+  "multiTargetTextSupported": true,
+  "textAndFigureCannotMix": true,
+  "textRevisionRequiresTranslatedParent": true,
+  "figureRevisionRequiresVerbatimParent": true,
+  "allImageChecksMustBeRepresented": true,
+  "parentMustDeclareEveryTargetAsErrorIssue": true
+ }
+}
