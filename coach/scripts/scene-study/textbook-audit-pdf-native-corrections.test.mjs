@@ -71,3 +71,27 @@ it('rejects a change without bound source evidence',()=>{
  const f=fixture();f.revision.provenance.sourceFieldCorrection.changes[0].sourceCrop=null;f.job.changes=f.revision.provenance.sourceFieldCorrection.changes;
  expect(f.apply).toThrow('audit_native_inline_correction_source_evidence');
 });
+function unknownsFixture(){
+ const f=fixture(),before=['牌列右侧的细小灰色符号不够清晰，无法确认具体字符。'],after=['牌列右侧为嵌图右缘的裁切残片，同书同位置同形，文本层无字形，不是可转录字符。'];
+ f.raw.figures[0].unknowns=before;f.revision.figures[0].unknowns=after;
+ const change={target:'figure',figureId:'r1',field:'unknowns',fromValue:before,toValue:after,replacements:[{from:before[0],to:after[0],occurrences:1}],sourceEvidence:'Same-book p49/p166 crops and the PDF text layer show the mark is a clipped asset edge, not a glyph.',sourceCrop:{path:'production/x/renders/nemata-jp/page-0007-r1.png',sha256:'crop'}};
+ const changes=[...f.correction.changes,change];
+ f.revision.provenance.sourceFieldCorrection={...f.correction,changes};
+ f.proof.sourceFieldCorrection=f.revision.provenance.sourceFieldCorrection;
+ f.job.changes=changes;
+ return f;
+}
+it('replaces an approved page-scoped unknowns entry only',()=>{
+ const f=unknownsFixture(),corrected=f.apply();
+ expect(corrected.figures[0].unknowns).toEqual(['牌列右侧为嵌图右缘的裁切残片，同书同位置同形，文本层无字形，不是可转录字符。']);
+ expect(()=>checkNativePdfInlineContent(f.revision,f.page,null,corrected)).not.toThrow();
+});
+it('rejects an unknowns change that also drops or adds an entry',()=>{
+ const f=unknownsFixture();f.revision.figures[0].unknowns=[];
+ expect(f.apply).toThrow('audit_native_inline_correction_candidate_field_mismatch');
+});
+it('rejects an unknowns entry replacement with the wrong occurrence count',()=>{
+ const f=unknownsFixture(),changes=f.revision.provenance.sourceFieldCorrection.changes,c=changes.at(-1);
+ c.replacements=[{from:c.fromValue[0],to:c.toValue[0],occurrences:2}];f.job.changes=changes;
+ expect(f.apply).toThrow('audit_native_inline_correction_replacement_not_unique');
+});

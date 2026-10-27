@@ -18,6 +18,7 @@ export const knownNativeInlineCorrections={
  'nemata-jp:261':{path:'audit/source-corrections/native-inline-field-corrections.p261.root-acceptance.json',sha256:'6074d74646753bd6dfc0d91cd68945357e6978a22f88cdae4774b95a6a586416'},
  'nemata-jp:262':{path:'audit/source-corrections/native-inline-field-corrections.p262.root-acceptance.json',sha256:'dbc8842a9b3c062fbc35d117e826405add463c777f02a9c52dbfa17fec5d9338'},
  'nemata-jp:260':{path:'audit/source-corrections/native-inline-field-corrections.p260.root-acceptance.json',sha256:'ae8962aec39d3e86b3c9154f3e5e906cc42677533fdfc7ce5c91590d7ba1d603'},
+ '79-cn:50':{path:'audit/source-corrections/native-inline-field-corrections.p50.root-acceptance.json',sha256:'1d1e22613606f6ed4c061e45bbfbee1c199b59ec330b6eec64d28f32a06c3300'},
 };
 
 function bound(root,path){
@@ -27,10 +28,26 @@ function bound(root,path){
  return target;
 }
 function applyReplacements(change){
- if(typeof change.fromValue!=='string'||typeof change.toValue!=='string'||!Array.isArray(change.replacements)||!change.replacements.length)throw Error('audit_native_inline_correction_replacement_invalid');
+ if(!Array.isArray(change.replacements)||!change.replacements.length)throw Error('audit_native_inline_correction_replacement_invalid');
+ for(const r of change.replacements)if(!r||typeof r.from!=='string'||!r.from||typeof r.to!=='string'||!Number.isInteger(r.occurrences)||r.occurrences<1)throw Error('audit_native_inline_correction_replacement_invalid');
+ // Page-scoped evidence entries (for example an unknowns array) are replaced
+ // entry-by-entry: every matching entry is swapped and the count must match.
+ // Nothing else in the array may move, so an approved entry can never smuggle
+ // in a body or tile-shape change.
+ if(Array.isArray(change.fromValue)){
+  if(!Array.isArray(change.toValue)||change.fromValue.some(v=>typeof v!=='string'))throw Error('audit_native_inline_correction_replacement_invalid');
+  const value=[...change.fromValue];
+  for(const r of change.replacements){
+   const hits=value.flatMap((v,i)=>v===r.from?[i]:[]);
+   if(hits.length!==r.occurrences)throw Error('audit_native_inline_correction_replacement_not_unique');
+   for(const i of hits)value[i]=r.to;
+  }
+  if(!same(value,change.toValue)||same(value,change.fromValue))throw Error('audit_native_inline_correction_replacement_not_exact');
+  return value;
+ }
+ if(typeof change.fromValue!=='string'||typeof change.toValue!=='string')throw Error('audit_native_inline_correction_replacement_invalid');
  let value=change.fromValue;
  for(const r of change.replacements){
-  if(!r||typeof r.from!=='string'||!r.from||typeof r.to!=='string'||!Number.isInteger(r.occurrences)||r.occurrences<1)throw Error('audit_native_inline_correction_replacement_invalid');
   if(value.split(r.from).length-1!==r.occurrences)throw Error('audit_native_inline_correction_replacement_not_unique');
   value=value.replaceAll(r.from,r.to);
  }

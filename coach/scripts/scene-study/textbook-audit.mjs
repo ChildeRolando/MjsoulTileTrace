@@ -11,6 +11,10 @@ import {loadNativeInlineCorrection} from './textbook-audit-pdf-native-correction
 import {verifyExactThreeTileCandidate,threeTileCodes} from './textbook-audit-pdf-source-corrections.mjs';
 import {scopedPdfPage,verifyPdfScopeBinding} from './textbook-audit-pdf-scope.mjs';
 import {checkPdfInlineSourceLayout,verifyPdfInlineLayoutPixels,resolveKnownPdfFlowReview} from './textbook-audit-pdf-layout.mjs';
+// A revision that only rewrites page-scoped unknowns evidence for an unreadable
+// mark (never body text or a tile shape) carries this route marker so the page
+// keeps its own correction route instead of the older 79-cn redirects.
+export const pageScopedUnknownsEvidenceRoute='page-scoped-unknowns-evidence';
 
 export const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const repo = resolve(import.meta.dirname, '../..');
@@ -312,16 +316,65 @@ export async function verifySourceAdjudication(root,receipt,candidate,page,adjud
   const issues=receipt.modelReview.issues,indices=new Set(),targets=new Set();
   for(const resolution of decision.resolutions??[]) {
     const issue=issues[resolution.issueIndex];
-    if(!Number.isInteger(resolution.issueIndex)||indices.has(resolution.issueIndex)||!issue||issue.severity==='source-note'||issue.targetId!==resolution.targetId||sha(JSON.stringify(issue))!==resolution.issueSha256||resolution.decision!=='reviewer-visible-tile-misread'||!resolution.reason?.trim())throw Error('audit_adjudication_issue_binding');
+    if(!Number.isInteger(resolution.issueIndex)||indices.has(resolution.issueIndex)||!issue||issue.severity==='source-note'||issue.targetId!==resolution.targetId||sha(JSON.stringify(issue))!==resolution.issueSha256||!['reviewer-visible-tile-misread','source-evidence-unknowns-entry'].includes(resolution.decision)||!resolution.reason?.trim())throw Error('audit_adjudication_issue_binding');
     if(decision.requiredEvidenceIds.some(id=>!resolution.evidenceIds?.includes(id))||resolution.evidenceIds.some(id=>!evidenceIds.has(id)))throw Error('audit_adjudication_issue_evidence_missing');
     indices.add(resolution.issueIndex);targets.add(issue.targetId);
   }
+  // A resolution may also clear the checks of the text block that carries the
+  // disputed figure. Each such check is pinned by object hash and must belong to
+  // a block that really inlines the resolved figure; nothing else is relaxed.
+  const affected=[];
+  for(const resolution of decision.resolutions??[])for(const entry of resolution.affectedReviewChecks??[]){
+    if(!['bodyChecks','figureChecks'].includes(entry?.key)||!entry.id||!entry.sha256||!entry.verdict||entry.verdict==='faithful')throw Error('audit_adjudication_affected_check_invalid');
+    if(!candidate.figures.some(f=>f.figureId===resolution.targetId))throw Error('audit_adjudication_affected_check_scope');
+    const block=candidate.body.blocks.find(b=>b.type==='text'&&(b.sourceBlockIds??[]).includes(entry.id));
+    if(!block||!(block.inlineFigureIds??[]).includes(resolution.targetId))throw Error('audit_adjudication_affected_check_scope');
+    const original=receipt.modelReview[entry.key]?.find(c=>c.id===entry.id);
+    if(!original||sha(JSON.stringify(original))!==entry.sha256||original.verdict!==entry.verdict)throw Error('audit_adjudication_affected_check_binding');
+    affected.push(entry);
+  }
+  // Optional independent model adjudication: one bounded review call, bound to the
+  // same candidate and to an exact, self-consistent verification-dependency manifest.
+  const modelAdjudication=decision.modelAdjudication??null;
+  if(modelAdjudication){
+    const callPath=join(root,'audit','calls',`${modelAdjudication.callId}.json`),callBytes=await readFile(callPath),call=JSON.parse(callBytes);
+    if(sha(callBytes)!==modelAdjudication.sha256||call.callId!==modelAdjudication.callId)throw Error('audit_adjudication_call_changed');
+    const output=reviewOutputFromCall(call);
+    if(!auditTransportCompleted({...call,output})||call.outputSha256!==modelAdjudication.outputSha256||sha(JSON.stringify(output))!==modelAdjudication.outputSha256)throw Error('audit_adjudication_call_not_completed');
+    if(call.model!==auditModel||call.reasoningEffort!==auditReasoningEffort||!call.usage)throw Error('audit_adjudication_call_binding');
+    if(call.productionSha256!==receipt.production.sha256)throw Error('audit_adjudication_call_candidate_binding');
+    if(!decision.manifest?.path||call.manifestSha256!==modelAdjudication.manifestSha256||decision.manifest.manifestSha256!==modelAdjudication.manifestSha256)throw Error('audit_adjudication_manifest_binding');
+    const manifestBytes=await readFile(boundDataPath(root,decision.manifest.path)),manifest=JSON.parse(manifestBytes);
+    if(sha(manifestBytes)!==decision.manifest.sha256||manifest.manifestSha256!==decision.manifest.manifestSha256)throw Error('audit_adjudication_manifest_changed');
+    const runtimeDirectory=dirname(boundDataPath(root,decision.manifest.path));
+    for(const file of manifest.files??[])if(sha(await readFile(join(runtimeDirectory,file.name)))!==file.sha256)throw Error('audit_adjudication_runtime_module_changed');
+    const conclusion=decision.sourceConclusion??{},verdict=String(modelAdjudication.verdict??'');
+    const expectedDecision=conclusion.kind==='tile-code'?'reviewer-visible-tile-misread':conclusion.kind==='non-body-crop-fragment'?'source-evidence-unknowns-entry':null;
+    if(!expectedDecision||decision.resolutions.some(r=>r.decision!==expectedDecision))throw Error('audit_adjudication_resolution_kind');
+    if(conclusion.kind==='tile-code'){
+      const tile=/^target-is-([1-9][mps])$/.exec(verdict);
+      if(!tile||tile[1]!==conclusion.tileCode)throw Error('audit_adjudication_model_verdict');
+      if(!decision.resolutions.some(r=>candidate.figures.some(f=>f.figureId===r.targetId&&typeof f.transcription==='string'&&f.transcription.includes(tile[1]))))throw Error('audit_adjudication_model_verdict_candidate_mismatch');
+    }else if(conclusion.kind==='non-body-crop-fragment'){
+      if(verdict!=='resolved-as-non-body-crop-fragment')throw Error('audit_adjudication_model_verdict');
+      if(conclusion.resolvedField!=='unknowns')throw Error('audit_adjudication_model_verdict_candidate_mismatch');
+      for(const resolution of decision.resolutions){
+        const figure=candidate.figures.find(f=>f.figureId===resolution.targetId);
+        if(!figure||!Array.isArray(figure.unknowns)||figure.unknowns.some(v=>typeof v!=='string'))throw Error('audit_adjudication_model_verdict_candidate_mismatch');
+      }
+    }else throw Error('audit_adjudication_conclusion_kind');
+    if(sha(JSON.stringify(output))!==sha(JSON.stringify(modelAdjudication.review)))throw Error('audit_adjudication_review_copy_changed');
+  }
   const effectiveReview=structuredClone(receipt.modelReview);
   effectiveReview.issues=issues.filter((_,i)=>!indices.has(i));
-  for(const key of ['bodyChecks','figureChecks'])for(const check of effectiveReview[key])if(check.verdict==='needs-repair'&&targets.has(check.id))check.verdict='faithful';
+  // An uncertain check may only be cleared on its resolved target, and only when an
+  // independent model adjudication explicitly resolved that evidence question.
+  const evidenceResolved=new Set((decision.resolutions??[]).filter(r=>r.decision==='source-evidence-unknowns-entry').map(r=>r.targetId));
+  for(const key of ['bodyChecks','figureChecks'])for(const check of effectiveReview[key])if(targets.has(check.id)&&(check.verdict==='needs-repair'||(check.verdict==='uncertain'&&modelAdjudication&&evidenceResolved.has(check.id))))check.verdict='faithful';
+  for(const entry of affected)effectiveReview[entry.key].find(c=>c.id===entry.id).verdict='faithful';
   // Only individually resolved text/figure judgments change. Flow, image coverage and every other issue remain binding.
   if(!validateReview(effectiveReview,page,candidate).passed)throw Error('audit_adjudication_unresolved_review_issues');
-  return {effectiveReview,adjudication:{path:adjudicationPath,sha256:sha(bytes),status:decision.status,verification:'root-authorized-assistant-source-visual-recheck-not-user-human-gold-standard',originalAudit:decision.originalAudit,resolvedIssueIndices:[...indices]}};
+  return {effectiveReview,adjudication:{path:adjudicationPath,sha256:sha(bytes),status:decision.status,verification:modelAdjudication?'root-authorized-source-adjudication-with-independent-model-recheck-not-full-page-pass-not-user-human-gold-standard':'root-authorized-assistant-source-visual-recheck-not-user-human-gold-standard',originalAudit:decision.originalAudit,resolvedIssueIndices:[...indices],...(modelAdjudication?{modelAdjudication:{callId:modelAdjudication.callId,sha256:modelAdjudication.sha256,verdict:modelAdjudication.verdict,manifestSha256:modelAdjudication.manifestSha256}}:{})}};
 }
 
 async function latestSourceAdjudication(root,receipt,candidate,page) {
@@ -373,8 +426,8 @@ export async function auditPage({ dataRoot, auditRoot, source, pageMeta, product
   const candidatePath = join(productionRoot,'candidates',source.sourceId,`page-${String(pageMeta.page).padStart(4,'0')}.json`);
   const bytes = await readFile(candidatePath), candidateSha256 = sha(bytes), candidate = JSON.parse(bytes);
   await assertPdfCandidateNotExcluded(dataRoot,candidatePath,candidateSha256);
-  if(candidate.provenance?.sourceFieldCorrection&&candidate.source.sourceId==='79-cn')return verifyThreeTileSourceCorrection(dataRoot,candidatePath,null);
-  if(candidate.provenance?.sourceFieldCorrection&&candidate.provenance.flowMode!==nativePdfFlowMode)return verifySpecificPdfSourceCorrection(dataRoot,candidatePath,true);
+  if(candidate.provenance?.sourceFieldCorrection&&candidate.source.sourceId==='79-cn'&&candidate.provenance.sourceFieldCorrection.route!==pageScopedUnknownsEvidenceRoute)return verifyThreeTileSourceCorrection(dataRoot,candidatePath,null);
+  if(candidate.provenance?.sourceFieldCorrection&&candidate.provenance.flowMode!==nativePdfFlowMode&&candidate.provenance.sourceFieldCorrection.route!==pageScopedUnknownsEvidenceRoute)return verifySpecificPdfSourceCorrection(dataRoot,candidatePath,true);
   let outputPath = join(auditRoot,'pages',source.sourceId,`page-${String(pageMeta.page).padStart(4,'0')}.${candidateSha256}.${scriptSha256.slice(0,12)}.json`);
   let previous=await latestAuditReceipt(auditRoot,source.sourceId,pageMeta.page,candidateSha256);
   let retryOfAudit=null;
@@ -454,8 +507,8 @@ async function verifyPdfAuditEvidence(processingRoot, candidatePath) {
 }
 
 export async function verifyAuditForCandidate(processingRoot,candidatePath){
-  const candidateBytes=await readFile(candidatePath),candidate=JSON.parse(candidateBytes);await assertPdfCandidateNotExcluded(processingRoot,candidatePath,sha(candidateBytes));if(candidate.provenance?.sourceFieldCorrection&&candidate.source.sourceId==='79-cn')return verifyThreeTileSourceCorrection(processingRoot,candidatePath,null);
-  if(candidate.provenance?.sourceFieldCorrection&&candidate.provenance.flowMode!==nativePdfFlowMode)return verifySpecificPdfSourceCorrection(processingRoot,candidatePath,false);
+  const candidateBytes=await readFile(candidatePath),candidate=JSON.parse(candidateBytes);await assertPdfCandidateNotExcluded(processingRoot,candidatePath,sha(candidateBytes));if(candidate.provenance?.sourceFieldCorrection&&candidate.source.sourceId==='79-cn'&&candidate.provenance.sourceFieldCorrection.route!==pageScopedUnknownsEvidenceRoute)return verifyThreeTileSourceCorrection(processingRoot,candidatePath,null);
+  if(candidate.provenance?.sourceFieldCorrection&&candidate.provenance.flowMode!==nativePdfFlowMode&&candidate.provenance.sourceFieldCorrection.route!==pageScopedUnknownsEvidenceRoute)return verifySpecificPdfSourceCorrection(processingRoot,candidatePath,false);
   const evidence=await verifyPdfAuditEvidence(processingRoot,candidatePath),{receipt,page}=evidence;
   if(candidate.source?.blockScope){if(receipt.status!=='passed-explicit-source-block-scope'||!validateReview(receipt.modelReview,page,candidate).passed||!receipt.modelChecks?.passed)throw Error('audit_scoped_review_not_passed');return receipt;}
   if(receipt.status==='needs-repair'||!validateReview(receipt.modelReview,page,candidate).passed||!receipt.modelChecks?.passed){const resolution=await latestSourceAdjudication(processingRoot,receipt,candidate,page);return {...receipt,status:'passed-after-source-adjudication',...resolution};}
@@ -465,7 +518,7 @@ export async function verifyAuditForCandidate(processingRoot,candidatePath){
 /** Explicit original-candidate + layout gate. A candidate by itself remains rejected. */
 export async function verifyPdfSourceFlowLayout(root,candidatePath,layoutPath){
  candidatePath=resolve(candidatePath);layoutPath=resolve(layoutPath);
- const scopedCandidate=JSON.parse(await readFile(candidatePath));if(scopedCandidate.provenance?.sourceFieldCorrection&&scopedCandidate.source.sourceId==='79-cn')return verifyThreeTileSourceCorrection(root,candidatePath,layoutPath);
+ const scopedCandidate=JSON.parse(await readFile(candidatePath));if(scopedCandidate.provenance?.sourceFieldCorrection&&scopedCandidate.source.sourceId==='79-cn'&&scopedCandidate.provenance.sourceFieldCorrection.route!==pageScopedUnknownsEvidenceRoute)return verifyThreeTileSourceCorrection(root,candidatePath,layoutPath);
  const layoutBytes=await readFile(layoutPath),layout=JSON.parse(layoutBytes);
  const knownLayouts={334:'9c00250427953cf1db9ebf65f60b1f1ba0a0054855673b1051a9bccf948cbff5',330:'dd3fc208a49a768e9e63fcbe4f5fe34151992d2a8c738f668647fa17eadee3e4',335:'47037dd5f09c8bcefcc034ad9bd1fda68e6c629b47ac237f84b9d6f2b2267571',336:'7161be7c2a7d15733294371a7311238c6decebae4173e4805ca4c0b682faa1bc',338:'8bb86d214e1e14513b5d1ba11d5b3b9b32ab6ecbb00bc52a4f1d3b81f5f70d78',339:'c967368b2a1884804ca5b0c64dbd3ea3e03f6fe438f12840996fe82e00aef070'};
  if(sha(layoutBytes)!==knownLayouts[layout.source.page]||boundDataPath(root,layout.parentCandidate.path)!==candidatePath||layout.source.sourceId!=='79-cn')throw Error('audit_pdf_source_flow_specific_scope');
