@@ -1,0 +1,36 @@
+{
+ "schema": "coac-248-delivery-receipt/1",
+ "recordedAt": "2026-10-27T07:48:33Z",
+ "issueId": "01a17471-0529-7d3d-bd8d-8b54ef38290d",
+ "round": "2026-10-27T07:20-08:40Z",
+ "comment": {
+  "id": "01a17c54-b6f4-772c-9a03-8cbb61153a8d",
+  "parentCommentId": "01a17c22-afcb-750a-9bb6-6e9118d1a4ef",
+  "postedAt": "2026-10-27T07:48:09Z"
+ },
+ "commit": "5025161",
+ "citedBlobHashes": {
+  "round-20261027T0840.json": "d401ea6e5d9f56e84c3cff80e975a8ecce8e76c8349a0ecc144a5fdb5b98f260",
+  "summary-283-1-table-context-phase-20261027.json": "39c21c53786674eac513f36375b02242d0511ff0ba370c9fff3b44460bcef28b",
+  "unified-repair-list-20261027.json": "d027bc33edf74db5c71f3c96c1f274dc0da435e8783852fa1c84ba937abd9a11"
+ },
+ "hashConvention": "sha256 of the committed LF blob",
+ "nextBatchWakeup": {
+  "id": "01a17c55-1605-767e-a884-1e78c21111aa",
+  "kind": "at",
+  "nextFireAt": "2026-10-27T08:08:33Z",
+  "instructionFile": ".multica/delivery/coac-248-native-inline-correction/wakeup-248-next-20261027T0845.txt"
+ },
+ "modelCalls": {
+  "production": 0,
+  "audit": 7,
+  "effectiveAuditReviews": 5,
+  "voidAuditCalls": 2,
+  "usage": {
+   "inputTokens": 270765,
+   "cachedInputTokens": 57344,
+   "outputTokens": 6978
+  }
+ },
+ "note": "Kept in a separate file so the round record and the list keep the blob hashes the issue comment cites."
+}
