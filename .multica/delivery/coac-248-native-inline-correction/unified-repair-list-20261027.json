@@ -3681,7 +3681,7 @@
         },
         "evidenceChain": "new candidate keeps the current candidate as parent with explicit target diff; the old receipts/raw stay; the five affected groups are re-reviewed under the new batch binding; b0099, the two b0947 river tiles and the two b0785 river tiles stay uncertain until the real board input exists"
       },
-      "recommendedCombination": "path A on its 4 groups plus path B group-level re-production on its 5 groups: 9 new calls (4 audit + 5 production) and 5 re-audits, leaving both the table findings and the content errors decided by a review that saw the real input"
+      "recommendedCombination": "path A on its 4 groups (4 audit calls) plus path B group-level re-production on its 5 groups (5 production + 5 audit calls): 14 new calls in total; if the whole chapter must sit on one audit runtime, path A becomes 11 audit calls and the total 21"
     }
   }
 }
