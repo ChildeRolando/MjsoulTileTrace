@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-10-27T21:15:30.227Z",
+  "corpusId": "663bd744345e2a8e5721a2f0c2bbbaca85596b66e610fef1cafc5fff3413a6f7",
+  "toolNames": [
+    "search_textbook",
+    "read_textbook",
+    "view_textbook_figure",
+    "catalog_textbook"
+  ],
+  "units": [
+    {
+      "unitId": "modern-yabejp-ja-chapter04-section015-argument",
+      "blocks": 4,
+      "sourcePages": [],
+      "exactBody": true
+    }
+  ],
+  "exactImageCount": 0,
+  "maxTextBytes": 4601,
+  "totalCallMs": 5,
+  "diagnosticSearches": [],
+  "diagnosticNote": "Hand-authored developer probes, not expert retrieval evaluation or model experiment.",
+  "noHitExplicit": true,
+  "modelCalls": 0,
+  "modelTokens": 0
+}

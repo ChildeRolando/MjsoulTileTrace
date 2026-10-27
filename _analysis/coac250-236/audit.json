@@ -1,0 +1,237 @@
+{
+  "schema": "coach-textbook-web-article-audit/1",
+  "status": "passed",
+  "recordedAt": "2026-10-27T21:03:11.716Z",
+  "source": {
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter04-section015",
+    "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section015.html",
+    "title": "飛び寸前の局面",
+    "language": "ja",
+    "fetchedAt": "2026-10-23T20:49:13.069526+00:00",
+    "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter04-section015/source.json",
+    "sourceSha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+    "htmlSha256": "7bc8ce9ace2e9b9a7bff108bbf03a9c2f496f11aba8ce2c23624e374d39e4d6e",
+    "mainSha256": "025749a32a697c79c92e43376f9e6b0d091e1bd44f26001cfd68776a997ee96c"
+  },
+  "production": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.coac244exactv2.display.json",
+    "sha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28"
+  },
+  "verification": "automatic-independent-review-not-user-human-gold-standard",
+  "deterministicChecks": {
+    "passed": true,
+    "errors": [],
+    "textBlocks": 4,
+    "imageRuns": 0,
+    "imageOccurrences": 0,
+    "figures": 0
+  },
+  "independentSource": {
+    "schema": "coach-textbook-web-independent-source-check/1",
+    "passed": true,
+    "errors": [],
+    "sourceFileSha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+    "rawHtmlSha256": "7bc8ce9ace2e9b9a7bff108bbf03a9c2f496f11aba8ce2c23624e374d39e4d6e",
+    "mainSha256": "025749a32a697c79c92e43376f9e6b0d091e1bd44f26001cfd68776a997ee96c",
+    "textBlocks": 4,
+    "imageRuns": 0,
+    "imageOccurrences": 0,
+    "uniqueAssets": 0,
+    "method": "offline independent html.parser character-and-image DOM event comparison",
+    "modelCalls": 0
+  },
+  "semanticCompleteness": {
+    "complete": true,
+    "evidence": "Bound independent full parent review plus new independent target-text review; all unrequested prose, figures, marks and DOM locations are unchanged."
+  },
+  "modelChecks": {
+    "passed": true,
+    "errors": []
+  },
+  "modelReview": {
+    "blockChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter04-section015:b0003",
+        "verdict": "faithful",
+        "evidence": "已逐句比较完整目标段落。译文保留了击飞锁定第一的优势、积极争取结束半庄的适用情况、跳满自摸逆转并击飞的前提、应当立直的判断力度，以及名次下降风险较小时可放过非第一名出牌的条件。“即使巡数很少”保留原文未明确方向的时机表述，未新增“剩余巡数”；相关说明明确标为非原文校注。"
+      }
+    ],
+    "contextContinuity": {
+      "faithful": true,
+      "evidence": "与相邻段落的击飞结束及点数状况判断语境一致；区分了追赶第一时的选择性见逃与自己领先时的进攻情形，并保留后一情形不放过其他玩家和牌张的括注。"
+    },
+    "semanticCompleteness": {
+      "complete": true,
+      "evidence": "目标段落全部原句、条件、判断力度及括注均有对应表达；未发现具体新增时点、遗漏条件或牌义错译。原文未明确的巡数方向仍保持未确定，未据此补写策略条件。"
+    },
+    "issues": [],
+    "completeTargetScopeCompared": true,
+    "summary": "本次目标段落忠实，可通过；巡数方向的原文歧义已保留并明确标注。"
+  },
+  "calls": [
+    {
+      "callId": "2b075f4d-a305-4630-9a87-ab957fd130f5",
+      "scope": "textbook-web-target-text-audit",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter04-section015",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 14428,
+        "cachedInputTokens": 0,
+        "outputTokens": 680
+      },
+      "promptSha256": "c098b9bce18b5a23d761af0bb7388015f5f6d591e689cb2020c0135921ebdea7",
+      "semanticPromptSha256": "3348694efeb6582d8ba1390781a67311cb6a9e856a79527364590ed540bcd3be",
+      "schemaSha256": "4fa336d9a183d40646d21fa61ea5cfac39ad62d864c9e8d8dc54f1143f795349",
+      "outputSha256": "716be78ea2b69d18a1b61c32183a7ff0253a155194940547972242420112ec21",
+      "requestPromptBytes": 14109,
+      "semanticPromptBytes": 13627,
+      "binding": {
+        "productionSha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28",
+        "sourceFileSha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+        "auditorSnapshotSha256": "39c5c2bababcc26f345cde2d2c529e84343bc4ee4fcc06833162ef34b417337b",
+        "semanticProjectionSha256": "90bf8148ea52d180daf0ea7322bd47541b87fe034f923b59df9310386c606fb4",
+        "semanticProjectionVersion": 2,
+        "targetTextIds": [
+          "modern-yabejp-ja:chapter04-section015:b0003"
+        ],
+        "verifiedAssetIds": [],
+        "originalImageAssetIds": []
+      },
+      "recordedAt": "2026-10-27T21:03:47.767Z"
+    }
+  ],
+  "exactReuse": null,
+  "retryOfAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28.json",
+    "sha256": "d2c9dfe09838a15c845ae3bab8f698729bd99a22878bbb23af1f268849948aeb",
+    "callIds": [
+      "7a1363b3-906b-4155-9643-2a3924d3dfd1"
+    ],
+    "reason": "source-ambiguity-fidelity-review",
+    "authorizationCommentId": "01a17f14-8f65-75b5-a22a-ce09fa39569c"
+  },
+  "auditor": {
+    "path": "audit/web/auditors/944d441000c77e88ffff1dcdb6bbd33e6e7f65e04235912941fdf732f06e61b4.json",
+    "sha256": "39c5c2bababcc26f345cde2d2c529e84343bc4ee4fcc06833162ef34b417337b",
+    "combinedSha256": "944d441000c77e88ffff1dcdb6bbd33e6e7f65e04235912941fdf732f06e61b4"
+  },
+  "presentation": {
+    "parent": {
+      "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section015.coac244exactv2.json",
+      "sha256": "e805b23bee71280bf113b499236cbe92ab440fc6c7e632d3d3b7592bcf369a08",
+      "reason": "Lossless display images only; translations and source figure sequences unchanged"
+    },
+    "pixels": {
+      "passed": true,
+      "figures": 0,
+      "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+    }
+  },
+  "productionCall": {
+    "callId": "62c5c6f7-d54c-45c1-92af-da36349b1f80",
+    "rawArtifactPath": "raw-calls/62c5c6f7-d54c-45c1-92af-da36349b1f80.json",
+    "rawArtifactSha256": "09c698725d4d8edfcd024d78ebffc60befcee005233561ba19a1acd8df6bbf8b",
+    "revision": {
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section015.display.json",
+        "parentSha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+        "notesSha256": "bf1af08a08d0be94dbe71415fa4bd808d1831cc8d6cc6b08f7672f5c0357daa9",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter04-section015:b0003"
+        ]
+      },
+      "parentAudit": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+        "sha256": "bf1af08a08d0be94dbe71415fa4bd808d1831cc8d6cc6b08f7672f5c0357daa9",
+        "originalStatus": "needs-repair"
+      },
+      "parentCall": {
+        "callId": "03f3dc72-6119-4ef8-a813-5cc9685e9f82",
+        "path": "audit/calls/03f3dc72-6119-4ef8-a813-5cc9685e9f82.json",
+        "sha256": "4a0c5223ef7fea12502e2217981a21ce49c2c583befd739060b78588b0619288"
+      },
+      "inheritedAssetIds": []
+    }
+  },
+  "verifiedAssets": null,
+  "method": "independent-target-text-review-plus-unchanged-parent-audit",
+  "effectiveModelReview": {
+    "blockChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter04-section015:b0001",
+        "verdict": "faithful",
+        "evidence": "标题保留了临近击飞的局面这一含义。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section015:b0002",
+        "verdict": "faithful",
+        "evidence": "完整保留负分击飞及０点结束的规则例外、类比南四局的判断、应进攻的条件与两项例外、默听的适用条件，以及末位即将被击飞时的点数判断。未擅自补充确定名次。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section015:b0003",
+        "verdict": "faithful",
+        "evidence": "已逐句比较完整目标段落。译文保留了击飞锁定第一的优势、积极争取结束半庄的适用情况、跳满自摸逆转并击飞的前提、应当立直的判断力度，以及名次下降风险较小时可放过非第一名出牌的条件。“即使巡数很少”保留原文未明确方向的时机表述，未新增“剩余巡数”；相关说明明确标为非原文校注。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section015:b0004",
+        "verdict": "faithful",
+        "evidence": "完整保留封顶结束规则、55,000点与60,000点的包含阈值，以及不向几乎确定触发封顶的立直者放铳即可基本保住第二名时弃和的例子。"
+      }
+    ],
+    "figureChecks": [],
+    "imageChecks": [],
+    "domOrder": {
+      "faithful": true,
+      "evidence": "候选依次对应标题及三个正文段落，与所供原始DOM顺序一致；本次没有表格、插图或行内图片。"
+    },
+    "semanticCompleteness": {
+      "complete": true,
+      "evidence": "Bound independent full parent review plus new independent target-text review; all unrequested prose, figures, marks and DOM locations are unchanged."
+    },
+    "issues": [],
+    "completeArticleCompared": true,
+    "summary": "已核对所供全文；其余内容忠实，第三段立直建议中的巡数条件存在需澄清的歧义。"
+  },
+  "effectiveModelChecks": {
+    "passed": true,
+    "errors": []
+  },
+  "inheritedCalls": [
+    {
+      "callId": "03f3dc72-6119-4ef8-a813-5cc9685e9f82",
+      "scope": "textbook-web-article-audit",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter04-section015",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 14588,
+        "cachedInputTokens": 0,
+        "outputTokens": 2352
+      },
+      "promptSha256": "2df801715d8fcb7c1e62a6aad09ec75ae8c6df9ff1f5ecbe847351b38b00a7d6",
+      "semanticPromptSha256": "d12e10f336ce0fb96ff442ce554c70eee3d25da683a17a66f97728b2d2ac2a1d",
+      "schemaSha256": "a0f51fdb4b24c3fe57b1cd7f2b9a0eb79e98b34b2e2d16b5a450df645bd530e3",
+      "outputSha256": "fe6964940a76e40d923d52449ed43c44ef2c3a6438bdb8a27b8de8f9bed9adb4",
+      "requestPromptBytes": 14584,
+      "semanticPromptBytes": 14102,
+      "binding": {
+        "productionSha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "sourceFileSha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+        "auditorSnapshotSha256": "1a72a5401a46f0ba95bc189c69d711a5fafde066402d3e29e37914900f420d92",
+        "semanticProjectionSha256": "84e409ea11d3f2c025b423a93b76919671fa73155dd51aa3f118a978feeda72f",
+        "semanticProjectionVersion": 2,
+        "verifiedAssetIds": [],
+        "originalImageAssetIds": []
+      },
+      "recordedAt": "2026-10-25T16:05:40.892Z"
+    }
+  ]
+}

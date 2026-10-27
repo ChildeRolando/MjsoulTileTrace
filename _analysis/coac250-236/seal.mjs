@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile,access} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {dir,integration,article,original} from './config.mjs';
+const sha=b=>createHash('sha256').update(b).digest('hex'),load=async p=>JSON.parse(await readFile(p,'utf8')),pre=await load(dir+'/preconsume.json'),final=await load(dir+'/final-verification.json'),readback=await load(dir+'/readback.json'),pointer=await load(integration+'/accepted-preview-current.json'),register=await load(integration+'/coac250-unified-chapter-register-20261027b.json'),oldRegister=await load(pre.before.register.path===integration+'/coac250-unified-chapter-register-20261027b.json'?dir+'/register.before.json':pre.before.register.path);
+for(const f of pre.protectedFiles)assert.equal(sha(await readFile(f.path)),f.sha256,f.path);
+assert.equal(pointer.corpusId,readback.preview.corpusId);assert.equal(register.rows.find(r=>r.originalChapterId===original).covered,true);assert.equal(register.counts.effectiveCoveredOriginalChapters,233);assert.equal(register.remainingTypes.total,23);
+for(const r of oldRegister.rows.filter(r=>r.originalChapterId!==original))assert.deepEqual(register.rows.find(n=>n.originalChapterId===r.originalChapterId),r);
+const v25=await load(integration+'/specific-web-variant-selection.v25.json'),v24=await load(pre.before.variants.path);assert.deepEqual(v25.jobs.filter(j=>j.articleId!==article),v24.jobs);assert.deepEqual(v25.pdfScopes,v24.pdfScopes);assert.deepEqual(v25.pdfVersionSupplements,v24.pdfVersionSupplements);assert.equal(sha(await readFile(pre.before.variants.path)),pre.before.variants.sha256);
+const oldBuilder=await readFile(dir+'/builder.before.mjs','utf8'),newBuilder=await readFile(integration+'/build-accepted-preview.mjs','utf8');assert(newBuilder.includes(oldBuilder.slice(0,oldBuilder.indexOf('async function load157VisionReview'))),'183 exact route untouched');
+const persisted=await load(dir+'/persisted-route-verification.json');assert.equal(persisted.realStdioMcp.units,1);assert.equal(persisted.arena.exactBody,true);
+await assert.rejects(access(integration+'/accepted-consumer.lock'),{code:'ENOENT'});await assert.rejects(access(integration+'/selection-maintainer.lock.json'),{code:'ENOENT'});
+const runtime=await load(dir+'/runtimeManifest.json');for(const f of runtime.files)assert.equal(sha(await readFile(dir+'/runtime/'+f.name)),f.sha256,f.name);
+final.persistedRoute=persisted;final.files['persisted-route-verification.json']=sha(await readFile(dir+'/persisted-route-verification.json'));final.persistedRealMcpArenaPassed=true;final.old183RouteUnchanged=true;await writeFile(dir+'/final-verification.json',JSON.stringify(final,null,2)+'\n');
+const syntax=execFileSync(process.execPath,['--check',integration+'/build-accepted-preview.mjs'],{encoding:'utf8',windowsHide:true});assert.equal(syntax,'');console.log(JSON.stringify({allPassed:true,coverage:final.coverage,remaining:23,persistedRealMcpArenaPassed:true,otherRowsUnchanged:79,selectionVersion:25,activeUnchanged:true,modelCalls:0}));

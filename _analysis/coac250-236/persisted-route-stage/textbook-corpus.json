@@ -1,0 +1,93 @@
+{
+  "schema": "coach-textbook-corpus/1",
+  "corpusId": "663bd744345e2a8e5721a2f0c2bbbaca85596b66e610fef1cafc5fff3413a6f7",
+  "bodySha256": "c5bb3f8092e5fae55ff6edd52b29081e65d012220aa132ba2d5a939d75097bf5",
+  "reviewStatus": "batch-audited-content-review-pending",
+  "units": [
+    {
+      "unitId": "modern-yabejp-ja-chapter04-section015-argument",
+      "chapterId": "modern-yabejp-ja-chapter04-section015-chapter",
+      "title": "即将被击飞的局面",
+      "chapterTitle": "即将被击飞的局面",
+      "topics": [],
+      "source": {
+        "sourceId": "modern-yabejp-ja-chapter04-section015",
+        "title": "即将被击飞的局面",
+        "sha256": "7bc8ce9ace2e9b9a7bff108bbf03a9c2f496f11aba8ce2c23624e374d39e4d6e",
+        "pages": [],
+        "format": "web",
+        "web": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section015.html",
+          "articleId": "chapter04-section015",
+          "htmlSha256": "7bc8ce9ace2e9b9a7bff108bbf03a9c2f496f11aba8ce2c23624e374d39e4d6e"
+        }
+      },
+      "translationStatus": "batch-audited-pending-user-review",
+      "previousUnitId": null,
+      "nextUnitId": null,
+      "blocks": [
+        {
+          "type": "h2",
+          "id": "modern-yabejp-ja-chapter04-section015-b1",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section015.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section015:b0001"
+            ],
+            "domPaths": [
+              "main/h2[3]"
+            ]
+          },
+          "text": "即将被击飞的局面"
+        },
+        {
+          "type": "p",
+          "id": "modern-yabejp-ja-chapter04-section015-b2",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section015.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section015:b0002"
+            ],
+            "domPaths": [
+              "main/p[5]"
+            ]
+          },
+          "text": "即使不是最后一局，只要有人持有的点数变为负数（也有０点就结束的规则），就会因击飞而结束半庄。因此，如果完全有可能因某人被击飞而结束半庄，就会出现需要像最后一局那样进行做牌和攻守判断的场面。如果别人自摸也会使自己被击飞而结束，或是其他玩家被击飞、自己同时被反超而结束，那么，除非放铳会使自己的名次进一步下降，或是自己几乎没有和牌的机会、赌流局反而还有些机会，否则就应进攻。如果默听时，只要自摸或由末位玩家放铳，就会因击飞而结束，自己的名次与立直后和牌时相同，而立直又会让末位玩家弃和，那么默听就很有效。对于有其他玩家即将被击飞时该如何应对，例如从末位玩家处和牌会将其击飞、以此次和牌确定最终结果，此时该怎么办等，我认为此前谈到的点数状况判断思路也能作为参考。"
+        },
+        {
+          "type": "p",
+          "id": "modern-yabejp-ja-chapter04-section015-b3",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section015.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section015:b0003"
+            ],
+            "domPaths": [
+              "main/p[7]"
+            ]
+          },
+          "text": "麻将中，无论领先多少点，只要半庄尚未结束，就仍有被逆转的可能。反过来说，结束时第一名就会100%确定，因此，有机会击飞他人、以第一名结束，其实是个相当大的优势。尤其是在名次下降的风险较小，或还处于东场较早阶段时，积极争取通过击飞结束半庄也是有效的。例如，如果跳满自摸就能使末位玩家被击飞，同时反超第一名并结束半庄，那么默听满贯的牌，即使巡数很少，也应当立直；如果名次下降的风险较小，对第一名以外的玩家打出的和牌张，选择放过也无妨。如果自己处于第一名，通常会有更多弃和的机会，但若已经听牌，且只要末位玩家放铳就能结束半庄，那么即便自己处于第一名，面对立直时继续进攻的情况也会增多。（当然，这种情况下，若由其他玩家打出和牌张，也不会放过。）\n\n【校注（非原文）：原文“巡目が僅か”未明确指已进行的巡数还是剩余巡数，此处不补入“剩余”；该时机条件仍未确认。】"
+        },
+        {
+          "type": "p",
+          "id": "modern-yabejp-ja-chapter04-section015-b4",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section015.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section015:b0004"
+            ],
+            "domPaths": [
+              "main/p[9]"
+            ]
+          },
+          "text": "与击飞相反，也有设有封顶点数的规则（即第一名达到55,000点以上或60,000点以上等规定点数时，半庄便结束）。对此，也可以参考此前谈到的点数状况判断思路来应对。（例如，其他玩家立直后，只要和牌就几乎肯定会达到封顶点数，而自己只要不放铳给他，就几乎能确定获得第２名，那么便弃和等。）"
+        }
+      ]
+    }
+  ],
+  "images": []
+}

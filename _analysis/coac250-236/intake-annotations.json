@@ -1,0 +1,250 @@
+{
+  "schema": "coac250236-context-intake/1",
+  "chapterId": "nemata-jp-chapter-236-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.coac244exactv2.display.json",
+    "sha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section015\\source.json",
+    "sha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+    "bytes": 10906
+  },
+  "audit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28.fidelity236-v1.json",
+    "sha256": "bdcc464d2019942b4958b768b9a9190816024f56817f748a9d423086eda4ee7f"
+  },
+  "method": "independent-target-text-review-plus-unchanged-parent-audit",
+  "sourceContext": {
+    "completeOriginalBlocks": 4,
+    "targetTextIds": [
+      "modern-yabejp-ja:chapter04-section015:b0003"
+    ],
+    "images": [],
+    "promptSha256": "3348694efeb6582d8ba1390781a67311cb6a9e856a79527364590ed540bcd3be",
+    "fidelityQuestion": "Preserve source timing ambiguity; identify only verifiable additions/omissions/mistranslation or conditions that cannot be faithfully expressed. Not inference of unstated author timing."
+  },
+  "issues": [],
+  "contextReview": {
+    "candidateSha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28",
+    "runtime": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac249-fidelity236-v1-20261028",
+    "manifest": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac249-fidelity236-v1-20261028\\context-runtime-manifest.json",
+      "sha256": "5ea60649c93530fe4ea330008fefcd3e827fed71fe4fbbb72c26f86d512ab568"
+    },
+    "stage": {
+      "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/stage-web-textbook.mjs",
+      "sha256": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a"
+    },
+    "files": [
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-236-fidelity-reviewed-20261028.json",
+        "sha256": "eea58df5c29fcdacb27b760bfe4dda756f33573a4e681e91016c49ab399887e1"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28.fidelity236-v1.json",
+        "sha256": "bdcc464d2019942b4958b768b9a9190816024f56817f748a9d423086eda4ee7f"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2b075f4d-a305-4630-9a87-ab957fd130f5.json",
+        "sha256": "d35a98155b696fe3caef1c1919a6589851c0f90d9ff3b70f3ffcf95dc0fe0de7"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28.json",
+        "sha256": "d2c9dfe09838a15c845ae3bab8f698729bd99a22878bbb23af1f268849948aeb"
+      },
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/audit/calls/7a1363b3-906b-4155-9643-2a3924d3dfd1.json",
+        "sha256": "8c08adf2edcc9391b697b78ba61922ee3ffb69aa715194f7df9abcd588d28039"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-runtime-manifest.json",
+        "sha256": "0b75f6f6bb31d38344077753d402716b01d83cbbd57709720b753963408ef684"
+      },
+      {
+        "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/stage-web-textbook.mjs",
+        "sha256": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-fidelity236-v1-20261028\\process236.json",
+        "sha256": "f89664db9c68172f85835b125dadf6f986cd9f26d59535401fd66eafbc0eff48"
+      },
+      {
+        "name": "bounded-runtime-manifest.json",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\bounded-runtime-manifest.json",
+        "sha256": "fdac719dc8237db59f7a2abd6cd2bdac44f895a03519abe67cf408242e392548"
+      },
+      {
+        "name": "exact-text-contract.mjs",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-text-contract.mjs",
+        "sha256": "2f082bd1d85c99cfb4a59e51a14b3d9a55e5dfc3a75154f534aabe90ee93e1b2"
+      },
+      {
+        "name": "exact-text-contracts.json",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-text-contracts.json",
+        "sha256": "fc968c117a50d80011ded6822d138b174a119025a6675fef3780dd01d8240904"
+      },
+      {
+        "name": "inline-japanese-revision.mjs",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\inline-japanese-revision.mjs",
+        "sha256": "69a9a0db3fccc07bf85c6720606fefb60bac54c689e2402f96bfe018a358e6a6"
+      },
+      {
+        "name": "textbook-audit-legacy.mjs",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-legacy.mjs",
+        "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1"
+      },
+      {
+        "name": "textbook-audit-pdf-layout.mjs",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-pdf-layout.mjs",
+        "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+      },
+      {
+        "name": "textbook-audit-pdf-native.mjs",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-pdf-native.mjs",
+        "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+      },
+      {
+        "name": "textbook-audit-pdf-scope.mjs",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-pdf-scope.mjs",
+        "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+      },
+      {
+        "name": "textbook-audit-pdf-source-corrections.mjs",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-pdf-source-corrections.mjs",
+        "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+      },
+      {
+        "name": "textbook-audit-tile-dictionary.mjs",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-tile-dictionary.mjs",
+        "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+      },
+      {
+        "name": "textbook-audit-web-batches.mjs",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-web-batches.mjs",
+        "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+      },
+      {
+        "name": "textbook-audit-web-source.py",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-web-source.py",
+        "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+      },
+      {
+        "name": "textbook-audit-web.mjs",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-web.mjs",
+        "sha256": "920c6b775430958d0b93cdf5ee31e15e474a23f9aba33422dbe36f8da01c0062"
+      },
+      {
+        "name": "textbook-audit.mjs",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit.mjs",
+        "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+      },
+      {
+        "name": "textbook-production-cli.mjs",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-cli.mjs",
+        "sha256": "773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860"
+      },
+      {
+        "name": "textbook-production-web-present.py",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-web-present.py",
+        "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+      },
+      {
+        "name": "textbook-production-web-visual.py",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-web-visual.py",
+        "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+      },
+      {
+        "name": "textbook-production-web.mjs",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-web.mjs",
+        "sha256": "495b9aedb65d91248a85c6c4911d01dce3783c85a623e8ce876351c199a73ee3"
+      }
+    ]
+  },
+  "oldReview": {
+    "audit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28.json",
+      "sha256": "d2c9dfe09838a15c845ae3bab8f698729bd99a22878bbb23af1f268849948aeb"
+    },
+    "raw": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/calls/7a1363b3-906b-4155-9643-2a3924d3dfd1.json",
+      "sha256": "8c08adf2edcc9391b697b78ba61922ee3ffb69aa715194f7df9abcd588d28039"
+    },
+    "status": "needs-repair"
+  },
+  "call": {
+    "callId": "2b075f4d-a305-4630-9a87-ab957fd130f5",
+    "scope": "textbook-web-target-text-audit",
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter04-section015",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "success": true,
+    "usage": {
+      "inputTokens": 14428,
+      "cachedInputTokens": 0,
+      "outputTokens": 680
+    },
+    "promptSha256": "c098b9bce18b5a23d761af0bb7388015f5f6d591e689cb2020c0135921ebdea7",
+    "semanticPromptSha256": "3348694efeb6582d8ba1390781a67311cb6a9e856a79527364590ed540bcd3be",
+    "schemaSha256": "4fa336d9a183d40646d21fa61ea5cfac39ad62d864c9e8d8dc54f1143f795349",
+    "outputSha256": "716be78ea2b69d18a1b61c32183a7ff0253a155194940547972242420112ec21",
+    "requestPromptBytes": 14109,
+    "semanticPromptBytes": 13627,
+    "binding": {
+      "productionSha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28",
+      "sourceFileSha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+      "auditorSnapshotSha256": "39c5c2bababcc26f345cde2d2c529e84343bc4ee4fcc06833162ef34b417337b",
+      "semanticProjectionSha256": "90bf8148ea52d180daf0ea7322bd47541b87fe034f923b59df9310386c606fb4",
+      "semanticProjectionVersion": 2,
+      "targetTextIds": [
+        "modern-yabejp-ja:chapter04-section015:b0003"
+      ],
+      "verifiedAssetIds": [],
+      "originalImageAssetIds": []
+    },
+    "recordedAt": "2026-10-27T21:03:47.767Z",
+    "durationMs": 35166,
+    "nativeRequestExecution": null,
+    "observedProcesses": [
+      {
+        "ProcessId": 47024,
+        "ParentProcessId": 66488,
+        "CommandLine": "C:\\Users\\Roland\\AppData\\Roaming\\npm\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe exec --model gpt-6.1-sol --config \"model_reasoning_effort=\\\"high\\\"\" --config \"web_search=\\\"disabled\\\"\" --ephemeral --ignore-user-config --ignore-rules --sandbox read-only --strict-config --skip-git-repo-check --json --output-schema C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-QZrzCe\\output.schema.json --output-last-message C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-QZrzCe\\final.json --cd C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-QZrzCe --disable apps --disable auth_elicitation --disable browser_use --disable browser_use_external --disable browser_use_full_cdp_access --disable computer_use --disable fast_mode --disable goals --disable guardian_approval --disable hooks --disable image_generation --disable in_app_browser --disable in_app_chat --disable in_app_dictation --disable in_app_local_automation --disable in_app_updates --disable memories --disable mentions_v2 --disable multi_agent --disable plugin_sharing --disable plugins --disable remote_plugin --disable shell_snapshot --disable shell_tool --disable skill_mcp_dependency_install --disable skill_search --disable sleep_tool --disable tool_call_mcp_elicitation --disable tool_suggest --disable unbounded_connection_retries --disable unified_exec --disable unified_exec_tty --disable view_image --disable workspace_dependencies -"
+      }
+    ],
+    "processEvidence": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-fidelity236-v1-20261028\\process236.json",
+      "sha256": "f89664db9c68172f85835b125dadf6f986cd9f26d59535401fd66eafbc0eff48"
+    }
+  },
+  "upstreamBudget": {
+    "maximum": 1,
+    "used": 1,
+    "remaining": 0,
+    "retry": 0,
+    "productionCalls": 0
+  },
+  "evidenceLimits": {
+    "sourceTimingDirection": "unknown; source ambiguity retained with explicit non-author annotation",
+    "nativeRequestExecution": null,
+    "observedWindowsArgv": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-fidelity236-v1-20261028\\process236.json",
+      "sha256": "f89664db9c68172f85835b125dadf6f986cd9f26d59535401fd66eafbc0eff48"
+    },
+    "fee": null,
+    "upstreamExecutionCount": null,
+    "remoteWeights": "unknown"
+  },
+  "sourceCorrespondence": {
+    "articleId": "chapter04-section015",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+  },
+  "note": "Only b0003 newly reviewed for fidelity; unchanged parent inherited. Preserve unspecified source timing direction and the complete non-author annotation. Shared stager uses complete translated text fallback when Japanese sourceSegments are unaligned; no candidate or source change.",
+  "modelCalls": 0
+}

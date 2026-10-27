@@ -1,0 +1,12 @@
+[
+  {
+    "ProcessId": 47024,
+    "ParentProcessId": 66488,
+    "CommandLine": "C:\\Users\\Roland\\AppData\\Roaming\\npm\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe exec --model gpt-6.1-sol --config \"model_reasoning_effort=\\\"high\\\"\" --config \"web_search=\\\"disabled\\\"\" --ephemeral --ignore-user-config --ignore-rules --sandbox read-only --strict-config --skip-git-repo-check --json --output-schema C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-QZrzCe\\output.schema.json --output-last-message C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-QZrzCe\\final.json --cd C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-QZrzCe --disable apps --disable auth_elicitation --disable browser_use --disable browser_use_external --disable browser_use_full_cdp_access --disable computer_use --disable fast_mode --disable goals --disable guardian_approval --disable hooks --disable image_generation --disable in_app_browser --disable in_app_chat --disable in_app_dictation --disable in_app_local_automation --disable in_app_updates --disable memories --disable mentions_v2 --disable multi_agent --disable plugin_sharing --disable plugins --disable remote_plugin --disable shell_snapshot --disable shell_tool --disable skill_mcp_dependency_install --disable skill_search --disable sleep_tool --disable tool_call_mcp_elicitation --disable tool_suggest --disable unbounded_connection_retries --disable unified_exec --disable unified_exec_tty --disable view_image --disable workspace_dependencies -"
+  },
+  {
+    "ProcessId": 4808,
+    "ParentProcessId": 47024,
+    "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4"
+  }
+]

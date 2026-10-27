@@ -1,0 +1,198 @@
+{
+  "schema": "coac250236-final-verification/1",
+  "recordedAt": "2026-10-27T21:14:31.982Z",
+  "allPassed": true,
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T21-13-50-142Z",
+    "corpusId": "a7e06fe7c0cf7378764c13dcec6ebf5b08b53a56ada85f2d74dc939eb7ef00c3",
+    "chapters": 234,
+    "units": 242,
+    "blocks": 6353,
+    "figures": 5128
+  },
+  "coverage": {
+    "originalChaptersCovered": 233,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 265,
+    "originalUnitsTotal": 303
+  },
+  "remainingChapters": 23,
+  "selection": {
+    "version": 25,
+    "sha256": "140a2d6c1919e13484ff2a2dff1c7c8123c6b089a3cd8c7c49bf8238a54295e6",
+    "previous": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v24.json",
+      "sha256": "d7f2792acecbd12a1d3192e9f6cf79a86ce3f1a5a1ee8c9a598a13030a362d39"
+    }
+  },
+  "sourceBlocks": 4,
+  "compiledBlocks": 4,
+  "figures": 0,
+  "targetReadbackPages": [
+    {
+      "offset": 0,
+      "blocks": 4,
+      "nextOffset": null
+    }
+  ],
+  "editorialNoteExact": true,
+  "emphasisPreserved": true,
+  "sourceTimingDirectionUnresolved": true,
+  "sourceNotes": [],
+  "reviewMethod": "independent-target-text-review-plus-unchanged-parent-audit",
+  "reviewScope": {
+    "completeOriginalBlocks": 4,
+    "targetTextIds": [
+      "modern-yabejp-ja:chapter04-section015:b0003"
+    ],
+    "images": [],
+    "promptSha256": "3348694efeb6582d8ba1390781a67311cb6a9e856a79527364590ed540bcd3be",
+    "fidelityQuestion": "Preserve source timing ambiguity; identify only verifiable additions/omissions/mistranslation or conditions that cannot be faithfully expressed. Not inference of unstated author timing."
+  },
+  "upstreamCall": {
+    "callId": "2b075f4d-a305-4630-9a87-ab957fd130f5",
+    "scope": "textbook-web-target-text-audit",
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter04-section015",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "success": true,
+    "usage": {
+      "inputTokens": 14428,
+      "cachedInputTokens": 0,
+      "outputTokens": 680
+    },
+    "promptSha256": "c098b9bce18b5a23d761af0bb7388015f5f6d591e689cb2020c0135921ebdea7",
+    "semanticPromptSha256": "3348694efeb6582d8ba1390781a67311cb6a9e856a79527364590ed540bcd3be",
+    "schemaSha256": "4fa336d9a183d40646d21fa61ea5cfac39ad62d864c9e8d8dc54f1143f795349",
+    "outputSha256": "716be78ea2b69d18a1b61c32183a7ff0253a155194940547972242420112ec21",
+    "requestPromptBytes": 14109,
+    "semanticPromptBytes": 13627,
+    "binding": {
+      "productionSha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28",
+      "sourceFileSha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+      "auditorSnapshotSha256": "39c5c2bababcc26f345cde2d2c529e84343bc4ee4fcc06833162ef34b417337b",
+      "semanticProjectionSha256": "90bf8148ea52d180daf0ea7322bd47541b87fe034f923b59df9310386c606fb4",
+      "semanticProjectionVersion": 2,
+      "targetTextIds": [
+        "modern-yabejp-ja:chapter04-section015:b0003"
+      ],
+      "verifiedAssetIds": [],
+      "originalImageAssetIds": []
+    },
+    "recordedAt": "2026-10-27T21:03:47.767Z",
+    "durationMs": 35166,
+    "nativeRequestExecution": null,
+    "observedProcesses": [
+      {
+        "ProcessId": 47024,
+        "ParentProcessId": 66488,
+        "CommandLine": "C:\\Users\\Roland\\AppData\\Roaming\\npm\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe exec --model gpt-6.1-sol --config \"model_reasoning_effort=\\\"high\\\"\" --config \"web_search=\\\"disabled\\\"\" --ephemeral --ignore-user-config --ignore-rules --sandbox read-only --strict-config --skip-git-repo-check --json --output-schema C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-QZrzCe\\output.schema.json --output-last-message C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-QZrzCe\\final.json --cd C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-QZrzCe --disable apps --disable auth_elicitation --disable browser_use --disable browser_use_external --disable browser_use_full_cdp_access --disable computer_use --disable fast_mode --disable goals --disable guardian_approval --disable hooks --disable image_generation --disable in_app_browser --disable in_app_chat --disable in_app_dictation --disable in_app_local_automation --disable in_app_updates --disable memories --disable mentions_v2 --disable multi_agent --disable plugin_sharing --disable plugins --disable remote_plugin --disable shell_snapshot --disable shell_tool --disable skill_mcp_dependency_install --disable skill_search --disable sleep_tool --disable tool_call_mcp_elicitation --disable tool_suggest --disable unbounded_connection_retries --disable unified_exec --disable unified_exec_tty --disable view_image --disable workspace_dependencies -"
+      }
+    ],
+    "processEvidence": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-fidelity236-v1-20261028\\process236.json",
+      "sha256": "f89664db9c68172f85835b125dadf6f986cd9f26d59535401fd66eafbc0eff48"
+    }
+  },
+  "upstreamBudget": {
+    "maximum": 1,
+    "used": 1,
+    "remaining": 0,
+    "retry": 0,
+    "productionCalls": 0
+  },
+  "evidenceLimits": {
+    "sourceTimingDirection": "unknown; source ambiguity retained with explicit non-author annotation",
+    "nativeRequestExecution": null,
+    "observedWindowsArgv": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-fidelity236-v1-20261028\\process236.json",
+      "sha256": "f89664db9c68172f85835b125dadf6f986cd9f26d59535401fd66eafbc0eff48"
+    },
+    "fee": null,
+    "upstreamExecutionCount": null,
+    "remoteWeights": "unknown"
+  },
+  "measurementLimits": {
+    "fee": null,
+    "upstreamExecutionCount": null,
+    "remoteGatewayWeights": "unknown",
+    "nativeRequestExecution": null,
+    "windowsArgvObserved": true
+  },
+  "oldUncertainPreserved": {
+    "audit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28.json",
+      "sha256": "d2c9dfe09838a15c845ae3bab8f698729bd99a22878bbb23af1f268849948aeb"
+    },
+    "raw": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/calls/7a1363b3-906b-4155-9643-2a3924d3dfd1.json",
+      "sha256": "8c08adf2edcc9391b697b78ba61922ee3ffb69aa715194f7df9abcd588d28039"
+    },
+    "status": "needs-repair"
+  },
+  "runtimeFiles": 17,
+  "parentRuntimeFiles": 18,
+  "persistedRoute": {
+    "installedBuilderRouteExecuted": true,
+    "exactSelectedContextSidecarUsed": true,
+    "sameChapterCorpusAsPreflight": true,
+    "sourceBlocks": 4,
+    "compiledBlocks": 4,
+    "fullTranslatedTextAndNoteExact": true,
+    "changedManifestRefused": true,
+    "ordinaryOtherRoutesUnchanged": true,
+    "modelCalls": 0,
+    "realStdioMcp": {
+      "units": 1,
+      "images": 0,
+      "blocks": 4,
+      "allPagedContentExact": true
+    },
+    "arena": {
+      "units": 1,
+      "blocks": 4,
+      "exactBody": true,
+      "completeReadSourceRefs": 1
+    },
+    "newModelCalls": 0
+  },
+  "priorUnitsUnchanged": 241,
+  "unchangedOtherRegisterRows": 79,
+  "pdf215And193SupplementUnchanged": true,
+  "pdf217And283EvidenceUnchanged": true,
+  "allOtherSelectionJobsAndHoldsUnchanged": true,
+  "sharedStagerUnchanged": true,
+  "fullMcp": {
+    "units": 242,
+    "images": 5128
+  },
+  "arena": {
+    "units": 242,
+    "exactBody": true,
+    "targetCompleteReadSourceRefs": 1
+  },
+  "sourceCollisions": 0,
+  "protectedInputsChecked": 91,
+  "history": "E:/AgentData/Coach/knowledge/processing/integration/coac250-236-history-20261028",
+  "writerLocksAbsent": true,
+  "activeLibraryChanged": false,
+  "modelCalls": 0,
+  "files": {
+    "preconsume.json": "afa751e1e5a4e3d07ad90390577adad8944e407dabdd096139cd3b44e8d4202d",
+    "gate-reverified.json": "53fe1102230ea2b2483cf49a4e28bfa3cdf934a40abb477594fb9f50e7afcff7",
+    "stage-receipt.json": "6e8c38f79c64206f42f535612151af243b39595ed55504b2a32a2d340b5e98dd",
+    "readback.json": "9250d390d43742ccbcfaf00e4d98982ec9f276ca4b71d85b67fc45213f5958e6",
+    "coverage.json": "dba3705a083c20e2ae52e0f010c9ddaa8a7305f0c1ab967a2f691b4883feb84a",
+    "runtimeManifest.json": "5ea60649c93530fe4ea330008fefcd3e827fed71fe4fbbb72c26f86d512ab568",
+    "parentRuntimeManifest.json": "0b75f6f6bb31d38344077753d402716b01d83cbbd57709720b753963408ef684",
+    "intake-annotations.json": "2cff5d4e62377cf6027c5b532cb86d61def4cb7b4f5ae4513af52a9257d20a35",
+    "route-verification.json": "55c4f84cf24dde080359b31a6faf7e073268bd18e0f8558d62ce470c8b502644",
+    "persisted-route-verification.json": "3e55f52341dc53bd92a51a1913ebd64603446f90902ac69132c7ca4a021545e5",
+    "variants.after.json": "140a2d6c1919e13484ff2a2dff1c7c8123c6b089a3cd8c7c49bf8238a54295e6",
+    "builder.after.mjs": "5402c4c4a68b97af73b287b8ea75bf0e8dceba10e80a10fed40f2a121ce8cb2f",
+    "publication-journal.json": "c0eff84b2314c53437f83991687078486efd7ab0b527399845e1747a4c1ac727"
+  },
+  "persistedRealMcpArenaPassed": true,
+  "old183RouteUnchanged": true
+}

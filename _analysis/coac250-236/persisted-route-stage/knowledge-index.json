@@ -1,0 +1,40 @@
+{
+  "schema": "coach-textbook-index/1",
+  "status": "chapter-auto-audited",
+  "title": "即将被击飞的局面",
+  "policy": {
+    "cardRole": "index-only",
+    "bodyRole": "complete-source-body-with-chinese-translation",
+    "modelExperiments": false,
+    "reviewStatus": "pending-user-review"
+  },
+  "sources": [
+    {
+      "id": "modern-yabejp-ja-chapter04-section015",
+      "title": "即将被击飞的局面",
+      "format": "web",
+      "language": "ja",
+      "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section015.html",
+      "articleId": "chapter04-section015",
+      "sha256": "7bc8ce9ace2e9b9a7bff108bbf03a9c2f496f11aba8ce2c23624e374d39e4d6e",
+      "htmlSha256": "7bc8ce9ace2e9b9a7bff108bbf03a9c2f496f11aba8ce2c23624e374d39e4d6e",
+      "bytes": 5497,
+      "sourceJsonSha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+      "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter04-section015/source.json"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "modern-yabejp-ja-chapter04-section015-chapter",
+      "title": "即将被击飞的局面",
+      "sourceId": "modern-yabejp-ja-chapter04-section015",
+      "startPage": null,
+      "bodyStartPage": null,
+      "endPage": null,
+      "topics": [],
+      "indexDescription": "完整原文论证和牌例；索引只定位。",
+      "anchors": [],
+      "relatedChapterIds": []
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+export const root='E:/AgentData/Coach/knowledge/processing',repo='E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach',integration=root+'/integration',dir='_analysis/coac250-236',article='chapter04-section015',original='nemata-jp-chapter-236-1',chapter='modern-yabejp-ja-chapter04-section015-chapter';

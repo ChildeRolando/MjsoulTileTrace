@@ -1,0 +1,178 @@
+{
+  "schema": "coac250236-readback/1",
+  "recordedAt": "2026-10-27T21:14:26.962Z",
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T21-13-50-142Z",
+    "corpusId": "a7e06fe7c0cf7378764c13dcec6ebf5b08b53a56ada85f2d74dc939eb7ef00c3",
+    "chapters": 234,
+    "units": 242,
+    "blocks": 6353,
+    "figures": 5128
+  },
+  "sourceBlocks": 4,
+  "sourceBlockIds": [
+    "modern-yabejp-ja:chapter04-section015:b0001",
+    "modern-yabejp-ja:chapter04-section015:b0002",
+    "modern-yabejp-ja:chapter04-section015:b0003",
+    "modern-yabejp-ja:chapter04-section015:b0004"
+  ],
+  "compiledBlocks": 4,
+  "figures": 0,
+  "pages": [
+    {
+      "offset": 0,
+      "blocks": 4,
+      "nextOffset": null
+    }
+  ],
+  "exactTranslatedText": true,
+  "editorialNote": "【校注（非原文）：原文“巡目が僅か”未明确指已进行的巡数还是剩余巡数，此处不补入“剩余”；该时机条件仍未确认。】",
+  "editorialNoteExact": true,
+  "editorialNoteOccurrences": 1,
+  "emphasisPreserved": true,
+  "sourceInlineMarks": 0,
+  "headingPreserved": true,
+  "htmlFullChapterExact": true,
+  "sourceTimingUnresolved": true,
+  "priorUnitsUnchanged": 241,
+  "pdf215And193SupplementUnchanged": true,
+  "sourceCollisions": 0,
+  "fullMcp": {
+    "units": 242,
+    "images": 5128
+  },
+  "arena": {
+    "units": 242,
+    "exactBody": true,
+    "targetCompleteReadSourceRefs": 1
+  },
+  "mcpCalls": [
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 0,
+        "limit": 20
+      },
+      "bytes": 4758
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 20,
+        "limit": 20
+      },
+      "bytes": 4852
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 40,
+        "limit": 20
+      },
+      "bytes": 4910
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 60,
+        "limit": 20
+      },
+      "bytes": 5054
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 80,
+        "limit": 20
+      },
+      "bytes": 5122
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 100,
+        "limit": 20
+      },
+      "bytes": 5127
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 120,
+        "limit": 20
+      },
+      "bytes": 5098
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 140,
+        "limit": 20
+      },
+      "bytes": 5011
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 160,
+        "limit": 20
+      },
+      "bytes": 5060
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 180,
+        "limit": 20
+      },
+      "bytes": 4392
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 200,
+        "limit": 20
+      },
+      "bytes": 2817
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 220,
+        "limit": 20
+      },
+      "bytes": 3321
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "modern-yabejp-ja-chapter04-section015-argument",
+        "blockOffset": 0
+      },
+      "bytes": 4612
+    },
+    {
+      "name": "search_textbook",
+      "args": {
+        "query": "即将被击飞的局面",
+        "chapterId": "modern-yabejp-ja-chapter04-section015-chapter",
+        "limit": 5
+      },
+      "bytes": 771
+    }
+  ],
+  "oldReviewPreserved": {
+    "audit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28.json",
+      "sha256": "d2c9dfe09838a15c845ae3bab8f698729bd99a22878bbb23af1f268849948aeb"
+    },
+    "raw": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/calls/7a1363b3-906b-4155-9643-2a3924d3dfd1.json",
+      "sha256": "8c08adf2edcc9391b697b78ba61922ee3ffb69aa715194f7df9abcd588d28039"
+    },
+    "status": "needs-repair"
+  },
+  "method": "independent-target-text-review-plus-unchanged-parent-audit",
+  "activeLibraryChanged": false,
+  "modelCalls": 0
+}
