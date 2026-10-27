@@ -1,0 +1,180 @@
+{
+  "schema": "coac269-web-revision-preflight/1",
+  "recordedAt": "2026-10-27T09:35:11.988Z",
+  "ticket": "COAC-269",
+  "line": "B-ordinary-web-targeted-revision",
+  "variant": "coac269rev1",
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "selectionRule": "current produced-needs-repair web chapters, canonical chapterId descending, existing revision entry, real parent needs-repair audit, excluding 248 in-flight/reserved and terminal-passed",
+  "excluded": {
+    "nemata-jp-chapter-347-1": "parent audit has no figureChecks; current revision guard rejects all 27 non-target figures",
+    "nemata-jp-chapter-283-1": "reserved by 248",
+    "nemata-jp-chapter-236-1": "reserved by 248",
+    "nemata-jp-chapter-215-4": "reserved by 248",
+    "nemata-jp-chapter-198-1": "248 passed 2026-10-27T09:15Z",
+    "nemata-jp-chapter-187-1": "248 passed 2026-10-27T09:20Z",
+    "nemata-jp-chapter-199-1": "reserved by 248",
+    "nemata-jp-chapter-201-1": "reserved by 248",
+    "nemata-jp-chapter-001-64": "metadata/cover",
+    "nemata-jp-chapter-250-1": "metadata",
+    "nemata-jp-chapter-317-51": "metadata",
+    "79-cn-chapter-215-4": "reserved by 248",
+    "79-cn-chapter-201-6": "reserved number 201",
+    "79-cn-chapter-311-18": "below selected canonical order; not in this 2-chapter batch"
+  },
+  "dictionary": {
+    "path": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+    "sha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+  },
+  "verifiedAssets": {
+    "path": "audit/web/verified-assets/modern-ch01-s001-exact-42.json",
+    "sha256": "dd3058698dc2630a1767e27791b07ce3617c0e141957d8000bcd9e97331df193"
+  },
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-338-1",
+      "articleId": "archive01-section006",
+      "checks": [
+        "source_binding",
+        "parent_self_sha",
+        "notes_binding",
+        "target_projection",
+        "non_target_faithful_blocks",
+        "all_figures_faithful",
+        "dictionary_coverage",
+        "no_existing_variant"
+      ],
+      "errors": [],
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/archive01-section006/source.json",
+        "sha256": "6438c449b1284be3a7be4fd5004bfcda10517716c7cbbbf8b09df2cc92722548",
+        "language": "ja",
+        "status": "captured-not-translated-or-audited",
+        "blocks": 588,
+        "assets": 23
+      },
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/archive01-section006.display.json",
+        "sha256": "04ab76405f88fa1df61d68c2047cf3cb344b8db8644f193c520fee805b83c427",
+        "schema": "coach-textbook-web-article-draft/1",
+        "textBlocks": 328,
+        "figures": 260
+      },
+      "notes": {
+        "path": "audit/web/articles/modern-yabejp-ja/archive01-section006.04ab76405f88fa1df61d68c2047cf3cb344b8db8644f193c520fee805b83c427.json",
+        "sha256": "6d41a520affd04f57c515e02d37ef58746e88794149f385d701a9814c0be5597",
+        "schema": "coach-textbook-web-article-audit/1",
+        "status": "needs-repair",
+        "recordedAt": "2026-10-26T11:17:50.526Z"
+      },
+      "targets": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:archive01-section006:b0518",
+          "sourceText": "基本的にリャンメンを作る牌の切れ具合を確認して切れている牌が多い方を切ればよい。場の安さ高さを考慮するのは読みの項で行う。",
+          "priorTranslation": "基本上，只需确认能形成两面的牌已被切出多少，切掉相关牌被切出较多的那一边即可。对场上牌的疏密情况的考虑，将在读牌一节中讨论。",
+          "paragraphId": "modern-yabejp-ja:archive01-section006:p0085",
+          "contextIds": [
+            "modern-yabejp-ja:archive01-section006:b0516",
+            "modern-yabejp-ja:archive01-section006:b0517",
+            "modern-yabejp-ja:archive01-section006:b0518",
+            "modern-yabejp-ja:archive01-section006:b0519",
+            "modern-yabejp-ja:archive01-section006:b0520"
+          ]
+        }
+      ],
+      "contextBlockIds": [
+        "modern-yabejp-ja:archive01-section006:b0516",
+        "modern-yabejp-ja:archive01-section006:b0517",
+        "modern-yabejp-ja:archive01-section006:b0518",
+        "modern-yabejp-ja:archive01-section006:b0519",
+        "modern-yabejp-ja:archive01-section006:b0520"
+      ],
+      "dictionaryUnboundImages": 0,
+      "visualInputs": [],
+      "outputPath": "web-production/v1/candidates/modern-yabejp-ja/archive01-section006.coac269rev1.json"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-273-1",
+      "articleId": "chapter06-exercise002-02",
+      "checks": [
+        "source_binding",
+        "parent_self_sha",
+        "notes_binding",
+        "target_projection",
+        "non_target_faithful_blocks",
+        "all_figures_faithful",
+        "dictionary_coverage",
+        "no_existing_variant"
+      ],
+      "errors": [],
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter06-exercise002-02/source.json",
+        "sha256": "460025a88a0adcc545afa893594c6653d0b121f75fdcfd9512350f9292b984f4",
+        "language": "ja",
+        "status": "captured-not-translated-or-audited",
+        "blocks": 692,
+        "assets": 53
+      },
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise002-02.display.json",
+        "sha256": "c57c30e4ffddb9ea661295364ee46739438c2c17a4f4c772e5df0b8391c7576b",
+        "schema": "coach-textbook-web-article-draft/1",
+        "textBlocks": 400,
+        "figures": 292
+      },
+      "notes": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter06-exercise002-02.c57c30e4ffddb9ea661295364ee46739438c2c17a4f4c772e5df0b8391c7576b.json",
+        "sha256": "3aa7dc1d73dbcf0caa710ca8a46799f69178435113c289ab53a8c4f44d9dd270",
+        "schema": "coach-textbook-web-article-audit/1",
+        "status": "needs-repair",
+        "recordedAt": "2026-10-26T11:38:10.817Z"
+      },
+      "targets": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter06-exercise002-02:b0263",
+          "sourceText": "リーチと待ち牌数は１枚しか変わらず、",
+          "priorTranslation": "立直相比，待牌张数仅相差1张，而且",
+          "paragraphId": "modern-yabejp-ja:chapter06-exercise002-02:p0110",
+          "contextIds": [
+            "modern-yabejp-ja:chapter06-exercise002-02:b0261",
+            "modern-yabejp-ja:chapter06-exercise002-02:b0262",
+            "modern-yabejp-ja:chapter06-exercise002-02:b0263",
+            "modern-yabejp-ja:chapter06-exercise002-02:b0264",
+            "modern-yabejp-ja:chapter06-exercise002-02:b0265"
+          ]
+        },
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter06-exercise002-02:b0545",
+          "sourceText": "七対シャンテンに受けつつ面子手の可能性を残す。",
+          "priorTranslation": "选择七对子的向听形，同时保留面子手的可能性。",
+          "paragraphId": "modern-yabejp-ja:chapter06-exercise002-02:p0220",
+          "contextIds": [
+            "modern-yabejp-ja:chapter06-exercise002-02:b0543",
+            "modern-yabejp-ja:chapter06-exercise002-02:b0544",
+            "modern-yabejp-ja:chapter06-exercise002-02:b0545",
+            "modern-yabejp-ja:chapter06-exercise002-02:b0546",
+            "modern-yabejp-ja:chapter06-exercise002-02:b0547"
+          ]
+        }
+      ],
+      "contextBlockIds": [
+        "modern-yabejp-ja:chapter06-exercise002-02:b0261",
+        "modern-yabejp-ja:chapter06-exercise002-02:b0262",
+        "modern-yabejp-ja:chapter06-exercise002-02:b0263",
+        "modern-yabejp-ja:chapter06-exercise002-02:b0264",
+        "modern-yabejp-ja:chapter06-exercise002-02:b0265",
+        "modern-yabejp-ja:chapter06-exercise002-02:b0543",
+        "modern-yabejp-ja:chapter06-exercise002-02:b0544",
+        "modern-yabejp-ja:chapter06-exercise002-02:b0545",
+        "modern-yabejp-ja:chapter06-exercise002-02:b0546",
+        "modern-yabejp-ja:chapter06-exercise002-02:b0547"
+      ],
+      "dictionaryUnboundImages": 0,
+      "visualInputs": [],
+      "outputPath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise002-02.coac269rev1.json"
+    }
+  ],
+  "ok": true,
+  "errors": []
+}

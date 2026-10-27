@@ -1,0 +1,88 @@
+{
+  "schema": "coac269-web-revision-production/1",
+  "ticket": "COAC-269",
+  "line": "B",
+  "startedAt": "2026-10-27T09:39:17.203666+00:00",
+  "variant": "coac269rev1",
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "budget": {
+    "productionCallsAllowed": 2,
+    "firstAuditCallsAllowed": 2,
+    "retries": 0
+  },
+  "frozenRuntime": {
+    "textbook-production-web.mjs": "4a5ce8ab361e659bf7a8e822d3e013ccf413701cfa604aaa1c58c688beab8ca9",
+    "textbook-production-cli.mjs": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1",
+    "textbook-audit.mjs": "8660208dbb9ab80bff445d84402e169a0294b5485316c3ef1c080b42ea095893"
+  },
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-273-1",
+      "articleId": "chapter06-exercise002-02",
+      "state": "produced-awaiting-independent-audit",
+      "command": "E:/IDE/NodeJS/node.exe E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\coac269-20261027\\frozen-runtime\\textbook-production-web.mjs --source web-sources/v1/modern-yabejp-ja/articles/chapter06-exercise002-02/source.json --revision-from web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise002-02.display.json --revision-notes audit/web/articles/modern-yabejp-ja/chapter06-exercise002-02.c57c30e4ffddb9ea661295364ee46739438c2c17a4f4c772e5df0b8391c7576b.json --variant coac269rev1 --dictionary web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json --verified-assets audit/web/verified-assets/modern-ch01-s001-exact-42.json --timeout-ms 480000",
+      "startedAt": "2026-10-27T09:39:17.210508+00:00",
+      "durationSeconds": 94.5,
+      "exitCode": 0,
+      "stdoutTail": "{\"sourceId\":\"modern-yabejp-ja\",\"articleId\":\"chapter06-exercise002-02\",\"candidatePath\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\web-production\\\\v1\\\\candidates\\\\modern-yabejp-ja\\\\chapter06-exercise002-02.coac269rev1.json\",\"textBlocks\":400,\"figures\":292,\"modelCalls\":1,\"usage\":{\"inputTokens\":12369,\"cachedInputTokens\":0,\"outputTokens\":813},\"candidateFileSha256\":\"42991d764c900c46cba313848cc1c5138789c60079e6a988d4f6df5e09da330e\"}\n",
+      "stderrTail": "",
+      "actualCalls": [
+        {
+          "callId": "2529e8f3-0b02-4c6c-ab05-3d24deaddb79",
+          "success": true,
+          "usage": {
+            "inputTokens": 12369,
+            "cachedInputTokens": 0,
+            "outputTokens": 813
+          },
+          "durationMs": 94392,
+          "failureClass": null,
+          "transportStatus": "completed",
+          "rawArtifactPath": "raw-calls/2529e8f3-0b02-4c6c-ab05-3d24deaddb79.json",
+          "rawArtifactSha256": "5a41124fa320c736712ed6bd0b85585a730be5f379e46e03f2e8ce7a34d45444",
+          "promptSha256": "e60e91ac39c2d49abf8bb91e0ccbc65aa3738634e7d788d3950ab8da45e1b89c",
+          "semanticPromptSha256": "e86091b6d5259f3656fda4015c22b1505957048b738707ca9640cd438fb693c3",
+          "targets": {
+            "textIds": [
+              "modern-yabejp-ja:chapter06-exercise002-02:b0263",
+              "modern-yabejp-ja:chapter06-exercise002-02:b0545"
+            ],
+            "figureIds": []
+          },
+          "revision": {
+            "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise002-02.display.json",
+            "parentSha256": "c57c30e4ffddb9ea661295364ee46739438c2c17a4f4c772e5df0b8391c7576b",
+            "notesPath": "audit/web/articles/modern-yabejp-ja/chapter06-exercise002-02.c57c30e4ffddb9ea661295364ee46739438c2c17a4f4c772e5df0b8391c7576b.json",
+            "notesSha256": "3aa7dc1d73dbcf0caa710ca8a46799f69178435113c289ab53a8c4f44d9dd270",
+            "figureIds": [],
+            "textBlockIds": [
+              "modern-yabejp-ja:chapter06-exercise002-02:b0263",
+              "modern-yabejp-ja:chapter06-exercise002-02:b0545"
+            ]
+          }
+        }
+      ],
+      "candidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise002-02.coac269rev1.json",
+        "sha256": "42991d764c900c46cba313848cc1c5138789c60079e6a988d4f6df5e09da330e"
+      },
+      "finishedAt": "2026-10-27T09:40:51.770373+00:00"
+    }
+  ],
+  "makerLane": {
+    "lockPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production-lane.lock",
+    "acquired": true,
+    "waitedSeconds": 0.0,
+    "lastError": null,
+    "releasedAt": "2026-10-27T09:40:51.770373+00:00"
+  },
+  "result": "produced",
+  "finishedAt": "2026-10-27T09:40:51.770373+00:00",
+  "modelCalls": 1,
+  "usageTotal": {
+    "inputTokens": 12369,
+    "cachedInputTokens": 0,
+    "outputTokens": 813
+  }
+}
