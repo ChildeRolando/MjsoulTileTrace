@@ -1,0 +1,37 @@
+{
+  "schema": "coac248-exact208276-proof-files/1",
+  "recordedAt": "2026-10-27T23:14:26.627856+00:00",
+  "files": [
+    {
+      "path": "verify.py",
+      "sha256": "dbe24372c2e6ddf26f243c5ec0eaadae1c05d4a19b7949dca223d16c6b8d730b"
+    },
+    {
+      "path": "verify_test.py",
+      "sha256": "e99bf19dbb3149aeb309ea6d933264a8e88669c1deb70eb7e1d0e99e10315236"
+    },
+    {
+      "path": "gates.mjs",
+      "sha256": "a12eb10f4d146606ec664cd77b71261c0bf41a3d00996fb130387b29ac21d297"
+    },
+    {
+      "path": "gates.json",
+      "sha256": "b3bd7efcafe4807c1ee813c2ec5a9d85be476feb18756f76aa1f94c6b8996281"
+    },
+    {
+      "path": "proof-208.json",
+      "sha256": "633dd1d7db7b3870f121f20e9badad847790b8562c9257a6d459266edee0ca85"
+    },
+    {
+      "path": "proof-276.json",
+      "sha256": "158fbba9b6b2e855f0a913fda6f97d8cdf35e0c90b59760ebb6b16b485b39727"
+    },
+    {
+      "path": "path-map.json",
+      "sha256": "5b738b6bcbb3b01c0b12bbec2588ee6760288addf780b1c9a75944a16e627c56"
+    }
+  ],
+  "candidateChanged": false,
+  "modelCalls": 0,
+  "oldAuditAndRawChanged": false
+}

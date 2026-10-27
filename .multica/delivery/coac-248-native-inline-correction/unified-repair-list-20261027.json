@@ -1856,7 +1856,42 @@
     "admissionGranted": false,
     "standardWholeArticlePassed": false
    },
-   "nextAction": "Exact193 scope admission; repair250 pre-start long-path failure in its own branch; lawful integration and realMCP/Arena readback. No additional model review or reading."
+   "nextAction": "Existing244/250 exact scope pin and lawful limited admission, then actualMCP/Arena readback. No more digit reading, whole-article audits, maker calls or new consumers. A failure of the ordinary passed gate is expected; never change original errors/uncertain to manufacture ordinary passed.",
+   "final193208276Batch20261028": {
+    "recordedAt": "2026-10-27T23:14:26.627856+00:00",
+    "handoff": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-208276-limited-20261028\\handoff.json",
+     "sha256": "88922db14d133fbeb44760e74a0e910bbd037a2bb22764f7a5c649e77efd9747"
+    },
+    "newModelCalls": 0,
+    "candidateEdits": 0,
+    "readingTodo": false,
+    "remainingModelBudget": 0,
+    "admissionGranted": false,
+    "standardWholeChapterPassed": false,
+    "existingConsumer": {
+     "existingBatchWakeup": "01a17f9c-cee8-72e9-b34c-59e201c16160",
+     "observedStatus": "running",
+     "existing244BatchWakeup": "01a17f9c-cb45-72a8-ae4f-422c083ed942",
+     "newConsumersOrWakeupsCreated": 0,
+     "earlier250208FailurePreserved": "01a17f9a-03ed-7e12-b3f8-bcf074039377 failed; not retriggered by248"
+    },
+    "remaining": "Existing244/250 exact scope pin and lawful limited admission, then actualMCP/Arena readback. No more digit reading, whole-article audits, maker calls or new consumers. A failure of the ordinary passed gate is expected; never change original errors/uncertain to manufacture ordinary passed.",
+    "prior193Proof": {
+     "proof": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-193-limited-20261028\\proof.json",
+      "sha256": "b1ad29377240e032af4898eee1822e88ac7a1d13ded13aad741ebc1018643f16"
+     },
+     "finalCurrentBinding": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-193208276-20261028\\current-binding-193.json",
+      "sha256": "b20806e6404367ba672785f97e1558c3b4fbdec4eaf4ab7a86543023809c6da0"
+     },
+     "uncertainAndSeparatePdfVersionUnchanged": true,
+     "noNewReadingOrProofRegeneration": true
+    },
+    "unknownsRetained": 9,
+    "currentBatchCallsRemaining": 0
+   }
   },
   {
    "objectId": "web-chapter:79-cn-chapter-201-6",
@@ -1928,12 +1963,51 @@
     210,
     211
    ],
-   "currentDisposition": "needs-repair",
+   "currentDisposition": "independent-limited-unknown-field-proof-ready-for-existing-consumer",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
    "auditRecordedAt": "2026-10-25T19:23:51.752Z",
    "auditSourceStale": false,
-   "diskShaVerified": true
+   "diskShaVerified": true,
+   "limitedFieldEvidence20261028": {
+    "recordedAt": "2026-10-27T23:14:26.627856+00:00",
+    "handoff": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-208276-limited-20261028\\handoff.json",
+     "sha256": "88922db14d133fbeb44760e74a0e910bbd037a2bb22764f7a5c649e77efd9747"
+    },
+    "newModelCalls": 0,
+    "candidateEdits": 0,
+    "readingTodo": false,
+    "remainingModelBudget": 0,
+    "admissionGranted": false,
+    "standardWholeChapterPassed": false,
+    "existingConsumer": {
+     "existingBatchWakeup": "01a17f9c-cee8-72e9-b34c-59e201c16160",
+     "observedStatus": "running",
+     "existing244BatchWakeup": "01a17f9c-cb45-72a8-ae4f-422c083ed942",
+     "newConsumersOrWakeupsCreated": 0,
+     "earlier250208FailurePreserved": "01a17f9a-03ed-7e12-b3f8-bcf074039377 failed; not retriggered by248"
+    },
+    "remaining": "Existing244/250 exact scope pin and lawful limited admission, then actualMCP/Arena readback. No more digit reading, whole-article audits, maker calls or new consumers. A failure of the ordinary passed gate is expected; never change original errors/uncertain to manufacture ordinary passed.",
+    "canonical": "79-cn-chapter-208-4",
+    "candidate": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770245.display.json",
+     "sha256": "0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97",
+     "bytes": 46718
+    },
+    "proof": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-208276-limited-20261028\\proof-208.json",
+     "sha256": "633dd1d7db7b3870f121f20e9badad847790b8562c9257a6d459266edee0ca85"
+    },
+    "independentCurrentBinding": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-193208276-20261028\\current-binding-208.json",
+     "sha256": "d48e56626a3f7d1542da066bdb3f23629bc800555050db2c0fcb72a926de0016"
+    },
+    "status": "independent-limited-unknown-field-proof-ready-for-existing-consumer",
+    "propositionsMapped": 10,
+    "unknownsRetained": 4
+   },
+   "nextAction": "Existing244/250 exact scope pin and lawful limited admission, then actualMCP/Arena readback. No more digit reading, whole-article audits, maker calls or new consumers. A failure of the ordinary passed gate is expected; never change original errors/uncertain to manufacture ordinary passed."
   },
   {
    "objectId": "web-chapter:79-cn-chapter-222-5",
@@ -3221,7 +3295,7 @@
     278,
     279
    ],
-   "currentDisposition": "terminal-needs-repair-four-wind-codes-missing-budget-exhausted",
+   "currentDisposition": "independent-limited-unknown-field-proof-ready-for-existing-consumer",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
    "auditRecordedAt": "2026-10-27T18:36:42.187Z",
@@ -3754,7 +3828,46 @@
      "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
      "suggestedRepair": "删除或更正附件5、6的配对说明，说明例3使用已审原图复用。"
     }
-   ]
+   ],
+   "limitedFieldEvidence20261028": {
+    "recordedAt": "2026-10-27T23:14:26.627856+00:00",
+    "handoff": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-208276-limited-20261028\\handoff.json",
+     "sha256": "88922db14d133fbeb44760e74a0e910bbd037a2bb22764f7a5c649e77efd9747"
+    },
+    "newModelCalls": 0,
+    "candidateEdits": 0,
+    "readingTodo": false,
+    "remainingModelBudget": 0,
+    "admissionGranted": false,
+    "standardWholeChapterPassed": false,
+    "existingConsumer": {
+     "existingBatchWakeup": "01a17f9c-cee8-72e9-b34c-59e201c16160",
+     "observedStatus": "running",
+     "existing244BatchWakeup": "01a17f9c-cb45-72a8-ae4f-422c083ed942",
+     "newConsumersOrWakeupsCreated": 0,
+     "earlier250208FailurePreserved": "01a17f9a-03ed-7e12-b3f8-bcf074039377 failed; not retriggered by248"
+    },
+    "remaining": "Existing244/250 exact scope pin and lawful limited admission, then actualMCP/Arena readback. No more digit reading, whole-article audits, maker calls or new consumers. A failure of the ordinary passed gate is expected; never change original errors/uncertain to manufacture ordinary passed.",
+    "canonical": "79-cn-chapter-276-4",
+    "candidate": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1793434.r2.display.json",
+     "sha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+     "bytes": 51494
+    },
+    "proof": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-208276-limited-20261028\\proof-276.json",
+     "sha256": "158fbba9b6b2e855f0a913fda6f97d8cdf35e0c90b59760ebb6b16b485b39727"
+    },
+    "independentCurrentBinding": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-193208276-20261028\\current-binding-276.json",
+     "sha256": "36bca9cc89860830d5b4128759eeb3c73c00ba10340cd4887dd29762d7149a42"
+    },
+    "status": "independent-limited-unknown-field-proof-ready-for-existing-consumer",
+    "propositionsMapped": 25,
+    "unknownsRetained": 4
+   },
+   "nextAction": "Existing244/250 exact scope pin and lawful limited admission, then actualMCP/Arena readback. No more digit reading, whole-article audits, maker calls or new consumers. A failure of the ordinary passed gate is expected; never change original errors/uncertain to manufacture ordinary passed."
   },
   {
    "objectId": "web-chapter:79-cn-chapter-311-18",

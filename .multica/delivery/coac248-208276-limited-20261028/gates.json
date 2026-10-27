@@ -1,0 +1,423 @@
+[
+  {
+    "key": "208",
+    "canonical": "79-cn-chapter-208-4",
+    "recordedAt": "2026-10-27T23:13:40.850Z",
+    "production": {
+      "callId": "82da438b-0e5d-45d7-b91c-ad2d0c2353df",
+      "rawArtifactPath": "raw-calls/82da438b-0e5d-45d7-b91c-ad2d0c2353df.json",
+      "rawArtifactSha256": "986a54bf7088430cea5f21b8ee435f3f4b5e66f2da2bcaf34bd5581fc495f729",
+      "visualInputs": {
+        "inputs": [
+          {
+            "assetId": "79-bilibili-cn:817b8e981a47af398e6514c6",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b.png",
+            "sourceSha256": "ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-sources/v1/79-bilibili-cn/assets/ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b.png",
+            "sha256": "ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b",
+            "role": "original",
+            "scale": 1,
+            "resampling": "none",
+            "width": 446,
+            "height": 465
+          },
+          {
+            "assetId": "79-bilibili-cn:817b8e981a47af398e6514c6",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b.png",
+            "sourceSha256": "ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b.x2.png",
+            "sha256": "42c668c01e53f2d106ca13d9f7e375d1405f1122a1a74f5fb8ae779abc738d97",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 2,
+            "resampling": "nearest",
+            "width": 892,
+            "height": 930
+          },
+          {
+            "assetId": "79-bilibili-cn:f2c7f3ccf7f35415307dc376",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.png",
+            "sourceSha256": "fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-sources/v1/79-bilibili-cn/assets/fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.png",
+            "sha256": "fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985",
+            "role": "original",
+            "scale": 1,
+            "resampling": "none",
+            "width": 432,
+            "height": 461
+          },
+          {
+            "assetId": "79-bilibili-cn:f2c7f3ccf7f35415307dc376",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.png",
+            "sourceSha256": "fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.x2.png",
+            "sha256": "c2f57e512b2298a27e87000ceccf022804fcd5887fe2602815e18220a4f9bce6",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 2,
+            "resampling": "nearest",
+            "width": 864,
+            "height": 922
+          },
+          {
+            "assetId": "79-bilibili-cn:6dc405a54355faff064f81a4",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa.png",
+            "sourceSha256": "14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-sources/v1/79-bilibili-cn/assets/14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa.png",
+            "sha256": "14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa",
+            "role": "original",
+            "scale": 1,
+            "resampling": "none",
+            "width": 510,
+            "height": 111
+          },
+          {
+            "assetId": "79-bilibili-cn:6dc405a54355faff064f81a4",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa.png",
+            "sourceSha256": "14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa.x4.png",
+            "sha256": "d5c0442744bf00545c24524a6310ff32b398a808febf8824ce920d7fba870310",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 2040,
+            "height": 444
+          }
+        ],
+        "pixels": {
+          "passed": true,
+          "inputs": 6
+        }
+      }
+    },
+    "presentation": {
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1770245.json",
+        "sha256": "b6d53d26f2a3ce9fd9bd2b8a8132d93877856628554ff4e9b9c20d0870df3be7",
+        "reason": "Lossless display images only; translations and source figure sequences unchanged"
+      },
+      "pixels": {
+        "passed": true,
+        "figures": 3,
+        "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+      }
+    },
+    "exclusion": "passed-current",
+    "latestPreview": {
+      "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T22-45-20-588Z",
+      "selectedWeb": []
+    },
+    "latestRegisterRow": {
+      "chapterId": "79-cn-chapter-208-4",
+      "originalChapterId": "79-cn-chapter-208-4",
+      "sourceId": "79-cn",
+      "title": "防守9—兜牌",
+      "units": 1,
+      "ownedSourceBlocks": 17,
+      "adjudicationGroup": "confirmed-produced-not-covered",
+      "covered": false,
+      "coverageRoute": null,
+      "approvedWebCorrespondence": {
+        "articleId": "cv1770245",
+        "webSourceId": "79-bilibili-cn",
+        "tier": "body",
+        "evidencePath": "integration/chinese-source-body-correspondence.json",
+        "substitutionAllowed": true,
+        "bodyEquivalenceConfirmed": true,
+        "articleInPreview": false
+      },
+      "existingCandidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1770245.display.json",
+        "sha256": "0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97",
+        "bodyBlocks": 9,
+        "sourceSha256": "0d6849d5bb4cb250ce9070a883fa072f9025c8411563b9f74fe9fd9d616fa17c",
+        "currentSourceSha256": "0d6849d5bb4cb250ce9070a883fa072f9025c8411563b9f74fe9fd9d616fa17c",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/79-bilibili-cn/cv1770245.0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97.json",
+        "auditRecordedAt": "2026-10-25T19:23:51.752Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 4,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          208,
+          209,
+          210,
+          211
+        ],
+        "pagesDetail": [
+          {
+            "page": 208,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 6
+          },
+          {
+            "page": 209,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 4
+          },
+          {
+            "page": 210,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 5
+          },
+          {
+            "page": 211,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 7
+          }
+        ]
+      },
+      "gaps": {
+        "ownedSourceBlocks": 17,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 17,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 17,
+        "acceptanceGapPages": [
+          208,
+          209,
+          210,
+          211
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          208,
+          209,
+          210,
+          211
+        ]
+      },
+      "verdict": "produced-needs-repair",
+      "coac246": {
+        "action": "repair",
+        "auditStatus": "needs-repair",
+        "candidateSha256": "0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97",
+        "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1770245.display.json",
+        "repairErrors": 7,
+        "units": 1,
+        "blocks": 17
+      }
+    },
+    "consumptionAlreadyObserved": false,
+    "modelCalls": 0,
+    "candidateChanged": false
+  },
+  {
+    "key": "276",
+    "canonical": "79-cn-chapter-276-4",
+    "recordedAt": "2026-10-27T23:13:42.581Z",
+    "production": {
+      "callId": "7af07271-5848-47a7-a2cb-54be1cca4c64",
+      "rawArtifactPath": "raw-calls/7af07271-5848-47a7-a2cb-54be1cca4c64.json",
+      "rawArtifactSha256": "9550a583ea0d8d0443bb37ace0e56e5cfb668869e81e9740f42b9b57bf96750c",
+      "revision": {
+        "revision": {
+          "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1793434.display.json",
+          "parentSha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+          "notesPath": "audit/web/articles/79-bilibili-cn/cv1793434.34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af.json",
+          "notesSha256": "8c7e8145f051809f5ad3d80eb4c8e7c4b9d669739c200fbec98e4f26307a9370",
+          "figureIds": [
+            "79-bilibili-cn:cv1793434:b0005:figure"
+          ]
+        },
+        "parentAudit": {
+          "path": "audit/web/articles/79-bilibili-cn/cv1793434.34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af.json",
+          "sha256": "8c7e8145f051809f5ad3d80eb4c8e7c4b9d669739c200fbec98e4f26307a9370",
+          "originalStatus": "needs-repair"
+        },
+        "parentCall": {
+          "callId": "4ad05d19-eb5a-48d6-ba09-c673553ec204",
+          "path": "audit/calls/4ad05d19-eb5a-48d6-ba09-c673553ec204.json",
+          "sha256": "5f88f0dad7e13a42279278eefc97a583e36dfac1f2ab2e0d3c1ecde5f73f2ab1"
+        },
+        "inheritedAssetIds": [
+          "79-bilibili-cn:a55acc8cf58b8e1636ec1d54",
+          "79-bilibili-cn:0a4e68cf7b56269f146ef9fc"
+        ]
+      },
+      "visualInputs": {
+        "inputs": [
+          {
+            "assetId": "79-bilibili-cn:e6d9adffb5691e034df6786d",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+            "sourceSha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-sources/v1/79-bilibili-cn/assets/4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+            "sha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+            "role": "original",
+            "scale": 1,
+            "resampling": "none",
+            "width": 500,
+            "height": 499
+          },
+          {
+            "assetId": "79-bilibili-cn:e6d9adffb5691e034df6786d",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+            "sourceSha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+            "sha256": "ff130bb4c934f7d58794ecde92422eacd097f589e27fe18a0e721da007236ed4",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 2,
+            "resampling": "nearest",
+            "width": 1000,
+            "height": 998
+          }
+        ],
+        "pixels": {
+          "passed": true,
+          "inputs": 2
+        }
+      }
+    },
+    "presentation": {
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1793434.r2.json",
+        "sha256": "e6d73075fad15822b5c746a313d22beecc5aff3b77a121053f9dfa2ad70e54a8",
+        "reason": "Lossless display bindings inherited from bound parent; model output and all body/figure semantic content unchanged"
+      },
+      "pixels": {
+        "passed": true,
+        "figures": 3,
+        "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+      }
+    },
+    "exclusion": "passed-current",
+    "latestPreview": {
+      "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T22-45-20-588Z",
+      "selectedWeb": []
+    },
+    "latestRegisterRow": {
+      "chapterId": "79-cn-chapter-276-4",
+      "originalChapterId": "79-cn-chapter-276-4",
+      "sourceId": "79-cn",
+      "title": "攻守判断3—攻守判断的标准",
+      "units": 1,
+      "ownedSourceBlocks": 64,
+      "adjudicationGroup": "confirmed-produced-not-covered",
+      "covered": false,
+      "coverageRoute": null,
+      "approvedWebCorrespondence": {
+        "articleId": "cv1793434",
+        "webSourceId": "79-bilibili-cn",
+        "tier": "body",
+        "evidencePath": "integration/chinese-source-body-correspondence.json",
+        "substitutionAllowed": true,
+        "bodyEquivalenceConfirmed": true,
+        "articleInPreview": false
+      },
+      "existingCandidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1793434.display.json",
+        "sha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+        "bodyBlocks": 42,
+        "sourceSha256": "db1218e9226ef5ccaf978ec6b6801bd07498017b821973647d0e551ed518439f",
+        "currentSourceSha256": "db1218e9226ef5ccaf978ec6b6801bd07498017b821973647d0e551ed518439f",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/79-bilibili-cn/cv1793434.34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af.json",
+        "auditRecordedAt": "2026-10-25T23:23:53.771Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 4,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          276,
+          277,
+          278,
+          279
+        ],
+        "pagesDetail": [
+          {
+            "page": 276,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 14
+          },
+          {
+            "page": 277,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 13
+          },
+          {
+            "page": 278,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 14
+          },
+          {
+            "page": 279,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 23
+          }
+        ]
+      },
+      "gaps": {
+        "ownedSourceBlocks": 64,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 64,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 64,
+        "acceptanceGapPages": [
+          276,
+          277,
+          278,
+          279
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          276,
+          277,
+          278,
+          279
+        ]
+      },
+      "verdict": "produced-needs-repair",
+      "coac246": {
+        "action": "repair",
+        "auditStatus": "needs-repair",
+        "candidateSha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+        "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1793434.display.json",
+        "repairErrors": 4,
+        "units": 1,
+        "blocks": 64
+      }
+    },
+    "consumptionAlreadyObserved": false,
+    "modelCalls": 0,
+    "candidateChanged": false
+  }
+]

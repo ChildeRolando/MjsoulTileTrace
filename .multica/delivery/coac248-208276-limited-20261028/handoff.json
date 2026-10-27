@@ -1,0 +1,103 @@
+{
+  "schema": "coac248208276-exact-limited-consumption-handoff/1",
+  "recordedAt": "2026-10-27T23:14:26.627856+00:00",
+  "sourceAuthorizationComment": "01a17f8c-e33c-7399-9a2a-5d6f401a852d",
+  "aggregate249": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-193208276-reviewed-20261028.json",
+    "sha256": "834ad43a0ac0aef8f1ae282bd52d00560cdcb1f8eee28ed330b086270b48b656"
+  },
+  "proofs": [
+    {
+      "canonical": "79-cn-chapter-208-4",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-208276-limited-20261028\\proof-208.json",
+      "sha256": "633dd1d7db7b3870f121f20e9badad847790b8562c9257a6d459266edee0ca85",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770245.display.json",
+        "sha256": "0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97",
+        "bytes": 46718
+      }
+    },
+    {
+      "canonical": "79-cn-chapter-276-4",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-208276-limited-20261028\\proof-276.json",
+      "sha256": "158fbba9b6b2e855f0a913fda6f97d8cdf35e0c90b59760ebb6b16b485b39727",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1793434.r2.display.json",
+        "sha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+        "bytes": 51494
+      }
+    }
+  ],
+  "prior193ReusedWithoutNewAudit": {
+    "proof": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-193-limited-20261028\\proof.json",
+      "sha256": "b1ad29377240e032af4898eee1822e88ac7a1d13ded13aad741ebc1018643f16"
+    },
+    "finalCurrentBinding": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-193208276-20261028\\current-binding-193.json",
+      "sha256": "b20806e6404367ba672785f97e1558c3b4fbdec4eaf4ab7a86543023809c6da0"
+    },
+    "uncertainAndSeparatePdfVersionUnchanged": true,
+    "noNewReadingOrProofRegeneration": true
+  },
+  "manifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-208276-limited-20261028\\manifest.json",
+    "sha256": "72ff71e31224ef1ceb1ee805b395853fd2693e4febc3ee159d4a9c1a526b8256"
+  },
+  "commands": [
+    "python -X utf8 E:/AgentData/Coach/knowledge/processing/integration/coac248-208276-limited-20261028/verify.py",
+    "python -X utf8 E:/AgentData/Coach/knowledge/processing/integration/coac248-208276-limited-20261028/verify_test.py",
+    "E:/IDE/NodeJS/node.exe E:/AgentData/Coach/knowledge/processing/integration/coac248-208276-limited-20261028/gates.mjs"
+  ],
+  "currentCandidatesMeetIndependentFieldConditions": true,
+  "newCandidateEdits": 0,
+  "newModelCalls": 0,
+  "upstreamBatchAccounting": {
+    "independentCalls": 3,
+    "maximum": 3,
+    "remaining": 0,
+    "production": 0,
+    "failedVoid": 0,
+    "retry": 0
+  },
+  "unknownsRetained": {
+    "193": 1,
+    "208": 4,
+    "276": 4
+  },
+  "ordinaryWholeChapterPassed": false,
+  "admissionGranted": false,
+  "requiredReadbacks": {
+    "208": [
+      "all four explicit unknowns and both bound source images",
+      "all9 ordered source blocks/3figures including sourceSegments/marks/href/tableContext",
+      "all four defence methods and every original condition, including no riichi, one-shanten, drawing5p example, may consider, dangerous tile, seven-pairs uncertainty, score judgement and folding",
+      "author recommendations retained without certifying absolute safety against all opponents"
+    ],
+    "276": [
+      "four explicit wind unknowns and original JPEG",
+      "all42 ordered source blocks/3figures; two non-target figures inherited from the exact original independent parent evidence",
+      "riichi condition for11600, red-dragon danger, only6s safe tile, possible pinfu, effective draws/continuous-attack conditions and basic qualifier",
+      "disclaimer/translator/source/title/dividers/continuation and sourceSegments/marks/tableContext retained",
+      "historic2x sourceNotes distinguished from the new audit crop batch if exposed; sourceNotes unchanged in candidate"
+    ],
+    "193": [
+      "reuse existing193 proof, one explicit unknown, original red circles and author qualifiers",
+      "Web fragments remain uncertain; two already-integrated PDF193/b6 excerpts stay a separately labelled source version"
+    ]
+  },
+  "specificRemaining": "Existing244/250 exact scope pin and lawful limited admission, then actualMCP/Arena readback. No more digit reading, whole-article audits, maker calls or new consumers. A failure of the ordinary passed gate is expected; never change original errors/uncertain to manufacture ordinary passed.",
+  "sourceNotesAnnotationPolicy": "Historical sourceNotes retain original maker attachment numbering/2x views. New audit orderedImages/crops are a distinct evidence batch and must not be relabelled as those historical attachments. If sourceNotes are exposed beside current audit attachments, add an explicitly non-author batch distinction in the consumer view; do not edit candidate or raw.",
+  "consumerDedupe": {
+    "existingBatchWakeup": "01a17f9c-cee8-72e9-b34c-59e201c16160",
+    "observedStatus": "running",
+    "existing244BatchWakeup": "01a17f9c-cb45-72a8-ae4f-422c083ed942",
+    "newConsumersOrWakeupsCreated": 0,
+    "earlier250208FailurePreserved": "01a17f9a-03ed-7e12-b3f8-bcf074039377 failed; not retriggered by248"
+  },
+  "coverageIncrementClaimed": 0,
+  "formalActiveChanged": false,
+  "fee": "unknown",
+  "remoteWeights": "unknown",
+  "upstreamExecutionCount": "unknown"
+}
