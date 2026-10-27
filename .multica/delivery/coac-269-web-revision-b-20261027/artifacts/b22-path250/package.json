@@ -1,0 +1,116 @@
+{
+  "files": [
+    {
+      "name": ".gitattributes",
+      "sha256": "d32c594ea9951e68b05838f0308a277258c8b7d3d021286929b86c3b689105fc",
+      "bytes": 49
+    },
+    {
+      "name": "README.md",
+      "sha256": "8518ecff811edfe7318b894eab761238c5f28fcfc8b6de91dd9898d9216b2fb6",
+      "bytes": 1560
+    },
+    {
+      "name": "prepare.py",
+      "sha256": "9452ce97bc7c9bc47d19e6d4f8bd0ed7103f6e1267af8ad897d498213bbc4064",
+      "bytes": 7937
+    },
+    {
+      "name": "verify-package.py",
+      "sha256": "5e9cb52a86e8d0740b926d5a5a31412e97ee29b790e70ebfb4e6e36509e3ab8c",
+      "bytes": 4504
+    },
+    {
+      "name": "apply-and-test.py",
+      "sha256": "ddddfa8e70f3c4f4ae58a7d16924626d5f15ff6388926860e3d47044d51ba104",
+      "bytes": 5132
+    },
+    {
+      "name": "resume-once.py",
+      "sha256": "ec8393cc4d6804bf1363613e155b3717a9b5f3f9da7bf9a7a67097ce6e5f5bab",
+      "bytes": 3670
+    },
+    {
+      "name": "check-start.py",
+      "sha256": "fee0ca1fb07ba8341b9649b78e44cc88456bdce37da745a6dbe25325c7a8a113",
+      "bytes": 2663
+    },
+    {
+      "name": "record-result.py",
+      "sha256": "0c425e03241bf6d2865e09121eaf15ed2db607ad8623f3ebee351819679648d8",
+      "bytes": 4067
+    },
+    {
+      "name": "commit250.json",
+      "sha256": "ca0abf1659dc7c6599e7bcbb2d9aa4ec6baa4c6c91214dcfe57dfcfc4ff48c9a",
+      "bytes": 4735
+    },
+    {
+      "name": "manifest250.json",
+      "sha256": "1e1af7f281c1d3fd2491f4b3bd100d9db72417e74c1d4dafe0dfe3c052d99dd8",
+      "bytes": 10929
+    },
+    {
+      "name": "repair250.patch",
+      "sha256": "e1d19ec31de630b46a6cd07a84548f4e2c8bfe5b023fc14eef72f128be064668",
+      "bytes": 105050
+    },
+    {
+      "name": "preflight-tests.json",
+      "sha256": "25c7ff90febeed5c69a16673106df6b4e6c95ff77fb97cda686958b21a4e0e90",
+      "bytes": 3160
+    },
+    {
+      "name": "owner-exclusion.json",
+      "sha256": "3529cfdb15a69a6faec57393753726787e1470f2d8bdea727de632157ec2b66b",
+      "bytes": 9341
+    },
+    {
+      "name": "checkout-attempt.json",
+      "sha256": "db023badf722baa69fb8c51035d76a9566d9126f5b9caa16cb8dc110925e80ea",
+      "bytes": 2711
+    },
+    {
+      "name": "checkout-test.json",
+      "sha256": "bda49e6d9071e96c0ff909f49f9d84f00eb6ff75a76d0c32bbd2384f68353b50",
+      "bytes": 1893
+    },
+    {
+      "name": "push250.json",
+      "sha256": "332e2ffaa505823b28a62144a69f2caacdf20bc99bcb67ab86e23d2bc37e9c09",
+      "bytes": 434
+    },
+    {
+      "name": "original-wakeup.json",
+      "sha256": "b13f8c426f0efbd01334469e4d4346b68039c98bef229c7debc448e9119f9c4f",
+      "bytes": 4651
+    },
+    {
+      "name": "resume-exclusion.json",
+      "sha256": "3396d629b4cbdf0876619ae1eecffa2f99438aa5c1376c15aec9e42f4ef856ba",
+      "bytes": 13911
+    },
+    {
+      "name": "resume250.md",
+      "sha256": "8a0799d8fb3e7625693694a9a2fbefce56435f18868960774de9e2cc8c8bfe31",
+      "bytes": 4951
+    },
+    {
+      "name": "resume250.json",
+      "sha256": "d4f5f367b12bd1c93af56c8ad3522a0667fddad29b06caa0ef7c48d054f0f68d",
+      "bytes": 6133
+    },
+    {
+      "name": "started250.json",
+      "sha256": "1721dc3f3ebc6e4fda8be6bdddd9bffb00221ebe32208c39a7bffdc1b758325a",
+      "bytes": 31266
+    },
+    {
+      "name": "result.json",
+      "sha256": "74d43761c1ce2a4f2c55effcd438bed75343331b4ea288bffab27a0400301d8b",
+      "bytes": 1452
+    }
+  ],
+  "maximumFullWindowsPath": 208,
+  "modelCalls": 0
+}

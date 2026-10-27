@@ -1,0 +1,715 @@
+diff --git a/_analysis/coac250-217-display/README.md b/_analysis/coac250-217-display/README.md
+index d1be1fc..09655d1 100644
+--- a/_analysis/coac250-217-display/README.md
++++ b/_analysis/coac250-217-display/README.md
+@@ -10,3 +10,14 @@
+ 关键文件：`final-verification.json`、`readback.json`、`display-tests.json`、`persisted-route-verification.json`、`display-limitations.final.json`、`stage-receipt.final.json`、`binding.json`、`variants.after.json`及`builder.after.mjs`。`stage/`保留首次准备的同字节正文，最终投影/收据另用`.final.json`标识。`evidence/`按原字节SHA归档实际依赖，`evidence-bindings.json`保留来源。v28及旧台账快照保留。
+ 
+ 本阶段模型/制作0，未切正式active。共享审校ledger期间只追加了其它候选的两项调用；首次全文件SHA保护因此在构建前拒绝，错误原样保存在`assembly-failure.json`。后续使用原冻结验证器核本次精确call/候选记录，允许共享ledger正常追加其它票的调用；未改ledger、原call或任何质量门禁。
++
++Packaging repair (COAC-269): local assets use a01.png–a04.png; all12 copies retain original image bytes.
++The4 archived upstream audit copies use audit.json without changing their bytes. See
++`../path250/manifest.json` for every original repository path, Git blob and full SHA256.
++Only local relative image references and this package's archive index changed. Absolute data-root
++paths, original source/audit receipts and body hashes remain historical provenance; the alias map
++restores the original compiled objects exactly. These wrappers are not new candidates or receipts.
++Run `python _analysis/path250/verify.py` at repository root before packaging/committing future
++delivery/_analysis evidence. It checks every tracked path plus new files in both packaging trees,
++using the actual managed Windows root and a strict full-path limit below240 UTF16 characters.
++No v29 rebuild, model call, source/raw/candidate/active change or global configuration change.
+diff --git a/_analysis/coac250-217-display/archive-shas.json b/_analysis/coac250-217-display/archive-shas.json
+index a1e1a62..634378f 100644
+--- a/_analysis/coac250-217-display/archive-shas.json
++++ b/_analysis/coac250-217-display/archive-shas.json
+@@ -617,7 +617,7 @@
+   },
+   {
+     "path": "_analysis/coac250-217-display/README.md",
+-    "sha256": "95bddc5040494c0aa7082a423e136a24ef24418f8424cfc5bc663dd6e97af05e"
++    "sha256": "b6af205aa301b4e978c4ed3a895a8b747e88a979d299920f4fecfb06622a2b57"
+   },
+   {
+     "path": "_analysis/coac250-217-display/register.after.json",
+@@ -632,35 +632,35 @@
+     "sha256": "53e334adaf6c49d8caee4af03485245742a305d91e262492dd992327699892aa"
+   },
+   {
+-    "path": "_analysis/coac250-217-display/route-stage/assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png",
++    "path": "_analysis/coac250-217-display/route-stage/assets/a01.png",
+     "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0"
+   },
+   {
+-    "path": "_analysis/coac250-217-display/route-stage/assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png",
++    "path": "_analysis/coac250-217-display/route-stage/assets/a02.png",
+     "sha256": "2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c"
+   },
+   {
+-    "path": "_analysis/coac250-217-display/route-stage/assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png",
++    "path": "_analysis/coac250-217-display/route-stage/assets/a03.png",
+     "sha256": "dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5"
+   },
+   {
+-    "path": "_analysis/coac250-217-display/route-stage/assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png",
++    "path": "_analysis/coac250-217-display/route-stage/assets/a04.png",
+     "sha256": "f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78"
+   },
+   {
+-    "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png",
++    "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a01.png",
+     "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0"
+   },
+   {
+-    "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png",
++    "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a02.png",
+     "sha256": "2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c"
+   },
+   {
+-    "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png",
++    "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a03.png",
+     "sha256": "dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5"
+   },
+   {
+-    "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png",
++    "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a04.png",
+     "sha256": "f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78"
+   },
+   {
+@@ -673,7 +673,7 @@
+   },
+   {
+     "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/knowledge.html",
+-    "sha256": "1a7872c104efe2e3a7c9f0a2ca0abfcdf94d57d8f35fe1ef4f9d38037e48512f"
++    "sha256": "f58a7527b67fee20c270ac647dd0d98f4a9db3fab786f872d4e9fddf028e2772"
+   },
+   {
+     "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/mcp-build.json",
+@@ -685,11 +685,11 @@
+   },
+   {
+     "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/textbook-bodies.json",
+-    "sha256": "e0c181dd7b0e7ea40a1ded0e45550e1efca0a9c19b88056eebeb5a98f4bdb1d0"
++    "sha256": "40b19af0f1b7f22fd39012457329baee92b75362a088726acb3ddabbac753732"
+   },
+   {
+     "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/textbook-corpus.json",
+-    "sha256": "64a36cf6afd9ad85c100736c51213cab8c694537693f09fdeee25668c72f906c"
++    "sha256": "06f9ac0ff354637a401ed66e1e3a36891f69f4b2c341fadf070c406280be908c"
+   },
+   {
+     "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/textbook-unit-map.json",
+@@ -704,19 +704,19 @@
+     "sha256": "1557d0606419b9ba40846472793ecdc013a461e7a2d49008d48f0da09b85a599"
+   },
+   {
+-    "path": "_analysis/coac250-217-display/stage/assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png",
++    "path": "_analysis/coac250-217-display/stage/assets/a01.png",
+     "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0"
+   },
+   {
+-    "path": "_analysis/coac250-217-display/stage/assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png",
++    "path": "_analysis/coac250-217-display/stage/assets/a02.png",
+     "sha256": "2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c"
+   },
+   {
+-    "path": "_analysis/coac250-217-display/stage/assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png",
++    "path": "_analysis/coac250-217-display/stage/assets/a03.png",
+     "sha256": "dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5"
+   },
+   {
+-    "path": "_analysis/coac250-217-display/stage/assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png",
++    "path": "_analysis/coac250-217-display/stage/assets/a04.png",
+     "sha256": "f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78"
+   },
+   {
+@@ -729,7 +729,7 @@
+   },
+   {
+     "path": "_analysis/coac250-217-display/stage/knowledge.html",
+-    "sha256": "1a7872c104efe2e3a7c9f0a2ca0abfcdf94d57d8f35fe1ef4f9d38037e48512f"
++    "sha256": "f58a7527b67fee20c270ac647dd0d98f4a9db3fab786f872d4e9fddf028e2772"
+   },
+   {
+     "path": "_analysis/coac250-217-display/stage/mcp-build.json",
+@@ -741,11 +741,11 @@
+   },
+   {
+     "path": "_analysis/coac250-217-display/stage/textbook-bodies.json",
+-    "sha256": "e0c181dd7b0e7ea40a1ded0e45550e1efca0a9c19b88056eebeb5a98f4bdb1d0"
++    "sha256": "40b19af0f1b7f22fd39012457329baee92b75362a088726acb3ddabbac753732"
+   },
+   {
+     "path": "_analysis/coac250-217-display/stage/textbook-corpus.json",
+-    "sha256": "64a36cf6afd9ad85c100736c51213cab8c694537693f09fdeee25668c72f906c"
++    "sha256": "06f9ac0ff354637a401ed66e1e3a36891f69f4b2c341fadf070c406280be908c"
+   },
+   {
+     "path": "_analysis/coac250-217-display/stage/textbook-unit-map.json",
+diff --git a/_analysis/coac250-217-display/route-stage/assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png b/_analysis/coac250-217-display/route-stage/assets/a01.png
+similarity index 100%
+rename from _analysis/coac250-217-display/route-stage/assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png
+rename to _analysis/coac250-217-display/route-stage/assets/a01.png
+diff --git a/_analysis/coac250-217-display/route-stage/assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png b/_analysis/coac250-217-display/route-stage/assets/a02.png
+similarity index 100%
+rename from _analysis/coac250-217-display/route-stage/assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png
+rename to _analysis/coac250-217-display/route-stage/assets/a02.png
+diff --git a/_analysis/coac250-217-display/route-stage/assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png b/_analysis/coac250-217-display/route-stage/assets/a03.png
+similarity index 100%
+rename from _analysis/coac250-217-display/route-stage/assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png
+rename to _analysis/coac250-217-display/route-stage/assets/a03.png
+diff --git a/_analysis/coac250-217-display/route-stage/assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png b/_analysis/coac250-217-display/route-stage/assets/a04.png
+similarity index 100%
+rename from _analysis/coac250-217-display/route-stage/assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png
+rename to _analysis/coac250-217-display/route-stage/assets/a04.png
+diff --git a/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png b/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a01.png
+similarity index 100%
+rename from _analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png
+rename to _analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a01.png
+diff --git a/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png b/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a02.png
+similarity index 100%
+rename from _analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png
+rename to _analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a02.png
+diff --git a/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png b/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a03.png
+similarity index 100%
+rename from _analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png
+rename to _analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a03.png
+diff --git a/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png b/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a04.png
+similarity index 100%
+rename from _analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png
+rename to _analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a04.png
+diff --git a/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/knowledge.html b/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/knowledge.html
+index fb14cf0..6a8a844 100644
+--- a/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/knowledge.html
++++ b/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/knowledge.html
+@@ -8,14 +8,14 @@ button,select,textarea,input{font:inherit;color:var(--ink)}button,select{border:
+ .chapter-body .inline-figure{display:inline-block;max-width:100%;vertical-align:middle;margin:0 .25em;line-height:1.1;white-space:normal}.chapter-body .inline-figure img{display:inline-block;max-height:44px;width:auto;max-width:100%;vertical-align:middle}.inline-figure code{display:block;font:12px/1.3 ui-monospace,monospace;color:var(--quiet);text-align:center}.chapter-body em{font-style:normal;font-weight:600}
+ 
+ .source-table-scroll{max-width:100%;overflow-x:auto;margin:24px 0}.chapter-body .source-table{table-layout:fixed}.source-table caption{text-align:left;font-weight:600}.source-table td,.source-table th{border:1px solid var(--line)}.source-table figure{margin:0 0 12px}.source-table p:last-child{margin-bottom:0}
+-</style></head><body><header><strong>Coach · 中文教材审阅</strong><span>1 章完整正文 · 待审核</span></header><div class="reader-layout"><aside><nav aria-label="章节目录"><a href="#79-cn-chapter-217-4" data-chapter="79-cn-chapter-217-4">防守12—扣牌（2）<small>79 博客 · 中文 PDF</small></a></nav><p class="quiet">直接阅读完整中文论证与原牌例。索引只负责定位，不替代教材正文。</p><button id="export-review" type="button">导出审核意见</button><p id="save-status" class="quiet" role="status"></p></aside><main><noscript><p>脚本未启用：下方仍可阅读全部章节，审核意见保存功能不可用。</p></noscript><article id="79-cn-chapter-217-4" data-article="79-cn-chapter-217-4"><h1>防守12—扣牌（2）</h1><p class="quiet">79 博客 · 中文 PDF · 第 217–220 页</p><details class="edition-note"><summary>译文与整理说明</summary><p>原作者文字保留；218限定独立结论与七条非原文限制同时展示。217图与既有非原文注成对复用，219限定条件论证及220完整独审继承；原needs-repair/uncertain不改。</p></details><div class="chapter-body"><p id="79-cn-p217-b4-t1" data-source-page="217" >防守12—扣牌（2） <a class="paragraph-source" href="#79-cn-p217-b4-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><p id="79-cn-p217-b5-t1" data-source-page="217" >扣牌2： 我们来看看扣牌的具体例子。  ------------------------------------------------------------------------------------下家染手 -------------------------------------------------------------------------------<a class="paragraph-source" href="#79-cn-p217-b5-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><figure id="79-cn-p217-r1" data-source-page="217"><a href="assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png" target="_blank" rel="noopener" aria-label="放大“下家染手”扣牌例图，北家视角。"><img src="assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png" loading="lazy" alt="“下家染手”扣牌例图，北家视角。；图中摸牌、宝牌和副露标记来自原教材"></a><figcaption>“下家染手”扣牌例图，北家视角。 · 点击牌图放大<a class="paragraph-source" href="#79-cn-p217-r1" aria-label="定位本段，教材第 217 页">p.217</a></figcaption><details open><summary>完整牌例文字与牌编码</summary><p style="white-space:pre-line">牌码：m=万，p=饼，s=索；1z=东、2z=南、3z=西、4z=北、5z=白、6z=发、7z=中。可辨认的明牌中无赤五。
++</style></head><body><header><strong>Coach · 中文教材审阅</strong><span>1 章完整正文 · 待审核</span></header><div class="reader-layout"><aside><nav aria-label="章节目录"><a href="#79-cn-chapter-217-4" data-chapter="79-cn-chapter-217-4">防守12—扣牌（2）<small>79 博客 · 中文 PDF</small></a></nav><p class="quiet">直接阅读完整中文论证与原牌例。索引只负责定位，不替代教材正文。</p><button id="export-review" type="button">导出审核意见</button><p id="save-status" class="quiet" role="status"></p></aside><main><noscript><p>脚本未启用：下方仍可阅读全部章节，审核意见保存功能不可用。</p></noscript><article id="79-cn-chapter-217-4" data-article="79-cn-chapter-217-4"><h1>防守12—扣牌（2）</h1><p class="quiet">79 博客 · 中文 PDF · 第 217–220 页</p><details class="edition-note"><summary>译文与整理说明</summary><p>原作者文字保留；218限定独立结论与七条非原文限制同时展示。217图与既有非原文注成对复用，219限定条件论证及220完整独审继承；原needs-repair/uncertain不改。</p></details><div class="chapter-body"><p id="79-cn-p217-b4-t1" data-source-page="217" >防守12—扣牌（2） <a class="paragraph-source" href="#79-cn-p217-b4-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><p id="79-cn-p217-b5-t1" data-source-page="217" >扣牌2： 我们来看看扣牌的具体例子。  ------------------------------------------------------------------------------------下家染手 -------------------------------------------------------------------------------<a class="paragraph-source" href="#79-cn-p217-b5-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><figure id="79-cn-p217-r1" data-source-page="217"><a href="assets/a01.png" target="_blank" rel="noopener" aria-label="放大“下家染手”扣牌例图，北家视角。"><img src="assets/a01.png" loading="lazy" alt="“下家染手”扣牌例图，北家视角。；图中摸牌、宝牌和副露标记来自原教材"></a><figcaption>“下家染手”扣牌例图，北家视角。 · 点击牌图放大<a class="paragraph-source" href="#79-cn-p217-r1" aria-label="定位本段，教材第 217 页">p.217</a></figcaption><details open><summary>完整牌例文字与牌编码</summary><p style="white-space:pre-line">牌码：m=万，p=饼，s=索；1z=东、2z=南、3z=西、4z=北、5z=白、6z=发、7z=中。可辨认的明牌中无赤五。
+ 中央文字：南3局1本场，立直棒0根。座位：下方北家、右方东家、上方南家、左方西家；东家为庄家。中央“ドラ”栏显示西（3z），画面未注明该栏为宝牌还是宝牌指示牌。
+ 画面显示值：北家+16900，东家△4900，南家△17500，西家+5500。
+ 北家手牌从左至右：8m 8m 1s 2s 3s 6s 8s 1p 2p 3p 5p 7p 9p；右侧分开的摸牌为6s。其余三家的暗手牌背面朝外，牌种未知（画面可见南家13张、西家13张、东家10张）。
+ 北家舍牌，按其自身视角逐行从左至右：第一行1z 9s 1m 9s 1p 3z；第二行万子（数字未辨清） 9m。
+ 东家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，各列自下向上）：第一行8p 2m 1p 3p 7m 7z；第二行2z 9m 5p 4z。右上角副露为碰5z 5z 5z，中间一张横置，来自对家西家。
+ 南家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一行，自右向左）：第一行2z 1z 7z 4z 3z 2s；第二行3m 5p 5z 1s 9p。
+-西家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，自上向下）：第一行9p 1s 1m 6z 9s 2p；第二行7z 万子（数字未辨清）2m 6m。</p></details></figure><p id="79-cn-p217-b6-t1" data-source-page="217" >----- <a class="paragraph-source" href="#79-cn-p217-b6-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><p id="79-cn-p217-b7-t1" data-source-page="217" > 扣牌很多时候都是在下家染手时进行的。 这个例子，很明显下家是索子的一色手。  <a class="paragraph-source" href="#79-cn-p217-b7-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><p id="79-cn-p217-b2-t1" data-source-page="217" > 第 217 页 共 340 页 <a class="paragraph-source" href="#79-cn-p217-b2-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><p id="79-cn-p218-b3-t1" data-source-page="218" >而且，他现在是亲家，自己在南场是TOP。 现在亲家应该还没有听牌吧，这个时候就应该把索子扣住了。  自己虽然是一向听，但是是无役的愚型。 即使听牌也是很不想切掉索子的。  虽然切饼子维持一向听也是一种打法。 但是9 饼有两家切掉了，以防有人立直是应该留下的。  这里应该拆掉8 万的对子，把索子紧紧扣住 施行让亲家未听下庄的战术。【审校注（非原文）：图中北家舍牌第二行第一张及西家舍牌第二行第二张均为万子，数字未辨清。西家该数字不影响本段亲家染索、南场领先、无役愚形一向听、留两家切过的9饼、拆8万对子扣索及争取亲家未听下庄的六项论证；北家第一张的未知不妨碍总体扣牌说明。两处未知限制精确牌谱复原，不能据此确定相关万子的精确可见张数、余张、进张和安全度。原文“现在亲家应该还没有听牌吧”为推测，扣索是战术意图，不证明对手暗手、实际结局、打法绝对安全或最优。】 ------------------------------------------------------------------------------------后付的字牌 ------------------------------------------------------------------------------------ <a class="paragraph-source" href="#79-cn-p218-b3-t1" aria-label="定位本段，教材第 218 页">p.218</a></p><figure id="79-cn-p218-r1" data-source-page="218"><a href="assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png" target="_blank" rel="noopener" aria-label="放大后付的字牌：东4局牌局示例"><img src="assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png" loading="lazy" alt="后付的字牌：东4局牌局示例；图中摸牌、宝牌和副露标记来自原教材"></a><figcaption>后付的字牌：东4局牌局示例 · 点击牌图放大<a class="paragraph-source" href="#79-cn-p218-r1" aria-label="定位本段，教材第 218 页">p.218</a></figcaption><details open><summary>完整牌例文字与牌编码</summary><p style="white-space:pre-line">牌桌为东4局2本场，立直棒0本；图面中央标签为“ドラ：5m”，5m非赤；仅据该标签未确认它是宝牌本身还是指示牌。画面下方为南家，左方为东家，右方为西家，上方为北家。画面显示的点数增减分别为东家+20000、南家△2600、西家△10800、北家△6600。
++西家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，自上向下）：第一行9p 1s 1m 6z 9s 2p；第二行7z 万子（数字未辨清）2m 6m。</p></details></figure><p id="79-cn-p217-b6-t1" data-source-page="217" >----- <a class="paragraph-source" href="#79-cn-p217-b6-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><p id="79-cn-p217-b7-t1" data-source-page="217" > 扣牌很多时候都是在下家染手时进行的。 这个例子，很明显下家是索子的一色手。  <a class="paragraph-source" href="#79-cn-p217-b7-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><p id="79-cn-p217-b2-t1" data-source-page="217" > 第 217 页 共 340 页 <a class="paragraph-source" href="#79-cn-p217-b2-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><p id="79-cn-p218-b3-t1" data-source-page="218" >而且，他现在是亲家，自己在南场是TOP。 现在亲家应该还没有听牌吧，这个时候就应该把索子扣住了。  自己虽然是一向听，但是是无役的愚型。 即使听牌也是很不想切掉索子的。  虽然切饼子维持一向听也是一种打法。 但是9 饼有两家切掉了，以防有人立直是应该留下的。  这里应该拆掉8 万的对子，把索子紧紧扣住 施行让亲家未听下庄的战术。【审校注（非原文）：图中北家舍牌第二行第一张及西家舍牌第二行第二张均为万子，数字未辨清。西家该数字不影响本段亲家染索、南场领先、无役愚形一向听、留两家切过的9饼、拆8万对子扣索及争取亲家未听下庄的六项论证；北家第一张的未知不妨碍总体扣牌说明。两处未知限制精确牌谱复原，不能据此确定相关万子的精确可见张数、余张、进张和安全度。原文“现在亲家应该还没有听牌吧”为推测，扣索是战术意图，不证明对手暗手、实际结局、打法绝对安全或最优。】 ------------------------------------------------------------------------------------后付的字牌 ------------------------------------------------------------------------------------ <a class="paragraph-source" href="#79-cn-p218-b3-t1" aria-label="定位本段，教材第 218 页">p.218</a></p><figure id="79-cn-p218-r1" data-source-page="218"><a href="assets/a04.png" target="_blank" rel="noopener" aria-label="放大后付的字牌：东4局牌局示例"><img src="assets/a04.png" loading="lazy" alt="后付的字牌：东4局牌局示例；图中摸牌、宝牌和副露标记来自原教材"></a><figcaption>后付的字牌：东4局牌局示例 · 点击牌图放大<a class="paragraph-source" href="#79-cn-p218-r1" aria-label="定位本段，教材第 218 页">p.218</a></figcaption><details open><summary>完整牌例文字与牌编码</summary><p style="white-space:pre-line">牌桌为东4局2本场，立直棒0本；图面中央标签为“ドラ：5m”，5m非赤；仅据该标签未确认它是宝牌本身还是指示牌。画面下方为南家，左方为东家，右方为西家，上方为北家。画面显示的点数增减分别为东家+20000、南家△2600、西家△10800、北家△6600。
+ 
+ 南家手牌从左至右为11334789m 234p ?s7s（?s表示首张索子点数未知；原稿记为6s，尚未核实），最右侧新摸入1z（东）。南家牌河从靠中心的一排起、自左向右为：6z（发）、5z（白）、3s、3z（西）、6z（发）、8m；第二排为9s、5z（白）、8p、2p。
+ 
+@@ -23,7 +23,7 @@ button,select,textarea,input{font:inherit;color:var(--ink)}button,select{border:
+ 
+ 西家牌河从靠中心的一列起、自下向上为：9s、1s、1s、5z（白）、4z（北）、7z（中）；外侧一列自下向上为9p、1p、2p、9p。
+ 
+-北家牌河从靠中心的一排起、自右向左为：第1张黑字风牌字样不清、4z（北）、5z（白）、4s、7z（中）、第6张黑字风牌字样不清；外侧一排自右向左为第7张万子点数不清、2s、8p、9p。末张9p灰显，对应东家吃入的牌。北家13张、东家10张、西家13张牌背可见，暗手牌面不可见。南家手牌原稿所记67s中的第一张6s未能由独审确认，仍为未确认牌；不据猜测改成其它牌码。</p></details></figure><p id="coac250-218-limit-1" data-source-page="218" >【审校限制（非原文）1/7】本次一致性结论只针对给出的218候选中首张索子改为?s及原独审未知项的保留；原稿所记6s只能作为未核实的历史记法。<a class="paragraph-source" href="#coac250-218-limit-1" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-2" data-source-page="218" >【审校限制（非原文）2/7】展示作者论证时须同时展示未知项及其影响：未知风牌限制东牌可见数量和东对判断，未知数牌及暗手限制对其他役种的复核。<a class="paragraph-source" href="#coac250-218-limit-2" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-3" data-source-page="218" >【审校限制（非原文）3/7】“可能性很低”和“只可能是双东”保留原词，但须明确归为作者根据舍牌作出的判断；现有证据不能独立证实概率、唯一役种或实际双东。<a class="paragraph-source" href="#coac250-218-limit-3" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-4" data-source-page="218" >【审校限制（非原文）4/7】原文称对手亲家；图面座位和局况可供条件性理解，但本次不认证实际庄家身份、暗手、听牌、打点、最优选择或结果。<a class="paragraph-source" href="#coac250-218-limit-4" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-5" data-source-page="218" >【审校限制（非原文）5/7】第218页标题前的拆8万对子、扣索子和留9饼属于前例；标题后的目标图及摸东论述属于新例。第217页图与其独立限制注未重审。<a class="paragraph-source" href="#coac250-218-limit-5" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-6" data-source-page="218" >【审校限制（非原文）6/7】ドラ标签的宝牌或指示牌语义未确认；立直棒0本不能证明此前从未有人立直。<a class="paragraph-source" href="#coac250-218-limit-6" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-7" data-source-page="218" >【审校限制（非原文）7/7】已比较所给218原页、目标裁图、源图和相关文字，并参考217衔接文字；这不是对217图、219或220的重审，也不是整页通过认证。<a class="paragraph-source" href="#coac250-218-limit-7" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="79-cn-p218-b4-t1" data-source-page="218" >  亲家用两面进行了副露，这个时候摸到了东。 我觉得这张东是绝对应该扣住的。  从亲家副露来看，有可能是混一色、一气、789 三色、全带 但是这些可能性很低，从场上的舍牌来看只可能是双东了。 <a class="paragraph-source" href="#79-cn-p218-b4-t1" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="79-cn-p218-b2-t1" data-source-page="218" > 第 218 页 共 340 页 <a class="paragraph-source" href="#79-cn-p218-b2-t1" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="79-cn-p219-b1-t1" data-source-page="219" >  这里切1 万，千万不要切东。博形听也好，弃和也好。 总之只能从这两者之间选择。  BOOM= =，一下子把东打出去的话就太勉强了。 切不得的东西就不要切。 要是再让TOP 的亲家继续扩大优势的话就很不妙了。这里心中要有将扣牌进行到底的觉悟。 ------------------------------------------------------------------------------------攻守兼备的扣牌 ------------------------------------------------------------------------------- <a class="paragraph-source" href="#79-cn-p219-b1-t1" aria-label="定位本段，教材第 219 页">p.219</a></p><figure id="79-cn-p219-r1" data-source-page="219"><a href="assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png" target="_blank" rel="noopener" aria-label="放大手牌4778m 1167p 12388s，摸3m"><img src="assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png" loading="lazy" alt="手牌4778m 1167p 12388s，摸3m；图中摸牌、宝牌和副露标记来自原教材"></a><figcaption>手牌4778m 1167p 12388s，摸3m · 点击牌图放大<a class="paragraph-source" href="#79-cn-p219-r1" aria-label="定位本段，教材第 219 页">p.219</a></figcaption><details open><summary>完整牌例文字与牌编码</summary><p style="white-space:pre-line">手牌从左至右为4m、7m、7m、8m、1p、1p、6p、7p、1s、2s、3s、8s、8s；右侧标有「ツモ」，摸入3m。m为万，p为饼，s为索；1s为鸟图案。可见牌中没有赤五。</p></details></figure><p id="79-cn-p219-b4-t1" data-source-page="219" > 要是纯粹的何切问题，这里从牌效率以及摸到4 索可以走断幺来考虑 切1 饼是绝对的答案。 但是，这样的情况怎么样呢？  <a class="paragraph-source" href="#79-cn-p219-b4-t1" aria-label="定位本段，教材第 219 页">p.219</a></p><figure id="79-cn-p219-r2" data-source-page="219"><a href="assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png" target="_blank" rel="noopener" aria-label="放大南1局牌桌及东家手牌"><img src="assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png" loading="lazy" alt="南1局牌桌及东家手牌；图中摸牌、宝牌和副露标记来自原教材"></a><figcaption>南1局牌桌及东家手牌 · 点击牌图放大<a class="paragraph-source" href="#79-cn-p219-r2" aria-label="定位本段，教材第 219 页">p.219</a></figcaption><details open><summary>完整牌例文字与牌编码</summary><p style="white-space:pre-line">牌桌中央显示「南1局0本場」「リーチ棒0本」，「ドラ」旁显示4m。自家在下方，为东家；右侧为南家，上方为西家，左侧为北家。自家手牌从左至右为4m、7m、7m、8m、1p、1p、6p、7p、1s、2s、3s、8s、8s，右侧另置摸入的3m。
++北家牌河从靠中心的一排起、自右向左为：第1张黑字风牌字样不清、4z（北）、5z（白）、4s、7z（中）、第6张黑字风牌字样不清；外侧一排自右向左为第7张万子点数不清、2s、8p、9p。末张9p灰显，对应东家吃入的牌。北家13张、东家10张、西家13张牌背可见，暗手牌面不可见。南家手牌原稿所记67s中的第一张6s未能由独审确认，仍为未确认牌；不据猜测改成其它牌码。</p></details></figure><p id="coac250-218-limit-1" data-source-page="218" >【审校限制（非原文）1/7】本次一致性结论只针对给出的218候选中首张索子改为?s及原独审未知项的保留；原稿所记6s只能作为未核实的历史记法。<a class="paragraph-source" href="#coac250-218-limit-1" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-2" data-source-page="218" >【审校限制（非原文）2/7】展示作者论证时须同时展示未知项及其影响：未知风牌限制东牌可见数量和东对判断，未知数牌及暗手限制对其他役种的复核。<a class="paragraph-source" href="#coac250-218-limit-2" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-3" data-source-page="218" >【审校限制（非原文）3/7】“可能性很低”和“只可能是双东”保留原词，但须明确归为作者根据舍牌作出的判断；现有证据不能独立证实概率、唯一役种或实际双东。<a class="paragraph-source" href="#coac250-218-limit-3" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-4" data-source-page="218" >【审校限制（非原文）4/7】原文称对手亲家；图面座位和局况可供条件性理解，但本次不认证实际庄家身份、暗手、听牌、打点、最优选择或结果。<a class="paragraph-source" href="#coac250-218-limit-4" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-5" data-source-page="218" >【审校限制（非原文）5/7】第218页标题前的拆8万对子、扣索子和留9饼属于前例；标题后的目标图及摸东论述属于新例。第217页图与其独立限制注未重审。<a class="paragraph-source" href="#coac250-218-limit-5" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-6" data-source-page="218" >【审校限制（非原文）6/7】ドラ标签的宝牌或指示牌语义未确认；立直棒0本不能证明此前从未有人立直。<a class="paragraph-source" href="#coac250-218-limit-6" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-7" data-source-page="218" >【审校限制（非原文）7/7】已比较所给218原页、目标裁图、源图和相关文字，并参考217衔接文字；这不是对217图、219或220的重审，也不是整页通过认证。<a class="paragraph-source" href="#coac250-218-limit-7" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="79-cn-p218-b4-t1" data-source-page="218" >  亲家用两面进行了副露，这个时候摸到了东。 我觉得这张东是绝对应该扣住的。  从亲家副露来看，有可能是混一色、一气、789 三色、全带 但是这些可能性很低，从场上的舍牌来看只可能是双东了。 <a class="paragraph-source" href="#79-cn-p218-b4-t1" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="79-cn-p218-b2-t1" data-source-page="218" > 第 218 页 共 340 页 <a class="paragraph-source" href="#79-cn-p218-b2-t1" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="79-cn-p219-b1-t1" data-source-page="219" >  这里切1 万，千万不要切东。博形听也好，弃和也好。 总之只能从这两者之间选择。  BOOM= =，一下子把东打出去的话就太勉强了。 切不得的东西就不要切。 要是再让TOP 的亲家继续扩大优势的话就很不妙了。这里心中要有将扣牌进行到底的觉悟。 ------------------------------------------------------------------------------------攻守兼备的扣牌 ------------------------------------------------------------------------------- <a class="paragraph-source" href="#79-cn-p219-b1-t1" aria-label="定位本段，教材第 219 页">p.219</a></p><figure id="79-cn-p219-r1" data-source-page="219"><a href="assets/a03.png" target="_blank" rel="noopener" aria-label="放大手牌4778m 1167p 12388s，摸3m"><img src="assets/a03.png" loading="lazy" alt="手牌4778m 1167p 12388s，摸3m；图中摸牌、宝牌和副露标记来自原教材"></a><figcaption>手牌4778m 1167p 12388s，摸3m · 点击牌图放大<a class="paragraph-source" href="#79-cn-p219-r1" aria-label="定位本段，教材第 219 页">p.219</a></figcaption><details open><summary>完整牌例文字与牌编码</summary><p style="white-space:pre-line">手牌从左至右为4m、7m、7m、8m、1p、1p、6p、7p、1s、2s、3s、8s、8s；右侧标有「ツモ」，摸入3m。m为万，p为饼，s为索；1s为鸟图案。可见牌中没有赤五。</p></details></figure><p id="79-cn-p219-b4-t1" data-source-page="219" > 要是纯粹的何切问题，这里从牌效率以及摸到4 索可以走断幺来考虑 切1 饼是绝对的答案。 但是，这样的情况怎么样呢？  <a class="paragraph-source" href="#79-cn-p219-b4-t1" aria-label="定位本段，教材第 219 页">p.219</a></p><figure id="79-cn-p219-r2" data-source-page="219"><a href="assets/a02.png" target="_blank" rel="noopener" aria-label="放大南1局牌桌及东家手牌"><img src="assets/a02.png" loading="lazy" alt="南1局牌桌及东家手牌；图中摸牌、宝牌和副露标记来自原教材"></a><figcaption>南1局牌桌及东家手牌 · 点击牌图放大<a class="paragraph-source" href="#79-cn-p219-r2" aria-label="定位本段，教材第 219 页">p.219</a></figcaption><details open><summary>完整牌例文字与牌编码</summary><p style="white-space:pre-line">牌桌中央显示「南1局0本場」「リーチ棒0本」，「ドラ」旁显示4m。自家在下方，为东家；右侧为南家，上方为西家，左侧为北家。自家手牌从左至右为4m、7m、7m、8m、1p、1p、6p、7p、1s、2s、3s、8s、8s，右侧另置摸入的3m。
+ 
+ 自家舍牌从左至右，第一行依次为北4z、1m、东1z、9p、白5z、南2z；第二行依次为1s、7s。南家舍牌靠中央的一列由下向上依次为1m、9p、2s、6s、东1z、5p；外一列由下向上依次为4s、西3z、2m。西家舍牌靠中央的一行由右向左，第1张为北4z，第2张为字牌，第3张为9p，第4格为灰色空位，第5张为西3z，第6张为万子；外一行由右向左依次为2m、发6z、3s。北家舍牌靠中央的一列由上向下依次为东1z、1m、9s、发6z、1s、1p；外一列由上向下依次为5p、8p、8s。
+ 
+diff --git a/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/textbook-bodies.json b/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/textbook-bodies.json
+index ee3b6ae..139402d 100644
+--- a/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/textbook-bodies.json
++++ b/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/textbook-bodies.json
+@@ -32,7 +32,7 @@
+           "id": "79-cn-p217-r1",
+           "type": "figure",
+           "page": 217,
+-          "src": "assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png",
++          "src": "assets/a01.png",
+           "caption": "“下家染手”扣牌例图，北家视角。",
+           "transcriptionText": "牌码：m=万，p=饼，s=索；1z=东、2z=南、3z=西、4z=北、5z=白、6z=发、7z=中。可辨认的明牌中无赤五。\n中央文字：南3局1本场，立直棒0根。座位：下方北家、右方东家、上方南家、左方西家；东家为庄家。中央“ドラ”栏显示西（3z），画面未注明该栏为宝牌还是宝牌指示牌。\n画面显示值：北家+16900，东家△4900，南家△17500，西家+5500。\n北家手牌从左至右：8m 8m 1s 2s 3s 6s 8s 1p 2p 3p 5p 7p 9p；右侧分开的摸牌为6s。其余三家的暗手牌背面朝外，牌种未知（画面可见南家13张、西家13张、东家10张）。\n北家舍牌，按其自身视角逐行从左至右：第一行1z 9s 1m 9s 1p 3z；第二行万子（数字未辨清） 9m。\n东家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，各列自下向上）：第一行8p 2m 1p 3p 7m 7z；第二行2z 9m 5p 4z。右上角副露为碰5z 5z 5z，中间一张横置，来自对家西家。\n南家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一行，自右向左）：第一行2z 1z 7z 4z 3z 2s；第二行3m 5p 5z 1s 9p。\n西家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，自上向下）：第一行9p 1s 1m 6z 9s 2p；第二行7z 万子（数字未辨清）2m 6m。",
+           "sourceBlockIds": [
+@@ -80,7 +80,7 @@
+           "id": "79-cn-p218-r1",
+           "type": "figure",
+           "page": 218,
+-          "src": "assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png",
++          "src": "assets/a04.png",
+           "caption": "后付的字牌：东4局牌局示例",
+           "transcriptionText": "牌桌为东4局2本场，立直棒0本；图面中央标签为“ドラ：5m”，5m非赤；仅据该标签未确认它是宝牌本身还是指示牌。画面下方为南家，左方为东家，右方为西家，上方为北家。画面显示的点数增减分别为东家+20000、南家△2600、西家△10800、北家△6600。\n\n南家手牌从左至右为11334789m 234p ?s7s（?s表示首张索子点数未知；原稿记为6s，尚未核实），最右侧新摸入1z（东）。南家牌河从靠中心的一排起、自左向右为：6z（发）、5z（白）、3s、3z（西）、6z（发）、8m；第二排为9s、5z（白）、8p、2p。\n\n东家副露789p，从北家吃入9p；画面中从上到下为转向的9p、7p、8p。东家牌河从靠中心的一列起、自上向下为：1s、第2张黑字风牌字样不清、第3张黑字风牌字样不清、5z（白）、第5张索子点数不清、9s；外侧一列自上向下为7z（中）、1p、5p、第10张万子点数不清、第11张索子点数不清。5p为普通五饼，非赤五。\n\n西家牌河从靠中心的一列起、自下向上为：9s、1s、1s、5z（白）、4z（北）、7z（中）；外侧一列自下向上为9p、1p、2p、9p。\n\n北家牌河从靠中心的一排起、自右向左为：第1张黑字风牌字样不清、4z（北）、5z（白）、4s、7z（中）、第6张黑字风牌字样不清；外侧一排自右向左为第7张万子点数不清、2s、8p、9p。末张9p灰显，对应东家吃入的牌。北家13张、东家10张、西家13张牌背可见，暗手牌面不可见。南家手牌原稿所记67s中的第一张6s未能由独审确认，仍为未确认牌；不据猜测改成其它牌码。",
+           "sourceBlockIds": [
+@@ -175,7 +175,7 @@
+           "id": "79-cn-p219-r1",
+           "type": "figure",
+           "page": 219,
+-          "src": "assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png",
++          "src": "assets/a03.png",
+           "caption": "手牌4778m 1167p 12388s，摸3m",
+           "transcriptionText": "手牌从左至右为4m、7m、7m、8m、1p、1p、6p、7p、1s、2s、3s、8s、8s；右侧标有「ツモ」，摸入3m。m为万，p为饼，s为索；1s为鸟图案。可见牌中没有赤五。",
+           "sourceBlockIds": [
+@@ -196,7 +196,7 @@
+           "id": "79-cn-p219-r2",
+           "type": "figure",
+           "page": 219,
+-          "src": "assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png",
++          "src": "assets/a02.png",
+           "caption": "南1局牌桌及东家手牌",
+           "transcriptionText": "牌桌中央显示「南1局0本場」「リーチ棒0本」，「ドラ」旁显示4m。自家在下方，为东家；右侧为南家，上方为西家，左侧为北家。自家手牌从左至右为4m、7m、7m、8m、1p、1p、6p、7p、1s、2s、3s、8s、8s，右侧另置摸入的3m。\n\n自家舍牌从左至右，第一行依次为北4z、1m、东1z、9p、白5z、南2z；第二行依次为1s、7s。南家舍牌靠中央的一列由下向上依次为1m、9p、2s、6s、东1z、5p；外一列由下向上依次为4s、西3z、2m。西家舍牌靠中央的一行由右向左，第1张为北4z，第2张为字牌，第3张为9p，第4格为灰色空位，第5张为西3z，第6张为万子；外一行由右向左依次为2m、发6z、3s。北家舍牌靠中央的一列由上向下依次为东1z、1m、9s、发6z、1s、1p；外一列由上向下依次为5p、8p、8s。\n\n右上角南家副露白5z、白5z、白5z：上端一张竖向，其余两张横向；按南家的视角，横置牌位于该组右端，表示从西家碰入。两张可见的5p均为普通5p，未见赤五。西家13张、北家13张、南家10张牌背可见，暗手牌面仍未知；各家可见河牌未见相对该家正常方向横置的立直牌。z牌代码中，1z为东、2z为南、3z为西、4z为北、5z为白、6z为发。",
+           "sourceBlockIds": [
+diff --git a/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/textbook-corpus.json b/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/textbook-corpus.json
+index b88ecd9..2a617ce 100644
+--- a/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/textbook-corpus.json
++++ b/_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/textbook-corpus.json
+@@ -215,22 +215,22 @@
+   "images": [
+     {
+       "figureId": "79-cn-p217-r1",
+-      "path": "assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png",
++      "path": "assets/a01.png",
+       "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0"
+     },
+     {
+       "figureId": "79-cn-p218-r1",
+-      "path": "assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png",
++      "path": "assets/a04.png",
+       "sha256": "f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78"
+     },
+     {
+       "figureId": "79-cn-p219-r1",
+-      "path": "assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png",
++      "path": "assets/a03.png",
+       "sha256": "dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5"
+     },
+     {
+       "figureId": "79-cn-p219-r2",
+-      "path": "assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png",
++      "path": "assets/a02.png",
+       "sha256": "2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c"
+     }
+   ]
+diff --git a/_analysis/coac250-217-display/stage/assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png b/_analysis/coac250-217-display/stage/assets/a01.png
+similarity index 100%
+rename from _analysis/coac250-217-display/stage/assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png
+rename to _analysis/coac250-217-display/stage/assets/a01.png
+diff --git a/_analysis/coac250-217-display/stage/assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png b/_analysis/coac250-217-display/stage/assets/a02.png
+similarity index 100%
+rename from _analysis/coac250-217-display/stage/assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png
+rename to _analysis/coac250-217-display/stage/assets/a02.png
+diff --git a/_analysis/coac250-217-display/stage/assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png b/_analysis/coac250-217-display/stage/assets/a03.png
+similarity index 100%
+rename from _analysis/coac250-217-display/stage/assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png
+rename to _analysis/coac250-217-display/stage/assets/a03.png
+diff --git a/_analysis/coac250-217-display/stage/assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png b/_analysis/coac250-217-display/stage/assets/a04.png
+similarity index 100%
+rename from _analysis/coac250-217-display/stage/assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png
+rename to _analysis/coac250-217-display/stage/assets/a04.png
+diff --git a/_analysis/coac250-217-display/stage/knowledge.html b/_analysis/coac250-217-display/stage/knowledge.html
+index fb14cf0..6a8a844 100644
+--- a/_analysis/coac250-217-display/stage/knowledge.html
++++ b/_analysis/coac250-217-display/stage/knowledge.html
+@@ -8,14 +8,14 @@ button,select,textarea,input{font:inherit;color:var(--ink)}button,select{border:
+ .chapter-body .inline-figure{display:inline-block;max-width:100%;vertical-align:middle;margin:0 .25em;line-height:1.1;white-space:normal}.chapter-body .inline-figure img{display:inline-block;max-height:44px;width:auto;max-width:100%;vertical-align:middle}.inline-figure code{display:block;font:12px/1.3 ui-monospace,monospace;color:var(--quiet);text-align:center}.chapter-body em{font-style:normal;font-weight:600}
+ 
+ .source-table-scroll{max-width:100%;overflow-x:auto;margin:24px 0}.chapter-body .source-table{table-layout:fixed}.source-table caption{text-align:left;font-weight:600}.source-table td,.source-table th{border:1px solid var(--line)}.source-table figure{margin:0 0 12px}.source-table p:last-child{margin-bottom:0}
+-</style></head><body><header><strong>Coach · 中文教材审阅</strong><span>1 章完整正文 · 待审核</span></header><div class="reader-layout"><aside><nav aria-label="章节目录"><a href="#79-cn-chapter-217-4" data-chapter="79-cn-chapter-217-4">防守12—扣牌（2）<small>79 博客 · 中文 PDF</small></a></nav><p class="quiet">直接阅读完整中文论证与原牌例。索引只负责定位，不替代教材正文。</p><button id="export-review" type="button">导出审核意见</button><p id="save-status" class="quiet" role="status"></p></aside><main><noscript><p>脚本未启用：下方仍可阅读全部章节，审核意见保存功能不可用。</p></noscript><article id="79-cn-chapter-217-4" data-article="79-cn-chapter-217-4"><h1>防守12—扣牌（2）</h1><p class="quiet">79 博客 · 中文 PDF · 第 217–220 页</p><details class="edition-note"><summary>译文与整理说明</summary><p>原作者文字保留；218限定独立结论与七条非原文限制同时展示。217图与既有非原文注成对复用，219限定条件论证及220完整独审继承；原needs-repair/uncertain不改。</p></details><div class="chapter-body"><p id="79-cn-p217-b4-t1" data-source-page="217" >防守12—扣牌（2） <a class="paragraph-source" href="#79-cn-p217-b4-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><p id="79-cn-p217-b5-t1" data-source-page="217" >扣牌2： 我们来看看扣牌的具体例子。  ------------------------------------------------------------------------------------下家染手 -------------------------------------------------------------------------------<a class="paragraph-source" href="#79-cn-p217-b5-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><figure id="79-cn-p217-r1" data-source-page="217"><a href="assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png" target="_blank" rel="noopener" aria-label="放大“下家染手”扣牌例图，北家视角。"><img src="assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png" loading="lazy" alt="“下家染手”扣牌例图，北家视角。；图中摸牌、宝牌和副露标记来自原教材"></a><figcaption>“下家染手”扣牌例图，北家视角。 · 点击牌图放大<a class="paragraph-source" href="#79-cn-p217-r1" aria-label="定位本段，教材第 217 页">p.217</a></figcaption><details open><summary>完整牌例文字与牌编码</summary><p style="white-space:pre-line">牌码：m=万，p=饼，s=索；1z=东、2z=南、3z=西、4z=北、5z=白、6z=发、7z=中。可辨认的明牌中无赤五。
++</style></head><body><header><strong>Coach · 中文教材审阅</strong><span>1 章完整正文 · 待审核</span></header><div class="reader-layout"><aside><nav aria-label="章节目录"><a href="#79-cn-chapter-217-4" data-chapter="79-cn-chapter-217-4">防守12—扣牌（2）<small>79 博客 · 中文 PDF</small></a></nav><p class="quiet">直接阅读完整中文论证与原牌例。索引只负责定位，不替代教材正文。</p><button id="export-review" type="button">导出审核意见</button><p id="save-status" class="quiet" role="status"></p></aside><main><noscript><p>脚本未启用：下方仍可阅读全部章节，审核意见保存功能不可用。</p></noscript><article id="79-cn-chapter-217-4" data-article="79-cn-chapter-217-4"><h1>防守12—扣牌（2）</h1><p class="quiet">79 博客 · 中文 PDF · 第 217–220 页</p><details class="edition-note"><summary>译文与整理说明</summary><p>原作者文字保留；218限定独立结论与七条非原文限制同时展示。217图与既有非原文注成对复用，219限定条件论证及220完整独审继承；原needs-repair/uncertain不改。</p></details><div class="chapter-body"><p id="79-cn-p217-b4-t1" data-source-page="217" >防守12—扣牌（2） <a class="paragraph-source" href="#79-cn-p217-b4-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><p id="79-cn-p217-b5-t1" data-source-page="217" >扣牌2： 我们来看看扣牌的具体例子。  ------------------------------------------------------------------------------------下家染手 -------------------------------------------------------------------------------<a class="paragraph-source" href="#79-cn-p217-b5-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><figure id="79-cn-p217-r1" data-source-page="217"><a href="assets/a01.png" target="_blank" rel="noopener" aria-label="放大“下家染手”扣牌例图，北家视角。"><img src="assets/a01.png" loading="lazy" alt="“下家染手”扣牌例图，北家视角。；图中摸牌、宝牌和副露标记来自原教材"></a><figcaption>“下家染手”扣牌例图，北家视角。 · 点击牌图放大<a class="paragraph-source" href="#79-cn-p217-r1" aria-label="定位本段，教材第 217 页">p.217</a></figcaption><details open><summary>完整牌例文字与牌编码</summary><p style="white-space:pre-line">牌码：m=万，p=饼，s=索；1z=东、2z=南、3z=西、4z=北、5z=白、6z=发、7z=中。可辨认的明牌中无赤五。
+ 中央文字：南3局1本场，立直棒0根。座位：下方北家、右方东家、上方南家、左方西家；东家为庄家。中央“ドラ”栏显示西（3z），画面未注明该栏为宝牌还是宝牌指示牌。
+ 画面显示值：北家+16900，东家△4900，南家△17500，西家+5500。
+ 北家手牌从左至右：8m 8m 1s 2s 3s 6s 8s 1p 2p 3p 5p 7p 9p；右侧分开的摸牌为6s。其余三家的暗手牌背面朝外，牌种未知（画面可见南家13张、西家13张、东家10张）。
+ 北家舍牌，按其自身视角逐行从左至右：第一行1z 9s 1m 9s 1p 3z；第二行万子（数字未辨清） 9m。
+ 东家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，各列自下向上）：第一行8p 2m 1p 3p 7m 7z；第二行2z 9m 5p 4z。右上角副露为碰5z 5z 5z，中间一张横置，来自对家西家。
+ 南家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一行，自右向左）：第一行2z 1z 7z 4z 3z 2s；第二行3m 5p 5z 1s 9p。
+-西家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，自上向下）：第一行9p 1s 1m 6z 9s 2p；第二行7z 万子（数字未辨清）2m 6m。</p></details></figure><p id="79-cn-p217-b6-t1" data-source-page="217" >----- <a class="paragraph-source" href="#79-cn-p217-b6-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><p id="79-cn-p217-b7-t1" data-source-page="217" > 扣牌很多时候都是在下家染手时进行的。 这个例子，很明显下家是索子的一色手。  <a class="paragraph-source" href="#79-cn-p217-b7-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><p id="79-cn-p217-b2-t1" data-source-page="217" > 第 217 页 共 340 页 <a class="paragraph-source" href="#79-cn-p217-b2-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><p id="79-cn-p218-b3-t1" data-source-page="218" >而且，他现在是亲家，自己在南场是TOP。 现在亲家应该还没有听牌吧，这个时候就应该把索子扣住了。  自己虽然是一向听，但是是无役的愚型。 即使听牌也是很不想切掉索子的。  虽然切饼子维持一向听也是一种打法。 但是9 饼有两家切掉了，以防有人立直是应该留下的。  这里应该拆掉8 万的对子，把索子紧紧扣住 施行让亲家未听下庄的战术。【审校注（非原文）：图中北家舍牌第二行第一张及西家舍牌第二行第二张均为万子，数字未辨清。西家该数字不影响本段亲家染索、南场领先、无役愚形一向听、留两家切过的9饼、拆8万对子扣索及争取亲家未听下庄的六项论证；北家第一张的未知不妨碍总体扣牌说明。两处未知限制精确牌谱复原，不能据此确定相关万子的精确可见张数、余张、进张和安全度。原文“现在亲家应该还没有听牌吧”为推测，扣索是战术意图，不证明对手暗手、实际结局、打法绝对安全或最优。】 ------------------------------------------------------------------------------------后付的字牌 ------------------------------------------------------------------------------------ <a class="paragraph-source" href="#79-cn-p218-b3-t1" aria-label="定位本段，教材第 218 页">p.218</a></p><figure id="79-cn-p218-r1" data-source-page="218"><a href="assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png" target="_blank" rel="noopener" aria-label="放大后付的字牌：东4局牌局示例"><img src="assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png" loading="lazy" alt="后付的字牌：东4局牌局示例；图中摸牌、宝牌和副露标记来自原教材"></a><figcaption>后付的字牌：东4局牌局示例 · 点击牌图放大<a class="paragraph-source" href="#79-cn-p218-r1" aria-label="定位本段，教材第 218 页">p.218</a></figcaption><details open><summary>完整牌例文字与牌编码</summary><p style="white-space:pre-line">牌桌为东4局2本场，立直棒0本；图面中央标签为“ドラ：5m”，5m非赤；仅据该标签未确认它是宝牌本身还是指示牌。画面下方为南家，左方为东家，右方为西家，上方为北家。画面显示的点数增减分别为东家+20000、南家△2600、西家△10800、北家△6600。
++西家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，自上向下）：第一行9p 1s 1m 6z 9s 2p；第二行7z 万子（数字未辨清）2m 6m。</p></details></figure><p id="79-cn-p217-b6-t1" data-source-page="217" >----- <a class="paragraph-source" href="#79-cn-p217-b6-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><p id="79-cn-p217-b7-t1" data-source-page="217" > 扣牌很多时候都是在下家染手时进行的。 这个例子，很明显下家是索子的一色手。  <a class="paragraph-source" href="#79-cn-p217-b7-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><p id="79-cn-p217-b2-t1" data-source-page="217" > 第 217 页 共 340 页 <a class="paragraph-source" href="#79-cn-p217-b2-t1" aria-label="定位本段，教材第 217 页">p.217</a></p><p id="79-cn-p218-b3-t1" data-source-page="218" >而且，他现在是亲家，自己在南场是TOP。 现在亲家应该还没有听牌吧，这个时候就应该把索子扣住了。  自己虽然是一向听，但是是无役的愚型。 即使听牌也是很不想切掉索子的。  虽然切饼子维持一向听也是一种打法。 但是9 饼有两家切掉了，以防有人立直是应该留下的。  这里应该拆掉8 万的对子，把索子紧紧扣住 施行让亲家未听下庄的战术。【审校注（非原文）：图中北家舍牌第二行第一张及西家舍牌第二行第二张均为万子，数字未辨清。西家该数字不影响本段亲家染索、南场领先、无役愚形一向听、留两家切过的9饼、拆8万对子扣索及争取亲家未听下庄的六项论证；北家第一张的未知不妨碍总体扣牌说明。两处未知限制精确牌谱复原，不能据此确定相关万子的精确可见张数、余张、进张和安全度。原文“现在亲家应该还没有听牌吧”为推测，扣索是战术意图，不证明对手暗手、实际结局、打法绝对安全或最优。】 ------------------------------------------------------------------------------------后付的字牌 ------------------------------------------------------------------------------------ <a class="paragraph-source" href="#79-cn-p218-b3-t1" aria-label="定位本段，教材第 218 页">p.218</a></p><figure id="79-cn-p218-r1" data-source-page="218"><a href="assets/a04.png" target="_blank" rel="noopener" aria-label="放大后付的字牌：东4局牌局示例"><img src="assets/a04.png" loading="lazy" alt="后付的字牌：东4局牌局示例；图中摸牌、宝牌和副露标记来自原教材"></a><figcaption>后付的字牌：东4局牌局示例 · 点击牌图放大<a class="paragraph-source" href="#79-cn-p218-r1" aria-label="定位本段，教材第 218 页">p.218</a></figcaption><details open><summary>完整牌例文字与牌编码</summary><p style="white-space:pre-line">牌桌为东4局2本场，立直棒0本；图面中央标签为“ドラ：5m”，5m非赤；仅据该标签未确认它是宝牌本身还是指示牌。画面下方为南家，左方为东家，右方为西家，上方为北家。画面显示的点数增减分别为东家+20000、南家△2600、西家△10800、北家△6600。
+ 
+ 南家手牌从左至右为11334789m 234p ?s7s（?s表示首张索子点数未知；原稿记为6s，尚未核实），最右侧新摸入1z（东）。南家牌河从靠中心的一排起、自左向右为：6z（发）、5z（白）、3s、3z（西）、6z（发）、8m；第二排为9s、5z（白）、8p、2p。
+ 
+@@ -23,7 +23,7 @@ button,select,textarea,input{font:inherit;color:var(--ink)}button,select{border:
+ 
+ 西家牌河从靠中心的一列起、自下向上为：9s、1s、1s、5z（白）、4z（北）、7z（中）；外侧一列自下向上为9p、1p、2p、9p。
+ 
+-北家牌河从靠中心的一排起、自右向左为：第1张黑字风牌字样不清、4z（北）、5z（白）、4s、7z（中）、第6张黑字风牌字样不清；外侧一排自右向左为第7张万子点数不清、2s、8p、9p。末张9p灰显，对应东家吃入的牌。北家13张、东家10张、西家13张牌背可见，暗手牌面不可见。南家手牌原稿所记67s中的第一张6s未能由独审确认，仍为未确认牌；不据猜测改成其它牌码。</p></details></figure><p id="coac250-218-limit-1" data-source-page="218" >【审校限制（非原文）1/7】本次一致性结论只针对给出的218候选中首张索子改为?s及原独审未知项的保留；原稿所记6s只能作为未核实的历史记法。<a class="paragraph-source" href="#coac250-218-limit-1" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-2" data-source-page="218" >【审校限制（非原文）2/7】展示作者论证时须同时展示未知项及其影响：未知风牌限制东牌可见数量和东对判断，未知数牌及暗手限制对其他役种的复核。<a class="paragraph-source" href="#coac250-218-limit-2" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-3" data-source-page="218" >【审校限制（非原文）3/7】“可能性很低”和“只可能是双东”保留原词，但须明确归为作者根据舍牌作出的判断；现有证据不能独立证实概率、唯一役种或实际双东。<a class="paragraph-source" href="#coac250-218-limit-3" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-4" data-source-page="218" >【审校限制（非原文）4/7】原文称对手亲家；图面座位和局况可供条件性理解，但本次不认证实际庄家身份、暗手、听牌、打点、最优选择或结果。<a class="paragraph-source" href="#coac250-218-limit-4" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-5" data-source-page="218" >【审校限制（非原文）5/7】第218页标题前的拆8万对子、扣索子和留9饼属于前例；标题后的目标图及摸东论述属于新例。第217页图与其独立限制注未重审。<a class="paragraph-source" href="#coac250-218-limit-5" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-6" data-source-page="218" >【审校限制（非原文）6/7】ドラ标签的宝牌或指示牌语义未确认；立直棒0本不能证明此前从未有人立直。<a class="paragraph-source" href="#coac250-218-limit-6" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-7" data-source-page="218" >【审校限制（非原文）7/7】已比较所给218原页、目标裁图、源图和相关文字，并参考217衔接文字；这不是对217图、219或220的重审，也不是整页通过认证。<a class="paragraph-source" href="#coac250-218-limit-7" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="79-cn-p218-b4-t1" data-source-page="218" >  亲家用两面进行了副露，这个时候摸到了东。 我觉得这张东是绝对应该扣住的。  从亲家副露来看，有可能是混一色、一气、789 三色、全带 但是这些可能性很低，从场上的舍牌来看只可能是双东了。 <a class="paragraph-source" href="#79-cn-p218-b4-t1" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="79-cn-p218-b2-t1" data-source-page="218" > 第 218 页 共 340 页 <a class="paragraph-source" href="#79-cn-p218-b2-t1" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="79-cn-p219-b1-t1" data-source-page="219" >  这里切1 万，千万不要切东。博形听也好，弃和也好。 总之只能从这两者之间选择。  BOOM= =，一下子把东打出去的话就太勉强了。 切不得的东西就不要切。 要是再让TOP 的亲家继续扩大优势的话就很不妙了。这里心中要有将扣牌进行到底的觉悟。 ------------------------------------------------------------------------------------攻守兼备的扣牌 ------------------------------------------------------------------------------- <a class="paragraph-source" href="#79-cn-p219-b1-t1" aria-label="定位本段，教材第 219 页">p.219</a></p><figure id="79-cn-p219-r1" data-source-page="219"><a href="assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png" target="_blank" rel="noopener" aria-label="放大手牌4778m 1167p 12388s，摸3m"><img src="assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png" loading="lazy" alt="手牌4778m 1167p 12388s，摸3m；图中摸牌、宝牌和副露标记来自原教材"></a><figcaption>手牌4778m 1167p 12388s，摸3m · 点击牌图放大<a class="paragraph-source" href="#79-cn-p219-r1" aria-label="定位本段，教材第 219 页">p.219</a></figcaption><details open><summary>完整牌例文字与牌编码</summary><p style="white-space:pre-line">手牌从左至右为4m、7m、7m、8m、1p、1p、6p、7p、1s、2s、3s、8s、8s；右侧标有「ツモ」，摸入3m。m为万，p为饼，s为索；1s为鸟图案。可见牌中没有赤五。</p></details></figure><p id="79-cn-p219-b4-t1" data-source-page="219" > 要是纯粹的何切问题，这里从牌效率以及摸到4 索可以走断幺来考虑 切1 饼是绝对的答案。 但是，这样的情况怎么样呢？  <a class="paragraph-source" href="#79-cn-p219-b4-t1" aria-label="定位本段，教材第 219 页">p.219</a></p><figure id="79-cn-p219-r2" data-source-page="219"><a href="assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png" target="_blank" rel="noopener" aria-label="放大南1局牌桌及东家手牌"><img src="assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png" loading="lazy" alt="南1局牌桌及东家手牌；图中摸牌、宝牌和副露标记来自原教材"></a><figcaption>南1局牌桌及东家手牌 · 点击牌图放大<a class="paragraph-source" href="#79-cn-p219-r2" aria-label="定位本段，教材第 219 页">p.219</a></figcaption><details open><summary>完整牌例文字与牌编码</summary><p style="white-space:pre-line">牌桌中央显示「南1局0本場」「リーチ棒0本」，「ドラ」旁显示4m。自家在下方，为东家；右侧为南家，上方为西家，左侧为北家。自家手牌从左至右为4m、7m、7m、8m、1p、1p、6p、7p、1s、2s、3s、8s、8s，右侧另置摸入的3m。
++北家牌河从靠中心的一排起、自右向左为：第1张黑字风牌字样不清、4z（北）、5z（白）、4s、7z（中）、第6张黑字风牌字样不清；外侧一排自右向左为第7张万子点数不清、2s、8p、9p。末张9p灰显，对应东家吃入的牌。北家13张、东家10张、西家13张牌背可见，暗手牌面不可见。南家手牌原稿所记67s中的第一张6s未能由独审确认，仍为未确认牌；不据猜测改成其它牌码。</p></details></figure><p id="coac250-218-limit-1" data-source-page="218" >【审校限制（非原文）1/7】本次一致性结论只针对给出的218候选中首张索子改为?s及原独审未知项的保留；原稿所记6s只能作为未核实的历史记法。<a class="paragraph-source" href="#coac250-218-limit-1" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-2" data-source-page="218" >【审校限制（非原文）2/7】展示作者论证时须同时展示未知项及其影响：未知风牌限制东牌可见数量和东对判断，未知数牌及暗手限制对其他役种的复核。<a class="paragraph-source" href="#coac250-218-limit-2" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-3" data-source-page="218" >【审校限制（非原文）3/7】“可能性很低”和“只可能是双东”保留原词，但须明确归为作者根据舍牌作出的判断；现有证据不能独立证实概率、唯一役种或实际双东。<a class="paragraph-source" href="#coac250-218-limit-3" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-4" data-source-page="218" >【审校限制（非原文）4/7】原文称对手亲家；图面座位和局况可供条件性理解，但本次不认证实际庄家身份、暗手、听牌、打点、最优选择或结果。<a class="paragraph-source" href="#coac250-218-limit-4" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-5" data-source-page="218" >【审校限制（非原文）5/7】第218页标题前的拆8万对子、扣索子和留9饼属于前例；标题后的目标图及摸东论述属于新例。第217页图与其独立限制注未重审。<a class="paragraph-source" href="#coac250-218-limit-5" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-6" data-source-page="218" >【审校限制（非原文）6/7】ドラ标签的宝牌或指示牌语义未确认；立直棒0本不能证明此前从未有人立直。<a class="paragraph-source" href="#coac250-218-limit-6" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="coac250-218-limit-7" data-source-page="218" >【审校限制（非原文）7/7】已比较所给218原页、目标裁图、源图和相关文字，并参考217衔接文字；这不是对217图、219或220的重审，也不是整页通过认证。<a class="paragraph-source" href="#coac250-218-limit-7" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="79-cn-p218-b4-t1" data-source-page="218" >  亲家用两面进行了副露，这个时候摸到了东。 我觉得这张东是绝对应该扣住的。  从亲家副露来看，有可能是混一色、一气、789 三色、全带 但是这些可能性很低，从场上的舍牌来看只可能是双东了。 <a class="paragraph-source" href="#79-cn-p218-b4-t1" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="79-cn-p218-b2-t1" data-source-page="218" > 第 218 页 共 340 页 <a class="paragraph-source" href="#79-cn-p218-b2-t1" aria-label="定位本段，教材第 218 页">p.218</a></p><p id="79-cn-p219-b1-t1" data-source-page="219" >  这里切1 万，千万不要切东。博形听也好，弃和也好。 总之只能从这两者之间选择。  BOOM= =，一下子把东打出去的话就太勉强了。 切不得的东西就不要切。 要是再让TOP 的亲家继续扩大优势的话就很不妙了。这里心中要有将扣牌进行到底的觉悟。 ------------------------------------------------------------------------------------攻守兼备的扣牌 ------------------------------------------------------------------------------- <a class="paragraph-source" href="#79-cn-p219-b1-t1" aria-label="定位本段，教材第 219 页">p.219</a></p><figure id="79-cn-p219-r1" data-source-page="219"><a href="assets/a03.png" target="_blank" rel="noopener" aria-label="放大手牌4778m 1167p 12388s，摸3m"><img src="assets/a03.png" loading="lazy" alt="手牌4778m 1167p 12388s，摸3m；图中摸牌、宝牌和副露标记来自原教材"></a><figcaption>手牌4778m 1167p 12388s，摸3m · 点击牌图放大<a class="paragraph-source" href="#79-cn-p219-r1" aria-label="定位本段，教材第 219 页">p.219</a></figcaption><details open><summary>完整牌例文字与牌编码</summary><p style="white-space:pre-line">手牌从左至右为4m、7m、7m、8m、1p、1p、6p、7p、1s、2s、3s、8s、8s；右侧标有「ツモ」，摸入3m。m为万，p为饼，s为索；1s为鸟图案。可见牌中没有赤五。</p></details></figure><p id="79-cn-p219-b4-t1" data-source-page="219" > 要是纯粹的何切问题，这里从牌效率以及摸到4 索可以走断幺来考虑 切1 饼是绝对的答案。 但是，这样的情况怎么样呢？  <a class="paragraph-source" href="#79-cn-p219-b4-t1" aria-label="定位本段，教材第 219 页">p.219</a></p><figure id="79-cn-p219-r2" data-source-page="219"><a href="assets/a02.png" target="_blank" rel="noopener" aria-label="放大南1局牌桌及东家手牌"><img src="assets/a02.png" loading="lazy" alt="南1局牌桌及东家手牌；图中摸牌、宝牌和副露标记来自原教材"></a><figcaption>南1局牌桌及东家手牌 · 点击牌图放大<a class="paragraph-source" href="#79-cn-p219-r2" aria-label="定位本段，教材第 219 页">p.219</a></figcaption><details open><summary>完整牌例文字与牌编码</summary><p style="white-space:pre-line">牌桌中央显示「南1局0本場」「リーチ棒0本」，「ドラ」旁显示4m。自家在下方，为东家；右侧为南家，上方为西家，左侧为北家。自家手牌从左至右为4m、7m、7m、8m、1p、1p、6p、7p、1s、2s、3s、8s、8s，右侧另置摸入的3m。
+ 
+ 自家舍牌从左至右，第一行依次为北4z、1m、东1z、9p、白5z、南2z；第二行依次为1s、7s。南家舍牌靠中央的一列由下向上依次为1m、9p、2s、6s、东1z、5p；外一列由下向上依次为4s、西3z、2m。西家舍牌靠中央的一行由右向左，第1张为北4z，第2张为字牌，第3张为9p，第4格为灰色空位，第5张为西3z，第6张为万子；外一行由右向左依次为2m、发6z、3s。北家舍牌靠中央的一列由上向下依次为东1z、1m、9s、发6z、1s、1p；外一列由上向下依次为5p、8p、8s。
+ 
+diff --git a/_analysis/coac250-217-display/stage/textbook-bodies.json b/_analysis/coac250-217-display/stage/textbook-bodies.json
+index ee3b6ae..139402d 100644
+--- a/_analysis/coac250-217-display/stage/textbook-bodies.json
++++ b/_analysis/coac250-217-display/stage/textbook-bodies.json
+@@ -32,7 +32,7 @@
+           "id": "79-cn-p217-r1",
+           "type": "figure",
+           "page": 217,
+-          "src": "assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png",
++          "src": "assets/a01.png",
+           "caption": "“下家染手”扣牌例图，北家视角。",
+           "transcriptionText": "牌码：m=万，p=饼，s=索；1z=东、2z=南、3z=西、4z=北、5z=白、6z=发、7z=中。可辨认的明牌中无赤五。\n中央文字：南3局1本场，立直棒0根。座位：下方北家、右方东家、上方南家、左方西家；东家为庄家。中央“ドラ”栏显示西（3z），画面未注明该栏为宝牌还是宝牌指示牌。\n画面显示值：北家+16900，东家△4900，南家△17500，西家+5500。\n北家手牌从左至右：8m 8m 1s 2s 3s 6s 8s 1p 2p 3p 5p 7p 9p；右侧分开的摸牌为6s。其余三家的暗手牌背面朝外，牌种未知（画面可见南家13张、西家13张、东家10张）。\n北家舍牌，按其自身视角逐行从左至右：第一行1z 9s 1m 9s 1p 3z；第二行万子（数字未辨清） 9m。\n东家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，各列自下向上）：第一行8p 2m 1p 3p 7m 7z；第二行2z 9m 5p 4z。右上角副露为碰5z 5z 5z，中间一张横置，来自对家西家。\n南家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一行，自右向左）：第一行2z 1z 7z 4z 3z 2s；第二行3m 5p 5z 1s 9p。\n西家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，自上向下）：第一行9p 1s 1m 6z 9s 2p；第二行7z 万子（数字未辨清）2m 6m。",
+           "sourceBlockIds": [
+@@ -80,7 +80,7 @@
+           "id": "79-cn-p218-r1",
+           "type": "figure",
+           "page": 218,
+-          "src": "assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png",
++          "src": "assets/a04.png",
+           "caption": "后付的字牌：东4局牌局示例",
+           "transcriptionText": "牌桌为东4局2本场，立直棒0本；图面中央标签为“ドラ：5m”，5m非赤；仅据该标签未确认它是宝牌本身还是指示牌。画面下方为南家，左方为东家，右方为西家，上方为北家。画面显示的点数增减分别为东家+20000、南家△2600、西家△10800、北家△6600。\n\n南家手牌从左至右为11334789m 234p ?s7s（?s表示首张索子点数未知；原稿记为6s，尚未核实），最右侧新摸入1z（东）。南家牌河从靠中心的一排起、自左向右为：6z（发）、5z（白）、3s、3z（西）、6z（发）、8m；第二排为9s、5z（白）、8p、2p。\n\n东家副露789p，从北家吃入9p；画面中从上到下为转向的9p、7p、8p。东家牌河从靠中心的一列起、自上向下为：1s、第2张黑字风牌字样不清、第3张黑字风牌字样不清、5z（白）、第5张索子点数不清、9s；外侧一列自上向下为7z（中）、1p、5p、第10张万子点数不清、第11张索子点数不清。5p为普通五饼，非赤五。\n\n西家牌河从靠中心的一列起、自下向上为：9s、1s、1s、5z（白）、4z（北）、7z（中）；外侧一列自下向上为9p、1p、2p、9p。\n\n北家牌河从靠中心的一排起、自右向左为：第1张黑字风牌字样不清、4z（北）、5z（白）、4s、7z（中）、第6张黑字风牌字样不清；外侧一排自右向左为第7张万子点数不清、2s、8p、9p。末张9p灰显，对应东家吃入的牌。北家13张、东家10张、西家13张牌背可见，暗手牌面不可见。南家手牌原稿所记67s中的第一张6s未能由独审确认，仍为未确认牌；不据猜测改成其它牌码。",
+           "sourceBlockIds": [
+@@ -175,7 +175,7 @@
+           "id": "79-cn-p219-r1",
+           "type": "figure",
+           "page": 219,
+-          "src": "assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png",
++          "src": "assets/a03.png",
+           "caption": "手牌4778m 1167p 12388s，摸3m",
+           "transcriptionText": "手牌从左至右为4m、7m、7m、8m、1p、1p、6p、7p、1s、2s、3s、8s、8s；右侧标有「ツモ」，摸入3m。m为万，p为饼，s为索；1s为鸟图案。可见牌中没有赤五。",
+           "sourceBlockIds": [
+@@ -196,7 +196,7 @@
+           "id": "79-cn-p219-r2",
+           "type": "figure",
+           "page": 219,
+-          "src": "assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png",
++          "src": "assets/a02.png",
+           "caption": "南1局牌桌及东家手牌",
+           "transcriptionText": "牌桌中央显示「南1局0本場」「リーチ棒0本」，「ドラ」旁显示4m。自家在下方，为东家；右侧为南家，上方为西家，左侧为北家。自家手牌从左至右为4m、7m、7m、8m、1p、1p、6p、7p、1s、2s、3s、8s、8s，右侧另置摸入的3m。\n\n自家舍牌从左至右，第一行依次为北4z、1m、东1z、9p、白5z、南2z；第二行依次为1s、7s。南家舍牌靠中央的一列由下向上依次为1m、9p、2s、6s、东1z、5p；外一列由下向上依次为4s、西3z、2m。西家舍牌靠中央的一行由右向左，第1张为北4z，第2张为字牌，第3张为9p，第4格为灰色空位，第5张为西3z，第6张为万子；外一行由右向左依次为2m、发6z、3s。北家舍牌靠中央的一列由上向下依次为东1z、1m、9s、发6z、1s、1p；外一列由上向下依次为5p、8p、8s。\n\n右上角南家副露白5z、白5z、白5z：上端一张竖向，其余两张横向；按南家的视角，横置牌位于该组右端，表示从西家碰入。两张可见的5p均为普通5p，未见赤五。西家13张、北家13张、南家10张牌背可见，暗手牌面仍未知；各家可见河牌未见相对该家正常方向横置的立直牌。z牌代码中，1z为东、2z为南、3z为西、4z为北、5z为白、6z为发。",
+           "sourceBlockIds": [
+diff --git a/_analysis/coac250-217-display/stage/textbook-corpus.json b/_analysis/coac250-217-display/stage/textbook-corpus.json
+index b88ecd9..2a617ce 100644
+--- a/_analysis/coac250-217-display/stage/textbook-corpus.json
++++ b/_analysis/coac250-217-display/stage/textbook-corpus.json
+@@ -215,22 +215,22 @@
+   "images": [
+     {
+       "figureId": "79-cn-p217-r1",
+-      "path": "assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png",
++      "path": "assets/a01.png",
+       "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0"
+     },
+     {
+       "figureId": "79-cn-p218-r1",
+-      "path": "assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png",
++      "path": "assets/a04.png",
+       "sha256": "f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78"
+     },
+     {
+       "figureId": "79-cn-p219-r1",
+-      "path": "assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png",
++      "path": "assets/a03.png",
+       "sha256": "dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5"
+     },
+     {
+       "figureId": "79-cn-p219-r2",
+-      "path": "assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png",
++      "path": "assets/a02.png",
+       "sha256": "2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c"
+     }
+   ]
+diff --git a/_analysis/coac250-217/upstream/evidence/parentAudit/page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json b/_analysis/coac250-217/upstream/evidence/parentAudit/audit.json
+similarity index 100%
+rename from _analysis/coac250-217/upstream/evidence/parentAudit/page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json
+rename to _analysis/coac250-217/upstream/evidence/parentAudit/audit.json
+diff --git a/_analysis/coac250-217/upstream/evidence/rev1Audit/page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json b/_analysis/coac250-217/upstream/evidence/rev1Audit/audit.json
+similarity index 100%
+rename from _analysis/coac250-217/upstream/evidence/rev1Audit/page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json
+rename to _analysis/coac250-217/upstream/evidence/rev1Audit/audit.json
+diff --git a/_analysis/coac250-217/upstream/evidence/rev2Audit/page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json b/_analysis/coac250-217/upstream/evidence/rev2Audit/audit.json
+similarity index 100%
+rename from _analysis/coac250-217/upstream/evidence/rev2Audit/page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json
+rename to _analysis/coac250-217/upstream/evidence/rev2Audit/audit.json
+diff --git a/_analysis/coac250-217/upstream/evidence/rev3Audit/page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json b/_analysis/coac250-217/upstream/evidence/rev3Audit/audit.json
+similarity index 100%
+rename from _analysis/coac250-217/upstream/evidence/rev3Audit/page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json
+rename to _analysis/coac250-217/upstream/evidence/rev3Audit/audit.json
+diff --git a/_analysis/path250/.gitattributes b/_analysis/path250/.gitattributes
+new file mode 100644
+index 0000000..4f7fc3e
+--- /dev/null
++++ b/_analysis/path250/.gitattributes
+@@ -0,0 +1 @@
++* -text whitespace=cr-at-eol
+diff --git a/_analysis/path250/README.md b/_analysis/path250/README.md
+new file mode 100644
+index 0000000..52c4d59
+--- /dev/null
++++ b/_analysis/path250/README.md
+@@ -0,0 +1,8 @@
++Packaging-only fix for250's never-started checkout failure.
++All16 moved files retain their Git blob IDs/bytes (12 image copies,4 audit copies).
++manifest.json maps old paths/full SHA to short aliases and records local presentation wrapper edits.
++Raw/candidates/source/audit provenance, production scripts and live v29 data were not modified.
++Use: python _analysis/path250/verify.py [--checkout-root <future-managed-worktree-root>].
++The guard covers the entire tracked tree and all new delivery/_analysis files, limit <240 UTF16.
++It also checks original/new bytes, inverse image aliases, archive index and every local image URL.
++Original reference bytes remain recoverable by manifest.sourceCommit and originalGitBlobId.
+diff --git a/_analysis/path250/manifest.json b/_analysis/path250/manifest.json
+new file mode 100644
+index 0000000..6710e4f
+--- /dev/null
++++ b/_analysis/path250/manifest.json
+@@ -0,0 +1,193 @@
++{
++  "schema": "coac250-packaging-path-map/1",
++  "sourceCommit": "f1435b192a5ce02935b5145b6cb19f9b2a5ed2b3",
++  "branch": "agent/mika/coac-250",
++  "failedRun": "01a17f90-dd76-7202-b0b2-d4f39be097e0",
++  "checkoutRoot": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-250-d4f39be097e0\\worktree",
++  "limitExclusiveUtf16": 240,
++  "oldTrackedFiles": 3153,
++  "newTrackedFiles": 3157,
++  "oldMaximumUtf16": 267,
++  "maximumUtf16": 229,
++  "renames": [
++    {
++      "oldPath": "_analysis/coac250-217-display/route-stage/assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png",
++      "path": "_analysis/coac250-217-display/route-stage/assets/a01.png",
++      "originalGitBlobId": "74f7a548aa10de49b90229afe3189ed27865edc0",
++      "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0",
++      "bytes": 86925
++    },
++    {
++      "oldPath": "_analysis/coac250-217-display/route-stage/assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png",
++      "path": "_analysis/coac250-217-display/route-stage/assets/a02.png",
++      "originalGitBlobId": "6ae02c8fd948f847454362d9a61fd8e1ef3cdd75",
++      "sha256": "2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c",
++      "bytes": 80354
++    },
++    {
++      "oldPath": "_analysis/coac250-217-display/route-stage/assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png",
++      "path": "_analysis/coac250-217-display/route-stage/assets/a03.png",
++      "originalGitBlobId": "bf0402ebdd74256f9ae3f567a6ba48836c3cd039",
++      "sha256": "dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5",
++      "bytes": 37886
++    },
++    {
++      "oldPath": "_analysis/coac250-217-display/route-stage/assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png",
++      "path": "_analysis/coac250-217-display/route-stage/assets/a04.png",
++      "originalGitBlobId": "52582e592e6b016d14d2467d4000f6c5023af162",
++      "sha256": "f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78",
++      "bytes": 88859
++    },
++    {
++      "oldPath": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png",
++      "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a01.png",
++      "originalGitBlobId": "74f7a548aa10de49b90229afe3189ed27865edc0",
++      "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0",
++      "bytes": 86925
++    },
++    {
++      "oldPath": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png",
++      "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a02.png",
++      "originalGitBlobId": "6ae02c8fd948f847454362d9a61fd8e1ef3cdd75",
++      "sha256": "2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c",
++      "bytes": 80354
++    },
++    {
++      "oldPath": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png",
++      "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a03.png",
++      "originalGitBlobId": "bf0402ebdd74256f9ae3f567a6ba48836c3cd039",
++      "sha256": "dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5",
++      "bytes": 37886
++    },
++    {
++      "oldPath": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png",
++      "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a04.png",
++      "originalGitBlobId": "52582e592e6b016d14d2467d4000f6c5023af162",
++      "sha256": "f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78",
++      "bytes": 88859
++    },
++    {
++      "oldPath": "_analysis/coac250-217-display/stage/assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png",
++      "path": "_analysis/coac250-217-display/stage/assets/a01.png",
++      "originalGitBlobId": "74f7a548aa10de49b90229afe3189ed27865edc0",
++      "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0",
++      "bytes": 86925
++    },
++    {
++      "oldPath": "_analysis/coac250-217-display/stage/assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png",
++      "path": "_analysis/coac250-217-display/stage/assets/a02.png",
++      "originalGitBlobId": "6ae02c8fd948f847454362d9a61fd8e1ef3cdd75",
++      "sha256": "2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c",
++      "bytes": 80354
++    },
++    {
++      "oldPath": "_analysis/coac250-217-display/stage/assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png",
++      "path": "_analysis/coac250-217-display/stage/assets/a03.png",
++      "originalGitBlobId": "bf0402ebdd74256f9ae3f567a6ba48836c3cd039",
++      "sha256": "dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5",
++      "bytes": 37886
++    },
++    {
++      "oldPath": "_analysis/coac250-217-display/stage/assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png",
++      "path": "_analysis/coac250-217-display/stage/assets/a04.png",
++      "originalGitBlobId": "52582e592e6b016d14d2467d4000f6c5023af162",
++      "sha256": "f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78",
++      "bytes": 88859
++    },
++    {
++      "oldPath": "_analysis/coac250-217/upstream/evidence/parentAudit/page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
++      "path": "_analysis/coac250-217/upstream/evidence/parentAudit/audit.json",
++      "originalGitBlobId": "8142211c452a7f8176c9c8cbf40e22784bf4d9c5",
++      "sha256": "44e101c7fbf8813d9db7a18af177a42b27b51ebaf92945761787b8b25764b3ec",
++      "bytes": 36865
++    },
++    {
++      "oldPath": "_analysis/coac250-217/upstream/evidence/rev1Audit/page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json",
++      "path": "_analysis/coac250-217/upstream/evidence/rev1Audit/audit.json",
++      "originalGitBlobId": "1a6ad2e1df1497e2f042be46a67964eecae2ff0e",
++      "sha256": "48188a41382d98a5af7272851ba96f8d209213ee5befb3f4fd2fbf0b738574be",
++      "bytes": 36582
++    },
++    {
++      "oldPath": "_analysis/coac250-217/upstream/evidence/rev2Audit/page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json",
++      "path": "_analysis/coac250-217/upstream/evidence/rev2Audit/audit.json",
++      "originalGitBlobId": "6f0d68759f36a27210d151e3080723c6aea60721",
++      "sha256": "70e67fec9ff86c6eeb77019a488c68b2b8836d7610b1b88eee3bb1785348c1b4",
++      "bytes": 39701
++    },
++    {
++      "oldPath": "_analysis/coac250-217/upstream/evidence/rev3Audit/page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json",
++      "path": "_analysis/coac250-217/upstream/evidence/rev3Audit/audit.json",
++      "originalGitBlobId": "574b730927a065259f58fbeb5bffc5f6966a6447",
++      "sha256": "7dc668f386cbc8c4a5f7ee7c253d0958b688f76de48ac6a82edba24e770bb33c",
++      "bytes": 34611
++    }
++  ],
++  "wrapperEdits": [
++    {
++      "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/knowledge.html",
++      "kind": "relative-image-reference-html",
++      "originalGitBlobId": "fb14cf0084605f9be6928f9196cf38014d246c9b",
++      "originalSha256": "1a7872c104efe2e3a7c9f0a2ca0abfcdf94d57d8f35fe1ef4f9d38037e48512f",
++      "sha256": "f58a7527b67fee20c270ac647dd0d98f4a9db3fab786f872d4e9fddf028e2772"
++    },
++    {
++      "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/textbook-bodies.json",
++      "kind": "relative-image-reference-json",
++      "originalGitBlobId": "ee3b6aec20e6edd0c828b10b3fc44ae0b6d9b0f0",
++      "originalSha256": "e0c181dd7b0e7ea40a1ded0e45550e1efca0a9c19b88056eebeb5a98f4bdb1d0",
++      "sha256": "40b19af0f1b7f22fd39012457329baee92b75362a088726acb3ddabbac753732"
++    },
++    {
++      "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/textbook-corpus.json",
++      "kind": "relative-image-reference-json",
++      "originalGitBlobId": "b88ecd9032bc1aee8d192dfae134229a2d947a6d",
++      "originalSha256": "64a36cf6afd9ad85c100736c51213cab8c694537693f09fdeee25668c72f906c",
++      "sha256": "06f9ac0ff354637a401ed66e1e3a36891f69f4b2c341fadf070c406280be908c"
++    },
++    {
++      "path": "_analysis/coac250-217-display/stage/knowledge.html",
++      "kind": "relative-image-reference-html",
++      "originalGitBlobId": "fb14cf0084605f9be6928f9196cf38014d246c9b",
++      "originalSha256": "1a7872c104efe2e3a7c9f0a2ca0abfcdf94d57d8f35fe1ef4f9d38037e48512f",
++      "sha256": "f58a7527b67fee20c270ac647dd0d98f4a9db3fab786f872d4e9fddf028e2772"
++    },
++    {
++      "path": "_analysis/coac250-217-display/stage/textbook-bodies.json",
++      "kind": "relative-image-reference-json",
++      "originalGitBlobId": "ee3b6aec20e6edd0c828b10b3fc44ae0b6d9b0f0",
++      "originalSha256": "e0c181dd7b0e7ea40a1ded0e45550e1efca0a9c19b88056eebeb5a98f4bdb1d0",
++      "sha256": "40b19af0f1b7f22fd39012457329baee92b75362a088726acb3ddabbac753732"
++    },
++    {
++      "path": "_analysis/coac250-217-display/stage/textbook-corpus.json",
++      "kind": "relative-image-reference-json",
++      "originalGitBlobId": "b88ecd9032bc1aee8d192dfae134229a2d947a6d",
++      "originalSha256": "64a36cf6afd9ad85c100736c51213cab8c694537693f09fdeee25668c72f906c",
++      "sha256": "06f9ac0ff354637a401ed66e1e3a36891f69f4b2c341fadf070c406280be908c"
++    },
++    {
++      "path": "_analysis/coac250-217-display/README.md",
++      "kind": "packaging-owner-note",
++      "originalGitBlobId": "d1be1fc6044af6bdbc3885f840be16bd8bf5f0d9",
++      "originalSha256": "95bddc5040494c0aa7082a423e136a24ef24418f8424cfc5bc663dd6e97af05e",
++      "sha256": "b6af205aa301b4e978c4ed3a895a8b747e88a979d299920f4fecfb06622a2b57"
++    },
++    {
++      "path": "_analysis/coac250-217-display/archive-shas.json",
++      "kind": "local-package-hash-index",
++      "originalGitBlobId": "a1e1a62b9478497a50a5fbcace93e2b2fbbbf9d7",
++      "originalSha256": "c481e40a27f14b66a8a0efd97a82c0804524e3d1be94e53ff32fd242e1e95004",
++      "sha256": "01347f1906e32b9f3884d4c11bbcdcd61902b652f773298788d5b87fd5f9f777"
++    }
++  ],
++  "assetAliases": {
++    "assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png": "assets/a01.png",
++    "assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png": "assets/a02.png",
++    "assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png": "assets/a03.png",
++    "assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png": "assets/a04.png"
++  },
++  "modelCalls": 0,
++  "dataRootTouched": false,
++  "v29Rebuilt": false
++}
+diff --git a/_analysis/path250/verify.py b/_analysis/path250/verify.py
+new file mode 100644
+index 0000000..6fea01b
+--- /dev/null
++++ b/_analysis/path250/verify.py
+@@ -0,0 +1,77 @@
++"""Read-only packaging guard: actual Windows path margin and immutable evidence identities."""
++import argparse
++import hashlib
++import json
++import os
++from pathlib import Path
++import re
++import subprocess
++
++def main():
++    p=argparse.ArgumentParser();p.add_argument('--tree');p.add_argument('--checkout-root');a=p.parse_args()
++    repo=Path(subprocess.check_output(['git','rev-parse','--show-toplevel'],text=True).strip())
++    root=a.checkout_root or str(repo)
++    git=lambda *args:subprocess.check_output(['git',*args],cwd=repo)
++    tree={}
++    for row in git('ls-tree','-r','-z',a.tree or 'HEAD').split(b'\0'):
++        if row:
++            meta,name=row.split(b'\t');tree[name.decode('utf-8')]=meta.decode().split()[2]
++    paths=set(tree)
++    if not a.tree:
++        for prefix in ['_analysis','.multica/delivery']:
++            for folder,dirs,files in os.walk(repo/prefix,followlinks=False):
++                paths.update((Path(folder)/n).relative_to(repo).as_posix() for n in files)
++    lengths=sorted([(len((root+'/'+n).encode('utf-16-le'))//2,n) for n in paths],reverse=True)
++    assert lengths[0][0]<240,('checkout_path_length',lengths[:8])
++    read=lambda n:git('cat-file','blob',tree[n]) if a.tree else (repo/n).read_bytes()
++    sha=lambda b:hashlib.sha256(b).hexdigest()
++    m=json.loads(read('_analysis/path250/manifest.json'))
++    assert m['schema']=='coac250-packaging-path-map/1'
++    assert len(m['renames'])==16
++    for r in m['renames']:
++        original=git('cat-file','blob',r['originalGitBlobId']);now=read(r['path'])
++        assert now==original and sha(now)==r['sha256'] and len(now)==r['bytes'],r['path']
++        assert r['oldPath'] not in tree
++    aliases=m['assetAliases'];inverse={v:k for k,v in aliases.items()}
++    def undo(v):
++        if isinstance(v,dict):return {k:undo(x) for k,x in v.items()}
++        if isinstance(v,list):return [undo(x) for x in v]
++        return inverse.get(v,v) if isinstance(v,str) else v
++    renamed={r['oldPath']:r['path'] for r in m['renames']}
++    modified={e['path']:e for e in m['wrapperEdits']}
++    for e in m['wrapperEdits']:
++        old=git('cat-file','blob',e['originalGitBlobId']);now=read(e['path'])
++        assert sha(old)==e['originalSha256'] and sha(now)==e['sha256']
++        if e['kind']=='relative-image-reference-json':assert undo(json.loads(now))==json.loads(old)
++        elif e['kind']=='relative-image-reference-html':
++            for new,prior in inverse.items():
++                for attr in ['src','href']:now=now.replace((attr+'="'+new+'"').encode(),(attr+'="'+prior+'"').encode())
++            assert now==old
++        elif e['kind']=='packaging-owner-note':assert now.startswith(old)
++        elif e['kind']=='local-package-hash-index':
++            before=json.loads(old);after=json.loads(now);assert len(before)==len(after)
++            for b,c in zip(before,after):
++                assert c['path']==renamed.get(b['path'],b['path'])
++                assert sha(read(c['path']))==c['sha256'],c['path']
++                if c['path'] not in modified:assert b['sha256']==c['sha256']
++        else:raise AssertionError(e['kind'])
++    refs=0
++    for n in tree:
++        if not n.startswith('_analysis/coac250-217-display/') or Path(n).name not in ['knowledge.html','textbook-bodies.json','textbook-corpus.json']:continue
++        text=read(n).decode('utf-8')
++        found=re.findall(r'assets/(?:full-[a-f0-9]{64}|a\d{2})\.png',text)
++        for asset in found:
++            path=(Path(n).parent/asset).as_posix();assert path in tree,(n,asset);refs+=1
++    assert refs>0
++    before={}
++    for row in git('ls-tree','-r','-z',m['sourceCommit']).split(b'\0'):
++        if row:meta,name=row.split(b'\t');before[name.decode()]=meta.decode().split()[2]
++    allowed=set(renamed)|set(renamed.values())|set(modified)|{'_analysis/path250/manifest.json','_analysis/path250/verify.py','_analysis/path250/README.md','_analysis/path250/.gitattributes'}
++    changed={n for n in set(before)|set(tree) if before.get(n)!=tree.get(n)}
++    # Later commits may add unrelated files; this assertion is for the packaging commit itself.
++    if a.tree:assert changed==allowed,changed^allowed
++    print(json.dumps({'passed':True,'trackedFiles':len(tree),'pathsChecked':len(paths),'maximumFullPathUtf16Characters':lengths[0][0],
++                      'longestPaths':lengths[:5],'renamedFilesByteIdentical':16,'wrapperEditsVerified':len(modified),
++                      'localImageReferencesVerified':refs,'limitExclusive':240,'modelCalls':0}))
++
++if __name__=='__main__':main()

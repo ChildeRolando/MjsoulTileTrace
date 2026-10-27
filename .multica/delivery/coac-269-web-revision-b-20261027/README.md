@@ -3,6 +3,11 @@
 Ticket-local evidence bundle for the Multica ticket `COAC-269` (line B of the parallel editing split
 authorised 2026-10-27T09:23Z). Shared code, the unified register, selection and pointers were not modified.
 
+Latest priority: **COAC-250's Windows checkout packaging repaired**, zero model calls (Batch22).
+Its idle task branch was advanced from completed v29 `f1435b1` to packaging-only `a9e9faa` and pushed.
+Actual same-branch checkout and full-tree guard pass at229 UTF16 characters, strictly below240.
+The distinct283 semantic outcomes below are unchanged; path repair does not rebuild or re-review them.
+
 Current state: **b1181 passed its real first target audit; b1017 remains needs-repair**.
 Candidate `b90f7c4f…507458` extends actual `00074d1c…09cbe2` and is unchanged after review.
 This allowance used **2 production +2 first independent audits =4/4, remaining0, failed/void0,
@@ -1486,3 +1491,65 @@ was created. Existing244 wakeup `01a17f8b-0142-783a-9187-28224a55f195` and250 wa
 `01a17f8b-04d6-7d86-8359-fb7f6fb1e66d` have each fired once for this evidence. No new consumer,
 model call, chapter admission or full-chapter pass was added here. Ticket remains in_progress while
 existing owners aggregate the exact results; the draft software PR is not textbook acceptance.
+
+## Batch22 — unblock250 Windows checkout, packaging only
+
+User instruction `01a17f92-9b94-7ecd-a75b-3bfacf6565fe` identifies250 run
+`01a17f90-dd76-7202-b0b2-d4f39be097e0`: environment preparation failed before started_at.
+The exact failed run, original wakeup and latest250 owner completion were read. Active250 runs
+were empty and its branch was not checked out; those checks were repeated immediately before
+the expected-parent ref update. There was no active writer whose worktree or changes were edited.
+
+The packaging fix is `a9e9faa581480d956701ac0b2c01e24f33811a33`, normally pushed to
+`agent/mika/coac-250`, directly on `f1435b192a5ce02935b5145b6cb19f9b2a5ed2b3`.
+The private Git index/commit-tree method used for248 was reused; only the idle250 ref was updated
+by compare-and-swap.269's HEAD and index remained unchanged on `agent/ticket/coac-269` throughout
+the foreign-branch operation. No reset, clean, force push, shared-worktree switch or global Git/OS
+configuration change occurred. The completed v29/238-chapter integration was not rebuilt.
+
+The whole3153-file original tree was checked at the real managed Windows root, not just the four
+reported images. Eight paths violated the new strict <240 limit: four267-character image paths
+and four256–258-character audit-copy paths. Twelve image copies across all three217 display asset
+directories now use `a01.png`–`a04.png`; four upstream audit copies now use `audit.json` in their
+separate directories. All16 renamed files retain their original Git blob IDs, complete SHA256,
+bytes and image order. No raw/candidate/source/independent receipt bytes or severities changed.
+
+Eight local wrapper files changed: image src and enlargement href references, relative image paths
+in two display corpus/body pairs, the local archive hash index, and the package README. Inverse
+alias checks reproduce original HTML bytes and original JSON objects exactly. Absolute data-root
+references and historical original receipt/body hashes remain provenance, not new audit results.
+`_analysis/path250/manifest.json` records full original paths, blob IDs/SHA and new aliases plus
+original/current wrapper hashes. Its original record is pinned to f1435b1, so no evidence is lost.
+Only local packaging attributes prevent EOL conversion of the new manifest/checker; global settings
+were read but not changed. Production/staging/build scripts and live data were not executed or edited.
+
+`verify-package.py --tree <old-parent> --checkout-root <real-root>` reproduces checkout_path_length
+on267-character paths. The same guard passes the prepared fixed tree. It verifies16 byte-identical
+moves,8 wrapper edits,196 archive index entries,32 local image URLs and every tracked path. During
+preflight it also caught a stale README archive hash and missing enlargement href alias; both were
+corrected before any branch update or recovery, without weakening assertions or changing evidence.
+
+Actual `git worktree add <managed-root>/coac-250-pfix49520001/worktree agent/mika/coac-250` passed.
+That root has exactly the failed run's113-character depth. All3157 files check out cleanly; longest
+full path is229 UTF16 characters, leaving11 characters below the240 boundary and31 below260.
+The checked-out16 file hashes and new manifest SHA match Git objects. New ignored245-character files
+in both `_analysis` and `.multica/delivery` were rejected by the guard, proving future packaging
+checks include new files rather than only the old commit. Only those owned test files and the known,
+clean test worktree were normally removed with no force. Unknown worktrees/directories were not deleted.
+
+Before new delivery/_analysis packaging is committed or dispatched,250 must run
+`python _analysis/path250/verify.py` from its task checkout. It scans the entire tracked tree plus
+working files in both packaging trees using the actual managed root; alternative future roots can
+be supplied with --checkout-root. It refuses paths at or above240 before a later worktree startup.
+
+After push and another no-active-writer check, only the original once-only wakeup
+`01a17f8f-d0c4-7d0f-a846-70af665c93e9` was restored once, preserving its complete zero-model
+frontmatter registration instruction. Recovery task `01a17f9e-a0f7-78f2-9f88-f1df09ef5bd3` is tracked
+through real platform started_at/branch ancestry, not inferred from registration. No second consumer,
+model budget, re-OCR/review, v29 rebuild or automatic recovery retry was added. Original startup-failed
+runs remain unchanged. Final startup proof is in `artifacts/b22-path250/started250.json`.
+
+Recovery startup verified: `01a17f9e-a0f7-78f2-9f88-f1df09ef5bd3` actually started at `2026-10-27T23:23:00Z`.
+Its real250 checkout HEAD `9830323a52ab656732e7ecdddd89f61b97efb3b3` contains the packaging fix; the single original
+wakeup has fired once. This is actual started_at/branch evidence, not merely a queued task.
+Only the restored original zero-model registration continues; this repair's work is complete.

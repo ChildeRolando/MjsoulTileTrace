@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "branch": "agent/mika/coac-250",
+  "commit": "a9e9faa581480d956701ac0b2c01e24f33811a33",
+  "parent": "f1435b192a5ce02935b5145b6cb19f9b2a5ed2b3",
+  "realCheckoutPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-250-pfix49520001\\worktree",
+  "samePathDepthAsFailedRun": true,
+  "verification": {
+    "passed": true,
+    "trackedFiles": 3157,
+    "pathsChecked": 3157,
+    "maximumFullPathUtf16Characters": 229,
+    "longestPaths": [
+      [
+        229,
+        "_analysis/coac250-193/persisted-route-2/stages/79-cn-chapter-193-4-pdf193-supplement/pdf-version-stage-receipt.json"
+      ],
+      [
+        229,
+        "_analysis/coac250-193/persisted-route-1/stages/79-cn-chapter-193-4-pdf193-supplement/pdf-version-stage-receipt.json"
+      ],
+      [
+        228,
+        "_analysis/coac250-217/upstream/evidence/image/64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png"
+      ],
+      [
+        227,
+        "_analysis/coac250-next3/package/consumer/in/ec474aaa993b0b00e697cbf95cd3c9448259746f84b5840912080fda27a6efe6.json"
+      ],
+      [
+        227,
+        "_analysis/coac250-next3/package/consumer/in/ea0527b4297f27e325f969881a16a89dcba115c8651741a3b21c89c75333731e.json"
+      ]
+    ],
+    "renamedFilesByteIdentical": 16,
+    "wrapperEditsVerified": 8,
+    "localImageReferencesVerified": 32,
+    "limitExclusive": 240,
+    "modelCalls": 0
+  },
+  "newFileGuardTests": [
+    {
+      "tree": "_analysis/path250",
+      "fullPathLength": 245,
+      "rejected": true
+    },
+    {
+      "tree": ".multica/delivery/path250",
+      "fullPathLength": 245,
+      "rejected": true
+    }
+  ],
+  "ownedCleanTestWorktreeRemoved": true,
+  "HEADUnchanged": "21c506623e52c04f38405aacb65c5cc8dec9047c",
+  "ownIndexUnchanged": true,
+  "modelCalls": 0
+}

@@ -1,0 +1,20 @@
+COAC-269按用户评论01a17f92-9b94-7ecd-a75b-3bfacf6565fe，仅恢复此前从未started的run01a17f90-dd76-7202-b0b2-d4f39be097e0一次。仅证据包装路径过长修复，agent/mika/coac-250已快进并正常推送到a9e9faa581480d956701ac0b2c01e24f33811a33，直接继承v29 f1435b1，未重建v29、未重制或调用模型。当前269的HEAD仍为agent/ticket/coac-269，未切换/覆盖共享工作树。
+
+包装变更：12图片副本改a01.png–a04.png、4上游审回执副本改audit.json；16文件blob/字节完全相同。只更新8个本地展示包装/索引引用。_analysis/path250/manifest.json保留原路径、完整SHA、原Git blob及包装副本映射；原数据根/raw/候选/独审/active未改。完整3157文件在真实同branch同Windows深度检出通过，最长229字符（严格<240）；_analysis和delivery新增245字符文件均被新guard拒绝。
+
+恢复后先确认本run真实HEAD含a9e9faa581480d956701ac0b2c01e24f33811a33，在仓库根执行 python _analysis/path250/verify.py；新事先做完整包装路径检查再新增delivery/_analysis。原不可变收据仍保留原数据根路径/SHA；本地副本通过manifest的oldPath/path映射读取，不能把包装别名当新候选/新通过。不要重跑旧stage-owned/assembler/compiler/build/finalize、重建v29或复制全量数据来修路径。
+
+只继续下方原零模型登记指令；不追加制作、识图、审校、集成消费者或任何额度。保留原两个启动失败run，本次恢复不自动重复。完成正常回本票原交接线程，原正文与unknown限制不扩大。
+
+原指令（逐字保留）：
+249已收齐本批两包真实独立审，0制作、0retry、2/2额度已用、余0。仅交246/250记录精确修订与限定unknown证据；不授权再识字、重制或收费复审，不凭226块来源齐宣布整页/整章通过。
+
+根E:/AgentData/Coach/knowledge/processing。完整结果integration/coac249-frontmatter-targets-reviewed-20261028.json；带实际候选字段/逐before校验的摘要integration/coac249-frontmatter-targets-summary-20261028.json；真实请求副本、两原收据及零模型验真在audit/supplements/coac249-frontmatter-targets-20261028/。原246包integration/coac246-frontmatter-20261028及所有原candidate/raw/旧needs-repair审均未改。实际冻结schema-v2 manifest a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c，完整依赖及65包文件重算，prompt/schema/CLI/images/usage/ledger验真通过；这不是语义pass。
+
+第一包call1ac40202-64c8-4068-92fd-fb62ea5ad4ff：实际gpt-6.1-terra/max，19原图/准确裁剪/源资产，154803in/0cache/15291out，191920ms。收据36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6；raw7d9ad8b617d396fbf79a7a48340ddbd796f7701397e8bd865399c2765f56c16f。结论needs-exact-repair：p1-r4撤确定署名、宣传微字/假名；p2-r15、p3-r1撤封面模糊署名，清晰书目作者正文仍保留；p3-r3撤黑条小字的确定系列名。均补相应unknown。p2-r11当前可faithful-with-unknown：保留微字/英文尾部/微牌未知，不补牌码，邻近书评/书目仍作正文。
+
+共享原图275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6的特别奖署名完整字形不可可靠辨认；既不选p1“☆はくあ☆”，也不选p317两个备选。两处都显示完整署名unknown，不按旧票数或邻近身份推人名。微字未知不影响邻近作者论述，不再挂识字待办。p2-b61至p3-b23跨页书评继承为正文，不得当装饰。
+
+第二包call4b703cb1-83ef-4cb8-bac5-9fbdcaf7fbbf：terra/max，7原图/上下文，47740in/0cache/8113out，85203ms。收据d85aa60a50c4c2dc7a70fd5bbbbf43b2bd94ea990f4a5f555791ed6df228f19d；rawfa33cfbf507a17d7be7b2570a7d1b1402d39771d954be471780e7de4cb1b87b5。复用首项同图真实裁决，未再次OCR猜署名。317-b5独立确认需将“暂时公开”改为“以暂定版形式公开”，保留“新战术论”标题及结构/URL可能变更提示。实际候选是body.blocks[4].text、inlineContent[0].text、rawSlotText三字段（模型所写authorBody为projection别名；原raw保持）。317-r6同时撤确定假名、两个署名备选，将署名/假名/宣传小字/January下极小字按同图限制unknown；其余31文本/21图继承。
+
+六项封面未知均被独立确认非邻文论证核心；但当前五个图对象仍含需撤的确定转录，所以两包仍needs-repair，admissionGranted=false、无fullPagePassed。158项已faithful文字、56项其它图、中文目录18块仅继承不重审。246请沿现有合法修订路径消费精确字段；250保留本p2-r11限定证据和未来精确派生补证所需限制，未完成合法精确准入前不放行四页。244仅更新现有remaining owner，不另建流程。费用/远端权重/上游实际执行总数未知。本次所有真实调用已前台收齐、guard正常释放。

@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "modelCalls": 0,
+  "foreignBranch": "agent/mika/coac-250",
+  "foreignParent": "f1435b192a5ce02935b5145b6cb19f9b2a5ed2b3",
+  "foreignCommit": "a9e9faa581480d956701ac0b2c01e24f33811a33",
+  "renamedFilesByteIdentical": 16,
+  "localWrapperEdits": 8,
+  "oldMaximum": 267,
+  "newMaximum": 229,
+  "limitExclusive": 240,
+  "realSameBranchCheckout": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-250-pfix49520001\\worktree",
+  "trackedFiles": 3157,
+  "imageReferencesVerified": 32,
+  "newAnalysisAndDeliveryGuardCases": [
+    {
+      "tree": "_analysis/path250",
+      "fullPathLength": 245,
+      "rejected": true
+    },
+    {
+      "tree": ".multica/delivery/path250",
+      "fullPathLength": 245,
+      "rejected": true
+    }
+  ],
+  "pushConfirmed": true,
+  "recoveryRequests": 1,
+  "failedOriginalRun": "01a17f90-dd76-7202-b0b2-d4f39be097e0",
+  "recoveredRun": "01a17f9e-a0f7-78f2-9f88-f1df09ef5bd3",
+  "actualStartedAt": "2026-10-27T23:23:00Z",
+  "actualWorktree": "C:/Users/Roland/multica_workspaces_desktop-api.multica.ai/coach-rolan-2123e9a3b805/coac-250-f1df09ef5bd3/worktree",
+  "observedHead": "9830323a52ab656732e7ecdddd89f61b97efb3b3",
+  "recoveryActualTreeFiles": 3402,
+  "recoveryActualFullPathMax": 229,
+  "dataRootTouched": false,
+  "v29Rebuilt": false,
+  "globalGitOrOSChanged": false,
+  "ownHEADStayedOn": "agent/ticket/coac-269"
+}

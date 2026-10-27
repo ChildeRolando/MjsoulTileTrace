@@ -1,0 +1,16 @@
+[
+  {
+    "label": "old",
+    "ref": "f1435b192a5ce02935b5145b6cb19f9b2a5ed2b3",
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-269-4952d30c33cd\\worktree\\.multica\\delivery\\coac-269-web-revision-b-20261027\\artifacts\\b22-path250\\verify-package.py\", line 77, in <module>\n    if __name__=='__main__':main()\n  File \"C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-269-4952d30c33cd\\worktree\\.multica\\delivery\\coac-269-web-revision-b-20261027\\artifacts\\b22-path250\\verify-package.py\", line 25, in main\n    assert lengths[0][0]<240,('checkout_path_length',lengths[:8])\nAssertionError: ('checkout_path_length', [(267, '_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png'), (267, '_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png'), (267, '_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png'), (267, '_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png'), (258, '_analysis/coac250-217/upstream/evidence/parentAudit/page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json'), (256, '_analysis/coac250-217/upstream/evidence/rev3Audit/page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json'), (256, '_analysis/coac250-217/upstream/evidence/rev2Audit/page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json'), (256, '_analysis/coac250-217/upstream/evidence/rev1Audit/page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json')])\n"
+  },
+  {
+    "label": "new",
+    "ref": "a9e9faa581480d956701ac0b2c01e24f33811a33",
+    "returncode": 0,
+    "stdout": "{\"passed\": true, \"trackedFiles\": 3157, \"pathsChecked\": 3157, \"maximumFullPathUtf16Characters\": 229, \"longestPaths\": [[229, \"_analysis/coac250-193/persisted-route-2/stages/79-cn-chapter-193-4-pdf193-supplement/pdf-version-stage-receipt.json\"], [229, \"_analysis/coac250-193/persisted-route-1/stages/79-cn-chapter-193-4-pdf193-supplement/pdf-version-stage-receipt.json\"], [228, \"_analysis/coac250-217/upstream/evidence/image/64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png\"], [227, \"_analysis/coac250-next3/package/consumer/in/ec474aaa993b0b00e697cbf95cd3c9448259746f84b5840912080fda27a6efe6.json\"], [227, \"_analysis/coac250-next3/package/consumer/in/ea0527b4297f27e325f969881a16a89dcba115c8651741a3b21c89c75333731e.json\"]], \"renamedFilesByteIdentical\": 16, \"wrapperEditsVerified\": 8, \"localImageReferencesVerified\": 32, \"limitExclusive\": 240, \"modelCalls\": 0}\n",
+    "stderr": ""
+  }
+]
