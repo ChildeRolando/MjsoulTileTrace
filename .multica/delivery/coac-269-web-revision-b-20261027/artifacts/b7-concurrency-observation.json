@@ -1,0 +1,92 @@
+{
+  "schema": "coac269-b7-concurrency-observation/1",
+  "ticket": "COAC-269",
+  "line": "B",
+  "batch": "b7",
+  "recordedAt": "2026-10-27T11:57:57.583855Z",
+  "modelCalls": 0,
+  "method": "measured from web-production/v1/calls.jsonl startedAt+durationMs and audit/calls/*.json startedAt+durationMs after both production receipts were written; no model call was made to produce this record",
+  "productionCallsInWindow": [
+    {
+      "callId": "64227eb7-60cb-482f-a24b-0f26ce33fa51",
+      "articleId": "cv1721475",
+      "start": "2026-10-27T11:50:06.924Z",
+      "end": "2026-10-27T11:51:02.494000+00:00",
+      "success": true
+    },
+    {
+      "callId": "42af685b-9eba-47ff-8758-70c121ea1a12",
+      "articleId": "chapter01-section031",
+      "start": "2026-10-27T11:52:08.806Z",
+      "end": "2026-10-27T11:52:41.311000+00:00",
+      "success": true
+    },
+    {
+      "callId": "0823a000-cd88-4c75-a2d2-a0b03fcf42b6",
+      "articleId": "chapter01-section021-06",
+      "start": "2026-10-27T11:53:07.004Z",
+      "end": "2026-10-27T11:53:55.416000+00:00",
+      "success": true
+    }
+  ],
+  "auditCallsInWindow": [
+    {
+      "callId": "563fb29b-10ba-471f-bb8c-e91e1e2cb224",
+      "articleId": "cv1721475",
+      "scope": "textbook-web-article-audit",
+      "start": "2026-10-27T11:51:51.834Z",
+      "end": "2026-10-27T11:53:34.855000+00:00",
+      "artifact": "audit/calls/563fb29b-10ba-471f-bb8c-e91e1e2cb224.json"
+    }
+  ],
+  "myProductionCalls": [
+    {
+      "callId": "42af685b-9eba-47ff-8758-70c121ea1a12",
+      "articleId": "chapter01-section031",
+      "start": "2026-10-27T11:52:08.806Z",
+      "end": "2026-10-27T11:52:41.311000+00:00",
+      "success": true
+    },
+    {
+      "callId": "0823a000-cd88-4c75-a2d2-a0b03fcf42b6",
+      "articleId": "chapter01-section021-06",
+      "start": "2026-10-27T11:53:07.004Z",
+      "end": "2026-10-27T11:53:55.416000+00:00",
+      "success": true
+    }
+  ],
+  "overlaps": [
+    {
+      "production": "42af685b-9eba-47ff-8758-70c121ea1a12",
+      "productionArticle": "chapter01-section031",
+      "audit": "563fb29b-10ba-471f-bb8c-e91e1e2cb224",
+      "auditArticle": "cv1721475",
+      "auditScope": "textbook-web-article-audit",
+      "overlapStart": "2026-10-27T11:52:08.806000+00:00",
+      "overlapEnd": "2026-10-27T11:52:41.311000+00:00",
+      "overlapSeconds": 32.5
+    },
+    {
+      "production": "0823a000-cd88-4c75-a2d2-a0b03fcf42b6",
+      "productionArticle": "chapter01-section021-06",
+      "audit": "563fb29b-10ba-471f-bb8c-e91e1e2cb224",
+      "auditArticle": "cv1721475",
+      "auditScope": "textbook-web-article-audit",
+      "overlapStart": "2026-10-27T11:53:07.004000+00:00",
+      "overlapEnd": "2026-10-27T11:53:34.855000+00:00",
+      "overlapSeconds": 27.9
+    }
+  ],
+  "correction": "the 060-1 production receipt (production-b7-74550f1543cdc0a2.json) listed only the 27.9 s overlap; the audit artifact for 563fb29b-... landed at ~11:53:34, after the 089-1 receipt snapshot (11:52:41), so that receipt listed none. Both overlaps are real and are recorded here.",
+  "otherMakerCallsInWindow": [
+    {
+      "callId": "64227eb7-60cb-482f-a24b-0f26ce33fa51",
+      "articleId": "cv1721475",
+      "start": "2026-10-27T11:50:06.924Z",
+      "end": "2026-10-27T11:51:02.494000+00:00",
+      "success": true
+    }
+  ],
+  "makerConcurrency": "no other web-production call overlapped either B window; the single factual concurrency is audit-side (cv1721475 audit) vs B production, which the COAC-244 capacity allows.",
+  "callsSha256": "d8094c320b05d3961d3f5ffc4dc3297912b2f998c3a5aa18585de96bf2e90c6b"
+}

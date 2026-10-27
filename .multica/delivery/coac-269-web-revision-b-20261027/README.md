@@ -244,26 +244,34 @@ Only **one** chapter still passes the revision entry guard:
   (consumed: independent audit `bdb29387…` passed at 11:27:18Z; delivery record
   `coac249-delivery-4e7a7266904e4b52.json`).
 
-### The ordinary-web repair pool is now exhausted under the current entry
+### The ordinary-web repair pool looked exhausted under a single-target reading of the entry
 
-Latest joint exclusion (`11:11:40`). Of the remaining uncovered chapters, none is a valid repair
-target under the unchanged revision entry:
+> **Correction (2026-10-27T11:35Z, batch 7).** The two text rows below were wrong: this ticket's
+> `entryCheck` heuristic (and the batch-6 wording) treated "more than one non-faithful text block" as
+> unrepairable, but the real entry was never single-target. `verifyWebRevisionContent` takes
+> `textBlockIds` as an array, and COAC-244 re-verified 089-1 (4 blocks) and 060-1 (2 blocks) against the
+> frozen runtime with zero model calls. Both were produced in batch 7. The figure rows stand: a text
+> revision cannot also carry figures (`ids.length && texts.length`), and figure revisions require a
+> `verbatim` parent.
 
-| chapter | why it cannot be produced |
+Latest joint exclusion (`11:11:40`). Of the remaining uncovered chapters, none was a valid repair
+target under this ticket's then-current single-target heuristic:
+
+| chapter | why it was skipped at batch 6 |
 | --- | --- |
 | 347-1 | revisable by the guard, but skipped per the standing instruction (parent-audit figure gap is a root-level decision) |
-| 232-1 | 2 non-faithful text targets, plus 1 figure without a faithful check |
+| 232-1 | 2 non-faithful text targets, plus 1 figure without a faithful check (text+figure mixed: still not one revision) |
 | 224-1 | 0 text targets, 1 figure without a faithful check |
 | 213-1 | 1 figure without a faithful check |
 | 193-1 | 1 figure without a faithful check |
 | 100-1 | 0 non-faithful text targets |
-| 089-1 | 4 non-faithful text targets |
-| 060-1 | 2 non-faithful text targets |
+| 089-1 | 4 non-faithful text targets — **wrong: multi-target text revision is supported; produced in batch 7** |
+| 060-1 | 2 non-faithful text targets — **wrong: multi-target text revision is supported; produced in batch 7** |
 
 `183-1` is under pending adjudication, `236-1`/`283-1` are COAC-248 reservations and `250-1` has no
-audited parent candidate. Continuing means either a root decision on 347-1, a wider revision entry
-(multi-target / missing-figure-checks), or chapters from another source — none of which this ticket
-may decide on its own.
+audited parent candidate. Continuing past the figure rows still needs either a root decision on 347-1,
+a runtime change for mixed text+figure or missing figure checks, or chapters from another source —
+none of which this ticket may decide on its own.
 
 ## Review round 1 — CHANGES_REQUIRED (PR #71, head `8a97ffe`) and its fixes
 
@@ -372,3 +380,81 @@ production calls and no re-audit**; the existing candidates, raw calls and recei
   no maker-B slot acquired (`production-b6-not-eligible-196c45012ac05e5a.json`).
 - No model call, no audit call, no production call, no shared register/selection/pointer write in
   this round. The remaining uncovered-chapter pool is unchanged from the batch-6 section above.
+
+## Batch 7 — multi-target text revision dispatched by COAC-244 (2026-10-27T11:47–11:57Z)
+
+COAC-244's short coordination (`parallel/next-batch-20261027T1135/dispatch-B-coac269.json`) verified,
+with zero model calls against the frozen runtime's `verifyWebRevisionContent`, that multi-target text
+revision was already supported and handed line B `089-1` plus `060-1` as `nextInQueue`, two chapters max.
+Nothing about the gate, runtime, selection, pointer or register was changed; the old single-target
+heuristic in this ticket's own `entryCheck` was the only thing that had ever said otherwise.
+
+| chapter | article | parent candidate SHA | parent audit SHA | targets | candidate SHA |
+| --- | --- | --- | --- | --- | --- |
+| nemata-jp-chapter-089-1 | chapter01-section031 | `9fa0255f1dbe…` | `38463b0c66018574…` | b0042, b0084, b0102, b0153 | `c5317d995648afeefdb370b314047e36f0368609a19a2db6be103385646565a6` |
+| nemata-jp-chapter-060-1 | chapter01-section021-06 | `ff1f57ff633d…` | `f13f9da62cd633bf…` | b0027, b0033 | `6de46bfb824281e9facea8bd30eebf1498b7ae047e4c006250aeaa2800b0c64c` |
+
+- **089-1**: all four target blocks had a parent-audit error that the translation had weakened
+  「が有力」 into 「值得考虑的选择」. The candidate restores 「有力选择」 in `b0042/b0084/b0102/b0153`
+  and keeps the three-colour condition (`b0042`: 「只在没有其他宝牌、且点棒状况需要高分时追求三色即可」,
+  matching 「のみで良いとみる」).
+- **060-1**: `b0027` now names the comparison the parent only pointed at (「理由与往上数第二个比较
+  （好形1,300点＞愚形2,600点）相同」); `b0033` restores the 1-vs-2 ordinary-tile asymmetry
+  (两面听役牌＋赤宝牌1张＋普通宝牌1张 对 宝牌单骑役牌＋赤宝牌1张＋普通宝牌2张) and renders
+  「中盤過ぎると微妙になる」 as 「过了中盘后，优劣就变得微妙了」.
+- `figureIds` is empty for both, `body.mode` stays `translated`, and no non-target text, figure,
+  provenance field or DOM position changed (self-check below).
+
+### Calls and capacity (actual, no retries)
+
+- Model `gpt-6.1-sol`, effort `high`; the same frozen snapshot as batches 2–6
+  (runner `4a5ce8ab…`, CLI `3da98f5f…`, audit `8660208d…`).
+- 089-1: call `42af685b-9eba-47ff-8758-70c121ea1a12`, 15,204 in / 493 out, 32.5 s,
+  raw `raw-calls/42af685b-….json` SHA `36bf3470aff373808ce949f09afb433e9a4e8dd6b932c6e254dc6e91a704ce8d`.
+- 060-1: call `0823a000-cd88-4c75-a2d2-a0b03fcf42b6`, 15,738 in / 947 out, 48.4 s,
+  raw SHA `49f40ac678bd73d7c77194b56be3b9adc69382b72b4116614c3ed0e95012f332`.
+- maker-B held `11:52:08.307`–`11:52:41.456Z` (089-1) and `11:53:06.502`–`11:53:55.554Z` (060-1),
+  acquire/release exit 0 both times. The legacy `production-lane.lock` was never acquired and stayed
+  byte-identical (`unchanged: true`); line A held `maker-A` in the same window.
+- **Real production/audit overlap:** the audit-ledger call `563fb29b-10ba-471f-bb8c-e91e1e2cb224`
+  (`cv1721475`, `textbook-web-article-audit`) ran `11:51:51.834`–`11:53:34.855Z` and overlapped the
+  089-1 production by 32.5 s and the 060-1 production by 27.9 s. The 060-1 receipt listed only its own
+  27.9 s because the audit artifact landed at ~11:53:34, after the 089-1 receipt snapshot at 11:52:41;
+  both real overlaps are recorded in `b7-concurrency-observation.json`. No other web-production call
+  ran inside either window (the nearest, `cv1721475` production, ended 11:51:02.494Z), so maker-vs-maker
+  concurrency stayed at 0 overlapping calls in this batch; the measured concurrency is audit-side with
+  production, which the COAC-244 capacity allows.
+- Both producers re-ran the three-source joint exclusion per dispatch (not once per batch):
+  `11:52:08.666` for 089-1 and `11:53:06.864` for 060-1, each with its own receipt, plus a pre-slot
+  run immediately before each. The `11:51:30`/`11:51:37` runs covered pre-claim and claim. All eight
+  receipts are in `artifacts/b7-joint-exclusion-*.json`.
+- Claims went through the shared interface first (`parallel/claims/nemata-jp-chapter-089-1.json`,
+  `…-060-1.json`, owner `COAC-269 Ticket executor`, parent sha bound), then the ticket-local detail
+  claim; each dispatch re-verified the shared claim through `coac269-dispatch-guard.mjs`
+  (`b7-dispatch-guard-089-1.json`, `b7-dispatch-guard-060-1.json`, both `ok: true`).
+
+### Verification (zero model calls)
+
+- Preflight (`b7-preflight.json`): source/parent/notes/dependency SHAs, the exact 4+2 target set,
+  entry parity (complete-article comparison, faithful DOM order, every image check represented,
+  every non-target block faithful, all 75/50 figures faithful), dictionary coverage (0 unbound
+  images), no existing variant.
+- Self-check (`b7-selfcheck.json`, `ok: true`): exactly the target blocks changed in each chapter,
+  every other text block byte-identical, body flow order and all figures identical to the parent
+  (apart from render-only `presentationAsset`), candidate self-sha and raw-artifact sha verified,
+  one attempt per candidate. This is not the independent audit.
+- Handoff consumption proven without an audit: `audit/audit-explicit-targets.mjs --config
+  explicit-targets-b7-….json --max-targets 2 --select-only` → `pendingBefore 2`, `terminalSkips 0`,
+  `selected` exactly the two candidate SHAs, `modelCalls 0` (`b7-audit-select-only.json`).
+- Handed to COAC-249: `handoff-b7-c81eda014b33072e.json` +
+  `explicit-targets-b7-a214ee48cbccfb88.json`, with a COAC-249 handoff comment and an
+  `at +1m` wakeup for agent `b144c077…`. Independent verdict is **pending**; nothing here is a pass.
+
+### Remaining queue
+
+After batch 7 the still-uncovered scope chapters are 347-1, 232-1, 224-1, 213-1, 193-1 and 100-1
+(plus 183-1 under pending adjudication and the COAC-248 reservations). Every remaining text-capable
+chapter is now produced; what is left needs a figure revision under a `verbatim` parent, a mixed
+text+figure revision, a parent-audit figure coverage repair, or a root decision on 347-1 — none of
+which this ticket can decide alone.
+

@@ -1,0 +1,21 @@
+{
+  "schema": "coach-explicit-audit-selection/1",
+  "configPath": "web-production/v1/coac269-20261027/handoff/explicit-targets-b7-a214ee48cbccfb88.json",
+  "maxTargets": 2,
+  "retryFailed": false,
+  "selected": [
+    {
+      "articleId": "chapter01-section031",
+      "sha256": "c5317d995648afeefdb370b314047e36f0368609a19a2db6be103385646565a6",
+      "recovery": null
+    },
+    {
+      "articleId": "chapter01-section021-06",
+      "sha256": "6de46bfb824281e9facea8bd30eebf1498b7ae047e4c006250aeaa2800b0c64c",
+      "recovery": null
+    }
+  ],
+  "terminalSkips": [],
+  "pendingBefore": 2,
+  "modelCalls": 0
+}

@@ -1,0 +1,353 @@
+{
+  "schema": "coac269-web-revision-preflight/1",
+  "scriptVersion": 2,
+  "batch": "b7",
+  "recordedAt": "2026-10-27T11:51:31.209Z",
+  "ticket": "COAC-269",
+  "line": "B-ordinary-web-targeted-revision",
+  "variant": "coac269rev1",
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "selectionRule": "zero-call joint exclusion by canonical original chapter id over latest active preview unit-map/selection + latest unified register + latest passed receipts bound to current source sha; then chapterId + current candidateSHA claim; then the revision-entry guards",
+  "jointExclusion": {
+    "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/coac269-20261027/preflight/joint-exclusion-2026-10-27T11-51-30-915Z-e17cc5c1.json",
+    "sha256": "c50c5dfa9db3d068ad1a7cf987156be3d7a96fa2e98340639910005e44a5a715",
+    "recordedAt": "2026-10-27T11:51:30.915Z",
+    "ageSeconds": 0,
+    "maxAgeSeconds": 900,
+    "eligibleRepairTargets": [
+      "nemata-jp-chapter-347-1",
+      "nemata-jp-chapter-232-1",
+      "nemata-jp-chapter-224-1",
+      "nemata-jp-chapter-213-1",
+      "nemata-jp-chapter-193-1",
+      "nemata-jp-chapter-100-1",
+      "nemata-jp-chapter-089-1",
+      "nemata-jp-chapter-060-1"
+    ],
+    "incidentControlsOk": true
+  },
+  "activePreviewPointer": {
+    "path": "integration/accepted-preview-current.json",
+    "sha256": "3927fdab261bd3b1f4a8caa6b59314650f3e09687b4a009716a64894b6f63ea7",
+    "output": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T10-38-35-579Z",
+    "createdAt": "2026-10-27T11:03:12.905Z"
+  },
+  "unifiedRegister": {
+    "path": "integration/coac250-unified-chapter-register-20261027b.json",
+    "sha256": "8db9643f5d3a53227d515279726b48ffe1e2b3ef65fd65a8e0d6687432a2a3da"
+  },
+  "incidentRegression": {
+    "nemata-jp-chapter-246-1": {
+      "covered": true,
+      "reasons": [
+        "active-preview-selectedWeb",
+        "unified-register-covered-effective",
+        "latest-passed-audit-current-source",
+        "active-preview-unit-map"
+      ]
+    },
+    "nemata-jp-chapter-237-1": {
+      "covered": true,
+      "reasons": [
+        "active-preview-selectedWeb",
+        "unified-register-covered-effective",
+        "latest-passed-audit-current-source",
+        "active-preview-unit-map"
+      ]
+    },
+    "nemata-jp-chapter-131-1": {
+      "covered": true,
+      "reasons": [
+        "active-preview-selectedWeb",
+        "unified-register-covered-effective",
+        "latest-passed-audit-current-source",
+        "active-preview-unit-map"
+      ]
+    },
+    "nemata-jp-chapter-183-1": {
+      "covered": false,
+      "reasons": []
+    }
+  },
+  "excluded": {
+    "nemata-jp-chapter-246-1": "covered (active preview + register + passed receipt chapter06-section002.rev1.json); b2 duplicate production withdrawn, not deleted",
+    "nemata-jp-chapter-237-1": "covered (active preview + register + passed receipt chapter04-section016.rev1.json); b2 duplicate production withdrawn, not deleted",
+    "nemata-jp-chapter-131-1": "covered (active preview + register + passed receipt chapter01-section049.rev1.json); b3 duplicate production withdrawn, not deleted",
+    "nemata-jp-chapter-183-1": "moved to pending adjudication: 249 confirmed the parent audit is only uncertain and forbids unconfirmed rewriting; the b3 revision stays as evidence, it is neither audited nor ingested",
+    "nemata-jp-chapter-142-1": "batch 5, independently passed 11:25:33Z; not re-produced",
+    "nemata-jp-chapter-127-1": "batch 5, independently passed 11:27:18Z; not re-produced",
+    "nemata-jp-chapter-027-1": "batch 6, independently passed 11:27:18Z; not re-produced",
+    "nemata-jp-chapter-100-1": "parent audit has no error text target (entry guard: no_text_targets); COAC-244 classified it parent-evidence-or-adjudication"
+  },
+  "slotEntry": {
+    "mechanism": "parallel/slots.mjs",
+    "owner": "COAC-269 Ticket executor",
+    "lane": "B",
+    "maxMakerSlots": 2,
+    "verification": "parallel/verification-20261027.json"
+  },
+  "legacyLock": {
+    "path": "production-lane.lock",
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+    "size": 1,
+    "mtime": "2026-10-25T15:40:57.879Z",
+    "contentHex": "30",
+    "note": "read-only evidence; the dual-slot contract keeps this legacy lock untouched. B capacity is the maker-B slot."
+  },
+  "dictionary": {
+    "path": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+    "sha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+  },
+  "verifiedAssets": {
+    "path": "audit/web/verified-assets/modern-ch01-s001-exact-42.json",
+    "sha256": "dd3058698dc2630a1767e27791b07ce3617c0e141957d8000bcd9e97331df193"
+  },
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-089-1",
+      "articleId": "chapter01-section031",
+      "checks": [
+        "joint_exclusion",
+        "joint_exclusion_freshness",
+        "claim_binding",
+        "source_binding",
+        "parent_self_sha",
+        "notes_binding",
+        "target_projection",
+        "non_target_faithful_blocks",
+        "all_figures_faithful",
+        "dictionary_coverage",
+        "no_existing_variant"
+      ],
+      "errors": [],
+      "claim": {
+        "key": "nemata-jp-chapter-089-1:9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb",
+        "existing": [],
+        "conflicts": []
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter01-section031/source.json",
+        "sha256": "c69694f31974fc506ba30b69434ed64a700112dc6d7bb2d67916aa9ef19126a4",
+        "language": "ja",
+        "status": "captured-not-translated-or-audited",
+        "blocks": 159,
+        "assets": 56
+      },
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section031.display.json",
+        "sha256": "9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb",
+        "schema": "coach-textbook-web-article-draft/1",
+        "textBlocks": 84,
+        "figures": 75
+      },
+      "notes": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter01-section031.9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb.retry-1792951706280-1a9d74d2.json",
+        "sha256": "38463b0c66018574d1cca6a52a4c667346b70864ad5bcf2e84454f759e2fdba9",
+        "schema": "coach-textbook-web-article-audit/1",
+        "status": "needs-repair",
+        "recordedAt": "2026-10-25T18:08:26.280Z"
+      },
+      "targets": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section031:b0042",
+          "sourceText": "落としが有力。三色狙いは他にドラがなく高得点が必要な点棒状況のときのみで良いとみる。",
+          "priorTranslation": "拆掉是值得考虑的选择。我认为，只有在没有其他宝牌，且点棒状况要求高分时，才需要追求三色。",
+          "paragraphId": "modern-yabejp-ja:chapter01-section031:p0009",
+          "contextIds": [
+            "modern-yabejp-ja:chapter01-section031:b0037",
+            "modern-yabejp-ja:chapter01-section031:b0038",
+            "modern-yabejp-ja:chapter01-section031:b0039",
+            "modern-yabejp-ja:chapter01-section031:b0040",
+            "modern-yabejp-ja:chapter01-section031:b0041",
+            "modern-yabejp-ja:chapter01-section031:b0042",
+            "modern-yabejp-ja:chapter01-section031:b0043",
+            "modern-yabejp-ja:chapter01-section031:b0044"
+          ]
+        },
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section031:b0084",
+          "sourceText": "確定はしないが三色両天秤に取れるなら両天秤が有力なケースが多い。",
+          "priorTranslation": "虽然尚未确定，但如果能兼顾两种三色，很多情况下兼顾两种路线是值得考虑的选择。",
+          "paragraphId": "modern-yabejp-ja:chapter01-section031:p0023",
+          "contextIds": [
+            "modern-yabejp-ja:chapter01-section031:b0082",
+            "modern-yabejp-ja:chapter01-section031:b0083",
+            "modern-yabejp-ja:chapter01-section031:b0084",
+            "modern-yabejp-ja:chapter01-section031:b0085",
+            "modern-yabejp-ja:chapter01-section031:b0086"
+          ]
+        },
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section031:b0102",
+          "sourceText": "が有力。",
+          "priorTranslation": "是值得考虑的选择。",
+          "paragraphId": "modern-yabejp-ja:chapter01-section031:p0027",
+          "contextIds": [
+            "modern-yabejp-ja:chapter01-section031:b0098",
+            "modern-yabejp-ja:chapter01-section031:b0099",
+            "modern-yabejp-ja:chapter01-section031:b0100",
+            "modern-yabejp-ja:chapter01-section031:b0101",
+            "modern-yabejp-ja:chapter01-section031:b0102",
+            "modern-yabejp-ja:chapter01-section031:b0103",
+            "modern-yabejp-ja:chapter01-section031:b0104"
+          ]
+        },
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section031:b0153",
+          "sourceText": "が有力。",
+          "priorTranslation": "是值得考虑的选择。",
+          "paragraphId": "modern-yabejp-ja:chapter01-section031:p0042",
+          "contextIds": [
+            "modern-yabejp-ja:chapter01-section031:b0149",
+            "modern-yabejp-ja:chapter01-section031:b0150",
+            "modern-yabejp-ja:chapter01-section031:b0151",
+            "modern-yabejp-ja:chapter01-section031:b0152",
+            "modern-yabejp-ja:chapter01-section031:b0153",
+            "modern-yabejp-ja:chapter01-section031:b0154",
+            "modern-yabejp-ja:chapter01-section031:b0155"
+          ]
+        }
+      ],
+      "contextBlockIds": [
+        "modern-yabejp-ja:chapter01-section031:b0037",
+        "modern-yabejp-ja:chapter01-section031:b0038",
+        "modern-yabejp-ja:chapter01-section031:b0039",
+        "modern-yabejp-ja:chapter01-section031:b0040",
+        "modern-yabejp-ja:chapter01-section031:b0041",
+        "modern-yabejp-ja:chapter01-section031:b0042",
+        "modern-yabejp-ja:chapter01-section031:b0043",
+        "modern-yabejp-ja:chapter01-section031:b0044",
+        "modern-yabejp-ja:chapter01-section031:b0082",
+        "modern-yabejp-ja:chapter01-section031:b0083",
+        "modern-yabejp-ja:chapter01-section031:b0084",
+        "modern-yabejp-ja:chapter01-section031:b0085",
+        "modern-yabejp-ja:chapter01-section031:b0086",
+        "modern-yabejp-ja:chapter01-section031:b0098",
+        "modern-yabejp-ja:chapter01-section031:b0099",
+        "modern-yabejp-ja:chapter01-section031:b0100",
+        "modern-yabejp-ja:chapter01-section031:b0101",
+        "modern-yabejp-ja:chapter01-section031:b0102",
+        "modern-yabejp-ja:chapter01-section031:b0103",
+        "modern-yabejp-ja:chapter01-section031:b0104",
+        "modern-yabejp-ja:chapter01-section031:b0149",
+        "modern-yabejp-ja:chapter01-section031:b0150",
+        "modern-yabejp-ja:chapter01-section031:b0151",
+        "modern-yabejp-ja:chapter01-section031:b0152",
+        "modern-yabejp-ja:chapter01-section031:b0153",
+        "modern-yabejp-ja:chapter01-section031:b0154",
+        "modern-yabejp-ja:chapter01-section031:b0155"
+      ],
+      "dictionaryUnboundImages": 0,
+      "outputPath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section031.coac269rev1.json"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-060-1",
+      "articleId": "chapter01-section021-06",
+      "checks": [
+        "joint_exclusion",
+        "joint_exclusion_freshness",
+        "claim_binding",
+        "source_binding",
+        "parent_self_sha",
+        "notes_binding",
+        "target_projection",
+        "non_target_faithful_blocks",
+        "all_figures_faithful",
+        "dictionary_coverage",
+        "no_existing_variant"
+      ],
+      "errors": [],
+      "claim": {
+        "key": "nemata-jp-chapter-060-1:ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+        "existing": [],
+        "conflicts": []
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter01-section021-06/source.json",
+        "sha256": "febc8cef9c299b375c225843e4d33a27a2167c3729bf8c590e472433f548eda5",
+        "language": "ja",
+        "status": "captured-not-translated-or-audited",
+        "blocks": 129,
+        "assets": 48
+      },
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-06.display.json",
+        "sha256": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+        "schema": "coach-textbook-web-article-draft/1",
+        "textBlocks": 79,
+        "figures": 50
+      },
+      "notes": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter01-section021-06.ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828.json",
+        "sha256": "f13f9da62cd633bf21c036ba4439b913e987b5334a4660e465ad80f0772d0cf7",
+        "schema": "coach-textbook-web-article-audit/1",
+        "status": "needs-repair",
+        "recordedAt": "2026-10-23T22:48:15.630Z"
+      },
+      "targets": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section021-06:b0027",
+          "sourceText": "切って三面に受ける。 良形2,600点＞愚形5,200点 これも微妙だが二つ上の選択と同理由で、但し、リャンメンリーチドラ１とシャボリーチドラドラ（またはドラ３）なら後者有利。 良形2,600点＜愚形8,000点（４翻） 良形3,900点＞愚形8,000点 リーチして3,900点は一発裏による打点上昇効率がもっとも良い（平均和了点は6,500点程度）。但し、",
+          "priorTranslation": "切出后听三面。 *好形2,600点＞愚形5,200点* 这一选择的差距也很微妙，理由与上面第二项相同。不过，如果是两面立直宝牌1张与双碰立直宝牌2张（或宝牌3张）相比，则后者有利。 *好形2,600点＜愚形8,000点（4番）* *好形3,900点＞愚形8,000点* 立直后为3,900点的牌，通过一发、里宝牌提升打点的效率最高（平均和牌点数约为6,500点）。不过，",
+          "paragraphId": "modern-yabejp-ja:chapter01-section021-06:p0007",
+          "contextIds": [
+            "modern-yabejp-ja:chapter01-section021-06:b0017",
+            "modern-yabejp-ja:chapter01-section021-06:b0018",
+            "modern-yabejp-ja:chapter01-section021-06:b0019",
+            "modern-yabejp-ja:chapter01-section021-06:b0020",
+            "modern-yabejp-ja:chapter01-section021-06:b0021",
+            "modern-yabejp-ja:chapter01-section021-06:b0022",
+            "modern-yabejp-ja:chapter01-section021-06:b0023",
+            "modern-yabejp-ja:chapter01-section021-06:b0024",
+            "modern-yabejp-ja:chapter01-section021-06:b0025",
+            "modern-yabejp-ja:chapter01-section021-06:b0026",
+            "modern-yabejp-ja:chapter01-section021-06:b0027",
+            "modern-yabejp-ja:chapter01-section021-06:b0028",
+            "modern-yabejp-ja:chapter01-section021-06:b0029",
+            "modern-yabejp-ja:chapter01-section021-06:b0030",
+            "modern-yabejp-ja:chapter01-section021-06:b0031"
+          ]
+        },
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section021-06:b0033",
+          "sourceText": "良形1,000点＞愚形2,000点 1,000点を2,000点にしても順位期待値にはあまり影響しないので良形重視。（ピンフのみをリーチするのとは意味が違う。リーチ･ピンフの平均和了点は一発裏があるので3,500点程度になるし、和了率も良形を愚形にするほど下がらない。） 良形2,000点＞愚形3,900点 良形2,000点＜愚形5,200点 良形2,600点＜愚形5,200点 良形3,900点＞愚形5,200点 良形3,900点＜愚形8,000点 但し、中盤過ぎると微妙になる。また、リャンメン役牌赤ドラとドラ単騎の役牌赤ドラドラなら、和了率に大きく差が出るので前者有利。同様のことは2,600点と5,200点の選択にも言える。 良形5,200点＞愚形8,000点 良形8,000点＞愚形12,000点 愚形待ちにした時がドラ待ちであれば、更に和了率が下がるので、上記の例で愚形有利な場合でも良形が若干有利になります。  ",
+          "priorTranslation": "*好形1,000点＞愚形2,000点* 将1,000点提高到2,000点，对顺位期望值影响不大，因此重视好形。（这与只有平和时选择立直的意义不同。立直、平和由于有一发、里宝牌，平均和牌点数会达到约3,500点，而且和牌率也不会像从好形变为愚形那样下降。） *好形2,000点＞愚形3,900点* *好形2,000点＜愚形5,200点* *好形2,600点＜愚形5,200点* *好形3,900点＞愚形5,200点* *好形3,900点＜愚形8,000点* 不过，过了中盘后就难分优劣了。另外，如果是两面听的役牌加赤宝牌，与宝牌单骑的役牌加赤宝牌再加宝牌相比，由于和牌率会有很大差距，因此前者有利。2,600点与5,200点之间的选择也同样如此。 *好形5,200点＞愚形8,000点* *好形8,000点＞愚形12,000点* 如果选择愚形时听的是宝牌，和牌率还会进一步下降，因此，即使在上述例子中愚形有利的情况下，也会变成好形略微有利。  ",
+          "paragraphId": "modern-yabejp-ja:chapter01-section021-06:p0009",
+          "contextIds": [
+            "modern-yabejp-ja:chapter01-section021-06:b0031",
+            "modern-yabejp-ja:chapter01-section021-06:b0032",
+            "modern-yabejp-ja:chapter01-section021-06:b0033",
+            "modern-yabejp-ja:chapter01-section021-06:b0034",
+            "modern-yabejp-ja:chapter01-section021-06:b0035"
+          ]
+        }
+      ],
+      "contextBlockIds": [
+        "modern-yabejp-ja:chapter01-section021-06:b0017",
+        "modern-yabejp-ja:chapter01-section021-06:b0018",
+        "modern-yabejp-ja:chapter01-section021-06:b0019",
+        "modern-yabejp-ja:chapter01-section021-06:b0020",
+        "modern-yabejp-ja:chapter01-section021-06:b0021",
+        "modern-yabejp-ja:chapter01-section021-06:b0022",
+        "modern-yabejp-ja:chapter01-section021-06:b0023",
+        "modern-yabejp-ja:chapter01-section021-06:b0024",
+        "modern-yabejp-ja:chapter01-section021-06:b0025",
+        "modern-yabejp-ja:chapter01-section021-06:b0026",
+        "modern-yabejp-ja:chapter01-section021-06:b0027",
+        "modern-yabejp-ja:chapter01-section021-06:b0028",
+        "modern-yabejp-ja:chapter01-section021-06:b0029",
+        "modern-yabejp-ja:chapter01-section021-06:b0030",
+        "modern-yabejp-ja:chapter01-section021-06:b0031",
+        "modern-yabejp-ja:chapter01-section021-06:b0032",
+        "modern-yabejp-ja:chapter01-section021-06:b0033",
+        "modern-yabejp-ja:chapter01-section021-06:b0034",
+        "modern-yabejp-ja:chapter01-section021-06:b0035"
+      ],
+      "dictionaryUnboundImages": 0,
+      "outputPath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-06.coac269rev1.json"
+    }
+  ],
+  "ok": true,
+  "errors": []
+}

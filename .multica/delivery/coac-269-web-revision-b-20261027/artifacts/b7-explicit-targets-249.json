@@ -1,0 +1,42 @@
+{
+  "schema": "coach-explicit-audit-targets/1",
+  "createdAt": "2026-10-27T11:55:08.211Z",
+  "source": "COAC-269 line B batch-7 produced candidates on their needs-repair display parents; prepared from the b7 preflight/claim/production/selfcheck receipts. No audit dispatched here.",
+  "totalTargets": 2,
+  "targets": [
+    {
+      "kind": "complete-web-candidate",
+      "chapterId": "nemata-jp-chapter-089-1",
+      "articleId": "chapter01-section031",
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section031.coac269rev1.json",
+      "sourceId": "modern-yabejp-ja",
+      "sourceSha256": "c69694f31974fc506ba30b69434ed64a700112dc6d7bb2d67916aa9ef19126a4",
+      "sha256": "c5317d995648afeefdb370b314047e36f0368609a19a2db6be103385646565a6",
+      "parentSha256": "9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb",
+      "parentAuditSha256": "38463b0c66018574d1cca6a52a4c667346b70864ad5bcf2e84454f759e2fdba9",
+      "category": "coac269-line-b-targeted-multi-text-revision",
+      "targets": [
+        "modern-yabejp-ja:chapter01-section031:b0042",
+        "modern-yabejp-ja:chapter01-section031:b0084",
+        "modern-yabejp-ja:chapter01-section031:b0102",
+        "modern-yabejp-ja:chapter01-section031:b0153"
+      ]
+    },
+    {
+      "kind": "complete-web-candidate",
+      "chapterId": "nemata-jp-chapter-060-1",
+      "articleId": "chapter01-section021-06",
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-06.coac269rev1.json",
+      "sourceId": "modern-yabejp-ja",
+      "sourceSha256": "febc8cef9c299b375c225843e4d33a27a2167c3729bf8c590e472433f548eda5",
+      "sha256": "6de46bfb824281e9facea8bd30eebf1498b7ae047e4c006250aeaa2800b0c64c",
+      "parentSha256": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+      "parentAuditSha256": "f13f9da62cd633bf21c036ba4439b913e987b5334a4660e465ad80f0772d0cf7",
+      "category": "coac269-line-b-targeted-multi-text-revision",
+      "targets": [
+        "modern-yabejp-ja:chapter01-section021-06:b0027",
+        "modern-yabejp-ja:chapter01-section021-06:b0033"
+      ]
+    }
+  ]
+}
