@@ -1553,3 +1553,58 @@ Recovery startup verified: `01a17f9e-a0f7-78f2-9f88-f1df09ef5bd3` actually start
 Its real250 checkout HEAD `9830323a52ab656732e7ecdddd89f61b97efb3b3` contains the packaging fix; the single original
 wakeup has fired once. This is actual started_at/branch evidence, not merely a queued task.
 Only the restored original zero-model registration continues; this repair's work is complete.
+
+## Batch23 — b1017 exact deletion, first target audit handed to249
+
+Authorization `01a17f97-7b92-7797-8d8f-14284b6fa298` adds at most one maker and one
+first target audit, two actual calls total, failed/void counted and zero retries. The250 path
+recovery above completed before this phase. The latest effective register from244 has six
+blocking findings; the newer1017 error, rather than its superseded historical suggestion,
+is bound to the real independent call `53722d02-3924-4fba-b304-68df1b2b45f0` and original raw.
+
+Current parent is `b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458`,
+parent audit `93366b71af9e39d56305d20f7cf2b88a9a5b84ce24b80c2cbcf135008f0616df`.
+Only `modern-yabejp-ja:chapter06-exercise003:b1017` changes: delete
+`（小三元／大三元）`, retaining `三元役` and every condition. Complete Q65 b1008–b1021
+and11 original PNGs are bound. The existing web entry has no applicable deterministic text
+raw derivation; one real maker was used, with no invented derivative receipt.
+
+The frozen runtime `coac269-283-1017-v2-20261028` pins32 files plus the preceding snapshot
+and244 schema-v2 manifest. Its new exact-parent adapter recursively verifies the existing
+real production/review chain and binds only the current parent audit and this single target.
+The244 CLI transport/provider configuration is byte-identical. The actual production request
+uses a one-value expected-text enum before dispatch; output and candidate checks run before
+candidate creation.25 zero-call checks pass, including the old entry's refusal, exact scope,
+deferred issue hashes, wrong text/target, extra output, punctuation/emphasis, figures, order,
+table fields and the real prompt/schema/model/image request construction. No source or raw
+was rewritten and no gate was relaxed.
+
+Real maker call `05ea64d4-b72a-4280-af42-a97fe5d88230` completed successfully:
+**gpt-6.1-terra/max**,11 original images,25202 input/0 cached/138 output tokens,8651ms.
+Raw SHA `1334bcd512640b35c6f31df7a515aacb0b6921f4fbd1801b947ff37690f941d2`;
+candidate SHA `de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c`.
+`selfcheck.mjs` verifies the actual closed prompt/schema, image order/SHA/bytes and session
+events against the preflight, the unique ledger/raw and real production provenance. Exactly
+one body block differs;1194 other blocks and524 complete figure objects remain identical.
+b1181/0168/0396/0962 passed content, six-table137-block94-image scope, Q8 limitations,
+tableContext/sourceSegments/order and batch010 inherit their original evidence. The maker-B
+slot and chapter claim both released normally.
+
+Shared handoff `integration/coac269-283-1017-repair-handoff-249-20261028.json` has SHA
+`9d94cb1b0cc0c7b4f7638af347338aad6e9d376f7e112bacaf21933efcfc0877`.
+Before enqueueing,249 was idle, with no same-SHA audit ledger, receipt, checkpoint or duplicate
+handoff rule. Existing249 owner wakeup `01a17fb4-e2b4-7927-8de6-681ce7ed5bd3` receives the
+published `review-requests.json` boundary, frozen verifier, full parent/raw chain and one
+remaining first-audit allowance for group009/b1017 only. No new consumer or full-chapter
+review was created. Its actual image request must use terra/max; caller labels are insufficient.
+
+The effective six blockers remain open pending independent acceptance; this production does
+not close1017. Original12 non-target deferred findings and two source-notes remain byte-bound.
+The generic whole-chapter verifier's needs-repair refusal is expected and must remain visible;
+the scoped verifier authenticates target checkpoints without declaring the chapter passed.
+0785/0947 and all other chapters were untouched. No chapter was integrated or switched active.
+This run used1/2 calls, zero failures/voids and zero retries; only one first target review remains.
+Money, remote weights and upstream execution total are unknown. Evidence and executable checks
+are in `artifacts/b23-1017`; all new package paths are checked at the real Windows root against
+the strict240-character boundary before push. Ticket remains in_progress; draft PR74 is software
+delivery evidence, not independent textbook acceptance.

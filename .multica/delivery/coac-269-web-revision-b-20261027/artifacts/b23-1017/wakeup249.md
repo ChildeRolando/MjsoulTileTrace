@@ -1,0 +1,19 @@
+接续269明确授权评论01a17f97-7b92-7797-8d8f-14284b6fa298，仅283 b1017删括注后的新SHA首次目标独审。不是新制作/整章审，不复审1181/0168/0396/0962/六表/Q8/batch010，不识牌填unknown，复杂0785/0947不碰。
+
+根E:/AgentData/Coach/knowledge/processing。唯一完整交接integration/coac269-283-1017-repair-handoff-249-20261028.json，SHA256=9d94cb1b0cc0c7b4f7638af347338aad6e9d376f7e112bacaf21933efcfc0877。
+canonical nemata-jp-chapter-283-1；新candidate de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c，实际从b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458延续；父审93366b71af9e39d56305d20f7cf2b88a9a5b84ce24b80c2cbcf135008f0616df。
+唯一targetTextId=modern-yabejp-ja:chapter06-exercise003:b1017/group009，targetFigureIds=[]。只删除“（小三元／大三元）”，保留“三元役”与全部原条件。现文“搭子过多，又有三元役的可能，所以保留发，宝牌为”。原审53722d02明确error及raw不改，原建议、历史制作全保留。完整Q65 b1008–b1021及11张原PNG、6s/混一色/对对和/切2m条件真实进入制作与发布审校上下文。
+
+本新批最多2真实calls：唯一maker 05ea64d4-b72a-4280-af42-a97fe5d88230已成功前台收齐，实际gpt-6.1-terra/max、11原图，25202in/0cache/138out、8651ms，raw SHA1334bcd512640b35c6f31df7a515aacb0b6921f4fbd1801b947ff37690f941d2。现余仅1次b1017首次独审，failed/void计，0retry；不借其它批预算。未使用伪造派生稿或155恢复入口。maker-B及canonical claim已正常释放。
+
+唯一冻结audit/runtimes/coac269-283-1017-v2-20261028/runtime-manifest.json SHA0f0c2846f961e12c12aaee72c5c06cfef3166087f0da21219cb9c609f13b7715，32依赖。新adapter只绑定此真实父审/一个target，递归验证之前所有真实生产/raw/目标checkpoint和原始父审，未放宽通用门禁。schema-v2 CLI与244已验原字节相同，实际含图必须terra/max。25项零调用failclosed已通过；真实maker prompt/schema/images逐字段等于预检请求，拒绝任何标点/非靶改变、增段加图/源字段变动。
+
+共享run web-production/v1/runs/coac269-283-1017-v2-20261028/review-requests.json发布本SHA唯一真实审校prompt/schema/images边界；用其原始字符串构造运输请求，路径分隔符差异只能作同SHA/字节/图序的别名，不能替换实际发布请求。入口textbook-audit-web.mjs的auditWebCandidate，目标验真verifyGroupRevisionAudit。只审b1017，11原图是必要条件图证，不是figure targets。原caller sol/high由schema-v2按实际images解析terra/max，须核真实argv、-i图序、requestExecution、原图SHA/bytes、完整session/events/stdout/raw与usage/cache/耗时。
+
+临派先读本票最新状态/评论/在途；按同SHA raw/标准ledger/receipt/checkpoint/dispatch去重，STOP/限额照旧，使用既有单audit guard，勿删锁、另开消费者或把未派计为已审。269交接前同SHA receipt/ledger均0，249已无活动run及相同handoff规则。每次结果前台收齐；任何失败留raw与准确账，不retry。
+
+1194非靶块、524完整图对象、sourceSegments/tableContext/强调/图序原样。b1181最新passed、0168/0396/0962原passed、六表137块94图、Q8原21块7图与mandatoryLimits、batch010113块按精确未改hash继承，不重新列靶点。inherited-evidence.json/selfcheck.json包含原独审raw/checkpoint及递归父链证明；审校投影可含必要上下文，范围仍唯一1017。原12非靶deferred与2source-note原issueSHA/severity保持；当前有效账仍6阻断，在真实新pass前不可先闭1017。
+
+标准aggregate预期仍needs-repair，通用verifyAuditForWebCandidate会拒绝web_audit_not_passed_or_inputs_changed。此不是远端transport失败；保留实际返回，用同冻结verifyGroupRevisionAudit收齐目标checkpoint/raw/继承与合并验证，不retry、不伪造整章passed。若目标通过，立即向既有244/250更新精确逐项账；不得以新全稿覆盖其它分支、提前合库整章或切active。
+
+结果回269原授权线程01a17f97-7b92-7797-8d8f-14284b6fa298。费用、远端权重、上游实际执行总次数未暴露即unknown。此交接不授权后续重制或复审。
