@@ -1,6 +1,6 @@
 {
  "schema": "coach-unified-repair-list/1",
- "recordedAt": "2026-10-27T12:55:00.000Z",
+ "recordedAt": "2026-10-27T13:40:00.000Z",
  "denominator": {
   "originalChapters": 256,
   "completeOriginalChapters": 186,
@@ -407,7 +407,7 @@
    "sourceCheck": "source-check-p257-20261027.json",
    "nextAction": "把 zoomRead 的 5 条确认读出 + 1 条中置信（右方#2=5m）做成一次定点 revision，然后派 1 次页审校，同轮验证同源争议（上方#1 与左方#2/#3/#4）；审校未过或证据仍冲突的位置保持 unknown。",
    "zoomRead": {
-    "recordedAt": "2026-10-27T12:55:00.000Z",
+    "recordedAt": "2026-10-27T13:40:00.000Z",
     "modelCalls": 0,
     "evidence": "source-check-p257-20261027.json#zoomReadContinuation",
     "readOut": {
