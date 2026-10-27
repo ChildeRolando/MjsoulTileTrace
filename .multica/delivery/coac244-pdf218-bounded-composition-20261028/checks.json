@@ -1,0 +1,95 @@
+{
+  "checks": [
+    {
+      "name": "real exact runtime/ledger/raw + 18 source quotes + 7 limitations + stage/preview/corpus/HTML",
+      "passed": true
+    },
+    {
+      "name": "missing unknown",
+      "rejected": true
+    },
+    {
+      "name": "guessed first souzu",
+      "rejected": true
+    },
+    {
+      "name": "missing independent permission",
+      "rejected": true
+    },
+    {
+      "name": "actual east count certified",
+      "rejected": true
+    },
+    {
+      "name": "actual dealer certified",
+      "rejected": true
+    },
+    {
+      "name": "hidden hand certified",
+      "rejected": true
+    },
+    {
+      "name": "claimed whole page pass",
+      "rejected": true
+    },
+    {
+      "name": "old uncertain changed",
+      "rejected": true
+    },
+    {
+      "name": "quote moved",
+      "rejected": true
+    },
+    {
+      "name": "missing one exact limitation",
+      "rejected": true
+    },
+    {
+      "name": "missing claim context mapping",
+      "rejected": true
+    },
+    {
+      "name": "source image b5 absent",
+      "rejected": true
+    },
+    {
+      "name": "display limitation missing",
+      "rejected": true
+    },
+    {
+      "name": "display limitation changed",
+      "rejected": true
+    },
+    {
+      "name": "note attributed to source",
+      "rejected": true
+    },
+    {
+      "name": "217 mandatory note absent",
+      "rejected": true
+    },
+    {
+      "name": "author condition changed",
+      "rejected": true
+    },
+    {
+      "name": "source contribution dropped",
+      "rejected": true
+    },
+    {
+      "name": "source contribution reordered",
+      "rejected": true
+    },
+    {
+      "name": "target unknown transcription changed",
+      "rejected": true
+    },
+    {
+      "name": "219 non-target figure changed",
+      "rejected": true
+    }
+  ],
+  "newModelCalls": 0,
+  "protectedInputsUnchanged": true,
+  "sourceFiles": 87
+}

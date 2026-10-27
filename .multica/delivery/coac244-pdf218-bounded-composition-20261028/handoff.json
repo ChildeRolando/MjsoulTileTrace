@@ -1,0 +1,47 @@
+{
+  "schema": "coac244-pdf218-bounded-composition-recorded/1",
+  "canonical": "79-cn-chapter-217-4",
+  "candidate": {
+    "path": "production/coac247-pdf218-consistent-unknown-20261028/candidates/79-cn/page-0218.json",
+    "sha256": "df8f2de33d1baf5141533810f22b59855aef0145729d612f003ae123c4e24157"
+  },
+  "composition": {
+    "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-244-8183a405025c\\worktree\\.multica\\delivery\\coac244-pdf218-bounded-composition-20261028\\composition-evidence.json",
+    "sha256": "9ea410cea9eaaf882233dc4d82bf0e037fa3933e0a6ccb69f7cc695a33e5efd1",
+    "bytes": 38085
+  },
+  "sharedComposition": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-pdf218-bounded-composition-20261028\\composition-evidence.json",
+  "intake": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-pdf217-limited-display-intake-20261028.json",
+    "sha256": "cecd437df94723e31a4a9d0a862f1ba9793faa822acfe6477c9a6a4186780e60",
+    "bytes": 3220
+  },
+  "realReadback": {
+    "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-250-21b1447b360f\\worktree\\_analysis\\coac250-217-display\\readback.json",
+    "sha256": "02dd4f81ecda62ff6cad1549fb7f59f09c6dc46c2de182cceb380400399b24af",
+    "bytes": 8208
+  },
+  "coverage": {
+    "originalChaptersCovered": 238,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 270,
+    "originalUnitsTotal": 303
+  },
+  "remainingOriginalChapters": 18,
+  "standardWholePage218Passed": false,
+  "originalReceiptStatus": "needs-repair",
+  "uncertainClaims": 5,
+  "displayLimits": 7,
+  "sourceQuoteMappings": 18,
+  "ownedSourceBlocks": 22,
+  "compiledBlocks": 24,
+  "figures": 4,
+  "checks244": 22,
+  "checks250": 13,
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "newConsumers": 0,
+  "noNewWakeup": true,
+  "formalActiveChanged": false,
+  "next": "复用250已经完成的v29集成/真实MCP-Arena读回；无需重复启动或等待218。其它18章依各自既有票继续。"
+}
