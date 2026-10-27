@@ -1,0 +1,108 @@
+{
+  "schema": "coac248-bounded-figure-preflight/1",
+  "at": "2026-10-27T15:39:07.474022+00:00",
+  "chapter": "79-cn-chapter-276-4",
+  "article": "cv1793434",
+  "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1793434.display.json",
+  "parentSha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+  "parentAuditPath": "audit/web/articles/79-bilibili-cn/cv1793434.34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af.json",
+  "parentAuditSha256": "8c7e8145f051809f5ad3d80eb4c8e7c4b9d669739c200fbec98e4f26307a9370",
+  "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1793434/source.json",
+  "sourceSha256": "db1218e9226ef5ccaf978ec6b6801bd07498017b821973647d0e551ed518439f",
+  "targets": [
+    "79-bilibili-cn:cv1793434:b0005:figure"
+  ],
+  "parentRaw": [
+    {
+      "callId": "bb90022e-1fda-4eb3-8f71-779df2bdd169",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\bb90022e-1fda-4eb3-8f71-779df2bdd169.json",
+      "sha256": "946d63e6a8193b31ebbd6420597abd338a0923183d3bce42859dcfa4e024366b"
+    }
+  ],
+  "sourceReadings": [
+    "b0005: 上方牌河屏幕左至右6s横置、5z、6p、倒置9m、7z、1z；将倒置万子旋读为九万，九的钩笔与右侧牌河末尾九万可比。与父审9m一致。"
+  ],
+  "inspectedAssets": [
+    {
+      "figureId": "79-bilibili-cn:cv1793434:b0005:figure",
+      "sourceBinding": {
+        "assetId": "79-bilibili-cn:e6d9adffb5691e034df6786d",
+        "path": "web-sources/v1/79-bilibili-cn/assets/4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+        "sha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+        "url": "https://i0.hdslb.com/bfs/article/c21bb0ec3be29c7d2274c064b33b7bffda8d4ff6.jpg"
+      },
+      "inspectedZoom": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+      "zoomSha256": "ff130bb4c934f7d58794ecde92422eacd097f589e27fe18a0e721da007236ed4"
+    }
+  ],
+  "entryPreflight": {
+    "preflightPassed": true,
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1793434",
+    "sourceBlocks": 42,
+    "textBlocks": 39,
+    "figureRuns": 3,
+    "pendingFigureRuns": 1,
+    "imageOccurrences": 3,
+    "modelCalls": 0
+  },
+  "modelCalls": 0,
+  "frozenFiles": [
+    {
+      "name": "textbook-audit-legacy.mjs",
+      "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1"
+    },
+    {
+      "name": "textbook-audit-pdf-layout.mjs",
+      "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+    },
+    {
+      "name": "textbook-audit-pdf-native.mjs",
+      "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+    },
+    {
+      "name": "textbook-audit-pdf-scope.mjs",
+      "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+    },
+    {
+      "name": "textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+    },
+    {
+      "name": "textbook-audit-tile-dictionary.mjs",
+      "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+    },
+    {
+      "name": "textbook-audit-web-batches.mjs",
+      "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+    },
+    {
+      "name": "textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "name": "textbook-audit-web.mjs",
+      "sha256": "a585d2fc9858c2f894355146d8a0b779e53b1a405021fec573613786a186ea75"
+    },
+    {
+      "name": "textbook-audit.mjs",
+      "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+    },
+    {
+      "name": "textbook-production-cli.mjs",
+      "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+    },
+    {
+      "name": "textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+    },
+    {
+      "name": "textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "name": "textbook-production-web.mjs",
+      "sha256": "f31c255e0654af7c88f240067b886cc92f6de5aa9242eeca12292b52eee3945c"
+    }
+  ]
+}

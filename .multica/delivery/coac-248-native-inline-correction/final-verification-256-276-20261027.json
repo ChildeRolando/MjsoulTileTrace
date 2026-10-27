@@ -1,0 +1,26 @@
+{
+  "chapters": [
+    {
+      "chapterId": "79-cn-chapter-256-18",
+      "candidateSha256": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2",
+      "rawSha256": "cc04bdd2b664b500720396e8c6a089716f3324900aa5000ffe7d05b26115a9b8",
+      "originalParentSourceAuditRawUnchanged": true,
+      "localCandidateExactBytes": true
+    },
+    {
+      "chapterId": "79-cn-chapter-276-4",
+      "candidateSha256": null,
+      "callId": "2375640c-3a8d-45e7-9601-4b810fe87e80",
+      "usage": null,
+      "originalParentSourceAuditRawUnchanged": true,
+      "noNewCandidate": true,
+      "retry": false
+    }
+  ],
+  "stopFiles": {
+    "STOP": false,
+    "web-production/v1/STOP": false,
+    "model-admission-stop.json": false
+  },
+  "newModelCalls": 0
+}

@@ -1,0 +1,147 @@
+{
+ "schema": "coac-248-round-record/1",
+ "recordedAt": "2026-10-27T15:44:33.222698+00:00",
+ "triggerComment": "01a17df7-fa5b-72cc-906c-7e13914534bd",
+ "scope": [
+  "79-cn-chapter-256-18",
+  "79-cn-chapter-276-4"
+ ],
+ "objects": [
+  {
+   "chapterId": "79-cn-chapter-256-18",
+   "articleId": "cv1785770",
+   "parentSha256": "84f27b9562fc5341a15ff938abf2db84a2ba0ba25cd30241e84996101500df69",
+   "candidateSha256": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2",
+   "sourceSha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23",
+   "targets": [
+    "79-bilibili-cn:cv1785770:b0016:figure"
+   ],
+   "status": "awaiting-COAC-249-first-independent-full-article-review",
+   "calls": {
+    "production": 1,
+    "audit": 0,
+    "void": 0,
+    "failed": 0,
+    "recoveredWithoutNewCall": 0
+   },
+   "usage": {
+    "inputTokens": 18608,
+    "cachedInputTokens": 0,
+    "outputTokens": 8364
+   },
+   "callId": "8edb9889-e306-4695-8b5a-1bc1dc8cf37e",
+   "slot": {
+    "acquired": "2026-10-27T15:28:58.808Z",
+    "released": "2026-10-27T15:37:31.090348+00:00"
+   },
+   "bodyTextBlocks": 38,
+   "unchangedCompleteFigures": 3,
+   "changedTargetFields": [
+    {
+     "figureId": "79-bilibili-cn:cv1785770:b0016:figure",
+     "fields": [
+      "transcription",
+      "unknowns",
+      "caption",
+      "sourceNotes",
+      "provenance"
+     ]
+    }
+   ],
+   "handoff": "integration/coac249-incremental-256-18-20261027.json",
+   "wakeup249": "01a17e08-3f24-7527-9058-c14f5e4d0fc4",
+   "evidence": "receipt-web256-18.rev1-awaiting-review.json"
+  },
+  {
+   "chapterId": "79-cn-chapter-276-4",
+   "articleId": "cv1793434",
+   "parentSha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+   "candidateSha256": null,
+   "sourceSha256": "db1218e9226ef5ccaf978ec6b6801bd07498017b821973647d0e551ed518439f",
+   "targets": [
+    "79-bilibili-cn:cv1793434:b0005:figure"
+   ],
+   "status": "failed-no-output-no-retry",
+   "calls": {
+    "production": 1,
+    "audit": 0,
+    "failed": 1,
+    "void": 0,
+    "recoveredWithoutNewCall": 0
+   },
+   "usage": null,
+   "callId": "2375640c-3a8d-45e7-9601-4b810fe87e80",
+   "slot": {
+    "acquired": "2026-10-27T15:39:07.668Z",
+    "released": "2026-10-27T15:42:45.560858+00:00"
+   },
+   "handoff": null,
+   "wakeup249": null,
+   "evidence": "receipt-web276-4.rev1-failed.json"
+  }
+ ],
+ "modelCalls": {
+  "production": 2,
+  "audit": 0,
+  "void": 0,
+  "failed": 1,
+  "recoveredWithoutNewCall": 0
+ },
+ "policy": {
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "productionPerChapterLimit": 1,
+  "automaticRetry": false,
+  "independentReviewBy": "COAC-249",
+  "independentReviewPerCandidateLimit": 1,
+  "BLine15711And2055Untouched": true,
+  "p217p257Calls": 0,
+  "newFrameworkOrIssueOrWorkTask": false
+ },
+ "preservation": "Original source, parents, old audits, raw and unpresented producer output retained. New display candidates use verified existing presentation derivation; complete non-target objects, body and order are byte-identical under JSON serialization. All target-field changes are listed in per-chapter evidence.",
+ "semanticAcceptance": null,
+ "productCodeChanged": false,
+ "pullRequestRequired": false,
+ "usage": {
+  "knownSuccessfulProduction": {
+   "inputTokens": 18608,
+   "cachedInputTokens": 0,
+   "outputTokens": 8364
+  },
+  "failedProduction": null,
+  "total": null,
+  "note": "276-4 has no usage receipt; unknown is not zero."
+ },
+ "next": "Finish at this finite two-chapter boundary after handing available candidates to249; no whole-book wait, no new A production wakeup.",
+ "remainingSourceParentSummary": "remaining-source-parent-256-276-20261027.json",
+ "chapterClaimRelease": [
+  {
+   "ok": true,
+   "action": "unclaim",
+   "chapter": "79-cn-chapter-256-18",
+   "released": {
+    "schema": "coach-textbook-chapter-claim/1",
+    "chapterId": "79-cn-chapter-256-18",
+    "candidateSha256": "84f27b9562fc5341a15ff938abf2db84a2ba0ba25cd30241e84996101500df69",
+    "lane": "A",
+    "owner": "COAC-248 Mika",
+    "slot": null,
+    "claimedAt": "2026-10-27T15:28:58.749Z"
+   }
+  },
+  {
+   "ok": true,
+   "action": "unclaim",
+   "chapter": "79-cn-chapter-276-4",
+   "released": {
+    "schema": "coach-textbook-chapter-claim/1",
+    "chapterId": "79-cn-chapter-276-4",
+    "candidateSha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+    "lane": "A",
+    "owner": "COAC-248 Mika",
+    "slot": null,
+    "claimedAt": "2026-10-27T15:39:07.603Z"
+   }
+  }
+ ]
+}
