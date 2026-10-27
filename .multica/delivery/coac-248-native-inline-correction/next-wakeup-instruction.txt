@@ -1,7 +1,8 @@
-继续 COAC-248 主线（262 已 passed；261 原审项已清除但新审校定位 r50 的 3m/5m 缺陷）。
+继续 COAC-248 主线（330 已 passed，metadata 四页仍 unresolved-evidence 且证据清单已建）。
 
 本轮任务：
-1. 先读 `.multica/delivery/coac-248-native-inline-correction/next-round-instruction.md`、`summary-p261-p262.json` 与刷新后的 `unified-repair-list-20261027.json`。
-2. 做 1–2 项：nemata-jp:261 修订 2（只改 r50 为 5m，父稿 376c71a3…，原审用本轮 needs-repair 回执）；nemata-jp:260 的 5 处定点（先免费源图核）。
-3. 330 与 nemata-jp 1/2/3/317 保持挂起，不重跑审校、不重制整页；两项 failed 不盲重试。
-4. 沿用定点 revision + 真实独审，保留父稿/旧审/原始 raw；每轮只发一条最终结果评论，状态 in_progress；完整章节才交 COAC-250。
+1. 先读 `.multica/delivery/coac-248-native-inline-correction/next-round-instruction.md`、`summary-p330-structure.json` 与刷新后的 `unified-repair-list-20261027.json`。
+2. 做 1–2 项：nemata-jp:261 修订 2（只改 r50 为 5m，父稿 376c71a3…）；nemata-jp:260 的 5 处定点（先免费源图核）。
+3. p317 b5 需先给定点入口加 unknowns 数组条目，再与 b5 同一 job 独审；四页保持 unresolved-evidence，不改 passed、不入正式库。
+4. 330 不再改；两项 failed 不盲重试，先确认无在途调用与质量 STOP。
+5. 沿用定点 revision + 真实独审，保留父稿/旧审/原始 raw；每轮只发一条最终结果评论，状态 in_progress；完整章节才交 COAC-250。
