@@ -1,0 +1,203 @@
+{
+  "schema": "coac269-batch9-semantic-failure/1",
+  "ticket": "COAC-269",
+  "line": "B",
+  "batch": "b9",
+  "recordedAt": "2026-10-27T15:28:34.781808+00:00",
+  "modelCalls": 1,
+  "productionCalls": 1,
+  "retries": 0,
+  "chapterId": "79-cn-chapter-205-5",
+  "articleId": "cv1770234",
+  "targetFigure": "79-bilibili-cn:cv1770234:b0004:figure",
+  "source": {
+    "path": "web-sources/v1/79-bilibili-cn/assets/104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67.png",
+    "sha256": "104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67"
+  },
+  "parent": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1770234.display.json",
+    "sha256": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6",
+    "transcription": "中央文字及标记：东2局1本场；立直棒1根；宝牌：3p。中央上缘横放1根白色、中央带红点的立直棒。\n座位风：下侧北（4z），右侧东（1z），上侧南（2z），左侧西（3z）。\n下侧手牌从左到右：1m 1m 6m 8m 3p 5p 7p 7p 9p 2s 3s 3s 4s；右侧间隔后摸入6s。\n其他三家的暗手：上侧13张牌背，右侧13张牌背，左侧10张牌背。\n弃牌区以下均按画面从上到下逐行记录，每行从左到右；无牌位置不计作5z。上侧普通弃牌倒置，左侧普通弃牌顺时针旋转90°，右侧普通弃牌逆时针旋转90°，下侧弃牌正立。\n上侧弃牌区：外侧一行：3m 1p 9m 7s；其中最右7s为立直宣言牌，画面横置，与该行其他牌的下缘对齐。靠中央一行：8p 2m 6p 2z 6z 9s。\n左侧弃牌区：第1行：2p 6z；第2行：8m 未辨明索子牌；第3行：3z 1s；第4行：3z 2s；第5行：3z 9s；第6行：左格无牌，右格9s。\n右侧弃牌区：第1行：左格3s，右格无牌；第2行：左格5z，右格无牌；第3行：7z 1p；第4行：1z 7s；第5行：2z 7s；第6行：3z 6m。\n下侧弃牌区：第1行：2z 4z 6z 9s 1z 2z；第2行：8s 2m 2m 6p。\n左下方副露属于左侧玩家：按画面从上到下为2m、1m、3m，组成123m的吃。2m在画面中正立，为被吃入后相对于该家通常牌面横置的一张；1m、3m均顺时针旋转90°。\n未见赤牌。"
+  },
+  "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1770234.coac269rev1.json",
+    "sha256": "8c0cfff82dbf0c339dc1474ad84e51a4b9c55554ab62a64dfc472f6604a555ec",
+    "transcription": "中央文字：东2局1本场；立直棒1根；宝牌：3p。宝牌标签位于3p左侧。中央上缘横放1根白色立直棒，中央有红点。\n座位风：下侧北（4z），标签位于中央区域左下角；左侧西（3z），标签位于左上角；上侧南（2z），标签位于右上角；右侧东（1z），标签位于右下角。\n下侧手牌从左到右：1m 2m 6m 8m 3p 5p 7p 7p 9p 2s 3s 3s 6s；右侧间隔后摸入8s。\n左侧副露位于画面左下方，从上到下：1m 1m 1m，为一万的碰。第一张在画面中正立，相对于左侧玩家的通常牌面横置；第二、第三张在画面中顺时针旋转90°。\n其余暗手：上侧13张牌背，左侧10张牌背，右侧13张牌背。\n以下弃牌均按画面从上到下逐行记录，每行从左到右。上侧普通弃牌倒置；左侧普通弃牌顺时针旋转90°；右侧普通弃牌逆时针旋转90°；下侧弃牌正立。空位不计作白板。\n上侧弃牌区：最上行：3m 1p 6m 7s。其中7s为立直宣言牌，在画面中顺时针旋转90°，与本行其他牌下缘对齐。靠中央一行：8p 2m 6p 2z 6z 9s；该行比上一行向左多伸出两格。\n左侧弃牌区：第1行：2p 6z；第2行：8m 6s；第3行：3z 1s；第4行：3z 2s；第5行：3z 9s；第6行：9s，与前五行右格对齐。第2行右格6s在画面中顺时针旋转90°。\n右侧弃牌区：第1行：3s；第2行：5z；第3行：7z 1p；第4行：1z 7s；第5行：2z 7s；第6行：3z 9m。前两行与后四行左格对齐。\n下侧弃牌区：第1行：2z 4z 6z 9s 1z 2z；第2行：4s 2m 2m 6p，与上一行左侧四格对齐。\n未见赤牌或摸切箭头。"
+  },
+  "productionReceipt": "web-production/v1/coac269-20261027/receipts/production-b9-489e4b6d636f65a0.json",
+  "selfCheckReceipt": "web-production/v1/coac269-20261027/receipts/selfcheck-b9-1e0e69b781973aae.json",
+  "mechanical": {
+    "verifyWebRevisionContent": true,
+    "verifyWebProductionCall": true,
+    "webDeterministicChecks": true,
+    "note": "all three frozen gates pass: they check bindings and scope, not whether the model read the image correctly"
+  },
+  "diffs": [
+    {
+      "area": "下侧手牌",
+      "position": "第 2 张",
+      "parent": "1m",
+      "modelCandidate": "2m",
+      "sourceRead": "1m",
+      "verdict": "model wrong; parent faithful",
+      "evidence": [
+        {
+          "path": "evidence-b9/hand-first4-9x.png",
+          "sha256": "bb5b54ac94da738297fc0c130a1a8cac8bdd06aa0916feefff0e87a4d31da9e4",
+          "sourceImage": "web-sources/v1/79-bilibili-cn/assets/104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67.png",
+          "cropBox": [
+            75,
+            443,
+            220,
+            500
+          ],
+          "rotationApplied": 0
+        }
+      ],
+      "reading": "the first two tiles are both 一萬 (a single horizontal stroke over 萬); the model wrote 二萬 for the second."
+    },
+    {
+      "area": "下侧手牌",
+      "position": "第 13 张",
+      "parent": "4s",
+      "modelCandidate": "6s",
+      "sourceRead": "4s",
+      "verdict": "model wrong; parent faithful",
+      "evidence": [
+        {
+          "path": "evidence-b9/hand-tail-9x.png",
+          "sha256": "baa7398854a7817b5724f62dd774eed46ba9890962697bb0e0fdd889a5018569",
+          "sourceImage": "web-sources/v1/79-bilibili-cn/assets/104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67.png",
+          "cropBox": [
+            300,
+            443,
+            420,
+            500
+          ],
+          "rotationApplied": 0
+        }
+      ],
+      "reading": "tile 13 is 2 columns x 2 rows of bamboo = 4s; the model wrote 6s (3 columns x 2 rows)."
+    },
+    {
+      "area": "下侧摸入牌",
+      "position": "右侧间隔后摸入",
+      "parent": "6s",
+      "modelCandidate": "8s",
+      "sourceRead": "6s",
+      "verdict": "model wrong; parent faithful",
+      "evidence": [
+        {
+          "path": "evidence-b9/hand-tail-9x.png",
+          "sha256": "baa7398854a7817b5724f62dd774eed46ba9890962697bb0e0fdd889a5018569",
+          "sourceImage": "web-sources/v1/79-bilibili-cn/assets/104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67.png",
+          "cropBox": [
+            300,
+            443,
+            420,
+            500
+          ],
+          "rotationApplied": 0
+        }
+      ],
+      "reading": "the separated drawn tile is 3 columns x 2 rows = 6s, not the 8s the model wrote."
+    },
+    {
+      "area": "左下副露",
+      "position": "整组",
+      "parent": "2m、1m、3m，组成 123m 的吃",
+      "modelCandidate": "1m 1m 1m，为一万的碰",
+      "sourceRead": "2m、1m、3m，组成 123m 的吃",
+      "verdict": "model wrong; parent faithful",
+      "evidence": [
+        {
+          "path": "evidence-b9/left-meld-10x.png",
+          "sha256": "91c5d7c2c38d96f3ac10e92366eee37c451f35ec1f20da240954a5feadc2973c",
+          "sourceImage": "web-sources/v1/79-bilibili-cn/assets/104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67.png",
+          "cropBox": [
+            20,
+            320,
+            90,
+            420
+          ],
+          "rotationApplied": 0
+        }
+      ],
+      "reading": "the upright tile is 二萬 and the two clockwise-rotated tiles read 一萬 and 三萬; it is a 吃, not a 碰."
+    },
+    {
+      "area": "下侧弃牌区",
+      "position": "第 2 行第 1 张",
+      "parent": "8s",
+      "modelCandidate": "4s",
+      "sourceRead": "8s",
+      "verdict": "model wrong; parent faithful",
+      "evidence": [
+        {
+          "path": "evidence-b9/bottom-discards-7x.png",
+          "sha256": "3a58288e3266895b523bfd86b9f8901f9cc34adf9dc7cf8ef0e63a4b2b81c47d",
+          "sourceImage": "web-sources/v1/79-bilibili-cn/assets/104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67.png",
+          "cropBox": [
+            150,
+            290,
+            330,
+            375
+          ],
+          "rotationApplied": 0
+        }
+      ],
+      "reading": "the tile shows the 8s cross pattern (four corner sticks plus the X connectors), the same glyph as the 8s dora in b0013; the model wrote 4s."
+    },
+    {
+      "area": "上侧弃牌区",
+      "position": "外侧一行第 3 张",
+      "parent": "9m",
+      "modelCandidate": "6m",
+      "sourceRead": "9m (九萬)",
+      "verdict": "model likely wrong; parent faithful (glyph read; lower confidence than the rows above)",
+      "evidence": [
+        {
+          "path": "evidence-b9/top-discards-7x.png",
+          "sha256": "1409b1d37c6cfd972b40476c9bff25a112f42e282bd9653bfd49c95573d6ed01",
+          "sourceImage": "web-sources/v1/79-bilibili-cn/assets/104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67.png",
+          "cropBox": [
+            150,
+            60,
+            320,
+            160
+          ],
+          "rotationApplied": 0
+        },
+        {
+          "path": "evidence-b9/topA3-rot.png",
+          "sha256": "fae34411293e3ef55166678e385b51e662018af9234553fdefe2fc9b97d190df",
+          "sourceImage": "web-sources/v1/79-bilibili-cn/assets/104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67.png",
+          "cropBox": [
+            256,
+            74,
+            284,
+            120
+          ],
+          "rotationApplied": 180
+        }
+      ],
+      "reading": "rotated upright, the character above 萬 is 九 (a hook), not 六 (亠 + 八 as in the hand 六萬)."
+    }
+  ],
+  "conclusion": "The single budgeted production call returned a transcription that contradicts the bound source in at least five places (hand tiles 2 and 13, the drawn tile, the bottom-left meld type, and bottom discard row 2). The parent transcription was faithful in every one of those places. The candidate is therefore NOT a valid repair and is not handed to COAC-249 for first audit; it is kept as produced (void) and the chapter stays needs-repair with its 1 production call spent, under the no-retry rule.",
+  "decision": "void-no-retry-no-handoff",
+  "budget": {
+    "productionCallsAllowedPerChapter": 1,
+    "productionCallsUsed": 1,
+    "retriesAllowed": 0,
+    "firstAuditCallsAllowedPerChapter": 1,
+    "firstAuditSpent": false,
+    "note": "not handed to 249, so the first-audit budget was not spent"
+  },
+  "preserved": {
+    "rawCall": "web-production/v1/raw-calls/358f4e70-5660-4e0c-8918-6ad8a4287011.json",
+    "rawArtifactSha256": "4cf399c450ced144a4c36627f53a677ef83145872e34449fab4e145852a85fa5",
+    "candidateKeptAsProduced": true,
+    "handEdits": 0
+  }
+}
