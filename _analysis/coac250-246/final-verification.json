@@ -1,0 +1,72 @@
+{
+  "schema": "coac250-246-final-verification/1",
+  "recordedAt": "2026-10-27T15:38:04.336Z",
+  "allPassed": true,
+  "checks": [
+    {
+      "name": "builder-syntax",
+      "exitCode": 0
+    },
+    {
+      "name": "full-MCP",
+      "units": 233,
+      "exactImages": 5067
+    },
+    {
+      "name": "full-Arena",
+      "units": 233,
+      "exactBody": true
+    },
+    {
+      "name": "target-MCP-readback-before-publication",
+      "blocks": 62,
+      "images": 5,
+      "exactBody": true
+    },
+    {
+      "name": "source-deduplication",
+      "collisions": 0
+    }
+  ],
+  "coverage": {
+    "originalChaptersCovered": 225,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 257,
+    "originalUnitsTotal": 303
+  },
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T15-36-30-338Z",
+    "corpusId": "12bb459270f77dd68ac0dd4ce16151db13f5d04dda2d2aae8b7a0686e069f1bd",
+    "chapters": 225,
+    "units": 233,
+    "blocks": 6224,
+    "figures": 5067
+  },
+  "history": "E:/AgentData/Coach/knowledge/processing/integration/coac250-246-history-20261027",
+  "files": {
+    "selection-pin.patch": "eb0b26bc61c780441c846e6b15a4dadd0b010768e6f5ea04b029a9ee43a61b75",
+    "builder.after.mjs": "3062a1b0b07ceac949876dc1d12edb72b0f45f2b7aa7b6099c77de0f8b1710a2",
+    "variants.after.json": "54c89aac50d1c5535a824b70309404dfa9b5454712f6592e74177684d97c0556",
+    "handoff.json": "ec16dd22ae1ce0975f8a1326fde586a850f50434161ad6ee9823a51e22e225c2",
+    "preconsume.json": "5162df4b97994ece8df8ef4569db50c079ca8363f95da4ec9cbee007964d3304",
+    "gate-reverified.json": "8941b86e631a96c1720095a81eecc8a7f46999e06dc1ce9584ed4d228596000a",
+    "stage-receipt.json": "dd01047420e981e4825e1d7a23757434c5db4bc9537c64fd98b7d4d65dff41ef",
+    "intake-annotations.json": "4d3921d3a568a7b06bd7d89d5648250e65cb6629e5ef693edf4f7ce606165f5f",
+    "presentation-pixels.json": "13ccd603ae1a8d9126de6f17e3a0fa48ec02e13208e110279de59326c9e14d00",
+    "readback.json": "dc680d85364ceb8fadbb1c42b658fc7d90b5f929a686663c147581d7b065e1c2",
+    "coverage.json": "57afa2dde6273a2e61b589f30c6b13575aa92e08512be6b54312cca8276458b0",
+    "publication-journal.json": "3f65bdbd823ca9ff5e5d8cd9dce47b54a2b77bf84e0a19ff037a783e231cb768"
+  },
+  "sourceNotesRetained": 3,
+  "protectedInputsUnchanged": 59,
+  "unchangedOtherRegisterRows": 79,
+  "prior232UnitsIncluding090And027Unchanged": true,
+  "allOtherSelectionJobsUnchanged": true,
+  "otherHoldsAndDefinitionBindingsUnchanged": true,
+  "stagingCodeUnchanged": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a",
+  "builderPinsVerified": true,
+  "writerLocksAbsent": true,
+  "activeLibraryChanged": false,
+  "modelCalls": 0,
+  "productionCalls": 0
+}

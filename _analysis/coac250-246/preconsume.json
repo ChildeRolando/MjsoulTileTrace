@@ -1,0 +1,1110 @@
+{
+  "schema": "coac250-246-preconsume/1",
+  "recordedAt": "2026-10-27T15:35:50.186Z",
+  "allPassed": true,
+  "handoff": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-reviewed-a222-246-20261027.json",
+    "sha256": "ec16dd22ae1ce0975f8a1326fde586a850f50434161ad6ee9823a51e22e225c2"
+  },
+  "candidate": {
+    "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1785741.r1.display.json",
+    "sha256": "fc0027a140fb57b07aa1436c5c2bf26785942bd4bc8d88cf546f4f1362492d45"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1785741\\source.json",
+    "sha256": "ec4a726459f21d98599722ba4ccb5d8a95a5e96473a7a91be9f6cc88c8250c51"
+  },
+  "audit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1785741.fc0027a140fb57b07aa1436c5c2bf26785942bd4bc8d88cf546f4f1362492d45.json",
+    "sha256": "8fdd6033843b94c2669084bcb939e45cfe72837081408d512b398835db3206f3"
+  },
+  "prior": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T15-26-37-597Z",
+    "sha256": "0dbcf0c315bdaf3eedbaffc8785d7d57b1f98e6aa1a4531f31bd525d791370f4",
+    "chapters": 224,
+    "units": 232,
+    "blocks": 6162,
+    "figures": 5062
+  },
+  "versions": [
+    {
+      "file": "cv1785741.display.json",
+      "sha256": "06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713",
+      "status": "needs-repair",
+      "recordedAt": "2026-10-25T23:05:00.770Z"
+    },
+    {
+      "file": "cv1785741.json",
+      "sha256": "ab2b7a003059518337d2fb296c2f0717c227a9f539d39d5b2ade4377806f08bd",
+      "status": "none",
+      "recordedAt": null
+    },
+    {
+      "file": "cv1785741.r1.display.json",
+      "sha256": "fc0027a140fb57b07aa1436c5c2bf26785942bd4bc8d88cf546f4f1362492d45",
+      "status": "passed",
+      "recordedAt": "2026-10-27T15:25:29.947Z"
+    },
+    {
+      "file": "cv1785741.r1.json",
+      "sha256": "c69a75f6d514988d4e740942145ae87f848183f57d6ba61df55229fd125fa331",
+      "status": "none",
+      "recordedAt": null
+    }
+  ],
+  "gate": {
+    "schema": "coach-textbook-web-article-audit/1",
+    "status": "passed",
+    "recordedAt": "2026-10-27T15:25:29.947Z",
+    "source": {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1785741",
+      "url": "https://www.bilibili.com/read/cv1785741",
+      "title": "【日本麻雀讲座译文】状况判断6—状况与立直判断",
+      "language": "zh-CN",
+      "fetchedAt": "2026-10-23T20:31:57.719548+00:00",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1785741/source.json",
+      "sourceSha256": "ec4a726459f21d98599722ba4ccb5d8a95a5e96473a7a91be9f6cc88c8250c51",
+      "htmlSha256": "73c2af4d59653faa0c4583c4caf50297a3e4b18dea89b399bff125bd4f3af386",
+      "mainSha256": "59958f07144ecf210baf9695453409bb95f13c40f4ca562b35ed32b7cb8d560a"
+    },
+    "production": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785741.r1.display.json",
+      "sha256": "fc0027a140fb57b07aa1436c5c2bf26785942bd4bc8d88cf546f4f1362492d45"
+    },
+    "verification": "automatic-independent-review-not-user-human-gold-standard",
+    "deterministicChecks": {
+      "passed": true,
+      "errors": [],
+      "textBlocks": 57,
+      "imageRuns": 5,
+      "imageOccurrences": 5,
+      "figures": 5
+    },
+    "independentSource": {
+      "schema": "coach-textbook-web-independent-source-check/1",
+      "passed": true,
+      "errors": [],
+      "sourceFileSha256": "ec4a726459f21d98599722ba4ccb5d8a95a5e96473a7a91be9f6cc88c8250c51",
+      "rawHtmlSha256": "73c2af4d59653faa0c4583c4caf50297a3e4b18dea89b399bff125bd4f3af386",
+      "mainSha256": "59958f07144ecf210baf9695453409bb95f13c40f4ca562b35ed32b7cb8d560a",
+      "textBlocks": 57,
+      "imageRuns": 5,
+      "imageOccurrences": 5,
+      "uniqueAssets": 5,
+      "method": "offline independent html.parser character-and-image DOM event comparison",
+      "modelCalls": 0
+    },
+    "semanticCompleteness": {
+      "complete": true,
+      "evidence": "全部中文正文原样保留，包括署名、原文地址、条件、判断力度、例外、论证和数字；5次图片均有完整教学转录。三幅复杂牌桌已核对手牌、摸牌、赤牌、副露、牌河、方向、点数及场况，两幅已审原图复用的牌码与本次上下文对应。图中文字“局”“本场”“ドラ”等均已有中文表示，无表格或未处理的日文教学正文；隐手未凭空补齐。仅存在不影响教学语义的附件编号笔误。"
+    },
+    "modelChecks": {
+      "passed": true,
+      "errors": []
+    },
+    "modelReview": {
+      "blockChecks": [
+        {
+          "id": "79-bilibili-cn:cv1785741:b0001",
+          "verdict": "faithful",
+          "evidence": "免责声明、著作权归属、译者SeventhTG（XD）、转载要求及原文地址完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0002",
+          "verdict": "faithful",
+          "evidence": "原文完整保留，“几乎都应该立直”的判断力度一致。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0003",
+          "verdict": "faithful",
+          "evidence": "中文原文逐字保留，未擅自改写两种情况的表述。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0004",
+          "verdict": "faithful",
+          "evidence": "分隔线保留，位置一致。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0005",
+          "verdict": "faithful",
+          "evidence": "标题“翻山的宝字牌单骑”完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0006",
+          "verdict": "faithful",
+          "evidence": "分隔线保留，位置一致。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0007",
+          "verdict": "faithful",
+          "evidence": "例1及七对子听牌的引入完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0008",
+          "verdict": "faithful",
+          "evidence": "例1已审原图对应的手牌、摸入2m、宝牌7z及标签位置均有记录。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0009",
+          "verdict": "faithful",
+          "evidence": "选择听宝牌的判断完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0010",
+          "verdict": "faithful",
+          "evidence": "“上家刚刚打过中”的适用条件完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0011",
+          "verdict": "faithful",
+          "evidence": "默听1~2巡的时长及评价完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0012",
+          "verdict": "faithful",
+          "evidence": "“中没有被碰”的论证前提完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0013",
+          "verdict": "faithful",
+          "evidence": "下家或对家最多持一张的原文判断完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0014",
+          "verdict": "faithful",
+          "evidence": "中盘以后持宝字牌可能限制进张的条件与说明完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0015",
+          "verdict": "faithful",
+          "evidence": "引号内外中文原文完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0016",
+          "verdict": "faithful",
+          "evidence": "他家切宝牌可能引发跟打的说明完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0017",
+          "verdict": "faithful",
+          "evidence": "针对跟打的战术目的按原文保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0018",
+          "verdict": "faithful",
+          "evidence": "1~2巡后仍无人打宝牌的条件完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0019",
+          "verdict": "faithful",
+          "evidence": "不会切出宝牌、根本没有宝牌两种解释完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0020",
+          "verdict": "faithful",
+          "evidence": "继续默听及赌自摸立直两种选择完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0021",
+          "verdict": "faithful",
+          "evidence": "分隔线保留，位置一致。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0022",
+          "verdict": "faithful",
+          "evidence": "标题“立直的现物”完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0023",
+          "verdict": "faithful",
+          "evidence": "分隔线保留，位置一致。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0024",
+          "verdict": "faithful",
+          "evidence": "例号“例2”完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0025",
+          "verdict": "faithful",
+          "evidence": "例2牌桌的手牌、摸牌、副露、四家牌河、点数及场况与附图一致；附件编号笔误不影响教学内容。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0026",
+          "verdict": "faithful",
+          "evidence": "默听1、4万及摸到上家危险牌后退守的条件完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0027",
+          "verdict": "faithful",
+          "evidence": "禁止以此手牌对日的判断力度完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0028",
+          "verdict": "faithful",
+          "evidence": "立直打点微弱的理由完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0029",
+          "verdict": "faithful",
+          "evidence": "对亲家放铳可能造成致命打击的说明完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0030",
+          "verdict": "faithful",
+          "evidence": "听对方现物仍须审慎追立的条件完整保留，并与下一块连贯。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0031",
+          "verdict": "faithful",
+          "evidence": "“至少”“2翻以上”“好型听牌”三个限定完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0032",
+          "verdict": "faithful",
+          "evidence": "分隔线保留，位置一致。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0033",
+          "verdict": "faithful",
+          "evidence": "标题“南场的立直判断”完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0034",
+          "verdict": "faithful",
+          "evidence": "分隔线保留，位置一致。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0035",
+          "verdict": "faithful",
+          "evidence": "南场点数状况重要性的说明完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0036",
+          "verdict": "faithful",
+          "evidence": "例号“例3”完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0037",
+          "verdict": "faithful",
+          "evidence": "例3牌桌的手牌、赤5s、摸牌、副露、四家牌河、点数及场况与附图一致；附件编号笔误不影响教学内容。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0038",
+          "verdict": "faithful",
+          "evidence": "南场第四位决定胜负的一打完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0039",
+          "verdict": "faithful",
+          "evidence": "此处应立直的明确判断完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0040",
+          "verdict": "faithful",
+          "evidence": "听牌难打出及默听已有满贯两项默听理由完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0041",
+          "verdict": "faithful",
+          "evidence": "基于点数状况追求自摸跳满而非仅满贯的目标完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0042",
+          "verdict": "faithful",
+          "evidence": "亲家可能对日、下家视手牌可能对日放铳的条件及可能性完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0043",
+          "verdict": "faithful",
+          "evidence": "全体弃和时仍赌自摸4、7索的说明完整保留，与例3牌形相符。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0044",
+          "verdict": "faithful",
+          "evidence": "分隔线保留，位置一致。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0045",
+          "verdict": "faithful",
+          "evidence": "原文连续出现的第二条分隔线亦保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0046",
+          "verdict": "faithful",
+          "evidence": "例号“例4”完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0047",
+          "verdict": "faithful",
+          "evidence": "例4牌桌的手牌、摸牌、两组副露、四家牌河、点数及场况与附图一致；附件编号笔误不影响教学内容。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0048",
+          "verdict": "faithful",
+          "evidence": "南2局、自己领先及下家追赶的条件完整保留，与图中点数对应。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0049",
+          "verdict": "faithful",
+          "evidence": "下家明显为饼子染手的原文判断完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0050",
+          "verdict": "faithful",
+          "evidence": "四张2万可见及1、4万“绝听”的原文完整保留；图中上方两张、左方一张、右方一张2m均已记录。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0051",
+          "verdict": "faithful",
+          "evidence": "切5饼及克制立直的判断完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0052",
+          "verdict": "faithful",
+          "evidence": "无论听牌多好、一旦立直的条件完整保留，并与下一块连贯。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0053",
+          "verdict": "faithful",
+          "evidence": "落后两家可能弃和并扣住1、4万的后果完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0054",
+          "verdict": "faithful",
+          "evidence": "优先让亲家下庄的判断力度完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0055",
+          "verdict": "faithful",
+          "evidence": "稳妥和牌最重要的原文完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0056",
+          "verdict": "faithful",
+          "evidence": "不追求满贯、即使只有3200点也应推进的数字及判断完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0057",
+          "verdict": "faithful",
+          "evidence": "后续变化可能性很低的限定完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0058",
+          "verdict": "faithful",
+          "evidence": "后续手牌的已核牌序及独立摸入6p完整记录，与后文打8万的变化对应。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0059",
+          "verdict": "faithful",
+          "evidence": "摸到6饼可以打8万的后续变化完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0060",
+          "verdict": "faithful",
+          "evidence": "南场需有顺位意识的结论完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0061",
+          "verdict": "faithful",
+          "evidence": "下一节讨论ALL LAST状况判断的预告按中文原文完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0062",
+          "verdict": "faithful",
+          "evidence": "“（待续）”完整保留。"
+        }
+      ],
+      "figureChecks": [
+        {
+          "id": "79-bilibili-cn:cv1785741:b0008:figure",
+          "verdict": "faithful",
+          "evidence": "按已审原图复用信息核对本次出现：例1；手牌2m 4m 4m 6m 6m 1p 1p 6p 6p 7p 7p 9p 7z，摸入2m，宝牌7z；例号及“摸入”“宝牌”的位置均有表示。切9p后为听7z的七对子，与正文相符。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0025:figure",
+          "verdict": "faithful",
+          "evidence": "原图及放大图逐项核对一致：东1局1本场、棒数1、宝牌5m；下南21000、左东36000、上北21000、右西21000。下方手牌23789m、466789p、北北，摸5p；上方副露屏幕顺序6p、赤5p、横置4p。下河两行1p白6s1p8s2s／1s9p中；上河近中央9s发发9m1m南、外行5s东西7s；左河内列南9s西8s9p9m、外列3p4m2m横置5s；右河内列2m2p6s西发北、外列9m中。各行列对齐、朝向及上10左13右13张背面记录一致；隐手未被补写。仅sourceNotes附件配对编号有误。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0037:figure",
+          "verdict": "faithful",
+          "evidence": "原图及放大图逐项核对一致：南3局0本场、棒数0、宝牌4p；下西18400、左南34400、上东20000、右北27200。下方手牌234m、24566788p、赤5s6s，摸3p；上方南刻最左一张横置。下河北发白西9m8s／3s；上河近中央6m8m东中西1s、外行2s3m9s；左河内列北西9m中发8s、外列1p7m；右河内列东东中西白发、外侧末位8p。行列位置、朝向及上10左13右13张背面记录一致；未推测隐手。仅sourceNotes附件配对编号有误。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0047:figure",
+          "verdict": "faithful",
+          "evidence": "原图及放大图逐项核对一致：南2局2本场、棒数0、宝牌9p；下北46200、左西10400、上南8300、右东35100。下方手牌23888m、56789p、发发发，摸6p；右上中刻与123p顺子的牌序、横置牌及朝向均对应。下河西白1s白东5m／2p4s中；上河近中央北8s2m2m西1p、外行1s2s7p南；左河内列北东白2m9m1p、外列3s北9m8s；右河内列白9m5m7s6m2m、外列南6s西1s。行列对齐及上13左13右7张背面记录一致，四张2m均已转录；未推测隐手。仅sourceNotes原图附件编号有误。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:b0058:figure",
+          "verdict": "faithful",
+          "evidence": "按已审原图复用信息核对本次出现：手牌2m 3m 8m 8m 8m 6p 6p 7p 8p 9p 6z 6z 6z，另摸入6p；“摸入”标签位置保留。与前图切5p后的牌形及正文再摸6p可打8m的变化一致。"
+        }
+      ],
+      "imageChecks": [
+        {
+          "id": "79-bilibili-cn:cv1785741:i00001",
+          "disposition": "represented",
+          "evidence": "由b0008图完整表示；属于给定已审原图复用范围，本次牌序、摸入、宝牌及例1标签均对应。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:i00002",
+          "disposition": "represented",
+          "evidence": "附件1及放大图附件4对应例2；手牌、赤牌、副露、四家牌河、点数、场况及可见背面数量均由b0025图记录。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:i00003",
+          "disposition": "represented",
+          "evidence": "附件2及放大图附件5对应例3；手牌、赤5s、副露、四家牌河、点数及场况均由b0037图记录。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:i00004",
+          "disposition": "represented",
+          "evidence": "附件3及放大图附件6对应例4；手牌、两组副露、四家牌河、四张2m、点数及场况均由b0047图记录。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1785741:i00005",
+          "disposition": "represented",
+          "evidence": "由b0058图完整表示；属于给定已审原图复用范围，13张手牌、独立摸入6p及标签位置均对应。"
+        }
+      ],
+      "domOrder": {
+        "faithful": true,
+        "evidence": "62个正文块按b0001至b0062自然顺序一一对应，5次图片出现均位于原位置；标题、分隔线、例号、前后论证及结尾均无移位、重复或遗漏。"
+      },
+      "semanticCompleteness": {
+        "complete": true,
+        "evidence": "全部中文正文原样保留，包括署名、原文地址、条件、判断力度、例外、论证和数字；5次图片均有完整教学转录。三幅复杂牌桌已核对手牌、摸牌、赤牌、副露、牌河、方向、点数及场况，两幅已审原图复用的牌码与本次上下文对应。图中文字“局”“本场”“ドラ”等均已有中文表示，无表格或未处理的日文教学正文；隐手未凭空补齐。仅存在不影响教学语义的附件编号笔误。"
+      },
+      "issues": [
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1785741:b0025:figure",
+          "sourceEvidence": "visualEvidence将该资产的原图列为附件1，最近邻放大图列为附件4；sourceNotes写为“附件1为原图，附件2为……放大图”。",
+          "description": "放大图附件编号误写为2；教学牌码和牌桌转录完整。",
+          "suggestedRepair": "将该说明改为“附件1为原图，附件4为同一资产的最近邻放大图，只计一次来源。”"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1785741:b0037:figure",
+          "sourceEvidence": "visualEvidence将该资产的原图列为附件2，最近邻放大图列为附件5；sourceNotes写为“附件3为原图，附件4为……放大图”。",
+          "description": "原图和放大图附件编号误写；教学牌码和牌桌转录完整。",
+          "suggestedRepair": "将该说明改为“附件2为原图，附件5为同一资产的最近邻放大图，只计一次来源。”"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1785741:b0047:figure",
+          "sourceEvidence": "visualEvidence将该资产的原图列为附件3，最近邻放大图列为附件6；sourceNotes写为“附件5为原图，附件6为……放大图”。",
+          "description": "原图附件编号误写为5；教学牌码和牌桌转录完整。",
+          "suggestedRepair": "将该说明改为“附件3为原图，附件6为同一资产的最近邻放大图，只计一次来源。”"
+        }
+      ],
+      "completeArticleCompared": true,
+      "summary": "已逐项核对全部62块、5幅图及5次图片出现，教学语义完整。仅有3处附件配对编号笔误，均为source-note，无阻断问题。"
+    },
+    "calls": [
+      {
+        "callId": "a5dfb42d-4f79-49ec-8a15-024768f8e6f4",
+        "scope": "textbook-web-article-audit",
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1785741",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "success": true,
+        "usage": {
+          "inputTokens": 31495,
+          "cachedInputTokens": 0,
+          "outputTokens": 6384
+        },
+        "promptSha256": "0e43ed6ae0bcc6685f73b4dffbe8f189edf630eb3a177dd056e3db22da415c5b",
+        "semanticPromptSha256": "f937235476ccb8c0325770350e12718f1fc84536ce755f8b60bfb45a96433ab0",
+        "schemaSha256": "69b6562a57f990a0ad6ca7b3f0c8b98abf03c16533b41348ab0ad99075e564df",
+        "outputSha256": "abe036b463496affb465bc0bb308177877a46e88f937b15f3287dbf017b5f20e",
+        "requestPromptBytes": 48344,
+        "semanticPromptBytes": 47862,
+        "binding": {
+          "productionSha256": "fc0027a140fb57b07aa1436c5c2bf26785942bd4bc8d88cf546f4f1362492d45",
+          "sourceFileSha256": "ec4a726459f21d98599722ba4ccb5d8a95a5e96473a7a91be9f6cc88c8250c51",
+          "auditorSnapshotSha256": "cc22ef78d8bc532ece4d5b23e0449d46ff7d4fe28eb05511fc205d95db10fde2",
+          "semanticProjectionSha256": "f62ee11d81c4d5a8d62de90c27458133322770413cf390a62d0d93b281309ac2",
+          "semanticProjectionVersion": 2,
+          "verifiedAssetIds": [
+            "79-bilibili-cn:8387aecfe374e0a46c5b6940",
+            "79-bilibili-cn:a0e134a0f48702d7f7f3b8d6"
+          ],
+          "originalImageAssetIds": [
+            "79-bilibili-cn:980a7a7da9f81aa0d457347b",
+            "79-bilibili-cn:ba17e7972b1b5ca1cd0704f8",
+            "79-bilibili-cn:aedd877514e7043e3e9631d8"
+          ],
+          "supplementalInputs": [
+            {
+              "assetId": "79-bilibili-cn:980a7a7da9f81aa0d457347b",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/cf6edbb89f3e407bd222daadf99d3756eea6b9be28a09d2b2944cd718768c193.jpg",
+              "sourceSha256": "cf6edbb89f3e407bd222daadf99d3756eea6b9be28a09d2b2944cd718768c193",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/cf6edbb89f3e407bd222daadf99d3756eea6b9be28a09d2b2944cd718768c193.x2.png",
+              "sha256": "efc23c19d6a2f760e4f19f91701e6769bf579525e730567231928b362611c24c",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 2,
+              "resampling": "nearest",
+              "width": 1002,
+              "height": 1002
+            },
+            {
+              "assetId": "79-bilibili-cn:ba17e7972b1b5ca1cd0704f8",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/1d27d2b158123c484b25f4d6f3538cac52b69203b3d4ac85bc1caf44ed7b2193.jpg",
+              "sourceSha256": "1d27d2b158123c484b25f4d6f3538cac52b69203b3d4ac85bc1caf44ed7b2193",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/1d27d2b158123c484b25f4d6f3538cac52b69203b3d4ac85bc1caf44ed7b2193.x2.png",
+              "sha256": "d366a656161dabb1e9a532e2f5653bda78e7feba4e1bc036a1cb9460b72047fa",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 2,
+              "resampling": "nearest",
+              "width": 1002,
+              "height": 992
+            },
+            {
+              "assetId": "79-bilibili-cn:aedd877514e7043e3e9631d8",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/121b7e06f5375e1b23ac92b109d6cc902224285ff67f6884f0b5b55d8902278b.jpg",
+              "sourceSha256": "121b7e06f5375e1b23ac92b109d6cc902224285ff67f6884f0b5b55d8902278b",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/121b7e06f5375e1b23ac92b109d6cc902224285ff67f6884f0b5b55d8902278b.x2.png",
+              "sha256": "639ac165f5a46d3f1451c2a381e1c507011338adf8cc875b76434e41f3781949",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 2,
+              "resampling": "nearest",
+              "width": 1002,
+              "height": 996
+            }
+          ]
+        },
+        "recordedAt": "2026-10-27T15:27:50.446Z"
+      }
+    ],
+    "exactReuse": null,
+    "auditor": {
+      "path": "audit/web/auditors/37e1be6ba9eaa3cab379ff621f0e4a737e9f0cc92c36a2448d9db2c242f4fe17.json",
+      "sha256": "cc22ef78d8bc532ece4d5b23e0449d46ff7d4fe28eb05511fc205d95db10fde2",
+      "combinedSha256": "37e1be6ba9eaa3cab379ff621f0e4a737e9f0cc92c36a2448d9db2c242f4fe17"
+    },
+    "presentation": {
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1785741.r1.json",
+        "sha256": "c69a75f6d514988d4e740942145ae87f848183f57d6ba61df55229fd125fa331",
+        "reason": "Lossless display bindings inherited from bound parent; model output and all body/figure semantic content unchanged"
+      },
+      "pixels": {
+        "passed": true,
+        "figures": 5,
+        "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+      }
+    },
+    "productionCall": {
+      "callId": "421c66e9-cb07-4981-bb9d-d9596d107e22",
+      "rawArtifactPath": "raw-calls/421c66e9-cb07-4981-bb9d-d9596d107e22.json",
+      "rawArtifactSha256": "831c1162ff94bf1859a6caada345cabcb22ee92e699ab63426c79a8eafbede86",
+      "revision": {
+        "revision": {
+          "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1785741.display.json",
+          "parentSha256": "06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713",
+          "notesPath": "audit/web/articles/79-bilibili-cn/cv1785741.06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713.json",
+          "notesSha256": "147664fd484518e73bb5d750e5ee1da4b1b373317816dd1e23b0a032d3259e72",
+          "figureIds": [
+            "79-bilibili-cn:cv1785741:b0025:figure",
+            "79-bilibili-cn:cv1785741:b0037:figure",
+            "79-bilibili-cn:cv1785741:b0047:figure"
+          ]
+        },
+        "parentAudit": {
+          "path": "audit/web/articles/79-bilibili-cn/cv1785741.06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713.json",
+          "sha256": "147664fd484518e73bb5d750e5ee1da4b1b373317816dd1e23b0a032d3259e72",
+          "originalStatus": "needs-repair"
+        },
+        "parentCall": {
+          "callId": "6e115c7c-226d-4a4d-9527-6b4d4d0a5a08",
+          "path": "audit/calls/6e115c7c-226d-4a4d-9527-6b4d4d0a5a08.json",
+          "sha256": "d433b174f3e1d25dfb35d13dd60d6c5e1dfacda69bfb71edcd887cc2b415f319"
+        },
+        "inheritedAssetIds": [
+          "79-bilibili-cn:8387aecfe374e0a46c5b6940",
+          "79-bilibili-cn:a0e134a0f48702d7f7f3b8d6"
+        ]
+      },
+      "visualInputs": {
+        "inputs": [
+          {
+            "assetId": "79-bilibili-cn:980a7a7da9f81aa0d457347b",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/cf6edbb89f3e407bd222daadf99d3756eea6b9be28a09d2b2944cd718768c193.jpg",
+            "sourceSha256": "cf6edbb89f3e407bd222daadf99d3756eea6b9be28a09d2b2944cd718768c193",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-sources/v1/79-bilibili-cn/assets/cf6edbb89f3e407bd222daadf99d3756eea6b9be28a09d2b2944cd718768c193.jpg",
+            "sha256": "cf6edbb89f3e407bd222daadf99d3756eea6b9be28a09d2b2944cd718768c193",
+            "role": "original",
+            "scale": 1,
+            "resampling": "none",
+            "width": 501,
+            "height": 501
+          },
+          {
+            "assetId": "79-bilibili-cn:980a7a7da9f81aa0d457347b",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/cf6edbb89f3e407bd222daadf99d3756eea6b9be28a09d2b2944cd718768c193.jpg",
+            "sourceSha256": "cf6edbb89f3e407bd222daadf99d3756eea6b9be28a09d2b2944cd718768c193",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/cf6edbb89f3e407bd222daadf99d3756eea6b9be28a09d2b2944cd718768c193.x2.png",
+            "sha256": "efc23c19d6a2f760e4f19f91701e6769bf579525e730567231928b362611c24c",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 2,
+            "resampling": "nearest",
+            "width": 1002,
+            "height": 1002
+          },
+          {
+            "assetId": "79-bilibili-cn:ba17e7972b1b5ca1cd0704f8",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/1d27d2b158123c484b25f4d6f3538cac52b69203b3d4ac85bc1caf44ed7b2193.jpg",
+            "sourceSha256": "1d27d2b158123c484b25f4d6f3538cac52b69203b3d4ac85bc1caf44ed7b2193",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-sources/v1/79-bilibili-cn/assets/1d27d2b158123c484b25f4d6f3538cac52b69203b3d4ac85bc1caf44ed7b2193.jpg",
+            "sha256": "1d27d2b158123c484b25f4d6f3538cac52b69203b3d4ac85bc1caf44ed7b2193",
+            "role": "original",
+            "scale": 1,
+            "resampling": "none",
+            "width": 501,
+            "height": 496
+          },
+          {
+            "assetId": "79-bilibili-cn:ba17e7972b1b5ca1cd0704f8",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/1d27d2b158123c484b25f4d6f3538cac52b69203b3d4ac85bc1caf44ed7b2193.jpg",
+            "sourceSha256": "1d27d2b158123c484b25f4d6f3538cac52b69203b3d4ac85bc1caf44ed7b2193",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/1d27d2b158123c484b25f4d6f3538cac52b69203b3d4ac85bc1caf44ed7b2193.x2.png",
+            "sha256": "d366a656161dabb1e9a532e2f5653bda78e7feba4e1bc036a1cb9460b72047fa",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 2,
+            "resampling": "nearest",
+            "width": 1002,
+            "height": 992
+          },
+          {
+            "assetId": "79-bilibili-cn:aedd877514e7043e3e9631d8",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/121b7e06f5375e1b23ac92b109d6cc902224285ff67f6884f0b5b55d8902278b.jpg",
+            "sourceSha256": "121b7e06f5375e1b23ac92b109d6cc902224285ff67f6884f0b5b55d8902278b",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-sources/v1/79-bilibili-cn/assets/121b7e06f5375e1b23ac92b109d6cc902224285ff67f6884f0b5b55d8902278b.jpg",
+            "sha256": "121b7e06f5375e1b23ac92b109d6cc902224285ff67f6884f0b5b55d8902278b",
+            "role": "original",
+            "scale": 1,
+            "resampling": "none",
+            "width": 501,
+            "height": 498
+          },
+          {
+            "assetId": "79-bilibili-cn:aedd877514e7043e3e9631d8",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/121b7e06f5375e1b23ac92b109d6cc902224285ff67f6884f0b5b55d8902278b.jpg",
+            "sourceSha256": "121b7e06f5375e1b23ac92b109d6cc902224285ff67f6884f0b5b55d8902278b",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/121b7e06f5375e1b23ac92b109d6cc902224285ff67f6884f0b5b55d8902278b.x2.png",
+            "sha256": "639ac165f5a46d3f1451c2a381e1c507011338adf8cc875b76434e41f3781949",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 2,
+            "resampling": "nearest",
+            "width": 1002,
+            "height": 996
+          }
+        ],
+        "pixels": {
+          "passed": true,
+          "inputs": 6
+        }
+      }
+    },
+    "verifiedAssets": null,
+    "method": "independent-sol-high-full-article-review",
+    "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1785741.fc0027a140fb57b07aa1436c5c2bf26785942bd4bc8d88cf546f4f1362492d45.json",
+    "auditSha256": "8fdd6033843b94c2669084bcb939e45cfe72837081408d512b398835db3206f3"
+  },
+  "manifest": {
+    "ok": true,
+    "manifestSha256": "56287cda5a49ca62a6f688e3c19dbccee2e3e5ddce5cfd9cff3717f78f56de35",
+    "files": 9,
+    "pageApprovals": 0,
+    "diff": {
+      "added": [],
+      "removed": [],
+      "changed": []
+    }
+  },
+  "configs": {
+    "builder": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.mjs",
+      "sha256": "089d541f03908caa98e56b4aca80f4ed25adacb380d5319eb9be9aaf3278cf38"
+    },
+    "variants": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v15.json",
+      "sha256": "c87e3f0e9d018fc187489bf32b5f5dc51ca655ab5cebff2687c81d2370bf4934"
+    },
+    "definitionSelection": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/definition-boundary-stage-selection.json",
+      "sha256": "b3cbef8bc3a2216438edbe6b842ef3ee76f57082ead3608c053fddf946921419"
+    },
+    "manifest": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/definition-boundaries-v1/manifest.v2.json",
+      "sha256": "4d89b15be02c233f55938bf4e59d3c91204037b8948fee6b7b2cd8d43e18c3bc"
+    },
+    "guard": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/stage-definition-chapters.mjs",
+      "sha256": "283b3431b4576197611e5d46985949d36088a15e97e272817a0afd57e9c76742"
+    },
+    "holds": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/source-structure-holds.json",
+      "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+    },
+    "exclusions": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/candidate-exclusions.json",
+      "sha256": "4835655ad7fa323e2acc94d4e04824dc1c56b4b67ceec1b1449617c79c3411a3"
+    },
+    "register": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+      "sha256": "d3d1a599a21f34dca7ff8b137728f9336cfda9835ea4cd3b631ffc0c2db809d8"
+    }
+  },
+  "protectedFiles": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-reviewed-a222-246-20261027.json",
+      "sha256": "ec16dd22ae1ce0975f8a1326fde586a850f50434161ad6ee9823a51e22e225c2"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1785741.r1.display.json",
+      "sha256": "fc0027a140fb57b07aa1436c5c2bf26785942bd4bc8d88cf546f4f1362492d45"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1785741\\source.json",
+      "sha256": "ec4a726459f21d98599722ba4ccb5d8a95a5e96473a7a91be9f6cc88c8250c51"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785741.display.json",
+      "sha256": "06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1785741.06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713.json",
+      "sha256": "147664fd484518e73bb5d750e5ee1da4b1b373317816dd1e23b0a032d3259e72"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1785741.fc0027a140fb57b07aa1436c5c2bf26785942bd4bc8d88cf546f4f1362492d45.json",
+      "sha256": "8fdd6033843b94c2669084bcb939e45cfe72837081408d512b398835db3206f3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\a5dfb42d-4f79-49ec-8a15-024768f8e6f4.json",
+      "sha256": "1c1358fc5ea7a97d452b6ece1be2e259efec5a4c10db40352e7aa80e3a1a8b5a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1785741\\main.html",
+      "sha256": "59958f07144ecf210baf9695453409bb95f13c40f4ca562b35ed32b7cb8d560a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\html\\39f4391907218a8ecbcc496d\\source.html",
+      "sha256": "73c2af4d59653faa0c4583c4caf50297a3e4b18dea89b399bff125bd4f3af386"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785741.r1.json",
+      "sha256": "c69a75f6d514988d4e740942145ae87f848183f57d6ba61df55229fd125fa331"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.display.json",
+      "sha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+      "sha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\auditors\\37e1be6ba9eaa3cab379ff621f0e4a737e9f0cc92c36a2448d9db2c242f4fe17.json",
+      "sha256": "cc22ef78d8bc532ece4d5b23e0449d46ff7d4fe28eb05511fc205d95db10fde2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\web-b8-transport-diag-20261027/textbook-audit-pdf-layout.mjs",
+      "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\web-b8-transport-diag-20261027/textbook-audit-pdf-native.mjs",
+      "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\web-b8-transport-diag-20261027/textbook-audit-pdf-scope.mjs",
+      "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\web-b8-transport-diag-20261027/textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\web-b8-transport-diag-20261027/textbook-audit-tile-dictionary.mjs",
+      "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\web-b8-transport-diag-20261027/textbook-audit-web-batches.mjs",
+      "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\web-b8-transport-diag-20261027/textbook-audit-web.mjs",
+      "sha256": "5bb4ec04770205d7e1ee13cad6e94e3edeff56cf6fc2d0af9ef6018d9c22e7ed"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\web-b8-transport-diag-20261027/textbook-audit.mjs",
+      "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\web-b8-transport-diag-20261027/textbook-production-cli.mjs",
+      "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\b6b0af0c654b9e20c529014be56c36aeed6c94bc800cf4cacb901376b8e153c0.jpg",
+      "sha256": "b6b0af0c654b9e20c529014be56c36aeed6c94bc800cf4cacb901376b8e153c0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1785741\\ab2b7a0030595183\\figure-0001.png",
+      "sha256": "11d7c3afb10acf4cd8cb85fca23fa3451407501174e74017d8da355b83e1be81"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\cf6edbb89f3e407bd222daadf99d3756eea6b9be28a09d2b2944cd718768c193.jpg",
+      "sha256": "cf6edbb89f3e407bd222daadf99d3756eea6b9be28a09d2b2944cd718768c193"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1785741\\ab2b7a0030595183\\figure-0002.png",
+      "sha256": "5cea73afc81c40ad586d52ee1b7bf757754ccf370c19f98fb9abae6151bf37c1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\1d27d2b158123c484b25f4d6f3538cac52b69203b3d4ac85bc1caf44ed7b2193.jpg",
+      "sha256": "1d27d2b158123c484b25f4d6f3538cac52b69203b3d4ac85bc1caf44ed7b2193"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1785741\\ab2b7a0030595183\\figure-0003.png",
+      "sha256": "57e9c69a40847cb2580b7f5dd0c9cf9e199d17ec07975fdf78666eb47108ef69"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\121b7e06f5375e1b23ac92b109d6cc902224285ff67f6884f0b5b55d8902278b.jpg",
+      "sha256": "121b7e06f5375e1b23ac92b109d6cc902224285ff67f6884f0b5b55d8902278b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1785741\\ab2b7a0030595183\\figure-0004.png",
+      "sha256": "0e26c1148af22da27f10fe25330b7eb28a4ab883e258bde5941d66ea976fb530"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\42babe347c251519dfe257c29e874cb79435bd20d5c5f3e16e76ffb56e66a681.jpg",
+      "sha256": "42babe347c251519dfe257c29e874cb79435bd20d5c5f3e16e76ffb56e66a681"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1785741\\ab2b7a0030595183\\figure-0005.png",
+      "sha256": "c208043908712a84e580a62ecc9d49885878be0f79afdeceea4bfefd4130f18f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\cf6edbb89f3e407bd222daadf99d3756eea6b9be28a09d2b2944cd718768c193.x2.png",
+      "sha256": "efc23c19d6a2f760e4f19f91701e6769bf579525e730567231928b362611c24c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\1d27d2b158123c484b25f4d6f3538cac52b69203b3d4ac85bc1caf44ed7b2193.x2.png",
+      "sha256": "d366a656161dabb1e9a532e2f5653bda78e7feba4e1bc036a1cb9460b72047fa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\121b7e06f5375e1b23ac92b109d6cc902224285ff67f6884f0b5b55d8902278b.x2.png",
+      "sha256": "639ac165f5a46d3f1451c2a381e1c507011338adf8cc875b76434e41f3781949"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac248-web-246-3-r1-20261027\\production-evidence.json",
+      "sha256": "51f0e6601a9d73d9b8a1171b63b42af5ad06a3c4205241330fffd2915a42fdaf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-incremental-246-3-20261027.json",
+      "sha256": "1fdcb03da4e53fe47c56f3f265e40bcd8015e5a3c6182a5bc67d49c07bc7a494"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/definition-boundary-stage-selection.json",
+      "sha256": "b3cbef8bc3a2216438edbe6b842ef3ee76f57082ead3608c053fddf946921419"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/definition-boundaries-v1/manifest.v2.json",
+      "sha256": "4d89b15be02c233f55938bf4e59d3c91204037b8948fee6b7b2cd8d43e18c3bc"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/stage-definition-chapters.mjs",
+      "sha256": "283b3431b4576197611e5d46985949d36088a15e97e272817a0afd57e9c76742"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/source-structure-holds.json",
+      "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/candidate-exclusions.json",
+      "sha256": "4835655ad7fa323e2acc94d4e04824dc1c56b4b67ceec1b1449617c79c3411a3"
+    },
+    {
+      "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/docs/plans/2026-10-24-full-textbook-processing.md",
+      "sha256": "81229be8035709da70e1b7ff4febf8e69ca857bfe97133f5c930d978a590f6aa"
+    },
+    {
+      "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/stage-web-textbook.mjs",
+      "sha256": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a"
+    },
+    {
+      "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/stage-web-image.py",
+      "sha256": "a437b4cfc2809ddf8c989cb6f32bb2097f46485a7d29ddbd714e262c5a5e68d1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\review\\textbook-corpus.json",
+      "sha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T15-26-37-597Z/090-6-intake-annotations.json",
+      "sha256": "3e791da8f143a549529e8e146feec6359d138ad8fcb89a554e25e93d1b8c70e7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\model-admission-stop.handoff-resumed-by-COAC-249-20261026.json",
+      "sha256": "ff3afb4536e5d88fe4ade88d4f76ee2d3b4932ab0c73dbb1b0d048b2a2705427"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\ACCEPTED-CONSUMER-STOP.definition-hold-resolved-20261026",
+      "sha256": "b3b82435265e9ceeeff692b30de1e157e3b883b52a355c8a829c8bb77d7b264a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\ACCEPTED-CONSUMER-STOP.handoff-resolved-by-COAC-250-20261026T104324Z",
+      "sha256": "e9779a478f08a573e646c05e08312ae26d40a13946d123011f7bc01d35936966"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\source-switch-pdf-stop.json",
+      "sha256": "51da018756232acca5ecd24487403c2b361f19631f505553734f192bb6b4da36"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.ac7-source-check-upgrade-20261026.json",
+      "sha256": "eeed39172eede65b46b5edad398a63e113eb59e1c0fa3cb7b2dab3c15267e6ff"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.archived-checkpoint-20261025T220402Z.json",
+      "sha256": "1325d8bba5b2e46a5d53c155260d2f444bcb425f41864029cce10e419c5fd176"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.chapter-priority-20261026.json",
+      "sha256": "a71685988c1784205a0fa243e42917a9bf58105ea91c0661385ae855623db77a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.drained-concurrency-reduction-20261025.json",
+      "sha256": "fc2afeb5d09ecf246fde63c3add6df271f78683c8874e16c220dc44808774efb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.handoff-resumed-by-COAC-249-20261026.json",
+      "sha256": "be73053365447ee162ba37109ac8aafcc3d4cea9f116621cf726012d7b88ee05"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.legacy-runtime-upgrade-20261026.json",
+      "sha256": "17a86e5e251674050cfd4b47b1e52e009e09fbf604f1541053e0b76632fd07bd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.root-two-audit-trial-20261026.json",
+      "sha256": "387c199074b7dfc26d381e309c856d46c4d8b7e384867210c9394f34838b5800"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.whitelist-hot-refresh-20261025.json",
+      "sha256": "bd471e415677ac00f8bbbd8d5e7e5c9af8466379f5e63007c78fb04bbe302a57"
+    }
+  ],
+  "stops": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\model-admission-stop.handoff-resumed-by-COAC-249-20261026.json",
+      "sha256": "ff3afb4536e5d88fe4ade88d4f76ee2d3b4932ab0c73dbb1b0d048b2a2705427",
+      "preserved": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\ACCEPTED-CONSUMER-STOP.definition-hold-resolved-20261026",
+      "sha256": "b3b82435265e9ceeeff692b30de1e157e3b883b52a355c8a829c8bb77d7b264a",
+      "preserved": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\ACCEPTED-CONSUMER-STOP.handoff-resolved-by-COAC-250-20261026T104324Z",
+      "sha256": "e9779a478f08a573e646c05e08312ae26d40a13946d123011f7bc01d35936966",
+      "preserved": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\source-switch-pdf-stop.json",
+      "sha256": "51da018756232acca5ecd24487403c2b361f19631f505553734f192bb6b4da36",
+      "preserved": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.ac7-source-check-upgrade-20261026.json",
+      "sha256": "eeed39172eede65b46b5edad398a63e113eb59e1c0fa3cb7b2dab3c15267e6ff",
+      "preserved": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.archived-checkpoint-20261025T220402Z.json",
+      "sha256": "1325d8bba5b2e46a5d53c155260d2f444bcb425f41864029cce10e419c5fd176",
+      "preserved": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.chapter-priority-20261026.json",
+      "sha256": "a71685988c1784205a0fa243e42917a9bf58105ea91c0661385ae855623db77a",
+      "preserved": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.drained-concurrency-reduction-20261025.json",
+      "sha256": "fc2afeb5d09ecf246fde63c3add6df271f78683c8874e16c220dc44808774efb",
+      "preserved": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.handoff-resumed-by-COAC-249-20261026.json",
+      "sha256": "be73053365447ee162ba37109ac8aafcc3d4cea9f116621cf726012d7b88ee05",
+      "preserved": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.legacy-runtime-upgrade-20261026.json",
+      "sha256": "17a86e5e251674050cfd4b47b1e52e009e09fbf604f1541053e0b76632fd07bd",
+      "preserved": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.root-two-audit-trial-20261026.json",
+      "sha256": "387c199074b7dfc26d381e309c856d46c4d8b7e384867210c9394f34838b5800",
+      "preserved": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.whitelist-hot-refresh-20261025.json",
+      "sha256": "bd471e415677ac00f8bbbd8d5e7e5c9af8466379f5e63007c78fb04bbe302a57",
+      "preserved": true
+    }
+  ],
+  "excluded": {
+    "chapterId": "79-cn-chapter-222-5",
+    "candidateSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+    "auditStatus": "needs-repair",
+    "intermediate": {
+      "path": "web-production/v1/candidates/79-bilibili-cn/cv1785741.r1.json",
+      "sha256": "c69a75f6d514988d4e740942145ae87f848183f57d6ba61df55229fd125fa331",
+      "role": "unpresented intermediate of same production call; do not separately review or integrate"
+    }
+  },
+  "issues": [
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1785741:b0025:figure",
+      "sourceEvidence": "visualEvidence将该资产的原图列为附件1，最近邻放大图列为附件4；sourceNotes写为“附件1为原图，附件2为……放大图”。",
+      "description": "放大图附件编号误写为2；教学牌码和牌桌转录完整。",
+      "suggestedRepair": "将该说明改为“附件1为原图，附件4为同一资产的最近邻放大图，只计一次来源。”"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1785741:b0037:figure",
+      "sourceEvidence": "visualEvidence将该资产的原图列为附件2，最近邻放大图列为附件5；sourceNotes写为“附件3为原图，附件4为……放大图”。",
+      "description": "原图和放大图附件编号误写；教学牌码和牌桌转录完整。",
+      "suggestedRepair": "将该说明改为“附件2为原图，附件5为同一资产的最近邻放大图，只计一次来源。”"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1785741:b0047:figure",
+      "sourceEvidence": "visualEvidence将该资产的原图列为附件3，最近邻放大图列为附件6；sourceNotes写为“附件5为原图，附件6为……放大图”。",
+      "description": "原图附件编号误写为5；教学牌码和牌桌转录完整。",
+      "suggestedRepair": "将该说明改为“附件3为原图，附件6为同一资产的最近邻放大图，只计一次来源。”"
+    }
+  ],
+  "sourceNoteDisposition": "Preserve every source-note and the original candidate SHA. Attachment numbering and visual source-note changes are part of the independent verdict; do not silently edit candidate or clear issues.",
+  "locks": [],
+  "modelCalls": 0,
+  "productionCalls": 0
+}
