@@ -1,0 +1,40 @@
+{
+  "schema": "coach-textbook-index/1",
+  "status": "chapter-auto-audited",
+  "title": "【日本麻雀讲座译文】防守14—立直的读牌（一）",
+  "policy": {
+    "cardRole": "index-only",
+    "bodyRole": "complete-source-body-with-chinese-translation",
+    "modelExperiments": false,
+    "reviewStatus": "pending-user-review"
+  },
+  "sources": [
+    {
+      "id": "79-bilibili-cn-cv1775262",
+      "title": "【日本麻雀讲座译文】防守14—立直的读牌（一）",
+      "format": "web",
+      "language": "zh-CN",
+      "url": "https://www.bilibili.com/read/cv1775262",
+      "articleId": "cv1775262",
+      "sha256": "00ba55b262d15739f0f6cf28b92e56751ff0ea9e38aed7e8e2349de8edfa7ae1",
+      "htmlSha256": "00ba55b262d15739f0f6cf28b92e56751ff0ea9e38aed7e8e2349de8edfa7ae1",
+      "bytes": 147382,
+      "sourceJsonSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1775262/source.json"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "79-bilibili-cn-cv1775262-chapter",
+      "title": "【日本麻雀讲座译文】防守14—立直的读牌（一）",
+      "sourceId": "79-bilibili-cn-cv1775262",
+      "startPage": null,
+      "bodyStartPage": null,
+      "endPage": null,
+      "topics": [],
+      "indexDescription": "完整原文论证和牌例；索引只定位。",
+      "anchors": [],
+      "relatedChapterIds": []
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "schema": "coac250222-order-coverage/1",
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T21-59-33-978Z",
+    "corpusId": "4881da962bdc686cc10e8b47c371b6850b79b15b973252b6240c9c3310f348b2",
+    "chapters": 237,
+    "units": 245,
+    "blocks": 6443,
+    "figures": 5148
+  },
+  "coverage": {
+    "originalChaptersCovered": 236,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 268,
+    "originalUnitsTotal": 303
+  },
+  "remainingChapters": 20,
+  "addedOriginalChapters": [
+    "79-cn-chapter-222-5"
+  ],
+  "adjudication": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\adjudications\\coac249-222-unchanged-order-20261028.json",
+    "sha256": "9bc8b55f306013a1b434f87ca450ae233979cca3ff27d296737f603be0c818cd"
+  },
+  "notANewFullArticleModelReview": true,
+  "register": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+    "beforeSha256": "4d5b00156753a89cc288c65fea07097581c3924ae33e3de70628b4120a11dd71",
+    "afterSha256": "aa5ab515fbe4ef2699fdbe98e69be32e06a82f61b9da7ebb03f73d4d1745b69b",
+    "backup": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.before-coac250-222order-1793138540180.json"
+  },
+  "owner": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+    "beforeSha256": "226eaedffb7d36f3da8c6e3ec5c486559ce120f30680492edaf3a639a23d9071",
+    "afterSha256": "400f8399249c34ebcefdd3964440b1eda631e04ea39873b2eb2f8f8b4fd88f3d",
+    "backup": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.before-coac250-222order-1793138609163.json",
+    "concurrentOwner100UpdatePreserved": true
+  },
+  "modelCalls": 0,
+  "activeLibraryChanged": false
+}

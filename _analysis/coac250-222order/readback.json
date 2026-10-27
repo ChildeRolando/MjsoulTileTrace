@@ -1,0 +1,331 @@
+{
+  "schema": "coac250222-order-readback/1",
+  "allPassed": true,
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T21-59-33-978Z",
+    "corpusId": "4881da962bdc686cc10e8b47c371b6850b79b15b973252b6240c9c3310f348b2",
+    "chapters": 237,
+    "units": 245,
+    "blocks": 6443,
+    "figures": 5148
+  },
+  "sourceBlocks": 23,
+  "textBlocks": 13,
+  "figures": 10,
+  "pages": [
+    {
+      "offset": 0,
+      "blocks": 15,
+      "nextOffset": 15
+    },
+    {
+      "offset": 15,
+      "blocks": 8,
+      "nextOffset": null
+    }
+  ],
+  "images": [
+    {
+      "figureId": "79-bilibili-cn-cv1775262-b4",
+      "sha256": "f5f5b538f849ffaed26ffdf3ab8260988d1e31be62c29a46196b6d3ea4b0ff6c",
+      "mcpBytesExact": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1775262-b6",
+      "sha256": "f66217f6bd67534d7617d54b8b8b4f11e08de3a8e2ec556a20109f4451edf24b",
+      "mcpBytesExact": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1775262-b8",
+      "sha256": "cb31e5367a24a3a2e1a23d541a897bfe09b22aca0636eaf8c92a9d1fe036dd18",
+      "mcpBytesExact": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1775262-b10",
+      "sha256": "c0bbd1c4171eea4674f517b96ef4cbccd49a7479669f535f65f0522936cc5cad",
+      "mcpBytesExact": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1775262-b12",
+      "sha256": "bb7f02f4157f636e0ad02cf92e9dc82136dc170af3380faf3b2473b02049d6b3",
+      "mcpBytesExact": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1775262-b14",
+      "sha256": "d656a8c69cdfc1c07020d935dea22910f16bb41c608bd2398e49dbbf5057f219",
+      "mcpBytesExact": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1775262-b16",
+      "sha256": "2893976db50ecab99b2cb96f64505e46fc4ab25d43f48e2f7bdafc4fcdc91c50",
+      "mcpBytesExact": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1775262-b18",
+      "sha256": "4a6639cfdae4cfa47a4583b2991965cf53555b34631bca6e720981a59cb5bac9",
+      "mcpBytesExact": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1775262-b20",
+      "sha256": "e4c9391e311a60c1394bf76b9e696f4a9d7620e6edee002a7c41d069ec697738",
+      "mcpBytesExact": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1775262-b22",
+      "sha256": "763fcb2bcd82f0c22846158652bb1e89bd205ff0411cac7c665d0da5a1a24fcc",
+      "mcpBytesExact": true
+    }
+  ],
+  "canonicalOrderExact": true,
+  "orderedWindowIds": [
+    "79-bilibili-cn:cv1775262:b0017",
+    "79-bilibili-cn:cv1775262:b0018",
+    "79-bilibili-cn:cv1775262:b0019",
+    "79-bilibili-cn:cv1775262:b0020",
+    "79-bilibili-cn:cv1775262:b0021"
+  ],
+  "targetBetweenNeighborParagraphs": true,
+  "allBodyFieldsExact": true,
+  "htmlFullChapterExact": true,
+  "emphasisPreserved": true,
+  "two2mReferencesNow1m": true,
+  "targetTranscriptionExact": "左上方标签：例5。牌序从左至右：2z 3z 6z 8m 5m 1m 4z 3p 2p，共9张；第9张2p横置，无赤牌。\n两支向下箭头分别位于第6张1m、第7张4z的正上方。",
+  "unknownsAlreadyEmptyNotNewlyCleared": true,
+  "originalModelFlags": {
+    "domOrder": {
+      "faithful": false,
+      "evidence": "源中目标位于 b0017 和 b0019 之间；候选目标块与上下文块分别列在不同数组中，未展示包含目标及邻接块的合并顺序，故无法独立确认实际插入位置。这是不确定，并非已证实错序。"
+    },
+    "contextContinuity": {
+      "faithful": false,
+      "evidence": "所给继承上下文包含之后摸切、拆掉23饼、14饼听牌及避免二度进张的说明；但缺少与目标块合并的有序序列，无法确认这些说明在成品中与例5连续呈现。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "目标图的牌序、箭头、横置和赤牌信息以及所给教学文字均已覆盖；由于目标与上下文的实际组合顺序未展示，尚不能确认完整教学上下文在成品中的连续性。"
+    },
+    "completeTargetScopeCompared": false,
+    "issues": [
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1775262:b0018",
+        "sourceEvidence": "源顺序为 main/p[16] 的 b0017、main/div[17] 的 b0018、main/p[18] 的 b0019；候选中的目标块和上下文块分属不同数组。",
+        "description": "无法从所给候选数据确定目标 figure 是否实际处于两段教学文字之间，因此上下文连续性仍待确认。",
+        "suggestedRepair": "提供或核对候选文档包含 b0017、b0018、b0019 的同一有序块序列，确认目标位于两段之间，并保留后续已继承的教学内容。"
+      }
+    ]
+  },
+  "originalModelChecks": {
+    "passed": false,
+    "errors": [
+      "target_figure_domOrder",
+      "target_figure_contextContinuity",
+      "target_figure_semanticCompleteness",
+      "target_figure_incomplete",
+      "target_figure_issue"
+    ]
+  },
+  "notANewFullArticleModelReview": true,
+  "adjudication": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\adjudications\\coac249-222-unchanged-order-20261028.json",
+    "sha256": "9bc8b55f306013a1b434f87ca450ae233979cca3ff27d296737f603be0c818cd"
+  },
+  "priorUnitsUnchanged": 244,
+  "pdf217220And215Preserved": true,
+  "fullMcp": {
+    "units": 245,
+    "images": 5148
+  },
+  "arena": {
+    "units": 245,
+    "exactBody": true,
+    "targetSourceRefs": 1
+  },
+  "crossChapterSourceCollisions": 0,
+  "mcpCalls": [
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 0,
+        "limit": 20
+      },
+      "textBytes": 4758
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 20,
+        "limit": 20
+      },
+      "textBytes": 4852
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 40,
+        "limit": 20
+      },
+      "textBytes": 4910
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 60,
+        "limit": 20
+      },
+      "textBytes": 5054
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 80,
+        "limit": 20
+      },
+      "textBytes": 5122
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 100,
+        "limit": 20
+      },
+      "textBytes": 5127
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 120,
+        "limit": 20
+      },
+      "textBytes": 5098
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 140,
+        "limit": 20
+      },
+      "textBytes": 5011
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 160,
+        "limit": 20
+      },
+      "textBytes": 5060
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 180,
+        "limit": 20
+      },
+      "textBytes": 4392
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 200,
+        "limit": 20
+      },
+      "textBytes": 2817
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 220,
+        "limit": 20
+      },
+      "textBytes": 3997
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1775262-argument",
+        "blockOffset": 0
+      },
+      "textBytes": 13717
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1775262-argument",
+        "blockOffset": 15
+      },
+      "textBytes": 8884
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1775262-b4"
+      },
+      "textBytes": 1295
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1775262-b6"
+      },
+      "textBytes": 1193
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1775262-b8"
+      },
+      "textBytes": 1087
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1775262-b10"
+      },
+      "textBytes": 977
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1775262-b12"
+      },
+      "textBytes": 1202
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1775262-b14"
+      },
+      "textBytes": 1096
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1775262-b16"
+      },
+      "textBytes": 1202
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1775262-b18"
+      },
+      "textBytes": 1108
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1775262-b20"
+      },
+      "textBytes": 1223
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1775262-b22"
+      },
+      "textBytes": 1089
+    }
+  ],
+  "modelCalls": 0,
+  "activeLibraryChanged": false
+}

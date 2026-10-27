@@ -1,0 +1,34 @@
+{
+  "modelCalls": 0,
+  "passed": true,
+  "tests": [
+    {
+      "name": "missing",
+      "rejected": true
+    },
+    {
+      "name": "swapped",
+      "rejected": true
+    },
+    {
+      "name": "duplicate",
+      "rejected": true
+    },
+    {
+      "name": "wrong-sha",
+      "rejected": true
+    },
+    {
+      "name": "wrong-id",
+      "rejected": true
+    },
+    {
+      "name": "changed-text",
+      "rejected": true
+    },
+    {
+      "name": "missing-figure",
+      "rejected": true
+    }
+  ]
+}

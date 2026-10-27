@@ -1,0 +1,149 @@
+{
+  "schema": "coac250222-order-coverage/1",
+  "allPassed": true,
+  "recordedAt": "2026-10-27T22:03:29.222Z",
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T21-59-33-978Z",
+    "corpusId": "4881da962bdc686cc10e8b47c371b6850b79b15b973252b6240c9c3310f348b2",
+    "chapters": 237,
+    "units": 245,
+    "blocks": 6443,
+    "figures": 5148
+  },
+  "coverage": {
+    "originalChaptersCovered": 236,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 268,
+    "originalUnitsTotal": 303
+  },
+  "remainingChapters": 20,
+  "addedOriginalChapters": [
+    "79-cn-chapter-222-5"
+  ],
+  "adjudication": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\adjudications\\coac249-222-unchanged-order-20261028.json",
+    "sha256": "9bc8b55f306013a1b434f87ca450ae233979cca3ff27d296737f603be0c818cd"
+  },
+  "notANewFullArticleModelReview": true,
+  "register": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+    "beforeSha256": "4d5b00156753a89cc288c65fea07097581c3924ae33e3de70628b4120a11dd71",
+    "afterSha256": "aa5ab515fbe4ef2699fdbe98e69be32e06a82f61b9da7ebb03f73d4d1745b69b",
+    "backup": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.before-coac250-222order-1793138540180.json"
+  },
+  "owner": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+    "beforeSha256": "226eaedffb7d36f3da8c6e3ec5c486559ce120f30680492edaf3a639a23d9071",
+    "afterSha256": "400f8399249c34ebcefdd3964440b1eda631e04ea39873b2eb2f8f8b4fd88f3d",
+    "backup": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.before-coac250-222order-1793138609163.json",
+    "concurrentOwner100UpdatePreserved": true
+  },
+  "modelCalls": 0,
+  "activeLibraryChanged": false,
+  "selection": {
+    "version": 27,
+    "sha256": "2a5d95f8621ecf80b23077e295f34a6f46f8aae11031bc7a2286852ecade5836",
+    "rollbackVersion": 26
+  },
+  "admissionStatus": "accepted-specific-order-input-composition",
+  "originalModelChecks": {
+    "passed": false,
+    "errors": [
+      "target_figure_domOrder",
+      "target_figure_contextContinuity",
+      "target_figure_semanticCompleteness",
+      "target_figure_incomplete",
+      "target_figure_issue"
+    ]
+  },
+  "originalModelFlags": {
+    "domOrder": {
+      "faithful": false,
+      "evidence": "源中目标位于 b0017 和 b0019 之间；候选目标块与上下文块分别列在不同数组中，未展示包含目标及邻接块的合并顺序，故无法独立确认实际插入位置。这是不确定，并非已证实错序。"
+    },
+    "contextContinuity": {
+      "faithful": false,
+      "evidence": "所给继承上下文包含之后摸切、拆掉23饼、14饼听牌及避免二度进张的说明；但缺少与目标块合并的有序序列，无法确认这些说明在成品中与例5连续呈现。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "目标图的牌序、箭头、横置和赤牌信息以及所给教学文字均已覆盖；由于目标与上下文的实际组合顺序未展示，尚不能确认完整教学上下文在成品中的连续性。"
+    },
+    "completeTargetScopeCompared": false,
+    "issues": [
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1775262:b0018",
+        "sourceEvidence": "源顺序为 main/p[16] 的 b0017、main/div[17] 的 b0018、main/p[18] 的 b0019；候选中的目标块和上下文块分属不同数组。",
+        "description": "无法从所给候选数据确定目标 figure 是否实际处于两段教学文字之间，因此上下文连续性仍待确认。",
+        "suggestedRepair": "提供或核对候选文档包含 b0017、b0018、b0019 的同一有序块序列，确认目标位于两段之间，并保留后续已继承的教学内容。"
+      }
+    ]
+  },
+  "priorUnitsUnchanged": 244,
+  "otherRegisterRowsUnchanged": 79,
+  "pdf217220RowAnd215AndOtherHoldsUnchanged": true,
+  "fullMcp": {
+    "units": 245,
+    "images": 5148
+  },
+  "arena": {
+    "units": 245,
+    "exactBody": true,
+    "targetSourceRefs": 1
+  },
+  "crossChapterSourceCollisions": 0,
+  "sourceBlocks": 23,
+  "textBlocks": 13,
+  "figures": 10,
+  "orderedWindowIds": [
+    "79-bilibili-cn:cv1775262:b0017",
+    "79-bilibili-cn:cv1775262:b0018",
+    "79-bilibili-cn:cv1775262:b0019",
+    "79-bilibili-cn:cv1775262:b0020",
+    "79-bilibili-cn:cv1775262:b0021"
+  ],
+  "targetBetweenNeighborParagraphs": true,
+  "two2mReferencesNow1m": true,
+  "unknownsAlreadyEmptyNotNewlyCleared": true,
+  "sourceNotes": [],
+  "emphasisPreserved": true,
+  "persistedRoute": {
+    "allPassed": true,
+    "installedBuilderRouteExecuted": true,
+    "sameChapterCorpus": true,
+    "allBodyFieldsExact": true,
+    "previousSelectionJobsAndPdfExact": true,
+    "wrongAdjudicationRejected": true,
+    "otherCandidateRejected": true,
+    "recoveredRequestCommit": "5f3575a",
+    "realUndispatchedRequestArrayMatchesCurrentCandidate": true,
+    "cliClosedPromptExact": true,
+    "upstreamActualRequestNegativeTests": 7,
+    "localRowsNegativeTests": 7,
+    "originalModelChecksStillFalse": true,
+    "notANewFullArticleModelReview": true,
+    "modelCalls": 0
+  },
+  "upstream222Budget": {
+    "priorUsed": 3,
+    "phaseMaximum": 4,
+    "newOrderCallsUsed": 0,
+    "remainingConditionalOrderCalls": 1,
+    "retry": 0
+  },
+  "additionalConditionalReviewNotUsed": true,
+  "pdfReceiptsAlreadyRegisteredAndNotRebuilt": true,
+  "sharedStagerUnchanged": true,
+  "sharedAuditGatesUnchanged": true,
+  "newProductionCalls": 0,
+  "newAuditCalls": 0,
+  "measurementLimits": {
+    "fee": null,
+    "upstreamExecutionCount": null,
+    "remoteWeights": "unknown"
+  },
+  "protectedFilesChecked": 63,
+  "formalActiveUnchanged": true,
+  "writerLocksAbsent": true
+}

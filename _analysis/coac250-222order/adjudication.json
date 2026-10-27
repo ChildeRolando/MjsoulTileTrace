@@ -1,0 +1,1649 @@
+{
+  "schema": "coac249-exact222-independent-order-composition-adjudication/1",
+  "authorizationComment": "01a17f2f-39b5-7528-b13f-424d7bc2a37c",
+  "canonical": "79-cn-chapter-222-5",
+  "status": "accepted-specific-order-input-composition",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.r2.display.json",
+    "sha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d"
+  },
+  "source": {
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1775262",
+    "url": "https://www.bilibili.com/read/cv1775262",
+    "title": "【日本麻雀讲座译文】防守14—立直的读牌（一）",
+    "language": "zh-CN",
+    "fetchedAt": "2026-10-23T20:31:50.303666+00:00",
+    "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1775262/source.json",
+    "sourceSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+    "htmlSha256": "00ba55b262d15739f0f6cf28b92e56751ff0ea9e38aed7e8e2349de8edfa7ae1",
+    "mainSha256": "8311e4033b07646c4a91acfbe1bea660d805802ccbb204c11a5423ce6a810706"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.r1.display.json",
+    "sha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6"
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+    "sha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec"
+  },
+  "targetAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d.json",
+    "sha256": "06658a3d465820d3523fb1a28ff0a0ffd9c6a6484a92be4f68984dd0dc1a4e24",
+    "status": "needs-repair",
+    "modelChecks": {
+      "passed": false,
+      "errors": [
+        "target_figure_domOrder",
+        "target_figure_contextContinuity",
+        "target_figure_semanticCompleteness",
+        "target_figure_incomplete",
+        "target_figure_issue"
+      ]
+    }
+  },
+  "targetRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\5b131a9b-8592-4789-922a-1ab7306b9581.json",
+    "sha256": "88d71694aaa3485b0f30f03477d0389e82615147162b3970c9833aa8e5c01ea2",
+    "callId": "5b131a9b-8592-4789-922a-1ab7306b9581"
+  },
+  "parentIndependentOrder": {
+    "faithful": true,
+    "evidence": "23个正文块依b0001至b0023自然顺序一一对应，10次图片出现均在原段落位置，未见重排、重复或遗漏。"
+  },
+  "parentIndependentCall": {
+    "callId": "f64f0d4f-8833-475e-96dd-a9c5f80e2ba9",
+    "scope": "textbook-web-article-audit",
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1775262",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "success": true,
+    "usage": {
+      "inputTokens": 29804,
+      "cachedInputTokens": 0,
+      "outputTokens": 4024
+    },
+    "promptSha256": "51b1445290f983211005dfaef302e3afd481235d0c1249963fadc901478d4993",
+    "semanticPromptSha256": "d2e1b32cda7400343c9dd8781a4e6387d792a2a72e3851d243025be8404fb681",
+    "schemaSha256": "d839f4c471aa04ad1d8023e11c2b85327a20d418e945027db289c1a50ea58190",
+    "outputSha256": "7dfb72d7706cf3798accb6700717968f8fd68ed61cd204386dbdf24fd40fa673",
+    "requestPromptBytes": 61170,
+    "semanticPromptBytes": 60688,
+    "binding": {
+      "productionSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+      "sourceFileSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+      "auditorSnapshotSha256": "cc22ef78d8bc532ece4d5b23e0449d46ff7d4fe28eb05511fc205d95db10fde2",
+      "semanticProjectionSha256": "a716c9e9648309439c930422172aef02e4ad9f7cb1ff48c77217865764b34f10",
+      "semanticProjectionVersion": 2,
+      "verifiedAssetIds": [
+        "79-bilibili-cn:4ff806d68ab98feab4e37046",
+        "79-bilibili-cn:999daad6f550e9d0bfcd8cc0",
+        "79-bilibili-cn:f6e6f1345fa33b2bd93fc140",
+        "79-bilibili-cn:ac1227cfc248f158cf13a4f5",
+        "79-bilibili-cn:ae83195091b81bec79b1bfdf",
+        "79-bilibili-cn:c9579005445a78fd7b453000",
+        "79-bilibili-cn:822cd7d9d2e330d06ecac5a3",
+        "79-bilibili-cn:e37c65845d580365c4b6672c",
+        "79-bilibili-cn:4caa022d0d4e924f4e7db15b"
+      ],
+      "originalImageAssetIds": [
+        "79-bilibili-cn:c9aa4cb8776452b777c28214"
+      ],
+      "supplementalInputs": [
+        {
+          "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+          "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png",
+          "sha256": "98f2495dfb2b67f1e57c6639f533e9630c5ce46a35e89fbc55248e60f2136126",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 1216,
+          "height": 296
+        }
+      ]
+    },
+    "recordedAt": "2026-10-27T15:26:57.844Z"
+  },
+  "newIndependentTargetChecks": {
+    "blockChecks": [
+      {
+        "id": "79-bilibili-cn:cv1775262:b0018",
+        "verdict": "faithful",
+        "evidence": "原图块由一个 figure 表示，sourceBlockIds、paragraphId 和 tableContext 与目标块对应；实际合并顺序另见 domOrder。"
+      }
+    ],
+    "figureChecks": [
+      {
+        "id": "79-bilibili-cn:cv1775262:b0018:figure",
+        "verdict": "faithful",
+        "evidence": "原图及四倍图支持例5标签和九张牌顺序：2z、3z、6z、8m、5m、1m、4z、3p、2p。第六张采用已绑定的独立1m裁决，unknowns 已相应清空；两支箭头位于第六、七张上方，第九张2p横置。五万数字为黑色，图中无赤牌。"
+      }
+    ],
+    "imageChecks": [
+      {
+        "id": "79-bilibili-cn:cv1775262:i00008",
+        "disposition": "represented",
+        "evidence": "该 occurrence 被目标 figure 引用，并绑定到所附原图对应的单源资产；候选还声明了同源派生的 presentationAsset。本次可视比较使用所附原图和四倍最近邻图。"
+      }
+    ]
+  },
+  "originalUnresolvedFlagsPreserved": {
+    "domOrder": {
+      "faithful": false,
+      "evidence": "源中目标位于 b0017 和 b0019 之间；候选目标块与上下文块分别列在不同数组中，未展示包含目标及邻接块的合并顺序，故无法独立确认实际插入位置。这是不确定，并非已证实错序。"
+    },
+    "contextContinuity": {
+      "faithful": false,
+      "evidence": "所给继承上下文包含之后摸切、拆掉23饼、14饼听牌及避免二度进张的说明；但缺少与目标块合并的有序序列，无法确认这些说明在成品中与例5连续呈现。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "目标图的牌序、箭头、横置和赤牌信息以及所给教学文字均已覆盖；由于目标与上下文的实际组合顺序未展示，尚不能确认完整教学上下文在成品中的连续性。"
+    },
+    "completeTargetScopeCompared": false,
+    "issues": [
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1775262:b0018",
+        "sourceEvidence": "源顺序为 main/p[16] 的 b0017、main/div[17] 的 b0018、main/p[18] 的 b0019；候选中的目标块和上下文块分属不同数组。",
+        "description": "无法从所给候选数据确定目标 figure 是否实际处于两段教学文字之间，因此上下文连续性仍待确认。",
+        "suggestedRepair": "提供或核对候选文档包含 b0017、b0018、b0019 的同一有序块序列，确认目标位于两段之间，并保留后续已继承的教学内容。"
+      }
+    ]
+  },
+  "orderedRows": [
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1775262:b0017",
+      "sourceIndex": 16,
+      "candidateIndex": 16,
+      "candidateSha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d",
+      "source": {
+        "id": "79-bilibili-cn:cv1775262:b0017",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0017",
+        "tag": "p",
+        "domPath": "main/p[16]",
+        "tableContext": null,
+        "type": "text",
+        "text": "（之后是摸切）  有一个常常被误解的东西，这里需要事先说明以下。 例4中58索是间四间的危险牌， 但是终盘切出的6饼并不能说明25饼是危险的。  如果是单纯的346饼的话，6饼应该被更早切出。 间四间确实是危险的， 但是不能正确掌握间四间的条件也是毫无意义的。  ------------------------------------------------------------------------------------ 被拆掉的两面搭子的里筋 ------------------------------------------------------------------------------------ 这是由“二度进张不利”的牌理反过来推导的逻辑。 ",
+        "segments": [
+          {
+            "text": "（之后是摸切）",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "有一个常常被误解的东西，这里需要事先说明以下。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "例4中58索是间四间的危险牌，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是终盘切出的6饼并不能说明25饼是危险的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "如果是单纯的346饼的话，6饼应该被更早切出。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "间四间确实是危险的，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是不能正确掌握间四间的条件也是毫无意义的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "被拆掉的两面搭子的里筋",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这是由“二度进张不利”的牌理反过来推导的逻辑。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0017"
+        ],
+        "sourceText": "（之后是摸切）  有一个常常被误解的东西，这里需要事先说明以下。 例4中58索是间四间的危险牌， 但是终盘切出的6饼并不能说明25饼是危险的。  如果是单纯的346饼的话，6饼应该被更早切出。 间四间确实是危险的， 但是不能正确掌握间四间的条件也是毫无意义的。  ------------------------------------------------------------------------------------ 被拆掉的两面搭子的里筋 ------------------------------------------------------------------------------------ 这是由“二度进张不利”的牌理反过来推导的逻辑。 ",
+        "text": "（之后是摸切）  有一个常常被误解的东西，这里需要事先说明以下。 例4中58索是间四间的危险牌， 但是终盘切出的6饼并不能说明25饼是危险的。  如果是单纯的346饼的话，6饼应该被更早切出。 间四间确实是危险的， 但是不能正确掌握间四间的条件也是毫无意义的。  ------------------------------------------------------------------------------------ 被拆掉的两面搭子的里筋 ------------------------------------------------------------------------------------ 这是由“二度进张不利”的牌理反过来推导的逻辑。 ",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0017",
+        "sourceSegments": [
+          {
+            "text": "（之后是摸切）",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "有一个常常被误解的东西，这里需要事先说明以下。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "例4中58索是间四间的危险牌，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是终盘切出的6饼并不能说明25饼是危险的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "如果是单纯的346饼的话，6饼应该被更早切出。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "间四间确实是危险的，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是不能正确掌握间四间的条件也是毫无意义的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "被拆掉的两面搭子的里筋",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这是由“二度进张不利”的牌理反过来推导的逻辑。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1775262:b0018",
+      "sourceIndex": 17,
+      "candidateIndex": 17,
+      "candidateSha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d",
+      "source": {
+        "id": "79-bilibili-cn:cv1775262:b0018",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0018",
+        "tag": "div",
+        "domPath": "main/div[17]/div[0]/div[0]/div[0]/div[0]",
+        "tableContext": null,
+        "type": "image-run",
+        "images": [
+          {
+            "occurrenceId": "79-bilibili-cn:cv1775262:i00008",
+            "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+            "sourceUrls": [
+              "https://i0.hdslb.com/bfs/article/dc53a3abb116b4afb2cab4e787e7746d4ef8a975.png",
+              "https://i0.hdslb.com/bfs/article/dc53a3abb116b4afb2cab4e787e7746d4ef8a975.png@608w_148h"
+            ],
+            "alt": "",
+            "title": "",
+            "width": null,
+            "height": null,
+            "tileHint": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0018"
+        ],
+        "figureId": "79-bilibili-cn:cv1775262:b0018:figure",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0018",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "79-bilibili-cn:cv1775262:b0018:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0018"
+        ],
+        "sourceOccurrenceIds": [
+          "79-bilibili-cn:cv1775262:i00008"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+            "path": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+            "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+            "url": "https://i0.hdslb.com/bfs/article/dc53a3abb116b4afb2cab4e787e7746d4ef8a975.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "左上方标签：例5。牌序从左至右：2z 3z 6z 8m 5m 1m 4z 3p 2p，共9张；第9张2p横置，无赤牌。\n两支向下箭头分别位于第6张1m、第7张4z的正上方。",
+        "unknowns": [],
+        "caption": "例5：带两支向下箭头的舍牌示例。",
+        "sourceNotes": [
+          "附件1为原图，附件2为同一原图的4倍最近邻放大视图，非额外牌列。",
+          "牌上方的棕黄色线条为牌背边缘。"
+        ],
+        "provenance": {
+          "method": "model-transcription",
+          "callId": "487c0ef8-603e-405a-83ff-5321247f180b",
+          "outputSourceBlockId": "79-bilibili-cn:cv1775262:b0018"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/79-bilibili-cn/cv1775262/aaa00594d20ce4cc/figure-0008.png",
+          "sha256": "4a6639cfdae4cfa47a4583b2991965cf53555b34631bca6e720981a59cb5bac9",
+          "width": 304,
+          "height": 74,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+                "path": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+                "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+                "url": "https://i0.hdslb.com/bfs/article/dc53a3abb116b4afb2cab4e787e7746d4ef8a975.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1775262:b0019",
+      "sourceIndex": 18,
+      "candidateIndex": 18,
+      "candidateSha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d",
+      "source": {
+        "id": "79-bilibili-cn:cv1775262:b0019",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0019",
+        "tag": "p",
+        "domPath": "main/p[18]",
+        "tableContext": null,
+        "type": "text",
+        "text": "（之后摸切）  例5的立直很显眼的地方就是拆掉了23饼的两面搭子。 “正是因为拆掉了，所以才不会是14饼听牌啊”，这样的想法只是初学者的天真想法…… 实际上14饼才是关键啊，不是吗？ ",
+        "segments": [
+          {
+            "text": "（之后摸切）",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "例5的立直很显眼的地方就是拆掉了23饼的两面搭子。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "“正是因为拆掉了，所以才不会是14饼听牌啊”，这样的想法只是初学者的天真想法……",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "实际上14饼才是关键啊，不是吗？",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0019"
+        ],
+        "sourceText": "（之后摸切）  例5的立直很显眼的地方就是拆掉了23饼的两面搭子。 “正是因为拆掉了，所以才不会是14饼听牌啊”，这样的想法只是初学者的天真想法…… 实际上14饼才是关键啊，不是吗？ ",
+        "text": "（之后摸切）  例5的立直很显眼的地方就是拆掉了23饼的两面搭子。 “正是因为拆掉了，所以才不会是14饼听牌啊”，这样的想法只是初学者的天真想法…… 实际上14饼才是关键啊，不是吗？ ",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0019",
+        "sourceSegments": [
+          {
+            "text": "（之后摸切）",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "例5的立直很显眼的地方就是拆掉了23饼的两面搭子。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "“正是因为拆掉了，所以才不会是14饼听牌啊”，这样的想法只是初学者的天真想法……",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "实际上14饼才是关键啊，不是吗？",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1775262:b0020",
+      "sourceIndex": 19,
+      "candidateIndex": 19,
+      "candidateSha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d",
+      "source": {
+        "id": "79-bilibili-cn:cv1775262:b0020",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0020",
+        "tag": "div",
+        "domPath": "main/div[19]/div[0]/div[0]/div[0]/div[0]",
+        "tableContext": null,
+        "type": "image-run",
+        "images": [
+          {
+            "occurrenceId": "79-bilibili-cn:cv1775262:i00009",
+            "assetId": "79-bilibili-cn:e37c65845d580365c4b6672c",
+            "sourceUrls": [
+              "https://i0.hdslb.com/bfs/article/0c79d8f92dc97f3020bab22fe80c30e3e398087a.png",
+              "https://i0.hdslb.com/bfs/article/0c79d8f92dc97f3020bab22fe80c30e3e398087a.png@868w_216h"
+            ],
+            "alt": "",
+            "title": "",
+            "width": null,
+            "height": null,
+            "tileHint": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0020"
+        ],
+        "figureId": "79-bilibili-cn:cv1775262:b0020:figure",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0020",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "79-bilibili-cn:cv1775262:b0020:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0020"
+        ],
+        "sourceOccurrenceIds": [
+          "79-bilibili-cn:cv1775262:i00009"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "79-bilibili-cn:e37c65845d580365c4b6672c",
+            "path": "web-sources/v1/79-bilibili-cn/assets/acff5a27e07328adb3584d0f39c4c4e7e05e57a69363edc18b900f144d9369c5.png",
+            "sha256": "acff5a27e07328adb3584d0f39c4c4e7e05e57a69363edc18b900f144d9369c5",
+            "url": "https://i0.hdslb.com/bfs/article/0c79d8f92dc97f3020bab22fe80c30e3e398087a.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "上排左侧标签：假设A。连续排列的13张牌从左至右：2p 2p 3p 3p 7p 8p 7s 8s 8s 8s 7z 7z 7z；右侧间隔后另列1张9s。\n下排左侧标签：假设B。连续排列的13张牌从左至右：2p 3p 5p（赤牌） 6p 3s 4s 5s 5s 7s 8s 7z 7z 7z；右侧间隔后另列1张5s。",
+        "unknowns": [],
+        "caption": "假设A、B的手牌与各自右侧单列的牌。",
+        "sourceNotes": [
+          "附件17与附件18是同一原图及其4倍最近邻放大视图，只计一次。"
+        ],
+        "provenance": {
+          "method": "model-transcription",
+          "callId": "3baadcb1-43ae-44bb-a0aa-746ad8749154",
+          "outputSourceBlockId": "79-bilibili-cn:cv1775262:b0020"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/79-bilibili-cn/cv1775262/aaa00594d20ce4cc/figure-0009.png",
+          "sha256": "e4c9391e311a60c1394bf76b9e696f4a9d7620e6edee002a7c41d069ec697738",
+          "width": 434,
+          "height": 108,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "79-bilibili-cn:e37c65845d580365c4b6672c",
+                "path": "web-sources/v1/79-bilibili-cn/assets/acff5a27e07328adb3584d0f39c4c4e7e05e57a69363edc18b900f144d9369c5.png",
+                "sha256": "acff5a27e07328adb3584d0f39c4c4e7e05e57a69363edc18b900f144d9369c5",
+                "url": "https://i0.hdslb.com/bfs/article/0c79d8f92dc97f3020bab22fe80c30e3e398087a.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1775262:b0021",
+      "sourceIndex": 20,
+      "candidateIndex": 20,
+      "candidateSha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d",
+      "source": {
+        "id": "79-bilibili-cn:cv1775262:b0021",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0021",
+        "tag": "p",
+        "domPath": "main/p[20]",
+        "tableContext": null,
+        "type": "text",
+        "text": "想象一下A和B的两种牌型吧。  正是想避免二度进张，所以才拆掉了23饼的搭子。 留下了146饼听牌的可能性。 这种拆掉两面搭子的立直，一定要对其筋保持警惕。  总结、理论： 拆掉两面搭子的立直，要小心其二度进张。  ------------------------------------------------------------------------------------ 拆掉嵌张搭子的立直的跨筋 ------------------------------------------------------------------------------------  这种情况的条件比较复杂，但也是危险度非常高的情况。 从外→内拆掉嵌张搭子的立直，跨筋是危险的。 用文字说明有点难懂，我们来看看实际的例子吧。 ",
+        "segments": [
+          {
+            "text": "想象一下A和B的两种牌型吧。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "正是想避免二度进张，所以才拆掉了23饼的搭子。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "留下了146饼听牌的可能性。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这种拆掉两面搭子的立直，一定要对其筋保持警惕。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "总结、理论：",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": "拆掉两面搭子的立直，要小心其二度进张。",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "拆掉嵌张搭子的立直的跨筋",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这种情况的条件比较复杂，但也是危险度非常高的情况。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "从外→内拆掉嵌张搭子的立直，跨筋是危险的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "用文字说明有点难懂，我们来看看实际的例子吧。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0021"
+        ],
+        "sourceText": "想象一下A和B的两种牌型吧。  正是想避免二度进张，所以才拆掉了23饼的搭子。 留下了146饼听牌的可能性。 这种拆掉两面搭子的立直，一定要对其筋保持警惕。  总结、理论： 拆掉两面搭子的立直，要小心其二度进张。  ------------------------------------------------------------------------------------ 拆掉嵌张搭子的立直的跨筋 ------------------------------------------------------------------------------------  这种情况的条件比较复杂，但也是危险度非常高的情况。 从外→内拆掉嵌张搭子的立直，跨筋是危险的。 用文字说明有点难懂，我们来看看实际的例子吧。 ",
+        "text": "想象一下A和B的两种牌型吧。  正是想避免二度进张，所以才拆掉了23饼的搭子。 留下了146饼听牌的可能性。 这种拆掉两面搭子的立直，一定要对其筋保持警惕。  总结、理论： 拆掉两面搭子的立直，要小心其二度进张。  ------------------------------------------------------------------------------------ 拆掉嵌张搭子的立直的跨筋 ------------------------------------------------------------------------------------  这种情况的条件比较复杂，但也是危险度非常高的情况。 从外→内拆掉嵌张搭子的立直，跨筋是危险的。 用文字说明有点难懂，我们来看看实际的例子吧。 ",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0021",
+        "sourceSegments": [
+          {
+            "text": "想象一下A和B的两种牌型吧。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "正是想避免二度进张，所以才拆掉了23饼的搭子。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "留下了146饼听牌的可能性。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这种拆掉两面搭子的立直，一定要对其筋保持警惕。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "总结、理论：",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": "拆掉两面搭子的立直，要小心其二度进张。",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "拆掉嵌张搭子的立直的跨筋",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这种情况的条件比较复杂，但也是危险度非常高的情况。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "从外→内拆掉嵌张搭子的立直，跨筋是危险的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "用文字说明有点难懂，我们来看看实际的例子吧。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    }
+  ],
+  "bodySha256": "d6dc437eafe166eb237ab30c1f12a05f3689d5f55dcbf2270121c5a0971337ca",
+  "fullBodyEqualsParent": true,
+  "all23NaturalOrderInherited": true,
+  "all13TextAnd9NonTargetFiguresUnchanged": true,
+  "sourceProductionPresentationPointVerified": true,
+  "productionProof": {
+    "callId": "487c0ef8-603e-405a-83ff-5321247f180b",
+    "rawArtifactPath": "raw-calls/487c0ef8-603e-405a-83ff-5321247f180b.json",
+    "rawArtifactSha256": "1b5d17816f423da4b2a3e3d8f71d18d5013cad464af305127f6bd73abf2f6d11",
+    "revision": {
+      "revision": {
+        "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.display.json",
+        "parentSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+        "notesPath": "audit/web/articles/79-bilibili-cn/cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+        "notesSha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec",
+        "figureIds": [
+          "79-bilibili-cn:cv1775262:b0018:figure"
+        ]
+      },
+      "parentAudit": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+        "sha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec",
+        "originalStatus": "needs-repair"
+      },
+      "parentCall": {
+        "callId": "f64f0d4f-8833-475e-96dd-a9c5f80e2ba9",
+        "path": "audit/calls/f64f0d4f-8833-475e-96dd-a9c5f80e2ba9.json",
+        "sha256": "a38f4973d1a3a896fbe48d9e808a37c143c775f6094fab913aca699c58b11c61"
+      },
+      "inheritedAssetIds": [
+        "79-bilibili-cn:4ff806d68ab98feab4e37046",
+        "79-bilibili-cn:999daad6f550e9d0bfcd8cc0",
+        "79-bilibili-cn:f6e6f1345fa33b2bd93fc140",
+        "79-bilibili-cn:ac1227cfc248f158cf13a4f5",
+        "79-bilibili-cn:ae83195091b81bec79b1bfdf",
+        "79-bilibili-cn:c9579005445a78fd7b453000",
+        "79-bilibili-cn:822cd7d9d2e330d06ecac5a3",
+        "79-bilibili-cn:e37c65845d580365c4b6672c",
+        "79-bilibili-cn:4caa022d0d4e924f4e7db15b"
+      ]
+    },
+    "visualInputs": {
+      "inputs": [
+        {
+          "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+          "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+          "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 304,
+          "height": 74
+        },
+        {
+          "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+          "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png",
+          "sha256": "98f2495dfb2b67f1e57c6639f533e9630c5ce46a35e89fbc55248e60f2136126",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 1216,
+          "height": 296
+        }
+      ],
+      "pixels": {
+        "passed": true,
+        "inputs": 2
+      }
+    }
+  },
+  "pointProof": {
+    "handoffSha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9",
+    "rawPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-222-sixth-tile.raw.json",
+    "rawSha256": "32007944f5764cf41e03c336005e438ff02cb5ac17269aba2afa1be26403f3d6",
+    "callId": "55d504fb-96bb-4685-8842-229ff3779df1",
+    "bbox": [
+      170,
+      28,
+      196,
+      65
+    ],
+    "reading": "1m"
+  },
+  "unknownsUnchanged": true,
+  "historyErratum": "The target review mentions cleared unknowns; both parent/current unknowns were already empty. That history claim is not reused, and the raw remains unchanged.",
+  "composition": "Order/context contribution inherits already independent faithful parent order because the whole body is identical; new target figure content inherits actual faithful5b131a9b. No model flag is promoted. Only their independently verified union resolves this exact omitted-input issue.",
+  "modelCalls": 0,
+  "calls": [],
+  "inheritedCalls": [
+    {
+      "callId": "f64f0d4f-8833-475e-96dd-a9c5f80e2ba9",
+      "scope": "textbook-web-article-audit",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1775262",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 29804,
+        "cachedInputTokens": 0,
+        "outputTokens": 4024
+      },
+      "promptSha256": "51b1445290f983211005dfaef302e3afd481235d0c1249963fadc901478d4993",
+      "semanticPromptSha256": "d2e1b32cda7400343c9dd8781a4e6387d792a2a72e3851d243025be8404fb681",
+      "schemaSha256": "d839f4c471aa04ad1d8023e11c2b85327a20d418e945027db289c1a50ea58190",
+      "outputSha256": "7dfb72d7706cf3798accb6700717968f8fd68ed61cd204386dbdf24fd40fa673",
+      "requestPromptBytes": 61170,
+      "semanticPromptBytes": 60688,
+      "binding": {
+        "productionSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+        "sourceFileSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+        "auditorSnapshotSha256": "cc22ef78d8bc532ece4d5b23e0449d46ff7d4fe28eb05511fc205d95db10fde2",
+        "semanticProjectionSha256": "a716c9e9648309439c930422172aef02e4ad9f7cb1ff48c77217865764b34f10",
+        "semanticProjectionVersion": 2,
+        "verifiedAssetIds": [
+          "79-bilibili-cn:4ff806d68ab98feab4e37046",
+          "79-bilibili-cn:999daad6f550e9d0bfcd8cc0",
+          "79-bilibili-cn:f6e6f1345fa33b2bd93fc140",
+          "79-bilibili-cn:ac1227cfc248f158cf13a4f5",
+          "79-bilibili-cn:ae83195091b81bec79b1bfdf",
+          "79-bilibili-cn:c9579005445a78fd7b453000",
+          "79-bilibili-cn:822cd7d9d2e330d06ecac5a3",
+          "79-bilibili-cn:e37c65845d580365c4b6672c",
+          "79-bilibili-cn:4caa022d0d4e924f4e7db15b"
+        ],
+        "originalImageAssetIds": [
+          "79-bilibili-cn:c9aa4cb8776452b777c28214"
+        ],
+        "supplementalInputs": [
+          {
+            "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+            "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png",
+            "sha256": "98f2495dfb2b67f1e57c6639f533e9630c5ce46a35e89fbc55248e60f2136126",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 1216,
+            "height": 296
+          }
+        ]
+      },
+      "recordedAt": "2026-10-27T15:26:57.844Z"
+    },
+    {
+      "callId": "5b131a9b-8592-4789-922a-1ab7306b9581",
+      "scope": "textbook-web-target-figure-audit",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1775262",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "requestExecution": {
+        "schema": "coach-textbook-cli-request/1",
+        "policy": "coac244-vision-production-schema-v2-20261028",
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max",
+        "callerRequested": {
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max"
+        },
+        "args": [
+          "exec",
+          "--model",
+          "gpt-6.1-terra",
+          "--config",
+          "model_reasoning_effort=\"max\"",
+          "--config",
+          "web_search=\"disabled\"",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox",
+          "read-only",
+          "--strict-config",
+          "--skip-git-repo-check",
+          "--json",
+          "--output-schema",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-Sf7thj\\output.schema.json",
+          "--output-last-message",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-Sf7thj\\final.json",
+          "--cd",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-Sf7thj",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png",
+          "--disable",
+          "apps",
+          "--disable",
+          "auth_elicitation",
+          "--disable",
+          "browser_use",
+          "--disable",
+          "browser_use_external",
+          "--disable",
+          "browser_use_full_cdp_access",
+          "--disable",
+          "computer_use",
+          "--disable",
+          "fast_mode",
+          "--disable",
+          "goals",
+          "--disable",
+          "guardian_approval",
+          "--disable",
+          "hooks",
+          "--disable",
+          "image_generation",
+          "--disable",
+          "in_app_browser",
+          "--disable",
+          "in_app_chat",
+          "--disable",
+          "in_app_dictation",
+          "--disable",
+          "in_app_local_automation",
+          "--disable",
+          "in_app_updates",
+          "--disable",
+          "memories",
+          "--disable",
+          "mentions_v2",
+          "--disable",
+          "multi_agent",
+          "--disable",
+          "plugin_sharing",
+          "--disable",
+          "plugins",
+          "--disable",
+          "remote_plugin",
+          "--disable",
+          "shell_snapshot",
+          "--disable",
+          "shell_tool",
+          "--disable",
+          "skill_mcp_dependency_install",
+          "--disable",
+          "skill_search",
+          "--disable",
+          "sleep_tool",
+          "--disable",
+          "tool_call_mcp_elicitation",
+          "--disable",
+          "tool_suggest",
+          "--disable",
+          "unbounded_connection_retries",
+          "--disable",
+          "unified_exec",
+          "--disable",
+          "unified_exec_tty",
+          "--disable",
+          "view_image",
+          "--disable",
+          "workspace_dependencies",
+          "-"
+        ],
+        "images": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+            "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+            "bytes": 3492
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png",
+            "sha256": "98f2495dfb2b67f1e57c6639f533e9630c5ce46a35e89fbc55248e60f2136126",
+            "bytes": 6652
+          }
+        ],
+        "remoteBackend": "unverified; request arguments and returned events only"
+      },
+      "success": true,
+      "usage": {
+        "inputTokens": 17543,
+        "cachedInputTokens": 0,
+        "outputTokens": 12953
+      },
+      "promptSha256": "f29af4ea4054f3fe7efa7b7a2932bebc159ae9eeac70d806d0527c119acc4842",
+      "semanticPromptSha256": "bb1d350cba332d2948b0c3a6f4e0d7a350779f29003667cba33b76d256578e06",
+      "schemaSha256": "7d9af49d5e19ac059b5b21379ee02cd06ba7415838c2888497768c862c06e773",
+      "outputSha256": "052835123428e9ff80acb7454554e1416f6dadf7c6d178f0d08670fe1d612a42",
+      "requestPromptBytes": 20661,
+      "semanticPromptBytes": 20179,
+      "binding": {
+        "productionSha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d",
+        "sourceFileSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+        "auditorSnapshotSha256": "411361b8ad856eb96b0a3621a03a9b22cd9896f07ea1a014cddae5511f8966c4",
+        "semanticProjectionSha256": "bd658f9f95bf1be91496dd3192bbe1b32d6665565c26a6b6bee9f3db2e1473bb",
+        "semanticProjectionVersion": 3,
+        "targetFigureContract": {
+          "schema": "coach-exact-222-target-figure-contract/1",
+          "candidateSha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d",
+          "sourceSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+          "parent": {
+            "path": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.display.json",
+            "sha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6"
+          },
+          "parentAudit": {
+            "path": "audit/web/articles/79-bilibili-cn/cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+            "sha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec"
+          },
+          "point": {
+            "handoffSha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9",
+            "rawPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-222-sixth-tile.raw.json",
+            "rawSha256": "32007944f5764cf41e03c336005e438ff02cb5ac17269aba2afa1be26403f3d6",
+            "callId": "55d504fb-96bb-4685-8842-229ff3779df1",
+            "bbox": [
+              170,
+              28,
+              196,
+              65
+            ],
+            "reading": "1m"
+          },
+          "helperSha256": "8f79a0928d8bc761c9c6ceb5cf643fe80c1a56c2f2600016ccce45f03071b2e8",
+          "targetFigureIds": [
+            "79-bilibili-cn:cv1775262:b0018:figure"
+          ],
+          "targetBlockIds": [
+            "79-bilibili-cn:cv1775262:b0018"
+          ],
+          "targetOccurrenceIds": [
+            "79-bilibili-cn:cv1775262:i00008"
+          ],
+          "views": [
+            {
+              "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+              "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+              "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+              "role": "original",
+              "scale": 1,
+              "resampling": "none",
+              "width": 304,
+              "height": 74
+            },
+            {
+              "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+              "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png",
+              "sha256": "98f2495dfb2b67f1e57c6639f533e9630c5ce46a35e89fbc55248e60f2136126",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 1216,
+              "height": 296
+            }
+          ],
+          "contextSourceBlockIds": [
+            "79-bilibili-cn:cv1775262:b0017",
+            "79-bilibili-cn:cv1775262:b0019",
+            "79-bilibili-cn:cv1775262:b0021"
+          ]
+        },
+        "verifiedAssetIds": [
+          "79-bilibili-cn:4ff806d68ab98feab4e37046",
+          "79-bilibili-cn:999daad6f550e9d0bfcd8cc0",
+          "79-bilibili-cn:f6e6f1345fa33b2bd93fc140",
+          "79-bilibili-cn:ac1227cfc248f158cf13a4f5",
+          "79-bilibili-cn:ae83195091b81bec79b1bfdf",
+          "79-bilibili-cn:c9579005445a78fd7b453000",
+          "79-bilibili-cn:822cd7d9d2e330d06ecac5a3",
+          "79-bilibili-cn:e37c65845d580365c4b6672c",
+          "79-bilibili-cn:4caa022d0d4e924f4e7db15b"
+        ],
+        "originalImageAssetIds": [
+          "79-bilibili-cn:c9aa4cb8776452b777c28214"
+        ],
+        "supplementalInputs": [
+          {
+            "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+            "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png",
+            "sha256": "98f2495dfb2b67f1e57c6639f533e9630c5ce46a35e89fbc55248e60f2136126",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 1216,
+            "height": 296
+          }
+        ]
+      },
+      "recordedAt": "2026-10-27T20:35:31.840Z"
+    }
+  ],
+  "contract": {
+    "schema": "coac249-exact222-order-input-composition-contract/1",
+    "authorizationComment": "01a17f2f-39b5-7528-b13f-424d7bc2a37c",
+    "canonical": "79-cn-chapter-222-5",
+    "candidateSha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d",
+    "sourceSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+    "parentSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+    "parentAuditSha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec",
+    "targetCall": "5b131a9b-8592-4789-922a-1ab7306b9581",
+    "targetRawSha256": "88d71694aaa3485b0f30f03477d0389e82615147162b3970c9833aa8e5c01ea2",
+    "targetAuditSha256": "06658a3d465820d3523fb1a28ff0a0ffd9c6a6484a92be4f68984dd0dc1a4e24",
+    "route": "Existing stageWebTextbook verified callback with a separate exact evidence adjudication; no original validator or original model flags changed.",
+    "requiredEvidence": [
+      "Original full parent independent order faithful and completeArticleCompared; all23 body blocks byte-identical.",
+      "New independent block/figure/image faithful; only unresolved issue is the exact omitted combined-order input.",
+      "Original parent only actual content error is exact two2m references; real bound production replaces both with1m and independent target review confirms them.",
+      "Original production/raw/source/presentation/point chains pass their unchanged frozen verifiers."
+    ],
+    "newModelCalls": 0,
+    "notAllowed": [
+      "Claiming5b131a9b reviewed the omitted array",
+      "Changing its false flags or original uncertain",
+      "Changing body/figures/source/old audit/raw",
+      "Generic waiver for other candidates or errors"
+    ]
+  },
+  "bound": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\runtime-manifest.json",
+      "sha256": "8c416f3afbb3e8647e1761d526151825cb79927741d9f331c44225679be6705f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\capability-evidence.json",
+      "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\production-schema.mjs",
+      "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-222-figure.mjs",
+      "sha256": "8f79a0928d8bc761c9c6ceb5cf643fe80c1a56c2f2600016ccce45f03071b2e8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-definition.mjs",
+      "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-image-binding.test.mjs",
+      "sha256": "1e8968987bd3082740c7044855379c4f193ce9c4d13470c32a1ae1fd4593f832"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-legacy.mjs",
+      "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-pdf-layout.mjs",
+      "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-pdf-native-structure-corrections.mjs",
+      "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-pdf-native.mjs",
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-pdf-scope.mjs",
+      "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-verification-dependencies.mjs",
+      "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-web-batches.mjs",
+      "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-web.mjs",
+      "sha256": "89a233e3bb45fde75bba0b20b9c0aa273093443f65e288fee912f80fda6a717c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-web.test.mjs",
+      "sha256": "f3c19856af72c0078611b1155fd22ed098727c6d9fc163265fde4e54ffa67074"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit.mjs",
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-pdf-flow.mjs",
+      "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-web-dictionary.mjs",
+      "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-web-formal.mjs",
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-web-labels.mjs",
+      "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-web-sources.py",
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-web.mjs",
+      "sha256": "07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production.mjs",
+      "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\verification-dependencies.json",
+      "sha256": "f48df330e0e4f37797cec4014db8f7a9bfd12ffc35d61a9b8f972d74b1f78294"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.r2.display.json",
+      "sha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1775262\\source.json",
+      "sha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.r1.display.json",
+      "sha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+      "sha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d.json",
+      "sha256": "06658a3d465820d3523fb1a28ff0a0ffd9c6a6484a92be4f68984dd0dc1a4e24"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\5b131a9b-8592-4789-922a-1ab7306b9581.json",
+      "sha256": "88d71694aaa3485b0f30f03477d0389e82615147162b3970c9833aa8e5c01ea2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\f64f0d4f-8833-475e-96dd-a9c5f80e2ba9.json",
+      "sha256": "a38f4973d1a3a896fbe48d9e808a37c143c775f6094fab913aca699c58b11c61"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+      "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png",
+      "sha256": "98f2495dfb2b67f1e57c6639f533e9630c5ce46a35e89fbc55248e60f2136126"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-222-sixth-tile.raw.json",
+      "sha256": "32007944f5764cf41e03c336005e438ff02cb5ac17269aba2afa1be26403f3d6"
+    }
+  ]
+}

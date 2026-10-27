@@ -1,0 +1,16 @@
+node:internal/fs/promises:640
+  return new FileHandle(await PromisePrototypeThen(
+                        ^
+
+Error: ENOENT: no such file or directory, open 'C:\Users\Roland\multica_workspaces_desktop-api.multica.ai\coach-rolan-2123e9a3b805\coac-250-9b9677a299d9\worktree\web-production\v1\candidates\79-bilibili-cn\cv1775262.r1.display.json'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1287:14)
+    at async load (file:///C:/Users/Roland/multica_workspaces_desktop-api.multica.ai/coach-rolan-2123e9a3b805/coac-250-9b9677a299d9/worktree/_analysis/coac250-222order/readback.mjs:5:123)
+    at async file:///C:/Users/Roland/multica_workspaces_desktop-api.multica.ai/coach-rolan-2123e9a3b805/coac-250-9b9677a299d9/worktree/_analysis/coac250-222order/readback.mjs:12:150 {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-250-9b9677a299d9\\worktree\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.r1.display.json'
+}
+
+Node.js v24.15.0
