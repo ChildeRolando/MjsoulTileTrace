@@ -1,0 +1,22 @@
+{
+  "ticket": {
+    "id": "01a17e5c-acab-70c6-bceb-f91ed968f733",
+    "issue_id": "01a17cae-06e4-7b30-a93f-3a030d1ae63f",
+    "agent_id": "ba77da89-8574-4dea-8fc2-24e841fc2754",
+    "enabled": false,
+    "fire_count": 1,
+    "last_task_id": "01a17e5d-afe7-78e1-897d-2e6698c50769",
+    "last_error": null,
+    "next_fire_at": null
+  },
+  "integration250": {
+    "id": "01a17e63-fb4f-7988-bd73-f2ab41b7136d",
+    "issue_id": "01a17471-25e6-7731-a529-3df99acf3d42",
+    "agent_id": "b144c077-cadd-4749-a53d-4b9cb98191b8",
+    "enabled": true,
+    "fire_count": 0,
+    "last_task_id": null,
+    "last_error": null,
+    "next_fire_at": "2026-10-27T17:25:04.044014Z"
+  }
+}

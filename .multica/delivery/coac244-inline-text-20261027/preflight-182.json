@@ -1,0 +1,48 @@
+{
+  "chapterId": "79-cn-chapter-182-5",
+  "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1760573.display.json",
+  "parentFileSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+  "auditPath": "audit/web/articles/79-bilibili-cn/cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+  "auditFileSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+  "source": {
+    "path": "web-sources/v1/79-bilibili-cn/articles/cv1760573/source.json",
+    "sha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+    "parentSourceMatches": true
+  },
+  "exclusion": {
+    "covered": false,
+    "registerParentMatches": true,
+    "selectedWeb": [],
+    "boundPassedAlternatives": [],
+    "claim": {
+      "ok": true,
+      "action": "check-chapter",
+      "chapter": "79-cn-chapter-182-5",
+      "held": false
+    },
+    "registerSha256": "c98972e653afd7b23701895849d55630e7fd561a03475d94201c71027113fb71",
+    "previewSha256": "a8ee5c09f21727978f8177996275c00da796a5999841b4391e2af0d676d2eaea"
+  },
+  "parentIssues": [
+    {
+      "severity": "error",
+      "targetId": "79-bilibili-cn:cv1760573:b0003",
+      "sourceEvidence": "かけるは内、のばすは外（太专业了= =，没想好怎么翻）",
+      "description": "教学格言仍保留日文，未满足日文完整译成中文的要求。",
+      "suggestedRepair": "将日文部分译为“立直时切内侧牌，发展牌形时切外侧牌”，原有中文括注及其余中文原文保持不变。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "79-bilibili-cn:cv1760573:b0013",
+      "sourceEvidence": "源文与候选均为“这样的立直话，对手只能对日”。",
+      "description": "候选未改写中文，但源句中的“对日”无法确定所指的对手应对行为，涉及教学判断，不能视为语义已确认完整。",
+      "suggestedRepair": "保留所给中文，不推测补写；需有该句的明确校勘文本，才能消除此项语义不确定。"
+    }
+  ],
+  "originalEntry": {
+    "exitCode": 1,
+    "stderr": "file:///E:/AgentData/Coach/knowledge/processing/web-production/v1/coac269-20261027/frozen-runtime/textbook-production-web.mjs:45\n  if(!figureIds.length||figureIds.some(id=>!parent.figures.some(f=>f.figureId===id))||parent.figures.some(f=>!figureIds.includes(f.figureId)&&!notes.modelReview.figureChecks.some(c=>c.id===f.figureId&&c.verdict==='faithful')))throw Error('web_revision_is_not_isolated_figure_repair');\n                                                                                                                                                                                                                                        ^\n\nError: web_revision_is_not_isolated_figure_repair\n    at file:///E:/AgentData/Coach/knowledge/processing/web-production/v1/coac269-20261027/frozen-runtime/textbook-production-web.mjs:45:233\n\nNode.js v24.15.0\n",
+    "stdout": "",
+    "modelCalls": 0
+  }
+}

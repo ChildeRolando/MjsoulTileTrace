@@ -1,0 +1,351 @@
+{
+  "schema": "coach-coac244-inline-text-stage-result/1",
+  "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+  "pass155": {
+    "chapterId": "79-cn-chapter-155-4",
+    "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751265.coac244inline20261027.display.json",
+    "candidateSha256": "54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db",
+    "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751265.54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db.json",
+    "auditSha256": "eca2eb38636be8b3fa1d82703bbe01b22a0c065163dfc7f68d15405838e03359",
+    "status": "passed",
+    "method": "independent-target-text-review-plus-unchanged-parent-audit",
+    "calls": [
+      {
+        "callId": "465f3d13-e7ff-4ca1-8f62-3b93c441f44e",
+        "scope": "textbook-web-target-text-audit",
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1751265",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "success": true,
+        "usage": {
+          "inputTokens": 13432,
+          "cachedInputTokens": 0,
+          "outputTokens": 343
+        },
+        "promptSha256": "29a7ad83c89d6e4b4e43d78f0449b14819b9cabd2f7107a5d9e4218855b5494b",
+        "semanticPromptSha256": "81ecacf05e20e71092174f08a4930216322e694e66789ca8a52ed3ef82cf5886",
+        "schemaSha256": "a2911fa4981413a0046f54b34e7a83542f89294030bee660eb3271750ec81dba",
+        "outputSha256": "269bfe5f4214a68f7aa786469d40779f5fd6c35df5e10ccba01dd2714c6757b3",
+        "requestPromptBytes": 9082,
+        "semanticPromptBytes": 8600,
+        "binding": {
+          "productionSha256": "54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db",
+          "sourceFileSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+          "auditorSnapshotSha256": "95af0326a6a52eb21187896ee4cf313b5e4e7c83e360a11d6759ba645ed2fa3c",
+          "semanticProjectionSha256": "902e7259d8abea5d2f1d307988ea98b708ed439d21629647efcf154758d89093",
+          "semanticProjectionVersion": 2,
+          "targetTextIds": [
+            "79-bilibili-cn:cv1751265:b0008"
+          ],
+          "verifiedAssetIds": [
+            "79-bilibili-cn:1f15838463b6d47d85122807",
+            "79-bilibili-cn:bb7a1e7d23ee537913abc269",
+            "79-bilibili-cn:25992ebacce40e426a6b8ec2",
+            "79-bilibili-cn:392b5bf64b9fc8b8a1bfc183",
+            "79-bilibili-cn:fff0e2ba89ecee4c01f6ee62",
+            "79-bilibili-cn:6d9e5fd3f16d0a4ef1f139da",
+            "79-bilibili-cn:6ee8b2c075fe7258c0a9eb8a",
+            "79-bilibili-cn:b35870eaccef8657adf75c7b",
+            "79-bilibili-cn:5c2037041b696a530b580b8b",
+            "79-bilibili-cn:08b18d0ac273c9e31b7b1b09"
+          ],
+          "originalImageAssetIds": []
+        },
+        "recordedAt": "2026-10-27T17:15:02.081Z"
+      }
+    ]
+  },
+  "production": {
+    "callId": "676d346d-772e-4662-8fa9-02b236073167",
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1751265",
+    "sourceSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "timeoutMs": 900000,
+    "startedAt": "2026-10-27T17:08:23.334Z",
+    "durationMs": 37334,
+    "usage": {
+      "inputTokens": 13105,
+      "cachedInputTokens": 0,
+      "outputTokens": 219
+    },
+    "success": true,
+    "failureClass": null,
+    "transportStatus": "completed",
+    "rawArtifactPath": "raw-calls/676d346d-772e-4662-8fa9-02b236073167.json",
+    "rawArtifactSha256": "58e786828e31e3acc28fdef753733861a14e1b5331241f515a552d760c557519",
+    "outputSha256": "48d0e6c94404f11ab39e80978bcb12e7268fac313e6cd586a68368c51ba50d7e",
+    "schemaSha256": "e9347b3010ba061581a0c535809d5a152b3cec567549ef006eae29be0284f03c",
+    "promptSha256": "02c7934f43955842c14debc839a03db1091e905be2eaab20c9c7120e4e28dd93",
+    "semanticPromptSha256": "d32015fd7591af52f25c9ed5a08b70b5d4938299ea52638c548443aacb11574e",
+    "cliSnapshot": {
+      "path": "web-production/v1/runners/ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a.cli.mjs",
+      "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+    },
+    "targets": {
+      "textIds": [
+        "79-bilibili-cn:cv1751265:b0008"
+      ],
+      "figureIds": []
+    },
+    "terminalEvents": [],
+    "visualInputs": [],
+    "revision": {
+      "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1751265.display.json",
+      "parentSha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+      "notesPath": "audit/web/articles/79-bilibili-cn/cv1751265.20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f.retry-1792948405214-96b97389.json",
+      "notesSha256": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627",
+      "figureIds": [],
+      "textBlockIds": [
+        "79-bilibili-cn:cv1751265:b0008"
+      ],
+      "inlineJapanese": {
+        "path": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-155.json",
+        "sha256": "56cb4d8ece39d2b661466aad268377a9cdecb93136faa6da0aae0903f4629557",
+        "plan": {
+          "schema": "coach-inline-japanese-revision/1",
+          "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+          "chapterId": "79-cn-chapter-155-4",
+          "bindings": {
+            "parentSha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+            "notesSha256": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627",
+            "sourceSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22"
+          },
+          "edits": [
+            {
+              "sourceBlockId": "79-bilibili-cn:cv1751265:b0008",
+              "quotedText": "大丈夫だ，問題ない！",
+              "operation": "replace"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "outputNormalization": {
+    "method": "exact-completed-155-duplicate-strong-markup-removal/1",
+    "callId": "676d346d-772e-4662-8fa9-02b236073167",
+    "rawArtifactSha256": "58e786828e31e3acc28fdef753733861a14e1b5331241f515a552d760c557519",
+    "rawTextSha256": "90f0d0e1804942930e0f1d6d0a3320b5fe21a749fcc3ce5eb96cb5f92675ff1d",
+    "normalizedTextSha256": "98d87ca056ab35a94b4c4b6db7e01555c36ac909d3405c9d8f2d5ce2d13b9844",
+    "sourceSegmentsSha256": "b8ba2cecc38900b32687c2cd93656d7b018ba80e98dbc8b71ad5e40db1a15aa4",
+    "removedMarkers": [
+      "**",
+      "**"
+    ],
+    "modelCalls": 0
+  },
+  "budget155": {
+    "maximumProductionCalls": 1,
+    "actualProductionCalls": 1,
+    "maximumFirstReviewCalls": 1,
+    "actualFirstReviewCalls": 1,
+    "actualTotalNewCalls": 2,
+    "automaticModelRetries": 0,
+    "zeroModelRecoveryCalls": 0,
+    "initialOutputGateRejected": true,
+    "laterRecoveredFromSameRaw": true,
+    "inputTokens": 26537,
+    "outputTokens": 562,
+    "cachedInputTokens": 0,
+    "currencyCharge": null,
+    "combinedPrior347And155ActualCalls": 4,
+    "combinedPrior347And155Limit": 4
+  },
+  "ticketBatch": {
+    "intakePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\ticket-intake.json",
+    "intakeSha256": "6d0967d34d41734f00394aae057aa4452597a4d3c8aa0ec03d462c2976fa1a37",
+    "chapterIds": [
+      "79-cn-chapter-162-3",
+      "79-cn-chapter-234-12"
+    ],
+    "maxNewCalls": 4,
+    "perChapterProduction": 1,
+    "perChapterFirstReview": 1,
+    "automaticRetries": 0,
+    "agentId": "ba77da89-8574-4dea-8fc2-24e841fc2754",
+    "model": "gpt-6.1-sol",
+    "runtimeId": "731c52da-6d5e-4c5b-80c9-e9f39803735b",
+    "wakeupId": "01a17e5c-acab-70c6-bceb-f91ed968f733"
+  },
+  "held182": {
+    "chapterId": "79-cn-chapter-182-5",
+    "targetTranslation": "79-bilibili-cn:cv1760573:b0003",
+    "unresolved": "79-bilibili-cn:cv1760573:b0013",
+    "severity": "uncertain",
+    "newModelCalls": 0,
+    "nextStep": "Obtain an explicit collation for the source phrase 对日 from the bound upstream original context before treating this as a finite text repair. Preserve uncertainty; do not guess the response action. No current dispatch.",
+    "sourceSentence": "这样的立直话，对手只能对日"
+  },
+  "parent157": {
+    "passed": true,
+    "proof": {
+      "revision": {
+        "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1751276.display.json",
+        "parentSha256": "30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de",
+        "notesPath": "audit/web/articles/79-bilibili-cn/cv1751276.30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de.retry-1792948857228-d69c915c.json",
+        "notesSha256": "59fb75343e72036d123cbd546d50ffc462f20800e340f9015af769e0de6f4f15",
+        "figureIds": [
+          "79-bilibili-cn:cv1751276:b0005:figure",
+          "79-bilibili-cn:cv1751276:b0007:figure",
+          "79-bilibili-cn:cv1751276:b0009:figure",
+          "79-bilibili-cn:cv1751276:b0011:figure",
+          "79-bilibili-cn:cv1751276:b0013:figure"
+        ]
+      },
+      "parentAudit": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1751276.30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de.retry-1792948857228-d69c915c.json",
+        "sha256": "59fb75343e72036d123cbd546d50ffc462f20800e340f9015af769e0de6f4f15",
+        "originalStatus": "needs-repair"
+      },
+      "parentCall": {
+        "callId": "f2da64e8-a655-471b-9984-1b2983ab7fce",
+        "path": "audit/calls/f2da64e8-a655-471b-9984-1b2983ab7fce.json",
+        "sha256": "1825ea05de80b680f194872a7ba82b7fc91bc04b0fe8cde1075aee6a37249d21"
+      },
+      "inheritedAssetIds": [
+        "79-bilibili-cn:f3abe87245ce74e1639bd28a",
+        "79-bilibili-cn:b5b14a7973778694a501c2ca"
+      ]
+    },
+    "chapterId": "79-cn-chapter-157-11",
+    "parentAuditPath": "audit/web/articles/79-bilibili-cn/cv1751276.30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de.retry-1792948857228-d69c915c.json",
+    "parentAuditSha256": "59fb75343e72036d123cbd546d50ffc462f20800e340f9015af769e0de6f4f15",
+    "callId": "f2da64e8-a655-471b-9984-1b2983ab7fce",
+    "originalImageAssetIds": [
+      "79-bilibili-cn:c02ded1ef79bde3ff0bfbf68",
+      "79-bilibili-cn:7087188b7130455f0c26ef2f",
+      "79-bilibili-cn:b1a450102f4274a7f2cd43dc",
+      "79-bilibili-cn:45dbb01f6fe94197e15b2588",
+      "79-bilibili-cn:41679100f7610dc6f729c231",
+      "79-bilibili-cn:f3abe87245ce74e1639bd28a",
+      "79-bilibili-cn:b5b14a7973778694a501c2ca"
+    ],
+    "verifiedAssetIds": [],
+    "rawTerminalEvents": [
+      {
+        "type": "turn.completed",
+        "usage": {
+          "input_tokens": 26349,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5657,
+          "reasoning_output_tokens": 2492
+        }
+      }
+    ],
+    "qualification": "Existing parent independent audit and actual input binding, not a new visual adjudication. Parent assertions must not be replaced by unsupported producer visual claims. No 157 production dispatched."
+  },
+  "regressions": {
+    "passed": 24,
+    "newModelCalls": 0,
+    "proofPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\zero-call-parent-proofs.json",
+    "proofSha256": "8a0c176bbf97d15d1ad9207c89e5be9794d67930ae8e0feba00ffee5590d94f9"
+  },
+  "runtime": {
+    "runtime": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027",
+    "files": [
+      {
+        "name": "inline-japanese-revision.mjs",
+        "sha256": "69a9a0db3fccc07bf85c6720606fefb60bac54c689e2402f96bfe018a358e6a6"
+      },
+      {
+        "name": "textbook-audit-legacy.mjs",
+        "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1"
+      },
+      {
+        "name": "textbook-audit-pdf-layout.mjs",
+        "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+      },
+      {
+        "name": "textbook-audit-pdf-native.mjs",
+        "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+      },
+      {
+        "name": "textbook-audit-pdf-scope.mjs",
+        "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+      },
+      {
+        "name": "textbook-audit-pdf-source-corrections.mjs",
+        "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+      },
+      {
+        "name": "textbook-audit-tile-dictionary.mjs",
+        "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+      },
+      {
+        "name": "textbook-audit-web-batches.mjs",
+        "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+      },
+      {
+        "name": "textbook-audit-web-source.py",
+        "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+      },
+      {
+        "name": "textbook-audit-web.mjs",
+        "sha256": "5d015b457efd1c6010b09199ff3d575232a97999ef54847c53b2265ab6e50530"
+      },
+      {
+        "name": "textbook-audit.mjs",
+        "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+      },
+      {
+        "name": "textbook-production-cli.mjs",
+        "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+      },
+      {
+        "name": "textbook-production-web-present.py",
+        "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+      },
+      {
+        "name": "textbook-production-web-visual.py",
+        "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+      },
+      {
+        "name": "textbook-production-web.mjs",
+        "sha256": "1dd367f57ab5ec127152136141d343efa836486b01ddde8aff7c7cb3046ef57e"
+      }
+    ]
+  },
+  "displayStage": {
+    "kind": "display-only-shadow-stager-original-untouched",
+    "original": {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-web-textbook.mjs",
+      "sha256": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a"
+    },
+    "module": {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-web-textbook.coac244-inline-9c1de787205c4431.mjs",
+      "sha256": "9c1de787205c443111d007933aafff918d70cf1d32ca02a260d2f0195f9bb205"
+    },
+    "helper": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\inline-display.mjs",
+      "sha256": "de8efaad041ad19ed5229ee6597e371b92cf5e0b3ed69b5b59e866fc59068248"
+    },
+    "modelCalls": 0
+  },
+  "activeChanged": false,
+  "copiedArtifacts": [
+    {
+      "name": "155-candidate.display.json",
+      "sha256": "54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db",
+      "sourcePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751265.coac244inline20261027.display.json"
+    },
+    {
+      "name": "155-audit.json",
+      "sha256": "eca2eb38636be8b3fa1d82703bbe01b22a0c065163dfc7f68d15405838e03359",
+      "sourcePath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751265.54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db.json"
+    },
+    {
+      "name": "155-production-raw.json",
+      "sha256": "58e786828e31e3acc28fdef753733861a14e1b5331241f515a552d760c557519",
+      "sourcePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\676d346d-772e-4662-8fa9-02b236073167.json"
+    },
+    {
+      "name": "155-independent-raw.json",
+      "sha256": "5e1b2b727b6a0ec6e4a5708a493450498248926e09cfbb83d102288d7670e335",
+      "sourcePath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\465f3d13-e7ff-4ca1-8f62-3b93c441f44e.json"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+file:///E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-inline-japanese-20261027/textbook-production-web.mjs:189
+ const byId=new Map(translated.map(t=>[t.sourceBlockId,t.text]));for(const b of textBlocks){const text=byId.get(b.sourceBlockIds[0]);if(inlinePlan&&!inlineTextAllowed(inlinePlan,b.sourceBlockIds[0],b.text,text))throw Error('web_inline_output_outside_whitelist_raw_preserved');b.text=text;}
+                                                                                                                                                                                                                         ^
+
+Error: web_inline_output_outside_whitelist_raw_preserved
+    at file:///E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-inline-japanese-20261027/textbook-production-web.mjs:189:218
+
+Node.js v24.15.0

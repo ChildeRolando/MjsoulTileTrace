@@ -1,0 +1,111 @@
+{
+  "chapterId": "79-cn-chapter-155-4",
+  "targetId": "79-bilibili-cn:cv1751265:b0008",
+  "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1751265.display.json",
+  "parentFileSha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+  "parentCandidateSha256": "74c05811edb31a23a548b39887bf6f5e72f859de218d70fd93d7c831c6fa66ed",
+  "source": {
+    "path": "web-sources/v1/79-bilibili-cn/articles/cv1751265/source.json",
+    "sha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+    "parentSourceMatches": true
+  },
+  "auditPath": "audit/web/articles/79-bilibili-cn/cv1751265.20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f.retry-1792948405214-96b97389.json",
+  "auditFileSha256": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627",
+  "auditIssue": {
+    "severity": "error",
+    "targetId": "79-bilibili-cn:cv1751265:b0008",
+    "sourceEvidence": "原文包含粗体“大丈夫だ，問題ない！”，候选正文仍保留该日文。",
+    "description": "日文引语未译成中文。",
+    "suggestedRepair": "将该引语译为“没关系，没问题！”，保留原有粗体强调，其余中文原文保持不变。"
+  },
+  "operations": [
+    {
+      "op": "test",
+      "path": "/body/blocks/7/text",
+      "value": "例2的形，东和北场上都已经切出了2张。 这种情况也是常有的。 “大丈夫だ，問題ない！”而去碰牌的人也不少 有死对子的情况去做门混七对子才是比较好的策略。"
+    },
+    {
+      "op": "replace",
+      "path": "/body/blocks/7/text",
+      "value": "例2的形，东和北场上都已经切出了2张。 这种情况也是常有的。 “没关系，没问题！”而去碰牌的人也不少 有死对子的情况去做门混七对子才是比较好的策略。"
+    }
+  ],
+  "verified": {
+    "exactOneReplacement": true,
+    "allOtherFieldsUnchanged": true,
+    "figuresAndSourceSegmentsUnchanged": true
+  },
+  "state": "prepared-exact-patch-not-production-or-independent-pass",
+  "entryConstraint": {
+    "passed": false,
+    "error": "web_revision_changed_body_or_scope",
+    "figureTargets": [],
+    "textTargets": [
+      "79-bilibili-cn:cv1751265:b0008"
+    ]
+  },
+  "exclusion": {
+    "covered": false,
+    "registerParentMatches": true,
+    "selectedWeb": [],
+    "boundPassedAlternatives": [],
+    "claim": {
+      "ok": true,
+      "action": "check-chapter",
+      "chapter": "79-cn-chapter-155-4",
+      "held": false
+    },
+    "registerSha256": "c98972e653afd7b23701895849d55630e7fd561a03475d94201c71027113fb71",
+    "previewSha256": "a8ee5c09f21727978f8177996275c00da796a5999841b4391e2af0d676d2eaea"
+  },
+  "parentIssues": [
+    {
+      "severity": "error",
+      "targetId": "79-bilibili-cn:cv1751265:b0008",
+      "sourceEvidence": "原文包含粗体“大丈夫だ，問題ない！”，候选正文仍保留该日文。",
+      "description": "日文引语未译成中文。",
+      "suggestedRepair": "将该引语译为“没关系，没问题！”，保留原有粗体强调，其余中文原文保持不变。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "candidate.figures[*].sourceNotes",
+      "sourceEvidence": "实际附件1至10为依次对应的原图，附件11至20为各自放大图；候选各figure的sourceNotes却按1/2、3/4直至19/20配对。",
+      "description": "10处加工附件编号说明均配对错误。实际牌码、方向、例号及教学标签已完整正确转录，此问题仅涉及加工说明。",
+      "suggestedRepair": "按figure出现顺序，将原图/放大图附件配对依次更正为1/11、2/12、3/13、4/14、5/15、6/16、7/17、8/18、9/19、10/20。"
+    }
+  ],
+  "originalEntry": {
+    "exitCode": 1,
+    "stderr": "file:///E:/AgentData/Coach/knowledge/processing/web-production/v1/coac269-20261027/frozen-runtime/textbook-production-web.mjs:45\n  if(!figureIds.length||figureIds.some(id=>!parent.figures.some(f=>f.figureId===id))||parent.figures.some(f=>!figureIds.includes(f.figureId)&&!notes.modelReview.figureChecks.some(c=>c.id===f.figureId&&c.verdict==='faithful')))throw Error('web_revision_is_not_isolated_figure_repair');\n                                                                                                                                                                                                                                        ^\n\nError: web_revision_is_not_isolated_figure_repair\n    at file:///E:/AgentData/Coach/knowledge/processing/web-production/v1/coac269-20261027/frozen-runtime/textbook-production-web.mjs:45:233\n\nNode.js v24.15.0\n",
+    "stdout": "",
+    "modelCalls": 0
+  },
+  "planPath": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-155.json",
+  "planSha256": "56cb4d8ece39d2b661466aad268377a9cdecb93136faa6da0aae0903f4629557",
+  "adaptedEntry": {
+    "exitCode": 0,
+    "stderr": "",
+    "stdout": "{\"preflightPassed\":true,\"sourceId\":\"79-bilibili-cn\",\"articleId\":\"cv1751265\",\"sourceBlocks\":32,\"textBlocks\":22,\"figureRuns\":10,\"pendingFigureRuns\":0,\"imageOccurrences\":10,\"modelCalls\":0}\n",
+    "modelCalls": 0
+  },
+  "args": [
+    "node",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-20261027\\textbook-production-web.mjs",
+    "--source",
+    "web-sources/v1/79-bilibili-cn/articles/cv1751265/source.json",
+    "--revision-from",
+    "web-production/v1/candidates/79-bilibili-cn/cv1751265.display.json",
+    "--revision-notes",
+    "audit/web/articles/79-bilibili-cn/cv1751265.20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f.retry-1792948405214-96b97389.json",
+    "--reuse",
+    "web-production/v1/reuse-maps/985ff2495cf78f47cd545320540d655c5f3eb5fa799728e61a571ddeb1ed24d3.json",
+    "--variant",
+    "coac244inline20261027",
+    "--stop-file",
+    "STOP",
+    "--timeout-ms",
+    "900000",
+    "--revision-inline-japanese",
+    "web-production/v1/runs/coac244-inline-japanese-20261027/plan-155.json"
+  ]
+}

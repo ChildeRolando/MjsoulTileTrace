@@ -1,0 +1,69 @@
+{
+  "chapterId": "79-cn-chapter-234-12",
+  "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+  "parentFileSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+  "auditPath": "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+  "auditFileSha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+  "source": {
+    "path": "web-sources/v1/79-bilibili-cn/articles/cv1780400/source.json",
+    "sha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+    "parentSourceMatches": true
+  },
+  "exclusion": {
+    "covered": false,
+    "registerParentMatches": true,
+    "selectedWeb": [],
+    "boundPassedAlternatives": [],
+    "claim": {
+      "ok": true,
+      "action": "check-chapter",
+      "chapter": "79-cn-chapter-234-12",
+      "held": false
+    },
+    "registerSha256": "c98972e653afd7b23701895849d55630e7fd561a03475d94201c71027113fb71",
+    "previewSha256": "a8ee5c09f21727978f8177996275c00da796a5999841b4391e2af0d676d2eaea"
+  },
+  "parentIssues": [
+    {
+      "severity": "error",
+      "targetId": "79-bilibili-cn:cv1780400:b0003",
+      "sourceEvidence": "三条规则分别含“5-10 ゴットー”“10-20 ワンツー”“10-30 ワンスリー”；候选原样保留三个日文俗称，未附中文释义。",
+      "description": "日文规则俗称未完成中文翻译。括号中的支付数额虽完整，但不能替代对日文标签的中文表达。",
+      "suggestedRepair": "分别补充ゴットー为“五—十”、ワンツー为“一—二”、ワンスリー为“一—三”的规则俗称释义；保留已有中文、数值及支付说明。"
+    }
+  ],
+  "originalEntry": {
+    "exitCode": 1,
+    "stderr": "file:///E:/AgentData/Coach/knowledge/processing/web-production/v1/coac269-20261027/frozen-runtime/textbook-production-web.mjs:45\n  if(!figureIds.length||figureIds.some(id=>!parent.figures.some(f=>f.figureId===id))||parent.figures.some(f=>!figureIds.includes(f.figureId)&&!notes.modelReview.figureChecks.some(c=>c.id===f.figureId&&c.verdict==='faithful')))throw Error('web_revision_is_not_isolated_figure_repair');\n                                                                                                                                                                                                                                        ^\n\nError: web_revision_is_not_isolated_figure_repair\n    at file:///E:/AgentData/Coach/knowledge/processing/web-production/v1/coac269-20261027/frozen-runtime/textbook-production-web.mjs:45:233\n\nNode.js v24.15.0\n",
+    "stdout": "",
+    "modelCalls": 0
+  },
+  "planPath": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-234.json",
+  "planSha256": "7b6381704a680a91012cca7f248d9a8524a9a248829c39a8c4decc26dbdaf504",
+  "adaptedEntry": {
+    "exitCode": 0,
+    "stderr": "",
+    "stdout": "{\"preflightPassed\":true,\"sourceId\":\"79-bilibili-cn\",\"articleId\":\"cv1780400\",\"sourceBlocks\":5,\"textBlocks\":4,\"figureRuns\":1,\"pendingFigureRuns\":0,\"imageOccurrences\":1,\"modelCalls\":0}\n",
+    "modelCalls": 0
+  },
+  "args": [
+    "node",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-20261027\\textbook-production-web.mjs",
+    "--source",
+    "web-sources/v1/79-bilibili-cn/articles/cv1780400/source.json",
+    "--revision-from",
+    "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+    "--revision-notes",
+    "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+    "--reuse",
+    "web-production/v1/reuse-maps/eaaf9eed7717dcac3b18b03092a7b936ad0de3421899cc6cb0abc9d02e492a41.json",
+    "--variant",
+    "coac244inline20261027",
+    "--stop-file",
+    "STOP",
+    "--timeout-ms",
+    "900000",
+    "--revision-inline-japanese",
+    "web-production/v1/runs/coac244-inline-japanese-20261027/plan-234.json"
+  ]
+}

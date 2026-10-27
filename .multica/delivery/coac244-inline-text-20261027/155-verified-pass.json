@@ -1,0 +1,55 @@
+{
+  "chapterId": "79-cn-chapter-155-4",
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751265.coac244inline20261027.display.json",
+  "candidateSha256": "54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db",
+  "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751265.54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db.json",
+  "auditSha256": "eca2eb38636be8b3fa1d82703bbe01b22a0c065163dfc7f68d15405838e03359",
+  "status": "passed",
+  "method": "independent-target-text-review-plus-unchanged-parent-audit",
+  "calls": [
+    {
+      "callId": "465f3d13-e7ff-4ca1-8f62-3b93c441f44e",
+      "scope": "textbook-web-target-text-audit",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1751265",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 13432,
+        "cachedInputTokens": 0,
+        "outputTokens": 343
+      },
+      "promptSha256": "29a7ad83c89d6e4b4e43d78f0449b14819b9cabd2f7107a5d9e4218855b5494b",
+      "semanticPromptSha256": "81ecacf05e20e71092174f08a4930216322e694e66789ca8a52ed3ef82cf5886",
+      "schemaSha256": "a2911fa4981413a0046f54b34e7a83542f89294030bee660eb3271750ec81dba",
+      "outputSha256": "269bfe5f4214a68f7aa786469d40779f5fd6c35df5e10ccba01dd2714c6757b3",
+      "requestPromptBytes": 9082,
+      "semanticPromptBytes": 8600,
+      "binding": {
+        "productionSha256": "54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db",
+        "sourceFileSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+        "auditorSnapshotSha256": "95af0326a6a52eb21187896ee4cf313b5e4e7c83e360a11d6759ba645ed2fa3c",
+        "semanticProjectionSha256": "902e7259d8abea5d2f1d307988ea98b708ed439d21629647efcf154758d89093",
+        "semanticProjectionVersion": 2,
+        "targetTextIds": [
+          "79-bilibili-cn:cv1751265:b0008"
+        ],
+        "verifiedAssetIds": [
+          "79-bilibili-cn:1f15838463b6d47d85122807",
+          "79-bilibili-cn:bb7a1e7d23ee537913abc269",
+          "79-bilibili-cn:25992ebacce40e426a6b8ec2",
+          "79-bilibili-cn:392b5bf64b9fc8b8a1bfc183",
+          "79-bilibili-cn:fff0e2ba89ecee4c01f6ee62",
+          "79-bilibili-cn:6d9e5fd3f16d0a4ef1f139da",
+          "79-bilibili-cn:6ee8b2c075fe7258c0a9eb8a",
+          "79-bilibili-cn:b35870eaccef8657adf75c7b",
+          "79-bilibili-cn:5c2037041b696a530b580b8b",
+          "79-bilibili-cn:08b18d0ac273c9e31b7b1b09"
+        ],
+        "originalImageAssetIds": []
+      },
+      "recordedAt": "2026-10-27T17:15:02.081Z"
+    }
+  ]
+}

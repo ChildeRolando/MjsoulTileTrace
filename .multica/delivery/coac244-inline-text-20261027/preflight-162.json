@@ -1,0 +1,83 @@
+{
+  "chapterId": "79-cn-chapter-162-3",
+  "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1751316.display.json",
+  "parentFileSha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+  "auditPath": "audit/web/articles/79-bilibili-cn/cv1751316.1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52.retry-1792951224780-a2783f95.json",
+  "auditFileSha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+  "source": {
+    "path": "web-sources/v1/79-bilibili-cn/articles/cv1751316/source.json",
+    "sha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464",
+    "parentSourceMatches": true
+  },
+  "exclusion": {
+    "covered": false,
+    "registerParentMatches": true,
+    "selectedWeb": [],
+    "boundPassedAlternatives": [],
+    "claim": {
+      "ok": true,
+      "action": "check-chapter",
+      "chapter": "79-cn-chapter-162-3",
+      "held": false
+    },
+    "registerSha256": "c98972e653afd7b23701895849d55630e7fd561a03475d94201c71027113fb71",
+    "previewSha256": "a8ee5c09f21727978f8177996275c00da796a5999841b4391e2af0d676d2eaea"
+  },
+  "parentIssues": [
+    {
+      "severity": "error",
+      "targetId": "79-bilibili-cn:cv1751316:b0004",
+      "sourceEvidence": "“食いのばし(没想到什么好的译名，各位读者有好的建议请留言)”及随后“这是通过吃来让面子增加的技巧。”",
+      "description": "教学术语保留日文而未提供中文译义。",
+      "suggestedRepair": "保留现有中文及原术语，在“食いのばし”旁补充中文译名，例如“吃牌延伸（通过吃牌增加面子）”。"
+    },
+    {
+      "severity": "error",
+      "targetId": "79-bilibili-cn:cv1751316:b0034",
+      "sourceEvidence": "“本次介绍的食いのばし和消除二度进张的鸣牌，有时会使手牌留下不自然的形。”",
+      "description": "总结段再次出现未译日文教学术语。",
+      "suggestedRepair": "在该次“食いのばし”旁补充与b0004一致的中文译名，保留原有中文、条件及强调。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1751316:b0029:figure",
+      "sourceEvidence": "附件13及放大图28的红色左箭头右方有括号状表情，候选将其内部字符标为无法准确辨清。",
+      "description": "未辨清部分为表情细节，不影响牌码、牌背数量、排列、判断或适用条件，不构成教学语义阻断。",
+      "suggestedRepair": "保留原图及局部不确定说明，不猜补表情字符。"
+    }
+  ],
+  "originalEntry": {
+    "exitCode": 1,
+    "stderr": "file:///E:/AgentData/Coach/knowledge/processing/web-production/v1/coac269-20261027/frozen-runtime/textbook-production-web.mjs:45\n  if(!figureIds.length||figureIds.some(id=>!parent.figures.some(f=>f.figureId===id))||parent.figures.some(f=>!figureIds.includes(f.figureId)&&!notes.modelReview.figureChecks.some(c=>c.id===f.figureId&&c.verdict==='faithful')))throw Error('web_revision_is_not_isolated_figure_repair');\n                                                                                                                                                                                                                                        ^\n\nError: web_revision_is_not_isolated_figure_repair\n    at file:///E:/AgentData/Coach/knowledge/processing/web-production/v1/coac269-20261027/frozen-runtime/textbook-production-web.mjs:45:233\n\nNode.js v24.15.0\n",
+    "stdout": "",
+    "modelCalls": 0
+  },
+  "planPath": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-162.json",
+  "planSha256": "da13dd719d339778d8ddfd67f397d07fa930b88c0a16e94cc7df01962ba7883e",
+  "adaptedEntry": {
+    "exitCode": 0,
+    "stderr": "",
+    "stdout": "{\"preflightPassed\":true,\"sourceId\":\"79-bilibili-cn\",\"articleId\":\"cv1751316\",\"sourceBlocks\":34,\"textBlocks\":19,\"figureRuns\":15,\"pendingFigureRuns\":0,\"imageOccurrences\":15,\"modelCalls\":0}\n",
+    "modelCalls": 0
+  },
+  "args": [
+    "node",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-20261027\\textbook-production-web.mjs",
+    "--source",
+    "web-sources/v1/79-bilibili-cn/articles/cv1751316/source.json",
+    "--revision-from",
+    "web-production/v1/candidates/79-bilibili-cn/cv1751316.display.json",
+    "--revision-notes",
+    "audit/web/articles/79-bilibili-cn/cv1751316.1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52.retry-1792951224780-a2783f95.json",
+    "--reuse",
+    "web-production/v1/reuse-maps/c7124b93402528dc994f53494fb3e112c38485e5fdeecb60329697798600dc34.json",
+    "--variant",
+    "coac244inline20261027",
+    "--stop-file",
+    "STOP",
+    "--timeout-ms",
+    "900000",
+    "--revision-inline-japanese",
+    "web-production/v1/runs/coac244-inline-japanese-20261027/plan-162.json"
+  ]
+}

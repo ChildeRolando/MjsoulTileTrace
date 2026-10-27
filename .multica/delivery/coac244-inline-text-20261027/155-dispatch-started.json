@@ -1,0 +1,167 @@
+{
+  "at": "2026-10-27T17:08:23.265443+00:00",
+  "maxProductionCalls": 1,
+  "automaticRetry": false,
+  "jointExclusion": {
+    "at": "2026-10-27T17:08:23.258574+00:00",
+    "chapterId": "79-cn-chapter-155-4",
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1751265",
+    "registerSha256": "c98972e653afd7b23701895849d55630e7fd561a03475d94201c71027113fb71",
+    "previewSha256": "a8ee5c09f21727978f8177996275c00da796a5999841b4391e2af0d676d2eaea",
+    "registerRow": {
+      "chapterId": "79-cn-chapter-155-4",
+      "originalChapterId": "79-cn-chapter-155-4",
+      "sourceId": "79-cn",
+      "title": "鸣牌10—混一色",
+      "units": 1,
+      "ownedSourceBlocks": 36,
+      "adjudicationGroup": "confirmed-produced-not-covered",
+      "covered": false,
+      "coverageRoute": null,
+      "approvedWebCorrespondence": {
+        "articleId": "cv1751265",
+        "webSourceId": "79-bilibili-cn",
+        "tier": "body",
+        "evidencePath": "integration/chinese-source-body-correspondence.json",
+        "substitutionAllowed": true,
+        "bodyEquivalenceConfirmed": true,
+        "articleInPreview": false
+      },
+      "existingCandidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1751265.display.json",
+        "sha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+        "bodyBlocks": 32,
+        "sourceSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+        "currentSourceSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/79-bilibili-cn/cv1751265.20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f.retry-1792948405214-96b97389.json",
+        "auditRecordedAt": "2026-10-25T17:13:25.214Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 3,
+        "pagesWithCandidate": 1,
+        "pagesWithPassedCandidate": 1,
+        "missingPassedPages": [
+          156,
+          157
+        ],
+        "pagesDetail": [
+          {
+            "page": 155,
+            "candidates": 6,
+            "receiptStatus": "passed",
+            "sourceBound": true,
+            "selected": true,
+            "blocks": 10
+          },
+          {
+            "page": 156,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 15
+          },
+          {
+            "page": 157,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 20
+          }
+        ]
+      },
+      "gaps": {
+        "ownedSourceBlocks": 36,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 36,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 36,
+        "acceptanceGapPages": [
+          156,
+          157
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          156,
+          157
+        ]
+      },
+      "verdict": "produced-needs-repair",
+      "coac246": {
+        "action": "repair",
+        "auditStatus": "needs-repair",
+        "candidateSha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+        "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1751265.display.json",
+        "repairErrors": 3,
+        "units": 1,
+        "blocks": 36
+      }
+    },
+    "selectedWeb": [],
+    "selectedPdf": [],
+    "boundPassedAlternatives": [],
+    "claim": {
+      "ok": true,
+      "action": "check-chapter",
+      "chapter": "79-cn-chapter-155-4",
+      "held": true,
+      "bySelf": true,
+      "record": {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "79-cn-chapter-155-4",
+        "candidateSha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+        "lane": "A",
+        "owner": "COAC-244 Mika inline155",
+        "slot": null,
+        "claimedAt": "2026-10-27T17:08:22.921Z"
+      }
+    },
+    "existingCandidateNames": [
+      "cv1751265.display.json"
+    ],
+    "priorCallIds": [
+      "25e64523-a27d-4a53-8a77-a889527809e6"
+    ]
+  },
+  "slot": {
+    "ok": true,
+    "action": "acquire",
+    "slot": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-A.json",
+    "record": {
+      "schema": "coach-textbook-maker-slot/1",
+      "slot": "maker-A",
+      "lane": "A",
+      "owner": "COAC-244 Mika inline155",
+      "pid": 51036,
+      "claimedAt": "2026-10-27T17:08:22.970Z",
+      "heartbeatAt": "2026-10-27T17:08:22.970Z",
+      "ttlMinutes": 20
+    }
+  },
+  "args": [
+    "node",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-20261027\\textbook-production-web.mjs",
+    "--source",
+    "web-sources/v1/79-bilibili-cn/articles/cv1751265/source.json",
+    "--revision-from",
+    "web-production/v1/candidates/79-bilibili-cn/cv1751265.display.json",
+    "--revision-notes",
+    "audit/web/articles/79-bilibili-cn/cv1751265.20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f.retry-1792948405214-96b97389.json",
+    "--reuse",
+    "web-production/v1/reuse-maps/985ff2495cf78f47cd545320540d655c5f3eb5fa799728e61a571ddeb1ed24d3.json",
+    "--variant",
+    "coac244inline20261027",
+    "--stop-file",
+    "STOP",
+    "--timeout-ms",
+    "900000",
+    "--revision-inline-japanese",
+    "web-production/v1/runs/coac244-inline-japanese-20261027/plan-155.json"
+  ]
+}
