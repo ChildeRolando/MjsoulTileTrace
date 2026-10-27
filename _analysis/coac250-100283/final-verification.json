@@ -1,0 +1,153 @@
+{
+  "schema": "coac250100-condition-coverage/1",
+  "allPassed": true,
+  "recordedAt": "2026-10-27T22:14:28.508Z",
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T22-11-13-395Z",
+    "corpusId": "cbb2a0bb46307d1a17b44f56990300f2864ae25c10cb58360d090af7721a692c",
+    "chapters": 238,
+    "units": 246,
+    "blocks": 6549,
+    "figures": 5276
+  },
+  "coverage": {
+    "originalChaptersCovered": 237,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 269,
+    "originalUnitsTotal": 303
+  },
+  "remainingChapters": 19,
+  "addedOriginalChapters": [
+    "nemata-jp-chapter-100-1"
+  ],
+  "audit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0415bd3cab999892faec1f3ae6ae8586f4b4adb1b93f486e37b1188bf7c49fc3.json",
+    "sha256": "e9d5db1e45f592d938d50c8736beb02ef53e2d009cf04e67bed6d9ce6c436dd0"
+  },
+  "register": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+    "beforeSha256": "5323171ec58c1f3b2f64063ed6eafa2e2f5cb55e5b596ea6ff333d702e8bacf6",
+    "afterSha256": "70eac3b50dcbb326883d1f4ad1f80d859221cc4814191953c58298963f2452e3",
+    "backup": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.before-condition100-1793139268457.json"
+  },
+  "owner": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+    "beforeSha256": "020b2343a1c45079080012a457a6a18a3d35ddafc863d0a1030e5019ddf0e10d",
+    "afterSha256": "af573bf5810ce172ec60a595c3347a492beb87b5cf04903edcc6fed0850f5dd7",
+    "backup": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.before-condition100-1793139268457.json"
+  },
+  "modelCalls": 0,
+  "activeLibraryChanged": false,
+  "selection": {
+    "version": 28,
+    "sha256": "44afea30f4d12f76803eafe29e7a49805d4b852d1b01471edc36c631ba0d5046",
+    "rollbackVersion": 27
+  },
+  "runtimeDependencies": 53,
+  "persistedRoute": {
+    "allPassed": true,
+    "installedBuilderRouteExecuted": true,
+    "sameChapterCorpus": true,
+    "allBodyFieldsExact": true,
+    "exactConditionPreserved": true,
+    "previousSelectionJobsAndPdfExact": true,
+    "wrongManifestRejected": true,
+    "oldBroaderCandidateRejected": true,
+    "newModelCalls": 0
+  },
+  "condition": {
+    "sourceDefinition": "生きている（２枚以上切れてない）孤立字牌",
+    "targetSource": "役牌トイツ１組＋生きている字牌２〜３種",
+    "oldPhrase": "1组役牌对子＋仍有剩余的字牌2～3种",
+    "approvedPhrase": "1组役牌对子＋2～3种仍然有效（尚未被打出2张以上）的字牌"
+  },
+  "sourceBlocks": 311,
+  "compiledBlocks": 106,
+  "figures": 128,
+  "inheritedScope": {
+    "targetTextIds": [
+      "modern-yabejp-ja:chapter01-section035:b0041"
+    ],
+    "newFigureChecks": 0,
+    "images": [],
+    "contextSourceBlocks": 107,
+    "originalABDefinitionBlocks": 39,
+    "inheritedOriginalPassedBlocks": 243,
+    "inheritedOtherNewFaithfulBlocks": 67,
+    "unchangedOtherBlocks": 310,
+    "unchangedCompleteFigureObjects": 128
+  },
+  "legacyAuditAndRawUnchanged": true,
+  "oldDomFalsePreserved": true,
+  "newImageModelReviews": 0,
+  "upstream100Budget": {
+    "used": 2,
+    "maximum": 2,
+    "maker": 1,
+    "independentFirstTargetReview": 1,
+    "remaining": 0,
+    "failedVoidIncluded": true,
+    "retry": 0
+  },
+  "preflightIncidentPreserved": "The original existing request-only option parser read a missing value as false. The authorized one-maker request ran early during the first preflight command. No retry, duplicate or extra model call. v1 raw and snapshot retained; v2 uses a boolean request-only flag and explicit execute authorization.",
+  "chapter283": {
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t396962r1.json",
+      "sha256": "00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2"
+    },
+    "counts": {
+      "originalIssues": 19,
+      "resolved": 10,
+      "remainingBlocking": 7,
+      "sourceNotes": 2,
+      "originalDeferred": 16,
+      "effectiveDeferredResolved": 9,
+      "effectiveDeferredOpen": 7,
+      "newAggregateDeferred": 14,
+      "newAggregateDeferredResolved": 7,
+      "newAggregateDeferredOpen": 7
+    },
+    "ordinaryWholeGateRejected": true,
+    "wholeChapterAccepted": false,
+    "newCheckpointCount": 2,
+    "unchangedBlocks": 1193,
+    "unchangedFigures": 524,
+    "inheritedBatchReviews": 9,
+    "previewBuilt": false
+  },
+  "attestation159242": {
+    "proof": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-159242-binding-consistency-20261028.json",
+      "sha256": "999cd1d4fdd5e5f9b07e5ef31a77a979e114985de15530865a026e2454a5445d"
+    },
+    "sidecar": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-limited-159242-20261028\\coac249-condition-attestation.json",
+      "sha256": "59fdbafbcdbfda1dfb230ba8c7607e3a5b1d8e7e9e847120cb7307300dbfef45"
+    },
+    "deduplicated": true,
+    "rebuild": false
+  },
+  "priorUnitsUnchanged": 245,
+  "otherRegisterRowsUnchangedDuring100Stage": 79,
+  "fullMcp": {
+    "units": 246,
+    "images": 5276
+  },
+  "arena": {
+    "units": 246,
+    "exactBody": true,
+    "targetSourceRefs": 1
+  },
+  "crossChapterSourceCollisions": 0,
+  "sourceSegmentsAndEmphasisPreserved": true,
+  "sharedStagerAndGatesUnchanged": true,
+  "newProductionCalls": 0,
+  "newAuditCalls": 0,
+  "measurementLimits": {
+    "fee": null,
+    "upstreamExecutionCount": null,
+    "remoteWeights": "unknown"
+  },
+  "formalActiveUnchanged": true,
+  "writerLocksAbsent": true
+}

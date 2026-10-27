@@ -1,0 +1,1590 @@
+{
+  "schema": "coac250100283-delivery/1",
+  "files": {
+    ".gitattributes": {
+      "sha256": "376c60731917fd538520a973bc8f2ea3db4b8c04f0b6aee4bfcab5a864a7083a",
+      "bytes": 58
+    },
+    "100-preview.zip": {
+      "sha256": "8da124520cc9771c2303d623ace51072939fa5d554c4101c60e6b5c24ddc26e1",
+      "bytes": 627337
+    },
+    "283-attestation.json": {
+      "sha256": "999cd1d4fdd5e5f9b07e5ef31a77a979e114985de15530865a026e2454a5445d",
+      "bytes": 12849
+    },
+    "283-effective-issues.json": {
+      "sha256": "6d122aa508b6eb57a4122472c52bd96ee78e1b54ec8d1299ac77c0aa1e688617",
+      "bytes": 56892
+    },
+    "283-handoff.json": {
+      "sha256": "daf6806291fdeab42f0e490acfac072bded84aaae8b01cd228710405383d3894",
+      "bytes": 7436
+    },
+    "283-inheritance.json": {
+      "sha256": "1c18b7ff26e7b9ab1a697e7d842934ce3b5a64b2e9e37813bb0cd0c8f0955e28",
+      "bytes": 21548
+    },
+    "283-owner0.after.json": {
+      "sha256": "020b2343a1c45079080012a457a6a18a3d35ddafc863d0a1030e5019ddf0e10d",
+      "bytes": 368836
+    },
+    "283-owner0.before.json": {
+      "sha256": "400f8399249c34ebcefdd3964440b1eda631e04ea39873b2eb2f8f8b4fd88f3d",
+      "bytes": 371019
+    },
+    "283-owner1.after.json": {
+      "sha256": "0d8e531f8feb878a3adf187db5104daf211f9f8cfe461725baa606aa2a8e40f1",
+      "bytes": 458846
+    },
+    "283-owner1.before.json": {
+      "sha256": "722e3539e099f6555c523da3fbeab5e433bb4b2d2a9e7acdbebaa89207efa2da",
+      "bytes": 434567
+    },
+    "283-register.after.json": {
+      "sha256": "5323171ec58c1f3b2f64063ed6eafa2e2f5cb55e5b596ea6ff333d702e8bacf6",
+      "bytes": 521939
+    },
+    "283-register.before.json": {
+      "sha256": "aa5ab515fbe4ef2699fdbe98e69be32e06a82f61b9da7ebb03f73d4d1745b69b",
+      "bytes": 514447
+    },
+    "283-result.json": {
+      "sha256": "267f0d09bdf23f911668b5e83c18dc975a55813b1f97ddf6b47d86a68644e9fb",
+      "bytes": 125567
+    },
+    "283-target0-checkpoint.json": {
+      "sha256": "e0bce7ea57114babe0e0adfe650f659f98b491d6fd69ecd7d982cb2113d8b726",
+      "bytes": 30858
+    },
+    "283-target0-raw.json": {
+      "sha256": "f381604197b33c1c60b53423c8f0f571d13efb6a11c1a52ddd2d635958d9fbfc",
+      "bytes": 329234
+    },
+    "283-target1-checkpoint.json": {
+      "sha256": "882344e39af1888d3367ebb5154642cb09e5f9f20cd1a0cc6d8fa8fe721762f0",
+      "bytes": 30477
+    },
+    "283-target1-raw.json": {
+      "sha256": "a38891d3866cbd2decb70c8f0ab3fb219cbc332617f5369198eb3f80e36340cc",
+      "bytes": 336181
+    },
+    "283-verification.json": {
+      "sha256": "4740e4e42ceff1cc4a12fd740060c06ef712556a99886ae01499dfb3aa3c1a3c",
+      "bytes": 33519
+    },
+    "adapt-workflow.py": {
+      "sha256": "15027c7a958cbf1e072f9a92d717b1370fbe522ccde0290fc21d14bf3d167851",
+      "bytes": 3343
+    },
+    "arena-validation.json": {
+      "sha256": "1f3f65de6ab380904feff28c11b61fc2d279bdfc62d4f9e9fd3f782e46e37bc0",
+      "bytes": 154324
+    },
+    "arena.log": {
+      "sha256": "34a6ed30be18bfa09eadb589ccc0323a6d20923fb3a38fbf32ab171feeb35453",
+      "bytes": 54
+    },
+    "assembly.json": {
+      "sha256": "d09baffb436cf331486054daac8030c6990e85ceedf2cb160e564d81da066ede",
+      "bytes": 850
+    },
+    "audit.json": {
+      "sha256": "e9d5db1e45f592d938d50c8736beb02ef53e2d009cf04e67bed6d9ce6c436dd0",
+      "bytes": 280721
+    },
+    "builder-patch.mjs": {
+      "sha256": "00cd97b283a27b376b9ace3bb1f61d5bbd09adba56c98c6b251488289aff4012",
+      "bytes": 3228
+    },
+    "builder.after.mjs": {
+      "sha256": "64cd4ebb3dd44d33dd02433f2a37a3dd779aea7a4e02a8074ca13b7394331642",
+      "bytes": 37250
+    },
+    "builder.before.mjs": {
+      "sha256": "710ffaf8ef6ace872f7d78228227892d9aa841ec3b47b3869882acefbb0a0fd9",
+      "bytes": 35187
+    },
+    "candidate.json": {
+      "sha256": "0415bd3cab999892faec1f3ae6ae8586f4b4adb1b93f486e37b1188bf7c49fc3",
+      "bytes": 1196409
+    },
+    "coverage.json": {
+      "sha256": "361a6c475c48d9236461afdc9256b8e50a03bf8372ff7033877cd4a11d71c5a7",
+      "bytes": 1864
+    },
+    "dependency-archive.json": {
+      "sha256": "0456c3a098ca15558805795430b21e6aebe6fcfc8b860f5641577a47dadd0734",
+      "bytes": 29871
+    },
+    "evidence.mjs": {
+      "sha256": "6382947661984057ba497eb79f63a2b7f93b4adb6fb4a60955c99162a3bd72ef",
+      "bytes": 13659
+    },
+    "final-verification.json": {
+      "sha256": "2d80fd56b76e0d878f5f328617b5b877dadcea04a37d4e7a4496cc99b6eb9560",
+      "bytes": 5853
+    },
+    "finalize.mjs": {
+      "sha256": "d6d1daf051fe8899fa4cb97c3c58123c04c6b270ef5e3b281e91c422d625f67d",
+      "bytes": 10494
+    },
+    "gate.json": {
+      "sha256": "0d5721a0e2d5171c2d5e032ec513cd160c76736caafc4b0ad4c2975da5211f6b",
+      "bytes": 281000
+    },
+    "handoff.json": {
+      "sha256": "a30db651f9e35ff4b48a9432d1f288ba3c276cfb7f708a36e7d8b061b04c005d",
+      "bytes": 13912
+    },
+    "intake-annotations.json": {
+      "sha256": "1dbe28ea5aa0442a95ba79725e5a13beb761ce646e1f7d1f39409ddfc5b10274",
+      "bytes": 3621
+    },
+    "integrate.mjs": {
+      "sha256": "c8db4ffa6661d9ea5334f3ee74ba6d40eed079e3e620198efdc345afb3466e10",
+      "bytes": 9411
+    },
+    "manifest.json": {
+      "sha256": "f21b00fec06b471fca4a4417f08405018362991a9f4a748f3f6e0ac250c4bde9",
+      "bytes": 14944
+    },
+    "mcp-validation.json": {
+      "sha256": "bd82b6b43e16f6a12c8a4b4b3d3dde46688928e57306860ca62d539d33854cda",
+      "bytes": 37684
+    },
+    "mcp.log": {
+      "sha256": "54bae14912dad82efaf9e40240415921ca262dd2736b8c7c27db24ea632bdf4e",
+      "bytes": 105
+    },
+    "originalAudit.json": {
+      "sha256": "51a7871f3be891b712baa492b6a190e0b6b28f9931f4670f505f32842e1d7e9a",
+      "bytes": 513435
+    },
+    "originalRaw.json": {
+      "sha256": "0776a3e4bda75d25a714a0b348b7a00f5d53b56e5efc5e2662c82c391c929adc",
+      "bytes": 1230209
+    },
+    "owner.after.json": {
+      "sha256": "af573bf5810ce172ec60a595c3347a492beb87b5cf04903edcc6fed0850f5dd7",
+      "bytes": 395154
+    },
+    "owner.before.json": {
+      "sha256": "020b2343a1c45079080012a457a6a18a3d35ddafc863d0a1030e5019ddf0e10d",
+      "bytes": 368836
+    },
+    "owner.refreshed.before.json": {
+      "sha256": "020b2343a1c45079080012a457a6a18a3d35ddafc863d0a1030e5019ddf0e10d",
+      "bytes": 368836
+    },
+    "package-delivery.py": {
+      "sha256": "3c65f3bced4dd5304da3905518832b7ca7620a9a0bce382a66786b436bb0cb31",
+      "bytes": 5218
+    },
+    "parent.json": {
+      "sha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+      "bytes": 1236462
+    },
+    "persisted-route-verification.json": {
+      "sha256": "c847c1f69f1410bfd1ddcca4ba762d5bca4e4a5697af2cfb64c21a994f2506bd",
+      "bytes": 297
+    },
+    "pointer.before.json": {
+      "sha256": "4f9fc6d22f8b5d00bf62587c8769123c9ab938dce1c8a48234d2307e6036fed6",
+      "bytes": 6199545
+    },
+    "preconsume.json": {
+      "sha256": "35255ac237c7a5a3771db62a18955cb3fbd987e6847a9c26445d7aac678780b9",
+      "bytes": 44813
+    },
+    "prepare.mjs": {
+      "sha256": "4a7c3690cecc0bd318f027e37968b26efb7811745828d1f915ddcbe4ecebd915",
+      "bytes": 7194
+    },
+    "preview说明.txt": {
+      "sha256": "b82b279cb21b2ff0f4bde5c26342e723b1193d280f4072b3592a56939dc31aa8",
+      "bytes": 588
+    },
+    "productionRaw.json": {
+      "sha256": "6fc5923f129a41b0beb7aaf055640b94798d8ae72796a06add341e74d04a1673",
+      "bytes": 913152
+    },
+    "publication-journal.json": {
+      "sha256": "5f0004588d2a69a3357d16134b707109a91be2eb203e2781b536d0493f1d9bd3",
+      "bytes": 311
+    },
+    "raw.json": {
+      "sha256": "198d2a4a6c8628075166549679f4799d58d9dfd301dfbb6218b49d696e0e4d00",
+      "bytes": 906194
+    },
+    "readback.json": {
+      "sha256": "0cddcb1d1a6f4cf78ccb198711211282852b1b359fd834bbc8e8cf04e479f01b",
+      "bytes": 52308
+    },
+    "readback.log": {
+      "sha256": "d255477cba05b6ce029449f9decb2a548afb8ca1580902de46f69d3ed8040b08",
+      "bytes": 145
+    },
+    "readback.mjs": {
+      "sha256": "2bbdf508ba3fd7fa8fe18aaeeaeffb63fd759cf70288dff0dcf17fecda6811f7",
+      "bytes": 6139
+    },
+    "README.md": {
+      "sha256": "e22f68692b0d146cb345fecf308d32cfa26d491ce2ee5a2013ba8a2395e422bd",
+      "bytes": 2546
+    },
+    "register.after.json": {
+      "sha256": "70eac3b50dcbb326883d1f4ad1f80d859221cc4814191953c58298963f2452e3",
+      "bytes": 550023
+    },
+    "register.before.json": {
+      "sha256": "5323171ec58c1f3b2f64063ed6eafa2e2f5cb55e5b596ea6ff333d702e8bacf6",
+      "bytes": 521939
+    },
+    "seal.mjs": {
+      "sha256": "45e217ad3f959c0aacfaaafa81a0cc17a223b7c6ee3192eb16969ee19abdc110",
+      "bytes": 3609
+    },
+    "selection-route.patch": {
+      "sha256": "49cbac58004984bb6b5f3d840f053c0e90a6fe28a8a20c69667fb895938bf500",
+      "bytes": 19561
+    },
+    "source-dedup.log": {
+      "sha256": "c9b5b9888493ce85333b26bab97c77a36d7a523194bc47b6fbc9a8126d2c24d2",
+      "bytes": 1487
+    },
+    "source-deduplication-validation.json": {
+      "sha256": "c5940dece19213bcd1ef6cb37507036a28ad4d6db525846edd33ec79cfb2cee0",
+      "bytes": 1797
+    },
+    "source.json": {
+      "sha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+      "bytes": 774629
+    },
+    "stage-receipt.final.json": {
+      "sha256": "bafe25a50358c16d934198a1f6a69d47e475edb5b655cdd09b4d917f387ac888",
+      "bytes": 24036
+    },
+    "stage-receipt.json": {
+      "sha256": "991376dfd776f302de4099ae5851a30416e901959ad74bc974844441dff24234",
+      "bytes": 1034
+    },
+    "variants.after.json": {
+      "sha256": "44afea30f4d12f76803eafe29e7a49805d4b852d1b01471edc36c631ba0d5046",
+      "bytes": 120762
+    },
+    "variants.before.json": {
+      "sha256": "2a5d95f8621ecf80b23077e295f34a6f46f8aae11031bc7a2286852ecade5836",
+      "bytes": 97769
+    },
+    "verifier.mjs": {
+      "sha256": "1b18b13f1f293715e48b362b9ac04e4ca1d01a9aa4f4aa68dc2fe247d14706fb",
+      "bytes": 3394
+    },
+    "verify-persisted-route.mjs": {
+      "sha256": "7ae0f3caac48ed15f6a3ed1cfc53f04d9d9017e6361356fe805915aabc1ef3d5",
+      "bytes": 2773
+    },
+    "webSelection.before.json": {
+      "sha256": "bcdd962f7f871985a5c34a97eebfce1a7d125ac852d3eef7ddee4368dfb0db20",
+      "bytes": 229773
+    },
+    "dependencies/0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30.mjs": {
+      "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30",
+      "bytes": 15858
+    },
+    "dependencies/07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf.mjs": {
+      "sha256": "07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf",
+      "bytes": 36385
+    },
+    "dependencies/0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274.mjs": {
+      "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274",
+      "bytes": 3726
+    },
+    "dependencies/1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68.json": {
+      "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68",
+      "bytes": 1404
+    },
+    "dependencies/16998aff9c5531d6261fad2346ac461ae5e544866a2a4c35bd15b8c4640f37c0.json": {
+      "sha256": "16998aff9c5531d6261fad2346ac461ae5e544866a2a4c35bd15b8c4640f37c0",
+      "bytes": 1979
+    },
+    "dependencies/17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1.py": {
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1",
+      "bytes": 2781
+    },
+    "dependencies/1e8968987bd3082740c7044855379c4f193ce9c4d13470c32a1ae1fd4593f832.mjs": {
+      "sha256": "1e8968987bd3082740c7044855379c4f193ce9c4d13470c32a1ae1fd4593f832",
+      "bytes": 2779
+    },
+    "dependencies/20391bbfc62d5e5a7a5577ea1addf149afb52d92ba3ae0c53cd8302dc93f5b24.json": {
+      "sha256": "20391bbfc62d5e5a7a5577ea1addf149afb52d92ba3ae0c53cd8302dc93f5b24",
+      "bytes": 2627679
+    },
+    "dependencies/223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2.json": {
+      "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2",
+      "bytes": 594
+    },
+    "dependencies/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528.py": {
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+      "bytes": 2089
+    },
+    "dependencies/2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd.mjs": {
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd",
+      "bytes": 9385
+    },
+    "dependencies/2f082bd1d85c99cfb4a59e51a14b3d9a55e5dfc3a75154f534aabe90ee93e1b2.mjs": {
+      "sha256": "2f082bd1d85c99cfb4a59e51a14b3d9a55e5dfc3a75154f534aabe90ee93e1b2",
+      "bytes": 4175
+    },
+    "dependencies/30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355.mjs": {
+      "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355",
+      "bytes": 54676
+    },
+    "dependencies/30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b.mjs": {
+      "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b",
+      "bytes": 22532
+    },
+    "dependencies/35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7.mjs": {
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7",
+      "bytes": 14045
+    },
+    "dependencies/46425b587e959e8da41c634dce02941340960086ebe2835aec9ebe8291accf07.mjs": {
+      "sha256": "46425b587e959e8da41c634dce02941340960086ebe2835aec9ebe8291accf07",
+      "bytes": 133333
+    },
+    "dependencies/4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239.mjs": {
+      "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239",
+      "bytes": 3783
+    },
+    "dependencies/500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff.mjs": {
+      "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff",
+      "bytes": 1990
+    },
+    "dependencies/51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc.mjs": {
+      "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc",
+      "bytes": 8937
+    },
+    "dependencies/53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06.mjs": {
+      "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06",
+      "bytes": 20673
+    },
+    "dependencies/562868336b55ac716ab1241f09137168020016a904b402aa0ec919ce543896ca.mjs": {
+      "sha256": "562868336b55ac716ab1241f09137168020016a904b402aa0ec919ce543896ca",
+      "bytes": 40427
+    },
+    "dependencies/5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf.mjs": {
+      "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf",
+      "bytes": 3802
+    },
+    "dependencies/5f59d5ee65e0daff9167a225701169a339a2709463ab22c972aabb239c0de9a2.mjs": {
+      "sha256": "5f59d5ee65e0daff9167a225701169a339a2709463ab22c972aabb239c0de9a2",
+      "bytes": 36772
+    },
+    "dependencies/5fd754a2c17392bfe853a9469d81ed2b3298bcc32da49730d5b11fd8eaba1065.json": {
+      "sha256": "5fd754a2c17392bfe853a9469d81ed2b3298bcc32da49730d5b11fd8eaba1065",
+      "bytes": 339899
+    },
+    "dependencies/69a9a0db3fccc07bf85c6720606fefb60bac54c689e2402f96bfe018a358e6a6.mjs": {
+      "sha256": "69a9a0db3fccc07bf85c6720606fefb60bac54c689e2402f96bfe018a358e6a6",
+      "bytes": 4901
+    },
+    "dependencies/6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619.mjs": {
+      "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619",
+      "bytes": 19381
+    },
+    "dependencies/6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838.mjs": {
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838",
+      "bytes": 84017
+    },
+    "dependencies/76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05.mjs": {
+      "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05",
+      "bytes": 14311
+    },
+    "dependencies/7af0507ab4504ce71d295d916904c7face47f6812d259c4195dc54e915fad750.mjs": {
+      "sha256": "7af0507ab4504ce71d295d916904c7face47f6812d259c4195dc54e915fad750",
+      "bytes": 2392
+    },
+    "dependencies/8326b5d5ddfb09d78e8e318ea9017dde7a67373a46ac32c6a3cfde571da0eefd.mjs": {
+      "sha256": "8326b5d5ddfb09d78e8e318ea9017dde7a67373a46ac32c6a3cfde571da0eefd",
+      "bytes": 1390
+    },
+    "dependencies/89239b903a4bb4f8c1c911cf020e9c672127a47c2744014ca785135d54a6658f.mjs": {
+      "sha256": "89239b903a4bb4f8c1c911cf020e9c672127a47c2744014ca785135d54a6658f",
+      "bytes": 4863
+    },
+    "dependencies/89884dc7700dac573829190d1cdb2665d531e912b77d220b18427fc4668f9690.json": {
+      "sha256": "89884dc7700dac573829190d1cdb2665d531e912b77d220b18427fc4668f9690",
+      "bytes": 7097
+    },
+    "dependencies/89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b.mjs": {
+      "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b",
+      "bytes": 15708
+    },
+    "dependencies/8f79a0928d8bc761c9c6ceb5cf643fe80c1a56c2f2600016ccce45f03071b2e8.mjs": {
+      "sha256": "8f79a0928d8bc761c9c6ceb5cf643fe80c1a56c2f2600016ccce45f03071b2e8",
+      "bytes": 12920
+    },
+    "dependencies/9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9.mjs": {
+      "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9",
+      "bytes": 6989
+    },
+    "dependencies/9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1.mjs": {
+      "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1",
+      "bytes": 19138
+    },
+    "dependencies/9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa.mjs": {
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa",
+      "bytes": 9877
+    },
+    "dependencies/a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69.mjs": {
+      "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69",
+      "bytes": 7061
+    },
+    "dependencies/a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f.py": {
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f",
+      "bytes": 19235
+    },
+    "dependencies/b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb.mjs": {
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb",
+      "bytes": 5297
+    },
+    "dependencies/b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb.mjs": {
+      "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb",
+      "bytes": 1982
+    },
+    "dependencies/ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1.mjs": {
+      "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1",
+      "bytes": 74908
+    },
+    "dependencies/c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9.mjs": {
+      "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9",
+      "bytes": 3961
+    },
+    "dependencies/cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824.mjs": {
+      "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824",
+      "bytes": 7251
+    },
+    "dependencies/d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34.mjs": {
+      "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34",
+      "bytes": 20603
+    },
+    "dependencies/d825ded2118bbbba5244832897cc95244b164b2e7bc8175ee64759b8349e0241.mjs": {
+      "sha256": "d825ded2118bbbba5244832897cc95244b164b2e7bc8175ee64759b8349e0241",
+      "bytes": 15103
+    },
+    "dependencies/e0285ef3e102acec7d2749ee8be908798b0d1853c8774f19fb147c35f92570e4.mjs": {
+      "sha256": "e0285ef3e102acec7d2749ee8be908798b0d1853c8774f19fb147c35f92570e4",
+      "bytes": 7871
+    },
+    "dependencies/e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711.mjs": {
+      "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711",
+      "bytes": 5213
+    },
+    "dependencies/f032d385356b6137f718f7c07fbaa357c912cc1183b66708232d40613ea6b871.mjs": {
+      "sha256": "f032d385356b6137f718f7c07fbaa357c912cc1183b66708232d40613ea6b871",
+      "bytes": 173459
+    },
+    "dependencies/f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3.mjs": {
+      "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3",
+      "bytes": 8112
+    },
+    "dependencies/f3c19856af72c0078611b1155fd22ed098727c6d9fc163265fde4e54ffa67074.mjs": {
+      "sha256": "f3c19856af72c0078611b1155fd22ed098727c6d9fc163265fde4e54ffa67074",
+      "bytes": 77404
+    },
+    "dependencies/f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08.mjs": {
+      "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08",
+      "bytes": 7384
+    },
+    "dependencies/f5a0bc9d9f85e2dbf9dd2536035addb0ff3da77e52173d22a6e58042241e074f.mjs": {
+      "sha256": "f5a0bc9d9f85e2dbf9dd2536035addb0ff3da77e52173d22a6e58042241e074f",
+      "bytes": 170201
+    },
+    "dependencies/fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221.py": {
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221",
+      "bytes": 20969
+    },
+    "persisted-stage/knowledge-index.json": {
+      "sha256": "504702e6073921f54f76e576e9344104de2d3c3c8f858f535fea8c55c61dbd06",
+      "bytes": 1438
+    },
+    "persisted-stage/knowledge.html": {
+      "sha256": "c003a901e9df57631a911850735952cd96736fa83017dca56b3a712edd2c01fd",
+      "bytes": 99924
+    },
+    "persisted-stage/mcp-build.json": {
+      "sha256": "18099947f61da410a4a314256e670b6c51644bb617166c9c3188835444cc2c94",
+      "bytes": 280
+    },
+    "persisted-stage/textbook-bodies.json": {
+      "sha256": "2780e29ba0d7d807eab52b68bff0e1313e7969b8ce6bc68843e923a5915a94e5",
+      "bytes": 1302999
+    },
+    "persisted-stage/textbook-corpus.json": {
+      "sha256": "88db503aef54ed7ed13962a5ffeb2d823b59ff708d59afde2bdbd46d40f616e0",
+      "bytes": 310235
+    },
+    "persisted-stage/textbook-unit-map.json": {
+      "sha256": "a1cff317921a514f385bf4ba80339d25299e85e874310d46f8a4cd9a4b9e8213",
+      "bytes": 217
+    },
+    "persisted-stage/web-stage-receipt.json": {
+      "sha256": "991376dfd776f302de4099ae5851a30416e901959ad74bc974844441dff24234",
+      "bytes": 1034
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b102.png": {
+      "sha256": "bc6131f54b428d4c6fe57544990461398134441a8f0e3b2bf1e9f18b7e53d43c",
+      "bytes": 7851
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b104.png": {
+      "sha256": "be522b30cbd320ded29ce8a14a1111bf95b8ec5b6014224cb067c62cab53989d",
+      "bytes": 222
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b106.png": {
+      "sha256": "6f81b00805704047c9530731b148c89b3caf55f3764714e83175af7a9e246917",
+      "bytes": 1170
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b113.png": {
+      "sha256": "ed7e8c12067c375477cccceedb4e37d336849e0bfed7f080e9073a29d3c243c4",
+      "bytes": 3758
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b115.png": {
+      "sha256": "62c4c1467ed0a062084b058be378ee341dbd2b50cd92535311e1a93d46c171fe",
+      "bytes": 4638
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b119.png": {
+      "sha256": "781b5f82fe25327868a860c265b45a7a13f9184a7decf09ac8f050a4ac86e1a3",
+      "bytes": 722
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b120.png": {
+      "sha256": "037dbe88fa9ca8d0b5f541053c7b08e5823367b35444933eb7e40fb184f7a699",
+      "bytes": 8821
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b122.png": {
+      "sha256": "b120bd74859d38f1f8bf3676aabebe91db0558f9a4b2c035b7da2f7fc96da82b",
+      "bytes": 1192
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b124.png": {
+      "sha256": "156647da80681730723feabef8c1945ab25936d92dc1c3a0d245d79149dca669",
+      "bytes": 736
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b127.png": {
+      "sha256": "781b5f82fe25327868a860c265b45a7a13f9184a7decf09ac8f050a4ac86e1a3",
+      "bytes": 722
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b128.png": {
+      "sha256": "49f36da377474381c22eab3a660e09c4c10bd3253594a0a57c19ac35cc2018f3",
+      "bytes": 9266
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b13.png": {
+      "sha256": "99a710ab4162d3e07c2664c906e97b9ef3995faab49f28900cb1c4661c58063c",
+      "bytes": 9116
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b131.png": {
+      "sha256": "156647da80681730723feabef8c1945ab25936d92dc1c3a0d245d79149dca669",
+      "bytes": 736
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b134.png": {
+      "sha256": "781b5f82fe25327868a860c265b45a7a13f9184a7decf09ac8f050a4ac86e1a3",
+      "bytes": 722
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b135.png": {
+      "sha256": "66d65bd7afacaa4be9d7ba6ee063ec3c381727e150c5240564548f0add18e427",
+      "bytes": 9531
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b138.png": {
+      "sha256": "781b5f82fe25327868a860c265b45a7a13f9184a7decf09ac8f050a4ac86e1a3",
+      "bytes": 722
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b139.png": {
+      "sha256": "6abb11526d98304f1f4ecf04dbbb0cf6a9b4e79e666c76b6f0022ea20da8d1ee",
+      "bytes": 10031
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b141.png": {
+      "sha256": "1ff6df9a35af52d2da609e96e5958848786bed877d1c0bb687e3b767eb4eede5",
+      "bytes": 1910
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b143.png": {
+      "sha256": "3e1d9efe900823b43418af34966c816dbb7fc46763894743044c05cb88ff4d0c",
+      "bytes": 1105
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b146.png": {
+      "sha256": "eed21ecd3dbae8db9c22d16064df0041ce644d37220b086b2f61bfb8102a05a7",
+      "bytes": 683
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b147.png": {
+      "sha256": "2d8b52092fedff4877a2ea0e21359e6db751f24299d0602de2c57ca998ffd474",
+      "bytes": 10295
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b15.png": {
+      "sha256": "c2e84420611e044f59329e39932a8241eea561dd49f8228326e349a911766c52",
+      "bytes": 950
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b150.png": {
+      "sha256": "c21c4f7052e4bc83cae6d682a548259597b242caf9eebef4718648de2333748e",
+      "bytes": 511
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b151.png": {
+      "sha256": "a5b5f267012a7fa55d07881d6add227d69f5c8f37df36183d758085b5741dda1",
+      "bytes": 9768
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b153.png": {
+      "sha256": "943c22457a6fad3eebaf5f2a7b917fc742a8b46da4f706d2565c0b2c29947817",
+      "bytes": 936
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b156.png": {
+      "sha256": "c21c4f7052e4bc83cae6d682a548259597b242caf9eebef4718648de2333748e",
+      "bytes": 511
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b157.png": {
+      "sha256": "e6f5395c270e39cba4e1bb6e9677de3e1bdb6fda0382ab89ba1297fb46a864d8",
+      "bytes": 8898
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b159.png": {
+      "sha256": "d02e7452f8a9f6423f3b5f5a3f8865b0be7e98aa7533c7640c527e90f342b6e4",
+      "bytes": 1953
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b162.png": {
+      "sha256": "c21c4f7052e4bc83cae6d682a548259597b242caf9eebef4718648de2333748e",
+      "bytes": 511
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b163.png": {
+      "sha256": "f1224c304659a6c5c98d343d0a5daf479d17acfd1196ef4a921d5393a2a17917",
+      "bytes": 8850
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b166.png": {
+      "sha256": "c21c4f7052e4bc83cae6d682a548259597b242caf9eebef4718648de2333748e",
+      "bytes": 511
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b167.png": {
+      "sha256": "d9dd16c65baee7517785f00616b3c2918e694a0b3f5909af2464785a789a8a3c",
+      "bytes": 8179
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b169.png": {
+      "sha256": "943c22457a6fad3eebaf5f2a7b917fc742a8b46da4f706d2565c0b2c29947817",
+      "bytes": 936
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b17.png": {
+      "sha256": "d2d69292e926902ce77ff7b0297b0ebb2aec01a4f2c5629fde8c179634013c1c",
+      "bytes": 658
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b171.png": {
+      "sha256": "fda8d4e5f3a761cebed7c2a147871035be0e42fd3057257b5338df1be036cb76",
+      "bytes": 562
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b174.png": {
+      "sha256": "c21c4f7052e4bc83cae6d682a548259597b242caf9eebef4718648de2333748e",
+      "bytes": 511
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b175.png": {
+      "sha256": "587379d2eb8fe3e89a53d0609c468d4b7b4920ab0c4b6e774cfbbe95dbd0e335",
+      "bytes": 9667
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b178.png": {
+      "sha256": "c21c4f7052e4bc83cae6d682a548259597b242caf9eebef4718648de2333748e",
+      "bytes": 511
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b179.png": {
+      "sha256": "2c00c59ef5d25d1477a122682edf61ee28191a9526f79f24938937e6fa0a1a6d",
+      "bytes": 8985
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b183.png": {
+      "sha256": "c21c4f7052e4bc83cae6d682a548259597b242caf9eebef4718648de2333748e",
+      "bytes": 511
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b184.png": {
+      "sha256": "a826f80b017cde954986967e102f65718d23dce642d54c25dbe1cea683cf7a7c",
+      "bytes": 10302
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b189.png": {
+      "sha256": "e4ec1c92b24a738ca478ef7aaa3ef91606b338b823227b139e37d4389d121e27",
+      "bytes": 3654
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b191.png": {
+      "sha256": "e9224883e89ae6f7b9ee12bd09d0119accae17a186e576d6de052001c9d23e74",
+      "bytes": 3072
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b195.png": {
+      "sha256": "156647da80681730723feabef8c1945ab25936d92dc1c3a0d245d79149dca669",
+      "bytes": 736
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b196.png": {
+      "sha256": "6d91a8bf7b9fd1471b812920075c9049ad32cdc05accbd00ef0af0cd0776ab79",
+      "bytes": 8724
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b198.png": {
+      "sha256": "4aece45ded27cc0668b6d52c5e0e194e3e625f67dda57b4715198d8caa7d6938",
+      "bytes": 898
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b200.png": {
+      "sha256": "97424b00e2013a637ce299a5a4a639e9e25a039173ae9b656815758469278bc1",
+      "bytes": 651
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b201.png": {
+      "sha256": "6d91a8bf7b9fd1471b812920075c9049ad32cdc05accbd00ef0af0cd0776ab79",
+      "bytes": 8724
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b204.png": {
+      "sha256": "41d7f51d265ee633cb8a3e9222cec7bea18336ae5e2e4f526a6427ca5b38087d",
+      "bytes": 671
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b205.png": {
+      "sha256": "6d91a8bf7b9fd1471b812920075c9049ad32cdc05accbd00ef0af0cd0776ab79",
+      "bytes": 8724
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b207.png": {
+      "sha256": "943c22457a6fad3eebaf5f2a7b917fc742a8b46da4f706d2565c0b2c29947817",
+      "bytes": 936
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b209.png": {
+      "sha256": "c21c4f7052e4bc83cae6d682a548259597b242caf9eebef4718648de2333748e",
+      "bytes": 511
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b210.png": {
+      "sha256": "45b0dd4c0cd1ef0402056bba5fccede94ba3455689930364d03c93e0c433fc4e",
+      "bytes": 8793
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b212.png": {
+      "sha256": "0c070e2abdbabfeaf412c3cefe05e6ca8af28798902677d9aede66d83f0824e9",
+      "bytes": 937
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b214.png": {
+      "sha256": "97424b00e2013a637ce299a5a4a639e9e25a039173ae9b656815758469278bc1",
+      "bytes": 651
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b215.png": {
+      "sha256": "45b0dd4c0cd1ef0402056bba5fccede94ba3455689930364d03c93e0c433fc4e",
+      "bytes": 8793
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b218.png": {
+      "sha256": "41d7f51d265ee633cb8a3e9222cec7bea18336ae5e2e4f526a6427ca5b38087d",
+      "bytes": 671
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b219.png": {
+      "sha256": "45b0dd4c0cd1ef0402056bba5fccede94ba3455689930364d03c93e0c433fc4e",
+      "bytes": 8793
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b22.png": {
+      "sha256": "9a73b46aa6d3935c70f57e921e044c2e53c33adccc8f0fb3e4327343b597344e",
+      "bytes": 658
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b221.png": {
+      "sha256": "c8dcc34e9291fb9b80656a4e91fa62342c40a1800a6e02ee1ea73615035d1582",
+      "bytes": 1153
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b223.png": {
+      "sha256": "0dacc0fd0ca8ab9dcc217f6a746da24c84ba49e6174672322bdb3803858bfaf4",
+      "bytes": 665
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b224.png": {
+      "sha256": "d96566de763fad8c6a44dc52d7e325aaa09f2c0f135b1d527ae3b13b7c11d19d",
+      "bytes": 9093
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b226.png": {
+      "sha256": "c8dcc34e9291fb9b80656a4e91fa62342c40a1800a6e02ee1ea73615035d1582",
+      "bytes": 1153
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b229.png": {
+      "sha256": "781b5f82fe25327868a860c265b45a7a13f9184a7decf09ac8f050a4ac86e1a3",
+      "bytes": 722
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b23.png": {
+      "sha256": "1b984d097b5daae9783d78bf5bb884e251ddd512e047101ab5a59e423049b3f9",
+      "bytes": 10341
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b230.png": {
+      "sha256": "855aeb802095ffa597e306dd7c395105c81672db4a1a4531a30ffb25e1056d96",
+      "bytes": 9235
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b232.png": {
+      "sha256": "a0af6e4fee4709079ac7f0ad0fb2c5ae9dedf50562e63424169e270817ddfe99",
+      "bytes": 809
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b235.png": {
+      "sha256": "c21c4f7052e4bc83cae6d682a548259597b242caf9eebef4718648de2333748e",
+      "bytes": 511
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b236.png": {
+      "sha256": "c570a6bb923832267933305fde441fc28ef09328c8bd0fc818f51075dbd51877",
+      "bytes": 9392
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b239.png": {
+      "sha256": "969230055083bd9995afd306713705c0a228ad78a6c6add4b39a6f2b03953382",
+      "bytes": 683
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b240.png": {
+      "sha256": "40af541b798a9791dfb43ce88fe85f14cbf7c53376a6d3060f4ea9b6130f40af",
+      "bytes": 9583
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b243.png": {
+      "sha256": "969230055083bd9995afd306713705c0a228ad78a6c6add4b39a6f2b03953382",
+      "bytes": 683
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b244.png": {
+      "sha256": "301da13a0ec2418bb8b64cc8f5dd6b7c63d5abe68ad2723b01a79e663fe1d918",
+      "bytes": 10609
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b247.png": {
+      "sha256": "969230055083bd9995afd306713705c0a228ad78a6c6add4b39a6f2b03953382",
+      "bytes": 683
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b248.png": {
+      "sha256": "3cc81280054dd2c3ebfeb26314a403fd94f04a48fa77ceb03461549047ebe28d",
+      "bytes": 10433
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b25.png": {
+      "sha256": "5e3638be42bf30b69a44e371c93691ceae8f1c642af55aa2e65820aab4474c57",
+      "bytes": 217
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b250.png": {
+      "sha256": "b120bd74859d38f1f8bf3676aabebe91db0558f9a4b2c035b7da2f7fc96da82b",
+      "bytes": 1192
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b253.png": {
+      "sha256": "9dc471dd8c42281cfd713344d426626001fabc86db95892680a10fb04a923b82",
+      "bytes": 667
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b254.png": {
+      "sha256": "d7a74b85dba78200bf9d16fe65384305ceff850b0a7964a403c9fc0ce5066a57",
+      "bytes": 3755
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b258.png": {
+      "sha256": "9dc471dd8c42281cfd713344d426626001fabc86db95892680a10fb04a923b82",
+      "bytes": 667
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b259.png": {
+      "sha256": "9f8977099c380aa79f29fec26b84e5fd7a07fad9332e5c75cc2e8314f5d7ba95",
+      "bytes": 9863
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b261.png": {
+      "sha256": "d998c906b44a7669230e5fba66e233ec757bdbd66c8e765b646dcea7c076b213",
+      "bytes": 967
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b264.png": {
+      "sha256": "9dc471dd8c42281cfd713344d426626001fabc86db95892680a10fb04a923b82",
+      "bytes": 667
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b265.png": {
+      "sha256": "57bffb0eef3d234c550952e5da38b3c6f99da1bb10792d0aa131d735c3b625ff",
+      "bytes": 8845
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b267.png": {
+      "sha256": "9dc471dd8c42281cfd713344d426626001fabc86db95892680a10fb04a923b82",
+      "bytes": 667
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b268.png": {
+      "sha256": "1345828de2b91fbb267292c5fb8d2e5d6e891b6658ff135980192bd76a906137",
+      "bytes": 9569
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b27.png": {
+      "sha256": "9519428a190cde4debd0ae14760dff0ee96dc4671db98e4c5a4d6fa5dfe6bd64",
+      "bytes": 641
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b270.png": {
+      "sha256": "d567400ca62788d59ebbbb95194fe53ba218096ae5cb3989468c9dc020c03bc2",
+      "bytes": 578
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b273.png": {
+      "sha256": "9dc471dd8c42281cfd713344d426626001fabc86db95892680a10fb04a923b82",
+      "bytes": 667
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b274.png": {
+      "sha256": "a2a1480a89fd3f307f30dd3bd7ff333b97c5668d19a0645326955a042626d149",
+      "bytes": 9709
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b276.png": {
+      "sha256": "f3f4d62cc10eea759e6772a92f7a60708b003e2484fbb07c6ce2b61253280ee1",
+      "bytes": 1492
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b278.png": {
+      "sha256": "7b72f17cedee9d4cb3722e5030581953fc4f641c1d289bf0c13fa250879e20dc",
+      "bytes": 812
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b280.png": {
+      "sha256": "beb9c5fef41d966ec0ab903072cd1a5b69b2ae73f1f3acd86a8c221f8fc37f18",
+      "bytes": 409
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b283.png": {
+      "sha256": "9dc471dd8c42281cfd713344d426626001fabc86db95892680a10fb04a923b82",
+      "bytes": 667
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b284.png": {
+      "sha256": "a8244ac4cddf9488d43a444f86593b3fa3dcbb49b6ca93d5a49c68f5763c0688",
+      "bytes": 9757
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b286.png": {
+      "sha256": "f3f4d62cc10eea759e6772a92f7a60708b003e2484fbb07c6ce2b61253280ee1",
+      "bytes": 1492
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b288.png": {
+      "sha256": "7b72f17cedee9d4cb3722e5030581953fc4f641c1d289bf0c13fa250879e20dc",
+      "bytes": 812
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b29.png": {
+      "sha256": "8f3e9cb2d26eebb4275c7695ff7b5d6e9035fb6e9af071086ee6d8c0506d1f8e",
+      "bytes": 1035
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b290.png": {
+      "sha256": "beb9c5fef41d966ec0ab903072cd1a5b69b2ae73f1f3acd86a8c221f8fc37f18",
+      "bytes": 409
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b292.png": {
+      "sha256": "9519428a190cde4debd0ae14760dff0ee96dc4671db98e4c5a4d6fa5dfe6bd64",
+      "bytes": 641
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b32.png": {
+      "sha256": "c41883191981bee0bffda557e99ec9a8b8d11e4244fffefe3d416eff8e9a6d19",
+      "bytes": 5112
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b34.png": {
+      "sha256": "ced43ff106b738c1b781508e36a8e43937232b1ff3334e99d956ad79bdd4bacf",
+      "bytes": 544
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b43.png": {
+      "sha256": "ad5b84db6d74be08606571b8f9e0bd03ee29ddd2f1a9c819fc79198e2a5f1711",
+      "bytes": 9992
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b45.png": {
+      "sha256": "05aa048b99e8d57234a1641cc8ee344d1848eb02f709bc4dea36a6ad3dc61733",
+      "bytes": 986
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b47.png": {
+      "sha256": "c8dcc34e9291fb9b80656a4e91fa62342c40a1800a6e02ee1ea73615035d1582",
+      "bytes": 1153
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b49.png": {
+      "sha256": "969230055083bd9995afd306713705c0a228ad78a6c6add4b39a6f2b03953382",
+      "bytes": 683
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b51.png": {
+      "sha256": "38c5185a0b58f99046f7edadab3e536c0bb08133600be495e622639aa14cca0a",
+      "bytes": 586
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b54.png": {
+      "sha256": "4c940e00b0ee271c2481aa40e8a6763c5d2e96906b3df36e1106cb223e301f48",
+      "bytes": 10053
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b58.png": {
+      "sha256": "a3fab6db86b5be37aa3e94a00cb7f94dba1e6756586536e99b01fc8e9fa2219d",
+      "bytes": 12288
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b60.png": {
+      "sha256": "4f3a903cd987c5097a2fea36516481d74f3373b59a5d03656ea020c0d69109ef",
+      "bytes": 896
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b62.png": {
+      "sha256": "969230055083bd9995afd306713705c0a228ad78a6c6add4b39a6f2b03953382",
+      "bytes": 683
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b64.png": {
+      "sha256": "a78c31b112df253666d1cdcd656bc04e4fdcd8358314c96602b4666b0f0ab95e",
+      "bytes": 805
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b66.png": {
+      "sha256": "2ad4c17f79e35005d95db63f85ed6b2b09aee575f084fecbc7301dbb17a6e1e7",
+      "bytes": 758
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b69.png": {
+      "sha256": "096728bf94ae48d9c76565dbbb797592dd28bcd6f9cfc9bc0a6bca44f1cd06f9",
+      "bytes": 11626
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b71.png": {
+      "sha256": "f59d2c48c1d608eabea82aa7f4ecc72cf5ee1e1277953bc334a3d18d0897c304",
+      "bytes": 1705
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b73.png": {
+      "sha256": "b431dbaf47d4fd1c28850637f0864414613c71cefa1605902d03e1222dbc834e",
+      "bytes": 1145
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b76.png": {
+      "sha256": "6e1a93cb8d6510027c23e69d45c469ef250de14ac6a599bd849f6c31acc1b85e",
+      "bytes": 7608
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b78.png": {
+      "sha256": "9cf668bd8045c96675e3da4d50ae803f751d0f47c9b31f3c2a769b510eb1f199",
+      "bytes": 1483
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b8.png": {
+      "sha256": "38816a7e80eadf2a72f33f4ef28b6e927726e2710fabfc41202c362eac135ecd",
+      "bytes": 9230
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b80.png": {
+      "sha256": "969230055083bd9995afd306713705c0a228ad78a6c6add4b39a6f2b03953382",
+      "bytes": 683
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b83.png": {
+      "sha256": "a4708a4b6c0b58112422003da96b993b7dc2eb33f177aa6f2417e6b27ca664c6",
+      "bytes": 12790
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b85.png": {
+      "sha256": "4aece45ded27cc0668b6d52c5e0e194e3e625f67dda57b4715198d8caa7d6938",
+      "bytes": 898
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b87.png": {
+      "sha256": "156647da80681730723feabef8c1945ab25936d92dc1c3a0d245d79149dca669",
+      "bytes": 736
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b89.png": {
+      "sha256": "ced43ff106b738c1b781508e36a8e43937232b1ff3334e99d956ad79bdd4bacf",
+      "bytes": 544
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b91.png": {
+      "sha256": "d534829b75d8198d0f9b21f737703a7f334a104be8852c0f6599ef2eba2a66ea",
+      "bytes": 610
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b94.png": {
+      "sha256": "e35f903a6c309baed6167959f2c13c3d8fda13dc6a01d29b574769ae75f74484",
+      "bytes": 9652
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b96.png": {
+      "sha256": "a500ae00ca303525cd86b51dacc3d2eaf56cb73f39ce5a854a31f375367a06be",
+      "bytes": 1798
+    },
+    "persisted-stage/assets/modern-yabejp-ja-chapter01-section035-b98.png": {
+      "sha256": "42c356f8bf0692a4a69311e80016eb9628012e2bc1c43baa558f66f49ea33280",
+      "bytes": 1208
+    },
+    "stage/knowledge-index.json": {
+      "sha256": "504702e6073921f54f76e576e9344104de2d3c3c8f858f535fea8c55c61dbd06",
+      "bytes": 1438
+    },
+    "stage/knowledge.html": {
+      "sha256": "c003a901e9df57631a911850735952cd96736fa83017dca56b3a712edd2c01fd",
+      "bytes": 99924
+    },
+    "stage/mcp-build.json": {
+      "sha256": "18099947f61da410a4a314256e670b6c51644bb617166c9c3188835444cc2c94",
+      "bytes": 280
+    },
+    "stage/textbook-bodies.json": {
+      "sha256": "2780e29ba0d7d807eab52b68bff0e1313e7969b8ce6bc68843e923a5915a94e5",
+      "bytes": 1302999
+    },
+    "stage/textbook-corpus.json": {
+      "sha256": "88db503aef54ed7ed13962a5ffeb2d823b59ff708d59afde2bdbd46d40f616e0",
+      "bytes": 310235
+    },
+    "stage/textbook-unit-map.json": {
+      "sha256": "a1cff317921a514f385bf4ba80339d25299e85e874310d46f8a4cd9a4b9e8213",
+      "bytes": 217
+    },
+    "stage/web-stage-receipt.json": {
+      "sha256": "991376dfd776f302de4099ae5851a30416e901959ad74bc974844441dff24234",
+      "bytes": 1034
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b102.png": {
+      "sha256": "bc6131f54b428d4c6fe57544990461398134441a8f0e3b2bf1e9f18b7e53d43c",
+      "bytes": 7851
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b104.png": {
+      "sha256": "be522b30cbd320ded29ce8a14a1111bf95b8ec5b6014224cb067c62cab53989d",
+      "bytes": 222
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b106.png": {
+      "sha256": "6f81b00805704047c9530731b148c89b3caf55f3764714e83175af7a9e246917",
+      "bytes": 1170
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b113.png": {
+      "sha256": "ed7e8c12067c375477cccceedb4e37d336849e0bfed7f080e9073a29d3c243c4",
+      "bytes": 3758
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b115.png": {
+      "sha256": "62c4c1467ed0a062084b058be378ee341dbd2b50cd92535311e1a93d46c171fe",
+      "bytes": 4638
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b119.png": {
+      "sha256": "781b5f82fe25327868a860c265b45a7a13f9184a7decf09ac8f050a4ac86e1a3",
+      "bytes": 722
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b120.png": {
+      "sha256": "037dbe88fa9ca8d0b5f541053c7b08e5823367b35444933eb7e40fb184f7a699",
+      "bytes": 8821
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b122.png": {
+      "sha256": "b120bd74859d38f1f8bf3676aabebe91db0558f9a4b2c035b7da2f7fc96da82b",
+      "bytes": 1192
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b124.png": {
+      "sha256": "156647da80681730723feabef8c1945ab25936d92dc1c3a0d245d79149dca669",
+      "bytes": 736
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b127.png": {
+      "sha256": "781b5f82fe25327868a860c265b45a7a13f9184a7decf09ac8f050a4ac86e1a3",
+      "bytes": 722
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b128.png": {
+      "sha256": "49f36da377474381c22eab3a660e09c4c10bd3253594a0a57c19ac35cc2018f3",
+      "bytes": 9266
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b13.png": {
+      "sha256": "99a710ab4162d3e07c2664c906e97b9ef3995faab49f28900cb1c4661c58063c",
+      "bytes": 9116
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b131.png": {
+      "sha256": "156647da80681730723feabef8c1945ab25936d92dc1c3a0d245d79149dca669",
+      "bytes": 736
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b134.png": {
+      "sha256": "781b5f82fe25327868a860c265b45a7a13f9184a7decf09ac8f050a4ac86e1a3",
+      "bytes": 722
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b135.png": {
+      "sha256": "66d65bd7afacaa4be9d7ba6ee063ec3c381727e150c5240564548f0add18e427",
+      "bytes": 9531
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b138.png": {
+      "sha256": "781b5f82fe25327868a860c265b45a7a13f9184a7decf09ac8f050a4ac86e1a3",
+      "bytes": 722
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b139.png": {
+      "sha256": "6abb11526d98304f1f4ecf04dbbb0cf6a9b4e79e666c76b6f0022ea20da8d1ee",
+      "bytes": 10031
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b141.png": {
+      "sha256": "1ff6df9a35af52d2da609e96e5958848786bed877d1c0bb687e3b767eb4eede5",
+      "bytes": 1910
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b143.png": {
+      "sha256": "3e1d9efe900823b43418af34966c816dbb7fc46763894743044c05cb88ff4d0c",
+      "bytes": 1105
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b146.png": {
+      "sha256": "eed21ecd3dbae8db9c22d16064df0041ce644d37220b086b2f61bfb8102a05a7",
+      "bytes": 683
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b147.png": {
+      "sha256": "2d8b52092fedff4877a2ea0e21359e6db751f24299d0602de2c57ca998ffd474",
+      "bytes": 10295
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b15.png": {
+      "sha256": "c2e84420611e044f59329e39932a8241eea561dd49f8228326e349a911766c52",
+      "bytes": 950
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b150.png": {
+      "sha256": "c21c4f7052e4bc83cae6d682a548259597b242caf9eebef4718648de2333748e",
+      "bytes": 511
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b151.png": {
+      "sha256": "a5b5f267012a7fa55d07881d6add227d69f5c8f37df36183d758085b5741dda1",
+      "bytes": 9768
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b153.png": {
+      "sha256": "943c22457a6fad3eebaf5f2a7b917fc742a8b46da4f706d2565c0b2c29947817",
+      "bytes": 936
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b156.png": {
+      "sha256": "c21c4f7052e4bc83cae6d682a548259597b242caf9eebef4718648de2333748e",
+      "bytes": 511
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b157.png": {
+      "sha256": "e6f5395c270e39cba4e1bb6e9677de3e1bdb6fda0382ab89ba1297fb46a864d8",
+      "bytes": 8898
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b159.png": {
+      "sha256": "d02e7452f8a9f6423f3b5f5a3f8865b0be7e98aa7533c7640c527e90f342b6e4",
+      "bytes": 1953
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b162.png": {
+      "sha256": "c21c4f7052e4bc83cae6d682a548259597b242caf9eebef4718648de2333748e",
+      "bytes": 511
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b163.png": {
+      "sha256": "f1224c304659a6c5c98d343d0a5daf479d17acfd1196ef4a921d5393a2a17917",
+      "bytes": 8850
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b166.png": {
+      "sha256": "c21c4f7052e4bc83cae6d682a548259597b242caf9eebef4718648de2333748e",
+      "bytes": 511
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b167.png": {
+      "sha256": "d9dd16c65baee7517785f00616b3c2918e694a0b3f5909af2464785a789a8a3c",
+      "bytes": 8179
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b169.png": {
+      "sha256": "943c22457a6fad3eebaf5f2a7b917fc742a8b46da4f706d2565c0b2c29947817",
+      "bytes": 936
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b17.png": {
+      "sha256": "d2d69292e926902ce77ff7b0297b0ebb2aec01a4f2c5629fde8c179634013c1c",
+      "bytes": 658
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b171.png": {
+      "sha256": "fda8d4e5f3a761cebed7c2a147871035be0e42fd3057257b5338df1be036cb76",
+      "bytes": 562
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b174.png": {
+      "sha256": "c21c4f7052e4bc83cae6d682a548259597b242caf9eebef4718648de2333748e",
+      "bytes": 511
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b175.png": {
+      "sha256": "587379d2eb8fe3e89a53d0609c468d4b7b4920ab0c4b6e774cfbbe95dbd0e335",
+      "bytes": 9667
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b178.png": {
+      "sha256": "c21c4f7052e4bc83cae6d682a548259597b242caf9eebef4718648de2333748e",
+      "bytes": 511
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b179.png": {
+      "sha256": "2c00c59ef5d25d1477a122682edf61ee28191a9526f79f24938937e6fa0a1a6d",
+      "bytes": 8985
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b183.png": {
+      "sha256": "c21c4f7052e4bc83cae6d682a548259597b242caf9eebef4718648de2333748e",
+      "bytes": 511
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b184.png": {
+      "sha256": "a826f80b017cde954986967e102f65718d23dce642d54c25dbe1cea683cf7a7c",
+      "bytes": 10302
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b189.png": {
+      "sha256": "e4ec1c92b24a738ca478ef7aaa3ef91606b338b823227b139e37d4389d121e27",
+      "bytes": 3654
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b191.png": {
+      "sha256": "e9224883e89ae6f7b9ee12bd09d0119accae17a186e576d6de052001c9d23e74",
+      "bytes": 3072
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b195.png": {
+      "sha256": "156647da80681730723feabef8c1945ab25936d92dc1c3a0d245d79149dca669",
+      "bytes": 736
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b196.png": {
+      "sha256": "6d91a8bf7b9fd1471b812920075c9049ad32cdc05accbd00ef0af0cd0776ab79",
+      "bytes": 8724
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b198.png": {
+      "sha256": "4aece45ded27cc0668b6d52c5e0e194e3e625f67dda57b4715198d8caa7d6938",
+      "bytes": 898
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b200.png": {
+      "sha256": "97424b00e2013a637ce299a5a4a639e9e25a039173ae9b656815758469278bc1",
+      "bytes": 651
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b201.png": {
+      "sha256": "6d91a8bf7b9fd1471b812920075c9049ad32cdc05accbd00ef0af0cd0776ab79",
+      "bytes": 8724
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b204.png": {
+      "sha256": "41d7f51d265ee633cb8a3e9222cec7bea18336ae5e2e4f526a6427ca5b38087d",
+      "bytes": 671
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b205.png": {
+      "sha256": "6d91a8bf7b9fd1471b812920075c9049ad32cdc05accbd00ef0af0cd0776ab79",
+      "bytes": 8724
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b207.png": {
+      "sha256": "943c22457a6fad3eebaf5f2a7b917fc742a8b46da4f706d2565c0b2c29947817",
+      "bytes": 936
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b209.png": {
+      "sha256": "c21c4f7052e4bc83cae6d682a548259597b242caf9eebef4718648de2333748e",
+      "bytes": 511
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b210.png": {
+      "sha256": "45b0dd4c0cd1ef0402056bba5fccede94ba3455689930364d03c93e0c433fc4e",
+      "bytes": 8793
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b212.png": {
+      "sha256": "0c070e2abdbabfeaf412c3cefe05e6ca8af28798902677d9aede66d83f0824e9",
+      "bytes": 937
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b214.png": {
+      "sha256": "97424b00e2013a637ce299a5a4a639e9e25a039173ae9b656815758469278bc1",
+      "bytes": 651
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b215.png": {
+      "sha256": "45b0dd4c0cd1ef0402056bba5fccede94ba3455689930364d03c93e0c433fc4e",
+      "bytes": 8793
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b218.png": {
+      "sha256": "41d7f51d265ee633cb8a3e9222cec7bea18336ae5e2e4f526a6427ca5b38087d",
+      "bytes": 671
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b219.png": {
+      "sha256": "45b0dd4c0cd1ef0402056bba5fccede94ba3455689930364d03c93e0c433fc4e",
+      "bytes": 8793
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b22.png": {
+      "sha256": "9a73b46aa6d3935c70f57e921e044c2e53c33adccc8f0fb3e4327343b597344e",
+      "bytes": 658
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b221.png": {
+      "sha256": "c8dcc34e9291fb9b80656a4e91fa62342c40a1800a6e02ee1ea73615035d1582",
+      "bytes": 1153
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b223.png": {
+      "sha256": "0dacc0fd0ca8ab9dcc217f6a746da24c84ba49e6174672322bdb3803858bfaf4",
+      "bytes": 665
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b224.png": {
+      "sha256": "d96566de763fad8c6a44dc52d7e325aaa09f2c0f135b1d527ae3b13b7c11d19d",
+      "bytes": 9093
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b226.png": {
+      "sha256": "c8dcc34e9291fb9b80656a4e91fa62342c40a1800a6e02ee1ea73615035d1582",
+      "bytes": 1153
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b229.png": {
+      "sha256": "781b5f82fe25327868a860c265b45a7a13f9184a7decf09ac8f050a4ac86e1a3",
+      "bytes": 722
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b23.png": {
+      "sha256": "1b984d097b5daae9783d78bf5bb884e251ddd512e047101ab5a59e423049b3f9",
+      "bytes": 10341
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b230.png": {
+      "sha256": "855aeb802095ffa597e306dd7c395105c81672db4a1a4531a30ffb25e1056d96",
+      "bytes": 9235
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b232.png": {
+      "sha256": "a0af6e4fee4709079ac7f0ad0fb2c5ae9dedf50562e63424169e270817ddfe99",
+      "bytes": 809
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b235.png": {
+      "sha256": "c21c4f7052e4bc83cae6d682a548259597b242caf9eebef4718648de2333748e",
+      "bytes": 511
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b236.png": {
+      "sha256": "c570a6bb923832267933305fde441fc28ef09328c8bd0fc818f51075dbd51877",
+      "bytes": 9392
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b239.png": {
+      "sha256": "969230055083bd9995afd306713705c0a228ad78a6c6add4b39a6f2b03953382",
+      "bytes": 683
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b240.png": {
+      "sha256": "40af541b798a9791dfb43ce88fe85f14cbf7c53376a6d3060f4ea9b6130f40af",
+      "bytes": 9583
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b243.png": {
+      "sha256": "969230055083bd9995afd306713705c0a228ad78a6c6add4b39a6f2b03953382",
+      "bytes": 683
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b244.png": {
+      "sha256": "301da13a0ec2418bb8b64cc8f5dd6b7c63d5abe68ad2723b01a79e663fe1d918",
+      "bytes": 10609
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b247.png": {
+      "sha256": "969230055083bd9995afd306713705c0a228ad78a6c6add4b39a6f2b03953382",
+      "bytes": 683
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b248.png": {
+      "sha256": "3cc81280054dd2c3ebfeb26314a403fd94f04a48fa77ceb03461549047ebe28d",
+      "bytes": 10433
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b25.png": {
+      "sha256": "5e3638be42bf30b69a44e371c93691ceae8f1c642af55aa2e65820aab4474c57",
+      "bytes": 217
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b250.png": {
+      "sha256": "b120bd74859d38f1f8bf3676aabebe91db0558f9a4b2c035b7da2f7fc96da82b",
+      "bytes": 1192
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b253.png": {
+      "sha256": "9dc471dd8c42281cfd713344d426626001fabc86db95892680a10fb04a923b82",
+      "bytes": 667
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b254.png": {
+      "sha256": "d7a74b85dba78200bf9d16fe65384305ceff850b0a7964a403c9fc0ce5066a57",
+      "bytes": 3755
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b258.png": {
+      "sha256": "9dc471dd8c42281cfd713344d426626001fabc86db95892680a10fb04a923b82",
+      "bytes": 667
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b259.png": {
+      "sha256": "9f8977099c380aa79f29fec26b84e5fd7a07fad9332e5c75cc2e8314f5d7ba95",
+      "bytes": 9863
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b261.png": {
+      "sha256": "d998c906b44a7669230e5fba66e233ec757bdbd66c8e765b646dcea7c076b213",
+      "bytes": 967
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b264.png": {
+      "sha256": "9dc471dd8c42281cfd713344d426626001fabc86db95892680a10fb04a923b82",
+      "bytes": 667
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b265.png": {
+      "sha256": "57bffb0eef3d234c550952e5da38b3c6f99da1bb10792d0aa131d735c3b625ff",
+      "bytes": 8845
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b267.png": {
+      "sha256": "9dc471dd8c42281cfd713344d426626001fabc86db95892680a10fb04a923b82",
+      "bytes": 667
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b268.png": {
+      "sha256": "1345828de2b91fbb267292c5fb8d2e5d6e891b6658ff135980192bd76a906137",
+      "bytes": 9569
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b27.png": {
+      "sha256": "9519428a190cde4debd0ae14760dff0ee96dc4671db98e4c5a4d6fa5dfe6bd64",
+      "bytes": 641
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b270.png": {
+      "sha256": "d567400ca62788d59ebbbb95194fe53ba218096ae5cb3989468c9dc020c03bc2",
+      "bytes": 578
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b273.png": {
+      "sha256": "9dc471dd8c42281cfd713344d426626001fabc86db95892680a10fb04a923b82",
+      "bytes": 667
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b274.png": {
+      "sha256": "a2a1480a89fd3f307f30dd3bd7ff333b97c5668d19a0645326955a042626d149",
+      "bytes": 9709
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b276.png": {
+      "sha256": "f3f4d62cc10eea759e6772a92f7a60708b003e2484fbb07c6ce2b61253280ee1",
+      "bytes": 1492
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b278.png": {
+      "sha256": "7b72f17cedee9d4cb3722e5030581953fc4f641c1d289bf0c13fa250879e20dc",
+      "bytes": 812
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b280.png": {
+      "sha256": "beb9c5fef41d966ec0ab903072cd1a5b69b2ae73f1f3acd86a8c221f8fc37f18",
+      "bytes": 409
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b283.png": {
+      "sha256": "9dc471dd8c42281cfd713344d426626001fabc86db95892680a10fb04a923b82",
+      "bytes": 667
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b284.png": {
+      "sha256": "a8244ac4cddf9488d43a444f86593b3fa3dcbb49b6ca93d5a49c68f5763c0688",
+      "bytes": 9757
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b286.png": {
+      "sha256": "f3f4d62cc10eea759e6772a92f7a60708b003e2484fbb07c6ce2b61253280ee1",
+      "bytes": 1492
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b288.png": {
+      "sha256": "7b72f17cedee9d4cb3722e5030581953fc4f641c1d289bf0c13fa250879e20dc",
+      "bytes": 812
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b29.png": {
+      "sha256": "8f3e9cb2d26eebb4275c7695ff7b5d6e9035fb6e9af071086ee6d8c0506d1f8e",
+      "bytes": 1035
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b290.png": {
+      "sha256": "beb9c5fef41d966ec0ab903072cd1a5b69b2ae73f1f3acd86a8c221f8fc37f18",
+      "bytes": 409
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b292.png": {
+      "sha256": "9519428a190cde4debd0ae14760dff0ee96dc4671db98e4c5a4d6fa5dfe6bd64",
+      "bytes": 641
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b32.png": {
+      "sha256": "c41883191981bee0bffda557e99ec9a8b8d11e4244fffefe3d416eff8e9a6d19",
+      "bytes": 5112
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b34.png": {
+      "sha256": "ced43ff106b738c1b781508e36a8e43937232b1ff3334e99d956ad79bdd4bacf",
+      "bytes": 544
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b43.png": {
+      "sha256": "ad5b84db6d74be08606571b8f9e0bd03ee29ddd2f1a9c819fc79198e2a5f1711",
+      "bytes": 9992
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b45.png": {
+      "sha256": "05aa048b99e8d57234a1641cc8ee344d1848eb02f709bc4dea36a6ad3dc61733",
+      "bytes": 986
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b47.png": {
+      "sha256": "c8dcc34e9291fb9b80656a4e91fa62342c40a1800a6e02ee1ea73615035d1582",
+      "bytes": 1153
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b49.png": {
+      "sha256": "969230055083bd9995afd306713705c0a228ad78a6c6add4b39a6f2b03953382",
+      "bytes": 683
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b51.png": {
+      "sha256": "38c5185a0b58f99046f7edadab3e536c0bb08133600be495e622639aa14cca0a",
+      "bytes": 586
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b54.png": {
+      "sha256": "4c940e00b0ee271c2481aa40e8a6763c5d2e96906b3df36e1106cb223e301f48",
+      "bytes": 10053
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b58.png": {
+      "sha256": "a3fab6db86b5be37aa3e94a00cb7f94dba1e6756586536e99b01fc8e9fa2219d",
+      "bytes": 12288
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b60.png": {
+      "sha256": "4f3a903cd987c5097a2fea36516481d74f3373b59a5d03656ea020c0d69109ef",
+      "bytes": 896
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b62.png": {
+      "sha256": "969230055083bd9995afd306713705c0a228ad78a6c6add4b39a6f2b03953382",
+      "bytes": 683
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b64.png": {
+      "sha256": "a78c31b112df253666d1cdcd656bc04e4fdcd8358314c96602b4666b0f0ab95e",
+      "bytes": 805
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b66.png": {
+      "sha256": "2ad4c17f79e35005d95db63f85ed6b2b09aee575f084fecbc7301dbb17a6e1e7",
+      "bytes": 758
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b69.png": {
+      "sha256": "096728bf94ae48d9c76565dbbb797592dd28bcd6f9cfc9bc0a6bca44f1cd06f9",
+      "bytes": 11626
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b71.png": {
+      "sha256": "f59d2c48c1d608eabea82aa7f4ecc72cf5ee1e1277953bc334a3d18d0897c304",
+      "bytes": 1705
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b73.png": {
+      "sha256": "b431dbaf47d4fd1c28850637f0864414613c71cefa1605902d03e1222dbc834e",
+      "bytes": 1145
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b76.png": {
+      "sha256": "6e1a93cb8d6510027c23e69d45c469ef250de14ac6a599bd849f6c31acc1b85e",
+      "bytes": 7608
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b78.png": {
+      "sha256": "9cf668bd8045c96675e3da4d50ae803f751d0f47c9b31f3c2a769b510eb1f199",
+      "bytes": 1483
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b8.png": {
+      "sha256": "38816a7e80eadf2a72f33f4ef28b6e927726e2710fabfc41202c362eac135ecd",
+      "bytes": 9230
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b80.png": {
+      "sha256": "969230055083bd9995afd306713705c0a228ad78a6c6add4b39a6f2b03953382",
+      "bytes": 683
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b83.png": {
+      "sha256": "a4708a4b6c0b58112422003da96b993b7dc2eb33f177aa6f2417e6b27ca664c6",
+      "bytes": 12790
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b85.png": {
+      "sha256": "4aece45ded27cc0668b6d52c5e0e194e3e625f67dda57b4715198d8caa7d6938",
+      "bytes": 898
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b87.png": {
+      "sha256": "156647da80681730723feabef8c1945ab25936d92dc1c3a0d245d79149dca669",
+      "bytes": 736
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b89.png": {
+      "sha256": "ced43ff106b738c1b781508e36a8e43937232b1ff3334e99d956ad79bdd4bacf",
+      "bytes": 544
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b91.png": {
+      "sha256": "d534829b75d8198d0f9b21f737703a7f334a104be8852c0f6599ef2eba2a66ea",
+      "bytes": 610
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b94.png": {
+      "sha256": "e35f903a6c309baed6167959f2c13c3d8fda13dc6a01d29b574769ae75f74484",
+      "bytes": 9652
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b96.png": {
+      "sha256": "a500ae00ca303525cd86b51dacc3d2eaf56cb73f39ce5a854a31f375367a06be",
+      "bytes": 1798
+    },
+    "stage/assets/modern-yabejp-ja-chapter01-section035-b98.png": {
+      "sha256": "42c356f8bf0692a4a69311e80016eb9628012e2bc1c43baa558f66f49ea33280",
+      "bytes": 1208
+    }
+  },
+  "modelCalls": 0
+}

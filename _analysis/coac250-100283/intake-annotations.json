@@ -1,0 +1,69 @@
+{
+  "schema": "coac250100-condition-intake/1",
+  "canonical": "nemata-jp-chapter-100-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.condition100-v1-20261028.display.json",
+    "sha256": "0415bd3cab999892faec1f3ae6ae8586f4b4adb1b93f486e37b1188bf7c49fc3"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter01-section035\\source.json",
+    "sha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+    "bytes": 774629
+  },
+  "audit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0415bd3cab999892faec1f3ae6ae8586f4b4adb1b93f486e37b1188bf7c49fc3.json",
+    "sha256": "e9d5db1e45f592d938d50c8736beb02ef53e2d009cf04e67bed6d9ce6c436dd0"
+  },
+  "method": "independent-target-text-review-plus-unchanged-parent-audit",
+  "oldAudit": {
+    "path": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json",
+    "sha256": "51a7871f3be891b712baa492b6a190e0b6b28f9931f4670f505f32842e1d7e9a"
+  },
+  "oldRaw": {
+    "path": "E:/AgentData/Coach/knowledge/processing/audit/calls/3cf56d4f-ce16-4399-8ef4-779ca15fe544.json",
+    "sha256": "0776a3e4bda75d25a714a0b348b7a00f5d53b56e5efc5e2662c82c391c929adc"
+  },
+  "originalModelFlags": {
+    "domOrder": {
+      "faithful": false,
+      "evidence": "Every complete-unit group was compared in frozen source order, including required shared premises."
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "All frozen complete-unit groups independently reviewed; global exact block, figure and occurrence coverage is checked separately."
+    },
+    "issues": [
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter01-section035:b0040",
+        "sourceEvidence": "标题引用「条件A、B」；b0056依据条件A作判断，b0065依据条件B作判断。提供的共用上下文b0001、b0002仅含标题和导言，未定义这两个条件。",
+        "description": "译文忠实保留了条件引用，但所提供审校单元缺少关键条件定义，无法独立核实各题解与共享前提的完整关联。该缺口影响教学理解，完整性结论需阻断。",
+        "suggestedRepair": "补充原文中定义条件A、B的块及对应候选译文作为共用上下文，再核验本组题解对条件的应用；勿根据牌例自行推定定义。"
+      }
+    ]
+  },
+  "originalModelChecks": {
+    "passed": false,
+    "errors": [
+      "dom_order",
+      "semantic_information_missing",
+      "uncertain:modern-yabejp-ja:chapter01-section035:b0040",
+      "chapter01-section035-batch-002:semantic_information_missing",
+      "chapter01-section035-batch-002:uncertain:modern-yabejp-ja:chapter01-section035:b0040",
+      "chapter01-section035-batch-002:batch_shared_context_not_faithful"
+    ]
+  },
+  "notANewFullArticleModelReview": true,
+  "sourceNotes": [],
+  "budget": {
+    "used": 2,
+    "maximum": 2,
+    "maker": 1,
+    "independentFirstTargetReview": 1,
+    "remaining": 0,
+    "failedVoidIncluded": true,
+    "retry": 0
+  },
+  "scope": "Exact b0041 condition repaired and independently reviewed with107 context blocks/39 definitions; original243 passed plus67 faithful inherited. Original uncertain/DOMfalse preserved; this is one target text review, not a new image or full-article model review.",
+  "modelCalls": 0
+}

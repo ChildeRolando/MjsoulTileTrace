@@ -1,0 +1,1542 @@
+{
+  "schema": "coach-specific-web-variant-selection/1",
+  "recordedAt": "2026-10-27T22:01:01.100Z",
+  "purpose": "Explicit source-reviewed revisions; this selection alone is not audit approval. Every selected candidate must still pass independent gate before stage.",
+  "sourceManifests": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\chinese-labels-v1\\manifest.json",
+      "sha256": "6cc126e1c95021b381cb2f8d52f46c919dc9b09f55278e02bf951b5bd5ff133a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\modern-targeted-text-r1\\manifest.json",
+      "sha256": "070310f5bba67056603468dadbc699c55203bee1d5d76556f07a5ecb15a316a3"
+    }
+  ],
+  "editorialManifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\specific-source-editorial-notes-final-v2\\manifest.json",
+    "sha256": "d79eaceb950acf5aaf0e72959c2f1911c3a728607710cb8399a99e2adcf17b9b"
+  },
+  "previousSelection": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v26.json",
+    "sha256": "820d545e5618572f2463996971fcd05b32f02f503d02e0a282a4cd3bcae8db46"
+  },
+  "jobs": [
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1716163",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1716163.labels-v1.display.json",
+      "candidateSha256": "c552660659e5029381662d4290633f323e82c282714d6b2435f4d160347d0b95",
+      "sourceSha256": "bb3ffb81b946e1dc232323d2d8a3e81a17d07469424f0963e9db3dad126d2944"
+    },
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1708627",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1708627.labels-v1.display.json",
+      "candidateSha256": "b06423f81a1aac49d3b255f74eed8ecd1ff5a37bbbc0f1e0d56a99b3eae63889",
+      "sourceSha256": "80f9b1f8452fd1c6feea4a809830811e20edea8e4fcc046330bb8e8030f8c8c8"
+    },
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1716151",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1716151.labels-v1.display.json",
+      "candidateSha256": "d07ae41baabb63906807bd605cd7bd8de6f002003621a23175919f4bcc3d8f8a",
+      "sourceSha256": "c4ab95c0c3e9a6c6b079c48a197cb5bf23ec1e0dad83e86668107ae4db8d47d2"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "archive01-section002",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\archive01-section002.r1.display.json",
+      "candidateSha256": "60bce80dd897b9cc4315b9175f4a2f84070c71d2e3a1782bdcae1063cd7de8a1",
+      "sourceSha256": "a384ea11a0cf161f8576f81cf02a08b70208e2305d64bedf94ab7320fac0d7b4"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "archive01-section008",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\archive01-section008.coac244text20261027.display.json",
+      "candidateSha256": "45b67ef632f54a213a8c33bc4cc4c7b656e10d47123a35b8ec57f0d17abb6814",
+      "sourceSha256": "62523932b13fc685e8c46c0ea7b2a765d1dff51ea39746ea9e2585cf92cfee21",
+      "selectionReason": "347-1 only: independent b0066 text review plus authenticated unchanged full parent review. Preserve source version correspondence and same-book terminology context; no new image review or integration model calls.",
+      "previousVariant": {
+        "sourceId": "modern-yabejp-ja",
+        "articleId": "archive01-section008",
+        "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\archive01-section008.r1.display.json",
+        "candidateSha256": "5051732a44803c58f82b528b6ac8ccc9657c560a28fa869b97a68241004f4cd7",
+        "sourceSha256": "62523932b13fc685e8c46c0ea7b2a765d1dff51ea39746ea9e2585cf92cfee21"
+      },
+      "intakeAnnotations": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T16-43-36-491Z/347-1-intake-annotations.json",
+        "sha256": "f2973556142f62a03f7b754306639d35f5c2deae6804dd83662d19a73f46d875",
+        "issues": 0
+      }
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter01-section004",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section004.r1.display.json",
+      "candidateSha256": "632b7a027c5fa6894d944445e232a96b76d13561a649fbf1df25af239c62579d",
+      "sourceSha256": "24cc4ce3a88b7efd4f84fea300dedbaa7b1351f193cd43c3e00c270490279b04"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "archive01-section005",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\archive01-section005.source-note-v2.display.json",
+      "candidateSha256": "d666725a21e7f2c340238312ea16599073dba062de81fe95d4441bdd3bb26724",
+      "sourceSha256": "2f7f778da0394c1819dc9a16c481ab13878fc65dce6b574d4ed601691326c0ba",
+      "selectionReason": "root-approved exact editorial note appended to complete original paragraph; independent bound parent audit retained"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter01-section020",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section020.source-note-v2.display.json",
+      "candidateSha256": "28f1afe58b1facfb19a03e78d42afe18a13d95868883e2611c4cc93a3763bf22",
+      "sourceSha256": "59ec9cf530b4506be93e05d09807c46ac494adc297c2d008e63e0059b9558c8f",
+      "selectionReason": "root-approved exact editorial note appended to complete original paragraph; independent bound parent audit retained"
+    },
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1726202",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1726202.processing-note-v1.display.json",
+      "candidateSha256": "8a3b546c6c01390e479b940ed5077f4ddbbf32afd3ac73a29c67619037ca865d",
+      "sourceSha256": "9cf54abb007ac9c124ca3cd1152a0369d3b7edb0534a70e126d27ea7b2717b63",
+      "selectionReason": "root-approved exact removal of processing-only attachment notes; unchanged teaching content inherits independent parent review",
+      "sourceCorrection": {
+        "path": "audit/specific-source-corrections-20261026.accepted.json",
+        "sha256": "5d92f934eb070064c2cfd46d7a628b092f5d8cfc8aff881955bae7826e66dc4f",
+        "parent": {
+          "path": "web-production/v1/candidates/79-bilibili-cn/cv1726202.display.json",
+          "sha256": "6dfa82554fa63ea52d6a5565055687f3bf0a74a9a6b0f2d756ca7772e7596c54"
+        },
+        "originalAudit": {
+          "path": "audit/web/articles/79-bilibili-cn/cv1726202.6dfa82554fa63ea52d6a5565055687f3bf0a74a9a6b0f2d756ca7772e7596c54.retry-1792943511485-24197019.json",
+          "sha256": "cc543a80650a58d8e2262f42041584232f6ba6a3850f37549b7967bec1309bcc"
+        },
+        "originalCalls": [
+          {
+            "path": "audit/calls/6aec7882-511e-40af-8fb4-5b1a15f30b59.json",
+            "sha256": "a530bad9a745dbea8f7e048b49dbb93bc5c64a870782bfcc150ec013bb74a77b"
+          }
+        ],
+        "resolutions": [
+          {
+            "figureId": "79-bilibili-cn:cv1726202:b0004:figure",
+            "field": "sourceNotes",
+            "fromValue": [
+              "附件1与附件2为同一原图及其最近邻放大视图，仅计一次。",
+              "牌顶的金色细边属于牌面绘图。"
+            ],
+            "toValue": [
+              "牌顶的金色细边属于牌面绘图。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1726202:b0006:figure",
+            "field": "sourceNotes",
+            "fromValue": [
+              "附件3与附件4为同一原图及其最近邻放大视图，仅计一次。"
+            ],
+            "toValue": []
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1726202:b0008:figure",
+            "field": "sourceNotes",
+            "fromValue": [
+              "附件5与附件6为同一原图及其最近邻放大视图，仅计一次。"
+            ],
+            "toValue": []
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1726202:b0010:figure",
+            "field": "sourceNotes",
+            "fromValue": [
+              "附件7与附件8为同一原图及其最近邻放大视图，仅计一次。"
+            ],
+            "toValue": []
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1726202:b0012:figure",
+            "field": "sourceNotes",
+            "fromValue": [
+              "附件9与附件10为同一原图及其最近邻放大视图，仅计一次。",
+              "牌河按画面中的行列和相邻位置记录；左右两家的牌面旋转是座位朝向。",
+              "背面朝外的牌未展示牌值，不作推断。"
+            ],
+            "toValue": [
+              "牌河按画面中的行列和相邻位置记录；左右两家的牌面旋转是座位朝向。",
+              "背面朝外的牌未展示牌值，不作推断。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1726202:b0014:figure",
+            "field": "sourceNotes",
+            "fromValue": [
+              "附件11与附件12为同一原图及其最近邻放大视图，仅计一次。",
+              "副露最左侧7m横置，其余牌竖置。"
+            ],
+            "toValue": [
+              "副露最左侧7m横置，其余牌竖置。"
+            ]
+          }
+        ],
+        "approvedBy": "root",
+        "approvedAt": "2026-10-25T16:39:13.915146+00:00"
+      }
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section011",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section011.rev1.json",
+      "candidateSha256": "6ad44173945b9347cd8dd7c44640fa3341bf8e83109695e4cd8aacc6d3d98b21",
+      "sourceSha256": "ecc4814ddf8838b473b6b05ff6389763b92379f1a7d7b0eee884167334288ee1",
+      "selectionReason": "COAC-248 targeted text revision of b0010; independent parent-scope review plus targeted text audit passed; unchanged figures inherit the parent presentation assets"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter04-section016",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter04-section016.rev1.json",
+      "candidateSha256": "d14aac65a3d02d8a44bf633bb969f1c057660d875a9aeb792cc022826293bc97",
+      "sourceSha256": "046ce78d8fb40ed0ca560ee7cc440f42ef92cab782178369069b6c2011d91e41",
+      "selectionReason": "COAC-248 targeted text revision of b0002; independent parent-scope review plus targeted text audit passed"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter01-section049",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section049.rev1.json",
+      "candidateSha256": "20e84a64d9ea6526ceea7395131bf96825133244b84d41c9ef0bd0f94799be33",
+      "sourceSha256": "a463edd2bf6d41428d46be506a60cf27615b2bd7c698b16dd39ced7ee30968bd",
+      "selectionReason": "COAC-248 targeted text revision of b0123; independent parent-scope review plus targeted text audit passed at 2026-10-27T03:07:42Z; unchanged figures inherit the parent presentation assets"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section024",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section024.rev1.json",
+      "selectionReason": "COAC-248 targeted text revision of b0039; independent parent-scope review plus targeted text audit passed 2026-10-27T04:09:52Z; unchanged figures inherit the parent presentation assets",
+      "candidateSha256": "643cc5850bc62f76e02c5efca69466cefb8f995a48f05dfc41f12829ec196eba",
+      "sourceSha256": "dd48007d553888bed502a78d5439905cb5b4f9a8d746c67b0f9e28f6b8cb2329"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter02-section023",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter02-section023.rev1.json",
+      "selectionReason": "COAC-248 targeted text revision of b0004; first audit transport failed, retryOfAudit passed 2026-10-27T04:15:18Z",
+      "candidateSha256": "098459b6cfb390423774251152486801538839a95d5b39c10a0a5fe133b69cd3",
+      "sourceSha256": "8efe3de13959b6dd7cae70eabc8608efe67bb5544d3729a9991d7082b2d2a2bb"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter01-section041",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section041.rev3.json",
+      "selectionReason": "COAC-248 first revision of the placeholder-rejected b0016 only, verified against the deterministic rejection evidence; full-article first independent review passed 2026-10-27T03:22:55Z under the frozen web-first-revision runtime",
+      "candidateSha256": "6d5fd5aef0b8e6a1cb926b89a485488e7669ad98119201a1fe5ef5a2a86e9e46",
+      "sourceSha256": "bdd7228b6b5f066ce9866cc7f5b23e0c5039245fbb3d20b31a65a15d22650181"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter04-section007",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter04-section007.rev1.json",
+      "selectionReason": "COAC-248 sixth batch: targeted re-translation of b0007 only, the single block the parent independent review flagged as error; the other 9 blocks and the unchanged parent audit are byte-identical. Independent target-text audit passed 2026-10-27T05:24:25Z.",
+      "candidateSha256": "4e1c6ed36bef34ff0a9848ba8915f46b0422a9f71b611775f5ee7981292590d6",
+      "sourceSha256": "c4357e17bac3e079bffc1f39f53c6d190a4d4597f1ecde07275d29fba5e53d5b"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter06-section002",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter06-section002.rev1.json",
+      "selectionReason": "COAC-248 sixth batch: targeted re-translation of b0070 only, the single block the parent independent review flagged as error; the other 95 blocks and all 10 figures are substantively identical. Independent target-text audit passed 2026-10-27T05:26:32Z.",
+      "candidateSha256": "bbf15bbd1390a0b7ce729d5205a65dad72e0f24cb6c2fe1f9789aaaea26e1904",
+      "sourceSha256": "8ea3a7139a78ed4fcdfd36f663c2a47d0eb15efb8c4b88d4aff07336642f2933"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter04-section004",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter04-section004.rev1.json",
+      "selectionReason": "COAC-248 seventh batch: targeted re-translation of b0016 (超过一半 -> 情况好的话能达到一半以上, restoring the inclusive \"half or more\" reading) and b0018 (两面听牌的立直无役 -> 比起两面听牌、仅有立直这一役的听法, removing the false \"no yaku\" claim); the other 19 blocks and the unchanged parent audit are byte-identical, the chapter has no figures. Independent target-text audit passed 2026-10-27T07:00:52Z.",
+      "candidateSha256": "3910165816bc9776e27fccd11e9e46636c0eef860949df2978cb1481dde4d56a",
+      "sourceSha256": "cd98c1b548c5d7ca4040ba0bbc07d6390114116ec8257392ec1e96054a557605"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter02-section024",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter02-section024.rev1.json",
+      "selectionReason": "COAC-248 eighth batch: targeted re-translation of b0036 (处于1向听或以上 -> 对方处于一向听或已经听牌的可能性会变高, restoring the completion-direction reading); the other 44 blocks are byte-identical, all 8 inline tile figures inherit the parent presentationAsset unchanged. Independent target-text audit passed 2026-10-27T08:03:37Z.",
+      "candidateSha256": "7ceae3d061f859f9d4c93822422be385100396e12593a3980045e871f2adc5a7",
+      "sourceSha256": "732efdb6692088602c843f21574b251013482e826be79c14669f8c336bce6e1f"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section006",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section006.rev1.json",
+      "selectionReason": "COAC-248 eighth batch: targeted re-translation of b0095 (后，鸣了某张牌，再切出 -> 被切出后，鸣了某张牌，再切出, restoring the prior discard of the five pin); the other 103 blocks are byte-identical, all 48 figures inherit the parent presentationAsset unchanged. Independent target-text audit passed 2026-10-27T09:22:00Z.",
+      "candidateSha256": "310a9fb99713adf007a7226cc01fcf848b16cf3b164fc1094d2a81a644f2d2e2",
+      "sourceSha256": "cc67a6d1dcb9ed4415176da143bce497a806174f0bad22952c0fd61c6a29737f"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section012",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section012.rev1.json",
+      "selectionReason": "COAC-248 eighth batch: targeted re-translation of b0082 (那就更有可能是特殊牌型 -> 那么特殊牌型的可能性就很高了, keeping the strong-likelihood judgement, plus wording convergence inside the same block); the other 81 blocks are byte-identical, all 36 figures inherit the parent presentationAsset unchanged. Independent target-text audit passed 2026-10-27T09:19:00Z.",
+      "candidateSha256": "af5ea28cb84f84f9006f5c205c7fa4f99431bf7b3bad8e22e47a3a1245820e3b",
+      "sourceSha256": "894d33804c0b8528a38f91fc1750759f26588936791bc981cd0bf2870c364092"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section027",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section027.rev2.json",
+      "selectionReason": "COAC-249 independent review lane: second-order targeted re-translation of b0011 on its needs-repair rev1 parent (若打出的这张牌并非新摸入的牌 -> 若这张牌不是进张完成面子后切出的余牌); the other 12 blocks are byte-identical and the chapter has no figures. Independent target-text audit passed 2026-10-27T09:33:30Z on the frozen web-target-text-chain runtime (manifest 0aa071a4, auditor snapshot 856dad9d).",
+      "candidateSha256": "a75742e9c2bcb5b1c39453c6d8f795bea24cc5a431657b318ec7f5280a431817",
+      "sourceSha256": "76944539e0a90d8d6063968465768e01a13badf8b589e7d36fe0db7317d8b0c4"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section015",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section015.rev1.json",
+      "selectionReason": "COAC-248 ninth batch: targeted re-translation of b0041; the other 46 blocks are byte-identical and all 19 figures inherit the parent presentationAsset unchanged. Independent target-text audit passed 2026-10-27T09:47:54Z.",
+      "candidateSha256": "d63f3a896005f1b939302ddf7268b99bead9e66d0542d545071a014ca24da5ed",
+      "sourceSha256": "8939308a3d76e724013b74b04de6d17c733314b67117a9bced68dc4bc169289a"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "archive01-section006",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\archive01-section006.coac269rev1.json",
+      "selectionReason": "COAC-269 line-B first batch: targeted re-translation of b0518 (board cheap/expensive reading); the other 587 blocks are byte-identical and all 260 figures inherit the parent presentationAsset. Independent audit by COAC-249 passed 2026-10-27T10:01:45Z (receipt 74b93630).",
+      "candidateSha256": "ff5a9b524d8e10c62f97011bde7f6a5a837f58e8557230ca60c67581b426f782",
+      "sourceSha256": "6438c449b1284be3a7be4fd5004bfcda10517716c7cbbbf8b09df2cc92722548"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter06-exercise002-02",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise002-02.coac269rev1.json",
+      "selectionReason": "COAC-269 line-B first batch: targeted re-translation of b0263 and b0545 (comparison object of the wait-count sentence; chiitoitsu one-shanten wording); the other 690 blocks are byte-identical and all 292 figures inherit the parent presentationAsset. Independent audit by COAC-249 passed 2026-10-27T10:02:55Z (receipt 0553be30).",
+      "candidateSha256": "42991d764c900c46cba313848cc1c5138789c60079e6a988d4f6df5e09da330e",
+      "sourceSha256": "460025a88a0adcc545afa893594c6653d0b121f75fdcfd9512350f9292b984f4"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter01-section054",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section054.coac269rev1.json",
+      "selectionReason": "COAC-249 b5b6 batch (COAC-269 line-B b5): targeted re-translation of b0173 (all-last vs. all-second-last reading); the other 184 blocks are byte-identical and all 84 figures inherit the parent presentationAsset unchanged. Independent target-text audit passed 2026-10-27T11:25:33.775Z (receipt f3570e7b, attestation on frozen manifest 0aa071a4).",
+      "candidateSha256": "f3570e7bbe61e0ef99e45a2f4185ed3f0c1fe1840f670783c7fd2402352dedca",
+      "sourceSha256": "89afec31ea77168cb86f94a4919bd5ef813f59029e4452f77e3874dee88676cc"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter01-section047",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section047.coac269rev1.json",
+      "selectionReason": "COAC-249 b5b6 batch (COAC-269 line-B b5): targeted re-translation of b0030 (two-sided wait family vs. complete-hand family wording); the other 161 blocks are byte-identical and all 72 figures inherit the parent presentationAsset unchanged. Independent target-text audit passed 2026-10-27T11:27:18.817Z (receipt 363fd45c, attestation on frozen manifest 0aa071a4).",
+      "candidateSha256": "363fd45cc99f099cfbaec296a1102af0d6dd5519596af707697c21154280c86d",
+      "sourceSha256": "15fa058ba54622b1c812b29dd0b1d8b2b612d68b8fe1386a8f501cb6b4f83371"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section013",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section013.rev1.json",
+      "selectionReason": "COAC-248 already-passed companion in the b5b6 handoff (not re-audited by COAC-249): targeted revision of b0006/b0009 (same-paragraph split-pair wording); the other 35 blocks are byte-identical and all 14 figures inherit the parent presentationAsset. Effective receipt is the bound retry of a voided transport call, passed 2026-10-27T10:01:30.968Z (receipt 2247cb22, auditor snapshot 453ba938 on manifest web-e89dcffe ed07f6b8).",
+      "candidateSha256": "3d93eb869db859bf35ff7b6ab832cc88b45fbd035bc78018ace54b33ae293ec8",
+      "sourceSha256": "487d432cf454023931abc6b321412162da65095954a4002fcf733133fecfd863"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter01-section031",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section031.coac269rev1.json",
+      "selectionReason": "COAC-269 line-B batch b7: targeted re-translation of b0042/b0084/b0102/b0153 (restores the source strength of「が有力」and the「のみで良いとみる」qualifier); the other 29 blocks are byte-identical and all 14 figures inherit the parent presentationAsset. Independent audit by COAC-249 passed 2026-10-27T12:00:09Z (receipt 11e0c9f0, auditor snapshot 856dad9d on frozen manifest web-target-text-chain 0aa071a4).",
+      "candidateSha256": "c5317d995648afeefdb370b314047e36f0368609a19a2db6be103385646565a6",
+      "sourceSha256": "c69694f31974fc506ba30b69434ed64a700112dc6d7bb2d67916aa9ef19126a4"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter01-section021-06",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section021-06.coac269rev1.json",
+      "selectionReason": "COAC-269 line-B batch b7: targeted re-translation of b0027 and b0033 (restores the「二つ上」referent and the 1-vs-2 normal-dora comparison); the other 19 blocks are byte-identical and all 7 figures inherit the parent presentationAsset. Independent audit by COAC-249 passed 2026-10-27T12:01:14Z (receipt 949a4856, auditor snapshot 856dad9d on frozen manifest web-target-text-chain 0aa071a4).",
+      "candidateSha256": "6de46bfb824281e9facea8bd30eebf1498b7ae047e4c006250aeaa2800b0c64c",
+      "sourceSha256": "febc8cef9c299b375c225843e4d33a27a2167c3729bf8c590e472433f548eda5"
+    },
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1721475",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1721475.r1.json",
+      "selectionReason": "COAC-248 targeted figure correction for 79-cn-chapter-081-8: four figures re-read from the source image (b0004/b0006/b0008/b0018, last-tile 9s restored to 7s and the 4p/5p cut-row first tile); all 19 text blocks and the other 4 figures are unchanged, the 4 unchanged figures differ only by derived presentationAsset. Independent full-article audit passed 2026-10-27T11:51:50Z (receipt f1328e6a, auditor snapshot 453ba938 on manifest web-e89dcffe ed07f6b8).",
+      "candidateSha256": "d1fc1ea8f072cc73c3c1a1649f3a7608f6fd55ecb38be8ff19a34340d5c2a3dd",
+      "sourceSha256": "f0f3fe12b457bc7d0ffcb34cfc6b1e4e5e37781759f55ebe22cbfdc8343b55f3"
+    },
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1734739",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1734739.coac269rev1.json",
+      "candidateSha256": "c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae",
+      "sourceSha256": "962fdd8860f2f756f1bc76054a5ef9ea2a5f82959e36da44aff79c57aee1d5ca",
+      "selectionReason": "COAC-249 b8 first independent audit recovered from the same completed raw call; zero re-audit. Keep reviewed caption bytes including missing full stop.",
+      "provenanceSidecarPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T14-51-46-276Z/b8-source-notes.json"
+    },
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1744266",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1744266.coac269rev1.json",
+      "candidateSha256": "07a511d4efb0dc246763ba7d2b114ac7203ab9b7109f7fcc12cfe4302751d284",
+      "sourceSha256": "baf759cb6de68be0a0f5cd66957aae705ee59bb8350ef8530138e714b484e1b4",
+      "selectionReason": "COAC-249 b8 first independent audit recovered from the same completed raw call; zero re-audit. Keep reviewed caption; retain parent duplicate-image accounting note in provenance sidecar; bindings unchanged.",
+      "provenanceSidecarPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T14-51-46-276Z/b8-source-notes.json"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter01-section010",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.coac269rev1.json",
+      "candidateSha256": "44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c",
+      "sourceSha256": "eead468938ab9770eecc8b2323f72be0dd4dae72618355e4c9bee227dd527387",
+      "selectionReason": "027-1 only: independent a164f768 boundary adjudication, LF sidecar 1d9cad43 and prior bdb29387 audit; zero model calls.",
+      "definitionBoundary": {
+        "sourceId": "modern-yabejp-ja",
+        "articleId": "chapter01-section010",
+        "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.coac269rev1.json",
+        "candidateSha256": "44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c",
+        "sidecarPath": "E:/AgentData/Coach/knowledge/processing/integration/definition-boundaries-v1/chapter01-section010/sidecar.v2.json",
+        "sidecarSha256": "1d9cad432705f2a2d16675368637d4c6a9585030e448d6b916b99eae709e3a5a",
+        "stageProofPath": "E:/AgentData/Coach/knowledge/processing/integration/stage-definition-chapter01-section010-v1/definition-boundary-validation.json",
+        "stageProofSha256": "3ad6a6c0d23ad240c58e79e061264cb1387b26792bc6535ae58d7170b11b0fdc",
+        "boundaryAdjudication": {
+          "path": "E:/AgentData/Coach/knowledge/processing/audit/web/adjudications/definition-boundary-section010/coac249-section010-boundary-ruling-20261027.json",
+          "sha256": "a164f76843c37a0d57f784fe16941cce62fa4dfbb3ffdc7c39417c96ed3f7bbc"
+        }
+      }
+    },
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1721510",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1721510.r1.json",
+      "candidateSha256": "82d7550d6035c51c3874d7fa9faa923978834fc5d5527bdf028770270ff2110c",
+      "sourceSha256": "43ad9dcee6d721ee0f47866cac6f98d311a59f96cdd1b10a0a70ede0c3dbd2fe",
+      "selectionReason": "090-6 only: independent full-article passed 82d7550d; retain three nonblocking source-note issues and both attachment-order contexts. No new model calls.",
+      "intakeAnnotations": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T15-26-37-597Z/090-6-intake-annotations.json",
+        "sha256": "3e791da8f143a549529e8e146feec6359d138ad8fcb89a554e25e93d1b8c70e7",
+        "issues": 3
+      }
+    },
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1785741",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1785741.r1.display.json",
+      "candidateSha256": "fc0027a140fb57b07aa1436c5c2bf26785942bd4bc8d88cf546f4f1362492d45",
+      "sourceSha256": "ec4a726459f21d98599722ba4ccb5d8a95a5e96473a7a91be9f6cc88c8250c51",
+      "selectionReason": "246-3 only: independent full-article passed fc0027a1; retain three nonblocking source-note issues and both attachment-order contexts. No new model calls.",
+      "intakeAnnotations": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T15-36-30-338Z/246-3-intake-annotations.json",
+        "sha256": "4d3921d3a568a7b06bd7d89d5648250e65cb6629e5ef693edf4f7ce606165f5f",
+        "issues": 3
+      }
+    },
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1770234",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770234.coac269rev1.json",
+      "candidateSha256": "8c0cfff82dbf0c339dc1474ad84e51a4b9c55554ab62a64dfc472f6604a555ec",
+      "sourceSha256": "ac055129f64d27bb1f71561eac96c5b304b299803b51680b9c3e2e56df56cda1",
+      "selectionReason": "205-5 unique passed first independent review; retain original production and parent history and nonblocking b0006 source-note. Integration model calls 0.",
+      "intakeAnnotations": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z/205-5-intake-annotations.json",
+        "sha256": "a21ddf3ed31d61bc7577fa341ebd1554b29d495090171c27af9196af754ea6c4",
+        "issues": 1
+      }
+    },
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1751265",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751265.coac244inline20261027.display.json",
+      "candidateSha256": "54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db",
+      "sourceSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+      "selectionReason": "155-4: only authorized inline Japanese span translated; frozen v2 gate and bound shadow stager preserve all display emphasis, parent image audit and source-note. No integration model call.",
+      "inlineCompatibility": {
+        "candidateSha256": "54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db",
+        "runtime": {
+          "runtime": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027",
+          "files": [
+            {
+              "name": "inline-japanese-revision.mjs",
+              "sha256": "69a9a0db3fccc07bf85c6720606fefb60bac54c689e2402f96bfe018a358e6a6"
+            },
+            {
+              "name": "textbook-audit-legacy.mjs",
+              "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1"
+            },
+            {
+              "name": "textbook-audit-pdf-layout.mjs",
+              "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+            },
+            {
+              "name": "textbook-audit-pdf-native.mjs",
+              "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+            },
+            {
+              "name": "textbook-audit-pdf-scope.mjs",
+              "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+            },
+            {
+              "name": "textbook-audit-pdf-source-corrections.mjs",
+              "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+            },
+            {
+              "name": "textbook-audit-tile-dictionary.mjs",
+              "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+            },
+            {
+              "name": "textbook-audit-web-batches.mjs",
+              "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+            },
+            {
+              "name": "textbook-audit-web-source.py",
+              "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+            },
+            {
+              "name": "textbook-audit-web.mjs",
+              "sha256": "5d015b457efd1c6010b09199ff3d575232a97999ef54847c53b2265ab6e50530"
+            },
+            {
+              "name": "textbook-audit.mjs",
+              "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+            },
+            {
+              "name": "textbook-production-cli.mjs",
+              "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+            },
+            {
+              "name": "textbook-production-web-present.py",
+              "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+            },
+            {
+              "name": "textbook-production-web-visual.py",
+              "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+            },
+            {
+              "name": "textbook-production-web.mjs",
+              "sha256": "1dd367f57ab5ec127152136141d343efa836486b01ddde8aff7c7cb3046ef57e"
+            }
+          ]
+        },
+        "displayManifest": {
+          "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/runs/coac244-inline-japanese-20261027/display-stage-manifest.json",
+          "sha256": "1f336c157c7a26f22583534827dce7c2c3a3a46dc4537966ebdf839e7460434b"
+        },
+        "displayStage": {
+          "kind": "display-only-shadow-stager-original-untouched",
+          "original": {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-web-textbook.mjs",
+            "sha256": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a"
+          },
+          "module": {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-web-textbook.coac244-inline-9c1de787205c4431.mjs",
+            "sha256": "9c1de787205c443111d007933aafff918d70cf1d32ca02a260d2f0195f9bb205"
+          },
+          "helper": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\inline-display.mjs",
+            "sha256": "de8efaad041ad19ed5229ee6597e371b92cf5e0b3ed69b5b59e866fc59068248"
+          },
+          "modelCalls": 0
+        }
+      },
+      "displaySegmentsProof": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-32-54-884Z/155-display-segments-proof.json",
+        "sha256": "1f61650c64b87f4820a2c04e60580839a8045acca475b47224a5e960bbd9d24d"
+      },
+      "intakeAnnotations": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-32-54-884Z/155-4-intake-annotations.json",
+        "sha256": "1e4b5faa8f750c0d897b79d3e0f0907f83305511fbd7b47ce9ab908b99060411",
+        "issues": 1
+      }
+    },
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1751316",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751316.coac244inline20261027.display.json",
+      "candidateSha256": "0d0d54818b5b686d34936a4a5f59ae90d83345dd636e33d423d34d9f5b16b481",
+      "sourceSha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464",
+      "selectionReason": "162-3: only authorized inline Japanese span translated; frozen v2 gate and bound shadow stager preserve all display emphasis, parent image audit and source-note. No integration model call.",
+      "inlineCompatibility": {
+        "candidateSha256": "0d0d54818b5b686d34936a4a5f59ae90d83345dd636e33d423d34d9f5b16b481",
+        "runtime": {
+          "runtime": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027",
+          "files": [
+            {
+              "name": "inline-japanese-revision.mjs",
+              "sha256": "69a9a0db3fccc07bf85c6720606fefb60bac54c689e2402f96bfe018a358e6a6"
+            },
+            {
+              "name": "textbook-audit-legacy.mjs",
+              "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1"
+            },
+            {
+              "name": "textbook-audit-pdf-layout.mjs",
+              "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+            },
+            {
+              "name": "textbook-audit-pdf-native.mjs",
+              "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+            },
+            {
+              "name": "textbook-audit-pdf-scope.mjs",
+              "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+            },
+            {
+              "name": "textbook-audit-pdf-source-corrections.mjs",
+              "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+            },
+            {
+              "name": "textbook-audit-tile-dictionary.mjs",
+              "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+            },
+            {
+              "name": "textbook-audit-web-batches.mjs",
+              "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+            },
+            {
+              "name": "textbook-audit-web-source.py",
+              "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+            },
+            {
+              "name": "textbook-audit-web.mjs",
+              "sha256": "5d015b457efd1c6010b09199ff3d575232a97999ef54847c53b2265ab6e50530"
+            },
+            {
+              "name": "textbook-audit.mjs",
+              "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+            },
+            {
+              "name": "textbook-production-cli.mjs",
+              "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+            },
+            {
+              "name": "textbook-production-web-present.py",
+              "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+            },
+            {
+              "name": "textbook-production-web-visual.py",
+              "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+            },
+            {
+              "name": "textbook-production-web.mjs",
+              "sha256": "1dd367f57ab5ec127152136141d343efa836486b01ddde8aff7c7cb3046ef57e"
+            }
+          ]
+        },
+        "displayManifest": {
+          "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/runs/coac244-inline-japanese-20261027/display-stage-manifest.json",
+          "sha256": "1f336c157c7a26f22583534827dce7c2c3a3a46dc4537966ebdf839e7460434b"
+        },
+        "displayStage": {
+          "kind": "display-only-shadow-stager-original-untouched",
+          "original": {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-web-textbook.mjs",
+            "sha256": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a"
+          },
+          "module": {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-web-textbook.coac244-inline-9c1de787205c4431.mjs",
+            "sha256": "9c1de787205c443111d007933aafff918d70cf1d32ca02a260d2f0195f9bb205"
+          },
+          "helper": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\inline-display.mjs",
+            "sha256": "de8efaad041ad19ed5229ee6597e371b92cf5e0b3ed69b5b59e866fc59068248"
+          },
+          "modelCalls": 0
+        }
+      },
+      "displaySegmentsProof": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-40-18-145Z/162-display-segments-proof.json",
+        "sha256": "3b6b0158c4ba3798c05cc4fa6f4d84da74034a7458b3bbce63f78edd8cd91b66"
+      },
+      "intakeAnnotations": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-40-18-145Z/162-3-intake-annotations.json",
+        "sha256": "e612c6b17bb8ab827e5f2f5adbe48e6f9b7e7c7f59d80a32d739ae97c6a53399",
+        "issues": 1
+      }
+    },
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1751276",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1751276.r1.display.json",
+      "candidateSha256": "1807377cc8f71afec95718f5050584a596690efac5658042cf75563f3d69dadc",
+      "sourceSha256": "797e9393790395bf88d680cfda77c27a406744455d487aad334110d2b5712ccc",
+      "selectionReason": "157-11 original passed SHA: first terra/max full article independent review; retain actual request, frozen27 runtime, historical sol/high production and2 authenticated image reuses. Integration model calls0.",
+      "visionReview": {
+        "candidateSha256": "1807377cc8f71afec95718f5050584a596690efac5658042cf75563f3d69dadc",
+        "runtime": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027",
+        "manifest": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\runtime-manifest.json",
+          "sha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6"
+        },
+        "dependencyManifest": {
+          "schema": "coach-textbook-audit-verification-dependencies/1",
+          "entry": "textbook-audit-web.mjs",
+          "files": [
+            {
+              "name": "textbook-audit-pdf-layout.mjs",
+              "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06"
+            },
+            {
+              "name": "textbook-audit-pdf-native-corrections.mjs",
+              "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05"
+            },
+            {
+              "name": "textbook-audit-pdf-native-structure-corrections.mjs",
+              "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b"
+            },
+            {
+              "name": "textbook-audit-pdf-native.mjs",
+              "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+            },
+            {
+              "name": "textbook-audit-pdf-scope.mjs",
+              "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf"
+            },
+            {
+              "name": "textbook-audit-pdf-source-corrections.mjs",
+              "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff"
+            },
+            {
+              "name": "textbook-audit-tile-dictionary.mjs",
+              "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30"
+            },
+            {
+              "name": "textbook-audit-web-batches.mjs",
+              "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69"
+            },
+            {
+              "name": "textbook-audit-web.mjs",
+              "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b"
+            },
+            {
+              "name": "textbook-audit.mjs",
+              "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+            },
+            {
+              "name": "textbook-production-cli.mjs",
+              "sha256": "403eb168fb725aa990792089eb7d6e29d55903fcf9e22d2cfce253fd675a3d01"
+            }
+          ],
+          "pageApprovals": [],
+          "manifestSha256": "e47baa835ba4b862ce1659bab9015491397aafdd582d81399fc2e0b8d37e0e8a"
+        },
+        "stage": {
+          "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/stage-web-textbook.mjs",
+          "sha256": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a"
+        },
+        "audit": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751276.1807377cc8f71afec95718f5050584a596690efac5658042cf75563f3d69dadc.json",
+          "sha256": "64ad7a838e91381e568950b735f409a4d3b77d641a876cbd3723ec0c6719d32f"
+        },
+        "requestEvidence": {
+          "callId": "eff9a0e4-5072-4f54-ad15-8d065c9b98dd",
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max",
+          "raw": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\eff9a0e4-5072-4f54-ad15-8d065c9b98dd.json",
+            "sha256": "1128787d5cb8ad7b295a62b588c6d9bfeab12589eb5f71987b9dd977cf0d2507"
+          },
+          "remoteWeights": "unknown",
+          "legacyMethodLabel": "independent-sol-high-full-article-review"
+        }
+      },
+      "intakeAnnotations": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T18-16-16-590Z/157-11-intake-annotations.json",
+        "sha256": "23691a7d3851a04e641e78fe3e18bb38d43a7d287d654ebc841b5b72e12c3670",
+        "issues": 0
+      }
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section003",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section003.coac244exactv2.display.json",
+      "candidateSha256": "973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a",
+      "sourceSha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+      "contextReview": {
+        "candidateSha256": "973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a",
+        "runtime": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac249-stat183-context-v3-20261028",
+        "manifest": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac249-stat183-context-v3-20261028\\context-runtime-manifest.json",
+          "sha256": "f7da16a28767707dde26cd1020063c067374901844a153daf4cac297342e047b",
+          "files": 17
+        },
+        "stage": {
+          "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/stage-web-textbook.mjs",
+          "sha256": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a"
+        },
+        "files": [
+          {
+            "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-reviewed183-stat-context-v3-20261028.json",
+            "sha256": "9ff0d4891ae521a0d389686c3c0689967e3aceeb9ea073a0af8d21ceb078aac7"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section003.973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a.context-stat183-v3.json",
+            "sha256": "20bdc51f1fd8b7afbfafa5d550c186d5571e779a8e538de433021536e56c7d61"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2c2ab5c6-372c-46d9-bc12-7af409803ea0.json",
+            "sha256": "cb47737edc719765d5f76165a8e6190ba5279ce4ae8fe665a29a90cce97906c9"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section003.973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a.json",
+            "sha256": "2cd72bb8ba1482b8b529a864ab3b927303f565e419ccb174a27dda10fd8217e2"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\018687de-2b4f-4af5-b82f-f4934c12f974.json",
+            "sha256": "60a24e84b6dc00b39f79281fae0b7fd1a120b1ade8f175c5985c0b348452e272"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-runtime-manifest.json",
+            "sha256": "0b75f6f6bb31d38344077753d402716b01d83cbbd57709720b753963408ef684"
+          },
+          {
+            "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/stage-web-textbook.mjs",
+            "sha256": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a"
+          },
+          {
+            "name": "bounded-runtime-manifest.json",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\bounded-runtime-manifest.json",
+            "sha256": "fdac719dc8237db59f7a2abd6cd2bdac44f895a03519abe67cf408242e392548"
+          },
+          {
+            "name": "exact-text-contract.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-text-contract.mjs",
+            "sha256": "2f082bd1d85c99cfb4a59e51a14b3d9a55e5dfc3a75154f534aabe90ee93e1b2"
+          },
+          {
+            "name": "exact-text-contracts.json",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-text-contracts.json",
+            "sha256": "fc968c117a50d80011ded6822d138b174a119025a6675fef3780dd01d8240904"
+          },
+          {
+            "name": "inline-japanese-revision.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\inline-japanese-revision.mjs",
+            "sha256": "69a9a0db3fccc07bf85c6720606fefb60bac54c689e2402f96bfe018a358e6a6"
+          },
+          {
+            "name": "textbook-audit-legacy.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-legacy.mjs",
+            "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1"
+          },
+          {
+            "name": "textbook-audit-pdf-layout.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-pdf-layout.mjs",
+            "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+          },
+          {
+            "name": "textbook-audit-pdf-native.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-pdf-native.mjs",
+            "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+          },
+          {
+            "name": "textbook-audit-pdf-scope.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-pdf-scope.mjs",
+            "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+          },
+          {
+            "name": "textbook-audit-pdf-source-corrections.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-pdf-source-corrections.mjs",
+            "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+          },
+          {
+            "name": "textbook-audit-tile-dictionary.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-tile-dictionary.mjs",
+            "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+          },
+          {
+            "name": "textbook-audit-web-batches.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-web-batches.mjs",
+            "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+          },
+          {
+            "name": "textbook-audit-web-source.py",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-web-source.py",
+            "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+          },
+          {
+            "name": "textbook-audit-web.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-web.mjs",
+            "sha256": "920c6b775430958d0b93cdf5ee31e15e474a23f9aba33422dbe36f8da01c0062"
+          },
+          {
+            "name": "textbook-audit.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit.mjs",
+            "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+          },
+          {
+            "name": "textbook-production-cli.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-cli.mjs",
+            "sha256": "773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860"
+          },
+          {
+            "name": "textbook-production-web-present.py",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-web-present.py",
+            "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          },
+          {
+            "name": "textbook-production-web-visual.py",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-web-visual.py",
+            "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+          },
+          {
+            "name": "textbook-production-web.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-web.mjs",
+            "sha256": "495b9aedb65d91248a85c6c4911d01dce3783c85a623e8ce876351c199a73ee3"
+          }
+        ]
+      },
+      "intakeAnnotations": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T20-22-17-535Z/183-1-intake-annotations.json",
+        "sha256": "772b97ecafdf87d54bbfcd36f6250c55356df8ba2f99b36010e79be5da02f01b",
+        "issues": 1
+      },
+      "selectionReason": "Exact authorized context-stat183-v3 sidecar, original candidate unchanged, source-note/old failure retained; integration models0."
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter04-section015",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.coac244exactv2.display.json",
+      "candidateSha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28",
+      "sourceSha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+      "contextReview": {
+        "candidateSha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28",
+        "runtime": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac249-fidelity236-v1-20261028",
+        "manifest": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac249-fidelity236-v1-20261028\\context-runtime-manifest.json",
+          "sha256": "5ea60649c93530fe4ea330008fefcd3e827fed71fe4fbbb72c26f86d512ab568"
+        },
+        "stage": {
+          "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/stage-web-textbook.mjs",
+          "sha256": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a"
+        },
+        "files": [
+          {
+            "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-236-fidelity-reviewed-20261028.json",
+            "sha256": "eea58df5c29fcdacb27b760bfe4dda756f33573a4e681e91016c49ab399887e1"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28.fidelity236-v1.json",
+            "sha256": "bdcc464d2019942b4958b768b9a9190816024f56817f748a9d423086eda4ee7f"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2b075f4d-a305-4630-9a87-ab957fd130f5.json",
+            "sha256": "d35a98155b696fe3caef1c1919a6589851c0f90d9ff3b70f3ffcf95dc0fe0de7"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28.json",
+            "sha256": "d2c9dfe09838a15c845ae3bab8f698729bd99a22878bbb23af1f268849948aeb"
+          },
+          {
+            "path": "E:/AgentData/Coach/knowledge/processing/audit/calls/7a1363b3-906b-4155-9643-2a3924d3dfd1.json",
+            "sha256": "8c08adf2edcc9391b697b78ba61922ee3ffb69aa715194f7df9abcd588d28039"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-runtime-manifest.json",
+            "sha256": "0b75f6f6bb31d38344077753d402716b01d83cbbd57709720b753963408ef684"
+          },
+          {
+            "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/stage-web-textbook.mjs",
+            "sha256": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-fidelity236-v1-20261028\\process236.json",
+            "sha256": "f89664db9c68172f85835b125dadf6f986cd9f26d59535401fd66eafbc0eff48"
+          },
+          {
+            "name": "bounded-runtime-manifest.json",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\bounded-runtime-manifest.json",
+            "sha256": "fdac719dc8237db59f7a2abd6cd2bdac44f895a03519abe67cf408242e392548"
+          },
+          {
+            "name": "exact-text-contract.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-text-contract.mjs",
+            "sha256": "2f082bd1d85c99cfb4a59e51a14b3d9a55e5dfc3a75154f534aabe90ee93e1b2"
+          },
+          {
+            "name": "exact-text-contracts.json",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-text-contracts.json",
+            "sha256": "fc968c117a50d80011ded6822d138b174a119025a6675fef3780dd01d8240904"
+          },
+          {
+            "name": "inline-japanese-revision.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\inline-japanese-revision.mjs",
+            "sha256": "69a9a0db3fccc07bf85c6720606fefb60bac54c689e2402f96bfe018a358e6a6"
+          },
+          {
+            "name": "textbook-audit-legacy.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-legacy.mjs",
+            "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1"
+          },
+          {
+            "name": "textbook-audit-pdf-layout.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-pdf-layout.mjs",
+            "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+          },
+          {
+            "name": "textbook-audit-pdf-native.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-pdf-native.mjs",
+            "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+          },
+          {
+            "name": "textbook-audit-pdf-scope.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-pdf-scope.mjs",
+            "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+          },
+          {
+            "name": "textbook-audit-pdf-source-corrections.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-pdf-source-corrections.mjs",
+            "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+          },
+          {
+            "name": "textbook-audit-tile-dictionary.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-tile-dictionary.mjs",
+            "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+          },
+          {
+            "name": "textbook-audit-web-batches.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-web-batches.mjs",
+            "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+          },
+          {
+            "name": "textbook-audit-web-source.py",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-web-source.py",
+            "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+          },
+          {
+            "name": "textbook-audit-web.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit-web.mjs",
+            "sha256": "920c6b775430958d0b93cdf5ee31e15e474a23f9aba33422dbe36f8da01c0062"
+          },
+          {
+            "name": "textbook-audit.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-audit.mjs",
+            "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+          },
+          {
+            "name": "textbook-production-cli.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-cli.mjs",
+            "sha256": "773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860"
+          },
+          {
+            "name": "textbook-production-web-present.py",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-web-present.py",
+            "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          },
+          {
+            "name": "textbook-production-web-visual.py",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-web-visual.py",
+            "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+          },
+          {
+            "name": "textbook-production-web.mjs",
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-web.mjs",
+            "sha256": "495b9aedb65d91248a85c6c4911d01dce3783c85a623e8ce876351c199a73ee3"
+          }
+        ]
+      },
+      "intakeAnnotations": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T21-13-50-142Z/236-1-intake-annotations.json",
+        "sha256": "2cff5d4e62377cf6027c5b532cb86d61def4cb7b4f5ae4513af52a9257d20a35",
+        "issues": 0
+      },
+      "selectionReason": "Exact authorized fidelity236-v1 sidecar, original candidate unchanged, source timing ambiguity/old uncertain retained; integration models0."
+    },
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1751292",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751292.display.json",
+      "candidateSha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+      "sourceSha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+      "limitedUnknownReview": {
+        "candidateSha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+        "module": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-limited-159242-20261028/admit.mjs",
+          "sha256": "166614d1653214eb10de193a00b36667fdde2b76e45c01d7f676c46d562b22d1"
+        },
+        "stage": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-limited-159242-20261028/stage-limited.mjs",
+          "sha256": "161609f940f4f379caed9fb880050c48e30c061e3bcd6073e36ecb3890e7be36"
+        },
+        "manifest": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-limited-159242-20261028/manifest.json",
+          "sha256": "9495362af7ce917ef1f2ff64541945be770245879899a89cc4c99fef291adb9c"
+        },
+        "contract": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-limited-159242-20261028/contract.json",
+          "sha256": "d250e4fa99a7c4ee3c028859e1c437d46d3e8532abed0457ca6f669a91bc1a1b"
+        }
+      },
+      "intakeAnnotations": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T21-43-02-930Z/159-intake-annotations.json",
+        "sha256": "b54c1f8fdc6c65a20fc11c2f16addc83334cc497772a8c62fd75e953ccd94dd6"
+      },
+      "selectionReason": "Exact independently accepted limited unknown author-fidelity supplement plus unchanged faithful parent; standard old needs-repair unchanged; zero models."
+    },
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1780438",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780438.display.json",
+      "candidateSha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+      "sourceSha256": "3cac4b7103309b092edada33aa8f698b606aa283ae1ce18f8ce9ba9e8428f6e0",
+      "limitedUnknownReview": {
+        "candidateSha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+        "module": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-limited-159242-20261028/admit.mjs",
+          "sha256": "166614d1653214eb10de193a00b36667fdde2b76e45c01d7f676c46d562b22d1"
+        },
+        "stage": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-limited-159242-20261028/stage-limited.mjs",
+          "sha256": "161609f940f4f379caed9fb880050c48e30c061e3bcd6073e36ecb3890e7be36"
+        },
+        "manifest": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-limited-159242-20261028/manifest.json",
+          "sha256": "9495362af7ce917ef1f2ff64541945be770245879899a89cc4c99fef291adb9c"
+        },
+        "contract": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-limited-159242-20261028/contract.json",
+          "sha256": "d250e4fa99a7c4ee3c028859e1c437d46d3e8532abed0457ca6f669a91bc1a1b"
+        }
+      },
+      "intakeAnnotations": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T21-43-02-930Z/242-intake-annotations.json",
+        "sha256": "ed2981fd6c3d537d028ee96fc49b84a019b72e795d0cefcaa54d861a5cd5f259"
+      },
+      "selectionReason": "Exact independently accepted limited unknown author-fidelity supplement plus unchanged faithful parent; standard old needs-repair unchanged; zero models."
+    },
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1775262",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.r2.display.json",
+      "candidateSha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d",
+      "sourceSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+      "orderReview": {
+        "candidateSha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d",
+        "module": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-222-order-20261028\\order222.mjs",
+          "sha256": "08c9ffe76263771259a8e62d55038c5f6c2f86efa1a538e70768457a54877572"
+        },
+        "stage": {
+          "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/stage-web-textbook.mjs",
+          "sha256": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a"
+        },
+        "adjudication": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\adjudications\\coac249-222-unchanged-order-20261028.json",
+          "sha256": "9bc8b55f306013a1b434f87ca450ae233979cca3ff27d296737f603be0c818cd"
+        },
+        "contract": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-recorded222283-20261028\\222-order-adjudication-contract.json",
+          "sha256": "9aff0806439702e1d8dcb06f6d5e3f47667b2200a3ad1f33aa47164b168389ae"
+        },
+        "files": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.r2.display.json",
+            "sha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\adjudications\\coac249-222-unchanged-order-20261028.json",
+            "sha256": "9bc8b55f306013a1b434f87ca450ae233979cca3ff27d296737f603be0c818cd"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-222-order-20261028\\order222.mjs",
+            "sha256": "08c9ffe76263771259a8e62d55038c5f6c2f86efa1a538e70768457a54877572"
+          },
+          {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-web-textbook.mjs",
+            "sha256": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d.json",
+            "sha256": "06658a3d465820d3523fb1a28ff0a0ffd9c6a6484a92be4f68984dd0dc1a4e24"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\5b131a9b-8592-4789-922a-1ab7306b9581.json",
+            "sha256": "88d71694aaa3485b0f30f03477d0389e82615147162b3970c9833aa8e5c01ea2"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+            "sha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-recorded222283-20261028\\222-order-adjudication-contract.json",
+            "sha256": "9aff0806439702e1d8dcb06f6d5e3f47667b2200a3ad1f33aa47164b168389ae"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\adjudications\\coac249-222-unchanged-order-20261028.json",
+            "sha256": "9bc8b55f306013a1b434f87ca450ae233979cca3ff27d296737f603be0c818cd"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\runtime-manifest.json",
+            "sha256": "8c416f3afbb3e8647e1761d526151825cb79927741d9f331c44225679be6705f"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\capability-evidence.json",
+            "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\production-schema.mjs",
+            "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-222-figure.mjs",
+            "sha256": "8f79a0928d8bc761c9c6ceb5cf643fe80c1a56c2f2600016ccce45f03071b2e8"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-definition.mjs",
+            "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-image-binding.test.mjs",
+            "sha256": "1e8968987bd3082740c7044855379c4f193ce9c4d13470c32a1ae1fd4593f832"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-legacy.mjs",
+            "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-pdf-layout.mjs",
+            "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-pdf-native-corrections.mjs",
+            "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-pdf-native-structure-corrections.mjs",
+            "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-pdf-native.mjs",
+            "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-pdf-scope.mjs",
+            "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-pdf-source-corrections.mjs",
+            "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-tile-dictionary.mjs",
+            "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-verification-dependencies.mjs",
+            "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-web-batches.mjs",
+            "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-web-source.py",
+            "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-web.mjs",
+            "sha256": "89a233e3bb45fde75bba0b20b9c0aa273093443f65e288fee912f80fda6a717c"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit-web.test.mjs",
+            "sha256": "f3c19856af72c0078611b1155fd22ed098727c6d9fc163265fde4e54ffa67074"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-audit.mjs",
+            "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-cli.mjs",
+            "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-pdf-flow.mjs",
+            "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-web-batches.mjs",
+            "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-web-dictionary.mjs",
+            "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-web-formal.mjs",
+            "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-web-labels.mjs",
+            "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-web-present.py",
+            "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-web-sources.py",
+            "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-web-visual.py",
+            "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production-web.mjs",
+            "sha256": "07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\textbook-production.mjs",
+            "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\verification-dependencies.json",
+            "sha256": "f48df330e0e4f37797cec4014db8f7a9bfd12ffc35d61a9b8f972d74b1f78294"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.r2.display.json",
+            "sha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1775262\\source.json",
+            "sha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.r1.display.json",
+            "sha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+            "sha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d.json",
+            "sha256": "06658a3d465820d3523fb1a28ff0a0ffd9c6a6484a92be4f68984dd0dc1a4e24"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\5b131a9b-8592-4789-922a-1ab7306b9581.json",
+            "sha256": "88d71694aaa3485b0f30f03477d0389e82615147162b3970c9833aa8e5c01ea2"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\f64f0d4f-8833-475e-96dd-a9c5f80e2ba9.json",
+            "sha256": "a38f4973d1a3a896fbe48d9e808a37c143c775f6094fab913aca699c58b11c61"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+            "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png",
+            "sha256": "98f2495dfb2b67f1e57c6639f533e9630c5ce46a35e89fbc55248e60f2136126"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-222-sixth-tile.raw.json",
+            "sha256": "32007944f5764cf41e03c336005e438ff02cb5ac17269aba2afa1be26403f3d6"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-222-order-20261028\\stage-proof.json",
+            "sha256": "fe7336a053be1596b4b0eac8599dbba4c061bd10e65296eea1e0ee72e47a648f"
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1775262\\source.json",
+            "sha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031"
+          },
+          {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\compile-textbook-corpus.mjs",
+            "sha256": "b4a8fb7432847e54b3c922a5b83e88b3d957abd6a16e726c772188fa5db4a2db"
+          },
+          {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\textbook-audit-pdf-layout.mjs",
+            "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+          },
+          {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\textbook-audit-pdf-native-corrections.mjs",
+            "sha256": "31b8c8022ab00e8f3f89d85d8889ad9f1fd61269d6449da736c0ab142b90f74b"
+          },
+          {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\textbook-audit-pdf-native-structure-corrections.mjs",
+            "sha256": "a7079d3bf1114377dc5d2a2bcab317ad96f4dbd500b3414eb5687560b7d7cf2d"
+          },
+          {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\textbook-audit-pdf-native.mjs",
+            "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+          },
+          {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\textbook-audit-pdf-scope.mjs",
+            "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+          },
+          {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\textbook-audit-pdf-source-corrections.mjs",
+            "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+          },
+          {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\textbook-audit.mjs",
+            "sha256": "8660208dbb9ab80bff445d84402e169a0294b5485316c3ef1c080b42ea095893"
+          },
+          {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\textbook-production-cli.mjs",
+            "sha256": "238bf793e61b97fa383556038f388d459a57a169e5d36fc896df1d0be0ba197c"
+          },
+          {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\textbook-review.mjs",
+            "sha256": "11b3b9c1dcb41b2cdde72517dca733a84a352e75eea154edea5acc36408c7edf"
+          },
+          {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\publish-textbooks.mjs",
+            "sha256": "ffa7b575475bb3a0b65e13560081354a6adf78a9d51d09958cd0f8385bd04026"
+          },
+          {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-definition-boundaries.mjs",
+            "sha256": "a1a9df12caf1a78893414ad578281a479d89c7e4d968b5f80c53edb2b2f11ad7"
+          },
+          {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-inline-chunks.mjs",
+            "sha256": "c6f97f37674ef4bfaff1921a49999762a293759061f0ab0e222d1d58d670e285"
+          },
+          {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-pdf-inline-layout.mjs",
+            "sha256": "064ef34b42b78ec2192da7221ce1f32714cfd4d7fb77c3e1c90a733855baae6f"
+          },
+          {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-web-tables.mjs",
+            "sha256": "e898ae17934b1e4ad6d1b1a961dcb7af85f526c16f884046d45d6c47832b24ae"
+          },
+          {
+            "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-web-textbook.mjs",
+            "sha256": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a"
+          },
+          {
+            "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/stage-web-image.py",
+            "sha256": "a437b4cfc2809ddf8c989cb6f32bb2097f46485a7d29ddbd714e262c5a5e68d1"
+          }
+        ]
+      },
+      "intakeAnnotations": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T21-59-33-978Z/222-intake-annotations.json",
+        "sha256": "ffe1635c479650db071cd507cd918c9c6e599bbeb2f644468585b5dd21da064f"
+      },
+      "selectionReason": "Exact root-authorized order-input composition adjudication; independent faithful unchanged parent order and faithful target content inherited; original false/uncertain unchanged; models0."
+    }
+  ],
+  "excluded": {
+    "chapter01-section010": "confirmed_source_definition_boundary_hold: the frozen source-structure hold covers chapter01-section010 and integration/definition-boundary-stage-selection.json has no entry for it (stage-definition-chapters.mjs still asserts it held), so the passed 027-1 revision (44ce506d) is not selectable in this batch; no re-audit and no hold override performed."
+  },
+  "pdfScopes": [
+    {
+      "chapterId": "79-cn-chapter-215-4",
+      "module": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/stage-owned-215.mjs",
+        "sha256": "5c698bfc204cda6191453f8839e757f8b42c07fcac879cb00855d2026fb621ab"
+      },
+      "config": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/config.json",
+        "sha256": "a3205fbdaf78b205ff744d96f9337de7fb7845364d678ddccff70fa1f7ffde38"
+      },
+      "scopeProof": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/215-scope-proof.json",
+        "sha256": "716441570a09e78a306a97447eab39130a31b84d55e145f8bad4c40a677c17e7"
+      },
+      "stageReceipt": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/215-stage-receipt.json",
+        "sha256": "4e373543cf9cb8551905cb08db04e7b1fce4167a1899a903dc2bc3479db6b106"
+      },
+      "runtimeManifest": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-scope215-pdf193-20261028\\verification-runtime-manifest.json",
+        "sha256": "41e7e0140ec3bed00b76f04e6ba5e1294975275c01660d8e887f330af7260480"
+      },
+      "files": [
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/config.json",
+          "sha256": "a3205fbdaf78b205ff744d96f9337de7fb7845364d678ddccff70fa1f7ffde38"
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/215-scope-proof.json",
+          "sha256": "716441570a09e78a306a97447eab39130a31b84d55e145f8bad4c40a677c17e7"
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/215-stage-receipt.json",
+          "sha256": "4e373543cf9cb8551905cb08db04e7b1fce4167a1899a903dc2bc3479db6b106"
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/stage-and-verify.mjs",
+          "sha256": "63d29fe7d2c31ad04c60e5182f0691dbf86dc6f872ddb884cb74ae0a19b1a3de"
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-scope215-pdf193-20261028\\verification-runtime-manifest.json",
+          "sha256": "41e7e0140ec3bed00b76f04e6ba5e1294975275c01660d8e887f330af7260480"
+        },
+        {
+          "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/publish-textbooks.mjs",
+          "sha256": "ffa7b575475bb3a0b65e13560081354a6adf78a9d51d09958cd0f8385bd04026"
+        },
+        {
+          "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/compile-textbook-corpus.mjs",
+          "sha256": "b4a8fb7432847e54b3c922a5b83e88b3d957abd6a16e726c772188fa5db4a2db"
+        },
+        {
+          "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/textbook-review.mjs",
+          "sha256": "11b3b9c1dcb41b2cdde72517dca733a84a352e75eea154edea5acc36408c7edf"
+        }
+      ],
+      "sourceBlockIds": [
+        "79-cn-p217-b1",
+        "79-cn-p217-b3"
+      ],
+      "originalPage217Status": "needs-repair",
+      "fullPage217Passed": false,
+      "modelCalls": 0
+    }
+  ],
+  "pdfVersionSupplements": [
+    {
+      "chapterId": "79-cn-chapter-193-4-pdf193-supplement",
+      "supplementOf": "79-cn-chapter-193-4",
+      "module": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/stage-pdf193-supplement.mjs",
+        "sha256": "10b30eec55fa2e4d2b1ed91829f051e74ae9d7027a40837c677d10f8ed93e5c0"
+      },
+      "config": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/config.json",
+        "sha256": "a3205fbdaf78b205ff744d96f9337de7fb7845364d678ddccff70fa1f7ffde38"
+      },
+      "reuseReceipt": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/193-reuse-receipt.json",
+        "sha256": "0c3df4389d557f54e2fc62434e129ec5815311860cedc1a393a36413a60541a7"
+      },
+      "files": [
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/config.json",
+          "sha256": "a3205fbdaf78b205ff744d96f9337de7fb7845364d678ddccff70fa1f7ffde38"
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/193-reuse-receipt.json",
+          "sha256": "0c3df4389d557f54e2fc62434e129ec5815311860cedc1a393a36413a60541a7"
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-scope215-pdf193-20261028\\verification-runtime-manifest.json",
+          "sha256": "41e7e0140ec3bed00b76f04e6ba5e1294975275c01660d8e887f330af7260480"
+        },
+        {
+          "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/compile-textbook-corpus.mjs",
+          "sha256": "b4a8fb7432847e54b3c922a5b83e88b3d957abd6a16e726c772188fa5db4a2db"
+        },
+        {
+          "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/textbook-review.mjs",
+          "sha256": "11b3b9c1dcb41b2cdde72517dca733a84a352e75eea154edea5acc36408c7edf"
+        }
+      ],
+      "sourceIdentity": {
+        "sourcePdfSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+        "page": 193,
+        "parentSha256": "046188e3be510f12c1e729353aa01fb5b1ce866685acf84e34284b8571f49e93",
+        "sourceBlockId": "79-cn-p193-b6",
+        "slices": [
+          [
+            5,
+            29
+          ],
+          [
+            129,
+            158
+          ]
+        ]
+      },
+      "dedupeKey": "678cbae60c91a0eb5af5f53d1dcfbbe020de79b7709d7c6104304e8728ab44bf",
+      "contentRole": "navigation",
+      "originalChapterCoverageIncrement": 0,
+      "fullChapterPassed": false,
+      "modelCalls": 0
+    }
+  ]
+}

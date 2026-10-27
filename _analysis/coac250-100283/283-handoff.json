@@ -1,0 +1,159 @@
+{
+  "schema": "coac249-two-target-review-and-zero-proof-handoff/1",
+  "recordedAt": "2026-10-27T22:01:17.474893+00:00",
+  "chapter283": {
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t396962r1.json",
+      "sha256": "00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2"
+    },
+    "result": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-283-396962-reviewed-20261028.json",
+      "sha256": "267f0d09bdf23f911668b5e83c18dc975a55813b1f97ddf6b47d86a68644e9fb"
+    },
+    "scopeInheritance": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-283-396962-scope-inheritance-20261028.json",
+      "sha256": "1c18b7ff26e7b9ab1a697e7d842934ce3b5a64b2e9e37813bb0cd0c8f0955e28"
+    },
+    "targetStatuses": [
+      {
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0396",
+        "status": "passed",
+        "callId": "c500112c-2e65-418d-bda9-8948ea4d6e16",
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\c500112c-2e65-418d-bda9-8948ea4d6e16.json",
+          "sha256": "f381604197b33c1c60b53423c8f0f571d13efb6a11c1a52ddd2d635958d9fbfc"
+        },
+        "checkpoint": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-004.json",
+          "sha256": "e0bce7ea57114babe0e0adfe650f659f98b491d6fd69ecd7d982cb2113d8b726"
+        }
+      },
+      {
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0962",
+        "status": "passed",
+        "callId": "1ca0aa10-d2d0-489c-8f89-ca667e4cba4f",
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\1ca0aa10-d2d0-489c-8f89-ca667e4cba4f.json",
+          "sha256": "a38891d3866cbd2decb70c8f0ab3fb219cbc332617f5369198eb3f80e36340cc"
+        },
+        "checkpoint": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-009.json",
+          "sha256": "882344e39af1888d3367ebb5154642cb09e5f9f20cd1a0cc6d8fa8fe721762f0"
+        }
+      }
+    ],
+    "wholeStatus": "needs-repair",
+    "chapterAccepted": false,
+    "originalDeferredIssuesStillPresent": 14,
+    "next": "Existing244/250 aggregate the precise two passed target checkpoints and unchanged b0168/six-table/Q8 evidence. Retain14 original deferred raw issues and use existing supplemental issue accounting; do not stage the whole needs-repair article or overwrite another branch."
+  },
+  "159242": {
+    "attestation": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-159242-binding-consistency-20261028.json",
+      "sha256": "999cd1d4fdd5e5f9b07e5ef31a77a979e114985de15530865a026e2454a5445d"
+    },
+    "existingOwnerSidecar": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-limited-159242-20261028\\coac249-condition-attestation.json",
+      "sha256": "59fdbafbcdbfda1dfb230ba8c7607e3a5b1d8e7e9e847120cb7307300dbfef45"
+    },
+    "alreadyAdmittedAndReadBack": true,
+    "duplicateConsumerCreated": false
+  },
+  "pdf218220": {
+    "results": [
+      {
+        "page": 218,
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\candidates\\79-cn\\page-0218.json",
+          "sha256": "9ff64a457dec1368924a4f431d3a8d89278151d339bb74a07df1d749f882c8e6"
+        },
+        "status": "needs-repair",
+        "audit": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0218.9ff64a457dec1368924a4f431d3a8d89278151d339bb74a07df1d749f882c8e6.38f0d64d609b.json",
+          "sha256": "74cfe8d8cd72ebc4b02fe46464d1b4e7f4728d10fb429f8a6f331dc575356d17"
+        },
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\a4bfda32-c7be-48e6-83a8-754ad37f5e8c.json",
+          "sha256": "3274ab5ff2396039bce2fcb5342aba1e5073b96a189545f3ee2ba7e81b41089b"
+        },
+        "callId": "a4bfda32-c7be-48e6-83a8-754ad37f5e8c",
+        "usage": {
+          "inputTokens": 19713,
+          "cachedInputTokens": 0,
+          "outputTokens": 16912
+        },
+        "durationMs": 223471,
+        "sameShaTerminalCalls": 1,
+        "newCallsThisRun": 0
+      },
+      {
+        "page": 219,
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\candidates\\79-cn\\page-0219.json",
+          "sha256": "4ed396279c5eff45b5c9d399f7950394ac1c36b0cc638b22f67d0f30fb03ff54"
+        },
+        "status": "needs-repair",
+        "audit": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0219.4ed396279c5eff45b5c9d399f7950394ac1c36b0cc638b22f67d0f30fb03ff54.38f0d64d609b.json",
+          "sha256": "485247f1aabde12801df12bdd4e989a1fa3071148a17acd7a68dfd1285b15c14"
+        },
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\ac6bf0ed-e84d-4bc7-b64c-cecf3550dd86.json",
+          "sha256": "314d27f4981a93efe9c448cd541bba62e75d0fbe6f3d3fe97692d5daf4ab8f94"
+        },
+        "callId": "ac6bf0ed-e84d-4bc7-b64c-cecf3550dd86",
+        "usage": {
+          "inputTokens": 21143,
+          "cachedInputTokens": 0,
+          "outputTokens": 10653
+        },
+        "durationMs": 152433,
+        "sameShaTerminalCalls": 1,
+        "newCallsThisRun": 0
+      },
+      {
+        "page": 220,
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf220-terra-20261028\\candidates\\79-cn\\page-0220.json",
+          "sha256": "49df5a1cdba1d14e8feaf19a2ce1ae41cfc690c0cfeb047e6e290e032ca2ceeb"
+        },
+        "status": "passed",
+        "audit": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0220.49df5a1cdba1d14e8feaf19a2ce1ae41cfc690c0cfeb047e6e290e032ca2ceeb.38f0d64d609b.json",
+          "sha256": "2cb298d9caa74b9d18dfb14684b544390b0e5d95db36e4bee95147a6fbd39540"
+        },
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\8af52b0c-ab7e-4ac1-8e3a-c5b9492e01ac.json",
+          "sha256": "e8520c131b15f5021060537f0e46151b341d01c41bfb2518a026688d81dba714"
+        },
+        "callId": "8af52b0c-ab7e-4ac1-8e3a-c5b9492e01ac",
+        "usage": {
+          "inputTokens": 18890,
+          "cachedInputTokens": 0,
+          "outputTokens": 3447
+        },
+        "durationMs": 49142,
+        "sameShaTerminalCalls": 1,
+        "newCallsThisRun": 0
+      }
+    ],
+    "newCallsThisRun": 0,
+    "existingDeliveryWakeup": "01a17f57-9f37-71c0-b0a2-6df9bac60292",
+    "whole217220Accepted": false
+  },
+  "budget": {
+    "newCalls": 2,
+    "283FirstReviewMaximum": 2,
+    "283MakerAlreadyUsed": 2,
+    "283BatchMaximum": 4,
+    "283Remaining": 0,
+    "failedOrVoid": 0,
+    "retry": 0,
+    "production": 0,
+    "pdfNewCalls": 0,
+    "complianceNewCalls": 0,
+    "fee": null,
+    "upstreamExecutionCount": null,
+    "remoteWeights": "unknown"
+  }
+}
