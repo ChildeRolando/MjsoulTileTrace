@@ -1,0 +1,41 @@
+{
+  "schema": "coach-textbook-candidate-exclusions/1",
+  "entries": [
+    {
+      "candidatePath": "production/sol-high-repair-79-cn-p0050-r1/candidates/79-cn/page-0050.json",
+      "candidateSha256": "7787d50d34eda02deee789807e23039801145df91be3139a2a1d7bdcd3977c2c",
+      "sourceId": "79-cn",
+      "page": 50,
+      "status": "root-source-review-rejected",
+      "reason": "Independent source review rejects invented exclamation mark in low-resolution edge residue. Preserve model passed receipt unchanged; use clean same-source web chapter for resolution.",
+      "evidence": "audit/calibration/p50-source-edge-note.json"
+    },
+    {
+      "candidatePath": "production/sol-high-fallback-15min-20261025/candidates/79-cn/page-0336.json",
+      "candidateSha256": "4e79e89550e5aaf47cdf02d24d3652b16cd4ccd1a8ab0633ec19a9d88cee799d",
+      "sourceId": "79-cn",
+      "page": 336,
+      "status": "source-pixel-conflict-hold",
+      "reason": "Producer and independent auditor explicitly hold original transcription: exact identical source-image bytes have conflicting tile codes across pages. Original model review and flow proofs are retained; corrected source-bound candidate required before selection.",
+      "recordedAt": "2026-10-25T18:03:45.430925+00:00"
+    },
+    {
+      "candidatePath": "production/sol-high-fallback-15min-20261025/candidates/79-cn/page-0339.json",
+      "candidateSha256": "a13dbaa742aa5f4c9b04cbf4da20d27d8b73ae60968ad7f88910658ed5749fcf",
+      "sourceId": "79-cn",
+      "page": 339,
+      "status": "source-pixel-conflict-hold",
+      "reason": "Producer and independent auditor explicitly hold original transcription: exact identical source-image bytes have conflicting tile codes across pages. Original model review and flow proofs are retained; corrected source-bound candidate required before selection.",
+      "recordedAt": "2026-10-25T18:03:45.430925+00:00"
+    },
+    {
+      "candidatePath": "production/sol-high-fallback-15min-20261025/candidates/79-cn/page-0337.json",
+      "candidateSha256": "88541292b1d58099de3ea1a22df0c40a30635d0f9b2bdb380aa8fab3c5537caf",
+      "sourceId": "79-cn",
+      "page": 337,
+      "status": "source-pixel-conflict-hold",
+      "reason": "Exact source asset review confirms b26 and b31 are 6s, original passed transcription used 9s; original model receipt preserved. New specifically corrected candidate required.",
+      "evidence": "production/source-asset-review-333-338/all-affected-source-and-candidates.json"
+    }
+  ]
+}

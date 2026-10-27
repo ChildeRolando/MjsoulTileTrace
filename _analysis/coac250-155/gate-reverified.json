@@ -1,0 +1,721 @@
+{
+  "schema": "coach-textbook-web-article-audit/1",
+  "status": "passed",
+  "recordedAt": "2026-10-27T17:13:28.347Z",
+  "source": {
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1751265",
+    "url": "https://www.bilibili.com/read/cv1751265",
+    "title": "【日本麻雀讲座译文】鸣牌10—混一色",
+    "language": "zh-CN",
+    "fetchedAt": "2026-10-23T20:31:23.725237+00:00",
+    "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1751265/source.json",
+    "sourceSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+    "htmlSha256": "ef0dc51abc217194d4cb6b6a0e23dd32bb85e2744a44ab5579c14f34bf4abe62",
+    "mainSha256": "c4ce07df0adeda4498441edc5bad9782940a10607590bb0aee709f49e4118649"
+  },
+  "production": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751265.coac244inline20261027.display.json",
+    "sha256": "54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db"
+  },
+  "verification": "automatic-independent-review-not-user-human-gold-standard",
+  "deterministicChecks": {
+    "passed": true,
+    "errors": [],
+    "textBlocks": 22,
+    "imageRuns": 10,
+    "imageOccurrences": 10,
+    "figures": 10
+  },
+  "independentSource": {
+    "schema": "coach-textbook-web-independent-source-check/1",
+    "passed": true,
+    "errors": [],
+    "sourceFileSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+    "rawHtmlSha256": "ef0dc51abc217194d4cb6b6a0e23dd32bb85e2744a44ab5579c14f34bf4abe62",
+    "mainSha256": "c4ce07df0adeda4498441edc5bad9782940a10607590bb0aee709f49e4118649",
+    "textBlocks": 22,
+    "imageRuns": 10,
+    "imageOccurrences": 10,
+    "uniqueAssets": 10,
+    "method": "offline independent html.parser character-and-image DOM event comparison",
+    "modelCalls": 0
+  },
+  "semanticCompleteness": {
+    "complete": true,
+    "evidence": "Bound independent full parent review plus new independent target-text review; all unrequested prose, figures, marks and DOM locations are unchanged."
+  },
+  "modelChecks": {
+    "passed": true,
+    "errors": []
+  },
+  "modelReview": {
+    "blockChecks": [
+      {
+        "id": "79-bilibili-cn:cv1751265:b0008",
+        "verdict": "faithful",
+        "evidence": "“大丈夫だ，問題ない！”译为“没关系，没问题！”准确保留自信无碍的语气。全段保留东、北各已切出2张的牌况、情况常见、仍有不少人碰牌，以及有死对子时做门混七对子较好的条件与判断力度。"
+      }
+    ],
+    "contextContinuity": {
+      "faithful": true,
+      "evidence": "例2指代及后接“死对子”释义衔接完整，未重复或改动邻段内容。"
+    },
+    "semanticCompleteness": {
+      "complete": true,
+      "evidence": "目标段落全部语义均已对照，无遗漏、增义或牌语义变化。"
+    },
+    "issues": [],
+    "completeTargetScopeCompared": true,
+    "summary": "本次目标修订忠实，无需修复。"
+  },
+  "calls": [
+    {
+      "callId": "465f3d13-e7ff-4ca1-8f62-3b93c441f44e",
+      "scope": "textbook-web-target-text-audit",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1751265",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 13432,
+        "cachedInputTokens": 0,
+        "outputTokens": 343
+      },
+      "promptSha256": "29a7ad83c89d6e4b4e43d78f0449b14819b9cabd2f7107a5d9e4218855b5494b",
+      "semanticPromptSha256": "81ecacf05e20e71092174f08a4930216322e694e66789ca8a52ed3ef82cf5886",
+      "schemaSha256": "a2911fa4981413a0046f54b34e7a83542f89294030bee660eb3271750ec81dba",
+      "outputSha256": "269bfe5f4214a68f7aa786469d40779f5fd6c35df5e10ccba01dd2714c6757b3",
+      "requestPromptBytes": 9082,
+      "semanticPromptBytes": 8600,
+      "binding": {
+        "productionSha256": "54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db",
+        "sourceFileSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+        "auditorSnapshotSha256": "95af0326a6a52eb21187896ee4cf313b5e4e7c83e360a11d6759ba645ed2fa3c",
+        "semanticProjectionSha256": "902e7259d8abea5d2f1d307988ea98b708ed439d21629647efcf154758d89093",
+        "semanticProjectionVersion": 2,
+        "targetTextIds": [
+          "79-bilibili-cn:cv1751265:b0008"
+        ],
+        "verifiedAssetIds": [
+          "79-bilibili-cn:1f15838463b6d47d85122807",
+          "79-bilibili-cn:bb7a1e7d23ee537913abc269",
+          "79-bilibili-cn:25992ebacce40e426a6b8ec2",
+          "79-bilibili-cn:392b5bf64b9fc8b8a1bfc183",
+          "79-bilibili-cn:fff0e2ba89ecee4c01f6ee62",
+          "79-bilibili-cn:6d9e5fd3f16d0a4ef1f139da",
+          "79-bilibili-cn:6ee8b2c075fe7258c0a9eb8a",
+          "79-bilibili-cn:b35870eaccef8657adf75c7b",
+          "79-bilibili-cn:5c2037041b696a530b580b8b",
+          "79-bilibili-cn:08b18d0ac273c9e31b7b1b09"
+        ],
+        "originalImageAssetIds": []
+      },
+      "recordedAt": "2026-10-27T17:15:02.081Z"
+    }
+  ],
+  "exactReuse": null,
+  "auditor": {
+    "path": "audit/web/auditors/564e799197be2c3447ca16624d416301f33f9233442323bcd31250e75366bf61.json",
+    "sha256": "95af0326a6a52eb21187896ee4cf313b5e4e7c83e360a11d6759ba645ed2fa3c",
+    "combinedSha256": "564e799197be2c3447ca16624d416301f33f9233442323bcd31250e75366bf61"
+  },
+  "presentation": {
+    "parent": {
+      "path": "web-production/v1/candidates/79-bilibili-cn/cv1751265.coac244inline20261027.json",
+      "sha256": "0a2d8deaf704d921911198062e95d227bc0b9765106fa4980152cb9d57b1e353",
+      "reason": "Lossless display images only; translations and source figure sequences unchanged"
+    },
+    "pixels": {
+      "passed": true,
+      "figures": 10,
+      "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+    }
+  },
+  "productionCall": {
+    "callId": "676d346d-772e-4662-8fa9-02b236073167",
+    "rawArtifactPath": "raw-calls/676d346d-772e-4662-8fa9-02b236073167.json",
+    "rawArtifactSha256": "58e786828e31e3acc28fdef753733861a14e1b5331241f515a552d760c557519",
+    "outputNormalization": {
+      "method": "exact-completed-155-duplicate-strong-markup-removal/1",
+      "callId": "676d346d-772e-4662-8fa9-02b236073167",
+      "rawArtifactSha256": "58e786828e31e3acc28fdef753733861a14e1b5331241f515a552d760c557519",
+      "rawTextSha256": "90f0d0e1804942930e0f1d6d0a3320b5fe21a749fcc3ce5eb96cb5f92675ff1d",
+      "normalizedTextSha256": "98d87ca056ab35a94b4c4b6db7e01555c36ac909d3405c9d8f2d5ce2d13b9844",
+      "sourceSegmentsSha256": "b8ba2cecc38900b32687c2cd93656d7b018ba80e98dbc8b71ad5e40db1a15aa4",
+      "removedMarkers": [
+        "**",
+        "**"
+      ],
+      "modelCalls": 0
+    },
+    "revision": {
+      "inlineJapanese": {
+        "plan": {
+          "schema": "coach-inline-japanese-revision/1",
+          "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+          "chapterId": "79-cn-chapter-155-4",
+          "bindings": {
+            "parentSha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+            "notesSha256": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627",
+            "sourceSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22"
+          },
+          "edits": [
+            {
+              "sourceBlockId": "79-bilibili-cn:cv1751265:b0008",
+              "quotedText": "大丈夫だ，問題ない！",
+              "operation": "replace"
+            }
+          ]
+        },
+        "binding": {
+          "path": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-155.json",
+          "sha256": "56cb4d8ece39d2b661466aad268377a9cdecb93136faa6da0aae0903f4629557",
+          "plan": {
+            "schema": "coach-inline-japanese-revision/1",
+            "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+            "chapterId": "79-cn-chapter-155-4",
+            "bindings": {
+              "parentSha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+              "notesSha256": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627",
+              "sourceSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22"
+            },
+            "edits": [
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1751265:b0008",
+                "quotedText": "大丈夫だ，問題ない！",
+                "operation": "replace"
+              }
+            ]
+          }
+        },
+        "sourceLanguage": "zh-CN",
+        "bodyMode": "verbatim-with-bound-inline-translation-only"
+      },
+      "revision": {
+        "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1751265.display.json",
+        "parentSha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+        "notesPath": "audit/web/articles/79-bilibili-cn/cv1751265.20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f.retry-1792948405214-96b97389.json",
+        "notesSha256": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627",
+        "figureIds": [],
+        "textBlockIds": [
+          "79-bilibili-cn:cv1751265:b0008"
+        ],
+        "inlineJapanese": {
+          "path": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-155.json",
+          "sha256": "56cb4d8ece39d2b661466aad268377a9cdecb93136faa6da0aae0903f4629557",
+          "plan": {
+            "schema": "coach-inline-japanese-revision/1",
+            "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+            "chapterId": "79-cn-chapter-155-4",
+            "bindings": {
+              "parentSha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+              "notesSha256": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627",
+              "sourceSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22"
+            },
+            "edits": [
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1751265:b0008",
+                "quotedText": "大丈夫だ，問題ない！",
+                "operation": "replace"
+              }
+            ]
+          }
+        }
+      },
+      "parentAudit": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1751265.20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f.retry-1792948405214-96b97389.json",
+        "sha256": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627",
+        "originalStatus": "needs-repair"
+      },
+      "parentCall": {
+        "callId": "d11a05f0-a1ed-4397-ba32-f28ca7525510",
+        "path": "audit/calls/d11a05f0-a1ed-4397-ba32-f28ca7525510.json",
+        "sha256": "7777871e3f80b6b84636a0bed260fec7350e32488ab78b92f1f89e379e4e6c3b"
+      },
+      "inheritedAssetIds": [
+        "79-bilibili-cn:1f15838463b6d47d85122807",
+        "79-bilibili-cn:bb7a1e7d23ee537913abc269",
+        "79-bilibili-cn:25992ebacce40e426a6b8ec2",
+        "79-bilibili-cn:392b5bf64b9fc8b8a1bfc183",
+        "79-bilibili-cn:fff0e2ba89ecee4c01f6ee62",
+        "79-bilibili-cn:6d9e5fd3f16d0a4ef1f139da",
+        "79-bilibili-cn:6ee8b2c075fe7258c0a9eb8a",
+        "79-bilibili-cn:b35870eaccef8657adf75c7b",
+        "79-bilibili-cn:5c2037041b696a530b580b8b",
+        "79-bilibili-cn:08b18d0ac273c9e31b7b1b09"
+      ]
+    }
+  },
+  "verifiedAssets": null,
+  "method": "independent-target-text-review-plus-unchanged-parent-audit",
+  "effectiveModelReview": {
+    "blockChecks": [
+      {
+        "id": "79-bilibili-cn:cv1751265:b0001",
+        "verdict": "faithful",
+        "evidence": "“免责声明：”原样保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0002",
+        "verdict": "faithful",
+        "evidence": "著作权说明、译者SeventhTG（XD）及转载署名要求完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0003",
+        "verdict": "faithful",
+        "evidence": "原文地址、分隔线及“混一色：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0004",
+        "verdict": "faithful",
+        "evidence": "混一色定义、价值、鸣牌失误、不应鸣牌的小标题及鸣牌后2翻等内容原样保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0005",
+        "verdict": "faithful",
+        "evidence": "例1标签、13张牌及竖置方向均与原图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0006",
+        "verdict": "faithful",
+        "evidence": "门清优先、万不得已的例外、任意万子进张及好形一向听的适用条件完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0007",
+        "verdict": "faithful",
+        "evidence": "例2标签、13张索子与字牌完整转录，空白牌正确记作白。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0008",
+        "verdict": "faithful",
+        "evidence": "“大丈夫だ，問題ない！”译为“没关系，没问题！”准确保留自信无碍的语气。全段保留东、北各已切出2张的牌况、情况常见、仍有不少人碰牌，以及有死对子时做门混七对子较好的条件与判断力度。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0009",
+        "verdict": "faithful",
+        "evidence": "死对子定义及粗体原样保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0010",
+        "verdict": "faithful",
+        "evidence": "“例如”及粗体保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0011",
+        "verdict": "faithful",
+        "evidence": "持有两张北的条件及粗体保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0012",
+        "verdict": "faithful",
+        "evidence": "剩余2张北已在场上出现的条件及粗体保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0013",
+        "verdict": "faithful",
+        "evidence": "“不可能在凑齐3张的时候”按中文原文保留，未擅改原文用字。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0014",
+        "verdict": "faithful",
+        "evidence": "北对子称为死对子的结论及粗体保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0015",
+        "verdict": "faithful",
+        "evidence": "分隔线保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0016",
+        "verdict": "faithful",
+        "evidence": "例3标签、13张牌及方向完整对应原图。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0017",
+        "verdict": "faithful",
+        "evidence": "失败频率判断及面子尚未凑齐的条件原样保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0018",
+        "verdict": "faithful",
+        "evidence": "10张竖置手牌、碰西副露及“碰”标签完整对应原图。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0019",
+        "verdict": "faithful",
+        "evidence": "先调整门清牌形、他家立直时的反击与安全牌损失，以及下一节标题和引句均保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0020",
+        "verdict": "faithful",
+        "evidence": "例4标签、10张手牌及碰红中的牌码和方向正确。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0021",
+        "verdict": "faithful",
+        "evidence": "例4不能鸣3万的判断原样保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0022",
+        "verdict": "faithful",
+        "evidence": "7张手牌、碰三万与碰红中两组副露及标签完整正确。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0023",
+        "verdict": "faithful",
+        "evidence": "2万和5万难用、混一色对对跳满属偶然、容易错过和牌及避免制造愚形的论证完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0024",
+        "verdict": "faithful",
+        "evidence": "例5标签、10张筒子及碰东副露完整正确。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0025",
+        "verdict": "faithful",
+        "evidence": "可鸣牌听牌但不能随便鸣牌的判断完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0026",
+        "verdict": "faithful",
+        "evidence": "碰七筒后的7张手牌及两组副露完整正确。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0027",
+        "verdict": "faithful",
+        "evidence": "“先听牌”的调侃及他家使用一张7饼的条件完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0028",
+        "verdict": "faithful",
+        "evidence": "碰五筒后的7张手牌及两组副露完整正确。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0029",
+        "verdict": "faithful",
+        "evidence": "鸣牌听牌的描述及上家打出时还可吃的条件完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0030",
+        "verdict": "faithful",
+        "evidence": "7张手牌、吃五六七筒与碰东两组副露及中文标签完整正确。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0031",
+        "verdict": "faithful",
+        "evidence": "重要事情说两次的承接及杜绝不加考虑鸣牌的粗体告诫完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0032",
+        "verdict": "faithful",
+        "evidence": "“（待续）”原样保留。"
+      }
+    ],
+    "figureChecks": [
+      {
+        "id": "79-bilibili-cn:cv1751265:b0005:figure",
+        "verdict": "faithful",
+        "evidence": "例1：1m 2m 3m 4m 5m 5m 6m 7m 7m 8m 4z 4z 4z，13张全部竖置，牌码、顺序及例号正确。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0007:figure",
+        "verdict": "faithful",
+        "evidence": "例2：1s 2s 2s 5s 5s 6s 8s 5z 1z 1z 3z 4z 4z，全部竖置，白牌识别正确。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0016:figure",
+        "verdict": "faithful",
+        "evidence": "例3：4m 6m 1p 3p 5p 6p 7p 9p 5z 1z 3z 3z 4z，全部竖置，顺序及例号正确。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0018:figure",
+        "verdict": "faithful",
+        "evidence": "手牌4m 1p 3p 5p 6p 7p 9p 5z 1z 4z全部竖置；碰西为3z竖、3z竖、3z横。“ポン”完整译为“碰”。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0020:figure",
+        "verdict": "faithful",
+        "evidence": "例4手牌2m 3m 3m 5m 8m 8m 9m 1z 6z 6z全部竖置；碰中为7z横、7z竖、7z竖。例号、标签及牌面颜色解释正确。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0022:figure",
+        "verdict": "faithful",
+        "evidence": "手牌2m 5m 8m 8m 9m 6z 6z；碰三万为3m竖、3m横、3m竖；碰中为7z横、7z竖、7z竖。两处碰标签完整。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0024:figure",
+        "verdict": "faithful",
+        "evidence": "例5手牌1p 2p 3p 3p 5p 5p 6p 7p 7p 8p；碰东为1z竖、1z竖、1z横。例号、顺序及标签正确。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0026:figure",
+        "verdict": "faithful",
+        "evidence": "手牌1p 2p 3p 5p 5p 6p 8p；碰七筒为7p竖、7p横、7p竖；碰东为1z竖、1z竖、1z横。两处标签正确。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0028:figure",
+        "verdict": "faithful",
+        "evidence": "手牌1p 2p 3p 6p 7p 7p 8p；碰五筒为5p横、5p竖、5p竖；碰东为1z竖、1z竖、1z横。牌码及方向正确。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:b0030:figure",
+        "verdict": "faithful",
+        "evidence": "手牌1p 2p 3p 5p 5p 7p 8p；吃牌为5p横、6p竖、7p竖；碰东为1z竖、1z竖、1z横。“チー”“ポン”分别完整译为“吃”“碰”。"
+      }
+    ],
+    "imageChecks": [
+      {
+        "id": "79-bilibili-cn:cv1751265:i00001",
+        "disposition": "represented",
+        "evidence": "原图1及放大图11中的例1标签、13张牌和方向均已完整转录。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:i00002",
+        "disposition": "represented",
+        "evidence": "原图2及放大图12中的例2标签、13张牌和方向均已完整转录。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:i00003",
+        "disposition": "represented",
+        "evidence": "原图3及放大图13中的例3标签、13张牌和方向均已完整转录。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:i00004",
+        "disposition": "represented",
+        "evidence": "原图4及放大图14中的10张手牌、碰西副露及碰标签均已完整转录。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:i00005",
+        "disposition": "represented",
+        "evidence": "原图5及放大图15中的例4标签、10张手牌、碰中副露及碰标签均已完整转录。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:i00006",
+        "disposition": "represented",
+        "evidence": "原图6及放大图16中的7张手牌、两组副露及碰标签均已完整转录。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:i00007",
+        "disposition": "represented",
+        "evidence": "原图7及放大图17中的例5标签、10张手牌、碰东副露及碰标签均已完整转录。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:i00008",
+        "disposition": "represented",
+        "evidence": "原图8及放大图18中的7张手牌、碰七筒和碰东副露及标签均已完整转录。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:i00009",
+        "disposition": "represented",
+        "evidence": "原图9及放大图19中的7张手牌、碰五筒和碰东副露及标签均已完整转录。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751265:i00010",
+        "disposition": "represented",
+        "evidence": "原图10及放大图20中的7张手牌、吃五六七筒和碰东副露及标签均已完整转录。"
+      }
+    ],
+    "domOrder": {
+      "faithful": true,
+      "evidence": "候选按b0001至b0032自然顺序覆盖全部32块，10次图像均保留在原有位置，说明文字与相应牌例的先后关系正确。"
+    },
+    "semanticCompleteness": {
+      "complete": true,
+      "evidence": "Bound independent full parent review plus new independent target-text review; all unrequested prose, figures, marks and DOM locations are unchanged."
+    },
+    "issues": [
+      {
+        "severity": "source-note",
+        "targetId": "candidate.figures[*].sourceNotes",
+        "sourceEvidence": "实际附件1至10为依次对应的原图，附件11至20为各自放大图；候选各figure的sourceNotes却按1/2、3/4直至19/20配对。",
+        "description": "10处加工附件编号说明均配对错误。实际牌码、方向、例号及教学标签已完整正确转录，此问题仅涉及加工说明。",
+        "suggestedRepair": "按figure出现顺序，将原图/放大图附件配对依次更正为1/11、2/12、3/13、4/14、5/15、6/16、7/17、8/18、9/19、10/20。"
+      }
+    ],
+    "completeArticleCompared": true,
+    "summary": "已审完32块、10个figure及10次图像。牌图教学内容完整正确；需补译1处日文引语，另有附件配对说明笔误。"
+  },
+  "effectiveModelChecks": {
+    "passed": true,
+    "errors": []
+  },
+  "inheritedCalls": [
+    {
+      "callId": "d11a05f0-a1ed-4397-ba32-f28ca7525510",
+      "scope": "textbook-web-article-audit",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1751265",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 32560,
+        "cachedInputTokens": 0,
+        "outputTokens": 4362
+      },
+      "promptSha256": "18a3de858cfcc803442dca73c8f6ab5ac2383c89807ce21bfa5609297eafe322",
+      "semanticPromptSha256": "276b5783ce76c0bb4e9a1bc0488dada8160abce6ec8ddef4c6c302fac5689e66",
+      "schemaSha256": "c7907b3dbf2cd9d65208c35bccb948e4171df6b6fffaf7e3458f8a72af56add3",
+      "outputSha256": "36555a6f8ab7ba6da28a8b9d36ed73a255f985189c7e4f27c07988607efa906a",
+      "requestPromptBytes": 44066,
+      "semanticPromptBytes": 43584,
+      "binding": {
+        "productionSha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+        "sourceFileSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+        "auditorSnapshotSha256": "56db018fb59312ce413ba53f1d80c78b66a4564e61f9955a5076f607417dcb15",
+        "semanticProjectionSha256": "ba73da26aa2d5b414f0f7523137a2b77ed295c0726644563b0f28376d1f3f9e1",
+        "semanticProjectionVersion": 2,
+        "verifiedAssetIds": [],
+        "originalImageAssetIds": [
+          "79-bilibili-cn:1f15838463b6d47d85122807",
+          "79-bilibili-cn:bb7a1e7d23ee537913abc269",
+          "79-bilibili-cn:25992ebacce40e426a6b8ec2",
+          "79-bilibili-cn:392b5bf64b9fc8b8a1bfc183",
+          "79-bilibili-cn:fff0e2ba89ecee4c01f6ee62",
+          "79-bilibili-cn:6d9e5fd3f16d0a4ef1f139da",
+          "79-bilibili-cn:6ee8b2c075fe7258c0a9eb8a",
+          "79-bilibili-cn:b35870eaccef8657adf75c7b",
+          "79-bilibili-cn:5c2037041b696a530b580b8b",
+          "79-bilibili-cn:08b18d0ac273c9e31b7b1b09"
+        ],
+        "supplementalInputs": [
+          {
+            "assetId": "79-bilibili-cn:1f15838463b6d47d85122807",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/503bb674f86ab6fb9046f907a2214f8ffb2fa34bd956c10b5d56214646698a4b.png",
+            "sourceSha256": "503bb674f86ab6fb9046f907a2214f8ffb2fa34bd956c10b5d56214646698a4b",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/503bb674f86ab6fb9046f907a2214f8ffb2fa34bd956c10b5d56214646698a4b.x4.png",
+            "sha256": "0e7ac7327a037649f76f2af2e5672bc4fd7cf97fd5049f9b24821001657eed20",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 1568,
+            "height": 252
+          },
+          {
+            "assetId": "79-bilibili-cn:bb7a1e7d23ee537913abc269",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/8ad5034b96e34b56d529c2a3b1e38ced7571eb7f839807395662c0456ffaabaf.png",
+            "sourceSha256": "8ad5034b96e34b56d529c2a3b1e38ced7571eb7f839807395662c0456ffaabaf",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/8ad5034b96e34b56d529c2a3b1e38ced7571eb7f839807395662c0456ffaabaf.x4.png",
+            "sha256": "f0da0fd1b4cf05ddb262e0141234c7128f1bf03a14ab931f8ab50e500ce438f9",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 1552,
+            "height": 252
+          },
+          {
+            "assetId": "79-bilibili-cn:25992ebacce40e426a6b8ec2",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/771ec2647fab55081ea5f3e866215235afe2a58e5850ae6edaf5107a1057634b.png",
+            "sourceSha256": "771ec2647fab55081ea5f3e866215235afe2a58e5850ae6edaf5107a1057634b",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/771ec2647fab55081ea5f3e866215235afe2a58e5850ae6edaf5107a1057634b.x4.png",
+            "sha256": "48a2ebae3636956b9b7d4badac52d5c7924443b526ee1b8ddddf4b6abd4684c8",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 1584,
+            "height": 276
+          },
+          {
+            "assetId": "79-bilibili-cn:392b5bf64b9fc8b8a1bfc183",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/ae25fa3e01339272c09dd8ffe23c2f27dd94b5089ecf22fb02126973910ee73d.png",
+            "sourceSha256": "ae25fa3e01339272c09dd8ffe23c2f27dd94b5089ecf22fb02126973910ee73d",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/ae25fa3e01339272c09dd8ffe23c2f27dd94b5089ecf22fb02126973910ee73d.x4.png",
+            "sha256": "9dececaff96c6997e5bcffb5bb37965d179b4e655b13039c19455b43abc61437",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 1756,
+            "height": 236
+          },
+          {
+            "assetId": "79-bilibili-cn:fff0e2ba89ecee4c01f6ee62",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/0cc4f0e70460e2552f8324f346dbdb23cd3ff7f3e5d667201dcfd3b60129a68a.png",
+            "sourceSha256": "0cc4f0e70460e2552f8324f346dbdb23cd3ff7f3e5d667201dcfd3b60129a68a",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/0cc4f0e70460e2552f8324f346dbdb23cd3ff7f3e5d667201dcfd3b60129a68a.x4.png",
+            "sha256": "a8394a58df76f013714b2cb04f8998233969390472237b12728e9e797a39de51",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 1840,
+            "height": 248
+          },
+          {
+            "assetId": "79-bilibili-cn:6d9e5fd3f16d0a4ef1f139da",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/4e89e63587b90413de414b5f522a57f31152ac8cb58113a3d0b0ae9e3ee8d900.png",
+            "sourceSha256": "4e89e63587b90413de414b5f522a57f31152ac8cb58113a3d0b0ae9e3ee8d900",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/4e89e63587b90413de414b5f522a57f31152ac8cb58113a3d0b0ae9e3ee8d900.x4.png",
+            "sha256": "e7f889d2512ad0fa308cabc08f61cd0b1d5eb229ed262b27a2a9e0cf0198e3dd",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 1936,
+            "height": 252
+          },
+          {
+            "assetId": "79-bilibili-cn:6ee8b2c075fe7258c0a9eb8a",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/aa9f6575c392a34d97e3c09f5187f418ecfa8590c187fd8c84b7f7f6b2311d92.png",
+            "sourceSha256": "aa9f6575c392a34d97e3c09f5187f418ecfa8590c187fd8c84b7f7f6b2311d92",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/aa9f6575c392a34d97e3c09f5187f418ecfa8590c187fd8c84b7f7f6b2311d92.x4.png",
+            "sha256": "eefb3e36f17fafba0453aa60aa78673e985ea091c9917fa0b3cfbe95e6e1303b",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 2028,
+            "height": 260
+          },
+          {
+            "assetId": "79-bilibili-cn:b35870eaccef8657adf75c7b",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/2b5342df84aa1346ed431070dc31fa3c41fe698542e6ec7562bc24fae7ef2cd5.png",
+            "sourceSha256": "2b5342df84aa1346ed431070dc31fa3c41fe698542e6ec7562bc24fae7ef2cd5",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/2b5342df84aa1346ed431070dc31fa3c41fe698542e6ec7562bc24fae7ef2cd5.x4.png",
+            "sha256": "1153b401dd09b1589057ad900de66cbf1a4fb39d1110718a1208fc468fd43578",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 2084,
+            "height": 276
+          },
+          {
+            "assetId": "79-bilibili-cn:5c2037041b696a530b580b8b",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/f9d611351f7c5bd4753dce89719523b732f961c54ef710c39caf18dc2378eb1c.png",
+            "sourceSha256": "f9d611351f7c5bd4753dce89719523b732f961c54ef710c39caf18dc2378eb1c",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/f9d611351f7c5bd4753dce89719523b732f961c54ef710c39caf18dc2378eb1c.x4.png",
+            "sha256": "8bc2846391c5bb5d25f2e98a44d87d2dad6e3498b0eb6c50dfb42b2cd130719e",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 2024,
+            "height": 260
+          },
+          {
+            "assetId": "79-bilibili-cn:08b18d0ac273c9e31b7b1b09",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/ff38e323b045b2b183eb7c2daa420f2f475d83f0716a5d5c8fe072eb1741b9dd.png",
+            "sourceSha256": "ff38e323b045b2b183eb7c2daa420f2f475d83f0716a5d5c8fe072eb1741b9dd",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/ff38e323b045b2b183eb7c2daa420f2f475d83f0716a5d5c8fe072eb1741b9dd.x4.png",
+            "sha256": "7abbac11547b686565a8130c6d843918d2f519d88e93ee8ffa9d49ebe2334917",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 2024,
+            "height": 244
+          }
+        ]
+      },
+      "recordedAt": "2026-10-25T17:15:02.867Z"
+    }
+  ],
+  "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751265.54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db.json",
+  "auditSha256": "eca2eb38636be8b3fa1d82703bbe01b22a0c065163dfc7f68d15405838e03359"
+}

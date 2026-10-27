@@ -1,0 +1,31 @@
+{
+  "allPassed": true,
+  "frozenGate": "passed",
+  "checks": [
+    {
+      "name": "candidate-sha",
+      "rejected": true
+    },
+    {
+      "name": "runtime-sha",
+      "rejected": true
+    },
+    {
+      "name": "runtime-scope",
+      "rejected": true
+    },
+    {
+      "name": "display-manifest-sha",
+      "rejected": true
+    },
+    {
+      "name": "display-module-binding",
+      "rejected": true
+    }
+  ],
+  "syntaxExitCode": 0,
+  "exact155VersionDedupe": true,
+  "otherCandidatesUseExistingRoute": true,
+  "intakeEvidenceRetainedInRebuild": true,
+  "modelCalls": 0
+}

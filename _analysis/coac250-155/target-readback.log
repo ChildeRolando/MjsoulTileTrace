@@ -1,0 +1,8555 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ []
+- [
+-   {
+-     char: '免',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '责',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '声',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '明',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '：',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '以',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '下',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '文',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '章',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '著',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '作',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '权',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '等',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '各',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '种',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '权',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '利',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '归',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '原',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '作',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '者',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '所',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '有',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '翻',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '译',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'B',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'y',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'S',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'e',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'v',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'e',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'n',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 't',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'h',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'T',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'G',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '（',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'X',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'D',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '）',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '如',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '果',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '你',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '喜',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '欢',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '本',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '文',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '并',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '有',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '幸',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '让',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '你',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '产',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '生',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '了',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '转',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '载',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '想',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '法',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '请',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '注',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '明',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '原',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '作',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '者',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '、',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '原',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '文',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '地',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '址',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '以',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '及',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '译',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '者',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '谢',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '谢',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '原',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '文',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '地',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '址',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '：',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'h',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 't',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 't',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'p',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ':',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '/',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '/',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'b',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'e',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'g',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'i',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'n',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'n',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'e',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'r',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 's',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '.',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'b',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'i',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'z',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '/',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'n',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'a',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'k',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'i',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '/',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'n',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'a',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'k',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'i',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '1',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '0',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '.',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'h',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 't',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'm',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'l',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '混',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '色',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '：',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '混',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '色',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '凑',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '齐',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '同',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '种',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '数',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '和',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '字',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '就',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '可',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '以',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '简',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '单',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '达',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '成',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '手',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '役',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '在',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '初',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '学',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '者',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '中',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '有',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '着',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '很',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '高',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '人',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '气',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '实',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '际',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '上',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '混',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '色',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '不',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '仅',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '做',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '法',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '简',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '单',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '而',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '且',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '打',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '点',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '也',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '很',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '给',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '力',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '很',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '有',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '制',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '作',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '价',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '值',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '个',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '手',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '役',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '混',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '色',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '差',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '距',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '主',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '要',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '体',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '现',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '在',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '鸣',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '方',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '式',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '和',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '形',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '理',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '解',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '上',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '常',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '常',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '会',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '看',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '见',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '该',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '鸣',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '没',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '有',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '鸣',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '不',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '该',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '鸣',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '又',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '鸣',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '从',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '而',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '错',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '过',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '了',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '和',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '机',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '会',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '人',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '不',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '应',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '鸣',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '手',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '即',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '使',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '鸣',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '混',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '色',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '也',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '有',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '2',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '翻',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '没',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '有',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '必',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '要',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '死',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '凹',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '门',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '清',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '那',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '么',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '不',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '应',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '该',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '鸣',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '例',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '子',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '到',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '底',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '哪',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '些',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '呢',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '？',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '像',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '例',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '1',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '这',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '种',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '门',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '清',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '已',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '经',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '足',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '够',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '听',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '手',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '鸣',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '话',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '就',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '成',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '了',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '“',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '白',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '痴',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '混',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '”',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '（',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '即',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '鸣',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '混',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '色',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'N',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'O',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'M',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: 'I',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '）',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '不',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '到',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '万',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '不',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '得',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '已',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '还',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '应',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '该',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '打',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '门',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '清',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '混',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '色',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '另',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '外',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '就',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '例',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '1',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '摸',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '到',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '万',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '子',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '任',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '何',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '张',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '都',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '能',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '够',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '听',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '虽',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '然',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '个',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '比',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '较',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '极',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '端',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '例',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '子',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '但',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '只',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '要',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '门',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '清',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '混',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '色',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '好',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '形',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '向',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '听',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '都',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '有',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '门',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '清',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '听',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '价',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '值',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '例',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '2',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '形',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '东',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '和',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '北',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '场',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '上',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '都',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '已',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '经',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '切',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '出',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '了',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '2',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '张',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '这',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '种',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '情',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '况',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '也',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '常',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '有',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '“',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '没',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '关',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '系',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '没',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '问',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '题',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '！',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '”',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '而',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '去',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '碰',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '人',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '也',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '不',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '少',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '有',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '死',
+-     href: null,
+-     marks: [
+-       'span:background:;color:#ee230d;:'
+-     ]
+-   },
+-   {
+-     char: '对',
+-     href: null,
+-     marks: [
+-       'span:background:;color:#ee230d;:'
+-     ]
+-   },
+-   {
+-     char: '子',
+-     href: null,
+-     marks: [
+-       'span:background:;color:#ee230d;:'
+-     ]
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '情',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '况',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '去',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '做',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '门',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '混',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '七',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '对',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '子',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '才',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '比',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '较',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '好',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '策',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '略',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '死',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '对',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '子',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '：',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '指',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '在',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '场',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '上',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '已',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '经',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '打',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '出',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '了',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '两',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '张',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '情',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '况',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '例',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '如',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '持',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '有',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '两',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '张',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '北',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '时',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '候',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '剩',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '下',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '2',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '张',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '北',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '已',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '经',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '在',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '场',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '上',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '出',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '现',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '不',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '可',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '能',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '在',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '凑',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '齐',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '3',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '张',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '时',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '候',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '这',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '样',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '北',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '对',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '子',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '称',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '为',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '死',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '对',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '子',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '这',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '失',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '败',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '最',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '多',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '个',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '例',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '子',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '就',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '像',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '例',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '3',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '这',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '样',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '面',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '子',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '还',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '没',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '有',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '好',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '好',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '凑',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '齐',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '时',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '候',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '了',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '还',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '稍',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '微',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '在',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '门',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '清',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '时',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '候',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '把',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '形',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '调',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '整',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '好',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '点',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '在',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '鸣',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '吧',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '剩',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '下',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '形',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '实',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '在',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '太',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '苦',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '逼',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '了',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '他',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '家',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '立',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '直',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '话',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '不',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '仅',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '没',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '有',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '反',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '击',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '能',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '力',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '失',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '去',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '安',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '全',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '西',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '损',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '失',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '实',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '在',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '太',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '大',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '了',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '应',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '该',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '鸣',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '应',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '该',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '放',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '过',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '混',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '色',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '鸣',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '要',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '点',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '和',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '手',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '分',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '不',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '开',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '例',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '4',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '有',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '张',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '不',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '能',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '鸣',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '那',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '就',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '3',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '万',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '碰',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '了',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '3',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '万',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '话',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '2',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '万',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '和',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '5',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '万',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '就',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '会',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '变',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '得',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '非',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '常',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '不',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '好',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '用',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '了',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '最',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '后',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '要',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '和',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '成',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '了',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '混',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '色',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '对',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '对',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '跳',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '满',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '话',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '也',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '仅',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '仅',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '“',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '偶',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '然',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '”',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '更',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '多',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '时',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '候',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '还',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '会',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '错',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '过',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '了',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '和',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '机',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '会',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '我',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '们',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '要',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '控',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '制',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '自',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '己',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '给',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '自',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '己',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '制',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '作',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '愚',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '形',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '行',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '为',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '-',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '例',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '5',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '只',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '要',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '鸣',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '就',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '可',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '以',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '听',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '了',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '但',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '为',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '了',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '听',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '也',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '不',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '“',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '随',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '便',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '什',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '么',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '都',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '应',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '该',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '鸣',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '”',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '不',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '管',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '那',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '么',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '多',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '先',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '听',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '吧',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '（',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '笑',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '）',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '要',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '他',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '家',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '手',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '里',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '用',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '着',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '张',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '7',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '饼',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '…',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '…',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '这',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '也',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '“',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '出',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '来',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '就',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '鸣',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '听',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '”',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '但',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '如',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '果',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '是',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '上',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '家',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '打',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '出',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '还',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '可',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '以',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '吃',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '啊',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '…',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '…',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '在',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '这',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '里',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '个',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '重',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '要',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '事',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '情',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '我',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '说',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '了',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '两',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '次',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: ' ',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '不',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '管',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '三',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '七',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '二',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '十',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '一',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '的',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '鸣',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '牌',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '，',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '千',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '万',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '要',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '杜',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '绝',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '啊',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '。',
+-     href: null,
+-     marks: [
+-       'strong:background:;color:;:'
+-     ]
+-   },
+-   {
+-     char: '（',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '待',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '续',
+-     href: null,
+-     marks: []
+-   },
+-   {
+-     char: '）',
+-     href: null,
+-     marks: []
+-   }
+- ]
+
+    at verifyDisplayEmphasis (file:///C:/Users/Roland/multica_workspaces_desktop-api.multica.ai/coach-rolan-2123e9a3b805/coac-250-e94a43686293/worktree/_analysis/coac250-155/readback.mjs:50:259)
+    at async file:///C:/Users/Roland/multica_workspaces_desktop-api.multica.ai/coach-rolan-2123e9a3b805/coac-250-e94a43686293/worktree/_analysis/coac250-155/readback.mjs:42:16 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [],
+  expected: [
+    { char: '免', marks: [], href: null },
+    { char: '责', marks: [], href: null },
+    { char: '声', marks: [], href: null },
+    { char: '明', marks: [], href: null },
+    { char: '：', marks: [], href: null },
+    { char: '以', marks: [], href: null },
+    { char: '下', marks: [], href: null },
+    { char: '文', marks: [], href: null },
+    { char: '章', marks: [], href: null },
+    { char: '的', marks: [], href: null },
+    { char: '著', marks: [], href: null },
+    { char: '作', marks: [], href: null },
+    { char: '权', marks: [], href: null },
+    { char: '等', marks: [], href: null },
+    { char: '各', marks: [], href: null },
+    { char: '种', marks: [], href: null },
+    { char: '权', marks: [], href: null },
+    { char: '利', marks: [], href: null },
+    { char: '归', marks: [], href: null },
+    { char: '原', marks: [], href: null },
+    { char: '作', marks: [], href: null },
+    { char: '者', marks: [], href: null },
+    { char: '所', marks: [], href: null },
+    { char: '有', marks: [], href: null },
+    { char: '，', marks: [], href: null },
+    { char: '翻', marks: [], href: null },
+    { char: '译', marks: [], href: null },
+    { char: ' ', marks: [], href: null },
+    { char: 'B', marks: [], href: null },
+    { char: 'y', marks: [], href: null },
+    { char: ' ', marks: [], href: null },
+    { char: 'S', marks: [], href: null },
+    { char: 'e', marks: [], href: null },
+    { char: 'v', marks: [], href: null },
+    { char: 'e', marks: [], href: null },
+    { char: 'n', marks: [], href: null },
+    { char: 't', marks: [], href: null },
+    { char: 'h', marks: [], href: null },
+    { char: 'T', marks: [], href: null },
+    { char: 'G', marks: [], href: null },
+    { char: '（', marks: [], href: null },
+    { char: 'X', marks: [], href: null },
+    { char: 'D', marks: [], href: null },
+    { char: '）', marks: [], href: null },
+    { char: '。', marks: [], href: null },
+    { char: '如', marks: [], href: null },
+    { char: '果', marks: [], href: null },
+    { char: '你', marks: [], href: null },
+    { char: '喜', marks: [], href: null },
+    { char: '欢', marks: [], href: null },
+    { char: '本', marks: [], href: null },
+    { char: '文', marks: [], href: null },
+    { char: '并', marks: [], href: null },
+    { char: '有', marks: [], href: null },
+    { char: '幸', marks: [], href: null },
+    { char: '让', marks: [], href: null },
+    { char: '你', marks: [], href: null },
+    { char: '产', marks: [], href: null },
+    { char: '生', marks: [], href: null },
+    { char: '了', marks: [], href: null },
+    { char: '转', marks: [], href: null },
+    { char: '载', marks: [], href: null },
+    { char: '的', marks: [], href: null },
+    { char: '想', marks: [], href: null },
+    { char: '法', marks: [], href: null },
+    { char: '，', marks: [], href: null },
+    { char: '请', marks: [], href: null },
+    { char: '注', marks: [], href: null },
+    { char: '明', marks: [], href: null },
+    { char: '原', marks: [], href: null },
+    { char: '作', marks: [], href: null },
+    { char: '者', marks: [], href: null },
+    { char: '、', marks: [], href: null },
+    { char: '原', marks: [], href: null },
+    { char: '文', marks: [], href: null },
+    { char: '地', marks: [], href: null },
+    { char: '址', marks: [], href: null },
+    { char: '以', marks: [], href: null },
+    { char: '及', marks: [], href: null },
+    { char: '译', marks: [], href: null },
+    { char: '者', marks: [], href: null },
+    { char: '，', marks: [], href: null },
+    { char: '谢', marks: [], href: null },
+    { char: '谢', marks: [], href: null },
+    { char: '。', marks: [], href: null },
+    { char: '原', marks: [], href: null },
+    { char: '文', marks: [], href: null },
+    { char: '地', marks: [], href: null },
+    { char: '址', marks: [], href: null },
+    { char: '：', marks: [], href: null },
+    { char: 'h', marks: [], href: null },
+    { char: 't', marks: [], href: null },
+    { char: 't', marks: [], href: null },
+    { char: 'p', marks: [], href: null },
+    { char: ':', marks: [], href: null },
+    { char: '/', marks: [], href: null },
+    { char: '/', marks: [], href: null },
+    { char: 'b', marks: [], href: null },
+    { char: 'e', marks: [], href: null },
+    { char: 'g', marks: [], href: null },
+    ... 1547 more items
+  ],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.15.0

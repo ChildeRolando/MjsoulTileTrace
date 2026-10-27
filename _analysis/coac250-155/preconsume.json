@@ -1,0 +1,1464 @@
+{
+  "schema": "coac250-155-preconsume/1",
+  "recordedAt": "2026-10-27T17:28:17.492Z",
+  "allPassed": true,
+  "handoff": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-reviewed-inline155-20261027.json",
+    "sha256": "d22e3fbf5487b54081d65e964996f8ed7706b8c3aa9259ce6c8d5240e5899f04"
+  },
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751265.coac244inline20261027.display.json",
+    "sha256": "54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1751265\\source.json",
+    "sha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22"
+  },
+  "audit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751265.54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db.json",
+    "sha256": "eca2eb38636be8b3fa1d82703bbe01b22a0c065163dfc7f68d15405838e03359"
+  },
+  "prior": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z",
+    "sha256": "838ffa9b44286b09d9302c0763b30e4adc5dc2fcfa4f9b18477ab022e4d7072b",
+    "chapters": 227,
+    "units": 235,
+    "blocks": 6246,
+    "figures": 5096
+  },
+  "versions": [
+    {
+      "file": "cv1751265.coac244inline20261027.display.json",
+      "sha256": "54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db",
+      "status": "passed",
+      "recordedAt": "2026-10-27T17:13:28.347Z"
+    },
+    {
+      "file": "cv1751265.coac244inline20261027.json",
+      "sha256": "0a2d8deaf704d921911198062e95d227bc0b9765106fa4980152cb9d57b1e353",
+      "status": "none",
+      "recordedAt": null
+    },
+    {
+      "file": "cv1751265.display.json",
+      "sha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+      "status": "needs-repair",
+      "recordedAt": "2026-10-25T17:13:25.214Z"
+    },
+    {
+      "file": "cv1751265.json",
+      "sha256": "8413449d488dc585154a20ccbb0817b43cfba4a71f969c58096507b686120f7a",
+      "status": "none",
+      "recordedAt": null
+    }
+  ],
+  "gate": {
+    "schema": "coach-textbook-web-article-audit/1",
+    "status": "passed",
+    "recordedAt": "2026-10-27T17:13:28.347Z",
+    "source": {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1751265",
+      "url": "https://www.bilibili.com/read/cv1751265",
+      "title": "【日本麻雀讲座译文】鸣牌10—混一色",
+      "language": "zh-CN",
+      "fetchedAt": "2026-10-23T20:31:23.725237+00:00",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1751265/source.json",
+      "sourceSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+      "htmlSha256": "ef0dc51abc217194d4cb6b6a0e23dd32bb85e2744a44ab5579c14f34bf4abe62",
+      "mainSha256": "c4ce07df0adeda4498441edc5bad9782940a10607590bb0aee709f49e4118649"
+    },
+    "production": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751265.coac244inline20261027.display.json",
+      "sha256": "54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db"
+    },
+    "verification": "automatic-independent-review-not-user-human-gold-standard",
+    "deterministicChecks": {
+      "passed": true,
+      "errors": [],
+      "textBlocks": 22,
+      "imageRuns": 10,
+      "imageOccurrences": 10,
+      "figures": 10
+    },
+    "independentSource": {
+      "schema": "coach-textbook-web-independent-source-check/1",
+      "passed": true,
+      "errors": [],
+      "sourceFileSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+      "rawHtmlSha256": "ef0dc51abc217194d4cb6b6a0e23dd32bb85e2744a44ab5579c14f34bf4abe62",
+      "mainSha256": "c4ce07df0adeda4498441edc5bad9782940a10607590bb0aee709f49e4118649",
+      "textBlocks": 22,
+      "imageRuns": 10,
+      "imageOccurrences": 10,
+      "uniqueAssets": 10,
+      "method": "offline independent html.parser character-and-image DOM event comparison",
+      "modelCalls": 0
+    },
+    "semanticCompleteness": {
+      "complete": true,
+      "evidence": "Bound independent full parent review plus new independent target-text review; all unrequested prose, figures, marks and DOM locations are unchanged."
+    },
+    "modelChecks": {
+      "passed": true,
+      "errors": []
+    },
+    "modelReview": {
+      "blockChecks": [
+        {
+          "id": "79-bilibili-cn:cv1751265:b0008",
+          "verdict": "faithful",
+          "evidence": "“大丈夫だ，問題ない！”译为“没关系，没问题！”准确保留自信无碍的语气。全段保留东、北各已切出2张的牌况、情况常见、仍有不少人碰牌，以及有死对子时做门混七对子较好的条件与判断力度。"
+        }
+      ],
+      "contextContinuity": {
+        "faithful": true,
+        "evidence": "例2指代及后接“死对子”释义衔接完整，未重复或改动邻段内容。"
+      },
+      "semanticCompleteness": {
+        "complete": true,
+        "evidence": "目标段落全部语义均已对照，无遗漏、增义或牌语义变化。"
+      },
+      "issues": [],
+      "completeTargetScopeCompared": true,
+      "summary": "本次目标修订忠实，无需修复。"
+    },
+    "calls": [
+      {
+        "callId": "465f3d13-e7ff-4ca1-8f62-3b93c441f44e",
+        "scope": "textbook-web-target-text-audit",
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1751265",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "success": true,
+        "usage": {
+          "inputTokens": 13432,
+          "cachedInputTokens": 0,
+          "outputTokens": 343
+        },
+        "promptSha256": "29a7ad83c89d6e4b4e43d78f0449b14819b9cabd2f7107a5d9e4218855b5494b",
+        "semanticPromptSha256": "81ecacf05e20e71092174f08a4930216322e694e66789ca8a52ed3ef82cf5886",
+        "schemaSha256": "a2911fa4981413a0046f54b34e7a83542f89294030bee660eb3271750ec81dba",
+        "outputSha256": "269bfe5f4214a68f7aa786469d40779f5fd6c35df5e10ccba01dd2714c6757b3",
+        "requestPromptBytes": 9082,
+        "semanticPromptBytes": 8600,
+        "binding": {
+          "productionSha256": "54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db",
+          "sourceFileSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+          "auditorSnapshotSha256": "95af0326a6a52eb21187896ee4cf313b5e4e7c83e360a11d6759ba645ed2fa3c",
+          "semanticProjectionSha256": "902e7259d8abea5d2f1d307988ea98b708ed439d21629647efcf154758d89093",
+          "semanticProjectionVersion": 2,
+          "targetTextIds": [
+            "79-bilibili-cn:cv1751265:b0008"
+          ],
+          "verifiedAssetIds": [
+            "79-bilibili-cn:1f15838463b6d47d85122807",
+            "79-bilibili-cn:bb7a1e7d23ee537913abc269",
+            "79-bilibili-cn:25992ebacce40e426a6b8ec2",
+            "79-bilibili-cn:392b5bf64b9fc8b8a1bfc183",
+            "79-bilibili-cn:fff0e2ba89ecee4c01f6ee62",
+            "79-bilibili-cn:6d9e5fd3f16d0a4ef1f139da",
+            "79-bilibili-cn:6ee8b2c075fe7258c0a9eb8a",
+            "79-bilibili-cn:b35870eaccef8657adf75c7b",
+            "79-bilibili-cn:5c2037041b696a530b580b8b",
+            "79-bilibili-cn:08b18d0ac273c9e31b7b1b09"
+          ],
+          "originalImageAssetIds": []
+        },
+        "recordedAt": "2026-10-27T17:15:02.081Z"
+      }
+    ],
+    "exactReuse": null,
+    "auditor": {
+      "path": "audit/web/auditors/564e799197be2c3447ca16624d416301f33f9233442323bcd31250e75366bf61.json",
+      "sha256": "95af0326a6a52eb21187896ee4cf313b5e4e7c83e360a11d6759ba645ed2fa3c",
+      "combinedSha256": "564e799197be2c3447ca16624d416301f33f9233442323bcd31250e75366bf61"
+    },
+    "presentation": {
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1751265.coac244inline20261027.json",
+        "sha256": "0a2d8deaf704d921911198062e95d227bc0b9765106fa4980152cb9d57b1e353",
+        "reason": "Lossless display images only; translations and source figure sequences unchanged"
+      },
+      "pixels": {
+        "passed": true,
+        "figures": 10,
+        "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+      }
+    },
+    "productionCall": {
+      "callId": "676d346d-772e-4662-8fa9-02b236073167",
+      "rawArtifactPath": "raw-calls/676d346d-772e-4662-8fa9-02b236073167.json",
+      "rawArtifactSha256": "58e786828e31e3acc28fdef753733861a14e1b5331241f515a552d760c557519",
+      "outputNormalization": {
+        "method": "exact-completed-155-duplicate-strong-markup-removal/1",
+        "callId": "676d346d-772e-4662-8fa9-02b236073167",
+        "rawArtifactSha256": "58e786828e31e3acc28fdef753733861a14e1b5331241f515a552d760c557519",
+        "rawTextSha256": "90f0d0e1804942930e0f1d6d0a3320b5fe21a749fcc3ce5eb96cb5f92675ff1d",
+        "normalizedTextSha256": "98d87ca056ab35a94b4c4b6db7e01555c36ac909d3405c9d8f2d5ce2d13b9844",
+        "sourceSegmentsSha256": "b8ba2cecc38900b32687c2cd93656d7b018ba80e98dbc8b71ad5e40db1a15aa4",
+        "removedMarkers": [
+          "**",
+          "**"
+        ],
+        "modelCalls": 0
+      },
+      "revision": {
+        "inlineJapanese": {
+          "plan": {
+            "schema": "coach-inline-japanese-revision/1",
+            "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+            "chapterId": "79-cn-chapter-155-4",
+            "bindings": {
+              "parentSha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+              "notesSha256": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627",
+              "sourceSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22"
+            },
+            "edits": [
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1751265:b0008",
+                "quotedText": "大丈夫だ，問題ない！",
+                "operation": "replace"
+              }
+            ]
+          },
+          "binding": {
+            "path": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-155.json",
+            "sha256": "56cb4d8ece39d2b661466aad268377a9cdecb93136faa6da0aae0903f4629557",
+            "plan": {
+              "schema": "coach-inline-japanese-revision/1",
+              "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+              "chapterId": "79-cn-chapter-155-4",
+              "bindings": {
+                "parentSha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+                "notesSha256": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627",
+                "sourceSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22"
+              },
+              "edits": [
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1751265:b0008",
+                  "quotedText": "大丈夫だ，問題ない！",
+                  "operation": "replace"
+                }
+              ]
+            }
+          },
+          "sourceLanguage": "zh-CN",
+          "bodyMode": "verbatim-with-bound-inline-translation-only"
+        },
+        "revision": {
+          "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1751265.display.json",
+          "parentSha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+          "notesPath": "audit/web/articles/79-bilibili-cn/cv1751265.20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f.retry-1792948405214-96b97389.json",
+          "notesSha256": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627",
+          "figureIds": [],
+          "textBlockIds": [
+            "79-bilibili-cn:cv1751265:b0008"
+          ],
+          "inlineJapanese": {
+            "path": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-155.json",
+            "sha256": "56cb4d8ece39d2b661466aad268377a9cdecb93136faa6da0aae0903f4629557",
+            "plan": {
+              "schema": "coach-inline-japanese-revision/1",
+              "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+              "chapterId": "79-cn-chapter-155-4",
+              "bindings": {
+                "parentSha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+                "notesSha256": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627",
+                "sourceSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22"
+              },
+              "edits": [
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1751265:b0008",
+                  "quotedText": "大丈夫だ，問題ない！",
+                  "operation": "replace"
+                }
+              ]
+            }
+          }
+        },
+        "parentAudit": {
+          "path": "audit/web/articles/79-bilibili-cn/cv1751265.20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f.retry-1792948405214-96b97389.json",
+          "sha256": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627",
+          "originalStatus": "needs-repair"
+        },
+        "parentCall": {
+          "callId": "d11a05f0-a1ed-4397-ba32-f28ca7525510",
+          "path": "audit/calls/d11a05f0-a1ed-4397-ba32-f28ca7525510.json",
+          "sha256": "7777871e3f80b6b84636a0bed260fec7350e32488ab78b92f1f89e379e4e6c3b"
+        },
+        "inheritedAssetIds": [
+          "79-bilibili-cn:1f15838463b6d47d85122807",
+          "79-bilibili-cn:bb7a1e7d23ee537913abc269",
+          "79-bilibili-cn:25992ebacce40e426a6b8ec2",
+          "79-bilibili-cn:392b5bf64b9fc8b8a1bfc183",
+          "79-bilibili-cn:fff0e2ba89ecee4c01f6ee62",
+          "79-bilibili-cn:6d9e5fd3f16d0a4ef1f139da",
+          "79-bilibili-cn:6ee8b2c075fe7258c0a9eb8a",
+          "79-bilibili-cn:b35870eaccef8657adf75c7b",
+          "79-bilibili-cn:5c2037041b696a530b580b8b",
+          "79-bilibili-cn:08b18d0ac273c9e31b7b1b09"
+        ]
+      }
+    },
+    "verifiedAssets": null,
+    "method": "independent-target-text-review-plus-unchanged-parent-audit",
+    "effectiveModelReview": {
+      "blockChecks": [
+        {
+          "id": "79-bilibili-cn:cv1751265:b0001",
+          "verdict": "faithful",
+          "evidence": "“免责声明：”原样保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0002",
+          "verdict": "faithful",
+          "evidence": "著作权说明、译者SeventhTG（XD）及转载署名要求完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0003",
+          "verdict": "faithful",
+          "evidence": "原文地址、分隔线及“混一色：”完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0004",
+          "verdict": "faithful",
+          "evidence": "混一色定义、价值、鸣牌失误、不应鸣牌的小标题及鸣牌后2翻等内容原样保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0005",
+          "verdict": "faithful",
+          "evidence": "例1标签、13张牌及竖置方向均与原图一致。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0006",
+          "verdict": "faithful",
+          "evidence": "门清优先、万不得已的例外、任意万子进张及好形一向听的适用条件完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0007",
+          "verdict": "faithful",
+          "evidence": "例2标签、13张索子与字牌完整转录，空白牌正确记作白。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0008",
+          "verdict": "faithful",
+          "evidence": "“大丈夫だ，問題ない！”译为“没关系，没问题！”准确保留自信无碍的语气。全段保留东、北各已切出2张的牌况、情况常见、仍有不少人碰牌，以及有死对子时做门混七对子较好的条件与判断力度。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0009",
+          "verdict": "faithful",
+          "evidence": "死对子定义及粗体原样保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0010",
+          "verdict": "faithful",
+          "evidence": "“例如”及粗体保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0011",
+          "verdict": "faithful",
+          "evidence": "持有两张北的条件及粗体保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0012",
+          "verdict": "faithful",
+          "evidence": "剩余2张北已在场上出现的条件及粗体保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0013",
+          "verdict": "faithful",
+          "evidence": "“不可能在凑齐3张的时候”按中文原文保留，未擅改原文用字。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0014",
+          "verdict": "faithful",
+          "evidence": "北对子称为死对子的结论及粗体保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0015",
+          "verdict": "faithful",
+          "evidence": "分隔线保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0016",
+          "verdict": "faithful",
+          "evidence": "例3标签、13张牌及方向完整对应原图。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0017",
+          "verdict": "faithful",
+          "evidence": "失败频率判断及面子尚未凑齐的条件原样保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0018",
+          "verdict": "faithful",
+          "evidence": "10张竖置手牌、碰西副露及“碰”标签完整对应原图。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0019",
+          "verdict": "faithful",
+          "evidence": "先调整门清牌形、他家立直时的反击与安全牌损失，以及下一节标题和引句均保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0020",
+          "verdict": "faithful",
+          "evidence": "例4标签、10张手牌及碰红中的牌码和方向正确。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0021",
+          "verdict": "faithful",
+          "evidence": "例4不能鸣3万的判断原样保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0022",
+          "verdict": "faithful",
+          "evidence": "7张手牌、碰三万与碰红中两组副露及标签完整正确。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0023",
+          "verdict": "faithful",
+          "evidence": "2万和5万难用、混一色对对跳满属偶然、容易错过和牌及避免制造愚形的论证完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0024",
+          "verdict": "faithful",
+          "evidence": "例5标签、10张筒子及碰东副露完整正确。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0025",
+          "verdict": "faithful",
+          "evidence": "可鸣牌听牌但不能随便鸣牌的判断完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0026",
+          "verdict": "faithful",
+          "evidence": "碰七筒后的7张手牌及两组副露完整正确。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0027",
+          "verdict": "faithful",
+          "evidence": "“先听牌”的调侃及他家使用一张7饼的条件完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0028",
+          "verdict": "faithful",
+          "evidence": "碰五筒后的7张手牌及两组副露完整正确。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0029",
+          "verdict": "faithful",
+          "evidence": "鸣牌听牌的描述及上家打出时还可吃的条件完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0030",
+          "verdict": "faithful",
+          "evidence": "7张手牌、吃五六七筒与碰东两组副露及中文标签完整正确。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0031",
+          "verdict": "faithful",
+          "evidence": "重要事情说两次的承接及杜绝不加考虑鸣牌的粗体告诫完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0032",
+          "verdict": "faithful",
+          "evidence": "“（待续）”原样保留。"
+        }
+      ],
+      "figureChecks": [
+        {
+          "id": "79-bilibili-cn:cv1751265:b0005:figure",
+          "verdict": "faithful",
+          "evidence": "例1：1m 2m 3m 4m 5m 5m 6m 7m 7m 8m 4z 4z 4z，13张全部竖置，牌码、顺序及例号正确。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0007:figure",
+          "verdict": "faithful",
+          "evidence": "例2：1s 2s 2s 5s 5s 6s 8s 5z 1z 1z 3z 4z 4z，全部竖置，白牌识别正确。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0016:figure",
+          "verdict": "faithful",
+          "evidence": "例3：4m 6m 1p 3p 5p 6p 7p 9p 5z 1z 3z 3z 4z，全部竖置，顺序及例号正确。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0018:figure",
+          "verdict": "faithful",
+          "evidence": "手牌4m 1p 3p 5p 6p 7p 9p 5z 1z 4z全部竖置；碰西为3z竖、3z竖、3z横。“ポン”完整译为“碰”。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0020:figure",
+          "verdict": "faithful",
+          "evidence": "例4手牌2m 3m 3m 5m 8m 8m 9m 1z 6z 6z全部竖置；碰中为7z横、7z竖、7z竖。例号、标签及牌面颜色解释正确。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0022:figure",
+          "verdict": "faithful",
+          "evidence": "手牌2m 5m 8m 8m 9m 6z 6z；碰三万为3m竖、3m横、3m竖；碰中为7z横、7z竖、7z竖。两处碰标签完整。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0024:figure",
+          "verdict": "faithful",
+          "evidence": "例5手牌1p 2p 3p 3p 5p 5p 6p 7p 7p 8p；碰东为1z竖、1z竖、1z横。例号、顺序及标签正确。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0026:figure",
+          "verdict": "faithful",
+          "evidence": "手牌1p 2p 3p 5p 5p 6p 8p；碰七筒为7p竖、7p横、7p竖；碰东为1z竖、1z竖、1z横。两处标签正确。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0028:figure",
+          "verdict": "faithful",
+          "evidence": "手牌1p 2p 3p 6p 7p 7p 8p；碰五筒为5p横、5p竖、5p竖；碰东为1z竖、1z竖、1z横。牌码及方向正确。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:b0030:figure",
+          "verdict": "faithful",
+          "evidence": "手牌1p 2p 3p 5p 5p 7p 8p；吃牌为5p横、6p竖、7p竖；碰东为1z竖、1z竖、1z横。“チー”“ポン”分别完整译为“吃”“碰”。"
+        }
+      ],
+      "imageChecks": [
+        {
+          "id": "79-bilibili-cn:cv1751265:i00001",
+          "disposition": "represented",
+          "evidence": "原图1及放大图11中的例1标签、13张牌和方向均已完整转录。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:i00002",
+          "disposition": "represented",
+          "evidence": "原图2及放大图12中的例2标签、13张牌和方向均已完整转录。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:i00003",
+          "disposition": "represented",
+          "evidence": "原图3及放大图13中的例3标签、13张牌和方向均已完整转录。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:i00004",
+          "disposition": "represented",
+          "evidence": "原图4及放大图14中的10张手牌、碰西副露及碰标签均已完整转录。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:i00005",
+          "disposition": "represented",
+          "evidence": "原图5及放大图15中的例4标签、10张手牌、碰中副露及碰标签均已完整转录。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:i00006",
+          "disposition": "represented",
+          "evidence": "原图6及放大图16中的7张手牌、两组副露及碰标签均已完整转录。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:i00007",
+          "disposition": "represented",
+          "evidence": "原图7及放大图17中的例5标签、10张手牌、碰东副露及碰标签均已完整转录。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:i00008",
+          "disposition": "represented",
+          "evidence": "原图8及放大图18中的7张手牌、碰七筒和碰东副露及标签均已完整转录。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:i00009",
+          "disposition": "represented",
+          "evidence": "原图9及放大图19中的7张手牌、碰五筒和碰东副露及标签均已完整转录。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1751265:i00010",
+          "disposition": "represented",
+          "evidence": "原图10及放大图20中的7张手牌、吃五六七筒和碰东副露及标签均已完整转录。"
+        }
+      ],
+      "domOrder": {
+        "faithful": true,
+        "evidence": "候选按b0001至b0032自然顺序覆盖全部32块，10次图像均保留在原有位置，说明文字与相应牌例的先后关系正确。"
+      },
+      "semanticCompleteness": {
+        "complete": true,
+        "evidence": "Bound independent full parent review plus new independent target-text review; all unrequested prose, figures, marks and DOM locations are unchanged."
+      },
+      "issues": [
+        {
+          "severity": "source-note",
+          "targetId": "candidate.figures[*].sourceNotes",
+          "sourceEvidence": "实际附件1至10为依次对应的原图，附件11至20为各自放大图；候选各figure的sourceNotes却按1/2、3/4直至19/20配对。",
+          "description": "10处加工附件编号说明均配对错误。实际牌码、方向、例号及教学标签已完整正确转录，此问题仅涉及加工说明。",
+          "suggestedRepair": "按figure出现顺序，将原图/放大图附件配对依次更正为1/11、2/12、3/13、4/14、5/15、6/16、7/17、8/18、9/19、10/20。"
+        }
+      ],
+      "completeArticleCompared": true,
+      "summary": "已审完32块、10个figure及10次图像。牌图教学内容完整正确；需补译1处日文引语，另有附件配对说明笔误。"
+    },
+    "effectiveModelChecks": {
+      "passed": true,
+      "errors": []
+    },
+    "inheritedCalls": [
+      {
+        "callId": "d11a05f0-a1ed-4397-ba32-f28ca7525510",
+        "scope": "textbook-web-article-audit",
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1751265",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "success": true,
+        "usage": {
+          "inputTokens": 32560,
+          "cachedInputTokens": 0,
+          "outputTokens": 4362
+        },
+        "promptSha256": "18a3de858cfcc803442dca73c8f6ab5ac2383c89807ce21bfa5609297eafe322",
+        "semanticPromptSha256": "276b5783ce76c0bb4e9a1bc0488dada8160abce6ec8ddef4c6c302fac5689e66",
+        "schemaSha256": "c7907b3dbf2cd9d65208c35bccb948e4171df6b6fffaf7e3458f8a72af56add3",
+        "outputSha256": "36555a6f8ab7ba6da28a8b9d36ed73a255f985189c7e4f27c07988607efa906a",
+        "requestPromptBytes": 44066,
+        "semanticPromptBytes": 43584,
+        "binding": {
+          "productionSha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+          "sourceFileSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+          "auditorSnapshotSha256": "56db018fb59312ce413ba53f1d80c78b66a4564e61f9955a5076f607417dcb15",
+          "semanticProjectionSha256": "ba73da26aa2d5b414f0f7523137a2b77ed295c0726644563b0f28376d1f3f9e1",
+          "semanticProjectionVersion": 2,
+          "verifiedAssetIds": [],
+          "originalImageAssetIds": [
+            "79-bilibili-cn:1f15838463b6d47d85122807",
+            "79-bilibili-cn:bb7a1e7d23ee537913abc269",
+            "79-bilibili-cn:25992ebacce40e426a6b8ec2",
+            "79-bilibili-cn:392b5bf64b9fc8b8a1bfc183",
+            "79-bilibili-cn:fff0e2ba89ecee4c01f6ee62",
+            "79-bilibili-cn:6d9e5fd3f16d0a4ef1f139da",
+            "79-bilibili-cn:6ee8b2c075fe7258c0a9eb8a",
+            "79-bilibili-cn:b35870eaccef8657adf75c7b",
+            "79-bilibili-cn:5c2037041b696a530b580b8b",
+            "79-bilibili-cn:08b18d0ac273c9e31b7b1b09"
+          ],
+          "supplementalInputs": [
+            {
+              "assetId": "79-bilibili-cn:1f15838463b6d47d85122807",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/503bb674f86ab6fb9046f907a2214f8ffb2fa34bd956c10b5d56214646698a4b.png",
+              "sourceSha256": "503bb674f86ab6fb9046f907a2214f8ffb2fa34bd956c10b5d56214646698a4b",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/503bb674f86ab6fb9046f907a2214f8ffb2fa34bd956c10b5d56214646698a4b.x4.png",
+              "sha256": "0e7ac7327a037649f76f2af2e5672bc4fd7cf97fd5049f9b24821001657eed20",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 1568,
+              "height": 252
+            },
+            {
+              "assetId": "79-bilibili-cn:bb7a1e7d23ee537913abc269",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/8ad5034b96e34b56d529c2a3b1e38ced7571eb7f839807395662c0456ffaabaf.png",
+              "sourceSha256": "8ad5034b96e34b56d529c2a3b1e38ced7571eb7f839807395662c0456ffaabaf",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/8ad5034b96e34b56d529c2a3b1e38ced7571eb7f839807395662c0456ffaabaf.x4.png",
+              "sha256": "f0da0fd1b4cf05ddb262e0141234c7128f1bf03a14ab931f8ab50e500ce438f9",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 1552,
+              "height": 252
+            },
+            {
+              "assetId": "79-bilibili-cn:25992ebacce40e426a6b8ec2",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/771ec2647fab55081ea5f3e866215235afe2a58e5850ae6edaf5107a1057634b.png",
+              "sourceSha256": "771ec2647fab55081ea5f3e866215235afe2a58e5850ae6edaf5107a1057634b",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/771ec2647fab55081ea5f3e866215235afe2a58e5850ae6edaf5107a1057634b.x4.png",
+              "sha256": "48a2ebae3636956b9b7d4badac52d5c7924443b526ee1b8ddddf4b6abd4684c8",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 1584,
+              "height": 276
+            },
+            {
+              "assetId": "79-bilibili-cn:392b5bf64b9fc8b8a1bfc183",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/ae25fa3e01339272c09dd8ffe23c2f27dd94b5089ecf22fb02126973910ee73d.png",
+              "sourceSha256": "ae25fa3e01339272c09dd8ffe23c2f27dd94b5089ecf22fb02126973910ee73d",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/ae25fa3e01339272c09dd8ffe23c2f27dd94b5089ecf22fb02126973910ee73d.x4.png",
+              "sha256": "9dececaff96c6997e5bcffb5bb37965d179b4e655b13039c19455b43abc61437",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 1756,
+              "height": 236
+            },
+            {
+              "assetId": "79-bilibili-cn:fff0e2ba89ecee4c01f6ee62",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/0cc4f0e70460e2552f8324f346dbdb23cd3ff7f3e5d667201dcfd3b60129a68a.png",
+              "sourceSha256": "0cc4f0e70460e2552f8324f346dbdb23cd3ff7f3e5d667201dcfd3b60129a68a",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/0cc4f0e70460e2552f8324f346dbdb23cd3ff7f3e5d667201dcfd3b60129a68a.x4.png",
+              "sha256": "a8394a58df76f013714b2cb04f8998233969390472237b12728e9e797a39de51",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 1840,
+              "height": 248
+            },
+            {
+              "assetId": "79-bilibili-cn:6d9e5fd3f16d0a4ef1f139da",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/4e89e63587b90413de414b5f522a57f31152ac8cb58113a3d0b0ae9e3ee8d900.png",
+              "sourceSha256": "4e89e63587b90413de414b5f522a57f31152ac8cb58113a3d0b0ae9e3ee8d900",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/4e89e63587b90413de414b5f522a57f31152ac8cb58113a3d0b0ae9e3ee8d900.x4.png",
+              "sha256": "e7f889d2512ad0fa308cabc08f61cd0b1d5eb229ed262b27a2a9e0cf0198e3dd",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 1936,
+              "height": 252
+            },
+            {
+              "assetId": "79-bilibili-cn:6ee8b2c075fe7258c0a9eb8a",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/aa9f6575c392a34d97e3c09f5187f418ecfa8590c187fd8c84b7f7f6b2311d92.png",
+              "sourceSha256": "aa9f6575c392a34d97e3c09f5187f418ecfa8590c187fd8c84b7f7f6b2311d92",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/aa9f6575c392a34d97e3c09f5187f418ecfa8590c187fd8c84b7f7f6b2311d92.x4.png",
+              "sha256": "eefb3e36f17fafba0453aa60aa78673e985ea091c9917fa0b3cfbe95e6e1303b",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 2028,
+              "height": 260
+            },
+            {
+              "assetId": "79-bilibili-cn:b35870eaccef8657adf75c7b",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/2b5342df84aa1346ed431070dc31fa3c41fe698542e6ec7562bc24fae7ef2cd5.png",
+              "sourceSha256": "2b5342df84aa1346ed431070dc31fa3c41fe698542e6ec7562bc24fae7ef2cd5",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/2b5342df84aa1346ed431070dc31fa3c41fe698542e6ec7562bc24fae7ef2cd5.x4.png",
+              "sha256": "1153b401dd09b1589057ad900de66cbf1a4fb39d1110718a1208fc468fd43578",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 2084,
+              "height": 276
+            },
+            {
+              "assetId": "79-bilibili-cn:5c2037041b696a530b580b8b",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/f9d611351f7c5bd4753dce89719523b732f961c54ef710c39caf18dc2378eb1c.png",
+              "sourceSha256": "f9d611351f7c5bd4753dce89719523b732f961c54ef710c39caf18dc2378eb1c",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/f9d611351f7c5bd4753dce89719523b732f961c54ef710c39caf18dc2378eb1c.x4.png",
+              "sha256": "8bc2846391c5bb5d25f2e98a44d87d2dad6e3498b0eb6c50dfb42b2cd130719e",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 2024,
+              "height": 260
+            },
+            {
+              "assetId": "79-bilibili-cn:08b18d0ac273c9e31b7b1b09",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/ff38e323b045b2b183eb7c2daa420f2f475d83f0716a5d5c8fe072eb1741b9dd.png",
+              "sourceSha256": "ff38e323b045b2b183eb7c2daa420f2f475d83f0716a5d5c8fe072eb1741b9dd",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/ff38e323b045b2b183eb7c2daa420f2f475d83f0716a5d5c8fe072eb1741b9dd.x4.png",
+              "sha256": "7abbac11547b686565a8130c6d843918d2f519d88e93ee8ffa9d49ebe2334917",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 2024,
+              "height": 244
+            }
+          ]
+        },
+        "recordedAt": "2026-10-25T17:15:02.867Z"
+      }
+    ],
+    "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751265.54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db.json",
+    "auditSha256": "eca2eb38636be8b3fa1d82703bbe01b22a0c065163dfc7f68d15405838e03359"
+  },
+  "compatibility": {
+    "runtime": {
+      "runtime": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027",
+      "files": [
+        {
+          "name": "inline-japanese-revision.mjs",
+          "sha256": "69a9a0db3fccc07bf85c6720606fefb60bac54c689e2402f96bfe018a358e6a6"
+        },
+        {
+          "name": "textbook-audit-legacy.mjs",
+          "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1"
+        },
+        {
+          "name": "textbook-audit-pdf-layout.mjs",
+          "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+        },
+        {
+          "name": "textbook-audit-pdf-native.mjs",
+          "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+        },
+        {
+          "name": "textbook-audit-pdf-scope.mjs",
+          "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+        },
+        {
+          "name": "textbook-audit-pdf-source-corrections.mjs",
+          "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+        },
+        {
+          "name": "textbook-audit-tile-dictionary.mjs",
+          "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+        },
+        {
+          "name": "textbook-audit-web-batches.mjs",
+          "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+        },
+        {
+          "name": "textbook-audit-web-source.py",
+          "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+        },
+        {
+          "name": "textbook-audit-web.mjs",
+          "sha256": "5d015b457efd1c6010b09199ff3d575232a97999ef54847c53b2265ab6e50530"
+        },
+        {
+          "name": "textbook-audit.mjs",
+          "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+        },
+        {
+          "name": "textbook-production-cli.mjs",
+          "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+        },
+        {
+          "name": "textbook-production-web-present.py",
+          "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+        },
+        {
+          "name": "textbook-production-web-visual.py",
+          "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+        },
+        {
+          "name": "textbook-production-web.mjs",
+          "sha256": "1dd367f57ab5ec127152136141d343efa836486b01ddde8aff7c7cb3046ef57e"
+        }
+      ]
+    },
+    "displayManifest": {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/runs/coac244-inline-japanese-20261027/display-stage-manifest.json",
+      "sha256": "1f336c157c7a26f22583534827dce7c2c3a3a46dc4537966ebdf839e7460434b"
+    },
+    "displayStage": {
+      "kind": "display-only-shadow-stager-original-untouched",
+      "original": {
+        "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-web-textbook.mjs",
+        "sha256": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a"
+      },
+      "module": {
+        "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-web-textbook.coac244-inline-9c1de787205c4431.mjs",
+        "sha256": "9c1de787205c443111d007933aafff918d70cf1d32ca02a260d2f0195f9bb205"
+      },
+      "helper": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\inline-display.mjs",
+        "sha256": "de8efaad041ad19ed5229ee6597e371b92cf5e0b3ed69b5b59e866fc59068248"
+      },
+      "modelCalls": 0
+    }
+  },
+  "configs": {
+    "builder": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.mjs",
+      "sha256": "83dd86e93c0188095c4d2efa4f8fbb3ad6d46b7fe0d150f34e38d8b0c650bbd9"
+    },
+    "variants": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v18.json",
+      "sha256": "a8b958223663a0084d405c9dfa7c6b3702233be58106f5934da092a944d3035f"
+    },
+    "definitionSelection": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/definition-boundary-stage-selection.json",
+      "sha256": "b3cbef8bc3a2216438edbe6b842ef3ee76f57082ead3608c053fddf946921419"
+    },
+    "manifest": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/definition-boundaries-v1/manifest.v2.json",
+      "sha256": "4d89b15be02c233f55938bf4e59d3c91204037b8948fee6b7b2cd8d43e18c3bc"
+    },
+    "guard": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/stage-definition-chapters.mjs",
+      "sha256": "283b3431b4576197611e5d46985949d36088a15e97e272817a0afd57e9c76742"
+    },
+    "holds": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/source-structure-holds.json",
+      "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+    },
+    "exclusions": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/candidate-exclusions.json",
+      "sha256": "4835655ad7fa323e2acc94d4e04824dc1c56b4b67ceec1b1449617c79c3411a3"
+    },
+    "register": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+      "sha256": "eaecce1df533574e58c4e1afe8de0be2306d9e43a357d5bd065088f7a787cc1a"
+    }
+  },
+  "protectedFiles": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-reviewed-inline155-20261027.json",
+      "sha256": "d22e3fbf5487b54081d65e964996f8ed7706b8c3aa9259ce6c8d5240e5899f04"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\inline-japanese-revision.mjs",
+      "sha256": "69a9a0db3fccc07bf85c6720606fefb60bac54c689e2402f96bfe018a358e6a6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit-legacy.mjs",
+      "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit-pdf-layout.mjs",
+      "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit-pdf-native.mjs",
+      "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit-pdf-scope.mjs",
+      "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit-web-batches.mjs",
+      "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit-web.mjs",
+      "sha256": "5d015b457efd1c6010b09199ff3d575232a97999ef54847c53b2265ab6e50530"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit.mjs",
+      "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-production-cli.mjs",
+      "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-production-web.mjs",
+      "sha256": "1dd367f57ab5ec127152136141d343efa836486b01ddde8aff7c7cb3046ef57e"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/runs/coac244-inline-japanese-20261027/display-stage-manifest.json",
+      "sha256": "1f336c157c7a26f22583534827dce7c2c3a3a46dc4537966ebdf839e7460434b"
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-web-textbook.mjs",
+      "sha256": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a"
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-web-textbook.coac244-inline-9c1de787205c4431.mjs",
+      "sha256": "9c1de787205c443111d007933aafff918d70cf1d32ca02a260d2f0195f9bb205"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\inline-display.mjs",
+      "sha256": "de8efaad041ad19ed5229ee6597e371b92cf5e0b3ed69b5b59e866fc59068248"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751265.coac244inline20261027.display.json",
+      "sha256": "54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751265.54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db.json",
+      "sha256": "eca2eb38636be8b3fa1d82703bbe01b22a0c065163dfc7f68d15405838e03359"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\676d346d-772e-4662-8fa9-02b236073167.json",
+      "sha256": "58e786828e31e3acc28fdef753733861a14e1b5331241f515a552d760c557519"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\465f3d13-e7ff-4ca1-8f62-3b93c441f44e.json",
+      "sha256": "5e1b2b727b6a0ec6e4a5708a493450498248926e09cfbb83d102288d7670e335"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751265.coac244inline20261027.display.json",
+      "sha256": "54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751265.54aa5eea94a36252b4b255153a901aef76300c34b398587c2b89ccca630af0db.json",
+      "sha256": "eca2eb38636be8b3fa1d82703bbe01b22a0c065163dfc7f68d15405838e03359"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1751265\\source.json",
+      "sha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1751265\\main.html",
+      "sha256": "c4ce07df0adeda4498441edc5bad9782940a10607590bb0aee709f49e4118649"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\html\\a560d1a8c63f6243518942da\\source.html",
+      "sha256": "ef0dc51abc217194d4cb6b6a0e23dd32bb85e2744a44ab5579c14f34bf4abe62"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751265.display.json",
+      "sha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751265.20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f.retry-1792948405214-96b97389.json",
+      "sha256": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0001.png",
+      "sha256": "f58c31c8578c06b2cab80b59876d24bf7360a20c0fe93eb567c61736fef503fa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\8413449d488dc585\\figure-0001.png",
+      "sha256": "f58c31c8578c06b2cab80b59876d24bf7360a20c0fe93eb567c61736fef503fa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0002.png",
+      "sha256": "a1b5bc8556f40ec858ea1bdfe4b7f710967250a72878fba14de4a62d1d1a461b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\8413449d488dc585\\figure-0002.png",
+      "sha256": "a1b5bc8556f40ec858ea1bdfe4b7f710967250a72878fba14de4a62d1d1a461b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0003.png",
+      "sha256": "c3fc695763d11142fe7c7adee4d4598ac71500c1f0ad952b48c93eb6d00dee65"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\8413449d488dc585\\figure-0003.png",
+      "sha256": "c3fc695763d11142fe7c7adee4d4598ac71500c1f0ad952b48c93eb6d00dee65"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0004.png",
+      "sha256": "f86d0bc11aa9c647ad104372810038729cce8bfe7987a689cbf652523d5acba1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\8413449d488dc585\\figure-0004.png",
+      "sha256": "f86d0bc11aa9c647ad104372810038729cce8bfe7987a689cbf652523d5acba1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0005.png",
+      "sha256": "b16f666f672a1911f8971ebb430510f4311fa1ddc05ba3ece4b97a3ef71288ea"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\8413449d488dc585\\figure-0005.png",
+      "sha256": "b16f666f672a1911f8971ebb430510f4311fa1ddc05ba3ece4b97a3ef71288ea"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0006.png",
+      "sha256": "d3bf9620c2d0ff55e0079961527ac6012b5a095f3780042bb2a0833f9637e660"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\8413449d488dc585\\figure-0006.png",
+      "sha256": "d3bf9620c2d0ff55e0079961527ac6012b5a095f3780042bb2a0833f9637e660"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0007.png",
+      "sha256": "9a19c9524ab00e9afe09142277d154bc154d2fcd6e5bc859165008892975054e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\8413449d488dc585\\figure-0007.png",
+      "sha256": "9a19c9524ab00e9afe09142277d154bc154d2fcd6e5bc859165008892975054e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0008.png",
+      "sha256": "c06fe8a8137c1fd2d4f8e847dd0f7dc167dca224baa2630dae7dc1857f7db3fd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\8413449d488dc585\\figure-0008.png",
+      "sha256": "c06fe8a8137c1fd2d4f8e847dd0f7dc167dca224baa2630dae7dc1857f7db3fd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0009.png",
+      "sha256": "a74897652ec5a31102c795643bdcf296c550dfabd5a55ac1827ef116ec88b120"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\8413449d488dc585\\figure-0009.png",
+      "sha256": "a74897652ec5a31102c795643bdcf296c550dfabd5a55ac1827ef116ec88b120"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0010.png",
+      "sha256": "0ebe8c2fc8e741a8b1812b028544ff3c4550a69f28539e01c064d193d56ae607"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\8413449d488dc585\\figure-0010.png",
+      "sha256": "0ebe8c2fc8e741a8b1812b028544ff3c4550a69f28539e01c064d193d56ae607"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\plan-155.json",
+      "sha256": "56cb4d8ece39d2b661466aad268377a9cdecb93136faa6da0aae0903f4629557"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751265.coac244inline20261027.json",
+      "sha256": "0a2d8deaf704d921911198062e95d227bc0b9765106fa4980152cb9d57b1e353"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\676d346d-772e-4662-8fa9-02b236073167.json",
+      "sha256": "58e786828e31e3acc28fdef753733861a14e1b5331241f515a552d760c557519"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d11a05f0-a1ed-4397-ba32-f28ca7525510.json",
+      "sha256": "7777871e3f80b6b84636a0bed260fec7350e32488ab78b92f1f89e379e4e6c3b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\465f3d13-e7ff-4ca1-8f62-3b93c441f44e.json",
+      "sha256": "5e1b2b727b6a0ec6e4a5708a493450498248926e09cfbb83d102288d7670e335"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\auditors\\74294d6a953e93cc943a29bdfa8c073f4889fc4e2ffc12e13b051d42ca1275e8.json",
+      "sha256": "56db018fb59312ce413ba53f1d80c78b66a4564e61f9955a5076f607417dcb15"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\auditors\\564e799197be2c3447ca16624d416301f33f9233442323bcd31250e75366bf61.json",
+      "sha256": "95af0326a6a52eb21187896ee4cf313b5e4e7c83e360a11d6759ba645ed2fa3c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\503bb674f86ab6fb9046f907a2214f8ffb2fa34bd956c10b5d56214646698a4b.png",
+      "sha256": "503bb674f86ab6fb9046f907a2214f8ffb2fa34bd956c10b5d56214646698a4b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0001.png",
+      "sha256": "f58c31c8578c06b2cab80b59876d24bf7360a20c0fe93eb567c61736fef503fa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\8ad5034b96e34b56d529c2a3b1e38ced7571eb7f839807395662c0456ffaabaf.png",
+      "sha256": "8ad5034b96e34b56d529c2a3b1e38ced7571eb7f839807395662c0456ffaabaf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0002.png",
+      "sha256": "a1b5bc8556f40ec858ea1bdfe4b7f710967250a72878fba14de4a62d1d1a461b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\771ec2647fab55081ea5f3e866215235afe2a58e5850ae6edaf5107a1057634b.png",
+      "sha256": "771ec2647fab55081ea5f3e866215235afe2a58e5850ae6edaf5107a1057634b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0003.png",
+      "sha256": "c3fc695763d11142fe7c7adee4d4598ac71500c1f0ad952b48c93eb6d00dee65"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\ae25fa3e01339272c09dd8ffe23c2f27dd94b5089ecf22fb02126973910ee73d.png",
+      "sha256": "ae25fa3e01339272c09dd8ffe23c2f27dd94b5089ecf22fb02126973910ee73d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0004.png",
+      "sha256": "f86d0bc11aa9c647ad104372810038729cce8bfe7987a689cbf652523d5acba1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\0cc4f0e70460e2552f8324f346dbdb23cd3ff7f3e5d667201dcfd3b60129a68a.png",
+      "sha256": "0cc4f0e70460e2552f8324f346dbdb23cd3ff7f3e5d667201dcfd3b60129a68a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0005.png",
+      "sha256": "b16f666f672a1911f8971ebb430510f4311fa1ddc05ba3ece4b97a3ef71288ea"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4e89e63587b90413de414b5f522a57f31152ac8cb58113a3d0b0ae9e3ee8d900.png",
+      "sha256": "4e89e63587b90413de414b5f522a57f31152ac8cb58113a3d0b0ae9e3ee8d900"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0006.png",
+      "sha256": "d3bf9620c2d0ff55e0079961527ac6012b5a095f3780042bb2a0833f9637e660"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\aa9f6575c392a34d97e3c09f5187f418ecfa8590c187fd8c84b7f7f6b2311d92.png",
+      "sha256": "aa9f6575c392a34d97e3c09f5187f418ecfa8590c187fd8c84b7f7f6b2311d92"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0007.png",
+      "sha256": "9a19c9524ab00e9afe09142277d154bc154d2fcd6e5bc859165008892975054e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\2b5342df84aa1346ed431070dc31fa3c41fe698542e6ec7562bc24fae7ef2cd5.png",
+      "sha256": "2b5342df84aa1346ed431070dc31fa3c41fe698542e6ec7562bc24fae7ef2cd5"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0008.png",
+      "sha256": "c06fe8a8137c1fd2d4f8e847dd0f7dc167dca224baa2630dae7dc1857f7db3fd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\f9d611351f7c5bd4753dce89719523b732f961c54ef710c39caf18dc2378eb1c.png",
+      "sha256": "f9d611351f7c5bd4753dce89719523b732f961c54ef710c39caf18dc2378eb1c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0009.png",
+      "sha256": "a74897652ec5a31102c795643bdcf296c550dfabd5a55ac1827ef116ec88b120"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\ff38e323b045b2b183eb7c2daa420f2f475d83f0716a5d5c8fe072eb1741b9dd.png",
+      "sha256": "ff38e323b045b2b183eb7c2daa420f2f475d83f0716a5d5c8fe072eb1741b9dd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1751265\\0a2d8deaf704d921\\figure-0010.png",
+      "sha256": "0ebe8c2fc8e741a8b1812b028544ff3c4550a69f28539e01c064d193d56ae607"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/definition-boundary-stage-selection.json",
+      "sha256": "b3cbef8bc3a2216438edbe6b842ef3ee76f57082ead3608c053fddf946921419"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/definition-boundaries-v1/manifest.v2.json",
+      "sha256": "4d89b15be02c233f55938bf4e59d3c91204037b8948fee6b7b2cd8d43e18c3bc"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/stage-definition-chapters.mjs",
+      "sha256": "283b3431b4576197611e5d46985949d36088a15e97e272817a0afd57e9c76742"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/source-structure-holds.json",
+      "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/candidate-exclusions.json",
+      "sha256": "4835655ad7fa323e2acc94d4e04824dc1c56b4b67ceec1b1449617c79c3411a3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\chinese-source-body-correspondence.json",
+      "sha256": "2f1057b83ec2295e8cec3457b4a0d9a8e5d752df64e0cad52c7d8b286761ebfc"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/formal-v3-replacement-plan.json",
+      "sha256": "fc878a3a4001ae238cdded5bc9343cb4d01897a085741f7ec8648dea33f900fb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\review\\textbook-corpus.json",
+      "sha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+    },
+    {
+      "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/docs/plans/2026-10-24-full-textbook-processing.md",
+      "sha256": "81229be8035709da70e1b7ff4febf8e69ca857bfe97133f5c930d978a590f6aa"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z/source-assets/121b7e06f5375e1b23ac92b109d6cc902224285ff67f6884f0b5b55d8902278b.jpg",
+      "sha256": "121b7e06f5375e1b23ac92b109d6cc902224285ff67f6884f0b5b55d8902278b"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z/source-assets/1d27d2b158123c484b25f4d6f3538cac52b69203b3d4ac85bc1caf44ed7b2193.jpg",
+      "sha256": "1d27d2b158123c484b25f4d6f3538cac52b69203b3d4ac85bc1caf44ed7b2193"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z/source-assets/401ab8c53acc31ee16f70a225881fce8e9810ca0c7e90c7fc5ef552e01f03d47.jpg",
+      "sha256": "401ab8c53acc31ee16f70a225881fce8e9810ca0c7e90c7fc5ef552e01f03d47"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z/source-assets/42babe347c251519dfe257c29e874cb79435bd20d5c5f3e16e76ffb56e66a681.jpg",
+      "sha256": "42babe347c251519dfe257c29e874cb79435bd20d5c5f3e16e76ffb56e66a681"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z/source-assets/48907782fa469940489d5cfa18c8d5695ca91adee9e72b683f4c8ddd636b89c0.jpg",
+      "sha256": "48907782fa469940489d5cfa18c8d5695ca91adee9e72b683f4c8ddd636b89c0"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z/source-assets/9f5138f4b4bf41ac47f68edeea5b1713855b625f7784fa8e4b0b9cc2af9795c2.jpg",
+      "sha256": "9f5138f4b4bf41ac47f68edeea5b1713855b625f7784fa8e4b0b9cc2af9795c2"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z/source-assets/b6b0af0c654b9e20c529014be56c36aeed6c94bc800cf4cacb901376b8e153c0.jpg",
+      "sha256": "b6b0af0c654b9e20c529014be56c36aeed6c94bc800cf4cacb901376b8e153c0"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z/source-assets/cf6edbb89f3e407bd222daadf99d3756eea6b9be28a09d2b2944cd718768c193.jpg",
+      "sha256": "cf6edbb89f3e407bd222daadf99d3756eea6b9be28a09d2b2944cd718768c193"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z/source-assets/f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3.jpg",
+      "sha256": "f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z/source-assets/f36dfeaec69007b73761681e0b3181c3e850248b99b575e1400293efb674b249.jpg",
+      "sha256": "f36dfeaec69007b73761681e0b3181c3e850248b99b575e1400293efb674b249"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z/b8-source-notes.json",
+      "sha256": "6209f5f4c689afd2d4718eeb84674b36ac47230b1a4dd135d78ff9284709ee17"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z/090-6-intake-annotations.json",
+      "sha256": "3e791da8f143a549529e8e146feec6359d138ad8fcb89a554e25e93d1b8c70e7"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z/246-3-intake-annotations.json",
+      "sha256": "4d3921d3a568a7b06bd7d89d5648250e65cb6629e5ef693edf4f7ce606165f5f"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z/347-1-intake-annotations.json",
+      "sha256": "f2973556142f62a03f7b754306639d35f5c2deae6804dd83662d19a73f46d875"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z/205-5-intake-annotations.json",
+      "sha256": "a21ddf3ed31d61bc7577fa341ebd1554b29d495090171c27af9196af754ea6c4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\model-admission-stop.handoff-resumed-by-COAC-249-20261026.json",
+      "sha256": "ff3afb4536e5d88fe4ade88d4f76ee2d3b4932ab0c73dbb1b0d048b2a2705427"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\ACCEPTED-CONSUMER-STOP.definition-hold-resolved-20261026",
+      "sha256": "b3b82435265e9ceeeff692b30de1e157e3b883b52a355c8a829c8bb77d7b264a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\ACCEPTED-CONSUMER-STOP.handoff-resolved-by-COAC-250-20261026T104324Z",
+      "sha256": "e9779a478f08a573e646c05e08312ae26d40a13946d123011f7bc01d35936966"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\source-switch-pdf-stop.json",
+      "sha256": "51da018756232acca5ecd24487403c2b361f19631f505553734f192bb6b4da36"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.ac7-source-check-upgrade-20261026.json",
+      "sha256": "eeed39172eede65b46b5edad398a63e113eb59e1c0fa3cb7b2dab3c15267e6ff"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.archived-checkpoint-20261025T220402Z.json",
+      "sha256": "1325d8bba5b2e46a5d53c155260d2f444bcb425f41864029cce10e419c5fd176"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.chapter-priority-20261026.json",
+      "sha256": "a71685988c1784205a0fa243e42917a9bf58105ea91c0661385ae855623db77a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.drained-concurrency-reduction-20261025.json",
+      "sha256": "fc2afeb5d09ecf246fde63c3add6df271f78683c8874e16c220dc44808774efb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.handoff-resumed-by-COAC-249-20261026.json",
+      "sha256": "be73053365447ee162ba37109ac8aafcc3d4cea9f116621cf726012d7b88ee05"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.legacy-runtime-upgrade-20261026.json",
+      "sha256": "17a86e5e251674050cfd4b47b1e52e009e09fbf604f1541053e0b76632fd07bd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.root-two-audit-trial-20261026.json",
+      "sha256": "387c199074b7dfc26d381e309c856d46c4d8b7e384867210c9394f34838b5800"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\STOP-current-audit.whitelist-hot-refresh-20261025.json",
+      "sha256": "bd471e415677ac00f8bbbd8d5e7e5c9af8466379f5e63007c78fb04bbe302a57"
+    }
+  ],
+  "retainedOriginals": [
+    {
+      "name": "121b7e06f5375e1b23ac92b109d6cc902224285ff67f6884f0b5b55d8902278b.jpg",
+      "sha256": "121b7e06f5375e1b23ac92b109d6cc902224285ff67f6884f0b5b55d8902278b"
+    },
+    {
+      "name": "1d27d2b158123c484b25f4d6f3538cac52b69203b3d4ac85bc1caf44ed7b2193.jpg",
+      "sha256": "1d27d2b158123c484b25f4d6f3538cac52b69203b3d4ac85bc1caf44ed7b2193"
+    },
+    {
+      "name": "401ab8c53acc31ee16f70a225881fce8e9810ca0c7e90c7fc5ef552e01f03d47.jpg",
+      "sha256": "401ab8c53acc31ee16f70a225881fce8e9810ca0c7e90c7fc5ef552e01f03d47"
+    },
+    {
+      "name": "42babe347c251519dfe257c29e874cb79435bd20d5c5f3e16e76ffb56e66a681.jpg",
+      "sha256": "42babe347c251519dfe257c29e874cb79435bd20d5c5f3e16e76ffb56e66a681"
+    },
+    {
+      "name": "48907782fa469940489d5cfa18c8d5695ca91adee9e72b683f4c8ddd636b89c0.jpg",
+      "sha256": "48907782fa469940489d5cfa18c8d5695ca91adee9e72b683f4c8ddd636b89c0"
+    },
+    {
+      "name": "9f5138f4b4bf41ac47f68edeea5b1713855b625f7784fa8e4b0b9cc2af9795c2.jpg",
+      "sha256": "9f5138f4b4bf41ac47f68edeea5b1713855b625f7784fa8e4b0b9cc2af9795c2"
+    },
+    {
+      "name": "b6b0af0c654b9e20c529014be56c36aeed6c94bc800cf4cacb901376b8e153c0.jpg",
+      "sha256": "b6b0af0c654b9e20c529014be56c36aeed6c94bc800cf4cacb901376b8e153c0"
+    },
+    {
+      "name": "cf6edbb89f3e407bd222daadf99d3756eea6b9be28a09d2b2944cd718768c193.jpg",
+      "sha256": "cf6edbb89f3e407bd222daadf99d3756eea6b9be28a09d2b2944cd718768c193"
+    },
+    {
+      "name": "f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3.jpg",
+      "sha256": "f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3"
+    },
+    {
+      "name": "f36dfeaec69007b73761681e0b3181c3e850248b99b575e1400293efb674b249.jpg",
+      "sha256": "f36dfeaec69007b73761681e0b3181c3e850248b99b575e1400293efb674b249"
+    }
+  ],
+  "issues": [
+    {
+      "severity": "source-note",
+      "targetId": "candidate.figures[*].sourceNotes",
+      "sourceEvidence": "实际附件1至10为依次对应的原图，附件11至20为各自放大图；候选各figure的sourceNotes却按1/2、3/4直至19/20配对。",
+      "description": "10处加工附件编号说明均配对错误。实际牌码、方向、例号及教学标签已完整正确转录，此问题仅涉及加工说明。",
+      "suggestedRepair": "按figure出现顺序，将原图/放大图附件配对依次更正为1/11、2/12、3/13、4/14、5/15、6/16、7/17、8/18、9/19、10/20。"
+    }
+  ],
+  "sourceCorrespondence": {
+    "articleId": "cv1751265",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+  },
+  "reviewScope": {
+    "method": "independent-target-text-review-plus-unchanged-parent-audit",
+    "bodyBlocks": 32,
+    "textBlocks": 22,
+    "figures": 10,
+    "imageOccurrences": 10,
+    "onlyNewTextReview": "79-bilibili-cn:cv1751265:b0008",
+    "newImageReview": false,
+    "parentCandidate": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+    "parentAudit": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627",
+    "targetCallId": "465f3d13-e7ff-4ca1-8f62-3b93c441f44e"
+  },
+  "history": {
+    "productionCallId": "676d346d-772e-4662-8fa9-02b236073167",
+    "rawSha256": "58e786828e31e3acc28fdef753733861a14e1b5331241f515a552d760c557519",
+    "outputNormalization": {
+      "method": "exact-completed-155-duplicate-strong-markup-removal/1",
+      "callId": "676d346d-772e-4662-8fa9-02b236073167",
+      "rawArtifactSha256": "58e786828e31e3acc28fdef753733861a14e1b5331241f515a552d760c557519",
+      "rawTextSha256": "90f0d0e1804942930e0f1d6d0a3320b5fe21a749fcc3ce5eb96cb5f92675ff1d",
+      "normalizedTextSha256": "98d87ca056ab35a94b4c4b6db7e01555c36ac909d3405c9d8f2d5ce2d13b9844",
+      "sourceSegmentsSha256": "b8ba2cecc38900b32687c2cd93656d7b018ba80e98dbc8b71ad5e40db1a15aa4",
+      "removedMarkers": [
+        "**",
+        "**"
+      ],
+      "modelCalls": 0
+    },
+    "budget155": {
+      "maximumProductionCalls": 1,
+      "actualProductionCalls": 1,
+      "maximumFirstReviewCalls": 1,
+      "actualFirstReviewCalls": 1,
+      "actualTotalNewCalls": 2,
+      "automaticModelRetries": 0,
+      "zeroModelRecoveryCalls": 0,
+      "initialOutputGateRejected": true,
+      "laterRecoveredFromSameRaw": true,
+      "inputTokens": 26537,
+      "outputTokens": 562,
+      "cachedInputTokens": 0,
+      "currencyCharge": null,
+      "combinedPrior347And155ActualCalls": 4,
+      "combinedPrior347And155Limit": 4
+    }
+  },
+  "locks": [],
+  "modelCalls": 0,
+  "productionCalls": 0
+}

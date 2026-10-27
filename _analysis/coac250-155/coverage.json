@@ -1,0 +1,213 @@
+{
+  "schema": "coac250-155-coverage/1",
+  "recordedAt": "2026-10-27T17:34:53.020Z",
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-32-54-884Z",
+    "corpusId": "e6c687b19749436cfe637d852620137c672d0182af2975e3ccaa11df722a4711",
+    "chapters": 228,
+    "units": 236,
+    "blocks": 6278,
+    "figures": 5106
+  },
+  "coverage": {
+    "originalChaptersCovered": 228,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 260,
+    "originalUnitsTotal": 303
+  },
+  "register": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+    "beforeSha256": "eaecce1df533574e58c4e1afe8de0be2306d9e43a357d5bd065088f7a787cc1a",
+    "afterSha256": "a4d4ed5152ea1ebecbda7ea9b71cbc4c186e0417423b8b277cb1e64884bec993",
+    "backup": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.before-coac250-155-2026-10-27T17-34-53-017Z.json"
+  },
+  "verdicts": {
+    "covered-effective": 228,
+    "produced-needs-repair": 28,
+    "produced-passed-not-staged": 0,
+    "produced-pdf-passed-not-staged": 0,
+    "produced-unreviewed": 0,
+    "produced-audit-failed": 0,
+    "total": 256
+  },
+  "remaining": {
+    "denominator": "original chapters (256) minus covered (receipt.chapters); one chapter can be one original chapter only, no overlap",
+    "total": 28,
+    "byVerdict": {
+      "produced-needs-repair": 28,
+      "produced-passed-not-staged": 0
+    },
+    "byAdjudicationGroup": {
+      "confirmed-produced-not-covered": 23,
+      "additional-uncovered-not-in-246": 5
+    },
+    "byRoute": {
+      "web": 25,
+      "pdfOnly": 3
+    },
+    "blockedBySourceStructureHold": [],
+    "eligibleForNextStage": [],
+    "note": "155-4 is now covered after target-text independent passed audit plus authenticated unchanged full parent review; the inherited parent source-note and exact raw normalization provenance are retained and actual MCP/Arena full readback. Remaining 28 original chapters retain their previous needs-repair state. Prior 027-1, other source holds, p217/p257 and all other row evidence are unchanged; no other queue was refreshed.",
+    "blockedByHoldButPassed": [],
+    "eligibleNote": "This increment consumed only the unique newly passed 155-4. No other queue or eligibility claim was refreshed."
+  },
+  "readback": {
+    "schema": "coac250-155-readback/1",
+    "recordedAt": "2026-10-27T17:34:48.457Z",
+    "preview": {
+      "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-32-54-884Z",
+      "corpusId": "e6c687b19749436cfe637d852620137c672d0182af2975e3ccaa11df722a4711",
+      "chapters": 228,
+      "units": 236,
+      "blocks": 6278,
+      "figures": 5106
+    },
+    "rows": [
+      {
+        "unitId": "79-bilibili-cn-cv1751265-argument",
+        "blocks": 32,
+        "pages": [
+          {
+            "offset": 0,
+            "blocks": 23,
+            "nextOffset": 23
+          },
+          {
+            "offset": 23,
+            "blocks": 9,
+            "nextOffset": null
+          }
+        ],
+        "exactBody": true,
+        "images": 10,
+        "searchHit": true,
+        "sourceArticle": "cv1751265"
+      }
+    ],
+    "images": [
+      {
+        "figureId": "79-bilibili-cn-cv1751265-b5",
+        "sha256": "f58c31c8578c06b2cab80b59876d24bf7360a20c0fe93eb567c61736fef503fa",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751265-b7",
+        "sha256": "a1b5bc8556f40ec858ea1bdfe4b7f710967250a72878fba14de4a62d1d1a461b",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751265-b16",
+        "sha256": "c3fc695763d11142fe7c7adee4d4598ac71500c1f0ad952b48c93eb6d00dee65",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751265-b18",
+        "sha256": "f86d0bc11aa9c647ad104372810038729cce8bfe7987a689cbf652523d5acba1",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751265-b20",
+        "sha256": "b16f666f672a1911f8971ebb430510f4311fa1ddc05ba3ece4b97a3ef71288ea",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751265-b22",
+        "sha256": "d3bf9620c2d0ff55e0079961527ac6012b5a095f3780042bb2a0833f9637e660",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751265-b24",
+        "sha256": "9a19c9524ab00e9afe09142277d154bc154d2fcd6e5bc859165008892975054e",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751265-b26",
+        "sha256": "c06fe8a8137c1fd2d4f8e847dd0f7dc167dca224baa2630dae7dc1857f7db3fd",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751265-b28",
+        "sha256": "a74897652ec5a31102c795643bdcf296c550dfabd5a55ac1827ef116ec88b120",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751265-b30",
+        "sha256": "0ebe8c2fc8e741a8b1812b028544ff3c4550a69f28539e01c064d193d56ae607",
+        "exactMcpBytes": true
+      }
+    ],
+    "targetMcpCalls": 25,
+    "maxTargetTextBytes": 13866,
+    "originalTextBlocks": 22,
+    "originalTextExact": true,
+    "sourceOccurrences": 10,
+    "sourceBindingsAndTranscriptionsExact": true,
+    "intakeAnnotations": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-32-54-884Z/155-4-intake-annotations.json",
+      "sha256": "1e4b5faa8f750c0d897b79d3e0f0907f83305511fbd7b47ce9ab908b99060411",
+      "issues": 1
+    },
+    "nonblockingIssues": [
+      {
+        "severity": "source-note",
+        "targetId": "candidate.figures[*].sourceNotes",
+        "sourceEvidence": "实际附件1至10为依次对应的原图，附件11至20为各自放大图；候选各figure的sourceNotes却按1/2、3/4直至19/20配对。",
+        "description": "10处加工附件编号说明均配对错误。实际牌码、方向、例号及教学标签已完整正确转录，此问题仅涉及加工说明。",
+        "suggestedRepair": "按figure出现顺序，将原图/放大图附件配对依次更正为1/11、2/12、3/13、4/14、5/15、6/16、7/17、8/18、9/19、10/20。"
+      }
+    ],
+    "reviewScope": {
+      "method": "independent-target-text-review-plus-unchanged-parent-audit",
+      "bodyBlocks": 32,
+      "textBlocks": 22,
+      "figures": 10,
+      "imageOccurrences": 10,
+      "onlyNewTextReview": "79-bilibili-cn:cv1751265:b0008",
+      "newImageReview": false,
+      "parentCandidate": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+      "parentAudit": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627",
+      "targetCallId": "465f3d13-e7ff-4ca1-8f62-3b93c441f44e"
+    },
+    "sourceCorrespondence": {
+      "articleId": "cv1751265",
+      "webSourceId": "79-bilibili-cn",
+      "tier": "body",
+      "evidencePath": "integration/chinese-source-body-correspondence.json",
+      "substitutionAllowed": true,
+      "bodyEquivalenceConfirmed": true,
+      "articleInPreview": false
+    },
+    "historyPreserved": true,
+    "emphasis": {
+      "allTextCharactersMarksHrefExact": true,
+      "mcpTranslatedTextExact": true,
+      "mcpCarriesDisplaySegments": false,
+      "htmlFullChapterExact": true,
+      "htmlTranslatedStrong": true,
+      "sourceTextBlocks": 22
+    },
+    "sourceBodyBlocks": 32,
+    "priorUnitsUnchanged": 235,
+    "prior027Preserved": true,
+    "priorJpegOriginalsRetained": 5,
+    "canonicalArticles": 199,
+    "sourceCollisions": 0,
+    "allProtectedInputsUnchanged": true,
+    "otherHoldsAndDefinitionBindingsUnchanged": true,
+    "activeLibraryChanged": false,
+    "formalSha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2",
+    "fullMcp": {
+      "units": 236,
+      "images": 5106,
+      "maxTextBytes": 14883
+    },
+    "arena": {
+      "units": 236,
+      "exactBody": true,
+      "maxEnvelopeBytes": 15066
+    },
+    "modelCalls": 0,
+    "productionCalls": 0
+  },
+  "modelCalls": 0
+}
