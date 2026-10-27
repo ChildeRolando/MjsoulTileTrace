@@ -1,0 +1,18 @@
+{
+  "canonical": "nemata-jp-chapter-100-1",
+  "result": "independent-target-repair-passed",
+  "downstreamIssue": "01a17471-25e6-7731-a529-3df99acf3d42",
+  "handoffPath": "E:/AgentData/Coach/knowledge/processing/integration/coac244-condition100-repaired-20261028/handoff.json",
+  "handoffSha256": "a30db651f9e35ff4b48a9432d1f288ba3c276cfb7f708a36e7d8b061b04c005d",
+  "wakeupId": "01a17f63-5357-70c7-a582-aba4f8dc0dd0",
+  "normalTriggerAccepted": true,
+  "latestObservedFireCount": 0,
+  "latestObservedLastTaskId": null,
+  "actualDownstreamRunning": "01a17f58-f379-72fc-a64b-9b9677a299d9",
+  "actualExistingQueued": "01a17f63-8e77-7551-be99-b13553bc1e97",
+  "releaseBoundary": "Existing250 single writer naturally completes222/PDF intake, then pending283 intake. The100 persistent handoff is registered but no100 run startup is yet proven.",
+  "newConsumerStarted": false,
+  "newModelBudget": "2/2 used; zero remaining; no retry",
+  "formalActiveChanged": false,
+  "bookComplete": false
+}
