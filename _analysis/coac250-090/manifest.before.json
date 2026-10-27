@@ -1,0 +1,70 @@
+{
+  "schema": "coach-definition-sidecar-manifest/1",
+  "articles": [
+    {
+      "articleId": "chapter01-section009",
+      "path": "integration/definition-boundaries-v1/chapter01-section009/sidecar.json",
+      "sha256": "43f426e886ca198b33826368dcdacf47727041183fb0f29a79af144d0d644366",
+      "textBlocks": 78,
+      "splitImageRuns": 8,
+      "heldTextBlocks": []
+    },
+    {
+      "articleId": "chapter01-section010",
+      "path": "integration/definition-boundaries-v1/chapter01-section010/sidecar.v2.json",
+      "sha256": "1d9cad432705f2a2d16675368637d4c6a9585030e448d6b916b99eae709e3a5a",
+      "textBlocks": 83,
+      "splitImageRuns": 7,
+      "heldTextBlocks": []
+    },
+    {
+      "articleId": "chapter01-section011",
+      "path": "integration/definition-boundaries-v1/chapter01-section011/sidecar.json",
+      "sha256": "925a14be058187da025ae1aaf5df8209ed32fa07d3396a9eebce54303b3e61fd",
+      "textBlocks": 31,
+      "splitImageRuns": 2,
+      "heldTextBlocks": []
+    },
+    {
+      "articleId": "chapter01-section012",
+      "path": "integration/definition-boundaries-v1/chapter01-section012/sidecar.v2.json",
+      "sha256": "f70b8b527593803fe44373943a92e43069d565aa6617e6dfbe72a92a2b135d52",
+      "textBlocks": 36,
+      "splitImageRuns": 3,
+      "heldTextBlocks": [],
+      "textBoundaryAcceptance": {
+        "path": "integration/definition-boundaries-v1/chapter01-section012/text-boundary-root-acceptance.json",
+        "sha256": "64c438211be34a57bef534f90ed8971bcc5bf412b90892a355913c6137215236",
+        "request": {
+          "path": "integration/definition-boundaries-v1/chapter01-section012/text-boundary-repair-request.json",
+          "sha256": "ddae7d342da86606851d69febe86d5580149ce4929eadae2aeb5b9323bc4de72"
+        }
+      }
+    },
+    {
+      "articleId": "chapter01-section014",
+      "path": "integration/definition-boundaries-v1/chapter01-section014/sidecar.json",
+      "sha256": "88394142c459032fa6813c3af24bf5a01c3b881b268ee9fc2891b2db2c7be5a0",
+      "textBlocks": 99,
+      "splitImageRuns": 12,
+      "heldTextBlocks": []
+    },
+    {
+      "articleId": "chapter01-section015",
+      "path": "integration/definition-boundaries-v1/chapter01-section015/sidecar.json",
+      "sha256": "f0d51125d8a8cb40516bc1491fb516c4dd7a54627a546fc53e4af039735862b3",
+      "textBlocks": 65,
+      "splitImageRuns": 13,
+      "heldTextBlocks": []
+    },
+    {
+      "articleId": "chapter01-section016",
+      "path": "integration/definition-boundaries-v1/chapter01-section016/sidecar.json",
+      "sha256": "2fa85e9cee1ee88cefce5553834df63d2b335bde19af28f724984ebf13b4ab23",
+      "textBlocks": 90,
+      "splitImageRuns": 10,
+      "heldTextBlocks": []
+    }
+  ],
+  "modelCalls": 0
+}

@@ -1,0 +1,116 @@
+{
+  "schema": "coac250-090-readback/1",
+  "recordedAt": "2026-10-27T15:27:32.001Z",
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T15-26-37-597Z",
+    "corpusId": "1ed707361b42f6ef01c0368ce7e24582d2b945aebd37cd5827250dd23011abd2",
+    "chapters": 224,
+    "units": 232,
+    "blocks": 6162,
+    "figures": 5062
+  },
+  "rows": [
+    {
+      "unitId": "79-bilibili-cn-cv1721510-argument",
+      "blocks": 15,
+      "pages": [
+        {
+          "offset": 0,
+          "blocks": 15,
+          "nextOffset": null
+        }
+      ],
+      "exactBody": true,
+      "images": 6,
+      "searchHit": true,
+      "sourceArticle": "cv1721510"
+    }
+  ],
+  "images": [
+    {
+      "figureId": "79-bilibili-cn-cv1721510-b4",
+      "sha256": "f2334864d0adfb2b7d1e46aedb3da616516e1622157b69df56b01574b7f35b23",
+      "exactMcpBytes": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1721510-b6",
+      "sha256": "3585347400c2fe92d667b0a2dfce7e9fa9c05ecb6a0f2dfa9911628a157d6266",
+      "exactMcpBytes": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1721510-b8",
+      "sha256": "bbea0e03b1da18f17ed658ba10c1082b163ceeec7ac35647bcc588df88d9d26d",
+      "exactMcpBytes": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1721510-b10",
+      "sha256": "dc300f34ff99eaa0c1dbdb4a14f54bf1a0595db8adfae6556d75d3385c369cdc",
+      "exactMcpBytes": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1721510-b12",
+      "sha256": "f7dd828d85b75d7bce57068055dd85cb2b1f82f7b30841e43866d1fd3a8cd5b3",
+      "exactMcpBytes": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1721510-b14",
+      "sha256": "9a27ae350887160b294795ec9aed0733552f34bc8ce5bf25f76f4c9c8d3e021c",
+      "exactMcpBytes": true
+    }
+  ],
+  "targetMcpCalls": 20,
+  "maxTargetTextBytes": 11770,
+  "originalTextBlocks": 9,
+  "originalTextExact": true,
+  "sourceOccurrences": 6,
+  "sourceBindingsAndTranscriptionsExact": true,
+  "intakeAnnotations": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T15-26-37-597Z/090-6-intake-annotations.json",
+    "sha256": "3e791da8f143a549529e8e146feec6359d138ad8fcb89a554e25e93d1b8c70e7",
+    "issues": 3
+  },
+  "nonblockingIssues": [
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1721510:b0004:figure",
+      "sourceEvidence": "visualEvidence指定例1原图为附件1，放大图为附件4；sourceNotes写为“附件1与附件2”。",
+      "description": "加工附件配对编号有误，不影响例1的牌码、例号、摸入牌或宝牌。",
+      "suggestedRepair": "将该说明改为“附件1与附件4为同一原图及其放大视图，仅计一次。”"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1721510:b0008:figure",
+      "sourceEvidence": "visualEvidence指定例3原图为附件2，放大图为附件5；sourceNotes写为“附件3与附件4”。",
+      "description": "加工附件配对编号有误，不影响例3的教学转录。",
+      "suggestedRepair": "将该说明改为“附件2与附件5为同一原图及其放大视图，仅计一次。”"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1721510:b0012:figure",
+      "sourceEvidence": "visualEvidence指定例5原图为附件3，放大图为附件6；sourceNotes写为“附件5与附件6”。",
+      "description": "加工附件配对编号有误，不影响例5的教学转录。",
+      "suggestedRepair": "将该说明改为“附件3与附件6为同一原图及其放大视图，仅计一次。”"
+    }
+  ],
+  "priorUnitsUnchanged": 231,
+  "prior027Preserved": true,
+  "priorJpegOriginalsRetained": 5,
+  "canonicalArticles": 195,
+  "sourceCollisions": 0,
+  "allProtectedInputsUnchanged": true,
+  "otherHoldsAndDefinitionBindingsUnchanged": true,
+  "activeLibraryChanged": false,
+  "formalSha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2",
+  "fullMcp": {
+    "units": 232,
+    "images": 5062,
+    "maxTextBytes": 14883
+  },
+  "arena": {
+    "units": 232,
+    "exactBody": true,
+    "maxEnvelopeBytes": 15066
+  },
+  "modelCalls": 0,
+  "productionCalls": 0
+}

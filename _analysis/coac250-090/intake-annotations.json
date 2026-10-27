@@ -1,0 +1,93 @@
+{
+  "schema": "coac250-090-intake-annotations/1",
+  "chapterId": "79-cn-chapter-090-6",
+  "candidate": {
+    "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1721510.r1.json",
+    "sha256": "82d7550d6035c51c3874d7fa9faa923978834fc5d5527bdf028770270ff2110c"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1721510\\source.json",
+    "sha256": "43ad9dcee6d721ee0f47866cac6f98d311a59f96cdd1b10a0a70ede0c3dbd2fe"
+  },
+  "audit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1721510.82d7550d6035c51c3874d7fa9faa923978834fc5d5527bdf028770270ff2110c.json",
+    "sha256": "ee304b2ff7453c265d5386e1a3798b226d38583cac8061248587d716df81a2aa"
+  },
+  "handoff": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-reviewed-090-6-20261027.json",
+    "sha256": "f2fdf82f135bbfd18d9aa0969fd30821614a4e109a651f45d801f66749f23a24"
+  },
+  "issues": [
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1721510:b0004:figure",
+      "sourceEvidence": "visualEvidence指定例1原图为附件1，放大图为附件4；sourceNotes写为“附件1与附件2”。",
+      "description": "加工附件配对编号有误，不影响例1的牌码、例号、摸入牌或宝牌。",
+      "suggestedRepair": "将该说明改为“附件1与附件4为同一原图及其放大视图，仅计一次。”"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1721510:b0008:figure",
+      "sourceEvidence": "visualEvidence指定例3原图为附件2，放大图为附件5；sourceNotes写为“附件3与附件4”。",
+      "description": "加工附件配对编号有误，不影响例3的教学转录。",
+      "suggestedRepair": "将该说明改为“附件2与附件5为同一原图及其放大视图，仅计一次。”"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1721510:b0012:figure",
+      "sourceEvidence": "visualEvidence指定例5原图为附件3，放大图为附件6；sourceNotes写为“附件5与附件6”。",
+      "description": "加工附件配对编号有误，不影响例5的教学转录。",
+      "suggestedRepair": "将该说明改为“附件3与附件6为同一原图及其放大视图，仅计一次。”"
+    }
+  ],
+  "sourceNoteDisposition": "The independent review records three nonblocking attachment-pair numbering issues: b0004 1/4, b0008 2/5, b0012 3/6 in the review projection. Candidate notes instead use production input pairing 1/2,3/4,5/6. Preserve the original passed SHA and these issues as intake annotations; do not silently edit the candidate or label issues empty.",
+  "pairingContexts": [
+    {
+      "figureId": "79-bilibili-cn:cv1721510:b0004:figure",
+      "reviewProjection": [
+        1,
+        4
+      ],
+      "productionInput": [
+        1,
+        2
+      ],
+      "candidateSourceNotes": [
+        "附件1与附件2为同一原图及其放大视图，仅计一次。",
+        "所有牌均正向放置，无横置牌或赤牌。"
+      ]
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1721510:b0008:figure",
+      "reviewProjection": [
+        2,
+        5
+      ],
+      "productionInput": [
+        3,
+        4
+      ],
+      "candidateSourceNotes": [
+        "附件3与附件4为同一原图及其放大视图，仅计一次。",
+        "所有牌均正向放置，无横置牌或赤牌；5s中央的红色竹节是普通牌面图案。"
+      ]
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1721510:b0012:figure",
+      "reviewProjection": [
+        3,
+        6
+      ],
+      "productionInput": [
+        5,
+        6
+      ],
+      "candidateSourceNotes": [
+        "附件5与附件6为同一原图及其放大视图，仅计一次。",
+        "所有牌均正向放置，无横置牌或赤牌；摸入的5s中央的红色竹节是普通牌面图案。"
+      ]
+    }
+  ],
+  "decision": "Preserve the passed candidate, its source and audit bytes. All three source-note issues are nonblocking context annotations; no rewrite or re-audit.",
+  "modelCalls": 0
+}

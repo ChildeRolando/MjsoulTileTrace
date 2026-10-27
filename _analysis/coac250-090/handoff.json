@@ -1,0 +1,310 @@
+{
+  "schema": "coac250-incremental-staging-receipt/1",
+  "recordedAt": "2026-10-27T15:06:54.081Z",
+  "from_": "COAC-249",
+  "to": "COAC-250",
+  "batchId": "coac249-090-6-first-review-20261027",
+  "batchSize": 1,
+  "modelCalls": 0,
+  "auditModelCalls": 1,
+  "retries": 0,
+  "firstAttemptBudgetConsumed": 1,
+  "runtime": {
+    "snapshot": "audit/runtimes/web-b8-transport-diag-20261027",
+    "manifest": {
+      "schema": "coach-textbook-audit-verification-dependencies/1",
+      "entry": "textbook-audit-web.mjs",
+      "files": [
+        {
+          "name": "textbook-audit-pdf-layout.mjs",
+          "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+        },
+        {
+          "name": "textbook-audit-pdf-native.mjs",
+          "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+        },
+        {
+          "name": "textbook-audit-pdf-scope.mjs",
+          "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+        },
+        {
+          "name": "textbook-audit-pdf-source-corrections.mjs",
+          "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+        },
+        {
+          "name": "textbook-audit-tile-dictionary.mjs",
+          "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+        },
+        {
+          "name": "textbook-audit-web-batches.mjs",
+          "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+        },
+        {
+          "name": "textbook-audit-web.mjs",
+          "sha256": "5bb4ec04770205d7e1ee13cad6e94e3edeff56cf6fc2d0af9ef6018d9c22e7ed"
+        },
+        {
+          "name": "textbook-audit.mjs",
+          "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+        },
+        {
+          "name": "textbook-production-cli.mjs",
+          "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+        }
+      ],
+      "pageApprovals": [],
+      "manifestSha256": "56287cda5a49ca62a6f688e3c19dbccee2e3e5ddce5cfd9cff3717f78f56de35"
+    },
+    "postVerify": {
+      "ok": true,
+      "manifestSha256": "56287cda5a49ca62a6f688e3c19dbccee2e3e5ddce5cfd9cff3717f78f56de35",
+      "files": 9,
+      "pageApprovals": 0,
+      "diff": {
+        "added": [],
+        "removed": [],
+        "changed": []
+      }
+    }
+  },
+  "chapters": [
+    {
+      "chapterId": "79-cn-chapter-090-6",
+      "articleId": "cv1721510",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1721510.r1.json",
+      "candidateSha256": "82d7550d6035c51c3874d7fa9faa923978834fc5d5527bdf028770270ff2110c",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1721510/source.json",
+      "sourceSha256": "43ad9dcee6d721ee0f47866cac6f98d311a59f96cdd1b10a0a70ede0c3dbd2fe",
+      "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1721510.display.json",
+      "parentSha256": "4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f",
+      "parentAuditPath": "audit/web/articles/79-bilibili-cn/cv1721510.4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f.retry-1792942848957-13e1430c.json",
+      "parentAuditSha256": "341cb06d35830aeff64c7c620ba71742c959d910d03b2d6d0e2d5037fe96d5db",
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1721510.82d7550d6035c51c3874d7fa9faa923978834fc5d5527bdf028770270ff2110c.json",
+      "auditSha256": "ee304b2ff7453c265d5386e1a3798b226d38583cac8061248587d716df81a2aa",
+      "auditStatus": "passed",
+      "auditMethod": "independent-sol-high-full-article-review",
+      "auditCallId": "6d433add-423e-4e34-9ac3-17dd51c56c60",
+      "auditUsage": {
+        "inputTokens": 23378,
+        "cachedInputTokens": 0,
+        "outputTokens": 6363
+      },
+      "auditModel": "gpt-6.1-sol",
+      "auditReasoningEffort": "high",
+      "auditRaw": {
+        "path": "audit/calls/6d433add-423e-4e34-9ac3-17dd51c56c60.json",
+        "sha256": "072c40b3f49b1cd96071be45428c08b6301e64e422d95e8192b7b0e7ee932bc3",
+        "success": true,
+        "exitCode": 0,
+        "timedOut": false
+      },
+      "auditModelCalls": 1,
+      "reauditModelCalls": 0,
+      "modelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "completeArticleCompared": true,
+      "semanticCompleteness": {
+        "complete": true,
+        "evidence": "全文中文、署名、原文地址、三节标题、全部条件及判断、数字和收尾均保留；6次教学图片出现的牌码、顺序及相关图示信息均表达完整，附图日文标签已译成中文。仅有加工附件编号配对笔误，不影响教学语义。"
+      },
+      "blockChecks": [
+        {
+          "id": "79-bilibili-cn:cv1721510:b0001",
+          "verdict": "faithful",
+          "evidence": "“免责声明：”原样保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0002",
+          "verdict": "faithful",
+          "evidence": "著作权声明、译者SeventhTG（XD）及转载署名要求完整保留，中文未改写。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0003",
+          "verdict": "faithful",
+          "evidence": "原文地址、向听倒退的结论、鸣牌加速及听牌所剩极少的适用条件、提升打点的判断和第一节标题均完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0004",
+          "verdict": "faithful",
+          "evidence": "例1的手牌、摸入牌及宝牌均由对应figure完整表达。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0005",
+          "verdict": "faithful",
+          "evidence": "靠张一向听的说明、不取无断幺和平和听牌的建议、切1索及保留断幺后立直的判断逐字保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0006",
+          "verdict": "faithful",
+          "evidence": "对应已核原图的牌局信息、手牌、四家牌河和座位点数均有转录。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0007",
+          "verdict": "faithful",
+          "evidence": "碰双东可听牌、2索已切3张、切1索以及后续1／4／7饼或3／4索的说明完整；第二节标题及引入句保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0008",
+          "verdict": "faithful",
+          "evidence": "例3的13张手牌和摸入6万完整表达。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0009",
+          "verdict": "faithful",
+          "evidence": "边3饼瓶颈、切1饼倒退、打8万的备选、保留万子双碰进张的理由及断幺平和立直的判断均原样保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0010",
+          "verdict": "faithful",
+          "evidence": "例4对应已核原图的手牌顺序及摸入7万均完整转录。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0011",
+          "verdict": "faithful",
+          "evidence": "仅3万能进入听牌、听牌仍为边3万、毫无疑问切1万返回两向听的条件和判断力度完整保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0012",
+          "verdict": "faithful",
+          "evidence": "例5的13张手牌及摸入5索完整表达。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0013",
+          "verdict": "faithful",
+          "evidence": "一向听、追求断平三色及应拆7／9饼搭子的判断原样保留；第三节标题及混一色引入句完整。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0014",
+          "verdict": "faithful",
+          "evidence": "例6对应已核原图的手牌顺序和摸入6饼均完整转录。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0015",
+          "verdict": "faithful",
+          "evidence": "搭子不足、切3／5万返回三向听、兼顾和牌容易度与打点的论述，以及课程收尾和“（待续）”全部原样保留。"
+        }
+      ],
+      "figureChecks": [
+        {
+          "id": "79-bilibili-cn:cv1721510:b0004:figure",
+          "verdict": "faithful",
+          "evidence": "附图例1逐牌对应：22567万、4556饼、1234索；摸入4索，宝牌3饼。例号完整，“ツモ”“ドラ”分别译为“摸入”“宝牌”；无横置牌或赤牌。附件配对说明另列source-note。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0006:figure",
+          "verdict": "faithful",
+          "evidence": "沿用指定已核原图的逐项转录：东2局0本场、0根立直棒、宝牌6万；东南西北点数依次24000、29000、24000、23000。下方手牌223456饼、13555索、东东；四家牌河的牌码、顺序及朝向均保留，上方两张2索和右侧一张2索对应正文“2索场上已经切了3张”。其他三家只记录牌背，未补写隐藏牌面。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0008:figure",
+          "verdict": "faithful",
+          "evidence": "附图例3逐牌对应：45788万、1244饼、3456索；摸入6万。例号及摸入标签完整，普通5索中央红色图案未误判为赤牌。附件配对说明另列source-note。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0010:figure",
+          "verdict": "faithful",
+          "evidence": "指定已核原图的牌码顺序完整保留：例4，122478万、4556678饼，摸入7万；无横置牌或赤牌。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0012:figure",
+          "verdict": "faithful",
+          "evidence": "附图例5逐牌对应：4567万、4579饼、34488索；摸入5索。例号及摸入标签完整，7／9饼搭子与正文对应；普通5索中央红色图案未误判为赤牌。附件配对说明另列source-note。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0014:figure",
+          "verdict": "faithful",
+          "evidence": "指定已核原图的牌码顺序完整保留：例6，35万、2457889饼、发西北北，摸入6饼；与正文拆3／5万做混一色的说明对应。"
+        }
+      ],
+      "imageChecks": [
+        {
+          "id": "79-bilibili-cn:cv1721510:i00001",
+          "disposition": "represented",
+          "evidence": "例1原图的例号、13张手牌、摸入4索及宝牌3饼均在对应figure中表达。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:i00002",
+          "disposition": "represented",
+          "evidence": "指定已核原图的牌局信息、可见牌面、牌河顺序、朝向、座位点数和隐藏手牌状态均在对应figure中表达。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:i00003",
+          "disposition": "represented",
+          "evidence": "例3原图的例号、13张手牌及摸入6万均在对应figure中表达。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:i00004",
+          "disposition": "represented",
+          "evidence": "指定已核原图例4的手牌顺序、例号及摸入7万均在对应figure中表达。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:i00005",
+          "disposition": "represented",
+          "evidence": "例5原图的例号、13张手牌及摸入5索均在对应figure中表达。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:i00006",
+          "disposition": "represented",
+          "evidence": "指定已核原图例6的手牌顺序、例号及摸入6饼均在对应figure中表达。"
+        }
+      ],
+      "issues": [
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1721510:b0004:figure",
+          "sourceEvidence": "visualEvidence指定例1原图为附件1，放大图为附件4；sourceNotes写为“附件1与附件2”。",
+          "description": "加工附件配对编号有误，不影响例1的牌码、例号、摸入牌或宝牌。",
+          "suggestedRepair": "将该说明改为“附件1与附件4为同一原图及其放大视图，仅计一次。”"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1721510:b0008:figure",
+          "sourceEvidence": "visualEvidence指定例3原图为附件2，放大图为附件5；sourceNotes写为“附件3与附件4”。",
+          "description": "加工附件配对编号有误，不影响例3的教学转录。",
+          "suggestedRepair": "将该说明改为“附件2与附件5为同一原图及其放大视图，仅计一次。”"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1721510:b0012:figure",
+          "sourceEvidence": "visualEvidence指定例5原图为附件3，放大图为附件6；sourceNotes写为“附件5与附件6”。",
+          "description": "加工附件配对编号有误，不影响例5的教学转录。",
+          "suggestedRepair": "将该说明改为“附件3与附件6为同一原图及其放大视图，仅计一次。”"
+        }
+      ],
+      "targetVerdicts": [
+        {
+          "id": "79-bilibili-cn:cv1721510:b0004:figure",
+          "verdict": "faithful",
+          "evidence": "附图例1逐牌对应：22567万、4556饼、1234索；摸入4索，宝牌3饼。例号完整，“ツモ”“ドラ”分别译为“摸入”“宝牌”；无横置牌或赤牌。附件配对说明另列source-note。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0008:figure",
+          "verdict": "faithful",
+          "evidence": "附图例3逐牌对应：45788万、1244饼、3456索；摸入6万。例号及摸入标签完整，普通5索中央红色图案未误判为赤牌。附件配对说明另列source-note。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1721510:b0012:figure",
+          "verdict": "faithful",
+          "evidence": "附图例5逐牌对应：4567万、4579饼、34488索；摸入5索。例号及摸入标签完整，7／9饼搭子与正文对应；普通5索中央红色图案未误判为赤牌。附件配对说明另列source-note。"
+        }
+      ],
+      "independentImageObservation": {
+        "b0004": "13th hand tile 4s; draw 4s; dora 3p",
+        "b0008": "last four sou tiles 3s 4s 5s 6s",
+        "b0012": "sou hand 3s 4s 4s 8s 8s; draw 5s",
+        "caption": "b0004 and b0012 captions agree with bound images",
+        "sourceNotes": "No sideways or red-five tiles. Red bamboo marking is the normal 5s design. Attachment pairs 1/2,3/4,5/6 refer to the bound production visual-input order, not the review attachment order."
+      },
+      "sourceNoteDisposition": "The independent review records three nonblocking attachment-pair numbering issues: b0004 1/4, b0008 2/5, b0012 3/6 in the review projection. Candidate notes instead use production input pairing 1/2,3/4,5/6. Preserve the original passed SHA and these issues as intake annotations; do not silently edit the candidate or label issues empty.",
+      "productionEvidence": {
+        "path": "web-production/v1/runs/coac248-web-090-6-r1-20261027/production-evidence.json",
+        "sha256": "d896cf5fc8cd222b917ee2ef85ed0ee2f3c2d501a064f291b31f2fd36a80789c"
+      },
+      "sourceHandoff": "integration/coac249-incremental-090-6-20261027.json"
+    }
+  ],
+  "reverifiedStatus": "passed",
+  "boundaries": "Only 090-6 consumed. 027 boundary work retained. No candidate, source, old snapshot, preview pointer, selection, register or B-line claim edited. No retries or new production."
+}
