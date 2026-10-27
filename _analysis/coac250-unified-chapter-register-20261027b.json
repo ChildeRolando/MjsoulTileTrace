@@ -1,6 +1,6 @@
 {
   "schema": "coac250-unified-chapter-register/2",
-  "recordedAt": "2026-10-27T06:34:34.664Z",
+  "recordedAt": "2026-10-27T07:42:06.273Z",
   "modelCalls": 0,
   "productionCalls": 0,
   "supersedes": {
@@ -8,9 +8,9 @@
     "readback": "integration/coac250-coverage-readback-20261027b.json",
     "coac246": "coac246-57-verification-summary.json",
     "previousRegister": {
-      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.before-coac250-6th-batch-2026-10-27T06-34-34-649Z.json",
-      "sha256": "ef95cd8bd9e4cb38b1d1b110e65373b39ffb292d601454263e0d8dc1e7db1b98",
-      "reason": "sixth COAC-250 incremental batch supersedes the fifth-batch snapshot; history kept verbatim"
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.before-coac250-7th-batch-2026-10-27T07-42-06-262Z.json",
+      "sha256": "f352ac3cb58ee984c95c1f8afabdc0923d2894e88cebb2e4a131b139c28759b2",
+      "reason": "seventh COAC-250 incremental batch supersedes the sixth-batch snapshot; history kept verbatim"
     }
   },
   "purpose": "统一来源映射与真缺口裁决：逐原章列出获准网页对应、现存候选/源/审校状态、是否允许替代、缺失源块；供 244/246/247/248/249/250 全链使用。不触发新制作。",
@@ -20,14 +20,14 @@
     "originalSourceBlocks": 21212
   },
   "display": {
-    "previewOutput": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T06-08-03-592Z",
-    "corpusId": "11298d626a584ba155bb00eb496b2408348bd9c3d44586868cb41e4e4a035bfc",
-    "displayChapters": 206,
-    "displayUnits": 214,
-    "displayBlocks": 5433,
+    "previewOutput": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T07-16-27-706Z",
+    "corpusId": "472db63a58434c11bbbb542d082e66d780300d4527a14fbca9ca4f113ced52d5",
+    "displayChapters": 207,
+    "displayUnits": 215,
+    "displayBlocks": 5454,
     "displayFigures": 3994,
-    "selectedWeb": 177,
-    "pendingWeb": 46,
+    "selectedWeb": 178,
+    "pendingWeb": 45,
     "pdfStages": 27
   },
   "contract": {
@@ -40,13 +40,13 @@
     "originalChapters": 256,
     "originalUnits": 303,
     "originalSourceBlocks": 21212,
-    "displayChapters": 206,
-    "displayUnits": 214,
-    "displayBlocks": 5433,
+    "displayChapters": 207,
+    "displayUnits": 215,
+    "displayBlocks": 5454,
     "displayFigures": 3994,
-    "effectiveCoveredOriginalChapters": 206,
-    "effectiveUncoveredOriginalChapters": 50,
-    "uncoveredProduced": 50,
+    "effectiveCoveredOriginalChapters": 207,
+    "effectiveUncoveredOriginalChapters": 49,
+    "uncoveredProduced": 49,
     "trulyUnproduced": 0,
     "register80": 80,
     "register80Groups": {
@@ -56,8 +56,8 @@
       "additional-uncovered-not-in-246": 6
     },
     "verdicts": {
-      "covered-effective": 206,
-      "produced-needs-repair": 50,
+      "covered-effective": 207,
+      "produced-needs-repair": 49,
       "produced-passed-not-staged": 0,
       "produced-pdf-passed-not-staged": 0,
       "produced-unreviewed": 0,
@@ -5943,8 +5943,8 @@
       "units": 1,
       "ownedSourceBlocks": 47,
       "adjudicationGroup": "confirmed-produced-not-covered",
-      "covered": false,
-      "coverageRoute": null,
+      "covered": true,
+      "coverageRoute": "web",
       "approvedWebCorrespondence": {
         "articleId": "chapter04-section004",
         "webSourceId": "modern-yabejp-ja",
@@ -5952,20 +5952,31 @@
         "evidencePath": "integration/modern-pdf-url-coverage.json",
         "substitutionAllowed": true,
         "bodyEquivalenceConfirmed": false,
-        "articleInPreview": false
+        "articleInPreview": true
       },
       "existingCandidate": {
-        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section004.display.json",
-        "sha256": "0422143bd4f14e151ddcabd4b12e7fcda84937ef5acd4ab3e0335d8d56f4f4d2",
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section004.rev1.json",
+        "sha256": "3910165816bc9776e27fccd11e9e46636c0eef860949df2978cb1481dde4d56a",
         "bodyBlocks": 21,
         "sourceSha256": "cd98c1b548c5d7ca4040ba0bbc07d6390114116ec8257392ec1e96054a557605",
         "currentSourceSha256": "cd98c1b548c5d7ca4040ba0bbc07d6390114116ec8257392ec1e96054a557605",
         "sourceBoundCurrent": true,
-        "auditStatus": "needs-repair",
-        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section004.0422143bd4f14e151ddcabd4b12e7fcda84937ef5acd4ab3e0335d8d56f4f4d2.retry-1792992204029-f963202a.json",
-        "auditRecordedAt": "2026-10-26T05:23:24.030Z",
+        "auditStatus": "passed",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section004.3910165816bc9776e27fccd11e9e46636c0eef860949df2978cb1481dde4d56a.json",
+        "auditRecordedAt": "2026-10-27T07:00:52.334Z",
         "deterministicPassed": true,
-        "semanticComplete": false
+        "semanticComplete": true,
+        "revision": {
+          "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section004.display.json",
+          "parentSha256": "0422143bd4f14e151ddcabd4b12e7fcda84937ef5acd4ab3e0335d8d56f4f4d2",
+          "notesPath": "audit/web/articles/modern-yabejp-ja/chapter04-section004.0422143bd4f14e151ddcabd4b12e7fcda84937ef5acd4ab3e0335d8d56f4f4d2.retry-1792992204029-f963202a.json",
+          "notesSha256": "3c50dae18765b8040c686fcd2f716730f50d079e2d313a35d061f1a06c467f58",
+          "figureIds": [],
+          "textBlockIds": [
+            "modern-yabejp-ja:chapter04-section004:b0016",
+            "modern-yabejp-ja:chapter04-section004:b0018"
+          ]
+        }
       },
       "pdfRoute": {
         "pagesTotal": 2,
@@ -6010,7 +6021,7 @@
           223
         ]
       },
-      "verdict": "produced-needs-repair",
+      "verdict": "covered-effective",
       "coac246": {
         "action": "repair",
         "auditStatus": "needs-repair",
@@ -6019,6 +6030,19 @@
         "repairErrors": 5,
         "units": 1,
         "blocks": 47
+      },
+      "staging": {
+        "previewOutput": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T07-16-27-706Z",
+        "corpusId": "472db63a58434c11bbbb542d082e66d780300d4527a14fbca9ca4f113ced52d5",
+        "previewChapterId": "modern-yabejp-ja-chapter04-section004-chapter",
+        "blocks": 21,
+        "figures": 0,
+        "auditStatus": "passed",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section004.3910165816bc9776e27fccd11e9e46636c0eef860949df2978cb1481dde4d56a.json",
+        "auditSha256": "a3981976a82cd5870f05c53c89e26875dc279816ece3abcc9ef46dd86ba7943d",
+        "stageReceiptPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T07-16-27-706Z\\stages\\modern-yabejp-ja-chapter04-section004\\web-stage-receipt.json",
+        "stagedAt": "2026-10-27T07:40:44.757Z",
+        "note": "COAC-248 targeted two-block revision (b0016 inclusive-half reading, b0018 no-false-no-yaku) passed 2026-10-27T07:00:52Z; the other 19 blocks and the unchanged parent 0422143b display with its 3c50dae1 needs-repair receipt preserved; no figures; dependency manifest web-e89dcffe re-verified against the frozen base"
       }
     },
     {
@@ -8275,6 +8299,23 @@
       "at": "2026-10-27T06:34:34.664Z",
       "kind": "wiring-fixes",
       "detail": "integration/specific-web-variant-selection.v7.json selects the two new revisions (17 jobs), v6 kept as history at 16745299; the builder pin moved to v7 758b043a and the previous builder is preserved as build-accepted-preview.before-v7-20261027.mjs.",
+      "modelCalls": 0,
+      "productionCalls": 0
+    },
+    {
+      "at": "2026-10-27T07:42:06.273Z",
+      "kind": "staged-into-preview",
+      "chapterIds": [
+        "nemata-jp-chapter-222-1"
+      ],
+      "detail": "One passed-but-unstaged targeted revision is now a complete gated chapter in the preview: display 206 to 207, units to 215, blocks to 5454, figures to 3994, selectedWeb to 178, pendingWeb to 45. All prior chapters were retained, none rewritten; the formal library is untouched.",
+      "modelCalls": 0,
+      "productionCalls": 0
+    },
+    {
+      "at": "2026-10-27T07:42:06.273Z",
+      "kind": "wiring-fixes",
+      "detail": "integration/specific-web-variant-selection.v8.json selects the new revision (18 jobs), v7 kept as history at 758b043a; the builder pin moved to v8 0877e327 and the previous builder is preserved as build-accepted-preview.before-v8-20261027.mjs (06b90b4d).",
       "modelCalls": 0,
       "productionCalls": 0
     }

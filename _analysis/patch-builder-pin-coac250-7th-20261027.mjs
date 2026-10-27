@@ -1,0 +1,14 @@
+import {readFileSync,writeFileSync,renameSync,unlinkSync} from 'node:fs';
+const dir='E:/AgentData/Coach/knowledge/processing/integration/';
+const p=dir+'build-accepted-preview.mjs', t=dir+'build-accepted-preview.mjs.tmp-v8';
+let s=readFileSync(p,'utf8');
+const from="specific-web-variant-selection.v7.json";
+const to="specific-web-variant-selection.v8.json";
+const oldPin="758b043a106f5539819ce2799ac808dc99f6a56045cc92ca1ee55e8edf37eacf";
+const newPin="0877e327223b6735b167bd26f08518ab30c96ed706ae7cbf946ff24a3e6cda93";
+if(s.split(from).length!==2) throw new Error('selection path anchor count '+(s.split(from).length-1));
+if(s.split(oldPin).length!==2) throw new Error('pin anchor count '+(s.split(oldPin).length-1));
+s=s.split(from).join(to).split(oldPin).join(newPin);
+writeFileSync(t,s);
+renameSync(t,p);
+console.log('patched');

@@ -1,0 +1,51 @@
+{
+  "schema": "coac250-7th-batch-body-integrity/1",
+  "modelCalls": 0,
+  "chapterId": "modern-yabejp-ja-chapter04-section004-chapter",
+  "candidateSha256": "3910165816bc9776e27fccd11e9e46636c0eef860949df2978cb1481dde4d56a",
+  "candidateBlocks": 21,
+  "stagedBlocks": 21,
+  "stagedUnits": [
+    "modern-yabejp-ja-chapter04-section004-argument"
+  ],
+  "stagedBlockIdScheme": "stage-assigned (modern-yabejp-ja-chapter04-section004-b<n>); candidate sourceBlockIds carried as the correspondence key",
+  "orderPreservedByPosition": true,
+  "allStagedTextsEqualCandidateByPosition": true,
+  "differingIndices": [],
+  "charDeltaTotal": 0,
+  "corrected": [
+    {
+      "id": "modern-yabejp-ja:chapter04-section004:b0016",
+      "index": 15,
+      "parentText": "因此，在这样的局面下，逆转的概率至少有40%，情况好的话能超过一半。",
+      "candidateText": "因此，在这样的局面下，逆转的概率至少有40%，情况好的话能达到一半以上。",
+      "stagedText": "因此，在这样的局面下，逆转的概率至少有40%，情况好的话能达到一半以上。",
+      "candidateDiffersFromParent": true,
+      "stagedEqualsCandidate": true,
+      "stagedDiffersFromParent": true
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section004:b0018",
+      "index": 17,
+      "parentText": "但是，如果在听牌时，可以选择一种有机会不依赖偶然因素就实现逆转的听法，那么即使听牌范围变窄，也应该选择那种听法。（如果自摸1,000−2,000点或直击2,600点就能逆转，那么比起两面听牌的立直无役，更应该选择役牌与另一种牌的双碰听牌并立直；自摸500−1,000点或荣和2,600点就能逆转时也一样。）因为一发或中里宝牌的概率约为4成，立直和牌时的自摸比例也约为4成；另一方面，就像把两面改成嵌张，和牌率也不会减半（约为原来的2/3）一样，缩窄听牌范围后，和牌率几乎不会降至选择好形听牌时的4成以下。",
+      "candidateText": "但是，如果在听牌时，可以选择一种不依赖偶然因素也有机会实现逆转的听法，那么即使听牌范围变窄，也应该选择那种听法。（如果自摸1,000−2,000点或直击2,600点就能逆转，那么比起两面听牌、仅有立直这一役的听法，更应该选择役牌与另一种牌的双碰听牌并立直；自摸500−1,000点或荣和2,600点就能逆转时也一样。）因为一发或中里宝牌的概率约为4成，立直和牌时的自摸比例也约为4成；另一方面，就像把两面改成嵌张，和牌率也不会减半（约为原来的2/3）一样，缩窄听牌范围后，和牌率几乎不会降至选择好形听牌时的4成以下。",
+      "stagedText": "但是，如果在听牌时，可以选择一种不依赖偶然因素也有机会实现逆转的听法，那么即使听牌范围变窄，也应该选择那种听法。（如果自摸1,000−2,000点或直击2,600点就能逆转，那么比起两面听牌、仅有立直这一役的听法，更应该选择役牌与另一种牌的双碰听牌并立直；自摸500−1,000点或荣和2,600点就能逆转时也一样。）因为一发或中里宝牌的概率约为4成，立直和牌时的自摸比例也约为4成；另一方面，就像把两面改成嵌张，和牌率也不会减半（约为原来的2/3）一样，缩窄听牌范围后，和牌率几乎不会降至选择好形听牌时的4成以下。",
+      "candidateDiffersFromParent": true,
+      "stagedEqualsCandidate": true,
+      "stagedDiffersFromParent": true
+    }
+  ],
+  "figures": {
+    "candidate": 0,
+    "stagedFiguresInChapter": 0
+  },
+  "pass": {
+    "blockCountMatches": true,
+    "unitCountMatches": true,
+    "allTextsMatchCandidate": true,
+    "correctedBlocksCarried": true,
+    "untouchedBlocksUnchanged": true,
+    "noFiguresAsDeclared": true
+  },
+  "allPassed": true
+}

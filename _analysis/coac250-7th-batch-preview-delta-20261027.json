@@ -1,0 +1,92 @@
+{
+  "schema": "coac250-7th-batch-preview-delta/1",
+  "modelCalls": 0,
+  "priorPreview": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T06-08-03-592Z",
+  "priorCorpusId": "11298d626a584ba155bb00eb496b2408348bd9c3d44586868cb41e4e4a035bfc",
+  "priorChapters": 206,
+  "priorUnits": 214,
+  "priorBlocks": 5433,
+  "priorFigures": 3994,
+  "nextPreview": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T07-16-27-706Z",
+  "nextCorpusId": "472db63a58434c11bbbb542d082e66d780300d4527a14fbca9ca4f113ced52d5",
+  "nextChapters": 207,
+  "nextUnits": 215,
+  "nextBlocks": 5454,
+  "nextFigures": 3994,
+  "chapters": {
+    "added": [
+      "modern-yabejp-ja-chapter04-section004-chapter"
+    ],
+    "removed": [],
+    "retained": 177
+  },
+  "units": {
+    "added": [
+      "modern-yabejp-ja-chapter04-section004-argument"
+    ],
+    "removed": [],
+    "rewritten": []
+  },
+  "selectedWeb": {
+    "prior": 177,
+    "next": 178
+  },
+  "pendingWeb": {
+    "prior": 46,
+    "next": 45,
+    "resolved": [
+      "chapter04-section004.display.json"
+    ],
+    "added": []
+  },
+  "figures": {
+    "prior": 3994,
+    "next": 3994,
+    "added": [],
+    "removed": []
+  },
+  "newChapterContent": [
+    {
+      "chapterId": "modern-yabejp-ja-chapter04-section004-chapter",
+      "units": 1,
+      "blocks": 21,
+      "unitIds": [
+        "modern-yabejp-ja-chapter04-section004-argument"
+      ]
+    }
+  ],
+  "formalLibrary": {
+    "corpusPath": "E:/AgentData/Coach/knowledge/review/textbook-corpus.json",
+    "corpusFileSha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2",
+    "corpusId": "3f44d5dcaf8dfadf64dc0225e40e5f97773da659bf4a6cc3ba18569c642b6129",
+    "activeLibraryChanged": false,
+    "receiptFormalCorpusFileSha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2",
+    "receiptFormalCorpusId": "3f44d5dcaf8dfadf64dc0225e40e5f97773da659bf4a6cc3ba18569c642b6129"
+  },
+  "pointer": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+    "sha256": "4502ebc09774251a12c3d251ad14327a9016dfb7177075b619333051fed10b4b",
+    "equalsNewReceipt": true
+  },
+  "previousPointerPreserved": {
+    "note": "The previous pointer is not deleted: it is byte-identical to the previous preview directory receipt, which is left untouched.",
+    "previousReceiptPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T06-08-03-592Z\\accepted-preview-receipt.json",
+    "previousReceiptSha256": "f54af915694aa7865ebb8edb1e943c46b72d2b0603bfd2533378c26ef797023a"
+  },
+  "build": {
+    "corpusId": "472db63a58434c11bbbb542d082e66d780300d4527a14fbca9ca4f113ced52d5",
+    "crossChapterNavigation": "chapter-local-only",
+    "activeLibraryChanged": false,
+    "maxUnitBytes": 322460
+  },
+  "pass": {
+    "retainedUnitsNotRewritten": true,
+    "noChaptersLost": true,
+    "oneChapterAdded": true,
+    "pendingResolvedForSection004": true,
+    "formalLibraryUntouched": true,
+    "pointerAdvancedToNewPreview": true,
+    "previousPreviewPreserved": true
+  },
+  "allPassed": true
+}
