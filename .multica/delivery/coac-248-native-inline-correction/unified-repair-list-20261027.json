@@ -15,16 +15,16 @@
   "deduped": 1
  },
  "countsCurrent": {
-  "needsRepair": 19,
+  "needsRepair": 18,
   "failedSeparate": 2,
-  "resolvedThisStage": 17,
-  "newObjectsStillUnresolved": 14,
+  "resolvedThisStage": 18,
+  "newObjectsStillUnresolved": 13,
   "oldObjectsStillUnresolved": 5,
   "totalTracked": 38
  },
  "breakdown": {
   "oldPdfRemaining": 5,
-  "newPdfPages": 2,
+  "newPdfPages": 1,
   "web": 7,
   "protectedSupplement": 1,
   "failed": 2,
@@ -166,57 +166,6 @@
    "dedupeNote": "COAC-247 page 257 candidate SHA 6283c249… equals the old-list candidate; one unresolved object."
   },
   {
-   "objectId": "nemata-jp:page:260",
-   "kind": "pdf-page",
-   "sourceId": "nemata-jp",
-   "page": 260,
-   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0260.json",
-   "candidateSha256": "f9c04f6b68453f9df123cc1c7cf43629ce338af0c40e0bbe843c78f1a09b2958",
-   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0260.f9c04f6b68453f9df123cc1c7cf43629ce338af0c40e0bbe843c78f1a09b2958.6baa4a7e1404.json",
-   "auditStatus": "needs-repair",
-   "issueCount": 5,
-   "issues": [
-    {
-     "severity": "error",
-     "targetId": "nemata-jp-p260-r5",
-     "sourceEvidence": "b46及局部原图显示7s，位于「のくっつきよりは」之前。",
-     "description": "牌图及正文引用误写为9s，改变了保留役牌宝牌时的比较对象。",
-     "suggestedRepair": "将r5的transcription、caption及b8—b10合并段落中的对应句内引用统一改为7s。"
-    },
-    {
-     "severity": "error",
-     "targetId": "nemata-jp-p260-r21",
-     "sourceEvidence": "问题15原手牌从左至右为455567m 6p 2334557s。",
-     "description": "候选将索子中的4s及两张5s误录为6s及两张8s。",
-     "suggestedRepair": "将r21及正文手牌统一改为455567m 6p 2334557s，保留原始14张排列。"
-    },
-    {
-     "severity": "error",
-     "targetId": "nemata-jp-p260-r26",
-     "sourceEvidence": "b68原图四张弃牌候选依次为2s、3s、5s、7s。",
-     "description": "末张7s误录为9s。",
-     "suggestedRepair": "将图例及b34—b35合并段落的候选牌改为2357s。"
-    },
-    {
-     "severity": "error",
-     "targetId": "nemata-jp-p260-r28",
-     "sourceEvidence": "b70为接在「B型が」之后的7s牌图。",
-     "description": "B型血对应弃牌误写为9s。",
-     "suggestedRepair": "将r28及正文B型血对应引用统一改为7s。"
-    },
-    {
-     "severity": "error",
-     "targetId": "nemata-jp-p260-r33",
-     "sourceEvidence": "b75上行右端为334s，b76下一行左端为557s；两部分连续接在「場合も」与「のリャンカンが残り」之间。",
-     "description": "候选既错录为336s／889s，又将同一跨行牌形错误解释为两个独立牌例。",
-     "suggestedRepair": "将r33转录和caption改为连续牌形334557s，说明仅因原排版换行分成两段；正文改为留下334557s的两嵌形，不使用分隔两个例子的斜线。"
-    }
-   ],
-   "currentDisposition": "needs-repair",
-   "origin": "COAC-247 new PDF return",
-   "newThisStage": true
-  },
-  {
    "objectId": "nemata-jp:page:261",
    "kind": "pdf-page",
    "sourceId": "nemata-jp",
@@ -264,7 +213,13 @@
      "locatedBy": "the same revision review (body b33 + figure r50 verdict needs-repair)",
      "defect": "The inline tile for the second draw of problem 17 is transcribed, captioned and referenced as 3m; the source page shows 5m (五万).",
      "sourceGround": "Source page block nemata-jp-p261-b92 / the problem-17 paragraph 「ドラ［5m］引きでもペン［3p］のダマ跳」 — the drawn tile before ダマ満テンパイ is 5m.",
-     "whyNotFixedThisRound": "Round budget is 1-2 objects; the item needs its own revision candidate, its own independent review call, and a fresh approval job bound to the new parent. Recorded here as the next entry in this page's chain."
+     "whyNotFixedThisRound": "Round budget is 1-2 objects; the item needs its own revision candidate, its own independent review call, and a fresh approval job bound to the new parent. Recorded here as the next entry in this page's chain.",
+     "sourceCheckThisRound": {
+      "result": "contested-not-applied",
+      "finding": "The source tile at nemata-jp-p261-b92 is 3m, not 5m. The revision review (a78f22ab…) misread the tile: the candidate transcription, caption and inline text were already correct.",
+      "method": "Pixel comparison of the embedded source asset f502bc23… against same-book anchor tiles whose block order is fixed by an unmistakable 8m (八), a 6s (six green bamboos) and the 5m tiles in the same figure. 3m anchors cc38d849 (b42), 7a889595 (b71) and 2c730d58 (b78) match the source tile at 0.97-0.99 mask IoU; 5m anchors 8da455ae (b43), 183da1d5 (b72) and 909943e9 (b79) sit at ~0.64 and show the distinct 五 glyph.",
+      "action": "No 5m revision was built. The page stays needs-repair on its recorded review results pending an owner decision on the contested tile, so nothing fabricated enters the corpus."
+     }
     }
    }
   },
@@ -1099,6 +1054,37 @@
     "result": "passed"
    },
    "productionModelCalls": 0
+  },
+  {
+   "objectId": "nemata-jp:page:260",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 260,
+   "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0260.json",
+   "parentCandidateSha256": "f9c04f6b68453f9df123cc1c7cf43629ce338af0c40e0bbe843c78f1a09b2958",
+   "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair21-20261027-p260/candidates/nemata-jp/page-0260.json",
+   "repairedCandidateSha256": "8bbfb99c94116aa6b87ed1ead415406e8025329c53292e2dd5dc40b76f3bbfda",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0260.8bbfb99c94116aa6b87ed1ead415406e8025329c53292e2dd5dc40b76f3bbfda.7076217daf84.json",
+   "auditStatus": "passed",
+   "repairKind": "declared-field-correction",
+   "changeSummary": [
+    "figure nemata-jp-p260-r5 (transcription + caption): 9s -> 7s",
+    "figure nemata-jp-p260-r21 (transcription + caption): hand 455567m 6p 2336887s -> 455567m 6p 2334557s",
+    "figure nemata-jp-p260-r26 (transcription + caption): discard candidates 2359s -> 2357s",
+    "figure nemata-jp-p260-r28 (transcription + caption): B-type discard 9s -> 7s",
+    "figure nemata-jp-p260-r33 (transcription + caption): 336s／889s -> one continuous cross-line 334557s"
+   ],
+   "sourceEvidence": "Every tile was re-read from the embedded source assets before any edit: b46 is 7s (one red head over 3+3); b63 is the 14-tile hand 455567m 6p 2334557s; b68 is 2s 3s 5s 7s; b70 is the same 7s tile; b75 (3s 3s 4s) and b76 (5s 5s 7s) form one continuous 334557s shape split by the printed line break. Tile identities were anchored against same-book figures whose per-block transcription and unmistakable tiles (2m/8m/6s) confirm the source-image to block ordering.",
+   "independentReview": {
+    "callId": "d30a1c4a-04f3-4440-914e-1c6988733f59",
+    "usage": {
+     "inputTokens": 35285,
+     "cachedInputTokens": 0,
+     "outputTokens": 7100
+    },
+    "result": "passed"
+   },
+   "productionModelCalls": 0
   }
  ],
  "handoff": {
@@ -1296,7 +1282,7 @@
   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0309.d323290d8eb056b85a64563702b4d1d1283b3c6eff70cf7ecdb34c9faa84337b.6baa4a7e1404.json",
   "note": "Produced once; audit needs-repair; repair preserved, no re-production."
  },
- "refreshedAt": "2026-10-27T08:20:00.000Z",
+ "refreshedAt": "2026-10-27T08:40:00.000Z",
  "byOrigin": {
   "COAC-248 old PDF 12": 5,
   "COAC-247 new PDF return": 3,
@@ -1322,7 +1308,8 @@
    "audit/source-corrections/native-inline-field-corrections.p330.root-acceptance.json",
    "audit/source-corrections/native-inline-field-corrections.p261.root-acceptance.json",
    "audit/source-corrections/native-inline-field-corrections.p262.root-acceptance.json",
-   "audit/source-corrections/native-inline-page-structure.p330.root-acceptance.json"
+   "audit/source-corrections/native-inline-page-structure.p330.root-acceptance.json",
+   "audit/source-corrections/native-inline-field-corrections.p260.root-acceptance.json"
   ],
   "reviewCalls": [
    {
@@ -1364,6 +1351,11 @@
     "page": 330,
     "candidateSha256": "314cb19f1b1cf8ed7d420cbccb00cdea1c8ae8210fd5bcdb88953d90f42c25f6",
     "result": "passed (structural revision)"
+   },
+   {
+    "page": 260,
+    "candidateSha256": "8bbfb99c94116aa6b87ed1ead415406e8025329c53292e2dd5dc40b76f3bbfda",
+    "result": "passed (5 located tile/transcription items; 0 further items)"
    }
   ],
   "runGateway": "no run-gateway calls this stage; the 20:07/20:47 UTC 503s were run gateway (api.commandcode.ai / Cloudflare 1102), not the review gateway; no retry was issued against the same limit.",
@@ -1387,7 +1379,13 @@
    "finding": "The runtime copy of textbook-audit-pdf-native-corrections.mjs was stale: it listed only 309/315, so a page already recorded as passed (329) failed the deterministic gate with audit_native_inline_correction_unapproved_page when re-checked today. The two-file runtime identity sha (7076217d…) does not cover this module, so the drift was invisible in the receipts.",
    "action": "Synced the module from the coach repo (all other runtime modules were already byte-identical), restoring 309/315/329/330 and adding 261/262. Verified afterwards that 329 re-gates cleanly. Runtime identity sha unchanged: 7076217daf842b13eb6f945bd21ac0ceb87bc3994fa336e39ba8f2de63efefc6.",
    "moduleSha256Before": "65cb6355968a5e9cd4f94224e7b0317199e0315608d820de51bb60895c423fdc",
-   "moduleSha256After": "d61eae23a509d063c9ae02f1346ec058733c7221ce884108c124bf6af580ddf9"
+   "moduleSha256After": "d61eae23a509d063c9ae02f1346ec058733c7221ce884108c124bf6af580ddf9",
+   "p260Refresh": {
+    "action": "Added the p260 approval to knownNativeInlineCorrections and re-synced the module into the frozen runtime under the single-writer boundary.",
+    "moduleSha256Before": "d61eae23a509d063c9ae02f1346ec058733c7221ce884108c124bf6af580ddf9",
+    "moduleSha256After": "71794ddd84a2b70c472724f8b1b443e37c95681aebc1f5edb7f26d0ac08373c7",
+    "measuredAfter330": "The p261/p262 refresh note above records the pre-330 module; the 330 round and this round each re-synced and re-verified from the runtime path."
+   }
   },
   "listCopyDivergence": {
    "finding": "audit/unified-repair-list-20261027.json had dropped the four metadata pages (1/2/3/317) that the previous round added: the copy there held 17 objects while the delivery copy held 21. The delivery copy is the superset; nothing in the audit copy was missing from it.",
@@ -1409,6 +1407,29 @@
    ],
    "tests": "scripts/scene-study/textbook-audit-pdf-native-structure-corrections.test.mjs (14 cases); 66/66 across the five audit suites",
    "supersededAttempt": "audit/pages/nemata-jp/page-0330.a10aa62a166f411a4ee2ce7fe087169c3afaea000ffb82a9c330deb7d85a65f7.7076217daf84.json (deterministic-only rejection, zero review calls; route bug fixed before any model review)"
+  },
+  "p260SourceCheck": {
+   "method": "embedded source assets read and compared against same-book anchor tiles before any edit",
+   "itemsConfirmed": 5,
+   "auditClaimCheck": "All five COAC-247 audit items were confirmed by the source images; none were taken on the audit text alone.",
+   "contrast": "On page 261 the same method refutes the review finding at r50 (see nemata-jp:page:261.revision1.remainingItem.sourceCheckThisRound)."
+  },
+  "verificationDependenciesManifest": {
+   "path": "audit/runtimes/native-repair-7076217daf842b13/verification-dependencies.json",
+   "previousManifestSha256": "5a60dfbce5ccb3726c0ecc109bb1f23af3cfeca6546ff671a789cfd7e4d4ef21",
+   "newManifestSha256": "8020f7b2e760ad443e6951ac1074c571f9dc5878f47e8df20759db8d3d5e1452",
+   "historyPath": "audit/runtimes/native-repair-7076217daf842b13/verification-dependencies.history/5a60dfbce5ccb3726c0ecc109bb1f23af3cfeca6546ff671a789cfd7e4d4ef21.json",
+   "pageApprovals": [
+    "p260",
+    "p261",
+    "p262",
+    "p309",
+    "p315",
+    "p329",
+    "p330-field",
+    "p330-structure"
+   ],
+   "note": "The previous manifest was archived unchanged, not overwritten as if it had always matched."
   }
  },
  "metadataFourPageIntake": {

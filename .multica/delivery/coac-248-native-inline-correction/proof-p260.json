@@ -1,0 +1,226 @@
+{
+  "schema": "coach-native-inline-field-correction-proof/1",
+  "candidateSha256": "8bbfb99c94116aa6b87ed1ead415406e8025329c53292e2dd5dc40b76f3bbfda",
+  "parentSha256": "f9c04f6b68453f9df123cc1c7cf43629ce338af0c40e0bbe843c78f1a09b2958",
+  "parentPath": "production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0260.json",
+  "originalAudit": {
+    "path": "audit/pages/nemata-jp/page-0260.f9c04f6b68453f9df123cc1c7cf43629ce338af0c40e0bbe843c78f1a09b2958.6baa4a7e1404.json",
+    "sha256": "4c10f0f8b01e2440f0e7b1e0fad0e8b07ca337b76c092fffe8985fbdc9bc3b41",
+    "status": "needs-repair"
+  },
+  "originalProductionRaw": {
+    "path": "production/sol-high-fallback-inline-20261026/raw-calls/d4fcc970-e0b1-4bde-aae5-887f429ef31f.json",
+    "sha256": "032f20bcfa39c4b7e67ee5a289edd91fa4d88b52d9717b6a962f44c4b37ba5e6"
+  },
+  "sourcePage": {
+    "path": "nemata-jp/pages/260.json",
+    "sha256": "8c206873b295e85e961d4f47d65da4019f60d98a916e049b6374bcbecf7bf827"
+  },
+  "sourceFieldCorrection": {
+    "schema": "coach-native-inline-field-correction/1",
+    "sourceId": "nemata-jp",
+    "page": 260,
+    "parentPath": "production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0260.json",
+    "parentSha256": "f9c04f6b68453f9df123cc1c7cf43629ce338af0c40e0bbe843c78f1a09b2958",
+    "notesPath": "audit/pages/nemata-jp/page-0260.f9c04f6b68453f9df123cc1c7cf43629ce338af0c40e0bbe843c78f1a09b2958.6baa4a7e1404.json",
+    "notesSha256": "4c10f0f8b01e2440f0e7b1e0fad0e8b07ca337b76c092fffe8985fbdc9bc3b41",
+    "originalProductionRaw": {
+      "path": "production/sol-high-fallback-inline-20261026/raw-calls/d4fcc970-e0b1-4bde-aae5-887f429ef31f.json",
+      "sha256": "032f20bcfa39c4b7e67ee5a289edd91fa4d88b52d9717b6a962f44c4b37ba5e6"
+    },
+    "sourcePageDataSha256": "8c206873b295e85e961d4f47d65da4019f60d98a916e049b6374bcbecf7bf827",
+    "newProductionModelCalls": 0,
+    "changes": [
+      {
+        "target": "figure",
+        "figureId": "nemata-jp-p260-r5",
+        "field": "transcription",
+        "fromValue": "9s，直立，非赤牌；正文讨论其靠张价值。",
+        "toValue": "7s，直立，非赤牌；正文讨论其靠张价值。",
+        "replacements": [
+          {
+            "from": "9s，直立",
+            "to": "7s，直立",
+            "occurrences": 1
+          }
+        ],
+        "sourceEvidence": "Source block nemata-jp-p260-b46 is the 7s tile: one red bamboo head centred on the first row over two rows of three green bamboos. In this book the 9s is three rows of three and the 8s is the M-shaped four-and-four. The candidate read 9s.",
+        "sourceCrop": {
+          "path": "assets/048720c752890b0a80059a85a63f26efc718eacda8fce368debc002aafc2e709.png",
+          "sha256": "048720c752890b0a80059a85a63f26efc718eacda8fce368debc002aafc2e709"
+        }
+      },
+      {
+        "target": "figure",
+        "figureId": "nemata-jp-p260-r5",
+        "field": "caption",
+        "fromValue": "9s",
+        "toValue": "7s",
+        "replacements": [
+          {
+            "from": "9s",
+            "to": "7s",
+            "occurrences": 1
+          }
+        ],
+        "sourceEvidence": "Same 7s tile as the transcription change; the caption is the inline text of the merged paragraph b8-b10.",
+        "sourceCrop": {
+          "path": "assets/048720c752890b0a80059a85a63f26efc718eacda8fce368debc002aafc2e709.png",
+          "sha256": "048720c752890b0a80059a85a63f26efc718eacda8fce368debc002aafc2e709"
+        }
+      },
+      {
+        "target": "figure",
+        "figureId": "nemata-jp-p260-r21",
+        "field": "transcription",
+        "fromValue": "宝牌：6p，直立，标注的是宝牌而非宝牌指示牌。手牌从左至右：455567m 6p 2336887s，共14张，全部直立。三张5m均为普通五万，非赤五。末张7s没有单独的摸牌文字标注。",
+        "toValue": "宝牌：6p，直立，标注的是宝牌而非宝牌指示牌。手牌从左至右：455567m 6p 2334557s，共14张，全部直立。三张5m均为普通五万，非赤五。末张7s没有单独的摸牌文字标注。",
+        "replacements": [
+          {
+            "from": "2336887s",
+            "to": "2334557s",
+            "occurrences": 1
+          }
+        ],
+        "sourceEvidence": "Source block nemata-jp-p260-b63 is the 14-tile hand strip. Read left to right: 4m 5m 5m 5m 6m 7m (四五六), 6p, then 2s 3s 3s 4s 5s 5s 7s. The 4s is the 2x2 four-bamboo tile, the two 5s are red-centred five-bamboo tiles, and the last tile is the 7s (red head over 3+3). The candidate read 6s 8s 8s for the last three sou tiles while its own prose already said 7s.",
+        "sourceCrop": {
+          "path": "assets/5f603091e1dac993bc3910c43e88cfe88f94e96730f7479f65e13d51370f63c1.png",
+          "sha256": "5f603091e1dac993bc3910c43e88cfe88f94e96730f7479f65e13d51370f63c1"
+        }
+      },
+      {
+        "target": "figure",
+        "figureId": "nemata-jp-p260-r21",
+        "field": "caption",
+        "fromValue": "宝牌6p；手牌455567m 6p 2336887s",
+        "toValue": "宝牌6p；手牌455567m 6p 2334557s",
+        "replacements": [
+          {
+            "from": "2336887s",
+            "to": "2334557s",
+            "occurrences": 1
+          }
+        ],
+        "sourceEvidence": "Same corrected hand strip; the caption carries the hand into paragraph b28.",
+        "sourceCrop": {
+          "path": "assets/5f603091e1dac993bc3910c43e88cfe88f94e96730f7479f65e13d51370f63c1.png",
+          "sha256": "5f603091e1dac993bc3910c43e88cfe88f94e96730f7479f65e13d51370f63c1"
+        }
+      },
+      {
+        "target": "figure",
+        "figureId": "nemata-jp-p260-r26",
+        "field": "transcription",
+        "fromValue": "弃牌候选从左至右：2s、3s、5s、9s，紧邻排列，全部直立。5s为普通五索，非赤五；这四张是备选弃牌的列举。",
+        "toValue": "弃牌候选从左至右：2s、3s、5s、7s，紧邻排列，全部直立。5s为普通五索，非赤五；这四张是备选弃牌的列举。",
+        "replacements": [
+          {
+            "from": "5s、9s",
+            "to": "5s、7s",
+            "occurrences": 1
+          }
+        ],
+        "sourceEvidence": "Source block nemata-jp-p260-b68 holds four tiles: 2s (two green), 3s (three green), 5s (four green corners around a red centre) and 7s (red head over 3+3). The fourth is 7s, not 9s.",
+        "sourceCrop": {
+          "path": "assets/a07ca43632977dfabd77a4e2368fb0cd24ff21b5f95537df5867847c7083b340.png",
+          "sha256": "a07ca43632977dfabd77a4e2368fb0cd24ff21b5f95537df5867847c7083b340"
+        }
+      },
+      {
+        "target": "figure",
+        "figureId": "nemata-jp-p260-r26",
+        "field": "caption",
+        "fromValue": "2359s",
+        "toValue": "2357s",
+        "replacements": [
+          {
+            "from": "2359s",
+            "to": "2357s",
+            "occurrences": 1
+          }
+        ],
+        "sourceEvidence": "Same four discard candidates; the caption carries them into paragraph b34-b35.",
+        "sourceCrop": {
+          "path": "assets/a07ca43632977dfabd77a4e2368fb0cd24ff21b5f95537df5867847c7083b340.png",
+          "sha256": "a07ca43632977dfabd77a4e2368fb0cd24ff21b5f95537df5867847c7083b340"
+        }
+      },
+      {
+        "target": "figure",
+        "figureId": "nemata-jp-p260-r28",
+        "field": "transcription",
+        "fromValue": "杂志所述B型血对应的弃牌：9s，直立，非赤牌。",
+        "toValue": "杂志所述B型血对应的弃牌：7s，直立，非赤牌。",
+        "replacements": [
+          {
+            "from": "弃牌：9s",
+            "to": "弃牌：7s",
+            "occurrences": 1
+          }
+        ],
+        "sourceEvidence": "Source block nemata-jp-p260-b70 shows the same 7s tile shape (red head over 3+3) as the fourth tile of the r26 strip. The candidate read 9s.",
+        "sourceCrop": {
+          "path": "assets/690acb46fc5e0efb04aa2fa15743e4baf3c53b2057be7305eb66a3fa892c522a.png",
+          "sha256": "690acb46fc5e0efb04aa2fa15743e4baf3c53b2057be7305eb66a3fa892c522a"
+        }
+      },
+      {
+        "target": "figure",
+        "figureId": "nemata-jp-p260-r28",
+        "field": "caption",
+        "fromValue": "9s",
+        "toValue": "7s",
+        "replacements": [
+          {
+            "from": "9s",
+            "to": "7s",
+            "occurrences": 1
+          }
+        ],
+        "sourceEvidence": "Same 7s tile; the caption carries the B-type discard into paragraph b34-b35.",
+        "sourceCrop": {
+          "path": "assets/690acb46fc5e0efb04aa2fa15743e4baf3c53b2057be7305eb66a3fa892c522a.png",
+          "sha256": "690acb46fc5e0efb04aa2fa15743e4baf3c53b2057be7305eb66a3fa892c522a"
+        }
+      },
+      {
+        "target": "figure",
+        "figureId": "nemata-jp-p260-r33",
+        "field": "transcription",
+        "fromValue": "两个分别列出的两嵌形例子：第一组为336s，从左至右3s、3s、6s；第二组为889s，从左至右8s、8s、9s。第一组位于上一行右端，第二组位于下一行左端，是正文换行后的两个独立例子。六张牌均直立，均非赤牌。",
+        "toValue": "同一牌形跨行显示：上一行右端为3s、3s、4s，下一行左端续接5s、5s、7s，完整牌形为334557s，只是原排版换行，不是两个独立例子。六张牌均直立，均非赤牌；两张5s均为普通五索，非赤五。",
+        "replacements": [
+          {
+            "from": "两个分别列出的两嵌形例子：第一组为336s，从左至右3s、3s、6s；第二组为889s，从左至右8s、8s、9s。第一组位于上一行右端，第二组位于下一行左端，是正文换行后的两个独立例子。六张牌均直立，均非赤牌。",
+            "to": "同一牌形跨行显示：上一行右端为3s、3s、4s，下一行左端续接5s、5s、7s，完整牌形为334557s，只是原排版换行，不是两个独立例子。六张牌均直立，均非赤牌；两张5s均为普通五索，非赤五。",
+            "occurrences": 1
+          }
+        ],
+        "sourceEvidence": "Source block nemata-jp-p260-b75 ends the upper line with 3s, 3s, 4s (the third is the 2x2 four-bamboo tile) and block nemata-jp-p260-b76 starts the next line with 5s, 5s, 7s (two red-centred five-bamboo tiles then the red-head 7s). They are one continuous 334557s shape split by the printed line break, not 336s plus 889s.",
+        "sourceCrop": {
+          "path": "assets/6d30ee60f8d23a1c56436efc303e66b6a38d14888b428fa31c07c0b4628f04bd.png",
+          "sha256": "6d30ee60f8d23a1c56436efc303e66b6a38d14888b428fa31c07c0b4628f04bd"
+        }
+      },
+      {
+        "target": "figure",
+        "figureId": "nemata-jp-p260-r33",
+        "field": "caption",
+        "fromValue": "336s／889s",
+        "toValue": "334557s",
+        "replacements": [
+          {
+            "from": "336s／889s",
+            "to": "334557s",
+            "occurrences": 1
+          }
+        ],
+        "sourceEvidence": "Same continuous cross-line shape; the caption carries it into paragraph b36-b38 without the artificial separator.",
+        "sourceCrop": {
+          "path": "assets/6d30ee60f8d23a1c56436efc303e66b6a38d14888b428fa31c07c0b4628f04bd.png",
+          "sha256": "6d30ee60f8d23a1c56436efc303e66b6a38d14888b428fa31c07c0b4628f04bd"
+        }
+      }
+    ]
+  }
+}
