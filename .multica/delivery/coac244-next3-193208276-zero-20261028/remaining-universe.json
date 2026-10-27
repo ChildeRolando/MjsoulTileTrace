@@ -1,0 +1,188 @@
+{
+  "register": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+    "sha256": "53e334adaf6c49d8caee4af03485245742a305d91e262492dd992327699892aa",
+    "bytes": 587542
+  },
+  "counts": {
+    "originalChapters": 256,
+    "originalUnits": 303,
+    "originalSourceBlocks": 21212,
+    "displayChapters": 238,
+    "displayUnits": 246,
+    "displayBlocks": 6549,
+    "displayFigures": 5276,
+    "effectiveCoveredOriginalChapters": 237,
+    "effectiveUncoveredOriginalChapters": 19,
+    "uncoveredProduced": 19,
+    "trulyUnproduced": 0,
+    "register80": 80,
+    "register80Groups": {
+      "confirmed-produced-not-covered": 56,
+      "reclassified-covered": 17,
+      "legacy-covered": 1,
+      "additional-uncovered-not-in-246": 6
+    },
+    "verdicts": {
+      "covered-effective": 237,
+      "produced-needs-repair": 19,
+      "produced-passed-not-staged": 0,
+      "produced-pdf-passed-not-staged": 0,
+      "produced-unreviewed": 0,
+      "produced-audit-failed": 0,
+      "total": 256
+    }
+  },
+  "uncovered": [
+    {
+      "canonical": "79-cn-chapter-109-4",
+      "title": "手役7—染手（二）",
+      "units": 1,
+      "selected": false,
+      "excludedInFlight": false
+    },
+    {
+      "canonical": "79-cn-chapter-167-4",
+      "title": "鸣牌15—鸣牌的技巧（3）",
+      "units": 1,
+      "selected": false,
+      "excludedInFlight": false
+    },
+    {
+      "canonical": "79-cn-chapter-182-5",
+      "title": "立直6—立直理论（2）",
+      "units": 1,
+      "selected": false,
+      "excludedInFlight": false
+    },
+    {
+      "canonical": "79-cn-chapter-193-4",
+      "title": "防守3—筋（1）",
+      "units": 1,
+      "selected": true,
+      "excludedInFlight": false
+    },
+    {
+      "canonical": "79-cn-chapter-201-6",
+      "title": "防守6—弃和的切牌顺序（1）",
+      "units": 1,
+      "selected": false,
+      "excludedInFlight": false
+    },
+    {
+      "canonical": "79-cn-chapter-208-4",
+      "title": "防守9—兜牌",
+      "units": 1,
+      "selected": true,
+      "excludedInFlight": false
+    },
+    {
+      "canonical": "79-cn-chapter-217-4",
+      "title": "防守12—扣牌（2）",
+      "units": 1,
+      "selected": false,
+      "excludedInFlight": true
+    },
+    {
+      "canonical": "79-cn-chapter-234-12",
+      "title": "状况判断2—要有顺位意识",
+      "units": 1,
+      "selected": false,
+      "excludedInFlight": false
+    },
+    {
+      "canonical": "79-cn-chapter-256-18",
+      "title": "状况判断8—ALL LAST 的战术（二）",
+      "units": 1,
+      "selected": false,
+      "excludedInFlight": false
+    },
+    {
+      "canonical": "79-cn-chapter-276-4",
+      "title": "攻守判断3—攻守判断的标准",
+      "units": 1,
+      "selected": true,
+      "excludedInFlight": false
+    },
+    {
+      "canonical": "79-cn-chapter-311-18",
+      "title": "第三节 攻守判断的基准",
+      "units": 16,
+      "selected": false,
+      "excludedInFlight": false
+    },
+    {
+      "canonical": "nemata-jp-chapter-001-64",
+      "title": "封面、目录与网页说明",
+      "units": 1,
+      "selected": false,
+      "excludedInFlight": true
+    },
+    {
+      "canonical": "nemata-jp-chapter-193-1",
+      "title": "ドラ切り",
+      "units": 1,
+      "selected": false,
+      "excludedInFlight": false
+    },
+    {
+      "canonical": "nemata-jp-chapter-213-1",
+      "title": "逆切り３",
+      "units": 1,
+      "selected": false,
+      "excludedInFlight": false
+    },
+    {
+      "canonical": "nemata-jp-chapter-224-1",
+      "title": "オーラスの見逃し判断",
+      "units": 1,
+      "selected": false,
+      "excludedInFlight": false
+    },
+    {
+      "canonical": "nemata-jp-chapter-232-1",
+      "title": "満貫和了技術",
+      "units": 1,
+      "selected": false,
+      "excludedInFlight": false
+    },
+    {
+      "canonical": "nemata-jp-chapter-250-1",
+      "title": "「ネマー日記」ブログ問題",
+      "units": 1,
+      "selected": false,
+      "excludedInFlight": false
+    },
+    {
+      "canonical": "nemata-jp-chapter-283-1",
+      "title": "「鴉〃の麻雀解説」サイト問題",
+      "units": 1,
+      "selected": false,
+      "excludedInFlight": true
+    },
+    {
+      "canonical": "nemata-jp-chapter-317-51",
+      "title": "研究资料目录与说明",
+      "units": 1,
+      "selected": false,
+      "excludedInFlight": true
+    }
+  ],
+  "selected": [
+    "79-cn-chapter-193-4",
+    "79-cn-chapter-208-4",
+    "79-cn-chapter-276-4"
+  ],
+  "excluded": [
+    "79-cn-chapter-217-4",
+    "nemata-jp-chapter-283-1",
+    "nemata-jp-chapter-001-64",
+    "nemata-jp-chapter-317-51"
+  ],
+  "metadataRetained": [
+    "nemata-jp-chapter-001-64",
+    "nemata-jp-chapter-317-51"
+  ],
+  "warning": "Historical produced-needs-repair is not proof of a current complete lawful candidate. Directory/preface/appendix remain in original denominator.",
+  "newModelCalls": 0
+}

@@ -1,0 +1,4315 @@
+{
+  "schema": "coac244-next-source-impact-packet/1",
+  "canonical": "79-cn-chapter-208-4",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770245.display.json",
+    "sha256": "0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97",
+    "bytes": 46718
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1770245\\source.json",
+    "sha256": "0d6849d5bb4cb250ce9070a883fa072f9025c8411563b9f74fe9fd9d616fa17c",
+    "bytes": 29676
+  },
+  "audit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1770245.0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97.json",
+    "sha256": "c3ed21f44410017abe1d203a87a0a7a470ec11f0b83e035c43f76016b91236fd",
+    "bytes": 20766
+  },
+  "oldStatus": "needs-repair",
+  "sameShaAudits": [
+    {
+      "binding": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1770245.0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97.json",
+        "sha256": "c3ed21f44410017abe1d203a87a0a7a470ec11f0b83e035c43f76016b91236fd",
+        "bytes": 20766
+      },
+      "status": "needs-repair",
+      "callIds": [
+        "615281b8-4a8f-40ec-842e-fff0ad1af99a"
+      ]
+    }
+  ],
+  "oldCalls": [
+    {
+      "call": {
+        "callId": "615281b8-4a8f-40ec-842e-fff0ad1af99a",
+        "scope": "textbook-web-article-audit",
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1770245",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "success": true,
+        "usage": {
+          "inputTokens": 24891,
+          "cachedInputTokens": 0,
+          "outputTokens": 5066
+        },
+        "promptSha256": "c507d7a383ee6f86706fa2a462c4a3d7268cfa5108fa46196e691da773c86f34",
+        "semanticPromptSha256": "cc3590ba70f6bc35eee2f704845a1ab131c3df6b84d044d82ae634c0e8f2a3ba",
+        "schemaSha256": "6e1e14020add3ac06cdeb859c5185c017f16a22106cae491da86b247fb657c42",
+        "outputSha256": "68f144d017351a1db5ff67217de2dc5ae69beb23f9fbec89604e38f69b880bb9",
+        "requestPromptBytes": 35176,
+        "semanticPromptBytes": 34694,
+        "binding": {
+          "productionSha256": "0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97",
+          "sourceFileSha256": "0d6849d5bb4cb250ce9070a883fa072f9025c8411563b9f74fe9fd9d616fa17c",
+          "auditorSnapshotSha256": "ec038e42ee0e6ad708712bc1d4c958388c25423f1dcfeda822a94c2b35471dd2",
+          "semanticProjectionSha256": "a4240dd93a127121ab7e19c791ad7e272aa8c7964a8e9583b8debb8d7c8730d4",
+          "semanticProjectionVersion": 2,
+          "verifiedAssetIds": [],
+          "originalImageAssetIds": [
+            "79-bilibili-cn:817b8e981a47af398e6514c6",
+            "79-bilibili-cn:f2c7f3ccf7f35415307dc376",
+            "79-bilibili-cn:6dc405a54355faff064f81a4"
+          ],
+          "supplementalInputs": [
+            {
+              "assetId": "79-bilibili-cn:817b8e981a47af398e6514c6",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b.png",
+              "sourceSha256": "ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b.x2.png",
+              "sha256": "42c668c01e53f2d106ca13d9f7e375d1405f1122a1a74f5fb8ae779abc738d97",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 2,
+              "resampling": "nearest",
+              "width": 892,
+              "height": 930
+            },
+            {
+              "assetId": "79-bilibili-cn:f2c7f3ccf7f35415307dc376",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.png",
+              "sourceSha256": "fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.x2.png",
+              "sha256": "c2f57e512b2298a27e87000ceccf022804fcd5887fe2602815e18220a4f9bce6",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 2,
+              "resampling": "nearest",
+              "width": 864,
+              "height": 922
+            },
+            {
+              "assetId": "79-bilibili-cn:6dc405a54355faff064f81a4",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa.png",
+              "sourceSha256": "14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa.x4.png",
+              "sha256": "d5c0442744bf00545c24524a6310ff32b398a808febf8824ce920d7fba870310",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 2040,
+              "height": 444
+            }
+          ]
+        },
+        "recordedAt": "2026-10-25T19:26:25.854Z"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\615281b8-4a8f-40ec-842e-fff0ad1af99a.json",
+        "sha256": "7ddbe9f03e422491fbdcac4c195fdf61d7f73135801f8f53c08e36d8e3715e76",
+        "bytes": 118435
+      },
+      "rawCopy": "208-old-raw.json",
+      "requestExecution": null,
+      "legacyEvidenceBoundary": "When requestExecution absent, legacy binding+supplementalInputs+full prompt/output prove recorded source scope, not captured actual argv or remote weights. Do not infer zero image payload from missing requestExecution."
+    }
+  ],
+  "sourceData": {
+    "schema": "coach-textbook-web-article-source/1",
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1770245",
+    "url": "https://www.bilibili.com/read/cv1770245",
+    "title": "【日本麻雀讲座译文】防守9—兜牌",
+    "language": "zh-CN",
+    "fetchedAt": "2026-10-23T20:31:45.499882+00:00",
+    "html": {
+      "requestedUrl": "https://www.bilibili.com/read/cv1770245",
+      "httpStatus": 200,
+      "finalUrl": "https://www.bilibili.com/opus/202138654352288357",
+      "contentType": "text/html; charset=utf-8",
+      "fetchedAt": "2026-10-23T20:31:45.499882+00:00",
+      "encoding": "utf-8",
+      "path": "79-bilibili-cn/html/1be7dc88d10806f788711548/source.html",
+      "sha256": "c8bf234e6e35be559bde96237becf6f9a4ae4702275785c06115c265ff404df8",
+      "bytes": 98028
+    },
+    "main": {
+      "selector": ".opus-module-content",
+      "path": "79-bilibili-cn/articles/cv1770245/main.html",
+      "sha256": "e15b16037e2d285adcf5bf19dcf07473bd46916c5706811561e993d5620a2163"
+    },
+    "blocks": [
+      {
+        "id": "79-bilibili-cn:cv1770245:b0001",
+        "paragraphId": "79-bilibili-cn:cv1770245:p0001",
+        "tag": "p",
+        "domPath": "main/p[0]",
+        "tableContext": null,
+        "type": "text",
+        "text": "免责声明：",
+        "segments": [
+          {
+            "text": "免责声明：",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:b0002",
+        "paragraphId": "79-bilibili-cn:cv1770245:p0002",
+        "tag": "p",
+        "domPath": "main/p[1]",
+        "tableContext": null,
+        "type": "text",
+        "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+        "segments": [
+          {
+            "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:b0003",
+        "paragraphId": "79-bilibili-cn:cv1770245:p0003",
+        "tag": "p",
+        "domPath": "main/p[2]",
+        "tableContext": null,
+        "type": "text",
+        "text": "原文地址：http://beginners.biz/reach/mamori9.html ------------------------------------------------------------------------------------ 兜牌：  兜牌即一边扣住危险牌，一边向着和牌或者是听牌前进的打法。  一般情况下，对手立直之后：  1.自己没有听牌也要向着听牌或者和牌前进。 2.如果对日对自己不利的话。即使自己听牌也会拆掉手牌。  这样的情况就出现了“兜”这个选择了。  具体的说就是： 拆对子、拆搭子、拆暗刻、七对子4种方法。  ------------------------------------------------------------------------------------ 拆对子 ------------------------------------------------------------------------------------ 这是兜牌的常用手段， 通过一次的话，第二次也能通过。而且不会拆乱自己的手牌。  例1： ",
+        "segments": [
+          {
+            "text": "原文地址：http://beginners.biz/reach/mamori9.html",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "兜牌：",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "兜牌即一边扣住危险牌，一边向着和牌或者是听牌前进的打法。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "一般情况下，对手立直之后：",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "1.自己没有听牌也要向着听牌或者和牌前进。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "2.如果对日对自己不利的话。即使自己听牌也会拆掉手牌。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这样的情况就出现了“兜”这个选择了。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "具体的说就是：",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "拆对子、拆搭子、拆暗刻、七对子4种方法。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "拆对子",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这是兜牌的常用手段，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "通过一次的话，第二次也能通过。而且不会拆乱自己的手牌。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "例1：",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:b0004",
+        "paragraphId": "79-bilibili-cn:cv1770245:p0004",
+        "tag": "div",
+        "domPath": "main/div[3]/div[0]/div[0]/div[0]/div[0]",
+        "tableContext": null,
+        "type": "image-run",
+        "images": [
+          {
+            "occurrenceId": "79-bilibili-cn:cv1770245:i00001",
+            "assetId": "79-bilibili-cn:817b8e981a47af398e6514c6",
+            "sourceUrls": [
+              "https://i0.hdslb.com/bfs/article/47872f40ac4f9732d5a6150f9749e0475c6cfa81.png",
+              "https://i0.hdslb.com/bfs/article/47872f40ac4f9732d5a6150f9749e0475c6cfa81.png@892w_930h"
+            ],
+            "alt": "",
+            "title": "",
+            "width": null,
+            "height": null,
+            "tileHint": null
+          }
+        ]
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:b0005",
+        "paragraphId": "79-bilibili-cn:cv1770245:p0005",
+        "tag": "p",
+        "domPath": "main/p[4]",
+        "tableContext": null,
+        "type": "text",
+        "text": "比如这样的例子，这是一个很能体现兜牌效果的例子。 弃和去切掉4饼和6索实在是太可惜了。 一发打3饼确实有点危险。 这里切掉已经打出1张的發是好手， 能够做成门断平宝牌1追立的话是很理想的。  ------------------------------------------------------------------------------------ 拆搭子 ------------------------------------------------------------------------------------ 我们再来看具体的例子吧。  ",
+        "segments": [
+          {
+            "text": "比如这样的例子，这是一个很能体现兜牌效果的例子。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "弃和去切掉4饼和6索实在是太可惜了。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "一发打3饼确实有点危险。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这里切掉已经打出1张的發是好手，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "能够做成门断平宝牌1追立的话是很理想的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "拆搭子",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "我们再来看具体的例子吧。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:b0006",
+        "paragraphId": "79-bilibili-cn:cv1770245:p0006",
+        "tag": "div",
+        "domPath": "main/div[5]/div[0]/div[0]/div[0]/div[0]",
+        "tableContext": null,
+        "type": "image-run",
+        "images": [
+          {
+            "occurrenceId": "79-bilibili-cn:cv1770245:i00002",
+            "assetId": "79-bilibili-cn:f2c7f3ccf7f35415307dc376",
+            "sourceUrls": [
+              "https://i0.hdslb.com/bfs/article/bbc04f96098c0956a063df9cfb48952195410454.png",
+              "https://i0.hdslb.com/bfs/article/bbc04f96098c0956a063df9cfb48952195410454.png@864w"
+            ],
+            "alt": "",
+            "title": "",
+            "width": null,
+            "height": null,
+            "tileHint": null
+          }
+        ]
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:b0007",
+        "paragraphId": "79-bilibili-cn:cv1770245:p0007",
+        "tag": "p",
+        "domPath": "main/p[6]",
+        "tableContext": null,
+        "type": "text",
+        "text": "要是没有人立直的话应该拆掉24饼的搭子。（全攻的时候就该这么打） 兜牌的话，这里应该切掉2万。神进张摸到3饼的话就立直。  一向听的话，摸到5饼什么的，可以可以考虑切掉筋牌的3万。  同样是兜牌，这里打4索就是恶手。 不仅宝牌是2索，作为胜负牌的3索是非常危险的。  要拆掉搭子兜牌的话，就需要保证两张牌的安全。  上面虽然这么说，不过切掉2万之后摸到危险牌的话，拿还是快快弃和为上。  ------------------------------------------------------------------------------------ 拆暗刻 ------------------------------------------------------------------------------------ 拆掉3张安全牌的暗刻时，也还是可以让手牌有所进展的。 在这三巡里能够通过的牌增加的话，偶尔还是可以向和牌前进的。  ",
+        "segments": [
+          {
+            "text": "要是没有人立直的话应该拆掉24饼的搭子。（全攻的时候就该这么打）",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "兜牌的话，这里应该切掉2万。神进张摸到3饼的话就立直。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "一向听的话，摸到5饼什么的，可以可以考虑切掉筋牌的3万。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "同样是兜牌，这里打4索就是恶手。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "不仅宝牌是2索，作为胜负牌的3索是非常危险的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "要拆掉搭子兜牌的话，就需要保证两张牌的安全。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "上面虽然这么说，不过切掉2万之后摸到危险牌的话，拿还是快快弃和为上。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "拆暗刻",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "拆掉3张安全牌的暗刻时，也还是可以让手牌有所进展的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "在这三巡里能够通过的牌增加的话，偶尔还是可以向和牌前进的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:b0008",
+        "paragraphId": "79-bilibili-cn:cv1770245:p0008",
+        "tag": "div",
+        "domPath": "main/div[7]/div[0]/div[0]/div[0]/div[0]",
+        "tableContext": null,
+        "type": "image-run",
+        "images": [
+          {
+            "occurrenceId": "79-bilibili-cn:cv1770245:i00003",
+            "assetId": "79-bilibili-cn:6dc405a54355faff064f81a4",
+            "sourceUrls": [
+              "https://i0.hdslb.com/bfs/article/df058b06018a259dee519cdeb012abddcc613213.png",
+              "https://i0.hdslb.com/bfs/article/df058b06018a259dee519cdeb012abddcc613213.png@1020w_222h"
+            ],
+            "alt": "",
+            "title": "",
+            "width": null,
+            "height": null,
+            "tileHint": null
+          }
+        ]
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:b0009",
+        "paragraphId": "79-bilibili-cn:cv1770245:p0009",
+        "tag": "p",
+        "domPath": "main/p[8]",
+        "tableContext": null,
+        "type": "text",
+        "text": "比如这样的手牌，拆掉西的暗刻。 偶尔最后还是能以食断和牌的。  ------------------------------------------------------------------------------------ 七对子 ------------------------------------------------------------------------------------  这是一个缺少确实性的方法，大家有没有面对立直弃和的时候，不知什么时候手牌居然七对子听牌了呢？  比如役牌是宝牌，用不上的牌却又打不出去，同时自己有非向着听牌前进不可的时候。那就只能霸王硬上弓强凹单骑听牌了。  这个时候七对子是可以放手一搏的方法。  ------------------------------------------------------------------------------------ 兜牌需要注意的地方 ------------------------------------------------------------------------------------  兜牌是应该在“能兜牌”的情况下使用的。 本来有和牌希望的牌也应该弃和；有些苦逼的牌也必须放手一搏。 这些都要根据自己的点数情况来进行判断。  “能兜牌”的状况是不确定的。  不要忘了防守的基本是“弃和”。     （待续）",
+        "segments": [
+          {
+            "text": "比如这样的手牌，拆掉西的暗刻。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "偶尔最后还是能以食断和牌的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "七对子",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这是一个缺少确实性的方法，大家有没有面对立直弃和的时候，不知什么时候手牌居然七对子听牌了呢？",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "比如役牌是宝牌，用不上的牌却又打不出去，同时自己有非向着听牌前进不可的时候。那就只能霸王硬上弓强凹单骑听牌了。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这个时候七对子是可以放手一搏的方法。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "兜牌需要注意的地方",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "兜牌是应该在“能兜牌”的情况下使用的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "本来有和牌希望的牌也应该弃和；有些苦逼的牌也必须放手一搏。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这些都要根据自己的点数情况来进行判断。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "“能兜牌”的状况是不确定的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "不要忘了防守的基本是“弃和”。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "（待续）",
+            "marks": [],
+            "href": null
+          }
+        ]
+      }
+    ],
+    "paragraphs": [
+      {
+        "id": "79-bilibili-cn:cv1770245:p0001",
+        "tag": "p",
+        "domPath": "main/p[0]",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0001"
+        ],
+        "tableContext": null
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:p0002",
+        "tag": "p",
+        "domPath": "main/p[1]",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0002"
+        ],
+        "tableContext": null
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:p0003",
+        "tag": "p",
+        "domPath": "main/p[2]",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0003"
+        ],
+        "tableContext": null
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:p0004",
+        "tag": "div",
+        "domPath": "main/div[3]/div[0]/div[0]/div[0]/div[0]",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0004"
+        ],
+        "tableContext": null
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:p0005",
+        "tag": "p",
+        "domPath": "main/p[4]",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0005"
+        ],
+        "tableContext": null
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:p0006",
+        "tag": "div",
+        "domPath": "main/div[5]/div[0]/div[0]/div[0]/div[0]",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0006"
+        ],
+        "tableContext": null
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:p0007",
+        "tag": "p",
+        "domPath": "main/p[6]",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0007"
+        ],
+        "tableContext": null
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:p0008",
+        "tag": "div",
+        "domPath": "main/div[7]/div[0]/div[0]/div[0]/div[0]",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0008"
+        ],
+        "tableContext": null
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:p0009",
+        "tag": "p",
+        "domPath": "main/p[8]",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0009"
+        ],
+        "tableContext": null
+      }
+    ],
+    "assets": [
+      {
+        "assetId": "79-bilibili-cn:817b8e981a47af398e6514c6",
+        "status": "downloaded",
+        "url": "https://i0.hdslb.com/bfs/article/47872f40ac4f9732d5a6150f9749e0475c6cfa81.png",
+        "finalUrl": "https://i0.hdslb.com/bfs/article/47872f40ac4f9732d5a6150f9749e0475c6cfa81.png",
+        "fetchedAt": "2026-10-23T20:31:45.910970+00:00",
+        "httpStatus": 200,
+        "contentType": "image/png",
+        "bytes": 56822,
+        "sha256": "ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b",
+        "path": "79-bilibili-cn/assets/ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b.png"
+      },
+      {
+        "assetId": "79-bilibili-cn:f2c7f3ccf7f35415307dc376",
+        "status": "downloaded",
+        "url": "https://i0.hdslb.com/bfs/article/bbc04f96098c0956a063df9cfb48952195410454.png",
+        "finalUrl": "https://i0.hdslb.com/bfs/article/bbc04f96098c0956a063df9cfb48952195410454.png",
+        "fetchedAt": "2026-10-23T20:31:46.106772+00:00",
+        "httpStatus": 200,
+        "contentType": "image/png",
+        "bytes": 56712,
+        "sha256": "fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985",
+        "path": "79-bilibili-cn/assets/fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.png"
+      },
+      {
+        "assetId": "79-bilibili-cn:6dc405a54355faff064f81a4",
+        "status": "downloaded",
+        "url": "https://i0.hdslb.com/bfs/article/df058b06018a259dee519cdeb012abddcc613213.png",
+        "finalUrl": "https://i0.hdslb.com/bfs/article/df058b06018a259dee519cdeb012abddcc613213.png",
+        "fetchedAt": "2026-10-23T20:31:46.370330+00:00",
+        "httpStatus": 200,
+        "contentType": "image/png",
+        "bytes": 7284,
+        "sha256": "14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa",
+        "path": "79-bilibili-cn/assets/14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa.png"
+      }
+    ],
+    "links": [],
+    "originalReferenceLinks": [
+      {
+        "visibleText": "http://beginners.biz/reach/mamori9.html",
+        "href": null,
+        "evidence": "visible-body-text"
+      }
+    ],
+    "ignoredPlaceholders": [],
+    "attributionNote": "Original source attribution, translator disclaimers and reference visible text are preserved in the body. Link href and visible URL are recorded separately, never treated as equivalent without review.",
+    "status": "captured-not-translated-or-audited",
+    "extractorSha256": "a871cf3765d340535ba6c8401a6d58d1c5391d4c1da6ad53e0ac96be2da7cbea",
+    "sourceSha256": "70e21e5212185ce20fb476ce55a98ff083a1f3918c94e786b572d12fc62fe253"
+  },
+  "candidateData": {
+    "schema": "coach-textbook-web-article-draft/1",
+    "status": "draft",
+    "productionStatus": "draft-awaiting-independent-web-review",
+    "source": {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1770245",
+      "url": "https://www.bilibili.com/read/cv1770245",
+      "title": "【日本麻雀讲座译文】防守9—兜牌",
+      "language": "zh-CN",
+      "fetchedAt": "2026-10-23T20:31:45.499882+00:00",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1770245/source.json",
+      "sourceSha256": "0d6849d5bb4cb250ce9070a883fa072f9025c8411563b9f74fe9fd9d616fa17c",
+      "htmlSha256": "c8bf234e6e35be559bde96237becf6f9a4ae4702275785c06115c265ff404df8",
+      "mainSha256": "e15b16037e2d285adcf5bf19dcf07473bd46916c5706811561e993d5620a2163"
+    },
+    "body": {
+      "language": "zh-CN",
+      "mode": "verbatim",
+      "flowOrder": "source-dom-order",
+      "blocks": [
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1770245:b0001"
+          ],
+          "sourceText": "免责声明：",
+          "text": "免责声明：",
+          "paragraphId": "79-bilibili-cn:cv1770245:p0001",
+          "sourceSegments": [
+            {
+              "text": "免责声明：",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1770245:b0002"
+          ],
+          "sourceText": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+          "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+          "paragraphId": "79-bilibili-cn:cv1770245:p0002",
+          "sourceSegments": [
+            {
+              "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1770245:b0003"
+          ],
+          "sourceText": "原文地址：http://beginners.biz/reach/mamori9.html ------------------------------------------------------------------------------------ 兜牌：  兜牌即一边扣住危险牌，一边向着和牌或者是听牌前进的打法。  一般情况下，对手立直之后：  1.自己没有听牌也要向着听牌或者和牌前进。 2.如果对日对自己不利的话。即使自己听牌也会拆掉手牌。  这样的情况就出现了“兜”这个选择了。  具体的说就是： 拆对子、拆搭子、拆暗刻、七对子4种方法。  ------------------------------------------------------------------------------------ 拆对子 ------------------------------------------------------------------------------------ 这是兜牌的常用手段， 通过一次的话，第二次也能通过。而且不会拆乱自己的手牌。  例1： ",
+          "text": "原文地址：http://beginners.biz/reach/mamori9.html ------------------------------------------------------------------------------------ 兜牌：  兜牌即一边扣住危险牌，一边向着和牌或者是听牌前进的打法。  一般情况下，对手立直之后：  1.自己没有听牌也要向着听牌或者和牌前进。 2.如果对日对自己不利的话。即使自己听牌也会拆掉手牌。  这样的情况就出现了“兜”这个选择了。  具体的说就是： 拆对子、拆搭子、拆暗刻、七对子4种方法。  ------------------------------------------------------------------------------------ 拆对子 ------------------------------------------------------------------------------------ 这是兜牌的常用手段， 通过一次的话，第二次也能通过。而且不会拆乱自己的手牌。  例1： ",
+          "paragraphId": "79-bilibili-cn:cv1770245:p0003",
+          "sourceSegments": [
+            {
+              "text": "原文地址：http://beginners.biz/reach/mamori9.html",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "兜牌：",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "兜牌即一边扣住危险牌，一边向着和牌或者是听牌前进的打法。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "一般情况下，对手立直之后：",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "1.自己没有听牌也要向着听牌或者和牌前进。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "2.如果对日对自己不利的话。即使自己听牌也会拆掉手牌。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "这样的情况就出现了“兜”这个选择了。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "具体的说就是：",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "拆对子、拆搭子、拆暗刻、七对子4种方法。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "拆对子",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "这是兜牌的常用手段，",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "通过一次的话，第二次也能通过。而且不会拆乱自己的手牌。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "例1：",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "figure",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1770245:b0004"
+          ],
+          "figureId": "79-bilibili-cn:cv1770245:b0004:figure",
+          "paragraphId": "79-bilibili-cn:cv1770245:p0004",
+          "tableContext": null
+        },
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1770245:b0005"
+          ],
+          "sourceText": "比如这样的例子，这是一个很能体现兜牌效果的例子。 弃和去切掉4饼和6索实在是太可惜了。 一发打3饼确实有点危险。 这里切掉已经打出1张的發是好手， 能够做成门断平宝牌1追立的话是很理想的。  ------------------------------------------------------------------------------------ 拆搭子 ------------------------------------------------------------------------------------ 我们再来看具体的例子吧。  ",
+          "text": "比如这样的例子，这是一个很能体现兜牌效果的例子。 弃和去切掉4饼和6索实在是太可惜了。 一发打3饼确实有点危险。 这里切掉已经打出1张的發是好手， 能够做成门断平宝牌1追立的话是很理想的。  ------------------------------------------------------------------------------------ 拆搭子 ------------------------------------------------------------------------------------ 我们再来看具体的例子吧。  ",
+          "paragraphId": "79-bilibili-cn:cv1770245:p0005",
+          "sourceSegments": [
+            {
+              "text": "比如这样的例子，这是一个很能体现兜牌效果的例子。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "弃和去切掉4饼和6索实在是太可惜了。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "一发打3饼确实有点危险。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "这里切掉已经打出1张的發是好手，",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "能够做成门断平宝牌1追立的话是很理想的。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "拆搭子",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "我们再来看具体的例子吧。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "figure",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1770245:b0006"
+          ],
+          "figureId": "79-bilibili-cn:cv1770245:b0006:figure",
+          "paragraphId": "79-bilibili-cn:cv1770245:p0006",
+          "tableContext": null
+        },
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1770245:b0007"
+          ],
+          "sourceText": "要是没有人立直的话应该拆掉24饼的搭子。（全攻的时候就该这么打） 兜牌的话，这里应该切掉2万。神进张摸到3饼的话就立直。  一向听的话，摸到5饼什么的，可以可以考虑切掉筋牌的3万。  同样是兜牌，这里打4索就是恶手。 不仅宝牌是2索，作为胜负牌的3索是非常危险的。  要拆掉搭子兜牌的话，就需要保证两张牌的安全。  上面虽然这么说，不过切掉2万之后摸到危险牌的话，拿还是快快弃和为上。  ------------------------------------------------------------------------------------ 拆暗刻 ------------------------------------------------------------------------------------ 拆掉3张安全牌的暗刻时，也还是可以让手牌有所进展的。 在这三巡里能够通过的牌增加的话，偶尔还是可以向和牌前进的。  ",
+          "text": "要是没有人立直的话应该拆掉24饼的搭子。（全攻的时候就该这么打） 兜牌的话，这里应该切掉2万。神进张摸到3饼的话就立直。  一向听的话，摸到5饼什么的，可以可以考虑切掉筋牌的3万。  同样是兜牌，这里打4索就是恶手。 不仅宝牌是2索，作为胜负牌的3索是非常危险的。  要拆掉搭子兜牌的话，就需要保证两张牌的安全。  上面虽然这么说，不过切掉2万之后摸到危险牌的话，拿还是快快弃和为上。  ------------------------------------------------------------------------------------ 拆暗刻 ------------------------------------------------------------------------------------ 拆掉3张安全牌的暗刻时，也还是可以让手牌有所进展的。 在这三巡里能够通过的牌增加的话，偶尔还是可以向和牌前进的。  ",
+          "paragraphId": "79-bilibili-cn:cv1770245:p0007",
+          "sourceSegments": [
+            {
+              "text": "要是没有人立直的话应该拆掉24饼的搭子。（全攻的时候就该这么打）",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "兜牌的话，这里应该切掉2万。神进张摸到3饼的话就立直。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "一向听的话，摸到5饼什么的，可以可以考虑切掉筋牌的3万。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "同样是兜牌，这里打4索就是恶手。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "不仅宝牌是2索，作为胜负牌的3索是非常危险的。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "要拆掉搭子兜牌的话，就需要保证两张牌的安全。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "上面虽然这么说，不过切掉2万之后摸到危险牌的话，拿还是快快弃和为上。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "拆暗刻",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "拆掉3张安全牌的暗刻时，也还是可以让手牌有所进展的。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "在这三巡里能够通过的牌增加的话，偶尔还是可以向和牌前进的。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "figure",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1770245:b0008"
+          ],
+          "figureId": "79-bilibili-cn:cv1770245:b0008:figure",
+          "paragraphId": "79-bilibili-cn:cv1770245:p0008",
+          "tableContext": null
+        },
+        {
+          "type": "text",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1770245:b0009"
+          ],
+          "sourceText": "比如这样的手牌，拆掉西的暗刻。 偶尔最后还是能以食断和牌的。  ------------------------------------------------------------------------------------ 七对子 ------------------------------------------------------------------------------------  这是一个缺少确实性的方法，大家有没有面对立直弃和的时候，不知什么时候手牌居然七对子听牌了呢？  比如役牌是宝牌，用不上的牌却又打不出去，同时自己有非向着听牌前进不可的时候。那就只能霸王硬上弓强凹单骑听牌了。  这个时候七对子是可以放手一搏的方法。  ------------------------------------------------------------------------------------ 兜牌需要注意的地方 ------------------------------------------------------------------------------------  兜牌是应该在“能兜牌”的情况下使用的。 本来有和牌希望的牌也应该弃和；有些苦逼的牌也必须放手一搏。 这些都要根据自己的点数情况来进行判断。  “能兜牌”的状况是不确定的。  不要忘了防守的基本是“弃和”。     （待续）",
+          "text": "比如这样的手牌，拆掉西的暗刻。 偶尔最后还是能以食断和牌的。  ------------------------------------------------------------------------------------ 七对子 ------------------------------------------------------------------------------------  这是一个缺少确实性的方法，大家有没有面对立直弃和的时候，不知什么时候手牌居然七对子听牌了呢？  比如役牌是宝牌，用不上的牌却又打不出去，同时自己有非向着听牌前进不可的时候。那就只能霸王硬上弓强凹单骑听牌了。  这个时候七对子是可以放手一搏的方法。  ------------------------------------------------------------------------------------ 兜牌需要注意的地方 ------------------------------------------------------------------------------------  兜牌是应该在“能兜牌”的情况下使用的。 本来有和牌希望的牌也应该弃和；有些苦逼的牌也必须放手一搏。 这些都要根据自己的点数情况来进行判断。  “能兜牌”的状况是不确定的。  不要忘了防守的基本是“弃和”。     （待续）",
+          "paragraphId": "79-bilibili-cn:cv1770245:p0009",
+          "sourceSegments": [
+            {
+              "text": "比如这样的手牌，拆掉西的暗刻。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "偶尔最后还是能以食断和牌的。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "七对子",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "这是一个缺少确实性的方法，大家有没有面对立直弃和的时候，不知什么时候手牌居然七对子听牌了呢？",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "比如役牌是宝牌，用不上的牌却又打不出去，同时自己有非向着听牌前进不可的时候。那就只能霸王硬上弓强凹单骑听牌了。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "这个时候七对子是可以放手一搏的方法。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "兜牌需要注意的地方",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "兜牌是应该在“能兜牌”的情况下使用的。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "本来有和牌希望的牌也应该弃和；有些苦逼的牌也必须放手一搏。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "这些都要根据自己的点数情况来进行判断。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "“能兜牌”的状况是不确定的。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "不要忘了防守的基本是“弃和”。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "（待续）",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    },
+    "figures": [
+      {
+        "figureId": "79-bilibili-cn:cv1770245:b0004:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0004"
+        ],
+        "sourceOccurrenceIds": [
+          "79-bilibili-cn:cv1770245:i00001"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "79-bilibili-cn:817b8e981a47af398e6514c6",
+            "path": "web-sources/v1/79-bilibili-cn/assets/ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b.png",
+            "sha256": "ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b",
+            "url": "https://i0.hdslb.com/bfs/article/47872f40ac4f9732d5a6150f9749e0475c6cfa81.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "中央文字：东3局0本场；立直棒1根；“宝牌”右侧为2p。中央左侧竖放一根立直棒。中央四角风位：左上北（4z）、右上西（3z）、左下东（1z）、右下南（2z）。\n点数标记按画面位置：左上+7700，右上+2000，右下△7700，左下△2000。\n下方手牌从左至右：6m 7m 7m 2p 3p 3p 4p 5p 6p 6s 7s 6z 6z；右侧分隔的摸入牌：8s。\n下方牌河：第一排从画面左至右为1s 3z 1s 1m 4s 2s；第二排在第一排最左侧1s下方为1z。牌面均朝向下方玩家。\n左方牌河：靠中央的一列从画面上至下为1p 9s 2s 7z 8p 4p，牌面相对画面顺时针旋转90度；第二列在最上方1p左侧为6s，此牌相对该玩家正常弃牌横置，是立直宣言牌，在画面中呈竖向。\n上方牌河：第一排从画面左至右为［万子点数未辨明］9m 2z 2z 1s 5z；第二排在第一排最右侧5z上方为9p。牌面均相对画面倒置。\n右方牌河：靠中央的一列从画面上至下为7z 2m 1m 2z 3z 6z；第二列在最下方6z右侧为1z。牌面相对画面逆时针旋转90度。\n上方、左方、右方各显示13张背面朝向画面的暗手牌。",
+        "unknowns": [
+          "上方牌河第一排从画面左数第1张：可辨为万子，但倒置的点数未能可靠辨明。"
+        ],
+        "caption": "拆对子兜牌的局面示例。",
+        "sourceNotes": [
+          "附件1为原图，附件2为同一原图的2倍最近邻放大图，只计一次牌图。",
+          "牌河按画面位置逐排、逐列记录；横置牌另行注明。"
+        ],
+        "provenance": {
+          "method": "model-transcription",
+          "callId": "82da438b-0e5d-45d7-b91c-ad2d0c2353df",
+          "outputSourceBlockId": "79-bilibili-cn:cv1770245:b0004"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/79-bilibili-cn/cv1770245/b6d53d26f2a3ce9f/figure-0001.png",
+          "sha256": "dfddfb73dc520b2aa4229a2694440538020971d181a03da0c4c29f5e9e0887bf",
+          "width": 446,
+          "height": 465,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "79-bilibili-cn:817b8e981a47af398e6514c6",
+                "path": "web-sources/v1/79-bilibili-cn/assets/ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b.png",
+                "sha256": "ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b",
+                "url": "https://i0.hdslb.com/bfs/article/47872f40ac4f9732d5a6150f9749e0475c6cfa81.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1770245:b0006:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0006"
+        ],
+        "sourceOccurrenceIds": [
+          "79-bilibili-cn:cv1770245:i00002"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "79-bilibili-cn:f2c7f3ccf7f35415307dc376",
+            "path": "web-sources/v1/79-bilibili-cn/assets/fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.png",
+            "sha256": "fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985",
+            "url": "https://i0.hdslb.com/bfs/article/bbc04f96098c0956a063df9cfb48952195410454.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "中央文字：东2局0本场；立直棒1根；“宝牌”右侧为2s。中央上侧横放一根立直棒。中央四角风位：左上东（1z）、右上北（4z）、左下南（2z）、右下西（3z）。\n点数标记按画面位置：左上+3900，右上△3900，右下原点，左下原点。\n下方手牌从左至右：2m 3m 7m 7m 8m 8m 2p 4p 6p 7p 8p 3s 4s；右侧分隔的摸入牌：8m。\n下方牌河：第一排从画面左至右为3z 7z 5z 2z 1p 9s；第二排在第一排最左侧3z下方为7s。牌面均朝向下方玩家。\n左方牌河：靠中央的一列从画面上至下为4z ［万子点数未辨明A］6z 1z ［万子点数未辨明B］5z；第二列在最上方4z左侧为2p，在其下方为3z。牌面相对画面顺时针旋转90度。\n上方牌河：第一排从画面左至右为6m 2m 8p 5z 6z 2m，牌面均相对画面倒置；第二排在第一排最右侧2m上方为4s，此牌相对该玩家正常弃牌横置，是立直宣言牌，在画面中呈横向。\n右方牌河：靠中央的一列从画面上至下为1s 8m 1m 1z 7z 2z；第二列在最下方2z右侧为［万子点数未辨明C］。牌面相对画面逆时针旋转90度。\n上方、左方、右方各显示13张背面朝向画面的暗手牌。",
+        "unknowns": [
+          "万子点数未辨明A：左方牌河靠中央一列从画面上数第2张，可辨为万子，点数未能可靠辨明。",
+          "万子点数未辨明B：左方牌河靠中央一列从画面上数第5张，可辨为万子，点数未能可靠辨明。",
+          "万子点数未辨明C：右方牌河第二列、最下方2z右侧的一张，可辨为万子，点数未能可靠辨明。"
+        ],
+        "caption": "拆搭子兜牌的局面示例。",
+        "sourceNotes": [
+          "附件3为原图，附件4为同一原图的2倍最近邻放大图，只计一次牌图。",
+          "牌河按画面位置逐排、逐列记录；横置牌另行注明。"
+        ],
+        "provenance": {
+          "method": "model-transcription",
+          "callId": "82da438b-0e5d-45d7-b91c-ad2d0c2353df",
+          "outputSourceBlockId": "79-bilibili-cn:cv1770245:b0006"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/79-bilibili-cn/cv1770245/b6d53d26f2a3ce9f/figure-0002.png",
+          "sha256": "c61725589c6e62616200bbe4bd53854dd9acfdee60197c817ef95fb2485af657",
+          "width": 432,
+          "height": 461,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "79-bilibili-cn:f2c7f3ccf7f35415307dc376",
+                "path": "web-sources/v1/79-bilibili-cn/assets/fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.png",
+                "sha256": "fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985",
+                "url": "https://i0.hdslb.com/bfs/article/bbc04f96098c0956a063df9cfb48952195410454.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1770245:b0008:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0008"
+        ],
+        "sourceOccurrenceIds": [
+          "79-bilibili-cn:cv1770245:i00003"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "79-bilibili-cn:6dc405a54355faff064f81a4",
+            "path": "web-sources/v1/79-bilibili-cn/assets/14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa.png",
+            "sha256": "14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa",
+            "url": "https://i0.hdslb.com/bfs/article/df058b06018a259dee519cdeb012abddcc613213.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "上排左侧标签“立直”；其右侧弃牌从左至右为：1p 5z 7z 6z 4z 4p 7z 7p 5s 2m。最后一张2m横置，其余牌竖向排列。\n下排左侧标签“手牌”；其右侧手牌从左至右为：3m 7m 5p 6p 2s 4s 4s 5s 6s 7s 3z 3z 3z。\n手牌右侧标签“摸入”，其右侧为3s。\n最右侧标签“宝牌”，其右侧为6m。",
+        "unknowns": [],
+        "caption": "拆西风暗刻兜牌的手牌示例。",
+        "sourceNotes": [
+          "附件5为原图，附件6为同一原图的4倍最近邻放大图，只计一次牌图。",
+          "普通牌面中的红色花纹按原有牌种编码，不作为红宝牌。"
+        ],
+        "provenance": {
+          "method": "model-transcription",
+          "callId": "82da438b-0e5d-45d7-b91c-ad2d0c2353df",
+          "outputSourceBlockId": "79-bilibili-cn:cv1770245:b0008"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/79-bilibili-cn/cv1770245/b6d53d26f2a3ce9f/figure-0003.png",
+          "sha256": "8e6f1e00f3c26b5dd772cda987f7cc6ff9528ac41fca3fcea9695590bcc2447f",
+          "width": 510,
+          "height": 111,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "79-bilibili-cn:6dc405a54355faff064f81a4",
+                "path": "web-sources/v1/79-bilibili-cn/assets/14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa.png",
+                "sha256": "14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa",
+                "url": "https://i0.hdslb.com/bfs/article/df058b06018a259dee519cdeb012abddcc613213.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    ],
+    "provenance": {
+      "sourceVersion": "web-sources/v1",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "artifactRoot": "web-production/v1",
+      "attempts": [
+        {
+          "callId": "82da438b-0e5d-45d7-b91c-ad2d0c2353df",
+          "sourceId": "79-bilibili-cn",
+          "articleId": "cv1770245",
+          "sourceSha256": "0d6849d5bb4cb250ce9070a883fa072f9025c8411563b9f74fe9fd9d616fa17c",
+          "model": "gpt-6.1-sol",
+          "reasoningEffort": "high",
+          "timeoutMs": 900000,
+          "startedAt": "2026-10-25T18:04:48.926Z",
+          "durationMs": 573494,
+          "usage": {
+            "inputTokens": 19047,
+            "cachedInputTokens": 0,
+            "outputTokens": 16727
+          },
+          "success": true,
+          "failureClass": null,
+          "transportStatus": "completed",
+          "rawArtifactPath": "raw-calls/82da438b-0e5d-45d7-b91c-ad2d0c2353df.json",
+          "rawArtifactSha256": "986a54bf7088430cea5f21b8ee435f3f4b5e66f2da2bcaf34bd5581fc495f729",
+          "outputSha256": "3257c99fe6eded8b5559a371d839677e6942787d00ac83b411c0b65124697bea",
+          "schemaSha256": "2d8acf4e910f0b35a393e5065082a397483002d8c73cd7f104165f670369e41a",
+          "promptSha256": "f77fb0a1fc833a63a98df167e49123468c4c6f1ed2a2a9f315d9b1f1d8f391e1",
+          "semanticPromptSha256": "571e8e13c381d6ecc0cb1a0cf99f8acbafb8e99a9402212033d5bb22af29f58c",
+          "cliSnapshot": {
+            "path": "web-production/v1/runners/3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1.cli.mjs",
+            "sha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+          },
+          "targets": {
+            "textIds": [],
+            "figureIds": [
+              "79-bilibili-cn:cv1770245:b0004",
+              "79-bilibili-cn:cv1770245:b0006",
+              "79-bilibili-cn:cv1770245:b0008"
+            ]
+          },
+          "terminalEvents": [],
+          "visualInputs": [
+            {
+              "assetId": "79-bilibili-cn:817b8e981a47af398e6514c6",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b.png",
+              "sourceSha256": "ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-sources/v1/79-bilibili-cn/assets/ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b.png",
+              "sha256": "ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b",
+              "role": "original",
+              "scale": 1,
+              "resampling": "none",
+              "width": 446,
+              "height": 465
+            },
+            {
+              "assetId": "79-bilibili-cn:817b8e981a47af398e6514c6",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b.png",
+              "sourceSha256": "ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b.x2.png",
+              "sha256": "42c668c01e53f2d106ca13d9f7e375d1405f1122a1a74f5fb8ae779abc738d97",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 2,
+              "resampling": "nearest",
+              "width": 892,
+              "height": 930
+            },
+            {
+              "assetId": "79-bilibili-cn:f2c7f3ccf7f35415307dc376",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.png",
+              "sourceSha256": "fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-sources/v1/79-bilibili-cn/assets/fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.png",
+              "sha256": "fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985",
+              "role": "original",
+              "scale": 1,
+              "resampling": "none",
+              "width": 432,
+              "height": 461
+            },
+            {
+              "assetId": "79-bilibili-cn:f2c7f3ccf7f35415307dc376",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.png",
+              "sourceSha256": "fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.x2.png",
+              "sha256": "c2f57e512b2298a27e87000ceccf022804fcd5887fe2602815e18220a4f9bce6",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 2,
+              "resampling": "nearest",
+              "width": 864,
+              "height": 922
+            },
+            {
+              "assetId": "79-bilibili-cn:6dc405a54355faff064f81a4",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa.png",
+              "sourceSha256": "14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-sources/v1/79-bilibili-cn/assets/14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa.png",
+              "sha256": "14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa",
+              "role": "original",
+              "scale": 1,
+              "resampling": "none",
+              "width": 510,
+              "height": 111
+            },
+            {
+              "assetId": "79-bilibili-cn:6dc405a54355faff064f81a4",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa.png",
+              "sourceSha256": "14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa.x4.png",
+              "sha256": "d5c0442744bf00545c24524a6310ff32b398a808febf8824ce920d7fba870310",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 2040,
+              "height": 444
+            }
+          ]
+        }
+      ],
+      "usage": {
+        "inputTokens": 19047,
+        "cachedInputTokens": 0,
+        "outputTokens": 16727
+      },
+      "modelCalls": 1,
+      "reuseMap": {
+        "path": "web-production/v1/reuse-maps/4e0063413a98e82a474fd2d1e6b694234ee55a69c1db92124473a8734f336ff1.json",
+        "sha256": "4e0063413a98e82a474fd2d1e6b694234ee55a69c1db92124473a8734f336ff1"
+      },
+      "runnerSha256": "f31c255e0654af7c88f240067b886cc92f6de5aa9242eeca12292b52eee3945c",
+      "extractorSha256": "a871cf3765d340535ba6c8401a6d58d1c5391d4c1da6ad53e0ac96be2da7cbea",
+      "attribution": "Original author, translator and reposter references remain in the bound source HTML; existing Chinese source body is verbatim.",
+      "derivedFromCandidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1770245.json",
+        "sha256": "b6d53d26f2a3ce9fd9bd2b8a8132d93877856628554ff4e9b9c20d0870df3be7",
+        "reason": "Lossless display images only; translations and source figure sequences unchanged"
+      },
+      "presentationRendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    "candidateSha256": "7c5c3833e0a52353fb1987c17ce41cf7cddede61e1453fd448411157cc042f09"
+  },
+  "oldModelReview": {
+    "blockChecks": [
+      {
+        "id": "79-bilibili-cn:cv1770245:b0001",
+        "verdict": "faithful",
+        "evidence": "“免责声明：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:b0002",
+        "verdict": "faithful",
+        "evidence": "版权声明、译者SeventhTG（XD）及转载署名要求均与原文一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:b0003",
+        "verdict": "faithful",
+        "evidence": "原文地址、兜牌定义、两项适用情况、四种方法、拆对子说明及“例1”均完整保留，未改写中文原文。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:b0004",
+        "verdict": "uncertain",
+        "evidence": "对应牌桌已呈现，但转录将上方牌河第一排从画面左数第1张记为“万子点数未辨明”，该明牌的确定牌码尚未覆盖。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:b0005",
+        "verdict": "faithful",
+        "evidence": "4饼、6索、3饼、已出1张的發及门断平宝牌1追立的条件和判断均原样保留，拆搭子标题和引入语完整。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:b0006",
+        "verdict": "uncertain",
+        "evidence": "对应牌桌已呈现，但左方牌河两张万子及右方牌河一张万子仍以未辨明占位，无法确认逐牌语义完整。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:b0007",
+        "verdict": "faithful",
+        "evidence": "拆24饼、切2万、摸3饼立直、摸5饼考虑筋牌3万、4索恶手、宝牌2索及3索危险、两张牌均须安全、危险进张后弃和，以及拆暗刻的三巡说明均完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:b0008",
+        "verdict": "faithful",
+        "evidence": "立直者弃牌、13张手牌、摸入3s、宝牌6m及各日文标签的中文含义均完整转录，西风暗刻与后文对应。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:b0009",
+        "verdict": "faithful",
+        "evidence": "拆西暗刻、食断可能性、七对子的局限与适用条件、依点数判断进退、防守以弃和为基本及“待续”均与原文一致。"
+      }
+    ],
+    "figureChecks": [
+      {
+        "id": "79-bilibili-cn:cv1770245:b0004:figure",
+        "verdict": "uncertain",
+        "evidence": "东3局0本场、1根立直棒、宝牌2p、四角风位及四处点数标记相符。手牌6m 7m 7m 2p 3p 3p 4p 5p 6p 6s 7s 6z 6z，摸入8s相符；下、左、右牌河及左侧6s立直宣言牌的记录与图相符。上方牌河首张仍未辨明，其余记录为9m 2z 2z 1s 5z及下一排9p；不能将该占位视为完整逐牌转录。暗手牌背面不提供牌面信息。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:b0006:figure",
+        "verdict": "uncertain",
+        "evidence": "东2局0本场、1根立直棒、宝牌2s、四角风位及+3900、△3900、两处原点相符。手牌2m 3m 7m 7m 8m 8m 2p 4p 6p 7p 8p 3s 4s，摸入8m相符；下方牌河、上方6m 2m 8p 5z 6z 2m及横置4s立直宣言牌相符。左方第2、第5张万子和右方第二列万子仍未确定，逐牌核对不能通过。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:b0008:figure",
+        "verdict": "faithful",
+        "evidence": "上排弃牌依次为1p 5z 7z 6z 4z 4p 7z 7p 5s 2m，末张横置；手牌为3m 7m 5p 6p 2s 4s 4s 5s 6s 7s 3z 3z 3z，摸入3s，宝牌6m。立直、手牌、摸入、宝牌四项标签均已中文表达，普通牌面红色纹样未误记为赤宝牌。"
+      }
+    ],
+    "imageChecks": [
+      {
+        "id": "79-bilibili-cn:cv1770245:i00001",
+        "disposition": "represented",
+        "evidence": "对应第一张原图及第四张放大图，已在b0004对应figure中呈现；上方牌河首张的转录不确定性另列为阻断问题。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:i00002",
+        "disposition": "represented",
+        "evidence": "对应第二张原图及第五张放大图，已在b0006对应figure中呈现；三张万子的转录不确定性另列为阻断问题。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1770245:i00003",
+        "disposition": "represented",
+        "evidence": "对应第三张原图及第六张放大图，全部可见牌面、排列和教学标签均有对应转录。"
+      }
+    ],
+    "domOrder": {
+      "faithful": true,
+      "evidence": "候选依次对应b0001至b0009，三幅图分别位于拆对子例1、拆搭子引入及拆暗刻说明之后，段落与图片顺序无遗漏或重复。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "全部中文正文、署名、原文地址及三次图片出现均已覆盖；但b0004上方牌河首张和b0006三张明示万子仍使用未辨明占位，四张公开牌的确定牌码缺失，不能确认完整教学语义。隐手牌面未知属于源图未提供信息，不构成缺失。"
+    },
+    "issues": [
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1770245:b0004:figure",
+        "sourceEvidence": "原图1及放大图4：上方牌河第一排从画面左数第1张为倒置的万子明牌；候选记录为“［万子点数未辨明］”。",
+        "description": "该公开弃牌的点数未得到可靠确认，候选使用占位，无法完成整幅牌桌的逐牌语义核验。",
+        "suggestedRepair": "依据所附原图可靠确认该张万子的点数并补入转录；不能确认时保留明确不确定状态并阻断完整性通过，不猜牌。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1770245:b0006:figure",
+        "sourceEvidence": "原图2及放大图5：左方牌河靠中央一列从上数第2、第5张，以及右方牌河第二列、最下方2z右侧一张，分别被候选记为未辨明A、B、C。",
+        "description": "三张公开万子的点数未得到可靠确认，牌河仍有教学牌码缺口。",
+        "suggestedRepair": "逐张依据所附原图确认A、B、C的准确牌码后替换占位；无法可靠确认的项目继续明确标为不确定并阻断完整性通过。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1770245:b0004:figure",
+        "sourceEvidence": "visualEvidence将原图指定为附件1、对应2倍放大图指定为附件4；sourceNotes却写“附件1为原图，附件2为……放大图”。",
+        "description": "加工附件配对编号错误，不属于教材教学内容。",
+        "suggestedRepair": "将该说明中的放大图编号改为附件4。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1770245:b0006:figure",
+        "sourceEvidence": "visualEvidence将原图指定为附件2、对应2倍放大图指定为附件5；sourceNotes写为附件3和附件4。",
+        "description": "加工附件配对编号错误，不影响原图本身的教学内容。",
+        "suggestedRepair": "将说明改为附件2为原图、附件5为对应2倍放大图。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1770245:b0008:figure",
+        "sourceEvidence": "visualEvidence将原图指定为附件3、对应4倍放大图指定为附件6；sourceNotes却将原图写为附件5。",
+        "description": "原图附件编号笔误；该图教学牌码及标签完整。",
+        "suggestedRepair": "将原图编号改为附件3，保留放大图编号附件6。"
+      }
+    ],
+    "completeArticleCompared": true,
+    "summary": "已逐块核对全文及三幅图。正文忠实，第三幅图完整；前两幅图共四张明牌未辨明，语义完整性暂不通过。另有三处加工附件编号笔误。"
+  },
+  "targetFigureIds": [
+    "79-bilibili-cn:cv1770245:b0004:figure",
+    "79-bilibili-cn:cv1770245:b0006:figure"
+  ],
+  "targetFigures": [
+    {
+      "figureId": "79-bilibili-cn:cv1770245:b0004:figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1770245:b0004"
+      ],
+      "sourceOccurrenceIds": [
+        "79-bilibili-cn:cv1770245:i00001"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:817b8e981a47af398e6514c6",
+          "path": "web-sources/v1/79-bilibili-cn/assets/ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b.png",
+          "sha256": "ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b",
+          "url": "https://i0.hdslb.com/bfs/article/47872f40ac4f9732d5a6150f9749e0475c6cfa81.png"
+        }
+      ],
+      "kind": "mahjong-example",
+      "transcription": "中央文字：东3局0本场；立直棒1根；“宝牌”右侧为2p。中央左侧竖放一根立直棒。中央四角风位：左上北（4z）、右上西（3z）、左下东（1z）、右下南（2z）。\n点数标记按画面位置：左上+7700，右上+2000，右下△7700，左下△2000。\n下方手牌从左至右：6m 7m 7m 2p 3p 3p 4p 5p 6p 6s 7s 6z 6z；右侧分隔的摸入牌：8s。\n下方牌河：第一排从画面左至右为1s 3z 1s 1m 4s 2s；第二排在第一排最左侧1s下方为1z。牌面均朝向下方玩家。\n左方牌河：靠中央的一列从画面上至下为1p 9s 2s 7z 8p 4p，牌面相对画面顺时针旋转90度；第二列在最上方1p左侧为6s，此牌相对该玩家正常弃牌横置，是立直宣言牌，在画面中呈竖向。\n上方牌河：第一排从画面左至右为［万子点数未辨明］9m 2z 2z 1s 5z；第二排在第一排最右侧5z上方为9p。牌面均相对画面倒置。\n右方牌河：靠中央的一列从画面上至下为7z 2m 1m 2z 3z 6z；第二列在最下方6z右侧为1z。牌面相对画面逆时针旋转90度。\n上方、左方、右方各显示13张背面朝向画面的暗手牌。",
+      "unknowns": [
+        "上方牌河第一排从画面左数第1张：可辨为万子，但倒置的点数未能可靠辨明。"
+      ],
+      "caption": "拆对子兜牌的局面示例。",
+      "sourceNotes": [
+        "附件1为原图，附件2为同一原图的2倍最近邻放大图，只计一次牌图。",
+        "牌河按画面位置逐排、逐列记录；横置牌另行注明。"
+      ],
+      "provenance": {
+        "method": "model-transcription",
+        "callId": "82da438b-0e5d-45d7-b91c-ad2d0c2353df",
+        "outputSourceBlockId": "79-bilibili-cn:cv1770245:b0004"
+      },
+      "presentationAsset": {
+        "path": "web-production/v1/presentations/79-bilibili-cn/cv1770245/b6d53d26f2a3ce9f/figure-0001.png",
+        "sha256": "dfddfb73dc520b2aa4229a2694440538020971d181a03da0c4c29f5e9e0887bf",
+        "width": 446,
+        "height": 465,
+        "derivation": {
+          "kind": "single-source-image-rgba-to-png",
+          "alignment": "original-size",
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:817b8e981a47af398e6514c6",
+              "path": "web-sources/v1/79-bilibili-cn/assets/ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b.png",
+              "sha256": "ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b",
+              "url": "https://i0.hdslb.com/bfs/article/47872f40ac4f9732d5a6150f9749e0475c6cfa81.png"
+            }
+          ],
+          "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+        }
+      }
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1770245:b0006:figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1770245:b0006"
+      ],
+      "sourceOccurrenceIds": [
+        "79-bilibili-cn:cv1770245:i00002"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:f2c7f3ccf7f35415307dc376",
+          "path": "web-sources/v1/79-bilibili-cn/assets/fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.png",
+          "sha256": "fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985",
+          "url": "https://i0.hdslb.com/bfs/article/bbc04f96098c0956a063df9cfb48952195410454.png"
+        }
+      ],
+      "kind": "mahjong-example",
+      "transcription": "中央文字：东2局0本场；立直棒1根；“宝牌”右侧为2s。中央上侧横放一根立直棒。中央四角风位：左上东（1z）、右上北（4z）、左下南（2z）、右下西（3z）。\n点数标记按画面位置：左上+3900，右上△3900，右下原点，左下原点。\n下方手牌从左至右：2m 3m 7m 7m 8m 8m 2p 4p 6p 7p 8p 3s 4s；右侧分隔的摸入牌：8m。\n下方牌河：第一排从画面左至右为3z 7z 5z 2z 1p 9s；第二排在第一排最左侧3z下方为7s。牌面均朝向下方玩家。\n左方牌河：靠中央的一列从画面上至下为4z ［万子点数未辨明A］6z 1z ［万子点数未辨明B］5z；第二列在最上方4z左侧为2p，在其下方为3z。牌面相对画面顺时针旋转90度。\n上方牌河：第一排从画面左至右为6m 2m 8p 5z 6z 2m，牌面均相对画面倒置；第二排在第一排最右侧2m上方为4s，此牌相对该玩家正常弃牌横置，是立直宣言牌，在画面中呈横向。\n右方牌河：靠中央的一列从画面上至下为1s 8m 1m 1z 7z 2z；第二列在最下方2z右侧为［万子点数未辨明C］。牌面相对画面逆时针旋转90度。\n上方、左方、右方各显示13张背面朝向画面的暗手牌。",
+      "unknowns": [
+        "万子点数未辨明A：左方牌河靠中央一列从画面上数第2张，可辨为万子，点数未能可靠辨明。",
+        "万子点数未辨明B：左方牌河靠中央一列从画面上数第5张，可辨为万子，点数未能可靠辨明。",
+        "万子点数未辨明C：右方牌河第二列、最下方2z右侧的一张，可辨为万子，点数未能可靠辨明。"
+      ],
+      "caption": "拆搭子兜牌的局面示例。",
+      "sourceNotes": [
+        "附件3为原图，附件4为同一原图的2倍最近邻放大图，只计一次牌图。",
+        "牌河按画面位置逐排、逐列记录；横置牌另行注明。"
+      ],
+      "provenance": {
+        "method": "model-transcription",
+        "callId": "82da438b-0e5d-45d7-b91c-ad2d0c2353df",
+        "outputSourceBlockId": "79-bilibili-cn:cv1770245:b0006"
+      },
+      "presentationAsset": {
+        "path": "web-production/v1/presentations/79-bilibili-cn/cv1770245/b6d53d26f2a3ce9f/figure-0002.png",
+        "sha256": "c61725589c6e62616200bbe4bd53854dd9acfdee60197c817ef95fb2485af657",
+        "width": 432,
+        "height": 461,
+        "derivation": {
+          "kind": "single-source-image-rgba-to-png",
+          "alignment": "original-size",
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:f2c7f3ccf7f35415307dc376",
+              "path": "web-sources/v1/79-bilibili-cn/assets/fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.png",
+              "sha256": "fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985",
+              "url": "https://i0.hdslb.com/bfs/article/bbc04f96098c0956a063df9cfb48952195410454.png"
+            }
+          ],
+          "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+        }
+      }
+    }
+  ],
+  "points": [
+    {
+      "id": "upper-row1-leftmost",
+      "figureId": "79-bilibili-cn:cv1770245:b0004:figure",
+      "location": "上家牌河靠中央第一排屏幕最左万子，倒置；不要与第二排9p混淆",
+      "bbox": [
+        154,
+        101,
+        178,
+        132
+      ],
+      "neighborBBox": [
+        152,
+        73,
+        290,
+        136
+      ],
+      "derivations": [
+        {
+          "role": "target",
+          "bbox": [
+            154,
+            101,
+            178,
+            132
+          ],
+          "copy": "208-upper-row1-leftmost-target.png",
+          "sha256": "830015a1a722fe2a6479e60fdef8b52e9ebaed7f1be1cfe937df811b819122e5",
+          "rgbaSha256": "01ccf5735460e6b4ff7eabb9649afafd134b5da1682fc446ec16a9ccd2a5b3d8",
+          "nearest4": "208-upper-row1-leftmost-target-x4.png",
+          "nearest4Sha256": "a57c8f988ce3ff97a6152863d9ad303344681a71646182a1689f47786282d710",
+          "resampling": "nearest",
+          "everyPixelVerified": true
+        },
+        {
+          "role": "neighbors",
+          "bbox": [
+            152,
+            73,
+            290,
+            136
+          ],
+          "copy": "208-upper-row1-leftmost-neighbors.png",
+          "sha256": "0237dc7a9b7f925047652381e1091753a243147b62180722982f80186e14b3d6",
+          "rgbaSha256": "5ef4701ffd03d17e1224420f16997e2b30a5d233d54ccaeb7fccd566473ac36a",
+          "nearest4": "208-upper-row1-leftmost-neighbors-x4.png",
+          "nearest4Sha256": "bee0b95a91617265b4d9ba7a066401139063f241d13ea46c8f7320869b0399e5",
+          "resampling": "nearest",
+          "everyPixelVerified": true
+        }
+      ],
+      "tileReading": null
+    },
+    {
+      "id": "left-central-2",
+      "figureId": "79-bilibili-cn:cv1770245:b0006:figure",
+      "location": "左家靠中央列从上数第2张万子A",
+      "bbox": [
+        111,
+        177,
+        139,
+        201
+      ],
+      "neighborBBox": [
+        81,
+        151,
+        141,
+        296
+      ],
+      "derivations": [
+        {
+          "role": "target",
+          "bbox": [
+            111,
+            177,
+            139,
+            201
+          ],
+          "copy": "208-left-central-2-target.png",
+          "sha256": "a8f564532e07f3f37746c8a360120c3a448362b31a34b70d449f4fadd3432c1a",
+          "rgbaSha256": "f27b4bbfd8902acbee7bb18c325a4e21f08da26695af517a09e46968e16fb075",
+          "nearest4": "208-left-central-2-target-x4.png",
+          "nearest4Sha256": "eb2e249312bcdd077dbe8f6dd8f4d11d2ce3625d3ed2ec34bd2243ed3ff5493e",
+          "resampling": "nearest",
+          "everyPixelVerified": true
+        },
+        {
+          "role": "neighbors",
+          "bbox": [
+            81,
+            151,
+            141,
+            296
+          ],
+          "copy": "208-left-central-2-neighbors.png",
+          "sha256": "c52b6b1f0fbf8518520f2de2e10e6dc11c557a2f8c1f02847a258d5dd1ae31f2",
+          "rgbaSha256": "749f06c80c9268efbfc272a562c4ddd3ccc81cae18cb30d8459102a9b3546cbe",
+          "nearest4": "208-left-central-2-neighbors-x4.png",
+          "nearest4Sha256": "356511feb870d888c715687398840fc0a57e78b92390ecfdfb581dc0806fad4d",
+          "resampling": "nearest",
+          "everyPixelVerified": true
+        }
+      ],
+      "tileReading": null
+    },
+    {
+      "id": "left-central-5",
+      "figureId": "79-bilibili-cn:cv1770245:b0006:figure",
+      "location": "左家靠中央列从上数第5张万子B",
+      "bbox": [
+        111,
+        246,
+        139,
+        270
+      ],
+      "neighborBBox": [
+        81,
+        151,
+        141,
+        296
+      ],
+      "derivations": [
+        {
+          "role": "target",
+          "bbox": [
+            111,
+            246,
+            139,
+            270
+          ],
+          "copy": "208-left-central-5-target.png",
+          "sha256": "ba80363ea71405b81184a9b811965193b1e2795f29a01df405a010ad5a7fb236",
+          "rgbaSha256": "66909637a8998a738f88859ce6723bc8eede96952b76b16f836210f8aa77eafa",
+          "nearest4": "208-left-central-5-target-x4.png",
+          "nearest4Sha256": "3dd45c29d1a037674b2309e1c1aa9abb412cebbf690e67b0284c08e7b1187e9c",
+          "resampling": "nearest",
+          "everyPixelVerified": true
+        },
+        {
+          "role": "neighbors",
+          "bbox": [
+            81,
+            151,
+            141,
+            296
+          ],
+          "copy": "208-left-central-5-neighbors.png",
+          "sha256": "c52b6b1f0fbf8518520f2de2e10e6dc11c557a2f8c1f02847a258d5dd1ae31f2",
+          "rgbaSha256": "749f06c80c9268efbfc272a562c4ddd3ccc81cae18cb30d8459102a9b3546cbe",
+          "nearest4": "208-left-central-5-neighbors-x4.png",
+          "nearest4Sha256": "356511feb870d888c715687398840fc0a57e78b92390ecfdfb581dc0806fad4d",
+          "resampling": "nearest",
+          "everyPixelVerified": true
+        }
+      ],
+      "tileReading": null
+    },
+    {
+      "id": "right-outer-bottom",
+      "figureId": "79-bilibili-cn:cv1770245:b0006:figure",
+      "location": "右家第二列、最下方2z右侧万子C",
+      "bbox": [
+        326,
+        258,
+        354,
+        281
+      ],
+      "neighborBBox": [
+        295,
+        240,
+        356,
+        284
+      ],
+      "derivations": [
+        {
+          "role": "target",
+          "bbox": [
+            326,
+            258,
+            354,
+            281
+          ],
+          "copy": "208-right-outer-bottom-target.png",
+          "sha256": "d4161675d3c3b0d254822d62f4033b248fa3ecc27a27a887559dd2dc9a602a11",
+          "rgbaSha256": "e4be05d179777682fee512b3aa637858543dc920288f25ef05e7c7b1ae45094e",
+          "nearest4": "208-right-outer-bottom-target-x4.png",
+          "nearest4Sha256": "105abdfa7d9fe6997dc4d9610a079516c8bac49ba27ecee7168326e7d28dbb0c",
+          "resampling": "nearest",
+          "everyPixelVerified": true
+        },
+        {
+          "role": "neighbors",
+          "bbox": [
+            295,
+            240,
+            356,
+            284
+          ],
+          "copy": "208-right-outer-bottom-neighbors.png",
+          "sha256": "df071412384aaf0dcb54bb2eea1663cad9b0ba228b4693a912854b0555a8f76f",
+          "rgbaSha256": "a3f31bc250ac42328c12fdb9fd2dfc231f9ac774a7fb13a1ba917a61d1d14515",
+          "nearest4": "208-right-outer-bottom-neighbors-x4.png",
+          "nearest4Sha256": "de3fd6c846601c1d1b55fb9e9d993222105389a18650d0b365c2bc594c3cf1af",
+          "resampling": "nearest",
+          "everyPixelVerified": true
+        }
+      ],
+      "tileReading": null
+    }
+  ],
+  "assets": [
+    {
+      "figureId": "79-bilibili-cn:cv1770245:b0004:figure",
+      "asset": {
+        "assetId": "79-bilibili-cn:817b8e981a47af398e6514c6",
+        "path": "web-sources/v1/79-bilibili-cn/assets/ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b.png",
+        "sha256": "ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b",
+        "url": "https://i0.hdslb.com/bfs/article/47872f40ac4f9732d5a6150f9749e0475c6cfa81.png"
+      },
+      "original": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b.png",
+        "sha256": "ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b",
+        "bytes": 56822
+      },
+      "copy": "208-b0004-original.png",
+      "nativeSize": [
+        446,
+        465
+      ]
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1770245:b0006:figure",
+      "asset": {
+        "assetId": "79-bilibili-cn:f2c7f3ccf7f35415307dc376",
+        "path": "web-sources/v1/79-bilibili-cn/assets/fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.png",
+        "sha256": "fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985",
+        "url": "https://i0.hdslb.com/bfs/article/bbc04f96098c0956a063df9cfb48952195410454.png"
+      },
+      "original": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.png",
+        "sha256": "fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985",
+        "bytes": 56712
+      },
+      "copy": "208-b0006-original.png",
+      "nativeSize": [
+        432,
+        461
+      ]
+    }
+  ],
+  "orderedImages": [
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\208-b0004-original.png",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\208-upper-row1-leftmost-target-x4.png",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\208-upper-row1-leftmost-neighbors-x4.png",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\208-b0006-original.png",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\208-left-central-2-target-x4.png",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\208-left-central-2-neighbors-x4.png",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\208-left-central-5-target-x4.png",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\208-right-outer-bottom-target-x4.png",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\208-right-outer-bottom-neighbors-x4.png"
+  ],
+  "sourceContext": [
+    {
+      "id": "79-bilibili-cn:cv1770245:b0001",
+      "paragraphId": "79-bilibili-cn:cv1770245:p0001",
+      "tag": "p",
+      "domPath": "main/p[0]",
+      "tableContext": null,
+      "type": "text",
+      "text": "免责声明：",
+      "segments": [
+        {
+          "text": "免责声明：",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "79-bilibili-cn:cv1770245:b0002",
+      "paragraphId": "79-bilibili-cn:cv1770245:p0002",
+      "tag": "p",
+      "domPath": "main/p[1]",
+      "tableContext": null,
+      "type": "text",
+      "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+      "segments": [
+        {
+          "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "79-bilibili-cn:cv1770245:b0003",
+      "paragraphId": "79-bilibili-cn:cv1770245:p0003",
+      "tag": "p",
+      "domPath": "main/p[2]",
+      "tableContext": null,
+      "type": "text",
+      "text": "原文地址：http://beginners.biz/reach/mamori9.html ------------------------------------------------------------------------------------ 兜牌：  兜牌即一边扣住危险牌，一边向着和牌或者是听牌前进的打法。  一般情况下，对手立直之后：  1.自己没有听牌也要向着听牌或者和牌前进。 2.如果对日对自己不利的话。即使自己听牌也会拆掉手牌。  这样的情况就出现了“兜”这个选择了。  具体的说就是： 拆对子、拆搭子、拆暗刻、七对子4种方法。  ------------------------------------------------------------------------------------ 拆对子 ------------------------------------------------------------------------------------ 这是兜牌的常用手段， 通过一次的话，第二次也能通过。而且不会拆乱自己的手牌。  例1： ",
+      "segments": [
+        {
+          "text": "原文地址：http://beginners.biz/reach/mamori9.html",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "兜牌：",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "兜牌即一边扣住危险牌，一边向着和牌或者是听牌前进的打法。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "一般情况下，对手立直之后：",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "1.自己没有听牌也要向着听牌或者和牌前进。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "2.如果对日对自己不利的话。即使自己听牌也会拆掉手牌。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这样的情况就出现了“兜”这个选择了。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "具体的说就是：",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "拆对子、拆搭子、拆暗刻、七对子4种方法。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "拆对子",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这是兜牌的常用手段，",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "通过一次的话，第二次也能通过。而且不会拆乱自己的手牌。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "例1：",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "79-bilibili-cn:cv1770245:b0004",
+      "paragraphId": "79-bilibili-cn:cv1770245:p0004",
+      "tag": "div",
+      "domPath": "main/div[3]/div[0]/div[0]/div[0]/div[0]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "79-bilibili-cn:cv1770245:i00001",
+          "assetId": "79-bilibili-cn:817b8e981a47af398e6514c6",
+          "sourceUrls": [
+            "https://i0.hdslb.com/bfs/article/47872f40ac4f9732d5a6150f9749e0475c6cfa81.png",
+            "https://i0.hdslb.com/bfs/article/47872f40ac4f9732d5a6150f9749e0475c6cfa81.png@892w_930h"
+          ],
+          "alt": "",
+          "title": "",
+          "width": null,
+          "height": null,
+          "tileHint": null
+        }
+      ]
+    },
+    {
+      "id": "79-bilibili-cn:cv1770245:b0005",
+      "paragraphId": "79-bilibili-cn:cv1770245:p0005",
+      "tag": "p",
+      "domPath": "main/p[4]",
+      "tableContext": null,
+      "type": "text",
+      "text": "比如这样的例子，这是一个很能体现兜牌效果的例子。 弃和去切掉4饼和6索实在是太可惜了。 一发打3饼确实有点危险。 这里切掉已经打出1张的發是好手， 能够做成门断平宝牌1追立的话是很理想的。  ------------------------------------------------------------------------------------ 拆搭子 ------------------------------------------------------------------------------------ 我们再来看具体的例子吧。  ",
+      "segments": [
+        {
+          "text": "比如这样的例子，这是一个很能体现兜牌效果的例子。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "弃和去切掉4饼和6索实在是太可惜了。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "一发打3饼确实有点危险。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这里切掉已经打出1张的發是好手，",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "能够做成门断平宝牌1追立的话是很理想的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "拆搭子",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "我们再来看具体的例子吧。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "79-bilibili-cn:cv1770245:b0006",
+      "paragraphId": "79-bilibili-cn:cv1770245:p0006",
+      "tag": "div",
+      "domPath": "main/div[5]/div[0]/div[0]/div[0]/div[0]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "79-bilibili-cn:cv1770245:i00002",
+          "assetId": "79-bilibili-cn:f2c7f3ccf7f35415307dc376",
+          "sourceUrls": [
+            "https://i0.hdslb.com/bfs/article/bbc04f96098c0956a063df9cfb48952195410454.png",
+            "https://i0.hdslb.com/bfs/article/bbc04f96098c0956a063df9cfb48952195410454.png@864w"
+          ],
+          "alt": "",
+          "title": "",
+          "width": null,
+          "height": null,
+          "tileHint": null
+        }
+      ]
+    },
+    {
+      "id": "79-bilibili-cn:cv1770245:b0007",
+      "paragraphId": "79-bilibili-cn:cv1770245:p0007",
+      "tag": "p",
+      "domPath": "main/p[6]",
+      "tableContext": null,
+      "type": "text",
+      "text": "要是没有人立直的话应该拆掉24饼的搭子。（全攻的时候就该这么打） 兜牌的话，这里应该切掉2万。神进张摸到3饼的话就立直。  一向听的话，摸到5饼什么的，可以可以考虑切掉筋牌的3万。  同样是兜牌，这里打4索就是恶手。 不仅宝牌是2索，作为胜负牌的3索是非常危险的。  要拆掉搭子兜牌的话，就需要保证两张牌的安全。  上面虽然这么说，不过切掉2万之后摸到危险牌的话，拿还是快快弃和为上。  ------------------------------------------------------------------------------------ 拆暗刻 ------------------------------------------------------------------------------------ 拆掉3张安全牌的暗刻时，也还是可以让手牌有所进展的。 在这三巡里能够通过的牌增加的话，偶尔还是可以向和牌前进的。  ",
+      "segments": [
+        {
+          "text": "要是没有人立直的话应该拆掉24饼的搭子。（全攻的时候就该这么打）",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "兜牌的话，这里应该切掉2万。神进张摸到3饼的话就立直。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "一向听的话，摸到5饼什么的，可以可以考虑切掉筋牌的3万。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "同样是兜牌，这里打4索就是恶手。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "不仅宝牌是2索，作为胜负牌的3索是非常危险的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "要拆掉搭子兜牌的话，就需要保证两张牌的安全。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "上面虽然这么说，不过切掉2万之后摸到危险牌的话，拿还是快快弃和为上。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "拆暗刻",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "拆掉3张安全牌的暗刻时，也还是可以让手牌有所进展的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "在这三巡里能够通过的牌增加的话，偶尔还是可以向和牌前进的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "79-bilibili-cn:cv1770245:b0008",
+      "paragraphId": "79-bilibili-cn:cv1770245:p0008",
+      "tag": "div",
+      "domPath": "main/div[7]/div[0]/div[0]/div[0]/div[0]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "79-bilibili-cn:cv1770245:i00003",
+          "assetId": "79-bilibili-cn:6dc405a54355faff064f81a4",
+          "sourceUrls": [
+            "https://i0.hdslb.com/bfs/article/df058b06018a259dee519cdeb012abddcc613213.png",
+            "https://i0.hdslb.com/bfs/article/df058b06018a259dee519cdeb012abddcc613213.png@1020w_222h"
+          ],
+          "alt": "",
+          "title": "",
+          "width": null,
+          "height": null,
+          "tileHint": null
+        }
+      ]
+    },
+    {
+      "id": "79-bilibili-cn:cv1770245:b0009",
+      "paragraphId": "79-bilibili-cn:cv1770245:p0009",
+      "tag": "p",
+      "domPath": "main/p[8]",
+      "tableContext": null,
+      "type": "text",
+      "text": "比如这样的手牌，拆掉西的暗刻。 偶尔最后还是能以食断和牌的。  ------------------------------------------------------------------------------------ 七对子 ------------------------------------------------------------------------------------  这是一个缺少确实性的方法，大家有没有面对立直弃和的时候，不知什么时候手牌居然七对子听牌了呢？  比如役牌是宝牌，用不上的牌却又打不出去，同时自己有非向着听牌前进不可的时候。那就只能霸王硬上弓强凹单骑听牌了。  这个时候七对子是可以放手一搏的方法。  ------------------------------------------------------------------------------------ 兜牌需要注意的地方 ------------------------------------------------------------------------------------  兜牌是应该在“能兜牌”的情况下使用的。 本来有和牌希望的牌也应该弃和；有些苦逼的牌也必须放手一搏。 这些都要根据自己的点数情况来进行判断。  “能兜牌”的状况是不确定的。  不要忘了防守的基本是“弃和”。     （待续）",
+      "segments": [
+        {
+          "text": "比如这样的手牌，拆掉西的暗刻。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "偶尔最后还是能以食断和牌的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "七对子",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这是一个缺少确实性的方法，大家有没有面对立直弃和的时候，不知什么时候手牌居然七对子听牌了呢？",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "比如役牌是宝牌，用不上的牌却又打不出去，同时自己有非向着听牌前进不可的时候。那就只能霸王硬上弓强凹单骑听牌了。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这个时候七对子是可以放手一搏的方法。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "兜牌需要注意的地方",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "兜牌是应该在“能兜牌”的情况下使用的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "本来有和牌希望的牌也应该弃和；有些苦逼的牌也必须放手一搏。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这些都要根据自己的点数情况来进行判断。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "“能兜牌”的状况是不确定的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "不要忘了防守的基本是“弃和”。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "（待续）",
+          "marks": [],
+          "href": null
+        }
+      ]
+    }
+  ],
+  "candidateContext": [
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1770245:b0001"
+      ],
+      "sourceText": "免责声明：",
+      "text": "免责声明：",
+      "paragraphId": "79-bilibili-cn:cv1770245:p0001",
+      "sourceSegments": [
+        {
+          "text": "免责声明：",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    },
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1770245:b0002"
+      ],
+      "sourceText": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+      "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+      "paragraphId": "79-bilibili-cn:cv1770245:p0002",
+      "sourceSegments": [
+        {
+          "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    },
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1770245:b0003"
+      ],
+      "sourceText": "原文地址：http://beginners.biz/reach/mamori9.html ------------------------------------------------------------------------------------ 兜牌：  兜牌即一边扣住危险牌，一边向着和牌或者是听牌前进的打法。  一般情况下，对手立直之后：  1.自己没有听牌也要向着听牌或者和牌前进。 2.如果对日对自己不利的话。即使自己听牌也会拆掉手牌。  这样的情况就出现了“兜”这个选择了。  具体的说就是： 拆对子、拆搭子、拆暗刻、七对子4种方法。  ------------------------------------------------------------------------------------ 拆对子 ------------------------------------------------------------------------------------ 这是兜牌的常用手段， 通过一次的话，第二次也能通过。而且不会拆乱自己的手牌。  例1： ",
+      "text": "原文地址：http://beginners.biz/reach/mamori9.html ------------------------------------------------------------------------------------ 兜牌：  兜牌即一边扣住危险牌，一边向着和牌或者是听牌前进的打法。  一般情况下，对手立直之后：  1.自己没有听牌也要向着听牌或者和牌前进。 2.如果对日对自己不利的话。即使自己听牌也会拆掉手牌。  这样的情况就出现了“兜”这个选择了。  具体的说就是： 拆对子、拆搭子、拆暗刻、七对子4种方法。  ------------------------------------------------------------------------------------ 拆对子 ------------------------------------------------------------------------------------ 这是兜牌的常用手段， 通过一次的话，第二次也能通过。而且不会拆乱自己的手牌。  例1： ",
+      "paragraphId": "79-bilibili-cn:cv1770245:p0003",
+      "sourceSegments": [
+        {
+          "text": "原文地址：http://beginners.biz/reach/mamori9.html",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "兜牌：",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "兜牌即一边扣住危险牌，一边向着和牌或者是听牌前进的打法。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "一般情况下，对手立直之后：",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "1.自己没有听牌也要向着听牌或者和牌前进。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "2.如果对日对自己不利的话。即使自己听牌也会拆掉手牌。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这样的情况就出现了“兜”这个选择了。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "具体的说就是：",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "拆对子、拆搭子、拆暗刻、七对子4种方法。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "拆对子",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这是兜牌的常用手段，",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "通过一次的话，第二次也能通过。而且不会拆乱自己的手牌。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "例1：",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    },
+    {
+      "type": "figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1770245:b0004"
+      ],
+      "figureId": "79-bilibili-cn:cv1770245:b0004:figure",
+      "paragraphId": "79-bilibili-cn:cv1770245:p0004",
+      "tableContext": null
+    },
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1770245:b0005"
+      ],
+      "sourceText": "比如这样的例子，这是一个很能体现兜牌效果的例子。 弃和去切掉4饼和6索实在是太可惜了。 一发打3饼确实有点危险。 这里切掉已经打出1张的發是好手， 能够做成门断平宝牌1追立的话是很理想的。  ------------------------------------------------------------------------------------ 拆搭子 ------------------------------------------------------------------------------------ 我们再来看具体的例子吧。  ",
+      "text": "比如这样的例子，这是一个很能体现兜牌效果的例子。 弃和去切掉4饼和6索实在是太可惜了。 一发打3饼确实有点危险。 这里切掉已经打出1张的發是好手， 能够做成门断平宝牌1追立的话是很理想的。  ------------------------------------------------------------------------------------ 拆搭子 ------------------------------------------------------------------------------------ 我们再来看具体的例子吧。  ",
+      "paragraphId": "79-bilibili-cn:cv1770245:p0005",
+      "sourceSegments": [
+        {
+          "text": "比如这样的例子，这是一个很能体现兜牌效果的例子。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "弃和去切掉4饼和6索实在是太可惜了。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "一发打3饼确实有点危险。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这里切掉已经打出1张的發是好手，",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "能够做成门断平宝牌1追立的话是很理想的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "拆搭子",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "我们再来看具体的例子吧。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    },
+    {
+      "type": "figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1770245:b0006"
+      ],
+      "figureId": "79-bilibili-cn:cv1770245:b0006:figure",
+      "paragraphId": "79-bilibili-cn:cv1770245:p0006",
+      "tableContext": null
+    },
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1770245:b0007"
+      ],
+      "sourceText": "要是没有人立直的话应该拆掉24饼的搭子。（全攻的时候就该这么打） 兜牌的话，这里应该切掉2万。神进张摸到3饼的话就立直。  一向听的话，摸到5饼什么的，可以可以考虑切掉筋牌的3万。  同样是兜牌，这里打4索就是恶手。 不仅宝牌是2索，作为胜负牌的3索是非常危险的。  要拆掉搭子兜牌的话，就需要保证两张牌的安全。  上面虽然这么说，不过切掉2万之后摸到危险牌的话，拿还是快快弃和为上。  ------------------------------------------------------------------------------------ 拆暗刻 ------------------------------------------------------------------------------------ 拆掉3张安全牌的暗刻时，也还是可以让手牌有所进展的。 在这三巡里能够通过的牌增加的话，偶尔还是可以向和牌前进的。  ",
+      "text": "要是没有人立直的话应该拆掉24饼的搭子。（全攻的时候就该这么打） 兜牌的话，这里应该切掉2万。神进张摸到3饼的话就立直。  一向听的话，摸到5饼什么的，可以可以考虑切掉筋牌的3万。  同样是兜牌，这里打4索就是恶手。 不仅宝牌是2索，作为胜负牌的3索是非常危险的。  要拆掉搭子兜牌的话，就需要保证两张牌的安全。  上面虽然这么说，不过切掉2万之后摸到危险牌的话，拿还是快快弃和为上。  ------------------------------------------------------------------------------------ 拆暗刻 ------------------------------------------------------------------------------------ 拆掉3张安全牌的暗刻时，也还是可以让手牌有所进展的。 在这三巡里能够通过的牌增加的话，偶尔还是可以向和牌前进的。  ",
+      "paragraphId": "79-bilibili-cn:cv1770245:p0007",
+      "sourceSegments": [
+        {
+          "text": "要是没有人立直的话应该拆掉24饼的搭子。（全攻的时候就该这么打）",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "兜牌的话，这里应该切掉2万。神进张摸到3饼的话就立直。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "一向听的话，摸到5饼什么的，可以可以考虑切掉筋牌的3万。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "同样是兜牌，这里打4索就是恶手。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "不仅宝牌是2索，作为胜负牌的3索是非常危险的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "要拆掉搭子兜牌的话，就需要保证两张牌的安全。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "上面虽然这么说，不过切掉2万之后摸到危险牌的话，拿还是快快弃和为上。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "拆暗刻",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "拆掉3张安全牌的暗刻时，也还是可以让手牌有所进展的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "在这三巡里能够通过的牌增加的话，偶尔还是可以向和牌前进的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    },
+    {
+      "type": "figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1770245:b0008"
+      ],
+      "figureId": "79-bilibili-cn:cv1770245:b0008:figure",
+      "paragraphId": "79-bilibili-cn:cv1770245:p0008",
+      "tableContext": null
+    },
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1770245:b0009"
+      ],
+      "sourceText": "比如这样的手牌，拆掉西的暗刻。 偶尔最后还是能以食断和牌的。  ------------------------------------------------------------------------------------ 七对子 ------------------------------------------------------------------------------------  这是一个缺少确实性的方法，大家有没有面对立直弃和的时候，不知什么时候手牌居然七对子听牌了呢？  比如役牌是宝牌，用不上的牌却又打不出去，同时自己有非向着听牌前进不可的时候。那就只能霸王硬上弓强凹单骑听牌了。  这个时候七对子是可以放手一搏的方法。  ------------------------------------------------------------------------------------ 兜牌需要注意的地方 ------------------------------------------------------------------------------------  兜牌是应该在“能兜牌”的情况下使用的。 本来有和牌希望的牌也应该弃和；有些苦逼的牌也必须放手一搏。 这些都要根据自己的点数情况来进行判断。  “能兜牌”的状况是不确定的。  不要忘了防守的基本是“弃和”。     （待续）",
+      "text": "比如这样的手牌，拆掉西的暗刻。 偶尔最后还是能以食断和牌的。  ------------------------------------------------------------------------------------ 七对子 ------------------------------------------------------------------------------------  这是一个缺少确实性的方法，大家有没有面对立直弃和的时候，不知什么时候手牌居然七对子听牌了呢？  比如役牌是宝牌，用不上的牌却又打不出去，同时自己有非向着听牌前进不可的时候。那就只能霸王硬上弓强凹单骑听牌了。  这个时候七对子是可以放手一搏的方法。  ------------------------------------------------------------------------------------ 兜牌需要注意的地方 ------------------------------------------------------------------------------------  兜牌是应该在“能兜牌”的情况下使用的。 本来有和牌希望的牌也应该弃和；有些苦逼的牌也必须放手一搏。 这些都要根据自己的点数情况来进行判断。  “能兜牌”的状况是不确定的。  不要忘了防守的基本是“弃和”。     （待续）",
+      "paragraphId": "79-bilibili-cn:cv1770245:p0009",
+      "sourceSegments": [
+        {
+          "text": "比如这样的手牌，拆掉西的暗刻。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "偶尔最后还是能以食断和牌的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "七对子",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这是一个缺少确实性的方法，大家有没有面对立直弃和的时候，不知什么时候手牌居然七对子听牌了呢？",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "比如役牌是宝牌，用不上的牌却又打不出去，同时自己有非向着听牌前进不可的时候。那就只能霸王硬上弓强凹单骑听牌了。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这个时候七对子是可以放手一搏的方法。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "兜牌需要注意的地方",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "兜牌是应该在“能兜牌”的情况下使用的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "本来有和牌希望的牌也应该弃和；有些苦逼的牌也必须放手一搏。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这些都要根据自己的点数情况来进行判断。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "“能兜牌”的状况是不确定的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "不要忘了防守的基本是“弃和”。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "（待续）",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    }
+  ],
+  "contextPolicy": "All original ordered source blocks incl tableContext/segments/conditions, and all candidate prose/figures for context; only explicit targetFigureIds/points receive new judgments. No non-target re-review.",
+  "classification": "actual unresolved source reading / teaching-impact evidence absent; not a missing image file or source text rewrite",
+  "existingIndependentLimitedUnknownPermission": false,
+  "admissionGranted": false,
+  "wholeChapterPassed": false,
+  "newModelCalls": 0,
+  "next": {
+    "owner": "COAC-249 existing audit consumer after explicit new budget; no dispatch now",
+    "entry": "prepare-requests.mjs -> prepared shared request.json; then existing frozen invokeTextbookCodex and standard audit ledger/raw under existing guard",
+    "firstIndependentCalls": 1,
+    "productionCalls": 0,
+    "retries": 0,
+    "failedVoidCount": true,
+    "scope": "Read listed points if possible; if not, independently distinguish faithful author-argument-with-unknown from unproved tactical replay, stating precise conditions and limits. No forced known reading or automatic pass.",
+    "laterMutation": "If independent read requires correction, propose separately bounded lawful producer1+target-audit1; these are not included or authorized in the 3-call diagnostic proposal."
+  }
+}

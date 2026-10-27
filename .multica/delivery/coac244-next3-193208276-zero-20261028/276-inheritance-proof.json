@@ -1,0 +1,105 @@
+{
+  "schema": "coac244-276-exact-parent-evidence-reuse/1",
+  "canonical": "79-cn-chapter-276-4",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1793434.r2.display.json",
+    "sha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+    "bytes": 51494
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1793434.display.json",
+    "sha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+    "bytes": 46697
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1793434.34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af.json",
+    "sha256": "8c7e8145f051809f5ad3d80eb4c8e7c4b9d669739c200fbec98e4f26307a9370",
+    "bytes": 24570
+  },
+  "parentRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4ad05d19-eb5a-48d6-ba09-c673553ec204.json",
+    "sha256": "5f88f0dad7e13a42279278eefc97a583e36dfac1f2ab2e0d3c1ecde5f73f2ab1",
+    "bytes": 139901
+  },
+  "parentCallId": "4ad05d19-eb5a-48d6-ba09-c673553ec204",
+  "rawEvidenceBoundary": "Legacy independent output, full source binding and ordered supplemental inputs retained. Original process argv not captured; no claim of newly reconstructed transport or remote weights.",
+  "bodyExact": true,
+  "figures": [
+    {
+      "figureId": "79-bilibili-cn:cv1793434:b0014:figure",
+      "fullObjectSha256": "5ca5d06312f40429ee1e5b56492ba7294e546d530d34a2bf532c9c20cb05aff9",
+      "parentCheck": {
+        "id": "79-bilibili-cn:cv1793434:b0014:figure",
+        "verdict": "faithful",
+        "evidence": "逐牌核对下方14张牌、四家牌河、左侧横置9m及手牌赤5s均一致；东4局0本场、立直棒1根、宝牌栏西及四家点数完整。附件配对笔误仅属source-note。"
+      },
+      "bodyContextSha256": "a4622b1df19cc33a729e493467c9a0b6f4974567aa2f846304fb356e46f98ebc",
+      "status": "reusable-parent-independent-faithful-check-only",
+      "newRawConclusionPreserved": "uncertain",
+      "wholeChapterPassed": false
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1793434:b0025:figure",
+      "fullObjectSha256": "6a88f2f9978e4c79b85880e9f5942a9f37a827db784a9cebbabc55eafd31e688",
+      "parentCheck": {
+        "id": "79-bilibili-cn:cv1793434:b0025:figure",
+        "verdict": "faithful",
+        "evidence": "逐牌核对下方14张牌、四家牌河、上方横置6p及西家4s、3s、赤5s副露均一致；南1局0本场、立直棒1根、宝牌栏5p、四家点数及隐手张数完整。附件编号笔误仅属source-note。"
+      },
+      "bodyContextSha256": "a4622b1df19cc33a729e493467c9a0b6f4974567aa2f846304fb356e46f98ebc",
+      "status": "reusable-parent-independent-faithful-check-only",
+      "newRawConclusionPreserved": "uncertain",
+      "wholeChapterPassed": false
+    }
+  ],
+  "tests": [
+    {
+      "name": "real bound parent raw + exact full figures + unchanged full body",
+      "passed": true
+    },
+    {
+      "name": "reject changed body",
+      "passed": true
+    },
+    {
+      "name": "reject changed figure",
+      "passed": true
+    },
+    {
+      "name": "reject changed source binding",
+      "passed": true
+    },
+    {
+      "name": "reject removed unknown field",
+      "passed": true
+    },
+    {
+      "name": "reject parent output differs",
+      "passed": true
+    },
+    {
+      "name": "reject parent not faithful",
+      "passed": true
+    },
+    {
+      "name": "reject parent image absent",
+      "passed": true
+    },
+    {
+      "name": "reject parent failed",
+      "passed": true
+    }
+  ],
+  "status": "two-evidence-visibility-gaps-supplemented-not-chapter-pass",
+  "remaining": [
+    {
+      "severity": "error",
+      "targetId": "79-bilibili-cn:cv1793434:b0005:figure",
+      "sourceEvidence": "例1原图及2倍放大图的左侧第4、5张和右侧第2、5张弃牌均显示字牌；候选分别使用“[风牌未辨明]”。",
+      "description": "四张可见弃牌缺少具体牌码，影响牌河的完整教学信息。",
+      "suggestedRepair": "依据原图逐张复核并补足四个牌码；不能可靠辨认的牌保留未知并继续标记为未完成，不要猜测。"
+    }
+  ],
+  "newModelCalls": 0,
+  "admissionGranted": false
+}

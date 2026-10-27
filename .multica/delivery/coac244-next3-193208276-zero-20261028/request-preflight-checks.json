@@ -1,0 +1,158 @@
+{
+  "checks": [
+    {
+      "name": "193 real production/presentation/exclusions + full source/body/figure/point + CLI terra/max/image order",
+      "passed": true
+    },
+    {
+      "name": "193 reject candidate",
+      "passed": true
+    },
+    {
+      "name": "193 reject source",
+      "passed": true
+    },
+    {
+      "name": "193 reject context",
+      "passed": true
+    },
+    {
+      "name": "193 reject figure",
+      "passed": true
+    },
+    {
+      "name": "193 reject unknown",
+      "passed": true
+    },
+    {
+      "name": "193 reject bbox",
+      "passed": true
+    },
+    {
+      "name": "193 reject old verdict",
+      "passed": true
+    },
+    {
+      "name": "193 reject invented reading",
+      "passed": true
+    },
+    {
+      "name": "193 reject missing original",
+      "passed": true
+    },
+    {
+      "name": "208 real production/presentation/exclusions + full source/body/figure/point + CLI terra/max/image order",
+      "passed": true
+    },
+    {
+      "name": "208 reject candidate",
+      "passed": true
+    },
+    {
+      "name": "208 reject source",
+      "passed": true
+    },
+    {
+      "name": "208 reject context",
+      "passed": true
+    },
+    {
+      "name": "208 reject figure",
+      "passed": true
+    },
+    {
+      "name": "208 reject unknown",
+      "passed": true
+    },
+    {
+      "name": "208 reject bbox",
+      "passed": true
+    },
+    {
+      "name": "208 reject old verdict",
+      "passed": true
+    },
+    {
+      "name": "208 reject invented reading",
+      "passed": true
+    },
+    {
+      "name": "208 reject missing original",
+      "passed": true
+    },
+    {
+      "name": "276 real production/presentation/exclusions + full source/body/figure/point + CLI terra/max/image order",
+      "passed": true
+    },
+    {
+      "name": "276 reject candidate",
+      "passed": true
+    },
+    {
+      "name": "276 reject source",
+      "passed": true
+    },
+    {
+      "name": "276 reject context",
+      "passed": true
+    },
+    {
+      "name": "276 reject figure",
+      "passed": true
+    },
+    {
+      "name": "276 reject unknown",
+      "passed": true
+    },
+    {
+      "name": "276 reject bbox",
+      "passed": true
+    },
+    {
+      "name": "276 reject old verdict",
+      "passed": true
+    },
+    {
+      "name": "276 reject invented reading",
+      "passed": true
+    },
+    {
+      "name": "276 reject missing original",
+      "passed": true
+    }
+  ],
+  "plans": [
+    {
+      "canonical": "79-cn-chapter-193-4",
+      "request": "193-prepared-request.json",
+      "points": 1,
+      "images": 3,
+      "promptSha256": "db253be425ed3c779bae96ebbabcf7a6056b86622f24d9f71b82999ac063c1c4",
+      "schemaSha256": "198ad93c668e08d8cd602320cdaaf8e686f8e7b7a1a6bd5ac235a48f6424ab47",
+      "invoked": false
+    },
+    {
+      "canonical": "79-cn-chapter-208-4",
+      "request": "208-prepared-request.json",
+      "points": 4,
+      "images": 9,
+      "promptSha256": "c86ee88b5885d0ca2f4e18dd535caf3a1aff1dd18299c046e77c21c9b3dbdc6b",
+      "schemaSha256": "e33ac9ad4e0aa06f68895c24d7706e3def656af3fa5fe69d9533d781d35d4c6c",
+      "invoked": false
+    },
+    {
+      "canonical": "79-cn-chapter-276-4",
+      "request": "276-prepared-request.json",
+      "points": 4,
+      "images": 7,
+      "promptSha256": "16d3673bfa7fdf1b18b57a327b5eb0c5dd8e34ae1f486dbc92fe5e903e77d34b",
+      "schemaSha256": "5f60d3bf319ba9d75bdcd779e35ce4ad3f141ea3661c66699965add29af74043",
+      "invoked": false
+    }
+  ],
+  "newModelCalls": 0,
+  "rawWrites": 0,
+  "ledgerWrites": 0,
+  "chapterPassWrites": 0,
+  "notLiveValidation": "No model invoked. Prepared input is an independent recognition/impact supplement, not a whole-article admission implementation or remote schema acceptance."
+}

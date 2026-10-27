@@ -1,0 +1,48 @@
+{
+  "newModelCalls": 0,
+  "newCandidates": 0,
+  "newAcceptedChapters": 0,
+  "existingRuntimeFilesReverified": 28,
+  "protectedInputsUnchanged": 19,
+  "requestChecks": 30,
+  "inheritanceChecks": 9,
+  "sameShaAuditCounts": {
+    "193": 1,
+    "208": 1,
+    "276": 1
+  },
+  "actualTargetLedger": [
+    {
+      "callId": "828a414f-c72c-4d80-9401-5ea600277f6e",
+      "articleId": "cv1765377",
+      "model": "gpt-6.1-sol",
+      "productionSha256": "e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e"
+    },
+    {
+      "callId": "615281b8-4a8f-40ec-842e-fff0ad1af99a",
+      "articleId": "cv1770245",
+      "model": "gpt-6.1-sol",
+      "productionSha256": "0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97"
+    },
+    {
+      "callId": "4ad05d19-eb5a-48d6-ba09-c673553ec204",
+      "articleId": "cv1793434",
+      "model": "gpt-6.1-sol",
+      "productionSha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af"
+    },
+    {
+      "callId": "5d32d29f-8e4a-49fe-976d-3e25debab6ed",
+      "articleId": "cv1793434",
+      "model": "gpt-6.1-terra",
+      "productionSha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd"
+    }
+  ],
+  "registerUpdatesOnly": [
+    "79-cn-chapter-193-4",
+    "79-cn-chapter-208-4",
+    "79-cn-chapter-276-4"
+  ],
+  "remainingAtPreparation": 19,
+  "allRawSourceCandidateUnchanged": true,
+  "budgetAuthorized": false
+}
