@@ -1,0 +1,11 @@
+import {readFile} from 'node:fs/promises';
+import {join} from 'node:path';
+import {pathToFileURL} from 'node:url';
+const ROOT='E:/AgentData/Coach/knowledge/processing';
+const RUNTIME=join(ROOT,'audit/runtimes/native-repair-7076217daf842b13');
+const REPO='E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study';
+const b=await import(pathToFileURL(join(REPO,'textbook-audit-verification-dependencies.mjs')).href);
+const stored=JSON.parse(await readFile(join(RUNTIME,'verification-dependencies.json'),'utf8'));
+const rebuilt=await b.buildVerificationDependencyManifest({baseDir:RUNTIME,entry:stored.entry,root:ROOT,pageApprovals:stored.pageApprovals});
+const drift=await b.verifyVerificationDependencyManifest({baseDir:RUNTIME,manifest:stored,root:ROOT});
+console.log(JSON.stringify({stored:stored.manifestSha256,rebuilt:rebuilt.manifestSha256,equal:stored.manifestSha256===rebuilt.manifestSha256,files:rebuilt.files.length,pageApprovals:rebuilt.pageApprovals.length,verify:drift},null,1));

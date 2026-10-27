@@ -1,0 +1,129 @@
+{
+  "schema": "coach-coac248-manifest-contract/1",
+  "recordedAt": "2026-10-27T00:58:00.000Z",
+  "ticket": "COAC-248",
+  "stage": "post-p330-manifest-contract",
+  "triggerComment": "01a17ab0-efa7-7b7e-bd4a-e866e4e12534",
+  "scope": "Absorb COAC-249's verification-dependency identity delivery, prove the runtime manifest matches final tested code and approved configuration, record the dependency snapshot that the page-330 structural review ran under, and re-attest the historical receipts against the new manifest without editing any receipt or old attestation. No page audit re-run, no model calls.",
+  "modelCalls": 0,
+  "coac249Delivery": {
+    "sourceRepo": "E:/AgentWorkspaces/Coach/mortal-rag-ablation",
+    "branch": "codex/mortal-rag-ablation",
+    "commits": {
+      "3b875c9c831b2e011182e50fecd0ce9edb55c9c5": "textbook-audit-verification-dependencies.mjs + test (249)",
+      "884f8d968451e03ea87c5f44213c5d7e63daca1e": "page-scoped native inline structural correction route (COAC-248 page 330)",
+      "8242d52446457069371af495880d5a21e37f51ae": "register the nemata-jp:260 page approval (COAC-248)"
+    },
+    "conflictCheck": "the 249 module is used unchanged; 249's audit/runtime-patches/20261027-verification-dependencies files were not touched or regenerated",
+    "oldModuleRestored": false
+  },
+  "runtimeManifest": {
+    "base": "audit/runtimes/native-repair-7076217daf842b13",
+    "path": "audit/runtimes/native-repair-7076217daf842b13/verification-dependencies.json",
+    "manifestSha256": "8020f7b2e760ad443e6951ac1074c571f9dc5878f47e8df20759db8d3d5e1452",
+    "files": 8,
+    "pageApprovals": 8,
+    "recomputedEqual": true,
+    "verifyResult": {"ok": true, "diff": {"added": [], "removed": [], "changed": []}},
+    "moduleShas": {
+      "textbook-audit.mjs": "6e6715260399c40f74477cbb3475f268d0358b4d4b5f3add036dc0164642c2db",
+      "textbook-production-cli.mjs": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1",
+      "textbook-audit-pdf-native.mjs": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa",
+      "textbook-audit-pdf-native-corrections.mjs": "71794ddd84a2b70c472724f8b1b443e37c95681aebc1f5edb7f26d0ac08373c7",
+      "textbook-audit-pdf-native-structure-corrections.mjs": "a7079d3bf1114377dc5d2a2bcab317ad96f4dbd500b3414eb5687560b7d7cf2d",
+      "textbook-audit-pdf-layout.mjs": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34",
+      "textbook-audit-pdf-scope.mjs": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239",
+      "textbook-audit-pdf-source-corrections.mjs": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+    },
+    "repoRuntimeByteIdentity": "all eight repo HEAD module bytes equal the runtime copies",
+    "oldManifestArchived": {
+      "sha256": "5a60dfbce5ccb3726c0ecc109bb1f23af3cfeca6546ff671a789cfd7e4d4ef21",
+      "path": "audit/runtimes/native-repair-7076217daf842b13/verification-dependencies.history/5a60dfbce5ccb3726c0ecc109bb1f23af3cfeca6546ff671a789cfd7e4d4ef21.json",
+      "overwritten": false
+    }
+  },
+  "finalCodeTests": {
+    "command": "node node_modules/vitest/vitest.mjs run scripts/scene-study/textbook-audit-{pdf-native,pdf-native-corrections,pdf-native-structure-corrections,verification-dependencies,pdf-layout}.test.mjs",
+    "suites": 5,
+    "passed": 81,
+    "failed": 0,
+    "note": "the *.test.mjs files import vitest expect; plain node --test fails them by design"
+  },
+  "page330ReviewSnapshot": {
+    "reviewCallId": "dcfc3e69-04a8-4e49-9b8f-08d6acf8c0ff",
+    "startedAt": "2026-10-26T23:52:01.880Z",
+    "finishedAt": "2026-10-26T23:53:37.291Z",
+    "receiptRecordedAt": "2026-10-26T23:53:37.295Z",
+    "receiptStatus": "passed",
+    "receiptPath": "audit/pages/nemata-jp/page-0330.314cb19f1b1cf8ed7d420cbccb00cdea1c8ae8210fd5bcdb88953d90f42c25f6.7076217daf84.json",
+    "receiptSha256": "374b0ec7e08d9a0f1f64a4563a29f483fecb13dbd40ee65e2e3d581205d74993",
+    "dependenciesAtReview": {
+      "textbook-audit.mjs": "6e671526…",
+      "textbook-production-cli.mjs": "3da98f5f…",
+      "textbook-audit-pdf-native.mjs": "75ea9bb2… (LF 9839 bytes)",
+      "textbook-audit-pdf-native-corrections.mjs": "d61eae23… (no 260 entry yet)",
+      "textbook-audit-pdf-native-structure-corrections.mjs": "a7079d3b…",
+      "pageApprovals": {
+        "audit/source-corrections/native-inline-field-corrections.p330.root-acceptance.json": "4052166a6355296221367a1eec967758d1f1c07a71e438e3856a86c0744fc6e5",
+        "audit/source-corrections/native-inline-page-structure.p330.root-acceptance.json": "8b96b361f4517322c40a555748713914a3bff8f7b902a7c01057040111a7cd61"
+      }
+    },
+    "postReviewChanges": {
+      "native.mjs": "rewritten at 00:02:17Z; normalised (CRLF removed) bytes equal the 07:55 frozen copy 75ea9bb2…, so the change is line endings only",
+      "correctionsModule": "71794ddd… adds the nemata-jp:260 approval; page 330 behaviour unchanged (it loads the structure correction, whose approval pin 8b96b361… is untouched)"
+    },
+    "crossCheck": {
+      "action": "deterministic gate re-run of candidate 314cb19f… under repo HEAD modules; no model call, no re-audit",
+      "gate": "ACCEPTED",
+      "correctedRawSha256": "560808b7635d601832905346186327252960c2f0ee5fa89d5e48c328dcbf88fc",
+      "correctedPlanSha256": "5dd35161ce0516b0503f79ff517859bb16a5efd7485a8855038ab64a58d529eb",
+      "result": {"textBlocks": 32, "imageOccurrences": 41, "figures": 22, "allFigureReferencesExactlyOnce": true, "rawCompiledContentBound": true, "nativeSourceLinesBound": true}
+    },
+    "reAudited": false
+  },
+  "drift": {
+    "detectionStillOn": true,
+    "observation": "COAC-249's four attestations now fail verify with verification_dependency_manifest_changed on textbook-audit-pdf-native-corrections.mjs only; receipt and original-call hashes still verify",
+    "cause": "the 8242d52 p260 approval registration changed the corrections module after 249 recorded its attestations",
+    "oldAttestationsEdited": false,
+    "renewedAttestations": {
+      "directory": "audit/runtime-patches/20261027-coac248-post-p330-manifest",
+      "readmeSha256": "5aac6e0d4184e3787d3cea50424d980682930962b109014ce1de84cc46088cc7",
+      "entries": [
+        {
+          "receipt": "audit/pages/nemata-jp/page-0309.83950d4ee8aca893170904d43e8526b7a7ec1990fe6fdd238b7a3d40dfea8272.7076217daf84.json",
+          "attestationPath": "audit/runtime-patches/20261027-coac248-post-p330-manifest/page-0309.83950d4ee8aca893170904d43e8526b7a7ec1990fe6fdd238b7a3d40dfea8272.7076217daf84.attestation.json",
+          "attestationSha256": "36bd05f23058d2a6332ebc4e2abe7bd40b685eb14b37573f7987aaf1104875ad",
+          "pageScopedManifestSha256": "5690db598dcdf0ac139fd19e08677466166421e64ecff665102444958a557e55",
+          "verifyOk": true
+        },
+        {
+          "receipt": "audit/pages/nemata-jp/page-0315.bc2afae254cbb243aa04ba23b73b4a13aa6513d17445c2b895bb7528d43469e3.7076217daf84.json",
+          "attestationPath": "audit/runtime-patches/20261027-coac248-post-p330-manifest/page-0315.bc2afae254cbb243aa04ba23b73b4a13aa6513d17445c2b895bb7528d43469e3.7076217daf84.attestation.json",
+          "attestationSha256": "a11ef7b2f1a25ef0f0ec155913f9e6458ae825fc184ed0207d23feac24e3de74",
+          "pageScopedManifestSha256": "3c57b7b292a75f94c292d6f78a067645bd28df6c11c279212e2153897fd0f5bf",
+          "verifyOk": true
+        },
+        {
+          "receipt": "audit/pages/nemata-jp/page-0329.a991dd8900f39256c130e38974acc971f5fa798ae5db5cd101fa49e1a7bedcb7.7076217daf84.json",
+          "attestationPath": "audit/runtime-patches/20261027-coac248-post-p330-manifest/page-0329.a991dd8900f39256c130e38974acc971f5fa798ae5db5cd101fa49e1a7bedcb7.7076217daf84.attestation.json",
+          "attestationSha256": "66f34aebf401787d70e491eeb5e17b17e289e364a9c7b53bc396302248260465",
+          "pageScopedManifestSha256": "e4386614156b408deadf4146e1a47dc9970c14bf9317ae964330b901ebdc1360",
+          "verifyOk": true
+        },
+        {
+          "receipt": "audit/pages/nemata-jp/page-0330.314cb19f1b1cf8ed7d420cbccb00cdea1c8ae8210fd5bcdb88953d90f42c25f6.7076217daf84.json",
+          "attestationPath": "audit/runtime-patches/20261027-coac248-post-p330-manifest/page-0330.314cb19f1b1cf8ed7d420cbccb00cdea1c8ae8210fd5bcdb88953d90f42c25f6.7076217daf84.attestation.json",
+          "attestationSha256": "d8797474917b0a234805a91b1e005509b42d539b44377816b7a27cf9203b686a",
+          "pageScopedManifestSha256": "d6289c512fe586379b77dd96f8c1c1cad7d198e45b3acc53a2a9e0bedcfed0ae",
+          "verifyOk": true
+        }
+      ]
+    }
+  },
+  "openItemForCoac249": {
+    "blocker": false,
+    "finding": "finite-current-audit-driver.mjs writes verification-dependencies.json without root/pageApprovals, so a future freeze would replace the current runtime manifest with a module-only one; page-approval identity is currently written by the single writer after each freeze (8020f7b2…)",
+    "actionByCoac248": "none; 249 owns the driver patch"
+  }
+}

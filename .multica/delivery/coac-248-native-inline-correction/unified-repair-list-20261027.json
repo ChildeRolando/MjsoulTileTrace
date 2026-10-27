@@ -58,7 +58,14 @@
    ],
    "currentDisposition": "needs-repair",
    "origin": "COAC-248 old PDF 12",
-   "newThisStage": false
+   "newThisStage": false,
+   "sourceCheckThisRound": {
+    "checkedAt": "2026-10-27T00:58:00.000Z",
+    "verdict": "transcription 134556s correct; the grey mark is a 2x7 px clipped edge fragment inside the embedded asset (same shape on p49-b12 and p166-b11; PDF text layer has only spaces there)",
+    "candidateChanged": false,
+    "reason": "the exact-field route cannot replace the unknowns array and this ticket has no root-accepted 79-cn:50 job",
+    "record": ".multica/delivery/coac-248-native-inline-correction/source-check-p50-20261027.json"
+   }
   },
   {
    "objectId": "79-cn:page:217",
@@ -1282,7 +1289,7 @@
   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0309.d323290d8eb056b85a64563702b4d1d1283b3c6eff70cf7ecdb34c9faa84337b.6baa4a7e1404.json",
   "note": "Produced once; audit needs-repair; repair preserved, no re-production."
  },
- "refreshedAt": "2026-10-27T08:40:00.000Z",
+ "refreshedAt": "2026-10-27T00:58:00.000Z",
  "byOrigin": {
   "COAC-248 old PDF 12": 5,
   "COAC-247 new PDF return": 3,
@@ -1430,6 +1437,19 @@
     "p330-structure"
    ],
    "note": "The previous manifest was archived unchanged, not overwritten as if it had always matched."
+  },
+  "verificationDependencyContract": {
+   "checkedAt": "2026-10-27T00:58:00.000Z",
+   "coac249Commit": "3b875c9c831b2e011182e50fecd0ce9edb55c9c5",
+   "runtimeManifestSha256": "8020f7b2e760ad443e6951ac1074c571f9dc5878f47e8df20759db8d3d5e1452",
+   "modules": 8,
+   "pageApprovals": 8,
+   "recomputedEqual": true,
+   "oldManifestArchived": "audit/runtimes/native-repair-7076217daf842b13/verification-dependencies.history/5a60dfbce5ccb3726c0ecc109bb1f23af3cfeca6546ff671a789cfd7e4d4ef21.json",
+   "driftDetection": "on; 249 old attestations fail manifest check on textbook-audit-pdf-native-corrections.mjs only; renewed attestations in audit/runtime-patches/20261027-coac248-post-p330-manifest verify ok",
+   "p330ReviewSnapshotRecorded": true,
+   "p330ReAudited": false,
+   "deliveryRecord": ".multica/delivery/coac-248-native-inline-correction/summary-manifest-contract-20261027.json"
   }
  },
  "metadataFourPageIntake": {

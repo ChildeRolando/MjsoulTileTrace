@@ -1,0 +1,17 @@
+import {readFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {join} from 'node:path';
+import {pathToFileURL} from 'node:url';
+const BASE='E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/';
+const {loadNativePageStructureCorrection}=await import(pathToFileURL(BASE+'textbook-audit-pdf-native-structure-corrections.mjs').href);
+const {checkNativePdfInlineContent}=await import(pathToFileURL(BASE+'textbook-audit-pdf-native.mjs').href);
+const ROOT='E:/AgentData/Coach/knowledge/processing';
+const sha=b=>createHash('sha256').update(b).digest('hex');
+const abs=p=>join(ROOT,p);
+const readJson=async p=>JSON.parse(await readFile(abs(p),'utf8'));
+const CAND='production/sol-high-field-repair20-20261027-p330/candidates/nemata-jp/page-0330.json';
+const bytes=await readFile(abs(CAND));const candidateSha256=sha(bytes);const candidate=JSON.parse(bytes.toString('utf8'));
+const page=await readJson('nemata-jp/pages/330.json');
+const correction=await loadNativePageStructureCorrection(ROOT,candidate,candidateSha256);
+const result=checkNativePdfInlineContent(candidate,page,correction.correctedPlan,correction.correctedRaw);
+console.log(JSON.stringify({candidateSha256,correctionShas:{originalRaw:sha(Buffer.from(JSON.stringify(correction.originalRawParsed))),correctedRaw:sha(Buffer.from(JSON.stringify(correction.correctedRaw))),correctedPlan:sha(Buffer.from(JSON.stringify(correction.correctedPlan)))},gate:'ACCEPTED',result},null,1));

@@ -1,0 +1,60 @@
+{
+  "schema": "coach-coac248-source-check/1",
+  "recordedAt": "2026-10-27T00:58:00.000Z",
+  "ticket": "COAC-248",
+  "objectId": "79-cn:page:50",
+  "scope": "Free source check of the only remaining audit item on page 50 (79-cn-p50-r2, severity uncertain). No candidate revision, no model call, no audit re-run.",
+  "modelCalls": 0,
+  "currentCandidate": {
+    "path": "production/sol-high-full/candidates/79-cn/page-0050.json",
+    "sha256": "6d33c81805e404c9dcacda38075ea644e3d2401cc0205b1a7732ff2a49097dac",
+    "auditPath": "audit/pages/79-cn/page-0050.6d33c81805e404c9dcacda38075ea644e3d2401cc0205b1a7732ff2a49097dac.c398d43a97fc.json",
+    "auditStatus": "needs-repair"
+  },
+  "auditItem": {
+    "targetId": "79-cn-p50-r2",
+    "severity": "uncertain",
+    "sourceEvidence": "源图六张索子最右侧、6s右边可见细小灰色符号；候选亦声明无法确认其具体字符。",
+    "suggestedRepair": "复核该符号，确认后按原样补录；未确认前保留不确定标记。"
+  },
+  "candidateFields": {
+    "transcription": "牌形从左至右：134556s。两张5s均为普通五索，未见赤五。牌列右侧另有一处细小灰色符号。",
+    "unknowns": ["牌列右侧的细小灰色符号不够清晰，无法确认具体字符。"]
+  },
+  "sourceCheck": {
+    "tileRow": {
+      "verdict": "134556s is correct",
+      "evidence": "the six embedded tiles are 1s, 3s (one bamboo over two), 4s, 5s (red centre), 5s, 6s; both 5s are ordinary, no red five",
+      "asset": "assets/ad469a89bb7e2f7e2f95b744720972bd40e1a14fc79f5bc332e0c582f3141f39.png",
+      "assetSha256": "ad469a89bb7e2f7e2f95b744720972bd40e1a14fc79f5bc332e0c582f3141f39",
+      "assetSize": [158, 41],
+      "sourceBlock": "79-cn-p50-b12",
+      "sourceBlockBbox": [90.0, 509.04, 208.68, 539.76]
+    },
+    "greyMark": {
+      "verdict": "clipped edge fragment inside the embedded source image, not a transcribable character",
+      "pixels": "inside the asset, immediately right of the tile border (border at column 155): 4 dark pixels in column 156 spanning y 22-25 and 3 in column 157 spanning y 20-26, i.e. 2x7 px at mid-height, about 4-5 pt tall",
+      "pdfTextLayer": "no glyph at that position: the page text layer has only two space spans there (208.6-214.6 pt and 216.2-222.2 pt), and the PDF has no drawing or annotation outside the image rect",
+      "sameBookComparison": [
+        {"page": 49, "block": "79-cn-p49-b12", "asset": "assets/536746d93182c…", "mark": "4 dark pixels in the last column at y 25-28, same relative position and shape"},
+        {"page": 166, "block": "79-cn-p166-b11", "mark": "2 dark pixels in the last column at y 22-28, narrow mid-height band"}
+      ],
+      "bookScan": "of 98 inline tile strips (height 25-70 pt, width 50-400 pt) across all 340 pages, 3 carry this narrow right-edge mark (p49, p50, p166); the other near-edge dark columns are full-height tile borders",
+      "interpretation": "the image slicing of this PDF leaves a sub-5 pt sliver of the neighbouring original-book content at the right edge of some strips; it is below the size of any printed character and has no consistent glyph shape"
+    }
+  },
+  "evidence": [
+    {"path": ".multica/delivery/coac-248-native-inline-correction/evidence/p50-r2-asset-mark-x10.png", "sha256": "e672b8a285c0ea2b23777b63390fa97e75b123ab5b93a87b160712e69661c097", "shows": "p50-b12 asset at x10 with the 2x7 px edge fragment boxed"},
+    {"path": ".multica/delivery/coac-248-native-inline-correction/evidence/p49-r12-asset-mark-x14.png", "sha256": "4b07943c943361a12862202e616a96c2816eb9451a1c0b28bdd664852232bffe", "shows": "p49-b12 right edge at x14 with the same fragment boxed"}
+  ],
+  "whyNoRevision": {
+    "routeLimit": "the exact-field correction route (textbook-audit-pdf-native-corrections.mjs) rebuilds a field from the preserved raw and compares with isDeepStrictEqual; change.fromValue/toValue must be strings, so it rejects any figure whose field is the unknowns ARRAY ('raw_field_mismatch')",
+    "existingAuthorization": "the only approved unknowns-array entry change is the page-scoped nemata-jp:317 b5 job; this ticket has no root acceptance for a 79-cn:50 job",
+    "candidateLeft": "unchanged; the page keeps its needs-repair audit and the unknowns entry stays honest"
+  },
+  "nextStepOptions": [
+    "extend the page-scoped route with explicit unknowns-array entries and open a root-accepted job for 79-cn:50 (the same mechanism already authorised for nemata-jp:317 b5), then replace the unknown entry with the clipped-fragment finding and run one independent audit",
+    "or have the owner accept the uncertain flag as resolved by this evidence without a new candidate; that is an acceptance decision, not a source ambiguity"
+  ],
+  "unresolved": true
+}
