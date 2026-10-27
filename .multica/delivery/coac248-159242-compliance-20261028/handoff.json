@@ -1,0 +1,52 @@
+{
+  "schema": "coac248-unchanged159242-conditions-handoff/1",
+  "recordedAt": "2026-10-27T21:43:39.330074+00:00",
+  "authorizationComment": "01a17f4b-c677-7a56-8dd0-ca8dde28b55e",
+  "from": "COAC-248",
+  "to": "COAC-249",
+  "scope": "Independent existing conditions mapped exactly to current candidate fields/author quotes; no new production or semantic model review",
+  "manifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-159242-compliance-20261028\\manifest.json",
+    "sha256": "5705266a6eac28f744f6f46cd1f53f544b93ccdc25efd30de269dcd216f32493"
+  },
+  "proofs": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-159242-compliance-20261028\\proof-159.json",
+      "sha256": "9c718e694c8d7fd078991124589bf2ffd206915ea82a0686651e8ca790cbeacf",
+      "canonical": "79-cn-chapter-159-9",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751292.display.json",
+        "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+        "bytes": 46828
+      }
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-159242-compliance-20261028\\proof-242.json",
+      "sha256": "67cfab330af0ec6868ef3945e6ff641ab08a6f83712bc87615f266122e5b2309",
+      "canonical": "79-cn-chapter-242-3",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780438.display.json",
+        "sha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+        "bytes": 58219
+      }
+    }
+  ],
+  "commands": [
+    "python -X utf8 E:/AgentData/Coach/knowledge/processing/integration/coac248-159242-compliance-20261028/verify.py",
+    "python -X utf8 E:/AgentData/Coach/knowledge/processing/integration/coac248-159242-compliance-20261028/verify_test.py"
+  ],
+  "currentCandidatesSatisfyIndependentConditions": true,
+  "newDerivedCandidates": 0,
+  "newNotesRequired": 0,
+  "modelCalls": 0,
+  "tacticalUncertainPreserved": [
+    4,
+    2
+  ],
+  "existing250Wakeup": "01a17f47-fc4a-7821-ae40-f8c2c7b83439",
+  "existing250ObservedStatus": "running",
+  "nextAction": "249 zero-call binding consistency of these exact proofs. If consistent, supply a separate exact supplemental attestation to the already-running250 consumer; actual lawful admission and MCP/Arena readback remain250 scope. Do not rerun the evidence generator or rewrite raw/false receipts. If an adapter is missing, use existing244 owner only, no new model allowance.",
+  "wholeArticlePassedClaimed": false,
+  "newSemanticGapsDetected": [],
+  "unchanged": "Full exact candidate file SHA pins protect every target/non-target byte, order, caption and sourceNote. No production artifact is fabricated."
+}

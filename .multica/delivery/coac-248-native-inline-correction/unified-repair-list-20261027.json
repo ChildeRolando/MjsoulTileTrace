@@ -1427,7 +1427,7 @@
     160,
     161
    ],
-   "currentDisposition": "independent-limited-unknown-fidelity-allowed-pending-exact-admission",
+   "currentDisposition": "exact-unchanged-candidate-proof-awaiting249-zero-call-binding",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
    "auditRecordedAt": "2026-10-25T17:28:11.881Z",
@@ -1573,7 +1573,7 @@
     "integrationAllowed": false,
     "tileRankReadAttempted": false
    },
-   "nextAction": "Existing250/244 zero-call exact supplemental admission and complete other chapter scope, then actual MCP/Arena display readback preserving unknown/author conditions. No tactical recalculation requirement for faithful presentation; no new model budget.",
+   "nextAction": "249 zero-call binding consistency of these exact proofs. If consistent, supply a separate exact supplemental attestation to the already-running250 consumer; actual lawful admission and MCP/Arena readback remain250 scope. Do not rerun the evidence generator or rewrite raw/false receipts. If an adapter is missing, use existing244 owner only, no new model allowance.",
    "limitedFidelity20261028": {
     "canonical": "79-cn-chapter-159-9",
     "candidate": {
@@ -1699,7 +1699,27 @@
     "upstreamActualCount": null,
     "remoteWeights": null
    },
-   "recognitionPending": false
+   "recognitionPending": false,
+   "exactDisplayCompliance20261028": {
+    "proof": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-159242-compliance-20261028\\proof-159.json",
+     "sha256": "9c718e694c8d7fd078991124589bf2ffd206915ea82a0686651e8ca790cbeacf"
+    },
+    "candidate": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751292.display.json",
+     "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+     "bytes": 46828
+    },
+    "existingIndependentConditionsMapped": true,
+    "newNotesRequired": false,
+    "derivedCandidateNeeded": false,
+    "modelCalls": 0,
+    "status": "exact-unchanged-candidate-proof-awaiting249-zero-call-binding",
+    "handoff": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-159242-compliance-20261028\\handoff.json",
+     "sha256": "36f7fe6211d441c4f0eea85cc7ba3c584a6dad3ee0b014b4c19a4362c9dffab9"
+    }
+   }
   },
   {
    "objectId": "web-chapter:79-cn-chapter-162-3",
@@ -2693,7 +2713,7 @@
     244,
     245
    ],
-   "currentDisposition": "independent-limited-unknown-fidelity-allowed-pending-exact-admission",
+   "currentDisposition": "exact-unchanged-candidate-proof-awaiting249-zero-call-binding",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
    "auditRecordedAt": "2026-10-25T22:49:01.138Z",
@@ -2828,7 +2848,7 @@
     "integrationAllowed": false,
     "tileRankReadAttempted": false
    },
-   "nextAction": "Existing250/244 zero-call exact supplemental admission and complete other chapter scope, then actual MCP/Arena display readback preserving unknown/author conditions. No tactical recalculation requirement for faithful presentation; no new model budget.",
+   "nextAction": "249 zero-call binding consistency of these exact proofs. If consistent, supply a separate exact supplemental attestation to the already-running250 consumer; actual lawful admission and MCP/Arena readback remain250 scope. Do not rerun the evidence generator or rewrite raw/false receipts. If an adapter is missing, use existing244 owner only, no new model allowance.",
    "limitedFidelity20261028": {
     "canonical": "79-cn-chapter-242-3",
     "candidate": {
@@ -2927,7 +2947,27 @@
     "upstreamActualCount": null,
     "remoteWeights": null
    },
-   "recognitionPending": false
+   "recognitionPending": false,
+   "exactDisplayCompliance20261028": {
+    "proof": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-159242-compliance-20261028\\proof-242.json",
+     "sha256": "67cfab330af0ec6868ef3945e6ff641ab08a6f83712bc87615f266122e5b2309"
+    },
+    "candidate": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780438.display.json",
+     "sha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+     "bytes": 58219
+    },
+    "existingIndependentConditionsMapped": true,
+    "newNotesRequired": false,
+    "derivedCandidateNeeded": false,
+    "modelCalls": 0,
+    "status": "exact-unchanged-candidate-proof-awaiting249-zero-call-binding",
+    "handoff": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-159242-compliance-20261028\\handoff.json",
+     "sha256": "36f7fe6211d441c4f0eea85cc7ba3c584a6dad3ee0b014b4c19a4362c9dffab9"
+    }
+   }
   },
   {
    "objectId": "web-chapter:79-cn-chapter-246-3",

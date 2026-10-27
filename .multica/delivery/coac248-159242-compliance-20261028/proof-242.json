@@ -1,0 +1,674 @@
+{
+  "schema": "coac248-exact-unchanged-candidate-conditions-proof/1",
+  "canonical": "79-cn-chapter-242-3",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780438.display.json",
+    "sha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+    "bytes": 58219
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1780438\\source.json",
+    "sha256": "3cac4b7103309b092edada33aa8f698b606aa283ae1ce18f8ce9ba9e8428f6e0",
+    "bytes": 45228
+  },
+  "oldAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780438.62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa.json",
+    "sha256": "332731f14ba75be91479bdefe77bb1a0026fe31d600b693d73d0e62db8ba8515",
+    "bytes": 34077
+  },
+  "target": {
+    "figureId": "79-bilibili-cn:cv1780438:b0014:figure",
+    "bbox": [
+      177,
+      144,
+      202,
+      177
+    ]
+  },
+  "independentEvidence": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-242-limited-fidelity-evidence-20261028.json",
+    "sha256": "8af5dfab278fb5a6da46c571f68d6a6a034bf025677842e955530ef3cc769436"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d98dff34-cf8b-4341-8d00-37a31a1e0db8.json",
+    "sha256": "5dfef83403e9f6221a035a3a584166f12bea2a210b50b91563f8014844ad3074"
+  },
+  "originalConsumerReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-next3-20261028\\receipt242.json",
+    "sha256": "255a4ff5e7858e7b7b28353a882b834c53b79dc820dc269f53b218172bc1cbb9",
+    "status": "needs-repair",
+    "limitedOkay": false
+  },
+  "mapping": {
+    "figureIndex": 0,
+    "unknownFieldPath": "/figures/0/unknowns",
+    "unknowns": [
+      "上方牌河靠近中央一行的屏幕最左侧万子牌：无法可靠辨认具体点数，转录为?m。"
+    ],
+    "transcriptionPath": "/figures/0/transcription",
+    "transcriptionSha256": "d11a1138c068b77532e8ae504010869eda9679d76f62d73cd8cfa0626ff9048c",
+    "captionPath": "/figures/0/caption",
+    "captionSha256": "9e98d4fdb0b7937ca9e87686c65614c1594b0947b143bfb2d4b7093660e08af3",
+    "sourceAssetBindings": [
+      {
+        "assetId": "79-bilibili-cn:070bead8b6b4ebb7878bad91",
+        "path": "web-sources/v1/79-bilibili-cn/assets/fe9214ed1d4cb16f1a0d857c1f08093f5038203abc349f1b89f1ce054c734618.jpg",
+        "sha256": "fe9214ed1d4cb16f1a0d857c1f08093f5038203abc349f1b89f1ce054c734618",
+        "url": "https://i0.hdslb.com/bfs/article/36015ed2e9af80e43eb815af674340bb2cf3246a.jpg"
+      }
+    ],
+    "propositionAnchors": [
+      {
+        "originalPropositionIndex": 0,
+        "originalSourceQuote": "这一节来试试结合点棒状况进行做牌。／原点以下注重打点，原点以上注重速度，这是比较基本的考虑方法。",
+        "faithfulWithUnknown": true,
+        "dependsOnExactTileUnchanged": "no",
+        "neededLimitation": "保留“比较基本”的判断力度，不将其改为绝对规则；当前原句已保留。",
+        "anchors": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1780438:b0002",
+            "fieldPath": "/body/blocks/1/text",
+            "exactQuote": "这一节来试试结合点棒状况进行做牌。",
+            "utf8ByteRange": [
+              0,
+              51
+            ],
+            "fullFieldSha256": "cb5312f8521121cf05a86c4cd7372e1cafad42be7a8ec2565078159d67e26ea0"
+          },
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1780438:b0003",
+            "fieldPath": "/body/blocks/2/text",
+            "exactQuote": "原点以下注重打点，原点以上注重速度，这是比较基本的考虑方法。",
+            "utf8ByteRange": [
+              0,
+              90
+            ],
+            "fullFieldSha256": "3f530f14406a1116ea640d7013f5f891b2e8bf6dea520ed9121f2f6445088d2f"
+          }
+        ]
+      },
+      {
+        "originalPropositionIndex": 1,
+        "originalSourceQuote": "虽说要提高打点，但是老是过于勉强地去做手役，／和上位的差距会越来越大。",
+        "faithfulWithUnknown": true,
+        "dependsOnExactTileUnchanged": "no",
+        "neededLimitation": "保留“老是过于勉强地”这一条件，不扩大成所有提高打点的做法都会扩大差距。",
+        "anchors": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1780438:b0007",
+            "fieldPath": "/body/blocks/6/text",
+            "exactQuote": "虽说要提高打点，但是老是过于勉强地去做手役，",
+            "utf8ByteRange": [
+              0,
+              66
+            ],
+            "fullFieldSha256": "8e2db5ae7d02984f462f60e6120bb9e53ade4774fa88e2247ff5956d1be2f27f"
+          },
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1780438:b0008",
+            "fieldPath": "/body/blocks/7/text",
+            "exactQuote": "和上位的差距会越来越大。",
+            "utf8ByteRange": [
+              0,
+              36
+            ],
+            "fullFieldSha256": "0b1a75939ff3b12643f69864477517c352d7c2ca736952490cc447cc7b998b39"
+          }
+        ]
+      },
+      {
+        "originalPropositionIndex": 2,
+        "originalSourceQuote": "1.门清立直／2.用宝牌／3.混一色／这三个就是提高打点的核心了。",
+        "faithfulWithUnknown": true,
+        "dependsOnExactTileUnchanged": "no",
+        "neededLimitation": "作为作者列出的核心保留，不改写成对例1三种路线均可成立的断言。",
+        "anchors": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1780438:b0009",
+            "fieldPath": "/body/blocks/8/text",
+            "exactQuote": "1.门清立直",
+            "utf8ByteRange": [
+              0,
+              14
+            ],
+            "fullFieldSha256": "20dbf1d1bed831b6bd563d19c098244eb3c12086a5c078efdcf3b98b5e25085e"
+          },
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1780438:b0010",
+            "fieldPath": "/body/blocks/9/text",
+            "exactQuote": "2.用宝牌",
+            "utf8ByteRange": [
+              0,
+              11
+            ],
+            "fullFieldSha256": "321ccbd8cfa4de6dbc4f5ffae7472941d373ba414a96db4f62ca36cd28d8e4f0"
+          },
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1780438:b0011",
+            "fieldPath": "/body/blocks/10/text",
+            "exactQuote": "3.混一色",
+            "utf8ByteRange": [
+              0,
+              11
+            ],
+            "fullFieldSha256": "bdce052522f5d3d48f409c4729431b2fc50e28226e43ee74d5dce72f0652ec7b"
+          },
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1780438:b0012",
+            "fieldPath": "/body/blocks/11/text",
+            "exactQuote": "这三个就是提高打点的核心了。",
+            "utf8ByteRange": [
+              0,
+              42
+            ],
+            "fullFieldSha256": "5b4eac6b29f646f9c74f038076adb0196872a3b6830116c9d21cc2c60d86fde0"
+          }
+        ]
+      },
+      {
+        "originalPropositionIndex": 3,
+        "originalSourceQuote": "想要高打点，立直是最近的一条路。",
+        "faithfulWithUnknown": true,
+        "dependsOnExactTileUnchanged": "no",
+        "neededLimitation": "保留为作者的路线判断，不扩写为任何局面下都绝对最优。",
+        "anchors": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1780438:b0015",
+            "fieldPath": "/body/blocks/14/text",
+            "exactQuote": "想要高打点，立直是最近的一条路。",
+            "utf8ByteRange": [
+              0,
+              48
+            ],
+            "fullFieldSha256": "e98edd22e82acf41fc126de251e064909506ab07f83d574db54cb13314fca9d4"
+          }
+        ]
+      },
+      {
+        "originalPropositionIndex": 4,
+        "originalSourceQuote": "例1虽然赢了点点棒，但是现在正在和下家争TOP。",
+        "faithfulWithUnknown": true,
+        "dependsOnExactTileUnchanged": "no",
+        "neededLimitation": "保留“虽然……但是……”的情境，不另推断先前过程。",
+        "anchors": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1780438:b0016",
+            "fieldPath": "/body/blocks/15/text",
+            "exactQuote": "例1虽然赢了点点棒，但是现在正在和下家争TOP。",
+            "utf8ByteRange": [
+              0,
+              64
+            ],
+            "fullFieldSha256": "0d92a43ef1f53daf1b82bc16814d8fcc3bff765793d627c97fdc32414282dd25"
+          }
+        ]
+      },
+      {
+        "originalPropositionIndex": 5,
+        "originalSourceQuote": "吃了上家的3万也许要和牌是没什么问题，但是和TOP的差距是基本没缩小。",
+        "faithfulWithUnknown": true,
+        "dependsOnExactTileUnchanged": "no",
+        "neededLimitation": "保留“也许”和“上家的3万”，不得把目标?m补成3m，也不得把推测改成必然和牌；当前原句和?m标记已保留这些区别。",
+        "anchors": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1780438:b0017",
+            "fieldPath": "/body/blocks/16/text",
+            "exactQuote": "吃了上家的3万也许要和牌是没什么问题，但是和TOP的差距是基本没缩小。",
+            "utf8ByteRange": [
+              0,
+              97
+            ],
+            "fullFieldSha256": "c381c9fbf580c27a4822f5b9a5ad0701aa8e2795245961caf876c701bbefa60c"
+          }
+        ]
+      },
+      {
+        "originalPropositionIndex": 6,
+        "originalSourceQuote": "但是和TOP的差距是基本没缩小。",
+        "faithfulWithUnknown": true,
+        "dependsOnExactTileUnchanged": "uncertain",
+        "neededLimitation": "保留“基本”并作为作者判断呈现，不添加具体得分或声称完成了独立复算。",
+        "anchors": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1780438:b0017",
+            "fieldPath": "/body/blocks/16/text",
+            "exactQuote": "但是和TOP的差距是基本没缩小。",
+            "utf8ByteRange": [
+              55,
+              97
+            ],
+            "fullFieldSha256": "c381c9fbf580c27a4822f5b9a5ad0701aa8e2795245961caf876c701bbefa60c"
+          }
+        ]
+      },
+      {
+        "originalPropositionIndex": 7,
+        "originalSourceQuote": "这种情况是应该要凹门清立直的牌。",
+        "faithfulWithUnknown": true,
+        "dependsOnExactTileUnchanged": "uncertain",
+        "neededLimitation": "作为此情境下的作者建议保留，不声称已证明绝对最优。",
+        "anchors": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1780438:b0018",
+            "fieldPath": "/body/blocks/17/text",
+            "exactQuote": "这种情况是应该要凹门清立直的牌。",
+            "utf8ByteRange": [
+              0,
+              48
+            ],
+            "fullFieldSha256": "ef80443269ae945b73b0da4dc9b7ad63756d00ed07a2035c386e58ea88d3547c"
+          }
+        ]
+      },
+      {
+        "originalPropositionIndex": 8,
+        "originalSourceQuote": "当和自己争TOP的玩家是亲家时，用食断等小牌让他安全下庄，你这是没搞清楚情况吧= =",
+        "faithfulWithUnknown": true,
+        "dependsOnExactTileUnchanged": "no",
+        "neededLimitation": "保留亲家及争TOP的条件和作者的批评语气，不另作安全度判断。",
+        "anchors": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1780438:b0019",
+            "fieldPath": "/body/blocks/18/text",
+            "exactQuote": "当和自己争TOP的玩家是亲家时，用食断等小牌让他安全下庄，你这是没搞清楚情况吧= =",
+            "utf8ByteRange": [
+              0,
+              114
+            ],
+            "fullFieldSha256": "bcdd4c3ff581c589747f79abe0e5592a88fea6a6157875d09fdf897cb375b284"
+          }
+        ]
+      },
+      {
+        "originalPropositionIndex": 9,
+        "originalSourceQuote": "总结、理论：／自己的目标是亲家时，以打点为重是基础。",
+        "faithfulWithUnknown": true,
+        "dependsOnExactTileUnchanged": "no",
+        "neededLimitation": "保留“自己的目标是亲家时”和“是基础”，不扩写为无条件规定。",
+        "anchors": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1780438:b0020",
+            "fieldPath": "/body/blocks/19/text",
+            "exactQuote": "总结、理论：",
+            "utf8ByteRange": [
+              0,
+              18
+            ],
+            "fullFieldSha256": "bf529cb0a261277e456fd42d6ccc08308114543154fd147da8612091a1f77001"
+          },
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1780438:b0021",
+            "fieldPath": "/body/blocks/20/text",
+            "exactQuote": "自己的目标是亲家时，以打点为重是基础。",
+            "utf8ByteRange": [
+              0,
+              57
+            ],
+            "fullFieldSha256": "5209f8624fd5b371259f79ae9741c76a4e4a4a3af080d3b2a1dff2ef47ccd624"
+          }
+        ]
+      }
+    ]
+  },
+  "inheritedNonTargetEvidence": {
+    "faithfulBodyChecks": [
+      {
+        "id": "79-bilibili-cn:cv1780438:b0001",
+        "verdict": "faithful",
+        "evidence": "免责声明、译者SeventhTG（XD）、权利说明及原文地址完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0002",
+        "verdict": "faithful",
+        "evidence": "结合点棒状况做牌的原文完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0003",
+        "verdict": "faithful",
+        "evidence": "原点上下分别重视打点与速度的条件及判断完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0004",
+        "verdict": "faithful",
+        "evidence": "分隔线保留，位置一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0005",
+        "verdict": "faithful",
+        "evidence": "标题“提高打点”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0006",
+        "verdict": "faithful",
+        "evidence": "分隔线保留，位置一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0007",
+        "verdict": "faithful",
+        "evidence": "过于勉强做手役的前半句逐字保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0008",
+        "verdict": "faithful",
+        "evidence": "与上位差距扩大的后半句完整保留，承接顺序一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0009",
+        "verdict": "faithful",
+        "evidence": "第一项“门清立直”及编号保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0010",
+        "verdict": "faithful",
+        "evidence": "第二项“用宝牌”及编号保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0011",
+        "verdict": "faithful",
+        "evidence": "第三项“混一色”及编号保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0012",
+        "verdict": "faithful",
+        "evidence": "三个提高打点核心的总结完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0013",
+        "verdict": "faithful",
+        "evidence": "“例1：”标签完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0015",
+        "verdict": "faithful",
+        "evidence": "立直是取得高打点最近路径的原文判断保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0016",
+        "verdict": "faithful",
+        "evidence": "已有盈利但仍与下家争TOP的状况完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0017",
+        "verdict": "faithful",
+        "evidence": "吃上家3万与基本无法缩小领先者差距的论证完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0018",
+        "verdict": "faithful",
+        "evidence": "应坚持门清立直的判断完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0019",
+        "verdict": "faithful",
+        "evidence": "争TOP对手为亲家时，小牌令其安全下庄的条件与批评力度保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0020",
+        "verdict": "faithful",
+        "evidence": "“总结、理论：”及加粗、绿色强调保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0021",
+        "verdict": "faithful",
+        "evidence": "目标为亲家时重视打点的总结及强调完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0022",
+        "verdict": "faithful",
+        "evidence": "分隔线保留，位置一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0023",
+        "verdict": "faithful",
+        "evidence": "“例2：”标签完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0024",
+        "verdict": "faithful",
+        "evidence": "场况、点数、手牌及四家牌河与图一致，宝牌9m和可吃的9p完整表示。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0025",
+        "verdict": "faithful",
+        "evidence": "通过副露强行使用宝牌提高打点的原文完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0026",
+        "verdict": "faithful",
+        "evidence": "例2处于四位且需要打点的适用条件保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0027",
+        "verdict": "faithful",
+        "evidence": "吃9饼转向全带的建议及判断力度保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0028",
+        "verdict": "faithful",
+        "evidence": "宝牌9万及两种满贯组合“全带三色北DORA1”“全带北DORA2”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0029",
+        "verdict": "faithful",
+        "evidence": "副露较远的让步条件、与门清比较和满贯概率的反问完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0030",
+        "verdict": "faithful",
+        "evidence": "分隔线保留，位置一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0031",
+        "verdict": "faithful",
+        "evidence": "例3标签、13张手牌、独立摸入7p及宝牌2p均与图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0032",
+        "verdict": "faithful",
+        "evidence": "四位时容易失去打点与速度平衡的原文完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0033",
+        "verdict": "faithful",
+        "evidence": "例3即使追求打点也只能切6万的判断力度保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0034",
+        "verdict": "faithful",
+        "evidence": "不想和小牌时不鸣牌的条件与处理完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0035",
+        "verdict": "faithful",
+        "evidence": "门清立直、切一张宝牌、5200点及自摸满贯的条件和数字完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0036",
+        "verdict": "faithful",
+        "evidence": "非常不推荐切3饼固定宝牌对子的原文完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0037",
+        "verdict": "faithful",
+        "evidence": "分隔线保留，位置一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0038",
+        "verdict": "faithful",
+        "evidence": "标题“提高速度”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0039",
+        "verdict": "faithful",
+        "evidence": "分隔线保留，位置一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0040",
+        "verdict": "faithful",
+        "evidence": "例4标签、13张手牌、独立摸入6s及宝牌1s均与图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0041",
+        "verdict": "faithful",
+        "evidence": "切2饼进入平和一向听的通常打法完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0042",
+        "verdict": "faithful",
+        "evidence": "南3局、自己TOP且希望推进牌局的全部条件保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0043",
+        "verdict": "faithful",
+        "evidence": "拆宝牌对子的判断完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0044",
+        "verdict": "faithful",
+        "evidence": "切宝牌后应接受2、5万及5、8饼吃听的条件与牌值完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0045",
+        "verdict": "faithful",
+        "evidence": "分隔线保留，位置一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0046",
+        "verdict": "faithful",
+        "evidence": "“例5”标签完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0047",
+        "verdict": "faithful",
+        "evidence": "场况、四家点数、13张手牌及各家牌河与图一致，亲家刚打出的5p完整表示。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0048",
+        "verdict": "faithful",
+        "evidence": "第二位亲家对自身TOP地位威胁最大的判断完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0049",
+        "verdict": "faithful",
+        "evidence": "“绝对不能让他连庄”的判断力度保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0050",
+        "verdict": "faithful",
+        "evidence": "原文“通畅”原样保留；通常应立直的牌此处需副露阻止连庄的意思未改写。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0051",
+        "verdict": "faithful",
+        "evidence": "碰5饼听牌的结论完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0052",
+        "verdict": "faithful",
+        "evidence": "选择较易打出的6、7饼及建议语气完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0053",
+        "verdict": "faithful",
+        "evidence": "“（待续）”完整保留。"
+      }
+    ],
+    "faithfulFigureChecks": [
+      {
+        "id": "79-bilibili-cn:cv1780438:b0024:figure",
+        "verdict": "faithful",
+        "evidence": "南3局0本场、立直棒0根、宝牌9m及北19000、东22800、南27000、西31200均一致。手牌1129m4579s78p北北中和四家牌河逐牌、位置一致；无可见副露。图内“ドラ”已译为“宝牌”。附件配对编号另列为非教学笔误。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0031:figure",
+        "verdict": "faithful",
+        "evidence": "“例3”保留；手牌446m22356p78s中中中、摸入7p、宝牌2p逐牌及顺序一致。“ツモ”“ドラ”分别完整译为“摸入”“宝牌”，摸入牌与宝牌未并入原13张手牌。附件配对编号另列为非教学笔误。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0040:figure",
+        "verdict": "faithful",
+        "evidence": "“例4”保留；手牌34m2245667p1157s、摸入6s、宝牌1s逐牌及顺序一致。“ツモ”“ドラ”分别完整译为“摸入”“宝牌”。附件配对编号另列为非教学笔误。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0047:figure",
+        "verdict": "faithful",
+        "evidence": "南2局0本场、立直棒0根、宝牌8m；西39500、北23000、东26300、南11200均一致。手牌567m556888p2245s及四家牌河逐牌、分行和方向一致，包括上方第二行5p、1s，右河末端外侧7p及左河外侧白板。附件配对编号另列为非教学笔误。"
+      }
+    ],
+    "domOrder": {
+      "faithful": true,
+      "evidence": "53个正文块按b0001至b0053自然顺序对应，五次图片出现位置一致，无重复、调序或跳块。正文署名、原文地址和强调均保留；源中无表格。"
+    },
+    "sourceNotesPreserved": [
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1780438:b0014:figure",
+        "sourceEvidence": "sourceNotes称“附件1为原图，附件2为同一原图的最近邻放大视图”；本次实际对应附件1、6。",
+        "description": "加工附件配对编号有误，不影响牌面教学内容。",
+        "suggestedRepair": "将配对编号改为原图附件1、放大图附件6。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1780438:b0024:figure",
+        "sourceEvidence": "sourceNotes称原图、放大图为附件3、4；本次实际对应附件2、7。",
+        "description": "加工附件配对编号有误，不影响牌面教学内容。",
+        "suggestedRepair": "将配对编号改为原图附件2、放大图附件7。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1780438:b0031:figure",
+        "sourceEvidence": "sourceNotes称原图、放大图为附件5、6；本次实际对应附件3、8。",
+        "description": "加工附件配对编号有误，不影响例3牌码和图例标签。",
+        "suggestedRepair": "将配对编号改为原图附件3、放大图附件8。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1780438:b0040:figure",
+        "sourceEvidence": "sourceNotes称原图、放大图为附件7、8；本次实际对应附件4、9。",
+        "description": "加工附件配对编号有误，不影响例4牌码和图例标签。",
+        "suggestedRepair": "将配对编号改为原图附件4、放大图附件9。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1780438:b0047:figure",
+        "sourceEvidence": "sourceNotes称原图、放大图为附件9、10；本次实际对应附件5、10。",
+        "description": "加工附件中的原图编号有误，不影响牌面教学内容。",
+        "suggestedRepair": "将原图编号改为附件5，放大图附件10保持不变。"
+      }
+    ]
+  },
+  "independentConditionsAlreadySatisfied": true,
+  "candidateChanged": false,
+  "derivedCandidateNeeded": false,
+  "newNonAuthorNoteNeeded": false,
+  "noteDecisionBasis": "保留原图、目标位置的?m及其无法可靠辨点说明，并保留例1原文的条件和判断力度。不要猜填点数，也不要把作者的推测或定性判断写成已独立验证的具体和牌与结算结果。本次无需制作或修改候选。",
+  "requiredConditionsRetained": [],
+  "tacticalUncertainRetained": [
+    {
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1780438:b0017"
+      ],
+      "sourceQuote": "但是和TOP的差距是基本没缩小。",
+      "claim": "对于前述吃牌方案，作者判断与TOP的差距基本没有缩小。",
+      "dependsOnExactTile": "uncertain",
+      "faithfulWithUnknown": true,
+      "evidence": "这是原文对该方案的定性判断，保留原话不需要猜目标数字；原文没有给出完整的最终和牌构成与具体结算，单凭现有材料不能把它升级为独立复算结果，也不能断言目标数字对任何完整复盘均无影响。",
+      "neededLimitation": "保留“基本”并作为作者判断呈现，不添加具体得分或声称完成了独立复算。"
+    },
+    {
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1780438:b0018"
+      ],
+      "sourceQuote": "这种情况是应该要凹门清立直的牌。",
+      "claim": "在例1的争TOP情境下，作者建议争取门清立直。",
+      "dependsOnExactTile": "uncertain",
+      "faithfulWithUnknown": true,
+      "evidence": "作者的明示论证是争TOP时比较吃3万的小牌与门清立直的打点，没有把上方目标牌的点数列为明示理由。可以保留该建议；仅凭未知牌不能独立证明该建议在所有完整牌面复盘中都最优。",
+      "neededLimitation": "作为此情境下的作者建议保留，不声称已证明绝对最优。"
+    }
+  ],
+  "currentDisplayFidelityOnly": true,
+  "wholeChapterPassedClaimed": false,
+  "newModelCalls": 0,
+  "next": "249 zero-call independent binding consistency, then existing250 legal supplemental admission and actual display readbacks. Original false receipts remain immutable."
+}

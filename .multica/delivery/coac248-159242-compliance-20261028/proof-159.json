@@ -1,0 +1,391 @@
+{
+  "schema": "coac248-exact-unchanged-candidate-conditions-proof/1",
+  "canonical": "79-cn-chapter-159-9",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751292.display.json",
+    "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+    "bytes": 46828
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1751292\\source.json",
+    "sha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+    "bytes": 28679
+  },
+  "oldAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json",
+    "sha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed",
+    "bytes": 25432
+  },
+  "target": {
+    "figureId": "79-bilibili-cn:cv1751292:b0013:figure",
+    "bbox": [
+      298,
+      126,
+      324,
+      161
+    ]
+  },
+  "independentEvidence": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-159-limited-fidelity-evidence-20261028.json",
+    "sha256": "86bc78028f01c2fd7a277f0c2de1ce5fb2cbf51aff72ba00376fc5e7e0c178ba"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\50eb7aaf-2b54-410c-b41b-b11059eae75f.json",
+    "sha256": "12e1b8c6c7e88b3474b2a6a8aa2d56a27a62e64d9c3a5b36a396c365c94177bf"
+  },
+  "originalConsumerReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-next3-20261028\\receipt159.json",
+    "sha256": "8b51355cf5799eb50fd6a60767d8dddb407f47f9e99e0f5fe8eb3399e6685901",
+    "status": "needs-repair",
+    "limitedOkay": false
+  },
+  "mapping": {
+    "figureIndex": 4,
+    "unknownFieldPath": "/figures/4/unknowns",
+    "unknowns": [
+      "上方牌河按画面从左到右第4张：可辨为万子牌，数字无法可靠确认。"
+    ],
+    "transcriptionPath": "/figures/4/transcription",
+    "transcriptionSha256": "c180b6a704a9de5e703bc7b9cc655e72c4d9363e3f1bc8a56f67de3e4240fdc2",
+    "captionPath": "/figures/4/caption",
+    "captionSha256": "b91d8464d6d1bd2b8f14dd8a4adb6794f8e6ee752a021743a55eb5f5f00aeb36",
+    "sourceAssetBindings": [
+      {
+        "assetId": "79-bilibili-cn:55168dc17a7678541d5a5343",
+        "path": "web-sources/v1/79-bilibili-cn/assets/e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952.png",
+        "sha256": "e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952",
+        "url": "https://i0.hdslb.com/bfs/article/b2f255c0af09dfb0024e53aa1bad6f31e9b18544.png"
+      }
+    ],
+    "propositionAnchors": [
+      {
+        "originalPropositionIndex": 0,
+        "originalSourceQuote": "前一回主要说了有2~3张宝牌的时候，即使是后付也应该积极的鸣牌。 其实还有其他的手牌和场况，采取后付是比较有效的。",
+        "faithfulWithUnknown": true,
+        "dependsOnExactTileUnchanged": "no",
+        "neededLimitation": "保留“其他的手牌和场况”及“比较有效”的范围和力度；不要把前一回的2至3张宝牌条件套到例4。",
+        "anchors": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1751292:b0004",
+            "fieldPath": "/body/blocks/3/text",
+            "exactQuote": "前一回主要说了有2~3张宝牌的时候，即使是后付也应该积极的鸣牌。 其实还有其他的手牌和场况，采取后付是比较有效的。",
+            "utf8ByteRange": [
+              0,
+              163
+            ],
+            "fullFieldSha256": "e411d8850ff4de242cd7ec71184ce21798435dcdfb3a11ad2b9b993fdd1f1316"
+          }
+        ]
+      },
+      {
+        "originalPropositionIndex": 1,
+        "originalSourceQuote": "在南场，常常会面对无论点数多少都想和牌的情况。",
+        "faithfulWithUnknown": true,
+        "dependsOnExactTileUnchanged": "no",
+        "neededLimitation": "保留“常常”和“想和牌”的语气，不改成所有南场都应如此或必然能够和牌。",
+        "anchors": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1751292:b0012",
+            "fieldPath": "/body/blocks/11/text",
+            "exactQuote": "在南场，常常会面对无论点数多少都想和牌的情况。",
+            "utf8ByteRange": [
+              367,
+              436
+            ],
+            "fullFieldSha256": "747286de35ba2e41e42ef6de89ff281ce7b42c854fdf84e5ae7fa741ba9b30c0"
+          }
+        ]
+      },
+      {
+        "originalPropositionIndex": 2,
+        "originalSourceQuote": "ALL LAST有微弱的差距，和牌即逆转的情况是典型的代表。",
+        "faithfulWithUnknown": true,
+        "dependsOnExactTileUnchanged": "no",
+        "neededLimitation": "保留这是具备所述条件的典型情况，不扩写为任何终局或任何和牌都能逆转。",
+        "anchors": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1751292:b0012",
+            "fieldPath": "/body/blocks/11/text",
+            "exactQuote": "ALL LAST有微弱的差距，和牌即逆转的情况是典型的代表。",
+            "utf8ByteRange": [
+              437,
+              511
+            ],
+            "fullFieldSha256": "747286de35ba2e41e42ef6de89ff281ce7b42c854fdf84e5ae7fa741ba9b30c0"
+          }
+        ]
+      },
+      {
+        "originalPropositionIndex": 3,
+        "originalSourceQuote": "根据例4的点数情况，等着南出来太过优柔寡断了。",
+        "faithfulWithUnknown": true,
+        "dependsOnExactTileUnchanged": "uncertain",
+        "neededLimitation": "保留为作者针对例4点数情况的判断；不把照录该判断当成已独立证明其绝对正确。",
+        "anchors": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1751292:b0014",
+            "fieldPath": "/body/blocks/13/text",
+            "exactQuote": "根据例4的点数情况，等着南出来太过优柔寡断了。",
+            "utf8ByteRange": [
+              0,
+              67
+            ],
+            "fullFieldSha256": "0f8f997bece591617e145c547e6e3b1fe54f0be04e59928c94935dcd1ce4a966"
+          }
+        ]
+      },
+      {
+        "originalPropositionIndex": 4,
+        "originalSourceQuote": "虽然鸣牌之后手牌会有点散，但也要朝着这1500点去。",
+        "faithfulWithUnknown": true,
+        "dependsOnExactTileUnchanged": "uncertain",
+        "neededLimitation": "保留“有点散”与“朝着”两种力度；1500点是作者提出的目标，不是已实现或保证实现的得点。",
+        "anchors": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1751292:b0014",
+            "fieldPath": "/body/blocks/13/text",
+            "exactQuote": "虽然鸣牌之后手牌会有点散，但也要朝着这1500点去。",
+            "utf8ByteRange": [
+              68,
+              138
+            ],
+            "fullFieldSha256": "0f8f997bece591617e145c547e6e3b1fe54f0be04e59928c94935dcd1ce4a966"
+          }
+        ]
+      },
+      {
+        "originalPropositionIndex": 5,
+        "originalSourceQuote": "这个牌能鸣牌的时候都鸣了吧（当然5万的碰是不行的= =）",
+        "faithfulWithUnknown": true,
+        "dependsOnExactTileUnchanged": "uncertain",
+        "neededLimitation": "必须同时保留“能鸣牌的时候”和5万碰例外；不要扩写为任何牌都可鸣，也不要根据未知牌列出完整可鸣清单。",
+        "anchors": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1751292:b0014",
+            "fieldPath": "/body/blocks/13/text",
+            "exactQuote": "这个牌能鸣牌的时候都鸣了吧（当然5万的碰是不行的= =）",
+            "utf8ByteRange": [
+              139,
+              215
+            ],
+            "fullFieldSha256": "0f8f997bece591617e145c547e6e3b1fe54f0be04e59928c94935dcd1ce4a966"
+          }
+        ]
+      },
+      {
+        "originalPropositionIndex": 6,
+        "originalSourceQuote": "（当然5万的碰是不行的= =）",
+        "faithfulWithUnknown": true,
+        "dependsOnExactTileUnchanged": "uncertain",
+        "neededLimitation": "原样保留例外，不把目标未知牌当作5万，也不自行补写例外的原因或宣称已独立验证其规则依据。",
+        "anchors": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1751292:b0014",
+            "fieldPath": "/body/blocks/13/text",
+            "exactQuote": "（当然5万的碰是不行的= =）",
+            "utf8ByteRange": [
+              178,
+              215
+            ],
+            "fullFieldSha256": "0f8f997bece591617e145c547e6e3b1fe54f0be04e59928c94935dcd1ce4a966"
+          }
+        ]
+      },
+      {
+        "originalPropositionIndex": 7,
+        "originalSourceQuote": "像这样ALL LAST，拼命地向着和牌前进 要比对手更快的话，就没有被手上的役牌束缚的闲心了。",
+        "faithfulWithUnknown": true,
+        "dependsOnExactTileUnchanged": "no",
+        "neededLimitation": "保留 ALL LAST 和追求速度的条件；不要推断对手隐手、未来行为、实际速度或不需要役。",
+        "anchors": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1751292:b0014",
+            "fieldPath": "/body/blocks/13/text",
+            "exactQuote": "像这样ALL LAST，拼命地向着和牌前进 要比对手更快的话，就没有被手上的役牌束缚的闲心了。",
+            "utf8ByteRange": [
+              217,
+              340
+            ],
+            "fullFieldSha256": "0f8f997bece591617e145c547e6e3b1fe54f0be04e59928c94935dcd1ce4a966"
+          }
+        ]
+      },
+      {
+        "originalPropositionIndex": 8,
+        "originalSourceQuote": "正是这样，后付成为有效的战术。",
+        "faithfulWithUnknown": true,
+        "dependsOnExactTileUnchanged": "no",
+        "neededLimitation": "保留为这一语境下的作者评价，不扩展成成功保证或绝对最优结论。",
+        "anchors": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1751292:b0014",
+            "fieldPath": "/body/blocks/13/text",
+            "exactQuote": "正是这样，后付成为有效的战术。",
+            "utf8ByteRange": [
+              341,
+              386
+            ],
+            "fullFieldSha256": "0f8f997bece591617e145c547e6e3b1fe54f0be04e59928c94935dcd1ce4a966"
+          }
+        ]
+      }
+    ]
+  },
+  "inheritedNonTargetEvidence": {
+    "faithfulBodyChecks": [
+      {
+        "id": "79-bilibili-cn:cv1751292:b0001",
+        "verdict": "faithful",
+        "evidence": "“免责声明：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0002",
+        "verdict": "faithful",
+        "evidence": "著作权声明、译者SeventhTG（XD）及转载署名要求逐字保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0003",
+        "verdict": "faithful",
+        "evidence": "原文地址http://beginners.biz/naki/naki12.html、分隔线及“后付2：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0004",
+        "verdict": "faithful",
+        "evidence": "2~3张宝牌、积极鸣牌的判断及其他手牌和场况的适用范围均按原文保留，章节标题完整。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0005",
+        "verdict": "faithful",
+        "evidence": "例1标签、13张手牌及右侧宝牌8s均与附图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0006",
+        "verdict": "faithful",
+        "evidence": "上家打7索、放过后剩2张、另一张为宝牌表示牌、自摸两次4索和7索的困难及边张吃的结论完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0007",
+        "verdict": "faithful",
+        "evidence": "10张手牌与右侧横置7s、直立8s和9s的副露记录一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0008",
+        "verdict": "faithful",
+        "evidence": "处理6万和4饼、保留安全牌与另一张役牌的建议，以及扣牌、进攻压力、防守力的论证均逐字保留；“二手准备的后付”及三色、一气的条件完整。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0009",
+        "verdict": "faithful",
+        "evidence": "例2标签、13张手牌及右侧宝牌5s均与附图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0010",
+        "verdict": "faithful",
+        "evidence": "3万、4饼、3索出来即吃，以及向三色和役牌倾斜的判断按中文原文完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0011",
+        "verdict": "faithful",
+        "evidence": "例3标签及13张手牌均与附图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0012",
+        "verdict": "faithful",
+        "evidence": "碰一饼的选择、摸6饼或8饼向对对三暗刻变化的条件、南场及ALL LAST和牌逆转的说明和例4标签均完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0014",
+        "verdict": "faithful",
+        "evidence": "不等待南、争取1500点、能鸣即鸣但排除碰5万的例外，以及ALL LAST抢先和牌的论证和“（待续）”均逐字保留。"
+      }
+    ],
+    "faithfulFigureChecks": [
+      {
+        "id": "79-bilibili-cn:cv1751292:b0005:figure",
+        "verdict": "faithful",
+        "evidence": "附图1、6可核对为例1：123446m、4p、5689s、白白；右侧“ドラ”译为宝牌，牌为8s。两张空白牌面为白板，牌序及数量一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0007:figure",
+        "verdict": "faithful",
+        "evidence": "附图2、7显示手牌12344m、56s、东白白；右侧副露为横置7s、直立8s、9s。候选完整保留牌序、分组及方向。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0009:figure",
+        "verdict": "faithful",
+        "evidence": "附图3、8显示例2：224m、23p、244555s、白白；右侧宝牌5s。5s中央红色图案为普通牌面，候选未误记为赤牌。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0011:figure",
+        "verdict": "faithful",
+        "evidence": "附图4、9显示例3：11267778p、222s、发发，与候选13张牌的顺序和重复数量一致。"
+      }
+    ],
+    "domOrder": {
+      "faithful": true,
+      "evidence": "候选按b0001至b0014的自然顺序逐块对应，五次图片出现均留在原有段落位置，没有重排、重复或漏块。"
+    },
+    "sourceNotesPreserved": []
+  },
+  "independentConditionsAlreadySatisfied": true,
+  "candidateChanged": false,
+  "derivedCandidateNeeded": false,
+  "newNonAuthorNoteNeeded": false,
+  "noteDecisionBasis": "维持该牌 unknown、原图绑定和现有原文条件及例外；仅在这一限定范围内接受其忠实展示。如需进行具体万子计数或逐牌鸣牌核验，须先取得足以辨识该牌的可靠证据，当前不作该项验收。本次不制作或修改候选。",
+  "requiredConditionsRetained": [
+    "继续保留现有转写中的“［万子牌，数字无法确认］”和 unknowns 中“上方牌河按画面从左到右第4张：可辨为万子牌，数字无法可靠确认”。",
+    "保留原图及目标位置 [298,126,324,161] 的来源关联；裁剪与放大图不作为独立证据。",
+    "保留 b0012 和 b0014 的原有场况条件、判断力度、1500点目标及5万碰例外，不将未知牌补成具体牌码。",
+    "不得把当前展示扩写为完整万子已见数、逐牌可鸣清单、5万碰例外的解释或得点保证。"
+  ],
+  "tacticalUncertainRetained": [
+    {
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1751292:b0014"
+      ],
+      "sourceQuote": "根据例4的点数情况，等着南出来太过优柔寡断了。",
+      "claim": "作者依据例4的点数情况，判断等待南出现过于犹豫。",
+      "dependsOnExactTile": "uncertain",
+      "faithfulWithUnknown": true,
+      "evidence": "原文明确给出的理由是点数情况，没有把 [298,126,324,161] 的数字列为理由。对具体战术作全面独立评估时，未知万子的数字可能影响可见数量；不能仅因它位于牌河就断定它对所有具体评估都无关。",
+      "neededLimitation": "保留为作者针对例4点数情况的判断；不把照录该判断当成已独立证明其绝对正确。"
+    },
+    {
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1751292:b0014"
+      ],
+      "sourceQuote": "虽然鸣牌之后手牌会有点散，但也要朝着这1500点去。",
+      "claim": "作者预计鸣牌后手牌会有点散，同时仍建议朝1500点的目标前进。",
+      "dependsOnExactTile": "uncertain",
+      "faithfulWithUnknown": true,
+      "evidence": "原句没有指定此处是哪一次鸣牌，也没有说目标牌是某个数字。保留作者的权衡不需猜数；若要逐项核验具体鸣牌及其结果，不能从这处未知牌补出所需信息。",
+      "neededLimitation": "保留“有点散”与“朝着”两种力度；1500点是作者提出的目标，不是已实现或保证实现的得点。"
+    },
+    {
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1751292:b0014"
+      ],
+      "sourceQuote": "这个牌能鸣牌的时候都鸣了吧（当然5万的碰是不行的= =）",
+      "claim": "作者建议这手牌在能鸣牌时积极鸣牌，并明确排除5万的碰。",
+      "dependsOnExactTile": "uncertain",
+      "faithfulWithUnknown": true,
+      "evidence": "建议的条件和例外在文字中明确给出，不需要把上方第四张认成某个数字才能忠实保留。该数字可能关系到具体万子已见数和逐牌核验，原文没有将它明确关联到某个可鸣牌清单。",
+      "neededLimitation": "必须同时保留“能鸣牌的时候”和5万碰例外；不要扩写为任何牌都可鸣，也不要根据未知牌列出完整可鸣清单。"
+    },
+    {
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1751292:b0014"
+      ],
+      "sourceQuote": "（当然5万的碰是不行的= =）",
+      "claim": "5万的碰是作者对上一条建议明确写出的例外。",
+      "dependsOnExactTile": "uncertain",
+      "faithfulWithUnknown": true,
+      "evidence": "作者直接写出了例外，但没有在该段说明其详细理由，也没有说上方牌河第四张就是5万。未知数字是否会影响某项具体牌数或鸣牌核验，不能由这句话单独确定。",
+      "neededLimitation": "原样保留例外，不把目标未知牌当作5万，也不自行补写例外的原因或宣称已独立验证其规则依据。"
+    }
+  ],
+  "currentDisplayFidelityOnly": true,
+  "wholeChapterPassedClaimed": false,
+  "newModelCalls": 0,
+  "next": "249 zero-call independent binding consistency, then existing250 legal supplemental admission and actual display readbacks. Original false receipts remain immutable."
+}

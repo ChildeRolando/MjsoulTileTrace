@@ -1,0 +1,25 @@
+{
+  "schema": "coac248-exact-condition-proof-files/1",
+  "authorizationComment": "01a17f4b-c677-7a56-8dd0-ca8dde28b55e",
+  "files": [
+    {
+      "path": "verify.py",
+      "sha256": "c9e8466bfae9b1d35f6f7d61407ea7e18137f28c07cd7b32d59f3f8db2da34e5"
+    },
+    {
+      "path": "verify_test.py",
+      "sha256": "e4e97b584642e300203e67632520caac343a031bb9bd3c733c9075b506c0f97c"
+    },
+    {
+      "path": "proof-159.json",
+      "sha256": "9c718e694c8d7fd078991124589bf2ffd206915ea82a0686651e8ca790cbeacf"
+    },
+    {
+      "path": "proof-242.json",
+      "sha256": "67cfab330af0ec6868ef3945e6ff641ab08a6f83712bc87615f266122e5b2309"
+    }
+  ],
+  "modelCalls": 0,
+  "candidateEdits": 0,
+  "productionConfigChanged": false
+}
