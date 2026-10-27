@@ -1,0 +1,91 @@
+{
+  "schema": "coac244-283-1017-next-exact-repair-goal/1",
+  "canonical": "nemata-jp-chapter-283-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t10171181r1.json",
+    "sha256": "b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter06-exercise003\\source.v3.json",
+    "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de"
+  },
+  "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+  "field": "/body/blocks/1016/text",
+  "sourceExact": {
+    "id": "modern-yabejp-ja:chapter06-exercise003:b1017",
+    "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0468",
+    "tag": "p",
+    "domPath": "main/p[661]",
+    "tableContext": null,
+    "type": "text",
+    "text": "ターツオーバーで三元役の可能性があるので発は残す、ドラ",
+    "segments": [
+      {
+        "text": "ターツオーバーで三元役の可能性があるので発は残す、ドラ",
+        "marks": [],
+        "href": null
+      }
+    ]
+  },
+  "parentText": "搭子过多，又有三元役（小三元／大三元）的可能，所以保留发，宝牌为",
+  "expectedText": "搭子过多，又有三元役的可能，所以保留发，宝牌为",
+  "allowedEdit": "Delete only（小三元／大三元）; retain三元役, do not restore old三元牌役种. Preserve all other characters/sourceSegments/marks/next6s figure and non-target1194 blocks/524 figures.",
+  "independentError": {
+    "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+    "status": "needs-repair",
+    "checkpoint": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-009.json",
+      "sha256": "109b6aefd9597ea6c0b74c3d1069515a7edfb9a69761ddab9a6bd1bb00085c49"
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\53722d02-3924-4fba-b304-68df1b2b45f0.json",
+      "sha256": "da68153eccbd6de19017bafd73c67404e0c31f56dbcda103264d9a6167c2b1e9"
+    },
+    "callId": "53722d02-3924-4fba-b304-68df1b2b45f0",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "images": 11,
+    "usage": {
+      "inputTokens": 54986,
+      "cachedInputTokens": 0,
+      "outputTokens": 2925
+    },
+    "durationMs": 62530,
+    "review": {
+      "textChecks": [
+        {
+          "id": "modern-yabejp-ja:chapter06-exercise003:b1017",
+          "verdict": "needs-repair",
+          "evidence": "原文称「三元役の可能性」，并未限定为小三元或大三元；候选加入「小三元／大三元」作为解释，缩窄了原文所称三元役的范围。"
+        }
+      ],
+      "figureChecks": [],
+      "contextContinuity": {
+        "faithful": true,
+        "evidence": "目标段与后续宝牌6索、混一色和对对和、切2万的比较及拆搭结论顺序连贯；三元役范围的局部缩窄另列为问题。"
+      },
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+          "sourceEvidence": "「ターツオーバーで三元役の可能性があるので発は残す、ドラ」；题中有白白、发、中中。",
+          "description": "候选将未具体限定的「三元役」解释为「小三元／大三元」，可能排除三元牌相关的役牌，增加了原文没有明确给出的限定。",
+          "suggestedRepair": "删除括注，译为「搭子过多，又有三元役的可能，所以保留发，宝牌为」。"
+        }
+      ],
+      "completeTargetScopeCompared": true,
+      "summary": "目标译文需修复三元役范围的限定；本次没有目标牌图。"
+    }
+  },
+  "expectedIsModelOutput": false,
+  "candidateWritten": false,
+  "nextBudgetProposal": {
+    "maker": 1,
+    "targetIndependentReview": 1,
+    "total": 2,
+    "retry": 0,
+    "failedVoidCount": true,
+    "authorized": false
+  },
+  "scope": "Only a future lawful exact producer and new SHA target review; old raw/uncertain/parent evidence unchanged, all prior valid targets inherited."
+}

@@ -1,0 +1,25 @@
+{
+  "publishedBoundary": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac269-283-10171181-20261028\\review-requests.json",
+    "sha256": "4c7ebd23635631227c698608650052d988a597d4dee505b2156764b0f0d286eb"
+  },
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t10171181r1.json",
+    "sha256": "b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458"
+  },
+  "checks": [
+    {
+      "target": "modern-yabejp-ja:chapter06-exercise003:b1017",
+      "promptExact": true,
+      "schemaExact": true,
+      "orderedImageArgumentsExact": true
+    },
+    {
+      "target": "modern-yabejp-ja:chapter06-exercise003:b1181",
+      "promptExact": true,
+      "schemaExact": true,
+      "orderedImageArgumentsExact": true
+    }
+  ],
+  "newModelCalls": 0
+}

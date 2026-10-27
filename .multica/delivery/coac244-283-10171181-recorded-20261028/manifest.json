@@ -1,0 +1,126 @@
+{
+  "schema": "coac244-evidence-manifest/1",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "bytes": 8
+    },
+    {
+      "path": "1017-original-checkpoint.json",
+      "sha256": "109b6aefd9597ea6c0b74c3d1069515a7edfb9a69761ddab9a6bd1bb00085c49",
+      "bytes": 30837
+    },
+    {
+      "path": "1017-original-raw.json",
+      "sha256": "da68153eccbd6de19017bafd73c67404e0c31f56dbcda103264d9a6167c2b1e9",
+      "bytes": 338266
+    },
+    {
+      "path": "1017-repair-goal.json",
+      "sha256": "31209a75f3736a3047029421bba002ce4dd1fa13930aad8c7480990e09fa274c",
+      "bytes": 4404
+    },
+    {
+      "path": "1181-original-checkpoint.json",
+      "sha256": "a7d7d184db39c9bb4ea73ae7bf0a895fe555e0b5fdce9ec44fc24d2d71e268c3",
+      "bytes": 25070
+    },
+    {
+      "path": "1181-original-raw.json",
+      "sha256": "a9d691972b6443f956e81277717ed1f26f518bbf8309879bf3a87ae85626914e",
+      "bytes": 196218
+    },
+    {
+      "path": "249-inheritance.json",
+      "sha256": "a5765f56d01f99f16a54819a0c2ff674e2828a861acf234e8cc1d148336efae9",
+      "bytes": 24004
+    },
+    {
+      "path": "249-results.json",
+      "sha256": "6b466c5f6ec7552960fd321f74c4016fd51f62c802437e4ca7657623ca80cf1f",
+      "bytes": 128682
+    },
+    {
+      "path": "aggregate-audit.json",
+      "sha256": "93366b71af9e39d56305d20f7cf2b88a9a5b84ce24b80c2cbcf135008f0616df",
+      "bytes": 767146
+    },
+    {
+      "path": "coac244-remaining26-closure-register-20261028.json.after",
+      "sha256": "672c7c3d70aa2cc7e75e200631549e2a28a69892b4f22376568418e30071cbcd",
+      "bytes": 482199
+    },
+    {
+      "path": "coac244-remaining26-closure-register-20261028.json.before",
+      "sha256": "286e267607a02fe8a4dec60b388514abce9c6ecf488929a439f0ca939141d4de",
+      "bytes": 430994
+    },
+    {
+      "path": "coac250-uncovered-chapter-continuation-register-20261027b.json.after",
+      "sha256": "d80df1859842849bac1a3fe67b34d57914d649df639e6c99bd078e36d646f371",
+      "bytes": 536780
+    },
+    {
+      "path": "coac250-uncovered-chapter-continuation-register-20261027b.json.before",
+      "sha256": "063cf289a4ccde7d24eaed1611a5b688f7636464c2e2dd9bfcd829a072774b5e",
+      "bytes": 491826
+    },
+    {
+      "path": "content-hashes.json",
+      "sha256": "16d797f7a01ec1ecb640e82f049cdb2cb1551f6fd42016158db40c4bca13cd9d",
+      "bytes": 504065
+    },
+    {
+      "path": "effective-issue-register.json",
+      "sha256": "76a8f63463b13ae542830768752a6d6c5217d834b7f452a27d521898dc983b9e",
+      "bytes": 61221
+    },
+    {
+      "path": "handoff.json",
+      "sha256": "752333b00ca77fa511e3ed5aa9b27da4a14a6a1afb1325c2458b31d6e175abb0",
+      "bytes": 2621
+    },
+    {
+      "path": "old-effective-issue-register.json",
+      "sha256": "9edd0c81565d66efe41cb673853b30507f33eabccb0b468b211bc8264692b898",
+      "bytes": 57766
+    },
+    {
+      "path": "owner-update.md",
+      "sha256": "0c9b9205bbf851601dcc112b211a5c7aafc1b6c9c91cb1e57c721f30d4d86e23",
+      "bytes": 2785
+    },
+    {
+      "path": "README.md",
+      "sha256": "0dfdc82b0447773dcc7b340efaca80cf3fd0556ed451742f7ace3f864cb0e221",
+      "bytes": 1842
+    },
+    {
+      "path": "register.py",
+      "sha256": "75af48eccdabb93b987503e43a7d8b19ee65dd4643b4e59763f11b2bfc86ff31",
+      "bytes": 8541
+    },
+    {
+      "path": "registration.json",
+      "sha256": "5d2e0f269054a82488da3a3b89316bcc48e64a17df00ac29d615fa95eb49f4f5",
+      "bytes": 7005
+    },
+    {
+      "path": "request-boundary-verification.json",
+      "sha256": "8587d1520969759c3af924672ab4203d3b854c03b5833fcd7b71b29f8b218f89",
+      "bytes": 920
+    },
+    {
+      "path": "verification.json",
+      "sha256": "813aa28ae3fa8e87d245a3b393fb72187c4f0da44b4d40d32c6cc7283a8930f8",
+      "bytes": 31806
+    },
+    {
+      "path": "verify.mjs",
+      "sha256": "37310e45bd158a51f81d5d8819e0d51a47f952f9fba65cb4074457e88e3a06e4",
+      "bytes": 10309
+    }
+  ],
+  "newModelCalls": 0
+}

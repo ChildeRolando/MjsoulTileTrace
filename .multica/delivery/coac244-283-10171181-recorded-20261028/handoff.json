@@ -1,0 +1,43 @@
+{
+  "schema": "coac244-283-10171181-zero-recorded/1",
+  "canonical": "nemata-jp-chapter-283-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t10171181r1.json",
+    "sha256": "b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458"
+  },
+  "registration": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-10171181-recorded-20261028\\registration.json",
+  "effectiveIssues": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-10171181-recorded-20261028\\effective-issue-register.json",
+    "sha256": "76a8f63463b13ae542830768752a6d6c5217d834b7f452a27d521898dc983b9e",
+    "bytes": 61221
+  },
+  "b1181": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-011.json",
+    "sha256": "a7d7d184db39c9bb4ea73ae7bf0a895fe555e0b5fdce9ec44fc24d2d71e268c3"
+  },
+  "b1017": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-009.json",
+    "sha256": "109b6aefd9597ea6c0b74c3d1069515a7edfb9a69761ddab9a6bd1bb00085c49"
+  },
+  "remainingBlockers": 6,
+  "counts": {
+    "originalIssues": 19,
+    "resolved": 11,
+    "remainingBlocking": 6,
+    "sourceNotes": 2,
+    "originalDeferred": 16,
+    "effectiveDeferredResolved": 10,
+    "effectiveDeferredOpen": 6,
+    "newAggregateDeferred": 12,
+    "newAggregateDeferredResolved": 7,
+    "newAggregateDeferredOpen": 5,
+    "currentTargetErrorsOutsideDeferred": 1
+  },
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "newCandidates": 0,
+  "newConsumers": 0,
+  "noDispatch": true,
+  "noWholeChapterIntegration": true,
+  "nextAction": "283当前精确工作稿b90f7c4f，原19问题有效11已补证/6阻断/2source-note；b1181据真实独审236cb892闭合，勿重复制作/复审。b1017独审53722d02确认括注小三元／大三元缩窄范围，仅删除该括注并保留三元役是后续最小修订目标，未改候选；未来需另获maker1+单目标独审1共2调用，当前4/4余0，不自动执行。剩b0785两error+河牌unknown、b0947题问error+两风牌unknown保持；六表/Q8/0168/0396/0962/batch010原证据精确继承，不重审、不合整283、不切active。"
+}

@@ -1,0 +1,152 @@
+{
+  "schema": "coac244-283-target-outcomes-recorded/1",
+  "canonical": "nemata-jp-chapter-283-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t10171181r1.json",
+    "sha256": "b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter06-exercise003\\source.v3.json",
+    "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de"
+  },
+  "aggregate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458.json",
+    "sha256": "93366b71af9e39d56305d20f7cf2b88a9a5b84ce24b80c2cbcf135008f0616df"
+  },
+  "targetCheckpoints": [
+    {
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+      "status": "needs-repair",
+      "checkpoint": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-009.json",
+        "sha256": "109b6aefd9597ea6c0b74c3d1069515a7edfb9a69761ddab9a6bd1bb00085c49"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\53722d02-3924-4fba-b304-68df1b2b45f0.json",
+        "sha256": "da68153eccbd6de19017bafd73c67404e0c31f56dbcda103264d9a6167c2b1e9"
+      }
+    },
+    {
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+      "status": "passed",
+      "checkpoint": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-011.json",
+        "sha256": "a7d7d184db39c9bb4ea73ae7bf0a895fe555e0b5fdce9ec44fc24d2d71e268c3"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\236cb892-1825-4c9d-801e-e889c71681d5.json",
+        "sha256": "a9d691972b6443f956e81277717ed1f26f518bbf8309879bf3a87ae85626914e"
+      }
+    }
+  ],
+  "scopeInheritance": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-283-10171181-scope-inheritance-20261028.json",
+    "sha256": "a5765f56d01f99f16a54819a0c2ff674e2828a861acf234e8cc1d148336efae9"
+  },
+  "effectiveIssueRegister": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-10171181-recorded-20261028\\effective-issue-register.json",
+    "sha256": "76a8f63463b13ae542830768752a6d6c5217d834b7f452a27d521898dc983b9e",
+    "bytes": 61221
+  },
+  "counts": {
+    "originalIssues": 19,
+    "resolved": 11,
+    "remainingBlocking": 6,
+    "sourceNotes": 2,
+    "originalDeferred": 16,
+    "effectiveDeferredResolved": 10,
+    "effectiveDeferredOpen": 6,
+    "newAggregateDeferred": 12,
+    "newAggregateDeferredResolved": 7,
+    "newAggregateDeferredOpen": 5,
+    "currentTargetErrorsOutsideDeferred": 1
+  },
+  "classification": {
+    "domTableGeometry": 0,
+    "semanticConditionOrFigureTranscription": 4,
+    "criticalUnknownFigure": 2,
+    "sourceNotes": 2
+  },
+  "wholeChapterAccepted": false,
+  "newModelCalls": 0,
+  "budget": {
+    "used": 4,
+    "maximum": 4,
+    "remaining": 0,
+    "retry": 0
+  },
+  "minimum1017RepairGoal": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-10171181-recorded-20261028\\1017-repair-goal.json",
+  "remainingTargets": [
+    {
+      "issueSha256": "feed6d512d4fec8d15f46265c3473629c7553adb1adeff4fece490eadfac4acb",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "error",
+      "description": "下方13张手牌中的4s、6s被依次错录为6s、7s。正确牌形切8s后听嵌7s；候选牌形会改变这一教学前提。"
+    },
+    {
+      "issueSha256": "20d6f61af624a83fef7882e3fd9da39449b16b4c92edff67f3fd9134fe66d085",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "error",
+      "description": "候选将其他三家的隐手统称为牌墙，遗漏了隐手未知这一局面信息。"
+    },
+    {
+      "issueSha256": "d3c5278fc47e6d40b97380a3386e039632af2ad3b4eb806f7113e3ef708de019",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "uncertain",
+      "description": "这三张属于公开河牌，并非源隐手；可能影响可见张数与等待判断，不能以完整转录通过。"
+    },
+    {
+      "issueSha256": "e6be649aaee9e4da2c0e399415841c68d7923ce7f186151584a2b7c346d2ae89",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "severity": "error",
+      "description": "候选记录了高亮牌，却没有明确转写本题询问是否碰2s。仅有“问题60的牌局画面”不足以完整呈现题目。"
+    },
+    {
+      "issueSha256": "6cd3acb48f43e89ddeb0fb6401683764e4be22e446d99b8e8d47171339b8c21c",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "severity": "uncertain",
+      "description": "这两处是实际弃牌，不是隐手或装饰。当前转写尚未满足完整读取牌河的要求，本次不能确认其精确牌种。"
+    },
+    {
+      "issueSha256": "55b1617dcbfcffe22ac3fdac37a4884d72a104cd00dea339ed23840a49f0fe1a",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+      "severity": "error",
+      "description": "候选将未具体限定的「三元役」解释为「小三元／大三元」，可能排除三元牌相关的役牌，增加了原文没有明确给出的限定。"
+    }
+  ],
+  "allOtherRegisterRowsAndCountsUnchanged": true,
+  "protectedInputsUnchanged": 93,
+  "originalCoverage": {
+    "originalChapters": 256,
+    "originalUnits": 303,
+    "originalSourceBlocks": 21212,
+    "displayChapters": 239,
+    "displayUnits": 247,
+    "displayBlocks": 6573,
+    "displayFigures": 5280,
+    "effectiveCoveredOriginalChapters": 238,
+    "effectiveUncoveredOriginalChapters": 18,
+    "uncoveredProduced": 18,
+    "trulyUnproduced": 0,
+    "register80": 80,
+    "register80Groups": {
+      "confirmed-produced-not-covered": 56,
+      "reclassified-covered": 17,
+      "legacy-covered": 1,
+      "additional-uncovered-not-in-246": 6
+    },
+    "verdicts": {
+      "covered-effective": 238,
+      "produced-needs-repair": 18,
+      "produced-passed-not-staged": 0,
+      "produced-pdf-passed-not-staged": 0,
+      "produced-unreviewed": 0,
+      "produced-audit-failed": 0,
+      "total": 256
+    }
+  },
+  "newProductionCalls": 0,
+  "newCandidates": 0,
+  "newConsumers": 0,
+  "formalActiveChanged": false
+}
