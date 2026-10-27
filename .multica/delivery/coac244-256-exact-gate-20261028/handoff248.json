@@ -1,0 +1,63 @@
+{
+  "schema": "coac244-exact256-gate-handoff/1",
+  "canonical": "79-cn-chapter-256-18",
+  "articleId": "cv1785770",
+  "authorizationCommentId": "01a17f8d-38c9-7cf9-ad2c-01bddd851470",
+  "originalHandoffSha256": "b7b0229c032f16cab18db698b0db92995dc55fbca175d244ef265ef5ce5cb9e7",
+  "runtime": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-256-exact-8s-v1-20261028",
+  "runtimeManifestSha256": "7068edaa377784a0823c4c6b942d41f5e4533dfbd2f3331962bede454b01bf15",
+  "runtimeFiles": 30,
+  "executableMaker": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-256-exact-gate-20261028\\run256.mjs",
+  "makerPreflightArgs": [
+    "--preflight-only"
+  ],
+  "makerExecuteArgs": [
+    "--execute-authorized"
+  ],
+  "makerRequest": {
+    "sha256": "94290089ce09788790768eaf5b1fd1da15e6a3709023734547e3fc52322d84b3",
+    "matchesActualPublishedRunner": true,
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "images": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.png",
+        "sha256": "1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce",
+        "bytes": 16584
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.x2.png",
+        "sha256": "2b42c5e4db8c3fa997c5715c012635834af4dbd9a8acced04aa2ca12edb4fd72",
+        "bytes": 25380
+      }
+    ]
+  },
+  "reviewEntry": {
+    "module": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-256-exact-8s-v1-20261028\\textbook-256-impact.mjs",
+    "prepare": "prepare256ImpactReview(processingRoot, realR2CandidatePath)",
+    "verify": "verify256ReviewExecution(realResult, plan)",
+    "scope": "exact8s and two retained unknown impacts; full42 ordered source/candidate pairs with original conditions/tableContext and original figure order",
+    "notEntry": "Do not use auditWebCandidate: it would be full-article scope for this figure revision.",
+    "recording": "Original249 guard/STOP/three-source exclusions/atomic claim and standard unique raw/ledger required. Functions do not invoke or write model results. Keep complete real output and limited allowance separate; no ordinary whole-article pass."
+  },
+  "proof": {
+    "tests": 38,
+    "publishedMakerPreflightPassed": true,
+    "parentRawVerified": true,
+    "protectedInputsUnchanged": 40,
+    "oldRuntimeUnchanged": true,
+    "originalUncertainAndTwoUnknownsPreserved": true
+  },
+  "newCalls": 0,
+  "newCandidates": 0,
+  "newPasses": 0,
+  "remainingBudget": {
+    "maker": 1,
+    "independentTargetAndUnknownImpactReview": 1,
+    "total": 2,
+    "failedVoidCount": true,
+    "retry": 0
+  },
+  "acceptance": "Independent evidence may authorize bounded author-argument fidelity only after actual display-limit mapping and downstream verification. New model uncertain remains unchanged; material unknown still blocks. No new acceptance is claimed here.",
+  "knownBoundary": "Real wire construction and existing gates verified offline; no new server/model execution or remote weights claimed."
+}

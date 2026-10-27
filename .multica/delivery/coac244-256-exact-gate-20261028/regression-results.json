@@ -1,0 +1,266 @@
+{
+  "checks": [
+    {
+      "name": "old gate reproduces web_revision_notes_scope; new exact gate admits production only",
+      "passed": true
+    },
+    {
+      "name": "ordinary error-only gate unchanged; ordinary mixed uncertain still rejected",
+      "passed": true
+    },
+    {
+      "name": "wrong-source",
+      "rejected": true
+    },
+    {
+      "name": "wrong-parent",
+      "rejected": true
+    },
+    {
+      "name": "wrong-audit",
+      "rejected": true
+    },
+    {
+      "name": "other-article",
+      "rejected": true
+    },
+    {
+      "name": "extra-figure",
+      "rejected": true
+    },
+    {
+      "name": "text-target",
+      "rejected": true
+    },
+    {
+      "name": "body-text",
+      "rejected": true
+    },
+    {
+      "name": "body-order",
+      "rejected": true
+    },
+    {
+      "name": "other-tile",
+      "rejected": true
+    },
+    {
+      "name": "extra-unknown-removal",
+      "rejected": true
+    },
+    {
+      "name": "unknown-word-change",
+      "rejected": true
+    },
+    {
+      "name": "caption",
+      "rejected": true
+    },
+    {
+      "name": "source-note",
+      "rejected": true
+    },
+    {
+      "name": "other-figure",
+      "rejected": true
+    },
+    {
+      "name": "presentation",
+      "rejected": true
+    },
+    {
+      "name": "relabelled-uncertain",
+      "rejected": true
+    },
+    {
+      "name": "new-parent-issue",
+      "rejected": true
+    },
+    {
+      "name": "actual complete parent source/auditor/raw/production/pixel/inheritance gates passed",
+      "passed": true
+    },
+    {
+      "name": "real shared CLI builder: exact target + all42 ordered pairs/tableContext + original issues/two unknowns +2 original/nearest images +terra/max",
+      "passed": true
+    },
+    {
+      "name": "review-missing-context",
+      "rejected": true
+    },
+    {
+      "name": "review-wrong-order",
+      "rejected": true
+    },
+    {
+      "name": "review-unknown-guessed",
+      "rejected": true
+    },
+    {
+      "name": "review-result-missing-unknown",
+      "rejected": true
+    },
+    {
+      "name": "review-result-material-unknown",
+      "rejected": true
+    },
+    {
+      "name": "review-result-not-explicitly-allowed",
+      "rejected": true
+    },
+    {
+      "name": "review-result-8s-uncertain",
+      "rejected": true
+    },
+    {
+      "name": "review-result-error",
+      "rejected": true
+    },
+    {
+      "name": "review-result-wrong-context",
+      "rejected": true
+    },
+    {
+      "name": "no-real-model-result",
+      "rejected": true
+    },
+    {
+      "name": "real-result-wrong-prompt",
+      "rejected": true
+    },
+    {
+      "name": "real-result-image-order",
+      "rejected": true
+    },
+    {
+      "name": "synthetic candidate rejected by actual maker/raw eligibility gate",
+      "rejected": true
+    },
+    {
+      "name": "maker-extra-text",
+      "rejected": true
+    },
+    {
+      "name": "maker-caption",
+      "rejected": true
+    },
+    {
+      "name": "maker-unknown",
+      "rejected": true
+    },
+    {
+      "name": "maker-extra-transcription",
+      "rejected": true
+    }
+  ],
+  "count": 38,
+  "parentProduction": {
+    "callId": "8edb9889-e306-4695-8b5a-1bc1dc8cf37e",
+    "rawArtifactPath": "raw-calls/8edb9889-e306-4695-8b5a-1bc1dc8cf37e.json",
+    "rawArtifactSha256": "cc04bdd2b664b500720396e8c6a089716f3324900aa5000ffe7d05b26115a9b8",
+    "revision": {
+      "revision": {
+        "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1785770.display.json",
+        "parentSha256": "84f27b9562fc5341a15ff938abf2db84a2ba0ba25cd30241e84996101500df69",
+        "notesPath": "audit/web/articles/79-bilibili-cn/cv1785770.84f27b9562fc5341a15ff938abf2db84a2ba0ba25cd30241e84996101500df69.json",
+        "notesSha256": "fa8e60a40557c01c5cc5d88805cbbbfcb94a04b09bbad3773ca5656e9237fa58",
+        "figureIds": [
+          "79-bilibili-cn:cv1785770:b0016:figure"
+        ]
+      },
+      "parentAudit": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1785770.84f27b9562fc5341a15ff938abf2db84a2ba0ba25cd30241e84996101500df69.json",
+        "sha256": "fa8e60a40557c01c5cc5d88805cbbbfcb94a04b09bbad3773ca5656e9237fa58",
+        "originalStatus": "needs-repair"
+      },
+      "parentCall": {
+        "callId": "f10cae12-04bf-4520-9a77-e07aaf7e48c7",
+        "path": "audit/calls/f10cae12-04bf-4520-9a77-e07aaf7e48c7.json",
+        "sha256": "71a17c092cfbf0ffa434e55cb76595400db66539bd18fdecfa6f020fce26e5a6"
+      },
+      "inheritedAssetIds": [
+        "79-bilibili-cn:46a844bc8817c1c2bd375689",
+        "79-bilibili-cn:ba838b7c8a17fac56966d463",
+        "79-bilibili-cn:1ffa430f68cbc99c2df6ad92"
+      ]
+    },
+    "visualInputs": {
+      "inputs": [
+        {
+          "assetId": "79-bilibili-cn:3616864698720812e29925d9",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.png",
+          "sourceSha256": "1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.png",
+          "sha256": "1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 500,
+          "height": 500
+        },
+        {
+          "assetId": "79-bilibili-cn:3616864698720812e29925d9",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.png",
+          "sourceSha256": "1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.x2.png",
+          "sha256": "2b42c5e4db8c3fa997c5715c012635834af4dbd9a8acced04aa2ca12edb4fd72",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 2,
+          "resampling": "nearest",
+          "width": 1000,
+          "height": 1000
+        }
+      ],
+      "pixels": {
+        "passed": true,
+        "inputs": 2
+      }
+    }
+  },
+  "presentation": {
+    "parent": {
+      "path": "web-production/v1/candidates/79-bilibili-cn/cv1785770.r1.json",
+      "sha256": "5b2bfbb5c574661f3e412917ee4434028b8cafaec5753f2de12ce9e9341cbd49",
+      "reason": "Lossless display bindings inherited from bound parent; model output and all body/figure semantic content unchanged"
+    },
+    "pixels": {
+      "passed": true,
+      "figures": 4,
+      "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+    }
+  },
+  "inheritance": {
+    "revision": {
+      "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1785770.r1.display.json",
+      "parentSha256": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2",
+      "notesPath": "audit/web/articles/79-bilibili-cn/cv1785770.56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2.json",
+      "notesSha256": "8341055fc9fec8aacf5c8dd6344cb5af99cfc6998f76105f7dc7d8e13a9a4b21",
+      "figureIds": [
+        "79-bilibili-cn:cv1785770:b0016:figure"
+      ]
+    },
+    "parentAudit": {
+      "path": "audit/web/articles/79-bilibili-cn/cv1785770.56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2.json",
+      "sha256": "8341055fc9fec8aacf5c8dd6344cb5af99cfc6998f76105f7dc7d8e13a9a4b21",
+      "originalStatus": "needs-repair"
+    },
+    "parentCall": {
+      "callId": "6bf6cb0d-1123-45f8-a4b0-975dd270b4c0",
+      "path": "audit/calls/6bf6cb0d-1123-45f8-a4b0-975dd270b4c0.json",
+      "sha256": "6ed8519078198ecb6310bf2ed36dc5aaddff786ea5b79a82afdf555146ffcf1c"
+    },
+    "inheritedAssetIds": [
+      "79-bilibili-cn:46a844bc8817c1c2bd375689",
+      "79-bilibili-cn:ba838b7c8a17fac56966d463",
+      "79-bilibili-cn:1ffa430f68cbc99c2df6ad92"
+    ]
+  },
+  "oldNotesPreserved": true,
+  "newModelCalls": 0,
+  "newRawWrites": 0,
+  "newLedgerWrites": 0,
+  "newCandidates": 0,
+  "newPasses": 0
+}
