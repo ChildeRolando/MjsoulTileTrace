@@ -1,3 +1,17 @@
+## 2026-10-28 222与283专项结果零模型登记（覆盖下方旧待审计划）
+
+79-cn-chapter-222-5唯一c51650a4首审5b131a9b为needs-repair/uncertain，原audit06658a3d/raw88d71694不改。真实terra/max、原图+x4两图，17543in/0cache/12953out、184.089秒；目标block/figure faithful、image represented，两处1m已确认。未通过仅因新请求将目标与邻文分数组，缺同一有序序列，不是已证实错序或图修失败。父完整独审f64f0d4f的domOrder faithful与真实raw已核；新旧23块body序列序列化逐字节相等、图顺序及unknowns均不动。两个unknowns原本都是[]，不采纳新审“清空unknowns”的错误历史措辞。
+
+父审未变顺序可以复用为独立事实证据；不能据此把新审domOrder/contextContinuity/semanticCompleteness的false改true。现冻结v3合同明确要求上述新目标审通过且无uncertain，实际只读执行原校验器仍拒绝，未生成新有效审/通过收据。完整b0017–b0021同序源/候选/父片段（含中间b0020）及hash已另存诊断衍生件222-contiguous-order.json，不冒充模型请求或新稿。下一步在现有owner评估限定证据组合的接受权限，不重制/重读点/全章重审；如决定仍须模型核连续性，精确同序投影只需另行授权1次限定审、0retry。本阶段3/3余0，本次未派、未借额度。
+
+nemata-jp-chapter-283-1原候选dea1ba24/source8e7eff57/旧审749e242c不动。新call f5141a65的rawf8b60392/receipt68f0a463真实terra/max、30张原PNG，142503in/0cache/8662out、78.208秒；66表格图+六表独审passed-for-target-tables。严格只在94个有tableContext的图范围划分66新faithful+28既有faithful；b0785/b0947两复杂图仍needs-repair，不混进表格通过。batch010的113块passed原样复用，原19条历史问题不删；其中6条表格几何问题有新独立反证，剩13条=11阻断+2source-note，逐项列在283-scope-and-remaining.json。Q8 b0099、b0168、b0396、复杂图b0785/b0947、b0962/b1017/b1181仍保持精确原状态；Q8/b0168等既有票在途先查新收据，不重复派发。
+
+250已在01a17f1c-5fac-7d3a-86e7-5f6b68309a48及coac250-283-six-table-evidence-intake-20261028.json限定登记，无consumer/preview/正式active变更，本次不再唤醒。283授权1/1余0、0制作/0retry。两次消费wakeup均已fire_count1、disabled，未增消费者。272项证据/范围/未改检查通过，冻结222全31文件、vision全27文件及283消费者commit148ba56四依赖原字节匹配，消费者未执行。本轮真实新增call0、制作0、候选0、通过章0。费用/上游执行总数/远端权重仍unknown。
+
+末读发现b0168另一候选b2417de1的targetStatus=passed交接3e718558已落盘，后续登记run01a17f26-2f0d-7c10-beef-a6bbee6d94f4已queued。本次只核交接hash/排队状态，不冒充已验完其完整生产审校链；上述13条是本次dea1ba24旧SHA的剩余原问题，不能据此重复派b0168，也不把旧SHA六表结论无条件迁移到新SHA。该已存在run继续核新链，不另建消费者。
+
+完整登记integration/coac244-recorded222283-20261028/registration.json；仅两个剩余register中上述两个canonical的nextAction与新sidecar引用更新，旧blockingIssues/coverage/所有其它章及原审门禁不改。总票仍in_progress，整书未完成。
+
 ## 2026-10-28 下一最小3章零模型准备：100/159/242，目录附录仍在全集
 
 当前register232/256原章，余24，完整303原单元/21212源block口径不缩；全集在integration/coac244-next3-zero-20261028/remaining-universe.json。排除183/236/217/222/283既有接受/在途，只选择nemata-jp-chapter-100-1、79-cn-chapter-159-9、79-cn-chapter-242-3。目录/前言/作者说明原页1–3（168块）及p317研究资料说明（58块）仍needs-repair，不降为导航；79中文目录18块已在预览，附录理论七章已covered，保留原canonical与版本链，不重算全书。

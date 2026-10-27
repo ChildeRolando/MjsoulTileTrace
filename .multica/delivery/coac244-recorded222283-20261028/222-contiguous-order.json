@@ -1,0 +1,1276 @@
+{
+  "schema": "coac244-222-contiguous-order-diagnostic/1",
+  "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r2.display.json",
+    "sha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d"
+  },
+  "parent": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.display.json",
+    "sha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6"
+  },
+  "parentAudit": {
+    "path": "audit/web/articles/79-bilibili-cn/cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+    "sha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec"
+  },
+  "bodySerialization": "UTF-8 compact JSON; object insertion order retained, not a new candidate",
+  "bodySha256": "d6dc437eafe166eb237ab30c1f12a05f3689d5f55dcbf2270121c5a0971337ca",
+  "sequence": [
+    {
+      "index": 16,
+      "source": {
+        "id": "79-bilibili-cn:cv1775262:b0017",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0017",
+        "tag": "p",
+        "domPath": "main/p[16]",
+        "tableContext": null,
+        "type": "text",
+        "text": "（之后是摸切）  有一个常常被误解的东西，这里需要事先说明以下。 例4中58索是间四间的危险牌， 但是终盘切出的6饼并不能说明25饼是危险的。  如果是单纯的346饼的话，6饼应该被更早切出。 间四间确实是危险的， 但是不能正确掌握间四间的条件也是毫无意义的。  ------------------------------------------------------------------------------------ 被拆掉的两面搭子的里筋 ------------------------------------------------------------------------------------ 这是由“二度进张不利”的牌理反过来推导的逻辑。 ",
+        "segments": [
+          {
+            "text": "（之后是摸切）",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "有一个常常被误解的东西，这里需要事先说明以下。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "例4中58索是间四间的危险牌，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是终盘切出的6饼并不能说明25饼是危险的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "如果是单纯的346饼的话，6饼应该被更早切出。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "间四间确实是危险的，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是不能正确掌握间四间的条件也是毫无意义的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "被拆掉的两面搭子的里筋",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这是由“二度进张不利”的牌理反过来推导的逻辑。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0017"
+        ],
+        "sourceText": "（之后是摸切）  有一个常常被误解的东西，这里需要事先说明以下。 例4中58索是间四间的危险牌， 但是终盘切出的6饼并不能说明25饼是危险的。  如果是单纯的346饼的话，6饼应该被更早切出。 间四间确实是危险的， 但是不能正确掌握间四间的条件也是毫无意义的。  ------------------------------------------------------------------------------------ 被拆掉的两面搭子的里筋 ------------------------------------------------------------------------------------ 这是由“二度进张不利”的牌理反过来推导的逻辑。 ",
+        "text": "（之后是摸切）  有一个常常被误解的东西，这里需要事先说明以下。 例4中58索是间四间的危险牌， 但是终盘切出的6饼并不能说明25饼是危险的。  如果是单纯的346饼的话，6饼应该被更早切出。 间四间确实是危险的， 但是不能正确掌握间四间的条件也是毫无意义的。  ------------------------------------------------------------------------------------ 被拆掉的两面搭子的里筋 ------------------------------------------------------------------------------------ 这是由“二度进张不利”的牌理反过来推导的逻辑。 ",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0017",
+        "sourceSegments": [
+          {
+            "text": "（之后是摸切）",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "有一个常常被误解的东西，这里需要事先说明以下。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "例4中58索是间四间的危险牌，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是终盘切出的6饼并不能说明25饼是危险的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "如果是单纯的346饼的话，6饼应该被更早切出。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "间四间确实是危险的，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是不能正确掌握间四间的条件也是毫无意义的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "被拆掉的两面搭子的里筋",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这是由“二度进张不利”的牌理反过来推导的逻辑。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "parent": {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0017"
+        ],
+        "sourceText": "（之后是摸切）  有一个常常被误解的东西，这里需要事先说明以下。 例4中58索是间四间的危险牌， 但是终盘切出的6饼并不能说明25饼是危险的。  如果是单纯的346饼的话，6饼应该被更早切出。 间四间确实是危险的， 但是不能正确掌握间四间的条件也是毫无意义的。  ------------------------------------------------------------------------------------ 被拆掉的两面搭子的里筋 ------------------------------------------------------------------------------------ 这是由“二度进张不利”的牌理反过来推导的逻辑。 ",
+        "text": "（之后是摸切）  有一个常常被误解的东西，这里需要事先说明以下。 例4中58索是间四间的危险牌， 但是终盘切出的6饼并不能说明25饼是危险的。  如果是单纯的346饼的话，6饼应该被更早切出。 间四间确实是危险的， 但是不能正确掌握间四间的条件也是毫无意义的。  ------------------------------------------------------------------------------------ 被拆掉的两面搭子的里筋 ------------------------------------------------------------------------------------ 这是由“二度进张不利”的牌理反过来推导的逻辑。 ",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0017",
+        "sourceSegments": [
+          {
+            "text": "（之后是摸切）",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "有一个常常被误解的东西，这里需要事先说明以下。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "例4中58索是间四间的危险牌，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是终盘切出的6饼并不能说明25饼是危险的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "如果是单纯的346饼的话，6饼应该被更早切出。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "间四间确实是危险的，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是不能正确掌握间四间的条件也是毫无意义的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "被拆掉的两面搭子的里筋",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这是由“二度进张不利”的牌理反过来推导的逻辑。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "candidateBlockSha256": "a95a28289a209592df8632f44d4bc77775fdb26473cc7069868cfd75e824d9ca",
+      "figure": null
+    },
+    {
+      "index": 17,
+      "source": {
+        "id": "79-bilibili-cn:cv1775262:b0018",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0018",
+        "tag": "div",
+        "domPath": "main/div[17]/div[0]/div[0]/div[0]/div[0]",
+        "tableContext": null,
+        "type": "image-run",
+        "images": [
+          {
+            "occurrenceId": "79-bilibili-cn:cv1775262:i00008",
+            "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+            "sourceUrls": [
+              "https://i0.hdslb.com/bfs/article/dc53a3abb116b4afb2cab4e787e7746d4ef8a975.png",
+              "https://i0.hdslb.com/bfs/article/dc53a3abb116b4afb2cab4e787e7746d4ef8a975.png@608w_148h"
+            ],
+            "alt": "",
+            "title": "",
+            "width": null,
+            "height": null,
+            "tileHint": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0018"
+        ],
+        "figureId": "79-bilibili-cn:cv1775262:b0018:figure",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0018",
+        "tableContext": null
+      },
+      "parent": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0018"
+        ],
+        "figureId": "79-bilibili-cn:cv1775262:b0018:figure",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0018",
+        "tableContext": null
+      },
+      "candidateBlockSha256": "8f054c7fc4663fad914a3270a03e0ebb1ae4d6df467bd1e84233401d31f641d2",
+      "figure": {
+        "figureId": "79-bilibili-cn:cv1775262:b0018:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0018"
+        ],
+        "sourceOccurrenceIds": [
+          "79-bilibili-cn:cv1775262:i00008"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+            "path": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+            "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+            "url": "https://i0.hdslb.com/bfs/article/dc53a3abb116b4afb2cab4e787e7746d4ef8a975.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "左上方标签：例5。牌序从左至右：2z 3z 6z 8m 5m 1m 4z 3p 2p，共9张；第9张2p横置，无赤牌。\n两支向下箭头分别位于第6张1m、第7张4z的正上方。",
+        "unknowns": [],
+        "caption": "例5：带两支向下箭头的舍牌示例。",
+        "sourceNotes": [
+          "附件1为原图，附件2为同一原图的4倍最近邻放大视图，非额外牌列。",
+          "牌上方的棕黄色线条为牌背边缘。"
+        ],
+        "provenance": {
+          "method": "model-transcription",
+          "callId": "487c0ef8-603e-405a-83ff-5321247f180b",
+          "outputSourceBlockId": "79-bilibili-cn:cv1775262:b0018"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/79-bilibili-cn/cv1775262/aaa00594d20ce4cc/figure-0008.png",
+          "sha256": "4a6639cfdae4cfa47a4583b2991965cf53555b34631bca6e720981a59cb5bac9",
+          "width": 304,
+          "height": 74,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+                "path": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+                "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+                "url": "https://i0.hdslb.com/bfs/article/dc53a3abb116b4afb2cab4e787e7746d4ef8a975.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "index": 18,
+      "source": {
+        "id": "79-bilibili-cn:cv1775262:b0019",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0019",
+        "tag": "p",
+        "domPath": "main/p[18]",
+        "tableContext": null,
+        "type": "text",
+        "text": "（之后摸切）  例5的立直很显眼的地方就是拆掉了23饼的两面搭子。 “正是因为拆掉了，所以才不会是14饼听牌啊”，这样的想法只是初学者的天真想法…… 实际上14饼才是关键啊，不是吗？ ",
+        "segments": [
+          {
+            "text": "（之后摸切）",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "例5的立直很显眼的地方就是拆掉了23饼的两面搭子。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "“正是因为拆掉了，所以才不会是14饼听牌啊”，这样的想法只是初学者的天真想法……",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "实际上14饼才是关键啊，不是吗？",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0019"
+        ],
+        "sourceText": "（之后摸切）  例5的立直很显眼的地方就是拆掉了23饼的两面搭子。 “正是因为拆掉了，所以才不会是14饼听牌啊”，这样的想法只是初学者的天真想法…… 实际上14饼才是关键啊，不是吗？ ",
+        "text": "（之后摸切）  例5的立直很显眼的地方就是拆掉了23饼的两面搭子。 “正是因为拆掉了，所以才不会是14饼听牌啊”，这样的想法只是初学者的天真想法…… 实际上14饼才是关键啊，不是吗？ ",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0019",
+        "sourceSegments": [
+          {
+            "text": "（之后摸切）",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "例5的立直很显眼的地方就是拆掉了23饼的两面搭子。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "“正是因为拆掉了，所以才不会是14饼听牌啊”，这样的想法只是初学者的天真想法……",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "实际上14饼才是关键啊，不是吗？",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "parent": {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0019"
+        ],
+        "sourceText": "（之后摸切）  例5的立直很显眼的地方就是拆掉了23饼的两面搭子。 “正是因为拆掉了，所以才不会是14饼听牌啊”，这样的想法只是初学者的天真想法…… 实际上14饼才是关键啊，不是吗？ ",
+        "text": "（之后摸切）  例5的立直很显眼的地方就是拆掉了23饼的两面搭子。 “正是因为拆掉了，所以才不会是14饼听牌啊”，这样的想法只是初学者的天真想法…… 实际上14饼才是关键啊，不是吗？ ",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0019",
+        "sourceSegments": [
+          {
+            "text": "（之后摸切）",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "例5的立直很显眼的地方就是拆掉了23饼的两面搭子。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "“正是因为拆掉了，所以才不会是14饼听牌啊”，这样的想法只是初学者的天真想法……",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "实际上14饼才是关键啊，不是吗？",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "candidateBlockSha256": "dbe979700f86b07560a3d7ab163d6bd90c63287938365a53b2e7c8ae80e9e66b",
+      "figure": null
+    },
+    {
+      "index": 19,
+      "source": {
+        "id": "79-bilibili-cn:cv1775262:b0020",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0020",
+        "tag": "div",
+        "domPath": "main/div[19]/div[0]/div[0]/div[0]/div[0]",
+        "tableContext": null,
+        "type": "image-run",
+        "images": [
+          {
+            "occurrenceId": "79-bilibili-cn:cv1775262:i00009",
+            "assetId": "79-bilibili-cn:e37c65845d580365c4b6672c",
+            "sourceUrls": [
+              "https://i0.hdslb.com/bfs/article/0c79d8f92dc97f3020bab22fe80c30e3e398087a.png",
+              "https://i0.hdslb.com/bfs/article/0c79d8f92dc97f3020bab22fe80c30e3e398087a.png@868w_216h"
+            ],
+            "alt": "",
+            "title": "",
+            "width": null,
+            "height": null,
+            "tileHint": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0020"
+        ],
+        "figureId": "79-bilibili-cn:cv1775262:b0020:figure",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0020",
+        "tableContext": null
+      },
+      "parent": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0020"
+        ],
+        "figureId": "79-bilibili-cn:cv1775262:b0020:figure",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0020",
+        "tableContext": null
+      },
+      "candidateBlockSha256": "b937d0b7f527decf303a2e6f4405162d4da884dc259a96ea4af687389728b2d2",
+      "figure": {
+        "figureId": "79-bilibili-cn:cv1775262:b0020:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0020"
+        ],
+        "sourceOccurrenceIds": [
+          "79-bilibili-cn:cv1775262:i00009"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "79-bilibili-cn:e37c65845d580365c4b6672c",
+            "path": "web-sources/v1/79-bilibili-cn/assets/acff5a27e07328adb3584d0f39c4c4e7e05e57a69363edc18b900f144d9369c5.png",
+            "sha256": "acff5a27e07328adb3584d0f39c4c4e7e05e57a69363edc18b900f144d9369c5",
+            "url": "https://i0.hdslb.com/bfs/article/0c79d8f92dc97f3020bab22fe80c30e3e398087a.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "上排左侧标签：假设A。连续排列的13张牌从左至右：2p 2p 3p 3p 7p 8p 7s 8s 8s 8s 7z 7z 7z；右侧间隔后另列1张9s。\n下排左侧标签：假设B。连续排列的13张牌从左至右：2p 3p 5p（赤牌） 6p 3s 4s 5s 5s 7s 8s 7z 7z 7z；右侧间隔后另列1张5s。",
+        "unknowns": [],
+        "caption": "假设A、B的手牌与各自右侧单列的牌。",
+        "sourceNotes": [
+          "附件17与附件18是同一原图及其4倍最近邻放大视图，只计一次。"
+        ],
+        "provenance": {
+          "method": "model-transcription",
+          "callId": "3baadcb1-43ae-44bb-a0aa-746ad8749154",
+          "outputSourceBlockId": "79-bilibili-cn:cv1775262:b0020"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/79-bilibili-cn/cv1775262/aaa00594d20ce4cc/figure-0009.png",
+          "sha256": "e4c9391e311a60c1394bf76b9e696f4a9d7620e6edee002a7c41d069ec697738",
+          "width": 434,
+          "height": 108,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "79-bilibili-cn:e37c65845d580365c4b6672c",
+                "path": "web-sources/v1/79-bilibili-cn/assets/acff5a27e07328adb3584d0f39c4c4e7e05e57a69363edc18b900f144d9369c5.png",
+                "sha256": "acff5a27e07328adb3584d0f39c4c4e7e05e57a69363edc18b900f144d9369c5",
+                "url": "https://i0.hdslb.com/bfs/article/0c79d8f92dc97f3020bab22fe80c30e3e398087a.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "index": 20,
+      "source": {
+        "id": "79-bilibili-cn:cv1775262:b0021",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0021",
+        "tag": "p",
+        "domPath": "main/p[20]",
+        "tableContext": null,
+        "type": "text",
+        "text": "想象一下A和B的两种牌型吧。  正是想避免二度进张，所以才拆掉了23饼的搭子。 留下了146饼听牌的可能性。 这种拆掉两面搭子的立直，一定要对其筋保持警惕。  总结、理论： 拆掉两面搭子的立直，要小心其二度进张。  ------------------------------------------------------------------------------------ 拆掉嵌张搭子的立直的跨筋 ------------------------------------------------------------------------------------  这种情况的条件比较复杂，但也是危险度非常高的情况。 从外→内拆掉嵌张搭子的立直，跨筋是危险的。 用文字说明有点难懂，我们来看看实际的例子吧。 ",
+        "segments": [
+          {
+            "text": "想象一下A和B的两种牌型吧。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "正是想避免二度进张，所以才拆掉了23饼的搭子。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "留下了146饼听牌的可能性。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这种拆掉两面搭子的立直，一定要对其筋保持警惕。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "总结、理论：",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": "拆掉两面搭子的立直，要小心其二度进张。",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "拆掉嵌张搭子的立直的跨筋",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这种情况的条件比较复杂，但也是危险度非常高的情况。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "从外→内拆掉嵌张搭子的立直，跨筋是危险的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "用文字说明有点难懂，我们来看看实际的例子吧。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0021"
+        ],
+        "sourceText": "想象一下A和B的两种牌型吧。  正是想避免二度进张，所以才拆掉了23饼的搭子。 留下了146饼听牌的可能性。 这种拆掉两面搭子的立直，一定要对其筋保持警惕。  总结、理论： 拆掉两面搭子的立直，要小心其二度进张。  ------------------------------------------------------------------------------------ 拆掉嵌张搭子的立直的跨筋 ------------------------------------------------------------------------------------  这种情况的条件比较复杂，但也是危险度非常高的情况。 从外→内拆掉嵌张搭子的立直，跨筋是危险的。 用文字说明有点难懂，我们来看看实际的例子吧。 ",
+        "text": "想象一下A和B的两种牌型吧。  正是想避免二度进张，所以才拆掉了23饼的搭子。 留下了146饼听牌的可能性。 这种拆掉两面搭子的立直，一定要对其筋保持警惕。  总结、理论： 拆掉两面搭子的立直，要小心其二度进张。  ------------------------------------------------------------------------------------ 拆掉嵌张搭子的立直的跨筋 ------------------------------------------------------------------------------------  这种情况的条件比较复杂，但也是危险度非常高的情况。 从外→内拆掉嵌张搭子的立直，跨筋是危险的。 用文字说明有点难懂，我们来看看实际的例子吧。 ",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0021",
+        "sourceSegments": [
+          {
+            "text": "想象一下A和B的两种牌型吧。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "正是想避免二度进张，所以才拆掉了23饼的搭子。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "留下了146饼听牌的可能性。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这种拆掉两面搭子的立直，一定要对其筋保持警惕。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "总结、理论：",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": "拆掉两面搭子的立直，要小心其二度进张。",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "拆掉嵌张搭子的立直的跨筋",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这种情况的条件比较复杂，但也是危险度非常高的情况。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "从外→内拆掉嵌张搭子的立直，跨筋是危险的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "用文字说明有点难懂，我们来看看实际的例子吧。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "parent": {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0021"
+        ],
+        "sourceText": "想象一下A和B的两种牌型吧。  正是想避免二度进张，所以才拆掉了23饼的搭子。 留下了146饼听牌的可能性。 这种拆掉两面搭子的立直，一定要对其筋保持警惕。  总结、理论： 拆掉两面搭子的立直，要小心其二度进张。  ------------------------------------------------------------------------------------ 拆掉嵌张搭子的立直的跨筋 ------------------------------------------------------------------------------------  这种情况的条件比较复杂，但也是危险度非常高的情况。 从外→内拆掉嵌张搭子的立直，跨筋是危险的。 用文字说明有点难懂，我们来看看实际的例子吧。 ",
+        "text": "想象一下A和B的两种牌型吧。  正是想避免二度进张，所以才拆掉了23饼的搭子。 留下了146饼听牌的可能性。 这种拆掉两面搭子的立直，一定要对其筋保持警惕。  总结、理论： 拆掉两面搭子的立直，要小心其二度进张。  ------------------------------------------------------------------------------------ 拆掉嵌张搭子的立直的跨筋 ------------------------------------------------------------------------------------  这种情况的条件比较复杂，但也是危险度非常高的情况。 从外→内拆掉嵌张搭子的立直，跨筋是危险的。 用文字说明有点难懂，我们来看看实际的例子吧。 ",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0021",
+        "sourceSegments": [
+          {
+            "text": "想象一下A和B的两种牌型吧。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "正是想避免二度进张，所以才拆掉了23饼的搭子。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "留下了146饼听牌的可能性。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这种拆掉两面搭子的立直，一定要对其筋保持警惕。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "总结、理论：",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": "拆掉两面搭子的立直，要小心其二度进张。",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "拆掉嵌张搭子的立直的跨筋",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这种情况的条件比较复杂，但也是危险度非常高的情况。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "从外→内拆掉嵌张搭子的立直，跨筋是危险的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "用文字说明有点难懂，我们来看看实际的例子吧。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "candidateBlockSha256": "46dedeebf836b95bd120829e7645b6db7778188720e3f61c75da1c1d2226fc51",
+      "figure": null
+    }
+  ],
+  "newModelCalls": 0,
+  "authority": "Diagnostic evidence only; not an audit, effective review, or pass override."
+}

@@ -1,0 +1,16 @@
+{
+  "schema": "coac244-later-queued-target-notice/1",
+  "chapterId": "nemata-jp-chapter-283-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0168r1.json",
+    "sha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f",
+    "bytes": 2119310
+  },
+  "handoffSha256": "3e718558ce87ec9476d1965defc9d3d81d1c5b98644ca5f1d44e95cc218db98c",
+  "targetStatus": "passed",
+  "chapterAccepted": false,
+  "existingQueuedRun": "01a17f26-2f0d-7c10-beef-a6bbee6d94f4",
+  "chainVerifiedByThisRun": false,
+  "newDispatch": false,
+  "scope": "13 residual findings in283-scope-and-remaining belong to old dea1ba24 SHA. Later b0168 target pass belongs to b2417de1 SHA and is queued for its existing receipt-registration run. Do not redispatch b0168 or silently transfer table receipts between SHA."
+}

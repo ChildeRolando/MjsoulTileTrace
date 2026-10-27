@@ -1,0 +1,26 @@
+{
+  "schema": "coac249-six-table-review-consumer/1",
+  "authorizationComment": "01a17f09-055d-73b7-9352-1f8c8f25604a",
+  "parentVisionManifest": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+  "newCallMaximum": 1,
+  "retry": 0,
+  "chapterAcceptanceAllowed": false,
+  "files": [
+    {
+      "path": "prepare.mjs",
+      "sha256": "26f51f758e639a0c23a598d0b91472a4e37540a3827eba26c34fa1512c79dcab"
+    },
+    {
+      "path": "review.mjs",
+      "sha256": "cfbd81d6d4c25505ebe7a48f5a3a554af399923ddf58b902c47dad68d3ca137d"
+    },
+    {
+      "path": "request.json",
+      "sha256": "902105a564d34980e3723e6d602a4ba297517d4be6e9c1af05f0e8997594f4ac"
+    },
+    {
+      "path": "preflight.json",
+      "sha256": "6a638feb101b7aea5426b3afdf9db8fcd10add47a6e057f94f5779ff37747772"
+    }
+  ]
+}

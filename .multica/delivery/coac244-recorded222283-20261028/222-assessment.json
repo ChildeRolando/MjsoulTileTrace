@@ -1,0 +1,101 @@
+{
+  "schema": "coac244-222-order-reuse-assessment/1",
+  "chapterId": "79-cn-chapter-222-5",
+  "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r2.display.json",
+    "sha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d"
+  },
+  "audit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d.json",
+    "sha256": "06658a3d465820d3523fb1a28ff0a0ffd9c6a6484a92be4f68984dd0dc1a4e24"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\5b131a9b-8592-4789-922a-1ab7306b9581.json",
+    "sha256": "88d71694aaa3485b0f30f03477d0389e82615147162b3970c9833aa8e5c01ea2"
+  },
+  "statusPreserved": "needs-repair",
+  "modelReviewPreserved": {
+    "blockChecks": [
+      {
+        "id": "79-bilibili-cn:cv1775262:b0018",
+        "verdict": "faithful",
+        "evidence": "原图块由一个 figure 表示，sourceBlockIds、paragraphId 和 tableContext 与目标块对应；实际合并顺序另见 domOrder。"
+      }
+    ],
+    "figureChecks": [
+      {
+        "id": "79-bilibili-cn:cv1775262:b0018:figure",
+        "verdict": "faithful",
+        "evidence": "原图及四倍图支持例5标签和九张牌顺序：2z、3z、6z、8m、5m、1m、4z、3p、2p。第六张采用已绑定的独立1m裁决，unknowns 已相应清空；两支箭头位于第六、七张上方，第九张2p横置。五万数字为黑色，图中无赤牌。"
+      }
+    ],
+    "imageChecks": [
+      {
+        "id": "79-bilibili-cn:cv1775262:i00008",
+        "disposition": "represented",
+        "evidence": "该 occurrence 被目标 figure 引用，并绑定到所附原图对应的单源资产；候选还声明了同源派生的 presentationAsset。本次可视比较使用所附原图和四倍最近邻图。"
+      }
+    ],
+    "domOrder": {
+      "faithful": false,
+      "evidence": "源中目标位于 b0017 和 b0019 之间；候选目标块与上下文块分别列在不同数组中，未展示包含目标及邻接块的合并顺序，故无法独立确认实际插入位置。这是不确定，并非已证实错序。"
+    },
+    "contextContinuity": {
+      "faithful": false,
+      "evidence": "所给继承上下文包含之后摸切、拆掉23饼、14饼听牌及避免二度进张的说明；但缺少与目标块合并的有序序列，无法确认这些说明在成品中与例5连续呈现。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "目标图的牌序、箭头、横置和赤牌信息以及所给教学文字均已覆盖；由于目标与上下文的实际组合顺序未展示，尚不能确认完整教学上下文在成品中的连续性。"
+    },
+    "issues": [
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1775262:b0018",
+        "sourceEvidence": "源顺序为 main/p[16] 的 b0017、main/div[17] 的 b0018、main/p[18] 的 b0019；候选中的目标块和上下文块分属不同数组。",
+        "description": "无法从所给候选数据确定目标 figure 是否实际处于两段教学文字之间，因此上下文连续性仍待确认。",
+        "suggestedRepair": "提供或核对候选文档包含 b0017、b0018、b0019 的同一有序块序列，确认目标位于两段之间，并保留后续已继承的教学内容。"
+      }
+    ],
+    "completeTargetScopeCompared": false,
+    "summary": "目标图的转写和图片绑定已与所附资料比较，1m及 unknowns 两处修订忠实；但缺少合并后的目标邻接顺序，无法完成目标的顺序与上下文连续性核验。本次未新审全章。"
+  },
+  "originalGateResult": {
+    "passed": false,
+    "errors": [
+      "target_figure_domOrder",
+      "target_figure_contextContinuity",
+      "target_figure_semanticCompleteness",
+      "target_figure_incomplete",
+      "target_figure_issue"
+    ]
+  },
+  "reusableEvidence": {
+    "unchangedOrder": {
+      "faithful": true,
+      "evidence": "23个正文块依b0001至b0023自然顺序一一对应，10次图片出现均在原段落位置，未见重排、重复或遗漏。"
+    },
+    "independentParentRawCall": "f64f0d4f-8833-475e-96dd-a9c5f80e2ba9",
+    "bodyEqualsParent": true,
+    "candidateAndSourceContiguousOrder": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-recorded222283-20261028\\222-contiguous-order.json",
+      "sha256": "8cdf3db239559d4f553e0fb5353bbe844d2cde022e7e9aa4cd17ba5d22329105"
+    },
+    "pointCall": "55d504fb-96bb-4685-8842-229ff3779df1",
+    "newIndependentTargetReading": "faithful; two1m references confirmed"
+  },
+  "assessment": "父审的未改顺序结论可作为真实独立证据复用；不能把它写成此次模型已通过domOrder/contextContinuity/semanticCompleteness。现冻结合同要求新目标审全部这些标志为true并无uncertain，因此只补机械有序序列不足以产生合法passed收据。未改任何审或有效检查。",
+  "nextAction": "将此精确证据与原uncertain一并留在现有owner，供授权范围内决定是否接受限定证据组合；不重制、不重读牌、不全章重审。本阶段预算已尽，不自动生成复用pass或追加调用。若决定仍须模型确认，只需b0017–b0021同序投影的1次限定连续性审（另行追加授权，0retry），不借当前余额。",
+  "newModelCalls": 0,
+  "budget": {
+    "used": 3,
+    "maximum": 3,
+    "remaining": 0,
+    "retry": 0
+  },
+  "notEstablished": [
+    "No verified candidate order error.",
+    "No unsupported unknowns clearing; both arrays were already empty.",
+    "Remote weights, upstream executions and price remain unknown."
+  ]
+}
