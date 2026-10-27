@@ -1,0 +1,89 @@
+{
+  "chapterId": "nemata-jp-chapter-183-1",
+  "authorizationCommentId": "01a17ed7-c04d-71e7-82eb-57aed9c7b3e1",
+  "at": "2026-10-27T19:32:43.306104+00:00",
+  "calls": [
+    {
+      "callId": "cf82e6c3-ca38-4f6e-98bc-5c81fb4a3428",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section003",
+      "sourceSha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "timeoutMs": 900000,
+      "startedAt": "2026-10-27T19:32:22.378Z",
+      "durationMs": 20887,
+      "usage": {
+        "inputTokens": 14867,
+        "cachedInputTokens": 0,
+        "outputTokens": 225
+      },
+      "success": true,
+      "failureClass": null,
+      "transportStatus": "completed",
+      "rawArtifactPath": "raw-calls/cf82e6c3-ca38-4f6e-98bc-5c81fb4a3428.json",
+      "rawArtifactSha256": "cd24521e4068feabaa3f34717d5aa73f5d2b7d3081f87083ecdf2b91fea63a4d",
+      "outputSha256": "41cf5e3e2e30bdd664b82a4560a3641708eaefda50c50848e719087e74613aad",
+      "schemaSha256": "f7938a681fd19f7da1c60202eaa825389063f00ed2d8be909d4b8f46536223a1",
+      "promptSha256": "0f2a3e1ea151179d9c6578a2af7e648e754e6ba82a43468718ac77eb7c3a65bd",
+      "semanticPromptSha256": "95b2c86c8f53d740456f27211f086188a5deef90ddaa88998152f45099dcf970",
+      "cliSnapshot": {
+        "path": "web-production/v1/runners/773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860.cli.mjs",
+        "sha256": "773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860"
+      },
+      "targets": {
+        "textIds": [
+          "modern-yabejp-ja:chapter03-section003:b0018"
+        ],
+        "figureIds": []
+      },
+      "terminalEvents": [],
+      "exactTextContract": {
+        "schema": "coac244-exact-text-request/1",
+        "contractFileSha256": "fc968c117a50d80011ded6822d138b174a119025a6675fef3780dd01d8240904",
+        "chapterId": "nemata-jp-chapter-183-1",
+        "targetId": "modern-yabejp-ja:chapter03-section003:b0018",
+        "parentSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+        "expectedTextSha256": "c7b633e49127283005012d7c13c9b7b78a306521559086c206dce1cbea22cab7"
+      },
+      "visualInputs": [],
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json",
+        "parentSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+        "notesSha256": "c66a9bab86228f8f865d1f74b1c2d033de57f133892f87e2205480a09628373a",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0018"
+        ]
+      }
+    }
+  ],
+  "newLocalProductionCalls": 1,
+  "newLocalAuditCalls": 0,
+  "executorRetries": 0,
+  "priorFailedProductionCallsBatch": 2,
+  "lifetimeBatchMaximum": 6,
+  "upstreamRequestCount": null,
+  "monetaryCost": null,
+  "auditReady": true,
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-runtime-manifest.json",
+    "sha256": "0b75f6f6bb31d38344077753d402716b01d83cbbd57709720b753963408ef684"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\cf82e6c3-ca38-4f6e-98bc-5c81fb4a3428.json",
+    "sha256": "cd24521e4068feabaa3f34717d5aa73f5d2b7d3081f87083ecdf2b91fea63a4d"
+  },
+  "terminalEvents": [],
+  "stderr": "",
+  "threadIds": [
+    "01a17ed9-733f-75d0-aad9-c89d48c20a34"
+  ],
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section003.coac244exactv2.json",
+  "candidateSha256": "d1050bb0d666393e063cf3381e8faf767292db4f101189e3abe9eefdd06c14c8",
+  "displayPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section003.coac244exactv2.display.json",
+  "displaySha256": "973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a",
+  "exactWhitelistPassed": true,
+  "outcome": "candidate-ready-for-first-independent-audit"
+}

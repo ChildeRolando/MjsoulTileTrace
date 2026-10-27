@@ -1,0 +1,150 @@
+{
+  "schema": "coac244-text-contract-repair-and-p217-scope/1",
+  "recordedAt": "2026-10-27T19:21:53.927056+00:00",
+  "newModelCalls": 0,
+  "oldProductionCalls": 2,
+  "oldIndependentCalls": 0,
+  "remainingOriginalFirstAuditCalls": 2,
+  "newCandidatesCreated": 0,
+  "passedChapters": 0,
+  "rawOrSourceChanged": false,
+  "oldRuntimeChanged": false,
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-runtime-manifest.json",
+    "sha256": "0b75f6f6bb31d38344077753d402716b01d83cbbd57709720b753963408ef684"
+  },
+  "contracts": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-text-contracts.json",
+    "sha256": "fc968c117a50d80011ded6822d138b174a119025a6675fef3780dd01d8240904"
+  },
+  "verification": {
+    "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-244-2438eadc9a4e\\worktree\\.multica\\delivery\\coac244-text-contract-fix-20261028\\request-output-investigation.json",
+    "sha256": "251f21d7882f933f5243620bf7c1391ddda61ab55bf089f360a514d03514f781"
+  },
+  "p217": {
+    "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-244-2438eadc9a4e\\worktree\\.multica\\delivery\\coac244-text-contract-fix-20261028\\p217-location-corrigendum.json",
+    "sha256": "cf83ea2fd2c2e1ba96013b50c05859b7e1350ba7e4fdea524d6e592aac9d4b37"
+  },
+  "jobs": [
+    {
+      "chapterId": "nemata-jp-chapter-183-1",
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter03-section003\\source.v2.json",
+        "sha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+        "bytes": 20727
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section003.display.json",
+        "sha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+        "bytes": 22606
+      },
+      "parentAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+        "sha256": "c66a9bab86228f8f865d1f74b1c2d033de57f133892f87e2205480a09628373a",
+        "bytes": 13756
+      },
+      "targetIds": [
+        "modern-yabejp-ja:chapter03-section003:b0018"
+      ],
+      "requestOnlyCommand": [
+        "node",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-web.mjs",
+        "--source",
+        "web-sources/v1/modern-yabejp-ja/articles/chapter03-section003/source.v2.json",
+        "--revision-from",
+        "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json",
+        "--revision-notes",
+        "audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+        "--dictionary",
+        "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+        "--variant",
+        "coac244exactv2",
+        "--request-only",
+        "true"
+      ],
+      "futureProductionCommandRequiresAdditionalAllowance": [
+        "node",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-web.mjs",
+        "--source",
+        "web-sources/v1/modern-yabejp-ja/articles/chapter03-section003/source.v2.json",
+        "--revision-from",
+        "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json",
+        "--revision-notes",
+        "audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+        "--dictionary",
+        "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+        "--variant",
+        "coac244exactv2"
+      ],
+      "firstAudit": "original unused one target-text independent review, not a production retry allowance",
+      "productionBudgetAdditional": 1,
+      "originalAuditBudget": 1,
+      "automaticRetry": 0
+    },
+    {
+      "chapterId": "nemata-jp-chapter-236-1",
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section015\\source.json",
+        "sha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+        "bytes": 10906
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.display.json",
+        "sha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "bytes": 13799
+      },
+      "parentAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+        "sha256": "bf1af08a08d0be94dbe71415fa4bd808d1831cc8d6cc6b08f7672f5c0357daa9",
+        "bytes": 10725
+      },
+      "targetIds": [
+        "modern-yabejp-ja:chapter04-section015:b0003"
+      ],
+      "requestOnlyCommand": [
+        "node",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-web.mjs",
+        "--source",
+        "web-sources/v1/modern-yabejp-ja/articles/chapter04-section015/source.json",
+        "--revision-from",
+        "web-production/v1/candidates/modern-yabejp-ja/chapter04-section015.display.json",
+        "--revision-notes",
+        "audit/web/articles/modern-yabejp-ja/chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+        "--dictionary",
+        "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+        "--variant",
+        "coac244exactv2",
+        "--request-only",
+        "true"
+      ],
+      "futureProductionCommandRequiresAdditionalAllowance": [
+        "node",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\textbook-production-web.mjs",
+        "--source",
+        "web-sources/v1/modern-yabejp-ja/articles/chapter04-section015/source.json",
+        "--revision-from",
+        "web-production/v1/candidates/modern-yabejp-ja/chapter04-section015.display.json",
+        "--revision-notes",
+        "audit/web/articles/modern-yabejp-ja/chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+        "--dictionary",
+        "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+        "--variant",
+        "coac244exactv2"
+      ],
+      "firstAudit": "original unused one target-text independent review, not a production retry allowance",
+      "productionBudgetAdditional": 1,
+      "originalAuditBudget": 1,
+      "automaticRetry": 0
+    }
+  ],
+  "proposedBudget": {
+    "extraProductionCalls": 2,
+    "originalRemainingFirstAudits": 2,
+    "futureLocalCallsMaximum": 4,
+    "lifetimeBatchMaximum": 6,
+    "automaticRetry": 0,
+    "authorizedOrDispatchedHere": false,
+    "money": null
+  },
+  "sourceAssembly": "215scope/193supplement remain under existing250 runs; no duplicate handoff or consumer"
+}

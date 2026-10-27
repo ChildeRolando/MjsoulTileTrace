@@ -1,0 +1,494 @@
+{
+  "schema": "coach-textbook-web-article-draft/1",
+  "status": "draft",
+  "productionStatus": "draft-awaiting-independent-web-review",
+  "source": {
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter03-section003",
+    "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section003.html",
+    "title": "字牌待ち読み",
+    "language": "ja",
+    "fetchedAt": "2026-10-23T20:48:44.666375+00:00",
+    "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section003/source.v2.json",
+    "sourceSha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+    "htmlSha256": "4c29cc66535ae4d7780f94d668afd72bc6b2be4c009586bc8f770de36d3084f5",
+    "mainSha256": "c774533f02e291d52a8a7c79068c5d125eedcda5c433d3441a76cd01d424dc96"
+  },
+  "body": {
+    "language": "zh-CN",
+    "mode": "translated",
+    "flowOrder": "source-dom-order",
+    "blocks": [
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0001"
+        ],
+        "sourceText": "字牌待ち読み",
+        "text": "字牌待牌判断",
+        "paragraphId": "modern-yabejp-ja:chapter03-section003:p0001",
+        "sourceSegments": [
+          {
+            "text": "字牌待ち読み",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0002"
+        ],
+        "sourceText": "前回述べた、通っていないスジを数える方法は、基本的に相手の待ちを数牌として考えるものでした。では、相手の待ちが字牌である可能性はどの程度あるのでしょうか。",
+        "text": "上次介绍的计算尚未通过的筋的方法，基本上是将对手的待牌视为数牌来考虑的。那么，对手听字牌的可能性究竟有多大呢？",
+        "paragraphId": "modern-yabejp-ja:chapter03-section003:p0002",
+        "sourceSegments": [
+          {
+            "text": "前回述べた、通っていないスジを数える方法は、基本的に相手の待ちを数牌として考えるものでした。では、相手の待ちが字牌である可能性はどの程度あるのでしょうか。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0003"
+        ],
+        "sourceText": "以下のデータは、９〜14巡目の他家リーチに字牌で当たる確率を場合分け（役牌か客風か、自分から見て何枚見えていて、そのうち切れているものと自分が持っているのとがそれぞれ何枚か）して調べたものです。（『GAME JAPAN 2008年 3月号",
+        "text": "以下数据将第9～14巡其他玩家立直时，打出字牌放铳的概率按不同情况分类调查：是役牌还是客风牌，从自己的视角能看到几张，其中已被打出的和自己持有的各有几张。（[《GAME JAPAN》2008年3月号](http://www.amazon.co.jp/gp/product/B0012RQMXY?ie=UTF8&tag=yabe0b-22&linkCode=as2&camp=247&creative=1211&creativeASIN=B0012RQMXY)",
+        "paragraphId": "modern-yabejp-ja:chapter03-section003:p0003",
+        "sourceSegments": [
+          {
+            "text": "以下のデータは、９〜14巡目の他家リーチに字牌で当たる確率を場合分け（役牌か客風か、自分から見て何枚見えていて、そのうち切れているものと自分が持っているのとがそれぞれ何枚か）して調べたものです。（『",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "GAME JAPAN 2008年 3月号",
+            "marks": [],
+            "href": "http://www.amazon.co.jp/gp/product/B0012RQMXY?ie=UTF8&tag=yabe0b-22&linkCode=as2&camp=247&creative=1211&creativeASIN=B0012RQMXY"
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0004"
+        ],
+        "sourceText": " 「とつげき東北麻雀戦術論考」』参照。）",
+        "text": "中的《とつげき東北麻将战术论考》，参见该文。）",
+        "paragraphId": "modern-yabejp-ja:chapter03-section003:p0003",
+        "sourceSegments": [
+          {
+            "text": " 「とつげき東北麻雀戦術論考」』参照。）",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0005"
+        ],
+        "sourceText": "０枚切れ１枚持ち役牌　７%",
+        "text": "已打出0张、持有1张的役牌　7%",
+        "paragraphId": "modern-yabejp-ja:chapter03-section003:p0004",
+        "sourceSegments": [
+          {
+            "text": "０枚切れ１枚持ち役牌　７%",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0006"
+        ],
+        "sourceText": " ０枚切れ１枚持ち客風　５%",
+        "text": "已打出0张、持有1张的客风牌　5%",
+        "paragraphId": "modern-yabejp-ja:chapter03-section003:p0004",
+        "sourceSegments": [
+          {
+            "text": " ０枚切れ１枚持ち客風　５%",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0007"
+        ],
+        "sourceText": " １枚切れ０枚持ち役牌　４%",
+        "text": "已打出1张、持有0张的役牌　4%",
+        "paragraphId": "modern-yabejp-ja:chapter03-section003:p0004",
+        "sourceSegments": [
+          {
+            "text": " １枚切れ０枚持ち役牌　４%",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0008"
+        ],
+        "sourceText": " １枚切れ０枚持ち客風　４%",
+        "text": "已打出1张、持有0张的客风牌　4%",
+        "paragraphId": "modern-yabejp-ja:chapter03-section003:p0004",
+        "sourceSegments": [
+          {
+            "text": " １枚切れ０枚持ち客風　４%",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0009"
+        ],
+        "sourceText": " ０枚切れ２枚持ち役牌　４%",
+        "text": "已打出0张、持有2张的役牌　4%",
+        "paragraphId": "modern-yabejp-ja:chapter03-section003:p0004",
+        "sourceSegments": [
+          {
+            "text": " ０枚切れ２枚持ち役牌　４%",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0010"
+        ],
+        "sourceText": " ０枚切れ２枚持ち客風　３%",
+        "text": "已打出0张、持有2张的客风牌　3%",
+        "paragraphId": "modern-yabejp-ja:chapter03-section003:p0004",
+        "sourceSegments": [
+          {
+            "text": " ０枚切れ２枚持ち客風　３%",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0011"
+        ],
+        "sourceText": " １枚切れ１枚持ち客風　３%",
+        "text": "已打出1张、持有1张的客风牌　3%",
+        "paragraphId": "modern-yabejp-ja:chapter03-section003:p0004",
+        "sourceSegments": [
+          {
+            "text": " １枚切れ１枚持ち客風　３%",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0012"
+        ],
+        "sourceText": " １枚切れ１枚持ち役牌　２%",
+        "text": "已打出1张、持有1张的役牌　2%",
+        "paragraphId": "modern-yabejp-ja:chapter03-section003:p0004",
+        "sourceSegments": [
+          {
+            "text": " １枚切れ１枚持ち役牌　２%",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0013"
+        ],
+        "sourceText": " ２枚切れ字牌　　　　　１%未満（押し引き論13より）",
+        "text": "已打出2张的字牌　低于1%（引自[攻守判断论13](http://yabejp.web.fc2.com/mahjong/tactics/chapter02/section013.html)）",
+        "paragraphId": "modern-yabejp-ja:chapter03-section003:p0004",
+        "sourceSegments": [
+          {
+            "text": " ２枚切れ字牌　　　　　１%未満（",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "押し引き論13",
+            "marks": [],
+            "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter02/section013.html"
+          },
+          {
+            "text": "より）",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0014"
+        ],
+        "sourceText": "このデータから読み取れることについて",
+        "text": "关于这些数据可以说明的事情",
+        "paragraphId": "modern-yabejp-ja:chapter03-section003:p0005",
+        "sourceSegments": [
+          {
+            "text": "このデータから読み取れることについて",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0015"
+        ],
+        "sourceText": "通常９巡目以降のリーチであれば、通っているスジが少なくとも５〜６本ある。通っていないスジが12本（６本通っている）であれば、４･５･６以外の無スジ数牌の放銃率は1/12≒8.3%と概算できる。これは０枚切れ１枚持ち（所謂生牌）の役牌の放銃率７%より高い。よって、生牌役牌は無スジの数牌よりは安全と言える。",
+        "text": "通常，如果是第9巡及以后的立直，至少已有5～6条筋通过。如果尚未通过的筋有12条（已有6条通过），则4、5、6以外的无筋数牌，其放铳率可粗略估算为1/12≒8.3%。这高于已打出0张、自己持有1张（即所谓的生牌）的役牌7%的放铳率。因此，可以说，*生牌役牌比无筋数牌更安全*。",
+        "paragraphId": "modern-yabejp-ja:chapter03-section003:p0006",
+        "sourceSegments": [
+          {
+            "text": "通常９巡目以降のリーチであれば、通っているスジが少なくとも５〜６本ある。通っていないスジが12本（６本通っている）であれば、４･５･６以外の無スジ数牌の放銃率は1/12≒8.3%と概算できる。これは０枚切れ１枚持ち（所謂生牌）の役牌の放銃率７%より高い。よって、",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "生牌役牌は無スジの数牌よりは安全",
+            "marks": [
+              "em::"
+            ],
+            "href": null
+          },
+          {
+            "text": "と言える。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0016"
+        ],
+        "sourceText": "ただ、それでも７%の確率であるから、自分が２シャンテン以下等のアガリに遠い牌姿から安易に切るべきではない。（手を崩すことになるが２枚持ち客風やスジ１･９牌を優先して切るべき。）役牌でロンされた場合の平均放銃点は数牌でロンされた場合より高くなるので尚更である。",
+        "text": "不过，即便如此，放铳概率仍有7%，所以当自己的牌形处于两向听以下等离和牌较远的状态时，不应轻易打出。（虽然会拆散手牌，但应优先打出持有2张的客风牌或筋上的1、9牌。）用役牌放铳时的平均放铳点数高于用数牌放铳时，因此更应如此。",
+        "paragraphId": "modern-yabejp-ja:chapter03-section003:p0007",
+        "sourceSegments": [
+          {
+            "text": "ただ、それでも７%の確率であるから、自分が２シャンテン以下等のアガリに遠い牌姿から安易に切るべきではない。（手を崩すことになるが２枚持ち客風やスジ１･９牌を優先して切るべき。）役牌でロンされた場合の平均放銃点は数牌でロンされた場合より高くなるので尚更である。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0017"
+        ],
+        "sourceText": "見えている枚数が同じでも、切られている枚数が多いほうが放銃率が低い。（他家が自分から見て）見えていない牌を優先する為。１枚目が切れた時点でポンされることが多い（結果的に１枚切れの字牌リーチが少なくなる）のも理由として挙げられる。",
+        "text": "即使能看到的张数相同，*已被打出的张数越多，放铳率就越低*。这是因为其他玩家会优先选择从其自身视角看来尚未见到的牌。此外，第一张被打出时往往就会被碰走（结果使听已打出1张的字牌的立直减少），这也是原因之一。",
+        "paragraphId": "modern-yabejp-ja:chapter03-section003:p0008",
+        "sourceSegments": [
+          {
+            "text": "見えている枚数が同じでも、",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "切られている枚数が多いほうが放銃率が低い",
+            "marks": [
+              "em::"
+            ],
+            "href": null
+          },
+          {
+            "text": "。（他家が自分から見て）見えていない牌を優先する為。１枚目が切れた時点でポンされることが多い（結果的に１枚切れの字牌リーチが少なくなる）のも理由として挙げられる。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0018"
+        ],
+        "sourceText": "１枚切れ１枚見えの字牌は役牌の方が客風より放銃率が低い。役牌の方が１枚目が切れた時点でポンされることが多いことと、単騎選択の場合に客風単騎の方が出アガリが狙いやすいという打ち手の意志が働く為か。",
+        "text": "*对于已打出1张、能看到1张的字牌，役牌的放铳率比客风牌低*。这或许是因为役牌更常在第一张被打出时就被碰走，以及在选择单骑待牌时，牌手会考虑到单骑客风牌更容易荣和。\n\n【校注（非原文）：前文数据中，已打出1张且持有0张时，役牌与客风牌的放铳率均为4%；已打出1张且持有1张时，役牌为2%、客风牌为3%。原文“见1张”是否包含已打出的1张，或指另持有1张，尚未确认；此处保留原文条件，不将其改为“持有1张”。】",
+        "paragraphId": "modern-yabejp-ja:chapter03-section003:p0009",
+        "sourceSegments": [
+          {
+            "text": "１枚切れ１枚見えの字牌は役牌の方が客風より放銃率が低い",
+            "marks": [
+              "em::"
+            ],
+            "href": null
+          },
+          {
+            "text": "。役牌の方が１枚目が切れた時点でポンされることが多いことと、単騎選択の場合に客風単騎の方が出アガリが狙いやすいという打ち手の意志が働く為か。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0019"
+        ],
+        "sourceText": "次回からは、特定の牌姿や待ちの形を想定できるケースとその読み方について取り上げていく。  ",
+        "text": "从下次开始，将介绍能够推测出特定牌形或待牌形状的情况，以及相应的判断方法。",
+        "paragraphId": "modern-yabejp-ja:chapter03-section003:p0010",
+        "sourceSegments": [
+          {
+            "text": "次回からは、特定の牌姿や待ちの形を想定できるケースとその読み方について取り上げていく。 ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      }
+    ]
+  },
+  "figures": [],
+  "provenance": {
+    "sourceVersion": "web-sources/v1",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "artifactRoot": "web-production/v1",
+    "attempts": [
+      {
+        "callId": "cf82e6c3-ca38-4f6e-98bc-5c81fb4a3428",
+        "sourceId": "modern-yabejp-ja",
+        "articleId": "chapter03-section003",
+        "sourceSha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "timeoutMs": 900000,
+        "startedAt": "2026-10-27T19:32:22.378Z",
+        "durationMs": 20887,
+        "usage": {
+          "inputTokens": 14867,
+          "cachedInputTokens": 0,
+          "outputTokens": 225
+        },
+        "success": true,
+        "failureClass": null,
+        "transportStatus": "completed",
+        "rawArtifactPath": "raw-calls/cf82e6c3-ca38-4f6e-98bc-5c81fb4a3428.json",
+        "rawArtifactSha256": "cd24521e4068feabaa3f34717d5aa73f5d2b7d3081f87083ecdf2b91fea63a4d",
+        "outputSha256": "41cf5e3e2e30bdd664b82a4560a3641708eaefda50c50848e719087e74613aad",
+        "schemaSha256": "f7938a681fd19f7da1c60202eaa825389063f00ed2d8be909d4b8f46536223a1",
+        "promptSha256": "0f2a3e1ea151179d9c6578a2af7e648e754e6ba82a43468718ac77eb7c3a65bd",
+        "semanticPromptSha256": "95b2c86c8f53d740456f27211f086188a5deef90ddaa88998152f45099dcf970",
+        "cliSnapshot": {
+          "path": "web-production/v1/runners/773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860.cli.mjs",
+          "sha256": "773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860"
+        },
+        "targets": {
+          "textIds": [
+            "modern-yabejp-ja:chapter03-section003:b0018"
+          ],
+          "figureIds": []
+        },
+        "terminalEvents": [],
+        "exactTextContract": {
+          "schema": "coac244-exact-text-request/1",
+          "contractFileSha256": "fc968c117a50d80011ded6822d138b174a119025a6675fef3780dd01d8240904",
+          "chapterId": "nemata-jp-chapter-183-1",
+          "targetId": "modern-yabejp-ja:chapter03-section003:b0018",
+          "parentSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+          "expectedTextSha256": "c7b633e49127283005012d7c13c9b7b78a306521559086c206dce1cbea22cab7"
+        },
+        "visualInputs": [],
+        "revision": {
+          "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json",
+          "parentSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+          "notesPath": "audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+          "notesSha256": "c66a9bab86228f8f865d1f74b1c2d033de57f133892f87e2205480a09628373a",
+          "figureIds": [],
+          "textBlockIds": [
+            "modern-yabejp-ja:chapter03-section003:b0018"
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "inputTokens": 14867,
+      "cachedInputTokens": 0,
+      "outputTokens": 225
+    },
+    "modelCalls": 1,
+    "reuseMap": null,
+    "runnerSha256": "495b9aedb65d91248a85c6c4911d01dce3783c85a623e8ce876351c199a73ee3",
+    "extractorSha256": "32931d505543222c044ef34e0917f2269b821724acb993ba2215cf55b52d6d59",
+    "attribution": "Original author, translator and reposter references remain in the bound source HTML; existing Chinese source body is verbatim.",
+    "revision": {
+      "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json",
+      "parentSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+      "notesPath": "audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+      "notesSha256": "c66a9bab86228f8f865d1f74b1c2d033de57f133892f87e2205480a09628373a",
+      "figureIds": [],
+      "textBlockIds": [
+        "modern-yabejp-ja:chapter03-section003:b0018"
+      ]
+    },
+    "dictionary": {
+      "path": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+      "sha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+    },
+    "derivedFromCandidate": {
+      "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.coac244exactv2.json",
+      "sha256": "d1050bb0d666393e063cf3381e8faf767292db4f101189e3abe9eefdd06c14c8",
+      "reason": "Lossless display images only; translations and source figure sequences unchanged"
+    },
+    "presentationRendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+  },
+  "title": "字牌待牌判断",
+  "candidateSha256": "4e6b67078076bb60d4cf7a3fdf219f8ebc421b24f77138987e4cefe63ef4da8d"
+}

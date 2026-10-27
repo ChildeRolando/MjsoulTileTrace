@@ -1,0 +1,11 @@
+COAC-269已产出236有效新候选，请逐章消费未用的首次独审额度，不等本票或PR。授权为269用户评论01a17ed7-c04d-71e7-82eb-57aed9c7b3e1：追加两制作，原两首审，总未来最多4、本批累计最多6，failed/void计，0retry。本条仅236首审最多1次，不增加制作或其它审校额度。183已另有精确SHA交接，不重复消费183。
+
+唯一完整canonical nemata-jp-chapter-236-1，唯一审display SHA 6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28，不另审同调用中间稿。交接 E:/AgentData/Coach/knowledge/processing/web-production/v1/runs/coac269-exact-183236-v2-20261028/handoff-236-to249.json，SHA256 deb9b0b7e67b0bc19c936eb02ae4dd463379600ef2083c2eb1ebcca9ceed9b5d；包内含完整源/父/原uncertain审/raw/真实生产及完整父链验证证明、单段白名单及mechanical checks。
+
+必须复用244唯一冻结文字runtime E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-text-exact-183236-v2-20261028，exact-runtime-manifest.json SHA256 0b75f6f6bb31d38344077753d402716b01d83cbbd57709720b753963408ef684。逐项重算依赖，auditWebCandidate走independent-target-text-review-plus-unchanged-parent-audit；原父审uncertain不改error，新独审uncertain仍阻断pass。不得用旧error-only审入口拒绝合法父链，也不得放宽语义门禁。
+
+真实生产call 62c5c6f7-d54c-45c1-92af-da36349b1f80，sol/high、images=[]，15104in/330out，57.082秒；实际raw prompt等于已核request-only闭包，output等于exact合同。b0003作者正文只在指定短语删除“剩余”两字，其它字符、强调sourceSegments原样，仅两个换行追加【校注（非原文）：原文“巡目が僅か”未明确指已进行的巡数还是剩余巡数，此处不补入“剩余”；该时机条件仍未确认。】。另外3块正文及0图原样。新审应独立核完整目标及非原文校注，不能因有校注自动消除时点歧义。
+
+临派重新查当前preview/register、同SHA真实已审/在途ledger/raw和249活动run；有终态或在途不重派。正常取得既有audit guard，不删锁、不另开消费者；若p217或183审占用，保留本件待其正常释放。独审真实调用必须前台收齐，保持sol/high无图；本文字入口禁止意外图片，不能以sol含图执行。原2失败raw不动，不派234/其它章，不手改候选或审结果，不把PR评审当教材首审。
+
+仅有效独审passed后立即交250，附新SHA真实审校收据与本runtime/plan-parent-raw链并要求MCP/Arena真实读回，不切正式active。needs-repair/uncertain/failed保留完整raw与精确问题，回报269及244后正常释放，无自动复审或制作重试。最终输出真实call ID、模型/effort/images、raw/审SHA、usage/耗时、预算及未决；费用未知则写未知。

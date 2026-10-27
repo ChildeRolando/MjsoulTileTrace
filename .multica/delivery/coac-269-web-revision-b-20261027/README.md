@@ -862,3 +862,77 @@ and release receipts, and complete call accounting. Original processing receipts
 COAC-269 remains blocked: no newly acceptable candidate exists, production allowances are spent,
 and the unchanged 244 request needs the exact output constraints before any future authorized call.
 Old 162 pass, 234 timeout, other accepted chapters and formal active remain untouched.
+
+## Batch 12: authorized exact-text continuation of 183/236, 2026-10-28
+
+User comment `01a17ed7-c04d-71e7-82eb-57aed9c7b3e1` explicitly adds **two production calls**,
+one per chapter. The original two first-audit allowances remain audit-only. Including Batch 11's
+two failed productions, this 183/236 batch has a lifetime maximum of six local calls; failed/void
+calls count, and no automatic retry is allowed. The unrelated 234 timeout has no new allowance.
+
+The exact COAC-244 runtime `coac244-text-exact-183236-v2-20261028` is unchanged, with manifest
+SHA256 `0b75f6f6bb31d38344077753d402716b01d83cbbd57709720b753963408ef684`. All 19 files,
+including the manifest, byte-match commit `8ea8e86efa6c1b3c778b7cbf3efca1da372352fb`.
+The 27 zero-call checks were rerun successfully, including actual producer request construction,
+both old-raw rejections, punctuation/extra-target/figure/note rejection, and rejection of invented
+parent-plus-note composites. Both new entry preflights and request-only checks passed. Each real
+raw request then matched its request-only closed prompt exactly, and the real output matched the
+single allowed full-text enum. No frozen runtime, parent/source/audit, raw, or model output was edited.
+
+COAC-244's investigation clarifies the old failure: the previous request already contained quoted
+parent text and an audit suggestion mentioning notes. The missing requirement was an enforceable
+exact character whitelist with an explicit non-author note, rather than a complete absence of context.
+The new entry enforces this after saving raw/ledger and before assigning target text or writing a
+candidate. It also rejects resuming the old invalid output. This is production scope validation;
+the independent semantic gate and original `uncertain` remain unchanged.
+
+Both new real productions satisfy the contract:
+
+- `nemata-jp-chapter-183-1/b0018` uses the candidate-bound `source.v2.json`. Every original
+  paragraph character is retained, followed by two newlines and the exact `【校注（非原文）：…】`
+  comparing 4%=4%, role tiles 2% versus guest wind tiles 3%, and the unresolved “见1张” count.
+  Display SHA256: `973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a`.
+  Intermediate candidate SHA256: `d1050bb0d666393e063cf3381e8faf767292db4f101189e3abe9eefdd06c14c8`.
+- `nemata-jp-chapter-236-1/b0003` deletes only the specified `剩余` in author text, then appends
+  two newlines and an explicit non-author note that elapsed versus remaining turns is unresolved.
+  Display SHA256: `6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28`.
+  Intermediate candidate SHA256: `e805b23bee71280bf113b499236cbe92ab440fc6c7e632d3d3b7592bcf369a08`.
+
+All non-target body objects, sourceSegments, emphasis, source bindings and zero-figure sequences
+remain unchanged. The frozen verifier independently authenticated both new production/raw records
+and their complete real parent-review inheritance. Display conversion is the existing deterministic
+renderer, not a manually derived translation. Neither candidate is called semantically passed here.
+
+| chapter / scope | call ID | start UTC | duration ms | input / output tokens | result |
+| --- | --- | --- | --- | --- | --- |
+| 183 new production | cf82e6c3-ca38-4f6e-98bc-5c81fb4a3428 | 2026-10-27 19:32:22.378 | 20887 | 14867 / 225 | completed; exact whitelist passed |
+| 236 new production | 62c5c6f7-d54c-45c1-92af-da36349b1f80 | 2026-10-27 19:33:39.049 | 57082 | 15104 / 330 | completed; exact whitelist passed |
+
+Both calls used the real unchanged `gpt-6.1-sol/high` CLI path with empty image payloads. New
+production usage totals 29,971 input / 555 output / zero cached input. Including the two preserved
+Batch 11 failures, production usage is 56,482 input / 1,538 output, with four production call records.
+No audit was dispatched by this executor and no production was retried automatically. Neither new
+call has reconnect events; 236 stderr records a model-list refresh timeout before normal completion.
+Upstream request count, remote backend weights and monetary cost remain unknown.
+
+Each chapter was handed individually to COAC-249 immediately after its own mechanical verification:
+
+- `web-production/v1/runs/coac269-exact-183236-v2-20261028/handoff-183-to249.json`, SHA256
+  `a2d264e0294c9b2103b756f9b2391bdf5d6eac4ffaf8b805782fc3467028d39f`;
+  persistent wakeup `01a17eda-9a52-7597-bdd3-54f3a1062499`.
+- `web-production/v1/runs/coac269-exact-183236-v2-20261028/handoff-236-to249.json`, SHA256
+  `deb9b0b7e67b0bc19c936eb02ae4dd463379600ef2083c2eb1ebcca9ceed9b5d`;
+  persistent wakeup `01a17edb-c235-7225-9c84-c218f6200166`.
+
+The handoffs bind exact display SHA, source/parent/uncertain audit/raw, frozen validator and contract,
+and authorize only one real first target-text review each. An independent `uncertain` still blocks.
+Only a verified real pass can go to COAC-250 for single-writer integration and MCP/Arena readback;
+formal active is not switched. Wakeup registration/dispatch is not an audit receipt or acceptance.
+The collector records any audit calls/terminal receipts visible at its timestamp, separately from
+these four production calls; it does not assume queued requests have consumed the review allowances.
+
+The maker-B slot and both new chapter claims were normally released. No run-owned request remains.
+COAC-269 continues `in_progress` while the independent first reviews and any valid integration remain
+pending. Evidence is in `artifacts/b12-exact-183236/`; `collect-evidence.py` only reads model/data
+artifacts and writes receipt copies and accounting. The existing draft PR carries the evidence and
+does not replace textbook review or qualify this issue for automatic closure.

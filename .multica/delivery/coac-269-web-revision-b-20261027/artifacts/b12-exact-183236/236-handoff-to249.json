@@ -1,0 +1,154 @@
+{
+  "schema": "coac269-exact-text-first-audit-handoff/1",
+  "recordedAt": "2026-10-27T19:34:39.691Z",
+  "chapterId": "nemata-jp-chapter-236-1",
+  "authorizationCommentId": "01a17ed7-c04d-71e7-82eb-57aed9c7b3e1",
+  "status": "pending-first-independent-review",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.coac244exactv2.display.json",
+    "sha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28"
+  },
+  "intermediateCandidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.coac244exactv2.json",
+    "sha256": "e805b23bee71280bf113b499236cbe92ab440fc6c7e632d3d3b7592bcf369a08"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section015\\source.json",
+    "sha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+    "bytes": 10906
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.display.json",
+    "sha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+    "bytes": 13799
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+    "sha256": "bf1af08a08d0be94dbe71415fa4bd808d1831cc8d6cc6b08f7672f5c0357daa9",
+    "bytes": 10725
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-runtime-manifest.json",
+    "sha256": "0b75f6f6bb31d38344077753d402716b01d83cbbd57709720b753963408ef684"
+  },
+  "contracts": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-text-contracts.json",
+    "sha256": "fc968c117a50d80011ded6822d138b174a119025a6675fef3780dd01d8240904"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\62c5c6f7-d54c-45c1-92af-da36349b1f80.json",
+    "sha256": "09c698725d4d8edfcd024d78ebffc60befcee005233561ba19a1acd8df6bbf8b"
+  },
+  "productionCalls": [
+    {
+      "callId": "62c5c6f7-d54c-45c1-92af-da36349b1f80",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter04-section015",
+      "sourceSha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "timeoutMs": 900000,
+      "startedAt": "2026-10-27T19:33:39.049Z",
+      "durationMs": 57082,
+      "usage": {
+        "inputTokens": 15104,
+        "cachedInputTokens": 0,
+        "outputTokens": 330
+      },
+      "success": true,
+      "failureClass": null,
+      "transportStatus": "completed",
+      "rawArtifactPath": "raw-calls/62c5c6f7-d54c-45c1-92af-da36349b1f80.json",
+      "rawArtifactSha256": "09c698725d4d8edfcd024d78ebffc60befcee005233561ba19a1acd8df6bbf8b",
+      "outputSha256": "f7cc66aeaccee13c11fd9d15608a986de4ce0dd4910db3248873608ba5920789",
+      "schemaSha256": "1e5ed29f32ef9f5d845a91275ab151454e672be64d9e3d014fff99d80b358a81",
+      "promptSha256": "de1849c737d5d93e210e3e884795bc41abeaf766afdb6002910e6bdf6ffc5654",
+      "semanticPromptSha256": "948fd0265c5d495b816e559062b1bf7a6e43f1b728ee6c1803291468e258bb1d",
+      "cliSnapshot": {
+        "path": "web-production/v1/runners/773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860.cli.mjs",
+        "sha256": "773b63a2b7e1cd525f45278f2565487b5916b8775d935c7af7001195b1403860"
+      },
+      "targets": {
+        "textIds": [
+          "modern-yabejp-ja:chapter04-section015:b0003"
+        ],
+        "figureIds": []
+      },
+      "terminalEvents": [],
+      "exactTextContract": {
+        "schema": "coac244-exact-text-request/1",
+        "contractFileSha256": "fc968c117a50d80011ded6822d138b174a119025a6675fef3780dd01d8240904",
+        "chapterId": "nemata-jp-chapter-236-1",
+        "targetId": "modern-yabejp-ja:chapter04-section015:b0003",
+        "parentSha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "expectedTextSha256": "0743a15766616aa637af0b8fbda7398f0bef1d421a0eb9e873f778a7844192a6"
+      },
+      "visualInputs": [],
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section015.display.json",
+        "parentSha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+        "notesSha256": "bf1af08a08d0be94dbe71415fa4bd808d1831cc8d6cc6b08f7672f5c0357daa9",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter04-section015:b0003"
+        ]
+      }
+    }
+  ],
+  "targetIds": [
+    "modern-yabejp-ja:chapter04-section015:b0003"
+  ],
+  "checks": {
+    "passed": true,
+    "errors": [],
+    "textBlocks": 4,
+    "imageRuns": 0,
+    "imageOccurrences": 0,
+    "figures": 0
+  },
+  "exactOutput": {
+    "passed": true,
+    "targetId": "modern-yabejp-ja:chapter04-section015:b0003",
+    "textSha256": "0743a15766616aa637af0b8fbda7398f0bef1d421a0eb9e873f778a7844192a6",
+    "editorialNoteExplicitlyNotAuthorText": true
+  },
+  "production": {
+    "callId": "62c5c6f7-d54c-45c1-92af-da36349b1f80",
+    "rawArtifactPath": "raw-calls/62c5c6f7-d54c-45c1-92af-da36349b1f80.json",
+    "rawArtifactSha256": "09c698725d4d8edfcd024d78ebffc60befcee005233561ba19a1acd8df6bbf8b",
+    "revision": {
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section015.display.json",
+        "parentSha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+        "notesSha256": "bf1af08a08d0be94dbe71415fa4bd808d1831cc8d6cc6b08f7672f5c0357daa9",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter04-section015:b0003"
+        ]
+      },
+      "parentAudit": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+        "sha256": "bf1af08a08d0be94dbe71415fa4bd808d1831cc8d6cc6b08f7672f5c0357daa9",
+        "originalStatus": "needs-repair"
+      },
+      "parentCall": {
+        "callId": "03f3dc72-6119-4ef8-a813-5cc9685e9f82",
+        "path": "audit/calls/03f3dc72-6119-4ef8-a813-5cc9685e9f82.json",
+        "sha256": "4a0c5223ef7fea12502e2217981a21ce49c2c583befd739060b78588b0619288"
+      },
+      "inheritedAssetIds": []
+    }
+  },
+  "budgets": {
+    "oldFailedProductionCallsBatch": 2,
+    "newProductionCallsBatchMaximum": 2,
+    "firstAuditCallsThisChapterMaximum": 1,
+    "futureCallsAtAuthorizationMaximum": 4,
+    "lifetimeBatchMaximum": 6,
+    "failedVoidCount": true,
+    "automaticRetry": 0
+  },
+  "reviewInstructions": "Review only this display SHA with the frozen auditWebCandidate/independent target-text path. Keep original uncertain severity; new uncertain still blocks pass. Compare the actual original source and the complete target paragraph plus explicit non-author editorial note. No repeat production, intermediate audit, second review or extra canary. A verified pass goes to COAC-250 with this runtime/parent/raw chain; no formal active switch."
+}
