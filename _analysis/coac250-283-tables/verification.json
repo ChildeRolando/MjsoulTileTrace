@@ -1,0 +1,1162 @@
+{
+  "schema": "coac250-283-six-table-evidence-intake/1",
+  "recordedAt": "2026-10-27T20:44:12.476Z",
+  "handoff": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-283-six-table-supplement-20261028.json",
+    "sha256": "984eb65c84e40842bc0b0db324e715df309915b3907860a255a149415b3ff946"
+  },
+  "status": "registered-target-tables-only",
+  "chapterId": "nemata-jp-chapter-283-1",
+  "chapterAccepted": false,
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev1.json",
+    "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+    "bytes": 2169759
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter06-exercise003\\source.v3.json",
+    "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+    "bytes": 1998292
+  },
+  "originalAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+    "sha256": "749e242c54019cb6b855a03e6df4fe465bed86e1cf50d7869be548a3b0144d40",
+    "bytes": 1690739
+  },
+  "receipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-283-tables-20261028\\receipt.json",
+    "sha256": "68f0a463533b01b57b242daaa9d42124e8e5a527f889350a64fad03aec86809b"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\f5141a65-3fce-47c3-8a94-a0a9a2c9a528.json",
+    "sha256": "f8b6039206d68c70cfeb27d244d2dce557ab3f11d6f70ff44b2160359b2e0864"
+  },
+  "request": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-283-tables-20261028\\request.json",
+    "sha256": "902105a564d34980e3723e6d602a4ba297517d4be6e9c1af05f0e8997594f4ac",
+    "promptSha256": "d49f233af2a5ea0c564f2b2472b1bcf8768c92d23504034302a9c4559a16d30d"
+  },
+  "consumerManifest": {
+    "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-a130ed53ae1e\\worktree\\.multica\\delivery\\coac249-283-tables-20261028\\supplement-runtime-manifest.json",
+    "sha256": "27b2c7e2c3b2cc52c80eba81578fda43872d4435fb58fc83af345876b9acf380"
+  },
+  "recoveredConsumer": {
+    "commit": "148ba56",
+    "files": [
+      {
+        "name": "supplement-runtime-manifest.json",
+        "commit": "148ba56",
+        "sha256": "27b2c7e2c3b2cc52c80eba81578fda43872d4435fb58fc83af345876b9acf380"
+      },
+      {
+        "name": "prepare.mjs",
+        "commit": "148ba56",
+        "sha256": "26f51f758e639a0c23a598d0b91472a4e37540a3827eba26c34fa1512c79dcab"
+      },
+      {
+        "name": "review.mjs",
+        "commit": "148ba56",
+        "sha256": "cfbd81d6d4c25505ebe7a48f5a3a554af399923ddf58b902c47dad68d3ca137d"
+      },
+      {
+        "name": "request.json",
+        "commit": "148ba56",
+        "sha256": "902105a564d34980e3723e6d602a4ba297517d4be6e9c1af05f0e8997594f4ac"
+      },
+      {
+        "name": "preflight.json",
+        "commit": "148ba56",
+        "sha256": "6a638feb101b7aea5426b3afdf9db8fcd10add47a6e057f94f5779ff37747772"
+      }
+    ],
+    "executed": false
+  },
+  "runtime": {
+    "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/runtime-manifest.json",
+    "sha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6"
+  },
+  "runtimeFilesVerified": 27,
+  "protectedFiles": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-283-six-table-supplement-20261028.json",
+      "sha256": "984eb65c84e40842bc0b0db324e715df309915b3907860a255a149415b3ff946"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev1.json",
+      "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter06-exercise003\\source.v3.json",
+      "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+      "sha256": "749e242c54019cb6b855a03e6df4fe465bed86e1cf50d7869be548a3b0144d40"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-283-tables-20261028\\receipt.json",
+      "sha256": "68f0a463533b01b57b242daaa9d42124e8e5a527f889350a64fad03aec86809b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\f5141a65-3fce-47c3-8a94-a0a9a2c9a528.json",
+      "sha256": "f8b6039206d68c70cfeb27d244d2dce557ab3f11d6f70ff44b2160359b2e0864"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-283-tables-20261028\\request.json",
+      "sha256": "902105a564d34980e3723e6d602a4ba297517d4be6e9c1af05f0e8997594f4ac"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\runtime-manifest.json",
+      "sha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\capability-evidence.json",
+      "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-definition.mjs",
+      "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-legacy.mjs",
+      "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-layout.mjs",
+      "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-native-structure-corrections.mjs",
+      "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-native.mjs",
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-scope.mjs",
+      "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-verification-dependencies.mjs",
+      "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-web-batches.mjs",
+      "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-web.mjs",
+      "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit.mjs",
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-cli.mjs",
+      "sha256": "403eb168fb725aa990792089eb7d6e29d55903fcf9e22d2cfce253fd675a3d01"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-pdf-flow.mjs",
+      "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-dictionary.mjs",
+      "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-formal.mjs",
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-labels.mjs",
+      "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-sources.py",
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web.mjs",
+      "sha256": "c7bd6f353f78d891f466d8f47c2aa37d9fed1a66dacdbf996018ddf2e001eee1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production.mjs",
+      "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\verification-dependencies.json",
+      "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-projection-20261028\\specific-table-review-input.json",
+      "sha256": "26a7dc387046f0563d89d80ce67beff6d2270d87720cc0d11e94071d9904c066"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-projection-20261028\\input.json",
+      "sha256": "ccd8c19b52fd7d466745505d158a853263f65f30735bfebf8af1f80fbdfadb16"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev1.json",
+      "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter06-exercise003\\source.v3.json",
+      "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+      "sha256": "749e242c54019cb6b855a03e6df4fe465bed86e1cf50d7869be548a3b0144d40"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\html\\b72451ae761684685588848b\\source.html",
+      "sha256": "8ea482140920fc3bfb392305d72b5755f014b73a5aa0bb71e6d46ca0e455dd66"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter06-exercise003\\main.v3.html",
+      "sha256": "4b452ad5d84c973571f5944931a8afcc119f8b047244a0e7d81efa60ea0609cc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-projection-20261028\\coverage-evidence.json",
+      "sha256": "b7f943f0b8ecc9d24de9e8327664c94772f16ddca1b0421ed01d7e1f442de089"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-projection-20261028\\verification.json",
+      "sha256": "825aa7c7fff725b1b7d3ab9a90f44ece97c3571e8f2ceb58cb56b8aaa3932c17"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-projection-20261028\\source-table-html-proof.json",
+      "sha256": "4ba817fee312bb5d93d51ff31c2c75df36bd9711f059759422c2a766ba9fd114"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-projection-20261028\\projection-mapping.json",
+      "sha256": "91309a83cf688869f71cd12a43bb1e8280b93bc3bbf038ef8db70daea793bfc2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-projection-20261028\\diagnostic-tables\\textbook-corpus.json",
+      "sha256": "54b7e9e2cb4d2ba037ef87ac72482299213a49cc27df448f0179e765ca561218"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\66d46676-95ad-473b-ad9b-b6e1d53afe62.json",
+      "sha256": "9b7e60c56ae9edcd5388efe9c2777c72709aba69dfe3b05b699e8b42a8a07da1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\41594bdf-dc8e-4efc-8642-4a4619b32d2b.json",
+      "sha256": "5c8ef615b2a5e0806279d232bd8b8d19fe5b492a263e987252da5b53fe99b10f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\948c4b49-3c1a-4ad0-8c17-a4e6adc06d6c.json",
+      "sha256": "4b26ff8eb909ee97408fc689389dd81359efdb925d184bc71dafd38233dcbace"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\f264dc7f-ab56-4488-b634-64c6a3abbac1.json",
+      "sha256": "950175a3cd82959a4659de512c9899f1c2b08a34b22b69aca7a3cdc1a2eb3945"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\dictionaries\\modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+      "sha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\28e50bed55e548e1ab0414a40c778dbd62ac4bfe1433360c2d602f1fb92e419f.png",
+      "sha256": "28e50bed55e548e1ab0414a40c778dbd62ac4bfe1433360c2d602f1fb92e419f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\7e9fc720d8d828be9e9773a1137a3e5da020b35f1ab6ae5478a366553e0643f9.png",
+      "sha256": "7e9fc720d8d828be9e9773a1137a3e5da020b35f1ab6ae5478a366553e0643f9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\1dc342b718affed37b1ea24e68ac8d239bd702afbd5534502f0c4318b9c55960.png",
+      "sha256": "1dc342b718affed37b1ea24e68ac8d239bd702afbd5534502f0c4318b9c55960"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\8b444ba3413da7b802da2570cfa6cd10e733be710cea5f7ce6660e2bc36fe3da.png",
+      "sha256": "8b444ba3413da7b802da2570cfa6cd10e733be710cea5f7ce6660e2bc36fe3da"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d5fc796860fcbf45537080d63f7396ff45cf2a762adc59c751b37ec7ce1978ef.png",
+      "sha256": "d5fc796860fcbf45537080d63f7396ff45cf2a762adc59c751b37ec7ce1978ef"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\a07c03982de8e44ff37fa2a6dbcf4e9384f96184cfaeefe020a8ed88bd0369ce.png",
+      "sha256": "a07c03982de8e44ff37fa2a6dbcf4e9384f96184cfaeefe020a8ed88bd0369ce"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\a85604f4fe7b71642dc3821b8ece948061056b973780837e41467e4369591240.png",
+      "sha256": "a85604f4fe7b71642dc3821b8ece948061056b973780837e41467e4369591240"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\664ea678d254c0a7b72e2998b7a5e7c85f8b66d01d0156a35ad56aa044247de3.png",
+      "sha256": "664ea678d254c0a7b72e2998b7a5e7c85f8b66d01d0156a35ad56aa044247de3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef.png",
+      "sha256": "adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295.png",
+      "sha256": "5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\57e8ed0e406f0577bcbb144f4df6952fa83d2791310f73cb61bcc4b568b3793d.png",
+      "sha256": "57e8ed0e406f0577bcbb144f4df6952fa83d2791310f73cb61bcc4b568b3793d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b.png",
+      "sha256": "8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\e5f873212057ca626b02116936b06a74e16f224340b1a98bc12b35c19d63f95b.png",
+      "sha256": "e5f873212057ca626b02116936b06a74e16f224340b1a98bc12b35c19d63f95b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\c347acdc375af4b4e2d6efd15aeeaef3b895aeb8e39d1dfbaeb143b84bff6a90.png",
+      "sha256": "c347acdc375af4b4e2d6efd15aeeaef3b895aeb8e39d1dfbaeb143b84bff6a90"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\7f708a0ec1ad3c89e4a43b3e48ab3fcd703569e57d8926e3e0e57a9c3776c94c.png",
+      "sha256": "7f708a0ec1ad3c89e4a43b3e48ab3fcd703569e57d8926e3e0e57a9c3776c94c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\03718424cb16ab52db153a98f34955b5f0ab92db3c299debf341470f9debfaa1.png",
+      "sha256": "03718424cb16ab52db153a98f34955b5f0ab92db3c299debf341470f9debfaa1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\3059ee18f98fbb2f36a914b6f55601e22cf5545c312ccbbad399d1efab6722bd.png",
+      "sha256": "3059ee18f98fbb2f36a914b6f55601e22cf5545c312ccbbad399d1efab6722bd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\adda1658bdc69be1d2cc953b061e1b9b322926af81d8298b12dc803697f86a80.png",
+      "sha256": "adda1658bdc69be1d2cc953b061e1b9b322926af81d8298b12dc803697f86a80"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\5a4a77aad3598a95a46e284e4425da8370c58a7c6ad7e142ceb70725897973b4.png",
+      "sha256": "5a4a77aad3598a95a46e284e4425da8370c58a7c6ad7e142ceb70725897973b4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\0be7ec4042b1aa0ef244a2848a2d13fab62b96c30fa730c650a64fe761440b73.png",
+      "sha256": "0be7ec4042b1aa0ef244a2848a2d13fab62b96c30fa730c650a64fe761440b73"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\04fbb9d86fb607b0bf95a29422c32da0a5bf427ed6ed05a674470fa15cfa281b.png",
+      "sha256": "04fbb9d86fb607b0bf95a29422c32da0a5bf427ed6ed05a674470fa15cfa281b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\1f2e621309b2b8089cb9a7f0504ab68324a9af030db740a9bf5e128bb4f25baf.png",
+      "sha256": "1f2e621309b2b8089cb9a7f0504ab68324a9af030db740a9bf5e128bb4f25baf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141.png",
+      "sha256": "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\7d2b6241f78ef93876caef972d717a33bb0ad589e2c93696dc2832f57f03944a.png",
+      "sha256": "7d2b6241f78ef93876caef972d717a33bb0ad589e2c93696dc2832f57f03944a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\3a742c41a6fd13988ae765423ed55ae263fd9c7883e6f1e0dc03670077b30c78.png",
+      "sha256": "3a742c41a6fd13988ae765423ed55ae263fd9c7883e6f1e0dc03670077b30c78"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\9602f1a7e5a4e6f2c98f1bedae7362e68c0bc82df76da636e15bad6c94a0d13d.png",
+      "sha256": "9602f1a7e5a4e6f2c98f1bedae7362e68c0bc82df76da636e15bad6c94a0d13d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\c0ec2f202ed0e8e9edbce40dcc3d44559149cfbc33a1cbcdc9398b0fd6cb1546.png",
+      "sha256": "c0ec2f202ed0e8e9edbce40dcc3d44559149cfbc33a1cbcdc9398b0fd6cb1546"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\e01bc8a4fc6a6cf8b459dad8909c9b82553ebdeff25dc217dce94b6c90f27890.png",
+      "sha256": "e01bc8a4fc6a6cf8b459dad8909c9b82553ebdeff25dc217dce94b6c90f27890"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\e00db918035e7ccab3985d5944c52457eb0705b2bc44b6a4e1a46ee17a81bd82.png",
+      "sha256": "e00db918035e7ccab3985d5944c52457eb0705b2bc44b6a4e1a46ee17a81bd82"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\6720a061ff6942a14624235a8b3ae4084307fbd723821cb6aa19f69ce8a3a325.png",
+      "sha256": "6720a061ff6942a14624235a8b3ae4084307fbd723821cb6aa19f69ce8a3a325"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/runtime-manifest.json",
+      "sha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\capability-evidence.json",
+      "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-definition.mjs",
+      "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-legacy.mjs",
+      "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-layout.mjs",
+      "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-native-structure-corrections.mjs",
+      "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-native.mjs",
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-scope.mjs",
+      "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-verification-dependencies.mjs",
+      "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-web-batches.mjs",
+      "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-web.mjs",
+      "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit.mjs",
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-cli.mjs",
+      "sha256": "403eb168fb725aa990792089eb7d6e29d55903fcf9e22d2cfce253fd675a3d01"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-pdf-flow.mjs",
+      "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-dictionary.mjs",
+      "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-formal.mjs",
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-labels.mjs",
+      "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-sources.py",
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web.mjs",
+      "sha256": "c7bd6f353f78d891f466d8f47c2aa37d9fed1a66dacdbf996018ddf2e001eee1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production.mjs",
+      "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\verification-dependencies.json",
+      "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-010.json",
+      "sha256": "0f7ba48598f4f46d5d0bc1de613a288633346559ee3ce089d6f0accb699646aa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\28e50bed55e548e1ab0414a40c778dbd62ac4bfe1433360c2d602f1fb92e419f.png",
+      "sha256": "28e50bed55e548e1ab0414a40c778dbd62ac4bfe1433360c2d602f1fb92e419f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\7e9fc720d8d828be9e9773a1137a3e5da020b35f1ab6ae5478a366553e0643f9.png",
+      "sha256": "7e9fc720d8d828be9e9773a1137a3e5da020b35f1ab6ae5478a366553e0643f9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\1dc342b718affed37b1ea24e68ac8d239bd702afbd5534502f0c4318b9c55960.png",
+      "sha256": "1dc342b718affed37b1ea24e68ac8d239bd702afbd5534502f0c4318b9c55960"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\8b444ba3413da7b802da2570cfa6cd10e733be710cea5f7ce6660e2bc36fe3da.png",
+      "sha256": "8b444ba3413da7b802da2570cfa6cd10e733be710cea5f7ce6660e2bc36fe3da"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d5fc796860fcbf45537080d63f7396ff45cf2a762adc59c751b37ec7ce1978ef.png",
+      "sha256": "d5fc796860fcbf45537080d63f7396ff45cf2a762adc59c751b37ec7ce1978ef"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\a07c03982de8e44ff37fa2a6dbcf4e9384f96184cfaeefe020a8ed88bd0369ce.png",
+      "sha256": "a07c03982de8e44ff37fa2a6dbcf4e9384f96184cfaeefe020a8ed88bd0369ce"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\a85604f4fe7b71642dc3821b8ece948061056b973780837e41467e4369591240.png",
+      "sha256": "a85604f4fe7b71642dc3821b8ece948061056b973780837e41467e4369591240"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\664ea678d254c0a7b72e2998b7a5e7c85f8b66d01d0156a35ad56aa044247de3.png",
+      "sha256": "664ea678d254c0a7b72e2998b7a5e7c85f8b66d01d0156a35ad56aa044247de3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef.png",
+      "sha256": "adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295.png",
+      "sha256": "5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\57e8ed0e406f0577bcbb144f4df6952fa83d2791310f73cb61bcc4b568b3793d.png",
+      "sha256": "57e8ed0e406f0577bcbb144f4df6952fa83d2791310f73cb61bcc4b568b3793d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b.png",
+      "sha256": "8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\e5f873212057ca626b02116936b06a74e16f224340b1a98bc12b35c19d63f95b.png",
+      "sha256": "e5f873212057ca626b02116936b06a74e16f224340b1a98bc12b35c19d63f95b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\c347acdc375af4b4e2d6efd15aeeaef3b895aeb8e39d1dfbaeb143b84bff6a90.png",
+      "sha256": "c347acdc375af4b4e2d6efd15aeeaef3b895aeb8e39d1dfbaeb143b84bff6a90"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\7f708a0ec1ad3c89e4a43b3e48ab3fcd703569e57d8926e3e0e57a9c3776c94c.png",
+      "sha256": "7f708a0ec1ad3c89e4a43b3e48ab3fcd703569e57d8926e3e0e57a9c3776c94c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\03718424cb16ab52db153a98f34955b5f0ab92db3c299debf341470f9debfaa1.png",
+      "sha256": "03718424cb16ab52db153a98f34955b5f0ab92db3c299debf341470f9debfaa1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\3059ee18f98fbb2f36a914b6f55601e22cf5545c312ccbbad399d1efab6722bd.png",
+      "sha256": "3059ee18f98fbb2f36a914b6f55601e22cf5545c312ccbbad399d1efab6722bd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\adda1658bdc69be1d2cc953b061e1b9b322926af81d8298b12dc803697f86a80.png",
+      "sha256": "adda1658bdc69be1d2cc953b061e1b9b322926af81d8298b12dc803697f86a80"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\5a4a77aad3598a95a46e284e4425da8370c58a7c6ad7e142ceb70725897973b4.png",
+      "sha256": "5a4a77aad3598a95a46e284e4425da8370c58a7c6ad7e142ceb70725897973b4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\0be7ec4042b1aa0ef244a2848a2d13fab62b96c30fa730c650a64fe761440b73.png",
+      "sha256": "0be7ec4042b1aa0ef244a2848a2d13fab62b96c30fa730c650a64fe761440b73"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\04fbb9d86fb607b0bf95a29422c32da0a5bf427ed6ed05a674470fa15cfa281b.png",
+      "sha256": "04fbb9d86fb607b0bf95a29422c32da0a5bf427ed6ed05a674470fa15cfa281b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\1f2e621309b2b8089cb9a7f0504ab68324a9af030db740a9bf5e128bb4f25baf.png",
+      "sha256": "1f2e621309b2b8089cb9a7f0504ab68324a9af030db740a9bf5e128bb4f25baf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141.png",
+      "sha256": "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\7d2b6241f78ef93876caef972d717a33bb0ad589e2c93696dc2832f57f03944a.png",
+      "sha256": "7d2b6241f78ef93876caef972d717a33bb0ad589e2c93696dc2832f57f03944a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\3a742c41a6fd13988ae765423ed55ae263fd9c7883e6f1e0dc03670077b30c78.png",
+      "sha256": "3a742c41a6fd13988ae765423ed55ae263fd9c7883e6f1e0dc03670077b30c78"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\9602f1a7e5a4e6f2c98f1bedae7362e68c0bc82df76da636e15bad6c94a0d13d.png",
+      "sha256": "9602f1a7e5a4e6f2c98f1bedae7362e68c0bc82df76da636e15bad6c94a0d13d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\c0ec2f202ed0e8e9edbce40dcc3d44559149cfbc33a1cbcdc9398b0fd6cb1546.png",
+      "sha256": "c0ec2f202ed0e8e9edbce40dcc3d44559149cfbc33a1cbcdc9398b0fd6cb1546"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\e01bc8a4fc6a6cf8b459dad8909c9b82553ebdeff25dc217dce94b6c90f27890.png",
+      "sha256": "e01bc8a4fc6a6cf8b459dad8909c9b82553ebdeff25dc217dce94b6c90f27890"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\e00db918035e7ccab3985d5944c52457eb0705b2bc44b6a4e1a46ee17a81bd82.png",
+      "sha256": "e00db918035e7ccab3985d5944c52457eb0705b2bc44b6a4e1a46ee17a81bd82"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\6720a061ff6942a14624235a8b3ae4084307fbd723821cb6aa19f69ce8a3a325.png",
+      "sha256": "6720a061ff6942a14624235a8b3ae4084307fbd723821cb6aa19f69ce8a3a325"
+    }
+  ],
+  "scope": {
+    "newlyFaithfulFigureIds": [
+      "modern-yabejp-ja:chapter06-exercise003:b0507:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0508:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0509:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0510:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0511:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0512:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0516:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0517:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0518:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0519:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0520:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0521:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0526:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0527:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0528:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0529:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0530:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0536:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0537:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0538:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0539:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0540:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0541:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0627:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0628:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0629:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0630:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0631:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0632:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0633:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0635:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0636:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0637:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0638:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0639:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0640:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0641:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0643:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0644:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0645:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0646:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0647:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0648:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0649:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0651:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0652:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0653:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0654:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0655:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0656:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0811:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0812:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0813:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0814:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0816:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0817:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0818:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0819:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0821:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0822:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0823:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0824:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0826:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0827:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0828:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0829:figure"
+    ],
+    "newTableChecks": [
+      {
+        "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+        "verdict": "faithful",
+        "evidence": "源表与呈现均为8行3列；东、南、西、北家依次位于第1、3、5、7行，第1至2列为各家牌格。第0、2、4、6行全为空，无↓；空格提示是显示标签，保留源空白语义。",
+        "remainingProblem": "无"
+      },
+      {
+        "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+        "verdict": "faithful",
+        "evidence": "源表与呈现均为8行3列，四家行及各行两格顺序一致；唯一的↓在(0,2)，对应东家(1,2)的b0293。其余第0行空格及第2、4、6行空格均保留。",
+        "remainingProblem": "无"
+      },
+      {
+        "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+        "verdict": "faithful",
+        "evidence": "源表与呈现均为8行4列，四家行各有第1至3列连续牌格；东家(1,2)和(1,3)保留为两个相邻格。第0、2、4、6行均为空，无↓。",
+        "remainingProblem": "无"
+      },
+      {
+        "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[335]/table[3]",
+        "verdict": "faithful",
+        "evidence": "源表与呈现均为8行7列，四家行及牌格顺序一致。↓分别位于第0行3、4、6列，第2行4、5列，第4行1、4、5列，第6行1、2、3、6列；其余对应空格及西家(5,6)空格保留。",
+        "remainingProblem": "无"
+      },
+      {
+        "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+        "verdict": "faithful",
+        "evidence": "源表与呈现均为8行9列，四家表头和牌格位置一致。东、南、西家第7列为空、第8列有牌；北家第7、8列均为空。第0、2、4、6行全为空，表中无↓。",
+        "remainingProblem": "无"
+      },
+      {
+        "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+        "verdict": "faithful",
+        "evidence": "源表与呈现均为8行5列，四家行各有第1至4列的1×1牌格；北家(7,3)与(7,4)保留为两个相邻格。第0、2、4、6行全为空，无↓。",
+        "remainingProblem": "无"
+      }
+    ],
+    "remainingUnfaithfulSupplementFigures": [],
+    "remainingUnfaithfulSupplementTables": [],
+    "inheritedFaithfulFigureIds": [
+      "modern-yabejp-ja:chapter06-exercise003:b0266:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0267:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0269:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0270:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0272:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0273:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0275:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0276:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0292:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0293:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0295:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0296:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0298:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0299:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0301:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0302:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0325:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0326:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0327:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0329:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0330:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0331:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0333:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0334:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0335:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0337:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0338:figure",
+      "modern-yabejp-ja:chapter06-exercise003:b0339:figure"
+    ],
+    "inheritedPassedBatch": {
+      "batchId": "chapter06-exercise003-batch-010",
+      "status": "passed",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter06-exercise003:b1022",
+        "modern-yabejp-ja:chapter06-exercise003:b1023",
+        "modern-yabejp-ja:chapter06-exercise003:b1024",
+        "modern-yabejp-ja:chapter06-exercise003:b1025",
+        "modern-yabejp-ja:chapter06-exercise003:b1026",
+        "modern-yabejp-ja:chapter06-exercise003:b1027",
+        "modern-yabejp-ja:chapter06-exercise003:b1028",
+        "modern-yabejp-ja:chapter06-exercise003:b1029",
+        "modern-yabejp-ja:chapter06-exercise003:b1030",
+        "modern-yabejp-ja:chapter06-exercise003:b1031",
+        "modern-yabejp-ja:chapter06-exercise003:b1032",
+        "modern-yabejp-ja:chapter06-exercise003:b1033",
+        "modern-yabejp-ja:chapter06-exercise003:b1034",
+        "modern-yabejp-ja:chapter06-exercise003:b1035",
+        "modern-yabejp-ja:chapter06-exercise003:b1036",
+        "modern-yabejp-ja:chapter06-exercise003:b1037",
+        "modern-yabejp-ja:chapter06-exercise003:b1038",
+        "modern-yabejp-ja:chapter06-exercise003:b1039",
+        "modern-yabejp-ja:chapter06-exercise003:b1040",
+        "modern-yabejp-ja:chapter06-exercise003:b1041",
+        "modern-yabejp-ja:chapter06-exercise003:b1042",
+        "modern-yabejp-ja:chapter06-exercise003:b1043",
+        "modern-yabejp-ja:chapter06-exercise003:b1044",
+        "modern-yabejp-ja:chapter06-exercise003:b1045",
+        "modern-yabejp-ja:chapter06-exercise003:b1046",
+        "modern-yabejp-ja:chapter06-exercise003:b1047",
+        "modern-yabejp-ja:chapter06-exercise003:b1048",
+        "modern-yabejp-ja:chapter06-exercise003:b1049",
+        "modern-yabejp-ja:chapter06-exercise003:b1050",
+        "modern-yabejp-ja:chapter06-exercise003:b1051",
+        "modern-yabejp-ja:chapter06-exercise003:b1052",
+        "modern-yabejp-ja:chapter06-exercise003:b1053",
+        "modern-yabejp-ja:chapter06-exercise003:b1054",
+        "modern-yabejp-ja:chapter06-exercise003:b1055",
+        "modern-yabejp-ja:chapter06-exercise003:b1056",
+        "modern-yabejp-ja:chapter06-exercise003:b1057",
+        "modern-yabejp-ja:chapter06-exercise003:b1058",
+        "modern-yabejp-ja:chapter06-exercise003:b1059",
+        "modern-yabejp-ja:chapter06-exercise003:b1060",
+        "modern-yabejp-ja:chapter06-exercise003:b1061",
+        "modern-yabejp-ja:chapter06-exercise003:b1062",
+        "modern-yabejp-ja:chapter06-exercise003:b1063",
+        "modern-yabejp-ja:chapter06-exercise003:b1064",
+        "modern-yabejp-ja:chapter06-exercise003:b1065",
+        "modern-yabejp-ja:chapter06-exercise003:b1066",
+        "modern-yabejp-ja:chapter06-exercise003:b1067",
+        "modern-yabejp-ja:chapter06-exercise003:b1068",
+        "modern-yabejp-ja:chapter06-exercise003:b1069",
+        "modern-yabejp-ja:chapter06-exercise003:b1070",
+        "modern-yabejp-ja:chapter06-exercise003:b1071",
+        "modern-yabejp-ja:chapter06-exercise003:b1072",
+        "modern-yabejp-ja:chapter06-exercise003:b1073",
+        "modern-yabejp-ja:chapter06-exercise003:b1074",
+        "modern-yabejp-ja:chapter06-exercise003:b1075",
+        "modern-yabejp-ja:chapter06-exercise003:b1076",
+        "modern-yabejp-ja:chapter06-exercise003:b1077",
+        "modern-yabejp-ja:chapter06-exercise003:b1078",
+        "modern-yabejp-ja:chapter06-exercise003:b1079",
+        "modern-yabejp-ja:chapter06-exercise003:b1080",
+        "modern-yabejp-ja:chapter06-exercise003:b1081",
+        "modern-yabejp-ja:chapter06-exercise003:b1082",
+        "modern-yabejp-ja:chapter06-exercise003:b1083",
+        "modern-yabejp-ja:chapter06-exercise003:b1084",
+        "modern-yabejp-ja:chapter06-exercise003:b1085",
+        "modern-yabejp-ja:chapter06-exercise003:b1086",
+        "modern-yabejp-ja:chapter06-exercise003:b1087",
+        "modern-yabejp-ja:chapter06-exercise003:b1088",
+        "modern-yabejp-ja:chapter06-exercise003:b1089",
+        "modern-yabejp-ja:chapter06-exercise003:b1090",
+        "modern-yabejp-ja:chapter06-exercise003:b1091",
+        "modern-yabejp-ja:chapter06-exercise003:b1092",
+        "modern-yabejp-ja:chapter06-exercise003:b1093",
+        "modern-yabejp-ja:chapter06-exercise003:b1094",
+        "modern-yabejp-ja:chapter06-exercise003:b1095",
+        "modern-yabejp-ja:chapter06-exercise003:b1096",
+        "modern-yabejp-ja:chapter06-exercise003:b1097",
+        "modern-yabejp-ja:chapter06-exercise003:b1098",
+        "modern-yabejp-ja:chapter06-exercise003:b1099",
+        "modern-yabejp-ja:chapter06-exercise003:b1100",
+        "modern-yabejp-ja:chapter06-exercise003:b1101",
+        "modern-yabejp-ja:chapter06-exercise003:b1102",
+        "modern-yabejp-ja:chapter06-exercise003:b1103",
+        "modern-yabejp-ja:chapter06-exercise003:b1104",
+        "modern-yabejp-ja:chapter06-exercise003:b1105",
+        "modern-yabejp-ja:chapter06-exercise003:b1106",
+        "modern-yabejp-ja:chapter06-exercise003:b1107",
+        "modern-yabejp-ja:chapter06-exercise003:b1108",
+        "modern-yabejp-ja:chapter06-exercise003:b1109",
+        "modern-yabejp-ja:chapter06-exercise003:b1110",
+        "modern-yabejp-ja:chapter06-exercise003:b1111",
+        "modern-yabejp-ja:chapter06-exercise003:b1112",
+        "modern-yabejp-ja:chapter06-exercise003:b1113",
+        "modern-yabejp-ja:chapter06-exercise003:b1114",
+        "modern-yabejp-ja:chapter06-exercise003:b1115",
+        "modern-yabejp-ja:chapter06-exercise003:b1116",
+        "modern-yabejp-ja:chapter06-exercise003:b1117",
+        "modern-yabejp-ja:chapter06-exercise003:b1118",
+        "modern-yabejp-ja:chapter06-exercise003:b1119",
+        "modern-yabejp-ja:chapter06-exercise003:b1120",
+        "modern-yabejp-ja:chapter06-exercise003:b1121",
+        "modern-yabejp-ja:chapter06-exercise003:b1122",
+        "modern-yabejp-ja:chapter06-exercise003:b1123",
+        "modern-yabejp-ja:chapter06-exercise003:b1124",
+        "modern-yabejp-ja:chapter06-exercise003:b1125",
+        "modern-yabejp-ja:chapter06-exercise003:b1126",
+        "modern-yabejp-ja:chapter06-exercise003:b1127",
+        "modern-yabejp-ja:chapter06-exercise003:b1128",
+        "modern-yabejp-ja:chapter06-exercise003:b1129",
+        "modern-yabejp-ja:chapter06-exercise003:b1130",
+        "modern-yabejp-ja:chapter06-exercise003:b1131",
+        "modern-yabejp-ja:chapter06-exercise003:b1132",
+        "modern-yabejp-ja:chapter06-exercise003:b1133",
+        "modern-yabejp-ja:chapter06-exercise003:b1134"
+      ],
+      "unitIds": [
+        "modern-yabejp-ja-chapter06-exercise003-u67",
+        "modern-yabejp-ja-chapter06-exercise003-u68",
+        "modern-yabejp-ja-chapter06-exercise003-u69",
+        "modern-yabejp-ja-chapter06-exercise003-u70",
+        "modern-yabejp-ja-chapter06-exercise003-u71",
+        "modern-yabejp-ja-chapter06-exercise003-u72",
+        "modern-yabejp-ja-chapter06-exercise003-u73",
+        "modern-yabejp-ja-chapter06-exercise003-u74",
+        "modern-yabejp-ja-chapter06-exercise003-u75"
+      ],
+      "calls": [
+        {
+          "callId": "8d23cbe1-5516-4d8a-83ca-ef866159c3c1",
+          "outputSha256": "160d50a94cfec52ffc86bf6da95798c7e519e47569bb795e412cf753dc4f73be"
+        }
+      ],
+      "checkpoint": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-010.json",
+        "sha256": "0f7ba48598f4f46d5d0bc1de613a288633346559ee3ce089d6f0accb699646aa"
+      }
+    },
+    "otherOriginalIssuesPreserved": [
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+        "sourceEvidence": "第8题以「場況↓」指向「2007年03月の『何を切る？』」外链；后文依据「一索・二索が薄い」作出选择，并提到东家第6巡吃八万。",
+        "description": "外链及相关文字翻译忠实，但实际场况未在本组展开。无法从已提供的内联牌面确认一索、二索的可见张数、完整副露组合及各家具体点数，因此第8题完整教学场况的核验受阻；这不是已确认的候选漏译。",
+        "suggestedRepair": "补充该引用场况的原始图或完整文字转录后复核；在补齐前明确标注场况核验未完成，不推定牌河、副露组合、点数或他家隐手。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0168",
+        "sourceEvidence": "问题12的b0153明确给出宝牌北；括号原文连续为“（ドラ［四索］引きの場合の差で［七索］より［五索］）”。结合题设，此处列举摸入宝牌或四索时的差异。",
+        "description": "候选“（由于摸入宝牌”直接接四索图，构成“摸入宝牌四索”，错误地把四索认作宝牌，并丢失摸入真正宝牌北这一独立条件。",
+        "suggestedRepair": "将b0168改为“摸到后再改为③即可，（由于摸入宝牌或”，保留后续四索图和比较顺序，使括号表达摸入宝牌或四索时，切五索优于切七索。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+        "sourceEvidence": "问题17弃牌表：第1、3、5、7行分别为东、南、西、北家；第1、2列依次为北/1m、南/7m、9m/西、9m/3s；各格rowspan与colspan均为1。",
+        "description": "b0266、b0267、b0269、b0270、b0272、b0273、b0275、b0276的牌面正确，但其候选figure块均遗漏表格定位，且无替代表格行列结构。单纯保留线性顺序不足以完整保留原表格位。",
+        "suggestedRepair": "为上述八个figure块恢复源tableContext中的tableId、row、column、rowspan、colspan和header，或提供包含这些格位及原空格的完整表格结构。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+        "sourceEvidence": "问题18弃牌表：第0行第2列为↓；东家第1行依次4s、3s，南家第3行7p、8p，西家第5行北、7p，北家第7行1m、3m；跨度均为1。",
+        "description": "b0292、b0293、b0295、b0296、b0298、b0299、b0301、b0302均遗漏表格定位。尤其3s未保留第1行第2列定位，导致其与上方↓的明确对齐关系缺失。",
+        "suggestedRepair": "恢复八个牌图块的完整tableContext，或重建原表格；确保↓位于第0行第2列并与东家第二张弃牌3s对齐。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+        "sourceEvidence": "问题20弃牌表：第1、3、5、7行为东、南、西、北家；第1至3列依次为北/9s/9s、北/1s/中、南/1p/2p、北/1m/9s；跨度均为1。",
+        "description": "b0325—b0327、b0329—b0331、b0333—b0335、b0337—b0339的十二个牌图块均遗漏原表格定位，候选无完整表格结构承载座位与三列弃牌关系。",
+        "suggestedRepair": "恢复十二个figure块的完整tableContext，或提供忠实保留四家、三列弃牌、空格及跨度的完整表格结构。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0396",
+        "sourceEvidence": "手広い④に受ける。裏目の［五索］引きでも三色が狙える。",
+        "description": "「裏目」描述选择后摸到不利牌的情形，不表示此前选择属于失算。译文「失算的」误加了判断失误的含义。",
+        "suggestedRepair": "将本块改为「选择进张宽的④。即使出现不利的」，接原有五索图及下一块「进张，也能争取三色。」。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+        "sourceEvidence": "问题33弃牌表为8行7列，各格rowspan、colspan均为1。东家行1列1—6为西、白、中、1m、3p、南；南家行3列1—6为南、白、1s、4s、5m、西；西家行5列1—5为北、1m、3s、8s、白，列6为空；北家行7列1—6为西、北、中、2s、3s、中。箭头行0位于列3、4、6，行2位于列4、5，行4位于列1、4、5，行6位于列1、2、3、6。",
+        "description": "候选保留了表题、座次和箭头文本的tableContext，但23个牌河figure块及其figure记录均无表格格位。牌面编码虽然正确，仍不能完整表达各牌所在单元格及其与上方箭头的对应关系。",
+        "suggestedRepair": "为b0507—b0512、b0516—b0521、b0526—b0530、b0536—b0541的候选figure块恢复源tableContext，包括同一tableId、对应row/column、rowspan=1、colspan=1、header=false；完整保留8×7表格的空格，尤其西家第6张弃牌位置为空，并保持箭头与牌面的列对齐。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+        "sourceEvidence": "源舍牌表为8行9列；东、南、西、北家表头分别位于行1、3、5、7的列0。各家前六张舍牌位于列1至6；东、南、西家的第七张位于列8，列7为空；北家列8为空。所有单元格rowspan、colspan均为1。",
+        "description": "候选保留表题和表头的tableContext，但27个舍牌figure块均缺少tableContext，也没有候选表格结构。牌面及线性顺序正确，仍未保留要求核对的表格格位与空格关系。",
+        "suggestedRepair": "为b0627—b0633、b0635—b0641、b0643—b0649、b0651—b0656恢复各自源tableContext，并提供或重建源8行9列表格，保留空行、列7空格、北家末格为空及所有单格跨度。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "原图、放大图及源alt一致：12355789m34688s，摸5s。候选为12355789m36788s，摸5s。",
+        "description": "下方13张手牌中的4s、6s被依次错录为6s、7s。正确牌形切8s后听嵌7s；候选牌形会改变这一教学前提。",
+        "suggestedRepair": "将下方手牌完整改为1m 2m 3m 5m 5m 7m 8m 9m 3s 4s 6s 8s 8s；分开的摸入牌仍为5s。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "截图顶部及左右边缘的三列牌分别位于其他三家的手牌位置；中央翻开9s指示牌附近才是牌墙。",
+        "description": "候选将其他三家的隐手统称为牌墙，遗漏了隐手未知这一局面信息。",
+        "suggestedRepair": "区分三家背面或侧面朝向观者的隐手与中央牌墙，明确三家隐手牌面未知，不推定具体牌码。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "候选unknowns仍列左河从上至下第4、6张及右河第1张万子点数未辨清；本次也未能可靠确认这三张的全部牌码。",
+        "description": "这三张属于公开河牌，并非源隐手；可能影响可见张数与等待判断，不能以完整转录通过。",
+        "suggestedRepair": "逐张确认这三张河牌并同步更新transcription及unknowns；确认前保留阻断状态，不臆填牌码。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "右上副露最上方牌受黑色遮挡，右下信息栏边缘裁切，中央骰子点数未可靠辨清。",
+        "description": "遮挡、裁切及骰子辨读限制应如实保留；不得由另外两张东牌反推被遮挡牌面。",
+        "suggestedRepair": "保留对应源图限制说明及未知标记；骰子未确认点数时继续注明未知。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+        "sourceEvidence": "源弃牌表各格均为rowspan=1、colspan=1：第1行第1—4列为北、西、9s、9p；第3行为2m、5m、3s、4s；第5行为南、北、1p、8m；第7行为中、1m、3s、3s。对应源块分别为b0811—b0814、b0816—b0819、b0821—b0824、b0826—b0829。",
+        "description": "候选保留了表题及四家表头的tableContext，却将16个弃牌单元格转换成没有tableContext的独立figure；figures中也未补充表格坐标。牌面和线性顺序正确，但四家牌河与各弃牌位置的表格关联未完整表示。",
+        "suggestedRepair": "为这16个候选figure块恢复源tableContext中的tableId、row、column、rowspan、colspan和header=false，或提供等价的完整候选表格结构，确保每张牌仍属于原单元格。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+        "sourceEvidence": "源图替代文本为“立体牌姿（４５赤５６７ｍ２２４５赤５６７９ｓ ２ｓポン？）”；图中左方末张2s有蓝色高亮。",
+        "description": "候选记录了高亮牌，却没有明确转写本题询问是否碰2s。仅有“问题60的牌局画面”不足以完整呈现题目。",
+        "suggestedRepair": "在图注或转写中补入：“是否碰上家刚切出的2s？”并明确高亮2s是此次鸣牌判断的对象。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+        "sourceEvidence": "候选将上方牌河首张及右方牌河首张分别记作“[风牌未辨明]”；两处在所附原图及放大图中均有可见牌面。",
+        "description": "这两处是实际弃牌，不是隐手或装饰。当前转写尚未满足完整读取牌河的要求，本次不能确认其精确牌种。",
+        "suggestedRepair": "完成两张风牌的定向辨认并替换占位符；在确认前保留unknowns，不得猜填或将完整牌河标为已通过。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0962",
+        "sourceEvidence": "“メンタンピンや３４５三色もあるので一色手に決め打たない。”",
+        "description": "メンタンピン是立直、断幺九、平和三者结合的术语。候选串列为“立直、断幺九、平和或345三色同顺”，组合关系不明确。",
+        "suggestedRepair": "改为：“也有立直＋断幺九＋平和或345三色同顺的可能，因此不预先锁定染手。染手只考虑清一色就足够了。”"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+        "sourceEvidence": "“ターツオーバーで三元役の可能性があるので発は残す”；手中已有白与中的对子及孤张发。",
+        "description": "“三元牌役种”容易泛指普通役牌，未清楚表达此处小三元／大三元方向对保留发的意义。",
+        "suggestedRepair": "改为：“搭子过多，又有三元役（小三元／大三元）的可能，所以保留发，宝牌为……”"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+        "sourceEvidence": "画面中央有两枚骰子，四周及下方有黑色区域；候选已分别记入unknowns和sourceNotes。",
+        "description": "骰子点数未获可靠确认，黑色遮挡或裁切也已如实说明。它们不改变本题是否碰2s的教学论证。",
+        "suggestedRepair": "保留说明；无需据此推测隐藏内容或单独阻断战术结论。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+        "sourceEvidence": "b1179—b1181连读为「ドラ［三萬］でなくてもダブルリャンメンは他のトイツより優先して残す。」",
+        "description": "候选连读为“宝牌［3m］即使不是，也应……”，未形成明确的中文让步条件句。",
+        "suggestedRepair": "将b1179改为“即使”，保留b1180的3m牌图，将b1181改为“不是宝牌，也应优先于其他对子保留双两面形。”"
+      }
+    ],
+    "oldWholeChapterStatus": "needs-repair",
+    "chapterAccepted": false
+  },
+  "requestCoverage": {
+    "tableBlocks": 137,
+    "figureTableContexts": 94,
+    "tables": 6,
+    "cells": 248,
+    "emptyCells": 117,
+    "arrows": 13,
+    "renderedFigures": 94,
+    "uniqueOriginalPngInputs": 30,
+    "sourceFieldsAndActualDerivedPresentationExact": true
+  },
+  "negativeChecks": {
+    "missingCoordinateRefused": true,
+    "missingCellRefused": true,
+    "incompleteTargetSetRefused": true,
+    "resultMissingForeignOrUncertainTargetRefused": true
+  },
+  "call": {
+    "callId": "f5141a65-3fce-47c3-8a94-a0a9a2c9a528",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "usage": {
+      "inputTokens": 142503,
+      "cachedInputTokens": 0,
+      "outputTokens": 8662
+    },
+    "durationMs": 78208,
+    "applicationLedgerEntries": 1,
+    "originalDiagnosticsPreserved": true
+  },
+  "budget": {
+    "newCalls": 1,
+    "maximum": 1,
+    "remaining": 0,
+    "retry": 0,
+    "production": 0,
+    "fee": null
+  },
+  "measurementLimits": {
+    "fee": null,
+    "upstreamExecutionCount": null,
+    "remoteWeights": "unknown"
+  },
+  "coverage": {
+    "originalChaptersCovered": 232,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 264,
+    "originalUnitsTotal": 303,
+    "remainingChapters": 24,
+    "increment": 0
+  },
+  "canonicalBefore": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-preview-current.json",
+      "sha256": "c2edd37979cf5f8025447206c3e49c680260df1ac6c919fe1c3fb7037e5cf4f6"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v24.json",
+      "sha256": "d7f2792acecbd12a1d3192e9f6cf79a86ce3f1a5a1ee8c9a598a13030a362d39"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-web-candidate-selection.json",
+      "sha256": "fd8c112cfca1163e8ca5128c045a1c06f96c36610f65144adeee8f2718c08f87"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.mjs",
+      "sha256": "842b03249b35f637bd6adf6c20d82386716a0298cf5765840b684a78907be8a0"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+      "sha256": "b16d2501053239188ac019e1e616acc3c92ce63e45a026648cab4ad775a79f3b"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/source-structure-holds.json",
+      "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/candidate-exclusions.json",
+      "sha256": "4835655ad7fa323e2acc94d4e04824dc1c56b4b67ceec1b1449617c79c3411a3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/definition-boundary-stage-selection.json",
+      "sha256": "b3cbef8bc3a2216438edbe6b842ef3ee76f57082ead3608c053fddf946921419"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/review/textbook-corpus.json",
+      "sha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+    }
+  ],
+  "canonicalUnchanged": true,
+  "selectionVersion": 24,
+  "previewCorpusId": "bd07bd53701d3a93b330807046e7e8bf135b000da2e92f23260f416369116592",
+  "previewBuilt": false,
+  "consumerStarted": false,
+  "writerLockAcquired": false,
+  "formalActiveChanged": false,
+  "productionCalls": 0,
+  "modelCalls": 0,
+  "registration": "E:/AgentData/Coach/knowledge/processing/integration/coac250-283-six-table-evidence-intake-20261028.json",
+  "deduplicated": true
+}
