@@ -54,6 +54,12 @@ describe('ceiling research boundaries', () => {
     expect(pairedDifference(rows,'D','A')).toMatchObject({estimate:.5,pairs:2});
     expect(decide({complete:false})).toMatch(/未完成/);
   });
+  it('keeps partial usage as a lower bound, leaves unknown fields null, and never adds cached input twice',()=>{
+    const s=summarizeRows([{status:'submitted',match:1,usage:{inputTokens:100,cachedInputTokens:40,outputTokens:20,totalTokens:120}},{status:'timeout',match:0,usage:{inputTokens:50,cachedInputTokens:10}},{status:'provider_error',match:0}]);
+    expect(s.knownTokensLowerBound).toBe(170);expect(s.unknownUsage).toBe(2);
+    expect(s.usageFields.inputTokens).toMatchObject({knownSum:150,unknownRuns:1});
+    expect(summarizeRows([{status:'timeout',match:0}]).usageFields.totalTokens.knownSum).toBe(null);
+  });
   it('selects on development natural cases only, then Q loss, rule count, and creation order', () => {
     const rows=[{version:'r1',stratum:'random',match:1,regret:1},{version:'r2',stratum:'random',match:1,regret:.5},{version:'r1',stratum:'challenge',match:1,regret:0},{version:'r2',stratum:'challenge',match:0,regret:100}];
     expect(chooseVersion(rows,[{id:'r1',ruleCount:18},{id:'r2',ruleCount:20}])).toBe('r2');

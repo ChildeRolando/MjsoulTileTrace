@@ -92,6 +92,7 @@ export async function executionFiles(){
 }
 export async function verify(out){
   const f=await read(join(out,'freeze.json'));
+  if(f.nodeVersion!==process.version)throw Error('frozen_node_runtime_changed');
   if((await read(join(out,'freeze-binding.json'))).freezeHash!==hash(f))throw Error('freeze_metadata_changed');
   if(f.version!==VERSION||f.codeDigest!==hash(await executionFiles()))throw Error('frozen_execution_code_changed');
   const d=await read(join(out,'dataset.json'));assertDataset(d);

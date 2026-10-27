@@ -156,7 +156,7 @@ export async function runPhase(out,phase){
       }
     }
     jobs=ordered(jobs,j=>j.c.id+j.arm,SEED+phase);
-    let next=0,stop=false;const results=[];
+    let next=0,stop=false,serviceFailures=0;const results=[];
     const workers=await Promise.allSettled(Array.from({length:2},async()=>{
       try{while(!stop&&next<jobs.length){
         const j=jobs[next++],key=phase+'-'+j.c.id+'-'+j.arm;
@@ -169,7 +169,10 @@ export async function runPhase(out,phase){
             await writeOnce(join(out,'runs',key+'.json'),row);results.push(row);continue;
           }
         }
-        results.push(await runDecision({out,ledger,...j,index,key,bucket,override}));
+        const row=await runDecision({out,ledger,...j,index,key,bucket,override});results.push(row);
+        if(row.status==='provider_unavailable'||row.status==='provider_error'&&['rate_limited','connection_failed','server_error','cli_process_failed'].includes(row.failureCode)){
+          if(++serviceFailures>=3)throw Error('provider_service_unavailable_resume_unstarted_requests_after_recovery');
+        }else if(row.status==='submitted')serviceFailures=0;
       }}catch(e){stop=true;throw e;}
     }));
     const failed=workers.find(w=>w.status==='rejected');if(failed)throw failed.reason;
