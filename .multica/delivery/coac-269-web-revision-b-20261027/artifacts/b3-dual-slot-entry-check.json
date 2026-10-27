@@ -59,6 +59,15 @@
       }
     ],
     "overlaps": [],
-    "note": "batch-3 production ran 10:17:06-10:18:35Z; no audit or A-line production call overlapped this window, so real model-call overlap was 0."
+    "note": "batch-3 production ran 10:17:06-10:18:35Z; no audit or A-line production call overlapped this window, so real model-call overlap was 0.",
+    "ledgerScan": {
+      "files": [
+        "web-production/v1/calls.jsonl",
+        "production/calls.jsonl",
+        "audit/calls.jsonl"
+      ],
+      "otherProductionCallsInBatchWindow": [],
+      "otherProductionOverlaps": []
+    }
   }
 }

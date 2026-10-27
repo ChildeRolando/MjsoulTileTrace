@@ -77,6 +77,15 @@
       }
     ],
     "overlaps": [],
-    "note": "249 audited batch-1 (338/273) at 10:01-10:04Z, before this batch window; batch-2 production ran 10:08:42-10:10:49Z with no overlapping maker or audit call, so real model-call overlap in this batch was 0."
+    "note": "249 audited batch-1 (338/273) at 10:01-10:04Z, before this batch window; batch-2 production ran 10:08:42-10:10:49Z with no overlapping maker or audit call, so real model-call overlap in this batch was 0.",
+    "ledgerScan": {
+      "files": [
+        "web-production/v1/calls.jsonl",
+        "production/calls.jsonl",
+        "audit/calls.jsonl"
+      ],
+      "otherProductionCallsInBatchWindow": [],
+      "otherProductionOverlaps": []
+    }
   }
 }
