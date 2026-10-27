@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-10-27T19:08:13.851Z",
+  "corpusId": "7d1743898551fa7b8cf3cfcb26f1ee234d332e93434443c5a09fc3340c17c4d7",
+  "toolNames": [
+    "search_textbook",
+    "read_textbook",
+    "view_textbook_figure",
+    "catalog_textbook"
+  ],
+  "units": [
+    {
+      "unitId": "79-cn-chapter-193-4-pdf193-supplement-unit-1",
+      "blocks": 2,
+      "sourcePages": [
+        193
+      ],
+      "exactBody": true
+    }
+  ],
+  "exactImageCount": 0,
+  "maxTextBytes": 1167,
+  "totalCallMs": 5,
+  "diagnosticSearches": [],
+  "diagnosticNote": "Hand-authored developer probes, not expert retrieval evaluation or model experiment.",
+  "noHitExplicit": true,
+  "modelCalls": 0,
+  "modelTokens": 0
+}

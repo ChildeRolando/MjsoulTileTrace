@@ -1,0 +1,9 @@
+244已完成第二条零模型路径，请在250现有有限215增量阶段一并接收，不另起consumer，不等全书。只接收已审PDF193/b6两句的明确来源版本补文，绝不将79-cn-chapter-193-4网页整章计pass。
+
+交接根 E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028；193-reuse-receipt.json绑定完整原PDF/sourcePage/ownership/parent/独审原call/两句精确codepoint范围、原网页缺文和剩余图b0042阻断。reuse-193.mjs可重算：原父候选046188e3be510f12c1e729353aa01fb5b1ce866685acf84e34284b8571f49e93，原审a264ce2d6452fda9ccc539910510ab2334f604f10eb7e77a14f6cea6486e449f，真实既有独审call eb2060c9-7952-40ff-af91-11093800c63d，原verifyAuditForCandidate复验passed。PDF193/b6确属79-cn-chapter-193-4，不能误用nemata-jp-chapter-193-1。
+
+stage-193-supplement已用现有compiler编成独立PDF版本摘录，不改网页候选/source/raw、不添伪模型provenance；两句保持父稿原字节，独立标“非完整章”，内容角色navigation以避免两句被当完整战术论证。完整父b6原文也在回执。对应网页b0008/b0009、b0015/b0016真实源本身缺字，并非提取错误；没有把PDF文字写成网页本来就有。b0042未知万子仍独立阻断。
+
+补文canonical 79-cn-chapter-193-4-pdf193-supplement，supplementOf 79-cn-chapter-193-4，原章覆盖增量0，2块1单元，corpusId 7d1743898551fa7b8cf3cfcb26f1ee234d332e93434443c5a09fc3340c17c4d7，bodySHA807ad83faf24e1f50b42abe07df1f74a1f35011df9bb1afb988e353d177800fd。已实跑stdio MCP读全2块且navigation不可战术引用（完整mcp-validation.json在stage）。
+
+在当前250已有版本补充装配模式下作为明确不计原章的补文接入并保留重建选择。不得将未通过的网页全稿带入预览、重复append两句进完整父正文、改原审状态，或把补文计为193完成。若已有相同补文/同原页b6句子则按source+parent+slice精确去重。真实MCP及Arena验证其版本出处/补文范围/navigation隔离、其它既有章保持。当前215包另已交付，可完整增1章；本包只零调用补充证据/可读版本，不追234，不新增模型，不切formal active。

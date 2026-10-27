@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "coach-textbook": {
+      "command": "E:\\IDE\\NodeJS\\node.exe",
+      "args": [
+        "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\bin\\textbook-mcp-server.mjs",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-scope215-pdf193-20261028\\stage-193-supplement"
+      ]
+    }
+  }
+}

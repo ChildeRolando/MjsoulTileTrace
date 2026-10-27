@@ -1,0 +1,37 @@
+{
+  "schema": "coac244-zero-model-scope-progress/1",
+  "recordedAt": "2026-10-27T19:11:34.097521+00:00",
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "newIndependentCalls": 0,
+  "sourceOrRawChanged": false,
+  "formalActiveChanged": false,
+  "rows": [
+    {
+      "chapterId": "79-cn-chapter-215-4",
+      "status": "complete-owned-chapter-staged-awaiting250-readback",
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-scope215-pdf193-20261028\\215-stage-receipt.json",
+        "sha256": "4e373543cf9cb8551905cb08db04e7b1fce4167a1899a903dc2bc3479db6b106"
+      },
+      "scopeProof": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-scope215-pdf193-20261028\\215-scope-proof.json",
+        "sha256": "716441570a09e78a306a97447eab39130a31b84d55e145f8bad4c40a677c17e7"
+      },
+      "remainingAction": "250唯一写者有限增量并保持scope重建选择；真实MCP/Arena回读后才加覆盖，p217整页仍needs-repair"
+    },
+    {
+      "chapterId": "79-cn-chapter-193-4",
+      "status": "passed-PDF-version-two-sentence-supplement-staged-chapter-held-for-b0042",
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-scope215-pdf193-20261028\\193-reuse-receipt.json",
+        "sha256": "0c3df4389d557f54e2fc62434e129ec5815311860cedc1a393a36413a60541a7"
+      },
+      "remainingAction": "250将PDF来源两句作为独立不计原章的补文；网页b0042未知图单独待裁决，不重制两句，不改原网页source/raw"
+    }
+  ],
+  "continuationRegister": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-uncovered-chapter-continuation-register-20261027b.json",
+    "sha256": "135bcfdf59406fadbc394f314f778969391d043c65515ac4c474362764da61ac"
+  }
+}

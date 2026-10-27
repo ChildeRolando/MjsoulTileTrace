@@ -1,0 +1,49 @@
+{
+  "schema": "coach-textbook-index/1",
+  "status": "accepted-pdf-chapter-subset",
+  "title": "已审校 PDF 完整章节",
+  "repository": "Jackey-Marine/Mahjong-B2D",
+  "sourceCommit": "30c39292ebb007eca96302f4d14cc37e4f6f529f",
+  "policy": {
+    "cardRole": "index-only",
+    "bodyRole": "complete-source-body-with-chinese-translation",
+    "rewrittenTeachingText": false,
+    "modelExperiments": false,
+    "reviewStatus": "pending-user-review",
+    "sourceTextVerifiedAgainstJapanese": false,
+    "translationPolicy": "Full paragraph translation; no summary replacement; preserve author modality and conditions.",
+    "oldSummaryCards": "not-part-of-current-library",
+    "previewScope": "既有完整成果与已完成自动校对的新完整章节；重叠旧章按显式来源复用清单替换，避免重复检索。含网页与PDF补缺，非两套教材全量，未替换正式知识库。"
+  },
+  "sources": [
+    {
+      "id": "79-cn",
+      "filename": "79博客-目录书签跳转版.pdf",
+      "title": "79 博客 · 中文 PDF",
+      "documentTitle": "Seventh9 日麻教程",
+      "language": "zh-CN",
+      "format": "pdf",
+      "pages": 340,
+      "bytes": 13594621,
+      "sha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+      "gitBlob": "8a64c65a00cca9dc5f69899b0063a92d3f5038b6",
+      "attribution": "采用用户指定仓库中的既有中文文档。文件内标题为 Seventh9 日麻教程；PDF 元数据中的作者字段不是译者身份的确认依据。",
+      "sourceNote": "采用所提供中文 PDF，逐行转录正文并提取原牌图；未完成日文逐句校勘。",
+      "role": "pilot-reading-source"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "79-cn-chapter-215-4",
+      "title": "防守11—扣牌（1）",
+      "sourceId": "79-cn",
+      "startPage": 215,
+      "bodyStartPage": 215,
+      "endPage": 217,
+      "topics": [],
+      "anchors": [],
+      "relatedChapterIds": [],
+      "reviewFocus": "完整中文论证、牌例和判断力度；自动校对已通过，用户审核待完成。"
+    }
+  ]
+}

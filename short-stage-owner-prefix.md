@@ -1,3 +1,11 @@
+## 2026-10-28 215按归属装配与193来源补文已完成（零模型）
+
+当前授权由主票触发01a17ebb-2cfd-7dc9-b80c-6ad97987768f确定：269已接183/236最多4calls，249已接两个单点最多2calls，均不重复派发；234本轮不重试。以下覆盖历史“待授权”提案文字。
+
+`integration/coac244-scope215-pdf193-20261028`：215仅PDF217 b1/b3归本章，已验证原源/production/原raw/同SHA独审并完成215–217责任块装配，7正文块1单元，无图，stdio MCP/Arena全文及引用通过。PDF217原needs-repair不变、b8归217章，未伪造全页pass。250真实run01a17ec3-726e-7f22-ae25-59dbbe325603于19:08:30 UTC running；193交接run01a17ec4-6087-74df-9b24-89abe5442b0c queued，按同票有限阶段正常释放后继续，不起第二consumer。
+
+193-4两句逐字从已pass父046188e3的PDF193/b6摘取，版本归属与网页缺字精确分列；独立PDF补文2块1navigation单元已编译、MCP全文/Arena引用隔离通过，原章覆盖增量0。网页b0042未知图继续阻断；网页/父/raw/回执字节不改。本阶段制作0、独审0、模型0，有限scope拒绝回归5项。250唯一写者完成真实增量后才写master覆盖，主票仍in_progress、formal active不切。
+
 ## 2026-10-28 26章闭合：零模型准备已完成
 
 最新基线v21为230/256原章、262/303原单元。完整canonical闭合register为 `integration/coac244-remaining26-closure-register-20261028.json`；现有continuation register仅增加26行closurePlan，covered计数/正式active不变。可审查交付在 `.multica/delivery/coac244-closure26-zero-20261028`。
