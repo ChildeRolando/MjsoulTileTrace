@@ -16,15 +16,15 @@
   "totalTracked": 38
  },
  "countsCurrent": {
-  "needsRepair": 56,
+  "needsRepair": 55,
   "failedSeparate": 2,
-  "resolvedThisStage": 3,
+  "resolvedThisStage": 4,
   "totalTracked": 61
  },
  "breakdown": {
   "oldPdfRemaining": 3,
   "newPdfPages": 0,
-  "web": 48,
+  "web": 47,
   "protectedSupplement": 1,
   "failed": 2,
   "metadataFrontMatter": 4
@@ -1687,22 +1687,60 @@
    "chapterId": "nemata-jp-chapter-237-1",
    "sourceId": "modern-yabejp-ja",
    "articleId": "chapter04-section016",
-   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter04-section016.display.json",
-   "candidateSha256": "5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959",
-   "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section016.5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959.json",
-   "auditStatus": "needs-repair",
-   "issueCount": 2,
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter04-section016.rev1.json",
+   "candidateSha256": "d14aac65a3d02d8a44bf633bb969f1c057660d875a9aeb792cc022826293bc97",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter04-section016.d14aac65a3d02d8a44bf633bb969f1c057660d875a9aeb792cc022826293bc97.json",
+   "auditStatus": "passed",
+   "issueCount": 0,
    "unitCount": 1,
    "blockCount": 14,
    "pdfPages": [
     237
    ],
-   "currentDisposition": "needs-repair",
+   "currentDisposition": "resolved-passed-audit-awaiting-250-handoff",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
    "auditRecordedAt": "2026-10-25T16:10:47.171Z",
    "auditSourceStale": false,
-   "diskShaVerified": true
+   "diskShaVerified": true,
+   "parentCandidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter04-section016.display.json",
+   "parentCandidateSha256": "5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959",
+   "auditSha256": "95e135e344353e5b527a3d9fa251288434317c9c56b642585016507a226c1465",
+   "resolution": {
+    "kind": "isolated-target-text-revision",
+    "scope": "only block modern-yabejp-ja:chapter04-section016:b0002 emphasis span; all other text blocks and all figures unchanged",
+    "issue": "emphasis scope: source em covers 「供託や積み棒が多ければ和了率重視」; the candidate emphasised only 「重视和牌率」",
+    "change": "若供托或积棒较多，优先选择*重视和牌率*的打法 → *若供托或积棒较多，就重视和牌率*（…）优先做出这样的选择",
+    "producer": {
+     "callId": "7042ce5f-fb5e-4e6f-85fb-1ff70427a794",
+     "route": "textbook-production-web.mjs --revision-from/--revision-notes",
+     "usage": {
+      "inputTokens": 12776,
+      "outputTokens": 611
+     },
+     "targets": {
+      "textIds": [
+       "modern-yabejp-ja:chapter04-section016:b0002"
+      ],
+      "figureIds": []
+     }
+    },
+    "audit": {
+     "callId": "8567f448-7148-422a-b198-751c00f7339c",
+     "scope": "textbook-web-target-text-audit",
+     "usage": {
+      "inputTokens": 13086,
+      "outputTokens": 410
+     },
+     "method": "independent-target-text-review-plus-unchanged-parent-audit",
+     "inheritedParentCallIds": [
+      "bc5920f4-5812-48cd-9f02-62aae5a6d500"
+     ]
+    },
+    "parentAuditPreserved": "audit/web/articles/modern-yabejp-ja/chapter04-section016.5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959.json",
+    "chapterComplete": true,
+    "chapterNote": "COAC-246 records this chapter as one unit; the article now passes, so the chapter has no remaining repair object."
+   }
   },
   {
    "objectId": "web-chapter:nemata-jp-chapter-246-1",
@@ -2313,6 +2351,23 @@
     "result": "passed"
    },
    "productionModelCalls": 0
+  },
+  {
+   "objectId": "web-chapter:nemata-jp-chapter-237-1",
+   "kind": "web-article",
+   "sourceId": "modern-yabejp-ja",
+   "articleId": "chapter04-section016",
+   "parentCandidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter04-section016.display.json",
+   "parentCandidateSha256": "5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959",
+   "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter04-section016.rev1.json",
+   "repairedCandidateSha256": "d14aac65a3d02d8a44bf633bb969f1c057660d875a9aeb792cc022826293bc97",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter04-section016.d14aac65a3d02d8a44bf633bb969f1c057660d875a9aeb792cc022826293bc97.json",
+   "auditStatus": "passed",
+   "repairKind": "isolated-target-text-revision",
+   "repairModelCalls": 1,
+   "auditModelCalls": 1,
+   "currentDisposition": "resolved-passed-audit-awaiting-250-handoff",
+   "note": "Emphasis scope restored; parent audit and original candidate preserved; target-text-only re-review plus inherited full-article review."
   }
  ],
  "handoff": {
@@ -2499,7 +2554,17 @@
     "auditedAt": "2026-10-26T20:52:14.617Z",
     "note": "produced at 20:50 by the shared maker lane, audited passed; not a repair object"
    }
-  ]
+  ],
+  "web237": {
+   "to": "COAC-250 incremental consumer for complete web chapter",
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter04-section016.rev1.json",
+   "candidateSha256": "d14aac65a3d02d8a44bf633bb969f1c057660d875a9aeb792cc022826293bc97",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter04-section016.d14aac65a3d02d8a44bf633bb969f1c057660d875a9aeb792cc022826293bc97.json",
+   "auditStatus": "passed",
+   "chapterId": "nemata-jp-chapter-237-1",
+   "completeChapter": true,
+   "note": "One unit; not present as passed in the repair list before this round. Parent candidate and its full-article audit stay in place."
+  }
  },
  "policy": "Dedupe by effective candidate file SHA; terminal passed SHAs are not re-dispatched; failed objects are separate and not retried without error analysis.",
  "latestAddition": {
@@ -2510,7 +2575,7 @@
   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0309.d323290d8eb056b85a64563702b4d1d1283b3c6eff70cf7ecdb34c9faa84337b.6baa4a7e1404.json",
   "note": "Produced once; audit needs-repair; repair preserved, no re-production."
  },
- "refreshedAt": "2026-10-27T02:15:00.000Z",
+ "refreshedAt": "2026-10-27T02:32:00.000Z",
  "byOrigin": {
   "COAC-248 old PDF 12": 5,
   "COAC-247 new PDF return": 3,
@@ -2772,16 +2837,14 @@
   "bodyTextImpact": "none of the missing microprint is cited by any paragraph on those pages"
  },
  "latestRound": {
-  "at": "2026-10-27T02:15:00.000Z",
+  "at": "2026-10-27T02:32:00.000Z",
   "objects": [
-   "79-cn:page:263"
+   "web-chapter:nemata-jp-chapter-237-1"
   ],
-  "productionModelCalls": 0,
-  "auditModelCalls": 2,
-  "runtime": "audit/runtimes/native-repair-d0782d5041cfb2",
-  "auditorScriptSha256": "d0782d5041cfb26f2ee2d25a30167da303e25e834750a33c9dde14465c512cb1",
-  "manifestSha256": "03052928bac4af79b7db51c9cb4cf260f2b8276e2ddbc08dd9c6643321c00258",
-  "note": "p263 passed on the third bounded revision after two real independent reviews; 41 COAC-246 web chapters merged by current candidate SHA (41 new + 7 deduped against the existing web 7)."
+  "productionModelCalls": 1,
+  "auditModelCalls": 1,
+  "runtime": "audit/runtimes/e89dcffe73c9100a12218b79dfba66da3f1bb08d7adaf2b64e87d9eb34619a49",
+  "note": "First web chapter out of the COAC-246 repair set completed: isolated target-text revision plus target-text audit; parent full-article audit inherited."
  },
  "relatedNonRepair": {
   "note": "COAC-246 chapters that are not 248 repair objects; their actions belong to 249 (audit) and 250 (staging/selection).",
@@ -2956,5 +3019,27 @@
     "note": "COAC-246 action label differs from the COAC-248 failed-separate record; the object is one and the same, and it is not retried without error analysis."
    }
   ]
+ },
+ "coac246Verification20261027": {
+  "checkedAt": "2026-10-27T02:24:00.000Z",
+  "source": "COAC-246 coac246-57-verification-summary.json attachment (57 chapters)",
+  "method": "zero-model re-check against the unified list and the files on disk",
+  "repairChapters": 48,
+  "presentInList": 48,
+  "shaMatchesTransfer": 48,
+  "fileShaMatchesDisk": 48,
+  "dedupedObjectsSameSha": [
+   "web:chapter01-section035",
+   "web:chapter03-section009",
+   "web:chapter03-section026",
+   "web:chapter04-section005",
+   "web:chapter04-section012",
+   "web:chapter06-exercise002-02",
+   "web:archive01-section006"
+  ],
+  "nonRepairChapters": 9,
+  "nonRepairLeakedIntoRepairObjects": [],
+  "failedOverlap": [],
+  "conclusion": "All 48 repair chapters are single objects in the list, their candidate SHAs equal both the COAC-246 transfer and the bytes on disk, the 7 deduplicated web objects share one SHA each, the 9 non-repair chapters are outside the repair objects, and no repair object is one of the 2 failed items."
  }
 }

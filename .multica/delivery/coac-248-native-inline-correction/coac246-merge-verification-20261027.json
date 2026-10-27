@@ -1,0 +1,30 @@
+{
+ "schema": "coac246-merge-verification/1",
+ "checkedAt": "2026-10-27T02:24:00.000Z",
+ "source": "COAC-246 coac246-57-verification-summary.json (attachment)",
+ "method": "zero model calls; recomputed every candidate file SHA from disk and compared to both the COAC-246 transfer and the unified repair list",
+ "result": {
+  "repairChapters": 48,
+  "inList": 48,
+  "missingFromList": [],
+  "shaMismatch": [],
+  "diskMismatch": [],
+  "missingDisk": [],
+  "dedupeSameSha": [
+   "web:chapter01-section035",
+   "web:chapter03-section009",
+   "web:chapter03-section026",
+   "web:chapter04-section005",
+   "web:chapter04-section012",
+   "web:chapter06-exercise002-02",
+   "web:archive01-section006"
+  ],
+  "dedupeShaMismatch": [],
+  "nonRepairInList": [],
+  "failedOverlap": [],
+  "nonRepairCount": 9,
+  "diskVerified": 48,
+  "shaVerified": 48
+ },
+ "conclusion": "All 48 repair chapters are present once, candidate SHAs match the transfer and the bytes on disk, the 7 deduplicated web objects each hold one SHA, the 9 non-repair chapters are outside the repair objects, and no repair object is one of the 2 failed items."
+}
