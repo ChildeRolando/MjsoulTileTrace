@@ -1,0 +1,51 @@
+{
+ "schema": "coac250-incremental-staging-receipt/1",
+ "recordedAt": "2026-10-27T07:10:00.000000+00:00",
+ "modelCalls": 0,
+ "productionCalls": 0,
+ "from_": "COAC-248",
+ "to": "COAC-250",
+ "before": {
+  "pointer": "accepted-content-preview-2026-10-27T06-08-03-592Z",
+  "chapters": 206,
+  "units": 214,
+  "selectedWeb": 177,
+  "pendingWeb": 46,
+  "corpusId": "11298d626a584ba155bb00eb496b2408348bd9c3d44586868cb41e4e4a035bfc"
+ },
+ "chapters": [
+  {
+   "chapterId": "nemata-jp-chapter-222-1",
+   "articleId": "chapter04-section004",
+   "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter04-section004/source.json",
+   "sourceSha256": "cd98c1b548c5d7ca4040ba0bbc07d6390114116ec8257392ec1e96054a557605",
+   "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section004.display.json",
+   "parentSha256": "0422143bd4f14e151ddcabd4b12e7fcda84937ef5acd4ab3e0335d8d56f4f4d2",
+   "parentAuditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section004.0422143bd4f14e151ddcabd4b12e7fcda84937ef5acd4ab3e0335d8d56f4f4d2.retry-1792992204029-f963202a.json",
+   "parentAuditSha256": "3c50dae18765b8040c686fcd2f716730f50d079e2d313a35d061f1a06c467f58",
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section004.rev1.json",
+   "candidateSha256": "3910165816bc9776e27fccd11e9e46636c0eef860949df2978cb1481dde4d56a",
+   "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section004.3910165816bc9776e27fccd11e9e46636c0eef860949df2978cb1481dde4d56a.json",
+   "auditSha256": "a3981976a82cd5870f05c53c89e26875dc279816ece3abcc9ef46dd86ba7943d",
+   "auditStatus": "passed",
+   "auditMethod": "independent-target-text-review-plus-unchanged-parent-audit",
+   "previewChapterId": "modern-yabejp-ja-chapter04-section004-chapter",
+   "productionCallId": "5a366e25-98fe-4c41-a857-3ccf0dcf38c5",
+   "productionUsage": {
+    "inputTokens": 13574,
+    "cachedInputTokens": 0,
+    "outputTokens": 707
+   },
+   "auditCallId": "de957f3e-7c5f-4508-b32e-37be59842ab2",
+   "auditUsage": {
+    "inputTokens": 14142,
+    "cachedInputTokens": 0,
+    "outputTokens": 644
+   },
+   "changed": "b0016「半分以上」原译「超过一半」把含 50% 的区间改为严格大于，修订为「情况好的话能达到一半以上」；b0018「リャンメンのリーチのみ」原译「两面听牌的立直无役」误示为无役，修订为「比起两面听牌、仅有立直这一役的听法」。其余 19 块逐字节不变，本章无图。",
+   "dedupe": "当前 accepted-content-preview 仍把 chapter04-section004.display.json 列在 pendingWeb（web_audit_not_passed_or_inputs_changed）；新候选 SHA 3910165816… 与既有选择清单无重复",
+   "pendingWebBefore": true
+  }
+ ],
+ "note": "父稿与父 needs-repair 回执原样保留；本章只做 b0016/b0018 两个文本块的定点重译，其余块与全部源绑定不变。合入前请按实际 source/candidate/audit SHA 复核，保留旧 pointer，不切换正式教材库，零模型调用。"
+}

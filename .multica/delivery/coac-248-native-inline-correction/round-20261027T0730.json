@@ -1,0 +1,185 @@
+{
+ "schema": "coac-248-round-record/1",
+ "recordedAt": "2026-10-27T07:20:00.000000+00:00",
+ "round": "2026-10-27T06:50-07:20Z",
+ "receipts": [
+  {
+   "objectId": "web-chapter:nemata-jp-chapter-222-1",
+   "chapterId": "nemata-jp-chapter-222-1",
+   "articleId": "chapter04-section004",
+   "parent": {
+    "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section004.display.json",
+    "sha256": "0422143bd4f14e151ddcabd4b12e7fcda84937ef5acd4ab3e0335d8d56f4f4d2",
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section004.0422143bd4f14e151ddcabd4b12e7fcda84937ef5acd4ab3e0335d8d56f4f4d2.retry-1792992204029-f963202a.json",
+    "auditSha256": "3c50dae18765b8040c686fcd2f716730f50d079e2d313a35d061f1a06c467f58",
+    "auditStatus": "needs-repair"
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section004.rev1.json",
+    "sha256": "3910165816bc9776e27fccd11e9e46636c0eef860949df2978cb1481dde4d56a"
+   },
+   "audit": {
+    "path": "audit/web/articles/modern-yabejp-ja/chapter04-section004.3910165816bc9776e27fccd11e9e46636c0eef860949df2978cb1481dde4d56a.json",
+    "sha256": "a3981976a82cd5870f05c53c89e26875dc279816ece3abcc9ef46dd86ba7943d",
+    "status": "passed",
+    "method": "independent-target-text-review-plus-unchanged-parent-audit"
+   },
+   "targets": [
+    "modern-yabejp-ja:chapter04-section004:b0016",
+    "modern-yabejp-ja:chapter04-section004:b0018"
+   ],
+   "unchanged": "the other 19 text blocks are byte-identical; the article has no figure runs",
+   "callIds": {
+    "production": "5a366e25-98fe-4c41-a857-3ccf0dcf38c5",
+    "audit": "de957f3e-7c5f-4508-b32e-37be59842ab2"
+   }
+  }
+ ],
+ "stillOpenReceipts": [
+  {
+   "objectId": "web-chapter:nemata-jp-chapter-215-4",
+   "chapterId": "nemata-jp-chapter-215-4",
+   "articleId": "chapter03-section027",
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section027.rev1.json",
+    "sha256": "e9a9376e2a870f6f9236e3ce574972d1c68226d9597f9c7dd53d781d12da2af9"
+   },
+   "audit": {
+    "path": "audit/web/articles/modern-yabejp-ja/chapter03-section027.e9a9376e2a870f6f9236e3ce574972d1c68226d9597f9c7dd53d781d12da2af9.retry-1793084669596-d7092797.json",
+    "sha256": "42d80845eb434439bf7d81a811749b743de18b5043ed4ff930683a6d0c9ed918",
+    "status": "needs-repair"
+   },
+   "targets": [
+    "modern-yabejp-ja:chapter03-section027:b0011"
+   ],
+   "firstAttempt": {
+    "callId": "39ee8cc1-727b-4aaa-b231-3a7d6877d085",
+    "status": "failed",
+    "reason": "transport: WebSocket stream reconnect then HTTPS fallback; an unrecognised transport-diagnostic item made the call non-authoritative and the receipt carries no model conclusion",
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section027.e9a9376e2a870f6f9236e3ce574972d1c68226d9597f9c7dd53d781d12da2af9.json",
+    "auditSha256": "f107b8d8faf4ec8b005a705e27f9f96bd1c3ab0440cbb85b049f1f0b9fb31f8e"
+   },
+   "retry": {
+    "callId": "c59c0932-3a54-443e-935c-8dbf7f214ac0",
+    "rule": "retry-failed-no-model-result"
+   },
+   "rejection": {
+    "issue": "入り目 is rendered as whether the discarded tile is a fresh draw; the reviewer reads 入り目 as a drawn tile completing a 面子 whose leftover is cut",
+    "reviewerRepair": "若这张牌不是进张完成面子后切出的余牌",
+    "appliesTo": "a later bounded round as rev2; no extra production call this round"
+   }
+  }
+ ],
+ "modelCalls": {
+  "production": 2,
+  "audit": 3,
+  "productionUsage": [
+   {
+    "articleId": "chapter03-section027",
+    "callId": "f3604120-2ab6-48f0-968c-765d428375e0",
+    "inputTokens": 12669,
+    "cachedInputTokens": 0,
+    "outputTokens": 439
+   },
+   {
+    "articleId": "chapter04-section004",
+    "callId": "5a366e25-98fe-4c41-a857-3ccf0dcf38c5",
+    "inputTokens": 13574,
+    "cachedInputTokens": 0,
+    "outputTokens": 707
+   }
+  ],
+  "auditUsage": [
+   {
+    "articleId": "chapter03-section027",
+    "callId": "39ee8cc1-727b-4aaa-b231-3a7d6877d085",
+    "status": "failed",
+    "inputTokens": 14533,
+    "cachedInputTokens": 13696,
+    "outputTokens": 402
+   },
+   {
+    "articleId": "chapter03-section027",
+    "callId": "c59c0932-3a54-443e-935c-8dbf7f214ac0",
+    "status": "needs-repair",
+    "inputTokens": 12858,
+    "cachedInputTokens": 0,
+    "outputTokens": 1475
+   },
+   {
+    "articleId": "chapter04-section004",
+    "callId": "de957f3e-7c5f-4508-b32e-37be59842ab2",
+    "status": "passed",
+    "inputTokens": 14142,
+    "cachedInputTokens": 0,
+    "outputTokens": 644
+   }
+  ],
+  "auditRetries": 1,
+  "transportFailures": 1,
+  "batchCaps": {
+   "production": 2,
+   "audit": 3
+  }
+ },
+ "handoff250": {
+  "path": "integration/coac250-incremental-222-1-20261027.json",
+  "sha256": "7c562509efbb0b6d99f6c411bf91874ca40cf810188cfc1254e5e05a94f85b28",
+  "chapters": [
+   "nemata-jp-chapter-222-1"
+  ],
+  "wakeupId": "01a17c32-610c-73ac-8f1a-8597b97f8e24",
+  "instructionFile": ".multica/delivery/coac-248-native-inline-correction/wakeup-250-222-1.txt"
+ },
+ "list": {
+  "path": ".multica/delivery/coac-248-native-inline-correction/unified-repair-list-20261027.json",
+  "sha256": "1c245addcfa9e6fad7624f035e58bc4a1b32732d04fca0d3a5222b9ed8c3ed67",
+  "hashConvention": "sha256 of the LF content, i.e. the committed blob, not the CRLF working copy"
+ },
+ "productionRuntime": {
+  "entry": "scripts/scene-study/textbook-production-web.mjs",
+  "flags": [
+   "--source",
+   "--variant",
+   "--revision-from",
+   "--revision-notes",
+   "--dictionary"
+  ],
+  "note": "the existing isolated-text-revision route; no code change this round"
+ },
+ "auditRuntime": {
+  "runner": "audit/audit-explicit-targets.mjs",
+  "runtime": "audit/runtimes/e89dcffe73c9100a12218b79dfba66da3f1bb08d7adaf2b64e87d9eb34619a49",
+  "auditorSnapshot": "audit/web/auditors/453ba938015d244e36a1b8aad05e7500c598de7a5dd97768f2defab4b973b8e1.json",
+  "config": "audit/explicit-targets-coac248-215-4-222-1-20261027.json"
+ },
+ "stageVerification": {
+  "modelCalls": 0,
+  "finding": "COAC-250 has consumed the earlier handoffs; 211-1, 173-1, 227-1 and 246-1 are in the current accepted preview",
+  "pointer": "accepted-content-preview-2026-10-27T06-08-03-592Z",
+  "corpusId": "11298d626a584ba155bb00eb496b2408348bd9c3d44586868cb41e4e4a035bfc",
+  "chapters": 206,
+  "units": 214,
+  "selectedWeb": 177,
+  "pendingWeb": 46,
+  "merged": [
+   "nemata-jp-chapter-211-1",
+   "nemata-jp-chapter-173-1",
+   "nemata-jp-chapter-227-1",
+   "nemata-jp-chapter-246-1"
+  ],
+  "repeatedHandoff": false,
+  "note": "chapter ids: modern-yabejp-ja-chapter03-section024-chapter, -chapter02-section023-chapter, -chapter04-section007-chapter, -chapter06-section002-chapter"
+ },
+ "groupRevision": {
+  "chapterId": "nemata-jp-chapter-283-1",
+  "productionCalls": 0,
+  "auditCalls": 0,
+  "note": "left untouched this round. Option-B work already ran in the 06:00-07:00Z round; the remaining items (one b0785 corner-wind adjudication and four table-context group audits) need a separate bounded allocation before any further call. The user cap for that chapter (5 production + 5 audit) was fully used, so no new call was made without a new decision"
+ },
+ "stillOpen": {
+  "needsRepair": 52,
+  "note": "215-4 stays open with a recorded repair reading; 283-1 unchanged"
+ },
+ "nextBatchWish": "remaining small web chapters with a faithful parent audit: 174-1, 187-1, 198-1, 199-1, 201-1 (215-4 rev2); 236-1 needs its uncertain finding checked against the entry contract first"
+}
