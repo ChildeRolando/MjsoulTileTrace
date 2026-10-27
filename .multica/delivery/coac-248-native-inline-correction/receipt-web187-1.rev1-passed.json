@@ -1,0 +1,40 @@
+{
+ "schema": "coac-248-object-receipt/1",
+ "objectId": "web-chapter:nemata-jp-chapter-187-1",
+ "chapterId": "nemata-jp-chapter-187-1",
+ "articleId": "chapter03-section006",
+ "recordedAt": "2026-10-27T09:25:00.000000+00:00",
+ "status": "passed",
+ "parent": {
+  "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section006.display.json",
+  "sha256": "a09441ee2d656618bcf2ed97e573e4524d62ba5b3c94fbcc7ec714aeb77a4d73",
+  "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section006.a09441ee2d656618bcf2ed97e573e4524d62ba5b3c94fbcc7ec714aeb77a4d73.retry-1792980856137-13934817.json",
+  "auditSha256": "02b455cc98418b076cc876d98cc3bfdb07be270efca1ec8e5c298c892acdd3d7",
+  "auditStatus": "needs-repair"
+ },
+ "candidate": {
+  "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section006.rev1.json",
+  "sha256": "310a9fb99713adf007a7226cc01fcf848b16cf3b164fc1094d2a81a644f2d2e2"
+ },
+ "audit": {
+  "path": "audit/web/articles/modern-yabejp-ja/chapter03-section006.310a9fb99713adf007a7226cc01fcf848b16cf3b164fc1094d2a81a644f2d2e2.json",
+  "sha256": "1dff00c2dad7381519e44ee225d8dcc9550e8cb659aa3a031effc414362e3e45",
+  "status": "passed",
+  "method": "independent-target-text-review-plus-unchanged-parent-audit",
+  "modelChecks": {
+   "passed": true,
+   "errors": []
+  }
+ },
+ "targets": [
+  "modern-yabejp-ja:chapter03-section006:b0095"
+ ],
+ "from": "后，鸣了某张牌，再切出",
+ "to": "被切出后，鸣了某张牌，再切出",
+ "reason": "原文「を切った後何かを鳴いて」以五筒被切出为前提动作，原译省略该前提，与前面的五筒图连读缺动作",
+ "modelCalls": {
+  "production": 1,
+  "audit": 1
+ },
+ "handoff250": "integration/coac250-incremental-187-1-198-1-20261027.json"
+}

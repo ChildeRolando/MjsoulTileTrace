@@ -16,12 +16,12 @@
   "totalTracked": 38
  },
  "countsCurrent": {
-  "needsRepair": 51,
+  "needsRepair": 49,
   "decisionHold": 1,
   "failedSeparate": 1,
-  "resolvedThisStage": 7,
+  "resolvedThisStage": 9,
   "totalTracked": 61,
-  "resolvedTotal": 11
+  "resolvedTotal": 13
  },
  "breakdown": {
   "oldPdfRemaining": 3,
@@ -1597,23 +1597,34 @@
    "chapterId": "nemata-jp-chapter-187-1",
    "sourceId": "modern-yabejp-ja",
    "articleId": "chapter03-section006",
-   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section006.display.json",
-   "candidateSha256": "a09441ee2d656618bcf2ed97e573e4524d62ba5b3c94fbcc7ec714aeb77a4d73",
-   "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section006.a09441ee2d656618bcf2ed97e573e4524d62ba5b3c94fbcc7ec714aeb77a4d73.retry-1792980856137-13934817.json",
-   "auditStatus": "needs-repair",
-   "issueCount": 3,
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section006.rev1.json",
+   "candidateSha256": "310a9fb99713adf007a7226cc01fcf848b16cf3b164fc1094d2a81a644f2d2e2",
+   "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section006.310a9fb99713adf007a7226cc01fcf848b16cf3b164fc1094d2a81a644f2d2e2.json",
+   "auditStatus": "passed",
+   "issueCount": 0,
    "unitCount": 1,
    "blockCount": 92,
    "pdfPages": [
     187,
     188
    ],
-   "currentDisposition": "needs-repair",
+   "currentDisposition": "passed-awaiting-250-merge",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
    "auditRecordedAt": "2026-10-26T02:14:16.138Z",
    "auditSourceStale": false,
-   "diskShaVerified": true
+   "diskShaVerified": true,
+   "auditSha256": "1dff00c2dad7381519e44ee225d8dcc9550e8cb659aa3a031effc414362e3e45",
+   "revisedFrom": {
+    "parentCandidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section006.display.json",
+    "parentCandidateSha256": "a09441ee2d656618bcf2ed97e573e4524d62ba5b3c94fbcc7ec714aeb77a4d73",
+    "parentAuditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section006.a09441ee2d656618bcf2ed97e573e4524d62ba5b3c94fbcc7ec714aeb77a4d73.retry-1792980856137-13934817.json",
+    "parentAuditSha256": "02b455cc98418b076cc876d98cc3bfdb07be270efca1ec8e5c298c892acdd3d7",
+    "targets": [
+     "modern-yabejp-ja:chapter03-section006:b0095"
+    ]
+   },
+   "handoff250": "integration/coac250-incremental-187-1-198-1-20261027.json"
   },
   {
    "objectId": "web-chapter:nemata-jp-chapter-198-1",
@@ -1621,22 +1632,33 @@
    "chapterId": "nemata-jp-chapter-198-1",
    "sourceId": "modern-yabejp-ja",
    "articleId": "chapter03-section012",
-   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section012.display.json",
-   "candidateSha256": "62d901f6a2c5b8fb6c4512693cf2c90ad6ed931a9e812449cad5ec3125d5d1f6",
-   "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section012.62d901f6a2c5b8fb6c4512693cf2c90ad6ed931a9e812449cad5ec3125d5d1f6.retry-1792983526139-9a68195f.json",
-   "auditStatus": "needs-repair",
-   "issueCount": 3,
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section012.rev1.json",
+   "candidateSha256": "af5ea28cb84f84f9006f5c205c7fa4f99431bf7b3bad8e22e47a3a1245820e3b",
+   "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section012.af5ea28cb84f84f9006f5c205c7fa4f99431bf7b3bad8e22e47a3a1245820e3b.json",
+   "auditStatus": "passed",
+   "issueCount": 0,
    "unitCount": 1,
    "blockCount": 70,
    "pdfPages": [
     198
    ],
-   "currentDisposition": "needs-repair",
+   "currentDisposition": "passed-awaiting-250-merge",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
    "auditRecordedAt": "2026-10-26T02:58:46.140Z",
    "auditSourceStale": false,
-   "diskShaVerified": true
+   "diskShaVerified": true,
+   "auditSha256": "d930c9ef68a2771347e182c9964ed7c48a9b5aacc3cc90fa72127109be802669",
+   "revisedFrom": {
+    "parentCandidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section012.display.json",
+    "parentCandidateSha256": "62d901f6a2c5b8fb6c4512693cf2c90ad6ed931a9e812449cad5ec3125d5d1f6",
+    "parentAuditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section012.62d901f6a2c5b8fb6c4512693cf2c90ad6ed931a9e812449cad5ec3125d5d1f6.retry-1792983526139-9a68195f.json",
+    "parentAuditSha256": "69dc54916a0913ae0c3976130a0ce44f8896187b1a9f05a8a6416d2b47d59ec4",
+    "targets": [
+     "modern-yabejp-ja:chapter03-section012:b0082"
+    ]
+   },
+   "handoff250": "integration/coac250-incremental-187-1-198-1-20261027.json"
   },
   {
    "objectId": "web-chapter:nemata-jp-chapter-199-1",
@@ -3382,7 +3404,7 @@
   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter03-section011.6ad44173945b9347cd8dd7c44640fa3341bf8e83109695e4cd8aacc6d3d98b21.json",
   "note": "Isolated revision from the 249/250 register set; parent receipt, parent candidate and raw preserved."
  },
- "refreshedAt": "2026-10-27T08:10:00.000000+00:00",
+ "refreshedAt": "2026-10-27T09:25:00.000000+00:00",
  "byOrigin": {
   "COAC-248 old PDF 12": 5,
   "COAC-247 new PDF return": 3,
@@ -3644,14 +3666,15 @@
   "bodyTextImpact": "none of the missing microprint is cited by any paragraph on those pages"
  },
  "latestRound": {
-  "at": "2026-10-27T08:10:00.000000+00:00",
+  "at": "2026-10-27T09:25:00.000000+00:00",
   "objects": [
-   "web-chapter:nemata-jp-chapter-174-1"
+   "web-chapter:nemata-jp-chapter-187-1",
+   "web-chapter:nemata-jp-chapter-198-1"
   ],
   "productionModelCalls": 2,
-  "auditModelCalls": 1,
-  "deterministicRejections": 3,
-  "note": "174-1 b0036 passed and handed to 250; 215-4 rev2 produced and its audit is blocked by the revision entry notes contract (0 model calls); 236-1 uncertain confirmed unsupported by the entry",
+  "auditModelCalls": 2,
+  "deterministicRejections": 0,
+  "note": "187-1 b0095 and 198-1 b0082 passed isolated text revision plus independent target-text audit; handed to 250 together; 174-1 not re-handed (preview pointer unchanged)",
   "stillOpen": [
    "nemata-jp-chapter-215-4",
    "nemata-jp-chapter-236-1",
@@ -4324,6 +4347,78 @@
    "list": [
     "nemata-jp-chapter-215-4 (entry)",
     "nemata-jp-chapter-236-1 (entry)",
+    "nemata-jp-chapter-283-1 (b0099 uncertain)"
+   ]
+  }
+ },
+ "round20261027T0925": {
+  "recordedAt": "2026-10-27T09:25:00.000000+00:00",
+  "round": "2026-10-27T09:05-09:25Z",
+  "resolved": [
+   {
+    "objectId": "web-chapter:nemata-jp-chapter-187-1",
+    "articleId": "chapter03-section006",
+    "candidateSha256": "310a9fb99713adf007a7226cc01fcf848b16cf3b164fc1094d2a81a644f2d2e2",
+    "auditSha256": "1dff00c2dad7381519e44ee225d8dcc9550e8cb659aa3a031effc414362e3e45",
+    "targets": [
+     "modern-yabejp-ja:chapter03-section006:b0095"
+    ],
+    "handoff": "integration/coac250-incremental-187-1-198-1-20261027.json"
+   },
+   {
+    "objectId": "web-chapter:nemata-jp-chapter-198-1",
+    "articleId": "chapter03-section012",
+    "candidateSha256": "af5ea28cb84f84f9006f5c205c7fa4f99431bf7b3bad8e22e47a3a1245820e3b",
+    "auditSha256": "d930c9ef68a2771347e182c9964ed7c48a9b5aacc3cc90fa72127109be802669",
+    "targets": [
+     "modern-yabejp-ja:chapter03-section012:b0082"
+    ],
+    "handoff": "integration/coac250-incremental-187-1-198-1-20261027.json"
+   }
+  ],
+  "mergeConfirmation": {
+   "objectId": "web-chapter:nemata-jp-chapter-174-1",
+   "pointer": "accepted-content-preview-2026-10-27T07-16-27-706Z",
+   "corpusId": "472db63a58434c11bbbb542d082e66d780300d4527a14fbca9ca4f113ced52d5",
+   "chapters": 207,
+   "selectedWeb": 178,
+   "pendingWeb": 45,
+   "note": "still the newest accepted-content-preview; chapter02-section024 is still listed in pendingWeb by its old .display.json path, so the 174-1 handoff was not re-sent"
+  },
+  "modelCalls": {
+   "production": 2,
+   "audit": 2,
+   "deterministicRejections": 0,
+   "usage": {
+    "production": {
+     "inputTokens": 24521,
+     "outputTokens": 759
+    },
+    "audit": {
+     "inputTokens": 28413,
+     "cachedInputTokens": 14592,
+     "outputTokens": 903
+    }
+   },
+   "detail": [
+    {
+     "chapter": "web-chapter:nemata-jp-chapter-187-1",
+     "production": "6d90340a-340f-474d-9cf5-f3655da7b0f7",
+     "audit": "c4ff3326-0dac-4080-970a-fd3513460ede"
+    },
+    {
+     "chapter": "web-chapter:nemata-jp-chapter-198-1",
+     "production": "1491c6fc-9a6c-47e6-9390-aa351c0ca70f",
+     "audit": "8ac81b8f-082e-474a-a93e-9ca48271fe5c"
+    }
+   ]
+  },
+  "handoff250": "integration/coac250-incremental-187-1-198-1-20261027.json",
+  "stillOpen": {
+   "needsRepair": 49,
+   "list": [
+    "nemata-jp-chapter-215-4 (entry decision)",
+    "nemata-jp-chapter-236-1 (entry decision)",
     "nemata-jp-chapter-283-1 (b0099 uncertain)"
    ]
   }

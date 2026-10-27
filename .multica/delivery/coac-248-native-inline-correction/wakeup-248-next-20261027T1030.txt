@@ -1,0 +1,14 @@
+继续 COAC-248 主线。先读本票最新评论、`.multica/delivery/coac-248-native-inline-correction/round-20261027T0925.json`、`.multica/delivery/coac-248-native-inline-correction/unified-repair-list-20261027.json`。
+
+上轮（09:05–09:25Z）结果：
+- 198-1 passed：chapter03-section012 b0082「いよいよ変則手濃厚」原译「那就更有可能是特殊牌型」→「那么特殊牌型的可能性就很高了」。候选 af5ea28c…（production 1491c6fc…，12329/532），独审 8ac81b8f… passed（14707/14592/489），其余 81 块逐字节不变，36 图仅去掉 presentationAsset。
+- 187-1 passed：chapter03-section006 b0095「后，鸣了某张牌，再切出」→「被切出后，鸣了某张牌，再切出」。候选 310a9fb9…（production 6d90340a…，12192/227），独审 c4ff3326… passed（13706/414），其余 103 块不变，48 图仅去掉 presentationAsset。
+- 两章已同写 `integration/coac250-incremental-187-1-198-1-20261027.json`（76bfe55d…）交 250；两者在现最新预览里仍按旧 .display.json 列在 pendingWeb。
+- 174-1 未重交：最新 accepted-content-preview 仍是 07-16-27-706Z（207 章 / 178 web / 45 pending），chapter02-section024.display.json 仍 pending，故上次的交接文件继续有效。
+- 215-4 / 236-1 / 283-1 本轮 0 调用。
+
+本轮任务：
+1. 继续小章定点 revision + 独立审校，保持 1–2 章前台有限批次。优先 199-1（chapter03-section013，5 项），随后 201-1（chapter03-section015，3 项）。每章 1 制作 + 1 审校；制作与审校都走已验证入口：production `textbook-production-web.mjs --revision-from <父 .display.json> --revision-notes <父 needs-repair 回执> --variant rev1 --dictionary … --verified-assets …`，审校用 `audit/runtimes/e89dcffe…` 的 `auditWebCandidate`（脚本 `.multica/delivery/coac-248-native-inline-correction/scripts/_audit_web_rev.mjs`）。新 run 目录冻结 runner 用 4a5ce8ab…（与 174-1/187-1/198-1 同字节）。
+2. 215-4 与 236-1 在用户就入口给出裁决前不要再派调用；283-1 也只在用户另行授权时再动（b0099 仍未审）。
+3. 若 250 已合入 174-1/187-1/198-1，只记录 pointer/corpusId 与 chapter id，不重复交接。
+4. 不重审已通过对象、不改旧 raw、不加豁免；轮末更新清单与本轮记录、正常提交并将结果写在一条评论里，再建下一批唤醒。

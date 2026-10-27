@@ -1,0 +1,40 @@
+{
+ "schema": "coac-248-object-receipt/1",
+ "objectId": "web-chapter:nemata-jp-chapter-198-1",
+ "chapterId": "nemata-jp-chapter-198-1",
+ "articleId": "chapter03-section012",
+ "recordedAt": "2026-10-27T09:25:00.000000+00:00",
+ "status": "passed",
+ "parent": {
+  "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section012.display.json",
+  "sha256": "62d901f6a2c5b8fb6c4512693cf2c90ad6ed931a9e812449cad5ec3125d5d1f6",
+  "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section012.62d901f6a2c5b8fb6c4512693cf2c90ad6ed931a9e812449cad5ec3125d5d1f6.retry-1792983526139-9a68195f.json",
+  "auditSha256": "69dc54916a0913ae0c3976130a0ce44f8896187b1a9f05a8a6416d2b47d59ec4",
+  "auditStatus": "needs-repair"
+ },
+ "candidate": {
+  "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section012.rev1.json",
+  "sha256": "af5ea28cb84f84f9006f5c205c7fa4f99431bf7b3bad8e22e47a3a1245820e3b"
+ },
+ "audit": {
+  "path": "audit/web/articles/modern-yabejp-ja/chapter03-section012.af5ea28cb84f84f9006f5c205c7fa4f99431bf7b3bad8e22e47a3a1245820e3b.json",
+  "sha256": "d930c9ef68a2771347e182c9964ed7c48a9b5aacc3cc90fa72127109be802669",
+  "status": "passed",
+  "method": "independent-target-text-review-plus-unchanged-parent-audit",
+  "modelChecks": {
+   "passed": true,
+   "errors": []
+  }
+ },
+ "targets": [
+  "modern-yabejp-ja:chapter03-section012:b0082"
+ ],
+ "from": "如果先打出的是宝牌，那就更有可能是特殊牌型。",
+ "to": "如果先打出的是宝牌，那么特殊牌型的可能性就很高了。",
+ "reason": "「いよいよ変則手濃厚」表示特殊牌型可能性很高，原译「更有可能是」只表达相对概率上升，弱化了原文的判断力度",
+ "modelCalls": {
+  "production": 1,
+  "audit": 1
+ },
+ "handoff250": "integration/coac250-incremental-187-1-198-1-20261027.json"
+}
