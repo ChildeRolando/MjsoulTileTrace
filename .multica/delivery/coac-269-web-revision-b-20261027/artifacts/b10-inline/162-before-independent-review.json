@@ -1,0 +1,137 @@
+{
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751316.coac244inline20261027.display.json",
+  "candidateSha256": "0d0d54818b5b686d34936a4a5f59ae90d83345dd636e33d423d34d9f5b16b481",
+  "nonTargetBodyUnchanged": true,
+  "figureSemanticsUnchanged": true,
+  "checks": {
+    "passed": true,
+    "errors": [],
+    "textBlocks": 19,
+    "imageRuns": 15,
+    "imageOccurrences": 15,
+    "figures": 15
+  },
+  "production": {
+    "callId": "bd7b1408-514a-4d7d-b674-18202fc0c556",
+    "rawArtifactPath": "raw-calls/bd7b1408-514a-4d7d-b674-18202fc0c556.json",
+    "rawArtifactSha256": "2c993624b9c40ef5b950794d5e6c321b763f2e05d4e1b75336f120b1a85f561d",
+    "revision": {
+      "inlineJapanese": {
+        "plan": {
+          "schema": "coach-inline-japanese-revision/1",
+          "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+          "chapterId": "79-cn-chapter-162-3",
+          "bindings": {
+            "parentSha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+            "notesSha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+            "sourceSha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464"
+          },
+          "edits": [
+            {
+              "sourceBlockId": "79-bilibili-cn:cv1751316:b0004",
+              "quotedText": "食いのばし",
+              "operation": "gloss"
+            },
+            {
+              "sourceBlockId": "79-bilibili-cn:cv1751316:b0034",
+              "quotedText": "食いのばし",
+              "operation": "gloss"
+            }
+          ]
+        },
+        "binding": {
+          "path": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-162.json",
+          "sha256": "da13dd719d339778d8ddfd67f397d07fa930b88c0a16e94cc7df01962ba7883e",
+          "plan": {
+            "schema": "coach-inline-japanese-revision/1",
+            "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+            "chapterId": "79-cn-chapter-162-3",
+            "bindings": {
+              "parentSha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+              "notesSha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+              "sourceSha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464"
+            },
+            "edits": [
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1751316:b0004",
+                "quotedText": "食いのばし",
+                "operation": "gloss"
+              },
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1751316:b0034",
+                "quotedText": "食いのばし",
+                "operation": "gloss"
+              }
+            ]
+          }
+        },
+        "sourceLanguage": "zh-CN",
+        "bodyMode": "verbatim-with-bound-inline-translation-only"
+      },
+      "revision": {
+        "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1751316.display.json",
+        "parentSha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+        "notesPath": "audit/web/articles/79-bilibili-cn/cv1751316.1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52.retry-1792951224780-a2783f95.json",
+        "notesSha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+        "figureIds": [],
+        "textBlockIds": [
+          "79-bilibili-cn:cv1751316:b0004",
+          "79-bilibili-cn:cv1751316:b0034"
+        ],
+        "inlineJapanese": {
+          "path": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-162.json",
+          "sha256": "da13dd719d339778d8ddfd67f397d07fa930b88c0a16e94cc7df01962ba7883e",
+          "plan": {
+            "schema": "coach-inline-japanese-revision/1",
+            "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+            "chapterId": "79-cn-chapter-162-3",
+            "bindings": {
+              "parentSha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+              "notesSha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+              "sourceSha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464"
+            },
+            "edits": [
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1751316:b0004",
+                "quotedText": "食いのばし",
+                "operation": "gloss"
+              },
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1751316:b0034",
+                "quotedText": "食いのばし",
+                "operation": "gloss"
+              }
+            ]
+          }
+        }
+      },
+      "parentAudit": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1751316.1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52.retry-1792951224780-a2783f95.json",
+        "sha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+        "originalStatus": "needs-repair"
+      },
+      "parentCall": {
+        "callId": "b393fa57-fbd6-4d8c-b9e7-390c69015677",
+        "path": "audit/calls/b393fa57-fbd6-4d8c-b9e7-390c69015677.json",
+        "sha256": "6ec5ab6b606d2fc40de38a7a975afc09a3dbc624920403fe1e2dce86a8d61c29"
+      },
+      "inheritedAssetIds": [
+        "79-bilibili-cn:8fba0d12a2b13cc7a0f0fb04",
+        "79-bilibili-cn:4fbe44b5dbba1f80aa13d7cc",
+        "79-bilibili-cn:0ece45c9101542071cd35ced",
+        "79-bilibili-cn:8c7e3e56d0008eaa79097b97",
+        "79-bilibili-cn:8eeab132c3902a60b92f9e35",
+        "79-bilibili-cn:fdc2c6ffd881b065380ee4a5",
+        "79-bilibili-cn:d7b5a7fcd8bcacfa662eba4d",
+        "79-bilibili-cn:df357c4827a537a752e0efe8",
+        "79-bilibili-cn:20acdfb14b8d2465201dcb12",
+        "79-bilibili-cn:7040936888d26eba724b8e3a",
+        "79-bilibili-cn:ebfe81720e5f0d8fd1a7a178",
+        "79-bilibili-cn:18954697382eb1a4d6a0c21c",
+        "79-bilibili-cn:2d8e7ff3623df4b03aeab723",
+        "79-bilibili-cn:8edd38a8a10a5524363ba72b",
+        "79-bilibili-cn:b045014005d299a112f9f8b0"
+      ]
+    }
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "at": "2026-10-27T17:22:12.306273+00:00",
+  "checks": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\ticket-intake.json",
+      "sha256": "6d0967d34d41734f00394aae057aa4452597a4d3c8aa0ec03d462c2976fa1a37",
+      "expected": "6d0967d34d41734f00394aae057aa4452597a4d3c8aa0ec03d462c2976fa1a37",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\inline-japanese-revision.mjs",
+      "sha256": "69a9a0db3fccc07bf85c6720606fefb60bac54c689e2402f96bfe018a358e6a6",
+      "expected": "69a9a0db3fccc07bf85c6720606fefb60bac54c689e2402f96bfe018a358e6a6",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit-legacy.mjs",
+      "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1",
+      "expected": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit-pdf-layout.mjs",
+      "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34",
+      "expected": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit-pdf-native.mjs",
+      "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc",
+      "expected": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit-pdf-scope.mjs",
+      "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239",
+      "expected": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb",
+      "expected": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b",
+      "expected": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit-web-batches.mjs",
+      "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9",
+      "expected": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221",
+      "expected": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit-web.mjs",
+      "sha256": "5d015b457efd1c6010b09199ff3d575232a97999ef54847c53b2265ab6e50530",
+      "expected": "5d015b457efd1c6010b09199ff3d575232a97999ef54847c53b2265ab6e50530",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-audit.mjs",
+      "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1",
+      "expected": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-production-cli.mjs",
+      "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a",
+      "expected": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1",
+      "expected": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+      "expected": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-production-web.mjs",
+      "sha256": "1dd367f57ab5ec127152136141d343efa836486b01ddde8aff7c7cb3046ef57e",
+      "expected": "1dd367f57ab5ec127152136141d343efa836486b01ddde8aff7c7cb3046ef57e",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\run-inline-production.py",
+      "sha256": "6c78f1cc009c041fd79e4cc9282dad6581f5d1792290790d790026b891158a73",
+      "expected": "6c78f1cc009c041fd79e4cc9282dad6581f5d1792290790d790026b891158a73",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\run-inline-audit.mjs",
+      "sha256": "66723839c1a3ffc536369512c4871e9dce43de801a6214f7d747b63532d0ea17",
+      "expected": "66723839c1a3ffc536369512c4871e9dce43de801a6214f7d747b63532d0ea17",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\canonical-exclusion-helper.py",
+      "sha256": "308dae2de09ded9782bcbc291242a0364c52e877405736612227f8ba7072ef2c",
+      "expected": "308dae2de09ded9782bcbc291242a0364c52e877405736612227f8ba7072ef2c",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751316.display.json",
+      "sha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+      "expected": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751316.1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52.retry-1792951224780-a2783f95.json",
+      "sha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+      "expected": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1751316\\source.json",
+      "sha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464",
+      "expected": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\plan-162.json",
+      "sha256": "da13dd719d339778d8ddfd67f397d07fa930b88c0a16e94cc7df01962ba7883e",
+      "expected": "da13dd719d339778d8ddfd67f397d07fa930b88c0a16e94cc7df01962ba7883e",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reuse-maps\\c7124b93402528dc994f53494fb3e112c38485e5fdeecb60329697798600dc34.json",
+      "sha256": "c7124b93402528dc994f53494fb3e112c38485e5fdeecb60329697798600dc34",
+      "expected": "c7124b93402528dc994f53494fb3e112c38485e5fdeecb60329697798600dc34",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.display.json",
+      "sha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+      "expected": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+      "sha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+      "expected": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1780400\\source.json",
+      "sha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+      "expected": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\plan-234.json",
+      "sha256": "7b6381704a680a91012cca7f248d9a8524a9a248829c39a8c4decc26dbdaf504",
+      "expected": "7b6381704a680a91012cca7f248d9a8524a9a248829c39a8c4decc26dbdaf504",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reuse-maps\\eaaf9eed7717dcac3b18b03092a7b936ad0de3421899cc6cb0abc9d02e492a41.json",
+      "sha256": "eaaf9eed7717dcac3b18b03092a7b936ad0de3421899cc6cb0abc9d02e492a41",
+      "expected": "eaaf9eed7717dcac3b18b03092a7b936ad0de3421899cc6cb0abc9d02e492a41",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751316.1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52.retry-1792951224780-a2783f95.json",
+      "sha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+      "expected": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\b393fa57-fbd6-4d8c-b9e7-390c69015677.json",
+      "sha256": "6ec5ab6b606d2fc40de38a7a975afc09a3dbc624920403fe1e2dce86a8d61c29",
+      "expected": "6ec5ab6b606d2fc40de38a7a975afc09a3dbc624920403fe1e2dce86a8d61c29",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+      "sha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+      "expected": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+      "passed": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\9bbec3c1-907b-434b-8f71-e69ed35b271d.json",
+      "sha256": "e8774416f453a416db9801b145c524c5b82a8b389c23a3cb71413bac2e337d10",
+      "expected": "e8774416f453a416db9801b145c524c5b82a8b389c23a3cb71413bac2e337d10",
+      "passed": true
+    }
+  ],
+  "allPassed": true,
+  "modelCalls": 0
+}

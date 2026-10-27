@@ -721,3 +721,89 @@ namespace; its adjudication is the open item.
 No shared list, selection, pointer, register or formal library was written; no gate or runtime was
 edited. The only model call in the batch is the one `205-5` production above. `157-11` consumed none.
 Pass remains 249's and integration remains 250's.
+
+## Batch 10 — bounded inline Japanese glosses (2026-10-27)
+
+Authorization: COAC-244 comment `01a17e4c-8ec2-73f3-8c59-92bb3f8910db`, dispatched to
+COAC-269 by wakeup `01a17e5c-acab-70c6-bceb-f91ed968f733`. This batch uses the exact
+`ticket-intake.json` SHA256 `6d0967d34d41734f00394aae057aa4452597a4d3c8aa0ec03d462c2976fa1a37`
+under `web-production/v1/runs/coac244-inline-japanese-20261027/` in the processing data root.
+The earlier batches and PR #73 evidence above remain historical records.
+
+The only chapters are `79-cn-chapter-162-3` and `79-cn-chapter-234-12`. Each has one
+production and one independent first-review slot; failed/void calls count, and the contract forbids retries.
+The supplied scripts run sequentially from the processing root, using atomic chapter claims,
+maker-B, and the independent audit guard. No 155/157/182/205/276 dispatch is authorized here.
+
+### Frozen input and validation evidence
+
+`artifacts/b10-inline/immutable-hashes.json` records 33 matching immutable path/hash checks:
+the intake, 15 frozen v2 runtime files, three entry/helper scripts, both source/parent/audit/plan
+chains, reuse maps and original parent audit calls. The runtime manifest and the two jobs also
+match the intake. Both supplied production entries passed a fresh `--preflight-only` invocation
+in this run with zero model calls. Current canonical preview/register, bound passed alternatives,
+raw/dispatch markers, claims and platform runs were checked before dispatch; the scripts repeat
+the canonical checks under the acquired claim and maker slot.
+
+The snapshots, plans, dispatch/release receipts, exact text diffs and call records are in
+`artifacts/b10-inline/`. `collect-evidence.py` only reads the data root and writes ticket evidence;
+it cannot dispatch models or modify candidates/raw/shared integration state. Candidate and raw
+payloads remain at their original processing-root paths, identified by SHA in the evidence.
+The intake's existing regression/parent-proof evidence is retained; this run does not claim a
+new execution of its 24 regression cases.
+
+### 162-3
+
+Only `b0004` and `b0034` gained `（吃牌延伸）` immediately after `食いのばし`. The original
+Japanese, surrounding Chinese, spaces, source segments, emphasis and all 15 figures are unchanged.
+Display candidate SHA256: `0d0d54818b5b686d34936a4a5f59ae90d83345dd636e33d423d34d9f5b16b481`.
+Independent audit SHA256: `25c0966eecf2747e6401ae09c6677dc7de3c0ae90b936a4e231317d049281cb5`,
+status `passed`, no issues. Method: `independent-target-text-review-plus-unchanged-parent-audit`;
+the 15 figures inherit the authenticated full parent review and are not newly reviewed images.
+
+The per-chapter COAC-250 handoff is
+`web-production/v1/runs/coac244-inline-japanese-20261027/handoff-162-to250.json`,
+SHA256 `8dc5c535b8a4ce9933ea0bb6411c76bd6d0bb7dbf209f6953501792984740753`.
+Persistent wakeup `01a17e66-8893-766f-9603-b7c4733f5260` carries the exact candidate, plan,
+parent/raw chains and frozen v2 verifier to the existing single writer. The handoff requires
+actual MCP/Arena readback and forbids a formal active switch. It is not an integration receipt.
+
+### 234-12
+
+The sole wrapper dispatch `ba432ee3-0d28-42b9-ad34-cde09c97313e` timed out after 900,007 ms
+(`2026-10-27T17:27:03.855Z` start, configured timeout 900,000 ms). There is no candidate,
+no model output and no text diff to review. This is a transport failure, not a semantic verdict.
+The original raw artifact remains
+`web-production/v1/raw-calls/ba432ee3-0d28-42b9-ad34-cde09c97313e.json`, SHA256
+`0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734`.
+Usage is null. No 234 audit or handoff was dispatched, and the production was not re-dispatched.
+Maker-B and both batch chapter claims were normally released; the audit guard is not held.
+
+### Actual wrapper call ledger and transport limitation
+
+| chapter / scope | call ID | start (UTC) | duration ms | input / output tokens | result |
+| --- | --- | --- | --- | --- | --- |
+| 162 production | bd7b1408-514a-4d7d-b674-18202fc0c556 | 17:20:45.216 | 185487 | 14366 / 408 | completed |
+| 162 independent text audit | d47ebb3d-967e-4882-9f6e-59a52fb58803 | 17:24:06.297 | 121068 | 15580 / 518 | passed |
+| 234 production | ba432ee3-0d28-42b9-ad34-cde09c97313e | 17:27:03.855 | 900007 | unknown / unknown | timeout |
+
+There are **three wrapper call records** (two production, one audit), zero executor re-dispatches,
+and no overlap among these three intervals. Known usage is 29,946 input / 926 output tokens for
+162 only; the batch total is unknown because 234 has no usage record.
+
+All three calls retain lower-level Codex CLI reconnect events: six routing-discovery timeouts
+for 162 production, four TLS-handshake/stream reconnect events for its audit, and two request
+timeout reconnect events for 234. These events are not separate local call IDs and do not prove
+that extra model executions occurred. They also do not prove that no extra upstream execution
+occurred. Therefore **network-layer zero retries and the total upstream request count cannot be
+certified** from the local ledger. No provider/model/runtime setting was changed to suppress or
+hide this fact. The original dispatch receipts' `automaticRetry: false` describes the supplied
+wrapper configuration, not a verified absence of internal transport reconnects.
+
+The bounded batch is incomplete: 162 has a real pass and a durable COAC-250 handoff; 234 has no
+candidate and must not consume an independent-review slot. COAC-269 is `blocked`, pending a
+decision on a new 234 production allowance and the unresolved transport accounting boundary.
+No new batch/wakeup/retry is scheduled on COAC-269. Further integration and actual MCP/Arena
+readback of 162 remain COAC-250's responsibility; neither this evidence nor a code PR is that receipt.
+
+Monetary cost is unknown: the available call records expose tokens and elapsed time, not a bill.

@@ -1,0 +1,8 @@
+file:///E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-inline-japanese-v2-20261027/textbook-production-web.mjs:196
+ if(!call.success)throw Error('web_translation_call_failed_raw_preserved');
+                        ^
+
+Error: web_translation_call_failed_raw_preserved
+    at file:///E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-inline-japanese-v2-20261027/textbook-production-web.mjs:196:25
+
+Node.js v24.15.0

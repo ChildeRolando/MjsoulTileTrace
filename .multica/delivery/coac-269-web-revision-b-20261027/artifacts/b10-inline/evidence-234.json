@@ -1,0 +1,301 @@
+{
+  "at": "2026-10-27T17:44:13.653253+00:00",
+  "chapterId": "79-cn-chapter-234-12",
+  "monetaryCost": null,
+  "executorRedispatches": 0,
+  "upstreamAttemptCount": null,
+  "dispatch": {
+    "at": "2026-10-27T17:27:03.794562+00:00",
+    "maxProductionCalls": 1,
+    "automaticRetry": false,
+    "jointExclusion": {
+      "at": "2026-10-27T17:27:03.787693+00:00",
+      "chapterId": "79-cn-chapter-234-12",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1780400",
+      "registerSha256": "eaecce1df533574e58c4e1afe8de0be2306d9e43a357d5bd065088f7a787cc1a",
+      "previewSha256": "838ffa9b44286b09d9302c0763b30e4adc5dc2fcfa4f9b18477ab022e4d7072b",
+      "registerRow": {
+        "chapterId": "79-cn-chapter-234-12",
+        "originalChapterId": "79-cn-chapter-234-12",
+        "sourceId": "79-cn",
+        "title": "状况判断2—要有顺位意识",
+        "units": 1,
+        "ownedSourceBlocks": 11,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "covered": false,
+        "coverageRoute": null,
+        "approvedWebCorrespondence": {
+          "articleId": "cv1780400",
+          "webSourceId": "79-bilibili-cn",
+          "tier": "body",
+          "evidencePath": "integration/chinese-source-body-correspondence.json",
+          "substitutionAllowed": true,
+          "bodyEquivalenceConfirmed": true,
+          "articleInPreview": false
+        },
+        "existingCandidate": {
+          "path": "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+          "sha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+          "bodyBlocks": 5,
+          "sourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+          "currentSourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+          "sourceBoundCurrent": true,
+          "auditStatus": "needs-repair",
+          "auditPath": "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+          "auditRecordedAt": "2026-10-25T22:26:34.154Z",
+          "deterministicPassed": true,
+          "semanticComplete": false
+        },
+        "pdfRoute": {
+          "pagesTotal": 2,
+          "pagesWithCandidate": 0,
+          "pagesWithPassedCandidate": 0,
+          "missingPassedPages": [
+            234,
+            235
+          ],
+          "pagesDetail": [
+            {
+              "page": 234,
+              "candidates": 0,
+              "receiptStatus": null,
+              "sourceBound": null,
+              "selected": false,
+              "blocks": 14
+            },
+            {
+              "page": 235,
+              "candidates": 0,
+              "receiptStatus": null,
+              "sourceBound": null,
+              "selected": false,
+              "blocks": 7
+            }
+          ]
+        },
+        "gaps": {
+          "ownedSourceBlocks": 11,
+          "missingProductionBlocks": 0,
+          "producedBlocks": 11,
+          "acceptedBlocks": 0,
+          "acceptanceGapBlocks": 11,
+          "acceptanceGapPages": [
+            234,
+            235
+          ],
+          "pagesWithoutCandidate": [],
+          "pagesWithoutPassedCandidate": [
+            234,
+            235
+          ]
+        },
+        "verdict": "produced-needs-repair",
+        "coac246": {
+          "action": "repair",
+          "auditStatus": "needs-repair",
+          "candidateSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+          "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+          "repairErrors": 3,
+          "units": 1,
+          "blocks": 11
+        }
+      },
+      "selectedWeb": [],
+      "selectedPdf": [],
+      "boundPassedAlternatives": [],
+      "claim": {
+        "ok": true,
+        "action": "check-chapter",
+        "chapter": "79-cn-chapter-234-12",
+        "held": true,
+        "bySelf": true,
+        "record": {
+          "schema": "coach-textbook-chapter-claim/1",
+          "chapterId": "79-cn-chapter-234-12",
+          "candidateSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+          "lane": "B",
+          "owner": "COAC-269 Ticket inline162234",
+          "slot": null,
+          "claimedAt": "2026-10-27T17:27:03.457Z"
+        }
+      },
+      "existingCandidateNames": [
+        "cv1780400.display.json"
+      ],
+      "priorCallIds": [
+        "8221a1c6-2607-4677-b96e-b8e175f35617",
+        "f885b72e-7a54-47e5-b3de-64bf028ff548"
+      ]
+    },
+    "slot": {
+      "ok": true,
+      "action": "acquire",
+      "slot": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-B.json",
+      "record": {
+        "schema": "coach-textbook-maker-slot/1",
+        "slot": "maker-B",
+        "lane": "B",
+        "owner": "COAC-269 Ticket inline162234",
+        "pid": 16076,
+        "claimedAt": "2026-10-27T17:27:03.506Z",
+        "heartbeatAt": "2026-10-27T17:27:03.506Z",
+        "ttlMinutes": 20
+      }
+    },
+    "args": [
+      "node",
+      "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-production-web.mjs",
+      "--source",
+      "web-sources/v1/79-bilibili-cn/articles/cv1780400/source.json",
+      "--revision-from",
+      "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+      "--revision-notes",
+      "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+      "--reuse",
+      "web-production/v1/reuse-maps/eaaf9eed7717dcac3b18b03092a7b936ad0de3421899cc6cb0abc9d02e492a41.json",
+      "--variant",
+      "coac244inline20261027",
+      "--stop-file",
+      "STOP",
+      "--timeout-ms",
+      "900000",
+      "--revision-inline-japanese",
+      "web-production/v1/runs/coac244-inline-japanese-20261027/plan-234.json"
+    ]
+  },
+  "intake": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\ticket-intake.json",
+    "sha256": "6d0967d34d41734f00394aae057aa4452597a4d3c8aa0ec03d462c2976fa1a37"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1780400\\source.json",
+    "sha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.display.json",
+    "sha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110"
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+    "sha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60"
+  },
+  "plan": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\plan-234.json",
+    "sha256": "7b6381704a680a91012cca7f248d9a8524a9a248829c39a8c4decc26dbdaf504"
+  },
+  "productionCalls": [
+    {
+      "callId": "ba432ee3-0d28-42b9-ad34-cde09c97313e",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1780400",
+      "sourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "timeoutMs": 900000,
+      "startedAt": "2026-10-27T17:27:03.855Z",
+      "durationMs": 900007,
+      "usage": null,
+      "success": false,
+      "failureClass": null,
+      "transportStatus": "timeout",
+      "rawArtifactPath": "raw-calls/ba432ee3-0d28-42b9-ad34-cde09c97313e.json",
+      "rawArtifactSha256": "0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734",
+      "outputSha256": null,
+      "schemaSha256": "8d0c42e22567992c361fa1d14006c3b017f3f4b0c190128d18528a52d3786705",
+      "promptSha256": "038d24e5734623a760827333f120c34e75c1a59ccab0ccd452735a9e07594119",
+      "semanticPromptSha256": "89e2b34c820743f0265e67d10a8f3997755d1ac6ead369fd373cda235e10797f",
+      "cliSnapshot": {
+        "path": "web-production/v1/runners/ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a.cli.mjs",
+        "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+      },
+      "targets": {
+        "textIds": [
+          "79-bilibili-cn:cv1780400:b0003"
+        ],
+        "figureIds": []
+      },
+      "terminalEvents": [
+        {
+          "type": "error",
+          "code": null,
+          "message": "Reconnecting... 2/5 (request timed out)",
+          "param": null
+        },
+        {
+          "type": "error",
+          "code": null,
+          "message": "Reconnecting... 3/5 (request timed out)",
+          "param": null
+        }
+      ],
+      "visualInputs": [],
+      "revision": {
+        "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+        "parentSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+        "notesPath": "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+        "notesSha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+        "figureIds": [],
+        "textBlockIds": [
+          "79-bilibili-cn:cv1780400:b0003"
+        ],
+        "inlineJapanese": {
+          "path": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-234.json",
+          "sha256": "7b6381704a680a91012cca7f248d9a8524a9a248829c39a8c4decc26dbdaf504",
+          "plan": {
+            "schema": "coach-inline-japanese-revision/1",
+            "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+            "chapterId": "79-cn-chapter-234-12",
+            "bindings": {
+              "parentSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+              "notesSha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+              "sourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57"
+            },
+            "edits": [
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+                "quotedText": "ゴットー",
+                "operation": "gloss"
+              },
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+                "quotedText": "ワンツー",
+                "operation": "gloss"
+              },
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+                "quotedText": "ワンスリー",
+                "operation": "gloss"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "productionRawObservations": [
+    {
+      "callId": "ba432ee3-0d28-42b9-ad34-cde09c97313e",
+      "exitCode": null,
+      "timedOut": true,
+      "usage": null,
+      "stderr": "2026-10-27T17:31:43.476948Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n2026-10-27T17:36:18.472441Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n",
+      "terminalEvents": [
+        {
+          "type": "error",
+          "code": null,
+          "message": "Reconnecting... 2/5 (request timed out)",
+          "param": null
+        },
+        {
+          "type": "error",
+          "code": null,
+          "message": "Reconnecting... 3/5 (request timed out)",
+          "param": null
+        }
+      ],
+      "rawLastMessage": null
+    }
+  ],
+  "candidateProduced": false
+}

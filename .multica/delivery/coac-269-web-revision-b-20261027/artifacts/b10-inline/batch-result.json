@@ -1,0 +1,683 @@
+{
+  "schema": "coac269-inline-batch-result/1",
+  "at": "2026-10-27T17:45:18.598737+00:00",
+  "outcome": "partial-blocked",
+  "issueStatus": "blocked",
+  "chapters": {
+    "79-cn-chapter-162-3": {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751316.coac244inline20261027.display.json",
+        "sha256": "0d0d54818b5b686d34936a4a5f59ae90d83345dd636e33d423d34d9f5b16b481"
+      },
+      "independentPass": {
+        "chapterId": "79-cn-chapter-162-3",
+        "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751316.coac244inline20261027.display.json",
+        "candidateSha256": "0d0d54818b5b686d34936a4a5f59ae90d83345dd636e33d423d34d9f5b16b481",
+        "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751316.0d0d54818b5b686d34936a4a5f59ae90d83345dd636e33d423d34d9f5b16b481.json",
+        "auditSha256": "25c0966eecf2747e6401ae09c6677dc7de3c0ae90b936a4e231317d049281cb5",
+        "status": "passed",
+        "method": "independent-target-text-review-plus-unchanged-parent-audit",
+        "calls": [
+          {
+            "callId": "d47ebb3d-967e-4882-9f6e-59a52fb58803",
+            "scope": "textbook-web-target-text-audit",
+            "sourceId": "79-bilibili-cn",
+            "articleId": "cv1751316",
+            "model": "gpt-6.1-sol",
+            "reasoningEffort": "high",
+            "success": true,
+            "usage": {
+              "inputTokens": 15580,
+              "cachedInputTokens": 0,
+              "outputTokens": 518
+            },
+            "promptSha256": "61eff8e62d574cbc58a7ddb95c65de1fd8d43a7f01d2e47125ad311112c77e27",
+            "semanticPromptSha256": "88120cf0fdbf19c8b13b1fc7d13afc621f51220d20df3b0e6b342559c70c3335",
+            "schemaSha256": "98f2348a21942124029bc44aa07595ece12a6e371cfc9202fdf7f8b6a051fe8a",
+            "outputSha256": "dc39824c4c8974e20e4a196596d1828f6703f67b03af69ff108899763ec28b2e",
+            "requestPromptBytes": 17079,
+            "semanticPromptBytes": 16597,
+            "binding": {
+              "productionSha256": "0d0d54818b5b686d34936a4a5f59ae90d83345dd636e33d423d34d9f5b16b481",
+              "sourceFileSha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464",
+              "auditorSnapshotSha256": "95af0326a6a52eb21187896ee4cf313b5e4e7c83e360a11d6759ba645ed2fa3c",
+              "semanticProjectionSha256": "5304425e29d3d6c76e67fef03097cc41e525c9847f2558a5494b6de032cc56e0",
+              "semanticProjectionVersion": 2,
+              "targetTextIds": [
+                "79-bilibili-cn:cv1751316:b0004",
+                "79-bilibili-cn:cv1751316:b0034"
+              ],
+              "verifiedAssetIds": [
+                "79-bilibili-cn:8fba0d12a2b13cc7a0f0fb04",
+                "79-bilibili-cn:4fbe44b5dbba1f80aa13d7cc",
+                "79-bilibili-cn:0ece45c9101542071cd35ced",
+                "79-bilibili-cn:8c7e3e56d0008eaa79097b97",
+                "79-bilibili-cn:8eeab132c3902a60b92f9e35",
+                "79-bilibili-cn:fdc2c6ffd881b065380ee4a5",
+                "79-bilibili-cn:d7b5a7fcd8bcacfa662eba4d",
+                "79-bilibili-cn:df357c4827a537a752e0efe8",
+                "79-bilibili-cn:20acdfb14b8d2465201dcb12",
+                "79-bilibili-cn:7040936888d26eba724b8e3a",
+                "79-bilibili-cn:ebfe81720e5f0d8fd1a7a178",
+                "79-bilibili-cn:18954697382eb1a4d6a0c21c",
+                "79-bilibili-cn:2d8e7ff3623df4b03aeab723",
+                "79-bilibili-cn:8edd38a8a10a5524363ba72b",
+                "79-bilibili-cn:b045014005d299a112f9f8b0"
+              ],
+              "originalImageAssetIds": []
+            },
+            "recordedAt": "2026-10-27T17:26:07.367Z"
+          }
+        ]
+      },
+      "handoff": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\handoff-162-to250.json",
+        "sha256": "8dc5c535b8a4ce9933ea0bb6411c76bd6d0bb7dbf209f6953501792984740753",
+        "wakeupId": "01a17e66-8893-766f-9603-b7c4733f5260",
+        "taskId": "01a17e67-b077-706a-a9f3-598952a45fe3"
+      },
+      "integrationReadbackObserved": false
+    },
+    "79-cn-chapter-234-12": {
+      "candidateProduced": false,
+      "output": null,
+      "diff": null,
+      "transport": "timeout",
+      "independentAuditDispatched": false,
+      "retryAuthorized": false
+    }
+  },
+  "wrapperCallRecords": 3,
+  "executorRedispatches": 0,
+  "upstreamRequestCount": null,
+  "networkLayerZeroRetriesVerified": false,
+  "budgetNote": "CLI reconnect events exist in all three calls. Neither extra upstream executions nor their absence can be established; wrapper counts must not be presented as exact upstream counts. No new dispatch after the timeout.",
+  "knownUsage162Only": {
+    "inputTokens": 29946,
+    "outputTokens": 926
+  },
+  "totalBatchTokens": null,
+  "monetaryCost": null,
+  "calls": [
+    {
+      "chapterId": "79-cn-chapter-162-3",
+      "scope": "production",
+      "ledger": {
+        "callId": "bd7b1408-514a-4d7d-b674-18202fc0c556",
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1751316",
+        "sourceSha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "timeoutMs": 900000,
+        "startedAt": "2026-10-27T17:20:45.216Z",
+        "durationMs": 185487,
+        "usage": {
+          "inputTokens": 14366,
+          "cachedInputTokens": 0,
+          "outputTokens": 408
+        },
+        "success": true,
+        "failureClass": null,
+        "transportStatus": "completed",
+        "rawArtifactPath": "raw-calls/bd7b1408-514a-4d7d-b674-18202fc0c556.json",
+        "rawArtifactSha256": "2c993624b9c40ef5b950794d5e6c321b763f2e05d4e1b75336f120b1a85f561d",
+        "outputSha256": "a1f283588f103253d7e03783ed250858199d2a1d03bdafccbea23b33aa6406d7",
+        "schemaSha256": "f8f324207bb7d90d4d5162a69bd03cdbfb6fac502e55b7ebc9a26f6f5c86dd2a",
+        "promptSha256": "a4656c7ff9665fecf2b0e309e03d6a3b8d2a00327935638259c7a2afc1f60b5f",
+        "semanticPromptSha256": "79024d0ab64ed137fa6a06de4a33b3c27edfe0828cdfaed8295682a4da78eca3",
+        "cliSnapshot": {
+          "path": "web-production/v1/runners/ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a.cli.mjs",
+          "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+        },
+        "targets": {
+          "textIds": [
+            "79-bilibili-cn:cv1751316:b0004",
+            "79-bilibili-cn:cv1751316:b0034"
+          ],
+          "figureIds": []
+        },
+        "terminalEvents": [
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 2/5 (workspace routing discovery timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 3/5 (workspace routing discovery timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 4/5 (workspace routing discovery timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 5/5 (workspace routing discovery timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 1/5 (workspace routing discovery timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 2/5 (workspace routing discovery timed out)",
+            "param": null
+          }
+        ],
+        "visualInputs": [],
+        "revision": {
+          "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1751316.display.json",
+          "parentSha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+          "notesPath": "audit/web/articles/79-bilibili-cn/cv1751316.1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52.retry-1792951224780-a2783f95.json",
+          "notesSha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+          "figureIds": [],
+          "textBlockIds": [
+            "79-bilibili-cn:cv1751316:b0004",
+            "79-bilibili-cn:cv1751316:b0034"
+          ],
+          "inlineJapanese": {
+            "path": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-162.json",
+            "sha256": "da13dd719d339778d8ddfd67f397d07fa930b88c0a16e94cc7df01962ba7883e",
+            "plan": {
+              "schema": "coach-inline-japanese-revision/1",
+              "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+              "chapterId": "79-cn-chapter-162-3",
+              "bindings": {
+                "parentSha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+                "notesSha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+                "sourceSha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464"
+              },
+              "edits": [
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1751316:b0004",
+                  "quotedText": "食いのばし",
+                  "operation": "gloss"
+                },
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1751316:b0034",
+                  "quotedText": "食いのばし",
+                  "operation": "gloss"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "rawObservations": {
+        "callId": "bd7b1408-514a-4d7d-b674-18202fc0c556",
+        "exitCode": 0,
+        "timedOut": false,
+        "usage": {
+          "inputTokens": 14366,
+          "cachedInputTokens": 0,
+          "outputTokens": 408
+        },
+        "stderr": "2026-10-27T17:20:50.307941Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n",
+        "terminalEvents": [
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 2/5 (workspace routing discovery timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 3/5 (workspace routing discovery timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 4/5 (workspace routing discovery timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 5/5 (workspace routing discovery timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 1/5 (workspace routing discovery timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 2/5 (workspace routing discovery timed out)",
+            "param": null
+          }
+        ],
+        "rawLastMessage": "{\"translations\":[{\"sourceBlockId\":\"79-bilibili-cn:cv1751316:b0004\",\"text\":\"实战中有用的鸣牌技巧我分为3次来介绍。 有些知道这些小技巧的人也许会去胡乱使用，  不过在没有习惯这些技巧的时候，有时会没有想到去”鸣牌“ 或者会产生对鸣牌的抵触感。  不过记住这些技巧是没有损失的， 一定会有派上用场的时候， 特别是在赤牌麻将中，这些技巧会成为有力的武器  ------------------------------------------------------------------------------------ 食いのばし（吃牌延伸）(没想到什么好的译名，各位读者有好的建议请留言) ------------------------------------------------------------------------------------ 这是通过吃来让面子增加的技巧。 在混一色时经常用到。 \"},{\"sourceBlockId\":\"79-bilibili-cn:cv1751316:b0034\",\"text\":\"本次介绍的食いのばし（吃牌延伸）和消除二度进张的鸣牌，有时会使手牌留下不自然的形。 如果习惯了的话，就要事先想好要鸣的牌，然后对手牌进行适当的理牌或者在吃之前早点把要副露的两张牌放到自己右边。   （待续）\"}], \"figures\": []}"
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-162-3",
+      "scope": "independent-target-text-audit",
+      "ledger": {
+        "callId": "d47ebb3d-967e-4882-9f6e-59a52fb58803",
+        "scope": "textbook-web-target-text-audit",
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1751316",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "success": true,
+        "usage": {
+          "inputTokens": 15580,
+          "cachedInputTokens": 0,
+          "outputTokens": 518
+        },
+        "promptSha256": "61eff8e62d574cbc58a7ddb95c65de1fd8d43a7f01d2e47125ad311112c77e27",
+        "semanticPromptSha256": "88120cf0fdbf19c8b13b1fc7d13afc621f51220d20df3b0e6b342559c70c3335",
+        "schemaSha256": "98f2348a21942124029bc44aa07595ece12a6e371cfc9202fdf7f8b6a051fe8a",
+        "outputSha256": "dc39824c4c8974e20e4a196596d1828f6703f67b03af69ff108899763ec28b2e",
+        "requestPromptBytes": 17079,
+        "semanticPromptBytes": 16597,
+        "binding": {
+          "productionSha256": "0d0d54818b5b686d34936a4a5f59ae90d83345dd636e33d423d34d9f5b16b481",
+          "sourceFileSha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464",
+          "auditorSnapshotSha256": "95af0326a6a52eb21187896ee4cf313b5e4e7c83e360a11d6759ba645ed2fa3c",
+          "semanticProjectionSha256": "5304425e29d3d6c76e67fef03097cc41e525c9847f2558a5494b6de032cc56e0",
+          "semanticProjectionVersion": 2,
+          "targetTextIds": [
+            "79-bilibili-cn:cv1751316:b0004",
+            "79-bilibili-cn:cv1751316:b0034"
+          ],
+          "verifiedAssetIds": [
+            "79-bilibili-cn:8fba0d12a2b13cc7a0f0fb04",
+            "79-bilibili-cn:4fbe44b5dbba1f80aa13d7cc",
+            "79-bilibili-cn:0ece45c9101542071cd35ced",
+            "79-bilibili-cn:8c7e3e56d0008eaa79097b97",
+            "79-bilibili-cn:8eeab132c3902a60b92f9e35",
+            "79-bilibili-cn:fdc2c6ffd881b065380ee4a5",
+            "79-bilibili-cn:d7b5a7fcd8bcacfa662eba4d",
+            "79-bilibili-cn:df357c4827a537a752e0efe8",
+            "79-bilibili-cn:20acdfb14b8d2465201dcb12",
+            "79-bilibili-cn:7040936888d26eba724b8e3a",
+            "79-bilibili-cn:ebfe81720e5f0d8fd1a7a178",
+            "79-bilibili-cn:18954697382eb1a4d6a0c21c",
+            "79-bilibili-cn:2d8e7ff3623df4b03aeab723",
+            "79-bilibili-cn:8edd38a8a10a5524363ba72b",
+            "79-bilibili-cn:b045014005d299a112f9f8b0"
+          ],
+          "originalImageAssetIds": []
+        },
+        "recordedAt": "2026-10-27T17:26:07.367Z"
+      },
+      "rawObservations": {
+        "callId": "d47ebb3d-967e-4882-9f6e-59a52fb58803",
+        "startedAt": "2026-10-27T17:24:06.297Z",
+        "durationMs": 121068,
+        "usage": {
+          "inputTokens": 15580,
+          "cachedInputTokens": 0,
+          "outputTokens": 518
+        },
+        "success": true,
+        "exitCode": 0,
+        "timedOut": false,
+        "usageLimitReached": false,
+        "unexpectedTool": false,
+        "terminalEvents": [
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 2/5 (stream disconnected before completion: tls handshake eof)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 3/5 (stream disconnected before completion: tls handshake eof)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 4/5 (stream disconnected before completion: tls handshake eof)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 5/5 (stream disconnected before completion: tls handshake eof)",
+            "param": null
+          }
+        ]
+      },
+      "rawArtifact": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d47ebb3d-967e-4882-9f6e-59a52fb58803.json",
+        "sha256": "25300e59990a0453aaa2dd716c285d9eca46cf46d9a513363d88fbb219d7493a"
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-234-12",
+      "scope": "production",
+      "ledger": {
+        "callId": "ba432ee3-0d28-42b9-ad34-cde09c97313e",
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1780400",
+        "sourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "timeoutMs": 900000,
+        "startedAt": "2026-10-27T17:27:03.855Z",
+        "durationMs": 900007,
+        "usage": null,
+        "success": false,
+        "failureClass": null,
+        "transportStatus": "timeout",
+        "rawArtifactPath": "raw-calls/ba432ee3-0d28-42b9-ad34-cde09c97313e.json",
+        "rawArtifactSha256": "0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734",
+        "outputSha256": null,
+        "schemaSha256": "8d0c42e22567992c361fa1d14006c3b017f3f4b0c190128d18528a52d3786705",
+        "promptSha256": "038d24e5734623a760827333f120c34e75c1a59ccab0ccd452735a9e07594119",
+        "semanticPromptSha256": "89e2b34c820743f0265e67d10a8f3997755d1ac6ead369fd373cda235e10797f",
+        "cliSnapshot": {
+          "path": "web-production/v1/runners/ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a.cli.mjs",
+          "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+        },
+        "targets": {
+          "textIds": [
+            "79-bilibili-cn:cv1780400:b0003"
+          ],
+          "figureIds": []
+        },
+        "terminalEvents": [
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 2/5 (request timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 3/5 (request timed out)",
+            "param": null
+          }
+        ],
+        "visualInputs": [],
+        "revision": {
+          "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+          "parentSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+          "notesPath": "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+          "notesSha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+          "figureIds": [],
+          "textBlockIds": [
+            "79-bilibili-cn:cv1780400:b0003"
+          ],
+          "inlineJapanese": {
+            "path": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-234.json",
+            "sha256": "7b6381704a680a91012cca7f248d9a8524a9a248829c39a8c4decc26dbdaf504",
+            "plan": {
+              "schema": "coach-inline-japanese-revision/1",
+              "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+              "chapterId": "79-cn-chapter-234-12",
+              "bindings": {
+                "parentSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+                "notesSha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+                "sourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57"
+              },
+              "edits": [
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+                  "quotedText": "ゴットー",
+                  "operation": "gloss"
+                },
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+                  "quotedText": "ワンツー",
+                  "operation": "gloss"
+                },
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+                  "quotedText": "ワンスリー",
+                  "operation": "gloss"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "rawObservations": {
+        "callId": "ba432ee3-0d28-42b9-ad34-cde09c97313e",
+        "exitCode": null,
+        "timedOut": true,
+        "usage": null,
+        "stderr": "2026-10-27T17:31:43.476948Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n2026-10-27T17:36:18.472441Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n",
+        "terminalEvents": [
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 2/5 (request timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 3/5 (request timed out)",
+            "param": null
+          }
+        ],
+        "rawLastMessage": null
+      }
+    }
+  ],
+  "releases": {
+    "162-slot-released.json": {
+      "ok": true,
+      "action": "release",
+      "slot": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-B.json",
+      "released": "maker-B"
+    },
+    "162-chapter-released.json": {
+      "ok": true,
+      "action": "unclaim",
+      "chapter": "79-cn-chapter-162-3",
+      "released": {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "79-cn-chapter-162-3",
+        "candidateSha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+        "lane": "B",
+        "owner": "COAC-269 Ticket inline162234",
+        "slot": null,
+        "claimedAt": "2026-10-27T17:20:44.811Z"
+      }
+    },
+    "234-slot-released.json": {
+      "ok": true,
+      "action": "release",
+      "slot": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-B.json",
+      "released": "maker-B"
+    },
+    "234-chapter-released.json": {
+      "ok": true,
+      "action": "unclaim",
+      "chapter": "79-cn-chapter-234-12",
+      "released": {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "79-cn-chapter-234-12",
+        "candidateSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+        "lane": "B",
+        "owner": "COAC-269 Ticket inline162234",
+        "slot": null,
+        "claimedAt": "2026-10-27T17:27:03.457Z"
+      }
+    }
+  },
+  "finalSlotState": {
+    "ok": true,
+    "action": "status",
+    "root": "E:/AgentData/Coach/knowledge/processing/parallel",
+    "maxMakerSlots": 2,
+    "liveMakers": 1,
+    "slots": [
+      {
+        "slot": "maker-A.json",
+        "owner": "COAC-248 Mika",
+        "lane": "A",
+        "pid": 67040,
+        "live": true,
+        "why": "pid_alive",
+        "claimedAt": "2026-10-27T17:44:38.915Z",
+        "heartbeatAt": "2026-10-27T17:44:38.915Z",
+        "ageMinutes": null
+      }
+    ],
+    "claims": [
+      {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "79-cn-chapter-081-8",
+        "candidateSha256": "50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853",
+        "lane": "A",
+        "owner": "COAC-248 Mika",
+        "slot": null,
+        "claimedAt": "2026-10-27T11:33:47.044Z"
+      },
+      {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "79-cn-chapter-090-6",
+        "candidateSha256": "4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f",
+        "lane": "A",
+        "owner": "COAC-248 Mika",
+        "slot": null,
+        "claimedAt": "2026-10-27T14:23:07.020Z"
+      },
+      {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "79-cn-chapter-128-14",
+        "candidateSha256": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec",
+        "lane": "B",
+        "owner": "COAC-269 Ticket executor",
+        "slot": null,
+        "claimedAt": "2026-10-27T12:39:19.784Z"
+      },
+      {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "79-cn-chapter-145-4",
+        "candidateSha256": "7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a",
+        "lane": "B",
+        "owner": "COAC-269 Ticket executor",
+        "slot": null,
+        "claimedAt": "2026-10-27T12:39:19.847Z"
+      },
+      {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "79-cn-chapter-157-11",
+        "candidateSha256": "30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de",
+        "lane": "A",
+        "owner": "COAC-248 Mika",
+        "slot": null,
+        "claimedAt": "2026-10-27T17:44:38.865Z"
+      },
+      {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "79-cn-chapter-205-5",
+        "candidateSha256": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6",
+        "lane": "B",
+        "owner": "COAC-269 Ticket executor",
+        "slot": null,
+        "claimedAt": "2026-10-27T14:41:32.047Z"
+      },
+      {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "79-cn-chapter-217-4",
+        "candidateSha256": "73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add",
+        "lane": "A",
+        "owner": "COAC-248 Mika",
+        "slot": null,
+        "claimedAt": "2026-10-27T10:17:06.637Z"
+      },
+      {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "nemata-jp-chapter-060-1",
+        "candidateSha256": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+        "lane": "B",
+        "owner": "COAC-269 Ticket executor",
+        "slot": null,
+        "claimedAt": "2026-10-27T11:51:37.235Z"
+      },
+      {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "nemata-jp-chapter-089-1",
+        "candidateSha256": "9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb",
+        "lane": "B",
+        "owner": "COAC-269 Ticket executor",
+        "slot": null,
+        "claimedAt": "2026-10-27T11:51:37.176Z"
+      },
+      {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "nemata-jp-chapter-131-1",
+        "candidateSha256": "470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac",
+        "lane": "B",
+        "owner": "COAC-269 Ticket executor",
+        "slot": null,
+        "claimedAt": "2026-10-27T10:16:59.281Z"
+      },
+      {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "nemata-jp-chapter-183-1",
+        "candidateSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+        "lane": "B",
+        "owner": "COAC-269 Ticket executor",
+        "slot": null,
+        "claimedAt": "2026-10-27T10:16:59.202Z"
+      },
+      {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "nemata-jp-chapter-237-1",
+        "candidateSha256": "5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959",
+        "lane": "B",
+        "owner": "COAC-269 Ticket executor",
+        "slot": null,
+        "claimedAt": "2026-10-27T10:06:48.760Z"
+      },
+      {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "nemata-jp-chapter-246-1",
+        "candidateSha256": "eb4caf1b93fc906a5a7286419009256337e9f886ce82123091931c8c5e5c4fc4",
+        "lane": "B",
+        "owner": "COAC-269 Ticket executor",
+        "slot": null,
+        "claimedAt": "2026-10-27T10:06:48.682Z"
+      },
+      {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "nemata-jp-chapter-273-1",
+        "candidateSha256": "c57c30e4ffddb9ea661295364ee46739438c2c17a4f4c772e5df0b8391c7576b",
+        "lane": "B",
+        "owner": "COAC-269 Ticket executor",
+        "slot": null,
+        "claimedAt": "2026-10-27T09:40:47.474Z"
+      },
+      {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "nemata-jp-chapter-338-1",
+        "candidateSha256": "04ab76405f88fa1df61d68c2047cf3cb344b8db8644f193c520fee805b83c427",
+        "lane": "B",
+        "owner": "COAC-269 Ticket executor",
+        "slot": null,
+        "claimedAt": "2026-10-27T09:40:47.394Z"
+      }
+    ]
+  },
+  "finalImmutableHashChecks": 33,
+  "no234AuditMarker": true,
+  "nextAction": "Owner decision on new 234 production allowance and transport accounting; no automatic retry or next batch."
+}

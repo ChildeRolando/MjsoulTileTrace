@@ -1,0 +1,522 @@
+{
+  "schema": "coach-ticket-two-inline-text-chapters/1",
+  "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+  "agentId": "ba77da89-8574-4dea-8fc2-24e841fc2754",
+  "runtimeId": "731c52da-6d5e-4c5b-80c9-e9f39803735b",
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "budget": {
+    "perChapterProduction": 1,
+    "perChapterFirstReview": 1,
+    "maximumTotalNewCalls": 4,
+    "failedVoidCount": true,
+    "automaticRetries": 0
+  },
+  "jobs": [
+    {
+      "chapterId": "79-cn-chapter-162-3",
+      "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1751316.display.json",
+      "parentFileSha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1751316.1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52.retry-1792951224780-a2783f95.json",
+      "auditFileSha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1751316/source.json",
+        "sha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464",
+        "parentSourceMatches": true
+      },
+      "exclusion": {
+        "covered": false,
+        "registerParentMatches": true,
+        "selectedWeb": [],
+        "boundPassedAlternatives": [],
+        "claim": {
+          "ok": true,
+          "action": "check-chapter",
+          "chapter": "79-cn-chapter-162-3",
+          "held": false
+        },
+        "registerSha256": "c98972e653afd7b23701895849d55630e7fd561a03475d94201c71027113fb71",
+        "previewSha256": "a8ee5c09f21727978f8177996275c00da796a5999841b4391e2af0d676d2eaea"
+      },
+      "parentIssues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1751316:b0004",
+          "sourceEvidence": "“食いのばし(没想到什么好的译名，各位读者有好的建议请留言)”及随后“这是通过吃来让面子增加的技巧。”",
+          "description": "教学术语保留日文而未提供中文译义。",
+          "suggestedRepair": "保留现有中文及原术语，在“食いのばし”旁补充中文译名，例如“吃牌延伸（通过吃牌增加面子）”。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1751316:b0034",
+          "sourceEvidence": "“本次介绍的食いのばし和消除二度进张的鸣牌，有时会使手牌留下不自然的形。”",
+          "description": "总结段再次出现未译日文教学术语。",
+          "suggestedRepair": "在该次“食いのばし”旁补充与b0004一致的中文译名，保留原有中文、条件及强调。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1751316:b0029:figure",
+          "sourceEvidence": "附件13及放大图28的红色左箭头右方有括号状表情，候选将其内部字符标为无法准确辨清。",
+          "description": "未辨清部分为表情细节，不影响牌码、牌背数量、排列、判断或适用条件，不构成教学语义阻断。",
+          "suggestedRepair": "保留原图及局部不确定说明，不猜补表情字符。"
+        }
+      ],
+      "originalEntry": {
+        "exitCode": 1,
+        "stderr": "file:///E:/AgentData/Coach/knowledge/processing/web-production/v1/coac269-20261027/frozen-runtime/textbook-production-web.mjs:45\n  if(!figureIds.length||figureIds.some(id=>!parent.figures.some(f=>f.figureId===id))||parent.figures.some(f=>!figureIds.includes(f.figureId)&&!notes.modelReview.figureChecks.some(c=>c.id===f.figureId&&c.verdict==='faithful')))throw Error('web_revision_is_not_isolated_figure_repair');\n                                                                                                                                                                                                                                        ^\n\nError: web_revision_is_not_isolated_figure_repair\n    at file:///E:/AgentData/Coach/knowledge/processing/web-production/v1/coac269-20261027/frozen-runtime/textbook-production-web.mjs:45:233\n\nNode.js v24.15.0\n",
+        "stdout": "",
+        "modelCalls": 0
+      },
+      "planPath": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-162.json",
+      "planSha256": "da13dd719d339778d8ddfd67f397d07fa930b88c0a16e94cc7df01962ba7883e",
+      "adaptedEntry": {
+        "exitCode": 0,
+        "stderr": "",
+        "stdout": "{\"preflightPassed\":true,\"sourceId\":\"79-bilibili-cn\",\"articleId\":\"cv1751316\",\"sourceBlocks\":34,\"textBlocks\":19,\"figureRuns\":15,\"pendingFigureRuns\":0,\"imageOccurrences\":15,\"modelCalls\":0}\n",
+        "modelCalls": 0
+      },
+      "args": [
+        "node",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-production-web.mjs",
+        "--source",
+        "web-sources/v1/79-bilibili-cn/articles/cv1751316/source.json",
+        "--revision-from",
+        "web-production/v1/candidates/79-bilibili-cn/cv1751316.display.json",
+        "--revision-notes",
+        "audit/web/articles/79-bilibili-cn/cv1751316.1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52.retry-1792951224780-a2783f95.json",
+        "--reuse",
+        "web-production/v1/reuse-maps/c7124b93402528dc994f53494fb3e112c38485e5fdeecb60329697798600dc34.json",
+        "--variant",
+        "coac244inline20261027",
+        "--stop-file",
+        "STOP",
+        "--timeout-ms",
+        "900000",
+        "--revision-inline-japanese",
+        "web-production/v1/runs/coac244-inline-japanese-20261027/plan-162.json"
+      ]
+    },
+    {
+      "chapterId": "79-cn-chapter-234-12",
+      "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+      "parentFileSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+      "auditFileSha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1780400/source.json",
+        "sha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+        "parentSourceMatches": true
+      },
+      "exclusion": {
+        "covered": false,
+        "registerParentMatches": true,
+        "selectedWeb": [],
+        "boundPassedAlternatives": [],
+        "claim": {
+          "ok": true,
+          "action": "check-chapter",
+          "chapter": "79-cn-chapter-234-12",
+          "held": false
+        },
+        "registerSha256": "c98972e653afd7b23701895849d55630e7fd561a03475d94201c71027113fb71",
+        "previewSha256": "a8ee5c09f21727978f8177996275c00da796a5999841b4391e2af0d676d2eaea"
+      },
+      "parentIssues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1780400:b0003",
+          "sourceEvidence": "三条规则分别含“5-10 ゴットー”“10-20 ワンツー”“10-30 ワンスリー”；候选原样保留三个日文俗称，未附中文释义。",
+          "description": "日文规则俗称未完成中文翻译。括号中的支付数额虽完整，但不能替代对日文标签的中文表达。",
+          "suggestedRepair": "分别补充ゴットー为“五—十”、ワンツー为“一—二”、ワンスリー为“一—三”的规则俗称释义；保留已有中文、数值及支付说明。"
+        }
+      ],
+      "originalEntry": {
+        "exitCode": 1,
+        "stderr": "file:///E:/AgentData/Coach/knowledge/processing/web-production/v1/coac269-20261027/frozen-runtime/textbook-production-web.mjs:45\n  if(!figureIds.length||figureIds.some(id=>!parent.figures.some(f=>f.figureId===id))||parent.figures.some(f=>!figureIds.includes(f.figureId)&&!notes.modelReview.figureChecks.some(c=>c.id===f.figureId&&c.verdict==='faithful')))throw Error('web_revision_is_not_isolated_figure_repair');\n                                                                                                                                                                                                                                        ^\n\nError: web_revision_is_not_isolated_figure_repair\n    at file:///E:/AgentData/Coach/knowledge/processing/web-production/v1/coac269-20261027/frozen-runtime/textbook-production-web.mjs:45:233\n\nNode.js v24.15.0\n",
+        "stdout": "",
+        "modelCalls": 0
+      },
+      "planPath": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-234.json",
+      "planSha256": "7b6381704a680a91012cca7f248d9a8524a9a248829c39a8c4decc26dbdaf504",
+      "adaptedEntry": {
+        "exitCode": 0,
+        "stderr": "",
+        "stdout": "{\"preflightPassed\":true,\"sourceId\":\"79-bilibili-cn\",\"articleId\":\"cv1780400\",\"sourceBlocks\":5,\"textBlocks\":4,\"figureRuns\":1,\"pendingFigureRuns\":0,\"imageOccurrences\":1,\"modelCalls\":0}\n",
+        "modelCalls": 0
+      },
+      "args": [
+        "node",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027\\textbook-production-web.mjs",
+        "--source",
+        "web-sources/v1/79-bilibili-cn/articles/cv1780400/source.json",
+        "--revision-from",
+        "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+        "--revision-notes",
+        "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+        "--reuse",
+        "web-production/v1/reuse-maps/eaaf9eed7717dcac3b18b03092a7b936ad0de3421899cc6cb0abc9d02e492a41.json",
+        "--variant",
+        "coac244inline20261027",
+        "--stop-file",
+        "STOP",
+        "--timeout-ms",
+        "900000",
+        "--revision-inline-japanese",
+        "web-production/v1/runs/coac244-inline-japanese-20261027/plan-234.json"
+      ]
+    }
+  ],
+  "runtime": {
+    "runtime": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027",
+    "files": [
+      {
+        "name": "inline-japanese-revision.mjs",
+        "sha256": "69a9a0db3fccc07bf85c6720606fefb60bac54c689e2402f96bfe018a358e6a6"
+      },
+      {
+        "name": "textbook-audit-legacy.mjs",
+        "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1"
+      },
+      {
+        "name": "textbook-audit-pdf-layout.mjs",
+        "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+      },
+      {
+        "name": "textbook-audit-pdf-native.mjs",
+        "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+      },
+      {
+        "name": "textbook-audit-pdf-scope.mjs",
+        "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+      },
+      {
+        "name": "textbook-audit-pdf-source-corrections.mjs",
+        "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+      },
+      {
+        "name": "textbook-audit-tile-dictionary.mjs",
+        "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+      },
+      {
+        "name": "textbook-audit-web-batches.mjs",
+        "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+      },
+      {
+        "name": "textbook-audit-web-source.py",
+        "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+      },
+      {
+        "name": "textbook-audit-web.mjs",
+        "sha256": "5d015b457efd1c6010b09199ff3d575232a97999ef54847c53b2265ab6e50530"
+      },
+      {
+        "name": "textbook-audit.mjs",
+        "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+      },
+      {
+        "name": "textbook-production-cli.mjs",
+        "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+      },
+      {
+        "name": "textbook-production-web-present.py",
+        "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+      },
+      {
+        "name": "textbook-production-web-visual.py",
+        "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+      },
+      {
+        "name": "textbook-production-web.mjs",
+        "sha256": "1dd367f57ab5ec127152136141d343efa836486b01ddde8aff7c7cb3046ef57e"
+      }
+    ]
+  },
+  "parentProofs": [
+    {
+      "chapterId": "79-cn-chapter-162-3",
+      "passed": true,
+      "modelCalls": 0,
+      "proof": {
+        "inlineJapanese": {
+          "plan": {
+            "schema": "coach-inline-japanese-revision/1",
+            "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+            "chapterId": "79-cn-chapter-162-3",
+            "bindings": {
+              "parentSha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+              "notesSha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+              "sourceSha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464"
+            },
+            "edits": [
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1751316:b0004",
+                "quotedText": "食いのばし",
+                "operation": "gloss"
+              },
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1751316:b0034",
+                "quotedText": "食いのばし",
+                "operation": "gloss"
+              }
+            ]
+          },
+          "binding": {
+            "path": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-162.json",
+            "sha256": "da13dd719d339778d8ddfd67f397d07fa930b88c0a16e94cc7df01962ba7883e",
+            "plan": {
+              "schema": "coach-inline-japanese-revision/1",
+              "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+              "chapterId": "79-cn-chapter-162-3",
+              "bindings": {
+                "parentSha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+                "notesSha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+                "sourceSha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464"
+              },
+              "edits": [
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1751316:b0004",
+                  "quotedText": "食いのばし",
+                  "operation": "gloss"
+                },
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1751316:b0034",
+                  "quotedText": "食いのばし",
+                  "operation": "gloss"
+                }
+              ]
+            }
+          },
+          "sourceLanguage": "zh-CN",
+          "bodyMode": "verbatim-with-bound-inline-translation-only"
+        },
+        "revision": {
+          "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1751316.display.json",
+          "parentSha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+          "notesPath": "audit/web/articles/79-bilibili-cn/cv1751316.1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52.retry-1792951224780-a2783f95.json",
+          "notesSha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+          "figureIds": [],
+          "textBlockIds": [
+            "79-bilibili-cn:cv1751316:b0004",
+            "79-bilibili-cn:cv1751316:b0034"
+          ],
+          "inlineJapanese": {
+            "path": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-162.json",
+            "sha256": "da13dd719d339778d8ddfd67f397d07fa930b88c0a16e94cc7df01962ba7883e",
+            "plan": {
+              "schema": "coach-inline-japanese-revision/1",
+              "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+              "chapterId": "79-cn-chapter-162-3",
+              "bindings": {
+                "parentSha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+                "notesSha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+                "sourceSha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464"
+              },
+              "edits": [
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1751316:b0004",
+                  "quotedText": "食いのばし",
+                  "operation": "gloss"
+                },
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1751316:b0034",
+                  "quotedText": "食いのばし",
+                  "operation": "gloss"
+                }
+              ]
+            }
+          }
+        },
+        "parentAudit": {
+          "path": "audit/web/articles/79-bilibili-cn/cv1751316.1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52.retry-1792951224780-a2783f95.json",
+          "sha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+          "originalStatus": "needs-repair"
+        },
+        "parentCall": {
+          "callId": "b393fa57-fbd6-4d8c-b9e7-390c69015677",
+          "path": "audit/calls/b393fa57-fbd6-4d8c-b9e7-390c69015677.json",
+          "sha256": "6ec5ab6b606d2fc40de38a7a975afc09a3dbc624920403fe1e2dce86a8d61c29"
+        },
+        "inheritedAssetIds": [
+          "79-bilibili-cn:8fba0d12a2b13cc7a0f0fb04",
+          "79-bilibili-cn:4fbe44b5dbba1f80aa13d7cc",
+          "79-bilibili-cn:0ece45c9101542071cd35ced",
+          "79-bilibili-cn:8c7e3e56d0008eaa79097b97",
+          "79-bilibili-cn:8eeab132c3902a60b92f9e35",
+          "79-bilibili-cn:fdc2c6ffd881b065380ee4a5",
+          "79-bilibili-cn:d7b5a7fcd8bcacfa662eba4d",
+          "79-bilibili-cn:df357c4827a537a752e0efe8",
+          "79-bilibili-cn:20acdfb14b8d2465201dcb12",
+          "79-bilibili-cn:7040936888d26eba724b8e3a",
+          "79-bilibili-cn:ebfe81720e5f0d8fd1a7a178",
+          "79-bilibili-cn:18954697382eb1a4d6a0c21c",
+          "79-bilibili-cn:2d8e7ff3623df4b03aeab723",
+          "79-bilibili-cn:8edd38a8a10a5524363ba72b",
+          "79-bilibili-cn:b045014005d299a112f9f8b0"
+        ]
+      },
+      "checks": {
+        "passed": true,
+        "errors": [],
+        "textBlocks": 19,
+        "imageRuns": 15,
+        "imageOccurrences": 15,
+        "figures": 15
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-234-12",
+      "passed": true,
+      "modelCalls": 0,
+      "proof": {
+        "inlineJapanese": {
+          "plan": {
+            "schema": "coach-inline-japanese-revision/1",
+            "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+            "chapterId": "79-cn-chapter-234-12",
+            "bindings": {
+              "parentSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+              "notesSha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+              "sourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57"
+            },
+            "edits": [
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+                "quotedText": "ゴットー",
+                "operation": "gloss"
+              },
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+                "quotedText": "ワンツー",
+                "operation": "gloss"
+              },
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+                "quotedText": "ワンスリー",
+                "operation": "gloss"
+              }
+            ]
+          },
+          "binding": {
+            "path": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-234.json",
+            "sha256": "7b6381704a680a91012cca7f248d9a8524a9a248829c39a8c4decc26dbdaf504",
+            "plan": {
+              "schema": "coach-inline-japanese-revision/1",
+              "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+              "chapterId": "79-cn-chapter-234-12",
+              "bindings": {
+                "parentSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+                "notesSha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+                "sourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57"
+              },
+              "edits": [
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+                  "quotedText": "ゴットー",
+                  "operation": "gloss"
+                },
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+                  "quotedText": "ワンツー",
+                  "operation": "gloss"
+                },
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+                  "quotedText": "ワンスリー",
+                  "operation": "gloss"
+                }
+              ]
+            }
+          },
+          "sourceLanguage": "zh-CN",
+          "bodyMode": "verbatim-with-bound-inline-translation-only"
+        },
+        "revision": {
+          "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+          "parentSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+          "notesPath": "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+          "notesSha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+          "figureIds": [],
+          "textBlockIds": [
+            "79-bilibili-cn:cv1780400:b0003"
+          ],
+          "inlineJapanese": {
+            "path": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-234.json",
+            "sha256": "7b6381704a680a91012cca7f248d9a8524a9a248829c39a8c4decc26dbdaf504",
+            "plan": {
+              "schema": "coach-inline-japanese-revision/1",
+              "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+              "chapterId": "79-cn-chapter-234-12",
+              "bindings": {
+                "parentSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+                "notesSha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+                "sourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57"
+              },
+              "edits": [
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+                  "quotedText": "ゴットー",
+                  "operation": "gloss"
+                },
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+                  "quotedText": "ワンツー",
+                  "operation": "gloss"
+                },
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+                  "quotedText": "ワンスリー",
+                  "operation": "gloss"
+                }
+              ]
+            }
+          }
+        },
+        "parentAudit": {
+          "path": "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+          "sha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+          "originalStatus": "needs-repair"
+        },
+        "parentCall": {
+          "callId": "9bbec3c1-907b-434b-8f71-e69ed35b271d",
+          "path": "audit/calls/9bbec3c1-907b-434b-8f71-e69ed35b271d.json",
+          "sha256": "e8774416f453a416db9801b145c524c5b82a8b389c23a3cb71413bac2e337d10"
+        },
+        "inheritedAssetIds": [
+          "79-bilibili-cn:afd95349965917c3c295b658"
+        ]
+      },
+      "checks": {
+        "passed": true,
+        "errors": [],
+        "textBlocks": 4,
+        "imageRuns": 1,
+        "imageOccurrences": 1,
+        "figures": 1
+      }
+    }
+  ],
+  "scripts": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\run-inline-production.py",
+      "sha256": "6c78f1cc009c041fd79e4cc9282dad6581f5d1792290790d790026b891158a73"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\run-inline-audit.mjs",
+      "sha256": "66723839c1a3ffc536369512c4871e9dce43de801a6214f7d747b63532d0ea17"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\canonical-exclusion-helper.py",
+      "sha256": "308dae2de09ded9782bcbc291242a0364c52e877405736612227f8ba7072ef2c"
+    }
+  ],
+  "noDispatch": [
+    "79-cn-chapter-155-4",
+    "79-cn-chapter-157-11",
+    "79-cn-chapter-182-5",
+    "79-cn-chapter-205-5",
+    "nemata-jp-chapter-276-4"
+  ],
+  "excluded182": "b0013 remains an independent uncertain source-semantic issue. Translating b0003 cannot make the chapter complete.",
+  "exclusionRule": "Before each call re-read full canonical preview/register/bound-passed alternatives, existing raw and dispatch markers, active issue runs and claims. Skip any accepted or already dispatched chapter. No implicit re-creation or model retry.",
+  "handoffRule": "Only new candidate SHA with a true independent pass goes individually to COAC-250, with this frozen verifier and exact source/parent/raw/plan/normalization chain. No formal active switch."
+}
