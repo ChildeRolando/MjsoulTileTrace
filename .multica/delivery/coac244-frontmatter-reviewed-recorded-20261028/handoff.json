@@ -1,0 +1,121 @@
+{
+  "schema": "coac244-frontmatter-target-intake-recorded/1",
+  "canonical": [
+    "nemata-jp-chapter-001-64",
+    "nemata-jp-chapter-317-51"
+  ],
+  "evidence": {
+    "fullResults": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-frontmatter-targets-reviewed-20261028.json",
+      "sha256": "a2336fbd04681778175b28738b0e23bb014b7243339b1601dd3cd5546766f9f0",
+      "bytes": 58464
+    },
+    "summary": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-frontmatter-targets-summary-20261028.json",
+      "sha256": "ef3d1de1c750a027fc5c420990649976110d057b7f28c95dad67feb548aa9efa",
+      "bytes": 56677
+    },
+    "logicalRepairs": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-frontmatter-reviewed-recorded-20261028\\logical-repair-register.json",
+    "exactFieldEvidence": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-frontmatter-reviewed-recorded-20261028\\exact-field-evidence.json",
+    "limitedP2R11": {
+      "figureId": "nemata-jp-p2-r11",
+      "currentVerdict": "faithful-with-unknown",
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+        "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+      },
+      "requiredLimits": [
+        "保留现有unknowns，不补写无法确认的封面小字或英文尾部字符。",
+        "不得指定模型中各牌的牌码、花色、点数或赤五状态；这些微牌不影响邻近书评。",
+        "p2-b50书评及p2-b52书目信息保持为正文。"
+      ]
+    },
+    "sameImageRuling": {
+      "sha256": "275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6",
+      "status": "unknown",
+      "firstReceipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+        "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+      },
+      "secondReusesFirst": true
+    },
+    "calls": [
+      {
+        "callId": "1ac40202-64c8-4068-92fd-fb62ea5ad4ff",
+        "receipt": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+          "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+        },
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\1ac40202-64c8-4068-92fd-fb62ea5ad4ff.json",
+          "sha256": "7d9ad8b617d396fbf79a7a48340ddbd796f7701397e8bd865399c2765f56c16f"
+        },
+        "request": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\request-0.json",
+          "sha256": "308af19e0c466d9882ce1862e2a47803bd177c94b6e20ede98379d0d714ae89f"
+        },
+        "model": "gpt-6.1-terra",
+        "effort": "max",
+        "images": 19,
+        "usage": {
+          "inputTokens": 154803,
+          "cachedInputTokens": 0,
+          "outputTokens": 15291
+        },
+        "durationMs": 191920,
+        "mechanicalChecksPassed": true,
+        "semanticConclusion": "needs-exact-repair",
+        "status": "needs-repair",
+        "admissionGranted": false
+      },
+      {
+        "callId": "4b703cb1-83ef-4cb8-bac5-9fbdcaf7fbbf",
+        "receipt": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-1.json",
+          "sha256": "d85aa60a50c4c2dc7a70fd5bbbbf43b2bd94ea990f4a5f555791ed6df228f19d"
+        },
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4b703cb1-83ef-4cb8-bac5-9fbdcaf7fbbf.json",
+          "sha256": "fa33cfbf507a17d7be7b2570a7d1b1402d39771d954be471780e7de4cb1b87b5"
+        },
+        "request": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\request-1.json",
+          "sha256": "030f91bb41a2ccbc6391d7d29d1affbacc521b723e34c55eba24119d0fe7f7f6"
+        },
+        "model": "gpt-6.1-terra",
+        "effort": "max",
+        "images": 7,
+        "usage": {
+          "inputTokens": 47740,
+          "cachedInputTokens": 0,
+          "outputTokens": 8113
+        },
+        "durationMs": 85203,
+        "mechanicalChecksPassed": true,
+        "semanticConclusion": "needs-exact-repair",
+        "status": "needs-repair",
+        "admissionGranted": false
+      }
+    ],
+    "budget": {
+      "used": 2,
+      "maximum": 2,
+      "remaining": 0,
+      "production": 0,
+      "retry": 0,
+      "failedVoid": 0
+    },
+    "wholeChapterAccepted": false,
+    "newModelCallsDuring244": 0
+  },
+  "owner": "COAC-246 existing same-stage run01a17f90-d809-763d-bb25-7b426d1523a9",
+  "integrationOwner": "COAC-250 existing issue, no new consumer",
+  "next": {
+    "nemata-jp-chapter-001-64": "两包独审已完成，不再待识字/付费复审。001仅p1-r4/p2-r15/p3-r1/p3-r3四图撤未经支持的确定微字/署名并补unknown，沿246现有合法精确修订路径保留父稿/原raw/158文字及非目标图；p2-r11当前faithful-with-unknown证据复用，保留微字/英文尾部/微牌unknown及书评书目正文。共享275de30a署名完整unknown，不选任何旧拼写。当前候选尚未完成合法修订/准入，整章不pass。此批独审2/2余0、制作0，禁止另识字或收费重审。",
+    "nemata-jp-chapter-317-51": "317仅b5三真实字段text/inlineContent[0].text/rawSlotText同步将暂时公开改为以暂定版形式公开，保留新战术论标题及结构/URL变更提示；r6复用同图275de30a独立裁决，撤两个署名备选/确定假名，署名、假名、宣传/January微字完整unknown。246沿已有合法精确修订入口保留其它31文本/21图及原raw，250只登记限定证据不放行四页；当前无新制作/复审/识字授权，不伪造整页pass。"
+  },
+  "newModelCalls": 0,
+  "newCandidates": 0,
+  "newConsumerOrWakeup": false,
+  "formalActiveChanged": false
+}

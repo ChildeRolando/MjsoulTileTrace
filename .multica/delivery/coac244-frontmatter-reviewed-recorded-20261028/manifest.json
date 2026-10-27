@@ -1,0 +1,91 @@
+{
+  "schema": "coac244-evidence-manifest/1",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "bytes": 8
+    },
+    {
+      "path": "249-results.json",
+      "sha256": "a2336fbd04681778175b28738b0e23bb014b7243339b1601dd3cd5546766f9f0",
+      "bytes": 58464
+    },
+    {
+      "path": "249-summary.json",
+      "sha256": "ef3d1de1c750a027fc5c420990649976110d057b7f28c95dad67feb548aa9efa",
+      "bytes": 56677
+    },
+    {
+      "path": "exact-field-evidence.json",
+      "sha256": "fdce7a8bc14ef422dff138d94cb7202281165c128c973421f96bf064030232cd",
+      "bytes": 37064
+    },
+    {
+      "path": "existing-source-verifier.json",
+      "sha256": "38b72ac713a8d468c1a7f87317fb6ae5d752368595cbae41fcf8141a685442f7",
+      "bytes": 188
+    },
+    {
+      "path": "handoff.json",
+      "sha256": "1f0537d4010c2b9fe286e8acc31ef0ed5e3f84d3aec2ebd02c72f66435695bec",
+      "bytes": 6260
+    },
+    {
+      "path": "logical-repair-register.json",
+      "sha256": "d506c01c2242d970380c64602fc9e40b857ebe9f516049495a6854b818994ed8",
+      "bytes": 36388
+    },
+    {
+      "path": "owner-update.md",
+      "sha256": "93011e16223f7416297b78924cdb1f0b4ad56cc1d50d25237df4a1470e318c2e",
+      "bytes": 3214
+    },
+    {
+      "path": "raw-0.json",
+      "sha256": "7d9ad8b617d396fbf79a7a48340ddbd796f7701397e8bd865399c2765f56c16f",
+      "bytes": 858629
+    },
+    {
+      "path": "raw-1.json",
+      "sha256": "fa33cfbf507a17d7be7b2570a7d1b1402d39771d954be471780e7de4cb1b87b5",
+      "bytes": 239792
+    },
+    {
+      "path": "README.md",
+      "sha256": "24e96ea462b97a07c5d51b8fbcab95b95b50c1a57239af5da7fbae037f9aa177",
+      "bytes": 1522
+    },
+    {
+      "path": "receipt-0.json",
+      "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6",
+      "bytes": 37618
+    },
+    {
+      "path": "receipt-1.json",
+      "sha256": "d85aa60a50c4c2dc7a70fd5bbbbf43b2bd94ea990f4a5f555791ed6df228f19d",
+      "bytes": 18151
+    },
+    {
+      "path": "record.py",
+      "sha256": "ef27597f3db3e4d1c2ac3442ce00213b9dce7173247ffe3b0c37335e6751eb9b",
+      "bytes": 13880
+    },
+    {
+      "path": "register-selected-rows.after.json",
+      "sha256": "49f4f566997160e58528db7ebbdafcdfd6006cd0c38b656cf2cd583a884103fb",
+      "bytes": 183657
+    },
+    {
+      "path": "register-selected-rows.before.json",
+      "sha256": "e52a819fe8c5b74957a9f259bdc629a0787604570403fd5e26caab7cfd7cdba4",
+      "bytes": 20735
+    },
+    {
+      "path": "verification.json",
+      "sha256": "9e448b3b0b15b09af3bf2d03c4b82417e788cdef68e07448b83fa705bd0a2068",
+      "bytes": 32665
+    }
+  ],
+  "newModelCalls": 0
+}
