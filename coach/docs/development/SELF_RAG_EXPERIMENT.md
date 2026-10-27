@@ -171,6 +171,9 @@ evaluation 全程只用该组合。参数字节由 harness 在 selector provider
 执行身份为冻结值：`codex-cli 0.162.1`、原生可执行文件 SHA-256 `dd13bd…9a6a`
 （333 479 728 字节）、`gpt-6-luna`、`high`；`verify` 在 pilot 与 evaluation 前各核对一次。
 seed `coach-selfrag-20261027-v1`、20 张研究卡、三个历史实验排除集、场景槽位与预算 ladder 均未改变。
+`freeze.json` 的 `codeSha` 是实际产生这批结果的代码提交；其结果之后只允许文档提交。
+因此在最终分支 HEAD 上重跑 `verify` 会按设计以 `verify_code_sha_mismatch` 拒绝（代码 SHA 已冻结），
+这不代表代码或协议在评估后被修改。
 formal-v1 只留下 `exclusions.json` / `research-subset.json`，没有任何模型调用（见下）。
 
 ### 6.1 运行链路
