@@ -1,0 +1,33 @@
+{
+  "schema": "coac250-effective-review-gate-port-record/1",
+  "recordedAt": "2026-10-27T10:20:00Z",
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "reason": "215-4 is a second-order targeted revision (rev2 on a needs-repair rev1 parent). Its passed receipt was produced on the frozen audit/runtimes/web-target-text-chain-20261027 runtime, whose only semantic delta against the live module is reading notes.effectiveModelReview/effectiveModelChecks when present instead of the target-only review. The live gate rejected the already-passed receipt with web_revision_notes_scope, so the frozen gate was ported verbatim rather than re-auditing the same SHA.",
+  "file": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/textbook-audit-web.mjs",
+  "backup": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/textbook-audit-web.mjs.orig-coac250-target-text-chain",
+  "beforeSha256": "320e89cedf7079b2d24fe2152fcc2cdc6b56ae21195e2d88799d141fde672a35",
+  "afterSha256": "e001c27472e03800e68a110e62bb2ca8602848640f939fbffc87842af9005fd5",
+  "frozenSource": "audit/runtimes/web-target-text-chain-20261027/textbook-audit-web.mjs",
+  "frozenDependencyManifestSha256": "0aa071a4b6ad74acdf4dceb6538438f88b5c8278800ea21acf0687b0aa0cd789",
+  "patches": [
+    {"name": "review-declaration", "detail": "verifyWebRevisionContent declares review = notes.effectiveModelReview ?? notes.modelReview"},
+    {"name": "effective-review-binding", "detail": "the notes-scope check reads that merged review"},
+    {"name": "selected-blocks-review", "detail": "the unresolved-checks probe reads that merged review"},
+    {"name": "parent-receipt-binding", "detail": "verifyWebRevisionInheritance compares notes.effectiveModelChecks ?? notes.modelChecks against validateWebReview(notes.effectiveModelReview ?? notes.modelReview)"},
+    {"name": "coverage-probe", "detail": "coverage probe clones notes.effectiveModelReview ?? notes.modelReview"},
+    {"name": "target-text-assembly", "detail": "the target-text receipt assembly check merges into parent.effectiveModelReview ?? parent.modelReview"}
+  ],
+  "preservedExistingBehaviour": {
+    "firstRevisionGate": true,
+    "groupRevisionGate": true,
+    "batchRetryPatch": true
+  },
+  "gateChecksAfterPatch": {
+    "chapter02-section024.rev1.json": "passed",
+    "chapter03-section006.rev1.json": "passed",
+    "chapter03-section012.rev1.json": "passed",
+    "chapter03-section027.rev2.json": "passed"
+  },
+  "regressionEvidence": "The build re-gates every selected web candidate; all 182 selected web candidates passed and the 211-chapter preview retained 178 prior chapters with 0 units rewritten and 0 chapters removed."
+}
