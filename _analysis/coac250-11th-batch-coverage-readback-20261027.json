@@ -1,0 +1,224 @@
+{
+  "schema": "coac250-11th-batch-coverage-readback/1",
+  "recordedAt": "2026-10-27T13:10:48.912Z",
+  "modelCalls": 0,
+  "preview": {
+    "output": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T12-22-49-037Z",
+    "corpusId": "f223871fd1150357a013b58d29b46d61c90ab537f3674149c1a22311c6995f2e",
+    "displayChapters": 217,
+    "displayUnits": 225,
+    "displayBlocks": 5981,
+    "displayFigures": 4827,
+    "selectedWeb": 188,
+    "pendingWeb": 35,
+    "pdfStages": 27,
+    "activeLibraryUnchanged": true,
+    "formalCorpusId": "3f44d5dcaf8dfadf64dc0225e40e5f97773da659bf4a6cc3ba18569c642b6129",
+    "formalCorpusFileSha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+  },
+  "denominator": {
+    "originalChapters": 256,
+    "originalUnits": 303,
+    "originalSourceBlocks": 21212
+  },
+  "coverage": {
+    "originalChaptersCovered": 217,
+    "originalChaptersRemaining": 39,
+    "originalUnitsCovered": 249,
+    "originalUnitsNote": "covered = 303 original units minus the units of the 39 remaining original chapters; display units (225) are merged presentation units, not the same measure"
+  },
+  "stagedThisDispatch": [
+    {
+      "originalChapterId": "nemata-jp-chapter-199-1",
+      "previewChapterId": "modern-yabejp-ja-chapter03-section013-chapter",
+      "corpusId": "f223871fd1150357a013b58d29b46d61c90ab537f3674149c1a22311c6995f2e",
+      "blocks": 10,
+      "figures": 14,
+      "auditStatus": "passed",
+      "candidateSha256": "3d93eb869db859bf35ff7b6ab832cc88b45fbd035bc78018ace54b33ae293ec8",
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section013.3d93eb869db859bf35ff7b6ab832cc88b45fbd035bc78018ace54b33ae293ec8.retry-1793095290967-e15ea7b7.json"
+    },
+    {
+      "originalChapterId": "nemata-jp-chapter-142-1",
+      "previewChapterId": "modern-yabejp-ja-chapter01-section054-chapter",
+      "corpusId": "f223871fd1150357a013b58d29b46d61c90ab537f3674149c1a22311c6995f2e",
+      "blocks": 32,
+      "figures": 84,
+      "auditStatus": "passed",
+      "candidateSha256": "f3570e7bbe61e0ef99e45a2f4185ed3f0c1fe1840f670783c7fd2402352dedca",
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section054.f3570e7bbe61e0ef99e45a2f4185ed3f0c1fe1840f670783c7fd2402352dedca.json"
+    },
+    {
+      "originalChapterId": "nemata-jp-chapter-127-1",
+      "previewChapterId": "modern-yabejp-ja-chapter01-section047-chapter",
+      "corpusId": "f223871fd1150357a013b58d29b46d61c90ab537f3674149c1a22311c6995f2e",
+      "blocks": 39,
+      "figures": 72,
+      "auditStatus": "passed",
+      "candidateSha256": "363fd45cc99f099cfbaec296a1102af0d6dd5519596af707697c21154280c86d",
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section047.363fd45cc99f099cfbaec296a1102af0d6dd5519596af707697c21154280c86d.json"
+    }
+  ],
+  "remaining": {
+    "total": 39,
+    "byVerdict": {
+      "produced-passed-not-staged": 4,
+      "produced-needs-repair": 35
+    },
+    "byAdjudicationGroup": {
+      "confirmed-produced-not-covered": 34,
+      "additional-uncovered-not-in-246": 5
+    },
+    "byRoute": {
+      "web": 36,
+      "pdfOnly": 3
+    },
+    "blockedBySourceStructureHold": [
+      "nemata-jp-chapter-027-1"
+    ],
+    "eligibleForNextStage": [
+      "79-cn-chapter-081-8",
+      "nemata-jp-chapter-060-1",
+      "nemata-jp-chapter-089-1"
+    ],
+    "passedNotStaged": [
+      {
+        "originalChapterId": "79-cn-chapter-081-8",
+        "articleId": "cv1721475",
+        "auditRecordedAt": "2026-10-27T11:51:50.380Z",
+        "candidateSha256": "d1fc1ea8f072cc73c3c1a1649f3a7608f6fd55ecb38be8ff19a34340d5c2a3dd",
+        "sourceBoundCurrent": true,
+        "parentBoundCurrent": true,
+        "articleInPreview": false,
+        "reason": "passed receipt is newer than the dispatched staging list; awaiting the next COAC-244/249 dispatch"
+      },
+      {
+        "originalChapterId": "nemata-jp-chapter-027-1",
+        "articleId": "chapter01-section010",
+        "auditRecordedAt": "2026-10-27T11:27:18.797Z",
+        "candidateSha256": "44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c",
+        "sourceBoundCurrent": true,
+        "parentBoundCurrent": true,
+        "articleInPreview": false,
+        "reason": "confirmed-source-structure-hold (no definition-boundary sidecar/stage proof; stage-definition-chapters.mjs still asserts held)"
+      },
+      {
+        "originalChapterId": "nemata-jp-chapter-060-1",
+        "articleId": "chapter01-section021-06",
+        "auditRecordedAt": "2026-10-27T12:01:14.606Z",
+        "candidateSha256": "6de46bfb824281e9facea8bd30eebf1498b7ae047e4c006250aeaa2800b0c64c",
+        "sourceBoundCurrent": true,
+        "parentBoundCurrent": true,
+        "articleInPreview": false,
+        "reason": "passed receipt is newer than the dispatched staging list; awaiting the next COAC-244/249 dispatch"
+      },
+      {
+        "originalChapterId": "nemata-jp-chapter-089-1",
+        "articleId": "chapter01-section031",
+        "auditRecordedAt": "2026-10-27T12:00:09.252Z",
+        "candidateSha256": "c5317d995648afeefdb370b314047e36f0368609a19a2db6be103385646565a6",
+        "sourceBoundCurrent": true,
+        "parentBoundCurrent": true,
+        "articleInPreview": false,
+        "reason": "passed receipt is newer than the dispatched staging list; awaiting the next COAC-244/249 dispatch"
+      }
+    ]
+  },
+  "readback": {
+    "catalogEntries": 217,
+    "units": [
+      {
+        "unitId": "modern-yabejp-ja-chapter03-section013-argument",
+        "blocks": 10,
+        "exactBody": true,
+        "revisedTextInBody": true,
+        "searchTop1IsUnit": true
+      },
+      {
+        "unitId": "modern-yabejp-ja-chapter01-section054-argument",
+        "blocks": 32,
+        "exactBody": true,
+        "revisedTextInBody": true,
+        "searchTop1IsUnit": true
+      },
+      {
+        "unitId": "modern-yabejp-ja-chapter01-section047-argument",
+        "blocks": 39,
+        "exactBody": true,
+        "revisedTextInBody": true,
+        "searchTop1IsUnit": true
+      }
+    ],
+    "images": {
+      "checked": 170,
+      "allReachable": true
+    },
+    "absentArticles": [
+      {
+        "articleId": "chapter01-section010",
+        "inCatalog": false,
+        "inCorpus": false
+      },
+      {
+        "articleId": "cv1721475",
+        "inCatalog": false,
+        "inCorpus": false
+      },
+      {
+        "articleId": "chapter01-section031",
+        "inCatalog": false,
+        "inCorpus": false
+      },
+      {
+        "articleId": "chapter01-section021-06",
+        "inCatalog": false,
+        "inCorpus": false
+      }
+    ],
+    "maxTextBytes": 14879
+  },
+  "arena": {
+    "units": 225,
+    "maxEnvelopeBytes": 15066,
+    "realStdioMcp": true,
+    "exactBody": true,
+    "tailCannotGrantCitation": true,
+    "targets": [
+      {
+        "unitId": "modern-yabejp-ja-chapter01-section047-argument",
+        "pages": 8,
+        "blocks": 39,
+        "maxEnvelopeBytes": 14064,
+        "finalPageSourceRefs": 1
+      },
+      {
+        "unitId": "modern-yabejp-ja-chapter01-section054-argument",
+        "pages": 9,
+        "blocks": 32,
+        "maxEnvelopeBytes": 14152,
+        "finalPageSourceRefs": 1
+      },
+      {
+        "unitId": "modern-yabejp-ja-chapter03-section013-argument",
+        "pages": 2,
+        "blocks": 10,
+        "maxEnvelopeBytes": 15062,
+        "finalPageSourceRefs": 1
+      }
+    ]
+  },
+  "register": {
+    "path": "integration/coac250-unified-chapter-register-20261027b.json",
+    "sha256": "7437df35adb80deeb7833908b627a1683613585aecd192bdfd74ba6618a47b9f",
+    "recordedAt": "2026-10-27T13:10:17.282Z",
+    "verdicts": {
+      "covered-effective": 217,
+      "produced-needs-repair": 35,
+      "produced-passed-not-staged": 4,
+      "produced-pdf-passed-not-staged": 0,
+      "produced-unreviewed": 0,
+      "produced-audit-failed": 0,
+      "total": 256
+    }
+  }
+}

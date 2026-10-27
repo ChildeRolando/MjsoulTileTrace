@@ -1,6 +1,6 @@
 {
   "schema": "coac250-unified-chapter-register/2",
-  "recordedAt": "2026-10-27T11:06:27.653Z",
+  "recordedAt": "2026-10-27T13:10:17.282Z",
   "modelCalls": 0,
   "productionCalls": 0,
   "supersedes": {
@@ -8,9 +8,9 @@
     "readback": "integration/coac250-coverage-readback-20261027b.json",
     "coac246": "coac246-57-verification-summary.json",
     "previousRegister": {
-      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.before-coac250-9th-batch-2026-10-27T11-06-27-631Z.json",
-      "sha256": "20b535391fbfb54fbd5a3d8d810d756fb4f78ee964c81e2921d1cbbcd516660f",
-      "reason": "ninth COAC-250 incremental batch supersedes the eighth-batch snapshot; history kept verbatim"
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.before-coac250-11th-run-2026-10-27T13-10-17-261Z.json",
+      "sha256": "5a19d2c2e7998dd8162e54f7eee89a4a8ebc3ed90c69b2f2e7794bfaa623c337",
+      "reason": "eleventh COAC-250 run supersedes the tenth-batch snapshot; history kept verbatim"
     }
   },
   "purpose": "统一来源映射与真缺口裁决：逐原章列出获准网页对应、现存候选/源/审校状态、是否允许替代、缺失源块；供 244/246/247/248/249/250 全链使用。不触发新制作。",
@@ -20,14 +20,14 @@
     "originalSourceBlocks": 21212
   },
   "display": {
-    "previewOutput": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T10-38-35-579Z",
-    "corpusId": "5eebf4df6b1593749040570ed8e789b2809b1579cf51f2bf50f43dd2516f37fe",
-    "displayChapters": 214,
-    "displayUnits": 222,
-    "displayBlocks": 5900,
-    "displayFigures": 4657,
-    "selectedWeb": 185,
-    "pendingWeb": 38,
+    "previewOutput": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T12-22-49-037Z",
+    "corpusId": "f223871fd1150357a013b58d29b46d61c90ab537f3674149c1a22311c6995f2e",
+    "displayChapters": 217,
+    "displayUnits": 225,
+    "displayBlocks": 5981,
+    "displayFigures": 4827,
+    "selectedWeb": 188,
+    "pendingWeb": 35,
     "pdfStages": 27
   },
   "contract": {
@@ -40,13 +40,13 @@
     "originalChapters": 256,
     "originalUnits": 303,
     "originalSourceBlocks": 21212,
-    "displayChapters": 214,
-    "displayUnits": 222,
-    "displayBlocks": 5900,
-    "displayFigures": 4657,
-    "effectiveCoveredOriginalChapters": 214,
-    "effectiveUncoveredOriginalChapters": 42,
-    "uncoveredProduced": 42,
+    "displayChapters": 217,
+    "displayUnits": 225,
+    "displayBlocks": 5981,
+    "displayFigures": 4827,
+    "effectiveCoveredOriginalChapters": 217,
+    "effectiveUncoveredOriginalChapters": 39,
+    "uncoveredProduced": 39,
     "trulyUnproduced": 0,
     "register80": 80,
     "register80Groups": {
@@ -56,9 +56,9 @@
       "additional-uncovered-not-in-246": 6
     },
     "verdicts": {
-      "covered-effective": 214,
-      "produced-needs-repair": 42,
-      "produced-passed-not-staged": 0,
+      "covered-effective": 217,
+      "produced-needs-repair": 35,
+      "produced-passed-not-staged": 4,
       "produced-pdf-passed-not-staged": 0,
       "produced-unreviewed": 0,
       "produced-audit-failed": 0,
@@ -363,17 +363,29 @@
         "articleInPreview": false
       },
       "existingCandidate": {
-        "path": "web-production/v1/candidates/79-bilibili-cn/cv1721475.display.json",
-        "sha256": "50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853",
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1721475.r1.json",
+        "sha256": "d1fc1ea8f072cc73c3c1a1649f3a7608f6fd55ecb38be8ff19a34340d5c2a3dd",
         "bodyBlocks": 19,
         "sourceSha256": "f0f3fe12b457bc7d0ffcb34cfc6b1e4e5e37781759f55ebe22cbfdc8343b55f3",
         "currentSourceSha256": "f0f3fe12b457bc7d0ffcb34cfc6b1e4e5e37781759f55ebe22cbfdc8343b55f3",
         "sourceBoundCurrent": true,
-        "auditStatus": "needs-repair",
-        "auditPath": "audit/web/articles/79-bilibili-cn/cv1721475.50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853.json",
-        "auditRecordedAt": "2026-10-23T22:48:15.561Z",
+        "auditStatus": "passed",
+        "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/79-bilibili-cn/cv1721475.d1fc1ea8f072cc73c3c1a1649f3a7608f6fd55ecb38be8ff19a34340d5c2a3dd.json",
+        "auditRecordedAt": "2026-10-27T11:51:50.380Z",
         "deterministicPassed": true,
-        "semanticComplete": false
+        "semanticComplete": true,
+        "revision": {
+          "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1721475.display.json",
+          "parentSha256": "50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853",
+          "notesPath": "audit/web/articles/79-bilibili-cn/cv1721475.50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853.json",
+          "notesSha256": "c5513deefd2d8863fdfed92bbd725fb934199174a0556a9c18e6774b143aea86",
+          "figureIds": [
+            "79-bilibili-cn:cv1721475:b0004:figure",
+            "79-bilibili-cn:cv1721475:b0006:figure",
+            "79-bilibili-cn:cv1721475:b0008:figure",
+            "79-bilibili-cn:cv1721475:b0018:figure"
+          ]
+        }
       },
       "pdfRoute": {
         "pagesTotal": 4,
@@ -440,7 +452,7 @@
           84
         ]
       },
-      "verdict": "produced-needs-repair",
+      "verdict": "produced-passed-not-staged",
       "coac246": {
         "action": "repair",
         "auditStatus": "needs-repair",
@@ -449,6 +461,30 @@
         "repairErrors": 14,
         "units": 1,
         "blocks": 31
+      },
+      "priorCandidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1721475.display.json",
+        "sha256": "50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853",
+        "bodyBlocks": 19,
+        "sourceSha256": "f0f3fe12b457bc7d0ffcb34cfc6b1e4e5e37781759f55ebe22cbfdc8343b55f3",
+        "currentSourceSha256": "f0f3fe12b457bc7d0ffcb34cfc6b1e4e5e37781759f55ebe22cbfdc8343b55f3",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/79-bilibili-cn/cv1721475.50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853.json",
+        "auditRecordedAt": "2026-10-23T22:48:15.561Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "notStaged": {
+        "status": "not-staged",
+        "reason": "passed receipt is newer than the dispatched staging list; awaiting the next COAC-244/249 dispatch",
+        "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/79-bilibili-cn/cv1721475.d1fc1ea8f072cc73c3c1a1649f3a7608f6fd55ecb38be8ff19a34340d5c2a3dd.json",
+        "auditSha256": "f1328e6a67ddce5f3df448d8533ac7e83009a7e18132ae7e6c070d5385468458",
+        "auditRecordedAt": "2026-10-27T11:51:50.380Z",
+        "sourceBoundCurrent": true,
+        "withinSourceStructureHold": false,
+        "eligibleForNextStage": true,
+        "modelCalls": 0
       }
     },
     {
@@ -3524,17 +3560,27 @@
         "articleInPreview": false
       },
       "existingCandidate": {
-        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.display.json",
-        "sha256": "7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b",
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.coac269rev1.json",
+        "sha256": "44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c",
         "bodyBlocks": 160,
         "sourceSha256": "eead468938ab9770eecc8b2323f72be0dd4dae72618355e4c9bee227dd527387",
         "currentSourceSha256": "eead468938ab9770eecc8b2323f72be0dd4dae72618355e4c9bee227dd527387",
         "sourceBoundCurrent": true,
-        "auditStatus": "needs-repair",
-        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section010.7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b.json",
-        "auditRecordedAt": "2026-10-23T22:09:54.038Z",
+        "auditStatus": "passed",
+        "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter01-section010.44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c.json",
+        "auditRecordedAt": "2026-10-27T11:27:18.797Z",
         "deterministicPassed": true,
-        "semanticComplete": false
+        "semanticComplete": true,
+        "revision": {
+          "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.display.json",
+          "parentSha256": "7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b",
+          "notesPath": "audit/web/articles/modern-yabejp-ja/chapter01-section010.7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b.json",
+          "notesSha256": "57d283a67ea10b4ba1ec399700a8c31fc849d625ca001bb03f5dac41ac8dd6f4",
+          "figureIds": [],
+          "textBlockIds": [
+            "modern-yabejp-ja:chapter01-section010:b0056"
+          ]
+        }
       },
       "pdfRoute": {
         "pagesTotal": 2,
@@ -3579,7 +3625,7 @@
           28
         ]
       },
-      "verdict": "produced-needs-repair",
+      "verdict": "produced-passed-not-staged",
       "coac246": {
         "action": "repair",
         "auditStatus": "needs-repair",
@@ -3588,6 +3634,30 @@
         "repairErrors": 3,
         "units": 1,
         "blocks": 141
+      },
+      "priorCandidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.display.json",
+        "sha256": "7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b",
+        "bodyBlocks": 160,
+        "sourceSha256": "eead468938ab9770eecc8b2323f72be0dd4dae72618355e4c9bee227dd527387",
+        "currentSourceSha256": "eead468938ab9770eecc8b2323f72be0dd4dae72618355e4c9bee227dd527387",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section010.7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b.json",
+        "auditRecordedAt": "2026-10-23T22:09:54.038Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "notStaged": {
+        "status": "not-staged",
+        "reason": "confirmed-source-structure-hold (no definition-boundary sidecar/stage proof; stage-definition-chapters.mjs still asserts held)",
+        "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter01-section010.44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c.json",
+        "auditSha256": "bdb29387e6fdbb875ca7150223b18659a06a8964ad6afceda4b562088450b5e0",
+        "auditRecordedAt": "2026-10-27T11:27:18.797Z",
+        "sourceBoundCurrent": true,
+        "withinSourceStructureHold": true,
+        "eligibleForNextStage": false,
+        "modelCalls": 0
       }
     },
     {
@@ -3693,17 +3763,28 @@
         "articleInPreview": false
       },
       "existingCandidate": {
-        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-06.display.json",
-        "sha256": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-06.coac269rev1.json",
+        "sha256": "6de46bfb824281e9facea8bd30eebf1498b7ae047e4c006250aeaa2800b0c64c",
         "bodyBlocks": 129,
         "sourceSha256": "febc8cef9c299b375c225843e4d33a27a2167c3729bf8c590e472433f548eda5",
         "currentSourceSha256": "febc8cef9c299b375c225843e4d33a27a2167c3729bf8c590e472433f548eda5",
         "sourceBoundCurrent": true,
-        "auditStatus": "needs-repair",
-        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section021-06.ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828.json",
-        "auditRecordedAt": "2026-10-23T22:48:15.630Z",
+        "auditStatus": "passed",
+        "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter01-section021-06.6de46bfb824281e9facea8bd30eebf1498b7ae047e4c006250aeaa2800b0c64c.json",
+        "auditRecordedAt": "2026-10-27T12:01:14.606Z",
         "deterministicPassed": true,
-        "semanticComplete": false
+        "semanticComplete": true,
+        "revision": {
+          "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-06.display.json",
+          "parentSha256": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+          "notesPath": "audit/web/articles/modern-yabejp-ja/chapter01-section021-06.ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828.json",
+          "notesSha256": "f13f9da62cd633bf21c036ba4439b913e987b5334a4660e465ad80f0772d0cf7",
+          "figureIds": [],
+          "textBlockIds": [
+            "modern-yabejp-ja:chapter01-section021-06:b0027",
+            "modern-yabejp-ja:chapter01-section021-06:b0033"
+          ]
+        }
       },
       "pdfRoute": {
         "pagesTotal": 4,
@@ -3770,7 +3851,7 @@
           63
         ]
       },
-      "verdict": "produced-needs-repair",
+      "verdict": "produced-passed-not-staged",
       "coac246": {
         "action": "repair",
         "auditStatus": "needs-repair",
@@ -3779,6 +3860,30 @@
         "repairErrors": 5,
         "units": 1,
         "blocks": 148
+      },
+      "priorCandidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-06.display.json",
+        "sha256": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+        "bodyBlocks": 129,
+        "sourceSha256": "febc8cef9c299b375c225843e4d33a27a2167c3729bf8c590e472433f548eda5",
+        "currentSourceSha256": "febc8cef9c299b375c225843e4d33a27a2167c3729bf8c590e472433f548eda5",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section021-06.ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828.json",
+        "auditRecordedAt": "2026-10-23T22:48:15.630Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "notStaged": {
+        "status": "not-staged",
+        "reason": "passed receipt is newer than the dispatched staging list; awaiting the next COAC-244/249 dispatch",
+        "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter01-section021-06.6de46bfb824281e9facea8bd30eebf1498b7ae047e4c006250aeaa2800b0c64c.json",
+        "auditSha256": "949a48561b8f2f02d3b677b0e210f2d12d6978b9315161ec85fdb5437f136235",
+        "auditRecordedAt": "2026-10-27T12:01:14.606Z",
+        "sourceBoundCurrent": true,
+        "withinSourceStructureHold": false,
+        "eligibleForNextStage": true,
+        "modelCalls": 0
       }
     },
     {
@@ -3894,17 +3999,30 @@
         "articleInPreview": false
       },
       "existingCandidate": {
-        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section031.display.json",
-        "sha256": "9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb",
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section031.coac269rev1.json",
+        "sha256": "c5317d995648afeefdb370b314047e36f0368609a19a2db6be103385646565a6",
         "bodyBlocks": 159,
         "sourceSha256": "c69694f31974fc506ba30b69434ed64a700112dc6d7bb2d67916aa9ef19126a4",
         "currentSourceSha256": "c69694f31974fc506ba30b69434ed64a700112dc6d7bb2d67916aa9ef19126a4",
         "sourceBoundCurrent": true,
-        "auditStatus": "needs-repair",
-        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section031.9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb.retry-1792951706280-1a9d74d2.json",
-        "auditRecordedAt": "2026-10-25T18:08:26.280Z",
+        "auditStatus": "passed",
+        "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter01-section031.c5317d995648afeefdb370b314047e36f0368609a19a2db6be103385646565a6.json",
+        "auditRecordedAt": "2026-10-27T12:00:09.252Z",
         "deterministicPassed": true,
-        "semanticComplete": false
+        "semanticComplete": true,
+        "revision": {
+          "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section031.display.json",
+          "parentSha256": "9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb",
+          "notesPath": "audit/web/articles/modern-yabejp-ja/chapter01-section031.9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb.retry-1792951706280-1a9d74d2.json",
+          "notesSha256": "38463b0c66018574d1cca6a52a4c667346b70864ad5bcf2e84454f759e2fdba9",
+          "figureIds": [],
+          "textBlockIds": [
+            "modern-yabejp-ja:chapter01-section031:b0042",
+            "modern-yabejp-ja:chapter01-section031:b0084",
+            "modern-yabejp-ja:chapter01-section031:b0102",
+            "modern-yabejp-ja:chapter01-section031:b0153"
+          ]
+        }
       },
       "pdfRoute": {
         "pagesTotal": 3,
@@ -3960,7 +4078,7 @@
           91
         ]
       },
-      "verdict": "produced-needs-repair",
+      "verdict": "produced-passed-not-staged",
       "coac246": {
         "action": "repair",
         "auditStatus": "needs-repair",
@@ -3969,6 +4087,30 @@
         "repairErrors": 9,
         "units": 1,
         "blocks": 153
+      },
+      "priorCandidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section031.display.json",
+        "sha256": "9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb",
+        "bodyBlocks": 159,
+        "sourceSha256": "c69694f31974fc506ba30b69434ed64a700112dc6d7bb2d67916aa9ef19126a4",
+        "currentSourceSha256": "c69694f31974fc506ba30b69434ed64a700112dc6d7bb2d67916aa9ef19126a4",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section031.9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb.retry-1792951706280-1a9d74d2.json",
+        "auditRecordedAt": "2026-10-25T18:08:26.280Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "notStaged": {
+        "status": "not-staged",
+        "reason": "passed receipt is newer than the dispatched staging list; awaiting the next COAC-244/249 dispatch",
+        "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter01-section031.c5317d995648afeefdb370b314047e36f0368609a19a2db6be103385646565a6.json",
+        "auditSha256": "11e0c9f0e612fd99f30316abbe28fa420a84bf60284a296287018fc6d8b51d18",
+        "auditRecordedAt": "2026-10-27T12:00:09.252Z",
+        "sourceBoundCurrent": true,
+        "withinSourceStructureHold": false,
+        "eligibleForNextStage": true,
+        "modelCalls": 0
       }
     },
     {
@@ -4519,8 +4661,8 @@
       "units": 1,
       "ownedSourceBlocks": 153,
       "adjudicationGroup": "confirmed-produced-not-covered",
-      "covered": false,
-      "coverageRoute": null,
+      "covered": true,
+      "coverageRoute": "web",
       "approvedWebCorrespondence": {
         "articleId": "chapter01-section047",
         "webSourceId": "modern-yabejp-ja",
@@ -4528,20 +4670,30 @@
         "evidencePath": "integration/modern-pdf-url-coverage.json",
         "substitutionAllowed": true,
         "bodyEquivalenceConfirmed": false,
-        "articleInPreview": false
+        "articleInPreview": true
       },
       "existingCandidate": {
-        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section047.display.json",
-        "sha256": "0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc",
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section047.coac269rev1.json",
+        "sha256": "363fd45cc99f099cfbaec296a1102af0d6dd5519596af707697c21154280c86d",
         "bodyBlocks": 162,
         "sourceSha256": "15fa058ba54622b1c812b29dd0b1d8b2b612d68b8fe1386a8f501cb6b4f83371",
         "currentSourceSha256": "15fa058ba54622b1c812b29dd0b1d8b2b612d68b8fe1386a8f501cb6b4f83371",
         "sourceBoundCurrent": true,
-        "auditStatus": "needs-repair",
-        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section047.0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc.retry-1792965844463-86544923.json",
-        "auditRecordedAt": "2026-10-25T22:04:04.463Z",
+        "auditStatus": "passed",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section047.363fd45cc99f099cfbaec296a1102af0d6dd5519596af707697c21154280c86d.json",
+        "auditRecordedAt": "2026-10-27T11:27:18.817Z",
         "deterministicPassed": true,
-        "semanticComplete": false
+        "semanticComplete": true,
+        "revision": {
+          "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section047.display.json",
+          "parentSha256": "0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc",
+          "notesPath": "audit/web/articles/modern-yabejp-ja/chapter01-section047.0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc.retry-1792965844463-86544923.json",
+          "notesSha256": "3d5a7175621388527f9a3af6158cb21eb8bb83338acdcf2d0d214a8d691aad5a",
+          "figureIds": [],
+          "textBlockIds": [
+            "modern-yabejp-ja:chapter01-section047:b0030"
+          ]
+        }
       },
       "pdfRoute": {
         "pagesTotal": 3,
@@ -4597,7 +4749,7 @@
           129
         ]
       },
-      "verdict": "produced-needs-repair",
+      "verdict": "covered-effective",
       "coac246": {
         "action": "repair",
         "auditStatus": "needs-repair",
@@ -4606,6 +4758,19 @@
         "repairErrors": 3,
         "units": 1,
         "blocks": 153
+      },
+      "staging": {
+        "previewOutput": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T12-22-49-037Z",
+        "corpusId": "f223871fd1150357a013b58d29b46d61c90ab537f3674149c1a22311c6995f2e",
+        "previewChapterId": "modern-yabejp-ja-chapter01-section047-chapter",
+        "blocks": 39,
+        "figures": 72,
+        "auditStatus": "passed",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section047.363fd45cc99f099cfbaec296a1102af0d6dd5519596af707697c21154280c86d.json",
+        "auditSha256": "05be99be66bf8c579814b0cb392c9c57f82fdde0b40dc47e63cc374e49702696",
+        "stageReceiptPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T12-22-49-037Z\\stages\\modern-yabejp-ja-chapter01-section047\\web-stage-receipt.json",
+        "stagedAt": "2026-10-27T12:47:57.578Z",
+        "note": "COAC-249 b5b6 batch (COAC-269 line-B b5): targeted re-translation of b0030 (two-sided wait family vs. complete-hand family wording); the other 161 blocks are byte-identical and all 72 figures inherit the parent presentationAsset. Independent target-text audit passed 2026-10-27T11:27:18.817Z (receipt 363fd45c); the parent 0dcafc25 display with its 3d5a7175 needs-repair receipt is preserved. Same frozen web-target-text-chain runtime."
       }
     },
     {
@@ -4822,8 +4987,8 @@
       "units": 1,
       "ownedSourceBlocks": 159,
       "adjudicationGroup": "confirmed-produced-not-covered",
-      "covered": false,
-      "coverageRoute": null,
+      "covered": true,
+      "coverageRoute": "web",
       "approvedWebCorrespondence": {
         "articleId": "chapter01-section054",
         "webSourceId": "modern-yabejp-ja",
@@ -4831,20 +4996,30 @@
         "evidencePath": "integration/modern-pdf-url-coverage.json",
         "substitutionAllowed": true,
         "bodyEquivalenceConfirmed": false,
-        "articleInPreview": false
+        "articleInPreview": true
       },
       "existingCandidate": {
-        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section054.display.json",
-        "sha256": "264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e",
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section054.coac269rev1.json",
+        "sha256": "f3570e7bbe61e0ef99e45a2f4185ed3f0c1fe1840f670783c7fd2402352dedca",
         "bodyBlocks": 185,
         "sourceSha256": "89afec31ea77168cb86f94a4919bd5ef813f59029e4452f77e3874dee88676cc",
         "currentSourceSha256": "89afec31ea77168cb86f94a4919bd5ef813f59029e4452f77e3874dee88676cc",
         "sourceBoundCurrent": true,
-        "auditStatus": "needs-repair",
-        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section054.264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e.retry-1792969500839-d3667291.json",
-        "auditRecordedAt": "2026-10-25T23:05:00.839Z",
+        "auditStatus": "passed",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section054.f3570e7bbe61e0ef99e45a2f4185ed3f0c1fe1840f670783c7fd2402352dedca.json",
+        "auditRecordedAt": "2026-10-27T11:25:33.775Z",
         "deterministicPassed": true,
-        "semanticComplete": false
+        "semanticComplete": true,
+        "revision": {
+          "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section054.display.json",
+          "parentSha256": "264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e",
+          "notesPath": "audit/web/articles/modern-yabejp-ja/chapter01-section054.264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e.retry-1792969500839-d3667291.json",
+          "notesSha256": "78ffbdda38185f4ae14f4caeae0a4e9ac015998658f831714e0bf856cd2a6872",
+          "figureIds": [],
+          "textBlockIds": [
+            "modern-yabejp-ja:chapter01-section054:b0173"
+          ]
+        }
       },
       "pdfRoute": {
         "pagesTotal": 3,
@@ -4900,7 +5075,7 @@
           144
         ]
       },
-      "verdict": "produced-needs-repair",
+      "verdict": "covered-effective",
       "coac246": {
         "action": "repair",
         "auditStatus": "needs-repair",
@@ -4909,6 +5084,19 @@
         "repairErrors": 3,
         "units": 1,
         "blocks": 159
+      },
+      "staging": {
+        "previewOutput": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T12-22-49-037Z",
+        "corpusId": "f223871fd1150357a013b58d29b46d61c90ab537f3674149c1a22311c6995f2e",
+        "previewChapterId": "modern-yabejp-ja-chapter01-section054-chapter",
+        "blocks": 32,
+        "figures": 84,
+        "auditStatus": "passed",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section054.f3570e7bbe61e0ef99e45a2f4185ed3f0c1fe1840f670783c7fd2402352dedca.json",
+        "auditSha256": "5a8a41e7362719b52dd9b013859f9bb406d43865e33fdb548300e00fb60badff",
+        "stageReceiptPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T12-22-49-037Z\\stages\\modern-yabejp-ja-chapter01-section054\\web-stage-receipt.json",
+        "stagedAt": "2026-10-27T12:47:57.578Z",
+        "note": "COAC-249 b5b6 batch (COAC-269 line-B b5): targeted re-translation of b0173 (the all-last vs. all-second-last tree reading); the other 184 blocks are byte-identical and all 84 figures inherit the parent presentationAsset. Independent target-text audit passed 2026-10-27T11:25:33.775Z (receipt f3570e7b); the parent 264116a9 display with its 78ffbdda needs-repair receipt is preserved. Attestation verified on the frozen web-target-text-chain runtime (auditor snapshot 856dad9d, dependency manifest 0aa071a4)."
       }
     },
     {
@@ -5592,8 +5780,8 @@
       "units": 1,
       "ownedSourceBlocks": 39,
       "adjudicationGroup": "confirmed-produced-not-covered",
-      "covered": false,
-      "coverageRoute": null,
+      "covered": true,
+      "coverageRoute": "web",
       "approvedWebCorrespondence": {
         "articleId": "chapter03-section013",
         "webSourceId": "modern-yabejp-ja",
@@ -5601,20 +5789,31 @@
         "evidencePath": "integration/modern-pdf-url-coverage.json",
         "substitutionAllowed": true,
         "bodyEquivalenceConfirmed": false,
-        "articleInPreview": false
+        "articleInPreview": true
       },
       "existingCandidate": {
-        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section013.display.json",
-        "sha256": "37849d97bb734d560b1d8099e8fa97760f6d62cbe6147030bfc7012458654292",
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section013.rev1.json",
+        "sha256": "3d93eb869db859bf35ff7b6ab832cc88b45fbd035bc78018ace54b33ae293ec8",
         "bodyBlocks": 37,
         "sourceSha256": "487d432cf454023931abc6b321412162da65095954a4002fcf733133fecfd863",
         "currentSourceSha256": "487d432cf454023931abc6b321412162da65095954a4002fcf733133fecfd863",
         "sourceBoundCurrent": true,
-        "auditStatus": "needs-repair",
-        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section013.37849d97bb734d560b1d8099e8fa97760f6d62cbe6147030bfc7012458654292.retry-1792984608856-ca1856a7.json",
-        "auditRecordedAt": "2026-10-26T03:16:48.856Z",
+        "auditStatus": "passed",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section013.3d93eb869db859bf35ff7b6ab832cc88b45fbd035bc78018ace54b33ae293ec8.retry-1793095290967-e15ea7b7.json",
+        "auditRecordedAt": "2026-10-27T10:01:30.968Z",
         "deterministicPassed": true,
-        "semanticComplete": false
+        "semanticComplete": true,
+        "revision": {
+          "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section013.display.json",
+          "parentSha256": "37849d97bb734d560b1d8099e8fa97760f6d62cbe6147030bfc7012458654292",
+          "notesPath": "audit/web/articles/modern-yabejp-ja/chapter03-section013.37849d97bb734d560b1d8099e8fa97760f6d62cbe6147030bfc7012458654292.retry-1792984608856-ca1856a7.json",
+          "notesSha256": "3856483c70366c5ba7a225ca80042f4b54072da96b8acfc9f906a78c41fd6f49",
+          "figureIds": [],
+          "textBlockIds": [
+            "modern-yabejp-ja:chapter03-section013:b0006",
+            "modern-yabejp-ja:chapter03-section013:b0009"
+          ]
+        }
       },
       "pdfRoute": {
         "pagesTotal": 1,
@@ -5648,7 +5847,7 @@
           199
         ]
       },
-      "verdict": "produced-needs-repair",
+      "verdict": "covered-effective",
       "coac246": {
         "action": "repair",
         "auditStatus": "needs-repair",
@@ -5657,6 +5856,19 @@
         "repairErrors": 5,
         "units": 1,
         "blocks": 39
+      },
+      "staging": {
+        "previewOutput": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T12-22-49-037Z",
+        "corpusId": "f223871fd1150357a013b58d29b46d61c90ab537f3674149c1a22311c6995f2e",
+        "previewChapterId": "modern-yabejp-ja-chapter03-section013-chapter",
+        "blocks": 10,
+        "figures": 14,
+        "auditStatus": "passed",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section013.3d93eb869db859bf35ff7b6ab832cc88b45fbd035bc78018ace54b33ae293ec8.retry-1793095290967-e15ea7b7.json",
+        "auditSha256": "2247cb220cf2b82a291510f5ca06573c3c8c13720065d63d884bf2499d5c0563",
+        "stageReceiptPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T12-22-49-037Z\\stages\\modern-yabejp-ja-chapter03-section013\\web-stage-receipt.json",
+        "stagedAt": "2026-10-27T12:47:57.578Z",
+        "note": "COAC-248 already-passed companion in the b5b6 handoff (not re-audited by COAC-249): targeted revision of b0006/b0009 (same-paragraph split-pair wording); the other 35 blocks are byte-identical and all 14 figures inherit the parent presentationAsset. The effective receipt is the bound retry of a voided transport call, passed 2026-10-27T10:01:30.968Z; the failed base receipt and the parent 37849d97 display with its 3856483c needs-repair retry receipt are preserved byte-for-byte. Verified on the e89dcffe web-audit base (auditor snapshot 453ba938, dependency manifest ed07f6b8)."
       }
     },
     {
@@ -8533,6 +8745,91 @@
       "detail": "183-1 (chapter03-section003) is independently verified as still unaudited: its only receipt is the parent display needs-repair 889adf0d, and the COAC-269 b3 draft 5083143 has no audit receipt at all, so it is not consumable and stays out of the preview. 283-1 (chapter06-exercise003) latest receipt remains needs-repair.",
       "modelCalls": 0,
       "productionCalls": 0
+    },
+    {
+      "at": "2026-10-27T12:49:07.174Z",
+      "kind": "staged-into-preview",
+      "chapterIds": [
+        "nemata-jp-chapter-199-1",
+        "nemata-jp-chapter-142-1",
+        "nemata-jp-chapter-127-1"
+      ],
+      "detail": "Three passed-but-unstaged chapters are now complete gated chapters in the preview: display 214 to 217, units to 225, blocks to 5981, figures to 4827, selectedWeb to 188, pendingWeb to 35. All 185 prior chapters were retained with identical unit fingerprints, none rewritten, none lost; the formal library is untouched and the previous pointer preserved.",
+      "modelCalls": 0,
+      "productionCalls": 0
+    },
+    {
+      "at": "2026-10-27T12:49:07.174Z",
+      "kind": "held-out",
+      "detail": "027-1 (chapter01-section010, candidate 44ce506d, audit bdb29387 passed 11:27:18Z) is deliberately NOT staged. chapter01-section010 is inside the frozen source-structure hold (integration/source-structure-holds.json, evidence ee816566) and has no entry in integration/definition-boundary-stage-selection.json; integration/stage-definition-chapters.mjs still asserts it held pending an unresolved semantic review of the dt/dd boundary presentation. The targeted revision changes only b0056, so it neither resolves nor waives that boundary question. No hold was lifted, no re-audit performed.",
+      "modelCalls": 0,
+      "productionCalls": 0
+    },
+    {
+      "at": "2026-10-27T12:49:07.174Z",
+      "kind": "wiring-fixes",
+      "detail": "integration/specific-web-variant-selection.v11.json adds the three eligible canonical articles (28 jobs); v10 kept as history at 901cd88f. The builder pin moved to v11 3e222bac and the previous builder is preserved as build-accepted-preview.before-v11-20261027.mjs (a64310c6). The ninth-batch canonical-chapter dedupe stays in force; pre-consume resolves retry receipts the same way textbook-audit-web.mjs does, so 199-1 is correctly recognised as passed through its bound retry of a voided call rather than as a failed base receipt. No model calls, no re-audit.",
+      "modelCalls": 0,
+      "productionCalls": 0
+    },
+    {
+      "at": "2026-10-27T12:49:07.174Z",
+      "kind": "open-items",
+      "detail": "283-1 (chapter06-exercise003) latest receipt remains needs-repair and did not block this batch; 183-1 (chapter03-section003) is still unaudited. Both stay out of the preview.",
+      "modelCalls": 0,
+      "productionCalls": 0
+    },
+    {
+      "at": "2026-10-27T13:10:17.282Z",
+      "kind": "verdict-correction",
+      "chapterIds": [
+        "79-cn-chapter-081-8",
+        "nemata-jp-chapter-027-1",
+        "nemata-jp-chapter-060-1",
+        "nemata-jp-chapter-089-1"
+      ],
+      "detail": "produced-passed-not-staged corrected from 0 to 4 per real independent passed receipts: 027-1 chapter01-section010 coac269rev1 44ce506d receipt bdb29387 passed 2026-10-27T11:27:18.797Z (held, not staged); 081-8 79-bilibili-cn cv1721475.r1 d1fc1ea8 receipt passed 2026-10-27T11:51:50.380Z; 089-1 chapter01-section031 coac269rev1 c5317d99 receipt passed 2026-10-27T12:00:09.252Z; 060-1 chapter01-section021-06 coac269rev1 6de46bfb receipt passed 2026-10-27T12:01:14.606Z. Each candidate sha equals its receipt production sha, each candidate source sha equals its receipt source sha and the current source file, each revision parent is bound by sha, and each receipt carries a passed independent model check. Counters now reconcile 217 covered + 35 needs-repair + 4 passed-not-staged = 256.",
+      "modelCalls": 0,
+      "productionCalls": 0
+    },
+    {
+      "at": "2026-10-27T13:10:17.282Z",
+      "kind": "held-out",
+      "detail": "027-1 is not staged by this run: chapter01-section010 is inside integration/source-structure-holds.json (evidence ee816566), has no entry in integration/definition-boundary-stage-selection.json, and integration/stage-definition-chapters.mjs still asserts it held pending an unresolved semantic review of the dt/dd boundary presentation. Its b0056-only revision neither resolves nor waives that question. No hold lifted, no re-audit performed.",
+      "modelCalls": 0,
+      "productionCalls": 0
+    },
+    {
+      "at": "2026-10-27T13:10:17.282Z",
+      "kind": "not-dispatched",
+      "detail": "081-8, 089-1 and 060-1 are eligible for a zero-model-call stage under the existing flow (passed, source-bound, parent-bound, absent from the preview) but were not named in this dispatch (their receipts postdate the 11:34Z staging-ready-4.json). Left untouched for the next dispatch; none of their files, receipts or candidates was modified or removed.",
+      "modelCalls": 0,
+      "productionCalls": 0
     }
-  ]
+  ],
+  "remainingTypes": {
+    "denominator": "original chapters (256) minus covered (receipt.chapters); one chapter can be one original chapter only, no overlap",
+    "total": 39,
+    "byVerdict": {
+      "produced-needs-repair": 35,
+      "produced-passed-not-staged": 4
+    },
+    "byAdjudicationGroup": {
+      "confirmed-produced-not-covered": 34,
+      "additional-uncovered-not-in-246": 5
+    },
+    "byRoute": {
+      "web": 36,
+      "pdfOnly": 3
+    },
+    "blockedBySourceStructureHold": [
+      "nemata-jp-chapter-027-1"
+    ],
+    "eligibleForNextStage": [
+      "79-cn-chapter-081-8",
+      "nemata-jp-chapter-060-1",
+      "nemata-jp-chapter-089-1"
+    ],
+    "note": "35 remaining chapters are produced but carry no passed receipt for a complete chapter yet (needs-repair or awaiting re-audit). 4 are audited-passed-but-unstaged: 027-1 is held by the frozen source-structure hold (chapter01-section010 has no definition-boundary sidecar/stage proof), and 081-8/089-1/060-1 passed after the dispatched batch list was cut and await the next dispatch. None is unproduced."
+  }
 }
