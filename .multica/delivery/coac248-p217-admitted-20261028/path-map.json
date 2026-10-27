@@ -1,0 +1,435 @@
+{
+  "schema": "coac248-p217-delivery-path-map/1",
+  "originalCommit": "8baacd3d6b689189d4ab94722535652f4969f786",
+  "processingPrefix": "integration/coac248-p217-admitted-20261028",
+  "originalArchiveSha256": "cd897caff00cc096ce8658853ba6f388f13d3958eb8bbf598808cac74a05566b",
+  "scope": "Delivery paths only. Immutable JSON references retain original processing paths; resolve package copies using inputs[*].packagePath.",
+  "inputs": {
+    "parent": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/parent/page-0217.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\candidates\\79-cn\\page-0217.json",
+      "originalPackagePath": "evidence/parent/page-0217.json",
+      "packagePath": "evidence/parent/page-0217.json",
+      "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+      "bytes": 11673
+    },
+    "originalRaw": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/originalRaw/e12aa4a6-65f4-4a23-9579-09f887f568be.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\raw-calls\\e12aa4a6-65f4-4a23-9579-09f887f568be.json",
+      "originalPackagePath": "evidence/originalRaw/e12aa4a6-65f4-4a23-9579-09f887f568be.json",
+      "packagePath": "evidence/originalRaw/e12aa4a6-65f4-4a23-9579-09f887f568be.json",
+      "sha256": "6112c207fc1d5922e88af671f0a02b7e13623af7edee15a18a9b0c76bed59203",
+      "bytes": 22718
+    },
+    "page217": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/page217/217.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\217.json",
+      "originalPackagePath": "evidence/page217/217.json",
+      "packagePath": "evidence/page217/217.json",
+      "sha256": "f8de2eddd4ba2939ae40796ffd8d1d1f971d49474dede72d108e61809ef1d6f8",
+      "bytes": 18715
+    },
+    "page218": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/page218/218.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\218.json",
+      "originalPackagePath": "evidence/page218/218.json",
+      "packagePath": "evidence/page218/218.json",
+      "sha256": "83d1909e9e92a9622c46c9ba0ea46efca12bef60cb27ec5b35d72fcbd8f92abd",
+      "bytes": 19761
+    },
+    "image": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/image/64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+      "originalPackagePath": "evidence/image/64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+      "packagePath": "evidence/image/64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+      "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+      "bytes": 24419
+    },
+    "rev1": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/rev1/page-0217.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair22-20261027-p217\\candidates\\79-cn\\page-0217.json",
+      "originalPackagePath": "evidence/rev1/page-0217.json",
+      "packagePath": "evidence/rev1/page-0217.json",
+      "sha256": "279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494",
+      "bytes": 11439
+    },
+    "rev1Audit": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/rev1Audit/page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json",
+      "originalPackagePath": "evidence/rev1Audit/page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json",
+      "packagePath": "evidence/rev1Audit/audit.json",
+      "sha256": "48188a41382d98a5af7272851ba96f8d209213ee5befb3f4fd2fbf0b738574be",
+      "bytes": 36582
+    },
+    "rev1AuditRaw": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/rev1AuditRaw/95502be0-996e-40be-bcec-1d37e4dbb695.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\95502be0-996e-40be-bcec-1d37e4dbb695.json",
+      "originalPackagePath": "evidence/rev1AuditRaw/95502be0-996e-40be-bcec-1d37e4dbb695.json",
+      "packagePath": "evidence/rev1AuditRaw/95502be0-996e-40be-bcec-1d37e4dbb695.json",
+      "sha256": "2423c2a1205e5b84e5f5ba2cf40a6d8983cbee01a33db324058ce97168081f74",
+      "bytes": 32248
+    },
+    "rev2": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/rev2/page-0217.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair23-20261027-p217b\\candidates\\79-cn\\page-0217.json",
+      "originalPackagePath": "evidence/rev2/page-0217.json",
+      "packagePath": "evidence/rev2/page-0217.json",
+      "sha256": "2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd",
+      "bytes": 11445
+    },
+    "rev2Audit": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/rev2Audit/page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json",
+      "originalPackagePath": "evidence/rev2Audit/page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json",
+      "packagePath": "evidence/rev2Audit/audit.json",
+      "sha256": "70e67fec9ff86c6eeb77019a488c68b2b8836d7610b1b88eee3bb1785348c1b4",
+      "bytes": 39701
+    },
+    "rev2AuditRaw": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/rev2AuditRaw/2b9d82cb-d3fa-4578-ad15-4b8cb22b70d0.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2b9d82cb-d3fa-4578-ad15-4b8cb22b70d0.json",
+      "originalPackagePath": "evidence/rev2AuditRaw/2b9d82cb-d3fa-4578-ad15-4b8cb22b70d0.json",
+      "packagePath": "evidence/rev2AuditRaw/2b9d82cb-d3fa-4578-ad15-4b8cb22b70d0.json",
+      "sha256": "f483dfb21097c6a738a87a6fe2dbe39dd1b20dca844aabf91acee67459e69f16",
+      "bytes": 35274
+    },
+    "rev3": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/rev3/page-0217.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair24-20261027-p217c\\candidates\\79-cn\\page-0217.json",
+      "originalPackagePath": "evidence/rev3/page-0217.json",
+      "packagePath": "evidence/rev3/page-0217.json",
+      "sha256": "ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea",
+      "bytes": 11445
+    },
+    "rev3Audit": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/rev3Audit/page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json",
+      "originalPackagePath": "evidence/rev3Audit/page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json",
+      "packagePath": "evidence/rev3Audit/audit.json",
+      "sha256": "7dc668f386cbc8c4a5f7ee7c253d0958b688f76de48ac6a82edba24e770bb33c",
+      "bytes": 34611
+    },
+    "rev3AuditRaw": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/rev3AuditRaw/a67e7181-9217-47e7-b944-4373d83e5280.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\a67e7181-9217-47e7-b944-4373d83e5280.json",
+      "originalPackagePath": "evidence/rev3AuditRaw/a67e7181-9217-47e7-b944-4373d83e5280.json",
+      "packagePath": "evidence/rev3AuditRaw/a67e7181-9217-47e7-b944-4373d83e5280.json",
+      "sha256": "290cc79e73e41d9c45aacb1b85610b438fcfdb0faffb5708db86a154811174ed",
+      "bytes": 30002
+    },
+    "rev4": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/rev4/page-0217.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair25-20261027-p217d\\candidates\\79-cn\\page-0217.json",
+      "originalPackagePath": "evidence/rev4/page-0217.json",
+      "packagePath": "evidence/rev4/page-0217.json",
+      "sha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101",
+      "bytes": 11573
+    },
+    "parentAudit": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/parentAudit/page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+      "originalPackagePath": "evidence/parentAudit/page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+      "packagePath": "evidence/parentAudit/audit.json",
+      "sha256": "44e101c7fbf8813d9db7a18af177a42b27b51ebaf92945761787b8b25764b3ec",
+      "bytes": 36865
+    },
+    "rev4AuditRaw": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/rev4AuditRaw/4f760999-1648-410e-8452-1c1b4794503f.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4f760999-1648-410e-8452-1c1b4794503f.json",
+      "originalPackagePath": "evidence/rev4AuditRaw/4f760999-1648-410e-8452-1c1b4794503f.json",
+      "packagePath": "evidence/rev4AuditRaw/4f760999-1648-410e-8452-1c1b4794503f.json",
+      "sha256": "accbddb2fafe11ce150f26ecd6ba2c13f93a4c16fd760cb8eb82299ffc1e729d",
+      "bytes": 32526
+    },
+    "rev5": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/rev5/page-0217.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\candidates\\79-cn\\page-0217.json",
+      "originalPackagePath": "evidence/rev5/page-0217.json",
+      "packagePath": "evidence/rev5/page-0217.json",
+      "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+      "bytes": 11673
+    },
+    "north-first": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/north-first/coac249-point-222-p217-20261028.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-point-222-p217-20261028.json",
+      "originalPackagePath": "evidence/north-first/coac249-point-222-p217-20261028.json",
+      "packagePath": "evidence/north-first/coac249-point-222-p217-20261028.json",
+      "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9",
+      "bytes": 9270
+    },
+    "north-first-raw": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/north-first-raw/image-p217-north-second-row.raw.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-p217-north-second-row.raw.json",
+      "originalPackagePath": "evidence/north-first-raw/image-p217-north-second-row.raw.json",
+      "packagePath": "evidence/north-first-raw/image-p217-north-second-row.raw.json",
+      "sha256": "cc7f332d563cfc25106e77b06a097ddcb797450e8c4dbac69110901a8b51e516",
+      "bytes": 15374
+    },
+    "north-second": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/north-second/coac249-p217-second-point-20261028.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-second-point-20261028.json",
+      "originalPackagePath": "evidence/north-second/coac249-p217-second-point-20261028.json",
+      "packagePath": "evidence/north-second/coac249-p217-second-point-20261028.json",
+      "sha256": "b1ee9973976f05f59d32acc9594e78b4d6dc2928a8061bc82a009b709c5cc70d",
+      "bytes": 6724
+    },
+    "north-second-raw": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/north-second-raw/raw.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-p217-second-20261028\\raw.json",
+      "originalPackagePath": "evidence/north-second-raw/raw.json",
+      "packagePath": "evidence/north-second-raw/raw.json",
+      "sha256": "c052de0b93273a683f70e8746fe53b03eb805e6f4ce06ef36aef7aeea6b1e29d",
+      "bytes": 14689
+    },
+    "west-impact": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/west-impact/coac249-p217-west-impact-20261028.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-west-impact-20261028.json",
+      "originalPackagePath": "evidence/west-impact/coac249-p217-west-impact-20261028.json",
+      "packagePath": "evidence/west-impact/coac249-p217-west-impact-20261028.json",
+      "sha256": "1fe84448edbf053d6a61ea4bb550518d6a4875df566347b72964ad8f8a65dedd",
+      "bytes": 35977
+    },
+    "west-impact-raw": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/west-impact-raw/raw.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-p217-west-impact-20261028\\raw.json",
+      "originalPackagePath": "evidence/west-impact-raw/raw.json",
+      "packagePath": "evidence/west-impact-raw/raw.json",
+      "sha256": "fa68f2f3be0e6b2eb496007d6d5638c7cc7aabd322975cfa24e048d96e849e81",
+      "bytes": 38988
+    },
+    "west-impact-receipt": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/west-impact-receipt/receipt.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-p217-west-impact-20261028\\receipt.json",
+      "originalPackagePath": "evidence/west-impact-receipt/receipt.json",
+      "packagePath": "evidence/west-impact-receipt/receipt.json",
+      "sha256": "5f2e2fd009758c3df6d435073bf1f9dcb80c6f033f06213d931a668ef957e18b",
+      "bytes": 7663
+    },
+    "chapter-map": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/chapter-map/chapter-map.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\chapter-map.json",
+      "originalPackagePath": "evidence/chapter-map/chapter-map.json",
+      "packagePath": "evidence/chapter-map/chapter-map.json",
+      "sha256": "d38bbd1a72defef709f4e2f336b3447e4fc677183b88b7e8d6aa050258017a8e",
+      "bytes": 327954
+    },
+    "ownership": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/ownership/source-block-ownership.json",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\source-block-ownership.json",
+      "originalPackagePath": "evidence/ownership/source-block-ownership.json",
+      "packagePath": "evidence/ownership/source-block-ownership.json",
+      "sha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60",
+      "bytes": 4357129
+    },
+    "revision-chain": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/revision-chain/receipt-p217-revision-chain-20261027.json",
+      "originalPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-248-4d73dfa0c906\\worktree\\.multica\\delivery\\coac-248-native-inline-correction\\receipt-p217-revision-chain-20261027.json",
+      "originalPackagePath": "evidence/revision-chain/receipt-p217-revision-chain-20261027.json",
+      "packagePath": "evidence/revision-chain/receipt-p217-revision-chain-20261027.json",
+      "sha256": "9ab2668f250b53c1bc2408025f7b1bd042454150bf980ddcff97cf978287b9bb",
+      "bytes": 4480
+    },
+    "original-render": {
+      "processingPath": "integration/coac248-p217-admitted-20261028/evidence/original-render/page-0217-r1.png",
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\renders\\79-cn\\page-0217-r1.png",
+      "originalPackagePath": "evidence/original-render/page-0217-r1.png",
+      "packagePath": "evidence/original-render/page-0217-r1.png",
+      "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0",
+      "bytes": 86925
+    }
+  },
+  "unchangedFiles": [
+    {
+      "path": "assembled-display.json",
+      "sha256": "982fda3554c0ec35425390968204fa4a9d6a5bf99afa15d8c3f02d9b3ba0d65e"
+    },
+    {
+      "path": "build.py",
+      "sha256": "6e108171b5050a9ccf9a7d973a212d21878e55327ac6e3e76e20b04be85e0d9a"
+    },
+    {
+      "path": "correction-proof.json",
+      "sha256": "a427384e7682f3189e9758ca83bba6916d94fbdd8544f93c1ed59a7cf49951b1"
+    },
+    {
+      "path": "correction.test.mjs",
+      "sha256": "77349fd9179875116c6c8f388ee5f28f63ea45a7883118bf9e059e9f2608d494"
+    },
+    {
+      "path": "diff.json",
+      "sha256": "b7827cfbda97fa1658d76e0e495572e51d55131b1e2426e3632a211b3c1f6442"
+    },
+    {
+      "path": "dispatch249.json",
+      "sha256": "30a9f554aa8de40557412ad6f50656878760eed7991b1c82216d45afe27738af"
+    },
+    {
+      "path": "evidence/chapter-map/chapter-map.json",
+      "sha256": "d38bbd1a72defef709f4e2f336b3447e4fc677183b88b7e8d6aa050258017a8e"
+    },
+    {
+      "path": "evidence/image/64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+      "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978"
+    },
+    {
+      "path": "evidence/north-first-raw/image-p217-north-second-row.raw.json",
+      "sha256": "cc7f332d563cfc25106e77b06a097ddcb797450e8c4dbac69110901a8b51e516"
+    },
+    {
+      "path": "evidence/north-first/coac249-point-222-p217-20261028.json",
+      "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9"
+    },
+    {
+      "path": "evidence/north-second-raw/raw.json",
+      "sha256": "c052de0b93273a683f70e8746fe53b03eb805e6f4ce06ef36aef7aeea6b1e29d"
+    },
+    {
+      "path": "evidence/north-second/coac249-p217-second-point-20261028.json",
+      "sha256": "b1ee9973976f05f59d32acc9594e78b4d6dc2928a8061bc82a009b709c5cc70d"
+    },
+    {
+      "path": "evidence/original-render/page-0217-r1.png",
+      "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0"
+    },
+    {
+      "path": "evidence/originalRaw/e12aa4a6-65f4-4a23-9579-09f887f568be.json",
+      "sha256": "6112c207fc1d5922e88af671f0a02b7e13623af7edee15a18a9b0c76bed59203"
+    },
+    {
+      "path": "evidence/ownership/source-block-ownership.json",
+      "sha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60"
+    },
+    {
+      "path": "evidence/page217/217.json",
+      "sha256": "f8de2eddd4ba2939ae40796ffd8d1d1f971d49474dede72d108e61809ef1d6f8"
+    },
+    {
+      "path": "evidence/page218/218.json",
+      "sha256": "83d1909e9e92a9622c46c9ba0ea46efca12bef60cb27ec5b35d72fcbd8f92abd"
+    },
+    {
+      "path": "evidence/parent/page-0217.json",
+      "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777"
+    },
+    {
+      "path": "evidence/parentAudit/audit.json",
+      "sha256": "44e101c7fbf8813d9db7a18af177a42b27b51ebaf92945761787b8b25764b3ec"
+    },
+    {
+      "path": "evidence/rev1/page-0217.json",
+      "sha256": "279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494"
+    },
+    {
+      "path": "evidence/rev1Audit/audit.json",
+      "sha256": "48188a41382d98a5af7272851ba96f8d209213ee5befb3f4fd2fbf0b738574be"
+    },
+    {
+      "path": "evidence/rev1AuditRaw/95502be0-996e-40be-bcec-1d37e4dbb695.json",
+      "sha256": "2423c2a1205e5b84e5f5ba2cf40a6d8983cbee01a33db324058ce97168081f74"
+    },
+    {
+      "path": "evidence/rev2/page-0217.json",
+      "sha256": "2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd"
+    },
+    {
+      "path": "evidence/rev2Audit/audit.json",
+      "sha256": "70e67fec9ff86c6eeb77019a488c68b2b8836d7610b1b88eee3bb1785348c1b4"
+    },
+    {
+      "path": "evidence/rev2AuditRaw/2b9d82cb-d3fa-4578-ad15-4b8cb22b70d0.json",
+      "sha256": "f483dfb21097c6a738a87a6fe2dbe39dd1b20dca844aabf91acee67459e69f16"
+    },
+    {
+      "path": "evidence/rev3/page-0217.json",
+      "sha256": "ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea"
+    },
+    {
+      "path": "evidence/rev3Audit/audit.json",
+      "sha256": "7dc668f386cbc8c4a5f7ee7c253d0958b688f76de48ac6a82edba24e770bb33c"
+    },
+    {
+      "path": "evidence/rev3AuditRaw/a67e7181-9217-47e7-b944-4373d83e5280.json",
+      "sha256": "290cc79e73e41d9c45aacb1b85610b438fcfdb0faffb5708db86a154811174ed"
+    },
+    {
+      "path": "evidence/rev4/page-0217.json",
+      "sha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101"
+    },
+    {
+      "path": "evidence/rev4AuditRaw/4f760999-1648-410e-8452-1c1b4794503f.json",
+      "sha256": "accbddb2fafe11ce150f26ecd6ba2c13f93a4c16fd760cb8eb82299ffc1e729d"
+    },
+    {
+      "path": "evidence/rev5/page-0217.json",
+      "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777"
+    },
+    {
+      "path": "evidence/revision-chain/receipt-p217-revision-chain-20261027.json",
+      "sha256": "9ab2668f250b53c1bc2408025f7b1bd042454150bf980ddcff97cf978287b9bb"
+    },
+    {
+      "path": "evidence/west-impact-raw/raw.json",
+      "sha256": "fa68f2f3be0e6b2eb496007d6d5638c7cc7aabd322975cfa24e048d96e849e81"
+    },
+    {
+      "path": "evidence/west-impact-receipt/receipt.json",
+      "sha256": "5f2e2fd009758c3df6d435073bf1f9dcb80c6f033f06213d931a668ef957e18b"
+    },
+    {
+      "path": "evidence/west-impact/coac249-p217-west-impact-20261028.json",
+      "sha256": "1fe84448edbf053d6a61ea4bb550518d6a4875df566347b72964ad8f8a65dedd"
+    },
+    {
+      "path": "finalize.py",
+      "sha256": "f7cc25d8a9c60d4a8c855837eafccab6330a20cdfdd61ce6fe8b3053eff8e2ba"
+    },
+    {
+      "path": "handoff.json",
+      "sha256": "f4b7983a77deb15932119c2a30f3806bf29e18f0910c1004d40e4c27417e124e"
+    },
+    {
+      "path": "instruction249.md",
+      "sha256": "db424172f3b2c09a63e9b6df9bf72aca9d1368240b04018ff0e2c0917d275c5d"
+    },
+    {
+      "path": "native-inline-field-corrections.p217.root-acceptance.json",
+      "sha256": "5fc316e8150c927e0c49bfb49b120a348040ee6c7707847984d585b8023cf8f7"
+    },
+    {
+      "path": "owner217-update.json",
+      "sha256": "bf594722a4d91238e85fd67c1b5e78218ebcd52e388a875a6310802bdf111356"
+    },
+    {
+      "path": "page-0217.rev6.json",
+      "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54"
+    },
+    {
+      "path": "round.json",
+      "sha256": "097f32272a178764103e15d2ff8ae4658babf4cecdbef402d2e783e1db307dd2"
+    },
+    {
+      "path": "runtime-manifest.json",
+      "sha256": "e039ca388aefec50a88ee33f84f2d5fc41d70a82014282c701ba89652ba8eae9"
+    },
+    {
+      "path": "runtime/textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "532e7a0c1baa33024e9ef52a7a806b6cbeff2125455d9cdc6b73fd8a92d01e71"
+    },
+    {
+      "path": "runtime/textbook-audit-pdf-p217-correction.mjs",
+      "sha256": "2e3d02dc0c807c6fe0283aeee9e8198a83e0a7e5a0ecd60822b29e396877fad8"
+    },
+    {
+      "path": "tests.log",
+      "sha256": "b53a271c263e91f029c978f212e90df1e958909ae291a4fd31fe65ff6ef0f3f1"
+    },
+    {
+      "path": "verification.json",
+      "sha256": "e770699f3e80e3cf2eb82a1cb357a27cff74d10d8d925b0afa061facc141971d"
+    },
+    {
+      "path": "verify.mjs",
+      "sha256": "deec89482c7a3ec5d2f530933d29d29036f9854139fd9562ae5abfff588a6eb3"
+    }
+  ]
+}

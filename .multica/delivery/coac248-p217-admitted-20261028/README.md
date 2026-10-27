@@ -12,3 +12,21 @@
 ```
 
 运行时先验证固定准入文件，再验证候选及29项输入SHA，核原始响应/独审结果一致、完整父审正文覆盖、canonical/ownership、精确字段白名单和218注释锚点。`verify.mjs`另将仅批准的序列化字段修改反向撤销，要求完整文件字节恢复为父稿SHA。无新passed回执；旧审仍为needs-repair。COAC249下一步仅零调用核证据一致性；通过后将限定字段证明与展示投影交250。PDF218–220完整生产/验收、整章覆盖与网页变体仍是各自原有scope，不能凭本包放行整章。西家教学影响已独立验明，不再当作识图待办。
+
+
+Delivery path repair (COAC-269, zero model calls): four historical audit copies now use
+`evidence/{parentAudit,rev1Audit,rev2Audit,rev3Audit}/audit.json` so Windows Multica
+worktrees can check out this branch without long-path configuration changes.
+`path-map.json` maps every one of the 29 input bindings to its package path, full original
+processing path and SHA256. The ZIP uses the same short paths and includes the map.
+Original JSON references still identify the immutable processing-root evidence; when
+reading a package copy, resolve them through `inputs[*].packagePath` in this map.
+Candidate, raw, audit, admission, runtime, build/finalize scripts and all their hashes
+are unchanged. Do not rerun build/finalize to repair packaging; those historical scripts
+also write processing data. No files in the processing root were changed by this repair.
+
+Read-only package check (no processing root or model needed):
+
+```powershell
+python ./verify-package.py
+```
