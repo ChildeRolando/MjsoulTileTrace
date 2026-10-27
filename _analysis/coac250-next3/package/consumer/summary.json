@@ -1,0 +1,78 @@
+[
+  {
+    "key": "100",
+    "canonical": "nemata-jp-chapter-100-1",
+    "status": "needs-repair",
+    "callId": "c821f2f0-903b-47f5-8bcc-81db3be2044d",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "images": 0,
+    "usage": {
+      "inputTokens": 64082,
+      "cachedInputTokens": 0,
+      "outputTokens": 12374
+    },
+    "durationMs": 159063,
+    "receiptSha256": "5de11b596e0e5da73d0093fad96180cc1388db94a7d3ea09d587dcaff6c0b2e1",
+    "rawSha256": "ec474aaa993b0b00e697cbf95cd3c9448259746f84b5840912080fda27a6efe6",
+    "sidecar": null,
+    "handoffSha256": "e3ffec55992ef79d1e4bdbd84d058b07d4d5f4b9f10daa44f60893193bd202b0",
+    "modelConclusion": "原batch002目标68块已全部比较。A/B定义及题解关联保持，b0041的有效字牌限制需修复，其余67块忠实。28图、135次图片表示继承原同SHA独立检查，本次无新视觉审校；未重审其他已通过组。",
+    "unknownReading": null,
+    "requiredAction": null
+  },
+  {
+    "key": "159",
+    "canonical": "79-cn-chapter-159-9",
+    "status": "needs-repair",
+    "callId": "50eb7aaf-2b54-410c-b41b-b11059eae75f",
+    "model": "gpt-6.1-terra",
+    "effort": "max",
+    "images": 5,
+    "usage": {
+      "inputTokens": 21248,
+      "cachedInputTokens": 0,
+      "outputTokens": 17432
+    },
+    "durationMs": 229062,
+    "receiptSha256": "8b51355cf5799eb50fd6a60767d8dddb407f47f9e99e0f5fe8eb3399e6685901",
+    "rawSha256": "12e1b8c6c7e88b3474b2a6a8aa2d56a27a62e64d9c3a5b36a396c365c94177bf",
+    "sidecar": null,
+    "handoffSha256": "29e1def05620613d1d480d530e89682f06bc89eac54dcff055e118bde7ca8361",
+    "modelConclusion": "limited-unknown-acceptable",
+    "unknownReading": {
+      "status": "unknown",
+      "tileCode": "unknown",
+      "evidence": "目标牌可辨为万子，但原图和单牌裁剪中黑色数字笔画的细节不足，不能可靠区分其数字。四倍图是同一像素的最近邻放大，没有提供新的独立图像证据。",
+      "limitations": "保持原朝向，不根据牌理、鸣牌规则、其他审查结论或像素相关率补出数字。原图、裁剪及放大图属于同一来源，不重复计牌。"
+    },
+    "requiredAction": "维持该牌 unknown、原图绑定和现有原文条件及例外；仅在这一限定范围内接受其忠实展示。如需进行具体万子计数或逐牌鸣牌核验，须先取得足以辨识该牌的可靠证据，当前不作该项验收。本次不制作或修改候选。"
+  },
+  {
+    "key": "242",
+    "canonical": "79-cn-chapter-242-3",
+    "status": "needs-repair",
+    "callId": "d98dff34-cf8b-4341-8d00-37a31a1e0db8",
+    "model": "gpt-6.1-terra",
+    "effort": "max",
+    "images": 5,
+    "usage": {
+      "inputTokens": 25844,
+      "cachedInputTokens": 0,
+      "outputTokens": 14949
+    },
+    "durationMs": 214515,
+    "receiptSha256": "255a4ff5e7858e7b7b28353a882b834c53b79dc820dc269f53b218172bc1cbb9",
+    "rawSha256": "5dfef83403e9f6221a035a3a584166f12bea2a210b50b91563f8014844ad3074",
+    "sidecar": null,
+    "handoffSha256": "b1fbb0e5b01c8a29c6c60ae4cfc6fcdccdee32e8b0d0fb8fb77ad4e9a4dd1ee3",
+    "modelConclusion": "limited-unknown-acceptable",
+    "unknownReading": {
+      "status": "unknown",
+      "tileCode": "unknown",
+      "evidence": "目标是原朝向倒置的万子牌；红色万字符号可见，但我不能从原图及准确裁剪中的黑色数字笔画可靠地区分其具体点数。",
+      "limitations": "4倍最近邻图只是同一原图像素的放大，不提供独立细节；没有根据牌理、原文另提的3万、旧审结果或像素相关率补数。"
+    },
+    "requiredAction": "保留原图、目标位置的?m及其无法可靠辨点说明，并保留例1原文的条件和判断力度。不要猜填点数，也不要把作者的推测或定性判断写成已独立验证的具体和牌与结算结果。本次无需制作或修改候选。"
+  }
+]

@@ -1,0 +1,11 @@
+--- a/docs/plans/2026-10-24-full-textbook-processing.md
++++ b/docs/plans/2026-10-24-full-textbook-processing.md
+@@ -107,3 +107,8 @@
+ 剩余集成条件：审校全部已制作 PDF 稿；完成网页来源清单、逐段复用/版本差异及缺章登记；一章端到端样例通过后仅补未完成内容；日文标题须有独立已审中文段，全部牌例、原图和出处可追溯；最终单一 corpus 完成后用真实 MCP 遍历全部目录、父单元和图片。制作与校对按 callId 分阶段统计实际 token，未知不归零。原 687 页覆盖和工程测试不冒充网页正文已完成。
+ 
+ 后续局部检查：publisher 的特殊审校状态证据、异批次候选选择及候选篡改拒绝测试已补齐，当前该测试文件 11 项通过；此前 182 项收据仍作为当时检查记录，不表示本轮新增内容已经完成全量校对。
++
++
++### COAC-250：159/242 已授权限定 unknown 忠实性准入
++
++只允许 `integration/coac250-limited-159242-20261028/contract.json` 绑定的两个原候选及独立补证。沿原门禁复验来源、制作、原审/raw 与全部未改范围；限定靶点消费真实 terra/max 的作者论证忠实性结论，保留牌码 unknown 和仍 uncertain 的战术依赖。采用单独 `admitted-exact-limited-unknown-fidelity` 准入状态，不修改原 needs-repair 回执，不伪称普通整章 passed；完整 MCP/Arena 回读后才计覆盖。其它章及普通门禁不变，本阶段模型与制作均0。

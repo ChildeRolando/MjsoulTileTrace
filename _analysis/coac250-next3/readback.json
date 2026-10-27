@@ -1,0 +1,503 @@
+{
+  "schema": "coac250-limited-159242-readback/1",
+  "allPassed": true,
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T21-43-02-930Z",
+    "corpusId": "080e21490d0504e4b1cf9cd6867897d373c31de8a6c794f40c174038d61c0108",
+    "chapters": 236,
+    "units": 244,
+    "blocks": 6420,
+    "figures": 5138
+  },
+  "chapters": [
+    {
+      "canonical": "79-cn-chapter-159-9",
+      "candidateSha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+      "sourceBlocks": 14,
+      "compiledBlocks": 14,
+      "figures": 5,
+      "pages": [
+        {
+          "offset": 0,
+          "blocks": 14,
+          "nextOffset": null
+        }
+      ],
+      "images": [
+        {
+          "figureId": "79-bilibili-cn-cv1751292-b5",
+          "sha256": "2fbc52e6bc534475b7516edaf3ad4ab95d72d8123f11de5b83af2b2c996d28db",
+          "mcpImageBytesExact": true
+        },
+        {
+          "figureId": "79-bilibili-cn-cv1751292-b7",
+          "sha256": "b7c9d8a1c626a120715f1acf1dd317d1c700e8e155c166048ee60129d5ab3d7a",
+          "mcpImageBytesExact": true
+        },
+        {
+          "figureId": "79-bilibili-cn-cv1751292-b9",
+          "sha256": "71bdb95af64e03124da11c60e5e1857de50c5bd9c4d459409289b6f0a6e7b28d",
+          "mcpImageBytesExact": true
+        },
+        {
+          "figureId": "79-bilibili-cn-cv1751292-b11",
+          "sha256": "c5aa598b7c53a732b1fb616004d8816e3e3abdb53e25b254e32183337c460d7a",
+          "mcpImageBytesExact": true
+        },
+        {
+          "figureId": "79-bilibili-cn-cv1751292-b13",
+          "sha256": "f569ff1b2268ef525785246daeceba562ec6c0b2673435441995534ad274f5a4",
+          "mcpImageBytesExact": true
+        }
+      ],
+      "originalAssets": [
+        {
+          "assetId": "79-bilibili-cn:1d9f23b9da97b9f08b866407",
+          "path": "web-sources/v1/79-bilibili-cn/assets/cd50425dab020a12e7cba884443a989c000ce9724341d77f9d1da91e70fb4615.png",
+          "sha256": "cd50425dab020a12e7cba884443a989c000ce9724341d77f9d1da91e70fb4615",
+          "url": "https://i0.hdslb.com/bfs/article/622417ac91162f315721e48cb9ebf8a2dd9e6583.png"
+        },
+        {
+          "assetId": "79-bilibili-cn:a1da8e9c213bb3be35b18390",
+          "path": "web-sources/v1/79-bilibili-cn/assets/1d93ddcd06145ab1990598d3ee57bc2d2a34d570627ff01ec08b661912278065.png",
+          "sha256": "1d93ddcd06145ab1990598d3ee57bc2d2a34d570627ff01ec08b661912278065",
+          "url": "https://i0.hdslb.com/bfs/article/4bede5fd32222d7c99247e81f46bcc81d3e6af60.png"
+        },
+        {
+          "assetId": "79-bilibili-cn:597b1510dcb909f504c76390",
+          "path": "web-sources/v1/79-bilibili-cn/assets/9ecdffcab6f3dfed345abbf584aa7b5b358ff71f0f931370bf8b2ee9a0a0d777.png",
+          "sha256": "9ecdffcab6f3dfed345abbf584aa7b5b358ff71f0f931370bf8b2ee9a0a0d777",
+          "url": "https://i0.hdslb.com/bfs/article/67e380e97afa7a1e98624b04c3da60f969ad0a6c.png"
+        },
+        {
+          "assetId": "79-bilibili-cn:edf9b22aa46004cc289167a2",
+          "path": "web-sources/v1/79-bilibili-cn/assets/a0cd417c0d5a5fe2ac3d942d48310be7e1953f49cb1cd1cb25e41e8349103876.png",
+          "sha256": "a0cd417c0d5a5fe2ac3d942d48310be7e1953f49cb1cd1cb25e41e8349103876",
+          "url": "https://i0.hdslb.com/bfs/article/c0dc34a1de64dbf6dc0a39ea2372c1933587a200.png"
+        },
+        {
+          "assetId": "79-bilibili-cn:55168dc17a7678541d5a5343",
+          "path": "web-sources/v1/79-bilibili-cn/assets/e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952.png",
+          "sha256": "e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952",
+          "url": "https://i0.hdslb.com/bfs/article/b2f255c0af09dfb0024e53aa1bad6f31e9b18544.png"
+        }
+      ],
+      "fullBodyFieldsExact": true,
+      "htmlFullChapterExact": true,
+      "sourceSegmentsAndEmphasisExact": true,
+      "unknowns": [
+        "上方牌河按画面从左到右第4张：可辨为万子牌，数字无法可靠确认。"
+      ],
+      "captionUnchanged": true,
+      "authorConditionsPreserved": true,
+      "oldReviewStatus": "needs-repair",
+      "technicalReceiptStatus": "needs-repair",
+      "standardWholeArticlePassed": false,
+      "admission": "admitted-exact-limited-unknown-fidelity",
+      "uncertainTacticalDependenciesRetained": [
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "根据例4的点数情况，等着南出来太过优柔寡断了。",
+          "claim": "作者依据例4的点数情况，判断等待南出现过于犹豫。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "原文明确给出的理由是点数情况，没有把 [298,126,324,161] 的数字列为理由。对具体战术作全面独立评估时，未知万子的数字可能影响可见数量；不能仅因它位于牌河就断定它对所有具体评估都无关。",
+          "neededLimitation": "保留为作者针对例4点数情况的判断；不把照录该判断当成已独立证明其绝对正确。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "虽然鸣牌之后手牌会有点散，但也要朝着这1500点去。",
+          "claim": "作者预计鸣牌后手牌会有点散，同时仍建议朝1500点的目标前进。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "原句没有指定此处是哪一次鸣牌，也没有说目标牌是某个数字。保留作者的权衡不需猜数；若要逐项核验具体鸣牌及其结果，不能从这处未知牌补出所需信息。",
+          "neededLimitation": "保留“有点散”与“朝着”两种力度；1500点是作者提出的目标，不是已实现或保证实现的得点。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "这个牌能鸣牌的时候都鸣了吧（当然5万的碰是不行的= =）",
+          "claim": "作者建议这手牌在能鸣牌时积极鸣牌，并明确排除5万的碰。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "建议的条件和例外在文字中明确给出，不需要把上方第四张认成某个数字才能忠实保留。该数字可能关系到具体万子已见数和逐牌核验，原文没有将它明确关联到某个可鸣牌清单。",
+          "neededLimitation": "必须同时保留“能鸣牌的时候”和5万碰例外；不要扩写为任何牌都可鸣，也不要根据未知牌列出完整可鸣清单。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "（当然5万的碰是不行的= =）",
+          "claim": "5万的碰是作者对上一条建议明确写出的例外。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "作者直接写出了例外，但没有在该段说明其详细理由，也没有说上方牌河第四张就是5万。未知数字是否会影响某项具体牌数或鸣牌核验，不能由这句话单独确定。",
+          "neededLimitation": "原样保留例外，不把目标未知牌当作5万，也不自行补写例外的原因或宣称已独立验证其规则依据。"
+        }
+      ],
+      "sourceNotes": []
+    },
+    {
+      "canonical": "79-cn-chapter-242-3",
+      "candidateSha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+      "sourceBlocks": 53,
+      "compiledBlocks": 53,
+      "figures": 5,
+      "pages": [
+        {
+          "offset": 0,
+          "blocks": 35,
+          "nextOffset": 35
+        },
+        {
+          "offset": 35,
+          "blocks": 18,
+          "nextOffset": null
+        }
+      ],
+      "images": [
+        {
+          "figureId": "79-bilibili-cn-cv1780438-b14",
+          "sha256": "b400b01e3175dd3cb71cd0991dcc4a60793bf703eb629624a46802fa3a9a6f75",
+          "mcpImageBytesExact": true
+        },
+        {
+          "figureId": "79-bilibili-cn-cv1780438-b24",
+          "sha256": "3b1e1d68869cbb90fe0bafdea6cc618024ef69512abcc10b62edd15ed2eb196a",
+          "mcpImageBytesExact": true
+        },
+        {
+          "figureId": "79-bilibili-cn-cv1780438-b31",
+          "sha256": "179fb802a933e608a95fc0e744980146c52f0a244bd1690e0fb6519ea13a9026",
+          "mcpImageBytesExact": true
+        },
+        {
+          "figureId": "79-bilibili-cn-cv1780438-b40",
+          "sha256": "63318c2dad959c1d2ff4587927e2d7167e5735e8248b802fab5ab705525e0ece",
+          "mcpImageBytesExact": true
+        },
+        {
+          "figureId": "79-bilibili-cn-cv1780438-b47",
+          "sha256": "5e3b10433442fe331480530f0a4755502c8ea0f4c3f7460283f8c2da4778e3e2",
+          "mcpImageBytesExact": true
+        }
+      ],
+      "originalAssets": [
+        {
+          "assetId": "79-bilibili-cn:070bead8b6b4ebb7878bad91",
+          "path": "web-sources/v1/79-bilibili-cn/assets/fe9214ed1d4cb16f1a0d857c1f08093f5038203abc349f1b89f1ce054c734618.jpg",
+          "sha256": "fe9214ed1d4cb16f1a0d857c1f08093f5038203abc349f1b89f1ce054c734618",
+          "url": "https://i0.hdslb.com/bfs/article/36015ed2e9af80e43eb815af674340bb2cf3246a.jpg"
+        },
+        {
+          "assetId": "79-bilibili-cn:b4630b4e04d8353c69a2f2bf",
+          "path": "web-sources/v1/79-bilibili-cn/assets/c510674b75ecd5f83830739b09e8dd05999a9899fa8de922d3063e1343112c24.jpg",
+          "sha256": "c510674b75ecd5f83830739b09e8dd05999a9899fa8de922d3063e1343112c24",
+          "url": "https://i0.hdslb.com/bfs/article/28f42835e3f481e5431f002c9476a895a2ff4366.jpg"
+        },
+        {
+          "assetId": "79-bilibili-cn:00732388f88c45add3ee2522",
+          "path": "web-sources/v1/79-bilibili-cn/assets/458da357d2401205a8be741bd65dcfa11304aa33caaa1af2e723ffc8dcd1001e.jpg",
+          "sha256": "458da357d2401205a8be741bd65dcfa11304aa33caaa1af2e723ffc8dcd1001e",
+          "url": "https://i0.hdslb.com/bfs/article/210f24a9c0e89608fe096cfd6d1977c2e3ced71b.jpg"
+        },
+        {
+          "assetId": "79-bilibili-cn:13269de420f9c4444553ef13",
+          "path": "web-sources/v1/79-bilibili-cn/assets/bb18441ada87f9e556561922d859849beb03a5e74dc229b1b1554f2a438c47ff.jpg",
+          "sha256": "bb18441ada87f9e556561922d859849beb03a5e74dc229b1b1554f2a438c47ff",
+          "url": "https://i0.hdslb.com/bfs/article/831d1b0f065f3c2c77077293b792594584a09654.jpg"
+        },
+        {
+          "assetId": "79-bilibili-cn:4c1ade795826aef525f9a581",
+          "path": "web-sources/v1/79-bilibili-cn/assets/9583df5c96dd8428540974fcd7a109cf281fb74a54706e8db95f13432e04729a.jpg",
+          "sha256": "9583df5c96dd8428540974fcd7a109cf281fb74a54706e8db95f13432e04729a",
+          "url": "https://i0.hdslb.com/bfs/article/964401e962d5dab3835129c44fa28766892b7085.jpg"
+        }
+      ],
+      "fullBodyFieldsExact": true,
+      "htmlFullChapterExact": true,
+      "sourceSegmentsAndEmphasisExact": true,
+      "unknowns": [
+        "上方牌河靠近中央一行的屏幕最左侧万子牌：无法可靠辨认具体点数，转录为?m。"
+      ],
+      "captionUnchanged": true,
+      "authorConditionsPreserved": true,
+      "oldReviewStatus": "needs-repair",
+      "technicalReceiptStatus": "needs-repair",
+      "standardWholeArticlePassed": false,
+      "admission": "admitted-exact-limited-unknown-fidelity",
+      "uncertainTacticalDependenciesRetained": [
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1780438:b0017"
+          ],
+          "sourceQuote": "但是和TOP的差距是基本没缩小。",
+          "claim": "对于前述吃牌方案，作者判断与TOP的差距基本没有缩小。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "这是原文对该方案的定性判断，保留原话不需要猜目标数字；原文没有给出完整的最终和牌构成与具体结算，单凭现有材料不能把它升级为独立复算结果，也不能断言目标数字对任何完整复盘均无影响。",
+          "neededLimitation": "保留“基本”并作为作者判断呈现，不添加具体得分或声称完成了独立复算。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1780438:b0018"
+          ],
+          "sourceQuote": "这种情况是应该要凹门清立直的牌。",
+          "claim": "在例1的争TOP情境下，作者建议争取门清立直。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "作者的明示论证是争TOP时比较吃3万的小牌与门清立直的打点，没有把上方目标牌的点数列为明示理由。可以保留该建议；仅凭未知牌不能独立证明该建议在所有完整牌面复盘中都最优。",
+          "neededLimitation": "作为此情境下的作者建议保留，不声称已证明绝对最优。"
+        }
+      ],
+      "sourceNotes": [
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1780438:b0014:figure",
+          "sourceEvidence": "sourceNotes称“附件1为原图，附件2为同一原图的最近邻放大视图”；本次实际对应附件1、6。",
+          "description": "加工附件配对编号有误，不影响牌面教学内容。",
+          "suggestedRepair": "将配对编号改为原图附件1、放大图附件6。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1780438:b0024:figure",
+          "sourceEvidence": "sourceNotes称原图、放大图为附件3、4；本次实际对应附件2、7。",
+          "description": "加工附件配对编号有误，不影响牌面教学内容。",
+          "suggestedRepair": "将配对编号改为原图附件2、放大图附件7。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1780438:b0031:figure",
+          "sourceEvidence": "sourceNotes称原图、放大图为附件5、6；本次实际对应附件3、8。",
+          "description": "加工附件配对编号有误，不影响例3牌码和图例标签。",
+          "suggestedRepair": "将配对编号改为原图附件3、放大图附件8。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1780438:b0040:figure",
+          "sourceEvidence": "sourceNotes称原图、放大图为附件7、8；本次实际对应附件4、9。",
+          "description": "加工附件配对编号有误，不影响例4牌码和图例标签。",
+          "suggestedRepair": "将配对编号改为原图附件4、放大图附件9。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1780438:b0047:figure",
+          "sourceEvidence": "sourceNotes称原图、放大图为附件9、10；本次实际对应附件5、10。",
+          "description": "加工附件中的原图编号有误，不影响牌面教学内容。",
+          "suggestedRepair": "将原图编号改为附件5，放大图附件10保持不变。"
+        }
+      ]
+    }
+  ],
+  "priorUnitsUnchanged": 242,
+  "fullMcp": {
+    "units": 244,
+    "images": 5138
+  },
+  "arena": {
+    "units": 244,
+    "exactBody": true
+  },
+  "crossChapterSourceCollisions": 0,
+  "allOtherHoldsAndSelectionsPreserved": true,
+  "chapter100Accepted": false,
+  "mcpCalls": [
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 0,
+        "limit": 20
+      },
+      "textBytes": 4758
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 20,
+        "limit": 20
+      },
+      "textBytes": 4852
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 40,
+        "limit": 20
+      },
+      "textBytes": 4910
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 60,
+        "limit": 20
+      },
+      "textBytes": 5054
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 80,
+        "limit": 20
+      },
+      "textBytes": 5122
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 100,
+        "limit": 20
+      },
+      "textBytes": 5127
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 120,
+        "limit": 20
+      },
+      "textBytes": 5098
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 140,
+        "limit": 20
+      },
+      "textBytes": 5011
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 160,
+        "limit": 20
+      },
+      "textBytes": 5060
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 180,
+        "limit": 20
+      },
+      "textBytes": 4392
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 200,
+        "limit": 20
+      },
+      "textBytes": 2817
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 220,
+        "limit": 20
+      },
+      "textBytes": 3769
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1751292-argument",
+        "blockOffset": 0
+      },
+      "textBytes": 11677
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1751292-b5"
+      },
+      "textBytes": 1043
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1751292-b7"
+      },
+      "textBytes": 1019
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1751292-b9"
+      },
+      "textBytes": 1043
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1751292-b11"
+      },
+      "textBytes": 981
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1751292-b13"
+      },
+      "textBytes": 2017
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1780438-argument",
+        "blockOffset": 0
+      },
+      "textBytes": 14727
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1780438-argument",
+        "blockOffset": 35
+      },
+      "textBytes": 8246
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1780438-b14"
+      },
+      "textBytes": 2149
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1780438-b24"
+      },
+      "textBytes": 1484
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1780438-b31"
+      },
+      "textBytes": 1145
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1780438-b40"
+      },
+      "textBytes": 1145
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1780438-b47"
+      },
+      "textBytes": 1783
+    }
+  ],
+  "modelCalls": 0,
+  "activeLibraryChanged": false
+}

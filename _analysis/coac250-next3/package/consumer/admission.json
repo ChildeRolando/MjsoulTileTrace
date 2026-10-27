@@ -1,0 +1,66 @@
+{
+  "recordedAt": "2026-10-27T21:21:08.714Z",
+  "modelCalls": 0,
+  "passed": true,
+  "maxNewCalls": 3,
+  "maxWorkers": 2,
+  "retry": 0,
+  "authorizationComment": "01a17f29-cddf-7108-91df-146ccfb0939f",
+  "pointerSha256": "eebea3ac861b606e01f0617b57d3a5cf8279287ff01a95e53616c95bd13fe90a",
+  "registerSha256": "af6085badf9466c74babe7d51698e2b5a33d3af27b8db51162a1a69a0943b65f",
+  "admissions": [
+    {
+      "key": "100",
+      "canonical": "nemata-jp-chapter-100-1",
+      "priorCalls": [
+        "323bf6ca-9ef6-42ea-8599-85c95c780c4f",
+        "4fe2d7b1-cf5f-47e8-9b46-5b0ea849216a",
+        "3cf56d4f-ce16-4399-8ef4-779ca15fe544"
+      ],
+      "audits": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json",
+          "status": "needs-repair",
+          "sha256": "51a7871f3be891b712baa492b6a190e0b6b28f9931f4670f505f32842e1d7e9a"
+        }
+      ],
+      "requestSha256": "0a931da9bc5d7908ad28a07915aac7b9f5f8a3544342b55dd291d45ef7cdaca2"
+    },
+    {
+      "key": "159",
+      "canonical": "79-cn-chapter-159-9",
+      "priorCalls": [
+        "5494b430-f86c-45c8-a595-54d97404a066",
+        "5477ed1b-a10d-45ed-ae56-c6acaeb39464"
+      ],
+      "audits": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.json",
+          "status": "failed",
+          "sha256": "483e045b3bbb1d15d8250ca11d819120f6add84c346e6c73aed4286466ded203"
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json",
+          "status": "needs-repair",
+          "sha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed"
+        }
+      ],
+      "requestSha256": "dcca623694bb39d0cc5beb931f05ecf375c7f4f23a92c150dfb997ff83210730"
+    },
+    {
+      "key": "242",
+      "canonical": "79-cn-chapter-242-3",
+      "priorCalls": [
+        "770655dc-b68f-4ced-8433-92bc0854431f"
+      ],
+      "audits": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780438.62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa.json",
+          "status": "needs-repair",
+          "sha256": "332731f14ba75be91479bdefe77bb1a0026fe31d600b693d73d0e62db8ba8515"
+        }
+      ],
+      "requestSha256": "0aebcfb202ae3c4117e418e372d796c0b39fc4c90cb8fdef6c2d7b5da1872fee"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "schema": "coac250-limited-159242-coverage/1",
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T21-43-02-930Z",
+    "corpusId": "080e21490d0504e4b1cf9cd6867897d373c31de8a6c794f40c174038d61c0108",
+    "chapters": 236,
+    "units": 244,
+    "blocks": 6420,
+    "figures": 5138
+  },
+  "coverage": {
+    "originalChaptersCovered": 235,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 267,
+    "originalUnitsTotal": 303
+  },
+  "remainingChapters": 21,
+  "newChapters": [
+    "79-cn-chapter-159-9",
+    "79-cn-chapter-242-3"
+  ],
+  "newSourceBlocks": 67,
+  "newFigures": 10,
+  "standardWholeArticlePassed": false,
+  "admission": "admitted-exact-limited-unknown-fidelity",
+  "chapter100Accepted": false,
+  "chapter100RemainingIssue": [
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter01-section035:b0041",
+      "sourceEvidence": "b0041：「役牌トイツ１組＋生きている字牌２〜３種」；b0038明确解释：「生きている（２枚以上切れてない）孤立字牌」。候选为「1组役牌对子＋仍有剩余的字牌2～3种」。",
+      "description": "「仍有剩余」不足以表达尚未被打出2张以上的限制，可能把已经打出2张、但仍有余牌的字牌也计入，扩大积极染手的适用条件。补充上下文能够确定原意，但不能使该处译文自动忠实。",
+      "suggestedRepair": "将括号内对应部分改为「或1组役牌对子＋2～3种仍然有效（尚未被打出2张以上）的字牌」。"
+    }
+  ],
+  "register": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+    "beforeSha256": "af6085badf9466c74babe7d51698e2b5a33d3af27b8db51162a1a69a0943b65f",
+    "afterSha256": "555d85620da68f316b27af0f1a4e2f6c934ce1787843d10c41f0d111de9fbf26",
+    "backup": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.before-coac250-159242-2026-10-27T21-46-26-836Z.json"
+  },
+  "closureOwner": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+    "beforeSha256": "db57d766acca90963351279631eb6188ef831712b1969f3727912b6dca5e5a1a",
+    "afterSha256": "a1d049408379ac38a3e09d3d3540451fb8767486d7d1f4472af73eaf4d2a5055",
+    "backup": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.before-coac250-159242-2026-10-27T21-46-26-847Z.json"
+  },
+  "modelCalls": 0,
+  "activeLibraryChanged": false
+}

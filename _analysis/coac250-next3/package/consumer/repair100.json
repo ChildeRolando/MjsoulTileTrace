@@ -1,0 +1,81 @@
+{
+  "schema": "coac249-100-minimal-repair-requirement/1",
+  "recordedAt": "2026-10-27T21:27:38.427Z",
+  "canonical": "nemata-jp-chapter-100-1",
+  "status": "specific-translation-condition-error-no-new-production-authorized",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.display.json",
+    "sha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+    "bytes": 1236462
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter01-section035\\source.json",
+    "sha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+    "bytes": 774629
+  },
+  "originalAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json",
+    "sha256": "51a7871f3be891b712baa492b6a190e0b6b28f9931f4670f505f32842e1d7e9a",
+    "bytes": 513435
+  },
+  "newIndependentCall": "c821f2f0-903b-47f5-8bcc-81db3be2044d",
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\c821f2f0-903b-47f5-8bcc-81db3be2044d.json",
+    "sha256": "ec474aaa993b0b00e697cbf95cd3c9448259746f84b5840912080fda27a6efe6"
+  },
+  "issue": {
+    "severity": "error",
+    "targetId": "modern-yabejp-ja:chapter01-section035:b0041",
+    "sourceEvidence": "b0041：「役牌トイツ１組＋生きている字牌２〜３種」；b0038明确解释：「生きている（２枚以上切れてない）孤立字牌」。候选为「1组役牌对子＋仍有剩余的字牌2～3种」。",
+    "description": "「仍有剩余」不足以表达尚未被打出2张以上的限制，可能把已经打出2张、但仍有余牌的字牌也计入，扩大积极染手的适用条件。补充上下文能够确定原意，但不能使该处译文自动忠实。",
+    "suggestedRepair": "将括号内对应部分改为「或1组役牌对子＋2～3种仍然有效（尚未被打出2张以上）的字牌」。"
+  },
+  "targetSourceBlockId": "modern-yabejp-ja:chapter01-section035:b0041",
+  "field": "body.blocks[sourceBlockIds includes modern-yabejp-ja:chapter01-section035:b0041].text",
+  "currentFullText": "简单来说，就是比较做成染手和做成其他面子手时的打点。如果有2组役牌对子（或1组役牌对子＋仍有剩余的字牌2～3种），或宝牌属于目标花色或字牌，就很容易做成满贯级别的手牌，因此更适合积极地做染手。尤其是有2组役牌对子的手牌，希望尽可能通过混一色、对对和、宝牌等做成满贯级别的手牌。另一方面，如果不做染手也有望达到满贯级别，或其他花色中有宝牌或赤宝牌，就不必勉强保留孤立字牌，以役牌＋α为主线，摸牌顺利时再做染手即可。在选择是否保留孤立役牌时，如果该役牌成对后仍有转向混一色的可能，也就是有可能满足条件A，那么保留役牌就更有利。",
+  "proposedPhraseChange": {
+    "from": "1组役牌对子＋仍有剩余的字牌2～3种",
+    "to": "1组役牌对子＋2～3种仍然有效（尚未被打出2张以上）的字牌"
+  },
+  "sourceDefinition": {
+    "id": "modern-yabejp-ja:chapter01-section035:b0038",
+    "paragraphId": "modern-yabejp-ja:chapter01-section035:p0017",
+    "tag": "p",
+    "domPath": "main/p[35]",
+    "tableContext": null,
+    "type": "text",
+    "text": "例えば他色にターツがあるのでここが面子化すれば条件Bを満たすことになるが、先に最も多い色の牌や字牌をツモった場合や他家から鳴ける牌が出た場合は一色手に持ち込むほうがメンゼンより速度で勝りそうな手牌であれば、条件Aを満たす頻度が遥かに多いことになる。（条件Bを満たす場合はまさに特定のターツが面子化するツモだけだが、条件Aを満たすツモ（あるいは鳴き）は何通りもある。）このような場合はこの時点で非染め色のターツを先に落としてしまって染め色の孤立数牌や生きている（２枚以上切れてない）孤立字牌を抱えたり、多少染めるには面子候補が足りない段階から客風を仕掛けるなど一色手に決め打つような仕掛けをするのが良い。これもテンパイに近い段階（条件Aを満たした段階）における受け入れを重視するという原則と合致する。どちらを満たすケースも相応にあるのであれば孤立字牌を残してまで決め打ちすることはせず、今後のツモによってどちらにでも移行できるように構えるのが良い。",
+    "segments": [
+      {
+        "text": "例えば他色にターツがあるのでここが面子化すれば条件Bを満たすことになるが、先に最も多い色の牌や字牌をツモった場合や他家から鳴ける牌が出た場合は一色手に持ち込むほうがメンゼンより速度で勝りそうな手牌であれば、条件Aを満たす頻度が遥かに多いことになる。（条件Bを満たす場合はまさに特定のターツが面子化するツモだけだが、条件Aを満たすツモ（あるいは鳴き）は何通りもある。）このような場合はこの時点で非染め色のターツを先に落としてしまって染め色の孤立数牌や生きている（２枚以上切れてない）孤立字牌を抱えたり、多少染めるには面子候補が足りない段階から客風を仕掛けるなど一色手に決め打つような仕掛けをするのが良い。これもテンパイに近い段階（条件Aを満たした段階）における受け入れを重視するという原則と合致する。どちらを満たすケースも相応にあるのであれば孤立字牌を残してまで決め打ちすることはせず、今後のツモによってどちらにでも移行できるように構えるのが良い。",
+        "marks": [],
+        "href": null
+      }
+    ]
+  },
+  "targetSource": {
+    "id": "modern-yabejp-ja:chapter01-section035:b0041",
+    "paragraphId": "modern-yabejp-ja:chapter01-section035:p0020",
+    "tag": "p",
+    "domPath": "main/p[41]",
+    "tableContext": null,
+    "type": "text",
+    "text": "簡単に言えば一色手になった場合と他の面子手になった場合の打点の比較である。役牌トイツが２組（もしくは役牌トイツ１組＋生きている字牌２〜３種）あったり、ドラが染め色や字牌であれば容易に満貫クラスの手になるので尚積極的に染める方が良くなる。特に役牌トイツ２組の手はなるだけホンイツやトイトイ、ドラ等で満貫クラスの手に仕上げたい。一方、染めなくても満貫クラスが見込めるような手や他色にドラや赤がある手であれば無理に孤立字牌を残したりせず、役牌＋αを本線にしつつツモが良ければ染める程度でよい。孤立役牌を残すかどうかを選択する場合も、孤立役牌が重なることでホンイツに移行する可能性が残る、即ち条件Aを満たしうる可能性が出てくるときは尚役牌残しが良くなる。",
+    "segments": [
+      {
+        "text": "簡単に言えば一色手になった場合と他の面子手になった場合の打点の比較である。役牌トイツが２組（もしくは役牌トイツ１組＋生きている字牌２〜３種）あったり、ドラが染め色や字牌であれば容易に満貫クラスの手になるので尚積極的に染める方が良くなる。特に役牌トイツ２組の手はなるだけホンイツやトイトイ、ドラ等で満貫クラスの手に仕上げたい。一方、染めなくても満貫クラスが見込めるような手や他色にドラや赤がある手であれば無理に孤立字牌を残したりせず、役牌＋αを本線にしつつツモが良ければ染める程度でよい。孤立役牌を残すかどうかを選択する場合も、孤立役牌が重なることでホンイツに移行する可能性が残る、即ち条件Aを満たしうる可能性が出てくるときは尚役牌残しが良くなる。",
+        "marks": [],
+        "href": null
+      }
+    ]
+  },
+  "preserve": "All remaining characters, sourceSegments/marks/hrefs, other310 blocks, all128 figures/occurrences/order and original raw/audit. Original243 passed inherited; this new call finds the other67 target blocks faithful. No maker output or candidate was written.",
+  "candidateChanged": false,
+  "newModelCallsForThisRequirement": 0,
+  "thisItemBudget": {
+    "used": 1,
+    "remaining": 0,
+    "retry": 0
+  },
+  "next": "Existing244 owner records the exact target and prepares a legal bounded production/revision contract only if separately authorized; do not automatically produce or review again."
+}

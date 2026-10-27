@@ -1,0 +1,924 @@
+{
+  "schema": "coac249-next3-bounded-independent-reviews-handoff/1",
+  "recordedAt": "2026-10-27T21:31:41.495Z",
+  "authorizationComment": "01a17f29-cddf-7108-91df-146ccfb0939f",
+  "status": "three-authorized-independent-reviews-complete",
+  "items": [
+    {
+      "canonical": "nemata-jp-chapter-100-1",
+      "key": "100",
+      "independentConclusion": "needs-repair",
+      "consumerEnvelopeStatus": "needs-repair",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.display.json",
+        "sha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+        "bytes": 1236462
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter01-section035\\source.json",
+        "sha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+        "bytes": 774629
+      },
+      "oldAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json",
+        "sha256": "51a7871f3be891b712baa492b6a190e0b6b28f9931f4670f505f32842e1d7e9a",
+        "bytes": 513435
+      },
+      "call": {
+        "callId": "c821f2f0-903b-47f5-8bcc-81db3be2044d",
+        "scope": "textbook-web-chapter100-bound-context-supplement",
+        "sourceId": "modern-yabejp-ja",
+        "articleId": "chapter01-section035",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "success": true,
+        "usage": {
+          "inputTokens": 64082,
+          "cachedInputTokens": 0,
+          "outputTokens": 12374
+        },
+        "durationMs": 159063,
+        "requestExecution": {
+          "schema": "coach-textbook-cli-request/1",
+          "policy": "coac244-vision-production-schema-v2-20261028",
+          "model": "gpt-6.1-sol",
+          "reasoningEffort": "high",
+          "callerRequested": {
+            "model": "gpt-6.1-sol",
+            "reasoningEffort": "high"
+          },
+          "args": [
+            "exec",
+            "--model",
+            "gpt-6.1-sol",
+            "--config",
+            "model_reasoning_effort=\"high\"",
+            "--config",
+            "web_search=\"disabled\"",
+            "--ephemeral",
+            "--ignore-user-config",
+            "--ignore-rules",
+            "--sandbox",
+            "read-only",
+            "--strict-config",
+            "--skip-git-repo-check",
+            "--json",
+            "--output-schema",
+            "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-l4BwXU\\output.schema.json",
+            "--output-last-message",
+            "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-l4BwXU\\final.json",
+            "--cd",
+            "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-l4BwXU",
+            "--disable",
+            "apps",
+            "--disable",
+            "auth_elicitation",
+            "--disable",
+            "browser_use",
+            "--disable",
+            "browser_use_external",
+            "--disable",
+            "browser_use_full_cdp_access",
+            "--disable",
+            "computer_use",
+            "--disable",
+            "fast_mode",
+            "--disable",
+            "goals",
+            "--disable",
+            "guardian_approval",
+            "--disable",
+            "hooks",
+            "--disable",
+            "image_generation",
+            "--disable",
+            "in_app_browser",
+            "--disable",
+            "in_app_chat",
+            "--disable",
+            "in_app_dictation",
+            "--disable",
+            "in_app_local_automation",
+            "--disable",
+            "in_app_updates",
+            "--disable",
+            "memories",
+            "--disable",
+            "mentions_v2",
+            "--disable",
+            "multi_agent",
+            "--disable",
+            "plugin_sharing",
+            "--disable",
+            "plugins",
+            "--disable",
+            "remote_plugin",
+            "--disable",
+            "shell_snapshot",
+            "--disable",
+            "shell_tool",
+            "--disable",
+            "skill_mcp_dependency_install",
+            "--disable",
+            "skill_search",
+            "--disable",
+            "sleep_tool",
+            "--disable",
+            "tool_call_mcp_elicitation",
+            "--disable",
+            "tool_suggest",
+            "--disable",
+            "unbounded_connection_retries",
+            "--disable",
+            "unified_exec",
+            "--disable",
+            "unified_exec_tty",
+            "--disable",
+            "view_image",
+            "--disable",
+            "workspace_dependencies",
+            "-"
+          ],
+          "images": [],
+          "remoteBackend": "unverified; request arguments and returned events only"
+        },
+        "binding": {
+          "productionSha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+          "sourceFileSha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+          "originalAuditSha256": "51a7871f3be891b712baa492b6a190e0b6b28f9931f4670f505f32842e1d7e9a",
+          "authorizationComment": "01a17f29-cddf-7108-91df-146ccfb0939f",
+          "requestSha256": "0a931da9bc5d7908ad28a07915aac7b9f5f8a3544342b55dd291d45ef7cdaca2",
+          "consumerManifestSha256": "a3b9b0b091ec85a5db5a94af55ca6613d87781f73ccebf5792a9c9d24cc9f58b",
+          "contextSupplement": {
+            "schema": "coach-chapter100-context-input-binding/1",
+            "canonical": "nemata-jp-chapter-100-1",
+            "candidate": {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.display.json",
+              "sha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+              "bytes": 1236462
+            },
+            "source": {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter01-section035\\source.json",
+              "sha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+              "bytes": 774629
+            },
+            "oldAudit": {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json",
+              "sha256": "51a7871f3be891b712baa492b6a190e0b6b28f9931f4670f505f32842e1d7e9a",
+              "bytes": 513435
+            },
+            "originalGroup": {
+              "batchId": "chapter01-section035-batch-002",
+              "unitIds": [
+                "modern-yabejp-ja-chapter01-section035-u4"
+              ],
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter01-section035:b0040",
+                "modern-yabejp-ja:chapter01-section035:b0041",
+                "modern-yabejp-ja:chapter01-section035:b0042",
+                "modern-yabejp-ja:chapter01-section035:b0043",
+                "modern-yabejp-ja:chapter01-section035:b0044",
+                "modern-yabejp-ja:chapter01-section035:b0045",
+                "modern-yabejp-ja:chapter01-section035:b0046",
+                "modern-yabejp-ja:chapter01-section035:b0047",
+                "modern-yabejp-ja:chapter01-section035:b0048",
+                "modern-yabejp-ja:chapter01-section035:b0049",
+                "modern-yabejp-ja:chapter01-section035:b0050",
+                "modern-yabejp-ja:chapter01-section035:b0051",
+                "modern-yabejp-ja:chapter01-section035:b0052",
+                "modern-yabejp-ja:chapter01-section035:b0053",
+                "modern-yabejp-ja:chapter01-section035:b0054",
+                "modern-yabejp-ja:chapter01-section035:b0055",
+                "modern-yabejp-ja:chapter01-section035:b0056",
+                "modern-yabejp-ja:chapter01-section035:b0057",
+                "modern-yabejp-ja:chapter01-section035:b0058",
+                "modern-yabejp-ja:chapter01-section035:b0059",
+                "modern-yabejp-ja:chapter01-section035:b0060",
+                "modern-yabejp-ja:chapter01-section035:b0061",
+                "modern-yabejp-ja:chapter01-section035:b0062",
+                "modern-yabejp-ja:chapter01-section035:b0063",
+                "modern-yabejp-ja:chapter01-section035:b0064",
+                "modern-yabejp-ja:chapter01-section035:b0065",
+                "modern-yabejp-ja:chapter01-section035:b0066",
+                "modern-yabejp-ja:chapter01-section035:b0067",
+                "modern-yabejp-ja:chapter01-section035:b0068",
+                "modern-yabejp-ja:chapter01-section035:b0069",
+                "modern-yabejp-ja:chapter01-section035:b0070",
+                "modern-yabejp-ja:chapter01-section035:b0071",
+                "modern-yabejp-ja:chapter01-section035:b0072",
+                "modern-yabejp-ja:chapter01-section035:b0073",
+                "modern-yabejp-ja:chapter01-section035:b0074",
+                "modern-yabejp-ja:chapter01-section035:b0075",
+                "modern-yabejp-ja:chapter01-section035:b0076",
+                "modern-yabejp-ja:chapter01-section035:b0077",
+                "modern-yabejp-ja:chapter01-section035:b0078",
+                "modern-yabejp-ja:chapter01-section035:b0079",
+                "modern-yabejp-ja:chapter01-section035:b0080",
+                "modern-yabejp-ja:chapter01-section035:b0081",
+                "modern-yabejp-ja:chapter01-section035:b0082",
+                "modern-yabejp-ja:chapter01-section035:b0083",
+                "modern-yabejp-ja:chapter01-section035:b0084",
+                "modern-yabejp-ja:chapter01-section035:b0085",
+                "modern-yabejp-ja:chapter01-section035:b0086",
+                "modern-yabejp-ja:chapter01-section035:b0087",
+                "modern-yabejp-ja:chapter01-section035:b0088",
+                "modern-yabejp-ja:chapter01-section035:b0089",
+                "modern-yabejp-ja:chapter01-section035:b0090",
+                "modern-yabejp-ja:chapter01-section035:b0091",
+                "modern-yabejp-ja:chapter01-section035:b0092",
+                "modern-yabejp-ja:chapter01-section035:b0093",
+                "modern-yabejp-ja:chapter01-section035:b0094",
+                "modern-yabejp-ja:chapter01-section035:b0095",
+                "modern-yabejp-ja:chapter01-section035:b0096",
+                "modern-yabejp-ja:chapter01-section035:b0097",
+                "modern-yabejp-ja:chapter01-section035:b0098",
+                "modern-yabejp-ja:chapter01-section035:b0099",
+                "modern-yabejp-ja:chapter01-section035:b0100",
+                "modern-yabejp-ja:chapter01-section035:b0101",
+                "modern-yabejp-ja:chapter01-section035:b0102",
+                "modern-yabejp-ja:chapter01-section035:b0103",
+                "modern-yabejp-ja:chapter01-section035:b0104",
+                "modern-yabejp-ja:chapter01-section035:b0105",
+                "modern-yabejp-ja:chapter01-section035:b0106",
+                "modern-yabejp-ja:chapter01-section035:b0107"
+              ],
+              "contextSourceBlockIds": [
+                "modern-yabejp-ja:chapter01-section035:b0001",
+                "modern-yabejp-ja:chapter01-section035:b0002"
+              ],
+              "sourceCharacters": 1289,
+              "imageOccurrences": 135,
+              "sourceBlocks": 68,
+              "completeQuestionAnswers": true,
+              "completeHtmlTables": true,
+              "largeIntactCluster": false
+            },
+            "additionalContextSourceBlockIds": [
+              "modern-yabejp-ja:chapter01-section035:b0003",
+              "modern-yabejp-ja:chapter01-section035:b0004",
+              "modern-yabejp-ja:chapter01-section035:b0005",
+              "modern-yabejp-ja:chapter01-section035:b0006",
+              "modern-yabejp-ja:chapter01-section035:b0007",
+              "modern-yabejp-ja:chapter01-section035:b0008",
+              "modern-yabejp-ja:chapter01-section035:b0009",
+              "modern-yabejp-ja:chapter01-section035:b0010",
+              "modern-yabejp-ja:chapter01-section035:b0011",
+              "modern-yabejp-ja:chapter01-section035:b0012",
+              "modern-yabejp-ja:chapter01-section035:b0013",
+              "modern-yabejp-ja:chapter01-section035:b0014",
+              "modern-yabejp-ja:chapter01-section035:b0015",
+              "modern-yabejp-ja:chapter01-section035:b0016",
+              "modern-yabejp-ja:chapter01-section035:b0017",
+              "modern-yabejp-ja:chapter01-section035:b0018",
+              "modern-yabejp-ja:chapter01-section035:b0019",
+              "modern-yabejp-ja:chapter01-section035:b0020",
+              "modern-yabejp-ja:chapter01-section035:b0021",
+              "modern-yabejp-ja:chapter01-section035:b0022",
+              "modern-yabejp-ja:chapter01-section035:b0023",
+              "modern-yabejp-ja:chapter01-section035:b0024",
+              "modern-yabejp-ja:chapter01-section035:b0025",
+              "modern-yabejp-ja:chapter01-section035:b0026",
+              "modern-yabejp-ja:chapter01-section035:b0027",
+              "modern-yabejp-ja:chapter01-section035:b0028",
+              "modern-yabejp-ja:chapter01-section035:b0029",
+              "modern-yabejp-ja:chapter01-section035:b0030",
+              "modern-yabejp-ja:chapter01-section035:b0031",
+              "modern-yabejp-ja:chapter01-section035:b0032",
+              "modern-yabejp-ja:chapter01-section035:b0033",
+              "modern-yabejp-ja:chapter01-section035:b0034",
+              "modern-yabejp-ja:chapter01-section035:b0035",
+              "modern-yabejp-ja:chapter01-section035:b0036",
+              "modern-yabejp-ja:chapter01-section035:b0037",
+              "modern-yabejp-ja:chapter01-section035:b0038",
+              "modern-yabejp-ja:chapter01-section035:b0039"
+            ],
+            "inheritedPassedGroups": [
+              "chapter01-section035-batch-001",
+              "chapter01-section035-batch-003"
+            ],
+            "inheritedPassedBlockCount": 243,
+            "originalFailedContextCall": "4fe2d7b1-cf5f-47e8-9b46-5b0ea849216a",
+            "productionPlan": {
+              "planPath": "web-production/v1/batch-plans/92aad718c9538143ec227620e42a933f8927242ebb1d1c92edc688ec476c27c9.json",
+              "planSha256": "92aad718c9538143ec227620e42a933f8927242ebb1d1c92edc688ec476c27c9",
+              "unitMap": {
+                "path": "web-production/v1/batch-plans/3a37034f9f4db9474e37a94cfc02bc001e68e37ba1c1e74ab86ecf78897cc228.units.json",
+                "sha256": "3a37034f9f4db9474e37a94cfc02bc001e68e37ba1c1e74ab86ecf78897cc228"
+              },
+              "helper": {
+                "path": "web-production/v1/runners/b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb.batches.mjs",
+                "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+              }
+            },
+            "preparerSha256": "d825ded2118bbbba5244832897cc95244b164b2e7bc8175ee64759b8349e0241",
+            "verificationEntrySha256": "f5a0bc9d9f85e2dbf9dd2536035addb0ff3da77e52173d22a6e58042241e074f",
+            "semanticProjectionSha256": "6eebbee0e3a021b6d874ada4946619e8e7b89d5ff225463a3d7132c8a5ba1aee",
+            "schemaSha256": "7113b400836be5bb6e28a6449df8bcae3ed1b69654cb53e50bd2c9cda4a9660b"
+          }
+        },
+        "promptSha256": "a1916da95c969557416ee24a4116b0d14d69d83a610d786ac25caa400db560b4",
+        "semanticPromptSha256": "c5a5a8eeebb90976b16dd13b374f5a957ee51c8940530d349ca47049fd6057b3",
+        "schemaSha256": "7113b400836be5bb6e28a6449df8bcae3ed1b69654cb53e50bd2c9cda4a9660b",
+        "outputSha256": "a2c6a4946e65aa44b15c9d2ffc334fed922264f5392c2acf569f3a951e4d9a1f",
+        "recordedAt": "2026-10-27T21:23:47.976Z"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\c821f2f0-903b-47f5-8bcc-81db3be2044d.json",
+        "sha256": "ec474aaa993b0b00e697cbf95cd3c9448259746f84b5840912080fda27a6efe6"
+      },
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-next3-20261028\\receipt100.json",
+        "sha256": "5de11b596e0e5da73d0093fad96180cc1388db94a7d3ea09d587dcaff6c0b2e1"
+      },
+      "handoff": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-100-reviewed-20261028.json",
+        "sha256": "e3ffec55992ef79d1e4bdbd84d058b07d4d5f4b9f10daa44f60893193bd202b0"
+      },
+      "wholeArticlePassed": false,
+      "candidateChanged": false,
+      "issue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter01-section035:b0041",
+        "sourceEvidence": "b0041：「役牌トイツ１組＋生きている字牌２〜３種」；b0038明确解释：「生きている（２枚以上切れてない）孤立字牌」。候选为「1组役牌对子＋仍有剩余的字牌2～3种」。",
+        "description": "「仍有剩余」不足以表达尚未被打出2张以上的限制，可能把已经打出2张、但仍有余牌的字牌也计入，扩大积极染手的适用条件。补充上下文能够确定原意，但不能使该处译文自动忠实。",
+        "suggestedRepair": "将括号内对应部分改为「或1组役牌对子＋2～3种仍然有效（尚未被打出2张以上）的字牌」。"
+      },
+      "repairRequirement": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-100-minimal-repair-20261028.json",
+        "sha256": "b00075131f440682b5ea2903ca389975933666dd3b834f74880faf88a9f5fb75"
+      },
+      "inheritedPassedBlocks": 243,
+      "newTargetFaithfulBlocks": 67,
+      "sidecarWritten": false
+    },
+    {
+      "canonical": "79-cn-chapter-159-9",
+      "key": "159",
+      "independentConclusion": "limited-unknown-acceptable",
+      "consumerEnvelopeStatus": "needs-repair",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751292.display.json",
+        "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+        "bytes": 46828
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1751292\\source.json",
+        "sha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+        "bytes": 28679
+      },
+      "oldAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json",
+        "sha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed",
+        "bytes": 25432
+      },
+      "call": {
+        "callId": "50eb7aaf-2b54-410c-b41b-b11059eae75f",
+        "scope": "textbook-web-native-point-teaching-impact-supplement",
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1751292",
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max",
+        "success": true,
+        "usage": {
+          "inputTokens": 21248,
+          "cachedInputTokens": 0,
+          "outputTokens": 17432
+        },
+        "durationMs": 229062,
+        "requestExecution": {
+          "schema": "coach-textbook-cli-request/1",
+          "policy": "coac244-vision-terra-max-v1-20261027",
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max",
+          "callerRequested": {
+            "model": "gpt-6.1-terra",
+            "reasoningEffort": "max"
+          },
+          "args": [
+            "exec",
+            "--model",
+            "gpt-6.1-terra",
+            "--config",
+            "model_reasoning_effort=\"max\"",
+            "--config",
+            "web_search=\"disabled\"",
+            "--ephemeral",
+            "--ignore-user-config",
+            "--ignore-rules",
+            "--sandbox",
+            "read-only",
+            "--strict-config",
+            "--skip-git-repo-check",
+            "--json",
+            "--output-schema",
+            "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-a7myaK\\output.schema.json",
+            "--output-last-message",
+            "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-a7myaK\\final.json",
+            "--cd",
+            "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-a7myaK",
+            "-i",
+            "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952.png",
+            "-i",
+            "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-target.png",
+            "-i",
+            "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-target-x4.png",
+            "-i",
+            "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-neighbors.png",
+            "-i",
+            "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-neighbors-x4.png",
+            "--disable",
+            "apps",
+            "--disable",
+            "auth_elicitation",
+            "--disable",
+            "browser_use",
+            "--disable",
+            "browser_use_external",
+            "--disable",
+            "browser_use_full_cdp_access",
+            "--disable",
+            "computer_use",
+            "--disable",
+            "fast_mode",
+            "--disable",
+            "goals",
+            "--disable",
+            "guardian_approval",
+            "--disable",
+            "hooks",
+            "--disable",
+            "image_generation",
+            "--disable",
+            "in_app_browser",
+            "--disable",
+            "in_app_chat",
+            "--disable",
+            "in_app_dictation",
+            "--disable",
+            "in_app_local_automation",
+            "--disable",
+            "in_app_updates",
+            "--disable",
+            "memories",
+            "--disable",
+            "mentions_v2",
+            "--disable",
+            "multi_agent",
+            "--disable",
+            "plugin_sharing",
+            "--disable",
+            "plugins",
+            "--disable",
+            "remote_plugin",
+            "--disable",
+            "shell_snapshot",
+            "--disable",
+            "shell_tool",
+            "--disable",
+            "skill_mcp_dependency_install",
+            "--disable",
+            "skill_search",
+            "--disable",
+            "sleep_tool",
+            "--disable",
+            "tool_call_mcp_elicitation",
+            "--disable",
+            "tool_suggest",
+            "--disable",
+            "unbounded_connection_retries",
+            "--disable",
+            "unified_exec",
+            "--disable",
+            "unified_exec_tty",
+            "--disable",
+            "view_image",
+            "--disable",
+            "workspace_dependencies",
+            "-"
+          ],
+          "images": [
+            {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952.png",
+              "sha256": "e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952",
+              "bytes": 67226
+            },
+            {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-target.png",
+              "sha256": "ab71d478261c3572cd8f0388836b9f003d059cc79096313f3adc9ca47c743a9c",
+              "bytes": 1918
+            },
+            {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-target-x4.png",
+              "sha256": "79dea3b53ad48ee15c67ccfa6fb1f94072728d25f7d9163bd376b1f57761a23d",
+              "bytes": 2681
+            },
+            {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-neighbors.png",
+              "sha256": "367edcc1d98f7ec1a41107e1e4f49c9854e2998e67d521bd6dcb8f8d777c7518",
+              "bytes": 5846
+            },
+            {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-neighbors-x4.png",
+              "sha256": "eafe0bc34980d52254159e408e01c00c98e07e28f3653473a57496763812b872",
+              "bytes": 8484
+            }
+          ],
+          "remoteBackend": "unverified; request arguments and returned events only"
+        },
+        "binding": {
+          "productionSha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+          "sourceFileSha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+          "originalAuditSha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed",
+          "authorizationComment": "01a17f29-cddf-7108-91df-146ccfb0939f",
+          "requestSha256": "dcca623694bb39d0cc5beb931f05ecf375c7f4f23a92c150dfb997ff83210730",
+          "consumerManifestSha256": "a3b9b0b091ec85a5db5a94af55ca6613d87781f73ccebf5792a9c9d24cc9f58b",
+          "targetFigureId": "79-bilibili-cn:cv1751292:b0013:figure",
+          "targetBBox": [
+            298,
+            126,
+            324,
+            161
+          ],
+          "runtimeManifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6"
+        },
+        "promptSha256": "4f7c5e52e1c05d0a420da7247c0c18b626fd55a96602840d31e384a8093ee8ec",
+        "semanticPromptSha256": "b4be9c618c7e4df0c932041fe72ed1412b56abc7568cdd758f90c1b26119f4ef",
+        "schemaSha256": "ea369abf0937022fa3bd661f978957d62742a782db3de2b152b0ffc4fb4c7830",
+        "outputSha256": "34e3705bb267a6c87cfe55f70f4aa2ea9091d83e6129f360cf93e9cc23262448",
+        "recordedAt": "2026-10-27T21:24:57.971Z"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\50eb7aaf-2b54-410c-b41b-b11059eae75f.json",
+        "sha256": "12e1b8c6c7e88b3474b2a6a8aa2d56a27a62e64d9c3a5b36a396c365c94177bf"
+      },
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-next3-20261028\\receipt159.json",
+        "sha256": "8b51355cf5799eb50fd6a60767d8dddb407f47f9e99e0f5fe8eb3399e6685901"
+      },
+      "handoff": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-159-reviewed-20261028.json",
+        "sha256": "29e1def05620613d1d480d530e89682f06bc89eac54dcff055e118bde7ca8361"
+      },
+      "wholeArticlePassed": false,
+      "candidateChanged": false,
+      "limitedFidelityEvidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-159-limited-fidelity-evidence-20261028.json",
+        "sha256": "86bc78028f01c2fd7a277f0c2de1ce5fb2cbf51aff72ba00376fc5e7e0c178ba"
+      },
+      "reading": {
+        "status": "unknown",
+        "tileCode": "unknown",
+        "evidence": "目标牌可辨为万子，但原图和单牌裁剪中黑色数字笔画的细节不足，不能可靠区分其数字。四倍图是同一像素的最近邻放大，没有提供新的独立图像证据。",
+        "limitations": "保持原朝向，不根据牌理、鸣牌规则、其他审查结论或像素相关率补出数字。原图、裁剪及放大图属于同一来源，不重复计牌。"
+      },
+      "location": {
+        "status": "confirmed",
+        "evidence": "按题目提供的绑定，目标是例4的 figure 79-bilibili-cn:cv1751292:b0013:figure，对应源块 b0013、occurrence i00005 和所示原图。原图为 495×529；目标框采用左上角原生像素、右下半开坐标 [298,126,324,161]。图中该框位于上方牌河的最右一格，与所给单牌裁剪一致。",
+        "originalBBox": [
+          298,
+          126,
+          324,
+          161
+        ],
+        "neighborOrderEvidence": "邻位框 [218,120,330,168] 内四格从画面左至右依次为 [222,126,248,161]、[248,126,274,161]、[274,126,298,161]、[298,126,324,161]。邻位图依次显示空白牌、绿色图案牌、黑色字牌及目标万子牌；与当前转写所列 5z、8s、3z、未知数字万子的邻位关系一致。本次不复核前三张的牌码。"
+      },
+      "requiredLimitations": [
+        "继续保留现有转写中的“［万子牌，数字无法确认］”和 unknowns 中“上方牌河按画面从左到右第4张：可辨为万子牌，数字无法可靠确认”。",
+        "保留原图及目标位置 [298,126,324,161] 的来源关联；裁剪与放大图不作为独立证据。",
+        "保留 b0012 和 b0014 的原有场况条件、判断力度、1500点目标及5万碰例外，不将未知牌补成具体牌码。",
+        "不得把当前展示扩写为完整万子已见数、逐牌可鸣清单、5万碰例外的解释或得点保证。"
+      ],
+      "minimumRequiredAction": "维持该牌 unknown、原图绑定和现有原文条件及例外；仅在这一限定范围内接受其忠实展示。如需进行具体万子计数或逐牌鸣牌核验，须先取得足以辨识该牌的可靠证据，当前不作该项验收。本次不制作或修改候选。",
+      "tacticalDependenciesStillUncertain": [
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "根据例4的点数情况，等着南出来太过优柔寡断了。",
+          "claim": "作者依据例4的点数情况，判断等待南出现过于犹豫。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "原文明确给出的理由是点数情况，没有把 [298,126,324,161] 的数字列为理由。对具体战术作全面独立评估时，未知万子的数字可能影响可见数量；不能仅因它位于牌河就断定它对所有具体评估都无关。",
+          "neededLimitation": "保留为作者针对例4点数情况的判断；不把照录该判断当成已独立证明其绝对正确。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "虽然鸣牌之后手牌会有点散，但也要朝着这1500点去。",
+          "claim": "作者预计鸣牌后手牌会有点散，同时仍建议朝1500点的目标前进。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "原句没有指定此处是哪一次鸣牌，也没有说目标牌是某个数字。保留作者的权衡不需猜数；若要逐项核验具体鸣牌及其结果，不能从这处未知牌补出所需信息。",
+          "neededLimitation": "保留“有点散”与“朝着”两种力度；1500点是作者提出的目标，不是已实现或保证实现的得点。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "这个牌能鸣牌的时候都鸣了吧（当然5万的碰是不行的= =）",
+          "claim": "作者建议这手牌在能鸣牌时积极鸣牌，并明确排除5万的碰。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "建议的条件和例外在文字中明确给出，不需要把上方第四张认成某个数字才能忠实保留。该数字可能关系到具体万子已见数和逐牌核验，原文没有将它明确关联到某个可鸣牌清单。",
+          "neededLimitation": "必须同时保留“能鸣牌的时候”和5万碰例外；不要扩写为任何牌都可鸣，也不要根据未知牌列出完整可鸣清单。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "（当然5万的碰是不行的= =）",
+          "claim": "5万的碰是作者对上一条建议明确写出的例外。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "作者直接写出了例外，但没有在该段说明其详细理由，也没有说上方牌河第四张就是5万。未知数字是否会影响某项具体牌数或鸣牌核验，不能由这句话单独确定。",
+          "neededLimitation": "原样保留例外，不把目标未知牌当作5万，也不自行补写例外的原因或宣称已独立验证其规则依据。"
+        }
+      ],
+      "consumerAggregationLimitation": "Original envelope required every proposition dependsOnExactTile=no, which also tests broader tactical verification. Independent output instead explicitly accepts faithful presentation while leaving those broader facts uncertain. The original needs-repair/false envelope and every uncertain dependency remain unchanged."
+    },
+    {
+      "canonical": "79-cn-chapter-242-3",
+      "key": "242",
+      "independentConclusion": "limited-unknown-acceptable",
+      "consumerEnvelopeStatus": "needs-repair",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780438.display.json",
+        "sha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+        "bytes": 58219
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1780438\\source.json",
+        "sha256": "3cac4b7103309b092edada33aa8f698b606aa283ae1ce18f8ce9ba9e8428f6e0",
+        "bytes": 45228
+      },
+      "oldAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780438.62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa.json",
+        "sha256": "332731f14ba75be91479bdefe77bb1a0026fe31d600b693d73d0e62db8ba8515",
+        "bytes": 34077
+      },
+      "call": {
+        "callId": "d98dff34-cf8b-4341-8d00-37a31a1e0db8",
+        "scope": "textbook-web-native-point-teaching-impact-supplement",
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1780438",
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max",
+        "success": true,
+        "usage": {
+          "inputTokens": 25844,
+          "cachedInputTokens": 0,
+          "outputTokens": 14949
+        },
+        "durationMs": 214515,
+        "requestExecution": {
+          "schema": "coach-textbook-cli-request/1",
+          "policy": "coac244-vision-terra-max-v1-20261027",
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max",
+          "callerRequested": {
+            "model": "gpt-6.1-terra",
+            "reasoningEffort": "max"
+          },
+          "args": [
+            "exec",
+            "--model",
+            "gpt-6.1-terra",
+            "--config",
+            "model_reasoning_effort=\"max\"",
+            "--config",
+            "web_search=\"disabled\"",
+            "--ephemeral",
+            "--ignore-user-config",
+            "--ignore-rules",
+            "--sandbox",
+            "read-only",
+            "--strict-config",
+            "--skip-git-repo-check",
+            "--json",
+            "--output-schema",
+            "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-5OcYJ8\\output.schema.json",
+            "--output-last-message",
+            "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-5OcYJ8\\final.json",
+            "--cd",
+            "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-5OcYJ8",
+            "-i",
+            "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\fe9214ed1d4cb16f1a0d857c1f08093f5038203abc349f1b89f1ce054c734618.jpg",
+            "-i",
+            "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-target.png",
+            "-i",
+            "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-target-x4.png",
+            "-i",
+            "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-neighbors.png",
+            "-i",
+            "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-neighbors-x4.png",
+            "--disable",
+            "apps",
+            "--disable",
+            "auth_elicitation",
+            "--disable",
+            "browser_use",
+            "--disable",
+            "browser_use_external",
+            "--disable",
+            "browser_use_full_cdp_access",
+            "--disable",
+            "computer_use",
+            "--disable",
+            "fast_mode",
+            "--disable",
+            "goals",
+            "--disable",
+            "guardian_approval",
+            "--disable",
+            "hooks",
+            "--disable",
+            "image_generation",
+            "--disable",
+            "in_app_browser",
+            "--disable",
+            "in_app_chat",
+            "--disable",
+            "in_app_dictation",
+            "--disable",
+            "in_app_local_automation",
+            "--disable",
+            "in_app_updates",
+            "--disable",
+            "memories",
+            "--disable",
+            "mentions_v2",
+            "--disable",
+            "multi_agent",
+            "--disable",
+            "plugin_sharing",
+            "--disable",
+            "plugins",
+            "--disable",
+            "remote_plugin",
+            "--disable",
+            "shell_snapshot",
+            "--disable",
+            "shell_tool",
+            "--disable",
+            "skill_mcp_dependency_install",
+            "--disable",
+            "skill_search",
+            "--disable",
+            "sleep_tool",
+            "--disable",
+            "tool_call_mcp_elicitation",
+            "--disable",
+            "tool_suggest",
+            "--disable",
+            "unbounded_connection_retries",
+            "--disable",
+            "unified_exec",
+            "--disable",
+            "unified_exec_tty",
+            "--disable",
+            "view_image",
+            "--disable",
+            "workspace_dependencies",
+            "-"
+          ],
+          "images": [
+            {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\fe9214ed1d4cb16f1a0d857c1f08093f5038203abc349f1b89f1ce054c734618.jpg",
+              "sha256": "fe9214ed1d4cb16f1a0d857c1f08093f5038203abc349f1b89f1ce054c734618",
+              "bytes": 60370
+            },
+            {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-target.png",
+              "sha256": "a553ec37cf9796f967ed09db67f1373c2c84a56dd1038852f45cc50cd044ca43",
+              "bytes": 2023
+            },
+            {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-target-x4.png",
+              "sha256": "6b5d57020291eef18562f94ac13df439cfaa5ecfa78b7b4da9b243628c5c10c0",
+              "bytes": 3203
+            },
+            {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-neighbors.png",
+              "sha256": "c62742f05431564c903e05b5c1fb500a28d4167c76290e95b3030ae3f019fd49",
+              "bytes": 15015
+            },
+            {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-neighbors-x4.png",
+              "sha256": "783ce7c4dac7390f973b956714616933260d07ef85d98240b61cf1ef593f547a",
+              "bytes": 22641
+            }
+          ],
+          "remoteBackend": "unverified; request arguments and returned events only"
+        },
+        "binding": {
+          "productionSha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+          "sourceFileSha256": "3cac4b7103309b092edada33aa8f698b606aa283ae1ce18f8ce9ba9e8428f6e0",
+          "originalAuditSha256": "332731f14ba75be91479bdefe77bb1a0026fe31d600b693d73d0e62db8ba8515",
+          "authorizationComment": "01a17f29-cddf-7108-91df-146ccfb0939f",
+          "requestSha256": "0aebcfb202ae3c4117e418e372d796c0b39fc4c90cb8fdef6c2d7b5da1872fee",
+          "consumerManifestSha256": "a3b9b0b091ec85a5db5a94af55ca6613d87781f73ccebf5792a9c9d24cc9f58b",
+          "targetFigureId": "79-bilibili-cn:cv1780438:b0014:figure",
+          "targetBBox": [
+            177,
+            144,
+            202,
+            177
+          ],
+          "runtimeManifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6"
+        },
+        "promptSha256": "37e31d74a42d0b1183c3bf46d711f781c4f5b90159dae65ec798f48b2970dd2d",
+        "semanticPromptSha256": "4343d0ff48f1461da3a4ef9695d01ebcbe580858f084fcdcc1430b15103b3f8e",
+        "schemaSha256": "ea369abf0937022fa3bd661f978957d62742a782db3de2b152b0ffc4fb4c7830",
+        "outputSha256": "d75ba29133e3014c1b8842d1e59fd0f3163ba3b46d8c7073e80ea9948179297e",
+        "recordedAt": "2026-10-27T21:28:32.675Z"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d98dff34-cf8b-4341-8d00-37a31a1e0db8.json",
+        "sha256": "5dfef83403e9f6221a035a3a584166f12bea2a210b50b91563f8014844ad3074"
+      },
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-next3-20261028\\receipt242.json",
+        "sha256": "255a4ff5e7858e7b7b28353a882b834c53b79dc820dc269f53b218172bc1cbb9"
+      },
+      "handoff": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-242-reviewed-20261028.json",
+        "sha256": "b1fbb0e5b01c8a29c6c60ae4cfc6fcdccdee32e8b0d0fb8fb77ad4e9a4dd1ee3"
+      },
+      "wholeArticlePassed": false,
+      "candidateChanged": false,
+      "limitedFidelityEvidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-242-limited-fidelity-evidence-20261028.json",
+        "sha256": "8af5dfab278fb5a6da46c571f68d6a6a034bf025677842e955530ef3cc769436"
+      },
+      "reading": {
+        "status": "unknown",
+        "tileCode": "unknown",
+        "evidence": "目标是原朝向倒置的万子牌；红色万字符号可见，但我不能从原图及准确裁剪中的黑色数字笔画可靠地区分其具体点数。",
+        "limitations": "4倍最近邻图只是同一原图像素的放大，不提供独立细节；没有根据牌理、原文另提的3万、旧审结果或像素相关率补数。"
+      },
+      "location": {
+        "status": "confirmed",
+        "evidence": "目标figure为79-bilibili-cn:cv1780438:b0014:figure，紧随原文b0013“例1：”；其绑定的i00001与所给501×501原图对应。目标位于原图上方牌河靠中央一行的屏幕最左侧。",
+        "originalBBox": [
+          177,
+          144,
+          202,
+          177
+        ],
+        "neighborOrderEvidence": "按原图左上角坐标、半开区间，目标框为[177,144,202,177]；其右侧依次为[202,144,225,177]和[225,144,249,177]，与邻位图中目标、筒子、字牌的顺序一致。当前转录依次记为?m、7p、1z。邻位及4倍图只用于核对位置和原像素，并非独立图源。"
+      },
+      "requiredLimitations": [],
+      "minimumRequiredAction": "保留原图、目标位置的?m及其无法可靠辨点说明，并保留例1原文的条件和判断力度。不要猜填点数，也不要把作者的推测或定性判断写成已独立验证的具体和牌与结算结果。本次无需制作或修改候选。",
+      "tacticalDependenciesStillUncertain": [
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1780438:b0017"
+          ],
+          "sourceQuote": "但是和TOP的差距是基本没缩小。",
+          "claim": "对于前述吃牌方案，作者判断与TOP的差距基本没有缩小。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "这是原文对该方案的定性判断，保留原话不需要猜目标数字；原文没有给出完整的最终和牌构成与具体结算，单凭现有材料不能把它升级为独立复算结果，也不能断言目标数字对任何完整复盘均无影响。",
+          "neededLimitation": "保留“基本”并作为作者判断呈现，不添加具体得分或声称完成了独立复算。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1780438:b0018"
+          ],
+          "sourceQuote": "这种情况是应该要凹门清立直的牌。",
+          "claim": "在例1的争TOP情境下，作者建议争取门清立直。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "作者的明示论证是争TOP时比较吃3万的小牌与门清立直的打点，没有把上方目标牌的点数列为明示理由。可以保留该建议；仅凭未知牌不能独立证明该建议在所有完整牌面复盘中都最优。",
+          "neededLimitation": "作为此情境下的作者建议保留，不声称已证明绝对最优。"
+        }
+      ],
+      "consumerAggregationLimitation": "Original envelope required every proposition dependsOnExactTile=no, which also tests broader tactical verification. Independent output instead explicitly accepts faithful presentation while leaving those broader facts uncertain. The original needs-repair/false envelope and every uncertain dependency remain unchanged."
+    }
+  ],
+  "budget": {
+    "maximumNewCalls": 3,
+    "used": 3,
+    "remaining": 0,
+    "failedVoidCount": true,
+    "failedCalls": 0,
+    "production": 0,
+    "retry": 0,
+    "maximumConcurrentReviews": 2
+  },
+  "originalCandidatesChanged": false,
+  "originalRawAndAuditsChanged": false,
+  "original243PassedAndAllNonTargetEvidencePreserved": true,
+  "guardReleased": true,
+  "acceptedPreviewChangedByThisRun": false,
+  "formalActiveChanged": false,
+  "newStandardWholeArticlePassedReceipts": 0,
+  "fee": null,
+  "remoteWeights": "unknown",
+  "upstreamActualCount": null,
+  "ownerActions": {
+    "chapter100": "244 record only b0041 translation-condition error. No maker or further audit authorized by this batch.",
+    "chapter159242": "248/244/250 consume exact independent limited-unknown fidelity evidence, preserving current unknowns/conditions/exceptions and all unresolved tactical facts. Preserve original needs-repair/false envelopes; use a legal scoped supplemental admission rather than fabricate a whole-article passed receipt. No additional model reading or candidate production needed for the fidelity evidence itself."
+  }
+}

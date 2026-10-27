@@ -1,0 +1,181 @@
+{
+  "canonical": "79-cn-chapter-159-9",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751292.display.json",
+    "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+    "bytes": 46828
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1751292\\source.json",
+    "sha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+    "bytes": 28679
+  },
+  "oldAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json",
+    "sha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed",
+    "bytes": 25432
+  },
+  "targetFigureId": "79-bilibili-cn:cv1751292:b0013:figure",
+  "targetBBox": [
+    298,
+    126,
+    324,
+    161
+  ],
+  "oldCallIds": [
+    "5477ed1b-a10d-45ed-ae56-c6acaeb39464"
+  ],
+  "sameShaHistory": [
+    {
+      "binding": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.json",
+        "sha256": "483e045b3bbb1d15d8250ca11d819120f6add84c346e6c73aed4286466ded203",
+        "bytes": 17679
+      },
+      "status": "failed",
+      "calls": [
+        "5494b430-f86c-45c8-a595-54d97404a066"
+      ]
+    },
+    {
+      "binding": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json",
+        "sha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed",
+        "bytes": 25432
+      },
+      "status": "needs-repair",
+      "calls": [
+        "5477ed1b-a10d-45ed-ae56-c6acaeb39464"
+      ]
+    }
+  ],
+  "pixelChecks": [
+    {
+      "role": "target",
+      "bbox": [
+        298,
+        126,
+        324,
+        161
+      ],
+      "cropExact": true,
+      "nearestNeighbor4EveryPixelExact": true
+    },
+    {
+      "role": "neighbors",
+      "bbox": [
+        218,
+        120,
+        330,
+        168
+      ],
+      "cropExact": true,
+      "nearestNeighbor4EveryPixelExact": true
+    }
+  ],
+  "locationMechanicallyChecked": true,
+  "currentUnknowns": [
+    "上方牌河按画面从左到右第4张：可辨为万子牌，数字无法可靠确认。"
+  ],
+  "unchangedOtherEvidence": {
+    "otherBodyChecks": [
+      {
+        "id": "79-bilibili-cn:cv1751292:b0001",
+        "verdict": "faithful",
+        "evidence": "“免责声明：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0002",
+        "verdict": "faithful",
+        "evidence": "著作权声明、译者SeventhTG（XD）及转载署名要求逐字保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0003",
+        "verdict": "faithful",
+        "evidence": "原文地址http://beginners.biz/naki/naki12.html、分隔线及“后付2：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0004",
+        "verdict": "faithful",
+        "evidence": "2~3张宝牌、积极鸣牌的判断及其他手牌和场况的适用范围均按原文保留，章节标题完整。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0005",
+        "verdict": "faithful",
+        "evidence": "例1标签、13张手牌及右侧宝牌8s均与附图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0006",
+        "verdict": "faithful",
+        "evidence": "上家打7索、放过后剩2张、另一张为宝牌表示牌、自摸两次4索和7索的困难及边张吃的结论完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0007",
+        "verdict": "faithful",
+        "evidence": "10张手牌与右侧横置7s、直立8s和9s的副露记录一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0008",
+        "verdict": "faithful",
+        "evidence": "处理6万和4饼、保留安全牌与另一张役牌的建议，以及扣牌、进攻压力、防守力的论证均逐字保留；“二手准备的后付”及三色、一气的条件完整。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0009",
+        "verdict": "faithful",
+        "evidence": "例2标签、13张手牌及右侧宝牌5s均与附图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0010",
+        "verdict": "faithful",
+        "evidence": "3万、4饼、3索出来即吃，以及向三色和役牌倾斜的判断按中文原文完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0011",
+        "verdict": "faithful",
+        "evidence": "例3标签及13张手牌均与附图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0012",
+        "verdict": "faithful",
+        "evidence": "碰一饼的选择、摸6饼或8饼向对对三暗刻变化的条件、南场及ALL LAST和牌逆转的说明和例4标签均完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0014",
+        "verdict": "faithful",
+        "evidence": "不等待南、争取1500点、能鸣即鸣但排除碰5万的例外，以及ALL LAST抢先和牌的论证和“（待续）”均逐字保留。"
+      }
+    ],
+    "otherFigureChecks": [
+      {
+        "id": "79-bilibili-cn:cv1751292:b0005:figure",
+        "verdict": "faithful",
+        "evidence": "附图1、6可核对为例1：123446m、4p、5689s、白白；右侧“ドラ”译为宝牌，牌为8s。两张空白牌面为白板，牌序及数量一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0007:figure",
+        "verdict": "faithful",
+        "evidence": "附图2、7显示手牌12344m、56s、东白白；右侧副露为横置7s、直立8s、9s。候选完整保留牌序、分组及方向。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0009:figure",
+        "verdict": "faithful",
+        "evidence": "附图3、8显示例2：224m、23p、244555s、白白；右侧宝牌5s。5s中央红色图案为普通牌面，候选未误记为赤牌。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0011:figure",
+        "verdict": "faithful",
+        "evidence": "附图4、9显示例3：11267778p、222s、发发，与候选13张牌的顺序和重复数量一致。"
+      }
+    ],
+    "targetUnknownsRetained": [
+      "上方牌河按画面从左到右第4张：可辨为万子牌，数字无法可靠确认。"
+    ],
+    "note": "Faithful non-target independent checks are evidence to inherit, not separate accepted complete chapters."
+  },
+  "runtime": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027",
+  "manifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+  "requestSha256": "dcca623694bb39d0cc5beb931f05ecf375c7f4f23a92c150dfb997ff83210730",
+  "promptSha256": "b4be9c618c7e4df0c932041fe72ed1412b56abc7568cdd758f90c1b26119f4ef",
+  "maxNewCalls": 1,
+  "retry": 0
+}

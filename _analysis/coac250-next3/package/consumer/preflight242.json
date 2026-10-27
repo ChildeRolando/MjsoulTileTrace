@@ -1,0 +1,365 @@
+{
+  "canonical": "79-cn-chapter-242-3",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780438.display.json",
+    "sha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+    "bytes": 58219
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1780438\\source.json",
+    "sha256": "3cac4b7103309b092edada33aa8f698b606aa283ae1ce18f8ce9ba9e8428f6e0",
+    "bytes": 45228
+  },
+  "oldAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780438.62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa.json",
+    "sha256": "332731f14ba75be91479bdefe77bb1a0026fe31d600b693d73d0e62db8ba8515",
+    "bytes": 34077
+  },
+  "targetFigureId": "79-bilibili-cn:cv1780438:b0014:figure",
+  "targetBBox": [
+    177,
+    144,
+    202,
+    177
+  ],
+  "oldCallIds": [
+    "770655dc-b68f-4ced-8433-92bc0854431f"
+  ],
+  "sameShaHistory": [
+    {
+      "binding": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780438.62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa.json",
+        "sha256": "332731f14ba75be91479bdefe77bb1a0026fe31d600b693d73d0e62db8ba8515",
+        "bytes": 34077
+      },
+      "status": "needs-repair",
+      "calls": [
+        "770655dc-b68f-4ced-8433-92bc0854431f"
+      ]
+    }
+  ],
+  "pixelChecks": [
+    {
+      "role": "target",
+      "bbox": [
+        177,
+        144,
+        202,
+        177
+      ],
+      "cropExact": true,
+      "nearestNeighbor4EveryPixelExact": true
+    },
+    {
+      "role": "neighbors",
+      "bbox": [
+        172,
+        108,
+        319,
+        181
+      ],
+      "cropExact": true,
+      "nearestNeighbor4EveryPixelExact": true
+    }
+  ],
+  "locationMechanicallyChecked": true,
+  "currentUnknowns": [
+    "上方牌河靠近中央一行的屏幕最左侧万子牌：无法可靠辨认具体点数，转录为?m。"
+  ],
+  "unchangedOtherEvidence": {
+    "otherBodyChecks": [
+      {
+        "id": "79-bilibili-cn:cv1780438:b0001",
+        "verdict": "faithful",
+        "evidence": "免责声明、译者SeventhTG（XD）、权利说明及原文地址完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0002",
+        "verdict": "faithful",
+        "evidence": "结合点棒状况做牌的原文完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0003",
+        "verdict": "faithful",
+        "evidence": "原点上下分别重视打点与速度的条件及判断完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0004",
+        "verdict": "faithful",
+        "evidence": "分隔线保留，位置一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0005",
+        "verdict": "faithful",
+        "evidence": "标题“提高打点”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0006",
+        "verdict": "faithful",
+        "evidence": "分隔线保留，位置一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0007",
+        "verdict": "faithful",
+        "evidence": "过于勉强做手役的前半句逐字保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0008",
+        "verdict": "faithful",
+        "evidence": "与上位差距扩大的后半句完整保留，承接顺序一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0009",
+        "verdict": "faithful",
+        "evidence": "第一项“门清立直”及编号保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0010",
+        "verdict": "faithful",
+        "evidence": "第二项“用宝牌”及编号保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0011",
+        "verdict": "faithful",
+        "evidence": "第三项“混一色”及编号保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0012",
+        "verdict": "faithful",
+        "evidence": "三个提高打点核心的总结完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0013",
+        "verdict": "faithful",
+        "evidence": "“例1：”标签完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0015",
+        "verdict": "faithful",
+        "evidence": "立直是取得高打点最近路径的原文判断保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0016",
+        "verdict": "faithful",
+        "evidence": "已有盈利但仍与下家争TOP的状况完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0017",
+        "verdict": "faithful",
+        "evidence": "吃上家3万与基本无法缩小领先者差距的论证完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0018",
+        "verdict": "faithful",
+        "evidence": "应坚持门清立直的判断完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0019",
+        "verdict": "faithful",
+        "evidence": "争TOP对手为亲家时，小牌令其安全下庄的条件与批评力度保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0020",
+        "verdict": "faithful",
+        "evidence": "“总结、理论：”及加粗、绿色强调保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0021",
+        "verdict": "faithful",
+        "evidence": "目标为亲家时重视打点的总结及强调完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0022",
+        "verdict": "faithful",
+        "evidence": "分隔线保留，位置一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0023",
+        "verdict": "faithful",
+        "evidence": "“例2：”标签完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0024",
+        "verdict": "faithful",
+        "evidence": "场况、点数、手牌及四家牌河与图一致，宝牌9m和可吃的9p完整表示。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0025",
+        "verdict": "faithful",
+        "evidence": "通过副露强行使用宝牌提高打点的原文完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0026",
+        "verdict": "faithful",
+        "evidence": "例2处于四位且需要打点的适用条件保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0027",
+        "verdict": "faithful",
+        "evidence": "吃9饼转向全带的建议及判断力度保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0028",
+        "verdict": "faithful",
+        "evidence": "宝牌9万及两种满贯组合“全带三色北DORA1”“全带北DORA2”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0029",
+        "verdict": "faithful",
+        "evidence": "副露较远的让步条件、与门清比较和满贯概率的反问完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0030",
+        "verdict": "faithful",
+        "evidence": "分隔线保留，位置一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0031",
+        "verdict": "faithful",
+        "evidence": "例3标签、13张手牌、独立摸入7p及宝牌2p均与图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0032",
+        "verdict": "faithful",
+        "evidence": "四位时容易失去打点与速度平衡的原文完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0033",
+        "verdict": "faithful",
+        "evidence": "例3即使追求打点也只能切6万的判断力度保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0034",
+        "verdict": "faithful",
+        "evidence": "不想和小牌时不鸣牌的条件与处理完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0035",
+        "verdict": "faithful",
+        "evidence": "门清立直、切一张宝牌、5200点及自摸满贯的条件和数字完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0036",
+        "verdict": "faithful",
+        "evidence": "非常不推荐切3饼固定宝牌对子的原文完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0037",
+        "verdict": "faithful",
+        "evidence": "分隔线保留，位置一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0038",
+        "verdict": "faithful",
+        "evidence": "标题“提高速度”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0039",
+        "verdict": "faithful",
+        "evidence": "分隔线保留，位置一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0040",
+        "verdict": "faithful",
+        "evidence": "例4标签、13张手牌、独立摸入6s及宝牌1s均与图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0041",
+        "verdict": "faithful",
+        "evidence": "切2饼进入平和一向听的通常打法完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0042",
+        "verdict": "faithful",
+        "evidence": "南3局、自己TOP且希望推进牌局的全部条件保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0043",
+        "verdict": "faithful",
+        "evidence": "拆宝牌对子的判断完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0044",
+        "verdict": "faithful",
+        "evidence": "切宝牌后应接受2、5万及5、8饼吃听的条件与牌值完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0045",
+        "verdict": "faithful",
+        "evidence": "分隔线保留，位置一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0046",
+        "verdict": "faithful",
+        "evidence": "“例5”标签完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0047",
+        "verdict": "faithful",
+        "evidence": "场况、四家点数、13张手牌及各家牌河与图一致，亲家刚打出的5p完整表示。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0048",
+        "verdict": "faithful",
+        "evidence": "第二位亲家对自身TOP地位威胁最大的判断完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0049",
+        "verdict": "faithful",
+        "evidence": "“绝对不能让他连庄”的判断力度保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0050",
+        "verdict": "faithful",
+        "evidence": "原文“通畅”原样保留；通常应立直的牌此处需副露阻止连庄的意思未改写。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0051",
+        "verdict": "faithful",
+        "evidence": "碰5饼听牌的结论完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0052",
+        "verdict": "faithful",
+        "evidence": "选择较易打出的6、7饼及建议语气完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0053",
+        "verdict": "faithful",
+        "evidence": "“（待续）”完整保留。"
+      }
+    ],
+    "otherFigureChecks": [
+      {
+        "id": "79-bilibili-cn:cv1780438:b0024:figure",
+        "verdict": "faithful",
+        "evidence": "南3局0本场、立直棒0根、宝牌9m及北19000、东22800、南27000、西31200均一致。手牌1129m4579s78p北北中和四家牌河逐牌、位置一致；无可见副露。图内“ドラ”已译为“宝牌”。附件配对编号另列为非教学笔误。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0031:figure",
+        "verdict": "faithful",
+        "evidence": "“例3”保留；手牌446m22356p78s中中中、摸入7p、宝牌2p逐牌及顺序一致。“ツモ”“ドラ”分别完整译为“摸入”“宝牌”，摸入牌与宝牌未并入原13张手牌。附件配对编号另列为非教学笔误。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0040:figure",
+        "verdict": "faithful",
+        "evidence": "“例4”保留；手牌34m2245667p1157s、摸入6s、宝牌1s逐牌及顺序一致。“ツモ”“ドラ”分别完整译为“摸入”“宝牌”。附件配对编号另列为非教学笔误。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1780438:b0047:figure",
+        "verdict": "faithful",
+        "evidence": "南2局0本场、立直棒0根、宝牌8m；西39500、北23000、东26300、南11200均一致。手牌567m556888p2245s及四家牌河逐牌、分行和方向一致，包括上方第二行5p、1s，右河末端外侧7p及左河外侧白板。附件配对编号另列为非教学笔误。"
+      }
+    ],
+    "targetUnknownsRetained": [
+      "上方牌河靠近中央一行的屏幕最左侧万子牌：无法可靠辨认具体点数，转录为?m。"
+    ],
+    "note": "Faithful non-target independent checks are evidence to inherit, not separate accepted complete chapters."
+  },
+  "runtime": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027",
+  "manifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+  "requestSha256": "0aebcfb202ae3c4117e418e372d796c0b39fc4c90cb8fdef6c2d7b5da1872fee",
+  "promptSha256": "4343d0ff48f1461da3a4ef9695d01ebcbe580858f084fcdcc1430b15103b3f8e",
+  "maxNewCalls": 1,
+  "retry": 0
+}

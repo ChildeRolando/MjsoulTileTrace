@@ -1,0 +1,1541 @@
+{
+  "item": {
+    "canonical": "nemata-jp-chapter-100-1",
+    "key": "100",
+    "independentConclusion": "needs-repair",
+    "consumerEnvelopeStatus": "needs-repair",
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.display.json",
+      "sha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+      "bytes": 1236462
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter01-section035\\source.json",
+      "sha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+      "bytes": 774629
+    },
+    "oldAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json",
+      "sha256": "51a7871f3be891b712baa492b6a190e0b6b28f9931f4670f505f32842e1d7e9a",
+      "bytes": 513435
+    },
+    "call": {
+      "callId": "c821f2f0-903b-47f5-8bcc-81db3be2044d",
+      "scope": "textbook-web-chapter100-bound-context-supplement",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter01-section035",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 64082,
+        "cachedInputTokens": 0,
+        "outputTokens": 12374
+      },
+      "durationMs": 159063,
+      "requestExecution": {
+        "schema": "coach-textbook-cli-request/1",
+        "policy": "coac244-vision-production-schema-v2-20261028",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "callerRequested": {
+          "model": "gpt-6.1-sol",
+          "reasoningEffort": "high"
+        },
+        "args": [
+          "exec",
+          "--model",
+          "gpt-6.1-sol",
+          "--config",
+          "model_reasoning_effort=\"high\"",
+          "--config",
+          "web_search=\"disabled\"",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox",
+          "read-only",
+          "--strict-config",
+          "--skip-git-repo-check",
+          "--json",
+          "--output-schema",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-l4BwXU\\output.schema.json",
+          "--output-last-message",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-l4BwXU\\final.json",
+          "--cd",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-l4BwXU",
+          "--disable",
+          "apps",
+          "--disable",
+          "auth_elicitation",
+          "--disable",
+          "browser_use",
+          "--disable",
+          "browser_use_external",
+          "--disable",
+          "browser_use_full_cdp_access",
+          "--disable",
+          "computer_use",
+          "--disable",
+          "fast_mode",
+          "--disable",
+          "goals",
+          "--disable",
+          "guardian_approval",
+          "--disable",
+          "hooks",
+          "--disable",
+          "image_generation",
+          "--disable",
+          "in_app_browser",
+          "--disable",
+          "in_app_chat",
+          "--disable",
+          "in_app_dictation",
+          "--disable",
+          "in_app_local_automation",
+          "--disable",
+          "in_app_updates",
+          "--disable",
+          "memories",
+          "--disable",
+          "mentions_v2",
+          "--disable",
+          "multi_agent",
+          "--disable",
+          "plugin_sharing",
+          "--disable",
+          "plugins",
+          "--disable",
+          "remote_plugin",
+          "--disable",
+          "shell_snapshot",
+          "--disable",
+          "shell_tool",
+          "--disable",
+          "skill_mcp_dependency_install",
+          "--disable",
+          "skill_search",
+          "--disable",
+          "sleep_tool",
+          "--disable",
+          "tool_call_mcp_elicitation",
+          "--disable",
+          "tool_suggest",
+          "--disable",
+          "unbounded_connection_retries",
+          "--disable",
+          "unified_exec",
+          "--disable",
+          "unified_exec_tty",
+          "--disable",
+          "view_image",
+          "--disable",
+          "workspace_dependencies",
+          "-"
+        ],
+        "images": [],
+        "remoteBackend": "unverified; request arguments and returned events only"
+      },
+      "binding": {
+        "productionSha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+        "sourceFileSha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+        "originalAuditSha256": "51a7871f3be891b712baa492b6a190e0b6b28f9931f4670f505f32842e1d7e9a",
+        "authorizationComment": "01a17f29-cddf-7108-91df-146ccfb0939f",
+        "requestSha256": "0a931da9bc5d7908ad28a07915aac7b9f5f8a3544342b55dd291d45ef7cdaca2",
+        "consumerManifestSha256": "a3b9b0b091ec85a5db5a94af55ca6613d87781f73ccebf5792a9c9d24cc9f58b",
+        "contextSupplement": {
+          "schema": "coach-chapter100-context-input-binding/1",
+          "canonical": "nemata-jp-chapter-100-1",
+          "candidate": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.display.json",
+            "sha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+            "bytes": 1236462
+          },
+          "source": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter01-section035\\source.json",
+            "sha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+            "bytes": 774629
+          },
+          "oldAudit": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json",
+            "sha256": "51a7871f3be891b712baa492b6a190e0b6b28f9931f4670f505f32842e1d7e9a",
+            "bytes": 513435
+          },
+          "originalGroup": {
+            "batchId": "chapter01-section035-batch-002",
+            "unitIds": [
+              "modern-yabejp-ja-chapter01-section035-u4"
+            ],
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter01-section035:b0040",
+              "modern-yabejp-ja:chapter01-section035:b0041",
+              "modern-yabejp-ja:chapter01-section035:b0042",
+              "modern-yabejp-ja:chapter01-section035:b0043",
+              "modern-yabejp-ja:chapter01-section035:b0044",
+              "modern-yabejp-ja:chapter01-section035:b0045",
+              "modern-yabejp-ja:chapter01-section035:b0046",
+              "modern-yabejp-ja:chapter01-section035:b0047",
+              "modern-yabejp-ja:chapter01-section035:b0048",
+              "modern-yabejp-ja:chapter01-section035:b0049",
+              "modern-yabejp-ja:chapter01-section035:b0050",
+              "modern-yabejp-ja:chapter01-section035:b0051",
+              "modern-yabejp-ja:chapter01-section035:b0052",
+              "modern-yabejp-ja:chapter01-section035:b0053",
+              "modern-yabejp-ja:chapter01-section035:b0054",
+              "modern-yabejp-ja:chapter01-section035:b0055",
+              "modern-yabejp-ja:chapter01-section035:b0056",
+              "modern-yabejp-ja:chapter01-section035:b0057",
+              "modern-yabejp-ja:chapter01-section035:b0058",
+              "modern-yabejp-ja:chapter01-section035:b0059",
+              "modern-yabejp-ja:chapter01-section035:b0060",
+              "modern-yabejp-ja:chapter01-section035:b0061",
+              "modern-yabejp-ja:chapter01-section035:b0062",
+              "modern-yabejp-ja:chapter01-section035:b0063",
+              "modern-yabejp-ja:chapter01-section035:b0064",
+              "modern-yabejp-ja:chapter01-section035:b0065",
+              "modern-yabejp-ja:chapter01-section035:b0066",
+              "modern-yabejp-ja:chapter01-section035:b0067",
+              "modern-yabejp-ja:chapter01-section035:b0068",
+              "modern-yabejp-ja:chapter01-section035:b0069",
+              "modern-yabejp-ja:chapter01-section035:b0070",
+              "modern-yabejp-ja:chapter01-section035:b0071",
+              "modern-yabejp-ja:chapter01-section035:b0072",
+              "modern-yabejp-ja:chapter01-section035:b0073",
+              "modern-yabejp-ja:chapter01-section035:b0074",
+              "modern-yabejp-ja:chapter01-section035:b0075",
+              "modern-yabejp-ja:chapter01-section035:b0076",
+              "modern-yabejp-ja:chapter01-section035:b0077",
+              "modern-yabejp-ja:chapter01-section035:b0078",
+              "modern-yabejp-ja:chapter01-section035:b0079",
+              "modern-yabejp-ja:chapter01-section035:b0080",
+              "modern-yabejp-ja:chapter01-section035:b0081",
+              "modern-yabejp-ja:chapter01-section035:b0082",
+              "modern-yabejp-ja:chapter01-section035:b0083",
+              "modern-yabejp-ja:chapter01-section035:b0084",
+              "modern-yabejp-ja:chapter01-section035:b0085",
+              "modern-yabejp-ja:chapter01-section035:b0086",
+              "modern-yabejp-ja:chapter01-section035:b0087",
+              "modern-yabejp-ja:chapter01-section035:b0088",
+              "modern-yabejp-ja:chapter01-section035:b0089",
+              "modern-yabejp-ja:chapter01-section035:b0090",
+              "modern-yabejp-ja:chapter01-section035:b0091",
+              "modern-yabejp-ja:chapter01-section035:b0092",
+              "modern-yabejp-ja:chapter01-section035:b0093",
+              "modern-yabejp-ja:chapter01-section035:b0094",
+              "modern-yabejp-ja:chapter01-section035:b0095",
+              "modern-yabejp-ja:chapter01-section035:b0096",
+              "modern-yabejp-ja:chapter01-section035:b0097",
+              "modern-yabejp-ja:chapter01-section035:b0098",
+              "modern-yabejp-ja:chapter01-section035:b0099",
+              "modern-yabejp-ja:chapter01-section035:b0100",
+              "modern-yabejp-ja:chapter01-section035:b0101",
+              "modern-yabejp-ja:chapter01-section035:b0102",
+              "modern-yabejp-ja:chapter01-section035:b0103",
+              "modern-yabejp-ja:chapter01-section035:b0104",
+              "modern-yabejp-ja:chapter01-section035:b0105",
+              "modern-yabejp-ja:chapter01-section035:b0106",
+              "modern-yabejp-ja:chapter01-section035:b0107"
+            ],
+            "contextSourceBlockIds": [
+              "modern-yabejp-ja:chapter01-section035:b0001",
+              "modern-yabejp-ja:chapter01-section035:b0002"
+            ],
+            "sourceCharacters": 1289,
+            "imageOccurrences": 135,
+            "sourceBlocks": 68,
+            "completeQuestionAnswers": true,
+            "completeHtmlTables": true,
+            "largeIntactCluster": false
+          },
+          "additionalContextSourceBlockIds": [
+            "modern-yabejp-ja:chapter01-section035:b0003",
+            "modern-yabejp-ja:chapter01-section035:b0004",
+            "modern-yabejp-ja:chapter01-section035:b0005",
+            "modern-yabejp-ja:chapter01-section035:b0006",
+            "modern-yabejp-ja:chapter01-section035:b0007",
+            "modern-yabejp-ja:chapter01-section035:b0008",
+            "modern-yabejp-ja:chapter01-section035:b0009",
+            "modern-yabejp-ja:chapter01-section035:b0010",
+            "modern-yabejp-ja:chapter01-section035:b0011",
+            "modern-yabejp-ja:chapter01-section035:b0012",
+            "modern-yabejp-ja:chapter01-section035:b0013",
+            "modern-yabejp-ja:chapter01-section035:b0014",
+            "modern-yabejp-ja:chapter01-section035:b0015",
+            "modern-yabejp-ja:chapter01-section035:b0016",
+            "modern-yabejp-ja:chapter01-section035:b0017",
+            "modern-yabejp-ja:chapter01-section035:b0018",
+            "modern-yabejp-ja:chapter01-section035:b0019",
+            "modern-yabejp-ja:chapter01-section035:b0020",
+            "modern-yabejp-ja:chapter01-section035:b0021",
+            "modern-yabejp-ja:chapter01-section035:b0022",
+            "modern-yabejp-ja:chapter01-section035:b0023",
+            "modern-yabejp-ja:chapter01-section035:b0024",
+            "modern-yabejp-ja:chapter01-section035:b0025",
+            "modern-yabejp-ja:chapter01-section035:b0026",
+            "modern-yabejp-ja:chapter01-section035:b0027",
+            "modern-yabejp-ja:chapter01-section035:b0028",
+            "modern-yabejp-ja:chapter01-section035:b0029",
+            "modern-yabejp-ja:chapter01-section035:b0030",
+            "modern-yabejp-ja:chapter01-section035:b0031",
+            "modern-yabejp-ja:chapter01-section035:b0032",
+            "modern-yabejp-ja:chapter01-section035:b0033",
+            "modern-yabejp-ja:chapter01-section035:b0034",
+            "modern-yabejp-ja:chapter01-section035:b0035",
+            "modern-yabejp-ja:chapter01-section035:b0036",
+            "modern-yabejp-ja:chapter01-section035:b0037",
+            "modern-yabejp-ja:chapter01-section035:b0038",
+            "modern-yabejp-ja:chapter01-section035:b0039"
+          ],
+          "inheritedPassedGroups": [
+            "chapter01-section035-batch-001",
+            "chapter01-section035-batch-003"
+          ],
+          "inheritedPassedBlockCount": 243,
+          "originalFailedContextCall": "4fe2d7b1-cf5f-47e8-9b46-5b0ea849216a",
+          "productionPlan": {
+            "planPath": "web-production/v1/batch-plans/92aad718c9538143ec227620e42a933f8927242ebb1d1c92edc688ec476c27c9.json",
+            "planSha256": "92aad718c9538143ec227620e42a933f8927242ebb1d1c92edc688ec476c27c9",
+            "unitMap": {
+              "path": "web-production/v1/batch-plans/3a37034f9f4db9474e37a94cfc02bc001e68e37ba1c1e74ab86ecf78897cc228.units.json",
+              "sha256": "3a37034f9f4db9474e37a94cfc02bc001e68e37ba1c1e74ab86ecf78897cc228"
+            },
+            "helper": {
+              "path": "web-production/v1/runners/b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb.batches.mjs",
+              "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+            }
+          },
+          "preparerSha256": "d825ded2118bbbba5244832897cc95244b164b2e7bc8175ee64759b8349e0241",
+          "verificationEntrySha256": "f5a0bc9d9f85e2dbf9dd2536035addb0ff3da77e52173d22a6e58042241e074f",
+          "semanticProjectionSha256": "6eebbee0e3a021b6d874ada4946619e8e7b89d5ff225463a3d7132c8a5ba1aee",
+          "schemaSha256": "7113b400836be5bb6e28a6449df8bcae3ed1b69654cb53e50bd2c9cda4a9660b"
+        }
+      },
+      "promptSha256": "a1916da95c969557416ee24a4116b0d14d69d83a610d786ac25caa400db560b4",
+      "semanticPromptSha256": "c5a5a8eeebb90976b16dd13b374f5a957ee51c8940530d349ca47049fd6057b3",
+      "schemaSha256": "7113b400836be5bb6e28a6449df8bcae3ed1b69654cb53e50bd2c9cda4a9660b",
+      "outputSha256": "a2c6a4946e65aa44b15c9d2ffc334fed922264f5392c2acf569f3a951e4d9a1f",
+      "recordedAt": "2026-10-27T21:23:47.976Z"
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\c821f2f0-903b-47f5-8bcc-81db3be2044d.json",
+      "sha256": "ec474aaa993b0b00e697cbf95cd3c9448259746f84b5840912080fda27a6efe6"
+    },
+    "receipt": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-next3-20261028\\receipt100.json",
+      "sha256": "5de11b596e0e5da73d0093fad96180cc1388db94a7d3ea09d587dcaff6c0b2e1"
+    },
+    "handoff": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-100-reviewed-20261028.json",
+      "sha256": "e3ffec55992ef79d1e4bdbd84d058b07d4d5f4b9f10daa44f60893193bd202b0"
+    },
+    "wholeArticlePassed": false,
+    "candidateChanged": false,
+    "issue": {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter01-section035:b0041",
+      "sourceEvidence": "b0041：「役牌トイツ１組＋生きている字牌２〜３種」；b0038明确解释：「生きている（２枚以上切れてない）孤立字牌」。候选为「1组役牌对子＋仍有剩余的字牌2～3种」。",
+      "description": "「仍有剩余」不足以表达尚未被打出2张以上的限制，可能把已经打出2张、但仍有余牌的字牌也计入，扩大积极染手的适用条件。补充上下文能够确定原意，但不能使该处译文自动忠实。",
+      "suggestedRepair": "将括号内对应部分改为「或1组役牌对子＋2～3种仍然有效（尚未被打出2张以上）的字牌」。"
+    },
+    "repairRequirement": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-100-minimal-repair-20261028.json",
+      "sha256": "b00075131f440682b5ea2903ca389975933666dd3b834f74880faf88a9f5fb75"
+    },
+    "inheritedPassedBlocks": 243,
+    "newTargetFaithfulBlocks": 67,
+    "sidecarWritten": false
+  },
+  "repair": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-next3-100-minimal-repair-20261028.json",
+    "sha256": "b00075131f440682b5ea2903ca389975933666dd3b834f74880faf88a9f5fb75"
+  },
+  "modelReview": {
+    "blockChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0040",
+        "verdict": "faithful",
+        "evidence": "保留比较满足A、B后手牌强度的主题，与前文比较满足频率的主题区分清楚。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0041",
+        "verdict": "needs-repair",
+        "evidence": "A仍指确定专攻染手的条件，打点比较及各条路线的条件基本对应；但将「生きている字牌」译为「仍有剩余的字牌」，未保留b0038明确的「尚未被打出2张以上」限制。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0042",
+        "verdict": "faithful",
+        "evidence": "西家、第2巡均保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0043",
+        "verdict": "faithful",
+        "evidence": "手牌图列保留在题设之后；精确资产视觉结论继承原独立检查，本次未作视觉审校。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0044",
+        "verdict": "faithful",
+        "evidence": "保留指向弃牌的箭头及动作。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0045",
+        "verdict": "faithful",
+        "evidence": "保留第一项弃牌六万；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0046",
+        "verdict": "faithful",
+        "evidence": "「か」译为「或」，保留弃牌选项关系。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0047",
+        "verdict": "faithful",
+        "evidence": "保留另一项弃牌六筒；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0048",
+        "verdict": "faithful",
+        "evidence": "保留基本以混一色副露推进、同时考虑对对和的说明，并连接后续弃牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0049",
+        "verdict": "faithful",
+        "evidence": "题解中的六万弃牌保留；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0050",
+        "verdict": "faithful",
+        "evidence": "保留另一弃牌选项的连接。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0051",
+        "verdict": "faithful",
+        "evidence": "题解中的六筒弃牌保留；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0052",
+        "verdict": "faithful",
+        "evidence": "保留大多止于混一色一役，以及其他和牌途径困难而不得已的理由。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0053",
+        "verdict": "faithful",
+        "evidence": "第4巡保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0054",
+        "verdict": "faithful",
+        "evidence": "完整手牌图列保留在对应题设中；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0055",
+        "verdict": "faithful",
+        "evidence": "保留拆掉万子两嵌的选择。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0056",
+        "verdict": "faithful",
+        "evidence": "保留筒子或字牌形成搭子、对子后满足A的条件，以及速度、打点优势和先拆万子两嵌的结论；没有将当前手牌直接说成已满足A。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0057",
+        "verdict": "faithful",
+        "evidence": "第6巡保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0058",
+        "verdict": "faithful",
+        "evidence": "对应第6巡的手牌图列完整保留；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0059",
+        "verdict": "faithful",
+        "evidence": "保留弃牌指示。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0060",
+        "verdict": "faithful",
+        "evidence": "题目答案为切發，保留；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0061",
+        "verdict": "faithful",
+        "evidence": "保留已有10张筒子及容易满足A的预期语气，没有将张数单独等同于A，也保留后文转折。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0062",
+        "verdict": "faithful",
+        "evidence": "六万保留为后续靠张说明的对象；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0063",
+        "verdict": "faithful",
+        "evidence": "「的靠张或」正确连接六万与后续摸牌选项。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0064",
+        "verdict": "faithful",
+        "evidence": "四索、七索保留为满足B的相关摸牌；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0065",
+        "verdict": "faithful",
+        "evidence": "保留满足B的可能不可忽视、断幺九及三色同顺路线，以及不确定专攻染手而切發的结论；A、B没有互换。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0066",
+        "verdict": "faithful",
+        "evidence": "题解结论中的發保留，与题目答案一致；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0067",
+        "verdict": "faithful",
+        "evidence": "句末标点保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0068",
+        "verdict": "faithful",
+        "evidence": "配牌阶段保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0069",
+        "verdict": "faithful",
+        "evidence": "起手配牌图列完整保留；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0070",
+        "verdict": "faithful",
+        "evidence": "保留弃牌指示。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0071",
+        "verdict": "faithful",
+        "evidence": "保留一万、二万的拆边张选择；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0072",
+        "verdict": "faithful",
+        "evidence": "保留孤立役牌与边张的选择，以及役牌成对后可能通过混一色达到满贯的条件语气。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0073",
+        "verdict": "faithful",
+        "evidence": "题解中的一万、二万与题目弃牌对应；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0074",
+        "verdict": "faithful",
+        "evidence": "句末标点保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0075",
+        "verdict": "faithful",
+        "evidence": "第8巡保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0076",
+        "verdict": "faithful",
+        "evidence": "保留副露之外的手牌图列；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0077",
+        "verdict": "faithful",
+        "evidence": "「ポン」译为「碰」，保留副露类型。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0078",
+        "verdict": "faithful",
+        "evidence": "保留中刻子的碰牌图列；横牌细节继承原图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0079",
+        "verdict": "faithful",
+        "evidence": "保留和牌即可第一的例外，以及其他情况下应留下转染可能的结论，没有改成必须染手。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0080",
+        "verdict": "faithful",
+        "evidence": "保留切六万的结论；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0081",
+        "verdict": "faithful",
+        "evidence": "句末标点保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0082",
+        "verdict": "faithful",
+        "evidence": "东场、东家、配牌阶段均保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0083",
+        "verdict": "faithful",
+        "evidence": "对应东场东家配牌的完整图列保留；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0084",
+        "verdict": "faithful",
+        "evidence": "保留弃牌指示。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0085",
+        "verdict": "faithful",
+        "evidence": "保留切一万的答案；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0086",
+        "verdict": "faithful",
+        "evidence": "保留仅从组成面子难易程度考虑的限定。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0087",
+        "verdict": "faithful",
+        "evidence": "保留一索作为单看面子效率时不需要的牌；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0088",
+        "verdict": "faithful",
+        "evidence": "保留并列候选的连接。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0089",
+        "verdict": "faithful",
+        "evidence": "保留北作为另一张单看面子效率时不需要的牌；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0090",
+        "verdict": "faithful",
+        "evidence": "保留面子效率与手役可能性的转折，以及留下索子混一色、一气通贯可能后切牌的结论。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0091",
+        "verdict": "faithful",
+        "evidence": "题解切一万与题目答案一致；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0092",
+        "verdict": "faithful",
+        "evidence": "句末标点保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0093",
+        "verdict": "faithful",
+        "evidence": "第2巡保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0094",
+        "verdict": "faithful",
+        "evidence": "对应第2巡的手牌图列完整保留；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0095",
+        "verdict": "faithful",
+        "evidence": "保留弃牌指示。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0096",
+        "verdict": "faithful",
+        "evidence": "保留二万、三万的拆搭选择；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0097",
+        "verdict": "faithful",
+        "evidence": "保留染手面子候选齐备、满贯可期，以及兼顾对对和白中的满贯路线。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0098",
+        "verdict": "faithful",
+        "evidence": "题解中的二万、三万与题目拆搭选择对应；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0099",
+        "verdict": "faithful",
+        "evidence": "保留拆搭建议的试探语气、后期接受1000或2000点的退路，以及不得忽视巡目和他家进展而强染的限制。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0100",
+        "verdict": "faithful",
+        "evidence": "保留不必过度担忧意图暴露的理由、面子候选足够时先切无用目标色或字牌的条件，以及先切第二多花色仅略有利于副露的力度。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0101",
+        "verdict": "faithful",
+        "evidence": "例示标识和强调保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0102",
+        "verdict": "faithful",
+        "evidence": "保留用于说明伪装染手意图的手牌图列；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0103",
+        "verdict": "faithful",
+        "evidence": "保留碰牌标识。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0104",
+        "verdict": "faithful",
+        "evidence": "保留白刻子的碰牌图列；横牌细节继承原图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0105",
+        "verdict": "faithful",
+        "evidence": "保留弃牌指示。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0106",
+        "verdict": "faithful",
+        "evidence": "保留先切五索的示例答案，与前文先切无用目标色孤张的说明衔接；图检继承。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0107",
+        "verdict": "faithful",
+        "evidence": "保留染手尤其门清清一色易形成多面听的说明、参考文章名称，以及两个原链接。"
+      }
+    ],
+    "figureChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0043:figure",
+        "verdict": "faithful",
+        "evidence": "14张手牌及其题设位置保留；继承同SHA原独立图检，本次未作视觉审校。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0045:figure",
+        "verdict": "faithful",
+        "evidence": "第一项弃牌6m保留；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0047:figure",
+        "verdict": "faithful",
+        "evidence": "另一项弃牌6p保留；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0049:figure",
+        "verdict": "faithful",
+        "evidence": "题解弃牌6m保留；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0051:figure",
+        "verdict": "faithful",
+        "evidence": "题解另一项弃牌6p保留；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0054:figure",
+        "verdict": "faithful",
+        "evidence": "14张手牌保留，与拆万子两嵌的题解对应；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0058:figure",
+        "verdict": "faithful",
+        "evidence": "14张手牌保留，与A、B两条发展路线的题解对应；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0060:figure",
+        "verdict": "faithful",
+        "evidence": "题目弃牌6z保留；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0062:figure",
+        "verdict": "faithful",
+        "evidence": "靠张对象6m保留；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0064:figure",
+        "verdict": "faithful",
+        "evidence": "摸牌选项4s、7s保留；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0066:figure",
+        "verdict": "faithful",
+        "evidence": "题解弃牌6z保留；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0069:figure",
+        "verdict": "faithful",
+        "evidence": "14张配牌保留，与保留孤立役牌的题解对应；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0071:figure",
+        "verdict": "faithful",
+        "evidence": "拆除边张1m、2m的选项保留；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0073:figure",
+        "verdict": "faithful",
+        "evidence": "题解中的1m、2m保留；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0076:figure",
+        "verdict": "faithful",
+        "evidence": "11张手牌与独立的碰中图列分开保留；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0078:figure",
+        "verdict": "faithful",
+        "evidence": "碰中三张及中间横牌保留；方向细节继承原独立检查，本次未作视觉审校。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0080:figure",
+        "verdict": "faithful",
+        "evidence": "切6m的结论保留；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0083:figure",
+        "verdict": "faithful",
+        "evidence": "东场东家14张配牌保留；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0085:figure",
+        "verdict": "faithful",
+        "evidence": "题目弃牌1m保留；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0087:figure",
+        "verdict": "faithful",
+        "evidence": "面子效率比较中的1s保留；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0089:figure",
+        "verdict": "faithful",
+        "evidence": "面子效率比较中的4z保留；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0091:figure",
+        "verdict": "faithful",
+        "evidence": "题解弃牌1m保留；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0094:figure",
+        "verdict": "faithful",
+        "evidence": "14张手牌保留，与混一色及对对和白中两条满贯路线对应；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0096:figure",
+        "verdict": "faithful",
+        "evidence": "拆除2m、3m的选择保留；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0098:figure",
+        "verdict": "faithful",
+        "evidence": "题解中的2m、3m保留；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0102:figure",
+        "verdict": "faithful",
+        "evidence": "11张手牌保留，与碰白和切5s组成完整示例；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0104:figure",
+        "verdict": "faithful",
+        "evidence": "碰白三张及首张横牌保留；继承原独立检查，本次未作视觉审校。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0106:figure",
+        "verdict": "faithful",
+        "evidence": "示例弃牌5s保留；继承原精确资产图检。"
+      }
+    ],
+    "imageChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00063",
+        "disposition": "represented",
+        "evidence": "b0043：6m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00064",
+        "disposition": "represented",
+        "evidence": "b0043：6p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00065",
+        "disposition": "represented",
+        "evidence": "b0043：9p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00066",
+        "disposition": "represented",
+        "evidence": "b0043：第二张9p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00067",
+        "disposition": "represented",
+        "evidence": "b0043：3s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00068",
+        "disposition": "represented",
+        "evidence": "b0043：5s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00069",
+        "disposition": "represented",
+        "evidence": "b0043：第二张5s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00070",
+        "disposition": "represented",
+        "evidence": "b0043：6s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00071",
+        "disposition": "represented",
+        "evidence": "b0043：8s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00072",
+        "disposition": "represented",
+        "evidence": "b0043：南2z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00073",
+        "disposition": "represented",
+        "evidence": "b0043：第二张南2z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00074",
+        "disposition": "represented",
+        "evidence": "b0043：北4z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00075",
+        "disposition": "represented",
+        "evidence": "b0043：第二张北4z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00076",
+        "disposition": "represented",
+        "evidence": "b0043：白5z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00077",
+        "disposition": "represented",
+        "evidence": "b0045：弃牌6m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00078",
+        "disposition": "represented",
+        "evidence": "b0047：弃牌6p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00079",
+        "disposition": "represented",
+        "evidence": "b0049：题解弃牌6m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00080",
+        "disposition": "represented",
+        "evidence": "b0051：题解弃牌6p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00081",
+        "disposition": "represented",
+        "evidence": "b0054：3m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00082",
+        "disposition": "represented",
+        "evidence": "b0054：5m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00083",
+        "disposition": "represented",
+        "evidence": "b0054：7m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00084",
+        "disposition": "represented",
+        "evidence": "b0054：1p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00085",
+        "disposition": "represented",
+        "evidence": "b0054：第二张1p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00086",
+        "disposition": "represented",
+        "evidence": "b0054：3p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00087",
+        "disposition": "represented",
+        "evidence": "b0054：4p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00088",
+        "disposition": "represented",
+        "evidence": "b0054：第二张4p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00089",
+        "disposition": "represented",
+        "evidence": "b0054：5p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00090",
+        "disposition": "represented",
+        "evidence": "b0054：7p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00091",
+        "disposition": "represented",
+        "evidence": "b0054：东1z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00092",
+        "disposition": "represented",
+        "evidence": "b0054：西3z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00093",
+        "disposition": "represented",
+        "evidence": "b0054：第二张西3z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00094",
+        "disposition": "represented",
+        "evidence": "b0054：中7z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00095",
+        "disposition": "represented",
+        "evidence": "b0058：6m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00096",
+        "disposition": "represented",
+        "evidence": "b0058：1p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00097",
+        "disposition": "represented",
+        "evidence": "b0058：2p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00098",
+        "disposition": "represented",
+        "evidence": "b0058：第二张2p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00099",
+        "disposition": "represented",
+        "evidence": "b0058：3p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00100",
+        "disposition": "represented",
+        "evidence": "b0058：4p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00101",
+        "disposition": "represented",
+        "evidence": "b0058：5p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00102",
+        "disposition": "represented",
+        "evidence": "b0058：6p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00103",
+        "disposition": "represented",
+        "evidence": "b0058：7p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00104",
+        "disposition": "represented",
+        "evidence": "b0058：第二张7p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00105",
+        "disposition": "represented",
+        "evidence": "b0058：9p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00106",
+        "disposition": "represented",
+        "evidence": "b0058：5s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00107",
+        "disposition": "represented",
+        "evidence": "b0058：6s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00108",
+        "disposition": "represented",
+        "evidence": "b0058：發6z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00109",
+        "disposition": "represented",
+        "evidence": "b0060：弃牌發6z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00110",
+        "disposition": "represented",
+        "evidence": "b0062：靠张对象6m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00111",
+        "disposition": "represented",
+        "evidence": "b0064：摸牌4s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00112",
+        "disposition": "represented",
+        "evidence": "b0064：摸牌7s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00113",
+        "disposition": "represented",
+        "evidence": "b0066：题解弃牌發6z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00114",
+        "disposition": "represented",
+        "evidence": "b0069：1m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00115",
+        "disposition": "represented",
+        "evidence": "b0069：2m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00116",
+        "disposition": "represented",
+        "evidence": "b0069：4p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00117",
+        "disposition": "represented",
+        "evidence": "b0069：6p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00118",
+        "disposition": "represented",
+        "evidence": "b0069：8p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00119",
+        "disposition": "represented",
+        "evidence": "b0069：2s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00120",
+        "disposition": "represented",
+        "evidence": "b0069：3s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00121",
+        "disposition": "represented",
+        "evidence": "b0069：5s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00122",
+        "disposition": "represented",
+        "evidence": "b0069：第二张5s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00123",
+        "disposition": "represented",
+        "evidence": "b0069：7s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00124",
+        "disposition": "represented",
+        "evidence": "b0069：8s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00125",
+        "disposition": "represented",
+        "evidence": "b0069：白5z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00126",
+        "disposition": "represented",
+        "evidence": "b0069：發6z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00127",
+        "disposition": "represented",
+        "evidence": "b0069：中7z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00128",
+        "disposition": "represented",
+        "evidence": "b0071：拆边张1m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00129",
+        "disposition": "represented",
+        "evidence": "b0071：拆边张2m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00130",
+        "disposition": "represented",
+        "evidence": "b0073：题解1m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00131",
+        "disposition": "represented",
+        "evidence": "b0073：题解2m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00132",
+        "disposition": "represented",
+        "evidence": "b0076：5m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00133",
+        "disposition": "represented",
+        "evidence": "b0076：6m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00134",
+        "disposition": "represented",
+        "evidence": "b0076：第二张6m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00135",
+        "disposition": "represented",
+        "evidence": "b0076：4s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00136",
+        "disposition": "represented",
+        "evidence": "b0076：第二张4s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00137",
+        "disposition": "represented",
+        "evidence": "b0076：5s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00138",
+        "disposition": "represented",
+        "evidence": "b0076：6s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00139",
+        "disposition": "represented",
+        "evidence": "b0076：8s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00140",
+        "disposition": "represented",
+        "evidence": "b0076：第二张8s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00141",
+        "disposition": "represented",
+        "evidence": "b0076：西3z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00142",
+        "disposition": "represented",
+        "evidence": "b0076：第二张西3z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00143",
+        "disposition": "represented",
+        "evidence": "b0078：碰中首张7z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00144",
+        "disposition": "represented",
+        "evidence": "b0078：中间横牌7z；方向继承原图检，非本次视觉判断。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00145",
+        "disposition": "represented",
+        "evidence": "b0078：碰中末张7z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00146",
+        "disposition": "represented",
+        "evidence": "b0080：弃牌6m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00147",
+        "disposition": "represented",
+        "evidence": "b0083：1m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00148",
+        "disposition": "represented",
+        "evidence": "b0083：5m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00149",
+        "disposition": "represented",
+        "evidence": "b0083：8m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00150",
+        "disposition": "represented",
+        "evidence": "b0083：1p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00151",
+        "disposition": "represented",
+        "evidence": "b0083：2p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00152",
+        "disposition": "represented",
+        "evidence": "b0083：8p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00153",
+        "disposition": "represented",
+        "evidence": "b0083：1s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00154",
+        "disposition": "represented",
+        "evidence": "b0083：4s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00155",
+        "disposition": "represented",
+        "evidence": "b0083：6s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00156",
+        "disposition": "represented",
+        "evidence": "b0083：7s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00157",
+        "disposition": "represented",
+        "evidence": "b0083：9s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00158",
+        "disposition": "represented",
+        "evidence": "b0083：东1z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00159",
+        "disposition": "represented",
+        "evidence": "b0083：第二张东1z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00160",
+        "disposition": "represented",
+        "evidence": "b0083：北4z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00161",
+        "disposition": "represented",
+        "evidence": "b0085：弃牌1m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00162",
+        "disposition": "represented",
+        "evidence": "b0087：效率比较中的1s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00163",
+        "disposition": "represented",
+        "evidence": "b0089：效率比较中的北4z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00164",
+        "disposition": "represented",
+        "evidence": "b0091：题解弃牌1m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00165",
+        "disposition": "represented",
+        "evidence": "b0094：2m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00166",
+        "disposition": "represented",
+        "evidence": "b0094：3m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00167",
+        "disposition": "represented",
+        "evidence": "b0094：2p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00168",
+        "disposition": "represented",
+        "evidence": "b0094：3p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00169",
+        "disposition": "represented",
+        "evidence": "b0094：6p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00170",
+        "disposition": "represented",
+        "evidence": "b0094：8p；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00171",
+        "disposition": "represented",
+        "evidence": "b0094：8s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00172",
+        "disposition": "represented",
+        "evidence": "b0094：第二张8s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00173",
+        "disposition": "represented",
+        "evidence": "b0094：东1z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00174",
+        "disposition": "represented",
+        "evidence": "b0094：西3z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00175",
+        "disposition": "represented",
+        "evidence": "b0094：白5z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00176",
+        "disposition": "represented",
+        "evidence": "b0094：第二张白5z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00177",
+        "disposition": "represented",
+        "evidence": "b0094：中7z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00178",
+        "disposition": "represented",
+        "evidence": "b0094：第二张中7z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00179",
+        "disposition": "represented",
+        "evidence": "b0096：拆搭2m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00180",
+        "disposition": "represented",
+        "evidence": "b0096：拆搭3m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00181",
+        "disposition": "represented",
+        "evidence": "b0098：题解2m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00182",
+        "disposition": "represented",
+        "evidence": "b0098：题解3m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00183",
+        "disposition": "represented",
+        "evidence": "b0102：6m；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00184",
+        "disposition": "represented",
+        "evidence": "b0102：2s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00185",
+        "disposition": "represented",
+        "evidence": "b0102：3s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00186",
+        "disposition": "represented",
+        "evidence": "b0102：5s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00187",
+        "disposition": "represented",
+        "evidence": "b0102：7s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00188",
+        "disposition": "represented",
+        "evidence": "b0102：8s；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00189",
+        "disposition": "represented",
+        "evidence": "b0102：东刻子首张1z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00190",
+        "disposition": "represented",
+        "evidence": "b0102：东刻子第二张1z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00191",
+        "disposition": "represented",
+        "evidence": "b0102：东刻子第三张1z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00192",
+        "disposition": "represented",
+        "evidence": "b0102：西3z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00193",
+        "disposition": "represented",
+        "evidence": "b0102：第二张西3z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00194",
+        "disposition": "represented",
+        "evidence": "b0104：碰白首张横牌5z；继承原图检，非本次视觉判断。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00195",
+        "disposition": "represented",
+        "evidence": "b0104：碰白第二张5z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00196",
+        "disposition": "represented",
+        "evidence": "b0104：碰白第三张5z；继承原精确资产图检。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:i00197",
+        "disposition": "represented",
+        "evidence": "b0106：示例弃牌5s；继承原精确资产图检。"
+      }
+    ],
+    "domOrder": {
+      "faithful": true,
+      "evidence": "目标b0040–b0107的标题、说明、题设、内联手牌、副露、弃牌选项和题解顺序均保持；跨块的「切六万或六筒」「六万靠张或摸四索、七索」「拆二万、三万」连接正确。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "目标68块及全部题解均已比较，未发现题解或图列缺失；但b0041将前文有明确阈值的「生きている字牌」泛化为「仍有剩余的字牌」，条件语义尚不完整。"
+    },
+    "issues": [
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter01-section035:b0041",
+        "sourceEvidence": "b0041：「役牌トイツ１組＋生きている字牌２〜３種」；b0038明确解释：「生きている（２枚以上切れてない）孤立字牌」。候选为「1组役牌对子＋仍有剩余的字牌2～3种」。",
+        "description": "「仍有剩余」不足以表达尚未被打出2张以上的限制，可能把已经打出2张、但仍有余牌的字牌也计入，扩大积极染手的适用条件。补充上下文能够确定原意，但不能使该处译文自动忠实。",
+        "suggestedRepair": "将括号内对应部分改为「或1组役牌对子＋2～3种仍然有效（尚未被打出2张以上）的字牌」。"
+      }
+    ],
+    "summary": "原batch002目标68块已全部比较。A/B定义及题解关联保持，b0041的有效字牌限制需修复，其余67块忠实。28图、135次图片表示继承原同SHA独立检查，本次无新视觉审校；未重审其他已通过组。",
+    "completeBatchCompared": true,
+    "contextContinuity": {
+      "faithful": true,
+      "evidence": "依据b0036的明确定义，A为确定专攻染手的条件，须结合前述四项条件理解；B为（2）（3）（4）任一逆向条件，并连同非目标色已有面子仍可染、弱搭可逐步拆除、已有打点但染手速度损失不大仍可染等说明和例外理解。B不是A整体的逻辑否定，未满足A也不等于应放弃染手。b0037–39比较满足A、B的频率，b0040–41转向比较结果打点；b0056保留接近A时提前拆搭的判断，b0061–65保留A、B发展均不可忽视时兼顾路线的判断。未根据牌例反推定义；b0041局部字牌限制的失真另列修复。"
+    }
+  },
+  "accepted": false,
+  "modelCalls": 0
+}

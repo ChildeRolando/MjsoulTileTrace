@@ -1,0 +1,674 @@
+{
+  "schema": "coac249-next3-independent-supplement/1",
+  "authorizationComment": "01a17f29-cddf-7108-91df-146ccfb0939f",
+  "recordedAt": "2026-10-27T21:24:58.010Z",
+  "key": "159",
+  "canonical": "79-cn-chapter-159-9",
+  "status": "needs-repair",
+  "receipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-next3-20261028\\receipt159.json",
+    "sha256": "8b51355cf5799eb50fd6a60767d8dddb407f47f9e99e0f5fe8eb3399e6685901"
+  },
+  "chapterAccepted": false,
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751292.display.json",
+    "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+    "bytes": 46828
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1751292\\source.json",
+    "sha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+    "bytes": 28679
+  },
+  "oldAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json",
+    "sha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed",
+    "bytes": 25432
+  },
+  "call": {
+    "callId": "50eb7aaf-2b54-410c-b41b-b11059eae75f",
+    "scope": "textbook-web-native-point-teaching-impact-supplement",
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1751292",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "success": true,
+    "usage": {
+      "inputTokens": 21248,
+      "cachedInputTokens": 0,
+      "outputTokens": 17432
+    },
+    "durationMs": 229062,
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-terra-max-v1-20261027",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "callerRequested": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-terra",
+        "--config",
+        "model_reasoning_effort=\"max\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-a7myaK\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-a7myaK\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-a7myaK",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-target.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-target-x4.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-neighbors.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-neighbors-x4.png",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952.png",
+          "sha256": "e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952",
+          "bytes": 67226
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-target.png",
+          "sha256": "ab71d478261c3572cd8f0388836b9f003d059cc79096313f3adc9ca47c743a9c",
+          "bytes": 1918
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-target-x4.png",
+          "sha256": "79dea3b53ad48ee15c67ccfa6fb1f94072728d25f7d9163bd376b1f57761a23d",
+          "bytes": 2681
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-neighbors.png",
+          "sha256": "367edcc1d98f7ec1a41107e1e4f49c9854e2998e67d521bd6dcb8f8d777c7518",
+          "bytes": 5846
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-neighbors-x4.png",
+          "sha256": "eafe0bc34980d52254159e408e01c00c98e07e28f3653473a57496763812b872",
+          "bytes": 8484
+        }
+      ],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "binding": {
+      "productionSha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+      "sourceFileSha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+      "originalAuditSha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed",
+      "authorizationComment": "01a17f29-cddf-7108-91df-146ccfb0939f",
+      "requestSha256": "dcca623694bb39d0cc5beb931f05ecf375c7f4f23a92c150dfb997ff83210730",
+      "consumerManifestSha256": "a3b9b0b091ec85a5db5a94af55ca6613d87781f73ccebf5792a9c9d24cc9f58b",
+      "targetFigureId": "79-bilibili-cn:cv1751292:b0013:figure",
+      "targetBBox": [
+        298,
+        126,
+        324,
+        161
+      ],
+      "runtimeManifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6"
+    },
+    "promptSha256": "4f7c5e52e1c05d0a420da7247c0c18b626fd55a96602840d31e384a8093ee8ec",
+    "semanticPromptSha256": "b4be9c618c7e4df0c932041fe72ed1412b56abc7568cdd758f90c1b26119f4ef",
+    "schemaSha256": "ea369abf0937022fa3bd661f978957d62742a782db3de2b152b0ffc4fb4c7830",
+    "outputSha256": "34e3705bb267a6c87cfe55f70f4aa2ea9091d83e6129f360cf93e9cc23262448",
+    "recordedAt": "2026-10-27T21:24:57.971Z"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\50eb7aaf-2b54-410c-b41b-b11059eae75f.json",
+    "sha256": "12e1b8c6c7e88b3474b2a6a8aa2d56a27a62e64d9c3a5b36a396c365c94177bf"
+  },
+  "request": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-next3-20261028\\request159.json",
+    "sha256": "dcca623694bb39d0cc5beb931f05ecf375c7f4f23a92c150dfb997ff83210730"
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027",
+    "manifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6"
+  },
+  "checks": {
+    "transport": true,
+    "configOkay": true,
+    "promptOkay": true,
+    "unchanged": true,
+    "locationOkay": true,
+    "complete": true,
+    "readingConsistent": true,
+    "limitedOkay": false
+  },
+  "modelReview": {
+    "location": {
+      "status": "confirmed",
+      "evidence": "按题目提供的绑定，目标是例4的 figure 79-bilibili-cn:cv1751292:b0013:figure，对应源块 b0013、occurrence i00005 和所示原图。原图为 495×529；目标框采用左上角原生像素、右下半开坐标 [298,126,324,161]。图中该框位于上方牌河的最右一格，与所给单牌裁剪一致。",
+      "originalBBox": [
+        298,
+        126,
+        324,
+        161
+      ],
+      "neighborOrderEvidence": "邻位框 [218,120,330,168] 内四格从画面左至右依次为 [222,126,248,161]、[248,126,274,161]、[274,126,298,161]、[298,126,324,161]。邻位图依次显示空白牌、绿色图案牌、黑色字牌及目标万子牌；与当前转写所列 5z、8s、3z、未知数字万子的邻位关系一致。本次不复核前三张的牌码。"
+    },
+    "reading": {
+      "status": "unknown",
+      "tileCode": "unknown",
+      "evidence": "目标牌可辨为万子，但原图和单牌裁剪中黑色数字笔画的细节不足，不能可靠区分其数字。四倍图是同一像素的最近邻放大，没有提供新的独立图像证据。",
+      "limitations": "保持原朝向，不根据牌理、鸣牌规则、其他审查结论或像素相关率补出数字。原图、裁剪及放大图属于同一来源，不重复计牌。"
+    },
+    "propositions": [
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1751292:b0004"
+        ],
+        "sourceQuote": "前一回主要说了有2~3张宝牌的时候，即使是后付也应该积极的鸣牌。 其实还有其他的手牌和场况，采取后付是比较有效的。",
+        "claim": "文章背景是：除前一回讨论的有2至3张宝牌的情况外，还有其他手牌和场况适合考虑后付。",
+        "dependsOnExactTile": "no",
+        "faithfulWithUnknown": true,
+        "evidence": "这是全文的概括性引入，没有把例4上方牌河 [298,126,324,161] 的数字作为条件。例4随后由 b0012 末尾引出。",
+        "neededLimitation": "保留“其他的手牌和场况”及“比较有效”的范围和力度；不要把前一回的2至3张宝牌条件套到例4。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1751292:b0012"
+        ],
+        "sourceQuote": "在南场，常常会面对无论点数多少都想和牌的情况。",
+        "claim": "作者指出南场常有将和牌放在点数高低之前的局面。",
+        "dependsOnExactTile": "no",
+        "faithfulWithUnknown": true,
+        "evidence": "这是例4所在小节的一般场况动机，原句没有引用目标牌的数字。",
+        "neededLimitation": "保留“常常”和“想和牌”的语气，不改成所有南场都应如此或必然能够和牌。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1751292:b0012"
+        ],
+        "sourceQuote": "ALL LAST有微弱的差距，和牌即逆转的情况是典型的代表。",
+        "claim": "终局分差微弱且和牌即可逆转，是作者所说的典型情况。",
+        "dependsOnExactTile": "no",
+        "faithfulWithUnknown": true,
+        "evidence": "原句以分差和逆转条件说明场况，没有使用目标万子的具体数字；它紧接着引出例4。",
+        "neededLimitation": "保留这是具备所述条件的典型情况，不扩写为任何终局或任何和牌都能逆转。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1751292:b0014"
+        ],
+        "sourceQuote": "根据例4的点数情况，等着南出来太过优柔寡断了。",
+        "claim": "作者依据例4的点数情况，判断等待南出现过于犹豫。",
+        "dependsOnExactTile": "uncertain",
+        "faithfulWithUnknown": true,
+        "evidence": "原文明确给出的理由是点数情况，没有把 [298,126,324,161] 的数字列为理由。对具体战术作全面独立评估时，未知万子的数字可能影响可见数量；不能仅因它位于牌河就断定它对所有具体评估都无关。",
+        "neededLimitation": "保留为作者针对例4点数情况的判断；不把照录该判断当成已独立证明其绝对正确。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1751292:b0014"
+        ],
+        "sourceQuote": "虽然鸣牌之后手牌会有点散，但也要朝着这1500点去。",
+        "claim": "作者预计鸣牌后手牌会有点散，同时仍建议朝1500点的目标前进。",
+        "dependsOnExactTile": "uncertain",
+        "faithfulWithUnknown": true,
+        "evidence": "原句没有指定此处是哪一次鸣牌，也没有说目标牌是某个数字。保留作者的权衡不需猜数；若要逐项核验具体鸣牌及其结果，不能从这处未知牌补出所需信息。",
+        "neededLimitation": "保留“有点散”与“朝着”两种力度；1500点是作者提出的目标，不是已实现或保证实现的得点。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1751292:b0014"
+        ],
+        "sourceQuote": "这个牌能鸣牌的时候都鸣了吧（当然5万的碰是不行的= =）",
+        "claim": "作者建议这手牌在能鸣牌时积极鸣牌，并明确排除5万的碰。",
+        "dependsOnExactTile": "uncertain",
+        "faithfulWithUnknown": true,
+        "evidence": "建议的条件和例外在文字中明确给出，不需要把上方第四张认成某个数字才能忠实保留。该数字可能关系到具体万子已见数和逐牌核验，原文没有将它明确关联到某个可鸣牌清单。",
+        "neededLimitation": "必须同时保留“能鸣牌的时候”和5万碰例外；不要扩写为任何牌都可鸣，也不要根据未知牌列出完整可鸣清单。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1751292:b0014"
+        ],
+        "sourceQuote": "（当然5万的碰是不行的= =）",
+        "claim": "5万的碰是作者对上一条建议明确写出的例外。",
+        "dependsOnExactTile": "uncertain",
+        "faithfulWithUnknown": true,
+        "evidence": "作者直接写出了例外，但没有在该段说明其详细理由，也没有说上方牌河第四张就是5万。未知数字是否会影响某项具体牌数或鸣牌核验，不能由这句话单独确定。",
+        "neededLimitation": "原样保留例外，不把目标未知牌当作5万，也不自行补写例外的原因或宣称已独立验证其规则依据。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1751292:b0014"
+        ],
+        "sourceQuote": "像这样ALL LAST，拼命地向着和牌前进 要比对手更快的话，就没有被手上的役牌束缚的闲心了。",
+        "claim": "在作者描述的终局场况下，作者强调朝和牌前进，并以希望比对手更快为理由，认为不能过于受手上役牌束缚。",
+        "dependsOnExactTile": "no",
+        "faithfulWithUnknown": true,
+        "evidence": "这是围绕终局目标和速度的作者论证，文字没有使用目标万子的数字；“要比对手更快的话”是条件和目标，不是对对手行为或结果的事实断言。",
+        "neededLimitation": "保留 ALL LAST 和追求速度的条件；不要推断对手隐手、未来行为、实际速度或不需要役。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1751292:b0014"
+        ],
+        "sourceQuote": "正是这样，后付成为有效的战术。",
+        "claim": "作者据上述场况和理由，认为后付在这里是有效战术。",
+        "dependsOnExactTile": "no",
+        "faithfulWithUnknown": true,
+        "evidence": "原文的结论承接点数压力、和牌目标和速度论证，没有以目标牌的准确数字作为明示前提。保留这一作者判断不等于完成逐牌战术验证。",
+        "neededLimitation": "保留为这一语境下的作者评价，不扩展成成功保证或绝对最优结论。"
+      }
+    ],
+    "currentUnknownDisplay": {
+      "faithful": true,
+      "evidence": "仅就目标牌及相关论证而言，当前转写和 unknowns 已明确指出上方牌河从左至右第4张是数字无法可靠确认的万子；题供 presentationAsset 与原图绑定，b0012、b0014 的相关正文在候选中照录，包含条件、1500点目标及5万碰例外。未知牌可能影响具体万子数量和逐牌核验，但原文没有把其准确数字设为上述论证的明示前提。当前展示足以忠实保留作者的文字判断；这不构成对具体鸣牌、例外理由或结果的独立验证。未见额外非原文限制注，也不将其视为已安装；就忠实保留原文而言，无需新增这样的注。",
+      "requiredDisplayLimitations": [
+        "继续保留现有转写中的“［万子牌，数字无法确认］”和 unknowns 中“上方牌河按画面从左到右第4张：可辨为万子牌，数字无法可靠确认”。",
+        "保留原图及目标位置 [298,126,324,161] 的来源关联；裁剪与放大图不作为独立证据。",
+        "保留 b0012 和 b0014 的原有场况条件、判断力度、1500点目标及5万碰例外，不将未知牌补成具体牌码。",
+        "不得把当前展示扩写为完整万子已见数、逐牌可鸣清单、5万碰例外的解释或得点保证。"
+      ]
+    },
+    "conclusion": "limited-unknown-acceptable",
+    "minimumRequiredAction": "维持该牌 unknown、原图绑定和现有原文条件及例外；仅在这一限定范围内接受其忠实展示。如需进行具体万子计数或逐牌鸣牌核验，须先取得足以辨识该牌的可靠证据，当前不作该项验收。本次不制作或修改候选。",
+    "completeTargetScopeCompared": true,
+    "summary": "位置与邻位关系确认，但目标万子数字无法可靠读出。全文中与例4相关的场况、作者判断、条件和5万碰例外均可在保留 unknown 的情况下忠实呈现；具体牌数及鸣牌核验仍受限。b0005 至 b0012 前半涉及前面的例题或不同小节，其具体条件和对对手行为的推测未套入例4。此裁决仅覆盖指定牌及其相关教学论证，不宣布整页或整章通过。"
+  },
+  "sidecar": null,
+  "verification": null,
+  "target": {
+    "figureId": "79-bilibili-cn:cv1751292:b0013:figure",
+    "bbox": [
+      298,
+      126,
+      324,
+      161
+    ],
+    "currentUnknowns": [
+      "上方牌河按画面从左到右第4张：可辨为万子牌，数字无法可靠确认。"
+    ]
+  },
+  "originalCandidateChanged": false,
+  "originalAuditChanged": false,
+  "newCalls": 1,
+  "remaining": 0,
+  "retry": 0,
+  "fee": null,
+  "remoteWeights": "unknown",
+  "upstreamActualCount": null,
+  "acceptedPreviewUpdatedByThisRun": false,
+  "rawAndOriginalAuditPreserved": true,
+  "frozenConsumer": {
+    "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-afe7e5899bc5\\worktree\\artifacts\\a249-next3\\consumer-manifest.json",
+    "sha256": "a3b9b0b091ec85a5db5a94af55ca6613d87781f73ccebf5792a9c9d24cc9f58b"
+  },
+  "preflight": {
+    "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-afe7e5899bc5\\worktree\\artifacts\\a249-next3\\preflight159.json",
+    "sha256": "b6f6a1e23799b7d9edf2666f9652d939f7e962a7afb84370470395cf06f3291c"
+  },
+  "allBoundInputs": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\handoff.json",
+      "sha256": "47a95b52f2e4516855a686332bc67aedee2297eace4c1b0b7b6bb3a4f43993af",
+      "bytes": 12402
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-159-242-zero-20261028\\receipt.json",
+      "sha256": "c07f4fc57e28c1b58290890b834c2ae8e1850b0ab4746a27e3cf9bfe7ffc4538",
+      "bytes": 23241
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-point-packet.json",
+      "sha256": "0ecae5d97d1156f822c309ce3e0b1da96b3b6f610a7f4fe54690a161e707b617",
+      "bytes": 65101
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751292.display.json",
+      "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+      "bytes": 46828
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1751292\\source.json",
+      "sha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+      "bytes": 28679
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json",
+      "sha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed",
+      "bytes": 25432
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\5477ed1b-a10d-45ed-ae56-c6acaeb39464.json",
+      "sha256": "5e73dce195bf18c8769b1bbcfaf4550284b10269bf99dc1fbf26865711fac876",
+      "bytes": 106857
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.json",
+      "sha256": "483e045b3bbb1d15d8250ca11d819120f6add84c346e6c73aed4286466ded203",
+      "bytes": 17679
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952.png",
+      "sha256": "e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952",
+      "bytes": 67226
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-target.png",
+      "sha256": "ab71d478261c3572cd8f0388836b9f003d059cc79096313f3adc9ca47c743a9c",
+      "bytes": 1918
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-target-x4.png",
+      "sha256": "79dea3b53ad48ee15c67ccfa6fb1f94072728d25f7d9163bd376b1f57761a23d",
+      "bytes": 2681
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-neighbors.png",
+      "sha256": "367edcc1d98f7ec1a41107e1e4f49c9854e2998e67d521bd6dcb8f8d777c7518",
+      "bytes": 5846
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-neighbors-x4.png",
+      "sha256": "eafe0bc34980d52254159e408e01c00c98e07e28f3653473a57496763812b872",
+      "bytes": 8484
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\161.json",
+      "sha256": "9ae74eed598a9089decf2fd58be37f74c46049b8c50e36f1503e39eae6d5067c",
+      "bytes": 18230
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\c66cab7e77b66ac9a8955ef8ebe0955fc34d096729700c975062e629032c702e.png",
+      "sha256": "c66cab7e77b66ac9a8955ef8ebe0955fc34d096729700c975062e629032c702e",
+      "bytes": 68406
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-point-packet.json",
+      "sha256": "b94958e3dccbbfff17763288c9cbfa2e90e5264f67f917e0635201a30a6527cb",
+      "bytes": 79530
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780438.display.json",
+      "sha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+      "bytes": 58219
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1780438\\source.json",
+      "sha256": "3cac4b7103309b092edada33aa8f698b606aa283ae1ce18f8ce9ba9e8428f6e0",
+      "bytes": 45228
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780438.62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa.json",
+      "sha256": "332731f14ba75be91479bdefe77bb1a0026fe31d600b693d73d0e62db8ba8515",
+      "bytes": 34077
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\770655dc-b68f-4ced-8433-92bc0854431f.json",
+      "sha256": "a2ba9541cd92bdbe38bb0d8b79ba14bbb9c4ef630614ba629dfdaf080ea0fe4c",
+      "bytes": 170687
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\fe9214ed1d4cb16f1a0d857c1f08093f5038203abc349f1b89f1ce054c734618.jpg",
+      "sha256": "fe9214ed1d4cb16f1a0d857c1f08093f5038203abc349f1b89f1ce054c734618",
+      "bytes": 60370
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-target.png",
+      "sha256": "a553ec37cf9796f967ed09db67f1373c2c84a56dd1038852f45cc50cd044ca43",
+      "bytes": 2023
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-target-x4.png",
+      "sha256": "6b5d57020291eef18562f94ac13df439cfaa5ecfa78b7b4da9b243628c5c10c0",
+      "bytes": 3203
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-neighbors.png",
+      "sha256": "c62742f05431564c903e05b5c1fb500a28d4167c76290e95b3030ae3f019fd49",
+      "bytes": 15015
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-neighbors-x4.png",
+      "sha256": "783ce7c4dac7390f973b956714616933260d07ef85d98240b61cf1ef593f547a",
+      "bytes": 22641
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\242.json",
+      "sha256": "0ce0f80917b42242a996567f7dfbee544a5d6ef231fbe81022424816e2dcb05a",
+      "bytes": 12776
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\ccb19a3ffc0409921b0058f11860a34560d8c970d79f4b07033059012ea19452.png",
+      "sha256": "ccb19a3ffc0409921b0058f11860a34560d8c970d79f4b07033059012ea19452",
+      "bytes": 162636
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\runtime-manifest.json",
+      "sha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+      "bytes": 6020
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\capability-evidence.json",
+      "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2",
+      "bytes": 594
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-definition.mjs",
+      "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711",
+      "bytes": 5213
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-legacy.mjs",
+      "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619",
+      "bytes": 19381
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-layout.mjs",
+      "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06",
+      "bytes": 20673
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05",
+      "bytes": 14311
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-native-structure-corrections.mjs",
+      "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b",
+      "bytes": 22532
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-native.mjs",
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa",
+      "bytes": 9877
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-scope.mjs",
+      "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf",
+      "bytes": 3802
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff",
+      "bytes": 1990
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30",
+      "bytes": 15858
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-verification-dependencies.mjs",
+      "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08",
+      "bytes": 7384
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-web-batches.mjs",
+      "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69",
+      "bytes": 7061
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221",
+      "bytes": 20969
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-web.mjs",
+      "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b",
+      "bytes": 165915
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit.mjs",
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838",
+      "bytes": 84017
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-cli.mjs",
+      "sha256": "403eb168fb725aa990792089eb7d6e29d55903fcf9e22d2cfce253fd675a3d01",
+      "bytes": 13435
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-pdf-flow.mjs",
+      "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3",
+      "bytes": 8112
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb",
+      "bytes": 5297
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-dictionary.mjs",
+      "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824",
+      "bytes": 7251
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-formal.mjs",
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd",
+      "bytes": 9385
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-labels.mjs",
+      "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274",
+      "bytes": 3726
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1",
+      "bytes": 2781
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-sources.py",
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f",
+      "bytes": 19235
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+      "bytes": 2089
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web.mjs",
+      "sha256": "c7bd6f353f78d891f466d8f47c2aa37d9fed1a66dacdbf996018ddf2e001eee1",
+      "bytes": 36055
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production.mjs",
+      "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355",
+      "bytes": 54676
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\verification-dependencies.json",
+      "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68",
+      "bytes": 1404
+    }
+  ],
+  "independentVerification": null,
+  "remainingBudgetThisItem": 0,
+  "producerAuthorized": false,
+  "remoteUpstreamCount": null,
+  "next": "Return exact remaining semantic/source issue to existing owner; no automatic retry."
+}

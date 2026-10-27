@@ -1,0 +1,12 @@
+[
+  {
+    "ProcessId": 72136,
+    "ParentProcessId": 68044,
+    "CommandLine": "C:\\Users\\Roland\\AppData\\Roaming\\npm\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe exec --model gpt-6.1-terra --config \"model_reasoning_effort=\\\"max\\\"\" --config \"web_search=\\\"disabled\\\"\" --ephemeral --ignore-user-config --ignore-rules --sandbox read-only --strict-config --skip-git-repo-check --json --output-schema C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-5OcYJ8\\output.schema.json --output-last-message C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-5OcYJ8\\final.json --cd C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-5OcYJ8 -i E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\fe9214ed1d4cb16f1a0d857c1f08093f5038203abc349f1b89f1ce054c734618.jpg -i E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-target.png -i E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-target-x4.png -i E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-neighbors.png -i E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-neighbors-x4.png --disable apps --disable auth_elicitation --disable browser_use --disable browser_use_external --disable browser_use_full_cdp_access --disable computer_use --disable fast_mode --disable goals --disable guardian_approval --disable hooks --disable image_generation --disable in_app_browser --disable in_app_chat --disable in_app_dictation --disable in_app_local_automation --disable in_app_updates --disable memories --disable mentions_v2 --disable multi_agent --disable plugin_sharing --disable plugins --disable remote_plugin --disable shell_snapshot --disable shell_tool --disable skill_mcp_dependency_install --disable skill_search --disable sleep_tool --disable tool_call_mcp_elicitation --disable tool_suggest --disable unbounded_connection_retries --disable unified_exec --disable unified_exec_tty --disable view_image --disable workspace_dependencies -"
+  },
+  {
+    "ProcessId": 69848,
+    "ParentProcessId": 72136,
+    "CommandLine": "\\??\\C:\\WINDOWS\\system32\\conhost.exe 0x4"
+  }
+]

@@ -1,0 +1,399 @@
+{
+  "schema": "coach-textbook-corpus/1",
+  "corpusId": "56128e8ebbe16600a656c4e508d6e0e0fe45e3a90a9c3cc53ea8ec557280f046",
+  "bodySha256": "6711412d3677f64e9bdb4fabe6b764271bff075cc166a2e28a81adc56845439c",
+  "reviewStatus": "batch-audited-content-review-pending",
+  "units": [
+    {
+      "unitId": "79-bilibili-cn-cv1751292-argument",
+      "chapterId": "79-bilibili-cn-cv1751292-chapter",
+      "title": "【日本麻雀讲座译文】鸣牌12—后付（2）",
+      "chapterTitle": "【日本麻雀讲座译文】鸣牌12—后付（2）",
+      "topics": [],
+      "source": {
+        "sourceId": "79-bilibili-cn-cv1751292",
+        "title": "【日本麻雀讲座译文】鸣牌12—后付（2）",
+        "sha256": "b398297f7357dc4a119957090cb39e469edeb6a2afa2f59afdfa9cb4a1724086",
+        "pages": [],
+        "format": "web",
+        "web": {
+          "url": "https://www.bilibili.com/read/cv1751292",
+          "articleId": "cv1751292",
+          "htmlSha256": "b398297f7357dc4a119957090cb39e469edeb6a2afa2f59afdfa9cb4a1724086"
+        }
+      },
+      "translationStatus": "batch-audited-pending-user-review",
+      "previousUnitId": null,
+      "nextUnitId": null,
+      "blocks": [
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1751292-b1",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1751292",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1751292:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "免责声明："
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1751292-b2",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1751292",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1751292:b0002"
+            ],
+            "domPaths": [
+              "main/p[1]"
+            ]
+          },
+          "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1751292-b3",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1751292",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1751292:b0003"
+            ],
+            "domPaths": [
+              "main/p[2]"
+            ]
+          },
+          "text": "原文地址：http://beginners.biz/naki/naki12.html ------------------------------------------------------------------------------------ 后付2："
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1751292-b4",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1751292",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1751292:b0004"
+            ],
+            "domPaths": [
+              "main/p[3]"
+            ]
+          },
+          "text": "前一回主要说了有2~3张宝牌的时候，即使是后付也应该积极的鸣牌。 其实还有其他的手牌和场况，采取后付是比较有效的。  ------------------------------------------------------------------------------------ 急需的牌出现的时候 ------------------------------------------------------------------------------------ "
+        },
+        {
+          "type": "figure",
+          "id": "79-bilibili-cn-cv1751292-b5",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1751292",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1751292:b0005"
+            ],
+            "domPaths": [
+              "main/div[4]/div[0]/div[0]/div[0]/div[0]"
+            ]
+          },
+          "figure": {
+            "figureId": "79-bilibili-cn-cv1751292-b5",
+            "unitId": "79-bilibili-cn-cv1751292-argument",
+            "page": null,
+            "locator": {
+              "url": "https://www.bilibili.com/read/cv1751292",
+              "sourceBlockIds": [
+                "79-bilibili-cn:cv1751292:b0005"
+              ],
+              "domPaths": [
+                "main/div[4]/div[0]/div[0]/div[0]/div[0]"
+              ]
+            },
+            "caption": "例1的手牌与宝牌。",
+            "imageSha256": "2fbc52e6bc534475b7516edaf3ad4ab95d72d8123f11de5b83af2b2c996d28db",
+            "imageProvenance": {
+              "kind": "derived-source-assets",
+              "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+              "sourceAssetSha256s": [
+                "cd50425dab020a12e7cba884443a989c000ce9724341d77f9d1da91e70fb4615"
+              ]
+            },
+            "transcription": {
+              "text": "左侧标签：例1。\n手牌从左到右：1m 2m 3m 4m 4m 6m 4p 5s 6s 8s 9s 5z 5z。\n手牌右侧标签：宝牌；标签右侧牌：8s。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1751292-b6",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1751292",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1751292:b0006"
+            ],
+            "domPaths": [
+              "main/p[5]"
+            ]
+          },
+          "text": "比如这样的手牌，上家打出了7索。 毫无疑问，这张牌是我们急需的。 要是这张放过了的话就只剩下2张了（还有一张是宝牌表示牌） 要自己摸到两次4索和7索应该是相当难的。 所以这里就要边张吃进行后付。 "
+        },
+        {
+          "type": "figure",
+          "id": "79-bilibili-cn-cv1751292-b7",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1751292",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1751292:b0007"
+            ],
+            "domPaths": [
+              "main/div[6]/div[0]/div[0]/div[0]/div[0]"
+            ]
+          },
+          "figure": {
+            "figureId": "79-bilibili-cn-cv1751292-b7",
+            "unitId": "79-bilibili-cn-cv1751292-argument",
+            "page": null,
+            "locator": {
+              "url": "https://www.bilibili.com/read/cv1751292",
+              "sourceBlockIds": [
+                "79-bilibili-cn:cv1751292:b0007"
+              ],
+              "domPaths": [
+                "main/div[6]/div[0]/div[0]/div[0]/div[0]"
+              ]
+            },
+            "caption": "吃入7s后的手牌与副露。",
+            "imageSha256": "b7c9d8a1c626a120715f1acf1dd317d1c700e8e155c166048ee60129d5ab3d7a",
+            "imageProvenance": {
+              "kind": "derived-source-assets",
+              "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+              "sourceAssetSha256s": [
+                "1d93ddcd06145ab1990598d3ee57bc2d2a34d570627ff01ec08b661912278065"
+              ]
+            },
+            "transcription": {
+              "text": "左侧手牌从左到右：1m 2m 3m 4m 4m 5s 6s 1z 5z 5z。\n右侧副露从左到右：7s（横置）8s 9s。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1751292-b8",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1751292",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1751292:b0008"
+            ],
+            "domPaths": [
+              "main/p[7]"
+            ]
+          },
+          "text": "之后早点处理6万和4饼，留下一张安全牌即可。 另外，要是摸到另一张役牌的话还是把它留下更好。  虽然这里后付了， 更多情况他家也不会扣牌，需要的牌还是会出来。 相反，对手有压力的话也不会贸然进攻。 副露宝牌的面子也不怎么影响防守力 这是完全没有问题的鸣牌。  ------------------------------------------------------------------------------------ 二手准备的后付 ------------------------------------------------------------------------------------ 仅靠役牌的手牌是不好鸣牌的。 但要是有三色或者一气的话会更加有效果。 "
+        },
+        {
+          "type": "figure",
+          "id": "79-bilibili-cn-cv1751292-b9",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1751292",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1751292:b0009"
+            ],
+            "domPaths": [
+              "main/div[8]/div[0]/div[0]/div[0]/div[0]"
+            ]
+          },
+          "figure": {
+            "figureId": "79-bilibili-cn-cv1751292-b9",
+            "unitId": "79-bilibili-cn-cv1751292-argument",
+            "page": null,
+            "locator": {
+              "url": "https://www.bilibili.com/read/cv1751292",
+              "sourceBlockIds": [
+                "79-bilibili-cn:cv1751292:b0009"
+              ],
+              "domPaths": [
+                "main/div[8]/div[0]/div[0]/div[0]/div[0]"
+              ]
+            },
+            "caption": "例2的手牌与宝牌。",
+            "imageSha256": "71bdb95af64e03124da11c60e5e1857de50c5bd9c4d459409289b6f0a6e7b28d",
+            "imageProvenance": {
+              "kind": "derived-source-assets",
+              "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+              "sourceAssetSha256s": [
+                "9ecdffcab6f3dfed345abbf584aa7b5b358ff71f0f931370bf8b2ee9a0a0d777"
+              ]
+            },
+            "transcription": {
+              "text": "左侧标签：例2。\n手牌从左到右：2m 2m 4m 2p 3p 2s 4s 4s 5s 5s 5s 5z 5z。\n手牌右侧标签：宝牌；标签右侧牌：5s。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1751292-b10",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1751292",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1751292:b0010"
+            ],
+            "domPaths": [
+              "main/p[9]"
+            ]
+          },
+          "text": "例2的手牌，3万、4饼、3索出来的话当然是吃，把天枰向三色和役牌倾斜。 "
+        },
+        {
+          "type": "figure",
+          "id": "79-bilibili-cn-cv1751292-b11",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1751292",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1751292:b0011"
+            ],
+            "domPaths": [
+              "main/div[10]/div[0]/div[0]/div[0]/div[0]"
+            ]
+          },
+          "figure": {
+            "figureId": "79-bilibili-cn-cv1751292-b11",
+            "unitId": "79-bilibili-cn-cv1751292-argument",
+            "page": null,
+            "locator": {
+              "url": "https://www.bilibili.com/read/cv1751292",
+              "sourceBlockIds": [
+                "79-bilibili-cn:cv1751292:b0011"
+              ],
+              "domPaths": [
+                "main/div[10]/div[0]/div[0]/div[0]/div[0]"
+              ]
+            },
+            "caption": "例3的手牌。",
+            "imageSha256": "c5aa598b7c53a732b1fb616004d8816e3e3abdb53e25b254e32183337c460d7a",
+            "imageProvenance": {
+              "kind": "derived-source-assets",
+              "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+              "sourceAssetSha256s": [
+                "a0cd417c0d5a5fe2ac3d942d48310be7e1953f49cb1cd1cb25e41e8349103876"
+              ]
+            },
+            "transcription": {
+              "text": "左侧标签：例3。\n手牌从左到右：1p 1p 2p 6p 7p 7p 7p 8p 2s 2s 2s 6z 6z。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1751292-b12",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1751292",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1751292:b0012"
+            ],
+            "domPaths": [
+              "main/p[11]"
+            ]
+          },
+          "text": "例3的手牌一饼出来的也有碰的一手， 不要太担心自己会搞的自己和不了牌。 摸到6饼或者8饼可以向对对三暗刻变化。  ------------------------------------------------------------------------------------ 无论如何都想和牌的胜负关键 ------------------------------------------------------------------------------------ 在南场，常常会面对无论点数多少都想和牌的情况。 ALL LAST有微弱的差距，和牌即逆转的情况是典型的代表。  例4 "
+        },
+        {
+          "type": "figure",
+          "id": "79-bilibili-cn-cv1751292-b13",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1751292",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1751292:b0013"
+            ],
+            "domPaths": [
+              "main/div[12]/div[0]/div[0]/div[0]/div[0]"
+            ]
+          },
+          "figure": {
+            "figureId": "79-bilibili-cn-cv1751292-b13",
+            "unitId": "79-bilibili-cn-cv1751292-argument",
+            "page": null,
+            "locator": {
+              "url": "https://www.bilibili.com/read/cv1751292",
+              "sourceBlockIds": [
+                "79-bilibili-cn:cv1751292:b0013"
+              ],
+              "domPaths": [
+                "main/div[12]/div[0]/div[0]/div[0]/div[0]"
+              ]
+            },
+            "caption": "例4：南4局1本场的四家牌桌、数值、牌河与下方手牌。",
+            "imageSha256": "f569ff1b2268ef525785246daeceba562ec6c0b2673435441995534ad274f5a4",
+            "imageProvenance": {
+              "kind": "derived-source-assets",
+              "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+              "sourceAssetSha256s": [
+                "e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952"
+              ]
+            },
+            "transcription": {
+              "text": "中央场况：南4局1本场；立直棒0根。\n中央座风标签位置：下方为东（1z），左方为北（4z），上方为西（3z），右方为南（2z）；各标签朝向对应玩家。\n中央下部标签：宝牌；标签右侧牌：8p。\n四家数值：上方玩家右下侧为+2100；左方玩家右上侧为+5800；下方玩家左上侧为+5400；右方玩家左下侧为△12300。\n下方手牌从左到右：1m 3m 5m 5m 6m 7m 2p 4p 6p 3s 7s 2z 2z。\n上方、左方、右方手牌各为13张牌背，分别横向、纵向、纵向排列。\n上方牌河按画面从左到右：5z 8s 3z ［万子牌，数字无法确认］；四张牌均朝向上方玩家，相对下方手牌旋转180度。\n左方牌河按画面从上到下：1z 4z 1m 1m；四张牌均横置，朝向左方玩家。\n右方牌河按画面从上到下：4z 5z 7z 1z；四张牌均横置，朝向右方玩家。\n下方牌河从左到右：9p 3z 1z 6s。\n原图未显示的信息：上方牌河按画面从左到右第4张：可辨为万子牌，数字无法可靠确认。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1751292-b14",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1751292",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1751292:b0014"
+            ],
+            "domPaths": [
+              "main/p[13]"
+            ]
+          },
+          "text": "根据例4的点数情况，等着南出来太过优柔寡断了。 虽然鸣牌之后手牌会有点散，但也要朝着这1500点去。 这个牌能鸣牌的时候都鸣了吧（当然5万的碰是不行的= =）  像这样ALL LAST，拼命地向着和牌前进 要比对手更快的话，就没有被手上的役牌束缚的闲心了。 正是这样，后付成为有效的战术。    （待续）"
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "figureId": "79-bilibili-cn-cv1751292-b5",
+      "path": "assets/79-bilibili-cn-cv1751292-b5.png",
+      "sha256": "2fbc52e6bc534475b7516edaf3ad4ab95d72d8123f11de5b83af2b2c996d28db"
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1751292-b7",
+      "path": "assets/79-bilibili-cn-cv1751292-b7.png",
+      "sha256": "b7c9d8a1c626a120715f1acf1dd317d1c700e8e155c166048ee60129d5ab3d7a"
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1751292-b9",
+      "path": "assets/79-bilibili-cn-cv1751292-b9.png",
+      "sha256": "71bdb95af64e03124da11c60e5e1857de50c5bd9c4d459409289b6f0a6e7b28d"
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1751292-b11",
+      "path": "assets/79-bilibili-cn-cv1751292-b11.png",
+      "sha256": "c5aa598b7c53a732b1fb616004d8816e3e3abdb53e25b254e32183337c460d7a"
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1751292-b13",
+      "path": "assets/79-bilibili-cn-cv1751292-b13.png",
+      "sha256": "f569ff1b2268ef525785246daeceba562ec6c0b2673435441995534ad274f5a4"
+    }
+  ]
+}

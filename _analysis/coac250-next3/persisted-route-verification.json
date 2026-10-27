@@ -1,0 +1,28 @@
+{
+  "allPassed": true,
+  "tests": [
+    {
+      "key": "159",
+      "persistedBuilderRouteExecuted": true,
+      "chapterCorpusEqual": true,
+      "allBodyFieldsEqual": true,
+      "changedManifestRejected": true,
+      "otherChapterRejected": true,
+      "forgedCallbackRejected": true
+    },
+    {
+      "key": "242",
+      "persistedBuilderRouteExecuted": true,
+      "chapterCorpusEqual": true,
+      "allBodyFieldsEqual": true,
+      "changedManifestRejected": true,
+      "otherChapterRejected": true,
+      "forgedCallbackRejected": true
+    }
+  ],
+  "previousSelectionVersion": 25,
+  "newSelectionVersion": 26,
+  "previousJobsAndPdfSelectionsExact": true,
+  "ordinaryWholeArticleGateStillRejects": true,
+  "modelCalls": 0
+}

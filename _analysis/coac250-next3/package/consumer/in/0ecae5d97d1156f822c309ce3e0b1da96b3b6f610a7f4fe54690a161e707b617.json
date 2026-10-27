@@ -1,0 +1,1693 @@
+{
+  "schema": "coac244-source-point-context-preparation/1",
+  "canonical": "79-cn-chapter-159-9",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751292.display.json",
+    "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+    "bytes": 46828
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1751292\\source.json",
+    "sha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+    "bytes": 28679
+  },
+  "oldAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json",
+    "sha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed",
+    "bytes": 25432
+  },
+  "oldCalls": [
+    {
+      "call": {
+        "callId": "5477ed1b-a10d-45ed-ae56-c6acaeb39464",
+        "scope": "textbook-web-article-audit",
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1751292",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "success": true,
+        "usage": {
+          "inputTokens": 24314,
+          "cachedInputTokens": 0,
+          "outputTokens": 4166
+        },
+        "promptSha256": "cbba29e21e09a2f26742a95ddb64821cee0a731ad60f4723777d26e5b440f0e5",
+        "semanticPromptSha256": "5ca7cb4cfecff4876f73ef6147681b9a32a6e6ee0c2f4995a671f13c11b00ec9",
+        "schemaSha256": "780fd6c797f5696d06a50be30b0bf250349d83fd2128cf57529f0df50fc335dc",
+        "outputSha256": "2c5d5a44ef65341af3daa17f5ad4588675c777be44dba07df867219b73b3b8eb",
+        "requestPromptBytes": 29656,
+        "semanticPromptBytes": 29174,
+        "binding": {
+          "productionSha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+          "sourceFileSha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+          "auditorSnapshotSha256": "56db018fb59312ce413ba53f1d80c78b66a4564e61f9955a5076f607417dcb15",
+          "semanticProjectionSha256": "cc54a39e41c88fd98034e0c117ffc471c9e3afb330d106e69469d57ef29428a4",
+          "semanticProjectionVersion": 2,
+          "verifiedAssetIds": [],
+          "originalImageAssetIds": [
+            "79-bilibili-cn:1d9f23b9da97b9f08b866407",
+            "79-bilibili-cn:a1da8e9c213bb3be35b18390",
+            "79-bilibili-cn:597b1510dcb909f504c76390",
+            "79-bilibili-cn:edf9b22aa46004cc289167a2",
+            "79-bilibili-cn:55168dc17a7678541d5a5343"
+          ],
+          "supplementalInputs": [
+            {
+              "assetId": "79-bilibili-cn:1d9f23b9da97b9f08b866407",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/cd50425dab020a12e7cba884443a989c000ce9724341d77f9d1da91e70fb4615.png",
+              "sourceSha256": "cd50425dab020a12e7cba884443a989c000ce9724341d77f9d1da91e70fb4615",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/cd50425dab020a12e7cba884443a989c000ce9724341d77f9d1da91e70fb4615.x4.png",
+              "sha256": "ee62224d14161ace77a13e6b9eb7109fe6abcebb5207799aec21aff8f0e08ade",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 2048,
+              "height": 212
+            },
+            {
+              "assetId": "79-bilibili-cn:a1da8e9c213bb3be35b18390",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/1d93ddcd06145ab1990598d3ee57bc2d2a34d570627ff01ec08b661912278065.png",
+              "sourceSha256": "1d93ddcd06145ab1990598d3ee57bc2d2a34d570627ff01ec08b661912278065",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/1d93ddcd06145ab1990598d3ee57bc2d2a34d570627ff01ec08b661912278065.x4.png",
+              "sha256": "092b9901b8ebcb497babe2ecf04727eb1d8bf5b8e7e524fa7629d974763a0bd0",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 1700,
+              "height": 248
+            },
+            {
+              "assetId": "79-bilibili-cn:597b1510dcb909f504c76390",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/9ecdffcab6f3dfed345abbf584aa7b5b358ff71f0f931370bf8b2ee9a0a0d777.png",
+              "sourceSha256": "9ecdffcab6f3dfed345abbf584aa7b5b358ff71f0f931370bf8b2ee9a0a0d777",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/9ecdffcab6f3dfed345abbf584aa7b5b358ff71f0f931370bf8b2ee9a0a0d777.x4.png",
+              "sha256": "f4f9e884a4190804ed5f1b01af5c16327354f9dd8d8f145cfec68d2da9a8e7bd",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 2048,
+              "height": 244
+            },
+            {
+              "assetId": "79-bilibili-cn:edf9b22aa46004cc289167a2",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/a0cd417c0d5a5fe2ac3d942d48310be7e1953f49cb1cd1cb25e41e8349103876.png",
+              "sourceSha256": "a0cd417c0d5a5fe2ac3d942d48310be7e1953f49cb1cd1cb25e41e8349103876",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/a0cd417c0d5a5fe2ac3d942d48310be7e1953f49cb1cd1cb25e41e8349103876.x4.png",
+              "sha256": "873927a89c3ee896f8f7002bdc0fd115b3c1bbb7bd6aa6bb2f39cac88f8f931f",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 4,
+              "resampling": "nearest",
+              "width": 1748,
+              "height": 240
+            },
+            {
+              "assetId": "79-bilibili-cn:55168dc17a7678541d5a5343",
+              "sourcePath": "web-sources/v1/79-bilibili-cn/assets/e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952.png",
+              "sourceSha256": "e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952",
+              "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+              "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952.x2.png",
+              "sha256": "cd09124f22ad67a080210d597a038912a76cdb446b9835505a0170e5cb23536d",
+              "role": "nearest-neighbor-enlargement",
+              "scale": 2,
+              "resampling": "nearest",
+              "width": 990,
+              "height": 1058
+            }
+          ]
+        },
+        "recordedAt": "2026-10-25T17:30:31.388Z"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\5477ed1b-a10d-45ed-ae56-c6acaeb39464.json",
+        "sha256": "5e73dce195bf18c8769b1bbcfaf4550284b10269bf99dc1fbf26865711fac876",
+        "bytes": 106857
+      },
+      "rawKeys": [
+        "output",
+        "rawLastMessage",
+        "rawStdout",
+        "usage",
+        "events",
+        "terminalEvents",
+        "usageLimitReached",
+        "unexpectedTool",
+        "exitCode",
+        "timedOut",
+        "outputOverflow",
+        "stderr",
+        "success",
+        "durationMs",
+        "startedAt",
+        "requestPrompt",
+        "requestPromptSha256",
+        "usageLimitCanary",
+        "callId",
+        "scope",
+        "sourceId",
+        "articleId",
+        "model",
+        "reasoningEffort",
+        "promptSha256",
+        "semanticPromptSha256",
+        "schemaSha256",
+        "outputSha256",
+        "requestPromptBytes",
+        "semanticPromptBytes",
+        "binding",
+        "recordedAt",
+        "prompt",
+        "schema"
+      ],
+      "requestImageCount": null,
+      "payloadImageAssetIds": [
+        "79-bilibili-cn:1d9f23b9da97b9f08b866407",
+        "79-bilibili-cn:a1da8e9c213bb3be35b18390",
+        "79-bilibili-cn:597b1510dcb909f504c76390",
+        "79-bilibili-cn:edf9b22aa46004cc289167a2",
+        "79-bilibili-cn:55168dc17a7678541d5a5343"
+      ],
+      "remoteBackend": "unverified; recorded request/raw only"
+    }
+  ],
+  "oldModelReview": {
+    "blockChecks": [
+      {
+        "id": "79-bilibili-cn:cv1751292:b0001",
+        "verdict": "faithful",
+        "evidence": "“免责声明：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0002",
+        "verdict": "faithful",
+        "evidence": "著作权声明、译者SeventhTG（XD）及转载署名要求逐字保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0003",
+        "verdict": "faithful",
+        "evidence": "原文地址http://beginners.biz/naki/naki12.html、分隔线及“后付2：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0004",
+        "verdict": "faithful",
+        "evidence": "2~3张宝牌、积极鸣牌的判断及其他手牌和场况的适用范围均按原文保留，章节标题完整。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0005",
+        "verdict": "faithful",
+        "evidence": "例1标签、13张手牌及右侧宝牌8s均与附图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0006",
+        "verdict": "faithful",
+        "evidence": "上家打7索、放过后剩2张、另一张为宝牌表示牌、自摸两次4索和7索的困难及边张吃的结论完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0007",
+        "verdict": "faithful",
+        "evidence": "10张手牌与右侧横置7s、直立8s和9s的副露记录一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0008",
+        "verdict": "faithful",
+        "evidence": "处理6万和4饼、保留安全牌与另一张役牌的建议，以及扣牌、进攻压力、防守力的论证均逐字保留；“二手准备的后付”及三色、一气的条件完整。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0009",
+        "verdict": "faithful",
+        "evidence": "例2标签、13张手牌及右侧宝牌5s均与附图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0010",
+        "verdict": "faithful",
+        "evidence": "3万、4饼、3索出来即吃，以及向三色和役牌倾斜的判断按中文原文完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0011",
+        "verdict": "faithful",
+        "evidence": "例3标签及13张手牌均与附图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0012",
+        "verdict": "faithful",
+        "evidence": "碰一饼的选择、摸6饼或8饼向对对三暗刻变化的条件、南场及ALL LAST和牌逆转的说明和例4标签均完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0013",
+        "verdict": "uncertain",
+        "evidence": "场况、座风、四家数值、下方手牌、三家牌背、宝牌及其余牌河均有对应记录；上方牌河从左到右第4张仅记录为点数未知的万子牌，尚不能完成逐牌核对。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0014",
+        "verdict": "faithful",
+        "evidence": "不等待南、争取1500点、能鸣即鸣但排除碰5万的例外，以及ALL LAST抢先和牌的论证和“（待续）”均逐字保留。"
+      }
+    ],
+    "figureChecks": [
+      {
+        "id": "79-bilibili-cn:cv1751292:b0005:figure",
+        "verdict": "faithful",
+        "evidence": "附图1、6可核对为例1：123446m、4p、5689s、白白；右侧“ドラ”译为宝牌，牌为8s。两张空白牌面为白板，牌序及数量一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0007:figure",
+        "verdict": "faithful",
+        "evidence": "附图2、7显示手牌12344m、56s、东白白；右侧副露为横置7s、直立8s、9s。候选完整保留牌序、分组及方向。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0009:figure",
+        "verdict": "faithful",
+        "evidence": "附图3、8显示例2：224m、23p、244555s、白白；右侧宝牌5s。5s中央红色图案为普通牌面，候选未误记为赤牌。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0011:figure",
+        "verdict": "faithful",
+        "evidence": "附图4、9显示例3：11267778p、222s、发发，与候选13张牌的顺序和重复数量一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0013:figure",
+        "verdict": "uncertain",
+        "evidence": "附图5、10可核对南4局1本场、立直棒0根、宝牌8p；下东左北上西右南；四家数值+2100、+5800、+5400、△12300；下方手牌135567m、246p、37s、南南。左河东北一万一万、右河北白中东、下河9p西东6s及上河前三张白8s西均吻合。上河第4张倒置万子牌的数字仍无法可靠确认，候选对此保留未知，逐牌完整性尚未通过。"
+      }
+    ],
+    "imageChecks": [
+      {
+        "id": "79-bilibili-cn:cv1751292:i00001",
+        "disposition": "represented",
+        "evidence": "由b0005的figure完整表达，例1标签、全部手牌及宝牌均已核对。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:i00002",
+        "disposition": "represented",
+        "evidence": "由b0007的figure表达，手牌与789s副露的牌序和横置方向均已核对。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:i00003",
+        "disposition": "represented",
+        "evidence": "由b0009的figure完整表达，例2标签、全部手牌及宝牌均已核对。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:i00004",
+        "disposition": "represented",
+        "evidence": "由b0011的figure完整表达，例3标签及全部手牌均已核对。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:i00005",
+        "disposition": "represented",
+        "evidence": "由b0013的figure表达，涵盖场况、座风、数值、手牌、牌背和四家牌河；上方牌河第4张万子点数显式列为未知，仍有阻断项。"
+      }
+    ],
+    "domOrder": {
+      "faithful": true,
+      "evidence": "候选按b0001至b0014的自然顺序逐块对应，五次图片出现均留在原有段落位置，没有重排、重复或漏块。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "全部中文正文、署名、原文地址、数字、判断力度和例外均保留；前四图完整，例4的日文场况标签已译成中文。但例4上方牌河第4张万子牌的点数尚未确认，存在影响牌码完整性的明确未知项。"
+    },
+    "issues": [
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1751292:b0013:figure",
+        "sourceEvidence": "附图5、10中，上方牌河从左到右第4张为朝向上方玩家的万子牌；候选transcription及unknowns均注明其数字无法可靠确认。",
+        "description": "该未知涉及牌河中的实际牌码，不能视为非教学边缘残痕。当前无法完成该图逐牌校对，须阻断语义完整性通过。",
+        "suggestedRepair": "核清该万子牌点数后补入transcription，并同步更新unknowns；无法可靠确认时保留未知和阻断状态，不猜补牌码。"
+      }
+    ],
+    "completeArticleCompared": true,
+    "summary": "已逐项核对全文14块、5幅图和5次图片出现。正文及前四图忠实；例4一张牌河万子的点数未确认，语义完整性暂不通过。"
+  },
+  "sameShaAuditFiles": [
+    {
+      "binding": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.json",
+        "sha256": "483e045b3bbb1d15d8250ca11d819120f6add84c346e6c73aed4286466ded203",
+        "bytes": 17679
+      },
+      "status": "failed",
+      "calls": [
+        "5494b430-f86c-45c8-a595-54d97404a066"
+      ]
+    },
+    {
+      "binding": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json",
+        "sha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed",
+        "bytes": 25432
+      },
+      "status": "needs-repair",
+      "calls": [
+        "5477ed1b-a10d-45ed-ae56-c6acaeb39464"
+      ]
+    }
+  ],
+  "targetFigure": {
+    "figureId": "79-bilibili-cn:cv1751292:b0013:figure",
+    "sourceBlockIds": [
+      "79-bilibili-cn:cv1751292:b0013"
+    ],
+    "sourceOccurrenceIds": [
+      "79-bilibili-cn:cv1751292:i00005"
+    ],
+    "sourceAssetBindings": [
+      {
+        "assetId": "79-bilibili-cn:55168dc17a7678541d5a5343",
+        "path": "web-sources/v1/79-bilibili-cn/assets/e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952.png",
+        "sha256": "e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952",
+        "url": "https://i0.hdslb.com/bfs/article/b2f255c0af09dfb0024e53aa1bad6f31e9b18544.png"
+      }
+    ],
+    "kind": "mahjong-example",
+    "transcription": "中央场况：南4局1本场；立直棒0根。\n中央座风标签位置：下方为东（1z），左方为北（4z），上方为西（3z），右方为南（2z）；各标签朝向对应玩家。\n中央下部标签：宝牌；标签右侧牌：8p。\n四家数值：上方玩家右下侧为+2100；左方玩家右上侧为+5800；下方玩家左上侧为+5400；右方玩家左下侧为△12300。\n下方手牌从左到右：1m 3m 5m 5m 6m 7m 2p 4p 6p 3s 7s 2z 2z。\n上方、左方、右方手牌各为13张牌背，分别横向、纵向、纵向排列。\n上方牌河按画面从左到右：5z 8s 3z ［万子牌，数字无法确认］；四张牌均朝向上方玩家，相对下方手牌旋转180度。\n左方牌河按画面从上到下：1z 4z 1m 1m；四张牌均横置，朝向左方玩家。\n右方牌河按画面从上到下：4z 5z 7z 1z；四张牌均横置，朝向右方玩家。\n下方牌河从左到右：9p 3z 1z 6s。",
+    "unknowns": [
+      "上方牌河按画面从左到右第4张：可辨为万子牌，数字无法可靠确认。"
+    ],
+    "caption": "例4：南4局1本场的四家牌桌、数值、牌河与下方手牌。",
+    "sourceNotes": [
+      "右下数值前的空心三角形按原图保留为△。",
+      "原图与2倍放大图为同一来源，不重复计牌。"
+    ],
+    "provenance": {
+      "method": "model-transcription",
+      "callId": "3caf4c34-528f-415a-bb48-a303189f1f2f",
+      "outputSourceBlockId": "79-bilibili-cn:cv1751292:b0013"
+    },
+    "presentationAsset": {
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1751292/aded2dd9294cb1d7/figure-0005.png",
+      "sha256": "f569ff1b2268ef525785246daeceba562ec6c0b2673435441995534ad274f5a4",
+      "width": 495,
+      "height": 529,
+      "derivation": {
+        "kind": "single-source-image-rgba-to-png",
+        "alignment": "original-size",
+        "sourceAssetBindings": [
+          {
+            "assetId": "79-bilibili-cn:55168dc17a7678541d5a5343",
+            "path": "web-sources/v1/79-bilibili-cn/assets/e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952.png",
+            "sha256": "e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952",
+            "url": "https://i0.hdslb.com/bfs/article/b2f255c0af09dfb0024e53aa1bad6f31e9b18544.png"
+          }
+        ],
+        "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+      }
+    }
+  },
+  "originalImage": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952.png",
+    "sha256": "e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952",
+    "bytes": 67226
+  },
+  "nativeSize": [
+    495,
+    529
+  ],
+  "targetBBox": [
+    298,
+    126,
+    324,
+    161
+  ],
+  "neighborBBox": [
+    218,
+    120,
+    330,
+    168
+  ],
+  "visibleCellBBoxes": [
+    [
+      222,
+      126,
+      248,
+      161
+    ],
+    [
+      248,
+      126,
+      274,
+      161
+    ],
+    [
+      274,
+      126,
+      298,
+      161
+    ],
+    [
+      298,
+      126,
+      324,
+      161
+    ]
+  ],
+  "location": "上方牌河按画面从左到右第4张；原朝向保持，不旋转，不读出点数",
+  "classification": "source image present in old independent audit; exact public discard point remains unreadable/uncertain, not an input omission or proved wrong translation; no new tile reading",
+  "oldBlockingIssue": {
+    "severity": "uncertain",
+    "targetId": "79-bilibili-cn:cv1751292:b0013:figure",
+    "sourceEvidence": "附图5、10中，上方牌河从左到右第4张为朝向上方玩家的万子牌；候选transcription及unknowns均注明其数字无法可靠确认。",
+    "description": "该未知涉及牌河中的实际牌码，不能视为非教学边缘残痕。当前无法完成该图逐牌校对，须阻断语义完整性通过。",
+    "suggestedRepair": "核清该万子牌点数后补入transcription，并同步更新unknowns；无法可靠确认时保留未知和阻断状态，不猜补牌码。"
+  },
+  "oldTargetBlockCheck": [
+    {
+      "id": "79-bilibili-cn:cv1751292:b0013",
+      "verdict": "uncertain",
+      "evidence": "场况、座风、四家数值、下方手牌、三家牌背、宝牌及其余牌河均有对应记录；上方牌河从左到右第4张仅记录为点数未知的万子牌，尚不能完成逐牌核对。"
+    }
+  ],
+  "oldTargetFigureCheck": [
+    {
+      "id": "79-bilibili-cn:cv1751292:b0013:figure",
+      "verdict": "uncertain",
+      "evidence": "附图5、10可核对南4局1本场、立直棒0根、宝牌8p；下东左北上西右南；四家数值+2100、+5800、+5400、△12300；下方手牌135567m、246p、37s、南南。左河东北一万一万、右河北白中东、下河9p西东6s及上河前三张白8s西均吻合。上河第4张倒置万子牌的数字仍无法可靠确认，候选对此保留未知，逐牌完整性尚未通过。"
+    }
+  ],
+  "oldTargetImageCheck": [
+    {
+      "id": "79-bilibili-cn:cv1751292:i00005",
+      "disposition": "represented",
+      "evidence": "由b0013的figure表达，涵盖场况、座风、数值、手牌、牌背和四家牌河；上方牌河第4张万子点数显式列为未知，仍有阻断项。"
+    }
+  ],
+  "reusable": {
+    "otherBodyChecks": [
+      {
+        "id": "79-bilibili-cn:cv1751292:b0001",
+        "verdict": "faithful",
+        "evidence": "“免责声明：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0002",
+        "verdict": "faithful",
+        "evidence": "著作权声明、译者SeventhTG（XD）及转载署名要求逐字保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0003",
+        "verdict": "faithful",
+        "evidence": "原文地址http://beginners.biz/naki/naki12.html、分隔线及“后付2：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0004",
+        "verdict": "faithful",
+        "evidence": "2~3张宝牌、积极鸣牌的判断及其他手牌和场况的适用范围均按原文保留，章节标题完整。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0005",
+        "verdict": "faithful",
+        "evidence": "例1标签、13张手牌及右侧宝牌8s均与附图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0006",
+        "verdict": "faithful",
+        "evidence": "上家打7索、放过后剩2张、另一张为宝牌表示牌、自摸两次4索和7索的困难及边张吃的结论完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0007",
+        "verdict": "faithful",
+        "evidence": "10张手牌与右侧横置7s、直立8s和9s的副露记录一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0008",
+        "verdict": "faithful",
+        "evidence": "处理6万和4饼、保留安全牌与另一张役牌的建议，以及扣牌、进攻压力、防守力的论证均逐字保留；“二手准备的后付”及三色、一气的条件完整。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0009",
+        "verdict": "faithful",
+        "evidence": "例2标签、13张手牌及右侧宝牌5s均与附图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0010",
+        "verdict": "faithful",
+        "evidence": "3万、4饼、3索出来即吃，以及向三色和役牌倾斜的判断按中文原文完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0011",
+        "verdict": "faithful",
+        "evidence": "例3标签及13张手牌均与附图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0012",
+        "verdict": "faithful",
+        "evidence": "碰一饼的选择、摸6饼或8饼向对对三暗刻变化的条件、南场及ALL LAST和牌逆转的说明和例4标签均完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0014",
+        "verdict": "faithful",
+        "evidence": "不等待南、争取1500点、能鸣即鸣但排除碰5万的例外，以及ALL LAST抢先和牌的论证和“（待续）”均逐字保留。"
+      }
+    ],
+    "otherFigureChecks": [
+      {
+        "id": "79-bilibili-cn:cv1751292:b0005:figure",
+        "verdict": "faithful",
+        "evidence": "附图1、6可核对为例1：123446m、4p、5689s、白白；右侧“ドラ”译为宝牌，牌为8s。两张空白牌面为白板，牌序及数量一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0007:figure",
+        "verdict": "faithful",
+        "evidence": "附图2、7显示手牌12344m、56s、东白白；右侧副露为横置7s、直立8s、9s。候选完整保留牌序、分组及方向。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0009:figure",
+        "verdict": "faithful",
+        "evidence": "附图3、8显示例2：224m、23p、244555s、白白；右侧宝牌5s。5s中央红色图案为普通牌面，候选未误记为赤牌。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0011:figure",
+        "verdict": "faithful",
+        "evidence": "附图4、9显示例3：11267778p、222s、发发，与候选13张牌的顺序和重复数量一致。"
+      }
+    ],
+    "targetUnknownsRetained": [
+      "上方牌河按画面从左到右第4张：可辨为万子牌，数字无法可靠确认。"
+    ],
+    "note": "Faithful non-target independent checks are evidence to inherit, not separate accepted complete chapters."
+  },
+  "sourceContext": [
+    {
+      "id": "79-bilibili-cn:cv1751292:b0011",
+      "paragraphId": "79-bilibili-cn:cv1751292:p0011",
+      "tag": "div",
+      "domPath": "main/div[10]/div[0]/div[0]/div[0]/div[0]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "79-bilibili-cn:cv1751292:i00004",
+          "assetId": "79-bilibili-cn:edf9b22aa46004cc289167a2",
+          "sourceUrls": [
+            "https://i0.hdslb.com/bfs/article/c0dc34a1de64dbf6dc0a39ea2372c1933587a200.png",
+            "https://i0.hdslb.com/bfs/article/c0dc34a1de64dbf6dc0a39ea2372c1933587a200.png@874w_120h"
+          ],
+          "alt": "",
+          "title": "",
+          "width": null,
+          "height": null,
+          "tileHint": null
+        }
+      ]
+    },
+    {
+      "id": "79-bilibili-cn:cv1751292:b0012",
+      "paragraphId": "79-bilibili-cn:cv1751292:p0012",
+      "tag": "p",
+      "domPath": "main/p[11]",
+      "tableContext": null,
+      "type": "text",
+      "text": "例3的手牌一饼出来的也有碰的一手， 不要太担心自己会搞的自己和不了牌。 摸到6饼或者8饼可以向对对三暗刻变化。  ------------------------------------------------------------------------------------ 无论如何都想和牌的胜负关键 ------------------------------------------------------------------------------------ 在南场，常常会面对无论点数多少都想和牌的情况。 ALL LAST有微弱的差距，和牌即逆转的情况是典型的代表。  例4 ",
+      "segments": [
+        {
+          "text": "例3的手牌一饼出来的也有碰的一手，",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "不要太担心自己会搞的自己和不了牌。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "摸到6饼或者8饼可以向对对三暗刻变化。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "无论如何都想和牌的胜负关键",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "在南场，常常会面对无论点数多少都想和牌的情况。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "ALL LAST有微弱的差距，和牌即逆转的情况是典型的代表。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "例4",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "79-bilibili-cn:cv1751292:b0013",
+      "paragraphId": "79-bilibili-cn:cv1751292:p0013",
+      "tag": "div",
+      "domPath": "main/div[12]/div[0]/div[0]/div[0]/div[0]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "79-bilibili-cn:cv1751292:i00005",
+          "assetId": "79-bilibili-cn:55168dc17a7678541d5a5343",
+          "sourceUrls": [
+            "https://i0.hdslb.com/bfs/article/b2f255c0af09dfb0024e53aa1bad6f31e9b18544.png",
+            "https://i0.hdslb.com/bfs/article/b2f255c0af09dfb0024e53aa1bad6f31e9b18544.png@990w_1058h"
+          ],
+          "alt": "",
+          "title": "",
+          "width": null,
+          "height": null,
+          "tileHint": null
+        }
+      ]
+    },
+    {
+      "id": "79-bilibili-cn:cv1751292:b0014",
+      "paragraphId": "79-bilibili-cn:cv1751292:p0014",
+      "tag": "p",
+      "domPath": "main/p[13]",
+      "tableContext": null,
+      "type": "text",
+      "text": "根据例4的点数情况，等着南出来太过优柔寡断了。 虽然鸣牌之后手牌会有点散，但也要朝着这1500点去。 这个牌能鸣牌的时候都鸣了吧（当然5万的碰是不行的= =）  像这样ALL LAST，拼命地向着和牌前进 要比对手更快的话，就没有被手上的役牌束缚的闲心了。 正是这样，后付成为有效的战术。    （待续）",
+      "segments": [
+        {
+          "text": "根据例4的点数情况，等着南出来太过优柔寡断了。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "虽然鸣牌之后手牌会有点散，但也要朝着这1500点去。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这个牌能鸣牌的时候都鸣了吧（当然5万的碰是不行的= =）",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "像这样ALL LAST，拼命地向着和牌前进",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "要比对手更快的话，就没有被手上的役牌束缚的闲心了。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "正是这样，后付成为有效的战术。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "（待续）",
+          "marks": [],
+          "href": null
+        }
+      ]
+    }
+  ],
+  "candidateContext": [
+    {
+      "type": "figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1751292:b0011"
+      ],
+      "figureId": "79-bilibili-cn:cv1751292:b0011:figure",
+      "paragraphId": "79-bilibili-cn:cv1751292:p0011",
+      "tableContext": null
+    },
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1751292:b0012"
+      ],
+      "sourceText": "例3的手牌一饼出来的也有碰的一手， 不要太担心自己会搞的自己和不了牌。 摸到6饼或者8饼可以向对对三暗刻变化。  ------------------------------------------------------------------------------------ 无论如何都想和牌的胜负关键 ------------------------------------------------------------------------------------ 在南场，常常会面对无论点数多少都想和牌的情况。 ALL LAST有微弱的差距，和牌即逆转的情况是典型的代表。  例4 ",
+      "text": "例3的手牌一饼出来的也有碰的一手， 不要太担心自己会搞的自己和不了牌。 摸到6饼或者8饼可以向对对三暗刻变化。  ------------------------------------------------------------------------------------ 无论如何都想和牌的胜负关键 ------------------------------------------------------------------------------------ 在南场，常常会面对无论点数多少都想和牌的情况。 ALL LAST有微弱的差距，和牌即逆转的情况是典型的代表。  例4 ",
+      "paragraphId": "79-bilibili-cn:cv1751292:p0012",
+      "sourceSegments": [
+        {
+          "text": "例3的手牌一饼出来的也有碰的一手，",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "不要太担心自己会搞的自己和不了牌。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "摸到6饼或者8饼可以向对对三暗刻变化。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "无论如何都想和牌的胜负关键",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "在南场，常常会面对无论点数多少都想和牌的情况。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "ALL LAST有微弱的差距，和牌即逆转的情况是典型的代表。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "例4",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    },
+    {
+      "type": "figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1751292:b0013"
+      ],
+      "figureId": "79-bilibili-cn:cv1751292:b0013:figure",
+      "paragraphId": "79-bilibili-cn:cv1751292:p0013",
+      "tableContext": null
+    },
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1751292:b0014"
+      ],
+      "sourceText": "根据例4的点数情况，等着南出来太过优柔寡断了。 虽然鸣牌之后手牌会有点散，但也要朝着这1500点去。 这个牌能鸣牌的时候都鸣了吧（当然5万的碰是不行的= =）  像这样ALL LAST，拼命地向着和牌前进 要比对手更快的话，就没有被手上的役牌束缚的闲心了。 正是这样，后付成为有效的战术。    （待续）",
+      "text": "根据例4的点数情况，等着南出来太过优柔寡断了。 虽然鸣牌之后手牌会有点散，但也要朝着这1500点去。 这个牌能鸣牌的时候都鸣了吧（当然5万的碰是不行的= =）  像这样ALL LAST，拼命地向着和牌前进 要比对手更快的话，就没有被手上的役牌束缚的闲心了。 正是这样，后付成为有效的战术。    （待续）",
+      "paragraphId": "79-bilibili-cn:cv1751292:p0014",
+      "sourceSegments": [
+        {
+          "text": "根据例4的点数情况，等着南出来太过优柔寡断了。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "虽然鸣牌之后手牌会有点散，但也要朝着这1500点去。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这个牌能鸣牌的时候都鸣了吧（当然5万的碰是不行的= =）",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "像这样ALL LAST，拼命地向着和牌前进",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "要比对手更快的话，就没有被手上的役牌束缚的闲心了。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "正是这样，后付成为有效的战术。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "（待续）",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    }
+  ],
+  "completeCandidateProse": [
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1751292:b0001"
+      ],
+      "sourceText": "免责声明：",
+      "text": "免责声明：",
+      "paragraphId": "79-bilibili-cn:cv1751292:p0001",
+      "sourceSegments": [
+        {
+          "text": "免责声明：",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    },
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1751292:b0002"
+      ],
+      "sourceText": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+      "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+      "paragraphId": "79-bilibili-cn:cv1751292:p0002",
+      "sourceSegments": [
+        {
+          "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    },
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1751292:b0003"
+      ],
+      "sourceText": "原文地址：http://beginners.biz/naki/naki12.html ------------------------------------------------------------------------------------ 后付2：",
+      "text": "原文地址：http://beginners.biz/naki/naki12.html ------------------------------------------------------------------------------------ 后付2：",
+      "paragraphId": "79-bilibili-cn:cv1751292:p0003",
+      "sourceSegments": [
+        {
+          "text": "原文地址：http://beginners.biz/naki/naki12.html",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "后付2：",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    },
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1751292:b0004"
+      ],
+      "sourceText": "前一回主要说了有2~3张宝牌的时候，即使是后付也应该积极的鸣牌。 其实还有其他的手牌和场况，采取后付是比较有效的。  ------------------------------------------------------------------------------------ 急需的牌出现的时候 ------------------------------------------------------------------------------------ ",
+      "text": "前一回主要说了有2~3张宝牌的时候，即使是后付也应该积极的鸣牌。 其实还有其他的手牌和场况，采取后付是比较有效的。  ------------------------------------------------------------------------------------ 急需的牌出现的时候 ------------------------------------------------------------------------------------ ",
+      "paragraphId": "79-bilibili-cn:cv1751292:p0004",
+      "sourceSegments": [
+        {
+          "text": "前一回主要说了有2~3张宝牌的时候，即使是后付也应该积极的鸣牌。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "其实还有其他的手牌和场况，采取后付是比较有效的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "急需的牌出现的时候",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    },
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1751292:b0006"
+      ],
+      "sourceText": "比如这样的手牌，上家打出了7索。 毫无疑问，这张牌是我们急需的。 要是这张放过了的话就只剩下2张了（还有一张是宝牌表示牌） 要自己摸到两次4索和7索应该是相当难的。 所以这里就要边张吃进行后付。 ",
+      "text": "比如这样的手牌，上家打出了7索。 毫无疑问，这张牌是我们急需的。 要是这张放过了的话就只剩下2张了（还有一张是宝牌表示牌） 要自己摸到两次4索和7索应该是相当难的。 所以这里就要边张吃进行后付。 ",
+      "paragraphId": "79-bilibili-cn:cv1751292:p0006",
+      "sourceSegments": [
+        {
+          "text": "比如这样的手牌，上家打出了7索。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "毫无疑问，这张牌是我们急需的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "要是这张放过了的话就只剩下2张了（还有一张是宝牌表示牌）",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "要自己摸到两次4索和7索应该是相当难的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "所以这里就要边张吃进行后付。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    },
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1751292:b0008"
+      ],
+      "sourceText": "之后早点处理6万和4饼，留下一张安全牌即可。 另外，要是摸到另一张役牌的话还是把它留下更好。  虽然这里后付了， 更多情况他家也不会扣牌，需要的牌还是会出来。 相反，对手有压力的话也不会贸然进攻。 副露宝牌的面子也不怎么影响防守力 这是完全没有问题的鸣牌。  ------------------------------------------------------------------------------------ 二手准备的后付 ------------------------------------------------------------------------------------ 仅靠役牌的手牌是不好鸣牌的。 但要是有三色或者一气的话会更加有效果。 ",
+      "text": "之后早点处理6万和4饼，留下一张安全牌即可。 另外，要是摸到另一张役牌的话还是把它留下更好。  虽然这里后付了， 更多情况他家也不会扣牌，需要的牌还是会出来。 相反，对手有压力的话也不会贸然进攻。 副露宝牌的面子也不怎么影响防守力 这是完全没有问题的鸣牌。  ------------------------------------------------------------------------------------ 二手准备的后付 ------------------------------------------------------------------------------------ 仅靠役牌的手牌是不好鸣牌的。 但要是有三色或者一气的话会更加有效果。 ",
+      "paragraphId": "79-bilibili-cn:cv1751292:p0008",
+      "sourceSegments": [
+        {
+          "text": "之后早点处理6万和4饼，留下一张安全牌即可。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "另外，要是摸到另一张役牌的话还是把它留下更好。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "虽然这里后付了，",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "更多情况他家也不会扣牌，需要的牌还是会出来。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "相反，对手有压力的话也不会贸然进攻。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "副露宝牌的面子也不怎么影响防守力",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这是完全没有问题的鸣牌。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "二手准备的后付",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "仅靠役牌的手牌是不好鸣牌的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "但要是有三色或者一气的话会更加有效果。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    },
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1751292:b0010"
+      ],
+      "sourceText": "例2的手牌，3万、4饼、3索出来的话当然是吃，把天枰向三色和役牌倾斜。 ",
+      "text": "例2的手牌，3万、4饼、3索出来的话当然是吃，把天枰向三色和役牌倾斜。 ",
+      "paragraphId": "79-bilibili-cn:cv1751292:p0010",
+      "sourceSegments": [
+        {
+          "text": "例2的手牌，3万、4饼、3索出来的话当然是吃，把天枰向三色和役牌倾斜。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    },
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1751292:b0012"
+      ],
+      "sourceText": "例3的手牌一饼出来的也有碰的一手， 不要太担心自己会搞的自己和不了牌。 摸到6饼或者8饼可以向对对三暗刻变化。  ------------------------------------------------------------------------------------ 无论如何都想和牌的胜负关键 ------------------------------------------------------------------------------------ 在南场，常常会面对无论点数多少都想和牌的情况。 ALL LAST有微弱的差距，和牌即逆转的情况是典型的代表。  例4 ",
+      "text": "例3的手牌一饼出来的也有碰的一手， 不要太担心自己会搞的自己和不了牌。 摸到6饼或者8饼可以向对对三暗刻变化。  ------------------------------------------------------------------------------------ 无论如何都想和牌的胜负关键 ------------------------------------------------------------------------------------ 在南场，常常会面对无论点数多少都想和牌的情况。 ALL LAST有微弱的差距，和牌即逆转的情况是典型的代表。  例4 ",
+      "paragraphId": "79-bilibili-cn:cv1751292:p0012",
+      "sourceSegments": [
+        {
+          "text": "例3的手牌一饼出来的也有碰的一手，",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "不要太担心自己会搞的自己和不了牌。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "摸到6饼或者8饼可以向对对三暗刻变化。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "无论如何都想和牌的胜负关键",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "在南场，常常会面对无论点数多少都想和牌的情况。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "ALL LAST有微弱的差距，和牌即逆转的情况是典型的代表。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "例4",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    },
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1751292:b0014"
+      ],
+      "sourceText": "根据例4的点数情况，等着南出来太过优柔寡断了。 虽然鸣牌之后手牌会有点散，但也要朝着这1500点去。 这个牌能鸣牌的时候都鸣了吧（当然5万的碰是不行的= =）  像这样ALL LAST，拼命地向着和牌前进 要比对手更快的话，就没有被手上的役牌束缚的闲心了。 正是这样，后付成为有效的战术。    （待续）",
+      "text": "根据例4的点数情况，等着南出来太过优柔寡断了。 虽然鸣牌之后手牌会有点散，但也要朝着这1500点去。 这个牌能鸣牌的时候都鸣了吧（当然5万的碰是不行的= =）  像这样ALL LAST，拼命地向着和牌前进 要比对手更快的话，就没有被手上的役牌束缚的闲心了。 正是这样，后付成为有效的战术。    （待续）",
+      "paragraphId": "79-bilibili-cn:cv1751292:p0014",
+      "sourceSegments": [
+        {
+          "text": "根据例4的点数情况，等着南出来太过优柔寡断了。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "虽然鸣牌之后手牌会有点散，但也要朝着这1500点去。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这个牌能鸣牌的时候都鸣了吧（当然5万的碰是不行的= =）",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "像这样ALL LAST，拼命地向着和牌前进",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "要比对手更快的话，就没有被手上的役牌束缚的闲心了。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "正是这样，后付成为有效的战术。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "（待续）",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    }
+  ],
+  "assets": [
+    {
+      "role": "target",
+      "bbox": [
+        298,
+        126,
+        324,
+        161
+      ],
+      "bboxConvention": "native top-left pixels, half-open [x0,y0,x1,y1)",
+      "originalPixels": {
+        "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-244-a411c8f89e75\\worktree\\.multica\\delivery\\coac244-next3-zero-20261028\\159-target.png",
+        "sha256": "ab71d478261c3572cd8f0388836b9f003d059cc79096313f3adc9ca47c743a9c",
+        "bytes": 1918
+      },
+      "pixelSha256": "06f6f9f4ba48a3c5de0178143666cbf639216b92617fd3874bb3b25858769225",
+      "nearest4": {
+        "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-244-a411c8f89e75\\worktree\\.multica\\delivery\\coac244-next3-zero-20261028\\159-target-x4.png",
+        "sha256": "79dea3b53ad48ee15c67ccfa6fb1f94072728d25f7d9163bd376b1f57761a23d",
+        "bytes": 2681
+      },
+      "scale": 4,
+      "resampling": "nearest",
+      "pixelsVerified": true
+    },
+    {
+      "role": "neighbors",
+      "bbox": [
+        218,
+        120,
+        330,
+        168
+      ],
+      "bboxConvention": "native top-left pixels, half-open [x0,y0,x1,y1)",
+      "originalPixels": {
+        "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-244-a411c8f89e75\\worktree\\.multica\\delivery\\coac244-next3-zero-20261028\\159-neighbors.png",
+        "sha256": "367edcc1d98f7ec1a41107e1e4f49c9854e2998e67d521bd6dcb8f8d777c7518",
+        "bytes": 5846
+      },
+      "pixelSha256": "df0aa08ca09e641feedc78964dc5a2a527aae244f16584d4156f7b15dcb4d58b",
+      "nearest4": {
+        "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-244-a411c8f89e75\\worktree\\.multica\\delivery\\coac244-next3-zero-20261028\\159-neighbors-x4.png",
+        "sha256": "eafe0bc34980d52254159e408e01c00c98e07e28f3653473a57496763812b872",
+        "bytes": 8484
+      },
+      "scale": 4,
+      "resampling": "nearest",
+      "pixelsVerified": true
+    }
+  ],
+  "newImageDetailGenerated": false,
+  "rotationApplied": 0,
+  "newModelCalls": 0,
+  "proposedNext": {
+    "firstBatchIndependentCalls": 1,
+    "newProducerCalls": 0,
+    "scope": "Only this coordinate plus complete original target-example prose: read if possible and independently assess whether retaining its explicit unknown prevents faithful teaching/argument. Do not label non-core merely because it is unknown or out-of-hand.",
+    "outcomes": "Readable: retain new independent proof, propose a separately bounded legal producer1+audit1 before changing candidate. Unreadable but independently non-core: only an exact independently bound supplemental review may clear the semantic scope while retaining unknown. Unreadable and material: state exact source detail required, no auto retry.",
+    "conditionalLaterProducerCalls": 1,
+    "conditionalLaterAuditCalls": 1,
+    "retry": 0,
+    "notAuthorizedThisStage": true
+  },
+  "newReviewNotRun": true
+}

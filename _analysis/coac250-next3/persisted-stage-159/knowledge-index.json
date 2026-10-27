@@ -1,0 +1,40 @@
+{
+  "schema": "coach-textbook-index/1",
+  "status": "chapter-auto-audited",
+  "title": "【日本麻雀讲座译文】鸣牌12—后付（2）",
+  "policy": {
+    "cardRole": "index-only",
+    "bodyRole": "complete-source-body-with-chinese-translation",
+    "modelExperiments": false,
+    "reviewStatus": "pending-user-review"
+  },
+  "sources": [
+    {
+      "id": "79-bilibili-cn-cv1751292",
+      "title": "【日本麻雀讲座译文】鸣牌12—后付（2）",
+      "format": "web",
+      "language": "zh-CN",
+      "url": "https://www.bilibili.com/read/cv1751292",
+      "articleId": "cv1751292",
+      "sha256": "b398297f7357dc4a119957090cb39e469edeb6a2afa2f59afdfa9cb4a1724086",
+      "htmlSha256": "b398297f7357dc4a119957090cb39e469edeb6a2afa2f59afdfa9cb4a1724086",
+      "bytes": 84761,
+      "sourceJsonSha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1751292/source.json"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "79-bilibili-cn-cv1751292-chapter",
+      "title": "【日本麻雀讲座译文】鸣牌12—后付（2）",
+      "sourceId": "79-bilibili-cn-cv1751292",
+      "startPage": null,
+      "bodyStartPage": null,
+      "endPage": null,
+      "topics": [],
+      "indexDescription": "完整原文论证和牌例；索引只定位。",
+      "anchors": [],
+      "relatedChapterIds": []
+    }
+  ]
+}

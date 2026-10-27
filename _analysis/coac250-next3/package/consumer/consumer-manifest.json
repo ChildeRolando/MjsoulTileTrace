@@ -1,0 +1,57 @@
+{
+  "maximumNewCalls": 3,
+  "authorizationComment": "01a17f29-cddf-7108-91df-146ccfb0939f",
+  "schema": "coac249-next3-consumer-freeze/1",
+  "files": [
+    {
+      "path": "prepare100.mjs",
+      "sha256": "a09c6d3a2495b1888bf03aa63e43238ac759c1c2e406576bc114e4bdafa1bf99"
+    },
+    {
+      "path": "prepare-points.py",
+      "sha256": "9ab8952cf4265a9d10213bba4f815a4e00d83a1873f395d2aa1c53e49ca96fe7"
+    },
+    {
+      "path": "review.mjs",
+      "sha256": "9e7fa66b123168862e284b0269fe7743753e7352232b84b64f6fe78aae6a5375"
+    },
+    {
+      "path": "request100.json",
+      "sha256": "0a931da9bc5d7908ad28a07915aac7b9f5f8a3544342b55dd291d45ef7cdaca2"
+    },
+    {
+      "path": "request159.json",
+      "sha256": "dcca623694bb39d0cc5beb931f05ecf375c7f4f23a92c150dfb997ff83210730"
+    },
+    {
+      "path": "request242.json",
+      "sha256": "0aebcfb202ae3c4117e418e372d796c0b39fc4c90cb8fdef6c2d7b5da1872fee"
+    },
+    {
+      "path": "preflight100.json",
+      "sha256": "50bf8c6bd741f64b15455b23c725f6fbca1e5b777f6c8ff4e2cfe7b735d88ed0"
+    },
+    {
+      "path": "preflight159.json",
+      "sha256": "b6f6a1e23799b7d9edf2666f9652d939f7e962a7afb84370470395cf06f3291c"
+    },
+    {
+      "path": "preflight242.json",
+      "sha256": "2dd8ec332faa84c1faffdf9fb16a065c2c708b55e2687b4220343f1894d4510f"
+    },
+    {
+      "path": "bound100.json",
+      "sha256": "1efe4999990f09d9a2d470cae8ba5316b118dd889dc83dddaa96f6aa8b6b1bbc"
+    },
+    {
+      "path": "bound-points.json",
+      "sha256": "30534f9d5c34f09e3b52df6b26beed64a9c920c2a342861773b30cc6a4ed0273"
+    },
+    {
+      "path": "path-aliases.json",
+      "sha256": "428172f131f67291aa61e990a06b75f3d2022d625c0d31ba6f5828a1f9eaa8a3"
+    }
+  ],
+  "maximumWorkers": 2,
+  "retry": 0
+}

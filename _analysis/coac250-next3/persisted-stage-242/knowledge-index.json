@@ -1,0 +1,40 @@
+{
+  "schema": "coach-textbook-index/1",
+  "status": "chapter-auto-audited",
+  "title": "【日本麻雀讲座译文】状况判断5—状况与做牌（3）",
+  "policy": {
+    "cardRole": "index-only",
+    "bodyRole": "complete-source-body-with-chinese-translation",
+    "modelExperiments": false,
+    "reviewStatus": "pending-user-review"
+  },
+  "sources": [
+    {
+      "id": "79-bilibili-cn-cv1780438",
+      "title": "【日本麻雀讲座译文】状况判断5—状况与做牌（3）",
+      "format": "web",
+      "language": "zh-CN",
+      "url": "https://www.bilibili.com/read/cv1780438",
+      "articleId": "cv1780438",
+      "sha256": "0798d5a80373a7d57cd845f5fe9f0f1b096160a79b5d692eff841b20d7f3314c",
+      "htmlSha256": "0798d5a80373a7d57cd845f5fe9f0f1b096160a79b5d692eff841b20d7f3314c",
+      "bytes": 79917,
+      "sourceJsonSha256": "3cac4b7103309b092edada33aa8f698b606aa283ae1ce18f8ce9ba9e8428f6e0",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1780438/source.json"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "79-bilibili-cn-cv1780438-chapter",
+      "title": "【日本麻雀讲座译文】状况判断5—状况与做牌（3）",
+      "sourceId": "79-bilibili-cn-cv1780438",
+      "startPage": null,
+      "bodyStartPage": null,
+      "endPage": null,
+      "topics": [],
+      "indexDescription": "完整原文论证和牌例；索引只定位。",
+      "anchors": [],
+      "relatedChapterIds": []
+    }
+  ]
+}
