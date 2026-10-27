@@ -1,0 +1,16 @@
+{
+  "id": "01a17e37-9304-70fc-a7f5-4112708bb77b",
+  "issueId": "01a17471-25e6-7731-a529-3df99acf3d42",
+  "createdAt": "2026-10-27T16:35:33.76454Z",
+  "nextFireAt": "2026-10-27T16:36:33.761314Z",
+  "mode": "once",
+  "kind": "at",
+  "enabledAtCreation": true,
+  "fireCountAtCreation": 0,
+  "initialHandoffSha256": "764263dbcdb6ccbfae4792d3e5a57702c4cb44eedd3b208c0da9d45abb072a5a",
+  "currentHandoffSha256": "9394aca872a7a8b712198ef3e141915e4a4bde5fa7fc5172edb97cb5e00172b8",
+  "fireCountReadback": 1,
+  "lastTaskId": "01a17e38-9efc-7a70-a791-fba54ab28640",
+  "lastError": null,
+  "note": "One-time wakeup fired normally. Packaging timestamp changed during verification; corrected package digest is synchronized to issue 250 without another dispatch. Original candidate, source, audit and raw digests are unchanged. Not an assertion of completed integration."
+}

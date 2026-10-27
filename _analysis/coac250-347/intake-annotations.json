@@ -1,0 +1,59 @@
+{
+  "schema": "coac250-347-intake-evidence/1",
+  "chapterId": "nemata-jp-chapter-347-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\archive01-section008.coac244text20261027.display.json",
+    "sha256": "45b67ef632f54a213a8c33bc4cc4c7b656e10d47123a35b8ec57f0d17abb6814"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\archive01-section008\\source.json",
+    "sha256": "62523932b13fc685e8c46c0ea7b2a765d1dff51ea39746ea9e2585cf92cfee21"
+  },
+  "audit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\archive01-section008.45b67ef632f54a213a8c33bc4cc4c7b656e10d47123a35b8ec57f0d17abb6814.json",
+    "sha256": "5215961e821d727ef1b5ac2e3f19fe0664cbe01f1181e44d8a082ef18049dbae"
+  },
+  "handoff": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-reviewed-text347-155-20261027.json",
+    "sha256": "9394aca872a7a8b712198ef3e141915e4a4bde5fa7fc5172edb97cb5e00172b8"
+  },
+  "issues": [],
+  "reviewScope": {
+    "onlyChangedTextId": "modern-yabejp-ja:archive01-section008:b0066",
+    "bodyBlocks": 66,
+    "figures": 27,
+    "otherBodyAndSemanticFigureFieldsUnchanged": true,
+    "reviewMethod": "independent-target-text-review-plus-unchanged-parent-audit",
+    "imageReviewThisStage": false,
+    "unchangedScope": "Reuses authenticated full parent independent audit; pixel equality is a presentation integrity check, not a new semantic review.",
+    "parent": {
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\archive01-section008.display.json",
+      "candidateSha256": "522447de46fb090753f5a89bf76a50a4cacd4bb729884f872ee764f3e0461911",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\archive01-section008.522447de46fb090753f5a89bf76a50a4cacd4bb729884f872ee764f3e0461911.json",
+      "auditSha256": "f10c5c6f3cab0fb7d6d827123e3336febfe1ff9fcfc8c2d0ff39f506c390c8c1",
+      "originalStatus": "needs-repair",
+      "callId": "eb0ed1db-bc9a-4c46-a726-c2b8a7126160"
+    },
+    "targetCallId": "cfc3e7a6-ca0e-417c-8157-3b126ae55d1b",
+    "targetReviewIssues": [],
+    "sourceContext": {
+      "path": "web-production/v1/runs/coac244-text-347-20261027/term-source-context.json",
+      "sha256": "5f42051703b4d23a0ccc8c2285a6e2ca850cc4f5d90a2b4a5e737c4f888a57f7"
+    }
+  },
+  "sourceCorrespondence": {
+    "articleId": "archive01-section008",
+    "webSourceId": "modern-yabejp-ja",
+    "tier": "url-header",
+    "evidencePath": "integration/modern-pdf-url-coverage.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": false,
+    "articleInPreview": false
+  },
+  "term": {
+    "sourceBlockId": "modern-yabejp-ja:archive01-section008:b0066",
+    "text": "摸入后也有进张范围进一步扩大的优点。基本上应固定雀头，但也要记住，根据相关牌在场上的易得、易出程度以及形成听口时的强度，也有可能选择拆掉两面搭子。"
+  },
+  "decision": "Only b0066 received a new independent text review in the upstream stage. The unchanged scope inherits the authenticated full parent audit; no new semantic image review or model call in this integration.",
+  "modelCalls": 0
+}

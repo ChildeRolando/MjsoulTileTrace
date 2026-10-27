@@ -1,0 +1,14 @@
+{
+  "upstreamCommit": "e61a3a8af63505e82afc106c4cf9f074c89d05fe",
+  "files": {
+    "handoff-250.json": "9394aca872a7a8b712198ef3e141915e4a4bde5fa7fc5172edb97cb5e00172b8",
+    "handoff-250.md": "b355ad6865de9391a118e3c4e873bee06622c1740dd9a737b6a7b66152a11130",
+    "250-wakeup-receipt.json": "4fb8808947a79d6c3badc594d9f6f7865a9196450ef8ee71ec3ff57ac9727a74"
+  },
+  "currentDataBytesEqualCommittedHandoff": true,
+  "issueRevision": 125,
+  "currentIssueBindsCorrectedSha": true,
+  "initialTriggerSha": "764263dbcdb6ccbfae4792d3e5a57702c4cb44eedd3b208c0da9d45abb072a5a",
+  "correctedSha": "9394aca872a7a8b712198ef3e141915e4a4bde5fa7fc5172edb97cb5e00172b8",
+  "reason": "Upstream archive repackaged timestamp; explicit upstream correction and current issue bind the corrected SHA. Candidate/source/audit/raw bindings require independent verification; initial handoff bytes were not reconstructed."
+}

@@ -1,0 +1,298 @@
+{
+  "schema": "coac250-347-coverage/1",
+  "recordedAt": "2026-10-27T16:44:24.519Z",
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T16-43-36-491Z",
+    "corpusId": "326c23bef26c91b9336e9216b3b6df5707ebd3124fca0fb394deeb8e7ad06bcd",
+    "chapters": 226,
+    "units": 234,
+    "blocks": 6239,
+    "figures": 5094
+  },
+  "coverage": {
+    "originalChaptersCovered": 226,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 258,
+    "originalUnitsTotal": 303
+  },
+  "register": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+    "beforeSha256": "c56b485486bfe861d42d977a451ef7f40c0f35a6cde9a589b99d1240870d68a9",
+    "afterSha256": "c98972e653afd7b23701895849d55630e7fd561a03475d94201c71027113fb71",
+    "backup": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.before-coac250-347-2026-10-27T16-44-24-515Z.json"
+  },
+  "verdicts": {
+    "covered-effective": 226,
+    "produced-needs-repair": 30,
+    "produced-passed-not-staged": 0,
+    "produced-pdf-passed-not-staged": 0,
+    "produced-unreviewed": 0,
+    "produced-audit-failed": 0,
+    "total": 256
+  },
+  "remaining": {
+    "denominator": "original chapters (256) minus covered (receipt.chapters); one chapter can be one original chapter only, no overlap",
+    "total": 30,
+    "byVerdict": {
+      "produced-needs-repair": 30,
+      "produced-passed-not-staged": 0
+    },
+    "byAdjudicationGroup": {
+      "confirmed-produced-not-covered": 25,
+      "additional-uncovered-not-in-246": 5
+    },
+    "byRoute": {
+      "web": 27,
+      "pdfOnly": 3
+    },
+    "blockedBySourceStructureHold": [],
+    "eligibleForNextStage": [],
+    "note": "347-1 is now covered after bound full-article passed audit and actual MCP/Arena full readback. Remaining 30 original chapters retain their previous needs-repair state. Prior 027-1, other source holds, p217/p257 and all other row evidence are unchanged; no other queue was refreshed.",
+    "blockedByHoldButPassed": [],
+    "eligibleNote": "This increment consumed only the unique newly passed 347-1. No other queue or eligibility claim was refreshed."
+  },
+  "readback": {
+    "schema": "coac250-347-readback/1",
+    "recordedAt": "2026-10-27T16:44:16.463Z",
+    "preview": {
+      "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T16-43-36-491Z",
+      "corpusId": "326c23bef26c91b9336e9216b3b6df5707ebd3124fca0fb394deeb8e7ad06bcd",
+      "chapters": 226,
+      "units": 234,
+      "blocks": 6239,
+      "figures": 5094
+    },
+    "rows": [
+      {
+        "unitId": "modern-yabejp-ja-archive01-section008-argument",
+        "blocks": 15,
+        "pages": [
+          {
+            "offset": 0,
+            "blocks": 4,
+            "nextOffset": 4
+          },
+          {
+            "offset": 4,
+            "blocks": 9,
+            "nextOffset": 13
+          },
+          {
+            "offset": 13,
+            "blocks": 2,
+            "nextOffset": null
+          }
+        ],
+        "exactBody": true,
+        "images": 27,
+        "searchHit": true,
+        "sourceArticle": "archive01-section008"
+      }
+    ],
+    "images": [
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b3",
+        "sha256": "dc909ad5db0f8d77d70699be8283ef2eb5ef885c6a2e21a0ecc7e79181eeac2b",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b5",
+        "sha256": "d534829b75d8198d0f9b21f737703a7f334a104be8852c0f6599ef2eba2a66ea",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b7",
+        "sha256": "e7250fb54c9cdb674dfb8b7bc4cbcb9e36b828585b3e4b2825d3ab561c9721de",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b9",
+        "sha256": "9dc471dd8c42281cfd713344d426626001fabc86db95892680a10fb04a923b82",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b11",
+        "sha256": "33def13ff8ff8cbfe9118a339f842c0a5bbc017f79261c6a09f7174bbecd80b2",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b14",
+        "sha256": "5040c1ffcaced80b41f66d60fed07d27258a23b34421e2c083ff064bf914b638",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b16",
+        "sha256": "b4421145dd8991af733b5c71110b9445da8c768fcc995b35dc246d389d9ed5de",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b18",
+        "sha256": "891ea50de2dafba5dd927f3e530a1566868880a9ff688fa1644a1707db77c38a",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b20",
+        "sha256": "b4421145dd8991af733b5c71110b9445da8c768fcc995b35dc246d389d9ed5de",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b22",
+        "sha256": "b4421145dd8991af733b5c71110b9445da8c768fcc995b35dc246d389d9ed5de",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b24",
+        "sha256": "891ea50de2dafba5dd927f3e530a1566868880a9ff688fa1644a1707db77c38a",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b26",
+        "sha256": "b024c88e760e2f5a7e7026c41eda442cf1900de4aa329595c76d4dcc5eaec27f",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b28",
+        "sha256": "209b8cf55bb6eb7a547bf0b2e306b3b1f929b3b2dc3fd4790d01bb056e1e6709",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b30",
+        "sha256": "2ae410cb579f5d9b8a85ae7e5cf6714cc430faffdb0a0119b274c1cbe2b49473",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b33",
+        "sha256": "41d7f51d265ee633cb8a3e9222cec7bea18336ae5e2e4f526a6427ca5b38087d",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b35",
+        "sha256": "891ea50de2dafba5dd927f3e530a1566868880a9ff688fa1644a1707db77c38a",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b37",
+        "sha256": "9dc471dd8c42281cfd713344d426626001fabc86db95892680a10fb04a923b82",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b41",
+        "sha256": "c6e55070da60d884ad2b0e8c93b5dfda366bcca56773bb64b1b913be199ca1db",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b43",
+        "sha256": "891ea50de2dafba5dd927f3e530a1566868880a9ff688fa1644a1707db77c38a",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b45",
+        "sha256": "d534829b75d8198d0f9b21f737703a7f334a104be8852c0f6599ef2eba2a66ea",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b47",
+        "sha256": "41d7f51d265ee633cb8a3e9222cec7bea18336ae5e2e4f526a6427ca5b38087d",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b55",
+        "sha256": "f042a0981a438a2822bad18eb661444b3e3a04338e2bca67c32e1b207d44d27d",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b57",
+        "sha256": "72aacd2923b6d05d865cd3b0bd8dbdd9426221d545033cd5288cf959f06d54d7",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b59",
+        "sha256": "575cb9f51399f07680582d47007d8cc21f0de0f01a74b1e162e8cbb82087ac7e",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b61",
+        "sha256": "b3ebdb9f62c9970267044479b2fec453f00ec451c5031da0d35da733c6d430ca",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b63",
+        "sha256": "5fa4d327009b2092fa676ef4fb1d6a0ee9aa875c8443cc3512a33d732a131254",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "modern-yabejp-ja-archive01-section008-b65",
+        "sha256": "42c356f8bf0692a4a69311e80016eb9628012e2bc1c43baa558f66f49ea33280",
+        "exactMcpBytes": true
+      }
+    ],
+    "targetMcpCalls": 43,
+    "maxTargetTextBytes": 12872,
+    "originalTextBlocks": 39,
+    "originalTextExact": true,
+    "sourceOccurrences": 77,
+    "sourceBindingsAndTranscriptionsExact": true,
+    "intakeAnnotations": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T16-43-36-491Z/347-1-intake-annotations.json",
+      "sha256": "f2973556142f62a03f7b754306639d35f5c2deae6804dd83662d19a73f46d875",
+      "issues": 0
+    },
+    "nonblockingIssues": [],
+    "reviewScope": {
+      "onlyChangedTextId": "modern-yabejp-ja:archive01-section008:b0066",
+      "bodyBlocks": 66,
+      "figures": 27,
+      "otherBodyAndSemanticFigureFieldsUnchanged": true,
+      "reviewMethod": "independent-target-text-review-plus-unchanged-parent-audit",
+      "imageReviewThisStage": false,
+      "unchangedScope": "Reuses authenticated full parent independent audit; pixel equality is a presentation integrity check, not a new semantic review.",
+      "parent": {
+        "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\archive01-section008.display.json",
+        "candidateSha256": "522447de46fb090753f5a89bf76a50a4cacd4bb729884f872ee764f3e0461911",
+        "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\archive01-section008.522447de46fb090753f5a89bf76a50a4cacd4bb729884f872ee764f3e0461911.json",
+        "auditSha256": "f10c5c6f3cab0fb7d6d827123e3336febfe1ff9fcfc8c2d0ff39f506c390c8c1",
+        "originalStatus": "needs-repair",
+        "callId": "eb0ed1db-bc9a-4c46-a726-c2b8a7126160"
+      },
+      "targetCallId": "cfc3e7a6-ca0e-417c-8157-3b126ae55d1b",
+      "targetReviewIssues": [],
+      "sourceContext": {
+        "path": "web-production/v1/runs/coac244-text-347-20261027/term-source-context.json",
+        "sha256": "5f42051703b4d23a0ccc8c2285a6e2ca850cc4f5d90a2b4a5e737c4f888a57f7"
+      }
+    },
+    "sourceCorrespondence": {
+      "articleId": "archive01-section008",
+      "webSourceId": "modern-yabejp-ja",
+      "tier": "url-header",
+      "evidencePath": "integration/modern-pdf-url-coverage.json",
+      "substitutionAllowed": true,
+      "bodyEquivalenceConfirmed": false,
+      "articleInPreview": false
+    },
+    "termExact": true,
+    "sourceBodyBlocks": 66,
+    "priorUnitsUnchanged": 233,
+    "prior027Preserved": true,
+    "priorJpegOriginalsRetained": 5,
+    "canonicalArticles": 197,
+    "sourceCollisions": 0,
+    "allProtectedInputsUnchanged": true,
+    "otherHoldsAndDefinitionBindingsUnchanged": true,
+    "activeLibraryChanged": false,
+    "formalSha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2",
+    "fullMcp": {
+      "units": 234,
+      "images": 5094,
+      "maxTextBytes": 14883
+    },
+    "arena": {
+      "units": 234,
+      "exactBody": true,
+      "maxEnvelopeBytes": 15066
+    },
+    "modelCalls": 0,
+    "productionCalls": 0
+  },
+  "modelCalls": 0
+}

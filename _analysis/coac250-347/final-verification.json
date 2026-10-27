@@ -1,0 +1,72 @@
+{
+  "schema": "coac250-347-final-verification/1",
+  "recordedAt": "2026-10-27T16:44:24.864Z",
+  "allPassed": true,
+  "checks": [
+    {
+      "name": "builder-syntax",
+      "exitCode": 0
+    },
+    {
+      "name": "full-MCP",
+      "units": 234,
+      "exactImages": 5094
+    },
+    {
+      "name": "full-Arena",
+      "units": 234,
+      "exactBody": true
+    },
+    {
+      "name": "target-MCP-readback-before-publication",
+      "sourceBlocks": 66,
+      "images": 27,
+      "exactBody": true
+    },
+    {
+      "name": "source-deduplication",
+      "collisions": 0
+    }
+  ],
+  "coverage": {
+    "originalChaptersCovered": 226,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 258,
+    "originalUnitsTotal": 303
+  },
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T16-43-36-491Z",
+    "corpusId": "326c23bef26c91b9336e9216b3b6df5707ebd3124fca0fb394deeb8e7ad06bcd",
+    "chapters": 226,
+    "units": 234,
+    "blocks": 6239,
+    "figures": 5094
+  },
+  "history": "E:/AgentData/Coach/knowledge/processing/integration/coac250-347-history-20261027",
+  "files": {
+    "selection-pin.patch": "9bead191034cf3355061b95403e25e58569db06de48a6b28a1ae6d8fdc3d05fb",
+    "builder.after.mjs": "7e8be75ec8ff13ec5382494f4fdf66072e311f14a73ae69b6dcc193aac562536",
+    "variants.after.json": "916476e4c6e1900414b3a14c80b1fa2b00b28f2df4338fb9920e55e60d7ef1cd",
+    "handoff.json": "9394aca872a7a8b712198ef3e141915e4a4bde5fa7fc5172edb97cb5e00172b8",
+    "preconsume.json": "a1560c21232120f3c31c321cfa289fdcddcf6a37abaa384b00ac2296a07f8d14",
+    "gate-reverified.json": "08065f4218c20e8189b6a9f3e90797540cfcd74e4aee7ffb8c552915b586de12",
+    "stage-receipt.json": "eefe242aa6e072bf0a46e7c68b8403e4d5f622493b26a6ffb6f947d523352288",
+    "intake-annotations.json": "f2973556142f62a03f7b754306639d35f5c2deae6804dd83662d19a73f46d875",
+    "readback.json": "d35175e32bf37ad6bbdaca41f201e6cec104d63b1f227f73b8a8e394fc88bdf1",
+    "coverage.json": "d8a01cc744fb1e163ae9c40be89aa9ca6509e2cb46a857eaefd4577fb0c03e5f",
+    "publication-journal.json": "e8a3bcce0d98f35b1f5fe7d94581c0e55b0aa8bd549948c7848961b5d441c2df"
+  },
+  "targetTextReviewOnly": true,
+  "imageReviewThisStage": false,
+  "protectedInputsUnchanged": 171,
+  "unchangedOtherRegisterRows": 79,
+  "prior233UnitsIncluding246090And027Unchanged": true,
+  "allOtherSelectionJobsUnchanged": true,
+  "otherHoldsAndDefinitionBindingsUnchanged": true,
+  "stagingCodeUnchanged": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a",
+  "builderPinsVerified": true,
+  "writerLocksAbsent": true,
+  "activeLibraryChanged": false,
+  "modelCalls": 0,
+  "productionCalls": 0
+}
