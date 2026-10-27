@@ -1,0 +1,84 @@
+{
+  "schema": "coac250-205-intake-evidence/1",
+  "chapterId": "79-cn-chapter-205-5",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770234.coac269rev1.json",
+    "sha256": "8c0cfff82dbf0c339dc1474ad84e51a4b9c55554ab62a64dfc472f6604a555ec"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1770234\\source.json",
+    "sha256": "ac055129f64d27bb1f71561eac96c5b304b299803b51680b9c3e2e56df56cda1"
+  },
+  "audit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1770234.8c0cfff82dbf0c339dc1474ad84e51a4b9c55554ab62a64dfc472f6604a555ec.json",
+    "sha256": "d45a637151212c978e6d368e652d58cb55e4ac1d5dd3b6d96e0a6a1c34d2420a"
+  },
+  "handoff": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-reviewed-205-5-20261028.json",
+    "sha256": "d8936ec0403c6f6f2fe12dd800ab8a1a5dc4adf3cabd8ab4a7163fb2aad50c4a"
+  },
+  "issues": [
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1770234:b0006:figure",
+      "sourceEvidence": "例2的sourceNotes写“附件3为原图，附件4为同一原图的2倍最近邻放大视图”；本次只附附件1、2，例2图源列于verifiedExactAssetIds。",
+      "description": "例2加工说明中的附件编号与本次提供方式不符，属于非教学性说明问题，不影响牌码或教学语义。",
+      "suggestedRepair": "将该说明改为例2使用已核原图复用，删除附件3、4的配对表述。"
+    }
+  ],
+  "reviewScope": {
+    "method": "independent-sol-high-full-article-review",
+    "bodyBlocks": 7,
+    "figures": 2,
+    "imageOccurrences": 2,
+    "targetOriginalImage": [
+      "79-bilibili-cn:247d210fdf40ab8a4a581955"
+    ],
+    "inheritedExactImage": [
+      "79-bilibili-cn:d099bf67a709277837ec2a9c"
+    ],
+    "callId": "83ab359d-fb39-4e2e-893d-b769cd13839a",
+    "firstIndependentReviewForSha": true,
+    "automaticRetries": 0,
+    "upstreamUsage": {
+      "inputTokens": 20249,
+      "cachedInputTokens": 0,
+      "outputTokens": 2906
+    }
+  },
+  "sourceCorrespondence": {
+    "articleId": "cv1770234",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+  },
+  "history": {
+    "originalProductionCallId": "358f4e70-5660-4e0c-8918-6ad8a4287011",
+    "productionRawSha256": "4cf399c450ced144a4c36627f53a677ef83145872e34449fab4e145852a85fa5",
+    "producerAccusationIsNotIndependentFailure": true,
+    "upstreamHistory": "The producer accusation and old void label were not an independent review failure. This is the first independent model attempt for this SHA. Original producer artifact, selfcheck and raw remain unchanged.",
+    "parentCandidateSha256": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6",
+    "parentAuditSha256": "6e42e3767953de3f6e4b7173392ad36292c4f8dce0c29e4922d9f629c0534711"
+  },
+  "candidateSourceNotes": [
+    {
+      "figureId": "79-bilibili-cn:cv1770234:b0004:figure",
+      "sourceNotes": [
+        "附件1为原图，附件2为同一原图的2倍最近邻放大视图；两者仅对应一次图源出现。"
+      ]
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1770234:b0006:figure",
+      "sourceNotes": [
+        "附件3为原图，附件4为同一原图的2倍最近邻放大视图；两者仅对应一次图源出现。",
+        "右下方三张空白牌面为5z副露，属于牌局内容。",
+        "牌背旁的黄色窄边为牌的侧面，不另计为牌。"
+      ]
+    }
+  ],
+  "decision": "Preserve the unique passed candidate and the single nonblocking b0006 attachment-number source-note. Upstream full first independent review used the bound target original/2x image and exact verified reuse for the other image. Producer accusation history is retained, not relabeled as independent failure or retry.",
+  "modelCalls": 0
+}

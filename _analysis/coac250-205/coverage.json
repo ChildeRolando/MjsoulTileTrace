@@ -1,0 +1,168 @@
+{
+  "schema": "coac250-205-coverage/1",
+  "recordedAt": "2026-10-27T17:12:40.495Z",
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z",
+    "corpusId": "71c22ad822398ab96cf987d73892bee6018417b1ae7351f36ac698850873c6e0",
+    "chapters": 227,
+    "units": 235,
+    "blocks": 6246,
+    "figures": 5096
+  },
+  "coverage": {
+    "originalChaptersCovered": 227,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 259,
+    "originalUnitsTotal": 303
+  },
+  "register": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+    "beforeSha256": "c98972e653afd7b23701895849d55630e7fd561a03475d94201c71027113fb71",
+    "afterSha256": "eaecce1df533574e58c4e1afe8de0be2306d9e43a357d5bd065088f7a787cc1a",
+    "backup": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.before-coac250-205-2026-10-27T17-12-40-492Z.json"
+  },
+  "verdicts": {
+    "covered-effective": 227,
+    "produced-needs-repair": 29,
+    "produced-passed-not-staged": 0,
+    "produced-pdf-passed-not-staged": 0,
+    "produced-unreviewed": 0,
+    "produced-audit-failed": 0,
+    "total": 256
+  },
+  "remaining": {
+    "denominator": "original chapters (256) minus covered (receipt.chapters); one chapter can be one original chapter only, no overlap",
+    "total": 29,
+    "byVerdict": {
+      "produced-needs-repair": 29,
+      "produced-passed-not-staged": 0
+    },
+    "byAdjudicationGroup": {
+      "confirmed-produced-not-covered": 24,
+      "additional-uncovered-not-in-246": 5
+    },
+    "byRoute": {
+      "web": 26,
+      "pdfOnly": 3
+    },
+    "blockedBySourceStructureHold": [],
+    "eligibleForNextStage": [],
+    "note": "205-5 is now covered after bound full-article first independent passed audit; the one source-note and producer accusation history are retained and actual MCP/Arena full readback. Remaining 29 original chapters retain their previous needs-repair state. Prior 027-1, other source holds, p217/p257 and all other row evidence are unchanged; no other queue was refreshed.",
+    "blockedByHoldButPassed": [],
+    "eligibleNote": "This increment consumed only the unique newly passed 205-5. No other queue or eligibility claim was refreshed."
+  },
+  "readback": {
+    "schema": "coac250-205-readback/1",
+    "recordedAt": "2026-10-27T17:12:34.434Z",
+    "preview": {
+      "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z",
+      "corpusId": "71c22ad822398ab96cf987d73892bee6018417b1ae7351f36ac698850873c6e0",
+      "chapters": 227,
+      "units": 235,
+      "blocks": 6246,
+      "figures": 5096
+    },
+    "rows": [
+      {
+        "unitId": "79-bilibili-cn-cv1770234-argument",
+        "blocks": 7,
+        "pages": [
+          {
+            "offset": 0,
+            "blocks": 7,
+            "nextOffset": null
+          }
+        ],
+        "exactBody": true,
+        "images": 2,
+        "searchHit": true,
+        "sourceArticle": "cv1770234"
+      }
+    ],
+    "images": [
+      {
+        "figureId": "79-bilibili-cn-cv1770234-b4",
+        "sha256": "104f115501ee58996276f1c53043a372d127a8a08fc2d9b429d8cee0c3be1d67",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1770234-b6",
+        "sha256": "5db69b1fd5137bcf86be9a2a3a8ca620db5638f57e0bda0a55443efeca45ef37",
+        "exactMcpBytes": true
+      }
+    ],
+    "targetMcpCalls": 16,
+    "maxTargetTextBytes": 9346,
+    "originalTextBlocks": 5,
+    "originalTextExact": true,
+    "sourceOccurrences": 2,
+    "sourceBindingsAndTranscriptionsExact": true,
+    "intakeAnnotations": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z/205-5-intake-annotations.json",
+      "sha256": "a21ddf3ed31d61bc7577fa341ebd1554b29d495090171c27af9196af754ea6c4",
+      "issues": 1
+    },
+    "nonblockingIssues": [
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1770234:b0006:figure",
+        "sourceEvidence": "例2的sourceNotes写“附件3为原图，附件4为同一原图的2倍最近邻放大视图”；本次只附附件1、2，例2图源列于verifiedExactAssetIds。",
+        "description": "例2加工说明中的附件编号与本次提供方式不符，属于非教学性说明问题，不影响牌码或教学语义。",
+        "suggestedRepair": "将该说明改为例2使用已核原图复用，删除附件3、4的配对表述。"
+      }
+    ],
+    "reviewScope": {
+      "method": "independent-sol-high-full-article-review",
+      "bodyBlocks": 7,
+      "figures": 2,
+      "imageOccurrences": 2,
+      "targetOriginalImage": [
+        "79-bilibili-cn:247d210fdf40ab8a4a581955"
+      ],
+      "inheritedExactImage": [
+        "79-bilibili-cn:d099bf67a709277837ec2a9c"
+      ],
+      "callId": "83ab359d-fb39-4e2e-893d-b769cd13839a",
+      "firstIndependentReviewForSha": true,
+      "automaticRetries": 0,
+      "upstreamUsage": {
+        "inputTokens": 20249,
+        "cachedInputTokens": 0,
+        "outputTokens": 2906
+      }
+    },
+    "sourceCorrespondence": {
+      "articleId": "cv1770234",
+      "webSourceId": "79-bilibili-cn",
+      "tier": "body",
+      "evidencePath": "integration/chinese-source-body-correspondence.json",
+      "substitutionAllowed": true,
+      "bodyEquivalenceConfirmed": true,
+      "articleInPreview": false
+    },
+    "historyPreserved": true,
+    "sourceBodyBlocks": 7,
+    "priorUnitsUnchanged": 234,
+    "prior027Preserved": true,
+    "priorJpegOriginalsRetained": 5,
+    "canonicalArticles": 198,
+    "sourceCollisions": 0,
+    "allProtectedInputsUnchanged": true,
+    "otherHoldsAndDefinitionBindingsUnchanged": true,
+    "activeLibraryChanged": false,
+    "formalSha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2",
+    "fullMcp": {
+      "units": 235,
+      "images": 5096,
+      "maxTextBytes": 14883
+    },
+    "arena": {
+      "units": 235,
+      "exactBody": true,
+      "maxEnvelopeBytes": 15066
+    },
+    "modelCalls": 0,
+    "productionCalls": 0
+  },
+  "modelCalls": 0
+}

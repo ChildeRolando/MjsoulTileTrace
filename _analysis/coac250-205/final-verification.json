@@ -1,0 +1,98 @@
+{
+  "schema": "coac250-205-final-verification/1",
+  "recordedAt": "2026-10-27T17:12:40.817Z",
+  "allPassed": true,
+  "checks": [
+    {
+      "name": "builder-syntax",
+      "exitCode": 0
+    },
+    {
+      "name": "full-MCP",
+      "units": 235,
+      "exactImages": 5096
+    },
+    {
+      "name": "full-Arena",
+      "units": 235,
+      "exactBody": true
+    },
+    {
+      "name": "target-MCP-readback-before-publication",
+      "sourceBlocks": 7,
+      "images": 2,
+      "exactBody": true
+    },
+    {
+      "name": "source-deduplication",
+      "collisions": 0
+    }
+  ],
+  "coverage": {
+    "originalChaptersCovered": 227,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 259,
+    "originalUnitsTotal": 303
+  },
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-12-05-004Z",
+    "corpusId": "71c22ad822398ab96cf987d73892bee6018417b1ae7351f36ac698850873c6e0",
+    "chapters": 227,
+    "units": 235,
+    "blocks": 6246,
+    "figures": 5096
+  },
+  "history": "E:/AgentData/Coach/knowledge/processing/integration/coac250-205-history-20261028",
+  "files": {
+    "selection-pin.patch": "d480ea8ba0cbf16f81d1a5194761c78aab38a52019e8d521a212cae2d6f2e41c",
+    "builder.after.mjs": "83dd86e93c0188095c4d2efa4f8fbb3ad6d46b7fe0d150f34e38d8b0c650bbd9",
+    "variants.after.json": "a8b958223663a0084d405c9dfa7c6b3702233be58106f5934da092a944d3035f",
+    "handoff.json": "d8936ec0403c6f6f2fe12dd800ab8a1a5dc4adf3cabd8ab4a7163fb2aad50c4a",
+    "preconsume.json": "bced9063991cb9017549f402224f8ebd50fd28ae12430ab2e777d54ab1602b83",
+    "gate-reverified.json": "70112d866d309b84a57c76b58ec03d4334c5dfbed0f75852af4f6b6a7c7596db",
+    "stage-receipt.json": "1514a57d98744162716d2d92850598f8f4f6f184e86c1ff33b4b07fdd0d4384d",
+    "intake-annotations.json": "a21ddf3ed31d61bc7577fa341ebd1554b29d495090171c27af9196af754ea6c4",
+    "readback.json": "b1a58bdfbdec4c30e38d99242ef622f965c32a9dd5e06aaed0563826074ce218",
+    "coverage.json": "45513d74bf3379f1f8ec36b8f7ad1db20441be778f15aa66718a242bcf0394a3",
+    "publication-journal.json": "abd5ee5669cd8a1777884936351e6e525c924f28cac24cd83bd8d18f8eeb5240"
+  },
+  "upstreamReviewScope": {
+    "method": "independent-sol-high-full-article-review",
+    "bodyBlocks": 7,
+    "figures": 2,
+    "imageOccurrences": 2,
+    "targetOriginalImage": [
+      "79-bilibili-cn:247d210fdf40ab8a4a581955"
+    ],
+    "inheritedExactImage": [
+      "79-bilibili-cn:d099bf67a709277837ec2a9c"
+    ],
+    "callId": "83ab359d-fb39-4e2e-893d-b769cd13839a",
+    "firstIndependentReviewForSha": true,
+    "automaticRetries": 0,
+    "upstreamUsage": {
+      "inputTokens": 20249,
+      "cachedInputTokens": 0,
+      "outputTokens": 2906
+    }
+  },
+  "originalProductionHistory": {
+    "originalProductionCallId": "358f4e70-5660-4e0c-8918-6ad8a4287011",
+    "productionRawSha256": "4cf399c450ced144a4c36627f53a677ef83145872e34449fab4e145852a85fa5",
+    "producerAccusationIsNotIndependentFailure": true,
+    "upstreamHistory": "The producer accusation and old void label were not an independent review failure. This is the first independent model attempt for this SHA. Original producer artifact, selfcheck and raw remain unchanged.",
+    "parentCandidateSha256": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6",
+    "parentAuditSha256": "6e42e3767953de3f6e4b7173392ad36292c4f8dce0c29e4922d9f629c0534711"
+  },
+  "protectedInputsUnchanged": 62,
+  "unchangedOtherRegisterRows": 79,
+  "prior234UnitsIncluding347246090And027Unchanged": true,
+  "allOtherSelectionJobsUnchanged": true,
+  "otherHoldsAndDefinitionBindingsUnchanged": true,
+  "stagingCodeUnchanged": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a",
+  "builderPinsVerified": true,
+  "writerLocksAbsent": true,
+  "activeLibraryChanged": false,
+  "modelCalls": 0,
+  "productionCalls": 0
+}
