@@ -1131,3 +1131,51 @@ under its existing guard before returning a first target checkpoint. Passed batc
 are inherited. Even if b0168 passes, the chapter stays `needs-repair` while unrelated original
 findings remain; the exact checkpoint goes to the existing 244/250 aggregation. PR review is
 separate from this textbook audit. No whole-chapter or integration acceptance is claimed.
+
+## Batch 16 — unblock COAC-248 Windows checkout, delivery packaging only
+
+User authorization `01a17f1a-05a6-7bd8-8179-837449191d83` identifies run
+`01a17f16-8947-7e89-971e-fdea09027ce6`: environment preparation failed before `started_at`
+because four delivery audit-copy paths exceeded Windows checkout limits (274–276 characters).
+248's last owner run completed at `8baacd3`; current 248 active runs were empty and its branch
+was not checked out. These owner/run checks were repeated before an expected-parent update.
+
+The packaging-only fix is commit `a7f5201e90aa8846051c7f06f22e0bdac482968c`, normally pushed
+to the original `agent/mika/coac-248` branch. The current task's HEAD stayed on
+`agent/ticket/coac-269`: a private Git index prepared the foreign commit, then a compare-and-swap
+updated only the idle 248 ref. No reset, clean, force push, global Git/OS setting change or
+modification of a shared working tree occurred.
+
+In `.multica/delivery/coac248-p217-admitted-20261028/`, four historical audit copies now use
+`evidence/{parentAudit,rev1Audit,rev2Audit,rev3Audit}/audit.json` (Git reports four R100 renames).
+The rebuilt ZIP uses the same paths. `path-map.json` preserves all 29 original processing paths,
+original package paths, full SHA256 values and short package locations. Immutable admission,
+candidate, source/raw/audit JSON references remain unchanged; package readers resolve their
+logical paths through this map. The package-local attributes prevent checkout EOL conversion
+from changing evidence hashes; no global setting was changed. The original build/finalize and
+runtime scripts were left untouched and were not executed.
+
+Read-only package verification passes all 29 input hashes, 48 unchanged Git-blob file hashes and
+ZIP mappings. Five negative cases reject missing/duplicate/traversal mappings, wrong hashes and
+modified audit bytes. One original path refers to an already removed old Multica worktree;
+its admitted processing-root evidence copy matches the same recorded SHA. This was checked
+without rewriting either original references or processing-root data.
+
+A real clean checkout of the **same 248 branch** succeeded in a new owned Windows worktree
+with exactly the failed run's path depth: 1,625 tracked files, maximum full path **250 UTF-16
+characters**, and the read-only package verifier passed from that checkout. Only that clean
+test worktree was removed through Git afterward. Unknown directories were not removed.
+
+`artifacts/b16-pathfix/` records the exact foreign commit, owner exclusion, four rename/hash
+proofs, manifest, patch, tests, actual checkout output and one-shot recovery of the original
+wakeup. The original failed run remains in history. Recovery uses the existing rule and original
+222 result-registration instruction, adding the fixed commit and retaining **3/3 used, 0 left**;
+it authorizes no new production, review, paid probe or retry. Its actual runtime outcome is in
+`recovery-result.json`. This fix makes zero textbook model calls and does not redo b0168 or
+change textbook semantic/integration acceptance.
+
+Recovery was observed actually **running**, with `started_at=2026-10-27T20:52:13Z`, as task
+`01a17f22-6168-79e8-9a35-a079d7257485`. Its real worktree was checked read-only: branch
+`agent/mika/coac-248`, HEAD containing `a7f5201`. The original rule fired exactly once and is
+disabled; a guarded manual-trigger attempt stopped before dispatch because the rule had already
+fired. The downstream task's final result-registration outcome remains owned by 248.

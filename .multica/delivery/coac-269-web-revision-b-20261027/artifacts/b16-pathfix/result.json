@@ -1,0 +1,225 @@
+{
+  "schema": "coac269-248-checkout-repair/1",
+  "authorizationComment": "01a17f1a-05a6-7bd8-8179-837449191d83",
+  "outcome": "packaging fix pushed; real 248 recovery started exactly once",
+  "packagingBranch": "agent/mika/coac-248",
+  "packagingCommit": "a7f5201e90aa8846051c7f06f22e0bdac482968c",
+  "repair": {
+    "modelCalls": 0,
+    "originalCommit": "8baacd3d6b689189d4ab94722535652f4969f786",
+    "renames": {
+      "evidence/rev1Audit/page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json": "evidence/rev1Audit/audit.json",
+      "evidence/rev2Audit/page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json": "evidence/rev2Audit/audit.json",
+      "evidence/rev3Audit/page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json": "evidence/rev3Audit/audit.json",
+      "evidence/parentAudit/page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json": "evidence/parentAudit/audit.json"
+    },
+    "originalInputHashesPreserved": 29,
+    "immutableSourceFilesChanged": false,
+    "originalSourceChecks": [
+      {
+        "id": "parent",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\candidates\\79-cn\\page-0217.json"
+      },
+      {
+        "id": "originalRaw",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\raw-calls\\e12aa4a6-65f4-4a23-9579-09f887f568be.json"
+      },
+      {
+        "id": "page217",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\217.json"
+      },
+      {
+        "id": "page218",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\218.json"
+      },
+      {
+        "id": "image",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png"
+      },
+      {
+        "id": "rev1",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair22-20261027-p217\\candidates\\79-cn\\page-0217.json"
+      },
+      {
+        "id": "rev1Audit",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json"
+      },
+      {
+        "id": "rev1AuditRaw",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\95502be0-996e-40be-bcec-1d37e4dbb695.json"
+      },
+      {
+        "id": "rev2",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair23-20261027-p217b\\candidates\\79-cn\\page-0217.json"
+      },
+      {
+        "id": "rev2Audit",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json"
+      },
+      {
+        "id": "rev2AuditRaw",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2b9d82cb-d3fa-4578-ad15-4b8cb22b70d0.json"
+      },
+      {
+        "id": "rev3",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair24-20261027-p217c\\candidates\\79-cn\\page-0217.json"
+      },
+      {
+        "id": "rev3Audit",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json"
+      },
+      {
+        "id": "rev3AuditRaw",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\a67e7181-9217-47e7-b944-4373d83e5280.json"
+      },
+      {
+        "id": "rev4",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair25-20261027-p217d\\candidates\\79-cn\\page-0217.json"
+      },
+      {
+        "id": "parentAudit",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json"
+      },
+      {
+        "id": "rev4AuditRaw",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4f760999-1648-410e-8452-1c1b4794503f.json"
+      },
+      {
+        "id": "rev5",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\candidates\\79-cn\\page-0217.json"
+      },
+      {
+        "id": "north-first",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-point-222-p217-20261028.json"
+      },
+      {
+        "id": "north-first-raw",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-p217-north-second-row.raw.json"
+      },
+      {
+        "id": "north-second",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-second-point-20261028.json"
+      },
+      {
+        "id": "north-second-raw",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-p217-second-20261028\\raw.json"
+      },
+      {
+        "id": "west-impact",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-west-impact-20261028.json"
+      },
+      {
+        "id": "west-impact-raw",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-p217-west-impact-20261028\\raw.json"
+      },
+      {
+        "id": "west-impact-receipt",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-p217-west-impact-20261028\\receipt.json"
+      },
+      {
+        "id": "chapter-map",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\chapter-map.json"
+      },
+      {
+        "id": "ownership",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\source-block-ownership.json"
+      },
+      {
+        "id": "revision-chain",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\revision-chain\\receipt-p217-revision-chain-20261027.json",
+        "originalEphemeralPathMissing": true
+      },
+      {
+        "id": "original-render",
+        "verifiedFrom": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\renders\\79-cn\\page-0217-r1.png"
+      }
+    ],
+    "candidateSha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54",
+    "originalArchiveSha256": "cd897caff00cc096ce8658853ba6f388f13d3958eb8bbf598808cac74a05566b",
+    "newArchiveSha256": "ad5512266de87d8508a8a146a924d491feb6ed4df9cbe35bc9c938253c247d61",
+    "manifestSha256": "83b5ac3f6508e4b9e29c9ab87f0a034e06af20493e0f8133cbe1500ef36d14aa",
+    "archiveExportTextConversionCorrectedBeforeCommit": [
+      "instruction249.md",
+      "tests.log"
+    ]
+  },
+  "tests": {
+    "passed": true,
+    "cases": [
+      "complete package and ZIP: pass",
+      "missing mapping: rejected",
+      "wrong SHA: rejected",
+      "unsafe traversal: rejected",
+      "duplicate path: rejected",
+      "changed audit bytes: rejected"
+    ],
+    "modelCalls": 0
+  },
+  "checkout": {
+    "passed": true,
+    "branch": "agent/mika/coac-248",
+    "commit": "a7f5201e90aa8846051c7f06f22e0bdac482968c",
+    "realCheckoutPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-248-pfixb87a0001\\worktree",
+    "samePathDepthAsFailedRun": true,
+    "maximumFullPathUtf16Characters": 250,
+    "longestPaths": [
+      [
+        250,
+        ".multica/delivery/coac-248-native-inline-correction/evidence-web276-4-20261027/2375640c-3a8d-45e7-9601-4b810fe87e80.original-ledger.json"
+      ],
+      [
+        250,
+        ".multica/delivery/coac-248-native-inline-correction/evidence-web222-5-20261027/20d7f5e0-2640-4b87-bde1-e6505d839822.original-ledger.json"
+      ],
+      [
+        246,
+        ".multica/delivery/coac248-p217-admitted-20261028/evidence/image/64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png"
+      ],
+      [
+        246,
+        ".multica/delivery/coac-248-native-inline-correction/evidence/283-1-table-context-phase/b0785-corner-winds-adjudication-20261027.json"
+      ],
+      [
+        245,
+        ".multica/delivery/coac-248-native-inline-correction/evidence/283-1-table-context-phase/table-context-recheck-008-20261027.rev2.json"
+      ]
+    ],
+    "trackedFiles": 1625,
+    "packageVerification": {
+      "passed": true,
+      "inputs": 29,
+      "renamed": 4,
+      "immutableFiles": 48,
+      "modelCalls": 0
+    },
+    "cleanCheckout": true,
+    "modelCalls": 0,
+    "ownedCleanTestWorktreeRemoved": true
+  },
+  "recovery": {
+    "observedAt": "2026-10-27T20:53:12.500935+00:00",
+    "existingWakeupId": "01a17f15-3885-7e86-a02e-793a20dda9dc",
+    "ruleEnabled": false,
+    "fireCount": 1,
+    "recoveredTask": {
+      "id": "01a17f22-6168-79e8-9a35-a079d7257485",
+      "status": "running",
+      "started_at": "2026-10-27T20:52:13Z",
+      "completed_at": null,
+      "failure_reason": null,
+      "error": null
+    },
+    "recoveredWorktree": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-248-a079d7257485\\worktree",
+    "recoveredWorktreeHEAD": "a7f5201e90aa8846051c7f06f22e0bdac482968c",
+    "containsPackagingFix": true,
+    "originalFailedRunPreserved": true,
+    "manualTriggerExecuted": false,
+    "duplicateRecovery": false
+  },
+  "newTextbookProductionCalls": 0,
+  "newTextbookReviewCalls": 0,
+  "globalGitOrOSSettingsChanged": false,
+  "processingDataWritten": false,
+  "ownBranch": "agent/ticket/coac-269",
+  "wholeTicketComplete": false
+}

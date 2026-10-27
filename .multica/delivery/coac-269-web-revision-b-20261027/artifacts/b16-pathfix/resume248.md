@@ -1,0 +1,12 @@
+COAC-269按用户评论01a17f1a-05a6-7bd8-8179-837449191d83仅恢复此前从未started的run01a17f16-8947-7e89-971e-fdea09027ce6一次，不是新的制作/审校授权。原worktree准备失败已修复，agent/mika/coac-248已快进到a7f5201e90aa8846051c7f06f22e0bdac482968c并正常推送。4份delivery审回执副本改短名audit.json，path-map.json保留全部29项完整原路径与SHA；字节核对和同branch同Windows路径深度worktree检出通过，最长250字符。原数据根、候选、raw、审回执、准入和制作脚本均未改。当前269自己的HEAD仍在agent/ticket/coac-269；没有切换或覆盖共享工作树。
+
+本次只接下列原零调用登记指令。恢复后先确认本run实际分支含a7f5201，按path-map读取delivery副本；不要重跑build.py/finalize.py或改动原始输入。222额度3/3余0；283六表/Q8/b0168其它票在途不触碰。不要自动重试本恢复或新增消费者。保留原失败run，最终回原222线程说明真实登记结果。
+
+原指令（内容不变）：
+222唯一首审结束 needs-repair，阶段3/3余0，0retry，不再派制作、重审或收费测试。真实call5b131a9b-8592-4789-922a-1ab7306b9581，terra/max原图+x4两图，17543in/0cache/12953out，184089ms，费用/上游执行数/远端权重unknown。
+
+完整回报integration/coac249-reviewed222-target-figure-v3-20261028.json，SHA5573da4d2d8933823c9ad747f0bf332be397a303301baf6d35b68139e052788e。audit06658a3d465820d3523fb1a28ff0a0ffd9c6a6484a92be4f68984dd0dc1a4e24；raw88d71694aaa3485b0f30f03477d0389e82615147162b3970c9833aa8e5c01ea2。目标block/figure faithful、图片represented，两个1m引用获确认；但目标和邻文被planner分为不同数组，模型说无法确认b0017-b0018-b0019实际组合顺序，因此domOrder/contextContinuity/semanticCompleteness未通过。不是图修失败，也不是已证实错序。
+
+已零调用取实际同一有序candidate/source序列和完整父审domOrder faithful：integration/coac249-222-order-context-evidence-20261028.json；candidate.body与完整父body逐字节一致，图序没改。原新审needs-repair/uncertain和全部raw不改，未交250当passed。注意新reviewer称unknowns清空属历史措辞错误：父稿和新稿本来均[]，实际unknown字段未动，不照此改史。
+
+请244零模型在现有owner评估是否可依法复用已完整独审且未变的顺序证据，保留新模型原结论和原语义门禁，不主控改pass、不自行重派或追加预算。248只登记精确结果与零调用顺序证据，停止本阶段222制作/复审。283当前正用其另获授权的唯一六表审，勿占其guard或挪预算；217等其它线不扩。根E:/AgentData/Coach/knowledge/processing。

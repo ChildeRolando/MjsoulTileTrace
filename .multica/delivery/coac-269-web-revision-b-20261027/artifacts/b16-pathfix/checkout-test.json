@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "branch": "agent/mika/coac-248",
+  "commit": "a7f5201e90aa8846051c7f06f22e0bdac482968c",
+  "realCheckoutPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-248-pfixb87a0001\\worktree",
+  "samePathDepthAsFailedRun": true,
+  "maximumFullPathUtf16Characters": 250,
+  "longestPaths": [
+    [
+      250,
+      ".multica/delivery/coac-248-native-inline-correction/evidence-web276-4-20261027/2375640c-3a8d-45e7-9601-4b810fe87e80.original-ledger.json"
+    ],
+    [
+      250,
+      ".multica/delivery/coac-248-native-inline-correction/evidence-web222-5-20261027/20d7f5e0-2640-4b87-bde1-e6505d839822.original-ledger.json"
+    ],
+    [
+      246,
+      ".multica/delivery/coac248-p217-admitted-20261028/evidence/image/64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png"
+    ],
+    [
+      246,
+      ".multica/delivery/coac-248-native-inline-correction/evidence/283-1-table-context-phase/b0785-corner-winds-adjudication-20261027.json"
+    ],
+    [
+      245,
+      ".multica/delivery/coac-248-native-inline-correction/evidence/283-1-table-context-phase/table-context-recheck-008-20261027.rev2.json"
+    ]
+  ],
+  "trackedFiles": 1625,
+  "packageVerification": {
+    "passed": true,
+    "inputs": 29,
+    "renamed": 4,
+    "immutableFiles": 48,
+    "modelCalls": 0
+  },
+  "cleanCheckout": true,
+  "modelCalls": 0,
+  "ownedCleanTestWorktreeRemoved": true
+}

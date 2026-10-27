@@ -1,0 +1,68 @@
+{
+  "active248": [],
+  "lastOwnerCompletion": {
+    "id": "01a17f03-f39b-7b36-8c6d-4d73dfa0c906",
+    "agent_id": "b144c077-cadd-4749-a53d-4b9cb98191b8",
+    "status": "completed",
+    "started_at": "2026-10-27T20:22:15Z",
+    "completed_at": "2026-10-27T20:34:28Z",
+    "branch_name": "agent/mika/coac-248",
+    "result": {
+      "branch_name": "agent/mika/coac-248",
+      "durable_work_dir": "E:\\AgentWorkspaces\\Coach\\factory-source",
+      "output": "已完成217装配并提交 `c59255b`、`8baacd3`。\n\n候选SHA：`a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54`。\n\n22项测试全过；两个unknown及非原文限制注已落实，第二张9m保持。新增模型调用0。\n\n证据包已回复工单并交249零调用核验；仍待该核验及218–220、网页变体的独立验收。",
+      "pr_url": "",
+      "session_id": "01a17dba-ec89-76e0-818d-c362d1e108ef",
+      "work_dir": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-248-4d73dfa0c906\\worktree"
+    }
+  },
+  "failedRun": {
+    "agent_id": "b144c077-cadd-4749-a53d-4b9cb98191b8",
+    "attempt": 1,
+    "attribution": {
+      "delegated_from_task_id": "01a17f09-0567-7814-a1c2-a130ed53ae1e",
+      "evidence": {
+        "kind": "issue_wakeup",
+        "ref_id": "01a17f15-3885-7e86-a02e-793a20dda9dc"
+      },
+      "initiator": {
+        "avatar_url": "https://lh3.googleusercontent.com/a/ACg8ocKzN2Qu67BZFbviPJ_kdF2roz84uZSg-02QIY5cNE3fRv3CDg=s96-c",
+        "email": "childerolandoo@gmail.com",
+        "id": "19bc279c-5832-46ce-b738-9f11c08fddc5",
+        "name": "Roland Deschain"
+      },
+      "originator": {
+        "avatar_url": "https://lh3.googleusercontent.com/a/ACg8ocKzN2Qu67BZFbviPJ_kdF2roz84uZSg-02QIY5cNE3fRv3CDg=s96-c",
+        "email": "childerolandoo@gmail.com",
+        "id": "19bc279c-5832-46ce-b738-9f11c08fddc5",
+        "name": "Roland Deschain"
+      },
+      "precise": true,
+      "source": "trigger_owner"
+    },
+    "completed_at": "2026-10-27T20:39:09Z",
+    "created_at": "2026-10-27T20:39:05Z",
+    "delivered_comment_ids": [
+      "01a17ee7-ff76-70b6-b6cf-b9efc84f01d5"
+    ],
+    "dispatched_at": "2026-10-27T20:39:06Z",
+    "error": "prepare execution environment: execenv: git worktree add: Preparing worktree (checking out 'agent/mika/coac-248')\nerror: unable to create file .multica/delivery/coac248-p217-admitted-20261028/evidence/parentAudit/page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json: Filename too long\nerror: unable to create file .multica/delivery/coac248-p217-admitted-20261028/evidence/rev1Audit/page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json: Filename too long\nerror: unable to create file .multica/delivery/coac248-p217-admitted-20261028/evidence/rev2Audit/page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json: Filename too long\nerror: unable to create file .multica/delivery/coac248-p217-admitted-20261028/evidence/rev3Audit/page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json: Filename too long\nUpdating files:  76% (1248/1623)\rUpdating files:  77% (1250/1623)\rUpdating files:  78% (1266/1623)\rUpdating files:  79% (1283/1623)\rUpdating files:  80% (1299/1623)\rUpdating files:  81% (1315/1623)\rUpdating files:  82% (1331/1623)\rUpdating files:  83% (1348/1623)\rUpdating files:  84% (1364/1623)\rUpdating files:  85% (1380/1623)\rUpdating files:  86% (1396/1623)\rUpdating files:  87% (1413/1623)\rUpdating files:  88% (1429/1623)\rUpdating files:  89% (1445/1623)\rUpdating files:  90% (1461/1623)\rUpdating files:  91% (1477/1623)\rUpdating files:  92% (1494/1623)\rUpdating files:  93% (1510/1623)\rUpdating files:  94% (1526/1623)\rUpdating files:  95% (1542/1623)\rUpdating files:  96% (1559/1623)\rUpdating files:  97% (1575/1623)\rUpdating files:  98% (1591/1623)\rUpdating files:  99% (1607/1623)\rUpdating files: 100% (1623/1623)\rUpdating files: 100% (1623/1623), done.\nfatal: Could not reset index file to revision 'HEAD'.: exit status 128",
+    "failure_reason": "environment_prepare_failed",
+    "handoff_note": "Wakeup 01a17f15-3885-7e86-a02e-793a20dda9dc triggered. Instruction:\n222唯一首审结束 needs-repair，阶段3/3余0，0retry，不再派制作、重审或收费测试。真实call5b131a9b-8592-4789-922a-1ab7306b9581，terra/max原图+x4两图，17543in/0cache/12953out，184089ms，费用/上游执行数/远端权重unknown。\r\n\r\n完整回报integration/coac249-reviewed222-target-figure-v3-20261028.json，SHA5573da4d2d8933823c9ad747f0bf332be397a303301baf6d35b68139e052788e。audit06658a3d465820d3523fb1a28ff0a0ffd9c6a6484a92be4f68984dd0dc1a4e24；raw88d71694aaa3485b0f30f03477d0389e82615147162b3970c9833aa8e5c01ea2。目标block/figure faithful、图片represented，两个1m引用获确认；但目标和邻文被planner分为不同数组，模型说无法确认b0017-b0018-b0019实际组合顺序，因此domOrder/contextContinuity/semanticCompleteness未通过。不是图修失败，也不是已证实错序。\r\n\r\n已零调用取实际同一有序candidate/source序列和完整父审domOrder faithful：integration/coac249-222-order-context-evidence-20261028.json；candidate.body与完整父body逐字节一致，图序没改。原新审needs-repair/uncertain和全部raw不改，未交250当passed。注意新reviewer称unknowns清空属历史措辞错误：父稿和新稿本来均[]，实际unknown字段未动，不照此改史。\r\n\r\n请244零模型在现有owner评估是否可依法复用已完整独审且未变的顺序证据，保留新模型原结论和原语义门禁，不主控改pass、不自行重派或追加预算。248只登记精确结果与零调用顺序证据，停止本阶段222制作/复审。283当前正用其另获授权的唯一六表审，勿占其guard或挪预算；217等其它线不扩。根E:/AgentData/Coach/knowledge/processing。\nTrigger facts (read current state before deciding what to do):\ntime.due {\"kind\":\"at\",\"planned_at\":\"2026-10-27T20:38:39Z\"}\n",
+    "id": "01a17f16-8947-7e89-971e-fdea09027ce6",
+    "issue_id": "01a17471-0529-7d3d-bd8d-8b54ef38290d",
+    "kind": "comment",
+    "max_attempts": 2,
+    "priority": 3,
+    "result": null,
+    "runtime_id": "731c52da-6d5e-4c5b-80c9-e9f39803735b",
+    "started_at": null,
+    "status": "failed",
+    "trigger_comment_id": "01a17ee7-ff76-70b6-b6cf-b9efc84f01d5",
+    "trigger_summary": "Wakeup: 222唯一首审结束 needs-repair，阶段3/3余0，0retry，不再派制作、重审或收费测试。真实call5b131a9b-8592-4789-922a-1ab7306b9581，terra/max原图+x4两图，17543in/0cache/12953out，184089ms，费用/上游执行数/远端权重un…",
+    "wakeup_id": "01a17f15-3885-7e86-a02e-793a20dda9dc",
+    "workspace_id": "c68413ed-69a0-4781-b155-2123e9a3b805"
+  },
+  "branchWasNotCheckedOut": true,
+  "expectedParent": "8baacd3d6b689189d4ab94722535652f4969f786"
+}

@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "cases": [
+    "complete package and ZIP: pass",
+    "missing mapping: rejected",
+    "wrong SHA: rejected",
+    "unsafe traversal: rejected",
+    "duplicate path: rejected",
+    "changed audit bytes: rejected"
+  ],
+  "modelCalls": 0
+}

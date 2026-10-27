@@ -1,0 +1,20 @@
+{
+  "observedAt": "2026-10-27T20:53:12.500935+00:00",
+  "existingWakeupId": "01a17f15-3885-7e86-a02e-793a20dda9dc",
+  "ruleEnabled": false,
+  "fireCount": 1,
+  "recoveredTask": {
+    "id": "01a17f22-6168-79e8-9a35-a079d7257485",
+    "status": "running",
+    "started_at": "2026-10-27T20:52:13Z",
+    "completed_at": null,
+    "failure_reason": null,
+    "error": null
+  },
+  "recoveredWorktree": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-248-a079d7257485\\worktree",
+  "recoveredWorktreeHEAD": "a7f5201e90aa8846051c7f06f22e0bdac482968c",
+  "containsPackagingFix": true,
+  "originalFailedRunPreserved": true,
+  "manualTriggerExecuted": false,
+  "duplicateRecovery": false
+}
