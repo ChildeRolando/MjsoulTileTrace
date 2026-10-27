@@ -1,0 +1,384 @@
+{
+  "schema": "coac269-web-revision-preflight/1",
+  "ticket": "COAC-269",
+  "line": "B",
+  "batch": "b8",
+  "recordedAt": "2026-10-27T12:38:58.607Z",
+  "purpose": "zero-call preflight of the two dispatched 79-cn figure revisions through the frozen entry",
+  "variant": "coac269rev1",
+  "budget": {
+    "productionCallsAllowedPerChapter": 1,
+    "firstAuditCallsAllowedPerChapter": 1,
+    "retries": 0
+  },
+  "frozenRuntime": {
+    "textbook-production-web.mjs": "4a5ce8ab361e659bf7a8e822d3e013ccf413701cfa604aaa1c58c688beab8ca9",
+    "textbook-production-cli.mjs": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1",
+    "textbook-production-web-visual.py": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+  },
+  "chapters": [
+    {
+      "chapterId": "79-cn-chapter-128-14",
+      "articleId": "cv1734739",
+      "checks": {
+        "joint_eligible": {
+          "ok": true,
+          "detail": {
+            "chapterId": "79-cn-chapter-128-14",
+            "parentSha256": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec",
+            "direction": "figure",
+            "sourceId": "79-bilibili-cn"
+          }
+        },
+        "parent_sha": {
+          "ok": true,
+          "detail": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec"
+        },
+        "notes_production_binding": {
+          "ok": true,
+          "detail": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec"
+        },
+        "notes_source_binding": {
+          "ok": true,
+          "detail": "962fdd8860f2f756f1bc76054a5ef9ea2a5f82959e36da44aff79c57aee1d5ca"
+        },
+        "parent_source_binding": {
+          "ok": true,
+          "detail": "962fdd8860f2f756f1bc76054a5ef9ea2a5f82959e36da44aff79c57aee1d5ca"
+        },
+        "parent_identity": {
+          "ok": true,
+          "detail": "79-bilibili-cn/cv1734739"
+        },
+        "notes_status": {
+          "ok": true,
+          "detail": "needs-repair"
+        },
+        "source_status": {
+          "ok": true,
+          "detail": "captured-not-translated-or-audited"
+        },
+        "source_assets": {
+          "ok": true,
+          "detail": "7 downloaded"
+        },
+        "parent_body_mode": {
+          "ok": true,
+          "detail": "verbatim"
+        },
+        "target_figure_ids": {
+          "ok": true,
+          "detail": [
+            "79-bilibili-cn:cv1734739:b0013:figure"
+          ]
+        },
+        "target_in_parent": {
+          "ok": true,
+          "detail": "1 target(s) present"
+        },
+        "non_target_figures_faithful": {
+          "ok": true,
+          "detail": "6 non-target figures all faithful"
+        },
+        "figure_count": {
+          "ok": true,
+          "detail": 7
+        },
+        "target_verdict": {
+          "ok": true,
+          "detail": "[{\"id\":\"79-bilibili-cn:cv1734739:b0013:figure\",\"verdicts\":[\"needs-repair\"]}]"
+        },
+        "target_asset_bindings": {
+          "ok": true,
+          "detail": "1 bound source asset(s), sha verified"
+        },
+        "reuse_binding": {
+          "ok": true,
+          "detail": {
+            "path": "web-production/v1/reuse-maps/c903dad7b5a5a3d0460d614924a0b66ab9cd481801fc4a332e06331ca271b671.json",
+            "sha256": "c903dad7b5a5a3d0460d614924a0b66ab9cd481801fc4a332e06331ca271b671",
+            "images": 7
+          }
+        },
+        "output_absent": {
+          "ok": true,
+          "detail": "web-production/v1/candidates/79-bilibili-cn/cv1734739.coac269rev1.json"
+        },
+        "no_passed_candidate": {
+          "ok": true,
+          "detail": "0 passed receipts for the current source sha"
+        },
+        "stop_file": {
+          "ok": true,
+          "detail": "absent"
+        },
+        "maker_b_slot": {
+          "ok": true,
+          "detail": "no live maker-B"
+        },
+        "frozen_entry_preflight": {
+          "ok": true,
+          "detail": {
+            "figureRuns": 7,
+            "pendingFigureRuns": 1,
+            "modelCalls": 0
+          }
+        }
+      },
+      "failures": [],
+      "targetChecks": [
+        {
+          "id": "79-bilibili-cn:cv1734739:b0013:figure",
+          "verdicts": [
+            "needs-repair"
+          ]
+        }
+      ],
+      "target": {
+        "figureId": "79-bilibili-cn:cv1734739:b0013:figure",
+        "transcription": "左侧标签：例5\n手牌（从左至右）：2m 3m 4m 5m 6m 2p 3p 3p 4p 6p 4s 5s 6s 7s\n手牌右侧标签：宝牌\n标签右侧牌：3p",
+        "assets": [
+          {
+            "path": "web-sources/v1/79-bilibili-cn/assets/15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855.png",
+            "sha256": "15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855",
+            "fileOk": true
+          }
+        ]
+      },
+      "frozenEntry": {
+        "command": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\coac269-20261027\\frozen-runtime\\textbook-production-web.mjs --source web-sources/v1/79-bilibili-cn/articles/cv1734739/source.json --revision-from web-production/v1/candidates/79-bilibili-cn/cv1734739.display.json --revision-notes audit/web/articles/79-bilibili-cn/cv1734739.2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec.retry-1792944840664-30f5eb57.json --variant coac269rev1 --reuse web-production/v1/reuse-maps/c903dad7b5a5a3d0460d614924a0b66ab9cd481801fc4a332e06331ca271b671.json --timeout-ms 480000 --preflight-only",
+        "exitCode": 0,
+        "output": {
+          "preflightPassed": true,
+          "sourceId": "79-bilibili-cn",
+          "articleId": "cv1734739",
+          "sourceBlocks": 18,
+          "textBlocks": 11,
+          "figureRuns": 7,
+          "pendingFigureRuns": 1,
+          "imageOccurrences": 7,
+          "modelCalls": 0
+        },
+        "error": null
+      },
+      "ok": true,
+      "errorObserved": "父稿 b0013 手牌第二张记为 3m；绑定源图与放大图逐张复读为 二萬 二萬 四萬 五萬 六萬（2m 2m 4m 5m 6m）。",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1734739.display.json",
+        "sha256": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec"
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1734739.2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec.retry-1792944840664-30f5eb57.json",
+        "sha256": "24ebc92c728006d8a4283c3f2bcf46790b4876bb094d6363d05decf8578b1f59"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1734739/source.json",
+        "sha256": "962fdd8860f2f756f1bc76054a5ef9ea2a5f82959e36da44aff79c57aee1d5ca"
+      },
+      "targets": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1734739:b0013:figure",
+          "kind": "figure"
+        }
+      ],
+      "outputPath": "web-production/v1/candidates/79-bilibili-cn/cv1734739.coac269rev1.json"
+    },
+    {
+      "chapterId": "79-cn-chapter-145-4",
+      "articleId": "cv1744266",
+      "checks": {
+        "joint_eligible": {
+          "ok": true,
+          "detail": {
+            "chapterId": "79-cn-chapter-145-4",
+            "parentSha256": "7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a",
+            "direction": "figure",
+            "sourceId": "79-bilibili-cn"
+          }
+        },
+        "parent_sha": {
+          "ok": true,
+          "detail": "7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a"
+        },
+        "notes_production_binding": {
+          "ok": true,
+          "detail": "7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a"
+        },
+        "notes_source_binding": {
+          "ok": true,
+          "detail": "baf759cb6de68be0a0f5cd66957aae705ee59bb8350ef8530138e714b484e1b4"
+        },
+        "parent_source_binding": {
+          "ok": true,
+          "detail": "baf759cb6de68be0a0f5cd66957aae705ee59bb8350ef8530138e714b484e1b4"
+        },
+        "parent_identity": {
+          "ok": true,
+          "detail": "79-bilibili-cn/cv1744266"
+        },
+        "notes_status": {
+          "ok": true,
+          "detail": "needs-repair"
+        },
+        "source_status": {
+          "ok": true,
+          "detail": "captured-not-translated-or-audited"
+        },
+        "source_assets": {
+          "ok": true,
+          "detail": "5 downloaded"
+        },
+        "parent_body_mode": {
+          "ok": true,
+          "detail": "verbatim"
+        },
+        "target_figure_ids": {
+          "ok": true,
+          "detail": [
+            "79-bilibili-cn:cv1744266:b0005:figure"
+          ]
+        },
+        "target_in_parent": {
+          "ok": true,
+          "detail": "1 target(s) present"
+        },
+        "non_target_figures_faithful": {
+          "ok": true,
+          "detail": "4 non-target figures all faithful"
+        },
+        "figure_count": {
+          "ok": true,
+          "detail": 5
+        },
+        "target_verdict": {
+          "ok": true,
+          "detail": "[{\"id\":\"79-bilibili-cn:cv1744266:b0005:figure\",\"verdicts\":[\"needs-repair\"]}]"
+        },
+        "target_asset_bindings": {
+          "ok": true,
+          "detail": "1 bound source asset(s), sha verified"
+        },
+        "reuse_binding": {
+          "ok": true,
+          "detail": {
+            "path": "web-production/v1/reuse-maps/c67b1441be160cb3440d72576a87e9913e79d6507adc6f8c4bb7305e232940d0.json",
+            "sha256": "c67b1441be160cb3440d72576a87e9913e79d6507adc6f8c4bb7305e232940d0",
+            "images": 5
+          }
+        },
+        "output_absent": {
+          "ok": true,
+          "detail": "web-production/v1/candidates/79-bilibili-cn/cv1744266.coac269rev1.json"
+        },
+        "no_passed_candidate": {
+          "ok": true,
+          "detail": "0 passed receipts for the current source sha"
+        },
+        "stop_file": {
+          "ok": true,
+          "detail": "absent"
+        },
+        "maker_b_slot": {
+          "ok": true,
+          "detail": "no live maker-B"
+        },
+        "frozen_entry_preflight": {
+          "ok": true,
+          "detail": {
+            "figureRuns": 5,
+            "pendingFigureRuns": 1,
+            "modelCalls": 0
+          }
+        }
+      },
+      "failures": [],
+      "targetChecks": [
+        {
+          "id": "79-bilibili-cn:cv1744266:b0005:figure",
+          "verdicts": [
+            "needs-repair"
+          ]
+        }
+      ],
+      "target": {
+        "figureId": "79-bilibili-cn:cv1744266:b0005:figure",
+        "transcription": "例1\n手牌从左至右：2m 6m 2p 2p 4p 7p 5s 5s 5s 8s 9s 2z 7z\n手牌右侧：摸入 5s",
+        "assets": [
+          {
+            "path": "web-sources/v1/79-bilibili-cn/assets/f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3.jpg",
+            "sha256": "f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3",
+            "fileOk": true
+          }
+        ]
+      },
+      "frozenEntry": {
+        "command": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\coac269-20261027\\frozen-runtime\\textbook-production-web.mjs --source web-sources/v1/79-bilibili-cn/articles/cv1744266/source.json --revision-from web-production/v1/candidates/79-bilibili-cn/cv1744266.display.json --revision-notes audit/web/articles/79-bilibili-cn/cv1744266.7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a.retry-1792948017171-19a0c0ed.json --variant coac269rev1 --reuse web-production/v1/reuse-maps/c67b1441be160cb3440d72576a87e9913e79d6507adc6f8c4bb7305e232940d0.json --timeout-ms 480000 --preflight-only",
+        "exitCode": 0,
+        "output": {
+          "preflightPassed": true,
+          "sourceId": "79-bilibili-cn",
+          "articleId": "cv1744266",
+          "sourceBlocks": 14,
+          "textBlocks": 9,
+          "figureRuns": 5,
+          "pendingFigureRuns": 1,
+          "imageOccurrences": 5,
+          "modelCalls": 0
+        },
+        "error": null
+      },
+      "ok": true,
+      "errorObserved": "父稿 b0005 手牌第 12 张记为 2z（南）；绑定源图与放大图逐张复读为 東（1z），末张 中（7z）不变。",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1744266.display.json",
+        "sha256": "7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a"
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1744266.7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a.retry-1792948017171-19a0c0ed.json",
+        "sha256": "b349c80320f24c247e9e3b33f6b0e6dc3aba1970401340656e6b7fd91fc6103d"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1744266/source.json",
+        "sha256": "baf759cb6de68be0a0f5cd66957aae705ee59bb8350ef8530138e714b484e1b4"
+      },
+      "targets": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1744266:b0005:figure",
+          "kind": "figure"
+        }
+      ],
+      "outputPath": "web-production/v1/candidates/79-bilibili-cn/cv1744266.coac269rev1.json"
+    }
+  ],
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "jointExclusion": {
+    "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-v3-2026-10-27T12-38-58-972Z-aa42fe7f.json",
+    "sha256": "70158645158dc34baba0c58efb78ecebd6e6b9e6a46eaea4185c336bbb18ba49",
+    "recordedAt": "2026-10-27T12:38:58.972Z",
+    "ageSeconds": 0,
+    "scriptVersion": 3,
+    "controlsOk": true,
+    "pointerSha256": "2e85514b1beb74eea77e2dea99d28e8e6497270ed35210e692dbfc74b930ceeb",
+    "eligibleCount": 26,
+    "denominators": {
+      "scopeChapters": 231,
+      "coveredByUnion": 199,
+      "uncoveredByUnion": 32,
+      "bySource": {
+        "modern-yabejp-ja": {
+          "mapped": 150,
+          "covered": 140,
+          "uncovered": 10
+        },
+        "79-bilibili-cn": {
+          "mapped": 81,
+          "covered": 59,
+          "uncovered": 22
+        }
+      }
+    }
+  },
+  "ok": true,
+  "finishedAt": "2026-10-27T12:38:59.154Z"
+}

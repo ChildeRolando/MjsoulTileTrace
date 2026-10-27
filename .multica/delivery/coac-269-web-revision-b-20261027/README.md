@@ -458,3 +458,131 @@ chapter is now produced; what is left needs a figure revision under a `verbatim`
 text+figure revision, a parent-audit figure coverage repair, or a root decision on 347-1 — none of
 which this ticket can decide alone.
 
+
+## Batch 8 — 79-cn figure revisions (2026-10-27T12:35–12:45Z)
+
+Owner dispatch 2026-10-27T12:23:19Z (comment `01a17d50`): line B takes exactly two chapters,
+`79-cn-chapter-128-14` and `79-cn-chapter-145-4`, with the full canonical ids and error targets read
+from COAC-244's `6145c9f` classification (`figure-targeted-executable`, `entryPass: true`,
+`declaredErrorTargets: 1`). `79-cn-chapter-090-6` belongs to line A and was not claimed or touched.
+
+### Entry (no new framework)
+
+Both chapters are Chinese (`zh-CN`) **verbatim** parents, so the existing *figure-targeted* revision
+entry of the frozen web production runner applies: for a Chinese source the runner derives
+`figureIds` from the parent audit's own non-source-note `issue.targetId`s and requires every OTHER
+figure to already carry a faithful `figureCheck`. Exactly one figure per chapter was re-transcribed;
+the Chinese body and the other 6 / 4 figures are inherited byte-for-byte. Same runner, same flags,
+same slot and same claim interface as batch 7 — no gate, runtime, dictionary, selection, pointer or
+register was modified, and no mode was converted to reach an entry.
+
+### Source verification before dispatch
+
+Both error targets were re-read by this line directly from the bound source images
+(original + nearest-neighbour / 4× zoom), independently of the parent audit and of the model:
+
+| chapter | figure | parent transcription | bound source read |
+| --- | --- | --- | --- |
+| 128-14 | `cv1734739:b0013` | `2m 3m 4m 5m 6m …` | `2m 2m 4m 5m 6m …` (tiles 1–2 are both 二萬); dora indicator 3p unchanged |
+| 145-4 | `cv1744266:b0005` | `… 9s 2z 7z` | `… 9s 1z 7z` (12th tile 東, 13th 中); ツモ 5s unchanged |
+
+### Joint exclusion v3 (same three sources, both entries)
+
+`artifacts/coac269-joint-exclusion-precheck-v3.mjs` is v2's mechanism with the canonical map extended
+to the 79-cn body correspondence, so figure chapters are excluded by canonical original chapter id
+too. Incident negative controls still pass (246/237/131 covered, 183 uncovered). Denominator for this
+run: 231 mapped chapters (150 modern + 81 79-cn), 199 covered by the union, 32 uncovered; of the
+uncovered, 26 are eligible repair targets under their own entry. Chapters outside both maps are
+reported as outside the maps, not silently counted as uncovered.
+
+It was re-run five times, each producing its own receipt: before the preflight, before the claim,
+before taking the slot, and once immediately before **each** model dispatch (`b8-joint-exclusion-v3-*`).
+The active preview pointer did not move during the batch (`2e85514b…` throughout).
+
+Caveat worth recording: v3's figure-direction check mirrors the production entry (target figures +
+faithful checks for every other figure). COAC-244's `6145c9f` classification additionally applied an
+"imageCheck represented" criterion, so v3 lists a few more 79-cn chapters as revisable than 244 did
+(109-4, 167-4, 311-18). That does not affect this batch — both dispatched chapters are in 244's
+executable list — but it means v3's eligible list is not a substitute for 244's selection policy.
+
+### Claims (shared first)
+
+`parallel/claims/79-cn-chapter-128-14.json` (parent `2aec7345…`) and
+`parallel/claims/79-cn-chapter-145-4.json` (parent `7557da59…`), both owner `COAC-269 Ticket executor`,
+taken atomically through `parallel/slots.mjs claim` and read back before the ticket-local detail claims
+were written (`b8-claims-batch.json`, `b8-claim-*.json`). No other lane held either chapter; line A's
+`79-cn-chapter-217-4` claim was visible in the same run.
+
+### Zero-call preflight
+
+`b8-preflight.json` (`preflight-b8-3eefc864…`, `ok: true`): for each chapter — fresh joint exclusion
+eligibility bound to the exact parent sha; source/parent/notes sha; `notes.production.sha256` = parent
+file sha; `notes.source.sourceSha256` = source file sha; parent identity and `body.mode: verbatim`;
+parent `needs-repair`; all source assets downloaded; the repair scope re-derived from the audit's own
+issues = exactly one target figure; every other figure faithful; target asset sha verified; reuse-map
+binding; variant output absent; no passed receipt for the current source sha; no STOP file; no live
+maker-B slot.
+
+The same run then executes the **real frozen entry** with `--preflight-only`, so the runner's own
+`web_revision_is_not_isolated_figure_repair` gate and reuse binding run too:
+`preflightPassed: true, figureRuns: 7 / 5, pendingFigureRuns: 1, modelCalls: 0` for both.
+
+`b8-preflight-launcher-failure.json` is retained: the first preflight attempt passed every data check
+but launched node with an extra `node` argument of its own (a launcher bug in the preflight script, not
+a gate rejection) and produced 0 model calls. The receipt records the real failure; the script was
+fixed and `b8-preflight-with-bindings.json` is the version with the claim-consumable binding block.
+
+### Production (real calls, no retries)
+
+Model `gpt-6.1-sol`, effort `high`; frozen runtime `textbook-production-web.mjs` +
+`textbook-production-web-visual.py` (visual assistance present, 2 attachments per call).
+
+| chapter | callId | in/out | duration | maker-B window | candidate SHA256 |
+| --- | --- | --- | --- | --- | --- |
+| 128-14 | `21f6e4f9-868e-4bcf-82ad-91d904d95cd6` | 16,565 / 267 | 101.1 s | `12:42:09.7`–`12:44:23.1Z` | `c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae` |
+| 145-4 | `c1a7d02f-b322-48df-96f9-a80a1ea8a8cf` | 15,670 / 515 | 30.4 s | (same hold) | `07a511d4efb0dc246763ba7d2b114ac7203ab9b7109f7fcc12cfe4302751d284` |
+
+- 2 production calls for 2 chapters, 0 retries, both `success=true`; 32,235 in / 782 out total.
+- maker-B acquired `12:42:09.725Z` and released `12:44:23.083Z`, both exit 0, status 0 live makers after.
+- Legacy `production-lane.lock` never acquired, byte-identical before/after (`30`, unchanged mtime).
+- Dispatch guards `b8-dispatch-guard-128-14.json` / `-145-4.json`: each dispatch had its own fresh
+  joint exclusion and shared-claim owner/sha read-back, `ok: true`.
+- Real concurrency: the two production calls ran back-to-back on the one B slot; no audit call and no
+  A-line production call overlapped them in this window, so maker-vs-maker overlap stays 0 for this
+  batch (nothing is claimed as concurrency that did not happen).
+
+### Self-check (not the independent audit)
+
+`b8-selfcheck.json` — `ok: true` for both, `modelCalls: 0`:
+`verifyWebRevisionContent` ok, `verifyWebProductionCall` ok (real bound output: model/effort, raw
+artifact sha, prompt/output sha, 2 visual inputs), `webDeterministicChecks` passed, exactly 1 attempt.
+
+Structural: every text block of the verbatim body, the flow order and every non-target figure are
+byte-identical to the parent; only the target figure differs.
+
+Disclosed incidental changes — inside the target figure, the frozen entry lets the model re-emit
+`kind/transcription/unknowns/caption/sourceNotes`, and it did:
+
+| chapter | target transcription | other changed fields |
+| --- | --- | --- |
+| 128-14 | `2m 3m …` → `2m 2m …` | caption `例5：手牌与宝牌。` → `例5：手牌与宝牌` (trailing full stop dropped) |
+| 145-4 | `… 9s 2z 7z` → `… 9s 1z 7z` | caption reworded to `例1：手牌及右侧摸入的5s。`; parent sourceNote `原图与近邻放大图为同一图像，仅计一次。` not re-emitted |
+
+These are left exactly as the model produced them (hand-editing a bound production output would defeat
+the entry) and are handed to 249 as explicit questions rather than presented as no-change.
+
+### Handoff to COAC-249
+
+- `web-production/v1/coac269-20261027/handoff/handoff-b8-0e18bc298e9a64b6.json`
+  SHA256 `72af89a06da93bdcb80b4abf6ddcbe9ceeb29d9b70b0eaa5d155f29e91406a71` (bundle: `b8-handoff-249.json`)
+- `web-production/v1/coac269-20261027/handoff/explicit-targets-b8-0b7c7d8ddbc6b99a.json`
+  SHA256 `2098ab0e4e25d372372f0f1382ea72f935c1a1792f794392deaf2ee00097eef4` (bundle: `b8-explicit-targets-249.json`)
+- Consumption proof through 249's own entry (`audit/audit-explicit-targets.mjs --select-only`):
+  `pendingBefore: 2`, `terminalSkips: 0`, selected exactly the two candidate SHAs, `modelCalls: 0`
+  (`b8-audit-select-only.json`).
+
+### Boundaries
+
+No shared list, selection, pointer, register or formal library was written; no gate or runtime was
+edited; no model call beyond the two budgeted productions; no pass, no staging and no integration is
+claimed here. Pass remains 249's and integration remains 250's.

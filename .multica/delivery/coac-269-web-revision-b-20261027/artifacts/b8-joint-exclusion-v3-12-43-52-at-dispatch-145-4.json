@@ -1,0 +1,1556 @@
+{
+  "schema": "coac269-joint-exclusion-precheck/3",
+  "scriptVersion": 3,
+  "ticket": "COAC-269",
+  "recordedAt": "2026-10-27T12:43:52.143Z",
+  "purpose": "zero-call joint exclusion by canonical original chapter id before any next-batch selection/claim; no model call, no shared write",
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "scopeCaveat": "the eligible pool covers only chapters that map to a production entry this line uses (modern-production-scope-v3 + 79-cn body correspondence); chapters outside both maps are not listed and not counted as uncovered",
+  "sources": [
+    {
+      "name": "modern-yabejp-ja",
+      "map": {
+        "path": "integration/modern-production-scope-v3.json",
+        "sha256": "5402444a12e8099c9fe18652722cc5a67b91682cf17dc344d9667c5472676c39",
+        "articles": 152,
+        "chapters": 150,
+        "recordedAt": "2026-10-23T21:10:36.285897+00:00"
+      },
+      "candidatesDir": "web-production/v1/candidates/modern-yabejp-ja",
+      "auditDir": "audit/web/articles/modern-yabejp-ja",
+      "direction": "text",
+      "bodyMode": "translated"
+    },
+    {
+      "name": "79-bilibili-cn",
+      "map": {
+        "path": "integration/chinese-source-body-correspondence.json",
+        "sha256": "2f1057b83ec2295e8cec3457b4a0d9a8e5d752df64e0cad52c7d8b286761ebfc",
+        "articles": 81,
+        "chapters": 81,
+        "recordedAt": "2026-10-23T20:46:10.480470+00:00"
+      },
+      "candidatesDir": "web-production/v1/candidates/79-bilibili-cn",
+      "auditDir": "audit/web/articles/79-bilibili-cn",
+      "direction": "figure",
+      "bodyMode": "verbatim"
+    }
+  ],
+  "inputs": {
+    "activePreviewPointer": {
+      "path": "integration/accepted-preview-current.json",
+      "sha256": "2e85514b1beb74eea77e2dea99d28e8e6497270ed35210e692dbfc74b930ceeb",
+      "output": "integration/accepted-content-preview-2026-10-27T11-50-50-082Z",
+      "createdAt": "2026-10-27T12:16:06.533Z"
+    },
+    "activePreviewReceipt": {
+      "path": "integration/accepted-content-preview-2026-10-27T11-50-50-082Z/accepted-preview-receipt.json",
+      "sha256": "2e85514b1beb74eea77e2dea99d28e8e6497270ed35210e692dbfc74b930ceeb",
+      "createdAt": "2026-10-27T12:16:06.533Z",
+      "selectedWeb": 188,
+      "pendingWeb": 35
+    },
+    "activePreviewUnitMap": {
+      "path": "integration/accepted-content-preview-2026-10-27T11-50-50-082Z/textbook-unit-map.json",
+      "sha256": "8a09856e4c04e0326c85cdb43cebf1ddd28f6ec738c05667520729824eaac53b",
+      "units": 225,
+      "chapters": 217
+    },
+    "unifiedRegister": {
+      "path": "integration/coac250-unified-chapter-register-20261027b.json",
+      "sha256": "729fd7938955caa01b2eb03d21086ec4210693a318911b8e65fd300b2c5510a6",
+      "recordedAt": "2026-10-27T12:20:50.061Z",
+      "rows": 80,
+      "verdicts": {
+        "covered-effective": 217,
+        "produced-needs-repair": 39,
+        "produced-passed-not-staged": 0,
+        "produced-pdf-passed-not-staged": 0,
+        "produced-unreviewed": 0,
+        "produced-audit-failed": 0,
+        "total": 256
+      }
+    },
+    "auditReceipts": {
+      "scannedBySource": {
+        "modern-yabejp-ja": 244,
+        "79-bilibili-cn": 113
+      }
+    }
+  },
+  "chapterDenominator": {
+    "scopeChapters": 231,
+    "coveredByUnion": 199,
+    "uncoveredByUnion": 32,
+    "bySource": {
+      "modern-yabejp-ja": {
+        "mapped": 150,
+        "covered": 140,
+        "uncovered": 10
+      },
+      "79-bilibili-cn": {
+        "mapped": 81,
+        "covered": 59,
+        "uncovered": 22
+      }
+    }
+  },
+  "coverageReasons": {
+    "active-preview-selectedWeb": 189,
+    "latest-passed-audit-current-source": 190,
+    "active-preview-unit-map": 189,
+    "unified-register-covered-effective": 41,
+    "active-preview-selectedPdf": 27,
+    "active-preview-formalReplacement": 3,
+    "active-preview-legacyAudit": 1,
+    "active-preview-supplement": 1
+  },
+  "incidentControls": {
+    "nemata-jp-chapter-246-1": {
+      "expectCovered": true,
+      "covered": true,
+      "reasons": [
+        "active-preview-selectedWeb",
+        "unified-register-covered-effective",
+        "latest-passed-audit-current-source",
+        "active-preview-unit-map"
+      ],
+      "eligible": false,
+      "skipped": false,
+      "evidence": [
+        {
+          "reason": "active-preview-selectedWeb",
+          "articleId": "chapter06-section002",
+          "candidate": "chapter06-section002.rev1.json",
+          "candidateSha256": "bbf15bbd1390a0b7ce729d5205a65dad72e0f24cb6c2fe1f9789aaaea26e1904",
+          "auditStatus": "passed"
+        },
+        {
+          "reason": "unified-register-covered-effective",
+          "auditStatus": "passed",
+          "candidateSha256": "bbf15bbd1390a0b7ce729d5205a65dad72e0f24cb6c2fe1f9789aaaea26e1904",
+          "auditRecordedAt": "2026-10-27T05:26:32.362Z"
+        },
+        {
+          "reason": "latest-passed-audit-current-source",
+          "articleId": "chapter06-section002",
+          "candidate": "chapter06-section002.rev1.json",
+          "candidateSha256": "bbf15bbd1390a0b7ce729d5205a65dad72e0f24cb6c2fe1f9789aaaea26e1904",
+          "auditStatus": "passed",
+          "auditRecordedAt": "2026-10-27T05:26:32.362Z"
+        },
+        {
+          "reason": "active-preview-unit-map",
+          "articleId": "chapter06-section002"
+        }
+      ]
+    },
+    "nemata-jp-chapter-237-1": {
+      "expectCovered": true,
+      "covered": true,
+      "reasons": [
+        "active-preview-selectedWeb",
+        "unified-register-covered-effective",
+        "latest-passed-audit-current-source",
+        "active-preview-unit-map"
+      ],
+      "eligible": false,
+      "skipped": false,
+      "evidence": [
+        {
+          "reason": "active-preview-selectedWeb",
+          "articleId": "chapter04-section016",
+          "candidate": "chapter04-section016.rev1.json",
+          "candidateSha256": "d14aac65a3d02d8a44bf633bb969f1c057660d875a9aeb792cc022826293bc97",
+          "auditStatus": "passed"
+        },
+        {
+          "reason": "unified-register-covered-effective",
+          "auditStatus": "passed",
+          "candidateSha256": "d14aac65a3d02d8a44bf633bb969f1c057660d875a9aeb792cc022826293bc97",
+          "auditRecordedAt": "2026-10-27T02:29:26.843Z"
+        },
+        {
+          "reason": "latest-passed-audit-current-source",
+          "articleId": "chapter04-section016",
+          "candidate": "chapter04-section016.rev1.json",
+          "candidateSha256": "d14aac65a3d02d8a44bf633bb969f1c057660d875a9aeb792cc022826293bc97",
+          "auditStatus": "passed",
+          "auditRecordedAt": "2026-10-27T02:29:26.843Z"
+        },
+        {
+          "reason": "active-preview-unit-map",
+          "articleId": "chapter04-section016"
+        }
+      ]
+    },
+    "nemata-jp-chapter-131-1": {
+      "expectCovered": true,
+      "covered": true,
+      "reasons": [
+        "active-preview-selectedWeb",
+        "unified-register-covered-effective",
+        "latest-passed-audit-current-source",
+        "active-preview-unit-map"
+      ],
+      "eligible": false,
+      "skipped": false,
+      "evidence": [
+        {
+          "reason": "active-preview-selectedWeb",
+          "articleId": "chapter01-section049",
+          "candidate": "chapter01-section049.rev1.json",
+          "candidateSha256": "20e84a64d9ea6526ceea7395131bf96825133244b84d41c9ef0bd0f94799be33",
+          "auditStatus": "passed"
+        },
+        {
+          "reason": "unified-register-covered-effective",
+          "auditStatus": "passed",
+          "candidateSha256": "20e84a64d9ea6526ceea7395131bf96825133244b84d41c9ef0bd0f94799be33",
+          "auditRecordedAt": "2026-10-27T03:07:42.961Z"
+        },
+        {
+          "reason": "latest-passed-audit-current-source",
+          "articleId": "chapter01-section049",
+          "candidate": "chapter01-section049.rev1.json",
+          "candidateSha256": "20e84a64d9ea6526ceea7395131bf96825133244b84d41c9ef0bd0f94799be33",
+          "auditStatus": "passed",
+          "auditRecordedAt": "2026-10-27T03:07:42.961Z"
+        },
+        {
+          "reason": "active-preview-unit-map",
+          "articleId": "chapter01-section049"
+        }
+      ]
+    },
+    "nemata-jp-chapter-183-1": {
+      "expectCovered": false,
+      "covered": false,
+      "reasons": [],
+      "eligible": false,
+      "skipped": true,
+      "evidence": []
+    }
+  },
+  "incidentControlsOk": true,
+  "oldProtocolMiss": [
+    {
+      "chapterId": "nemata-jp-chapter-246-1",
+      "articleId": "chapter06-section002",
+      "oldCheck": "chapter06-section002.coac269rev1.json (absent at preflight time, hence no_existing_variant passed)",
+      "missedPassedCandidates": [
+        {
+          "file": "chapter06-section002.rev1.json",
+          "sha256": "bbf15bbd1390a0b7ce729d5205a65dad72e0f24cb6c2fe1f9789aaaea26e1904",
+          "status": "passed",
+          "recordedAt": "2026-10-27T05:26:32.362Z"
+        }
+      ]
+    },
+    {
+      "chapterId": "nemata-jp-chapter-237-1",
+      "articleId": "chapter04-section016",
+      "oldCheck": "chapter04-section016.coac269rev1.json (absent at preflight time, hence no_existing_variant passed)",
+      "missedPassedCandidates": [
+        {
+          "file": "chapter04-section016.rev1.json",
+          "sha256": "d14aac65a3d02d8a44bf633bb969f1c057660d875a9aeb792cc022826293bc97",
+          "status": "passed",
+          "recordedAt": "2026-10-27T02:29:26.843Z"
+        }
+      ]
+    },
+    {
+      "chapterId": "nemata-jp-chapter-131-1",
+      "articleId": "chapter01-section049",
+      "oldCheck": "chapter01-section049.coac269rev1.json (absent at preflight time, hence no_existing_variant passed)",
+      "missedPassedCandidates": [
+        {
+          "file": "chapter01-section049.rev1.json",
+          "sha256": "20e84a64d9ea6526ceea7395131bf96825133244b84d41c9ef0bd0f94799be33",
+          "status": "passed",
+          "recordedAt": "2026-10-27T03:07:42.961Z"
+        }
+      ]
+    }
+  ],
+  "eligibleRepairTargets": [
+    {
+      "chapterId": "nemata-jp-chapter-347-1",
+      "articleId": "archive01-section008",
+      "sourceId": "modern-yabejp-ja",
+      "direction": "text",
+      "parents": [
+        {
+          "file": "archive01-section008.display.json",
+          "sha256": "522447de46fb090753f5a89bf76a50a4cacd4bb729884f872ee764f3e0461911",
+          "audit": "archive01-section008.522447de46fb090753f5a89bf76a50a4cacd4bb729884f872ee764f3e0461911.json",
+          "auditDir": "audit/web/articles/modern-yabejp-ja",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-23T21:53:44.717Z",
+          "guard": {
+            "direction": "text",
+            "textBlocks": 39,
+            "targetBlockIds": [
+              "modern-yabejp-ja:archive01-section008:b0066"
+            ],
+            "figures": 27,
+            "figuresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": true
+          }
+        },
+        {
+          "file": "archive01-section008.r1.display.json",
+          "sha256": "5051732a44803c58f82b528b6ac8ccc9657c560a28fa869b97a68241004f4cd7",
+          "audit": "archive01-section008.5051732a44803c58f82b528b6ac8ccc9657c560a28fa869b97a68241004f4cd7.json",
+          "auditDir": "audit/web/articles/modern-yabejp-ja",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-23T22:42:27.308Z",
+          "guard": {
+            "direction": "text",
+            "textBlocks": 39,
+            "targetBlockIds": [
+              "modern-yabejp-ja:archive01-section008:b0001",
+              "modern-yabejp-ja:archive01-section008:b0002",
+              "modern-yabejp-ja:archive01-section008:b0004",
+              "modern-yabejp-ja:archive01-section008:b0006",
+              "modern-yabejp-ja:archive01-section008:b0008",
+              "modern-yabejp-ja:archive01-section008:b0010",
+              "modern-yabejp-ja:archive01-section008:b0012",
+              "modern-yabejp-ja:archive01-section008:b0013",
+              "modern-yabejp-ja:archive01-section008:b0015",
+              "modern-yabejp-ja:archive01-section008:b0017",
+              "modern-yabejp-ja:archive01-section008:b0019",
+              "modern-yabejp-ja:archive01-section008:b0021",
+              "modern-yabejp-ja:archive01-section008:b0023",
+              "modern-yabejp-ja:archive01-section008:b0025",
+              "modern-yabejp-ja:archive01-section008:b0027",
+              "modern-yabejp-ja:archive01-section008:b0029",
+              "modern-yabejp-ja:archive01-section008:b0031",
+              "modern-yabejp-ja:archive01-section008:b0032",
+              "modern-yabejp-ja:archive01-section008:b0034",
+              "modern-yabejp-ja:archive01-section008:b0036",
+              "modern-yabejp-ja:archive01-section008:b0038",
+              "modern-yabejp-ja:archive01-section008:b0039",
+              "modern-yabejp-ja:archive01-section008:b0040",
+              "modern-yabejp-ja:archive01-section008:b0042",
+              "modern-yabejp-ja:archive01-section008:b0044",
+              "modern-yabejp-ja:archive01-section008:b0046",
+              "modern-yabejp-ja:archive01-section008:b0048",
+              "modern-yabejp-ja:archive01-section008:b0049",
+              "modern-yabejp-ja:archive01-section008:b0050",
+              "modern-yabejp-ja:archive01-section008:b0051",
+              "modern-yabejp-ja:archive01-section008:b0052",
+              "modern-yabejp-ja:archive01-section008:b0053",
+              "modern-yabejp-ja:archive01-section008:b0054",
+              "modern-yabejp-ja:archive01-section008:b0056",
+              "modern-yabejp-ja:archive01-section008:b0058",
+              "modern-yabejp-ja:archive01-section008:b0060",
+              "modern-yabejp-ja:archive01-section008:b0062",
+              "modern-yabejp-ja:archive01-section008:b0064",
+              "modern-yabejp-ja:archive01-section008:b0066"
+            ],
+            "figures": 27,
+            "figuresWithoutFaithfulCheck": 27,
+            "revisableByCurrentEntry": false
+          }
+        }
+      ],
+      "sourceSha256": "62523932b13fc685e8c46c0ea7b2a765d1dff51ea39746ea9e2585cf92cfee21",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "79-cn-chapter-311-18",
+      "articleId": "cv1815400",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1815400.display.json",
+          "sha256": "5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97",
+          "audit": "cv1815400.5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T23:57:25.496Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1815400:b0122:figure",
+              "79-bilibili-cn:cv1815400:b0124:figure",
+              "79-bilibili-cn:cv1815400:b0126:figure",
+              "79-bilibili-cn:cv1815400:b0128:figure",
+              "79-bilibili-cn:cv1815400:b0130:figure",
+              "79-bilibili-cn:cv1815400:b0132:figure",
+              "79-bilibili-cn:cv1815400:b0154:figure",
+              "79-bilibili-cn:cv1815400:b0156:figure",
+              "79-bilibili-cn:cv1815400:b0158:figure"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1815400:b0122:figure",
+                "verdicts": [
+                  "uncertain"
+                ]
+              },
+              {
+                "id": "79-bilibili-cn:cv1815400:b0124:figure",
+                "verdicts": [
+                  "uncertain"
+                ]
+              },
+              {
+                "id": "79-bilibili-cn:cv1815400:b0126:figure",
+                "verdicts": [
+                  "uncertain"
+                ]
+              },
+              {
+                "id": "79-bilibili-cn:cv1815400:b0128:figure",
+                "verdicts": [
+                  "uncertain"
+                ]
+              },
+              {
+                "id": "79-bilibili-cn:cv1815400:b0130:figure",
+                "verdicts": [
+                  "uncertain"
+                ]
+              },
+              {
+                "id": "79-bilibili-cn:cv1815400:b0132:figure",
+                "verdicts": [
+                  "uncertain"
+                ]
+              },
+              {
+                "id": "79-bilibili-cn:cv1815400:b0154:figure",
+                "verdicts": [
+                  "uncertain"
+                ]
+              },
+              {
+                "id": "79-bilibili-cn:cv1815400:b0156:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              },
+              {
+                "id": "79-bilibili-cn:cv1815400:b0158:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              }
+            ],
+            "figures": 21,
+            "figureChecks": 21,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": true
+          }
+        }
+      ],
+      "sourceSha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "79-cn-chapter-276-4",
+      "articleId": "cv1793434",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1793434.display.json",
+          "sha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+          "audit": "cv1793434.34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T23:23:53.771Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1793434:b0005:figure"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1793434:b0005:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              }
+            ],
+            "figures": 3,
+            "figureChecks": 3,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": true
+          }
+        }
+      ],
+      "sourceSha256": "db1218e9226ef5ccaf978ec6b6801bd07498017b821973647d0e551ed518439f",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "79-cn-chapter-256-18",
+      "articleId": "cv1785770",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1785770.display.json",
+          "sha256": "84f27b9562fc5341a15ff938abf2db84a2ba0ba25cd30241e84996101500df69",
+          "audit": "cv1785770.84f27b9562fc5341a15ff938abf2db84a2ba0ba25cd30241e84996101500df69.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T23:09:07.932Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1785770:b0016:figure"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1785770:b0016:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              }
+            ],
+            "figures": 4,
+            "figureChecks": 4,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": true
+          }
+        }
+      ],
+      "sourceSha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "79-cn-chapter-246-3",
+      "articleId": "cv1785741",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1785741.display.json",
+          "sha256": "06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713",
+          "audit": "cv1785741.06e2d0cb25f84b26ce76053acc7e7165f8b43664b280e7675bc44bda38b6a713.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T23:05:00.770Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1785741:b0025:figure",
+              "79-bilibili-cn:cv1785741:b0037:figure",
+              "79-bilibili-cn:cv1785741:b0047:figure"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1785741:b0025:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              },
+              {
+                "id": "79-bilibili-cn:cv1785741:b0037:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              },
+              {
+                "id": "79-bilibili-cn:cv1785741:b0047:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              }
+            ],
+            "figures": 5,
+            "figureChecks": 5,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": true
+          }
+        }
+      ],
+      "sourceSha256": "ec4a726459f21d98599722ba4ccb5d8a95a5e96473a7a91be9f6cc88c8250c51",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "79-cn-chapter-242-3",
+      "articleId": "cv1780438",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1780438.display.json",
+          "sha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+          "audit": "cv1780438.62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T22:49:01.138Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1780438:b0014:figure"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1780438:b0014:figure",
+                "verdicts": [
+                  "uncertain"
+                ]
+              }
+            ],
+            "figures": 5,
+            "figureChecks": 5,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": true
+          }
+        }
+      ],
+      "sourceSha256": "3cac4b7103309b092edada33aa8f698b606aa283ae1ce18f8ce9ba9e8428f6e0",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "79-cn-chapter-234-12",
+      "articleId": "cv1780400",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1780400.display.json",
+          "sha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+          "audit": "cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T22:26:34.154Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1780400:b0003"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1780400:b0003",
+                "verdicts": []
+              }
+            ],
+            "figures": 1,
+            "figureChecks": 1,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": false
+          }
+        }
+      ],
+      "sourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "nemata-jp-chapter-232-1",
+      "articleId": "chapter04-section012",
+      "sourceId": "modern-yabejp-ja",
+      "direction": "text",
+      "parents": [
+        {
+          "file": "chapter04-section012.display.json",
+          "sha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+          "audit": "chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+          "auditDir": "audit/web/articles/modern-yabejp-ja",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-26T13:24:40.601Z",
+          "guard": {
+            "direction": "text",
+            "textBlocks": 11,
+            "targetBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0002",
+              "modern-yabejp-ja:chapter04-section012:b0004"
+            ],
+            "figures": 3,
+            "figuresWithoutFaithfulCheck": 1,
+            "revisableByCurrentEntry": false
+          }
+        }
+      ],
+      "sourceSha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "nemata-jp-chapter-224-1",
+      "articleId": "chapter04-section005",
+      "sourceId": "modern-yabejp-ja",
+      "direction": "text",
+      "parents": [
+        {
+          "file": "chapter04-section005.display.json",
+          "sha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+          "audit": "chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json",
+          "auditDir": "audit/web/articles/modern-yabejp-ja",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-26T13:21:45.456Z",
+          "guard": {
+            "direction": "text",
+            "textBlocks": 14,
+            "targetBlockIds": [],
+            "figures": 1,
+            "figuresWithoutFaithfulCheck": 1,
+            "revisableByCurrentEntry": false
+          }
+        }
+      ],
+      "sourceSha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "79-cn-chapter-222-5",
+      "articleId": "cv1775262",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1775262.display.json",
+          "sha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4",
+          "audit": "cv1775262.b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T22:04:04.447Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1775262:b0018:figure"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1775262:b0018:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              }
+            ],
+            "figures": 10,
+            "figureChecks": 10,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": true
+          }
+        }
+      ],
+      "sourceSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "nemata-jp-chapter-213-1",
+      "articleId": "chapter03-section026",
+      "sourceId": "modern-yabejp-ja",
+      "direction": "text",
+      "parents": [
+        {
+          "file": "chapter03-section026.display.json",
+          "sha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+          "audit": "chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+          "auditDir": "audit/web/articles/modern-yabejp-ja",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-26T13:20:26.533Z",
+          "guard": {
+            "direction": "text",
+            "textBlocks": 29,
+            "targetBlockIds": [
+              "modern-yabejp-ja:chapter03-section026:b0017"
+            ],
+            "figures": 24,
+            "figuresWithoutFaithfulCheck": 1,
+            "revisableByCurrentEntry": false
+          }
+        }
+      ],
+      "sourceSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "79-cn-chapter-208-4",
+      "articleId": "cv1770245",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1770245.display.json",
+          "sha256": "0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97",
+          "audit": "cv1770245.0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T19:23:51.752Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1770245:b0004:figure",
+              "79-bilibili-cn:cv1770245:b0006:figure"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1770245:b0004:figure",
+                "verdicts": [
+                  "uncertain"
+                ]
+              },
+              {
+                "id": "79-bilibili-cn:cv1770245:b0006:figure",
+                "verdicts": [
+                  "uncertain"
+                ]
+              }
+            ],
+            "figures": 3,
+            "figureChecks": 3,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": true
+          }
+        }
+      ],
+      "sourceSha256": "0d6849d5bb4cb250ce9070a883fa072f9025c8411563b9f74fe9fd9d616fa17c",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "79-cn-chapter-205-5",
+      "articleId": "cv1770234",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1770234.display.json",
+          "sha256": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6",
+          "audit": "cv1770234.181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T19:20:50.992Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1770234:b0004:figure"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1770234:b0004:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              }
+            ],
+            "figures": 2,
+            "figureChecks": 2,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": true
+          }
+        }
+      ],
+      "sourceSha256": "ac055129f64d27bb1f71561eac96c5b304b299803b51680b9c3e2e56df56cda1",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "79-cn-chapter-193-4",
+      "articleId": "cv1765377",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1765377.display.json",
+          "sha256": "e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e",
+          "audit": "cv1765377.e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T18:39:49.799Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1765377:b0008",
+              "79-bilibili-cn:cv1765377:b0015",
+              "79-bilibili-cn:cv1765377:b0042:figure"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1765377:b0008",
+                "verdicts": []
+              },
+              {
+                "id": "79-bilibili-cn:cv1765377:b0015",
+                "verdicts": []
+              },
+              {
+                "id": "79-bilibili-cn:cv1765377:b0042:figure",
+                "verdicts": [
+                  "uncertain"
+                ]
+              }
+            ],
+            "figures": 3,
+            "figureChecks": 3,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": false
+          }
+        }
+      ],
+      "sourceSha256": "75b3eae5938bd5e635089891d6ee721575cf9d8fddce050dadcb90a5f47f48c5",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "nemata-jp-chapter-193-1",
+      "articleId": "chapter03-section009",
+      "sourceId": "modern-yabejp-ja",
+      "direction": "text",
+      "parents": [
+        {
+          "file": "chapter03-section009.display.json",
+          "sha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+          "audit": "chapter03-section009.abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3.json",
+          "auditDir": "audit/web/articles/modern-yabejp-ja",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-26T13:16:13.262Z",
+          "guard": {
+            "direction": "text",
+            "textBlocks": 56,
+            "targetBlockIds": [
+              "modern-yabejp-ja:chapter03-section009:b0081"
+            ],
+            "figures": 41,
+            "figuresWithoutFaithfulCheck": 1,
+            "revisableByCurrentEntry": false
+          }
+        }
+      ],
+      "sourceSha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "79-cn-chapter-182-5",
+      "articleId": "cv1760573",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1760573.display.json",
+          "sha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+          "audit": "cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T18:14:01.257Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1760573:b0003",
+              "79-bilibili-cn:cv1760573:b0013"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1760573:b0003",
+                "verdicts": []
+              },
+              {
+                "id": "79-bilibili-cn:cv1760573:b0013",
+                "verdicts": []
+              }
+            ],
+            "figures": 5,
+            "figureChecks": 5,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": false
+          }
+        }
+      ],
+      "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "79-cn-chapter-167-4",
+      "articleId": "cv1754620",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1754620.display.json",
+          "sha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+          "audit": "cv1754620.7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T16:41:10.409Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1754620:b0005:figure"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1754620:b0005:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              }
+            ],
+            "figures": 1,
+            "figureChecks": 1,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": true
+          }
+        }
+      ],
+      "sourceSha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "79-cn-chapter-162-3",
+      "articleId": "cv1751316",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1751316.display.json",
+          "sha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+          "audit": "cv1751316.1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52.retry-1792951224780-a2783f95.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T18:00:24.781Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1751316:b0004",
+              "79-bilibili-cn:cv1751316:b0034"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1751316:b0004",
+                "verdicts": []
+              },
+              {
+                "id": "79-bilibili-cn:cv1751316:b0034",
+                "verdicts": []
+              }
+            ],
+            "figures": 15,
+            "figureChecks": 15,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": false
+          }
+        }
+      ],
+      "sourceSha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "79-cn-chapter-159-9",
+      "articleId": "cv1751292",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1751292.display.json",
+          "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+          "audit": "cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T17:28:11.881Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1751292:b0013:figure"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1751292:b0013:figure",
+                "verdicts": [
+                  "uncertain"
+                ]
+              }
+            ],
+            "figures": 5,
+            "figureChecks": 5,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": true
+          }
+        }
+      ],
+      "sourceSha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "79-cn-chapter-157-11",
+      "articleId": "cv1751276",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1751276.display.json",
+          "sha256": "30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de",
+          "audit": "cv1751276.30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de.retry-1792948857228-d69c915c.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T17:20:57.228Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1751276:b0005:figure",
+              "79-bilibili-cn:cv1751276:b0007:figure",
+              "79-bilibili-cn:cv1751276:b0009:figure",
+              "79-bilibili-cn:cv1751276:b0011:figure",
+              "79-bilibili-cn:cv1751276:b0013:figure"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1751276:b0005:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              },
+              {
+                "id": "79-bilibili-cn:cv1751276:b0007:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              },
+              {
+                "id": "79-bilibili-cn:cv1751276:b0009:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              },
+              {
+                "id": "79-bilibili-cn:cv1751276:b0011:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              },
+              {
+                "id": "79-bilibili-cn:cv1751276:b0013:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              }
+            ],
+            "figures": 7,
+            "figureChecks": 7,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": true
+          }
+        }
+      ],
+      "sourceSha256": "797e9393790395bf88d680cfda77c27a406744455d487aad334110d2b5712ccc",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "79-cn-chapter-155-4",
+      "articleId": "cv1751265",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1751265.display.json",
+          "sha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+          "audit": "cv1751265.20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f.retry-1792948405214-96b97389.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T17:13:25.214Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1751265:b0008"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1751265:b0008",
+                "verdicts": []
+              }
+            ],
+            "figures": 10,
+            "figureChecks": 10,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": false
+          }
+        }
+      ],
+      "sourceSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "79-cn-chapter-145-4",
+      "articleId": "cv1744266",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1744266.display.json",
+          "sha256": "7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a",
+          "audit": "cv1744266.7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a.retry-1792948017171-19a0c0ed.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T17:06:57.171Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1744266:b0005:figure"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1744266:b0005:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              }
+            ],
+            "figures": 5,
+            "figureChecks": 5,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": true
+          }
+        }
+      ],
+      "sourceSha256": "baf759cb6de68be0a0f5cd66957aae705ee59bb8350ef8530138e714b484e1b4",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [
+        {
+          "path": "parallel/claims/79-cn-chapter-145-4.json",
+          "owner": "COAC-269 Ticket executor",
+          "plannedOutput": null
+        },
+        {
+          "path": "web-production/v1/coac269-20261027/claims/claim-b8-79-cn-chapter-145-4-7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a.json",
+          "owner": "COAC-269 Ticket executor",
+          "plannedOutput": "web-production/v1/candidates/79-bilibili-cn/cv1744266.coac269rev1.json"
+        }
+      ],
+      "claimedBySelf": [
+        {
+          "path": "parallel/claims/79-cn-chapter-145-4.json",
+          "owner": "COAC-269 Ticket executor",
+          "plannedOutput": null
+        },
+        {
+          "path": "web-production/v1/coac269-20261027/claims/claim-b8-79-cn-chapter-145-4-7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a.json",
+          "owner": "COAC-269 Ticket executor",
+          "plannedOutput": "web-production/v1/candidates/79-bilibili-cn/cv1744266.coac269rev1.json"
+        }
+      ]
+    },
+    {
+      "chapterId": "79-cn-chapter-128-14",
+      "articleId": "cv1734739",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1734739.display.json",
+          "sha256": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec",
+          "audit": "cv1734739.2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec.retry-1792944840664-30f5eb57.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T16:14:00.664Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1734739:b0013:figure"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1734739:b0013:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              }
+            ],
+            "figures": 7,
+            "figureChecks": 7,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": true
+          }
+        }
+      ],
+      "sourceSha256": "962fdd8860f2f756f1bc76054a5ef9ea2a5f82959e36da44aff79c57aee1d5ca",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [
+        {
+          "path": "parallel/claims/79-cn-chapter-128-14.json",
+          "owner": "COAC-269 Ticket executor",
+          "plannedOutput": null
+        },
+        {
+          "path": "web-production/v1/coac269-20261027/claims/claim-b8-79-cn-chapter-128-14-2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec.json",
+          "owner": "COAC-269 Ticket executor",
+          "plannedOutput": "web-production/v1/candidates/79-bilibili-cn/cv1734739.coac269rev1.json"
+        }
+      ],
+      "claimedBySelf": [
+        {
+          "path": "parallel/claims/79-cn-chapter-128-14.json",
+          "owner": "COAC-269 Ticket executor",
+          "plannedOutput": null
+        },
+        {
+          "path": "web-production/v1/coac269-20261027/claims/claim-b8-79-cn-chapter-128-14-2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec.json",
+          "owner": "COAC-269 Ticket executor",
+          "plannedOutput": "web-production/v1/candidates/79-bilibili-cn/cv1734739.coac269rev1.json"
+        }
+      ]
+    },
+    {
+      "chapterId": "79-cn-chapter-109-4",
+      "articleId": "cv1729038",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1729038.display.json",
+          "sha256": "ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22",
+          "audit": "cv1729038.ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22.retry-1792943789870-ade1138e.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T15:56:29.870Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1729038:b0004:figure",
+              "79-bilibili-cn:cv1729038:b0006:figure",
+              "79-bilibili-cn:cv1729038:b0012:figure"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1729038:b0004:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              },
+              {
+                "id": "79-bilibili-cn:cv1729038:b0006:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              },
+              {
+                "id": "79-bilibili-cn:cv1729038:b0012:figure",
+                "verdicts": [
+                  "uncertain"
+                ]
+              }
+            ],
+            "figures": 7,
+            "figureChecks": 7,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": true
+          }
+        }
+      ],
+      "sourceSha256": "b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "nemata-jp-chapter-100-1",
+      "articleId": "chapter01-section035",
+      "sourceId": "modern-yabejp-ja",
+      "direction": "text",
+      "parents": [
+        {
+          "file": "chapter01-section035.display.json",
+          "sha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+          "audit": "chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json",
+          "auditDir": "audit/web/articles/modern-yabejp-ja",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-26T11:25:09.734Z",
+          "guard": {
+            "direction": "text",
+            "textBlocks": 183,
+            "targetBlockIds": [],
+            "figures": 128,
+            "figuresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": false
+          }
+        }
+      ],
+      "sourceSha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    },
+    {
+      "chapterId": "79-cn-chapter-090-6",
+      "articleId": "cv1721510",
+      "sourceId": "79-bilibili-cn",
+      "direction": "figure",
+      "parents": [
+        {
+          "file": "cv1721510.display.json",
+          "sha256": "4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f",
+          "audit": "cv1721510.4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f.retry-1792942848957-13e1430c.json",
+          "auditDir": "audit/web/articles/79-bilibili-cn",
+          "auditStatus": "needs-repair",
+          "auditRecordedAt": "2026-10-25T15:40:48.957Z",
+          "guard": {
+            "direction": "figure",
+            "bodyMode": "verbatim",
+            "targetFigureIds": [
+              "79-bilibili-cn:cv1721510:b0004:figure",
+              "79-bilibili-cn:cv1721510:b0008:figure",
+              "79-bilibili-cn:cv1721510:b0012:figure"
+            ],
+            "targetChecks": [
+              {
+                "id": "79-bilibili-cn:cv1721510:b0004:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              },
+              {
+                "id": "79-bilibili-cn:cv1721510:b0008:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              },
+              {
+                "id": "79-bilibili-cn:cv1721510:b0012:figure",
+                "verdicts": [
+                  "needs-repair"
+                ]
+              }
+            ],
+            "figures": 6,
+            "figureChecks": 6,
+            "nonTargetFiguresWithoutFaithfulCheck": 0,
+            "revisableByCurrentEntry": true
+          }
+        }
+      ],
+      "sourceSha256": "43ad9dcee6d721ee0f47866cac6f98d311a59f96cdd1b10a0a70ede0c3dbd2fe",
+      "inActivePreviewPendingWeb": true,
+      "claimed": [],
+      "claimedBySelf": []
+    }
+  ],
+  "skipped": [
+    {
+      "chapterId": "nemata-jp-chapter-183-1",
+      "articleId": "chapter03-section003",
+      "reason": "ticket-pending-adjudication",
+      "heldBy": {
+        "kind": "pending-adjudication",
+        "record": "web-production/v1/coac269-20261027/adjudication/pending-adjudication-183-1-460acb6884fe73d8.json",
+        "sha256": "460acb6884fe73d8657d278f6cad66c6cf04891144fc4aa2c705f203892e0987"
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-236-1",
+      "articleId": "chapter04-section015",
+      "reason": "reserved"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-250-1",
+      "articleId": "chapter06-exercise001",
+      "reason": "no-audited-parent-candidate"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-283-1",
+      "articleId": "chapter06-exercise003",
+      "reason": "reserved"
+    },
+    {
+      "chapterId": "79-cn-chapter-201-6",
+      "articleId": "cv1770179",
+      "reason": "reserved"
+    },
+    {
+      "chapterId": "79-cn-chapter-217-4",
+      "articleId": "cv1775174",
+      "reason": "claimed",
+      "claimed": [
+        {
+          "path": "parallel/claims/79-cn-chapter-217-4.json",
+          "owner": "COAC-248 Mika",
+          "plannedOutput": null
+        }
+      ]
+    }
+  ],
+  "skippedReasons": {
+    "ticket-pending-adjudication": 1,
+    "reserved": 3,
+    "no-audited-parent-candidate": 1,
+    "claimed": 1
+  },
+  "ticketHeld": {
+    "nemata-jp-chapter-183-1": {
+      "kind": "pending-adjudication",
+      "record": "web-production/v1/coac269-20261027/adjudication/pending-adjudication-183-1-460acb6884fe73d8.json",
+      "sha256": "460acb6884fe73d8657d278f6cad66c6cf04891144fc4aa2c705f203892e0987"
+    },
+    "nemata-jp-chapter-246-1": {
+      "kind": "withdrawn-duplicate",
+      "record": "web-production/v1/coac269-20261027/handoff/withdrawal-b2-b3-duplicates-20261027.json",
+      "sha256": "30fcf11bebba0c64e421859e0e32ac995adcbfd4c2ebb8118cef42eec5f4048d"
+    },
+    "nemata-jp-chapter-237-1": {
+      "kind": "withdrawn-duplicate",
+      "record": "web-production/v1/coac269-20261027/handoff/withdrawal-b2-b3-duplicates-20261027.json",
+      "sha256": "30fcf11bebba0c64e421859e0e32ac995adcbfd4c2ebb8118cef42eec5f4048d"
+    },
+    "nemata-jp-chapter-131-1": {
+      "kind": "withdrawn-duplicate",
+      "record": "web-production/v1/coac269-20261027/handoff/withdrawal-b2-b3-duplicates-20261027.json",
+      "sha256": "30fcf11bebba0c64e421859e0e32ac995adcbfd4c2ebb8118cef42eec5f4048d"
+    }
+  },
+  "claimRule": "a claim by another owner blocks the chapter; a claim by this line (SELF_OWNER) is the reservation itself and does not make the chapter ineligible",
+  "nextBatchRule": "claim by chapterId + current candidateSHA; the claim must record the canonical chapter id, the current parent candidate sha, the passed-candidate absence proof and this precheck receipt sha; a chapter in the coverage union is ineligible regardless of parent sha"
+}
