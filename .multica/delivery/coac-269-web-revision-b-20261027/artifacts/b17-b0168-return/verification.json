@@ -1,0 +1,89 @@
+{
+  "passed": true,
+  "newModelCalls": 0,
+  "hashChecks": 95,
+  "frozenFiles": 31,
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0168r1.json",
+    "sha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f",
+    "bytes": 2119310
+  },
+  "targetId": "modern-yabejp-ja:chapter06-exercise003:b0168",
+  "targetStatus": "passed",
+  "chapterStatus": "needs-repair",
+  "chapterAccepted": false,
+  "verifiers": {
+    "target": "verifyGroupRevisionAudit: verified",
+    "wholeArticle": "verifyAuditForWebCandidate: web_audit_not_passed_or_inputs_changed (expected)"
+  },
+  "modelReview": {
+    "textChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0168",
+        "verdict": "faithful",
+        "evidence": "源文接在4索、6索、7索之后，表示摸到后可重新选择③；候选的“摸到后再改为③即可”保留了这一条件和选择。后接的“宝牌或4索”也与题目中宝牌为北、另一张牌为4索的上下文相符。"
+      }
+    ],
+    "figureChecks": [],
+    "contextContinuity": {
+      "faithful": true,
+      "evidence": "目标文字与前面的进张牌列及后面关于宝牌、4索和切牌选择的比较能够连读，未打断题解的论证。"
+    },
+    "issues": [],
+    "completeTargetScopeCompared": true,
+    "summary": "唯一目标文字忠实；本次没有目标牌图。"
+  },
+  "unchanged": {
+    "blocks": 1194,
+    "figures": 524,
+    "inheritedGroups": 10,
+    "batch010Blocks": 113,
+    "deferredIssues": 16
+  },
+  "calls": [
+    {
+      "callId": "ae79bc97-e5d0-426c-9845-4c5a1bd17135",
+      "model": "gpt-6.1-sol",
+      "effort": "high",
+      "images": 0,
+      "usage": {
+        "inputTokens": 40273,
+        "cachedInputTokens": 0,
+        "outputTokens": 77
+      },
+      "durationMs": 12913,
+      "rawSha256": "fd023633f265c3936839308224de763755bb3085675464c600ded6038bc74091"
+    },
+    {
+      "callId": "3bbbff33-f638-4b9c-ae03-01b8d77e2a5a",
+      "model": "gpt-6.1-terra",
+      "effort": "max",
+      "images": 2,
+      "usage": {
+        "inputTokens": 51957,
+        "cachedInputTokens": 0,
+        "outputTokens": 7936
+      },
+      "durationMs": 109070,
+      "rawSha256": "4f7193e61c9dd86512e8cd6ec86c7d2840176c92e127d46b6933a4bc365443db"
+    }
+  ],
+  "totals": {
+    "calls": 2,
+    "max": 2,
+    "remaining": 0,
+    "retry": 0,
+    "inputTokens": 92230,
+    "cachedInputTokens": 0,
+    "outputTokens": 8013,
+    "durationMs": 121983,
+    "fee": null,
+    "upstreamExecutions": null,
+    "remoteWeights": "unknown"
+  },
+  "existingAggregation": {
+    "COAC244": "01a17f24-da49-7a9c-be0a-3781506faf14",
+    "COAC250": "01a17f24-dff8-7161-baa0-ebe156f42689",
+    "newDispatchHere": false
+  }
+}

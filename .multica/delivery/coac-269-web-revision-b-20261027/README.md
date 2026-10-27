@@ -3,12 +3,15 @@
 Ticket-local evidence bundle for the Multica ticket `COAC-269` (line B of the parallel editing split
 authorised 2026-10-27T09:23Z). Shared code, the unified register, selection and pointers were not modified.
 
-Current state after the new 2026-10-28 b0168 authorization: **in_progress, target audit pending**.
-283's sole b0168 candidate is genuinely produced; exactly one `或` was inserted after `摸入宝牌`.
-All other 1194 blocks and 524 figure objects retain their parent content and order. The new
-two-call allowance has used **1 production / 0 audit**, with **1 first target audit reserved to
-COAC-249**, no retries. The full chapter remains unaccepted; six tables, Q8 and all other findings
-stay with their existing owners. See Batch 15 for its separate allowance and exact evidence.
+Current state after the 2026-10-28 COAC-249 b0168 return: **target passed; whole chapter still
+needs-repair / unaccepted**. Exactly one `或` was inserted after `摸入宝牌`; the other 1194 blocks
+and 524 figures retain their parent content and order. The independent first target checkpoint
+passed with the two original Q12 images actually supplied to terra/max. The separate allowance
+is now **1 production + 1 audit = 2/2, remaining 0, retry 0**. This return-registration run adds
+zero model calls. The ticket remains in_progress while the existing 244/250 owners aggregate
+the scoped evidence; no new dispatch was created here. See Batch 17 for the current result.
+Q8 and other non-target findings remain; six-table evidence belongs to its separate candidate
+and branch and must not be overwritten with this full candidate.
 
 Earlier 183/236 outcomes remain unchanged: 183's full-context target-text re-review **passed**
 and was handed to COAC-250, without claiming integration acceptance here. 236 retains its original
@@ -1078,7 +1081,7 @@ It has no model dispatch path. This run does not repeat production, alter source
 create a consumer/wakeup, touch 234/other chapters, change shared registers or switch formal active.
 The existing PR remains an evidence draft; this ticket and the whole-book goal are not complete.
 
-## Batch 15 — 283 Q12 b0168 only, production complete / first audit pending
+## Batch 15 — 283 Q12 b0168 production (historical pre-audit state; see Batch 17)
 
 Authorization `01a17f08-ea29-7998-9b93-505223235e4e` permits one production and one independent
 first target audit, with failed/void calls counted and zero automatic retries. It excludes Q8,
@@ -1179,3 +1182,56 @@ Recovery was observed actually **running**, with `started_at=2026-10-27T20:52:13
 `agent/mika/coac-248`, HEAD containing `a7f5201`. The original rule fired exactly once and is
 disabled; a guarded manual-trigger attempt stopped before dispatch because the rule had already
 fired. The downstream task's final result-registration outcome remains owned by 248.
+
+## Batch 17 — 283 b0168 first independent target review passed; zero-call registration
+
+COAC-249 returned `integration/coac249-b0168-reviewed-target-20261028.json`, SHA
+`3e718558ce87ec9476d1965defc9d3d81d1c5b98644ca5f1d44e95cc218db98c`.
+The same candidate `b2417de1…967c2f` has a **passed target checkpoint**, not whole-chapter
+acceptance. The reviewer finds the sole target faithful, its context faithful,
+`completeTargetScopeCompared=true`, and no new issues. Its full modelReview is retained.
+
+| actual call | configuration / images | input / cached / output | duration |
+| --- | --- | --- | --- |
+| production `ae79bc97-e5d0-426c-9845-4c5a1bd17135` | sol/high; 0 | 40,273 / 0 / 77 | 12,913 ms |
+| first independent target audit `3bbbff33-f638-4b9c-ae03-01b8d77e2a5a` | terra/max; North-dora and 4s original PNGs, 2 | 51,957 / 0 / 7,936 | 109,070 ms |
+
+Total: **2/2 calls, remaining 0, retry 0**, 92,230 input / 0 cached / 8,013 output tokens,
+121,983 ms summed call duration. Failed/void would count; the audit really completed successfully.
+Money, upstream execution count and remote weights remain unknown. Both maker and audit guards
+have their original normal-release receipts. This run only reads and records results.
+
+The aggregate audit SHA is `d7c8b54d6b4bef37a4c6c0a97b88831a551ce4be8eb938fe51823a9ea1e401df`;
+the target checkpoint SHA is `311df0ca752e1b34dfea16e2f07192f61dd886905b0a87fbdf8cf7d167314e5e`;
+the independent raw SHA is `4f7193e61c9dd86512e8cd6ec86c7d2840176c92e127d46b6933a4bc365443db`.
+All three are copied byte-for-byte into `artifacts/b17-b0168-return/` alongside the handoff,
+31-file runtime manifest, actual process argv, guard release and original verifier results.
+
+`node artifacts/b17-b0168-return/verify-return.mjs` passed **95 immutable SHA checks**, plus
+exact candidate diff, schema/prompt/image equality with the published request boundary, both
+original image hashes/bytes/order, actual terra/max argv, session completion, one audit ledger
+entry for this SHA and complete non-target review inheritance. The 127-block group projection
+contains all 45 Q12 Japanese/Chinese blocks; only b0168 is a text target, with no figure targets.
+The caller's sol/high defaults are recorded honestly; the unchanged 244 CLI resolves images to
+the actual terra/max request. Planner/transport image path separators are aliases; actual
+transport strings match the published boundary. No labels, raw or frozen runtime were changed.
+
+Both original verification boundaries were exercised without model dispatch. The same frozen
+`verifyGroupRevisionAudit` validates checkpoint/raw/parent inheritance and aggregate assembly.
+The generic `verifyAuditForWebCandidate` rejects with `web_audit_not_passed_or_inputs_changed`
+because the aggregate is still needs-repair. The original wrapper exit 1 therefore does **not**
+mean a failed model call and does not authorize retry or a fabricated whole-article pass.
+
+All **16 non-target original deferred findings** remain in this aggregate, plus the inherited
+source notes and original non-target checks. Batch010's **113 passed blocks** are inherited.
+Q8 b0099, other texts b0396/b0502/b0962/b1017/b1181, complex figures b0785/b0947 and table
+findings stay with the existing 244/250 owners; the six-table 66-target supplement has its own
+source/candidate binding and cannot be silently applied by replacing a full candidate here.
+The target checkpoint may be aggregated only within these precise SHA and scope boundaries.
+
+COAC-249 already dispatched this exact evidence to 244 (`01a17f24-da49-7a9c-be0a-3781506faf14`)
+and 250 (`01a17f24-dff8-7161-baa0-ebe156f42689`). Their original dispatch receipts are retained;
+no duplicate wakeup or consumer was created. Do not integrate this needs-repair chapter, re-review
+1195 blocks, reuse the exhausted allowance or change active. The received one-shot 269 wakeup
+was already disabled after firing. Prior 183/236/234 records and the Windows path repair remain
+unchanged. The whole ticket and book are not complete; textbook review is separate from PR review.

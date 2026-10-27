@@ -1,0 +1,56 @@
+{
+  "modelCalls": 0,
+  "bindings": [
+    {
+      "name": "handoff.json",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-b0168-reviewed-target-20261028.json",
+      "sha256": "3e718558ce87ec9476d1965defc9d3d81d1c5b98644ca5f1d44e95cc218db98c"
+    },
+    {
+      "name": "audit.json",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f.json",
+      "sha256": "d7c8b54d6b4bef37a4c6c0a97b88831a551ce4be8eb938fe51823a9ea1e401df"
+    },
+    {
+      "name": "checkpoint.json",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-002.json",
+      "sha256": "311df0ca752e1b34dfea16e2f07192f61dd886905b0a87fbdf8cf7d167314e5e"
+    },
+    {
+      "name": "raw.json",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\3bbbff33-f638-4b9c-ae03-01b8d77e2a5a.json",
+      "sha256": "4f7193e61c9dd86512e8cd6ec86c7d2840176c92e127d46b6933a4bc365443db"
+    },
+    {
+      "name": "runtime.json",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\b0168-review-runtime-manifest.json",
+      "sha256": "80aa8e8b361d01515d73e6728c4e63d32613ea0a3198ae7e09c21414efde4a3c",
+      "bytes": 10123
+    },
+    {
+      "name": "b168-process.json",
+      "gitRef": "a10215f2d03056d1e210f4a917f998f6ede2bcb0:artifacts/a249-217-168/b168-process.json",
+      "sha256": "96b7ff0a263bad7e948cf1ab9a72532cdcca229a8a4430176e41fd9daf3d832b"
+    },
+    {
+      "name": "b168-guard-released.json",
+      "gitRef": "a10215f2d03056d1e210f4a917f998f6ede2bcb0:artifacts/a249-217-168/b168-guard-released.json",
+      "sha256": "f38d48ed2c518f879c06e5ea936287272213a9eb1e6af051dc55032e0e10dbc6"
+    },
+    {
+      "name": "b168-verifier-boundary.json",
+      "gitRef": "a10215f2d03056d1e210f4a917f998f6ede2bcb0:artifacts/a249-217-168/b168-verifier-boundary.json",
+      "sha256": "94a6b359c75eddfeb160248e90d340d6cf9d56e26290b4638395a3aedbc7947a"
+    },
+    {
+      "name": "b168-dispatch244.json",
+      "gitRef": "a10215f2d03056d1e210f4a917f998f6ede2bcb0:artifacts/a249-217-168/b168-dispatch244.json",
+      "sha256": "224f89f9773c701c729d53b2cb1ec268457994511c6a73c27c148376dda37275"
+    },
+    {
+      "name": "b168-dispatch250.json",
+      "gitRef": "a10215f2d03056d1e210f4a917f998f6ede2bcb0:artifacts/a249-217-168/b168-dispatch250.json",
+      "sha256": "b6cc1213efe159a55635e6787a1c2638bcd4882ef5ca063fa674b9e4a6d8be4a"
+    }
+  ]
+}

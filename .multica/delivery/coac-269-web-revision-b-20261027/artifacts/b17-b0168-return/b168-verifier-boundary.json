@@ -1,0 +1,22 @@
+{
+  "schema": "coac249-b0168-verifier-boundary/1",
+  "normalRunnerTerminalExit": 1,
+  "actualModelCompleted": true,
+  "actualRawUntouched": true,
+  "wholeArticleVerifier": {
+    "function": "verifyAuditForWebCandidate",
+    "error": "web_audit_not_passed_or_inputs_changed",
+    "reason": "Whole article remains needs-repair with16 original deferred findings; this is not remote transport failure and must not be promoted to a whole-article passed receipt."
+  },
+  "targetVerifier": {
+    "function": "verifyGroupRevisionAudit",
+    "sameFrozenRuntime": true,
+    "passed": true,
+    "auditSha256": "d7c8b54d6b4bef37a4c6c0a97b88831a551ce4be8eb938fe51823a9ea1e401df",
+    "revisedGroups": [
+      "chapter06-exercise003-batch-002"
+    ]
+  },
+  "gatesOrRuntimeChanged": false,
+  "newModelCallsDuringCollection": 0
+}

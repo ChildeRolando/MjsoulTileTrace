@@ -1,0 +1,51 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {pathToFileURL} from 'node:url';
+import assert from 'node:assert/strict';
+const here=import.meta.dirname,root='E:/AgentData/Coach/knowledge/processing';
+const sha=b=>createHash('sha256').update(b).digest('hex'),read=async p=>JSON.parse(await readFile(p));
+const h=await read(here+'/handoff.json'),captured=await read(here+'/captured.json');
+const pins=[h.candidate,h.source,h.parent,h.parentAudit,h.producerHandoff,h.runtime,h.audit,h.checkpoint,h.raw,h.inheritedBatch010.checkpoint];
+let hashChecks=0;
+async function immutable(){for(const f of pins){assert.equal(sha(await readFile(f.path)),f.sha256);hashChecks++;}for(const f of (await read(h.runtime.path)).files){assert.equal(sha(await readFile(f.path)),f.sha256);hashChecks++;}}
+await immutable();
+for(const f of captured.bindings){assert.equal(sha(await readFile(here+'/'+f.name)),f.sha256);hashChecks++;}
+assert.equal(sha(await readFile(here+'/handoff.json')),'3e718558ce87ec9476d1965defc9d3d81d1c5b98644ca5f1d44e95cc218db98c');
+const runtime=h.runtime.path.replace(/[^/\\]+$/,''),{verifyGroupRevisionAudit,verifyAuditForWebCandidate}=await import(pathToFileURL(runtime+'textbook-audit-web.mjs'));
+const {isRecordedTextbookModel}=await import(pathToFileURL(runtime+'textbook-production-cli.mjs'));
+const verified=await verifyGroupRevisionAudit(root,h.candidate.path);
+assert.equal(verified.auditSha256,h.audit.sha256);assert.equal(verified.receipt.status,'needs-repair');
+await assert.rejects(()=>verifyAuditForWebCandidate(root,h.candidate.path),/web_audit_not_passed_or_inputs_changed/);
+const checkpoint=await read(h.checkpoint.path),raw=await read(h.raw.path),audit=verified.receipt,parent=await read(h.parent.path),candidate=await read(h.candidate.path),oldAudit=await read(h.parentAudit.path);
+assert.equal(checkpoint.status,'passed');assert.equal(checkpoint.modelChecks.passed,true);
+assert.deepEqual(checkpoint.modelReview,h.modelReview);assert.deepEqual(raw.output,h.modelReview);assert.deepEqual(JSON.parse(raw.rawLastMessage),h.modelReview);
+assert.equal(h.modelReview.textChecks.length,1);assert.equal(h.modelReview.textChecks[0].id,h.targetId);assert.equal(h.modelReview.textChecks[0].verdict,'faithful');
+assert.equal(h.modelReview.contextContinuity.faithful,true);assert.equal(h.modelReview.completeTargetScopeCompared,true);assert.deepEqual(h.modelReview.issues,[]);
+assert.equal(raw.exitCode,0);assert.equal(raw.timedOut,false);assert.equal(raw.success,true);assert.equal(raw.durationMs,109070);assert(isRecordedTextbookModel(h.call));
+assert.equal(h.call.model,'gpt-6.1-terra');assert.equal(h.call.reasoningEffort,'max');assert.deepEqual(raw.requestExecution,h.requestExecution);
+const boundary=await read(here+'/../b15-283-b0168/review-request-boundary.json');
+assert.equal(sha(await readFile(here+'/../b15-283-b0168/review-request-boundary.json')),h.requestBoundarySha256);
+assert.equal(raw.prompt,boundary.request.prompt);assert.deepEqual(raw.schema,boundary.request.schema);assert.equal(raw.requestPrompt,boundary.closedPrompt);
+assert.deepEqual(raw.requestExecution.images.map(i=>i.path),boundary.request.images);assert.equal(raw.requestExecution.images.length,2);
+for(const i of raw.requestExecution.images){const bytes=await readFile(i.path);assert.equal(sha(bytes),i.sha256);assert.equal(bytes.length,i.bytes);hashChecks++;}
+const projection=JSON.parse(raw.prompt.slice(raw.prompt.indexOf('{')));
+assert.deepEqual(projection.reviewScope.targetTextIds,[h.targetId]);assert.deepEqual(projection.reviewScope.targetFigureIds,[]);assert.equal(projection.source.blocks.length,127);
+for(let n=151;n<=195;n++)assert(projection.source.blocks.some(b=>b.id.endsWith(':b'+String(n).padStart(4,'0'))));
+const processEvidence=await read(here+'/b168-process.json'),cli=processEvidence.find(p=>p.ExecutablePath?.endsWith('codex.exe'));
+assert(cli.CommandLine.includes('--model gpt-6.1-terra'));assert(cli.CommandLine.includes('model_reasoning_effort=\\"max\\"'));for(const i of raw.requestExecution.images)assert(cli.CommandLine.includes('-i '+i.path));
+assert(raw.events.some(e=>e.type==='thread.started'&&e.thread_id));assert(raw.events.some(e=>e.type==='turn.completed'));assert(raw.rawStdout.includes('turn.completed'));
+let changed=0;assert.equal(candidate.body.blocks.length,1195);assert.deepEqual(candidate.figures,parent.figures);
+for(let n=0;n<1195;n++){const a=parent.body.blocks[n],b=candidate.body.blocks[n];if(JSON.stringify(a)!==JSON.stringify(b)){assert.deepEqual(b.sourceBlockIds,[h.targetId]);assert.equal(b.text,a.text+'或');assert.deepEqual({...b,text:a.text},a);changed++;}}
+assert.equal(changed,1);
+assert.deepEqual(audit.modelReview.issues,oldAudit.modelReview.issues.filter(i=>i.targetId!==h.targetId));
+assert.deepEqual(audit.modelReview.figureChecks,oldAudit.modelReview.figureChecks);assert.deepEqual(audit.modelReview.imageChecks,oldAudit.modelReview.imageChecks);
+assert.deepEqual(audit.modelReview.blockChecks.filter(i=>i.id!==h.targetId),oldAudit.modelReview.blockChecks.filter(i=>i.id!==h.targetId));
+const producer=await read(h.producerHandoff.path);assert.deepEqual(h.deferredOriginalIssues,producer.deferredOriginalIssues);assert.equal(h.deferredOriginalIssues.length,16);
+assert.equal(audit.inheritedBatchReviews.length,10);const batch010=audit.inheritedBatchReviews.find(b=>b.group.batchId.endsWith('010'));assert.equal(batch010.status,'passed');assert.equal(batch010.group.sourceBlockIds.length,113);assert.deepEqual(batch010.checkpoint,h.inheritedBatch010.checkpoint);
+const ledger=await readFile(root+'/audit/calls.jsonl','utf8'),calls=ledger.trim().split(/\r?\n/).map(JSON.parse).filter(c=>c.binding?.productionSha256===h.candidate.sha256);assert.equal(calls.length,1);assert.deepEqual(calls[0],h.call);
+const production=(await read(here+'/../b15-283-b0168/production-result.json')).calls[0];assert.equal(production.callId,'ae79bc97-e5d0-426c-9845-4c5a1bd17135');assert.equal(production.model,'gpt-6.1-sol');assert.deepEqual(production.requestExecution.images,[]);
+const pr=root+'/web-production/v1/'+production.rawArtifactPath;assert.equal(sha(await readFile(pr)),production.rawArtifactSha256);hashChecks++;
+const guard=await read(here+'/b168-guard-released.json');assert.equal(guard.guard.candidateSha256,h.candidate.sha256);assert(guard.releasedAt);
+await immutable();
+const result={passed:true,newModelCalls:0,hashChecks,frozenFiles:31,candidate:h.candidate,targetId:h.targetId,targetStatus:'passed',chapterStatus:'needs-repair',chapterAccepted:false,verifiers:{target:'verifyGroupRevisionAudit: verified',wholeArticle:'verifyAuditForWebCandidate: web_audit_not_passed_or_inputs_changed (expected)'},modelReview:h.modelReview,unchanged:{blocks:1194,figures:524,inheritedGroups:10,batch010Blocks:113,deferredIssues:16},calls:[{callId:production.callId,model:production.model,effort:production.reasoningEffort,images:0,usage:production.usage,durationMs:production.durationMs,rawSha256:production.rawArtifactSha256},{callId:h.call.callId,model:h.call.model,effort:h.call.reasoningEffort,images:2,usage:h.call.usage,durationMs:h.durationMs,rawSha256:h.raw.sha256}],totals:{calls:2,max:2,remaining:0,retry:0,inputTokens:production.usage.inputTokens+h.call.usage.inputTokens,cachedInputTokens:0,outputTokens:production.usage.outputTokens+h.call.usage.outputTokens,durationMs:production.durationMs+h.durationMs,fee:null,upstreamExecutions:null,remoteWeights:'unknown'},existingAggregation:{COAC244:'01a17f24-da49-7a9c-be0a-3781506faf14',COAC250:'01a17f24-dff8-7161-baa0-ebe156f42689',newDispatchHere:false}};
+await writeFile(here+'/verification.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify({passed:true,hashChecks,targetStatus:result.targetStatus,chapterStatus:result.chapterStatus,calls:2,remaining:0,newModelCalls:0}));
