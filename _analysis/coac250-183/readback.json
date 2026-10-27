@@ -1,0 +1,202 @@
+{
+  "schema": "coac250183-readback/1",
+  "recordedAt": "2026-10-27T20:22:48.833Z",
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T20-22-17-535Z",
+    "corpusId": "bd07bd53701d3a93b330807046e7e8bf135b000da2e92f23260f416369116592",
+    "chapters": 233,
+    "units": 241,
+    "blocks": 6349,
+    "figures": 5128
+  },
+  "sourceBlocks": 19,
+  "sourceBlockIds": [
+    "modern-yabejp-ja:chapter03-section003:b0001",
+    "modern-yabejp-ja:chapter03-section003:b0002",
+    "modern-yabejp-ja:chapter03-section003:b0003",
+    "modern-yabejp-ja:chapter03-section003:b0004",
+    "modern-yabejp-ja:chapter03-section003:b0005",
+    "modern-yabejp-ja:chapter03-section003:b0006",
+    "modern-yabejp-ja:chapter03-section003:b0007",
+    "modern-yabejp-ja:chapter03-section003:b0008",
+    "modern-yabejp-ja:chapter03-section003:b0009",
+    "modern-yabejp-ja:chapter03-section003:b0010",
+    "modern-yabejp-ja:chapter03-section003:b0011",
+    "modern-yabejp-ja:chapter03-section003:b0012",
+    "modern-yabejp-ja:chapter03-section003:b0013",
+    "modern-yabejp-ja:chapter03-section003:b0014",
+    "modern-yabejp-ja:chapter03-section003:b0015",
+    "modern-yabejp-ja:chapter03-section003:b0016",
+    "modern-yabejp-ja:chapter03-section003:b0017",
+    "modern-yabejp-ja:chapter03-section003:b0018",
+    "modern-yabejp-ja:chapter03-section003:b0019"
+  ],
+  "compiledBlocks": 10,
+  "figures": 0,
+  "pages": [
+    {
+      "offset": 0,
+      "blocks": 10,
+      "nextOffset": null
+    }
+  ],
+  "exactTranslatedText": true,
+  "allStatisticalRowsPreserved": true,
+  "editorialNote": "【校注（非原文）：前文数据中，已打出1张且持有0张时，役牌与客风牌的放铳率均为4%；已打出1张且持有1张时，役牌为2%、客风牌为3%。原文“见1张”是否包含已打出的1张，或指另持有1张，尚未确认；此处保留原文条件，不将其改为“持有1张”。】",
+  "editorialNoteExact": true,
+  "editorialNoteOccurrences": 1,
+  "emphasisPreserved": true,
+  "htmlFullChapterExact": true,
+  "sourceNote": [
+    {
+      "severity": "source-note",
+      "targetId": "modern-yabejp-ja:chapter03-section003:b0018",
+      "sourceEvidence": "正文写“１枚切れ１枚見え”，但前表“１枚切れ０枚持ち”两类均为4%；“１枚切れ１枚持ち”则役牌2%、客风3%。",
+      "description": "原文条件与前表比较结果存在疑点；译文已通过明确区分的校注如实提示，属于源文问题。",
+      "suggestedRepair": "无需修订；保留原文条件及现有校注。"
+    }
+  ],
+  "sourceAmbiguityUnresolved": true,
+  "priorUnitsUnchanged": 240,
+  "pdf215And193SupplementUnchanged": true,
+  "sourceCollisions": 0,
+  "fullMcp": {
+    "units": 241,
+    "images": 5128
+  },
+  "arena": {
+    "units": 241,
+    "exactBody": true,
+    "targetCompleteReadSourceRefs": 1
+  },
+  "mcpCalls": [
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 0,
+        "limit": 20
+      },
+      "bytes": 4758
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 20,
+        "limit": 20
+      },
+      "bytes": 4852
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 40,
+        "limit": 20
+      },
+      "bytes": 4910
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 60,
+        "limit": 20
+      },
+      "bytes": 5054
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 80,
+        "limit": 20
+      },
+      "bytes": 5122
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 100,
+        "limit": 20
+      },
+      "bytes": 5127
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 120,
+        "limit": 20
+      },
+      "bytes": 5098
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 140,
+        "limit": 20
+      },
+      "bytes": 5011
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 160,
+        "limit": 20
+      },
+      "bytes": 5060
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 180,
+        "limit": 20
+      },
+      "bytes": 4392
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 200,
+        "limit": 20
+      },
+      "bytes": 2817
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 220,
+        "limit": 20
+      },
+      "bytes": 3080
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "modern-yabejp-ja-chapter03-section003-argument",
+        "blockOffset": 0
+      },
+      "bytes": 6892
+    },
+    {
+      "name": "search_textbook",
+      "args": {
+        "query": "字牌待牌判断",
+        "chapterId": "modern-yabejp-ja-chapter03-section003-chapter",
+        "limit": 5
+      },
+      "bytes": 753
+    }
+  ],
+  "oldReviewPreserved": {
+    "callId": "018687de-2b4f-4af5-b82f-f4934c12f974",
+    "audit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section003.973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a.json",
+      "sha256": "2cd72bb8ba1482b8b529a864ab3b927303f565e419ccb174a27dda10fd8217e2"
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\018687de-2b4f-4af5-b82f-f4934c12f974.json",
+      "sha256": "60a24e84b6dc00b39f79281fae0b7fd1a120b1ade8f175c5985c0b348452e272"
+    },
+    "status": "needs-repair"
+  },
+  "method": "independent-target-text-review-plus-unchanged-parent-audit",
+  "activeLibraryChanged": false,
+  "modelCalls": 0
+}

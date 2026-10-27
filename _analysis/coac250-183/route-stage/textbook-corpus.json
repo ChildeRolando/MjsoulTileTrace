@@ -1,0 +1,192 @@
+{
+  "schema": "coach-textbook-corpus/1",
+  "corpusId": "4bc5087d652f2b20eae3e0ff10799cbc327eb46969106c9ef42d85e0ecb3899e",
+  "bodySha256": "654fae1af290fe2d95868bed05c3a09a7fa4e103fe6b86b44d639ea7e20cba77",
+  "reviewStatus": "batch-audited-content-review-pending",
+  "units": [
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section003-argument",
+      "chapterId": "modern-yabejp-ja-chapter03-section003-chapter",
+      "title": "字牌待牌判断",
+      "chapterTitle": "字牌待牌判断",
+      "topics": [],
+      "source": {
+        "sourceId": "modern-yabejp-ja-chapter03-section003",
+        "title": "字牌待牌判断",
+        "sha256": "4c29cc66535ae4d7780f94d668afd72bc6b2be4c009586bc8f770de36d3084f5",
+        "pages": [],
+        "format": "web",
+        "web": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section003.html",
+          "articleId": "chapter03-section003",
+          "htmlSha256": "4c29cc66535ae4d7780f94d668afd72bc6b2be4c009586bc8f770de36d3084f5"
+        }
+      },
+      "translationStatus": "batch-audited-pending-user-review",
+      "previousUnitId": null,
+      "nextUnitId": null,
+      "blocks": [
+        {
+          "type": "h2",
+          "id": "modern-yabejp-ja-chapter03-section003-b1",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section003.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section003:b0001"
+            ],
+            "domPaths": [
+              "main/h2[3]"
+            ]
+          },
+          "text": "字牌待牌判断"
+        },
+        {
+          "type": "p",
+          "id": "modern-yabejp-ja-chapter03-section003-b2",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section003.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section003:b0002"
+            ],
+            "domPaths": [
+              "main/p[5]"
+            ]
+          },
+          "text": "上次介绍的计算尚未通过的筋的方法，基本上是将对手的待牌视为数牌来考虑的。那么，对手听字牌的可能性究竟有多大呢？"
+        },
+        {
+          "type": "p",
+          "id": "modern-yabejp-ja-chapter03-section003-p3-s1",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section003.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section003:b0003",
+              "modern-yabejp-ja:chapter03-section003:b0004"
+            ],
+            "domPaths": [
+              "main/p[7]"
+            ]
+          },
+          "text": "以下数据将第9～14巡其他玩家立直时，打出字牌放铳的概率按不同情况分类调查：是役牌还是客风牌，从自己的视角能看到几张，其中已被打出的和自己持有的各有几张。（[《GAME JAPAN》2008年3月号](http://www.amazon.co.jp/gp/product/B0012RQMXY?ie=UTF8&tag=yabe0b-22&linkCode=as2&camp=247&creative=1211&creativeASIN=B0012RQMXY)中的《とつげき東北麻将战术论考》，参见该文。）"
+        },
+        {
+          "type": "p",
+          "id": "modern-yabejp-ja-chapter03-section003-p4-s1",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section003.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section003:b0005",
+              "modern-yabejp-ja:chapter03-section003:b0006",
+              "modern-yabejp-ja:chapter03-section003:b0007",
+              "modern-yabejp-ja:chapter03-section003:b0008",
+              "modern-yabejp-ja:chapter03-section003:b0009",
+              "modern-yabejp-ja:chapter03-section003:b0010",
+              "modern-yabejp-ja:chapter03-section003:b0011",
+              "modern-yabejp-ja:chapter03-section003:b0012",
+              "modern-yabejp-ja:chapter03-section003:b0013"
+            ],
+            "domPaths": [
+              "main/p[9]"
+            ]
+          },
+          "text": "已打出0张、持有1张的役牌　7%已打出0张、持有1张的客风牌　5%已打出1张、持有0张的役牌　4%已打出1张、持有0张的客风牌　4%已打出0张、持有2张的役牌　4%已打出0张、持有2张的客风牌　3%已打出1张、持有1张的客风牌　3%已打出1张、持有1张的役牌　2%已打出2张的字牌　低于1%（引自[攻守判断论13](http://yabejp.web.fc2.com/mahjong/tactics/chapter02/section013.html)）"
+        },
+        {
+          "type": "p",
+          "id": "modern-yabejp-ja-chapter03-section003-b14",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section003.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section003:b0014"
+            ],
+            "domPaths": [
+              "main/p[11]"
+            ]
+          },
+          "text": "关于这些数据可以说明的事情"
+        },
+        {
+          "type": "p",
+          "id": "modern-yabejp-ja-chapter03-section003-b15",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section003.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section003:b0015"
+            ],
+            "domPaths": [
+              "main/p[13]"
+            ]
+          },
+          "text": "通常，如果是第9巡及以后的立直，至少已有5～6条筋通过。如果尚未通过的筋有12条（已有6条通过），则4、5、6以外的无筋数牌，其放铳率可粗略估算为1/12≒8.3%。这高于已打出0张、自己持有1张（即所谓的生牌）的役牌7%的放铳率。因此，可以说，*生牌役牌比无筋数牌更安全*。"
+        },
+        {
+          "type": "p",
+          "id": "modern-yabejp-ja-chapter03-section003-b16",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section003.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section003:b0016"
+            ],
+            "domPaths": [
+              "main/p[15]"
+            ]
+          },
+          "text": "不过，即便如此，放铳概率仍有7%，所以当自己的牌形处于两向听以下等离和牌较远的状态时，不应轻易打出。（虽然会拆散手牌，但应优先打出持有2张的客风牌或筋上的1、9牌。）用役牌放铳时的平均放铳点数高于用数牌放铳时，因此更应如此。"
+        },
+        {
+          "type": "p",
+          "id": "modern-yabejp-ja-chapter03-section003-b17",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section003.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section003:b0017"
+            ],
+            "domPaths": [
+              "main/p[17]"
+            ]
+          },
+          "text": "即使能看到的张数相同，*已被打出的张数越多，放铳率就越低*。这是因为其他玩家会优先选择从其自身视角看来尚未见到的牌。此外，第一张被打出时往往就会被碰走（结果使听已打出1张的字牌的立直减少），这也是原因之一。"
+        },
+        {
+          "type": "p",
+          "id": "modern-yabejp-ja-chapter03-section003-b18",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section003.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section003:b0018"
+            ],
+            "domPaths": [
+              "main/p[19]"
+            ]
+          },
+          "text": "*对于已打出1张、能看到1张的字牌，役牌的放铳率比客风牌低*。这或许是因为役牌更常在第一张被打出时就被碰走，以及在选择单骑待牌时，牌手会考虑到单骑客风牌更容易荣和。\n\n【校注（非原文）：前文数据中，已打出1张且持有0张时，役牌与客风牌的放铳率均为4%；已打出1张且持有1张时，役牌为2%、客风牌为3%。原文“见1张”是否包含已打出的1张，或指另持有1张，尚未确认；此处保留原文条件，不将其改为“持有1张”。】"
+        },
+        {
+          "type": "p",
+          "id": "modern-yabejp-ja-chapter03-section003-b19",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section003.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section003:b0019"
+            ],
+            "domPaths": [
+              "main/p[23]"
+            ]
+          },
+          "text": "从下次开始，将介绍能够推测出特定牌形或待牌形状的情况，以及相应的判断方法。"
+        }
+      ]
+    }
+  ],
+  "images": []
+}

@@ -1,0 +1,8 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile} from 'node:fs/promises';
+import {spawnSync} from 'node:child_process';
+import {load183ContextReview,updateBuilder} from './builder-patch.mjs';
+import {dir,root} from './config.mjs';
+const pre=JSON.parse(await readFile(dir+'/preconsume.json','utf8')),route=await load183ContextReview(root,pre.candidate.path,pre.contextReview),audit=await route.verify(root,pre.candidate.path);assert.equal(audit.auditPath,pre.audit.path);assert.equal(audit.status,'passed');let rejections=0;
+for(const mutate of [x=>x.candidateSha256='0'.repeat(64),x=>x.manifest.sha256='0'.repeat(64),x=>x.files.find(f=>f.path===pre.audit.path).sha256='0'.repeat(64),x=>x.files.find(f=>f.path===pre.contextReview.stage.path).sha256='0'.repeat(64),x=>x.files.find(f=>f.path===pre.contextReview.files[0].path).sha256='0'.repeat(64)]){const b=structuredClone(pre.contextReview);mutate(b);await assert.rejects(()=>load183ContextReview(root,pre.candidate.path,b));rejections++;}
+const patched=updateBuilder(await readFile(dir+'/builder.before.mjs','utf8'),'f'.repeat(64));await writeFile(dir+'/builder.route-check.mjs',patched);const syntax=spawnSync(process.execPath,['--check',dir+'/builder.route-check.mjs'],{encoding:'utf8',windowsHide:true});assert.equal(syntax.status,0,syntax.stderr);await writeFile(dir+'/route-verification.json',JSON.stringify({realContextGatePassed:true,exactCandidateManifestAuditStageHandoffRejections:rejections,builderSyntaxPassed:true,sharedStageUnchanged:true,modelCalls:0},null,2)+'\n');console.log('183 exact context gate and5 binding refusals passed');
