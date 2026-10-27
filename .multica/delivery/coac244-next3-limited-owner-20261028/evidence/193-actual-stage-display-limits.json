@@ -1,0 +1,189 @@
+{
+  "schema": "coac250-next3-display-limits/1",
+  "key": "193",
+  "canonical": "79-cn-chapter-193-4",
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d84eb7ca-3897-4421-ae47-03efcdf32bb1.json",
+    "sha256": "a07918ba59b42178e5019e02cd9a506a6df75378eac5667516575bb584a6d339"
+  },
+  "independentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-193208276-20261028\\receipt-193.json",
+    "sha256": "1303cb2c932a2450d1fcd8d7c02ff5b9e135c21c9ade3e1b1f27383f9adc04a6"
+  },
+  "originalAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1765377.e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e.json",
+    "sha256": "ecddf372db56b1fbce0133a7ab824deb673f9d56868b5e02ef028c4fccf8c6e9",
+    "bytes": 26547
+  },
+  "originalModelChecks": {
+    "passed": false,
+    "errors": [
+      "uncertain:79-bilibili-cn:cv1765377:b0008",
+      "uncertain:79-bilibili-cn:cv1765377:b0009",
+      "uncertain:79-bilibili-cn:cv1765377:b0015",
+      "uncertain:79-bilibili-cn:cv1765377:b0016",
+      "uncertain:79-bilibili-cn:cv1765377:b0042",
+      "uncertain:79-bilibili-cn:cv1765377:b0042:figure",
+      "uncertain:79-bilibili-cn:cv1765377:i00003",
+      "semantic_information_missing",
+      "uncertain:79-bilibili-cn:cv1765377:b0008",
+      "uncertain:79-bilibili-cn:cv1765377:b0015",
+      "uncertain:79-bilibili-cn:cv1765377:b0042:figure"
+    ]
+  },
+  "notes": [
+    {
+      "id": "limited-next3-193-1",
+      "text": "【审校范围（非原文）1】保留原图及右侧牌河第2行右列万子点数未知的明确标记，不填入猜测牌码，也不宣称该牌河已逐牌完整转录。",
+      "authorText": false
+    },
+    {
+      "id": "limited-next3-193-2",
+      "text": "【审校范围（非原文）2】保留原文对非初学者、一般情况下、可能和往往的限定；原文及候选的段落顺序、sourceSegments、tableContext和图序照所给数据保留，图中红圈继续显示。",
+      "authorText": false
+    },
+    {
+      "id": "limited-next3-193-3",
+      "text": "【审校范围（非原文）3】原样保留作者对5万的安全牌表述及其上下文：所给理由涉及立直上家的2万、8万和34万、67万两面听牌；7饼的结论也限定为至少不会铳两面听牌。不得扩写为对所有听型或所有玩家绝对安全。",
+      "authorText": false
+    },
+    {
+      "id": "limited-next3-193-4",
+      "text": "【审校范围（非原文）4】保留b0008至b0009及b0015至b0016的Web捕获残句和继承的不完整限制。PDF版本的完整句子如另行展示，须明确标注独立来源与版本，不能作为Web原文的无注补写。",
+      "authorText": false
+    },
+    {
+      "id": "limited-next3-193-5",
+      "text": "【审校范围（非原文）5】完整牌河、暗手、概率和最优策略不属于本次有限许可；不据此宣称整章通过。",
+      "authorText": false
+    },
+    {
+      "id": "limited-next3-193-pdf-pair",
+      "text": "【来源版本说明（非原文）】本网页b0008–b0009及b0015–b0016保留原捕获残句和不完整标记；对应完整句子成对展示于独立PDF第193页b6版本摘录，单元79-cn-chapter-193-4-pdf193-supplement-unit-1。两处PDF原句另列于该版本，原PDF来源、父稿、已审切片及navigation角色保持；不是网页原文补写，也不将版本差异冒充同一来源。",
+      "authorText": false
+    }
+  ],
+  "originalBlocksSha256": "77b104c8bbbc190a9845d9fc77224fca73f704064ce851a9b7d48460b67b58a8",
+  "pdf193VersionPair": {
+    "schema": "coac244-passed-pdf-source-version-reuse/1",
+    "chapterId": "79-cn-chapter-193-4",
+    "status": "two-sentence-PDF-version-supplement-ready-not-chapter-pass",
+    "supplementChapterId": "79-cn-chapter-193-4-pdf193-supplement",
+    "stage": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-scope215-pdf193-20261028\\stage-193-supplement",
+    "sourcePdfSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+    "sourcePage": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\193.json",
+      "sha256": "15141d56251a928031afdb04dc40d5d72bcdc960b8672a93f0b00e8a516dca0d",
+      "bytes": 27823
+    },
+    "ownership": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\source-block-ownership.json",
+      "sha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60"
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-schemafix\\candidates\\79-cn\\page-0193.json",
+      "sha256": "046188e3be510f12c1e729353aa01fb5b1ce866685acf84e34284b8571f49e93",
+      "bytes": 7011
+    },
+    "originalAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0193.046188e3be510f12c1e729353aa01fb5b1ce866685acf84e34284b8571f49e93.6baa4a7e1404.json",
+      "sha256": "a264ce2d6452fda9ccc539910510ab2334f604f10eb7e77a14f6cea6486e449f",
+      "bytes": 25627
+    },
+    "originalAuditCallIds": [
+      "eb2060c9-7952-40ff-af91-11093800c63d"
+    ],
+    "originalCompleteBlock": {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-cn-p193-b6"
+      ],
+      "chapterId": "79-cn-chapter-193-4",
+      "unitId": "79-cn-chapter-193-4-unit-1",
+      "titleSource": false,
+      "sourceText": "筋1：  有人立直的时候，最应该警戒的就要是两面听牌了。  只要对手不是麻将的初学者， 一般情况下都会等待嵌张、双碰听牌变化成两面听牌。  因为对手会等待嵌张和双碰听牌变化成两面的好形听牌， 所以听牌了也有可能不会立直。  因此立直的听牌形往往是两面居多， 大体的数据显示，所有的立直中三分之二的立直都是两面听牌。  为了不铳两面听牌的理论就叫做“筋”。  ------------------------------------------------------------------------------------6 个基本筋 ------------------------------------------------------------------------------------ 我们来看看实际的两面听牌吧。  ",
+      "text": "筋1：  有人立直的时候，最应该警戒的就要是两面听牌了。  只要对手不是麻将的初学者， 一般情况下都会等待嵌张、双碰听牌变化成两面听牌。  因为对手会等待嵌张和双碰听牌变化成两面的好形听牌， 所以听牌了也有可能不会立直。  因此立直的听牌形往往是两面居多， 大体的数据显示，所有的立直中三分之二的立直都是两面听牌。  为了不铳两面听牌的理论就叫做“筋”。  ------------------------------------------------------------------------------------6 个基本筋 ------------------------------------------------------------------------------------ 我们来看看实际的两面听牌吧。  "
+    },
+    "slices": [
+      {
+        "id": "79-cn-p193-b6-version-sentence-1",
+        "sourceBlockId": "79-cn-p193-b6",
+        "fromCodepoint": 5,
+        "toCodepoint": 29,
+        "text": "有人立直的时候，最应该警戒的就要是两面听牌了。 ",
+        "lineIndex": 2,
+        "bbox": [
+          90.02400207519531,
+          400.9819641113281,
+          337.8699951171875,
+          412.9819641113281
+        ]
+      },
+      {
+        "id": "79-cn-p193-b6-version-sentence-2",
+        "sourceBlockId": "79-cn-p193-b6",
+        "fromCodepoint": 129,
+        "toCodepoint": 158,
+        "text": "大体的数据显示，所有的立直中三分之二的立直都是两面听牌。 ",
+        "lineIndex": 11,
+        "bbox": [
+          90.02400207519531,
+          541.4019775390625,
+          390.70001220703125,
+          553.4019775390625
+        ]
+      }
+    ],
+    "webSource": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1765377\\source.json",
+      "sha256": "75b3eae5938bd5e635089891d6ee721575cf9d8fddce050dadcb90a5f47f48c5",
+      "bytes": 38311
+    },
+    "versionDifferences": [
+      {
+        "webSourceBlockIds": [
+          "79-bilibili-cn:cv1765377:b0008",
+          "79-bilibili-cn:cv1765377:b0009"
+        ],
+        "webText": "有人立直的时候，最应该警戒的就要是了。",
+        "pdfText": "有人立直的时候，最应该警戒的就要是两面听牌了。",
+        "pdfSliceId": "79-cn-p193-b6-version-sentence-1",
+        "missingInCapturedWeb": "两面听牌",
+        "operation": "separate-PDF-version-excerpt; never rewrite web source or raw"
+      },
+      {
+        "webSourceBlockIds": [
+          "79-bilibili-cn:cv1765377:b0015",
+          "79-bilibili-cn:cv1765377:b0016"
+        ],
+        "webText": "大体的数据显示，所有的立直中。",
+        "pdfText": "大体的数据显示，所有的立直中三分之二的立直都是两面听牌。",
+        "pdfSliceId": "79-cn-p193-b6-version-sentence-2",
+        "missingInCapturedWeb": "三分之二的立直都是两面听牌",
+        "operation": "separate-PDF-version-excerpt; never rewrite web source or raw"
+      }
+    ],
+    "remainingBlocker": {
+      "targetId": "79-bilibili-cn:cv1765377:b0042:figure",
+      "reason": "unresolved manzu in river; not resolved by recovering source prose",
+      "action": "preserve original candidate/raw/unknown and existing independent issue; only finite source-image adjudication after exact original packet"
+    },
+    "fullChapterPassed": false,
+    "originalChapterCoverageIncrement": 0,
+    "duplicateCountedAsOriginalBody": false,
+    "sourceAndRawChanged": false,
+    "newModelCalls": 0,
+    "automaticRetry": 0,
+    "chapters": 1,
+    "units": 1,
+    "blocks": 2,
+    "figures": 0,
+    "corpusId": "7d1743898551fa7b8cf3cfcb26f1ee234d332e93434443c5a09fc3340c17c4d7",
+    "bodySha256": "807ad83faf24e1f50b42abe07df1f74a1f35011df9bb1afb988e353d177800fd",
+    "maxUnitBytes": 842,
+    "modelCalls": 0
+  },
+  "parent276NonTargetEvidence": null,
+  "ordinaryWholeArticlePassed": false,
+  "newModelCalls": 0
+}

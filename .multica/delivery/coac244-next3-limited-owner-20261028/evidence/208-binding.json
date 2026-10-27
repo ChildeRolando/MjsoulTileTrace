@@ -1,0 +1,480 @@
+{
+  "schema": "coac249-exact-current-candidate-limited-evidence-binding/1",
+  "recordedAt": "2026-10-27T23:03:14.226Z",
+  "canonical": "79-cn-chapter-208-4",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770245.display.json",
+    "sha256": "0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97",
+    "bytes": 46718
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1770245\\source.json",
+    "sha256": "0d6849d5bb4cb250ce9070a883fa072f9025c8411563b9f74fe9fd9d616fa17c",
+    "bytes": 29676
+  },
+  "originalAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1770245.0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97.json",
+    "sha256": "c3ed21f44410017abe1d203a87a0a7a470ec11f0b83e035c43f76016b91236fd",
+    "bytes": 20766
+  },
+  "independentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-193208276-20261028\\receipt-208.json",
+    "sha256": "d4ee73bd11dbc900ad6ec4dc327f6f106b377616dfc2a5e0c3d94b0ef41b9be9"
+  },
+  "independentRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\53850eb0-aa1a-4623-ad61-cc55340fc271.json",
+    "sha256": "47418ce17a461c551e1d6147868e1e82348cb577ac76bda8204c6d54401f50cf"
+  },
+  "actualCallId": "53850eb0-aa1a-4623-ad61-cc55340fc271",
+  "independentConclusion": "limited-unknown-acceptable",
+  "pointBindings": [
+    {
+      "independentPoint": {
+        "pointId": "upper-row1-leftmost",
+        "figureId": "79-bilibili-cn:cv1770245:b0004:figure",
+        "reading": "unknown",
+        "tileCodeOrUnknown": "unknown",
+        "evidence": "原图第1张及第2、3张最近邻放大图显示，此处是上方第一排最左侧倒置万子；黑色点数笔画分辨率不足，无法可靠确定数字。它不是第二排的9p。"
+      },
+      "figurePointer": "/figures/0",
+      "fullFigureJsonSha256": "e223f840b93ae1d413a3f9f4e7f567ef16b0c40dbd4f79536f897f5adbcc5a13",
+      "transcription": "中央文字：东3局0本场；立直棒1根；“宝牌”右侧为2p。中央左侧竖放一根立直棒。中央四角风位：左上北（4z）、右上西（3z）、左下东（1z）、右下南（2z）。\n点数标记按画面位置：左上+7700，右上+2000，右下△7700，左下△2000。\n下方手牌从左至右：6m 7m 7m 2p 3p 3p 4p 5p 6p 6s 7s 6z 6z；右侧分隔的摸入牌：8s。\n下方牌河：第一排从画面左至右为1s 3z 1s 1m 4s 2s；第二排在第一排最左侧1s下方为1z。牌面均朝向下方玩家。\n左方牌河：靠中央的一列从画面上至下为1p 9s 2s 7z 8p 4p，牌面相对画面顺时针旋转90度；第二列在最上方1p左侧为6s，此牌相对该玩家正常弃牌横置，是立直宣言牌，在画面中呈竖向。\n上方牌河：第一排从画面左至右为［万子点数未辨明］9m 2z 2z 1s 5z；第二排在第一排最右侧5z上方为9p。牌面均相对画面倒置。\n右方牌河：靠中央的一列从画面上至下为7z 2m 1m 2z 3z 6z；第二列在最下方6z右侧为1z。牌面相对画面逆时针旋转90度。\n上方、左方、右方各显示13张背面朝向画面的暗手牌。",
+      "unknowns": [
+        "上方牌河第一排从画面左数第1张：可辨为万子，但倒置的点数未能可靠辨明。"
+      ],
+      "caption": "拆对子兜牌的局面示例。",
+      "sourceNotes": [
+        "附件1为原图，附件2为同一原图的2倍最近邻放大图，只计一次牌图。",
+        "牌河按画面位置逐排、逐列记录；横置牌另行注明。"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:817b8e981a47af398e6514c6",
+          "path": "web-sources/v1/79-bilibili-cn/assets/ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b.png",
+          "sha256": "ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b",
+          "url": "https://i0.hdslb.com/bfs/article/47872f40ac4f9732d5a6150f9749e0475c6cfa81.png"
+        }
+      ]
+    },
+    {
+      "independentPoint": {
+        "pointId": "left-central-2",
+        "figureId": "79-bilibili-cn:cv1770245:b0006:figure",
+        "reading": "unknown",
+        "tileCodeOrUnknown": "unknown",
+        "evidence": "原图第4张及第5、6张放大图显示左方靠中央列第2张为侧置万子；数字部分笔画粗糙，结合邻位仍无法可靠辨认点数。"
+      },
+      "figurePointer": "/figures/1",
+      "fullFigureJsonSha256": "a22febc7c43587347d5bca51a0ab8a867751c6a0f69cc9d54d9c94a7cdde1185",
+      "transcription": "中央文字：东2局0本场；立直棒1根；“宝牌”右侧为2s。中央上侧横放一根立直棒。中央四角风位：左上东（1z）、右上北（4z）、左下南（2z）、右下西（3z）。\n点数标记按画面位置：左上+3900，右上△3900，右下原点，左下原点。\n下方手牌从左至右：2m 3m 7m 7m 8m 8m 2p 4p 6p 7p 8p 3s 4s；右侧分隔的摸入牌：8m。\n下方牌河：第一排从画面左至右为3z 7z 5z 2z 1p 9s；第二排在第一排最左侧3z下方为7s。牌面均朝向下方玩家。\n左方牌河：靠中央的一列从画面上至下为4z ［万子点数未辨明A］6z 1z ［万子点数未辨明B］5z；第二列在最上方4z左侧为2p，在其下方为3z。牌面相对画面顺时针旋转90度。\n上方牌河：第一排从画面左至右为6m 2m 8p 5z 6z 2m，牌面均相对画面倒置；第二排在第一排最右侧2m上方为4s，此牌相对该玩家正常弃牌横置，是立直宣言牌，在画面中呈横向。\n右方牌河：靠中央的一列从画面上至下为1s 8m 1m 1z 7z 2z；第二列在最下方2z右侧为［万子点数未辨明C］。牌面相对画面逆时针旋转90度。\n上方、左方、右方各显示13张背面朝向画面的暗手牌。",
+      "unknowns": [
+        "万子点数未辨明A：左方牌河靠中央一列从画面上数第2张，可辨为万子，点数未能可靠辨明。",
+        "万子点数未辨明B：左方牌河靠中央一列从画面上数第5张，可辨为万子，点数未能可靠辨明。",
+        "万子点数未辨明C：右方牌河第二列、最下方2z右侧的一张，可辨为万子，点数未能可靠辨明。"
+      ],
+      "caption": "拆搭子兜牌的局面示例。",
+      "sourceNotes": [
+        "附件3为原图，附件4为同一原图的2倍最近邻放大图，只计一次牌图。",
+        "牌河按画面位置逐排、逐列记录；横置牌另行注明。"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:f2c7f3ccf7f35415307dc376",
+          "path": "web-sources/v1/79-bilibili-cn/assets/fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.png",
+          "sha256": "fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985",
+          "url": "https://i0.hdslb.com/bfs/article/bbc04f96098c0956a063df9cfb48952195410454.png"
+        }
+      ]
+    },
+    {
+      "independentPoint": {
+        "pointId": "left-central-5",
+        "figureId": "79-bilibili-cn:cv1770245:b0006:figure",
+        "reading": "unknown",
+        "tileCodeOrUnknown": "unknown",
+        "evidence": "原图第4张、第7张目标放大图和第6张邻位图显示左方靠中央列第5张为侧置万子；黑色数字笔画不足以可靠区分点数。"
+      },
+      "figurePointer": "/figures/1",
+      "fullFigureJsonSha256": "a22febc7c43587347d5bca51a0ab8a867751c6a0f69cc9d54d9c94a7cdde1185",
+      "transcription": "中央文字：东2局0本场；立直棒1根；“宝牌”右侧为2s。中央上侧横放一根立直棒。中央四角风位：左上东（1z）、右上北（4z）、左下南（2z）、右下西（3z）。\n点数标记按画面位置：左上+3900，右上△3900，右下原点，左下原点。\n下方手牌从左至右：2m 3m 7m 7m 8m 8m 2p 4p 6p 7p 8p 3s 4s；右侧分隔的摸入牌：8m。\n下方牌河：第一排从画面左至右为3z 7z 5z 2z 1p 9s；第二排在第一排最左侧3z下方为7s。牌面均朝向下方玩家。\n左方牌河：靠中央的一列从画面上至下为4z ［万子点数未辨明A］6z 1z ［万子点数未辨明B］5z；第二列在最上方4z左侧为2p，在其下方为3z。牌面相对画面顺时针旋转90度。\n上方牌河：第一排从画面左至右为6m 2m 8p 5z 6z 2m，牌面均相对画面倒置；第二排在第一排最右侧2m上方为4s，此牌相对该玩家正常弃牌横置，是立直宣言牌，在画面中呈横向。\n右方牌河：靠中央的一列从画面上至下为1s 8m 1m 1z 7z 2z；第二列在最下方2z右侧为［万子点数未辨明C］。牌面相对画面逆时针旋转90度。\n上方、左方、右方各显示13张背面朝向画面的暗手牌。",
+      "unknowns": [
+        "万子点数未辨明A：左方牌河靠中央一列从画面上数第2张，可辨为万子，点数未能可靠辨明。",
+        "万子点数未辨明B：左方牌河靠中央一列从画面上数第5张，可辨为万子，点数未能可靠辨明。",
+        "万子点数未辨明C：右方牌河第二列、最下方2z右侧的一张，可辨为万子，点数未能可靠辨明。"
+      ],
+      "caption": "拆搭子兜牌的局面示例。",
+      "sourceNotes": [
+        "附件3为原图，附件4为同一原图的2倍最近邻放大图，只计一次牌图。",
+        "牌河按画面位置逐排、逐列记录；横置牌另行注明。"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:f2c7f3ccf7f35415307dc376",
+          "path": "web-sources/v1/79-bilibili-cn/assets/fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.png",
+          "sha256": "fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985",
+          "url": "https://i0.hdslb.com/bfs/article/bbc04f96098c0956a063df9cfb48952195410454.png"
+        }
+      ]
+    },
+    {
+      "independentPoint": {
+        "pointId": "right-outer-bottom",
+        "figureId": "79-bilibili-cn:cv1770245:b0006:figure",
+        "reading": "unknown",
+        "tileCodeOrUnknown": "unknown",
+        "evidence": "原图第4张及第8、9张放大图显示右方第二列最下方2z右侧为侧置万子；数字笔画像素有限，无法可靠确定点数。"
+      },
+      "figurePointer": "/figures/1",
+      "fullFigureJsonSha256": "a22febc7c43587347d5bca51a0ab8a867751c6a0f69cc9d54d9c94a7cdde1185",
+      "transcription": "中央文字：东2局0本场；立直棒1根；“宝牌”右侧为2s。中央上侧横放一根立直棒。中央四角风位：左上东（1z）、右上北（4z）、左下南（2z）、右下西（3z）。\n点数标记按画面位置：左上+3900，右上△3900，右下原点，左下原点。\n下方手牌从左至右：2m 3m 7m 7m 8m 8m 2p 4p 6p 7p 8p 3s 4s；右侧分隔的摸入牌：8m。\n下方牌河：第一排从画面左至右为3z 7z 5z 2z 1p 9s；第二排在第一排最左侧3z下方为7s。牌面均朝向下方玩家。\n左方牌河：靠中央的一列从画面上至下为4z ［万子点数未辨明A］6z 1z ［万子点数未辨明B］5z；第二列在最上方4z左侧为2p，在其下方为3z。牌面相对画面顺时针旋转90度。\n上方牌河：第一排从画面左至右为6m 2m 8p 5z 6z 2m，牌面均相对画面倒置；第二排在第一排最右侧2m上方为4s，此牌相对该玩家正常弃牌横置，是立直宣言牌，在画面中呈横向。\n右方牌河：靠中央的一列从画面上至下为1s 8m 1m 1z 7z 2z；第二列在最下方2z右侧为［万子点数未辨明C］。牌面相对画面逆时针旋转90度。\n上方、左方、右方各显示13张背面朝向画面的暗手牌。",
+      "unknowns": [
+        "万子点数未辨明A：左方牌河靠中央一列从画面上数第2张，可辨为万子，点数未能可靠辨明。",
+        "万子点数未辨明B：左方牌河靠中央一列从画面上数第5张，可辨为万子，点数未能可靠辨明。",
+        "万子点数未辨明C：右方牌河第二列、最下方2z右侧的一张，可辨为万子，点数未能可靠辨明。"
+      ],
+      "caption": "拆搭子兜牌的局面示例。",
+      "sourceNotes": [
+        "附件3为原图，附件4为同一原图的2倍最近邻放大图，只计一次牌图。",
+        "牌河按画面位置逐排、逐列记录；横置牌另行注明。"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:f2c7f3ccf7f35415307dc376",
+          "path": "web-sources/v1/79-bilibili-cn/assets/fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.png",
+          "sha256": "fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985",
+          "url": "https://i0.hdslb.com/bfs/article/bbc04f96098c0956a063df9cfb48952195410454.png"
+        }
+      ]
+    }
+  ],
+  "propositions": [
+    {
+      "independentContributionIndex": 0,
+      "independentStatement": {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0003"
+        ],
+        "authorContribution": "定义兜牌为扣住危险牌、同时向和牌或听牌前进；列出拆对子、拆搭子、拆暗刻和七对子四种方法，并保留对手立直后的原文条件及“对日对自己不利”的原文字样。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选保留该段原文和来源分段；定义及所列方法不依赖四处目标万子的点数。"
+      },
+      "sourceBindings": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0003",
+          "sourcePointer": "/blocks/2",
+          "sourceBlockJsonSha256": "b4ea1d990ac93db5451ebaeb1279d39cd4e627dc86c35ddb80109b9419636d73",
+          "candidatePointer": "/body/blocks/2",
+          "candidateBlockJsonSha256": "aae43b19b5109a594f801c930b5d4f90272353472352f7c3e6abe928e65c65ca",
+          "candidateText": "原文地址：http://beginners.biz/reach/mamori9.html ------------------------------------------------------------------------------------ 兜牌：  兜牌即一边扣住危险牌，一边向着和牌或者是听牌前进的打法。  一般情况下，对手立直之后：  1.自己没有听牌也要向着听牌或者和牌前进。 2.如果对日对自己不利的话。即使自己听牌也会拆掉手牌。  这样的情况就出现了“兜”这个选择了。  具体的说就是： 拆对子、拆搭子、拆暗刻、七对子4种方法。  ------------------------------------------------------------------------------------ 拆对子 ------------------------------------------------------------------------------------ 这是兜牌的常用手段， 通过一次的话，第二次也能通过。而且不会拆乱自己的手牌。  例1： "
+        }
+      ]
+    },
+    {
+      "independentContributionIndex": 1,
+      "independentStatement": {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0003"
+        ],
+        "authorContribution": "拆对子的一般说明：一次通过后第二次也能通过，而且不会拆乱手牌。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "这是原文直接写出的拆对子理由，四处未辨明的万子均非该句所指定的牌。"
+      },
+      "sourceBindings": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0003",
+          "sourcePointer": "/blocks/2",
+          "sourceBlockJsonSha256": "b4ea1d990ac93db5451ebaeb1279d39cd4e627dc86c35ddb80109b9419636d73",
+          "candidatePointer": "/body/blocks/2",
+          "candidateBlockJsonSha256": "aae43b19b5109a594f801c930b5d4f90272353472352f7c3e6abe928e65c65ca",
+          "candidateText": "原文地址：http://beginners.biz/reach/mamori9.html ------------------------------------------------------------------------------------ 兜牌：  兜牌即一边扣住危险牌，一边向着和牌或者是听牌前进的打法。  一般情况下，对手立直之后：  1.自己没有听牌也要向着听牌或者和牌前进。 2.如果对日对自己不利的话。即使自己听牌也会拆掉手牌。  这样的情况就出现了“兜”这个选择了。  具体的说就是： 拆对子、拆搭子、拆暗刻、七对子4种方法。  ------------------------------------------------------------------------------------ 拆对子 ------------------------------------------------------------------------------------ 这是兜牌的常用手段， 通过一次的话，第二次也能通过。而且不会拆乱自己的手牌。  例1： "
+        }
+      ]
+    },
+    {
+      "independentContributionIndex": 2,
+      "independentStatement": {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0003",
+          "79-bilibili-cn:cv1770245:b0004",
+          "79-bilibili-cn:cv1770245:b0005"
+        ],
+        "authorContribution": "拆对子例：作者认为弃和切4饼和6索可惜，一发打3饼有危险，建议切已经打出1张的發；能够做成门断平宝牌1追立是理想结果。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "例图、原文建议及“能够做成……的话”的条件均保留。上方未知万子不是作者指定的發、4饼、6索或3饼；其点数未知不妨碍展示作者写出的论证。"
+      },
+      "sourceBindings": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0003",
+          "sourcePointer": "/blocks/2",
+          "sourceBlockJsonSha256": "b4ea1d990ac93db5451ebaeb1279d39cd4e627dc86c35ddb80109b9419636d73",
+          "candidatePointer": "/body/blocks/2",
+          "candidateBlockJsonSha256": "aae43b19b5109a594f801c930b5d4f90272353472352f7c3e6abe928e65c65ca",
+          "candidateText": "原文地址：http://beginners.biz/reach/mamori9.html ------------------------------------------------------------------------------------ 兜牌：  兜牌即一边扣住危险牌，一边向着和牌或者是听牌前进的打法。  一般情况下，对手立直之后：  1.自己没有听牌也要向着听牌或者和牌前进。 2.如果对日对自己不利的话。即使自己听牌也会拆掉手牌。  这样的情况就出现了“兜”这个选择了。  具体的说就是： 拆对子、拆搭子、拆暗刻、七对子4种方法。  ------------------------------------------------------------------------------------ 拆对子 ------------------------------------------------------------------------------------ 这是兜牌的常用手段， 通过一次的话，第二次也能通过。而且不会拆乱自己的手牌。  例1： "
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0004",
+          "sourcePointer": "/blocks/3",
+          "sourceBlockJsonSha256": "2ea4672dd15f15ac10fcbe36d70992d2df329f9924717246e0db5efc90d0b93c",
+          "candidatePointer": "/body/blocks/3",
+          "candidateBlockJsonSha256": "af74c36a1280ebe516bbd68de9838fa6203e149291b5c3328030186a017035aa",
+          "candidateText": null
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0005",
+          "sourcePointer": "/blocks/4",
+          "sourceBlockJsonSha256": "f8212aff4f5bc2aae5b63f3223a3a2e33817e7a12e23be83f5526e5fca03d40d",
+          "candidatePointer": "/body/blocks/4",
+          "candidateBlockJsonSha256": "b0b6b8d45f7efffd13e624cbdfb75c2836ef7237eee304b609f5c40cae26c859",
+          "candidateText": "比如这样的例子，这是一个很能体现兜牌效果的例子。 弃和去切掉4饼和6索实在是太可惜了。 一发打3饼确实有点危险。 这里切掉已经打出1张的發是好手， 能够做成门断平宝牌1追立的话是很理想的。  ------------------------------------------------------------------------------------ 拆搭子 ------------------------------------------------------------------------------------ 我们再来看具体的例子吧。  "
+        }
+      ]
+    },
+    {
+      "independentContributionIndex": 3,
+      "independentStatement": {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0005",
+          "79-bilibili-cn:cv1770245:b0006",
+          "79-bilibili-cn:cv1770245:b0007"
+        ],
+        "authorContribution": "拆搭子例：没有人立直、全攻时应拆24饼搭子；兜牌时切2万，神进张摸到3饼的话立直。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选保留例图和两种情境的原文条件。左右家牌河的A、B、C未知不妨碍呈现作者对这两种情境的建议。"
+      },
+      "sourceBindings": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0005",
+          "sourcePointer": "/blocks/4",
+          "sourceBlockJsonSha256": "f8212aff4f5bc2aae5b63f3223a3a2e33817e7a12e23be83f5526e5fca03d40d",
+          "candidatePointer": "/body/blocks/4",
+          "candidateBlockJsonSha256": "b0b6b8d45f7efffd13e624cbdfb75c2836ef7237eee304b609f5c40cae26c859",
+          "candidateText": "比如这样的例子，这是一个很能体现兜牌效果的例子。 弃和去切掉4饼和6索实在是太可惜了。 一发打3饼确实有点危险。 这里切掉已经打出1张的發是好手， 能够做成门断平宝牌1追立的话是很理想的。  ------------------------------------------------------------------------------------ 拆搭子 ------------------------------------------------------------------------------------ 我们再来看具体的例子吧。  "
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0006",
+          "sourcePointer": "/blocks/5",
+          "sourceBlockJsonSha256": "abf9007457473c16e3837efbfb0771006d9f7bdae65ff0e23b6b048a0c0e2301",
+          "candidatePointer": "/body/blocks/5",
+          "candidateBlockJsonSha256": "23c14b9a9114d1f2561dc0c8b637b20cb2ed50bc8e7f571379dfe643ed0a4800",
+          "candidateText": null
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0007",
+          "sourcePointer": "/blocks/6",
+          "sourceBlockJsonSha256": "6b330e74086bbdf0e89d7b2c115d2a1838a84cca1b6c87875b9feb1e45be57d8",
+          "candidatePointer": "/body/blocks/6",
+          "candidateBlockJsonSha256": "9f52087e13aee1b24dbe28b43f8310344fe5f773dec8d37fe043c0276a8763a4",
+          "candidateText": "要是没有人立直的话应该拆掉24饼的搭子。（全攻的时候就该这么打） 兜牌的话，这里应该切掉2万。神进张摸到3饼的话就立直。  一向听的话，摸到5饼什么的，可以可以考虑切掉筋牌的3万。  同样是兜牌，这里打4索就是恶手。 不仅宝牌是2索，作为胜负牌的3索是非常危险的。  要拆掉搭子兜牌的话，就需要保证两张牌的安全。  上面虽然这么说，不过切掉2万之后摸到危险牌的话，拿还是快快弃和为上。  ------------------------------------------------------------------------------------ 拆暗刻 ------------------------------------------------------------------------------------ 拆掉3张安全牌的暗刻时，也还是可以让手牌有所进展的。 在这三巡里能够通过的牌增加的话，偶尔还是可以向和牌前进的。  "
+        }
+      ]
+    },
+    {
+      "independentContributionIndex": 4,
+      "independentStatement": {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0006",
+          "79-bilibili-cn:cv1770245:b0007"
+        ],
+        "authorContribution": "一向听时，摸到5饼什么的，可以考虑切筋牌的3万。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选保留“一向听”“摸到5饼什么的”和“可以考虑”的条件及措辞；A、B、C不在候选记录的立直上家牌河中。未知不阻断转述，但不能据此把3万解释为对所有对手绝对安全。"
+      },
+      "sourceBindings": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0006",
+          "sourcePointer": "/blocks/5",
+          "sourceBlockJsonSha256": "abf9007457473c16e3837efbfb0771006d9f7bdae65ff0e23b6b048a0c0e2301",
+          "candidatePointer": "/body/blocks/5",
+          "candidateBlockJsonSha256": "23c14b9a9114d1f2561dc0c8b637b20cb2ed50bc8e7f571379dfe643ed0a4800",
+          "candidateText": null
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0007",
+          "sourcePointer": "/blocks/6",
+          "sourceBlockJsonSha256": "6b330e74086bbdf0e89d7b2c115d2a1838a84cca1b6c87875b9feb1e45be57d8",
+          "candidatePointer": "/body/blocks/6",
+          "candidateBlockJsonSha256": "9f52087e13aee1b24dbe28b43f8310344fe5f773dec8d37fe043c0276a8763a4",
+          "candidateText": "要是没有人立直的话应该拆掉24饼的搭子。（全攻的时候就该这么打） 兜牌的话，这里应该切掉2万。神进张摸到3饼的话就立直。  一向听的话，摸到5饼什么的，可以可以考虑切掉筋牌的3万。  同样是兜牌，这里打4索就是恶手。 不仅宝牌是2索，作为胜负牌的3索是非常危险的。  要拆掉搭子兜牌的话，就需要保证两张牌的安全。  上面虽然这么说，不过切掉2万之后摸到危险牌的话，拿还是快快弃和为上。  ------------------------------------------------------------------------------------ 拆暗刻 ------------------------------------------------------------------------------------ 拆掉3张安全牌的暗刻时，也还是可以让手牌有所进展的。 在这三巡里能够通过的牌增加的话，偶尔还是可以向和牌前进的。  "
+        }
+      ]
+    },
+    {
+      "independentContributionIndex": 5,
+      "independentStatement": {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0006",
+          "79-bilibili-cn:cv1770245:b0007"
+        ],
+        "authorContribution": "同样是兜牌，作者认为打4索是恶手：宝牌是2索，作为胜负牌的3索非常危险。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "原文的评价及两个理由保留；三处未知牌明确为左右家牌河中的万子，不是文中指定的索子。"
+      },
+      "sourceBindings": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0006",
+          "sourcePointer": "/blocks/5",
+          "sourceBlockJsonSha256": "abf9007457473c16e3837efbfb0771006d9f7bdae65ff0e23b6b048a0c0e2301",
+          "candidatePointer": "/body/blocks/5",
+          "candidateBlockJsonSha256": "23c14b9a9114d1f2561dc0c8b637b20cb2ed50bc8e7f571379dfe643ed0a4800",
+          "candidateText": null
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0007",
+          "sourcePointer": "/blocks/6",
+          "sourceBlockJsonSha256": "6b330e74086bbdf0e89d7b2c115d2a1838a84cca1b6c87875b9feb1e45be57d8",
+          "candidatePointer": "/body/blocks/6",
+          "candidateBlockJsonSha256": "9f52087e13aee1b24dbe28b43f8310344fe5f773dec8d37fe043c0276a8763a4",
+          "candidateText": "要是没有人立直的话应该拆掉24饼的搭子。（全攻的时候就该这么打） 兜牌的话，这里应该切掉2万。神进张摸到3饼的话就立直。  一向听的话，摸到5饼什么的，可以可以考虑切掉筋牌的3万。  同样是兜牌，这里打4索就是恶手。 不仅宝牌是2索，作为胜负牌的3索是非常危险的。  要拆掉搭子兜牌的话，就需要保证两张牌的安全。  上面虽然这么说，不过切掉2万之后摸到危险牌的话，拿还是快快弃和为上。  ------------------------------------------------------------------------------------ 拆暗刻 ------------------------------------------------------------------------------------ 拆掉3张安全牌的暗刻时，也还是可以让手牌有所进展的。 在这三巡里能够通过的牌增加的话，偶尔还是可以向和牌前进的。  "
+        }
+      ]
+    },
+    {
+      "independentContributionIndex": 6,
+      "independentStatement": {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0006",
+          "79-bilibili-cn:cv1770245:b0007"
+        ],
+        "authorContribution": "拆搭子兜牌需要保证两张牌的安全；切掉2万后若摸到危险牌，作者建议快快弃和。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选保留两张牌安全的要求及摸到危险牌才弃和的条件。A、B、C未知不妨碍展示该要求，但限制对完整牌河和各对手安全性的独立核验。"
+      },
+      "sourceBindings": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0006",
+          "sourcePointer": "/blocks/5",
+          "sourceBlockJsonSha256": "abf9007457473c16e3837efbfb0771006d9f7bdae65ff0e23b6b048a0c0e2301",
+          "candidatePointer": "/body/blocks/5",
+          "candidateBlockJsonSha256": "23c14b9a9114d1f2561dc0c8b637b20cb2ed50bc8e7f571379dfe643ed0a4800",
+          "candidateText": null
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0007",
+          "sourcePointer": "/blocks/6",
+          "sourceBlockJsonSha256": "6b330e74086bbdf0e89d7b2c115d2a1838a84cca1b6c87875b9feb1e45be57d8",
+          "candidatePointer": "/body/blocks/6",
+          "candidateBlockJsonSha256": "9f52087e13aee1b24dbe28b43f8310344fe5f773dec8d37fe043c0276a8763a4",
+          "candidateText": "要是没有人立直的话应该拆掉24饼的搭子。（全攻的时候就该这么打） 兜牌的话，这里应该切掉2万。神进张摸到3饼的话就立直。  一向听的话，摸到5饼什么的，可以可以考虑切掉筋牌的3万。  同样是兜牌，这里打4索就是恶手。 不仅宝牌是2索，作为胜负牌的3索是非常危险的。  要拆掉搭子兜牌的话，就需要保证两张牌的安全。  上面虽然这么说，不过切掉2万之后摸到危险牌的话，拿还是快快弃和为上。  ------------------------------------------------------------------------------------ 拆暗刻 ------------------------------------------------------------------------------------ 拆掉3张安全牌的暗刻时，也还是可以让手牌有所进展的。 在这三巡里能够通过的牌增加的话，偶尔还是可以向和牌前进的。  "
+        }
+      ]
+    },
+    {
+      "independentContributionIndex": 7,
+      "independentStatement": {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0007",
+          "79-bilibili-cn:cv1770245:b0008",
+          "79-bilibili-cn:cv1770245:b0009"
+        ],
+        "authorContribution": "拆三张安全牌的暗刻仍可让手牌进展；若三巡内能够通过的牌增加，偶尔可继续向和牌前进。例子拆西的暗刻，偶尔最终可食断和牌。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "相关原文条件和例图位置保留；四处目标未知不属于此例。b0008图的牌码判断继承非目标父审，本次未重审。"
+      },
+      "sourceBindings": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0007",
+          "sourcePointer": "/blocks/6",
+          "sourceBlockJsonSha256": "6b330e74086bbdf0e89d7b2c115d2a1838a84cca1b6c87875b9feb1e45be57d8",
+          "candidatePointer": "/body/blocks/6",
+          "candidateBlockJsonSha256": "9f52087e13aee1b24dbe28b43f8310344fe5f773dec8d37fe043c0276a8763a4",
+          "candidateText": "要是没有人立直的话应该拆掉24饼的搭子。（全攻的时候就该这么打） 兜牌的话，这里应该切掉2万。神进张摸到3饼的话就立直。  一向听的话，摸到5饼什么的，可以可以考虑切掉筋牌的3万。  同样是兜牌，这里打4索就是恶手。 不仅宝牌是2索，作为胜负牌的3索是非常危险的。  要拆掉搭子兜牌的话，就需要保证两张牌的安全。  上面虽然这么说，不过切掉2万之后摸到危险牌的话，拿还是快快弃和为上。  ------------------------------------------------------------------------------------ 拆暗刻 ------------------------------------------------------------------------------------ 拆掉3张安全牌的暗刻时，也还是可以让手牌有所进展的。 在这三巡里能够通过的牌增加的话，偶尔还是可以向和牌前进的。  "
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0008",
+          "sourcePointer": "/blocks/7",
+          "sourceBlockJsonSha256": "90eb61efbc14c36e3cdea56f16d44a4286789555285146bd08d2e6a383660785",
+          "candidatePointer": "/body/blocks/7",
+          "candidateBlockJsonSha256": "c787e0fa32058abcecf3fa6dd5dd97538724455fcb869776e5e37e0b6ec1e3b9",
+          "candidateText": null
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0009",
+          "sourcePointer": "/blocks/8",
+          "sourceBlockJsonSha256": "ca042312a85b31e44a65cbc73ed75fa22f936da7330ebde772c40a87b2388e55",
+          "candidatePointer": "/body/blocks/8",
+          "candidateBlockJsonSha256": "c1165067763a01f412935912bb94475b02d1236f08e292b9d1bf5c55dcfae528",
+          "candidateText": "比如这样的手牌，拆掉西的暗刻。 偶尔最后还是能以食断和牌的。  ------------------------------------------------------------------------------------ 七对子 ------------------------------------------------------------------------------------  这是一个缺少确实性的方法，大家有没有面对立直弃和的时候，不知什么时候手牌居然七对子听牌了呢？  比如役牌是宝牌，用不上的牌却又打不出去，同时自己有非向着听牌前进不可的时候。那就只能霸王硬上弓强凹单骑听牌了。  这个时候七对子是可以放手一搏的方法。  ------------------------------------------------------------------------------------ 兜牌需要注意的地方 ------------------------------------------------------------------------------------  兜牌是应该在“能兜牌”的情况下使用的。 本来有和牌希望的牌也应该弃和；有些苦逼的牌也必须放手一搏。 这些都要根据自己的点数情况来进行判断。  “能兜牌”的状况是不确定的。  不要忘了防守的基本是“弃和”。     （待续）"
+        }
+      ]
+    },
+    {
+      "independentContributionIndex": 8,
+      "independentStatement": {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0003",
+          "79-bilibili-cn:cv1770245:b0009"
+        ],
+        "authorContribution": "七对子是缺少确实性、特定情况下可以放手一搏的方法：例如役牌是宝牌、用不上的牌又打不出去，同时自己非向听牌前进不可时，强凹单骑听牌。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选保留缺少确实性的限制及原文所列情境；此项不依赖四处目标点数。"
+      },
+      "sourceBindings": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0003",
+          "sourcePointer": "/blocks/2",
+          "sourceBlockJsonSha256": "b4ea1d990ac93db5451ebaeb1279d39cd4e627dc86c35ddb80109b9419636d73",
+          "candidatePointer": "/body/blocks/2",
+          "candidateBlockJsonSha256": "aae43b19b5109a594f801c930b5d4f90272353472352f7c3e6abe928e65c65ca",
+          "candidateText": "原文地址：http://beginners.biz/reach/mamori9.html ------------------------------------------------------------------------------------ 兜牌：  兜牌即一边扣住危险牌，一边向着和牌或者是听牌前进的打法。  一般情况下，对手立直之后：  1.自己没有听牌也要向着听牌或者和牌前进。 2.如果对日对自己不利的话。即使自己听牌也会拆掉手牌。  这样的情况就出现了“兜”这个选择了。  具体的说就是： 拆对子、拆搭子、拆暗刻、七对子4种方法。  ------------------------------------------------------------------------------------ 拆对子 ------------------------------------------------------------------------------------ 这是兜牌的常用手段， 通过一次的话，第二次也能通过。而且不会拆乱自己的手牌。  例1： "
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0009",
+          "sourcePointer": "/blocks/8",
+          "sourceBlockJsonSha256": "ca042312a85b31e44a65cbc73ed75fa22f936da7330ebde772c40a87b2388e55",
+          "candidatePointer": "/body/blocks/8",
+          "candidateBlockJsonSha256": "c1165067763a01f412935912bb94475b02d1236f08e292b9d1bf5c55dcfae528",
+          "candidateText": "比如这样的手牌，拆掉西的暗刻。 偶尔最后还是能以食断和牌的。  ------------------------------------------------------------------------------------ 七对子 ------------------------------------------------------------------------------------  这是一个缺少确实性的方法，大家有没有面对立直弃和的时候，不知什么时候手牌居然七对子听牌了呢？  比如役牌是宝牌，用不上的牌却又打不出去，同时自己有非向着听牌前进不可的时候。那就只能霸王硬上弓强凹单骑听牌了。  这个时候七对子是可以放手一搏的方法。  ------------------------------------------------------------------------------------ 兜牌需要注意的地方 ------------------------------------------------------------------------------------  兜牌是应该在“能兜牌”的情况下使用的。 本来有和牌希望的牌也应该弃和；有些苦逼的牌也必须放手一搏。 这些都要根据自己的点数情况来进行判断。  “能兜牌”的状况是不确定的。  不要忘了防守的基本是“弃和”。     （待续）"
+        }
+      ]
+    },
+    {
+      "independentContributionIndex": 9,
+      "independentStatement": {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770245:b0009"
+        ],
+        "authorContribution": "兜牌应在“能兜牌”的情况下使用；是否弃和或放手一搏要根据点数判断，“能兜牌”的状况不确定，防守的基本是弃和。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选保留原文的条件、点数判断、不确定性和弃和提醒；四处目标点数未知不阻断展示这些限制。"
+      },
+      "sourceBindings": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770245:b0009",
+          "sourcePointer": "/blocks/8",
+          "sourceBlockJsonSha256": "ca042312a85b31e44a65cbc73ed75fa22f936da7330ebde772c40a87b2388e55",
+          "candidatePointer": "/body/blocks/8",
+          "candidateBlockJsonSha256": "c1165067763a01f412935912bb94475b02d1236f08e292b9d1bf5c55dcfae528",
+          "candidateText": "比如这样的手牌，拆掉西的暗刻。 偶尔最后还是能以食断和牌的。  ------------------------------------------------------------------------------------ 七对子 ------------------------------------------------------------------------------------  这是一个缺少确实性的方法，大家有没有面对立直弃和的时候，不知什么时候手牌居然七对子听牌了呢？  比如役牌是宝牌，用不上的牌却又打不出去，同时自己有非向着听牌前进不可的时候。那就只能霸王硬上弓强凹单骑听牌了。  这个时候七对子是可以放手一搏的方法。  ------------------------------------------------------------------------------------ 兜牌需要注意的地方 ------------------------------------------------------------------------------------  兜牌是应该在“能兜牌”的情况下使用的。 本来有和牌希望的牌也应该弃和；有些苦逼的牌也必须放手一搏。 这些都要根据自己的点数情况来进行判断。  “能兜牌”的状况是不确定的。  不要忘了防守的基本是“弃和”。     （待续）"
+        }
+      ]
+    }
+  ],
+  "mandatoryDisplayLimits": [
+    "保留两张原图及其候选转录中的四处明确未知：b0004上方第一排最左万子，以及b0006左方A、B和右方C；不得以推测牌码替换。",
+    "保持b0001至b0009的原始DOM顺序、图文对应关系、原文条件、sourceSegments及其marks和href，并保留各块给出的tableContext。原文中的字词不因本次辨识而改写。",
+    "保留“没有人立直”“一向听”“摸到5饼什么的”“可以考虑”“摸到危险牌”等条件，以及七对子缺少确实性、须根据点数判断和防守基本为弃和的限制。",
+    "将作者的建议和风险评价作为原文论证展示；不得把筋牌3万或“两张牌的安全”扩写为已独立证明对所有对手绝对安全。",
+    "不得声称完整牌河、对手暗手、概率或最优策略已由本次审查恢复或验证；这也不是整章通过结论。"
+  ],
+  "mandatoryDisplayLimitsSha256": "97e27626001bbc0d5ea3e6edff16d8438887c027c2ec1ed7052e0d40e494bef4",
+  "scopeLimits": "结论仅适用于所绑定候选及四个指定辨识点，允许带明确未知和展示限制呈现作者论证，不构成完整逐牌核验或整章通过。非目标检查，包括b0008图及其原有source-note，继承父审；本次未重新判定。",
+  "pdf193IndependentSourceVersion": null,
+  "parent276NonTargetEvidence": null,
+  "candidateModified": false,
+  "rawOrOldAuditModified": false,
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "ordinaryWholeChapterPassed": false,
+  "admissionGranted": false,
+  "meaning": "Mechanical mapping of the actual independent limited-display conclusion to the exact current candidate. Inherited source uncertainty remains literal. Renderer/owner must bind and expose all mandatory limitations through the lawful exact-SHA supplementary route; this mapping does not grant admission or erase technical false flags."
+}

@@ -1,0 +1,60 @@
+{
+  "existingConsumerRun": "01a17f9e-1da5-7423-9f96-2b5a0cbe65e0",
+  "loader": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028",
+  "manifestSha256": "2563f7c113cbdcdfd3360085a00aa3e086b9f9246429a54b9f4064ac5ee6221d",
+  "rows": [
+    {
+      "key": "193",
+      "canonical": "79-cn-chapter-193-4",
+      "candidateSha256": "e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e",
+      "admissionStatus": "admitted-exact-limited-unknown-fidelity",
+      "ordinaryWholeArticlePassed": false,
+      "actualDisplayedBlocks": 49,
+      "authorBlocks": 43,
+      "figures": 3,
+      "nonAuthorLimitations": 6,
+      "sourceBlocksCovered": 43,
+      "allUnknownsDisplayed": true,
+      "pdfSourceVersionPaired": true,
+      "newCalls": 0,
+      "stagePath": "C:/Users/Roland/multica_workspaces_desktop-api.multica.ai/coach-rolan-2123e9a3b805/coac-250-2b5a0cbe65e0/worktree/_analysis/n3/s193"
+    },
+    {
+      "key": "208",
+      "canonical": "79-cn-chapter-208-4",
+      "candidateSha256": "0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97",
+      "admissionStatus": "admitted-exact-limited-unknown-fidelity",
+      "ordinaryWholeArticlePassed": false,
+      "actualDisplayedBlocks": 14,
+      "authorBlocks": 9,
+      "figures": 3,
+      "nonAuthorLimitations": 5,
+      "sourceBlocksCovered": 9,
+      "allUnknownsDisplayed": true,
+      "pdfSourceVersionPaired": false,
+      "newCalls": 0,
+      "stagePath": "C:/Users/Roland/multica_workspaces_desktop-api.multica.ai/coach-rolan-2123e9a3b805/coac-250-2b5a0cbe65e0/worktree/_analysis/n3/s208"
+    },
+    {
+      "key": "276",
+      "canonical": "79-cn-chapter-276-4",
+      "candidateSha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+      "admissionStatus": "admitted-exact-limited-unknown-fidelity",
+      "ordinaryWholeArticlePassed": false,
+      "actualDisplayedBlocks": 49,
+      "authorBlocks": 42,
+      "figures": 3,
+      "nonAuthorLimitations": 7,
+      "sourceBlocksCovered": 42,
+      "allUnknownsDisplayed": true,
+      "pdfSourceVersionPaired": false,
+      "newCalls": 0,
+      "stagePath": "C:/Users/Roland/multica_workspaces_desktop-api.multica.ai/coach-rolan-2123e9a3b805/coac-250-2b5a0cbe65e0/worktree/_analysis/n3/s276"
+    }
+  ],
+  "newModelCalls": 0,
+  "newStagesBuilt": 0,
+  "newConsumers": 0,
+  "wholeChapterPassed": false,
+  "masterMcpArenaReadback": "owned by existing250; not claimed by these stage checks"
+}

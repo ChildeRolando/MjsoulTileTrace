@@ -1,0 +1,1587 @@
+{
+  "schema": "coach-textbook-bodies/1",
+  "language": "zh-CN",
+  "modelExperiments": false,
+  "chapters": [
+    {
+      "chapterId": "79-bilibili-cn-cv1793434-chapter",
+      "sourceId": "79-bilibili-cn-cv1793434",
+      "sourceSha256": "69818826df9a3c931a23419e0e9b9bfb1763e74c68bd14f45822134f4077a935",
+      "translationStatus": "batch-audited-pending-user-review",
+      "translatorNote": "原正文和原图保持；九处未知按精确候选分别保留。独立限定辨识/教学影响证据仅允许忠实展示作者原有论证，不认证完整牌河、暗手、概率或最优。原技术未通过回执和原raw保持。",
+      "blocks": [
+        {
+          "type": "p",
+          "id": "limited-next3-276-1",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）1】在例1图的转录和unknowns中保留左侧第4、5张及右侧第2、5张的明确未知和原有位置；不得填入猜测牌码或表示四家牌河已完整复原。",
+          "authorText": false
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-276-2",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）2】保留例1原图及其在正文中的位置，并按原始顺序保留例2、例3；目标和邻位近邻放大图是本次审查资料，不生成新的牌面细节。",
+          "authorText": false
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-276-3",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）3】保留正文原有顺序、原句、条件和强调语气，包括例1“立直的话”才有11600点、例2平和的可能条件、例3关于进张数与连续进攻的条件，以及理论中的“基本”。",
+          "authorText": false
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-276-4",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）4】保留各块原有tableContext、sourceSegments和标记；本次给出的正文块tableContext均为null，原有segments的marks均为空。",
+          "authorText": false
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-276-5",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）5】保留免责声明、译者及原文来源、例题标题、分隔、续篇标记和原始图序。",
+          "authorText": false
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-276-6",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）6】将作者的安全度、危险度、概率和攻守判断呈现为作者所写判断；不把本次有限辨识包装为完整牌河、暗手、概率或最优策略的独立验证。",
+          "authorText": false
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-276-7",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）7】附件编号及放大图说明若对读者显示，应区分历史加工附件与本次orderedImages；附件说明笔误属于source-note，不是教学错误。",
+          "authorText": false
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b1",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "免责声明：  以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。 原文地址： http://beginners.biz/osihiki/osihiki03.html  ------------------------------------------------------------------------------------",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0001",
+          "sourceSegments": [
+            {
+              "text": "免责声明：",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "原文地址： http://beginners.biz/osihiki/osihiki03.html ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "免责声明：",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "原文地址： http://beginners.biz/osihiki/osihiki03.html ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b2",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0002"
+            ],
+            "domPaths": [
+              "main/p[1]"
+            ]
+          },
+          "text": "那么，前一节我列举了攻守判断的要素",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0002",
+          "sourceSegments": [
+            {
+              "text": "那么，前一节我列举了攻守判断的要素",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "那么，前一节我列举了攻守判断的要素",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b3",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0003"
+            ],
+            "domPaths": [
+              "main/p[2]"
+            ]
+          },
+          "text": "我们来看看实际的几个是应该攻，还是应该守的例子。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0003",
+          "sourceSegments": [
+            {
+              "text": "我们来看看实际的几个是应该攻，还是应该守的例子。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "我们来看看实际的几个是应该攻，还是应该守的例子。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b4",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0004"
+            ],
+            "domPaths": [
+              "main/p[3]"
+            ]
+          },
+          "text": "例1：",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0004",
+          "sourceSegments": [
+            {
+              "text": "例1：",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "例1：",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "figure",
+          "id": "79-bilibili-cn-cv1793434-b5",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0005"
+            ],
+            "domPaths": [
+              "main/div[4]/div[0]/div[0]/div[0]/div[0]"
+            ]
+          },
+          "src": "assets/79-bilibili-cn-cv1793434-b5.png",
+          "caption": "例1",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0005",
+          "transcriptionText": "中央：东2局0本场。白色立直棒右侧标示1根；下方“宝牌”标签右侧为9p。\n座位及点数：下方东家24000，右侧南家25000，上方西家27000，左侧北家23000。\n下方手牌，按屏幕从左至右：3m 4m 5m 7m 8m 9p 9p 3s 4s 6s 7s 8s 6z。右侧隔开的一张：6m。\n下方弃牌，按屏幕从左至右：1p 1s 1z 6p 7s 2m。\n上方弃牌，按屏幕从左至右：6s（相对上家正常牌向横置）5z 6p 9m 7z 1z。除横置的6s外，牌面相对屏幕倒置。\n左侧弃牌，按屏幕从上至下：1m 9m 7z [风牌未辨明] [风牌未辨明] 3p。牌面相对屏幕顺时针旋转90°。\n右侧弃牌，按屏幕从上至下：9s [风牌未辨明] 5z 7z [风牌未辨明] 9m。牌面相对屏幕逆时针旋转90°。\n上方、左侧、右侧各有13张背面朝上的手牌。未见副露。\n原图未显示的信息：左侧弃牌从上至下第4张的风牌牌码未辨明。；左侧弃牌从上至下第5张的风牌牌码未辨明。；右侧弃牌从上至下第2张的风牌牌码未辨明。；右侧弃牌从上至下第5张的风牌牌码未辨明。",
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:e6d9adffb5691e034df6786d",
+              "path": "web-sources/v1/79-bilibili-cn/assets/4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+              "sha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+              "url": "https://i0.hdslb.com/bfs/article/c21bb0ec3be29c7d2274c064b33b7bffda8d4ff6.jpg"
+            }
+          ],
+          "sourceOccurrenceIds": [
+            "79-bilibili-cn:cv1793434:i00001"
+          ],
+          "presentationAsset": {
+            "path": "web-production/v1/presentations/79-bilibili-cn/cv1793434/a75044ee75d7e857/figure-0001.png",
+            "sha256": "633fc44741c600056f9789a52b8323120132af995ba69adab7b3e43194279e52",
+            "width": 500,
+            "height": 499,
+            "derivation": {
+              "kind": "single-source-image-rgba-to-png",
+              "alignment": "original-size",
+              "sourceAssetBindings": [
+                {
+                  "assetId": "79-bilibili-cn:e6d9adffb5691e034df6786d",
+                  "path": "web-sources/v1/79-bilibili-cn/assets/4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+                  "sha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+                  "url": "https://i0.hdslb.com/bfs/article/c21bb0ec3be29c7d2274c064b33b7bffda8d4ff6.jpg"
+                }
+              ],
+              "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+            }
+          },
+          "transcriptionProvenance": {
+            "method": "model-transcription",
+            "callId": "7af07271-5848-47a7-a2cb-54be1cca4c64",
+            "outputSourceBlockId": "79-bilibili-cn:cv1793434:b0005"
+          },
+          "imageProvenance": {
+            "kind": "derived-source-assets",
+            "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+            "sourceAssetSha256s": [
+              "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c"
+            ]
+          }
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b6",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0006"
+            ],
+            "domPaths": [
+              "main/p[6]"
+            ]
+          },
+          "text": "看到这个牌的瞬间就有一种想扔棒子的冲动，一上来我就给了一个比较极端的例子。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0006",
+          "sourceSegments": [
+            {
+              "text": "看到这个牌的瞬间就有一种想扔棒子的冲动，一上来我就给了一个比较极端的例子。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "看到这个牌的瞬间就有一种想扔棒子的冲动，一上来我就给了一个比较极端的例子。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b7",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0007"
+            ],
+            "domPaths": [
+              "main/p[7]"
+            ]
+          },
+          "text": "【和牌的容易度】好型两面听牌",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0007",
+          "sourceSegments": [
+            {
+              "text": "【和牌的容易度】好型两面听牌",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "【和牌的容易度】好型两面听牌",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b8",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0008"
+            ],
+            "domPaths": [
+              "main/p[8]"
+            ]
+          },
+          "text": "【打点】立直的话有11600点",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0008",
+          "sourceSegments": [
+            {
+              "text": "【打点】立直的话有11600点",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "【打点】立直的话有11600点",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b9",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0009"
+            ],
+            "domPaths": [
+              "main/p[9]"
+            ]
+          },
+          "text": "【牌的危险度】发并不是特别危险的一张牌",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0009",
+          "sourceSegments": [
+            {
+              "text": "【牌的危险度】发并不是特别危险的一张牌",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "【牌的危险度】发并不是特别危险的一张牌",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b10",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0010"
+            ],
+            "domPaths": [
+              "main/p[10]"
+            ]
+          },
+          "text": "【弃和成功率】安全牌只有6索",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0010",
+          "sourceSegments": [
+            {
+              "text": "【弃和成功率】安全牌只有6索",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "【弃和成功率】安全牌只有6索",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b11",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0011"
+            ],
+            "domPaths": [
+              "main/p[11]"
+            ]
+          },
+          "text": "不管怎么看，这牌没有理由不对日。应该毫不犹豫地扔棒子对攻。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0011",
+          "sourceSegments": [
+            {
+              "text": "不管怎么看，这牌没有理由不对日。应该毫不犹豫地扔棒子对攻。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "不管怎么看，这牌没有理由不对日。应该毫不犹豫地扔棒子对攻。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b12",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0012"
+            ],
+            "domPaths": [
+              "main/p[12]"
+            ]
+          },
+          "text": "------------------------------------------------------------------------------------",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0012",
+          "sourceSegments": [
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b13",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0013"
+            ],
+            "domPaths": [
+              "main/p[13]"
+            ]
+          },
+          "text": "例2：",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0013",
+          "sourceSegments": [
+            {
+              "text": "例2：",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "例2：",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "figure",
+          "id": "79-bilibili-cn-cv1793434-b14",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0014"
+            ],
+            "domPaths": [
+              "main/div[14]/div[0]/div[0]/div[0]/div[0]"
+            ]
+          },
+          "src": "assets/79-bilibili-cn-cv1793434-b14.png",
+          "caption": "例2：东4局，北家手牌与四家弃牌。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0014",
+          "transcriptionText": "中央：东4局0本场。白色立直棒右侧标示1根；下方“宝牌”标签右侧为3z。\n座位及点数：下方北家33500，右侧东家25500，上方南家24500，左侧西家15500。\n下方手牌，按屏幕从左至右：1m 1m 2p 2p 3p 7p 9p 5s 5s（赤）6s 7s 8s 9s。右侧隔开的一张：2s。\n下方弃牌：第一行从左至右为6z 3m 8m 1s 5z 9m；第二行在第一行左端下方，从左至右为1s 2s。\n上方弃牌：靠中央一行按屏幕从左至右为2m 2p 1z 9s 3m 3s；外侧一行位于其右端上方，从左至右为9p 5z 4z。牌面均相对屏幕倒置。\n左侧弃牌：靠中央一列按屏幕从上至下为4z 1z 8s 5z 9s 1z；外侧一列从上至下为4m 4s 9m。外侧9m相对左家正常牌向横置，屏幕上呈直立；其余牌面相对屏幕顺时针旋转90°。\n右侧弃牌：靠中央一列按屏幕从上至下为9p 8m 7p 3m 6z 4z；外侧一列与内列后三张对齐，从上至下为1m 2z 9s。牌面均相对屏幕逆时针旋转90°。\n上方、左侧、右侧各有13张背面朝上的手牌。未见副露。",
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:a55acc8cf58b8e1636ec1d54",
+              "path": "web-sources/v1/79-bilibili-cn/assets/2e1922c12278d34420f83670d380962821a6ab55a328925892ee308db069e8a3.jpg",
+              "sha256": "2e1922c12278d34420f83670d380962821a6ab55a328925892ee308db069e8a3",
+              "url": "https://i0.hdslb.com/bfs/article/60b198e39c618de56221c865809a890b531b8d99.jpg"
+            }
+          ],
+          "sourceOccurrenceIds": [
+            "79-bilibili-cn:cv1793434:i00002"
+          ],
+          "presentationAsset": {
+            "path": "web-production/v1/presentations/79-bilibili-cn/cv1793434/a75044ee75d7e857/figure-0002.png",
+            "sha256": "35938b3e17117bfcdefe24b239370902ebbd9493ab6a48b9102b7389936f01a9",
+            "width": 501,
+            "height": 501,
+            "derivation": {
+              "kind": "single-source-image-rgba-to-png",
+              "alignment": "original-size",
+              "sourceAssetBindings": [
+                {
+                  "assetId": "79-bilibili-cn:a55acc8cf58b8e1636ec1d54",
+                  "path": "web-sources/v1/79-bilibili-cn/assets/2e1922c12278d34420f83670d380962821a6ab55a328925892ee308db069e8a3.jpg",
+                  "sha256": "2e1922c12278d34420f83670d380962821a6ab55a328925892ee308db069e8a3",
+                  "url": "https://i0.hdslb.com/bfs/article/60b198e39c618de56221c865809a890b531b8d99.jpg"
+                }
+              ],
+              "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+            }
+          },
+          "transcriptionProvenance": {
+            "method": "model-transcription",
+            "callId": "bb90022e-1fda-4eb3-8f71-779df2bdd169",
+            "outputSourceBlockId": "79-bilibili-cn:cv1793434:b0014"
+          },
+          "imageProvenance": {
+            "kind": "derived-source-assets",
+            "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+            "sourceAssetSha256s": [
+              "2e1922c12278d34420f83670d380962821a6ab55a328925892ee308db069e8a3"
+            ]
+          }
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b15",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0015"
+            ],
+            "domPaths": [
+              "main/p[16]"
+            ]
+          },
+          "text": "接下来是一个明显该弃和的例子。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0015",
+          "sourceSegments": [
+            {
+              "text": "接下来是一个明显该弃和的例子。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "接下来是一个明显该弃和的例子。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b16",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0016"
+            ],
+            "domPaths": [
+              "main/p[17]"
+            ]
+          },
+          "text": "【和牌的容易度】两向听而且还有愚型，鸣牌也没什么帮助，要和出概率很低。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0016",
+          "sourceSegments": [
+            {
+              "text": "【和牌的容易度】两向听而且还有愚型，鸣牌也没什么帮助，要和出概率很低。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "【和牌的容易度】两向听而且还有愚型，鸣牌也没什么帮助，要和出概率很低。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b17",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0017"
+            ],
+            "domPaths": [
+              "main/p[18]"
+            ]
+          },
+          "text": "【打点】立直宝牌1，运气好的可能有平和",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0017",
+          "sourceSegments": [
+            {
+              "text": "【打点】立直宝牌1，运气好的可能有平和",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "【打点】立直宝牌1，运气好的可能有平和",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b18",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0018"
+            ],
+            "domPaths": [
+              "main/p[19]"
+            ]
+          },
+          "text": "【牌的危险度】最没用的这张2索危险度还是比较高",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0018",
+          "sourceSegments": [
+            {
+              "text": "【牌的危险度】最没用的这张2索危险度还是比较高",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "【牌的危险度】最没用的这张2索危险度还是比较高",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b19",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0019"
+            ],
+            "domPaths": [
+              "main/p[20]"
+            ]
+          },
+          "text": "【弃和成功率】8、9索两种现物，而且1万的安全度比较高",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0019",
+          "sourceSegments": [
+            {
+              "text": "【弃和成功率】8、9索两种现物，而且1万的安全度比较高",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "【弃和成功率】8、9索两种现物，而且1万的安全度比较高",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b20",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0020"
+            ],
+            "domPaths": [
+              "main/p[21]"
+            ]
+          },
+          "text": "还有就是，自己是TOP，而立直的人是四位。这些条件结合起来看，没有必要去进攻。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0020",
+          "sourceSegments": [
+            {
+              "text": "还有就是，自己是TOP，而立直的人是四位。这些条件结合起来看，没有必要去进攻。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "还有就是，自己是TOP，而立直的人是四位。这些条件结合起来看，没有必要去进攻。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b21",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0021"
+            ],
+            "domPaths": [
+              "main/p[22]"
+            ]
+          },
+          "text": "为了以防别人追立，先从8索开始切，共同的安全牌9索留到以后的巡目再切。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0021",
+          "sourceSegments": [
+            {
+              "text": "为了以防别人追立，先从8索开始切，共同的安全牌9索留到以后的巡目再切。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "为了以防别人追立，先从8索开始切，共同的安全牌9索留到以后的巡目再切。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b22",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0022"
+            ],
+            "domPaths": [
+              "main/p[23]"
+            ]
+          },
+          "text": "以上是一些很容易明白的例子，所以还没什么难度。实际上进攻和防守的因素混合在一起的比较难以判断的情况比较多。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0022",
+          "sourceSegments": [
+            {
+              "text": "以上是一些很容易明白的例子，所以还没什么难度。实际上进攻和防守的因素混合在一起的比较难以判断的情况比较多。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "以上是一些很容易明白的例子，所以还没什么难度。实际上进攻和防守的因素混合在一起的比较难以判断的情况比较多。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b23",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0023"
+            ],
+            "domPaths": [
+              "main/p[24]"
+            ]
+          },
+          "text": "------------------------------------------------------------------------------------",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0023",
+          "sourceSegments": [
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b24",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0024"
+            ],
+            "domPaths": [
+              "main/p[25]"
+            ]
+          },
+          "text": "例3：",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0024",
+          "sourceSegments": [
+            {
+              "text": "例3：",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "例3：",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "figure",
+          "id": "79-bilibili-cn-cv1793434-b25",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0025"
+            ],
+            "domPaths": [
+              "main/div[26]/div[0]/div[0]/div[0]/div[0]"
+            ]
+          },
+          "src": "assets/79-bilibili-cn-cv1793434-b25.png",
+          "caption": "例3：南1局，北家手牌、四家弃牌与西家副露。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0025",
+          "transcriptionText": "中央：南1局0本场。白色立直棒右侧标示1根；下方“宝牌”标签右侧为5p。\n座位及点数：下方北家21100，右侧东家21000，上方南家32000，左侧西家25000。\n下方手牌，按屏幕从左至右：2m 3m 5m 7m 7m 5p 5p 6p 7p 5s 7s 8s 9s。右侧隔开的一张：6m。\n下方弃牌：第一行从左至右为1s 1p 7z 2z 5z 2p；第二行位于第一行左端下方，从左至右为1z 1s 8s。\n上方弃牌：靠中央一行按屏幕从左至右为1z 8p 9s 8m 3z 2m；外侧一行位于其右端上方，从左至右为6p（相对上家正常牌向横置）7z 2z。除横置6p外，牌面均相对屏幕倒置。\n左侧弃牌：靠中央一列按屏幕从上至下为1z 7z 6z 3z 1p 8m；外侧一列从上至下为7s 5z 2m 8p。牌面均相对屏幕顺时针旋转90°。\n右侧弃牌：靠中央一列按屏幕从上至下为1s 3s 2z 6z 5z 3z；外侧一列与内列后四张对齐，从上至下为9p 1z 1m 4m。牌面均相对屏幕逆时针旋转90°。\n左下角西家副露，按屏幕从上至下：4s 3s 5s（赤）。4s相对西家正常牌向横置，在屏幕上呈直立；3s与赤5s的牌面相对屏幕顺时针旋转90°。\n上方、右侧各有13张背面朝上的手牌；左侧有10张背面朝上的手牌。",
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:0a4e68cf7b56269f146ef9fc",
+              "path": "web-sources/v1/79-bilibili-cn/assets/6c9edd4f497f984fb3696c165cfdc8386ea375fcd9d053543a842a63aec5de20.jpg",
+              "sha256": "6c9edd4f497f984fb3696c165cfdc8386ea375fcd9d053543a842a63aec5de20",
+              "url": "https://i0.hdslb.com/bfs/article/166766220b1bd75f74a23a4cfef18fae310d33b1.jpg"
+            }
+          ],
+          "sourceOccurrenceIds": [
+            "79-bilibili-cn:cv1793434:i00003"
+          ],
+          "presentationAsset": {
+            "path": "web-production/v1/presentations/79-bilibili-cn/cv1793434/a75044ee75d7e857/figure-0003.png",
+            "sha256": "b6ae15a171ba9adc826591f4cbc5e06738f218214a5ab7db49c8d76859b734f9",
+            "width": 502,
+            "height": 501,
+            "derivation": {
+              "kind": "single-source-image-rgba-to-png",
+              "alignment": "original-size",
+              "sourceAssetBindings": [
+                {
+                  "assetId": "79-bilibili-cn:0a4e68cf7b56269f146ef9fc",
+                  "path": "web-sources/v1/79-bilibili-cn/assets/6c9edd4f497f984fb3696c165cfdc8386ea375fcd9d053543a842a63aec5de20.jpg",
+                  "sha256": "6c9edd4f497f984fb3696c165cfdc8386ea375fcd9d053543a842a63aec5de20",
+                  "url": "https://i0.hdslb.com/bfs/article/166766220b1bd75f74a23a4cfef18fae310d33b1.jpg"
+                }
+              ],
+              "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+            }
+          },
+          "transcriptionProvenance": {
+            "method": "model-transcription",
+            "callId": "bb90022e-1fda-4eb3-8f71-779df2bdd169",
+            "outputSourceBlockId": "79-bilibili-cn:cv1793434:b0025"
+          },
+          "imageProvenance": {
+            "kind": "derived-source-assets",
+            "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+            "sourceAssetSha256s": [
+              "6c9edd4f497f984fb3696c165cfdc8386ea375fcd9d053543a842a63aec5de20"
+            ]
+          }
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b26",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0026"
+            ],
+            "domPaths": [
+              "main/p[28]"
+            ]
+          },
+          "text": "【和牌的容易度】一向听，进张不太多了",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0026",
+          "sourceSegments": [
+            {
+              "text": "【和牌的容易度】一向听，进张不太多了",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "【和牌的容易度】一向听，进张不太多了",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b27",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0027"
+            ],
+            "domPaths": [
+              "main/p[29]"
+            ]
+          },
+          "text": "【打点】门平宝牌1~3，足够了",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0027",
+          "sourceSegments": [
+            {
+              "text": "【打点】门平宝牌1~3，足够了",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "【打点】门平宝牌1~3，足够了",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b28",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0028"
+            ],
+            "domPaths": [
+              "main/p[30]"
+            ]
+          },
+          "text": "【牌的危险度】没有通过的筋牌比较多，7万、5索都很危险",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0028",
+          "sourceSegments": [
+            {
+              "text": "【牌的危险度】没有通过的筋牌比较多，7万、5索都很危险",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "【牌的危险度】没有通过的筋牌比较多，7万、5索都很危险",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b29",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0029"
+            ],
+            "domPaths": [
+              "main/p[31]"
+            ]
+          },
+          "text": "【弃和成功率】现物两张、筋牌一张，估计能够弃和成功",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0029",
+          "sourceSegments": [
+            {
+              "text": "【弃和成功率】现物两张、筋牌一张，估计能够弃和成功",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "【弃和成功率】现物两张、筋牌一张，估计能够弃和成功",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b30",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0030"
+            ],
+            "domPaths": [
+              "main/p[32]"
+            ]
+          },
+          "text": "除了基本的判断材料之外，南场的TOP立直，看来是想确定自己的领先优势。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0030",
+          "sourceSegments": [
+            {
+              "text": "除了基本的判断材料之外，南场的TOP立直，看来是想确定自己的领先优势。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "除了基本的判断材料之外，南场的TOP立直，看来是想确定自己的领先优势。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b31",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0031"
+            ],
+            "domPaths": [
+              "main/p[33]"
+            ]
+          },
+          "text": "这样的状况下，为了减少自己的迷惑、冷静的进行攻守判断，有攻守判断的“脊柱”材料是非常重要的。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0031",
+          "sourceSegments": [
+            {
+              "text": "这样的状况下，为了减少自己的迷惑、冷静的进行攻守判断，有攻守判断的“脊柱”材料是非常重要的。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "这样的状况下，为了减少自己的迷惑、冷静的进行攻守判断，有攻守判断的“脊柱”材料是非常重要的。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b32",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0032"
+            ],
+            "domPaths": [
+              "main/p[34]"
+            ]
+          },
+          "text": "这个讲座里，我比较推荐以“自己的向听数”来进行判断。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0032",
+          "sourceSegments": [
+            {
+              "text": "这个讲座里，我比较推荐以“自己的向听数”来进行判断。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "这个讲座里，我比较推荐以“自己的向听数”来进行判断。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b33",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0033"
+            ],
+            "domPaths": [
+              "main/p[35]"
+            ]
+          },
+          "text": "具体来说就是，“要与立直对攻，自己要先听牌了”是基本；“一向听的话，就可以攻一巡”，这么记就好了。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0033",
+          "sourceSegments": [
+            {
+              "text": "具体来说就是，“要与立直对攻，自己要先听牌了”是基本；“一向听的话，就可以攻一巡”，这么记就好了。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "具体来说就是，“要与立直对攻，自己要先听牌了”是基本；“一向听的话，就可以攻一巡”，这么记就好了。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b34",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0034"
+            ],
+            "domPaths": [
+              "main/p[36]"
+            ]
+          },
+          "text": "为什么一向听一下不能对攻呢？",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0034",
+          "sourceSegments": [
+            {
+              "text": "为什么一向听一下不能对攻呢？",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "为什么一向听一下不能对攻呢？",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b35",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0035"
+            ],
+            "domPaths": [
+              "main/p[37]"
+            ]
+          },
+          "text": "自己听牌之前是不会有获得点棒的机会的。即使对攻，也不能保证下一巡能够维持听牌，说不定危险牌还回来。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0035",
+          "sourceSegments": [
+            {
+              "text": "自己听牌之前是不会有获得点棒的机会的。即使对攻，也不能保证下一巡能够维持听牌，说不定危险牌还回来。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "自己听牌之前是不会有获得点棒的机会的。即使对攻，也不能保证下一巡能够维持听牌，说不定危险牌还回来。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b36",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0036"
+            ],
+            "domPaths": [
+              "main/p[38]"
+            ]
+          },
+          "text": "自己还没有听牌的时候切危险牌，只是给对手增加机会而已。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0036",
+          "sourceSegments": [
+            {
+              "text": "自己还没有听牌的时候切危险牌，只是给对手增加机会而已。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "自己还没有听牌的时候切危险牌，只是给对手增加机会而已。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b37",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0037"
+            ],
+            "domPaths": [
+              "main/p[39]"
+            ]
+          },
+          "text": "宝牌2的一向听，听牌了的话，打点比较有优势。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0037",
+          "sourceSegments": [
+            {
+              "text": "宝牌2的一向听，听牌了的话，打点比较有优势。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "宝牌2的一向听，听牌了的话，打点比较有优势。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b38",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0038"
+            ],
+            "domPaths": [
+              "main/p[40]"
+            ]
+          },
+          "text": "如同例3一样，那样的进张数要连续攻2次也是不利的。还是弃和比较好。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0038",
+          "sourceSegments": [
+            {
+              "text": "如同例3一样，那样的进张数要连续攻2次也是不利的。还是弃和比较好。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "如同例3一样，那样的进张数要连续攻2次也是不利的。还是弃和比较好。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b39",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0039"
+            ],
+            "domPaths": [
+              "main/p[41]"
+            ]
+          },
+          "text": "理论：",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0039",
+          "sourceSegments": [
+            {
+              "text": "理论：",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "理论：",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b40",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0040"
+            ],
+            "domPaths": [
+              "main/p[42]"
+            ]
+          },
+          "text": "攻守判断以向听数做主线是比较主流的方式。听牌的话就攻，一向听的话攻一次，两向听以下弃和是基本。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0040",
+          "sourceSegments": [
+            {
+              "text": "攻守判断以向听数做主线是比较主流的方式。听牌的话就攻，一向听的话攻一次，两向听以下弃和是基本。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "攻守判断以向听数做主线是比较主流的方式。听牌的话就攻，一向听的话攻一次，两向听以下弃和是基本。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b41",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0041"
+            ],
+            "domPaths": [
+              "main/p[43]"
+            ]
+          },
+          "text": "攻守判断想要模式化是非常困难的，所以下一节就不在打算再系统化了，而去考虑一下赤牌麻将中应该攻、还是该守的实例。",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0041",
+          "sourceSegments": [
+            {
+              "text": "攻守判断想要模式化是非常困难的，所以下一节就不在打算再系统化了，而去考虑一下赤牌麻将中应该攻、还是该守的实例。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "攻守判断想要模式化是非常困难的，所以下一节就不在打算再系统化了，而去考虑一下赤牌麻将中应该攻、还是该守的实例。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b42",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0042"
+            ],
+            "domPaths": [
+              "main/p[44]"
+            ]
+          },
+          "text": "（待续）",
+          "paragraphId": "79-bilibili-cn:cv1793434:p0042",
+          "sourceSegments": [
+            {
+              "text": "（待续）",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "displaySegments": [
+            {
+              "text": "（待续）",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,260 @@
+{
+  "schema": "coac250-exact-next3-limited-admission/1",
+  "status": "admitted-exact-limited-unknown-fidelity",
+  "production": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1765377.display.json",
+    "sha256": "e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e"
+  },
+  "source": {
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1765377",
+    "url": "https://www.bilibili.com/read/cv1765377",
+    "title": "【日本麻雀讲座译文】防守3—筋（1）",
+    "language": "zh-CN",
+    "fetchedAt": "2026-10-23T20:31:40.627390+00:00",
+    "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1765377/source.json",
+    "sourceSha256": "75b3eae5938bd5e635089891d6ee721575cf9d8fddce050dadcb90a5f47f48c5",
+    "htmlSha256": "a02309bd8815b85dead3e8b2e1c37de11ed89e909ff6f76e8e6543b8f01a581c",
+    "mainSha256": "cbcbccabb114a22a89895e19a8396132bd032422623bdf38609f4801e47576c0"
+  },
+  "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/supplements/coac249-193208276-20261028/current-binding-193.json",
+  "auditSha256": "b20806e6404367ba672785f97e1558c3b4fbdec4eaf4ab7a86543023809c6da0",
+  "standardWholeArticlePassed": false,
+  "key": "193",
+  "canonical": "79-cn-chapter-193-4",
+  "independentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-193208276-20261028\\receipt-193.json",
+    "sha256": "1303cb2c932a2450d1fcd8d7c02ff5b9e135c21c9ade3e1b1f27383f9adc04a6"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d84eb7ca-3897-4421-ae47-03efcdf32bb1.json",
+    "sha256": "a07918ba59b42178e5019e02cd9a506a6df75378eac5667516575bb584a6d339"
+  },
+  "requiredDisplayLimitations": [
+    "保留原图及右侧牌河第2行右列万子点数未知的明确标记，不填入猜测牌码，也不宣称该牌河已逐牌完整转录。",
+    "保留原文对非初学者、一般情况下、可能和往往的限定；原文及候选的段落顺序、sourceSegments、tableContext和图序照所给数据保留，图中红圈继续显示。",
+    "原样保留作者对5万的安全牌表述及其上下文：所给理由涉及立直上家的2万、8万和34万、67万两面听牌；7饼的结论也限定为至少不会铳两面听牌。不得扩写为对所有听型或所有玩家绝对安全。",
+    "保留b0008至b0009及b0015至b0016的Web捕获残句和继承的不完整限制。PDF版本的完整句子如另行展示，须明确标注独立来源与版本，不能作为Web原文的无注补写。",
+    "完整牌河、暗手、概率和最优策略不属于本次有限许可；不据此宣称整章通过。"
+  ],
+  "originalAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1765377.e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e.json",
+    "sha256": "ecddf372db56b1fbce0133a7ab824deb673f9d56868b5e02ef028c4fccf8c6e9",
+    "bytes": 26547
+  },
+  "originalModelChecks": {
+    "passed": false,
+    "errors": [
+      "uncertain:79-bilibili-cn:cv1765377:b0008",
+      "uncertain:79-bilibili-cn:cv1765377:b0009",
+      "uncertain:79-bilibili-cn:cv1765377:b0015",
+      "uncertain:79-bilibili-cn:cv1765377:b0016",
+      "uncertain:79-bilibili-cn:cv1765377:b0042",
+      "uncertain:79-bilibili-cn:cv1765377:b0042:figure",
+      "uncertain:79-bilibili-cn:cv1765377:i00003",
+      "semantic_information_missing",
+      "uncertain:79-bilibili-cn:cv1765377:b0008",
+      "uncertain:79-bilibili-cn:cv1765377:b0015",
+      "uncertain:79-bilibili-cn:cv1765377:b0042:figure"
+    ]
+  },
+  "originalIssues": [
+    {
+      "severity": "uncertain",
+      "targetId": "79-bilibili-cn:cv1765377:b0008",
+      "sourceEvidence": "b0008为“有人立直的时候，最应该警戒的就要是”，b0009仅为“了。”；候选相同。",
+      "description": "给定文本缺少警戒对象，无法核验完整教学判断；这不是已能确定的候选改写错误。",
+      "suggestedRepair": "补充该句缺失的源文内容后同步候选；当前不得根据后文自行补写。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "79-bilibili-cn:cv1765377:b0015",
+      "sourceEvidence": "b0015为“大体的数据显示，所有的立直中”，b0016仅为“。”；候选相同。",
+      "description": "所引统计缺少结论及可能涉及的数值，无法确认论证完整性。",
+      "suggestedRepair": "补充该处完整源文统计表述后逐字保留；不得猜测比例或结论。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "79-bilibili-cn:cv1765377:b0042:figure",
+      "sourceEvidence": "附件3及6的右侧牌河第2行右列为一张万子；候选转录为“万子牌（点数未能可靠辨认）”，unknowns也记录同一问题。",
+      "description": "仍有一张可见牌未确定点数，不能视为逐牌转录完整。",
+      "suggestedRepair": "确认该牌确切点数并替换泛称；如仍不能可靠辨认，保留原图及待核状态，维持完整性未通过。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1765377:b0022:figure",
+      "sourceEvidence": "sourceNotes称附件1为原图、附件2为其放大图；实际配对为附件1与附件4。",
+      "description": "加工附件配对说明有编号笔误，不影响六组搭子及听牌语义。",
+      "suggestedRepair": "将放大视图编号改为附件4。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1765377:b0031:figure",
+      "sourceEvidence": "sourceNotes称附件3为原图、附件4为其放大图；实际配对为附件2与附件5。",
+      "description": "加工附件配对说明有编号笔误，不影响三组五张牌及听牌语义。",
+      "suggestedRepair": "将说明改为附件2为原图、附件5为放大视图。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1765377:b0042:figure",
+      "sourceEvidence": "sourceNotes称附件5为原图、附件6为其放大图；实际配对为附件3与附件6。",
+      "description": "原图附件编号笔误，与另行列出的未定牌码问题不同。",
+      "suggestedRepair": "将原图编号改为附件3，保留放大视图编号6。"
+    }
+  ],
+  "parent276NonTargetEvidence": null,
+  "pdf193VersionPair": {
+    "schema": "coac244-passed-pdf-source-version-reuse/1",
+    "chapterId": "79-cn-chapter-193-4",
+    "status": "two-sentence-PDF-version-supplement-ready-not-chapter-pass",
+    "supplementChapterId": "79-cn-chapter-193-4-pdf193-supplement",
+    "stage": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-scope215-pdf193-20261028\\stage-193-supplement",
+    "sourcePdfSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+    "sourcePage": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\193.json",
+      "sha256": "15141d56251a928031afdb04dc40d5d72bcdc960b8672a93f0b00e8a516dca0d",
+      "bytes": 27823
+    },
+    "ownership": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\source-block-ownership.json",
+      "sha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60"
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-schemafix\\candidates\\79-cn\\page-0193.json",
+      "sha256": "046188e3be510f12c1e729353aa01fb5b1ce866685acf84e34284b8571f49e93",
+      "bytes": 7011
+    },
+    "originalAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0193.046188e3be510f12c1e729353aa01fb5b1ce866685acf84e34284b8571f49e93.6baa4a7e1404.json",
+      "sha256": "a264ce2d6452fda9ccc539910510ab2334f604f10eb7e77a14f6cea6486e449f",
+      "bytes": 25627
+    },
+    "originalAuditCallIds": [
+      "eb2060c9-7952-40ff-af91-11093800c63d"
+    ],
+    "originalCompleteBlock": {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-cn-p193-b6"
+      ],
+      "chapterId": "79-cn-chapter-193-4",
+      "unitId": "79-cn-chapter-193-4-unit-1",
+      "titleSource": false,
+      "sourceText": "筋1：  有人立直的时候，最应该警戒的就要是两面听牌了。  只要对手不是麻将的初学者， 一般情况下都会等待嵌张、双碰听牌变化成两面听牌。  因为对手会等待嵌张和双碰听牌变化成两面的好形听牌， 所以听牌了也有可能不会立直。  因此立直的听牌形往往是两面居多， 大体的数据显示，所有的立直中三分之二的立直都是两面听牌。  为了不铳两面听牌的理论就叫做“筋”。  ------------------------------------------------------------------------------------6 个基本筋 ------------------------------------------------------------------------------------ 我们来看看实际的两面听牌吧。  ",
+      "text": "筋1：  有人立直的时候，最应该警戒的就要是两面听牌了。  只要对手不是麻将的初学者， 一般情况下都会等待嵌张、双碰听牌变化成两面听牌。  因为对手会等待嵌张和双碰听牌变化成两面的好形听牌， 所以听牌了也有可能不会立直。  因此立直的听牌形往往是两面居多， 大体的数据显示，所有的立直中三分之二的立直都是两面听牌。  为了不铳两面听牌的理论就叫做“筋”。  ------------------------------------------------------------------------------------6 个基本筋 ------------------------------------------------------------------------------------ 我们来看看实际的两面听牌吧。  "
+    },
+    "slices": [
+      {
+        "id": "79-cn-p193-b6-version-sentence-1",
+        "sourceBlockId": "79-cn-p193-b6",
+        "fromCodepoint": 5,
+        "toCodepoint": 29,
+        "text": "有人立直的时候，最应该警戒的就要是两面听牌了。 ",
+        "lineIndex": 2,
+        "bbox": [
+          90.02400207519531,
+          400.9819641113281,
+          337.8699951171875,
+          412.9819641113281
+        ]
+      },
+      {
+        "id": "79-cn-p193-b6-version-sentence-2",
+        "sourceBlockId": "79-cn-p193-b6",
+        "fromCodepoint": 129,
+        "toCodepoint": 158,
+        "text": "大体的数据显示，所有的立直中三分之二的立直都是两面听牌。 ",
+        "lineIndex": 11,
+        "bbox": [
+          90.02400207519531,
+          541.4019775390625,
+          390.70001220703125,
+          553.4019775390625
+        ]
+      }
+    ],
+    "webSource": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1765377\\source.json",
+      "sha256": "75b3eae5938bd5e635089891d6ee721575cf9d8fddce050dadcb90a5f47f48c5",
+      "bytes": 38311
+    },
+    "versionDifferences": [
+      {
+        "webSourceBlockIds": [
+          "79-bilibili-cn:cv1765377:b0008",
+          "79-bilibili-cn:cv1765377:b0009"
+        ],
+        "webText": "有人立直的时候，最应该警戒的就要是了。",
+        "pdfText": "有人立直的时候，最应该警戒的就要是两面听牌了。",
+        "pdfSliceId": "79-cn-p193-b6-version-sentence-1",
+        "missingInCapturedWeb": "两面听牌",
+        "operation": "separate-PDF-version-excerpt; never rewrite web source or raw"
+      },
+      {
+        "webSourceBlockIds": [
+          "79-bilibili-cn:cv1765377:b0015",
+          "79-bilibili-cn:cv1765377:b0016"
+        ],
+        "webText": "大体的数据显示，所有的立直中。",
+        "pdfText": "大体的数据显示，所有的立直中三分之二的立直都是两面听牌。",
+        "pdfSliceId": "79-cn-p193-b6-version-sentence-2",
+        "missingInCapturedWeb": "三分之二的立直都是两面听牌",
+        "operation": "separate-PDF-version-excerpt; never rewrite web source or raw"
+      }
+    ],
+    "remainingBlocker": {
+      "targetId": "79-bilibili-cn:cv1765377:b0042:figure",
+      "reason": "unresolved manzu in river; not resolved by recovering source prose",
+      "action": "preserve original candidate/raw/unknown and existing independent issue; only finite source-image adjudication after exact original packet"
+    },
+    "fullChapterPassed": false,
+    "originalChapterCoverageIncrement": 0,
+    "duplicateCountedAsOriginalBody": false,
+    "sourceAndRawChanged": false,
+    "newModelCalls": 0,
+    "automaticRetry": 0,
+    "chapters": 1,
+    "units": 1,
+    "blocks": 2,
+    "figures": 0,
+    "corpusId": "7d1743898551fa7b8cf3cfcb26f1ee234d332e93434443c5a09fc3340c17c4d7",
+    "bodySha256": "807ad83faf24e1f50b42abe07df1f74a1f35011df9bb1afb988e353d177800fd",
+    "maxUnitBytes": 842,
+    "modelCalls": 0
+  },
+  "limitedUnknownFidelity": {
+    "unknowns": [
+      {
+        "figureId": "79-bilibili-cn:cv1765377:b0042:figure",
+        "unknowns": [
+          "右侧牌河第2行右列的万子牌：黑色点数字形无法可靠辨认。"
+        ]
+      }
+    ],
+    "sourceNotes": [
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1765377:b0022:figure",
+        "sourceEvidence": "sourceNotes称附件1为原图、附件2为其放大图；实际配对为附件1与附件4。",
+        "description": "加工附件配对说明有编号笔误，不影响六组搭子及听牌语义。",
+        "suggestedRepair": "将放大视图编号改为附件4。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1765377:b0031:figure",
+        "sourceEvidence": "sourceNotes称附件3为原图、附件4为其放大图；实际配对为附件2与附件5。",
+        "description": "加工附件配对说明有编号笔误，不影响三组五张牌及听牌语义。",
+        "suggestedRepair": "将说明改为附件2为原图、附件5为放大视图。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1765377:b0042:figure",
+        "sourceEvidence": "sourceNotes称附件5为原图、附件6为其放大图；实际配对为附件3与附件6。",
+        "description": "原图附件编号笔误，与另行列出的未定牌码问题不同。",
+        "suggestedRepair": "将原图编号改为附件3，保留放大视图编号6。"
+      }
+    ],
+    "conclusion": "limited-unknown-acceptable",
+    "modelCalls": 0
+  }
+}

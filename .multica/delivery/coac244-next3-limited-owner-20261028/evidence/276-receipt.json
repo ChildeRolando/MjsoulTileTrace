@@ -1,0 +1,714 @@
+{
+  "schema": "coac249-193208276-bounded-independent-evidence/1",
+  "recordedAt": "2026-10-27T23:04:38.638Z",
+  "key": "276",
+  "canonical": "79-cn-chapter-276-4",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1793434.r2.display.json",
+    "sha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+    "bytes": 51494
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1793434\\source.json",
+    "sha256": "db1218e9226ef5ccaf978ec6b6801bd07498017b821973647d0e551ed518439f",
+    "bytes": 36683
+  },
+  "oldAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1793434.94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd.json",
+    "sha256": "df0393cf90c3d9b7010ef7a0678cd2a90aa4e5818ce129ee47c2fb335a08b4fc",
+    "bytes": 26029
+  },
+  "status": "limited-unknown-acceptable",
+  "modelReview": {
+    "canonical": "79-cn-chapter-276-4",
+    "candidateSha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+    "pointChecks": [
+      {
+        "pointId": "left-4",
+        "figureId": "79-bilibili-cn:cv1793434:b0005:figure",
+        "reading": "unknown",
+        "tileCodeOrUnknown": "unknown",
+        "evidence": "原图左侧第4张及其目标、邻位近邻放大图显示黑色字牌笔画；牌面旋转且笔画分辨率有限，不能可靠区分具体风牌字形。保留候选的明确未知。"
+      },
+      {
+        "pointId": "left-5",
+        "figureId": "79-bilibili-cn:cv1793434:b0005:figure",
+        "reading": "unknown",
+        "tileCodeOrUnknown": "unknown",
+        "evidence": "原图左侧第5张及其目标、邻位近邻放大图显示旋转的黑色字形；可见笔画不足以让我可靠确定具体牌码。保留候选的明确未知。"
+      },
+      {
+        "pointId": "right-2",
+        "figureId": "79-bilibili-cn:cv1793434:b0005:figure",
+        "reading": "unknown",
+        "tileCodeOrUnknown": "unknown",
+        "evidence": "原图右侧第2张及其目标、邻位近邻放大图显示旋转的黑色字形；按该牌自身的可见笔画，不能可靠确定具体风牌牌码。保留候选的明确未知。"
+      },
+      {
+        "pointId": "right-5",
+        "figureId": "79-bilibili-cn:cv1793434:b0005:figure",
+        "reading": "unknown",
+        "tileCodeOrUnknown": "unknown",
+        "evidence": "目标裁图上缘截及字形，邻位图提供了更完整的牌面；结合原图与邻位图，仍不能可靠辨明具体风牌牌码。保留候选的明确未知。"
+      }
+    ],
+    "contributionChecks": [
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0002",
+          "79-bilibili-cn:cv1793434:b0003"
+        ],
+        "authorContribution": "承接上一节的攻守判断要素，以实际例子讨论应该进攻还是防守。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选逐字保留引入文字；四处未知不会改变其教学目的。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0004",
+          "79-bilibili-cn:cv1793434:b0005",
+          "79-bilibili-cn:cv1793434:b0006"
+        ],
+        "authorContribution": "以例1的牌局展示一个让作者有立直冲动的极端例子。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "标题、原图位置和作者的极端例子说明均保留；四张牌的具体码没有在该说明中被点名。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0005",
+          "79-bilibili-cn:cv1793434:b0007"
+        ],
+        "authorContribution": "例1的和牌容易度：好型两面听牌。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选保留原图和作者的原文判断；四处目标牌码并非原文为这一判断点名的条件。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0005",
+          "79-bilibili-cn:cv1793434:b0008"
+        ],
+        "authorContribution": "例1的打点：立直的话有11600点。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选逐字保留“立直的话”的条件和11600点；这是忠实展示作者所写判断，并非另行证明计点。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0005",
+          "79-bilibili-cn:cv1793434:b0009"
+        ],
+        "authorContribution": "例1的牌危险度：作者认为发并不是特别危险的一张牌。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选保留原句，且原句没有指定四处目标风牌的具体牌码。未知限制完整牌河复原，不能据此宣称独立证明了危险度。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0005",
+          "79-bilibili-cn:cv1793434:b0010"
+        ],
+        "authorContribution": "例1的弃和成功率：作者称安全牌只有6索。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选保留作者对6索的陈述；四处风牌未知不妨碍呈现这句话，但完整弃牌信息未复原，不应将其扩展成独立完成的安全度证明。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0005",
+          "79-bilibili-cn:cv1793434:b0007",
+          "79-bilibili-cn:cv1793434:b0008",
+          "79-bilibili-cn:cv1793434:b0009",
+          "79-bilibili-cn:cv1793434:b0010",
+          "79-bilibili-cn:cv1793434:b0011"
+        ],
+        "authorContribution": "结合例1的和牌容易度、条件打点、发的危险度和可用安全牌，作者主张毫不犹豫地扔棒子对攻。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选按原序逐字呈现各项理由和结论，包括原文措辞；作者没有将四处目标风牌的具体牌码写成该结论的前提。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0013",
+          "79-bilibili-cn:cv1793434:b0014",
+          "79-bilibili-cn:cv1793434:b0015"
+        ],
+        "authorContribution": "例2作为明显应该弃和的对比例子。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "正文保留；例2图继承绑定父审的独立忠实检查，本次四处未知属于例1。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0014",
+          "79-bilibili-cn:cv1793434:b0016"
+        ],
+        "authorContribution": "例2为两向听且有愚型，鸣牌帮助不大，作者认为和出概率很低。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选保留完整原文及例2图的父审绑定；这不是对概率的独立计算。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0014",
+          "79-bilibili-cn:cv1793434:b0017"
+        ],
+        "authorContribution": "例2打点为立直宝牌1，运气好的话可能有平和。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "保留“运气好的可能有平和”的限定；例2图的检查依父审继承。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0014",
+          "79-bilibili-cn:cv1793434:b0018"
+        ],
+        "authorContribution": "例2最没用的2索，作者认为危险度仍比较高。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "正文中的具体牌和相对危险度判断均保留；不依赖例1的四处目标牌码。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0014",
+          "79-bilibili-cn:cv1793434:b0019"
+        ],
+        "authorContribution": "例2有8、9索两种现物，且1万安全度比较高。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选保留两种现物及对1万的相对安全度表述；例2图继承父审。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0016",
+          "79-bilibili-cn:cv1793434:b0017",
+          "79-bilibili-cn:cv1793434:b0018",
+          "79-bilibili-cn:cv1793434:b0019",
+          "79-bilibili-cn:cv1793434:b0020"
+        ],
+        "authorContribution": "结合例2的牌形、打点、危险度、安全牌，以及自己是TOP、立直者为四位，作者认为没有必要进攻。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选按原序保留各条件与结论；例1目标未知不改变这些文字。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0014",
+          "79-bilibili-cn:cv1793434:b0021"
+        ],
+        "authorContribution": "为防别人追立，例2先切8索，把共同安全牌9索留到以后巡目。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选保留防追立的目的、先后顺序和共同安全牌条件；例2图继承父审。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0022"
+        ],
+        "authorContribution": "前两个例子容易判断；攻守因素混合的情况往往更难判断。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "过渡段逐字保留，四处目标风牌的牌码不是该概括的文本条件。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0024",
+          "79-bilibili-cn:cv1793434:b0025",
+          "79-bilibili-cn:cv1793434:b0026"
+        ],
+        "authorContribution": "例3的和牌容易度：一向听，但进张不太多。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "例3正文保留，图继承绑定父审检查；例1的四处未知不影响该贡献的展示。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0025",
+          "79-bilibili-cn:cv1793434:b0027"
+        ],
+        "authorContribution": "例3打点为门平宝牌1至3，作者认为足够。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "保留原文范围1~3及评价；例3图检查依父审继承。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0025",
+          "79-bilibili-cn:cv1793434:b0028"
+        ],
+        "authorContribution": "例3没有通过的筋牌比较多，7万、5索都很危险。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选保留作者列出的两张牌与理由；这不依赖例1目标风牌的具体牌码。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0025",
+          "79-bilibili-cn:cv1793434:b0029"
+        ],
+        "authorContribution": "例3有现物两张、筋牌一张，作者估计能够弃和成功。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选保留牌的类别和数量，以及“估计”的限定；例3图检查依父审继承。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0025",
+          "79-bilibili-cn:cv1793434:b0030"
+        ],
+        "authorContribution": "例3还考虑南场TOP立直，作者推测其想确定领先优势。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选保留南场、TOP立直以及“看来”这一推测语气。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0031",
+          "79-bilibili-cn:cv1793434:b0032",
+          "79-bilibili-cn:cv1793434:b0033"
+        ],
+        "authorContribution": "为冷静判断而建立判断主线；作者推荐以自己的向听数为主，并以先听牌再对攻为基本，一向听可以攻一巡。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "三个段落按原序保留，包含“基本”和“可以攻一巡”的限定。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0034",
+          "79-bilibili-cn:cv1793434:b0035",
+          "79-bilibili-cn:cv1793434:b0036"
+        ],
+        "authorContribution": "作者解释未听牌时切危险牌的代价：听牌前没有获得点棒的机会，原文还称不能保证下一巡能够维持听牌、危险牌可能回来，并认为切危险牌给对手增加机会。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选原样保留提问和理由，包括“维持听牌”的原文措辞；不由目标牌码补写推理。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0025",
+          "79-bilibili-cn:cv1793434:b0026",
+          "79-bilibili-cn:cv1793434:b0037",
+          "79-bilibili-cn:cv1793434:b0038"
+        ],
+        "authorContribution": "宝牌2的一向听在听牌后打点有优势；但如例3那样的进张数，连续攻两次不利，作者仍建议弃和。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选保留“听牌了的话”和“如同例3一样，那样的进张数”等条件，不把判断扩展为无条件规则。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0039",
+          "79-bilibili-cn:cv1793434:b0040"
+        ],
+        "authorContribution": "理论总结：以向听数为主线，听牌攻、一向听攻一次、两向听以下弃和是基本。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "标题和原句逐字保留，包括“比较主流”和“是基本”的限定。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1793434:b0041"
+        ],
+        "authorContribution": "作者指出攻守判断难以模式化，并预告下一节考虑赤牌麻将中的攻守实例。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选保留原文及其下一节的范围；例1四处未知不阻断这一结语。"
+      }
+    ],
+    "unknownTeachingImpact": "独立结论：允许绑定候选在保留四处明确未知和下列显示限制的条件下展示作者实际写出的论证。左4、左5各自阻断所在位置的完整弃牌码复原，但原文没有点名其具体风牌，因而各自不阻断例1四项理由及对攻结论的忠实展示；右2、右5各自也有同样的复原限制，且原文同样没有点名其具体风牌，因此各自不阻断这些作者陈述的展示。例2、例3及理论文字不依赖例1这四处具体牌码。忠实转述作者的危险度、安全牌、打点和建议，不等于独立恢复完整牌河或对手暗手，也不等于验证概率、危险度或最优策略。",
+    "requiredDisplayLimitations": [
+      "在例1图的转录和unknowns中保留左侧第4、5张及右侧第2、5张的明确未知和原有位置；不得填入猜测牌码或表示四家牌河已完整复原。",
+      "保留例1原图及其在正文中的位置，并按原始顺序保留例2、例3；目标和邻位近邻放大图是本次审查资料，不生成新的牌面细节。",
+      "保留正文原有顺序、原句、条件和强调语气，包括例1“立直的话”才有11600点、例2平和的可能条件、例3关于进张数与连续进攻的条件，以及理论中的“基本”。",
+      "保留各块原有tableContext、sourceSegments和标记；本次给出的正文块tableContext均为null，原有segments的marks均为空。",
+      "保留免责声明、译者及原文来源、例题标题、分隔、续篇标记和原始图序。",
+      "将作者的安全度、危险度、概率和攻守判断呈现为作者所写判断；不把本次有限辨识包装为完整牌河、暗手、概率或最优策略的独立验证。",
+      "附件编号及放大图说明若对读者显示，应区分历史加工附件与本次orderedImages；附件说明笔误属于source-note，不是教学错误。"
+    ],
+    "issues": [
+      {
+        "severity": "uncertain",
+        "location": "79-bilibili-cn:cv1793434:b0005:figure 的四处目标弃牌",
+        "evidence": "原图和对应近邻放大图仍未使本审查者可靠辨明四张风牌的具体码；候选在转录与unknowns中分别明确标记，b0007至b0011保留作者实际写出的理由和结论。",
+        "description": "四处未知限制完整牌河复原。旧审将四处未知统一列为教学error的理由不足以成立：在原图、明确未知和显示限制均保留时，它们不阻断忠实展示作者实际写出的论证。"
+      },
+      {
+        "severity": "source-note",
+        "location": "79-bilibili-cn:cv1793434:b0005:figure sourceNotes",
+        "evidence": "候选记述附件2为原图的2倍近邻放大视图；本次orderedImages的第2张是左4目标的4倍近邻裁图。",
+        "description": "若该说明用于指代本次附件，应注明历史加工批次或更正对应关系；本次附件顺序本身不足以否定历史附件记录。这是来源说明问题，不是教学错误。"
+      },
+      {
+        "severity": "source-note",
+        "location": "79-bilibili-cn:cv1793434:b0014:figure 与 79-bilibili-cn:cv1793434:b0025:figure 的 sourceNotes",
+        "evidence": "继承的父审资料指出例2、例3加工附件编号存在笔误；绑定父审的逐牌忠实检查可复用。",
+        "description": "附件编号说明仍按来源说明问题处理；不将其升级为教学错误，也不据此宣称本次重新逐牌审查了非目标图。"
+      }
+    ],
+    "conclusion": "limited-unknown-acceptable",
+    "scopeLimits": "结论仅适用于所给canonical、candidateSha256及例1列出的四个目标点，不宣称整章通过。例2、例3沿用exactParentEvidence中与完整正文、完整图对象及来源绑定一致的父审独立忠实检查；本次新原始审查对非目标图的uncertain结论仍按所给证据保留，不声称重新取得原图或重新逐牌验证。父审原始过程的传输及远端权重亦未被本次重建。"
+  },
+  "call": {
+    "callId": "9ad5542e-3c87-4e33-81b7-19bd48aeec79",
+    "scope": "textbook-web-bounded-unknown-teaching-impact",
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1793434",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "success": true,
+    "usage": {
+      "inputTokens": 30543,
+      "cachedInputTokens": 0,
+      "outputTokens": 16162
+    },
+    "durationMs": 205144,
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "callerRequested": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-terra",
+        "--config",
+        "model_reasoning_effort=\"max\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-x9qKpT\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-x9qKpT\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-x9qKpT",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\276-b0005-original.jpg",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\276-left-4-target-x4.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\276-left-4-neighbors-x4.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\276-left-5-target-x4.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\276-right-2-target-x4.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\276-right-2-neighbors-x4.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\276-right-5-target-x4.png",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\276-b0005-original.jpg",
+          "sha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+          "bytes": 50751
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\276-left-4-target-x4.png",
+          "sha256": "57a21f972d4c4aad9284645938d4706648a03d5aa48654dd42252f4f2cf72eb2",
+          "bytes": 1865
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\276-left-4-neighbors-x4.png",
+          "sha256": "c98b633a4d785dbe930a193a7a83d3fe25f65318a8fbacb1379421b960ae529b",
+          "bytes": 14869
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\276-left-5-target-x4.png",
+          "sha256": "2b0afdded0d873c9d20f3d570337f443b7e69b5c718ee4866d246d93bd2a2344",
+          "bytes": 2243
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\276-right-2-target-x4.png",
+          "sha256": "e5df2971d82010ce3d2f714ac2f87b43eb431703d1caa45d6bf78b4ad23a78e9",
+          "bytes": 2227
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\276-right-2-neighbors-x4.png",
+          "sha256": "a2604dd5954e5521749758c9fac141acdc13b3b5c7c708bf959445bcf0636575",
+          "bytes": 14178
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-193208276-zero-20261028\\276-right-5-target-x4.png",
+          "sha256": "da33301938b7261c5bd27ea73336f008ec364004b5878e9078de25b86d6eb54b",
+          "bytes": 2179
+        }
+      ],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "binding": {
+      "canonical": "79-cn-chapter-276-4",
+      "productionSha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+      "sourceFileSha256": "db1218e9226ef5ccaf978ec6b6801bd07498017b821973647d0e551ed518439f",
+      "originalAuditSha256": "df0393cf90c3d9b7010ef7a0678cd2a90aa4e5818ce129ee47c2fb335a08b4fc",
+      "targetFigureIds": [
+        "79-bilibili-cn:cv1793434:b0005:figure"
+      ],
+      "points": [
+        {
+          "id": "left-4",
+          "figureId": "79-bilibili-cn:cv1793434:b0005:figure",
+          "bbox": [
+            145,
+            244,
+            175,
+            267
+          ]
+        },
+        {
+          "id": "left-5",
+          "figureId": "79-bilibili-cn:cv1793434:b0005:figure",
+          "bbox": [
+            145,
+            268,
+            175,
+            291
+          ]
+        },
+        {
+          "id": "right-2",
+          "figureId": "79-bilibili-cn:cv1793434:b0005:figure",
+          "bbox": [
+            315,
+            201,
+            345,
+            225
+          ]
+        },
+        {
+          "id": "right-5",
+          "figureId": "79-bilibili-cn:cv1793434:b0005:figure",
+          "bbox": [
+            315,
+            273,
+            345,
+            297
+          ]
+        }
+      ],
+      "authorizationComment": "01a17f8c-e33c-7399-9a2a-5d6f401a852d",
+      "requestSha256": "234f7f2d4ad2d8b6933ea9798e65d4e8139ef7e5c2fadba28c505b81742e222d",
+      "runtimeManifestSha256": "a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c"
+    },
+    "semanticPromptSha256": "0e0f14676e9c0287952cc6792fbb2797a464579e3b665e871e47d70e79415188",
+    "promptSha256": "16d3673bfa7fdf1b18b57a327b5eb0c5dd8e34ae1f486dbc92fe5e903e77d34b",
+    "schemaSha256": "5f60d3bf319ba9d75bdcd779e35ce4ad3f141ea3661c66699965add29af74043",
+    "recordedAt": "2026-10-27T23:04:38.592Z"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\9ad5542e-3c87-4e33-81b7-19bd48aeec79.json",
+    "sha256": "85f3d7f7a9b8029a458c58edbe97620f601a0d6dc02bf1b75e2a741ad8292f9c"
+  },
+  "request": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-193208276-20261028\\request-276.json",
+    "sha256": "234f7f2d4ad2d8b6933ea9798e65d4e8139ef7e5c2fadba28c505b81742e222d"
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\runtime-manifest.json",
+    "sha256": "a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c",
+    "bytes": 6776
+  },
+  "checks": {
+    "passed": true,
+    "unchanged": true,
+    "errors": []
+  },
+  "inheritedNonTarget276": {
+    "schema": "coac244-276-exact-parent-evidence-reuse/1",
+    "canonical": "79-cn-chapter-276-4",
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1793434.r2.display.json",
+      "sha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+      "bytes": 51494
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1793434.display.json",
+      "sha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+      "bytes": 46697
+    },
+    "parentAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1793434.34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af.json",
+      "sha256": "8c7e8145f051809f5ad3d80eb4c8e7c4b9d669739c200fbec98e4f26307a9370",
+      "bytes": 24570
+    },
+    "parentRaw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4ad05d19-eb5a-48d6-ba09-c673553ec204.json",
+      "sha256": "5f88f0dad7e13a42279278eefc97a583e36dfac1f2ab2e0d3c1ecde5f73f2ab1",
+      "bytes": 139901
+    },
+    "parentCallId": "4ad05d19-eb5a-48d6-ba09-c673553ec204",
+    "rawEvidenceBoundary": "Legacy independent output, full source binding and ordered supplemental inputs retained. Original process argv not captured; no claim of newly reconstructed transport or remote weights.",
+    "bodyExact": true,
+    "figures": [
+      {
+        "figureId": "79-bilibili-cn:cv1793434:b0014:figure",
+        "fullObjectSha256": "5ca5d06312f40429ee1e5b56492ba7294e546d530d34a2bf532c9c20cb05aff9",
+        "parentCheck": {
+          "id": "79-bilibili-cn:cv1793434:b0014:figure",
+          "verdict": "faithful",
+          "evidence": "逐牌核对下方14张牌、四家牌河、左侧横置9m及手牌赤5s均一致；东4局0本场、立直棒1根、宝牌栏西及四家点数完整。附件配对笔误仅属source-note。"
+        },
+        "bodyContextSha256": "a4622b1df19cc33a729e493467c9a0b6f4974567aa2f846304fb356e46f98ebc",
+        "status": "reusable-parent-independent-faithful-check-only",
+        "newRawConclusionPreserved": "uncertain",
+        "wholeChapterPassed": false
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1793434:b0025:figure",
+        "fullObjectSha256": "6a88f2f9978e4c79b85880e9f5942a9f37a827db784a9cebbabc55eafd31e688",
+        "parentCheck": {
+          "id": "79-bilibili-cn:cv1793434:b0025:figure",
+          "verdict": "faithful",
+          "evidence": "逐牌核对下方14张牌、四家牌河、上方横置6p及西家4s、3s、赤5s副露均一致；南1局0本场、立直棒1根、宝牌栏5p、四家点数及隐手张数完整。附件编号笔误仅属source-note。"
+        },
+        "bodyContextSha256": "a4622b1df19cc33a729e493467c9a0b6f4974567aa2f846304fb356e46f98ebc",
+        "status": "reusable-parent-independent-faithful-check-only",
+        "newRawConclusionPreserved": "uncertain",
+        "wholeChapterPassed": false
+      }
+    ],
+    "tests": [
+      {
+        "name": "real bound parent raw + exact full figures + unchanged full body",
+        "passed": true
+      },
+      {
+        "name": "reject changed body",
+        "passed": true
+      },
+      {
+        "name": "reject changed figure",
+        "passed": true
+      },
+      {
+        "name": "reject changed source binding",
+        "passed": true
+      },
+      {
+        "name": "reject removed unknown field",
+        "passed": true
+      },
+      {
+        "name": "reject parent output differs",
+        "passed": true
+      },
+      {
+        "name": "reject parent not faithful",
+        "passed": true
+      },
+      {
+        "name": "reject parent image absent",
+        "passed": true
+      },
+      {
+        "name": "reject parent failed",
+        "passed": true
+      }
+    ],
+    "status": "two-evidence-visibility-gaps-supplemented-not-chapter-pass",
+    "remaining": [
+      {
+        "severity": "error",
+        "targetId": "79-bilibili-cn:cv1793434:b0005:figure",
+        "sourceEvidence": "例1原图及2倍放大图的左侧第4、5张和右侧第2、5张弃牌均显示字牌；候选分别使用“[风牌未辨明]”。",
+        "description": "四张可见弃牌缺少具体牌码，影响牌河的完整教学信息。",
+        "suggestedRepair": "依据原图逐张复核并补足四个牌码；不能可靠辨认的牌保留未知并继续标记为未完成，不要猜测。"
+      }
+    ],
+    "newModelCalls": 0,
+    "admissionGranted": false
+  },
+  "sourceVersionSupplement193": null,
+  "newModelCalls": 1,
+  "newProductionCalls": 0,
+  "remaining": 0,
+  "retry": 0,
+  "candidateChanged": false,
+  "oldRawAndAuditChanged": false,
+  "standardWholeChapterPassed": false,
+  "admissionGranted": false,
+  "fee": "unknown",
+  "remoteWeights": "unknown",
+  "upstreamExecutionCount": "unknown"
+}

@@ -1,0 +1,662 @@
+{
+  "schema": "coac249-exact-current-candidate-limited-evidence-binding/1",
+  "recordedAt": "2026-10-27T23:03:14.221Z",
+  "canonical": "79-cn-chapter-193-4",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1765377.display.json",
+    "sha256": "e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e",
+    "bytes": 46610
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1765377\\source.json",
+    "sha256": "75b3eae5938bd5e635089891d6ee721575cf9d8fddce050dadcb90a5f47f48c5",
+    "bytes": 38311
+  },
+  "originalAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1765377.e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e.json",
+    "sha256": "ecddf372db56b1fbce0133a7ab824deb673f9d56868b5e02ef028c4fccf8c6e9",
+    "bytes": 26547
+  },
+  "independentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-193208276-20261028\\receipt-193.json",
+    "sha256": "1303cb2c932a2450d1fcd8d7c02ff5b9e135c21c9ade3e1b1f27383f9adc04a6"
+  },
+  "independentRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d84eb7ca-3897-4421-ae47-03efcdf32bb1.json",
+    "sha256": "a07918ba59b42178e5019e02cd9a506a6df75378eac5667516575bb584a6d339"
+  },
+  "actualCallId": "d84eb7ca-3897-4421-ae47-03efcdf32bb1",
+  "independentConclusion": "limited-unknown-acceptable",
+  "pointBindings": [
+    {
+      "independentPoint": {
+        "pointId": "right-row2-col2",
+        "figureId": "79-bilibili-cn:cv1765377:b0042:figure",
+        "reading": "unknown",
+        "tileCodeOrUnknown": "unknown",
+        "evidence": "原图中该位置为右侧牌河第2行右列的万子；黑色点数字形细节不足，无法可靠辨认具体点数。目标和邻位的4倍图是最近邻放大，没有增加原始细节；不能据相似字形、牌数或正文推断点数。候选转录及unknowns均已明确保留该未知。"
+      },
+      "figurePointer": "/figures/2",
+      "fullFigureJsonSha256": "7a0e1bce857b089ba120444d4897588cafceedaeb734eb9c5539fb49d696069f",
+      "transcription": "麻将桌俯视图。以下牌河均按画面位置记录，保留各排、各列关系。\n\n下方手牌从左至右：2m 3m 4m 4m 6m 6m 7p 8p 2s 3s 4s 5s 8s；右侧分隔放置的摸入牌：6z。\n\n上方牌河，牌面朝向上方玩家，整体相对画面旋转180度；每排按画面从左至右：\n上排：7z 7p 6s 8s 5z 9s。\n下排：1m 6z 4z 2m 8m 9s。\n上排第2张7p有红圈。\n\n右侧牌河，牌面朝向右侧玩家；每行按画面从左至右，自上而下：\n第1行：2m 5m。\n第2行：2z 万子牌（点数未能可靠辨认）。\n第3行：5z 2p。\n第4行：7z 1p。\n第5行：2z 8p。\n第6行：9s 1m。\n右列最上方的5m有红圈。\n\n下方牌河，牌面朝向下方玩家；每排按画面从左至右：\n上排：3z 4z 6z 6z 1z 8s。\n下排：8m 8s 4p 9m 2z 4p。\n\n左侧牌河，牌面朝向左侧玩家；每行按画面从左至右，自上而下：\n第1行：9s 7z 1p，其中9s位于另外两列的左侧。\n第2行：3z 7z。\n第3行：6p 5z。\n第4行：4p 2m。\n第5行：1s 9m。\n第6行：2s 8m。\n左、右两侧牌河的牌面均横向于画面，分别朝向各自玩家。\n\n中央方框的风位文字：左上为东，右上为北，左下为南，右下为西；对应左侧东家、上方北家、下方南家、右侧西家。\n中央偏下显示1s，左侧标签为“宝牌”。\n中央方框左侧放有一根竖向白色红点立直棒。\n上、左、右三边分别显示13张牌背。",
+      "unknowns": [
+        "右侧牌河第2行右列的万子牌：黑色点数字形无法可靠辨认。"
+      ],
+      "caption": "筋防守牌例：红圈标出上方牌河的7p和右侧牌河的5m，左侧玩家已立直。",
+      "sourceNotes": [
+        "附件5为原图，附件6为同一原图的最近邻放大视图，只计一次。",
+        "红圈为牌例中的强调标记；牌墙边缘的黄、黑线为牌背绘制边框。"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:ce59fb2e9121cbbb9326ea0d",
+          "path": "web-sources/v1/79-bilibili-cn/assets/09f2d1d029d2e7562c9abb19c1f693e9c25b9c005dfb7d20a736b593aa7618de.png",
+          "sha256": "09f2d1d029d2e7562c9abb19c1f693e9c25b9c005dfb7d20a736b593aa7618de",
+          "url": "https://i0.hdslb.com/bfs/article/0450ebaf6c5103f1fc0dabf1f9e666eedf0ef2c9.png"
+        }
+      ]
+    }
+  ],
+  "propositions": [
+    {
+      "independentContributionIndex": 0,
+      "independentStatement": {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1765377:b0010",
+          "79-bilibili-cn:cv1765377:b0011",
+          "79-bilibili-cn:cv1765377:b0012",
+          "79-bilibili-cn:cv1765377:b0013",
+          "79-bilibili-cn:cv1765377:b0014",
+          "79-bilibili-cn:cv1765377:b0017"
+        ],
+        "authorContribution": "对手不是初学者时，一般会等待嵌张或双碰变成两面；听牌也可能不立直，立直听形往往以两面居多。筋是为避免铳两面听牌而提出的理论。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选保留了非初学者、一般情况下、可能和往往等限定及筋的定义；这些陈述不依赖目标位置的万子点数。"
+      },
+      "sourceBindings": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0010",
+          "sourcePointer": "/blocks/9",
+          "sourceBlockJsonSha256": "cc2aedb952933d6739754ba210a18e9f5d2a947897452fb7d15ebf2d15d2d93b",
+          "candidatePointer": "/body/blocks/9",
+          "candidateBlockJsonSha256": "37b5aa9cc6aeb7a983bd22b03cccf9dc935840f2ece2cefd834777fb1e5d6a34",
+          "candidateText": "只要对手不是麻将的初学者，"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0011",
+          "sourcePointer": "/blocks/10",
+          "sourceBlockJsonSha256": "6b4e64666a060e6dc712856721c1434a2c217d19918ba657636d68ec067c8575",
+          "candidatePointer": "/body/blocks/10",
+          "candidateBlockJsonSha256": "faf819d931ea9b8a0eece4ba1552bb3e5b86c6ff0d040a80c42f5f627ef58e53",
+          "candidateText": "一般情况下都会等待嵌张、双碰听牌变化成两面听牌。"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0012",
+          "sourcePointer": "/blocks/11",
+          "sourceBlockJsonSha256": "8c5d012d30cdd3123d6ef80439c552bdb134ad0ad3104621d8567dfb5b4302c0",
+          "candidatePointer": "/body/blocks/11",
+          "candidateBlockJsonSha256": "d2b3ac2905678d5e93171382426833f9e2f63c62eef41dfdba00d3bc13171dd2",
+          "candidateText": "因为对手会等待嵌张和双碰听牌变化成两面的好形听牌，"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0013",
+          "sourcePointer": "/blocks/12",
+          "sourceBlockJsonSha256": "5274c5a1c5226100661347b11fc3c09db8433daabcd5b754660660d005e975cd",
+          "candidatePointer": "/body/blocks/12",
+          "candidateBlockJsonSha256": "004799ab520212e51501d36256fc3eeb70d7c9dc3c9c6b7974c9f599e9d656ba",
+          "candidateText": "所以听牌了也有可能不会立直。"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0014",
+          "sourcePointer": "/blocks/13",
+          "sourceBlockJsonSha256": "797c9db5959c19299af5fa7e533d245e811fe93c2afceb21d6babf38c7ca8ec1",
+          "candidatePointer": "/body/blocks/13",
+          "candidateBlockJsonSha256": "d7389f0eb454d9da437aac9da244fc039272b3948191e69bb77708d41fda022a",
+          "candidateText": "因此立直的听牌形往往是两面居多，"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0017",
+          "sourcePointer": "/blocks/16",
+          "sourceBlockJsonSha256": "7d07bfe7e6ad87b3257875c75b2268d93f0ef1496a3b7b78b629ed355f78d1b4",
+          "candidatePointer": "/body/blocks/16",
+          "candidateBlockJsonSha256": "3697d405dfc4e16e103418da8580094d03400e263750cd7263cec39a51819614",
+          "candidateText": "为了不铳两面听牌的理论就叫做“筋”。"
+        }
+      ]
+    },
+    {
+      "independentContributionIndex": 1,
+      "independentStatement": {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1765377:b0008",
+          "79-bilibili-cn:cv1765377:b0009",
+          "79-bilibili-cn:cv1765377:b0015",
+          "79-bilibili-cn:cv1765377:b0016"
+        ],
+        "authorContribution": "引言还提出立直时应警戒的对象和大体统计，但所捕获的Web版本在这两处只留下残句。",
+        "faithfulWithCurrentExplicitUnknown": "uncertain",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "候选保留了所给Web残句；完整表述不能仅由这些残句核验。这是继承的源文限制，并非目标牌造成。另供的PDF版本补充来自79-cn-p193-b6，应独立标明版本，不能当作已修复Web正文。"
+      },
+      "sourceBindings": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0008",
+          "sourcePointer": "/blocks/7",
+          "sourceBlockJsonSha256": "abfaf48b740e311a797a6a93df4b50ea8e81381fc66368f0f5987b246dc7932f",
+          "candidatePointer": "/body/blocks/7",
+          "candidateBlockJsonSha256": "c5bbbba1204d00ea1874ab07cfde08607b4d970ecd937f026ca7dcf0014c83b2",
+          "candidateText": "有人立直的时候，最应该警戒的就要是"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0009",
+          "sourcePointer": "/blocks/8",
+          "sourceBlockJsonSha256": "e15c66d29b6a6abd55d4ecbf71db0ebec0a4887cd1c1f543a03a7f9a8feb2968",
+          "candidatePointer": "/body/blocks/8",
+          "candidateBlockJsonSha256": "cb6c02346f05479c59065855d1d5d7b601a8b68c5f065fd952d78fe06120b220",
+          "candidateText": "了。"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0015",
+          "sourcePointer": "/blocks/14",
+          "sourceBlockJsonSha256": "705d40cd2050c04dc7bc992343f4226fc0d48d3032d3417ff589f36060696103",
+          "candidatePointer": "/body/blocks/14",
+          "candidateBlockJsonSha256": "e89cd6afd2a3fab24944ecee10aaa7bce53dc542586a767ecef200d8bb7abf0b",
+          "candidateText": "大体的数据显示，所有的立直中"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0016",
+          "sourcePointer": "/blocks/15",
+          "sourceBlockJsonSha256": "c6bdbdff8f5718b0a3593ac3ce91b2abfc4e516bb27744ba055f407483e83322",
+          "candidatePointer": "/body/blocks/15",
+          "candidateBlockJsonSha256": "f71e7f2dce01fb88f8071487310dc36278dee9cde7d5f973205f133c71f02385",
+          "candidateText": "。"
+        }
+      ]
+    },
+    {
+      "independentContributionIndex": 2,
+      "independentStatement": {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1765377:b0019",
+          "79-bilibili-cn:cv1765377:b0021",
+          "79-bilibili-cn:cv1765377:b0022",
+          "79-bilibili-cn:cv1765377:b0023",
+          "79-bilibili-cn:cv1765377:b0024"
+        ],
+        "authorContribution": "展示六组基本两面听牌形，并要求记住六组。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "该贡献依赖前面的六行牌例和文字，与目标牌无关。六行图的忠实性沿用非目标父审，不在本次重新判图。"
+      },
+      "sourceBindings": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0019",
+          "sourcePointer": "/blocks/18",
+          "sourceBlockJsonSha256": "5aa06f6f19d2d43d2b315a73896a9e2cdd3e2b70581c4b39f6ed37fa1e17b680",
+          "candidatePointer": "/body/blocks/18",
+          "candidateBlockJsonSha256": "2fb764f671dd7da150a2f6cc647bf1561226ddc4e6e59e876b9d95da3506da94",
+          "candidateText": "6个基本筋"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0021",
+          "sourcePointer": "/blocks/20",
+          "sourceBlockJsonSha256": "4f20b942a2c744867d74adb8948cd20959150b8864666a00d2d4512460080013",
+          "candidatePointer": "/body/blocks/20",
+          "candidateBlockJsonSha256": "3f6d79d178d4b501fafebb0e5e04f0477d8851685a09146a2b52645fe683aaca",
+          "candidateText": "我们来看看实际的两面听牌吧。"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0022",
+          "sourcePointer": "/blocks/21",
+          "sourceBlockJsonSha256": "a601cf5e32a12dbf4c7fae15d5a4001995f286a3e3da5ee498ba476dfd93fa69",
+          "candidatePointer": "/body/blocks/21",
+          "candidateBlockJsonSha256": "d76065af43fb463088915642962af41b14adb10190da52782c5f3bef98474d81",
+          "candidateText": null
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0023",
+          "sourcePointer": "/blocks/22",
+          "sourceBlockJsonSha256": "11730245bb3f1c442ec73e6e03e9bdb92ab9fd00cfc77c7b609989bee31903d4",
+          "candidatePointer": "/body/blocks/22",
+          "candidateBlockJsonSha256": "7744977d42cfadd156968bfd11a9f2a928999ec893da265f9a6ce169b3587b9b",
+          "candidateText": "以上六组就是两面听牌的所有形。这六组需要全部记住。"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0024",
+          "sourcePointer": "/blocks/23",
+          "sourceBlockJsonSha256": "76481191a8334a2ec8abde6c9a3b7cd3e28c249bf6efe257598940dd83432726",
+          "candidatePointer": "/body/blocks/23",
+          "candidateBlockJsonSha256": "d150d994331292f853d078175b6d92cf0c567bbfaaa5919f39e70dbcb635a16f",
+          "candidateText": "要记住这六组应该是非常容易的。"
+        }
+      ]
+    },
+    {
+      "independentContributionIndex": 3,
+      "independentStatement": {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1765377:b0026",
+          "79-bilibili-cn:cv1765377:b0028",
+          "79-bilibili-cn:cv1765377:b0029",
+          "79-bilibili-cn:cv1765377:b0030",
+          "79-bilibili-cn:cv1765377:b0031",
+          "79-bilibili-cn:cv1765377:b0032",
+          "79-bilibili-cn:cv1765377:b0033",
+          "79-bilibili-cn:cv1765377:b0034",
+          "79-bilibili-cn:cv1765377:b0035"
+        ],
+        "authorContribution": "由相连的两面听牌组合出三面听牌，将六组基本筋归为三条大筋，并强调应记住这一概念。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "文字列出1-4与4-7、2-5与5-8、3-6与6-9的连接；三行图的忠实性沿用非目标父审。目标牌不参与这一推导。"
+      },
+      "sourceBindings": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0026",
+          "sourcePointer": "/blocks/25",
+          "sourceBlockJsonSha256": "bb51515896e31eb728d28fb14df39a63764bc913b232f3f26a9aac1304481943",
+          "candidatePointer": "/body/blocks/25",
+          "candidateBlockJsonSha256": "ae07ca9be75b580e64b30a7982b8fc2cc034b4a1632d78e07980025ec0a21412",
+          "candidateText": "3条筋"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0028",
+          "sourcePointer": "/blocks/27",
+          "sourceBlockJsonSha256": "1f69e0f271e7b8f1bf41630ab358dfd688f98afdbba2eea16deabe35ce04f066",
+          "candidatePointer": "/body/blocks/27",
+          "candidateBlockJsonSha256": "ab17e7dc876bc817d75839d7841bae7ef1844cd02fea634359679a3506290e09",
+          "candidateText": "看了上面的六组听牌，"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0029",
+          "sourcePointer": "/blocks/28",
+          "sourceBlockJsonSha256": "5166340a555bac6a7129efe13936ef0cd9dd2137c0fadc0122f77b3d2755b158",
+          "candidatePointer": "/body/blocks/28",
+          "candidateBlockJsonSha256": "112ec2c8d3187843f0a972dd8c6c7f1c4bb76b044ec22bc5cb810ba69491cb32",
+          "candidateText": "我们可以发现，1-4与4-7、2-5与5-8、3-6与6-9之间有相连的地方。"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0030",
+          "sourcePointer": "/blocks/29",
+          "sourceBlockJsonSha256": "0107eabf1c3b8deff370aa685219a07f3d83fd5c3639fea643e58c4a68b2069d",
+          "candidatePointer": "/body/blocks/29",
+          "candidateBlockJsonSha256": "fdae053ad22cc2db397baf57e77b16530641c3ce285fe35dfcda91506fd0ec1c",
+          "candidateText": "这样就可以推导出三面张的筋。"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0031",
+          "sourcePointer": "/blocks/30",
+          "sourceBlockJsonSha256": "1299870c6ca25039a330b467ca29647d31223e400d82c3cd092e34c02370f33a",
+          "candidatePointer": "/body/blocks/30",
+          "candidateBlockJsonSha256": "2a54735596435ac809ccf71eb50adf58c15a66c2ce026e932de7ed1c2990590e",
+          "candidateText": null
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0032",
+          "sourcePointer": "/blocks/31",
+          "sourceBlockJsonSha256": "92fcdaa37b77a2018a92690bc82086ca158e5ee60bdfecaf5971cff0bd5b74fa",
+          "candidatePointer": "/body/blocks/31",
+          "candidateBlockJsonSha256": "abe14d049e506842f1ffdbdd5cbc936ca6336155eb84f3d2d5a287d320d255fc",
+          "candidateText": "把基本两面听牌组合起来就可以形成三面听牌。"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0033",
+          "sourcePointer": "/blocks/32",
+          "sourceBlockJsonSha256": "194bdd3329b058f25cd4de5c4b748cdab9c51008175bef37fd520d0ae91685fb",
+          "candidatePointer": "/body/blocks/32",
+          "candidateBlockJsonSha256": "658a5a7857a46bb385d219e7573dd441325d3b8c3e51faa40c67d3beb81f308f",
+          "candidateText": "正是因为这样，6组基本的筋可以看作3条大筋。"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0034",
+          "sourcePointer": "/blocks/33",
+          "sourceBlockJsonSha256": "db1a18109ea512502e3c2622efcf6bc53f3145e7f00b1c84faeeb1b97979647a",
+          "candidatePointer": "/body/blocks/33",
+          "candidateBlockJsonSha256": "5e78d06e5a1e0f907b2f216badbdca75369298755017719c8458bd31c39ec0ed",
+          "candidateText": "6个筋分为3条大筋是非常重要的。"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0035",
+          "sourcePointer": "/blocks/34",
+          "sourceBlockJsonSha256": "18dee43ad9a6e61e53b35676947b2735ade7460e365493ab558c349d57a9d4c9",
+          "candidatePointer": "/body/blocks/34",
+          "candidateBlockJsonSha256": "22545269454022fd0db7314d3acfdb33641e168c5d6f7cd2d7f05919b74cf14f",
+          "candidateText": "大家把筋的概念作为麻将的一个常识来记住吧。"
+        }
+      ]
+    },
+    {
+      "independentContributionIndex": 4,
+      "independentStatement": {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1765377:b0037",
+          "79-bilibili-cn:cv1765377:b0039",
+          "79-bilibili-cn:cv1765377:b0040",
+          "79-bilibili-cn:cv1765377:b0041"
+        ],
+        "authorContribution": "以切过所听牌会振听、不能荣和，以及两面听牌只有六种为前提，判断哪些牌不会铳两面听牌。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "两个前提及其针对两面听牌的结论均由文字明确给出，不需要目标位置的确切点数。"
+      },
+      "sourceBindings": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0037",
+          "sourcePointer": "/blocks/36",
+          "sourceBlockJsonSha256": "0331dd1a6177e243d04d457da32ce158ad18f2b492adccba132bdf3e4800762c",
+          "candidatePointer": "/body/blocks/36",
+          "candidateBlockJsonSha256": "5e255279791117096c43c2a75d0ecd9eba39c54f099d1ac2990f4e2fc681ac51",
+          "candidateText": "根据筋我们能知道什么"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0039",
+          "sourcePointer": "/blocks/38",
+          "sourceBlockJsonSha256": "76e51c2a6d648b97cfb9e29f2d1c328ed1ad96fd96f1a469e663374588c29b68",
+          "candidatePointer": "/body/blocks/38",
+          "candidateBlockJsonSha256": "6ad93550e1bb1bf80d49e4f987ae2292757266d9890c1b6077e73003148f82b0",
+          "candidateText": "（1）自己切过自己所听的牌即会振听，不能荣和。"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0040",
+          "sourcePointer": "/blocks/39",
+          "sourceBlockJsonSha256": "720b1f3d0a4811f675a3c4dbcf66b1d0743a1906a5f0ea26fc7cf542e7e5760e",
+          "candidatePointer": "/body/blocks/39",
+          "candidateBlockJsonSha256": "5e19c076e7c9cf2c57a1cfd9c3cee628d7bee29d76667c2586ecee7f3c192e46",
+          "candidateText": "（2）麻将中的两面听牌只有六种（1-4、2-5、3-6、4-7、5-8、6-9）"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0041",
+          "sourcePointer": "/blocks/40",
+          "sourceBlockJsonSha256": "76f140775dc7ee90d2e4a23c91fc6097a98ee250199a0dbd3c819dc9beb2e7a0",
+          "candidatePointer": "/body/blocks/40",
+          "candidateBlockJsonSha256": "1569419b093b28a7c0898833c401675b40e03dde76676e2ad086c67291fee562",
+          "candidateText": "由以上两点，我们就可以知道什么牌不会铳两面听牌。"
+        }
+      ]
+    },
+    {
+      "independentContributionIndex": 5,
+      "independentStatement": {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1765377:b0042",
+          "79-bilibili-cn:cv1765377:b0043"
+        ],
+        "authorContribution": "牌例记述对家切7饼和下家切5万都通过，并以红圈强调这两张牌。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "正文明确记述7饼与5万通过；候选将红圈记在上方7p及右侧第1行右列5m。未知牌位于右侧第2行右列，是另一个位置。"
+      },
+      "sourceBindings": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0042",
+          "sourcePointer": "/blocks/41",
+          "sourceBlockJsonSha256": "b6a1ea06add81e27f1aabfe23300102b3b12cd3e6ac1060761d9b0d3b186c960",
+          "candidatePointer": "/body/blocks/41",
+          "candidateBlockJsonSha256": "123a16d2e6e40bd12c2373bef4e292a4abd4facf55bc3dc2c1e4489c9ee0ed0e",
+          "candidateText": null
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0043",
+          "sourcePointer": "/blocks/42",
+          "sourceBlockJsonSha256": "f89c2af21094cdea3edac48cd47aad793ac3379f485c71db452d33f5ca41fde0",
+          "candidatePointer": "/body/blocks/42",
+          "candidateBlockJsonSha256": "72cc2af0bf75d3d669d6f81f2b01b595fccc5e737d2992573b6aaf05d6ac6b83",
+          "candidateText": "我们再来看看这个例子吧。  对家切7饼以及下家切的5万都通过了。 这就是通过“筋”得出的判断。  由于立直的上家切掉了4饼，所以至少他不是56饼的两面听牌，即使是也会振听。 所以切7饼至少不会铳两面听牌。  下家切的5万，是有2、8万所推导出的筋。  5万虽然可以有34万和67万两面听牌荣和， 但是上家切掉了2万和8万，所以不管是34万还是67万都会振听。 因此5万也可以说是一张安全牌。     （待续）"
+        }
+      ]
+    },
+    {
+      "independentContributionIndex": 6,
+      "independentStatement": {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1765377:b0039",
+          "79-bilibili-cn:cv1765377:b0040",
+          "79-bilibili-cn:cv1765377:b0041",
+          "79-bilibili-cn:cv1765377:b0042",
+          "79-bilibili-cn:cv1765377:b0043"
+        ],
+        "authorContribution": "立直上家切过4饼，因此作者说其至少不是56饼两面听牌，即使是也会振听；切7饼至少不会铳两面听牌。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "b0043明确写出4饼、56饼、振听与7饼的关系；候选图转录将4p记在立直的左侧玩家牌河。目标牌在右侧玩家牌河，不是该论证所指的牌。"
+      },
+      "sourceBindings": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0039",
+          "sourcePointer": "/blocks/38",
+          "sourceBlockJsonSha256": "76e51c2a6d648b97cfb9e29f2d1c328ed1ad96fd96f1a469e663374588c29b68",
+          "candidatePointer": "/body/blocks/38",
+          "candidateBlockJsonSha256": "6ad93550e1bb1bf80d49e4f987ae2292757266d9890c1b6077e73003148f82b0",
+          "candidateText": "（1）自己切过自己所听的牌即会振听，不能荣和。"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0040",
+          "sourcePointer": "/blocks/39",
+          "sourceBlockJsonSha256": "720b1f3d0a4811f675a3c4dbcf66b1d0743a1906a5f0ea26fc7cf542e7e5760e",
+          "candidatePointer": "/body/blocks/39",
+          "candidateBlockJsonSha256": "5e19c076e7c9cf2c57a1cfd9c3cee628d7bee29d76667c2586ecee7f3c192e46",
+          "candidateText": "（2）麻将中的两面听牌只有六种（1-4、2-5、3-6、4-7、5-8、6-9）"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0041",
+          "sourcePointer": "/blocks/40",
+          "sourceBlockJsonSha256": "76f140775dc7ee90d2e4a23c91fc6097a98ee250199a0dbd3c819dc9beb2e7a0",
+          "candidatePointer": "/body/blocks/40",
+          "candidateBlockJsonSha256": "1569419b093b28a7c0898833c401675b40e03dde76676e2ad086c67291fee562",
+          "candidateText": "由以上两点，我们就可以知道什么牌不会铳两面听牌。"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0042",
+          "sourcePointer": "/blocks/41",
+          "sourceBlockJsonSha256": "b6a1ea06add81e27f1aabfe23300102b3b12cd3e6ac1060761d9b0d3b186c960",
+          "candidatePointer": "/body/blocks/41",
+          "candidateBlockJsonSha256": "123a16d2e6e40bd12c2373bef4e292a4abd4facf55bc3dc2c1e4489c9ee0ed0e",
+          "candidateText": null
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0043",
+          "sourcePointer": "/blocks/42",
+          "sourceBlockJsonSha256": "f89c2af21094cdea3edac48cd47aad793ac3379f485c71db452d33f5ca41fde0",
+          "candidatePointer": "/body/blocks/42",
+          "candidateBlockJsonSha256": "72cc2af0bf75d3d669d6f81f2b01b595fccc5e737d2992573b6aaf05d6ac6b83",
+          "candidateText": "我们再来看看这个例子吧。  对家切7饼以及下家切的5万都通过了。 这就是通过“筋”得出的判断。  由于立直的上家切掉了4饼，所以至少他不是56饼的两面听牌，即使是也会振听。 所以切7饼至少不会铳两面听牌。  下家切的5万，是有2、8万所推导出的筋。  5万虽然可以有34万和67万两面听牌荣和， 但是上家切掉了2万和8万，所以不管是34万还是67万都会振听。 因此5万也可以说是一张安全牌。     （待续）"
+        }
+      ]
+    },
+    {
+      "independentContributionIndex": 7,
+      "independentStatement": {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1765377:b0039",
+          "79-bilibili-cn:cv1765377:b0040",
+          "79-bilibili-cn:cv1765377:b0041",
+          "79-bilibili-cn:cv1765377:b0042",
+          "79-bilibili-cn:cv1765377:b0043"
+        ],
+        "authorContribution": "作者以立直上家切过2万和8万，说明5万所涉及的34万、67万两面听牌都会振听，并称5万可以说是一张安全牌。",
+        "faithfulWithCurrentExplicitUnknown": "yes",
+        "requiresExactPointForAuthorArgument": "no",
+        "evidence": "b0043直接写出2万、8万、34万、67万与5万的论证；候选将2m、8m记在左侧立直玩家牌河，而目标未知牌位于右侧。原文的安全牌说法及其两面听牌论证范围均须保留，不能扩大为所有听型均安全。"
+      },
+      "sourceBindings": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0039",
+          "sourcePointer": "/blocks/38",
+          "sourceBlockJsonSha256": "76e51c2a6d648b97cfb9e29f2d1c328ed1ad96fd96f1a469e663374588c29b68",
+          "candidatePointer": "/body/blocks/38",
+          "candidateBlockJsonSha256": "6ad93550e1bb1bf80d49e4f987ae2292757266d9890c1b6077e73003148f82b0",
+          "candidateText": "（1）自己切过自己所听的牌即会振听，不能荣和。"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0040",
+          "sourcePointer": "/blocks/39",
+          "sourceBlockJsonSha256": "720b1f3d0a4811f675a3c4dbcf66b1d0743a1906a5f0ea26fc7cf542e7e5760e",
+          "candidatePointer": "/body/blocks/39",
+          "candidateBlockJsonSha256": "5e19c076e7c9cf2c57a1cfd9c3cee628d7bee29d76667c2586ecee7f3c192e46",
+          "candidateText": "（2）麻将中的两面听牌只有六种（1-4、2-5、3-6、4-7、5-8、6-9）"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0041",
+          "sourcePointer": "/blocks/40",
+          "sourceBlockJsonSha256": "76f140775dc7ee90d2e4a23c91fc6097a98ee250199a0dbd3c819dc9beb2e7a0",
+          "candidatePointer": "/body/blocks/40",
+          "candidateBlockJsonSha256": "1569419b093b28a7c0898833c401675b40e03dde76676e2ad086c67291fee562",
+          "candidateText": "由以上两点，我们就可以知道什么牌不会铳两面听牌。"
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0042",
+          "sourcePointer": "/blocks/41",
+          "sourceBlockJsonSha256": "b6a1ea06add81e27f1aabfe23300102b3b12cd3e6ac1060761d9b0d3b186c960",
+          "candidatePointer": "/body/blocks/41",
+          "candidateBlockJsonSha256": "123a16d2e6e40bd12c2373bef4e292a4abd4facf55bc3dc2c1e4489c9ee0ed0e",
+          "candidateText": null
+        },
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1765377:b0043",
+          "sourcePointer": "/blocks/42",
+          "sourceBlockJsonSha256": "f89c2af21094cdea3edac48cd47aad793ac3379f485c71db452d33f5ca41fde0",
+          "candidatePointer": "/body/blocks/42",
+          "candidateBlockJsonSha256": "72cc2af0bf75d3d669d6f81f2b01b595fccc5e737d2992573b6aaf05d6ac6b83",
+          "candidateText": "我们再来看看这个例子吧。  对家切7饼以及下家切的5万都通过了。 这就是通过“筋”得出的判断。  由于立直的上家切掉了4饼，所以至少他不是56饼的两面听牌，即使是也会振听。 所以切7饼至少不会铳两面听牌。  下家切的5万，是有2、8万所推导出的筋。  5万虽然可以有34万和67万两面听牌荣和， 但是上家切掉了2万和8万，所以不管是34万还是67万都会振听。 因此5万也可以说是一张安全牌。     （待续）"
+        }
+      ]
+    }
+  ],
+  "mandatoryDisplayLimits": [
+    "保留原图及右侧牌河第2行右列万子点数未知的明确标记，不填入猜测牌码，也不宣称该牌河已逐牌完整转录。",
+    "保留原文对非初学者、一般情况下、可能和往往的限定；原文及候选的段落顺序、sourceSegments、tableContext和图序照所给数据保留，图中红圈继续显示。",
+    "原样保留作者对5万的安全牌表述及其上下文：所给理由涉及立直上家的2万、8万和34万、67万两面听牌；7饼的结论也限定为至少不会铳两面听牌。不得扩写为对所有听型或所有玩家绝对安全。",
+    "保留b0008至b0009及b0015至b0016的Web捕获残句和继承的不完整限制。PDF版本的完整句子如另行展示，须明确标注独立来源与版本，不能作为Web原文的无注补写。",
+    "完整牌河、暗手、概率和最优策略不属于本次有限许可；不据此宣称整章通过。"
+  ],
+  "mandatoryDisplayLimitsSha256": "9abeecbbeaaa1d099a8c8fcbc9ec131d30d3c348231483ef22bccd34ced1121e",
+  "scopeLimits": "新判定仅绑定所给candidateSha256、b0042图及right-row2-col2目标点。非目标图及其他旧审结论继承；PDF补充是独立版本资料。本次允许带明确未知和既有限制展示作者论证，不撤销逐牌完整性限制，不宣称整章通过。",
+  "pdf193IndependentSourceVersion": {
+    "schema": "coac244-passed-pdf-source-version-reuse/1",
+    "chapterId": "79-cn-chapter-193-4",
+    "status": "two-sentence-PDF-version-supplement-ready-not-chapter-pass",
+    "supplementChapterId": "79-cn-chapter-193-4-pdf193-supplement",
+    "stage": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-scope215-pdf193-20261028\\stage-193-supplement",
+    "sourcePdfSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+    "sourcePage": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\193.json",
+      "sha256": "15141d56251a928031afdb04dc40d5d72bcdc960b8672a93f0b00e8a516dca0d",
+      "bytes": 27823
+    },
+    "ownership": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\source-block-ownership.json",
+      "sha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60"
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-schemafix\\candidates\\79-cn\\page-0193.json",
+      "sha256": "046188e3be510f12c1e729353aa01fb5b1ce866685acf84e34284b8571f49e93",
+      "bytes": 7011
+    },
+    "originalAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0193.046188e3be510f12c1e729353aa01fb5b1ce866685acf84e34284b8571f49e93.6baa4a7e1404.json",
+      "sha256": "a264ce2d6452fda9ccc539910510ab2334f604f10eb7e77a14f6cea6486e449f",
+      "bytes": 25627
+    },
+    "originalAuditCallIds": [
+      "eb2060c9-7952-40ff-af91-11093800c63d"
+    ],
+    "originalCompleteBlock": {
+      "type": "text",
+      "sourceBlockIds": [
+        "79-cn-p193-b6"
+      ],
+      "chapterId": "79-cn-chapter-193-4",
+      "unitId": "79-cn-chapter-193-4-unit-1",
+      "titleSource": false,
+      "sourceText": "筋1：  有人立直的时候，最应该警戒的就要是两面听牌了。  只要对手不是麻将的初学者， 一般情况下都会等待嵌张、双碰听牌变化成两面听牌。  因为对手会等待嵌张和双碰听牌变化成两面的好形听牌， 所以听牌了也有可能不会立直。  因此立直的听牌形往往是两面居多， 大体的数据显示，所有的立直中三分之二的立直都是两面听牌。  为了不铳两面听牌的理论就叫做“筋”。  ------------------------------------------------------------------------------------6 个基本筋 ------------------------------------------------------------------------------------ 我们来看看实际的两面听牌吧。  ",
+      "text": "筋1：  有人立直的时候，最应该警戒的就要是两面听牌了。  只要对手不是麻将的初学者， 一般情况下都会等待嵌张、双碰听牌变化成两面听牌。  因为对手会等待嵌张和双碰听牌变化成两面的好形听牌， 所以听牌了也有可能不会立直。  因此立直的听牌形往往是两面居多， 大体的数据显示，所有的立直中三分之二的立直都是两面听牌。  为了不铳两面听牌的理论就叫做“筋”。  ------------------------------------------------------------------------------------6 个基本筋 ------------------------------------------------------------------------------------ 我们来看看实际的两面听牌吧。  "
+    },
+    "slices": [
+      {
+        "id": "79-cn-p193-b6-version-sentence-1",
+        "sourceBlockId": "79-cn-p193-b6",
+        "fromCodepoint": 5,
+        "toCodepoint": 29,
+        "text": "有人立直的时候，最应该警戒的就要是两面听牌了。 ",
+        "lineIndex": 2,
+        "bbox": [
+          90.02400207519531,
+          400.9819641113281,
+          337.8699951171875,
+          412.9819641113281
+        ]
+      },
+      {
+        "id": "79-cn-p193-b6-version-sentence-2",
+        "sourceBlockId": "79-cn-p193-b6",
+        "fromCodepoint": 129,
+        "toCodepoint": 158,
+        "text": "大体的数据显示，所有的立直中三分之二的立直都是两面听牌。 ",
+        "lineIndex": 11,
+        "bbox": [
+          90.02400207519531,
+          541.4019775390625,
+          390.70001220703125,
+          553.4019775390625
+        ]
+      }
+    ],
+    "webSource": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1765377\\source.json",
+      "sha256": "75b3eae5938bd5e635089891d6ee721575cf9d8fddce050dadcb90a5f47f48c5",
+      "bytes": 38311
+    },
+    "versionDifferences": [
+      {
+        "webSourceBlockIds": [
+          "79-bilibili-cn:cv1765377:b0008",
+          "79-bilibili-cn:cv1765377:b0009"
+        ],
+        "webText": "有人立直的时候，最应该警戒的就要是了。",
+        "pdfText": "有人立直的时候，最应该警戒的就要是两面听牌了。",
+        "pdfSliceId": "79-cn-p193-b6-version-sentence-1",
+        "missingInCapturedWeb": "两面听牌",
+        "operation": "separate-PDF-version-excerpt; never rewrite web source or raw"
+      },
+      {
+        "webSourceBlockIds": [
+          "79-bilibili-cn:cv1765377:b0015",
+          "79-bilibili-cn:cv1765377:b0016"
+        ],
+        "webText": "大体的数据显示，所有的立直中。",
+        "pdfText": "大体的数据显示，所有的立直中三分之二的立直都是两面听牌。",
+        "pdfSliceId": "79-cn-p193-b6-version-sentence-2",
+        "missingInCapturedWeb": "三分之二的立直都是两面听牌",
+        "operation": "separate-PDF-version-excerpt; never rewrite web source or raw"
+      }
+    ],
+    "remainingBlocker": {
+      "targetId": "79-bilibili-cn:cv1765377:b0042:figure",
+      "reason": "unresolved manzu in river; not resolved by recovering source prose",
+      "action": "preserve original candidate/raw/unknown and existing independent issue; only finite source-image adjudication after exact original packet"
+    },
+    "fullChapterPassed": false,
+    "originalChapterCoverageIncrement": 0,
+    "duplicateCountedAsOriginalBody": false,
+    "sourceAndRawChanged": false,
+    "newModelCalls": 0,
+    "automaticRetry": 0,
+    "chapters": 1,
+    "units": 1,
+    "blocks": 2,
+    "figures": 0,
+    "corpusId": "7d1743898551fa7b8cf3cfcb26f1ee234d332e93434443c5a09fc3340c17c4d7",
+    "bodySha256": "807ad83faf24e1f50b42abe07df1f74a1f35011df9bb1afb988e353d177800fd",
+    "maxUnitBytes": 842,
+    "modelCalls": 0
+  },
+  "parent276NonTargetEvidence": null,
+  "candidateModified": false,
+  "rawOrOldAuditModified": false,
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "ordinaryWholeChapterPassed": false,
+  "admissionGranted": false,
+  "meaning": "Mechanical mapping of the actual independent limited-display conclusion to the exact current candidate. Inherited source uncertainty remains literal. Renderer/owner must bind and expose all mandatory limitations through the lawful exact-SHA supplementary route; this mapping does not grant admission or erase technical false flags."
+}

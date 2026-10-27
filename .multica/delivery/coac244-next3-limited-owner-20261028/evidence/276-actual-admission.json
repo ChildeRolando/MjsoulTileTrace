@@ -1,0 +1,264 @@
+{
+  "schema": "coac250-exact-next3-limited-admission/1",
+  "status": "admitted-exact-limited-unknown-fidelity",
+  "production": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1793434.r2.display.json",
+    "sha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd"
+  },
+  "source": {
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1793434",
+    "url": "https://www.bilibili.com/read/cv1793434",
+    "title": "【日本麻雀讲座译文】攻守判断3—攻守判断的标准",
+    "language": "zh-CN",
+    "fetchedAt": "2026-10-23T20:32:05.381904+00:00",
+    "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1793434/source.json",
+    "sourceSha256": "db1218e9226ef5ccaf978ec6b6801bd07498017b821973647d0e551ed518439f",
+    "htmlSha256": "69818826df9a3c931a23419e0e9b9bfb1763e74c68bd14f45822134f4077a935",
+    "mainSha256": "0cbfca65b65ffd24fed7bb992211b58b133cad1aab9b0729f453a1bdbe974486"
+  },
+  "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/supplements/coac249-193208276-20261028/current-binding-276.json",
+  "auditSha256": "36bca9cc89860830d5b4128759eeb3c73c00ba10340cd4887dd29762d7149a42",
+  "standardWholeArticlePassed": false,
+  "key": "276",
+  "canonical": "79-cn-chapter-276-4",
+  "independentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-193208276-20261028\\receipt-276.json",
+    "sha256": "fe8559ac99144b333842e9af66c7b01456883954e003c59196c50386e3e1f0ca"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\9ad5542e-3c87-4e33-81b7-19bd48aeec79.json",
+    "sha256": "85f3d7f7a9b8029a458c58edbe97620f601a0d6dc02bf1b75e2a741ad8292f9c"
+  },
+  "requiredDisplayLimitations": [
+    "在例1图的转录和unknowns中保留左侧第4、5张及右侧第2、5张的明确未知和原有位置；不得填入猜测牌码或表示四家牌河已完整复原。",
+    "保留例1原图及其在正文中的位置，并按原始顺序保留例2、例3；目标和邻位近邻放大图是本次审查资料，不生成新的牌面细节。",
+    "保留正文原有顺序、原句、条件和强调语气，包括例1“立直的话”才有11600点、例2平和的可能条件、例3关于进张数与连续进攻的条件，以及理论中的“基本”。",
+    "保留各块原有tableContext、sourceSegments和标记；本次给出的正文块tableContext均为null，原有segments的marks均为空。",
+    "保留免责声明、译者及原文来源、例题标题、分隔、续篇标记和原始图序。",
+    "将作者的安全度、危险度、概率和攻守判断呈现为作者所写判断；不把本次有限辨识包装为完整牌河、暗手、概率或最优策略的独立验证。",
+    "附件编号及放大图说明若对读者显示，应区分历史加工附件与本次orderedImages；附件说明笔误属于source-note，不是教学错误。"
+  ],
+  "originalAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1793434.94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd.json",
+    "sha256": "df0393cf90c3d9b7010ef7a0678cd2a90aa4e5818ce129ee47c2fb335a08b4fc",
+    "bytes": 26029
+  },
+  "originalModelChecks": {
+    "passed": false,
+    "errors": [
+      "needs-repair:79-bilibili-cn:cv1793434:b0005",
+      "uncertain:79-bilibili-cn:cv1793434:b0014",
+      "uncertain:79-bilibili-cn:cv1793434:b0025",
+      "needs-repair:79-bilibili-cn:cv1793434:b0005:figure",
+      "uncertain:79-bilibili-cn:cv1793434:b0014:figure",
+      "uncertain:79-bilibili-cn:cv1793434:b0025:figure",
+      "semantic_information_missing",
+      "incomplete_article_comparison",
+      "error:79-bilibili-cn:cv1793434:b0005:figure",
+      "uncertain:79-bilibili-cn:cv1793434:b0014:figure",
+      "uncertain:79-bilibili-cn:cv1793434:b0025:figure"
+    ]
+  },
+  "originalIssues": [
+    {
+      "severity": "error",
+      "targetId": "79-bilibili-cn:cv1793434:b0005:figure",
+      "sourceEvidence": "例1原图及2倍放大图的左侧第4、5张和右侧第2、5张弃牌均显示字牌；候选分别使用“[风牌未辨明]”。",
+      "description": "四张可见弃牌缺少具体牌码，影响牌河的完整教学信息。",
+      "suggestedRepair": "依据原图逐张复核并补足四个牌码；不能可靠辨认的牌保留未知并继续标记为未完成，不要猜测。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "79-bilibili-cn:cv1793434:b0014:figure",
+      "sourceEvidence": "该资产在 verifiedExactAssetIds 中，但本次未附原图，也未提供先前审校的逐牌转录记录。",
+      "description": "已验证的原图复用身份不足以单独证明候选中每张牌、顺序及点数的转录均正确。",
+      "suggestedRepair": "将候选与该已审原图对应的逐牌审校记录核对，确认手牌、四家弃牌、横置、赤牌和点数。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "79-bilibili-cn:cv1793434:b0025:figure",
+      "sourceEvidence": "该资产在 verifiedExactAssetIds 中，但本次未附原图，也未提供先前审校的逐牌转录记录。",
+      "description": "已验证的原图复用身份不足以单独证明候选中每张牌、顺序、副露及点数的转录均正确。",
+      "suggestedRepair": "将候选与该已审原图对应的逐牌审校记录核对，确认手牌、四家弃牌、副露、横置、赤牌和点数。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1793434:b0014:figure",
+      "sourceEvidence": "候选 sourceNotes 称附件3、4为例2原图及放大图；给定附件仅有例1的附件1、2，例2列为已审原图复用。",
+      "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+      "suggestedRepair": "删除或更正附件3、4的配对说明，说明例2使用已审原图复用。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1793434:b0025:figure",
+      "sourceEvidence": "候选 sourceNotes 称附件5、6为例3原图及放大图；给定附件仅有例1的附件1、2，例3列为已审原图复用。",
+      "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+      "suggestedRepair": "删除或更正附件5、6的配对说明，说明例3使用已审原图复用。"
+    }
+  ],
+  "parent276NonTargetEvidence": {
+    "schema": "coac244-276-exact-parent-evidence-reuse/1",
+    "canonical": "79-cn-chapter-276-4",
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1793434.r2.display.json",
+      "sha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+      "bytes": 51494
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1793434.display.json",
+      "sha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+      "bytes": 46697
+    },
+    "parentAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1793434.34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af.json",
+      "sha256": "8c7e8145f051809f5ad3d80eb4c8e7c4b9d669739c200fbec98e4f26307a9370",
+      "bytes": 24570
+    },
+    "parentRaw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4ad05d19-eb5a-48d6-ba09-c673553ec204.json",
+      "sha256": "5f88f0dad7e13a42279278eefc97a583e36dfac1f2ab2e0d3c1ecde5f73f2ab1",
+      "bytes": 139901
+    },
+    "parentCallId": "4ad05d19-eb5a-48d6-ba09-c673553ec204",
+    "rawEvidenceBoundary": "Legacy independent output, full source binding and ordered supplemental inputs retained. Original process argv not captured; no claim of newly reconstructed transport or remote weights.",
+    "bodyExact": true,
+    "figures": [
+      {
+        "figureId": "79-bilibili-cn:cv1793434:b0014:figure",
+        "fullObjectSha256": "5ca5d06312f40429ee1e5b56492ba7294e546d530d34a2bf532c9c20cb05aff9",
+        "parentCheck": {
+          "id": "79-bilibili-cn:cv1793434:b0014:figure",
+          "verdict": "faithful",
+          "evidence": "逐牌核对下方14张牌、四家牌河、左侧横置9m及手牌赤5s均一致；东4局0本场、立直棒1根、宝牌栏西及四家点数完整。附件配对笔误仅属source-note。"
+        },
+        "bodyContextSha256": "a4622b1df19cc33a729e493467c9a0b6f4974567aa2f846304fb356e46f98ebc",
+        "status": "reusable-parent-independent-faithful-check-only",
+        "newRawConclusionPreserved": "uncertain",
+        "wholeChapterPassed": false
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1793434:b0025:figure",
+        "fullObjectSha256": "6a88f2f9978e4c79b85880e9f5942a9f37a827db784a9cebbabc55eafd31e688",
+        "parentCheck": {
+          "id": "79-bilibili-cn:cv1793434:b0025:figure",
+          "verdict": "faithful",
+          "evidence": "逐牌核对下方14张牌、四家牌河、上方横置6p及西家4s、3s、赤5s副露均一致；南1局0本场、立直棒1根、宝牌栏5p、四家点数及隐手张数完整。附件编号笔误仅属source-note。"
+        },
+        "bodyContextSha256": "a4622b1df19cc33a729e493467c9a0b6f4974567aa2f846304fb356e46f98ebc",
+        "status": "reusable-parent-independent-faithful-check-only",
+        "newRawConclusionPreserved": "uncertain",
+        "wholeChapterPassed": false
+      }
+    ],
+    "tests": [
+      {
+        "name": "real bound parent raw + exact full figures + unchanged full body",
+        "passed": true
+      },
+      {
+        "name": "reject changed body",
+        "passed": true
+      },
+      {
+        "name": "reject changed figure",
+        "passed": true
+      },
+      {
+        "name": "reject changed source binding",
+        "passed": true
+      },
+      {
+        "name": "reject removed unknown field",
+        "passed": true
+      },
+      {
+        "name": "reject parent output differs",
+        "passed": true
+      },
+      {
+        "name": "reject parent not faithful",
+        "passed": true
+      },
+      {
+        "name": "reject parent image absent",
+        "passed": true
+      },
+      {
+        "name": "reject parent failed",
+        "passed": true
+      }
+    ],
+    "status": "two-evidence-visibility-gaps-supplemented-not-chapter-pass",
+    "remaining": [
+      {
+        "severity": "error",
+        "targetId": "79-bilibili-cn:cv1793434:b0005:figure",
+        "sourceEvidence": "例1原图及2倍放大图的左侧第4、5张和右侧第2、5张弃牌均显示字牌；候选分别使用“[风牌未辨明]”。",
+        "description": "四张可见弃牌缺少具体牌码，影响牌河的完整教学信息。",
+        "suggestedRepair": "依据原图逐张复核并补足四个牌码；不能可靠辨认的牌保留未知并继续标记为未完成，不要猜测。"
+      }
+    ],
+    "newModelCalls": 0,
+    "admissionGranted": false
+  },
+  "pdf193VersionPair": null,
+  "limitedUnknownFidelity": {
+    "unknowns": [
+      {
+        "figureId": "79-bilibili-cn:cv1793434:b0005:figure",
+        "unknowns": [
+          "左侧弃牌从上至下第4张的风牌牌码未辨明。",
+          "左侧弃牌从上至下第5张的风牌牌码未辨明。",
+          "右侧弃牌从上至下第2张的风牌牌码未辨明。",
+          "右侧弃牌从上至下第5张的风牌牌码未辨明。"
+        ]
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1793434:b0005:figure",
+        "unknowns": [
+          "左侧弃牌从上至下第4张的风牌牌码未辨明。",
+          "左侧弃牌从上至下第5张的风牌牌码未辨明。",
+          "右侧弃牌从上至下第2张的风牌牌码未辨明。",
+          "右侧弃牌从上至下第5张的风牌牌码未辨明。"
+        ]
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1793434:b0005:figure",
+        "unknowns": [
+          "左侧弃牌从上至下第4张的风牌牌码未辨明。",
+          "左侧弃牌从上至下第5张的风牌牌码未辨明。",
+          "右侧弃牌从上至下第2张的风牌牌码未辨明。",
+          "右侧弃牌从上至下第5张的风牌牌码未辨明。"
+        ]
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1793434:b0005:figure",
+        "unknowns": [
+          "左侧弃牌从上至下第4张的风牌牌码未辨明。",
+          "左侧弃牌从上至下第5张的风牌牌码未辨明。",
+          "右侧弃牌从上至下第2张的风牌牌码未辨明。",
+          "右侧弃牌从上至下第5张的风牌牌码未辨明。"
+        ]
+      }
+    ],
+    "sourceNotes": [
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1793434:b0014:figure",
+        "sourceEvidence": "候选 sourceNotes 称附件3、4为例2原图及放大图；给定附件仅有例1的附件1、2，例2列为已审原图复用。",
+        "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+        "suggestedRepair": "删除或更正附件3、4的配对说明，说明例2使用已审原图复用。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1793434:b0025:figure",
+        "sourceEvidence": "候选 sourceNotes 称附件5、6为例3原图及放大图；给定附件仅有例1的附件1、2，例3列为已审原图复用。",
+        "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+        "suggestedRepair": "删除或更正附件5、6的配对说明，说明例3使用已审原图复用。"
+      }
+    ],
+    "conclusion": "limited-unknown-acceptable",
+    "modelCalls": 0
+  }
+}

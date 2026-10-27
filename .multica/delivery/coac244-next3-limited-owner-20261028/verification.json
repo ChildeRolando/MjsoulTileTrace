@@ -1,0 +1,289 @@
+{
+  "results": [
+    {
+      "proof": {
+        "key": "193",
+        "canonical": "79-cn-chapter-193-4",
+        "status": "exact-original-findings-supplemented-for-limited-author-fidelity",
+        "unknownPoints": 1,
+        "sourceFragmentsStillUncertain": 1,
+        "originalReviewUnchanged": true,
+        "ordinaryPassed": false,
+        "admissionGranted": false,
+        "modelCalls": 0
+      },
+      "call": {
+        "callId": "d84eb7ca-3897-4421-ae47-03efcdf32bb1",
+        "model": "gpt-6.1-terra",
+        "effort": "max",
+        "usage": {
+          "inputTokens": 28630,
+          "cachedInputTokens": 0,
+          "outputTokens": 9827
+        },
+        "durationMs": 120148
+      }
+    },
+    {
+      "proof": {
+        "key": "208",
+        "canonical": "79-cn-chapter-208-4",
+        "status": "exact-original-findings-supplemented-for-limited-author-fidelity",
+        "unknownPoints": 4,
+        "sourceFragmentsStillUncertain": 0,
+        "originalReviewUnchanged": true,
+        "ordinaryPassed": false,
+        "admissionGranted": false,
+        "modelCalls": 0
+      },
+      "call": {
+        "callId": "53850eb0-aa1a-4623-ad61-cc55340fc271",
+        "model": "gpt-6.1-terra",
+        "effort": "max",
+        "usage": {
+          "inputTokens": 27753,
+          "cachedInputTokens": 0,
+          "outputTokens": 13738
+        },
+        "durationMs": 166997
+      }
+    },
+    {
+      "proof": {
+        "key": "276",
+        "canonical": "79-cn-chapter-276-4",
+        "status": "exact-original-findings-supplemented-for-limited-author-fidelity",
+        "unknownPoints": 4,
+        "sourceFragmentsStillUncertain": 0,
+        "originalReviewUnchanged": true,
+        "ordinaryPassed": false,
+        "admissionGranted": false,
+        "modelCalls": 0
+      },
+      "call": {
+        "callId": "9ad5542e-3c87-4e33-81b7-19bd48aeec79",
+        "model": "gpt-6.1-terra",
+        "effort": "max",
+        "usage": {
+          "inputTokens": 30543,
+          "cachedInputTokens": 0,
+          "outputTokens": 16162
+        },
+        "durationMs": 205144
+      }
+    }
+  ],
+  "checks": [
+    {
+      "key": "193",
+      "name": "real candidate/source/old findings/raw/request/images and explicit independent allowance",
+      "passed": true
+    },
+    {
+      "key": "193",
+      "name": "candidate-pin",
+      "rejected": true
+    },
+    {
+      "key": "193",
+      "name": "body-condition",
+      "rejected": true
+    },
+    {
+      "key": "193",
+      "name": "body-order",
+      "rejected": true
+    },
+    {
+      "key": "193",
+      "name": "unknown-removal",
+      "rejected": true
+    },
+    {
+      "key": "193",
+      "name": "old-severity",
+      "rejected": true
+    },
+    {
+      "key": "193",
+      "name": "missing-image-check",
+      "rejected": true
+    },
+    {
+      "key": "193",
+      "name": "independent-reading",
+      "rejected": true
+    },
+    {
+      "key": "193",
+      "name": "material-unknown",
+      "rejected": true
+    },
+    {
+      "key": "193",
+      "name": "no-independent-allowance",
+      "rejected": true
+    },
+    {
+      "key": "193",
+      "name": "lost-limit",
+      "rejected": true
+    },
+    {
+      "key": "193",
+      "name": "missing-context",
+      "rejected": true
+    },
+    {
+      "key": "193",
+      "name": "source-change",
+      "rejected": true
+    },
+    {
+      "key": "208",
+      "name": "real candidate/source/old findings/raw/request/images and explicit independent allowance",
+      "passed": true
+    },
+    {
+      "key": "208",
+      "name": "candidate-pin",
+      "rejected": true
+    },
+    {
+      "key": "208",
+      "name": "body-condition",
+      "rejected": true
+    },
+    {
+      "key": "208",
+      "name": "body-order",
+      "rejected": true
+    },
+    {
+      "key": "208",
+      "name": "unknown-removal",
+      "rejected": true
+    },
+    {
+      "key": "208",
+      "name": "old-severity",
+      "rejected": true
+    },
+    {
+      "key": "208",
+      "name": "missing-image-check",
+      "rejected": true
+    },
+    {
+      "key": "208",
+      "name": "independent-reading",
+      "rejected": true
+    },
+    {
+      "key": "208",
+      "name": "material-unknown",
+      "rejected": true
+    },
+    {
+      "key": "208",
+      "name": "no-independent-allowance",
+      "rejected": true
+    },
+    {
+      "key": "208",
+      "name": "lost-limit",
+      "rejected": true
+    },
+    {
+      "key": "208",
+      "name": "missing-context",
+      "rejected": true
+    },
+    {
+      "key": "208",
+      "name": "source-change",
+      "rejected": true
+    },
+    {
+      "key": "276",
+      "name": "real candidate/source/old findings/raw/request/images and explicit independent allowance",
+      "passed": true
+    },
+    {
+      "key": "276",
+      "name": "candidate-pin",
+      "rejected": true
+    },
+    {
+      "key": "276",
+      "name": "body-condition",
+      "rejected": true
+    },
+    {
+      "key": "276",
+      "name": "body-order",
+      "rejected": true
+    },
+    {
+      "key": "276",
+      "name": "unknown-removal",
+      "rejected": true
+    },
+    {
+      "key": "276",
+      "name": "old-severity",
+      "rejected": true
+    },
+    {
+      "key": "276",
+      "name": "missing-image-check",
+      "rejected": true
+    },
+    {
+      "key": "276",
+      "name": "independent-reading",
+      "rejected": true
+    },
+    {
+      "key": "276",
+      "name": "material-unknown",
+      "rejected": true
+    },
+    {
+      "key": "276",
+      "name": "no-independent-allowance",
+      "rejected": true
+    },
+    {
+      "key": "276",
+      "name": "lost-limit",
+      "rejected": true
+    },
+    {
+      "key": "276",
+      "name": "missing-context",
+      "rejected": true
+    },
+    {
+      "key": "276",
+      "name": "source-change",
+      "rejected": true
+    },
+    {
+      "key": "276",
+      "name": "b0014/b0025 complete figure/body/source + actual parent raw/checks inherit unchanged",
+      "passed": true
+    },
+    {
+      "key": "193",
+      "name": "two independent PDF193/b6 version slices remain paired, captured Web text unchanged",
+      "passed": true
+    }
+  ],
+  "count": 41,
+  "newModelCalls": 0,
+  "candidateChanges": 0,
+  "rawChanges": 0,
+  "admissionGranted": false,
+  "ordinaryPassed": false
+}

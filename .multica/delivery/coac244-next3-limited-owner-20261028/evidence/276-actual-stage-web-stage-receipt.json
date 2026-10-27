@@ -1,0 +1,105 @@
+{
+  "schema": "coach-textbook-web-stage/1",
+  "status": "independently-audited-chapter-preview",
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1793434.r2.display.json",
+  "candidateSha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+  "sourceSha256": "db1218e9226ef5ccaf978ec6b6801bd07498017b821973647d0e551ed518439f",
+  "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/supplements/coac249-193208276-20261028/current-binding-276.json",
+  "auditStatus": "admitted-exact-limited-unknown-fidelity",
+  "limitedUnknownFidelity": {
+    "unknowns": [
+      {
+        "figureId": "79-bilibili-cn:cv1793434:b0005:figure",
+        "unknowns": [
+          "左侧弃牌从上至下第4张的风牌牌码未辨明。",
+          "左侧弃牌从上至下第5张的风牌牌码未辨明。",
+          "右侧弃牌从上至下第2张的风牌牌码未辨明。",
+          "右侧弃牌从上至下第5张的风牌牌码未辨明。"
+        ]
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1793434:b0005:figure",
+        "unknowns": [
+          "左侧弃牌从上至下第4张的风牌牌码未辨明。",
+          "左侧弃牌从上至下第5张的风牌牌码未辨明。",
+          "右侧弃牌从上至下第2张的风牌牌码未辨明。",
+          "右侧弃牌从上至下第5张的风牌牌码未辨明。"
+        ]
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1793434:b0005:figure",
+        "unknowns": [
+          "左侧弃牌从上至下第4张的风牌牌码未辨明。",
+          "左侧弃牌从上至下第5张的风牌牌码未辨明。",
+          "右侧弃牌从上至下第2张的风牌牌码未辨明。",
+          "右侧弃牌从上至下第5张的风牌牌码未辨明。"
+        ]
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1793434:b0005:figure",
+        "unknowns": [
+          "左侧弃牌从上至下第4张的风牌牌码未辨明。",
+          "左侧弃牌从上至下第5张的风牌牌码未辨明。",
+          "右侧弃牌从上至下第2张的风牌牌码未辨明。",
+          "右侧弃牌从上至下第5张的风牌牌码未辨明。"
+        ]
+      }
+    ],
+    "sourceNotes": [
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1793434:b0014:figure",
+        "sourceEvidence": "候选 sourceNotes 称附件3、4为例2原图及放大图；给定附件仅有例1的附件1、2，例2列为已审原图复用。",
+        "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+        "suggestedRepair": "删除或更正附件3、4的配对说明，说明例2使用已审原图复用。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1793434:b0025:figure",
+        "sourceEvidence": "候选 sourceNotes 称附件5、6为例3原图及放大图；给定附件仅有例1的附件1、2，例3列为已审原图复用。",
+        "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+        "suggestedRepair": "删除或更正附件5、6的配对说明，说明例3使用已审原图复用。"
+      }
+    ],
+    "conclusion": "limited-unknown-acceptable",
+    "modelCalls": 0
+  },
+  "imageDerivations": [],
+  "chapters": 1,
+  "units": 1,
+  "blocks": 49,
+  "figures": 3,
+  "corpusId": "014aded46ec391691ab6985f32f16154ede86e132b89b65632f293b208c26273",
+  "bodySha256": "1e1c7abf635d140063600eaed3e02df7da430c44fdd79ee89135cacc495d13b8",
+  "maxUnitBytes": 21118,
+  "modelCalls": 0,
+  "activeLibraryChanged": false,
+  "humanReview": "pending",
+  "canonical": "79-cn-chapter-276-4",
+  "key": "276",
+  "standardWholeArticlePassed": false,
+  "originalModelChecks": {
+    "passed": false,
+    "errors": [
+      "needs-repair:79-bilibili-cn:cv1793434:b0005",
+      "uncertain:79-bilibili-cn:cv1793434:b0014",
+      "uncertain:79-bilibili-cn:cv1793434:b0025",
+      "needs-repair:79-bilibili-cn:cv1793434:b0005:figure",
+      "uncertain:79-bilibili-cn:cv1793434:b0014:figure",
+      "uncertain:79-bilibili-cn:cv1793434:b0025:figure",
+      "semantic_information_missing",
+      "incomplete_article_comparison",
+      "error:79-bilibili-cn:cv1793434:b0005:figure",
+      "uncertain:79-bilibili-cn:cv1793434:b0014:figure",
+      "uncertain:79-bilibili-cn:cv1793434:b0025:figure"
+    ]
+  },
+  "independentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-193208276-20261028\\receipt-276.json",
+    "sha256": "fe8559ac99144b333842e9af66c7b01456883954e003c59196c50386e3e1f0ca"
+  },
+  "displayLimits": {
+    "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-250-2b5a0cbe65e0\\worktree/_analysis/n3/s276/display-limits.json",
+    "sha256": "6c6b66e89830ee1941012ca3057e1536f4bb97fe81c0e2b284e86b583256e83f"
+  }
+}

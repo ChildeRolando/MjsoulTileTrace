@@ -1,0 +1,155 @@
+{
+  "schema": "coac250-exact-next3-limited-admission/1",
+  "status": "admitted-exact-limited-unknown-fidelity",
+  "production": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770245.display.json",
+    "sha256": "0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97"
+  },
+  "source": {
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1770245",
+    "url": "https://www.bilibili.com/read/cv1770245",
+    "title": "【日本麻雀讲座译文】防守9—兜牌",
+    "language": "zh-CN",
+    "fetchedAt": "2026-10-23T20:31:45.499882+00:00",
+    "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1770245/source.json",
+    "sourceSha256": "0d6849d5bb4cb250ce9070a883fa072f9025c8411563b9f74fe9fd9d616fa17c",
+    "htmlSha256": "c8bf234e6e35be559bde96237becf6f9a4ae4702275785c06115c265ff404df8",
+    "mainSha256": "e15b16037e2d285adcf5bf19dcf07473bd46916c5706811561e993d5620a2163"
+  },
+  "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/supplements/coac249-193208276-20261028/current-binding-208.json",
+  "auditSha256": "d48e56626a3f7d1542da066bdb3f23629bc800555050db2c0fcb72a926de0016",
+  "standardWholeArticlePassed": false,
+  "key": "208",
+  "canonical": "79-cn-chapter-208-4",
+  "independentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-193208276-20261028\\receipt-208.json",
+    "sha256": "d4ee73bd11dbc900ad6ec4dc327f6f106b377616dfc2a5e0c3d94b0ef41b9be9"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\53850eb0-aa1a-4623-ad61-cc55340fc271.json",
+    "sha256": "47418ce17a461c551e1d6147868e1e82348cb577ac76bda8204c6d54401f50cf"
+  },
+  "requiredDisplayLimitations": [
+    "保留两张原图及其候选转录中的四处明确未知：b0004上方第一排最左万子，以及b0006左方A、B和右方C；不得以推测牌码替换。",
+    "保持b0001至b0009的原始DOM顺序、图文对应关系、原文条件、sourceSegments及其marks和href，并保留各块给出的tableContext。原文中的字词不因本次辨识而改写。",
+    "保留“没有人立直”“一向听”“摸到5饼什么的”“可以考虑”“摸到危险牌”等条件，以及七对子缺少确实性、须根据点数判断和防守基本为弃和的限制。",
+    "将作者的建议和风险评价作为原文论证展示；不得把筋牌3万或“两张牌的安全”扩写为已独立证明对所有对手绝对安全。",
+    "不得声称完整牌河、对手暗手、概率或最优策略已由本次审查恢复或验证；这也不是整章通过结论。"
+  ],
+  "originalAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1770245.0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97.json",
+    "sha256": "c3ed21f44410017abe1d203a87a0a7a470ec11f0b83e035c43f76016b91236fd",
+    "bytes": 20766
+  },
+  "originalModelChecks": {
+    "passed": false,
+    "errors": [
+      "uncertain:79-bilibili-cn:cv1770245:b0004",
+      "uncertain:79-bilibili-cn:cv1770245:b0006",
+      "uncertain:79-bilibili-cn:cv1770245:b0004:figure",
+      "uncertain:79-bilibili-cn:cv1770245:b0006:figure",
+      "semantic_information_missing",
+      "uncertain:79-bilibili-cn:cv1770245:b0004:figure",
+      "uncertain:79-bilibili-cn:cv1770245:b0006:figure"
+    ]
+  },
+  "originalIssues": [
+    {
+      "severity": "uncertain",
+      "targetId": "79-bilibili-cn:cv1770245:b0004:figure",
+      "sourceEvidence": "原图1及放大图4：上方牌河第一排从画面左数第1张为倒置的万子明牌；候选记录为“［万子点数未辨明］”。",
+      "description": "该公开弃牌的点数未得到可靠确认，候选使用占位，无法完成整幅牌桌的逐牌语义核验。",
+      "suggestedRepair": "依据所附原图可靠确认该张万子的点数并补入转录；不能确认时保留明确不确定状态并阻断完整性通过，不猜牌。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "79-bilibili-cn:cv1770245:b0006:figure",
+      "sourceEvidence": "原图2及放大图5：左方牌河靠中央一列从上数第2、第5张，以及右方牌河第二列、最下方2z右侧一张，分别被候选记为未辨明A、B、C。",
+      "description": "三张公开万子的点数未得到可靠确认，牌河仍有教学牌码缺口。",
+      "suggestedRepair": "逐张依据所附原图确认A、B、C的准确牌码后替换占位；无法可靠确认的项目继续明确标为不确定并阻断完整性通过。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1770245:b0004:figure",
+      "sourceEvidence": "visualEvidence将原图指定为附件1、对应2倍放大图指定为附件4；sourceNotes却写“附件1为原图，附件2为……放大图”。",
+      "description": "加工附件配对编号错误，不属于教材教学内容。",
+      "suggestedRepair": "将该说明中的放大图编号改为附件4。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1770245:b0006:figure",
+      "sourceEvidence": "visualEvidence将原图指定为附件2、对应2倍放大图指定为附件5；sourceNotes写为附件3和附件4。",
+      "description": "加工附件配对编号错误，不影响原图本身的教学内容。",
+      "suggestedRepair": "将说明改为附件2为原图、附件5为对应2倍放大图。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1770245:b0008:figure",
+      "sourceEvidence": "visualEvidence将原图指定为附件3、对应4倍放大图指定为附件6；sourceNotes却将原图写为附件5。",
+      "description": "原图附件编号笔误；该图教学牌码及标签完整。",
+      "suggestedRepair": "将原图编号改为附件3，保留放大图编号附件6。"
+    }
+  ],
+  "parent276NonTargetEvidence": null,
+  "pdf193VersionPair": null,
+  "limitedUnknownFidelity": {
+    "unknowns": [
+      {
+        "figureId": "79-bilibili-cn:cv1770245:b0004:figure",
+        "unknowns": [
+          "上方牌河第一排从画面左数第1张：可辨为万子，但倒置的点数未能可靠辨明。"
+        ]
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1770245:b0006:figure",
+        "unknowns": [
+          "万子点数未辨明A：左方牌河靠中央一列从画面上数第2张，可辨为万子，点数未能可靠辨明。",
+          "万子点数未辨明B：左方牌河靠中央一列从画面上数第5张，可辨为万子，点数未能可靠辨明。",
+          "万子点数未辨明C：右方牌河第二列、最下方2z右侧的一张，可辨为万子，点数未能可靠辨明。"
+        ]
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1770245:b0006:figure",
+        "unknowns": [
+          "万子点数未辨明A：左方牌河靠中央一列从画面上数第2张，可辨为万子，点数未能可靠辨明。",
+          "万子点数未辨明B：左方牌河靠中央一列从画面上数第5张，可辨为万子，点数未能可靠辨明。",
+          "万子点数未辨明C：右方牌河第二列、最下方2z右侧的一张，可辨为万子，点数未能可靠辨明。"
+        ]
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1770245:b0006:figure",
+        "unknowns": [
+          "万子点数未辨明A：左方牌河靠中央一列从画面上数第2张，可辨为万子，点数未能可靠辨明。",
+          "万子点数未辨明B：左方牌河靠中央一列从画面上数第5张，可辨为万子，点数未能可靠辨明。",
+          "万子点数未辨明C：右方牌河第二列、最下方2z右侧的一张，可辨为万子，点数未能可靠辨明。"
+        ]
+      }
+    ],
+    "sourceNotes": [
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1770245:b0004:figure",
+        "sourceEvidence": "visualEvidence将原图指定为附件1、对应2倍放大图指定为附件4；sourceNotes却写“附件1为原图，附件2为……放大图”。",
+        "description": "加工附件配对编号错误，不属于教材教学内容。",
+        "suggestedRepair": "将该说明中的放大图编号改为附件4。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1770245:b0006:figure",
+        "sourceEvidence": "visualEvidence将原图指定为附件2、对应2倍放大图指定为附件5；sourceNotes写为附件3和附件4。",
+        "description": "加工附件配对编号错误，不影响原图本身的教学内容。",
+        "suggestedRepair": "将说明改为附件2为原图、附件5为对应2倍放大图。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1770245:b0008:figure",
+        "sourceEvidence": "visualEvidence将原图指定为附件3、对应4倍放大图指定为附件6；sourceNotes却将原图写为附件5。",
+        "description": "原图附件编号笔误；该图教学牌码及标签完整。",
+        "suggestedRepair": "将原图编号改为附件3，保留放大图编号附件6。"
+      }
+    ],
+    "conclusion": "limited-unknown-acceptable",
+    "modelCalls": 0
+  }
+}
