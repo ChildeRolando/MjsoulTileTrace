@@ -3,11 +3,13 @@
 Ticket-local evidence bundle for the Multica ticket `COAC-269` (line B of the parallel editing split
 authorised 2026-10-27T09:23Z). Shared code, the unified register, selection and pointers were not modified.
 
-Current state after the 2026-10-28 COAC-249 return: **blocked**. Both exact 183/236 display
-candidates received one real first independent review and remain `needs-repair / uncertain`.
-Their authorized batch has used **6/6 local calls, remaining 0**. No new production/review or
-integration is authorized by the return. See Batch 13 below for the authoritative remaining items
-and full six-call accounting; earlier pending statements are historical observations.
+Current state after the latest 2026-10-28 COAC-249 return: **blocked**. The unchanged 183 display
+has a real, explicitly authorized full-context target-text re-review **passed**, and is already
+handed to COAC-250; this owner does not claim integration acceptance. The 236 display keeps its
+original `needs-repair / uncertain` receipt, with a new zero-call source/fidelity diagnosis.
+The revised authorization has used **7/7 local calls, remaining 0**. This receipt-only run adds
+zero calls and no dispatch. See Batch 14 for current findings; earlier outcomes and budgets are
+historical observations and remain preserved.
 
 ## Scope
 
@@ -1007,3 +1009,67 @@ COAC-249 commit `722b23e` and match the original bound SHA. No request or review
 
 The ticket is **blocked**, with the finite batch exhausted and semantic/source ambiguities unresolved.
 The existing draft PR is evidence delivery, not textbook approval or permission to close the issue.
+
+## Batch 14: record 183 full-context pass and 236 fidelity diagnosis, 2026-10-28
+
+This run adds **zero model calls** and consumes only existing COAC-249 evidence. The new 183
+handoff is `integration/coac249-reviewed183-stat-context-v3-20261028.json`, SHA256
+`9ff0d4891ae521a0d389686c3c0689967e3aceeb9ea073a0af8d21ceb078aac7`.
+Its separate authorization is comment `01a17ef3-c615-7239-adda-3feb1b432e6f`, which added exactly
+one full-context review. This changes the cumulative allowance from six to seven; it does not
+erase or reclassify any of the original six calls.
+
+The unchanged `nemata-jp-chapter-183-1` display SHA
+`973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a` now has a real independent
+**passed** target-text receipt. All original 19 source blocks, including b0003 definitions and
+b0005-b0013 statistics, actually appeared in the new request. Only b0018 is newly reviewed;
+other content inherits the authenticated parent audit. The new reviewer found the neutral
+author translation and explicit non-author note faithful and complete, retaining the author
+counting doubt as a `source-note`. This is the new model's judgment, not a zero-call severity
+edit. The old first review `018687de…`, its uncertain issue and every raw remain unchanged.
+
+- New call: `2c2ab5c6-372c-46d9-bc12-7af409803ea0`, `gpt-6.1-sol/high`, images empty,
+  17,042 input / 7,808 cached-input / 714 output tokens, 46,550 ms.
+- New audit SHA256: `20bdc51f1fd8b7afbfafa5d550c186d5571e779a8e538de433021536e56c7d61`.
+- New raw SHA256: `cb47737edc719765d5f76165a8e6190ba5279ce4ae8fe665a29a90cce97906c9`.
+- Runtime: `coac249-stat183-context-v3-20261028`, manifest SHA256
+  `f7da16a28767707dde26cd1020063c067374901844a153daf4cac297342e047b`.
+  Its verifier consumes the separately bound context sidecar; the old frozen runtime does not.
+- The existing COAC-249 handoff to COAC-250 requires the same display SHA, v3 verifier and
+  source/parent/raw chain, with real MCP/Arena readback including the note and emphasis.
+  No duplicate integration handoff was sent here and no integration success is claimed.
+
+For `nemata-jp-chapter-236-1`, this phase adds **zero calls**. The existing diagnosis
+`integration/coac249-236-fidelity-diagnosis-20261028.json` was already sent to COAC-244.
+It mechanically confirms the approved deletion of the two characters `剩余`, all other author
+characters/sourceSegments unchanged, and an explicit non-author note disclosing the unresolved
+timing. The original review finds context and completeness faithful, while its uncertain issue
+says “即使巡数很少” retains the source's early/remaining ambiguity and cannot confirm the
+author's intended timing. It identifies no verifiable added timing assertion, omitted condition,
+incorrect number or strengthened certainty in this neutral candidate. Distinguish that source
+ambiguity from a proven translation defect; do not require invention of an unstated author fact.
+This diagnosis is not a new semantic verdict: original call `7a1363b3…`, audit SHA `d2c9dfe0…`
+and its `needs-repair / uncertain` status stay unchanged. No forced pass, rewording or review occurs.
+
+Current remaining/acceptance state:
+
+| canonical | current evidence | remaining owner action; no new call authorized |
+| --- | --- | --- |
+| nemata-jp-chapter-183-1 | New target-text review passed with all 19 source blocks as context; author ambiguity is explicitly retained as a source-note. | COAC-250 owns integration and actual MCP/Arena acceptance. Keep the same candidate and note; do not silently replace “见1张” with “持有1张”. |
+| nemata-jp-chapter-236-1 | Original uncertain remains; zero-call diagnosis identifies no concrete new translation defect in the approved neutral wording. | COAC-244 owns assessment of fidelity versus recovery of an unstated source meaning. Preserve the old review and note; do not invent early/remaining timing, zero-call relabel it, or dispatch without separate authorization. |
+
+Seven distinct local call records now consume **7/7, remaining 0**: four productions (including
+the two whitelist failures), two original first reviews and one explicitly authorized 183 context
+re-review. Known usage is **100,899 input / 7,808 cached input / 4,694 output tokens**; cached input
+is included in input, not added again. Executor automatic retry remains zero. Monetary cost,
+actual upstream execution count and remote weights remain unknown. The new handoff records that
+an OS child process was not observed during this extra call; the request configuration and complete
+raw are verified, and no stronger backend/process claim is made here.
+
+Evidence in `artifacts/b14-stat183-return/` includes byte-exact handoff/new audit/raw, context
+manifest, 236 diagnosis, seven-call result and verification. `verify-update.mjs` passes 37 immutable
+reference checks, the actual 19-block projection/request/raw bindings and new v3 pass verification,
+preserves the old reviews, checks 236's unchanged text/receipt and totals the seven-call budget.
+It has no model dispatch path. This run does not repeat production, alter source/raw/frozen files,
+create a consumer/wakeup, touch 234/other chapters, change shared registers or switch formal active.
+The existing PR remains an evidence draft; this ticket and the whole-book goal are not complete.

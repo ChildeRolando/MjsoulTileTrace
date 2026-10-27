@@ -1,0 +1,68 @@
+{
+  "schema": "coac249-236-zero-call-fidelity-diagnosis/1",
+  "recordedAt": "2026-10-27T20:11:52.392Z",
+  "modelCalls": 0,
+  "chapterId": "nemata-jp-chapter-236-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.coac244exactv2.display.json",
+    "sha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section015\\source.json",
+    "sha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+    "bytes": 10906
+  },
+  "targetId": "modern-yabejp-ja:chapter04-section015:b0003",
+  "originalSourceText": "麻雀は何点リードしていても半荘が終わるまでは逆転される可能性が残っています。逆に言えば、終了した時点でトップが100%確定するので、飛ばしてトップ終了の可能性があるというのは案外大きなメリットなのです。特に、順位が低下するリスクが少ない場合や、まだ東場の早い段階であれば積極的にトビ終了を目指すのも有効です。例えば跳満ツモでラス目が飛ぶ上にトップを逆転して終了というのであれば、ダマ満貫の手は例え巡目が僅かでもリーチするべきですし、順位低下のリスクが小さければトップ以外からは見逃しで構いません。自分がトップ目であれば通常オリる機会が増えますが、ラスから出れば終了の手をテンパイしていればリーチ相手にトップ目からでも押すことも増えます。（もちろんこの場合は脇から出た場合に見逃しはしない。）",
+  "approvedNeutralAuthorText": "麻将中，无论领先多少点，只要半庄尚未结束，就仍有被逆转的可能。反过来说，结束时第一名就会100%确定，因此，有机会击飞他人、以第一名结束，其实是个相当大的优势。尤其是在名次下降的风险较小，或还处于东场较早阶段时，积极争取通过击飞结束半庄也是有效的。例如，如果跳满自摸就能使末位玩家被击飞，同时反超第一名并结束半庄，那么默听满贯的牌，即使巡数很少，也应当立直；如果名次下降的风险较小，对第一名以外的玩家打出的和牌张，选择放过也无妨。如果自己处于第一名，通常会有更多弃和的机会，但若已经听牌，且只要末位玩家放铳就能结束半庄，那么即便自己处于第一名，面对立直时继续进攻的情况也会增多。（当然，这种情况下，若由其他玩家打出和牌张，也不会放过。）",
+  "currentText": "麻将中，无论领先多少点，只要半庄尚未结束，就仍有被逆转的可能。反过来说，结束时第一名就会100%确定，因此，有机会击飞他人、以第一名结束，其实是个相当大的优势。尤其是在名次下降的风险较小，或还处于东场较早阶段时，积极争取通过击飞结束半庄也是有效的。例如，如果跳满自摸就能使末位玩家被击飞，同时反超第一名并结束半庄，那么默听满贯的牌，即使巡数很少，也应当立直；如果名次下降的风险较小，对第一名以外的玩家打出的和牌张，选择放过也无妨。如果自己处于第一名，通常会有更多弃和的机会，但若已经听牌，且只要末位玩家放铳就能结束半庄，那么即便自己处于第一名，面对立直时继续进攻的情况也会增多。（当然，这种情况下，若由其他玩家打出和牌张，也不会放过。）\n\n【校注（非原文）：原文“巡目が僅か”未明确指已进行的巡数还是剩余巡数，此处不补入“剩余”；该时机条件仍未确认。】",
+  "editorialNote": "【校注（非原文）：原文“巡目が僅か”未明确指已进行的巡数还是剩余巡数，此处不补入“剩余”；该时机条件仍未确认。】",
+  "mechanical": {
+    "authorChangeExactlyDeletesTwoCharacters": true,
+    "sourceSegmentsAndEmphasisPreserved": true,
+    "allOtherCandidateTextMatchesApprovedContract": true
+  },
+  "existingAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28.json",
+    "sha256": "d2c9dfe09838a15c845ae3bab8f698729bd99a22878bbb23af1f268849948aeb",
+    "status": "needs-repair",
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7a1363b3-906b-4155-9643-2a3924d3dfd1.json",
+      "sha256": "8c08adf2edcc9391b697b78ba61922ee3ffb69aa715194f7df9abcd588d28039"
+    },
+    "callId": "7a1363b3-906b-4155-9643-2a3924d3dfd1",
+    "blockCheck": {
+      "id": "modern-yabejp-ja:chapter04-section015:b0003",
+      "verdict": "uncertain",
+      "evidence": "击飞锁定第一名的优势、适用条件、跳满自摸的例子、见逃条件及第一名面对立直仍可进攻的例外均已保留。“巡目が僅か”的时机指向仍存在疑义，校注明确披露了这一点。"
+    },
+    "issue": {
+      "severity": "uncertain",
+      "targetId": "modern-yabejp-ja:chapter04-section015:b0003",
+      "sourceEvidence": "ダマ満貫の手は例え巡目が僅かでもリーチするべき",
+      "description": "“巡目が僅か”未明示是否指剩余巡数。上下文支持考虑剩余巡数的读法，但不足以排除字面上的早巡读法；“即使巡数很少”也保留了这种歧义。现有校注披露了疑点，不能据此确认时机条件已准确落实。",
+      "suggestedRepair": "暂保留明确标为非原文的校注；确认原意后，再分别改为“即使剩余巡数很少”或“即使尚在早巡”，并相应更新校注。"
+    },
+    "contextContinuity": {
+      "faithful": true,
+      "evidence": "承接前段按点数状况判断攻守的论述，未重复邻段内容；括号中的不见逃说明也保留在相应情境内。"
+    },
+    "semanticCompleteness": {
+      "complete": true,
+      "evidence": "目标段落的论点、条件、判断力度与例外均有对应译文；时机条件已呈现，但其具体含义尚不能确认。"
+    }
+  },
+  "distinction": {
+    "sourceAmbiguity": "巡目が僅か does not explicitly name remaining turns versus early turns.",
+    "translationAddedTimeAssertion": false,
+    "neutralText": "即使巡数很少 retains the source lack of direction; the explicitly non-author note discloses it.",
+    "verifiableTranslationDefectIdentifiedByCurrentReceipt": false,
+    "currentReasonForUncertain": "“巡目が僅か”未明示是否指剩余巡数。上下文支持考虑剩余巡数的读法，但不足以排除字面上的早巡读法；“即使巡数很少”也保留了这种歧义。现有校注披露了疑点，不能据此确认时机条件已准确落实。",
+    "assessment": "The receipt describes inability to confirm the author timing, while explicitly finding the target argument/conditions/exceptions complete. It identifies no added timing assertion, omitted condition, incorrect number or wrongly strengthened certainty in this neutral candidate. This is a zero-call source/fidelity distinction, not a new semantic review."
+  },
+  "status": "original-needs-repair-uncertain-preserved",
+  "passedPromoted": false,
+  "candidateChanged": false,
+  "remainingModelAllowance": 0,
+  "nextOwnerQuestion": "Assess fidelity to the author ambiguity separately from recovering an unstated timing fact; do not require invention of early/remaining turns, and do not zero-call relabel the existing uncertain receipt."
+}
