@@ -1,0 +1,473 @@
+{
+  "chapters": 239,
+  "units": 247,
+  "blocks": 6573,
+  "figures": 5280,
+  "corpusId": "8480fd9100f6d2e1fcac7b2ad37248bbaa44d4931aab73bc18686a4d6b11fb95",
+  "bodySha256": "9f7b99b887a2fd365d0c9305721dc2995b58e94a94bed6d9411eba411ae1fd76",
+  "maxUnitBytes": 358204,
+  "modelCalls": 0,
+  "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T22-45-20-588Z",
+  "stageReceipt": {
+    "schema": "coac250-owned-pdf217-limited-stage/1",
+    "chapterId": "79-cn-chapter-217-4",
+    "status": "complete-owned-chapter-with-explicit-independent-display-limits",
+    "scopeSelection": {
+      "chapterId": "79-cn-chapter-217-4",
+      "module": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-pdf217-limited-display-20261028/stage-owned-217.v2.mjs",
+        "sha256": "0a2d0026d5d68adf897903b3231fe5d8704edb89d8aebc53f151a05dd1da632c"
+      },
+      "inventory": {
+        "path": "E:/AgentData/Coach/knowledge/processing/source-inventory.json",
+        "sha256": "050ad125fa0c82757e9a53279974c6bc1cc6249a8919cc33048367d52ccf8b4d"
+      },
+      "files": [
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-pdf218219-bounded-close-reviewed-20261028.json",
+          "sha256": "ce1df311b35a41fee83882422ba9491232d5f592388d7a3fbf055ef6291f9b5a"
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/source-inventory.json",
+          "sha256": "050ad125fa0c82757e9a53279974c6bc1cc6249a8919cc33048367d52ccf8b4d"
+        },
+        {
+          "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/publish-textbooks.mjs",
+          "sha256": "ffa7b575475bb3a0b65e13560081354a6adf78a9d51d09958cd0f8385bd04026"
+        },
+        {
+          "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/compile-textbook-corpus.mjs",
+          "sha256": "b4a8fb7432847e54b3c922a5b83e88b3d957abd6a16e726c772188fa5db4a2db"
+        },
+        {
+          "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/textbook-review.mjs",
+          "sha256": "11b3b9c1dcb41b2cdde72517dca733a84a352e75eea154edea5acc36408c7edf"
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-pdf217-limited-display-20261028/owner-contract.md",
+          "sha256": "9bcc9db26680be6b786800c2caaba69596af22f6ba9134e393d2df4881c4f938"
+        }
+      ],
+      "ownerContract": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-pdf217-limited-display-20261028/owner-contract.md",
+        "sha256": "9bcc9db26680be6b786800c2caaba69596af22f6ba9134e393d2df4881c4f938"
+      },
+      "scope": "Exact217 paired correction +218 independent bounded author argument with seven mandatory non-author display slots +219 existing limited fidelity +220 full-page pass, only canonical22 owned source blocks; no ordinary whole-page217/218/219 pass."
+    },
+    "pages": [
+      {
+        "page": 217,
+        "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\page-0217.rev6.json",
+        "originalStatus": "needs-repair"
+      },
+      {
+        "page": 218,
+        "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218-consistent-unknown-20261028\\candidates\\79-cn\\page-0218.json",
+        "originalStatus": "needs-repair"
+      },
+      {
+        "page": 219,
+        "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-target-fix-v2-20261028\\candidates\\79-cn\\page-0219.json",
+        "originalStatus": "needs-repair"
+      },
+      {
+        "page": 220,
+        "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf220-terra-20261028\\candidates\\79-cn\\page-0220.json",
+        "originalStatus": "passed"
+      }
+    ],
+    "ownedSourceBlocks": 22,
+    "partition": [
+      6,
+      5,
+      9,
+      2
+    ],
+    "displayMap": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T22-45-20-588Z/stages/pdf-79-cn-chapter-217-4/display-limitations.json",
+      "sha256": "8d6597a16a759c0f00894f24dcbd267897025c707acbfffed880f9a3f1a5a9fc"
+    },
+    "evidence": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-pdf218219-bounded-close-reviewed-20261028.json",
+        "sha256": "ce1df311b35a41fee83882422ba9491232d5f592388d7a3fbf055ef6291f9b5a"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218-bounded-20261028\\218-bounded-allowance.json",
+        "sha256": "e59775769a54195856cfd70f6eb91d2d1a40fc072138e01e27f2817558eab970"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218-bounded-20261028\\receipt.json",
+        "sha256": "528ca583593afa4fa57a0b8a10229f8f6adea311a8412883e270421990fe988b"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\f67b7927-e0d9-4f0e-a163-974b72afe05e.json",
+        "sha256": "b15806fad8538624761eb73c7004296e7e197de7bd4fc0b1309b95603b7f0bf7"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218-consistent-unknown-20261028\\candidates\\79-cn\\page-0218.json",
+        "sha256": "df8f2de33d1baf5141533810f22b59855aef0145729d612f003ae123c4e24157"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-bounded-close-20261028\\optional218-review-request.json",
+        "sha256": "c5728701ef690dbbb673a09614eec7c4dca8703bac6218afe76ad1f75611b2f1"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-pdf219-limited-20261028\\219-limited-admission.json",
+        "sha256": "7e839e813d5363098863c2e03606fa0ea51e7d6c57c9f8fd69d8a88efdb48392"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-pdf219-limited-intake-20261028.json",
+        "sha256": "5893bff16f8b8ab0d5dbc1458be72ea60e81f0399d20475f3b0307649900cc8d"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf217220-assembly-manifest-20261028.json",
+        "sha256": "64665b199bce2e48ee13fd07c1c79ae4f7cec27871a933899e6f48391cca9d60"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\source-block-ownership.json",
+        "sha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\chapter-map.json",
+        "sha256": "d38bbd1a72defef709f4e2f336b3447e4fc677183b88b7e8d6aa050258017a8e"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\source-inventory.json",
+        "sha256": "050ad125fa0c82757e9a53279974c6bc1cc6249a8919cc33048367d52ccf8b4d"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\runtime-manifest.json",
+        "sha256": "e039ca388aefec50a88ee33f84f2d5fc41d70a82014282c701ba89652ba8eae9"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\runtime\\textbook-audit-pdf-native-corrections.mjs",
+        "sha256": "532e7a0c1baa33024e9ef52a7a806b6cbeff2125455d9cdc6b73fd8a92d01e71"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\runtime\\textbook-audit-pdf-p217-correction.mjs",
+        "sha256": "2e3d02dc0c807c6fe0283aeee9e8198a83e0a7e5a0ecd60822b29e396877fad8"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\verify.mjs",
+        "sha256": "deec89482c7a3ec5d2f530933d29d29036f9854139fd9562ae5abfff588a6eb3"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\correction.test.mjs",
+        "sha256": "77349fd9179875116c6c8f388ee5f28f63ea45a7883118bf9e059e9f2608d494"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\native-inline-field-corrections.p217.root-acceptance.json",
+        "sha256": "5fc316e8150c927e0c49bfb49b120a348040ee6c7707847984d585b8023cf8f7"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\page-0217.rev6.json",
+        "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\parent\\page-0217.json",
+        "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\originalRaw\\e12aa4a6-65f4-4a23-9579-09f887f568be.json",
+        "sha256": "6112c207fc1d5922e88af671f0a02b7e13623af7edee15a18a9b0c76bed59203"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\page217\\217.json",
+        "sha256": "f8de2eddd4ba2939ae40796ffd8d1d1f971d49474dede72d108e61809ef1d6f8"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\page218\\218.json",
+        "sha256": "83d1909e9e92a9622c46c9ba0ea46efca12bef60cb27ec5b35d72fcbd8f92abd"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\image\\64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+        "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev1\\page-0217.json",
+        "sha256": "279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev1Audit\\page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json",
+        "sha256": "48188a41382d98a5af7272851ba96f8d209213ee5befb3f4fd2fbf0b738574be"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev1AuditRaw\\95502be0-996e-40be-bcec-1d37e4dbb695.json",
+        "sha256": "2423c2a1205e5b84e5f5ba2cf40a6d8983cbee01a33db324058ce97168081f74"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev2\\page-0217.json",
+        "sha256": "2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev2Audit\\page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json",
+        "sha256": "70e67fec9ff86c6eeb77019a488c68b2b8836d7610b1b88eee3bb1785348c1b4"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev2AuditRaw\\2b9d82cb-d3fa-4578-ad15-4b8cb22b70d0.json",
+        "sha256": "f483dfb21097c6a738a87a6fe2dbe39dd1b20dca844aabf91acee67459e69f16"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev3\\page-0217.json",
+        "sha256": "ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev3Audit\\page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json",
+        "sha256": "7dc668f386cbc8c4a5f7ee7c253d0958b688f76de48ac6a82edba24e770bb33c"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev3AuditRaw\\a67e7181-9217-47e7-b944-4373d83e5280.json",
+        "sha256": "290cc79e73e41d9c45aacb1b85610b438fcfdb0faffb5708db86a154811174ed"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev4\\page-0217.json",
+        "sha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\parentAudit\\page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+        "sha256": "44e101c7fbf8813d9db7a18af177a42b27b51ebaf92945761787b8b25764b3ec"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev4AuditRaw\\4f760999-1648-410e-8452-1c1b4794503f.json",
+        "sha256": "accbddb2fafe11ce150f26ecd6ba2c13f93a4c16fd760cb8eb82299ffc1e729d"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\rev5\\page-0217.json",
+        "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\north-first\\coac249-point-222-p217-20261028.json",
+        "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\north-first-raw\\image-p217-north-second-row.raw.json",
+        "sha256": "cc7f332d563cfc25106e77b06a097ddcb797450e8c4dbac69110901a8b51e516"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\north-second\\coac249-p217-second-point-20261028.json",
+        "sha256": "b1ee9973976f05f59d32acc9594e78b4d6dc2928a8061bc82a009b709c5cc70d"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\north-second-raw\\raw.json",
+        "sha256": "c052de0b93273a683f70e8746fe53b03eb805e6f4ce06ef36aef7aeea6b1e29d"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\west-impact\\coac249-p217-west-impact-20261028.json",
+        "sha256": "1fe84448edbf053d6a61ea4bb550518d6a4875df566347b72964ad8f8a65dedd"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\west-impact-raw\\raw.json",
+        "sha256": "fa68f2f3be0e6b2eb496007d6d5638c7cc7aabd322975cfa24e048d96e849e81"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\west-impact-receipt\\receipt.json",
+        "sha256": "5f2e2fd009758c3df6d435073bf1f9dcb80c6f033f06213d931a668ef957e18b"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\chapter-map\\chapter-map.json",
+        "sha256": "d38bbd1a72defef709f4e2f336b3447e4fc677183b88b7e8d6aa050258017a8e"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\ownership\\source-block-ownership.json",
+        "sha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\revision-chain\\receipt-p217-revision-chain-20261027.json",
+        "sha256": "9ab2668f250b53c1bc2408025f7b1bd042454150bf980ddcff97cf978287b9bb"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\evidence\\original-render\\page-0217-r1.png",
+        "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\assembled-display.json",
+        "sha256": "982fda3554c0ec35425390968204fa4a9d6a5bf99afa15d8c3f02d9b3ba0d65e"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\runtime-manifest.json",
+        "sha256": "c7c273d17c2685e4cf3f0251ebe345fff34a0d40865ab5e83cb1ced47ca97945"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\capability-evidence.json",
+        "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-audit-definition.mjs",
+        "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-audit-legacy.mjs",
+        "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-audit-pdf-layout.mjs",
+        "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-audit-pdf-native-corrections.mjs",
+        "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-audit-pdf-native-structure-corrections.mjs",
+        "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-audit-pdf-native.mjs",
+        "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-audit-pdf-scope.mjs",
+        "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-audit-pdf-source-corrections.mjs",
+        "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-audit-tile-dictionary.mjs",
+        "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-audit-verification-dependencies.mjs",
+        "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-audit-web-batches.mjs",
+        "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-audit-web-source.py",
+        "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-audit-web.mjs",
+        "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-audit.mjs",
+        "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-production-cli.mjs",
+        "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-production-pdf-flow.mjs",
+        "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-production-web-batches.mjs",
+        "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-production-web-dictionary.mjs",
+        "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-production-web-formal.mjs",
+        "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-production-web-labels.mjs",
+        "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-production-web-present.py",
+        "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-production-web-sources.py",
+        "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-production-web-visual.py",
+        "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-production-web.mjs",
+        "sha256": "07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\textbook-production.mjs",
+        "sha256": "3c04c7ec796f414c08ef2e5967346fdf9f0db7c92144b3558809ed11763072b1"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\verification-dependencies.json",
+        "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\production-schema.mjs",
+        "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\render-textbook-page.py",
+        "sha256": "6219e82ebb07a5f69e91b6e45ccadda00d85138c33bb67adaf6b40dd4a5f8c04"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\frozen-workspace\\scripts\\scene-study\\render-textbook-region.py",
+        "sha256": "488de7788ec5a2b95b411f31acdece59d806e59360c32bdb2bf20f76f1093fec"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\page-0217.rev6.json",
+        "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\217.json",
+        "sha256": "f8de2eddd4ba2939ae40796ffd8d1d1f971d49474dede72d108e61809ef1d6f8"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218-consistent-unknown-20261028\\candidates\\79-cn\\page-0218.json",
+        "sha256": "df8f2de33d1baf5141533810f22b59855aef0145729d612f003ae123c4e24157"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\218.json",
+        "sha256": "83d1909e9e92a9622c46c9ba0ea46efca12bef60cb27ec5b35d72fcbd8f92abd"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0218.9ff64a457dec1368924a4f431d3a8d89278151d339bb74a07df1d749f882c8e6.38f0d64d609b.json",
+        "sha256": "74cfe8d8cd72ebc4b02fe46464d1b4e7f4728d10fb429f8a6f331dc575356d17"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\candidates\\79-cn\\page-0218.json",
+        "sha256": "9ff64a457dec1368924a4f431d3a8d89278151d339bb74a07df1d749f882c8e6"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-target-fix-v2-20261028\\candidates\\79-cn\\page-0219.json",
+        "sha256": "464c607a262b415dece3f35b213aef19b632266f7c4917f3107a04d5e1971bc9"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\219.json",
+        "sha256": "27ae7567c1ba544cf5b5bdbf3a75abeb95e650c84ba9ce2114b2143340d99a28"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0219.4ed396279c5eff45b5c9d399f7950394ac1c36b0cc638b22f67d0f30fb03ff54.38f0d64d609b.json",
+        "sha256": "485247f1aabde12801df12bdd4e989a1fa3071148a17acd7a68dfd1285b15c14"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf220-terra-20261028\\candidates\\79-cn\\page-0220.json",
+        "sha256": "49df5a1cdba1d14e8feaf19a2ce1ae41cfc690c0cfeb047e6e290e032ca2ceeb"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\220.json",
+        "sha256": "3df3b2ec7e9503cfe2916d831fcfee8773e3f9bc71c610705268dd2f56ea5450"
+      }
+    ],
+    "chapters": 1,
+    "units": 1,
+    "blocks": 24,
+    "figures": 4,
+    "corpusId": "07dfea32cfaa4c6220823b78d2be9cb42bc14845ef77827edebf7cf64025cb41",
+    "bodySha256": "e0c181dd7b0e7ea40a1ded0e45550e1efca0a9c19b88056eebeb5a98f4bdb1d0",
+    "maxUnitBytes": 12053,
+    "modelCalls": 0,
+    "fullPage218Passed": false,
+    "fullPage217Passed": false,
+    "fullPage219Passed": false,
+    "originalUncertainRetained": true,
+    "newModelCalls": 0,
+    "formalActiveChanged": false
+  },
+  "retainedUnits": 246,
+  "models": 0
+}

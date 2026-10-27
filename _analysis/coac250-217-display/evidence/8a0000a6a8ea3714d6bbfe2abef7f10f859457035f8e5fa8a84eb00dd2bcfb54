@@ -1,0 +1,266 @@
+{
+  "schema": "coac249-independent-pdf-native-target-receipt/1",
+  "recordedAt": "2026-10-27T22:12:05.301Z",
+  "page": 219,
+  "chapterId": "79-cn-chapter-217-4",
+  "targetFigureId": "79-cn-p219-r2",
+  "status": "needs-repair",
+  "standardWholePagePassed": false,
+  "fullPageComparedClaimed": false,
+  "candidate": {
+    "path": "production/coac247-pdf218219-target-fix-v2-20261028/candidates/79-cn/page-0219.json",
+    "sha256": "464c607a262b415dece3f35b213aef19b632266f7c4917f3107a04d5e1971bc9"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\candidates\\79-cn\\page-0219.json",
+    "sha256": "4ed396279c5eff45b5c9d399f7950394ac1c36b0cc638b22f67d0f30fb03ff54"
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0219.4ed396279c5eff45b5c9d399f7950394ac1c36b0cc638b22f67d0f30fb03ff54.38f0d64d609b.json",
+    "sha256": "485247f1aabde12801df12bdd4e989a1fa3071148a17acd7a68dfd1285b15c14"
+  },
+  "parentReviewRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\ac6bf0ed-e84d-4bc7-b64c-cecf3550dd86.json",
+    "sha256": "314d27f4981a93efe9c448cd541bba62e75d0fbe6f3d3fe97692d5daf4ab8f94"
+  },
+  "originalProductionRaw": {
+    "path": "production/coac247-pdf218219-terra-v2-20261028/raw-calls/717d547b-6aac-4e2a-8ef2-cccbbdcfdd07.json",
+    "sha256": "eb9c196deb5be95e2ffe0cddc654550ee6941d9387859389374f69c486ba3c55"
+  },
+  "approval": {
+    "path": "integration/coac247-pdf218219-target-fix-v2-20261028/approval-219.json",
+    "sha256": "231d24c07eea42e19cd1a1720444d39b7cf1c142cfb47ca19cd4dce107cd74f8"
+  },
+  "proof": {
+    "path": "integration/coac247-pdf218219-target-fix-v2-20261028/proof-219.json",
+    "sha256": "767b706ccba86e9fce04ae60d4e8eadbcf18a7551fc2b6109994ef8528c02608"
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime-manifest.json",
+    "sha256": "22467ecebc38c4cd32e8d535e2b1344e57fd7f4518a77a7a7a03c7e298e07c23"
+  },
+  "requestBoundary": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\target-request-219.json",
+    "sha256": "901bceb588631e7c01e2dedc12b870722939e50d198a9c5f8fd9d6181e4a7c68"
+  },
+  "nativeGatePassed": true,
+  "unchangedBodyAndNonTargetScopeInherited": true,
+  "restoredExactParentSha256": "4ed396279c5eff45b5c9d399f7950394ac1c36b0cc638b22f67d0f30fb03ff54",
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\9c0751f9-9535-49dd-b156-97f2805bc605.json",
+    "sha256": "417ea1301bcc3d49ce8ab1e1e47c1a50e2e4f32e527bf8a0d78a453dcd85ddbb"
+  },
+  "call": {
+    "callId": "9c0751f9-9535-49dd-b156-97f2805bc605",
+    "scope": "independent-pdf-native-target-supplement",
+    "page": 219,
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "callerRequested": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-terra",
+        "--config",
+        "model_reasoning_effort=\"max\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-YQDuqL\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-YQDuqL\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-YQDuqL",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-target-fix-v2-20261028\\renders\\79-cn\\page-0219.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\renders\\79-cn\\page-0219-r2.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\e5a78b89436107a1281cea19f3224752f20e09c4106b883054909c03168a7dbf.png",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-target-fix-v2-20261028\\renders\\79-cn\\page-0219.png",
+          "sha256": "0a8f6a2e212c99e98fdd5cb45748c9294671a803e0bcd2ffc03e661dbcc9818c",
+          "bytes": 247975
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\renders\\79-cn\\page-0219-r2.png",
+          "sha256": "2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c",
+          "bytes": 80354
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\e5a78b89436107a1281cea19f3224752f20e09c4106b883054909c03168a7dbf.png",
+          "sha256": "e5a78b89436107a1281cea19f3224752f20e09c4106b883054909c03168a7dbf",
+          "bytes": 21463
+        }
+      ],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "success": true,
+    "usage": {
+      "inputTokens": 25988,
+      "cachedInputTokens": 0,
+      "outputTokens": 10213
+    },
+    "durationMs": 196468,
+    "startedAt": "2026-10-27T22:08:48.795Z",
+    "semanticPromptSha256": "75895d961baab702f5bd5393721f681aaec5d89a1035ac61a3ec8cf6779a7b78",
+    "promptSha256": "d9dd1bae944cffeb1c044822d3ef1aa08c3dc305187a1aeab841451cce176efc",
+    "schemaSha256": "a31815e9ceea3f7d0517e71953e791bb8b4ecbaeb0725e2c25bf79b394d88ba1",
+    "outputSha256": "e44f4e2913ca89040b1a3e19c33a8c5a7f9790cf6f40dc74514978f049dee5c1",
+    "binding": {
+      "productionSha256": "464c607a262b415dece3f35b213aef19b632266f7c4917f3107a04d5e1971bc9",
+      "sourceFileSha256": "27ae7567c1ba544cf5b5bdbf3a75abeb95e650c84ba9ce2114b2143340d99a28",
+      "runtimeManifestSha256": "22467ecebc38c4cd32e8d535e2b1344e57fd7f4518a77a7a7a03c7e298e07c23",
+      "parentSha256": "4ed396279c5eff45b5c9d399f7950394ac1c36b0cc638b22f67d0f30fb03ff54",
+      "parentAuditSha256": "485247f1aabde12801df12bdd4e989a1fa3071148a17acd7a68dfd1285b15c14",
+      "approvalSha256": "231d24c07eea42e19cd1a1720444d39b7cf1c142cfb47ca19cd4dce107cd74f8",
+      "proofSha256": "767b706ccba86e9fce04ae60d4e8eadbcf18a7551fc2b6109994ef8528c02608",
+      "targetFigureId": "79-cn-p219-r2",
+      "requestBoundarySha256": "901bceb588631e7c01e2dedc12b870722939e50d198a9c5f8fd9d6181e4a7c68"
+    },
+    "recordedAt": "2026-10-27T22:12:05.266Z"
+  },
+  "modelReview": {
+    "page": 219,
+    "candidateSha256": "464c607a262b415dece3f35b213aef19b632266f7c4917f3107a04d5e1971bc9",
+    "figureId": "79-cn-p219-r2",
+    "completeTargetCompared": true,
+    "targetVerdict": "uncertain",
+    "originalIssueChecks": [
+      {
+        "issueId": "original-1",
+        "outcome": "resolved",
+        "evidence": "原图上方西家和左侧北家各有13张牌背，右侧南家有10张牌背；候选已补录这三个数量并保留暗手牌面未知。各家可见舍牌均未见相对该家的正常方向横置的立直牌，候选也已限定为可见河牌。"
+      },
+      {
+        "issueId": "original-2",
+        "outcome": "uncertain",
+        "evidence": "西家靠中央一行自右向左第2张是字牌、第6张是万子，但图中倒置且模糊，不能可靠确认具体牌名。候选已明确保留这两处未知，牌名本身仍未核实。"
+      }
+    ],
+    "exactCountsAndRiichiCheck": "逐数原图牌背：西家13张、北家13张、南家10张，与新增转写一致；南家另有三张白牌副露。各家可见河牌未见相对各自正常方向横置的立直牌。中央「リーチ棒0本」是立直棒数量，不能代替对不可见牌面的检查；西家灰格处无法核查原牌面。",
+    "originalVisibleTileUnknownsCheck": "西家靠中央一行第2张仅能确认是字牌，第6张仅能确认是万子，二者具体牌名仍未知；第4格为灰色空位，原牌面不可见，不能当作白牌或推定牌名。候选均已列入unknowns。其余三家暗手牌面、各家点数以及未另行显示的宝牌指示牌也不能从图中补猜。",
+    "doraLabelCheck": "中央可见「ドラ」旁显示四万，即4m。候选只记录标签旁的牌，并说明宝牌指示牌未另行显示；图上没有单独标明的指示牌。不能把这张4m直接认定为指示牌，再推算另一张宝牌。",
+    "unknownTeachingImpact": "图中自家有两张1p及1s、2s、3s，南家已有白牌副露。若南家暗手有2p和3p，便可能吃自家打出的1p；这是条件性的可能，不能据图断言南家持有这两张牌、已听牌或有某个打点。摸到4s也可为把1s、2s、3s改成2s、3s、4s提供向断幺发展的机会，并非立即证明成和。西家两张未辨明的可见牌分别属于字牌和万子，不是2p或3p；灰格及暗手仍未知，完整牌河和具体吃牌概率不能由此核定。因此这些未知不妨碍理解上述条件性论证，但仍须保留原问题的不确定性。",
+    "readingOrderAndContextCheck": "原页先展示手牌图，再以正文讨论单纯牌效率下切1饼和摸4索的可能，随后展示本牌桌，图后才讨论下家副露及吃牌概率；候选正文流中的本图位置与此一致。图前上一段关于切1万、不要切东属于前一论述。图后原文「会吃得概率」按源文保留。",
+    "issues": [
+      {
+        "severity": "uncertain",
+        "location": "西家靠中央一行，自右向左第2张和第6张",
+        "evidence": "两张牌面可见但倒置模糊，只能分别辨为字牌和万子，无法可靠读取具体牌名。",
+        "description": "候选已明确标为未知，但西家河牌的具体牌码尚不能完整核实。"
+      },
+      {
+        "severity": "source-note",
+        "location": "西家靠中央一行，自右向左第4格",
+        "evidence": "原图该格呈灰色，没有可读取的牌面；候选将原牌面列为不可见。",
+        "description": "这是源图的信息限制，不能据灰格推定原牌名或判断该处原牌是否横置。"
+      }
+    ],
+    "summary": "牌背数量和可见河牌的立直横置情况已正确补录，原问题original-1已解决。西家两张可见牌的具体牌名仍无法可靠确认，候选虽已如实保留未知，完整逐牌核验仍有不确定性，因此靶点判为uncertain。"
+  },
+  "checks": {
+    "passed": false,
+    "configOkay": true,
+    "errors": [
+      "target_not_faithful",
+      "original_issue_not_resolved:original-2",
+      "unresolved_model_issues"
+    ]
+  },
+  "wholeChapterAccepted": false,
+  "newCalls": 1,
+  "newProductionCalls": 0,
+  "retry": 0,
+  "remaining": 0,
+  "fee": null,
+  "remoteWeights": "unknown",
+  "upstreamExecutionCount": null
+}

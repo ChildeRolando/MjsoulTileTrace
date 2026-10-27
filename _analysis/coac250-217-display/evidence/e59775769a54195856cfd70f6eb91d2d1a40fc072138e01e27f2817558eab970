@@ -1,0 +1,459 @@
+{
+  "schema": "coac249-authentic-pdf218-bounded-allowance-with-uncertain/1",
+  "candidate": {
+    "path": "production/coac247-pdf218-consistent-unknown-20261028/candidates/79-cn/page-0218.json",
+    "sha256": "df8f2de33d1baf5141533810f22b59855aef0145729d612f003ae123c4e24157"
+  },
+  "receipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218-bounded-20261028\\receipt.json",
+    "sha256": "528ca583593afa4fa57a0b8a10229f8f6adea311a8412883e270421990fe988b"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\f67b7927-e0d9-4f0e-a163-974b72afe05e.json",
+    "sha256": "b15806fad8538624761eb73c7004296e7e197de7bd4fc0b1309b95603b7f0bf7"
+  },
+  "verification": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218-bounded-20261028\\verification.json",
+    "sha256": "cd4cd233bef6ef3c5e90941ae1b8553ffdd87f18cd94c3f44b6bef8dda4f9f89"
+  },
+  "consistencyVerdictUnchanged": "faithful",
+  "boundedAuthorArgumentVerdictUnchanged": "faithful-with-explicit-unknown",
+  "technicalStatusUnchanged": "needs-repair",
+  "originalTechnicalErrorsUnchanged": [
+    "claim_not_faithful:而且，他现在是亲家，自己在南场是TOP。",
+    "claim_not_faithful:自己虽然是一向听，但是是无役的愚型。 即使听牌也是很不想切掉索子的。",
+    "claim_not_faithful:但是9 饼有两家切掉了，以防有人立直是应该留下的。",
+    "claim_wrong_source",
+    "claim_wrong_source",
+    "claim_not_faithful:但是这些可能性很低",
+    "claim_not_faithful:从场上的舍牌来看只可能是双东了。",
+    "blocking_model_issues"
+  ],
+  "independentQuote": {
+    "pointer": "/output/summary",
+    "fullFieldSha256": "9ea378c66e335341bca067e3b57618bec4cebcc270313e642fe47b37b5f50587",
+    "utf8Range": [
+      68,
+      221
+    ],
+    "exactQuote": "原作者论证可以在同时展示上述未知及限制的条件下忠实理解；其中低概率、唯一双东等实际判断仍缺乏独立证据。"
+  },
+  "claimUncertainRetained": [
+    {
+      "sourceBlockIds": [
+        "79-cn-p218-b3"
+      ],
+      "exactSourceQuote": "而且，他现在是亲家，自己在南场是TOP。",
+      "verdict": "uncertain",
+      "independentEvidence": "此句位于“后付的字牌”标题之前，承接第217页“下家染手”的前例；候选保留原句。",
+      "necessaryLimitation": "本次未重审第217页图，不能用本页新图认证前例的亲家身份或TOP状态。"
+    },
+    {
+      "sourceBlockIds": [
+        "79-cn-p218-b3"
+      ],
+      "exactSourceQuote": "自己虽然是一向听，但是是无役的愚型。 即使听牌也是很不想切掉索子的。",
+      "verdict": "uncertain",
+      "independentEvidence": "候选保留原文对前例手形的陈述及“即使听牌”的假设。",
+      "necessaryLimitation": "前例图未在本次重审，不能独立确认一向听、无役或愚型，也不能把假设变为已听牌。"
+    },
+    {
+      "sourceBlockIds": [
+        "79-cn-p218-b3"
+      ],
+      "exactSourceQuote": "但是9 饼有两家切掉了，以防有人立直是应该留下的。",
+      "verdict": "uncertain",
+      "independentEvidence": "原文以两家已切9饼为前提，提出留作防守的意见；前例图不在本次重审范围内。",
+      "necessaryLimitation": "只有在前提及相应规则成立时，才能条件性理解为针对已切该牌的对手留安；不能确认前提，也不能保证对所有对手或未来情况安全。"
+    },
+    {
+      "sourceBlockIds": [
+        "79-cn-p218-b4"
+      ],
+      "exactSourceQuote": "但是这些可能性很低",
+      "verdict": "uncertain",
+      "independentEvidence": "这是作者对前述役种可能性的判断；部分舍牌身份和对手暗手仍未知。",
+      "necessaryLimitation": "原句应保留，但所给证据不足以独立验证概率高低、排序或排除上述役种。"
+    },
+    {
+      "sourceBlockIds": [
+        "79-cn-p218-b4"
+      ],
+      "exactSourceQuote": "从场上的舍牌来看只可能是双东了。",
+      "verdict": "uncertain",
+      "independentEvidence": "原文依据舍牌作出“只可能”的强判断；未知风牌影响东牌可见数量，对手暗手亦不可见。",
+      "necessaryLimitation": "须原样保留并归于作者判断，不能认证实际双东或排除其他役。条件性地说，若按相应规则场风和自风均为东、该对手确为东家且实际组成东刻或杠，才可能满足双东条件；这些事实本次均未认证。"
+    }
+  ],
+  "allModelIssuesRetained": [
+    {
+      "severity": "source-note",
+      "location": "79-cn-p218-r1.transcription，南家手牌",
+      "evidence": "候选写为“11334789m 234p ?s7s（?s表示首张索子点数未知；原稿记为6s，尚未核实）”。",
+      "description": "原独审指出的确定6s与未确认说明之间的矛盾已消除；这不确认该索子的实际点数。"
+    },
+    {
+      "severity": "uncertain",
+      "location": "79-cn-p218-r1，东家及北家牌河",
+      "evidence": "东家第2、3、5、10、11张及北家第1、6、7张仍有风向或点数未知。",
+      "description": "未知项被保留，但完整牌河、东牌可见数量及作者的役种判断仍不能独立认证。"
+    },
+    {
+      "severity": "uncertain",
+      "location": "79-cn-p218-b4，役种概率和双东判断",
+      "evidence": "原文称“这些可能性很低”及“从场上的舍牌来看只可能是双东了”；对手暗手与部分舍牌身份不可见或不清。",
+      "description": "可忠实呈现为作者判断，但不足以证实概率、排除其他役或确认实际双东。"
+    },
+    {
+      "severity": "uncertain",
+      "location": "79-cn-p218-r1，中央ドラ标签",
+      "evidence": "图面显示ドラ和非赤5m，未提供足以确定该界面语义的规则。",
+      "description": "宝牌本身与指示牌的区别仍须保持未知。"
+    },
+    {
+      "severity": "source-note",
+      "location": "79-cn-p218-b3至b4，例子边界",
+      "evidence": "“后付的字牌”标题位于拆8万对子、扣索子的文字与目标图之间。",
+      "description": "前例文字与新图须分开理解；未重审第217页图或其独立限制注。"
+    }
+  ],
+  "requiredDisplayLimitations": [
+    "本次一致性结论只针对给出的218候选中首张索子改为?s及原独审未知项的保留；原稿所记6s只能作为未核实的历史记法。",
+    "展示作者论证时须同时展示未知项及其影响：未知风牌限制东牌可见数量和东对判断，未知数牌及暗手限制对其他役种的复核。",
+    "“可能性很低”和“只可能是双东”保留原词，但须明确归为作者根据舍牌作出的判断；现有证据不能独立证实概率、唯一役种或实际双东。",
+    "原文称对手亲家；图面座位和局况可供条件性理解，但本次不认证实际庄家身份、暗手、听牌、打点、最优选择或结果。",
+    "第218页标题前的拆8万对子、扣索子和留9饼属于前例；标题后的目标图及摸东论述属于新例。第217页图与其独立限制注未重审。",
+    "ドラ标签的宝牌或指示牌语义未确认；立直棒0本不能证明此前从未有人立直。",
+    "已比较所给218原页、目标裁图、源图和相关文字，并参考217衔接文字；这不是对217图、219或220的重审，也不是整页通过认证。"
+  ],
+  "allReturnedSourceQuotesExactlyMapped": true,
+  "claimMappings": [
+    {
+      "index": 0,
+      "verdict": "faithful-with-explicit-unknown",
+      "necessaryLimitation": "该空白不含牌局论断。",
+      "anchors": [
+        {
+          "sourceBlockId": "79-cn-p218-b1",
+          "projectionPointer": "/claims/0/text",
+          "fullFieldSha256": "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068",
+          "utf8Range": [
+            0,
+            1
+          ],
+          "exactQuote": " "
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "verdict": "faithful-with-explicit-unknown",
+      "necessaryLimitation": "页码比对不构成整页牌局事实认证。",
+      "anchors": [
+        {
+          "sourceBlockId": "79-cn-p218-b2",
+          "projectionPointer": "/claims/1/text",
+          "fullFieldSha256": "70779a9fbfd563d059da0e1bba460e5529b2511001457e0384a2297a22a0a42f",
+          "utf8Range": [
+            0,
+            25
+          ],
+          "exactQuote": " 第 218 页 共 340 页 "
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "verdict": "uncertain",
+      "necessaryLimitation": "本次未重审第217页图，不能用本页新图认证前例的亲家身份或TOP状态。",
+      "anchors": [
+        {
+          "sourceBlockId": "79-cn-p218-b3",
+          "projectionPointer": "/claims/2/text",
+          "fullFieldSha256": "beeb85a21f8aacfa2e61fc1094110985b04a081acd87876a48522fac7ee61a51",
+          "utf8Range": [
+            0,
+            54
+          ],
+          "exactQuote": "而且，他现在是亲家，自己在南场是TOP。"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "verdict": "faithful-with-explicit-unknown",
+      "necessaryLimitation": "推测不能改写为已确认未听牌；此句属于前例，不能用本页新图的?s替它核实。",
+      "anchors": [
+        {
+          "sourceBlockId": "79-cn-p218-b3",
+          "projectionPointer": "/claims/2/text",
+          "fullFieldSha256": "beeb85a21f8aacfa2e61fc1094110985b04a081acd87876a48522fac7ee61a51",
+          "utf8Range": [
+            55,
+            136
+          ],
+          "exactQuote": "现在亲家应该还没有听牌吧，这个时候就应该把索子扣住了。"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "verdict": "uncertain",
+      "necessaryLimitation": "前例图未在本次重审，不能独立确认一向听、无役或愚型，也不能把假设变为已听牌。",
+      "anchors": [
+        {
+          "sourceBlockId": "79-cn-p218-b3",
+          "projectionPointer": "/claims/2/text",
+          "fullFieldSha256": "beeb85a21f8aacfa2e61fc1094110985b04a081acd87876a48522fac7ee61a51",
+          "utf8Range": [
+            138,
+            238
+          ],
+          "exactQuote": "自己虽然是一向听，但是是无役的愚型。 即使听牌也是很不想切掉索子的。"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "verdict": "faithful-with-explicit-unknown",
+      "necessaryLimitation": "未重审前例手牌，不能独立认证该选择确实维持一向听，更不能保证其最优。",
+      "anchors": [
+        {
+          "sourceBlockId": "79-cn-p218-b3",
+          "projectionPointer": "/claims/2/text",
+          "fullFieldSha256": "beeb85a21f8aacfa2e61fc1094110985b04a081acd87876a48522fac7ee61a51",
+          "utf8Range": [
+            240,
+            291
+          ],
+          "exactQuote": "虽然切饼子维持一向听也是一种打法。"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "verdict": "uncertain",
+      "necessaryLimitation": "只有在前提及相应规则成立时，才能条件性理解为针对已切该牌的对手留安；不能确认前提，也不能保证对所有对手或未来情况安全。",
+      "anchors": [
+        {
+          "sourceBlockId": "79-cn-p218-b3",
+          "projectionPointer": "/claims/2/text",
+          "fullFieldSha256": "beeb85a21f8aacfa2e61fc1094110985b04a081acd87876a48522fac7ee61a51",
+          "utf8Range": [
+            292,
+            363
+          ],
+          "exactQuote": "但是9 饼有两家切掉了，以防有人立直是应该留下的。"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "verdict": "faithful-with-explicit-unknown",
+      "necessaryLimitation": "本次不能核实前例是否有该对子，也不能把这项建议套到标题之后的新图。",
+      "anchors": [
+        {
+          "sourceBlockId": "79-cn-p218-b3",
+          "projectionPointer": "/claims/2/text",
+          "fullFieldSha256": "beeb85a21f8aacfa2e61fc1094110985b04a081acd87876a48522fac7ee61a51",
+          "utf8Range": [
+            365,
+            421
+          ],
+          "exactQuote": "这里应该拆掉8 万的对子，把索子紧紧扣住"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "verdict": "faithful-with-explicit-unknown",
+      "necessaryLimitation": "这是战术意图，不保证亲家未听、下庄或任何实际结果。",
+      "anchors": [
+        {
+          "sourceBlockId": "79-cn-p218-b3",
+          "projectionPointer": "/claims/2/text",
+          "fullFieldSha256": "beeb85a21f8aacfa2e61fc1094110985b04a081acd87876a48522fac7ee61a51",
+          "utf8Range": [
+            422,
+            461
+          ],
+          "exactQuote": "施行让亲家未听下庄的战术。"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "verdict": "faithful-with-explicit-unknown",
+      "necessaryLimitation": "必须保持两个例子的边界；前例的8万对子、索子与9饼论述不是本图手牌的描述。",
+      "anchors": [
+        {
+          "sourceBlockId": "79-cn-p218-b3",
+          "projectionPointer": "/claims/2/text",
+          "fullFieldSha256": "beeb85a21f8aacfa2e61fc1094110985b04a081acd87876a48522fac7ee61a51",
+          "utf8Range": [
+            546,
+            561
+          ],
+          "exactQuote": "后付的字牌"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "verdict": "faithful-with-explicit-unknown",
+      "necessaryLimitation": "“亲家”是原文对对手的称呼；本次不认证该对手的实际庄家身份、完整手形或听牌状态。",
+      "anchors": [
+        {
+          "sourceBlockId": "79-cn-p218-b4",
+          "projectionPointer": "/claims/3/text",
+          "fullFieldSha256": "0eb077bc97a2bec572f9c4fcf811d5f7a223c40e01126cda0699768fd3fc489f",
+          "utf8Range": [
+            2,
+            62
+          ],
+          "exactQuote": "亲家用两面进行了副露，这个时候摸到了东。"
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "verdict": "faithful-with-explicit-unknown",
+      "necessaryLimitation": "若对手需要这张东，持住期间可以不由自己提供该牌；但对手所需牌、其他来源和后续行动均未知，不能保证此选择最优、不会放铳或产生特定结果。",
+      "anchors": [
+        {
+          "sourceBlockId": "79-cn-p218-b4",
+          "projectionPointer": "/claims/3/text",
+          "fullFieldSha256": "0eb077bc97a2bec572f9c4fcf811d5f7a223c40e01126cda0699768fd3fc489f",
+          "utf8Range": [
+            63,
+            108
+          ],
+          "exactQuote": "我觉得这张东是绝对应该扣住的。"
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "verdict": "faithful-with-explicit-unknown",
+      "necessaryLimitation": "其余手牌不可见，不能确认实际形成混一色或认定其概率。",
+      "anchors": [
+        {
+          "sourceBlockId": "79-cn-p218-b4",
+          "projectionPointer": "/claims/3/text",
+          "fullFieldSha256": "0eb077bc97a2bec572f9c4fcf811d5f7a223c40e01126cda0699768fd3fc489f",
+          "utf8Range": [
+            110,
+            186
+          ],
+          "exactQuote": "从亲家副露来看，有可能是混一色、一气、789 三色、全带"
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "verdict": "faithful-with-explicit-unknown",
+      "necessaryLimitation": "所需其余牌及实际手牌未知，不能确认该役成立或独立计算其概率。",
+      "anchors": [
+        {
+          "sourceBlockId": "79-cn-p218-b4",
+          "projectionPointer": "/claims/3/text",
+          "fullFieldSha256": "0eb077bc97a2bec572f9c4fcf811d5f7a223c40e01126cda0699768fd3fc489f",
+          "utf8Range": [
+            110,
+            186
+          ],
+          "exactQuote": "从亲家副露来看，有可能是混一色、一气、789 三色、全带"
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "verdict": "faithful-with-explicit-unknown",
+      "necessaryLimitation": "未知万子、索子及暗手限制对所需牌和剩余数量的复核；不能确认该役成立或被排除。",
+      "anchors": [
+        {
+          "sourceBlockId": "79-cn-p218-b4",
+          "projectionPointer": "/claims/3/text",
+          "fullFieldSha256": "0eb077bc97a2bec572f9c4fcf811d5f7a223c40e01126cda0699768fd3fc489f",
+          "utf8Range": [
+            110,
+            186
+          ],
+          "exactQuote": "从亲家副露来看，有可能是混一色、一气、789 三色、全带"
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "verdict": "faithful-with-explicit-unknown",
+      "necessaryLimitation": "其余结构及适用规则未证实，不能确认实际有全带或给出其概率。",
+      "anchors": [
+        {
+          "sourceBlockId": "79-cn-p218-b4",
+          "projectionPointer": "/claims/3/text",
+          "fullFieldSha256": "0eb077bc97a2bec572f9c4fcf811d5f7a223c40e01126cda0699768fd3fc489f",
+          "utf8Range": [
+            110,
+            186
+          ],
+          "exactQuote": "从亲家副露来看，有可能是混一色、一气、789 三色、全带"
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "verdict": "uncertain",
+      "necessaryLimitation": "原句应保留，但所给证据不足以独立验证概率高低、排序或排除上述役种。",
+      "anchors": [
+        {
+          "sourceBlockId": "79-cn-p218-b4",
+          "projectionPointer": "/claims/3/text",
+          "fullFieldSha256": "0eb077bc97a2bec572f9c4fcf811d5f7a223c40e01126cda0699768fd3fc489f",
+          "utf8Range": [
+            187,
+            214
+          ],
+          "exactQuote": "但是这些可能性很低"
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "verdict": "uncertain",
+      "necessaryLimitation": "须原样保留并归于作者判断，不能认证实际双东或排除其他役。条件性地说，若按相应规则场风和自风均为东、该对手确为东家且实际组成东刻或杠，才可能满足双东条件；这些事实本次均未认证。",
+      "anchors": [
+        {
+          "sourceBlockId": "79-cn-p218-b4",
+          "projectionPointer": "/claims/3/text",
+          "fullFieldSha256": "0eb077bc97a2bec572f9c4fcf811d5f7a223c40e01126cda0699768fd3fc489f",
+          "utf8Range": [
+            217,
+            265
+          ],
+          "exactQuote": "从场上的舍牌来看只可能是双东了。"
+        }
+      ]
+    }
+  ],
+  "displayRequirements": {
+    "placement": "Separate non-author limitation alongside218-r1 and218-b4; keep original body/voice unchanged and preserve boundary with previous example.",
+    "fromRawPointer": "/output/requiredLimitations",
+    "exactStrings": [
+      "本次一致性结论只针对给出的218候选中首张索子改为?s及原独审未知项的保留；原稿所记6s只能作为未核实的历史记法。",
+      "展示作者论证时须同时展示未知项及其影响：未知风牌限制东牌可见数量和东对判断，未知数牌及暗手限制对其他役种的复核。",
+      "“可能性很低”和“只可能是双东”保留原词，但须明确归为作者根据舍牌作出的判断；现有证据不能独立证实概率、唯一役种或实际双东。",
+      "原文称对手亲家；图面座位和局况可供条件性理解，但本次不认证实际庄家身份、暗手、听牌、打点、最优选择或结果。",
+      "第218页标题前的拆8万对子、扣索子和留9饼属于前例；标题后的目标图及摸东论述属于新例。第217页图与其独立限制注未重审。",
+      "ドラ标签的宝牌或指示牌语义未确认；立直棒0本不能证明此前从未有人立直。",
+      "已比较所给218原页、目标裁图、源图和相关文字，并参考217衔接文字；这不是对217图、219或220的重审，也不是整页通过认证。"
+    ],
+    "installationPending": true,
+    "consumerMustReadBack": true
+  },
+  "technicalBoundary": "Original wrapper also rejected image source ID b5 because its local text-only claims list omitted image blocks; b5 is authentic in the bound full218 context. New read-only mapping accepts that image witness without changing the original receipt. Per-claim actual-fact uncertain and model issues remain uncertain, not upgraded to faithful.",
+  "admissionGranted": false,
+  "ordinaryWholePagePassed": false,
+  "wholeChapterAccepted": false,
+  "newModelCalls": 0,
+  "next": "Existing244/250 can compose a precise limited-display admission only after mapping/retaining the actual independent display limits; do not repeat a model merely to certify unrequested hidden/actual tactical facts."
+}

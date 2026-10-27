@@ -1,0 +1,543 @@
+{
+  "schema": "coac249-p217-west-impact-handoff/1",
+  "recordedAt": "2026-10-27T20:02:07.850088+00:00",
+  "to": "COAC-248",
+  "authorizationComment": "01a17eee-03a8-7800-83d2-18ed31f6e3c0",
+  "packetCommit": "ffb653801c69aeec2d0938c296c84d7ee7bcee8b",
+  "receipt": {
+    "schema": "coac249-p217-west-impact-review/1",
+    "recordedAt": "2026-10-27T20:02:01.645Z",
+    "callId": "6dd8a1d9-44a7-4a8b-958e-cf6a64c18636",
+    "target": {
+      "chapterId": "79-cn-chapter-217-4",
+      "figureId": "79-cn-p217-r1",
+      "sourceImageBlockId": "79-cn-p217-b8",
+      "position": "西家自身第二行第二张；画面左侧外列自上第二张，横向万子",
+      "bbox": [
+        81,
+        175,
+        112,
+        199
+      ],
+      "original": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+        "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+        "pixels": [
+          430,
+          463
+        ]
+      },
+      "candidate": {
+        "label": "current-rev5",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\candidates\\79-cn\\page-0217.json",
+        "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+        "copy": "evidence/current-rev5.json"
+      },
+      "unknownField": "/figures/0/unknowns/0",
+      "currentUnknown": "西家舍牌第二行第二张为旋转万子牌，数字笔画在当前嵌入位图分辨率下不能可靠辨定；未确认前不赋具体牌码，不据暗手或牌河推断补全。"
+    },
+    "impactScopeSha256": "2d7e0b95bb40dda273a6dd812021cdcfeaec6fb09bc59db72c6161d5b7bc2e32",
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-p217-west-impact-20261028\\raw.json",
+      "sha256": "fa68f2f3be0e6b2eb496007d6d5638c7cc7aabd322975cfa24e048d96e849e81"
+    },
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "recordedModel": true,
+    "payloadOK": true,
+    "identityOK": true,
+    "claimsOK": true,
+    "valid": true,
+    "classification": "limited-unknown-acceptable",
+    "result": {
+      "chapterId": "79-cn-chapter-217-4",
+      "figureId": "79-cn-p217-r1",
+      "targetBBox": [
+        81,
+        175,
+        112,
+        199
+      ],
+      "classification": "limited-unknown-acceptable",
+      "locationCheck": "按所给原图和裁剪图，目标位于画面左侧西家舍牌外列自上第二格：上方是一张字牌，下方还有两格，右侧是内列。它对应现有转录中西家自身第二行第二张的“万子（数字未辨清）”，也对应指定的 unknown 条目。使用题给 bbox，未辨读目标点数。",
+      "unknownDisplayFaithful": true,
+      "tileRankReadAttempted": false,
+      "completeRelevantTextCompared": true,
+      "premiseChecks": [
+        {
+          "claimId": "dealer-souzu-dye",
+          "dependency": "independent-of-target-number",
+          "evidence": "正文称“很明显下家是索子的一色手”，并称下家为亲家。现有图示将右侧下家列为东家，其舍牌列为万、饼、字牌，并显示白牌副露；目标则是另一家的万子舍牌，其具体数字不决定这些观察。染索是作者依据场面的判断，东家暗手并未展示，不能说已经证实。"
+        },
+        {
+          "claimId": "south-round-lead",
+          "dependency": "independent-of-target-number",
+          "evidence": "正文说“自己在南场是TOP”。图示为南3局1本场，北家显示 +16900，其他三家显示 +5500、△4900、△17500。局次和显示值均不取决于西家这张万子的数字。"
+        },
+        {
+          "claimId": "shanten-yakuless-poor-wait",
+          "dependency": "independent-of-target-number",
+          "evidence": "正文说自己“一向听，但是是无役的愚型”。现有手牌转录中，本家有8万对子、两组已成顺子，以及尚未完成的索子和饼子组合；该判断针对本家手牌形状，西家这张万子的具体数字不是该形状的组成部分。未知数字可能影响特定万子的可见张数，不能据此断言精确进张或所有后续牌形。"
+        },
+        {
+          "claimId": "retain-9p-safety",
+          "dependency": "independent-of-target-number",
+          "evidence": "正文说“9饼有两家切掉了，以防有人立直是应该留下的”。现有图示转录列出南家和西家各舍过9饼，本家持有9饼；目标已知是万子，不属于这两张9饼。留下它是作者提出的防守准备，不等于它对所有对手都安全。"
+        },
+        {
+          "claimId": "break-8m-pair-hold-souzu",
+          "dependency": "independent-of-target-number",
+          "evidence": "正文建议“拆掉8万的对子，把索子紧紧扣住”。现有本家手牌显示8万对子和索子；目标是西家的万子，不是本家对子中的牌，也不是要扣住的索子。因此提出该操作不需要目标的具体数字。具体万子数字仍可能影响逐张计数、对西家的安全判断及打法比较，不能据此宣称8万绝对安全或必然最优。"
+        },
+        {
+          "claimId": "prevent-dealer-repeat",
+          "dependency": "independent-of-target-number",
+          "evidence": "作者先说“现在亲家应该还没有听牌吧”，再提出扣索以“施行让亲家未听下庄的战术”。对推测染索的下家扣住索子，是为了减少向其送出可用索子的机会；西家所舍万子的具体数字不是这一战术意图的必要前提。原图不能证明东家当时未听，也不能证明最后一定未听下庄。"
+        }
+      ],
+      "impactConclusion": "可对这一处缺口限定验收：保留西家目标牌为万子、点数未知，并保留作者的六项论证及其推测语气。该结论支持忠实呈现作者的判断和战术意图，不证明东家暗手、实际结局或该打法的绝对安全性与最优性。",
+      "acceptanceConditions": [
+        "在西家自身第二行第二张明确显示“万子（数字未辨清）”，并保留对应 unknown；不赋具体牌码，也不依据牌河或暗手补猜。",
+        "附非原文审校注，说明该万子的数字未知，因此不能复原该张的精确牌码、完整精确牌谱，或据它确定相关万子的精确可见张数、余张、进张和安全度。",
+        "忠实保留“应该还没有听牌吧”的推测语气，以及争取亲家未听下庄的战术表述；不改写成已证实的听牌状态或实际结果。",
+        "本结论只验收西家这一处 unknown 的教学影响。北家另有的既有修正按原有证据处理，当前转录中待改的牌码不得作为本次结论的依据。"
+      ],
+      "evidenceLimits": [
+        "已比较所附 PDF217-b7、PDF218-b3 的连续说明与完整平行网页段落；相关论证至“让亲家未听下庄”为止，“后付的字牌”为下一节边界。",
+        "目标点数未读取；其他牌码和方向沿用所附现有展示作为本次影响分析的数据，未逐项重新审校。",
+        "其他三家暗手未知；中央“ドラ”栏所示牌究竟是宝牌还是宝牌指示牌，图中未注明，仍保持未知。",
+        "没有能够据此确认目标精确点数、东家真实手牌或该局最终结果的证据。"
+      ],
+      "scopeLimit": "仅裁定指定西家 unknown 对所附这一教学论证和结论的影响；不重审北家两处既有处理、其他牌码或方向、后续牌例，也不宣称整页或全章通过。"
+    },
+    "usage": {
+      "inputTokens": 16704,
+      "cachedInputTokens": 0,
+      "outputTokens": 8879
+    },
+    "durationMs": 143554,
+    "threadIds": [
+      "01a17ef2-68c6-7743-8d63-ede782afdc41"
+    ],
+    "manifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+    "remoteGatewayWeights": "unknown",
+    "newCalls": 1,
+    "retry": 0,
+    "candidateChanged": false,
+    "pageOrChapterPassed": false
+  },
+  "classification": "limited-unknown-acceptable",
+  "currentUnknownDisplay": "西家舍牌第二行第二张为旋转万子牌，数字笔画在当前嵌入位图分辨率下不能可靠辨定；未确认前不赋具体牌码，不据暗手或牌河推断补全。",
+  "completeRelatedText": [
+    {
+      "id": "79-cn-p217-b4",
+      "text": "防守12—扣牌（2） ",
+      "page": 217
+    },
+    {
+      "id": "79-cn-p217-b5",
+      "text": "扣牌2： \n我们来看看扣牌的具体例子。 \n \n-------------------------------------------------------------------------------\n-----下家染手 \n-------------------------------------------------------------------------------",
+      "page": 217
+    },
+    {
+      "id": "79-cn-p217-b7",
+      "text": " \n扣牌很多时候都是在下家染手时进行的。 \n这个例子，很明显下家是索子的一色手。 \n ",
+      "page": 217
+    },
+    {
+      "id": "79-cn-p218-b3",
+      "text": "而且，他现在是亲家，自己在南场是TOP。 \n现在亲家应该还没有听牌吧，这个时候就应该把索子扣住了。 \n \n自己虽然是一向听，但是是无役的愚型。 \n即使听牌也是很不想切掉索子的。 \n \n虽然切饼子维持一向听也是一种打法。 \n但是9 饼有两家切掉了，以防有人立直是应该留下的。 \n \n这里应该拆掉8 万的对子，把索子紧紧扣住 \n施行让亲家未听下庄的战术。 \n-------------------------------------------------------------------------------\n-----后付的字牌 \n-------------------------------------------------------------------------------\n----- ",
+      "page": 218
+    }
+  ],
+  "parallelWebParagraph": {
+    "sourceId": "79-bilibili-cn:cv1775174:b0005",
+    "text": "扣牌很多时候都是在下家染手时进行的。 这个例子，很明显下家是索子的一色手。  而且，他现在是亲家，自己在南场是TOP。 现在亲家应该还没有听牌吧，这个时候就应该把索子扣住了。  自己虽然是一向听，但是是无役的愚型。 即使听牌也是很不想切掉索子的。  虽然切饼子维持一向听也是一种打法。 但是9饼有两家切掉了，以防有人立直是应该留下的。  这里应该拆掉8万的对子，把索子紧紧扣住 施行让亲家未听下庄的战术。  ------------------------------------------------------------------------------------ 后付的字牌 ------------------------------------------------------------------------------------ "
+  },
+  "boundedImplementation": {
+    "authorizedResult": "Apply only the independently determined acceptance conditions for the West unknown; do not read or assign a number.",
+    "currentCandidateChanged": false,
+    "westUnknownAlreadyPresent": true,
+    "northFirstRequiredChange": "Retain prior independent evidence: replace the existing North row2 col1 definite5m by manzu-number-unknown, include its position in unknowns and an explicit non-author limitation note. This review does not re-evaluate that point.",
+    "northSecond": "Resolved9m remains unchanged; no new review.",
+    "legalPath": "Use the existing PDF native-inline correction/validation contract and preserve source/parent/raw/old audits. Keep a separately bound impact receipt and exact diff; do not overwrite old receipt severity or rewrite raw.",
+    "wholePageOrChapterPassed": false,
+    "otherFieldsOrFiguresRechecked": false,
+    "noGlobalGateRelaxation": true
+  },
+  "scopeBoundary": "Only West row2 col2 at original [81,175,112,199) in79-cn-p217-b8 and its dependency on the full p217–218 下家染手 explanation. Does not accept remaining p218–220 pages, other figures/web variants, exact replay, or the full chapter.",
+  "priorEvidenceReview": {
+    "schema": "coac249-west-impact-prior-evidence/1",
+    "records": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json",
+        "sha256": "48188a41382d98a5af7272851ba96f8d209213ee5befb3f4fd2fbf0b738574be",
+        "status": "needs-repair",
+        "callIds": [
+          "95502be0-996e-40be-bcec-1d37e4dbb695"
+        ],
+        "westIssues": [],
+        "explicitWestTeachingImpactFound": false
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json",
+        "sha256": "70e67fec9ff86c6eeb77019a488c68b2b8836d7610b1b88eee3bb1785348c1b4",
+        "status": "needs-repair",
+        "callIds": [
+          "2b9d82cb-d3fa-4578-ad15-4b8cb22b70d0"
+        ],
+        "westIssues": [
+          {
+            "severity": "error",
+            "targetId": "79-cn-p217-r1",
+            "sourceEvidence": "北家第一行第二、第四张，以及西家第一行第五张，均为带红色中列的9s；候选三处均写为8s。",
+            "description": "三张河牌将9s误抄为8s。",
+            "suggestedRepair": "北家第一行改为1z 9s 1m 9s 1p 3z；西家第一行改为9p 1s 1m 6z 9s 2p。"
+          }
+        ],
+        "explicitWestTeachingImpactFound": false
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add.6baa4a7e1404.retry-1792979810396-c29948ed.json",
+        "sha256": "c79c04dbbdbede13b2fc77d806bef7407517c0d767c1dedbafcb5f8c813b67de",
+        "status": "needs-repair",
+        "callIds": [
+          "c8aff58b-41cd-4750-b7a2-8a33f377ab35"
+        ],
+        "westIssues": [
+          {
+            "severity": "error",
+            "targetId": "79-cn-p217-r1",
+            "sourceEvidence": "原图上方南家可见13张牌背，左方西家可见13张牌背，右方东家可见10张牌背，另有白碰。",
+            "description": "候选仅笼统说明其余三家暗手未知，遗漏了可见牌背数量。",
+            "suggestedRepair": "补录南家13张、西家13张、东家10张暗手牌背；牌种继续标为未知。"
+          }
+        ],
+        "explicitWestTeachingImpactFound": false
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add.d510b3d9d5cb.json",
+        "sha256": "e28c3cc459aa19eccc09e75f5f3e208b3d3b18a402cdac15b46c9b82e084a080",
+        "status": "failed",
+        "callIds": [
+          "9eddf0a0-30d4-4fb8-8214-57d327d5dc4a"
+        ],
+        "westIssues": [],
+        "explicitWestTeachingImpactFound": false
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+        "sha256": "44e101c7fbf8813d9db7a18af177a42b27b51ebaf92945761787b8b25764b3ec",
+        "status": "needs-repair",
+        "callIds": [
+          "4f760999-1648-410e-8452-1c1b4794503f"
+        ],
+        "westIssues": [
+          {
+            "severity": "uncertain",
+            "targetId": "79-cn-p217-r1",
+            "sourceEvidence": "西家舍牌外侧一列第二张为横向万子牌，数字笔画不能可靠辨清。候选同时写“8m”和“数字……不能可靠辨定”，但unknowns为[]。",
+            "description": "该张可见牌尚未核清，8m不能作为已确认转录。",
+            "suggestedRepair": "核清西家第二行第二张万子的数字；确认前明确记录“万子，数字未辨清”，并在unknowns中列出该位置，避免将8m作为确定牌码。"
+          }
+        ],
+        "explicitWestTeachingImpactFound": false
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json",
+        "sha256": "7dc668f386cbc8c4a5f7ee7c253d0958b688f76de48ac6a82edba24e770bb33c",
+        "status": "needs-repair",
+        "callIds": [
+          "a67e7181-9217-47e7-b944-4373d83e5280"
+        ],
+        "westIssues": [
+          {
+            "severity": "uncertain",
+            "targetId": "79-cn-p217-r1",
+            "sourceEvidence": "西家舍牌外侧一列自上而下第二张为旋转万子牌，其数字字形在所附图中不能可靠辨定。",
+            "description": "候选明确录为8m，但本次无法充分确认该牌值。",
+            "suggestedRepair": "复核该位置的万子数字；确认前在转录及unknowns中明确标记此处不确定。"
+          }
+        ],
+        "explicitWestTeachingImpactFound": false
+      },
+      {
+        "kind": "same-pixel-web-whole-article-audit",
+        "sha256": "2d0def8a9082f134c9496862251cecceb96d6560948a9153557499b46e524213",
+        "callIds": [
+          "b36654dc-b9c3-4e9d-b1b3-ef732e181a90"
+        ],
+        "semanticCompleteness": {
+          "complete": false,
+          "evidence": "全部中文正文、署名、原文地址、条件和判断均保留，图中日文教学标签已有中文对应；但第一幅牌桌图五张、最后一幅牌桌图一张可见万子的数字未完成转录，共六张弃牌信息存在缺口。这些属于牌河数据，不能按隐手未知或边缘残痕豁免。"
+        },
+        "explicitWestTeachingImpactFound": false
+      }
+    ],
+    "firstNorthPointTeachingImpact": "Different coordinate; not transferred to West.",
+    "oldSecondNorthPoint": "Resolved9m; not reviewed again.",
+    "newIndependentCallNeeded": true,
+    "reason": "Existing West issues establish unreadability and truthful unknown display, but do not assess its effect on the full p217–218 b0005 reasoning. The prior web completeness objection is generic visible-river incompleteness, not a bounded impact analysis.",
+    "modelCalls": 0
+  },
+  "inputHashes": [
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\.gitattributes",
+      "sha256": "1cf3106a9c6a7ec7424d05c00473fb9f71a38da555ed4ad6cae081181fad58fa"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\assemble_review.py",
+      "sha256": "df5e85225e1d853f5ccfcb23ada8243a9f4c8012ae2dbca754730b48b26cc143"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\complete_identity_check.py",
+      "sha256": "96f3baedd34c80c0cb65139312e4ee75fb02cf30d066ca7aa6b6272a73e76909"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\review-handoff.json",
+      "sha256": "c7fe2cccc98750c81582cab5e77762141b882458bbd5465a18632b89308b8620"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\review.md",
+      "sha256": "98426e8df9fdb163cff0c1bb268d7df8c1f2477bb7bf90661a5b18c15cb39cf3"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\verification.json",
+      "sha256": "c8f7797621dda342c627df366c4964b28da7b227f96eb99415471691aba1b2ef"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\alternative-web-audit.json",
+      "sha256": "2d0def8a9082f134c9496862251cecceb96d6560948a9153557499b46e524213"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\alternative-web-candidate.json",
+      "sha256": "4e9e896794fce70fbcbfed0b223c6cfd2e7c643c7713556e5d096ab7a7df8de0"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\alternative-web-source.json",
+      "sha256": "9c8ac96ad4a283248195ea4f6c6da89c86e335fde3e9571aa434e95fd27bd521"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\canonical-scopes.json",
+      "sha256": "0357a753a4eefb4b74604a99e1bf49fe5752a79f95d3c9c27adb1b8f6f1b9c12"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\contract-excerpts.json",
+      "sha256": "011b7970a7b1c9813fd9508bf174838a273e0b88edb26b857c69b889c91c9dce"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\current-rev5.json",
+      "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\first-point-handoff.json",
+      "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\first-point-raw.json",
+      "sha256": "cc7f332d563cfc25106e77b06a097ddcb797450e8c4dbac69110901a8b51e516"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\first-point-receipt.json",
+      "sha256": "431f0922265cae8d624566220a57fe2f3463e2d57bdef8eaae1ec5108d3cdbba"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\historical-revision-chain.json",
+      "sha256": "9ab2668f250b53c1bc2408025f7b1bd042454150bf980ddcff97cf978287b9bb"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\original-p217-b8.png",
+      "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\original-production-raw.json",
+      "sha256": "6112c207fc1d5922e88af671f0a02b7e13623af7edee15a18a9b0c76bed59203"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\parent-independent-page-audit.json",
+      "sha256": "44e101c7fbf8813d9db7a18af177a42b27b51ebaf92945761787b8b25764b3ec"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\parent-independent-page-raw.json",
+      "sha256": "accbddb2fafe11ce150f26ecd6ba2c13f93a4c16fd760cb8eb82299ffc1e729d"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\parent-rev4.json",
+      "sha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\pdf-page-image.png",
+      "sha256": "c52048b9b1a0650b9041cc74a18cb0576c71eb68ccb61c5c4b482dffd79a1ba0"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\pdf-region-image.png",
+      "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\preview-scope-extract.json",
+      "sha256": "03b53c160b433ba4dd5d82b82772088fb18fc99752f761532196e0b3d2f64789"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\register-row.json",
+      "sha256": "08c744104a91bbc0ed68b750314210c8a7d7d4929fd082ed5203aeda0ad4f555"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\second-point-handoff.json",
+      "sha256": "b1ee9973976f05f59d32acc9594e78b4d6dc2928a8061bc82a009b709c5cc70d"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\second-point-raw.json",
+      "sha256": "c052de0b93273a683f70e8746fe53b03eb805e6f4ce06ef36aef7aeea6b1e29d"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\web-b0004-original.png",
+      "sha256": "3822aeb67f8939f0726cd8facb714493b294f6c6d3632fda8f9462ff715a68bc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\candidates\\79-cn\\page-0217.json",
+      "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair25-20261027-p217d\\candidates\\79-cn\\page-0217.json",
+      "sha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+      "sha256": "44e101c7fbf8813d9db7a18af177a42b27b51ebaf92945761787b8b25764b3ec"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4f760999-1648-410e-8452-1c1b4794503f.json",
+      "sha256": "accbddb2fafe11ce150f26ecd6ba2c13f93a4c16fd760cb8eb82299ffc1e729d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-point-222-p217-20261028.json",
+      "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-p217-north-second-row.raw.json",
+      "sha256": "cc7f332d563cfc25106e77b06a097ddcb797450e8c4dbac69110901a8b51e516"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-p217-north-second-row.receipt.json",
+      "sha256": "431f0922265cae8d624566220a57fe2f3463e2d57bdef8eaae1ec5108d3cdbba"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-second-point-20261028.json",
+      "sha256": "b1ee9973976f05f59d32acc9594e78b4d6dc2928a8061bc82a009b709c5cc70d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-p217-second-20261028\\raw.json",
+      "sha256": "c052de0b93273a683f70e8746fe53b03eb805e6f4ce06ef36aef7aeea6b1e29d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+      "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\renders\\79-cn\\page-0217.png",
+      "sha256": "c52048b9b1a0650b9041cc74a18cb0576c71eb68ccb61c5c4b482dffd79a1ba0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\renders\\79-cn\\page-0217-r1.png",
+      "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775174.display.json",
+      "sha256": "4e9e896794fce70fbcbfed0b223c6cfd2e7c643c7713556e5d096ab7a7df8de0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775174.4e9e896794fce70fbcbfed0b223c6cfd2e7c643c7713556e5d096ab7a7df8de0.json",
+      "sha256": "2d0def8a9082f134c9496862251cecceb96d6560948a9153557499b46e524213"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1775174\\source.json",
+      "sha256": "9c8ac96ad4a283248195ea4f6c6da89c86e335fde3e9571aa434e95fd27bd521"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+      "sha256": "507dc8db5fd606fa44f8dbc28510e391979142c82d13513ad89f27e3db31f8e0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\chapter-map.json",
+      "sha256": "d38bbd1a72defef709f4e2f336b3447e4fc677183b88b7e8d6aa050258017a8e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+      "sha256": "ce6c6cbcae815a3c4de35b5ac5fc015d83cf8c63c611767a46245aed1f6db4c4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T19-21-37-757Z\\knowledge-index.json",
+      "sha256": "d9c9124e5742e2c6153ac0d0e4cfab17ad4de0e65d4498187a38d52d3dd70c4d"
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\textbook-audit.mjs",
+      "sha256": "8660208dbb9ab80bff445d84402e169a0294b5485316c3ef1c080b42ea095893"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\3822aeb67f8939f0726cd8facb714493b294f6c6d3632fda8f9462ff715a68bc.png",
+      "sha256": "3822aeb67f8939f0726cd8facb714493b294f6c6d3632fda8f9462ff715a68bc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\raw-calls\\e12aa4a6-65f4-4a23-9579-09f887f568be.json",
+      "sha256": "6112c207fc1d5922e88af671f0a02b7e13623af7edee15a18a9b0c76bed59203"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\visual\\west-target.png",
+      "sha256": "e43705bf4908a16b5b83ee0fd6de8104d6f0a87879208b0ebab38bdc65b28b12"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\visual\\west-target-nearest4x.png",
+      "sha256": "89665734ab05e0c5cea0055c8b0e152342fd79fdcd8876bf61874868ca0c9a5c"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\visual\\west-context.png",
+      "sha256": "cd819d871b4c998c498908c59e857c66ddea984a985ac8755191380cc25ae6ac"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\visual\\west-context-nearest4x.png",
+      "sha256": "6af117e0401db71fe4928c5dd2d48d3b8c92d7b625d7ef6a2c0bf55dfd8a62f5"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\217.json",
+      "sha256": "f8de2eddd4ba2939ae40796ffd8d1d1f971d49474dede72d108e61809ef1d6f8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\218.json",
+      "sha256": "83d1909e9e92a9622c46c9ba0ea46efca12bef60cb27ec5b35d72fcbd8f92abd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json",
+      "sha256": "48188a41382d98a5af7272851ba96f8d209213ee5befb3f4fd2fbf0b738574be"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json",
+      "sha256": "70e67fec9ff86c6eeb77019a488c68b2b8836d7610b1b88eee3bb1785348c1b4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add.6baa4a7e1404.retry-1792979810396-c29948ed.json",
+      "sha256": "c79c04dbbdbede13b2fc77d806bef7407517c0d767c1dedbafcb5f8c813b67de"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add.d510b3d9d5cb.json",
+      "sha256": "e28c3cc459aa19eccc09e75f5f3e208b3d3b18a402cdac15b46c9b82e084a080"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json",
+      "sha256": "7dc668f386cbc8c4a5f7ee7c253d0958b688f76de48ac6a82edba24e770bb33c"
+    }
+  ],
+  "liveIndexChanges": [],
+  "runtimeManifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\runtime-manifest.json",
+    "sha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+    "files": 27
+  },
+  "newCalls": 1,
+  "retry": 0,
+  "productionCalls": 0,
+  "additionalAuditAllowance": 0,
+  "failedVoidCount": true,
+  "upstreamExecutionCount": null,
+  "monetaryCost": null,
+  "remoteGatewayWeights": "unknown"
+}

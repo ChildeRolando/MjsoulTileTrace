@@ -1,0 +1,313 @@
+{
+  "schema": "coac250217-limited-display-readback/1",
+  "allPassed": true,
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T22-45-20-588Z",
+    "corpusId": "8480fd9100f6d2e1fcac7b2ad37248bbaa44d4931aab73bc18686a4d6b11fb95",
+    "chapters": 239,
+    "units": 247,
+    "blocks": 6573,
+    "figures": 5280
+  },
+  "canonical": "79-cn-chapter-217-4",
+  "sourceBlocks": 22,
+  "partition": [
+    6,
+    5,
+    9,
+    2
+  ],
+  "compiledBlocks": 24,
+  "figures": 4,
+  "sourceBlockIds": [
+    "79-cn-p217-b4",
+    "79-cn-p217-b5",
+    "79-cn-p217-b8",
+    "79-cn-p217-b6",
+    "79-cn-p217-b7",
+    "79-cn-p217-b2",
+    "79-cn-p218-b1",
+    "79-cn-p218-b3",
+    "79-cn-p218-b5",
+    "79-cn-p218-b4",
+    "79-cn-p218-b2",
+    "79-cn-p219-b1",
+    "79-cn-p219-b3",
+    "79-cn-p219-b8",
+    "79-cn-p219-b4",
+    "79-cn-p219-b5",
+    "79-cn-p219-b9",
+    "79-cn-p219-b6",
+    "79-cn-p219-b7",
+    "79-cn-p219-b2",
+    "79-cn-p220-b1",
+    "79-cn-p220-b3"
+  ],
+  "allSourceIdsOrderedOnce": true,
+  "blankSourceIdsBoundToAdjacentText": true,
+  "pages": [
+    {
+      "offset": 0,
+      "blocks": 24,
+      "nextOffset": null
+    }
+  ],
+  "images": [
+    {
+      "figureId": "79-cn-p217-r1",
+      "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0",
+      "mcpBytesExact": true
+    },
+    {
+      "figureId": "79-cn-p218-r1",
+      "sha256": "f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78",
+      "mcpBytesExact": true
+    },
+    {
+      "figureId": "79-cn-p219-r1",
+      "sha256": "dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5",
+      "mcpBytesExact": true
+    },
+    {
+      "figureId": "79-cn-p219-r2",
+      "sha256": "2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c",
+      "mcpBytesExact": true
+    }
+  ],
+  "requiredLimitations": [
+    {
+      "id": "coac250-218-limit-1",
+      "rawPointer": "/output/requiredLimitations/0",
+      "text": "本次一致性结论只针对给出的218候选中首张索子改为?s及原独审未知项的保留；原稿所记6s只能作为未核实的历史记法。",
+      "displayPrefix": "【审校限制（非原文）1/7】",
+      "authorText": false,
+      "afterFigureId": "79-cn-p218-r1",
+      "beforeSourceBlockId": "79-cn-p218-b4"
+    },
+    {
+      "id": "coac250-218-limit-2",
+      "rawPointer": "/output/requiredLimitations/1",
+      "text": "展示作者论证时须同时展示未知项及其影响：未知风牌限制东牌可见数量和东对判断，未知数牌及暗手限制对其他役种的复核。",
+      "displayPrefix": "【审校限制（非原文）2/7】",
+      "authorText": false,
+      "afterFigureId": "79-cn-p218-r1",
+      "beforeSourceBlockId": "79-cn-p218-b4"
+    },
+    {
+      "id": "coac250-218-limit-3",
+      "rawPointer": "/output/requiredLimitations/2",
+      "text": "“可能性很低”和“只可能是双东”保留原词，但须明确归为作者根据舍牌作出的判断；现有证据不能独立证实概率、唯一役种或实际双东。",
+      "displayPrefix": "【审校限制（非原文）3/7】",
+      "authorText": false,
+      "afterFigureId": "79-cn-p218-r1",
+      "beforeSourceBlockId": "79-cn-p218-b4"
+    },
+    {
+      "id": "coac250-218-limit-4",
+      "rawPointer": "/output/requiredLimitations/3",
+      "text": "原文称对手亲家；图面座位和局况可供条件性理解，但本次不认证实际庄家身份、暗手、听牌、打点、最优选择或结果。",
+      "displayPrefix": "【审校限制（非原文）4/7】",
+      "authorText": false,
+      "afterFigureId": "79-cn-p218-r1",
+      "beforeSourceBlockId": "79-cn-p218-b4"
+    },
+    {
+      "id": "coac250-218-limit-5",
+      "rawPointer": "/output/requiredLimitations/4",
+      "text": "第218页标题前的拆8万对子、扣索子和留9饼属于前例；标题后的目标图及摸东论述属于新例。第217页图与其独立限制注未重审。",
+      "displayPrefix": "【审校限制（非原文）5/7】",
+      "authorText": false,
+      "afterFigureId": "79-cn-p218-r1",
+      "beforeSourceBlockId": "79-cn-p218-b4"
+    },
+    {
+      "id": "coac250-218-limit-6",
+      "rawPointer": "/output/requiredLimitations/5",
+      "text": "ドラ标签的宝牌或指示牌语义未确认；立直棒0本不能证明此前从未有人立直。",
+      "displayPrefix": "【审校限制（非原文）6/7】",
+      "authorText": false,
+      "afterFigureId": "79-cn-p218-r1",
+      "beforeSourceBlockId": "79-cn-p218-b4"
+    },
+    {
+      "id": "coac250-218-limit-7",
+      "rawPointer": "/output/requiredLimitations/6",
+      "text": "已比较所给218原页、目标裁图、源图和相关文字，并参考217衔接文字；这不是对217图、219或220的重审，也不是整页通过认证。",
+      "displayPrefix": "【审校限制（非原文）7/7】",
+      "authorText": false,
+      "afterFigureId": "79-cn-p218-r1",
+      "beforeSourceBlockId": "79-cn-p218-b4"
+    }
+  ],
+  "allSevenLimitsActuallyReadBack": true,
+  "mandatory217NoteActuallyReadBack": true,
+  "rawClaimsUncertain": 5,
+  "originalNeedsRepairAndFalseUnchanged": true,
+  "authorBodyAndFiguresExact": true,
+  "htmlFullChapterExact": true,
+  "priorUnitsUnchanged": 246,
+  "fullMcp": {
+    "units": 247,
+    "images": 5280
+  },
+  "arena": {
+    "exactBody": true,
+    "units": 247,
+    "targetReads": [
+      {
+        "offset": 0,
+        "blocks": 24,
+        "next": null,
+        "bytes": 12562,
+        "sourceRefs": 1
+      }
+    ],
+    "fullReadRequiredBeforeCitation": true
+  },
+  "sourceCollisions": 0,
+  "calls": [
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 0,
+        "limit": 20
+      },
+      "bytes": 4758
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 20,
+        "limit": 20
+      },
+      "bytes": 4852
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 40,
+        "limit": 20
+      },
+      "bytes": 4910
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 60,
+        "limit": 20
+      },
+      "bytes": 5054
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 80,
+        "limit": 20
+      },
+      "bytes": 5122
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 100,
+        "limit": 20
+      },
+      "bytes": 5127
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 120,
+        "limit": 20
+      },
+      "bytes": 5098
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 140,
+        "limit": 20
+      },
+      "bytes": 5011
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 160,
+        "limit": 20
+      },
+      "bytes": 5060
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 180,
+        "limit": 20
+      },
+      "bytes": 4392
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 200,
+        "limit": 20
+      },
+      "bytes": 2817
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 220,
+        "limit": 20
+      },
+      "bytes": 4363
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-cn-chapter-217-4-unit-1",
+        "blockOffset": 0
+      },
+      "bytes": 12379
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-cn-p217-r1"
+      },
+      "bytes": 1906
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-cn-p218-r1"
+      },
+      "bytes": 2237
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-cn-p219-r1"
+      },
+      "bytes": 715
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-cn-p219-r2"
+      },
+      "bytes": 1838
+    },
+    {
+      "name": "search_textbook",
+      "args": {
+        "query": "后付的字牌",
+        "chapterId": "79-cn-chapter-217-4",
+        "limit": 5
+      },
+      "bytes": 1704
+    }
+  ],
+  "newModelCalls": 0,
+  "formalActiveChanged": false
+}

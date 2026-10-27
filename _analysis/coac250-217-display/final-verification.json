@@ -1,0 +1,98 @@
+{
+  "schema": "coac250217-limited-display-final/1",
+  "allPassed": true,
+  "recordedAt": "2026-10-27T22:46:48.004Z",
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T22-45-20-588Z",
+    "corpusId": "8480fd9100f6d2e1fcac7b2ad37248bbaa44d4931aab73bc18686a4d6b11fb95",
+    "chapters": 239,
+    "units": 247,
+    "blocks": 6573,
+    "figures": 5280
+  },
+  "coverage": {
+    "originalChaptersCovered": 238,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 270,
+    "originalUnitsTotal": 303
+  },
+  "remainingChapters": 18,
+  "addedOriginalChapters": [
+    "79-cn-chapter-217-4"
+  ],
+  "selection": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v29.json",
+    "sha256": "7c3322ff650a4389acf8126e452325f8bbe67a4cfbed5b16c5fe6bdf6e834d38",
+    "version": 29,
+    "rollbackVersion": 28
+  },
+  "readback": {
+    "path": "_analysis/coac250-217-display/readback.json",
+    "sha256": "02dd4f81ecda62ff6cad1549fb7f59f09c6dc46c2de182cceb380400399b24af"
+  },
+  "register": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+    "beforeSha256": "53e334adaf6c49d8caee4af03485245742a305d91e262492dd992327699892aa",
+    "afterSha256": "4ed23af2a7a890e6e958fefba36e88844d6f55d5f25615f050a721196abbbf02"
+  },
+  "owner": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+    "beforeSha256": "beed12d5782492601a04ae28146c60636ddf7184189e51da2e7d86e73ed92bb9",
+    "afterSha256": "286e267607a02fe8a4dec60b388514abce9c6ecf488929a439f0ca939141d4de"
+  },
+  "sourceBlocks": 22,
+  "compiledBlocks": 24,
+  "figures": 4,
+  "displayLimitations": 7,
+  "exactSourceQuoteMappings": 18,
+  "negativeDisplayTests": 13,
+  "persistedRoute": {
+    "passed": true,
+    "selectionVersion": 29,
+    "builderSha256": "3e51b511e3a840011752ab5fd81e861d6c7c24a89efba33277c71280fa5c5ab7",
+    "selectionSha256": "7c3322ff650a4389acf8126e452325f8bbe67a4cfbed5b16c5fe6bdf6e834d38",
+    "exactInstalledPdfBranchExecuted": true,
+    "chapter": "79-cn-chapter-217-4",
+    "historicalChaptersRebuilt": 0,
+    "corpusRebuiltExact": true,
+    "missingOrChangedSelectionRejected": true,
+    "duplicateScopeRejected": true,
+    "changedModuleRejected": true,
+    "fullPage217218219Passed": false,
+    "newModelCalls": 0
+  },
+  "ordinaryFullPagePass": false,
+  "originalReceiptsAndRawUnchanged": true,
+  "originalClaimUncertainCount": 5,
+  "actualFactCertification": false,
+  "priorUnitsUnchanged": 246,
+  "sharedStageAndGateUnchanged": true,
+  "fullMcp": {
+    "units": 247,
+    "images": 5280
+  },
+  "arena": {
+    "exactBody": true,
+    "units": 247,
+    "targetReads": [
+      {
+        "offset": 0,
+        "blocks": 24,
+        "next": null,
+        "bytes": 12562,
+        "sourceRefs": 1
+      }
+    ],
+    "fullReadRequiredBeforeCitation": true
+  },
+  "sourceCollisions": 0,
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "newConsumerStarted": false,
+  "formalActiveChanged": false,
+  "measurementLimits": {
+    "fee": null,
+    "remoteWeights": "unknown",
+    "upstreamExecutionCount": null
+  }
+}

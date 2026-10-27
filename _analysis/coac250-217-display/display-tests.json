@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "name": "missingLimit",
+      "rejected": true
+    },
+    {
+      "name": "changedLimit",
+      "rejected": true
+    },
+    {
+      "name": "missing217Annotation",
+      "rejected": true
+    },
+    {
+      "name": "foreignOwner",
+      "rejected": true
+    },
+    {
+      "name": "missingSource",
+      "rejected": true
+    },
+    {
+      "name": "wrongOrder",
+      "rejected": true
+    },
+    {
+      "name": "guessedFigure",
+      "rejected": true
+    },
+    {
+      "name": "changedAuthor",
+      "rejected": true
+    },
+    {
+      "name": "removeUnknown",
+      "rejected": true
+    },
+    {
+      "name": "certifyHiddenHand",
+      "rejected": true
+    },
+    {
+      "name": "clearUncertain",
+      "rejected": true
+    },
+    {
+      "name": "wrongQuoteRange",
+      "rejected": true
+    },
+    {
+      "name": "missingImageWitness",
+      "rejected": true
+    }
+  ],
+  "originalRawAndCandidateUnchanged": true,
+  "models": 0
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "coach-zero-call-pdf-correction-runtime/1",
+  "scope": "79-cn:217 exact legacy bridge only",
+  "newModelCalls": 0,
+  "productionModelConfigurationChanged": false,
+  "originalCorrectionLoaderSha256": "31b8c8022ab00e8f3f89d85d8889ad9f1fd61269d6449da736c0ab142b90f74b",
+  "existingPinsUnchanged": 8,
+  "files": [
+    {
+      "path": "runtime/textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "532e7a0c1baa33024e9ef52a7a806b6cbeff2125455d9cdc6b73fd8a92d01e71"
+    },
+    {
+      "path": "runtime/textbook-audit-pdf-p217-correction.mjs",
+      "sha256": "2e3d02dc0c807c6fe0283aeee9e8198a83e0a7e5a0ecd60822b29e396877fad8"
+    },
+    {
+      "path": "verify.mjs",
+      "sha256": "deec89482c7a3ec5d2f530933d29d29036f9854139fd9562ae5abfff588a6eb3"
+    },
+    {
+      "path": "correction.test.mjs",
+      "sha256": "77349fd9179875116c6c8f388ee5f28f63ea45a7883118bf9e059e9f2608d494"
+    },
+    {
+      "path": "native-inline-field-corrections.p217.root-acceptance.json",
+      "sha256": "5fc316e8150c927e0c49bfb49b120a348040ee6c7707847984d585b8023cf8f7"
+    }
+  ]
+}

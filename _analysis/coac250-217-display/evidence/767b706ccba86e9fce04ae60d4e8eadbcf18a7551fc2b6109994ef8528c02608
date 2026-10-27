@@ -1,0 +1,64 @@
+{
+  "schema": "coach-native-inline-field-correction-proof/1",
+  "candidateSha256": "464c607a262b415dece3f35b213aef19b632266f7c4917f3107a04d5e1971bc9",
+  "parentSha256": "4ed396279c5eff45b5c9d399f7950394ac1c36b0cc638b22f67d0f30fb03ff54",
+  "parentPath": "production/coac247-pdf218219-terra-v2-20261028/candidates/79-cn/page-0219.json",
+  "originalAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0219.4ed396279c5eff45b5c9d399f7950394ac1c36b0cc638b22f67d0f30fb03ff54.38f0d64d609b.json",
+    "sha256": "485247f1aabde12801df12bdd4e989a1fa3071148a17acd7a68dfd1285b15c14"
+  },
+  "originalProductionRaw": {
+    "path": "production/coac247-pdf218219-terra-v2-20261028/raw-calls/717d547b-6aac-4e2a-8ef2-cccbbdcfdd07.json",
+    "sha256": "eb9c196deb5be95e2ffe0cddc654550ee6941d9387859389374f69c486ba3c55"
+  },
+  "sourcePage": {
+    "path": "79-cn/pages/219.json",
+    "sha256": "27ae7567c1ba544cf5b5bdbf3a75abeb95e650c84ba9ce2114b2143340d99a28"
+  },
+  "sourceFieldCorrection": {
+    "schema": "coach-native-inline-field-correction/1",
+    "route": "page-scoped-unknowns-evidence",
+    "parentPath": "production/coac247-pdf218219-terra-v2-20261028/candidates/79-cn/page-0219.json",
+    "parentSha256": "4ed396279c5eff45b5c9d399f7950394ac1c36b0cc638b22f67d0f30fb03ff54",
+    "notesPath": "audit/pages/79-cn/page-0219.4ed396279c5eff45b5c9d399f7950394ac1c36b0cc638b22f67d0f30fb03ff54.38f0d64d609b.json",
+    "notesSha256": "485247f1aabde12801df12bdd4e989a1fa3071148a17acd7a68dfd1285b15c14",
+    "sourcePageDataSha256": "27ae7567c1ba544cf5b5bdbf3a75abeb95e650c84ba9ce2114b2143340d99a28",
+    "newProductionModelCalls": 0,
+    "originalProductionRaw": {
+      "path": "production/coac247-pdf218219-terra-v2-20261028/raw-calls/717d547b-6aac-4e2a-8ef2-cccbbdcfdd07.json",
+      "sha256": "eb9c196deb5be95e2ffe0cddc654550ee6941d9387859389374f69c486ba3c55"
+    },
+    "changes": [
+      {
+        "target": "figure",
+        "figureId": "79-cn-p219-r2",
+        "field": "transcription",
+        "fromValue": "牌桌中央显示「南1局0本場」「リーチ棒0本」，「ドラ」旁显示4m。自家在下方，为东家；右侧为南家，上方为西家，左侧为北家。自家手牌从左至右为4m、7m、7m、8m、1p、1p、6p、7p、1s、2s、3s、8s、8s，右侧另置摸入的3m。\n\n自家舍牌从左至右，第一行依次为北4z、1m、东1z、9p、白5z、南2z；第二行依次为1s、7s。南家舍牌靠中央的一列由下向上依次为1m、9p、2s、6s、东1z、5p；外一列由下向上依次为4s、西3z、2m。西家舍牌靠中央的一行由右向左，第1张为北4z，第2张为字牌，第3张为9p，第4格为灰色空位，第5张为西3z，第6张为万子；外一行由右向左依次为2m、发6z、3s。北家舍牌靠中央的一列由上向下依次为东1z、1m、9s、发6z、1s、1p；外一列由上向下依次为5p、8p、8s。\n\n右上角南家副露白5z、白5z、白5z：上端一张竖向，其余两张横向；按南家的视角，横置牌位于该组右端，表示从西家碰入。两张可见的5p均为普通5p，未见赤五。z牌代码中，1z为东、2z为南、3z为西、4z为北、5z为白、6z为发。",
+        "toValue": "牌桌中央显示「南1局0本場」「リーチ棒0本」，「ドラ」旁显示4m。自家在下方，为东家；右侧为南家，上方为西家，左侧为北家。自家手牌从左至右为4m、7m、7m、8m、1p、1p、6p、7p、1s、2s、3s、8s、8s，右侧另置摸入的3m。\n\n自家舍牌从左至右，第一行依次为北4z、1m、东1z、9p、白5z、南2z；第二行依次为1s、7s。南家舍牌靠中央的一列由下向上依次为1m、9p、2s、6s、东1z、5p；外一列由下向上依次为4s、西3z、2m。西家舍牌靠中央的一行由右向左，第1张为北4z，第2张为字牌，第3张为9p，第4格为灰色空位，第5张为西3z，第6张为万子；外一行由右向左依次为2m、发6z、3s。北家舍牌靠中央的一列由上向下依次为东1z、1m、9s、发6z、1s、1p；外一列由上向下依次为5p、8p、8s。\n\n右上角南家副露白5z、白5z、白5z：上端一张竖向，其余两张横向；按南家的视角，横置牌位于该组右端，表示从西家碰入。两张可见的5p均为普通5p，未见赤五。西家13张、北家13张、南家10张牌背可见，暗手牌面仍未知；各家可见河牌未见相对该家正常方向横置的立直牌。z牌代码中，1z为东、2z为南、3z为西、4z为北、5z为白、6z为发。",
+        "replacements": [
+          {
+            "from": "z牌代码中，1z为东、2z为南、3z为西、4z为北、5z为白、6z为发。",
+            "to": "西家13张、北家13张、南家10张牌背可见，暗手牌面仍未知；各家可见河牌未见相对该家正常方向横置的立直牌。z牌代码中，1z为东、2z为南、3z为西、4z为北、5z为白、6z为发。",
+            "occurrences": 1
+          }
+        ],
+        "sourceEvidence": "Existing independent full-page review ac6bf0ed-e84d-4bc7-b64c-cecf3550dd86; exact error/uncertain items retained in originalAudit. This is admission only; new target review is required.",
+        "independentReceipt": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0219.4ed396279c5eff45b5c9d399f7950394ac1c36b0cc638b22f67d0f30fb03ff54.38f0d64d609b.json",
+          "sha256": "485247f1aabde12801df12bdd4e989a1fa3071148a17acd7a68dfd1285b15c14"
+        },
+        "independentRaw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\ac6bf0ed-e84d-4bc7-b64c-cecf3550dd86.json",
+          "sha256": "314d27f4981a93efe9c448cd541bba62e75d0fbe6f3d3fe97692d5daf4ab8f94"
+        },
+        "sourceCrop": {
+          "path": "production/coac247-pdf218219-terra-v2-20261028/renders/79-cn/page-0219-r2.png",
+          "sha256": "2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c"
+        }
+      }
+    ],
+    "derivation": "external-deterministic-native-inline-correction-not-model-output",
+    "authorizationComment": "01a17f5d-9921-71a8-83b8-69bf84d3bcbf",
+    "semanticStatus": "awaiting-independent-target-review"
+  }
+}

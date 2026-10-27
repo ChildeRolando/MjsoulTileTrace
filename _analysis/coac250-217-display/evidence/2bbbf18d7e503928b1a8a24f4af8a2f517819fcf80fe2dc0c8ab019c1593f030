@@ -1,0 +1,151 @@
+{
+  "schema": "coach-native-inline-field-correction-proof/1",
+  "candidateSha256": "df8f2de33d1baf5141533810f22b59855aef0145729d612f003ae123c4e24157",
+  "parentSha256": "9ff64a457dec1368924a4f431d3a8d89278151d339bb74a07df1d749f882c8e6",
+  "parentPath": "production/coac247-pdf218219-terra-v2-20261028/candidates/79-cn/page-0218.json",
+  "originalAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0218.9ff64a457dec1368924a4f431d3a8d89278151d339bb74a07df1d749f882c8e6.38f0d64d609b.json",
+    "sha256": "74cfe8d8cd72ebc4b02fe46464d1b4e7f4728d10fb429f8a6f331dc575356d17"
+  },
+  "originalProductionRaw": {
+    "path": "production/coac247-pdf218219-terra-v2-20261028/raw-calls/8f62e4bc-859f-4b0d-bc64-d21231a95d5e.json",
+    "sha256": "63f1312e36fc85b3944b33a3db10441ed7587f540237328ae0970c87f56321d8"
+  },
+  "sourcePage": {
+    "path": "79-cn/pages/218.json",
+    "sha256": "83d1909e9e92a9622c46c9ba0ea46efca12bef60cb27ec5b35d72fcbd8f92abd"
+  },
+  "sourceFieldCorrection": {
+    "schema": "coach-native-inline-field-correction/1",
+    "route": "page-scoped-unknowns-evidence",
+    "parentPath": "production/coac247-pdf218219-terra-v2-20261028/candidates/79-cn/page-0218.json",
+    "parentSha256": "9ff64a457dec1368924a4f431d3a8d89278151d339bb74a07df1d749f882c8e6",
+    "notesPath": "audit/pages/79-cn/page-0218.9ff64a457dec1368924a4f431d3a8d89278151d339bb74a07df1d749f882c8e6.38f0d64d609b.json",
+    "notesSha256": "74cfe8d8cd72ebc4b02fe46464d1b4e7f4728d10fb429f8a6f331dc575356d17",
+    "sourcePageDataSha256": "83d1909e9e92a9622c46c9ba0ea46efca12bef60cb27ec5b35d72fcbd8f92abd",
+    "newProductionModelCalls": 0,
+    "originalProductionRaw": {
+      "path": "production/coac247-pdf218219-terra-v2-20261028/raw-calls/8f62e4bc-859f-4b0d-bc64-d21231a95d5e.json",
+      "sha256": "63f1312e36fc85b3944b33a3db10441ed7587f540237328ae0970c87f56321d8"
+    },
+    "changes": [
+      {
+        "target": "figure",
+        "figureId": "79-cn-p218-r1",
+        "field": "transcription",
+        "fromValue": "牌桌为东4局2本场，立直棒0本；宝牌指示牌为5m，非赤。画面下方为南家，左方为东家，右方为西家，上方为北家。画面显示的点数增减分别为东家+20000、南家△2600、西家△10800、北家△6600。\n\n南家手牌从左至右为11334789m 234p 67s，最右侧新摸入1z（东）。南家牌河从靠中心的一排起、自左向右为：6z（发）、5z（白）、3s、3z（西）、6z（发）、8m；第二排为9s、5z（白）、8p、2p。\n\n东家副露789p，从北家吃入9p；画面中从上到下为转向的9p、7p、8p。东家牌河从靠中心的一列起、自上向下为：1s、第2张黑字风牌字样不清、第3张黑字风牌字样不清、5z（白）、第5张索子点数不清、9s；外侧一列自上向下为7z（中）、1p、5p、第10张万子点数不清、第11张索子点数不清。5p为普通五饼，非赤五。\n\n西家牌河从靠中心的一列起、自下向上为：9s、1s、1s、5z（白）、4z（北）、7z（中）；外侧一列自下向上为9p、1p、2p、9p。\n\n北家牌河从靠中心的一排起、自右向左为：第1张黑字风牌字样不清、4z（北）、5z（白）、4s、7z（中）、第6张黑字风牌字样不清；外侧一排自右向左为第7张万子点数不清、2s、8p、9p。末张9p灰显，对应东家吃入的牌。其余三家的手牌背面朝上，牌面不可见。",
+        "toValue": "牌桌为东4局2本场，立直棒0本；图面中央标签为“ドラ：5m”，5m非赤；仅据该标签未确认它是宝牌本身还是指示牌。画面下方为南家，左方为东家，右方为西家，上方为北家。画面显示的点数增减分别为东家+20000、南家△2600、西家△10800、北家△6600。\n\n南家手牌从左至右为11334789m 234p ?s7s（?s表示首张索子点数未知；原稿记为6s，尚未核实），最右侧新摸入1z（东）。南家牌河从靠中心的一排起、自左向右为：6z（发）、5z（白）、3s、3z（西）、6z（发）、8m；第二排为9s、5z（白）、8p、2p。\n\n东家副露789p，从北家吃入9p；画面中从上到下为转向的9p、7p、8p。东家牌河从靠中心的一列起、自上向下为：1s、第2张黑字风牌字样不清、第3张黑字风牌字样不清、5z（白）、第5张索子点数不清、9s；外侧一列自上向下为7z（中）、1p、5p、第10张万子点数不清、第11张索子点数不清。5p为普通五饼，非赤五。\n\n西家牌河从靠中心的一列起、自下向上为：9s、1s、1s、5z（白）、4z（北）、7z（中）；外侧一列自下向上为9p、1p、2p、9p。\n\n北家牌河从靠中心的一排起、自右向左为：第1张黑字风牌字样不清、4z（北）、5z（白）、4s、7z（中）、第6张黑字风牌字样不清；外侧一排自右向左为第7张万子点数不清、2s、8p、9p。末张9p灰显，对应东家吃入的牌。北家13张、东家10张、西家13张牌背可见，暗手牌面不可见。南家手牌原稿所记67s中的第一张6s未能由独审确认，仍为未确认牌；不据猜测改成其它牌码。",
+        "replacements": [
+          {
+            "from": "宝牌指示牌为5m，非赤。",
+            "to": "图面中央标签为“ドラ：5m”，5m非赤；仅据该标签未确认它是宝牌本身还是指示牌。",
+            "occurrences": 1
+          },
+          {
+            "from": "其余三家的手牌背面朝上，牌面不可见。",
+            "to": "北家13张、东家10张、西家13张牌背可见，暗手牌面不可见。南家手牌原稿所记67s中的第一张6s未能由独审确认，仍为未确认牌；不据猜测改成其它牌码。",
+            "occurrences": 1
+          },
+          {
+            "from": "11334789m 234p 67s",
+            "to": "11334789m 234p ?s7s（?s表示首张索子点数未知；原稿记为6s，尚未核实）",
+            "occurrences": 1
+          }
+        ],
+        "sourceEvidence": "Existing independent full-page review a4bfda32-c7be-48e6-83a8-754ad37f5e8c; exact error/uncertain items retained in originalAudit. This is admission only; new target review is required.",
+        "independentReceipt": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0218.9ff64a457dec1368924a4f431d3a8d89278151d339bb74a07df1d749f882c8e6.38f0d64d609b.json",
+          "sha256": "74cfe8d8cd72ebc4b02fe46464d1b4e7f4728d10fb429f8a6f331dc575356d17"
+        },
+        "independentRaw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\a4bfda32-c7be-48e6-83a8-754ad37f5e8c.json",
+          "sha256": "3274ab5ff2396039bce2fcb5342aba1e5073b96a189545f3ee2ba7e81b41089b"
+        },
+        "sourceCrop": {
+          "path": "production/coac247-pdf218219-terra-v2-20261028/renders/79-cn/page-0218-r1.png",
+          "sha256": "f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78"
+        },
+        "additionalIndependentEvidence": {
+          "receipt": {
+            "path": "audit/supplements/coac249-pdf218219-target-20261028/receipt-218.json",
+            "sha256": "d50eb164b82dda0ee11ee92a700c9c63ca17d206edbac56354fa74b0edd05c11"
+          },
+          "raw": {
+            "path": "audit/calls/7160c860-7aaf-429a-a7a5-8321d9a96694.json",
+            "sha256": "72ee756127b8b30d0898ff6974ca8835b7a17f626c2eda13eec1c2730b4dc820"
+          },
+          "jsonPointer": "/output/issues/0",
+          "exactInstruction": {
+            "severity": "error",
+            "location": "79-cn-p218-r1.transcription，南家手牌",
+            "evidence": "候选先写“11334789m 234p 67s”，后又写“原稿所记67s中的第一张6s未能由独审确认，仍为未确认牌”。",
+            "description": "确定牌码与未确认说明互相矛盾。应将首张索子直接表示为点数未知，再单独注明原稿记为6s但尚未核实；不要猜改成另一牌码。"
+          },
+          "scope": "Only remove the unconditional6s claim; retain unknowns, original conditions and speculative voice. No tile identification."
+        }
+      },
+      {
+        "target": "figure",
+        "figureId": "79-cn-p218-r1",
+        "field": "unknowns",
+        "fromValue": [
+          "东家牌河第2、3张为黑字风牌，旋转后的字形不清，无法确认各自的风向。",
+          "东家牌河第5、11张为索子，图案细节不清，无法确认各自点数或赤五状态。",
+          "东家牌河第10张为万子，旋转后的数字笔画不清，无法确认点数。",
+          "北家牌河第1、6张为黑字风牌，倒置后的字形不清，无法确认各自的风向。",
+          "北家牌河第7张为万子，倒置后的数字笔画不清，无法确认点数。",
+          "东家、西家和北家的暗手牌面不可见。"
+        ],
+        "toValue": [
+          "东家牌河第2、3张为黑字风牌，旋转后的字形不清，无法确认各自的风向。",
+          "东家牌河第5、11张为索子，图案细节不清，无法确认各自点数或赤五状态。",
+          "东家牌河第10张为万子，旋转后的数字笔画不清，无法确认点数。",
+          "北家牌河第1、6张为黑字风牌，倒置后的字形不清，无法确认各自的风向。",
+          "北家牌河第7张为万子，倒置后的数字笔画不清，无法确认点数。",
+          "东家、西家和北家的暗手牌面不可见；另南家手牌原稿所记67s中的第一张6s未能由独审确认，仍为未确认牌。中央标签只明确“ドラ：5m”，宝牌/指示牌语义未确认。"
+        ],
+        "replacements": [
+          {
+            "from": "东家、西家和北家的暗手牌面不可见。",
+            "to": "东家、西家和北家的暗手牌面不可见；另南家手牌原稿所记67s中的第一张6s未能由独审确认，仍为未确认牌。中央标签只明确“ドラ：5m”，宝牌/指示牌语义未确认。",
+            "occurrences": 1
+          }
+        ],
+        "sourceEvidence": "Existing independent full-page review a4bfda32-c7be-48e6-83a8-754ad37f5e8c; exact error/uncertain items retained in originalAudit. This is admission only; new target review is required.",
+        "independentReceipt": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0218.9ff64a457dec1368924a4f431d3a8d89278151d339bb74a07df1d749f882c8e6.38f0d64d609b.json",
+          "sha256": "74cfe8d8cd72ebc4b02fe46464d1b4e7f4728d10fb429f8a6f331dc575356d17"
+        },
+        "independentRaw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\a4bfda32-c7be-48e6-83a8-754ad37f5e8c.json",
+          "sha256": "3274ab5ff2396039bce2fcb5342aba1e5073b96a189545f3ee2ba7e81b41089b"
+        },
+        "sourceCrop": {
+          "path": "production/coac247-pdf218219-terra-v2-20261028/renders/79-cn/page-0218-r1.png",
+          "sha256": "f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78"
+        }
+      }
+    ],
+    "derivation": "external-deterministic-native-inline-correction-not-model-output; flattened against original production raw, with immediate derived parent separately bound",
+    "authorizationComment": "01a17f71-f701-7cdb-915b-e3b67c668ab7",
+    "semanticStatus": "consistent-unknown-derived-awaiting-independent-evidence-composition",
+    "previousDerivedCandidate": {
+      "path": "production/coac247-pdf218219-target-fix-v2-20261028/candidates/79-cn/page-0218.json",
+      "sha256": "5d0091cb957cc14b4436947ffa8207b65838302a1438442aca854664f05667c8"
+    },
+    "previousIndependentTargetReceipt": {
+      "path": "audit/supplements/coac249-pdf218219-target-20261028/receipt-218.json",
+      "sha256": "d50eb164b82dda0ee11ee92a700c9c63ca17d206edbac56354fa74b0edd05c11"
+    }
+  },
+  "immediateDerivedParent": {
+    "path": "production/coac247-pdf218219-target-fix-v2-20261028/candidates/79-cn/page-0218.json",
+    "sha256": "5d0091cb957cc14b4436947ffa8207b65838302a1438442aca854664f05667c8"
+  },
+  "independentConsistencyInstruction": {
+    "path": "audit/supplements/coac249-pdf218219-target-20261028/receipt-218.json",
+    "sha256": "d50eb164b82dda0ee11ee92a700c9c63ca17d206edbac56354fa74b0edd05c11"
+  },
+  "restoredImmediateParentSha256": "5d0091cb957cc14b4436947ffa8207b65838302a1438442aca854664f05667c8",
+  "restoredOriginalParentSha256": "9ff64a457dec1368924a4f431d3a8d89278151d339bb74a07df1d749f882c8e6"
+}

@@ -1,0 +1,42 @@
+{
+  "chapterId": "79-cn-chapter-217-4",
+  "module": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-pdf217-limited-display-20261028/stage-owned-217.v2.mjs",
+    "sha256": "0a2d0026d5d68adf897903b3231fe5d8704edb89d8aebc53f151a05dd1da632c"
+  },
+  "inventory": {
+    "path": "E:/AgentData/Coach/knowledge/processing/source-inventory.json",
+    "sha256": "050ad125fa0c82757e9a53279974c6bc1cc6249a8919cc33048367d52ccf8b4d"
+  },
+  "files": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-pdf218219-bounded-close-reviewed-20261028.json",
+      "sha256": "ce1df311b35a41fee83882422ba9491232d5f592388d7a3fbf055ef6291f9b5a"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/source-inventory.json",
+      "sha256": "050ad125fa0c82757e9a53279974c6bc1cc6249a8919cc33048367d52ccf8b4d"
+    },
+    {
+      "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/publish-textbooks.mjs",
+      "sha256": "ffa7b575475bb3a0b65e13560081354a6adf78a9d51d09958cd0f8385bd04026"
+    },
+    {
+      "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/compile-textbook-corpus.mjs",
+      "sha256": "b4a8fb7432847e54b3c922a5b83e88b3d957abd6a16e726c772188fa5db4a2db"
+    },
+    {
+      "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/textbook-review.mjs",
+      "sha256": "11b3b9c1dcb41b2cdde72517dca733a84a352e75eea154edea5acc36408c7edf"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-pdf217-limited-display-20261028/owner-contract.md",
+      "sha256": "9bcc9db26680be6b786800c2caaba69596af22f6ba9134e393d2df4881c4f938"
+    }
+  ],
+  "ownerContract": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-pdf217-limited-display-20261028/owner-contract.md",
+    "sha256": "9bcc9db26680be6b786800c2caaba69596af22f6ba9134e393d2df4881c4f938"
+  },
+  "scope": "Exact217 paired correction +218 independent bounded author argument with seven mandatory non-author display slots +219 existing limited fidelity +220 full-page pass, only canonical22 owned source blocks; no ordinary whole-page217/218/219 pass."
+}

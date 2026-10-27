@@ -1,0 +1,5 @@
+{
+  "message": "E:/AgentData/Coach/knowledge/processing/audit/calls.jsonl\n+ actual - expected\n\n+ '691302c1baa1c36e12ff8fdd0dc7a193dfc4f21bef1e881895f5f724b3760171'\n- '6311f587714e9db2c7d3d5fa2d36a102530aabc73c4ae788ca0e6e4a47639423'\n",
+  "stack": "AssertionError [ERR_ASSERTION]: E:/AgentData/Coach/knowledge/processing/audit/calls.jsonl\n+ actual - expected\n\n+ '691302c1baa1c36e12ff8fdd0dc7a193dfc4f21bef1e881895f5f724b3760171'\n- '6311f587714e9db2c7d3d5fa2d36a102530aabc73c4ae788ca0e6e4a47639423'\n\n    at unchanged (file:///C:/Users/Roland/multica_workspaces_desktop-api.multica.ai/coach-rolan-2123e9a3b805/coac-250-21b1447b360f/worktree/_analysis/coac250-217-display/integrate.mjs:3:102)\n    at async file:///C:/Users/Roland/multica_workspaces_desktop-api.multica.ai/coach-rolan-2123e9a3b805/coac-250-21b1447b360f/worktree/_analysis/coac250-217-display/integrate.mjs:7:2",
+  "models": 0
+}
