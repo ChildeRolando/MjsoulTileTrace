@@ -1,0 +1,680 @@
+{
+  "schema": "coac250-10th-batch-coverage-readback/1",
+  "recordedAt": "2026-10-27T12:49:44.039Z",
+  "modelCalls": 0,
+  "preview": {
+    "output": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T12-22-49-037Z",
+    "corpusId": "f223871fd1150357a013b58d29b46d61c90ab537f3674149c1a22311c6995f2e",
+    "displayChapters": 217,
+    "displayUnits": 225,
+    "displayBlocks": 5981,
+    "displayFigures": 4827,
+    "selectedWeb": 188,
+    "pendingWeb": 35,
+    "pdfStages": 27,
+    "activeLibraryUnchanged": true,
+    "formalCorpusId": "3f44d5dcaf8dfadf64dc0225e40e5f97773da659bf4a6cc3ba18569c642b6129",
+    "formalCorpusFileSha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+  },
+  "denominator": {
+    "originalChapters": 256,
+    "originalUnits": 303,
+    "originalSourceBlocks": 21212
+  },
+  "coverage": {
+    "originalChaptersCovered": 217,
+    "originalChaptersRemaining": 39,
+    "originalUnitsCovered": 249,
+    "originalUnitsRemaining": 54,
+    "originalUnitsNote": "covered = 303 original units minus the units of the 39 remaining original chapters recorded in the register rows; display units (225) are merged presentation units and are not the same measure"
+  },
+  "remaining": {
+    "total": 39,
+    "byAdjudicationGroup": {
+      "confirmed-produced-not-covered": 34,
+      "additional-uncovered-not-in-246": 5
+    },
+    "byRoute": {
+      "web": 36,
+      "pdfOnly": 3
+    },
+    "allProduced": true,
+    "unproduced": 0,
+    "auditedPassedButUnstaged": 0,
+    "needsRepairOrReaudit": 39,
+    "heldBySourceStructureHold": [
+      "nemata-jp-chapter-027-1"
+    ],
+    "chapters": [
+      {
+        "originalChapterId": "79-cn-chapter-081-8",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1721475",
+        "webTier": "body",
+        "pdfPagesTotal": 4,
+        "missingPassedPages": [
+          81,
+          82,
+          83,
+          84
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-090-6",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1721510",
+        "webTier": "body",
+        "pdfPagesTotal": 4,
+        "missingPassedPages": [
+          91,
+          92,
+          93
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-109-4",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1729038",
+        "webTier": "body",
+        "pdfPagesTotal": 3,
+        "missingPassedPages": [
+          110,
+          111
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-128-14",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1734739",
+        "webTier": "body",
+        "pdfPagesTotal": 4,
+        "missingPassedPages": [
+          128,
+          129,
+          130,
+          131
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-145-4",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1744266",
+        "webTier": "body",
+        "pdfPagesTotal": 3,
+        "missingPassedPages": [
+          145,
+          146
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-155-4",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1751265",
+        "webTier": "body",
+        "pdfPagesTotal": 3,
+        "missingPassedPages": [
+          156,
+          157
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-157-11",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1751276",
+        "webTier": "body",
+        "pdfPagesTotal": 3,
+        "missingPassedPages": [
+          157,
+          158,
+          159
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-159-9",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1751292",
+        "webTier": "body",
+        "pdfPagesTotal": 3,
+        "missingPassedPages": [
+          159,
+          160,
+          161
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-162-3",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1751316",
+        "webTier": "body",
+        "pdfPagesTotal": 4,
+        "missingPassedPages": [
+          162,
+          163,
+          164,
+          165
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-167-4",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1754620",
+        "webTier": "body",
+        "pdfPagesTotal": 3,
+        "missingPassedPages": [
+          167,
+          168,
+          169
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-182-5",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1760573",
+        "webTier": "body",
+        "pdfPagesTotal": 2,
+        "missingPassedPages": [
+          182,
+          183
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-193-4",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1765377",
+        "webTier": "body",
+        "pdfPagesTotal": 4,
+        "missingPassedPages": [
+          194,
+          195
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-201-6",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1770179",
+        "webTier": "body",
+        "pdfPagesTotal": 3,
+        "missingPassedPages": [
+          201,
+          202,
+          203
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-205-5",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1770234",
+        "webTier": "body",
+        "pdfPagesTotal": 4,
+        "missingPassedPages": [
+          205,
+          206,
+          207,
+          208
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-208-4",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1770245",
+        "webTier": "body",
+        "pdfPagesTotal": 4,
+        "missingPassedPages": [
+          208,
+          209,
+          210,
+          211
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-215-4",
+        "units": 1,
+        "adjudicationGroup": "additional-uncovered-not-in-246",
+        "webArticleId": null,
+        "webTier": null,
+        "pdfPagesTotal": 3,
+        "missingPassedPages": [
+          217
+        ],
+        "auditStatus": null,
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-217-4",
+        "units": 1,
+        "adjudicationGroup": "additional-uncovered-not-in-246",
+        "webArticleId": "cv1775174",
+        "webTier": "body",
+        "pdfPagesTotal": 4,
+        "missingPassedPages": [
+          217,
+          218,
+          219,
+          220
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-222-5",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1775262",
+        "webTier": "body",
+        "pdfPagesTotal": 5,
+        "missingPassedPages": [
+          222,
+          223,
+          224,
+          225,
+          226
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-234-12",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1780400",
+        "webTier": "body",
+        "pdfPagesTotal": 2,
+        "missingPassedPages": [
+          234,
+          235
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-242-3",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1780438",
+        "webTier": "body",
+        "pdfPagesTotal": 4,
+        "missingPassedPages": [
+          242,
+          243,
+          244,
+          245
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-246-3",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1785741",
+        "webTier": "body",
+        "pdfPagesTotal": 5,
+        "missingPassedPages": [
+          246,
+          247,
+          248,
+          249,
+          250
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-256-18",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1785770",
+        "webTier": "body",
+        "pdfPagesTotal": 5,
+        "missingPassedPages": [
+          257,
+          258,
+          259
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-276-4",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1793434",
+        "webTier": "body",
+        "pdfPagesTotal": 4,
+        "missingPassedPages": [
+          276,
+          277,
+          278,
+          279
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "79-cn-chapter-311-18",
+        "units": 16,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "cv1815400",
+        "webTier": "body",
+        "pdfPagesTotal": 19,
+        "missingPassedPages": [
+          311,
+          312,
+          313,
+          314,
+          315,
+          316,
+          317,
+          318,
+          319,
+          320,
+          321,
+          322,
+          323,
+          324,
+          325,
+          326,
+          327,
+          328,
+          329
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "nemata-jp-chapter-001-64",
+        "units": 1,
+        "adjudicationGroup": "additional-uncovered-not-in-246",
+        "webArticleId": null,
+        "webTier": null,
+        "pdfPagesTotal": 3,
+        "missingPassedPages": [
+          1,
+          2,
+          3
+        ],
+        "auditStatus": null,
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "nemata-jp-chapter-027-1",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "chapter01-section010",
+        "webTier": "url-header",
+        "pdfPagesTotal": 2,
+        "missingPassedPages": [
+          27,
+          28
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": true
+      },
+      {
+        "originalChapterId": "nemata-jp-chapter-060-1",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "chapter01-section021-06",
+        "webTier": "url-header",
+        "pdfPagesTotal": 4,
+        "missingPassedPages": [
+          60,
+          61,
+          62,
+          63
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "nemata-jp-chapter-089-1",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "chapter01-section031",
+        "webTier": "url-header",
+        "pdfPagesTotal": 3,
+        "missingPassedPages": [
+          89,
+          90,
+          91
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "nemata-jp-chapter-100-1",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "chapter01-section035",
+        "webTier": "url-header",
+        "pdfPagesTotal": 8,
+        "missingPassedPages": [
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "nemata-jp-chapter-183-1",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "chapter03-section003",
+        "webTier": "url-header",
+        "pdfPagesTotal": 1,
+        "missingPassedPages": [
+          183
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "nemata-jp-chapter-193-1",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "chapter03-section009",
+        "webTier": "url-header",
+        "pdfPagesTotal": 2,
+        "missingPassedPages": [
+          193,
+          194
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "nemata-jp-chapter-213-1",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "chapter03-section026",
+        "webTier": "url-header",
+        "pdfPagesTotal": 3,
+        "missingPassedPages": [
+          213,
+          214,
+          215
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "nemata-jp-chapter-224-1",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "chapter04-section005",
+        "webTier": "url-header",
+        "pdfPagesTotal": 2,
+        "missingPassedPages": [
+          224,
+          225
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "nemata-jp-chapter-232-1",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "chapter04-section012",
+        "webTier": "url-header",
+        "pdfPagesTotal": 2,
+        "missingPassedPages": [
+          232,
+          233
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "nemata-jp-chapter-236-1",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "chapter04-section015",
+        "webTier": "url-header",
+        "pdfPagesTotal": 1,
+        "missingPassedPages": [
+          236
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "nemata-jp-chapter-250-1",
+        "units": 1,
+        "adjudicationGroup": "additional-uncovered-not-in-246",
+        "webArticleId": "chapter06-exercise001",
+        "webTier": "url-header",
+        "pdfPagesTotal": 13,
+        "missingPassedPages": [
+          257,
+          261
+        ],
+        "auditStatus": null,
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "nemata-jp-chapter-283-1",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "chapter06-exercise003",
+        "webTier": "url-header",
+        "pdfPagesTotal": 20,
+        "missingPassedPages": [
+          283,
+          284,
+          285,
+          286,
+          287,
+          288,
+          289,
+          290,
+          291,
+          292,
+          293,
+          294,
+          295,
+          296,
+          297,
+          298,
+          299,
+          300,
+          301,
+          302
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "nemata-jp-chapter-317-51",
+        "units": 1,
+        "adjudicationGroup": "additional-uncovered-not-in-246",
+        "webArticleId": null,
+        "webTier": null,
+        "pdfPagesTotal": 1,
+        "missingPassedPages": [
+          317
+        ],
+        "auditStatus": null,
+        "heldBySourceStructureHold": false
+      },
+      {
+        "originalChapterId": "nemata-jp-chapter-347-1",
+        "units": 1,
+        "adjudicationGroup": "confirmed-produced-not-covered",
+        "webArticleId": "archive01-section008",
+        "webTier": "url-header",
+        "pdfPagesTotal": 1,
+        "missingPassedPages": [
+          347
+        ],
+        "auditStatus": "needs-repair",
+        "heldBySourceStructureHold": false
+      }
+    ]
+  },
+  "register": {
+    "path": "integration/coac250-unified-chapter-register-20261027b.json",
+    "sha256": "5a19d2c2e7998dd8162e54f7eee89a4a8ebc3ed90c69b2f2e7794bfaa623c337",
+    "recordedAt": "2026-10-27T12:49:07.174Z",
+    "verdicts": {
+      "covered-effective": 217,
+      "produced-needs-repair": 39,
+      "produced-passed-not-staged": 0,
+      "produced-pdf-passed-not-staged": 0,
+      "produced-unreviewed": 0,
+      "produced-audit-failed": 0,
+      "total": 256
+    }
+  }
+}

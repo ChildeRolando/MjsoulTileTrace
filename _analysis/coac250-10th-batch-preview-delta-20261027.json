@@ -1,0 +1,128 @@
+{
+  "schema": "coac250-10th-batch-preview-delta/1",
+  "modelCalls": 0,
+  "priorPreview": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T10-38-35-579Z",
+  "priorReceiptPathSha256": "3927fdab261bd3b1f4a8caa6b59314650f3e09687b4a009716a64894b6f63ea7",
+  "priorCorpusId": "5eebf4df6b1593749040570ed8e789b2809b1579cf51f2bf50f43dd2516f37fe",
+  "priorChapters": 214,
+  "priorUnits": 222,
+  "priorBlocks": 5900,
+  "priorFigures": 4657,
+  "nextPreview": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T12-22-49-037Z",
+  "nextCorpusId": "f223871fd1150357a013b58d29b46d61c90ab537f3674149c1a22311c6995f2e",
+  "nextChapters": 217,
+  "nextUnits": 225,
+  "nextBlocks": 5981,
+  "nextFigures": 4827,
+  "chapters": {
+    "added": [
+      "modern-yabejp-ja-chapter01-section047-chapter",
+      "modern-yabejp-ja-chapter01-section054-chapter",
+      "modern-yabejp-ja-chapter03-section013-chapter"
+    ],
+    "removed": [],
+    "changedRetained": [],
+    "retained": 185
+  },
+  "units": {
+    "added": [
+      "modern-yabejp-ja-chapter01-section047-argument",
+      "modern-yabejp-ja-chapter01-section054-argument",
+      "modern-yabejp-ja-chapter03-section013-argument"
+    ],
+    "removed": [],
+    "rewritten": []
+  },
+  "selectedWeb": {
+    "prior": 185,
+    "next": 188
+  },
+  "pendingWeb": {
+    "prior": 38,
+    "next": 35,
+    "resolved": [
+      "chapter01-section047.display.json",
+      "chapter01-section054.display.json",
+      "chapter03-section013.display.json"
+    ],
+    "added": [],
+    "addedDetail": [],
+    "heldEntryStillHeld": "confirmed_source_definition_boundary_hold"
+  },
+  "figures": {
+    "prior": 4657,
+    "next": 4827,
+    "added": 170,
+    "removed": 0
+  },
+  "newChapterContent": [
+    {
+      "chapterId": "modern-yabejp-ja-chapter01-section047-chapter",
+      "units": 1,
+      "blocks": 39,
+      "unitIds": [
+        "modern-yabejp-ja-chapter01-section047-argument"
+      ]
+    },
+    {
+      "chapterId": "modern-yabejp-ja-chapter01-section054-chapter",
+      "units": 1,
+      "blocks": 32,
+      "unitIds": [
+        "modern-yabejp-ja-chapter01-section054-argument"
+      ]
+    },
+    {
+      "chapterId": "modern-yabejp-ja-chapter03-section013-chapter",
+      "units": 1,
+      "blocks": 10,
+      "unitIds": [
+        "modern-yabejp-ja-chapter03-section013-argument"
+      ]
+    }
+  ],
+  "dedupeInventory": {
+    "articles": 222,
+    "multiVersionArticles": 222,
+    "duplicatedChaptersStagedTwice": []
+  },
+  "formalLibrary": {
+    "corpusPath": "E:/AgentData/Coach/knowledge/review/textbook-corpus.json",
+    "corpusFileSha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2",
+    "corpusId": "3f44d5dcaf8dfadf64dc0225e40e5f97773da659bf4a6cc3ba18569c642b6129",
+    "activeLibraryChanged": false,
+    "receiptFormalCorpusFileSha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2",
+    "receiptFormalCorpusId": "3f44d5dcaf8dfadf64dc0225e40e5f97773da659bf4a6cc3ba18569c642b6129"
+  },
+  "pointer": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+    "sha256": "99c3c7b509865422618bdea306c42475160e3741096ed9985fa1503c93017761",
+    "equalsNewReceipt": true
+  },
+  "previousPointerPreserved": {
+    "note": "The previous pointer target is not deleted: its preview directory receipt is byte-identical to the previous pointer value and left untouched.",
+    "previousReceiptPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T10-38-35-579Z\\accepted-preview-receipt.json",
+    "previousReceiptSha256": "3927fdab261bd3b1f4a8caa6b59314650f3e09687b4a009716a64894b6f63ea7",
+    "expectedPreviousPointerSha256": "3927fdab261bd3b1f4a8caa6b59314650f3e09687b4a009716a64894b6f63ea7"
+  },
+  "build": {
+    "corpusId": "f223871fd1150357a013b58d29b46d61c90ab537f3674149c1a22311c6995f2e",
+    "crossChapterNavigation": "chapter-local-only",
+    "activeLibraryChanged": false,
+    "maxUnitBytes": 358204
+  },
+  "pass": {
+    "retainedUnitsNotRewritten": true,
+    "noChaptersLost": true,
+    "noRetainedChapterVersionChanged": true,
+    "threeChaptersAdded": true,
+    "pendingResolvedForAllThree": true,
+    "noUnexpectedNewPending": true,
+    "heldChapterStillHeld": true,
+    "noChapterStagedTwice": true,
+    "formalLibraryUntouched": true,
+    "pointerAdvancedToNewPreview": true,
+    "previousPreviewPreserved": true
+  },
+  "allPassed": true
+}

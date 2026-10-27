@@ -1,0 +1,733 @@
+{
+  "schema": "coac250-10th-batch-body-integrity/1",
+  "modelCalls": 0,
+  "preview": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T12-22-49-037Z",
+  "chapters": [
+    {
+      "chapterId": "modern-yabejp-ja-chapter03-section013-chapter",
+      "original": "nemata-jp-chapter-199-1",
+      "candidateSha256": "3d93eb869db859bf35ff7b6ab832cc88b45fbd035bc78018ace54b33ae293ec8",
+      "candidateBlocks": 37,
+      "candidateTextBlocks": 23,
+      "stagedUnits": [
+        "modern-yabejp-ja-chapter03-section013-argument"
+      ],
+      "stagedBlocks": 10,
+      "stagedFigures": 14,
+      "candidateFigures": 14,
+      "mapping": "staged locator.sourceBlockIds -> candidate sourceBlockIds; staged paragraphs merge candidate text blocks and render inline tile figures as codes",
+      "missingSourceBlocks": [],
+      "blocksNotContainedVerbatim": [],
+      "stagedParagraphs": [
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter03-section013-b1",
+          "memberBlocks": 1,
+          "candidateChars": 4,
+          "stagedChars": 4,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter03-section013-b2",
+          "memberBlocks": 1,
+          "candidateChars": 9,
+          "stagedChars": 9,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter03-section013-b3",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter03-section013-b4",
+          "memberBlocks": 1,
+          "candidateChars": 21,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter03-section013-b5",
+          "memberBlocks": 1,
+          "candidateChars": 14,
+          "stagedChars": 14,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter03-section013-b6",
+          "memberBlocks": 1,
+          "candidateChars": 82,
+          "stagedChars": 82,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter03-section013-b7",
+          "memberBlocks": 1,
+          "candidateChars": 28,
+          "stagedChars": 28,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter03-section013-b8",
+          "memberBlocks": 1,
+          "candidateChars": 33,
+          "stagedChars": 33,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter03-section013-p9-slice1",
+          "memberBlocks": 12,
+          "candidateChars": 265,
+          "stagedChars": 308,
+          "tileRenderDeltaChars": 43
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter03-section013-p9-slice2",
+          "memberBlocks": 3,
+          "candidateChars": 80,
+          "stagedChars": 86,
+          "tileRenderDeltaChars": 6
+        }
+      ],
+      "revised": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section013:b0006",
+          "parentText": "**如果已经听牌，那么此前几乎都是两面子余牌形，或含有复合搭子的向听牌形。**（例外是后来其他对子变成暗刻，形成无雀头牌形的情况，以及退向听成为靠张牌形的情况。）",
+          "candidateText": "**如果已经听牌，那么此前几乎都是两面子余牌形，或含有复合搭子的一向听牌形。**（例外是后来其他对子变成暗刻，形成无雀头牌形的情况，以及退向听成为靠张牌形的情况。）",
+          "stagedText": "**如果已经听牌，那么此前几乎都是两面子余牌形，或含有复合搭子的一向听牌形。**（例外是后来其他对子变成暗刻，形成无雀头牌形的情况，以及退向听成为靠张牌形的情况。）",
+          "replacedOldSpan": "",
+          "replacedWithNewSpan": "一",
+          "candidateDiffersFromParent": true,
+          "stagedCarriesCandidateText": true,
+          "stagedCarriesNewSpan": true,
+          "stagedDropsOldSpan": true,
+          "pass": {
+            "staged": true,
+            "candidateDiffers": true,
+            "revisedTextLanded": true
+          }
+        },
+        {
+          "id": "modern-yabejp-ja:chapter03-section013:b0009",
+          "parentText": "如果拆掉的是字牌对子，可以认为是在两面子余牌形中将其作为安全牌保留了下来；但如果是数牌，那么这就更有可能不是单纯的拆搭子，而是第二张数牌与复合搭子有关。（如果中间有手切的牌，这种可能性就更高。）也存在以两面子余牌形保留浮牌的情况，但正如牌效率论中所述，保留浮牌的效率较差，因此出现频率较低（例如在两面×２的向听牌形中，保留浮牌有望带来变化的情况，以及３对子形的向听牌形等），与原本是复合搭子的相关牌的情况相比，属于较少见的情况。例如，",
+          "candidateText": "如果拆掉的是字牌对子，可以认为是在两面子余牌形中将其作为安全牌保留了下来；但如果是数牌，那么这就更有可能不是单纯的拆搭子，而是第二张数牌与复合搭子有关。（如果中间有手切的牌，这种可能性就更高。）也存在以两面子余牌形保留浮牌的情况，但正如牌效率论中所述，保留浮牌的效率较差，因此出现频率较低（例如在有两个两面搭子的一向听牌形中，保留浮牌有望带来变化的情况，以及３对子形的一向听牌形等），与原本是复合搭子的相关牌的情况相比，属于较少见的情况。例如，",
+          "stagedText": "如果拆掉的是字牌对子，可以认为是在两面子余牌形中将其作为安全牌保留了下来；但如果是数牌，那么这就更有可能不是单纯的拆搭子，而是第二张数牌与复合搭子有关。（如果中间有手切的牌，这种可能性就更高。）也存在以两面子余牌形保留浮牌的情况，但正如牌效率论中所述，保留浮牌的效率较差，因此出现频率较低（例如在有两个两面搭子的一向听牌形中，保留浮牌有望带来变化的情况，以及３对子形的一向听牌形等），与原本是复合搭子的相关牌的情况相比，属于较少见的情况。例如， 3m →○→ 3m 这样听牌时，可以设想的复合搭子有 1133m 、 3355m 、 3357m 、 3356778m 等。 3334m 或 2333m 中的 3m 通常不可能被拆掉，因此， 1m − 4m 听牌、",
+          "replacedOldSpan": "两面×２的向听牌形中，保留浮牌有望带来变化的情况，以及３对子形的",
+          "replacedWithNewSpan": "有两个两面搭子的一向听牌形中，保留浮牌有望带来变化的情况，以及３对子形的一",
+          "candidateDiffersFromParent": true,
+          "stagedCarriesCandidateText": true,
+          "stagedCarriesNewSpan": true,
+          "stagedDropsOldSpan": true,
+          "pass": {
+            "staged": true,
+            "candidateDiffers": true,
+            "revisedTextLanded": true
+          }
+        }
+      ],
+      "pass": {
+        "allSourceBlocksStaged": true,
+        "everyCandidateTextBlockPresent": true,
+        "allRevisedBlocksStaged": true,
+        "allRevisedBlocksActuallyChanged": true,
+        "allRevisedTextsLanded": true,
+        "allRevisedCandidateTextsStaged": true,
+        "figureAssetsInherited": true
+      },
+      "allPassed": true
+    },
+    {
+      "chapterId": "modern-yabejp-ja-chapter01-section054-chapter",
+      "original": "nemata-jp-chapter-142-1",
+      "candidateSha256": "f3570e7bbe61e0ef99e45a2f4185ed3f0c1fe1840f670783c7fd2402352dedca",
+      "candidateBlocks": 185,
+      "candidateTextBlocks": 101,
+      "stagedUnits": [
+        "modern-yabejp-ja-chapter01-section054-argument"
+      ],
+      "stagedBlocks": 32,
+      "stagedFigures": 84,
+      "candidateFigures": 84,
+      "mapping": "staged locator.sourceBlockIds -> candidate sourceBlockIds; staged paragraphs merge candidate text blocks and render inline tile figures as codes",
+      "missingSourceBlocks": [],
+      "blocksNotContainedVerbatim": [],
+      "stagedParagraphs": [
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-b1",
+          "memberBlocks": 1,
+          "candidateChars": 3,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-b2",
+          "memberBlocks": 1,
+          "candidateChars": 23,
+          "stagedChars": 23,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p3",
+          "memberBlocks": 4,
+          "candidateChars": 145,
+          "stagedChars": 153,
+          "tileRenderDeltaChars": 8
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p4",
+          "memberBlocks": 5,
+          "candidateChars": 80,
+          "stagedChars": 91,
+          "tileRenderDeltaChars": 11
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p5",
+          "memberBlocks": 1,
+          "candidateChars": 2,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p6",
+          "memberBlocks": 6,
+          "candidateChars": 58,
+          "stagedChars": 72,
+          "tileRenderDeltaChars": 14
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p7",
+          "memberBlocks": 1,
+          "candidateChars": 2,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p8",
+          "memberBlocks": 4,
+          "candidateChars": 136,
+          "stagedChars": 142,
+          "tileRenderDeltaChars": 6
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p9",
+          "memberBlocks": 1,
+          "candidateChars": 2,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p10",
+          "memberBlocks": 5,
+          "candidateChars": 175,
+          "stagedChars": 183,
+          "tileRenderDeltaChars": 8
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p11",
+          "memberBlocks": 1,
+          "candidateChars": 2,
+          "stagedChars": 22,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p12",
+          "memberBlocks": 11,
+          "candidateChars": 181,
+          "stagedChars": 213,
+          "tileRenderDeltaChars": 32
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p13",
+          "memberBlocks": 1,
+          "candidateChars": 2,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p14",
+          "memberBlocks": 4,
+          "candidateChars": 91,
+          "stagedChars": 97,
+          "tileRenderDeltaChars": 6
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p15",
+          "memberBlocks": 1,
+          "candidateChars": 2,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p16",
+          "memberBlocks": 4,
+          "candidateChars": 72,
+          "stagedChars": 78,
+          "tileRenderDeltaChars": 6
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p17",
+          "memberBlocks": 2,
+          "candidateChars": 64,
+          "stagedChars": 66,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p18",
+          "memberBlocks": 5,
+          "candidateChars": 44,
+          "stagedChars": 68,
+          "tileRenderDeltaChars": 24
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p19",
+          "memberBlocks": 2,
+          "candidateChars": 13,
+          "stagedChars": 15,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-b114",
+          "memberBlocks": 1,
+          "candidateChars": 23,
+          "stagedChars": 23,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-b115",
+          "memberBlocks": 1,
+          "candidateChars": 40,
+          "stagedChars": 40,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-b116",
+          "memberBlocks": 1,
+          "candidateChars": 31,
+          "stagedChars": 31,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-b117",
+          "memberBlocks": 1,
+          "candidateChars": 95,
+          "stagedChars": 95,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p24",
+          "memberBlocks": 5,
+          "candidateChars": 111,
+          "stagedChars": 134,
+          "tileRenderDeltaChars": 23
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p25",
+          "memberBlocks": 7,
+          "candidateChars": 59,
+          "stagedChars": 84,
+          "tileRenderDeltaChars": 25
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p26",
+          "memberBlocks": 2,
+          "candidateChars": 23,
+          "stagedChars": 25,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p27",
+          "memberBlocks": 7,
+          "candidateChars": 42,
+          "stagedChars": 70,
+          "tileRenderDeltaChars": 28
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p28",
+          "memberBlocks": 6,
+          "candidateChars": 131,
+          "stagedChars": 141,
+          "tileRenderDeltaChars": 10
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p29",
+          "memberBlocks": 3,
+          "candidateChars": 86,
+          "stagedChars": 107,
+          "tileRenderDeltaChars": 21
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p30",
+          "memberBlocks": 1,
+          "candidateChars": 18,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 3
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p31",
+          "memberBlocks": 1,
+          "candidateChars": 2,
+          "stagedChars": 20,
+          "tileRenderDeltaChars": 18
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section054-p32",
+          "memberBlocks": 5,
+          "candidateChars": 159,
+          "stagedChars": 169,
+          "tileRenderDeltaChars": 10
+        }
+      ],
+      "revised": [
+        {
+          "id": "modern-yabejp-ja:chapter01-section054:b0173",
+          "parentText": "，也能形成两面听牌。",
+          "candidateText": "，摸到其中任意一张也能形成两面听牌。",
+          "stagedText": " 47p ，摸到其中任意一张也能形成两面听牌。",
+          "replacedOldSpan": "",
+          "replacedWithNewSpan": "摸到其中任意一张",
+          "candidateDiffersFromParent": true,
+          "stagedCarriesCandidateText": true,
+          "stagedCarriesNewSpan": true,
+          "stagedDropsOldSpan": true,
+          "pass": {
+            "staged": true,
+            "candidateDiffers": true,
+            "revisedTextLanded": true
+          }
+        }
+      ],
+      "pass": {
+        "allSourceBlocksStaged": true,
+        "everyCandidateTextBlockPresent": true,
+        "allRevisedBlocksStaged": true,
+        "allRevisedBlocksActuallyChanged": true,
+        "allRevisedTextsLanded": true,
+        "allRevisedCandidateTextsStaged": true,
+        "figureAssetsInherited": true
+      },
+      "allPassed": true
+    },
+    {
+      "chapterId": "modern-yabejp-ja-chapter01-section047-chapter",
+      "original": "nemata-jp-chapter-127-1",
+      "candidateSha256": "363fd45cc99f099cfbaec296a1102af0d6dd5519596af707697c21154280c86d",
+      "candidateBlocks": 162,
+      "candidateTextBlocks": 90,
+      "stagedUnits": [
+        "modern-yabejp-ja-chapter01-section047-argument"
+      ],
+      "stagedBlocks": 39,
+      "stagedFigures": 72,
+      "candidateFigures": 72,
+      "mapping": "staged locator.sourceBlockIds -> candidate sourceBlockIds; staged paragraphs merge candidate text blocks and render inline tile figures as codes",
+      "missingSourceBlocks": [],
+      "blocksNotContainedVerbatim": [],
+      "stagedParagraphs": [
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-b1",
+          "memberBlocks": 1,
+          "candidateChars": 15,
+          "stagedChars": 15,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-b2",
+          "memberBlocks": 1,
+          "candidateChars": 10,
+          "stagedChars": 10,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-b3",
+          "memberBlocks": 1,
+          "candidateChars": 103,
+          "stagedChars": 103,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-b4",
+          "memberBlocks": 1,
+          "candidateChars": 24,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p5",
+          "memberBlocks": 5,
+          "candidateChars": 55,
+          "stagedChars": 73,
+          "tileRenderDeltaChars": 18
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p6",
+          "memberBlocks": 2,
+          "candidateChars": 161,
+          "stagedChars": 163,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-b17",
+          "memberBlocks": 1,
+          "candidateChars": 17,
+          "stagedChars": 17,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p8",
+          "memberBlocks": 1,
+          "candidateChars": 2,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p9",
+          "memberBlocks": 5,
+          "candidateChars": 109,
+          "stagedChars": 121,
+          "tileRenderDeltaChars": 12
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p10",
+          "memberBlocks": 2,
+          "candidateChars": 72,
+          "stagedChars": 74,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p11",
+          "memberBlocks": 1,
+          "candidateChars": 2,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p12",
+          "memberBlocks": 2,
+          "candidateChars": 30,
+          "stagedChars": 32,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p13",
+          "memberBlocks": 1,
+          "candidateChars": 2,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p14",
+          "memberBlocks": 6,
+          "candidateChars": 77,
+          "stagedChars": 87,
+          "tileRenderDeltaChars": 10
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p15",
+          "memberBlocks": 1,
+          "candidateChars": 2,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p16",
+          "memberBlocks": 9,
+          "candidateChars": 115,
+          "stagedChars": 135,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p17",
+          "memberBlocks": 1,
+          "candidateChars": 2,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p18",
+          "memberBlocks": 4,
+          "candidateChars": 71,
+          "stagedChars": 77,
+          "tileRenderDeltaChars": 6
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p19",
+          "memberBlocks": 3,
+          "candidateChars": 8,
+          "stagedChars": 29,
+          "tileRenderDeltaChars": 21
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p20",
+          "memberBlocks": 5,
+          "candidateChars": 81,
+          "stagedChars": 90,
+          "tileRenderDeltaChars": 9
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p21",
+          "memberBlocks": 1,
+          "candidateChars": 2,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p22",
+          "memberBlocks": 2,
+          "candidateChars": 28,
+          "stagedChars": 30,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p23",
+          "memberBlocks": 4,
+          "candidateChars": 59,
+          "stagedChars": 69,
+          "tileRenderDeltaChars": 10
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p24",
+          "memberBlocks": 3,
+          "candidateChars": 163,
+          "stagedChars": 167,
+          "tileRenderDeltaChars": 4
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p25",
+          "memberBlocks": 1,
+          "candidateChars": 2,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p26",
+          "memberBlocks": 2,
+          "candidateChars": 18,
+          "stagedChars": 20,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p27",
+          "memberBlocks": 1,
+          "candidateChars": 2,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p28",
+          "memberBlocks": 4,
+          "candidateChars": 34,
+          "stagedChars": 42,
+          "tileRenderDeltaChars": 8
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p29",
+          "memberBlocks": 1,
+          "candidateChars": 2,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p30",
+          "memberBlocks": 4,
+          "candidateChars": 71,
+          "stagedChars": 77,
+          "tileRenderDeltaChars": 6
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p31",
+          "memberBlocks": 2,
+          "candidateChars": 6,
+          "stagedChars": 26,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p32",
+          "memberBlocks": 2,
+          "candidateChars": 154,
+          "stagedChars": 157,
+          "tileRenderDeltaChars": 3
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p33",
+          "memberBlocks": 1,
+          "candidateChars": 2,
+          "stagedChars": 22,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-p34",
+          "memberBlocks": 4,
+          "candidateChars": 43,
+          "stagedChars": 51,
+          "tileRenderDeltaChars": 8
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-b158",
+          "memberBlocks": 1,
+          "candidateChars": 20,
+          "stagedChars": 20,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-b159",
+          "memberBlocks": 1,
+          "candidateChars": 29,
+          "stagedChars": 29,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-b160",
+          "memberBlocks": 1,
+          "candidateChars": 275,
+          "stagedChars": 275,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-b161",
+          "memberBlocks": 1,
+          "candidateChars": 14,
+          "stagedChars": 14,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter01-section047-b162",
+          "memberBlocks": 1,
+          "candidateChars": 108,
+          "stagedChars": 108,
+          "tileRenderDeltaChars": 0
+        }
+      ],
+      "revised": [
+        {
+          "id": "modern-yabejp-ja:chapter01-section047:b0030",
+          "parentText": "不过，如果没有宝牌，而且局面上希望避免愚形立直nomi（参见攻守判断论），那么打",
+          "candidateText": "不过，如果没有宝牌，而且处于希望避免仅有立直一役的愚形立直的局面（参见攻守判断论），那么打",
+          "stagedText": "不过，如果没有宝牌，而且处于希望避免仅有立直一役的愚形立直的局面（参见攻守判断论），那么打 8s 应该不错。如果规则中有赤宝牌，似乎更多时候会这样选择。",
+          "replacedOldSpan": "局面上希望避免愚形立直nomi",
+          "replacedWithNewSpan": "处于希望避免仅有立直一役的愚形立直的局面",
+          "candidateDiffersFromParent": true,
+          "stagedCarriesCandidateText": true,
+          "stagedCarriesNewSpan": true,
+          "stagedDropsOldSpan": true,
+          "pass": {
+            "staged": true,
+            "candidateDiffers": true,
+            "revisedTextLanded": true
+          }
+        }
+      ],
+      "pass": {
+        "allSourceBlocksStaged": true,
+        "everyCandidateTextBlockPresent": true,
+        "allRevisedBlocksStaged": true,
+        "allRevisedBlocksActuallyChanged": true,
+        "allRevisedTextsLanded": true,
+        "allRevisedCandidateTextsStaged": true,
+        "figureAssetsInherited": true
+      },
+      "allPassed": true
+    }
+  ],
+  "allPassed": true
+}

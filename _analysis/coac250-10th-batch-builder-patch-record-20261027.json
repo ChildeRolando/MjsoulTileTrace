@@ -1,0 +1,67 @@
+{
+  "schema": "coac250-10th-batch-builder-patch-record/1",
+  "recordedAt": "2026-10-27T12:50:00Z",
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "builder": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.mjs",
+    "sha256Before": "a64310c6cec9dfc57a83fced7375ed461410c5cfff081dc149aeab8ff5823bc0",
+    "sha256After": "7ddd83f3a3a284b9fda3661eca1e0fefa92861154b524b3d7cd83cf72fc9c727",
+    "patchedCopyInRepo": "_analysis/coac250-10th-batch-builder-build-accepted-preview.patched.mjs"
+  },
+  "patches": [
+    {
+      "order": 1,
+      "kind": "pin",
+      "detail": "builder pin moved from specific-web-variant-selection.v10.json (901cd88f) to .v11.json (3e222bac), both the literal path and the pinned sha",
+      "sha256Before": "a64310c6cec9dfc57a83fced7375ed461410c5cfff081dc149aeab8ff5823bc0",
+      "sha256After": "7887b62c1afed2460a422293a8cf23474c058d0750df1a6035726ecdc979aaa9",
+      "backupPath": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.before-v11-20261027.mjs",
+      "backupSha256": "a64310c6cec9dfc57a83fced7375ed461410c5cfff081dc149aeab8ff5823bc0",
+      "script": "_analysis/patch-builder-pin-coac250-10th-20261027.mjs"
+    },
+    {
+      "order": 2,
+      "kind": "dedupe-retry-resolution",
+      "detail": "webCandidateDedupe (added in the ninth batch) read only the base receipt <article>.<sha>.json, so a candidate whose effective receipt is a bound retry of a voided/failed call was reported as superseded-failed with no effective version. It now mirrors textbook-audit-web.mjs latestWebAuditReceipt: a .retry- receipt supersedes the prior one only when retry.retryOfAudit binds the immediately prior receipt (normalised path + sha) and the prior status is failed. Each version row additionally records effectiveReceiptPath and receiptChainLength.",
+      "reason": "199-1/chapter03-section013.rev1 is passed only through such a retry; the first build of this batch staged it correctly (explicit selection + live gate) but the receipt's own dedupe inventory contradicted that, reporting no effective passed version for the article.",
+      "sha256Before": "7887b62c1afed2460a422293a8cf23474c058d0750df1a6035726ecdc979aaa9",
+      "sha256After": "7ddd83f3a3a284b9fda3661eca1e0fefa92861154b524b3d7cd83cf72fc9c727",
+      "backupPath": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.before-v11-dedupe-retry-20261027.mjs",
+      "backupSha256": "7887b62c1afed2460a422293a8cf23474c058d0750df1a6035726ecdc979aaa9",
+      "script": "_analysis/patch-builder-dedupe-retry-coac250-10th-20261027.mjs",
+      "stagingImpact": "none: webCandidateDedupe is reporting only. selected/ staged articles come from the flat scan ranking plus the explicit selection manifests, both unchanged by this patch."
+    }
+  ],
+  "selection": {
+    "v10": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v10.json",
+      "sha256": "901cd88fde29f0adc373a2eab441b4fb8a0512893a0c027b8180ee9655572198",
+      "jobs": 25
+    },
+    "v11": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v11.json",
+      "sha256": "3e222bacdd60426f8cf1481b74382c01ee3b00341cb648913f407c9a9bae60c2",
+      "jobs": 28,
+      "added": ["chapter01-section054", "chapter01-section047", "chapter03-section013"],
+      "excluded": ["chapter01-section010"]
+    }
+  },
+  "builds": [
+    {
+      "role": "superseded",
+      "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T11-50-50-082Z",
+      "corpusId": "f223871fd1150357a013b58d29b46d61c90ab537f3674149c1a22311c6995f2e",
+      "chapters": 217,
+      "note": "same content as the delivered build but produced by the builder before the dedupe-retry fix, so its receipt reported chapter03-section013 as having no effective passed version. Left on disk untouched; not referenced by any pointer."
+    },
+    {
+      "role": "delivered",
+      "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T12-22-49-037Z",
+      "corpusId": "f223871fd1150357a013b58d29b46d61c90ab537f3674149c1a22311c6995f2e",
+      "chapters": 217,
+      "note": "byte-identical corpus to the superseded build (same corpusId, 217/225/5981/4827), with a self-consistent webCandidateDedupe."
+    }
+  ],
+  "modelCalls": 0
+}
