@@ -1,0 +1,66 @@
+{
+  "namespace": "audit/runtimes/coac244-inline-japanese-v2-20261027",
+  "unchanged": true,
+  "files": [
+    {
+      "path": "inline-japanese-revision.mjs",
+      "sha256": "69a9a0db3fccc07bf85c6720606fefb60bac54c689e2402f96bfe018a358e6a6"
+    },
+    {
+      "path": "textbook-audit-legacy.mjs",
+      "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1"
+    },
+    {
+      "path": "textbook-audit-pdf-layout.mjs",
+      "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+    },
+    {
+      "path": "textbook-audit-pdf-native.mjs",
+      "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+    },
+    {
+      "path": "textbook-audit-pdf-scope.mjs",
+      "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+    },
+    {
+      "path": "textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+    },
+    {
+      "path": "textbook-audit-tile-dictionary.mjs",
+      "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+    },
+    {
+      "path": "textbook-audit-web-batches.mjs",
+      "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+    },
+    {
+      "path": "textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "path": "textbook-audit-web.mjs",
+      "sha256": "5d015b457efd1c6010b09199ff3d575232a97999ef54847c53b2265ab6e50530"
+    },
+    {
+      "path": "textbook-audit.mjs",
+      "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+    },
+    {
+      "path": "textbook-production-cli.mjs",
+      "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+    },
+    {
+      "path": "textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    {
+      "path": "textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "path": "textbook-production-web.mjs",
+      "sha256": "1dd367f57ab5ec127152136141d343efa836486b01ddde8aff7c7cb3046ef57e"
+    }
+  ]
+}

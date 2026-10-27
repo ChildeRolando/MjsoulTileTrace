@@ -1,0 +1,41 @@
+{
+  "schema": "coac244-image-runtime-handoff/1",
+  "status": "ready-for-next-existing-authorized-image-call",
+  "createdAt": "2026-10-27T17:54:25.439Z",
+  "runtime": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027",
+  "manifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\runtime-manifest.json",
+    "sha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6"
+  },
+  "request": {
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "fallback": false
+  },
+  "inFlightPreserved": {
+    "chapter": "79-cn-chapter-157-11",
+    "callId": "940cf63b-732f-417f-b4a5-c1469ac6e202",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "finishedBeforeSwitch": true
+  },
+  "firstLiveCall": {
+    "owner": "COAC-249",
+    "chapter": "79-cn-chapter-157-11",
+    "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751276.r1.display.json",
+    "candidateSha256": "1807377cc8f71afec95718f5050584a596690efac5658042cf75563f3d69dadc",
+    "maximumNewCalls": 1,
+    "budget": "existing A157/276 batch total4; 157 production used1, pending157 independent review1 + 276 production1 + 276 review1",
+    "retry": 0
+  },
+  "pureText": {
+    "runtime": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027",
+    "unchanged": true,
+    "chapters": [
+      "79-cn-chapter-162-3",
+      "79-cn-chapter-234-12"
+    ]
+  },
+  "admission": "All prior quality/quota STOP, canonical exclusions, SHA/raw/source/parent/uncertain gates and owner-only locks remain required. Never alter old snapshots. No paid test call. First live request only through existing owner249 and exclusive audit guard. Do not run a second audit consumer.",
+  "remoteEvidenceBoundary": "Actual CLI args, ordered -i files+SHA+bytes, thread events, raw result and usage will be recorded. These do not independently prove gateway remote weights."
+}

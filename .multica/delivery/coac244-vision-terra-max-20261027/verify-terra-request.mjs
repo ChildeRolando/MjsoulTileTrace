@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile,mkdtemp,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {pathToFileURL} from 'node:url';
+const runtime='E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027';
+const temp=await mkdtemp(join(tmpdir(),'coac244-terra-test-'));
+try {
+ let cli=await readFile(join(runtime,'textbook-production-cli.mjs'),'utf8');
+ const begin=cli.indexOf('function collect('),end=cli.indexOf('export function usageEvents',begin);
+ cli=cli.slice(0,begin)+`async function collect(executable,args,options){globalThis.collected={executable,args};await writeFile(args[args.indexOf('--output-last-message')+1],JSON.stringify({fixture:true}));return {code:0,timedOut:false,overflow:false,stderr:'',stdout:JSON.stringify({type:'thread.started',thread_id:'fixture-not-a-live-session'})+'\\n'+JSON.stringify({type:'turn.completed',usage:{input_tokens:1,cached_input_tokens:0,output_tokens:1}})};}\n`+cli.slice(end);
+ const mock=join(temp,'mock-cli.mjs');await writeFile(mock,cli);
+ const {invokeTextbookCodex,textbookRequestConfig,isRecordedTextbookModel}=await import(pathToFileURL(mock));
+ const png=join(temp,'image.png');await writeFile(png,Buffer.from('89504e470d0a1a0a','hex'));
+ const image=await invokeTextbookCodex({prompt:'fixture',schema:{type:'object'},images:[png]});
+ assert.equal(image.requestExecution.model,'gpt-6.1-terra');assert.equal(image.requestExecution.reasoningEffort,'max');
+ assert(globalThis.collected.args.includes('model_reasoning_effort="max"'));assert(globalThis.collected.args.includes('-i'));
+ assert.equal(image.requestExecution.images.length,1);assert.equal(image.requestExecution.images[0].bytes,8);
+ assert(isRecordedTextbookModel({...image.requestExecution,requestExecution:image.requestExecution}));
+ const text=await invokeTextbookCodex({prompt:'fixture',schema:{type:'object'},images:[]});
+ assert.equal(text.requestExecution.model,'gpt-6.1-sol');assert.equal(text.requestExecution.reasoningEffort,'high');assert(!globalThis.collected.args.includes('-i'));
+ assert.throws(()=>textbookRequestConfig([png],'gpt-6.1-terra','high'));
+ assert.throws(()=>textbookRequestConfig([png],'unknown','max'));
+ assert.throws(()=>textbookRequestConfig([],'gpt-6.1-terra','max'));
+ assert(!isRecordedTextbookModel({model:'gpt-6.1-terra',reasoningEffort:'max'}));
+ assert(!isRecordedTextbookModel({model:'gpt-6.1-terra',reasoningEffort:'high',requestExecution:image.requestExecution}));
+ const tampered=structuredClone(image.requestExecution);tampered.args=tampered.args.filter(x=>x!=='-i');assert(!isRecordedTextbookModel({model:'gpt-6.1-terra',reasoningEffort:'max',requestExecution:tampered}));
+ const stop=join(temp,'STOP');await writeFile(stop,'fixture');const previous=globalThis.collected;await assert.rejects(invokeTextbookCodex({prompt:'fixture',schema:{},images:[png],stopFiles:[stop]}),/stopped/);assert.equal(globalThis.collected,previous);
+ console.log(JSON.stringify({passed:true,cases:13,realModelCalls:0,mockedTransportOnly:true,imageArgs:image.requestExecution,textArgs:text.requestExecution}));
+}finally{await rm(temp,{recursive:true});}

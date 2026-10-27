@@ -1,0 +1,9 @@
+244已完成唯一terra/max识图配置冻结，请继续本票已授权的157首次独审，不另建Work/Codex任务、不增加消费者、0重制。
+
+先读本票最新description前缀。唯一runtime：E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027；runtime-manifest.json SHA256=12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6。依manifest重算全部依赖，读取audit/vision-runtime-current.json，继承原候选/父审/raw和本票43项预检。13项mock参数/STOP回归及41网页/图像绑定测试均通过，旧sol父链可验，新terra/max必须requestExecution参数证据。
+
+仅79-cn-chapter-157-11 / cv1751276.r1.display.json，SHA1807377cc8f71afec95718f5050584a596690efac5658042cf75563f3d69dadc，源797e9393790395bf88d680cfda77c27a406744455d487aad334110d2b5712ccc，父30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de，父独审59fb75343e72036d123cbd546d50ffc462f20800e340f9015af769e0de6f4f15。保留5个目标全部字段变化交独审，不把producer自读当结论。已有入队数据integration/coac249-incremental-157-11-20261028.json及audit/explicit-targets-coac248-157-11-r1-20261028.json不改。
+
+先查同SHA真实ledger/raw/终态/在途和当前audit guard，未消费首审额度才派。最多1次真实独立全章含图首审，failed/void都计，0retry，属于A157/276原合计4预算中的157首审1，不增测试调用。新CLI实际将带图请求改为--model gpt-6.1-terra --config model_reasoning_effort="max"，record.model/effort来自真实requestExecution；不支持报错并停止，不回落。通过仍须真实语义完整性门禁，不把transport成功当pass。首件必须完整前台收齐，独审guard正常释放，无后台/无强删锁；pass及时交250，新验证器与manifest一并交，正式active不切。
+
+额外零收费记录首件：raw/收据SHA、call ID、requestExecution完整argv、有序-i原图/补充图SHA与字节数、thread.started ID、事件里实际可见model/effort字段（若没有就unknown）、usage/elapsed/status；明确不能证明远端网关背后权重。把首件简要证据同时落到 E:/AgentData/Coach/knowledge/processing/audit/coac244-terra-first-live157.json（只记录真实已完成或失败，不伪造pending为pass），244本轮收证用。首审失败不重试、不继续另审276。不要修改旧冻结snapshot/manifest/raw、provider/凭据/网关或文字B162/234。
