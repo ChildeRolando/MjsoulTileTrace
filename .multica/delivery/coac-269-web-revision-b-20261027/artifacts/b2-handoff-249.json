@@ -1,0 +1,89 @@
+{
+  "schema": "coac269-to-coac249-handoff/1",
+  "ticket": "COAC-269",
+  "batch": "b2",
+  "to": "COAC-249",
+  "recordedAt": "2026-10-27T10:12:11.134Z",
+  "modelCalls": 0,
+  "scope": "first independent semantic audit per candidate SHA; do not re-audit passed SHAs",
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-246-1",
+      "articleId": "chapter06-section002",
+      "candidate": "web-production/v1/candidates/modern-yabejp-ja/chapter06-section002.coac269rev1.json",
+      "parent": "web-production/v1/candidates/modern-yabejp-ja/chapter06-section002.display.json",
+      "parentAudit": "audit/web/articles/modern-yabejp-ja/chapter06-section002.eb4caf1b93fc906a5a7286419009256337e9f886ce82123091931c8c5e5c4fc4.json",
+      "source": "web-sources/v1/modern-yabejp-ja/articles/chapter06-section002/source.json",
+      "targets": [
+        "modern-yabejp-ja:chapter06-section002:b0070"
+      ],
+      "notes": "b0070: original 每步必须在30秒以内 is the rule for the 30-second per-move after the 15-minute base time; the candidate now says 每步的行棋时间必须少于30秒 and 中盘和残局阶段. Verify the rule wording and that no other claim was added.",
+      "candidateSha256": "832aaae0860ab8792778355b0259469f30d633336ac84cc142ffbb9546a938c4",
+      "parentSha256": "eb4caf1b93fc906a5a7286419009256337e9f886ce82123091931c8c5e5c4fc4",
+      "parentAuditSha256": "53f38a52975a3a4545ff4c405f981127e706aaef104fe1b173505d84a4d22dab",
+      "sourceSha256": "8ea3a7139a78ed4fcdfd36f663c2a47d0eb15efb8c4b88d4aff07336642f2933",
+      "productionCall": [
+        {
+          "callId": "5bef56bd-fac6-4730-a40a-0aaed5071888",
+          "success": true,
+          "usage": {
+            "inputTokens": 13182,
+            "cachedInputTokens": 0,
+            "outputTokens": 380
+          },
+          "durationMs": 70066,
+          "rawArtifactPath": "raw-calls/5bef56bd-fac6-4730-a40a-0aaed5071888.json",
+          "rawArtifactSha256": "07b18610d1fdc3ef7fa942fe765346011fe7bf1e9e5fdb67c0cd923e948424e0",
+          "promptSha256": "dbcac103b52f0a51294141e1877a31d5d7003b7f09a01b4ae5213aa695c0af9c",
+          "semanticPromptSha256": "71cc1d2b099c99f50ecc8107e8114781e0f137c49e50cb6cdc8f5ac3f8a2e1bd",
+          "runnerSha256": "4a5ce8ab361e659bf7a8e822d3e013ccf413701cfa604aaa1c58c688beab8ca9",
+          "cliSha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+        }
+      ],
+      "rawArtifactSha256Verified": [
+        true
+      ],
+      "selfCheckReceipt": "web-production/v1/coac269-20261027/receipts/selfcheck-b2-a31882504aa9f399.json",
+      "selfCheckOk": true
+    },
+    {
+      "chapterId": "nemata-jp-chapter-237-1",
+      "articleId": "chapter04-section016",
+      "candidate": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section016.coac269rev1.json",
+      "parent": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section016.display.json",
+      "parentAudit": "audit/web/articles/modern-yabejp-ja/chapter04-section016.5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959.json",
+      "source": "web-sources/v1/modern-yabejp-ja/articles/chapter04-section016/source.json",
+      "targets": [
+        "modern-yabejp-ja:chapter04-section016:b0002"
+      ],
+      "notes": "b0002: the audit asked to strengthen the emphasis 重視和牌率 and to drop the overly granular hedge. Candidate now marks *若供托或积棒较多，就重视和牌率* and keeps the avoid-deal-in branch. Verify the emphasis and that the hedge removal did not drop a condition.",
+      "candidateSha256": "04a4f6f881b10f9f18c55132e9c771214d877235267bc5f3b5daec2c2eb05295",
+      "parentSha256": "5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959",
+      "parentAuditSha256": "26e737619dfca6c940aeac348645802e2feebb240a6d38a2d917e4ef5b1fc41c",
+      "sourceSha256": "046ce78d8fb40ed0ca560ee7cc440f42ef92cab782178369069b6c2011d91e41",
+      "productionCall": [
+        {
+          "callId": "394ff5d0-31fb-4f82-b30e-47b0dce5c3a3",
+          "success": true,
+          "usage": {
+            "inputTokens": 12812,
+            "cachedInputTokens": 0,
+            "outputTokens": 808
+          },
+          "durationMs": 57117,
+          "rawArtifactPath": "raw-calls/394ff5d0-31fb-4f82-b30e-47b0dce5c3a3.json",
+          "rawArtifactSha256": "21069d01d5ecbcfe0924d372258b42af568280b3f31f6b83379d992c9d760cd8",
+          "promptSha256": "bbd31421a3a59068f64f48842d5e1d389345a84bd828ea87304037e83c1b458f",
+          "semanticPromptSha256": "ef7e0fff69545045bfb5496d9ea7b41caaf7bddaf6f4f92288b389b1dbbccf40",
+          "runnerSha256": "4a5ce8ab361e659bf7a8e822d3e013ccf413701cfa604aaa1c58c688beab8ca9",
+          "cliSha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+        }
+      ],
+      "rawArtifactSha256Verified": [
+        true
+      ],
+      "selfCheckReceipt": "web-production/v1/coac269-20261027/receipts/selfcheck-b2-a31882504aa9f399.json",
+      "selfCheckOk": true
+    }
+  ]
+}

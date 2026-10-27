@@ -52,9 +52,73 @@ Candidates live in the data root (not duplicated here):
   `presentationAsset`, flow order unchanged, raw artifact SHAs re-verified (`artifacts/selfcheck.json`).
 - Independent first audit is **pending** with COAC-249 (`artifacts/handoff-249.json`). Nothing is claimed
   as passed. After 249 passes a candidate, COAC-250 is the single writer for integration.
+- **Update 2026-10-27T10:02Z**: COAC-249 independently audited both candidates and returned `passed`
+  (338-1 audit `74b93630…` at 10:01:45Z; 273-1 audit `0553be30…` at 10:02:55Z). Both are handed to
+  COAC-250 as `artifacts/b2-intake-250-batch1.json`; 250 remains the only integration writer.
 
 ## Namespace
 
 Data artifacts: `E:/AgentData/Coach/knowledge/processing/web-production/v1/coac269-20261027/`
 (`claims/`, `preflight/`, `receipts/`, `handoff/`, `frozen-runtime/`). This bundle copies the receipts and
 scripts only; candidate and raw payloads stay in the data root referenced by SHA.
+
+## Batch 2 — verified dual-slot entry (2026-10-27T10:06–10:11Z)
+
+Batch 1 did not wait for its audit before the next mutually exclusive batch. The COAC-244 dual-slot
+mechanism was checked first, then used.
+
+### Dual-slot entry check
+
+- `parallel/slots.mjs` (SHA `360298d7302fa17972f2460b93717ff274047624d80a7bef0bc7862c196bb077`) plus
+  `parallel/CONTRACT.md` and `parallel/verification-20261027.json`:
+  15/15 verified cases (concurrent race yields at most 2 live slots, third refused `maker_slot_limit_reached`,
+  same-lane re-entry refused, foreign release refused, normal-exit release, stale-slot recovery only with
+  dead-owner evidence, live owner cannot be recovered, claim single-owner, A skips B's claim).
+- Fixed owners: A `COAC-248 Mika`, B `COAC-269 Ticket executor`; max 2 maker slots.
+- **Integration with the legacy lock**: `slots.mjs` has zero references to `production-lane.lock`. The legacy
+  file is untouched by this batch — SHA `5feceb66…` (one byte `30`), mtime 2026-10-25T15:40:57Z, identical
+  before and after. Under the COAC-244 contract B's capacity record is the `maker-B` slot; the old lock is
+  neither deleted, rewritten nor released. No filesystem lock was deleted or bypassed.
+- B acquired `maker-B` at 2026-10-27T10:08:42.306Z (pid-based, owner-exact) and released it at
+  10:10:49.848Z; `status` afterwards shows 0 live maker slots. Evidence:
+  `artifacts/b2-dual-slot-entry-check.json`.
+
+### Chapters and results
+
+| chapter | article | parent candidate SHA | parent audit SHA | target blocks | candidate SHA |
+| --- | --- | --- | --- | --- | --- |
+| nemata-jp-chapter-246-1 | chapter06-section002 | eb4caf1b93fc906a5a7286419009256337e9f886ce82123091931c8c5e5c4fc4 | 53f38a52975a3a4545ff4c405f981127e706aaef104fe1b173505d84a4d22dab | b0070 | 832aaae0860ab8792778355b0259469f30d633336ac84cc142ffbb9546a938c4 |
+| nemata-jp-chapter-237-1 | chapter04-section016 | 5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959 | 26e737619dfca6c940aeac348645802e2feebb240a6d38a2d917e4ef5b1fc41c | b0002 | 04a4f6f881b10f9f18c55132e9c771214d877235267bc5f3b5daec2c2eb05295 |
+
+- Selection: same descending rule, after the batch-1 chapters. 347-1 (r1 parent audit has 0 `figureChecks`
+  and 38 unchecked non-target text blocks), 319-1 and 335-1 (already terminal-passed) and the chapters whose
+  parent targets are not single text blocks (232-1, 224-1, 213-1, 193-1) were skipped and recorded in the
+  preflight. 248's reservations, metadata/PDF and already claimed chapters were excluded.
+- 246-1 `b0070`: the 30-second rule after the 15-minute base time is stated as 每步的行棋时间必须少于30秒;
+  the tail is 中盘和残局阶段.
+- 237-1 `b0002`: the emphasis is now `*若供托或积棒较多，就重视和牌率*`, keeping the
+  “积棒多且对手已抢得先手则重视避免放铳” branch.
+
+### Calls and concurrency (actual)
+
+- Model `gpt-6.1-sol`, effort `high`; frozen runner `4a5ce8ab…`, CLI `3da98f5f…` (same frozen snapshot).
+- 246-1: call `5bef56bd-fac6-4730-a40a-0aaed5071888`, 13,182 in / 380 out, 70.1 s, raw SHA `07b18610…`.
+- 237-1: call `394ff5d0-31fb-4f82-b30e-47b0dce5c3a3`, 12,812 in / 808 out, 57.1 s, raw SHA `21069d01…`.
+- One production call per chapter, 0 retries, both `success=true`. Budget: 2 production calls allowed,
+  2 used.
+- **Real overlap: 0.** The two production calls ran 10:08:42–10:09:52Z and 10:09:52–10:10:49Z (sequential on
+  the single B maker slot). COAC-249's audits of batch 1 ran 10:01–10:04Z, before this window, and no A-line
+  production call ran inside it. Real maker concurrency therefore stayed at 1 for this batch; the second slot
+  was available and used by B, but no two model calls overlapped. This is measured from call
+  `startedAt`+`durationMs`, not from agents being runnable.
+
+### Verification
+
+- Zero-call preflight passed (`artifacts/b2-preflight.json`): source/parent/audit/dependency SHAs, target
+  projection, faithful non-target text and all figures, dictionary coverage (0 unbound images), no existing
+  variant, no STOP file, no live maker-B slot.
+- Deterministic self-check passed (`artifacts/b2-selfcheck.json`): only the target text block changed in each
+  chapter; all other text blocks, flow order and figures are identical to the parent (apart from render-only
+  `presentationAsset`); raw artifact SHAs re-verified.
+- Handoff to COAC-249: `artifacts/b2-explicit-targets-249.json` (driver-compatible explicit targets) and
+  `artifacts/b2-handoff-249.json`. Independent verdict is pending; self-check is not a pass.
