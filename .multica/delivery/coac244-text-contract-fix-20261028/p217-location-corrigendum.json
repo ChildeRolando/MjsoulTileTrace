@@ -1,0 +1,395 @@
+{
+  "schema": "coac244-p217-coordinate-corrigendum/1",
+  "chapterId": "79-cn-chapter-217-4",
+  "targetId": "79-cn-p217-r1",
+  "sourceImage": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+    "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978"
+  },
+  "imagePixels": [
+    430,
+    463
+  ],
+  "oldRequest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-single-tile-read-20261027.json",
+    "sha256": "a4b5f827e94d510ca43558f893e5c58796ad30f6af4730e9303f9701a33b6b25"
+  },
+  "newPointHandoff": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-point-222-p217-20261028.json",
+    "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9"
+  },
+  "oldRequestedPosition": "北家舍牌第二行第二张",
+  "oldCandidate": {
+    "path": "production/sol-high-field-repair26-20261027-p217e/candidates/79-cn/page-0217.json",
+    "fileSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+    "selfSha256": "953b58901a062f166820ba61cc5660a0146c8c2866058b088064c62f67ac1c62",
+    "state": "rev5，未再审；除该牌与已修好的西家待核项外，与 rev4 逐字节一致"
+  },
+  "actualPoint": {
+    "callId": "09362d05-d221-427e-b474-a79017ff7619",
+    "bbox": [
+      150,
+      325,
+      175,
+      357
+    ],
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-p217-north-second-row.raw.json",
+      "sha256": "cc7f332d563cfc25106e77b06a097ddcb797450e8c4dbac69110901a8b51e516"
+    },
+    "model": "gpt-6.1-terra",
+    "effort": "max",
+    "conclusion": {
+      "chapterId": "79-cn-chapter-217-4",
+      "targetId": "79-cn-p217-r1",
+      "targetBBox": [
+        150,
+        325,
+        175,
+        357
+      ],
+      "outcome": "unreadable",
+      "tileCode": "unknown",
+      "locationCheck": "原图坐标对应底部北家舍牌区第二行的左侧牌，位于东风牌下方；与目标裁剪和邻近上下文一致。右侧相邻牌不作为裁决对象。",
+      "visualEvidence": [
+        "目标牌下部可见红色「萬」字。",
+        "上部黑色数字字形的部分笔画粘连，笔画起止和连接关系不够清楚，无法可靠确定点数。"
+      ],
+      "uncertainty": "可辨出万子，但不能仅凭现有字形可靠辨认其数字。四倍图只是最近邻放大，没有增加笔画细节。",
+      "teachingImpact": "点数不明不妨碍理解原文关于下家染索子一色手及扣牌的总体说明，但会限制对这张牌的精确记录和具体牌谱复盘。",
+      "scopeLimit": "本证据仅适用于该坐标内的目标牌，不代表其他牌或全章通过。"
+    },
+    "position": "north river, row2 col1; immediately below east wind in row1 col1"
+  },
+  "notCoveredPosition": "north river, row2 col2; immediately right of col1 and below row1 col2",
+  "correctedSecondTileBBox": [
+    174,
+    325,
+    196,
+    357
+  ],
+  "contextBBox": [
+    143,
+    292,
+    215,
+    362
+  ],
+  "rootCause": "244 previous packet explicitly selected row2 col1 (historical 5m/6m issue) while old 11:58 request explicitly targets row2 col2 (9m/8m issue); 249 respected input bbox and did not adjudicate neighboring tile. This is a packet selection mismatch, not tool coordinate drift.",
+  "existingIndependentEvidence": [
+    {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair22-20261027-p217\\candidates\\79-cn\\page-0217.json",
+        "sha256": "279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json",
+        "sha256": "48188a41382d98a5af7272851ba96f8d209213ee5befb3f4fd2fbf0b738574be"
+      },
+      "callIds": [
+        "95502be0-996e-40be-bcec-1d37e4dbb695"
+      ],
+      "issue": {
+        "severity": "error",
+        "targetId": "79-cn-p217-r1",
+        "sourceEvidence": "右侧东家牌河靠中央一列，从画面下向上依次为8p、2m、1p、3p、7m、7z；外侧一列从下向上为2z、9m、5p、4z。东家牌面朝左，其自身视角的行内顺序对应画面由下向上。",
+        "description": "候选声称按东家自身视角记录，却将两行均按画面由上向下抄录，反转了舍牌先后。",
+        "suggestedRepair": "改为：东家第一行8p 2m 1p 3p 7m 7z；第二行2z 9m 5p 4z。将方向说明改为“先读靠中央的一列，各列自下向上”。"
+      }
+    },
+    {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair22-20261027-p217\\candidates\\79-cn\\page-0217.json",
+        "sha256": "279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json",
+        "sha256": "48188a41382d98a5af7272851ba96f8d209213ee5befb3f4fd2fbf0b738574be"
+      },
+      "callIds": [
+        "95502be0-996e-40be-bcec-1d37e4dbb695"
+      ],
+      "issue": {
+        "severity": "error",
+        "targetId": "79-cn-p217-r1",
+        "sourceEvidence": "下方北家牌河第二行两张为五万、八万，右侧牌的黑色数字为“八”。",
+        "description": "候选将北家第二行第二张八万转录为9m。",
+        "suggestedRepair": "将北家舍牌第二行“5m 9m”改为“5m 8m”。"
+      }
+    },
+    {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair23-20261027-p217b\\candidates\\79-cn\\page-0217.json",
+        "sha256": "2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json",
+        "sha256": "70e67fec9ff86c6eeb77019a488c68b2b8836d7610b1b88eee3bb1785348c1b4"
+      },
+      "callIds": [
+        "2b9d82cb-d3fa-4578-ad15-4b8cb22b70d0"
+      ],
+      "issue": {
+        "severity": "error",
+        "targetId": "79-cn-p217-r1",
+        "sourceEvidence": "下方手牌第七张索子为全绿色的8s；候选对应位置写为9s。",
+        "description": "北家手牌将8s误抄为9s。",
+        "suggestedRepair": "北家手牌改为8m 8m 1s 2s 3s 6s 8s 1p 2p 3p 5p 7p 9p；独立摸牌仍为6s。"
+      }
+    },
+    {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair23-20261027-p217b\\candidates\\79-cn\\page-0217.json",
+        "sha256": "2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json",
+        "sha256": "70e67fec9ff86c6eeb77019a488c68b2b8836d7610b1b88eee3bb1785348c1b4"
+      },
+      "callIds": [
+        "2b9d82cb-d3fa-4578-ad15-4b8cb22b70d0"
+      ],
+      "issue": {
+        "severity": "error",
+        "targetId": "79-cn-p217-r1",
+        "sourceEvidence": "北家第一行第二、第四张，以及西家第一行第五张，均为带红色中列的9s；候选三处均写为8s。",
+        "description": "三张河牌将9s误抄为8s。",
+        "suggestedRepair": "北家第一行改为1z 9s 1m 9s 1p 3z；西家第一行改为9p 1s 1m 6z 9s 2p。"
+      }
+    },
+    {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair23-20261027-p217b\\candidates\\79-cn\\page-0217.json",
+        "sha256": "2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json",
+        "sha256": "70e67fec9ff86c6eeb77019a488c68b2b8836d7610b1b88eee3bb1785348c1b4"
+      },
+      "callIds": [
+        "2b9d82cb-d3fa-4578-ad15-4b8cb22b70d0"
+      ],
+      "issue": {
+        "severity": "error",
+        "targetId": "79-cn-p217-r1",
+        "sourceEvidence": "北家第二行两张万子可见为六万、八万；候选写为5m 9m。",
+        "description": "北家第二行河牌的两张万子均误抄。",
+        "suggestedRepair": "将北家第二行改为6m 8m。"
+      }
+    },
+    {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair23-20261027-p217b\\candidates\\79-cn\\page-0217.json",
+        "sha256": "2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json",
+        "sha256": "70e67fec9ff86c6eeb77019a488c68b2b8836d7610b1b88eee3bb1785348c1b4"
+      },
+      "callIds": [
+        "2b9d82cb-d3fa-4578-ad15-4b8cb22b70d0"
+      ],
+      "issue": {
+        "severity": "uncertain",
+        "targetId": "79-cn-p217-r1",
+        "sourceEvidence": "东家外侧一列自下向上第二张万子的黑色数字字形，在所附图中不能可靠确认为候选所写的9m。",
+        "description": "该张万子的精确牌种尚未核实，不能作为已确认转录通过；候选unknowns为空未反映此处不确定性。",
+        "suggestedRepair": "复核该张万子的数字后填写准确牌码；确认前在unknowns中明确记录这一具体位置及牌种未定。"
+      }
+    },
+    {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0217.json",
+        "sha256": "73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add.6baa4a7e1404.retry-1792979810396-c29948ed.json",
+        "sha256": "c79c04dbbdbede13b2fc77d806bef7407517c0d767c1dedbafcb5f8c813b67de"
+      },
+      "callIds": [
+        "c8aff58b-41cd-4750-b7a2-8a33f377ab35"
+      ],
+      "issue": {
+        "severity": "error",
+        "targetId": "79-cn-p217-r1",
+        "sourceEvidence": "原图北家舍牌第二行从左至右为六万、八万，即6m、8m。",
+        "description": "候选将北家第二行第一张六万误录为5m。",
+        "suggestedRepair": "将北家舍牌第二行改为“6m 8m”。"
+      }
+    },
+    {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0217.json",
+        "sha256": "73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add.6baa4a7e1404.retry-1792979810396-c29948ed.json",
+        "sha256": "c79c04dbbdbede13b2fc77d806bef7407517c0d767c1dedbafcb5f8c813b67de"
+      },
+      "callIds": [
+        "c8aff58b-41cd-4750-b7a2-8a33f377ab35"
+      ],
+      "issue": {
+        "severity": "error",
+        "targetId": "79-cn-p217-r1",
+        "sourceEvidence": "东家位于画面右侧，舍牌字头朝左，其自身视角逐行从左至右对应画面每列自下向上。候选明确写成“自上向下”。",
+        "description": "东家两列舍牌均被反向转录，改变了各行的出牌顺序。",
+        "suggestedRepair": "保留先靠中央列、后外侧列的行顺序，每列改为自下向上抄录；第一行应从8p开始、7z结束，第二行从2z开始、4z结束。"
+      }
+    },
+    {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0217.json",
+        "sha256": "73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add.6baa4a7e1404.retry-1792979810396-c29948ed.json",
+        "sha256": "c79c04dbbdbede13b2fc77d806bef7407517c0d767c1dedbafcb5f8c813b67de"
+      },
+      "callIds": [
+        "c8aff58b-41cd-4750-b7a2-8a33f377ab35"
+      ],
+      "issue": {
+        "severity": "error",
+        "targetId": "79-cn-p217-r1",
+        "sourceEvidence": "原图上方南家可见13张牌背，左方西家可见13张牌背，右方东家可见10张牌背，另有白碰。",
+        "description": "候选仅笼统说明其余三家暗手未知，遗漏了可见牌背数量。",
+        "suggestedRepair": "补录南家13张、西家13张、东家10张暗手牌背；牌种继续标为未知。"
+      }
+    },
+    {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0217.json",
+        "sha256": "73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add.6baa4a7e1404.retry-1792979810396-c29948ed.json",
+        "sha256": "c79c04dbbdbede13b2fc77d806bef7407517c0d767c1dedbafcb5f8c813b67de"
+      },
+      "callIds": [
+        "c8aff58b-41cd-4750-b7a2-8a33f377ab35"
+      ],
+      "issue": {
+        "severity": "uncertain",
+        "targetId": "79-cn-p217-r1",
+        "sourceEvidence": "中央可见“ドラ”标签及西（3z），本页没有说明该界面显示实际宝牌还是宝牌指示牌。",
+        "description": "候选直接认定西为宝牌，并排除另示指示牌，超出了本页可确认的信息。",
+        "suggestedRepair": "保留“中央‘ドラ’栏显示西（3z）”，将其为实际宝牌还是指示牌标为未知，删除确定性分类。"
+      }
+    },
+    {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair25-20261027-p217d\\candidates\\79-cn\\page-0217.json",
+        "sha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+        "sha256": "44e101c7fbf8813d9db7a18af177a42b27b51ebaf92945761787b8b25764b3ec"
+      },
+      "callIds": [
+        "4f760999-1648-410e-8452-1c1b4794503f"
+      ],
+      "issue": {
+        "severity": "error",
+        "targetId": "79-cn-p217-r1",
+        "sourceEvidence": "源图北家舍牌第二行从左至右为5m、8m；第二张上部为“八”。候选写作“第二行5m 9m”。",
+        "description": "北家第二行第二张舍牌数字抄错。",
+        "suggestedRepair": "将北家舍牌第二行改为“5m 8m”。"
+      }
+    },
+    {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair25-20261027-p217d\\candidates\\79-cn\\page-0217.json",
+        "sha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+        "sha256": "44e101c7fbf8813d9db7a18af177a42b27b51ebaf92945761787b8b25764b3ec"
+      },
+      "callIds": [
+        "4f760999-1648-410e-8452-1c1b4794503f"
+      ],
+      "issue": {
+        "severity": "uncertain",
+        "targetId": "79-cn-p217-r1",
+        "sourceEvidence": "西家舍牌外侧一列第二张为横向万子牌，数字笔画不能可靠辨清。候选同时写“8m”和“数字……不能可靠辨定”，但unknowns为[]。",
+        "description": "该张可见牌尚未核清，8m不能作为已确认转录。",
+        "suggestedRepair": "核清西家第二行第二张万子的数字；确认前明确记录“万子，数字未辨清”，并在unknowns中列出该位置，避免将8m作为确定牌码。"
+      }
+    },
+    {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair24-20261027-p217c\\candidates\\79-cn\\page-0217.json",
+        "sha256": "ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json",
+        "sha256": "7dc668f386cbc8c4a5f7ee7c253d0958b688f76de48ac6a82edba24e770bb33c"
+      },
+      "callIds": [
+        "a67e7181-9217-47e7-b944-4373d83e5280"
+      ],
+      "issue": {
+        "severity": "error",
+        "targetId": "79-cn-p217-r1",
+        "sourceEvidence": "完整页及高清局部图中，北家舍牌第二行右侧万子牌的数字为“八”。",
+        "description": "候选将北家舍牌第二行末张录为9m。",
+        "suggestedRepair": "将“第二行5m 9m”改为“第二行5m 8m”。"
+      }
+    },
+    {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair24-20261027-p217c\\candidates\\79-cn\\page-0217.json",
+        "sha256": "ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json",
+        "sha256": "7dc668f386cbc8c4a5f7ee7c253d0958b688f76de48ac6a82edba24e770bb33c"
+      },
+      "callIds": [
+        "a67e7181-9217-47e7-b944-4373d83e5280"
+      ],
+      "issue": {
+        "severity": "uncertain",
+        "targetId": "79-cn-p217-r1",
+        "sourceEvidence": "西家舍牌外侧一列自上而下第二张为旋转万子牌，其数字字形在所附图中不能可靠辨定。",
+        "description": "候选明确录为8m，但本次无法充分确认该牌值。",
+        "suggestedRepair": "复核该位置的万子数字；确认前在转录及unknowns中明确标记此处不确定。"
+      }
+    }
+  ],
+  "claims": {
+    "firstTile": "latest coordinate-bound result unknown, not proof of second tile",
+    "secondTile": "historical same-image candidate audits exist but conflict remains unadjudicated by this new point call; no majority vote, no pixel similarity verdict",
+    "wholePagePassed": false,
+    "chapter215Unaffected": true,
+    "rev5QuarantinePreserved": true
+  },
+  "proposedNextMinimumRequest": {
+    "targetBBox": [
+      174,
+      325,
+      196,
+      357
+    ],
+    "inputs": [
+      "original.png",
+      "context.png",
+      "old-dispute-second-row2-col2.png",
+      "old-dispute-second-row2-col2-nearest4x.png"
+    ],
+    "instruction": "Read only north river row2 col2 at supplied bbox in original image coordinates, directly right of the separately reviewed col1. Confirm position against row1 neighbors. Return readable tile or unknown; do not read col1, inherit a candidate label, infer from hand legality, or pass the full figure/page.",
+    "excludedFromModelPayload": [
+      "historical candidate tile codes",
+      "old review suggested answers",
+      "vote counts",
+      "pixel similarity"
+    ],
+    "extraCallsRequired": 1,
+    "automaticRetry": 0,
+    "notDispatched": true,
+    "model": "gpt-6.1-terra",
+    "effort": "max"
+  },
+  "modelCalls": 0,
+  "pixelProcessing": "exact crops plus nearest-neighbor zoom only; no semantic verdict or generated detail"
+}
