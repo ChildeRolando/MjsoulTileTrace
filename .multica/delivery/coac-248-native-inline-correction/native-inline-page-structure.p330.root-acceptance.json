@@ -1,0 +1,40 @@
+{
+  "schema": "coach-native-page-structure-corrections-approval/1",
+  "status": "accepted-exact-native-page-structure-only",
+  "approvedBy": "root",
+  "approvedAt": "2026-10-27T00:00:00.000Z",
+  "approvalBasis": {
+    "commentId": "01a17a7e-21cf-77f2-9250-fc81d43bc2bd",
+    "scope": "Page 330 only: restore the two source pon examples as hand -> pon -> discard, reusing the existing source image blocks; parent raw, parent candidate and the failed audits retained; no new production call and no global binding rule loosened."
+  },
+  "jobs": [
+    {
+      "schema": "coach-native-page-structure-correction-job/1",
+      "sourceId": "nemata-jp",
+      "page": 330,
+      "candidatePath": "production/sol-high-field-repair20-20261027-p330/candidates/nemata-jp/page-0330.json",
+      "candidateSha256": "314cb19f1b1cf8ed7d420cbccb00cdea1c8ae8210fd5bcdb88953d90f42c25f6",
+      "parentPath": "production/sol-high-field-repair17-20261027-p330/candidates/nemata-jp/page-0330.json",
+      "parentSha256": "7eaa03dd9e5a276efe07e42d3b84d068364f4f71f355dfcacc9f64e9eb7f199f",
+      "originalAuditPath": "audit/pages/nemata-jp/page-0330.7eaa03dd9e5a276efe07e42d3b84d068364f4f71f355dfcacc9f64e9eb7f199f.7076217daf84.json",
+      "originalAuditSha256": "05692993d1fddceb01b016a45df6e2df0d46da0494ea54f04547aac396517a43",
+      "originalProductionRaw": {
+        "path": "production/sol-high-fallback-inline-20261026/raw-calls/335549a9-3318-4597-b5a8-57bbce1a9091.json",
+        "sha256": "2d713b2e123d4ba2e6da431aa066469378d4163d91d6d34c537ee32de0de4128"
+      },
+      "sourcePagePath": "nemata-jp/pages/330.json",
+      "sourcePageDataSha256": "cff2992d62c7bc51fd7d9c29413d05578854a06f6d9211d6dc2d275f891fcc6a",
+      "structureDiffPath": "audit/source-corrections/diffs/native-inline-page-structure.p330.7eaa03dd9e5a276efe07e42d3b84d068364f4f71f355dfcacc9f64e9eb7f199f.json",
+      "structureDiffSha256": "3057ae955144022c8023f1ee0c85c366ac007787ffe2e703f86a9e63dd7c5666",
+      "proofPath": "audit/source-corrections/proofs/native-inline-page-structure.p330.314cb19f1b1cf8ed7d420cbccb00cdea1c8ae8210fd5bcdb88953d90f42c25f6.json",
+      "proofSha256": "b60c601f35ca38a357a8d76dc67f067ddcb8d757404da879d2650c3cf5ec52ba",
+      "originalReviewErrors": [
+        "visual_reading_flow_not_faithful",
+        "needs-repair:nemata-jp-p330-b10",
+        "needs-repair:nemata-jp-p330-b11",
+        "error:nemata-jp-p330-b10",
+        "error:nemata-jp-p330-b11"
+      ]
+    }
+  ]
+}

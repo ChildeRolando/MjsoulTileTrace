@@ -1,0 +1,560 @@
+{
+  "schema": "coach-native-page-structure-diff/1",
+  "sourceId": "nemata-jp",
+  "page": 330,
+  "parentSha256": "7eaa03dd9e5a276efe07e42d3b84d068364f4f71f355dfcacc9f64e9eb7f199f",
+  "sourcePageDataSha256": "cff2992d62c7bc51fd7d9c29413d05578854a06f6d9211d6dc2d275f891fcc6a",
+  "regionPadding": 0,
+  "baseline": {
+    "path": "production/sol-high-fallback-inline-20261026/raw-calls/335549a9-3318-4597-b5a8-57bbce1a9091.json",
+    "sha256": "2d713b2e123d4ba2e6da431aa066469378d4163d91d6d34c537ee32de0de4128"
+  },
+  "scope": "Only the two pon examples of page 330: re-group the existing row-slice image blocks of the first two examples into one hand / pon / discard region per example, in source reading order. No page re-production, no new model call, no other figure or paragraph changed. The same revision records the source-backed 33478s hand code and the 4s discard that the original production had transcribed as 33678s / 6s.",
+  "replacedFigures": [
+    {
+      "figureId": "nemata-jp-p330-r6",
+      "bbox": [
+        52.80000305175781,
+        244.79995727539062,
+        422.3999938964844,
+        290.39996337890625
+      ],
+      "sourceImageBlockIds": [
+        "nemata-jp-p330-b38",
+        "nemata-jp-p330-b39",
+        "nemata-jp-p330-b40"
+      ],
+      "sourceImageSha256s": [
+        "5e1dcba0de891f8de88528d503aae6bd2a36d6677c77ae1006dcc2230e242ee6",
+        "373e3f9ac57beb5b211d03a052433ab8bf520dccb0fac829b1c3fb653c7941b3",
+        "7decfb8e2759f1e11bafcc0192572d615df623258c2b786c98257aafb98d3f44"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "本区域负责第一条碰牌示例的上部图像切片：左侧手牌从左至右为344555m 33678s，共11张，全部直立，5m均非赤五；中部是两张直立的7z（中）的上部；右侧是箭头后所打6s的上部。这些是同一示例中手牌、碰牌及弃牌的局部，并非额外的牌。",
+      "unknowns": [],
+      "caption": "第一例上部：344555m 33678s；7z7z；打6s"
+    },
+    {
+      "figureId": "nemata-jp-p330-r7",
+      "bbox": [
+        52.80000305175781,
+        254.39999389648438,
+        287.0400085449219,
+        301.91998291015625
+      ],
+      "sourceImageBlockIds": [
+        "nemata-jp-p330-b41"
+      ],
+      "sourceImageSha256s": [
+        "f24d8692f6da73eec04db406a46a568fc1b3dd8e859a96187d3561fb92c8159c"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "本区域负责第一条碰牌示例手牌的中部切片。对应手牌从左至右：344555m 33678s，共11张，全部直立，5m均为普通五万，非赤五；不包含裁图下缘第二条例子的局部。",
+      "unknowns": [],
+      "caption": "第一例手牌中部：344555m 33678s"
+    },
+    {
+      "figureId": "nemata-jp-p330-r8",
+      "bbox": [
+        281.5199890136719,
+        254.39999389648438,
+        374.1600036621094,
+        301.91998291015625
+      ],
+      "sourceImageBlockIds": [
+        "nemata-jp-p330-b42",
+        "nemata-jp-p330-b43"
+      ],
+      "sourceImageSha256s": [
+        "5445aa302be4438d181bb2277650f7c4978a0827a3b0e9c9ece8f64b7ad6ea7a",
+        "82541735ae2622e538aa8b445c159f08eaeaf0a4482662c31f8efa8f44ff5340"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "本区域负责第一条碰牌示例的碰牌图像：左端横向矩形内显示图像加载失败图标，牌面不可读；右侧两张直立牌为7z 7z（中、中），本区域包含其主体切片。正文标注“碰”。不能根据损坏图像确定左端牌的牌面或碰牌来源方向。",
+      "unknowns": [
+        "碰牌图左端为图像加载失败图标，牌面不可读，不能补定牌码。",
+        "碰牌来源方向无法从损坏图像确定。"
+      ],
+      "caption": "碰牌图：左端图像损坏；右侧7z7z"
+    },
+    {
+      "figureId": "nemata-jp-p330-r9",
+      "bbox": [
+        52.80000305175781,
+        254.39999389648438,
+        422.3999938964844,
+        321.3599853515625
+      ],
+      "sourceImageBlockIds": [
+        "nemata-jp-p330-b44",
+        "nemata-jp-p330-b45",
+        "nemata-jp-p330-b46",
+        "nemata-jp-p330-b47",
+        "nemata-jp-p330-b48",
+        "nemata-jp-p330-b49",
+        "nemata-jp-p330-b50"
+      ],
+      "sourceImageSha256s": [
+        "d983d256285e382623b77b8e58325c1012e1d5f32c4f103b84a0b0b07402626e",
+        "e8e41f27e51c6f5df53323083182d8bfb3ef032c82952135f0d2eadf87910975",
+        "f43c1180cdf7cbbbce139ca692ff6242abfc0952c52f1d2e3c473f81afc87b6f",
+        "0a521805f92385c31ecd2968e94f83365848dad3f4de49bd9a3dd03e52d03f43",
+        "7bbf664311425e904a0bb9499e7e8a40bb09d4be4b2b664a57f3055ed52f0245",
+        "cc2c810226e0fa9cb78b370aa2a7fdb98a29dcf3440832b8f626bbf6eaa1698b",
+        "14a2dd462fc152741f4176c4ce45d24bc747c3157585de4bfcb5aee87181adf9"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "本区域负责两条碰牌示例交界处的指定切片。第一例：箭头后弃牌6s的中部，以及手牌344555m 33678s、两张直立7z 7z（中、中）和弃牌6s的下部。第二例：手牌345556m 33678s的上部、两张直立7z 7z（中、中）的上部、箭头后弃牌6m的上部。两例手牌中的5m均为普通五万，非赤五。上述切片分别属于原有两例，不表示新增手牌或新增弃牌；本区域不负责左端损坏的碰牌图像。",
+      "unknowns": [],
+      "caption": "第一例打6s及下部；第二例手牌、7z7z与打6m的上部"
+    },
+    {
+      "figureId": "nemata-jp-p330-r10",
+      "bbox": [
+        52.80000305175781,
+        285.3600158691406,
+        287.0400085449219,
+        336.47998046875
+      ],
+      "sourceImageBlockIds": [
+        "nemata-jp-p330-b51",
+        "nemata-jp-p330-b55"
+      ],
+      "sourceImageSha256s": [
+        "e54f4aa0dee82f87048d954078656a4af6ba64a50fc15f3cd8a811b30d14e173",
+        "6ebb81d250f197dc7e2c3897200c86c04905c681189e7340e117b9e6be16a595"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "本区域负责第二条碰牌示例手牌的中部切片。对应手牌从左至右：345556m 33678s，共11张，全部直立；5m均为普通五万，非赤五。不包含裁图上缘第一例的局部。",
+      "unknowns": [],
+      "caption": "第二例手牌中部：345556m 33678s"
+    },
+    {
+      "figureId": "nemata-jp-p330-r11",
+      "bbox": [
+        281.5199890136719,
+        285.3600158691406,
+        374.1600036621094,
+        336.47998046875
+      ],
+      "sourceImageBlockIds": [
+        "nemata-jp-p330-b56",
+        "nemata-jp-p330-b52",
+        "nemata-jp-p330-b57"
+      ],
+      "sourceImageSha256s": [
+        "9b9d56058f468d6fce506c2ad5a1c6f895c602fabdd60d6768791362ba347607",
+        "825c9028363cd34be5f9b88fc8266d38a1371eb081b2bcdc3cd69e59681ae94e",
+        "6492aaa7108c9024d7a8bc0c1db801f805e1e26d99b44606772937d4793ef2ef"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "本区域负责第二条碰牌示例的碰牌图像切片：左端横向矩形内为图像加载失败图标，牌面不可读；右侧两张直立牌为7z 7z（中、中）。正文标注“碰”。不包含裁图上缘第一例的局部。无法由损坏图像确定左端牌面或碰牌来源方向。",
+      "unknowns": [
+        "第二例碰牌图左端显示图像加载失败图标，牌面不可读，不能补定牌码。",
+        "第二例碰牌来源方向无法确定。"
+      ],
+      "caption": "第二例碰牌图：左端损坏；右侧7z7z"
+    },
+    {
+      "figureId": "nemata-jp-p330-r12",
+      "bbox": [
+        368.1600036621094,
+        285.3600158691406,
+        422.3999938964844,
+        336.47998046875
+      ],
+      "sourceImageBlockIds": [
+        "nemata-jp-p330-b53",
+        "nemata-jp-p330-b58"
+      ],
+      "sourceImageSha256s": [
+        "ce241cb6c2121ddd91b7d4a59b75fd62250c58a938f439a541274028b74b4916",
+        "94a9f206f0b69c1a281873afe3a4ecd929dd07397deab6361c1d8a3bc1c17ff8"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "本区域负责第二条碰牌示例箭头后弃牌6m的中部切片；牌直立。不包含右侧括号内4m或裁图上缘第一例弃牌的局部。",
+      "unknowns": [],
+      "caption": "第二例打6m"
+    },
+    {
+      "figureId": "nemata-jp-p330-r13",
+      "bbox": [
+        392.3999938964844,
+        285.3600158691406,
+        442.0799865722656,
+        336.47998046875
+      ],
+      "sourceImageBlockIds": [
+        "nemata-jp-p330-b54",
+        "nemata-jp-p330-b59"
+      ],
+      "sourceImageSha256s": [
+        "c2f17f8225edc0e1e14bdee5ffa5c9e3a79606d194b39ef509cd713fa5245844",
+        "796022319e3ff7793b8b21b71d4703d6953573c17914e6e2cab0bd0e9d065984"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "本区域负责第二条碰牌示例括号说明中4m的中部切片；牌直立。正文说明该牌已用掉1张。不包含裁图左侧弃牌6m的局部。",
+      "unknowns": [],
+      "caption": "说明用牌：4m"
+    },
+    {
+      "figureId": "nemata-jp-p330-r14",
+      "bbox": [
+        52.80000305175781,
+        300.47998046875,
+        442.0799865722656,
+        339.5999755859375
+      ],
+      "sourceImageBlockIds": [
+        "nemata-jp-p330-b60",
+        "nemata-jp-p330-b61",
+        "nemata-jp-p330-b62",
+        "nemata-jp-p330-b63"
+      ],
+      "sourceImageSha256s": [
+        "be22ba97d7530d325de386ce2da2a50756640c063d0658aa269b361cc90a0d85",
+        "981f3ecfae416ab467725c9c79d80489cca258f2e08ccd3182f2ecd3c708e537",
+        "b9ec9fc5a978571c87267f773712802d22295f23b300580cf99408a29425c1da",
+        "c5142df28a3518d20e323697891665c1f895e5b73e7732bde12934a8a197827a"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "本区域负责第二条碰牌示例四幅牌图的下部切片：手牌345556m 33678s；碰牌图中两张直立的7z 7z（中、中）；箭头后弃牌6m；括号说明中的4m。5m均为普通五万，非赤五。这些均是同一例已有牌图的下部，不表示新增牌；左端损坏的碰牌图像不属于本区域。",
+      "unknowns": [],
+      "caption": "第二例下部：345556m 33678s；7z7z；6m；4m"
+    }
+  ],
+  "newFigures": [
+    {
+      "readingOrder": 0,
+      "figureId": "nemata-jp-p330-ex1-hand",
+      "bbox": [
+        70.80000305175781,
+        262.7999572753906,
+        269.0400085449219,
+        287.03997802734375
+      ],
+      "sourceImageBlockIds": [
+        "nemata-jp-p330-b38",
+        "nemata-jp-p330-b41",
+        "nemata-jp-p330-b45"
+      ],
+      "sourceImageSha256s": [
+        "5e1dcba0de891f8de88528d503aae6bd2a36d6677c77ae1006dcc2230e242ee6",
+        "f24d8692f6da73eec04db406a46a568fc1b3dd8e859a96187d3561fb92c8159c",
+        "e8e41f27e51c6f5df53323083182d8bfb3ef032c82952135f0d2eadf87910975"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "第一例手牌，从左至右：344555m（三萬四萬四萬五萬五萬五萬）与33478s（3s 3s 4s 7s 8s），共11张，全部直立；三张5m均为普通五万，非赤五。",
+      "unknowns": [],
+      "caption": "第一例手牌：344555m 33478s",
+      "chapterId": "nemata-jp-chapter-328-1",
+      "unitId": "nemata-jp-chapter-328-1-unit-1",
+      "crop": {
+        "path": "production/sol-high-field-repair20-20261027-p330/renders/nemata-jp/page-0330-ex1-hand.png",
+        "sha256": "4714a08ade5402d13c12626c406c9c9cde5da6ed8140544291bd285de6c13a43"
+      },
+      "sourceEvidence": "Bound source strips b38/b41/b45 of page 330: the left block reads 三萬四萬四萬五萬五萬五萬 (344555m), followed by 3s 3s 4s 7s 8s (33478s); 11 upright tiles, no red five. The third sou tile carries four sticks in a 2x2 arrangement, i.e. 4s, not the 6s recorded by the original production."
+    },
+    {
+      "readingOrder": 1,
+      "figureId": "nemata-jp-p330-ex1-pon",
+      "bbox": [
+        299.5199890136719,
+        262.7999572753906,
+        356.1600036621094,
+        287.03997802734375
+      ],
+      "sourceImageBlockIds": [
+        "nemata-jp-p330-b39",
+        "nemata-jp-p330-b42",
+        "nemata-jp-p330-b43",
+        "nemata-jp-p330-b46"
+      ],
+      "sourceImageSha256s": [
+        "373e3f9ac57beb5b211d03a052433ab8bf520dccb0fac829b1c3fb653c7941b3",
+        "5445aa302be4438d181bb2277650f7c4978a0827a3b0e9c9ece8f64b7ad6ea7a",
+        "82541735ae2622e538aa8b445c159f08eaeaf0a4482662c31f8efa8f44ff5340",
+        "f43c1180cdf7cbbbce139ca692ff6242abfc0952c52f1d2e3c473f81afc87b6f"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "第一例标注「ポン」的碰：左侧横向矩形内为图像加载失败图标，牌面不可读；右侧为两张直立的7z（中、中）。不能据损坏图像补定左端牌面或碰牌来源方向。",
+      "unknowns": [
+        "第一例碰牌图左端为图像加载失败图标，牌面不可读，不能补定牌码。",
+        "第一例碰牌来源方向无法从损坏图像确定。"
+      ],
+      "caption": "第一例碰牌：左端损坏；7z7z",
+      "chapterId": "nemata-jp-chapter-328-1",
+      "unitId": "nemata-jp-chapter-328-1-unit-1",
+      "crop": {
+        "path": "production/sol-high-field-repair20-20261027-p330/renders/nemata-jp/page-0330-ex1-pon.png",
+        "sha256": "a5720074f78ca9dbd14a21b24c049971dc2d1c99af46fd8402b208fbd9e90d4e"
+      },
+      "sourceEvidence": "Bound source strips b39/b42/b43/b46 of page 330: the left end of the pon frame is a broken-image placeholder with no readable tile face; the right side is two upright red 中 (7z). The left tile and the pon source direction are not recoverable from the source."
+    },
+    {
+      "readingOrder": 2,
+      "figureId": "nemata-jp-p330-ex1-discard",
+      "bbox": [
+        386.1600036621094,
+        262.7999572753906,
+        404.3999938964844,
+        287.03997802734375
+      ],
+      "sourceImageBlockIds": [
+        "nemata-jp-p330-b40",
+        "nemata-jp-p330-b44",
+        "nemata-jp-p330-b47"
+      ],
+      "sourceImageSha256s": [
+        "7decfb8e2759f1e11bafcc0192572d615df623258c2b786c98257aafb98d3f44",
+        "d983d256285e382623b77b8e58325c1012e1d5f32c4f103b84a0b0b07402626e",
+        "0a521805f92385c31ecd2968e94f83365848dad3f4de49bd9a3dd03e52d03f43"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "第一例箭头后所打之牌：4s，单张直立；即手牌中的那张4s。",
+      "unknowns": [],
+      "caption": "第一例打4s",
+      "chapterId": "nemata-jp-chapter-328-1",
+      "unitId": "nemata-jp-chapter-328-1-unit-1",
+      "crop": {
+        "path": "production/sol-high-field-repair20-20261027-p330/renders/nemata-jp/page-0330-ex1-discard.png",
+        "sha256": "cd09333ffd72d3556f5ec8a97ff8fc9eb3cbed1088a61be2bbdc87f92e221927"
+      },
+      "sourceEvidence": "Bound source strips b40/b44/b47 of page 330: the tile after 「→打」 carries four sticks in a 2x2 arrangement (4s), the same tile as the 4s in the hand; it is not 6s."
+    },
+    {
+      "readingOrder": 3,
+      "figureId": "nemata-jp-p330-ex2-hand",
+      "bbox": [
+        70.80000305175781,
+        297.3599853515625,
+        269.0400085449219,
+        321.5999755859375
+      ],
+      "sourceImageBlockIds": [
+        "nemata-jp-p330-b48",
+        "nemata-jp-p330-b51",
+        "nemata-jp-p330-b55",
+        "nemata-jp-p330-b60"
+      ],
+      "sourceImageSha256s": [
+        "7bbf664311425e904a0bb9499e7e8a40bb09d4be4b2b664a57f3055ed52f0245",
+        "e54f4aa0dee82f87048d954078656a4af6ba64a50fc15f3cd8a811b30d14e173",
+        "6ebb81d250f197dc7e2c3897200c86c04905c681189e7340e117b9e6be16a595",
+        "be22ba97d7530d325de386ce2da2a50756640c063d0658aa269b361cc90a0d85"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "第二例手牌，从左至右：345556m（三萬四萬五萬五萬五萬六萬）与33478s（3s 3s 4s 7s 8s），共11张，全部直立；三张5m均为普通五万，非赤五。",
+      "unknowns": [],
+      "caption": "第二例手牌：345556m 33478s",
+      "chapterId": "nemata-jp-chapter-328-1",
+      "unitId": "nemata-jp-chapter-328-1-unit-1",
+      "crop": {
+        "path": "production/sol-high-field-repair20-20261027-p330/renders/nemata-jp/page-0330-ex2-hand.png",
+        "sha256": "3eb3646f80d84ca952ceabb33136b5c413c1a8038b334b3f5577f9077c2fb54b"
+      },
+      "sourceEvidence": "Bound source strips b48/b51/b55/b60 of page 330: 三萬四萬五萬五萬五萬六萬 (345556m), then 3s 3s 4s 7s 8s (33478s); 11 upright tiles, no red five. The third sou tile is 4s (four sticks, 2x2), not 6s."
+    },
+    {
+      "readingOrder": 4,
+      "figureId": "nemata-jp-p330-ex2-pon",
+      "bbox": [
+        299.5199890136719,
+        297.3599853515625,
+        356.1600036621094,
+        321.5999755859375
+      ],
+      "sourceImageBlockIds": [
+        "nemata-jp-p330-b49",
+        "nemata-jp-p330-b52",
+        "nemata-jp-p330-b56",
+        "nemata-jp-p330-b57",
+        "nemata-jp-p330-b61"
+      ],
+      "sourceImageSha256s": [
+        "cc2c810226e0fa9cb78b370aa2a7fdb98a29dcf3440832b8f626bbf6eaa1698b",
+        "825c9028363cd34be5f9b88fc8266d38a1371eb081b2bcdc3cd69e59681ae94e",
+        "9b9d56058f468d6fce506c2ad5a1c6f895c602fabdd60d6768791362ba347607",
+        "6492aaa7108c9024d7a8bc0c1db801f805e1e26d99b44606772937d4793ef2ef",
+        "981f3ecfae416ab467725c9c79d80489cca258f2e08ccd3182f2ecd3c708e537"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "第二例标注「ポン」的碰：左侧横向矩形内为图像加载失败图标，牌面不可读；右侧为两张直立的7z（中、中）。不能据损坏图像补定左端牌面或碰牌来源方向。",
+      "unknowns": [
+        "第二例碰牌图左端为图像加载失败图标，牌面不可读，不能补定牌码。",
+        "第二例碰牌来源方向无法从损坏图像确定。"
+      ],
+      "caption": "第二例碰牌：左端损坏；7z7z",
+      "chapterId": "nemata-jp-chapter-328-1",
+      "unitId": "nemata-jp-chapter-328-1-unit-1",
+      "crop": {
+        "path": "production/sol-high-field-repair20-20261027-p330/renders/nemata-jp/page-0330-ex2-pon.png",
+        "sha256": "d393c0a3732931c53f292074e455518b84340149a9d4c81379f7f586a8232974"
+      },
+      "sourceEvidence": "Bound source strips b49/b52/b56/b57/b61 of page 330: the left end of the pon frame is a broken-image placeholder with no readable tile face; the right side is two upright red 中 (7z)."
+    },
+    {
+      "readingOrder": 5,
+      "figureId": "nemata-jp-p330-ex2-discard",
+      "bbox": [
+        386.1600036621094,
+        297.3599853515625,
+        404.3999938964844,
+        321.5999755859375
+      ],
+      "sourceImageBlockIds": [
+        "nemata-jp-p330-b50",
+        "nemata-jp-p330-b53",
+        "nemata-jp-p330-b58",
+        "nemata-jp-p330-b62"
+      ],
+      "sourceImageSha256s": [
+        "14a2dd462fc152741f4176c4ce45d24bc747c3157585de4bfcb5aee87181adf9",
+        "ce241cb6c2121ddd91b7d4a59b75fd62250c58a938f439a541274028b74b4916",
+        "94a9f206f0b69c1a281873afe3a4ecd929dd07397deab6361c1d8a3bc1c17ff8",
+        "b9ec9fc5a978571c87267f773712802d22295f23b300580cf99408a29425c1da"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "第二例箭头后所打之牌：6m（六萬），单张直立。",
+      "unknowns": [],
+      "caption": "第二例打6m",
+      "chapterId": "nemata-jp-chapter-328-1",
+      "unitId": "nemata-jp-chapter-328-1-unit-1",
+      "crop": {
+        "path": "production/sol-high-field-repair20-20261027-p330/renders/nemata-jp/page-0330-ex2-discard.png",
+        "sha256": "0e8262e8139afba08c72ca2943bbe3050fb9993fa68ae3b06dba354bb2097847"
+      },
+      "sourceEvidence": "Bound source strips b50/b53/b58/b62 of page 330: the tile after 「→打」 reads 六萬 (6m), upright."
+    },
+    {
+      "readingOrder": 6,
+      "figureId": "nemata-jp-p330-ex2-used4m",
+      "bbox": [
+        410.3999938964844,
+        303.3600158691406,
+        424.0799865722656,
+        321.5999755859375
+      ],
+      "sourceImageBlockIds": [
+        "nemata-jp-p330-b54",
+        "nemata-jp-p330-b59",
+        "nemata-jp-p330-b63"
+      ],
+      "sourceImageSha256s": [
+        "c2f17f8225edc0e1e14bdee5ffa5c9e3a79606d194b39ef509cd713fa5245844",
+        "796022319e3ff7793b8b21b71d4703d6953573c17914e6e2cab0bd0e9d065984",
+        "c5142df28a3518d20e323697891665c1f895e5b73e7732bde12934a8a197827a"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "第二例括号内所列之牌：4m（四萬），单张直立；原文说明这是已用掉1张的那张4m。",
+      "unknowns": [],
+      "caption": "说明用牌：4m",
+      "chapterId": "nemata-jp-chapter-328-1",
+      "unitId": "nemata-jp-chapter-328-1-unit-1",
+      "crop": {
+        "path": "production/sol-high-field-repair20-20261027-p330/renders/nemata-jp/page-0330-ex2-used4m.png",
+        "sha256": "d573c2a47e4ac878707eae967cd5eabba78bbe97bf0a89834dd7855e496b19b3"
+      },
+      "sourceEvidence": "Bound source strips b54/b59/b63 of page 330: the tile inside the parenthesis reads 四萬 (4m), upright."
+    }
+  ],
+  "flowChanges": [
+    {
+      "sourceBlockIds": [
+        "nemata-jp-p330-b10"
+      ],
+      "fromRawSlotText": "例：[[figure:nemata-jp-p330-r6]][[figure:nemata-jp-p330-r7]]，碰[[figure:nemata-jp-p330-r8]] →打[[figure:nemata-jp-p330-r9]]。",
+      "toRawSlotText": "例：[[figure:nemata-jp-p330-ex1-hand]]　碰[[figure:nemata-jp-p330-ex1-pon]]　→打[[figure:nemata-jp-p330-ex1-discard]]",
+      "fromFigureIds": [
+        "nemata-jp-p330-r6",
+        "nemata-jp-p330-r7",
+        "nemata-jp-p330-r8",
+        "nemata-jp-p330-r9"
+      ],
+      "toFigureIds": [
+        "nemata-jp-p330-ex1-hand",
+        "nemata-jp-p330-ex1-pon",
+        "nemata-jp-p330-ex1-discard"
+      ],
+      "markerLineIndexes": [
+        0,
+        1,
+        2
+      ],
+      "textReplacements": [
+        {
+          "from": "，碰",
+          "to": "　碰",
+          "occurrences": 1
+        },
+        {
+          "from": " →打",
+          "to": "　→打",
+          "occurrences": 1
+        },
+        {
+          "from": "。",
+          "to": "",
+          "occurrences": 1
+        }
+      ],
+      "sourceEvidence": "Source b10 has three lines 例： / 　ポン / 　→打 and the two pon examples each occupy one source row; the hand, the pon and the discard are three separate column groups of that row."
+    },
+    {
+      "sourceBlockIds": [
+        "nemata-jp-p330-b11"
+      ],
+      "fromRawSlotText": "例：[[figure:nemata-jp-p330-r10]]，碰[[figure:nemata-jp-p330-r11]] →打[[figure:nemata-jp-p330-r12]]（由于[[figure:nemata-jp-p330-r13]]已用掉1张）[[figure:nemata-jp-p330-r14]]。",
+      "toRawSlotText": "例：[[figure:nemata-jp-p330-ex2-hand]]　碰[[figure:nemata-jp-p330-ex2-pon]]　→打[[figure:nemata-jp-p330-ex2-discard]]（[[figure:nemata-jp-p330-ex2-used4m]]已用掉1张）",
+      "fromFigureIds": [
+        "nemata-jp-p330-r10",
+        "nemata-jp-p330-r11",
+        "nemata-jp-p330-r12",
+        "nemata-jp-p330-r13",
+        "nemata-jp-p330-r14"
+      ],
+      "toFigureIds": [
+        "nemata-jp-p330-ex2-hand",
+        "nemata-jp-p330-ex2-pon",
+        "nemata-jp-p330-ex2-discard",
+        "nemata-jp-p330-ex2-used4m"
+      ],
+      "markerLineIndexes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "textReplacements": [
+        {
+          "from": "，碰",
+          "to": "　碰",
+          "occurrences": 1
+        },
+        {
+          "from": " →打",
+          "to": "　→打",
+          "occurrences": 1
+        },
+        {
+          "from": "由于",
+          "to": "",
+          "occurrences": 1
+        },
+        {
+          "from": "。",
+          "to": "",
+          "occurrences": 1
+        }
+      ],
+      "sourceEvidence": "Source b11 has five lines 例： / 　ポン / 　→打 / （ / １枚使っている分で）; the 4m tile sits inside the parenthesis before 「１枚」, so it follows the 「（」 line."
+    }
+  ],
+  "unaffected": {
+    "figureCount": 15,
+    "figureDigest": "884eba4c8e24100a918a94649668c2977f79ad7f2f639da6d30752604b9fb68e",
+    "flowCount": 18,
+    "flowDigest": "95aa9694dca76693d847b3acd88103acd264b156d63f90b65a8ca0c321e4c917"
+  },
+  "routeNote": "The first structural candidate for this diff was rejected by the page-scoped route before any model review, with audit_native_structure_original_raw_changed: the gate compared the parent field-corrected baseline against the original production raw. The route now binds the original raw to the production artifact and the baseline separately; zero review calls were consumed by that attempt. This revision re-states the same structural diff under the corrected route."
+}

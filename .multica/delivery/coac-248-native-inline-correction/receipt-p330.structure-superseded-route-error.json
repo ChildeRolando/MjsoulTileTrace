@@ -1,0 +1,32 @@
+{
+  "schema": "coach-textbook-page-audit/1",
+  "status": "needs-repair",
+  "source": {
+    "sourceId": "nemata-jp",
+    "pdfSha256": "4d1c12042589a1b34d6e1f874b79b4ee1d79f4c1c26c62bda0ba94394e47250a",
+    "page": 330,
+    "pageDataSha256": "cff2992d62c7bc51fd7d9c29413d05578854a06f6d9211d6dc2d275f891fcc6a"
+  },
+  "production": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair20-20261027-p330\\candidates\\nemata-jp\\page-0330.json",
+    "sha256": "a10aa62a166f411a4ee2ce7fe087169c3afaea000ffb82a9c330deb7d85a65f7"
+  },
+  "auditorScriptSha256": "7076217daf842b13eb6f945bd21ac0ceb87bc3994fa336e39ba8f2de63efefc6",
+  "verification": "independent-model-automatic-review-not-user-human-gold-standard",
+  "pageImageSha256": "e67a5e2b080ee80abdca2e3273ada4ba3adb8d2dba0b6ff59a41a8a6ae06d87e",
+  "deterministicChecks": {
+    "passed": false,
+    "errors": [
+      "Error: audit_native_structure_original_raw_changed"
+    ],
+    "textBlocks": 32,
+    "imageBlocks": 41,
+    "figures": 22
+  },
+  "modelReview": null,
+  "modelChecks": null,
+  "calls": [],
+  "retryOfAudit": null,
+  "recordedAt": "2026-10-26T23:49:54.161Z",
+  "failureClass": "candidate-structure-or-input-binding"
+}

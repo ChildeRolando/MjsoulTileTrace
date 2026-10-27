@@ -15,16 +15,16 @@
   "deduped": 1
  },
  "countsCurrent": {
-  "needsRepair": 20,
+  "needsRepair": 19,
   "failedSeparate": 2,
-  "resolvedThisStage": 16,
-  "newObjectsStillUnresolved": 15,
+  "resolvedThisStage": 17,
+  "newObjectsStillUnresolved": 14,
   "oldObjectsStillUnresolved": 5,
   "totalTracked": 38
  },
  "breakdown": {
   "oldPdfRemaining": 5,
-  "newPdfPages": 3,
+  "newPdfPages": 2,
   "web": 7,
   "protectedSupplement": 1,
   "failed": 2,
@@ -419,66 +419,6 @@
    "origin": "COAC-249 protected supplement",
    "newThisStage": true,
    "note": "p1 chapter01-section022-03 passed and assembled; p2 remains excluded."
-  },
-  {
-   "objectId": "nemata-jp:page:330",
-   "kind": "pdf-page",
-   "sourceId": "nemata-jp",
-   "page": 330,
-   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0330.json",
-   "candidateSha256": "859d1d577a7b7406ac3594b3beb9a30415d2acf3c588c09e8a427d1b59d0de8b",
-   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0330.859d1d577a7b7406ac3594b3beb9a30415d2acf3c588c09e8a427d1b59d0de8b.6baa4a7e1404.json",
-   "auditStatus": "needs-repair",
-   "issueCount": 2,
-   "reviewErrors": [
-    "visual_reading_flow_not_faithful",
-    "needs-repair:nemata-jp-p330-b10",
-    "needs-repair:nemata-jp-p330-b11",
-    "error:nemata-jp-p330-b10",
-    "error:nemata-jp-p330-b11"
-   ],
-   "currentDisposition": "needs-repair",
-   "origin": "COAC-247 new PDF return (inline root)",
-   "newThisStage": true,
-   "revision1": {
-    "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair17-20261027-p330/candidates/nemata-jp/page-0330.json",
-    "candidateSha256": "7eaa03dd9e5a276efe07e42d3b84d068364f4f71f355dfcacc9f64e9eb7f199f",
-    "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0330.7eaa03dd9e5a276efe07e42d3b84d068364f4f71f355dfcacc9f64e9eb7f199f.7076217daf84.json",
-    "auditStatus": "needs-repair",
-    "reviewErrors": [
-     "visual_reading_flow_not_faithful",
-     "needs-repair:nemata-jp-p330-b10",
-     "needs-repair:nemata-jp-p330-b11",
-     "error:nemata-jp-p330-b10",
-     "error:nemata-jp-p330-b11"
-    ],
-    "reviewCall": {
-     "callId": "d922961d-a755-445d-bcde-3b7f5cb14404",
-     "usage": {
-      "inputTokens": 35696,
-      "cachedInputTokens": 0,
-      "outputTokens": 7446
-     },
-     "result": "needs-repair (structural flow only)"
-    },
-    "resolvedTileErrors": [
-     "nemata-jp-p330-r1 125554m -> 123334m (transcription + caption)",
-     "nemata-jp-p330-r4 544555m -> 344555m (transcription + caption, 四张5m -> 三张5m)",
-     "nemata-jp-p330-r22 554566m -> 334566m (transcription + caption, 三张5m -> 一张5m)"
-    ],
-    "resolvedBlocks": [
-     "nemata-jp-p330-b5",
-     "nemata-jp-p330-b8",
-     "nemata-jp-p330-b20"
-    ],
-    "verifiedByIndependentReview": "The revision review no longer lists any tile-form error; the three corrected figures and their inline blocks are faithful."
-   },
-   "structuralBlocker": {
-    "finding": "The independent review of the corrected page located a reading-order defect in the two pon examples: r6-r14 are overlapping vertical slices of two source rows (r6 244.8-290.4, r7/r8/r9 254.4-301.9/321.4, r10-r13 285.4-336.5, r14 300.5-339.6), so the first example repeats its whole hand across r6/r7 and r9 carries the second example forward past the first example's →打.",
-    "whyTheRouteCannotExpressIt": "Restoring one hand -> pon -> discard per example requires changing the figure region partition (bbox/sourceImageBlockIds) or adding/removing body blocks. The exact-field route requires every unlisted field to equal the preserved production raw and every figure to be referenced exactly once, and rebuilding rawFlow from a restructured body is rejected as audit_native_pdf_raw_flow_changed / audit_native_inline_correction_structural_error.",
-    "optionsNotTaken": "Full-page re-production is excluded by the ticket (不重制整页); no global binding rule was loosened.",
-    "decisionNeeded": "A page-scoped structural entry for page 330 (page-scoped region re-derivation or a page-scoped block arrangement approval), authorised like the previous 309/315 entry."
-   }
   },
   {
    "objectId": "nemata-jp:page:1",
@@ -1127,6 +1067,38 @@
     "result": "passed"
    },
    "productionModelCalls": 0
+  },
+  {
+   "objectId": "nemata-jp:page:330",
+   "kind": "pdf-page",
+   "sourceId": "nemata-jp",
+   "page": 330,
+   "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0330.json",
+   "parentCandidateSha256": "859d1d577a7b7406ac3594b3beb9a30415d2acf3c588c09e8a427d1b59d0de8b",
+   "repairedCandidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair20-20261027-p330/candidates/nemata-jp/page-0330.json",
+   "repairedCandidateSha256": "314cb19f1b1cf8ed7d420cbccb00cdea1c8ae8210fd5bcdb88953d90f42c25f6",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0330.314cb19f1b1cf8ed7d420cbccb00cdea1c8ae8210fd5bcdb88953d90f42c25f6.7076217daf84.json",
+   "auditStatus": "passed",
+   "repairKind": "page-scoped structural correction",
+   "changeSummary": [
+    "The two source pon examples are restored as one hand -> pon -> discard group each: 9 overlapping row slices become 7 semantic regions that reuse the same 26 source image blocks exactly once.",
+    "The same revision corrects the third sou tile from 6s to 4s and the first example discard from 6s to 4s, backed by the bound source strips and confirmed by the independent review."
+   ],
+   "structureDiffPath": "audit/source-corrections/diffs/native-inline-page-structure.p330.7eaa03dd9e5a276efe07e42d3b84d068364f4f71f355dfcacc9f64e9eb7f199f.json",
+   "structureDiffSha256": "3057ae955144022c8023f1ee0c85c366ac007787ffe2e703f86a9e63dd7c5666",
+   "approvalPath": "audit/source-corrections/native-inline-page-structure.p330.root-acceptance.json",
+   "approvalSha256": "8b96b361f4517322c40a555748713914a3bff8f7b902a7c01057040111a7cd61",
+   "sourceEvidence": "Embedded source strips b38-b63 of nemata-jp page 330: each example is one source row whose hand, pon and discard are separate column groups; the third sou tile carries four sticks (2x2).",
+   "independentReview": {
+    "callId": "dcfc3e69-04a8-4e49-9b8f-08d6acf8c0ff",
+    "usage": {
+     "inputTokens": 32248,
+     "cachedInputTokens": 0,
+     "outputTokens": 6048
+    },
+    "result": "passed"
+   },
+   "productionModelCalls": 0
   }
  ],
  "handoff": {
@@ -1324,7 +1296,7 @@
   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0309.d323290d8eb056b85a64563702b4d1d1283b3c6eff70cf7ecdb34c9faa84337b.6baa4a7e1404.json",
   "note": "Produced once; audit needs-repair; repair preserved, no re-production."
  },
- "refreshedAt": "2026-10-27T08:05:00.000Z",
+ "refreshedAt": "2026-10-27T08:20:00.000Z",
  "byOrigin": {
   "COAC-248 old PDF 12": 5,
   "COAC-247 new PDF return": 3,
@@ -1349,7 +1321,8 @@
    "audit/source-corrections/native-inline-field-corrections.p329.root-acceptance.json",
    "audit/source-corrections/native-inline-field-corrections.p330.root-acceptance.json",
    "audit/source-corrections/native-inline-field-corrections.p261.root-acceptance.json",
-   "audit/source-corrections/native-inline-field-corrections.p262.root-acceptance.json"
+   "audit/source-corrections/native-inline-field-corrections.p262.root-acceptance.json",
+   "audit/source-corrections/native-inline-page-structure.p330.root-acceptance.json"
   ],
   "reviewCalls": [
    {
@@ -1386,6 +1359,11 @@
     "page": 262,
     "candidateSha256": "5c25921e229d285ea1ae30ec2baef23adbd9d7e20ee9740d7ef524809d9daba6",
     "result": "passed"
+   },
+   {
+    "page": 330,
+    "candidateSha256": "314cb19f1b1cf8ed7d420cbccb00cdea1c8ae8210fd5bcdb88953d90f42c25f6",
+    "result": "passed (structural revision)"
    }
   ],
   "runGateway": "no run-gateway calls this stage; the 20:07/20:47 UTC 503s were run gateway (api.commandcode.ai / Cloudflare 1102), not the review gateway; no retry was issued against the same limit.",
@@ -1404,10 +1382,6 @@
    "consumer": "COAC-250",
    "status": "complete-all-pages-passed"
   },
-  "structuralBlocked": {
-   "page": 330,
-   "reason": "overlapping slice partition of the two pon example rows; needs a page-scoped structural decision"
-  },
   "runtimeCorrectionModuleSync": {
    "runtime": "audit/runtimes/native-repair-7076217daf842b13",
    "finding": "The runtime copy of textbook-audit-pdf-native-corrections.mjs was stale: it listed only 309/315, so a page already recorded as passed (329) failed the deterministic gate with audit_native_inline_correction_unapproved_page when re-checked today. The two-file runtime identity sha (7076217d…) does not cover this module, so the drift was invisible in the receipts.",
@@ -1418,6 +1392,23 @@
   "listCopyDivergence": {
    "finding": "audit/unified-repair-list-20261027.json had dropped the four metadata pages (1/2/3/317) that the previous round added: the copy there held 17 objects while the delivery copy held 21. The delivery copy is the superset; nothing in the audit copy was missing from it.",
    "action": "Rebuilt from the superset and wrote the same object to both paths this round, so the canonical and delivery copies agree again."
+  },
+  "structureRoute": {
+   "page": 330,
+   "module": "scripts/scene-study/textbook-audit-pdf-native-structure-corrections.mjs",
+   "gate": "checkNativePdfInlineContent now receives the page-scoped corrected raw and corrected plan; every other binding is unchanged.",
+   "rejections": [
+    "missing block",
+    "duplicate block",
+    "wrong order",
+    "wrong source SHA",
+    "unlisted structural change",
+    "unlisted text change",
+    "wrong parent SHA",
+    "changed approval"
+   ],
+   "tests": "scripts/scene-study/textbook-audit-pdf-native-structure-corrections.test.mjs (14 cases); 66/66 across the five audit suites",
+   "supersededAttempt": "audit/pages/nemata-jp/page-0330.a10aa62a166f411a4ee2ce7fe087169c3afaea000ffb82a9c330deb7d85a65f7.7076217daf84.json (deterministic-only rejection, zero review calls; route bug fixed before any model review)"
   }
  },
  "metadataFourPageIntake": {
@@ -1474,5 +1465,10 @@
     ]
    }
   ]
+ },
+ "metadataEvidenceInventory": {
+  "path": ".multica/delivery/coac-248-native-inline-correction/metadata-evidence-inventory-20261027.json",
+  "finding": "Pages 1/2/3/317 stay unresolved-evidence. Every failing item is microprint inside a 272-416 px embedded cover bitmap (~300 dpi native); no local source can resolve it, and none of the missing text carries the body argument. p317 b5 is a separate, proven translation defect; correcting it is authorised and queued because the exact-field route cannot rewrite the figure unknowns array.",
+  "bodyTextImpact": "none of the missing microprint is cited by any paragraph on those pages"
  }
 }

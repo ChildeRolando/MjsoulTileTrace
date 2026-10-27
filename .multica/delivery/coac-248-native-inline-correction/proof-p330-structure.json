@@ -1,0 +1,23 @@
+{
+  "schema": "coach-native-page-structure-correction-proof/1",
+  "candidateSha256": "314cb19f1b1cf8ed7d420cbccb00cdea1c8ae8210fd5bcdb88953d90f42c25f6",
+  "parentSha256": "7eaa03dd9e5a276efe07e42d3b84d068364f4f71f355dfcacc9f64e9eb7f199f",
+  "parentPath": "production/sol-high-field-repair17-20261027-p330/candidates/nemata-jp/page-0330.json",
+  "originalAudit": {
+    "path": "audit/pages/nemata-jp/page-0330.7eaa03dd9e5a276efe07e42d3b84d068364f4f71f355dfcacc9f64e9eb7f199f.7076217daf84.json",
+    "sha256": "05692993d1fddceb01b016a45df6e2df0d46da0494ea54f04547aac396517a43",
+    "status": "needs-repair"
+  },
+  "sourcePage": {
+    "path": "nemata-jp/pages/330.json",
+    "sha256": "cff2992d62c7bc51fd7d9c29413d05578854a06f6d9211d6dc2d275f891fcc6a"
+  },
+  "originalProductionRaw": {
+    "path": "production/sol-high-fallback-inline-20261026/raw-calls/335549a9-3318-4597-b5a8-57bbce1a9091.json",
+    "sha256": "2d713b2e123d4ba2e6da431aa066469378d4163d91d6d34c537ee32de0de4128"
+  },
+  "structureDiff": {
+    "path": "audit/source-corrections/diffs/native-inline-page-structure.p330.7eaa03dd9e5a276efe07e42d3b84d068364f4f71f355dfcacc9f64e9eb7f199f.json",
+    "sha256": "3057ae955144022c8023f1ee0c85c366ac007787ffe2e703f86a9e63dd7c5666"
+  }
+}

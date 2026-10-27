@@ -1,0 +1,185 @@
+{
+ "schema": "coach-coac248-metadata-evidence-inventory/1",
+ "recordedAt": "2026-10-27T00:00:00.000Z",
+ "ticket": "COAC-248",
+ "scope": "Concise evidence inventory for the four nemata-jp front-matter pages (1/2/3/317). No re-production, no re-audit, no model calls. These pages stay unresolved-evidence: illegible characters are not guessed and the pages are not marked passed.",
+ "commonFinding": "Every failing item is microprint inside the low-resolution bitmap embedded in the source PDF. The embedded asset size is the ceiling; rendering at higher DPI adds no information. No local higher-resolution source exists.",
+ "pages": [
+  {
+   "page": 1,
+   "candidateSha256": "195ec4e95734120c92d4bc0281512b7cb06d84fda221b68e339f020e06ddd02b",
+   "auditStatus": "needs-repair",
+   "items": [
+    {
+     "figure": "nemata-jp-p1-r4",
+     "sourceImageBlocks": [
+      "nemata-jp-p1-b28"
+     ],
+     "assetPx": [
+      416,
+      588
+     ],
+     "approxDpi": 300,
+     "regionBbox": [
+      429.36,
+      397.44,
+      565.2,
+      574.56
+     ],
+     "missingText": "封面右上「2010 1 January」中 January 下方的极小字（分辨率不足，逐字不可辨）。",
+     "affectsBodyText": false,
+     "bodyImpactNote": "该页正文（b2/b3 站点说明、b26/b27「本站已被刊载于《月刊网络麻将》2010年1月号」、目录条目）均不依赖这行小字；封面大字信息已转录。"
+    }
+   ]
+  },
+  {
+   "page": 2,
+   "candidateSha256": "205a9a8ab2dcc7353f5d3ec2df6f6b99339ecbb4ca57c507690b6ff45397e1d6",
+   "auditStatus": "needs-repair",
+   "items": [
+    {
+     "figure": "nemata-jp-p2-r11",
+     "sourceImageBlocks": [
+      "nemata-jp-p2-b51"
+     ],
+     "assetPx": [
+      306,
+      444
+     ],
+     "approxDpi": 300,
+     "regionBbox": [
+      426,
+      219.12,
+      535.44,
+      361.68
+     ],
+     "missingText": "黄色书封作者名旁及右下方极小字；英文「LOGICAL TACTICS」之后是否还有字符；人物所托模型内的细小牌面。",
+     "affectsBodyText": false,
+     "bodyImpactNote": "书目段 b52 使用封面大字（书名、作者、洋泉社、2009-10-24），不依赖小字；模型内牌面属插画，不是教学牌例。"
+    },
+    {
+     "figure": "nemata-jp-p2-r15",
+     "sourceImageBlocks": [
+      "nemata-jp-p2-b58"
+     ],
+     "assetPx": [
+      300,
+      444
+     ],
+     "approxDpi": 300,
+     "regionBbox": [
+      426,
+      576.24,
+      534,
+      718.8
+     ],
+     "missingText": "照片中麻将桌面上的细小牌面（花色、点数、赤五不可辨）。",
+     "affectsBodyText": false,
+     "bodyImpactNote": "书目段 b59 使用书名、作者、出版社，不依赖桌面牌面；该照片不是教学牌例。"
+    }
+   ]
+  },
+  {
+   "page": 3,
+   "candidateSha256": "b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36",
+   "auditStatus": "needs-repair",
+   "items": [
+    {
+     "figure": "nemata-jp-p3-r1",
+     "sourceImageBlocks": [
+      "nemata-jp-p3-b24"
+     ],
+     "assetPx": [
+      300,
+      443
+     ],
+     "approxDpi": 300,
+     "regionBbox": [
+      426,
+      55.68,
+      534,
+      198
+     ],
+     "missingText": "红色书封作者署名上方的小字、封面底部左侧标识及其他细小文字。",
+     "affectsBodyText": false,
+     "bodyImpactNote": "书目段 b25 使用封面大字，不依赖署名上方小字或底部标识。"
+    },
+    {
+     "figure": "nemata-jp-p3-r3",
+     "sourceImageBlocks": [
+      "nemata-jp-p3-b28"
+     ],
+     "assetPx": [
+      272,
+      444
+     ],
+     "approxDpi": 300,
+     "regionBbox": [
+      426,
+      291.12,
+      527.28,
+      433.68
+     ],
+     "missingText": "黄绿色腰封大字下方的两行小字（未转录）。",
+     "affectsBodyText": false,
+     "bodyImpactNote": "书目段 b29 使用书名、丛书名、作者、出版社；腰封大字已转录，两行小字不进入正文论证。"
+    }
+   ]
+  },
+  {
+   "page": 317,
+   "candidateSha256": "e0911ad1e2ee917537c953d1d2e204120fcd3477a67baf1f26eac90f18c9efcf",
+   "auditStatus": "needs-repair",
+   "items": [
+    {
+     "figure": "nemata-jp-p317-r6",
+     "sourceImageBlocks": [
+      "nemata-jp-p317-b15",
+      "nemata-jp-p317-b56",
+      "nemata-jp-p317-b57",
+      "nemata-jp-p317-b58",
+      "nemata-jp-p317-b17"
+     ],
+     "assetPx": [
+      416,
+      588
+     ],
+     "approxDpi": 300,
+     "regionBbox": [
+      39.84,
+      397.44,
+      565.44,
+      626.16
+     ],
+     "missingText": "封面右上角两行宣传小字（8x/16x 下仅部分可辨：…ネット麻雀ライフを／…するマガジン，首字仍不可靠）；评委特别奖作品署名首字的浊点／半浊点（「ぱくお」或「ばくお」）。",
+     "affectsBodyText": false,
+     "bodyImpactNote": "该页正文 b2/b3、b4/b5、b14 不引用这两行小字；r6 的 caption/transcription 因此保持明确未知，不补写。"
+    },
+    {
+     "bodyBlock": [
+      "nemata-jp-p317-b4",
+      "nemata-jp-p317-b5"
+     ],
+     "defect": "「暂时公开」把 暫定公開 的“暂定版性质”误译为公开时间上的临时性。",
+     "sourceText": "新現代麻雀技術論にて発表中の最新版戦術論を暫定公開。※暫定版の為、構成やURLが変更になる場合があります。",
+     "fix": "以暂定版形式公开正在《新现代麻将技术论》中发表的最新版战术论。",
+     "affectsBodyText": true,
+     "authorised": "The user explicitly allowed correcting this proven mistranslation and honestly updating the unknowns record; it does not waive the cover evidence gap and does not admit the page to the official library.",
+     "blocker": "The frozen exact-field route edits string fields only: addressing the review also requires rewriting the figure unknowns ARRAY, which that route rejects. The fix therefore needs its own page-scoped approval job plus the array-valued unknowns entry, and its own independent review.",
+     "disposition": "queued-next-round"
+    }
+   ]
+  }
+ ],
+ "disposition": {
+  "nemata-jp:1": "unresolved-evidence (cover microprint)",
+  "nemata-jp:2": "unresolved-evidence (cover microprint and illustration tile faces)",
+  "nemata-jp:3": "unresolved-evidence (cover microprint)",
+  "nemata-jp:317": "unresolved-evidence (cover microprint) + one authorised, queued body-text fix at b5"
+ },
+ "execution": {
+  "productionModelCalls": 0,
+  "reviewModelCalls": 0,
+  "reAudits": 0
+ }
+}
