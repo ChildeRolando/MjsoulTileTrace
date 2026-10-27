@@ -1,0 +1,123 @@
+{
+  "schema": "coac248-independent-return-intake/1",
+  "recordedAt": "2026-10-27T19:21:22.297700+00:00",
+  "chapterId": "79-cn-chapter-276-4",
+  "candidateSha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+  "auditStatus": "needs-repair",
+  "integrationAllowed": false,
+  "audit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1793434.94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd.json",
+    "sha256": "df0393cf90c3d9b7010ef7a0678cd2a90aa4e5818ce129ee47c2fb335a08b4fc"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\5d32d29f-8e4a-49fe-976d-3e25debab6ed.json",
+    "sha256": "b8b2ebe3ae3f12ce66b46dc0829c20f0b489b50e26395744bec4bbb8143458b6"
+  },
+  "handoff": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-reviewed-276-4-terra-20261028.json",
+    "sha256": "76db693c99e1790b0018a1e58dd152d9a7df2b97c897ebcd03804e1f87f655e7"
+  },
+  "context": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-return-context-276-4-terra-20261028.json",
+    "sha256": "8b3e2b1369dcf72240545541890d7ca9c3766aebf5329ce92003b2b06d76707c"
+  },
+  "request": {
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "images": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+        "sha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+        "bytes": 50751
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+        "sha256": "ff130bb4c934f7d58794ecde92422eacd097f589e27fe18a0e721da007236ed4",
+        "bytes": 188382
+      }
+    ],
+    "verifiedInputs": [
+      {
+        "recordedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+        "verifiedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+        "sha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+        "bytes": 50751,
+        "fromBoundPacketCommit": false
+      },
+      {
+        "recordedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+        "verifiedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+        "sha256": "ff130bb4c934f7d58794ecde92422eacd097f589e27fe18a0e721da007236ed4",
+        "bytes": 188382,
+        "fromBoundPacketCommit": false
+      }
+    ],
+    "usage": {
+      "inputTokens": 24658,
+      "cachedInputTokens": 0,
+      "outputTokens": 13964
+    },
+    "remoteWeights": "unknown"
+  },
+  "originalIndependentIssues": [
+    {
+      "severity": "error",
+      "targetId": "79-bilibili-cn:cv1793434:b0005:figure",
+      "sourceEvidence": "例1原图及2倍放大图的左侧第4、5张和右侧第2、5张弃牌均显示字牌；候选分别使用“[风牌未辨明]”。",
+      "description": "四张可见弃牌缺少具体牌码，影响牌河的完整教学信息。",
+      "suggestedRepair": "依据原图逐张复核并补足四个牌码；不能可靠辨认的牌保留未知并继续标记为未完成，不要猜测。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "79-bilibili-cn:cv1793434:b0014:figure",
+      "sourceEvidence": "该资产在 verifiedExactAssetIds 中，但本次未附原图，也未提供先前审校的逐牌转录记录。",
+      "description": "已验证的原图复用身份不足以单独证明候选中每张牌、顺序及点数的转录均正确。",
+      "suggestedRepair": "将候选与该已审原图对应的逐牌审校记录核对，确认手牌、四家弃牌、横置、赤牌和点数。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "79-bilibili-cn:cv1793434:b0025:figure",
+      "sourceEvidence": "该资产在 verifiedExactAssetIds 中，但本次未附原图，也未提供先前审校的逐牌转录记录。",
+      "description": "已验证的原图复用身份不足以单独证明候选中每张牌、顺序、副露及点数的转录均正确。",
+      "suggestedRepair": "将候选与该已审原图对应的逐牌审校记录核对，确认手牌、四家弃牌、副露、横置、赤牌和点数。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1793434:b0014:figure",
+      "sourceEvidence": "候选 sourceNotes 称附件3、4为例2原图及放大图；给定附件仅有例1的附件1、2，例2列为已审原图复用。",
+      "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+      "suggestedRepair": "删除或更正附件3、4的配对说明，说明例2使用已审原图复用。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1793434:b0025:figure",
+      "sourceEvidence": "候选 sourceNotes 称附件5、6为例3原图及放大图；给定附件仅有例1的附件1、2，例3列为已审原图复用。",
+      "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+      "suggestedRepair": "删除或更正附件5、6的配对说明，说明例3使用已审原图复用。"
+    }
+  ],
+  "blockingPositions": [
+    "b0005 left discard4",
+    "b0005 left discard5",
+    "b0005 right discard2",
+    "b0005 right discard5"
+  ],
+  "reliableNewWindReadings": null,
+  "disposition": "Four visible wind discards lack concrete codes; no guessed restoration of parent3z/2z/3z/4z.",
+  "reuseEvidenceDisposition": "b0014/b0025 uncertain preserved. Parent faithful checks and bound images are evidence visibility context, not proof of current tile errors or an override of this receipt.",
+  "captionAndNotes": "All target fields including caption and sourceNotes changes entered the unmodified full-article projection. No separate error was issued for those changes; preserve output exactly.",
+  "consumedAuthorizedCalls": {
+    "production": 1,
+    "firstIndependentReview": 1,
+    "retry": 0
+  },
+  "remainingBudget": {
+    "production": 0,
+    "review": 0,
+    "retry": 0
+  },
+  "newCallsThisIntake": 0,
+  "historicalFailureUsage": null,
+  "semanticAcceptance": false,
+  "fullChapterPassed": false
+}

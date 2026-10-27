@@ -1,0 +1,120 @@
+{
+  "schema": "coac249-276-return-context/1",
+  "recordedAt": "2026-10-27T18:37:37.199Z",
+  "candidateSha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+  "status": "needs-repair",
+  "newModelCalls": 0,
+  "rawVerdictPreserved": true,
+  "verdictOverride": false,
+  "targetIssue": [
+    {
+      "severity": "error",
+      "targetId": "79-bilibili-cn:cv1793434:b0005:figure",
+      "sourceEvidence": "例1原图及2倍放大图的左侧第4、5张和右侧第2、5张弃牌均显示字牌；候选分别使用“[风牌未辨明]”。",
+      "description": "四张可见弃牌缺少具体牌码，影响牌河的完整教学信息。",
+      "suggestedRepair": "依据原图逐张复核并补足四个牌码；不能可靠辨认的牌保留未知并继续标记为未完成，不要猜测。"
+    }
+  ],
+  "reuseEvidenceQuestions": [
+    {
+      "figureId": "79-bilibili-cn:cv1793434:b0014:figure",
+      "currentCheck": {
+        "id": "79-bilibili-cn:cv1793434:b0014:figure",
+        "verdict": "uncertain",
+        "evidence": "已审原图复用身份由给定的 verifiedExactAssetIds 确认；候选的排名、2索及8、9索与相邻正文相符，但输入未提供该图的已核逐牌记录，无法独立比较完整手牌和牌河。"
+      },
+      "currentIssues": [
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1793434:b0014:figure",
+          "sourceEvidence": "该资产在 verifiedExactAssetIds 中，但本次未附原图，也未提供先前审校的逐牌转录记录。",
+          "description": "已验证的原图复用身份不足以单独证明候选中每张牌、顺序及点数的转录均正确。",
+          "suggestedRepair": "将候选与该已审原图对应的逐牌审校记录核对，确认手牌、四家弃牌、横置、赤牌和点数。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1793434:b0014:figure",
+          "sourceEvidence": "候选 sourceNotes 称附件3、4为例2原图及放大图；给定附件仅有例1的附件1、2，例2列为已审原图复用。",
+          "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+          "suggestedRepair": "删除或更正附件3、4的配对说明，说明例2使用已审原图复用。"
+        }
+      ],
+      "parentCheck": {
+        "id": "79-bilibili-cn:cv1793434:b0014:figure",
+        "verdict": "faithful",
+        "evidence": "逐牌核对下方14张牌、四家牌河、左侧横置9m及手牌赤5s均一致；东4局0本场、立直棒1根、宝牌栏西及四家点数完整。附件配对笔误仅属source-note。"
+      },
+      "parentIssues": [
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1793434:b0014:figure",
+          "sourceEvidence": "visualEvidence指定附件2为例2原图、附件5为其2倍放大图；sourceNotes写成附件3与附件4配对。",
+          "description": "加工附件配对编号笔误，教学语义完整。",
+          "suggestedRepair": "将该说明改为“附件2为原图，附件5为同一原图的2倍近邻放大视图，仅计一次”。"
+        }
+      ]
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1793434:b0025:figure",
+      "currentCheck": {
+        "id": "79-bilibili-cn:cv1793434:b0025:figure",
+        "verdict": "uncertain",
+        "evidence": "已审原图复用身份由给定的 verifiedExactAssetIds 确认；候选的南场TOP、宝牌及安全牌情形与相邻正文相符，但输入未提供该图的已核逐牌记录，无法独立比较完整牌河和副露。"
+      },
+      "currentIssues": [
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1793434:b0025:figure",
+          "sourceEvidence": "该资产在 verifiedExactAssetIds 中，但本次未附原图，也未提供先前审校的逐牌转录记录。",
+          "description": "已验证的原图复用身份不足以单独证明候选中每张牌、顺序、副露及点数的转录均正确。",
+          "suggestedRepair": "将候选与该已审原图对应的逐牌审校记录核对，确认手牌、四家弃牌、副露、横置、赤牌和点数。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1793434:b0025:figure",
+          "sourceEvidence": "候选 sourceNotes 称附件5、6为例3原图及放大图；给定附件仅有例1的附件1、2，例3列为已审原图复用。",
+          "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+          "suggestedRepair": "删除或更正附件5、6的配对说明，说明例3使用已审原图复用。"
+        }
+      ],
+      "parentCheck": {
+        "id": "79-bilibili-cn:cv1793434:b0025:figure",
+        "verdict": "faithful",
+        "evidence": "逐牌核对下方14张牌、四家牌河、上方横置6p及西家4s、3s、赤5s副露均一致；南1局0本场、立直棒1根、宝牌栏5p、四家点数及隐手张数完整。附件编号笔误仅属source-note。"
+      },
+      "parentIssues": [
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1793434:b0025:figure",
+          "sourceEvidence": "visualEvidence指定附件3为例3原图、附件6为其2倍放大图；sourceNotes将原图写成附件5。",
+          "description": "加工附件原图编号笔误，教学语义完整。",
+          "suggestedRepair": "将该说明改为“附件3为原图，附件6为同一原图的2倍近邻放大视图，仅计一次”。"
+        }
+      ]
+    }
+  ],
+  "parentAudit": {
+    "path": "audit/web/articles/79-bilibili-cn/cv1793434.34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af.json",
+    "sha256": "8c7e8145f051809f5ad3d80eb4c8e7c4b9d669739c200fbec98e4f26307a9370",
+    "originalStatus": "needs-repair"
+  },
+  "parentRaw": {
+    "callId": "4ad05d19-eb5a-48d6-ba09-c673553ec204",
+    "path": "audit/calls/4ad05d19-eb5a-48d6-ba09-c673553ec204.json",
+    "sha256": "5f88f0dad7e13a42279278eefc97a583e36dfac1f2ab2e0d3c1ecde5f73f2ab1"
+  },
+  "parentRawSucceeded": true,
+  "parentImageAssetIds": [
+    "79-bilibili-cn:e6d9adffb5691e034df6786d",
+    "79-bilibili-cn:a55acc8cf58b8e1636ec1d54",
+    "79-bilibili-cn:0a4e68cf7b56269f146ef9fc"
+  ],
+  "inheritedAssetIds": [
+    "79-bilibili-cn:a55acc8cf58b8e1636ec1d54",
+    "79-bilibili-cn:0a4e68cf7b56269f146ef9fc"
+  ],
+  "mechanicalInheritance": "Frozen verifyWebProductionCall verified parent raw/source/receipt and exact unchanged non-target objects before dispatch; no new visual conclusion is supplied by this annotation.",
+  "disposition": "Target four wind positions remain unknown. Preserve needs-repair and all reviewer uncertainty. The two reused figures already have faithful parent checks and bound images; the new uncertainty asks for accessible inherited evidence, not proof of actual incorrect tiles. Do not rewrite non-target figures from these opinions or manufacture a new verdict. No further production/review calls are authorized in this batch.",
+  "captionAndNotes": "All target fields including caption and sourceNotes changes entered the unmodified full-article projection. No separate error was issued for those changes; preserve output exactly.",
+  "budget": "This authorized 276 production retry and first independent review consumed both new-call slots. Original failed production 2375640c remains separately recorded with unknown usage."
+}

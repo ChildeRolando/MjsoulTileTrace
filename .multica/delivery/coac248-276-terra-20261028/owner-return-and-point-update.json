@@ -1,0 +1,380 @@
+{
+  "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-repair-handoff-20261027.json",
+  "beforeSha256": "ffb757d0696a58a53ac3d7b26421968be3e5d0a7aa216dc1014f0f3a19630d26",
+  "afterSha256": "0e24b6075f5d850b37ad3880841a457e7c8f4182dd3dd883d8316d9f80214adb",
+  "changedExistingItemIndexes": [
+    15,
+    18
+  ],
+  "itemsAppended": 1,
+  "unrelatedExistingItemsPreserved": true,
+  "changedItems": [
+    {
+      "schema": "coach-repair-independent-feedback-intake/1",
+      "recordedAt": "2026-10-27T15:53:38.717651+00:00",
+      "issue": "COAC-248",
+      "wakeupId": "01a17dfd-6271-7d0e-902a-79d2b578b7d6",
+      "chapterId": "79-cn-chapter-222-5",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.display.json",
+      "candidateSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+      "auditSha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec",
+      "auditStatus": "needs-repair",
+      "auditCallId": "f64f0d4f-8833-475e-96dd-a9c5f80e2ba9",
+      "priorAuditUsage": {
+        "inputTokens": 29804,
+        "cachedInputTokens": 0,
+        "outputTokens": 4024
+      },
+      "priorIndependentAuditCalls": 1,
+      "reviewCoverage": {
+        "blocks": 23,
+        "figures": 10,
+        "imageOccurrences": 10
+      },
+      "reviewConflict": {
+        "target": "79-bilibili-cn:cv1775262:b0018:figure",
+        "reviewerReading": "1m at sixth position and first arrow",
+        "candidateReading": "2m at sixth position and first arrow",
+        "coordinatorObservation": "Direct inspection of the bound original PNG and x4 nearest-neighbor view appears to show 2m, conflicting with the independent receipt. This observation does not override needs-repair.",
+        "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+        "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+        "disposition": "Return exact original receipt plus the reading conflict to COAC-248/owner. No automatic reversal to 1m, no new production or model review, no self-granted passed."
+      },
+      "originalIndependentIssues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1775262:b0018:figure",
+          "sourceEvidence": "附件1及附件2中，例5第5张5万之后、第7张北之前的第6张牌为一万；第一支向下箭头位于该一万上方。",
+          "description": "候选牌序将第6张一万误录为2m，箭头说明亦将该牌重复标为2m。",
+          "suggestedRepair": "将牌序中的第6张2m改为1m，并将箭头说明中的“第6张2m”改为“第6张1m”。修正后牌序为2z 3z 6z 8m 5m 1m 4z 3p 2p，第9张2p横置。"
+        }
+      ],
+      "owner": "COAC-244 existing stage adjudication",
+      "disposition": "point-adjudicated-1m-two-reference-revision-required",
+      "integrationAllowed": false,
+      "automaticRepairAllowed": false,
+      "independentAuditBudgetRemaining": 0,
+      "retryBudget": 0,
+      "newModelCalls": {
+        "production": 0,
+        "audit": 0,
+        "failed": 0,
+        "void": 0
+      },
+      "historicalProductionFailure": {
+        "schema": "coach-textbook-production-transport-recovery/1",
+        "classification": "exact-websocket-https-tls-fallback-item-after-completed-turn",
+        "originalLedgerRecord": {
+          "path": "web-production/v1/recoveries/20d7f5e0-2640-4b87-bde1-e6505d839822.original-ledger.json",
+          "sha256": "e50fdbed3507769aa27d11d909cddb46597fa5c6c906cb1a951f6b976cb86671"
+        },
+        "rawArtifact": {
+          "path": "web-production/v1/raw-calls/20d7f5e0-2640-4b87-bde1-e6505d839822.json",
+          "sha256": "29f20bf007f3fed7ab1cf0ed1e6dd21b3d8c2d4dfccea5cf1187095bd759a579"
+        },
+        "classifierHelper": {
+          "path": "web-production/v1/runners/ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a.cli.mjs",
+          "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+        },
+        "diagnostic": "Falling back from WebSockets to HTTPS transport. workspace routing discovery timed out",
+        "recoveredAt": "2026-10-27T14:57:16.892Z",
+        "newModelCalls": 0
+      },
+      "historicalFailureCount": 1,
+      "historicalZeroCallRecoveries": 1,
+      "handoff": {
+        "path": "integration\\coac249-reviewed-a222-246-20261027.json",
+        "sha256": "ec16dd22ae1ce0975f8a1326fde586a850f50434161ad6ee9823a51e22e225c2"
+      },
+      "preservedBatch": {
+        "256-18": "already handed to249; untouched by this intake",
+        "276-4": "already failed without candidate; no retry",
+        "246-3": "same handoff passed, already handed to250; no new review"
+      },
+      "newProductionBatch": false,
+      "latestPointEvidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-point-222-p217-20261028.json",
+        "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9"
+      },
+      "limitedRevisionRequirement": {
+        "chapterId": "79-cn-chapter-222-5",
+        "targetId": "79-bilibili-cn:cv1775262:b0018:figure",
+        "bbox": [
+          170,
+          28,
+          196,
+          65
+        ],
+        "classification": "readable",
+        "tileCode": "1m",
+        "callId": "55d504fb-96bb-4685-8842-229ff3779df1",
+        "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.display.json",
+        "candidateSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+        "field": "/figures/7/transcription",
+        "limitedRevisionRequirement": "The sixth tile token and first downward-arrow reference are currently 2m. The independent coordinate-bound reading is 1m. A future authorized revision must consistently correct only these two references; do not silently overwrite the original or change other tiles.",
+        "existingCandidateText": "牌序从左至右：2z 3z 6z 8m 5m 2m 4z 3p 2p；两支向下箭头分别位于第6张2m、第7张4z的正上方。",
+        "otherOpenItems": "Retain existing sourceNotes attachment-pairing note and original audit. Point evidence does not resolve other fields or pass the candidate."
+      },
+      "pointCandidateComparison": {
+        "currentCandidateMatchesReading": false,
+        "candidateReading": "2m in both references",
+        "independentReading": "1m",
+        "remainingOriginalBlockingIssues": 1,
+        "otherNineFiguresFaithful": true,
+        "candidateChanged": false,
+        "fullChapterPassed": false
+      },
+      "separateQueuedAuthorization": {
+        "commentId": "01a17ec7-dbf3-77e6-a4f4-4dae65b73038",
+        "taskId": "01a17ec7-dbfe-7110-abb1-cdf2973548cf",
+        "statusAtRead": "queued",
+        "maxProduction": 1,
+        "maxTargetedIndependentReview": 1,
+        "failedVoidCount": true,
+        "retry": 0,
+        "consumedByThisIntake": 0,
+        "disposition": "Separate latest explicit authorization; queued issue run owns execution. This evidence-only wakeup does not dispatch duplicate work."
+      }
+    },
+    {
+      "kind": "web-article-revision",
+      "chapterId": "79-cn-chapter-276-4",
+      "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1793434.r2.display.json",
+      "candidateSha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+      "auditStatus": "needs-repair",
+      "handoff249": {
+        "path": "integration\\coac249-incremental-276-4-20261028.json",
+        "sha256": "5d8ea3d5606e4008b3fc57e7bfc885b1fe4e5cd4260e5dbc7dbb418e3e47db69"
+      },
+      "limits": {
+        "production": 0,
+        "review": 0,
+        "retry": 0
+      },
+      "potentialRegression": {
+        "count": 4,
+        "positions": [
+          "left discard4 (parent3z)",
+          "left discard5 (parent2z)",
+          "right discard2 (parent3z)",
+          "right discard5 (parent4z)"
+        ],
+        "disposition": "New model output replaced four prior concrete wind codes with unknowns. This is a potential regression; do not grant passed by checking only9m. Independently inspect original image and the whole target, no guessing or producer field restoration."
+      },
+      "oldFailure": {
+        "callId": "2375640c-3a8d-45e7-9601-4b810fe87e80",
+        "rawPath": "web-production\\v1\\raw-calls\\2375640c-3a8d-45e7-9601-4b810fe87e80.json",
+        "rawSha256": "4060ca8c826094fda356bb4f3c50a3f59625e6660110f20feba1f8c0afa91ba9",
+        "usage": null,
+        "preserved": true,
+        "recoverable": false
+      },
+      "runtimeManifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+      "productionCallId": "7af07271-5848-47a7-a2cb-54be1cca4c64",
+      "productionModel": "gpt-6.1-terra",
+      "productionReasoningEffort": "max",
+      "returnIntake": {
+        "schema": "coac248-independent-return-intake/1",
+        "recordedAt": "2026-10-27T19:21:22.297700+00:00",
+        "chapterId": "79-cn-chapter-276-4",
+        "candidateSha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+        "auditStatus": "needs-repair",
+        "integrationAllowed": false,
+        "audit": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1793434.94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd.json",
+          "sha256": "df0393cf90c3d9b7010ef7a0678cd2a90aa4e5818ce129ee47c2fb335a08b4fc"
+        },
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\5d32d29f-8e4a-49fe-976d-3e25debab6ed.json",
+          "sha256": "b8b2ebe3ae3f12ce66b46dc0829c20f0b489b50e26395744bec4bbb8143458b6"
+        },
+        "handoff": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-reviewed-276-4-terra-20261028.json",
+          "sha256": "76db693c99e1790b0018a1e58dd152d9a7df2b97c897ebcd03804e1f87f655e7"
+        },
+        "context": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-return-context-276-4-terra-20261028.json",
+          "sha256": "8b3e2b1369dcf72240545541890d7ca9c3766aebf5329ce92003b2b06d76707c"
+        },
+        "request": {
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max",
+          "images": [
+            {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+              "sha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+              "bytes": 50751
+            },
+            {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+              "sha256": "ff130bb4c934f7d58794ecde92422eacd097f589e27fe18a0e721da007236ed4",
+              "bytes": 188382
+            }
+          ],
+          "verifiedInputs": [
+            {
+              "recordedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+              "verifiedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+              "sha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+              "bytes": 50751,
+              "fromBoundPacketCommit": false
+            },
+            {
+              "recordedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+              "verifiedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+              "sha256": "ff130bb4c934f7d58794ecde92422eacd097f589e27fe18a0e721da007236ed4",
+              "bytes": 188382,
+              "fromBoundPacketCommit": false
+            }
+          ],
+          "usage": {
+            "inputTokens": 24658,
+            "cachedInputTokens": 0,
+            "outputTokens": 13964
+          },
+          "remoteWeights": "unknown"
+        },
+        "originalIndependentIssues": [
+          {
+            "severity": "error",
+            "targetId": "79-bilibili-cn:cv1793434:b0005:figure",
+            "sourceEvidence": "例1原图及2倍放大图的左侧第4、5张和右侧第2、5张弃牌均显示字牌；候选分别使用“[风牌未辨明]”。",
+            "description": "四张可见弃牌缺少具体牌码，影响牌河的完整教学信息。",
+            "suggestedRepair": "依据原图逐张复核并补足四个牌码；不能可靠辨认的牌保留未知并继续标记为未完成，不要猜测。"
+          },
+          {
+            "severity": "uncertain",
+            "targetId": "79-bilibili-cn:cv1793434:b0014:figure",
+            "sourceEvidence": "该资产在 verifiedExactAssetIds 中，但本次未附原图，也未提供先前审校的逐牌转录记录。",
+            "description": "已验证的原图复用身份不足以单独证明候选中每张牌、顺序及点数的转录均正确。",
+            "suggestedRepair": "将候选与该已审原图对应的逐牌审校记录核对，确认手牌、四家弃牌、横置、赤牌和点数。"
+          },
+          {
+            "severity": "uncertain",
+            "targetId": "79-bilibili-cn:cv1793434:b0025:figure",
+            "sourceEvidence": "该资产在 verifiedExactAssetIds 中，但本次未附原图，也未提供先前审校的逐牌转录记录。",
+            "description": "已验证的原图复用身份不足以单独证明候选中每张牌、顺序、副露及点数的转录均正确。",
+            "suggestedRepair": "将候选与该已审原图对应的逐牌审校记录核对，确认手牌、四家弃牌、副露、横置、赤牌和点数。"
+          },
+          {
+            "severity": "source-note",
+            "targetId": "79-bilibili-cn:cv1793434:b0014:figure",
+            "sourceEvidence": "候选 sourceNotes 称附件3、4为例2原图及放大图；给定附件仅有例1的附件1、2，例2列为已审原图复用。",
+            "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+            "suggestedRepair": "删除或更正附件3、4的配对说明，说明例2使用已审原图复用。"
+          },
+          {
+            "severity": "source-note",
+            "targetId": "79-bilibili-cn:cv1793434:b0025:figure",
+            "sourceEvidence": "候选 sourceNotes 称附件5、6为例3原图及放大图；给定附件仅有例1的附件1、2，例3列为已审原图复用。",
+            "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+            "suggestedRepair": "删除或更正附件5、6的配对说明，说明例3使用已审原图复用。"
+          }
+        ],
+        "blockingPositions": [
+          "b0005 left discard4",
+          "b0005 left discard5",
+          "b0005 right discard2",
+          "b0005 right discard5"
+        ],
+        "reliableNewWindReadings": null,
+        "disposition": "Four visible wind discards lack concrete codes; no guessed restoration of parent3z/2z/3z/4z.",
+        "reuseEvidenceDisposition": "b0014/b0025 uncertain preserved. Parent faithful checks and bound images are evidence visibility context, not proof of current tile errors or an override of this receipt.",
+        "captionAndNotes": "All target fields including caption and sourceNotes changes entered the unmodified full-article projection. No separate error was issued for those changes; preserve output exactly.",
+        "consumedAuthorizedCalls": {
+          "production": 1,
+          "firstIndependentReview": 1,
+          "retry": 0
+        },
+        "remainingBudget": {
+          "production": 0,
+          "review": 0,
+          "retry": 0
+        },
+        "newCallsThisIntake": 0,
+        "historicalFailureUsage": null,
+        "semanticAcceptance": false,
+        "fullChapterPassed": false
+      },
+      "integrationAllowed": false
+    }
+  ],
+  "appendedItems": [
+    {
+      "kind": "pdf-page-point-evidence",
+      "objectId": "79-cn:page:217",
+      "chapterId": "79-cn-chapter-217-4",
+      "candidateSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+      "latestPointEvidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-point-222-p217-20261028.json",
+        "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9"
+      },
+      "limitedRevisionRequirement": {
+        "chapterId": "79-cn-chapter-217-4",
+        "targetId": "79-cn-p217-r1",
+        "bbox": [
+          150,
+          325,
+          175,
+          357
+        ],
+        "classification": "unreadable",
+        "tileCode": "unknown",
+        "callId": "09362d05-d221-427e-b474-a79017ff7619",
+        "candidatePath": "production/sol-high-field-repair26-20261027-p217e/candidates/79-cn/page-0217.json",
+        "candidateSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+        "field": "/figures/0/transcription and /figures/0/unknowns",
+        "limitedRevisionRequirement": "At this FIRST/LEFT tile only, a future authorized revision must use 万子（数字未辨清） and a coordinate-bound unknown entry, rather than asserting 5m or 6m. Keep the right/second tile outside this evidence.",
+        "teachingImpact": "点数不明不妨碍理解原文关于下家染索子一色手及扣牌的总体说明，但会限制对这张牌的精确记录和具体牌谱复盘。",
+        "historicalLocatorConflict": {
+          "oldRequest": "北家舍牌第二行第二张",
+          "currentAuthorizedPacket": "北家舍牌第二行第一张, bbox [150,325,175,357)",
+          "resolution": "Current trigger explicitly selects commit394b830 packet; FIRST tile adjudication only. Do not claim closure of the old SECOND tile 8m/9m dispute."
+        },
+        "otherOpenItems": "The existing west discard unknown, second/right North discard, web b0004/b0010 and other page issues are not adjudicated. Ownership b8 belongs to217-4, not215-4."
+      },
+      "coordinateReconciliation": {
+        "chapterId": "79-cn-chapter-217-4",
+        "figureId": "79-cn-p217-r1",
+        "sourceImageBlockId": "79-cn-p217-b8",
+        "originalRequest": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-single-tile-read-20261027.json",
+          "sha256": "a4b5f827e94d510ca43558f893e5c58796ad30f6af4730e9303f9701a33b6b25"
+        },
+        "originalPosition": "北家舍牌第二行第二张",
+        "originalCandidateCode": "9m",
+        "historicalReviewerReading": "8m",
+        "originalSecondTileBBox": null,
+        "originalSecondTileBBoxNote": "Old request is a named location, without an explicit crop bbox. Do not assign the first-tile bbox to it.",
+        "currentAdjudicatedPosition": "北家舍牌第二行第一张",
+        "currentBBox": [
+          150,
+          325,
+          175,
+          357
+        ],
+        "currentCandidateCode": "5m",
+        "independentReading": "万子（数字未辨清）",
+        "secondTileDisputeResolved": false,
+        "candidateChanged": false,
+        "otherOpenLocations": [
+          "北家第二行第二张8m/9m",
+          "西家第二行第二张万子unknown"
+        ],
+        "notCovered": [
+          "web b0004",
+          "web b0010",
+          "other unknowns",
+          "chapter215-4"
+        ],
+        "owner": "COAC-244 existing source/parent adjudication",
+        "teachingImpact": "点数不明不妨碍理解原文关于下家染索子一色手及扣牌的总体说明，但会限制对这张牌的精确记录和具体牌谱复盘。",
+        "acceptanceWaiver": false
+      },
+      "candidateChanged": false,
+      "integrationAllowed": false,
+      "disposition": "quarantined-rev5-first-tile-unreadable-second-tile-dispute-unresolved"
+    }
+  ]
+}

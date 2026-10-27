@@ -1,0 +1,61 @@
+{
+  "schema": "coac249-independent-point-receipt/1",
+  "callId": "55d504fb-96bb-4685-8842-229ff3779df1",
+  "key": "image-222-sixth-tile",
+  "recordedAt": "2026-10-27T19:06:00.999Z",
+  "chapterId": "79-cn-chapter-222-5",
+  "targetId": "79-bilibili-cn:cv1775262:b0018:figure",
+  "bbox": [
+    170,
+    28,
+    196,
+    65
+  ],
+  "packetSha256": "d62305b3ca80095445cf9af92bd48de62d016df9b11a73d582ce11e4b4f185c6",
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-222-sixth-tile.raw.json",
+    "sha256": "32007944f5764cf41e03c336005e438ff02cb5ac17269aba2afa1be26403f3d6"
+  },
+  "model": "gpt-6.1-terra",
+  "reasoningEffort": "max",
+  "recordedModel": true,
+  "payloadOK": true,
+  "identityOK": true,
+  "valid": true,
+  "classification": "readable",
+  "result": {
+    "chapterId": "79-cn-chapter-222-5",
+    "targetId": "79-bilibili-cn:cv1775262:b0018:figure",
+    "targetBBox": [
+      170,
+      28,
+      196,
+      65
+    ],
+    "outcome": "readable",
+    "tileCode": "1m",
+    "locationCheck": "原图中该坐标对应从左数第六张牌，位于第一个向下箭头下方；左邻另一张万字牌，右邻北牌，与目标裁剪及上下文相符。",
+    "visualEvidence": [
+      "牌面上部是一条黑色横画，左侧略向下、右侧略上扬，未见另一条独立横画。",
+      "下部可辨红色的「萬」字，与上部单横合读为一万。"
+    ],
+    "uncertainty": "原图分辨率较低，但可见笔画足以辨认为一万；四倍图没有新增细节。",
+    "teachingImpact": "本牌可读。邻近原文讨论拆除23饼两面搭子与14饼听牌；本次单点判读不能验证整幅牌例或其推理前提。",
+    "scopeLimit": "此裁决仅适用于原图所给坐标内的牌，不代表其他牌或全章通过。"
+  },
+  "usage": {
+    "inputTokens": 12150,
+    "cachedInputTokens": 0,
+    "outputTokens": 1358
+  },
+  "durationMs": 73154,
+  "threadIds": [
+    "01a17ec0-3437-7430-9d67-545ced38bec1"
+  ],
+  "runtimeManifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+  "remoteGatewayWeights": "unknown",
+  "newCalls": 1,
+  "retry": 0,
+  "candidateChanged": false,
+  "pageOrChapterPassed": false
+}

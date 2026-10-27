@@ -16,8 +16,8 @@
   "totalTracked": 38
  },
  "countsCurrent": {
-  "needsRepair": 39,
-  "awaitingIndependentReview": 2,
+  "needsRepair": 40,
+  "awaitingIndependentReview": 1,
   "decisionHold": 1,
   "resolvedTotal": 21,
   "totalTracked": 63,
@@ -277,15 +277,83 @@
     "error:79-cn-p217-r1",
     "uncertain:79-cn-p217-r1"
    ],
-   "currentDisposition": "rev5 待单张裁决：已按 owner 指示交 249 独立限定核读该牌；不得再以整页审校或多数票/单一像素相关率强改；无确定证据则保持 unknown",
+   "currentDisposition": "quarantined-rev5-first-tile-unreadable-second-tile-dispute-unresolved",
    "origin": "COAC-248 old PDF 12",
    "newThisStage": false,
    "revisionChain": "receipt-p217-revision-chain-20261027.json",
    "adjudication": "adjudication-p217-tile-20261027.json",
    "candidateSelfSha256": "953b58901a062f166820ba61cc5660a0146c8c2866058b088064c62f67ac1c62",
-   "nextAction": "等待owner下一有限阶段安排；本阶段不派调用。",
+   "nextAction": "Existing owner to address the first-tile requirement and separate old second-tile locator; no production/page review authorized by this point handoff.",
    "handoff249": "integration/coac249-p217-single-tile-read-20261027.json",
-   "stage20261027T1419": "owner本阶段暂分流；保留已有证据与unknown，不追加研究、制作、整页审校，不阻塞090-6。"
+   "stage20261027T1419": "owner本阶段暂分流；保留已有证据与unknown，不追加研究、制作、整页审校，不阻塞090-6。",
+   "chapterId": "79-cn-chapter-217-4",
+   "latestPointEvidence": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-point-222-p217-20261028.json",
+    "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9"
+   },
+   "limitedRevisionRequirement": {
+    "chapterId": "79-cn-chapter-217-4",
+    "targetId": "79-cn-p217-r1",
+    "bbox": [
+     150,
+     325,
+     175,
+     357
+    ],
+    "classification": "unreadable",
+    "tileCode": "unknown",
+    "callId": "09362d05-d221-427e-b474-a79017ff7619",
+    "candidatePath": "production/sol-high-field-repair26-20261027-p217e/candidates/79-cn/page-0217.json",
+    "candidateSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+    "field": "/figures/0/transcription and /figures/0/unknowns",
+    "limitedRevisionRequirement": "At this FIRST/LEFT tile only, a future authorized revision must use 万子（数字未辨清） and a coordinate-bound unknown entry, rather than asserting 5m or 6m. Keep the right/second tile outside this evidence.",
+    "teachingImpact": "点数不明不妨碍理解原文关于下家染索子一色手及扣牌的总体说明，但会限制对这张牌的精确记录和具体牌谱复盘。",
+    "historicalLocatorConflict": {
+     "oldRequest": "北家舍牌第二行第二张",
+     "currentAuthorizedPacket": "北家舍牌第二行第一张, bbox [150,325,175,357)",
+     "resolution": "Current trigger explicitly selects commit394b830 packet; FIRST tile adjudication only. Do not claim closure of the old SECOND tile 8m/9m dispute."
+    },
+    "otherOpenItems": "The existing west discard unknown, second/right North discard, web b0004/b0010 and other page issues are not adjudicated. Ownership b8 belongs to217-4, not215-4."
+   },
+   "coordinateReconciliation": {
+    "chapterId": "79-cn-chapter-217-4",
+    "figureId": "79-cn-p217-r1",
+    "sourceImageBlockId": "79-cn-p217-b8",
+    "originalRequest": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-single-tile-read-20261027.json",
+     "sha256": "a4b5f827e94d510ca43558f893e5c58796ad30f6af4730e9303f9701a33b6b25"
+    },
+    "originalPosition": "北家舍牌第二行第二张",
+    "originalCandidateCode": "9m",
+    "historicalReviewerReading": "8m",
+    "originalSecondTileBBox": null,
+    "originalSecondTileBBoxNote": "Old request is a named location, without an explicit crop bbox. Do not assign the first-tile bbox to it.",
+    "currentAdjudicatedPosition": "北家舍牌第二行第一张",
+    "currentBBox": [
+     150,
+     325,
+     175,
+     357
+    ],
+    "currentCandidateCode": "5m",
+    "independentReading": "万子（数字未辨清）",
+    "secondTileDisputeResolved": false,
+    "candidateChanged": false,
+    "otherOpenLocations": [
+     "北家第二行第二张8m/9m",
+     "西家第二行第二张万子unknown"
+    ],
+    "notCovered": [
+     "web b0004",
+     "web b0010",
+     "other unknowns",
+     "chapter215-4"
+    ],
+    "owner": "COAC-244 existing source/parent adjudication",
+    "teachingImpact": "点数不明不妨碍理解原文关于下家染索子一色手及扣牌的总体说明，但会限制对这张牌的精确记录和具体牌谱复盘。",
+    "acceptanceWaiver": false
+   },
+   "integrationAllowed": false
   },
   {
    "objectId": "79-cn:page:263",
@@ -1342,7 +1410,7 @@
     225,
     226
    ],
-   "currentDisposition": "terminal-needs-repair-source-reading-conflict-awaiting-owner",
+   "currentDisposition": "point-adjudicated-1m-two-reference-revision-required",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
    "auditRecordedAt": "2026-10-27T15:25:29.963Z",
@@ -1429,7 +1497,51 @@
    },
    "integrationAllowed": false,
    "ownerDecision": "COAC-244 existing stage adjudication",
-   "latestFeedback": "receipt-222-5-review-conflict-20261027.json"
+   "latestFeedback": "receipt-222-5-review-conflict-20261027.json",
+   "latestPointEvidence": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-point-222-p217-20261028.json",
+    "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9"
+   },
+   "limitedRevisionRequirement": {
+    "chapterId": "79-cn-chapter-222-5",
+    "targetId": "79-bilibili-cn:cv1775262:b0018:figure",
+    "bbox": [
+     170,
+     28,
+     196,
+     65
+    ],
+    "classification": "readable",
+    "tileCode": "1m",
+    "callId": "55d504fb-96bb-4685-8842-229ff3779df1",
+    "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.display.json",
+    "candidateSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+    "field": "/figures/7/transcription",
+    "limitedRevisionRequirement": "The sixth tile token and first downward-arrow reference are currently 2m. The independent coordinate-bound reading is 1m. A future authorized revision must consistently correct only these two references; do not silently overwrite the original or change other tiles.",
+    "existingCandidateText": "牌序从左至右：2z 3z 6z 8m 5m 2m 4z 3p 2p；两支向下箭头分别位于第6张2m、第7张4z的正上方。",
+    "otherOpenItems": "Retain existing sourceNotes attachment-pairing note and original audit. Point evidence does not resolve other fields or pass the candidate."
+   },
+   "nextAction": "Latest 19:13 explicit two-call revision authorization queued; not consumed by evidence intake.",
+   "pointCandidateComparison": {
+    "currentCandidateMatchesReading": false,
+    "candidateReading": "2m in both references",
+    "independentReading": "1m",
+    "remainingOriginalBlockingIssues": 1,
+    "otherNineFiguresFaithful": true,
+    "candidateChanged": false,
+    "fullChapterPassed": false
+   },
+   "separateQueuedAuthorization": {
+    "commentId": "01a17ec7-dbf3-77e6-a4f4-4dae65b73038",
+    "taskId": "01a17ec7-dbfe-7110-abb1-cdf2973548cf",
+    "statusAtRead": "queued",
+    "maxProduction": 1,
+    "maxTargetedIndependentReview": 1,
+    "failedVoidCount": true,
+    "retry": 0,
+    "consumedByThisIntake": 0,
+    "disposition": "Separate latest explicit authorization; queued issue run owns execution. This evidence-only wakeup does not dispatch duplicate work."
+   }
   },
   {
    "objectId": "web-chapter:79-cn-chapter-234-12",
@@ -1665,9 +1777,9 @@
    "articleId": "cv1793434",
    "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1793434.r2.display.json",
    "candidateSha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
-   "auditPath": null,
-   "auditStatus": "awaiting-independent-review",
-   "issueCount": null,
+   "auditPath": "audit/web/articles/79-bilibili-cn/cv1793434.94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd.json",
+   "auditStatus": "needs-repair",
+   "issueCount": 5,
    "unitCount": 1,
    "blockCount": 64,
    "pdfPages": [
@@ -1676,10 +1788,10 @@
     278,
     279
    ],
-   "currentDisposition": "explicit-retry-produced-awaiting-249-four-new-unknowns-flagged",
+   "currentDisposition": "terminal-needs-repair-four-wind-codes-missing-budget-exhausted",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
-   "auditRecordedAt": null,
+   "auditRecordedAt": "2026-10-27T18:36:42.187Z",
    "auditSourceStale": false,
    "diskShaVerified": true,
    "lastProductionFailure": {
@@ -1826,7 +1938,7 @@
     "retryBudget": 0,
     "sourceAndParentPreserved": true
    },
-   "auditSha256": null,
+   "auditSha256": "df0393cf90c3d9b7010ef7a0678cd2a90aa4e5818ce129ee47c2fb335a08b4fc",
    "parentVersion": {
     "objectId": "web-chapter:79-cn-chapter-276-4",
     "kind": "web-article",
@@ -2017,7 +2129,7 @@
      "void": 0,
      "automaticRetries": 0
     },
-    "independentAuditBudget": 1,
+    "independentAuditBudget": 0,
     "retryBudget": 0,
     "historicalFailedRevision": {
      "callId": "2375640c-3a8d-45e7-9601-4b810fe87e80",
@@ -2044,10 +2156,172 @@
     "wakeup249": {
      "id": "01a17ea0-9fe3-791e-89f0-24fab815ebb4",
      "confirmedCreatedAt": "2026-10-27T18:30:18.340285Z",
-     "remainingAuditCalls": 1
+     "remainingAuditCalls": 0
     },
-    "semanticAcceptance": null
-   }
+    "semanticAcceptance": false,
+    "independentReview": {
+     "schema": "coac248-independent-return-intake/1",
+     "recordedAt": "2026-10-27T19:21:22.297700+00:00",
+     "chapterId": "79-cn-chapter-276-4",
+     "candidateSha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+     "auditStatus": "needs-repair",
+     "integrationAllowed": false,
+     "audit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1793434.94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd.json",
+      "sha256": "df0393cf90c3d9b7010ef7a0678cd2a90aa4e5818ce129ee47c2fb335a08b4fc"
+     },
+     "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\5d32d29f-8e4a-49fe-976d-3e25debab6ed.json",
+      "sha256": "b8b2ebe3ae3f12ce66b46dc0829c20f0b489b50e26395744bec4bbb8143458b6"
+     },
+     "handoff": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-reviewed-276-4-terra-20261028.json",
+      "sha256": "76db693c99e1790b0018a1e58dd152d9a7df2b97c897ebcd03804e1f87f655e7"
+     },
+     "context": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-return-context-276-4-terra-20261028.json",
+      "sha256": "8b3e2b1369dcf72240545541890d7ca9c3766aebf5329ce92003b2b06d76707c"
+     },
+     "request": {
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "images": [
+       {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+        "sha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+        "bytes": 50751
+       },
+       {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+        "sha256": "ff130bb4c934f7d58794ecde92422eacd097f589e27fe18a0e721da007236ed4",
+        "bytes": 188382
+       }
+      ],
+      "verifiedInputs": [
+       {
+        "recordedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+        "verifiedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+        "sha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+        "bytes": 50751,
+        "fromBoundPacketCommit": false
+       },
+       {
+        "recordedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+        "verifiedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+        "sha256": "ff130bb4c934f7d58794ecde92422eacd097f589e27fe18a0e721da007236ed4",
+        "bytes": 188382,
+        "fromBoundPacketCommit": false
+       }
+      ],
+      "usage": {
+       "inputTokens": 24658,
+       "cachedInputTokens": 0,
+       "outputTokens": 13964
+      },
+      "remoteWeights": "unknown"
+     },
+     "originalIndependentIssues": [
+      {
+       "severity": "error",
+       "targetId": "79-bilibili-cn:cv1793434:b0005:figure",
+       "sourceEvidence": "例1原图及2倍放大图的左侧第4、5张和右侧第2、5张弃牌均显示字牌；候选分别使用“[风牌未辨明]”。",
+       "description": "四张可见弃牌缺少具体牌码，影响牌河的完整教学信息。",
+       "suggestedRepair": "依据原图逐张复核并补足四个牌码；不能可靠辨认的牌保留未知并继续标记为未完成，不要猜测。"
+      },
+      {
+       "severity": "uncertain",
+       "targetId": "79-bilibili-cn:cv1793434:b0014:figure",
+       "sourceEvidence": "该资产在 verifiedExactAssetIds 中，但本次未附原图，也未提供先前审校的逐牌转录记录。",
+       "description": "已验证的原图复用身份不足以单独证明候选中每张牌、顺序及点数的转录均正确。",
+       "suggestedRepair": "将候选与该已审原图对应的逐牌审校记录核对，确认手牌、四家弃牌、横置、赤牌和点数。"
+      },
+      {
+       "severity": "uncertain",
+       "targetId": "79-bilibili-cn:cv1793434:b0025:figure",
+       "sourceEvidence": "该资产在 verifiedExactAssetIds 中，但本次未附原图，也未提供先前审校的逐牌转录记录。",
+       "description": "已验证的原图复用身份不足以单独证明候选中每张牌、顺序、副露及点数的转录均正确。",
+       "suggestedRepair": "将候选与该已审原图对应的逐牌审校记录核对，确认手牌、四家弃牌、副露、横置、赤牌和点数。"
+      },
+      {
+       "severity": "source-note",
+       "targetId": "79-bilibili-cn:cv1793434:b0014:figure",
+       "sourceEvidence": "候选 sourceNotes 称附件3、4为例2原图及放大图；给定附件仅有例1的附件1、2，例2列为已审原图复用。",
+       "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+       "suggestedRepair": "删除或更正附件3、4的配对说明，说明例2使用已审原图复用。"
+      },
+      {
+       "severity": "source-note",
+       "targetId": "79-bilibili-cn:cv1793434:b0025:figure",
+       "sourceEvidence": "候选 sourceNotes 称附件5、6为例3原图及放大图；给定附件仅有例1的附件1、2，例3列为已审原图复用。",
+       "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+       "suggestedRepair": "删除或更正附件5、6的配对说明，说明例3使用已审原图复用。"
+      }
+     ],
+     "blockingPositions": [
+      "b0005 left discard4",
+      "b0005 left discard5",
+      "b0005 right discard2",
+      "b0005 right discard5"
+     ],
+     "reliableNewWindReadings": null,
+     "disposition": "Four visible wind discards lack concrete codes; no guessed restoration of parent3z/2z/3z/4z.",
+     "reuseEvidenceDisposition": "b0014/b0025 uncertain preserved. Parent faithful checks and bound images are evidence visibility context, not proof of current tile errors or an override of this receipt.",
+     "captionAndNotes": "All target fields including caption and sourceNotes changes entered the unmodified full-article projection. No separate error was issued for those changes; preserve output exactly.",
+     "consumedAuthorizedCalls": {
+      "production": 1,
+      "firstIndependentReview": 1,
+      "retry": 0
+     },
+     "remainingBudget": {
+      "production": 0,
+      "review": 0,
+      "retry": 0
+     },
+     "newCallsThisIntake": 0,
+     "historicalFailureUsage": null,
+     "semanticAcceptance": false,
+     "fullChapterPassed": false
+    }
+   },
+   "integrationAllowed": false,
+   "latestFeedback": "coac248-276-terra-20261028/receipt-276-return-intake.json",
+   "originalIndependentIssues": [
+    {
+     "severity": "error",
+     "targetId": "79-bilibili-cn:cv1793434:b0005:figure",
+     "sourceEvidence": "例1原图及2倍放大图的左侧第4、5张和右侧第2、5张弃牌均显示字牌；候选分别使用“[风牌未辨明]”。",
+     "description": "四张可见弃牌缺少具体牌码，影响牌河的完整教学信息。",
+     "suggestedRepair": "依据原图逐张复核并补足四个牌码；不能可靠辨认的牌保留未知并继续标记为未完成，不要猜测。"
+    },
+    {
+     "severity": "uncertain",
+     "targetId": "79-bilibili-cn:cv1793434:b0014:figure",
+     "sourceEvidence": "该资产在 verifiedExactAssetIds 中，但本次未附原图，也未提供先前审校的逐牌转录记录。",
+     "description": "已验证的原图复用身份不足以单独证明候选中每张牌、顺序及点数的转录均正确。",
+     "suggestedRepair": "将候选与该已审原图对应的逐牌审校记录核对，确认手牌、四家弃牌、横置、赤牌和点数。"
+    },
+    {
+     "severity": "uncertain",
+     "targetId": "79-bilibili-cn:cv1793434:b0025:figure",
+     "sourceEvidence": "该资产在 verifiedExactAssetIds 中，但本次未附原图，也未提供先前审校的逐牌转录记录。",
+     "description": "已验证的原图复用身份不足以单独证明候选中每张牌、顺序、副露及点数的转录均正确。",
+     "suggestedRepair": "将候选与该已审原图对应的逐牌审校记录核对，确认手牌、四家弃牌、副露、横置、赤牌和点数。"
+    },
+    {
+     "severity": "source-note",
+     "targetId": "79-bilibili-cn:cv1793434:b0014:figure",
+     "sourceEvidence": "候选 sourceNotes 称附件3、4为例2原图及放大图；给定附件仅有例1的附件1、2，例2列为已审原图复用。",
+     "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+     "suggestedRepair": "删除或更正附件3、4的配对说明，说明例2使用已审原图复用。"
+    },
+    {
+     "severity": "source-note",
+     "targetId": "79-bilibili-cn:cv1793434:b0025:figure",
+     "sourceEvidence": "候选 sourceNotes 称附件5、6为例3原图及放大图；给定附件仅有例1的附件1、2，例3列为已审原图复用。",
+     "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+     "suggestedRepair": "删除或更正附件5、6的配对说明，说明例3使用已审原图复用。"
+    }
+   ]
   },
   {
    "objectId": "web-chapter:79-cn-chapter-311-18",
@@ -4183,7 +4457,7 @@
   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter03-section011.6ad44173945b9347cd8dd7c44640fa3341bf8e83109695e4cd8aacc6d3d98b21.json",
   "note": "Isolated revision from the 249/250 register set; parent receipt, parent candidate and raw preserved."
  },
- "refreshedAt": "2026-10-27T18:30:57.795487+00:00",
+ "refreshedAt": "2026-10-27T19:21:22.297700+00:00",
  "byOrigin": {
   "COAC-248 old PDF 12": 5,
   "COAC-247 new PDF return": 3,
@@ -6881,5 +7155,444 @@
    "confirmedCreatedAt": "2026-10-27T18:30:18.340285Z",
    "remainingAuditCalls": 1
   }
+ },
+ "countsPriorReturn27620261028": {
+  "needsRepair": 39,
+  "awaitingIndependentReview": 2,
+  "decisionHold": 1,
+  "resolvedTotal": 21,
+  "totalTracked": 63,
+  "failedSeparateHistoryRecords": 1,
+  "scope": "Stored objects only, not a fresh whole-book remainder. Unrelated rows are inherited without refreshing their current external audit state; no new passed status inferred."
+ },
+ "feedback276Terra20261028": {
+  "schema": "coac248-independent-return-intake/1",
+  "recordedAt": "2026-10-27T19:21:22.297700+00:00",
+  "chapterId": "79-cn-chapter-276-4",
+  "candidateSha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+  "auditStatus": "needs-repair",
+  "integrationAllowed": false,
+  "audit": {
+   "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1793434.94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd.json",
+   "sha256": "df0393cf90c3d9b7010ef7a0678cd2a90aa4e5818ce129ee47c2fb335a08b4fc"
+  },
+  "raw": {
+   "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\5d32d29f-8e4a-49fe-976d-3e25debab6ed.json",
+   "sha256": "b8b2ebe3ae3f12ce66b46dc0829c20f0b489b50e26395744bec4bbb8143458b6"
+  },
+  "handoff": {
+   "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-reviewed-276-4-terra-20261028.json",
+   "sha256": "76db693c99e1790b0018a1e58dd152d9a7df2b97c897ebcd03804e1f87f655e7"
+  },
+  "context": {
+   "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-return-context-276-4-terra-20261028.json",
+   "sha256": "8b3e2b1369dcf72240545541890d7ca9c3766aebf5329ce92003b2b06d76707c"
+  },
+  "request": {
+   "model": "gpt-6.1-terra",
+   "reasoningEffort": "max",
+   "images": [
+    {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+     "sha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+     "bytes": 50751
+    },
+    {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+     "sha256": "ff130bb4c934f7d58794ecde92422eacd097f589e27fe18a0e721da007236ed4",
+     "bytes": 188382
+    }
+   ],
+   "verifiedInputs": [
+    {
+     "recordedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+     "verifiedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+     "sha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+     "bytes": 50751,
+     "fromBoundPacketCommit": false
+    },
+    {
+     "recordedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+     "verifiedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.x2.png",
+     "sha256": "ff130bb4c934f7d58794ecde92422eacd097f589e27fe18a0e721da007236ed4",
+     "bytes": 188382,
+     "fromBoundPacketCommit": false
+    }
+   ],
+   "usage": {
+    "inputTokens": 24658,
+    "cachedInputTokens": 0,
+    "outputTokens": 13964
+   },
+   "remoteWeights": "unknown"
+  },
+  "originalIndependentIssues": [
+   {
+    "severity": "error",
+    "targetId": "79-bilibili-cn:cv1793434:b0005:figure",
+    "sourceEvidence": "例1原图及2倍放大图的左侧第4、5张和右侧第2、5张弃牌均显示字牌；候选分别使用“[风牌未辨明]”。",
+    "description": "四张可见弃牌缺少具体牌码，影响牌河的完整教学信息。",
+    "suggestedRepair": "依据原图逐张复核并补足四个牌码；不能可靠辨认的牌保留未知并继续标记为未完成，不要猜测。"
+   },
+   {
+    "severity": "uncertain",
+    "targetId": "79-bilibili-cn:cv1793434:b0014:figure",
+    "sourceEvidence": "该资产在 verifiedExactAssetIds 中，但本次未附原图，也未提供先前审校的逐牌转录记录。",
+    "description": "已验证的原图复用身份不足以单独证明候选中每张牌、顺序及点数的转录均正确。",
+    "suggestedRepair": "将候选与该已审原图对应的逐牌审校记录核对，确认手牌、四家弃牌、横置、赤牌和点数。"
+   },
+   {
+    "severity": "uncertain",
+    "targetId": "79-bilibili-cn:cv1793434:b0025:figure",
+    "sourceEvidence": "该资产在 verifiedExactAssetIds 中，但本次未附原图，也未提供先前审校的逐牌转录记录。",
+    "description": "已验证的原图复用身份不足以单独证明候选中每张牌、顺序、副露及点数的转录均正确。",
+    "suggestedRepair": "将候选与该已审原图对应的逐牌审校记录核对，确认手牌、四家弃牌、副露、横置、赤牌和点数。"
+   },
+   {
+    "severity": "source-note",
+    "targetId": "79-bilibili-cn:cv1793434:b0014:figure",
+    "sourceEvidence": "候选 sourceNotes 称附件3、4为例2原图及放大图；给定附件仅有例1的附件1、2，例2列为已审原图复用。",
+    "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+    "suggestedRepair": "删除或更正附件3、4的配对说明，说明例2使用已审原图复用。"
+   },
+   {
+    "severity": "source-note",
+    "targetId": "79-bilibili-cn:cv1793434:b0025:figure",
+    "sourceEvidence": "候选 sourceNotes 称附件5、6为例3原图及放大图；给定附件仅有例1的附件1、2，例3列为已审原图复用。",
+    "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+    "suggestedRepair": "删除或更正附件5、6的配对说明，说明例3使用已审原图复用。"
+   }
+  ],
+  "blockingPositions": [
+   "b0005 left discard4",
+   "b0005 left discard5",
+   "b0005 right discard2",
+   "b0005 right discard5"
+  ],
+  "reliableNewWindReadings": null,
+  "disposition": "Four visible wind discards lack concrete codes; no guessed restoration of parent3z/2z/3z/4z.",
+  "reuseEvidenceDisposition": "b0014/b0025 uncertain preserved. Parent faithful checks and bound images are evidence visibility context, not proof of current tile errors or an override of this receipt.",
+  "captionAndNotes": "All target fields including caption and sourceNotes changes entered the unmodified full-article projection. No separate error was issued for those changes; preserve output exactly.",
+  "consumedAuthorizedCalls": {
+   "production": 1,
+   "firstIndependentReview": 1,
+   "retry": 0
+  },
+  "remainingBudget": {
+   "production": 0,
+   "review": 0,
+   "retry": 0
+  },
+  "newCallsThisIntake": 0,
+  "historicalFailureUsage": null,
+  "semanticAcceptance": false,
+  "fullChapterPassed": false
+ },
+ "point222p21720261028": {
+  "schema": "coac248-point-evidence-intake/1",
+  "recordedAt": "2026-10-27T19:21:22.297700+00:00",
+  "handoff": {
+   "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-point-222-p217-20261028.json",
+   "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9"
+  },
+  "pointProofs": [
+   {
+    "callId": "55d504fb-96bb-4685-8842-229ff3779df1",
+    "raw": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-222-sixth-tile.raw.json",
+     "sha256": "32007944f5764cf41e03c336005e438ff02cb5ac17269aba2afa1be26403f3d6"
+    },
+    "receipt": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-222-sixth-tile.receipt.json",
+     "sha256": "acaa94facce36e5b422f611d23378300d44ca4d56ea5ace68a0c283d56224226"
+    },
+    "request": {
+     "model": "gpt-6.1-terra",
+     "reasoningEffort": "max",
+     "images": [
+      {
+       "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\original.png",
+       "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+       "bytes": 3492
+      },
+      {
+       "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\context.png",
+       "sha256": "9ba90281aef8fd743afefd1512a9f258a677ffe8ad625c4bd538c081baf07068",
+       "bytes": 1361
+      },
+      {
+       "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\context-x4.png",
+       "sha256": "92b6a06ea1c064479746d7a3b9d5a2b889af57fd8ebf46c01daf130d467adb22",
+       "bytes": 2521
+      },
+      {
+       "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\target.png",
+       "sha256": "96c07caff4d5c6401b1f2f705e1d5926f472ad1ddb2a80924bac95dc329c8a9d",
+       "bytes": 578
+      },
+      {
+       "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\target-x4.png",
+       "sha256": "70bd6778330696a84064a51dee2258d111e649264831408be68aaf9dc546ef30",
+       "bytes": 995
+      }
+     ],
+     "verifiedInputs": [
+      {
+       "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\original.png",
+       "verifiedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-248-29dff6a91ed0\\worktree\\.multica\\delivery\\coac248-276-terra-20261028\\evidence\\point-inputs\\image-222-sixth-tile\\original.png",
+       "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+       "bytes": 3492,
+       "fromBoundPacketCommit": true
+      },
+      {
+       "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\context.png",
+       "verifiedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-248-29dff6a91ed0\\worktree\\.multica\\delivery\\coac248-276-terra-20261028\\evidence\\point-inputs\\image-222-sixth-tile\\context.png",
+       "sha256": "9ba90281aef8fd743afefd1512a9f258a677ffe8ad625c4bd538c081baf07068",
+       "bytes": 1361,
+       "fromBoundPacketCommit": true
+      },
+      {
+       "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\context-x4.png",
+       "verifiedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-248-29dff6a91ed0\\worktree\\.multica\\delivery\\coac248-276-terra-20261028\\evidence\\point-inputs\\image-222-sixth-tile\\context-x4.png",
+       "sha256": "92b6a06ea1c064479746d7a3b9d5a2b889af57fd8ebf46c01daf130d467adb22",
+       "bytes": 2521,
+       "fromBoundPacketCommit": true
+      },
+      {
+       "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\target.png",
+       "verifiedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-248-29dff6a91ed0\\worktree\\.multica\\delivery\\coac248-276-terra-20261028\\evidence\\point-inputs\\image-222-sixth-tile\\target.png",
+       "sha256": "96c07caff4d5c6401b1f2f705e1d5926f472ad1ddb2a80924bac95dc329c8a9d",
+       "bytes": 578,
+       "fromBoundPacketCommit": true
+      },
+      {
+       "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\target-x4.png",
+       "verifiedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-248-29dff6a91ed0\\worktree\\.multica\\delivery\\coac248-276-terra-20261028\\evidence\\point-inputs\\image-222-sixth-tile\\target-x4.png",
+       "sha256": "70bd6778330696a84064a51dee2258d111e649264831408be68aaf9dc546ef30",
+       "bytes": 995,
+       "fromBoundPacketCommit": true
+      }
+     ],
+     "usage": {
+      "inputTokens": 12150,
+      "cachedInputTokens": 0,
+      "outputTokens": 1358
+     },
+     "remoteWeights": "unknown"
+    },
+    "cropPixelsExact": true
+   },
+   {
+    "callId": "09362d05-d221-427e-b474-a79017ff7619",
+    "raw": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-p217-north-second-row.raw.json",
+     "sha256": "cc7f332d563cfc25106e77b06a097ddcb797450e8c4dbac69110901a8b51e516"
+    },
+    "receipt": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-p217-north-second-row.receipt.json",
+     "sha256": "431f0922265cae8d624566220a57fe2f3463e2d57bdef8eaae1ec5108d3cdbba"
+    },
+    "request": {
+     "model": "gpt-6.1-terra",
+     "reasoningEffort": "max",
+     "images": [
+      {
+       "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\original.png",
+       "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+       "bytes": 24419
+      },
+      {
+       "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\context.png",
+       "sha256": "19e4c6c5551cfa755b72c6275692fcc47c8eaeefc1c5b6dc7ec42892cd9cfb99",
+       "bytes": 3693
+      },
+      {
+       "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\context-x4.png",
+       "sha256": "5c6480a5c07f8b3ce6a60f1d0375702ab9e76a84484bac5058bae12e8403e719",
+       "bytes": 5217
+      },
+      {
+       "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\target.png",
+       "sha256": "f65aa976b39b2a23a6c5a156d63c528938e6aea7fa95097d796efcb554024d7c",
+       "bytes": 1095
+      },
+      {
+       "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\target-x4.png",
+       "sha256": "5014a1600c207fda7494c2ac4553b1a0f6003edccda5fe1b38e02821c8b4b4c3",
+       "bytes": 1600
+      },
+      {
+       "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\full-page.png",
+       "sha256": "c52048b9b1a0650b9041cc74a18cb0576c71eb68ccb61c5c4b482dffd79a1ba0",
+       "bytes": 227345
+      }
+     ],
+     "verifiedInputs": [
+      {
+       "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\original.png",
+       "verifiedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-248-29dff6a91ed0\\worktree\\.multica\\delivery\\coac248-276-terra-20261028\\evidence\\point-inputs\\image-p217-north-second-row\\original.png",
+       "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+       "bytes": 24419,
+       "fromBoundPacketCommit": true
+      },
+      {
+       "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\context.png",
+       "verifiedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-248-29dff6a91ed0\\worktree\\.multica\\delivery\\coac248-276-terra-20261028\\evidence\\point-inputs\\image-p217-north-second-row\\context.png",
+       "sha256": "19e4c6c5551cfa755b72c6275692fcc47c8eaeefc1c5b6dc7ec42892cd9cfb99",
+       "bytes": 3693,
+       "fromBoundPacketCommit": true
+      },
+      {
+       "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\context-x4.png",
+       "verifiedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-248-29dff6a91ed0\\worktree\\.multica\\delivery\\coac248-276-terra-20261028\\evidence\\point-inputs\\image-p217-north-second-row\\context-x4.png",
+       "sha256": "5c6480a5c07f8b3ce6a60f1d0375702ab9e76a84484bac5058bae12e8403e719",
+       "bytes": 5217,
+       "fromBoundPacketCommit": true
+      },
+      {
+       "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\target.png",
+       "verifiedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-248-29dff6a91ed0\\worktree\\.multica\\delivery\\coac248-276-terra-20261028\\evidence\\point-inputs\\image-p217-north-second-row\\target.png",
+       "sha256": "f65aa976b39b2a23a6c5a156d63c528938e6aea7fa95097d796efcb554024d7c",
+       "bytes": 1095,
+       "fromBoundPacketCommit": true
+      },
+      {
+       "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\target-x4.png",
+       "verifiedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-248-29dff6a91ed0\\worktree\\.multica\\delivery\\coac248-276-terra-20261028\\evidence\\point-inputs\\image-p217-north-second-row\\target-x4.png",
+       "sha256": "5014a1600c207fda7494c2ac4553b1a0f6003edccda5fe1b38e02821c8b4b4c3",
+       "bytes": 1600,
+       "fromBoundPacketCommit": true
+      },
+      {
+       "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\full-page.png",
+       "verifiedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-248-29dff6a91ed0\\worktree\\.multica\\delivery\\coac248-276-terra-20261028\\evidence\\point-inputs\\image-p217-north-second-row\\full-page.png",
+       "sha256": "c52048b9b1a0650b9041cc74a18cb0576c71eb68ccb61c5c4b482dffd79a1ba0",
+       "bytes": 227345,
+       "fromBoundPacketCommit": true
+      }
+     ],
+     "usage": {
+      "inputTokens": 14682,
+      "cachedInputTokens": 0,
+      "outputTokens": 4086
+     },
+     "remoteWeights": "unknown"
+    },
+    "cropPixelsExact": true
+   }
+  ],
+  "limitedRevisionRequirements": [
+   {
+    "chapterId": "79-cn-chapter-222-5",
+    "targetId": "79-bilibili-cn:cv1775262:b0018:figure",
+    "bbox": [
+     170,
+     28,
+     196,
+     65
+    ],
+    "classification": "readable",
+    "tileCode": "1m",
+    "callId": "55d504fb-96bb-4685-8842-229ff3779df1",
+    "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.display.json",
+    "candidateSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+    "field": "/figures/7/transcription",
+    "limitedRevisionRequirement": "The sixth tile token and first downward-arrow reference are currently 2m. The independent coordinate-bound reading is 1m. A future authorized revision must consistently correct only these two references; do not silently overwrite the original or change other tiles.",
+    "existingCandidateText": "牌序从左至右：2z 3z 6z 8m 5m 2m 4z 3p 2p；两支向下箭头分别位于第6张2m、第7张4z的正上方。",
+    "otherOpenItems": "Retain existing sourceNotes attachment-pairing note and original audit. Point evidence does not resolve other fields or pass the candidate."
+   },
+   {
+    "chapterId": "79-cn-chapter-217-4",
+    "targetId": "79-cn-p217-r1",
+    "bbox": [
+     150,
+     325,
+     175,
+     357
+    ],
+    "classification": "unreadable",
+    "tileCode": "unknown",
+    "callId": "09362d05-d221-427e-b474-a79017ff7619",
+    "candidatePath": "production/sol-high-field-repair26-20261027-p217e/candidates/79-cn/page-0217.json",
+    "candidateSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+    "field": "/figures/0/transcription and /figures/0/unknowns",
+    "limitedRevisionRequirement": "At this FIRST/LEFT tile only, a future authorized revision must use 万子（数字未辨清） and a coordinate-bound unknown entry, rather than asserting 5m or 6m. Keep the right/second tile outside this evidence.",
+    "teachingImpact": "点数不明不妨碍理解原文关于下家染索子一色手及扣牌的总体说明，但会限制对这张牌的精确记录和具体牌谱复盘。",
+    "historicalLocatorConflict": {
+     "oldRequest": "北家舍牌第二行第二张",
+     "currentAuthorizedPacket": "北家舍牌第二行第一张, bbox [150,325,175,357)",
+     "resolution": "Current trigger explicitly selects commit394b830 packet; FIRST tile adjudication only. Do not claim closure of the old SECOND tile 8m/9m dispute."
+    },
+    "otherOpenItems": "The existing west discard unknown, second/right North discard, web b0004/b0010 and other page issues are not adjudicated. Ownership b8 belongs to217-4, not215-4."
+   }
+  ],
+  "222Comparison": {
+   "currentCandidateMatchesReading": false,
+   "candidateReading": "2m in both references",
+   "independentReading": "1m",
+   "remainingOriginalBlockingIssues": 1,
+   "otherNineFiguresFaithful": true,
+   "candidateChanged": false,
+   "fullChapterPassed": false
+  },
+  "217CoordinateReconciliation": {
+   "chapterId": "79-cn-chapter-217-4",
+   "figureId": "79-cn-p217-r1",
+   "sourceImageBlockId": "79-cn-p217-b8",
+   "originalRequest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-single-tile-read-20261027.json",
+    "sha256": "a4b5f827e94d510ca43558f893e5c58796ad30f6af4730e9303f9701a33b6b25"
+   },
+   "originalPosition": "北家舍牌第二行第二张",
+   "originalCandidateCode": "9m",
+   "historicalReviewerReading": "8m",
+   "originalSecondTileBBox": null,
+   "originalSecondTileBBoxNote": "Old request is a named location, without an explicit crop bbox. Do not assign the first-tile bbox to it.",
+   "currentAdjudicatedPosition": "北家舍牌第二行第一张",
+   "currentBBox": [
+    150,
+    325,
+    175,
+    357
+   ],
+   "currentCandidateCode": "5m",
+   "independentReading": "万子（数字未辨清）",
+   "secondTileDisputeResolved": false,
+   "candidateChanged": false,
+   "otherOpenLocations": [
+    "北家第二行第二张8m/9m",
+    "西家第二行第二张万子unknown"
+   ],
+   "notCovered": [
+    "web b0004",
+    "web b0010",
+    "other unknowns",
+    "chapter215-4"
+   ],
+   "owner": "COAC-244 existing source/parent adjudication",
+   "teachingImpact": "点数不明不妨碍理解原文关于下家染索子一色手及扣牌的总体说明，但会限制对这张牌的精确记录和具体牌谱复盘。",
+   "acceptanceWaiver": false
+  },
+  "priorPointCalls": {
+   "calls": 2,
+   "production": 0,
+   "retry": 0,
+   "remainingBudget": 0
+  },
+  "newCallsThisIntake": 0,
+  "separateQueued222Authorization": {
+   "commentId": "01a17ec7-dbf3-77e6-a4f4-4dae65b73038",
+   "taskId": "01a17ec7-dbfe-7110-abb1-cdf2973548cf",
+   "statusAtRead": "queued",
+   "maxProduction": 1,
+   "maxTargetedIndependentReview": 1,
+   "failedVoidCount": true,
+   "retry": 0,
+   "consumedByThisIntake": 0,
+   "disposition": "Separate latest explicit authorization; queued issue run owns execution. This evidence-only wakeup does not dispatch duplicate work."
+  },
+  "remoteWeights": "unknown",
+  "candidateEdits": 0,
+  "acceptancePromotion": false
  }
 }
