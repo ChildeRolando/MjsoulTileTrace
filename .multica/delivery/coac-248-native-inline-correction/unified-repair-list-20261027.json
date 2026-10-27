@@ -3170,7 +3170,7 @@
     259,
     260
    ],
-   "currentDisposition": "terminal-needs-repair-tile-error-and-two-unresolved-discards-awaiting-owner",
+   "currentDisposition": "real-exact8s-r2-maker-complete-awaiting-one-independent-target-impact-review",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
    "auditRecordedAt": "2026-10-27T15:46:52.626Z",
@@ -3274,6 +3274,58 @@
     "impactAssessment": "Not yet independently assessed; do not infer non-core from controller viewing.",
     "sourceNotes": "Original attachment-number source-note remains; no change authorized.",
     "nextOwner": "COAC-244 exact admission / verified runtime; then COAC-248 production and COAC-249 independent target-impact audit."
+   },
+   "exact8sLiveRecovery20261028": {
+    "recordedAt": "2026-10-27T23:19:25.273272+00:00",
+    "status": "real-exact8s-r2-maker-complete-awaiting-one-independent-target-impact-review",
+    "candidate": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r2.display.json",
+     "sha256": "0877ccd8c34fed1b2728eec6c8dd912559e852d653b5fedda8f5b6e4469aa0bd"
+    },
+    "parent": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r1.display.json",
+     "sha256": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2"
+    },
+    "source": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1785770\\source.json",
+     "sha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23"
+    },
+    "parentAudit": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1785770.56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2.json",
+     "sha256": "8341055fc9fec8aacf5c8dd6344cb5af99cfc6998f76105f7dc7d8e13a9a4b21"
+    },
+    "productionCallId": "7fc82e75-42e5-4891-90ec-52eaa8d1be5d",
+    "actualModel": "gpt-6.1-terra",
+    "actualReasoningEffort": "max",
+    "usage": {
+     "inputTokens": 16098,
+     "cachedInputTokens": 0,
+     "outputTokens": 1229
+    },
+    "productionCallsUsed": 1,
+    "independentReviewCallsUsed": 0,
+    "independentReviewCallsRemaining": 1,
+    "makerRemaining": 0,
+    "retry": 0,
+    "handoff": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-256-exact-live-20261028\\handoff249.json",
+     "sha256": "9348636e16333df802ec1a196e9805f4da7e4d56f6a99d9b00c809706627ea7b"
+    },
+    "targetFigure": "79-bilibili-cn:cv1785770:b0016:figure",
+    "unknownsRetained": [
+     "上方弃牌第二行最右一张，即1p右侧的万子：数字无法可靠辨认。",
+     "右方弃牌靠中央一列最上方一张：可辨为索子，数字无法可靠辨认。"
+    ],
+    "independentAcceptance": null,
+    "integrationAllowed": false,
+    "rawAndOldAuditUnchanged": true,
+    "nextAction": "Existing249 sole target/two-unknown impact review via frozen textbook-256-impact.mjs. Then map actual limits to legal exact supplemental admission; no full-article audit.",
+    "wakeup249": "01a17fa9-e621-7508-ae2e-fd725ff43b23"
+   },
+   "nextAction": "Existing249 sole target/two-unknown impact review via frozen textbook-256-impact.mjs. Then map actual limits to legal exact supplemental admission; no full-article audit.",
+   "currentValidUnauditedCandidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r2.display.json",
+    "sha256": "0877ccd8c34fed1b2728eec6c8dd912559e852d653b5fedda8f5b6e4469aa0bd"
    }
   },
   {

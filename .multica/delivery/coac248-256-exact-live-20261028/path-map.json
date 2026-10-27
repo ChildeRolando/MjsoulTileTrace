@@ -1,0 +1,74 @@
+{
+  "files": [
+    {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r2.display.json",
+      "deliveryPath": "evidence/candidate.json",
+      "sha256": "0877ccd8c34fed1b2728eec6c8dd912559e852d653b5fedda8f5b6e4469aa0bd"
+    },
+    {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r1.display.json",
+      "deliveryPath": "evidence/parent.json",
+      "sha256": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2"
+    },
+    {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\7fc82e75-42e5-4891-90ec-52eaa8d1be5d.json",
+      "deliveryPath": "evidence/maker-raw.json",
+      "sha256": "89d1737a4ec1edb1dfda095b773b417e56d52217014aa4fcfaa9073995b3f0da"
+    },
+    {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1785770.56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2.json",
+      "deliveryPath": "evidence/audit.json",
+      "sha256": "8341055fc9fec8aacf5c8dd6344cb5af99cfc6998f76105f7dc7d8e13a9a4b21"
+    },
+    {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1785770\\source.json",
+      "deliveryPath": "evidence/source.json",
+      "sha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23"
+    },
+    {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac248-web-256-18-r2-20261028\\model-output-without-display.json",
+      "deliveryPath": "evidence/unpresented.json",
+      "sha256": "e011d4c611dfc5cedadae964465e49ed002afca542eafedc5ee826dd6fcfd832"
+    },
+    {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-256-exact-8s-v1-20261028\\runtime-manifest.json",
+      "deliveryPath": "evidence/runtime-manifest.json",
+      "sha256": "7068edaa377784a0823c4c6b942d41f5e4533dfbd2f3331962bede454b01bf15"
+    },
+    {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-256-exact-gate-20261028\\run256.mjs",
+      "deliveryPath": "evidence/published-run256.mjs",
+      "sha256": "8146a451c7e0bcc80397d9f3423618b688ba760e6714acf07af7c53d10cb10d0"
+    },
+    {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac248-web-256-18-r2-20261028\\preflight.json",
+      "deliveryPath": "evidence/preflight.json",
+      "sha256": "9dae26affdaf04ccf29094dbb838cf540cb31536312692a56444b4c7f3bc610b"
+    },
+    {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac248-web-256-18-r2-20261028\\dispatch-started.json",
+      "deliveryPath": "evidence/dispatch-started.json",
+      "sha256": "b1ec032444d214de1c1022fde8f3aa422dfb32f2486555ec9edc51de0a7ab74f"
+    },
+    {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac248-web-256-18-r2-20261028\\dispatch-finished.json",
+      "deliveryPath": "evidence/dispatch-finished.json",
+      "sha256": "1c2d13fb1ab3680ae5182822fe411af17e3b4b07b57932dc2791d663b9e322ec"
+    },
+    {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac248-web-256-18-r2-20261028\\slot-released.json",
+      "deliveryPath": "evidence/slot-released.json",
+      "sha256": "651b522ea51f74eb97ae6f8119669aaf19830c5fec765b94ae4d09567ae09896"
+    },
+    {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac248-web-256-18-r2-20261028\\chapter-released.json",
+      "deliveryPath": "evidence/chapter-released.json",
+      "sha256": "7a34ec375de514e0e3518c7f2f45bb400489e7fda09fc4a14220df9bb2d3dcf3"
+    },
+    {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac248-web-256-18-r2-20261028\\production-evidence.json",
+      "deliveryPath": "evidence/production-evidence.json",
+      "sha256": "d1e884d29a172b41d4f3bdba6cb8443417a277eab42bcbb8158a808e50730be2"
+    }
+  ]
+}

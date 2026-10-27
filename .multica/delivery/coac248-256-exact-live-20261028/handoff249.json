@@ -1,0 +1,270 @@
+{
+  "schema": "coac248256-real-maker-to-existing249-impact-review/1",
+  "recordedAt": "2026-10-27T23:19:25.273272+00:00",
+  "authorizationCommentId": "01a17f8d-38c9-7cf9-ad2c-01bddd851470",
+  "from": "COAC-248",
+  "to": "existing COAC-249",
+  "canonical": "79-cn-chapter-256-18",
+  "sourceId": "79-bilibili-cn",
+  "articleId": "cv1785770",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r2.display.json",
+    "sha256": "0877ccd8c34fed1b2728eec6c8dd912559e852d653b5fedda8f5b6e4469aa0bd"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r1.display.json",
+    "sha256": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1785770\\source.json",
+    "sha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23"
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1785770.56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2.json",
+    "sha256": "8341055fc9fec8aacf5c8dd6344cb5af99cfc6998f76105f7dc7d8e13a9a4b21"
+  },
+  "productionCall": {
+    "callId": "7fc82e75-42e5-4891-90ec-52eaa8d1be5d",
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1785770",
+    "sourceSha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "callerRequested": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-terra",
+        "--config",
+        "model_reasoning_effort=\"max\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-188o43\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-188o43\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-188o43",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.x2.png",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.png",
+          "sha256": "1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce",
+          "bytes": 16584
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.x2.png",
+          "sha256": "2b42c5e4db8c3fa997c5715c012635834af4dbd9a8acced04aa2ca12edb4fd72",
+          "bytes": 25380
+        }
+      ],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "timeoutMs": 900000,
+    "startedAt": "2026-10-27T23:16:50.311Z",
+    "durationMs": 31774,
+    "usage": {
+      "inputTokens": 16098,
+      "cachedInputTokens": 0,
+      "outputTokens": 1229
+    },
+    "success": true,
+    "failureClass": null,
+    "transportStatus": "completed",
+    "rawArtifactPath": "raw-calls/7fc82e75-42e5-4891-90ec-52eaa8d1be5d.json",
+    "rawArtifactSha256": "89d1737a4ec1edb1dfda095b773b417e56d52217014aa4fcfaa9073995b3f0da",
+    "outputSha256": "34c1b9c0c9d2757e58502ec80dc7b395048d4df5671d7789320a29d14e2ebfa5",
+    "schemaSha256": "93b1989433f7329fe098294ef6eef9ad03d6c668095347c2223d2190f823e0e9",
+    "promptSha256": "177569c4ee9fa276962df006e39c315088b1f40050b7411b7872260284a16dec",
+    "semanticPromptSha256": "01789a89c9c65231aca10c3fc0e17770e8bfa3b8b22cf42778e4ee4c3891198a",
+    "cliSnapshot": {
+      "path": "audit/runtimes/coac244-256-exact-8s-v1-20261028/textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+    },
+    "targets": {
+      "textIds": [],
+      "figureIds": [
+        "79-bilibili-cn:cv1785770:b0016"
+      ]
+    },
+    "terminalEvents": [],
+    "visualInputs": [
+      {
+        "assetId": "79-bilibili-cn:3616864698720812e29925d9",
+        "sourcePath": "web-sources/v1/79-bilibili-cn/assets/1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.png",
+        "sourceSha256": "1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-sources/v1/79-bilibili-cn/assets/1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.png",
+        "sha256": "1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce",
+        "role": "original",
+        "scale": 1,
+        "resampling": "none",
+        "width": 500,
+        "height": 500
+      },
+      {
+        "assetId": "79-bilibili-cn:3616864698720812e29925d9",
+        "sourcePath": "web-sources/v1/79-bilibili-cn/assets/1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.png",
+        "sourceSha256": "1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.x2.png",
+        "sha256": "2b42c5e4db8c3fa997c5715c012635834af4dbd9a8acced04aa2ca12edb4fd72",
+        "role": "nearest-neighbor-enlargement",
+        "scale": 2,
+        "resampling": "nearest",
+        "width": 1000,
+        "height": 1000
+      }
+    ],
+    "revision": {
+      "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1785770.r1.display.json",
+      "parentSha256": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2",
+      "notesPath": "audit/web/articles/79-bilibili-cn/cv1785770.56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2.json",
+      "notesSha256": "8341055fc9fec8aacf5c8dd6344cb5af99cfc6998f76105f7dc7d8e13a9a4b21",
+      "figureIds": [
+        "79-bilibili-cn:cv1785770:b0016:figure"
+      ]
+    }
+  },
+  "productionEvidence": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-256-exact-live-20261028\\production-evidence.json",
+    "sha256": "d1e884d29a172b41d4f3bdba6cb8443417a277eab42bcbb8158a808e50730be2"
+  },
+  "verification": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-256-exact-live-20261028\\verification.json",
+    "sha256": "9fdde6eb6c5651f8b410192b79f8a17ab35c03f0509caca7e6833fa09349eca6"
+  },
+  "reviewPlan": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-256-exact-live-20261028\\review-plan.json",
+    "sha256": "811fa59cfa1fd7c2d97cf1d549da3f40ddd43993355b7bd427712c2ffccdca0c"
+  },
+  "zeroCallRequestConstruction": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-256-exact-live-20261028\\review-construction.json",
+    "sha256": "e20f9fa633bd831e9005111a8381d8b0e39df9c1730a054a70c32198eac6ccc5"
+  },
+  "reviewRuntime": {
+    "path": "audit/runtimes/coac244-256-exact-8s-v1-20261028",
+    "manifestSha256": "7068edaa377784a0823c4c6b942d41f5e4533dfbd2f3331962bede454b01bf15",
+    "files": 30
+  },
+  "reviewEntry": {
+    "module": "textbook-256-impact.mjs",
+    "prepare": "prepare256ImpactReview(root, realR2CandidatePath)",
+    "verify": "verify256ReviewExecution(realResult, plan)",
+    "invoke": "invokeTextbookCodex({...plan, stopFiles: currentOriginalStopPaths}) from same frozen runtime, exactly once under existing249 guard"
+  },
+  "requiredScope": "Only exact bottom-hand tile12 repair at native[368,459,391,489) and the individual effect of two retained river unknowns on author argument. Full42 ordered source/candidate pairs and4 figure objects are context; do not full-board identify or full-chapter audit.",
+  "retainedUnknowns": [
+    "上方弃牌第二行最右一张，即1p右侧的万子：数字无法可靠辨认。",
+    "右方弃牌靠中央一列最上方一张：可辨为索子，数字无法可靠辨认。"
+  ],
+  "captionChanged": false,
+  "sourceNotesChanged": false,
+  "inheritance": "Original complete parent audit, all body/order, other3 full figures and original source-note retained; original uncertain not rewritten.",
+  "budget": {
+    "phaseMaximum": 2,
+    "phaseUsed": 1,
+    "makerRemaining": 0,
+    "soleIndependentTargetImpactReviewRemaining": 1,
+    "failedVoidCount": true,
+    "retry": 0
+  },
+  "dedupeRequirements": "Immediately before dispatch recheck latest preview/register/actualpassed, existing raw/ledger/receipt/dispatch for this SHA and exact scope, source/runtime hashes, quality/admission STOP, shared chapter claim and existing249 single audit guard. No duplicate dispatch or new consumer framework.",
+  "outputContract": "Save full genuine raw and actual argv/stdin/images/thread/events/usage, standard unique audit ledger and a separate bounded target/impact receipt. Run frozen verify256ReviewExecution. Keep uncertain verbatim; limited unknown evidence requires later exact display-limit mapping. If material unknown, identify its exact author-argument impact and smallest remaining gap. No ordinary whole-article passed fabrication, no new maker/retry/fee probe.",
+  "returnThread": {
+    "issueId": "01a17471-0529-7d3d-bd8d-8b54ef38290d",
+    "parent": "01a17f8d-38c9-7cf9-ad2c-01bddd851470"
+  },
+  "independentAcceptance": null,
+  "wholeChapterPassed": false,
+  "modelCallsInThisHandoffConstruction": 0
+}
