@@ -1,0 +1,14 @@
+继续 COAC-248 主线（下一有限批，不等到整点）。先读本票最新评论、round-20261027T1155.json、unified-repair-list-20261027.json、integration/coac249-p217-single-tile-read-20261027.json。
+
+上轮（11:15–11:58Z）结果：有效模型调用 2 次（制作 1、审校 1，0 void；另有 1 次派发在 node 启动前因冻结 runner 缺视觉辅助文件退出，0 调用无回执）：
+- **79-cn-chapter-081-8（cv1721475）→ passed**：只重制四个被审校指名的 figure，八处 9s→7s、一处 4p→5p；正文与另外 4 图逐字节不变。候选 d1fc1ea8…，独立全章审校 d1fc1ea8… 通过（27327/3705）。已交 250：integration/coac250-incremental-081-8-20261027.json。
+- **p217**：已交 249 单张限定核读（integration/coac249-p217-single-tile-read-20261027.json），本线不再为该牌加审校、不做整页审。
+- **p257**：保持 unknown，不派审校。
+- 过期阻塞信息已按 owner 更正：215-4 已 passed 8f02f593 且并入 250 预览；211 已合入；183-1 属 B 线 decision-hold。
+
+本轮任务：
+1. 做 **79-cn-chapter-090-6（cv1721510）**：父审三条 figure 牌码问题（例1 末张与摸入、例3 末四张、例5 两张 4s 与摸入）。派发前必须自己按绑定原图逐张放大复核，不照抄父审；复核结论与父审一致才派。
+2. 入口沿用上轮已验证的路径：新建 run 目录并从 `web-production/v1/runs/coac248-web-227-246-20261027/frozen-runner` 整份复制（含 textbook-production-web-visual.py，缺它会在派发前 ENOENT）；`--revision-from <父 display> --revision-notes <父审> --reuse <父 reuse map> --variant r1`。
+3. 一次制作 + 一次独立全章审校；上限 2 次调用，失败即停此章不重试。派发前 acquire maker-A、查 STOP 与 model-admission-stop、check-chapter 确认无他人认领，完成后 release。
+4. p217 只有拿到 249/owner 的确定读法才落 rev6 + 1 次页审校；没有就保持 unknown。p257 不追加审校。都不阻塞其它章节。
+5. 轮末更新清单与本轮记录，一条评论，提交到 `agent/mika/coac-248`，并立刻建下一批触发。

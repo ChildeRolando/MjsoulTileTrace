@@ -274,13 +274,14 @@
     "error:79-cn-p217-r1",
     "uncertain:79-cn-p217-r1"
    ],
-   "currentDisposition": "rev4 已审（needs-repair，2 项）；rev5 已按审校的确定修复要求改掉西家待核项，0 模型调用，未再审；只剩北家舍牌第二行第二张 8m/9m 待 owner 或 249 裁决",
+   "currentDisposition": "rev5 待单张裁决：已按 owner 指示交 249 独立限定核读该牌；不得再以整页审校或多数票/单一像素相关率强改；无确定证据则保持 unknown",
    "origin": "COAC-248 old PDF 12",
    "newThisStage": false,
    "revisionChain": "receipt-p217-revision-chain-20261027.json",
    "adjudication": "adjudication-p217-tile-20261027.json",
    "candidateSelfSha256": "953b58901a062f166820ba61cc5660a0146c8c2866058b088064c62f67ac1c62",
-   "nextAction": "裁决那张牌后对 rev5 跑 1 次页审校"
+   "nextAction": "等 249/owner 对该牌的限定结论；有确定读法才落 rev6 + 1 次页审校，否则留 unknown",
+   "handoff249": "integration/coac249-p217-single-tile-read-20261027.json"
   },
   {
    "objectId": "79-cn:page:263",
@@ -397,14 +398,14 @@
     "uncertain:nemata-jp-p257-r1",
     "uncertain:nemata-jp-p257-r1"
    ],
-   "currentDisposition": "needs-repair（仅 uncertain）",
+   "currentDisposition": "needs-repair-unknown（源图分辨率不足的审校 uncertain）；本轮不派审校、不阻塞其它章节",
    "origin": "COAC-248 old PDF 12",
    "newThisStage": false,
    "alsoReportedBy": "COAC-247",
    "dedupeNote": "COAC-247 page 257 candidate SHA 6283c249… equals the old-list candidate; one unresolved object.",
    "classification": "非入口限制，属源证据不足；同一张源图牌距约 33 像素、牌面约 28 像素",
    "sourceCheck": "source-check-p257-20261027.json",
-   "nextAction": "按 217 的做法对 9 个位置逐张放大核读（0 模型调用），能读出的写进新候选，读不出的落 unknowns，再审 1 次"
+   "nextAction": "若要推进，只能按 248 已记录的逐张放大核读（0 模型调用）；本轮优先做可修的源文错误，未追加调用"
   },
   {
    "objectId": "nemata-jp:page:261",
@@ -804,11 +805,11 @@
    "chapterId": "79-cn-chapter-081-8",
    "sourceId": "79-bilibili-cn",
    "articleId": "cv1721475",
-   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1721475.display.json",
-   "candidateSha256": "50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853",
-   "auditPath": "audit/web/articles/79-bilibili-cn/cv1721475.50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853.json",
-   "auditStatus": "needs-repair",
-   "issueCount": 14,
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1721475.r1.json",
+   "candidateSha256": "d1fc1ea8f072cc73c3c1a1649f3a7608f6fd55ecb38be8ff19a34340d5c2a3dd",
+   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/79-bilibili-cn/cv1721475.d1fc1ea8f072cc73c3c1a1649f3a7608f6fd55ecb38be8ff19a34340d5c2a3dd.json",
+   "auditStatus": "passed",
+   "issueCount": 0,
    "unitCount": 1,
    "blockCount": 31,
    "pdfPages": [
@@ -817,12 +818,25 @@
     83,
     84
    ],
-   "currentDisposition": "needs-repair",
+   "currentDisposition": "resolved-passed-targeted-figure-revision-awaiting-250",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
    "auditRecordedAt": "2026-10-23T22:48:15.561Z",
    "auditSourceStale": false,
-   "diskShaVerified": true
+   "diskShaVerified": true,
+   "auditSha256": "f1328e6a67ddce5f3df448d8533ac7e83009a7e18132ae7e6c070d5385468458",
+   "reviewErrors": [],
+   "resolution": {
+    "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1721475.display.json",
+    "parentSha256": "50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853",
+    "changed": "四个 figure 的牌码按原图重读：b0004 末张 9s→7s；b0006 变化A/B/例2 共四处 9s→7s；b0008 两行倒数第二张 9s→7s；b0018 切6m 末张 9s→7s、切2s 首张饼 4p→5p。正文与另外 4 图逐字节不变。",
+    "modelCalls": {
+     "production": 1,
+     "audit": 1
+    },
+    "handoff": "integration/coac250-incremental-081-8-20261027.json",
+    "sourceVerification": "改前对四个 figure 绑定的原图逐张放大复读：7s 为一根红竹＋两组三根绿竹；8s 为双 M 形；b0018 切2s 行首张饼为五圆含中心红点＝5p。三次独立读法（父审、本线像素复读、修订模型）一致。"
+   }
   },
   {
    "objectId": "web-chapter:79-cn-chapter-090-6",
@@ -1807,14 +1821,14 @@
    "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section027.rev1.json",
    "candidateSha256": "e9a9376e2a870f6f9236e3ce574972d1c68226d9597f9c7dd53d781d12da2af9",
    "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter03-section027.e9a9376e2a870f6f9236e3ce574972d1c68226d9597f9c7dd53d781d12da2af9.retry-1793084669596-d7092797.json",
-   "auditStatus": "needs-repair",
+   "auditStatus": "passed",
    "issueCount": 1,
    "unitCount": 1,
    "blockCount": 29,
    "pdfPages": [
     215
    ],
-   "currentDisposition": "needs-repair-revision-candidate-ready-entry-cannot-verify",
+   "currentDisposition": "resolved-passed-by-249-web-target-text-chain-8f02f593-and-merged-into-250-preview",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
    "auditRecordedAt": "2026-10-27T07:06:06.290Z",
@@ -1895,7 +1909,8 @@
      "extend the revision verifier to accept a target-text receipt chain (completeArticleCompared/domOrder/modelChecks read from effectiveModelReview and validateTargetTextReview) — an entry change, needs an owner call",
      "or run one full-article re-audit of rev1 to produce full-article notes, then audit rev2 — costs one extra review call and re-reviews blocks already passed"
     ]
-   }
+   },
+   "ownerUpdate": "owner 2026-10-27T10:59:46Z：215-4 rev2 已由 249 用 web-target-text-chain 独审 passed 8f02f593，250 最新 211 章预览已真实合入；不再列入口卡点，不再制作审校。"
   },
   {
    "objectId": "web-chapter:nemata-jp-chapter-222-1",
@@ -2270,7 +2285,7 @@
    "pdfPages": [
     183
    ],
-   "currentDisposition": "decision-hold",
+   "currentDisposition": "decision-hold-b-line-parent-audit-uncertain-rejected-by-249",
    "origin": "COAC-250 unified chapter register 2026-10-27",
    "newThisStage": true,
    "diskShaVerified": true,
@@ -2283,7 +2298,8 @@
     "detail": "uncertain: the source sentence carries a quantity ambiguity"
    },
    "hold": "Earlier instruction stands: keep the author's 「１枚切れ１枚見え」 exactly, do not rewrite it to 持ち and do not insert an in-body note until the annotation wording is agreed. The source gate for this article is also blocked by the same kind of affiliate tracking pixel, so no revision route is open.",
-   "modelCalls": 0
+   "modelCalls": 0,
+   "ownerUpdate": "owner 2026-10-27T10:59:46Z：183-1 父审 uncertain、越界改写已被 249 拒绝，B 已保留原稿待裁决；不是可直接修错项，A 线不处理。"
   },
   {
    "objectId": "web-chapter:nemata-jp-chapter-197-1",
@@ -3468,7 +3484,7 @@
   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter03-section011.6ad44173945b9347cd8dd7c44640fa3341bf8e83109695e4cd8aacc6d3d98b21.json",
   "note": "Isolated revision from the 249/250 register set; parent receipt, parent candidate and raw preserved."
  },
- "refreshedAt": "2026-10-27T10:50:00.000000+00:00",
+ "refreshedAt": "2026-10-27T11:58:00.000Z",
  "byOrigin": {
   "COAC-248 old PDF 12": 5,
   "COAC-247 new PDF return": 3,
@@ -4710,5 +4726,22 @@
    ]
   },
   "nextBatch": "p217 rev4 audit -> if only the tile dispute remains, owner/249 limited adjudication; then nemata-jp:page:257 and the supplement"
+ },
+ "round20261027T1155": {
+  "round": "2026-10-27T11:15-11:58Z",
+  "trigger": "owner 2026-10-27T10:59:46Z（更新过期阻塞信息，优先可修源文错误）",
+  "resolved": [
+   "web-chapter:79-cn-chapter-081-8"
+  ],
+  "modelCalls": {
+   "production": 1,
+   "audit": 1,
+   "void": 0,
+   "failedNoCall": 1
+  },
+  "failedNoCallNote": "首次派发时冻结 runner 副本缺 textbook-production-web-visual.py，在读取该文件阶段即退出（ENOENT，node 未发起模型调用、无 raw 回执）；补齐完整 frozen-runner 后重跑，只有 1 次有效制作。",
+  "notes": [
+   "215-4 已按 owner 更新移出卡点；211 已并入 250 预览；183-1 属 B 线 decision-hold；p217 交 249 单张限定核读；p257 保持 unknown 且不阻塞。"
+  ]
  }
 }

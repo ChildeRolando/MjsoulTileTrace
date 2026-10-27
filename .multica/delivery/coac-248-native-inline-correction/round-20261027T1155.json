@@ -1,0 +1,89 @@
+{
+ "schema": "coac-248-round-record/1",
+ "recordedAt": "2026-10-27T11:58:00.000Z",
+ "round": "2026-10-27T11:15-11:58Z",
+ "trigger": "owner 2026-10-27T10:59:46Z：更新过期阻塞信息；217 唯一争议交 249 限定核读、无证据保持 unknown；此类难辨单牌不阻塞其它章节，优先继续可修的源文错误",
+ "objects": [
+  {
+   "objectId": "web-chapter:79-cn-chapter-081-8",
+   "articleId": "cv1721475",
+   "result": "passed",
+   "parent": {
+    "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1721475.display.json",
+    "sha256": "50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853",
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1721475.50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853.json"
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1721475.r1.json",
+    "sha256": "d1fc1ea8f072cc73c3c1a1649f3a7608f6fd55ecb38be8ff19a34340d5c2a3dd"
+   },
+   "audit": {
+    "path": "audit/web/articles/79-bilibili-cn/cv1721475.d1fc1ea8f072cc73c3c1a1649f3a7608f6fd55ecb38be8ff19a34340d5c2a3dd.json",
+    "sha256": "f1328e6a67ddce5f3df448d8533ac7e83009a7e18132ae7e6c070d5385468458",
+    "status": "passed",
+    "method": "independent-sol-high-full-article-review"
+   },
+   "targets": [
+    "79-bilibili-cn:cv1721475:b0004:figure",
+    "79-bilibili-cn:cv1721475:b0006:figure",
+    "79-bilibili-cn:cv1721475:b0008:figure",
+    "79-bilibili-cn:cv1721475:b0018:figure"
+   ],
+   "changed": "四处 figure 的牌码按原图重读：9s→7s 共八处（b0004 一、b0006 四、b0008 二、b0018 一），b0018 切2s 行首张饼 4p→5p 一处。正文 11 块与另外 4 图逐字节不变。",
+   "sourceVerification": "派发前本线自己按原图逐张放大复读：7s＝一根红竹＋两组三根绿竹，8s＝双 M 形，b0018 首张饼为五圆含中心红点＝5p；与父审、修订模型三方一致。",
+   "callIds": {
+    "production": "64227eb7-60cb-482f-a24b-0f26ce33fa51",
+    "audit": "563fb29b-10ba-471f-bb8c-e91e1e2cb224"
+   },
+   "productionUsage": {
+    "inputTokens": 22164,
+    "cachedInputTokens": 0,
+    "outputTokens": 2013
+   },
+   "auditUsage": {
+    "inputTokens": 27327,
+    "cachedInputTokens": 0,
+    "outputTokens": 3705
+   },
+   "handoff250": "integration/coac250-incremental-081-8-20261027.json"
+  },
+  {
+   "objectId": "79-cn:page:217",
+   "result": "交 249 限定核读，本轮 0 调用",
+   "handoff": "integration/coac249-p217-single-tile-read-20261027.json",
+   "policy": "只裁北家舍牌第二行第二张（8m vs 9m）；不做整页审、不以票数或单一像素相关率强改；无确定证据即保持 unknown"
+  },
+  {
+   "objectId": "nemata-jp:page:257",
+   "result": "保持 needs-repair-unknown，本轮不派审校",
+   "reason": "源图分辨率不足导致的证据不足，不是入口问题；按 owner 指示不阻塞其它章节，优先做可修的源文错误"
+  }
+ ],
+ "blockerLedgerCorrections": {
+  "nemata-jp-chapter-215-4": "owner：rev2 已由 249 用 web-target-text-chain 独审 passed 8f02f593，250 最新 211 章预览已合入 → 移出卡点，不再制作审校",
+  "web-chapter:nemata-jp-chapter-211-1": "250 最新预览已真实合入，248 不再把它当在途",
+  "nemata-jp-chapter-183-1": "父审 uncertain、越界改写已被 249 拒绝，B 保留原稿待裁决 → 属 B 线 decision-hold，不是可直接修错项，本线不处理"
+ },
+ "modelCalls": {
+  "production": 1,
+  "audit": 1,
+  "void": 0,
+  "failedNoCall": 1
+ },
+ "failedNoCallNote": "第一次派发时新 run 目录里的 frozen-runner 副本缺 textbook-production-web-visual.py（该副本来自一次纯文本修订 run），runner 在读该文件时 ENOENT 退出，node 未启动 codex、无 raw 回执、0 调用；换用带视觉辅助的完整 frozen-runner（f31c255e…）后重跑，只有 1 次有效制作。",
+ "entryIntegration": {
+  "claim": "79-cn-chapter-081-8 已按父候选 SHA 50b62ce5… 在 parallel/claims 原子认领（lane A / COAC-248 Mika），过审后保留至 250 消费",
+  "makerSlot": "派发前 acquire maker-A，调用后 release；全程 1 路制作，未与 B 线重叠",
+  "bLineUntouched": "未动 B 线已认领的 338/273/246/237/131/183 与 B 命名空间候选"
+ },
+ "stillOpen": [
+  "79-cn:page:217（等 249 单张核读）",
+  "nemata-jp:page:257（unknown，不阻塞）",
+  "web-chapter:79-cn-chapter-090-6（cv1721510，三条 figure 牌码问题，下一批可走同一入口）"
+ ],
+ "nextBatch": "按同一已验证入口做 79-cn-chapter-090-6（cv1721510）：派发前自己按原图复核三处 figure 的牌码，1 次制作 + 1 次独立全章审校；217 只等 249；257 不追加审校",
+ "entryFindings": {
+  "webDeterministicFieldCorrectionNotAvailable": "先试过 0 调用确定性改法（脚本 scripts/_build_web_figrev_081_8.mjs）：verifyWebRevisionContent 与 deterministic checks 都过，但 verifyWebProductionCall 以 web_production_figure_not_from_bound_output 拒绝，因为修订目标 figure 必须来自一次真实模型制作输出。web 路径没有 PDF native-inline 那种按 job 获准的确定性入口，所以最终走真实制作。",
+  "frozenRunnerIncompleteCopy": "coac248-web-201-1-rev1 的 frozen-runner 是纯文本修订副本，缺 textbook-production-web-visual.py；用它派发会在读视觉辅助文件时 ENOENT。完整副本取 coac248-web-227-246-20261027。"
+ }
+}
