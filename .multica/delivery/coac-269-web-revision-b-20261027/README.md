@@ -3,12 +3,15 @@
 Ticket-local evidence bundle for the Multica ticket `COAC-269` (line B of the parallel editing split
 authorised 2026-10-27T09:23Z). Shared code, the unified register, selection and pointers were not modified.
 
-Current state: **b0396/b0962 both passed their real first independent target audits with249**.
-Candidate `00074d1c…09cbe2` extends the actual `b2417de1…967c2f` parent. Only the two exact
-texts changed; other1193 blocks,524 figures,tableContext and b0168 retain their parent content
-and order. The separate allowance has used **2 production +2 independent first audits =4/4,
-remaining0, failed/void0, retry0**. This return registered evidence with **0 new model calls**.
-See Batch18 for production and Batch19 for the independent results and effective remaining view.
+Current state: **b1017/b1181 produced on the latest parent; first target audits handed to249**.
+Candidate `b90f7c4f…507458` extends actual `00074d1c…09cbe2`; only these two text fields changed.
+The new allowance used **2 production /0 audit here, maximum4, two first audits reserved, retry0**.
+All1193 non-target blocks and524 figures, including passed b0168/b0396/b0962 and table/Q8 scope,
+retain their parent bytes and order. Effective blockers remain7 until genuine new review results.
+See Batch20 for exact targets, real calls, request constraints and handoff.
+
+b0396/b0962's independent first target passes remain valid. Their distinct previous allowance used
+**2 production +2 independent first audits =4/4, remaining0, failed/void0, retry0** (Batch18/19).
 
 b0168's earlier independent pass remains valid and its separate **2/2** allowance is exhausted
 (Batch17). Six-table and Q8 accepted supplements are inherited by unchanged scope hashes with
@@ -1343,3 +1346,77 @@ and existing244/250 dispatch receipts are captured. Existing wakeups
 own downstream aggregation; no duplicate wakeup was created. Other chapters and branch scopes
 were untouched, including159/242 and PDF218–220. The ticket remains in_progress; no full-chapter
 integration or active-pointer change was made.
+
+## Batch20 — exact b1017/b1181 production and first-audit handoff
+
+Authorization:269 comment `01a17f72-535c-762b-b136-2bbacd5c6cae`, maximum two existing clear-error
+text targets, each one production and one first audit, maximum4 real calls, failed/void counted,
+zero retries. The actual250 effective register SHA
+`6d122aa508b6eb57a4122472c52bd96ee78e1b54ec8d1299ac77c0aa1e688617` retains7 blocking findings.
+The two qualifying text errors have complete source/conditions; complex b0785/b0947 figure errors,
+public unknowns and source-notes remain untouched. Neither severity nor unknown status was changed.
+
+Parent SHA `00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2`, real parent audit
+`81313304a429d04c4895798824756d0be0b23d0c03dc0ab6e7f4aa77aa1699f8`.
+New candidate SHA `b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458`.
+
+- `modern-yabejp-ja:chapter06-exercise003:b1017` (group009): only `三元牌役种` becomes
+  `三元役（小三元／大三元）`. Complete Q65 b1008–b1021 and11 original PNGs bind the source term,
+  white/red dragon pairs, single green dragon, dora, honitsu/toitoi and discard conditions.
+  The parentheses expand a translated source term; they are not represented as verbatim Japanese
+  or a separate authorial claim/editorial note.
+- `modern-yabejp-ja:chapter06-exercise003:b1181` (group011): only the text becomes
+  `这一条件即使不成立，也应优先于其他对子保留双两面形。`. It joins the unchanged preceding
+  b1179 `宝牌` and b1180 3m figure into an explicit concession. Complete Q78 b1169–b1189 and15
+  original PNGs preserve double-sided shape and duplicate-acceptance reasoning. Adjacent text,
+  image sequence and all original numerical/hand conditions are unchanged.
+
+| target | production call | actual model/effort/images | input/cache/output | ms | raw SHA |
+| --- | --- | --- | --- | --- | --- |
+| b1017 | 7bfe50e0-73ac-4d57-b3eb-c0a1bb6937f1 | gpt-6.1-terra/max/11 | 24642/0/106 | 35985 | ba2804c56a1a0cb4a218beb99e56484dc45cc98b5bb29df5e685287fe546b1db |
+| b1181 | 2ba838ef-ba1a-4f63-af3a-e5f6b7ab9de1 | gpt-6.1-terra/max/15 | 28278/0/129 | 8350 | 7f8f7c33f0b09686a41296dbd0ab6eb1717b7ce490d62cc93d58afd1dfe5f322 |
+
+Totals:52920 input/0 cached/235 output tokens,44335ms, production2/first-audit0 here, two first
+audits reserved; failed/void0, retry0. Money and upstream actual executions are unknown. Producer
+completed once with exit0; original maker-B and chapter claim released normally. Full raw including
+requestExecution/actual CLI args, ordered image SHA/bytes, session/events/schema/prompt/output is retained.
+
+Frozen `audit/runtimes/coac269-283-10171181-v1-20261028/runtime-manifest.json` SHA
+`c339edcd5c38e35473ab1c726197730ae92675fe761bc548ee24c59182b19718` binds32 files. CLI is byte-identical
+to244's verified vision production schema-v2. The exact producer helper is reused with the new
+fixed contract, overriding the generic retranslation prompt before actual request construction and
+restricting schema text to the single expected value. Output and complete-candidate checks reject
+non-whitelisted punctuation, Markdown, notes, blocks, images, sourceSegments/tableContext or order.
+The audit adapter preserves previous exact-parent validation and adds only this current parent/notes,
+two IDs/groups, real parent audit verification and unchanged original batch-plan inheritance. All
+other errors remain deferred by original issue SHA/severity. No old frozen runtime/raw was rewritten.
+
+`node artifacts/b20-10171181/preflight.mjs` passed34 zero-call cases, including old-entry refusal,
+real original/parent review chain, missing/modified/duplicate deferred rejection, foreign scope,
+changed original passed targets, extra text/notes/figures/order/tableContext, and both actual schema-v2
+requests (11/15 images, exact enum). Before dispatch, the initial local plan check refused the new
+incremental parent; an exact byte-bound ancestor-plan case resolved it. A local register assertion
+then refused the unified row's original rev1 SHA; the runner now requires both that original binding
+and250's pinned latest-candidate/latest-audit sidecar. Both refusals were before dispatch and0 model
+calls; they are not failed/void remote calls or paid retries. Final frozen bytes passed before dispatch
+and after collection. `python run.py` then completed two successful model calls; `node selfcheck.mjs`
+passed actual request/raw/ledger/output and recursive production/parent-audit checks.
+
+Selfcheck independently preserves1193 body blocks, all524 figure objects, passed0168/0396/0962 scopes,
+six-table137 blocks/94 figures and the original read-only supplement verifier, Q8's receipt/raw and
+mandatory unknown limits, batch010113 blocks and tableContext. Complete standard parent receipts
+and raw remain inherited; group009's new1017 target does not re-review0962.
+
+Shared handoff `integration/coac269-283-10171181-handoff-249-20261028.json` SHA
+`25dc6daa874ad5425a49c57e60d793080616de9a807776aec301c1d291f57a9a` publishes exact review requests
+and shared immutable paths, avoiding a temporary worktree dependency. The initial249 snapshot had
+no active run, matching wakeup, same-SHA audit ledger call or standard audit. Its one-shot wakeup
+`01a17f78-c13a-7ee3-83f7-1a4088f383a1` carries only the reserved two first audits and existing guard.
+The same rule was explicitly triggered once (`triggered:true`); readback still reports fire_count0,
+last_task_id null, with another249 run active and another queued. Therefore this handoff is durably
+registered pending249, not an audit start or result. No second rule/consumer or further trigger was added.
+It must recheck deduplication/guard, use real terra/max image payloads, and preserve all failed calls.
+Both target and generic whole-article verifier outcomes must be collected; expected whole-chapter
+needs-repair refusal cannot cause a retry. Genuine results return to this authorization thread and
+existing244/250 item aggregation. No new independent pass, reduced effective blocking count,
+whole-chapter integration or active-pointer change is claimed here. Ticket and draft PR remain open.

@@ -1,0 +1,93 @@
+[
+  {
+    "agent_id": "b144c077-cadd-4749-a53d-4b9cb98191b8",
+    "attempt": 1,
+    "attribution": {
+      "evidence": {
+        "kind": "comment",
+        "ref_id": "01a17f78-7820-76a5-8d26-ae89380212df"
+      },
+      "initiator": {
+        "avatar_url": "https://lh3.googleusercontent.com/a/ACg8ocKzN2Qu67BZFbviPJ_kdF2roz84uZSg-02QIY5cNE3fRv3CDg=s96-c",
+        "email": "childerolandoo@gmail.com",
+        "id": "19bc279c-5832-46ce-b738-9f11c08fddc5",
+        "name": "Roland Deschain"
+      },
+      "originator": {
+        "avatar_url": "https://lh3.googleusercontent.com/a/ACg8ocKzN2Qu67BZFbviPJ_kdF2roz84uZSg-02QIY5cNE3fRv3CDg=s96-c",
+        "email": "childerolandoo@gmail.com",
+        "id": "19bc279c-5832-46ce-b738-9f11c08fddc5",
+        "name": "Roland Deschain"
+      },
+      "precise": true,
+      "source": "direct_human"
+    },
+    "completed_at": null,
+    "created_at": "2026-10-27T22:26:03Z",
+    "delivered_comment_ids": [],
+    "dispatched_at": null,
+    "error": null,
+    "id": "01a17f78-782b-79dd-b47b-dea328ba75c8",
+    "issue_id": "01a17471-1595-79d5-bdfa-6feaa65172c0",
+    "kind": "comment",
+    "max_attempts": 2,
+    "priority": 3,
+    "result": null,
+    "runtime_id": "731c52da-6d5e-4c5b-80c9-e9f39803735b",
+    "started_at": null,
+    "status": "queued",
+    "trigger_comment_id": "01a17f78-7820-76a5-8d26-ae89380212df",
+    "trigger_summary": "接24622:20四页（现代1–3/317）226源块对应及两项定向审核包，明确本批最多2次独立审（每包1），0制作0retry，失败void计。先核已有同SHA证据，不能重复无新输入识低清封面；必须给真实原图/邻近正文/准确署名来源，含图terra/max。区分可读正文目录完整忠实、317已知译义错误、封面6项看不清文字、同图署名冲突，不凭常识猜人名出版信息。判断非核心封面unknown能否附明…",
+    "workspace_id": "c68413ed-69a0-4781-b155-2123e9a3b805"
+  },
+  {
+    "agent_id": "b144c077-cadd-4749-a53d-4b9cb98191b8",
+    "attempt": 1,
+    "attribution": {
+      "delegated_from_task_id": "01a17f71-f70b-782f-853e-913cfcd892b8",
+      "evidence": {
+        "kind": "issue_wakeup",
+        "ref_id": "01a17f77-2629-791e-b3b5-1d24bf2b54ab"
+      },
+      "initiator": {
+        "avatar_url": "https://lh3.googleusercontent.com/a/ACg8ocKzN2Qu67BZFbviPJ_kdF2roz84uZSg-02QIY5cNE3fRv3CDg=s96-c",
+        "email": "childerolandoo@gmail.com",
+        "id": "19bc279c-5832-46ce-b738-9f11c08fddc5",
+        "name": "Roland Deschain"
+      },
+      "originator": {
+        "avatar_url": "https://lh3.googleusercontent.com/a/ACg8ocKzN2Qu67BZFbviPJ_kdF2roz84uZSg-02QIY5cNE3fRv3CDg=s96-c",
+        "email": "childerolandoo@gmail.com",
+        "id": "19bc279c-5832-46ce-b738-9f11c08fddc5",
+        "name": "Roland Deschain"
+      },
+      "precise": true,
+      "source": "trigger_owner"
+    },
+    "can_supplement": true,
+    "completed_at": null,
+    "created_at": "2026-10-27T22:26:01Z",
+    "delivered_comment_ids": [
+      "01a17f51-ad02-7cc8-9b36-7a61db64898a"
+    ],
+    "dispatched_at": "2026-10-27T22:26:02Z",
+    "error": null,
+    "handoff_note": "Wakeup 01a17f77-2629-791e-b3b5-1d24bf2b54ab triggered. Instruction:\n接247用户新授权01a17f71-f701-7cdb-915b-e3b67c668ab7，推进218/219限定收口，先零调用核已有证据，不再只登记hold。用户明确只在218改后仍需语义确认时最多追加1次限定独审，失败/void计、0retry；219本批0新调用。旧预算和省下2制作额度均不转用。不得整页复审/反复猜牌，不审217/220、不动215或其它章。\n\n根E:/AgentData/Coach/knowledge/processing。唯一派发合同integration/coac247-pdf218219-bounded-close-20261028/dispatch-contract.json，SHA1b11425e77ee533ec2141dc75e2a4640de684feed52801feea0d98bb9fd2f3e6；主体handoff.json SHA0637abaa998292322b84bcb9dfbd4adb9a1e83dabc91a94535d4776d1e2a5c67。先逐文件重算30冻结runtime及proof/approval/source/parent/raw/request/image绑定；原唯一audit guard、STOP、同SHA原审/ledger/在途/claim去重保留。已有合法244同SHA限定准入则原样核验复用，不重复造准入或收费。\n\n218零制作新候选production/coac247-pdf218-consistent-unknown-20261028/candidates/79-cn/page-0218.json，SHAdf8f2de33d1baf5141533810f22b59855aef0145729d612f003ae123c4e24157。实际只将手牌开头11334789m 234p 67s改为11334789m 234p ?s7s（?s表示首张索子点数未知；原稿记为6s，尚未核实）。末尾及unknowns的原未核实说明保留，没有猜另一点数。原文body、条件与推测语气、caption、河牌unknown、ドラ中性标签、源图和顺序不变。\n\n严格派生链有两层：immediateDerivedParent为已真实靶审5d0091cb，零调用逆向恢复其整文件SHA；为兼容原native raw verifier，approval的parentPath保持真实最初生产9ff64a45，已将合法叶字段修改合并为从原raw到新稿的精确变换，并可逆向恢复该原生产整文件SHA。此前独审d50eb164/原raw72ee7561作为独立新语义依据绑定，原first-review74cfe8d8/生产raw不改。不是以新candidate伪称原模型输出。30文件runtime只替换218精确approval pin，219及所有验证/unknown/语义门禁逻辑不改。loadNativeInlineCorrection和auditPage到unpaid reviewer stub均实跑通过，无模型调用。\n\n219仍用464c607a262b415dece3f35b213aef19b632266f7c4917f3107a04d5e1971bc9，同候选同unknown，不制作不重读牌。219-limited-supplement-proposal.json将原body字节hash、b4/b5“要是纯粹的何切问题”与b6/b7“下家的副露听牌与否以及打点多少都还不清楚”原句逐项映射真实9c0751f9 raw的独立教学影响陈述，带原字段SHA与UTF8位置、完整原图/crop、两处unknown及灰格/暗手等未知。原targetVerdict=uncertain、技术needs-repair、original-2=uncertain和原raw/父审全部保持。该文件是可核补充证明提案，admissionGranted=false，不冒充新模型或全页passed。\n\n按用户要求沿217/159/242既有精确SHA limited-unknown展示契约：先零模型核219的独立“因此这些未知不妨碍理解上述条件性论证，但仍须保留原问题的不确定性。”是否在现稿全部条件/unknown/图引用中严格满足。满足则记录真实有限准入/组合证明，保留原技术false、不声称完整识牌，立即交250按scope接入；219不追加新模型。两页共12项非目标/unknown/原图/条件/顺序破坏拒绝已过，预检在preflight.json和dispatch-contract.json。\n\n218也先零模型核原独立指令是否已足够覆盖本次单字段内部一致性修正及具体原论证的限定展示；不要机械要求把未知全部识别。需要新的语义影响确认时才使用optional218-review-request.json（SHAc5728701ef690dbbb673a09614eec7c4dca8703bac6218afe76ad1f75611b2f1），该真实prepared CLI boundary冻结完整原217–220上下文/218图、原问题、精确变换，schema逐原条件判断，含图实际terra/max、3图SHA/bytes/-i顺序。只问一致性与显式unknown下原条件/推测论证是否忠实可理解；不重新猜8张河牌/首张索子，不证明实际双东、暗手、打点或最优结果。不得用默认auditPage整页重审。原CLI prepareTextbookCliRequest返回closedPrompt，schemaSha用实际compactJSON文件；早期免费预检返回字段引用错误已停在发布前，旧schema草稿保留，最终边界用optional218-request-v2，0真实调用。\n\n若调用须保留实际requestExecution、prompt/schema/closedPrompt、callID/用量/时长及完整raw；失败/void也计唯一1次，0retry。schema结果只有针对新SHA的有限语义证明，不伪造fullPageCompared或改写旧uncertain。任何不足如实保留具体原因并释放，不靠猜牌收口。\n\n逐页合法限定组合即交250，不等本票结束。handoff含217–220所有源块归属，本章22=6+5+9+2；217限定图与218-b3 char165后非原文强制限制注成对复用，220原完整物理页passed、只b1/b3属于本章，其余8块2图归下一章；217 b1/b3仍归已入215。250须按实际准入scope显示全部unknown与原图引用，真实MCP/Arena读全22块再判章；未齐不能全章通过/切active。回写现有244 remaining owner和247原授权线程，不新建流程票、不启动无任务消费者。\nTrigger facts (read current state before deciding what to do):\nwakeup.manual {\"actor_id\":\"19bc279c-5832-46ce-b738-9f11c08fddc5\",\"actor_type\":\"member\",\"event_id\":\"manual:01a17f78-7068-7f12-9e37-c5bab23c74d1\",\"requested_at\":\"2026-10-27T22:26:01Z\"}\ntime.due {\"kind\":\"at\",\"planned_at\":\"2026-10-27T22:24:38Z\"}\n",
+    "id": "01a17f78-7075-7329-9987-bbd01fb153cf",
+    "issue_id": "01a17471-1595-79d5-bdfa-6feaa65172c0",
+    "kind": "comment",
+    "max_attempts": 2,
+    "priority": 3,
+    "relative_work_dir": "coach-rolan-2123e9a3b805/coac-249-bbd01fb153cf/worktree",
+    "result": null,
+    "runtime_id": "731c52da-6d5e-4c5b-80c9-e9f39803735b",
+    "started_at": "2026-10-27T22:26:06Z",
+    "status": "running",
+    "supplement_capability": "task-supplement-v1",
+    "trigger_comment_id": "01a17f51-ad02-7cc8-9b36-7a61db64898a",
+    "trigger_summary": "Wakeup: 接247用户新授权01a17f71-f701-7cdb-915b-e3b67c668ab7，推进218/219限定收口，先零调用核已有证据，不再只登记hold。用户明确只在218改后仍需语义确认时最多追加1次限定独审，失败/void计、0retry；219本批0新调用。旧预算和省下2制作额度均不转用。不得整页复审/反复…",
+    "wakeup_id": "01a17f77-2629-791e-b3b5-1d24bf2b54ab",
+    "work_dir": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-bbd01fb153cf\\worktree",
+    "workspace_id": "c68413ed-69a0-4781-b155-2123e9a3b805"
+  }
+]

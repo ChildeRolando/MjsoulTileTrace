@@ -1,0 +1,442 @@
+{
+  "at": "2026-10-27T22:23:52.529259+00:00",
+  "chapterId": "nemata-jp-chapter-283-1",
+  "sourceId": "modern-yabejp-ja",
+  "articleId": "chapter06-exercise003",
+  "registerSha256": "cb16fcdca7204986cec280e1cf1b822197d20af5f80d06bee7e3bf6fa7de5eb8",
+  "previewSha256": "4c31559cd768b8c6a59b187d5ea2274cfec96dfdd972a915fa2a7ef385b66415",
+  "registerRow": {
+    "chapterId": "nemata-jp-chapter-283-1",
+    "originalChapterId": "nemata-jp-chapter-283-1",
+    "sourceId": "nemata-jp",
+    "title": "「鴉〃の麻雀解説」サイト問題",
+    "units": 1,
+    "ownedSourceBlocks": 1124,
+    "adjudicationGroup": "confirmed-produced-not-covered",
+    "covered": false,
+    "coverageRoute": null,
+    "approvedWebCorrespondence": {
+      "articleId": "chapter06-exercise003",
+      "webSourceId": "modern-yabejp-ja",
+      "tier": "url-header",
+      "evidencePath": "integration/modern-pdf-url-coverage.json",
+      "substitutionAllowed": true,
+      "bodyEquivalenceConfirmed": false,
+      "articleInPreview": false
+    },
+    "existingCandidate": {
+      "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev1.json",
+      "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+      "bodyBlocks": 1195,
+      "sourceSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+      "currentSourceSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+      "sourceBoundCurrent": true,
+      "auditStatus": "needs-repair",
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+      "auditRecordedAt": "2026-10-27T04:39:45.647Z",
+      "deterministicPassed": true,
+      "semanticComplete": false,
+      "repairErrors": 389,
+      "revision": null
+    },
+    "pdfRoute": {
+      "pagesTotal": 20,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        283,
+        284,
+        285,
+        286,
+        287,
+        288,
+        289,
+        290,
+        291,
+        292,
+        293,
+        294,
+        295,
+        296,
+        297,
+        298,
+        299,
+        300,
+        301,
+        302
+      ],
+      "pagesDetail": [
+        {
+          "page": 283,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 48
+        },
+        {
+          "page": 284,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 54
+        },
+        {
+          "page": 285,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 58
+        },
+        {
+          "page": 286,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 76
+        },
+        {
+          "page": 287,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 62
+        },
+        {
+          "page": 288,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 59
+        },
+        {
+          "page": 289,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 66
+        },
+        {
+          "page": 290,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 61
+        },
+        {
+          "page": 291,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 73
+        },
+        {
+          "page": 292,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 78
+        },
+        {
+          "page": 293,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 64
+        },
+        {
+          "page": 294,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 30
+        },
+        {
+          "page": 295,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 27
+        },
+        {
+          "page": 296,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 68
+        },
+        {
+          "page": 297,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 58
+        },
+        {
+          "page": 298,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 24
+        },
+        {
+          "page": 299,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 65
+        },
+        {
+          "page": 300,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 65
+        },
+        {
+          "page": 301,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 58
+        },
+        {
+          "page": 302,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 30
+        }
+      ]
+    },
+    "gaps": {
+      "ownedSourceBlocks": 1124,
+      "missingProductionBlocks": 0,
+      "producedBlocks": 1124,
+      "acceptedBlocks": 0,
+      "acceptanceGapBlocks": 1124,
+      "acceptanceGapPages": [
+        283,
+        284,
+        285,
+        286,
+        287,
+        288,
+        289,
+        290,
+        291,
+        292,
+        293,
+        294,
+        295,
+        296,
+        297,
+        298,
+        299,
+        300,
+        301,
+        302
+      ],
+      "pagesWithoutCandidate": [],
+      "pagesWithoutPassedCandidate": [
+        283,
+        284,
+        285,
+        286,
+        287,
+        288,
+        289,
+        290,
+        291,
+        292,
+        293,
+        294,
+        295,
+        296,
+        297,
+        298,
+        299,
+        300,
+        301,
+        302
+      ]
+    },
+    "verdict": "produced-needs-repair",
+    "coac246": {
+      "action": "audit-first",
+      "auditStatus": "no-receipt",
+      "candidateSha256": "fcde9f00cb9433bb5dec6a47d688ea7abb0c919c0aa2dac3012fd080d32a5893",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.display.json",
+      "repairErrors": 0,
+      "units": 1,
+      "blocks": 1124
+    },
+    "latestScopedCandidate": {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t396962r1.json",
+        "sha256": "00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2.json",
+        "sha256": "81313304a429d04c4895798824756d0be0b23d0c03dc0ab6e7f4aa77aa1699f8"
+      },
+      "status": "needs-repair",
+      "chapterAccepted": false,
+      "effectiveIssueRegister": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-283-396962-effective-issues-20261028.json",
+        "sha256": "6d122aa508b6eb57a4122472c52bd96ee78e1b54ec8d1299ac77c0aa1e688617"
+      },
+      "scopeInheritance": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-283-396962-scope-inheritance-20261028.json",
+        "sha256": "1c18b7ff26e7b9ab1a697e7d842934ce3b5a64b2e9e37813bb0cd0c8f0955e28"
+      }
+    },
+    "targetEvidence396962": {
+      "targetCheckpoints": [
+        {
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0396",
+          "checkpoint": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-004.json",
+            "sha256": "e0bce7ea57114babe0e0adfe650f659f98b491d6fd69ecd7d982cb2113d8b726"
+          },
+          "raw": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\c500112c-2e65-418d-bda9-8948ea4d6e16.json",
+            "sha256": "f381604197b33c1c60b53423c8f0f571d13efb6a11c1a52ddd2d635958d9fbfc"
+          }
+        },
+        {
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0962",
+          "checkpoint": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-009.json",
+            "sha256": "882344e39af1888d3367ebb5154642cb09e5f9f20cd1a0cc6d8fa8fe721762f0"
+          },
+          "raw": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\1ca0aa10-d2d0-489c-8f89-ca667e4cba4f.json",
+            "sha256": "a38891d3866cbd2decb70c8f0ab3fb219cbc332617f5369198eb3f80e36340cc"
+          }
+        }
+      ],
+      "counts": {
+        "originalIssues": 19,
+        "resolved": 10,
+        "remainingBlocking": 7,
+        "sourceNotes": 2,
+        "originalDeferred": 16,
+        "effectiveDeferredResolved": 9,
+        "effectiveDeferredOpen": 7,
+        "newAggregateDeferred": 14,
+        "newAggregateDeferredResolved": 7,
+        "newAggregateDeferredOpen": 7
+      },
+      "remainingBlocking": [
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "sourceEvidence": "原图、放大图及源alt一致：12355789m34688s，摸5s。候选为12355789m36788s，摸5s。",
+          "description": "下方13张手牌中的4s、6s被依次错录为6s、7s。正确牌形切8s后听嵌7s；候选牌形会改变这一教学前提。",
+          "suggestedRepair": "将下方手牌完整改为1m 2m 3m 5m 5m 7m 8m 9m 3s 4s 6s 8s 8s；分开的摸入牌仍为5s。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "sourceEvidence": "截图顶部及左右边缘的三列牌分别位于其他三家的手牌位置；中央翻开9s指示牌附近才是牌墙。",
+          "description": "候选将其他三家的隐手统称为牌墙，遗漏了隐手未知这一局面信息。",
+          "suggestedRepair": "区分三家背面或侧面朝向观者的隐手与中央牌墙，明确三家隐手牌面未知，不推定具体牌码。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "sourceEvidence": "候选unknowns仍列左河从上至下第4、6张及右河第1张万子点数未辨清；本次也未能可靠确认这三张的全部牌码。",
+          "description": "这三张属于公开河牌，并非源隐手；可能影响可见张数与等待判断，不能以完整转录通过。",
+          "suggestedRepair": "逐张确认这三张河牌并同步更新transcription及unknowns；确认前保留阻断状态，不臆填牌码。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+          "sourceEvidence": "源图替代文本为“立体牌姿（４５赤５６７ｍ２２４５赤５６７９ｓ ２ｓポン？）”；图中左方末张2s有蓝色高亮。",
+          "description": "候选记录了高亮牌，却没有明确转写本题询问是否碰2s。仅有“问题60的牌局画面”不足以完整呈现题目。",
+          "suggestedRepair": "在图注或转写中补入：“是否碰上家刚切出的2s？”并明确高亮2s是此次鸣牌判断的对象。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+          "sourceEvidence": "候选将上方牌河首张及右方牌河首张分别记作“[风牌未辨明]”；两处在所附原图及放大图中均有可见牌面。",
+          "description": "这两处是实际弃牌，不是隐手或装饰。当前转写尚未满足完整读取牌河的要求，本次不能确认其精确牌种。",
+          "suggestedRepair": "完成两张风牌的定向辨认并替换占位符；在确认前保留unknowns，不得猜填或将完整牌河标为已通过。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+          "sourceEvidence": "“ターツオーバーで三元役の可能性があるので発は残す”；手中已有白与中的对子及孤张发。",
+          "description": "“三元牌役种”容易泛指普通役牌，未清楚表达此处小三元／大三元方向对保留发的意义。",
+          "suggestedRepair": "改为：“搭子过多，又有三元役（小三元／大三元）的可能，所以保留发，宝牌为……”"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+          "sourceEvidence": "b1179—b1181连读为「ドラ［三萬］でなくてもダブルリャンメンは他のトイツより優先して残す。」",
+          "description": "候选连读为“宝牌［3m］即使不是，也应……”，未形成明确的中文让步条件句。",
+          "suggestedRepair": "将b1179改为“即使”，保留b1180的3m牌图，将b1181改为“不是宝牌，也应优先于其他对子保留双两面形。”"
+        }
+      ],
+      "modelCalls": 0
+    }
+  },
+  "selectedWeb": [],
+  "selectedPdf": [],
+  "boundPassedAlternatives": [],
+  "claim": {
+    "ok": true,
+    "action": "check-chapter",
+    "chapter": "nemata-jp-chapter-283-1",
+    "held": false
+  },
+  "existingCandidateNames": [
+    "chapter06-exercise003.coac269b0168r1.json",
+    "chapter06-exercise003.coac269t396962r1.json",
+    "chapter06-exercise003.display.json",
+    "chapter06-exercise003.rev1.json",
+    "chapter06-exercise003.rev2.json"
+  ],
+  "priorCallIds": [
+    "edde72bb-7987-46a8-b362-498d0d749868",
+    "26d38123-094b-44a5-88d7-53d608b87960",
+    "db32f7fc-73ab-4d74-8919-87afb9e60863",
+    "a9e7c7a3-a0af-4f37-841d-34c2df4e097a",
+    "5966a551-45d4-4351-a554-8f2a0d1e6426",
+    "4b534fa9-8c63-428f-abb6-5f9b932d7242",
+    "d43a772e-04c1-4b41-8218-e5b5aaf89759",
+    "8d3c1107-28c5-466d-aaa3-9a1a9ec4e344",
+    "3bef5439-b6f8-46f9-a143-08a0e3072492",
+    "f0c50fbe-dad3-4f19-a861-a3286297f4f2",
+    "3cf40820-e956-463d-abb3-c7a5fb494c11",
+    "d5f1d601-b903-4b65-996f-da116c797bdf",
+    "bde14ceb-9a49-4592-b7aa-d0cfb64edc40",
+    "60ef6955-a6a3-4023-9853-01cd4da13bc2",
+    "9f557ee3-0c5e-4b7e-9f17-013466f46aa3",
+    "fafc75a7-a3fb-4db5-b899-aa4ae346fa0c",
+    "7d06f4c7-bcec-40db-bfcd-4091b6716707",
+    "ae79bc97-e5d0-426c-9845-4c5a1bd17135",
+    "c62e2ea9-2a46-4312-bb4d-8840d5c267e3",
+    "afb88d4f-143c-4fcc-a2be-204d577d7019"
+  ]
+}

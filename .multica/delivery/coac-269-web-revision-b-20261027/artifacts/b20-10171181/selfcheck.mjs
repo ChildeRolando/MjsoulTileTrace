@@ -1,0 +1,43 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {pathToFileURL} from 'node:url';
+import assert from 'node:assert/strict';
+const root='E:/AgentData/Coach/knowledge/processing',here=import.meta.dirname,runtime=root+'/audit/runtimes/coac269-283-10171181-v1-20261028';
+const read=async p=>JSON.parse(await readFile(p)),sha=b=>createHash('sha256').update(b).digest('hex');
+const pre=await read(here+'/preflight.json'),c=await read(here+'/contract.json'),result=await read(here+'/result.json'),built=await read(here+'/actual-requests.json');
+assert.equal(sha(await readFile(runtime+'/runtime-manifest.json')),pre.manifestSha256);for(const f of (await read(runtime+'/runtime-manifest.json')).files)assert.equal(sha(await readFile(f.path)),f.sha256);
+assert.equal(result.exitCode,0);assert.equal(result.productionCalls,2);assert.equal(sha(await readFile(result.candidate.path)),result.candidate.sha256);
+const parent=await read(c.parent.path),candidate=await read(result.candidate.path),source=await read(c.source.path);
+const {validateCandidate}=await import(pathToFileURL(runtime+'/exact-request.mjs'));assert(validateCandidate(candidate,parent));
+const mod=await import(pathToFileURL(runtime+'/textbook-audit-web.mjs')),cli=await import(pathToFileURL(runtime+'/textbook-production-cli.mjs'));
+const proof=await mod.verifyWebProductionCall(root,candidate);
+const changes=[];for(let i=0;i<1195;i++)if(JSON.stringify(parent.body.blocks[i])!==JSON.stringify(candidate.body.blocks[i]))changes.push({index:i,targetId:candidate.body.blocks[i].sourceBlockIds[0],before:parent.body.blocks[i].text,after:candidate.body.blocks[i].text});
+assert.equal(changes.length,2);assert.deepEqual(candidate.figures,parent.figures);for(const i of [167,395,961])assert.deepEqual(candidate.body.blocks[i],parent.body.blocks[i]);
+const reviewRequests=[];
+for(const [n,call] of result.calls.entries()){
+ assert(cli.isRecordedTextbookModel(call));assert.equal(call.model,'gpt-6.1-terra');assert.equal(call.reasoningEffort,'max');assert.equal(call.success,true);
+ const rawPath=root+'/web-production/v1/'+call.rawArtifactPath,bytes=await readFile(rawPath),raw=JSON.parse(bytes),expected=built.requests[n],target=c.targets[n];
+ assert.equal(sha(bytes),call.rawArtifactSha256);assert.equal(raw.requestPrompt,expected.request.closedPrompt);assert.equal(raw.semanticPrompt,expected.prompt);assert.deepEqual(raw.schema,expected.schema);assert.deepEqual(raw.requestExecution.images,expected.request.requestExecution.images);assert.equal(raw.requestExecution.policy,'coac244-vision-production-schema-v2-20261028');
+ assert.deepEqual(raw.parsedOutput,{translations:[{sourceBlockId:target.id,text:target.expected}],figures:[]});assert(raw.events.some(e=>e.type==='thread.started'));assert(raw.events.some(e=>e.type==='turn.completed'));
+ const scope=mod.webGroupRevisionScope(source,candidate,target.group,candidate.provenance.revision,proof.inheritedAssetIds),prompt=mod.groupRevisionPrompt(scope),schema=mod.webGroupRevisionSchema(scope),images=scope.originals.map(a=>root+'/web-sources/v1/'+a.path);
+ assert.equal(images.length,target.images.length);assert.deepEqual(scope.textIds,[target.id]);assert.deepEqual(scope.figureIds,[]);
+ reviewRequests.push({batchId:target.group.batchId,request:{prompt,schema,images,model:'gpt-6.1-sol',reasoningEffort:'high',timeoutMs:900000},resolvedModel:cli.textbookRequestConfig(images),imageBindings:await Promise.all(images.map(async path=>({path,sha256:sha(await readFile(path))}))),scope:scope.projection.reviewScope});
+}
+const convergence=root+'/integration/coac244-283-convergence-20261028';
+const {verify283TableSupplement}=await import(pathToFileURL(convergence+'/verify-supplement.mjs'));
+const tableProof=await verify283TableSupplement(root,convergence+'/table-reuse-supplement.json');assert(tableProof.passed);
+const table=await read(convergence+'/table-reuse-supplement.json'),req=await read(table.originalRequest.path),packet=JSON.parse(req.prompt.slice(req.prompt.indexOf('{'))),selected=new Set(packet.projection.source.blocks.map(b=>b.id));
+assert(c.targets.every(t=>!selected.has(t.id)));for(const [i,b] of candidate.body.blocks.entries())if(selected.has(b.sourceBlockIds[0]))assert.deepEqual(b,parent.body.blocks[i]);
+const q8RegisterPath=root+'/integration/coac250-283-effective-issues-with-q8-20261028.json',q8=await read(q8RegisterPath),q8Evidence=q8.additionalAcceptedQ8;
+for(const f of [q8Evidence.receipt,q8Evidence.raw])assert.equal(sha(await readFile(f.path)),f.sha256);
+for(const b of candidate.body.blocks.filter(b=>Number(b.sourceBlockIds[0].split(':b')[1])<=113))assert.deepEqual(b,parent.body.blocks.find(p=>p.sourceBlockIds[0]===b.sourceBlockIds[0]));
+const inheritedEvidence={b0168:{handoff:{path:root+'/integration/coac249-b0168-reviewed-target-20261028.json',sha256:sha(await readFile(root+'/integration/coac249-b0168-reviewed-target-20261028.json'))},targetBlockUnchanged:true},sixTables:{supplement:tableProof,candidateScopeBlocks:137,allScopeObjectsUnchanged:true,notNewWholeChapterPass:true},Q8:{register:{path:q8RegisterPath,sha256:sha(await readFile(q8RegisterPath))},evidence:q8Evidence,scopeObjectsUnchanged:true,mandatoryLimitsInherited:true}};
+const previousProof=await mod.verifyGroupRevisionAudit(root,c.parent.path);assert.equal(previousProof.auditSha256,c.notes.sha256);
+const priorPath=root+'/integration/coac249-283-396962-reviewed-20261028.json',prior=await read(priorPath);
+assert.equal(prior.candidate.sha256,c.parent.sha256);
+for(const r of prior.results){assert.equal(r.status,'passed');for(const f of [r.checkpoint,r.raw])assert.equal(sha(await readFile(f.path)),f.sha256);const old=parent.body.blocks.find(b=>b.sourceBlockIds[0]===r.targetId);assert.deepEqual(candidate.body.blocks.find(b=>b.sourceBlockIds[0]===r.targetId),old);}
+inheritedEvidence.b0396b0962={handoff:{path:priorPath,sha256:sha(await readFile(priorPath))},parentAuditVerified:previousProof.auditSha256,targetBlocksUnchanged:true,checkpoints:prior.results.map(r=>({targetId:r.targetId,status:r.status,checkpoint:r.checkpoint,raw:r.raw}))};
+await writeFile(here+'/review-requests.json',JSON.stringify({candidate:result.candidate,requests:reviewRequests,notDispatched:true},null,2)+'\n');
+await writeFile(here+'/inherited-evidence.json',JSON.stringify(inheritedEvidence,null,2)+'\n');
+const summary={passed:true,newModelCalls:0,candidate:result.candidate,parent:c.parent,changes,unchangedBlocks:1193,unchangedFigures:524,b0168Preserved:true,tableContextPreserved:true,productionProof:proof,reviewRequests:reviewRequests.map(r=>({batchId:r.batchId,targetTextIds:r.scope.targetTextIds,images:r.request.images.length,resolvedModel:r.resolvedModel})),inheritedEvidence,calls:result.calls,usage:{inputTokens:result.calls.reduce((n,c)=>n+c.usage.inputTokens,0),cachedInputTokens:result.calls.reduce((n,c)=>n+c.usage.cachedInputTokens,0),outputTokens:result.calls.reduce((n,c)=>n+c.usage.outputTokens,0),durationMs:result.calls.reduce((n,c)=>n+c.durationMs,0)},budget:{maximum:4,productionUsed:2,auditUsedHere:0,remainingFirstAuditMaximum:2,retry:0,fee:null,upstreamExecutionCount:null}};
+await writeFile(here+'/selfcheck.json',JSON.stringify(summary,null,2)+'\n');console.log(JSON.stringify({passed:true,candidate:result.candidate.sha256,changedBlocks:2,images:reviewRequests.map(r=>r.request.images.length),usage:summary.usage,newModelCalls:0}));
