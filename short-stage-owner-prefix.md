@@ -6,7 +6,7 @@
 
 236中性正文和非原文校注保持；其它条件/例外已判忠实，“巡目が僅か”仍未明确已进行巡数/剩余巡数。校注披露不能据此确认教学时机，不自行选读法；先补同源语义证据或用户判读。
 
-批次授权01a17ed7-c04d-71e7-82eb-57aed9c7b3e1：原2失败制作+新2制作+本2首次独审=6/6，剩0，0retry，旧失败raw保留，不把余额重复使用。两次独审均sol/high、images=[]：183 13075in/0cache/1153out，39.055秒；236 14300in/0cache/1289out，44.055秒。完整登记 integration/coac244-recorded-exact-183236-review-20261028.json；既有两个剩余register仅扩展对应行latestIndependentTextReview，不改coverage/原回执/正式active。本次一次性wakeup已fire_count1且disabled，无重复唤醒。不得派234或其它章。
+批次授权01a17ed7-c04d-71e7-82eb-57aed9c7b3e1：原2失败制作+新2制作+本2首次独审=6/6，剩0，0retry，旧失败raw保留，不把余额重复使用。两次独审均sol/high、images=[]：183 13075in/0cache/1153out，39.055秒；236 14300in/0cache/1289out，44.055秒。完整登记 integration/coac244-recorded-exact-183236-review-20261028.json；既有两个剩余register仅更新对应行的终态、预算、操作路由及下一步，不改coverage/原回执/正式active。本次一次性wakeup已fire_count1且disabled，无重复唤醒。不得派234或其它章。
 
 ## 2026-10-28 222制作schema兼容已零模型修复
 

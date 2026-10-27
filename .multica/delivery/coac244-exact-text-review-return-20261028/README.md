@@ -10,6 +10,6 @@ nemata-jp-chapter-236-1 display 6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2
 
 预算按01a17ed7-c04d-71e7-82eb-57aed9c7b3e1为原2失败制作+新2制作+2首次独审=6/6，余0、0retry。原失败raw保留。没有派234或任何其它章，没有增加消费者、没有交250合库，也没有改master覆盖或formal active。
 
-现有owner short-stage-owner-prefix.md，以及integration/coac250-uncovered-chapter-continuation-register-20261027b.json、integration/coac244-remaining26-closure-register-20261028.json只更新上述两个完整canonical的返回状态/阻断/下一步；其它行逐对象相等，原分类/覆盖/语义等级保持。后者的旧text-target-ready标签已改为真实上下文/语义缺口，避免被当作现成待制作任务。完整登记为integration/coac244-recorded-exact-183236-review-20261028.json。
+现有owner short-stage-owner-prefix.md，以及integration/coac250-uncovered-chapter-continuation-register-20261027b.json、integration/coac244-remaining26-closure-register-20261028.json只更新上述两个完整canonical的返回状态/阻断/下一步；其它行逐对象相等，原覆盖/语义等级保持。后者的旧text-target-ready操作标签已改为真实上下文/语义缺口，避免被当作现成待制作任务。完整登记为integration/coac244-recorded-exact-183236-review-20261028.json。
 
 下一步仅记录：183未来若获新授权，补齐已定位统计行及计数前提再定点核查；236须先补明确时点证据或用户判读。当前不执行制作/复审。一次性wakeup01a17ee5-c084-7df0-8a72-87a41f21dd97已fire_count1且disabled，不再创建或触发规则。
