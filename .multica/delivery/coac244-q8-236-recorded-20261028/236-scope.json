@@ -1,0 +1,62 @@
+{
+  "canonical": "nemata-jp-chapter-236-1",
+  "handoff": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-236-fidelity-reviewed-20261028.json",
+    "sha256": "eea58df5c29fcdacb27b760bfe4dda756f33573a4e681e91016c49ab399887e1"
+  },
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.coac244exactv2.display.json",
+    "sha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28"
+  },
+  "audit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28.fidelity236-v1.json",
+    "sha256": "bdcc464d2019942b4958b768b9a9190816024f56817f748a9d423086eda4ee7f"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2b075f4d-a305-4630-9a87-ab957fd130f5.json",
+    "sha256": "d35a98155b696fe3caef1c1919a6589851c0f90d9ff3b70f3ffcf95dc0fe0de7"
+  },
+  "status": "passed",
+  "modelReview": {
+    "blockChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter04-section015:b0003",
+        "verdict": "faithful",
+        "evidence": "已逐句比较完整目标段落。译文保留了击飞锁定第一的优势、积极争取结束半庄的适用情况、跳满自摸逆转并击飞的前提、应当立直的判断力度，以及名次下降风险较小时可放过非第一名出牌的条件。“即使巡数很少”保留原文未明确方向的时机表述，未新增“剩余巡数”；相关说明明确标为非原文校注。"
+      }
+    ],
+    "contextContinuity": {
+      "faithful": true,
+      "evidence": "与相邻段落的击飞结束及点数状况判断语境一致；区分了追赶第一时的选择性见逃与自己领先时的进攻情形，并保留后一情形不放过其他玩家和牌张的括注。"
+    },
+    "semanticCompleteness": {
+      "complete": true,
+      "evidence": "目标段落全部原句、条件、判断力度及括注均有对应表达；未发现具体新增时点、遗漏条件或牌义错译。原文未明确的巡数方向仍保持未确定，未据此补写策略条件。"
+    },
+    "issues": [],
+    "completeTargetScopeCompared": true,
+    "summary": "本次目标段落忠实，可通过；巡数方向的原文歧义已保留并明确标注。"
+  },
+  "runtime": {
+    "path": "audit/runtimes/coac249-fidelity236-v1-20261028",
+    "manifestPath": "audit/runtimes/coac249-fidelity236-v1-20261028/context-runtime-manifest.json",
+    "manifestSha256": "5ea60649c93530fe4ea330008fefcd3e827fed71fe4fbbb72c26f86d512ab568",
+    "files": 17,
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-runtime-manifest.json",
+      "sha256": "0b75f6f6bb31d38344077753d402716b01d83cbbd57709720b753963408ef684"
+    }
+  },
+  "verifierActualResult": {
+    "status": "passed",
+    "auditSha256": "bdcc464d2019942b4958b768b9a9190816024f56817f748a9d423086eda4ee7f"
+  },
+  "originalRawStructuredExecutionMissing": true,
+  "newCalls": 0,
+  "alreadyIntegrated250": {
+    "commentId": "01a17f39-2631-74d4-a648-327cda54bad6",
+    "selectionVersion": 25,
+    "reportedOriginalCoverage": "233/256 chapters;265/303 units;23 remaining",
+    "duplicateWakeupCreated": false
+  }
+}

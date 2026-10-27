@@ -1,0 +1,370 @@
+{
+  "before": {
+    "chapterId": "nemata-jp-chapter-236-1",
+    "covered": false,
+    "baseVerdictPreserved": "produced-needs-repair",
+    "category": "source-timing-ambiguity",
+    "owner": "COAC-269",
+    "nextAction": "旧7a1363b3仍uncertain；中性译文未增加早巡/剩余时点，现回执未指出可验证译误，源作者时点未明须与译稿保真分开。原候选/审不改，无新额度，不凭空选读法或自动pass。",
+    "baseEvidence": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.display.json",
+        "sha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "bytes": 13799
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+        "sha256": "bf1af08a08d0be94dbe71415fa4bd808d1831cc8d6cc6b08f7672f5c0357daa9",
+        "bytes": 10725
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section015\\source.json",
+        "sha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+        "bytes": 10906
+      }
+    ],
+    "blockingIssues": [
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter04-section015:b0003",
+        "sourceEvidence": "「ダマ満貫の手は例え巡目が僅かでもリーチするべき」",
+        "description": "候选译为「即使剩余巡数很少，也应当立直」。原文仅写「巡目が僅か」，未明确指已进行的巡数还是剩余巡数；候选补入「剩余」后确定了晚巡条件，而这会影响教学建议的适用时机。",
+        "suggestedRepair": "避免未经确认地补入「剩余」；可保留为「即使巡数很少，也应当立直」，并明确注明原文未说明是否指剩余巡数。在该条件得到澄清前保留阻断状态。"
+      }
+    ],
+    "existingVariants": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.display.json",
+        "sha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "audits": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+            "sha256": "bf1af08a08d0be94dbe71415fa4bd808d1831cc8d6cc6b08f7672f5c0357daa9",
+            "status": "needs-repair",
+            "blockingIssues": [
+              {
+                "severity": "uncertain",
+                "targetId": "modern-yabejp-ja:chapter04-section015:b0003",
+                "sourceEvidence": "「ダマ満貫の手は例え巡目が僅かでもリーチするべき」",
+                "description": "候选译为「即使剩余巡数很少，也应当立直」。原文仅写「巡目が僅か」，未明确指已进行的巡数还是剩余巡数；候选补入「剩余」后确定了晚巡条件，而这会影响教学建议的适用时机。",
+                "suggestedRepair": "避免未经确认地补入「剩余」；可保留为「即使巡数很少，也应当立直」，并明确注明原文未说明是否指剩余巡数。在该条件得到澄清前保留阻断状态。"
+              }
+            ]
+          }
+        ],
+        "notAutomaticallySelected": true
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.json",
+        "sha256": "8df84d8f58b24f11da6231ea690079c885f8ff4b2472660cbd8aee8a8d21527c",
+        "audits": [],
+        "notAutomaticallySelected": true
+      }
+    ],
+    "pdfBoundary": {
+      "pagesTotal": 1,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        236
+      ],
+      "pagesDetail": [
+        {
+          "page": 236,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 23
+        }
+      ]
+    },
+    "modelCallsThisStage": 0,
+    "textExecutionPacket": "text-batch-183-236.json",
+    "boundedDraftRuntime": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028",
+      "manifestPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\bounded-runtime-manifest.json",
+      "sha256": "fdac719dc8237db59f7a2abd6cd2bdac44f895a03519abe67cf408242e392548"
+    },
+    "originalUncertainPreserved": true,
+    "latestIndependentTextReview": {
+      "chapterId": "nemata-jp-chapter-236-1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.coac244exactv2.display.json",
+        "sha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28.json",
+        "sha256": "d2c9dfe09838a15c845ae3bab8f698729bd99a22878bbb23af1f268849948aeb"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7a1363b3-906b-4155-9643-2a3924d3dfd1.json",
+        "sha256": "8c08adf2edcc9391b697b78ba61922ee3ffb69aa715194f7df9abcd588d28039"
+      },
+      "status": "needs-repair",
+      "verdict": "uncertain",
+      "callId": "7a1363b3-906b-4155-9643-2a3924d3dfd1",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "images": [],
+      "usage": {
+        "inputTokens": 14300,
+        "cachedInputTokens": 0,
+        "outputTokens": 1289
+      },
+      "durationMs": 44055,
+      "modelReview": {
+        "blockChecks": [
+          {
+            "id": "modern-yabejp-ja:chapter04-section015:b0003",
+            "verdict": "uncertain",
+            "evidence": "击飞锁定第一名的优势、适用条件、跳满自摸的例子、见逃条件及第一名面对立直仍可进攻的例外均已保留。“巡目が僅か”的时机指向仍存在疑义，校注明确披露了这一点。"
+          }
+        ],
+        "contextContinuity": {
+          "faithful": true,
+          "evidence": "承接前段按点数状况判断攻守的论述，未重复邻段内容；括号中的不见逃说明也保留在相应情境内。"
+        },
+        "semanticCompleteness": {
+          "complete": true,
+          "evidence": "目标段落的论点、条件、判断力度与例外均有对应译文；时机条件已呈现，但其具体含义尚不能确认。"
+        },
+        "issues": [
+          {
+            "severity": "uncertain",
+            "targetId": "modern-yabejp-ja:chapter04-section015:b0003",
+            "sourceEvidence": "ダマ満貫の手は例え巡目が僅かでもリーチするべき",
+            "description": "“巡目が僅か”未明示是否指剩余巡数。上下文支持考虑剩余巡数的读法，但不足以排除字面上的早巡读法；“即使巡数很少”也保留了这种歧义。现有校注披露了疑点，不能据此确认时机条件已准确落实。",
+            "suggestedRepair": "暂保留明确标为非原文的校注；确认原意后，再分别改为“即使剩余巡数很少”或“即使尚在早巡”，并相应更新校注。"
+          }
+        ],
+        "completeTargetScopeCompared": true,
+        "summary": "已比较本次全部目标范围。其余语义忠实完整，唯一未决项是“巡目が僅か”的时机含义。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "target_text_not_faithful",
+          "target_text_issue"
+        ]
+      },
+      "effectiveModelChecks": {
+        "passed": false,
+        "errors": [
+          "uncertain:modern-yabejp-ja:chapter04-section015:b0003",
+          "semantic_information_missing",
+          "uncertain:modern-yabejp-ja:chapter04-section015:b0003"
+        ]
+      },
+      "handoff": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-reviewed-exact-183236-20261028.json",
+        "sha256": "5f18539ffe7bdda16cbceb5306797209a98fbf1ed711b2da39fd8b966f6ebee5"
+      },
+      "remainingBatchAllowance": 0,
+      "fullChapterPassed": false,
+      "integrationAllowed": false,
+      "sourceContextSupplement": null,
+      "blocker": "original turn-timing interpretation remains unconfirmed despite neutral translation and explicit non-author note",
+      "nextAction": "保留中性正文和非原文校注；先获得同源明确时机证据或用户对早巡/剩余巡数的判读，再决定最小定点核查。校注披露疑点不等于证实教学时机；预算0，不自动再制/再审。"
+    },
+    "targetedContractRegistration": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-222-figure-contract-v3-20261028\\registration.json",
+      "sha256": "dcbe96222916703eab06005f1a0a9459d7c7aee79f7d10dd550a21cacc0837da",
+      "newModelCallsThisRun": 0
+    }
+  },
+  "after": {
+    "chapterId": "nemata-jp-chapter-236-1",
+    "covered": false,
+    "baseVerdictPreserved": "produced-needs-repair",
+    "category": "source-timing-ambiguity",
+    "owner": "COAC-269",
+    "nextAction": "真实新增独审2b075f4d已passed，同SHA61932126不改，fidelity冻结17文件及父18文件、原raw与完整父审继承均核，新原验证器实际passed。旧7a1363b3 uncertain/raw原样；保留巡数方向作者歧义和非原文校注，不把未说明事实补成确定读法。250已真实纳入v25并完成MCP/Arena读回，不再制作/审校/重派；本批2/2余0，本次0call。",
+    "baseEvidence": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.display.json",
+        "sha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "bytes": 13799
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+        "sha256": "bf1af08a08d0be94dbe71415fa4bd808d1831cc8d6cc6b08f7672f5c0357daa9",
+        "bytes": 10725
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section015\\source.json",
+        "sha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+        "bytes": 10906
+      }
+    ],
+    "blockingIssues": [],
+    "existingVariants": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.display.json",
+        "sha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "audits": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+            "sha256": "bf1af08a08d0be94dbe71415fa4bd808d1831cc8d6cc6b08f7672f5c0357daa9",
+            "status": "needs-repair",
+            "blockingIssues": [
+              {
+                "severity": "uncertain",
+                "targetId": "modern-yabejp-ja:chapter04-section015:b0003",
+                "sourceEvidence": "「ダマ満貫の手は例え巡目が僅かでもリーチするべき」",
+                "description": "候选译为「即使剩余巡数很少，也应当立直」。原文仅写「巡目が僅か」，未明确指已进行的巡数还是剩余巡数；候选补入「剩余」后确定了晚巡条件，而这会影响教学建议的适用时机。",
+                "suggestedRepair": "避免未经确认地补入「剩余」；可保留为「即使巡数很少，也应当立直」，并明确注明原文未说明是否指剩余巡数。在该条件得到澄清前保留阻断状态。"
+              }
+            ]
+          }
+        ],
+        "notAutomaticallySelected": true
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.json",
+        "sha256": "8df84d8f58b24f11da6231ea690079c885f8ff4b2472660cbd8aee8a8d21527c",
+        "audits": [],
+        "notAutomaticallySelected": true
+      }
+    ],
+    "pdfBoundary": {
+      "pagesTotal": 1,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        236
+      ],
+      "pagesDetail": [
+        {
+          "page": 236,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 23
+        }
+      ]
+    },
+    "modelCallsThisStage": 0,
+    "textExecutionPacket": "text-batch-183-236.json",
+    "boundedDraftRuntime": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028",
+      "manifestPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-uncertain-183236-v1-20261028\\bounded-runtime-manifest.json",
+      "sha256": "fdac719dc8237db59f7a2abd6cd2bdac44f895a03519abe67cf408242e392548"
+    },
+    "originalUncertainPreserved": true,
+    "latestIndependentTextReview": {
+      "chapterId": "nemata-jp-chapter-236-1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.coac244exactv2.display.json",
+        "sha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28.json",
+        "sha256": "d2c9dfe09838a15c845ae3bab8f698729bd99a22878bbb23af1f268849948aeb"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7a1363b3-906b-4155-9643-2a3924d3dfd1.json",
+        "sha256": "8c08adf2edcc9391b697b78ba61922ee3ffb69aa715194f7df9abcd588d28039"
+      },
+      "status": "needs-repair",
+      "verdict": "uncertain",
+      "callId": "7a1363b3-906b-4155-9643-2a3924d3dfd1",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "images": [],
+      "usage": {
+        "inputTokens": 14300,
+        "cachedInputTokens": 0,
+        "outputTokens": 1289
+      },
+      "durationMs": 44055,
+      "modelReview": {
+        "blockChecks": [
+          {
+            "id": "modern-yabejp-ja:chapter04-section015:b0003",
+            "verdict": "uncertain",
+            "evidence": "击飞锁定第一名的优势、适用条件、跳满自摸的例子、见逃条件及第一名面对立直仍可进攻的例外均已保留。“巡目が僅か”的时机指向仍存在疑义，校注明确披露了这一点。"
+          }
+        ],
+        "contextContinuity": {
+          "faithful": true,
+          "evidence": "承接前段按点数状况判断攻守的论述，未重复邻段内容；括号中的不见逃说明也保留在相应情境内。"
+        },
+        "semanticCompleteness": {
+          "complete": true,
+          "evidence": "目标段落的论点、条件、判断力度与例外均有对应译文；时机条件已呈现，但其具体含义尚不能确认。"
+        },
+        "issues": [
+          {
+            "severity": "uncertain",
+            "targetId": "modern-yabejp-ja:chapter04-section015:b0003",
+            "sourceEvidence": "ダマ満貫の手は例え巡目が僅かでもリーチするべき",
+            "description": "“巡目が僅か”未明示是否指剩余巡数。上下文支持考虑剩余巡数的读法，但不足以排除字面上的早巡读法；“即使巡数很少”也保留了这种歧义。现有校注披露了疑点，不能据此确认时机条件已准确落实。",
+            "suggestedRepair": "暂保留明确标为非原文的校注；确认原意后，再分别改为“即使剩余巡数很少”或“即使尚在早巡”，并相应更新校注。"
+          }
+        ],
+        "completeTargetScopeCompared": true,
+        "summary": "已比较本次全部目标范围。其余语义忠实完整，唯一未决项是“巡目が僅か”的时机含义。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "target_text_not_faithful",
+          "target_text_issue"
+        ]
+      },
+      "effectiveModelChecks": {
+        "passed": false,
+        "errors": [
+          "uncertain:modern-yabejp-ja:chapter04-section015:b0003",
+          "semantic_information_missing",
+          "uncertain:modern-yabejp-ja:chapter04-section015:b0003"
+        ]
+      },
+      "handoff": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-reviewed-exact-183236-20261028.json",
+        "sha256": "5f18539ffe7bdda16cbceb5306797209a98fbf1ed711b2da39fd8b966f6ebee5"
+      },
+      "remainingBatchAllowance": 0,
+      "fullChapterPassed": false,
+      "integrationAllowed": false,
+      "sourceContextSupplement": null,
+      "blocker": "original turn-timing interpretation remains unconfirmed despite neutral translation and explicit non-author note",
+      "nextAction": "保留中性正文和非原文校注；先获得同源明确时机证据或用户对早巡/剩余巡数的判读，再决定最小定点核查。校注披露疑点不等于证实教学时机；预算0，不自动再制/再审。"
+    },
+    "targetedContractRegistration": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-222-figure-contract-v3-20261028\\registration.json",
+      "sha256": "dcbe96222916703eab06005f1a0a9459d7c7aee79f7d10dd550a21cacc0837da",
+      "newModelCallsThisRun": 0
+    },
+    "q8FidelityCollection": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-q8-236-recorded-20261028\\registration.json",
+      "sha256": "0680c174db819488c1f56c1688568878dcb0f1e253954a0ef2b6ab179526b4a3",
+      "scope": "nemata-jp-chapter-236-1",
+      "newModelCallsThisRun": 0
+    },
+    "originalUncertainBeforeFidelityPass": [
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter04-section015:b0003",
+        "sourceEvidence": "「ダマ満貫の手は例え巡目が僅かでもリーチするべき」",
+        "description": "候选译为「即使剩余巡数很少，也应当立直」。原文仅写「巡目が僅か」，未明确指已进行的巡数还是剩余巡数；候选补入「剩余」后确定了晚巡条件，而这会影响教学建议的适用时机。",
+        "suggestedRepair": "避免未经确认地补入「剩余」；可保留为「即使巡数很少，也应当立直」，并明确注明原文未说明是否指剩余巡数。在该条件得到澄清前保留阻断状态。"
+      }
+    ],
+    "latestIndependentStatus": {
+      "status": "passed",
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section015.6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28.fidelity236-v1.json",
+        "sha256": "bdcc464d2019942b4958b768b9a9190816024f56817f748a9d423086eda4ee7f"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section015.coac244exactv2.display.json",
+        "sha256": "6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28"
+      },
+      "integrated250Version": 25,
+      "oldUncertainRawPreserved": true
+    }
+  }
+}

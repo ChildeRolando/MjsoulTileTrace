@@ -1,0 +1,354 @@
+{
+  "before": {
+    "chapterId": "nemata-jp-chapter-100-1",
+    "priorGroup": "unproduced-remains-57",
+    "sourceId": "nemata-jp",
+    "title": "一色手（混一色･清一色）",
+    "titleStatus": "source-only-pending-audited-translation",
+    "unitCount": 1,
+    "units": [
+      {
+        "unitId": "nemata-jp-chapter-100-1-unit-1",
+        "title": "一色手（混一色･清一色）",
+        "from": {
+          "page": 100,
+          "sourceBlockId": "nemata-jp-p100-b33"
+        },
+        "to": {
+          "page": 107,
+          "sourceBlockId": "nemata-jp-p107-b4"
+        }
+      }
+    ],
+    "pages": [
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107
+    ],
+    "pageFrom": 100,
+    "pageTo": 107,
+    "ownedSourceBlocks": 337,
+    "pageTextBlocks": 233,
+    "pageImageBlocks": 136,
+    "pageBlocksTotal": 369,
+    "classification": "truly-unproduced",
+    "flags": {
+      "sourcePagesMissing": [],
+      "duplicateTitle": false
+    },
+    "existingPartial": {
+      "producedPages": [],
+      "passedPages": [],
+      "selectedPages": []
+    },
+    "webCorrespondence": [],
+    "continuation": [
+      {
+        "owner": "COAC-247",
+        "route": "pdf-pages",
+        "pages": [
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107
+        ],
+        "reason": "按原 PDF 页制作；已 produced 且 passed 的页按候选 SHA 复用，不重制；需先确认未覆盖页的归属边界"
+      }
+    ],
+    "pagesDetail": [
+      {
+        "page": 100,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/100.json",
+        "pageBlocks": 47,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 101,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/101.json",
+        "pageBlocks": 45,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 102,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/102.json",
+        "pageBlocks": 61,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 103,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/103.json",
+        "pageBlocks": 54,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 104,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/104.json",
+        "pageBlocks": 54,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 105,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/105.json",
+        "pageBlocks": 55,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 106,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/106.json",
+        "pageBlocks": 49,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 107,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/107.json",
+        "pageBlocks": 4,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      }
+    ],
+    "closurePlan": {
+      "category": "audit-context-gap",
+      "owner": "COAC-249",
+      "nextAction": "A/B定义完整b0001–39及候选已补新投影，目标原batch002的68块；243已pass块复用。原计划/raw不动，13离线检查通过。建议新独立补上下文审1、无制作/无图；真实新raw+ledger通过限定sidecar验证才可交250，当前0调用未pass。",
+      "modelCallsThisStage": 0,
+      "evidenceRegister": "integration/coac244-remaining26-closure-register-20261028.json"
+    },
+    "nextThreeZeroStage": {
+      "handoff": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\handoff.json",
+        "sha256": "47a95b52f2e4516855a686332bc67aedee2297eace4c1b0b7b6bb3a4f43993af",
+        "bytes": 12402
+      },
+      "newModelCalls": 0,
+      "candidateUnchanged": true,
+      "reviewStatusUnchanged": true
+    }
+  },
+  "after": {
+    "chapterId": "nemata-jp-chapter-100-1",
+    "priorGroup": "unproduced-remains-57",
+    "sourceId": "nemata-jp",
+    "title": "一色手（混一色･清一色）",
+    "titleStatus": "source-only-pending-audited-translation",
+    "unitCount": 1,
+    "units": [
+      {
+        "unitId": "nemata-jp-chapter-100-1-unit-1",
+        "title": "一色手（混一色･清一色）",
+        "from": {
+          "page": 100,
+          "sourceBlockId": "nemata-jp-p100-b33"
+        },
+        "to": {
+          "page": 107,
+          "sourceBlockId": "nemata-jp-p107-b4"
+        }
+      }
+    ],
+    "pages": [
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107
+    ],
+    "pageFrom": 100,
+    "pageTo": 107,
+    "ownedSourceBlocks": 337,
+    "pageTextBlocks": 233,
+    "pageImageBlocks": 136,
+    "pageBlocksTotal": 369,
+    "classification": "truly-unproduced",
+    "flags": {
+      "sourcePagesMissing": [],
+      "duplicateTitle": false
+    },
+    "existingPartial": {
+      "producedPages": [],
+      "passedPages": [],
+      "selectedPages": []
+    },
+    "webCorrespondence": [],
+    "continuation": [
+      {
+        "owner": "COAC-247",
+        "route": "pdf-pages",
+        "pages": [
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107
+        ],
+        "reason": "按原 PDF 页制作；已 produced 且 passed 的页按候选 SHA 复用，不重制；需先确认未覆盖页的归属边界"
+      }
+    ],
+    "pagesDetail": [
+      {
+        "page": 100,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/100.json",
+        "pageBlocks": 47,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 101,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/101.json",
+        "pageBlocks": 45,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 102,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/102.json",
+        "pageBlocks": 61,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 103,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/103.json",
+        "pageBlocks": 54,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 104,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/104.json",
+        "pageBlocks": 54,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 105,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/105.json",
+        "pageBlocks": 55,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 106,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/106.json",
+        "pageBlocks": 49,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 107,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/107.json",
+        "pageBlocks": 4,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      }
+    ],
+    "closurePlan": {
+      "category": "audit-context-gap",
+      "owner": "COAC-249",
+      "nextAction": "原零模型预检helper位于交接根context100.mjs，31依赖已核；既有授权consumer01a17f29…现running，已有coac249-next3-100-reviewed-20261028.json报告needs-repair/1call，由原消费者继续收口。本次只登记预检和后续结果存在，未代验新审全链、未另派100/159/242；原零模型预检不能冒充新passed收据，不借Q8/236额度。",
+      "modelCallsThisStage": 0,
+      "evidenceRegister": "integration/coac244-remaining26-closure-register-20261028.json"
+    },
+    "nextThreeZeroStage": {
+      "handoff": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\handoff.json",
+        "sha256": "47a95b52f2e4516855a686332bc67aedee2297eace4c1b0b7b6bb3a4f43993af",
+        "bytes": 12402
+      },
+      "newModelCalls": 0,
+      "candidateUnchanged": true,
+      "reviewStatusUnchanged": true
+    },
+    "q8FidelityCollection": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-q8-236-recorded-20261028\\registration.json",
+      "sha256": "0680c174db819488c1f56c1688568878dcb0f1e253954a0ef2b6ab179526b4a3",
+      "scope": "nemata-jp-chapter-100-1",
+      "newModelCallsThisRun": 0
+    }
+  }
+}

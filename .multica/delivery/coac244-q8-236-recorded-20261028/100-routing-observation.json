@@ -1,0 +1,29 @@
+{
+  "canonical": "nemata-jp-chapter-100-1",
+  "zeroPreflight": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-100-zero-preflight-20261028.json",
+    "sha256": "0e2efdf3dd467d901de867f759314ff853dab1d09aecadbce73969f7c9124b30"
+  },
+  "helperActualLocation": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\context100.mjs",
+    "sha256": "d825ded2118bbbba5244832897cc95244b164b2e7bc8175ee64759b8349e0241"
+  },
+  "manifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\verification-runtime\\runtime-manifest.json",
+    "sha256": "89884dc7700dac573829190d1cdb2665d531e912b77d220b18427fc4668f9690",
+    "files": 31
+  },
+  "laterExistingAuthorizedConsumer": {
+    "runId": "01a17f29-cde9-7167-bcd5-afe7e5899bc5",
+    "observedStatus": "running",
+    "newHandoffFile": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-100-reviewed-20261028.json",
+      "sha256": "e3ffec55992ef79d1e4bdbd84d058b07d4d5f4b9f10daa44f60893193bd202b0"
+    },
+    "handoffReportedStatus": "needs-repair",
+    "handoffReportedNewCalls": 1,
+    "fullNewReviewVerifiedByThisRun": false
+  },
+  "instruction": "Do not repeat100/159/242 or represent earlier zero preflight as a new passed receipt; existing consumer owns later actual review collection.",
+  "newCallsThisRun": 0
+}

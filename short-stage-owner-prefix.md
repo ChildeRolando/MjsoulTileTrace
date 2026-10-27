@@ -1,3 +1,19 @@
+## 2026-10-28 Q8/236独审已收、100沿既有消费者收口（本次登记0调用）
+
+Q8交接d567b8135953b7dce8d1b82d0344941d47764fa2b33d091d953c8049981a8c68已核：真实a5187359-48f0-48b6-9527-210a251efae4，gpt-6.1-terra/max，15个-i＝13内联原图+640×442原JPEG+最近邻4倍；45600in/0cache/26403out、310.938秒。receipt267e223a/raw4ce48a9d完整独立输出为passed-for-target-q8，21题解块和7个figure在旧dea1ba24与最新b2417de1完全同对象，仅按目标继承，不覆盖整稿。原Q8缺外链uncertain可解除，不改旧审/raw。
+
+Q8独立证据确认东35400/南37300/西14000/北33300；1s弃牌3+自家0+副露0、2s弃牌2+自家1+副露0，各可见3。未见牌位置不明，不能声称在牌山。东家吃入8m可辨，另两万子及部分河牌数字/明暗仍unknown，不按顺子补牌。HTML2007-03-20/JPEG2007-10-16异时存档；HTML声明640×447与实图640×442不同；静态图不能独证第6巡、手出/摸切图例同版未证；外链2s对上家现物说法内部矛盾，不作安全性定论。完整模型输出及逐字段教学影响、坐标随q8-scope.json保留，不把限定通过写成完整场况全读准。
+
+283有效账直接复用250已完成的integration/coac250-283-effective-issues-with-q8-20261028.json，不重复另造分支：原19条=8resolved/9阻断/2 source-note；原16deferred有效对照7已补证/9open。六表独立补充证明及b0168 checkpoint既有接受原样；wholeChapterAccepted=false。250 Q8登记40947dc已收，未建整章preview或改active，本次不重复唤醒。
+
+nemata-jp-chapter-236-1唯一61932126不改，真实新独审2b075f4d-a305-4630-9a87-ab957fd130f5为sol/high、images=[]，14428in/0cache/680out、35.166秒。新auditbdcc464d/rawd35a9815 passed，目标faithful/context complete，完整父审继承有效；巡数方向作者歧义和非原文校注保留，不推断作者未明时点，不是主控改旧uncertain。新冻结manifest5ea60649共17文件和旧exact18文件均原字节，原verifyAuditForWebCandidate本次实际passed。原文字CLI raw无requestExecution仍无，不回填；真实Windows argv另有原进程证据，旧7a1363b3/raw保留。250已在4fa03e4纳入v25，真实MCP/Arena全文与引用读回完成，所报当次覆盖233/256原章、265/303原单元、余23章；正式active不切，本次不再审/重制或重集成236。
+
+100旧零模型预检context100.mjs确在交接根，31依赖已核，不是新passed审；现有授权run01a17f29-cde9-7167-bcd5-afe7e5899bc5已running，并发现coac249-next3-100-reviewed-20261028.json报告needs-repair/1call。本次只登记该后续文件存在及原消费者归属，未代验新审完整链、不另派100/159/242，不引用“原3calls”作为当前总账。222补顺序原run01a17f2f…仍queued，不重复。
+
+本批Q8+236真实新call2/2、制作0、余0、0retry；本登记新增call0。475项证据/范围核验通过：Q8全93绑定/vision27文件、新23617/父18文件、100预检31文件；已清理的Q8 x4私有路径只用共享同SHA副本核验，不回写raw参数或生成新图。现有两个register仅283/236/100的明确状态和引用更新；283保留9有效阻断，236旧阻断移历史并挂真实新审，所有其它行/覆盖计数不变。消费wakeup01a17f35-4144-7dbc-a124-e065c7f034b6已fire_count1、disabled、无错误，无新增消费者。
+
+完整登记integration/coac244-q8-236-recorded-20261028/registration.json，SHA0680c174db819488c1f56c1688568878dcb0f1e253954a0ef2b6ab179526b4a3。两项费用/上游执行总数/远端权重unknown，总票仍in_progress、主书未完。
+
 ## 2026-10-28 283证据汇合的本次接受合同（用户01a17f35授权，0调用）
 
 本阶段允许在现有283 owner建立最新b2417de1对父dea1ba24的逐块/逐图内容hash继承图，并用独立六表审的原请求/原图/呈现/完整raw与新候选同范围投影逐字段一致性生成限定补充证明。只有原六表目标、全部137表块/94图tableContext、六表条件/空格/箭头与上下文、图片字节和次序都匹配，才能在有效问题账解除原六条几何问题；不改旧audit/raw/deferred，不自造全章passed。b0168及batch010各沿其独立原证据，不凭候选全稿替换覆盖其它分支。任何图/文字/坐标/独立结论/输入绑定不匹配均拒绝复用。后续两目标仅0调用准备，原各批已用尽额度不能挪用。
