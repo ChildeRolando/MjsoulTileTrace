@@ -1,0 +1,178 @@
+{
+  "newModelCalls": 0,
+  "syntheticAuditWrittenToSharedRoot": false,
+  "sharedLedgerUnchanged": true,
+  "ledgerBefore": "98b7ed3139932efe3713813fd5a71b305e6ec82b847a2e74a82260f0a38695ee",
+  "ledgerAfter": "98b7ed3139932efe3713813fd5a71b305e6ec82b847a2e74a82260f0a38695ee",
+  "offlineReviewerInterceptions": 3,
+  "checks": [
+    {
+      "name": "actual model/effort/2 image arguments",
+      "passed": true
+    },
+    {
+      "name": "actual CLI stdin contains exact projection,context,point identity",
+      "passed": true
+    },
+    {
+      "name": "schema exact block/figure/occurrence; no full-article flag",
+      "passed": true
+    },
+    {
+      "name": "exact target fixture validates",
+      "passed": true
+    },
+    {
+      "name": "reject extra block",
+      "passed": true
+    },
+    {
+      "name": "reject extra figure",
+      "passed": true
+    },
+    {
+      "name": "reject extra occurrence",
+      "passed": true
+    },
+    {
+      "name": "reject missing occurrence",
+      "passed": true
+    },
+    {
+      "name": "reject wrong target",
+      "passed": true
+    },
+    {
+      "name": "reject missing context",
+      "passed": true
+    },
+    {
+      "name": "reject missing evidence",
+      "passed": true
+    },
+    {
+      "name": "reject uncertain",
+      "passed": true
+    },
+    {
+      "name": "reject error issue",
+      "passed": true
+    },
+    {
+      "name": "reject other-scope note",
+      "passed": true
+    },
+    {
+      "name": "reject full-article claim",
+      "passed": true
+    },
+    {
+      "name": "reject incomplete target",
+      "passed": true
+    },
+    {
+      "name": "reject preservation body",
+      "passed": true
+    },
+    {
+      "name": "reject preservation non-target",
+      "passed": true
+    },
+    {
+      "name": "reject preservation target-caption",
+      "passed": true
+    },
+    {
+      "name": "reject preservation target-unknown",
+      "passed": true
+    },
+    {
+      "name": "reject preservation target-extra-tile",
+      "passed": true
+    },
+    {
+      "name": "reject preservation source",
+      "passed": true
+    },
+    {
+      "name": "reject preservation target-scope",
+      "passed": true
+    },
+    {
+      "name": "merge keeps every non-target original check and does not mutate parent",
+      "passed": true
+    },
+    {
+      "name": "merge cannot discard unrelated parent issue",
+      "passed": true
+    },
+    {
+      "name": "reject execution sol fallback",
+      "passed": true
+    },
+    {
+      "name": "reject execution high fallback",
+      "passed": true
+    },
+    {
+      "name": "reject execution missing image",
+      "passed": true
+    },
+    {
+      "name": "reject execution wrong image",
+      "passed": true
+    },
+    {
+      "name": "reject execution wrong image argv",
+      "passed": true
+    },
+    {
+      "name": "actual audit entry dispatch scope captured once in memory overlay",
+      "passed": true
+    },
+    {
+      "name": "actual receipt verifier rejects merge rewrite",
+      "passed": true
+    },
+    {
+      "name": "actual receipt verifier rejects contract changed",
+      "passed": true
+    },
+    {
+      "name": "actual receipt verifier rejects raw image changed",
+      "passed": true
+    },
+    {
+      "name": "actual receipt verifier rejects ledger duplicate",
+      "passed": true
+    },
+    {
+      "name": "actual receipt verifier rejects schema widened",
+      "passed": true
+    },
+    {
+      "name": "actual receipt verifier rejects point raw changed",
+      "passed": true
+    },
+    {
+      "name": "actual receipt verifier rejects wrapped prompt changed",
+      "passed": true
+    },
+    {
+      "name": "actual verifier accepts unchanged in-memory fixture only",
+      "passed": true
+    },
+    {
+      "name": "orphan ledger entry prevents another dispatch",
+      "passed": true
+    },
+    {
+      "name": "actual entry preserves uncertain and blocks passed",
+      "passed": true
+    },
+    {
+      "name": "actual entry records transport failure once without retry",
+      "passed": true
+    }
+  ]
+}

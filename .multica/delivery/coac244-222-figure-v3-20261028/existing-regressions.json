@@ -1,0 +1,14 @@
+{
+  "command": "existing Vitest3.2.7 run textbook-audit-web.test.mjs textbook-audit-image-binding.test.mjs --maxWorkers1",
+  "tests": 41,
+  "files": 2,
+  "passed": true,
+  "durationMs": 25130,
+  "details": {
+    "web": 34,
+    "imageBinding": 7
+  },
+  "newDependencyInstallation": false,
+  "temporaryDependencyJunctionRemoved": true,
+  "newModelCalls": 0
+}

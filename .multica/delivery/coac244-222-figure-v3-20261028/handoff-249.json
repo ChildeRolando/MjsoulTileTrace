@@ -1,0 +1,66 @@
+{
+  "schema": "coac244-exact-222-target-figure-consumption-handoff/1",
+  "processingRoot": "E:/AgentData/Coach/knowledge/processing",
+  "authorizationComments": [
+    "01a17ee7-ff76-70b6-b6cf-b9efc84f01d5",
+    "01a17ef9-3d57-76ab-a1c0-6ba9ea2be940"
+  ],
+  "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r2.display.json",
+    "sha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d"
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028",
+    "manifest": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\runtime-manifest.json",
+      "sha256": "8c416f3afbb3e8647e1761d526151825cb79927741d9f331c44225679be6705f",
+      "files": 31
+    },
+    "verificationManifestSha256": "178aca225847d1d79163c51856c27b8d0bed4c3e4551fa67cf68e8b3d04136fe"
+  },
+  "canonical": "79-cn-chapter-222-5",
+  "sourceSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+  "parent": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.display.json",
+    "sha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6"
+  },
+  "parentAudit": {
+    "path": "audit/web/articles/79-bilibili-cn/cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+    "sha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec"
+  },
+  "point": {
+    "handoffSha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9",
+    "rawPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-222-sixth-tile.raw.json",
+    "rawSha256": "32007944f5764cf41e03c336005e438ff02cb5ac17269aba2afa1be26403f3d6",
+    "callId": "55d504fb-96bb-4685-8842-229ff3779df1",
+    "bbox": [
+      170,
+      28,
+      196,
+      65
+    ],
+    "reading": "1m"
+  },
+  "method": "independent-target-figure-review-plus-unchanged-parent-audit",
+  "target": [
+    "79-bilibili-cn:cv1775262:b0018:figure"
+  ],
+  "actualRequestProof": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-222-figure-contract-v3-20261028\\registration.json",
+    "sha256": "dcbe96222916703eab06005f1a0a9459d7c7aee79f7d10dd550a21cacc0837da"
+  },
+  "plannedImages": [
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png"
+  ],
+  "usageLimit": {
+    "newProduction": 0,
+    "newPointReading": 0,
+    "remainingIndependentFirstReview": 1,
+    "retry": 0,
+    "phaseUsed": 2,
+    "phaseMaximum": 3,
+    "failedVoidCount": true
+  },
+  "instruction": "Use this exact runtime auditWebCandidate and verifyAuditForWebCandidate. First re-read current ledger/raw/preview/register and in-flight scope; any same-SHA result takes precedence, no duplicate or retry. Original audit guard/STOP/admission rules remain. PrepareOnly function prepareBound222FigureAudit performs no model. Actual sole first review must match saved scope1 source block/1 figure/1 occurrence,3 context prose blocks,original+x4 images,terra/max. New call cannot claim full-article review. Only actual independently passed merged receipt goes to250 with this runtime and parent/point evidence; otherwise preserve failure and stop. No maker, no paid capability probe, no234. The separately authorized283 budget is not part of this handoff."
+}

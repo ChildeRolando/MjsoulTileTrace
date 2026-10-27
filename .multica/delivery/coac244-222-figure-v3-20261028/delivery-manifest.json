@@ -1,0 +1,323 @@
+{
+  "schema": "coac244-222-target-contract-delivery/1",
+  "files": [
+    {
+      "relativePath": ".gitattributes",
+      "sha256": "8b9c3028d6467ff3be7c793141927841d70f47f52d0590677438f488ca154992",
+      "bytes": 9
+    },
+    {
+      "relativePath": "actual-request.json",
+      "sha256": "780ff57dd9295968ebefc7357779d7d2fd9c27c6b13bc8f26bc6198e31b58a75",
+      "bytes": 87552
+    },
+    {
+      "relativePath": "coac244-remaining26-closure-register-20261028.json",
+      "sha256": "fb415ba307d25acb12f3cfd25931d681b8151c6c95fc2941c915e81e919afb41",
+      "bytes": 246983
+    },
+    {
+      "relativePath": "coac244-remaining26-closure-register-20261028.json.before",
+      "sha256": "f057c59788441faeab0e4d66e52ad543d3b2c5758bc406fe40b8613c3b641616",
+      "bytes": 248697
+    },
+    {
+      "relativePath": "coac249-222-targeted-contract-gap-20261028.json",
+      "sha256": "85417fc562eb9e096b8cee94cde57fd6a28850c5e7373fe134dae12a8f176717",
+      "bytes": 11388
+    },
+    {
+      "relativePath": "coac249-236-fidelity-diagnosis-20261028.json",
+      "sha256": "2e61856496301caf37e2c39f2afe89948e15dfa076cabb865482cdb45ce3a456",
+      "bytes": 7815
+    },
+    {
+      "relativePath": "coac249-reviewed183-stat-context-v3-20261028.json",
+      "sha256": "9ff0d4891ae521a0d389686c3c0689967e3aceeb9ea073a0af8d21ceb078aac7",
+      "bytes": 8526
+    },
+    {
+      "relativePath": "coac250-uncovered-chapter-continuation-register-20261027b.json",
+      "sha256": "a9b669148e97208f64868b67856e406a95c462acea366f2e2585785c58ba6881",
+      "bytes": 362703
+    },
+    {
+      "relativePath": "coac250-uncovered-chapter-continuation-register-20261027b.json.before",
+      "sha256": "93e2acd730bd509684ea83029ec27e6fadb4b6d54e7928f9a00b04a7261c3eb7",
+      "bytes": 370886
+    },
+    {
+      "relativePath": "existing-regressions.json",
+      "sha256": "87d2933cf40f23e79be6b2733aa106421e2dac1b01730aecd9d32adfd1cfb9d5",
+      "bytes": 371
+    },
+    {
+      "relativePath": "final-check.py",
+      "sha256": "ce72d1472f0e5fa3d7ec34b392473dd87342eb29c6b3add9d95c0edba89b75df",
+      "bytes": 2790
+    },
+    {
+      "relativePath": "freeze.mjs",
+      "sha256": "033752d5afce819a00e6eaba29cf24cbf9984c9ff7e7bdffba174377e0066b96",
+      "bytes": 2618
+    },
+    {
+      "relativePath": "handoff-249.json",
+      "sha256": "a1e1d0638344e99845816ffc7b77b6d9b0b8d5a7b2d1bf343cdd88f894dabc82",
+      "bytes": 3734
+    },
+    {
+      "relativePath": "handoff-249.md",
+      "sha256": "c53dba83d27bcf7b2cc93f7660f362f2db0ce98bfba72c954c2e3dc9bd8b395e",
+      "bytes": 2678
+    },
+    {
+      "relativePath": "handoff-wakeup.json",
+      "sha256": "3ed844a7c2e4dea4c7bfadbe2f01985ae91c5c648de919355343d6b933016367",
+      "bytes": 4148
+    },
+    {
+      "relativePath": "harden.py",
+      "sha256": "abbb4c8fb23aa01646ea4b648ad5cf8db4e67b86950e3c7abf6cfa382d98daa2",
+      "bytes": 1651
+    },
+    {
+      "relativePath": "new-runtime-binding.json",
+      "sha256": "554368dbe555f776c473377d42cb409989afe20fac48284ec9fc23809e8e75d9",
+      "bytes": 473
+    },
+    {
+      "relativePath": "old-runtime-binding.json",
+      "sha256": "e3f37c9b279552304651fa0b20dc0e2d9127df22d720baaf948ed8cc31d05030",
+      "bytes": 4413
+    },
+    {
+      "relativePath": "overlay-loader.mjs",
+      "sha256": "b7c51c29f0ab1552004c37ea284aa78225c17f49e44e72ee978228f78bc86e89",
+      "bytes": 260
+    },
+    {
+      "relativePath": "patch-runtime.py",
+      "sha256": "5603c9d1bf8508c1c40520deab7f475911b99d9038c969dca64958ac197c519f",
+      "bytes": 8789
+    },
+    {
+      "relativePath": "README.md",
+      "sha256": "7ca319eea4aa43cd21cdd50b3ebdd78076eb90c3518ee31109cb66989cf5ee96",
+      "bytes": 4330
+    },
+    {
+      "relativePath": "record.mjs",
+      "sha256": "def9efbf59d35a01fafe58503097f380781d7ae27b19ba3c10f05bd29ab69f43",
+      "bytes": 7733
+    },
+    {
+      "relativePath": "registration-checks.json",
+      "sha256": "b7c1a68601350c4ef933db1e2a76df61ff04b9b854e85cbaabd4440b52ebbcd2",
+      "bytes": 892
+    },
+    {
+      "relativePath": "registration.json",
+      "sha256": "dcbe96222916703eab06005f1a0a9459d7c7aee79f7d10dd550a21cacc0837da",
+      "bytes": 8637
+    },
+    {
+      "relativePath": "setup.py",
+      "sha256": "f887a142e3779230b089ce79b467a6e445583eea21e04a8fa4ee569b49fd02b1",
+      "bytes": 1164
+    },
+    {
+      "relativePath": "test-overlay.mjs",
+      "sha256": "4fd40d3aaf27ee60b50149c60a6fd733b1c476e7f1e567b7901d3d2c8dabbeb2",
+      "bytes": 1684
+    },
+    {
+      "relativePath": "test-results.json",
+      "sha256": "42e5d46248940d3ad400a6e1bb339cc7f512243e5e21ae51eeca667b7f6ac40f",
+      "bytes": 4051
+    },
+    {
+      "relativePath": "test.mjs",
+      "sha256": "c6b95a79213fabe081f1da0dbf424fa9aa34ee47f8bac6f4c1ccccc3802ba286",
+      "bytes": 11788
+    },
+    {
+      "relativePath": "cli-request/output.schema.json",
+      "sha256": "7d9af49d5e19ac059b5b21379ee02cd06ba7415838c2888497768c862c06e773",
+      "bytes": 2275
+    },
+    {
+      "relativePath": "cli-request-Cnd5Jb/output.schema.json",
+      "sha256": "7d9af49d5e19ac059b5b21379ee02cd06ba7415838c2888497768c862c06e773",
+      "bytes": 2275
+    },
+    {
+      "relativePath": "runtime/capability-evidence.json",
+      "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2",
+      "bytes": 594
+    },
+    {
+      "relativePath": "runtime/production-schema.mjs",
+      "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9",
+      "bytes": 3961
+    },
+    {
+      "relativePath": "runtime/runtime-manifest.json",
+      "sha256": "8c416f3afbb3e8647e1761d526151825cb79927741d9f331c44225679be6705f",
+      "bytes": 12217
+    },
+    {
+      "relativePath": "runtime/textbook-audit-222-figure.mjs",
+      "sha256": "8f79a0928d8bc761c9c6ceb5cf643fe80c1a56c2f2600016ccce45f03071b2e8",
+      "bytes": 12920
+    },
+    {
+      "relativePath": "runtime/textbook-audit-definition.mjs",
+      "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711",
+      "bytes": 5213
+    },
+    {
+      "relativePath": "runtime/textbook-audit-image-binding.test.mjs",
+      "sha256": "1e8968987bd3082740c7044855379c4f193ce9c4d13470c32a1ae1fd4593f832",
+      "bytes": 2779
+    },
+    {
+      "relativePath": "runtime/textbook-audit-legacy.mjs",
+      "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619",
+      "bytes": 19381
+    },
+    {
+      "relativePath": "runtime/textbook-audit-pdf-layout.mjs",
+      "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06",
+      "bytes": 20673
+    },
+    {
+      "relativePath": "runtime/textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05",
+      "bytes": 14311
+    },
+    {
+      "relativePath": "runtime/textbook-audit-pdf-native-structure-corrections.mjs",
+      "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b",
+      "bytes": 22532
+    },
+    {
+      "relativePath": "runtime/textbook-audit-pdf-native.mjs",
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa",
+      "bytes": 9877
+    },
+    {
+      "relativePath": "runtime/textbook-audit-pdf-scope.mjs",
+      "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf",
+      "bytes": 3802
+    },
+    {
+      "relativePath": "runtime/textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff",
+      "bytes": 1990
+    },
+    {
+      "relativePath": "runtime/textbook-audit-tile-dictionary.mjs",
+      "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30",
+      "bytes": 15858
+    },
+    {
+      "relativePath": "runtime/textbook-audit-verification-dependencies.mjs",
+      "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08",
+      "bytes": 7384
+    },
+    {
+      "relativePath": "runtime/textbook-audit-web-batches.mjs",
+      "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69",
+      "bytes": 7061
+    },
+    {
+      "relativePath": "runtime/textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221",
+      "bytes": 20969
+    },
+    {
+      "relativePath": "runtime/textbook-audit-web.mjs",
+      "sha256": "89a233e3bb45fde75bba0b20b9c0aa273093443f65e288fee912f80fda6a717c",
+      "bytes": 170163
+    },
+    {
+      "relativePath": "runtime/textbook-audit-web.test.mjs",
+      "sha256": "f3c19856af72c0078611b1155fd22ed098727c6d9fc163265fde4e54ffa67074",
+      "bytes": 77404
+    },
+    {
+      "relativePath": "runtime/textbook-audit.mjs",
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838",
+      "bytes": 84017
+    },
+    {
+      "relativePath": "runtime/textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7",
+      "bytes": 14045
+    },
+    {
+      "relativePath": "runtime/textbook-production-pdf-flow.mjs",
+      "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3",
+      "bytes": 8112
+    },
+    {
+      "relativePath": "runtime/textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb",
+      "bytes": 5297
+    },
+    {
+      "relativePath": "runtime/textbook-production-web-dictionary.mjs",
+      "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824",
+      "bytes": 7251
+    },
+    {
+      "relativePath": "runtime/textbook-production-web-formal.mjs",
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd",
+      "bytes": 9385
+    },
+    {
+      "relativePath": "runtime/textbook-production-web-labels.mjs",
+      "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274",
+      "bytes": 3726
+    },
+    {
+      "relativePath": "runtime/textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1",
+      "bytes": 2781
+    },
+    {
+      "relativePath": "runtime/textbook-production-web-sources.py",
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f",
+      "bytes": 19235
+    },
+    {
+      "relativePath": "runtime/textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+      "bytes": 2089
+    },
+    {
+      "relativePath": "runtime/textbook-production-web.mjs",
+      "sha256": "07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf",
+      "bytes": 36385
+    },
+    {
+      "relativePath": "runtime/textbook-production.mjs",
+      "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355",
+      "bytes": 54676
+    },
+    {
+      "relativePath": "runtime/verification-dependencies.json",
+      "sha256": "f48df330e0e4f37797cec4014db8f7a9bfd12ffc35d61a9b8f972d74b1f78294",
+      "bytes": 1979
+    }
+  ],
+  "newModelCalls": 0,
+  "oldRuntimeUnchanged": true,
+  "newRuntimeFiles": 31,
+  "newChecksPassed": 42,
+  "existingTestsPassed": 41,
+  "onlyThreeCanonicalRowsChanged": true,
+  "coverageUnchanged": true,
+  "formalActiveChanged": false
+}

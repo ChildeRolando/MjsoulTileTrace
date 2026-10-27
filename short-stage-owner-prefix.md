@@ -1,3 +1,13 @@
+## 2026-10-28 三项交接登记；222限定figure独审合同已零模型补齐
+
+183唯一新增授权复审2c2ab5c6已passed：display973bbc3e不变，新审20bdc51f、rawcb47737e，sol/high images=[]，17042in/7808cache/714out，46.550秒。已复验source/parent/raw及17文件stat-context-v3，manifest f7da16a2；旧uncertain不改。源“见1张”统计口径疑点仍source-note，不宣称歧义消失。249已交250，是否集成以其真实读回为准；本批累计7/7余0，不重复模型。
+
+236原7a1363b3仍uncertain；现回执确认其它论证/条件/例外完整，具体理由是中性“即使巡数很少”仍保留源歧义，未指出新增时点/漏条件/加强确定性等可验证译误。忠实保留作者歧义与恢复未说事实分开，非原文校注及候选原样，无新增额度、无自动pass。
+
+222唯一c51650a4的制作/原图/父审/单点55d504fb完整链不变。新增只供该SHA的audit/runtimes/coac244-222-target-figure-v3-20261028，31文件manifest 8c416f3afbb3e8647e1761d526151825cb79927741d9f331c44225679be6705f。实际auditWebCandidate新分支用target-figure schema，1源块/1figure/1occurrence+3只读文字上下文，原PNG+x4两图、显式terra/max；完整13文字/其它9图/目标其它字段逐字节继承，只有真实新独审能替换目标检查。父审其它问题不丢，error/uncertain继续阻断。verifyAuditForWebCandidate重建请求/schema/原图/point/raw/ledger及合并，拒绝额外目标、越界改字、伪全章声明、缺图、模型回落、重复ledger或未经绑定的有效审。旧runtime/schema/凭据/源/候选/raw都不改；共享正式ledger未写入模拟结果。
+
+42项新检查含实际入口截获及收据验真，模拟写入只在内存；原web/image 41回归通过。实际共享runtime构造和全部依赖再核通过。本轮真实新call0，222阶段原已2/最多3，仅余首审1交249，失败void计0retry；不重制、不重读点、不动234或其它票预算。交接 integration/coac244-222-figure-contract-v3-20261028/handoff-249.json。现有两个剩余register仅183/236/222三行登记，不改covered/正式active。
+
 ## 2026-10-28 283六表展示零模型闭合；语义与覆盖不升级
 
 nemata-jp-chapter-283-1原候选dea1ba24/source8e7eff57/旧审749e242c原字节不变。六表原HTML逐格核对248格、117空白、13个↓、94牌格；沿既有装配器生成隔离navigation呈现，真实MCP六单元分页+94原图SHA、Arena六单元分页sourceRefs=0、HTML DOM格位/header/span全部读回一致，4项破坏性回归拒绝。不是线上Arena屏幕视觉验收。没有重补94个已有tableContext，无通用框架修改，无模型调用，无通过章/正式active切换。

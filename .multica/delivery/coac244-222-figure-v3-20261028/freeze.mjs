@@ -1,0 +1,18 @@
+import {readFile,writeFile,mkdir,copyFile,readdir} from 'node:fs/promises';
+import {join} from 'node:path';
+import {createHash} from 'node:crypto';
+import assert from 'node:assert/strict';
+import {buildVerificationDependencyManifest} from './runtime/textbook-audit-verification-dependencies.mjs';
+const here=import.meta.dirname,local=join(here,'runtime'),root='E:/AgentData/Coach/knowledge/processing',runtime=join(root,'audit/runtimes/coac244-222-target-figure-v3-20261028');
+const sha=b=>createHash('sha256').update(b).digest('hex'),save=(p,d)=>writeFile(p,JSON.stringify(d,null,2)+'\n');
+const dependencies=await buildVerificationDependencyManifest({baseDir:local,entry:'textbook-audit-web.mjs',root});
+await save(join(local,'verification-dependencies.json'),dependencies);
+const files=[];for(const name of (await readdir(local)).filter(n=>/\.(?:mjs|py|json)$/.test(n)&&n!=='runtime-manifest.json').sort())files.push({path:name,sha256:sha(await readFile(join(local,name)))});
+const old=JSON.parse(await readFile(join(here,'old-runtime-binding.json'),'utf8'));
+for(const f of old.files)assert.equal(sha(await readFile(join(old.path,f.path))),f.sha256);
+const manifest={schema:'coac244-exact-222-target-figure-runtime/3',runtime,parentRuntime:old,scope:{canonical:'79-cn-chapter-222-5',candidateSha256:'c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d',targetFigureIds:['79-bilibili-cn:cv1775262:b0018:figure'],textTargetIds:[],newProductionCalls:0,remainingIndependentFirstReviewCalls:1,retry:0},imageRequest:{model:'gpt-6.1-terra',reasoningEffort:'max',originalImages:1,nearestNeighborViews:1},method:'independent-target-figure-review-plus-unchanged-parent-audit',entry:'textbook-audit-web.mjs#auditWebCandidate',verifier:'textbook-audit-web.mjs#verifyAuditForWebCandidate',verificationDependencies:dependencies,files,newModelCallsDuringPreparation:0,oldRuntimeChanged:false,remoteBackend:'not proven; actual caller argv/images and returned events must be retained by249'};
+await save(join(local,'runtime-manifest.json'),manifest);
+await mkdir(runtime,{recursive:false});for(const name of [...files.map(f=>f.path),'runtime-manifest.json'])await copyFile(join(local,name),join(runtime,name));
+for(const f of files)assert.equal(sha(await readFile(join(runtime,f.path))),f.sha256);
+const binding={path:runtime,manifest:{path:join(runtime,'runtime-manifest.json'),sha256:sha(await readFile(join(runtime,'runtime-manifest.json'))),files:files.length},verificationManifestSha256:dependencies.manifestSha256};
+await save(join(here,'new-runtime-binding.json'),binding);console.log(JSON.stringify(binding));

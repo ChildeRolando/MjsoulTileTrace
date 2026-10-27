@@ -1,0 +1,174 @@
+{
+  "schema": "coac249-reviewed183-source-complete-handoff/1",
+  "recordedAt": "2026-10-27T20:15:45.433Z",
+  "authorizationComment": "01a17ef3-c615-7239-adda-3feb1b432e6f",
+  "chapterId": "nemata-jp-chapter-183-1",
+  "status": "passed",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section003.coac244exactv2.display.json",
+    "sha256": "973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter03-section003\\source.v2.json",
+    "sha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+    "bytes": 20727
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section003.display.json",
+    "sha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+    "bytes": 22606
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+    "sha256": "c66a9bab86228f8f865d1f74b1c2d033de57f133892f87e2205480a09628373a",
+    "bytes": 13756
+  },
+  "producerHandoff": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac269-exact-183236-v2-20261028\\handoff-183-to249.json",
+    "sha256": "a2d264e0294c9b2103b756f9b2391bdf5d6eac4ffaf8b805782fc3467028d39f"
+  },
+  "production": {
+    "callId": "cf82e6c3-ca38-4f6e-98bc-5c81fb4a3428",
+    "rawArtifactPath": "raw-calls/cf82e6c3-ca38-4f6e-98bc-5c81fb4a3428.json",
+    "rawArtifactSha256": "cd24521e4068feabaa3f34717d5aa73f5d2b7d3081f87083ecdf2b91fea63a4d",
+    "revision": {
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json",
+        "parentSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+        "notesSha256": "c66a9bab86228f8f865d1f74b1c2d033de57f133892f87e2205480a09628373a",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter03-section003:b0018"
+        ]
+      },
+      "parentAudit": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+        "sha256": "c66a9bab86228f8f865d1f74b1c2d033de57f133892f87e2205480a09628373a",
+        "originalStatus": "needs-repair"
+      },
+      "parentCall": {
+        "callId": "c5ef58b2-a6ca-4053-acac-9e30ff7bd6f2",
+        "path": "audit/calls/c5ef58b2-a6ca-4053-acac-9e30ff7bd6f2.json",
+        "sha256": "efa6ec95a76092e3ef26cdbb9496b141af05c9f33f73f4bd685077cb31ebdede"
+      },
+      "inheritedAssetIds": []
+    }
+  },
+  "audit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section003.973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a.context-stat183-v3.json",
+    "sha256": "20bdc51f1fd8b7afbfafa5d550c186d5571e779a8e538de433021536e56c7d61"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2c2ab5c6-372c-46d9-bc12-7af409803ea0.json",
+    "sha256": "cb47737edc719765d5f76165a8e6190ba5279ce4ae8fe665a29a90cce97906c9"
+  },
+  "call": {
+    "callId": "2c2ab5c6-372c-46d9-bc12-7af409803ea0",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "images": [],
+    "usage": {
+      "inputTokens": 17042,
+      "cachedInputTokens": 7808,
+      "outputTokens": 714
+    },
+    "durationMs": 46550,
+    "semanticPromptSha256": "1af4d850e23bce82fae40f4c4b306dc672620f19691de6a8aef209ccea5aa494",
+    "closedPromptSha256": "0e37bbbe72d0b7344572341272a081a2b8c531a239a6a5bcf21d3219c92cd081",
+    "semanticProjectionSha256": "99bf9e428006eab1f574120051d6384fb33867ef53bc07e86d209c195145ff45"
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac249-stat183-context-v3-20261028",
+    "manifest": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac249-stat183-context-v3-20261028\\context-runtime-manifest.json",
+      "sha256": "f7da16a28767707dde26cd1020063c067374901844a153daf4cac297342e047b",
+      "files": 17
+    },
+    "parentManifest": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-text-exact-183236-v2-20261028\\exact-runtime-manifest.json",
+      "sha256": "0b75f6f6bb31d38344077753d402716b01d83cbbd57709720b753963408ef684"
+    }
+  },
+  "preservedOldReview": {
+    "callId": "018687de-2b4f-4af5-b82f-f4934c12f974",
+    "audit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section003.973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a.json",
+      "sha256": "2cd72bb8ba1482b8b529a864ab3b927303f565e419ccb174a27dda10fd8217e2"
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\018687de-2b4f-4af5-b82f-f4934c12f974.json",
+      "sha256": "60a24e84b6dc00b39f79281fae0b7fd1a120b1ade8f175c5985c0b348452e272"
+    },
+    "status": "needs-repair"
+  },
+  "sourceContext": {
+    "allSourceBlocks": 19,
+    "allCandidateBlocks": 19,
+    "images": 0,
+    "targetIds": [
+      "modern-yabejp-ja:chapter03-section003:b0018"
+    ],
+    "statisticsIncluded": [
+      "b0003 definitions",
+      "b0005-b0013 all statistical rows",
+      "b0016-b0019 adjacent context and target"
+    ],
+    "actualRequestComparedToZeroCallExpected": true
+  },
+  "verification": {
+    "passed": true,
+    "auditSha256": "20bdc51f1fd8b7afbfafa5d550c186d5571e779a8e538de433021536e56c7d61",
+    "protectedInputCount": 30,
+    "protectedInputsUnchanged": true,
+    "oldFailureUnchanged": true
+  },
+  "modelReview": {
+    "blockChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter03-section003:b0018",
+        "verdict": "faithful",
+        "evidence": "保留了“已打出1张、能看到1张”的原文条件、役牌放铳率较低的比较，以及首张被碰和客风单骑易于荣和两项推测原因；“或许”准确保留原文“為か”的不确定语气。"
+      }
+    ],
+    "contextContinuity": {
+      "faithful": true,
+      "evidence": "校注明确标为非原文，准确对照前文两组数据，未擅自将“见1张”改为“持有1张”，也未重复翻译邻段。"
+    },
+    "semanticCompleteness": {
+      "complete": true,
+      "evidence": "本次目标段落的条件、比较关系、两项原因及推测力度均已完整保留。"
+    },
+    "issues": [
+      {
+        "severity": "source-note",
+        "targetId": "modern-yabejp-ja:chapter03-section003:b0018",
+        "sourceEvidence": "正文写“１枚切れ１枚見え”，但前表“１枚切れ０枚持ち”两类均为4%；“１枚切れ１枚持ち”则役牌2%、客风3%。",
+        "description": "原文条件与前表比较结果存在疑点；译文已通过明确区分的校注如实提示，属于源文问题。",
+        "suggestedRepair": "无需修订；保留原文条件及现有校注。"
+      }
+    ],
+    "completeTargetScopeCompared": true,
+    "summary": "本次目标译文忠实完整；原文数据疑点已明确标注，无需修复。"
+  },
+  "budget": {
+    "thisRunNewCalls": 1,
+    "thisAuthorizationMaximum": 1,
+    "oldBatchUsed": 6,
+    "batchUsed": 7,
+    "batchMaximum": 7,
+    "retry": 0,
+    "remaining": 0,
+    "fee": null
+  },
+  "evidenceLimits": {
+    "requestConfigurationAndCompleteRaw": true,
+    "osChildProcessDuringCallObserved": false,
+    "remoteGatewayWeights": "unknown"
+  },
+  "to250": {
+    "instruction": "Only this exact passed display SHA; verify using this frozen v3 runtime (old runtime does not consume its explicitly authorized sidecar). Reuse plan/parent/raw chain. No production or model re-review. Perform actual MCP and Arena full19-block/0figure readback including editorial note and emphasis; do not switch formal active.",
+    "sourceAmbiguity": "The source 1-visible wording remains unresolved. Review found its neutral translation and explicitly non-author note faithful; do not silently change it to 1-held.",
+    "method": "independent-target-text-review-plus-unchanged-parent-audit"
+  }
+}
