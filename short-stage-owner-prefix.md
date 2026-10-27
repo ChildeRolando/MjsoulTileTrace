@@ -1,3 +1,19 @@
+## 2026-10-28 283证据汇合的本次接受合同（用户01a17f35授权，0调用）
+
+本阶段允许在现有283 owner建立最新b2417de1对父dea1ba24的逐块/逐图内容hash继承图，并用独立六表审的原请求/原图/呈现/完整raw与新候选同范围投影逐字段一致性生成限定补充证明。只有原六表目标、全部137表块/94图tableContext、六表条件/空格/箭头与上下文、图片字节和次序都匹配，才能在有效问题账解除原六条几何问题；不改旧audit/raw/deferred，不自造全章passed。b0168及batch010各沿其独立原证据，不凭候选全稿替换覆盖其它分支。任何图/文字/坐标/独立结论/输入绑定不匹配均拒绝复用。后续两目标仅0调用准备，原各批已用尽额度不能挪用。
+
+本次已实施：integration/coac244-283-convergence-20261028内的inheritance-graph.json与content-hashes.json绑定1195个源/候选块及524图，UTF-8 JSON.stringify原属性/数组顺序逐对象hash，不归一化文本；各候选完整原文件SHA另绑定。仅b0168加“或”，其余1194块及524图对象字节一致。六表137块/94图/6表的完整v3 source/candidate投影与原真实专项请求逐字段一致，包含caption/家位/header/span/空白/箭头/邻接条件；30原PNG及呈现/图片次序hash匹配。独立补充证明table-reuse-supplement.json SHA e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c，以新b2417de1为接受对象、原独审f5141a65为语义来源，未生成新模型结论。独立只读verify-supplement.mjs实际复验通过；原整体audit仍needs-repair、旧deferred/raw一字不改。
+
+有效账已收敛：原19条问题=7已解决+10有效阻断+2source-note；b0168由311df0ca目标checkpoint闭合，题17/18/20/33/39/50六表六条几何问题各挂新独立补充证明闭合。原16条非靶deferred逐条按issue hash对照：6已补证、10open，不再把它们原样作为当前16阻断。新effective-issue-register.json保留每条原证据和分类；主closure register的blockingIssues现确为10，原清单移historicalBlockingIssuesBeforeConvergence；continuation同canonical closurePlan同步有效10项、7条resolved链接和2 source-note，其它章及coverage不改。DOM/几何当前0；未闭合为文字/牌图语义、公开关键未知图/源场况；原遮挡/骰子等两source-note保持。
+
+203项核验及7项破坏性拒绝通过，含缺坐标/改格位/改unknown/改邻文/改源空格/删实际审投影字段/原独审uncertain；原真实raw、31冻结依赖、两调用ledger不改。本轮真实call0、制作0、候选0、整章pass0，不开preview/active。
+
+下一精确两个文字目标：b0396只把“选择进张宽的④。即使是失算的”改为“选择进张宽的④。即使出现不利的”，保留后继5s图和b0398“三色”条件，完整Q24 b0387–b0398、13张去重原图；b0962只把メンタンピン列举改为立直＋断幺九＋平和组合，保留或345三色、不先锁定染手和只考虑清一色的原论证，完整Q61 b0951–b0962、12张去重原图。请求使用真实导出的webGroupRevisionScope/groupRevisionPrompt/webGroupRevisionSchema及CLI闭合prompt/config函数；v3全组(117/119块+既有上下文)原顺序、所有tableContext/sourceSegments、完整题干和逐occurrence图片对应均保留，只审各一文字目标，不复审Q8/表/0168/113passed或非靶复杂图。制作纯文字sol/high，含原图审校CLI解析terra/max。
+
+两份next-396/962-request.json里的expected只是明确修订目标，不是已产候选/模型输出；原b0168专用exactRequest不能直接接新ID。合法下一执行沿既有通用group-target制作路径挂这两段固定输出白名单，真实生产raw及单段差异门禁通过后，以实际新候选SHA重建独审请求并执行首审；本次未改/冒称已验证该生产adapter。最小提案各maker1+独立首审1，未来共最多4新call，失败/void计、0retry、货币费用未知；本阶段授权新call0，不挪旧批余量。若实际生产和此草案有任何差异先拒绝，不拿草案直接走独审。
+
+新补证已交250零模型消费：一次性wakeup01a17f3c-dae6-7de4-b659-f49ea3972886等原run01a17f36自然完成后fire_count1且disabled、无错误；实际新run01a17f3d-d6fb-75fd-9349-f7d5d530b9ab已于21:22:06 UTC running。只接收绑定新SHA的限定补充证明与收敛问题账，不开第二consumer、不模型重审、不改全章/preview/active，不把“已交接”冒认为下游已接受。
+
 ## 2026-10-28 283/b0168目标已独立通过，整章仍needs-repair（零模型登记）
 
 nemata-jp-chapter-283-1候选b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f，仅在b0168末尾“摸入宝牌”后加“或”，其它1194块及524图与父dea1ba24逐项原样。完整交接3e718558ce87ec9476d1965defc9d3d81d1c5b98644ca5f1d44e95cc218db98c已核；本段覆盖下方“b0168在途/待登记”的旧计划，不重派。

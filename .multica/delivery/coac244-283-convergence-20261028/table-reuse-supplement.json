@@ -1,0 +1,525 @@
+{
+  "schema": "coac244-283-independent-table-supplement-reuse/1",
+  "authorization": "01a17f35-32cd-734f-bf71-13be8b8a7eae",
+  "chapterId": "nemata-jp-chapter-283-1",
+  "status": "passed-for-identical-target-tables-on-derived-candidate",
+  "chapterAccepted": false,
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0168r1.json",
+    "sha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f",
+    "bytes": 2119310
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter06-exercise003\\source.v3.json",
+    "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+    "bytes": 1998292
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev1.json",
+    "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+    "bytes": 2169759
+  },
+  "originalIndependentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-283-tables-20261028\\receipt.json",
+    "sha256": "68f0a463533b01b57b242daaa9d42124e8e5a527f889350a64fad03aec86809b"
+  },
+  "originalIndependentRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\f5141a65-3fce-47c3-8a94-a0a9a2c9a528.json",
+    "sha256": "f8b6039206d68c70cfeb27d244d2dce557ab3f11d6f70ff44b2160359b2e0864"
+  },
+  "originalRequest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-283-tables-20261028\\request.json",
+    "sha256": "902105a564d34980e3723e6d602a4ba297517d4be6e9c1af05f0e8997594f4ac",
+    "promptSha256": "d49f233af2a5ea0c564f2b2472b1bcf8768c92d23504034302a9c4559a16d30d"
+  },
+  "originalCallId": "f5141a65-3fce-47c3-8a94-a0a9a2c9a528",
+  "contentHashes": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\content-hashes.json",
+    "sha256": "ae4d53191b213ea67ba60406480b24f9dfa5916b276fb9402cbe88e8e18e5401"
+  },
+  "inheritanceGraph": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\inheritance-graph.json",
+    "sha256": "784b7f4336929dc0c1a2eb32be5ef21fea8c37fe7dc52b879e6525ed60900c72"
+  },
+  "sourceProjectionSha256": "d843c94d4d2a1d09844d7795edf00099a27415d9bf02bda46abd1f29b403f5fe",
+  "candidateProjectionSha256": "0ad74158498013ebd5e3ef1d35af6369da66b6bccb66000248290f7a65910850",
+  "tableContextAndConditions": "All137 table blocks,94 figure payloads,6 full tables and exact presentation/30 original-image order equal the independently audited request. No newly inferred tile or semantic verdict.",
+  "presentationSha256": "84039a4e80c5a5d051f79c039e12811a02afb3d5da58000d92a8a14745d37708",
+  "imageAttachmentOrderSha256": "4ce356aeb0c5de296d46cba28393ad5ae51890e18eb9b624c4f969b41d0b9522",
+  "inheritedIndependentReview": {
+    "figureChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0507:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t50均为东家(1,1)，左邻东家表头、右邻b0508；上方(0,1)为空。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0508:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t51均为东家(1,2)，位于b0507与b0509之间；上方(0,2)为空。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0509:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t52均为东家(1,3)，上方(0,3)的↓与该格同列，左右为b0508、b0510。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0510:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t53均为东家(1,4)，上方(0,4)保留↓，左右为b0509、b0511。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0511:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t54均为东家(1,5)，位于b0510与b0512之间；上方(0,5)为空。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0512:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t55均为东家(1,6)，左邻b0511，上方(0,6)保留↓。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0516:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t59均为南家(3,1)，左邻南家表头、右邻b0517；上方(2,1)为空。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0517:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t60均为南家(3,2)，位于b0516与b0518之间；上方(2,2)为空。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0518:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t61均为南家(3,3)，位于b0517与b0519之间；上方(2,3)为空。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0519:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t62均为南家(3,4)，上方(2,4)保留↓，左右为b0518、b0520。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0520:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t63均为南家(3,5)，上方(2,5)保留↓，左右为b0519、b0521。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0521:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t64均为南家(3,6)，左邻b0520，上方(2,6)为空。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0526:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t69均为西家(5,1)，左邻西家表头、右邻b0527，上方(4,1)保留↓。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0527:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t70均为西家(5,2)，位于b0526与b0528之间；上方(4,2)为空。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0528:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t71均为西家(5,3)，位于b0527与b0529之间；上方(4,3)为空。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0529:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t72均为西家(5,4)，上方(4,4)保留↓，左右为b0528、b0530。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0530:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t73均为西家(5,5)，上方(4,5)保留↓；右邻(5,6)为源表空格。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0536:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t79均为北家(7,1)，左邻北家表头、右邻b0537，上方(6,1)保留↓。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0537:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t80均为北家(7,2)，上方(6,2)保留↓，左右为b0536、b0538。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0538:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t81均为北家(7,3)，上方(6,3)保留↓，左右为b0537、b0539。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0539:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t82均为北家(7,4)，位于b0538与b0540之间；上方(6,4)为空。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0540:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t83均为北家(7,5)，位于b0539与b0541之间；上方(6,5)为空。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0541:figure",
+        "verdict": "faithful",
+        "evidence": "335表源格与呈现t84均为北家(7,6)，左邻b0540，上方(6,6)保留↓；西家(5,6)为空。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0627:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t87均为东家(1,1)，左邻东家表头、右邻b0628。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0628:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t88均为东家(1,2)，位于b0627与b0629之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0629:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t89均为东家(1,3)，位于b0628与b0630之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0630:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t90均为东家(1,4)，位于b0629与b0631之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0631:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t91均为东家(1,5)，位于b0630与b0632之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0632:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t92均为东家(1,6)，左邻b0631，右邻(1,7)为空，之后才是b0633。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0633:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t93均为东家(1,8)；与(1,6)的b0632之间保留(1,7)空格。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0635:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t95均为南家(3,1)，左邻南家表头、右邻b0636。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0636:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t96均为南家(3,2)，位于b0635与b0637之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0637:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t97均为南家(3,3)，位于b0636与b0638之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0638:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t98均为南家(3,4)，位于b0637与b0639之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0639:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t99均为南家(3,5)，位于b0638与b0640之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0640:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t100均为南家(3,6)，左邻b0639，右邻(3,7)为空，之后才是b0641。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0641:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t101均为南家(3,8)；与(3,6)的b0640之间保留(3,7)空格。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0643:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t103均为西家(5,1)，左邻西家表头、右邻b0644。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0644:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t104均为西家(5,2)，位于b0643与b0645之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0645:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t105均为西家(5,3)，位于b0644与b0646之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0646:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t106均为西家(5,4)，位于b0645与b0647之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0647:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t107均为西家(5,5)，位于b0646与b0648之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0648:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t108均为西家(5,6)，左邻b0647，右邻(5,7)为空，之后才是b0649。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0649:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t109均为西家(5,8)；与(5,6)的b0648之间保留(5,7)空格。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0651:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t111均为北家(7,1)，左邻北家表头、右邻b0652。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0652:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t112均为北家(7,2)，位于b0651与b0653之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0653:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t113均为北家(7,3)，位于b0652与b0654之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0654:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t114均为北家(7,4)，位于b0653与b0655之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0655:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t115均为北家(7,5)，位于b0654与b0656之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0656:figure",
+        "verdict": "faithful",
+        "evidence": "395表源格与呈现t116均为北家(7,6)，左邻b0655，行末(7,7)和(7,8)均保留为空。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0811:figure",
+        "verdict": "faithful",
+        "evidence": "505表源格与呈现t119均为东家(1,1)，跨度1×1，左邻东家表头、右邻b0812。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0812:figure",
+        "verdict": "faithful",
+        "evidence": "505表源格与呈现t120均为东家(1,2)，跨度1×1，位于b0811与b0813之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0813:figure",
+        "verdict": "faithful",
+        "evidence": "505表源格与呈现t121均为东家(1,3)，跨度1×1，位于b0812与b0814之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0814:figure",
+        "verdict": "faithful",
+        "evidence": "505表源格与呈现t122均为东家(1,4)，跨度1×1，左邻b0813并处于该行末列。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0816:figure",
+        "verdict": "faithful",
+        "evidence": "505表源格与呈现t124均为南家(3,1)，跨度1×1，左邻南家表头、右邻b0817。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0817:figure",
+        "verdict": "faithful",
+        "evidence": "505表源格与呈现t125均为南家(3,2)，跨度1×1，位于b0816与b0818之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0818:figure",
+        "verdict": "faithful",
+        "evidence": "505表源格与呈现t126均为南家(3,3)，跨度1×1，位于b0817与b0819之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0819:figure",
+        "verdict": "faithful",
+        "evidence": "505表源格与呈现t127均为南家(3,4)，跨度1×1，左邻b0818并处于该行末列。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0821:figure",
+        "verdict": "faithful",
+        "evidence": "505表源格与呈现t129均为西家(5,1)，跨度1×1，左邻西家表头、右邻b0822。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0822:figure",
+        "verdict": "faithful",
+        "evidence": "505表源格与呈现t130均为西家(5,2)，跨度1×1，位于b0821与b0823之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0823:figure",
+        "verdict": "faithful",
+        "evidence": "505表源格与呈现t131均为西家(5,3)，跨度1×1，位于b0822与b0824之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0824:figure",
+        "verdict": "faithful",
+        "evidence": "505表源格与呈现t132均为西家(5,4)，跨度1×1，左邻b0823并处于该行末列。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0826:figure",
+        "verdict": "faithful",
+        "evidence": "505表源格与呈现t134均为北家(7,1)，跨度1×1，左邻北家表头、右邻b0827。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0827:figure",
+        "verdict": "faithful",
+        "evidence": "505表源格与呈现t135均为北家(7,2)，跨度1×1，位于b0826与b0828之间。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0828:figure",
+        "verdict": "faithful",
+        "evidence": "505表源格与呈现t136均为北家(7,3)，跨度1×1；右侧另有独立的b0829格。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0829:figure",
+        "verdict": "faithful",
+        "evidence": "505表源格与呈现t137均为北家(7,4)，跨度1×1；紧邻b0828且保留为独立末格。",
+        "remainingProblem": "无"
+      }
+    ],
+    "tableChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+        "verdict": "faithful",
+        "evidence": "源表与呈现均为8行3列；东、南、西、北家依次位于第1、3、5、7行，第1至2列为各家牌格。第0、2、4、6行全为空，无↓；空格提示是显示标签，保留源空白语义。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+        "verdict": "faithful",
+        "evidence": "源表与呈现均为8行3列，四家行及各行两格顺序一致；唯一的↓在(0,2)，对应东家(1,2)的b0293。其余第0行空格及第2、4、6行空格均保留。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+        "verdict": "faithful",
+        "evidence": "源表与呈现均为8行4列，四家行各有第1至3列连续牌格；东家(1,2)和(1,3)保留为两个相邻格。第0、2、4、6行均为空，无↓。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:table:main/div[335]/table[3]",
+        "verdict": "faithful",
+        "evidence": "源表与呈现均为8行7列，四家行及牌格顺序一致。↓分别位于第0行3、4、6列，第2行4、5列，第4行1、4、5列，第6行1、2、3、6列；其余对应空格及西家(5,6)空格保留。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+        "verdict": "faithful",
+        "evidence": "源表与呈现均为8行9列，四家表头和牌格位置一致。东、南、西家第7列为空、第8列有牌；北家第7、8列均为空。第0、2、4、6行全为空，表中无↓。",
+        "remainingProblem": "无"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+        "verdict": "faithful",
+        "evidence": "源表与呈现均为8行5列，四家行各有第1至4列的1×1牌格；北家(7,3)与(7,4)保留为两个相邻格。第0、2、4、6行全为空，无↓。",
+        "remainingProblem": "无"
+      }
+    ],
+    "completeTargetScopeCompared": true,
+    "summary": "已比较六表的源格、候选tableContext和实际呈现：66个目标图的格位缺口均有补证，六表的家位、空格、↓及邻接关系均相符。坐标从0开始；证据中的t编号指coac244-283-t编号。牌种判定按要求继承，本结论仅限六表专项范围。"
+  },
+  "inherited28Faithful": [
+    "modern-yabejp-ja:chapter06-exercise003:b0266:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0267:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0269:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0270:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0272:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0273:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0275:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0276:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0292:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0293:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0295:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0296:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0298:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0299:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0301:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0302:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0325:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0326:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0327:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0329:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0330:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0331:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0333:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0334:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0335:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0337:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0338:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0339:figure"
+  ],
+  "newModelCalls": 0,
+  "originalReceiptOrAggregateChanged": false,
+  "verifier": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\verify-supplement.mjs",
+    "sha256": "7f46b9145573d24015a0090dfbba70cd6443af131ff348de8696016e394d52d6"
+  }
+}

@@ -1,0 +1,11 @@
+用户01a17f35-32cd-734f-bf71-13be8b8a7eae授权的283零模型证据汇合已完成，交250只消费新限定继承补证及有效问题账，不新增模型、制作、整章preview或切active，不重复已有b0168/六表审。
+
+根E:/AgentData/Coach/knowledge/processing。integration/coac244-283-convergence-20261028/registration.json SHA166d8aaca6673d286de6d0d93c24fc8851d8cdcc0b144c68c07470c9e92e0fb2；其中引用graph/content-hashes/effective-issue-register/verification。
+
+最新候选b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f对父dea1ba24逐1195块/524图hash，仅b0168加或。六表137表块/94图及完整source.tables6张、caption/header/span/空白/箭头/条件上下文与实际原独审f5141a65请求投影逐字段完全一致；原30PNG及呈现/图序不变。新独立补充证明table-reuse-supplement.json SHA e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c，绑定新SHA且继承真实原审，不伪称新模型审。
+
+请先核verify-supplement.mjs的SHA等于该proof.verifier.sha256，再运行此只读导出的verify283TableSupplement(root,proofPath)或node该脚本 root proofPath。当前已真实复验passed；如任何输入/坐标/输出/图像/作用域变化即拒绝，不降门禁。新版有效账原19条=已解决7(目标0168+六表几何6)/有效阻断10/source-note2。原16deferred逐条hash对照6由此补证闭合、10仍open；旧aggregate/raw/deferred不改，整章仍needs-repair。主closure register现在blockingIssues为真实10项，旧清单另保留历史，非仅附一条待办。
+
+原batch010113passed、28原faithful沿原证据。Q8既有249在途不重复，下一b0396/0962只是0call输入预检与未来最多4calls提案，未授权执行，不在250派发。原b0168专用制作入口不能用于这两ID，必须由原制作票接通用group-target并挂固定白名单后再以真实候选重建独审，不可审草案。
+
+本交接只零模型汇总并登记新补证/有效问题账，无整章合库、无新消费者、无preview、无正式active变更，旧证据全部保留。先查本票当前收件去重；这是在已登记独立六表/0168后新增的跨SHA内容与上下文证明，不重复运行模型。本阶段0call，既有批全部用尽额度不挪用。

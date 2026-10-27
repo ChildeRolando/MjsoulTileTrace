@@ -1,0 +1,51 @@
+{
+  "schema": "coac244-283-next-two-plan/1",
+  "chapterId": "nemata-jp-chapter-283-1",
+  "targets": [
+    {
+      "target": "modern-yabejp-ja:chapter06-exercise003:b0396",
+      "packet": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\next-396-request.json",
+        "sha256": "3f8e011e955d280f1436f43d8040d29d0ae8bfd8c589fffb1b30fd02a324cb03"
+      },
+      "maker": 1,
+      "firstAudit": 1,
+      "total": 2,
+      "questionRange": {
+        "from": "modern-yabejp-ja:chapter06-exercise003:b0387",
+        "to": "modern-yabejp-ja:chapter06-exercise003:b0398"
+      },
+      "images": 13,
+      "scope": "Only the exact text; tiles and source ambiguity retained. Proposed text is not a model product."
+    },
+    {
+      "target": "modern-yabejp-ja:chapter06-exercise003:b0962",
+      "packet": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\next-962-request.json",
+        "sha256": "3876319148eed8f633755f5e7b9ee7d0d3ee2e8c0a1b829228c8376ff6ef1c2a"
+      },
+      "maker": 1,
+      "firstAudit": 1,
+      "total": 2,
+      "questionRange": {
+        "from": "modern-yabejp-ja:chapter06-exercise003:b0951",
+        "to": "modern-yabejp-ja:chapter06-exercise003:b0962"
+      },
+      "images": 12,
+      "scope": "Only the exact text; tiles and source ambiguity retained. Proposed text is not a model product."
+    }
+  ],
+  "newCalls": 0,
+  "futureMaximum": 4,
+  "failedVoidIncluded": true,
+  "retry": 0,
+  "authorizedNewCalls": 0,
+  "fee": null,
+  "excluded": [
+    "Q8/b0099 existing249 run",
+    "six tables already independently passed/reused",
+    "b0168 already independently passed",
+    "batch010113passed",
+    "complex images not re-read by these text requests"
+  ]
+}
