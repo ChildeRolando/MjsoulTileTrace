@@ -147,3 +147,11 @@ Started immediately after batch 2 was handed off, without waiting for its audit.
   `artifacts/b3-concurrency-observation.json` and `artifacts/b3-dual-slot-entry-check.json`.
   No A-line production call ran inside the window, so maker-vs-maker concurrency stayed 1.
 - Preflight, claims, production, self-check and 249 handoff receipts: `artifacts/b3-*.json`.
+
+## Incident 2026-10-27 — duplicate production withdrawn
+
+`246-1`, `237-1` and `131-1` in batches 2 and 3 were already passed, merged into the active preview
+and `covered-effective` in the unified register. Those three productions are withdrawn (artifacts kept,
+not erased); `183-1` remains valid. Root cause, measured surplus (39,069 tokens), the canonical
+joint-exclusion gate, the regression test and the staged next batch (`142-1`, `127-1`) are documented
+in `INCIDENT-20261027-duplicate-production.md`.
