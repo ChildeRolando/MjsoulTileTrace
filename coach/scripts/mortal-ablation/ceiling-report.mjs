@@ -34,13 +34,14 @@ export function decide(m){
   return '证据不足：区间仍容纳无收益或有价值收益，不将其解释为路线被证伪。';
 }
 async function rowsFor(out,dataset,phase,arms,versions){
+  const datasetHash=hash(dataset);
   const ledger=new BudgetLedger(out),settlements=new Map(ledger.rows.filter(x=>x.type==='settle').map(x=>[x.key,x.result]));
   const selected=phase==='development'?dataset.cases.filter(c=>c.split==='development'):phase==='evaluation'?dataset.cases.filter(c=>c.split==='evaluation'):dataset.cases.filter(c=>(phase==='oracle'?dataset.oracle:phase==='practical'?dataset.practical:dataset.stability).includes(c.id));
   const rows=[];
   for(const c of selected){
     const label=await read(join(out,'private-labels',c.id+'.json'));
     const receipt=await read(join(out,'labels-receipt.json')),binding=receipt.rows.find(r=>r.caseId===c.id);
-    if(!binding||binding.hash!==hash(label)||label.datasetHash!==hash(dataset))throw Error('report_label_changed');
+    if(!binding||binding.hash!==hash(label)||label.datasetHash!==datasetHash)throw Error('report_label_changed');
     for(const arm of arms){
       const prefix=phase==='development'?'dev-'+arm:phase,key=prefix+'-'+c.id+'-'+(phase==='development'?arm==='A'?'A':arm==='V0'?'V0':'D':arm);
       let run=await exists(join(out,'runs',key+'.json'))?await read(join(out,'runs',key+'.json')):{key,caseId:c.id,arm,status:'not_started',attempt:{status:'missing_submission'},elapsedMs:null,retrieval:null,patterns:[]};
@@ -76,7 +77,7 @@ function armMetrics(rows,arms=ARMS){
   return {arms:Object.fromEntries(arms.map(a=>[a,summarizeRows(rows.filter(r=>r.arm===a))])),comparisons};
 }
 export async function reportCeiling(out,{progressOnly=false}={}){
-  if(progressOnly){const ledger=new BudgetLedger(out),d=await exists(join(out,'dataset.json'))?await read(join(out,'dataset.json')):await exists(join(out,'prepare-state.json'))?await read(join(out,'prepare-state.json')):{cases:[]};const status={version:'ceiling-progress/v1',calls:ledger.snapshot(),prepared:d.cases.length,required:980,phases:await readdir(join(out,'phases')).catch(()=>[])};await save(join(out,'progress.json'),status);return status;}
+  if(progressOnly){const ledger=new BudgetLedger(out),d=await exists(join(out,'dataset.json'))?await read(join(out,'dataset.json')):await exists(join(out,'prepare-state.json'))?await read(join(out,'prepare-state.json')):{cases:[]};const status={version:'ceiling-progress/v1',calls:ledger.snapshot(),prepared:d.cases?.length??d.caseRefs?.length??0,required:980,phases:await readdir(join(out,'phases')).catch(()=>[])};await save(join(out,'progress.json'),status);return status;}
   const f=await verify(out),d=await read(join(out,'dataset.json')),ledger=new BudgetLedger(out);
   const rows=await rowsFor(out,d,'evaluation',ARMS),oracle=await rowsFor(out,d,'oracle',['O']),practical=await rowsFor(out,d,'practical',['A','V0','D','O']),stability=await rowsFor(out,d,'stability',['A','D']);
   const complete=[...rows,...oracle,...practical,...stability].every(r=>r.status!=='not_started');

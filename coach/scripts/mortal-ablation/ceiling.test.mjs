@@ -7,9 +7,17 @@ import { indexTextbook, retrieveTextbook } from './ceiling-textbook.mjs';
 import { pairedDifference, summarizeRows, decide } from './ceiling-report.mjs';
 import { decisionRequest,runDecision } from './ceiling-run.mjs';
 import { hash,read } from './ceiling-protocol.mjs';
-import { assertStudySource,selfWindows } from './ceiling-prepare.mjs';
+import { assertStudySource,selfWindows,loadPreparationState,savePreparationState } from './ceiling-prepare.mjs';
 
 describe('ceiling research boundaries', () => {
+  it('round-trips compact checkpoints through immutable case digests and rejects edited case files',async()=>{
+    const out=await mkdtemp(join(tmpdir(),'ceiling-case-refs-')),c={id:'a'.repeat(24),payload:'visible facts'},state={cases:[c],nextRecord:1,covered:[]};
+    await writeOnce(join(out,'prepared',c.id+'.json'),c);await savePreparationState(out,state);
+    expect((await read(join(out,'prepare-state.json'))).cases).toBeUndefined();
+    expect(await loadPreparationState(out)).toEqual(state);
+    await writeFile(join(out,'prepared',c.id+'.json'),JSON.stringify({...c,payload:'changed'}));
+    await expect(loadPreparationState(out)).rejects.toThrow(/case_changed/);
+  });
   it('retries a Windows file-occupancy failure without dropping or weakening the checkpoint',async()=>{
     const dir=await mkdtemp(join(tmpdir(),'ceiling-checkpoint-')),path=join(dir,'state.json');await writeFile(path,JSON.stringify({cases:1}));let attempts=0;
     await save(path,{cases:2},{renameFile:async(...args)=>{if(++attempts<3)throw Object.assign(Error('occupied'),{code:'EPERM'});return rename(...args);},delay:async()=>{}});

@@ -6,10 +6,10 @@ import { join } from 'node:path';
 import { replayCanonicalStream,createLibriichiRuleProjector,freezeDecisionStreamContext } from '@riichi-coach/reasoning';
 import { mapMjaiRecord } from '../replay-corpus/canonical.mjs';
 import { tenhouRules } from '../scene-study/prepare.mjs';
-import { oneDecision,selfWindows } from './ceiling-prepare.mjs';
+import { oneDecision,selfWindows,loadPreparationState } from './ceiling-prepare.mjs';
 import { DEFAULT_OUT,DEFAULT_DATABASE,hash,read,save,exists } from './ceiling-protocol.mjs';
 const out=process.argv[2]??DEFAULT_OUT;
-const d=await read(join(out,await exists(join(out,'dataset.json'))?'dataset.json':'prepare-state.json'));
+const d=await exists(join(out,'dataset.json'))?await read(join(out,'dataset.json')):await loadPreparationState(out);
 const samples=[d.cases[0],[...d.cases].sort((a,b)=>b.canonicalDecisionOrder-a.canonicalDecisionOrder)[0]];
 const db=new DatabaseSync(d.database??DEFAULT_DATABASE,{readOnly:true}),results=[];
 try{

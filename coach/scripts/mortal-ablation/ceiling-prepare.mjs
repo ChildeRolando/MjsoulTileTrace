@@ -52,6 +52,23 @@ export function assertStudySource(stream){
   // game-level eligibility rule when only materializing selected windows.
   if(stream.events.some(e=>e.type==='round_started'&&e.roundWind==='W'))throw Error('known_facts_v2_unsupported_round_wind');
 }
+export async function loadPreparationState(out){
+  const path=join(out,'prepare-state.json');
+  if(!await exists(path))return {cases:[],nextRecord:0,screening:{},rejectedGames:0,covered:[]};
+  const stored=await read(path);if(stored.checkpointVersion===undefined)return stored;
+  if(stored.checkpointVersion!=='case-refs/v1'||!Array.isArray(stored.caseRefs))throw Error('preparation_checkpoint_invalid');
+  const {caseRefs,checkpointVersion,...metadata}=stored,cases=[];
+  for(const ref of caseRefs){
+    if(!/^[a-f0-9]{24}$/.test(ref.id)||!/^[a-f0-9]{64}$/.test(ref.digest))throw Error('preparation_checkpoint_invalid');
+    const c=await read(join(out,'prepared',ref.id+'.json'));if(c.id!==ref.id||hash(c)!==ref.digest)throw Error('preparation_checkpoint_case_changed');cases.push(c);
+  }
+  return {...metadata,cases};
+}
+export async function savePreparationState(out,state,digests=new Map()){
+  const {cases,...metadata}=state;
+  const caseRefs=cases.map(c=>{if(!digests.has(c.id))digests.set(c.id,hash(c));return {id:c.id,digest:digests.get(c.id)};});
+  await save(join(out,'prepare-state.json'),{...metadata,checkpointVersion:'case-refs/v1',caseRefs});
+}
 export async function prepareCeiling({out,database=DEFAULT_DATABASE,snapshot=DEFAULT_SNAPSHOT}){
   await mkdir(out,{recursive:true});
   await snapshotTextbook(out,snapshot);
@@ -65,7 +82,7 @@ export async function prepareCeiling({out,database=DEFAULT_DATABASE,snapshot=DEF
   const runtime=await createManagedMortalRuntimeFromAssets({pythonExecutable:join(assets,'python/Scripts/python.exe'),packageRoot:join(ROOT,'packages/mortal-runtime'),artifactRoot:assets,platformManifest:'mortal-582500.windows-x64.json',nativeReceiptPath:await questionLabNativeReceipt(),inferenceTimeoutMs:60000});
   const engine=new JsonlFactEngineClient(new ManagedFactEngineTransport(join(ROOT,'resources')));
   const slots=Object.entries(QUOTAS).flatMap(([split,strata])=>Object.entries(strata).flatMap(([stratum,n])=>Array.from({length:n},()=>({split,stratum}))));
-  let state=await exists(join(out,'prepare-state.json'))?await read(join(out,'prepare-state.json')):{cases:[],nextRecord:0,screening:{},rejectedGames:0,covered:[]};
+  let state=await loadPreparationState(out);const caseDigests=new Map(state.cases.map(c=>[c.id,hash(c)]));
   const usedGames=new Set(state.cases.map(c=>c.gameId)),usedHashes=new Set(state.cases.map(c=>c.sourceHash));
   try{
     for(let ri=state.nextRecord;ri<records.length&&state.cases.length<slots.length;ri++){
@@ -104,11 +121,11 @@ export async function prepareCeiling({out,database=DEFAULT_DATABASE,snapshot=DEF
         if(!pool.length)throw Error('no_eligible_pure_discard');
         const rank=c=>challengeTags(c).filter(t=>!state.covered.includes(t)).length*100+challengeTags(c).length;
         const picked=slot.stratum==='challenge'?[...pool].sort((a,b)=>rank(b)-rank(a)||a.id.localeCompare(b.id))[0]:pool[0],c={...picked,...slot};
-        state.cases.push(c);state.covered=[...new Set([...state.covered,...challengeTags(c)])];usedGames.add(c.gameId);usedHashes.add(c.sourceHash);
         await writeOnce(join(out,'prepared',c.id+'.json'),c);
+        state.cases.push(c);caseDigests.set(c.id,hash(c));state.covered=[...new Set([...state.covered,...challengeTags(c)])];usedGames.add(c.gameId);usedHashes.add(c.sourceHash);
         console.log(JSON.stringify({prepared:state.cases.length,required:980,split:c.split,stratum:c.stratum,screening:state.screening.checked}));
-      }catch(e){if(e.message==='preparation_cache_changed')throw e;state.rejectedGames++;await appendFile(join(out,'exclusions.jsonl'),JSON.stringify({gameId:r.game_id,sourceHash:r.hash,error:String(e.message)})+'\n');}
-      await save(join(out,'prepare-state.json'),state);
+      }catch(e){if(e.message==='preparation_cache_changed'||e.message.startsWith('immutable_artifact_changed')||/^E[A-Z]+$/.test(e.code??''))throw e;state.rejectedGames++;await appendFile(join(out,'exclusions.jsonl'),JSON.stringify({gameId:r.game_id,sourceHash:r.hash,error:String(e.message)})+'\n');}
+      await savePreparationState(out,state,caseDigests);
     }
     const cases=state.cases;
     const oracle=['random','challenge'].flatMap(s=>ordered(cases.filter(c=>c.split==='evaluation'&&c.stratum===s),c=>c.id,SEED+'oracle').slice(0,s==='random'?150:50).map(c=>c.id));
@@ -142,7 +159,7 @@ export async function freezeCeiling(out,{repair=false}={}){
   return f;
 }
 export async function labelCeiling(out,database=DEFAULT_DATABASE){
-  await verify(out);
+  const config=await verify(out),datasetHash=config.datasetHash;
   const d=await read(join(out,'dataset.json')),db=new DatabaseSync(database,{readOnly:true});
   const assets=process.env.RIICHI_LOCAL_MORTAL_ROOT??join(process.env.LOCALAPPDATA,'RiichiCoach/local-mortal-spike');
   const runtime=await createManagedMortalRuntimeFromAssets({pythonExecutable:join(assets,'python/Scripts/python.exe'),packageRoot:join(ROOT,'packages/mortal-runtime'),artifactRoot:assets,platformManifest:'mortal-582500.windows-x64.json',nativeReceiptPath:await questionLabNativeReceipt(),inferenceTimeoutMs:60000});
@@ -150,7 +167,7 @@ export async function labelCeiling(out,database=DEFAULT_DATABASE){
   try{
     for(const c of d.cases){
       const path=join(out,'private-labels',c.id+'.json');let row;
-      if(await exists(path)){row=await read(path);if(row.datasetHash!==hash(d))throw Error('label_dataset_changed');}
+      if(await exists(path)){row=await read(path);if(row.datasetHash!==datasetHash)throw Error('label_dataset_changed');}
       else{
         try{
           const raw=zstdDecompressSync(db.prepare('SELECT data FROM variants WHERE hash=?').get(c.sourceHash).data),stream=mapMjaiRecord(raw,c.gameId,c.selfActor,tenhouRules(c.sourceLocator));
@@ -160,15 +177,15 @@ export async function labelCeiling(out,database=DEFAULT_DATABASE){
           const selected=screenArenaDecisions([{canonicalDecisionOrder:c.canonicalDecisionOrder,decision:{decisionEventRef:decision.decisionEventRef,snapshot:decision.snapshot,facts:decision.facts},ruleRequest,ruleResponse:ruleResult}]).selected[0];
           if(!selected||hash(createArenaToolBinding({caseRef:c.observation.caseRef,selected}))!==hash(c.binding))throw Error('label_candidate_mismatch');
           const request=projectArenaLocalMortalRuleScoring({decision,identity:runtime.identity,ruleRequest,ruleResult}),response=await runtime.scoreRules(request),boundScores=bindLocalMortalRuleScores({request,response,decision});
-          row={caseId:c.id,datasetHash:hash(d),reference:{status:'available',label:createArenaReferenceLabel({caseRef:c.observation.caseRef,boundScores,runtimeManifest})},boundScores};
-        }catch(e){row={caseId:c.id,datasetHash:hash(d),reference:{status:'unavailable',reason:'mortal_error'},error:String(e.message)};}
+          row={caseId:c.id,datasetHash,reference:{status:'available',label:createArenaReferenceLabel({caseRef:c.observation.caseRef,boundScores,runtimeManifest})},boundScores};
+        }catch(e){row={caseId:c.id,datasetHash,reference:{status:'unavailable',reason:'mortal_error'},error:String(e.message)};}
         await writeOnce(path,row);
       }
       rows.push({caseId:c.id,hash:hash(row),status:row.reference.status});console.log(JSON.stringify({labelled:rows.length,required:d.cases.length,status:row.reference.status}));
     }
   }finally{db.close();await runtime.close();}
-  const receipt={datasetHash:hash(d),runtimeManifest,rows};await writeOnce(join(out,'labels-receipt.json'),receipt);
+  const receipt={datasetHash,runtimeManifest,rows};await writeOnce(join(out,'labels-receipt.json'),receipt);
   if(receipt.rows.length!==d.cases.length||receipt.rows.some(r=>r.status!=='available'))throw Error('labels_incomplete_no_paid_generation');
-  for(const c of d.cases){const row=await read(join(out,'private-labels',c.id+'.json')),bound=receipt.rows.find(r=>r.caseId===c.id);if(!bound||bound.hash!==hash(row)||row.datasetHash!==hash(d)||row.reference.status!=='available')throw Error('label_receipt_binding_failed');}
-  await writeOnce(join(out,'labels-ready.json'),{datasetHash:hash(d),receiptHash:hash(receipt),count:d.cases.length});
+  for(const c of d.cases){const row=await read(join(out,'private-labels',c.id+'.json')),bound=receipt.rows.find(r=>r.caseId===c.id);if(!bound||bound.hash!==hash(row)||row.datasetHash!==datasetHash||row.reference.status!=='available')throw Error('label_receipt_binding_failed');}
+  await writeOnce(join(out,'labels-ready.json'),{datasetHash,receiptHash:hash(receipt),count:d.cases.length});
 }
