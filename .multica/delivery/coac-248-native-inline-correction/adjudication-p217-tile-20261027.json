@@ -1,0 +1,56 @@
+{
+ "schema": "coac-248-p217-tile-adjudication/1",
+ "recordedAt": "2026-10-27T10:50:00.000Z",
+ "objectId": "79-cn:page:217",
+ "figure": "79-cn-p217-r1",
+ "assetPath": "assets/64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+ "assetPixels": [
+  430,
+  463
+ ],
+ "question": "北家舍牌第二行第二张是 8m（四次独立审校一致）还是 9m（本轮测量）",
+ "method": "同图锚点：北家手牌前两张为 8m（四次审校均认可）。把四张牌切成两块做 Pearson 相关：萬 半部（下 30 行）与 数字半部（上 26 行）。",
+ "correlations": {
+  "full": {
+   "anchor8m_vs_anchor8m": 0.905,
+   "disputed_vs_anchor8m": [
+    0.565,
+    0.569
+   ]
+  },
+  "wan_half": {
+   "anchor_vs_anchor": 0.885,
+   "disputed_vs_anchor": [
+    0.885,
+    0.871
+   ]
+  },
+  "numeral_half": {
+   "anchor_vs_anchor": 0.92,
+   "disputed_vs_anchor": [
+    0.267,
+    0.295
+   ]
+  }
+ },
+ "reading": "萬 半部四张牌互相关 0.87–0.94（同一渲染、同一方向、同一尺度）；数字半部两张 8m 互相关 0.92，争议牌只有 0.27–0.30。即争议牌与 8m 只在「萬」上相同、在数字上完全不同，放大后字形带钩。",
+ "conclusion": "争议牌不是 8m；本轮保留 9m，不按审校改回 8m。",
+ "notDone": "没有把该页标 passed，没有改旧回执，没有为这一张牌追加重审；建议 owner 或 249 做一次仅限该牌的独立裁决。",
+ "reviewRuns": [
+  {
+   "rev": "rev1",
+   "auditPath": "audit/pages/79-cn/page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json",
+   "auditStatus": "needs-repair"
+  },
+  {
+   "rev": "rev2",
+   "auditPath": "audit/pages/79-cn/page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json",
+   "auditStatus": "needs-repair"
+  },
+  {
+   "rev": "rev3",
+   "auditPath": "audit/pages/79-cn/page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json",
+   "auditStatus": "needs-repair"
+  }
+ ]
+}

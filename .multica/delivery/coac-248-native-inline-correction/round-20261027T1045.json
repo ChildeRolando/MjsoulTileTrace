@@ -1,0 +1,38 @@
+{
+ "schema": "coac-248-round-record/1",
+ "recordedAt": "2026-10-27T10:50:00.000000+00:00",
+ "round": "2026-10-27T09:58-10:50Z",
+ "trigger": "owner 2026-10-27T09:56:18Z: use COAC-244's verified entry/shared claim, continue the 199/201 reserved chapters, replace the fixed 10:30 timer with 'next limited batch as soon as the current phase ends'",
+ "objects": [
+  {
+   "objectId": "web-chapter:nemata-jp-chapter-199-1",
+   "result": "passed",
+   "candidateSha256": "3d93eb869db859bf35ff7b6ab832cc88b45fbd035bc78018ace54b33ae293ec8",
+   "auditSha256": "2247cb220cf2b82a291510f5ca06573c3c8c13720065d63d884bf2499d5c0563",
+   "handoff": "integration/coac250-incremental-199-1-20261027.json"
+  },
+  {
+   "objectId": "79-cn:page:217",
+   "result": "revision4 produced, not passed",
+   "candidateSha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101",
+   "chainRecord": "receipt-p217-revision-chain-20261027.json",
+   "adjudication": "adjudication-p217-tile-20261027.json"
+  }
+ ],
+ "modelCalls": {
+  "production": 0,
+  "audit": 4,
+  "void": 0
+ },
+ "entryIntegration": {
+  "claimed": "79-cn-chapter-217-4 (lane A, owner COAC-248 Mika)",
+  "makerSlot": "not needed this round (no production model call)",
+  "note": "shared claim used for the page's chapter so a second line cannot dispatch the same object"
+ },
+ "stillOpen": [
+  "79-cn:page:217",
+  "nemata-jp-chapter-215-4",
+  "nemata-jp-chapter-236-1"
+ ],
+ "nextBatch": "audit p217 rev4 once; if only the 9m/8m tile remains, take the adjudication record to the owner or 249 as a one-tile decision; in parallel start nemata-jp:page:257 source check"
+}

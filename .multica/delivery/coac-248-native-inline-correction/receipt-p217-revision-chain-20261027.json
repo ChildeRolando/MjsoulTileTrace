@@ -1,0 +1,81 @@
+{
+ "schema": "coac-248-object-receipt/1",
+ "objectId": "79-cn:page:217",
+ "recordedAt": "2026-10-27T10:50:00.000Z",
+ "status": "revision4-produced-not-audited; one tile disputed by four audits, image evidence says not-8m; one position disclosed as unknown",
+ "parentCandidateSha256": "73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add",
+ "chain": [
+  {
+   "rev": "rev1",
+   "root": "production/sol-high-field-repair22-20261027-p217",
+   "candidateSha256": "279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494",
+   "auditPath": "audit/pages/79-cn/page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json",
+   "auditStatus": "needs-repair",
+   "auditUsage": {
+    "inputTokens": 20595,
+    "cachedInputTokens": 0,
+    "outputTokens": 6891
+   },
+   "changes": [
+    "北家第二行 8m→9m",
+    "补录可见牌背 南13/西13/东10",
+    "ドラ 栏改为不判定宝牌/指示牌"
+   ],
+   "rejected": [
+    "审校的 第二行5m→6m（同图锚点反证，见 adjudication）"
+   ]
+  },
+  {
+   "rev": "rev2",
+   "root": "production/sol-high-field-repair23-20261027-p217b",
+   "candidateSha256": "2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd",
+   "auditPath": "audit/pages/79-cn/page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json",
+   "auditStatus": "needs-repair",
+   "auditUsage": {
+    "inputTokens": 20596,
+    "cachedInputTokens": 0,
+    "outputTokens": 6273
+   },
+   "changes": [
+    "东家两行改为各列自下向上并反转序列（依据同书已过审 p254 的东家写法）"
+   ],
+   "rejected": []
+  },
+  {
+   "rev": "rev3",
+   "root": "production/sol-high-field-repair24-20261027-p217c",
+   "candidateSha256": "ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea",
+   "auditPath": "audit/pages/79-cn/page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json",
+   "auditStatus": "needs-repair",
+   "auditUsage": {
+    "inputTokens": 20594,
+    "cachedInputTokens": 0,
+    "outputTokens": 4400
+   },
+   "changes": [
+    "北家手牌第7张 9s→8s",
+    "北家第一行第2、4张 8s→9s",
+    "西家第一行第5张 8s→9s（三处均经红/绿像素量确认）"
+   ],
+   "rejected": []
+  },
+  {
+   "rev": "rev4",
+   "root": "production/sol-high-field-repair25-20261027-p217d",
+   "candidateSha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101",
+   "auditPath": null,
+   "auditStatus": "not-audited",
+   "auditUsage": null,
+   "changes": [
+    "西家第二行第二张加待核标注（旋转万子牌，数字低于位图分辨率）"
+   ],
+   "rejected": []
+  }
+ ],
+ "claim": {
+  "registry": "parallel/claims/79-cn-chapter-217-4.json",
+  "lane": "A",
+  "owner": "COAC-248 Mika"
+ },
+ "nextBatch": "对 rev4 跑 1 次页审校；若仍只剩该张万子争议，把 adjudication-p217-tile-20261027.json 交 owner 或 249 做仅限该牌的裁决"
+}

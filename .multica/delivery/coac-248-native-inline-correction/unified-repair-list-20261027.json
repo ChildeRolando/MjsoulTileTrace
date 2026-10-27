@@ -16,12 +16,12 @@
   "totalTracked": 38
  },
  "countsCurrent": {
-  "needsRepair": 48,
+  "needsRepair": 47,
   "decisionHold": 1,
   "failedSeparate": 1,
-  "resolvedThisStage": 10,
+  "resolvedThisStage": 11,
   "totalTracked": 61,
-  "resolvedTotal": 14
+  "resolvedTotal": 15
  },
  "breakdown": {
   "oldPdfRemaining": 3,
@@ -265,11 +265,11 @@
    "kind": "pdf-page",
    "sourceId": "79-cn",
    "page": 217,
-   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0217.json",
-   "candidateSha256": "73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add",
-   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add.6baa4a7e1404.retry-1792979810396-c29948ed.json",
+   "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair25-20261027-p217d/candidates/79-cn/page-0217.json",
+   "candidateSha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101",
+   "auditPath": "audit/pages/79-cn/page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json",
    "auditStatus": "needs-repair",
-   "issueCount": 4,
+   "issueCount": 2,
    "reviewErrors": [
     "needs-repair:79-cn-p217-r1",
     "error:79-cn-p217-r1",
@@ -277,9 +277,11 @@
     "error:79-cn-p217-r1",
     "uncertain:79-cn-p217-r1"
    ],
-   "currentDisposition": "needs-repair",
+   "currentDisposition": "revision4-produced-not-audited; all suits fixes accepted by audit3; only the north second-row 9m/8m dispute (image evidence: not 8m) and one disclosed unknown remain",
    "origin": "COAC-248 old PDF 12",
-   "newThisStage": false
+   "newThisStage": false,
+   "revisionChain": "receipt-p217-revision-chain-20261027.json",
+   "adjudication": "adjudication-p217-tile-20261027.json"
   },
   {
    "objectId": "79-cn:page:263",
@@ -1668,21 +1670,21 @@
    "articleId": "chapter03-section013",
    "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section013.rev1.json",
    "candidateSha256": "3d93eb869db859bf35ff7b6ab832cc88b45fbd035bc78018ace54b33ae293ec8",
-   "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section013.3d93eb869db859bf35ff7b6ab832cc88b45fbd035bc78018ace54b33ae293ec8.json",
-   "auditStatus": "failed",
-   "issueCount": 5,
+   "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section013.3d93eb869db859bf35ff7b6ab832cc88b45fbd035bc78018ace54b33ae293ec8.retry-1793095290967-e15ea7b7.json",
+   "auditStatus": "passed",
+   "issueCount": 0,
    "unitCount": 1,
    "blockCount": 39,
    "pdfPages": [
     199
    ],
-   "currentDisposition": "produced-revision1-audit-transport-failed-void-call-counted-no-retry",
+   "currentDisposition": "passed-awaiting-250-merge",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
    "auditRecordedAt": "2026-10-26T03:16:48.856Z",
    "auditSourceStale": false,
    "diskShaVerified": true,
-   "auditSha256": "4652f1bdc0504742e20ac3de8c8d8bf99caee4d4f055cb0122f59b1ce149959d",
+   "auditSha256": "2247cb220cf2b82a291510f5ca06573c3c8c13720065d63d884bf2499d5c0563",
    "revisedFrom": {
     "parentCandidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section013.display.json",
     "parentCandidateSha256": "37849d97bb734d560b1d8099e8fa97760f6d62cbe6147030bfc7012458654292",
@@ -1703,7 +1705,9 @@
     "reason": "the runtime rejected the call on an unexpected item: a transport diagnostic item (\"Falling back from WebSockets to HTTPS transport. request timed out\") that is not the exact string the runtime whitelists; the model still returned a complete target-text review (both targets faithful, no issues)",
     "whyNotAccepted": "accepting it would mean overriding the runtime gate, which is not allowed",
     "whyNoRetry": "the failed call is billed and consumes this chapter's one audit allowance; retrying needs the owner's word, not an automatic retry"
-   }
+   },
+   "voidAuditPreserved": "audit/web/articles/modern-yabejp-ja/chapter03-section013.3d93eb869db859bf35ff7b6ab832cc88b45fbd035bc78018ace54b33ae293ec8.json (4652f1bd…, void call 21477900… billed)",
+   "handoff250": "integration/coac250-incremental-199-1-20261027.json"
   },
   {
    "objectId": "web-chapter:nemata-jp-chapter-201-1",
@@ -3462,7 +3466,7 @@
   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter03-section011.6ad44173945b9347cd8dd7c44640fa3341bf8e83109695e4cd8aacc6d3d98b21.json",
   "note": "Isolated revision from the 249/250 register set; parent receipt, parent candidate and raw preserved."
  },
- "refreshedAt": "2026-10-27T09:55:00.000000+00:00",
+ "refreshedAt": "2026-10-27T10:50:00.000000+00:00",
  "byOrigin": {
   "COAC-248 old PDF 12": 5,
   "COAC-247 new PDF return": 3,
@@ -3724,21 +3728,20 @@
   "bodyTextImpact": "none of the missing microprint is cited by any paragraph on those pages"
  },
  "latestRound": {
-  "at": "2026-10-27T09:55:00.000000+00:00",
+  "at": "2026-10-27T10:50:00.000000+00:00",
   "objects": [
-   "nemata-jp-chapter-201-1",
-   "nemata-jp-chapter-283-1",
-   "nemata-jp-chapter-199-1"
+   "web-chapter:nemata-jp-chapter-199-1",
+   "79-cn:page:217"
   ],
-  "productionModelCalls": 2,
-  "auditModelCalls": 3,
-  "voidModelCalls": 1,
+  "productionModelCalls": 0,
+  "auditModelCalls": 4,
+  "voidModelCalls": 0,
   "deterministicRejections": 0,
-  "note": "b0099 passed its single bounded review; 283-1 chapter aggregation classifies all 174 audit entries and is handed for a 250 staging decision; 201-1 passed and is handed; 199-1 revision produced but its one audit call was a billed void and was not retried",
+  "note": "199-1 passed on the single authorised retry and handed to 250; 79-cn:page:217 went rev1→rev4 on four verified source checks with three page audits, all suits fixes accepted, one 萬 tile disputed with anchor evidence",
   "stillOpen": [
+   "79-cn:page:217",
    "nemata-jp-chapter-215-4",
-   "nemata-jp-chapter-236-1",
-   "nemata-jp-chapter-199-1"
+   "nemata-jp-chapter-236-1"
   ]
  },
  "relatedNonRepair": {
@@ -4622,5 +4625,88 @@
    ]
   },
   "nextBatchWish": "199-1 retry decision; 236-1 entry decision; continue the remaining small web chapters"
+ },
+ "round20261027T1045": {
+  "recordedAt": "2026-10-27T10:50:00.000000+00:00",
+  "round": "2026-10-27T09:58-10:50Z",
+  "parallelEntry": {
+   "mechanism": "parallel/slots.mjs (COAC-244 delivery f5b4815, 15/15 verified)",
+   "claim": {
+    "chapterId": "79-cn-chapter-217-4",
+    "lane": "A",
+    "owner": "COAC-248 Mika",
+    "candidateSha256": "73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add",
+    "path": "parallel/claims/79-cn-chapter-217-4.json"
+   },
+   "makerSlot": "not acquired: this round dispatched no production model call (all page work is deterministic repair + independent page audit)",
+   "liveMakersAtRoundStart": 0
+  },
+  "resolved": [
+   {
+    "objectId": "web-chapter:nemata-jp-chapter-199-1",
+    "candidateSha256": "3d93eb869db859bf35ff7b6ab832cc88b45fbd035bc78018ace54b33ae293ec8",
+    "auditSha256": "2247cb220cf2b82a291510f5ca06573c3c8c13720065d63d884bf2499d5c0563",
+    "handoff": "integration/coac250-incremental-199-1-20261027.json",
+    "handoffSha256": "5ba224af71ac8bde1e984bac944701fcc25bd24aa95a4be7612fb57fb1adfe0d"
+   }
+  ],
+  "producedNotPassed": [
+   {
+    "objectId": "79-cn:page:217",
+    "candidateSha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101",
+    "revisions": 4,
+    "audits": 3,
+    "open": [
+     "北家第二行第二张 9m vs 审校的 8m（锚点相关性 0.90/0.57 反证 8m）",
+     "西家第二行第二张 8m 已在转录中标待核"
+    ]
+   }
+  ],
+  "modelCalls": {
+   "production": 0,
+   "audit": 4,
+   "void": 0,
+   "deterministicRejections": 0,
+   "usage": {
+    "audit": {
+     "inputTokens": 83230,
+     "cachedInputTokens": 0,
+     "outputTokens": 19965
+    }
+   },
+   "detail": [
+    {
+     "object": "nemata-jp-chapter-199-1",
+     "call": "8c774f65-879e-4ab6-93c1-7e34414bc610",
+     "scope": "web target-text retry",
+     "usage": "21545/0/2401"
+    },
+    {
+     "object": "79-cn:page:217 rev1",
+     "call": "audit-one-pdf-page",
+     "usage": "20595/0/6891"
+    },
+    {
+     "object": "79-cn:page:217 rev2",
+     "call": "audit-one-pdf-page",
+     "usage": "20596/0/6273"
+    },
+    {
+     "object": "79-cn:page:217 rev3",
+     "call": "audit-one-pdf-page",
+     "usage": "20594/0/4400"
+    }
+   ]
+  },
+  "stillOpen": {
+   "needsRepair": 47,
+   "list": [
+    "79-cn:page:217 (one disputed tile + one disclosed unknown)",
+    "nemata-jp-chapter-215-4 (entry decision: revision verifier rejects target-text parent receipt)",
+    "nemata-jp-chapter-236-1 (entry decision: parent audit has uncertain-only issue)",
+    "nemata-jp:page:98 / 257, supplement chapter02-section019, metadata pages 1/2/3/317 (evidence-blocked)"
+   ]
+  },
+  "nextBatch": "p217 rev4 audit -> if only the tile dispute remains, owner/249 limited adjudication; then nemata-jp:page:257 and the supplement"
  }
 }

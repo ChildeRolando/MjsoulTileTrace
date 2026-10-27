@@ -1,0 +1,14 @@
+继续 COAC-248 主线（下一有限批，不等到整点）。先读本票最新评论、`.multica/delivery/coac-248-native-inline-correction/round-20261027T1045.json`、`receipt-p217-revision-chain-20261027.json`、`adjudication-p217-tile-20261027.json`。
+
+上轮（09:58–10:50Z）结果，模型调用 4 次（全为审校，0 制作）：
+- **199-1 passed**：用 owner 的「继续199」授权只重试了 1 次审校（回执 retry-1793095290967-e15ea7b7，21545/0/2401）；void 回执原样保留、retryOfAudit 指回。已交 250：`integration/coac250-incremental-199-1-20261027.json`（5ba224af…）。
+- **79-cn:page:217 rev1→rev4**：3 次页审校，全部 needs-repair，但每一轮都把审校可确认的项修掉了——rev2 按同书已过审 p254 的东家写法把东家两列改为自下向上并反转序列；rev3 修 4 处 8s/9s（北家手牌第7张、北家第一行第2/4张、西家第一行第5张，均以红/绿像素量确认）；rev4 给西家第二行第二张加待核标注。
+- 仅剩一项争议：北家舍牌第二行第二张，四次审校都读作 8m，本轮同图锚点相关性显示它不是 8m（萬 半部互相关 0.89 vs 数字半部 0.27–0.30）。故保留 9m，未按审校改回，见 `adjudication-p217-tile-20261027.json`。
+- 并行入口：已用 244 的 `parallel/slots.mjs` 认领 `79-cn-chapter-217-4`（lane A / COAC-248 Mika）；本轮无制作模型调用，未占 maker 槽。
+
+本轮任务：
+1. 对 p217 **rev4**（`production/sol-high-field-repair25-20261027-p217d`，候选 99f98c02…）跑 **1 次**页审校：`node audit/audit-one-pdf-page.mjs --source 79-cn --page 217 --production-root production/sol-high-field-repair25-20261027-p217d`。若仍只剩那张万子，停止迭代，把 adjudication 记录交 owner 裁决，不要为同一张牌再加审校。
+2. 并行做 nemata-jp:page:257 的免费源核（唯一 uncertain 项 r1），确认它是否属同一类「审校 only-uncertain」入口限制；可产出就不派审校，先写证据。
+3. 215-4 / 236-1 的入口阻塞已写进清单：若本轮有空，把两条的具体阻塞整理成一段可直接报 244 的文字（rev2 父回执是 target-text 回执、236 父审只有 uncertain 项），不要自行改门禁。
+4. 每次模型调用前做零调用预检；void/failed 与有效调用分列；不自动追加重审；不碰 B 线认领的章（派发前 `slots.mjs check-chapter`）。
+5. 轮末更新清单与本轮记录，一条评论，提交到 `agent/mika/coac-248`，并立刻建下一批触发（不要用整点定时）。

@@ -1,0 +1,35 @@
+{
+ "schema": "coac-248-object-receipt/1",
+ "objectId": "web-chapter:nemata-jp-chapter-199-1",
+ "chapterId": "nemata-jp-chapter-199-1",
+ "articleId": "chapter03-section013",
+ "recordedAt": "2026-10-27T10:50:00.000Z",
+ "status": "passed-awaiting-250-merge",
+ "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section013.rev1.json",
+ "candidateSha256": "3d93eb869db859bf35ff7b6ab832cc88b45fbd035bc78018ace54b33ae293ec8",
+ "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section013.3d93eb869db859bf35ff7b6ab832cc88b45fbd035bc78018ace54b33ae293ec8.retry-1793095290967-e15ea7b7.json",
+ "auditSha256": "2247cb220cf2b82a291510f5ca06573c3c8c13720065d63d884bf2499d5c0563",
+ "auditStatus": "passed",
+ "voidAudit": {
+  "path": "audit/web/articles/modern-yabejp-ja/chapter03-section013.3d93eb869db859bf35ff7b6ab832cc88b45fbd035bc78018ace54b33ae293ec8.json",
+  "sha256": "4652f1bdc0504742e20ac3de8c8d8bf99caee4d4f055cb0122f59b1ce149959d",
+  "callId": "21477900-c7b4-4383-ba03-e99875dc538b",
+  "usage": {
+   "inputTokens": 21547,
+   "cachedInputTokens": 21376,
+   "outputTokens": 1199
+  },
+  "reason": "runtime rejected the transport diagnostic item; the model had returned a complete target-text review"
+ },
+ "retry": {
+  "authorisedBy": "2026-10-27T09:56:18Z owner comment: 继续199/201等保留章",
+  "calls": 1,
+  "callId": "8c774f65-879e-4ab6-93c1-7e34414bc610",
+  "usage": {
+   "inputTokens": 21545,
+   "cachedInputTokens": 0,
+   "outputTokens": 2401
+  }
+ },
+ "handoff250": "integration/coac250-incremental-199-1-20261027.json"
+}
