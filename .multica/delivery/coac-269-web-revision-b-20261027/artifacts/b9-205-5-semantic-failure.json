@@ -3,7 +3,7 @@
   "ticket": "COAC-269",
   "line": "B",
   "batch": "b9",
-  "recordedAt": "2026-10-27T15:28:34.781808+00:00",
+  "recordedAt": "2026-10-27T16:20:07.030659+00:00",
   "modelCalls": 1,
   "productionCalls": 1,
   "retries": 0,
@@ -32,6 +32,7 @@
     "webDeterministicChecks": true,
     "note": "all three frozen gates pass: they check bindings and scope, not whether the model read the image correctly"
   },
+  "evidenceClass": "producer-side diagnostic, NOT a semantic verdict (issue description correction 2026-10-27T15:52Z)",
   "diffs": [
     {
       "area": "下侧手牌",
@@ -39,7 +40,7 @@
       "parent": "1m",
       "modelCandidate": "2m",
       "sourceRead": "1m",
-      "verdict": "model wrong; parent faithful",
+      "verdict": "producer read: model contradicts the source here (diagnostic only)",
       "evidence": [
         {
           "path": "evidence-b9/hand-first4-9x.png",
@@ -62,7 +63,7 @@
       "parent": "4s",
       "modelCandidate": "6s",
       "sourceRead": "4s",
-      "verdict": "model wrong; parent faithful",
+      "verdict": "producer read: model contradicts the source here (diagnostic only)",
       "evidence": [
         {
           "path": "evidence-b9/hand-tail-9x.png",
@@ -85,7 +86,7 @@
       "parent": "6s",
       "modelCandidate": "8s",
       "sourceRead": "6s",
-      "verdict": "model wrong; parent faithful",
+      "verdict": "producer read: model contradicts the source here (diagnostic only)",
       "evidence": [
         {
           "path": "evidence-b9/hand-tail-9x.png",
@@ -108,7 +109,7 @@
       "parent": "2m、1m、3m，组成 123m 的吃",
       "modelCandidate": "1m 1m 1m，为一万的碰",
       "sourceRead": "2m、1m、3m，组成 123m 的吃",
-      "verdict": "model wrong; parent faithful",
+      "verdict": "producer read: model contradicts the source here (diagnostic only)",
       "evidence": [
         {
           "path": "evidence-b9/left-meld-10x.png",
@@ -131,7 +132,7 @@
       "parent": "8s",
       "modelCandidate": "4s",
       "sourceRead": "8s",
-      "verdict": "model wrong; parent faithful",
+      "verdict": "producer read: model contradicts the source here (diagnostic only)",
       "evidence": [
         {
           "path": "evidence-b9/bottom-discards-7x.png",
@@ -154,7 +155,7 @@
       "parent": "9m",
       "modelCandidate": "6m",
       "sourceRead": "9m (九萬)",
-      "verdict": "model likely wrong; parent faithful (glyph read; lower confidence than the rows above)",
+      "verdict": "producer read: model likely contradicts the source here (diagnostic, lower confidence)",
       "evidence": [
         {
           "path": "evidence-b9/top-discards-7x.png",
@@ -184,15 +185,15 @@
       "reading": "rotated upright, the character above 萬 is 九 (a hook), not 六 (亠 + 八 as in the hand 六萬)."
     }
   ],
-  "conclusion": "The single budgeted production call returned a transcription that contradicts the bound source in at least five places (hand tiles 2 and 13, the drawn tile, the bottom-left meld type, and bottom discard row 2). The parent transcription was faithful in every one of those places. The candidate is therefore NOT a valid repair and is not handed to COAC-249 for first audit; it is kept as produced (void) and the chapter stays needs-repair with its 1 production call spent, under the no-retry rule.",
-  "decision": "void-no-retry-no-handoff",
+  "conclusion": "PRODUCER ACCUSATION, NOT A CONFIRMED SEMANTIC ERROR. This line reads the single budgeted production output as contradicting the bound source in at least five places (hand tiles 2 and 13, the drawn tile, the bottom-left meld type, and bottom discard row 2), with the parent reading those places differently. Under the 2026-10-27T15:52Z rule a producer-side visual read cannot declare a semantic failure: the candidate has no independent first audit on its own SHA, so it stays pending, not failed. What is decided here is only the dispatch consequence: the candidate is not presented as a valid repair, is not handed to 249/250 on mechanical ok alone, keeps its raw output untouched, and the chapter's 1 production call is spent under the no-retry rule.",
+  "decision": "void-no-retry-no-handoff, semantic status pending independent adjudication",
   "budget": {
     "productionCallsAllowedPerChapter": 1,
     "productionCallsUsed": 1,
     "retriesAllowed": 0,
     "firstAuditCallsAllowedPerChapter": 1,
     "firstAuditSpent": false,
-    "note": "not handed to 249, so the first-audit budget was not spent"
+    "note": "not handed to 249, so the first-audit budget was not spent; an independent first audit on the same candidate SHA is the open item"
   },
   "preserved": {
     "rawCall": "web-production/v1/raw-calls/358f4e70-5660-4e0c-8918-6ad8a4287011.json",

@@ -596,19 +596,22 @@ error targets 5 and 1). Neither chapter had been claimed by line A (`090-6`, `08
 neither overlaps the candidates already with COAC-249 (`128-14`, `145-4`).
 
 The batch ended with **no revision handed to COAC-249 and no write to COAC-250**: one chapter was
-withheld before dispatch because its declared errors do not exist, and the other was produced with one
-budgeted call and then voided because the model's output contradicts the bound source. Both chapters
-stay `needs-repair`; nothing here is claimed as passed, staged or integrated.
+withheld before dispatch because two readings of its figure conflict and no independent image audit
+exists, and the other was produced with one budgeted call and then held back because this line reads
+its output as contradicting the bound source. Both chapters stay `needs-repair`; nothing here is
+claimed as passed, staged or integrated, and — per the 15:52Z correction recorded at the end of this
+section — this line's visual readings are diagnostics, not semantic verdicts.
 
-### 157-11 — withheld before dispatch (source contradicts the parent audit)
+### 157-11 — withheld before dispatch (conflicting readings, no independent audit)
 
-`artifacts/b9-157-11-source-conflict.json` (SHA256 `f5f6af43…b80f3`), zero model calls.
+`artifacts/b9-157-11-source-conflict.json` (SHA256 `fe4021bf…97c0`), zero model calls.
 
 The parent audit (`cv1751276` … `retry-1792948857228-d69c915c.json`) declares five `error` issues,
-all the same claim: a hand tile transcribed as `4s` is really `6s` ("两列、每列三根索子"). Re-reading
-the five bound source images (which are exact matches of the book pages —
-`chinese-source-body-correspondence.json` `exactSourceMatches`) shows a **2 columns × 2 rows** bamboo
-tile in every one of them, i.e. `4s`:
+all the same claim: a hand tile transcribed as `4s` is really `6s` ("两列、每列三根索子"). **Producer-side
+diagnostic only** (see the correction note at the end of this section): reading the five bound source
+images — which are exact matches of the book pages per `chinese-source-body-correspondence.json`
+`exactSourceMatches` — this line counts a **2 columns × 2 rows** bamboo tile in every one of them,
+i.e. `4s`:
 
 | figure | disputed tile | parent | audit | source read (row bands × column bands) |
 | --- | --- | --- | --- | --- |
@@ -623,15 +626,14 @@ Same-artwork references separate the two glyphs mechanically: the article's own 
 `… 4s 5s 6s 6s 7s`, unflagged) reads 2×2 for the `4s` and 3×2 for the `6s`. The audit's "每列三根"
 does not match the pixels.
 
-One genuine but **undeclared** parent defect was found and deliberately not repaired: in `b0011` the
-dora indicator is labelled `6s` while the glyph is the same 2×2 `4s`. Fixing it was not the dispatched
-scope, and a figure revision here would re-transcribe five figures whose content is already faithful —
-at best a no-op revision, at worst copying the audit's `6s` and corrupting four verbatim figures.
-Per the ticket rule (只修具体问题 / 未知不猜 / 不能盲发模型) the chapter was **not dispatched**; it needs
-adjudication of the parent audit, not a new revision. Recommended next step is recorded in the
-artifact.
+One further, **undeclared** doubt is recorded and deliberately not acted on: in `b0011` the dora
+indicator is labelled `6s` while this line reads the same 2×2 glyph. It was not repaired and not added
+as a target — expanding the target set by a producer read is exactly what the 15:52Z correction
+forbids. Because the two readings conflict and no independent image audit exists for `cv1751276`,
+the chapter was **not dispatched** (0 model calls, 0 candidate) and the conflict goes to adjudication
+instead of into a revision.
 
-### 205-5 — produced with the single budgeted call, then voided (semantic failure)
+### 205-5 — produced with the single budgeted call, then held back (producer accusation)
 
 Entry, claim, preflight, slot and gates all behaved; the model output did not.
 
@@ -655,9 +657,9 @@ One production call for one chapter, 0 retries. The frozen gates pass — `verif
 `250600ef…f9a54`) — because those gates verify bindings and scope, not whether the model read the
 image correctly.
 
-**The transcription is wrong.** `artifacts/b9-205-5-semantic-failure.json` (SHA256 `4d024735…62a6`)
-re-reads the disputed areas against the bound screenshot and finds the parent right and the model
-wrong in at least five places:
+**Producer accusation — not a confirmed semantic failure.** `artifacts/b9-205-5-semantic-failure.json`
+(SHA256 `d391d587…46e1`) re-reads the disputed areas against the bound screenshot and reads the model
+as contradicting the source in at least five places:
 
 | area | parent (and source) | model output |
 | --- | --- | --- |
@@ -669,17 +671,50 @@ wrong in at least five places:
 | 上侧弃牌区外侧一行第 3 张 | 9m（九萬） | 6m |
 
 The audit-targeted tile (`左侧弃牌区第 2 行：8m 6s`, replacing `8m 未辨明索子牌` and dropping the
-corresponding `unknowns` entry) *is* correct in the candidate — but it arrives inside a transcription
-that broke five other things, which is not a repair.
+corresponding `unknowns` entry) reads as correct in the candidate; the five points above are what this
+line reads as damage around it. Whether the candidate passes is an independent first-audit question,
+not this line's: the candidate has no audit on its own SHA yet.
 
 Consequences, per the batch rules (每章最多 1 次制作，失败 void 也计、不自动重试):
 
 - the chapter's 1 production call is spent; the candidate and raw call are kept exactly as produced
-  (no hand edits, no retry), and the candidate is **not** presented as a valid revision;
+  (no hand edits, no retry), and the candidate is **not** presented as a valid revision — its semantic
+  status stays pending an independent first audit on its own SHA;
 - it was **not** handed to COAC-249, so the first-audit budget for this chapter was not spent and no
   wrong candidate can reach 250;
 - the parent remains the only `needs-repair` candidate on the current source sha; a further attempt
   needs a new budget decision from the owner, not an automatic retry from this line.
+
+### Correction applied 2026-10-27T15:52Z (owner issue update)
+
+The owner added to COAC-269's description: the old controller's "I looked / 6×–8× re-read / per-tile
+check" conclusions are unsupported diagnostics; `Read` returning an image block does not prove the
+upstream model received or understood it; Python pixel/band statistics are locators, not verdicts.
+Visual reads may not modify tile codes, overturn an independent semantic audit, judge `passed`, or
+declare a semantic failure. Semantic conclusions must cite an independent GPT image audit on the same
+candidate SHA, with the input asset/hash, original + supplemental image order, complete output and
+transport all checked.
+
+This bundle was written before that correction and has been reframed accordingly:
+
+- `b9-157-11-source-conflict.json` keeps the readings and the crop evidence but is now labelled a
+  producer diagnostic; it no longer asserts that the audit is wrong or that the parent is faithful.
+  The dispatch decision stands on a narrower, non-semantic ground: two readings conflict, no
+  independent image audit exists for `cv1751276`, and the chapter therefore consumed no call and got
+  no candidate. Unresolved items: the 4s/6s conflict on the five figures and the `b0011` dora label
+  doubt (not a declared target, not expanded).
+- `b9-205-5-semantic-failure.json` keeps the six per-area readings but is labelled a producer
+  accusation; the candidate has **no independent first audit on its own SHA**, so its semantic status
+  is pending, not failed. What remains decided is only the dispatch consequence: one production call
+  spent (void), no retry, no handoff to 249/250 on mechanical ok alone, raw kept untouched.
+
+Recovery entry and state, for COAC-244's scheduling (this line does not wake itself, poll, or spend
+again): the `205-5` candidate `web-production/v1/candidates/79-bilibili-cn/cv1770234.coac269rev1.json`
+(SHA256 `8c0cfff8…f55ec`) and its raw call `358f4e70` stay in place with the shared claim
+`parallel/claims/79-cn-chapter-205-5.json`; maker-B was released at `14:51:12.895Z` and `slots.mjs
+status` shows 0 live makers, so capacity is free. Actual batch usage: 1 call, 16,342 input / 7,186
+output tokens, 306.0 s, 0 retries. `157-11` has no claim, no call and no artifact under the ticket
+namespace; its adjudication is the open item.
 
 ### Boundaries
 

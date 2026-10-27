@@ -124,31 +124,31 @@ out = {
         'b0011 dora indicator': {
             'parentTranscription': '宝牌；标注右侧的牌：6s',
             'sourceRead': bands(A['b0011'], (438, 18, 461, 66)),
-            'note': ('the dora indicator glyph is 2 columns x 2 rows = 4s, so this parent label is '
-                     'itself wrong; it is NOT one of the declared error targets and was '
-                     'deliberately not repaired'),
+            'note': ('producer diagnostic: the dora indicator glyph reads as the same 2 columns x 2 rows as the '
+                     'disputed hand tiles, which conflicts with the parent label 6s. It is NOT one of the declared '
+                     'error targets; it stays an unresolved item for the independent adjudication and was not '
+                     'repaired and not added as a target'),
         },
     },
-    'conclusion': ('All five declared error targets re-read against the bound source show a '
-                   '4-stick (2 columns x 2 rows) bamboo tile, identical in structure to the '
-                   'same-book 4s anchor and different from the 6-stick (3 columns x 2 rows) 6s '
-                   'anchor. The parent transcription "4s" is faithful; the audit claim "两列、'
-                   '每列三根索子，为6s" is a misread. There is no concrete figure error to repair '
-                   'in b0005/b0007/b0009/b0013, and b0011 has one real but undeclared defect (dora '
-                   'label 6s, source 4s). Dispatching the frozen entry here would either '
-                   're-transcribe the same tiles (a no-op revision) or copy the audit 6s and '
-                   'corrupt four verbatim figures.'),
-    'decision': 'withheld-before-dispatch',
+    'evidenceClass': 'producer-side diagnostic, NOT a semantic verdict (issue description correction 2026-10-27T15:52Z)',
+    'conclusion': ('Producer-side visual diagnostic only. This line reads a 4-stick (2 columns x 2 rows) bamboo '
+                   'tile at all five disputed positions, matching the parent transcription, while the parent '
+                   'audit describes 3 columns x 2 rows (6s). Per the 2026-10-27T15:52Z rule this reading is an '
+                   'unsupported diagnostic: it does not overturn the independent audit, does not declare the '
+                   'parent faithful and does not declare the audit wrong. What it does establish for this batch '
+                   'is that two readings conflict and that no independent image audit exists for cv1751276, so '
+                   'the chapter was not dispatched (0 model calls, 0 candidate).'),
+    'decision': 'withheld-before-dispatch, pending independent adjudication (0 production calls)',
     'decisionBasis': [
         'source images are exact matches of the book pages (chinese-source-body-correspondence.json exactSourceMatches)',
-        'same-book 4s/6s anchors distinguish 2x2 from 3x2 mechanically',
+        'same-book 4s/6s anchors distinguish 2x2 from 3x2 mechanically — diagnostic only, not a verdict',
         'COAC-269 rule: 只修具体问题 / 未知不猜 / 不能盲发模型',
         'tile-audit-anchor-check: conflicts are not turned into revisions',
+        '2026-10-27T15:52Z correction: visual reads are diagnostics; semantic conclusions need an independent GPT image audit on the same candidate SHA',
     ],
-    'recommendedNext': ('hand the parent audit of cv1751276 to independent adjudication (COAC-249 '
-                        'or the owner); if it rules the audit wrong, the parent needs no repair and '
-                        '157-11 should be reclassified by that adjudication, not by a new figure '
-                        'revision'),
+    'recommendedNext': ('schedule an independent image audit / adjudication of the cv1751276 parent audit through '
+                        'COAC-244; that adjudication decides whether the chapter needs a revision or should be '
+                        'reclassified. This line does not re-dispatch, retry, or expand targets.'),
 }
 for key, target, where, parent_text, box in DISPUTED:
     out['disputedTileReads'].append({

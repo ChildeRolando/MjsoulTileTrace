@@ -55,21 +55,21 @@ rows = [
     {
         'area': '下侧手牌', 'position': '第 2 张',
         'parent': '1m', 'modelCandidate': '2m', 'sourceRead': '1m',
-        'verdict': 'model wrong; parent faithful',
+        'verdict': 'producer read: model contradicts the source here (diagnostic only)',
         'evidence': [crop('hand-first4-9x.png', (75, 443, 220, 500), 0, 9)],
         'reading': 'the first two tiles are both 一萬 (a single horizontal stroke over 萬); the model wrote 二萬 for the second.',
     },
     {
         'area': '下侧手牌', 'position': '第 13 张',
         'parent': '4s', 'modelCandidate': '6s', 'sourceRead': '4s',
-        'verdict': 'model wrong; parent faithful',
+        'verdict': 'producer read: model contradicts the source here (diagnostic only)',
         'evidence': [crop('hand-tail-9x.png', (300, 443, 420, 500), 0, 9)],
         'reading': 'tile 13 is 2 columns x 2 rows of bamboo = 4s; the model wrote 6s (3 columns x 2 rows).',
     },
     {
         'area': '下侧摸入牌', 'position': '右侧间隔后摸入',
         'parent': '6s', 'modelCandidate': '8s', 'sourceRead': '6s',
-        'verdict': 'model wrong; parent faithful',
+        'verdict': 'producer read: model contradicts the source here (diagnostic only)',
         'evidence': [crop('hand-tail-9x.png', (300, 443, 420, 500), 0, 9)],
         'reading': 'the separated drawn tile is 3 columns x 2 rows = 6s, not the 8s the model wrote.',
     },
@@ -77,21 +77,21 @@ rows = [
         'area': '左下副露', 'position': '整组',
         'parent': '2m、1m、3m，组成 123m 的吃', 'modelCandidate': '1m 1m 1m，为一万的碰',
         'sourceRead': '2m、1m、3m，组成 123m 的吃',
-        'verdict': 'model wrong; parent faithful',
+        'verdict': 'producer read: model contradicts the source here (diagnostic only)',
         'evidence': [crop('left-meld-10x.png', (20, 320, 90, 420), 0, 10)],
         'reading': 'the upright tile is 二萬 and the two clockwise-rotated tiles read 一萬 and 三萬; it is a 吃, not a 碰.',
     },
     {
         'area': '下侧弃牌区', 'position': '第 2 行第 1 张',
         'parent': '8s', 'modelCandidate': '4s', 'sourceRead': '8s',
-        'verdict': 'model wrong; parent faithful',
+        'verdict': 'producer read: model contradicts the source here (diagnostic only)',
         'evidence': [crop('bottom-discards-7x.png', (150, 290, 330, 375), 0, 7)],
         'reading': 'the tile shows the 8s cross pattern (four corner sticks plus the X connectors), the same glyph as the 8s dora in b0013; the model wrote 4s.',
     },
     {
         'area': '上侧弃牌区', 'position': '外侧一行第 3 张',
         'parent': '9m', 'modelCandidate': '6m', 'sourceRead': '9m (九萬)',
-        'verdict': 'model likely wrong; parent faithful (glyph read; lower confidence than the rows above)',
+        'verdict': 'producer read: model likely contradicts the source here (diagnostic, lower confidence)',
         'evidence': [crop('top-discards-7x.png', (150, 60, 320, 160), 0, 7),
                      crop('topA3-rot.png', (256, 74, 284, 120), 180, 16)],
         'reading': 'rotated upright, the character above 萬 is 九 (a hook), not 六 (亠 + 八 as in the hand 六萬).',
@@ -112,16 +112,21 @@ out = {
     'mechanical': {'verifyWebRevisionContent': True, 'verifyWebProductionCall': True,
                    'webDeterministicChecks': True,
                    'note': 'all three frozen gates pass: they check bindings and scope, not whether the model read the image correctly'},
+    'evidenceClass': 'producer-side diagnostic, NOT a semantic verdict (issue description correction 2026-10-27T15:52Z)',
     'diffs': rows,
-    'conclusion': ('The single budgeted production call returned a transcription that contradicts the bound source in at '
-                   'least five places (hand tiles 2 and 13, the drawn tile, the bottom-left meld type, and bottom discard '
-                   'row 2). The parent transcription was faithful in every one of those places. The candidate is therefore '
-                   'NOT a valid repair and is not handed to COAC-249 for first audit; it is kept as produced (void) and the '
-                   'chapter stays needs-repair with its 1 production call spent, under the no-retry rule.'),
-    'decision': 'void-no-retry-no-handoff',
+    'conclusion': ('PRODUCER ACCUSATION, NOT A CONFIRMED SEMANTIC ERROR. This line reads the single budgeted production '
+                   'output as contradicting the bound source in at least five places (hand tiles 2 and 13, the drawn '
+                   'tile, the bottom-left meld type, and bottom discard row 2), with the parent reading those places '
+                   'differently. Under the 2026-10-27T15:52Z rule a producer-side visual read cannot declare a semantic '
+                   'failure: the candidate has no independent first audit on its own SHA, so it stays pending, not '
+                   'failed. What is decided here is only the dispatch consequence: the candidate is not presented as a '
+                   'valid repair, is not handed to 249/250 on mechanical ok alone, keeps its raw output untouched, and '
+                   'the chapter\'s 1 production call is spent under the no-retry rule.'),
+    'decision': 'void-no-retry-no-handoff, semantic status pending independent adjudication',
     'budget': {'productionCallsAllowedPerChapter': 1, 'productionCallsUsed': 1, 'retriesAllowed': 0,
                'firstAuditCallsAllowedPerChapter': 1, 'firstAuditSpent': False,
-               'note': 'not handed to 249, so the first-audit budget was not spent'},
+               'note': 'not handed to 249, so the first-audit budget was not spent; an independent first audit on the '
+                       'same candidate SHA is the open item'},
     'preserved': {'rawCall': 'web-production/v1/raw-calls/358f4e70-5660-4e0c-8918-6ad8a4287011.json',
                   'rawArtifactSha256': '4cf399c450ced144a4c36627f53a677ef83145872e34449fab4e145852a85fa5',
                   'candidateKeptAsProduced': True, 'handEdits': 0},
