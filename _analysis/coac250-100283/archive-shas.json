@@ -6,7 +6,7 @@
       "bytes": 58
     },
     "100-preview.zip": {
-      "sha256": "8da124520cc9771c2303d623ace51072939fa5d554c4101c60e6b5c24ddc26e1",
+      "sha256": "e93664ff168c8660a480310ca4521b1c649c4a4ef61190a50596478a7cbc62fb",
       "bytes": 627337
     },
     "283-attestation.json": {
@@ -94,12 +94,12 @@
       "bytes": 280721
     },
     "builder-patch.mjs": {
-      "sha256": "00cd97b283a27b376b9ace3bb1f61d5bbd09adba56c98c6b251488289aff4012",
-      "bytes": 3228
+      "sha256": "a0342802c8d6b03f1d1435dad99d382b2739f5c5a238d71c0fb1c7f92468a23b",
+      "bytes": 3528
     },
     "builder.after.mjs": {
-      "sha256": "64cd4ebb3dd44d33dd02433f2a37a3dd779aea7a4e02a8074ca13b7394331642",
-      "bytes": 37250
+      "sha256": "4f393a548a087aff2cb2900830db0340d22b99cf35bb647795fbbafbe1abc28d",
+      "bytes": 37406
     },
     "builder.before.mjs": {
       "sha256": "710ffaf8ef6ace872f7d78228227892d9aa841ec3b47b3869882acefbb0a0fd9",
@@ -108,6 +108,14 @@
     "candidate.json": {
       "sha256": "0415bd3cab999892faec1f3ae6ae8586f4b4adb1b93f486e37b1188bf7c49fc3",
       "bytes": 1196409
+    },
+    "canonical-alias-verification.json": {
+      "sha256": "5c020953f750841198ac46f1aab47b25f9b1a16856232c98061fb8cc43671e18",
+      "bytes": 285
+    },
+    "canonical-alias.mjs": {
+      "sha256": "d3cce46890ef20b038a2e6eb4d707ef7de6297303c1b1e394c7284046d9914a0",
+      "bytes": 2760
     },
     "coverage.json": {
       "sha256": "361a6c475c48d9236461afdc9256b8e50a03bf8372ff7033877cd4a11d71c5a7",
@@ -122,8 +130,8 @@
       "bytes": 13659
     },
     "final-verification.json": {
-      "sha256": "2d80fd56b76e0d878f5f328617b5b877dadcea04a37d4e7a4496cc99b6eb9560",
-      "bytes": 5853
+      "sha256": "a4e5fa52c00dc036e5610123df40e7e23f9646abb28d4654f92d95d4f9412266",
+      "bytes": 6185
     },
     "finalize.mjs": {
       "sha256": "d6d1daf051fe8899fa4cb97c3c58123c04c6b270ef5e3b281e91c422d625f67d",
@@ -246,8 +254,8 @@
       "bytes": 3609
     },
     "selection-route.patch": {
-      "sha256": "49cbac58004984bb6b5f3d840f053c0e90a6fe28a8a20c69667fb895938bf500",
-      "bytes": 19561
+      "sha256": "c3f8e035d8826f25551e9b137689dfb4c0288fd9715b2b14fea17bf9462fc01b",
+      "bytes": 21648
     },
     "source-dedup.log": {
       "sha256": "c9b5b9888493ce85333b26bab97c77a36d7a523194bc47b6fbc9a8126d2c24d2",
