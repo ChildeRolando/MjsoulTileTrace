@@ -1,5 +1,6 @@
 import { appendFileSync, closeSync, existsSync, fsyncSync, mkdirSync, openSync, readFileSync, writeSync } from 'node:fs';
-import { readFile, readdir, writeFile, mkdir } from 'node:fs/promises';
+import { readFile, readdir, writeFile, mkdir,link,unlink } from 'node:fs/promises';
+import { randomUUID } from 'node:crypto';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { hash, read, save, ordered, exists } from '../scene-study/common.mjs';
@@ -19,7 +20,9 @@ export const mean=xs=>xs.length?xs.reduce((a,b)=>a+b,0)/xs.length:null;
 export async function writeOnce(path,value) {
   const text=JSON.stringify(value,null,2)+'\n';await mkdir(dirname(path),{recursive:true});
   if(await exists(path)){if(await readFile(path,'utf8')!==text)throw Error('immutable_artifact_changed:'+path);return;}
-  await writeFile(path,text,{flag:'wx'});
+  const temporary=path+'.pending-'+process.pid+'-'+randomUUID();
+  await writeFile(temporary,text,{flag:'wx'});
+  try{await link(temporary,path);}catch(e){if(e.code!=='EEXIST'||await readFile(path,'utf8')!==text)throw e;}finally{await unlink(temporary);}
 }
 export function assertDataset(dataset) {
   const games=new Set(),sources=new Set(),ids=new Set();

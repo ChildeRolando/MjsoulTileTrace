@@ -2,13 +2,19 @@ import { describe, it, expect } from 'vitest';
 import { mkdtemp, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { BudgetLedger, BUDGETS, assertDataset, chooseVersion } from './ceiling-protocol.mjs';
+import { BudgetLedger, BUDGETS, assertDataset, chooseVersion,writeOnce } from './ceiling-protocol.mjs';
 import { indexTextbook, retrieveTextbook } from './ceiling-textbook.mjs';
 import { pairedDifference, summarizeRows, decide } from './ceiling-report.mjs';
 import { decisionRequest,runDecision } from './ceiling-run.mjs';
 import { hash,read } from './ceiling-protocol.mjs';
 
 describe('ceiling research boundaries', () => {
+  it('publishes immutable files atomically and does not replace a conflicting payload',async()=>{
+    const dir=await mkdtemp(join(tmpdir(),'ceiling-atomic-')),path=join(dir,'artifact.json');
+    await Promise.all([writeOnce(path,{value:'x'.repeat(100000)}),writeOnce(path,{value:'x'.repeat(100000)})]);
+    expect((await read(path)).value).toHaveLength(100000);
+    await expect(writeOnce(path,{value:'changed'})).rejects.toThrow(/changed/);
+  });
   it('counts actual requests before dispatch, keeps crash claims, and rejects duplicate or exhausted requests', async () => {
     const dir = await mkdtemp(join(tmpdir(), 'ceiling-ledger-'));
     const ledger = new BudgetLedger(dir, { smoke: 2 });

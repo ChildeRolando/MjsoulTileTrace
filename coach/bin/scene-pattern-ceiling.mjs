@@ -19,7 +19,7 @@ async function execute(){
   if(command==='status')return reportCeiling(out,{progressOnly:true});
   if(command==='all'){
     if(options['wait-prepare-pid']){
-      while(!await exists(join(out,'dataset.json'))){try{process.kill(Number(options['wait-prepare-pid']),0);}catch{throw Error('source_preparation_exited_without_complete_dataset');}await new Promise(r=>setTimeout(r,5000));}
+      for(;;){let alive=true;try{process.kill(Number(options['wait-prepare-pid']),0);}catch{alive=false;}if(!alive){if(!await exists(join(out,'dataset.json')))throw Error('source_preparation_exited_without_complete_dataset');break;}await new Promise(r=>setTimeout(r,5000));}
     }
     await prepare();await freezeCeiling(out);await labelCeiling(out,options.database??DEFAULT_DATABASE);
     if(!await exists(join(out,'smoke-ready.json')))await runPhase(out,options.smoke??'smoke1');
