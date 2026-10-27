@@ -1,0 +1,472 @@
+{
+  "schema": "coac248-next3-independent-fidelity-intake/1",
+  "recordedAt": "2026-10-27T21:37:40.098206+00:00",
+  "handoff": {
+    "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-reviewed-20261028.json",
+    "sha256": "ebe45f7418c0a049acea441bfe361810bbcc7ce5b74f2505cb1bb03bdc5b880b",
+    "copy": "evidence/handoff.json"
+  },
+  "imageItems": [
+    {
+      "canonical": "79-cn-chapter-159-9",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751292.display.json",
+        "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+        "bytes": 46828
+      },
+      "target": {
+        "figureId": "79-bilibili-cn:cv1751292:b0013:figure",
+        "bbox": [
+          298,
+          126,
+          324,
+          161
+        ]
+      },
+      "independentEvidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-159-limited-fidelity-evidence-20261028.json",
+        "sha256": "86bc78028f01c2fd7a277f0c2de1ce5fb2cbf51aff72ba00376fc5e7e0c178ba"
+      },
+      "call": {
+        "callId": "50eb7aaf-2b54-410c-b41b-b11059eae75f",
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max",
+        "images": 5,
+        "usage": {
+          "inputTokens": 21248,
+          "cachedInputTokens": 0,
+          "outputTokens": 17432
+        },
+        "durationMs": 229062
+      },
+      "fidelityStatus": "independently-allowed-limited-unknown",
+      "tileReadingStatus": "unknown-retained-no-recognition-task",
+      "recognitionPending": false,
+      "candidateEditsRequiredForThisFidelityScope": false,
+      "technicalEnvelopeStatus": "needs-repair",
+      "technicalLimitedOkay": false,
+      "scope": "Faithful presentation of the cited author argument with its existing explicit unknown, original conditions and exceptions. Does not certify exact tile counts, every possible call, rationale of any unstated rule, tactical optimality or actual outcome.",
+      "requiredLimitations": [
+        "继续保留现有转写中的“［万子牌，数字无法确认］”和 unknowns 中“上方牌河按画面从左到右第4张：可辨为万子牌，数字无法可靠确认”。",
+        "保留原图及目标位置 [298,126,324,161] 的来源关联；裁剪与放大图不作为独立证据。",
+        "保留 b0012 和 b0014 的原有场况条件、判断力度、1500点目标及5万碰例外，不将未知牌补成具体牌码。",
+        "不得把当前展示扩写为完整万子已见数、逐牌可鸣清单、5万碰例外的解释或得点保证。"
+      ],
+      "minimumRequiredAction": "维持该牌 unknown、原图绑定和现有原文条件及例外；仅在这一限定范围内接受其忠实展示。如需进行具体万子计数或逐牌鸣牌核验，须先取得足以辨识该牌的可靠证据，当前不作该项验收。本次不制作或修改候选。",
+      "uncertainTacticalDependenciesRetained": [
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "根据例4的点数情况，等着南出来太过优柔寡断了。",
+          "claim": "作者依据例4的点数情况，判断等待南出现过于犹豫。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "原文明确给出的理由是点数情况，没有把 [298,126,324,161] 的数字列为理由。对具体战术作全面独立评估时，未知万子的数字可能影响可见数量；不能仅因它位于牌河就断定它对所有具体评估都无关。",
+          "neededLimitation": "保留为作者针对例4点数情况的判断；不把照录该判断当成已独立证明其绝对正确。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "虽然鸣牌之后手牌会有点散，但也要朝着这1500点去。",
+          "claim": "作者预计鸣牌后手牌会有点散，同时仍建议朝1500点的目标前进。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "原句没有指定此处是哪一次鸣牌，也没有说目标牌是某个数字。保留作者的权衡不需猜数；若要逐项核验具体鸣牌及其结果，不能从这处未知牌补出所需信息。",
+          "neededLimitation": "保留“有点散”与“朝着”两种力度；1500点是作者提出的目标，不是已实现或保证实现的得点。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "这个牌能鸣牌的时候都鸣了吧（当然5万的碰是不行的= =）",
+          "claim": "作者建议这手牌在能鸣牌时积极鸣牌，并明确排除5万的碰。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "建议的条件和例外在文字中明确给出，不需要把上方第四张认成某个数字才能忠实保留。该数字可能关系到具体万子已见数和逐牌核验，原文没有将它明确关联到某个可鸣牌清单。",
+          "neededLimitation": "必须同时保留“能鸣牌的时候”和5万碰例外；不要扩写为任何牌都可鸣，也不要根据未知牌列出完整可鸣清单。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "（当然5万的碰是不行的= =）",
+          "claim": "5万的碰是作者对上一条建议明确写出的例外。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "作者直接写出了例外，但没有在该段说明其详细理由，也没有说上方牌河第四张就是5万。未知数字是否会影响某项具体牌数或鸣牌核验，不能由这句话单独确定。",
+          "neededLimitation": "原样保留例外，不把目标未知牌当作5万，也不自行补写例外的原因或宣称已独立验证其规则依据。"
+        }
+      ],
+      "existingUnknowns": [
+        "上方牌河按画面从左到右第4张：可辨为万子牌，数字无法可靠确认。"
+      ],
+      "boundaryChecks": [
+        {
+          "name": "wrong-position",
+          "rejected": true
+        },
+        {
+          "name": "readable",
+          "rejected": true
+        },
+        {
+          "name": "unfaithful",
+          "rejected": true
+        },
+        {
+          "name": "material-exact-dependency",
+          "rejected": true
+        },
+        {
+          "name": "no-independent-conclusion",
+          "rejected": true
+        }
+      ],
+      "chapterAccepted": false,
+      "standardWholeArticlePassed": false,
+      "remainingScope": "Existing250/244 zero-call exact supplemental admission and complete other chapter scope, then actual MCP/Arena display readback preserving unknown/author conditions. No tactical recalculation requirement for faithful presentation; no new model budget.",
+      "budgetRemaining": 0,
+      "fee": null,
+      "upstreamActualCount": null,
+      "remoteWeights": null
+    },
+    {
+      "canonical": "79-cn-chapter-242-3",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780438.display.json",
+        "sha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+        "bytes": 58219
+      },
+      "target": {
+        "figureId": "79-bilibili-cn:cv1780438:b0014:figure",
+        "bbox": [
+          177,
+          144,
+          202,
+          177
+        ]
+      },
+      "independentEvidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-242-limited-fidelity-evidence-20261028.json",
+        "sha256": "8af5dfab278fb5a6da46c571f68d6a6a034bf025677842e955530ef3cc769436"
+      },
+      "call": {
+        "callId": "d98dff34-cf8b-4341-8d00-37a31a1e0db8",
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max",
+        "images": 5,
+        "usage": {
+          "inputTokens": 25844,
+          "cachedInputTokens": 0,
+          "outputTokens": 14949
+        },
+        "durationMs": 214515
+      },
+      "fidelityStatus": "independently-allowed-limited-unknown",
+      "tileReadingStatus": "unknown-retained-no-recognition-task",
+      "recognitionPending": false,
+      "candidateEditsRequiredForThisFidelityScope": false,
+      "technicalEnvelopeStatus": "needs-repair",
+      "technicalLimitedOkay": false,
+      "scope": "Faithful presentation of the cited author argument with its existing explicit unknown, original conditions and exceptions. Does not certify exact tile counts, every possible call, rationale of any unstated rule, tactical optimality or actual outcome.",
+      "requiredLimitations": [],
+      "minimumRequiredAction": "保留原图、目标位置的?m及其无法可靠辨点说明，并保留例1原文的条件和判断力度。不要猜填点数，也不要把作者的推测或定性判断写成已独立验证的具体和牌与结算结果。本次无需制作或修改候选。",
+      "uncertainTacticalDependenciesRetained": [
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1780438:b0017"
+          ],
+          "sourceQuote": "但是和TOP的差距是基本没缩小。",
+          "claim": "对于前述吃牌方案，作者判断与TOP的差距基本没有缩小。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "这是原文对该方案的定性判断，保留原话不需要猜目标数字；原文没有给出完整的最终和牌构成与具体结算，单凭现有材料不能把它升级为独立复算结果，也不能断言目标数字对任何完整复盘均无影响。",
+          "neededLimitation": "保留“基本”并作为作者判断呈现，不添加具体得分或声称完成了独立复算。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1780438:b0018"
+          ],
+          "sourceQuote": "这种情况是应该要凹门清立直的牌。",
+          "claim": "在例1的争TOP情境下，作者建议争取门清立直。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "作者的明示论证是争TOP时比较吃3万的小牌与门清立直的打点，没有把上方目标牌的点数列为明示理由。可以保留该建议；仅凭未知牌不能独立证明该建议在所有完整牌面复盘中都最优。",
+          "neededLimitation": "作为此情境下的作者建议保留，不声称已证明绝对最优。"
+        }
+      ],
+      "existingUnknowns": [
+        "上方牌河靠近中央一行的屏幕最左侧万子牌：无法可靠辨认具体点数，转录为?m。"
+      ],
+      "boundaryChecks": [
+        {
+          "name": "wrong-position",
+          "rejected": true
+        },
+        {
+          "name": "readable",
+          "rejected": true
+        },
+        {
+          "name": "unfaithful",
+          "rejected": true
+        },
+        {
+          "name": "material-exact-dependency",
+          "rejected": true
+        },
+        {
+          "name": "no-independent-conclusion",
+          "rejected": true
+        }
+      ],
+      "chapterAccepted": false,
+      "standardWholeArticlePassed": false,
+      "remainingScope": "Existing250/244 zero-call exact supplemental admission and complete other chapter scope, then actual MCP/Arena display readback preserving unknown/author conditions. No tactical recalculation requirement for faithful presentation; no new model budget.",
+      "budgetRemaining": 0,
+      "fee": null,
+      "upstreamActualCount": null,
+      "remoteWeights": null
+    }
+  ],
+  "textItem": {
+    "canonical": "nemata-jp-chapter-100-1",
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.display.json",
+      "sha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+      "bytes": 1236462
+    },
+    "status": "needs-repair",
+    "requirement": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-100-minimal-repair-20261028.json",
+      "sha256": "b00075131f440682b5ea2903ca389975933666dd3b834f74880faf88a9f5fb75"
+    },
+    "issue": {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter01-section035:b0041",
+      "sourceEvidence": "b0041：「役牌トイツ１組＋生きている字牌２〜３種」；b0038明确解释：「生きている（２枚以上切れてない）孤立字牌」。候选为「1组役牌对子＋仍有剩余的字牌2～3种」。",
+      "description": "「仍有剩余」不足以表达尚未被打出2张以上的限制，可能把已经打出2张、但仍有余牌的字牌也计入，扩大积极染手的适用条件。补充上下文能够确定原意，但不能使该处译文自动忠实。",
+      "suggestedRepair": "将括号内对应部分改为「或1组役牌对子＋2～3种仍然有效（尚未被打出2张以上）的字牌」。"
+    },
+    "field": "body.blocks[sourceBlockIds includes modern-yabejp-ja:chapter01-section035:b0041].text",
+    "phraseChangeProposedOnly": {
+      "from": "1组役牌对子＋仍有剩余的字牌2～3种",
+      "to": "1组役牌对子＋2～3种仍然有效（尚未被打出2张以上）的字牌"
+    },
+    "inheritedPassedBlocks": 243,
+    "newTargetFaithfulBlocks": 67,
+    "call": {
+      "callId": "c821f2f0-903b-47f5-8bcc-81db3be2044d",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "images": 0,
+      "usage": {
+        "inputTokens": 64082,
+        "cachedInputTokens": 0,
+        "outputTokens": 12374
+      },
+      "durationMs": 159063
+    },
+    "nextAction": "Existing244 owner: exact b0041 condition repair only if separately authorized. No new maker/review allowance, no passed sidecar.",
+    "budgetRemaining": 0,
+    "candidateChanged": false,
+    "sidecarWritten": false
+  },
+  "bindings": {
+    "handoff.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-reviewed-20261028.json",
+      "sha256": "ebe45f7418c0a049acea441bfe361810bbcc7ce5b74f2505cb1bb03bdc5b880b",
+      "copy": "evidence/handoff.json"
+    },
+    "vision-runtime.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\runtime-manifest.json",
+      "sha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+      "copy": "evidence/vision-runtime.json"
+    },
+    "159/limited-evidence.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-159-limited-fidelity-evidence-20261028.json",
+      "sha256": "86bc78028f01c2fd7a277f0c2de1ce5fb2cbf51aff72ba00376fc5e7e0c178ba",
+      "copy": "evidence/159/limited-evidence.json"
+    },
+    "159/candidate.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751292.display.json",
+      "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+      "copy": "evidence/159/candidate.json"
+    },
+    "159/source.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1751292\\source.json",
+      "sha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+      "copy": "evidence/159/source.json"
+    },
+    "159/old-audit.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json",
+      "sha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed",
+      "copy": "evidence/159/old-audit.json"
+    },
+    "159/raw.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\50eb7aaf-2b54-410c-b41b-b11059eae75f.json",
+      "sha256": "12e1b8c6c7e88b3474b2a6a8aa2d56a27a62e64d9c3a5b36a396c365c94177bf",
+      "copy": "evidence/159/raw.json"
+    },
+    "159/technical-receipt.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-next3-20261028\\receipt159.json",
+      "sha256": "8b51355cf5799eb50fd6a60767d8dddb407f47f9e99e0f5fe8eb3399e6685901",
+      "copy": "evidence/159/technical-receipt.json"
+    },
+    "159/original-packet.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-point-packet.json",
+      "sha256": "0ecae5d97d1156f822c309ce3e0b1da96b3b6f610a7f4fe54690a161e707b617",
+      "copy": "evidence/159/original-packet.json"
+    },
+    "159/input-0.png": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952.png",
+      "sha256": "e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952",
+      "copy": "evidence/159/input-0.png"
+    },
+    "159/input-1.png": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-target.png",
+      "sha256": "ab71d478261c3572cd8f0388836b9f003d059cc79096313f3adc9ca47c743a9c",
+      "copy": "evidence/159/input-1.png"
+    },
+    "159/input-2.png": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-target-x4.png",
+      "sha256": "79dea3b53ad48ee15c67ccfa6fb1f94072728d25f7d9163bd376b1f57761a23d",
+      "copy": "evidence/159/input-2.png"
+    },
+    "159/input-3.png": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-neighbors.png",
+      "sha256": "367edcc1d98f7ec1a41107e1e4f49c9854e2998e67d521bd6dcb8f8d777c7518",
+      "copy": "evidence/159/input-3.png"
+    },
+    "159/input-4.png": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-neighbors-x4.png",
+      "sha256": "eafe0bc34980d52254159e408e01c00c98e07e28f3653473a57496763812b872",
+      "copy": "evidence/159/input-4.png"
+    },
+    "242/limited-evidence.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-242-limited-fidelity-evidence-20261028.json",
+      "sha256": "8af5dfab278fb5a6da46c571f68d6a6a034bf025677842e955530ef3cc769436",
+      "copy": "evidence/242/limited-evidence.json"
+    },
+    "242/candidate.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780438.display.json",
+      "sha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+      "copy": "evidence/242/candidate.json"
+    },
+    "242/source.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1780438\\source.json",
+      "sha256": "3cac4b7103309b092edada33aa8f698b606aa283ae1ce18f8ce9ba9e8428f6e0",
+      "copy": "evidence/242/source.json"
+    },
+    "242/old-audit.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780438.62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa.json",
+      "sha256": "332731f14ba75be91479bdefe77bb1a0026fe31d600b693d73d0e62db8ba8515",
+      "copy": "evidence/242/old-audit.json"
+    },
+    "242/raw.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d98dff34-cf8b-4341-8d00-37a31a1e0db8.json",
+      "sha256": "5dfef83403e9f6221a035a3a584166f12bea2a210b50b91563f8014844ad3074",
+      "copy": "evidence/242/raw.json"
+    },
+    "242/technical-receipt.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-next3-20261028\\receipt242.json",
+      "sha256": "255a4ff5e7858e7b7b28353a882b834c53b79dc820dc269f53b218172bc1cbb9",
+      "copy": "evidence/242/technical-receipt.json"
+    },
+    "242/original-packet.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-point-packet.json",
+      "sha256": "b94958e3dccbbfff17763288c9cbfa2e90e5264f67f917e0635201a30a6527cb",
+      "copy": "evidence/242/original-packet.json"
+    },
+    "242/input-0.jpg": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\fe9214ed1d4cb16f1a0d857c1f08093f5038203abc349f1b89f1ce054c734618.jpg",
+      "sha256": "fe9214ed1d4cb16f1a0d857c1f08093f5038203abc349f1b89f1ce054c734618",
+      "copy": "evidence/242/input-0.jpg"
+    },
+    "242/input-1.png": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-target.png",
+      "sha256": "a553ec37cf9796f967ed09db67f1373c2c84a56dd1038852f45cc50cd044ca43",
+      "copy": "evidence/242/input-1.png"
+    },
+    "242/input-2.png": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-target-x4.png",
+      "sha256": "6b5d57020291eef18562f94ac13df439cfaa5ecfa78b7b4da9b243628c5c10c0",
+      "copy": "evidence/242/input-2.png"
+    },
+    "242/input-3.png": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-neighbors.png",
+      "sha256": "c62742f05431564c903e05b5c1fb500a28d4167c76290e95b3030ae3f019fd49",
+      "copy": "evidence/242/input-3.png"
+    },
+    "242/input-4.png": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\242-neighbors-x4.png",
+      "sha256": "783ce7c4dac7390f973b956714616933260d07ef85d98240b61cf1ef593f547a",
+      "copy": "evidence/242/input-4.png"
+    },
+    "100/minimal-repair.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-100-minimal-repair-20261028.json",
+      "sha256": "b00075131f440682b5ea2903ca389975933666dd3b834f74880faf88a9f5fb75",
+      "copy": "evidence/100/minimal-repair.json"
+    },
+    "100/raw.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\c821f2f0-903b-47f5-8bcc-81db3be2044d.json",
+      "sha256": "ec474aaa993b0b00e697cbf95cd3c9448259746f84b5840912080fda27a6efe6",
+      "copy": "evidence/100/raw.json"
+    },
+    "100/technical-receipt.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-next3-20261028\\receipt100.json",
+      "sha256": "5de11b596e0e5da73d0093fad96180cc1388db94a7d3ea09d587dcaff6c0b2e1",
+      "copy": "evidence/100/technical-receipt.json"
+    },
+    "100/candidate.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.display.json",
+      "sha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+      "copy": "evidence/100/candidate.json"
+    },
+    "100/source.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter01-section035\\source.json",
+      "sha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+      "copy": "evidence/100/source.json"
+    },
+    "100/old-audit.json": {
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json",
+      "sha256": "51a7871f3be891b712baa492b6a190e0b6b28f9931f4670f505f32842e1d7e9a",
+      "copy": "evidence/100/old-audit.json"
+    }
+  },
+  "visionRuntimeFilesVerified": 27,
+  "newModelCalls": 0,
+  "newProducerCalls": 0,
+  "newConsumers": 0,
+  "budget": {
+    "maximumNewCalls": 3,
+    "used": 3,
+    "remaining": 0,
+    "failedVoidCount": true,
+    "failedCalls": 0,
+    "production": 0,
+    "retry": 0,
+    "maximumConcurrentReviews": 2
+  },
+  "existing250Consumer": {
+    "wakeupId": "01a17f47-fc4a-7821-ae40-f8c2c7b83439",
+    "observedStatus": "running",
+    "duplicateNotDispatched": true
+  },
+  "originalCandidatesRawReceiptsUnchanged": true,
+  "newStandardWholeArticlePassed": false,
+  "notRecognitionBacklog": [
+    "79-cn-chapter-159-9",
+    "79-cn-chapter-242-3"
+  ],
+  "otherScopeUntouched": [
+    "Q8",
+    "236",
+    "222",
+    "217",
+    "283",
+    "183"
+  ]
+}
