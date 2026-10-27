@@ -1,0 +1,285 @@
+{
+  "schema": "coac250-12th-batch-coverage-readback/1",
+  "recordedAt": "2026-10-27T14:05:05.477Z",
+  "modelCalls": 0,
+  "preview": {
+    "output": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T13-28-23-528Z",
+    "corpusId": "09354736a42741908a5f3344eec4be8e2791100cd6c93f797846929c3c986a5f",
+    "displayChapters": 220,
+    "displayUnits": 228,
+    "displayBlocks": 6072,
+    "displayFigures": 4960,
+    "selectedWeb": 191,
+    "pendingWeb": 32,
+    "pdfStages": 27,
+    "activeLibraryUnchanged": true,
+    "formalCorpusId": "3f44d5dcaf8dfadf64dc0225e40e5f97773da659bf4a6cc3ba18569c642b6129",
+    "formalCorpusFileSha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+  },
+  "denominator": {
+    "originalChapters": 256,
+    "originalUnits": 303,
+    "originalSourceBlocks": 21212
+  },
+  "coverage": {
+    "originalChaptersCovered": 220,
+    "originalChaptersRemaining": 36,
+    "originalUnitsCovered": 252,
+    "originalUnitsNote": "covered = 303 original units minus the units of the remaining original chapters; display units are merged presentation units, not the same measure"
+  },
+  "stagedThisDispatch": [
+    {
+      "originalChapterId": "nemata-jp-chapter-089-1",
+      "previewChapterId": "modern-yabejp-ja-chapter01-section031-chapter",
+      "corpusId": "09354736a42741908a5f3344eec4be8e2791100cd6c93f797846929c3c986a5f",
+      "blocks": 44,
+      "figures": 75,
+      "auditStatus": "passed",
+      "candidateSha256": "c5317d995648afeefdb370b314047e36f0368609a19a2db6be103385646565a6",
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section031.c5317d995648afeefdb370b314047e36f0368609a19a2db6be103385646565a6.json"
+    },
+    {
+      "originalChapterId": "nemata-jp-chapter-060-1",
+      "previewChapterId": "modern-yabejp-ja-chapter01-section021-06-chapter",
+      "corpusId": "09354736a42741908a5f3344eec4be8e2791100cd6c93f797846929c3c986a5f",
+      "blocks": 28,
+      "figures": 50,
+      "auditStatus": "passed",
+      "candidateSha256": "6de46bfb824281e9facea8bd30eebf1498b7ae047e4c006250aeaa2800b0c64c",
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section021-06.6de46bfb824281e9facea8bd30eebf1498b7ae047e4c006250aeaa2800b0c64c.json"
+    },
+    {
+      "originalChapterId": "79-cn-chapter-081-8",
+      "previewChapterId": "79-bilibili-cn-cv1721475-chapter",
+      "corpusId": "09354736a42741908a5f3344eec4be8e2791100cd6c93f797846929c3c986a5f",
+      "blocks": 19,
+      "figures": 8,
+      "auditStatus": "passed",
+      "candidateSha256": "d1fc1ea8f072cc73c3c1a1649f3a7608f6fd55ecb38be8ff19a34340d5c2a3dd",
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1721475.d1fc1ea8f072cc73c3c1a1649f3a7608f6fd55ecb38be8ff19a34340d5c2a3dd.json"
+    }
+  ],
+  "remaining": {
+    "total": 36,
+    "byVerdict": {
+      "produced-needs-repair": 35,
+      "produced-passed-not-staged": 1
+    },
+    "byAdjudicationGroup": {
+      "confirmed-produced-not-covered": 31,
+      "additional-uncovered-not-in-246": 5
+    },
+    "byRoute": {
+      "web": 33,
+      "pdfOnly": 3
+    },
+    "blockedBySourceStructureHold": [
+      "nemata-jp-chapter-027-1"
+    ],
+    "eligibleForNextStage": []
+  },
+  "crossBookNumbering": {
+    "rule": "identity is book + canonical article id; a shared numeric tail is never identity and never a dedupe key",
+    "entries": [
+      {
+        "chapterId": "nemata-jp-chapter-215-4",
+        "book": "nemata-jp",
+        "articleId": "chapter03-section027",
+        "status": "covered-effective",
+        "stagedBeforeThisBatch": true,
+        "note": "in the preview since the eighth batch; untouched by this batch"
+      },
+      {
+        "chapterId": "79-cn-chapter-215-4",
+        "book": "79-cn",
+        "articleId": null,
+        "status": "produced-needs-repair",
+        "openPages": [
+          217
+        ],
+        "note": "p217 is still needs-repair and is NOT removed or merged with nemata-jp-chapter-215-4; it stays an open remaining item"
+      },
+      {
+        "chapterId": "79-cn-chapter-081-8",
+        "book": "79-cn",
+        "articleId": "cv1721475",
+        "status": "covered-effective",
+        "stagedThisBatch": true
+      }
+    ],
+    "checkedAt": "2026-10-27T14:03:46.792Z"
+  },
+  "readback": {
+    "catalogEntries": 220,
+    "units": [
+      {
+        "unitId": "modern-yabejp-ja-chapter01-section031-argument",
+        "blocks": 44,
+        "exactBody": true,
+        "revisedTextInBody": true,
+        "revisedFiguresStaged": true,
+        "searchTop1IsUnit": true
+      },
+      {
+        "unitId": "modern-yabejp-ja-chapter01-section021-06-argument",
+        "blocks": 28,
+        "exactBody": true,
+        "revisedTextInBody": true,
+        "revisedFiguresStaged": true,
+        "searchTop1IsUnit": true
+      },
+      {
+        "unitId": "79-bilibili-cn-cv1721475-argument",
+        "blocks": 19,
+        "exactBody": true,
+        "revisedTextInBody": true,
+        "revisedFiguresStaged": true,
+        "searchTop1IsUnit": true
+      }
+    ],
+    "images": {
+      "checked": 133,
+      "allReachable": true
+    },
+    "absentArticles": [
+      {
+        "articleId": "chapter01-section010",
+        "inCatalog": false,
+        "inCorpus": false
+      },
+      {
+        "articleId": "215-4",
+        "inCatalog": false,
+        "inCorpus": false
+      }
+    ],
+    "maxTextBytes": 14659
+  },
+  "arena": {
+    "units": 228,
+    "maxEnvelopeBytes": 15066,
+    "realStdioMcp": true,
+    "exactBody": true,
+    "tailCannotGrantCitation": true,
+    "targets": [
+      {
+        "unitId": "79-bilibili-cn-cv1721475-argument",
+        "pages": 1,
+        "blocks": 19,
+        "maxEnvelopeBytes": 13593,
+        "finalPageSourceRefs": 1
+      },
+      {
+        "unitId": "modern-yabejp-ja-chapter01-section021-06-argument",
+        "pages": 6,
+        "blocks": 28,
+        "maxEnvelopeBytes": 14791,
+        "finalPageSourceRefs": 1
+      },
+      {
+        "unitId": "modern-yabejp-ja-chapter01-section031-argument",
+        "pages": 7,
+        "blocks": 44,
+        "maxEnvelopeBytes": 14759,
+        "finalPageSourceRefs": 1
+      }
+    ]
+  },
+  "bodyIntegrity": {
+    "allPassed": true,
+    "chapters": [
+      {
+        "chapterId": "modern-yabejp-ja-chapter01-section031-chapter",
+        "pass": {
+          "allSourceBlocksStaged": true,
+          "everyCandidateTextBlockPresent": true,
+          "allRevisedBlocksStaged": true,
+          "allRevisedBlocksActuallyChanged": true,
+          "allRevisedTextsLanded": true,
+          "allRevisedCandidateTextsStaged": true,
+          "allFiguresStaged": true,
+          "allFigureImageFilesMatchCorpus": true,
+          "figureAssetsAccounted": {
+            "directBinding": 0,
+            "composedRender": 75,
+            "note": "modern-yabejp-ja figures are composed renders (source tiles re-rendered into one example PNG), so their staged sha is not any single binding sha; 79-bilibili-cn figures pass through the original image bytes"
+          },
+          "allFigureTranscriptionsMatchStaged": true,
+          "figureBlockCoverage": {
+            "stagedFigureBlocks": 0,
+            "candidateFigures": 75,
+            "note": "modern-yabejp-ja chapters render most figures inline as tile codes; those have no standalone figure block and are checked by staged asset sha only"
+          },
+          "declaredChangedFiguresActuallyChanged": true,
+          "figureCountsMatch": true
+        }
+      },
+      {
+        "chapterId": "modern-yabejp-ja-chapter01-section021-06-chapter",
+        "pass": {
+          "allSourceBlocksStaged": true,
+          "everyCandidateTextBlockPresent": true,
+          "allRevisedBlocksStaged": true,
+          "allRevisedBlocksActuallyChanged": true,
+          "allRevisedTextsLanded": true,
+          "allRevisedCandidateTextsStaged": true,
+          "allFiguresStaged": true,
+          "allFigureImageFilesMatchCorpus": true,
+          "figureAssetsAccounted": {
+            "directBinding": 0,
+            "composedRender": 50,
+            "note": "modern-yabejp-ja figures are composed renders (source tiles re-rendered into one example PNG), so their staged sha is not any single binding sha; 79-bilibili-cn figures pass through the original image bytes"
+          },
+          "allFigureTranscriptionsMatchStaged": true,
+          "figureBlockCoverage": {
+            "stagedFigureBlocks": 1,
+            "candidateFigures": 50,
+            "note": "modern-yabejp-ja chapters render most figures inline as tile codes; those have no standalone figure block and are checked by staged asset sha only"
+          },
+          "declaredChangedFiguresActuallyChanged": true,
+          "figureCountsMatch": true
+        }
+      },
+      {
+        "chapterId": "79-bilibili-cn-cv1721475-chapter",
+        "pass": {
+          "allSourceBlocksStaged": true,
+          "everyCandidateTextBlockPresent": true,
+          "allRevisedBlocksStaged": true,
+          "allRevisedBlocksActuallyChanged": true,
+          "allRevisedTextsLanded": true,
+          "allRevisedCandidateTextsStaged": true,
+          "allFiguresStaged": true,
+          "allFigureImageFilesMatchCorpus": true,
+          "figureAssetsAccounted": {
+            "directBinding": 8,
+            "composedRender": 0,
+            "note": "modern-yabejp-ja figures are composed renders (source tiles re-rendered into one example PNG), so their staged sha is not any single binding sha; 79-bilibili-cn figures pass through the original image bytes"
+          },
+          "allFigureTranscriptionsMatchStaged": true,
+          "figureBlockCoverage": {
+            "stagedFigureBlocks": 8,
+            "candidateFigures": 8,
+            "note": "modern-yabejp-ja chapters render most figures inline as tile codes; those have no standalone figure block and are checked by staged asset sha only"
+          },
+          "declaredChangedFiguresActuallyChanged": true,
+          "figureCountsMatch": true
+        }
+      }
+    ]
+  },
+  "register": {
+    "path": "integration/coac250-unified-chapter-register-20261027b.json",
+    "sha256": "9e6444468d1cc6b7f493d4421d238d42aebf333ba1ed84fa29deeb29d0f35dac",
+    "recordedAt": "2026-10-27T14:03:46.792Z",
+    "verdicts": {
+      "covered-effective": 220,
+      "produced-needs-repair": 35,
+      "produced-passed-not-staged": 1,
+      "produced-pdf-passed-not-staged": 0,
+      "produced-unreviewed": 0,
+      "produced-audit-failed": 0,
+      "total": 256
+    }
+  }
+}

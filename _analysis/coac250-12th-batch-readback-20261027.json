@@ -1,0 +1,121 @@
+{
+  "schema": "coac250-12th-batch-readback/1",
+  "checkedAt": "2026-10-27T14:02:32.669Z",
+  "preview": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T13-28-23-528Z",
+  "corpusId": "09354736a42741908a5f3344eec4be8e2791100cd6c93f797846929c3c986a5f",
+  "catalogEntries": 220,
+  "rows": [
+    {
+      "chapterId": "modern-yabejp-ja-chapter01-section031-chapter",
+      "unitId": "modern-yabejp-ja-chapter01-section031-argument",
+      "catalogPresent": true,
+      "catalogTitle": "三色同顺",
+      "corpusBlocks": 44,
+      "readBlocks": 44,
+      "exactBody": true,
+      "revisedTextInBody": true,
+      "revisedFiguresStaged": true,
+      "query": "为，只在没有其他宝牌、且点棒状况需要高分时追求三",
+      "searchTop5": [
+        "modern-yabejp-ja-chapter01-section031-argument",
+        "modern-yabejp-ja-chapter01-section025-argument",
+        "modern-yabejp-ja-chapter01-section033-argument",
+        "modern-yabejp-ja-chapter01-section039-argument",
+        "modern-yabejp-ja-chapter04-section001-argument"
+      ],
+      "searchHitsUnit": true,
+      "searchTop1IsUnit": true
+    },
+    {
+      "chapterId": "modern-yabejp-ja-chapter01-section021-06-chapter",
+      "unitId": "modern-yabejp-ja-chapter01-section021-06-argument",
+      "catalogPresent": true,
+      "catalogTitle": "听牌选择",
+      "corpusBlocks": 28,
+      "readBlocks": 28,
+      "exactBody": true,
+      "revisedTextInBody": true,
+      "revisedFiguresStaged": true,
+      "query": "，但理由与往上数第二个比较（好形1,300点＞愚",
+      "searchTop5": [
+        "modern-yabejp-ja-chapter01-section021-06-argument",
+        "modern-yabejp-ja-chapter03-section008-argument",
+        "79-bilibili-cn-cv1810877-argument",
+        "79-bilibili-cn-cv1689302-argument",
+        "79-bilibili-cn-cv1754761-argument"
+      ],
+      "searchHitsUnit": true,
+      "searchTop1IsUnit": true
+    },
+    {
+      "chapterId": "79-bilibili-cn-cv1721475-chapter",
+      "unitId": "79-bilibili-cn-cv1721475-argument",
+      "catalogPresent": true,
+      "catalogTitle": "【日本麻雀讲座译文】牌效率17—一向听的牌理（五）",
+      "corpusBlocks": 19,
+      "readBlocks": 19,
+      "exactBody": true,
+      "revisedTextInBody": true,
+      "revisedFiguresStaged": true,
+      "query": "无雀头形的牌，改良是非常重要的一个要素。 像",
+      "searchTop5": [
+        "79-bilibili-cn-cv1721475-argument",
+        "79-bilibili-cn-cv1704217-argument",
+        "79-bilibili-cn-cv1689302-argument",
+        "79-bilibili-cn-cv1697952-argument",
+        "79-bilibili-cn-cv1697964-argument"
+      ],
+      "searchHitsUnit": true,
+      "searchTop1IsUnit": true
+    }
+  ],
+  "absent": [
+    {
+      "chapterId": "modern-yabejp-ja-chapter01-section010-chapter",
+      "articleId": "chapter01-section010",
+      "reason": "confirmed_source_definition_boundary_hold (027-1 held, not staged)",
+      "inCatalog": false,
+      "inCorpus": false,
+      "searchHits": [
+        "modern-yabejp-ja-chapter01-section005-argument",
+        "modern-yabejp-ja-chapter01-section006-argument",
+        "modern-yabejp-ja-chapter01-section013-argument",
+        "modern-yabejp-ja-chapter01-section014-argument",
+        "modern-yabejp-ja-chapter01-section016-argument"
+      ]
+    },
+    {
+      "chapterId": "79-cn-chapter-215-4",
+      "articleId": "215-4",
+      "reason": "p217 still needs-repair; open item kept, never merged with nemata-jp-chapter-215-4",
+      "inCatalog": false,
+      "inCorpus": false,
+      "searchHits": [
+        "79-bilibili-cn-cv1689350-argument",
+        "79-bilibili-cn-cv1704179-argument",
+        "79-bilibili-cn-cv1726181-argument",
+        "79-bilibili-cn-cv1734724-argument",
+        "79-bilibili-cn-cv1738963-argument"
+      ]
+    }
+  ],
+  "crossBook": {
+    "nemata215catalog": [
+      "modern-yabejp-ja-chapter03-section027-chapter"
+    ],
+    "nemata215corpus": [
+      "modern-yabejp-ja-chapter03-section027-argument"
+    ],
+    "cn215catalog": [],
+    "cn215corpus": [],
+    "rule": "book+canonical article id is identity; a shared numeric tail is not"
+  },
+  "images": {
+    "checked": 133,
+    "allReachable": true,
+    "mismatched": []
+  },
+  "maxTextBytes": 14659,
+  "totalCallMs": 70,
+  "modelCalls": 0
+}

@@ -1,6 +1,6 @@
 {
   "schema": "coac250-unified-chapter-register/2",
-  "recordedAt": "2026-10-27T13:10:17.282Z",
+  "recordedAt": "2026-10-27T14:03:46.792Z",
   "modelCalls": 0,
   "productionCalls": 0,
   "supersedes": {
@@ -8,9 +8,9 @@
     "readback": "integration/coac250-coverage-readback-20261027b.json",
     "coac246": "coac246-57-verification-summary.json",
     "previousRegister": {
-      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.before-coac250-11th-run-2026-10-27T13-10-17-261Z.json",
-      "sha256": "5a19d2c2e7998dd8162e54f7eee89a4a8ebc3ed90c69b2f2e7794bfaa623c337",
-      "reason": "eleventh COAC-250 run supersedes the tenth-batch snapshot; history kept verbatim"
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.before-coac250-12th-batch-2026-10-27T14-03-46-772Z.json",
+      "sha256": "7437df35adb80deeb7833908b627a1683613585aecd192bdfd74ba6618a47b9f",
+      "reason": "twelfth COAC-250 incremental batch supersedes the eleventh-run snapshot; history kept verbatim"
     }
   },
   "purpose": "统一来源映射与真缺口裁决：逐原章列出获准网页对应、现存候选/源/审校状态、是否允许替代、缺失源块；供 244/246/247/248/249/250 全链使用。不触发新制作。",
@@ -20,14 +20,14 @@
     "originalSourceBlocks": 21212
   },
   "display": {
-    "previewOutput": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T12-22-49-037Z",
-    "corpusId": "f223871fd1150357a013b58d29b46d61c90ab537f3674149c1a22311c6995f2e",
-    "displayChapters": 217,
-    "displayUnits": 225,
-    "displayBlocks": 5981,
-    "displayFigures": 4827,
-    "selectedWeb": 188,
-    "pendingWeb": 35,
+    "previewOutput": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T13-28-23-528Z",
+    "corpusId": "09354736a42741908a5f3344eec4be8e2791100cd6c93f797846929c3c986a5f",
+    "displayChapters": 220,
+    "displayUnits": 228,
+    "displayBlocks": 6072,
+    "displayFigures": 4960,
+    "selectedWeb": 191,
+    "pendingWeb": 32,
     "pdfStages": 27
   },
   "contract": {
@@ -40,13 +40,13 @@
     "originalChapters": 256,
     "originalUnits": 303,
     "originalSourceBlocks": 21212,
-    "displayChapters": 217,
-    "displayUnits": 225,
-    "displayBlocks": 5981,
-    "displayFigures": 4827,
-    "effectiveCoveredOriginalChapters": 217,
-    "effectiveUncoveredOriginalChapters": 39,
-    "uncoveredProduced": 39,
+    "displayChapters": 220,
+    "displayUnits": 228,
+    "displayBlocks": 6072,
+    "displayFigures": 4960,
+    "effectiveCoveredOriginalChapters": 220,
+    "effectiveUncoveredOriginalChapters": 36,
+    "uncoveredProduced": 36,
     "trulyUnproduced": 0,
     "register80": 80,
     "register80Groups": {
@@ -56,9 +56,9 @@
       "additional-uncovered-not-in-246": 6
     },
     "verdicts": {
-      "covered-effective": 217,
+      "covered-effective": 220,
       "produced-needs-repair": 35,
-      "produced-passed-not-staged": 4,
+      "produced-passed-not-staged": 1,
       "produced-pdf-passed-not-staged": 0,
       "produced-unreviewed": 0,
       "produced-audit-failed": 0,
@@ -351,8 +351,8 @@
       "units": 1,
       "ownedSourceBlocks": 31,
       "adjudicationGroup": "confirmed-produced-not-covered",
-      "covered": false,
-      "coverageRoute": null,
+      "covered": true,
+      "coverageRoute": "web",
       "approvedWebCorrespondence": {
         "articleId": "cv1721475",
         "webSourceId": "79-bilibili-cn",
@@ -360,7 +360,7 @@
         "evidencePath": "integration/chinese-source-body-correspondence.json",
         "substitutionAllowed": true,
         "bodyEquivalenceConfirmed": true,
-        "articleInPreview": false
+        "articleInPreview": true
       },
       "existingCandidate": {
         "path": "web-production/v1/candidates/79-bilibili-cn/cv1721475.r1.json",
@@ -370,10 +370,10 @@
         "currentSourceSha256": "f0f3fe12b457bc7d0ffcb34cfc6b1e4e5e37781759f55ebe22cbfdc8343b55f3",
         "sourceBoundCurrent": true,
         "auditStatus": "passed",
-        "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/79-bilibili-cn/cv1721475.d1fc1ea8f072cc73c3c1a1649f3a7608f6fd55ecb38be8ff19a34340d5c2a3dd.json",
+        "auditPath": "audit/web/articles/79-bilibili-cn/cv1721475.d1fc1ea8f072cc73c3c1a1649f3a7608f6fd55ecb38be8ff19a34340d5c2a3dd.json",
         "auditRecordedAt": "2026-10-27T11:51:50.380Z",
         "deterministicPassed": true,
-        "semanticComplete": true,
+        "semanticComplete": null,
         "revision": {
           "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1721475.display.json",
           "parentSha256": "50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853",
@@ -452,7 +452,7 @@
           84
         ]
       },
-      "verdict": "produced-passed-not-staged",
+      "verdict": "covered-effective",
       "coac246": {
         "action": "repair",
         "auditStatus": "needs-repair",
@@ -485,6 +485,19 @@
         "withinSourceStructureHold": false,
         "eligibleForNextStage": true,
         "modelCalls": 0
+      },
+      "staging": {
+        "previewOutput": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T13-28-23-528Z",
+        "corpusId": "09354736a42741908a5f3344eec4be8e2791100cd6c93f797846929c3c986a5f",
+        "previewChapterId": "79-bilibili-cn-cv1721475-chapter",
+        "blocks": 19,
+        "figures": 8,
+        "auditStatus": "passed",
+        "auditPath": "audit/web/articles/79-bilibili-cn/cv1721475.d1fc1ea8f072cc73c3c1a1649f3a7608f6fd55ecb38be8ff19a34340d5c2a3dd.json",
+        "auditSha256": "f1328e6a67ddce5f3df448d8533ac7e83009a7e18132ae7e6c070d5385468458",
+        "stageReceiptPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T13-28-23-528Z\\stages\\79-bilibili-cn-cv1721475\\web-stage-receipt.json",
+        "stagedAt": "2026-10-27T13:56:06.639Z",
+        "note": "COAC-248 targeted figure correction: four figures re-read from the source image (b0004/b0006/b0008/b0018, last-tile 9s restored to 7s and the 4p/5p cut-row first tile); all 19 text blocks are byte-identical and the other 4 figures differ only by derived presentationAsset. Independent full-article audit passed 2026-10-27T11:51:50Z (receipt f1328e6a); the parent 50b62ce5 display and its c5513dee needs-repair receipt are preserved. Verified on the e89dcffe web-audit base (auditor snapshot 453ba938, dependency manifest ed07f6b8)."
       }
     },
     {
@@ -3751,8 +3764,8 @@
       "units": 1,
       "ownedSourceBlocks": 148,
       "adjudicationGroup": "confirmed-produced-not-covered",
-      "covered": false,
-      "coverageRoute": null,
+      "covered": true,
+      "coverageRoute": "web",
       "approvedWebCorrespondence": {
         "articleId": "chapter01-section021-06",
         "webSourceId": "modern-yabejp-ja",
@@ -3760,7 +3773,7 @@
         "evidencePath": "integration/modern-pdf-url-coverage.json",
         "substitutionAllowed": true,
         "bodyEquivalenceConfirmed": false,
-        "articleInPreview": false
+        "articleInPreview": true
       },
       "existingCandidate": {
         "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section021-06.coac269rev1.json",
@@ -3770,7 +3783,7 @@
         "currentSourceSha256": "febc8cef9c299b375c225843e4d33a27a2167c3729bf8c590e472433f548eda5",
         "sourceBoundCurrent": true,
         "auditStatus": "passed",
-        "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter01-section021-06.6de46bfb824281e9facea8bd30eebf1498b7ae047e4c006250aeaa2800b0c64c.json",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section021-06.6de46bfb824281e9facea8bd30eebf1498b7ae047e4c006250aeaa2800b0c64c.json",
         "auditRecordedAt": "2026-10-27T12:01:14.606Z",
         "deterministicPassed": true,
         "semanticComplete": true,
@@ -3851,7 +3864,7 @@
           63
         ]
       },
-      "verdict": "produced-passed-not-staged",
+      "verdict": "covered-effective",
       "coac246": {
         "action": "repair",
         "auditStatus": "needs-repair",
@@ -3884,6 +3897,19 @@
         "withinSourceStructureHold": false,
         "eligibleForNextStage": true,
         "modelCalls": 0
+      },
+      "staging": {
+        "previewOutput": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T13-28-23-528Z",
+        "corpusId": "09354736a42741908a5f3344eec4be8e2791100cd6c93f797846929c3c986a5f",
+        "previewChapterId": "modern-yabejp-ja-chapter01-section021-06-chapter",
+        "blocks": 28,
+        "figures": 50,
+        "auditStatus": "passed",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section021-06.6de46bfb824281e9facea8bd30eebf1498b7ae047e4c006250aeaa2800b0c64c.json",
+        "auditSha256": "949a48561b8f2f02d3b677b0e210f2d12d6978b9315161ec85fdb5437f136235",
+        "stageReceiptPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T13-28-23-528Z\\stages\\modern-yabejp-ja-chapter01-section021-06\\web-stage-receipt.json",
+        "stagedAt": "2026-10-27T13:56:06.639Z",
+        "note": "COAC-249 batch b7 (COAC-269 line-B): targeted re-translation of b0027 and b0033 (restores the「二つ上」referent and the 1-vs-2 normal-dora comparison); the other 19 text blocks and all 7 figures are byte-identical to the parent display. Independent target-text audit passed 2026-10-27T12:01:14Z (receipt 949a4856); the parent ff1f57ff display with its f13f9da6 needs-repair receipt is preserved. Same frozen web-target-text-chain runtime."
       }
     },
     {
@@ -3987,8 +4013,8 @@
       "units": 1,
       "ownedSourceBlocks": 153,
       "adjudicationGroup": "confirmed-produced-not-covered",
-      "covered": false,
-      "coverageRoute": null,
+      "covered": true,
+      "coverageRoute": "web",
       "approvedWebCorrespondence": {
         "articleId": "chapter01-section031",
         "webSourceId": "modern-yabejp-ja",
@@ -3996,7 +4022,7 @@
         "evidencePath": "integration/modern-pdf-url-coverage.json",
         "substitutionAllowed": true,
         "bodyEquivalenceConfirmed": false,
-        "articleInPreview": false
+        "articleInPreview": true
       },
       "existingCandidate": {
         "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section031.coac269rev1.json",
@@ -4006,7 +4032,7 @@
         "currentSourceSha256": "c69694f31974fc506ba30b69434ed64a700112dc6d7bb2d67916aa9ef19126a4",
         "sourceBoundCurrent": true,
         "auditStatus": "passed",
-        "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter01-section031.c5317d995648afeefdb370b314047e36f0368609a19a2db6be103385646565a6.json",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section031.c5317d995648afeefdb370b314047e36f0368609a19a2db6be103385646565a6.json",
         "auditRecordedAt": "2026-10-27T12:00:09.252Z",
         "deterministicPassed": true,
         "semanticComplete": true,
@@ -4078,7 +4104,7 @@
           91
         ]
       },
-      "verdict": "produced-passed-not-staged",
+      "verdict": "covered-effective",
       "coac246": {
         "action": "repair",
         "auditStatus": "needs-repair",
@@ -4111,6 +4137,19 @@
         "withinSourceStructureHold": false,
         "eligibleForNextStage": true,
         "modelCalls": 0
+      },
+      "staging": {
+        "previewOutput": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T13-28-23-528Z",
+        "corpusId": "09354736a42741908a5f3344eec4be8e2791100cd6c93f797846929c3c986a5f",
+        "previewChapterId": "modern-yabejp-ja-chapter01-section031-chapter",
+        "blocks": 44,
+        "figures": 75,
+        "auditStatus": "passed",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section031.c5317d995648afeefdb370b314047e36f0368609a19a2db6be103385646565a6.json",
+        "auditSha256": "11e0c9f0e612fd99f30316abbe28fa420a84bf60284a296287018fc6d8b51d18",
+        "stageReceiptPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T13-28-23-528Z\\stages\\modern-yabejp-ja-chapter01-section031\\web-stage-receipt.json",
+        "stagedAt": "2026-10-27T13:56:06.639Z",
+        "note": "COAC-249 batch b7 (COAC-269 line-B): targeted re-translation of b0042/b0084/b0102/b0153 (restores the source strength of「が有力」and the「のみで良いとみる」qualifier); the other 29 text blocks and all 14 figures are byte-identical to the parent display. Independent target-text audit passed 2026-10-27T12:00:09Z (receipt 11e0c9f0); the parent 9fa0255f display with its 38463b0c needs-repair retry receipt is preserved byte-for-byte. Verified on the frozen web-target-text-chain runtime (auditor snapshot 856dad9d, dependency manifest 0aa071a4)."
       }
     },
     {
@@ -8805,31 +8844,102 @@
       "detail": "081-8, 089-1 and 060-1 are eligible for a zero-model-call stage under the existing flow (passed, source-bound, parent-bound, absent from the preview) but were not named in this dispatch (their receipts postdate the 11:34Z staging-ready-4.json). Left untouched for the next dispatch; none of their files, receipts or candidates was modified or removed.",
       "modelCalls": 0,
       "productionCalls": 0
+    },
+    {
+      "at": "2026-10-27T14:03:46.792Z",
+      "kind": "staged-into-preview",
+      "chapterIds": [
+        "nemata-jp-chapter-089-1",
+        "nemata-jp-chapter-060-1",
+        "79-cn-chapter-081-8"
+      ],
+      "detail": "Three passed-but-unstaged chapters are now complete gated chapters in the preview: display 217 to 220, units to 228, blocks to 6072, figures to 4960, selectedWeb to 191, pendingWeb to 32. All prior chapters were retained with identical unit fingerprints, none rewritten, none lost; the formal library is untouched and the previous pointer preserved. No re-audit: every receipt named by the member is the effective latest passed receipt for its own book+article.",
+      "modelCalls": 0,
+      "productionCalls": 0
+    },
+    {
+      "at": "2026-10-27T14:03:46.792Z",
+      "kind": "cross-book-numbering",
+      "detail": "79-cn-chapter-215-4 (p217 disputed, produced-needs-repair, openPages 217) is kept as an open remaining item and was not merged with or removed against the already-covered nemata-jp-chapter-215-4 (chapter03-section027). Dedupe key is book+canonical article id throughout, never the numeric tail; the preview chapter ids carry the book prefix, so no collision is possible.",
+      "modelCalls": 0,
+      "productionCalls": 0
+    },
+    {
+      "at": "2026-10-27T14:03:46.792Z",
+      "kind": "wiring-fixes",
+      "detail": "integration/specific-web-variant-selection.v12.json adds the three canonical articles (31 jobs); v11 kept as history at 3e222bac. The builder pin moved to v12 943b47ee and the previous builder is preserved as build-accepted-preview.before-v12-20261027.mjs (7ddd83f3). No model calls, no re-audit.",
+      "modelCalls": 0,
+      "productionCalls": 0
+    },
+    {
+      "at": "2026-10-27T14:03:46.792Z",
+      "kind": "open-items",
+      "detail": "027-1 (chapter01-section010) remains held by the frozen source-structure hold and is the only audited-passed-but-unstaged chapter left. 283-1 (chapter06-exercise003) latest receipt remains needs-repair; 183-1 (chapter03-section003) is still without an audit receipt. 79-cn-chapter-215-4 p217 remains needs-repair. All stay out of the preview.",
+      "modelCalls": 0,
+      "productionCalls": 0
+    },
+    {
+      "at": "2026-10-27T14:04:09.653Z",
+      "kind": "register-field-tightening",
+      "detail": "eligibleForNextStage no longer lists 027-1: it is audited-passed but inside the frozen source-structure hold, so it is reported through blockedBySourceStructureHold and the new blockedByHoldButPassed instead. Counters unchanged.",
+      "modelCalls": 0,
+      "productionCalls": 0
     }
   ],
   "remainingTypes": {
     "denominator": "original chapters (256) minus covered (receipt.chapters); one chapter can be one original chapter only, no overlap",
-    "total": 39,
+    "total": 36,
     "byVerdict": {
       "produced-needs-repair": 35,
-      "produced-passed-not-staged": 4
+      "produced-passed-not-staged": 1
     },
     "byAdjudicationGroup": {
-      "confirmed-produced-not-covered": 34,
+      "confirmed-produced-not-covered": 31,
       "additional-uncovered-not-in-246": 5
     },
     "byRoute": {
-      "web": 36,
+      "web": 33,
       "pdfOnly": 3
     },
     "blockedBySourceStructureHold": [
       "nemata-jp-chapter-027-1"
     ],
-    "eligibleForNextStage": [
-      "79-cn-chapter-081-8",
-      "nemata-jp-chapter-060-1",
-      "nemata-jp-chapter-089-1"
+    "eligibleForNextStage": [],
+    "note": "35 remaining chapters are produced but carry no passed receipt for a complete chapter yet (needs-repair or awaiting re-audit). 1 is audited-passed-but-unstaged: 027-1 is held by the frozen source-structure hold (chapter01-section010 has no definition-boundary sidecar/stage proof). 081-8, 089-1 and 060-1 were staged this batch and no longer count here. None is unproduced.",
+    "blockedByHoldButPassed": [
+      "nemata-jp-chapter-027-1"
     ],
-    "note": "35 remaining chapters are produced but carry no passed receipt for a complete chapter yet (needs-repair or awaiting re-audit). 4 are audited-passed-but-unstaged: 027-1 is held by the frozen source-structure hold (chapter01-section010 has no definition-boundary sidecar/stage proof), and 081-8/089-1/060-1 passed after the dispatched batch list was cut and await the next dispatch. None is unproduced."
+    "eligibleNote": "no chapter is currently eligible for a zero-model-call stage: the only passed-but-unstaged chapter (027-1) is held by the frozen source-structure hold"
+  },
+  "crossBookNumbering": {
+    "rule": "identity is book + canonical article id; a shared numeric tail is never identity and never a dedupe key",
+    "entries": [
+      {
+        "chapterId": "nemata-jp-chapter-215-4",
+        "book": "nemata-jp",
+        "articleId": "chapter03-section027",
+        "status": "covered-effective",
+        "stagedBeforeThisBatch": true,
+        "note": "in the preview since the eighth batch; untouched by this batch"
+      },
+      {
+        "chapterId": "79-cn-chapter-215-4",
+        "book": "79-cn",
+        "articleId": null,
+        "status": "produced-needs-repair",
+        "openPages": [
+          217
+        ],
+        "note": "p217 is still needs-repair and is NOT removed or merged with nemata-jp-chapter-215-4; it stays an open remaining item"
+      },
+      {
+        "chapterId": "79-cn-chapter-081-8",
+        "book": "79-cn",
+        "articleId": "cv1721475",
+        "status": "covered-effective",
+        "stagedThisBatch": true
+      }
+    ],
+    "checkedAt": "2026-10-27T14:03:46.792Z"
   }
 }

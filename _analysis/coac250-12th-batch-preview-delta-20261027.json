@@ -1,0 +1,69 @@
+{
+  "schema": "coac250-12th-batch-preview-delta/1",
+  "recordedAt": "2026-10-27T14:04:44.658Z",
+  "modelCalls": 0,
+  "prior": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T12-22-49-037Z",
+    "receiptSha256": "99c3c7b509865422618bdea306c42475160e3741096ed9985fa1503c93017761",
+    "corpusId": "f223871fd1150357a013b58d29b46d61c90ab537f3674149c1a22311c6995f2e",
+    "chapters": 217,
+    "units": 225,
+    "blocks": 5981,
+    "figures": 4827,
+    "selectedWeb": 188,
+    "pendingWeb": 35
+  },
+  "delivered": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T13-28-23-528Z",
+    "receiptSha256": "73c0bbbf3c649f225c9532d8d0db811523363f261362d1b13a403c5dcd22c3d5",
+    "corpusId": "09354736a42741908a5f3344eec4be8e2791100cd6c93f797846929c3c986a5f",
+    "chapters": 220,
+    "units": 228,
+    "blocks": 6072,
+    "figures": 4960,
+    "selectedWeb": 191,
+    "pendingWeb": 32
+  },
+  "delta": {
+    "chapters": 3,
+    "units": 3,
+    "blocks": 91,
+    "figures": 133
+  },
+  "addedChapters": [
+    "79-bilibili-cn-cv1721475-chapter",
+    "modern-yabejp-ja-chapter01-section021-06-chapter",
+    "modern-yabejp-ja-chapter01-section031-chapter"
+  ],
+  "removedChapters": [],
+  "addedUnits": [
+    "79-bilibili-cn-cv1721475-argument",
+    "modern-yabejp-ja-chapter01-section021-06-argument",
+    "modern-yabejp-ja-chapter01-section031-argument"
+  ],
+  "retention": {
+    "priorUnits": 225,
+    "retained": 225,
+    "blockFingerprintChanged": 0,
+    "lost": 0,
+    "figuresPrior": 4827,
+    "figuresRemoved": 0,
+    "figuresAdded": 133
+  },
+  "pendingDelta": {
+    "before": 35,
+    "after": 32,
+    "resolved": [
+      "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1721475.display.json",
+      "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section021-06.display.json",
+      "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section031.display.json"
+    ],
+    "added": []
+  },
+  "formal": {
+    "textbookCorpusSha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2",
+    "activeLibraryChanged": false,
+    "formalCorpusId": "3f44d5dcaf8dfadf64dc0225e40e5f97773da659bf4a6cc3ba18569c642b6129",
+    "formalCorpusFileSha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+  }
+}
