@@ -1,0 +1,38 @@
+{
+  "schema": "coach-explicit-audit-targets/1",
+  "createdAt": "2026-10-27T12:50:17.419Z",
+  "source": "COAC-269 line B batch-8 produced figure-revision candidates on their needs-repair display parents; prepared from the b8 preflight/claim/production/selfcheck receipts. No audit dispatched here.",
+  "totalTargets": 2,
+  "targets": [
+    {
+      "kind": "complete-web-candidate",
+      "chapterId": "79-cn-chapter-128-14",
+      "articleId": "cv1734739",
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1734739.coac269rev1.json",
+      "sourceId": "79-bilibili-cn",
+      "sourceSha256": "962fdd8860f2f756f1bc76054a5ef9ea2a5f82959e36da44aff79c57aee1d5ca",
+      "sha256": "c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae",
+      "parentSha256": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec",
+      "parentAuditSha256": "24ebc92c728006d8a4283c3f2bcf46790b4876bb094d6363d05decf8578b1f59",
+      "category": "coac269-line-b-targeted-figure-revision",
+      "targets": [
+        "79-bilibili-cn:cv1734739:b0013:figure"
+      ]
+    },
+    {
+      "kind": "complete-web-candidate",
+      "chapterId": "79-cn-chapter-145-4",
+      "articleId": "cv1744266",
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1744266.coac269rev1.json",
+      "sourceId": "79-bilibili-cn",
+      "sourceSha256": "baf759cb6de68be0a0f5cd66957aae705ee59bb8350ef8530138e714b484e1b4",
+      "sha256": "07a511d4efb0dc246763ba7d2b114ac7203ab9b7109f7fcc12cfe4302751d284",
+      "parentSha256": "7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a",
+      "parentAuditSha256": "b349c80320f24c247e9e3b33f6b0e6dc3aba1970401340656e6b7fd91fc6103d",
+      "category": "coac269-line-b-targeted-figure-revision",
+      "targets": [
+        "79-bilibili-cn:cv1744266:b0005:figure"
+      ]
+    }
+  ]
+}

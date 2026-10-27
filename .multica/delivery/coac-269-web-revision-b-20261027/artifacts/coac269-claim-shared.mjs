@@ -32,7 +32,10 @@ const NS = join(P, 'web-production/v1/coac269-20261027');
 const SLOTS = join(P, 'parallel/slots.mjs');
 const HERE = dirname(fileURLToPath(import.meta.url));
 // the gate scripts live in this ticket bundle, not in the data namespace
-const JOINT = join(HERE, 'coac269-joint-exclusion-precheck-v2.mjs');
+// v3 covers both entries this line uses (modern text scope + 79-cn figure correspondence); it is
+// the same three-source exclusion, not a second mechanism. Batch 5/6/7 receipts were produced by v2
+// and keep their recorded sha — the receipt used for a claim is always the one named in it.
+const JOINT = join(HERE, 'coac269-joint-exclusion-precheck-v3.mjs');
 const OWNER = 'COAC-269 Ticket executor';
 const NODE = process.execPath;
 const sha = b => createHash('sha256').update(b).digest('hex');
