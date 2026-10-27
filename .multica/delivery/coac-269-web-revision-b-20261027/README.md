@@ -140,5 +140,10 @@ Started immediately after batch 2 was handed off, without waiting for its audit.
 - Calls: `35508223-36a6-4982-a382-aa5d6683c9a1` (61.5 s, 12,597 in / 500 out) and
   `c045a2dc-bbca-4e75-ae8f-97b1c4d5110a` (26.8 s, 11,751 in / 136 out), one per chapter, 0 retries.
 - B held `maker-B` 10:17:06.929Z–10:18:35.570Z and released it; the legacy lock is again byte-identical.
-- Real model-call overlap in this batch: **0** (no audit or A-line production call inside the window).
+- Real model-call overlap in this batch: **1 production/audit pair × 2 calls.** An audit-ledger call
+  `95502be0-996e-40be-bcec-1d37e4dbb695` ran 10:17:25.809Z–10:21:46.721Z and overlapped the 183-1
+  production call by 42.7 s and the 131-1 production call by 26.8 s. Its artifact was written after the
+  production receipt snapshot, so the receipt itself listed none; the corrected measurement is in
+  `artifacts/b3-concurrency-observation.json` and `artifacts/b3-dual-slot-entry-check.json`.
+  No A-line production call ran inside the window, so maker-vs-maker concurrency stayed 1.
 - Preflight, claims, production, self-check and 249 handoff receipts: `artifacts/b3-*.json`.
