@@ -1,0 +1,332 @@
+{
+ "schema": "coac-283-1-group-revision/1",
+ "recordedAt": "2026-10-27T06:39:27.356839+00:00",
+ "articleId": "chapter06-exercise003",
+ "chapterId": "nemata-jp-chapter-283-1",
+ "option": "B: group-targeted revision, no whole-chapter re-production",
+ "parent": {
+  "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev1.json",
+  "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+  "auditPath": "audit/web/articles/modern-yabejp-ja/chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+  "auditSha256": "749e242c54019cb6b855a03e6df4fe465bed86e1cf50d7869be548a3b0144d40"
+ },
+ "candidate": {
+  "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev2.json",
+  "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+  "selfSha256": "e126166d14550ec2f41f9a07f0db77122c78a9a558e3682f414b382a7ca6a497"
+ },
+ "targets": {
+  "path": "integration/coac248-283-1-group-revision-targets-20261027.json",
+  "sha256": "7b23b4893a965afef2a2c54ce1c90cb83d8a8dce02f75b6487fd868dd8b8332f",
+  "textBlockIds": [
+   "modern-yabejp-ja:chapter06-exercise003:b0168",
+   "modern-yabejp-ja:chapter06-exercise003:b0396",
+   "modern-yabejp-ja:chapter06-exercise003:b0962",
+   "modern-yabejp-ja:chapter06-exercise003:b1017",
+   "modern-yabejp-ja:chapter06-exercise003:b1179",
+   "modern-yabejp-ja:chapter06-exercise003:b1181"
+  ],
+  "figureIds": [
+   "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+   "modern-yabejp-ja:chapter06-exercise003:b0947:figure"
+  ],
+  "groups": [
+   "chapter06-exercise003-batch-002",
+   "chapter06-exercise003-batch-004",
+   "chapter06-exercise003-batch-007",
+   "chapter06-exercise003-batch-009",
+   "chapter06-exercise003-batch-011"
+  ]
+ },
+ "production": {
+  "calls": 5,
+  "usage": {
+   "inputTokens": 142838,
+   "cachedInputTokens": 31232,
+   "outputTokens": 12804
+  },
+  "groups": [
+   {
+    "batchId": "chapter06-exercise003-batch-002",
+    "callId": "bde14ceb-9a49-4592-b7aa-d0cfb64edc40",
+    "targets": {
+     "textIds": [
+      "modern-yabejp-ja:chapter06-exercise003:b0168"
+     ],
+     "figureIds": []
+    },
+    "usage": {
+     "inputTokens": 29087,
+     "cachedInputTokens": 0,
+     "outputTokens": 174
+    }
+   },
+   {
+    "batchId": "chapter06-exercise003-batch-004",
+    "callId": "60ef6955-a6a3-4023-9853-01cd4da13bc2",
+    "targets": {
+     "textIds": [
+      "modern-yabejp-ja:chapter06-exercise003:b0396"
+     ],
+     "figureIds": []
+    },
+    "usage": {
+     "inputTokens": 28277,
+     "cachedInputTokens": 0,
+     "outputTokens": 216
+    }
+   },
+   {
+    "batchId": "chapter06-exercise003-batch-007",
+    "callId": "9f557ee3-0c5e-4b7e-9f17-013466f46aa3",
+    "targets": {
+     "textIds": [],
+     "figureIds": [
+      "modern-yabejp-ja:chapter06-exercise003:b0785"
+     ]
+    },
+    "usage": {
+     "inputTokens": 30642,
+     "cachedInputTokens": 0,
+     "outputTokens": 5499
+    }
+   },
+   {
+    "batchId": "chapter06-exercise003-batch-009",
+    "callId": "fafc75a7-a3fb-4db5-b899-aa4ae346fa0c",
+    "targets": {
+     "textIds": [
+      "modern-yabejp-ja:chapter06-exercise003:b0962",
+      "modern-yabejp-ja:chapter06-exercise003:b1017"
+     ],
+     "figureIds": [
+      "modern-yabejp-ja:chapter06-exercise003:b0947"
+     ]
+    },
+    "usage": {
+     "inputTokens": 31399,
+     "cachedInputTokens": 31232,
+     "outputTokens": 6749
+    }
+   },
+   {
+    "batchId": "chapter06-exercise003-batch-011",
+    "callId": "7d06f4c7-bcec-40db-bfcd-4091b6716707",
+    "targets": {
+     "textIds": [
+      "modern-yabejp-ja:chapter06-exercise003:b1179",
+      "modern-yabejp-ja:chapter06-exercise003:b1181"
+     ],
+     "figureIds": []
+    },
+    "usage": {
+     "inputTokens": 23433,
+     "cachedInputTokens": 0,
+     "outputTokens": 166
+    }
+   }
+  ]
+ },
+ "audit": {
+  "path": "audit/web/articles/modern-yabejp-ja/chapter06-exercise003.849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3.json",
+  "sha256": "21d909b832c28e62a76f453863ed24d8fc8738adbb54b36bfd8117b9395d5aea",
+  "status": "needs-repair",
+  "method": "independent-sol-high-complete-unit-batch-group-revision",
+  "calls": 5,
+  "groups": {
+   "chapter06-exercise003-batch-002": {
+    "status": "passed",
+    "callId": "2bc349c6-99be-473c-bd07-90578852609f",
+    "usage": {
+     "inputTokens": 51573,
+     "cachedInputTokens": 0,
+     "outputTokens": 500
+    },
+    "issues": [],
+    "checkpoint": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-002.json",
+     "sha256": "5e8c6b0693d238954fc85cd03a915d9bbda79064ac54782abbfaf775ffe10010"
+    }
+   },
+   "chapter06-exercise003-batch-004": {
+    "status": "passed",
+    "callId": "b4c9487b-7d5a-4b2a-b6f1-2ade2f5de008",
+    "usage": {
+     "inputTokens": 52263,
+     "cachedInputTokens": 0,
+     "outputTokens": 313
+    },
+    "issues": [],
+    "checkpoint": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-004.json",
+     "sha256": "cd6d170cd6c69beb83766837524bd32fa2ed15930acf05fa5a58404fc094de36"
+    }
+   },
+   "chapter06-exercise003-batch-007": {
+    "status": "needs-repair",
+    "callId": "51d6b447-2446-4afa-9c30-5d1d1b4dfcc5",
+    "usage": {
+     "inputTokens": 52091,
+     "cachedInputTokens": 0,
+     "outputTokens": 1482
+    },
+    "issues": [
+     {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "description": "候选将中央左上与右下的东、西对调，造成座位方位信息错误。"
+     }
+    ],
+    "checkpoint": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-007.json",
+     "sha256": "9fa518acb13dbdfac78129917d547b1ad38a7e54c53cd8938a83de66c0b9af85"
+    }
+   },
+   "chapter06-exercise003-batch-009": {
+    "status": "passed",
+    "callId": "7896f6fb-3a56-4444-bf7f-761db2958445",
+    "usage": {
+     "inputTokens": 54367,
+     "cachedInputTokens": 0,
+     "outputTokens": 2388
+    },
+    "issues": [],
+    "checkpoint": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-009.json",
+     "sha256": "50a4862f7d2262d3ac34e1136b1f874e5f342142133dec25e0c5e57abd5cafc7"
+    }
+   },
+   "chapter06-exercise003-batch-011": {
+    "status": "passed",
+    "callId": "48948c66-5a88-4ae6-94d0-f58c9e98269b",
+    "usage": {
+     "inputTokens": 34051,
+     "cachedInputTokens": 0,
+     "outputTokens": 472
+    },
+    "issues": [],
+    "checkpoint": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-011.json",
+     "sha256": "e421e72910758142e74ef24a3a7a3340ec1de0c04c600f32c260122ba0f5bbab"
+    }
+   }
+  },
+  "inheritedGroups": [
+   {
+    "batchId": "chapter06-exercise003-batch-001",
+    "status": "needs-repair"
+   },
+   {
+    "batchId": "chapter06-exercise003-batch-003",
+    "status": "needs-repair"
+   },
+   {
+    "batchId": "chapter06-exercise003-batch-005",
+    "status": "needs-repair"
+   },
+   {
+    "batchId": "chapter06-exercise003-batch-006",
+    "status": "needs-repair"
+   },
+   {
+    "batchId": "chapter06-exercise003-batch-008",
+    "status": "needs-repair"
+   },
+   {
+    "batchId": "chapter06-exercise003-batch-010",
+    "status": "passed"
+   }
+  ]
+ },
+ "deferred": [
+  {
+   "batchId": "chapter06-exercise003-batch-001",
+   "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+   "severity": "uncertain",
+   "issueSha256": "ebc185ca1cdb9cbc960fa244aebb327c614eff2de9a32a2fdb4d40e005b8ffa3",
+   "reason": "outside the five revised groups"
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-003",
+   "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+   "severity": "error",
+   "issueSha256": "436b899a4562361e876abd0136d9f0c088c05b492e22fcea94b73467389a3886",
+   "reason": "outside the five revised groups"
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-003",
+   "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+   "severity": "error",
+   "issueSha256": "e64b38ad0f1b35a0ac42e77cf1ef7ffad33588f0a918885a180bed0798c7328d",
+   "reason": "outside the five revised groups"
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-003",
+   "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+   "severity": "error",
+   "issueSha256": "c0e2e07e9a0ec7f3e18a2eaac002025b3f3a82b50d42dfc335892dd0dc5bd880",
+   "reason": "outside the five revised groups"
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-005",
+   "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+   "severity": "error",
+   "issueSha256": "ef68b9277f648ef0096cf407ca8857af8c420ba28d2032aab215eea2540061e4",
+   "reason": "outside the five revised groups"
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-006",
+   "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+   "severity": "error",
+   "issueSha256": "99d6ea21d837d54dd3d9520de49feb7ef6c39a722257fac5088c2951738354cf",
+   "reason": "outside the five revised groups"
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-007",
+   "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+   "severity": "uncertain",
+   "issueSha256": "d3c5278fc47e6d40b97380a3386e039632af2ad3b4eb806f7113e3ef708de019",
+   "reason": "unresolved unknown kept as evidence, not cleared"
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-008",
+   "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+   "severity": "error",
+   "issueSha256": "6eefa362aa4eff0b8a6c01124327671789207b6fc7fa45d8a7f6a08f74953c54",
+   "reason": "outside the five revised groups"
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-009",
+   "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+   "severity": "uncertain",
+   "issueSha256": "6cd3acb48f43e89ddeb0fb6401683764e4be22e446d99b8e8d47171339b8c21c",
+   "reason": "unresolved unknown kept as evidence, not cleared"
+  }
+ ],
+ "deferredCount": 9,
+ "deferredBreakdown": {
+  "tablePositionOutsideFiveGroups": 6,
+  "uncertainUnknowns": 3
+ },
+ "contested": {
+  "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+  "auditVerdict": "needs-repair: the auditor reads the centre corner winds as 左上西/右下东",
+  "productionEvidence": "audit/web/adjudications/group-revision-283-1/b0785-corner-winds-contest-20261027.json",
+  "handling": "candidate left unchanged; bounded adjudication requested for the next round (one audit call), consistent with the earlier rule that an audit tile/label reading needs same-book anchor or original-image counter-evidence before a candidate is edited",
+  "modelCalls": 0
+ },
+ "notReaudited": [
+  "chapter06-exercise003-batch-010"
+ ],
+ "preserved": "parent candidate, all parent raw calls, the eleven parent batch checkpoints and the parent needs-repair audit receipt are untouched; every non-target block and figure is byte-identical",
+ "projectionVersion": 3,
+ "handoff250": {
+  "path": "integration/coac250-incremental-227-1-246-1-20261027.json",
+  "sha256": "3e9ef413f05d7eabc2b7b17bda0e1c9689d43ae6b84840996b587377df226886",
+  "chapters": [
+   "nemata-jp-chapter-227-1",
+   "nemata-jp-chapter-246-1"
+  ],
+  "wakeupId": "01a17bf2-2e69-7337-9583-eec0d41621a5"
+ }
+}

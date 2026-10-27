@@ -1,0 +1,83 @@
+{
+ "schema": "coac250-incremental-staging-receipt/1",
+ "recordedAt": "2026-10-27T06:30:00.000000+00:00",
+ "modelCalls": 0,
+ "productionCalls": 0,
+ "from_": "COAC-248",
+ "to": "COAC-250",
+ "before": {
+  "pointer": "accepted-content-preview-2026-10-27T05-19-25-744Z",
+  "chapters": 204,
+  "units": 212,
+  "selectedWeb": 175,
+  "pendingWeb": 48,
+  "corpusId": "a8742114157f197d7bae398c051cd92dce9f17a572b8ef5085a667e6abf7cc47"
+ },
+ "chapters": [
+  {
+   "chapterId": "nemata-jp-chapter-227-1",
+   "articleId": "chapter04-section007",
+   "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter04-section007/source.json",
+   "sourceSha256": "c4357e17bac3e079bffc1f39f53c6d190a4d4597f1ecde07275d29fba5e53d5b",
+   "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section007.display.json",
+   "parentSha256": "b496daf315d5278e20aa81e233c156fad909add5efd97438acbbace5c6902740",
+   "parentAuditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section007.b496daf315d5278e20aa81e233c156fad909add5efd97438acbbace5c6902740.retry-1792992301748-11647458.json",
+   "parentAuditSha256": "594ec4dfe289633fc3e0734a10241cbf924b64a4b4a2ce5b763e324a61ca1c9a",
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section007.rev1.json",
+   "candidateSha256": "4e1c6ed36bef34ff0a9848ba8915f46b0422a9f71b611775f5ee7981292590d6",
+   "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section007.4e1c6ed36bef34ff0a9848ba8915f46b0422a9f71b611775f5ee7981292590d6.json",
+   "auditSha256": "b3b209a31ea5c0a78ae4dad7300959322472b5fae9f8d79fb17481849b225696",
+   "auditStatus": "passed",
+   "auditMethod": "independent-target-text-review-plus-unchanged-parent-audit",
+   "previewChapterId": "modern-yabejp-ja-chapter04-section007-chapter",
+   "productionCallId": "f47c585e-cfc6-4450-a14b-f1bc95e13107",
+   "productionUsage": {
+    "inputTokens": 13194,
+    "cachedInputTokens": 0,
+    "outputTokens": 482
+   },
+   "auditCallId": "353f10e8-ecdf-4825-88d7-a3a4da715f83",
+   "auditUsage": {
+    "inputTokens": 13681,
+    "cachedInputTokens": 0,
+    "outputTokens": 795
+   },
+   "changed": "b0007「確和了」原译「确保和牌」把“用和牌锁定当前名次（二確/三確）”读成“保证能和牌”；修订为「选择通过和牌锁定当前名次，在名次期望值上更有利的情况也时常出现」。其余 9 块逐字节不变，本章无图。",
+   "dedupe": "当前 accepted-content-preview 仍把 chapter04-section007.display.json 列在 pendingWeb（web_audit_not_passed_or_inputs_changed）；候选 SHA 与既有选择清单无重复",
+   "pendingWebBefore": true
+  },
+  {
+   "chapterId": "nemata-jp-chapter-246-1",
+   "articleId": "chapter06-section002",
+   "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter06-section002/source.json",
+   "sourceSha256": "8ea3a7139a78ed4fcdfd36f663c2a47d0eb15efb8c4b88d4aff07336642f2933",
+   "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-section002.display.json",
+   "parentSha256": "eb4caf1b93fc906a5a7286419009256337e9f886ce82123091931c8c5e5c4fc4",
+   "parentAuditPath": "audit/web/articles/modern-yabejp-ja/chapter06-section002.eb4caf1b93fc906a5a7286419009256337e9f886ce82123091931c8c5e5c4fc4.json",
+   "parentAuditSha256": "53f38a52975a3a4545ff4c405f981127e706aaef104fe1b173505d84a4d22dab",
+   "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-section002.rev1.json",
+   "candidateSha256": "bbf15bbd1390a0b7ce729d5205a65dad72e0f24cb6c2fe1f9789aaaea26e1904",
+   "auditPath": "audit/web/articles/modern-yabejp-ja/chapter06-section002.bbf15bbd1390a0b7ce729d5205a65dad72e0f24cb6c2fe1f9789aaaea26e1904.json",
+   "auditSha256": "8e573eb3a4500da4ff55dc6e5788616830cdbf61a1857fad7e3991f80f7dcd3b",
+   "auditStatus": "passed",
+   "auditMethod": "independent-target-text-review-plus-unchanged-parent-audit",
+   "previewChapterId": "modern-yabejp-ja-chapter06-section002-chapter",
+   "productionCallId": "24994d5d-4d31-444f-b150-e6b7142994f4",
+   "productionUsage": {
+    "inputTokens": 13144,
+    "cachedInputTokens": 0,
+    "outputTokens": 274
+   },
+   "auditCallId": "6e90283c-c0bb-4617-aaef-ef729da525ad",
+   "auditUsage": {
+    "inputTokens": 13768,
+    "cachedInputTokens": 0,
+    "outputTokens": 314
+   },
+   "changed": "b0070「３０秒未満」是严格少于 30 秒，原译「３０秒以内」把边界改宽；修订为「用完后每步必须在不足３０秒的时间内走出」。其余 85 块与 10 图逐字节不变。",
+   "dedupe": "当前 accepted-content-preview 仍把 chapter06-section002.display.json 列在 pendingWeb（web_audit_not_passed_or_inputs_changed）；候选 SHA 与既有选择清单无重复",
+   "pendingWebBefore": true
+  }
+ ],
+ "notes": "两章均为 target-text 修订稿：父候选、父审 needs-repair 回执、原始 raw 与旧调用全部保留；只重译被独立审校判为 error 的单个文本块，其余正文与全部图逐字节继承。审计回执为 passed，方法为 independent-target-text-review-plus-unchanged-parent-audit。本回执零模型调用，仅交接既有已验收结果。"
+}

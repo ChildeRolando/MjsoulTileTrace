@@ -1,0 +1,138 @@
+{
+ "schema": "coach-web-audit-runtime-patch/1",
+ "recordedAt": "2026-10-27T06:39:05.462672+00:00",
+ "issue": "COAC-248",
+ "scope": "283-1 option B: group-targeted batch revision. No whole-chapter re-production, no framework change.",
+ "baseRuntime": {
+  "path": "audit/runtimes/web-first-revision-20261027",
+  "auditorSnapshot": {
+   "path": "audit/web/auditors/453ba938015d244e36a1b8aad05e7500c598de7a5dd97768f2defab4b973b8e1.json",
+   "sha256": "3cd55e4a54a0e8f720a689a33e267967f52b7ea4c6782038e191a6911c7d295f",
+   "combinedSha256": "453ba938015d244e36a1b8aad05e7500c598de7a5dd97768f2defab4b973b8e1",
+   "note": "the parent needs-repair receipt of chapter06-exercise003 is bound to this snapshot and is not rewritten"
+  }
+ },
+ "runtime": {
+  "path": "audit/runtimes/web-group-revision-20261027",
+  "combinedSha256": "452cc6b8d722f61da3a06290ab8297b2a75a822e90c309f62bae0bc29965ec59",
+  "freezeOrder": [
+   "textbook-audit-web.mjs",
+   "textbook-audit-web-source.py",
+   "textbook-production-cli.mjs",
+   "textbook-audit-web-batches.mjs"
+  ],
+  "files": [
+   {
+    "name": "textbook-audit-definition.mjs",
+    "sha256": "5d34e42077540b3aa171f4c4d9f1dd80222807f0ffd4e9f96c8d143b8fdfdcbd"
+   },
+   {
+    "name": "textbook-audit-legacy.mjs",
+    "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1"
+   },
+   {
+    "name": "textbook-audit-pdf-layout.mjs",
+    "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+   },
+   {
+    "name": "textbook-audit-pdf-native-corrections.mjs",
+    "sha256": "31b8c8022ab00e8f3f89d85d8889ad9f1fd61269d6449da736c0ab142b90f74b"
+   },
+   {
+    "name": "textbook-audit-pdf-native-structure-corrections.mjs",
+    "sha256": "a7079d3bf1114377dc5d2a2bcab317ad96f4dbd500b3414eb5687560b7d7cf2d"
+   },
+   {
+    "name": "textbook-audit-pdf-native.mjs",
+    "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+   },
+   {
+    "name": "textbook-audit-pdf-scope.mjs",
+    "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+   },
+   {
+    "name": "textbook-audit-pdf-source-corrections.mjs",
+    "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+   },
+   {
+    "name": "textbook-audit-tile-dictionary.mjs",
+    "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+   },
+   {
+    "name": "textbook-audit-web-batches.mjs",
+    "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+   },
+   {
+    "name": "textbook-audit-web-source.py",
+    "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+   },
+   {
+    "name": "textbook-audit-web.mjs",
+    "sha256": "320e89cedf7079b2d24fe2152fcc2cdc6b56ae21195e2d88799d141fde672a35"
+   },
+   {
+    "name": "textbook-audit.mjs",
+    "sha256": "8660208dbb9ab80bff445d84402e169a0294b5485316c3ef1c080b42ea095893"
+   },
+   {
+    "name": "textbook-production-cli.mjs",
+    "sha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+   }
+  ]
+ },
+ "newEntry": {
+  "production": {
+   "script": "scripts/scene-study/textbook-production-web.mjs",
+   "flags": [
+    "--batch-plan",
+    "--revision-from",
+    "--revision-notes",
+    "--revision-targets",
+    "--variant"
+   ],
+   "binding": "each group call records revision=group-targeted and revisionTargetsSha256; checkpoints live under batch-checkpoints/<source>/<article>/<planSha>/revision-<targetsSha>/<batchId>.json so the parent checkpoints are never overwritten"
+  },
+  "audit": {
+   "functions": [
+    "auditGroupRevisionGroups",
+    "verifyWebGroupRevisionCheckpoint",
+    "verifyWebGroupRevisionInheritance",
+    "verifyWebGroupRevisionProduction",
+    "verifyGroupRevisionContent",
+    "verifyGroupRevisionIssueScope",
+    "verifyGroupRevisionAudit"
+   ],
+   "method": "independent-sol-high-complete-unit-batch-group-revision",
+   "scope": "only the revised groups get a call; every other group inherits the parent receipt by checkpoint path and SHA",
+   "verdicts": "a deferred finding is carried by exact issue SHA (batchId, targetId, severity); it cannot be cleared, and an undeclared issue outside the targets blocks the revision"
+  }
+ },
+ "postRunFix": "verifyGroupRevisionAudit resolved the batch plan from the parent audit receipt instead of the parent candidate; fixed after the run. It is a post-hoc receipt verifier only, never part of the audit call path, so the receipt auditor snapshot 453ba938... remains the authoritative audit-time code.",
+ "projection": {
+  "version": 3,
+  "change": "webSemanticProjection gains the candidate blocks own tableContext (figure blocks included) when projectionVersion>=3",
+  "backward": "versions 1 and 2 are byte-identical to the previous behaviour; the eleven parent batch checkpoints were re-verified under v1 before dispatch",
+  "tableContextGaps": {
+   "findings": 6,
+   "groups": [
+    "chapter06-exercise003-batch-003",
+    "chapter06-exercise003-batch-005",
+    "chapter06-exercise003-batch-006",
+    "chapter06-exercise003-batch-008"
+   ],
+   "status": "outside the five revised groups; listed as the difference set, not cleared, no extra call this round"
+  }
+ },
+ "targets": {
+  "path": "integration/coac248-283-1-group-revision-targets-20261027.json",
+  "sha256": "7b23b4893a965afef2a2c54ce1c90cb83d8a8dce02f75b6487fd868dd8b8332f"
+ },
+ "patches": [
+  "E:/AgentData/Coach/knowledge/processing/audit/runtime-patches/20261027-coac248-283-1-group-revision/group-revision-audit.patch",
+  "E:/AgentData/Coach/knowledge/processing/audit/runtime-patches/20261027-coac248-283-1-group-revision/group-revision-production.patch"
+ ],
+ "tests": {
+  "webAudit": "scripts/scene-study/textbook-audit-web.test.mjs: 34 passed, including four new group-revision cases (projection v3, exact target coverage, honest unknowns, deferred difference set, target-only content change)",
+  "webProductionBatch": "scripts/scene-study/textbook-production-web-batches.test.mjs: 6 passed (fixture now copies every audit module instead of a stale fixed list)"
+ }
+}

@@ -1,0 +1,155 @@
+{
+ "schema": "coac-248-round-record/1",
+ "recordedAt": "2026-10-27T06:39:27.360369+00:00",
+ "round": "2026-10-27T06:00-07:00Z",
+ "receipts": [],
+ "groupRevision": {
+  "chapterId": "nemata-jp-chapter-283-1",
+  "option": "B",
+  "candidate": {
+   "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev2.json",
+   "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3"
+  },
+  "audit": {
+   "path": "audit/web/articles/modern-yabejp-ja/chapter06-exercise003.849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3.json",
+   "sha256": "21d909b832c28e62a76f453863ed24d8fc8738adbb54b36bfd8117b9395d5aea",
+   "status": "needs-repair"
+  },
+  "parent": {
+   "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev1.json",
+   "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+   "auditSha256": "749e242c54019cb6b855a03e6df4fe465bed86e1cf50d7869be548a3b0144d40"
+  },
+  "targets": {
+   "path": "integration/coac248-283-1-group-revision-targets-20261027.json",
+   "sha256": "7b23b4893a965afef2a2c54ce1c90cb83d8a8dce02f75b6487fd868dd8b8332f",
+   "textBlockIds": [
+    "modern-yabejp-ja:chapter06-exercise003:b0168",
+    "modern-yabejp-ja:chapter06-exercise003:b0396",
+    "modern-yabejp-ja:chapter06-exercise003:b0962",
+    "modern-yabejp-ja:chapter06-exercise003:b1017",
+    "modern-yabejp-ja:chapter06-exercise003:b1179",
+    "modern-yabejp-ja:chapter06-exercise003:b1181"
+   ],
+   "figureIds": [
+    "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+    "modern-yabejp-ja:chapter06-exercise003:b0947:figure"
+   ]
+  },
+  "groups": [
+   "chapter06-exercise003-batch-002",
+   "chapter06-exercise003-batch-004",
+   "chapter06-exercise003-batch-007",
+   "chapter06-exercise003-batch-009",
+   "chapter06-exercise003-batch-011"
+  ],
+  "inheritedGroups": [
+   "chapter06-exercise003-batch-001",
+   "chapter06-exercise003-batch-003",
+   "chapter06-exercise003-batch-005",
+   "chapter06-exercise003-batch-006",
+   "chapter06-exercise003-batch-008",
+   "chapter06-exercise003-batch-010"
+  ],
+  "deferredCount": 9,
+  "deferredBreakdown": {
+   "tablePositionOutsideFiveGroups": 6,
+   "uncertainUnknowns": 3
+  },
+  "projectionVersion": 3
+ },
+ "modelCalls": {
+  "production": 5,
+  "audit": 5,
+  "productionUsage": [
+   {
+    "inputTokens": 29087,
+    "cachedInputTokens": 0,
+    "outputTokens": 174
+   },
+   {
+    "inputTokens": 28277,
+    "cachedInputTokens": 0,
+    "outputTokens": 216
+   },
+   {
+    "inputTokens": 30642,
+    "cachedInputTokens": 0,
+    "outputTokens": 5499
+   },
+   {
+    "inputTokens": 31399,
+    "cachedInputTokens": 31232,
+    "outputTokens": 6749
+   },
+   {
+    "inputTokens": 23433,
+    "cachedInputTokens": 0,
+    "outputTokens": 166
+   }
+  ],
+  "auditUsage": [
+   {
+    "inputTokens": 51573,
+    "cachedInputTokens": 0,
+    "outputTokens": 500
+   },
+   {
+    "inputTokens": 52263,
+    "cachedInputTokens": 0,
+    "outputTokens": 313
+   },
+   {
+    "inputTokens": 52091,
+    "cachedInputTokens": 0,
+    "outputTokens": 1482
+   },
+   {
+    "inputTokens": 54367,
+    "cachedInputTokens": 0,
+    "outputTokens": 2388
+   },
+   {
+    "inputTokens": 34051,
+    "cachedInputTokens": 0,
+    "outputTokens": 472
+   }
+  ],
+  "retries": 0,
+  "transportFailures": 0,
+  "caps": {
+   "production": 5,
+   "audit": 5
+  }
+ },
+ "handoff250": {
+  "path": "integration/coac250-incremental-227-1-246-1-20261027.json",
+  "sha256": "3e9ef413f05d7eabc2b7b17bda0e1c9689d43ae6b84840996b587377df226886",
+  "chapters": [
+   "nemata-jp-chapter-227-1",
+   "nemata-jp-chapter-246-1"
+  ],
+  "wakeupId": "01a17bf2-2e69-7337-9583-eec0d41621a5"
+ },
+ "list": {
+  "path": ".multica/delivery/coac-248-native-inline-correction/unified-repair-list-20261027.json",
+  "sha256": "661b180838674b1b953cbab1a7ba5f16b4d14564d8c54927d7992fd9d13e076e",
+  "hashConvention": "sha256 of the LF content, i.e. the committed blob, not the CRLF working copy"
+ },
+ "runtime": {
+  "path": "audit/runtimes/web-group-revision-20261027",
+  "manifest": "audit/runtime-patches/20261027-coac248-283-1-group-revision/manifest.json"
+ },
+ "stillOpen": {
+  "needsRepair": 53,
+  "b0785CornerContest": 1,
+  "note": "283-1 stays needs-repair: nine deferred findings (six table gaps outside the five revised groups, b0099 and two river-tile unknowns) remain open by instruction"
+ },
+ "contested": {
+  "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+  "auditVerdict": "needs-repair (centre corner winds read as 左上西/右下东)",
+  "evidence": "audit/web/adjudications/group-revision-283-1/b0785-corner-winds-contest-20261027.json",
+  "handling": "candidate unchanged; one bounded adjudication call requested for the next round",
+  "modelCalls": 0
+ }
+}

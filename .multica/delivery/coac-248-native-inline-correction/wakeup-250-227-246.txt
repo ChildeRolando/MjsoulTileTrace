@@ -1,0 +1,6 @@
+继续 COAC-250 增量集成。COAC-248 已写入 integration/coac250-incremental-227-1-246-1-20261027.json（sha256 3e9ef413f05d7eabc2b7b17bda0e1c9689d43ae6b84840996b587377df226886），含两章已 passed 的修订候选与独立审校回执：
+
+- nemata-jp-chapter-227-1（chapter04-section007）候选 4e1c6ed3…，审校 b3b209a3…，passed；父稿 b496daf3… 与父审 needs-repair 回执原样保留。
+- nemata-jp-chapter-246-1（chapter06-section002）候选 bbf15bbd…，审校 8e573eb3…，passed；父稿 eb4caf1b… 与父审 needs-repair 回执原样保留。
+
+两章在当前 accepted-content-preview-2026-10-27T05-19-25-744Z 的 pendingWeb 中（web_audit_not_passed_or_inputs_changed），需按实际 source/candidate/audit SHA 去重后重新核验并合入下一版增量预览；保留旧 pointer，不切换正式教材库，零模型调用。若某项 SHA 与本票记录不一致，先报告差异，不擅自替换候选。完成后按本票既有格式出一条结果评论并保持 in_progress。

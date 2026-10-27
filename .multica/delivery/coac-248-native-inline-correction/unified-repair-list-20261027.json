@@ -2167,11 +2167,11 @@
       "objectId": "web-failed:chapter06-exercise003",
       "kind": "web-article-failed",
       "articleId": "chapter06-exercise003",
-      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.display.json",
-      "candidateSha256": "fcde9f00cb9433bb5dec6a47d688ea7abb0c919c0aa2dac3012fd080d32a5893",
-      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.fcde9f00cb9433bb5dec6a47d688ea7abb0c919c0aa2dac3012fd080d32a5893.json",
-      "auditStatus": "failed",
-      "currentDisposition": "separate-reassembly-done-batch-audit-in-progress",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev2.json",
+      "candidateSha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter06-exercise003.849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3.json",
+      "auditStatus": "needs-repair",
+      "currentDisposition": "needs-repair-group-revision-audited-deferred-open",
       "origin": "COAC-249 explicit 20",
       "newThisStage": true,
       "originalError": "web_audit_batch_output_assembly (preflight; no model call)",
@@ -2191,6 +2191,199 @@
         "newModelCalls": 0,
         "assemblyVerification": "verifyWebProductionCall passed, 0 model calls",
         "audit": "batch audit 2/11 group receipts written; remaining groups lead the next batch"
+      },
+      "auditSha256": "21d909b832c28e62a76f453863ed24d8fc8738adbb54b36bfd8117b9395d5aea",
+      "auditRecordedAt": "2026-10-27T06:28:24.107Z",
+      "issueCount": 9,
+      "auditSourceStale": false,
+      "diskShaVerified": true,
+      "groupRevision": {
+        "schema": "coac-283-1-group-targeted-revision/1",
+        "parentCandidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev1.json",
+        "parentCandidateSha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+        "parentAuditPath": "audit/web/articles/modern-yabejp-ja/chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+        "parentAuditSha256": "749e242c54019cb6b855a03e6df4fe465bed86e1cf50d7869be548a3b0144d40",
+        "targetsFile": {
+          "path": "integration/coac248-283-1-group-revision-targets-20261027.json",
+          "sha256": "7b23b4893a965afef2a2c54ce1c90cb83d8a8dce02f75b6487fd868dd8b8332f"
+        },
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0168",
+          "modern-yabejp-ja:chapter06-exercise003:b0396",
+          "modern-yabejp-ja:chapter06-exercise003:b0962",
+          "modern-yabejp-ja:chapter06-exercise003:b1017",
+          "modern-yabejp-ja:chapter06-exercise003:b1179",
+          "modern-yabejp-ja:chapter06-exercise003:b1181"
+        ],
+        "figureIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "modern-yabejp-ja:chapter06-exercise003:b0947:figure"
+        ],
+        "groups": [
+          {
+            "batchId": "chapter06-exercise003-batch-002",
+            "status": "passed",
+            "callId": "2bc349c6-99be-473c-bd07-90578852609f",
+            "usage": {
+              "inputTokens": 51573,
+              "cachedInputTokens": 0,
+              "outputTokens": 500
+            },
+            "issues": []
+          },
+          {
+            "batchId": "chapter06-exercise003-batch-004",
+            "status": "passed",
+            "callId": "b4c9487b-7d5a-4b2a-b6f1-2ade2f5de008",
+            "usage": {
+              "inputTokens": 52263,
+              "cachedInputTokens": 0,
+              "outputTokens": 313
+            },
+            "issues": []
+          },
+          {
+            "batchId": "chapter06-exercise003-batch-007",
+            "status": "needs-repair",
+            "callId": "51d6b447-2446-4afa-9c30-5d1d1b4dfcc5",
+            "usage": {
+              "inputTokens": 52091,
+              "cachedInputTokens": 0,
+              "outputTokens": 1482
+            },
+            "issues": [
+              "modern-yabejp-ja:chapter06-exercise003:b0785:figure:error"
+            ]
+          },
+          {
+            "batchId": "chapter06-exercise003-batch-009",
+            "status": "passed",
+            "callId": "7896f6fb-3a56-4444-bf7f-761db2958445",
+            "usage": {
+              "inputTokens": 54367,
+              "cachedInputTokens": 0,
+              "outputTokens": 2388
+            },
+            "issues": []
+          },
+          {
+            "batchId": "chapter06-exercise003-batch-011",
+            "status": "passed",
+            "callId": "48948c66-5a88-4ae6-94d0-f58c9e98269b",
+            "usage": {
+              "inputTokens": 34051,
+              "cachedInputTokens": 0,
+              "outputTokens": 472
+            },
+            "issues": []
+          }
+        ],
+        "inheritedGroups": [
+          {
+            "batchId": "chapter06-exercise003-batch-001",
+            "status": "needs-repair"
+          },
+          {
+            "batchId": "chapter06-exercise003-batch-003",
+            "status": "needs-repair"
+          },
+          {
+            "batchId": "chapter06-exercise003-batch-005",
+            "status": "needs-repair"
+          },
+          {
+            "batchId": "chapter06-exercise003-batch-006",
+            "status": "needs-repair"
+          },
+          {
+            "batchId": "chapter06-exercise003-batch-008",
+            "status": "needs-repair"
+          },
+          {
+            "batchId": "chapter06-exercise003-batch-010",
+            "status": "passed"
+          }
+        ],
+        "notReaudited": [
+          "chapter06-exercise003-batch-010"
+        ],
+        "deferred": [
+          {
+            "batchId": "chapter06-exercise003-batch-001",
+            "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+            "severity": "uncertain",
+            "issueSha256": "ebc185ca1cdb9cbc960fa244aebb327c614eff2de9a32a2fdb4d40e005b8ffa3",
+            "reason": "outside the five revised groups"
+          },
+          {
+            "batchId": "chapter06-exercise003-batch-003",
+            "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+            "severity": "error",
+            "issueSha256": "436b899a4562361e876abd0136d9f0c088c05b492e22fcea94b73467389a3886",
+            "reason": "outside the five revised groups"
+          },
+          {
+            "batchId": "chapter06-exercise003-batch-003",
+            "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+            "severity": "error",
+            "issueSha256": "e64b38ad0f1b35a0ac42e77cf1ef7ffad33588f0a918885a180bed0798c7328d",
+            "reason": "outside the five revised groups"
+          },
+          {
+            "batchId": "chapter06-exercise003-batch-003",
+            "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+            "severity": "error",
+            "issueSha256": "c0e2e07e9a0ec7f3e18a2eaac002025b3f3a82b50d42dfc335892dd0dc5bd880",
+            "reason": "outside the five revised groups"
+          },
+          {
+            "batchId": "chapter06-exercise003-batch-005",
+            "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+            "severity": "error",
+            "issueSha256": "ef68b9277f648ef0096cf407ca8857af8c420ba28d2032aab215eea2540061e4",
+            "reason": "outside the five revised groups"
+          },
+          {
+            "batchId": "chapter06-exercise003-batch-006",
+            "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+            "severity": "error",
+            "issueSha256": "99d6ea21d837d54dd3d9520de49feb7ef6c39a722257fac5088c2951738354cf",
+            "reason": "outside the five revised groups"
+          },
+          {
+            "batchId": "chapter06-exercise003-batch-007",
+            "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+            "severity": "uncertain",
+            "issueSha256": "d3c5278fc47e6d40b97380a3386e039632af2ad3b4eb806f7113e3ef708de019",
+            "reason": "unresolved unknown kept as evidence, not cleared"
+          },
+          {
+            "batchId": "chapter06-exercise003-batch-008",
+            "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+            "severity": "error",
+            "issueSha256": "6eefa362aa4eff0b8a6c01124327671789207b6fc7fa45d8a7f6a08f74953c54",
+            "reason": "outside the five revised groups"
+          },
+          {
+            "batchId": "chapter06-exercise003-batch-009",
+            "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+            "severity": "uncertain",
+            "issueSha256": "6cd3acb48f43e89ddeb0fb6401683764e4be22e446d99b8e8d47171339b8c21c",
+            "reason": "unresolved unknown kept as evidence, not cleared"
+          }
+        ],
+        "deferredCount": 9,
+        "productionCalls": 5,
+        "auditCalls": 5,
+        "projectionVersion": 3,
+        "contested": {
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "auditVerdict": "needs-repair (centre corner winds read as 左上西/右下东)",
+          "evidence": "audit/web/adjudications/group-revision-283-1/b0785-corner-winds-contest-20261027.json",
+          "handling": "candidate unchanged; one bounded adjudication call next round",
+          "modelCalls": 0
+        },
+        "unchanged": "every non-target block and figure is byte-identical to the parent candidate; parent raw calls, batch checkpoints and the parent needs-repair receipt are untouched"
       }
     }
   ],
@@ -2992,7 +3185,7 @@
     "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter03-section011.6ad44173945b9347cd8dd7c44640fa3341bf8e83109695e4cd8aacc6d3d98b21.json",
     "note": "Isolated revision from the 249/250 register set; parent receipt, parent candidate and raw preserved."
   },
-  "refreshedAt": "2026-10-27T03:45:00Z",
+  "refreshedAt": "2026-10-27T06:00:00.000Z",
   "byOrigin": {
     "COAC-248 old PDF 12": 5,
     "COAC-247 new PDF return": 3,
@@ -3683,5 +3876,16 @@
       },
       "recommendedCombination": "path A on its 4 groups (4 audit calls) plus path B group-level re-production on its 5 groups (5 production + 5 audit calls): 14 new calls in total; if the whole chapter must sit on one audit runtime, path A becomes 11 audit calls and the total 21"
     }
+  },
+  "round20261027T0700": {
+    "at": "2026-10-27T06:00:00.000Z",
+    "objects": [
+      "web-failed:chapter06-exercise003"
+    ],
+    "productionModelCalls": 5,
+    "auditModelCalls": 5,
+    "note": "283-1 option B: five group-targeted production calls and five independent group audits; eight error targets revised, nine findings deferred by exact issue hash (six table gaps outside the five groups plus b0099 and two river-tile unknowns)",
+    "candidateSha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+    "auditSha256": "21d909b832c28e62a76f453863ed24d8fc8738adbb54b36bfd8117b9395d5aea"
   }
 }
