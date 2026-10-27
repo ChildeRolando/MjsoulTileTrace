@@ -1,0 +1,54 @@
+{
+  "schema": "coac269-candidate-claim/3",
+  "ticket": "COAC-269",
+  "line": "B",
+  "batch": "b8",
+  "claimedAt": "2026-10-27T12:39:19.797Z",
+  "owner": "COAC-269 Ticket executor",
+  "claimKey": "79-cn-chapter-128-14:2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec",
+  "chapterId": "79-cn-chapter-128-14",
+  "articleId": "cv1734739",
+  "parentCandidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1734739.display.json",
+    "sha256": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec"
+  },
+  "parentAudit": {
+    "path": "audit/web/articles/79-bilibili-cn/cv1734739.2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec.retry-1792944840664-30f5eb57.json",
+    "sha256": "24ebc92c728006d8a4283c3f2bcf46790b4876bb094d6363d05decf8578b1f59"
+  },
+  "source": {
+    "path": "web-sources/v1/79-bilibili-cn/articles/cv1734739/source.json",
+    "sha256": "962fdd8860f2f756f1bc76054a5ef9ea2a5f82959e36da44aff79c57aee1d5ca"
+  },
+  "targets": [
+    "79-bilibili-cn:cv1734739:b0013:figure"
+  ],
+  "plannedOutput": "web-production/v1/candidates/79-bilibili-cn/cv1734739.coac269rev1.json",
+  "variant": "coac269rev1",
+  "sharedClaim": {
+    "interface": "parallel/slots.mjs claim",
+    "path": "parallel/claims/79-cn-chapter-128-14.json",
+    "sha256": "149975b0e67002c789f4e2f2b42749a4458b2248d85e6eddc1a4df9b11587377",
+    "owner": "COAC-269 Ticket executor",
+    "candidateSha256": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec",
+    "claimedAt": "2026-10-27T12:39:19.784Z",
+    "created": true,
+    "verifiedAt": "2026-10-27T12:39:19.798Z",
+    "registrationKind": "pre-dispatch"
+  },
+  "selectionProof": {
+    "rule": "canonical chapter id absent from the union of active preview selection/unit-map, latest unified register, and every passed receipt bound to the current source sha",
+    "jointExclusion": {
+      "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-v3-2026-10-27T12-39-19-699Z-aa42fe7f.json",
+      "sha256": "eb7e8c6abca3ef487a5a8d877b4ff0e3dc6e38b763c69a7dd515cabe0e5e8927",
+      "recordedAt": "2026-10-27T12:39:19.699Z",
+      "ageSecondsAtClaim": 0,
+      "pointerSha256": "2e85514b1beb74eea77e2dea99d28e8e6497270ed35210e692dbfc74b930ceeb"
+    },
+    "preflight": {
+      "path": "web-production/v1/coac269-20261027/preflight/preflight-b8-fac90a16e5d9d199.json",
+      "sha256": "00e7008d84e3b19fcb2ed9c89dded344348725423fbd71ef73901c955c1c0be2"
+    }
+  },
+  "writes": "shared ownership in parallel/claims (the only surface line A reads); detail record in the ticket namespace; no shared list, selection, pointer or formal library write"
+}

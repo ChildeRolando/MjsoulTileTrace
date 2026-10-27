@@ -87,7 +87,9 @@ if (isCli) {
   const P = 'E:/AgentData/Coach/knowledge/processing';
   const NS = join(P, 'web-production/v1/coac269-20261027');
   const HERE = dirname(fileURLToPath(import.meta.url));
-  const JOINT = join(HERE, 'coac269-joint-exclusion-precheck-v2.mjs');
+  // v3 = same three-source exclusion extended to the 79-cn figure correspondence entry; the
+  // batch-7 receipts were produced by v2 and keep their recorded sha.
+  const JOINT = join(HERE, 'coac269-joint-exclusion-precheck-v3.mjs');
   const argv = process.argv.slice(2);
   const arg = (k, d) => { const i = argv.indexOf(k); return i < 0 ? d : argv[i + 1]; };
   const casePath = arg('--case');

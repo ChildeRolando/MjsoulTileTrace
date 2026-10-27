@@ -1,0 +1,109 @@
+{
+  "schema": "coac269-dispatch-guard/1",
+  "ticket": "COAC-269",
+  "line": "B",
+  "batch": "b8",
+  "recordedAt": "2026-10-27T12:42:10.189Z",
+  "purpose": "per-dispatch gate: fresh three-source joint exclusion + shared-claim ownership + binding checks, zero model calls",
+  "chapterId": "79-cn-chapter-128-14",
+  "articleId": "cv1734739",
+  "parentSha256": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec",
+  "plannedOutput": "web-production/v1/candidates/79-bilibili-cn/cv1734739.coac269rev1.json",
+  "joint": {
+    "path": "web-production/v1/coac269-20261027/preflight/joint-exclusion-v3-2026-10-27T12-42-10-148Z-aa42fe7f.json",
+    "sha256": "101d66b76a7018da6cf103b5462ecfd02f6e250d41e169ddd743eef09bb71417",
+    "recordedAt": "2026-10-27T12:42:10.148Z",
+    "ageSecondsAtUse": 0,
+    "pointerSha256": "2e85514b1beb74eea77e2dea99d28e8e6497270ed35210e692dbfc74b930ceeb",
+    "eligibleRepairTargets": [
+      "nemata-jp-chapter-347-1",
+      "79-cn-chapter-311-18",
+      "79-cn-chapter-276-4",
+      "79-cn-chapter-256-18",
+      "79-cn-chapter-246-3",
+      "79-cn-chapter-242-3",
+      "79-cn-chapter-234-12",
+      "nemata-jp-chapter-232-1",
+      "nemata-jp-chapter-224-1",
+      "79-cn-chapter-222-5",
+      "nemata-jp-chapter-213-1",
+      "79-cn-chapter-208-4",
+      "79-cn-chapter-205-5",
+      "79-cn-chapter-193-4",
+      "nemata-jp-chapter-193-1",
+      "79-cn-chapter-182-5",
+      "79-cn-chapter-167-4",
+      "79-cn-chapter-162-3",
+      "79-cn-chapter-159-9",
+      "79-cn-chapter-157-11",
+      "79-cn-chapter-155-4",
+      "79-cn-chapter-145-4",
+      "79-cn-chapter-128-14",
+      "79-cn-chapter-109-4",
+      "nemata-jp-chapter-100-1",
+      "79-cn-chapter-090-6"
+    ]
+  },
+  "activePreviewPointerSha256": "2e85514b1beb74eea77e2dea99d28e8e6497270ed35210e692dbfc74b930ceeb",
+  "sharedClaim": {
+    "path": "parallel/claims/79-cn-chapter-128-14.json",
+    "sha256": "149975b0e67002c789f4e2f2b42749a4458b2248d85e6eddc1a4df9b11587377",
+    "chapterId": "79-cn-chapter-128-14",
+    "owner": "COAC-269 Ticket executor",
+    "candidateSha256": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec",
+    "claimedAt": "2026-10-27T12:39:19.784Z"
+  },
+  "ticketClaim": {
+    "path": "web-production/v1/coac269-20261027/claims/claim-b8-79-cn-chapter-128-14-2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec.json",
+    "sha256": "8b9ea3c7929128e9507fb1c41e0af4a697320f9c364260ef6268dae2ddeda61e",
+    "chapterId": "79-cn-chapter-128-14",
+    "claimKey": "79-cn-chapter-128-14:2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec",
+    "parentSha256": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec",
+    "sharedClaimSha256": "149975b0e67002c789f4e2f2b42749a4458b2248d85e6eddc1a4df9b11587377"
+  },
+  "held": null,
+  "outputExists": false,
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "verdict": {
+    "ok": true,
+    "reasons": [],
+    "checks": [
+      {
+        "name": "joint_receipt_fresh",
+        "ok": true,
+        "detail": "0s <= 900s, receipt 101d66b76a7018da"
+      },
+      {
+        "name": "pointer_stable",
+        "ok": true,
+        "detail": "2e85514b1beb74eea77e2dea99d28e8e6497270ed35210e692dbfc74b930ceeb"
+      },
+      {
+        "name": "joint_eligible",
+        "ok": true,
+        "detail": "79-cn-chapter-128-14 with parent 2aec7345fda18914"
+      },
+      {
+        "name": "shared_claim",
+        "ok": true,
+        "detail": "COAC-269 Ticket executor @ 2aec7345fda18914"
+      },
+      {
+        "name": "ticket_claim",
+        "ok": true,
+        "detail": "79-cn-chapter-128-14:2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec"
+      },
+      {
+        "name": "ticket_hold",
+        "ok": true,
+        "detail": "none"
+      },
+      {
+        "name": "output_absent",
+        "ok": true,
+        "detail": "no variant output yet"
+      }
+    ]
+  }
+}
