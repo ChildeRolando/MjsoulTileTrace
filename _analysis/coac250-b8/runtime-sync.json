@@ -1,0 +1,11 @@
+{
+  "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/textbook-production-cli.mjs",
+  "beforeSha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1",
+  "afterSha256": "238bf793e61b97fa383556038f388d459a57a169e5d36fc896df1d0be0ba197c",
+  "approvedFrozenSha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a",
+  "change": {
+    "old": "item.message==='Falling back from WebSockets to HTTPS transport. stream disconnected before completion: tls handshake eof'",
+    "next": "['Falling back from WebSockets to HTTPS transport. stream disconnected before completion: tls handshake eof','Falling back from WebSockets to HTTPS transport. workspace routing discovery timed out'].includes(item.message)"
+  },
+  "modelCalls": 0
+}

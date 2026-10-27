@@ -1,0 +1,217 @@
+{
+  "schema": "coac250-b8-bounded-stage-failure/1",
+  "recordedAt": "2026-10-27T14:31:32.755Z",
+  "status": "blocked-before-publication",
+  "failure": {
+    "message": "web_stage_image_identity",
+    "stack": "Error: web_stage_image_identity\n    at stageWebTextbook (file:///E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/stage-web-textbook.mjs:106:200)\n    at async file:///C:/Users/Roland/multica_workspaces_desktop-api.multica.ai/coach-rolan-2123e9a3b805/coac-250-0ee4a695535a/worktree/_analysis/coac250-b8-integrate.mjs:36:17",
+    "recordedAt": "2026-10-27T14:30:17.389Z",
+    "modelCalls": 0
+  },
+  "cause": "stage-web-textbook.mjs:106 requires a PNG signature even when a source-bound single-image JPEG passes SHA verification. The b8 revision omits parent-derived presentationAsset fields; current inheritance runs only for multi-asset figures. No candidate or image was rewritten to bypass this guard.",
+  "candidates": [
+    {
+      "chapterId": "79-cn-chapter-128-14",
+      "candidateSha256": "c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae",
+      "candidateUnchanged": true,
+      "gate": {
+        "status": "passed-after-transport-recovery",
+        "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1734739.c14911aa47ebac539d45cf022332fe2cc7f2b05c08599f53bbb2525e3d0c27ae.transport-recovery.json"
+      },
+      "images": [
+        {
+          "figureId": "79-bilibili-cn:cv1734739:b0005:figure",
+          "path": "web-sources/v1/79-bilibili-cn/assets/f7bfb49a1db07ceee46973547c1aa9f2ec3f3c2cb5fb0b6d10480c3ddabd2063.png",
+          "expectedSha256": "f7bfb49a1db07ceee46973547c1aa9f2ec3f3c2cb5fb0b6d10480c3ddabd2063",
+          "actualSha256": "f7bfb49a1db07ceee46973547c1aa9f2ec3f3c2cb5fb0b6d10480c3ddabd2063",
+          "shaMatches": true,
+          "signatureHex": "89504e470d0a1a0a",
+          "isPng": true,
+          "isJpeg": false
+        },
+        {
+          "figureId": "79-bilibili-cn:cv1734739:b0007:figure",
+          "path": "web-sources/v1/79-bilibili-cn/assets/dfb08953d1cf2cd33bca6f38472231b219f5a7c7c58562b0bd5b1e7387f75dc4.png",
+          "expectedSha256": "dfb08953d1cf2cd33bca6f38472231b219f5a7c7c58562b0bd5b1e7387f75dc4",
+          "actualSha256": "dfb08953d1cf2cd33bca6f38472231b219f5a7c7c58562b0bd5b1e7387f75dc4",
+          "shaMatches": true,
+          "signatureHex": "89504e470d0a1a0a",
+          "isPng": true,
+          "isJpeg": false
+        },
+        {
+          "figureId": "79-bilibili-cn:cv1734739:b0009:figure",
+          "path": "web-sources/v1/79-bilibili-cn/assets/a9ada95fd2f6573066fe516b719343ebc207350479aefca2bc5eb097166feb20.png",
+          "expectedSha256": "a9ada95fd2f6573066fe516b719343ebc207350479aefca2bc5eb097166feb20",
+          "actualSha256": "a9ada95fd2f6573066fe516b719343ebc207350479aefca2bc5eb097166feb20",
+          "shaMatches": true,
+          "signatureHex": "89504e470d0a1a0a",
+          "isPng": true,
+          "isJpeg": false
+        },
+        {
+          "figureId": "79-bilibili-cn:cv1734739:b0011:figure",
+          "path": "web-sources/v1/79-bilibili-cn/assets/9e69ed43067bcbc9717e1657b8c0d4562b08eeb43272c4c35c76dbb4a356b0de.png",
+          "expectedSha256": "9e69ed43067bcbc9717e1657b8c0d4562b08eeb43272c4c35c76dbb4a356b0de",
+          "actualSha256": "9e69ed43067bcbc9717e1657b8c0d4562b08eeb43272c4c35c76dbb4a356b0de",
+          "shaMatches": true,
+          "signatureHex": "89504e470d0a1a0a",
+          "isPng": true,
+          "isJpeg": false
+        },
+        {
+          "figureId": "79-bilibili-cn:cv1734739:b0013:figure",
+          "path": "web-sources/v1/79-bilibili-cn/assets/15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855.png",
+          "expectedSha256": "15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855",
+          "actualSha256": "15ea782afb32a1655b2df4e56dcba24222cb5ec9626b715441c0907f70371855",
+          "shaMatches": true,
+          "signatureHex": "89504e470d0a1a0a",
+          "isPng": true,
+          "isJpeg": false
+        },
+        {
+          "figureId": "79-bilibili-cn:cv1734739:b0015:figure",
+          "path": "web-sources/v1/79-bilibili-cn/assets/925f78041781162ef815fd0e5431ca133a5be7db076d8de985dc8dd472c7273f.png",
+          "expectedSha256": "925f78041781162ef815fd0e5431ca133a5be7db076d8de985dc8dd472c7273f",
+          "actualSha256": "925f78041781162ef815fd0e5431ca133a5be7db076d8de985dc8dd472c7273f",
+          "shaMatches": true,
+          "signatureHex": "89504e470d0a1a0a",
+          "isPng": true,
+          "isJpeg": false
+        },
+        {
+          "figureId": "79-bilibili-cn:cv1734739:b0017:figure",
+          "path": "web-sources/v1/79-bilibili-cn/assets/d2c69a2c677cc82d35ba214beafb99fd7117412a2820f7ce0d283b4653204d3c.png",
+          "expectedSha256": "d2c69a2c677cc82d35ba214beafb99fd7117412a2820f7ce0d283b4653204d3c",
+          "actualSha256": "d2c69a2c677cc82d35ba214beafb99fd7117412a2820f7ce0d283b4653204d3c",
+          "shaMatches": true,
+          "signatureHex": "89504e470d0a1a0a",
+          "isPng": true,
+          "isJpeg": false
+        }
+      ]
+    },
+    {
+      "chapterId": "79-cn-chapter-145-4",
+      "candidateSha256": "07a511d4efb0dc246763ba7d2b114ac7203ab9b7109f7fcc12cfe4302751d284",
+      "candidateUnchanged": true,
+      "gate": {
+        "status": "passed-after-transport-recovery",
+        "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1744266.07a511d4efb0dc246763ba7d2b114ac7203ab9b7109f7fcc12cfe4302751d284.transport-recovery.json"
+      },
+      "images": [
+        {
+          "figureId": "79-bilibili-cn:cv1744266:b0005:figure",
+          "path": "web-sources/v1/79-bilibili-cn/assets/f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3.jpg",
+          "expectedSha256": "f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3",
+          "actualSha256": "f1632162d13233b60f8a0370dbbf4f768ab9f644236f9d51460c0a2e66352fe3",
+          "shaMatches": true,
+          "signatureHex": "ffd8ffe000104a46",
+          "isPng": false,
+          "isJpeg": true
+        },
+        {
+          "figureId": "79-bilibili-cn:cv1744266:b0007:figure",
+          "path": "web-sources/v1/79-bilibili-cn/assets/48907782fa469940489d5cfa18c8d5695ca91adee9e72b683f4c8ddd636b89c0.jpg",
+          "expectedSha256": "48907782fa469940489d5cfa18c8d5695ca91adee9e72b683f4c8ddd636b89c0",
+          "actualSha256": "48907782fa469940489d5cfa18c8d5695ca91adee9e72b683f4c8ddd636b89c0",
+          "shaMatches": true,
+          "signatureHex": "ffd8ffe000104a46",
+          "isPng": false,
+          "isJpeg": true
+        },
+        {
+          "figureId": "79-bilibili-cn:cv1744266:b0009:figure",
+          "path": "web-sources/v1/79-bilibili-cn/assets/9f5138f4b4bf41ac47f68edeea5b1713855b625f7784fa8e4b0b9cc2af9795c2.jpg",
+          "expectedSha256": "9f5138f4b4bf41ac47f68edeea5b1713855b625f7784fa8e4b0b9cc2af9795c2",
+          "actualSha256": "9f5138f4b4bf41ac47f68edeea5b1713855b625f7784fa8e4b0b9cc2af9795c2",
+          "shaMatches": true,
+          "signatureHex": "ffd8ffe000104a46",
+          "isPng": false,
+          "isJpeg": true
+        },
+        {
+          "figureId": "79-bilibili-cn:cv1744266:b0011:figure",
+          "path": "web-sources/v1/79-bilibili-cn/assets/401ab8c53acc31ee16f70a225881fce8e9810ca0c7e90c7fc5ef552e01f03d47.jpg",
+          "expectedSha256": "401ab8c53acc31ee16f70a225881fce8e9810ca0c7e90c7fc5ef552e01f03d47",
+          "actualSha256": "401ab8c53acc31ee16f70a225881fce8e9810ca0c7e90c7fc5ef552e01f03d47",
+          "shaMatches": true,
+          "signatureHex": "ffd8ffe000104a46",
+          "isPng": false,
+          "isJpeg": true
+        },
+        {
+          "figureId": "79-bilibili-cn:cv1744266:b0013:figure",
+          "path": "web-sources/v1/79-bilibili-cn/assets/f36dfeaec69007b73761681e0b3181c3e850248b99b575e1400293efb674b249.jpg",
+          "expectedSha256": "f36dfeaec69007b73761681e0b3181c3e850248b99b575e1400293efb674b249",
+          "actualSha256": "f36dfeaec69007b73761681e0b3181c3e850248b99b575e1400293efb674b249",
+          "shaMatches": true,
+          "signatureHex": "ffd8ffe000104a46",
+          "isPng": false,
+          "isJpeg": true
+        }
+      ]
+    }
+  ],
+  "isolatedStages": [
+    {
+      "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T14-30-05-173Z",
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T14-30-05-173Z/stages/79-bilibili-cn-cv1734739/web-stage-receipt.json",
+      "sha256": "b825e855c6f82923c1662ff7a3a312a887c22159c4d20b8701e155b37b9b7b33",
+      "auditStatus": "passed-after-transport-recovery",
+      "blocks": 18,
+      "figures": 7,
+      "published": false
+    }
+  ],
+  "readback": {
+    "pointerSha256": "73c0bbbf3c649f225c9532d8d0db811523363f261362d1b13a403c5dcd22c3d5",
+    "pointerUnchanged": true,
+    "preview": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T13-28-23-528Z",
+    "chapters": 220,
+    "units": 228,
+    "blocks": 6072,
+    "figures": 4960,
+    "formalSha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2",
+    "activeLibraryChanged": false,
+    "selectionVersion": "v12",
+    "selectionUnchanged": true,
+    "v13Created": false,
+    "consumerLockReleased": true,
+    "protectedInputFilesUnchanged": 24
+  },
+  "completed": [
+    "Exact approved diagnostic synced to active audit helper; 11 mechanical cases pass.",
+    "Both original review recoveries reverify against actual raw bytes and frozen dependency manifest 56287cda.",
+    "Both current canonical effective candidates selected without any new audit.",
+    "128-14 isolated stage completed, but neither chapter was published."
+  ],
+  "remaining": "At the next authorized stage, preserve candidate and source bytes; adapt the existing stage to inherit hash/pixel-verified parent PNG presentation for unchanged image bindings or deterministically decode JPEG as a derived presentation. Then finish both chapters and actual MCP/Arena/canonical readback before pointer publication. Do not remake/review the candidates.",
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "newAuditCalls": 0,
+  "newModelTokens": 0,
+  "priorOriginalAudits": [
+    {
+      "chapterId": "79-cn-chapter-128-14",
+      "callId": "74758209-082b-4b1c-913f-969162d93c9d",
+      "usage": {
+        "inputTokens": 22329,
+        "cachedInputTokens": 0,
+        "outputTokens": 3677
+      },
+      "reauditModelCalls": 0
+    },
+    {
+      "chapterId": "79-cn-chapter-145-4",
+      "callId": "173e0c99-d6f8-430f-855c-add4848d7543",
+      "usage": {
+        "inputTokens": 20592,
+        "cachedInputTokens": 0,
+        "outputTokens": 2603
+      },
+      "reauditModelCalls": 0
+    }
+  ],
+  "priorOriginalCallsRepriced": false
+}

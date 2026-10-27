@@ -1,0 +1,19 @@
+--- web-target-text-chain-20261027/textbook-production-cli.mjs	2026-10-27 17:31:06.737553900 +0800
++++ web-b8-transport-diag-20261027/textbook-production-cli.mjs	2026-10-27 21:36:17.907852600 +0800
+@@ -66,9 +66,15 @@
+   }
+   return { events, usage };
+ }
++// Exact known WebSocket->HTTPS fallback diagnostics. Only these two literals are tolerated, and only
++// when the turn completed with finite usage and a valid output (enforced by auditTransportCompleted).
++export const textbookTransportDiagnosticMessages=[
++  'Falling back from WebSockets to HTTPS transport. stream disconnected before completion: tls handshake eof',
++  'Falling back from WebSockets to HTTPS transport. workspace routing discovery timed out'
++];
+ export function isTextbookTransportDiagnosticItem(event) {
+   const item=event?.item;
+-  return item?.type==='error' && Object.keys(item).every(k=>['id','type','message'].includes(k)) && item.message==='Falling back from WebSockets to HTTPS transport. stream disconnected before completion: tls handshake eof';
++  return item?.type==='error' && Object.keys(item).every(k=>['id','type','message'].includes(k)) && textbookTransportDiagnosticMessages.includes(item.message);
+ }
+ export function hasUnexpectedTextbookTool(events,{allowRecoveredTransportDiagnostics=false}={}) {
+   return events.some(e=>e.item&&!['agent_message','reasoning'].includes(e.item.type)&&!(allowRecoveredTransportDiagnostics&&isTextbookTransportDiagnosticItem(e)));

@@ -1,0 +1,70 @@
+{
+  "schema": "coac249-b8-transport-diag-test/1",
+  "cases": [
+    {
+      "name": "old_diagnostic_completed",
+      "expected": true,
+      "got": true
+    },
+    {
+      "name": "new_diagnostic_completed",
+      "expected": true,
+      "got": true
+    },
+    {
+      "name": "both_diagnostics_completed",
+      "expected": true,
+      "got": true
+    },
+    {
+      "name": "real_tool_item",
+      "expected": false,
+      "got": false
+    },
+    {
+      "name": "unrecognized_error_message",
+      "expected": false,
+      "got": false
+    },
+    {
+      "name": "error_item_with_extra_keys",
+      "expected": false,
+      "got": false
+    },
+    {
+      "name": "turn_failed",
+      "expected": false,
+      "got": false
+    },
+    {
+      "name": "null_output",
+      "expected": false,
+      "got": false
+    },
+    {
+      "name": "no_usage",
+      "expected": false,
+      "got": false
+    },
+    {
+      "name": "nonzero_exit",
+      "expected": false,
+      "got": false
+    },
+    {
+      "name": "timed_out",
+      "expected": false,
+      "got": false
+    }
+  ],
+  "oldRuntime": {
+    "acceptsNewMessage": false,
+    "acceptsOldMessage": true
+  },
+  "newRuntime": {
+    "acceptsNewMessage": true
+  },
+  "modelCalls": 0,
+  "passed": true,
+  "failures": []
+}
