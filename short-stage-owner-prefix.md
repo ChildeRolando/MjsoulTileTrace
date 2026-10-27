@@ -1,3 +1,11 @@
+## 2026-10-28 222制作schema兼容已零模型修复
+
+原制作b702fbf7-dbe4-4533-9a55-aa0912a334f3完整raw终态为服务端invalid_json_schema，param=text.format.schema，exit1、无turn.completed/最终消息/parsedOutput/usage，本地非超时/截断；前置重连不改变最终分类，无法0调用恢复。原失败和额度1保留，不能把157含图独审首件当制作已验活。
+
+新冻结制作快照 `audit/runtimes/coac244-vision-production-schema-v2-20261028`：修实际222 caller与标准web producer的schema/本地输出校验，CLI的prepareTextbookCliRequest与真实invoke复用同一argv/stdin/schema/images构造。采用保守线格式，数组不再enum整个数组，数目/非空/固定数组与两处转录白名单仍由本地写候选前逐项拒绝。原source/父/独审/27依赖快照不变。25项离线回归、三条真实制作请求构造（222/web figure-target/纯文）通过；含图terra/max，纯文sol/high不变，未调模型。服务端没指出具体schema叶节点，不能以离线lint称唯一根因或远端已接受。
+
+交接 `integration/coac244-maker-schema-fix-20261028/handoff-248.json`，修复caller `run222-fixed.mjs` 使用新run目录保留r2失败，排除账已含失败call。原余1仅独审；下一步若追加授权1maker，则未来最多2调用(新制作1+原独审1)、本阶段累计最多3，失败void计0retry，本轮未派。目标仅222的两处2m→1m，其它字段字节不动，未产候选/未判pass；不重开已有来源装配与其他正常任务。
+
 ## 2026-10-28 183/236制作请求纠正及PDF217坐标纠正（本阶段0调用）
 
 269原制作629d37ab/abef6c4b各1次，均无校注且目标段越白名单，未独审。旧真实prompt已有引用的校注建议及父译文，但主指令仍泛译，批准的精确保留规则没有成为实际硬请求/schema。现 `audit/runtimes/coac244-text-exact-183236-v2-20261028` 在真正invoke共用modelRequest中加入唯一完整text enum、父段白名单、强制“校注（非原文）”，候选写入前严格拒绝，旧raw回放拒绝、27项具名测试通过，真实closedPrompt/schema完整归档。旧冻结/runtime/source/raw/父/回执不改，无模型。

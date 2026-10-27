@@ -1,0 +1,118 @@
+{
+  "modelCalls": 0,
+  "checks": [
+    {
+      "name": "raw confirms terminal API schema rejection, not generated-schema failure",
+      "passed": true
+    },
+    {
+      "name": "old nonportable array-enum/count/length schema rejected offline",
+      "passed": true
+    },
+    {
+      "name": "array-valued enum at unknowns rejected independently",
+      "passed": true
+    },
+    {
+      "name": "array-valued enum at sourceNotes rejected independently",
+      "passed": true
+    },
+    {
+      "name": "valid synthetic222 exact two-reference repair accepted locally, not saved as candidate",
+      "passed": true
+    },
+    {
+      "name": "exact222 rejects other tile",
+      "passed": true
+    },
+    {
+      "name": "exact222 rejects unchanged two references",
+      "passed": true
+    },
+    {
+      "name": "exact222 rejects caption",
+      "passed": true
+    },
+    {
+      "name": "exact222 rejects unknowns",
+      "passed": true
+    },
+    {
+      "name": "exact222 rejects sourceNotes",
+      "passed": true
+    },
+    {
+      "name": "exact222 rejects foreign figure ID",
+      "passed": true
+    },
+    {
+      "name": "exact222 rejects extra figure",
+      "passed": true
+    },
+    {
+      "name": "exact222 rejects Chinese rewrite",
+      "passed": true
+    },
+    {
+      "name": "exact222 rejects extra key",
+      "passed": true
+    },
+    {
+      "name": "exact222 rejects missing field",
+      "passed": true
+    },
+    {
+      "name": "exact222 actual --output-schema file is conservative schema, argv/stdin/images bound",
+      "passed": true
+    },
+    {
+      "name": "web-figure-target actual maker entry and schema-file binding",
+      "passed": true
+    },
+    {
+      "name": "pure-text actual maker entry and schema-file binding",
+      "passed": true
+    },
+    {
+      "name": "pure text keeps coverage and nonempty binding locally",
+      "passed": true
+    },
+    {
+      "name": "pure text rejects scope/empty/missing 19",
+      "passed": true
+    },
+    {
+      "name": "pure text rejects scope/empty/missing 20",
+      "passed": true
+    },
+    {
+      "name": "pure text rejects scope/empty/missing 21",
+      "passed": true
+    },
+    {
+      "name": "image request still chooses terra/max, no unauthorized model or effort fallback",
+      "passed": true
+    },
+    {
+      "name": "original CLI parser keeps API failure terminal and unrecoverable",
+      "passed": true
+    },
+    {
+      "name": "no new attempt/ledger entry and original raw unchanged",
+      "passed": true
+    }
+  ],
+  "actualConstructionCases": 3,
+  "exact222PreflightPassed": true,
+  "noRemoteProductionAcceptanceClaim": true,
+  "oldFailureKept": true,
+  "oldRawSha256": "b139f98a72e99bbe34310d7bb6ae2acc23fe9087c3df401ca149538720728d55",
+  "failedProductionCount": 1,
+  "unusedIndependentAudits": 1,
+  "additionalMakerCallsRequired": 1,
+  "futureMaximumLocalCalls": 2,
+  "stageLifetimeMaximum": 3,
+  "retry": 0,
+  "serverSchemaLeafNotDisclosed": true,
+  "localConservativeSubsetIsCompatibilityFixNotProofOfRemoteAcceptance": true
+}
