@@ -1,0 +1,228 @@
+import {verifyComposite100} from './parent100.mjs';
+
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {createHash,randomUUID} from 'node:crypto';
+import {spawnSync} from 'node:child_process';
+import {dirname,resolve,relative,isAbsolute,join} from 'node:path';
+import {verifyAuditForCandidate,auditTransportCompleted} from './textbook-audit.mjs';
+import {invokeTextbookCodex,textbookClosedPrompt} from './textbook-production-cli.mjs';
+import {buildExactTextRequest,validateExactTextOutput} from './condition-contract.mjs';
+import {assertInlinePlan,inlineTextAllowed,normalizeKnownInline155} from './inline-japanese-revision.mjs';
+
+const processing='E:/AgentData/Coach/knowledge/processing',webRoot=join(processing,'web-sources/v1');
+const argv=process.argv.slice(2),option=(key,fallback=null)=>{const i=argv.indexOf(key);return i<0?fallback:argv[i+1];};
+const sha=b=>createHash('sha256').update(b).digest('hex');
+const modelTimeoutMs=Number(option('--timeout-ms','900000'));if(!Number.isInteger(modelTimeoutMs)||modelTimeoutMs<1000||modelTimeoutMs>900000)throw Error('invalid_web_model_timeout_ms');
+const tileLabel=e=>(e.code==='back'?'牌背（未知牌面）':e.red?e.code.replace(/^5/,'0'):e.code)+(e.orientation==='upright'?'':e.orientation==='sideways'?'（横置）':e.orientation==='sideways-left'?'（横向左）':'（横向右）');
+const runRoot=join(processing,'web-production/v1'),runnerBytes=await readFile(new URL(import.meta.url)),runnerSha256=sha(runnerBytes);
+await ensureDispatchAllowed();
+function dataPath(value){const p=resolve(processing,value),r=relative(processing,p);if(!r||isAbsolute(r)||r==='..'||r.startsWith('../')||r.startsWith('..\\'))throw Error('web_path_outside_processing');return p;}
+async function ensureDispatchAllowed(){for(const path of [join(runRoot,'STOP'),...(option('--stop-file')?[dataPath(option('--stop-file'))]:[])])if(await readFile(path).then(()=>true,e=>{if(e.code==='ENOENT')return false;throw e;}))throw Error('web_dispatch_stopped');}
+const sourcePath=dataPath(option('--source')),sourceBytes=await readFile(sourcePath),source=JSON.parse(sourceBytes);
+if(source.schema!=='coach-textbook-web-article-source/1'||!['zh-CN','ja'].includes(source.language))throw Error('unsupported_web_source');
+if(source.status!=='captured-not-translated-or-audited'||source.assets.some(a=>a.status!=='downloaded'))throw Error('web_source_assets_not_complete');
+for(const binding of [source.html,source.main,...source.assets]){if(sha(await readFile(join(webRoot,binding.path)))!==binding.sha256)throw Error('web_source_dependency_changed');}
+const variant=option('--variant','');if(variant&&!/^[a-zA-Z0-9_-]+$/.test(variant))throw Error('invalid_web_variant');
+const revisionFrom=option('--revision-from'),revisionNotes=option('--revision-notes'),revisionContextPath=option('--revision-context'),revisionTargetsPath=option('--revision-targets');let revision=null,parentCandidate=null,supportingSourceContext=[],groupRevision=null,targetsBinding=null,inlinePlan=null,inlineBinding=null,inlineNormalization=null;
+if(revisionContextPath&&!revisionFrom)throw Error('revision_context_requires_targeted_revision');
+if(Boolean(revisionFrom)!==Boolean(revisionNotes))throw Error('web_revision_requires_parent_and_notes');
+if(revisionFrom){
+ if(!variant)throw Error('web_revision_requires_new_variant');
+ const path=dataPath(revisionFrom),notesPath=dataPath(revisionNotes),bytes=await readFile(path),notesBytes=await readFile(notesPath),parent=JSON.parse(bytes),notes=JSON.parse(notesBytes),copy={...parent};delete copy.candidateSha256;
+ if(parent.schema!=='coach-textbook-web-article-draft/1'||sha(JSON.stringify(copy))!==parent.candidateSha256||parent.source.sourceSha256!==sha(sourceBytes)||parent.source.sourceId!==source.sourceId||parent.source.articleId!==source.articleId||parent.body.mode!==(source.language==='ja'?'translated':'verbatim')||notes.schema!=='coach-textbook-web-article-audit/1'||notes.status!=='needs-repair'||notes.production.sha256!==sha(bytes)||notes.source.sourceSha256!==sha(sourceBytes))throw Error('web_revision_parent_or_notes_changed');
+ await verifyComposite100(processing,parent,notes);
+ let figureIds,textBlockIds;
+ if(option('--revision-inline-japanese')){const p=dataPath(option('--revision-inline-japanese')),b=await readFile(p);inlinePlan=JSON.parse(b);assertInlinePlan(inlinePlan,parent,notes,source,{parentSha256:sha(bytes),notesSha256:sha(notesBytes),sourceSha256:sha(sourceBytes)});inlineBinding={path:relative(processing,p).replaceAll('\\','/'),sha256:sha(b),plan:inlinePlan};}
+ if(revisionTargetsPath){
+  if(source.language!=='ja')throw Error('web_group_revision_requires_japanese_source');
+  const tp=dataPath(revisionTargetsPath),tb=await readFile(tp),tg=JSON.parse(tb);
+  if(tg.schema!=='coach-web-group-revision-targets/1'||tg.parentSha256!==sha(bytes)||tg.sourceSha256!==sha(sourceBytes)||!Array.isArray(tg.groups)||!tg.groups.length||!Array.isArray(tg.textBlockIds)||!Array.isArray(tg.figureIds)||(!tg.textBlockIds.length&&!tg.figureIds.length)||!Array.isArray(tg.deferred))throw Error('web_group_revision_targets_binding');
+  if(tg.groups.some(id=>typeof id!=='string'||!/^[a-zA-Z0-9_-]+$/.test(id))||new Set(tg.groups).size!==tg.groups.length)throw Error('web_group_revision_targets_groups');
+  textBlockIds=tg.textBlockIds;figureIds=tg.figureIds;groupRevision={groups:tg.groups,deferred:tg.deferred};
+  targetsBinding={path:relative(processing,tp).replaceAll('\\','/'),sha256:sha(tb)};
+ }else{
+  const issues=(notes.effectiveModelReview??notes.modelReview).issues.filter(x=>x.severity!=='source-note'),targetIds=[...new Set(issues.map(x=>x.targetId))];
+  figureIds=source.language==='zh-CN'&&!inlinePlan?targetIds:[];
+  textBlockIds=source.language==='ja'||inlinePlan?targetIds:[];
+ }
+ if(!revisionTargetsPath){
+ if(source.language==='zh-CN'&&!inlinePlan){
+  if(!figureIds.length||figureIds.some(id=>!parent.figures.some(f=>f.figureId===id))||parent.figures.some(f=>!figureIds.includes(f.figureId)&&!(notes.effectiveModelReview??notes.modelReview).figureChecks.some(c=>c.id===f.figureId&&c.verdict==='faithful')))throw Error('web_revision_is_not_isolated_figure_repair');
+ }else{
+  if(!textBlockIds.length||textBlockIds.some(id=>!parent.body.blocks.some(b=>b.type==='text'&&b.sourceBlockIds.length===1&&b.sourceBlockIds[0]===id))||parent.body.blocks.some(b=>b.type==='text'&&!textBlockIds.includes(b.sourceBlockIds[0])&&!(notes.effectiveModelReview??notes.modelReview).blockChecks.some(c=>c.id===b.sourceBlockIds[0]&&c.verdict==='faithful'))||parent.figures.some(f=>!(notes.effectiveModelReview??notes.modelReview).figureChecks.some(c=>c.id===f.figureId&&c.verdict==='faithful')))throw Error('web_revision_is_not_isolated_text_repair');
+ }
+ }
+ revision={parentPath:relative(processing,path).replaceAll('\\','/'),parentSha256:sha(bytes),notesPath:relative(processing,notesPath).replaceAll('\\','/'),notesSha256:sha(notesBytes),figureIds,...(textBlockIds.length?{textBlockIds}:{}),...(groupRevision?{groupRevision,targets:targetsBinding}:{}),...(inlineBinding?{inlineJapanese:inlineBinding}:{})};parentCandidate=parent;
+ if(revisionContextPath){
+  if(source.language!=='ja')throw Error('revision_context_requires_japanese_source');
+  const path=dataPath(revisionContextPath),bytes=await readFile(path),context=JSON.parse(bytes);
+  if(context.schema!=='coach-source-grounded-term-review/1'||!Array.isArray(context.primaryEvidence)||!context.primaryEvidence.length)throw Error('revision_context_not_source_grounded');
+  for(const evidence of context.primaryEvidence){
+   const sourceBytes=await readFile(dataPath(evidence.sourcePath)),original=JSON.parse(sourceBytes);
+   if(sha(sourceBytes)!==evidence.sourceFileSha256||original.sourceId!==source.sourceId||original.language!=='ja'||original.url!==evidence.url)throw Error('revision_context_source_changed');
+   for(const binding of [original.html,original.main])if(sha(await readFile(join(webRoot,binding.path)))!==binding.sha256)throw Error('revision_context_original_html_changed');
+   for(const block of evidence.blocks){if(!original.blocks.some(b=>b.type==='text'&&b.id===block.sourceBlockId&&b.text===block.sourceText))throw Error('revision_context_block_changed');supportingSourceContext.push({url:original.url,sourceBlockId:block.sourceBlockId,sourceText:block.sourceText});}
+  }
+  revision.context={path:relative(processing,path).replaceAll('\\','/'),sha256:sha(bytes)};
+ }
+}
+const output=join(runRoot,'candidates',source.sourceId,source.articleId+(variant?'.'+variant:'')+'.json');
+let existingBytes=null;try{existingBytes=await readFile(output);}catch(e){if(e.code!=='ENOENT')throw e;}
+if(existingBytes){
+ const existing=JSON.parse(existingBytes),content={...existing};delete content.candidateSha256;
+ if(sha(JSON.stringify(content))!==existing.candidateSha256||existing.source.sourceSha256!==sha(sourceBytes)||existing.source.sourcePath!==relative(processing,sourcePath).replaceAll('\\','/'))throw Error('existing_web_candidate_binding_changed');
+ for(const b of [existing.provenance.reuseMap,existing.provenance.dictionary,existing.provenance.verifiedAssetDictionary].filter(Boolean))if(sha(await readFile(dataPath(b.path)))!==b.sha256)throw Error('existing_web_candidate_dependency_changed');
+ for(const a of existing.provenance.attempts??[])if(sha(await readFile(join(runRoot,a.rawArtifactPath)))!==a.rawArtifactSha256)throw Error('existing_web_candidate_raw_changed');
+ if(JSON.stringify(existing.provenance.revision??null)!==JSON.stringify(revision))throw Error('existing_web_revision_binding_changed');
+ if(existing.provenance.batches){for(const b of [{path:existing.provenance.batches.planPath,sha256:existing.provenance.batches.planSha256},existing.provenance.batches.unitMap,existing.provenance.batches.helper])if(sha(await readFile(dataPath(b.path)))!==b.sha256)throw Error('existing_web_batch_dependency_changed');if(option('--batch-plan')&&sha(await readFile(dataPath(option('--batch-plan'))))!==existing.provenance.batches.planSha256)throw Error('existing_web_batch_plan_changed');}
+ else if(option('--batch-plan'))throw Error('existing_web_candidate_has_different_batch_method');
+ for(const f of existing.figures){if(f.provenance.method==='independently-passed-pdf-transcription-exact-original-image-reuse'){const b=await readFile(dataPath(f.provenance.candidatePath));if(sha(b)!==f.provenance.candidateSha256)throw Error('existing_web_parent_changed');await verifyAuditForCandidate(processing,dataPath(f.provenance.candidatePath));}}
+ const ex=buildExactTextRequest({source,sourceSha256:sha(sourceBytes),parent:parentCandidate,revision,ids:revision.textBlockIds,figureIds:revision.figureIds});validateExactTextOutput(ex.job,{translations:existing.body.blocks.filter(b=>b.type==='text'&&revision.textBlockIds.includes(b.sourceBlockIds[0])).map(b=>({sourceBlockId:b.sourceBlockIds[0],text:b.text})),figures:[]});
+ console.log(JSON.stringify({state:'resumed-existing',candidatePath:output,modelCalls:0}));process.exit(0);
+}
+const japanese=source.language==='ja';
+let batchPlan=null,batchBinding=null,batchHelpers=null;
+if(option('--batch-plan')){
+ if(!japanese||(revision&&!groupRevision))throw Error('web_batches_require_new_japanese_article');
+ batchHelpers=await import('./textbook-production-web-batches.mjs');const loaded=await batchHelpers.readWebBatchPlan(processing,option('--batch-plan'),source,sourceBytes);batchPlan=loaded.plan;
+ const snapshot=join(runRoot,'batch-plans',sha(loaded.bytes)+'.json'),unitSnapshot=join(runRoot,'batch-plans',sha(loaded.mapBytes)+'.units.json');
+ for(const[path,bytes]of[[snapshot,loaded.bytes],[unitSnapshot,loaded.mapBytes]]){await mkdir(dirname(path),{recursive:true});try{await writeFile(path,bytes,{flag:'wx'});}catch(e){if(e.code!=='EEXIST'||sha(await readFile(path))!==sha(bytes))throw e;}}
+ const helperBytes=await readFile(new URL('./textbook-production-web-batches.mjs',import.meta.url)),helperPath=join(runRoot,'runners',sha(helperBytes)+'.batches.mjs');await mkdir(dirname(helperPath),{recursive:true});await writeFile(helperPath,helperBytes);
+ batchBinding={planPath:relative(processing,snapshot).replaceAll('\\','/'),planSha256:sha(loaded.bytes),unitMap:{path:relative(processing,unitSnapshot).replaceAll('\\','/'),sha256:sha(loaded.mapBytes)},helper:{path:relative(processing,helperPath).replaceAll('\\','/'),sha256:sha(helperBytes)}};
+}
+if(revision?.groupRevision){if(!batchPlan)throw Error('web_group_revision_requires_batch_plan');for(const id of revision.groupRevision.groups)if(!batchPlan.groups.some(g=>g.batchId===id))throw Error('web_group_revision_unknown_group');}
+let reusePath=null,reuseBytes=null,reuse=null,dictionaryPath=null,dictionaryBytes=null,dictionary=null;
+if(japanese){dictionaryPath=dataPath(option('--dictionary'));dictionaryBytes=await readFile(dictionaryPath);dictionary=JSON.parse(dictionaryBytes);if(!['coach-root-web-asset-inspection/1','coach-textbook-verified-tile-dictionary/1'].includes(dictionary.schema))throw Error('unsupported_verified_dictionary');}
+else{reusePath=dataPath(option('--reuse'));reuseBytes=await readFile(reusePath);reuse=JSON.parse(reuseBytes);if(reuse.schema!=='coach-textbook-exact-web-reuse/1'||reuse.sourceFileSha256!==sha(sourceBytes))throw Error('web_reuse_source_binding_mismatch');
+ const frozen=join(runRoot,'reuse-maps',sha(reuseBytes)+'.json');await mkdir(dirname(frozen),{recursive:true});try{await writeFile(frozen,reuseBytes,{flag:'wx'});}catch(e){if(e.code!=='EEXIST'||sha(await readFile(frozen))!==sha(reuseBytes))throw e;}reusePath=frozen;}
+const assets=new Map(source.assets.map(a=>[a.assetId,a])),figures=[],flow=[],pendingFigures=[];
+const parentCache=new Map();
+async function parentFor(match){
+ const path=dataPath(match.candidatePath);if(parentCache.has(path))return parentCache.get(path);
+ const bytes=await readFile(path);if(sha(bytes)!==match.candidateSha256)throw Error('web_reuse_parent_candidate_changed');
+ const receipt=await verifyAuditForCandidate(processing,path);const parent=JSON.parse(bytes);
+ const result={parent,receipt};parentCache.set(path,result);return result;
+}
+for(const block of source.blocks){
+ if(block.type==='text'){
+  flow.push({type:'text',sourceBlockIds:[block.id],sourceText:block.text,text:block.text,paragraphId:block.paragraphId,sourceSegments:block.segments,tableContext:block.tableContext});continue;
+ }
+ if(block.type!=='image-run')throw Error('unsupported_web_source_block_type');
+ if(japanese){
+  const bindings=block.images.map(image=>{const a=assets.get(image.assetId),entry=dictionary.acceptedAssets.find(e=>e.sha256===a.sha256&&e.url===a.url);return{image,asset:a,entry};});
+  const figureId=block.id+':figure';
+  if(bindings.some(({entry})=>!entry||entry.code==='unknown'||entry.orientation==='unknown')){
+   const figure={figureId,sourceBlockIds:[block.id],sourceOccurrenceIds:block.images.map(i=>i.occurrenceId),sourceAssetBindings:bindings.map(({asset:a})=>({assetId:a.assetId,path:'web-sources/v1/'+a.path,sha256:a.sha256,url:a.url})),kind:'mahjong-example',transcription:'',unknowns:[],caption:'',sourceNotes:[],provenance:{method:'model-transcription'}};
+   figures.push(figure);pendingFigures.push(figure);flow.push({type:'figure',sourceBlockIds:[block.id],figureId,paragraphId:block.paragraphId,tableContext:block.tableContext});continue;
+  }
+  const method=dictionary.schema==='coach-root-web-asset-inspection/1'?'root-inspected-exact-tile-assets':'independently-verified-exact-tile-assets';
+  if(method==='root-inspected-exact-tile-assets'&&bindings.some(({entry})=>entry.orientation!=='upright'||entry.red!==false))throw Error('root_dictionary_variant_scope_changed');
+  figures.push({figureId,sourceBlockIds:[block.id],sourceOccurrenceIds:block.images.map(i=>i.occurrenceId),sourceAssetBindings:bindings.map(({asset:a})=>({assetId:a.assetId,path:'web-sources/v1/'+a.path,sha256:a.sha256,url:a.url})),kind:'mahjong-example',transcription:bindings.map(x=>tileLabel(x.entry)).join(' '),unknowns:[],caption:'原文内联牌列',sourceNotes:[],tiles:bindings.map(({image,asset:a,entry})=>({occurrenceId:image.occurrenceId,assetId:a.assetId,assetSha256:a.sha256,code:entry.code,red:entry.red,orientation:entry.orientation})),provenance:{method,dictionaryPath:relative(processing,dictionaryPath).replaceAll('\\','/'),dictionarySha256:sha(dictionaryBytes)}});
+  flow.push({type:'figure',sourceBlockIds:[block.id],figureId,paragraphId:block.paragraphId,tableContext:block.tableContext});continue;
+ }
+ const image=block.images[0],asset=assets.get(image.assetId),proof=block.images.length===1?reuse.images.find(i=>i.assetId===asset.assetId):null;
+ if(reuse.formalReuse?.images?.some(p=>block.images.some(i=>i.assetId===p.assetId)&&p.reusePermitted))throw Error('formal_reuse_requires_bound_formal_adapter_no_new_paid_recognition');
+ if(!proof?.reusePermitted||proof.assetSha256!==asset.sha256||proof.exactMatches.length!==1){
+  const figureId=block.id+':figure',figure={figureId,sourceBlockIds:[block.id],sourceOccurrenceIds:block.images.map(i=>i.occurrenceId),sourceAssetBindings:block.images.map(i=>{const a=assets.get(i.assetId);return{assetId:a.assetId,path:'web-sources/v1/'+a.path,sha256:a.sha256,url:a.url};}),kind:'mahjong-example',transcription:'',unknowns:[],caption:'',sourceNotes:[],provenance:{method:'model-transcription'}};
+  figures.push(figure);pendingFigures.push(figure);flow.push({type:'figure',sourceBlockIds:[block.id],figureId,paragraphId:block.paragraphId,tableContext:block.tableContext});continue;
+ }
+ const match=proof.exactMatches[0];
+ if(JSON.stringify(match.pixelSignature)!==JSON.stringify(proof.pixelSignature)||match.figures.length!==1||match.figures[0].sourceImageBlockIds.length!==1||match.figures[0].sourceImageBlockIds[0]!==match.sourceBlockId)throw Error('web_reuse_is_not_one_complete_identical_figure');
+ const {parent,receipt}=await parentFor(match),original=parent.figures.find(f=>f.figureId===match.figures[0].figureId);
+ if(!original||original.transcription!==match.figures[0].transcription||original.croppedImageSha256!==match.figures[0].croppedImageSha256)throw Error('web_reuse_figure_changed');
+ const figureId=block.id+':figure';
+ figures.push({figureId,sourceBlockIds:[block.id],sourceOccurrenceIds:block.images.map(i=>i.occurrenceId),sourceAssetBindings:[{assetId:asset.assetId,path:'web-sources/v1/'+asset.path,sha256:asset.sha256,url:asset.url}],kind:original.kind,transcription:original.transcription,unknowns:original.unknowns,caption:original.caption,sourceNotes:[],provenance:{method:'independently-passed-pdf-transcription-exact-original-image-reuse',candidatePath:match.candidatePath,candidateSha256:match.candidateSha256,figureId:original.figureId,auditPath:receipt.auditPath??match.auditPath,sourceImageBlockId:match.sourceBlockId,sourceImagePath:relative(processing,match.path).replaceAll('\\','/'),pixelSignature:proof.pixelSignature}});
+ flow.push({type:'figure',sourceBlockIds:[block.id],figureId,paragraphId:block.paragraphId,tableContext:block.tableContext});
+}
+if(revision){
+ const parentFlow=structuredClone(parentCandidate.body.blocks),originalFlow=parentFlow.map(b=>b.type==='text'?{...b,text:b.sourceText}:b);
+ if(JSON.stringify(flow)!==JSON.stringify(originalFlow))throw Error('web_revision_source_body_structure_changed');
+ flow.splice(0,flow.length,...parentFlow);
+ for(let i=0;i<figures.length;i++){const old=parentCandidate.figures.find(f=>f.figureId===figures[i].figureId);if(!old||JSON.stringify(old.sourceAssetBindings)!==JSON.stringify(figures[i].sourceAssetBindings)||JSON.stringify(old.sourceOccurrenceIds)!==JSON.stringify(figures[i].sourceOccurrenceIds))throw Error('web_revision_figure_source_changed');const copy=structuredClone(old);delete copy.presentationAsset;figures[i]=copy;}
+ pendingFigures.splice(0,pendingFigures.length,...figures.filter(f=>revision.figureIds.includes(f.figureId)));
+}
+if(argv.includes('--reuse-only')&&pendingFigures.length)throw Error('reuse_only_missing_exact_figures');
+if(argv.includes('--preflight-only')){console.log(JSON.stringify({preflightPassed:true,sourceId:source.sourceId,articleId:source.articleId,sourceBlocks:source.blocks.length,textBlocks:flow.filter(b=>b.type==='text').length,figureRuns:figures.length,pendingFigureRuns:pendingFigures.length,imageOccurrences:figures.flatMap(f=>f.sourceOccurrenceIds).length,modelCalls:0}));process.exit(0);}
+const attempts=[];let usage=null;
+const allPendingFigures=pendingFigures;
+for(const batch of batchPlan?.groups??[null]){
+ const pendingFigures=batch?allPendingFigures.filter(f=>batch.sourceBlockIds.includes(f.sourceBlockIds[0])):allPendingFigures;
+ if(groupRevision&&batch&&!pendingFigures.length&&!(revision.textBlockIds??[]).some(id=>batch.sourceBlockIds.includes(id)))continue;
+if(((japanese||inlinePlan)&&(!batch||batch.sourceBlockIds.some(id=>source.blocks.find(b=>b.id===id)?.type==='text')))||pendingFigures.length){
+ const textBlocks=(japanese||inlinePlan)?flow.filter(b=>b.type==='text'&&(!revision||revision.textBlockIds?.includes(b.sourceBlockIds[0]))&&(!batch||batch.sourceBlockIds.includes(b.sourceBlockIds[0]))):[],ids=textBlocks.map(b=>b.sourceBlockIds[0]),figureIds=pendingFigures.map(f=>f.sourceBlockIds[0]);
+ const callId=option('--recover-completed-call')??randomUUID();let visualInputs=[];
+ if(pendingFigures.length){
+  const requestPath=join(runRoot,'visual-requests',callId+'.json');await mkdir(dirname(requestPath),{recursive:true});await writeFile(requestPath,JSON.stringify({sourceAssetBindings:pendingFigures.flatMap(f=>f.sourceAssetBindings)})+'\n',{flag:'wx'});
+  const rendererPath=new URL('./textbook-production-web-visual.py',import.meta.url),rendererBytes=await readFile(rendererPath),rendererArchive=join(runRoot,'runners',sha(rendererBytes)+'.visual.py');await mkdir(dirname(rendererArchive),{recursive:true});await writeFile(rendererArchive,rendererBytes);
+  const rendered=spawnSync('python',[rendererPath.pathname.replace(/^\/([A-Za-z]:)/,'$1'),requestPath],{encoding:'utf8',windowsHide:true,maxBuffer:8*1024*1024});if(rendered.status!==0)throw Error('web_visual_input_failed:'+rendered.stderr);visualInputs=JSON.parse(rendered.stdout).visualInputs;
+  for(const v of visualInputs)if(sha(await readFile(dataPath(v.path)))!==v.sha256)throw Error('web_visual_input_changed');
+ }
+ const textItem={type:'object',additionalProperties:false,properties:{sourceBlockId:{type:'string',...(ids.length?{enum:ids}:{})},text:{type:'string',minLength:1}},required:['sourceBlockId','text']};
+ const figureItem={type:'object',additionalProperties:false,properties:{sourceBlockId:{type:'string',...(figureIds.length?{enum:figureIds}:{})},kind:{type:'string',enum:['mahjong-example','chart','table','diagram','illustration','other']},transcription:{type:'string',minLength:1},unknowns:{type:'array',items:{type:'string'}},caption:{type:'string'},sourceNotes:{type:'array',items:{type:'string'}}},required:['sourceBlockId','kind','transcription','unknowns','caption','sourceNotes']};
+ const schema={type:'object',additionalProperties:false,properties:{translations:{type:'array',minItems:ids.length,maxItems:ids.length,items:textItem},figures:{type:'array',minItems:figureIds.length,maxItems:figureIds.length,items:figureItem}},required:['translations','figures']};
+ const context=source.blocks.map(b=>b.type==='text'?{id:b.id,paragraphId:b.paragraphId,tag:b.tag,text:b.text,segments:b.segments,tableContext:b.tableContext}:{id:b.id,paragraphId:b.paragraphId,inlineTiles:figures.find(f=>f.sourceBlockIds[0]===b.id).tiles?.map(t=>({code:t.code,red:t.red,orientation:t.orientation})),alreadyVerifiedTranscription:pendingFigures.some(f=>f.sourceBlockIds[0]===b.id)?undefined:figures.find(f=>f.sourceBlockIds[0]===b.id).transcription});
+ const contextIds=revision?.textBlockIds?new Set(source.blocks.filter(b=>{const at=source.blocks.indexOf(b);return revision.textBlockIds.some(id=>{const target=source.blocks.findIndex(x=>x.id===id);return b.paragraphId===source.blocks[target].paragraphId||Math.abs(at-target)<=2;});}).map(b=>b.id)):null;
+ const contextScope=batch?new Set([...batch.sourceBlockIds,...batch.contextSourceBlockIds]):contextIds;
+ const requestContext=contextScope?context.filter(b=>contextScope.has(b.id)).map(b=>({...b,priorTranslation:parentCandidate?.body.blocks.find(x=>x.type==='text'&&x.sourceBlockIds[0]===b.id)?.text})):context;
+ let prompt=[inlinePlan?'Translate only the explicitly bounded Japanese quotes inside the Chinese source. Return one complete target block text for each requested ID. Preserve EVERY other character including whitespace, punctuation, Chinese text, numbers, links, emphasis provenance and existing parenthetical comments. For replace: replace only quotedText with Chinese. For gloss: keep quotedText and insert exactly （Chinese meaning） immediately after it. No other edits, no figure output. Bound edit plan: '+JSON.stringify(inlinePlan):japanese?'Translate this complete Japanese textbook article into faithful Simplified Chinese. Preserve every argument, condition, exception, numerical expression, author modality and uncertainty. Do not summarize or strengthen claims.':'Preserve the existing Chinese article verbatim. Return translations:[] and transcribe only the explicitly requested original figure runs using all attached source images in their original order. Do not rewrite Chinese prose.',
+ inlinePlan?'Return complete target source text with ONLY the planned quote replacements or Chinese gloss insertions. Do not add Markdown markers: original emphasis and links are inherited in sourceSegments. Preserve every other character exactly.':japanese?'Return exactly one translation for every requested text block ID, once each. The complete DOM sequence below includes exact inline tile runs already verified from original image bytes; keep those fixed. Some text blocks are phrase fragments on either side of an inline tile run: translate only that block contribution and do not repeat or complete neighboring blocks. paragraphId binds the original paragraph context. Preserve semantic emphasis using Markdown emphasis matching source marked spans; preserve all table-cell meanings and source links. Do not translate the tile codes or invent additional tile ranks.':'Chinese text blocks and already verified figures supply context; do not return translations or transcriptions for them. Only the figureIds in targets require output.',
+ 'For every requested figure ID return kind, complete transcription, unknowns, caption and sourceNotes. Translate ALL visible teaching labels into Simplified Chinese: ツモ=摸入, 切り=切, 変化=变化, でテンパイ=即可听牌, numeric 枚=张. Preserve the location of each label relative to its exact tile code/table cell. No untranslated Japanese instructional label may remain. Mahjong codes use 1-9m/p/s, 1-7z (east/south/west/north/white/green/red); preserve tile order, count, red tiles, sideways tiles, labels, draw/discard arrows, and every chart/table datum. Distinguish 2m/3m,6p/8p,1s. If teaching information cannot be read, name the exact unknown and do not guess. Harmless scan/layout traces belong in sourceNotes; never invent a punctuation mark. Reused verified figures are context only and must not be returned in figures.',
+ 'Original and nearest-neighbor enlarged views refer to the same original assets, never extra tiles or extra source occurrences. Compare both views carefully; enlargement repeats original RGBA pixels without sharpening, denoising, recoloring or redrawing.',
+ revision?.groupRevision?'This is a group-scoped targeted revision. Return output only for the requested target text IDs and target figure IDs of this one complete-unit group; every other block and figure is inherited from the parent candidate byte-for-byte and must not be restated. Prior independent review issues are locators only and may themselves be wrong; independently re-read the Japanese source and the original plus nearest-neighbor enlarged images. Keep source unknowns as unknowns and never guess a tile. All other lesson content and every non-target figure stay unchanged outside this request. Prior issues: '+JSON.stringify(JSON.parse(await readFile(dataPath(revision.notesPath))).modelReview.issues):revision?.textBlockIds?'This is an isolated translation repair. Return only target text IDs. Independently read the Japanese in its complete associated context; prior review is a locator, not ground truth. Preserve author modality, exact inequality including equality, and Mahjong meanings. All other translated blocks and all figures are reused unchanged outside this request. Prior issues: '+JSON.stringify(JSON.parse(await readFile(dataPath(revision.notesPath))).modelReview.issues):revision?'This is an isolated figure repair. The prior independent review is only a locator and may itself contain errors. Independently reread the original and enlarged images; do not copy suggested labels as ground truth. All unmodified figures and Chinese body are preserved outside this request. Prior issues: '+JSON.stringify(JSON.parse(await readFile(dataPath(revision.notesPath))).modelReview.issues):null,
+ supportingSourceContext.length?'Supporting source context comes from the same author in other captured sections and clarifies terminology only. Translate ONLY the requested target IDs; do not translate or import additional claims from this context.':null,
+ batch?'This request contains one complete question/answer or heading group. Context-only blocks provide shared premises: translate ONLY target textIds once; never repeat context-only premises. Keep the whole associated table and answer intact.':null,
+ 'Lexical glossary only: シャンテン=向听, フリテン=振听, 面子=面子, ターツ=搭子, トイツ=对子, 一色手=染手, ベタオリ=完全弃和, 押し引き=攻守判断. Do not alter the strategy to fit a glossary.',JSON.stringify({title:source.title,blocks:requestContext,...(supportingSourceContext.length?{supportingSourceContext}:{}),targets:{textIds:ids,figureIds},figureAssets:pendingFigures.map(f=>({sourceBlockId:f.sourceBlockIds[0],assetIds:f.sourceAssetBindings.map(a=>a.assetId)})),attachments:visualInputs.map((a,i)=>({attachment:i+1,assetId:a.assetId,view:a.role,scale:a.scale}))})].filter(Boolean).join('\n\n');
+ await ensureDispatchAllowed();
+ const cliBytes=await readFile(new URL('./textbook-production-cli.mjs',import.meta.url)),cliSha256=sha(cliBytes),cliSnapshot=join(runRoot,'runners',cliSha256+'.cli.mjs');await mkdir(dirname(cliSnapshot),{recursive:true});await writeFile(cliSnapshot,cliBytes);
+ const exactRequest=buildExactTextRequest({source,sourceSha256:sha(sourceBytes),parent:parentCandidate,revision,ids,figureIds});
+ prompt=exactRequest.prompt;Object.keys(schema).forEach(k=>delete schema[k]);Object.assign(schema,exactRequest.schema);
+ const modelRequest={prompt,schema,model:'gpt-6.1-sol',reasoningEffort:'high',images:visualInputs.map(a=>dataPath(a.path)),timeoutMs:modelTimeoutMs,stopFiles:option('--stop-file')?[dataPath(option('--stop-file'))]:[]};
+ if(argv.includes('--request-only')){console.log(JSON.stringify({request:modelRequest,closedPrompt:textbookClosedPrompt(modelRequest.prompt),contract:exactRequest.proof,modelCalls:0}));process.exit(0);}
+ if(option('--validate-existing-raw')){const raw=JSON.parse(await readFile(dataPath(option('--validate-existing-raw'))));validateExactTextOutput(exactRequest.job,raw.parsedOutput);console.log(JSON.stringify({validationOnly:true,modelCalls:0}));process.exit(0);}
+ const currentBatchBinding=batch?{...batchBinding,sourceSha256:sha(sourceBytes),batchId:batch.batchId,...(groupRevision?{revision:'group-targeted',revisionTargetsSha256:targetsBinding.sha256}:{})}:null,checkpointPath=batch?join(runRoot,'batch-checkpoints',source.sourceId,source.articleId,batchBinding.planSha256,...(groupRevision?['revision-'+targetsBinding.sha256]:[]),batch.batchId+'.json'):null;
+ if(batch)await mkdir(dirname(checkpointPath),{recursive:true});
+ const resumed=batch?await batchHelpers.readWebBatchCheckpoint(processing,checkpointPath,{binding:currentBatchBinding,targets:{textIds:ids,figureIds},prompt,schema,cliSha256,visualInputs}):null;
+ let call=resumed?.result,record=resumed?.call;
+ const recoveredId=option('--recover-completed-call');
+ if(recoveredId){
+  if(!inlinePlan||batch||resumed||ids.length!==1||figureIds.length)throw Error('inline_recovery_scope');
+  const ledger=(await readFile(join(processing,'web-production/v1/calls.jsonl'),'utf8')).split(/\r?\n/).filter(Boolean).map(JSON.parse),found=ledger.filter(c=>c.callId===recoveredId);
+  if(found.length!==1)throw Error('inline_recovery_call_not_unique');record=found[0];
+  const rb=await readFile(dataPath('web-production/v1/'+record.rawArtifactPath)),raw=JSON.parse(rb);
+  if(!record.success||record.sourceSha256!==sha(sourceBytes)||JSON.stringify(record.revision)!==JSON.stringify(revision)||JSON.stringify(record.targets)!==JSON.stringify({textIds:ids,figureIds})||sha(rb)!==record.rawArtifactSha256||sha(raw.rawLastMessage)!==record.outputSha256||JSON.stringify(JSON.parse(raw.rawLastMessage))!==JSON.stringify(raw.parsedOutput)||!auditTransportCompleted({...raw,output:raw.parsedOutput}))throw Error('inline_recovery_real_call_binding');
+  call={...raw,output:raw.parsedOutput,success:true};
+ }
+ if(!resumed&&!recoveredId){
+ if(!argv.includes('--execute-authorized'))throw Error('exact100_explicit_execution_required');
+ call=await invokeTextbookCodex(modelRequest);
+ const rawPath=join(processing,'web-production/v1/raw-calls',callId+'.json');await mkdir(dirname(rawPath),{recursive:true});
+ await writeFile(rawPath,JSON.stringify({callId,requestExecution:call.requestExecution,rawLastMessage:call.rawLastMessage,rawStdout:call.rawStdout,parsedOutput:call.output,events:call.events,terminalEvents:call.terminalEvents,stderr:call.stderr,usage:call.usage,requestPrompt:call.requestPrompt,requestPromptSha256:call.requestPromptSha256,semanticPrompt:prompt,schema,cliSha256,visualInputs,...(batch?{batchBinding:currentBatchBinding}:{}),unexpectedTool:call.unexpectedTool,exitCode:call.exitCode,timedOut:call.timedOut,outputOverflow:call.outputOverflow,timeoutMs:modelTimeoutMs,usageLimitReached:call.usageLimitReached??false,admissionStopWriteError:call.admissionStopWriteError??null},null,2)+'\n',{flag:'wx'});
+ record={callId,sourceId:source.sourceId,articleId:source.articleId,sourceSha256:sha(sourceBytes),model:'gpt-6.1-sol',reasoningEffort:'high',timeoutMs:modelTimeoutMs,startedAt:call.startedAt,durationMs:call.durationMs,usage:call.usage,success:call.success,failureClass:call.usageLimitReached?'usage-limit':null,transportStatus:call.success?'completed':call.timedOut?'timeout':'failed',rawArtifactPath:relative(runRoot,rawPath).replaceAll('\\','/'),rawArtifactSha256:sha(await readFile(rawPath)),outputSha256:call.rawLastMessage===null?null:sha(call.rawLastMessage),schemaSha256:sha(JSON.stringify(schema)),promptSha256:call.requestPromptSha256,semanticPromptSha256:sha(prompt),cliSnapshot:{path:relative(processing,cliSnapshot).replaceAll('\\','/'),sha256:cliSha256},targets:{textIds:ids,figureIds},terminalEvents:call.terminalEvents};
+ record.exactTextContract=exactRequest.proof;record.visualInputs=visualInputs;if(batch){record.batchId=batch.batchId;record.batchBinding=currentBatchBinding;}if(revision)record.revision=revision;
+ const {appendFile}=await import('node:fs/promises');await appendFile(join(processing,'web-production/v1/calls.jsonl'),JSON.stringify(record)+'\n');if(batch)await writeFile(checkpointPath,JSON.stringify({binding:currentBatchBinding,call:record},null,2)+'\n',{flag:'wx'});
+
+ }
+ attempts.push(record);usage=call.usage;
+ if(!call.success)throw Error('web_translation_call_failed_raw_preserved');
+ validateExactTextOutput(exactRequest.job,call.output);
+ const translated=call.output.translations;if(!Array.isArray(translated)||translated.length!==ids.length||new Set(translated.map(t=>t.sourceBlockId)).size!==ids.length||ids.some(id=>!translated.some(t=>t.sourceBlockId===id)))throw Error('web_translation_block_coverage_failed_raw_preserved');
+ const byId=new Map(translated.map(t=>[t.sourceBlockId,t.text]));for(const b of textBlocks){let text=byId.get(b.sourceBlockIds[0]);if(recoveredId){const n=normalizeKnownInline155(text,parentCandidate,inlinePlan,recoveredId,record.rawArtifactSha256);text=n.text;inlineNormalization=n.proof;}if(inlinePlan&&!inlineTextAllowed(inlinePlan,b.sourceBlockIds[0],b.text,text))throw Error('web_inline_output_outside_whitelist_raw_preserved');b.text=text;}
+ const outputs=call.output.figures;if(!Array.isArray(outputs)||outputs.length!==figureIds.length||new Set(outputs.map(f=>f.sourceBlockId)).size!==figureIds.length||figureIds.some(id=>!outputs.some(f=>f.sourceBlockId===id)))throw Error('web_figure_block_coverage_failed_raw_preserved');
+ for(const figure of pendingFigures){const item=outputs.find(f=>f.sourceBlockId===figure.sourceBlockIds[0]);for(const k of ['kind','transcription','unknowns','caption','sourceNotes'])figure[k]=item[k];figure.provenance={method:'model-transcription',callId:record.callId,outputSourceBlockId:figure.sourceBlockIds[0]};}
+}
+}
+if(batchPlan)usage=batchHelpers.summarizeWebBatchUsage(attempts).usage;
+const candidate={schema:'coach-textbook-web-article-draft/1',status:'draft',productionStatus:'draft-awaiting-independent-web-review',source:{sourceId:source.sourceId,articleId:source.articleId,url:source.url,title:source.title,language:source.language,fetchedAt:source.fetchedAt,sourcePath:relative(processing,sourcePath).replaceAll('\\','/'),sourceSha256:sha(sourceBytes),htmlSha256:source.html.sha256,mainSha256:source.main.sha256},body:{language:'zh-CN',mode:'verbatim',flowOrder:'source-dom-order',blocks:flow},figures,provenance:{sourceVersion:'web-sources/v1',model:null,reasoningEffort:null,artifactRoot:'web-production/v1',attempts:[],usage:null,modelCalls:0,reuseMap:null,runnerSha256:sha(await readFile(new URL(import.meta.url))),extractorSha256:source.extractorSha256,attribution:'Original author, translator and reposter references remain in the bound source HTML; existing Chinese source body is verbatim.'}};
+candidate.provenance.runnerSha256=runnerSha256;candidate.body.mode=japanese?'translated':'verbatim';candidate.provenance.model=attempts.length?'gpt-6.1-sol':null;candidate.provenance.reasoningEffort=attempts.length?'high':null;candidate.provenance.attempts=attempts;candidate.provenance.usage=usage;candidate.provenance.modelCalls=attempts.length;
+candidate.provenance.reuseMap=reuseBytes?{path:relative(processing,reusePath).replaceAll('\\','/'),sha256:sha(reuseBytes)}:null;
+if(revision)candidate.provenance.revision=revision;if(inlineNormalization)candidate.provenance.outputNormalization=inlineNormalization;
+if(batchPlan){candidate.provenance.batches=batchBinding;candidate.provenance.unknownUsageByField=batchHelpers.summarizeWebBatchUsage(attempts).unknownByField;}
+if(japanese)candidate.provenance.dictionary={path:relative(processing,dictionaryPath).replaceAll('\\','/'),sha256:sha(dictionaryBytes)};
+if(japanese&&option('--verified-assets')){const path=dataPath(option('--verified-assets'));candidate.provenance.verifiedAssetDictionary={path:relative(processing,path).replaceAll('\\','/'),sha256:sha(await readFile(path))};}
+if(japanese)candidate.title=flow.find(b=>b.type==='text'&&source.blocks.find(s=>s.id===b.sourceBlockIds[0])?.tag==='h2')?.text??source.title;
+candidate.candidateSha256=sha(JSON.stringify(candidate));
+await mkdir(dirname(output),{recursive:true});
+try{const existing=await readFile(output);if(existing.toString('utf8')!==JSON.stringify(candidate,null,2)+'\n')throw Error('existing_web_candidate_differs_preserve_it_and_use_new_version');}
+catch(e){if(e.code!=='ENOENT')throw e;await writeFile(output,JSON.stringify(candidate,null,2)+'\n',{flag:'wx'});}
+const runnerArchive=join(processing,'web-production/v1/runners',runnerSha256+'.mjs');await mkdir(dirname(runnerArchive),{recursive:true});await writeFile(runnerArchive,runnerBytes);
+console.log(JSON.stringify({sourceId:source.sourceId,articleId:source.articleId,candidatePath:output,textBlocks:flow.filter(b=>b.type==='text').length,figures:figures.length,modelCalls:attempts.length,usage,candidateFileSha256:sha(await readFile(output))}));

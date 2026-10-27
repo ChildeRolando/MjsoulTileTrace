@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0415bd3cab999892faec1f3ae6ae8586f4b4adb1b93f486e37b1188bf7c49fc3.json",
+  "staged": {
+    "schema": "coach-textbook-web-stage/1",
+    "status": "independently-audited-chapter-preview",
+    "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.condition100-v1-20261028.display.json",
+    "candidateSha256": "0415bd3cab999892faec1f3ae6ae8586f4b4adb1b93f486e37b1188bf7c49fc3",
+    "sourceSha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+    "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0415bd3cab999892faec1f3ae6ae8586f4b4adb1b93f486e37b1188bf7c49fc3.json",
+    "auditStatus": "passed",
+    "imageDerivations": [],
+    "chapters": 1,
+    "units": 1,
+    "blocks": 106,
+    "figures": 128,
+    "corpusId": "89358012f99ade37d33b68591c92907a3799c8732eaa8173b3ae60adafc400e6",
+    "bodySha256": "2780e29ba0d7d807eab52b68bff0e1313e7969b8ce6bc68843e923a5915a94e5",
+    "maxUnitBytes": 187599,
+    "modelCalls": 0,
+    "activeLibraryChanged": false,
+    "humanReview": "pending"
+  },
+  "masterPreviewChanged": false,
+  "formalActiveChanged": false,
+  "newModelCalls": 0
+}

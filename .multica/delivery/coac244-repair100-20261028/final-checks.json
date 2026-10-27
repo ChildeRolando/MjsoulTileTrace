@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "name": "textbook-bodies.json actually contains exact repaired phrase",
+      "passed": true
+    },
+    {
+      "name": "textbook-bodies.json does not contain removed widened condition",
+      "passed": true
+    },
+    {
+      "name": "textbook-corpus.json actually contains exact repaired phrase",
+      "passed": true
+    },
+    {
+      "name": "textbook-corpus.json does not contain removed widened condition",
+      "passed": true
+    },
+    {
+      "name": "missing explicit execute authorization fails before invoking model",
+      "passed": true
+    },
+    {
+      "name": "noexecute regression adds zero production calls",
+      "passed": true
+    },
+    {
+      "name": "real independent1target passed, source definition/context fidelity expressly confirmed",
+      "passed": true
+    },
+    {
+      "name": "old uncertain and blocked DOM are retained in original receipt",
+      "passed": true
+    }
+  ],
+  "newModelCalls": 0,
+  "totalActualBudget": {
+    "used": 2,
+    "maximum": 2,
+    "maker": 1,
+    "independentFirstTargetReview": 1,
+    "remaining": 0,
+    "failedVoidIncluded": true,
+    "retry": 0
+  }
+}

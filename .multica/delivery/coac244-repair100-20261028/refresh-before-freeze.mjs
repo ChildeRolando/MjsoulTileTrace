@@ -1,0 +1,7 @@
+import {readFile,writeFile} from 'node:fs/promises';import {join} from 'node:path';import {createHash} from 'node:crypto';import {buildComposite100} from './runtime/parent100.mjs';
+const root='E:/AgentData/Coach/knowledge/processing',here=import.meta.dirname,shared=join(root,'audit/runtimes/coac244-condition100-v1-20261028'),sha=b=>createHash('sha256').update(b).digest('hex');
+const {notes}=await buildComposite100();await writeFile(join(root,'integration/coac244-condition100-composite-parent-20261028.json'),JSON.stringify(notes,null,2)+'\n');await writeFile(join(here,'composite-parent.json'),JSON.stringify(notes,null,2)+'\n');
+let p=join(here,'runtime/textbook-audit-web.mjs'),t=await readFile(p,'utf8');t=t.replace("['parent100.mjs','exact-text-contract.mjs','text100.mjs'","['parent100.mjs','condition-contract.mjs','text100.mjs'");await writeFile(p,t);
+const manifest=JSON.parse(await readFile(join(here,'manifest.json')));for(const f of manifest.files){if(f.path.startsWith(shared)){const b=await readFile(join(here,'runtime',f.path.split(/[\\/]/).at(-1)));await writeFile(f.path,b);f.sha256=sha(b);f.bytes=b.length;}}
+const cp=join(shared,'condition-contract.mjs');if(!manifest.files.some(f=>f.path===cp)){const b=await readFile(cp);manifest.files.push({path:cp,sha256:sha(b),bytes:b.length});}
+for(const p of [join(here,'manifest.json'),join(shared,'manifest.json')])await writeFile(p,JSON.stringify(manifest,null,2)+'\n');console.log(JSON.stringify({files:manifest.files.length,modelCalls:0}));

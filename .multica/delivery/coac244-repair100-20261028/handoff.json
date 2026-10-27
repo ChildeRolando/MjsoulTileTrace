@@ -1,0 +1,272 @@
+{
+  "schema": "coac244-condition100-repaired-handoff/1",
+  "canonical": "nemata-jp-chapter-100-1",
+  "status": "independently-passed-awaiting250-incremental-readback",
+  "authorizationComment": "01a17f4b-adc5-76d9-bd04-78a849727fe9",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.condition100-v1-20261028.display.json",
+    "sha256": "0415bd3cab999892faec1f3ae6ae8586f4b4adb1b93f486e37b1188bf7c49fc3"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter01-section035\\source.json",
+    "sha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+    "bytes": 774629
+  },
+  "audit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0415bd3cab999892faec1f3ae6ae8586f4b4adb1b93f486e37b1188bf7c49fc3.json",
+    "sha256": "e9d5db1e45f592d938d50c8736beb02ef53e2d009cf04e67bed6d9ce6c436dd0"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\3591af22-4efc-45a4-b1b2-6f15b6b1689a.json",
+    "sha256": "198d2a4a6c8628075166549679f4799d58d9dfd301dfbb6218b49d696e0e4d00"
+  },
+  "newIndependentCall": {
+    "callId": "3591af22-4efc-45a4-b1b2-6f15b6b1689a",
+    "scope": "textbook-web-target-text-audit",
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter01-section035",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "success": true,
+    "usage": {
+      "inputTokens": 158310,
+      "cachedInputTokens": 0,
+      "outputTokens": 449
+    },
+    "promptSha256": "5317833b44aa4ae71d169bbec6cd9fd86bfda8cd27c17bf894ddff5a6c1d99e7",
+    "semanticPromptSha256": "0689f3c74689a2d065a0a31100b4094161da4ea14bbdea89ee7964820c90c0b6",
+    "schemaSha256": "1161aee82c27826050bfdb887c2f699d59f7017ee5a11a3ff0d6041232a8a865",
+    "outputSha256": "e0665446431067d5b68bdfff23d73d0d107b938cea3ddc02601c6722231cd215",
+    "requestPromptBytes": 412124,
+    "semanticPromptBytes": 411642,
+    "binding": {
+      "productionSha256": "0415bd3cab999892faec1f3ae6ae8586f4b4adb1b93f486e37b1188bf7c49fc3",
+      "sourceFileSha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+      "auditorSnapshotSha256": "a7f54f7f56e949f822b54a0f48a736fb90e3fde2a9a5c56b874411e190d5201a",
+      "semanticProjectionSha256": "3bf8ac4730b12dc0a234c5b1d270334b06008240ab62b490f30b5415e5aa52ee",
+      "semanticProjectionVersion": 2,
+      "targetTextIds": [
+        "modern-yabejp-ja:chapter01-section035:b0041"
+      ],
+      "verifiedAssetIds": [
+        "modern-yabejp-ja:283d95909f085c408e33545e",
+        "modern-yabejp-ja:137d504c6d5d4ca4ea9af8d7",
+        "modern-yabejp-ja:86934245281c06c2cec288f1",
+        "modern-yabejp-ja:13992154bccc058944474a7e",
+        "modern-yabejp-ja:947ac9e4290a3efde47c8a0e",
+        "modern-yabejp-ja:66f4fc88f899af0258244da2",
+        "modern-yabejp-ja:47f82ab50e8c424dc7c0cd42",
+        "modern-yabejp-ja:865231b0b04f914254e01fc9",
+        "modern-yabejp-ja:86787a464c55cee59c8cbf74",
+        "modern-yabejp-ja:4e968347146a35ff5443c3aa",
+        "modern-yabejp-ja:d6c739855bf27cf6d6fd7edc",
+        "modern-yabejp-ja:3a5e7c4383417daa5bbe3036",
+        "modern-yabejp-ja:f1099e8dcac012a1e37c78cf",
+        "modern-yabejp-ja:4cb53a69898dd190016b477e",
+        "modern-yabejp-ja:a9f17b7a69c9af312e62687f",
+        "modern-yabejp-ja:efde650fe35a084958cfb03f",
+        "modern-yabejp-ja:b07a932f05c190748a79505f",
+        "modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71",
+        "modern-yabejp-ja:1fb8aead333bdac6123885c6",
+        "modern-yabejp-ja:642ddd0dab75b2ca1f3ad744",
+        "modern-yabejp-ja:fdb2ccb08161e856627296f4",
+        "modern-yabejp-ja:4b9b5b49b46fc7c263ec64ba",
+        "modern-yabejp-ja:51df8a5007948f0751d3d34b",
+        "modern-yabejp-ja:accdd2038d23f16c33ec76f9",
+        "modern-yabejp-ja:ac29a8b21c23ff38fc7d51a9",
+        "modern-yabejp-ja:0eab0782a1bb23c7d0cbcef9",
+        "modern-yabejp-ja:980a15d32d9378aab6e30fb4",
+        "modern-yabejp-ja:054fd32aab9471e32e860206",
+        "modern-yabejp-ja:eded3a184293b7c0ad6ad7e5",
+        "modern-yabejp-ja:8782d5af1851a44186d8ddaa",
+        "modern-yabejp-ja:31607e0c4823773206eee230",
+        "modern-yabejp-ja:3d679855094c9151924672ea",
+        "modern-yabejp-ja:e11b4a7fa60544eb721099fb",
+        "modern-yabejp-ja:cf903c27e3d6d79024397f25",
+        "modern-yabejp-ja:fa4ca8dbce129a7a05fc2fa8",
+        "modern-yabejp-ja:fae4f4d8fc74f83a0364ba1a",
+        "modern-yabejp-ja:aaaa5fd72ccc12bd7da6f6aa",
+        "modern-yabejp-ja:986d40b46b37e422bf8a6cd2",
+        "modern-yabejp-ja:f5980e09ae04d921ed066df7",
+        "modern-yabejp-ja:671c241a7724bea7f265859b",
+        "modern-yabejp-ja:c2e1bc47e16951c65ef2acaa",
+        "modern-yabejp-ja:e55f2661c108fb3854242c3f",
+        "modern-yabejp-ja:28ebedfef849bd888ea6d4ca",
+        "modern-yabejp-ja:5d6e2bd8b4dd8d5fac2e38c5",
+        "modern-yabejp-ja:b1129ff7c5cc68acdf0cdd67",
+        "modern-yabejp-ja:3226b6f2ab0bfc8693018476",
+        "modern-yabejp-ja:6699bf75ba7f1eba39a76bd0",
+        "modern-yabejp-ja:13fefae159ce62a1e4cf2f11",
+        "modern-yabejp-ja:9da9b8a56900c3b0b5e431c4",
+        "modern-yabejp-ja:467a28670ed2e68ea26a8f36",
+        "modern-yabejp-ja:67422e7f1a2aaedf226710e6",
+        "modern-yabejp-ja:9f9da619f06db1ebf611d08d",
+        "modern-yabejp-ja:328555e7a72fc7783dd5d75d",
+        "modern-yabejp-ja:5475bb30da185674918ae3b5",
+        "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+        "modern-yabejp-ja:113916eafff92e1ddd5d5360",
+        "modern-yabejp-ja:4d318826f6a4e9aecadb6da9",
+        "modern-yabejp-ja:25a799fb49374029201271a6",
+        "modern-yabejp-ja:ff0605857cc5c60bc5c303e3",
+        "modern-yabejp-ja:992bb6d06b0ac927cdb331f0",
+        "modern-yabejp-ja:5323955b942f8b4fbeab214c"
+      ],
+      "originalImageAssetIds": []
+    },
+    "recordedAt": "2026-10-27T22:00:05.035Z"
+  },
+  "productionCall": {
+    "callId": "0bc838f2-c93f-4f14-8c10-3bf18908b1b6",
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter01-section035",
+    "sourceSha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "timeoutMs": 900000,
+    "startedAt": "2026-10-27T21:54:20.909Z",
+    "durationMs": 15360,
+    "usage": {
+      "inputTokens": 160751,
+      "cachedInputTokens": 0,
+      "outputTokens": 286
+    },
+    "success": true,
+    "failureClass": null,
+    "transportStatus": "completed",
+    "rawArtifactPath": "raw-calls/0bc838f2-c93f-4f14-8c10-3bf18908b1b6.json",
+    "rawArtifactSha256": "6fc5923f129a41b0beb7aaf055640b94798d8ae72796a06add341e74d04a1673",
+    "outputSha256": "8bd458d1390fb2ee58aadc05038db62c606db0a99605bf19f274869a217544ca",
+    "schemaSha256": "2a5c72fb18b466598530037f2682948fa8a7290658fc9b5f297520130523d2df",
+    "promptSha256": "44f6bea5e7e3c6839e3b5d2c1c5424c1eee8b9a71f9b1540dfaf2bc84e8ac9b2",
+    "semanticPromptSha256": "be4405aa92787a48b349745200fa57c58553f06fe2bb9331cc9b67b2a08ad2dc",
+    "cliSnapshot": {
+      "path": "web-production/v1/runners/35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7.cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+    },
+    "targets": {
+      "textIds": [
+        "modern-yabejp-ja:chapter01-section035:b0041"
+      ],
+      "figureIds": []
+    },
+    "terminalEvents": [],
+    "exactTextContract": {
+      "schema": "coac244-condition100-exact-request/1",
+      "authorizationComment": "01a17f4b-adc5-76d9-bd04-78a849727fe9",
+      "requirement": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-100-minimal-repair-20261028.json",
+        "sha256": "b00075131f440682b5ea2903ca389975933666dd3b834f74880faf88a9f5fb75"
+      },
+      "parentSha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+      "sourceSha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+      "targetId": "modern-yabejp-ja:chapter01-section035:b0041",
+      "expectedTextSha256": "db7506f6f9bde55d1f1c672f9f61201f2d16d5ce877678e19e49099e973d5204",
+      "sourceContextBlocks": 107,
+      "originalABDefinitionBlocks": 39
+    },
+    "visualInputs": [],
+    "revision": {
+      "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section035.display.json",
+      "parentSha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+      "notesPath": "integration/coac244-condition100-composite-parent-20261028.json",
+      "notesSha256": "be1546b0a3bf21dfc6348abecdd141ec5dd72f979acca25a932ef4b7dccd275c",
+      "figureIds": [],
+      "textBlockIds": [
+        "modern-yabejp-ja:chapter01-section035:b0041"
+      ]
+    }
+  },
+  "productionRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\0bc838f2-c93f-4f14-8c10-3bf18908b1b6.json",
+    "sha256": "6fc5923f129a41b0beb7aaf055640b94798d8ae72796a06add341e74d04a1673"
+  },
+  "verifier": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-condition100-repaired-20261028\\verify-final.mjs",
+    "sha256": "1b18b13f1f293715e48b362b9ac04e4ca1d01a9aa4f4aa68dc2fe247d14706fb",
+    "export": "verify100Final"
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-condition100-v3-20261028",
+    "manifestSha256": "f21b00fec06b471fca4a4417f08405018362991a9f4a748f3f6e0ac250c4bde9"
+  },
+  "independentScope": {
+    "targetTextIds": [
+      "modern-yabejp-ja:chapter01-section035:b0041"
+    ],
+    "newFigureChecks": 0,
+    "images": [],
+    "contextSourceBlocks": 107,
+    "originalABDefinitionBlocks": 39,
+    "inheritedOriginalPassedBlocks": 243,
+    "inheritedOtherNewFaithfulBlocks": 67,
+    "unchangedOtherBlocks": 310,
+    "unchangedCompleteFigureObjects": 128
+  },
+  "condition": {
+    "sourceDefinition": "生きている（２枚以上切れてない）孤立字牌",
+    "targetSource": "役牌トイツ１組＋生きている字牌２〜３種",
+    "oldPhrase": "1组役牌对子＋仍有剩余的字牌2～3种",
+    "approvedPhrase": "1组役牌对子＋2～3种仍然有效（尚未被打出2张以上）的字牌"
+  },
+  "modelReview": {
+    "blockChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter01-section035:b0041",
+        "verdict": "faithful",
+        "evidence": "完整保留打点比较、两组役牌对子或一组加2～3种活字牌、宝牌所属花色等条件，以及积极染手、争取满贯和以役牌＋α为主线的不同判断力度。末句保留役牌成对后可能转混一色、可能满足条件A的条件关系。"
+      }
+    ],
+    "contextContinuity": {
+      "faithful": true,
+      "evidence": "“仍然有效（尚未被打出2张以上）”与前文对活字牌的定义一致；条件A沿用专攻染手的既有含义，没有重复邻段。"
+    },
+    "semanticCompleteness": {
+      "complete": true,
+      "evidence": "目标段落各句及其数量、选择关系、条件、保留可能性和建议强度均已对照，无实质遗漏或增义。"
+    },
+    "issues": [],
+    "completeTargetScopeCompared": true,
+    "summary": "本次目标b0041修订译文忠实，可通过。"
+  },
+  "budget": {
+    "used": 2,
+    "maximum": 2,
+    "maker": 1,
+    "independentFirstTargetReview": 1,
+    "remaining": 0,
+    "failedVoidIncluded": true,
+    "retry": 0
+  },
+  "preflightIncident": "The original existing request-only option parser read a missing value as false. The authorized one-maker request ran early during the first preflight command. No retry, duplicate or extra model call. v1 raw and snapshot retained; v2 uses a boolean request-only flag and explicit execute authorization.",
+  "oldEvidenceRetained": true,
+  "formalActiveChanged": false,
+  "isolatedStage": {
+    "status": "passed",
+    "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0415bd3cab999892faec1f3ae6ae8586f4b4adb1b93f486e37b1188bf7c49fc3.json",
+    "staged": {
+      "schema": "coach-textbook-web-stage/1",
+      "status": "independently-audited-chapter-preview",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.condition100-v1-20261028.display.json",
+      "candidateSha256": "0415bd3cab999892faec1f3ae6ae8586f4b4adb1b93f486e37b1188bf7c49fc3",
+      "sourceSha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0415bd3cab999892faec1f3ae6ae8586f4b4adb1b93f486e37b1188bf7c49fc3.json",
+      "auditStatus": "passed",
+      "imageDerivations": [],
+      "chapters": 1,
+      "units": 1,
+      "blocks": 106,
+      "figures": 128,
+      "corpusId": "89358012f99ade37d33b68591c92907a3799c8732eaa8173b3ae60adafc400e6",
+      "bodySha256": "2780e29ba0d7d807eab52b68bff0e1313e7969b8ce6bc68843e923a5915a94e5",
+      "maxUnitBytes": 187599,
+      "modelCalls": 0,
+      "activeLibraryChanged": false,
+      "humanReview": "pending"
+    },
+    "masterPreviewChanged": false,
+    "formalActiveChanged": false,
+    "newModelCalls": 0
+  },
+  "next": "250 existing single writer verifies all53 frozen dependencies and exact callback, incrementally stages exactSHA and records MCP/Arena full readback. Preserve all existing selections and raw; no new model, no whole-book review, no formalactive switch.",
+  "bookComplete": false
+}

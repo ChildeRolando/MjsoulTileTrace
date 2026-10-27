@@ -1,0 +1,11 @@
+import {readFile,writeFile,mkdir} from 'node:fs/promises';import {join} from 'node:path';import {createHash} from 'node:crypto';
+const here=import.meta.dirname,root='E:/AgentData/Coach/knowledge/processing',sha=b=>createHash('sha256').update(b).digest('hex'),shared=join(root,'audit/runtimes/coac244-condition100-v3-20261028');await mkdir(shared,{recursive:true});
+let p=join(here,'runtime/textbook-audit-web.mjs'),t=await readFile(p,'utf8');t=t.replace('verifyComposite100,projection100,isRepair100','verifyComposite100,projection100,isRepair100,effective100Review');
+t=t.replace('const review=notes.effectiveModelReview??notes.modelReview;','const review=isRepair100(candidate)?effective100Review(notes):(notes.effectiveModelReview??notes.modelReview);');
+t=t.replace('structuredClone(notes.effectiveModelReview??notes.modelReview),selectedBlocks','structuredClone(isRepair100(candidate)?effective100Review(notes):(notes.effectiveModelReview??notes.modelReview)),selectedBlocks');
+t=t.replaceAll('mergeTargetTextReview(parent.effectiveModelReview??parent.modelReview,','mergeTargetTextReview(isRepair100(candidate)?effective100Review(parent):(parent.effectiveModelReview??parent.modelReview),');
+t=t.replace('receipt.inheritedCalls=parent.calls','receipt.inheritedCalls=isRepair100(candidate)?parent.inheritedCalls:parent.calls');t=t.replace('!same(parent.calls,receipt.inheritedCalls)','!same(isRepair100(candidate)?parent.inheritedCalls:parent.calls,receipt.inheritedCalls)');
+await writeFile(p,t);
+const manifest=JSON.parse(await readFile(join(here,'manifest-v2.json')));manifest.schema='coac244-condition100-runtime/3';manifest.domSupplement='Verified original passed243 DOM plus c821f2f0 full68-target DOM replaces only the effective blocked DOM coverage, without editing either original false receipt or raw.';
+for(const f of manifest.files){if(f.path.includes('coac244-condition100-v2-20261028')){const name=f.path.split(/[\\/]/).at(-1),b=await readFile(join(here,'runtime',name));f.path=join(shared,name);await writeFile(f.path,b,{flag:'wx'});f.sha256=sha(b);f.bytes=b.length;}}
+for(const p of [join(shared,'manifest.json'),join(here,'manifest-v3.json')])await writeFile(p,JSON.stringify(manifest,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({shared,files:manifest.files.length,newModelCalls:0}));

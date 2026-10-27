@@ -1,0 +1,37 @@
+{
+  "schema": "coac244-condition100-registration/1",
+  "handoff": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-condition100-repaired-20261028\\handoff.json",
+    "sha256": "a30db651f9e35ff4b48a9432d1f288ba3c276cfb7f708a36e7d8b061b04c005d"
+  },
+  "registers": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-remaining26-closure-register-20261028.json",
+      "beforeSha256": "ba06e9f0c4ead0d37edd22d9c649b97f07a409aa2ff79a59816a7fe5799866be",
+      "afterSha256": "226eaedffb7d36f3da8c6e3ec5c486559ce120f30680492edaf3a639a23d9071",
+      "onlyCanonical": "nemata-jp-chapter-100-1",
+      "coveredOrBaselineCountsUnchanged": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-uncovered-chapter-continuation-register-20261027b.json",
+      "beforeSha256": "5f1093c9423d6f0e7cd5c326440428b239d46f476923ae43d59351259ee0bff6",
+      "afterSha256": "722e3539e099f6555c523da3fbeab5e433bb4b2d2a9e7acdbebaa89207efa2da",
+      "onlyCanonical": "nemata-jp-chapter-100-1",
+      "coveredOrBaselineCountsUnchanged": true
+    }
+  ],
+  "budget": {
+    "used": 2,
+    "maximum": 2,
+    "maker": 1,
+    "independentFirstTargetReview": 1,
+    "remaining": 0,
+    "failedVoidIncluded": true,
+    "retry": 0
+  },
+  "newModels": 2,
+  "retry": 0,
+  "owner": "COAC-250",
+  "formalActiveChanged": false,
+  "bookComplete": false
+}
