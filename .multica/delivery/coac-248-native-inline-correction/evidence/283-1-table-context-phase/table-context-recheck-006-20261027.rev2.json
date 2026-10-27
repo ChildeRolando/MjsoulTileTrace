@@ -1,0 +1,848 @@
+{
+  "schema": "coac-web-table-context-group-recheck/1",
+  "recordedAt": "2026-10-27T07:39:19.145Z",
+  "chapterId": "nemata-jp-chapter-283-1",
+  "articleId": "chapter06-exercise003",
+  "batchId": "chapter06-exercise003-batch-006",
+  "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev2.json",
+    "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+    "unchangedByThisCheck": true
+  },
+  "source": {
+    "path": "web-sources/v1/modern-yabejp-ja/articles/chapter06-exercise003/source.v3.json",
+    "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de"
+  },
+  "parentCheckpoint": {
+    "path": "audit/web/batches/dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899/554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421/chapter06-exercise003-batch-006.json",
+    "sha256": "abf6af0b0f5d751f706153b34d17f612ccc8e2cc9b6bed1223d85c670892c86d",
+    "status": "needs-repair"
+  },
+  "auditReceipt": {
+    "path": "audit/web/articles/modern-yabejp-ja/chapter06-exercise003.849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3.json",
+    "sha256": "21d909b832c28e62a76f453863ed24d8fc8738adbb54b36bfd8117b9395d5aea",
+    "status": "needs-repair"
+  },
+  "modelCalls": 1,
+  "productionCalls": 0,
+  "scope": {
+    "what": "bounded re-decision of this group's table-position findings with the candidate figure tableContext projected (projectionVersion 3)",
+    "notInScope": [
+      "card faces",
+      "translations",
+      "figure transcriptions",
+      "every block outside the listed findings",
+      "the other three groups",
+      "the passed groups 002/004/009/011"
+    ],
+    "notCleared": "the parent group checkpoint and the chapter audit receipt are untouched; no parent verdict is rewritten"
+  },
+  "inputDelta": {
+    "whatTheReviewSaw": "candidate figure blocks carried type/sourceBlockIds/paragraphId/figureId only; candidate tableContext was not projected",
+    "whatWasAdded": "candidate figure block tableContext via projectionVersion 3, plus source.tables for the tables in scope",
+    "figuresInScope": 56,
+    "figuresWithTableContext": 27,
+    "tablesInScope": 1,
+    "deterministicTableBindingMismatches": 0,
+    "deterministicTableBinding": [
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0576",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0576:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0577",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0577:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0579",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0579:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0582",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0582:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0584",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0584:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0586",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0586:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0588",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0588:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0590",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0590:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0594",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0594:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0595",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0595:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0597",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0597:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0600",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0600:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0602",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0602:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0604",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0604:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0608",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0608:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0609",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0609:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0611",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0611:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0614",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0614:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0619",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0619:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0621",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0621:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0623",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0623:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0627",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0627:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 1,
+          "column": 1,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 1,
+          "column": 1,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0628",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0628:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 1,
+          "column": 2,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 1,
+          "column": 2,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0629",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0629:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 1,
+          "column": 3,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 1,
+          "column": 3,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0630",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0630:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 1,
+          "column": 4,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 1,
+          "column": 4,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0631",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0631:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 1,
+          "column": 5,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 1,
+          "column": 5,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0632",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0632:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 1,
+          "column": 6,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 1,
+          "column": 6,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0633",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0633:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 1,
+          "column": 8,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 1,
+          "column": 8,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0635",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0635:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 3,
+          "column": 1,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 3,
+          "column": 1,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0636",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0636:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 3,
+          "column": 2,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 3,
+          "column": 2,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0637",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0637:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 3,
+          "column": 3,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 3,
+          "column": 3,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0638",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0638:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 3,
+          "column": 4,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 3,
+          "column": 4,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0639",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0639:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 3,
+          "column": 5,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 3,
+          "column": 5,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0640",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0640:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 3,
+          "column": 6,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 3,
+          "column": 6,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0641",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0641:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 3,
+          "column": 8,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 3,
+          "column": 8,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0643",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0643:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 5,
+          "column": 1,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 5,
+          "column": 1,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0644",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0644:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 5,
+          "column": 2,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 5,
+          "column": 2,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0645",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0645:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 5,
+          "column": 3,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 5,
+          "column": 3,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0646",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0646:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 5,
+          "column": 4,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 5,
+          "column": 4,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0647",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0647:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 5,
+          "column": 5,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 5,
+          "column": 5,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0648",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0648:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 5,
+          "column": 6,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 5,
+          "column": 6,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0649",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0649:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 5,
+          "column": 8,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 5,
+          "column": 8,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0651",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0651:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 7,
+          "column": 1,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 7,
+          "column": 1,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0652",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0652:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 7,
+          "column": 2,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 7,
+          "column": 2,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0653",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0653:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 7,
+          "column": 3,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 7,
+          "column": 3,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0654",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0654:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 7,
+          "column": 4,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 7,
+          "column": 4,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0655",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0655:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 7,
+          "column": 5,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 7,
+          "column": 5,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0656",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0656:figure",
+        "candidateTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 7,
+          "column": 6,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "sourceTableContext": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "row": 7,
+          "column": 6,
+          "rowspan": "1",
+          "colspan": "1",
+          "header": false
+        },
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0660",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0660:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0662",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0662:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0664",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0664:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0666",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0666:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0668",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0668:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0670",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0670:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0672",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0672:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0674",
+        "figureId": "modern-yabejp-ja:chapter06-exercise003:b0674:figure",
+        "candidateTableContext": null,
+        "sourceTableContext": null,
+        "equal": true
+      }
+    ]
+  },
+  "findings": [
+    {
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+      "issueSha256": "99d6ea21d837d54dd3d9520de49feb7ef6c39a722257fac5088c2951738354cf",
+      "sourceEvidence": "源舍牌表为8行9列；东、南、西、北家表头分别位于行1、3、5、7的列0。各家前六张舍牌位于列1至6；东、南、西家的第七张位于列8，列7为空；北家列8为空。所有单元格rowspan、colspan均为1。",
+      "description": "候选保留表题和表头的tableContext，但27个舍牌figure块均缺少tableContext，也没有候选表格结构。牌面及线性顺序正确，仍未保留要求核对的表格格位与空格关系。",
+      "suggestedRepair": "为b0627—b0633、b0635—b0641、b0643—b0649、b0651—b0656恢复各自源tableContext，并提供或重建源8行9列表格，保留空行、列7空格、北家末格为空及所有单格跨度。",
+      "verdict": "faithful",
+      "candidateTableContextFaithful": true,
+      "recheckEvidence": "已在 source.tables 定位目标表，其结构为8行9列。以下块编号均以 modern-yabejp-ja:chapter06-exercise003: 为前缀：候选 figure 块 b0627—b0633 依次承载行1的列1、2、3、4、5、6、8；b0635—b0641 依次承载行3的相同列位；b0643—b0649 依次承载行5的相同列位；b0651—b0656 依次承载行7的列1至6。逐块核对，27个 figure 块的 tableId 均与目标表一致，row、column 均与源单元格匹配，rowspan、colspan 均为字符串“1”，header 均为 false。表头块 b0626、b0634、b0642、b0650 分别位于行1、3、5、7的列0，header 均为 true，跨度亦一致；b0625 保留该表的 caption 角色。候选没有将列8压缩为列7，也没有填入北家列8，保留了源表列7的空隙、北家末列空位及座位行间隔。因此，原审校关于27个 figure 块缺少 tableContext、无法承载表格定位的指控不成立。",
+      "unresolvedBlockIds": []
+    }
+  ],
+  "groupOutcome": "all-listed-findings-faithful",
+  "validationErrors": [],
+  "inheritedScopeOnly": true,
+  "summary": "仅复核所列争议项，改判 faithful；范围外内容继承父审校结论。",
+  "modelCall": {
+    "callId": "808be2dc-9f6b-484e-a17b-41a73d4f37c7",
+    "sha256": "0a422f1b5d1c0cf90670ab6043776d622bd7d6cf24691c796492b7922a717e52",
+    "outputSha256": "8f3ab08cf8baaf4e9a532c079989c889b754cd11713145095c267effd7b17884",
+    "usage": {
+      "inputTokens": 54816,
+      "cachedInputTokens": 0,
+      "outputTokens": 539
+    }
+  },
+  "recordedVerdict": "no parent verdict rewritten; this record is the independent re-decision for the listed findings only"
+}

@@ -1,0 +1,298 @@
+{
+ "schema": "coac-248-283-1-table-context-phase/1",
+ "recordedAt": "2026-10-27T07:45:00.460659+00:00",
+ "chapterId": "nemata-jp-chapter-283-1",
+ "articleId": "chapter06-exercise003",
+ "candidate": {
+  "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev2.json",
+  "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+  "changedThisPhase": false
+ },
+ "authorization": {
+  "source": "COAC-248 comment 01a17c22-afcb-750a-9bb6-6e9118d1a4ef",
+  "maxIndependentReviews": 5,
+  "maxProductionCalls": 0,
+  "scope": "1 corner-orientation adjudication for batch-007 + one limited re-review of the 6 table-position findings in groups 003/005/006/008 after completing the input with the real v3 candidate tableContext",
+  "notReReviewed": [
+   "002",
+   "004",
+   "009",
+   "011",
+   "010"
+  ]
+ },
+ "callAccounting": {
+  "modelCallsMade": 7,
+  "authorizedReviews": 5,
+  "effectiveReviews": 5,
+  "voidCalls": 2,
+  "voidCallIds": [
+   "66248c3b-11f4-4338-bbd3-4c7908bc7759",
+   "9f45b45d-100f-4144-b09b-b6549aeed430"
+  ],
+  "voidReason": "The first two group calls were assembled with a prompt that omitted the projection JSON, so the reviewer received only the finding descriptions and answered uncertain for lack of data. Both records are marked void and are not counted as reviews of the difference set. Cost of the two void calls: 22,850 input and 1,460 output tokens.",
+  "productionCalls": 0,
+  "usage": {
+   "inputTokens": 270765,
+   "cachedInputTokens": 57344,
+   "outputTokens": 6978
+  },
+  "perCall": {
+   "adjudication": {
+    "callId": "7b8d4542-9c0f-4e67-8ea6-e6ed271a2b40",
+    "usage": {
+     "inputTokens": 16082,
+     "cachedInputTokens": 0,
+     "outputTokens": 3092
+    },
+    "success": true,
+    "promptSha256": "d079735044c0a3a85401206abe5828cdff3f1431185937f04d3d3d5bd6b55871",
+    "outputSha256": "0d79cd8e00789453c5d69d8fda454b05de17efcf15ff177c9a8b9b1775f12207"
+   },
+   "void003": {
+    "callId": "66248c3b-11f4-4338-bbd3-4c7908bc7759",
+    "usage": {
+     "inputTokens": 11592,
+     "cachedInputTokens": 0,
+     "outputTokens": 1031
+    },
+    "success": true,
+    "promptSha256": "b6a42ccdfd3e301859dd9f490a51ee393c2beaedd607b92edb6d7adb12937e43",
+    "outputSha256": "9f7dac6d84db95d1baab3489ac46d249275cfb672d893d2400cebc7c278e5f60"
+   },
+   "void005": {
+    "callId": "9f45b45d-100f-4144-b09b-b6549aeed430",
+    "usage": {
+     "inputTokens": 11258,
+     "cachedInputTokens": 0,
+     "outputTokens": 429
+    },
+    "success": true,
+    "promptSha256": "87dd0451360dfc106cab9a79cc2c2237a89babe08d09016332c7851b9a02eef1",
+    "outputSha256": "5b5f00bf41934eef2be1412d5f432caee8d404cb378276a7d06731a9aaa92e81"
+   },
+   "recheck003": {
+    "callId": "c23b10c4-30e5-4c7f-b119-482cf37438dc",
+    "usage": {
+     "inputTokens": 61737,
+     "cachedInputTokens": 0,
+     "outputTokens": 892
+    },
+    "success": true,
+    "promptSha256": "c8223fb66299b6d4cb9a6815c81726ac316bf0115394be0108e5130575c10d33",
+    "outputSha256": "65216000aec8cd0a8071c55a7ccf24da5fd16037753bf39581cd877f30b240f7"
+   },
+   "recheck005": {
+    "callId": "715ba903-eed0-4ad6-af6c-0eff37bbe790",
+    "usage": {
+     "inputTokens": 57713,
+     "cachedInputTokens": 57344,
+     "outputTokens": 441
+    },
+    "success": true,
+    "promptSha256": "421e826652bbcbc1f20734eae1731a40c2f0e946e8e1296dab10fd8ecb77eb95",
+    "outputSha256": "99b1d9080204a9b7d22300ffe6493c360ad629714c6a69cd98b1b5006d119a3c"
+   },
+   "recheck006": {
+    "callId": "808be2dc-9f6b-484e-a17b-41a73d4f37c7",
+    "usage": {
+     "inputTokens": 54816,
+     "cachedInputTokens": 0,
+     "outputTokens": 539
+    },
+    "success": true,
+    "promptSha256": "796d6ed932fc8963393e3be071b819085d7d39310c644f16479bd5f55700a49f",
+    "outputSha256": "8f3ab08cf8baaf4e9a532c079989c889b754cd11713145095c267effd7b17884"
+   },
+   "recheck008": {
+    "callId": "96e4db44-6281-44ed-a918-3cf5c1a04a99",
+    "usage": {
+     "inputTokens": 57567,
+     "cachedInputTokens": 0,
+     "outputTokens": 554
+    },
+    "success": true,
+    "promptSha256": "f63d8abe8ca69cc9e1a7ff53bd8e6121ee0d6286938745750efed579060152ac",
+    "outputSha256": "7db6bfffe786b84477d4ab8b692dddea8479cdb1deb2ffd00212e22d059eb48a"
+   }
+  }
+ },
+ "adjudication": {
+  "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+  "batchId": "chapter06-exercise003-batch-007",
+  "record": {
+   "path": "audit/web/adjudications/group-revision-283-1/b0785-corner-winds-adjudication-20261027.json",
+   "sha256": "502ad01947e240dd5667578fb5f3de2d129558dc52cba1df6b6a2863b0a4ed30"
+  },
+  "evidencePackage": {
+   "path": "audit/web/adjudications/group-revision-283-1/b0785-corner-evidence-20261027.json",
+   "sha256": "bd7d39d4e5ca1ab453988c2541d863b444f2b1a4c630051d6622a24110d71c99"
+  },
+  "verdict": "candidate-faithful",
+  "readings": {
+   "topLeft": "東",
+   "topRight": "北",
+   "bottomLeft": "南",
+   "bottomRight": "西"
+  },
+  "readingMatchesCandidate": true,
+  "readingMatchesReviewer": false,
+  "seatCrossCheck": {
+   "mappingDeterminable": true,
+   "cornerToPlayer": "四家分处画面左、上、右、下侧。依四角字样朝向，左上对应左家（東），右上对应上家（北），右下对应右家（西），左下对应下家（南）。",
+   "cyclicOrderConsistent": "consistent",
+   "evidence": "左上字朝向左家，右上字朝向上家，右下字朝向右家，左下字朝向下家。下方手牌及其上方橙色東标记可定位下家，但不能将该标记直接替代当前风位。画面顺时针为東→北→西→南，逆时针为東→南→西→北，符合麻将风位循环。"
+  },
+  "sentenceRetained": true,
+  "correctedSentence": null,
+  "handling": "the candidate sentence 左上东、右上北、左下南、右下西 stands; the parent batch-007 checkpoint keeps its needs-repair status and is not rewritten"
+ },
+ "groupRechecks": [
+  {
+   "batchId": "chapter06-exercise003-batch-003",
+   "record": {
+    "path": "audit/web/adjudications/group-revision-283-1/table-context-recheck-003-20261027.rev2.json",
+    "sha256": "3b080b33ee94708ed7d7ca958c182da30512d4345a53cd2ed216c06dfef5f895"
+   },
+   "findings": [
+    {
+     "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+     "verdict": "faithful",
+     "unresolvedBlockIds": []
+    },
+    {
+     "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+     "verdict": "faithful",
+     "unresolvedBlockIds": []
+    },
+    {
+     "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+     "verdict": "faithful",
+     "unresolvedBlockIds": []
+    }
+   ],
+   "figuresInScope": 56,
+   "figuresWithTableContext": 28,
+   "tablesInScope": 3,
+   "deterministicTableBindingMismatches": 0,
+   "outcome": "all-listed-findings-faithful",
+   "voidRecord": {
+    "path": "audit/web/adjudications/group-revision-283-1/table-context-recheck-003-20261027.json",
+    "sha256": "8a50912a2ce7c0746aaadb01d22c134b32268a18c60fa2acbf776a87797f8933"
+   }
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-005",
+   "record": {
+    "path": "audit/web/adjudications/group-revision-283-1/table-context-recheck-005-20261027.rev2.json",
+    "sha256": "fa5e75a7208ab9965bcd288b382cdd60b82e0f6e9313a1e2719d3e56cd60b6c3"
+   },
+   "findings": [
+    {
+     "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+     "verdict": "faithful",
+     "unresolvedBlockIds": []
+    }
+   ],
+   "figuresInScope": 52,
+   "figuresWithTableContext": 23,
+   "tablesInScope": 1,
+   "deterministicTableBindingMismatches": 0,
+   "outcome": "all-listed-findings-faithful",
+   "voidRecord": {
+    "path": "audit/web/adjudications/group-revision-283-1/table-context-recheck-005-20261027.json",
+    "sha256": "19a3d15d54189789febcceef13f1930c26144df2e62f7c47379f72aaddeab812"
+   }
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-006",
+   "record": {
+    "path": "audit/web/adjudications/group-revision-283-1/table-context-recheck-006-20261027.rev2.json",
+    "sha256": "45dd54ede79fa73c6f280dc1ec4b5f30553914b8f6937f8b2b9ad1dd16360a0f"
+   },
+   "findings": [
+    {
+     "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+     "verdict": "faithful",
+     "unresolvedBlockIds": []
+    }
+   ],
+   "figuresInScope": 56,
+   "figuresWithTableContext": 27,
+   "tablesInScope": 1,
+   "deterministicTableBindingMismatches": 0,
+   "outcome": "all-listed-findings-faithful",
+   "voidRecord": null
+  },
+  {
+   "batchId": "chapter06-exercise003-batch-008",
+   "record": {
+    "path": "audit/web/adjudications/group-revision-283-1/table-context-recheck-008-20261027.rev2.json",
+    "sha256": "5f7be676bdc4d43205e90b5a5d1cab0140ebb5c40217d4ce8174b95c45bb567c"
+   },
+   "findings": [
+    {
+     "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+     "verdict": "faithful",
+     "unresolvedBlockIds": []
+    }
+   ],
+   "figuresInScope": 53,
+   "figuresWithTableContext": 16,
+   "tablesInScope": 1,
+   "deterministicTableBindingMismatches": 0,
+   "outcome": "all-listed-findings-faithful",
+   "voidRecord": null
+  }
+ ],
+ "findingsResolved": 6,
+ "findingsStillOpen": 0,
+ "remaining": [
+  {
+   "batchId": "chapter06-exercise003-batch-001",
+   "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+   "severity": "uncertain",
+   "status": "open-not-re-reviewed-this-phase",
+   "reason": "batch-001 is an inherited group outside the four re-reviewed groups and outside the five authorised scopes; the parent finding is that the linked external situation (visible 1s/2s count, full meld set, exact scores) is not expanded in the supplied material, and the candidate block itself is faithful. Preserving it is not a pass.",
+   "parentCheckpoint": "audit/web/batches/dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899/554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421/chapter06-exercise003-batch-001.json",
+   "needs": "one bounded independent review of the b0099 source question before 283-1 can close"
+  }
+ ],
+ "unknownsUnchanged": {
+  "instruction": "b0099 and the two river-tile unknowns stay as they are; preserving an unknown is not itself a pass",
+  "items": [
+   {
+    "batchId": "chapter06-exercise003-batch-001",
+    "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+    "severity": "uncertain",
+    "status": "open-not-re-reviewed-this-phase",
+    "reason": "batch-001 is an inherited group outside the four re-reviewed groups and outside the five authorised scopes; the parent finding is that the linked external situation (visible 1s/2s count, full meld set, exact scores) is not expanded in the supplied material, and the candidate block itself is faithful. Preserving it is not a pass.",
+    "parentCheckpoint": "audit/web/batches/dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899/554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421/chapter06-exercise003-batch-001.json",
+    "needs": "one bounded independent review of the b0099 source question before 283-1 can close"
+   },
+   {
+    "figureId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+    "batchId": "chapter06-exercise003-batch-007",
+    "status": "faithfully-preserved-and-confirmed-by-the-passed-group-review",
+    "evidence": "The batch-007 group-revision checkpoint records preservedUnknowns.acknowledged=true: three hidden hands, the unread manzu discards and the blocked meld are kept unknown and were not guessed or deleted. The corner-wind adjudication changed no unknown.",
+    "affectsTeaching": false
+   },
+   {
+    "figureId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+    "batchId": "chapter06-exercise003-batch-009",
+    "status": "faithfully-preserved-and-confirmed-by-the-passed-group-review",
+    "evidence": "The batch-009 group-revision checkpoint (passed) records preservedUnknowns.acknowledged=true: the two unread river wind tiles, the dice pips and the orange marker glyph are kept unknown; the group was revised for the 2s pon question and passed.",
+    "affectsTeaching": false
+   }
+  ]
+ },
+ "chapterStatusAfter": {
+  "status": "needs-repair",
+  "reason": "b0099 stays uncertain and the parent group checkpoints plus the chapter audit receipt are deliberately untoched; the six table-position findings now carry an independent re-decision of faithful",
+  "auditReceipt": "audit/web/articles/modern-yabejp-ja/chapter06-exercise003.849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3.json",
+  "toClose": "recompute the chapter aggregate with these re-decisions and close b0099 with one bounded review"
+ },
+ "noVerdictRewritten": true,
+ "noGateRelaxed": true,
+ "noExemptionAdded": true
+}

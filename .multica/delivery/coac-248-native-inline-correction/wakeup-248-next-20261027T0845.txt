@@ -1,0 +1,13 @@
+继续 COAC-248 主线，本轮起 283-1 不再占用批次预算。先读本票最新评论、.multica/delivery/coac-248-native-inline-correction/round-20261027T0840.json、.multica/delivery/coac-248-native-inline-correction/summary-283-1-table-context-phase-20261027.json、.multica/delivery/coac-248-native-inline-correction/unified-repair-list-20261027.json。
+
+上轮（07:20-08:40Z）只做 283-1，0 制作：
+- 007 方位争议：1 次限定裁决，候选读法成立（左上东、右上北、左下南、右下西），句子原样保留。
+- 003/005/006/008 四组：各 1 次限定复核，6 项表格位争议全部判 faithful，输入已按 projectionVersion 3 补齐候选 figure tableContext。
+- 两次组复核因 prompt 漏装 projection 而作废（已标 void，不计为复核）；用户授权 5 次复核，实际有效 5 次、作废 2 次，已在结果里列明。
+- 283-1 仍 needs-repair：b0099 uncertain 未审，父组 checkpoint 与章级回执未改写。
+
+本轮任务（不等待 283-1）：
+1. 继续其它小章定点 revision + 独立审校，保持 1-2 章前台有限批次。优先 215-4 rev2（用独审给出的读法「若这张牌不是进张完成面子后切出的余牌」，以 rev1 为父），再做 174-1 或 198-1。
+2. 236-1 的 uncertain 先免费确认入口/回执是否支持该判定，不支持就记录并跳过，不绕过门禁。
+3. 283-1 只在用户另行授权时再动；不得重审 002/004/009/010/011，不得重跑四组表格位复核。
+4. 不重审已通过对象、不改旧 raw、不加豁免；轮末更新清单与本轮记录、正常提交并将结果写在一条评论里，再建下一批唤醒。

@@ -1,0 +1,206 @@
+{
+ "schema": "coac-bounded-corner-glyph-evidence/1",
+ "recordedAt": "2026-10-27T07:25:02.629093+00:00",
+ "chapterId": "nemata-jp-chapter-283-1",
+ "articleId": "chapter06-exercise003",
+ "figureId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+ "candidate": {
+  "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev2.json",
+  "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3"
+ },
+ "source": {
+  "path": "web-sources/v1/modern-yabejp-ja/articles/chapter06-exercise003/source.v3.json",
+  "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de"
+ },
+ "sourceAsset": {
+  "path": "web-sources/v1/modern-yabejp-ja/assets/d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d.jpg",
+  "sha256": "d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d",
+  "pixels": [
+   621,
+   565
+  ]
+ },
+ "competingReadings": {
+  "candidateTranscription": "四角方位字样按画面位置为：左上东、右上北、左下南、右下西。",
+  "batchReviewClaim": "原图中央四角方位为：左上西、右上北、左下南、右下东。",
+  "candidateVerdict": "左上东、右上北、左下南、右下西（与父候选 dea1ba24 同一句一致）",
+  "reviewerVerdict": "候选将中央左上与右下的东、西对调，造成座位方位信息错误。",
+  "undisputedCorners": [
+   "右上北",
+   "左下南"
+  ]
+ },
+ "seatContext": {
+  "bottomHand": "画面下方为该手牌与摸入5s；手牌正上方有一枚橙色「東」标记牌。",
+  "otherHands": "顶部、左侧、右侧三家隐手，牌面朝外或仅露侧面。",
+  "roundLabel": "中央大字为「東四局」，剩余47张，立直棒计数1，本场计数1。",
+  "note": "此处只记录画面位置事实，不给出方位结论；座次与四角字样的对应关系须由复核者从图中自行判定，无法判定时须明确说明。"
+ },
+ "unknownsPreservedByCandidate": [
+  "左侧牌河从画面上至下第4张为万子，数字未能可靠辨清。",
+  "左侧牌河从画面上至下第6张为万子，数字未能可靠辨清。",
+  "右侧牌河从画面上至下第1张为万子，数字未能可靠辨清。",
+  "右上副露区最上方竖向牌受遮挡，完整牌面及牌码未知。",
+  "上、左、右三家的隐手牌面未知；左、右侧隐手仅露出窄侧面，逐张数量未能可靠确认。",
+  "中央两枚骰子的具体点数未能可靠辨清。",
+  "右下信息栏等级文字及分数变化的右端被裁切，缺失部分未知。"
+ ],
+ "crops": [
+  {
+   "name": "board",
+   "purpose": "whole board as displayed, for seat arrangement",
+   "path": "audit/web/adjudications/group-revision-283-1/crops-20261027/b0785-board-x2.png",
+   "sha256": "f427dc40a21687db3092d14ad6ce7204de1f0a4e69ee1dc516240e75f9b6b826",
+   "bboxInBoundOriginal": [
+    0,
+    0,
+    621,
+    565
+   ],
+   "scale": 2,
+   "filter": "nearest-neighbour",
+   "outputPixels": [
+    1242,
+    1130
+   ],
+   "nativePixels": [
+    621,
+    565
+   ]
+  },
+  {
+   "name": "panel",
+   "purpose": "central round/score panel with all four corner labels in place",
+   "path": "audit/web/adjudications/group-revision-283-1/crops-20261027/b0785-panel-x6.png",
+   "sha256": "6f44d6bda0e0eea2b33b47bcfd5b43e6eaa275d20a4b67f88a8210fadeb594d1",
+   "bboxInBoundOriginal": [
+    215,
+    215,
+    400,
+    340
+   ],
+   "scale": 6,
+   "filter": "nearest-neighbour",
+   "outputPixels": [
+    1110,
+    750
+   ],
+   "nativePixels": [
+    185,
+    125
+   ]
+  },
+  {
+   "name": "corner_tl",
+   "purpose": "top-left corner glyph",
+   "path": "audit/web/adjudications/group-revision-283-1/crops-20261027/b0785-corner_tl-x14.png",
+   "sha256": "46e5c82f675e3a7bfd1c534d6a2257ff0ce3852b07d78198565f6a66261fad86",
+   "bboxInBoundOriginal": [
+    236,
+    229,
+    272,
+    267
+   ],
+   "scale": 14,
+   "filter": "nearest-neighbour",
+   "outputPixels": [
+    504,
+    532
+   ],
+   "nativePixels": [
+    36,
+    38
+   ]
+  },
+  {
+   "name": "corner_tr",
+   "purpose": "top-right corner glyph",
+   "path": "audit/web/adjudications/group-revision-283-1/crops-20261027/b0785-corner_tr-x14.png",
+   "sha256": "24a2913d99a4132d09b3f792d14f868b024d3d56bd99a722290ec1fe69510fb2",
+   "bboxInBoundOriginal": [
+    360,
+    229,
+    396,
+    267
+   ],
+   "scale": 14,
+   "filter": "nearest-neighbour",
+   "outputPixels": [
+    504,
+    532
+   ],
+   "nativePixels": [
+    36,
+    38
+   ]
+  },
+  {
+   "name": "corner_bl",
+   "purpose": "bottom-left corner glyph",
+   "path": "audit/web/adjudications/group-revision-283-1/crops-20261027/b0785-corner_bl-x14.png",
+   "sha256": "7599e894baa491ad128dc2d68ed5654a33a8c2dfb24a042f8318634104c1a962",
+   "bboxInBoundOriginal": [
+    236,
+    292,
+    272,
+    330
+   ],
+   "scale": 14,
+   "filter": "nearest-neighbour",
+   "outputPixels": [
+    504,
+    532
+   ],
+   "nativePixels": [
+    36,
+    38
+   ]
+  },
+  {
+   "name": "corner_br",
+   "purpose": "bottom-right corner glyph",
+   "path": "audit/web/adjudications/group-revision-283-1/crops-20261027/b0785-corner_br-x14.png",
+   "sha256": "c084474285515b5cbb47f59c41cd272bd3d9e92935e36a9b6f6b10c3090f70bb",
+   "bboxInBoundOriginal": [
+    358,
+    292,
+    394,
+    330
+   ],
+   "scale": 14,
+   "filter": "nearest-neighbour",
+   "outputPixels": [
+    504,
+    532
+   ],
+   "nativePixels": [
+    36,
+    38
+   ]
+  },
+  {
+   "name": "round_label",
+   "purpose": "the large round label 東四局 in the same panel",
+   "path": "audit/web/adjudications/group-revision-283-1/crops-20261027/b0785-round_label-x12.png",
+   "sha256": "315dbe7b34debd38f22ae01d0ad2e4dfd37ce808387c7e61eb65b7683c78687d",
+   "bboxInBoundOriginal": [
+    262,
+    248,
+    300,
+    282
+   ],
+   "scale": 12,
+   "filter": "nearest-neighbour",
+   "outputPixels": [
+    456,
+    408
+   ],
+   "nativePixels": [
+    38,
+    34
+   ]
+  }
+ ],
+ "modelCallsThisBuild": 0,
+ "notAwaived": "No verdict is changed by this build; the parent group checkpoint keeps needs-repair until the bounded adjudication call decides the corner reading."
+}

@@ -2258,7 +2258,7 @@
    "candidateSha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
    "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter06-exercise003.849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3.json",
    "auditStatus": "needs-repair",
-   "currentDisposition": "needs-repair-group-revision-audited-deferred-open",
+   "currentDisposition": "needs-repair-six-table-findings-re-decided-faithful-b0099-open",
    "origin": "COAC-249 explicit 20",
    "newThisStage": true,
    "originalError": "web_audit_batch_output_assembly (preflight; no model call)",
@@ -2281,7 +2281,7 @@
    },
    "auditSha256": "21d909b832c28e62a76f453863ed24d8fc8738adbb54b36bfd8117b9395d5aea",
    "auditRecordedAt": "2026-10-27T06:28:24.107Z",
-   "issueCount": 9,
+   "issueCount": 1,
    "auditSourceStale": false,
    "diskShaVerified": true,
    "groupRevision": {
@@ -2471,6 +2471,68 @@
      "modelCalls": 0
     },
     "unchanged": "every non-target block and figure is byte-identical to the parent candidate; parent raw calls, batch checkpoints and the parent needs-repair receipt are untouched"
+   },
+   "tableContextPhase20261027": {
+    "recordedAt": "2026-10-27T07:45:00.460659+00:00",
+    "summary": {
+     "path": ".multica/delivery/coac-248-native-inline-correction/summary-283-1-table-context-phase-20261027.json",
+     "sha256": "39c21c53786674eac513f36375b02242d0511ff0ba370c9fff3b44460bcef28b"
+    },
+    "adjudication": {
+     "path": "audit/web/adjudications/group-revision-283-1/b0785-corner-winds-adjudication-20261027.json",
+     "sha256": "502ad01947e240dd5667578fb5f3de2d129558dc52cba1df6b6a2863b0a4ed30",
+     "verdict": "candidate-faithful"
+    },
+    "groupRechecks": [
+     {
+      "batchId": "chapter06-exercise003-batch-003",
+      "path": "audit/web/adjudications/group-revision-283-1/table-context-recheck-003-20261027.rev2.json",
+      "sha256": "3b080b33ee94708ed7d7ca958c182da30512d4345a53cd2ed216c06dfef5f895",
+      "outcome": "all-listed-findings-faithful"
+     },
+     {
+      "batchId": "chapter06-exercise003-batch-005",
+      "path": "audit/web/adjudications/group-revision-283-1/table-context-recheck-005-20261027.rev2.json",
+      "sha256": "fa5e75a7208ab9965bcd288b382cdd60b82e0f6e9313a1e2719d3e56cd60b6c3",
+      "outcome": "all-listed-findings-faithful"
+     },
+     {
+      "batchId": "chapter06-exercise003-batch-006",
+      "path": "audit/web/adjudications/group-revision-283-1/table-context-recheck-006-20261027.rev2.json",
+      "sha256": "45dd54ede79fa73c6f280dc1ec4b5f30553914b8f6937f8b2b9ad1dd16360a0f",
+      "outcome": "all-listed-findings-faithful"
+     },
+     {
+      "batchId": "chapter06-exercise003-batch-008",
+      "path": "audit/web/adjudications/group-revision-283-1/table-context-recheck-008-20261027.rev2.json",
+      "sha256": "5f7be676bdc4d43205e90b5a5d1cab0140ebb5c40217d4ce8174b95c45bb567c",
+      "outcome": "all-listed-findings-faithful"
+     }
+    ],
+    "voidCalls": [
+     {
+      "path": "audit/web/adjudications/group-revision-283-1/table-context-recheck-003-20261027.json",
+      "sha256": "8a50912a2ce7c0746aaadb01d22c134b32268a18c60fa2acbf776a87797f8933",
+      "reason": "prompt omitted the projection; no review performed"
+     },
+     {
+      "path": "audit/web/adjudications/group-revision-283-1/table-context-recheck-005-20261027.json",
+      "sha256": "19a3d15d54189789febcceef13f1930c26144df2e62f7c47379f72aaddeab812",
+      "reason": "prompt omitted the projection; no review performed"
+     }
+    ],
+    "findingsResolved": 6,
+    "findingsStillOpen": 0,
+    "remainingTargets": [
+     "modern-yabejp-ja:chapter06-exercise003:b0099"
+    ],
+    "modelCalls": {
+     "production": 0,
+     "audit": 7,
+     "effectiveAuditReviews": 5,
+     "voidAuditCalls": 2
+    },
+    "note": "the six table-position findings are re-decided faithful by an independent bounded review that was shown the candidate figure tableContext; the parent group checkpoints and the chapter audit receipt are not rewritten, and b0099 keeps the chapter open"
    }
   }
  ],
@@ -3280,7 +3342,7 @@
   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter03-section011.6ad44173945b9347cd8dd7c44640fa3341bf8e83109695e4cd8aacc6d3d98b21.json",
   "note": "Isolated revision from the 249/250 register set; parent receipt, parent candidate and raw preserved."
  },
- "refreshedAt": "2026-10-27T07:15:00.000Z",
+ "refreshedAt": "2026-10-27T07:45:00.460659+00:00",
  "byOrigin": {
   "COAC-248 old PDF 12": 5,
   "COAC-247 new PDF return": 3,
@@ -3542,16 +3604,17 @@
   "bodyTextImpact": "none of the missing microprint is cited by any paragraph on those pages"
  },
  "latestRound": {
-  "at": "2026-10-27T07:15:00.000Z",
+  "at": "2026-10-27T07:45:00.460659+00:00",
   "objects": [
-   "web-chapter:nemata-jp-chapter-222-1",
-   "web-chapter:nemata-jp-chapter-215-4"
+   "web-failed:chapter06-exercise003"
   ],
-  "productionModelCalls": 2,
-  "auditModelCalls": 3,
-  "note": "222-1 targeted text revision passed independent target-text review and is handed to 250; 215-4 revision was rejected by the independent retry audit (入り目 reading), recorded with the reviewer-provided repair for a later bounded round; 283-1 received no production or audit call",
+  "productionModelCalls": 0,
+  "auditModelCalls": 7,
+  "effectiveAuditReviews": 5,
+  "voidAuditCalls": 2,
+  "note": "283-1: one corner-wind adjudication (candidate reading upheld) and four bounded table-context group re-reviews (all six findings faithful); no production; b0099 remains open",
   "stillOpen": [
-   "nemata-jp-chapter-215-4"
+   "nemata-jp-chapter-283-1"
   ]
  },
  "relatedNonRepair": {
@@ -4097,5 +4160,35 @@
    "integration/specific-web-variant-selection.v7.json"
   ],
   "note": "no repeat handoff for these chapters; 283-1 remains produced-needs-repair and is not staged"
+ },
+ "round20261027T0840": {
+  "recordedAt": "2026-10-27T07:45:00.460659+00:00",
+  "round": "2026-10-27T07:20-08:40Z",
+  "chapterId": "nemata-jp-chapter-283-1",
+  "candidateSha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+  "resolvedFindings": 6,
+  "openFindings": 1,
+  "openTargets": [
+   "modern-yabejp-ja:chapter06-exercise003:b0099"
+  ],
+  "modelCalls": {
+   "production": 0,
+   "audit": 7,
+   "effectiveAuditReviews": 5,
+   "voidAuditCalls": 2
+  },
+  "usage": {
+   "inputTokens": 270765,
+   "cachedInputTokens": 57344,
+   "outputTokens": 6978
+  },
+  "record": {
+   "path": ".multica/delivery/coac-248-native-inline-correction/round-20261027T0840.json",
+   "sha256": "d401ea6e5d9f56e84c3cff80e975a8ecce8e76c8349a0ecc144a5fdb5b98f260"
+  },
+  "summary": {
+   "path": ".multica/delivery/coac-248-native-inline-correction/summary-283-1-table-context-phase-20261027.json",
+   "sha256": "39c21c53786674eac513f36375b02242d0511ff0ba370c9fff3b44460bcef28b"
+  }
  }
 }

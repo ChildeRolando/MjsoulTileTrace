@@ -1,0 +1,125 @@
+{
+  "schema": "coach-textbook-source-adjudication/1",
+  "status": "resolved-with-source-evidence",
+  "chapterId": "nemata-jp-chapter-283-1",
+  "articleId": "chapter06-exercise003",
+  "batchId": "chapter06-exercise003-batch-007",
+  "productionSha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+  "source": {
+    "path": "web-sources/v1/modern-yabejp-ja/articles/chapter06-exercise003/source.v3.json",
+    "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de"
+  },
+  "originalAudit": {
+    "path": "audit/web/articles/modern-yabejp-ja/chapter06-exercise003.849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3.json",
+    "sha256": "21d909b832c28e62a76f453863ed24d8fc8738adbb54b36bfd8117b9395d5aea",
+    "callIds": [
+      "2bc349c6-99be-473c-bd07-90578852609f",
+      "b4c9487b-7d5a-4b2a-b6f1-2ade2f5de008",
+      "51d6b447-2446-4afa-9c30-5d1d1b4dfcc5",
+      "7896f6fb-3a56-4444-bf7f-761db2958445",
+      "48948c66-5a88-4ae6-94d0-f58c9e98269b"
+    ]
+  },
+  "originalCheckpoint": {
+    "path": "audit/web/batches/849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3/554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421/chapter06-exercise003-batch-007.json",
+    "sha256": "9fa518acb13dbdfac78129917d547b1ad38a7e54c53cd8938a83de66c0b9af85",
+    "status": "needs-repair"
+  },
+  "approval": {
+    "authority": "root",
+    "scope": "corner-orientation-dispute-only",
+    "reference": "Root authorised at most five independent reviews with zero production for 283-1, of which one is solely the batch-007 corner-orientation adjudication, evidenced by the bound original image/strokes together with seat order and not by a generic geometric rule (COAC-248 comment 01a17c22-afcb-750a-9bb6-6e9118d1a4ef)."
+  },
+  "verification": "root-authorized-source-adjudication-with-independent-model-recheck-not-full-page-pass-not-user-human-gold-standard",
+  "evidencePackage": {
+    "path": "audit/web/adjudications/group-revision-283-1/b0785-corner-evidence-20261027.json",
+    "sha256": "bd7d39d4e5ca1ab453988c2541d863b444f2b1a4c630051d6622a24110d71c99"
+  },
+  "modelAdjudication": {
+    "callId": "7b8d4542-9c0f-4e67-8ea6-e6ed271a2b40",
+    "sha256": "ed610786588251a7a2f4a155765770d47cec7886c82f664379b9c0afdb53242c",
+    "outputSha256": "0d79cd8e00789453c5d69d8fda454b05de17efcf15ff177c9a8b9b1775f12207",
+    "verdict": "candidate-faithful",
+    "review": {
+      "cornerReadings": [
+        {
+          "corner": "topLeft",
+          "reading": "東",
+          "strokes": "按字的朝向转正后，可见中央框内横画、贯穿中央的长竖及下部分开的撇捺；在画面中表现为横向贯穿、左侧分叉，符合東。"
+        },
+        {
+          "corner": "topRight",
+          "reading": "北",
+          "strokes": "可见左右分立的竖笔，以及向外的短横、挑笔和折钩，没有封闭外框，符合北。"
+        },
+        {
+          "corner": "bottomLeft",
+          "reading": "南",
+          "strokes": "顶部横画被短竖穿过，下方有冂形框，框内有分开的短笔及中部横竖，符合南。"
+        },
+        {
+          "corner": "bottomRight",
+          "reading": "西",
+          "strokes": "按字的朝向转正后，上方一横与下方封闭外框分明，框内为儿形笔画；没有東的贯穿长竖和下部撇捺，符合西。"
+        }
+      ],
+      "seatCrossCheck": {
+        "mappingDeterminable": true,
+        "cornerToPlayer": "四家分处画面左、上、右、下侧。依四角字样朝向，左上对应左家（東），右上对应上家（北），右下对应右家（西），左下对应下家（南）。",
+        "cyclicOrderConsistent": "consistent",
+        "evidence": "左上字朝向左家，右上字朝向上家，右下字朝向右家，左下字朝向下家。下方手牌及其上方橙色東标记可定位下家，但不能将该标记直接替代当前风位。画面顺时针为東→北→西→南，逆时针为東→南→西→北，符合麻将风位循环。"
+      },
+      "verdict": "candidate-faithful",
+      "candidateSentenceRetained": true,
+      "correctedSentence": null,
+      "evidence": "左上可见東的贯穿笔与分叉笔，右下可见西的封闭框及框内儿形；两字结构不同。候选的左上东、右上北、左下南、右下西成立，争议句可原样保留。"
+    }
+  },
+  "readings": {
+    "candidate": {
+      "topLeft": "東",
+      "topRight": "北",
+      "bottomLeft": "南",
+      "bottomRight": "西"
+    },
+    "reviewer": {
+      "topLeft": "西",
+      "topRight": "北",
+      "bottomLeft": "南",
+      "bottomRight": "東"
+    },
+    "adjudicated": {
+      "topLeft": "東",
+      "topRight": "北",
+      "bottomLeft": "南",
+      "bottomRight": "西"
+    },
+    "adjudicatedMatchesCandidate": true,
+    "adjudicatedMatchesReviewer": false
+  },
+  "resolutions": [
+    {
+      "issueIndex": 0,
+      "issueSha256": "731748ddbda305243f3d75f2702f655d70f865e19699beff67b51f97a9df481f",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "decision": "candidate-faithful",
+      "reason": "左上可见東的贯穿笔与分叉笔，右下可见西的封闭框及框内儿形；两字结构不同。候选的左上东、右上北、左下南、右下西成立，争议句可原样保留。",
+      "sentenceRetained": true,
+      "correctedSentence": null,
+      "affectedReviewChecks": [
+        {
+          "key": "figureChecks",
+          "id": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "verdict": "needs-repair",
+          "sha256": "24a40489d8d45467c95b0e960dc4ca76effb010534ed0d82b6643b861f0ac267"
+        }
+      ],
+      "preservedUnknowns": {
+        "acknowledged": true,
+        "evidence": "三家隐手、未辨清的万子弃牌、受遮挡副露牌及其他未可靠辨清信息均明确保留为未知，未猜填。"
+      },
+      "unknownsTouchedByThisAdjudication": false
+    }
+  ],
+  "recordedAt": "2026-10-27T07:28:28.951Z"
+}
