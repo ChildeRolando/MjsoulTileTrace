@@ -1,0 +1,42 @@
+{
+  "schema": "coach-textbook-corpus/1",
+  "corpusId": "7d1743898551fa7b8cf3cfcb26f1ee234d332e93434443c5a09fc3340c17c4d7",
+  "bodySha256": "807ad83faf24e1f50b42abe07df1f74a1f35011df9bb1afb988e353d177800fd",
+  "reviewStatus": "text-extraction-accepted-content-review-pending",
+  "units": [
+    {
+      "unitId": "79-cn-chapter-193-4-pdf193-supplement-unit-1",
+      "chapterId": "79-cn-chapter-193-4-pdf193-supplement",
+      "title": "PDF193来源对照补文（非完整章）",
+      "chapterTitle": "防守3—筋（1）：PDF193两句补文（非完整章）",
+      "topics": [],
+      "contentRole": "navigation",
+      "source": {
+        "sourceId": "79-cn",
+        "title": "79 博客 · 中文 PDF",
+        "sha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+        "pages": [
+          193
+        ]
+      },
+      "translationStatus": "batch-audited-pending-user-review",
+      "previousUnitId": null,
+      "nextUnitId": null,
+      "blocks": [
+        {
+          "type": "p",
+          "id": "79-cn-p193-b6-version-sentence-1",
+          "page": 193,
+          "text": "有人立直的时候，最应该警戒的就要是两面听牌了。 "
+        },
+        {
+          "type": "p",
+          "id": "79-cn-p193-b6-version-sentence-2",
+          "page": 193,
+          "text": "大体的数据显示，所有的立直中三分之二的立直都是两面听牌。 "
+        }
+      ]
+    }
+  ],
+  "images": []
+}

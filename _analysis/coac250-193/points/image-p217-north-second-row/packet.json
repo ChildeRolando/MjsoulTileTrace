@@ -1,0 +1,586 @@
+{
+  "schema": "coac244-single-target-image-evidence/1",
+  "status": "prepared-not-adjudicated",
+  "modelCalls": 0,
+  "original": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+    "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+    "bytes": 24419
+  },
+  "width": 430,
+  "height": 463,
+  "derivatives": [
+    {
+      "role": "context",
+      "originalPixelBBox": [
+        143,
+        292,
+        202,
+        358
+      ],
+      "crop": {
+        "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-244-de007c293a14\\worktree\\.multica\\delivery\\coac244-closure26-zero-20261028\\image-p217-north-second-row\\context.png",
+        "sha256": "19e4c6c5551cfa755b72c6275692fcc47c8eaeefc1c5b6dc7ec42892cd9cfb99",
+        "bytes": 3693
+      },
+      "enlargement": {
+        "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-244-de007c293a14\\worktree\\.multica\\delivery\\coac244-closure26-zero-20261028\\image-p217-north-second-row\\context-x4.png",
+        "sha256": "5c6480a5c07f8b3ce6a60f1d0375702ab9e76a84484bac5058bae12e8403e719",
+        "bytes": 5217
+      },
+      "scale": 4,
+      "resampling": "nearest",
+      "generatedDetails": false,
+      "deliveredCrop": "image-p217-north-second-row/context.png",
+      "deliveredEnlargement": "image-p217-north-second-row/context-x4.png"
+    },
+    {
+      "role": "target",
+      "originalPixelBBox": [
+        150,
+        325,
+        175,
+        357
+      ],
+      "crop": {
+        "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-244-de007c293a14\\worktree\\.multica\\delivery\\coac244-closure26-zero-20261028\\image-p217-north-second-row\\target.png",
+        "sha256": "f65aa976b39b2a23a6c5a156d63c528938e6aea7fa95097d796efcb554024d7c",
+        "bytes": 1095
+      },
+      "enlargement": {
+        "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-244-de007c293a14\\worktree\\.multica\\delivery\\coac244-closure26-zero-20261028\\image-p217-north-second-row\\target-x4.png",
+        "sha256": "5014a1600c207fda7494c2ac4553b1a0f6003edccda5fe1b38e02821c8b4b4c3",
+        "bytes": 1600
+      },
+      "scale": 4,
+      "resampling": "nearest",
+      "generatedDetails": false,
+      "deliveredCrop": "image-p217-north-second-row/target.png",
+      "deliveredEnlargement": "image-p217-north-second-row/target-x4.png"
+    }
+  ],
+  "chapterId": "79-cn-chapter-217-4",
+  "sharedPageOtherChapter": "79-cn-chapter-215-4 (must use ownership subset, not this figure automatically)",
+  "targetId": "79-cn-p217-r1",
+  "locator": "下方北家舍牌第二行第一张万子，左邻/上邻牌保留；旧独审存在5m/6m读法差异，不裁决",
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\217.json",
+    "sha256": "f8de2eddd4ba2939ae40796ffd8d1d1f971d49474dede72d108e61809ef1d6f8",
+    "bytes": 18715
+  },
+  "pdfSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+  "fullPage": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\renders\\79-cn\\page-0217.png",
+    "sha256": "c52048b9b1a0650b9041cc74a18cb0576c71eb68ccb61c5c4b482dffd79a1ba0",
+    "bytes": 227345
+  },
+  "sourceImageBlockId": "79-cn-p217-b8",
+  "neighboringSource": [
+    {
+      "id": "79-cn-p217-b5",
+      "bbox": [
+        90.02400207519531,
+        244.95201110839844,
+        504.9369812011719,
+        334.7789306640625
+      ],
+      "type": "text",
+      "lines": [
+        {
+          "bbox": [
+            90.02400207519531,
+            244.95201110839844,
+            135.3800048828125,
+            256.9519958496094
+          ],
+          "text": "扣牌2： ",
+          "spans": [
+            {
+              "text": "扣牌2：",
+              "size": 10.5600004196167,
+              "font": "å®ä½",
+              "flags": 4,
+              "color": 3292722
+            },
+            {
+              "text": " ",
+              "size": 12.0,
+              "font": "å®ä½",
+              "flags": 4,
+              "color": 0
+            }
+          ]
+        },
+        {
+          "bbox": [
+            90.02400207519531,
+            260.5819396972656,
+            232.61000061035156,
+            272.5819396972656
+          ],
+          "text": "我们来看看扣牌的具体例子。 ",
+          "spans": [
+            {
+              "text": "我们来看看扣牌的具体例子。",
+              "size": 10.5600004196167,
+              "font": "å®ä½",
+              "flags": 4,
+              "color": 5592405
+            },
+            {
+              "text": " ",
+              "size": 12.0,
+              "font": "å®ä½",
+              "flags": 4,
+              "color": 0
+            }
+          ]
+        },
+        {
+          "bbox": [
+            90.02400207519531,
+            276.5419616699219,
+            96.02400207519531,
+            288.5419616699219
+          ],
+          "text": " ",
+          "spans": [
+            {
+              "text": " ",
+              "size": 12.0,
+              "font": "å®ä½",
+              "flags": 4,
+              "color": 0
+            }
+          ]
+        },
+        {
+          "bbox": [
+            90.02400207519531,
+            293.0189208984375,
+            504.9369812011719,
+            303.57891845703125
+          ],
+          "text": "-------------------------------------------------------------------------------",
+          "spans": [
+            {
+              "text": "-------------------------------------------------------------------------------",
+              "size": 10.5600004196167,
+              "font": "å®ä½",
+              "flags": 4,
+              "color": 3292722
+            }
+          ]
+        },
+        {
+          "bbox": [
+            90.02400207519531,
+            307.3819885253906,
+            164.3000030517578,
+            319.3819885253906
+          ],
+          "text": "-----下家染手 ",
+          "spans": [
+            {
+              "text": "-----",
+              "size": 10.5600004196167,
+              "font": "å®ä½",
+              "flags": 4,
+              "color": 3292722
+            },
+            {
+              "text": "下家染手",
+              "size": 10.5600004196167,
+              "font": "å®ä½",
+              "flags": 4,
+              "color": 5592405
+            },
+            {
+              "text": " ",
+              "size": 12.0,
+              "font": "å®ä½",
+              "flags": 4,
+              "color": 0
+            }
+          ]
+        },
+        {
+          "bbox": [
+            90.02400207519531,
+            324.21893310546875,
+            504.9369812011719,
+            334.7789306640625
+          ],
+          "text": "-------------------------------------------------------------------------------",
+          "spans": [
+            {
+              "text": "-------------------------------------------------------------------------------",
+              "size": 10.5600004196167,
+              "font": "å®ä½",
+              "flags": 4,
+              "color": 3292722
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "79-cn-p217-b6",
+      "bbox": [
+        90.02400207519531,
+        678.4719848632812,
+        444.94000244140625,
+        690.4719848632812
+      ],
+      "type": "text",
+      "lines": [
+        {
+          "bbox": [
+            90.02400207519531,
+            679.7089233398438,
+            116.42399597167969,
+            690.2689208984375
+          ],
+          "text": "-----",
+          "spans": [
+            {
+              "text": "-----",
+              "size": 10.5600004196167,
+              "font": "å®ä½",
+              "flags": 4,
+              "color": 3292722
+            }
+          ]
+        },
+        {
+          "bbox": [
+            438.94000244140625,
+            678.4719848632812,
+            444.94000244140625,
+            690.4719848632812
+          ],
+          "text": " ",
+          "spans": [
+            {
+              "text": " ",
+              "size": 12.0,
+              "font": "å®ä½",
+              "flags": 4,
+              "color": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "79-cn-p217-b7",
+      "bbox": [
+        90.02400207519531,
+        697.7919921875,
+        285.19000244140625,
+        756.5880126953125
+      ],
+      "type": "text",
+      "lines": [
+        {
+          "bbox": [
+            90.02400207519531,
+            697.7919921875,
+            96.02400207519531,
+            709.7919921875
+          ],
+          "text": " ",
+          "spans": [
+            {
+              "text": " ",
+              "size": 12.0,
+              "font": "å®ä½",
+              "flags": 4,
+              "color": 0
+            }
+          ]
+        },
+        {
+          "bbox": [
+            90.02400207519531,
+            713.031982421875,
+            285.19000244140625,
+            725.031982421875
+          ],
+          "text": "扣牌很多时候都是在下家染手时进行的。 ",
+          "spans": [
+            {
+              "text": "扣牌很多时候都是在下家染手时进行的。",
+              "size": 10.5600004196167,
+              "font": "å®ä½",
+              "flags": 4,
+              "color": 5592405
+            },
+            {
+              "text": " ",
+              "size": 12.0,
+              "font": "å®ä½",
+              "flags": 4,
+              "color": 0
+            }
+          ]
+        },
+        {
+          "bbox": [
+            90.02400207519531,
+            728.6320190429688,
+            285.19000244140625,
+            740.6320190429688
+          ],
+          "text": "这个例子，很明显下家是索子的一色手。 ",
+          "spans": [
+            {
+              "text": "这个例子，很明显下家是索子的一色手。",
+              "size": 10.5600004196167,
+              "font": "å®ä½",
+              "flags": 4,
+              "color": 5592405
+            },
+            {
+              "text": " ",
+              "size": 12.0,
+              "font": "å®ä½",
+              "flags": 4,
+              "color": 0
+            }
+          ]
+        },
+        {
+          "bbox": [
+            90.02400207519531,
+            744.5880126953125,
+            96.02400207519531,
+            756.5880126953125
+          ],
+          "text": " ",
+          "spans": [
+            {
+              "text": " ",
+              "size": 12.0,
+              "font": "å®ä½",
+              "flags": 4,
+              "color": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "existingIndependentAudits": [
+    {
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json",
+        "sha256": "48188a41382d98a5af7272851ba96f8d209213ee5befb3f4fd2fbf0b738574be",
+        "bytes": 36582
+      },
+      "production": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair22-20261027-p217\\candidates\\79-cn\\page-0217.json",
+        "sha256": "279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494"
+      },
+      "status": "needs-repair",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-cn-p217-r1",
+          "sourceEvidence": "右侧东家牌河靠中央一列，从画面下向上依次为8p、2m、1p、3p、7m、7z；外侧一列从下向上为2z、9m、5p、4z。东家牌面朝左，其自身视角的行内顺序对应画面由下向上。",
+          "description": "候选声称按东家自身视角记录，却将两行均按画面由上向下抄录，反转了舍牌先后。",
+          "suggestedRepair": "改为：东家第一行8p 2m 1p 3p 7m 7z；第二行2z 9m 5p 4z。将方向说明改为“先读靠中央的一列，各列自下向上”。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-cn-p217-r1",
+          "sourceEvidence": "下方北家牌河第二行两张为五万、八万，右侧牌的黑色数字为“八”。",
+          "description": "候选将北家第二行第二张八万转录为9m。",
+          "suggestedRepair": "将北家舍牌第二行“5m 9m”改为“5m 8m”。"
+        }
+      ],
+      "callIds": [
+        "95502be0-996e-40be-bcec-1d37e4dbb695"
+      ]
+    },
+    {
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json",
+        "sha256": "70e67fec9ff86c6eeb77019a488c68b2b8836d7610b1b88eee3bb1785348c1b4",
+        "bytes": 39701
+      },
+      "production": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair23-20261027-p217b\\candidates\\79-cn\\page-0217.json",
+        "sha256": "2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd"
+      },
+      "status": "needs-repair",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-cn-p217-r1",
+          "sourceEvidence": "下方手牌第七张索子为全绿色的8s；候选对应位置写为9s。",
+          "description": "北家手牌将8s误抄为9s。",
+          "suggestedRepair": "北家手牌改为8m 8m 1s 2s 3s 6s 8s 1p 2p 3p 5p 7p 9p；独立摸牌仍为6s。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-cn-p217-r1",
+          "sourceEvidence": "北家第一行第二、第四张，以及西家第一行第五张，均为带红色中列的9s；候选三处均写为8s。",
+          "description": "三张河牌将9s误抄为8s。",
+          "suggestedRepair": "北家第一行改为1z 9s 1m 9s 1p 3z；西家第一行改为9p 1s 1m 6z 9s 2p。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-cn-p217-r1",
+          "sourceEvidence": "北家第二行两张万子可见为六万、八万；候选写为5m 9m。",
+          "description": "北家第二行河牌的两张万子均误抄。",
+          "suggestedRepair": "将北家第二行改为6m 8m。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-cn-p217-r1",
+          "sourceEvidence": "东家外侧一列自下向上第二张万子的黑色数字字形，在所附图中不能可靠确认为候选所写的9m。",
+          "description": "该张万子的精确牌种尚未核实，不能作为已确认转录通过；候选unknowns为空未反映此处不确定性。",
+          "suggestedRepair": "复核该张万子的数字后填写准确牌码；确认前在unknowns中明确记录这一具体位置及牌种未定。"
+        }
+      ],
+      "callIds": [
+        "2b9d82cb-d3fa-4578-ad15-4b8cb22b70d0"
+      ]
+    },
+    {
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add.6baa4a7e1404.retry-1792979810396-c29948ed.json",
+        "sha256": "c79c04dbbdbede13b2fc77d806bef7407517c0d767c1dedbafcb5f8c813b67de",
+        "bytes": 40539
+      },
+      "production": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0217.json",
+        "sha256": "73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add"
+      },
+      "status": "needs-repair",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-cn-p217-r1",
+          "sourceEvidence": "原图北家舍牌第二行从左至右为六万、八万，即6m、8m。",
+          "description": "候选将北家第二行第一张六万误录为5m。",
+          "suggestedRepair": "将北家舍牌第二行改为“6m 8m”。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-cn-p217-r1",
+          "sourceEvidence": "东家位于画面右侧，舍牌字头朝左，其自身视角逐行从左至右对应画面每列自下向上。候选明确写成“自上向下”。",
+          "description": "东家两列舍牌均被反向转录，改变了各行的出牌顺序。",
+          "suggestedRepair": "保留先靠中央列、后外侧列的行顺序，每列改为自下向上抄录；第一行应从8p开始、7z结束，第二行从2z开始、4z结束。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-cn-p217-r1",
+          "sourceEvidence": "原图上方南家可见13张牌背，左方西家可见13张牌背，右方东家可见10张牌背，另有白碰。",
+          "description": "候选仅笼统说明其余三家暗手未知，遗漏了可见牌背数量。",
+          "suggestedRepair": "补录南家13张、西家13张、东家10张暗手牌背；牌种继续标为未知。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-cn-p217-r1",
+          "sourceEvidence": "中央可见“ドラ”标签及西（3z），本页没有说明该界面显示实际宝牌还是宝牌指示牌。",
+          "description": "候选直接认定西为宝牌，并排除另示指示牌，超出了本页可确认的信息。",
+          "suggestedRepair": "保留“中央‘ドラ’栏显示西（3z）”，将其为实际宝牌还是指示牌标为未知，删除确定性分类。"
+        }
+      ],
+      "callIds": [
+        "c8aff58b-41cd-4750-b7a2-8a33f377ab35"
+      ]
+    },
+    {
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add.d510b3d9d5cb.json",
+        "sha256": "e28c3cc459aa19eccc09e75f5f3e208b3d3b18a402cdac15b46c9b82e084a080",
+        "bytes": 22712
+      },
+      "production": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0217.json",
+        "sha256": "73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add"
+      },
+      "status": "failed",
+      "issues": [],
+      "callIds": [
+        "9eddf0a0-30d4-4fb8-8214-57d327d5dc4a"
+      ]
+    },
+    {
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+        "sha256": "44e101c7fbf8813d9db7a18af177a42b27b51ebaf92945761787b8b25764b3ec",
+        "bytes": 36865
+      },
+      "production": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair25-20261027-p217d\\candidates\\79-cn\\page-0217.json",
+        "sha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101"
+      },
+      "status": "needs-repair",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-cn-p217-r1",
+          "sourceEvidence": "源图北家舍牌第二行从左至右为5m、8m；第二张上部为“八”。候选写作“第二行5m 9m”。",
+          "description": "北家第二行第二张舍牌数字抄错。",
+          "suggestedRepair": "将北家舍牌第二行改为“5m 8m”。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-cn-p217-r1",
+          "sourceEvidence": "西家舍牌外侧一列第二张为横向万子牌，数字笔画不能可靠辨清。候选同时写“8m”和“数字……不能可靠辨定”，但unknowns为[]。",
+          "description": "该张可见牌尚未核清，8m不能作为已确认转录。",
+          "suggestedRepair": "核清西家第二行第二张万子的数字；确认前明确记录“万子，数字未辨清”，并在unknowns中列出该位置，避免将8m作为确定牌码。"
+        }
+      ],
+      "callIds": [
+        "4f760999-1648-410e-8452-1c1b4794503f"
+      ]
+    },
+    {
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json",
+        "sha256": "7dc668f386cbc8c4a5f7ee7c253d0958b688f76de48ac6a82edba24e770bb33c",
+        "bytes": 34611
+      },
+      "production": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair24-20261027-p217c\\candidates\\79-cn\\page-0217.json",
+        "sha256": "ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea"
+      },
+      "status": "needs-repair",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-cn-p217-r1",
+          "sourceEvidence": "完整页及高清局部图中，北家舍牌第二行右侧万子牌的数字为“八”。",
+          "description": "候选将北家舍牌第二行末张录为9m。",
+          "suggestedRepair": "将“第二行5m 9m”改为“第二行5m 8m”。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-cn-p217-r1",
+          "sourceEvidence": "西家舍牌外侧一列自上而下第二张为旋转万子牌，其数字字形在所附图中不能可靠辨定。",
+          "description": "候选明确录为8m，但本次无法充分确认该牌值。",
+          "suggestedRepair": "复核该位置的万子数字；确认前在转录及unknowns中明确标记此处不确定。"
+        }
+      ],
+      "callIds": [
+        "a67e7181-9217-47e7-b944-4373d83e5280"
+      ]
+    }
+  ],
+  "quarantinedDraft": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\candidates\\79-cn\\page-0217.json",
+    "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+    "bytes": 11673
+  },
+  "quarantinedDraftMayBeSelected": false,
+  "sameCandidateFullReauditAllowed": false,
+  "futureMaximumTargetReviewCalls": 1,
+  "deliveredOriginal": "image-p217-north-second-row/original.png",
+  "deliveredFullPage": "image-p217-north-second-row/full-page.png",
+  "modelPayloadPolicy": "First read original/crop/context only with a neutral geometric locator; exclude candidate codes and prior reviewer answers from the model payload. Compare returned independent reading against historical claims deterministically after the single call. Unknown stays unknown; this does not pass a page/chapter."
+}

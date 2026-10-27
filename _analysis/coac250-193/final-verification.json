@@ -1,0 +1,191 @@
+{
+  "schema": "coac250193-final-verification/1",
+  "recordedAt": "2026-10-27T19:22:43.815Z",
+  "allPassed": true,
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T19-21-37-757Z",
+    "corpusId": "f92816cd999f9e0e0598ad1a99f52eed8c49e26a07f825e234c2f263d42b43e0",
+    "chapters": 232,
+    "units": 240,
+    "blocks": 6339,
+    "figures": 5128
+  },
+  "coverage": {
+    "schema": "coac250193-supplement-coverage/1",
+    "preview": {
+      "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T19-21-37-757Z",
+      "corpusId": "f92816cd999f9e0e0598ad1a99f52eed8c49e26a07f825e234c2f263d42b43e0",
+      "chapters": 232,
+      "units": 240,
+      "blocks": 6339,
+      "figures": 5128
+    },
+    "originalChaptersCovered": 231,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 263,
+    "originalUnitsTotal": 303,
+    "remainingChapters": 25,
+    "originalChapterCoverageIncrement": 0,
+    "originalUnitCoverageIncrement": 0,
+    "unchangedOriginalChapterRows": 80,
+    "fullChapter193Passed": false,
+    "register": {
+      "beforeSha256": "95aba2198cbb570466affc2891bade68557da8d3e36a5acb99571873168ab0ce",
+      "afterSha256": "507dc8db5fd606fa44f8dbc28510e391979142c82d13513ad89f27e3db31f8e0",
+      "backup": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.before-coac250-193-2026-10-27T19-22-43-527Z.json"
+    },
+    "modelCalls": 0
+  },
+  "selectionVersion": 23,
+  "selectionSha256": "120816d1323e2ae1f73a3085336aa892d3a682f72e2907dc735abfa22a8ef1c5",
+  "sourceVersionSupplement": {
+    "chapterId": "79-cn-chapter-193-4-pdf193-supplement",
+    "supplementOf": "79-cn-chapter-193-4",
+    "module": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/stage-pdf193-supplement.mjs",
+      "sha256": "10b30eec55fa2e4d2b1ed91829f051e74ae9d7027a40837c677d10f8ed93e5c0"
+    },
+    "config": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/config.json",
+      "sha256": "a3205fbdaf78b205ff744d96f9337de7fb7845364d678ddccff70fa1f7ffde38"
+    },
+    "reuseReceipt": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/193-reuse-receipt.json",
+      "sha256": "0c3df4389d557f54e2fc62434e129ec5815311860cedc1a393a36413a60541a7"
+    },
+    "files": [
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/config.json",
+        "sha256": "a3205fbdaf78b205ff744d96f9337de7fb7845364d678ddccff70fa1f7ffde38"
+      },
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/193-reuse-receipt.json",
+        "sha256": "0c3df4389d557f54e2fc62434e129ec5815311860cedc1a393a36413a60541a7"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-scope215-pdf193-20261028\\verification-runtime-manifest.json",
+        "sha256": "41e7e0140ec3bed00b76f04e6ba5e1294975275c01660d8e887f330af7260480"
+      },
+      {
+        "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/compile-textbook-corpus.mjs",
+        "sha256": "b4a8fb7432847e54b3c922a5b83e88b3d957abd6a16e726c772188fa5db4a2db"
+      },
+      {
+        "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/textbook-review.mjs",
+        "sha256": "11b3b9c1dcb41b2cdde72517dca733a84a352e75eea154edea5acc36408c7edf"
+      }
+    ],
+    "sourceIdentity": {
+      "sourcePdfSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+      "page": 193,
+      "parentSha256": "046188e3be510f12c1e729353aa01fb5b1ce866685acf84e34284b8571f49e93",
+      "sourceBlockId": "79-cn-p193-b6",
+      "slices": [
+        [
+          5,
+          29
+        ],
+        [
+          129,
+          158
+        ]
+      ]
+    },
+    "dedupeKey": "678cbae60c91a0eb5af5f53d1dcfbbe020de79b7709d7c6104304e8728ab44bf",
+    "contentRole": "navigation",
+    "originalChapterCoverageIncrement": 0,
+    "fullChapterPassed": false,
+    "modelCalls": 0
+  },
+  "fullChapter193Passed": false,
+  "unresolvedFigure": "79-bilibili-cn:cv1765377:b0042:figure",
+  "navigationCannotGrantTacticalCitation": true,
+  "priorUnitsUnchanged": 239,
+  "allOriginalRowsUnchanged": true,
+  "pdf215ScopeAndAllWebSelectionsUnchanged": true,
+  "persistedRebuild": {
+    "installedBuilderBranchExecuted": true,
+    "sameSupplementCorpusId": true,
+    "repeatAppendNoop": true,
+    "priorObjectsUnchangedOnRepeat": true,
+    "wrongBookOwnerRejected": true,
+    "changedModuleRefused": true,
+    "historicalChaptersRebuilt": 0,
+    "originalCoverageIncrement": 0,
+    "navigationOnly": true,
+    "modelCalls": 0
+  },
+  "pointEvidence": {
+    "registered": true,
+    "calls": [
+      {
+        "callId": "55d504fb-96bb-4685-8842-229ff3779df1",
+        "chapterId": "79-cn-chapter-222-5",
+        "targetId": "79-bilibili-cn:cv1775262:b0018:figure",
+        "bbox": [
+          170,
+          28,
+          196,
+          65
+        ],
+        "outcome": "readable",
+        "tileCode": "1m",
+        "requestModel": "gpt-6.1-terra",
+        "requestEffort": "max",
+        "remoteWeights": "unknown",
+        "originalInputs": 5,
+        "usage": {
+          "inputTokens": 12150,
+          "cachedInputTokens": 0,
+          "outputTokens": 1358
+        },
+        "durationMs": 73154
+      },
+      {
+        "callId": "09362d05-d221-427e-b474-a79017ff7619",
+        "chapterId": "79-cn-chapter-217-4",
+        "targetId": "79-cn-p217-r1",
+        "bbox": [
+          150,
+          325,
+          175,
+          357
+        ],
+        "outcome": "unreadable",
+        "tileCode": "unknown",
+        "requestModel": "gpt-6.1-terra",
+        "requestEffort": "max",
+        "remoteWeights": "unknown",
+        "originalInputs": 6,
+        "usage": {
+          "inputTokens": 14682,
+          "cachedInputTokens": 0,
+          "outputTokens": 4086
+        },
+        "durationMs": 108282
+      }
+    ],
+    "newPassedChapters": 0,
+    "originalCandidatesUnchanged": true,
+    "scopeNote": "p217 FIRST/LEFT North second-row tile only; second/right8m/9m and other unknowns remain unresolved. Never apply to215-4."
+  },
+  "protectedInputsVerified": 328,
+  "formalActiveChanged": false,
+  "writerLocksAbsent": true,
+  "modelCalls": 0,
+  "history": "E:/AgentData/Coach/knowledge/processing/integration/coac250-193-history-20261028",
+  "files": {
+    "preconsume.json": "061ecf6e76a456845e474e4b715192a7178c5e3a36a73e4ba9cd02fecc97a0fa",
+    "stage-receipt.json": "eea29877a117bd02c743719abe2eb9ac048a7ca8224d145fbda3310541712a01",
+    "readback.json": "53c73ec08a61d266ec2b1a508fc043ea8814e9ebeba2edf7877d19b93b486c05",
+    "coverage.json": "c81410abd9062f9dc3be0c9f18fe61cd48658ff82e02d15189c5908c068983c9",
+    "variants.after.json": "120816d1323e2ae1f73a3085336aa892d3a682f72e2907dc735abfa22a8ef1c5",
+    "builder.after.mjs": "32baab3bf802c4671798c69a3345cb6e4527469532ba8185df2266bec4032f3e",
+    "stage-pdf193-supplement.mjs": "10b30eec55fa2e4d2b1ed91829f051e74ae9d7027a40837c677d10f8ed93e5c0",
+    "route-verification.json": "0e5366b02acda6dee59c647ae7e70ea3ea8caad99dec2de17f05f89294262e97",
+    "persisted-route-verification.json": "371334475ed386d8e860cee29a0581d12f33b200652de956a0b7ad66ad0be953",
+    "points/verification.json": "c917099076bd3aa3b0be3ab270bc30ba309053888bac291c4cb3c5892b750191",
+    "owner.before.md": "b2319fd83152042b2099331777e7832a1808d13bc72ff94fc7aae8ba3cb722bf",
+    "owner.after.md": "a99a7730f6d04f01d313a48129e241c8722f31822b97d838594f628640137c1b"
+  }
+}

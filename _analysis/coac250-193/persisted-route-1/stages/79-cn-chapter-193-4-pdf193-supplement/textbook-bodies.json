@@ -1,0 +1,44 @@
+{
+  "schema": "coach-textbook-bodies/1",
+  "language": "zh-CN",
+  "modelExperiments": false,
+  "chapters": [
+    {
+      "chapterId": "79-cn-chapter-193-4-pdf193-supplement",
+      "sourceId": "79-cn",
+      "sourceSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+      "translationStatus": "batch-audited-pending-user-review",
+      "translatorNote": "来源版本补文：逐字节摘录已独审通过PDF193/b6，不改网页残句、不声称网页全章通过；原完整论证/图例仍待全章门禁。",
+      "blocks": [
+        {
+          "id": "79-cn-p193-b6-version-sentence-1",
+          "type": "p",
+          "page": 193,
+          "text": "有人立直的时候，最应该警戒的就要是两面听牌了。 ",
+          "sourceBlockIds": [
+            "79-cn-p193-b6"
+          ],
+          "sourceTextSlice": {
+            "fromCodepoint": 5,
+            "toCodepoint": 29,
+            "parentCandidateSha256": "046188e3be510f12c1e729353aa01fb5b1ce866685acf84e34284b8571f49e93"
+          }
+        },
+        {
+          "id": "79-cn-p193-b6-version-sentence-2",
+          "type": "p",
+          "page": 193,
+          "text": "大体的数据显示，所有的立直中三分之二的立直都是两面听牌。 ",
+          "sourceBlockIds": [
+            "79-cn-p193-b6"
+          ],
+          "sourceTextSlice": {
+            "fromCodepoint": 129,
+            "toCodepoint": 158,
+            "parentCandidateSha256": "046188e3be510f12c1e729353aa01fb5b1ce866685acf84e34284b8571f49e93"
+          }
+        }
+      ]
+    }
+  ]
+}

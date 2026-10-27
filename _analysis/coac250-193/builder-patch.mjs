@@ -1,0 +1,10 @@
+export function updateBuilder(before,sha){
+ if(before.split('specific-web-variant-selection.v22.json').length!==3||before.split('998cf2e31f67ba0af05495cbfa4a7454f8691db1573b51efc5f2fb0ab517faf5').length!==3)throw Error('builder v22 pin count');
+ before=before.replaceAll('specific-web-variant-selection.v22.json','specific-web-variant-selection.v23.json').replaceAll('998cf2e31f67ba0af05495cbfa4a7454f8691db1573b51efc5f2fb0ab517faf5',sha);
+ const addition=`const versionSupplementSelections=JSON.parse(pdfScopeSelectionBytes).pdfVersionSupplements??[],versionSupplements=[];
+if(versionSupplementSelections.length!==1||versionSupplementSelections[0].chapterId!=='79-cn-chapter-193-4-pdf193-supplement')throw Error('pdf193_supplement_scope');
+for(const binding of versionSupplementSelections){if(sha(await readFile(binding.module.path))!==binding.module.sha256)throw Error('pdf193_stage_changed');const {stagePdf193Supplement,appendPdf193Supplement}=await import(pathToFileURL(binding.module.path)),stagePath=join(output,'stages',binding.chapterId),receipt=await stagePdf193Supplement({processingRoot:root,destination:stagePath,sourceLibraryPath:join(formal,'knowledge-index.json'),binding});const stageLibrary=await load(join(stagePath,'knowledge-index.json')),stageBodies=await load(join(stagePath,'textbook-bodies.json')),stageDefinitions=await load(join(stagePath,'textbook-unit-map.json'));const appended=appendPdf193Supplement({library,bodies,definitions,stageLibrary,stageBodies,stageDefinitions,binding});versionSupplements.push({stagePath,receipt,binding,...appended});}
+`;
+ if(before.split('const legacyReviewPending=').length!==2)throw Error('builder supplement insertion');before=before.replace('const legacyReviewPending=',addition+'const legacyReviewPending=');
+ if(before.split('selectedPdf:{stages:pdfStages').length!==2)throw Error('builder receipt insertion');return before.replace('selectedPdf:{stages:pdfStages','pdfVersionSupplements:versionSupplements,selectedPdf:{stages:pdfStages');
+}

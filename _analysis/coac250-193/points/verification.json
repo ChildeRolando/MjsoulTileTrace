@@ -1,0 +1,794 @@
+{
+  "schema": "coac250-point-evidence-intake/1",
+  "recordedAt": "2026-10-27T19:18:44.645Z",
+  "handoff": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-point-222-p217-20261028.json",
+    "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9"
+  },
+  "manifest": {
+    "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/runtime-manifest.json",
+    "sha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6"
+  },
+  "verifiedRuntimeFiles": 27,
+  "protectedFiles": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-point-222-p217-20261028.json",
+      "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/runtime-manifest.json",
+      "sha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/capability-evidence.json",
+      "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-audit-definition.mjs",
+      "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-audit-legacy.mjs",
+      "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-audit-pdf-layout.mjs",
+      "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-audit-pdf-native-structure-corrections.mjs",
+      "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-audit-pdf-native.mjs",
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-audit-pdf-scope.mjs",
+      "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-audit-tile-dictionary.mjs",
+      "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-audit-verification-dependencies.mjs",
+      "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-audit-web-batches.mjs",
+      "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-audit-web.mjs",
+      "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-audit.mjs",
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-production-cli.mjs",
+      "sha256": "403eb168fb725aa990792089eb7d6e29d55903fcf9e22d2cfce253fd675a3d01"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-production-pdf-flow.mjs",
+      "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-production-web-dictionary.mjs",
+      "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-production-web-formal.mjs",
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-production-web-labels.mjs",
+      "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-production-web-sources.py",
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-production-web.mjs",
+      "sha256": "c7bd6f353f78d891f466d8f47c2aa37d9fed1a66dacdbf996018ddf2e001eee1"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/textbook-production.mjs",
+      "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-terra-max-v1-20261027/verification-dependencies.json",
+      "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-222-sixth-tile.raw.json",
+      "sha256": "32007944f5764cf41e03c336005e438ff02cb5ac17269aba2afa1be26403f3d6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+      "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1775262\\source.json",
+      "sha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4.json",
+      "sha256": "7fc9a1172bf463691aa08b8ebf3d69e788d7ec1ff5e9e526b498b2c5b53a8199"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.display.json",
+      "sha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+      "sha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.r1.display.json",
+      "sha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.display.json",
+      "sha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-p217-north-second-row.raw.json",
+      "sha256": "cc7f332d563cfc25106e77b06a097ddcb797450e8c4dbac69110901a8b51e516"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+      "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\217.json",
+      "sha256": "f8de2eddd4ba2939ae40796ffd8d1d1f971d49474dede72d108e61809ef1d6f8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\renders\\79-cn\\page-0217.png",
+      "sha256": "c52048b9b1a0650b9041cc74a18cb0576c71eb68ccb61c5c4b482dffd79a1ba0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json",
+      "sha256": "48188a41382d98a5af7272851ba96f8d209213ee5befb3f4fd2fbf0b738574be"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair22-20261027-p217\\candidates\\79-cn\\page-0217.json",
+      "sha256": "279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json",
+      "sha256": "70e67fec9ff86c6eeb77019a488c68b2b8836d7610b1b88eee3bb1785348c1b4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair23-20261027-p217b\\candidates\\79-cn\\page-0217.json",
+      "sha256": "2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add.6baa4a7e1404.retry-1792979810396-c29948ed.json",
+      "sha256": "c79c04dbbdbede13b2fc77d806bef7407517c0d767c1dedbafcb5f8c813b67de"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0217.json",
+      "sha256": "73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add.d510b3d9d5cb.json",
+      "sha256": "e28c3cc459aa19eccc09e75f5f3e208b3d3b18a402cdac15b46c9b82e084a080"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0217.json",
+      "sha256": "73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+      "sha256": "44e101c7fbf8813d9db7a18af177a42b27b51ebaf92945761787b8b25764b3ec"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair25-20261027-p217d\\candidates\\79-cn\\page-0217.json",
+      "sha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json",
+      "sha256": "7dc668f386cbc8c4a5f7ee7c253d0958b688f76de48ac6a82edba24e770bb33c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair24-20261027-p217c\\candidates\\79-cn\\page-0217.json",
+      "sha256": "ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair26-20261027-p217e/candidates/79-cn/page-0217.json",
+      "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777"
+    }
+  ],
+  "records": [
+    {
+      "schema": "coac249-independent-point-receipt/1",
+      "callId": "55d504fb-96bb-4685-8842-229ff3779df1",
+      "key": "image-222-sixth-tile",
+      "recordedAt": "2026-10-27T19:06:00.999Z",
+      "chapterId": "79-cn-chapter-222-5",
+      "targetId": "79-bilibili-cn:cv1775262:b0018:figure",
+      "bbox": [
+        170,
+        28,
+        196,
+        65
+      ],
+      "packetSha256": "d62305b3ca80095445cf9af92bd48de62d016df9b11a73d582ce11e4b4f185c6",
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-222-sixth-tile.raw.json",
+        "sha256": "32007944f5764cf41e03c336005e438ff02cb5ac17269aba2afa1be26403f3d6"
+      },
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "recordedModel": true,
+      "payloadOK": true,
+      "identityOK": true,
+      "valid": true,
+      "classification": "readable",
+      "result": {
+        "chapterId": "79-cn-chapter-222-5",
+        "targetId": "79-bilibili-cn:cv1775262:b0018:figure",
+        "targetBBox": [
+          170,
+          28,
+          196,
+          65
+        ],
+        "outcome": "readable",
+        "tileCode": "1m",
+        "locationCheck": "原图中该坐标对应从左数第六张牌，位于第一个向下箭头下方；左邻另一张万字牌，右邻北牌，与目标裁剪及上下文相符。",
+        "visualEvidence": [
+          "牌面上部是一条黑色横画，左侧略向下、右侧略上扬，未见另一条独立横画。",
+          "下部可辨红色的「萬」字，与上部单横合读为一万。"
+        ],
+        "uncertainty": "原图分辨率较低，但可见笔画足以辨认为一万；四倍图没有新增细节。",
+        "teachingImpact": "本牌可读。邻近原文讨论拆除23饼两面搭子与14饼听牌；本次单点判读不能验证整幅牌例或其推理前提。",
+        "scopeLimit": "此裁决仅适用于原图所给坐标内的牌，不代表其他牌或全章通过。"
+      },
+      "usage": {
+        "inputTokens": 12150,
+        "cachedInputTokens": 0,
+        "outputTokens": 1358
+      },
+      "durationMs": 73154,
+      "threadIds": [
+        "01a17ec0-3437-7430-9d67-545ced38bec1"
+      ],
+      "runtimeManifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+      "remoteGatewayWeights": "unknown",
+      "newCalls": 1,
+      "retry": 0,
+      "candidateChanged": false,
+      "pageOrChapterPassed": false,
+      "images": [
+        {
+          "originalRequestPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\original.png",
+          "recoveredFromCommit": "394b830d7cd76ac3c97f480e93a54b14913501f4",
+          "path": "_analysis/coac250-193/points/image-222-sixth-tile/original.png",
+          "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+          "bytes": 3492
+        },
+        {
+          "originalRequestPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\context.png",
+          "recoveredFromCommit": "394b830d7cd76ac3c97f480e93a54b14913501f4",
+          "path": "_analysis/coac250-193/points/image-222-sixth-tile/context.png",
+          "sha256": "9ba90281aef8fd743afefd1512a9f258a677ffe8ad625c4bd538c081baf07068",
+          "bytes": 1361
+        },
+        {
+          "originalRequestPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\context-x4.png",
+          "recoveredFromCommit": "394b830d7cd76ac3c97f480e93a54b14913501f4",
+          "path": "_analysis/coac250-193/points/image-222-sixth-tile/context-x4.png",
+          "sha256": "92b6a06ea1c064479746d7a3b9d5a2b889af57fd8ebf46c01daf130d467adb22",
+          "bytes": 2521
+        },
+        {
+          "originalRequestPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\target.png",
+          "recoveredFromCommit": "394b830d7cd76ac3c97f480e93a54b14913501f4",
+          "path": "_analysis/coac250-193/points/image-222-sixth-tile/target.png",
+          "sha256": "96c07caff4d5c6401b1f2f705e1d5926f472ad1ddb2a80924bac95dc329c8a9d",
+          "bytes": 578
+        },
+        {
+          "originalRequestPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\target-x4.png",
+          "recoveredFromCommit": "394b830d7cd76ac3c97f480e93a54b14913501f4",
+          "path": "_analysis/coac250-193/points/image-222-sixth-tile/target-x4.png",
+          "sha256": "70bd6778330696a84064a51dee2258d111e649264831408be68aaf9dc546ef30",
+          "bytes": 995
+        }
+      ],
+      "exactSourceCropAndNearestPixels": true,
+      "oneLedgerRecord": true,
+      "terminalEventsPreserved": [
+        {
+          "type": "error",
+          "code": null,
+          "message": "Reconnecting... 2/5 (workspace routing discovery timed out)",
+          "param": null
+        }
+      ],
+      "stderrPreserved": "2026-10-27T19:04:52.924342Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n",
+      "actualRequest": {
+        "schema": "coach-textbook-cli-request/1",
+        "policy": "coac244-vision-terra-max-v1-20261027",
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max",
+        "callerRequested": {
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max"
+        },
+        "args": [
+          "exec",
+          "--model",
+          "gpt-6.1-terra",
+          "--config",
+          "model_reasoning_effort=\"max\"",
+          "--config",
+          "web_search=\"disabled\"",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox",
+          "read-only",
+          "--strict-config",
+          "--skip-git-repo-check",
+          "--json",
+          "--output-schema",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-ZYPO0O\\output.schema.json",
+          "--output-last-message",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-ZYPO0O\\final.json",
+          "--cd",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-ZYPO0O",
+          "-i",
+          "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\original.png",
+          "-i",
+          "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\context.png",
+          "-i",
+          "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\context-x4.png",
+          "-i",
+          "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\target.png",
+          "-i",
+          "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\target-x4.png",
+          "--disable",
+          "apps",
+          "--disable",
+          "auth_elicitation",
+          "--disable",
+          "browser_use",
+          "--disable",
+          "browser_use_external",
+          "--disable",
+          "browser_use_full_cdp_access",
+          "--disable",
+          "computer_use",
+          "--disable",
+          "fast_mode",
+          "--disable",
+          "goals",
+          "--disable",
+          "guardian_approval",
+          "--disable",
+          "hooks",
+          "--disable",
+          "image_generation",
+          "--disable",
+          "in_app_browser",
+          "--disable",
+          "in_app_chat",
+          "--disable",
+          "in_app_dictation",
+          "--disable",
+          "in_app_local_automation",
+          "--disable",
+          "in_app_updates",
+          "--disable",
+          "memories",
+          "--disable",
+          "mentions_v2",
+          "--disable",
+          "multi_agent",
+          "--disable",
+          "plugin_sharing",
+          "--disable",
+          "plugins",
+          "--disable",
+          "remote_plugin",
+          "--disable",
+          "shell_snapshot",
+          "--disable",
+          "shell_tool",
+          "--disable",
+          "skill_mcp_dependency_install",
+          "--disable",
+          "skill_search",
+          "--disable",
+          "sleep_tool",
+          "--disable",
+          "tool_call_mcp_elicitation",
+          "--disable",
+          "tool_suggest",
+          "--disable",
+          "unbounded_connection_retries",
+          "--disable",
+          "unified_exec",
+          "--disable",
+          "unified_exec_tty",
+          "--disable",
+          "view_image",
+          "--disable",
+          "workspace_dependencies",
+          "-"
+        ],
+        "images": [
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\original.png",
+            "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+            "bytes": 3492
+          },
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\context.png",
+            "sha256": "9ba90281aef8fd743afefd1512a9f258a677ffe8ad625c4bd538c081baf07068",
+            "bytes": 1361
+          },
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\context-x4.png",
+            "sha256": "92b6a06ea1c064479746d7a3b9d5a2b889af57fd8ebf46c01daf130d467adb22",
+            "bytes": 2521
+          },
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\target.png",
+            "sha256": "96c07caff4d5c6401b1f2f705e1d5926f472ad1ddb2a80924bac95dc329c8a9d",
+            "bytes": 578
+          },
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-222-sixth-tile\\target-x4.png",
+            "sha256": "70bd6778330696a84064a51dee2258d111e649264831408be68aaf9dc546ef30",
+            "bytes": 995
+          }
+        ],
+        "remoteBackend": "unverified; request arguments and returned events only"
+      }
+    },
+    {
+      "schema": "coac249-independent-point-receipt/1",
+      "callId": "09362d05-d221-427e-b474-a79017ff7619",
+      "key": "image-p217-north-second-row",
+      "recordedAt": "2026-10-27T19:06:36.127Z",
+      "chapterId": "79-cn-chapter-217-4",
+      "targetId": "79-cn-p217-r1",
+      "bbox": [
+        150,
+        325,
+        175,
+        357
+      ],
+      "packetSha256": "5c8638af53c2618bcb2d130bd0279e5e4086bc0abc315bd76ecfa5d7c85b3c64",
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-p217-north-second-row.raw.json",
+        "sha256": "cc7f332d563cfc25106e77b06a097ddcb797450e8c4dbac69110901a8b51e516"
+      },
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "recordedModel": true,
+      "payloadOK": true,
+      "identityOK": true,
+      "valid": true,
+      "classification": "unreadable",
+      "result": {
+        "chapterId": "79-cn-chapter-217-4",
+        "targetId": "79-cn-p217-r1",
+        "targetBBox": [
+          150,
+          325,
+          175,
+          357
+        ],
+        "outcome": "unreadable",
+        "tileCode": "unknown",
+        "locationCheck": "原图坐标对应底部北家舍牌区第二行的左侧牌，位于东风牌下方；与目标裁剪和邻近上下文一致。右侧相邻牌不作为裁决对象。",
+        "visualEvidence": [
+          "目标牌下部可见红色「萬」字。",
+          "上部黑色数字字形的部分笔画粘连，笔画起止和连接关系不够清楚，无法可靠确定点数。"
+        ],
+        "uncertainty": "可辨出万子，但不能仅凭现有字形可靠辨认其数字。四倍图只是最近邻放大，没有增加笔画细节。",
+        "teachingImpact": "点数不明不妨碍理解原文关于下家染索子一色手及扣牌的总体说明，但会限制对这张牌的精确记录和具体牌谱复盘。",
+        "scopeLimit": "本证据仅适用于该坐标内的目标牌，不代表其他牌或全章通过。"
+      },
+      "usage": {
+        "inputTokens": 14682,
+        "cachedInputTokens": 0,
+        "outputTokens": 4086
+      },
+      "durationMs": 108282,
+      "threadIds": [
+        "01a17ec0-3437-7a22-bca8-b5052dacd72a"
+      ],
+      "runtimeManifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+      "remoteGatewayWeights": "unknown",
+      "newCalls": 1,
+      "retry": 0,
+      "candidateChanged": false,
+      "pageOrChapterPassed": false,
+      "images": [
+        {
+          "originalRequestPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\original.png",
+          "recoveredFromCommit": "394b830d7cd76ac3c97f480e93a54b14913501f4",
+          "path": "_analysis/coac250-193/points/image-p217-north-second-row/original.png",
+          "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+          "bytes": 24419
+        },
+        {
+          "originalRequestPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\context.png",
+          "recoveredFromCommit": "394b830d7cd76ac3c97f480e93a54b14913501f4",
+          "path": "_analysis/coac250-193/points/image-p217-north-second-row/context.png",
+          "sha256": "19e4c6c5551cfa755b72c6275692fcc47c8eaeefc1c5b6dc7ec42892cd9cfb99",
+          "bytes": 3693
+        },
+        {
+          "originalRequestPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\context-x4.png",
+          "recoveredFromCommit": "394b830d7cd76ac3c97f480e93a54b14913501f4",
+          "path": "_analysis/coac250-193/points/image-p217-north-second-row/context-x4.png",
+          "sha256": "5c6480a5c07f8b3ce6a60f1d0375702ab9e76a84484bac5058bae12e8403e719",
+          "bytes": 5217
+        },
+        {
+          "originalRequestPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\target.png",
+          "recoveredFromCommit": "394b830d7cd76ac3c97f480e93a54b14913501f4",
+          "path": "_analysis/coac250-193/points/image-p217-north-second-row/target.png",
+          "sha256": "f65aa976b39b2a23a6c5a156d63c528938e6aea7fa95097d796efcb554024d7c",
+          "bytes": 1095
+        },
+        {
+          "originalRequestPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\target-x4.png",
+          "recoveredFromCommit": "394b830d7cd76ac3c97f480e93a54b14913501f4",
+          "path": "_analysis/coac250-193/points/image-p217-north-second-row/target-x4.png",
+          "sha256": "5014a1600c207fda7494c2ac4553b1a0f6003edccda5fe1b38e02821c8b4b4c3",
+          "bytes": 1600
+        },
+        {
+          "originalRequestPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\full-page.png",
+          "recoveredFromCommit": "394b830d7cd76ac3c97f480e93a54b14913501f4",
+          "path": "_analysis/coac250-193/points/image-p217-north-second-row/full-page.png",
+          "sha256": "c52048b9b1a0650b9041cc74a18cb0576c71eb68ccb61c5c4b482dffd79a1ba0",
+          "bytes": 227345
+        }
+      ],
+      "exactSourceCropAndNearestPixels": true,
+      "oneLedgerRecord": true,
+      "terminalEventsPreserved": [],
+      "stderrPreserved": "2026-10-27T19:04:52.925260Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out\n",
+      "actualRequest": {
+        "schema": "coach-textbook-cli-request/1",
+        "policy": "coac244-vision-terra-max-v1-20261027",
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max",
+        "callerRequested": {
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max"
+        },
+        "args": [
+          "exec",
+          "--model",
+          "gpt-6.1-terra",
+          "--config",
+          "model_reasoning_effort=\"max\"",
+          "--config",
+          "web_search=\"disabled\"",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox",
+          "read-only",
+          "--strict-config",
+          "--skip-git-repo-check",
+          "--json",
+          "--output-schema",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-AQURac\\output.schema.json",
+          "--output-last-message",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-AQURac\\final.json",
+          "--cd",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-AQURac",
+          "-i",
+          "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\original.png",
+          "-i",
+          "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\context.png",
+          "-i",
+          "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\context-x4.png",
+          "-i",
+          "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\target.png",
+          "-i",
+          "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\target-x4.png",
+          "-i",
+          "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\full-page.png",
+          "--disable",
+          "apps",
+          "--disable",
+          "auth_elicitation",
+          "--disable",
+          "browser_use",
+          "--disable",
+          "browser_use_external",
+          "--disable",
+          "browser_use_full_cdp_access",
+          "--disable",
+          "computer_use",
+          "--disable",
+          "fast_mode",
+          "--disable",
+          "goals",
+          "--disable",
+          "guardian_approval",
+          "--disable",
+          "hooks",
+          "--disable",
+          "image_generation",
+          "--disable",
+          "in_app_browser",
+          "--disable",
+          "in_app_chat",
+          "--disable",
+          "in_app_dictation",
+          "--disable",
+          "in_app_local_automation",
+          "--disable",
+          "in_app_updates",
+          "--disable",
+          "memories",
+          "--disable",
+          "mentions_v2",
+          "--disable",
+          "multi_agent",
+          "--disable",
+          "plugin_sharing",
+          "--disable",
+          "plugins",
+          "--disable",
+          "remote_plugin",
+          "--disable",
+          "shell_snapshot",
+          "--disable",
+          "shell_tool",
+          "--disable",
+          "skill_mcp_dependency_install",
+          "--disable",
+          "skill_search",
+          "--disable",
+          "sleep_tool",
+          "--disable",
+          "tool_call_mcp_elicitation",
+          "--disable",
+          "tool_suggest",
+          "--disable",
+          "unbounded_connection_retries",
+          "--disable",
+          "unified_exec",
+          "--disable",
+          "unified_exec_tty",
+          "--disable",
+          "view_image",
+          "--disable",
+          "workspace_dependencies",
+          "-"
+        ],
+        "images": [
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\original.png",
+            "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+            "bytes": 24419
+          },
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\context.png",
+            "sha256": "19e4c6c5551cfa755b72c6275692fcc47c8eaeefc1c5b6dc7ec42892cd9cfb99",
+            "bytes": 3693
+          },
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\context-x4.png",
+            "sha256": "5c6480a5c07f8b3ce6a60f1d0375702ab9e76a84484bac5058bae12e8403e719",
+            "bytes": 5217
+          },
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\target.png",
+            "sha256": "f65aa976b39b2a23a6c5a156d63c528938e6aea7fa95097d796efcb554024d7c",
+            "bytes": 1095
+          },
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\target-x4.png",
+            "sha256": "5014a1600c207fda7494c2ac4553b1a0f6003edccda5fe1b38e02821c8b4b4c3",
+            "bytes": 1600
+          },
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-47367f4b1dd7\\worktree\\.multica\\delivery\\coac-249-point-222-p217-20261028\\inputs\\image-p217-north-second-row\\full-page.png",
+            "sha256": "c52048b9b1a0650b9041cc74a18cb0576c71eb68ccb61c5c4b482dffd79a1ba0",
+            "bytes": 227345
+          }
+        ],
+        "remoteBackend": "unverified; request arguments and returned events only"
+      }
+    }
+  ],
+  "limitedRevisionRequirements": [
+    {
+      "chapterId": "79-cn-chapter-222-5",
+      "targetId": "79-bilibili-cn:cv1775262:b0018:figure",
+      "bbox": [
+        170,
+        28,
+        196,
+        65
+      ],
+      "classification": "readable",
+      "tileCode": "1m",
+      "callId": "55d504fb-96bb-4685-8842-229ff3779df1",
+      "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.display.json",
+      "candidateSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+      "field": "/figures/7/transcription",
+      "limitedRevisionRequirement": "The sixth tile token and first downward-arrow reference are currently 2m. The independent coordinate-bound reading is 1m. A future authorized revision must consistently correct only these two references; do not silently overwrite the original or change other tiles.",
+      "existingCandidateText": "牌序从左至右：2z 3z 6z 8m 5m 2m 4z 3p 2p；两支向下箭头分别位于第6张2m、第7张4z的正上方。",
+      "otherOpenItems": "Retain existing sourceNotes attachment-pairing note and original audit. Point evidence does not resolve other fields or pass the candidate."
+    },
+    {
+      "chapterId": "79-cn-chapter-217-4",
+      "targetId": "79-cn-p217-r1",
+      "bbox": [
+        150,
+        325,
+        175,
+        357
+      ],
+      "classification": "unreadable",
+      "tileCode": "unknown",
+      "callId": "09362d05-d221-427e-b474-a79017ff7619",
+      "candidatePath": "production/sol-high-field-repair26-20261027-p217e/candidates/79-cn/page-0217.json",
+      "candidateSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+      "field": "/figures/0/transcription and /figures/0/unknowns",
+      "limitedRevisionRequirement": "At this FIRST/LEFT tile only, a future authorized revision must use 万子（数字未辨清） and a coordinate-bound unknown entry, rather than asserting 5m or 6m. Keep the right/second tile outside this evidence.",
+      "teachingImpact": "点数不明不妨碍理解原文关于下家染索子一色手及扣牌的总体说明，但会限制对这张牌的精确记录和具体牌谱复盘。",
+      "historicalLocatorConflict": {
+        "oldRequest": "北家舍牌第二行第二张",
+        "currentAuthorizedPacket": "北家舍牌第二行第一张, bbox [150,325,175,357)",
+        "resolution": "Current trigger explicitly selects commit394b830 packet; FIRST tile adjudication only. Do not claim closure of the old SECOND tile 8m/9m dispute."
+      },
+      "otherOpenItems": "The existing west discard unknown, second/right North discard, web b0004/b0010 and other page issues are not adjudicated. Ownership b8 belongs to217-4, not215-4."
+    }
+  ],
+  "coverageIncrement": 0,
+  "newPassedChapters": [],
+  "previewBuilt": false,
+  "consumerStarted": false,
+  "previewCorpusIdAtIntake": "2a451fdafd5110958120deced371ebc981a54669de5c20c53d7c661b2c9c6acb",
+  "sourceOrCandidateChanged": false,
+  "fullPageOrChapterPassed": false,
+  "modelCalls": 0,
+  "upstreamCalls": 2,
+  "upstreamRetries": 0,
+  "scopeNote": "p217 FIRST/LEFT North second-row tile only; second/right8m/9m and other unknowns remain unresolved. Never apply to215-4."
+}

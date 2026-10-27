@@ -1,0 +1,225 @@
+{
+  "schema": "coac250-pdf193-version-readback/1",
+  "recordedAt": "2026-10-27T19:22:05.904Z",
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T19-21-37-757Z",
+    "corpusId": "f92816cd999f9e0e0598ad1a99f52eed8c49e26a07f825e234c2f263d42b43e0",
+    "chapters": 232,
+    "units": 240,
+    "blocks": 6339,
+    "figures": 5128
+  },
+  "supplementChapterId": "79-cn-chapter-193-4-pdf193-supplement",
+  "supplementOf": "79-cn-chapter-193-4",
+  "contentRole": "navigation",
+  "pages": [
+    {
+      "offset": 0,
+      "blocks": 2,
+      "nextOffset": null
+    }
+  ],
+  "exactBody": true,
+  "exactParentSliceBytes": true,
+  "source": {
+    "sourceId": "79-cn",
+    "title": "79 博客 · 中文 PDF",
+    "sha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+    "pages": [
+      193
+    ]
+  },
+  "slices": [
+    {
+      "id": "79-cn-p193-b6-version-sentence-1",
+      "sourceBlockId": "79-cn-p193-b6",
+      "fromCodepoint": 5,
+      "toCodepoint": 29,
+      "text": "有人立直的时候，最应该警戒的就要是两面听牌了。 ",
+      "lineIndex": 2,
+      "bbox": [
+        90.02400207519531,
+        400.9819641113281,
+        337.8699951171875,
+        412.9819641113281
+      ]
+    },
+    {
+      "id": "79-cn-p193-b6-version-sentence-2",
+      "sourceBlockId": "79-cn-p193-b6",
+      "fromCodepoint": 129,
+      "toCodepoint": 158,
+      "text": "大体的数据显示，所有的立直中三分之二的立直都是两面听牌。 ",
+      "lineIndex": 11,
+      "bbox": [
+        90.02400207519531,
+        541.4019775390625,
+        390.70001220703125,
+        553.4019775390625
+      ]
+    }
+  ],
+  "versionDifferences": [
+    {
+      "webSourceBlockIds": [
+        "79-bilibili-cn:cv1765377:b0008",
+        "79-bilibili-cn:cv1765377:b0009"
+      ],
+      "webText": "有人立直的时候，最应该警戒的就要是了。",
+      "pdfText": "有人立直的时候，最应该警戒的就要是两面听牌了。",
+      "pdfSliceId": "79-cn-p193-b6-version-sentence-1",
+      "missingInCapturedWeb": "两面听牌",
+      "operation": "separate-PDF-version-excerpt; never rewrite web source or raw"
+    },
+    {
+      "webSourceBlockIds": [
+        "79-bilibili-cn:cv1765377:b0015",
+        "79-bilibili-cn:cv1765377:b0016"
+      ],
+      "webText": "大体的数据显示，所有的立直中。",
+      "pdfText": "大体的数据显示，所有的立直中三分之二的立直都是两面听牌。",
+      "pdfSliceId": "79-cn-p193-b6-version-sentence-2",
+      "missingInCapturedWeb": "三分之二的立直都是两面听牌",
+      "operation": "separate-PDF-version-excerpt; never rewrite web source or raw"
+    }
+  ],
+  "remainingBlocker": {
+    "targetId": "79-bilibili-cn:cv1765377:b0042:figure",
+    "reason": "unresolved manzu in river; not resolved by recovering source prose",
+    "action": "preserve original candidate/raw/unknown and existing independent issue; only finite source-image adjudication after exact original packet"
+  },
+  "arenaSourceRefs": [
+    0
+  ],
+  "navigationCannotGrantTacticalCitation": true,
+  "fullChapter193Passed": false,
+  "originalCoverageIncrement": 0,
+  "priorUnitsUnchanged": 239,
+  "allPriorSelectedWebAndPdfUnchanged": true,
+  "sourceCollisions": 0,
+  "fullMcp": {
+    "units": 240,
+    "images": 5128
+  },
+  "arena": {
+    "units": 240,
+    "exactBody": true
+  },
+  "mcpCalls": [
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 0,
+        "limit": 20
+      },
+      "bytes": 4758
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 20,
+        "limit": 20
+      },
+      "bytes": 4852
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 40,
+        "limit": 20
+      },
+      "bytes": 4910
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 60,
+        "limit": 20
+      },
+      "bytes": 5054
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 80,
+        "limit": 20
+      },
+      "bytes": 5122
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 100,
+        "limit": 20
+      },
+      "bytes": 5127
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 120,
+        "limit": 20
+      },
+      "bytes": 5098
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 140,
+        "limit": 20
+      },
+      "bytes": 5011
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 160,
+        "limit": 20
+      },
+      "bytes": 5060
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 180,
+        "limit": 20
+      },
+      "bytes": 4392
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 200,
+        "limit": 20
+      },
+      "bytes": 2817
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 220,
+        "limit": 20
+      },
+      "bytes": 2845
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-cn-chapter-193-4-pdf193-supplement-unit-1",
+        "blockOffset": 0
+      },
+      "bytes": 1167
+    },
+    {
+      "name": "search_textbook",
+      "args": {
+        "query": "PDF193",
+        "chapterId": "79-cn-chapter-193-4-pdf193-supplement",
+        "limit": 5
+      },
+      "bytes": 765
+    }
+  ],
+  "activeLibraryChanged": false,
+  "modelCalls": 0
+}

@@ -1,0 +1,178 @@
+{
+  "schema": "coac244-passed-pdf-source-version-reuse/1",
+  "chapterId": "79-cn-chapter-193-4",
+  "status": "two-sentence-PDF-version-supplement-ready-not-chapter-pass",
+  "supplementChapterId": "79-cn-chapter-193-4-pdf193-supplement",
+  "stage": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-250-89abe5442b0c\\worktree\\_analysis\\coac250-193\\persisted-route-1\\stages\\79-cn-chapter-193-4-pdf193-supplement",
+  "sourcePdfSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+  "sourcePage": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\193.json",
+    "sha256": "15141d56251a928031afdb04dc40d5d72bcdc960b8672a93f0b00e8a516dca0d",
+    "bytes": 27823
+  },
+  "ownership": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\source-block-ownership.json",
+    "sha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-schemafix\\candidates\\79-cn\\page-0193.json",
+    "sha256": "046188e3be510f12c1e729353aa01fb5b1ce866685acf84e34284b8571f49e93",
+    "bytes": 7011
+  },
+  "originalAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0193.046188e3be510f12c1e729353aa01fb5b1ce866685acf84e34284b8571f49e93.6baa4a7e1404.json",
+    "sha256": "a264ce2d6452fda9ccc539910510ab2334f604f10eb7e77a14f6cea6486e449f",
+    "bytes": 25627
+  },
+  "originalAuditCallIds": [
+    "eb2060c9-7952-40ff-af91-11093800c63d"
+  ],
+  "originalCompleteBlock": {
+    "type": "text",
+    "sourceBlockIds": [
+      "79-cn-p193-b6"
+    ],
+    "chapterId": "79-cn-chapter-193-4",
+    "unitId": "79-cn-chapter-193-4-unit-1",
+    "titleSource": false,
+    "sourceText": "筋1：  有人立直的时候，最应该警戒的就要是两面听牌了。  只要对手不是麻将的初学者， 一般情况下都会等待嵌张、双碰听牌变化成两面听牌。  因为对手会等待嵌张和双碰听牌变化成两面的好形听牌， 所以听牌了也有可能不会立直。  因此立直的听牌形往往是两面居多， 大体的数据显示，所有的立直中三分之二的立直都是两面听牌。  为了不铳两面听牌的理论就叫做“筋”。  ------------------------------------------------------------------------------------6 个基本筋 ------------------------------------------------------------------------------------ 我们来看看实际的两面听牌吧。  ",
+    "text": "筋1：  有人立直的时候，最应该警戒的就要是两面听牌了。  只要对手不是麻将的初学者， 一般情况下都会等待嵌张、双碰听牌变化成两面听牌。  因为对手会等待嵌张和双碰听牌变化成两面的好形听牌， 所以听牌了也有可能不会立直。  因此立直的听牌形往往是两面居多， 大体的数据显示，所有的立直中三分之二的立直都是两面听牌。  为了不铳两面听牌的理论就叫做“筋”。  ------------------------------------------------------------------------------------6 个基本筋 ------------------------------------------------------------------------------------ 我们来看看实际的两面听牌吧。  "
+  },
+  "slices": [
+    {
+      "id": "79-cn-p193-b6-version-sentence-1",
+      "sourceBlockId": "79-cn-p193-b6",
+      "fromCodepoint": 5,
+      "toCodepoint": 29,
+      "text": "有人立直的时候，最应该警戒的就要是两面听牌了。 ",
+      "lineIndex": 2,
+      "bbox": [
+        90.02400207519531,
+        400.9819641113281,
+        337.8699951171875,
+        412.9819641113281
+      ]
+    },
+    {
+      "id": "79-cn-p193-b6-version-sentence-2",
+      "sourceBlockId": "79-cn-p193-b6",
+      "fromCodepoint": 129,
+      "toCodepoint": 158,
+      "text": "大体的数据显示，所有的立直中三分之二的立直都是两面听牌。 ",
+      "lineIndex": 11,
+      "bbox": [
+        90.02400207519531,
+        541.4019775390625,
+        390.70001220703125,
+        553.4019775390625
+      ]
+    }
+  ],
+  "webSource": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1765377\\source.json",
+    "sha256": "75b3eae5938bd5e635089891d6ee721575cf9d8fddce050dadcb90a5f47f48c5",
+    "bytes": 38311
+  },
+  "versionDifferences": [
+    {
+      "webSourceBlockIds": [
+        "79-bilibili-cn:cv1765377:b0008",
+        "79-bilibili-cn:cv1765377:b0009"
+      ],
+      "webText": "有人立直的时候，最应该警戒的就要是了。",
+      "pdfText": "有人立直的时候，最应该警戒的就要是两面听牌了。",
+      "pdfSliceId": "79-cn-p193-b6-version-sentence-1",
+      "missingInCapturedWeb": "两面听牌",
+      "operation": "separate-PDF-version-excerpt; never rewrite web source or raw"
+    },
+    {
+      "webSourceBlockIds": [
+        "79-bilibili-cn:cv1765377:b0015",
+        "79-bilibili-cn:cv1765377:b0016"
+      ],
+      "webText": "大体的数据显示，所有的立直中。",
+      "pdfText": "大体的数据显示，所有的立直中三分之二的立直都是两面听牌。",
+      "pdfSliceId": "79-cn-p193-b6-version-sentence-2",
+      "missingInCapturedWeb": "三分之二的立直都是两面听牌",
+      "operation": "separate-PDF-version-excerpt; never rewrite web source or raw"
+    }
+  ],
+  "remainingBlocker": {
+    "targetId": "79-bilibili-cn:cv1765377:b0042:figure",
+    "reason": "unresolved manzu in river; not resolved by recovering source prose",
+    "action": "preserve original candidate/raw/unknown and existing independent issue; only finite source-image adjudication after exact original packet"
+  },
+  "fullChapterPassed": false,
+  "originalChapterCoverageIncrement": 0,
+  "duplicateCountedAsOriginalBody": false,
+  "sourceAndRawChanged": false,
+  "newModelCalls": 0,
+  "automaticRetry": 0,
+  "chapters": 1,
+  "units": 1,
+  "blocks": 2,
+  "figures": 0,
+  "corpusId": "7d1743898551fa7b8cf3cfcb26f1ee234d332e93434443c5a09fc3340c17c4d7",
+  "bodySha256": "807ad83faf24e1f50b42abe07df1f74a1f35011df9bb1afb988e353d177800fd",
+  "maxUnitBytes": 842,
+  "modelCalls": 0,
+  "selectionBinding": {
+    "chapterId": "79-cn-chapter-193-4-pdf193-supplement",
+    "supplementOf": "79-cn-chapter-193-4",
+    "module": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/stage-pdf193-supplement.mjs",
+      "sha256": "10b30eec55fa2e4d2b1ed91829f051e74ae9d7027a40837c677d10f8ed93e5c0"
+    },
+    "config": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/config.json",
+      "sha256": "a3205fbdaf78b205ff744d96f9337de7fb7845364d678ddccff70fa1f7ffde38"
+    },
+    "reuseReceipt": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/193-reuse-receipt.json",
+      "sha256": "0c3df4389d557f54e2fc62434e129ec5815311860cedc1a393a36413a60541a7"
+    },
+    "files": [
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/config.json",
+        "sha256": "a3205fbdaf78b205ff744d96f9337de7fb7845364d678ddccff70fa1f7ffde38"
+      },
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/193-reuse-receipt.json",
+        "sha256": "0c3df4389d557f54e2fc62434e129ec5815311860cedc1a393a36413a60541a7"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-scope215-pdf193-20261028\\verification-runtime-manifest.json",
+        "sha256": "41e7e0140ec3bed00b76f04e6ba5e1294975275c01660d8e887f330af7260480"
+      },
+      {
+        "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/compile-textbook-corpus.mjs",
+        "sha256": "b4a8fb7432847e54b3c922a5b83e88b3d957abd6a16e726c772188fa5db4a2db"
+      },
+      {
+        "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/textbook-review.mjs",
+        "sha256": "11b3b9c1dcb41b2cdde72517dca733a84a352e75eea154edea5acc36408c7edf"
+      }
+    ],
+    "sourceIdentity": {
+      "sourcePdfSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+      "page": 193,
+      "parentSha256": "046188e3be510f12c1e729353aa01fb5b1ce866685acf84e34284b8571f49e93",
+      "sourceBlockId": "79-cn-p193-b6",
+      "slices": [
+        [
+          5,
+          29
+        ],
+        [
+          129,
+          158
+        ]
+      ]
+    },
+    "dedupeKey": "678cbae60c91a0eb5af5f53d1dcfbbe020de79b7709d7c6104304e8728ab44bf",
+    "contentRole": "navigation",
+    "originalChapterCoverageIncrement": 0,
+    "fullChapterPassed": false,
+    "modelCalls": 0
+  }
+}

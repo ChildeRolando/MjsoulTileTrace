@@ -1,0 +1,61 @@
+{
+  "schema": "coac249-independent-point-receipt/1",
+  "callId": "09362d05-d221-427e-b474-a79017ff7619",
+  "key": "image-p217-north-second-row",
+  "recordedAt": "2026-10-27T19:06:36.127Z",
+  "chapterId": "79-cn-chapter-217-4",
+  "targetId": "79-cn-p217-r1",
+  "bbox": [
+    150,
+    325,
+    175,
+    357
+  ],
+  "packetSha256": "5c8638af53c2618bcb2d130bd0279e5e4086bc0abc315bd76ecfa5d7c85b3c64",
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-p217-north-second-row.raw.json",
+    "sha256": "cc7f332d563cfc25106e77b06a097ddcb797450e8c4dbac69110901a8b51e516"
+  },
+  "model": "gpt-6.1-terra",
+  "reasoningEffort": "max",
+  "recordedModel": true,
+  "payloadOK": true,
+  "identityOK": true,
+  "valid": true,
+  "classification": "unreadable",
+  "result": {
+    "chapterId": "79-cn-chapter-217-4",
+    "targetId": "79-cn-p217-r1",
+    "targetBBox": [
+      150,
+      325,
+      175,
+      357
+    ],
+    "outcome": "unreadable",
+    "tileCode": "unknown",
+    "locationCheck": "原图坐标对应底部北家舍牌区第二行的左侧牌，位于东风牌下方；与目标裁剪和邻近上下文一致。右侧相邻牌不作为裁决对象。",
+    "visualEvidence": [
+      "目标牌下部可见红色「萬」字。",
+      "上部黑色数字字形的部分笔画粘连，笔画起止和连接关系不够清楚，无法可靠确定点数。"
+    ],
+    "uncertainty": "可辨出万子，但不能仅凭现有字形可靠辨认其数字。四倍图只是最近邻放大，没有增加笔画细节。",
+    "teachingImpact": "点数不明不妨碍理解原文关于下家染索子一色手及扣牌的总体说明，但会限制对这张牌的精确记录和具体牌谱复盘。",
+    "scopeLimit": "本证据仅适用于该坐标内的目标牌，不代表其他牌或全章通过。"
+  },
+  "usage": {
+    "inputTokens": 14682,
+    "cachedInputTokens": 0,
+    "outputTokens": 4086
+  },
+  "durationMs": 108282,
+  "threadIds": [
+    "01a17ec0-3437-7a22-bca8-b5052dacd72a"
+  ],
+  "runtimeManifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+  "remoteGatewayWeights": "unknown",
+  "newCalls": 1,
+  "retry": 0,
+  "candidateChanged": false,
+  "pageOrChapterPassed": false
+}
