@@ -1,0 +1,16 @@
+{
+  "chapterId": "79-cn-chapter-222-5",
+  "authorizationCommentId": "01a17ee7-ff76-70b6-b6cf-b9efc84f01d5",
+  "originalAuthorizationCommentId": "01a17ec7-dbf3-77e6-a4f4-4dae65b73038",
+  "fixedMakerPath": "integration/coac244-maker-schema-fix-20261028/run222-fixed.mjs",
+  "fixedMakerSha256": "852c9524afc552dd1779506b93e722948b15eee20cd68dc38d90506cc7bfaea5",
+  "runtimeManifestSha256": "a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c",
+  "newProductionMaximum": 1,
+  "originalUnusedTargetedIndependentReview": 1,
+  "historicalFailedProduction": 1,
+  "stageLifetimeMaximum": 3,
+  "failedVoidCount": true,
+  "automaticRetry": 0,
+  "historicalRunnerAuthorizationField": "Owner-supplied fixed runner retains the original authorizationCommentId in raw/preflight. This supplementary receipt binds the explicit additional-maker authorization without rewriting the frozen script or raw.",
+  "extraCanaryCalls": 0
+}

@@ -16,8 +16,8 @@
   "totalTracked": 38
  },
  "countsCurrent": {
-  "needsRepair": 40,
-  "awaitingIndependentReview": 1,
+  "needsRepair": 39,
+  "awaitingIndependentReview": 2,
   "decisionHold": 1,
   "resolvedTotal": 21,
   "totalTracked": 63,
@@ -1471,11 +1471,11 @@
    "chapterId": "79-cn-chapter-222-5",
    "sourceId": "79-bilibili-cn",
    "articleId": "cv1775262",
-   "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.display.json",
-   "candidateSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
-   "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
-   "auditStatus": "needs-repair",
-   "issueCount": 1,
+   "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.r2.display.json",
+   "candidateSha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d",
+   "auditPath": null,
+   "auditStatus": "awaiting-independent-review",
+   "issueCount": null,
    "unitCount": 1,
    "blockCount": 36,
    "pdfPages": [
@@ -1485,7 +1485,7 @@
     225,
     226
    ],
-   "currentDisposition": "point-revision-failed-schema-no-candidate-no-auto-retry",
+   "currentDisposition": "exact-two-reference-revision-produced-awaiting-one-first-targeted-independent-review",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
    "auditRecordedAt": "2026-10-27T15:25:29.963Z",
@@ -1499,7 +1499,7 @@
     "issueCount": 4,
     "auditRecordedAt": "2026-10-25T22:04:04.447Z"
    },
-   "auditSha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec",
+   "auditSha256": null,
    "revision": {
     "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1775262.display.json",
     "parentSha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4",
@@ -1596,7 +1596,7 @@
     "existingCandidateText": "牌序从左至右：2z 3z 6z 8m 5m 2m 4z 3p 2p；两支向下箭头分别位于第6张2m、第7张4z的正上方。",
     "otherOpenItems": "Retain existing sourceNotes attachment-pairing note and original audit. Point evidence does not resolve other fields or pass the candidate."
    },
-   "nextAction": "Two1m references still require repair. Production budget exhausted; no eligible candidate for reserved targeted review. Existing owner must resolve further execution authority.",
+   "nextAction": "COAC-249 one reserved independent target review; no point re-adjudication or automatic retry.",
    "pointCandidateComparison": {
     "currentCandidateMatchesReading": false,
     "candidateReading": "2m in both references",
@@ -1653,6 +1653,51 @@
     },
     "recoveryPossible": false,
     "automaticRetry": false
+   },
+   "historicalR1BeforeSchemaV2": {
+    "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.display.json",
+    "candidateSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+    "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+    "auditStatus": "needs-repair",
+    "auditSha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec",
+    "issueCount": 1
+   },
+   "schemaV2LiveRecovery": {
+    "callId": "487c0ef8-603e-405a-83ff-5321247f180b",
+    "usage": {
+     "inputTokens": 12465,
+     "cachedInputTokens": 0,
+     "outputTokens": 352
+    },
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "runtimeManifestSha256": "a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c",
+    "handoff249": {
+     "path": "integration\\coac249-incremental-222-5-schema-v2-20261028.json",
+     "sha256": "9ce36b6340a418ee3ccb8a5a22dbe34397b884c8ece825505db6b5cffbb95de9"
+    },
+    "metadataCompletion": {
+     "originalRunnerExitCode": 1,
+     "error": "web_production_model",
+     "subsequentZeroCallGateError": "web_presentation_missing_parent_binding",
+     "cause": "Owner fixed runner omitted requestExecution and removed the display parent binding while retaining presentation assets.",
+     "change": "Copy exact call.requestExecution and bind inherited image display assets to an exact unpresented artifact of this new model output; original validators and image bytes unchanged.",
+     "unpresentedPath": "web-production/v1/runs/coac248-web-222-5-r3-20261028/model-output-without-display.json",
+     "unpresentedSha256": "0d155549b438377314fcf02bd54706e4d19dbff4e14ad416c681953f7ea95916",
+     "unpresentedReviewEligible": false,
+     "newModelCalls": 0,
+     "rawUnchanged": true,
+     "modelAuthoredFieldsRestoredOrOverwritten": false,
+     "runtimeModified": false,
+     "originalLedgerClassificationPreserved": true
+    },
+    "stageCallsConsumed": 2,
+    "remainingBudget": {
+     "production": 0,
+     "targetedIndependentReview": 1,
+     "retry": 0
+    },
+    "wakeup249Id": "01a17ef3-d243-73e5-8676-04ccb2917f76"
    }
   },
   {
@@ -4569,7 +4614,7 @@
   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter03-section011.6ad44173945b9347cd8dd7c44640fa3341bf8e83109695e4cd8aacc6d3d98b21.json",
   "note": "Isolated revision from the 249/250 register set; parent receipt, parent candidate and raw preserved."
  },
- "refreshedAt": "2026-10-27T19:48:39.299828+00:00",
+ "refreshedAt": "2026-10-27T19:59:04.558778+00:00",
  "byOrigin": {
   "COAC-248 old PDF 12": 5,
   "COAC-247 new PDF return": 3,
@@ -7772,5 +7817,50 @@
   "candidateEdits": 0,
   "countsUnchanged": true,
   "additionalBudget": 0
+ },
+ "countsPrior222SchemaV2": {
+  "needsRepair": 40,
+  "awaitingIndependentReview": 1,
+  "decisionHold": 1,
+  "resolvedTotal": 21,
+  "totalTracked": 63,
+  "failedSeparateHistoryRecords": 3,
+  "scope": "Stored objects only, not a fresh whole-book remainder. Unrelated rows are inherited without refreshing their current external audit state; no new passed status inferred."
+ },
+ "round222SchemaV2Live20261028": {
+  "callId": "487c0ef8-603e-405a-83ff-5321247f180b",
+  "usage": {
+   "inputTokens": 12465,
+   "cachedInputTokens": 0,
+   "outputTokens": 352
+  },
+  "model": "gpt-6.1-terra",
+  "reasoningEffort": "max",
+  "runtimeManifestSha256": "a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c",
+  "handoff249": {
+   "path": "integration\\coac249-incremental-222-5-schema-v2-20261028.json",
+   "sha256": "9ce36b6340a418ee3ccb8a5a22dbe34397b884c8ece825505db6b5cffbb95de9"
+  },
+  "metadataCompletion": {
+   "originalRunnerExitCode": 1,
+   "error": "web_production_model",
+   "subsequentZeroCallGateError": "web_presentation_missing_parent_binding",
+   "cause": "Owner fixed runner omitted requestExecution and removed the display parent binding while retaining presentation assets.",
+   "change": "Copy exact call.requestExecution and bind inherited image display assets to an exact unpresented artifact of this new model output; original validators and image bytes unchanged.",
+   "unpresentedPath": "web-production/v1/runs/coac248-web-222-5-r3-20261028/model-output-without-display.json",
+   "unpresentedSha256": "0d155549b438377314fcf02bd54706e4d19dbff4e14ad416c681953f7ea95916",
+   "unpresentedReviewEligible": false,
+   "newModelCalls": 0,
+   "rawUnchanged": true,
+   "modelAuthoredFieldsRestoredOrOverwritten": false,
+   "runtimeModified": false,
+   "originalLedgerClassificationPreserved": true
+  },
+  "stageCallsConsumed": 2,
+  "remainingBudget": {
+   "production": 0,
+   "targetedIndependentReview": 1,
+   "retry": 0
+  }
  }
 }

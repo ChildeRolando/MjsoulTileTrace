@@ -1,0 +1,345 @@
+{
+  "schema": "coac248-exact-two-reference-independent-review-handoff/1",
+  "recordedAt": "2026-10-27T19:59:04.558778+00:00",
+  "from": "COAC-248",
+  "to": "COAC-249",
+  "authorizationCommentId": "01a17ee7-ff76-70b6-b6cf-b9efc84f01d5",
+  "chapterId": "79-cn-chapter-222-5",
+  "articleId": "cv1775262",
+  "sourceId": "79-bilibili-cn",
+  "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r2.display.json",
+    "sha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d"
+  },
+  "source": {
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1775262",
+    "url": "https://www.bilibili.com/read/cv1775262",
+    "title": "【日本麻雀讲座译文】防守14—立直的读牌（一）",
+    "language": "zh-CN",
+    "fetchedAt": "2026-10-23T20:31:50.303666+00:00",
+    "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1775262/source.json",
+    "sourceSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+    "htmlSha256": "00ba55b262d15739f0f6cf28b92e56751ff0ea9e38aed7e8e2349de8edfa7ae1",
+    "mainSha256": "8311e4033b07646c4a91acfbe1bea660d805802ccbb204c11a5423ce6a810706"
+  },
+  "parent": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.display.json",
+    "sha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+    "auditSha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec"
+  },
+  "originalIndependentAuditCallId": "f64f0d4f-8833-475e-96dd-a9c5f80e2ba9",
+  "priorPointEvidence": {
+    "path": "integration/coac249-point-222-p217-20261028.json",
+    "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9",
+    "callId": "55d504fb-96bb-4685-8842-229ff3779df1",
+    "bbox": [
+      170,
+      28,
+      196,
+      65
+    ],
+    "reading": "1m",
+    "scope": "Inherited independent point reading; do not spend a new call re-adjudicating the same original-image point."
+  },
+  "production": {
+    "callId": "487c0ef8-603e-405a-83ff-5321247f180b",
+    "rawPath": "web-production\\v1\\raw-calls\\487c0ef8-603e-405a-83ff-5321247f180b.json",
+    "rawSha256": "1b5d17816f423da4b2a3e3d8f71d18d5013cad464af305127f6bd73abf2f6d11",
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "callerRequested": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-terra",
+        "--config",
+        "model_reasoning_effort=\"max\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-JQkdlu\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-JQkdlu\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-JQkdlu",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+          "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+          "bytes": 3492
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png",
+          "sha256": "98f2495dfb2b67f1e57c6639f533e9630c5ce46a35e89fbc55248e60f2136126",
+          "bytes": 6652
+        }
+      ],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "usage": {
+      "inputTokens": 12465,
+      "cachedInputTokens": 0,
+      "outputTokens": 352
+    },
+    "durationMs": 10395,
+    "remoteWeights": "unknown"
+  },
+  "runtime": {
+    "path": "audit\\runtimes\\coac244-vision-production-schema-v2-20261028",
+    "manifestSha256": "a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c",
+    "files": 28
+  },
+  "fieldScope": {
+    "figureId": "79-bilibili-cn:cv1775262:b0018:figure",
+    "field": "transcription",
+    "from": "左上方标签：例5。牌序从左至右：2z 3z 6z 8m 5m 2m 4z 3p 2p，共9张；第9张2p横置，无赤牌。\n两支向下箭头分别位于第6张2m、第7张4z的正上方。",
+    "to": "左上方标签：例5。牌序从左至右：2z 3z 6z 8m 5m 1m 4z 3p 2p，共9张；第9张2p横置，无赤牌。\n两支向下箭头分别位于第6张1m、第7张4z的正上方。",
+    "allOtherFieldsFixed": true
+  },
+  "preservation": {
+    "body": true,
+    "nonTargetFigures": 9,
+    "figureOrder": true,
+    "caption": true,
+    "sourceNotes": true,
+    "unknowns": true
+  },
+  "originalValidators": {
+    "gate": {
+      "passed": true,
+      "exactTextTargets": 0,
+      "exactFigureTargets": 1,
+      "localCardinalityAndContentGate": true
+    },
+    "productionProof": {
+      "callId": "487c0ef8-603e-405a-83ff-5321247f180b",
+      "rawArtifactPath": "raw-calls/487c0ef8-603e-405a-83ff-5321247f180b.json",
+      "rawArtifactSha256": "1b5d17816f423da4b2a3e3d8f71d18d5013cad464af305127f6bd73abf2f6d11",
+      "revision": {
+        "revision": {
+          "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.display.json",
+          "parentSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+          "notesPath": "audit/web/articles/79-bilibili-cn/cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+          "notesSha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec",
+          "figureIds": [
+            "79-bilibili-cn:cv1775262:b0018:figure"
+          ]
+        },
+        "parentAudit": {
+          "path": "audit/web/articles/79-bilibili-cn/cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+          "sha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec",
+          "originalStatus": "needs-repair"
+        },
+        "parentCall": {
+          "callId": "f64f0d4f-8833-475e-96dd-a9c5f80e2ba9",
+          "path": "audit/calls/f64f0d4f-8833-475e-96dd-a9c5f80e2ba9.json",
+          "sha256": "a38f4973d1a3a896fbe48d9e808a37c143c775f6094fab913aca699c58b11c61"
+        },
+        "inheritedAssetIds": [
+          "79-bilibili-cn:4ff806d68ab98feab4e37046",
+          "79-bilibili-cn:999daad6f550e9d0bfcd8cc0",
+          "79-bilibili-cn:f6e6f1345fa33b2bd93fc140",
+          "79-bilibili-cn:ac1227cfc248f158cf13a4f5",
+          "79-bilibili-cn:ae83195091b81bec79b1bfdf",
+          "79-bilibili-cn:c9579005445a78fd7b453000",
+          "79-bilibili-cn:822cd7d9d2e330d06ecac5a3",
+          "79-bilibili-cn:e37c65845d580365c4b6672c",
+          "79-bilibili-cn:4caa022d0d4e924f4e7db15b"
+        ]
+      },
+      "visualInputs": {
+        "inputs": [
+          {
+            "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+            "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+            "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+            "role": "original",
+            "scale": 1,
+            "resampling": "none",
+            "width": 304,
+            "height": 74
+          },
+          {
+            "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+            "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png",
+            "sha256": "98f2495dfb2b67f1e57c6639f533e9630c5ce46a35e89fbc55248e60f2136126",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 1216,
+            "height": 296
+          }
+        ],
+        "pixels": {
+          "passed": true,
+          "inputs": 2
+        }
+      }
+    },
+    "presentation": {
+      "parent": {
+        "path": "web-production/v1/runs/coac248-web-222-5-r3-20261028/model-output-without-display.json",
+        "sha256": "0d155549b438377314fcf02bd54706e4d19dbff4e14ad416c681953f7ea95916",
+        "reason": "Exact new model-authored semantic content, with inherited original-image display assets bound separately; not a second candidate for review."
+      },
+      "pixels": {
+        "passed": true,
+        "figures": 10,
+        "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+      }
+    },
+    "checks": {
+      "passed": true,
+      "errors": [],
+      "textBlocks": 13,
+      "imageRuns": 10,
+      "imageOccurrences": 10,
+      "figures": 10
+    }
+  },
+  "metadataCompletion": {
+    "originalRunnerExitCode": 1,
+    "error": "web_production_model",
+    "subsequentZeroCallGateError": "web_presentation_missing_parent_binding",
+    "cause": "Owner fixed runner omitted requestExecution and removed the display parent binding while retaining presentation assets.",
+    "change": "Copy exact call.requestExecution and bind inherited image display assets to an exact unpresented artifact of this new model output; original validators and image bytes unchanged.",
+    "unpresentedPath": "web-production/v1/runs/coac248-web-222-5-r3-20261028/model-output-without-display.json",
+    "unpresentedSha256": "0d155549b438377314fcf02bd54706e4d19dbff4e14ad416c681953f7ea95916",
+    "unpresentedReviewEligible": false,
+    "newModelCalls": 0,
+    "rawUnchanged": true,
+    "modelAuthoredFieldsRestoredOrOverwritten": false,
+    "runtimeModified": false,
+    "originalLedgerClassificationPreserved": true
+  },
+  "reviewScope": "One first independent targeted review of this new candidate SHA: verify the exact two-reference repair and all affected teaching references/metadata against the inherited coordinate reading, plus preservation evidence and original full-article audit for unchanged content. Do not repeat original-image point adjudication or an unrelated whole-article review.",
+  "independence": "Producer gate/proof is not independent acceptance. Review the actual new candidate and bound source/parent/point evidence; preserve any remaining error or uncertainty.",
+  "acceptanceContract": "Use the existing independent target-review plus unchanged-parent evidence contract if supported. Bind the new receipt and sole new candidate to the original full-article review and preservation proof. Do not fabricate a standard full-article passed receipt, alter an old audit, relax a gate, or expand the model scope to work around an unsupported contract. Report an exact zero-call contract blocker to existing244 owner if necessary.",
+  "limits": {
+    "productionRemaining": 0,
+    "firstTargetedIndependentReview": 1,
+    "automaticRetry": 0,
+    "failedVoidCount": true,
+    "stageConsumed": 2,
+    "stageLifetimeMaximum": 3
+  },
+  "history": {
+    "oldSchemaFailedCall": "b702fbf7-dbe4-4533-9a55-aa0912a334f3",
+    "oldUsage": null,
+    "originalR1FailedThenZeroCallRecovered": "20d7f5e0-2640-4b87-bde1-e6505d839822",
+    "allOriginalRawAndLedgerUnchanged": true
+  },
+  "dispatchRequirements": "Before review recheck latest preview/register and real terminal/in-flight audit by exact source+candidate SHA; check STOP/admission, acquire existing audit guard. Queue behind existing PDF217 impact work rather than starting an extra consumer; no lock deletion.",
+  "unpresentedArtifact": {
+    "path": "web-production/v1/runs/coac248-web-222-5-r3-20261028/model-output-without-display.json",
+    "sha256": "0d155549b438377314fcf02bd54706e4d19dbff4e14ad416c681953f7ea95916",
+    "separatelyReviewOrIntegrate": false
+  },
+  "resultRouting": "Only a real successful independent conclusion may be handed to250 with exact SHA and full supplementary proof. Otherwise return precise issues to248/244 and stop. Do not wait for the full book or create another maker batch.",
+  "independentAcceptance": null,
+  "integrationAllowed": false,
+  "newCallsThisPackaging": 0,
+  "scopeExcludes": [
+    "PDF217",
+    "PDF257",
+    "183",
+    "236",
+    "B-line"
+  ]
+}

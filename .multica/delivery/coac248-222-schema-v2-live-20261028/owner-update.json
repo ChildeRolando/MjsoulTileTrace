@@ -1,0 +1,38 @@
+{
+  "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-repair-handoff-20261027.json",
+  "beforeSha256": "4535f721669489865568bb94b07512d8007b355f1be4749ea7db45011c45ca58",
+  "afterSha256": "9df1f49c52908b91e97d70845496d9dbf462077b39b0ffbeee7ab7748ab8af57",
+  "oldItemsPreserved": true,
+  "addedItem": {
+    "kind": "web-exact-two-reference-schema-v2-produced",
+    "chapterId": "79-cn-chapter-222-5",
+    "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r2.display.json",
+    "candidateSha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d",
+    "auditStatus": "awaiting-independent-target-review",
+    "integrationAllowed": false,
+    "handoff249": {
+      "path": "integration\\coac249-incremental-222-5-schema-v2-20261028.json",
+      "sha256": "9ce36b6340a418ee3ccb8a5a22dbe34397b884c8ece825505db6b5cffbb95de9"
+    },
+    "metadataCompletion": {
+      "originalRunnerExitCode": 1,
+      "error": "web_production_model",
+      "subsequentZeroCallGateError": "web_presentation_missing_parent_binding",
+      "cause": "Owner fixed runner omitted requestExecution and removed the display parent binding while retaining presentation assets.",
+      "change": "Copy exact call.requestExecution and bind inherited image display assets to an exact unpresented artifact of this new model output; original validators and image bytes unchanged.",
+      "unpresentedPath": "web-production/v1/runs/coac248-web-222-5-r3-20261028/model-output-without-display.json",
+      "unpresentedSha256": "0d155549b438377314fcf02bd54706e4d19dbff4e14ad416c681953f7ea95916",
+      "unpresentedReviewEligible": false,
+      "newModelCalls": 0,
+      "rawUnchanged": true,
+      "modelAuthoredFieldsRestoredOrOverwritten": false,
+      "runtimeModified": false,
+      "originalLedgerClassificationPreserved": true
+    },
+    "remainingBudget": {
+      "production": 0,
+      "targetedIndependentReview": 1,
+      "retry": 0
+    }
+  }
+}
