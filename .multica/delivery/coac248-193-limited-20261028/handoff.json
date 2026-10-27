@@ -1,0 +1,248 @@
+{
+  "schema": "coac248193-existing-consumer-limited-fidelity-handoff/1",
+  "recordedAt": "2026-10-27T23:09:13.039137+00:00",
+  "canonical": "79-cn-chapter-193-4",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1765377.display.json",
+    "sha256": "e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e",
+    "bytes": 46610
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1765377\\source.json",
+    "sha256": "75b3eae5938bd5e635089891d6ee721575cf9d8fddce050dadcb90a5f47f48c5",
+    "bytes": 38311
+  },
+  "oldAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1765377.e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e.json",
+    "sha256": "ecddf372db56b1fbce0133a7ab824deb673f9d56868b5e02ef028c4fccf8c6e9",
+    "bytes": 26547
+  },
+  "proof": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-193-limited-20261028\\proof.json",
+    "sha256": "b1ad29377240e032af4898eee1822e88ac7a1d13ded13aad741ebc1018643f16"
+  },
+  "manifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-193-limited-20261028\\manifest.json",
+    "sha256": "3e525789a9e2f9f61c6142f46a6aa7e0975a072cbc40c75b6870d13f13c5d7e1"
+  },
+  "commands": [
+    "python -X utf8 E:/AgentData/Coach/knowledge/processing/integration/coac248-193-limited-20261028/verify.py",
+    "python -X utf8 E:/AgentData/Coach/knowledge/processing/integration/coac248-193-limited-20261028/verify_test.py",
+    "E:/IDE/NodeJS/node.exe E:/AgentData/Coach/knowledge/processing/integration/coac248-193-limited-20261028/gates.mjs"
+  ],
+  "independentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-193208276-20261028\\receipt-193.json",
+    "sha256": "1303cb2c932a2450d1fcd8d7c02ff5b9e135c21c9ade3e1b1f27383f9adc04a6"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d84eb7ca-3897-4421-ae47-03efcdf32bb1.json",
+    "sha256": "a07918ba59b42178e5019e02cd9a506a6df75378eac5667516575bb584a6d339"
+  },
+  "request": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-193208276-20261028\\request-193.json",
+    "sha256": "664fd77d2c48e3ce9b25024b2591b7ed2d7520caae62cb3c2baf7a456254f45f"
+  },
+  "target": {
+    "figureId": "79-bilibili-cn:cv1765377:b0042:figure",
+    "pointId": "right-row2-col2",
+    "bbox": [
+      298,
+      153,
+      325,
+      175
+    ],
+    "originalSize": [
+      394,
+      415
+    ]
+  },
+  "currentCandidateMeetsIndependentDisplayConditions": true,
+  "candidateEditsNeeded": false,
+  "newNoteNeededInCandidate": false,
+  "requiredDisplayLimitations": [
+    "保留原图及右侧牌河第2行右列万子点数未知的明确标记，不填入猜测牌码，也不宣称该牌河已逐牌完整转录。",
+    "保留原文对非初学者、一般情况下、可能和往往的限定；原文及候选的段落顺序、sourceSegments、tableContext和图序照所给数据保留，图中红圈继续显示。",
+    "原样保留作者对5万的安全牌表述及其上下文：所给理由涉及立直上家的2万、8万和34万、67万两面听牌；7饼的结论也限定为至少不会铳两面听牌。不得扩写为对所有听型或所有玩家绝对安全。",
+    "保留b0008至b0009及b0015至b0016的Web捕获残句和继承的不完整限制。PDF版本的完整句子如另行展示，须明确标注独立来源与版本，不能作为Web原文的无注补写。",
+    "完整牌河、暗手、概率和最优策略不属于本次有限许可；不据此宣称整章通过。"
+  ],
+  "unresolvedSourceVersionLimitations": [
+    {
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1765377:b0008",
+        "79-bilibili-cn:cv1765377:b0009",
+        "79-bilibili-cn:cv1765377:b0015",
+        "79-bilibili-cn:cv1765377:b0016"
+      ],
+      "authorContribution": "引言还提出立直时应警戒的对象和大体统计，但所捕获的Web版本在这两处只留下残句。",
+      "faithfulWithCurrentExplicitUnknown": "uncertain",
+      "requiresExactPointForAuthorArgument": "no",
+      "evidence": "候选保留了所给Web残句；完整表述不能仅由这些残句核验。这是继承的源文限制，并非目标牌造成。另供的PDF版本补充来自79-cn-p193-b6，应独立标明版本，不能当作已修复Web正文。"
+    }
+  ],
+  "parentTargetImageCheckUncertainPreserved": {
+    "id": "79-bilibili-cn:cv1765377:i00003",
+    "disposition": "uncertain",
+    "evidence": "对应b0042图，原图为附件3，放大视图为附件6；主要布局及教学关系已表示，但右侧牌河第2行右列的一张万子仍未确定牌码。"
+  },
+  "separatePdfSourceVersion": {
+    "chapterId": "79-cn-chapter-193-4-pdf193-supplement",
+    "alreadyIntegrated": true,
+    "proof": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-scope215-pdf193-20261028\\stage-193-supplement\\textbook-bodies.json",
+      "sha256": "807ad83faf24e1f50b42abe07df1f74a1f35011df9bb1afb988e353d177800fd",
+      "originalEvidence": {
+        "schema": "coac244-passed-pdf-source-version-reuse/1",
+        "chapterId": "79-cn-chapter-193-4",
+        "status": "two-sentence-PDF-version-supplement-ready-not-chapter-pass",
+        "supplementChapterId": "79-cn-chapter-193-4-pdf193-supplement",
+        "stage": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-scope215-pdf193-20261028\\stage-193-supplement",
+        "sourcePdfSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+        "sourcePage": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\193.json",
+          "sha256": "15141d56251a928031afdb04dc40d5d72bcdc960b8672a93f0b00e8a516dca0d",
+          "bytes": 27823
+        },
+        "ownership": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\source-block-ownership.json",
+          "sha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60"
+        },
+        "parent": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-schemafix\\candidates\\79-cn\\page-0193.json",
+          "sha256": "046188e3be510f12c1e729353aa01fb5b1ce866685acf84e34284b8571f49e93",
+          "bytes": 7011
+        },
+        "originalAudit": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0193.046188e3be510f12c1e729353aa01fb5b1ce866685acf84e34284b8571f49e93.6baa4a7e1404.json",
+          "sha256": "a264ce2d6452fda9ccc539910510ab2334f604f10eb7e77a14f6cea6486e449f",
+          "bytes": 25627
+        },
+        "originalAuditCallIds": [
+          "eb2060c9-7952-40ff-af91-11093800c63d"
+        ],
+        "originalCompleteBlock": {
+          "type": "text",
+          "sourceBlockIds": [
+            "79-cn-p193-b6"
+          ],
+          "chapterId": "79-cn-chapter-193-4",
+          "unitId": "79-cn-chapter-193-4-unit-1",
+          "titleSource": false,
+          "sourceText": "筋1：  有人立直的时候，最应该警戒的就要是两面听牌了。  只要对手不是麻将的初学者， 一般情况下都会等待嵌张、双碰听牌变化成两面听牌。  因为对手会等待嵌张和双碰听牌变化成两面的好形听牌， 所以听牌了也有可能不会立直。  因此立直的听牌形往往是两面居多， 大体的数据显示，所有的立直中三分之二的立直都是两面听牌。  为了不铳两面听牌的理论就叫做“筋”。  ------------------------------------------------------------------------------------6 个基本筋 ------------------------------------------------------------------------------------ 我们来看看实际的两面听牌吧。  ",
+          "text": "筋1：  有人立直的时候，最应该警戒的就要是两面听牌了。  只要对手不是麻将的初学者， 一般情况下都会等待嵌张、双碰听牌变化成两面听牌。  因为对手会等待嵌张和双碰听牌变化成两面的好形听牌， 所以听牌了也有可能不会立直。  因此立直的听牌形往往是两面居多， 大体的数据显示，所有的立直中三分之二的立直都是两面听牌。  为了不铳两面听牌的理论就叫做“筋”。  ------------------------------------------------------------------------------------6 个基本筋 ------------------------------------------------------------------------------------ 我们来看看实际的两面听牌吧。  "
+        },
+        "slices": [
+          {
+            "id": "79-cn-p193-b6-version-sentence-1",
+            "sourceBlockId": "79-cn-p193-b6",
+            "fromCodepoint": 5,
+            "toCodepoint": 29,
+            "text": "有人立直的时候，最应该警戒的就要是两面听牌了。 ",
+            "lineIndex": 2,
+            "bbox": [
+              90.02400207519531,
+              400.9819641113281,
+              337.8699951171875,
+              412.9819641113281
+            ]
+          },
+          {
+            "id": "79-cn-p193-b6-version-sentence-2",
+            "sourceBlockId": "79-cn-p193-b6",
+            "fromCodepoint": 129,
+            "toCodepoint": 158,
+            "text": "大体的数据显示，所有的立直中三分之二的立直都是两面听牌。 ",
+            "lineIndex": 11,
+            "bbox": [
+              90.02400207519531,
+              541.4019775390625,
+              390.70001220703125,
+              553.4019775390625
+            ]
+          }
+        ],
+        "webSource": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1765377\\source.json",
+          "sha256": "75b3eae5938bd5e635089891d6ee721575cf9d8fddce050dadcb90a5f47f48c5",
+          "bytes": 38311
+        },
+        "versionDifferences": [
+          {
+            "webSourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0008",
+              "79-bilibili-cn:cv1765377:b0009"
+            ],
+            "webText": "有人立直的时候，最应该警戒的就要是了。",
+            "pdfText": "有人立直的时候，最应该警戒的就要是两面听牌了。",
+            "pdfSliceId": "79-cn-p193-b6-version-sentence-1",
+            "missingInCapturedWeb": "两面听牌",
+            "operation": "separate-PDF-version-excerpt; never rewrite web source or raw"
+          },
+          {
+            "webSourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0015",
+              "79-bilibili-cn:cv1765377:b0016"
+            ],
+            "webText": "大体的数据显示，所有的立直中。",
+            "pdfText": "大体的数据显示，所有的立直中三分之二的立直都是两面听牌。",
+            "pdfSliceId": "79-cn-p193-b6-version-sentence-2",
+            "missingInCapturedWeb": "三分之二的立直都是两面听牌",
+            "operation": "separate-PDF-version-excerpt; never rewrite web source or raw"
+          }
+        ],
+        "remainingBlocker": {
+          "targetId": "79-bilibili-cn:cv1765377:b0042:figure",
+          "reason": "unresolved manzu in river; not resolved by recovering source prose",
+          "action": "preserve original candidate/raw/unknown and existing independent issue; only finite source-image adjudication after exact original packet"
+        },
+        "fullChapterPassed": false,
+        "originalChapterCoverageIncrement": 0,
+        "duplicateCountedAsOriginalBody": false,
+        "sourceAndRawChanged": false,
+        "newModelCalls": 0,
+        "automaticRetry": 0,
+        "chapters": 1,
+        "units": 1,
+        "blocks": 2,
+        "figures": 0,
+        "corpusId": "7d1743898551fa7b8cf3cfcb26f1ee234d332e93434443c5a09fc3340c17c4d7",
+        "bodySha256": "807ad83faf24e1f50b42abe07df1f74a1f35011df9bb1afb988e353d177800fd",
+        "maxUnitBytes": 842,
+        "modelCalls": 0
+      }
+    },
+    "webTextUntouched": true,
+    "countAsNewOriginalChapterAgain": false
+  },
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "readingTodoRemoved": true,
+  "newReadingOrReviewBudget": 0,
+  "standardWholeArticlePassed": false,
+  "admissionGranted": false,
+  "coverageIncrementClaimed": 0,
+  "specificRemainingExecution": [
+    {
+      "owner": "existing COAC-244",
+      "action": "Pin only193 exact source/candidate/old-audit/target/bbox/raw and the two separately sourced PDF excerpts in existing limited-fidelity admission. The159/242 adapter currently rejects193; it requires one sole uncertain image/block whereas193 retains four source-fragment block checks and the target image as uncertain. Preserve those originals and implement the exact combined source-version/limited-unknown scope, not a generic ordinary-passed exception."
+    },
+    {
+      "owner": "existing COAC-250",
+      "action": "After lawful precise admission, incrementally stage current unchanged Web193 alongside already-integrated separate PDF193 supplement. Real MCP/Arena readback must show the explicit right-row2-col2 unknown, original red circles, author qualifiers, 7p limited two-sided-wait claim and5m wording/context, and separate-PDF version label; do not claim a complete reconstructed board or all-strategy safety."
+    },
+    {
+      "owner": "existing delivery environment owner",
+      "action": "Original250193 wakeup failed before start during worktree checkout: _analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png Filename too long. Preserve failed run01a17f9a-6a5e-7148-99c7-3b35a676bd0a and fix shortest-path delivery aliases in its own branch before one explicit original-run recovery. 248 did not switch branch, retry it, or create a second consumer."
+    }
+  ],
+  "dedupe": {
+    "existing244Wakeup": "01a17f99-5131-71ab-ada6-9aaaa8965857",
+    "observed244Status": "queued",
+    "original250Wakeup": "01a17f99-54c9-79f6-83d2-121eae8d62be",
+    "observed250Status": "failed-before-agent-start",
+    "newWakeupsCreated": 0,
+    "208276Untouched": true
+  },
+  "newSemanticModelGapIdentified": false,
+  "note": "No full chapter pass is manufactured. Web fragment uncertainty remains explicitly bounded by the separately labelled existing independent PDF source version; the target unknown is no longer a digit-reading todo."
+}

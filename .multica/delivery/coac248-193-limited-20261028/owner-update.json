@@ -1,0 +1,35 @@
+{
+  "recordedAt": "2026-10-27T23:09:13.039137+00:00",
+  "status": "limited-unknown-author-fidelity-proven-awaiting-exact-admission-and-readback",
+  "candidateSha256": "e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e",
+  "proof": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-193-limited-20261028\\proof.json",
+    "sha256": "b1ad29377240e032af4898eee1822e88ac7a1d13ded13aad741ebc1018643f16"
+  },
+  "handoff": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-193-limited-20261028\\handoff.json",
+    "sha256": "dc9c8d25f781cbcb05e45736c1e04514ca75b89e26856e7bd98646d474682e0b"
+  },
+  "point": {
+    "figureId": "79-bilibili-cn:cv1765377:b0042:figure",
+    "pointId": "right-row2-col2",
+    "bbox": [
+      298,
+      153,
+      325,
+      175
+    ],
+    "originalSize": [
+      394,
+      415
+    ]
+  },
+  "newModelCalls": 0,
+  "pointReadingTodo": false,
+  "newCandidateNeeded": false,
+  "sourceFragmentUncertainPreserved": true,
+  "pdfSupplementSeparateVersion": true,
+  "remaining": "Exact193 scope admission; repair250 pre-start long-path failure in its own branch; lawful integration and realMCP/Arena readback. No additional model review or reading.",
+  "admissionGranted": false,
+  "standardWholeArticlePassed": false
+}

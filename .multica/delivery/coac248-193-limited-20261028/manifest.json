@@ -1,0 +1,33 @@
+{
+  "schema": "coac248-exact193-zero-proof-files/1",
+  "canonical": "79-cn-chapter-193-4",
+  "files": [
+    {
+      "path": "verify.py",
+      "sha256": "5e803f709ee45a3e6159fcf7f00f915ca4d3e2781ddff34b343d9799e397db1a"
+    },
+    {
+      "path": "verify_test.py",
+      "sha256": "2e4aaf03763dd5c785902573de9169b7a2346ded93021aa5702bfdef723fdbda"
+    },
+    {
+      "path": "gates.mjs",
+      "sha256": "312c051f5af76d3669039b6935a77a36d0a7396fd2da9928b198e8b3d524bdc0"
+    },
+    {
+      "path": "gates.json",
+      "sha256": "dc0c0ece7df9af04e2554ea946fcc5890b9f754f06a745bd2535fb4bcc12e259"
+    },
+    {
+      "path": "proof.json",
+      "sha256": "b1ad29377240e032af4898eee1822e88ac7a1d13ded13aad741ebc1018643f16"
+    },
+    {
+      "path": "path-map.json",
+      "sha256": "8a3fb6d7ad950b9026bf7e64663d51f49e0b0952789e794b27ae838bda0b3fe0"
+    }
+  ],
+  "modelCalls": 0,
+  "candidateChanged": false,
+  "oldRawOrAuditChanged": false
+}
