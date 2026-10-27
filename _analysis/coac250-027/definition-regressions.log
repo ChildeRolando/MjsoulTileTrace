@@ -1,0 +1,13 @@
+
+ RUN  v3.2.7 E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach
+
+ ✓ scripts/scene-study/textbook-audit-definition.test.mjs (2 tests) 7265ms
+   ✓ definition repair independently binds every text unit, occurrence code and original-order pixel  6255ms
+   ✓ a structural definition-sidecar fix never waives an unresolved independent semantic review  1009ms
+ ✓ scripts/textbook-processing/stage-definition-boundaries.test.mjs (2 tests) 9ms
+
+ Test Files  2 passed (2)
+      Tests  4 passed (4)
+   Start at  23:16:30
+   Duration  8.83s (transform 295ms, setup 0ms, collect 1.17s, tests 7.27s, environment 0ms, prepare 128ms)
+

@@ -1,0 +1,190 @@
+{
+  "schema": "coac250-027-preconsume/1",
+  "recordedAt": "2026-10-27T15:10:50.349Z",
+  "allPassed": true,
+  "artifacts": {
+    "coac249-section010-boundary-ruling-20261027.json": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/web/adjudications/definition-boundary-section010/coac249-section010-boundary-ruling-20261027.json",
+      "sha256": "a164f76843c37a0d57f784fe16941cce62fa4dfbb3ffdc7c39417c96ed3f7bbc"
+    },
+    "coac249-section010-boundary-verification-20261027.json": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/web/adjudications/definition-boundary-section010/coac249-section010-boundary-verification-20261027.json",
+      "sha256": "1518cdbecfc8e4fedc453ddaf7ad2f0f941311c7c7e85f07e85985bbe8f2ddd2"
+    },
+    "coac249-section010-gate-result-20261027.json": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/web/adjudications/definition-boundary-section010/coac249-section010-gate-result-20261027.json",
+      "sha256": "d24a4fcd4b7cbbf46c522bea35618c7c9bd3aadaaef9187c5cea903e70d73c26"
+    },
+    "sidecar-rebind-1d9cad43.json": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/web/adjudications/definition-boundary-section010/sidecar-rebind-1d9cad43.json",
+      "sha256": "1d9cad432705f2a2d16675368637d4c6a9585030e448d6b916b99eae709e3a5a"
+    }
+  },
+  "protectedFiles": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/web/adjudications/definition-boundary-section010/coac249-section010-boundary-ruling-20261027.json",
+      "sha256": "a164f76843c37a0d57f784fe16941cce62fa4dfbb3ffdc7c39417c96ed3f7bbc"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/web/adjudications/definition-boundary-section010/coac249-section010-boundary-verification-20261027.json",
+      "sha256": "1518cdbecfc8e4fedc453ddaf7ad2f0f941311c7c7e85f07e85985bbe8f2ddd2"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/web/adjudications/definition-boundary-section010/coac249-section010-gate-result-20261027.json",
+      "sha256": "d24a4fcd4b7cbbf46c522bea35618c7c9bd3aadaaef9187c5cea903e70d73c26"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/web/adjudications/definition-boundary-section010/sidecar-rebind-1d9cad43.json",
+      "sha256": "1d9cad432705f2a2d16675368637d4c6a9585030e448d6b916b99eae709e3a5a"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/articles/chapter01-section010/main.html",
+      "sha256": "404c7e62900c119f6f456ce6299e81c31f1fbea0c19b445b9ed7a0d1bcb7a443"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/articles/chapter01-section010/source.json",
+      "sha256": "eead468938ab9770eecc8b2323f72be0dd4dae72618355e4c9bee227dd527387"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/html/d2c53cb82448269fee63e232/source.html",
+      "sha256": "295d79957120a4ab5fd5531ef55ac6c765aa72fa1c44780429403bf4acbf7a9b"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.coac269rev1.json",
+      "sha256": "44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.display.json",
+      "sha256": "7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/definition-boundaries-v1/chapter01-section010/sidecar.json",
+      "sha256": "db081740d857fbce453165bfaf31d52478fdcd74d20c3e0b3c8447aea9b46c05"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter01-section010.44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c.json",
+      "sha256": "bdb29387e6fdbb875ca7150223b18659a06a8964ad6afceda4b562088450b5e0"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/web/definition-boundary-inspection.json",
+      "sha256": "ee816566b7ef6faa8b922afaab45b2e696dcb3f399a691047fa731cea883cbf0"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/calls/642558da-ac5e-4020-9863-711ba713b9a5.json",
+      "sha256": "1d2848a77b13979448af45cde6401a3cbf1f8bec866de49a2efba3e8900971cd"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter01-section010.7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b.json",
+      "sha256": "57d283a67ea10b4ba1ec399700a8c31fc849d625ca001bb03f5dac41ac8dd6f4"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/web/auditors/856dad9d46d2d0d47436388e792caa2aac251ad68b4b8d03ff2e1fbd03158881.json",
+      "sha256": "f48b78aa24295d116ae728dac71e3a6c1612114fc1879761865aea37b1e774e3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/source-structure-holds.json",
+      "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\review\\textbook-corpus.json",
+      "sha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+    }
+  ],
+  "configs": {
+    "manifest": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/definition-boundaries-v1/manifest.v2.json",
+      "sha256": "9321167d2c3767a2e2cb2f8b5f883a8386ac99370cf5a627c9c7d61ef83bbf58"
+    },
+    "definitionSelection": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/definition-boundary-stage-selection.json",
+      "sha256": "9afef05e0938205cf59e3240886cf28a7827fea0959899660eb4ada05f069bba"
+    },
+    "holds": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/source-structure-holds.json",
+      "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+    },
+    "guard": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/stage-definition-chapters.mjs",
+      "sha256": "4a83e331bafd30998503ff2359465ce516d0696b844d16f6adf59bdffcca0b5a"
+    },
+    "builder": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.mjs",
+      "sha256": "d9424b3834b6da3633e8e305e77e5a301fc3865a1ec8902851855cb8f2f641aa"
+    },
+    "variants": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v13.json",
+      "sha256": "fd3a7fc4cc750411e641aabff47c977531a56c042c9cfcc4896b739eebc2d81d"
+    },
+    "register": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+      "sha256": "e040f67b5051c896a6c4bd2eca4ccaaa3f43766d2cb13768c2813c2dad658828"
+    }
+  },
+  "sidecar": {
+    "oldPath": "E:/AgentData/Coach/knowledge/processing/integration/definition-boundaries-v1/chapter01-section010/sidecar.json",
+    "oldSha256": "db081740d857fbce453165bfaf31d52478fdcd74d20c3e0b3c8447aea9b46c05",
+    "oldSerialization": "CRLF",
+    "proposalSha256": "1d9cad432705f2a2d16675368637d4c6a9585030e448d6b916b99eae709e3a5a",
+    "proposalSerialization": "LF",
+    "changedKeys": [
+      "candidatePath",
+      "candidateSha256"
+    ]
+  },
+  "candidate": {
+    "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.coac269rev1.json",
+    "sha256": "44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c"
+  },
+  "source": {
+    "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/articles/chapter01-section010/source.json",
+    "sha256": "eead468938ab9770eecc8b2323f72be0dd4dae72618355e4c9bee227dd527387"
+  },
+  "audit": {
+    "path": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter01-section010.44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c.json",
+    "sha256": "bdb29387e6fdbb875ca7150223b18659a06a8964ad6afceda4b562088450b5e0",
+    "status": "passed"
+  },
+  "prior": {
+    "preview": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T14-51-46-276Z",
+    "pointerReceiptSha256": "ee90c77f748358ac2280cacf159969863eda7b6a66b562c4115c2e05f3a242cf",
+    "corpusId": "362e6076da5ca674c39f27216d08a48efb77ef30c13bf8cf4448c743a4423844",
+    "chapters": 222,
+    "units": 230,
+    "blocks": 6104,
+    "figures": 4972,
+    "selectedWeb": 193,
+    "pendingWeb": 30,
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T14-51-46-276Z",
+    "sha256": "ee90c77f748358ac2280cacf159969863eda7b6a66b562c4115c2e05f3a242cf"
+  },
+  "gate": {
+    "schema": "coach-independent-definition-boundary-verification/1",
+    "passed": true,
+    "sidecarPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\adjudications\\definition-boundary-section010\\sidecar-rebind-1d9cad43.json",
+    "sidecarSha256": "1d9cad432705f2a2d16675368637d4c6a9585030e448d6b916b99eae709e3a5a",
+    "candidateSha256": "44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c",
+    "sourceSha256": "eead468938ab9770eecc8b2323f72be0dd4dae72618355e4c9bee227dd527387",
+    "mainSha256": "404c7e62900c119f6f456ce6299e81c31f1fbea0c19b445b9ed7a0d1bcb7a443",
+    "modelAuditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section010.44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c.json",
+    "modelAuditSha256": "bdb29387e6fdbb875ca7150223b18659a06a8964ad6afceda4b562088450b5e0",
+    "modelAuditStatus": "passed",
+    "checks": {
+      "sourceBlocks": 160,
+      "textBlocks": 83,
+      "imageOccurrences": 216,
+      "imageGroups": 84,
+      "rgbaPixelsCompared": 142368,
+      "fullCharacterAndOccurrenceOrder": true,
+      "completeTextUnitBindings": true
+    },
+    "textBoundaryAcceptance": null,
+    "verifier": {
+      "path": "file:///E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/textbook-audit-definition.mjs",
+      "sha256": "5d34e42077540b3aa171f4c4d9f1dd80222807f0ffd4e9f96c8d143b8fdfdcbd",
+      "parserSha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    "modelCalls": 0,
+    "verification": "Independent raw DOM character/occurrence/unit partition and every displayed RGBA pixel, plus unchanged prior independent content audit; not a new model review."
+  },
+  "modelCalls": 0
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "coach-independent-definition-boundary-verification/1",
+  "passed": true,
+  "sidecarPath": "E:\\AgentData\\Coach\\knowledge\\processing\\tmp\\coac249-027-boundary\\sidecar.json",
+  "sidecarSha256": "1d9cad432705f2a2d16675368637d4c6a9585030e448d6b916b99eae709e3a5a",
+  "candidateSha256": "44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c",
+  "sourceSha256": "eead468938ab9770eecc8b2323f72be0dd4dae72618355e4c9bee227dd527387",
+  "mainSha256": "404c7e62900c119f6f456ce6299e81c31f1fbea0c19b445b9ed7a0d1bcb7a443",
+  "modelAuditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section010.44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c.json",
+  "modelAuditSha256": "bdb29387e6fdbb875ca7150223b18659a06a8964ad6afceda4b562088450b5e0",
+  "modelAuditStatus": "passed",
+  "checks": {
+    "sourceBlocks": 160,
+    "textBlocks": 83,
+    "imageOccurrences": 216,
+    "imageGroups": 84,
+    "rgbaPixelsCompared": 142368,
+    "fullCharacterAndOccurrenceOrder": true,
+    "completeTextUnitBindings": true
+  },
+  "textBoundaryAcceptance": null,
+  "verifier": {
+    "path": "file:///E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/textbook-audit-definition.mjs",
+    "sha256": "5d34e42077540b3aa171f4c4d9f1dd80222807f0ffd4e9f96c8d143b8fdfdcbd",
+    "parserSha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+  },
+  "modelCalls": 0,
+  "verification": "Independent raw DOM character/occurrence/unit partition and every displayed RGBA pixel, plus unchanged prior independent content audit; not a new model review.",
+  "wallMs": 7948
+}

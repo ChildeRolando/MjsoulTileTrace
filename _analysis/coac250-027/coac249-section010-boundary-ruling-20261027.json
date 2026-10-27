@@ -1,0 +1,368 @@
+{
+  "schema": "coac-249-definition-boundary-ruling/1",
+  "recordedAt": "2026-10-27T14:40:00Z",
+  "ticket": "COAC-249",
+  "handoffFrom": "COAC-246",
+  "subject": "027-1 / modern-yabejp-ja chapter01-section010 dt/dd boundary presentation",
+  "originalChapterId": "nemata-jp-chapter-027-1",
+  "question": "Are the existing independent receipts sufficient to rule on the 7 image runs that span dt/dd definition boundaries, or is one new targeted model boundary audit required?",
+  "method": "Independent zero-model-call re-derivation of the raw DOM structure from main.html, occurrence-by-occurrence comparison with the frozen hold evidence, block/unit comparison with sidecar db081740, candidate revision diff, evaluation of the inherited per-image role evidence in passed receipt bdb29387, and an independent re-run of the project gate verifyDefinitionSidecar on the two-key rebind.",
+  "modelCalls": 0,
+  "ruling": "sufficient",
+  "rulingStatement": "The 7 dt/dd split points are semantic as well as structural. Every dt-side image of every run carries an independent role statement as the term/example hand (本例), and every dd-side image carries an independent role statement as the definition-side comparison object (b0055) or draw/ukeire (the other six). No image is misattributed by the split, and the source definition sentence immediately after each run states the draw/comparison. A new targeted model boundary audit is therefore not required; it would duplicate evidence that already exists and predates the sidecar.",
+  "authorization": "This ruling authorizes only chapter01-section010 / 027-1. It does not authorize any other held chapter (009/011/012/014/015/016) or any other ambiguous chapter.",
+  "sourceHandoff": {
+    "path": ".multica/delivery/coac-249-027-boundary-20261027/coac246-section010-boundary-handoff-20261027.json",
+    "issueComment": "01a17d93-e291-7661-bf7d-d94e502aabec",
+    "originalAttachmentSha256": "d99bae27758658e0c8d34cbc7e07a70b42451dc585cc9b5b26eb80a66a0da241",
+    "normalizedFileSha256": "f84ea3e76875bec4eaca8c013c5d7501145315680da3d3b54f571fe685e1d773",
+    "note": "originalAttachmentSha256 is the hash of the bytes COAC-246 delivered; the repository archival copy is stored with LF line endings, so its git blob hash is normalizedFileSha256. Both identify the same JSON content."
+  },
+  "identity": {
+    "mainHtml": {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/articles/chapter01-section010/main.html",
+      "sha256": "404c7e62900c119f6f456ce6299e81c31f1fbea0c19b445b9ed7a0d1bcb7a443"
+    },
+    "sourceJson": {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/articles/chapter01-section010/source.json",
+      "sha256": "eead468938ab9770eecc8b2323f72be0dd4dae72618355e4c9bee227dd527387"
+    },
+    "rawSourceHtml": {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/html/d2c53cb82448269fee63e232/source.html",
+      "sha256": "295d79957120a4ab5fd5531ef55ac6c765aa72fa1c44780429403bf4acbf7a9b"
+    },
+    "candidatePassed": {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.coac269rev1.json",
+      "sha256": "44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c"
+    },
+    "candidateParent": {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.display.json",
+      "sha256": "7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b"
+    },
+    "sidecarCurrent": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/definition-boundaries-v1/chapter01-section010/sidecar.json",
+      "sha256": "db081740d857fbce453165bfaf31d52478fdcd74d20c3e0b3c8447aea9b46c05"
+    },
+    "passedReceipt": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter01-section010.44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c.json",
+      "sha256": "bdb29387e6fdbb875ca7150223b18659a06a8964ad6afceda4b562088450b5e0",
+      "status": "passed"
+    },
+    "holdEvidence": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/web/definition-boundary-inspection.json",
+      "sha256": "ee816566b7ef6faa8b922afaab45b2e696dcb3f399a691047fa731cea883cbf0"
+    }
+  },
+  "dom": {
+    "dl": 6,
+    "dt": 17,
+    "dd": 16,
+    "units": 33,
+    "tileImageOccurrences": 216,
+    "nonTileImages": 3,
+    "nonTileSrcs": [
+      "../../img/back.gif",
+      "../../img/home.gif",
+      "../../img/next.gif"
+    ]
+  },
+  "crossBoundaryRuns": {
+    "count": 7,
+    "runs": [
+      {
+        "blockId": "modern-yabejp-ja:chapter01-section010:b0055",
+        "dtUnit": "main/dl[1]/dt[3]",
+        "ddUnit": "main/dl[1]/dd[3]",
+        "splitAfterDtImages": 4,
+        "occurrenceIds": [
+          "modern-yabejp-ja:chapter01-section010:i00096",
+          "modern-yabejp-ja:chapter01-section010:i00097",
+          "modern-yabejp-ja:chapter01-section010:i00098",
+          "modern-yabejp-ja:chapter01-section010:i00099",
+          "modern-yabejp-ja:chapter01-section010:i00100",
+          "modern-yabejp-ja:chapter01-section010:i00101",
+          "modern-yabejp-ja:chapter01-section010:i00102",
+          "modern-yabejp-ja:chapter01-section010:i00103"
+        ]
+      },
+      {
+        "blockId": "modern-yabejp-ja:chapter01-section010:b0087",
+        "dtUnit": "main/dl[3]/dt[1]",
+        "ddUnit": "main/dl[3]/dd[1]",
+        "splitAfterDtImages": 4,
+        "occurrenceIds": [
+          "modern-yabejp-ja:chapter01-section010:i00136",
+          "modern-yabejp-ja:chapter01-section010:i00137",
+          "modern-yabejp-ja:chapter01-section010:i00138",
+          "modern-yabejp-ja:chapter01-section010:i00139",
+          "modern-yabejp-ja:chapter01-section010:i00140"
+        ]
+      },
+      {
+        "blockId": "modern-yabejp-ja:chapter01-section010:b0089",
+        "dtUnit": "main/dl[3]/dt[2]",
+        "ddUnit": "main/dl[3]/dd[2]",
+        "splitAfterDtImages": 4,
+        "occurrenceIds": [
+          "modern-yabejp-ja:chapter01-section010:i00141",
+          "modern-yabejp-ja:chapter01-section010:i00142",
+          "modern-yabejp-ja:chapter01-section010:i00143",
+          "modern-yabejp-ja:chapter01-section010:i00144",
+          "modern-yabejp-ja:chapter01-section010:i00145"
+        ]
+      },
+      {
+        "blockId": "modern-yabejp-ja:chapter01-section010:b0094",
+        "dtUnit": "main/dl[5]/dt[1]",
+        "ddUnit": "main/dl[5]/dd[1]",
+        "splitAfterDtImages": 5,
+        "occurrenceIds": [
+          "modern-yabejp-ja:chapter01-section010:i00148",
+          "modern-yabejp-ja:chapter01-section010:i00149",
+          "modern-yabejp-ja:chapter01-section010:i00150",
+          "modern-yabejp-ja:chapter01-section010:i00151",
+          "modern-yabejp-ja:chapter01-section010:i00152",
+          "modern-yabejp-ja:chapter01-section010:i00153"
+        ]
+      },
+      {
+        "blockId": "modern-yabejp-ja:chapter01-section010:b0109",
+        "dtUnit": "main/dl[6]/dt[2]",
+        "ddUnit": "main/dl[6]/dd[2]",
+        "splitAfterDtImages": 5,
+        "occurrenceIds": [
+          "modern-yabejp-ja:chapter01-section010:i00164",
+          "modern-yabejp-ja:chapter01-section010:i00165",
+          "modern-yabejp-ja:chapter01-section010:i00166",
+          "modern-yabejp-ja:chapter01-section010:i00167",
+          "modern-yabejp-ja:chapter01-section010:i00168",
+          "modern-yabejp-ja:chapter01-section010:i00169"
+        ]
+      },
+      {
+        "blockId": "modern-yabejp-ja:chapter01-section010:b0115",
+        "dtUnit": "main/dl[6]/dt[3]",
+        "ddUnit": "main/dl[6]/dd[3]",
+        "splitAfterDtImages": 5,
+        "occurrenceIds": [
+          "modern-yabejp-ja:chapter01-section010:i00172",
+          "modern-yabejp-ja:chapter01-section010:i00173",
+          "modern-yabejp-ja:chapter01-section010:i00174",
+          "modern-yabejp-ja:chapter01-section010:i00175",
+          "modern-yabejp-ja:chapter01-section010:i00176",
+          "modern-yabejp-ja:chapter01-section010:i00177"
+        ]
+      },
+      {
+        "blockId": "modern-yabejp-ja:chapter01-section010:b0147",
+        "dtUnit": "main/dl[6]/dt[6]",
+        "ddUnit": "main/dl[6]/dd[6]",
+        "splitAfterDtImages": 5,
+        "occurrenceIds": [
+          "modern-yabejp-ja:chapter01-section010:i00201",
+          "modern-yabejp-ja:chapter01-section010:i00202",
+          "modern-yabejp-ja:chapter01-section010:i00203",
+          "modern-yabejp-ja:chapter01-section010:i00204",
+          "modern-yabejp-ja:chapter01-section010:i00205",
+          "modern-yabejp-ja:chapter01-section010:i00206"
+        ]
+      }
+    ],
+    "roleEvidence": [
+      {
+        "run": "b0055",
+        "splitAfterDtImages": 4,
+        "dtRoles": [
+          "本例"
+        ],
+        "ddRoles": [
+          "比较对象"
+        ]
+      },
+      {
+        "run": "b0087",
+        "splitAfterDtImages": 4,
+        "dtRoles": [
+          "本例"
+        ],
+        "ddRoles": [
+          "进张"
+        ]
+      },
+      {
+        "run": "b0089",
+        "splitAfterDtImages": 4,
+        "dtRoles": [
+          "本例"
+        ],
+        "ddRoles": [
+          "进张"
+        ]
+      },
+      {
+        "run": "b0094",
+        "splitAfterDtImages": 5,
+        "dtRoles": [
+          "本例"
+        ],
+        "ddRoles": [
+          "进张"
+        ]
+      },
+      {
+        "run": "b0109",
+        "splitAfterDtImages": 5,
+        "dtRoles": [
+          "本例"
+        ],
+        "ddRoles": [
+          "进张"
+        ]
+      },
+      {
+        "run": "b0115",
+        "splitAfterDtImages": 5,
+        "dtRoles": [
+          "本例"
+        ],
+        "ddRoles": [
+          "进张"
+        ]
+      },
+      {
+        "run": "b0147",
+        "splitAfterDtImages": 5,
+        "dtRoles": [
+          "本例"
+        ],
+        "ddRoles": [
+          "进张"
+        ]
+      }
+    ],
+    "coverage": "All 42 images in the 7 runs carry a represented imageCheck with an explicit role; all dt-side images are 本例, all dd-side images are 比较对象 (b0055) or 进张 (the other six)."
+  },
+  "mechanicalChecks": {
+    "allChecksPassed": true,
+    "checkCount": 56,
+    "domCountsMatchHandoff": true,
+    "tileOccurrences216": true,
+    "holdInspectionMatchesIndependentParse": true,
+    "sidecarOccurrences216Unique": true,
+    "sidecarSplitPointsMatch": true,
+    "splitPngs14Verified": true,
+    "revisionDeltaOnlyB0056": true,
+    "figuresIdenticalModuloPresentationAsset": true,
+    "receiptEffectiveReview160_77_216": true,
+    "verificationReport": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/web/adjudications/definition-boundary-section010/coac249-section010-boundary-verification-20261027.json",
+      "recordCopy": ".multica/delivery/coac-249-027-boundary-20261027/coac249-section010-boundary-verification-20261027.json",
+      "sha256": "1518cdbecfc8e4fedc453ddaf7ad2f0f941311c7c7e85f07e85985bbe8f2ddd2",
+      "lineEnding": "LF"
+    }
+  },
+  "auditEvidence": {
+    "passedReceipt": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter01-section010.44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c.json",
+      "sha256": "bdb29387e6fdbb875ca7150223b18659a06a8964ad6afceda4b562088450b5e0",
+      "status": "passed",
+      "recordedAt": "2026-10-27T11:27:18.797Z",
+      "method": "independent-target-text-review-plus-unchanged-parent-audit",
+      "productionSha256": "44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c",
+      "calls": [
+        "642558da-ac5e-4020-9863-711ba713b9a5"
+      ],
+      "inheritedCalls": [
+        "59a9390c-2bbd-4215-86d9-8d4d4c962add"
+      ]
+    },
+    "targetedCall": "642558da-ac5e-4020-9863-711ba713b9a5 (b0056 only, verdict faithful)",
+    "inheritedCall": "59a9390c-2bbd-4215-86d9-8d4d4c962add (full article, parent candidate 7ebd1f97)",
+    "whyThisIsIndependentOfTheSidecar": "The inherited full-article review was recorded 2026-10-23, before the sidecar was built (2026-10-25), and its prompt carried no dt/dd definition-unit structure. Its per-image role statements therefore come from the source content, not from the boundary presentation under review.",
+    "b0056Context": "The targeted b0056 review names both hands: 前一个牌形=1124m (dt example) and 后一个牌形=1344m (dd comparison), removing the only wording ambiguity in the b0055 run."
+  },
+  "proposedRebind": {
+    "change": "Only candidatePath and candidateSha256 differ semantically from sidecar db081740; all other keys are deep-equal (verified).",
+    "proposedSidecarSha256": "1d9cad432705f2a2d16675368637d4c6a9585030e448d6b916b99eae709e3a5a",
+    "serializationNote": "The 246 proposal is a 2-space-indent JSON re-serialization with LF and a trailing newline; the current sidecar file uses CRLF. Byte-wise the whole file differs in line endings, semantically only the two keys change. The gate passed the LF bytes recorded here.",
+    "bytePreservingVariantIfRequired": {
+      "sha256": "13c54fb8d435094d944ea6f8ec631e1e1ba7cba80a1be4658f600d5f395e6523",
+      "note": "CRLF byte-preserving variant; NOT the sha the gate run recorded. Prefer 1d9cad43 so manifest and gate agree."
+    },
+    "bytes": {
+      "dataRootPath": "E:/AgentData/Coach/knowledge/processing/audit/web/adjudications/definition-boundary-section010/sidecar-rebind-1d9cad43.json",
+      "repoRecordPath": ".multica/delivery/coac-249-027-boundary-20261027/sidecar-rebind-1d9cad43.json",
+      "sha256": "1d9cad432705f2a2d16675368637d4c6a9585030e448d6b916b99eae709e3a5a"
+    }
+  },
+  "gate": {
+    "verifier": "verifyDefinitionSidecar (scripts/scene-study/textbook-audit-definition.mjs, sha256 5d34e42077540b3aa171f4c4d9f1dd80222807f0ffd4e9f96c8d143b8fdfdcbd)",
+    "passed": true,
+    "modelCalls": 0,
+    "sidecarSha256": "1d9cad432705f2a2d16675368637d4c6a9585030e448d6b916b99eae709e3a5a",
+    "candidateSha256": "44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c",
+    "modelAuditStatus": "passed",
+    "modelAuditSha256": "bdb29387e6fdbb875ca7150223b18659a06a8964ad6afceda4b562088450b5e0",
+    "checks": {
+      "sourceBlocks": 160,
+      "textBlocks": 83,
+      "imageOccurrences": 216,
+      "imageGroups": 84,
+      "rgbaPixelsCompared": 142368,
+      "fullCharacterAndOccurrenceOrder": true,
+      "completeTextUnitBindings": true
+    },
+    "result": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/web/adjudications/definition-boundary-section010/coac249-section010-gate-result-20261027.json",
+      "recordCopy": ".multica/delivery/coac-249-027-boundary-20261027/coac249-section010-gate-result-20261027.json",
+      "sha256": "d24a4fcd4b7cbbf46c522bea35618c7c9bd3aadaaef9187c5cea903e70d73c26"
+    },
+    "note": "Re-run by COAC-249 independently (not copied from the 246 handoff); the temporary sidecar directory under the data root was removed after the run."
+  },
+  "holdStateAtRuling": {
+    "holdEvidenceSha256": "ee816566b7ef6faa8b922afaab45b2e696dcb3f399a691047fa731cea883cbf0",
+    "holdArticleIds": [
+      "chapter01-section009",
+      "chapter01-section010",
+      "chapter01-section011",
+      "chapter01-section012",
+      "chapter01-section014",
+      "chapter01-section015",
+      "chapter01-section016"
+    ],
+    "stageSelectionSemanticHoldRemains": [
+      "chapter01-section010"
+    ],
+    "guardSha256": "4a83e331bafd30998503ff2359465ce516d0696b844d16f6adf59bdffcca0b5a",
+    "guardStillAssertsSection010": true,
+    "note": "COAC-249 did not lift the hold, did not edit the selection, manifest or staging guard, and did not stage."
+  },
+  "handoffTo250": {
+    "scope": "Apply the evidence-bounded closure for chapter01-section010 only.",
+    "steps": [
+      "Write integration/definition-boundaries-v1/chapter01-section010/sidecar.v2.json from the exact bytes at proposedRebind.bytes (sha256 1d9cad432705f2a2d16675368637d4c6a9585030e448d6b916b99eae709e3a5a).",
+      "Update integration/definition-boundaries-v1/manifest.v2.json entry chapter01-section010: path=integration/definition-boundaries-v1/chapter01-section010/sidecar.v2.json, sha256=1d9cad43..., textBlocks=83, splitImageRuns=7, heldTextBlocks=[].",
+      "Add the chapter01-section010 entry to integration/definition-boundary-stage-selection.json: candidatePath=chapter01-section010.coac269rev1.json, candidateSha256=44ce506d..., sidecarPath=.../sidecar.v2.json, sidecarSha256=1d9cad43..., and remove chapter01-section010 from semanticHoldRemains.",
+      "Only after this ruling is recorded, remove the assert.notEqual(article,'chapter01-section010',...) line from integration/stage-definition-chapters.mjs.",
+      "Run the existing stage entry for chapter01-section010 (the gate re-verifies; 0 model calls) and record the stage proof; then link 027-1 (nemata-jp-chapter-027-1) into the accepted selection."
+    ],
+    "doNot": [
+      "Do not re-audit the chapter or any of the 7 runs; no new model call is authorized or needed.",
+      "Do not rewrite the chapter, the candidate, the raw source, the parent candidate or the audit bytes.",
+      "Do not use this ruling for chapter01-section009/011/012/014/015/016 or any other ambiguous chapter.",
+      "Do not treat the PDF print as an independent witness of dt/dd element boundaries."
+    ]
+  },
+  "verificationScript": {
+    "repoPath": ".multica/delivery/coac-249-027-boundary-20261027/verify027.py",
+    "sha256": "78dcdf2ceed3f2c20b294a2ca2c7ac8cf052181367cef1a1c79042f83e036314"
+  },
+  "gateRunner": {
+    "repoPath": ".multica/delivery/coac-249-027-boundary-20261027/run_gate.mjs",
+    "sha256": "f30e60ee54d4e399f0fad576fde210b659f39ba16cd7966cff8af47c59b4fba1"
+  },
+  "recordLocations": {
+    "dataRoot": "audit/web/adjudications/definition-boundary-section010/",
+    "repoRecord": ".multica/delivery/coac-249-027-boundary-20261027/"
+  }
+}

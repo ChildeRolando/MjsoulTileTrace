@@ -1,0 +1,67 @@
+{
+  "recordedAt": "2026-10-27T15:16:39.941Z",
+  "checks": [
+    {
+      "name": "definition-regressions",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "scripts/textbook-processing/stage-definition-boundaries.test.mjs",
+        "scripts/scene-study/textbook-audit-definition.test.mjs",
+        "--no-file-parallelism",
+        "--testTimeout",
+        "30000"
+      ],
+      "exitCode": 0,
+      "log": "definition-regressions.log"
+    },
+    {
+      "name": "guard-syntax",
+      "args": [
+        "--check",
+        "E:/AgentData/Coach/knowledge/processing/integration/stage-definition-chapters.mjs"
+      ],
+      "exitCode": 0,
+      "log": "guard-syntax.log"
+    },
+    {
+      "name": "builder-syntax",
+      "args": [
+        "--check",
+        "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.mjs"
+      ],
+      "exitCode": 0,
+      "log": "builder-syntax.log"
+    }
+  ],
+  "allPassed": true,
+  "coverage": {
+    "originalChaptersCovered": 223,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 255,
+    "originalUnitsTotal": 303
+  },
+  "history": "E:/AgentData/Coach/knowledge/processing/integration/coac250-027-history-20261027",
+  "files": {
+    "bounded-closure.patch": "c06a104db21a3a52632e397b1490f13f22534a5514c74702cf73725aa7f29756",
+    "guard.after.mjs": "283b3431b4576197611e5d46985949d36088a15e97e272817a0afd57e9c76742",
+    "builder.after.mjs": "f6b413ebb24643f6df785450353052287f612c3f6e3412e02f3e5acfe72635d9",
+    "manifest.after.json": "4d89b15be02c233f55938bf4e59d3c91204037b8948fee6b7b2cd8d43e18c3bc",
+    "definitionSelection.after.json": "b3cbef8bc3a2216438edbe6b842ef3ee76f57082ead3608c053fddf946921419",
+    "variants.after.json": "b1b303ad951c6886393d1517db83062ae10801fc9de5d0c592e8785842311ee1",
+    "owner.after.md": "81229be8035709da70e1b7ff4febf8e69ca857bfe97133f5c930d978a590f6aa",
+    "stage-proof.json": "3ad6a6c0d23ad240c58e79e061264cb1387b26792bc6535ae58d7170b11b0fdc",
+    "stage-receipt.json": "ff46143c0bb3c3293e454015133b9bbea0be616934dd3d7c6973f20a2ca4856c",
+    "readback.json": "7a9c120bbe679ae45cd4eeccbb00af674cb17e10df2ba7d9dae4246786de2e75",
+    "coverage.json": "fca431ee68db84fe4454984647223e399cfb1eb82a145ea70ccf5d349db52e18"
+  },
+  "oldSidecarPreserved": true,
+  "protectedInputsUnchanged": 17,
+  "unchangedOtherRegisterRows": 79,
+  "otherHoldFileUnchanged": true,
+  "builderPinsVerified": true,
+  "writerLocksAbsent": true,
+  "activeLibraryChanged": false,
+  "modelCalls": 0,
+  "productionCalls": 0
+}

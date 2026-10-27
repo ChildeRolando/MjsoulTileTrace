@@ -1,0 +1,95 @@
+--- a/integration/stage-definition-chapters.mjs
++++ b/integration/stage-definition-chapters.mjs
+@@ -12,7 +12,11 @@
+ if(typeof verifyDefinitionSidecar!=='function')throw Error('independent-definition-gate-not-ready');
+ const manifest=await load(root+'/integration/definition-boundaries-v1/manifest.v2.json'),selection=process.argv.slice(2);if(!selection.length)throw Error('explicit-article-selection-required');const results=[];
+ for(const article of selection){
+- assert.notEqual(article,'chapter01-section010','unresolved semantic review remains held');
++ if(article==='chapter01-section010'){
++  const rulingBytes=await readFile(root+'/audit/web/adjudications/definition-boundary-section010/coac249-section010-boundary-ruling-20261027.json');assert.equal(sha(rulingBytes),'a164f76843c37a0d57f784fe16941cce62fa4dfbb3ffdc7c39417c96ed3f7bbc','027 independent boundary ruling binding');
++  const ruling=JSON.parse(rulingBytes),selected=manifest.articles.find(a=>a.articleId===article);assert.equal(ruling.ruling,'sufficient');assert.equal(ruling.originalChapterId,'nemata-jp-chapter-027-1');assert.equal(selected?.sha256,'1d9cad432705f2a2d16675368637d4c6a9585030e448d6b916b99eae709e3a5a');
++  const exactSidecar=await load(join(root,selected.path));assert.equal(exactSidecar.candidateSha256,'44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c');assert.equal(ruling.identity.candidatePassed.sha256,exactSidecar.candidateSha256);
++ }
+  const item=manifest.articles.find(a=>a.articleId===article);assert.ok(item);const sidecarPath=join(root,item.path),sb=await readFile(sidecarPath);assert.equal(sha(sb),item.sha256);const sidecar=JSON.parse(sb),candidatePath=join(root,sidecar.candidatePath),cb=await readFile(candidatePath),candidate=JSON.parse(cb),source=await load(join(root,candidate.source.sourcePath));
+  const destination=root+'/integration/stage-definition-'+article+'-v1';
+  const receipt=await stageWebTextbook({processingRoot:root,candidatePath,destination,verify:verifyAuditForWebCandidate,definitionSidecarPath:sidecarPath,verifyDefinitionSidecar});
+--- a/integration/build-accepted-preview.mjs
++++ b/integration/build-accepted-preview.mjs
+@@ -22,7 +22,7 @@
+ for(const image of formalCorpus.images){const bytes=await readFile(join(formal,image.path));if(sha(bytes)!==image.sha256)throw Error('formal_image_changed');await copyFile(join(formal,image.path),join(output,image.path));}
+ const legacyAudits=[await applyLegacyChiitoitsuAudit(root,bodies,definitions)];
+ const structureHoldPath=join(root,'integration/source-structure-holds.json'),structureHoldBytes=await readFile(structureHoldPath),structureHolds=JSON.parse(structureHoldBytes);if(sha(await readFile(structureHolds.evidencePath))!==structureHolds.evidenceSha256)throw Error('structure_hold_evidence_changed');
+-const definitionSelectionPath=join(root,'integration/definition-boundary-stage-selection.json'),definitionSelectionBytes=await readFile(definitionSelectionPath);if(sha(definitionSelectionBytes)!=='9afef05e0938205cf59e3240886cf28a7827fea0959899660eb4ada05f069bba')throw Error('definition_selection_changed');const definitionSelections=JSON.parse(definitionSelectionBytes).entries;
++const definitionSelectionPath=join(root,'integration/definition-boundary-stage-selection.json'),definitionSelectionBytes=await readFile(definitionSelectionPath);if(sha(definitionSelectionBytes)!=='b3cbef8bc3a2216438edbe6b842ef3ee76f57082ead3608c053fddf946921419')throw Error('definition_selection_changed');const definitionSelections=JSON.parse(definitionSelectionBytes).entries;
+ const dedupeArticles=[],selections=[],pending=[],formalReplacements=[];const replacementBytes=await readFile(join(root,'integration/formal-v3-replacement-plan.json'));if(sha(replacementBytes)!=='fc878a3a4001ae238cdded5bc9343cb4d01897a085741f7ec8648dea33f900fb')throw Error('formal_replacement_plan_changed');const replacementPlan=JSON.parse(replacementBytes);if(replacementPlan.formalBodySha256!==sha(await readFile(join(formal,'textbook-bodies.json'))))throw Error('formal_replacement_parent_changed');
+ const additionsPath=join(root,'integration/accepted-web-additions.json');let additions=null;try{additions=JSON.parse(await readFile(additionsPath,'utf8'));}catch(error){if(error.code!=='ENOENT')throw error;}if(additions&&(additions.schema!=='coach-accepted-web-additions/1'||!Array.isArray(additions.jobs)))throw Error('web_additions_schema');
+ for(const sid of ['79-bilibili-cn','modern-yabejp-ja']){
+@@ -36,7 +36,7 @@
+  for(const [a,fs] of [...byCanon.entries()].sort(([x],[y])=>x.localeCompare(y))){if(fs.length<2)continue;const rows=[];for(const f of [...fs].sort()){const b=await readFile(join(dir,f)),h=sha(b);const chain=artNames.filter(n=>n===a+'.'+h+'.json'||(n.startsWith(a+'.'+h+'.retry-')&&n.endsWith('.json')&&!n.endsWith('.transport-recovery.json'))).sort();let prior=null;for(const n of chain){const rb=await readFile(join(artDir,n)),rec=JSON.parse(rb);if(!prior){prior={name:n,receipt:rec,sha256:sha(rb)};continue;}const r=rec.retryOfAudit;if(!r||prior.receipt.status!=='failed'||!slash(String(r.path)).endsWith('/audit/web/articles/'+sid+'/'+prior.name)||r.sha256!==prior.sha256)continue;prior={name:n,receipt:rec,sha256:sha(rb)};}const status=prior?prior.receipt.status:'none',recordedAt=prior?prior.receipt.recordedAt:null;rows.push({file:f,sha256:h,auditStatus:status,auditRecordedAt:recordedAt,effectiveReceiptPath:prior?'audit/web/articles/'+sid+'/'+prior.name:null,receiptChainLength:chain.length});}const passed=rows.filter(r=>r.auditStatus==='passed').sort((x,y)=>(x.auditRecordedAt<y.auditRecordedAt?1:x.auditRecordedAt>y.auditRecordedAt?-1:0));const effective=passed[0]??null;for(const r of rows)r.role=r===effective?'effective-latest-passed':(r.auditStatus==='passed'?'superseded-passed':(r.auditStatus==='none'?'unreviewed-duplicate':'superseded-'+r.auditStatus));dedupeArticles.push({sourceId:sid,articleId:a,versions:rows,effective:effective?{file:effective.file,sha256:effective.sha256,auditRecordedAt:effective.auditRecordedAt}:null});}
+  const revisionManifestPath=join(root,'web-production/v1/runs/chinese-targeted-repair-r1/manifest.json'),revisionBytes=await readFile(revisionManifestPath);if(sha(revisionBytes)!=='a456bd875bd911b3ba96ba4e05031b13e6f8e04561255adb1ff00411f987884d')throw Error('revision_selection_manifest_changed');
+  for(const revision of JSON.parse(revisionBytes).jobs.filter(j=>j.sourceId===sid)){const bytes=await readFile(revision.candidatePath),d=JSON.parse(bytes);if(sha(bytes)!==revision.candidateSha256||d.source.articleId!==revision.articleId||d.source.sourceSha256!==revision.sourceSha256)throw Error('revision_selection_identity_changed');selected.set(revision.articleId,revision.candidatePath.split(/[\\/]/).at(-1));}
+- const variantBytes=await readFile(join(root,'integration/specific-web-variant-selection.v13.json'));if(sha(variantBytes)!=='fd3a7fc4cc750411e641aabff47c977531a56c042c9cfcc4896b739eebc2d81d')throw Error('variant_manifest_changed');for(const variant of JSON.parse(variantBytes).jobs.filter(j=>j.sourceId===sid)){const bytes=await readFile(variant.candidatePath),d=JSON.parse(bytes);if(sha(bytes)!==variant.candidateSha256||d.source.articleId!==variant.articleId||d.source.sourceSha256!==variant.sourceSha256)throw Error('variant_selection_identity_changed');selected.set(variant.articleId,variant.candidatePath.split(/[\\/]/).at(-1));}
++ const variantBytes=await readFile(join(root,'integration/specific-web-variant-selection.v14.json'));if(sha(variantBytes)!=='b1b303ad951c6886393d1517db83062ae10801fc9de5d0c592e8785842311ee1')throw Error('variant_manifest_changed');for(const variant of JSON.parse(variantBytes).jobs.filter(j=>j.sourceId===sid)){const bytes=await readFile(variant.candidatePath),d=JSON.parse(bytes);if(sha(bytes)!==variant.candidateSha256||d.source.articleId!==variant.articleId||d.source.sourceSha256!==variant.sourceSha256)throw Error('variant_selection_identity_changed');selected.set(variant.articleId,variant.candidatePath.split(/[\\/]/).at(-1));}
+  for(const replacement of replacementPlan.chapters.filter(j=>j.sourceId===sid)){const bytes=await readFile(replacement.candidatePath);if(sha(bytes)!==replacement.candidateSha256)throw Error('formal_replacement_candidate_changed');selected.set(replacement.articleId,replacement.candidatePath.split(/[\\/]/).at(-1));}
+  if(additions)for(const addition of additions.jobs.filter(j=>j.sourceId===sid)){const abytes=await readFile(addition.candidatePath),ad=JSON.parse(abytes),additionName=addition.candidatePath.split(/[\/]/).at(-1);if(!names.includes(additionName)||sha(abytes)!==addition.candidateSha256||ad.source.articleId!==addition.articleId)throw Error('web_addition_identity_changed');selected.set(addition.articleId,additionName);}
+  for(const [article,name] of selected){const path=join(dir,name),definition=definitionSelections.find(d=>d.sourceId===sid&&d.articleId===article);if(definition&&(sha(await readFile(path))!==definition.candidateSha256||sha(await readFile(definition.sidecarPath))!==definition.sidecarSha256||sha(await readFile(definition.stageProofPath))!==definition.stageProofSha256))throw Error('definition_selected_artifact_changed');if(sid===structureHolds.sourceId&&structureHolds.articleIds.includes(article)&&!definition){pending.push({path,error:'confirmed_source_definition_boundary_hold',evidencePath:structureHolds.evidencePath,evidenceSha256:structureHolds.evidenceSha256});continue;}let audit;const candidateBytes=await readFile(path);try{await access(join(root,'audit/web/articles',sid,article+'.'+sha(candidateBytes)+'.json'));}catch(error){if(error.code!=='ENOENT')throw error;pending.push({path,error:'awaiting-independent-audit-receipt'});continue;}try{audit=await verifyAuditForWebCandidate(root,path);}catch(e){pending.push({path,error:String(e.message??e)});continue;}
+--- a/integration/definition-boundaries-v1/manifest.v2.json
++++ b/integration/definition-boundaries-v1/manifest.v2.json
+@@ -11,8 +11,8 @@
+     },
+     {
+       "articleId": "chapter01-section010",
+-      "path": "integration/definition-boundaries-v1/chapter01-section010/sidecar.json",
+-      "sha256": "db081740d857fbce453165bfaf31d52478fdcd74d20c3e0b3c8447aea9b46c05",
++      "path": "integration/definition-boundaries-v1/chapter01-section010/sidecar.v2.json",
++      "sha256": "1d9cad432705f2a2d16675368637d4c6a9585030e448d6b916b99eae709e3a5a",
+       "textBlocks": 83,
+       "splitImageRuns": 7,
+       "heldTextBlocks": []
+--- a/integration/definition-boundary-stage-selection.json
++++ b/integration/definition-boundary-stage-selection.json
+@@ -1,6 +1,6 @@
+ {
+   "schema": "coach-accepted-definition-presentation-selection/1",
+-  "recordedAt": "2026-10-25T16:15:39.550356+00:00",
++  "recordedAt": "2026-10-27T15:13:05.975Z",
+   "entries": [
+     {
+       "sourceId": "modern-yabejp-ja",
+@@ -61,10 +61,22 @@
+       "sidecarSha256": "2fa85e9cee1ee88cefce5553834df63d2b335bde19af28f724984ebf13b4ab23",
+       "stageProofPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\stage-definition-chapter01-section016-v1\\definition-boundary-validation.json",
+       "stageProofSha256": "9085d4ffdd96ecf35889100bb921fb6c8a9af0f2c2beeb58b95ef0a2d2ce50ef"
++    },
++    {
++      "sourceId": "modern-yabejp-ja",
++      "articleId": "chapter01-section010",
++      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.coac269rev1.json",
++      "candidateSha256": "44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c",
++      "sidecarPath": "E:/AgentData/Coach/knowledge/processing/integration/definition-boundaries-v1/chapter01-section010/sidecar.v2.json",
++      "sidecarSha256": "1d9cad432705f2a2d16675368637d4c6a9585030e448d6b916b99eae709e3a5a",
++      "stageProofPath": "E:/AgentData/Coach/knowledge/processing/integration/stage-definition-chapter01-section010-v1/definition-boundary-validation.json",
++      "stageProofSha256": "3ad6a6c0d23ad240c58e79e061264cb1387b26792bc6535ae58d7170b11b0fdc",
++      "boundaryAdjudication": {
++        "path": "E:/AgentData/Coach/knowledge/processing/audit/web/adjudications/definition-boundary-section010/coac249-section010-boundary-ruling-20261027.json",
++        "sha256": "a164f76843c37a0d57f784fe16941cce62fa4dfbb3ffdc7c39417c96ed3f7bbc"
++      }
+     }
+   ],
+-  "semanticHoldRemains": [
+-    "chapter01-section010"
+-  ],
++  "semanticHoldRemains": [],
+   "modelCalls": 0
+ }
+--- a/docs/plans/2026-10-24-full-textbook-processing.md
++++ b/docs/plans/2026-10-24-full-textbook-processing.md
+@@ -36,6 +36,8 @@
+ 
+ 
+ JPEG 来源图的装配兼容：源图真实 MIME、字节 SHA、原候选和审校回执保持不变。现有 corpus/MCP 的 PNG 路径契约继续使用；装配层以现有 Pillow 完整解码单帧 JPEG，生成相同尺寸、逐 RGBA 像素一致的 PNG 展示件。stage 收据单列原 JPEG／PNG／解码像素 SHA 与衍生关系，原 JPEG 随 source-assets 保留；MCP 的 imageProvenance 标为派生件，不称为源 PNG。声明 MIME 与真实格式不符、SHA 不符、损坏或多帧文件拒绝，不豁免语义或独立审核门禁。
++
++027-1（chapter01-section010）定义边界仅按独立裁决 a164f768、验证 1518cdbe、闸门 d24a4fcd 解除本章语义 hold：采用精确 LF sidecar 提案 1d9cad43，保留原 CRLF db081740；只重绑已通过候选 44ce506d 的路径与 SHA。7切点由既有父审42张跨界图角色与完整DOM/像素验证共同支持，不新增模型调用。manifest/selection/stage guard 均限定本章及原候选/来源/父审，其他章节 hold 与边界规则保持，正式 active 不切换。
+ 
+ ## 轻量 MCP 装配
+ 

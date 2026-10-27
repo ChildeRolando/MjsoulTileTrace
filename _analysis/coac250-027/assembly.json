@@ -1,0 +1,963 @@
+{
+  "chapters": 223,
+  "units": 231,
+  "blocks": 6147,
+  "figures": 5056,
+  "corpusId": "b77c2d78b6262991bbc6bd1fce7dbca1a75237fd9aa3a2ff53e8d96cd1e7071e",
+  "bodySha256": "09f2b180305de9524ac8aed7878a4c6f95c9bfb09dc36a93eefdb14828d5e1fb",
+  "maxUnitBytes": 358204,
+  "modelCalls": 0,
+  "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T15-13-06-014Z",
+  "prior": {
+    "preview": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T14-51-46-276Z",
+    "pointerReceiptSha256": "ee90c77f748358ac2280cacf159969863eda7b6a66b562c4115c2e05f3a242cf",
+    "corpusId": "362e6076da5ca674c39f27216d08a48efb77ef30c13bf8cf4448c743a4423844",
+    "chapters": 222,
+    "units": 230,
+    "blocks": 6104,
+    "figures": 4972,
+    "selectedWeb": 193,
+    "pendingWeb": 30,
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T14-51-46-276Z",
+    "sha256": "ee90c77f748358ac2280cacf159969863eda7b6a66b562c4115c2e05f3a242cf"
+  },
+  "definition": {
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter01-section010",
+    "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.coac269rev1.json",
+    "candidateSha256": "44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c",
+    "sidecarPath": "E:/AgentData/Coach/knowledge/processing/integration/definition-boundaries-v1/chapter01-section010/sidecar.v2.json",
+    "sidecarSha256": "1d9cad432705f2a2d16675368637d4c6a9585030e448d6b916b99eae709e3a5a",
+    "stageProofPath": "E:/AgentData/Coach/knowledge/processing/integration/stage-definition-chapter01-section010-v1/definition-boundary-validation.json",
+    "stageProofSha256": "3ad6a6c0d23ad240c58e79e061264cb1387b26792bc6535ae58d7170b11b0fdc",
+    "boundaryAdjudication": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/web/adjudications/definition-boundary-section010/coac249-section010-boundary-ruling-20261027.json",
+      "sha256": "a164f76843c37a0d57f784fe16941cce62fa4dfbb3ffdc7c39417c96ed3f7bbc"
+    }
+  },
+  "retainedUnits": 230,
+  "unchangedUnitFingerprints": [
+    {
+      "unitId": "nemata-direction",
+      "sha256": "b0280f3dca06ea8f8711f5e7bde73a9e2bff43faf0672aec186efd4ba1228296"
+    },
+    {
+      "unitId": "nemata-progress",
+      "sha256": "b610aa91b754853db9aa5f51d01269633a6bbb5855b0b0d1a5ceb6a66f0c97f5"
+    },
+    {
+      "unitId": "nemata-dora",
+      "sha256": "d53af8a24187325f27034754eb8b1f0f286d863a2ae1e35e2ce60174b50475cd"
+    },
+    {
+      "unitId": "nemata-calls",
+      "sha256": "42ec422f493d93a4ead3912792105bbaf1be575cdc3a90cbced0c556b49aa1db"
+    },
+    {
+      "unitId": "nemata-shanten-back",
+      "sha256": "38b69fde6fc9da581bfc1cc67b6cefdebcb6db1aa04539885c5d622d0dba4257"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1689302-argument",
+      "sha256": "9d1d322f54b706f04ca1cb796876f2914989e47a672e4e7c64a9c78d8d81fb98"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1689331-argument",
+      "sha256": "85fe713dcdf0b859389de5bc0945f8cd433a9563fd04188410b7a56403c8b283"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1689340-argument",
+      "sha256": "267d18757378eae05de92dfb13eb30f6191dd8525048f666cefd51b170f1b618"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1689350-argument",
+      "sha256": "6ecc3288355164e09f6c0fc40e9437b759604d37a47f5bb94ef4d358aaf7f463"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1693763-argument",
+      "sha256": "66a057ceafb167c948db12e71ef9625cc627f26e324de3f43fc6e70e0a2138c0"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1693794-argument",
+      "sha256": "d93e3e7ba16a873a849313a4cceb403f96c72c51f7a8af2a1c865aba9bde8ce8"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1693812-argument",
+      "sha256": "259854182fa4ea8881592d0306932976d04083440fba66474ed94ccf113c3bf0"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1693838-argument",
+      "sha256": "439ed3a9d0fb99ffce76eddcc2f2764fbf46912951665251b0ef311b47eb40fc"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1693854-argument",
+      "sha256": "0566b08722b68491e15748d1ee11ead13c47e42f7825bf92190713cc86fb2799"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1697932-argument",
+      "sha256": "2345085f3bcd6bf903b22f445f4ff18da7388a25819860bcd7dff6a85b7a5daa"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1697952-argument",
+      "sha256": "1275025f49c481c352f3d799b80185f9a732af7a146db5337bb3f82f36fd3a3a"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1697964-argument",
+      "sha256": "68e8b6e0b9b99e5fcee6075574f383b66b6bd49dca18afab61c4f2d0b2920a29"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1704166-argument",
+      "sha256": "16430eb194adf519860efea26f74bc37dd49f221e04c79f9e846b31cba37e87f"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1704179-argument",
+      "sha256": "c5d6cd92a59ba1246c7e0e6203e0e18b60672cab0ee47a54fe8233027c3ffdc5"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1704192-argument",
+      "sha256": "308ce17c0078be3565294d4591a8f16c6598f964d15c669f3d3e3ce345434c0b"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1704202-argument",
+      "sha256": "7e5072e4a0374750ea7203ac87f6c93e167599daff2a4e8bdc0910357303751a"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1704217-argument",
+      "sha256": "d3da40fbe56d18094922f912f6b28d8071b122611c2c5e765d93185e18dde783"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1708627-argument",
+      "sha256": "db1b3b6a6e745d96ca8b9eed15c89c1079298f82c5ae267bea11235d6ba8a04d"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1708652-argument",
+      "sha256": "7512c291f14a2ca077fdb0a96e36f8b95d2bf8e0171e54003a2db5c67a7a05a9"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1708665-argument",
+      "sha256": "ecfd715460ff9868251a73b48879fe70a957745d86c30d9780db9f713feff177"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1716127-argument",
+      "sha256": "129ef270d36fac899eecc00ad3f1f5f8ee0e17f633307dcef3e1ad86a32ebc9f"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1716136-argument",
+      "sha256": "f5c146c21ba4742e8328a420fdace88597ab25f34962fae4e880c68a6e5818de"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1716151-argument",
+      "sha256": "f033eec08a3c5cdc0f6d070d53f85f641cd776627eefae8559bea66df31a4ab6"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1716163-argument",
+      "sha256": "9422934ed3f013e5d91997ae01d089e07a501ee4f9e02e225730a057b9f25d73"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1716187-argument",
+      "sha256": "4e96c14caf3aafc824c4058de0eae47d1f046627e75356eecb00f98dbe174e78"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1721475-argument",
+      "sha256": "beb00670cb871f5dbb73d59be95fdd886535cde145996be22394205ad081f17d"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1721490-argument",
+      "sha256": "35c78d787e3535658202f6956cae370697c74aa6b3c7e9de1e78715243ea8487"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1721517-argument",
+      "sha256": "8e193cb05466ac6c2eb12de349c82e94853c1f164bbd0c0c320ada815c2ff118"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1726169-argument",
+      "sha256": "faf734edfdb813df5586d185486f4537d2a760efe21698bd2ed1d94643e5c2d9"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1726181-argument",
+      "sha256": "390a5bd9822510c6490de6a74a81959dd827f7bcec8c9d62f899904039a21867"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1726202-argument",
+      "sha256": "6250fad191bb8755b2b584648eab029d430e5d74237c3451ee78066455864b7e"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1729062-argument",
+      "sha256": "8c2c40e17b0e1bfa4e75333f0578c0c29442645c996fe2c43e8d5ac38531b320"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1729076-argument",
+      "sha256": "3905981c63cb019115e6206849fccb4660fe34cc1ef90e96b6cd89e28f5696f2"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1729089-argument",
+      "sha256": "640b4d596d6be7a504245c717c5238ed621178e8d800653cf5767620c0bcc336"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1734724-argument",
+      "sha256": "e0d0bdadb8e109d1309cc156abf609a658826708404e3184a7c2eef367177b3e"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1734748-argument",
+      "sha256": "0faeab7b2c2a0532e5a1b05e54166e6d89bb7824395d6bc64626b03fce9ca400"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1738927-argument",
+      "sha256": "299223abb5e86abe08544f7e59be0dc51a4897ee4cb315573e19c5eac6b5a35a"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1738941-argument",
+      "sha256": "115d1b53f1f4347d02a06e03a48e92acabd4bc8576b003c35f20c33da75537d1"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1738963-argument",
+      "sha256": "e8cddd6d0365874aaf188147bc37aa8c5faef3dd3ca5ec50a98e73df8b40f507"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1744243-argument",
+      "sha256": "41499f6ad059caf8dccbde687a441360af43244fd44bd155ceb99ce8769f434f"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1754612-argument",
+      "sha256": "3816f64a8c5333d1f6a8997020d540d1b3d24b35b5132114db595711a1aac790"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1754761-argument",
+      "sha256": "2a73ee32af3b9f1d70ac1249cc08b93ad312a886dea9876377ec361ecc19421b"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1754776-argument",
+      "sha256": "45ef1f248e4c377f80709403cec356219bcfbdff500dfc1223abedf7cc51fded"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1760541-argument",
+      "sha256": "a227b8825503fb3cb7f05577cb0e658236195deb6a8d9f59254527ae5c038b70"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1760558-argument",
+      "sha256": "a93c558f56f7a0eb3be0efb4e7ffdde6b7a1e2a996d6731994fab3cce741e282"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1760582-argument",
+      "sha256": "75546c0e965caca0d92305c0d621dc0141499e16ddcc3ec065595e394488725d"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1760595-argument",
+      "sha256": "98408a3a3fd10d8dc7b52987cc2867d5b04dfa24486d80edd2e5e17cdfaef457"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1765351-argument",
+      "sha256": "aaca40c82c0ffb4ccdf6cc492122cdf6b50c67f4a97878479a9b2f14c94399f1"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1765417-argument",
+      "sha256": "0cd01caae0399f0601147702f3b44f37c2f463a29cb70ffaf26fe32c05c0a1e2"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1770189-argument",
+      "sha256": "7381de41c7a1014cd89e4ac6c5d69ad9164b8f249a24fe2a241accceb21b9747"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1771570-argument",
+      "sha256": "dbb093616ab0c29d7cd422dcb51fafe48fa971004e54188a276eaf450248260b"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1775245-argument",
+      "sha256": "453fcde59f8c6a8724d07c28117daf46d4dec173223f17b9413a22f333b3a0ec"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1780378-argument",
+      "sha256": "1d1d44466dac36aa008af0ec806a9c8f8f17988e8180555bb42056ba949ba244"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1780410-argument",
+      "sha256": "8de9eb4b47c65096c5ebcccb9770f2034f6790b566985ed9505d0cd61a15fe2a"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1780420-argument",
+      "sha256": "56f79e91316ee95d2dc06ee85b59362eadb82fb8bd683ad285991a50a9957cf3"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1785820-argument",
+      "sha256": "8abb290c3a7c60b2f30846bbad42c8ec6cbd9d5e5a7053f4249aaca64cc2a38b"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1800671-argument",
+      "sha256": "f2057f2ce5a0bc4f7315ef0ed9768a8c8ee49cbb484640888f41a8654ade0d82"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1806391-argument",
+      "sha256": "8b169a67cf232b36420b48a63452f821f2ef5849950df32fe8280942ef9ec7da"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1810877-argument",
+      "sha256": "04cffc6cb8a4d624e6c515a014df3a38966230d8bfa11955b3b493847d18c12f"
+    },
+    {
+      "unitId": "modern-yabejp-ja-archive01-section001-argument",
+      "sha256": "e5e6cb3acecd942216043c78c0cda624c0da28136d8425a5ef6395ead314fbf6"
+    },
+    {
+      "unitId": "modern-yabejp-ja-archive01-section002-argument",
+      "sha256": "d98db1633a3e7558fdeffb6b75b58df8c9c50bde024b23cc822b02fedea80844"
+    },
+    {
+      "unitId": "modern-yabejp-ja-archive01-section003-argument",
+      "sha256": "7a20d620794542d9a2648c33ec2055248a69cc2e5e65026810c89c34d93f880d"
+    },
+    {
+      "unitId": "modern-yabejp-ja-archive01-section005-argument",
+      "sha256": "4dbffc8e069f5e2dba151496ba6deb1e0b5c5a8672bcf8d9bf5c0ebc5640a40a"
+    },
+    {
+      "unitId": "modern-yabejp-ja-archive01-section006-argument",
+      "sha256": "ee5472e94229ba737ee6151b89a1bce8fc0e9b623d78f431def3060ea025c383"
+    },
+    {
+      "unitId": "modern-yabejp-ja-archive01-section007-argument",
+      "sha256": "93df01752ca67444d9dae1f6fd48f3f4f7b4ba79a4ce064fbfd945eff4331cc0"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter00-section001-argument",
+      "sha256": "ae7b3107398942227dac7a26dd5a48aa1ba8e34febf7a4406f69067decb04d0f"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section001-argument",
+      "sha256": "6d402dc599590594008ac0feced14f7e8f693febb50c2788536c081b5dacd508"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section002-argument",
+      "sha256": "b89601bc9f2334d5bee41958b205e30c46ef6da13141d86db453d26c53abfde1"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section003-argument",
+      "sha256": "b1ae6c7508743bb4cb8f35e2f85ad4a35231994511d4df81945d2a83da4a03e8"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section004-argument",
+      "sha256": "bb5bd930575de833f53b605a1643ee6d8af3033508e8367563d075e728e486f4"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section005-argument",
+      "sha256": "ff412489c3413c8b852447fdfc88e6bb475e904611f7157711231c3395ce2b7b"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section006-argument",
+      "sha256": "1f4719926a3f8197e7dcbf99bc78fa4136f4397e477b7ea50fd0f0d5d3a3ada9"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section007-argument",
+      "sha256": "26af66648cf5e1b0d3a84a062aaaeebd1bfc775700082f11139429cc5b7b9246"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section008-argument",
+      "sha256": "f363ab79be03eb276a31b82949e04a778d4a5458ec70549c8d8d515261e0096a"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section009-argument",
+      "sha256": "1ee41019e9e1ccc643343cdbd29ef09d455c59e27fc3d9b0a5b3a7f267030d9c"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section011-argument",
+      "sha256": "057d0e2316b79327f07786306c75c36b1c304d68ab8fb828699bb270da4b0d12"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section012-argument",
+      "sha256": "eb992f2427f085b34c528d3a33cec245c2f2bd3a6c03ecb485354f428988f4b9"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section013-argument",
+      "sha256": "db51e85e3769199b80a1a3d5d03a309257603c346cddc7db9e1a8ef7d84a9691"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section014-argument",
+      "sha256": "b0d574ac4158bf592c1bb59742e9dc73d61091023b9da8b369142abe3c33df7c"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section015-argument",
+      "sha256": "bb4355418b2d67d0d0611b2b66deecf8ed635aab2371bc2ebdde8d972dbadead"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section016-argument",
+      "sha256": "ad6b4be68c009a819edd67da2adb328918466043898e3f26dc61b606db96a081"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section017-argument",
+      "sha256": "815e29f6f7ab91c077fc4b1efdcf29530f43c32473f4d360435599ac5d8f636a"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section018-argument",
+      "sha256": "0fe883956394de88e88467d29dc53ba7937935836f3e7e2f63f2414cf83b555f"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section019-argument",
+      "sha256": "e34a0bcf29cdab1baacf760aabdc22caf108f20b8c26c228dcf72165f4564fe8"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section020-argument",
+      "sha256": "35f4d6d38ba361fa6108aaedaf52c08736f97ba6c4fa3fb11f30671879313642"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section021-01-argument",
+      "sha256": "84f9d9e543d92b67bec925536801df1081461575f4d4e1cb8de4d0dc673ae859"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section021-02-argument",
+      "sha256": "6e22ac1b210bb397d0f7b117d838a57ebbd42da0750b2a12c763fb5ebec498c2"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section021-03-argument",
+      "sha256": "90069619071d7561d42ade1fed3aec3245d42e3502e059b1ad576cb84b682e9b"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section021-04-argument",
+      "sha256": "e594ea48457d2f8af7db32af82aa1b465732bfe609eb391d5e980303e8fe7ae0"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section021-05-argument",
+      "sha256": "597fe89ea03dd365a1e27f47f3d7083e29b362be9f1aad83773c85c7bb3750bc"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section021-06-argument",
+      "sha256": "567620cd530a624128aaa07d98c2e248a4ef6874df7bf75c593927d07f5ce48c"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section022-01-argument",
+      "sha256": "9ad61927d064dd8f1727d82721f7b4612cee24b5a5d4a7128e0d05d03663b552"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section022-02-argument",
+      "sha256": "19c005b94fb65897584530a812c26c20005c8bb96227726389446187379a3409"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section022-04-argument",
+      "sha256": "8f20dbe7c0f6842d33468e47565622975b0ed3e6a2be3e678781e8a0304df498"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section023-argument",
+      "sha256": "192e3927533d6fb60ca7e79674e495fff7d5c09e8ef9def9342e6597c5f12d2d"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section024-argument",
+      "sha256": "364c459850ccd1c3de6cb921e88425087dc4e71416cd34f27e3fe28da5f90beb"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section025-argument",
+      "sha256": "2a5a2b6630fb691590b2e35b434703d2eae4ab479a700182f0538c8f2b938915"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section026-argument",
+      "sha256": "1d27643db3707906d1b350f841696dac11327cf064340da0b56477ed4debbf51"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section027-argument",
+      "sha256": "51254ed82a360cf8f5b71ee285b0dae3607fea39d59e87ada4d3afc466885536"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section028-argument",
+      "sha256": "7e194e05bf1579d3c7ed6f198d0a96fb4ef1438d0c5122ba0a3899782f387fb2"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section029-argument",
+      "sha256": "837a40d68ed144ee07412832beceb357fab881532b3bb3c6e4e892849f8b685a"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section030-argument",
+      "sha256": "23524aabb5a0dcafffe667d4134ce6670ce989da7a1cb4e3d0e975b435ffb3cb"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section031-argument",
+      "sha256": "0c5c35ffc7525348d254814977bb030f96302a3123ab99108fa2f1e2c0961a8e"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section032-argument",
+      "sha256": "9390a68bf03fe1f7da3c6f99b9204f7445a209d286567e7d0c351cf32c87d5fb"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section033-argument",
+      "sha256": "e0bc12348b92671d16f5d72ea2ecbdfd6d438dd97a485cc42868a94e92e1a57e"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section036-argument",
+      "sha256": "95479dded84bf9b9f47dc9659511c77d6dd802387c29a0feda77de23ffdc1039"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section037-argument",
+      "sha256": "e0a89e685be55f6182cab9d2eea949a58fa4a5e3ac6630337516bf1a2ac96de1"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section038-argument",
+      "sha256": "eb6f760f2aa06ceb1a49448edb71555d2a33ec5dc429878f31d161a227872027"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section039-argument",
+      "sha256": "9d75840263bd8c2c173aeb4064bdc836b2e608d0db3800ad5c14da3193ab8047"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section040-argument",
+      "sha256": "69084c018830b66a83b246786a26d937a05b72d23c34eb43286617de28922352"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section041-argument",
+      "sha256": "c8ac12472f5126d070f7674f2b9a744048eeddd25ad317d06c2846bb7fb1d34a"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section042-argument",
+      "sha256": "52a741c66abcb5d0ab272beebcbf17cd4644344a4de059966663013575e24262"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section043-argument",
+      "sha256": "77cb5d71aaf40521f6b8de297523bee364cdea22bd8bc5d46f6de9c74e80931a"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section044-argument",
+      "sha256": "509821c32cfd838556e7d845ec0326247f2389f793c3db1769da98ea3a4bf0aa"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section045-argument",
+      "sha256": "5b5c5474c3234e300f667a608ed20a84e6e390bc41e9e89f7042c6a57f1966ac"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section046-argument",
+      "sha256": "d1105c28cf218d32be24a13f61f0e1ed35e1dfad132b4258dc9653f7bac01caf"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section047-argument",
+      "sha256": "e8cb67aa28b269fc18227ee0cfb98ded7d8db2b61a9c11da851ddc82502c52cd"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section048-argument",
+      "sha256": "577977366207ff54f19c894d8aa63329f2e9c108bb5383d1d9a7998d68117ab8"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section049-argument",
+      "sha256": "6ce16d5bba82f99ece5272e26735eca240747c8ac9a733bfced55a31f91f81de"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section050-argument",
+      "sha256": "c1be8ca6b16078a463c6416c7351ef29aa1fc2a4e6597f75bf6b64d9c782af28"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section051-argument",
+      "sha256": "34150210c2b41209677320a6f966a54d8ba9a1f41a28ee9436c9bc1084d3c82b"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section052-argument",
+      "sha256": "908cc0f725ef74b0719fdfb8401df5ee73d9691c38fae584b9968aa8548321bd"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section053-argument",
+      "sha256": "8f316f6725c181e3094e1670ca31588dcd10e5f73d076cb1d7cfae04029d3c0f"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section054-argument",
+      "sha256": "55c58b4624111938e9289b1f1c755894a28542a6c90ca28097677279d052e120"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section055-argument",
+      "sha256": "4253a2f99f71b953747354334945bb839bdc59dbc60adfb3ce36dea594595ac0"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter02-section001-argument",
+      "sha256": "c0c60c531dadab452ef1ebb9300e93c0d61de15a1ad3163d85164db909d1d57e"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter02-section002-argument",
+      "sha256": "35dfda9d6b0ce0bc20833d4186c3da9af5d8a75aa3d83595bad97903d9df2df5"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter02-section003-argument",
+      "sha256": "43c905f4bf888a80b17b7ce5a3705f6d04fefd1012070cb5e340d876995eb789"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter02-section004-argument",
+      "sha256": "caa7802d25b413977b20ccdfbfe2d9cdebdfccd9536103c3113839a7fbeac0bb"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter02-section013-argument",
+      "sha256": "38e97f462c94952e614bc9397e6f08ed2c85961db2a6c71f8535ce793de96718"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter02-section014-argument",
+      "sha256": "dbeaf28bf4ee837d40e2214c1f84c8dc3721023c200a81534336250e7d6382ae"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter02-section015-argument",
+      "sha256": "3ab70edaa5c623ca43d2dc3e1ea451f14f3a18a562f080ff99b0115aac4915b8"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter02-section016-argument",
+      "sha256": "6fb5e66b686b8ee151ab900dfb8030d80bdcc1542fce119ab27ea3e866bf8a77"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter02-section017-argument",
+      "sha256": "8f31f4e3bd531a960a769190ac58a718311952d733c146261b80372d674a3ba9"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter02-section018-argument",
+      "sha256": "af9a80ede404371a925cf5609e9700edc30d65fd148479a25259e02df0456d28"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter02-section020-argument",
+      "sha256": "388caddcfc0df48f4d78c31e464d0cca358e3055239b07bc7fae0c59607b7881"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter02-section021-argument",
+      "sha256": "e223729ffb5f00614957402c626048f41b0a65f1b07f9fb5625e291dd1259d76"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter02-section022-argument",
+      "sha256": "834e4d4e8d0fc941f686e7756a72ff6db55c50d1da596db50d2c6a9e6f8c2960"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter02-section023-argument",
+      "sha256": "9db1105aca3156951bcf4d055d9a567606a6da0214c2a342362055f4997ca32c"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter02-section024-argument",
+      "sha256": "696e424465db91613e86aa16754d23384609523492eef54690e73bef64ccde60"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter02-section025-argument",
+      "sha256": "186ff84e69c817606fc462c999d73793d4325f53cb1b22f287e487041eda08f9"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter02-section026-argument",
+      "sha256": "342e3a6c10127ccef59aae4d003e512733b46fa2feb715c57b06ade5b48ad0c6"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter02-section027-argument",
+      "sha256": "176e21f55f13f29be73a92693724e023f26fb5fc70d63ce55c17898dc204284a"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section001-argument",
+      "sha256": "3fe9be818d36e8e6b586e7ad95fcb40497a3969a80914f771f71845a6914c402"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section002-argument",
+      "sha256": "8cdfa163bc7f95d36ed6c2181e9929583f8c503f354892a385bd84d9853692e0"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section004-argument",
+      "sha256": "53dbc2c2c706959bba191d23d475a49b7605b8fc987caf9477326715cbaf069c"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section005-argument",
+      "sha256": "bd1375936451f150c4df195f58cc3f9e1b213aed9e05d181668d072d6d05442d"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section006-argument",
+      "sha256": "7e1c28c07a895f973ad73c082ce2b575987a1e3907ac95110c53ba7354b38316"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section007-argument",
+      "sha256": "3747fc0072550e6c474be31f7ff2472ca1acba02866ef79927f730692339a25d"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section008-argument",
+      "sha256": "76ca637ba6d85472c14a10fce393e8fe84e7a6ea5a15a63927f4510072d34469"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section010-argument",
+      "sha256": "a7803d6fb804d9a3363414a7981a140b45987b79c9cf733d83c679920981bba9"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section011-argument",
+      "sha256": "1411a4082f760d0d29f50eb1c6f419da1ba0bff9277b4168fd91a7fdb372faae"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section012-argument",
+      "sha256": "5d8c077dec57b40b1c56c99c5a5173a80e3a2f39d2beee3347d2d39474cbfb50"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section013-argument",
+      "sha256": "36b1fa2a4b113e00649afb5a85951453f7ec688622f9845889e888ca46b3b92a"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section014-argument",
+      "sha256": "f32e32fb7ba3fc0f9bf1ed5aed7ee0931f4acfe5dfdad6eaed40641900d58bb4"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section015-argument",
+      "sha256": "2a52a8894fa0b8e8fa6f7156f3ee5037e341e837d2ba4e6cbefaac732f4ff0cb"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section016-argument",
+      "sha256": "9f03fdad0e29e42c0951fb8a5449076ad150e65bcf836c4d2eadfcdae3afbdf0"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section017-argument",
+      "sha256": "26b9e4578acf49fd475a823b050803e0e6ed829616b6c4a34e12b156c8b1be58"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section018-argument",
+      "sha256": "a159e295728f25643b0a7fbe29481d57ef74f6d3a2e974a6fab3cc2439f7044e"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section019-argument",
+      "sha256": "b9d5418c10e05cf3e1fe2ab3ba20d6d1c562380f867a72a4ef3d4a295cd659c2"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section020-argument",
+      "sha256": "d78687292dad6f8e136a0a5f84d1bc9c09a8eed96e17fc6dc8684369a7b22406"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section021-argument",
+      "sha256": "79fb623030180631f00899ac6c8b6dc7f62616a8f8a8780a4d08a38c28987496"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section022-argument",
+      "sha256": "ad02a5344fa450674955918acfa5600b2ca9cc626fedfe6d27ac3433806259b9"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section023-argument",
+      "sha256": "c01c2888635cb9366b5ae6c2b8233fbb1ac9479f29199fec83e320f227e1dea5"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section024-argument",
+      "sha256": "a1671c3bd0684116eb74c4c969a89c7c5ecefe5515c03e36affe9f6f10d11214"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section025-argument",
+      "sha256": "836f130ce20cb74a82a197cf588c7d922da9e3bf265e1b462e0b527648e95b00"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section027-argument",
+      "sha256": "b35b3e09dce4245476b1ce6f559089ef04865be74080657e7ec2facb2f1cc444"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section028-argument",
+      "sha256": "5e380f3a10ba3c29d33216df13d3fa9dab689a340204eaca3c99862434992da2"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section029-argument",
+      "sha256": "9e9252c611d9a7afa988ca76cec88cdfee522751bf6ea0260af70e7547008c65"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter04-section001-argument",
+      "sha256": "3e779227f96991a345766d48b897b527c1fb7f8460162d52c77ad105ff37dc6b"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter04-section002-argument",
+      "sha256": "67485e95a3c1b9c31304c23e99481d4b3117b213f07b869f0e10b7924ea6dae3"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter04-section003-argument",
+      "sha256": "e21a652060600223d6a0216c7bb0bbf57e17017101e4af0f928974ad282b828b"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter04-section004-argument",
+      "sha256": "f9a6a4006d8d5996c6f77813a12fcbbef15eb75d7ae549ec90ac93160d77e160"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter04-section006-argument",
+      "sha256": "255ee25f1ffd81699d40b6e7a97250f4d7455e99cd6c355a19e96d108e25ed3f"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter04-section007-argument",
+      "sha256": "4cb8a278f4ea38832e86906e95f26cd5b89b19689462ae23435b74e0f54bbff5"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter04-section008-argument",
+      "sha256": "229cc7c212afc0824e84d7fd07725a6607b0f4abd98b3e0248253dfd83f2a1ba"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter04-section009-argument",
+      "sha256": "4b2de6d3f39bc92ad97c0c94c0f2113e7f5a941cc6e43fb22f46e46a180fcf42"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter04-section010-argument",
+      "sha256": "98f7d00bc1a9ed0caaed0e06af4ee21eabf6cc34a164cad50a479671c9804274"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter04-section011-argument",
+      "sha256": "31573e25b02392a8d9eaa72e606188f1622114b5cd0e63eba920be26090dfd62"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter04-section013-argument",
+      "sha256": "fd6c9a702f1baacbb4e44d24b16126cab47c82f668014fd603cf7f0e20d2c82a"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter04-section014-argument",
+      "sha256": "124dc895d46088641c359f54aa6823b989d21a25852a25ac097a95e07b93f33d"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter04-section016-argument",
+      "sha256": "5be158fe3f9f1c5ae19dbf631cd16a1373b334b6e3b32714fd64e342bc8a35d7"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter04-section017-argument",
+      "sha256": "f1a97bd120cbf32c0af3d6c6707e54f731daaf081f23ab61ce99279bc3231ee7"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter05-section001-argument",
+      "sha256": "659e6f97c27112434d6fe2dd94fe84dc3dbb2b2d9436d07ae672df363cd12153"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter05-section002-argument",
+      "sha256": "f2364c4c0e2116aca98b79218eaa09ad9085d7be7e5b88a6ba0b0c2aaaaa3f18"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter05-section003-argument",
+      "sha256": "dc736bc076a23e00c99e17d2692c1d3359ae43acc5e96d910fb8841560634bff"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter06-exercise002-01-argument",
+      "sha256": "b70f5cbba7476f9b7163546860eafecdacce109273746ca99710f5e9660aeb94"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter06-exercise002-02-argument",
+      "sha256": "c013075bccab06b99feecb59b43db155edc6a4cb7208d5836c42589f78f09950"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter06-exercise004-argument",
+      "sha256": "85467cf88fd4c263e89a6c03a528209073a15707cd4d8737f3d0772158e1ff09"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter06-section001-argument",
+      "sha256": "9a974d32a8796ce28308a62a8be51417568005f6ba082f8b307a24fb8a11262f"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter06-section002-argument",
+      "sha256": "efa3b1570e12aa2cf0ac64809f0544b395ac9511062b64b3ef58619fb9ff7c22"
+    },
+    {
+      "unitId": "79-cn-chapter-001-3-unit-1",
+      "sha256": "6f4ec10d566df992bb900013d0518567f4f4f71411fa24c39814c2553445878d"
+    },
+    {
+      "unitId": "nemata-jp-chapter-067-1-unit-1",
+      "sha256": "4e2c9319edc06054b867f190e99b23027a80552d50f30f65533fd3f1252178fd"
+    },
+    {
+      "unitId": "modern-yabejp-ja-chapter01-section022-03-supplement-unit-1",
+      "sha256": "a169a6bc2eec32a9617fa38082448958852c68d61e8bbb9af7ae6dc0217ae95f"
+    },
+    {
+      "unitId": "nemata-jp-chapter-166-1-unit-1",
+      "sha256": "2c43f8d35eb0362ee14fbf64fe32f225f24ac9aa471df138c445b2bb11e8f985"
+    },
+    {
+      "unitId": "79-cn-chapter-027-4-unit-1",
+      "sha256": "829d2a7052eab70e49fd658a1f98fb63a1480681052db61c81afa0fe8d504863"
+    },
+    {
+      "unitId": "79-cn-chapter-035-6-unit-1",
+      "sha256": "2df218223fef59a4798c4bce820591dac51dcc16b36350ca2f8f55a6d2e4b9e1"
+    },
+    {
+      "unitId": "79-cn-chapter-057-6-unit-1",
+      "sha256": "fb1de87a68774a7db5ab48353b81646313dc8125a08142dbe886d61b39def039"
+    },
+    {
+      "unitId": "79-cn-chapter-087-6-unit-1",
+      "sha256": "c171b25e6806779bbe1696d14735a2fe1027a95e91ee4f779c90d3314e3de15d"
+    },
+    {
+      "unitId": "79-cn-chapter-095-6-unit-1",
+      "sha256": "61149582130e392cd7caebad644bb83b3e39af43448c0823cd07032cd13eb91d"
+    },
+    {
+      "unitId": "79-cn-chapter-106-5-unit-1",
+      "sha256": "9b420ba4bd7bbd89b757e3c730ece1bdc2d687c9c5645085060f450ded4a5fc4"
+    },
+    {
+      "unitId": "79-cn-chapter-112-3-unit-1",
+      "sha256": "8a2cd0c1f82be690584b78ddcc9e924888c2cadce6a6677c60ef7b5daee1772c"
+    },
+    {
+      "unitId": "79-cn-chapter-122-3-unit-1",
+      "sha256": "e987042d27a6ba71fef0da461ba712cbe1cdaf5d391ddcd744518b4b776659ec"
+    },
+    {
+      "unitId": "79-cn-chapter-123-5-unit-1",
+      "sha256": "e04ad0130c8d1916196896dbe3697f1ce2c03ae7bf3a7835c7e5f5a6c8214505"
+    },
+    {
+      "unitId": "79-cn-chapter-134-4-unit-1",
+      "sha256": "c1fdd87a1e6dfe611969c2a75814bf3a4aa65ae1797985d9182d86da5777923c"
+    },
+    {
+      "unitId": "79-cn-chapter-147-5-unit-1",
+      "sha256": "4667bc75a4ccb8d5f8082600328f94409db5f47a7aa6d88fc7d20e4078f0d0f9"
+    },
+    {
+      "unitId": "79-cn-chapter-149-8-unit-1",
+      "sha256": "f68fb0eeffa61d2f18bda5cffd73fa6273b4fc7242eeeef21e75583642d03a0a"
+    },
+    {
+      "unitId": "79-cn-chapter-152-6-unit-1",
+      "sha256": "1dc75eff08d80e5ac12905531f786b9e8c780aff516ee404afbc42a16b393940"
+    },
+    {
+      "unitId": "79-cn-chapter-170-4-unit-1",
+      "sha256": "08c11b8a847d374480a32d297fd85fc6164d6cabe8219eb6ad91aed1d9913f4a"
+    },
+    {
+      "unitId": "79-cn-chapter-191-4-unit-1",
+      "sha256": "46780b3ce1d6fc9b41b75beedab13621bbf8bef91b744679fd84e93ac0a17f59"
+    },
+    {
+      "unitId": "79-cn-chapter-196-4-unit-1",
+      "sha256": "5ffa44522defcbf7b1b558be23d6f022cbf31ff5c9bbf1d6336ab005cc219ee3"
+    },
+    {
+      "unitId": "79-cn-chapter-227-3-unit-1",
+      "sha256": "866a7480bd2218993fecd05584b433964543205b51898becd9008b4c54476ca1"
+    },
+    {
+      "unitId": "79-cn-chapter-251-3-unit-1",
+      "sha256": "c03b244d0ddf7022168ee00528174049ac04a486d6bad3a6b1bb4f4b821e031f"
+    },
+    {
+      "unitId": "79-cn-chapter-260-18-unit-1",
+      "sha256": "29eddc07656a53e3c13b5704448916841ceafaaea12df634c1d957e9813d6906"
+    },
+    {
+      "unitId": "79-cn-chapter-270-19-unit-1",
+      "sha256": "b9030d750a65b50d05b2b53576ba32ff238021c41216296c5471bded70eb298b"
+    },
+    {
+      "unitId": "79-cn-chapter-330-4-unit-1",
+      "sha256": "fc20f13a7efe211230eba26b86fc611bf2863728af9c3273d510911a96393b8c"
+    },
+    {
+      "unitId": "79-cn-chapter-330-4-unit-2",
+      "sha256": "e10436b8fd72a6cf1db7bf51e163d309bd1f517e21d7b18f408fea9896d67e07"
+    },
+    {
+      "unitId": "79-cn-chapter-330-4-unit-3",
+      "sha256": "18e55d595d72ee618de287ec694138701b5f2b4b428e52894cfa33b9ecce2c72"
+    },
+    {
+      "unitId": "79-cn-chapter-330-4-unit-4",
+      "sha256": "fb583cabab933ff234fbe5d77e78c68a0a7976ef72b6512f9d1fd1652aa4182c"
+    },
+    {
+      "unitId": "79-cn-chapter-330-4-unit-5",
+      "sha256": "672b46b24959ee077c769b6294af166e3500ae65d5d4c3e6c198d7d49dd7b73f"
+    },
+    {
+      "unitId": "nemata-jp-chapter-328-1-unit-1",
+      "sha256": "3a1ca6509f509306a93274c908adb052ac7852862525d02edbb4e74a75eab556"
+    },
+    {
+      "unitId": "nemata-jp-chapter-146-1-unit-1",
+      "sha256": "0a8980cfdfd3cbe78bf6977bef119e4992985f153be32e0530d2a7f344926d24"
+    },
+    {
+      "unitId": "nemata-jp-chapter-309-1-unit-1",
+      "sha256": "1eb8ccf5545d754cf25de2c3a94e9254d3af8b43451b7219eca9c2eb8d954b8c"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1734739-argument",
+      "sha256": "42b27fe5bce3184080f91f9d8bac84192681b5060309a56d90958987d3b8a206"
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1744266-argument",
+      "sha256": "3ef82137bd9c135f93313f6877a2ba59536fd2190103523da122452527877be1"
+    }
+  ],
+  "canonicalArticles": 194,
+  "allImagesVerified": 5056
+}
