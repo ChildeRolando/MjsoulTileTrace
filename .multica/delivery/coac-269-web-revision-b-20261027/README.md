@@ -426,7 +426,7 @@ heuristic in this ticket's own `entryCheck` was the only thing that had ever sai
   production, which the COAC-244 capacity allows.
 - Both producers re-ran the three-source joint exclusion per dispatch (not once per batch):
   `11:52:08.666` for 089-1 and `11:53:06.864` for 060-1, each with its own receipt, plus a pre-slot
-  run immediately before each. The `11:51:30`/`11:51:37` runs covered pre-claim and claim. All eight
+  run immediately before each. The `11:51:30`/`11:51:37` runs covered pre-claim and claim. All six
   receipts are in `artifacts/b7-joint-exclusion-*.json`.
 - Claims went through the shared interface first (`parallel/claims/nemata-jp-chapter-089-1.json`,
   `…-060-1.json`, owner `COAC-269 Ticket executor`, parent sha bound), then the ticket-local detail
