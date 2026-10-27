@@ -1,0 +1,331 @@
+{
+  "before": {
+    "chapterId": "79-cn-chapter-159-9",
+    "priorGroup": "unproduced-remains-57",
+    "sourceId": "79-cn",
+    "title": "鸣牌12—后付（2）",
+    "titleStatus": "verified-source-chinese",
+    "unitCount": 1,
+    "units": [
+      {
+        "unitId": "79-cn-chapter-159-9-unit-1",
+        "title": "鸣牌12—后付（2）",
+        "from": {
+          "page": 159,
+          "sourceBlockId": "79-cn-p159-b9"
+        },
+        "to": {
+          "page": 161,
+          "sourceBlockId": "79-cn-p161-b2"
+        }
+      }
+    ],
+    "pages": [
+      159,
+      160,
+      161
+    ],
+    "pageFrom": 159,
+    "pageTo": 161,
+    "ownedSourceBlocks": 34,
+    "pageTextBlocks": 42,
+    "pageImageBlocks": 8,
+    "pageBlocksTotal": 50,
+    "classification": "truly-unproduced",
+    "flags": {
+      "sourcePagesMissing": [],
+      "duplicateTitle": false
+    },
+    "existingPartial": {
+      "producedPages": [],
+      "passedPages": [],
+      "selectedPages": []
+    },
+    "webCorrespondence": [
+      {
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1751292",
+        "evidence": "integration/chinese-source-body-correspondence.json",
+        "decision": "body-equivalence-recorded",
+        "webSourceFetched": true,
+        "webSourceDir": "web-sources/v1/79-bilibili-cn/articles/cv1751292",
+        "candidateFiles": [
+          "web-production/v1/candidates/79-bilibili-cn/cv1751292.display.json",
+          "web-production/v1/candidates/79-bilibili-cn/cv1751292.json"
+        ],
+        "webAuditReceipts": [
+          "audit/web/articles/79-bilibili-cn/cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.json",
+          "audit/web/articles/79-bilibili-cn/cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json"
+        ]
+      }
+    ],
+    "continuation": [
+      {
+        "owner": "COAC-246",
+        "route": "web-article-79-bilibili-cn",
+        "articleIds": [
+          "cv1751292"
+        ],
+        "webSourceFetched": true,
+        "candidateExists": true,
+        "reason": "已有逐块 body 对应证据；网页版候选可覆盖该原章，避免重制 PDF 页"
+      },
+      {
+        "owner": "COAC-247",
+        "route": "pdf-pages",
+        "pages": [
+          159,
+          160,
+          161
+        ],
+        "reason": "按原 PDF 页制作；已 produced 且 passed 的页按候选 SHA 复用，不重制；需先确认未覆盖页的归属边界"
+      }
+    ],
+    "pagesDetail": [
+      {
+        "page": 159,
+        "sourcePageExists": true,
+        "sourcePageData": "79-cn/pages/159.json",
+        "pageBlocks": 16,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 160,
+        "sourcePageExists": true,
+        "sourcePageData": "79-cn/pages/160.json",
+        "pageBlocks": 24,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 161,
+        "sourcePageExists": true,
+        "sourcePageData": "79-cn/pages/161.json",
+        "pageBlocks": 10,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      }
+    ],
+    "closurePlan": {
+      "category": "image-unknown",
+      "owner": "COAC-248",
+      "nextAction": "单一公开舍牌unknown保持；原图/坐标/邻牌/完整中文上下文与逐像素裁剪+x4已打包。原同SHA独审与非目标faithful证据可复用；先建议独立点+教学影响审1，不重制全章、不主控归非核心。若需改未知另议maker1+审1，当前0模型不改候选。",
+      "modelCallsThisStage": 0,
+      "evidenceRegister": "integration/coac244-remaining26-closure-register-20261028.json"
+    },
+    "nextThreeZeroStage": {
+      "handoff": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\handoff.json",
+        "sha256": "47a95b52f2e4516855a686332bc67aedee2297eace4c1b0b7b6bb3a4f43993af",
+        "bytes": 12402
+      },
+      "newModelCalls": 0,
+      "candidateUnchanged": true,
+      "reviewStatusUnchanged": true
+    }
+  },
+  "after": {
+    "chapterId": "79-cn-chapter-159-9",
+    "priorGroup": "unproduced-remains-57",
+    "sourceId": "79-cn",
+    "title": "鸣牌12—后付（2）",
+    "titleStatus": "verified-source-chinese",
+    "unitCount": 1,
+    "units": [
+      {
+        "unitId": "79-cn-chapter-159-9-unit-1",
+        "title": "鸣牌12—后付（2）",
+        "from": {
+          "page": 159,
+          "sourceBlockId": "79-cn-p159-b9"
+        },
+        "to": {
+          "page": 161,
+          "sourceBlockId": "79-cn-p161-b2"
+        }
+      }
+    ],
+    "pages": [
+      159,
+      160,
+      161
+    ],
+    "pageFrom": 159,
+    "pageTo": 161,
+    "ownedSourceBlocks": 34,
+    "pageTextBlocks": 42,
+    "pageImageBlocks": 8,
+    "pageBlocksTotal": 50,
+    "classification": "truly-unproduced",
+    "flags": {
+      "sourcePagesMissing": [],
+      "duplicateTitle": false
+    },
+    "existingPartial": {
+      "producedPages": [],
+      "passedPages": [],
+      "selectedPages": []
+    },
+    "webCorrespondence": [
+      {
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1751292",
+        "evidence": "integration/chinese-source-body-correspondence.json",
+        "decision": "body-equivalence-recorded",
+        "webSourceFetched": true,
+        "webSourceDir": "web-sources/v1/79-bilibili-cn/articles/cv1751292",
+        "candidateFiles": [
+          "web-production/v1/candidates/79-bilibili-cn/cv1751292.display.json",
+          "web-production/v1/candidates/79-bilibili-cn/cv1751292.json"
+        ],
+        "webAuditReceipts": [
+          "audit/web/articles/79-bilibili-cn/cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.json",
+          "audit/web/articles/79-bilibili-cn/cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json"
+        ]
+      }
+    ],
+    "continuation": [
+      {
+        "owner": "COAC-246",
+        "route": "web-article-79-bilibili-cn",
+        "articleIds": [
+          "cv1751292"
+        ],
+        "webSourceFetched": true,
+        "candidateExists": true,
+        "reason": "已有逐块 body 对应证据；网页版候选可覆盖该原章，避免重制 PDF 页"
+      },
+      {
+        "owner": "COAC-247",
+        "route": "pdf-pages",
+        "pages": [
+          159,
+          160,
+          161
+        ],
+        "reason": "按原 PDF 页制作；已 produced 且 passed 的页按候选 SHA 复用，不重制；需先确认未覆盖页的归属边界"
+      }
+    ],
+    "pagesDetail": [
+      {
+        "page": 159,
+        "sourcePageExists": true,
+        "sourcePageData": "79-cn/pages/159.json",
+        "pageBlocks": 16,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 160,
+        "sourcePageExists": true,
+        "sourcePageData": "79-cn/pages/160.json",
+        "pageBlocks": 24,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 161,
+        "sourcePageExists": true,
+        "sourcePageData": "79-cn/pages/161.json",
+        "pageBlocks": 10,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      }
+    ],
+    "closurePlan": {
+      "category": "image-unknown",
+      "owner": "COAC-248",
+      "nextAction": "真实50eb7aaf独立允许现有unknown下作者论证忠实展示；数字仍unknown、战术事实dependsOnExactTile uncertain全部保留，技术receipt limitedOkay=false不改。精确SHA/源/原call/bbox及父审非目标准入已实跑，隔离stage保留原unknown、原点数/1500目标/5万碰例外；无需maker或新增注。仅忠实展示范围解除原识字待办，标准全章passed=false；250现有run完成真实MCP/Arena/合库，若已消费则同SHA去重，不另派模型/消费者。",
+      "modelCallsThisStage": 0,
+      "evidenceRegister": "integration/coac244-remaining26-closure-register-20261028.json",
+      "effectiveBlockingIssuesForFaithfulDisplay": [],
+      "limitedFaithfulDisplayAdmission": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-admit-20261028\\admission-159.json",
+        "sha256": "dc9a673f26883fe64d3b395e5d691e87940527f4a255c4b00a6af11628ad5768"
+      },
+      "tacticalFactsStillUncertain": [
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "根据例4的点数情况，等着南出来太过优柔寡断了。",
+          "claim": "作者依据例4的点数情况，判断等待南出现过于犹豫。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "原文明确给出的理由是点数情况，没有把 [298,126,324,161] 的数字列为理由。对具体战术作全面独立评估时，未知万子的数字可能影响可见数量；不能仅因它位于牌河就断定它对所有具体评估都无关。",
+          "neededLimitation": "保留为作者针对例4点数情况的判断；不把照录该判断当成已独立证明其绝对正确。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "虽然鸣牌之后手牌会有点散，但也要朝着这1500点去。",
+          "claim": "作者预计鸣牌后手牌会有点散，同时仍建议朝1500点的目标前进。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "原句没有指定此处是哪一次鸣牌，也没有说目标牌是某个数字。保留作者的权衡不需猜数；若要逐项核验具体鸣牌及其结果，不能从这处未知牌补出所需信息。",
+          "neededLimitation": "保留“有点散”与“朝着”两种力度；1500点是作者提出的目标，不是已实现或保证实现的得点。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "这个牌能鸣牌的时候都鸣了吧（当然5万的碰是不行的= =）",
+          "claim": "作者建议这手牌在能鸣牌时积极鸣牌，并明确排除5万的碰。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "建议的条件和例外在文字中明确给出，不需要把上方第四张认成某个数字才能忠实保留。该数字可能关系到具体万子已见数和逐牌核验，原文没有将它明确关联到某个可鸣牌清单。",
+          "neededLimitation": "必须同时保留“能鸣牌的时候”和5万碰例外；不要扩写为任何牌都可鸣，也不要根据未知牌列出完整可鸣清单。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1751292:b0014"
+          ],
+          "sourceQuote": "（当然5万的碰是不行的= =）",
+          "claim": "5万的碰是作者对上一条建议明确写出的例外。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "作者直接写出了例外，但没有在该段说明其详细理由，也没有说上方牌河第四张就是5万。未知数字是否会影响某项具体牌数或鸣牌核验，不能由这句话单独确定。",
+          "neededLimitation": "原样保留例外，不把目标未知牌当作5万，也不自行补写例外的原因或宣称已独立验证其规则依据。"
+        }
+      ],
+      "sourceNotesPreserved": [],
+      "standardWholeArticlePassed": false
+    },
+    "nextThreeZeroStage": {
+      "handoff": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\handoff.json",
+        "sha256": "47a95b52f2e4516855a686332bc67aedee2297eace4c1b0b7b6bb3a4f43993af",
+        "bytes": 12402
+      },
+      "newModelCalls": 0,
+      "candidateUnchanged": true,
+      "reviewStatusUnchanged": true
+    },
+    "next3BoundedCollection": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-admit-20261028\\registration.json",
+      "sha256": "26acacec2825565a5e25dade2916f95e6c49a484aa4400291d3eee4c3861577f",
+      "newModelCallsThisRun": 0,
+      "scope": "79-cn-chapter-159-9"
+    }
+  }
+}

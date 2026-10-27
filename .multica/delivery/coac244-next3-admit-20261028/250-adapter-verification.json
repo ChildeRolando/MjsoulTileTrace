@@ -1,0 +1,19 @@
+{
+  "method": "Actual read-only execution of existing250 verifier, no consumer invocation",
+  "results": [
+    {
+      "key": "159",
+      "status": "admitted-exact-limited-unknown-fidelity",
+      "standardWholeArticlePassed": false,
+      "oldStatus": "needs-repair",
+      "ordinaryWholeArticleGateStillRejects": true
+    },
+    {
+      "key": "242",
+      "status": "admitted-exact-limited-unknown-fidelity",
+      "standardWholeArticlePassed": false,
+      "oldStatus": "needs-repair",
+      "ordinaryWholeArticleGateStillRejects": true
+    }
+  ]
+}

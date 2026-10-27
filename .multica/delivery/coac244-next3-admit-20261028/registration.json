@@ -1,0 +1,141 @@
+{
+  "schema": "coac244-next3-bounded-collection/1",
+  "upstream": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-reviewed-20261028.json",
+    "sha256": "ebe45f7418c0a049acea441bfe361810bbcc7ce5b74f2505cb1bb03bdc5b880b"
+  },
+  "admitted": [
+    {
+      "key": "159",
+      "canonical": "79-cn-chapter-159-9",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751292.display.json",
+        "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+        "bytes": 46828
+      },
+      "proof": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-admit-20261028\\admission-159.json",
+        "sha256": "dc9a673f26883fe64d3b395e5d691e87940527f4a255c4b00a6af11628ad5768"
+      },
+      "evidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-159-limited-fidelity-evidence-20261028.json",
+        "sha256": "86bc78028f01c2fd7a277f0c2de1ce5fb2cbf51aff72ba00376fc5e7e0c178ba"
+      },
+      "oldAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json",
+        "sha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed",
+        "bytes": 25432
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\50eb7aaf-2b54-410c-b41b-b11059eae75f.json",
+        "sha256": "12e1b8c6c7e88b3474b2a6a8aa2d56a27a62e64d9c3a5b36a396c365c94177bf"
+      },
+      "scope": "Faithful presentation of the cited author argument with its existing explicit unknown, original conditions and exceptions. Does not certify exact tile counts, every possible call, rationale of any unstated rule, tactical optimality or actual outcome.",
+      "unknowns": [
+        "上方牌河按画面从左到右第4张：可辨为万子牌，数字无法可靠确认。"
+      ],
+      "modelFieldsAndFalsePreserved": true
+    },
+    {
+      "key": "242",
+      "canonical": "79-cn-chapter-242-3",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780438.display.json",
+        "sha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+        "bytes": 58219
+      },
+      "proof": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-admit-20261028\\admission-242.json",
+        "sha256": "38d484bfe4cc817a27ea7008069e3a050e66beb4b962116e8bce5859ad303a0f"
+      },
+      "evidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-242-limited-fidelity-evidence-20261028.json",
+        "sha256": "8af5dfab278fb5a6da46c571f68d6a6a034bf025677842e955530ef3cc769436"
+      },
+      "oldAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780438.62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa.json",
+        "sha256": "332731f14ba75be91479bdefe77bb1a0026fe31d600b693d73d0e62db8ba8515",
+        "bytes": 34077
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d98dff34-cf8b-4341-8d00-37a31a1e0db8.json",
+        "sha256": "5dfef83403e9f6221a035a3a584166f12bea2a210b50b91563f8014844ad3074"
+      },
+      "scope": "Faithful presentation of the cited author argument with its existing explicit unknown, original conditions and exceptions. Does not certify exact tile counts, every possible call, rationale of any unstated rule, tactical optimality or actual outcome.",
+      "unknowns": [
+        "上方牌河靠近中央一行的屏幕最左侧万子牌：无法可靠辨认具体点数，转录为?m。"
+      ],
+      "modelFieldsAndFalsePreserved": true
+    }
+  ],
+  "contract100": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-admit-20261028\\100-repair-contract.json",
+    "sha256": "f35f3c32f1bbe2f7a7fa5f77850a3cde9b0b47ff6de8fbd4a98850557a7dbf38"
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-admit-20261028\\runtime-manifest.json",
+    "sha256": "c51903f296c558cedb588d28dfdd1ee0d497e87d921e00c36d7b603c0996f455"
+  },
+  "ownDiagnosticVerification": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-admit-20261028\\verification.json",
+    "sha256": "9ccdae4102c61eb960eb293c1832b33dd9da089dc8259d2a34d3cf82d32ca7e7"
+  },
+  "existing250Adapter": {
+    "files": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-limited-159242-20261028\\contract.json",
+        "sha256": "d250e4fa99a7c4ee3c028859e1c437d46d3e8532abed0457ca6f669a91bc1a1b"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-limited-159242-20261028\\manifest.json",
+        "sha256": "9495362af7ce917ef1f2ff64541945be770245879899a89cc4c99fef291adb9c"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-limited-159242-20261028\\admit.mjs",
+        "sha256": "166614d1653214eb10de193a00b36667fdde2b76e45c01d7f676c46d562b22d1"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-limited-159242-20261028\\stage-limited.mjs",
+        "sha256": "161609f940f4f379caed9fb880050c48e30c061e3bcd6073e36ecb3890e7be36"
+      }
+    ],
+    "actualVerifierResult": {
+      "method": "Actual read-only execution of existing250 verifier, no consumer invocation",
+      "results": [
+        {
+          "key": "159",
+          "status": "admitted-exact-limited-unknown-fidelity",
+          "standardWholeArticlePassed": false,
+          "oldStatus": "needs-repair",
+          "ordinaryWholeArticleGateStillRejects": true
+        },
+        {
+          "key": "242",
+          "status": "admitted-exact-limited-unknown-fidelity",
+          "standardWholeArticlePassed": false,
+          "oldStatus": "needs-repair",
+          "ordinaryWholeArticleGateStillRejects": true
+        }
+      ]
+    },
+    "currentRun": "01a17f49-0391-799b-8f86-976b5a9f927c",
+    "newConsumerStarted": false,
+    "newWakeupCreated": false
+  },
+  "budget": {
+    "maximumNewCalls": 3,
+    "used": 3,
+    "remaining": 0,
+    "failedVoidCount": true,
+    "failedCalls": 0,
+    "production": 0,
+    "retry": 0,
+    "maximumConcurrentReviews": 2
+  },
+  "newModelCallsThisRun": 0,
+  "newProductionThisRun": 0,
+  "newCandidateThisRun": 0,
+  "masterPreviewBuiltThisRun": false,
+  "formalActiveChanged": false,
+  "standardWholeArticlePassed": false
+}

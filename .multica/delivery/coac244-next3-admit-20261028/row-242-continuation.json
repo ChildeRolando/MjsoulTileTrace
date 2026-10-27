@@ -1,0 +1,369 @@
+{
+  "before": {
+    "chapterId": "79-cn-chapter-242-3",
+    "priorGroup": "unproduced-remains-57",
+    "sourceId": "79-cn",
+    "title": "状况判断5—状况与做牌（3）",
+    "titleStatus": "verified-source-chinese",
+    "unitCount": 1,
+    "units": [
+      {
+        "unitId": "79-cn-chapter-242-3-unit-1",
+        "title": "状况判断5—状况与做牌（3）",
+        "from": {
+          "page": 242,
+          "sourceBlockId": "79-cn-p242-b1"
+        },
+        "to": {
+          "page": 245,
+          "sourceBlockId": "79-cn-p245-b2"
+        }
+      }
+    ],
+    "pages": [
+      242,
+      243,
+      244,
+      245
+    ],
+    "pageFrom": 242,
+    "pageTo": 245,
+    "ownedSourceBlocks": 50,
+    "pageTextBlocks": 56,
+    "pageImageBlocks": 5,
+    "pageBlocksTotal": 61,
+    "classification": "truly-unproduced",
+    "flags": {
+      "sourcePagesMissing": [],
+      "duplicateTitle": false
+    },
+    "existingPartial": {
+      "producedPages": [],
+      "passedPages": [],
+      "selectedPages": []
+    },
+    "webCorrespondence": [
+      {
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1780438",
+        "evidence": "integration/chinese-source-body-correspondence.json",
+        "decision": "body-equivalence-recorded",
+        "webSourceFetched": true,
+        "webSourceDir": "web-sources/v1/79-bilibili-cn/articles/cv1780438",
+        "candidateFiles": [
+          "web-production/v1/candidates/79-bilibili-cn/cv1780438.display.json",
+          "web-production/v1/candidates/79-bilibili-cn/cv1780438.json"
+        ],
+        "webAuditReceipts": [
+          "audit/web/articles/79-bilibili-cn/cv1780438.62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa.json"
+        ]
+      }
+    ],
+    "continuation": [
+      {
+        "owner": "COAC-246",
+        "route": "web-article-79-bilibili-cn",
+        "articleIds": [
+          "cv1780438"
+        ],
+        "webSourceFetched": true,
+        "candidateExists": true,
+        "reason": "已有逐块 body 对应证据；网页版候选可覆盖该原章，避免重制 PDF 页"
+      },
+      {
+        "owner": "COAC-247",
+        "route": "pdf-pages",
+        "pages": [
+          242,
+          243,
+          244,
+          245
+        ],
+        "reason": "按原 PDF 页制作；已 produced 且 passed 的页按候选 SHA 复用，不重制；需先确认未覆盖页的归属边界"
+      }
+    ],
+    "pagesDetail": [
+      {
+        "page": 242,
+        "sourcePageExists": true,
+        "sourcePageData": "79-cn/pages/242.json",
+        "pageBlocks": 11,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 243,
+        "sourcePageExists": true,
+        "sourcePageData": "79-cn/pages/243.json",
+        "pageBlocks": 14,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 244,
+        "sourcePageExists": true,
+        "sourcePageData": "79-cn/pages/244.json",
+        "pageBlocks": 23,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 245,
+        "sourcePageExists": true,
+        "sourcePageData": "79-cn/pages/245.json",
+        "pageBlocks": 13,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      }
+    ],
+    "closurePlan": {
+      "category": "image-unknown",
+      "owner": "COAC-248",
+      "nextAction": "单一公开舍牌unknown保持；原图/坐标/邻牌/完整中文上下文与逐像素裁剪+x4已打包。原同SHA独审与非目标faithful证据可复用；先建议独立点+教学影响审1，不重制全章、不主控归非核心。若需改未知另议maker1+审1，当前0模型不改候选。",
+      "modelCallsThisStage": 0,
+      "evidenceRegister": "integration/coac244-remaining26-closure-register-20261028.json"
+    },
+    "nextThreeZeroStage": {
+      "handoff": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\handoff.json",
+        "sha256": "47a95b52f2e4516855a686332bc67aedee2297eace4c1b0b7b6bb3a4f43993af",
+        "bytes": 12402
+      },
+      "newModelCalls": 0,
+      "candidateUnchanged": true,
+      "reviewStatusUnchanged": true
+    }
+  },
+  "after": {
+    "chapterId": "79-cn-chapter-242-3",
+    "priorGroup": "unproduced-remains-57",
+    "sourceId": "79-cn",
+    "title": "状况判断5—状况与做牌（3）",
+    "titleStatus": "verified-source-chinese",
+    "unitCount": 1,
+    "units": [
+      {
+        "unitId": "79-cn-chapter-242-3-unit-1",
+        "title": "状况判断5—状况与做牌（3）",
+        "from": {
+          "page": 242,
+          "sourceBlockId": "79-cn-p242-b1"
+        },
+        "to": {
+          "page": 245,
+          "sourceBlockId": "79-cn-p245-b2"
+        }
+      }
+    ],
+    "pages": [
+      242,
+      243,
+      244,
+      245
+    ],
+    "pageFrom": 242,
+    "pageTo": 245,
+    "ownedSourceBlocks": 50,
+    "pageTextBlocks": 56,
+    "pageImageBlocks": 5,
+    "pageBlocksTotal": 61,
+    "classification": "truly-unproduced",
+    "flags": {
+      "sourcePagesMissing": [],
+      "duplicateTitle": false
+    },
+    "existingPartial": {
+      "producedPages": [],
+      "passedPages": [],
+      "selectedPages": []
+    },
+    "webCorrespondence": [
+      {
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1780438",
+        "evidence": "integration/chinese-source-body-correspondence.json",
+        "decision": "body-equivalence-recorded",
+        "webSourceFetched": true,
+        "webSourceDir": "web-sources/v1/79-bilibili-cn/articles/cv1780438",
+        "candidateFiles": [
+          "web-production/v1/candidates/79-bilibili-cn/cv1780438.display.json",
+          "web-production/v1/candidates/79-bilibili-cn/cv1780438.json"
+        ],
+        "webAuditReceipts": [
+          "audit/web/articles/79-bilibili-cn/cv1780438.62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa.json"
+        ]
+      }
+    ],
+    "continuation": [
+      {
+        "owner": "COAC-246",
+        "route": "web-article-79-bilibili-cn",
+        "articleIds": [
+          "cv1780438"
+        ],
+        "webSourceFetched": true,
+        "candidateExists": true,
+        "reason": "已有逐块 body 对应证据；网页版候选可覆盖该原章，避免重制 PDF 页"
+      },
+      {
+        "owner": "COAC-247",
+        "route": "pdf-pages",
+        "pages": [
+          242,
+          243,
+          244,
+          245
+        ],
+        "reason": "按原 PDF 页制作；已 produced 且 passed 的页按候选 SHA 复用，不重制；需先确认未覆盖页的归属边界"
+      }
+    ],
+    "pagesDetail": [
+      {
+        "page": 242,
+        "sourcePageExists": true,
+        "sourcePageData": "79-cn/pages/242.json",
+        "pageBlocks": 11,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 243,
+        "sourcePageExists": true,
+        "sourcePageData": "79-cn/pages/243.json",
+        "pageBlocks": 14,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 244,
+        "sourcePageExists": true,
+        "sourcePageData": "79-cn/pages/244.json",
+        "pageBlocks": 23,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 245,
+        "sourcePageExists": true,
+        "sourcePageData": "79-cn/pages/245.json",
+        "pageBlocks": 13,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      }
+    ],
+    "closurePlan": {
+      "category": "image-unknown",
+      "owner": "COAC-248",
+      "nextAction": "真实d98dff34独立允许现有?m下作者论证忠实展示；数字仍unknown、不猜3m、不独立证明结算或最优。技术false/战术uncertain原样，原图/source/原call/bbox及父审非目标限定准入已实跑，隔离stage保留“上家的3万/也许/基本/争TOP/亲家”条件；无需maker或新增注。标准全章passed=false；250现有run继续真实MCP/Arena/合库，同SHA去重，不再挂识字复审。",
+      "modelCallsThisStage": 0,
+      "evidenceRegister": "integration/coac244-remaining26-closure-register-20261028.json",
+      "effectiveBlockingIssuesForFaithfulDisplay": [],
+      "limitedFaithfulDisplayAdmission": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-admit-20261028\\admission-242.json",
+        "sha256": "38d484bfe4cc817a27ea7008069e3a050e66beb4b962116e8bce5859ad303a0f"
+      },
+      "tacticalFactsStillUncertain": [
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1780438:b0017"
+          ],
+          "sourceQuote": "但是和TOP的差距是基本没缩小。",
+          "claim": "对于前述吃牌方案，作者判断与TOP的差距基本没有缩小。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "这是原文对该方案的定性判断，保留原话不需要猜目标数字；原文没有给出完整的最终和牌构成与具体结算，单凭现有材料不能把它升级为独立复算结果，也不能断言目标数字对任何完整复盘均无影响。",
+          "neededLimitation": "保留“基本”并作为作者判断呈现，不添加具体得分或声称完成了独立复算。"
+        },
+        {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1780438:b0018"
+          ],
+          "sourceQuote": "这种情况是应该要凹门清立直的牌。",
+          "claim": "在例1的争TOP情境下，作者建议争取门清立直。",
+          "dependsOnExactTile": "uncertain",
+          "faithfulWithUnknown": true,
+          "evidence": "作者的明示论证是争TOP时比较吃3万的小牌与门清立直的打点，没有把上方目标牌的点数列为明示理由。可以保留该建议；仅凭未知牌不能独立证明该建议在所有完整牌面复盘中都最优。",
+          "neededLimitation": "作为此情境下的作者建议保留，不声称已证明绝对最优。"
+        }
+      ],
+      "sourceNotesPreserved": [
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1780438:b0014:figure",
+          "sourceEvidence": "sourceNotes称“附件1为原图，附件2为同一原图的最近邻放大视图”；本次实际对应附件1、6。",
+          "description": "加工附件配对编号有误，不影响牌面教学内容。",
+          "suggestedRepair": "将配对编号改为原图附件1、放大图附件6。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1780438:b0024:figure",
+          "sourceEvidence": "sourceNotes称原图、放大图为附件3、4；本次实际对应附件2、7。",
+          "description": "加工附件配对编号有误，不影响牌面教学内容。",
+          "suggestedRepair": "将配对编号改为原图附件2、放大图附件7。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1780438:b0031:figure",
+          "sourceEvidence": "sourceNotes称原图、放大图为附件5、6；本次实际对应附件3、8。",
+          "description": "加工附件配对编号有误，不影响例3牌码和图例标签。",
+          "suggestedRepair": "将配对编号改为原图附件3、放大图附件8。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1780438:b0040:figure",
+          "sourceEvidence": "sourceNotes称原图、放大图为附件7、8；本次实际对应附件4、9。",
+          "description": "加工附件配对编号有误，不影响例4牌码和图例标签。",
+          "suggestedRepair": "将配对编号改为原图附件4、放大图附件9。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1780438:b0047:figure",
+          "sourceEvidence": "sourceNotes称原图、放大图为附件9、10；本次实际对应附件5、10。",
+          "description": "加工附件中的原图编号有误，不影响牌面教学内容。",
+          "suggestedRepair": "将原图编号改为附件5，放大图附件10保持不变。"
+        }
+      ],
+      "standardWholeArticlePassed": false
+    },
+    "nextThreeZeroStage": {
+      "handoff": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\handoff.json",
+        "sha256": "47a95b52f2e4516855a686332bc67aedee2297eace4c1b0b7b6bb3a4f43993af",
+        "bytes": 12402
+      },
+      "newModelCalls": 0,
+      "candidateUnchanged": true,
+      "reviewStatusUnchanged": true
+    },
+    "next3BoundedCollection": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-admit-20261028\\registration.json",
+      "sha256": "26acacec2825565a5e25dade2916f95e6c49a484aa4400291d3eee4c3861577f",
+      "newModelCallsThisRun": 0,
+      "scope": "79-cn-chapter-242-3"
+    }
+  }
+}

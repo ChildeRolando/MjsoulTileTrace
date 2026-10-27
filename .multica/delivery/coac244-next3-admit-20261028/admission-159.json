@@ -1,0 +1,557 @@
+{
+  "schema": "coac244-exact-limited-unknown-admission/1",
+  "status": "accepted-for-specific-limited-unknown-fidelity",
+  "production": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751292.display.json",
+    "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373"
+  },
+  "source": {
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1751292",
+    "url": "https://www.bilibili.com/read/cv1751292",
+    "title": "【日本麻雀讲座译文】鸣牌12—后付（2）",
+    "language": "zh-CN",
+    "fetchedAt": "2026-10-23T20:31:26.154594+00:00",
+    "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1751292/source.json",
+    "sourceSha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+    "htmlSha256": "b398297f7357dc4a119957090cb39e469edeb6a2afa2f59afdfa9cb4a1724086",
+    "mainSha256": "afeb22c9ae16cdd0e6ec64ee6127731de248f8bb8bae3d21fc9d3c87a7ebf2c4"
+  },
+  "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-admit-20261028\\admission-159.json",
+  "originalAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json",
+    "sha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed",
+    "bytes": 25432
+  },
+  "modelChecks": {
+    "passed": false,
+    "errors": [
+      "uncertain:79-bilibili-cn:cv1751292:b0013",
+      "uncertain:79-bilibili-cn:cv1751292:b0013:figure",
+      "semantic_information_missing",
+      "uncertain:79-bilibili-cn:cv1751292:b0013:figure"
+    ]
+  },
+  "modelReview": {
+    "blockChecks": [
+      {
+        "id": "79-bilibili-cn:cv1751292:b0001",
+        "verdict": "faithful",
+        "evidence": "“免责声明：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0002",
+        "verdict": "faithful",
+        "evidence": "著作权声明、译者SeventhTG（XD）及转载署名要求逐字保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0003",
+        "verdict": "faithful",
+        "evidence": "原文地址http://beginners.biz/naki/naki12.html、分隔线及“后付2：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0004",
+        "verdict": "faithful",
+        "evidence": "2~3张宝牌、积极鸣牌的判断及其他手牌和场况的适用范围均按原文保留，章节标题完整。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0005",
+        "verdict": "faithful",
+        "evidence": "例1标签、13张手牌及右侧宝牌8s均与附图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0006",
+        "verdict": "faithful",
+        "evidence": "上家打7索、放过后剩2张、另一张为宝牌表示牌、自摸两次4索和7索的困难及边张吃的结论完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0007",
+        "verdict": "faithful",
+        "evidence": "10张手牌与右侧横置7s、直立8s和9s的副露记录一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0008",
+        "verdict": "faithful",
+        "evidence": "处理6万和4饼、保留安全牌与另一张役牌的建议，以及扣牌、进攻压力、防守力的论证均逐字保留；“二手准备的后付”及三色、一气的条件完整。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0009",
+        "verdict": "faithful",
+        "evidence": "例2标签、13张手牌及右侧宝牌5s均与附图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0010",
+        "verdict": "faithful",
+        "evidence": "3万、4饼、3索出来即吃，以及向三色和役牌倾斜的判断按中文原文完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0011",
+        "verdict": "faithful",
+        "evidence": "例3标签及13张手牌均与附图一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0012",
+        "verdict": "faithful",
+        "evidence": "碰一饼的选择、摸6饼或8饼向对对三暗刻变化的条件、南场及ALL LAST和牌逆转的说明和例4标签均完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0013",
+        "verdict": "uncertain",
+        "evidence": "场况、座风、四家数值、下方手牌、三家牌背、宝牌及其余牌河均有对应记录；上方牌河从左到右第4张仅记录为点数未知的万子牌，尚不能完成逐牌核对。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0014",
+        "verdict": "faithful",
+        "evidence": "不等待南、争取1500点、能鸣即鸣但排除碰5万的例外，以及ALL LAST抢先和牌的论证和“（待续）”均逐字保留。"
+      }
+    ],
+    "figureChecks": [
+      {
+        "id": "79-bilibili-cn:cv1751292:b0005:figure",
+        "verdict": "faithful",
+        "evidence": "附图1、6可核对为例1：123446m、4p、5689s、白白；右侧“ドラ”译为宝牌，牌为8s。两张空白牌面为白板，牌序及数量一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0007:figure",
+        "verdict": "faithful",
+        "evidence": "附图2、7显示手牌12344m、56s、东白白；右侧副露为横置7s、直立8s、9s。候选完整保留牌序、分组及方向。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0009:figure",
+        "verdict": "faithful",
+        "evidence": "附图3、8显示例2：224m、23p、244555s、白白；右侧宝牌5s。5s中央红色图案为普通牌面，候选未误记为赤牌。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0011:figure",
+        "verdict": "faithful",
+        "evidence": "附图4、9显示例3：11267778p、222s、发发，与候选13张牌的顺序和重复数量一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:b0013:figure",
+        "verdict": "uncertain",
+        "evidence": "附图5、10可核对南4局1本场、立直棒0根、宝牌8p；下东左北上西右南；四家数值+2100、+5800、+5400、△12300；下方手牌135567m、246p、37s、南南。左河东北一万一万、右河北白中东、下河9p西东6s及上河前三张白8s西均吻合。上河第4张倒置万子牌的数字仍无法可靠确认，候选对此保留未知，逐牌完整性尚未通过。"
+      }
+    ],
+    "imageChecks": [
+      {
+        "id": "79-bilibili-cn:cv1751292:i00001",
+        "disposition": "represented",
+        "evidence": "由b0005的figure完整表达，例1标签、全部手牌及宝牌均已核对。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:i00002",
+        "disposition": "represented",
+        "evidence": "由b0007的figure表达，手牌与789s副露的牌序和横置方向均已核对。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:i00003",
+        "disposition": "represented",
+        "evidence": "由b0009的figure完整表达，例2标签、全部手牌及宝牌均已核对。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:i00004",
+        "disposition": "represented",
+        "evidence": "由b0011的figure完整表达，例3标签及全部手牌均已核对。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1751292:i00005",
+        "disposition": "represented",
+        "evidence": "由b0013的figure表达，涵盖场况、座风、数值、手牌、牌背和四家牌河；上方牌河第4张万子点数显式列为未知，仍有阻断项。"
+      }
+    ],
+    "domOrder": {
+      "faithful": true,
+      "evidence": "候选按b0001至b0014的自然顺序逐块对应，五次图片出现均留在原有段落位置，没有重排、重复或漏块。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "全部中文正文、署名、原文地址、数字、判断力度和例外均保留；前四图完整，例4的日文场况标签已译成中文。但例4上方牌河第4张万子牌的点数尚未确认，存在影响牌码完整性的明确未知项。"
+    },
+    "issues": [
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1751292:b0013:figure",
+        "sourceEvidence": "附图5、10中，上方牌河从左到右第4张为朝向上方玩家的万子牌；候选transcription及unknowns均注明其数字无法可靠确认。",
+        "description": "该未知涉及牌河中的实际牌码，不能视为非教学边缘残痕。当前无法完成该图逐牌校对，须阻断语义完整性通过。",
+        "suggestedRepair": "核清该万子牌点数后补入transcription，并同步更新unknowns；无法可靠确认时保留未知和阻断状态，不猜补牌码。"
+      }
+    ],
+    "completeArticleCompared": true,
+    "summary": "已逐项核对全文14块、5幅图和5次图片出现。正文及前四图忠实；例4一张牌河万子的点数未确认，语义完整性暂不通过。"
+  },
+  "calls": [
+    {
+      "callId": "50eb7aaf-2b54-410c-b41b-b11059eae75f",
+      "scope": "textbook-web-native-point-teaching-impact-supplement",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1751292",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "success": true,
+      "usage": {
+        "inputTokens": 21248,
+        "cachedInputTokens": 0,
+        "outputTokens": 17432
+      },
+      "durationMs": 229062,
+      "requestExecution": {
+        "schema": "coach-textbook-cli-request/1",
+        "policy": "coac244-vision-terra-max-v1-20261027",
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max",
+        "callerRequested": {
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max"
+        },
+        "args": [
+          "exec",
+          "--model",
+          "gpt-6.1-terra",
+          "--config",
+          "model_reasoning_effort=\"max\"",
+          "--config",
+          "web_search=\"disabled\"",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox",
+          "read-only",
+          "--strict-config",
+          "--skip-git-repo-check",
+          "--json",
+          "--output-schema",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-a7myaK\\output.schema.json",
+          "--output-last-message",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-a7myaK\\final.json",
+          "--cd",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-a7myaK",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952.png",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-target.png",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-target-x4.png",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-neighbors.png",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-neighbors-x4.png",
+          "--disable",
+          "apps",
+          "--disable",
+          "auth_elicitation",
+          "--disable",
+          "browser_use",
+          "--disable",
+          "browser_use_external",
+          "--disable",
+          "browser_use_full_cdp_access",
+          "--disable",
+          "computer_use",
+          "--disable",
+          "fast_mode",
+          "--disable",
+          "goals",
+          "--disable",
+          "guardian_approval",
+          "--disable",
+          "hooks",
+          "--disable",
+          "image_generation",
+          "--disable",
+          "in_app_browser",
+          "--disable",
+          "in_app_chat",
+          "--disable",
+          "in_app_dictation",
+          "--disable",
+          "in_app_local_automation",
+          "--disable",
+          "in_app_updates",
+          "--disable",
+          "memories",
+          "--disable",
+          "mentions_v2",
+          "--disable",
+          "multi_agent",
+          "--disable",
+          "plugin_sharing",
+          "--disable",
+          "plugins",
+          "--disable",
+          "remote_plugin",
+          "--disable",
+          "shell_snapshot",
+          "--disable",
+          "shell_tool",
+          "--disable",
+          "skill_mcp_dependency_install",
+          "--disable",
+          "skill_search",
+          "--disable",
+          "sleep_tool",
+          "--disable",
+          "tool_call_mcp_elicitation",
+          "--disable",
+          "tool_suggest",
+          "--disable",
+          "unbounded_connection_retries",
+          "--disable",
+          "unified_exec",
+          "--disable",
+          "unified_exec_tty",
+          "--disable",
+          "view_image",
+          "--disable",
+          "workspace_dependencies",
+          "-"
+        ],
+        "images": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952.png",
+            "sha256": "e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952",
+            "bytes": 67226
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-target.png",
+            "sha256": "ab71d478261c3572cd8f0388836b9f003d059cc79096313f3adc9ca47c743a9c",
+            "bytes": 1918
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-target-x4.png",
+            "sha256": "79dea3b53ad48ee15c67ccfa6fb1f94072728d25f7d9163bd376b1f57761a23d",
+            "bytes": 2681
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-neighbors.png",
+            "sha256": "367edcc1d98f7ec1a41107e1e4f49c9854e2998e67d521bd6dcb8f8d777c7518",
+            "bytes": 5846
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\159-neighbors-x4.png",
+            "sha256": "eafe0bc34980d52254159e408e01c00c98e07e28f3653473a57496763812b872",
+            "bytes": 8484
+          }
+        ],
+        "remoteBackend": "unverified; request arguments and returned events only"
+      },
+      "binding": {
+        "productionSha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+        "sourceFileSha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+        "originalAuditSha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed",
+        "authorizationComment": "01a17f29-cddf-7108-91df-146ccfb0939f",
+        "requestSha256": "dcca623694bb39d0cc5beb931f05ecf375c7f4f23a92c150dfb997ff83210730",
+        "consumerManifestSha256": "a3b9b0b091ec85a5db5a94af55ca6613d87781f73ccebf5792a9c9d24cc9f58b",
+        "targetFigureId": "79-bilibili-cn:cv1751292:b0013:figure",
+        "targetBBox": [
+          298,
+          126,
+          324,
+          161
+        ],
+        "runtimeManifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6"
+      },
+      "promptSha256": "4f7c5e52e1c05d0a420da7247c0c18b626fd55a96602840d31e384a8093ee8ec",
+      "semanticPromptSha256": "b4be9c618c7e4df0c932041fe72ed1412b56abc7568cdd758f90c1b26119f4ef",
+      "schemaSha256": "ea369abf0937022fa3bd661f978957d62742a782db3de2b152b0ffc4fb4c7830",
+      "outputSha256": "34e3705bb267a6c87cfe55f70f4aa2ea9091d83e6129f360cf93e9cc23262448",
+      "recordedAt": "2026-10-27T21:24:57.971Z"
+    }
+  ],
+  "inheritedCalls": [
+    {
+      "callId": "5477ed1b-a10d-45ed-ae56-c6acaeb39464",
+      "scope": "textbook-web-article-audit",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1751292",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 24314,
+        "cachedInputTokens": 0,
+        "outputTokens": 4166
+      },
+      "promptSha256": "cbba29e21e09a2f26742a95ddb64821cee0a731ad60f4723777d26e5b440f0e5",
+      "semanticPromptSha256": "5ca7cb4cfecff4876f73ef6147681b9a32a6e6ee0c2f4995a671f13c11b00ec9",
+      "schemaSha256": "780fd6c797f5696d06a50be30b0bf250349d83fd2128cf57529f0df50fc335dc",
+      "outputSha256": "2c5d5a44ef65341af3daa17f5ad4588675c777be44dba07df867219b73b3b8eb",
+      "requestPromptBytes": 29656,
+      "semanticPromptBytes": 29174,
+      "binding": {
+        "productionSha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+        "sourceFileSha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+        "auditorSnapshotSha256": "56db018fb59312ce413ba53f1d80c78b66a4564e61f9955a5076f607417dcb15",
+        "semanticProjectionSha256": "cc54a39e41c88fd98034e0c117ffc471c9e3afb330d106e69469d57ef29428a4",
+        "semanticProjectionVersion": 2,
+        "verifiedAssetIds": [],
+        "originalImageAssetIds": [
+          "79-bilibili-cn:1d9f23b9da97b9f08b866407",
+          "79-bilibili-cn:a1da8e9c213bb3be35b18390",
+          "79-bilibili-cn:597b1510dcb909f504c76390",
+          "79-bilibili-cn:edf9b22aa46004cc289167a2",
+          "79-bilibili-cn:55168dc17a7678541d5a5343"
+        ],
+        "supplementalInputs": [
+          {
+            "assetId": "79-bilibili-cn:1d9f23b9da97b9f08b866407",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/cd50425dab020a12e7cba884443a989c000ce9724341d77f9d1da91e70fb4615.png",
+            "sourceSha256": "cd50425dab020a12e7cba884443a989c000ce9724341d77f9d1da91e70fb4615",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/cd50425dab020a12e7cba884443a989c000ce9724341d77f9d1da91e70fb4615.x4.png",
+            "sha256": "ee62224d14161ace77a13e6b9eb7109fe6abcebb5207799aec21aff8f0e08ade",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 2048,
+            "height": 212
+          },
+          {
+            "assetId": "79-bilibili-cn:a1da8e9c213bb3be35b18390",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/1d93ddcd06145ab1990598d3ee57bc2d2a34d570627ff01ec08b661912278065.png",
+            "sourceSha256": "1d93ddcd06145ab1990598d3ee57bc2d2a34d570627ff01ec08b661912278065",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/1d93ddcd06145ab1990598d3ee57bc2d2a34d570627ff01ec08b661912278065.x4.png",
+            "sha256": "092b9901b8ebcb497babe2ecf04727eb1d8bf5b8e7e524fa7629d974763a0bd0",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 1700,
+            "height": 248
+          },
+          {
+            "assetId": "79-bilibili-cn:597b1510dcb909f504c76390",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/9ecdffcab6f3dfed345abbf584aa7b5b358ff71f0f931370bf8b2ee9a0a0d777.png",
+            "sourceSha256": "9ecdffcab6f3dfed345abbf584aa7b5b358ff71f0f931370bf8b2ee9a0a0d777",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/9ecdffcab6f3dfed345abbf584aa7b5b358ff71f0f931370bf8b2ee9a0a0d777.x4.png",
+            "sha256": "f4f9e884a4190804ed5f1b01af5c16327354f9dd8d8f145cfec68d2da9a8e7bd",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 2048,
+            "height": 244
+          },
+          {
+            "assetId": "79-bilibili-cn:edf9b22aa46004cc289167a2",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/a0cd417c0d5a5fe2ac3d942d48310be7e1953f49cb1cd1cb25e41e8349103876.png",
+            "sourceSha256": "a0cd417c0d5a5fe2ac3d942d48310be7e1953f49cb1cd1cb25e41e8349103876",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/a0cd417c0d5a5fe2ac3d942d48310be7e1953f49cb1cd1cb25e41e8349103876.x4.png",
+            "sha256": "873927a89c3ee896f8f7002bdc0fd115b3c1bbb7bd6aa6bb2f39cac88f8f931f",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 1748,
+            "height": 240
+          },
+          {
+            "assetId": "79-bilibili-cn:55168dc17a7678541d5a5343",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952.png",
+            "sourceSha256": "e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952.x2.png",
+            "sha256": "cd09124f22ad67a080210d597a038912a76cdb446b9835505a0170e5cb23536d",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 2,
+            "resampling": "nearest",
+            "width": 990,
+            "height": 1058
+          }
+        ]
+      },
+      "recordedAt": "2026-10-25T17:30:31.388Z"
+    }
+  ],
+  "standardWholeArticlePassed": false,
+  "limitedUnknownFidelity": {
+    "authorization": "01a17f47-f462-7a17-b489-dced948aa132",
+    "canonical": "79-cn-chapter-159-9",
+    "evidence": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-159-limited-fidelity-evidence-20261028.json",
+      "sha256": "86bc78028f01c2fd7a277f0c2de1ce5fb2cbf51aff72ba00376fc5e7e0c178ba"
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\50eb7aaf-2b54-410c-b41b-b11059eae75f.json",
+      "sha256": "12e1b8c6c7e88b3474b2a6a8aa2d56a27a62e64d9c3a5b36a396c365c94177bf"
+    },
+    "originalConsumerReceipt": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-next3-20261028\\receipt159.json",
+      "sha256": "8b51355cf5799eb50fd6a60767d8dddb407f47f9e99e0f5fe8eb3399e6685901",
+      "status": "needs-repair",
+      "limitedOkay": false
+    },
+    "originalConsumerLimitedOkay": false,
+    "originalSemanticCompleteness": {
+      "complete": false,
+      "evidence": "全部中文正文、署名、原文地址、数字、判断力度和例外均保留；前四图完整，例4的日文场况标签已译成中文。但例4上方牌河第4张万子牌的点数尚未确认，存在影响牌码完整性的明确未知项。"
+    },
+    "independentConclusion": "limited-unknown-acceptable",
+    "rawModelFieldsUnchanged": true,
+    "unknowns": [
+      "上方牌河按画面从左到右第4张：可辨为万子牌，数字无法可靠确认。"
+    ],
+    "originalBBox": [
+      298,
+      126,
+      324,
+      161
+    ],
+    "dependenciesStillUncertain": [
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1751292:b0014"
+        ],
+        "sourceQuote": "根据例4的点数情况，等着南出来太过优柔寡断了。",
+        "claim": "作者依据例4的点数情况，判断等待南出现过于犹豫。",
+        "dependsOnExactTile": "uncertain",
+        "faithfulWithUnknown": true,
+        "evidence": "原文明确给出的理由是点数情况，没有把 [298,126,324,161] 的数字列为理由。对具体战术作全面独立评估时，未知万子的数字可能影响可见数量；不能仅因它位于牌河就断定它对所有具体评估都无关。",
+        "neededLimitation": "保留为作者针对例4点数情况的判断；不把照录该判断当成已独立证明其绝对正确。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1751292:b0014"
+        ],
+        "sourceQuote": "虽然鸣牌之后手牌会有点散，但也要朝着这1500点去。",
+        "claim": "作者预计鸣牌后手牌会有点散，同时仍建议朝1500点的目标前进。",
+        "dependsOnExactTile": "uncertain",
+        "faithfulWithUnknown": true,
+        "evidence": "原句没有指定此处是哪一次鸣牌，也没有说目标牌是某个数字。保留作者的权衡不需猜数；若要逐项核验具体鸣牌及其结果，不能从这处未知牌补出所需信息。",
+        "neededLimitation": "保留“有点散”与“朝着”两种力度；1500点是作者提出的目标，不是已实现或保证实现的得点。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1751292:b0014"
+        ],
+        "sourceQuote": "这个牌能鸣牌的时候都鸣了吧（当然5万的碰是不行的= =）",
+        "claim": "作者建议这手牌在能鸣牌时积极鸣牌，并明确排除5万的碰。",
+        "dependsOnExactTile": "uncertain",
+        "faithfulWithUnknown": true,
+        "evidence": "建议的条件和例外在文字中明确给出，不需要把上方第四张认成某个数字才能忠实保留。该数字可能关系到具体万子已见数和逐牌核验，原文没有将它明确关联到某个可鸣牌清单。",
+        "neededLimitation": "必须同时保留“能鸣牌的时候”和5万碰例外；不要扩写为任何牌都可鸣，也不要根据未知牌列出完整可鸣清单。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1751292:b0014"
+        ],
+        "sourceQuote": "（当然5万的碰是不行的= =）",
+        "claim": "5万的碰是作者对上一条建议明确写出的例外。",
+        "dependsOnExactTile": "uncertain",
+        "faithfulWithUnknown": true,
+        "evidence": "作者直接写出了例外，但没有在该段说明其详细理由，也没有说上方牌河第四张就是5万。未知数字是否会影响某项具体牌数或鸣牌核验，不能由这句话单独确定。",
+        "neededLimitation": "原样保留例外，不把目标未知牌当作5万，也不自行补写例外的原因或宣称已独立验证其规则依据。"
+      }
+    ],
+    "requiredLimitations": [
+      "继续保留现有转写中的“［万子牌，数字无法确认］”和 unknowns 中“上方牌河按画面从左到右第4张：可辨为万子牌，数字无法可靠确认”。",
+      "保留原图及目标位置 [298,126,324,161] 的来源关联；裁剪与放大图不作为独立证据。",
+      "保留 b0012 和 b0014 的原有场况条件、判断力度、1500点目标及5万碰例外，不将未知牌补成具体牌码。",
+      "不得把当前展示扩写为完整万子已见数、逐牌可鸣清单、5万碰例外的解释或得点保证。"
+    ],
+    "minimumRequiredAction": "维持该牌 unknown、原图绑定和现有原文条件及例外；仅在这一限定范围内接受其忠实展示。如需进行具体万子计数或逐牌鸣牌核验，须先取得足以辨识该牌的可靠证据，当前不作该项验收。本次不制作或修改候选。",
+    "nonTargetParentScopeInherited": true,
+    "displayScopeOnly": true,
+    "scope": "Faithful presentation of the cited author argument with its existing explicit unknown, original conditions and exceptions. Does not certify exact tile counts, every possible call, rationale of any unstated rule, tactical optimality or actual outcome.",
+    "newModelCalls": 0
+  }
+}

@@ -1,3 +1,21 @@
+## 2026-10-28 100/159/242本次限定消费合同（0调用，覆盖旧识字待办）
+
+本次wakeup01a17f47-f462-7a17-b489-dced948aa132及249原授权01a17f29-cddf-7108-91df-146ccfb0939f已明确：159/242接受对象是“保留作者已写论证及显式unknown的忠实展示”，不是恢复作者未写的完整复盘事实。只消费精确候选5f2555f1/62987619、源、原完整独审、真实新call50eb7aaf/d98dff34及bbox[298,126,324,161)/[177,144,202,177)的限定独立证据；所有非目标范围必须继承真实父审且不含其它未解除错误。unknown/原图/原文条件与例外一字不改，不新增猜牌、战术事实或非原文注。
+
+允许本owner在现有stage/验证回调范围建立仅这两个SHA适用的限定准入状态及可重算证据：仅当原输出location confirmed、reading unknown、currentUnknownDisplay faithful、每项作者贡献faithfulWithUnknown且独立conclusion明确允许时放行限定展示。dependsOnExactTile=uncertain必须原样保留，不能改no；yes/缺独立允许/不忠实/错坐标/错源SHA/错原call/丢unknown一律拒绝。原技术receipt needs-repair/limitedOkay=false和所有原raw/旧审永不修改，不伪造标准wholeArticlePassed。正式active不切，250仍唯一集成写者；100仅准备合法单段修订合同，无本批后续模型/制作预算。
+
+已实施限定适配：integration/coac244-next3-admit-20261028/admission.mjs逐精确candidate/source/旧审/新raw/call/bbox验真，重新运行原生产/展示及非目标父审继承验证，返回accepted-for-specific-limited-unknown-fidelity而非passed，standardWholeArticlePassed=false。stage-limited.mjs仅新namespace支持该状态，并自行重新调用限定gate核对回调完整结果；原共享stage/普通全章门禁一字不改。两个隔离stage/compiler实际成功：unknown数组/原转写、159的1500点与5万碰例外、242的“上家的3万/也许/基本”等原文确实保留；没新增非原文校注。诊断stage不是master preview或MCP/Arena发布，正式覆盖不由本run改变。
+
+237项准入/装配核验通过，其中27个拒绝项覆盖错SHA/源/原call/父审/坐标/缺unknown/可读牌越界/不忠实/依赖yes/无独立允许、100越白名单或缺条件，以及伪造stage准入回调。另69项收证/依赖核验通过。新模块3文件、便携stage依赖2文件及原stage依赖17文件均有manifest；vision27文件沿原冻结核验。源/候选/旧raw/原审/技术false/战术uncertain原样，无新模型/制作/重试。
+
+250现有run01a17f49-0391-799b-8f86-976b5a9f927c同时建立了其自身合法准入contract/manifest/admit/stage，契约同为仅作者论证忠实展示、保留战术uncertain且普通整章门禁不通过。本run也实际只读执行其verifyLimitedUnknownFidelity：159与242均返回admitted-exact-limited-unknown-fidelity、oldStatus=needs-repair、standardWholeArticlePassed=false、ordinaryWholeArticleGateStillRejects=true。后续沿该已有run完成单写者集成及真实MCP/Arena；不再另启消费者/唤醒，不冒称已完成下游发布。
+
+100已完整收证：真实c821f2f0-903b-47f5-8bcc-81db3be2044d，sol/high、images=[]，64082in/0cache/12374out、159.063秒；raw ec474aaa与receipt5de11b59匹配。107源/候选块确含全部68目标+39定义；243旧passed继承、67新目标faithful，唯一具体error是b0041“生きている”漏b0038的“２枚以上切れてない”。100-repair-contract.json只将“1组役牌对子＋仍有剩余的字牌2～3种”替换成“1组役牌对子＋2～3种仍然有效（尚未被打出2张以上）的字牌”，其它字符、310块/128图/sourceSegments/强调不动。真实制作请求对象及text完整enum已备，5项错输出拒绝；expected是明确修订目标，不是已产模型输出/新候选，未写pass sidecar。后续必须沿合法生产入口绑定此合同、真实raw/ledger后再做新SHA单目标首审，独立父证据组合原243passed与本次68审的实际来源；不手拼伪raw/标准父审。最小未来预算另需maker1+首审1=2，失败void计、0retry，本批无后续授权，未自动执行。
+
+159真实50eb7aaf为terra/max5图，21248in/17432out、229.062秒；242真实d98dff34为terra/max5图，25844in/14949out、214.515秒。数字两者均unknown；不把159未知牌补成5m或列可鸣清单，不把242?m补3m/独立证明和牌结算/绝对最优。两项原技术receipt都needs-repair/limitedOkay=false，独立忠实展示结论另行消费，不改其原字段。现有两个剩余register仅100/159/242更新：100当前阻断改为真实唯一条件error；159/242仅忠实展示范围解除识字阻断，战术uncertain/原source-note另列保留，旧问题历史留档。所有其它行及覆盖计数不动。
+
+总交接ebe45f74…已核，本批已用3/3、余0、0失败/void、0制作、0retry，原guard自然释放；本运行额外call0。wakeup01a17f47-f462-7a17-b489-dced948aa132已fire_count1且disabled，无错误。完整登记integration/coac244-next3-admit-20261028/registration.json，SHA26acacec2825565a5e25dade2916f95e6c49a484aa4400291d3eee4c3861577f。费用/远端权重/上游实际总数unknown，主票in_progress、主书未完。
+
 ## 2026-10-28 Q8/236独审已收、100沿既有消费者收口（本次登记0调用）
 
 Q8交接d567b8135953b7dce8d1b82d0344941d47764fa2b33d091d953c8049981a8c68已核：真实a5187359-48f0-48b6-9527-210a251efae4，gpt-6.1-terra/max，15个-i＝13内联原图+640×442原JPEG+最近邻4倍；45600in/0cache/26403out、310.938秒。receipt267e223a/raw4ce48a9d完整独立输出为passed-for-target-q8，21题解块和7个figure在旧dea1ba24与最新b2417de1完全同对象，仅按目标继承，不覆盖整稿。原Q8缺外链uncertain可解除，不改旧审/raw。

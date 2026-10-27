@@ -1,0 +1,352 @@
+{
+  "before": {
+    "chapterId": "nemata-jp-chapter-100-1",
+    "covered": false,
+    "baseVerdictPreserved": "produced-needs-repair",
+    "category": "audit-context-gap",
+    "owner": "COAC-249",
+    "nextAction": "原零模型预检helper位于交接根context100.mjs，31依赖已核；既有授权consumer01a17f29…现running，已有coac249-next3-100-reviewed-20261028.json报告needs-repair/1call，由原消费者继续收口。本次只登记预检和后续结果存在，未代验新审全链、未另派100/159/242；原零模型预检不能冒充新passed收据，不借Q8/236额度。",
+    "baseEvidence": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.display.json",
+        "sha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+        "bytes": 1236462
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json",
+        "sha256": "51a7871f3be891b712baa492b6a190e0b6b28f9931f4670f505f32842e1d7e9a",
+        "bytes": 513435
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter01-section035\\source.json",
+        "sha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+        "bytes": 774629
+      }
+    ],
+    "blockingIssues": [
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter01-section035:b0040",
+        "sourceEvidence": "标题引用「条件A、B」；b0056依据条件A作判断，b0065依据条件B作判断。提供的共用上下文b0001、b0002仅含标题和导言，未定义这两个条件。",
+        "description": "译文忠实保留了条件引用，但所提供审校单元缺少关键条件定义，无法独立核实各题解与共享前提的完整关联。该缺口影响教学理解，完整性结论需阻断。",
+        "suggestedRepair": "补充原文中定义条件A、B的块及对应候选译文作为共用上下文，再核验本组题解对条件的应用；勿根据牌例自行推定定义。"
+      }
+    ],
+    "existingVariants": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.display.json",
+        "sha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+        "audits": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json",
+            "sha256": "51a7871f3be891b712baa492b6a190e0b6b28f9931f4670f505f32842e1d7e9a",
+            "status": "needs-repair",
+            "blockingIssues": [
+              {
+                "severity": "uncertain",
+                "targetId": "modern-yabejp-ja:chapter01-section035:b0040",
+                "sourceEvidence": "标题引用「条件A、B」；b0056依据条件A作判断，b0065依据条件B作判断。提供的共用上下文b0001、b0002仅含标题和导言，未定义这两个条件。",
+                "description": "译文忠实保留了条件引用，但所提供审校单元缺少关键条件定义，无法独立核实各题解与共享前提的完整关联。该缺口影响教学理解，完整性结论需阻断。",
+                "suggestedRepair": "补充原文中定义条件A、B的块及对应候选译文作为共用上下文，再核验本组题解对条件的应用；勿根据牌例自行推定定义。"
+              }
+            ]
+          }
+        ],
+        "notAutomaticallySelected": true
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.json",
+        "sha256": "4a299abd80b8640ec9b0a72d388aee9f80d8ffdcc2c16210003a9e1bc491233a",
+        "audits": [],
+        "notAutomaticallySelected": true
+      }
+    ],
+    "pdfBoundary": {
+      "pagesTotal": 8,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107
+      ],
+      "pagesDetail": [
+        {
+          "page": 100,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 47
+        },
+        {
+          "page": 101,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 45
+        },
+        {
+          "page": 102,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 61
+        },
+        {
+          "page": 103,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 54
+        },
+        {
+          "page": 104,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 54
+        },
+        {
+          "page": 105,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 55
+        },
+        {
+          "page": 106,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 49
+        },
+        {
+          "page": 107,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 4
+        }
+      ]
+    },
+    "modelCallsThisStage": 0,
+    "nextThreeZeroStage": {
+      "handoff": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\handoff.json",
+        "sha256": "47a95b52f2e4516855a686332bc67aedee2297eace4c1b0b7b6bb3a4f43993af",
+        "bytes": 12402
+      },
+      "newModelCalls": 0,
+      "candidateUnchanged": true,
+      "reviewStatusUnchanged": true
+    },
+    "q8FidelityCollection": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-q8-236-recorded-20261028\\registration.json",
+      "sha256": "0680c174db819488c1f56c1688568878dcb0f1e253954a0ef2b6ab179526b4a3",
+      "scope": "nemata-jp-chapter-100-1",
+      "newModelCallsThisRun": 0
+    }
+  },
+  "after": {
+    "chapterId": "nemata-jp-chapter-100-1",
+    "covered": false,
+    "baseVerdictPreserved": "produced-needs-repair",
+    "category": "audit-context-gap",
+    "owner": "COAC-249",
+    "nextAction": "新增独审c821f2f0真实完成：107块(68目标+39定义)，67目标faithful、仅b0041漏生きている的“尚未被打出2张以上”条件；原243passed及128图继承。精确100-repair-contract已零调用准备，只改该短语、其余310块/128图/sourceSegments不动，原raw不改、无passed sidecar。下一最小合法maker1+目标首审1须另批授权，当前3/3余0，不自动制作/复审。",
+    "baseEvidence": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.display.json",
+        "sha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+        "bytes": 1236462
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json",
+        "sha256": "51a7871f3be891b712baa492b6a190e0b6b28f9931f4670f505f32842e1d7e9a",
+        "bytes": 513435
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter01-section035\\source.json",
+        "sha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+        "bytes": 774629
+      }
+    ],
+    "blockingIssues": [
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter01-section035:b0041",
+        "sourceEvidence": "b0041：「役牌トイツ１組＋生きている字牌２〜３種」；b0038明确解释：「生きている（２枚以上切れてない）孤立字牌」。候选为「1组役牌对子＋仍有剩余的字牌2～3种」。",
+        "description": "「仍有剩余」不足以表达尚未被打出2张以上的限制，可能把已经打出2张、但仍有余牌的字牌也计入，扩大积极染手的适用条件。补充上下文能够确定原意，但不能使该处译文自动忠实。",
+        "suggestedRepair": "将括号内对应部分改为「或1组役牌对子＋2～3种仍然有效（尚未被打出2张以上）的字牌」。"
+      }
+    ],
+    "existingVariants": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.display.json",
+        "sha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+        "audits": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json",
+            "sha256": "51a7871f3be891b712baa492b6a190e0b6b28f9931f4670f505f32842e1d7e9a",
+            "status": "needs-repair",
+            "blockingIssues": [
+              {
+                "severity": "uncertain",
+                "targetId": "modern-yabejp-ja:chapter01-section035:b0040",
+                "sourceEvidence": "标题引用「条件A、B」；b0056依据条件A作判断，b0065依据条件B作判断。提供的共用上下文b0001、b0002仅含标题和导言，未定义这两个条件。",
+                "description": "译文忠实保留了条件引用，但所提供审校单元缺少关键条件定义，无法独立核实各题解与共享前提的完整关联。该缺口影响教学理解，完整性结论需阻断。",
+                "suggestedRepair": "补充原文中定义条件A、B的块及对应候选译文作为共用上下文，再核验本组题解对条件的应用；勿根据牌例自行推定定义。"
+              }
+            ]
+          }
+        ],
+        "notAutomaticallySelected": true
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.json",
+        "sha256": "4a299abd80b8640ec9b0a72d388aee9f80d8ffdcc2c16210003a9e1bc491233a",
+        "audits": [],
+        "notAutomaticallySelected": true
+      }
+    ],
+    "pdfBoundary": {
+      "pagesTotal": 8,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107
+      ],
+      "pagesDetail": [
+        {
+          "page": 100,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 47
+        },
+        {
+          "page": 101,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 45
+        },
+        {
+          "page": 102,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 61
+        },
+        {
+          "page": 103,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 54
+        },
+        {
+          "page": 104,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 54
+        },
+        {
+          "page": 105,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 55
+        },
+        {
+          "page": 106,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 49
+        },
+        {
+          "page": 107,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 4
+        }
+      ]
+    },
+    "modelCallsThisStage": 0,
+    "nextThreeZeroStage": {
+      "handoff": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\handoff.json",
+        "sha256": "47a95b52f2e4516855a686332bc67aedee2297eace4c1b0b7b6bb3a4f43993af",
+        "bytes": 12402
+      },
+      "newModelCalls": 0,
+      "candidateUnchanged": true,
+      "reviewStatusUnchanged": true
+    },
+    "q8FidelityCollection": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-q8-236-recorded-20261028\\registration.json",
+      "sha256": "0680c174db819488c1f56c1688568878dcb0f1e253954a0ef2b6ab179526b4a3",
+      "scope": "nemata-jp-chapter-100-1",
+      "newModelCallsThisRun": 0
+    },
+    "next3BoundedCollection": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-admit-20261028\\registration.json",
+      "sha256": "26acacec2825565a5e25dade2916f95e6c49a484aa4400291d3eee4c3861577f",
+      "newModelCallsThisRun": 0,
+      "scope": "nemata-jp-chapter-100-1"
+    },
+    "historicalIssuesBeforeContext100Review": [
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter01-section035:b0040",
+        "sourceEvidence": "标题引用「条件A、B」；b0056依据条件A作判断，b0065依据条件B作判断。提供的共用上下文b0001、b0002仅含标题和导言，未定义这两个条件。",
+        "description": "译文忠实保留了条件引用，但所提供审校单元缺少关键条件定义，无法独立核实各题解与共享前提的完整关联。该缺口影响教学理解，完整性结论需阻断。",
+        "suggestedRepair": "补充原文中定义条件A、B的块及对应候选译文作为共用上下文，再核验本组题解对条件的应用；勿根据牌例自行推定定义。"
+      }
+    ],
+    "effectiveBlockingIssues": [
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter01-section035:b0041",
+        "sourceEvidence": "b0041：「役牌トイツ１組＋生きている字牌２〜３種」；b0038明确解释：「生きている（２枚以上切れてない）孤立字牌」。候选为「1组役牌对子＋仍有剩余的字牌2～3种」。",
+        "description": "「仍有剩余」不足以表达尚未被打出2张以上的限制，可能把已经打出2张、但仍有余牌的字牌也计入，扩大积极染手的适用条件。补充上下文能够确定原意，但不能使该处译文自动忠实。",
+        "suggestedRepair": "将括号内对应部分改为「或1组役牌对子＋2～3种仍然有效（尚未被打出2张以上）的字牌」。"
+      }
+    ],
+    "repairContract": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-admit-20261028\\100-repair-contract.json",
+      "sha256": "f35f3c32f1bbe2f7a7fa5f77850a3cde9b0b47ff6de8fbd4a98850557a7dbf38"
+    }
+  }
+}
