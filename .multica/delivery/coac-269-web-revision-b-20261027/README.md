@@ -122,3 +122,23 @@ mechanism was checked first, then used.
   `presentationAsset`); raw artifact SHAs re-verified.
 - Handoff to COAC-249: `artifacts/b2-explicit-targets-249.json` (driver-compatible explicit targets) and
   `artifacts/b2-handoff-249.json`. Independent verdict is pending; self-check is not a pass.
+
+## Batch 3 — next mutually exclusive batch on the same maker-B entry (2026-10-27T10:17–10:19Z)
+
+Started immediately after batch 2 was handed off, without waiting for its audit.
+
+| chapter | article | parent candidate SHA | parent audit SHA | target blocks | candidate SHA |
+| --- | --- | --- | --- | --- | --- |
+| nemata-jp-chapter-183-1 | chapter03-section003 | 889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02 | c66a9bab86228f8f865d1f74b1c2d033de57f133892f87e2205480a09628373a | b0018 | 5083143622906fd318dfd9847c1a446f59deb78ff613a31adb44dd81df299ccd |
+| nemata-jp-chapter-131-1 | chapter01-section049 | 470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac | 8875bb9c2dec37ce1ca1dcc36edc24d7a04ec489ffe604d9dd610e04b77ba552 | b0123 | 40da07ac8cac2acd378963d8e297d28be52d894d31b35712c1ce9f87c4995096 |
+
+- Selection continued the descending rule after 237-1: 232-1/224-1/213-1/193-1 still fail the single-target
+  guard, 347-1 still lacks figure coverage, and 248 reservations, passed chapters and claimed chapters stay
+  excluded.
+- 183-1 `b0018`: 能看到1张 → 可见1张; the motivation clause is now 牌手会受到客风牌单骑更容易争取荣和这一想法的影响.
+- 131-1 `b0123`: 失去七对子的可能性也不太令人介意 → 七对子方面的损失也不太令人介意.
+- Calls: `35508223-36a6-4982-a382-aa5d6683c9a1` (61.5 s, 12,597 in / 500 out) and
+  `c045a2dc-bbca-4e75-ae8f-97b1c4d5110a` (26.8 s, 11,751 in / 136 out), one per chapter, 0 retries.
+- B held `maker-B` 10:17:06.929Z–10:18:35.570Z and released it; the legacy lock is again byte-identical.
+- Real model-call overlap in this batch: **0** (no audit or A-line production call inside the window).
+- Preflight, claims, production, self-check and 249 handoff receipts: `artifacts/b3-*.json`.
