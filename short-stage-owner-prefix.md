@@ -1,3 +1,17 @@
+## 2026-10-28 283/b0168目标已独立通过，整章仍needs-repair（零模型登记）
+
+nemata-jp-chapter-283-1候选b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f，仅在b0168末尾“摸入宝牌”后加“或”，其它1194块及524图与父dea1ba24逐项原样。完整交接3e718558ce87ec9476d1965defc9d3d81d1c5b98644ca5f1d44e95cc218db98c已核；本段覆盖下方“b0168在途/待登记”的旧计划，不重派。
+
+真实首次目标审3bbbff33-f638-4b9c-ae03-01b8d77e2a5a实际CLI为gpt-6.1-terra/max、两张北宝牌/四索原PNG，51957in/0cache/7936out、109.070秒。caller仍sol/high，冻结CLI按images解析terra/max；实际argv/-i、prompt/schema与生产commit8a561add恢复的预检边界879dac6a逐字段匹配，不改历史标签。实际输入127源/候选块＝完整组118块+只读上下文9块，含完整Q12 b0151–b0195的45块日中；targetTextIds仅b0168、targetFigureIds=[]。
+
+原checkpoint311df0ca752e1b34dfea16e2f07192f61dd886905b0a87fbdf8cf7d167314e5e为passed，目标faithful/context faithful、completeTargetScopeCompared=true、无新issue。aggregate d7c8b54d6b4bef37a4c6c0a97b88831a551ce4be8eb938fe51823a9ea1e401df仍needs-repair，raw4f7193e61c9dd86512e8cd6ec86c7d2840176c92e127d46b6933a4bc365443db真实exit0/turn.completed。原wrapper exit1来自通用整章verifyAuditForWebCandidate的web_audit_not_passed_or_inputs_changed，不是transport失败或重试理由。已实际只读调用原冻结verifyWebGroupRevisionProduction和verifyGroupRevisionAudit均通过，整章验证器仍拒绝；没有改任何门禁或原审。
+
+118项证据/范围核验通过：31冻结依赖、生产raw/ledger、源/父/父审、目标checkpoint/raw及完整请求匹配；两账本核验期间无新增记录。原16条非靶deferred逐条hash及batch010的113块passed完整继承。六表66图+六表证据仍绑定另一旧SHA dea1ba24，本次不迁移/合并有效审或以b0168稿覆盖其它分支。规划层排除那6条已有独立表证后另有10条非表deferred及2 source-note；原aggregate的16条deferred本身不删、不改。Q8、b0396、复杂图b0785/b0947、b0962/b1017/b1181按现有票精确目标继续，先查既有在途新收据，不借本批额度。
+
+250已于01a17f2d-65fd-7a81-afcc-293cd1bd5d06限定登记，无需再唤醒consumer。本批真实制作1+首次独审1=2/2，余0，0retry；本运行新增模型/制作/候选/通过章均0，不派183/236/234等。wakeup01a17f24-da49-7a9c-be0a-3781506faf14已fire_count1且disabled，无错误。费用、上游执行总数、远端权重unknown。
+
+现有两个剩余register仅283 canonical的nextAction及b0168TargetRegistration更新，所有旧blockingIssues、历史字段/其它章/coverage不变。完整登记integration/coac244-b0168-recorded-20261028/registration.json；无preview/正式active变更，主票仍in_progress，整章及整书均未完成。
+
 ## 2026-10-28 222与283专项结果零模型登记（覆盖下方旧待审计划）
 
 79-cn-chapter-222-5唯一c51650a4首审5b131a9b为needs-repair/uncertain，原audit06658a3d/raw88d71694不改。真实terra/max、原图+x4两图，17543in/0cache/12953out、184.089秒；目标block/figure faithful、image represented，两处1m已确认。未通过仅因新请求将目标与邻文分数组，缺同一有序序列，不是已证实错序或图修失败。父完整独审f64f0d4f的domOrder faithful与真实raw已核；新旧23块body序列序列化逐字节相等、图顺序及unknowns均不动。两个unknowns原本都是[]，不采纳新审“清空unknowns”的错误历史措辞。

@@ -1,0 +1,760 @@
+{
+  "before": {
+    "chapterId": "nemata-jp-chapter-283-1",
+    "priorGroup": "unproduced-remains-57",
+    "sourceId": "nemata-jp",
+    "title": "「鴉〃の麻雀解説」サイト問題",
+    "titleStatus": "source-only-pending-audited-translation",
+    "unitCount": 1,
+    "units": [
+      {
+        "unitId": "nemata-jp-chapter-283-1-unit-1",
+        "title": "「鴉〃の麻雀解説」サイト問題",
+        "from": {
+          "page": 283,
+          "sourceBlockId": "nemata-jp-p283-b36"
+        },
+        "to": {
+          "page": 302,
+          "sourceBlockId": "nemata-jp-p302-b17"
+        }
+      }
+    ],
+    "pages": [
+      283,
+      284,
+      285,
+      286,
+      287,
+      288,
+      289,
+      290,
+      291,
+      292,
+      293,
+      294,
+      295,
+      296,
+      297,
+      298,
+      299,
+      300,
+      301,
+      302
+    ],
+    "pageFrom": 283,
+    "pageTo": 302,
+    "ownedSourceBlocks": 1076,
+    "pageTextBlocks": 624,
+    "pageImageBlocks": 500,
+    "pageBlocksTotal": 1124,
+    "classification": "truly-unproduced",
+    "flags": {
+      "sourcePagesMissing": [],
+      "duplicateTitle": false
+    },
+    "existingPartial": {
+      "producedPages": [],
+      "passedPages": [],
+      "selectedPages": []
+    },
+    "webCorrespondence": [
+      {
+        "sourceId": "modern-yabejp-ja",
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+        "articleId": "chapter06-exercise003",
+        "decision": "requires-body-comparison",
+        "webSourceFetched": true,
+        "webSourceDir": "web-sources/v1/modern-yabejp-ja/articles/chapter06-exercise003",
+        "candidateFiles": [
+          "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.display.json",
+          "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.json"
+        ],
+        "webAuditReceipts": []
+      }
+    ],
+    "continuation": [
+      {
+        "owner": "COAC-246",
+        "route": "web-article-title-candidate-only",
+        "articles": [
+          {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+            "articleId": "chapter06-exercise003",
+            "webSourceFetched": true,
+            "candidateExists": true
+          }
+        ],
+        "reason": "仅标题候选（requires-body-comparison），未确认逐块等价；只能作为评估来源，不能直接替代 PDF 原章"
+      },
+      {
+        "owner": "COAC-247",
+        "route": "pdf-pages",
+        "pages": [
+          283,
+          284,
+          285,
+          286,
+          287,
+          288,
+          289,
+          290,
+          291,
+          292,
+          293,
+          294,
+          295,
+          296,
+          297,
+          298,
+          299,
+          300,
+          301,
+          302
+        ],
+        "reason": "按原 PDF 页制作；已 produced 且 passed 的页按候选 SHA 复用，不重制；需先确认未覆盖页的归属边界"
+      }
+    ],
+    "pagesDetail": [
+      {
+        "page": 283,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/283.json",
+        "pageBlocks": 48,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 284,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/284.json",
+        "pageBlocks": 54,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 285,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/285.json",
+        "pageBlocks": 58,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 286,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/286.json",
+        "pageBlocks": 76,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 287,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/287.json",
+        "pageBlocks": 62,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 288,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/288.json",
+        "pageBlocks": 59,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 289,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/289.json",
+        "pageBlocks": 66,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 290,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/290.json",
+        "pageBlocks": 61,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 291,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/291.json",
+        "pageBlocks": 73,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 292,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/292.json",
+        "pageBlocks": 78,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 293,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/293.json",
+        "pageBlocks": 64,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 294,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/294.json",
+        "pageBlocks": 30,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 295,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/295.json",
+        "pageBlocks": 27,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 296,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/296.json",
+        "pageBlocks": 68,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 297,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/297.json",
+        "pageBlocks": 58,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 298,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/298.json",
+        "pageBlocks": 24,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 299,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/299.json",
+        "pageBlocks": 65,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 300,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/300.json",
+        "pageBlocks": 65,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 301,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/301.json",
+        "pageBlocks": 58,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 302,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/302.json",
+        "pageBlocks": 30,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      }
+    ],
+    "closurePlan": {
+      "category": "structure-counterevidence-plus-source-gap",
+      "owner": "COAC-248/249",
+      "nextAction": "六表专项f5141a65已passed-for-target-tables，66图+6表独审通过，28faithful及113passed块继承。原19条问题保留历史，其中6条几何问题有新独立反证；其余13条(含source-note)精确列入新sidecar。250已限定登记，无整章合库。Q8/0168等既有在途先收据去重，复杂图/其它文字原阻断保留。1/1余0，不重审表。",
+      "modelCallsThisStage": 0,
+      "evidenceRegister": "integration/coac244-remaining26-closure-register-20261028.json"
+    },
+    "presentationDiagnostic": {
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-projection-20261028\\verification.json",
+        "sha256": "825aa7c7fff725b1b7d3ab9a90f44ece97c3571e8f2ceb58cb56b8aaa3932c17",
+        "bytes": 2438
+      },
+      "projectionEvidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-projection-20261028\\specific-table-review-input.json",
+        "sha256": "26a7dc387046f0563d89d80ce67beff6d2270d87720cc0d11e94071d9904c066",
+        "bytes": 484886
+      },
+      "nextActions": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-projection-20261028\\next-actions.json",
+        "sha256": "ae068890b21a61d57d6730215ddb0c42a2ee1d7540735e512e6354ea6a2375d2",
+        "bytes": 8516
+      },
+      "status": "presentation-verified-semantic-review-not-upgraded",
+      "newModelCalls": 0
+    },
+    "reviewReturnRegistration": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-recorded222283-20261028\\registration.json",
+      "sha256": "f4edb54c0b16b83f12288d86aecbc981d1c24405bba17aff304f1452012d73db",
+      "newModelCallsThisRun": 0,
+      "chapterAccepted": false,
+      "scopeFile": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-recorded222283-20261028\\283-scope-and-remaining.json",
+        "sha256": "ff10fdac789260a10a2849fbe41926446ac5dadf457d49bd23e3e27274fd581f"
+      }
+    }
+  },
+  "after": {
+    "chapterId": "nemata-jp-chapter-283-1",
+    "priorGroup": "unproduced-remains-57",
+    "sourceId": "nemata-jp",
+    "title": "「鴉〃の麻雀解説」サイト問題",
+    "titleStatus": "source-only-pending-audited-translation",
+    "unitCount": 1,
+    "units": [
+      {
+        "unitId": "nemata-jp-chapter-283-1-unit-1",
+        "title": "「鴉〃の麻雀解説」サイト問題",
+        "from": {
+          "page": 283,
+          "sourceBlockId": "nemata-jp-p283-b36"
+        },
+        "to": {
+          "page": 302,
+          "sourceBlockId": "nemata-jp-p302-b17"
+        }
+      }
+    ],
+    "pages": [
+      283,
+      284,
+      285,
+      286,
+      287,
+      288,
+      289,
+      290,
+      291,
+      292,
+      293,
+      294,
+      295,
+      296,
+      297,
+      298,
+      299,
+      300,
+      301,
+      302
+    ],
+    "pageFrom": 283,
+    "pageTo": 302,
+    "ownedSourceBlocks": 1076,
+    "pageTextBlocks": 624,
+    "pageImageBlocks": 500,
+    "pageBlocksTotal": 1124,
+    "classification": "truly-unproduced",
+    "flags": {
+      "sourcePagesMissing": [],
+      "duplicateTitle": false
+    },
+    "existingPartial": {
+      "producedPages": [],
+      "passedPages": [],
+      "selectedPages": []
+    },
+    "webCorrespondence": [
+      {
+        "sourceId": "modern-yabejp-ja",
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+        "articleId": "chapter06-exercise003",
+        "decision": "requires-body-comparison",
+        "webSourceFetched": true,
+        "webSourceDir": "web-sources/v1/modern-yabejp-ja/articles/chapter06-exercise003",
+        "candidateFiles": [
+          "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.display.json",
+          "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.json"
+        ],
+        "webAuditReceipts": []
+      }
+    ],
+    "continuation": [
+      {
+        "owner": "COAC-246",
+        "route": "web-article-title-candidate-only",
+        "articles": [
+          {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+            "articleId": "chapter06-exercise003",
+            "webSourceFetched": true,
+            "candidateExists": true
+          }
+        ],
+        "reason": "仅标题候选（requires-body-comparison），未确认逐块等价；只能作为评估来源，不能直接替代 PDF 原章"
+      },
+      {
+        "owner": "COAC-247",
+        "route": "pdf-pages",
+        "pages": [
+          283,
+          284,
+          285,
+          286,
+          287,
+          288,
+          289,
+          290,
+          291,
+          292,
+          293,
+          294,
+          295,
+          296,
+          297,
+          298,
+          299,
+          300,
+          301,
+          302
+        ],
+        "reason": "按原 PDF 页制作；已 produced 且 passed 的页按候选 SHA 复用，不重制；需先确认未覆盖页的归属边界"
+      }
+    ],
+    "pagesDetail": [
+      {
+        "page": 283,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/283.json",
+        "pageBlocks": 48,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 284,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/284.json",
+        "pageBlocks": 54,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 285,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/285.json",
+        "pageBlocks": 58,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 286,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/286.json",
+        "pageBlocks": 76,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 287,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/287.json",
+        "pageBlocks": 62,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 288,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/288.json",
+        "pageBlocks": 59,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 289,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/289.json",
+        "pageBlocks": 66,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 290,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/290.json",
+        "pageBlocks": 61,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 291,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/291.json",
+        "pageBlocks": 73,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 292,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/292.json",
+        "pageBlocks": 78,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 293,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/293.json",
+        "pageBlocks": 64,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 294,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/294.json",
+        "pageBlocks": 30,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 295,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/295.json",
+        "pageBlocks": 27,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 296,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/296.json",
+        "pageBlocks": 68,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 297,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/297.json",
+        "pageBlocks": 58,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 298,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/298.json",
+        "pageBlocks": 24,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 299,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/299.json",
+        "pageBlocks": 65,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 300,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/300.json",
+        "pageBlocks": 65,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 301,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/301.json",
+        "pageBlocks": 58,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 302,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/302.json",
+        "pageBlocks": 30,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      }
+    ],
+    "closurePlan": {
+      "category": "structure-counterevidence-plus-source-gap",
+      "owner": "COAC-248/249",
+      "nextAction": "b0168新候选b2417de1唯一目标首审3bbbff33已passed，原aggregate仍needs-repair。制作/首审真实生产链与同冻结两验证入口已复验，不将wrapper exit1视transport失败；2/2余0、0retry，不再派b0168。原16条deferred/113passed完整保留；旧dea1ba24六表66图+6表补证按原SHA独立登记，不覆盖新旧分支或伪整章pass。250已登记，无新consumer/preview/active变更。其余精确问题沿既有票继续，先查Q8等在途收据，不借本批额度。",
+      "modelCallsThisStage": 0,
+      "evidenceRegister": "integration/coac244-remaining26-closure-register-20261028.json"
+    },
+    "presentationDiagnostic": {
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-projection-20261028\\verification.json",
+        "sha256": "825aa7c7fff725b1b7d3ab9a90f44ece97c3571e8f2ceb58cb56b8aaa3932c17",
+        "bytes": 2438
+      },
+      "projectionEvidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-projection-20261028\\specific-table-review-input.json",
+        "sha256": "26a7dc387046f0563d89d80ce67beff6d2270d87720cc0d11e94071d9904c066",
+        "bytes": 484886
+      },
+      "nextActions": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-projection-20261028\\next-actions.json",
+        "sha256": "ae068890b21a61d57d6730215ddb0c42a2ee1d7540735e512e6354ea6a2375d2",
+        "bytes": 8516
+      },
+      "status": "presentation-verified-semantic-review-not-upgraded",
+      "newModelCalls": 0
+    },
+    "reviewReturnRegistration": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-recorded222283-20261028\\registration.json",
+      "sha256": "f4edb54c0b16b83f12288d86aecbc981d1c24405bba17aff304f1452012d73db",
+      "newModelCallsThisRun": 0,
+      "chapterAccepted": false,
+      "scopeFile": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-recorded222283-20261028\\283-scope-and-remaining.json",
+        "sha256": "ff10fdac789260a10a2849fbe41926446ac5dadf457d49bd23e3e27274fd581f"
+      }
+    },
+    "b0168TargetRegistration": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-b0168-recorded-20261028\\registration.json",
+      "sha256": "deba817242dff54ab464ca17edaf2865fdea16bc7ca5bab6daf91ee99382f377",
+      "candidateSha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f",
+      "targetPassed": true,
+      "chapterAccepted": false,
+      "newModelCallsThisRun": 0
+    }
+  }
+}

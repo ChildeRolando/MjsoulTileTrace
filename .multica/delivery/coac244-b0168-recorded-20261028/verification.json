@@ -1,0 +1,683 @@
+{
+  "schema": "coac244-b0168-zero-model-verification/1",
+  "newCalls": 0,
+  "passed": true,
+  "checks": [
+    {
+      "name": "sha:E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-b0168-reviewed-target-20261028.json",
+      "passed": true
+    },
+    {
+      "name": "sha:E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0168r1.json",
+      "passed": true
+    },
+    {
+      "name": "sha:E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter06-exercise003\\source.v3.json",
+      "passed": true
+    },
+    {
+      "name": "sha:E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev1.json",
+      "passed": true
+    },
+    {
+      "name": "sha:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+      "passed": true
+    },
+    {
+      "name": "sha:E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-283-b0168-handoff-249-20261028.json",
+      "passed": true
+    },
+    {
+      "name": "sha:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\b0168-review-runtime-manifest.json",
+      "passed": true
+    },
+    {
+      "name": "sha:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f.json",
+      "passed": true
+    },
+    {
+      "name": "sha:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-002.json",
+      "passed": true
+    },
+    {
+      "name": "sha:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\3bbbff33-f638-4b9c-ae03-01b8d77e2a5a.json",
+      "passed": true
+    },
+    {
+      "name": "frozen:b0168-contract.json",
+      "passed": true
+    },
+    {
+      "name": "frozen:b0168-exact-request.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:capability-evidence.json",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-audit-definition.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-audit-image-binding.test.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-audit-legacy.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-audit-pdf-layout.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-audit-pdf-native-corrections.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-audit-pdf-native-structure-corrections.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-audit-pdf-native.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-audit-pdf-scope.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-audit-pdf-source-corrections.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-audit-tile-dictionary.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-audit-verification-dependencies.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-audit-web-batches.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-audit-web-source.py",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-audit-web.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-audit-web.test.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-audit.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-production-cli.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-production-pdf-flow.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-production-web-batches.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-production-web-dictionary.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-production-web-formal.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-production-web-labels.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-production-web-present.py",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-production-web-sources.py",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-production-web-visual.py",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-production-web.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:textbook-production.mjs",
+      "passed": true
+    },
+    {
+      "name": "frozen:verification-dependencies.json",
+      "passed": true
+    },
+    {
+      "name": "exact31 frozen dependencies",
+      "passed": true
+    },
+    {
+      "name": "canonical and target",
+      "passed": true
+    },
+    {
+      "name": "1195 original blocks and524 figures",
+      "passed": true
+    },
+    {
+      "name": "single target block changed",
+      "passed": true
+    },
+    {
+      "name": "only insert 或 after 摸入宝牌",
+      "passed": true
+    },
+    {
+      "name": "other1194 blocks unchanged",
+      "passed": true
+    },
+    {
+      "name": "all524 figures unchanged",
+      "passed": true
+    },
+    {
+      "name": "target review raw checkpoint handoff exact",
+      "passed": true
+    },
+    {
+      "name": "raw model successful terminal",
+      "passed": true
+    },
+    {
+      "name": "target passed whole chapter remains needs-repair",
+      "passed": true
+    },
+    {
+      "name": "only target text independently checked",
+      "passed": true
+    },
+    {
+      "name": "exact exhausted budget",
+      "passed": true
+    },
+    {
+      "name": "same source version",
+      "passed": true
+    },
+    {
+      "name": "actual terra max argv 2 image inputs",
+      "passed": true
+    },
+    {
+      "name": "real original image:28e50bed55e548e1ab0414a40c778dbd62ac4bfe1433360c2d602f1fb92e419f",
+      "passed": true
+    },
+    {
+      "name": "real original image:664ea678d254c0a7b72e2998b7a5e7c85f8b66d01d0156a35ad56aa044247de3",
+      "passed": true
+    },
+    {
+      "name": "immutable published boundary recovered exact",
+      "passed": true
+    },
+    {
+      "name": "actual semantic and transport prompt match published request",
+      "passed": true
+    },
+    {
+      "name": "exact published image strings enter CLI",
+      "passed": true
+    },
+    {
+      "name": "published only b0168 target no figure targets",
+      "passed": true
+    },
+    {
+      "name": "full127 source and candidate context includes Q12 all45",
+      "passed": true
+    },
+    {
+      "name": "published request preserves caller and resolved model distinction",
+      "passed": true
+    },
+    {
+      "name": "parent source raw production binding",
+      "passed": true
+    },
+    {
+      "name": "one original call ledger record:audit/calls.jsonl",
+      "passed": true
+    },
+    {
+      "name": "one original call ledger record:web-production/v1/calls.jsonl",
+      "passed": true
+    },
+    {
+      "name": "sha:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-010.json",
+      "passed": true
+    },
+    {
+      "name": "real frozen production verifier succeeds",
+      "passed": true
+    },
+    {
+      "name": "real frozen target verifier matches aggregate SHA and scope",
+      "passed": true
+    },
+    {
+      "name": "whole article verifier still refuses without retry",
+      "passed": true
+    },
+    {
+      "name": "original16 deferred issues retained by exact issue hashes",
+      "passed": true
+    },
+    {
+      "name": "batch010 113 original blocks remains passed",
+      "passed": true
+    },
+    {
+      "name": "no calls appended:audit/calls.jsonl",
+      "passed": true
+    },
+    {
+      "name": "no calls appended:web-production/v1/calls.jsonl",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-b0168-reviewed-target-20261028.json",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0168r1.json",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter06-exercise003\\source.v3.json",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev1.json",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-283-b0168-handoff-249-20261028.json",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\b0168-review-runtime-manifest.json",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f.json",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-002.json",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\3bbbff33-f638-4b9c-ae03-01b8d77e2a5a.json",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\b0168-contract.json",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\b0168-exact-request.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\capability-evidence.json",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-definition.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-image-binding.test.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-legacy.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-pdf-layout.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-pdf-native-corrections.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-pdf-native-structure-corrections.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-pdf-native.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-pdf-scope.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-pdf-source-corrections.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-tile-dictionary.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-verification-dependencies.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-web-batches.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-web-source.py",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-web.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-web.test.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-cli.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-pdf-flow.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-web-batches.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-web-dictionary.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-web-formal.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-web-labels.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-web-present.py",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-web-sources.py",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-web-visual.py",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-web.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production.mjs",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\verification-dependencies.json",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/28e50bed55e548e1ab0414a40c778dbd62ac4bfe1433360c2d602f1fb92e419f.png",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/664ea678d254c0a7b72e2998b7a5e7c85f8b66d01d0156a35ad56aa044247de3.png",
+      "passed": true
+    },
+    {
+      "name": "original bytes unchanged:E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-010.json",
+      "passed": true
+    }
+  ],
+  "protectedFiles": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-b0168-reviewed-target-20261028.json",
+      "sha256": "3e718558ce87ec9476d1965defc9d3d81d1c5b98644ca5f1d44e95cc218db98c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0168r1.json",
+      "sha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter06-exercise003\\source.v3.json",
+      "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev1.json",
+      "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+      "sha256": "749e242c54019cb6b855a03e6df4fe465bed86e1cf50d7869be548a3b0144d40"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-283-b0168-handoff-249-20261028.json",
+      "sha256": "6010b8f24a800ca43699e0a631e301290fcd246db0e0a15774ced8c3f9dd2a4a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\b0168-review-runtime-manifest.json",
+      "sha256": "80aa8e8b361d01515d73e6728c4e63d32613ea0a3198ae7e09c21414efde4a3c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f.json",
+      "sha256": "d7c8b54d6b4bef37a4c6c0a97b88831a551ce4be8eb938fe51823a9ea1e401df"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-002.json",
+      "sha256": "311df0ca752e1b34dfea16e2f07192f61dd886905b0a87fbdf8cf7d167314e5e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\3bbbff33-f638-4b9c-ae03-01b8d77e2a5a.json",
+      "sha256": "4f7193e61c9dd86512e8cd6ec86c7d2840176c92e127d46b6933a4bc365443db"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\b0168-contract.json",
+      "sha256": "4c49b2b76626b2e14a6e2a36e1195ba0de482a142c1aaf58767567eba0dd7729"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\b0168-exact-request.mjs",
+      "sha256": "9872313a928e8c3f4d0e4f7287b9537a40ee29f3e552b660a47b22a3822633ec"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\capability-evidence.json",
+      "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-definition.mjs",
+      "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-image-binding.test.mjs",
+      "sha256": "1e8968987bd3082740c7044855379c4f193ce9c4d13470c32a1ae1fd4593f832"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-legacy.mjs",
+      "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-pdf-layout.mjs",
+      "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-pdf-native-structure-corrections.mjs",
+      "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-pdf-native.mjs",
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-pdf-scope.mjs",
+      "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-verification-dependencies.mjs",
+      "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-web-batches.mjs",
+      "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-web.mjs",
+      "sha256": "40484a2ab12f41a7a46c4d9afd7a58a34d1641d3ffe68e49b20af3a5d55deb85"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit-web.test.mjs",
+      "sha256": "f3c19856af72c0078611b1155fd22ed098727c6d9fc163265fde4e54ffa67074"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-audit.mjs",
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-cli.mjs",
+      "sha256": "403eb168fb725aa990792089eb7d6e29d55903fcf9e22d2cfce253fd675a3d01"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-pdf-flow.mjs",
+      "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-web-dictionary.mjs",
+      "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-web-formal.mjs",
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-web-labels.mjs",
+      "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-web-sources.py",
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production-web.mjs",
+      "sha256": "688c09ff4888a73738c4a751c5be6077287dbb631aadea604d61a60ed29bd4ef"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\textbook-production.mjs",
+      "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\verification-dependencies.json",
+      "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/28e50bed55e548e1ab0414a40c778dbd62ac4bfe1433360c2d602f1fb92e419f.png",
+      "sha256": "28e50bed55e548e1ab0414a40c778dbd62ac4bfe1433360c2d602f1fb92e419f"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/664ea678d254c0a7b72e2998b7a5e7c85f8b66d01d0156a35ad56aa044247de3.png",
+      "sha256": "664ea678d254c0a7b72e2998b7a5e7c85f8b66d01d0156a35ad56aa044247de3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-010.json",
+      "sha256": "0f7ba48598f4f46d5d0bc1de613a288633346559ee3ce089d6f0accb699646aa"
+    }
+  ],
+  "verifierResults": {
+    "productionPassed": true,
+    "targetGroup": {
+      "passed": true,
+      "auditSha256": "d7c8b54d6b4bef37a4c6c0a97b88831a551ce4be8eb938fe51823a9ea1e401df",
+      "revisedGroups": [
+        "chapter06-exercise003-batch-002"
+      ]
+    },
+    "wholeArticle": {
+      "passed": false,
+      "error": "web_audit_not_passed_or_inputs_changed"
+    },
+    "originalWrapperExit": 1,
+    "actualModelRawExit": 0
+  },
+  "ledgerBefore": {
+    "audit/calls.jsonl": "3e4822f2cf09347300426545136e2c8d8ddc098babf9eb0670b48eda3af1f4ad",
+    "web-production/v1/calls.jsonl": "fcbbd75a5a808ff27271d8e303aef51e14df530b01c2e2687969159b17e81b97"
+  },
+  "ledgerAfter": {
+    "audit/calls.jsonl": "3e4822f2cf09347300426545136e2c8d8ddc098babf9eb0670b48eda3af1f4ad",
+    "web-production/v1/calls.jsonl": "fcbbd75a5a808ff27271d8e303aef51e14df530b01c2e2687969159b17e81b97"
+  },
+  "requestBoundarySha256": "879dac6a725872e31c078a1b7a727216877614800675afc14329cc7f50890169",
+  "remoteBackend": "Unverified; CLI model/effort and returned events are visible, weights and upstream execution total are not."
+}

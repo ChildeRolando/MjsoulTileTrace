@@ -1,0 +1,557 @@
+{
+  "schema": "coac244-b0168-target-evidence-registration/1",
+  "chapterId": "nemata-jp-chapter-283-1",
+  "targetId": "modern-yabejp-ja:chapter06-exercise003:b0168",
+  "handoff": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-b0168-reviewed-target-20261028.json",
+    "sha256": "3e718558ce87ec9476d1965defc9d3d81d1c5b98644ca5f1d44e95cc218db98c"
+  },
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0168r1.json",
+    "sha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f",
+    "bytes": 2119310
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter06-exercise003\\source.v3.json",
+    "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+    "bytes": 1998292
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev1.json",
+    "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+    "bytes": 2169759
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+    "sha256": "749e242c54019cb6b855a03e6df4fe465bed86e1cf50d7869be548a3b0144d40",
+    "bytes": 1690739
+  },
+  "audit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f.json",
+    "sha256": "d7c8b54d6b4bef37a4c6c0a97b88831a551ce4be8eb938fe51823a9ea1e401df"
+  },
+  "checkpoint": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-002.json",
+    "sha256": "311df0ca752e1b34dfea16e2f07192f61dd886905b0a87fbdf8cf7d167314e5e"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\3bbbff33-f638-4b9c-ae03-01b8d77e2a5a.json",
+    "sha256": "4f7193e61c9dd86512e8cd6ec86c7d2840176c92e127d46b6933a4bc365443db"
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-b0168-review-v1-20261028\\b0168-review-runtime-manifest.json",
+    "sha256": "80aa8e8b361d01515d73e6728c4e63d32613ea0a3198ae7e09c21414efde4a3c",
+    "bytes": 10123
+  },
+  "targetStatus": "passed",
+  "chapterStatus": "needs-repair",
+  "chapterAccepted": false,
+  "modelReview": {
+    "textChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0168",
+        "verdict": "faithful",
+        "evidence": "源文接在4索、6索、7索之后，表示摸到后可重新选择③；候选的“摸到后再改为③即可”保留了这一条件和选择。后接的“宝牌或4索”也与题目中宝牌为北、另一张牌为4索的上下文相符。"
+      }
+    ],
+    "figureChecks": [],
+    "contextContinuity": {
+      "faithful": true,
+      "evidence": "目标文字与前面的进张牌列及后面关于宝牌、4索和切牌选择的比较能够连读，未打断题解的论证。"
+    },
+    "issues": [],
+    "completeTargetScopeCompared": true,
+    "summary": "唯一目标文字忠实；本次没有目标牌图。"
+  },
+  "verification": {
+    "productionPassed": true,
+    "targetGroup": {
+      "passed": true,
+      "auditSha256": "d7c8b54d6b4bef37a4c6c0a97b88831a551ce4be8eb938fe51823a9ea1e401df",
+      "revisedGroups": [
+        "chapter06-exercise003-batch-002"
+      ]
+    },
+    "wholeArticle": {
+      "passed": false,
+      "error": "web_audit_not_passed_or_inputs_changed"
+    },
+    "originalWrapperExit": 1,
+    "actualModelRawExit": 0
+  },
+  "unchanged": {
+    "nonTargetBodyBlocks": 1194,
+    "figures": 524,
+    "onlyDiff": "在b0168末尾摸入宝牌后增加或"
+  },
+  "deferred16PreservedWithOriginalIssues": [
+    {
+      "batchId": "chapter06-exercise003-batch-001",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+      "severity": "uncertain",
+      "issueSha256": "ebc185ca1cdb9cbc960fa244aebb327c614eff2de9a32a2fdb4d40e005b8ffa3",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+        "sourceEvidence": "第8题以「場況↓」指向「2007年03月の『何を切る？』」外链；后文依据「一索・二索が薄い」作出选择，并提到东家第6巡吃八万。",
+        "description": "外链及相关文字翻译忠实，但实际场况未在本组展开。无法从已提供的内联牌面确认一索、二索的可见张数、完整副露组合及各家具体点数，因此第8题完整教学场况的核验受阻；这不是已确认的候选漏译。",
+        "suggestedRepair": "补充该引用场况的原始图或完整文字转录后复核；在补齐前明确标注场况核验未完成，不推定牌河、副露组合、点数或他家隐手。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-003",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+      "severity": "error",
+      "issueSha256": "436b899a4562361e876abd0136d9f0c088c05b492e22fcea94b73467389a3886",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+        "sourceEvidence": "问题17弃牌表：第1、3、5、7行分别为东、南、西、北家；第1、2列依次为北/1m、南/7m、9m/西、9m/3s；各格rowspan与colspan均为1。",
+        "description": "b0266、b0267、b0269、b0270、b0272、b0273、b0275、b0276的牌面正确，但其候选figure块均遗漏表格定位，且无替代表格行列结构。单纯保留线性顺序不足以完整保留原表格位。",
+        "suggestedRepair": "为上述八个figure块恢复源tableContext中的tableId、row、column、rowspan、colspan和header，或提供包含这些格位及原空格的完整表格结构。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-003",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+      "severity": "error",
+      "issueSha256": "e64b38ad0f1b35a0ac42e77cf1ef7ffad33588f0a918885a180bed0798c7328d",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+        "sourceEvidence": "问题18弃牌表：第0行第2列为↓；东家第1行依次4s、3s，南家第3行7p、8p，西家第5行北、7p，北家第7行1m、3m；跨度均为1。",
+        "description": "b0292、b0293、b0295、b0296、b0298、b0299、b0301、b0302均遗漏表格定位。尤其3s未保留第1行第2列定位，导致其与上方↓的明确对齐关系缺失。",
+        "suggestedRepair": "恢复八个牌图块的完整tableContext，或重建原表格；确保↓位于第0行第2列并与东家第二张弃牌3s对齐。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-003",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+      "severity": "error",
+      "issueSha256": "c0e2e07e9a0ec7f3e18a2eaac002025b3f3a82b50d42dfc335892dd0dc5bd880",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+        "sourceEvidence": "问题20弃牌表：第1、3、5、7行为东、南、西、北家；第1至3列依次为北/9s/9s、北/1s/中、南/1p/2p、北/1m/9s；跨度均为1。",
+        "description": "b0325—b0327、b0329—b0331、b0333—b0335、b0337—b0339的十二个牌图块均遗漏原表格定位，候选无完整表格结构承载座位与三列弃牌关系。",
+        "suggestedRepair": "恢复十二个figure块的完整tableContext，或提供忠实保留四家、三列弃牌、空格及跨度的完整表格结构。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-004",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0396",
+      "severity": "error",
+      "issueSha256": "c31ac57262de40b3b035f3ad062b6e050c86743e2fcf567011600a655baeacf6",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0396",
+        "sourceEvidence": "手広い④に受ける。裏目の［五索］引きでも三色が狙える。",
+        "description": "「裏目」描述选择后摸到不利牌的情形，不表示此前选择属于失算。译文「失算的」误加了判断失误的含义。",
+        "suggestedRepair": "将本块改为「选择进张宽的④。即使出现不利的」，接原有五索图及下一块「进张，也能争取三色。」。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-005",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+      "severity": "error",
+      "issueSha256": "ef68b9277f648ef0096cf407ca8857af8c420ba28d2032aab215eea2540061e4",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+        "sourceEvidence": "问题33弃牌表为8行7列，各格rowspan、colspan均为1。东家行1列1—6为西、白、中、1m、3p、南；南家行3列1—6为南、白、1s、4s、5m、西；西家行5列1—5为北、1m、3s、8s、白，列6为空；北家行7列1—6为西、北、中、2s、3s、中。箭头行0位于列3、4、6，行2位于列4、5，行4位于列1、4、5，行6位于列1、2、3、6。",
+        "description": "候选保留了表题、座次和箭头文本的tableContext，但23个牌河figure块及其figure记录均无表格格位。牌面编码虽然正确，仍不能完整表达各牌所在单元格及其与上方箭头的对应关系。",
+        "suggestedRepair": "为b0507—b0512、b0516—b0521、b0526—b0530、b0536—b0541的候选figure块恢复源tableContext，包括同一tableId、对应row/column、rowspan=1、colspan=1、header=false；完整保留8×7表格的空格，尤其西家第6张弃牌位置为空，并保持箭头与牌面的列对齐。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-006",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+      "severity": "error",
+      "issueSha256": "99d6ea21d837d54dd3d9520de49feb7ef6c39a722257fac5088c2951738354cf",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+        "sourceEvidence": "源舍牌表为8行9列；东、南、西、北家表头分别位于行1、3、5、7的列0。各家前六张舍牌位于列1至6；东、南、西家的第七张位于列8，列7为空；北家列8为空。所有单元格rowspan、colspan均为1。",
+        "description": "候选保留表题和表头的tableContext，但27个舍牌figure块均缺少tableContext，也没有候选表格结构。牌面及线性顺序正确，仍未保留要求核对的表格格位与空格关系。",
+        "suggestedRepair": "为b0627—b0633、b0635—b0641、b0643—b0649、b0651—b0656恢复各自源tableContext，并提供或重建源8行9列表格，保留空行、列7空格、北家末格为空及所有单格跨度。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "error",
+      "issueSha256": "feed6d512d4fec8d15f46265c3473629c7553adb1adeff4fece490eadfac4acb",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "原图、放大图及源alt一致：12355789m34688s，摸5s。候选为12355789m36788s，摸5s。",
+        "description": "下方13张手牌中的4s、6s被依次错录为6s、7s。正确牌形切8s后听嵌7s；候选牌形会改变这一教学前提。",
+        "suggestedRepair": "将下方手牌完整改为1m 2m 3m 5m 5m 7m 8m 9m 3s 4s 6s 8s 8s；分开的摸入牌仍为5s。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "error",
+      "issueSha256": "20d6f61af624a83fef7882e3fd9da39449b16b4c92edff67f3fd9134fe66d085",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "截图顶部及左右边缘的三列牌分别位于其他三家的手牌位置；中央翻开9s指示牌附近才是牌墙。",
+        "description": "候选将其他三家的隐手统称为牌墙，遗漏了隐手未知这一局面信息。",
+        "suggestedRepair": "区分三家背面或侧面朝向观者的隐手与中央牌墙，明确三家隐手牌面未知，不推定具体牌码。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "uncertain",
+      "issueSha256": "d3c5278fc47e6d40b97380a3386e039632af2ad3b4eb806f7113e3ef708de019",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "候选unknowns仍列左河从上至下第4、6张及右河第1张万子点数未辨清；本次也未能可靠确认这三张的全部牌码。",
+        "description": "这三张属于公开河牌，并非源隐手；可能影响可见张数与等待判断，不能以完整转录通过。",
+        "suggestedRepair": "逐张确认这三张河牌并同步更新transcription及unknowns；确认前保留阻断状态，不臆填牌码。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-008",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+      "severity": "error",
+      "issueSha256": "6eefa362aa4eff0b8a6c01124327671789207b6fc7fa45d8a7f6a08f74953c54",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+        "sourceEvidence": "源弃牌表各格均为rowspan=1、colspan=1：第1行第1—4列为北、西、9s、9p；第3行为2m、5m、3s、4s；第5行为南、北、1p、8m；第7行为中、1m、3s、3s。对应源块分别为b0811—b0814、b0816—b0819、b0821—b0824、b0826—b0829。",
+        "description": "候选保留了表题及四家表头的tableContext，却将16个弃牌单元格转换成没有tableContext的独立figure；figures中也未补充表格坐标。牌面和线性顺序正确，但四家牌河与各弃牌位置的表格关联未完整表示。",
+        "suggestedRepair": "为这16个候选figure块恢复源tableContext中的tableId、row、column、rowspan、colspan和header=false，或提供等价的完整候选表格结构，确保每张牌仍属于原单元格。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "severity": "error",
+      "issueSha256": "e6be649aaee9e4da2c0e399415841c68d7923ce7f186151584a2b7c346d2ae89",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+        "sourceEvidence": "源图替代文本为“立体牌姿（４５赤５６７ｍ２２４５赤５６７９ｓ ２ｓポン？）”；图中左方末张2s有蓝色高亮。",
+        "description": "候选记录了高亮牌，却没有明确转写本题询问是否碰2s。仅有“问题60的牌局画面”不足以完整呈现题目。",
+        "suggestedRepair": "在图注或转写中补入：“是否碰上家刚切出的2s？”并明确高亮2s是此次鸣牌判断的对象。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "severity": "uncertain",
+      "issueSha256": "6cd3acb48f43e89ddeb0fb6401683764e4be22e446d99b8e8d47171339b8c21c",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+        "sourceEvidence": "候选将上方牌河首张及右方牌河首张分别记作“[风牌未辨明]”；两处在所附原图及放大图中均有可见牌面。",
+        "description": "这两处是实际弃牌，不是隐手或装饰。当前转写尚未满足完整读取牌河的要求，本次不能确认其精确牌种。",
+        "suggestedRepair": "完成两张风牌的定向辨认并替换占位符；在确认前保留unknowns，不得猜填或将完整牌河标为已通过。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0962",
+      "severity": "error",
+      "issueSha256": "1d779179f2e8f5fdee2c3b4ec9f6998e5016876e0714ccd447aab3c8f9260eab",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0962",
+        "sourceEvidence": "“メンタンピンや３４５三色もあるので一色手に決め打たない。”",
+        "description": "メンタンピン是立直、断幺九、平和三者结合的术语。候选串列为“立直、断幺九、平和或345三色同顺”，组合关系不明确。",
+        "suggestedRepair": "改为：“也有立直＋断幺九＋平和或345三色同顺的可能，因此不预先锁定染手。染手只考虑清一色就足够了。”"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+      "severity": "error",
+      "issueSha256": "6073a735d8306cdca382542f31cdb1359d2af7c8d8a7ff93caf8dfc5c496dc3d",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+        "sourceEvidence": "“ターツオーバーで三元役の可能性があるので発は残す”；手中已有白与中的对子及孤张发。",
+        "description": "“三元牌役种”容易泛指普通役牌，未清楚表达此处小三元／大三元方向对保留发的意义。",
+        "suggestedRepair": "改为：“搭子过多，又有三元役（小三元／大三元）的可能，所以保留发，宝牌为……”"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-011",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+      "severity": "error",
+      "issueSha256": "a9f6001a46e729e44587190fbffd36f7e9cd9b0762f898cbf9f27517c4df6b8f",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+        "sourceEvidence": "b1179—b1181连读为「ドラ［三萬］でなくてもダブルリャンメンは他のトイツより優先して残す。」",
+        "description": "候选连读为“宝牌［3m］即使不是，也应……”，未形成明确的中文让步条件句。",
+        "suggestedRepair": "将b1179改为“即使”，保留b1180的3m牌图，将b1181改为“不是宝牌，也应优先于其他对子保留双两面形。”"
+      }
+    }
+  ],
+  "independentTableBranch": {
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev1.json",
+      "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+      "bytes": 2169759
+    },
+    "receipt": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-283-tables-20261028\\receipt.json",
+      "sha256": "68f0a463533b01b57b242daaa9d42124e8e5a527f889350a64fad03aec86809b"
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\f5141a65-3fce-47c3-8a94-a0a9a2c9a528.json",
+      "sha256": "f8b6039206d68c70cfeb27d244d2dce557ab3f11d6f70ff44b2160359b2e0864"
+    },
+    "handoffSha256": "984eb65c84e40842bc0b0db324e715df309915b3907860a255a149415b3ff946",
+    "figures": 66,
+    "tables": 6,
+    "relationship": "Both candidates are stored. New b0168 SHA figures and non-target body equal its parent. Table evidence remains bound to original dea1ba24 SHA; not imported into new aggregate or declared full283 passed."
+  },
+  "planningOnlyOther10Deferred": [
+    {
+      "batchId": "chapter06-exercise003-batch-001",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+      "severity": "uncertain",
+      "issueSha256": "ebc185ca1cdb9cbc960fa244aebb327c614eff2de9a32a2fdb4d40e005b8ffa3",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+        "sourceEvidence": "第8题以「場況↓」指向「2007年03月の『何を切る？』」外链；后文依据「一索・二索が薄い」作出选择，并提到东家第6巡吃八万。",
+        "description": "外链及相关文字翻译忠实，但实际场况未在本组展开。无法从已提供的内联牌面确认一索、二索的可见张数、完整副露组合及各家具体点数，因此第8题完整教学场况的核验受阻；这不是已确认的候选漏译。",
+        "suggestedRepair": "补充该引用场况的原始图或完整文字转录后复核；在补齐前明确标注场况核验未完成，不推定牌河、副露组合、点数或他家隐手。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-004",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0396",
+      "severity": "error",
+      "issueSha256": "c31ac57262de40b3b035f3ad062b6e050c86743e2fcf567011600a655baeacf6",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0396",
+        "sourceEvidence": "手広い④に受ける。裏目の［五索］引きでも三色が狙える。",
+        "description": "「裏目」描述选择后摸到不利牌的情形，不表示此前选择属于失算。译文「失算的」误加了判断失误的含义。",
+        "suggestedRepair": "将本块改为「选择进张宽的④。即使出现不利的」，接原有五索图及下一块「进张，也能争取三色。」。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "error",
+      "issueSha256": "feed6d512d4fec8d15f46265c3473629c7553adb1adeff4fece490eadfac4acb",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "原图、放大图及源alt一致：12355789m34688s，摸5s。候选为12355789m36788s，摸5s。",
+        "description": "下方13张手牌中的4s、6s被依次错录为6s、7s。正确牌形切8s后听嵌7s；候选牌形会改变这一教学前提。",
+        "suggestedRepair": "将下方手牌完整改为1m 2m 3m 5m 5m 7m 8m 9m 3s 4s 6s 8s 8s；分开的摸入牌仍为5s。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "error",
+      "issueSha256": "20d6f61af624a83fef7882e3fd9da39449b16b4c92edff67f3fd9134fe66d085",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "截图顶部及左右边缘的三列牌分别位于其他三家的手牌位置；中央翻开9s指示牌附近才是牌墙。",
+        "description": "候选将其他三家的隐手统称为牌墙，遗漏了隐手未知这一局面信息。",
+        "suggestedRepair": "区分三家背面或侧面朝向观者的隐手与中央牌墙，明确三家隐手牌面未知，不推定具体牌码。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "uncertain",
+      "issueSha256": "d3c5278fc47e6d40b97380a3386e039632af2ad3b4eb806f7113e3ef708de019",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "候选unknowns仍列左河从上至下第4、6张及右河第1张万子点数未辨清；本次也未能可靠确认这三张的全部牌码。",
+        "description": "这三张属于公开河牌，并非源隐手；可能影响可见张数与等待判断，不能以完整转录通过。",
+        "suggestedRepair": "逐张确认这三张河牌并同步更新transcription及unknowns；确认前保留阻断状态，不臆填牌码。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "severity": "error",
+      "issueSha256": "e6be649aaee9e4da2c0e399415841c68d7923ce7f186151584a2b7c346d2ae89",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+        "sourceEvidence": "源图替代文本为“立体牌姿（４５赤５６７ｍ２２４５赤５６７９ｓ ２ｓポン？）”；图中左方末张2s有蓝色高亮。",
+        "description": "候选记录了高亮牌，却没有明确转写本题询问是否碰2s。仅有“问题60的牌局画面”不足以完整呈现题目。",
+        "suggestedRepair": "在图注或转写中补入：“是否碰上家刚切出的2s？”并明确高亮2s是此次鸣牌判断的对象。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "severity": "uncertain",
+      "issueSha256": "6cd3acb48f43e89ddeb0fb6401683764e4be22e446d99b8e8d47171339b8c21c",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+        "sourceEvidence": "候选将上方牌河首张及右方牌河首张分别记作“[风牌未辨明]”；两处在所附原图及放大图中均有可见牌面。",
+        "description": "这两处是实际弃牌，不是隐手或装饰。当前转写尚未满足完整读取牌河的要求，本次不能确认其精确牌种。",
+        "suggestedRepair": "完成两张风牌的定向辨认并替换占位符；在确认前保留unknowns，不得猜填或将完整牌河标为已通过。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0962",
+      "severity": "error",
+      "issueSha256": "1d779179f2e8f5fdee2c3b4ec9f6998e5016876e0714ccd447aab3c8f9260eab",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0962",
+        "sourceEvidence": "“メンタンピンや３４５三色もあるので一色手に決め打たない。”",
+        "description": "メンタンピン是立直、断幺九、平和三者结合的术语。候选串列为“立直、断幺九、平和或345三色同顺”，组合关系不明确。",
+        "suggestedRepair": "改为：“也有立直＋断幺九＋平和或345三色同顺的可能，因此不预先锁定染手。染手只考虑清一色就足够了。”"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+      "severity": "error",
+      "issueSha256": "6073a735d8306cdca382542f31cdb1359d2af7c8d8a7ff93caf8dfc5c496dc3d",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+        "sourceEvidence": "“ターツオーバーで三元役の可能性があるので発は残す”；手中已有白与中的对子及孤张发。",
+        "description": "“三元牌役种”容易泛指普通役牌，未清楚表达此处小三元／大三元方向对保留发的意义。",
+        "suggestedRepair": "改为：“搭子过多，又有三元役（小三元／大三元）的可能，所以保留发，宝牌为……”"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-011",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+      "severity": "error",
+      "issueSha256": "a9f6001a46e729e44587190fbffd36f7e9cd9b0762f898cbf9f27517c4df6b8f",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+        "sourceEvidence": "b1179—b1181连读为「ドラ［三萬］でなくてもダブルリャンメンは他のトイツより優先して残す。」",
+        "description": "候选连读为“宝牌［3m］即使不是，也应……”，未形成明确的中文让步条件句。",
+        "suggestedRepair": "将b1179改为“即使”，保留b1180的3m牌图，将b1181改为“不是宝牌，也应优先于其他对子保留双两面形。”"
+      }
+    }
+  ],
+  "sourceNotesRetained": [
+    {
+      "severity": "source-note",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "sourceEvidence": "右上副露最上方牌受黑色遮挡，右下信息栏边缘裁切，中央骰子点数未可靠辨清。",
+      "description": "遮挡、裁切及骰子辨读限制应如实保留；不得由另外两张东牌反推被遮挡牌面。",
+      "suggestedRepair": "保留对应源图限制说明及未知标记；骰子未确认点数时继续注明未知。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "sourceEvidence": "画面中央有两枚骰子，四周及下方有黑色区域；候选已分别记入unknowns和sourceNotes。",
+      "description": "骰子点数未获可靠确认，黑色遮挡或裁切也已如实说明。它们不改变本题是否碰2s的教学论证。",
+      "suggestedRepair": "保留说明；无需据此推测隐藏内容或单独阻断战术结论。"
+    }
+  ],
+  "inheritedBatch010": {
+    "status": "passed",
+    "blocks": 113,
+    "checkpoint": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-010.json",
+      "sha256": "0f7ba48598f4f46d5d0bc1de613a288633346559ee3ce089d6f0accb699646aa"
+    }
+  },
+  "call": {
+    "callId": "3bbbff33-f638-4b9c-ae03-01b8d77e2a5a",
+    "actualModel": "gpt-6.1-terra",
+    "actualEffort": "max",
+    "images": [
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/28e50bed55e548e1ab0414a40c778dbd62ac4bfe1433360c2d602f1fb92e419f.png",
+        "sha256": "28e50bed55e548e1ab0414a40c778dbd62ac4bfe1433360c2d602f1fb92e419f",
+        "bytes": 465
+      },
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/664ea678d254c0a7b72e2998b7a5e7c85f8b66d01d0156a35ad56aa044247de3.png",
+        "sha256": "664ea678d254c0a7b72e2998b7a5e7c85f8b66d01d0156a35ad56aa044247de3",
+        "bytes": 382
+      }
+    ],
+    "usage": {
+      "inputTokens": 51957,
+      "cachedInputTokens": 0,
+      "outputTokens": 7936
+    },
+    "durationMs": 109070,
+    "callerModel": "gpt-6.1-sol",
+    "callerEffort": "high",
+    "routing": "Frozen CLI resolved the two-image audit to terra/max; caller fields preserved."
+  },
+  "budget": {
+    "historicalMaker": 1,
+    "historicalFirstAudit": 1,
+    "used": 2,
+    "maximum": 2,
+    "remaining": 0,
+    "retry": 0
+  },
+  "thisRun": {
+    "modelCalls": 0,
+    "productionCalls": 0,
+    "newCandidates": 0,
+    "newAcceptedChapters": 0,
+    "newConsumers": 0,
+    "previewBuilt": false,
+    "formalActiveChanged": false
+  },
+  "downstreamDeduplication": {
+    "COAC-250": {
+      "alreadyRegisteredComment": "01a17f2d-65fd-7a81-afcc-293cd1bd5d06",
+      "newWakeupCreated": false
+    }
+  },
+  "nextAction": "b0168目标闭合，不重制/重审1195块。原16条deferred继续按完整canonical/候选SHA逐项管理；六表证据沿原分支保留，不重审表。Q8及其它既有在途先收据去重，其余文字/复杂图只沿原精确目标继续，须相应已授权预算，不能借用本批已用尽额度。此登记不追加调用。",
+  "measurementLimits": {
+    "fee": null,
+    "upstreamExecutionTotal": null,
+    "remoteWeights": "unknown"
+  },
+  "verificationArtifact": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-b0168-recorded-20261028\\verification.json",
+    "sha256": "e3118378aadf71130e7377dce2c8bd87d1885c74325c0bb07affad32502c36f7"
+  }
+}
