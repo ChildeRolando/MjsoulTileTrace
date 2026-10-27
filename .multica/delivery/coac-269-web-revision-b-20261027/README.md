@@ -1608,3 +1608,9 @@ Money, remote weights and upstream execution total are unknown. Evidence and exe
 are in `artifacts/b23-1017`; all new package paths are checked at the real Windows root against
 the strict240-character boundary before push. Ticket remains in_progress; draft PR74 is software
 delivery evidence, not independent textbook acceptance.
+
+The once-only249 wakeup has now fired exactly once. Its actual task
+`01a17fb5-f985-78db-9011-b23a57c6f731` started at `2026-10-27T23:33:21Z` and was observed
+running; `artifacts/b23-1017/handoff-started.json` records the real platform state. No independent
+result or audit call is invented from that startup signal. The one reserved target-audit allowance
+belongs exclusively to this249 handoff; this executor will not dispatch a second audit.
