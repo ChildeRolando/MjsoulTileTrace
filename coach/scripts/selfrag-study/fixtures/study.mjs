@@ -2,10 +2,23 @@ import { digestOf } from "../canonical.mjs";
 import { loadResearchSubset } from "../knowledge.mjs";
 import { SELF_RAG_STUDY_EXECUTION_IDENTITY, SELF_RAG_STUDY_SCENE_SLOT_PLAN } from "../prepare.mjs";
 import { SELF_RAG_STUDY_SUBSET_IDS } from "../knowledge.mjs";
+import { SELF_RAG_STUDY_RULE_SOURCE, resolveCorpusGameRules } from "../corpus-rules.mjs";
 import { knowledgeCard, syntheticKnowledge } from "./knowledge.mjs";
 
 export const FIXTURE_SHA = "a".repeat(40);
 export const FIXTURE_SEED = "selfrag-study-fixture-seed/v1";
+/** Same Tenhou GO bitfield as the real corpus (`gm-00a9`: 四麻/东南/赤牌/食断). */
+export const FIXTURE_TENHOU_LOCATOR =
+  "https://fixture.invalid/tenhou-houou/2009123013gm-00a9-0000-13d83447.mjai.json.zst";
+
+export function fixtureRuleSource() {
+  const resolved = resolveCorpusGameRules({
+    format: "mjai",
+    observations: [{ source: SELF_RAG_STUDY_RULE_SOURCE, locator: FIXTURE_TENHOU_LOCATOR }],
+  });
+  if (resolved.status !== "ok") throw new Error(resolved.reason);
+  return resolved.ruleSource;
+}
 
 export const FIXTURE_LAYER_FACTS = Object.freeze({
   SL1: Object.freeze({ windowKind: "self_turn", meldCount: 0, riichiStates: ["none", "none", "none", "none"], remainingDraws: 60 }),
@@ -82,6 +95,7 @@ export function fixtureStudyDeps(options = {}) {
   const prejudgeCalls = [];
   const retrieverCalls = [];
   const writeOrder = [];
+  const ruleSource = options.ruleSource ?? fixtureRuleSource();
   const deps = {
     gitHead: async () => ({ sha: FIXTURE_SHA, clean: options.clean ?? true }),
     loadResearchSubset: async () => research,
@@ -91,10 +105,11 @@ export function fixtureStudyDeps(options = {}) {
       readRecord: () => ({ raw: Buffer.from("{}") }),
       close: async () => {},
     }),
-    analyzeGame: async ({ game }) => ({ status: "ok", layers: game.layers }),
+    analyzeGame: async ({ game }) => ({ status: "ok", layers: game.layers, ruleSource }),
     buildCase: async ({ selected }) => ({
       observation: fixtureObservation(selected.caseId, selected.layer),
       aliases: { reference: (value) => opaqueRef("arena-ref:v1:", value) },
+      ruleSource,
     }),
     createRetriever: async ({ caseRef, researchCorpus }) => {
       const retriever = {

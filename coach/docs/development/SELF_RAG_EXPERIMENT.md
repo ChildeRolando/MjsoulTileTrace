@@ -1,7 +1,7 @@
 # Self-RAG 配对实验协议与结果
 
 日期：2026-10-27
-状态：**工具已实现并通过纯函数/夹具验证（含两轮独立就绪审查的全部修复）；正式 20 次模型评估未运行。**
+状态：**工具已实现并通过纯函数/夹具验证（含两轮独立就绪审查的全部修复）；真实语料规则来源适配已修复并有回归。正式 20 次模型评估未运行。**
 
 本文件是该实验**真实结果**的 owner。契约与不变量见
 [冻结规格](../specs/2026-10-27-self-rag-applicability.md)（下称“规格”）；
@@ -26,6 +26,8 @@
 | 理由判读返回但校验失败时，失败调用保留已报告 usage/elapsed 与失败码 | 已实现并有回归，判读循环本身由 `runReasonAudit` 承载 |
 | 门控返回 `status=failed` 时在生成前终止该 attempt（不回退 baseline，不写 completed） | 已实现并有回归；`degraded` 仍按规格 §5 第 4 条继续 |
 | CLI 入口可加载（`bin/selfrag-study.mjs` 的本地命名导入必须真实存在） | 已修复：`buildResearchArenaCorpus` 现从 `knowledge.mjs` 导入；`entry.test.mjs` 逐条核对 |
+| 真实语料规则来源：只用自身 `nikke-tenhou` observation 的 Tenhou GO locator 位域（四麻/东南、赤牌、食断），未观察规则保持 `unknown` | 已实现并有回归：缺失/不可解析/冲突/三麻/东只/非 mjai 均带原因排除，规则来源与摘要随 case 冻结并在 `verify` 由 locator 重算 |
+| 抽样排除原因与逐局进度（不再静默扫描全集） | 已实现并有回归：`freeze.sampling.exclusions` 记录每局原因；CLI 向 stderr 输出 `game_analyzed` / `slot_selected` 进度 |
 | 与工单 A 的真实门控联通 | **未验证**：A 的 `blind-discard-arena-rag-applicability` 尚未合入；harness 用夹具 gate 验证纯函数，`prepare`/`run` 在真实导入失败时以 `applicability_gate_unavailable` 停止 |
 | pilot（2 局）与 evaluation（8 局）真实运行 | **未运行** |
 | 真实质量、token、失败与耗时数字 | **未产生**；本文件不给出任何质量结论 |
@@ -68,6 +70,18 @@ prepare 失败、被拒绝或 `prejudge_no_irrelevant_instances` 停止时，`pr
 - 牌局来源：`E:/AgentData/Coach/public-replays-20261022/corpus.sqlite`，`node:sqlite` 以 `readOnly: true` 只读打开，
   只执行 `SELECT`，不 checkpoint、不改 `journal_mode`、不写入任何表。SQLite 在 WAL 模式下读取时会映射/更新共享内存
   文件 `corpus.sqlite-shm`（引擎固有行为）；数据库文件与 `-wal` 内容不被本工具修改。
+- 牌局规则来源：corpus 的 MJAI variant 本身不带规则字段。适配器只接受同一只读库中
+  `observations.source = "nikke-tenhou"` 且 `hash` 精确等于 variant hash 的 Tenhou GO locator 位域
+  （`\d{10}gm-([0-9a-f]{4})-`：四位玩家、东南战、赤牌、食断），与产品 `tenhou-source` 同一 profile；
+  locator 不携带的 `westExtension` / `ippatsuCancelledByAnkan` 保持 `unknown`，绝不按常识补成标准规则。
+  缺失、不可解析、冲突（同一 hash 得出不同规则）、三麻、东只或非 mjai 的 variant 一律带原因排除，
+  不进入 mapper。规则来源、locator、规则与摘要写入 `freeze.sampling.selected[].ruleSource`，
+  `verify` 由 locator 重算并核对摘要。语料完整性门没有放宽：`eventSequence`/`scores`/`doraIndicators`/
+  `rivers`/`calledDiscardMarkers`/`melds`/`remainingDraws`/`responseOpportunities` 任一为 partial 即
+  以 `stream_<field>_partial` 排除，partial 不会被改成 complete。
+- 排除记录：每个被分析但不可用的牌局写进 `freeze.sampling.exclusions`
+  （`gameId`、`sourceHash`、`slotIndex`、`layer`、`reason`、可选 `detail`），CLI 同时向 stderr 输出
+  `game_analyzed` 与 `slot_selected` 进度；因此不会出现“无进展、全库扫描”而不留原因的情况。
 - 研究语料：`E:/AgentData/Coach/scene-pattern-study-20261023-kb-v2/knowledge.json`
   （`coach-scene-knowledge-web/v2`，40 张卡，87 933 字节，SHA-256 `73375324…9dab`）。
   `prepare`/`verify` 逐字节核对；只读、不复制进仓库、不发布。
@@ -187,6 +201,27 @@ evaluation 全程只用该组合。参数字节由 harness 在 selector provider
 同时修复一个更早的实现阻断：`bin/selfrag-study.mjs` 从 `prepare.mjs` 导入了实际由 `knowledge.mjs` 导出的
 `buildResearchArenaCorpus`，导致 CLI 在链接阶段即失败（`--help` 也不可用），真实链路根本无法开始。现改为从
 `knowledge.mjs` 导入，并新增 `entry.test.mjs` 逐条核对 CLI 对 harness 模块的命名导入，先红后绿。
+
+**formal-v1 首次 prepare 在输入准备阶段失败（不是模型失败）。** 该次运行没有写出
+`freeze.json`、`prejudge-attempts.jsonl` 或任何模型调用记录，已实际发生的模型调用为 **0**。
+只读诊断（`sampling-probe.json`、`sampling-complete-probe.json`、`corpus-completeness-probe.json`）确认：
+hash 排名前 100 局中有 21 局 scores 完整，首个 scores 完整的局仍被原生 `queryRules` 拒绝为
+`rules_input_incomplete`，因为适配器直接 `mapMjaiRecord` 未带规则来源，全部规则为 `unknown`；
+适配器又吞掉排除原因、没有进度输出，于是继续扫描全库。修复（本文件 §3 与 §1）只涉及 harness 的
+真实语料适配与排除诊断，没有放宽 native/候选/规则完整性门。formal-v1 的目录与
+`formal-v1-run-session.json` 保留不覆盖；真实实验改在登记于任何模型调用之前的 formal-v2 会话中执行，
+seed、20 张卡、排除集、场景槽位、Luna/high 与预算 ladder 均不变。
+
+回归（先红后绿）：
+
+- `tenhou-go locator bits become rules; rules the locator cannot carry stay unknown`
+- `three-player, non-four-player and east-only rule evidence is refused`
+- `the corpus rule adapter accepts only mjai with exactly one observed rule profile`
+- `the corpus adapter entry passes observed rules into the mapper`
+- `a frozen rule source is recomputed and refuses drift`
+- `rule observations are read for one variant hash in a deterministic order`
+- `selection records why a game was skipped and streams progress for every analysis`
+- `the freeze binds every selected game to its corpus rule source and verify recomputes it`
 
 真实运行完成后按以下顺序补齐，不删失败、不改样本：
 

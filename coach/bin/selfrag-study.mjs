@@ -30,9 +30,8 @@ import {
 } from "@riichi-coach/desktop/blind-discard-arena";
 import { createArenaRagRetriever } from "@riichi-coach/desktop/blind-discard-arena-rag";
 import { createArenaToolCallProvider } from "@riichi-coach/desktop/llm-provider/service";
-import { createLibriichiRuleProjector, replayCanonicalStream } from "@riichi-coach/reasoning";
-import { LibriichiRuleResponseSchema, libriichiRuleCanonicalJson } from "@riichi-coach/contracts";
-import { mapMjaiRecord } from "../scripts/replay-corpus/canonical.mjs";
+import { createLibriichiRuleProjector } from "@riichi-coach/reasoning";
+import { LibriichiRuleResponseSchema } from "@riichi-coach/contracts";
 
 import { digestOf, sha256Bytes, studyError } from "../scripts/selfrag-study/canonical.mjs";
 import {
@@ -42,6 +41,8 @@ import {
   usage,
 } from "../scripts/selfrag-study/cli.mjs";
 import { openReplayCorpus } from "../scripts/selfrag-study/corpus.mjs";
+import { resolveCorpusGameRules } from "../scripts/selfrag-study/corpus-rules.mjs";
+import { replayCorpusGame } from "../scripts/selfrag-study/corpus-replay.mjs";
 import {
   SELF_RAG_STUDY_ARTIFACTS,
   SELF_RAG_STUDY_EXECUTION_IDENTITY,
@@ -174,11 +175,47 @@ async function writeJsonReplacing(path, value) {
   await rename(temporary, path);
 }
 
-function replayGame(gameId, raw) {
-  // The corpus carries no rule-set fields; the mapper records them as unknown
-  // and the Arena screening rules out decisions without usable rule input.
-  const stream = mapMjaiRecord(raw, gameId, SELF_RAG_STUDY_SELF_ACTOR);
-  return { stream, decisions: replayCanonicalStream(stream) };
+/**
+ * Completeness the native rule projection requires before it will answer. A
+ * partial field is reported as the exclusion reason and never upgraded.
+ */
+const STREAM_REQUIRED_COMPLETENESS = Object.freeze([
+  "eventSequence", "scores", "doraIndicators", "rivers",
+  "calledDiscardMarkers", "melds", "remainingDraws", "responseOpportunities",
+]);
+
+function replayGame(gameId, record, ruleSource) {
+  // Rule provenance comes from the corpus observations. Without it the mapper
+  // marks every rule unknown and libriichi refuses the request, which used to
+  // turn into a silent scan of the whole corpus.
+  return replayCorpusGame({ raw: record.raw, gameId, ruleSource, selfActor: SELF_RAG_STUDY_SELF_ACTOR });
+}
+
+function failureCode(error) {
+  const message = error instanceof Error ? error.message : "";
+  return /^[a-z0-9_]+$/u.test(message) ? message : "analyze_failed";
+}
+
+function failureDetail(error) {
+  if (error?.detail !== undefined && error.detail !== null) return String(error.detail);
+  const message = error instanceof Error ? error.message : "";
+  return /^[a-z0-9_]+$/u.test(message) ? undefined : message.slice(0, 160);
+}
+
+function skippedFrom(error) {
+  const detail = failureDetail(error);
+  return { status: "skipped", reason: failureCode(error), ...(detail === undefined ? {} : { detail }) };
+}
+
+/** Resolve the variant's own rule evidence before anything is mapped. */
+function resolveCorpusGame(game, corpus) {
+  const record = requireRecord(corpus, game);
+  const observations = typeof corpus.readObservations === "function"
+    ? corpus.readObservations({ sourceHash: game.sourceHash })
+    : [];
+  const resolution = resolveCorpusGameRules({ format: record.format, observations });
+  if (resolution.status !== "ok") throw studyError(resolution.reason, resolution.detail);
+  return { record, ruleSource: resolution.ruleSource };
 }
 
 async function buildRuleInputs(runtime, stream, decisions) {
@@ -223,9 +260,25 @@ function createStudyDeps(options) {
     loadResearchSubset: async () => loadResearchSubset(await readFile(options.knowledgeFile), { knowledgePath: options.knowledgeFile }),
     loadExclusions: async () => loadStudyExclusions({ root: options.exclusionRoot }),
     openCorpus: async () => openReplayCorpus(options.corpusFile),
+    onProgress: (event) => {
+      process.stderr.write(`${JSON.stringify({ at: new Date().toISOString(), progress: event })}\n`);
+    },
     analyzeGame: async ({ game, corpus }) => {
+      let resolved;
       try {
-        const { stream, decisions } = replayGame(game.gameId, requireRecord(corpus, game).raw);
+        resolved = resolveCorpusGame(game, corpus);
+      } catch (error) {
+        // Missing/conflicting/three-player evidence and non-mjai variants are
+        // recorded with their reason instead of being retried across the corpus.
+        return skippedFrom(error);
+      }
+      try {
+        const { stream, decisions } = replayGame(game.gameId, resolved.record, resolved.ruleSource);
+        const partial = STREAM_REQUIRED_COMPLETENESS.find((field) => stream.completeness[field] !== "complete");
+        if (partial !== undefined) {
+          // Partial stays partial: the field is reported, never upgraded.
+          return { status: "skipped", reason: `stream_${partial}_partial`, detail: game.gameId };
+        }
         const ruleInputs = await buildRuleInputs(runtime, stream, decisions);
         const screening = screenArenaDecisions(ruleInputs, { maxIncluded: 128 });
         const layers = {};
@@ -234,13 +287,17 @@ function createStudyDeps(options) {
             if (layers[layer] === undefined) layers[layer] = row.canonicalDecisionOrder;
           }
         }
-        return { status: "ok", layers };
+        return { status: "ok", layers, ruleSource: resolved.ruleSource };
       } catch (error) {
-        return { status: "skipped", reason: String(error?.message ?? "analyze_failed") };
+        return skippedFrom(error);
       }
     },
     buildCase: async ({ selected, corpus }) => {
-      const { stream, decisions } = replayGame(selected.gameId, requireRecord(corpus, selected).raw);
+      const resolved = resolveCorpusGame(selected, corpus);
+      if (selected.ruleSource !== undefined && resolved.ruleSource.digest !== selected.ruleSource.digest) {
+        throw studyError("study_case_rule_source_mismatch", selected.caseId);
+      }
+      const { stream, decisions } = replayGame(selected.gameId, resolved.record, resolved.ruleSource);
       const ruleInputs = await buildRuleInputs(runtime, stream, decisions);
       const screening = screenArenaDecisions(ruleInputs, { maxIncluded: 128 });
       const row = screening.selected.find((candidate) => candidate.canonicalDecisionOrder === selected.canonicalDecisionOrder);
@@ -254,7 +311,7 @@ function createStudyDeps(options) {
           supportedCapabilities: [],
         },
       });
-      return { observation, aliases };
+      return { observation, aliases, ruleSource: resolved.ruleSource };
     },
     retrieverVersion: "arena-local-terms/v1",
     createRetriever: async ({ caseRef, aliases, researchCorpus }) => createArenaRagRetriever({

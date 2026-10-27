@@ -523,3 +523,71 @@ test('a returned but invalid prejudge is settled as failed, keeping its reported
     assert.equal(ledger.filter((entry) => entry.caseId === 'study-case-02' && entry.status === 'completed').length, 0);
   });
 });
+
+test('selection records why a game was skipped and streams progress for every analysis', async () => {
+  const games = [
+    { gameId: 'g1', sourceHash: '1'.repeat(64) },
+    { gameId: 'g2', sourceHash: '2'.repeat(64) },
+    { gameId: 'g3', sourceHash: '3'.repeat(64) },
+  ];
+  const ranked = games.map((game) => ({ game, key: slotSelectionKey('seed', game.sourceHash, 0) }))
+    .sort((left, right) => (left.key < right.key ? -1 : 1))
+    .map((entry) => entry.game.gameId);
+  const winner = ranked.at(-1);
+  const progress = [];
+  const result = await selectStudyGames({
+    games,
+    exclusions: { gameIds: [], sourceHashes: [] },
+    seed: 'seed',
+    plan: [{ slotIndex: 0, phase: 'pilot', layer: 'SL1' }],
+    analyzeGame: async (game) => {
+      if (game.gameId === 'g2') return { status: 'skipped', reason: 'rule_source_missing', detail: 'nikke-tenhou' };
+      return { status: 'ok', layers: game.gameId === winner ? { SL1: 5 } : {} };
+    },
+    onProgress: (event) => progress.push(event),
+  });
+  // The unusable game is frozen with its reason instead of vanishing into a
+  // silent full-corpus scan.
+  assert.deepEqual(result.sampling.exclusions, [{
+    gameId: 'g2', sourceHash: '2'.repeat(64), slotIndex: 0, layer: 'SL1',
+    reason: 'rule_source_missing', detail: 'nikke-tenhou',
+  }]);
+  assert.equal(result.selected.length, 1);
+  assert.equal(result.selected[0].gameId, winner);
+  assert.ok(progress.some((event) => event.event === 'game_analyzed' && event.gameId === 'g2'
+    && event.reason === 'rule_source_missing' && event.status === 'skipped'));
+  assert.ok(progress.some((event) => event.event === 'game_analyzed' && event.gameId === winner && event.reason === null));
+  assert.ok(progress.some((event) => event.event === 'slot_selected' && event.gameId === winner));
+});
+
+test('the freeze binds every selected game to its corpus rule source and verify recomputes it', async () => {
+  const { directory, freeze } = await prepared();
+  try {
+    for (const entry of freeze.sampling.selected) {
+      assert.equal(entry.ruleSource.source, 'nikke-tenhou');
+      assert.equal(entry.ruleSource.rules.redFives.man, 1);
+      assert.equal(entry.ruleSource.rules.westExtension, 'unknown');
+      assert.match(entry.ruleSource.digest, /^[0-9a-f]{64}$/u);
+    }
+    assert.deepEqual(freeze.sampling.exclusions, []);
+    const verified = await verifyStudy({ artifactDir: directory, deps: fixtureStudyDeps().deps, phase: 'pilot' });
+    assert.equal(verified.status, 'verified');
+
+    // Editing the rule profile, source or digest of a frozen case invalidates it.
+    const freezePath = join(directory, 'freeze.json');
+    const stored = JSON.parse(await readFile(freezePath, 'utf8'));
+    const tampered = structuredClone(stored);
+    tampered.sampling.selected[0].ruleSource.rules = { ...tampered.sampling.selected[0].ruleSource.rules, openTanyao: false };
+    await writeFile(freezePath, `${JSON.stringify(tampered, null, 2)}\n`, 'utf8');
+    await assert.rejects(() => verifyStudy({ artifactDir: directory, deps: fixtureStudyDeps().deps, phase: 'pilot' }),
+      /verify_rule_source_mismatch/u);
+
+    const missing = structuredClone(stored);
+    delete missing.sampling.selected[0].ruleSource;
+    await writeFile(freezePath, `${JSON.stringify(missing, null, 2)}\n`, 'utf8');
+    await assert.rejects(() => verifyStudy({ artifactDir: directory, deps: fixtureStudyDeps().deps, phase: 'pilot' }),
+      /verify_rule_source_missing/u);
+  } finally {
+    await cleanup(directory);
+  }
+});

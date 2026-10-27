@@ -7,6 +7,7 @@ import {
   SELF_RAG_STUDY_MAX_PASSAGE_CHARS,
 } from "./knowledge.mjs";
 import { assertScheduleShape, buildSchedule } from "./schedule.mjs";
+import { verifyFrozenRuleSource } from "./corpus-rules.mjs";
 
 /**
  * Frozen preparation artifacts for the paired Self-RAG study (spec §9.1).
@@ -390,11 +391,18 @@ export function isExcludedGame(exclusions, game) {
  * Hash-ordered slot selection (spec §9.1.1). Games already chosen, excluded,
  * or without a usable in-layer decision cannot claim a slot. A slot with no
  * candidate stops the study before any model call.
+ *
+ * Every analyzed game that cannot be used is recorded with the reason the
+ * corpus adapter gave (`rule_source_missing`, `stream_scores_partial`, ...);
+ * silent full-corpus scanning is what this record exists to prevent.
  */
 export async function selectStudyGames(input) {
   const { games, exclusions, seed, plan, analyzeGame } = input;
   if (!Array.isArray(games) || games.length === 0) throw studyError("study_corpus_empty");
   if (!Array.isArray(plan) || plan.length === 0) throw studyError("study_input_invalid", "plan");
+  const onProgress = typeof input.onProgress === "function" ? input.onProgress : null;
+  const analyzedExclusions = [];
+  const recordedExclusions = new Set();
   const eligible = games.filter((game) => !isExcludedGame(exclusions, game));
   const analyses = new Map();
   const chosen = new Set();
@@ -412,9 +420,27 @@ export async function selectStudyGames(input) {
       if (analysis === undefined) {
         analysis = await analyzeGame(game);
         analyses.set(game.gameId, analysis);
+        const status = analysis?.status ?? "unknown";
+        const reason = typeof analysis?.reason === "string" ? analysis.reason : null;
+        if (status !== "ok" && !recordedExclusions.has(game.gameId)) {
+          recordedExclusions.add(game.gameId);
+          analyzedExclusions.push({
+            gameId: game.gameId,
+            sourceHash: game.sourceHash,
+            slotIndex: slot.slotIndex,
+            layer: slot.layer,
+            reason: reason ?? "analyze_failed",
+            ...(typeof analysis?.detail === "string" ? { detail: analysis.detail } : {}),
+          });
+        }
+        onProgress?.({
+          event: "game_analyzed", slotIndex: slot.slotIndex, layer: slot.layer,
+          gameId: game.gameId, sourceHash: game.sourceHash, status, reason,
+          layers: status === "ok" ? analysis?.layers ?? null : null,
+        });
       }
       if (analysis?.status === "ok" && analysis.layers?.[slot.layer] !== undefined) {
-        match = { game, canonicalDecisionOrder: analysis.layers[slot.layer] };
+        match = { game, canonicalDecisionOrder: analysis.layers[slot.layer], ruleSource: analysis.ruleSource };
         break;
       }
     }
@@ -433,10 +459,19 @@ export async function selectStudyGames(input) {
       canonicalDecisionOrder: match.canonicalDecisionOrder,
       selfActor: SELF_RAG_STUDY_SELF_ACTOR,
       selectionKey: slotSelectionKey(seed, match.game.sourceHash, slot.slotIndex),
+      ...(match.ruleSource === undefined ? {} : { ruleSource: match.ruleSource }),
+    });
+    onProgress?.({
+      event: "slot_selected", slotIndex: slot.slotIndex, layer: slot.layer,
+      caseId: studyCaseId(slot.slotIndex), gameId: match.game.gameId,
+      canonicalDecisionOrder: match.canonicalDecisionOrder,
     });
   }
-  const sampling = { version: SELF_RAG_STUDY_SAMPLING_VERSION, seed, plan: plan.map((slot) => ({ ...slot })), selected };
-  return { selected, sampling: { ...sampling, digest: digestOf(sampling) } };
+  const sampling = {
+    version: SELF_RAG_STUDY_SAMPLING_VERSION, seed, plan: plan.map((slot) => ({ ...slot })), selected,
+    exclusions: analyzedExclusions,
+  };
+  return { selected, exclusions: analyzedExclusions, sampling: { ...sampling, digest: digestOf(sampling) } };
 }
 
 /** Independent prejudge verdicts are structural input, never gold labels. */
@@ -652,6 +687,7 @@ async function prepareWithCorpus(input) {
     seed,
     plan,
     analyzeGame: (game) => deps.analyzeGame({ game, corpus }),
+    ...(typeof deps.onProgress === "function" ? { onProgress: deps.onProgress } : {}),
   });
   if (new Set(sample.selected.map((entry) => entry.layer)).size !== 5) {
     throw studyError("insufficient_scene_coverage", "not_all_layers");
@@ -665,6 +701,15 @@ async function prepareWithCorpus(input) {
   for (const selected of sample.selected) {
     const built = await deps.buildCase({ selected, corpus });
     const observation = built?.observation;
+    // `buildCase` must replay the same corpus game with exactly the rules the
+    // sample bound, otherwise the frozen case is not the analyzed one.
+    if (selected.ruleSource !== undefined) {
+      verifyFrozenRuleSource(selected.ruleSource);
+      if (built?.ruleSource === undefined) throw studyError("study_case_rule_source_missing", selected.caseId);
+      if (built.ruleSource.digest !== selected.ruleSource.digest) {
+        throw studyError("study_case_rule_source_mismatch", selected.caseId);
+      }
+    }
     const layers = classifySceneLayers(sceneFactsFromObservation(observation));
     if (!layers.includes(selected.layer)) throw studyError("study_case_layer_mismatch", selected.caseId);
     if (observation.caseRef === undefined) throw studyError("study_case_invalid", selected.caseId);
@@ -894,8 +939,18 @@ export async function verifyStudy(input) {
     }
     const expectedKey = slotSelectionKey(freeze.seed, entry.sourceHash, entry.slotIndex);
     if (entry.selectionKey !== expectedKey) throw studyError("verify_sample_key_mismatch", entry.caseId);
+    // The rules that let the native rule query run are frozen with the case and
+    // recomputed from their own locator; an edited profile cannot slip through.
+    if (entry.ruleSource === undefined) throw studyError("verify_rule_source_missing", entry.caseId);
+    verifyFrozenRuleSource(entry.ruleSource);
   }
-  const sampling = { version: freeze.sampling.version, seed: freeze.sampling.seed, plan: freeze.sampling.plan, selected: freeze.sampling.selected };
+  const sampling = {
+    version: freeze.sampling.version, seed: freeze.sampling.seed, plan: freeze.sampling.plan,
+    selected: freeze.sampling.selected,
+  };
+  // Older artifacts predate the exclusion record; only a freeze that carries it
+  // has it recomputed, so an unchanged artifact keeps verifying.
+  if (freeze.sampling.exclusions !== undefined) sampling.exclusions = freeze.sampling.exclusions;
   if (digestOf(sampling) !== freeze.sampling.digest) throw studyError("verify_sample_digest_mismatch");
 
   const requests = await readJson(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.requests));

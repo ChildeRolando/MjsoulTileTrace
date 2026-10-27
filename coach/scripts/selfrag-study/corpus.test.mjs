@@ -80,3 +80,19 @@ class DatabaseSyncWrapper {
   prepare(sql) { return this.#inner.prepare(sql); }
   close() { this.#inner.close(); }
 }
+
+test('rule observations are read for one variant hash in a deterministic order', () => {
+  const fixture = createCorpusFixture(records);
+  let corpus;
+  try {
+    corpus = openReplayCorpus(fixture.file);
+    assert.deepEqual(corpus.readObservations({ sourceHash: records[0].sourceHash }), [
+      { source: 'fixture', locator: `${records[0].gameId}.mjai` },
+    ]);
+    assert.deepEqual(corpus.readObservations({ sourceHash: 'f'.repeat(64) }), []);
+    assert.throws(() => corpus.readObservations({}), /study_corpus_invalid/u);
+  } finally {
+    corpus?.close();
+    fixture.cleanup();
+  }
+});
