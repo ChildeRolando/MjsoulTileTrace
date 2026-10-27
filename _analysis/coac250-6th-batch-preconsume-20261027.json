@@ -1,0 +1,378 @@
+{
+  "schema": "coac250-pre-consume-verification-20261027f/1",
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "prior": {
+    "preview": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T05-19-25-744Z",
+    "pointerSha256": "42964920e1a6d03271c6610872501c6b9d7d3a90acf74c0ea993809304c73628",
+    "corpusId": "a8742114157f197d7bae398c051cd92dce9f17a572b8ef5085a667e6abf7cc47",
+    "chapters": 204,
+    "units": 212,
+    "blocks": 5377,
+    "figures": 3984,
+    "selectedWeb": 175,
+    "pendingWeb": 48
+  },
+  "items": [
+    {
+      "key": "227-1",
+      "original": "nemata-jp-chapter-227-1",
+      "checks": {
+        "candidateShaExpected": true,
+        "auditShaExpected": true,
+        "receiptBindsCandidate": true,
+        "receiptPassed": true,
+        "auditRecordedForThisRuntimeBase": true,
+        "sourceShaExpected": true,
+        "sourceBoundCurrent": true,
+        "sourceMainHtmlBound": true,
+        "noTableGeometryHold": true,
+        "parentShaBound": true,
+        "parentAuditShaBound": true,
+        "notesShaBound": true,
+        "notesAreTheRepairedReceipt": true,
+        "onlyTargetedBlockChanged": true,
+        "blockOrderAndIdentityPreserved": true,
+        "auditorSnapshotIntact": true,
+        "manifestFilesMatchAuditorSnapshot": true,
+        "manifestStillMatchesBase": true,
+        "gatePassedLive": true,
+        "notAlreadyInPreview": true,
+        "wasPendingBeforeBuild": true
+      },
+      "candidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section007.rev1.json",
+        "sha256": "4e1c6ed36bef34ff0a9848ba8915f46b0422a9f71b611775f5ee7981292590d6",
+        "blocks": 10,
+        "figures": 0,
+        "title": "速攻的局面"
+      },
+      "audit": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter04-section007.4e1c6ed36bef34ff0a9848ba8915f46b0422a9f71b611775f5ee7981292590d6.json",
+        "sha256": "b3b209a31ea5c0a78ae4dad7300959322472b5fae9f8d79fb17481849b225696",
+        "status": "passed",
+        "recordedAt": "2026-10-27T05:24:25.519Z",
+        "method": "independent-target-text-review-plus-unchanged-parent-audit",
+        "effectiveModelChecks": {
+          "passed": true,
+          "errors": []
+        },
+        "effectiveModelReviewSummary": "全文已逐块核对；9块忠实，b0007需修正“確和了”的术语误译。无图表或图片需要核对。",
+        "calls": [
+          {
+            "callId": "353f10e8-ecdf-4825-88d7-a3a4da715f83",
+            "model": "gpt-6.1-sol",
+            "reasoningEffort": "high",
+            "success": true,
+            "usage": {
+              "inputTokens": 13681,
+              "cachedInputTokens": 0,
+              "outputTokens": 795
+            }
+          }
+        ],
+        "inheritedCalls": [
+          {
+            "callId": "6345c9d0-ba03-418d-bcf2-56d5be1f96c8",
+            "scope": "textbook-web-article-audit",
+            "model": "gpt-6.1-sol",
+            "success": true
+          }
+        ],
+        "productionCallId": "f47c585e-cfc6-4450-a14b-f1bc95e13107"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter04-section007/source.json",
+        "sha256": "c4357e17bac3e079bffc1f39f53c6d190a4d4597f1ecde07275d29fba5e53d5b",
+        "mainSha256": "3d5a85ef466c4f88070a637ae93e8f20659b102388a6ebdfeceb072a54eab09b",
+        "htmlSha256": "9adb6a801980a7577e4f513049352d01c52833c777bae77bd386ad45c1d43899",
+        "tables": 0
+      },
+      "chain": {
+        "kind": "targeted-revision",
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section007.display.json",
+        "parentSha256": "b496daf315d5278e20aa81e233c156fad909add5efd97438acbbace5c6902740",
+        "parentShaExpected": true,
+        "targetTextIds": [
+          "modern-yabejp-ja:chapter04-section007:b0007"
+        ],
+        "figureIds": [],
+        "notes": {
+          "path": "audit/web/articles/modern-yabejp-ja/chapter04-section007.b496daf315d5278e20aa81e233c156fad909add5efd97438acbbace5c6902740.retry-1792992301748-11647458.json",
+          "sha256": "594ec4dfe289633fc3e0734a10241cbf924b64a4b4a2ce5b763e324a61ca1c9a",
+          "status": "needs-repair",
+          "recordedAt": "2026-10-26T05:25:01.749Z",
+          "modelErrors": [
+            "needs-repair:modern-yabejp-ja:chapter04-section007:b0007",
+            "semantic_information_missing",
+            "error:modern-yabejp-ja:chapter04-section007:b0007"
+          ]
+        },
+        "diff": {
+          "blockCountSame": true,
+          "figureCountSame": true,
+          "changedBlockIds": [
+            "modern-yabejp-ja:chapter04-section007:b0007"
+          ],
+          "owedSourceBlockIds": [],
+          "changedFigureIds": [],
+          "figuresDifferingOnlyByDerivedPresentationAsset": [],
+          "targetTextIds": [
+            "modern-yabejp-ja:chapter04-section007:b0007"
+          ]
+        }
+      },
+      "auditor": {
+        "path": "audit/web/auditors/453ba938015d244e36a1b8aad05e7500c598de7a5dd97768f2defab4b973b8e1.json",
+        "sha256": "3cd55e4a54a0e8f720a689a33e267967f52b7ea4c6782038e191a6911c7d295f",
+        "declared": "3cd55e4a54a0e8f720a689a33e267967f52b7ea4c6782038e191a6911c7d295f",
+        "combined": "453ba938015d244e36a1b8aad05e7500c598de7a5dd97768f2defab4b973b8e1",
+        "files": [
+          {
+            "name": "textbook-audit-web.mjs",
+            "sha256": "a585d2fc9858c2f894355146d8a0b779e53b1a405021fec573613786a186ea75"
+          },
+          {
+            "name": "textbook-audit-web-source.py",
+            "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+          },
+          {
+            "name": "textbook-production-cli.mjs",
+            "sha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+          },
+          {
+            "name": "textbook-audit-web-batches.mjs",
+            "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+          }
+        ]
+      },
+      "dependencyManifest": {
+        "base": "audit/runtimes/e89dcffe73c9100a12218b79dfba66da3f1bb08d7adaf2b64e87d9eb34619a49",
+        "recordedPath": "audit/runtime-patches/20261027-web-audit-batch/manifest-web-e89dcffe.json",
+        "recordedSha256": "ed07f6b824de75f5999d0f3169c7dae37580c2474035f0cb5ec234e2ed6cac5d",
+        "rebuiltSha256": "ed07f6b824de75f5999d0f3169c7dae37580c2474035f0cb5ec234e2ed6cac5d",
+        "diff": {
+          "added": [],
+          "removed": [],
+          "changed": []
+        },
+        "snapshotJsFilesCoveredByManifest": true,
+        "snapshotNonModuleFilesVerifiedBySnapshotOnly": [
+          {
+            "name": "textbook-audit-web-source.py",
+            "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221",
+            "verified": true
+          }
+        ]
+      },
+      "gate": {
+        "status": "passed",
+        "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter04-section007.4e1c6ed36bef34ff0a9848ba8915f46b0422a9f71b611775f5ee7981292590d6.json",
+        "auditSha256": "b3b209a31ea5c0a78ae4dad7300959322472b5fae9f8d79fb17481849b225696",
+        "modelChecks": {
+          "passed": true,
+          "errors": []
+        },
+        "effectiveModelChecks": {
+          "passed": true,
+          "errors": []
+        }
+      },
+      "dedupe": {
+        "candidateShaAlreadyInPreview": false,
+        "originalAlreadyCovered": false,
+        "pendingEntryBefore": {
+          "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter04-section007.display.json",
+          "error": "web_audit_not_passed_or_inputs_changed"
+        }
+      },
+      "allChecksPassed": true
+    },
+    {
+      "key": "246-1",
+      "original": "nemata-jp-chapter-246-1",
+      "checks": {
+        "candidateShaExpected": true,
+        "auditShaExpected": true,
+        "receiptBindsCandidate": true,
+        "receiptPassed": true,
+        "auditRecordedForThisRuntimeBase": true,
+        "sourceShaExpected": true,
+        "sourceBoundCurrent": true,
+        "sourceMainHtmlBound": true,
+        "noTableGeometryHold": true,
+        "parentShaBound": true,
+        "parentAuditShaBound": true,
+        "notesShaBound": true,
+        "notesAreTheRepairedReceipt": true,
+        "onlyTargetedBlockChanged": true,
+        "blockOrderAndIdentityPreserved": true,
+        "auditorSnapshotIntact": true,
+        "manifestFilesMatchAuditorSnapshot": true,
+        "manifestStillMatchesBase": true,
+        "gatePassedLive": true,
+        "notAlreadyInPreview": true,
+        "wasPendingBeforeBuild": true
+      },
+      "candidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-section002.rev1.json",
+        "sha256": "bbf15bbd1390a0b7ce729d5205a65dad72e0f24cb6c2fe1f9789aaaea26e1904",
+        "blocks": 96,
+        "figures": 10,
+        "title": "何切讨论法"
+      },
+      "audit": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter06-section002.bbf15bbd1390a0b7ce729d5205a65dad72e0f24cb6c2fe1f9789aaaea26e1904.json",
+        "sha256": "8e573eb3a4500da4ff55dc6e5788616830cdbf61a1857fad7e3991f80f7dcd3b",
+        "status": "passed",
+        "recordedAt": "2026-10-27T05:26:32.362Z",
+        "method": "independent-target-text-review-plus-unchanged-parent-audit",
+        "effectiveModelChecks": {
+          "passed": true,
+          "errors": []
+        },
+        "effectiveModelReviewSummary": "已逐项校对96个正文块、10个figure及12次图片出现。发现1处须修复的用时边界误译；其余教学语义、牌码顺序、强调、引用及链接均保留。",
+        "calls": [
+          {
+            "callId": "6e90283c-c0bb-4617-aaef-ef729da525ad",
+            "model": "gpt-6.1-sol",
+            "reasoningEffort": "high",
+            "success": true,
+            "usage": {
+              "inputTokens": 13768,
+              "cachedInputTokens": 0,
+              "outputTokens": 314
+            }
+          }
+        ],
+        "inheritedCalls": [
+          {
+            "callId": "a90bebc7-3e0e-47d0-a1e0-5c08f5e3c837",
+            "scope": "textbook-web-article-audit",
+            "model": "gpt-6.1-sol",
+            "success": true
+          }
+        ],
+        "productionCallId": "24994d5d-4d31-444f-b150-e6b7142994f4"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter06-section002/source.json",
+        "sha256": "8ea3a7139a78ed4fcdfd36f663c2a47d0eb15efb8c4b88d4aff07336642f2933",
+        "mainSha256": "d140ced5bfcf19b760a1b084b1f60f5340fe97a6c0464f0458b9b67f223f48a6",
+        "htmlSha256": "23cc98d6c6009218d8ac6e6e97910d5c1956ee9dae6d7e7ca89e7b16f74c788b",
+        "tables": 0
+      },
+      "chain": {
+        "kind": "targeted-revision",
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-section002.display.json",
+        "parentSha256": "eb4caf1b93fc906a5a7286419009256337e9f886ce82123091931c8c5e5c4fc4",
+        "parentShaExpected": true,
+        "targetTextIds": [
+          "modern-yabejp-ja:chapter06-section002:b0070"
+        ],
+        "figureIds": [],
+        "notes": {
+          "path": "audit/web/articles/modern-yabejp-ja/chapter06-section002.eb4caf1b93fc906a5a7286419009256337e9f886ce82123091931c8c5e5c4fc4.json",
+          "sha256": "53f38a52975a3a4545ff4c405f981127e706aaef104fe1b173505d84a4d22dab",
+          "status": "needs-repair",
+          "recordedAt": "2026-10-26T05:44:35.577Z",
+          "modelErrors": [
+            "needs-repair:modern-yabejp-ja:chapter06-section002:b0070",
+            "semantic_information_missing",
+            "error:modern-yabejp-ja:chapter06-section002:b0070"
+          ]
+        },
+        "diff": {
+          "blockCountSame": true,
+          "figureCountSame": true,
+          "changedBlockIds": [
+            "modern-yabejp-ja:chapter06-section002:b0070"
+          ],
+          "owedSourceBlockIds": [],
+          "changedFigureIds": [],
+          "figuresDifferingOnlyByDerivedPresentationAsset": [
+            "modern-yabejp-ja:chapter06-section002:b0043:figure",
+            "modern-yabejp-ja:chapter06-section002:b0045:figure",
+            "modern-yabejp-ja:chapter06-section002:b0047:figure",
+            "modern-yabejp-ja:chapter06-section002:b0049:figure",
+            "modern-yabejp-ja:chapter06-section002:b0051:figure",
+            "modern-yabejp-ja:chapter06-section002:b0053:figure",
+            "modern-yabejp-ja:chapter06-section002:b0055:figure",
+            "modern-yabejp-ja:chapter06-section002:b0057:figure",
+            "modern-yabejp-ja:chapter06-section002:b0059:figure",
+            "modern-yabejp-ja:chapter06-section002:b0061:figure"
+          ],
+          "targetTextIds": [
+            "modern-yabejp-ja:chapter06-section002:b0070"
+          ]
+        }
+      },
+      "auditor": {
+        "path": "audit/web/auditors/453ba938015d244e36a1b8aad05e7500c598de7a5dd97768f2defab4b973b8e1.json",
+        "sha256": "3cd55e4a54a0e8f720a689a33e267967f52b7ea4c6782038e191a6911c7d295f",
+        "declared": "3cd55e4a54a0e8f720a689a33e267967f52b7ea4c6782038e191a6911c7d295f",
+        "combined": "453ba938015d244e36a1b8aad05e7500c598de7a5dd97768f2defab4b973b8e1",
+        "files": [
+          {
+            "name": "textbook-audit-web.mjs",
+            "sha256": "a585d2fc9858c2f894355146d8a0b779e53b1a405021fec573613786a186ea75"
+          },
+          {
+            "name": "textbook-audit-web-source.py",
+            "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+          },
+          {
+            "name": "textbook-production-cli.mjs",
+            "sha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+          },
+          {
+            "name": "textbook-audit-web-batches.mjs",
+            "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+          }
+        ]
+      },
+      "dependencyManifest": {
+        "base": "audit/runtimes/e89dcffe73c9100a12218b79dfba66da3f1bb08d7adaf2b64e87d9eb34619a49",
+        "recordedPath": "audit/runtime-patches/20261027-web-audit-batch/manifest-web-e89dcffe.json",
+        "recordedSha256": "ed07f6b824de75f5999d0f3169c7dae37580c2474035f0cb5ec234e2ed6cac5d",
+        "rebuiltSha256": "ed07f6b824de75f5999d0f3169c7dae37580c2474035f0cb5ec234e2ed6cac5d",
+        "diff": {
+          "added": [],
+          "removed": [],
+          "changed": []
+        },
+        "snapshotJsFilesCoveredByManifest": true,
+        "snapshotNonModuleFilesVerifiedBySnapshotOnly": [
+          {
+            "name": "textbook-audit-web-source.py",
+            "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221",
+            "verified": true
+          }
+        ]
+      },
+      "gate": {
+        "status": "passed",
+        "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter06-section002.bbf15bbd1390a0b7ce729d5205a65dad72e0f24cb6c2fe1f9789aaaea26e1904.json",
+        "auditSha256": "8e573eb3a4500da4ff55dc6e5788616830cdbf61a1857fad7e3991f80f7dcd3b",
+        "modelChecks": {
+          "passed": true,
+          "errors": []
+        },
+        "effectiveModelChecks": {
+          "passed": true,
+          "errors": []
+        }
+      },
+      "dedupe": {
+        "candidateShaAlreadyInPreview": false,
+        "originalAlreadyCovered": false,
+        "pendingEntryBefore": {
+          "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter06-section002.display.json",
+          "error": "web_audit_not_passed_or_inputs_changed"
+        }
+      },
+      "allChecksPassed": true
+    }
+  ],
+  "allPassed": true
+}

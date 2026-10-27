@@ -1,0 +1,50 @@
+{
+  "checkedAt": "2026-10-27T06:34:23.140Z",
+  "preview": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T06-08-03-592Z",
+  "corpusId": "11298d626a584ba155bb00eb496b2408348bd9c3d44586868cb41e4e4a035bfc",
+  "catalogEntries": 206,
+  "rows": [
+    {
+      "chapterId": "modern-yabejp-ja-chapter04-section007-chapter",
+      "unitId": "modern-yabejp-ja-chapter04-section007-argument",
+      "catalogPresent": true,
+      "catalogTitle": "速攻的局面",
+      "corpusBlocks": 10,
+      "readBlocks": 10,
+      "exactBody": true,
+      "searchTop5": [
+        "modern-yabejp-ja-chapter04-section007-argument",
+        "79-bilibili-cn-cv1689340-argument",
+        "79-bilibili-cn-cv1689350-argument",
+        "79-bilibili-cn-cv1693794-argument",
+        "79-bilibili-cn-cv1697932-argument"
+      ],
+      "searchHitsUnit": true
+    },
+    {
+      "chapterId": "modern-yabejp-ja-chapter06-section002-chapter",
+      "unitId": "modern-yabejp-ja-chapter06-section002-argument",
+      "catalogPresent": true,
+      "catalogTitle": "何切讨论法",
+      "corpusBlocks": 46,
+      "readBlocks": 46,
+      "exactBody": true,
+      "searchTop5": [
+        "modern-yabejp-ja-chapter06-exercise002-01-argument",
+        "modern-yabejp-ja-chapter06-section001-argument",
+        "modern-yabejp-ja-chapter06-section002-argument",
+        "nemata-jp-chapter-309-1-unit-1",
+        "79-bilibili-cn-cv1697932-argument"
+      ],
+      "searchHitsUnit": true
+    }
+  ],
+  "images": {
+    "checked": 10,
+    "allReachable": true,
+    "mismatched": []
+  },
+  "maxTextBytes": 14731,
+  "totalCallMs": 30,
+  "modelCalls": 0
+}
