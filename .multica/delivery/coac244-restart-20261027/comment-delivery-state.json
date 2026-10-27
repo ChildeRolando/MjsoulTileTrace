@@ -1,0 +1,11 @@
+{
+  "issueId": "01a1746d-cf4a-7ecc-9fae-3d4c2b55c39f",
+  "parentCommentId": "01a17e2a-ce94-7c5c-aa8f-0f847252dbe9",
+  "state": "post-attempt-failed-readback-unavailable",
+  "postError": "Could not reach the Multica server. Check your network connection.",
+  "readbackError": "Could not reach the Multica server. Check your network connection.",
+  "authProbeError": "GET /api/me: EOF",
+  "interpretation": "Transport error; not proof of revoked credentials. Do not reauthenticate or repeat the post without reading the trigger thread first.",
+  "draft": "reply-pending.md",
+  "nextAction": "Read this exact trigger thread to establish whether the attempted post exists. If absent, post the retained draft with its three evidence attachments using content-file and gated cleanup. Do not rerun model calls."
+}
