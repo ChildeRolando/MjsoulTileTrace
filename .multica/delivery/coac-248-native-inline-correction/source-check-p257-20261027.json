@@ -41,5 +41,161 @@
   "reading": "牌距约 33 像素、牌面约 28 像素。四格漫画里的游戏截图本身嵌入分辨率就低，再叠红/绿深色图案，28 像素牌面辨 1s/6z、8s/6z、万子数字属临界。"
  },
  "conclusion": "这不是入口限制，也不是能靠调整门禁放行的一项。可产出的路径只有一条：按 217 页的做法对这些位置做逐张放大核读（确定性像素工作、0 模型调用），能读出的写进新候选、读不出的在 unknowns 里落位，然后再审 1 次。本轮只做到分类与分辨率取证，未逐张核读、未产新候选、未派审校。",
- "notDone": "未做逐张放大核读；未改候选；未派审校；未改任何门禁"
+ "notDone": "未做逐张放大核读；未改候选；未派审校；未改任何门禁",
+ "zoomReadContinuation": {
+  "recordedAt": "2026-10-27T12:55:00.000Z",
+  "method": "同页锚点法（照 217）：先用连通域拿每张牌的精确 bbox，按牌河自身方向转正（上方 180°、左方 +90°、右方 -90°、横置牌 0°），再与同页已核锚点做灰度相关（48x64 归一化）与暗像颜色特征（绿/红占比）。全部为确定性像素工作。",
+  "modelCalls": 0,
+  "reproduce": "scripts/_p257_zoom_read.py",
+  "evidenceImages": [
+   "evidence/p257-20261027/read_bottom_1to6.jpg",
+   "evidence/p257-20261027/read_mid_7to12.jpg",
+   "evidence/p257-20261027/read_top_13to17.jpg",
+   "evidence/p257-20261027/upper_compare.jpg",
+   "evidence/p257-20261027/wan_compare.jpg",
+   "evidence/p257-20261027/right_targets.jpg",
+   "evidence/p257-20261027/north_check.jpg"
+  ],
+  "gridFacts": {
+   "upperRiver": "3 排 × 6 列，顶排左起第 1 格空；读序=底排最右向左 1-6，中排向右向左 7-12，顶排 13-17（与候选记法一致，已用 #3=4p/#4=3p/#8=4p/#9=5p/#10,#11=2p 逐一核对）",
+   "leftRiver": "3 列 × 6 排；读序=最靠中央列（右列）自上而下 1-6，再向左 7-12、13-18；#16 是横置牌（亮面 48x67，正立）",
+   "rightRiver": "3 列 × 6 排；读序=最靠中央列（左列）自下而上 1-6，再向右 7-12、13-18；顶排整体上移约 18 像素",
+   "anchorValidation": "左方#5 与下方牌河東(1z) 相关 0.857、左方#7 与 CPU 手牌 1s 相关 0.850 → 左方转正角与列序正确；上方#14 与 2m 锚点同构（一横+红萬）判 1m，与候选一致"
+  },
+  "tiles": [
+   {
+    "position": "上方牌河 第1张",
+    "gridRef": "r2c5（底排最右）",
+    "candidateNow": "unknown：无法可靠区分 1s 与 6z",
+    "read": "暗色字牌，判为 南（2z）",
+    "confidence": "高：不是 1s、不是 6z；中：南的定名（本页无独立南锚点）",
+    "evidence": {
+     "glyph": "与左方#2/#3 同形，灰度相关 0.954 / 0.973；左方#2/#3 互相关 0.982",
+     "color": "暗像 n=646，R=73.1 G=76.8 B=78.6，绿占比 0.00、红占比 0.00 → 与已确认 6z（左方#1：绿占比 0.74，R85 G115 B84）和 1s（CPU 手牌：n=1262，R91 G89 B81）都不符",
+     "exclusion": "本页可见字牌锚点 東/北/中 分别为 n=698/661/510，字形逐一比对均不同；剩余暗色字牌即 南",
+     "caveat": "候选把左方#2/#3 记为 3z，但本页已确认的 3z（あなた面板与 CPU 手牌の西）是宽体方框字，与该形相关仅 0.44–0.48、字形不同 → 该形不是西"
+    },
+    "proposedCorrection": "保持待裁决项：把上方#1 由 unknown 改记为 2z 之前，需先复核左方#2/#3 的牌种（两侧同源，见 collateralFindings）"
+   },
+   {
+    "position": "上方牌河 第6张",
+    "gridRef": "r2c0（底排最左）",
+    "candidateNow": "unknown：红绿深色图案模糊，花色点数不能可靠确定",
+    "read": "1s（索子一）",
+    "confidence": "高",
+    "evidence": {
+     "corr": "与 CPU 手牌 1s 相关 0.815，第二名 1p 0.577",
+     "shape": "伞状暗顶 + 绿叶身 + 红茎，与手牌 1s、左方#7(1s) 同构",
+     "color": "n=1214，R=91.9 G=89.3 B=80.2（手牌 1s：n=1262，R=91.0 G=89.2 B=81.1）"
+    },
+    "proposedCorrection": "上方牌河 第6张 unknown → 1s"
+   },
+   {
+    "position": "上方牌河 第17张",
+    "gridRef": "r0c1（顶排最左）",
+    "candidateNow": "unknown：红绿深色图案模糊",
+    "read": "1s（索子一）",
+    "confidence": "高",
+    "evidence": {
+     "corr": "与 CPU 手牌 1s 相关 0.780",
+     "color": "n=1245，R=91.2 G=89.3 B=81.8，绿占比 0.00"
+    },
+    "proposedCorrection": "上方牌河 第17张 unknown → 1s"
+   },
+   {
+    "position": "左方牌河 第16张",
+    "gridRef": "c0r3（横置牌，本身正立）",
+    "candidateNow": "unknown：万子，数字旋转后笔画粘连，无法区分 2m 与 3m",
+    "read": "2m（二萬）",
+    "confidence": "中高",
+    "evidence": {
+     "digitHalf": "与下方牌河 2m 锚点相关 0.818，与 CPU 手牌 3m 0.750",
+     "shape": "上半为两横「二」，与 3m（三横）字形不同；下方红萬与其他万子一致",
+     "note": "横置牌较直，转正后笔画比同河其他牌清楚"
+    },
+    "proposedCorrection": "左方牌河 第16张 unknown → 2m"
+   },
+   {
+    "position": "右方牌河 第1张",
+    "gridRef": "c0r5（最靠中央列最下）",
+    "candidateNow": "unknown：万子，数字及赤五状态无法可靠辨认",
+    "read": "读不出（1m 或 9m）",
+    "confidence": "可排除 2/3/6/8m；一横画在 1m 与 9m 之间不可分",
+    "evidence": {
+     "digitHalf": "1m 0.878 / 9m 0.806，无决定性差距",
+     "shape": "上半为单条带右端下钩的横画；同页 1m 锚点（上方#14）与 9m 锚点（左方#13）在同倍率下形状相同",
+     "color": "红萬底与其他万子一致，未见赤牌特征"
+    },
+    "proposedCorrection": "保持 unknown（本候选不变），但可把候选写法收窄为「万子，1m 或 9m，非赤」"
+   },
+   {
+    "position": "右方牌河 第2张",
+    "gridRef": "c0r4",
+    "candidateNow": "unknown：万子，数字及赤五状态无法可靠辨认",
+    "read": "5m（五萬）",
+    "confidence": "中（本页无 5m 锚点，字形判读）",
+    "evidence": {
+     "shape": "上半为上横 + 左竖 + 右侧回钩的封闭形，与一/二/三/六/八 的字形都不同",
+     "color": "红萬底，未见赤牌特征"
+    },
+    "proposedCorrection": "右方牌河 第2张 unknown → 5m（需一次锚点复核后再落字段）"
+   },
+   {
+    "position": "右方牌河 第7张",
+    "gridRef": "c1r5",
+    "candidateNow": "unknown：绿色图案模糊，无法区分 8s 与 6z",
+    "read": "8s（索子八）",
+    "confidence": "高",
+    "evidence": {
+     "corr": "与 CPU 手牌 8s 同为 2 列 × 4 绿竹；与 6z 锚点（左方#1 绿字）字形完全不同",
+     "color": "n=1275，绿占比 0.76（6z 锚点 n≈710，是单个绿字；8s 是满版竹纹）"
+    },
+    "proposedCorrection": "右方牌河 第7张 unknown → 8s"
+   },
+   {
+    "position": "右方牌河 第13张",
+    "gridRef": "c2r5",
+    "candidateNow": "unknown：万子，数字及赤五状态无法可靠辨认",
+    "read": "读不出（1m 或 9m）",
+    "confidence": "同右方#1",
+    "evidence": {
+     "digitHalf": "9m 0.961 / 1m 0.831，差距来自 9m 锚点本身也是同类横画，不构成证据",
+     "shape": "与右方#1 的横画形状一致"
+    },
+    "proposedCorrection": "保持 unknown，候选写法可收窄为「1m 或 9m，非赤」"
+   },
+   {
+    "position": "右方牌河 第14张",
+    "gridRef": "c2r4",
+    "candidateNow": "unknown：万子，数字及赤五状态无法可靠辨认",
+    "read": "3m（三萬）",
+    "confidence": "中高",
+    "evidence": {
+     "digitHalf": "与 CPU 手牌 3m 相关 0.650，次名 6m 0.451",
+     "shape": "三横「三」清晰，与手牌 3m 同构"
+    },
+    "proposedCorrection": "右方牌河 第14张 unknown → 3m"
+   }
+  ],
+  "collateralFindings": [
+   {
+    "position": "左方牌河 第2、3、4张（不在本轮指定 9 张内）",
+    "candidateNow": "3z、3z、2z",
+    "read": "2z（南）、2z（南）、4z（北）",
+    "evidence": "#2/#3 互相关 0.982 且与上方#1 同形；#4 与下方牌河北(4z) 字形一致（north_check.jpg）；本页已确认的 3z（あなた面板与 CPU 手牌の西）是宽体方框字，与 #2/#3 相关仅 0.44–0.48",
+    "action": "本轮不改字段、不派审校：先作为证据留存，等这些位置进入一次真实审校时一并裁"
+   }
+  ],
+  "correctionListToAudit": [
+   "上方牌河 第6张：unknown → 1s",
+   "上方牌河 第17张：unknown → 1s",
+   "左方牌河 第16张：unknown（2m/3m 不明）→ 2m",
+   "右方牌河 第7张：unknown（8s/6z 不明）→ 8s",
+   "右方牌河 第14张：unknown → 3m",
+   "右方牌河 第2张：unknown → 5m（无同页锚点，建议复核后落）",
+   "上方牌河 第1张：unknown(1s/6z) → 2z（与左方#2/#3 同源，需先复核那两张）",
+   "右方牌河 第1、13张：仍读不出，候选写法收窄为「1m 或 9m，非赤」"
+  ],
+  "notDone": "本轮未产新候选、未派审校、未改任何候选字段、未改门禁；逐张核读只落证据。"
+ }
 }

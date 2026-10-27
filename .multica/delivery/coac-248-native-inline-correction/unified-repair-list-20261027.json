@@ -1,6 +1,6 @@
 {
  "schema": "coach-unified-repair-list/1",
- "recordedAt": "2026-10-27T11:14:00.000Z",
+ "recordedAt": "2026-10-27T12:55:00.000Z",
  "denominator": {
   "originalChapters": 256,
   "completeOriginalChapters": 186,
@@ -398,14 +398,31 @@
     "uncertain:nemata-jp-p257-r1",
     "uncertain:nemata-jp-p257-r1"
    ],
-   "currentDisposition": "needs-repair-unknown（源图分辨率不足的审校 uncertain）；本轮不派审校、不阻塞其它章节",
+   "currentDisposition": "needs-repair-unknown：源图分辨率不足导致的证据不足，不是入口限制。本轮已完成指定 9 张的逐张放大核读（0 模型调用）：5 张读出、1 张中等置信、1 张同源待复核、2 张仍读不出。",
    "origin": "COAC-248 old PDF 12",
    "newThisStage": false,
    "alsoReportedBy": "COAC-247",
    "dedupeNote": "COAC-247 page 257 candidate SHA 6283c249… equals the old-list candidate; one unresolved object.",
    "classification": "非入口限制，属源证据不足；同一张源图牌距约 33 像素、牌面约 28 像素",
    "sourceCheck": "source-check-p257-20261027.json",
-   "nextAction": "若要推进，只能按 248 已记录的逐张放大核读（0 模型调用）；本轮优先做可修的源文错误，未追加调用"
+   "nextAction": "把 zoomRead 的 5 条确认读出 + 1 条中置信（右方#2=5m）做成一次定点 revision，然后派 1 次页审校，同轮验证同源争议（上方#1 与左方#2/#3/#4）；审校未过或证据仍冲突的位置保持 unknown。",
+   "zoomRead": {
+    "recordedAt": "2026-10-27T12:55:00.000Z",
+    "modelCalls": 0,
+    "evidence": "source-check-p257-20261027.json#zoomReadContinuation",
+    "readOut": {
+     "upper#6": "1s",
+     "upper#17": "1s",
+     "left#16": "2m",
+     "right#7": "8s",
+     "right#14": "3m",
+     "right#2": "5m(无锚点,中置信)",
+     "upper#1": "2z(非1s非6z；与左方#2/#3 同源，待复核)",
+     "right#1": "读不出(1m或9m)",
+     "right#13": "读不出(1m或9m)"
+    },
+    "collateral": "左方#2/#3 读作 南(2z)、#4 读作 北(4z)，与候选 3z/3z/2z 冲突；仅留证，未改字段"
+   }
   },
   {
    "objectId": "nemata-jp:page:261",
