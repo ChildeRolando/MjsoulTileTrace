@@ -195,6 +195,8 @@ source, and no report-first stall.
   to the parent; candidate self-sha, source/parent/notes bindings and raw-artifact sha all verified; one
   attempt per candidate. This is not the independent audit.
 - **Handed to COAC-249**: `handoff-b5-efc4945f29d89376.json` + `explicit-targets-b5-c6f8abb95f3a0e90.json`
+  (actual consumption — independent audits `5a8a41e7…`/`05be99be…` and the driver's terminal skips —
+  is recorded in `coac249-delivery-4e7a7266904e4b52.json` and in *Review round 1* below).
   (one first audit per candidate sha; do not re-audit passed SHAs).
 
 ### 183-1 moved to pending adjudication
@@ -238,7 +240,9 @@ Only **one** chapter still passes the revision entry guard:
   the open semantic question, not something this line declared.
 - Self-check `selfcheck-b6-b7470d87d4fe34cc.json`, `ok: true`: only the target block changed, all 77
   figures and the body flow identical to the parent, one attempt, raw-artifact sha verified.
-- Handed to COAC-249: `handoff-b6-5455076a53c6565c.json` + `explicit-targets-b6-36667349329f7dfb.json`.
+- Handed to COAC-249: `handoff-b6-5455076a53c6565c.json` + `explicit-targets-b6-36667349329f7dfb.json`
+  (consumed: independent audit `bdb29387…` passed at 11:27:18Z; delivery record
+  `coac249-delivery-4e7a7266904e4b52.json`).
 
 ### The ordinary-web repair pool is now exhausted under the current entry
 
@@ -260,3 +264,111 @@ target under the unchanged revision entry:
 audited parent candidate. Continuing means either a root decision on 347-1, a wider revision entry
 (multi-target / missing-figure-checks), or chapters from another source — none of which this ticket
 may decide on its own.
+
+## Review round 1 — CHANGES_REQUIRED (PR #71, head `8a97ffe`) and its fixes
+
+The independent review of head `8a97ffe` accepted the nine artifacts and their SHA bindings but
+returned three P2 findings. All three are fixed below with **zero new model calls, zero new
+production calls and no re-audit**; the existing candidates, raw calls and receipts are untouched.
+
+### R1 — the batch-5/batch-6 claim was invisible to line A
+
+- **Was:** `coac269-claim-b5.mjs` (and its b6 variant) wrote `claim-b5-…` / `claim-b6-…` only into
+  the ticket namespace. `parallel/events.jsonl` has no claim row for 142-1, 127-1 or 027-1, and
+  `parallel/claims/` never contained them, so COAC-248's `slots.mjs check-chapter` returned
+  `held:false` (exit 0) instead of exit 7 — line A could have produced the same chapters again.
+- **Now:** `artifacts/coac269-claim-shared.mjs` takes the atomic **shared** claim first
+  (`parallel/slots.mjs claim --chapter <id> --candidate-sha <parentSha> --lane B --owner …`), reads
+  the record back and verifies owner + candidate sha, and only then writes the ticket-local detail
+  claim (schema `coac269-candidate-claim/3`) carrying the shared path and sha. A claim held by
+  another lane, or for another parent sha, refuses with zero calls.
+  `artifacts/coac269-dispatch-guard.mjs` re-verifies that shared ownership **per dispatch**, so no
+  future production can run on a ticket-only claim.
+- **No retroactive claim.** The three chapters passed independent audit before this fix round
+  (11:25:33Z / 11:27:18Z), so the reservation is finished; writing a claim now would mark completed
+  chapters as in flight for line A without protecting anything. The historical gap is recorded, with
+  its real timestamps and no backdating, in
+  `shared-claim-history-gap-b5b6-5b7278aa7dc6d78a.json` (per chapter: production call ids,
+  ticket-local claim sha, `sharedClaimAtProduction: null`, the passed audit, and why no retro claim).
+  The attempt to claim through the fixed path is also kept as `shared-claims-b5-e02cde03b41e0ed9.json`:
+  the gate refused all three because by then they were covered — the gate working, not a bypass.
+- **Why line A still cannot re-produce them:** the fresh joint exclusion at `11:33:54Z`
+  (`joint-exclusion-2026-10-27T11-33-54-678Z-e17cc5c1.json`) drops all three from
+  `eligibleRepairTargets` through `latest-passed-audit-current-source` (denominator 150 scope
+  chapters = 138 covered + 12 uncovered; the uncovered 12 are 8 eligible + 4 skipped, none of them
+  these three).
+
+### R2 — the COAC-249 handoff was a file, not a delivery
+
+- **Was:** b5/b6 printed their handoff paths and the README said "Handed to COAC-249", but no
+  consumption by the reviewer's entry was recorded at review time.
+- **Now:** `artifacts/coac269-handoff-deliver.mjs` binds every delivered candidate to the audit
+  receipt actually produced for that exact SHA and to COAC-249's own incremental handoff to
+  COAC-250, then runs the real audit driver in `--select-only` mode through the shared entry
+  (`audit/audit-explicit-targets.mjs`) — zero model calls. Delivery record
+  `coac249-delivery-4e7a7266904e4b52.json`:
+
+  | chapter | candidate sha | independent audit | audit sha | status | recorded |
+  | --- | --- | --- | --- | --- | --- |
+  | 142-1 | `f3570e7b…` | `chapter01-section054.f3570e7b….json` | `5a8a41e7…` | passed | 11:25:33Z |
+  | 127-1 | `363fd45c…` | `chapter01-section047.363fd45c….json` | `05be99be…` | passed | 11:27:18Z |
+  | 027-1 | `44ce506d…` | `chapter01-section010.44ce506d….json` | `bdb29387…` | passed | 11:27:18Z |
+
+  - Driver consumption with the combined config
+    (`explicit-targets-b5b6-combined-7d7dbdaf92140e8a.json`): `selected 0`, `pendingBefore 0`,
+    `terminalSkips 3` (all `passed`), `modelCalls 0`. Same SHAs cannot be dispatched again.
+  - COAC-249 handed the three, plus already-passed 199-1, to COAC-250 as
+    `integration/coac249-incremental-269-b5b6-20261027.json` (batchSize 4, 11:29:58Z) and that
+    receipt references this ticket's `handoff-b5-…` / `handoff-b6-…` and all three candidate SHAs.
+    COAC-250 remains the only integration writer; this line wrote no register, selection or pointer.
+  - The 183-1 do-not-audit notice was honoured: COAC-249 reports no audit for `50831436…`.
+  - The first run of the delivery verifier failed its own assertion (it compared the driver's
+    `terminalSkips` array against a count) and is kept as `coac249-delivery-9204f58d17fc6390.json`;
+    the passing run is the one cited above.
+
+### R3 — the joint exclusion ran once per batch, not per dispatch
+
+- **Was:** `coac269-produce-b5.py` called `joint_run('pre-dispatch')` once before the loop; the
+  second chapter reused that receipt (`jointExclusionAtDispatch` identical for 142-1 and 127-1,
+  both bound to the `11:05:54.336Z` `dd7928dc…` receipt).
+- **Now:** both producers call `dispatch_guard(c)` **inside** the loop immediately before each
+  model dispatch. The guard runs its **own** fresh three-source joint exclusion, then checks the
+  pointer sha, the shared claim (owner + parent sha), the ticket-local claim binding, the ticket
+  denylist and output absence. Any drift refuses the dispatch with zero calls and its own receipt
+  (`preflight/dispatch-guard-<ts>-<sha8>.json`); each chapter's `jointExclusionAtDispatch` now comes
+  from its own guard receipt. The batch-level run remains only as a pre-slot capacity check
+  (`preSlotJointExclusion`) and no longer authorizes a dispatch.
+- Existing b5/b6 receipts are unchanged and still show what actually happened; the producers were
+  patched after the fact and no production was re-run.
+
+### Regression test (zero model calls)
+
+`artifacts/coac269-dispatch-guard.test.mjs` — 17 assertions, all passing
+(`regression-dispatch-guard.json`):
+
+- *Defect phase*, against the reviewed commit `8a97ffe`: the old claim script has no shared-interface
+  call and the old producer has exactly one `joint_run` outside the loop. These assertions fail on
+  the fixed files and pass on the old ones, so they really pin the defect.
+- *Fix phase*: the claim script's shared-then-local ordering; the guard refusing a missing, foreign
+  or wrong-sha shared claim; a real two-lane race in a temporary `COACH_PARALLEL_ROOT` through the
+  actual `slots.mjs` (first claimant wins, second exits 7, the loser's `check-chapter` sees the
+  winner's claim, a second revision of the same chapter is also refused); and drift injected between
+  dispatches — new passed receipt, pointer move, foreign claim, stale receipt, parent-sha drift —
+  each blocking the second dispatch with its own recorded receipt age.
+
+### Fix-round verification actually run
+
+- `node coac269-dispatch-guard.test.mjs` → 17/17, `modelCalls: 0`.
+- `node coac269-handoff-deliver.mjs` → `ok: true`, driver `--select-only` selected 0 / terminalSkips 3 / modelCalls 0.
+- `node coac269-write-shared-claim-gap.mjs` → gap record written, `sharedClaimEvents: 0` for all three.
+- `node coac269-dispatch-guard.mjs --case <027-1>` on the real data root → exit 1 with
+  `joint_eligible` (027-1 is now covered), `shared_claim_present` (no shared claim) and
+  `output_absent`; fresh joint receipt `4143a369…` (`dispatch-guard-live-027-1.json`).
+- `node coac269-claim-shared.mjs --batch b5 --register-produced` → refused all three (already covered);
+  the fix-round gate refused rather than claiming completed chapters.
+- `python -m py_compile coac269-produce-b5.py coac269-produce-b6.py` → OK.
+- Patched producer executed once in refuse mode: `python coac269-produce-b6.py nemata-jp-chapter-027-1`
+  → `aborted-not-eligible` at the pre-slot capacity check (027-1 is now covered), zero model calls,
+  no maker-B slot acquired (`production-b6-not-eligible-196c45012ac05e5a.json`).
+- No model call, no audit call, no production call, no shared register/selection/pointer write in
+  this round. The remaining uncovered-chapter pool is unchanged from the batch-6 section above.

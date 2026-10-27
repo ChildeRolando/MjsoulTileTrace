@@ -1,0 +1,53 @@
+{
+  "schema": "coach-explicit-audit-targets/1",
+  "createdAt": "2026-10-27T11:36:13.672Z",
+  "source": "COAC-269 review fix R2: combined b5+b6 delivery already consumed by COAC-249; used here for a zero-call select-only proof through the same audit driver entry. No audit dispatched.",
+  "totalTargets": 3,
+  "targets": [
+    {
+      "kind": "complete-web-candidate",
+      "chapterId": "nemata-jp-chapter-142-1",
+      "articleId": "chapter01-section054",
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section054.coac269rev1.json",
+      "sourceId": "modern-yabejp-ja",
+      "sourceSha256": "89afec31ea77168cb86f94a4919bd5ef813f59029e4452f77e3874dee88676cc",
+      "sha256": "f3570e7bbe61e0ef99e45a2f4185ed3f0c1fe1840f670783c7fd2402352dedca",
+      "parentSha256": "264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e",
+      "parentAuditSha256": "78ffbdda38185f4ae14f4caeae0a4e9ac015998658f831714e0bf856cd2a6872",
+      "category": "coac269-line-b-targeted-revision",
+      "targets": [
+        "modern-yabejp-ja:chapter01-section054:b0173"
+      ]
+    },
+    {
+      "kind": "complete-web-candidate",
+      "chapterId": "nemata-jp-chapter-127-1",
+      "articleId": "chapter01-section047",
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section047.coac269rev1.json",
+      "sourceId": "modern-yabejp-ja",
+      "sourceSha256": "15fa058ba54622b1c812b29dd0b1d8b2b612d68b8fe1386a8f501cb6b4f83371",
+      "sha256": "363fd45cc99f099cfbaec296a1102af0d6dd5519596af707697c21154280c86d",
+      "parentSha256": "0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc",
+      "parentAuditSha256": "3d5a7175621388527f9a3af6158cb21eb8bb83338acdcf2d0d214a8d691aad5a",
+      "category": "coac269-line-b-targeted-revision",
+      "targets": [
+        "modern-yabejp-ja:chapter01-section047:b0030"
+      ]
+    },
+    {
+      "kind": "complete-web-candidate",
+      "chapterId": "nemata-jp-chapter-027-1",
+      "articleId": "chapter01-section010",
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.coac269rev1.json",
+      "sourceId": "modern-yabejp-ja",
+      "sourceSha256": "eead468938ab9770eecc8b2323f72be0dd4dae72618355e4c9bee227dd527387",
+      "sha256": "44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c",
+      "parentSha256": "7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b",
+      "parentAuditSha256": "57d283a67ea10b4ba1ec399700a8c31fc849d625ca001bb03f5dac41ac8dd6f4",
+      "category": "coac269-line-b-targeted-revision",
+      "targets": [
+        "modern-yabejp-ja:chapter01-section010:b0056"
+      ]
+    }
+  ]
+}

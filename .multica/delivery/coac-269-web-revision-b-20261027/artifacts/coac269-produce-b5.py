@@ -23,6 +23,7 @@ REPO = Path('E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach')
 NS = R / 'web-production/v1/coac269-20261027'
 FROZEN = NS / 'frozen-runtime' / 'textbook-production-web.mjs'
 JOINT_SCRIPT = Path(__file__).resolve().parent / 'coac269-joint-exclusion-precheck-v2.mjs'
+GUARD = Path(__file__).resolve().parent / 'coac269-dispatch-guard.mjs'
 SLOTS = R / 'parallel' / 'slots.mjs'
 SLOT_PATH = R / 'parallel' / 'slots' / 'maker-B.json'
 LOCK = R / 'production-lane.lock'
@@ -31,6 +32,7 @@ AUDIT_CALLS = R / 'audit' / 'calls'
 DICT = 'web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json'
 VERIFIED = 'audit/web/verified-assets/modern-ch01-s001-exact-42.json'
 VARIANT = 'coac269rev1'
+BATCH = 'b5'
 NODE = 'E:/IDE/NodeJS/node.exe'
 OWNER = 'COAC-269 Ticket executor'
 now = lambda: datetime.now(timezone.utc).isoformat()
@@ -84,9 +86,35 @@ def joint_run(tag):
             'eligible': [e['chapterId'] for e in j['eligible']], 'controlsOk': j['controlsOk']}
 
 
+def dispatch_guard(c):
+    """Per-dispatch gate (review fixes R1+R3).
+
+    Every model dispatch gets its OWN fresh three-source joint exclusion and its own shared-claim
+    ownership check (parallel/claims/<chapterId>.json, the record line A reads). Another lane's
+    claim, a new passed receipt, a pointer move, a stale receipt or a claim bound to a different
+    parent sha refuses the dispatch with zero calls. Zero model calls here.
+    """
+    claim = json.loads((R / c['claim']).read_text(encoding='utf8'))
+    case = {'batch': BATCH, 'chapterId': c['chapterId'], 'articleId': c['articleId'],
+            'parentSha256': claim['parentCandidate']['sha256'],
+            'outputPath': 'web-production/v1/candidates/modern-yabejp-ja/' + c['articleId'] + '.' + VARIANT + '.json',
+            'ticketClaimPath': c['claim']}
+    case_path = NS / 'preflight' / ('dispatch-case-' + BATCH + '-' + c['chapterId'] + '.json')
+    case_path.write_text(json.dumps(case, ensure_ascii=False, indent=2) + chr(10), encoding='utf8')
+    z = subprocess.run([NODE, str(GUARD), '--case', str(case_path)],
+                       capture_output=True, text=True, encoding='utf8', timeout=300)
+    try:
+        g = json.loads(z.stdout)
+    except Exception:
+        return {'ok': False, 'reasons': ['guard_output_unparsable'], 'exitCode': z.returncode,
+                'stdoutTail': z.stdout[-2000:], 'stderrTail': z.stderr[-2000:]}
+    g['exitCode'] = z.returncode
+    return g
+
+
 # Fresh joint exclusion immediately before dispatch; the claim-time and 10:38 receipts are not reused.
-joint = joint_run('pre-dispatch')
-receipt['jointExclusion'] = joint
+joint = joint_run('pre-slot-capacity')
+receipt['preSlotJointExclusion'] = joint
 for c in cases:
     if c['chapterId'] not in joint['eligible']:
         receipt['result'] = 'aborted-not-eligible'
@@ -128,8 +156,17 @@ try:
         args = [NODE, str(FROZEN), '--source', c['source'], '--revision-from', c['parent'],
                 '--revision-notes', c['notes'], '--variant', VARIANT, '--dictionary', DICT,
                 '--verified-assets', VERIFIED, '--timeout-ms', '480000']
+        # R3: fresh joint exclusion + shared-claim ownership for THIS dispatch, zero calls on drift.
+        guard = dispatch_guard(c)
+        rec['dispatchGuard'] = guard
+        if not guard.get('ok'):
+            rec['state'] = 'refused-dispatch-guard'
+            rec['refusedAt'] = now()
+            receipt['chapters'].append(rec)
+            break
         rec.update({'command': ' '.join(args), 'startedAt': now(),
-                    'jointExclusionAtDispatch': {'path': joint['path'], 'sha256': joint['sha256'], 'recordedAt': joint['recordedAt']}})
+                    'jointExclusionAtDispatch': guard.get('joint'),
+                    'sharedClaimAtDispatch': guard.get('sharedClaim')})
         started = time.monotonic()
         z = subprocess.run(args, cwd=str(REPO), capture_output=True, text=True, encoding='utf8', timeout=560)
         rec['durationSeconds'] = round(time.monotonic() - started, 1)

@@ -1,0 +1,139 @@
+{
+  "schema": "coac269-to-coac249-delivery/1",
+  "ticket": "COAC-269",
+  "to": "COAC-249",
+  "cc": "COAC-250",
+  "recordedAt": "2026-10-27T11:36:41.453Z",
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "auditCalls": 0,
+  "purpose": "bind every delivered candidate to its independent audit and to the single-writer handoff; prove the shared consumption entry now terminal-skips them",
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-142-1",
+      "articleId": "chapter01-section054",
+      "batch": "b5",
+      "candidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section054.coac269rev1.json",
+        "sha256": "f3570e7bbe61e0ef99e45a2f4185ed3f0c1fe1840f670783c7fd2402352dedca"
+      },
+      "parentSha256": "264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e",
+      "parentAuditSha256": "78ffbdda38185f4ae14f4caeae0a4e9ac015998658f831714e0bf856cd2a6872",
+      "sourceSha256": "89afec31ea77168cb86f94a4919bd5ef813f59029e4452f77e3874dee88676cc",
+      "handoff": {
+        "path": "web-production/v1/coac269-20261027/handoff/handoff-b5-efc4945f29d89376.json",
+        "sha256": "fbb7746b426027cd35fcb79785eeda236703367fd19caf9334a521f45535da3f",
+        "explicitTargets": "web-production/v1/coac269-20261027/handoff/explicit-targets-b5-c6f8abb95f3a0e90.json"
+      },
+      "consumption": {
+        "interface": "audit/web/articles/modern-yabejp-ja bound audit receipt (same entry COAC-249 uses)",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section054.f3570e7bbe61e0ef99e45a2f4185ed3f0c1fe1840f670783c7fd2402352dedca.json",
+        "auditSha256": "5a8a41e7362719b52dd9b013859f9bb406d43865e33fdb548300e00fb60badff",
+        "status": "passed",
+        "recordedAt": "2026-10-27T11:25:33.775Z",
+        "calls": 1
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-127-1",
+      "articleId": "chapter01-section047",
+      "batch": "b5",
+      "candidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section047.coac269rev1.json",
+        "sha256": "363fd45cc99f099cfbaec296a1102af0d6dd5519596af707697c21154280c86d"
+      },
+      "parentSha256": "0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc",
+      "parentAuditSha256": "3d5a7175621388527f9a3af6158cb21eb8bb83338acdcf2d0d214a8d691aad5a",
+      "sourceSha256": "15fa058ba54622b1c812b29dd0b1d8b2b612d68b8fe1386a8f501cb6b4f83371",
+      "handoff": {
+        "path": "web-production/v1/coac269-20261027/handoff/handoff-b5-efc4945f29d89376.json",
+        "sha256": "fbb7746b426027cd35fcb79785eeda236703367fd19caf9334a521f45535da3f",
+        "explicitTargets": "web-production/v1/coac269-20261027/handoff/explicit-targets-b5-c6f8abb95f3a0e90.json"
+      },
+      "consumption": {
+        "interface": "audit/web/articles/modern-yabejp-ja bound audit receipt (same entry COAC-249 uses)",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section047.363fd45cc99f099cfbaec296a1102af0d6dd5519596af707697c21154280c86d.json",
+        "auditSha256": "05be99be66bf8c579814b0cb392c9c57f82fdde0b40dc47e63cc374e49702696",
+        "status": "passed",
+        "recordedAt": "2026-10-27T11:27:18.817Z",
+        "calls": 1
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-027-1",
+      "articleId": "chapter01-section010",
+      "batch": "b6",
+      "candidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.coac269rev1.json",
+        "sha256": "44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c"
+      },
+      "parentSha256": "7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b",
+      "parentAuditSha256": "57d283a67ea10b4ba1ec399700a8c31fc849d625ca001bb03f5dac41ac8dd6f4",
+      "sourceSha256": "eead468938ab9770eecc8b2323f72be0dd4dae72618355e4c9bee227dd527387",
+      "handoff": {
+        "path": "web-production/v1/coac269-20261027/handoff/handoff-b6-5455076a53c6565c.json",
+        "sha256": "263491e5275ee32ae5951f71c1e3641d2a51077b13ee7d4491a23195d3fe7dbe",
+        "explicitTargets": "web-production/v1/coac269-20261027/handoff/explicit-targets-b6-36667349329f7dfb.json"
+      },
+      "consumption": {
+        "interface": "audit/web/articles/modern-yabejp-ja bound audit receipt (same entry COAC-249 uses)",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section010.44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c.json",
+        "auditSha256": "bdb29387e6fdbb875ca7150223b18659a06a8964ad6afceda4b562088450b5e0",
+        "status": "passed",
+        "recordedAt": "2026-10-27T11:27:18.797Z",
+        "calls": 1
+      }
+    }
+  ],
+  "coac249ToCoac250": {
+    "path": "integration/coac249-incremental-269-b5b6-20261027.json",
+    "sha256": "4c825b063947b1d0099c17408a8e7418611281e937b4490921825d8e9d11907d",
+    "to": "COAC-250",
+    "batchId": "coac249-batch6-269-b5b6-plus-199-1",
+    "batchSize": 4,
+    "recordedAt": "2026-10-27T11:29:58.462Z",
+    "referencesOurHandoffs": true,
+    "referencesOurCandidateShas": true,
+    "missingHandoffs": [],
+    "missingCandidateShas": []
+  },
+  "driverConsumption": {
+    "driver": "audit/audit-explicit-targets.mjs",
+    "config": "web-production/v1/coac269-20261027/handoff/explicit-targets-b5b6-combined-7d7dbdaf92140e8a.json",
+    "configSha256": "dd59bb93770bbe404a60733e4401a916d0ebd61d9e41658e9158da01f5e08366",
+    "mode": "--select-only",
+    "exitCode": 0,
+    "selected": 0,
+    "pendingBefore": 0,
+    "terminalSkips": [
+      {
+        "key": "chapter01-section054:f3570e7bbe61e0ef99e45a2f4185ed3f0c1fe1840f670783c7fd2402352dedca",
+        "status": "passed",
+        "source": "receipt",
+        "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section054.f3570e7bbe61e0ef99e45a2f4185ed3f0c1fe1840f670783c7fd2402352dedca.json"
+      },
+      {
+        "key": "chapter01-section047:363fd45cc99f099cfbaec296a1102af0d6dd5519596af707697c21154280c86d",
+        "status": "passed",
+        "source": "receipt",
+        "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section047.363fd45cc99f099cfbaec296a1102af0d6dd5519596af707697c21154280c86d.json"
+      },
+      {
+        "key": "chapter01-section010:44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c",
+        "status": "passed",
+        "source": "receipt",
+        "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section010.44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c.json"
+      }
+    ],
+    "terminalSkipCount": 3,
+    "modelCalls": 0
+  },
+  "excluded": {
+    "nemata-jp-chapter-183-1": "pending adjudication — do not audit the b3 candidate (notice-249-do-not-audit-183-1)",
+    "nemata-jp-chapter-246-1": "withdrawn duplicate",
+    "nemata-jp-chapter-237-1": "withdrawn duplicate",
+    "nemata-jp-chapter-131-1": "withdrawn duplicate"
+  },
+  "errors": [],
+  "ok": true
+}
