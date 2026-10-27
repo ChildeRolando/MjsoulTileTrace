@@ -21,7 +21,7 @@
   "decisionHold": 1,
   "resolvedTotal": 21,
   "totalTracked": 63,
-  "failedSeparateHistoryRecords": 1,
+  "failedSeparateHistoryRecords": 3,
   "scope": "Stored objects only, not a fresh whole-book remainder. Unrelated rows are inherited without refreshing their current external audit state; no new passed status inferred."
  },
  "breakdown": {
@@ -1410,7 +1410,7 @@
     225,
     226
    ],
-   "currentDisposition": "point-adjudicated-1m-two-reference-revision-required",
+   "currentDisposition": "point-revision-failed-schema-no-candidate-no-auto-retry",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
    "auditRecordedAt": "2026-10-27T15:25:29.963Z",
@@ -1521,7 +1521,7 @@
     "existingCandidateText": "牌序从左至右：2z 3z 6z 8m 5m 2m 4z 3p 2p；两支向下箭头分别位于第6张2m、第7张4z的正上方。",
     "otherOpenItems": "Retain existing sourceNotes attachment-pairing note and original audit. Point evidence does not resolve other fields or pass the candidate."
    },
-   "nextAction": "Latest 19:13 explicit two-call revision authorization queued; not consumed by evidence intake.",
+   "nextAction": "Two1m references still require repair. Production budget exhausted; no eligible candidate for reserved targeted review. Existing owner must resolve further execution authority.",
    "pointCandidateComparison": {
     "currentCandidateMatchesReading": false,
     "candidateReading": "2m in both references",
@@ -1540,7 +1540,44 @@
     "failedVoidCount": true,
     "retry": 0,
     "consumedByThisIntake": 0,
-    "disposition": "Separate latest explicit authorization; queued issue run owns execution. This evidence-only wakeup does not dispatch duplicate work."
+    "disposition": "Separate latest explicit authorization; queued issue run owns execution. This evidence-only wakeup does not dispatch duplicate work.",
+    "statusAtExecution": "terminal-failed-no-candidate",
+    "productionConsumed": 1,
+    "targetedReviewConsumed": 0
+   },
+   "latestFailedPointRevision": {
+    "callId": "b702fbf7-dbe4-4533-9a55-aa0912a334f3",
+    "chapterId": "79-cn-chapter-222-5",
+    "originalLedgerStatus": "failed",
+    "rawArtifact": {
+     "path": "web-production\\v1\\raw-calls\\b702fbf7-dbe4-4533-9a55-aa0912a334f3.json",
+     "sha256": "b139f98a72e99bbe34310d7bb6ae2acc23fe9087c3df401ca149538720728d55"
+    },
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "usage": null,
+    "finalError": {
+     "code": "invalid_json_schema",
+     "param": "text.format.schema",
+     "cause": "Submitted bounded output schema rejected; the response does not identify the specific unsupported construct."
+    },
+    "newCandidate": null,
+    "newCalls": {
+     "productionAttempts": 1,
+     "successfulProduction": 0,
+     "failedProduction": 1,
+     "audit": 0,
+     "void": 0,
+     "automaticRedispatch": 0
+    },
+    "remainingBudget": {
+     "production": 0,
+     "targetedReview": 1,
+     "retry": 0,
+     "reviewCondition": "Reserved only for a new eligible candidate; none exists. Not transferable to production retry or another target."
+    },
+    "recoveryPossible": false,
+    "automaticRetry": false
    }
   },
   {
@@ -4457,7 +4494,7 @@
   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter03-section011.6ad44173945b9347cd8dd7c44640fa3341bf8e83109695e4cd8aacc6d3d98b21.json",
   "note": "Isolated revision from the 249/250 register set; parent receipt, parent candidate and raw preserved."
  },
- "refreshedAt": "2026-10-27T19:21:22.297700+00:00",
+ "refreshedAt": "2026-10-27T19:34:19.209103+00:00",
  "byOrigin": {
   "COAC-248 old PDF 12": 5,
   "COAC-247 new PDF return": 3,
@@ -5927,6 +5964,40 @@
    "candidateSha256": null,
    "semanticAcceptance": null,
    "note": "Actual turn.failed with no output; not recovered or retried; unknown usage retained."
+  },
+  {
+   "callId": "b702fbf7-dbe4-4533-9a55-aa0912a334f3",
+   "chapterId": "79-cn-chapter-222-5",
+   "originalLedgerStatus": "failed",
+   "rawArtifact": {
+    "path": "web-production\\v1\\raw-calls\\b702fbf7-dbe4-4533-9a55-aa0912a334f3.json",
+    "sha256": "b139f98a72e99bbe34310d7bb6ae2acc23fe9087c3df401ca149538720728d55"
+   },
+   "model": "gpt-6.1-terra",
+   "reasoningEffort": "max",
+   "usage": null,
+   "finalError": {
+    "code": "invalid_json_schema",
+    "param": "text.format.schema",
+    "cause": "Submitted bounded output schema rejected; the response does not identify the specific unsupported construct."
+   },
+   "newCandidate": null,
+   "newCalls": {
+    "productionAttempts": 1,
+    "successfulProduction": 0,
+    "failedProduction": 1,
+    "audit": 0,
+    "void": 0,
+    "automaticRedispatch": 0
+   },
+   "remainingBudget": {
+    "production": 0,
+    "targetedReview": 1,
+    "retry": 0,
+    "reviewCondition": "Reserved only for a new eligible candidate; none exists. Not transferable to production retry or another target."
+   },
+   "recoveryPossible": false,
+   "automaticRetry": false
   }
  ],
  "round20261027T1450": {
@@ -7594,5 +7665,29 @@
   "remoteWeights": "unknown",
   "candidateEdits": 0,
   "acceptancePromotion": false
+ },
+ "failedHistoryCountCorrection222R2": {
+  "previousStoredCount": 1,
+  "previousActualHistoryRecords": 2,
+  "newRecords": 1,
+  "scope": "Count actual stored failure-history entries only; not a new whole-book status census."
+ },
+ "round222PointR2Failed20261028": {
+  "receipt": "coac248-222-point-r2-20261028/receipt-failed-production.json",
+  "calls": {
+   "productionAttempts": 1,
+   "successfulProduction": 0,
+   "failedProduction": 1,
+   "audit": 0,
+   "void": 0,
+   "automaticRedispatch": 0
+  },
+  "remainingBudget": {
+   "production": 0,
+   "targetedReview": 1,
+   "retry": 0,
+   "reviewCondition": "Reserved only for a new eligible candidate; none exists. Not transferable to production retry or another target."
+  },
+  "fullChapterPassed": false
  }
 }

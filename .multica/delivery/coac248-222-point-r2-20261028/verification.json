@@ -1,0 +1,39 @@
+{
+  "recordedAt": "2026-10-27T19:34:19.209103+00:00",
+  "protectedBindingsUnchanged": 38,
+  "runtimeFilesVerified": 27,
+  "changedInventoryRows": [
+    33
+  ],
+  "unrelatedRowsPreserved": 62,
+  "priorFailureHistoryPreserved": true,
+  "newFailureCount": 1,
+  "candidateUnchanged": true,
+  "noNewCandidate": true,
+  "singleLedgerEntry": true,
+  "fullRawPreserved": true,
+  "locksReleased": {
+    "makerA": {
+      "ok": true,
+      "action": "release",
+      "slot": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-A.json",
+      "released": "maker-A"
+    },
+    "chapter": {
+      "ok": true,
+      "action": "unclaim",
+      "chapter": "79-cn-chapter-222-5",
+      "released": {
+        "schema": "coach-textbook-chapter-claim/1",
+        "chapterId": "79-cn-chapter-222-5",
+        "candidateSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+        "lane": "A",
+        "owner": "COAC-248 Mika",
+        "slot": null,
+        "claimedAt": "2026-10-27T19:29:21.960Z"
+      }
+    }
+  },
+  "pdf217OwnerReconciliationPreserved": true,
+  "issueStatus": "in_progress"
+}

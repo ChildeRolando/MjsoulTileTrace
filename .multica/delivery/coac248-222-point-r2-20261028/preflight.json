@@ -1,0 +1,511 @@
+{
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "translations": {
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 0,
+        "items": {
+          "type": "string"
+        }
+      },
+      "figures": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 1,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "sourceBlockId": {
+              "type": "string",
+              "enum": [
+                "79-bilibili-cn:cv1775262:b0018"
+              ]
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "mahjong-example"
+              ]
+            },
+            "transcription": {
+              "type": "string",
+              "minLength": 1
+            },
+            "unknowns": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                []
+              ]
+            },
+            "caption": {
+              "type": "string",
+              "enum": [
+                "例5：带两支向下箭头的舍牌示例。"
+              ]
+            },
+            "sourceNotes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "enum": [
+                [
+                  "附件1为原图，附件2为同一原图的4倍最近邻放大视图，非额外牌列。",
+                  "牌上方的棕黄色线条为牌背边缘。"
+                ]
+              ]
+            }
+          },
+          "required": [
+            "sourceBlockId",
+            "kind",
+            "transcription",
+            "unknowns",
+            "caption",
+            "sourceNotes"
+          ]
+        }
+      }
+    },
+    "required": [
+      "translations",
+      "figures"
+    ]
+  },
+  "at": "2026-10-27T19:29:10.733Z",
+  "chapterId": "79-cn-chapter-222-5",
+  "authorizationCommentId": "01a17ec7-dbf3-77e6-a4f4-4dae65b73038",
+  "parentSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+  "parentAuditSha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec",
+  "sourceSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+  "pointHandoffSha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9",
+  "parentProof": {
+    "callId": "20d7f5e0-2640-4b87-bde1-e6505d839822",
+    "rawArtifactPath": "raw-calls/20d7f5e0-2640-4b87-bde1-e6505d839822.json",
+    "rawArtifactSha256": "29f20bf007f3fed7ab1cf0ed1e6dd21b3d8c2d4dfccea5cf1187095bd759a579",
+    "revision": {
+      "revision": {
+        "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1775262.display.json",
+        "parentSha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4",
+        "notesPath": "audit/web/articles/79-bilibili-cn/cv1775262.b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4.json",
+        "notesSha256": "7fc9a1172bf463691aa08b8ebf3d69e788d7ec1ff5e9e526b498b2c5b53a8199",
+        "figureIds": [
+          "79-bilibili-cn:cv1775262:b0018:figure"
+        ]
+      },
+      "parentAudit": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1775262.b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4.json",
+        "sha256": "7fc9a1172bf463691aa08b8ebf3d69e788d7ec1ff5e9e526b498b2c5b53a8199",
+        "originalStatus": "needs-repair"
+      },
+      "parentCall": {
+        "callId": "3e9688bc-151a-4a97-9ee7-672f12a89d16",
+        "path": "audit/calls/3e9688bc-151a-4a97-9ee7-672f12a89d16.json",
+        "sha256": "5635cbfe6c655574e757b2c0eea080bf730f35f4ded38c12bae9e4e6e8b4cf5e"
+      },
+      "inheritedAssetIds": [
+        "79-bilibili-cn:4ff806d68ab98feab4e37046",
+        "79-bilibili-cn:999daad6f550e9d0bfcd8cc0",
+        "79-bilibili-cn:f6e6f1345fa33b2bd93fc140",
+        "79-bilibili-cn:ac1227cfc248f158cf13a4f5",
+        "79-bilibili-cn:ae83195091b81bec79b1bfdf",
+        "79-bilibili-cn:c9579005445a78fd7b453000",
+        "79-bilibili-cn:822cd7d9d2e330d06ecac5a3",
+        "79-bilibili-cn:e37c65845d580365c4b6672c",
+        "79-bilibili-cn:4caa022d0d4e924f4e7db15b"
+      ]
+    },
+    "visualInputs": {
+      "inputs": [
+        {
+          "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+          "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+          "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 304,
+          "height": 74
+        },
+        {
+          "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+          "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png",
+          "sha256": "98f2495dfb2b67f1e57c6639f533e9630c5ce46a35e89fbc55248e60f2136126",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 1216,
+          "height": 296
+        }
+      ],
+      "pixels": {
+        "passed": true,
+        "inputs": 2
+      }
+    }
+  },
+  "visualProof": {
+    "inputs": [
+      {
+        "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+        "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+        "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+        "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+        "role": "original",
+        "scale": 1,
+        "resampling": "none",
+        "width": 304,
+        "height": 74
+      },
+      {
+        "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+        "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+        "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png",
+        "sha256": "98f2495dfb2b67f1e57c6639f533e9630c5ce46a35e89fbc55248e60f2136126",
+        "role": "nearest-neighbor-enlargement",
+        "scale": 4,
+        "resampling": "nearest",
+        "width": 1216,
+        "height": 296
+      }
+    ],
+    "pixels": {
+      "passed": true,
+      "inputs": 2
+    }
+  },
+  "claimCheck": {
+    "ok": true,
+    "action": "check-chapter",
+    "chapter": "79-cn-chapter-222-5",
+    "held": false
+  },
+  "initialJoint": {
+    "at": "2026-10-27T19:29:10.664Z",
+    "preview": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T19-21-37-757Z",
+    "pointerSha256": "ce6c6cbcae815a3c4de35b5ac5fc015d83cf8c63c611767a46245aed1f6db4c4",
+    "registerSha256": "507dc8db5fd606fa44f8dbc28510e391979142c82d13513ad89f27e3db31f8e0",
+    "registerRow": {
+      "chapterId": "79-cn-chapter-222-5",
+      "originalChapterId": "79-cn-chapter-222-5",
+      "sourceId": "79-cn",
+      "title": "防守14—立直的读牌（一）",
+      "units": 1,
+      "ownedSourceBlocks": 36,
+      "adjudicationGroup": "confirmed-produced-not-covered",
+      "covered": false,
+      "coverageRoute": null,
+      "approvedWebCorrespondence": {
+        "articleId": "cv1775262",
+        "webSourceId": "79-bilibili-cn",
+        "tier": "body",
+        "evidencePath": "integration/chinese-source-body-correspondence.json",
+        "substitutionAllowed": true,
+        "bodyEquivalenceConfirmed": true,
+        "articleInPreview": false
+      },
+      "existingCandidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1775262.display.json",
+        "sha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4",
+        "bodyBlocks": 23,
+        "sourceSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+        "currentSourceSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/79-bilibili-cn/cv1775262.b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4.json",
+        "auditRecordedAt": "2026-10-25T22:04:04.447Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 5,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          222,
+          223,
+          224,
+          225,
+          226
+        ],
+        "pagesDetail": [
+          {
+            "page": 222,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 11
+          },
+          {
+            "page": 223,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 7
+          },
+          {
+            "page": 224,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 6
+          },
+          {
+            "page": 225,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 9
+          },
+          {
+            "page": 226,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 7
+          }
+        ]
+      },
+      "gaps": {
+        "ownedSourceBlocks": 36,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 36,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 36,
+        "acceptanceGapPages": [
+          222,
+          223,
+          224,
+          225,
+          226
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          222,
+          223,
+          224,
+          225,
+          226
+        ]
+      },
+      "verdict": "produced-needs-repair",
+      "coac246": {
+        "action": "repair",
+        "auditStatus": "needs-repair",
+        "candidateSha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4",
+        "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1775262.display.json",
+        "repairErrors": 4,
+        "units": 1,
+        "blocks": 36
+      }
+    },
+    "registerCurrentCandidateAncestryVerified": true,
+    "selectedWeb": [],
+    "selectedPdf": [],
+    "passed": [],
+    "priorCallIds": [
+      "2a14232c-ab24-41d9-b968-1623377ed860",
+      "3baadcb1-43ae-44bb-a0aa-746ad8749154",
+      "20d7f5e0-2640-4b87-bde1-e6505d839822"
+    ],
+    "candidates": [
+      "cv1775262.display.json",
+      "cv1775262.json",
+      "cv1775262.r1.display.json",
+      "cv1775262.r1.json"
+    ]
+  },
+  "runtimeManifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+  "runtimeFiles": 27,
+  "protectedFiles": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.r1.display.json",
+      "sha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+      "sha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1775262\\source.json",
+      "sha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\runtime-manifest.json",
+      "sha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\capability-evidence.json",
+      "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-definition.mjs",
+      "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-legacy.mjs",
+      "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-layout.mjs",
+      "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-native-structure-corrections.mjs",
+      "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-native.mjs",
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-scope.mjs",
+      "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-verification-dependencies.mjs",
+      "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-web-batches.mjs",
+      "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit-web.mjs",
+      "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-audit.mjs",
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-cli.mjs",
+      "sha256": "403eb168fb725aa990792089eb7d6e29d55903fcf9e22d2cfce253fd675a3d01"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-pdf-flow.mjs",
+      "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-dictionary.mjs",
+      "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-formal.mjs",
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-labels.mjs",
+      "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-sources.py",
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production-web.mjs",
+      "sha256": "c7bd6f353f78d891f466d8f47c2aa37d9fed1a66dacdbf996018ddf2e001eee1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\textbook-production.mjs",
+      "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027\\verification-dependencies.json",
+      "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-point-222-p217-20261028.json",
+      "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-222-sixth-tile.raw.json",
+      "sha256": "32007944f5764cf41e03c336005e438ff02cb5ac17269aba2afa1be26403f3d6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reuse-maps\\f487068a206864c7e600346e5d561fcf619a03782befce3402991aa48204f381.json",
+      "sha256": "f487068a206864c7e600346e5d561fcf619a03782befce3402991aa48204f381"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\20d7f5e0-2640-4b87-bde1-e6505d839822.json",
+      "sha256": "29f20bf007f3fed7ab1cf0ed1e6dd21b3d8c2d4dfccea5cf1187095bd759a579"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+      "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png",
+      "sha256": "98f2495dfb2b67f1e57c6639f533e9630c5ce46a35e89fbc55248e60f2136126"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.display.json",
+      "sha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4"
+    }
+  ],
+  "fieldScope": {
+    "figureId": "79-bilibili-cn:cv1775262:b0018:figure",
+    "field": "transcription",
+    "from": "左上方标签：例5。牌序从左至右：2z 3z 6z 8m 5m 2m 4z 3p 2p，共9张；第9张2p横置，无赤牌。\n两支向下箭头分别位于第6张2m、第7张4z的正上方。",
+    "to": "左上方标签：例5。牌序从左至右：2z 3z 6z 8m 5m 1m 4z 3p 2p，共9张；第9张2p横置，无赤牌。\n两支向下箭头分别位于第6张1m、第7张4z的正上方。",
+    "allOtherFieldsFixed": true
+  },
+  "prompt": "Perform only the authorized two-reference field repair of the bound parent figure. Use the attached original PNG and its x4 nearest-neighbor view, both of the same asset. This is not a new full-figure transcription.\n\nThe sole disputed location is tile6, original image bbox [170,28,196,65), and its first downward-arrow reference. Independently inspect that position. Existing original full-article review and the separate coordinate-bound point review read1m; they are locators, not instructions to invent a visual answer.\n\nReturn translations:[] and exactly this one figure. Preserve every character of the supplied parent transcription except the tile6 token and its first-arrow reference. If the source supports1m, consistently replace just those two 2m tokens with1m. If you cannot confirm, retain the original. Do not change any other tile, punctuation, whitespace, line break, caption, unknowns, kind or sourceNotes. The unchanged fields are fixed in the output schema. Never add further examples or claims.\n\n{\"chapterId\":\"79-cn-chapter-222-5\",\"sourceSha256\":\"361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031\",\"parentSha256\":\"f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6\",\"figure\":{\"sourceBlockId\":\"79-bilibili-cn:cv1775262:b0018\",\"kind\":\"mahjong-example\",\"transcription\":\"左上方标签：例5。牌序从左至右：2z 3z 6z 8m 5m 2m 4z 3p 2p，共9张；第9张2p横置，无赤牌。\\n两支向下箭头分别位于第6张2m、第7张4z的正上方。\",\"unknowns\":[],\"caption\":\"例5：带两支向下箭头的舍牌示例。\",\"sourceNotes\":[\"附件1为原图，附件2为同一原图的4倍最近邻放大视图，非额外牌列。\",\"牌上方的棕黄色线条为牌背边缘。\"]},\"sourceAssetBindings\":[{\"assetId\":\"79-bilibili-cn:c9aa4cb8776452b777c28214\",\"path\":\"web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png\",\"sha256\":\"d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf\",\"url\":\"https://i0.hdslb.com/bfs/article/dc53a3abb116b4afb2cab4e787e7746d4ef8a975.png\"}],\"bbox\":[170,28,196,65],\"originalReviewIssue\":{\"severity\":\"error\",\"targetId\":\"79-bilibili-cn:cv1775262:b0018:figure\",\"sourceEvidence\":\"附件1及附件2中，例5第5张5万之后、第7张北之前的第6张牌为一万；第一支向下箭头位于该一万上方。\",\"description\":\"候选牌序将第6张一万误录为2m，箭头说明亦将该牌重复标为2m。\",\"suggestedRepair\":\"将牌序中的第6张2m改为1m，并将箭头说明中的“第6张2m”改为“第6张1m”。修正后牌序为2z 3z 6z 8m 5m 1m 4z 3p 2p，第9张2p横置。\"},\"independentPointCallId\":\"55d504fb-96bb-4685-8842-229ff3779df1\",\"attachments\":[{\"attachment\":1,\"view\":\"original\",\"sha256\":\"d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf\",\"scale\":1},{\"attachment\":2,\"view\":\"nearest-neighbor-enlargement\",\"sha256\":\"98f2495dfb2b67f1e57c6639f533e9630c5ce46a35e89fbc55248e60f2136126\",\"scale\":4}]}",
+  "modelCalls": 0,
+  "limits": {
+    "production": 1,
+    "independentTargetReview": 1,
+    "retry": 0,
+    "failedVoidCount": true
+  }
+}

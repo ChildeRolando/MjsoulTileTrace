@@ -1,0 +1,94 @@
+{
+  "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-repair-handoff-20261027.json",
+  "beforeSha256": "0e24b6075f5d850b37ad3880841a457e7c8f4182dd3dd883d8316d9f80214adb",
+  "afterSha256": "129cd1ef988b0624f069a1eb76a853494ae9653ad7e62bc1cf5f80216ee7da77",
+  "existingItemsPreserved": true,
+  "addedItem": {
+    "kind": "web-point-revision-failed-attempt",
+    "chapterId": "79-cn-chapter-222-5",
+    "parentCandidateSha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+    "auditStatus": "needs-repair",
+    "integrationAllowed": false,
+    "attempt": {
+      "callId": "b702fbf7-dbe4-4533-9a55-aa0912a334f3",
+      "chapterId": "79-cn-chapter-222-5",
+      "originalLedgerStatus": "failed",
+      "rawArtifact": {
+        "path": "web-production\\v1\\raw-calls\\b702fbf7-dbe4-4533-9a55-aa0912a334f3.json",
+        "sha256": "b139f98a72e99bbe34310d7bb6ae2acc23fe9087c3df401ca149538720728d55"
+      },
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "usage": null,
+      "finalError": {
+        "code": "invalid_json_schema",
+        "param": "text.format.schema",
+        "cause": "Submitted bounded output schema rejected; the response does not identify the specific unsupported construct."
+      },
+      "newCandidate": null,
+      "newCalls": {
+        "productionAttempts": 1,
+        "successfulProduction": 0,
+        "failedProduction": 1,
+        "audit": 0,
+        "void": 0,
+        "automaticRedispatch": 0
+      },
+      "remainingBudget": {
+        "production": 0,
+        "targetedReview": 1,
+        "retry": 0,
+        "reviewCondition": "Reserved only for a new eligible candidate; none exists. Not transferable to production retry or another target."
+      },
+      "recoveryPossible": false,
+      "automaticRetry": false
+    },
+    "fieldScope": {
+      "figureId": "79-bilibili-cn:cv1775262:b0018:figure",
+      "field": "transcription",
+      "from": "左上方标签：例5。牌序从左至右：2z 3z 6z 8m 5m 2m 4z 3p 2p，共9张；第9张2p横置，无赤牌。\n两支向下箭头分别位于第6张2m、第7张4z的正上方。",
+      "to": "左上方标签：例5。牌序从左至右：2z 3z 6z 8m 5m 1m 4z 3p 2p，共9张；第9张2p横置，无赤牌。\n两支向下箭头分别位于第6张1m、第7张4z的正上方。",
+      "allOtherFieldsFixed": true
+    },
+    "noNewCandidate": true,
+    "historicalAuditAndRawPreserved": true
+  },
+  "pdf217CoordinateReconciliation": {
+    "chapterId": "79-cn-chapter-217-4",
+    "figureId": "79-cn-p217-r1",
+    "sourceImageBlockId": "79-cn-p217-b8",
+    "originalRequest": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-single-tile-read-20261027.json",
+      "sha256": "a4b5f827e94d510ca43558f893e5c58796ad30f6af4730e9303f9701a33b6b25"
+    },
+    "originalPosition": "北家舍牌第二行第二张",
+    "originalCandidateCode": "9m",
+    "historicalReviewerReading": "8m",
+    "originalSecondTileBBox": null,
+    "originalSecondTileBBoxNote": "Old request is a named location, without an explicit crop bbox. Do not assign the first-tile bbox to it.",
+    "currentAdjudicatedPosition": "北家舍牌第二行第一张",
+    "currentBBox": [
+      150,
+      325,
+      175,
+      357
+    ],
+    "currentCandidateCode": "5m",
+    "independentReading": "万子（数字未辨清）",
+    "secondTileDisputeResolved": false,
+    "candidateChanged": false,
+    "otherOpenLocations": [
+      "北家第二行第二张8m/9m",
+      "西家第二行第二张万子unknown"
+    ],
+    "notCovered": [
+      "web b0004",
+      "web b0010",
+      "other unknowns",
+      "chapter215-4"
+    ],
+    "owner": "COAC-244 existing source/parent adjudication",
+    "teachingImpact": "点数不明不妨碍理解原文关于下家染索子一色手及扣牌的总体说明，但会限制对这张牌的精确记录和具体牌谱复盘。",
+    "acceptanceWaiver": false
+  }
+}
