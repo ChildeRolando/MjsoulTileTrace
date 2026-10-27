@@ -1,0 +1,28 @@
+{
+  "schema": "coach-explicit-audit-targets/1",
+  "createdAt": "2026-10-27T09:42:00Z",
+  "source": "COAC-244 parallel orchestration: COAC-269 line B first batch. Two targeted web revisions produced by the COAC-269 executor on their needs-repair display parents; registered for COAC-249 independent review. Prepared by the coordinator from B claim records and produced receipts; no audit dispatched here.",
+  "totalTargets": 2,
+  "targets": [
+    {
+      "kind": "complete-web-candidate",
+      "chapterId": "nemata-jp-chapter-338-1",
+      "articleId": "archive01-section006",
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/archive01-section006.coac269rev1.json",
+      "sourceId": "modern-yabejp-ja",
+      "sourceSha256": "6438c449b1284be3a7be4fd5004bfcda10517716c7cbbbf8b09df2cc92722548",
+      "sha256": "ff5a9b524d8e10c62f97011bde7f6a5a837f58e8557230ca60c67581b426f782",
+      "category": "coac269-line-b-targeted-revision"
+    },
+    {
+      "kind": "complete-web-candidate",
+      "chapterId": "nemata-jp-chapter-273-1",
+      "articleId": "chapter06-exercise002-02",
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise002-02.coac269rev1.json",
+      "sourceId": "modern-yabejp-ja",
+      "sourceSha256": "460025a88a0adcc545afa893594c6653d0b121f75fdcfd9512350f9292b984f4",
+      "sha256": "42991d764c900c46cba313848cc1c5138789c60079e6a988d4f6df5e09da330e",
+      "category": "coac269-line-b-targeted-revision"
+    }
+  ]
+}

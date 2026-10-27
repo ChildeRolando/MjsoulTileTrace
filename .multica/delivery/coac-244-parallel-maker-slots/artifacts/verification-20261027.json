@@ -1,0 +1,137 @@
+{
+  "schema": "coach-textbook-parallel-slots-verification/1",
+  "verifiedAt": "2026-10-27T09:37:33.704Z",
+  "script": "E:/AgentData/Coach/knowledge/processing/parallel/slots.mjs",
+  "root": "C:\\Users\\Roland\\AppData\\Local\\Temp\\multica-task-1004334742\\coach-parallel-slots-ozstvh",
+  "cases": [
+    {
+      "name": "race-two-live-slots-only",
+      "passed": true,
+      "winners": [
+        "A",
+        "C"
+      ],
+      "live": [
+        "maker-A.json",
+        "maker-C.json"
+      ]
+    },
+    {
+      "name": "race-over-limit-refused-with-limit-error",
+      "passed": true,
+      "refused": [
+        {
+          "lane": "B",
+          "code": 3,
+          "error": "maker_slot_limit_reached"
+        },
+        {
+          "lane": "D",
+          "code": 3,
+          "error": "maker_slot_limit_reached"
+        },
+        {
+          "lane": "E",
+          "code": 3,
+          "error": "maker_slot_limit_reached"
+        },
+        {
+          "lane": "F",
+          "code": 3,
+          "error": "maker_slot_limit_reached"
+        }
+      ]
+    },
+    {
+      "name": "third-acquire-refused",
+      "passed": true,
+      "exit": 3,
+      "out": {
+        "ok": false,
+        "error": "maker_slot_limit_reached",
+        "limit": 2,
+        "live": [
+          {
+            "slot": "maker-A.json",
+            "owner": "race-A"
+          },
+          {
+            "slot": "maker-C.json",
+            "owner": "race-C"
+          }
+        ]
+      }
+    },
+    {
+      "name": "lane-reentry-refused",
+      "passed": true,
+      "first": 0,
+      "second": 2
+    },
+    {
+      "name": "foreign-release-refused",
+      "passed": true,
+      "exit": 5,
+      "live": 1
+    },
+    {
+      "name": "owner-release-frees-slot",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "name": "exit-releases-slot",
+      "passed": true,
+      "live": []
+    },
+    {
+      "name": "stale-slot-blocks-until-recovered",
+      "passed": true,
+      "stale": 0,
+      "retry": 4
+    },
+    {
+      "name": "recover-without-evidence-refused",
+      "passed": true,
+      "exit": 9
+    },
+    {
+      "name": "recover-with-wrong-subject-refused",
+      "passed": true,
+      "exit": 9
+    },
+    {
+      "name": "recover-with-evidence-frees-slot",
+      "passed": true,
+      "exit": 0,
+      "recoveryFiles": [
+        "maker-C.crashed-run.1793093853191.json"
+      ]
+    },
+    {
+      "name": "live-owner-recover-refused",
+      "passed": true,
+      "exit": 6
+    },
+    {
+      "name": "claim-single-owner",
+      "passed": true,
+      "claim": 0,
+      "stolen": 7
+    },
+    {
+      "name": "a-skips-b-claim",
+      "passed": true,
+      "skip": 7,
+      "self": 0
+    },
+    {
+      "name": "claim-release-owner-only",
+      "passed": true,
+      "foreign": 8,
+      "own": 0
+    }
+  ],
+  "passed": true,
+  "caseCount": 15
+}

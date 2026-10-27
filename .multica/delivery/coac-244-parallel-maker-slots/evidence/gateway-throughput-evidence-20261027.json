@@ -1,0 +1,47 @@
+{
+  "schema": "coac244-gateway-and-throughput-evidence/1",
+  "recordedAt": "2026-10-27T09:41:05.961037+00:00",
+  "gateway": {
+    "invocation": "codex.exe exec --model gpt-6.1-sol --config model_reasoning_effort=\"high\" --ephemeral --ignore-user-config --ignore-rules --sandbox read-only --json",
+    "codePath": "audit/runtimes/web-target-text-chain-20261027/textbook-production-cli.mjs invokeTextbookCodex",
+    "concurrencyCapInCode": null,
+    "admissionStopFiles": [
+      "processing/STOP",
+      "processing/web-production/v1/STOP",
+      "processing/model-admission-stop.json"
+    ],
+    "admissionStopFilesPresent": false,
+    "observedSimultaneousCodexExec": [
+      {
+        "pid": 48816,
+        "startedAt": "2026-10-27T09:32:51Z",
+        "parent": "audit-explicit-targets.mjs --config explicit-targets-coac249-215-4-rev2-20261027.json --max-targets 1 --retry-failed"
+      },
+      {
+        "pid": 59104,
+        "startedAt": "2026-10-27T09:33:14Z",
+        "parent": "_audit_283_b0099_limited.mjs"
+      }
+    ],
+    "note": "两个 codex exec 在 09:33 UTC 同时存活，网关/账号侧可承载 >=2 路；瓶颈在编排"
+  },
+  "throughput20261027": {
+    "makerCalls": 24,
+    "makerOk": 23,
+    "makerFailedOrVoid": 1,
+    "makerTokens": {
+      "input": 369939,
+      "output": 20135
+    },
+    "auditCalls": 17,
+    "auditOk": 17,
+    "auditFailedOrVoid": 0,
+    "auditTokens": {
+      "input": 440708,
+      "output": 28638
+    },
+    "maxConcurrentCallsInLedger": 1,
+    "maxConcurrentAt": "2026-10-27T00:29:12.694000+00:00",
+    "reading": "ledger 折算最大并发 1：今日此前全部串行；并行率要提升的是编排而非网关"
+  }
+}
