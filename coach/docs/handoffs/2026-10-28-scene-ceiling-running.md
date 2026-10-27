@@ -37,6 +37,14 @@
 完整运行结束后，程序会生成中文`REPORT.md`、`metrics.json`、可复算评分输入及
 `review/index.html`逐题图形入口。尚未生成这些结果时，不发布一致率或上限结论。
 
+另有独立Python复算进程等待主实验退出，再检查原始提交、4000次正式评分、配对区间、
+Holm校正、请求与响应摘要、账本上限、稳定性重复结果和800个逐题页面链接。
+输出为`validation.json`与`FINAL-VALIDATION.md`；若主实验中止或复算不一致，明确记为未通过，
+不补发请求、不改变实验答案。当前已核对132个真实提交判定、134次请求摘要及132个已完成响应摘要，
+与主流程一致，未消耗额外模型调用。此检查不包含页面像素布局的视觉验收。
+`validation-process.json`记录等待进程；可独立重跑
+`python scripts/mortal-ablation/ceiling-validate.py E:/AgentData/Coach/scene-pattern-ceiling-20261028`。
+
 查看最新进度：在coach目录运行 `npm run scene-ceiling -- status`。
 进程意外退出后先确认`pipeline-process.json`所指进程已不存在，再运行recover；
 已有请求意图保留为失败或中断，不重复模型调用。随后可按规格中的分阶段命令继续。
