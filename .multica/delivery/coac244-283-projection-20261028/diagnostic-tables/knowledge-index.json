@@ -1,0 +1,37 @@
+{
+  "schema": "coach-textbook-index/1",
+  "status": "diagnostic-navigation-only-not-accepted-chapter",
+  "title": "283六表源绑定展示核验（非教材通过）",
+  "policy": {
+    "cardRole": "index-only",
+    "bodyRole": "complete-source-body-with-chinese-translation",
+    "modelExperiments": false,
+    "reviewStatus": "pending-user-review"
+  },
+  "sources": [
+    {
+      "id": "coac244-283-table-diagnostic",
+      "title": "「鴉〃の麻雀解説」サイト問題",
+      "format": "web",
+      "language": "ja",
+      "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+      "articleId": "chapter06-exercise003",
+      "sha256": "8ea482140920fc3bfb392305d72b5755f014b73a5aa0bb71e6d46ca0e455dd66",
+      "htmlSha256": "8ea482140920fc3bfb392305d72b5755f014b73a5aa0bb71e6d46ca0e455dd66",
+      "bytes": 192592
+    }
+  ],
+  "chapters": [
+    {
+      "id": "coac244-283-table-diagnostic-chapter",
+      "title": "283六表展示诊断，非完整教学论证",
+      "sourceId": "coac244-283-table-diagnostic",
+      "startPage": null,
+      "bodyStartPage": null,
+      "endPage": null,
+      "topics": [],
+      "anchors": [],
+      "relatedChapterIds": []
+    }
+  ]
+}

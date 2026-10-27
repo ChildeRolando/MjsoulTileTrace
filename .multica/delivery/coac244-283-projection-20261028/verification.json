@@ -1,0 +1,68 @@
+{
+  "status": "six-table-presentation-preserved",
+  "chapters": 1,
+  "units": 6,
+  "blocks": 254,
+  "figures": 94,
+  "corpusId": "44ad5a1423e4e9d98511646e869e2c76460421c99b44c12fabae8f118a5eaef8",
+  "bodySha256": "b1fe7ae77a9ac963738dd5f4840c2f7887b29ec8352c2e4ec168040c669df8d8",
+  "maxUnitBytes": 54310,
+  "modelCalls": 0,
+  "cells": 248,
+  "emptyCells": 117,
+  "arrows": 13,
+  "images": 94,
+  "arenaExactReadback": true,
+  "arenaTacticalSourceRefs": 0,
+  "regressions": [
+    {
+      "kind": "missing-empty",
+      "rejected": true
+    },
+    {
+      "kind": "missing-arrow",
+      "rejected": true
+    },
+    {
+      "kind": "moved-arrow",
+      "rejected": true
+    },
+    {
+      "kind": "changed-image",
+      "rejected": true
+    }
+  ],
+  "chapterAccepted": false,
+  "newModelCalls": 0,
+  "activeChanged": false,
+  "stage": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-projection-20261028\\diagnostic-tables",
+  "runtimeDependencies": [
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-web-tables.mjs",
+      "sha256": "e898ae17934b1e4ad6d1b1a961dcb7af85f526c16f884046d45d6c47832b24ae"
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-web-textbook.mjs",
+      "sha256": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a"
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\compile-textbook-corpus.mjs",
+      "sha256": "b4a8fb7432847e54b3c922a5b83e88b3d957abd6a16e726c772188fa5db4a2db"
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\textbook-review.mjs",
+      "sha256": "11b3b9c1dcb41b2cdde72517dca733a84a352e75eea154edea5acc36408c7edf"
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\packages\\desktop\\dist\\textbook-knowledge.js",
+      "sha256": "3ede270131cd2e441778f963b59a4036781c62e81ebdf8824a7d220cf1283d8b"
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\packages\\desktop\\dist\\arena-textbook-tools.js",
+      "sha256": "5baeb7caddd5f0966b421cd6151563bee50dad34d8274ddcdb18b0b5e57865a7"
+    }
+  ],
+  "mcpExactReadback": true,
+  "mcpImageShaChecks": 94,
+  "htmlCellGeometryExact": true
+}

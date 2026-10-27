@@ -1,0 +1,722 @@
+{
+  "kind": "read",
+  "corpusId": "44ad5a1423e4e9d98511646e869e2c76460421c99b44c12fabae8f118a5eaef8",
+  "bodySha256": "b1fe7ae77a9ac963738dd5f4840c2f7887b29ec8352c2e4ec168040c669df8d8",
+  "reviewStatus": "text-extraction-accepted-content-review-pending",
+  "completeArgument": false,
+  "unit": {
+    "unitId": "coac244-283-table-1-diagnostic",
+    "chapterId": "coac244-283-table-diagnostic-chapter",
+    "title": "表1定位诊断（非完整论证）",
+    "chapterTitle": "283六表展示诊断，非完整教学论证",
+    "topics": [],
+    "contentRole": "navigation",
+    "source": {
+      "sourceId": "coac244-283-table-diagnostic",
+      "title": "「鴉〃の麻雀解説」サイト問題",
+      "sha256": "8ea482140920fc3bfb392305d72b5755f014b73a5aa0bb71e6d46ca0e455dd66",
+      "pages": [],
+      "format": "web",
+      "web": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+        "articleId": "chapter06-exercise003",
+        "htmlSha256": "8ea482140920fc3bfb392305d72b5755f014b73a5aa0bb71e6d46ca0e455dd66"
+      }
+    },
+    "translationStatus": "batch-audited-pending-user-review",
+    "previousUnitId": null,
+    "nextUnitId": "coac244-283-table-2-diagnostic",
+    "blocks": [
+      {
+        "type": "p",
+        "id": "coac244-283-t1",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:b0264"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]/caption0"
+          ]
+        },
+        "tableCaptionFor": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+        "text": " 弃牌 "
+      },
+      {
+        "type": "p",
+        "id": "coac244-283-table-diagnostic-empty-r0-c0-t0",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]"
+          ]
+        },
+        "tableCell": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "row": 0,
+          "column": 0,
+          "sourceColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "rowCount": 8,
+          "columnCount": 3,
+          "header": false,
+          "empty": true,
+          "fragmentIndex": 0,
+          "fragmentCount": 1
+        },
+        "text": "（原表空白单元格）"
+      },
+      {
+        "type": "p",
+        "id": "coac244-283-table-diagnostic-empty-r0-c1-t0",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]"
+          ]
+        },
+        "tableCell": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "row": 0,
+          "column": 1,
+          "sourceColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "rowCount": 8,
+          "columnCount": 3,
+          "header": false,
+          "empty": true,
+          "fragmentIndex": 0,
+          "fragmentCount": 1
+        },
+        "text": "（原表空白单元格）"
+      },
+      {
+        "type": "p",
+        "id": "coac244-283-table-diagnostic-empty-r0-c2-t0",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]"
+          ]
+        },
+        "tableCell": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "row": 0,
+          "column": 2,
+          "sourceColumn": 2,
+          "rowspan": 1,
+          "colspan": 1,
+          "rowCount": 8,
+          "columnCount": 3,
+          "header": false,
+          "empty": true,
+          "fragmentIndex": 0,
+          "fragmentCount": 1
+        },
+        "text": "（原表空白单元格）"
+      },
+      {
+        "type": "p",
+        "id": "coac244-283-t2",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:b0265"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]/row1/cell0"
+          ]
+        },
+        "tableCell": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "row": 1,
+          "column": 0,
+          "sourceColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "rowCount": 8,
+          "columnCount": 3,
+          "header": true,
+          "empty": false,
+          "fragmentIndex": 0,
+          "fragmentCount": 1
+        },
+        "text": "东家"
+      },
+      {
+        "type": "figure",
+        "id": "coac244-283-t3",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:b0266"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]/row1/cell1"
+          ]
+        },
+        "tableCell": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "row": 1,
+          "column": 1,
+          "sourceColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "rowCount": 8,
+          "columnCount": 3,
+          "header": false,
+          "empty": false,
+          "fragmentIndex": 0,
+          "fragmentCount": 1
+        },
+        "figure": {
+          "figureId": "coac244-283-t3",
+          "unitId": "coac244-283-table-1-diagnostic",
+          "contentRole": "navigation",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter06-exercise003:b0266"
+            ],
+            "domPaths": [
+              "main/div[179]/table[3]/row1/cell1"
+            ]
+          },
+          "caption": "原文内联牌列",
+          "imageSha256": "28e50bed55e548e1ab0414a40c778dbd62ac4bfe1433360c2d602f1fb92e419f",
+          "transcription": {
+            "text": "4z"
+          },
+          "requiresImageForFullExample": false
+        }
+      },
+      {
+        "type": "figure",
+        "id": "coac244-283-t4",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:b0267"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]/row1/cell2"
+          ]
+        },
+        "tableCell": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "row": 1,
+          "column": 2,
+          "sourceColumn": 2,
+          "rowspan": 1,
+          "colspan": 1,
+          "rowCount": 8,
+          "columnCount": 3,
+          "header": false,
+          "empty": false,
+          "fragmentIndex": 0,
+          "fragmentCount": 1
+        },
+        "figure": {
+          "figureId": "coac244-283-t4",
+          "unitId": "coac244-283-table-1-diagnostic",
+          "contentRole": "navigation",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter06-exercise003:b0267"
+            ],
+            "domPaths": [
+              "main/div[179]/table[3]/row1/cell2"
+            ]
+          },
+          "caption": "原文内联牌列",
+          "imageSha256": "7e9fc720d8d828be9e9773a1137a3e5da020b35f1ab6ae5478a366553e0643f9",
+          "transcription": {
+            "text": "1m"
+          },
+          "requiresImageForFullExample": false
+        }
+      },
+      {
+        "type": "p",
+        "id": "coac244-283-table-diagnostic-empty-r2-c0-t0",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]"
+          ]
+        },
+        "tableCell": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "row": 2,
+          "column": 0,
+          "sourceColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "rowCount": 8,
+          "columnCount": 3,
+          "header": false,
+          "empty": true,
+          "fragmentIndex": 0,
+          "fragmentCount": 1
+        },
+        "text": "（原表空白单元格）"
+      },
+      {
+        "type": "p",
+        "id": "coac244-283-table-diagnostic-empty-r2-c1-t0",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]"
+          ]
+        },
+        "tableCell": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "row": 2,
+          "column": 1,
+          "sourceColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "rowCount": 8,
+          "columnCount": 3,
+          "header": false,
+          "empty": true,
+          "fragmentIndex": 0,
+          "fragmentCount": 1
+        },
+        "text": "（原表空白单元格）"
+      },
+      {
+        "type": "p",
+        "id": "coac244-283-table-diagnostic-empty-r2-c2-t0",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]"
+          ]
+        },
+        "tableCell": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "row": 2,
+          "column": 2,
+          "sourceColumn": 2,
+          "rowspan": 1,
+          "colspan": 1,
+          "rowCount": 8,
+          "columnCount": 3,
+          "header": false,
+          "empty": true,
+          "fragmentIndex": 0,
+          "fragmentCount": 1
+        },
+        "text": "（原表空白单元格）"
+      },
+      {
+        "type": "p",
+        "id": "coac244-283-t5",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:b0268"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]/row3/cell0"
+          ]
+        },
+        "tableCell": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "row": 3,
+          "column": 0,
+          "sourceColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "rowCount": 8,
+          "columnCount": 3,
+          "header": true,
+          "empty": false,
+          "fragmentIndex": 0,
+          "fragmentCount": 1
+        },
+        "text": "南家"
+      },
+      {
+        "type": "figure",
+        "id": "coac244-283-t6",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:b0269"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]/row3/cell1"
+          ]
+        },
+        "tableCell": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "row": 3,
+          "column": 1,
+          "sourceColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "rowCount": 8,
+          "columnCount": 3,
+          "header": false,
+          "empty": false,
+          "fragmentIndex": 0,
+          "fragmentCount": 1
+        },
+        "figure": {
+          "figureId": "coac244-283-t6",
+          "unitId": "coac244-283-table-1-diagnostic",
+          "contentRole": "navigation",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter06-exercise003:b0269"
+            ],
+            "domPaths": [
+              "main/div[179]/table[3]/row3/cell1"
+            ]
+          },
+          "caption": "原文内联牌列",
+          "imageSha256": "1dc342b718affed37b1ea24e68ac8d239bd702afbd5534502f0c4318b9c55960",
+          "transcription": {
+            "text": "2z"
+          },
+          "requiresImageForFullExample": false
+        }
+      },
+      {
+        "type": "figure",
+        "id": "coac244-283-t7",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:b0270"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]/row3/cell2"
+          ]
+        },
+        "tableCell": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "row": 3,
+          "column": 2,
+          "sourceColumn": 2,
+          "rowspan": 1,
+          "colspan": 1,
+          "rowCount": 8,
+          "columnCount": 3,
+          "header": false,
+          "empty": false,
+          "fragmentIndex": 0,
+          "fragmentCount": 1
+        },
+        "figure": {
+          "figureId": "coac244-283-t7",
+          "unitId": "coac244-283-table-1-diagnostic",
+          "contentRole": "navigation",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter06-exercise003:b0270"
+            ],
+            "domPaths": [
+              "main/div[179]/table[3]/row3/cell2"
+            ]
+          },
+          "caption": "原文内联牌列",
+          "imageSha256": "8b444ba3413da7b802da2570cfa6cd10e733be710cea5f7ce6660e2bc36fe3da",
+          "transcription": {
+            "text": "7m"
+          },
+          "requiresImageForFullExample": false
+        }
+      },
+      {
+        "type": "p",
+        "id": "coac244-283-table-diagnostic-empty-r4-c0-t0",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]"
+          ]
+        },
+        "tableCell": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "row": 4,
+          "column": 0,
+          "sourceColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "rowCount": 8,
+          "columnCount": 3,
+          "header": false,
+          "empty": true,
+          "fragmentIndex": 0,
+          "fragmentCount": 1
+        },
+        "text": "（原表空白单元格）"
+      },
+      {
+        "type": "p",
+        "id": "coac244-283-table-diagnostic-empty-r4-c1-t0",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]"
+          ]
+        },
+        "tableCell": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "row": 4,
+          "column": 1,
+          "sourceColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "rowCount": 8,
+          "columnCount": 3,
+          "header": false,
+          "empty": true,
+          "fragmentIndex": 0,
+          "fragmentCount": 1
+        },
+        "text": "（原表空白单元格）"
+      },
+      {
+        "type": "p",
+        "id": "coac244-283-table-diagnostic-empty-r4-c2-t0",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]"
+          ]
+        },
+        "tableCell": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "row": 4,
+          "column": 2,
+          "sourceColumn": 2,
+          "rowspan": 1,
+          "colspan": 1,
+          "rowCount": 8,
+          "columnCount": 3,
+          "header": false,
+          "empty": true,
+          "fragmentIndex": 0,
+          "fragmentCount": 1
+        },
+        "text": "（原表空白单元格）"
+      },
+      {
+        "type": "p",
+        "id": "coac244-283-t8",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:b0271"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]/row5/cell0"
+          ]
+        },
+        "tableCell": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "row": 5,
+          "column": 0,
+          "sourceColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "rowCount": 8,
+          "columnCount": 3,
+          "header": true,
+          "empty": false,
+          "fragmentIndex": 0,
+          "fragmentCount": 1
+        },
+        "text": "西家"
+      },
+      {
+        "type": "figure",
+        "id": "coac244-283-t9",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:b0272"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]/row5/cell1"
+          ]
+        },
+        "tableCell": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "row": 5,
+          "column": 1,
+          "sourceColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "rowCount": 8,
+          "columnCount": 3,
+          "header": false,
+          "empty": false,
+          "fragmentIndex": 0,
+          "fragmentCount": 1
+        },
+        "figure": {
+          "figureId": "coac244-283-t9",
+          "unitId": "coac244-283-table-1-diagnostic",
+          "contentRole": "navigation",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter06-exercise003:b0272"
+            ],
+            "domPaths": [
+              "main/div[179]/table[3]/row5/cell1"
+            ]
+          },
+          "caption": "原文内联牌列",
+          "imageSha256": "d5fc796860fcbf45537080d63f7396ff45cf2a762adc59c751b37ec7ce1978ef",
+          "transcription": {
+            "text": "9m"
+          },
+          "requiresImageForFullExample": false
+        }
+      },
+      {
+        "type": "figure",
+        "id": "coac244-283-t10",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:b0273"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]/row5/cell2"
+          ]
+        },
+        "tableCell": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "row": 5,
+          "column": 2,
+          "sourceColumn": 2,
+          "rowspan": 1,
+          "colspan": 1,
+          "rowCount": 8,
+          "columnCount": 3,
+          "header": false,
+          "empty": false,
+          "fragmentIndex": 0,
+          "fragmentCount": 1
+        },
+        "figure": {
+          "figureId": "coac244-283-t10",
+          "unitId": "coac244-283-table-1-diagnostic",
+          "contentRole": "navigation",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter06-exercise003:b0273"
+            ],
+            "domPaths": [
+              "main/div[179]/table[3]/row5/cell2"
+            ]
+          },
+          "caption": "原文内联牌列",
+          "imageSha256": "a07c03982de8e44ff37fa2a6dbcf4e9384f96184cfaeefe020a8ed88bd0369ce",
+          "transcription": {
+            "text": "3z"
+          },
+          "requiresImageForFullExample": false
+        }
+      },
+      {
+        "type": "p",
+        "id": "coac244-283-table-diagnostic-empty-r6-c0-t0",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]"
+          ],
+          "domPaths": [
+            "main/div[179]/table[3]"
+          ]
+        },
+        "tableCell": {
+          "tableId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "row": 6,
+          "column": 0,
+          "sourceColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "rowCount": 8,
+          "columnCount": 3,
+          "header": false,
+          "empty": true,
+          "fragmentIndex": 0,
+          "fragmentCount": 1
+        },
+        "text": "（原表空白单元格）"
+      }
+    ]
+  },
+  "blockOffset": 0,
+  "nextBlockOffset": 20,
+  "totalBlocks": 25
+}

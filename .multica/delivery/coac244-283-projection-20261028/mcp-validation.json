@@ -1,0 +1,56 @@
+{
+  "checkedAt": "2026-10-27T20:12:05.549Z",
+  "corpusId": "44ad5a1423e4e9d98511646e869e2c76460421c99b44c12fabae8f118a5eaef8",
+  "toolNames": [
+    "search_textbook",
+    "read_textbook",
+    "view_textbook_figure",
+    "catalog_textbook"
+  ],
+  "units": [
+    {
+      "unitId": "coac244-283-table-1-diagnostic",
+      "blocks": 25,
+      "sourcePages": [],
+      "exactBody": true
+    },
+    {
+      "unitId": "coac244-283-table-2-diagnostic",
+      "blocks": 25,
+      "sourcePages": [],
+      "exactBody": true
+    },
+    {
+      "unitId": "coac244-283-table-3-diagnostic",
+      "blocks": 33,
+      "sourcePages": [],
+      "exactBody": true
+    },
+    {
+      "unitId": "coac244-283-table-4-diagnostic",
+      "blocks": 57,
+      "sourcePages": [],
+      "exactBody": true
+    },
+    {
+      "unitId": "coac244-283-table-5-diagnostic",
+      "blocks": 73,
+      "sourcePages": [],
+      "exactBody": true
+    },
+    {
+      "unitId": "coac244-283-table-6-diagnostic",
+      "blocks": 41,
+      "sourcePages": [],
+      "exactBody": true
+    }
+  ],
+  "exactImageCount": 94,
+  "maxTextBytes": 14883,
+  "totalCallMs": 109,
+  "diagnosticSearches": [],
+  "diagnosticNote": "Hand-authored developer probes, not expert retrieval evaluation or model experiment.",
+  "noHitExplicit": true,
+  "modelCalls": 0,
+  "modelTokens": 0
+}

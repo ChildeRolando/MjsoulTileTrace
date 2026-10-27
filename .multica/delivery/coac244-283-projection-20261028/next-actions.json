@@ -1,0 +1,119 @@
+{
+  "canonical": "nemata-jp-chapter-283-1",
+  "newCallsThisStage": 0,
+  "acceptedChapter": false,
+  "displayClosure": "248 actual cells /117 source-empty slots /13 arrows /94 exact images survive HTML DOM, MCP and Arena tool read; navigation-only diagnostic, not a chapter-pass.",
+  "presentationReview": {
+    "target": "six table geometries and candidate figure tableContext omission only",
+    "input": "specific-table-review-input.json",
+    "producerCalls": 0,
+    "independentReviewCalls": 1,
+    "retry": 0,
+    "totalRequestedNewCalls": 1,
+    "condition": "only after authorization; table-target contract must consume explicit v3; preserve all other old errors/uncertain; no synthetic pass."
+  },
+  "conditionRepair": {
+    "target": "modern-yabejp-ja:chapter06-exercise003:b0168",
+    "before": "摸到后再改为③即可，（由于摸入宝牌",
+    "proposedOnlyNotProduced": "摸到后再改为③即可，（由于摸入宝牌或",
+    "unchanged": "all other1194 body blocks, figures, source and old raw; keep sourceImages b0153 北 /b0169 四索 and entire Q12 b0151–b0195 in review",
+    "oldEvidence": "same-SHA audit error b0168, not uncertain",
+    "makerCalls": 1,
+    "independentAuditCalls": 1,
+    "retry": 0,
+    "totalRequestedNewCalls": 2
+  },
+  "q8": {
+    "target": "modern-yabejp-ja:chapter06-exercise003:b0099",
+    "status": "uncertain retained",
+    "sourceRange": "b0093–b0113",
+    "missing": "Referenced 2007-03 original scenario image/full transcription: visible 1s/2s counts, full exposed meld composition, exact four-player scores; current source gives west player behind and east chi8m at turn6 only.",
+    "url": "http://www.ma-jan.or.jp/jan-up/nanikiru0703q.php",
+    "localSearch": "web-sources/v1 JSON contains only source.json and source.v3.json anchor references, no stored target response found; not a claim that the external source no longer exists.",
+    "next": "0-model obtain/bind original referenced source first; do not spend audit on anchor-only packet.",
+    "conditionalFirstIndependentReviewCalls": 1,
+    "notAuthorizedNow": true
+  },
+  "otherOldIssuesPreserved": [
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0396",
+      "sourceEvidence": "手広い④に受ける。裏目の［五索］引きでも三色が狙える。",
+      "description": "「裏目」描述选择后摸到不利牌的情形，不表示此前选择属于失算。译文「失算的」误加了判断失误的含义。",
+      "suggestedRepair": "将本块改为「选择进张宽的④。即使出现不利的」，接原有五索图及下一块「进张，也能争取三色。」。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "sourceEvidence": "原图、放大图及源alt一致：12355789m34688s，摸5s。候选为12355789m36788s，摸5s。",
+      "description": "下方13张手牌中的4s、6s被依次错录为6s、7s。正确牌形切8s后听嵌7s；候选牌形会改变这一教学前提。",
+      "suggestedRepair": "将下方手牌完整改为1m 2m 3m 5m 5m 7m 8m 9m 3s 4s 6s 8s 8s；分开的摸入牌仍为5s。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "sourceEvidence": "截图顶部及左右边缘的三列牌分别位于其他三家的手牌位置；中央翻开9s指示牌附近才是牌墙。",
+      "description": "候选将其他三家的隐手统称为牌墙，遗漏了隐手未知这一局面信息。",
+      "suggestedRepair": "区分三家背面或侧面朝向观者的隐手与中央牌墙，明确三家隐手牌面未知，不推定具体牌码。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "sourceEvidence": "候选unknowns仍列左河从上至下第4、6张及右河第1张万子点数未辨清；本次也未能可靠确认这三张的全部牌码。",
+      "description": "这三张属于公开河牌，并非源隐手；可能影响可见张数与等待判断，不能以完整转录通过。",
+      "suggestedRepair": "逐张确认这三张河牌并同步更新transcription及unknowns；确认前保留阻断状态，不臆填牌码。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "sourceEvidence": "右上副露最上方牌受黑色遮挡，右下信息栏边缘裁切，中央骰子点数未可靠辨清。",
+      "description": "遮挡、裁切及骰子辨读限制应如实保留；不得由另外两张东牌反推被遮挡牌面。",
+      "suggestedRepair": "保留对应源图限制说明及未知标记；骰子未确认点数时继续注明未知。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "sourceEvidence": "源图替代文本为“立体牌姿（４５赤５６７ｍ２２４５赤５６７９ｓ ２ｓポン？）”；图中左方末张2s有蓝色高亮。",
+      "description": "候选记录了高亮牌，却没有明确转写本题询问是否碰2s。仅有“问题60的牌局画面”不足以完整呈现题目。",
+      "suggestedRepair": "在图注或转写中补入：“是否碰上家刚切出的2s？”并明确高亮2s是此次鸣牌判断的对象。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "sourceEvidence": "候选将上方牌河首张及右方牌河首张分别记作“[风牌未辨明]”；两处在所附原图及放大图中均有可见牌面。",
+      "description": "这两处是实际弃牌，不是隐手或装饰。当前转写尚未满足完整读取牌河的要求，本次不能确认其精确牌种。",
+      "suggestedRepair": "完成两张风牌的定向辨认并替换占位符；在确认前保留unknowns，不得猜填或将完整牌河标为已通过。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0962",
+      "sourceEvidence": "“メンタンピンや３４５三色もあるので一色手に決め打たない。”",
+      "description": "メンタンピン是立直、断幺九、平和三者结合的术语。候选串列为“立直、断幺九、平和或345三色同顺”，组合关系不明确。",
+      "suggestedRepair": "改为：“也有立直＋断幺九＋平和或345三色同顺的可能，因此不预先锁定染手。染手只考虑清一色就足够了。”"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+      "sourceEvidence": "“ターツオーバーで三元役の可能性があるので発は残す”；手中已有白与中的对子及孤张发。",
+      "description": "“三元牌役种”容易泛指普通役牌，未清楚表达此处小三元／大三元方向对保留发的意义。",
+      "suggestedRepair": "改为：“搭子过多，又有三元役（小三元／大三元）的可能，所以保留发，宝牌为……”"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "sourceEvidence": "画面中央有两枚骰子，四周及下方有黑色区域；候选已分别记入unknowns和sourceNotes。",
+      "description": "骰子点数未获可靠确认，黑色遮挡或裁切也已如实说明。它们不改变本题是否碰2s的教学论证。",
+      "suggestedRepair": "保留说明；无需据此推测隐藏内容或单独阻断战术结论。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+      "sourceEvidence": "b1179—b1181连读为「ドラ［三萬］でなくてもダブルリャンメンは他のトイツより優先して残す。」",
+      "description": "候选连读为“宝牌［3m］即使不是，也应……”，未形成明确的中文让步条件句。",
+      "suggestedRepair": "将b1179改为“即使”，保留b1180的3m牌图，将b1181改为“不是宝牌，也应优先于其他对子保留双两面形。”"
+    }
+  ],
+  "nextFiniteBatchRequestedTotal": 3,
+  "monetaryCost": "unknown; no price estimate or paid request executed",
+  "noChapterCoverageIncrement": true
+}

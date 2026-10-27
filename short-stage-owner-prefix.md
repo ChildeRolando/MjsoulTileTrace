@@ -1,3 +1,11 @@
+## 2026-10-28 283六表展示零模型闭合；语义与覆盖不升级
+
+nemata-jp-chapter-283-1原候选dea1ba24/source8e7eff57/旧审749e242c原字节不变。六表原HTML逐格核对248格、117空白、13个↓、94牌格；沿既有装配器生成隔离navigation呈现，真实MCP六单元分页+94原图SHA、Arena六单元分页sourceRefs=0、HTML DOM格位/header/span全部读回一致，4项破坏性回归拒绝。不是线上Arena屏幕视觉验收。没有重补94个已有tableContext，无通用框架修改，无模型调用，无通过章/正式active切换。
+
+原4次真实审校raw证实candidate投影漏94个figure.tableContext：66d46676、41594bdf、948c4b49、f264dc7f；source侧表格原已传。显式webSemanticProjection(...,3)专项输入与映射/hash已备，未改旧默认/快照、未提交新审。94图原判28faithful/66needs-repair（格位）原样保留。现accepted-preview没有283，同SHA已passed batch010 b1022–b1134共113块复用，不重审全1195块。
+
+完整Q8 b0093–b0113与Q12 b0151–b0195原日/现中/原图绑定在 integration/coac244-283-projection-20261028。Q8 b0099外链缺原始场况：1s/2s可见数、完整副露、各家点数，先0调用取得源，不猜牌河。b0168旧审明确error，建议仅“摸入宝牌”后加“或”，保留北宝牌/四索图与全部其它块；该建议未冒充制作。下批建议表专项独审1+b0168合法maker1/独审1=最多3新call，失败/void计0retry，仅建议未执行；Q8原件到齐后首次独审另建议1。b0396/0962/1017/1181和复杂图0785/0947其它阻断保留。现有两个剩余register仅283行附展示证据与可执行下一步，covered不变。证据交付 .multica/delivery/coac244-283-projection-20261028。
+
 ## 2026-10-28 183/236首次独审收回：两章uncertain，6/6已用尽（本登记0调用）
 
 249真实交接5f18539ffe7bdda16cbceb5306797209a98fbf1ed711b2da39fd8b966f6ebee5已按完整源/候选/审/raw与调用ledger核验并登记，无通过章、不交250。最新唯一display：nemata-jp-chapter-183-1 973bbc3eb85dedaed18a5b11903b8002b8dffcade1e6d3a3f7bb25cd1684d45a，首审018687de-2b4f-4af5-b82f-f4934c12f974；nemata-jp-chapter-236-1 6193212639b7c8abb42adf64b69759a5d00effc67c1f20d2c9ae681ded121a28，首审7a1363b3-906b-4155-9643-2a3924d3dfd1。两者needs-repair/uncertain，modelChecks/effectiveModelChecks均false，等级不改。

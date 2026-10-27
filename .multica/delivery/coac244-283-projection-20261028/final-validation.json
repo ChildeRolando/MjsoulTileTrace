@@ -1,0 +1,42 @@
+{
+  "newModelCalls": 0,
+  "registers": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-remaining26-closure-register-20261028.json",
+      "only283Changed": true,
+      "coverageUnchanged": true,
+      "sha256": "f057c59788441faeab0e4d66e52ad543d3b2c5758bc406fe40b8613c3b641616"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-uncovered-chapter-continuation-register-20261027b.json",
+      "only283Changed": true,
+      "coverageUnchanged": true,
+      "sha256": "93e2acd730bd509684ea83029ec27e6fadb4b6d54e7928f9a00b04a7261c3eb7"
+    }
+  ],
+  "oldBatch010Raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\8d23cbe1-5516-4d8a-83ca-ef866159c3c1.json",
+    "sha256": "91fa6f289e2a7cb41158cce70fc06760204ca6251cd7094767194df71eb54dd2",
+    "bytes": 547020
+  },
+  "oldPassedBlocksPreserved": 113,
+  "tableFigureVerdictsPreserved": {
+    "faithful": 28,
+    "needs-repair": 66
+  },
+  "extraReadbackDependencies": [
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\verify-textbook-mcp.mjs",
+      "sha256": "221c7bc5486a403c44e0419e0892e454275418b25557f1e17896d1ea76a97355",
+      "bytes": 4520
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\bin\\textbook-mcp-server.mjs",
+      "sha256": "950d313acb1d055eb9f750cb4360887c8a1eb4db61788401cab5c8e17f0e2db2",
+      "bytes": 577
+    }
+  ],
+  "sourceCandidateAuditUnchanged": true,
+  "formalActiveChanged": false,
+  "chapterAccepted": false
+}
