@@ -1,0 +1,315 @@
+{
+  "schema": "coac244-next-three-zero-stage-handoff/1",
+  "selected": [
+    {
+      "chapterId": "nemata-jp-chapter-100-1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section035.display.json",
+        "sha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+        "bytes": 1236462
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter01-section035\\source.json",
+        "sha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+        "bytes": 774629
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json",
+        "sha256": "51a7871f3be891b712baa492b6a190e0b6b28f9931f4670f505f32842e1d7e9a",
+        "bytes": 513435
+      },
+      "classifiedGap": "audit input omission; existing definitions and faithful translation present",
+      "nonSourceNoteIssueCount": 1,
+      "sameShaCalls": [
+        "323bf6ca-9ef6-42ea-8599-85c95c780c4f",
+        "4fe2d7b1-cf5f-47e8-9b46-5b0ea849216a",
+        "3cf56d4f-ce16-4399-8ef4-779ca15fe544"
+      ],
+      "newModelCalls": 0
+    },
+    {
+      "chapterId": "79-cn-chapter-159-9",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751292.display.json",
+        "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+        "bytes": 46828
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1751292\\source.json",
+        "sha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+        "bytes": 28679
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json",
+        "sha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed",
+        "bytes": 25432
+      },
+      "classifiedGap": "one public river tile remains unknown in existing independent full review; source image present, no new confirmed translation error",
+      "nonSourceNoteIssueCount": 1,
+      "sameShaCalls": [
+        "5477ed1b-a10d-45ed-ae56-c6acaeb39464"
+      ],
+      "newModelCalls": 0
+    },
+    {
+      "chapterId": "79-cn-chapter-242-3",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780438.display.json",
+        "sha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+        "bytes": 58219
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1780438\\source.json",
+        "sha256": "3cac4b7103309b092edada33aa8f698b606aa283ae1ce18f8ce9ba9e8428f6e0",
+        "bytes": 45228
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780438.62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa.json",
+        "sha256": "332731f14ba75be91479bdefe77bb1a0026fe31d600b693d73d0e62db8ba8515",
+        "bytes": 34077
+      },
+      "classifiedGap": "one public river tile remains unknown in existing independent full review; source image present, no new confirmed translation error",
+      "nonSourceNoteIssueCount": 1,
+      "sameShaCalls": [
+        "770655dc-b68f-4ced-8433-92bc0854431f"
+      ],
+      "newModelCalls": 0
+    }
+  ],
+  "excludedExistingWork": [
+    "nemata-jp-chapter-183-1",
+    "nemata-jp-chapter-236-1",
+    "79-cn-chapter-217-4",
+    "79-cn-chapter-222-5",
+    "nemata-jp-chapter-283-1"
+  ],
+  "registerBaseline": {
+    "originalChapters": 256,
+    "originalUnits": 303,
+    "originalSourceBlocks": 21212,
+    "displayChapters": 233,
+    "displayUnits": 241,
+    "displayBlocks": 6349,
+    "displayFigures": 5128,
+    "effectiveCoveredOriginalChapters": 232,
+    "effectiveUncoveredOriginalChapters": 24,
+    "uncoveredProduced": 24,
+    "trulyUnproduced": 0,
+    "register80": 80,
+    "register80Groups": {
+      "confirmed-produced-not-covered": 56,
+      "reclassified-covered": 17,
+      "legacy-covered": 1,
+      "additional-uncovered-not-in-246": 6
+    },
+    "verdicts": {
+      "covered-effective": 232,
+      "produced-needs-repair": 24,
+      "produced-passed-not-staged": 0,
+      "produced-pdf-passed-not-staged": 0,
+      "produced-unreviewed": 0,
+      "produced-audit-failed": 0,
+      "total": 256
+    }
+  },
+  "budget": {
+    "thisStageNewModelCalls": 0,
+    "proposedNextIndependentCalls": 3,
+    "chapter100": 1,
+    "chapter159": 1,
+    "chapter242": 1,
+    "producerCallsNow": 0,
+    "retry": 0,
+    "failedVoidCount": true,
+    "conditionalLaterImageCorrections": {
+      "chapter159": {
+        "maker": 1,
+        "audit": 1
+      },
+      "chapter242": {
+        "maker": 1,
+        "audit": 1
+      },
+      "maximumAdditional": 4,
+      "notAuthorized": true
+    },
+    "allConditionalPhasesMaximumFutureCalls": 7,
+    "monetaryPrice": "unknown; no chargeable API request executed"
+  },
+  "chapter100": {
+    "input": "100-context-v2.json",
+    "helper": "context100.mjs",
+    "runtime": {
+      "runtime": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-next3-zero-20261028\\verification-runtime",
+      "manifestSha256": "89884dc7700dac573829190d1cdb2665d531e912b77d220b18427fc4668f9690",
+      "files": 31,
+      "helperSha256": "d825ded2118bbbba5244832897cc95244b164b2e7bc8175ee64759b8349e0241",
+      "dependencyManifestSha256": "8ec658d21492725ea11bafd0fa8b775d7d8f625b30caa16d67955348a5468949"
+    },
+    "targetOriginalGroup": "chapter01-section035-batch-002",
+    "targetBlocks": 68,
+    "completeDefinitionContext": 39,
+    "inheritedPassedBlocks": 243,
+    "images": [],
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "sourceAndCandidateChanged": false,
+    "requiredExecution": "Original audit guard/admission and budget authorization first. Use exported request constructor, preserve original plan/raw, bind new scope/context proof into the real standard ledger/raw. verifyRecordedContext100Call must validate actual new raw; recordContext100Supplement writes a separate immutable sidecar only after genuine independent pass. stageWebTextbook may consume verifyContext100Supplement callback; old full audit remains needs-repair. No existing raw qualifies as a supplement."
+  },
+  "chapter159": {
+    "input": "159-point-packet.json",
+    "target": "79-bilibili-cn:cv1751292:b0013:figure",
+    "bbox": [
+      298,
+      126,
+      324,
+      161
+    ],
+    "newPointReview": false,
+    "oldUnknownPreserved": true
+  },
+  "chapter242": {
+    "input": "242-point-packet.json",
+    "target": "79-bilibili-cn:cv1780438:b0014:figure",
+    "bbox": [
+      177,
+      144,
+      202,
+      177
+    ],
+    "newPointReview": false,
+    "oldUnknownPreserved": true
+  },
+  "notSelected": {
+    "chapter208": "two figures/four unidentified public tiles; more point gaps than159/242",
+    "chapter193": "PDF two-sentence supplement already delivered as separate source version; unknown b0042 and mixed-source full chapter assembly still need additional steps. Do not repeat delivered supplement or call it full pass."
+  },
+  "metadata": {
+    "navigationAlreadyPresent": {
+      "chapterId": "79-cn-chapter-001-3",
+      "unitId": "79-cn-chapter-001-3-unit-1",
+      "blocks": 18,
+      "corpus": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T20-22-17-535Z\\textbook-corpus.json",
+        "sha256": "500ab685ea36f88684b1ec61fe8b806a78088d02bd6d63da5696a9f2f1371ec8",
+        "bytes": 11680324
+      }
+    },
+    "remainingMetadata": [
+      {
+        "chapterId": "nemata-jp-chapter-001-64",
+        "title": "封面、目录与网页说明",
+        "covered": false,
+        "pages": [
+          1,
+          2,
+          3
+        ],
+        "ownedBlocks": 168,
+        "latestPdfPageStates": [
+          {
+            "page": 1,
+            "candidates": 1,
+            "receiptStatus": "needs-repair",
+            "sourceBound": true,
+            "selected": false,
+            "blocks": 67
+          },
+          {
+            "page": 2,
+            "candidates": 1,
+            "receiptStatus": "needs-repair",
+            "sourceBound": true,
+            "selected": false,
+            "blocks": 68
+          },
+          {
+            "page": 3,
+            "candidates": 1,
+            "receiptStatus": "needs-repair",
+            "sourceBound": true,
+            "selected": false,
+            "blocks": 33
+          }
+        ],
+        "action": "Preserve cover/contents and original author prose, research bibliography and appendix explanation; obtain source evidence for cover tiny text and unresolved marks. Do not label author argument navigation or invent readings. Existing four-page gate deviation is preserved; no repeat from scratch."
+      },
+      {
+        "chapterId": "nemata-jp-chapter-317-51",
+        "title": "研究资料目录与说明",
+        "covered": false,
+        "pages": [
+          317
+        ],
+        "ownedBlocks": 58,
+        "latestPdfPageStates": [
+          {
+            "page": 317,
+            "candidates": 1,
+            "receiptStatus": "needs-repair",
+            "sourceBound": true,
+            "selected": false,
+            "blocks": 58
+          }
+        ],
+        "action": "Preserve cover/contents and original author prose, research bibliography and appendix explanation; obtain source evidence for cover tiny text and unresolved marks. Do not label author argument navigation or invent readings. Existing four-page gate deviation is preserved; no repeat from scratch."
+      }
+    ],
+    "appendixTheoryChapters": [
+      {
+        "chapterId": "nemata-jp-chapter-318-1",
+        "title": "１　麻雀技術論",
+        "covered": true,
+        "coverageRoute": "web"
+      },
+      {
+        "chapterId": "nemata-jp-chapter-319-1",
+        "title": "２　牌理の概要",
+        "covered": true,
+        "coverageRoute": "web"
+      },
+      {
+        "chapterId": "nemata-jp-chapter-324-1",
+        "title": "3　単独ターツの理論",
+        "covered": true,
+        "coverageRoute": "web"
+      },
+      {
+        "chapterId": "nemata-jp-chapter-335-1",
+        "title": "５　ターツ理論の補足",
+        "covered": true,
+        "coverageRoute": "web"
+      },
+      {
+        "chapterId": "nemata-jp-chapter-338-1",
+        "title": "６　孤立牌の理論",
+        "covered": true,
+        "coverageRoute": "web"
+      },
+      {
+        "chapterId": "nemata-jp-chapter-345-1",
+        "title": "7　多門張形の理論",
+        "covered": true,
+        "coverageRoute": "web"
+      },
+      {
+        "chapterId": "nemata-jp-chapter-347-1",
+        "title": "８　面子の理論",
+        "covered": true,
+        "coverageRoute": "web"
+      }
+    ],
+    "sourceOwnership": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\source-block-ownership.json",
+      "sha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60",
+      "bytes": 4357129
+    },
+    "metadataOldPlan": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\modern-metadata-four-page-gap-plan.json",
+      "sha256": "7f656a3755cd61a4bc8780d9c841411dc73345430d43394fb72c37cba9d379b1",
+      "bytes": 2781
+    },
+    "metadataOldPlanStatusIsHistorical": true,
+    "scopeWarning": "These metadata/appendix rows remain in the current256/303/21212 source universe. Navigation already present is not counted again. Old navigation map has obsolete canonical aliases and is not used to remap current accepted rows."
+  }
+}

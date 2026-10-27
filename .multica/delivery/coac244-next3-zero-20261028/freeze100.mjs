@@ -1,0 +1,15 @@
+import {readFile,writeFile,readdir,mkdir,copyFile} from 'node:fs/promises';
+import {join} from 'node:path';
+import {createHash} from 'node:crypto';
+import {buildVerificationDependencyManifest} from './verification-runtime/textbook-audit-verification-dependencies.mjs';
+const here=import.meta.dirname,dir=join(here,'verification-runtime'),root='E:/AgentData/Coach/knowledge/processing',out=join(root,'integration/coac244-next3-zero-20261028');
+const sha=x=>createHash('sha256').update(x).digest('hex');
+const dependency=await buildVerificationDependencyManifest({baseDir:dir,entry:'textbook-audit-web.mjs',root});
+await writeFile(join(dir,'verification-dependencies.json'),JSON.stringify(dependency,null,2)+'\n');
+const files=[];for(const name of (await readdir(dir)).filter(n=>n!=='runtime-manifest.json').sort())files.push({path:name,sha256:sha(await readFile(join(dir,name)))});
+const manifest={schema:'coac244-chapter100-input-verification-runtime/1',parentRuntime:'audit/runtimes/coac244-222-target-figure-v3-20261028',parentManifestSha256:'8c416f3afbb3e8647e1761d526151825cb79927741d9f331c44225679be6705f',changes:'Only re-export existing private verifyWebBatchCheckpoint for zero-model verification; no gate implementation changed. New input/sidecar helper is separate context100.mjs, not an edit to old runtime.',files,dependency,newModelCalls:0};
+await writeFile(join(dir,'runtime-manifest.json'),JSON.stringify(manifest,null,2)+'\n');
+await mkdir(join(out,'verification-runtime'));for(const name of [...files.map(f=>f.path),'runtime-manifest.json'])await copyFile(join(dir,name),join(out,'verification-runtime',name));
+const binding={runtime:join(out,'verification-runtime'),manifestSha256:sha(await readFile(join(dir,'runtime-manifest.json'))),files:files.length,helperSha256:sha(await readFile(join(here,'context100.mjs'))),dependencyManifestSha256:dependency.manifestSha256};
+for(const p of [join(here,'100-runtime-binding.json'),join(out,'100-runtime-binding.json')])await writeFile(p,JSON.stringify(binding,null,2)+'\n');
+console.log(JSON.stringify(binding));

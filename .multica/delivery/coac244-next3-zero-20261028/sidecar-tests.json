@@ -1,0 +1,43 @@
+{
+  "newModelCalls": 0,
+  "sharedRawOrLedgerWrites": 0,
+  "fixturePassedIsNotARealAudit": true,
+  "checks": [
+    {
+      "name": "pure fixture merge validates only as offline contract exercise",
+      "passed": true
+    },
+    {
+      "name": "reject changed proof",
+      "passed": true
+    },
+    {
+      "name": "reject changed prompt",
+      "passed": true
+    },
+    {
+      "name": "reject unexpected image",
+      "passed": true
+    },
+    {
+      "name": "reject model fallback",
+      "passed": true
+    },
+    {
+      "name": "reject changed schema",
+      "passed": true
+    },
+    {
+      "name": "reject uncertain result",
+      "passed": true
+    },
+    {
+      "name": "real old raw/ledger cannot become a new supplement",
+      "passed": true
+    },
+    {
+      "name": "absent independently generated sidecar cannot stage chapter",
+      "passed": true
+    }
+  ]
+}

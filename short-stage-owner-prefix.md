@@ -1,3 +1,13 @@
+## 2026-10-28 下一最小3章零模型准备：100/159/242，目录附录仍在全集
+
+当前register232/256原章，余24，完整303原单元/21212源block口径不缩；全集在integration/coac244-next3-zero-20261028/remaining-universe.json。排除183/236/217/222/283既有接受/在途，只选择nemata-jp-chapter-100-1、79-cn-chapter-159-9、79-cn-chapter-242-3。目录/前言/作者说明原页1–3（168块）及p317研究资料说明（58块）仍needs-repair，不降为导航；79中文目录18块已在预览，附录理论七章已covered，保留原canonical与版本链，不重算全书。
+
+100候选0439c382/源722ef1a4不动，原batch001的39块和batch003的204块真实passed可复用；唯一batch002（68块）4fe2d7b1因投影只有b1/b2而缺A/B定义。b0004起完整条件、反向条件/例外、b0036定义及b0037–39说明均有原日文/现中文且第一组已审。新投影107块（目标68+只读上下文39），实际CLI包装请求sol/high images=[]；同SHA图/occurrence faithful及精确资产复用，非新视觉审。原production plan/group/raw不动；13请求/边界检查+9实际raw/sidecar拒绝检查通过。只有真实新独立补审及标准ledger/raw匹配才能生成另行sidecar，不自动改旧审。建议0制作+1补审，尚未授权/调用。
+
+159候选5f2555f1，旧同SHA独审5477ed1b仅b0013上方牌河第4张倒置万子未明，原图495x529 bbox[298,126,324,161)，邻牌四格坐标已绑定。242候选62987619，旧同SHA审仅b0014上方靠中央一行最左万子未明，原图501x501 bbox[177,144,202,177)。两项原图已在旧独审，不是漏图/已证实译误；其余faithful检查及完整正文可继承。原图+精准crop/邻牌+x4全部逐像素验证，不新增细节/旋转，不读出点数、不改unknown，不自判非核心。下一各最多1次独立点及教学影响审；若可读且需改候选，再另议每章合法maker1+审1，不挪旧额度。
+
+本阶段真实新call0。建议第一批100/159/242各1独审=最多3新call、失败void计0retry；若后续两图都需制作/审校，条件追加总最多4、未来各阶段总上界7，当前均未自动执行。费用未知。现有剩余register仅三行附新证据/路径，不改covered、正式active或旧source/candidate/raw。完整输入、坐标、审/rawSHA、未决与有界交接在integration/coac244-next3-zero-20261028/handoff.json。
+
 ## 2026-10-28 三项交接登记；222限定figure独审合同已零模型补齐
 
 183唯一新增授权复审2c2ab5c6已passed：display973bbc3e不变，新审20bdc51f、rawcb47737e，sol/high images=[]，17042in/7808cache/714out，46.550秒。已复验source/parent/raw及17文件stat-context-v3，manifest f7da16a2；旧uncertain不改。源“见1张”统计口径疑点仍source-note，不宣称歧义消失。249已交250，是否集成以其真实读回为准；本批累计7/7余0，不重复模型。
