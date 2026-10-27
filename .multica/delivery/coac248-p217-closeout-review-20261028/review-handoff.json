@@ -1,0 +1,479 @@
+{
+  "schema": "coac248-p217-bounded-unknowns-review-proposal/1",
+  "recordedAt": "2026-10-27T19:48:39.299828+00:00",
+  "authorizationCommentId": "01a17ee3-7daf-783e-8b49-7a5551ca2111",
+  "chapterId": "79-cn-chapter-217-4",
+  "figureId": "79-cn-p217-r1",
+  "sourceImageBlockId": "79-cn-p217-b8",
+  "candidate": {
+    "label": "current-rev5",
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\candidates\\79-cn\\page-0217.json",
+    "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+    "copy": "evidence/current-rev5.json"
+  },
+  "parent": {
+    "label": "parent-rev4",
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair25-20261027-p217d\\candidates\\79-cn\\page-0217.json",
+    "sha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101",
+    "copy": "evidence/parent-rev4.json"
+  },
+  "parentAudit": {
+    "label": "parent-independent-page-audit",
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+    "sha256": "44e101c7fbf8813d9db7a18af177a42b27b51ebaf92945761787b8b25764b3ec",
+    "copy": "evidence/parent-independent-page-audit.json"
+  },
+  "parentToCurrentChangedFields": [
+    "/candidateSha256",
+    "/figures/0/transcription",
+    "/figures/0/unknowns"
+  ],
+  "parentBodyAndOtherFieldsUnchanged": true,
+  "visibleUnresolvedItems": [
+    {
+      "id": "north-row2-col1",
+      "position": "北家舍牌第二行第一张",
+      "bbox": [
+        150,
+        325,
+        175,
+        357
+      ],
+      "kind": "visible-man-number-unreadable",
+      "sourcePixels": [
+        430,
+        463
+      ],
+      "currentCandidate": "5m，且unknowns中尚无北家这一条",
+      "independentReading": "万子，数字unknown",
+      "independentCallId": "09362d05-d221-427e-b474-a79017ff7619",
+      "independentTeachingImpact": "点数不明不妨碍理解原文关于下家染索子一色手及扣牌的总体说明，但会限制对这张牌的精确记录和具体牌谱复盘。",
+      "effectConfirmedScope": "仅确认不妨碍关于下家染索子一色手及扣牌的总体说明；不能扩张为对完整策略推导逐项验收。",
+      "sourceTeachingReferences": {
+        "textBlock": "79-bilibili-cn:cv1775174:b0005",
+        "textCheck": {
+          "id": "79-bilibili-cn:cv1775174:b0005",
+          "verdict": "faithful",
+          "evidence": "中文逐字保留；南场领先、下家亲家染索、一向听无役愚型、保留9饼及拆8万对子扣索子的条件和判断均完整。"
+        },
+        "explicitNamedTiles": [
+          "9饼两家切过，作为立直时的安全牌保留",
+          "拆掉8万对子、扣索子"
+        ],
+        "locatorObservation": "该段没有按位置点名北家第二行第一张；这是文本定位事实，不代替独立影响判断。"
+      },
+      "remainingAction": "先形成两字段一致的unknown展示/校注提案，不猜5m/6m；当前rev5的5m断言不能凭附加证明直接放行。",
+      "proposalEligibleForGeneralExplanation": true,
+      "currentCandidateAcceptableAsIs": false
+    },
+    {
+      "id": "west-row2-col2",
+      "position": "西家舍牌自身第二行第二张；画面左侧外列自上第二张、旋转万子",
+      "bbox": null,
+      "bboxNote": "既有独审仅给上述位置，未绑定像素bbox；不把北家bbox借给西家。",
+      "kind": "visible-man-number-unreadable",
+      "sourcePixels": [
+        430,
+        463
+      ],
+      "currentCandidate": "transcription已写万子（数字未辨清）；unknowns有且仅有西家该条。",
+      "independentEvidence": {
+        "severity": "uncertain",
+        "targetId": "79-cn-p217-r1",
+        "sourceEvidence": "西家舍牌外侧一列第二张为横向万子牌，数字笔画不能可靠辨清。候选同时写“8m”和“数字……不能可靠辨定”，但unknowns为[]。",
+        "description": "该张可见牌尚未核清，8m不能作为已确认转录。",
+        "suggestedRepair": "核清西家第二行第二张万子的数字；确认前明确记录“万子，数字未辨清”，并在unknowns中列出该位置，避免将8m作为确定牌码。"
+      },
+      "independentCallId": "4f760999-1648-410e-8452-1c1b4794503f",
+      "independentTeachingImpact": null,
+      "effectAssessment": "影响未确认。旧审只要求不要赋8m、明确unknown；并未认定该未知对原文推导无影响。",
+      "sourceTeachingReferences": "b0005的已审论证点名9饼、8万对子及索子扣牌，未按位置点名西家该张；不能据此由主控自判非核心。",
+      "remainingAction": "仅补核此unknown及第一张unknown的展示一致性、对b0005完整扣牌论证的影响，复用原完整图/父审/正文，不要求猜出数字或整页重审。",
+      "minimalConditionalReviewScope": [
+        "定位西家该旋转万子并确认原分辨率下不可辨的限制",
+        "检查rev5西家unknown展示是否忠实执行父审要求",
+        "结合完整b0005（含PDF218续文）判明两个unknown会否改变染索、9饼安全牌、拆8万对子扣索子的各项结论"
+      ],
+      "newCallAuthorized": false,
+      "currentCandidateAcceptanceProven": false
+    }
+  ],
+  "resolvedItem": {
+    "id": "north-row2-col2",
+    "bbox": [
+      174,
+      325,
+      196,
+      357
+    ],
+    "candidate": "9m",
+    "independent": "9m",
+    "callId": "20ba52ad-a36c-4edb-b7aa-ae8ff9b89ec6",
+    "status": "resolved-no-code-change-required",
+    "notRemainingUnknown": true,
+    "historical8mReceiptsPreserved": true
+  },
+  "naturalUnknowns": [
+    {
+      "position": "南/西/东家背面暗手13/13/10张",
+      "kind": "source-hidden-not-transcription-gap",
+      "basis": "审校契约明确未知暗手不可推断；父审其余可辨信息、牌背对应未列新错。"
+    },
+    {
+      "position": "中央ドラ栏的西3z究竟为宝牌或指示牌",
+      "kind": "source-unlabelled-role",
+      "basis": "已比较完整牌图。北家第二行第二张舍牌为8m，候选误记9m。西家第二行第二张万子的数字仍不能可靠确认，候选虽注明待核，却仍赋值8m且unknowns为空。其余可辨手牌、独立摸牌、河牌顺序、白板碰牌方向、座位、场局与显示值对应；“ドラ”栏的宝牌／指示牌性质未擅自推断。",
+      "handling": "保持原图未注明角色的限定措辞，不补造宝牌性质。"
+    }
+  ],
+  "boundedAcceptanceProposal": {
+    "state": "proposal-only-not-approved",
+    "useExistingFields": [
+      "figure.transcription",
+      "figure.unknowns",
+      "原文之后明确标非原文的限制校注"
+    ],
+    "suggestedNorthText": "仅把北家第二行第一张的确定5m标为万子（数字未辨清），第二张9m保持；同时列北家坐标unknown。",
+    "suggestedReaderNote": "校注（非原文）：北家第二行第一张及西家第二行第二张万子点数未辨清。前者已有独立证据确认不妨碍总体扣牌说明；精确牌谱复原和依赖这些数字的推演受限。西家该未知对完整教学推导的影响仍待限定核验。",
+    "noGuessing": true,
+    "noCandidateEditsThisStage": true,
+    "contractBoundary": "现行审校契约对可见但看不清内容仍要求uncertain/needs-repair。已有unknown字段是展示机制，并非自动通过豁免；提案提交现有owner，不改全局门禁。",
+    "minimumEvidenceGap": "西家unknown及完整b0005教学影响/展示执行确认；第一张不再重复识字，第二张9m不再复审。",
+    "noWholePageRepeatNeededByProposal": true,
+    "callsDispatched": 0
+  },
+  "scopeDecision": {
+    "p217OwnedBy2174": [
+      [
+        "79-cn-p217-b4"
+      ],
+      [
+        "79-cn-p217-b5"
+      ],
+      [
+        "79-cn-p217-r1"
+      ],
+      [
+        "79-cn-p217-b6"
+      ],
+      [
+        "79-cn-p217-b7"
+      ],
+      [
+        "79-cn-p217-b2"
+      ]
+    ],
+    "alreadyReviewedTextIds": [
+      "79-cn-p217-b1",
+      "79-cn-p217-b2",
+      "79-cn-p217-b3",
+      "79-cn-p217-b4",
+      "79-cn-p217-b5",
+      "79-cn-p217-b6",
+      "79-cn-p217-b7"
+    ],
+    "chapter2174Range": "p217-b4 through p220-b3, one unit,22 owned source blocks",
+    "newIndependentlyClosableCompleteChapterOrUnit": false,
+    "reason": "215-4已在当前预览，无需重复。217-4只有一个跨217–220页的单元，p217已审正文块不是完整独立章。PDF路线缺218–220通过稿；网页替代稿仍有六条unknown、北家两张的已知断言不符新单点，以及同像素跨稿牌码/横置/角色差异。本轮只形成最小目标交接，不扩为批量重制。",
+    "accepted2154AlreadyInPreview": true,
+    "2174InPreview": false,
+    "newChapterCount": 0,
+    "partialBlocksNotPromotedToChapter": true
+  },
+  "alternativeWebRoute": {
+    "candidate": {
+      "label": "alternative-web-candidate",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775174.display.json",
+      "sha256": "4e9e896794fce70fbcbfed0b223c6cfd2e7c643c7713556e5d096ab7a7df8de0",
+      "copy": "evidence/alternative-web-candidate.json"
+    },
+    "audit": {
+      "label": "alternative-web-audit",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775174.4e9e896794fce70fbcbfed0b223c6cfd2e7c643c7713556e5d096ab7a7df8de0.json",
+      "sha256": "2d0def8a9082f134c9496862251cecceb96d6560948a9153557499b46e524213",
+      "copy": "evidence/alternative-web-audit.json"
+    },
+    "currentSourceSha256": "9c8ac96ad4a283248195ea4f6c6da89c86e335fde3e9571aa434e95fd27bd521",
+    "remainingUnknowns": [
+      {
+        "figureId": "79-bilibili-cn:cv1775174:b0004:figure",
+        "items": [
+          "未知A：左家牌河左列自上第2张，可辨为万子，数字不能可靠辨清。",
+          "未知B：左家牌河左列自上第3张，可辨为万子，数字不能可靠辨清。",
+          "未知C：右家牌河左列自上第2张，可辨为万子，数字不能可靠辨清。",
+          "未知D：右家牌河左列自上第5张，可辨为万子，数字不能可靠辨清。",
+          "未知E：右家牌河右列自上第3张，可辨为万子，数字不能可靠辨清。"
+        ],
+        "sourcePixels": [
+          430,
+          463
+        ],
+        "sourceImageSha256": "3822aeb67f8939f0726cd8facb714493b294f6c6d3632fda8f9462ff715a68bc"
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1775174:b0010:figure",
+        "items": [
+          "未知A：右家牌河右列最上方一张，即与左列第4张对齐的万子，其数字不能可靠辨清。"
+        ],
+        "sourcePixels": [
+          433,
+          462
+        ],
+        "sourceImageSha256": "300b62d7f7b5acfba425e42db69e63a5dc8c0cf60af47e7519e8730f041886c8"
+      }
+    ],
+    "independentCompletenessJudgment": {
+      "complete": false,
+      "evidence": "全部中文正文、署名、原文地址、条件和判断均保留，图中日文教学标签已有中文对应；但第一幅牌桌图五张、最后一幅牌桌图一张可见万子的数字未完成转录，共六张弃牌信息存在缺口。这些属于牌河数据，不能按隐手未知或边缘残痕豁免。"
+    },
+    "notAddedToPdfUnknownCount": true,
+    "noPointEvidenceTransferredAcrossUnverifiedDifferentAssets": true,
+    "workDispatched": false,
+    "exactPixelIdentityWithPdfB8": {
+      "pdfOriginalFileSha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+      "webOriginalFileSha256": "3822aeb67f8939f0726cd8facb714493b294f6c6d3632fda8f9462ff715a68bc",
+      "size": [
+        430,
+        463
+      ],
+      "mode": "RGBA",
+      "decodedPixelSha256": "2c94372b3d5255015cffad344066e2341a086a9f893e1cfd1d07b25a88f4511b",
+      "allPixelsEqual": true,
+      "geometricTransform": "none",
+      "method": "Exact byte comparison of fully decoded RGBA; no OCR, similarity threshold or generated detail.",
+      "reuseBoundary": "Coordinate-bound original-image evidence can be rebound by this exact identity proof. It does not turn a different candidate or a needs-repair parent into a passed candidate."
+    },
+    "reusablePdfOrdinalEvidence": [
+      {
+        "webUnknown": "A",
+        "webPosition": "左家左列自上第2张",
+        "pdfPosition": "西家第二行第二张",
+        "pdfEvidence": "万子数字unknown",
+        "status": "same unresolved West position; do not guess"
+      },
+      {
+        "webUnknown": "B",
+        "webPosition": "左家左列自上第3张",
+        "pdfPosition": "西家第二行第三张",
+        "pdfAuditedTranscription": "2m"
+      },
+      {
+        "webUnknown": "C",
+        "webPosition": "右家左列自上第2张",
+        "pdfPosition": "东家第一行自身顺序第5张",
+        "pdfAuditedTranscription": "7m"
+      },
+      {
+        "webUnknown": "D",
+        "webPosition": "右家左列自上第5张",
+        "pdfPosition": "东家第一行自身顺序第2张",
+        "pdfAuditedTranscription": "2m"
+      },
+      {
+        "webUnknown": "E",
+        "webPosition": "右家右列自上第3张",
+        "pdfPosition": "东家第二行自身顺序第2张",
+        "pdfAuditedTranscription": "9m"
+      }
+    ],
+    "ordinalMappingQualification": "Mechanical alignment of the candidates' explicitly stated reading orders on identical original pixels. Four existing audited PDF tokens are evidence for a future legally scoped revision, not new visual judgments or edits. Retain both independent parent reviews and require the existing change-review contract before acceptance.",
+    "samePixelCandidateDifferences": [
+      {
+        "position": "北家第二行第一张",
+        "web": "9m",
+        "pdfRev5": "5m",
+        "newIndependent": "万子数字unknown",
+        "minimumHandling": "Both current assertions require truthful unknown display; no number rereading."
+      },
+      {
+        "position": "北家第二行第二张",
+        "web": "8m",
+        "pdfRev5": "9m",
+        "newIndependent": "9m",
+        "minimumHandling": "PDF point closed; web8m is not cleared by an audit of PDF9m. Exact pixels support a future scoped web correction to9m without re-adjudicating the same point."
+      },
+      {
+        "position": "西家第二行末张（左家外列第4张）",
+        "web": "7m",
+        "pdfParentAndRev5": "6m",
+        "minimumHandling": "Existing independent source-review conflict. Keep both bound receipts, no coordinator visual verdict."
+      },
+      {
+        "position": "右上白碰横置位置",
+        "web": "第一/三张横置，中张竖置",
+        "pdfParentAndRev5": "中张横置",
+        "minimumHandling": "Existing independent representation conflict, requiring only this orientation/direction field to be checked if the web route is pursued."
+      },
+      {
+        "position": "中央ドラ栏角色",
+        "web": "直接称宝牌3z",
+        "pdfParentAndRev5": "显示西3z，源未注明宝牌还是指示牌",
+        "minimumHandling": "Parent PDF review explicitly endorsed not inferring the role; web role assertion cannot silently inherit that check."
+      }
+    ],
+    "otherFigureStillOpen": "b0010 unknownA，右家右列首张，与左列第4张对齐，原图433×462；现有独审认定可见弃牌不完整并保持阻断，未给非核心影响豁免。",
+    "actualRemainingMeaning": "Six stored web unknown entries are not six new unique PDF problems: b0004 A is the same West unknown and B–E have exact-pixel PDF parent transcription evidence; b0010A is a different scene. Two North assertions and three further known-field/role differences also prevent as-is web acceptance."
+  },
+  "teachingContext": {
+    "completeParagraph": "扣牌很多时候都是在下家染手时进行的。 这个例子，很明显下家是索子的一色手。  而且，他现在是亲家，自己在南场是TOP。 现在亲家应该还没有听牌吧，这个时候就应该把索子扣住了。  自己虽然是一向听，但是是无役的愚型。 即使听牌也是很不想切掉索子的。  虽然切饼子维持一向听也是一种打法。 但是9饼有两家切掉了，以防有人立直是应该留下的。  这里应该拆掉8万的对子，把索子紧紧扣住 施行让亲家未听下庄的战术。  ------------------------------------------------------------------------------------ 后付的字牌 ------------------------------------------------------------------------------------ ",
+    "independentParagraphCheck": {
+      "id": "79-bilibili-cn:cv1775174:b0005",
+      "verdict": "faithful",
+      "evidence": "中文逐字保留；南场领先、下家亲家染索、一向听无役愚型、保留9饼及拆8万对子扣索子的条件和判断均完整。"
+    },
+    "pdf218ContextFromParentAudit": {
+      "sourceId": "79-cn",
+      "page": 218,
+      "pageDataSha256": "83d1909e9e92a9622c46c9ba0ea46efca12bef60cb27ec5b35d72fcbd8f92abd",
+      "boundaryText": " \n \n第 218 页 共 340 页 \n而且，他现在是亲家，自己在南场是TOP。 \n现在亲家应该还没有听牌吧，这个时候就应该把索子扣住了。 \n \n自己虽然是一向听，但是是无役的愚型。 \n即使听牌也是很不想切掉索子的。 \n \n虽然切饼子维持一向听也是一种打法。 \n但是9 饼有两家切掉了，以防有人立直是应该留下的。 \n \n这里应该拆掉8 万的对子，把索子紧紧扣住 \n施行让亲家未听下庄的战术。 \n-------------------------------------------------------------------------------\n-----后付的字牌 \n-------------------------------------------------------------------------------\n----- \n \n \n亲家用两面进行了副露，这个时候摸到了东。 \n我觉得这张东是绝对应该扣住的。 \n \n从亲家副露来看，有可能是混一色、一气、789 三色、全带 \n但是这些可能性很低，从场上的舍牌来看只可能是双东了。 \n"
+    }
+  },
+  "bindings": [
+    {
+      "label": "current-rev5",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\candidates\\79-cn\\page-0217.json",
+      "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+      "copy": "evidence/current-rev5.json"
+    },
+    {
+      "label": "parent-rev4",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair25-20261027-p217d\\candidates\\79-cn\\page-0217.json",
+      "sha256": "99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101",
+      "copy": "evidence/parent-rev4.json"
+    },
+    {
+      "label": "parent-independent-page-audit",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+      "sha256": "44e101c7fbf8813d9db7a18af177a42b27b51ebaf92945761787b8b25764b3ec",
+      "copy": "evidence/parent-independent-page-audit.json"
+    },
+    {
+      "label": "parent-independent-page-raw",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4f760999-1648-410e-8452-1c1b4794503f.json",
+      "sha256": "accbddb2fafe11ce150f26ecd6ba2c13f93a4c16fd760cb8eb82299ffc1e729d",
+      "copy": "evidence/parent-independent-page-raw.json"
+    },
+    {
+      "label": "first-point-handoff",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-point-222-p217-20261028.json",
+      "sha256": "60e2d281df88896c5675d1599f87dc8815bcaeb198e9a7a66fcfb21cfe2f69f9",
+      "copy": "evidence/first-point-handoff.json"
+    },
+    {
+      "label": "first-point-raw",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-p217-north-second-row.raw.json",
+      "sha256": "cc7f332d563cfc25106e77b06a097ddcb797450e8c4dbac69110901a8b51e516",
+      "copy": "evidence/first-point-raw.json"
+    },
+    {
+      "label": "first-point-receipt",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-p217-north-second-row.receipt.json",
+      "sha256": "431f0922265cae8d624566220a57fe2f3463e2d57bdef8eaae1ec5108d3cdbba",
+      "copy": "evidence/first-point-receipt.json"
+    },
+    {
+      "label": "second-point-handoff",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-second-point-20261028.json",
+      "sha256": "b1ee9973976f05f59d32acc9594e78b4d6dc2928a8061bc82a009b709c5cc70d",
+      "copy": "evidence/second-point-handoff.json"
+    },
+    {
+      "label": "second-point-raw",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-p217-second-20261028\\raw.json",
+      "sha256": "c052de0b93273a683f70e8746fe53b03eb805e6f4ce06ef36aef7aeea6b1e29d",
+      "copy": "evidence/second-point-raw.json"
+    },
+    {
+      "label": "original-p217-b8",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+      "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+      "copy": "evidence/original-p217-b8.png"
+    },
+    {
+      "label": "pdf-page-image",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\renders\\79-cn\\page-0217.png",
+      "sha256": "c52048b9b1a0650b9041cc74a18cb0576c71eb68ccb61c5c4b482dffd79a1ba0",
+      "copy": "evidence/pdf-page-image.png"
+    },
+    {
+      "label": "pdf-region-image",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\renders\\79-cn\\page-0217-r1.png",
+      "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0",
+      "copy": "evidence/pdf-region-image.png"
+    },
+    {
+      "label": "historical-revision-chain",
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-248-a32fca12f9c9\\worktree\\.multica\\delivery\\coac-248-native-inline-correction\\receipt-p217-revision-chain-20261027.json",
+      "sha256": "9ab2668f250b53c1bc2408025f7b1bd042454150bf980ddcff97cf978287b9bb",
+      "copy": "evidence/historical-revision-chain.json"
+    },
+    {
+      "label": "alternative-web-candidate",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775174.display.json",
+      "sha256": "4e9e896794fce70fbcbfed0b223c6cfd2e7c643c7713556e5d096ab7a7df8de0",
+      "copy": "evidence/alternative-web-candidate.json"
+    },
+    {
+      "label": "alternative-web-audit",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775174.4e9e896794fce70fbcbfed0b223c6cfd2e7c643c7713556e5d096ab7a7df8de0.json",
+      "sha256": "2d0def8a9082f134c9496862251cecceb96d6560948a9153557499b46e524213",
+      "copy": "evidence/alternative-web-audit.json"
+    },
+    {
+      "label": "alternative-web-source",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1775174\\source.json",
+      "sha256": "9c8ac96ad4a283248195ea4f6c6da89c86e335fde3e9571aa434e95fd27bd521",
+      "copy": "evidence/alternative-web-source.json"
+    },
+    {
+      "label": "register",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+      "sha256": "507dc8db5fd606fa44f8dbc28510e391979142c82d13513ad89f27e3db31f8e0",
+      "copy": null
+    },
+    {
+      "label": "chapter-map",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\chapter-map.json",
+      "sha256": "d38bbd1a72defef709f4e2f336b3447e4fc677183b88b7e8d6aa050258017a8e",
+      "copy": null
+    },
+    {
+      "label": "preview-pointer",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+      "sha256": "ce6c6cbcae815a3c4de35b5ac5fc015d83cf8c63c611767a46245aed1f6db4c4",
+      "copy": null
+    },
+    {
+      "label": "preview-index",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T19-21-37-757Z\\knowledge-index.json",
+      "sha256": "d9c9124e5742e2c6153ac0d0e4cfab17ad4de0e65d4498187a38d52d3dd70c4d",
+      "copy": null
+    },
+    {
+      "label": "current-audit-contract",
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\textbook-audit.mjs",
+      "sha256": "8660208dbb9ab80bff445d84402e169a0294b5485316c3ef1c080b42ea095893",
+      "copy": null
+    },
+    {
+      "label": "web-b0004-original",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\3822aeb67f8939f0726cd8facb714493b294f6c6d3632fda8f9462ff715a68bc.png",
+      "sha256": "3822aeb67f8939f0726cd8facb714493b294f6c6d3632fda8f9462ff715a68bc",
+      "copy": "evidence/web-b0004-original.png"
+    },
+    {
+      "label": "original-production-raw",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\raw-calls\\e12aa4a6-65f4-4a23-9579-09f887f568be.json",
+      "sha256": "6112c207fc1d5922e88af671f0a02b7e13623af7edee15a18a9b0c76bed59203",
+      "copy": "evidence/original-production-raw.json"
+    }
+  ],
+  "originalStatusesPreserved": true,
+  "integrationAllowed": false,
+  "modelCalls": 0,
+  "candidateEdits": 0,
+  "oldReceiptEdits": 0,
+  "nextModelBatchCreated": false,
+  "toExistingOwner": "COAC-244",
+  "reviewPartner": "COAC-249 only after further explicit scope/budget authorization"
+}

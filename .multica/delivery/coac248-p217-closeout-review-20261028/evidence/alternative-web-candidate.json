@@ -1,0 +1,1046 @@
+{
+  "schema": "coach-textbook-web-article-draft/1",
+  "status": "draft",
+  "productionStatus": "draft-awaiting-independent-web-review",
+  "source": {
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1775174",
+    "url": "https://www.bilibili.com/read/cv1775174",
+    "title": "【日本麻雀讲座译文】防守12—扣牌（2）",
+    "language": "zh-CN",
+    "fetchedAt": "2026-10-23T20:31:47.708228+00:00",
+    "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1775174/source.json",
+    "sourceSha256": "9c8ac96ad4a283248195ea4f6c6da89c86e335fde3e9571aa434e95fd27bd521",
+    "htmlSha256": "60a09299c0a16ce8646bcfb66c8ea4063d96913ae4845add50b4283a85d67055",
+    "mainSha256": "9a221ff5834248f73aac889f491a27912b688b8a27fe815fe913a60e98fdcc65"
+  },
+  "body": {
+    "language": "zh-CN",
+    "mode": "verbatim",
+    "flowOrder": "source-dom-order",
+    "blocks": [
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775174:b0001"
+        ],
+        "sourceText": "免责声明：",
+        "text": "免责声明：",
+        "paragraphId": "79-bilibili-cn:cv1775174:p0001",
+        "sourceSegments": [
+          {
+            "text": "免责声明：",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775174:b0002"
+        ],
+        "sourceText": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+        "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+        "paragraphId": "79-bilibili-cn:cv1775174:p0002",
+        "sourceSegments": [
+          {
+            "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775174:b0003"
+        ],
+        "sourceText": "原文地址：http://beginners.biz/reach/mamori12.html ------------------------------------------------------------------------------------ 扣牌2：  我们来看看扣牌的具体例子。  ------------------------------------------------------------------------------------ 下家染手 ------------------------------------------------------------------------------------ ",
+        "text": "原文地址：http://beginners.biz/reach/mamori12.html ------------------------------------------------------------------------------------ 扣牌2：  我们来看看扣牌的具体例子。  ------------------------------------------------------------------------------------ 下家染手 ------------------------------------------------------------------------------------ ",
+        "paragraphId": "79-bilibili-cn:cv1775174:p0003",
+        "sourceSegments": [
+          {
+            "text": "原文地址：http://beginners.biz/reach/mamori12.html",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "扣牌2：",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "我们来看看扣牌的具体例子。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "下家染手",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775174:b0004"
+        ],
+        "figureId": "79-bilibili-cn:cv1775174:b0004:figure",
+        "paragraphId": "79-bilibili-cn:cv1775174:p0004",
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775174:b0005"
+        ],
+        "sourceText": "扣牌很多时候都是在下家染手时进行的。 这个例子，很明显下家是索子的一色手。  而且，他现在是亲家，自己在南场是TOP。 现在亲家应该还没有听牌吧，这个时候就应该把索子扣住了。  自己虽然是一向听，但是是无役的愚型。 即使听牌也是很不想切掉索子的。  虽然切饼子维持一向听也是一种打法。 但是9饼有两家切掉了，以防有人立直是应该留下的。  这里应该拆掉8万的对子，把索子紧紧扣住 施行让亲家未听下庄的战术。  ------------------------------------------------------------------------------------ 后付的字牌 ------------------------------------------------------------------------------------ ",
+        "text": "扣牌很多时候都是在下家染手时进行的。 这个例子，很明显下家是索子的一色手。  而且，他现在是亲家，自己在南场是TOP。 现在亲家应该还没有听牌吧，这个时候就应该把索子扣住了。  自己虽然是一向听，但是是无役的愚型。 即使听牌也是很不想切掉索子的。  虽然切饼子维持一向听也是一种打法。 但是9饼有两家切掉了，以防有人立直是应该留下的。  这里应该拆掉8万的对子，把索子紧紧扣住 施行让亲家未听下庄的战术。  ------------------------------------------------------------------------------------ 后付的字牌 ------------------------------------------------------------------------------------ ",
+        "paragraphId": "79-bilibili-cn:cv1775174:p0005",
+        "sourceSegments": [
+          {
+            "text": "扣牌很多时候都是在下家染手时进行的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这个例子，很明显下家是索子的一色手。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "而且，他现在是亲家，自己在南场是TOP。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "现在亲家应该还没有听牌吧，这个时候就应该把索子扣住了。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "自己虽然是一向听，但是是无役的愚型。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "即使听牌也是很不想切掉索子的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "虽然切饼子维持一向听也是一种打法。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是9饼有两家切掉了，以防有人立直是应该留下的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这里应该拆掉8万的对子，把索子紧紧扣住",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "施行让亲家未听下庄的战术。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "后付的字牌",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775174:b0006"
+        ],
+        "figureId": "79-bilibili-cn:cv1775174:b0006:figure",
+        "paragraphId": "79-bilibili-cn:cv1775174:p0006",
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775174:b0007"
+        ],
+        "sourceText": "亲家用两面进行了副露，这个时候摸到了东。 我觉得这张东是绝对应该扣住的。  从亲家副露来看，有可能是混一色、一气、789三色、全带 但是这些可能性很低，从场上的舍牌来看只可能是双东了。  这里切1万，千万不要切东。博形听也好，弃和也好。 总之只能从这两者之间选择。  BOOM= =，一下子把东打出去的话就太勉强了。 切不得的东西就不要切。 要是再让TOP的亲家继续扩大优势的话就很不妙了。这里心中要有将扣牌进行到底的觉悟。 ------------------------------------------------------------------------------------ 攻守兼备的扣牌 ------------------------------------------------------------------------------------ ",
+        "text": "亲家用两面进行了副露，这个时候摸到了东。 我觉得这张东是绝对应该扣住的。  从亲家副露来看，有可能是混一色、一气、789三色、全带 但是这些可能性很低，从场上的舍牌来看只可能是双东了。  这里切1万，千万不要切东。博形听也好，弃和也好。 总之只能从这两者之间选择。  BOOM= =，一下子把东打出去的话就太勉强了。 切不得的东西就不要切。 要是再让TOP的亲家继续扩大优势的话就很不妙了。这里心中要有将扣牌进行到底的觉悟。 ------------------------------------------------------------------------------------ 攻守兼备的扣牌 ------------------------------------------------------------------------------------ ",
+        "paragraphId": "79-bilibili-cn:cv1775174:p0007",
+        "sourceSegments": [
+          {
+            "text": "亲家用两面进行了副露，这个时候摸到了东。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "我觉得这张东是绝对应该扣住的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "从亲家副露来看，有可能是混一色、一气、789三色、全带",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是这些可能性很低，从场上的舍牌来看只可能是双东了。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这里切1万，千万不要切东。博形听也好，弃和也好。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "总之只能从这两者之间选择。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "BOOM= =，一下子把东打出去的话就太勉强了。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "切不得的东西就不要切。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "要是再让TOP的亲家继续扩大优势的话就很不妙了。这里心中要有将扣牌进行到底的觉悟。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "攻守兼备的扣牌",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775174:b0008"
+        ],
+        "figureId": "79-bilibili-cn:cv1775174:b0008:figure",
+        "paragraphId": "79-bilibili-cn:cv1775174:p0008",
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775174:b0009"
+        ],
+        "sourceText": "要是纯粹的何切问题，这里从牌效率以及摸到4索可以走断幺来考虑 切1饼是绝对的答案。 但是，这样的情况怎么样呢？  ",
+        "text": "要是纯粹的何切问题，这里从牌效率以及摸到4索可以走断幺来考虑 切1饼是绝对的答案。 但是，这样的情况怎么样呢？  ",
+        "paragraphId": "79-bilibili-cn:cv1775174:p0009",
+        "sourceSegments": [
+          {
+            "text": "要是纯粹的何切问题，这里从牌效率以及摸到4索可以走断幺来考虑",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "切1饼是绝对的答案。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是，这样的情况怎么样呢？",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775174:b0010"
+        ],
+        "figureId": "79-bilibili-cn:cv1775174:b0010:figure",
+        "paragraphId": "79-bilibili-cn:cv1775174:p0010",
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775174:b0011"
+        ],
+        "sourceText": "下家的副露听牌与否以及打点多少都还不清楚。 但是切掉1饼的话，不能无视下家会吃得概率。  虽然下家吃自己不会损失点数。 点数是没损失，不过他就距离和牌又进了一步。 自己失去亲家的可能性就变高了。  与其考虑这个能包含宝牌以及断幺的可能性，我觉得先注意一下下家的副露会比较好。  切8索的话，下家应该不会有什么动静。    （待续）",
+        "text": "下家的副露听牌与否以及打点多少都还不清楚。 但是切掉1饼的话，不能无视下家会吃得概率。  虽然下家吃自己不会损失点数。 点数是没损失，不过他就距离和牌又进了一步。 自己失去亲家的可能性就变高了。  与其考虑这个能包含宝牌以及断幺的可能性，我觉得先注意一下下家的副露会比较好。  切8索的话，下家应该不会有什么动静。    （待续）",
+        "paragraphId": "79-bilibili-cn:cv1775174:p0011",
+        "sourceSegments": [
+          {
+            "text": "下家的副露听牌与否以及打点多少都还不清楚。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是切掉1饼的话，不能无视下家会吃得概率。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "虽然下家吃自己不会损失点数。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "点数是没损失，不过他就距离和牌又进了一步。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "自己失去亲家的可能性就变高了。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "与其考虑这个能包含宝牌以及断幺的可能性，我觉得先注意一下下家的副露会比较好。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "切8索的话，下家应该不会有什么动静。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "（待续）",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      }
+    ]
+  },
+  "figures": [
+    {
+      "figureId": "79-bilibili-cn:cv1775174:b0004:figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1775174:b0004"
+      ],
+      "sourceOccurrenceIds": [
+        "79-bilibili-cn:cv1775174:i00001"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:50ef1de9f4197865be702a01",
+          "path": "web-sources/v1/79-bilibili-cn/assets/3822aeb67f8939f0726cd8facb714493b294f6c6d3632fda8f9462ff715a68bc.png",
+          "sha256": "3822aeb67f8939f0726cd8facb714493b294f6c6d3632fda8f9462ff715a68bc",
+          "url": "https://i0.hdslb.com/bfs/article/0a7ba2dae28400cd550aafbfdf2775c892346a3f.png"
+        }
+      ],
+      "kind": "mahjong-example",
+      "transcription": "中央：南3局1本场；立直棒0根；宝牌：3z。座风：本家4z（北），右家1z（东），对家2z（南），左家3z（西）。\n点数标记：上方△17500，右方△4900，下方+16900，左方+5500。\n本家手牌，从左到右：8m 8m 1s 2s 3s 6s 8s 1p 2p 3p 5p 7p 9p。右侧分隔单张：6s。\n他家暗牌：上方13张牌背，左方13张牌背，右方10张牌背。\n右家副露，位于右上角，从上到下：5z（横置）、5z（竖置）、5z（横置）。\n本家牌河，牌面正置，各排从左到右：第一排1z 9s 1m 9s 1p 3z；第二排9m 8m，与第一排前两张对齐。\n对家牌河，牌面倒置180°，各排按屏幕从左到右：下排2s 3z 4z 7z 1z 2z；上排9p 1s 5z 5p 3m，与下排第2至第6张对齐。\n左家牌河，牌面顺时针旋转90°，各列按屏幕从上到下：左列7z 未知A 未知B 7m；右列9p 1s 1m 6z 9s 2p。两列顶端对齐。\n右家牌河，牌面逆时针旋转90°，各列按屏幕从上到下：左列7z 未知C 3p 1p 未知D 8p；右列4z 5p 未知E 2z，与左列第3至第6张对齐。",
+      "unknowns": [
+        "未知A：左家牌河左列自上第2张，可辨为万子，数字不能可靠辨清。",
+        "未知B：左家牌河左列自上第3张，可辨为万子，数字不能可靠辨清。",
+        "未知C：右家牌河左列自上第2张，可辨为万子，数字不能可靠辨清。",
+        "未知D：右家牌河左列自上第5张，可辨为万子，数字不能可靠辨清。",
+        "未知E：右家牌河右列自上第3张，可辨为万子，数字不能可靠辨清。"
+      ],
+      "caption": "南3局1本场，下家染手时的扣牌例。",
+      "sourceNotes": [
+        "附件1与附件2是同一原图及其2倍最近邻放大视图，仅转录一次。",
+        "左上边缘有被裁切的青色字符和短线，作为页面残留记录，不计入牌局内容。",
+        "他家暗牌仅记录可见牌背数量，不推测牌面。"
+      ],
+      "provenance": {
+        "method": "model-transcription",
+        "callId": "b4bb5ee4-0897-445e-b20d-81276de183f8",
+        "outputSourceBlockId": "79-bilibili-cn:cv1775174:b0004"
+      },
+      "presentationAsset": {
+        "path": "web-production/v1/presentations/79-bilibili-cn/cv1775174/47cc3d472973eb38/figure-0001.png",
+        "sha256": "b9396da97e0de4aa3f8ca51bb167bd8506d0ff491f1f0147a6c7dbd32a95b03b",
+        "width": 430,
+        "height": 463,
+        "derivation": {
+          "kind": "single-source-image-rgba-to-png",
+          "alignment": "original-size",
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:50ef1de9f4197865be702a01",
+              "path": "web-sources/v1/79-bilibili-cn/assets/3822aeb67f8939f0726cd8facb714493b294f6c6d3632fda8f9462ff715a68bc.png",
+              "sha256": "3822aeb67f8939f0726cd8facb714493b294f6c6d3632fda8f9462ff715a68bc",
+              "url": "https://i0.hdslb.com/bfs/article/0a7ba2dae28400cd550aafbfdf2775c892346a3f.png"
+            }
+          ],
+          "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+        }
+      }
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1775174:b0006:figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1775174:b0006"
+      ],
+      "sourceOccurrenceIds": [
+        "79-bilibili-cn:cv1775174:i00002"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:82b36eccbe07e84212c980ed",
+          "path": "web-sources/v1/79-bilibili-cn/assets/602151ef209c121f857e21e6084065706c1236edaeb2dfdcf4e2a0e3900fb372.png",
+          "sha256": "602151ef209c121f857e21e6084065706c1236edaeb2dfdcf4e2a0e3900fb372",
+          "url": "https://i0.hdslb.com/bfs/article/4d514c52252879a2e07b204d2b76250266a22642.png"
+        }
+      ],
+      "kind": "mahjong-example",
+      "transcription": "中央：东4局2本场；立直棒0根；宝牌：5m。座风：本家2z（南），右家3z（西），对家4z（北），左家1z（东）。\n点数标记：上方△6600，右方△10800，下方△2600，左方+20000。\n本家手牌，从左到右：1m 1m 3m 3m 4m 7m 8m 8m 2p 3p 4p 8s 9s。右侧分隔单张：1z。\n他家暗牌：上方13张牌背，左方10张牌背，右方13张牌背。\n左家副露，位于左下角，从上到下：9p（竖置）、7p（横置，牌面顺时针旋转90°）、8p（横置，牌面顺时针旋转90°），构成吃牌。\n本家牌河，牌面正置，各排从左到右：第一排6z 5z 3s 3z 6z 8m；第二排9s 5z 8p 2p，与第一排前四张对齐。\n对家牌河，牌面倒置180°，各排按屏幕从左到右：下排2z 7z 6s 5z 4z 3z；上排9p（灰显）8p 2s 6m，与下排第3至第6张对齐。\n左家牌河，牌面顺时针旋转90°，各列按屏幕从上到下：左列7z 1p 5p 1m 6s；右列1s 3z 2z 5z 8s 9s。两列顶端对齐。\n右家牌河，牌面逆时针旋转90°，各列按屏幕从上到下：左列7z 4z 5z 1s 1s 9s；右列9p 2p 1p 9p，与左列第3至第6张对齐。",
+      "unknowns": [],
+      "caption": "东4局2本场，面对亲家的副露，本家摸入1z的扣牌例。",
+      "sourceNotes": [
+        "附件3与附件4是同一原图及其2倍最近邻放大视图，仅转录一次。",
+        "对家牌河上排左端的9p呈灰色，保留其灰显状态，不推断标记含义。",
+        "他家暗牌仅记录可见牌背数量，不推测牌面。"
+      ],
+      "provenance": {
+        "method": "model-transcription",
+        "callId": "b4bb5ee4-0897-445e-b20d-81276de183f8",
+        "outputSourceBlockId": "79-bilibili-cn:cv1775174:b0006"
+      },
+      "presentationAsset": {
+        "path": "web-production/v1/presentations/79-bilibili-cn/cv1775174/47cc3d472973eb38/figure-0002.png",
+        "sha256": "51b408d414a7d18469f5c14cef7b1e0a574cae4004f96eac4ed823b65df66d47",
+        "width": 430,
+        "height": 463,
+        "derivation": {
+          "kind": "single-source-image-rgba-to-png",
+          "alignment": "original-size",
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:82b36eccbe07e84212c980ed",
+              "path": "web-sources/v1/79-bilibili-cn/assets/602151ef209c121f857e21e6084065706c1236edaeb2dfdcf4e2a0e3900fb372.png",
+              "sha256": "602151ef209c121f857e21e6084065706c1236edaeb2dfdcf4e2a0e3900fb372",
+              "url": "https://i0.hdslb.com/bfs/article/4d514c52252879a2e07b204d2b76250266a22642.png"
+            }
+          ],
+          "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+        }
+      }
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1775174:b0008:figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1775174:b0008"
+      ],
+      "sourceOccurrenceIds": [
+        "79-bilibili-cn:cv1775174:i00003"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:0d903e3a085a876d69501617",
+          "path": "web-sources/v1/79-bilibili-cn/assets/89c7799a71908d60efa6409259487250ccaca637105e8fa67770a9e38554586c.png",
+          "sha256": "89c7799a71908d60efa6409259487250ccaca637105e8fa67770a9e38554586c",
+          "url": "https://i0.hdslb.com/bfs/article/84130b41b909f193a97483180f5b77e696818151.png"
+        }
+      ],
+      "kind": "mahjong-example",
+      "transcription": "手牌从左到右：4m 7m 7m 8m 1p 1p 6p 7p 1s 2s 3s 8s 8s。\n手牌右侧为“摸入”标签；标签右侧的分隔单张为3m。全部牌面正置。",
+      "unknowns": [],
+      "caption": "十三张手牌及右侧摸入的3m。",
+      "sourceNotes": [
+        "附件5与附件6是同一原图及其4倍最近邻放大视图，仅转录一次。",
+        "6p、7p中的红色圆点属于普通牌面花纹。"
+      ],
+      "provenance": {
+        "method": "model-transcription",
+        "callId": "b4bb5ee4-0897-445e-b20d-81276de183f8",
+        "outputSourceBlockId": "79-bilibili-cn:cv1775174:b0008"
+      },
+      "presentationAsset": {
+        "path": "web-production/v1/presentations/79-bilibili-cn/cv1775174/47cc3d472973eb38/figure-0003.png",
+        "sha256": "0bb348f0d246bcb128b7d01b0fd787b038cb495113566d857f9acd786900fcce",
+        "width": 408,
+        "height": 63,
+        "derivation": {
+          "kind": "single-source-image-rgba-to-png",
+          "alignment": "original-size",
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:0d903e3a085a876d69501617",
+              "path": "web-sources/v1/79-bilibili-cn/assets/89c7799a71908d60efa6409259487250ccaca637105e8fa67770a9e38554586c.png",
+              "sha256": "89c7799a71908d60efa6409259487250ccaca637105e8fa67770a9e38554586c",
+              "url": "https://i0.hdslb.com/bfs/article/84130b41b909f193a97483180f5b77e696818151.png"
+            }
+          ],
+          "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+        }
+      }
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1775174:b0010:figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1775174:b0010"
+      ],
+      "sourceOccurrenceIds": [
+        "79-bilibili-cn:cv1775174:i00004"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:7b481c10ceaa53ecd2715ce4",
+          "path": "web-sources/v1/79-bilibili-cn/assets/300b62d7f7b5acfba425e42db69e63a5dc8c0cf60af47e7519e8730f041886c8.png",
+          "sha256": "300b62d7f7b5acfba425e42db69e63a5dc8c0cf60af47e7519e8730f041886c8",
+          "url": "https://i0.hdslb.com/bfs/article/393bf90df137972809a07ba96cc31e8a9a32772f.png"
+        }
+      ],
+      "kind": "mahjong-example",
+      "transcription": "中央：南1局0本场；立直棒0根；宝牌：4m。座风：本家1z（东），右家2z（南），对家3z（西），左家4z（北）。\n本家手牌，从左到右：4m 7m 7m 8m 1p 1p 6p 7p 1s 2s 3s 8s 8s。右侧分隔单张：3m。\n他家暗牌：上方13张牌背，左方13张牌背，右方10张牌背。\n右家副露，位于右上角，从上到下：5z（竖置）、5z（横置）、5z（横置）。\n本家牌河，牌面正置，各排从左到右：第一排4z 1m 1z 9p 5z 2z；第二排1s 9s，与第一排前两张对齐。\n对家牌河，牌面倒置180°，各排按屏幕从左到右：下排9m 3z 5z（灰显）9p 2z 4z；上排3s 6z 3m，与下排第4至第6张对齐。\n左家牌河，牌面顺时针旋转90°，各列按屏幕从上到下：左列5p 8p 8s；右列1z 1m 9s 6z 1s 1p。两列顶端对齐。\n右家牌河，牌面逆时针旋转90°，各列按屏幕从上到下：左列5p 1z 8s 2s 9p 1m；右列未知A 3z 6s，与左列第4至第6张对齐。",
+      "unknowns": [
+        "未知A：右家牌河右列最上方一张，即与左列第4张对齐的万子，其数字不能可靠辨清。"
+      ],
+      "caption": "南1局0本场，将同一手牌放入下家已副露的牌局中考察扣牌。",
+      "sourceNotes": [
+        "附件7与附件8是同一原图及其2倍最近邻放大视图，仅转录一次。",
+        "对家牌河下排第3张为空白牌面并呈灰色，按5z灰显记录，不推断标记含义。",
+        "他家暗牌仅记录可见牌背数量，不推测牌面。"
+      ],
+      "provenance": {
+        "method": "model-transcription",
+        "callId": "b4bb5ee4-0897-445e-b20d-81276de183f8",
+        "outputSourceBlockId": "79-bilibili-cn:cv1775174:b0010"
+      },
+      "presentationAsset": {
+        "path": "web-production/v1/presentations/79-bilibili-cn/cv1775174/47cc3d472973eb38/figure-0004.png",
+        "sha256": "8fcac9e4c2612fe53e1cb9b1d3744a9639b49870cc47638eab40a5a25ac4d4ad",
+        "width": 433,
+        "height": 462,
+        "derivation": {
+          "kind": "single-source-image-rgba-to-png",
+          "alignment": "original-size",
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:7b481c10ceaa53ecd2715ce4",
+              "path": "web-sources/v1/79-bilibili-cn/assets/300b62d7f7b5acfba425e42db69e63a5dc8c0cf60af47e7519e8730f041886c8.png",
+              "sha256": "300b62d7f7b5acfba425e42db69e63a5dc8c0cf60af47e7519e8730f041886c8",
+              "url": "https://i0.hdslb.com/bfs/article/393bf90df137972809a07ba96cc31e8a9a32772f.png"
+            }
+          ],
+          "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+        }
+      }
+    }
+  ],
+  "provenance": {
+    "sourceVersion": "web-sources/v1",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "artifactRoot": "web-production/v1",
+    "attempts": [
+      {
+        "callId": "b4bb5ee4-0897-445e-b20d-81276de183f8",
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1775174",
+        "sourceSha256": "9c8ac96ad4a283248195ea4f6c6da89c86e335fde3e9571aa434e95fd27bd521",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "timeoutMs": 900000,
+        "startedAt": "2026-10-25T18:14:23.457Z",
+        "durationMs": 680182,
+        "usage": {
+          "inputTokens": 19298,
+          "cachedInputTokens": 0,
+          "outputTokens": 20403
+        },
+        "success": true,
+        "failureClass": null,
+        "transportStatus": "completed",
+        "rawArtifactPath": "raw-calls/b4bb5ee4-0897-445e-b20d-81276de183f8.json",
+        "rawArtifactSha256": "1cac3ed87622537afe5489acd152622393938826a9cca5cc38eb4b1ba73fad94",
+        "outputSha256": "618581095ba7124a4cd450c2536555d9e6673a892c37177ea13e1d3e5734e782",
+        "schemaSha256": "14843cba9c762a4b07493e8db9f4959fb45b9b0f3933efb1c1f2d7e9a6e6be44",
+        "promptSha256": "fb0337f0520fdf1fbf65ab7f574c495fdec04ba43ddaf441d2b30680da061104",
+        "semanticPromptSha256": "0b999d972cd2e3074699287e7be681b5ee8110d30d8c4e1a6e2ff37780b27e42",
+        "cliSnapshot": {
+          "path": "web-production/v1/runners/3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1.cli.mjs",
+          "sha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+        },
+        "targets": {
+          "textIds": [],
+          "figureIds": [
+            "79-bilibili-cn:cv1775174:b0004",
+            "79-bilibili-cn:cv1775174:b0006",
+            "79-bilibili-cn:cv1775174:b0008",
+            "79-bilibili-cn:cv1775174:b0010"
+          ]
+        },
+        "terminalEvents": [],
+        "visualInputs": [
+          {
+            "assetId": "79-bilibili-cn:50ef1de9f4197865be702a01",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/3822aeb67f8939f0726cd8facb714493b294f6c6d3632fda8f9462ff715a68bc.png",
+            "sourceSha256": "3822aeb67f8939f0726cd8facb714493b294f6c6d3632fda8f9462ff715a68bc",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-sources/v1/79-bilibili-cn/assets/3822aeb67f8939f0726cd8facb714493b294f6c6d3632fda8f9462ff715a68bc.png",
+            "sha256": "3822aeb67f8939f0726cd8facb714493b294f6c6d3632fda8f9462ff715a68bc",
+            "role": "original",
+            "scale": 1,
+            "resampling": "none",
+            "width": 430,
+            "height": 463
+          },
+          {
+            "assetId": "79-bilibili-cn:50ef1de9f4197865be702a01",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/3822aeb67f8939f0726cd8facb714493b294f6c6d3632fda8f9462ff715a68bc.png",
+            "sourceSha256": "3822aeb67f8939f0726cd8facb714493b294f6c6d3632fda8f9462ff715a68bc",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/3822aeb67f8939f0726cd8facb714493b294f6c6d3632fda8f9462ff715a68bc.x2.png",
+            "sha256": "ef15cff8249a3a20575e25f8d02f6b8730262f1df8ef22767bdb4dacfd6b056f",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 2,
+            "resampling": "nearest",
+            "width": 860,
+            "height": 926
+          },
+          {
+            "assetId": "79-bilibili-cn:82b36eccbe07e84212c980ed",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/602151ef209c121f857e21e6084065706c1236edaeb2dfdcf4e2a0e3900fb372.png",
+            "sourceSha256": "602151ef209c121f857e21e6084065706c1236edaeb2dfdcf4e2a0e3900fb372",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-sources/v1/79-bilibili-cn/assets/602151ef209c121f857e21e6084065706c1236edaeb2dfdcf4e2a0e3900fb372.png",
+            "sha256": "602151ef209c121f857e21e6084065706c1236edaeb2dfdcf4e2a0e3900fb372",
+            "role": "original",
+            "scale": 1,
+            "resampling": "none",
+            "width": 430,
+            "height": 463
+          },
+          {
+            "assetId": "79-bilibili-cn:82b36eccbe07e84212c980ed",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/602151ef209c121f857e21e6084065706c1236edaeb2dfdcf4e2a0e3900fb372.png",
+            "sourceSha256": "602151ef209c121f857e21e6084065706c1236edaeb2dfdcf4e2a0e3900fb372",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/602151ef209c121f857e21e6084065706c1236edaeb2dfdcf4e2a0e3900fb372.x2.png",
+            "sha256": "aa44357531cdac1ba826d508bea70a692cda074027963f405819123ffaf34c82",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 2,
+            "resampling": "nearest",
+            "width": 860,
+            "height": 926
+          },
+          {
+            "assetId": "79-bilibili-cn:0d903e3a085a876d69501617",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/89c7799a71908d60efa6409259487250ccaca637105e8fa67770a9e38554586c.png",
+            "sourceSha256": "89c7799a71908d60efa6409259487250ccaca637105e8fa67770a9e38554586c",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-sources/v1/79-bilibili-cn/assets/89c7799a71908d60efa6409259487250ccaca637105e8fa67770a9e38554586c.png",
+            "sha256": "89c7799a71908d60efa6409259487250ccaca637105e8fa67770a9e38554586c",
+            "role": "original",
+            "scale": 1,
+            "resampling": "none",
+            "width": 408,
+            "height": 63
+          },
+          {
+            "assetId": "79-bilibili-cn:0d903e3a085a876d69501617",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/89c7799a71908d60efa6409259487250ccaca637105e8fa67770a9e38554586c.png",
+            "sourceSha256": "89c7799a71908d60efa6409259487250ccaca637105e8fa67770a9e38554586c",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/89c7799a71908d60efa6409259487250ccaca637105e8fa67770a9e38554586c.x4.png",
+            "sha256": "0297a1789e93f6e93726b156f01e06fc384f9564fcc769682798f0b9bbc0ac80",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 1632,
+            "height": 252
+          },
+          {
+            "assetId": "79-bilibili-cn:7b481c10ceaa53ecd2715ce4",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/300b62d7f7b5acfba425e42db69e63a5dc8c0cf60af47e7519e8730f041886c8.png",
+            "sourceSha256": "300b62d7f7b5acfba425e42db69e63a5dc8c0cf60af47e7519e8730f041886c8",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-sources/v1/79-bilibili-cn/assets/300b62d7f7b5acfba425e42db69e63a5dc8c0cf60af47e7519e8730f041886c8.png",
+            "sha256": "300b62d7f7b5acfba425e42db69e63a5dc8c0cf60af47e7519e8730f041886c8",
+            "role": "original",
+            "scale": 1,
+            "resampling": "none",
+            "width": 433,
+            "height": 462
+          },
+          {
+            "assetId": "79-bilibili-cn:7b481c10ceaa53ecd2715ce4",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/300b62d7f7b5acfba425e42db69e63a5dc8c0cf60af47e7519e8730f041886c8.png",
+            "sourceSha256": "300b62d7f7b5acfba425e42db69e63a5dc8c0cf60af47e7519e8730f041886c8",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/300b62d7f7b5acfba425e42db69e63a5dc8c0cf60af47e7519e8730f041886c8.x2.png",
+            "sha256": "3fccf2a0bd85e2fc0b6ba1688a2d6271fbe210e42624fd4e8e97cbd5fb59dc83",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 2,
+            "resampling": "nearest",
+            "width": 866,
+            "height": 924
+          }
+        ]
+      }
+    ],
+    "usage": {
+      "inputTokens": 19298,
+      "cachedInputTokens": 0,
+      "outputTokens": 20403
+    },
+    "modelCalls": 1,
+    "reuseMap": {
+      "path": "web-production/v1/reuse-maps/539b064c9ba498c5342a60c4b594d5ba3a5613a005b70f4646ddc3de17728eb0.json",
+      "sha256": "539b064c9ba498c5342a60c4b594d5ba3a5613a005b70f4646ddc3de17728eb0"
+    },
+    "runnerSha256": "f31c255e0654af7c88f240067b886cc92f6de5aa9242eeca12292b52eee3945c",
+    "extractorSha256": "a871cf3765d340535ba6c8401a6d58d1c5391d4c1da6ad53e0ac96be2da7cbea",
+    "attribution": "Original author, translator and reposter references remain in the bound source HTML; existing Chinese source body is verbatim.",
+    "derivedFromCandidate": {
+      "path": "web-production/v1/candidates/79-bilibili-cn/cv1775174.json",
+      "sha256": "47cc3d472973eb3879c2a8f7f0c45f748d7771fc293ef160bf2e830e14c2dfa8",
+      "reason": "Lossless display images only; translations and source figure sequences unchanged"
+    },
+    "presentationRendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+  },
+  "candidateSha256": "b10f4c817bb13f019f3a4518376bba9b38978893420c972449c679dd4da6d643"
+}

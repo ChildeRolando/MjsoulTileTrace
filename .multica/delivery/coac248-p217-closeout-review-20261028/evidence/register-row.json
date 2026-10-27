@@ -1,0 +1,100 @@
+{
+  "chapterId": "79-cn-chapter-217-4",
+  "originalChapterId": "79-cn-chapter-217-4",
+  "sourceId": "79-cn",
+  "title": "防守12—扣牌（2）",
+  "units": 1,
+  "ownedSourceBlocks": 22,
+  "adjudicationGroup": "additional-uncovered-not-in-246",
+  "covered": false,
+  "coverageRoute": null,
+  "approvedWebCorrespondence": {
+    "articleId": "cv1775174",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+  },
+  "existingCandidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1775174.display.json",
+    "sha256": "4e9e896794fce70fbcbfed0b223c6cfd2e7c643c7713556e5d096ab7a7df8de0",
+    "bodyBlocks": 11,
+    "sourceSha256": "9c8ac96ad4a283248195ea4f6c6da89c86e335fde3e9571aa434e95fd27bd521",
+    "currentSourceSha256": "9c8ac96ad4a283248195ea4f6c6da89c86e335fde3e9571aa434e95fd27bd521",
+    "sourceBoundCurrent": true,
+    "auditStatus": "needs-repair",
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1775174.4e9e896794fce70fbcbfed0b223c6cfd2e7c643c7713556e5d096ab7a7df8de0.json",
+    "auditRecordedAt": "2026-10-25T19:26:26.318Z",
+    "deterministicPassed": true,
+    "semanticComplete": false
+  },
+  "pdfRoute": {
+    "pagesTotal": 4,
+    "pagesWithCandidate": 1,
+    "pagesWithPassedCandidate": 0,
+    "missingPassedPages": [
+      217,
+      218,
+      219,
+      220
+    ],
+    "pagesDetail": [
+      {
+        "page": 217,
+        "candidates": 6,
+        "receiptStatus": "needs-repair",
+        "sourceBound": true,
+        "selected": false,
+        "blocks": 8
+      },
+      {
+        "page": 218,
+        "candidates": 0,
+        "receiptStatus": null,
+        "sourceBound": null,
+        "selected": false,
+        "blocks": 5
+      },
+      {
+        "page": 219,
+        "candidates": 0,
+        "receiptStatus": null,
+        "sourceBound": null,
+        "selected": false,
+        "blocks": 9
+      },
+      {
+        "page": 220,
+        "candidates": 0,
+        "receiptStatus": null,
+        "sourceBound": null,
+        "selected": false,
+        "blocks": 10
+      }
+    ]
+  },
+  "gaps": {
+    "ownedSourceBlocks": 22,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 22,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 22,
+    "acceptanceGapPages": [
+      217,
+      218,
+      219,
+      220
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+      217,
+      218,
+      219,
+      220
+    ]
+  },
+  "verdict": "produced-needs-repair",
+  "coac246": null
+}

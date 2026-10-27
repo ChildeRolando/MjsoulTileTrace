@@ -1,0 +1,166 @@
+{
+  "schema": "coac249-p217-second-handoff/1",
+  "recordedAt": "2026-10-27T19:34:33.976889+00:00",
+  "from": "COAC-249",
+  "to": "COAC-248",
+  "authorizationComment": "01a17ed7-df74-7226-a7d3-666b71f2642b",
+  "packetCommit": "8ea8e86efa6c1b3c778b7cbf3efca1da372352fb",
+  "target": {
+    "chapterId": "79-cn-chapter-217-4",
+    "targetId": "79-cn-p217-r1",
+    "bbox": [
+      174,
+      325,
+      196,
+      357
+    ],
+    "sourceImageSha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+    "sourceFileSha256": "f8de2eddd4ba2939ae40796ffd8d1d1f971d49474dede72d108e61809ef1d6f8",
+    "packetSha256": "cf83ea2fd2c2e1ba96013b50c05859b7e1350ba7e4fdea524d6e592aac9d4b37",
+    "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\candidates\\79-cn\\page-0217.json",
+    "candidateSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777"
+  },
+  "pointReceipt": {
+    "schema": "coac249-p217-second-independent-point/1",
+    "recordedAt": "2026-10-27T19:33:42.954Z",
+    "callId": "20ba52ad-a36c-4edb-b7aa-ae8ff9b89ec6",
+    "target": {
+      "chapterId": "79-cn-chapter-217-4",
+      "targetId": "79-cn-p217-r1",
+      "bbox": [
+        174,
+        325,
+        196,
+        357
+      ],
+      "sourceImageSha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+      "sourceFileSha256": "f8de2eddd4ba2939ae40796ffd8d1d1f971d49474dede72d108e61809ef1d6f8",
+      "packetSha256": "cf83ea2fd2c2e1ba96013b50c05859b7e1350ba7e4fdea524d6e592aac9d4b37",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\candidates\\79-cn\\page-0217.json",
+      "candidateSha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777"
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-p217-second-20261028\\raw.json",
+      "sha256": "c052de0b93273a683f70e8746fe53b03eb805e6f4ce06ef36aef7aeea6b1e29d"
+    },
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "recordedModel": true,
+    "payloadOK": true,
+    "identityOK": true,
+    "valid": true,
+    "classification": "readable",
+    "result": {
+      "chapterId": "79-cn-chapter-217-4",
+      "targetId": "79-cn-p217-r1",
+      "targetBBox": [
+        174,
+        325,
+        196,
+        357
+      ],
+      "outcome": "readable",
+      "tileCode": "9m",
+      "locationCheck": "原图和上下文显示，目标位于下方北家舍牌第二行第二列，与第一行第二列对齐，右侧第三格为空。目标裁剪及其放大图与该位置一致。",
+      "visualEvidence": [
+        "牌面上部黑字可辨出向左下的撇，以及右侧折下后向右弯钩的笔画，构成“九”。",
+        "牌面下部为红色“萬”，合起来是九万。"
+      ],
+      "uncertainty": "原图分辨率较低，字形边缘有像素化，但可辨认的笔画足以支持该牌码。",
+      "teachingImpact": "此坐标的牌可确定为九万；相邻文字仅用于理解教学背景，未用于推断牌码。单凭此牌不能判断整段教学内容是否正确。",
+      "scopeLimit": "只裁决指定的第二行第二张牌，不改变其他牌、候选或整页状态。"
+    },
+    "usage": {
+      "inputTokens": 12207,
+      "cachedInputTokens": 0,
+      "outputTokens": 1343
+    },
+    "durationMs": 41460,
+    "threadIds": [
+      "01a17eda-0c06-7b82-a8b6-640e918029fe"
+    ],
+    "manifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+    "remoteGatewayWeights": "unknown",
+    "newCalls": 1,
+    "retry": 0,
+    "productionCalls": 0,
+    "candidateChanged": false,
+    "pageOrChapterPassed": false
+  },
+  "comparison": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\candidates\\79-cn\\page-0217.json",
+    "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+    "field": "/figures/0/transcription",
+    "existingNorthDiscardLine": "北家舍牌，按其自身视角逐行从左至右：第一行1z 9s 1m 9s 1p 3z；第二行5m 9m。",
+    "existingTargetCode": "9m",
+    "newIndependentCode": "9m",
+    "newReadingMatchesCandidate": true,
+    "candidateChanged": false,
+    "historicDisagreementPreserved": true,
+    "historicEvidenceUsedAsModelAnswer": false
+  },
+  "positionProof": {
+    "bbox": [
+      143,
+      292,
+      240,
+      362
+    ],
+    "exactCrop": true,
+    "nearest4xExact": true,
+    "row2FirstSlot": [
+      151,
+      325,
+      174,
+      357
+    ],
+    "row2TargetSecondSlot": [
+      174,
+      325,
+      196,
+      357
+    ],
+    "row2ThirdSlot": [
+      196,
+      325,
+      218,
+      357
+    ],
+    "thirdSlotInteriorIsSourceGreen": true,
+    "generatedDetails": false
+  },
+  "sourceOwnership": "79-cn-p217-b8 belongs to79-cn-chapter-217-4; same page b1/b3 belong to215-4. No acceptance effect on215.",
+  "previousFirstTileResult": {
+    "callId": "09362d05-d221-427e-b474-a79017ff7619",
+    "bbox": [
+      150,
+      325,
+      175,
+      357
+    ],
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\point-adjudications\\coac249-222-p217-20261028\\image-p217-north-second-row.raw.json",
+      "sha256": "cc7f332d563cfc25106e77b06a097ddcb797450e8c4dbac69110901a8b51e516"
+    },
+    "outcome": "unreadable",
+    "tileCode": "unknown",
+    "unchanged": true,
+    "notAnswerToCurrentTarget": true
+  },
+  "limitedHandling": "The new correct-coordinate independent reading is 9m and matches rev5 second tile. Retain this coordinate-bound evidence without changing raw/candidate or overwriting historic 8m audits. Do not apply first-tile unknown to this second tile or use majority votes to overturn the new reading. Record the disagreement, source resolution limits, and remaining exact unknowns in the existing repair list. No new production/full-page review or acceptance promotion is authorized by this handoff.",
+  "remainingLimits": [
+    "First/left tile unknown from previous independent call remains.",
+    "Existing west-discard unknown remains.",
+    "This point result does not verify the rest of the figure, PDF page, web b0004/b0010 or full chapter.",
+    "Model reports low source resolution/pixelated edges but visible strokes sufficient for9m; remote gateway weights remain unknown."
+  ],
+  "newCalls": 1,
+  "retry": 0,
+  "failedVoid": 0,
+  "productionCalls": 0,
+  "fullPageOrChapterAudits": 0,
+  "additionalBudget": 0,
+  "candidateChanged": false,
+  "pageOrChapterPassed": false,
+  "runtimeManifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6"
+}
