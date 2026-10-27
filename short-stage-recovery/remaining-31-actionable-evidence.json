@@ -1,0 +1,2655 @@
+{
+  "basis": {
+    "preview": {
+      "path": "integration/accepted-preview-current.json",
+      "sha256": "4ac01424f64328f350c27d25318e5a119eaba8855088e7875fae3ead37ec6b05",
+      "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T15-36-30-338Z",
+      "chapters": 225
+    },
+    "register": {
+      "path": "integration/coac250-unified-chapter-register-20261027b.json",
+      "sha256": "c56b485486bfe861d42d977a451ef7f40c0f35a6cde9a589b99d1240870d68a9"
+    },
+    "prior": {
+      "path": "parallel/next-batch-20261027T1135/classification-remaining-38.json",
+      "sha256": "86ac534811e3774c10d0fcedfc7c06fafa65cca83d741c1e3a4c56fbc856d494"
+    }
+  },
+  "coverageRecomputed": false,
+  "modelCalls": 0,
+  "rows": [
+    {
+      "chapterId": "79-cn-chapter-109-4",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1729038.display.json",
+        "sha256": "ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1729038/source.json",
+        "sha256": "b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_notes_scope",
+        "figureTargets": [
+          "79-bilibili-cn:cv1729038:b0004:figure",
+          "79-bilibili-cn:cv1729038:b0006:figure"
+        ],
+        "textTargets": []
+      },
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1729038.ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22.retry-1792943789870-ade1138e.json",
+      "auditFileSha256": "254405ec0e5e50e057a662509f8ac087e4d1ed84c0e60b40e185182585130eda",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1729038:b0004:figure",
+          "sourceEvidence": "附图1、8手牌前三张为5m 6m 6m。",
+          "description": "候选写成6m 6m 6m，将含5万的搭子结构改成6万刻子，影响切牌教学含义。",
+          "suggestedRepair": "仅将手牌首张改为5m，保留后续顺序及副露记录。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1729038:b0006:figure",
+          "sourceEvidence": "附图2、9手牌前两张为5m 6m，右侧摸入2s。",
+          "description": "候选写成6m 6m，遗漏保留下来的5万，与前图切一张6万后的牌形不符。",
+          "suggestedRepair": "将手牌首张改为5m，其余牌及摸入2s保持原顺序。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1729038:b0012:figure",
+          "sourceEvidence": "候选将上方弃牌区第4张、左方弃牌区第1张及右方弃牌区第6张分别记为点数不清的万子、点数不清的万子及字样不清的字牌。",
+          "description": "三处均属于实际弃牌，具有教学语义；当前无法可靠确认其具体牌码，不能作为完整逐牌转录通过。",
+          "suggestedRepair": "保留原图及明确未知说明；在能够可靠辨认前维持阻断，不猜补牌码，也不将这些弃牌视为装饰。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "中文正文、原文地址、署名、条件、判断及数字均完整保留；但例1两幅图首张5m误录为6m，例3三张弃牌未确定，图片教学语义尚未完整可靠呈现。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:79-bilibili-cn:cv1729038:b0004",
+          "needs-repair:79-bilibili-cn:cv1729038:b0006",
+          "uncertain:79-bilibili-cn:cv1729038:b0012",
+          "needs-repair:79-bilibili-cn:cv1729038:b0004:figure",
+          "needs-repair:79-bilibili-cn:cv1729038:b0006:figure",
+          "uncertain:79-bilibili-cn:cv1729038:b0012:figure",
+          "uncertain:79-bilibili-cn:cv1729038:i00005",
+          "semantic_information_missing",
+          "error:79-bilibili-cn:cv1729038:b0004:figure",
+          "error:79-bilibili-cn:cv1729038:b0006:figure",
+          "uncertain:79-bilibili-cn:cv1729038:b0012:figure"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc",
+        "rawHtmlSha256": "a39fbaf212223a20fd3fcdedaeb7e5497dcd45fabe4e20e2662757b7b652b07e",
+        "mainSha256": "f2df6b16ee5de30d4c7f7e85edcd575b02052fcadeb445ce75098f772dd64517",
+        "textBlocks": 10,
+        "imageRuns": 7,
+        "imageOccurrences": 7,
+        "uniqueAssets": 7,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-155-4",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1751265.display.json",
+        "sha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1751265/source.json",
+        "sha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_changed_body_or_scope",
+        "figureTargets": [],
+        "textTargets": [
+          "79-bilibili-cn:cv1751265:b0008"
+        ]
+      },
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1751265.20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f.retry-1792948405214-96b97389.json",
+      "auditFileSha256": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1751265:b0008",
+          "sourceEvidence": "原文包含粗体“大丈夫だ，問題ない！”，候选正文仍保留该日文。",
+          "description": "日文引语未译成中文。",
+          "suggestedRepair": "将该引语译为“没关系，没问题！”，保留原有粗体强调，其余中文原文保持不变。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "candidate.figures[*].sourceNotes",
+          "sourceEvidence": "实际附件1至10为依次对应的原图，附件11至20为各自放大图；候选各figure的sourceNotes却按1/2、3/4直至19/20配对。",
+          "description": "10处加工附件编号说明均配对错误。实际牌码、方向、例号及教学标签已完整正确转录，此问题仅涉及加工说明。",
+          "suggestedRepair": "按figure出现顺序，将原图/放大图附件配对依次更正为1/11、2/12、3/13、4/14、5/15、6/16、7/17、8/18、9/19、10/20。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "全部中文原文、署名、原文地址、强调及10次牌图的教学内容均已覆盖；但b0008中的“大丈夫だ，問題ない！”尚未译成中文，未满足日文完整翻译要求。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:79-bilibili-cn:cv1751265:b0008",
+          "semantic_information_missing",
+          "error:79-bilibili-cn:cv1751265:b0008"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+        "rawHtmlSha256": "ef0dc51abc217194d4cb6b6a0e23dd32bb85e2744a44ab5579c14f34bf4abe62",
+        "mainSha256": "c4ce07df0adeda4498441edc5bad9782940a10607590bb0aee709f49e4118649",
+        "textBlocks": 22,
+        "imageRuns": 10,
+        "imageOccurrences": 10,
+        "uniqueAssets": 10,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-157-11",
+      "category": "B-owned-excluded",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1751276.display.json",
+        "sha256": "30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1751276/source.json",
+        "sha256": "797e9393790395bf88d680cfda77c27a406744455d487aad334110d2b5712ccc",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": null,
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1751276.30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de.retry-1792948857228-d69c915c.json",
+      "auditFileSha256": "59fb75343e72036d123cbd546d50ffc462f20800e340f9015af769e0de6f4f15",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1751276:b0005:figure",
+          "sourceEvidence": "附图1、8：图1手牌第8张有两列、每列三根索子，为6s。",
+          "description": "手牌第8张6s被误录为4s。",
+          "suggestedRepair": "将该处4s改为6s，保留其余牌序及图1标签。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1751276:b0007:figure",
+          "sourceEvidence": "附图2、9：图2暗手第7张为6s。",
+          "description": "暗手第7张6s被误录为4s。",
+          "suggestedRepair": "将该处4s改为6s，保留碰中副露及最右横置方向。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1751276:b0009:figure",
+          "sourceEvidence": "附图3、10：图3暗手第5张为6s。",
+          "description": "暗手第5张6s被误录为4s。",
+          "suggestedRepair": "将该处4s改为6s，保留其余暗手及6p横置、5p、7p的副露顺序。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1751276:b0011:figure",
+          "sourceEvidence": "附图4、11：手牌第8张与右侧宝牌均为6s；手中另有赤5p。",
+          "description": "手中的宝牌6s被误录为4s，改变宝牌数量及3900点例子的牌形依据。",
+          "suggestedRepair": "将手牌中的4s改为6s；保留赤5p及右侧宝牌6s。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1751276:b0013:figure",
+          "sourceEvidence": "附图5、12：图4在两张2s之后、三张8s之前的一张牌为6s。",
+          "description": "图4手牌第8张6s被误录为4s，改变可鸣牌的搭子结构。",
+          "suggestedRepair": "将该处4s改为6s，保留其余牌序、图4标签及宝牌8s。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "正文及图例标签完整，但附图1—5及其放大图可见的6索，在对应五个figure的手牌转录中均误写为4索，改变教学牌形，须修复后通过。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:79-bilibili-cn:cv1751276:b0005",
+          "needs-repair:79-bilibili-cn:cv1751276:b0007",
+          "needs-repair:79-bilibili-cn:cv1751276:b0009",
+          "needs-repair:79-bilibili-cn:cv1751276:b0011",
+          "needs-repair:79-bilibili-cn:cv1751276:b0013",
+          "needs-repair:79-bilibili-cn:cv1751276:b0005:figure",
+          "needs-repair:79-bilibili-cn:cv1751276:b0007:figure",
+          "needs-repair:79-bilibili-cn:cv1751276:b0009:figure",
+          "needs-repair:79-bilibili-cn:cv1751276:b0011:figure",
+          "needs-repair:79-bilibili-cn:cv1751276:b0013:figure",
+          "semantic_information_missing",
+          "error:79-bilibili-cn:cv1751276:b0005:figure",
+          "error:79-bilibili-cn:cv1751276:b0007:figure",
+          "error:79-bilibili-cn:cv1751276:b0009:figure",
+          "error:79-bilibili-cn:cv1751276:b0011:figure",
+          "error:79-bilibili-cn:cv1751276:b0013:figure"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "797e9393790395bf88d680cfda77c27a406744455d487aad334110d2b5712ccc",
+        "rawHtmlSha256": "5a60a85e4fcf7d9b07c81dab83485c20dc1c0351f5cb25920169bba73d575506",
+        "mainSha256": "b0f37ac1c578b2d259cae4fe7634f5a77f689d79907f0d5f07787d3ebb082ee4",
+        "textBlocks": 11,
+        "imageRuns": 7,
+        "imageOccurrences": 7,
+        "uniqueAssets": 7,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-159-9",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1751292.display.json",
+        "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1751292/source.json",
+        "sha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "parent-audit-declares-no-error-target"
+      },
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json",
+      "auditFileSha256": "16eb1144b0cef9c86968ee30932ec0d10f73bca926ad0cf7610788fccb8eb3ed",
+      "issues": [
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1751292:b0013:figure",
+          "sourceEvidence": "附图5、10中，上方牌河从左到右第4张为朝向上方玩家的万子牌；候选transcription及unknowns均注明其数字无法可靠确认。",
+          "description": "该未知涉及牌河中的实际牌码，不能视为非教学边缘残痕。当前无法完成该图逐牌校对，须阻断语义完整性通过。",
+          "suggestedRepair": "核清该万子牌点数后补入transcription，并同步更新unknowns；无法可靠确认时保留未知和阻断状态，不猜补牌码。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "全部中文正文、署名、原文地址、数字、判断力度和例外均保留；前四图完整，例4的日文场况标签已译成中文。但例4上方牌河第4张万子牌的点数尚未确认，存在影响牌码完整性的明确未知项。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "uncertain:79-bilibili-cn:cv1751292:b0013",
+          "uncertain:79-bilibili-cn:cv1751292:b0013:figure",
+          "semantic_information_missing",
+          "uncertain:79-bilibili-cn:cv1751292:b0013:figure"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+        "rawHtmlSha256": "b398297f7357dc4a119957090cb39e469edeb6a2afa2f59afdfa9cb4a1724086",
+        "mainSha256": "afeb22c9ae16cdd0e6ec64ee6127731de248f8bb8bae3d21fc9d3c87a7ebf2c4",
+        "textBlocks": 9,
+        "imageRuns": 5,
+        "imageOccurrences": 5,
+        "uniqueAssets": 5,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-162-3",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1751316.display.json",
+        "sha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1751316/source.json",
+        "sha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_changed_body_or_scope",
+        "figureTargets": [],
+        "textTargets": [
+          "79-bilibili-cn:cv1751316:b0004",
+          "79-bilibili-cn:cv1751316:b0034"
+        ]
+      },
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1751316.1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52.retry-1792951224780-a2783f95.json",
+      "auditFileSha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1751316:b0004",
+          "sourceEvidence": "“食いのばし(没想到什么好的译名，各位读者有好的建议请留言)”及随后“这是通过吃来让面子增加的技巧。”",
+          "description": "教学术语保留日文而未提供中文译义。",
+          "suggestedRepair": "保留现有中文及原术语，在“食いのばし”旁补充中文译名，例如“吃牌延伸（通过吃牌增加面子）”。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1751316:b0034",
+          "sourceEvidence": "“本次介绍的食いのばし和消除二度进张的鸣牌，有时会使手牌留下不自然的形。”",
+          "description": "总结段再次出现未译日文教学术语。",
+          "suggestedRepair": "在该次“食いのばし”旁补充与b0004一致的中文译名，保留原有中文、条件及强调。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1751316:b0029:figure",
+          "sourceEvidence": "附件13及放大图28的红色左箭头右方有括号状表情，候选将其内部字符标为无法准确辨清。",
+          "description": "未辨清部分为表情细节，不影响牌码、牌背数量、排列、判断或适用条件，不构成教学语义阻断。",
+          "suggestedRepair": "保留原图及局部不确定说明，不猜补表情字符。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "全部中文正文、署名、原文地址、强调及15幅图的教学牌码、数量、方向和标签均已核对并保留；但b0004和b0034的日文术语“食いのばし”均缺少中文翻译，尚未满足日文完整译成中文的要求。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:79-bilibili-cn:cv1751316:b0004",
+          "needs-repair:79-bilibili-cn:cv1751316:b0034",
+          "semantic_information_missing",
+          "error:79-bilibili-cn:cv1751316:b0004",
+          "error:79-bilibili-cn:cv1751316:b0034"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464",
+        "rawHtmlSha256": "6972b27af22d21094f90b3e324c3e07b94f1a15fb2db71c1c8bdd3183e4f7a68",
+        "mainSha256": "1c73bf0e08344de24f0a24ba5b27bb527c5957a98e2732b681aebcac5bc51e0c",
+        "textBlocks": 19,
+        "imageRuns": 15,
+        "imageOccurrences": 15,
+        "uniqueAssets": 15,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-167-4",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1754620.display.json",
+        "sha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1754620/source.json",
+        "sha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_notes_scope",
+        "figureTargets": [
+          "79-bilibili-cn:cv1754620:b0005:figure"
+        ],
+        "textTargets": []
+      },
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1754620.7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737.json",
+      "auditFileSha256": "8c52da176b472a79f63b7cce50f29ce66710718beea7631b1cf3b0a2a9910c73",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1754620:b0005:figure",
+          "sourceEvidence": "原图左侧北家牌河按画面第3行最左侧的7p呈纵向，与该家其余横向舍牌方向相差90°；中央同时显示1根立直棒。后文明确讨论吃7饼破一发。",
+          "description": "候选将北家牌河统一标为顺时针旋转90度，并写“未见……横置牌”，遗漏7p为立直宣言牌的关键状态。",
+          "suggestedRepair": "单独注明该7p相对于北家其他舍牌横置、为立直宣言牌，并修正统一方向说明及“未见横置牌”的表述。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1754620:b0005:figure",
+          "sourceEvidence": "南家牌河按画面第5行第3列存在一张万子牌；候选写“数字未辨清的万子牌”，并在unknowns中重复列为未确定。",
+          "description": "此处缺少确定牌码；本次从所附视图无法可靠确认数字，不能判定逐牌转写完整。",
+          "suggestedRepair": "保留原图与此项未知状态，待可靠辨认该牌数字后补齐确定牌码；在此之前阻断语义完整通过。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "六个正文块均已比较，文字、署名、原文地址及教学条件完整；但原图北家7p的立直宣言横置状态未被准确表达，且南家牌河第5行第3列的万子数字尚未确定，不能确认完整保留牌局教学语义。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:79-bilibili-cn:cv1754620:b0005",
+          "needs-repair:79-bilibili-cn:cv1754620:b0005:figure",
+          "semantic_information_missing",
+          "error:79-bilibili-cn:cv1754620:b0005:figure",
+          "uncertain:79-bilibili-cn:cv1754620:b0005:figure"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+        "rawHtmlSha256": "74fc517663058abeaa248548415cc374f6cb3f6e2552b0d181add5c03f3e7a0e",
+        "mainSha256": "6cb991dadf399c177ee575eb3a5ff70be5b09061e595a1cc92c8e1f790ded982",
+        "textBlocks": 5,
+        "imageRuns": 1,
+        "imageOccurrences": 1,
+        "uniqueAssets": 1,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-182-5",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1760573.display.json",
+        "sha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1760573/source.json",
+        "sha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_changed_body_or_scope",
+        "figureTargets": [],
+        "textTargets": [
+          "79-bilibili-cn:cv1760573:b0003"
+        ]
+      },
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+      "auditFileSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1760573:b0003",
+          "sourceEvidence": "かけるは内、のばすは外（太专业了= =，没想好怎么翻）",
+          "description": "教学格言仍保留日文，未满足日文完整译成中文的要求。",
+          "suggestedRepair": "将日文部分译为“立直时切内侧牌，发展牌形时切外侧牌”，原有中文括注及其余中文原文保持不变。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1760573:b0013",
+          "sourceEvidence": "源文与候选均为“这样的立直话，对手只能对日”。",
+          "description": "候选未改写中文，但源句中的“对日”无法确定所指的对手应对行为，涉及教学判断，不能视为语义已确认完整。",
+          "suggestedRepair": "保留所给中文，不推测补写；需有该句的明确校勘文本，才能消除此项语义不确定。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "全文13块及5次图片出现均已核对，牌码、数量、顺序、例号和图例含义完整；但b0003的日文格言未译为中文，且b0013源文“对手只能对日”的应对判断语义不明，不能确认完整教学语义。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:79-bilibili-cn:cv1760573:b0003",
+          "uncertain:79-bilibili-cn:cv1760573:b0013",
+          "semantic_information_missing",
+          "error:79-bilibili-cn:cv1760573:b0003",
+          "uncertain:79-bilibili-cn:cv1760573:b0013"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+        "rawHtmlSha256": "8a102ea653c55333fa63d3dfc3b521fded52893bbc84e6f30bbeb8a5ad53716b",
+        "mainSha256": "2e46be5da338df06dea7ead2bae1d35eb8f58b9cb3357bb9c1b3ed25e6f35281",
+        "textBlocks": 8,
+        "imageRuns": 5,
+        "imageOccurrences": 5,
+        "uniqueAssets": 5,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-193-4",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1765377.display.json",
+        "sha256": "e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1765377/source.json",
+        "sha256": "75b3eae5938bd5e635089891d6ee721575cf9d8fddce050dadcb90a5f47f48c5",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "parent-audit-declares-no-error-target"
+      },
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1765377.e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e.json",
+      "auditFileSha256": "ecddf372db56b1fbce0133a7ab824deb673f9d56868b5e02ef028c4fccf8c6e9",
+      "issues": [
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1765377:b0008",
+          "sourceEvidence": "b0008为“有人立直的时候，最应该警戒的就要是”，b0009仅为“了。”；候选相同。",
+          "description": "给定文本缺少警戒对象，无法核验完整教学判断；这不是已能确定的候选改写错误。",
+          "suggestedRepair": "补充该句缺失的源文内容后同步候选；当前不得根据后文自行补写。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1765377:b0015",
+          "sourceEvidence": "b0015为“大体的数据显示，所有的立直中”，b0016仅为“。”；候选相同。",
+          "description": "所引统计缺少结论及可能涉及的数值，无法确认论证完整性。",
+          "suggestedRepair": "补充该处完整源文统计表述后逐字保留；不得猜测比例或结论。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1765377:b0042:figure",
+          "sourceEvidence": "附件3及6的右侧牌河第2行右列为一张万子；候选转录为“万子牌（点数未能可靠辨认）”，unknowns也记录同一问题。",
+          "description": "仍有一张可见牌未确定点数，不能视为逐牌转录完整。",
+          "suggestedRepair": "确认该牌确切点数并替换泛称；如仍不能可靠辨认，保留原图及待核状态，维持完整性未通过。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1765377:b0022:figure",
+          "sourceEvidence": "sourceNotes称附件1为原图、附件2为其放大图；实际配对为附件1与附件4。",
+          "description": "加工附件配对说明有编号笔误，不影响六组搭子及听牌语义。",
+          "suggestedRepair": "将放大视图编号改为附件4。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1765377:b0031:figure",
+          "sourceEvidence": "sourceNotes称附件3为原图、附件4为其放大图；实际配对为附件2与附件5。",
+          "description": "加工附件配对说明有编号笔误，不影响三组五张牌及听牌语义。",
+          "suggestedRepair": "将说明改为附件2为原图、附件5为放大视图。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1765377:b0042:figure",
+          "sourceEvidence": "sourceNotes称附件5为原图、附件6为其放大图；实际配对为附件3与附件6。",
+          "description": "原图附件编号笔误，与另行列出的未定牌码问题不同。",
+          "suggestedRepair": "将原图编号改为附件3，保留放大视图编号6。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "全部给定正文和三次图片出现均已比较，但源文及候选在b0008—b0009缺少最应警戒的对象，在b0015—b0016缺少所引统计结论；牌桌图右侧牌河第2行右列还有一张未定万子。上述缺失不能据上下文猜补，阻断完整性通过。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "uncertain:79-bilibili-cn:cv1765377:b0008",
+          "uncertain:79-bilibili-cn:cv1765377:b0009",
+          "uncertain:79-bilibili-cn:cv1765377:b0015",
+          "uncertain:79-bilibili-cn:cv1765377:b0016",
+          "uncertain:79-bilibili-cn:cv1765377:b0042",
+          "uncertain:79-bilibili-cn:cv1765377:b0042:figure",
+          "uncertain:79-bilibili-cn:cv1765377:i00003",
+          "semantic_information_missing",
+          "uncertain:79-bilibili-cn:cv1765377:b0008",
+          "uncertain:79-bilibili-cn:cv1765377:b0015",
+          "uncertain:79-bilibili-cn:cv1765377:b0042:figure"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "75b3eae5938bd5e635089891d6ee721575cf9d8fddce050dadcb90a5f47f48c5",
+        "rawHtmlSha256": "a02309bd8815b85dead3e8b2e1c37de11ed89e909ff6f76e8e6543b8f01a581c",
+        "mainSha256": "cbcbccabb114a22a89895e19a8396132bd032422623bdf38609f4801e47576c0",
+        "textBlocks": 40,
+        "imageRuns": 3,
+        "imageOccurrences": 3,
+        "uniqueAssets": 3,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-201-6",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1770179.display.json",
+        "sha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1770179/source.json",
+        "sha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_changed_body_or_scope",
+        "figureTargets": [
+          "79-bilibili-cn:cv1770179:b0005:figure"
+        ],
+        "textTargets": [
+          "79-bilibili-cn:cv1770179:b0006"
+        ]
+      },
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1770179.52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8.json",
+      "auditFileSha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1770179:b0006",
+          "sourceEvidence": "日本がアメリカに戦争を挑むくらい無謀でしょう。",
+          "description": "日文未译，遗漏了日本向美国挑起战争的具体比喻以及“でしょう”的推测语气。",
+          "suggestedRepair": "将该日文句子译为“恐怕就像日本向美国挑起战争一样鲁莽吧。”，保留前后中文原文及原有括注。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1770179:b0005:figure",
+          "sourceEvidence": "附图中，右侧北家牌河靠中央一列最下方为九万；候选将其写成?m。",
+          "description": "具体牌码被占位符替代，导致完整牌河转写缺失一张牌的点数。",
+          "suggestedRepair": "将北家牌河写为“9m 7z 5z 3m 2s 4z／9s 6z 3p”，删除相关?m解释及unknowns中的对应条目。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "全文七块及唯一图片出现均已核对。b0006仍有完整日文句子未译；牌桌转写将可辨认的北家九万写成?m，未完整落实逐牌信息。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:79-bilibili-cn:cv1770179:b0005",
+          "needs-repair:79-bilibili-cn:cv1770179:b0006",
+          "needs-repair:79-bilibili-cn:cv1770179:b0005:figure",
+          "semantic_information_missing",
+          "error:79-bilibili-cn:cv1770179:b0006",
+          "error:79-bilibili-cn:cv1770179:b0005:figure"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+        "rawHtmlSha256": "7a3aedc2a156a6d9b5c861787c08da1d4d57eefb122ddef271f60022bbd9cb26",
+        "mainSha256": "89b6fa42532ac733308c69b8dba72b6652e43e42e9f735543d73a521152537ec",
+        "textBlocks": 6,
+        "imageRuns": 1,
+        "imageOccurrences": 1,
+        "uniqueAssets": 1,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-205-5",
+      "category": "B-owned-excluded",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1770234.display.json",
+        "sha256": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1770234/source.json",
+        "sha256": "ac055129f64d27bb1f71561eac96c5b304b299803b51680b9c3e2e56df56cda1",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": null,
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1770234.181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6.json",
+      "auditFileSha256": "6e42e3767953de3f6e4b7173392ad36292c4f8dce0c29e4922d9f629c0534711",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1770234:b0004:figure",
+          "sourceEvidence": "附件1及附件3中，左侧弃牌区第2行右格为一张顺时针旋转90°的6索，可见六个索子图案。",
+          "description": "候选转录写作“8m 未辨明索子牌”，unknowns亦保留该牌点数未知，遗漏可辨认牌码。",
+          "suggestedRepair": "将该行改为“第2行：8m 6s”，并删除对应unknowns条目；保留该牌的方向说明。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1770234:b0004:figure",
+          "sourceEvidence": "本次附件1为例1原图，附件3为例1放大图；附件2是例2原图。",
+          "description": "sourceNotes误将附件2称为例1的放大视图。",
+          "suggestedRepair": "改为“附件1为原图，附件3为同一原图的2倍最近邻放大视图；两者仅对应一次图源出现。”"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1770234:b0006:figure",
+          "sourceEvidence": "本次附件2为例2原图，附件4为例2放大图；附件3是例1放大图。",
+          "description": "sourceNotes误将附件3称为例2原图。",
+          "suggestedRepair": "改为“附件2为原图，附件4为同一原图的2倍最近邻放大视图；两者仅对应一次图源出现。”"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "全部正文、署名、原文地址、强调和两幅牌桌均已覆盖，但例1左侧弃牌区第2行右格的6索仍被记为未知，尚未完整记录全部可见教学牌码。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:79-bilibili-cn:cv1770234:b0004",
+          "needs-repair:79-bilibili-cn:cv1770234:b0004:figure",
+          "semantic_information_missing",
+          "error:79-bilibili-cn:cv1770234:b0004:figure"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "ac055129f64d27bb1f71561eac96c5b304b299803b51680b9c3e2e56df56cda1",
+        "rawHtmlSha256": "c6ad11f1c5e4c9121ee8ac3a0a9e00302467ed9bff3b5f39c9f644f43a5661f9",
+        "mainSha256": "9643cac054fcea9f5f53633c5ffd12ca51f1296bd6c9c922c1e1bb84de055da1",
+        "textBlocks": 5,
+        "imageRuns": 2,
+        "imageOccurrences": 2,
+        "uniqueAssets": 2,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-208-4",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1770245.display.json",
+        "sha256": "0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1770245/source.json",
+        "sha256": "0d6849d5bb4cb250ce9070a883fa072f9025c8411563b9f74fe9fd9d616fa17c",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "parent-audit-declares-no-error-target"
+      },
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1770245.0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97.json",
+      "auditFileSha256": "c3ed21f44410017abe1d203a87a0a7a470ec11f0b83e035c43f76016b91236fd",
+      "issues": [
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1770245:b0004:figure",
+          "sourceEvidence": "原图1及放大图4：上方牌河第一排从画面左数第1张为倒置的万子明牌；候选记录为“［万子点数未辨明］”。",
+          "description": "该公开弃牌的点数未得到可靠确认，候选使用占位，无法完成整幅牌桌的逐牌语义核验。",
+          "suggestedRepair": "依据所附原图可靠确认该张万子的点数并补入转录；不能确认时保留明确不确定状态并阻断完整性通过，不猜牌。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1770245:b0006:figure",
+          "sourceEvidence": "原图2及放大图5：左方牌河靠中央一列从上数第2、第5张，以及右方牌河第二列、最下方2z右侧一张，分别被候选记为未辨明A、B、C。",
+          "description": "三张公开万子的点数未得到可靠确认，牌河仍有教学牌码缺口。",
+          "suggestedRepair": "逐张依据所附原图确认A、B、C的准确牌码后替换占位；无法可靠确认的项目继续明确标为不确定并阻断完整性通过。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1770245:b0004:figure",
+          "sourceEvidence": "visualEvidence将原图指定为附件1、对应2倍放大图指定为附件4；sourceNotes却写“附件1为原图，附件2为……放大图”。",
+          "description": "加工附件配对编号错误，不属于教材教学内容。",
+          "suggestedRepair": "将该说明中的放大图编号改为附件4。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1770245:b0006:figure",
+          "sourceEvidence": "visualEvidence将原图指定为附件2、对应2倍放大图指定为附件5；sourceNotes写为附件3和附件4。",
+          "description": "加工附件配对编号错误，不影响原图本身的教学内容。",
+          "suggestedRepair": "将说明改为附件2为原图、附件5为对应2倍放大图。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1770245:b0008:figure",
+          "sourceEvidence": "visualEvidence将原图指定为附件3、对应4倍放大图指定为附件6；sourceNotes却将原图写为附件5。",
+          "description": "原图附件编号笔误；该图教学牌码及标签完整。",
+          "suggestedRepair": "将原图编号改为附件3，保留放大图编号附件6。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "全部中文正文、署名、原文地址及三次图片出现均已覆盖；但b0004上方牌河首张和b0006三张明示万子仍使用未辨明占位，四张公开牌的确定牌码缺失，不能确认完整教学语义。隐手牌面未知属于源图未提供信息，不构成缺失。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "uncertain:79-bilibili-cn:cv1770245:b0004",
+          "uncertain:79-bilibili-cn:cv1770245:b0006",
+          "uncertain:79-bilibili-cn:cv1770245:b0004:figure",
+          "uncertain:79-bilibili-cn:cv1770245:b0006:figure",
+          "semantic_information_missing",
+          "uncertain:79-bilibili-cn:cv1770245:b0004:figure",
+          "uncertain:79-bilibili-cn:cv1770245:b0006:figure"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "0d6849d5bb4cb250ce9070a883fa072f9025c8411563b9f74fe9fd9d616fa17c",
+        "rawHtmlSha256": "c8bf234e6e35be559bde96237becf6f9a4ae4702275785c06115c265ff404df8",
+        "mainSha256": "e15b16037e2d285adcf5bf19dcf07473bd46916c5706811561e993d5620a2163",
+        "textBlocks": 6,
+        "imageRuns": 3,
+        "imageOccurrences": 3,
+        "uniqueAssets": 3,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-215-4",
+      "category": "source-recapture-or-pdf",
+      "parent": null,
+      "source": null,
+      "existingEntryResult": null
+    },
+    {
+      "chapterId": "79-cn-chapter-217-4",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1775174.display.json",
+        "sha256": "4e9e896794fce70fbcbfed0b223c6cfd2e7c643c7713556e5d096ab7a7df8de0",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1775174/source.json",
+        "sha256": "9c8ac96ad4a283248195ea4f6c6da89c86e335fde3e9571aa434e95fd27bd521",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_parent_has_other_unresolved_checks",
+        "figureTargets": [
+          "79-bilibili-cn:cv1775174:b0004:figure",
+          "79-bilibili-cn:cv1775174:b0010:figure"
+        ],
+        "textTargets": []
+      },
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1775174.4e9e896794fce70fbcbfed0b223c6cfd2e7c643c7713556e5d096ab7a7df8de0.json",
+      "auditFileSha256": "2d0def8a9082f134c9496862251cecceb96d6560948a9153557499b46e524213",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1775174:b0004:figure",
+          "sourceEvidence": "附图1及放大图5中，左家牌河左列第2、3张，以及右家牌河左列第2、5张、右列第3张均为可见万子；候选分别记作未知A至未知E。",
+          "description": "五张可见弃牌仅保留花色，缺少数字，未满足逐牌完整转录要求；本次不能可靠确认其具体数字。",
+          "suggestedRepair": "依据所附原图逐张确认并补齐这五张万子的数字，同时修正transcription和unknowns；确认前保持阻断，不猜牌。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1775174:b0010:figure",
+          "sourceEvidence": "附图4及放大图8中，右家牌河右列首张、与左列第4张对齐的万子可见，候选记作未知A。",
+          "description": "该张可见弃牌缺少数字，牌河转录不完整；本次不能可靠确认其具体数字。",
+          "suggestedRepair": "从所附原图确认该万子的数字后补齐转录并更新unknowns；确认前保持阻断。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1775174:b0004:figure",
+          "sourceEvidence": "sourceNotes称附件1与附件2为原图及放大图；实际对应附件1与附件5。",
+          "description": "加工附件配对编号错误，不作为教学语义缺失的依据。",
+          "suggestedRepair": "将配对说明改为附件1与附件5。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1775174:b0006:figure",
+          "sourceEvidence": "sourceNotes称附件3与附件4为原图及放大图；实际对应附件2与附件6。",
+          "description": "加工附件配对编号错误，教学图转录本身不因此判为不忠实。",
+          "suggestedRepair": "将配对说明改为附件2与附件6。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1775174:b0008:figure",
+          "sourceEvidence": "sourceNotes称附件5与附件6为原图及放大图；实际对应附件3与附件7。",
+          "description": "加工附件配对编号错误，不影响已核对的手牌及摸入语义。",
+          "suggestedRepair": "将配对说明改为附件3与附件7。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1775174:b0010:figure",
+          "sourceEvidence": "sourceNotes称附件7与附件8为原图及放大图；实际对应附件4与附件8。",
+          "description": "加工附件配对编号错误，不作为教学语义缺失的依据。",
+          "suggestedRepair": "将配对说明改为附件4与附件8。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "全部中文正文、署名、原文地址、条件和判断均保留，图中日文教学标签已有中文对应；但第一幅牌桌图五张、最后一幅牌桌图一张可见万子的数字未完成转录，共六张弃牌信息存在缺口。这些属于牌河数据，不能按隐手未知或边缘残痕豁免。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:79-bilibili-cn:cv1775174:b0004",
+          "needs-repair:79-bilibili-cn:cv1775174:b0010",
+          "needs-repair:79-bilibili-cn:cv1775174:b0004:figure",
+          "needs-repair:79-bilibili-cn:cv1775174:b0010:figure",
+          "uncertain:79-bilibili-cn:cv1775174:i00001",
+          "uncertain:79-bilibili-cn:cv1775174:i00004",
+          "semantic_information_missing",
+          "error:79-bilibili-cn:cv1775174:b0004:figure",
+          "error:79-bilibili-cn:cv1775174:b0010:figure"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "9c8ac96ad4a283248195ea4f6c6da89c86e335fde3e9571aa434e95fd27bd521",
+        "rawHtmlSha256": "60a09299c0a16ce8646bcfb66c8ea4063d96913ae4845add50b4283a85d67055",
+        "mainSha256": "9a221ff5834248f73aac889f491a27912b688b8a27fe815fe913a60e98fdcc65",
+        "textBlocks": 7,
+        "imageRuns": 4,
+        "imageOccurrences": 4,
+        "uniqueAssets": 4,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-222-5",
+      "category": "A-terminal-review-source-reading-conflict-owner-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1775262.display.json",
+        "sha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1775262/source.json",
+        "sha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": null,
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1775262.b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4.json",
+      "auditFileSha256": "7fc9a1172bf463691aa08b8ebf3d69e788d7ec1ff5e9e526b498b2c5b53a8199",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1775262:b0018:figure",
+          "sourceEvidence": "附件8及放大图18：例5第6张为二万，位于五万之后、北之前，且有向下箭头。",
+          "description": "候选将第6张二万2m误录为一万1m，牌序和箭头说明两处均错误。",
+          "suggestedRepair": "将牌序改为“2z 3z 6z 8m 5m 2m 4z 3p 2p”，并将箭头说明改为“第6张2m、第7张4z的正上方”。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "candidate.figures[*].sourceNotes",
+          "sourceEvidence": "请求中原图为附件1至10，对应放大图为附件11至20；候选sourceNotes却按1与2、3与4等连续编号配对。",
+          "description": "十处原图与放大图的加工附件配对说明编号错误；此问题本身不影响教材教学语义。",
+          "suggestedRepair": "按figure出现顺序，将配对编号依次改为1与11、2与12、3与13、4与14、5与15、6与16、7与17、8与18、9与19、10与20。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "全部中文正文、署名、原文地址、强调、条件、例外及表格内容均已保留；但附件8／18中例5第6张为二万2m，候选牌序与箭头说明均误写1m，构成教学牌码错误，修复前不能通过。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:79-bilibili-cn:cv1775262:b0018",
+          "needs-repair:79-bilibili-cn:cv1775262:b0018:figure",
+          "semantic_information_missing",
+          "error:79-bilibili-cn:cv1775262:b0018:figure"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+        "rawHtmlSha256": "00ba55b262d15739f0f6cf28b92e56751ff0ea9e38aed7e8e2349de8edfa7ae1",
+        "mainSha256": "8311e4033b07646c4a91acfbe1bea660d805802ccbb204c11a5423ce6a810706",
+        "textBlocks": 13,
+        "imageRuns": 10,
+        "imageOccurrences": 10,
+        "uniqueAssets": 10,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-234-12",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+        "sha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1780400/source.json",
+        "sha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_changed_body_or_scope",
+        "figureTargets": [],
+        "textTargets": [
+          "79-bilibili-cn:cv1780400:b0003"
+        ]
+      },
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+      "auditFileSha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1780400:b0003",
+          "sourceEvidence": "三条规则分别含“5-10 ゴットー”“10-20 ワンツー”“10-30 ワンスリー”；候选原样保留三个日文俗称，未附中文释义。",
+          "description": "日文规则俗称未完成中文翻译。括号中的支付数额虽完整，但不能替代对日文标签的中文表达。",
+          "suggestedRepair": "分别补充ゴットー为“五—十”、ワンツー为“一—二”、ワンスリー为“一—三”的规则俗称释义；保留已有中文、数值及支付说明。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "已比较全部五个正文块和唯一图像出现，无表格或行内牌需要补核。中文正文、署名、原文地址、强调、数字、公式及图表教学信息均完整；b0003的三个日文规则俗称尚缺中文释义，完整翻译要求仍未满足。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:79-bilibili-cn:cv1780400:b0003",
+          "semantic_information_missing",
+          "error:79-bilibili-cn:cv1780400:b0003"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+        "rawHtmlSha256": "ac861bc7f51bdd9351c85c0a2796a851b3182276df89b1ac8b0aed9d5b575728",
+        "mainSha256": "3159340777d99e9d81264f61e83578e9a0c5f9102bbbd0e9fbd28e95ba7b8d58",
+        "textBlocks": 4,
+        "imageRuns": 1,
+        "imageOccurrences": 1,
+        "uniqueAssets": 1,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-242-3",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1780438.display.json",
+        "sha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1780438/source.json",
+        "sha256": "3cac4b7103309b092edada33aa8f698b606aa283ae1ce18f8ce9ba9e8428f6e0",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "parent-audit-declares-no-error-target"
+      },
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1780438.62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa.json",
+      "auditFileSha256": "332731f14ba75be91479bdefe77bb1a0026fe31d600b693d73d0e62db8ba8515",
+      "issues": [
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1780438:b0014:figure",
+          "sourceEvidence": "附图1及放大图6的上方牌河靠中央一行最左端为一张万子；候选转录为“?m 7p 1z 7z 2z 1p”，并在unknowns中注明该万子点数无法可靠辨认。",
+          "description": "该次牌面出现尚无确定点数，?m是未完成的牌码，无法满足逐牌完整转录要求。",
+          "suggestedRepair": "依据已附原图确认该张万子的点数，替换?m并同步修订unknowns；未能确定前保留不确定状态并阻断通过，不猜填牌码。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1780438:b0014:figure",
+          "sourceEvidence": "sourceNotes称“附件1为原图，附件2为同一原图的最近邻放大视图”；本次实际对应附件1、6。",
+          "description": "加工附件配对编号有误，不影响牌面教学内容。",
+          "suggestedRepair": "将配对编号改为原图附件1、放大图附件6。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1780438:b0024:figure",
+          "sourceEvidence": "sourceNotes称原图、放大图为附件3、4；本次实际对应附件2、7。",
+          "description": "加工附件配对编号有误，不影响牌面教学内容。",
+          "suggestedRepair": "将配对编号改为原图附件2、放大图附件7。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1780438:b0031:figure",
+          "sourceEvidence": "sourceNotes称原图、放大图为附件5、6；本次实际对应附件3、8。",
+          "description": "加工附件配对编号有误，不影响例3牌码和图例标签。",
+          "suggestedRepair": "将配对编号改为原图附件3、放大图附件8。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1780438:b0040:figure",
+          "sourceEvidence": "sourceNotes称原图、放大图为附件7、8；本次实际对应附件4、9。",
+          "description": "加工附件配对编号有误，不影响例4牌码和图例标签。",
+          "suggestedRepair": "将配对编号改为原图附件4、放大图附件9。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1780438:b0047:figure",
+          "sourceEvidence": "sourceNotes称原图、放大图为附件9、10；本次实际对应附件5、10。",
+          "description": "加工附件中的原图编号有误，不影响牌面教学内容。",
+          "suggestedRepair": "将原图编号改为附件5，放大图附件10保持不变。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "48个文字块完整保留，五幅教学图均有对应表示；但例1上方牌河靠中央一行最左端万子仍被转录为?m，且unknowns明确承认点数未确定。此处缺少完整教学牌码，不能通过语义完整性审查。附件编号错误仅属source-note，不作为阻断依据。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "uncertain:79-bilibili-cn:cv1780438:b0014",
+          "uncertain:79-bilibili-cn:cv1780438:b0014:figure",
+          "semantic_information_missing",
+          "uncertain:79-bilibili-cn:cv1780438:b0014:figure"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "3cac4b7103309b092edada33aa8f698b606aa283ae1ce18f8ce9ba9e8428f6e0",
+        "rawHtmlSha256": "0798d5a80373a7d57cd845f5fe9f0f1b096160a79b5d692eff841b20d7f3314c",
+        "mainSha256": "a2ff88b6ef97962bca39eace27f8e7cd4b81b35412a8b69036996c43c0e86198",
+        "textBlocks": 48,
+        "imageRuns": 5,
+        "imageOccurrences": 5,
+        "uniqueAssets": 5,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-256-18",
+      "category": "A-terminal-review-tile-error-and-unknown-discards-owner-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1785770.display.json",
+        "sha256": "84f27b9562fc5341a15ff938abf2db84a2ba0ba25cd30241e84996101500df69",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1785770/source.json",
+        "sha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": null,
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1785770.84f27b9562fc5341a15ff938abf2db84a2ba0ba25cd30241e84996101500df69.json",
+      "auditFileSha256": "fa8e60a40557c01c5cc5d88805cbbbfcb94a04b09bbad3773ca5656e9237fa58",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+          "sourceEvidence": "原图2及放大图6的567p副露属于上方西家；上方10张牌背，左方北家13张。正文b0018、b0020均明确指“对家”。",
+          "description": "转录“画面左上方的上家副露”和图注“上家已有筒子副露”误将对家称为上家，改变副露归属及逆转威胁的对应玩家。",
+          "suggestedRepair": "转录改为“画面左上方的上方西家（对家）副露”；图注改为“例2：南4局0本场，东家31700点，对家已有筒子副露。”"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1785770:b0006:figure",
+          "sourceEvidence": "visualEvidence将例1原图列为附件1，2倍放大图列为附件5。",
+          "description": "sourceNotes误写例1配对为“附件1与附件2”；不影响已完整记录的教学内容。",
+          "suggestedRepair": "将配对编号改为“附件1与附件5”。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+          "sourceEvidence": "visualEvidence将例2原图列为附件2，2倍放大图列为附件6。",
+          "description": "sourceNotes误写例2配对为“附件3与附件4”，属于加工说明编号笔误。",
+          "suggestedRepair": "将配对编号改为“附件2与附件6”。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1785770:b0024:figure",
+          "sourceEvidence": "visualEvidence将例3原图列为附件3，2倍放大图列为附件7。",
+          "description": "sourceNotes误写例3配对为“附件5与附件6”；不影响教学牌码和条件。",
+          "suggestedRepair": "将配对编号改为“附件3与附件7”。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1785770:b0034:figure",
+          "sourceEvidence": "visualEvidence将例4原图列为附件4，4倍放大图列为附件8。",
+          "description": "sourceNotes误写例4配对为“附件7与附件8”；不影响手牌和标签。",
+          "suggestedRepair": "将配对编号改为“附件4与附件8”。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "正文中文、署名、原文地址、强调、全部42块及4次图片出现均保留，牌码和桌面数据已覆盖。但例2把对家的副露归为上家，改变了“对家已经满足了逆转的条件”及“正在做食断的对家”的教学情境，须修正后才能通过。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:79-bilibili-cn:cv1785770:b0016",
+          "needs-repair:79-bilibili-cn:cv1785770:b0016:figure",
+          "semantic_information_missing",
+          "error:79-bilibili-cn:cv1785770:b0016:figure"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23",
+        "rawHtmlSha256": "d71a93386d33ecd4d2d9f6b0fb3991f664a349daac72520491cd93da4042b571",
+        "mainSha256": "5805a76149f7e8d95055f3038d0b7391d991d1dcb355e05a788bffce0b8eda97",
+        "textBlocks": 38,
+        "imageRuns": 4,
+        "imageOccurrences": 4,
+        "uniqueAssets": 4,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-276-4",
+      "category": "A-current-batch-failed-no-output-no-retry",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1793434.display.json",
+        "sha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1793434/source.json",
+        "sha256": "db1218e9226ef5ccaf978ec6b6801bd07498017b821973647d0e551ed518439f",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": null,
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1793434.34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af.json",
+      "auditFileSha256": "8c7e8145f051809f5ad3d80eb4c8e7c4b9d669739c200fbec98e4f26307a9370",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1793434:b0005:figure",
+          "sourceEvidence": "附件1及附件4中，上方牌河6p与7z之间的倒置万子牌为九万。",
+          "description": "transcription使用“[万子数字未辨明]”，unknowns也将此牌列为未知，遗漏可见牌码。",
+          "suggestedRepair": "将上方弃牌第四张补为9m，完整记录为“6s（横置）5z 6p 9m 7z 1z”，并删除对应unknowns条目。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1793434:b0005:figure",
+          "sourceEvidence": "visualEvidence指定附件1为例1原图、附件4为其2倍放大图；sourceNotes写成附件1与附件2配对。",
+          "description": "加工附件配对编号笔误，不影响教学牌图本身。",
+          "suggestedRepair": "将该说明改为“附件1为原图，附件4为同一原图的2倍近邻放大视图，仅计一次”。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1793434:b0014:figure",
+          "sourceEvidence": "visualEvidence指定附件2为例2原图、附件5为其2倍放大图；sourceNotes写成附件3与附件4配对。",
+          "description": "加工附件配对编号笔误，教学语义完整。",
+          "suggestedRepair": "将该说明改为“附件2为原图，附件5为同一原图的2倍近邻放大视图，仅计一次”。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1793434:b0025:figure",
+          "sourceEvidence": "visualEvidence指定附件3为例3原图、附件6为其2倍放大图；sourceNotes将原图写成附件5。",
+          "description": "加工附件原图编号笔误，教学语义完整。",
+          "suggestedRepair": "将该说明改为“附件3为原图，附件6为同一原图的2倍近邻放大视图，仅计一次”。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "39个文字块完整保留，三次图片出现均有对应；但例1上方牌河6p与7z之间的9m被写成未辨明占位，尚未完整表达该教学牌桌。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:79-bilibili-cn:cv1793434:b0005",
+          "needs-repair:79-bilibili-cn:cv1793434:b0005:figure",
+          "semantic_information_missing",
+          "error:79-bilibili-cn:cv1793434:b0005:figure"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "db1218e9226ef5ccaf978ec6b6801bd07498017b821973647d0e551ed518439f",
+        "rawHtmlSha256": "69818826df9a3c931a23419e0e9b9bfb1763e74c68bd14f45822134f4077a935",
+        "mainSha256": "0cbfca65b65ffd24fed7bb992211b58b133cad1aab9b0729f453a1bdbe974486",
+        "textBlocks": 39,
+        "imageRuns": 3,
+        "imageOccurrences": 3,
+        "uniqueAssets": 3,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-311-18",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1815400.display.json",
+        "sha256": "5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1815400/source.json",
+        "sha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_notes_scope",
+        "figureTargets": [
+          "79-bilibili-cn:cv1815400:b0156:figure",
+          "79-bilibili-cn:cv1815400:b0158:figure"
+        ],
+        "textTargets": []
+      },
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1815400.5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97.json",
+      "auditFileSha256": "12f0f3a74c5261077907d0d9218bacf1177173c64a1e2c1ceeff9eed6729e77a",
+      "issues": [
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1815400:b0122:figure",
+          "sourceEvidence": "附图8、29的图例包含不立直0%、5%、10%及立直0%、5%、10%六系列；候选明确未记录其中两系列在2、4、6、8、10、12、14巡的数据。",
+          "description": "图8缺少不立直10%与立直0%的完整条件曲线，不能仅凭其余四系列通过语义完整性检查。",
+          "suggestedRepair": "依据已给原图补充可辨的标记对应和逐点约值；确实无法读取的点逐项保留未知及原图，并维持阻断状态，不推算填补。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1815400:b0124:figure",
+          "sourceEvidence": "附图9、30为双方子家恶形六系列图；候选不立直10%、立直0%两项均写为逐点位置无法可靠辨识。",
+          "description": "两系列各七点未核定，危险度与是否立直对应的所需收入信息不完整。",
+          "suggestedRepair": "补全能够直接辨认的系列、标记及近似读数；余下逐点说明未知，保留原图，不以文字概括替代数据。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1815400:b0126:figure",
+          "sourceEvidence": "附图10、31包含对手亲家良形的六种条件；候选两条浅色曲线及中间重叠标记未完整记录。",
+          "description": "不立直10%和立直0%的曲线数据仍未核定，条件化判断缺少信息。",
+          "suggestedRepair": "分别核对两系列的标记和七个巡目位置，近似读数明确标近似；不能分辨处列为具体未知并保持uncertain。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1815400:b0128:figure",
+          "sourceEvidence": "附图11、32六项图例中，候选只提供第1、第2、第5、第6系列完整数组。",
+          "description": "图11两条系列未完整转录，无法审定所有危险度、立直条件对应的所需收入。",
+          "suggestedRepair": "补充可辨的两系列数据及图例标记；无法辨认的数据继续逐点标未知，不凭其他图或公式补齐。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1815400:b0130:figure",
+          "sourceEvidence": "附图12、33的自己亲家良形图有六系列；候选不立直10%和立直0%没有七巡读数。",
+          "description": "该图仍缺两系列教学数据，完整性不能通过。",
+          "suggestedRepair": "逐系列补齐可辨的标记与近似点值；其余保留明确未知及原图，维持阻断。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1815400:b0132:figure",
+          "sourceEvidence": "附图13、34中候选另列叉形曲线约值[3400,3550,3700,3850,3900,3950,3800]，但未确定属于不立直10%还是立直0%。",
+          "description": "已记录数据没有可靠绑定条件，且另一条系列未完整读取；不能用于明确的攻守判断。",
+          "suggestedRepair": "核对原图图例与叉形、浅色曲线的对应，再分别记录两系列。不能确定的绑定和点值保留未知，禁止任选条件。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1815400:b0154:figure",
+          "sourceEvidence": "附图14、35可见牌列为2m 3m 9m 9m 9m 4p 5p 6s 7s 8s 9s 2z，仅12张；b0155将其用于一向听进张示例。",
+          "description": "可见牌码转录准确，缺失来自源图；但不能据这12张核定完整手牌的一向听构型，候选unknowns为空。",
+          "suggestedRepair": "保留现有12张及原图，在unknowns中明确完整手牌其余信息未知、不能核定第13张及完整构型；不得补牌，该例完整牌型判断保持uncertain。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1815400:b0156:figure",
+          "sourceEvidence": "附图15、36图例为“和了時ツモ率”“被ツモ率”；候选译为“和牌时摸入率”“被摸入率”，并未完整读取这两系列的15巡数据。",
+          "description": "“摸入”未准确表达自摸和牌及被他家自摸，且两个教学系列的数据仍不完整。",
+          "suggestedRepair": "将图例译为“和牌时的自摸比例”“被自摸率”，同步修改unknowns中的名称；补录可辨的标记与各巡约值，无法辨认处明确列未知并保持完整性阻断。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1815400:b0158:figure",
+          "sourceEvidence": "附图16、37的20%一向听图同样使用“和了時ツモ率”“被ツモ率”，候选仍使用摸入率译名且省缺两系列逐巡数据。",
+          "description": "自摸相关教学图例译义不准确，五系列图表尚未完整表达。",
+          "suggestedRepair": "改为“和牌时的自摸比例”“被自摸率”，补充能直接读取的系列标记和15巡约值；其余保留具体未知及原图，不推补。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "candidate.figures.sourceNotes",
+          "sourceEvidence": "本次给出的原图为附件1～21，对应放大图为22～42；例如图1对应1与22，图2对应2与23，C/D图对应21与42。",
+          "description": "各figure的sourceNotes把附件按相邻两张配对，属于加工附件编号说明错误，不影响已绑定的教材图像身份。",
+          "suggestedRepair": "按本次明确给出的原图与放大图对应关系修正附件编号说明；此项不作为教学语义阻断。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "204个中文文本块及强调均完整保留；21次教学图片均有对应。图8～13各有两条条件曲线未完整读取或绑定，图14、15各缺两系列数据且自摸相关图例误译；手牌A原图只显示12张，完整牌型信息仍未知。以上涉及图表数据、条件与手牌数量，不能确认教学语义完整。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "uncertain:79-bilibili-cn:cv1815400:b0122",
+          "uncertain:79-bilibili-cn:cv1815400:b0124",
+          "uncertain:79-bilibili-cn:cv1815400:b0126",
+          "uncertain:79-bilibili-cn:cv1815400:b0128",
+          "uncertain:79-bilibili-cn:cv1815400:b0130",
+          "uncertain:79-bilibili-cn:cv1815400:b0132",
+          "uncertain:79-bilibili-cn:cv1815400:b0154",
+          "needs-repair:79-bilibili-cn:cv1815400:b0156",
+          "needs-repair:79-bilibili-cn:cv1815400:b0158",
+          "uncertain:79-bilibili-cn:cv1815400:b0122:figure",
+          "uncertain:79-bilibili-cn:cv1815400:b0124:figure",
+          "uncertain:79-bilibili-cn:cv1815400:b0126:figure",
+          "uncertain:79-bilibili-cn:cv1815400:b0128:figure",
+          "uncertain:79-bilibili-cn:cv1815400:b0130:figure",
+          "uncertain:79-bilibili-cn:cv1815400:b0132:figure",
+          "uncertain:79-bilibili-cn:cv1815400:b0154:figure",
+          "needs-repair:79-bilibili-cn:cv1815400:b0156:figure",
+          "needs-repair:79-bilibili-cn:cv1815400:b0158:figure",
+          "uncertain:79-bilibili-cn:cv1815400:i00008",
+          "uncertain:79-bilibili-cn:cv1815400:i00009",
+          "uncertain:79-bilibili-cn:cv1815400:i00010",
+          "uncertain:79-bilibili-cn:cv1815400:i00011",
+          "uncertain:79-bilibili-cn:cv1815400:i00012",
+          "uncertain:79-bilibili-cn:cv1815400:i00013",
+          "uncertain:79-bilibili-cn:cv1815400:i00014",
+          "uncertain:79-bilibili-cn:cv1815400:i00015",
+          "uncertain:79-bilibili-cn:cv1815400:i00016",
+          "semantic_information_missing",
+          "uncertain:79-bilibili-cn:cv1815400:b0122:figure",
+          "uncertain:79-bilibili-cn:cv1815400:b0124:figure",
+          "uncertain:79-bilibili-cn:cv1815400:b0126:figure",
+          "uncertain:79-bilibili-cn:cv1815400:b0128:figure",
+          "uncertain:79-bilibili-cn:cv1815400:b0130:figure",
+          "uncertain:79-bilibili-cn:cv1815400:b0132:figure",
+          "uncertain:79-bilibili-cn:cv1815400:b0154:figure",
+          "error:79-bilibili-cn:cv1815400:b0156:figure",
+          "error:79-bilibili-cn:cv1815400:b0158:figure"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+        "rawHtmlSha256": "edc3fa0c2ce280e3ef42cfa0583cc28a6cec32dbee48d67cf573b9d26c4194c8",
+        "mainSha256": "dd3cb23cec7e0c787e2a7b826f47d0b30da37d99528bc7eee60c434ae9df28cb",
+        "textBlocks": 204,
+        "imageRuns": 21,
+        "imageOccurrences": 21,
+        "uniqueAssets": 21,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-001-64",
+      "category": "source-recapture-or-pdf",
+      "parent": null,
+      "source": null,
+      "existingEntryResult": null
+    },
+    {
+      "chapterId": "nemata-jp-chapter-100-1",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section035.display.json",
+        "sha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+        "registerShaMatches": true,
+        "bodyMode": "translated"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter01-section035/source.json",
+        "sha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "parent-audit-declares-no-error-target"
+      },
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json",
+      "auditFileSha256": "51a7871f3be891b712baa492b6a190e0b6b28f9931f4670f505f32842e1d7e9a",
+      "issues": [
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter01-section035:b0040",
+          "sourceEvidence": "标题引用「条件A、B」；b0056依据条件A作判断，b0065依据条件B作判断。提供的共用上下文b0001、b0002仅含标题和导言，未定义这两个条件。",
+          "description": "译文忠实保留了条件引用，但所提供审校单元缺少关键条件定义，无法独立核实各题解与共享前提的完整关联。该缺口影响教学理解，完整性结论需阻断。",
+          "suggestedRepair": "补充原文中定义条件A、B的块及对应候选译文作为共用上下文，再核验本组题解对条件的应用；勿根据牌例自行推定定义。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "All frozen complete-unit groups independently reviewed; global exact block, figure and occurrence coverage is checked separately."
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "dom_order",
+          "semantic_information_missing",
+          "uncertain:modern-yabejp-ja:chapter01-section035:b0040",
+          "chapter01-section035-batch-002:semantic_information_missing",
+          "chapter01-section035-batch-002:uncertain:modern-yabejp-ja:chapter01-section035:b0040",
+          "chapter01-section035-batch-002:batch_shared_context_not_faithful"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+        "rawHtmlSha256": "2a50fae7790347e8c27c1664e2246d6aa400e4dc4ae71771bce2e38518bb23b7",
+        "mainSha256": "39538e294d17c4c3719b1fb072b0c16f37395672b213611a6c83a20492b7bbdc",
+        "textBlocks": 183,
+        "imageRuns": 128,
+        "imageOccurrences": 732,
+        "uniqueAssets": 61,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-183-1",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json",
+        "sha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+        "registerShaMatches": true,
+        "bodyMode": "translated"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section003/source.v2.json",
+        "sha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "parent-audit-declares-no-error-target"
+      },
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json",
+      "auditFileSha256": "c66a9bab86228f8f865d1f74b1c2d033de57f133892f87e2205480a09628373a",
+      "issues": [
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter03-section003:b0018",
+          "sourceEvidence": "原文为“１枚切れ１枚見えの字牌は役牌の方が客風より放銃率が低い”。b0007、b0008列出已打出1张、持有0张时两者均为4%；b0011、b0012列出已打出1张、持有1张时客风3%、役牌2%。",
+          "description": "源文“见1张”未明确是否包含已打出的1张；按前文总可见数的口径理解，结论与数据不符。候选照译保留了这一教学条件歧义，当前不能确认结论适用的数量条件。",
+          "suggestedRepair": "保留原文条件并补充中文校注，明确上述两组数据及其冲突，说明“见1张”是否指另持有1张尚待确认；未经确认不要直接改写为“持有1张”。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": true,
+        "evidence": "所给全文19块均有完整译文，正文链接、署名、概率、公式、括注和强调均已保留；输入无表格、figure或图片出现。b0018的源文数量歧义仍需澄清，已单列阻断项。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "uncertain:modern-yabejp-ja:chapter03-section003:b0018",
+          "uncertain:modern-yabejp-ja:chapter03-section003:b0018"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+        "rawHtmlSha256": "4c29cc66535ae4d7780f94d668afd72bc6b2be4c009586bc8f770de36d3084f5",
+        "mainSha256": "c774533f02e291d52a8a7c79068c5d125eedcda5c433d3441a76cd01d424dc96",
+        "textBlocks": 19,
+        "imageRuns": 0,
+        "imageOccurrences": 0,
+        "uniqueAssets": 0,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-193-1",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.display.json",
+        "sha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+        "registerShaMatches": true,
+        "bodyMode": "translated"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section009/source.json",
+        "sha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_changed_body_or_scope",
+        "figureTargets": [
+          "modern-yabejp-ja:chapter03-section009:b0080:figure"
+        ],
+        "textTargets": [
+          "modern-yabejp-ja:chapter03-section009:b0081"
+        ]
+      },
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section009.abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3.json",
+      "auditFileSha256": "8ce0cde5d4eb0d8a8538b6751cd8a3b35b3fa8d3a20d7929fea6d7548bb09ce0",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+          "sourceEvidence": "附件1及附件2下方手牌最右三张，每张均为两枚黑色圆点加四枚红色圆点，即六筒。",
+          "description": "下方手牌末三张被转录为8p8p8p，实际为6p6p6p，改变了三张牌的牌值。",
+          "suggestedRepair": "将下方手牌改为5m 6m 7m 8m 6s 7s 8s 3p 4p 5p 6p 6p 6p。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+          "sourceEvidence": "附件中右侧手牌上方三张索子之后还有三张筒子；候选transcription及unknowns均明确未辨认其点数和赤牌状态。",
+          "description": "这三张实际展示的手牌尚未完成逐牌转录。其牌值及赤色情况属于教学牌桌数据，不能作为无教学意义的界面残痕放行。",
+          "suggestedRepair": "逐张确认右侧手牌自上而下第4至第6张的点数及赤牌状态，补齐后再审；无法可靠辨认时继续保留具体unknowns并阻断完整性通过。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter03-section009:b0081",
+          "sourceEvidence": "原文：“上のような河でリーチが入った場合、入り目でなければまず待ちは”。候选：“只要相关牌不是使其进张听牌的那一张”。",
+          "description": "“入り目”在此区分立直宣言牌与进张侧的关系，候选却表达成相关牌是否就是使其听牌的摸入牌，混淆了切牌与进张牌，并改变后续读牌结论的例外条件。",
+          "suggestedRepair": "改为：“面对上图这样的牌河，有人立直时，若立直宣言牌并非从此次进张完成的面子一侧切出，就基本可以读出其听牌是……”并与后续6m−9m或9m双碰连读。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "已比较全部97块、41个figure及74次图片出现。正文主体与全部固定牌图对应，但b0081对“入り目でなければ”的例外条件翻译不准确；附件牌桌下方末三张实际为6p6p6p，候选写成8p8p8p，另有右侧三张筒子的牌值及赤色情况未解决，故不能认定教学语义完整。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:modern-yabejp-ja:chapter03-section009:b0080",
+          "needs-repair:modern-yabejp-ja:chapter03-section009:b0081",
+          "needs-repair:modern-yabejp-ja:chapter03-section009:b0080:figure",
+          "semantic_information_missing",
+          "error:modern-yabejp-ja:chapter03-section009:b0080:figure",
+          "uncertain:modern-yabejp-ja:chapter03-section009:b0080:figure",
+          "error:modern-yabejp-ja:chapter03-section009:b0081"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+        "rawHtmlSha256": "c98ae45d57f51b7631779fe895c1644362cc67b3c22d8a12f1e5884634cf9818",
+        "mainSha256": "1e0d3ac8dedcc922f0609c9698d6e3b30e70f7efea0f6fda80cec42566569a17",
+        "textBlocks": 56,
+        "imageRuns": 41,
+        "imageOccurrences": 74,
+        "uniqueAssets": 25,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-213-1",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.display.json",
+        "sha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+        "registerShaMatches": true,
+        "bodyMode": "translated"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section026/source.json",
+        "sha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_changed_body_or_scope",
+        "figureTargets": [
+          "modern-yabejp-ja:chapter03-section026:b0032:figure"
+        ],
+        "textTargets": [
+          "modern-yabejp-ja:chapter03-section026:b0017"
+        ]
+      },
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+      "auditFileSha256": "a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter03-section026:b0017",
+          "sourceEvidence": "テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+          "description": "“入り目でもなければ”不是泛指“不是因为进张而打出的”。原文排除的是该牌周边属于进张完成面子一侧的情况；候选译法模糊了判断待牌位置的重要例外。",
+          "suggestedRepair": "改为明确表达：听牌时切出的牌若并非留作安全牌，且其周边也不是进张完成面子的部分，那么其周边就是待牌所在。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+          "sourceEvidence": "附图左家牌河外侧左列从图像上至下第2张为7p；末段原文说对家很可能持有至少一张7p，因此7p最多只剩两张。",
+          "description": "候选将这张可见7p写作“点数不清的筒子牌”，遗漏了直接影响剩余张数论证的明牌。",
+          "suggestedRepair": "将左家外列第2张补为7p，同时更新对应红线说明及unknowns；保留其顺时针旋转90°和摸切标记。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+          "sourceEvidence": "候选将对家靠中央一排最左端字牌，以及中央上方、左侧的完整点数列为无法辨认。",
+          "description": "这些属于牌局牌码和数值数据，本次无法可靠确认其准确转录，不能作为非教学边缘残痕直接放行。",
+          "suggestedRepair": "复核附图中该字牌及两家点数，补录能够确定的内容；确实无法辨认的继续如实标未知并保留原图，但在相关歧义解决前保持阻断。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "全文、正文链接、红线摸切注释及全部31次图片出现均已比较，30次行内牌对应完整。但b0017对“入り目”例外条件的译法不准确；牌桌中左家外列第2张7p被留作未知，影响“7p最多剩2张”的可复核依据；另有字牌和点数尚未确认，因此不能认定完整。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:modern-yabejp-ja:chapter03-section026:b0017",
+          "needs-repair:modern-yabejp-ja:chapter03-section026:b0032",
+          "needs-repair:modern-yabejp-ja:chapter03-section026:b0032:figure",
+          "uncertain:modern-yabejp-ja:chapter03-section026:i00020",
+          "semantic_information_missing",
+          "error:modern-yabejp-ja:chapter03-section026:b0017",
+          "error:modern-yabejp-ja:chapter03-section026:b0032:figure",
+          "uncertain:modern-yabejp-ja:chapter03-section026:b0032:figure"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+        "rawHtmlSha256": "dae997144794f6b4c84de50824dd2a352c9244e6dc459a046097a5ff6642bb90",
+        "mainSha256": "46f3c5994479d9e455c4f9eff2a7c328f8d60e2b462327dcbc92d5483fe06422",
+        "textBlocks": 29,
+        "imageRuns": 24,
+        "imageOccurrences": 31,
+        "uniqueAssets": 15,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-224-1",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section005.display.json",
+        "sha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+        "registerShaMatches": true,
+        "bodyMode": "translated"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter04-section005/source.json",
+        "sha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_changed_body_or_scope",
+        "figureTargets": [
+          "modern-yabejp-ja:chapter04-section005:b0013:figure"
+        ],
+        "textTargets": []
+      },
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json",
+      "auditFileSha256": "112ca259dd236a649e3fbbac885c5056452a262a1ecb47735faba6bf9049a3b2",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "sourceEvidence": "原图展示第1—15巡的流局率、放铳率、和了时自摸比例、立直棒没收率、和牌率、被自摸率及和了时一发比例七条曲线。",
+          "description": "候选仅记录曲线走势，以无法精确读取为由未转录逐巡近似值，遗漏可从图中读取的定量教学信息。未标注精确值不等于无法提供近似读数。",
+          "suggestedRepair": "补充第1—15巡、七个系列的近似读数表，所有读数明确标为约值，无法可靠分辨的个别点单独说明。例如第1巡和牌率约63%、流局率约10%；第13巡和牌率约30%；第15巡流局率约75%、和牌率约20%。继续保留原图及精确数值未标注的说明。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "sourceEvidence": "橙色图例为「和了時ツモ割合」，深绿色图例为「被ツモ率」。",
+          "description": "「和牌时摸入比例」「被摸入率」没有明确表达自摸和牌，尤其「被摸入率」无法清楚对应被他家自摸这一统计事件。",
+          "suggestedRepair": "分别改为「和牌中自摸所占比例」和「被他家自摸率」，并同步修正曲线说明及unknowns中的系列名称。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0008",
+          "sourceEvidence": "源文先给出36.765%，再称其他家和牌概率为10%就会低于里宝牌率；前文里宝牌率约为三成。",
+          "description": "按前文公式及30%的参照值计算，36.765%×90%=33.0885%，尚未低于30%。这是源文数值论证的疑点，候选忠实保留，不属于翻译错误。",
+          "suggestedRepair": "保留忠实译文；如添加校注，应明确这是原文数值疑点，不要静默修改原文概率或结论。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "全部正文段落均已完整比对，未发现段落遗漏；但b0013的七条曲线仅被概述趋势，没有完整呈现第1—15巡的近似数据，且自摸相关图例译名存在歧义，因此尚未达到全部教学图表语义完整的要求。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:modern-yabejp-ja:chapter04-section005:b0013",
+          "needs-repair:modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "semantic_information_missing",
+          "error:modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "error:modern-yabejp-ja:chapter04-section005:b0013:figure"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+        "rawHtmlSha256": "99c89512851ad2614183562f7aa009183c9e8b3effd8da32c0c36122b1df7622",
+        "mainSha256": "a8b29bfd877b0a26785cbff4a38a388aafbaa29bc707e651313d2fe421b73299",
+        "textBlocks": 14,
+        "imageRuns": 1,
+        "imageOccurrences": 1,
+        "uniqueAssets": 1,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-232-1",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section012.display.json",
+        "sha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+        "registerShaMatches": true,
+        "bodyMode": "translated"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter04-section012/source.json",
+        "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_changed_body_or_scope",
+        "figureTargets": [
+          "modern-yabejp-ja:chapter04-section012:b0005:figure"
+        ],
+        "textTargets": [
+          "modern-yabejp-ja:chapter04-section012:b0002",
+          "modern-yabejp-ja:chapter04-section012:b0004"
+        ]
+      },
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+      "auditFileSha256": "24293aa4da6b71079ed47600d45229e972e1f8b1256a9dcc573af827c05514f6",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0002",
+          "sourceEvidence": "“確和了でも構わないようなケース”",
+          "description": "“确保和牌也无妨”把名次不变的结束和牌误译成确保能够和牌，改变了最快和牌策略的适用情形。",
+          "suggestedRepair": "改为“允许以不改变当前名次的和牌结束比赛的情况”，保留原有判断技术7链接。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0004",
+          "sourceEvidence": "“運良く配牌やツモに恵まれたら逆転手を目指し”",
+          "description": "“起手牌和摸牌都不错”增加了两者必须同时有利的条件。",
+          "suggestedRepair": "改为“运气好，起手牌或摸牌有利时，就争取做出反超牌”。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+          "sourceEvidence": "附图本家手牌从左数第7张可见上方一根、下方两根索子，为3s。",
+          "description": "手牌中的3s被误记为2s，影响手牌结构及做牌分析。",
+          "suggestedRepair": "将手牌序列修正为“3m 4m 6m 7m 4p 4p 3s 4s 6s 7s 8s 5z 5z”，摸入牌仍为3p。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+          "sourceEvidence": "右侧牌河从上数第2张有可见万子牌面；候选仅记录“［万子，点数无法辨认］”。",
+          "description": "该张明示弃牌的具体点数尚未可靠确定，逐牌核对仍有缺口。",
+          "suggestedRepair": "保留原图和当前未知说明；可靠确认后补齐具体牌码及赤色情况，在此之前保持阻断状态。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "全文及全部图片出现均已覆盖，但“確和了”被误译、配牌与摸牌条件被加强，且牌桌手牌3s误记为2s、右侧牌河第2张点数未确定，尚不能视为教学语义完整准确。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:modern-yabejp-ja:chapter04-section012:b0002",
+          "needs-repair:modern-yabejp-ja:chapter04-section012:b0004",
+          "needs-repair:modern-yabejp-ja:chapter04-section012:b0005",
+          "needs-repair:modern-yabejp-ja:chapter04-section012:b0005:figure",
+          "semantic_information_missing",
+          "error:modern-yabejp-ja:chapter04-section012:b0002",
+          "error:modern-yabejp-ja:chapter04-section012:b0004",
+          "error:modern-yabejp-ja:chapter04-section012:b0005:figure",
+          "uncertain:modern-yabejp-ja:chapter04-section012:b0005:figure"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+        "rawHtmlSha256": "e2618ca34b4eaa10c444d76ed20b4fb8765aa848d2e52947d49f122127b6a567",
+        "mainSha256": "93bc7deda4b4357b3af71abfc547b3fcaa8c3e42437aa0997a46ea1c1bf46ce7",
+        "textBlocks": 11,
+        "imageRuns": 3,
+        "imageOccurrences": 3,
+        "uniqueAssets": 2,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-236-1",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section015.display.json",
+        "sha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "registerShaMatches": true,
+        "bodyMode": "translated"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter04-section015/source.json",
+        "sha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "parent-audit-declares-no-error-target"
+      },
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json",
+      "auditFileSha256": "bf1af08a08d0be94dbe71415fa4bd808d1831cc8d6cc6b08f7672f5c0357daa9",
+      "issues": [
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter04-section015:b0003",
+          "sourceEvidence": "「ダマ満貫の手は例え巡目が僅かでもリーチするべき」",
+          "description": "候选译为「即使剩余巡数很少，也应当立直」。原文仅写「巡目が僅か」，未明确指已进行的巡数还是剩余巡数；候选补入「剩余」后确定了晚巡条件，而这会影响教学建议的适用时机。",
+          "suggestedRepair": "避免未经确认地补入「剩余」；可保留为「即使巡数很少，也应当立直」，并明确注明原文未说明是否指剩余巡数。在该条件得到澄清前保留阻断状态。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "四个源块均已逐段比较，没有整句遗漏；但第三段将「巡目が僅か」限定为剩余巡数很少，影响立直建议的适用时机，该歧义未解决，尚不能确认教学语义完整忠实。"
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "uncertain:modern-yabejp-ja:chapter04-section015:b0003",
+          "semantic_information_missing",
+          "uncertain:modern-yabejp-ja:chapter04-section015:b0003"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+        "rawHtmlSha256": "7bc8ce9ace2e9b9a7bff108bbf03a9c2f496f11aba8ce2c23624e374d39e4d6e",
+        "mainSha256": "025749a32a697c79c92e43376f9e6b0d091e1bd44f26001cfd68776a997ee96c",
+        "textBlocks": 4,
+        "imageRuns": 0,
+        "imageOccurrences": 0,
+        "uniqueAssets": 0,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-250-1",
+      "category": "source-recapture-or-pdf",
+      "parent": null,
+      "source": null,
+      "existingEntryResult": null
+    },
+    {
+      "chapterId": "nemata-jp-chapter-283-1",
+      "category": "source-recapture-or-pdf",
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev1.json",
+        "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+        "registerShaMatches": true,
+        "bodyMode": "translated"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter06-exercise003/source.v3.json",
+        "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": null,
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+      "auditFileSha256": "749e242c54019cb6b855a03e6df4fe465bed86e1cf50d7869be548a3b0144d40",
+      "issues": [
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+          "sourceEvidence": "第8题以「場況↓」指向「2007年03月の『何を切る？』」外链；后文依据「一索・二索が薄い」作出选择，并提到东家第6巡吃八万。",
+          "description": "外链及相关文字翻译忠实，但实际场况未在本组展开。无法从已提供的内联牌面确认一索、二索的可见张数、完整副露组合及各家具体点数，因此第8题完整教学场况的核验受阻；这不是已确认的候选漏译。",
+          "suggestedRepair": "补充该引用场况的原始图或完整文字转录后复核；在补齐前明确标注场况核验未完成，不推定牌河、副露组合、点数或他家隐手。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0168",
+          "sourceEvidence": "问题12的b0153明确给出宝牌北；括号原文连续为“（ドラ［四索］引きの場合の差で［七索］より［五索］）”。结合题设，此处列举摸入宝牌或四索时的差异。",
+          "description": "候选“（由于摸入宝牌”直接接四索图，构成“摸入宝牌四索”，错误地把四索认作宝牌，并丢失摸入真正宝牌北这一独立条件。",
+          "suggestedRepair": "将b0168改为“摸到后再改为③即可，（由于摸入宝牌或”，保留后续四索图和比较顺序，使括号表达摸入宝牌或四索时，切五索优于切七索。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "sourceEvidence": "问题17弃牌表：第1、3、5、7行分别为东、南、西、北家；第1、2列依次为北/1m、南/7m、9m/西、9m/3s；各格rowspan与colspan均为1。",
+          "description": "b0266、b0267、b0269、b0270、b0272、b0273、b0275、b0276的牌面正确，但其候选figure块均遗漏表格定位，且无替代表格行列结构。单纯保留线性顺序不足以完整保留原表格位。",
+          "suggestedRepair": "为上述八个figure块恢复源tableContext中的tableId、row、column、rowspan、colspan和header，或提供包含这些格位及原空格的完整表格结构。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+          "sourceEvidence": "问题18弃牌表：第0行第2列为↓；东家第1行依次4s、3s，南家第3行7p、8p，西家第5行北、7p，北家第7行1m、3m；跨度均为1。",
+          "description": "b0292、b0293、b0295、b0296、b0298、b0299、b0301、b0302均遗漏表格定位。尤其3s未保留第1行第2列定位，导致其与上方↓的明确对齐关系缺失。",
+          "suggestedRepair": "恢复八个牌图块的完整tableContext，或重建原表格；确保↓位于第0行第2列并与东家第二张弃牌3s对齐。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+          "sourceEvidence": "问题20弃牌表：第1、3、5、7行为东、南、西、北家；第1至3列依次为北/9s/9s、北/1s/中、南/1p/2p、北/1m/9s；跨度均为1。",
+          "description": "b0325—b0327、b0329—b0331、b0333—b0335、b0337—b0339的十二个牌图块均遗漏原表格定位，候选无完整表格结构承载座位与三列弃牌关系。",
+          "suggestedRepair": "恢复十二个figure块的完整tableContext，或提供忠实保留四家、三列弃牌、空格及跨度的完整表格结构。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0396",
+          "sourceEvidence": "手広い④に受ける。裏目の［五索］引きでも三色が狙える。",
+          "description": "「裏目」描述选择后摸到不利牌的情形，不表示此前选择属于失算。译文「失算的」误加了判断失误的含义。",
+          "suggestedRepair": "将本块改为「选择进张宽的④。即使出现不利的」，接原有五索图及下一块「进张，也能争取三色。」。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+          "sourceEvidence": "问题33弃牌表为8行7列，各格rowspan、colspan均为1。东家行1列1—6为西、白、中、1m、3p、南；南家行3列1—6为南、白、1s、4s、5m、西；西家行5列1—5为北、1m、3s、8s、白，列6为空；北家行7列1—6为西、北、中、2s、3s、中。箭头行0位于列3、4、6，行2位于列4、5，行4位于列1、4、5，行6位于列1、2、3、6。",
+          "description": "候选保留了表题、座次和箭头文本的tableContext，但23个牌河figure块及其figure记录均无表格格位。牌面编码虽然正确，仍不能完整表达各牌所在单元格及其与上方箭头的对应关系。",
+          "suggestedRepair": "为b0507—b0512、b0516—b0521、b0526—b0530、b0536—b0541的候选figure块恢复源tableContext，包括同一tableId、对应row/column、rowspan=1、colspan=1、header=false；完整保留8×7表格的空格，尤其西家第6张弃牌位置为空，并保持箭头与牌面的列对齐。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "sourceEvidence": "源舍牌表为8行9列；东、南、西、北家表头分别位于行1、3、5、7的列0。各家前六张舍牌位于列1至6；东、南、西家的第七张位于列8，列7为空；北家列8为空。所有单元格rowspan、colspan均为1。",
+          "description": "候选保留表题和表头的tableContext，但27个舍牌figure块均缺少tableContext，也没有候选表格结构。牌面及线性顺序正确，仍未保留要求核对的表格格位与空格关系。",
+          "suggestedRepair": "为b0627—b0633、b0635—b0641、b0643—b0649、b0651—b0656恢复各自源tableContext，并提供或重建源8行9列表格，保留空行、列7空格、北家末格为空及所有单格跨度。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "sourceEvidence": "原图、放大图及源alt一致：12355789m34688s，摸5s。候选为12355789m36788s，摸5s。",
+          "description": "下方13张手牌中的4s、6s被依次错录为6s、7s。正确牌形切8s后听嵌7s；候选牌形会改变这一教学前提。",
+          "suggestedRepair": "将下方手牌完整改为1m 2m 3m 5m 5m 7m 8m 9m 3s 4s 6s 8s 8s；分开的摸入牌仍为5s。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "sourceEvidence": "截图顶部及左右边缘的三列牌分别位于其他三家的手牌位置；中央翻开9s指示牌附近才是牌墙。",
+          "description": "候选将其他三家的隐手统称为牌墙，遗漏了隐手未知这一局面信息。",
+          "suggestedRepair": "区分三家背面或侧面朝向观者的隐手与中央牌墙，明确三家隐手牌面未知，不推定具体牌码。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "sourceEvidence": "候选unknowns仍列左河从上至下第4、6张及右河第1张万子点数未辨清；本次也未能可靠确认这三张的全部牌码。",
+          "description": "这三张属于公开河牌，并非源隐手；可能影响可见张数与等待判断，不能以完整转录通过。",
+          "suggestedRepair": "逐张确认这三张河牌并同步更新transcription及unknowns；确认前保留阻断状态，不臆填牌码。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "sourceEvidence": "右上副露最上方牌受黑色遮挡，右下信息栏边缘裁切，中央骰子点数未可靠辨清。",
+          "description": "遮挡、裁切及骰子辨读限制应如实保留；不得由另外两张东牌反推被遮挡牌面。",
+          "suggestedRepair": "保留对应源图限制说明及未知标记；骰子未确认点数时继续注明未知。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+          "sourceEvidence": "源弃牌表各格均为rowspan=1、colspan=1：第1行第1—4列为北、西、9s、9p；第3行为2m、5m、3s、4s；第5行为南、北、1p、8m；第7行为中、1m、3s、3s。对应源块分别为b0811—b0814、b0816—b0819、b0821—b0824、b0826—b0829。",
+          "description": "候选保留了表题及四家表头的tableContext，却将16个弃牌单元格转换成没有tableContext的独立figure；figures中也未补充表格坐标。牌面和线性顺序正确，但四家牌河与各弃牌位置的表格关联未完整表示。",
+          "suggestedRepair": "为这16个候选figure块恢复源tableContext中的tableId、row、column、rowspan、colspan和header=false，或提供等价的完整候选表格结构，确保每张牌仍属于原单元格。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+          "sourceEvidence": "源图替代文本为“立体牌姿（４５赤５６７ｍ２２４５赤５６７９ｓ ２ｓポン？）”；图中左方末张2s有蓝色高亮。",
+          "description": "候选记录了高亮牌，却没有明确转写本题询问是否碰2s。仅有“问题60的牌局画面”不足以完整呈现题目。",
+          "suggestedRepair": "在图注或转写中补入：“是否碰上家刚切出的2s？”并明确高亮2s是此次鸣牌判断的对象。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+          "sourceEvidence": "候选将上方牌河首张及右方牌河首张分别记作“[风牌未辨明]”；两处在所附原图及放大图中均有可见牌面。",
+          "description": "这两处是实际弃牌，不是隐手或装饰。当前转写尚未满足完整读取牌河的要求，本次不能确认其精确牌种。",
+          "suggestedRepair": "完成两张风牌的定向辨认并替换占位符；在确认前保留unknowns，不得猜填或将完整牌河标为已通过。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0962",
+          "sourceEvidence": "“メンタンピンや３４５三色もあるので一色手に決め打たない。”",
+          "description": "メンタンピン是立直、断幺九、平和三者结合的术语。候选串列为“立直、断幺九、平和或345三色同顺”，组合关系不明确。",
+          "suggestedRepair": "改为：“也有立直＋断幺九＋平和或345三色同顺的可能，因此不预先锁定染手。染手只考虑清一色就足够了。”"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+          "sourceEvidence": "“ターツオーバーで三元役の可能性があるので発は残す”；手中已有白与中的对子及孤张发。",
+          "description": "“三元牌役种”容易泛指普通役牌，未清楚表达此处小三元／大三元方向对保留发的意义。",
+          "suggestedRepair": "改为：“搭子过多，又有三元役（小三元／大三元）的可能，所以保留发，宝牌为……”"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+          "sourceEvidence": "画面中央有两枚骰子，四周及下方有黑色区域；候选已分别记入unknowns和sourceNotes。",
+          "description": "骰子点数未获可靠确认，黑色遮挡或裁切也已如实说明。它们不改变本题是否碰2s的教学论证。",
+          "suggestedRepair": "保留说明；无需据此推测隐藏内容或单独阻断战术结论。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+          "sourceEvidence": "b1179—b1181连读为「ドラ［三萬］でなくてもダブルリャンメンは他のトイツより優先して残す。」",
+          "description": "候选连读为“宝牌［3m］即使不是，也应……”，未形成明确的中文让步条件句。",
+          "suggestedRepair": "将b1179改为“即使”，保留b1180的3m牌图，将b1181改为“不是宝牌，也应优先于其他对子保留双两面形。”"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "All frozen complete-unit groups independently reviewed; global exact block, figure and occurrence coverage is checked separately."
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0168",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0266",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0267",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0269",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0270",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0272",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0273",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0275",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0276",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0292",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0293",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0295",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0296",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0298",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0299",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0301",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0302",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0325",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0326",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0327",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0329",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0330",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0331",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0333",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0334",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0335",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0337",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0338",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0339",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0396",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0507",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0508",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0509",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0510",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0511",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0512",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0516",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0517",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0518",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0519",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0520",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0521",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0526",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0527",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0528",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0529",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0530",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0536",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0537",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0538",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0539",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0540",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0541",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0627",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0628",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0629",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0630",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0631",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0632",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0633",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0635",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0636",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0637",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0638",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0639",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0640",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0641",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0643",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0644",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0645",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0646",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0647",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0648",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0649",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0651",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0652",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0653",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0654",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0655",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0656",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0785",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0811",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0812",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0813",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0814",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0816",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0817",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0818",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0819",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0821",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0822",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0823",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0824",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0826",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0827",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0828",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0829",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0947",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0962",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b1017",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b1179",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b1181",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0507:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0508:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0509:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0510:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0511:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0512:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0516:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0517:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0518:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0519:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0520:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0521:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0526:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0527:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0528:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0529:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0530:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0536:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0537:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0538:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0539:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0540:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0541:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0627:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0628:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0629:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0630:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0631:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0632:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0633:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0635:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0636:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0637:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0638:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0639:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0640:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0641:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0643:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0644:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0645:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0646:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0647:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0648:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0649:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0651:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0652:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0653:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0654:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0655:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0656:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0811:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0812:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0813:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0814:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0816:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0817:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0818:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0819:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0821:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0822:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0823:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0824:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0826:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0827:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0828:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0829:figure",
+          "needs-repair:modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+          "uncertain:modern-yabejp-ja:chapter06-exercise003:i01158",
+          "dom_order",
+          "semantic_information_missing",
+          "uncertain:modern-yabejp-ja:chapter06-exercise003:b0099",
+          "error:modern-yabejp-ja:chapter06-exercise003:b0168",
+          "error:modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "error:modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+          "error:modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+          "error:modern-yabejp-ja:chapter06-exercise003:b0396",
+          "error:modern-yabejp-ja:chapter06-exercise003:b0502",
+          "error:modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "error:modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "error:modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "uncertain:modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "error:modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+          "error:modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+          "uncertain:modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+          "error:modern-yabejp-ja:chapter06-exercise003:b0962",
+          "error:modern-yabejp-ja:chapter06-exercise003:b1017",
+          "error:modern-yabejp-ja:chapter06-exercise003:b1181",
+          "chapter06-exercise003-batch-001:semantic_information_missing",
+          "chapter06-exercise003-batch-001:uncertain:modern-yabejp-ja:chapter06-exercise003:b0099",
+          "chapter06-exercise003-batch-001:batch_shared_context_not_faithful",
+          "chapter06-exercise003-batch-002:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0168",
+          "chapter06-exercise003-batch-002:semantic_information_missing",
+          "chapter06-exercise003-batch-002:error:modern-yabejp-ja:chapter06-exercise003:b0168",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0266",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0267",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0269",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0270",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0272",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0273",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0275",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0276",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0292",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0293",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0295",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0296",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0298",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0299",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0301",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0302",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0325",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0326",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0327",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0329",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0330",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0331",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0333",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0334",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0335",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0337",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0338",
+          "chapter06-exercise003-batch-003:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0339",
+          "chapter06-exercise003-batch-003:semantic_information_missing",
+          "chapter06-exercise003-batch-003:error:modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+          "chapter06-exercise003-batch-003:error:modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+          "chapter06-exercise003-batch-003:error:modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+          "chapter06-exercise003-batch-004:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0396",
+          "chapter06-exercise003-batch-004:semantic_information_missing",
+          "chapter06-exercise003-batch-004:error:modern-yabejp-ja:chapter06-exercise003:b0396",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0507",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0508",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0509",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0510",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0511",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0512",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0516",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0517",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0518",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0519",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0520",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0521",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0526",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0527",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0528",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0529",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0530",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0536",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0537",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0538",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0539",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0540",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0541",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0507:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0508:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0509:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0510:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0511:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0512:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0516:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0517:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0518:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0519:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0520:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0521:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0526:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0527:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0528:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0529:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0530:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0536:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0537:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0538:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0539:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0540:figure",
+          "chapter06-exercise003-batch-005:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0541:figure",
+          "chapter06-exercise003-batch-005:semantic_information_missing",
+          "chapter06-exercise003-batch-005:error:modern-yabejp-ja:chapter06-exercise003:b0502",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0627",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0628",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0629",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0630",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0631",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0632",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0633",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0635",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0636",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0637",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0638",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0639",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0640",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0641",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0643",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0644",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0645",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0646",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0647",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0648",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0649",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0651",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0652",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0653",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0654",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0655",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0656",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0627:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0628:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0629:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0630:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0631:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0632:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0633:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0635:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0636:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0637:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0638:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0639:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0640:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0641:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0643:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0644:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0645:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0646:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0647:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0648:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0649:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0651:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0652:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0653:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0654:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0655:figure",
+          "chapter06-exercise003-batch-006:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0656:figure",
+          "chapter06-exercise003-batch-006:semantic_information_missing",
+          "chapter06-exercise003-batch-006:error:modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+          "chapter06-exercise003-batch-007:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0785",
+          "chapter06-exercise003-batch-007:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "chapter06-exercise003-batch-007:semantic_information_missing",
+          "chapter06-exercise003-batch-007:error:modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "chapter06-exercise003-batch-007:error:modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "chapter06-exercise003-batch-007:uncertain:modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0811",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0812",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0813",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0814",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0816",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0817",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0818",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0819",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0821",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0822",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0823",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0824",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0826",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0827",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0828",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0829",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0811:figure",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0812:figure",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0813:figure",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0814:figure",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0816:figure",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0817:figure",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0818:figure",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0819:figure",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0821:figure",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0822:figure",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0823:figure",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0824:figure",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0826:figure",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0827:figure",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0828:figure",
+          "chapter06-exercise003-batch-008:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0829:figure",
+          "chapter06-exercise003-batch-008:semantic_information_missing",
+          "chapter06-exercise003-batch-008:error:modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+          "chapter06-exercise003-batch-009:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0947",
+          "chapter06-exercise003-batch-009:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0962",
+          "chapter06-exercise003-batch-009:needs-repair:modern-yabejp-ja:chapter06-exercise003:b1017",
+          "chapter06-exercise003-batch-009:needs-repair:modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+          "chapter06-exercise003-batch-009:uncertain:modern-yabejp-ja:chapter06-exercise003:i01158",
+          "chapter06-exercise003-batch-009:semantic_information_missing",
+          "chapter06-exercise003-batch-009:error:modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+          "chapter06-exercise003-batch-009:uncertain:modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+          "chapter06-exercise003-batch-009:error:modern-yabejp-ja:chapter06-exercise003:b0962",
+          "chapter06-exercise003-batch-009:error:modern-yabejp-ja:chapter06-exercise003:b1017",
+          "chapter06-exercise003-batch-011:needs-repair:modern-yabejp-ja:chapter06-exercise003:b1179",
+          "chapter06-exercise003-batch-011:needs-repair:modern-yabejp-ja:chapter06-exercise003:b1181",
+          "chapter06-exercise003-batch-011:semantic_information_missing",
+          "chapter06-exercise003-batch-011:error:modern-yabejp-ja:chapter06-exercise003:b1181"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+        "rawHtmlSha256": "8ea482140920fc3bfb392305d72b5755f014b73a5aa0bb71e6d46ca0e455dd66",
+        "mainSha256": "4b452ad5d84c973571f5944931a8afcc119f8b047244a0e7d81efa60ea0609cc",
+        "textBlocks": 671,
+        "imageRuns": 524,
+        "imageOccurrences": 1477,
+        "uniqueAssets": 72,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0,
+        "tableGeometry": {
+          "tables": 6,
+          "cells": 248,
+          "emptyCells": 117,
+          "method": "independent raw DOM captions, physical cells, exact whitespace and span attributes"
+        },
+        "decoderEvidence": {
+          "declaredEncoding": "shift_jis",
+          "effectiveEncoding": "cp932",
+          "reason": "Strict Shift_JIS rejects Windows extension bytes; strict CP932 succeeds, without replacement characters."
+        }
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-317-51",
+      "category": "source-recapture-or-pdf",
+      "parent": null,
+      "source": null,
+      "existingEntryResult": null
+    },
+    {
+      "chapterId": "nemata-jp-chapter-347-1",
+      "category": "existing-scope-check-now-passes-no-production-authorization",
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/archive01-section008.r1.display.json",
+        "sha256": "5051732a44803c58f82b528b6ac8ccc9657c560a28fa869b97a68241004f4cd7",
+        "registerShaMatches": true,
+        "bodyMode": "translated"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/archive01-section008/source.json",
+        "sha256": "62523932b13fc685e8c46c0ea7b2a765d1dff51ea39746ea9e2585cf92cfee21",
+        "parentSourceMatches": true
+      },
+      "existingEntryResult": {
+        "passed": true,
+        "targets": [
+          "modern-yabejp-ja:archive01-section008:b0066"
+        ],
+        "semanticAcceptance": null
+      },
+      "auditPath": "audit/web/articles/modern-yabejp-ja/archive01-section008.5051732a44803c58f82b528b6ac8ccc9657c560a28fa869b97a68241004f4cd7.json",
+      "auditFileSha256": "039d5c84c20db7ff0521efb682ce45cb0bfb754a1582ff5d8bf131e653db6aec",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:archive01-section008:b0066",
+          "sourceEvidence": "場の安さや待ちになったときの強さで",
+          "description": "“場の安さ”指相关花色在场上较“便宜”、较少被他家使用的情况，不能等同于舍出相关牌的安全程度。现译改变了拆两面的判断依据。",
+          "suggestedRepair": "将“相关牌在场上的安全程度”改为“相关花色在场上是否便宜（较少被他家使用）”，其余文字保留。"
+        }
+      ],
+      "semanticCompleteness": {
+        "complete": false,
+        "evidence": "Bound independent full parent review plus new independent target-text review; all unrequested prose, figures, marks and DOM locations are unchanged."
+      },
+      "modelChecks": {
+        "passed": false,
+        "errors": [
+          "target_text_not_faithful",
+          "target_text_context_or_completeness",
+          "target_text_issue"
+        ]
+      },
+      "independentSource": {
+        "schema": "coach-textbook-web-independent-source-check/1",
+        "passed": true,
+        "errors": [],
+        "sourceFileSha256": "62523932b13fc685e8c46c0ea7b2a765d1dff51ea39746ea9e2585cf92cfee21",
+        "rawHtmlSha256": "ebba5ef38e912301783c35b428f3e71233dc8195940f4c6594a9bd8b88ef20b1",
+        "mainSha256": "d8601c3320007d98a844016be22cdec5bebd87af747755d48b2da7f708811163",
+        "textBlocks": 39,
+        "imageRuns": 27,
+        "imageOccurrences": 77,
+        "uniqueAssets": 29,
+        "method": "offline independent html.parser character-and-image DOM event comparison",
+        "modelCalls": 0
+      }
+    }
+  ]
+}

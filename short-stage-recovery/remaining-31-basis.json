@@ -1,0 +1,740 @@
+{
+  "schema": "coac248-existing-pool-remaining-source-parent-summary/1",
+  "recordedAt": "2026-10-27T15:45:11.067Z",
+  "modelCalls": 0,
+  "basis": {
+    "preview": {
+      "path": "integration/accepted-preview-current.json",
+      "sha256": "4ac01424f64328f350c27d25318e5a119eaba8855088e7875fae3ead37ec6b05",
+      "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T15-36-30-338Z",
+      "chapters": 225
+    },
+    "register": {
+      "path": "integration/coac250-unified-chapter-register-20261027b.json",
+      "sha256": "c56b485486bfe861d42d977a451ef7f40c0f35a6cde9a589b99d1240870d68a9"
+    },
+    "prior": {
+      "path": "parallel/next-batch-20261027T1135/classification-remaining-38.json",
+      "sha256": "86ac534811e3774c10d0fcedfc7c06fafa65cca83d741c1e3a4c56fbc856d494"
+    }
+  },
+  "uncoveredOriginalChapters": 31,
+  "counts": {
+    "parent-evidence-or-adjudication": 20,
+    "B-owned-excluded": 2,
+    "source-recapture-or-pdf": 5,
+    "A-terminal-review-source-reading-conflict-owner-adjudication": 1,
+    "A-terminal-review-tile-error-and-unknown-discards-owner-adjudication": 1,
+    "A-current-batch-failed-no-output-no-retry": 1,
+    "existing-scope-check-now-passes-no-production-authorization": 1
+  },
+  "outsideExistingPool": [],
+  "rows": [
+    {
+      "chapterId": "79-cn-chapter-109-4",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1729038.display.json",
+        "sha256": "ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1729038/source.json",
+        "sha256": "b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1729038.ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22.retry-1792943789870-ade1138e.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_notes_scope",
+        "figureTargets": [
+          "79-bilibili-cn:cv1729038:b0004:figure",
+          "79-bilibili-cn:cv1729038:b0006:figure"
+        ],
+        "textTargets": []
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-155-4",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1751265.display.json",
+        "sha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1751265/source.json",
+        "sha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1751265.20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f.retry-1792948405214-96b97389.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_changed_body_or_scope",
+        "figureTargets": [],
+        "textTargets": [
+          "79-bilibili-cn:cv1751265:b0008"
+        ]
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-157-11",
+      "category": "B-owned-excluded",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1751276.display.json",
+        "sha256": "30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1751276/source.json",
+        "sha256": "797e9393790395bf88d680cfda77c27a406744455d487aad334110d2b5712ccc",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1751276.30679ab106ecb7f8df1d30aeea265878e0488c2aa3c09e04fed58629114549de.retry-1792948857228-d69c915c.json"
+      },
+      "existingEntryResult": null
+    },
+    {
+      "chapterId": "79-cn-chapter-159-9",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1751292.display.json",
+        "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1751292/source.json",
+        "sha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1751292.5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373.retry-1792949291881-6f049dc8.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "parent-audit-declares-no-error-target"
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-162-3",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1751316.display.json",
+        "sha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1751316/source.json",
+        "sha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1751316.1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52.retry-1792951224780-a2783f95.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_changed_body_or_scope",
+        "figureTargets": [],
+        "textTargets": [
+          "79-bilibili-cn:cv1751316:b0004",
+          "79-bilibili-cn:cv1751316:b0034"
+        ]
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-167-4",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1754620.display.json",
+        "sha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1754620/source.json",
+        "sha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1754620.7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_notes_scope",
+        "figureTargets": [
+          "79-bilibili-cn:cv1754620:b0005:figure"
+        ],
+        "textTargets": []
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-182-5",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1760573.display.json",
+        "sha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1760573/source.json",
+        "sha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_changed_body_or_scope",
+        "figureTargets": [],
+        "textTargets": [
+          "79-bilibili-cn:cv1760573:b0003"
+        ]
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-193-4",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1765377.display.json",
+        "sha256": "e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1765377/source.json",
+        "sha256": "75b3eae5938bd5e635089891d6ee721575cf9d8fddce050dadcb90a5f47f48c5",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1765377.e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "parent-audit-declares-no-error-target"
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-201-6",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1770179.display.json",
+        "sha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1770179/source.json",
+        "sha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1770179.52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_changed_body_or_scope",
+        "figureTargets": [
+          "79-bilibili-cn:cv1770179:b0005:figure"
+        ],
+        "textTargets": [
+          "79-bilibili-cn:cv1770179:b0006"
+        ]
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-205-5",
+      "category": "B-owned-excluded",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1770234.display.json",
+        "sha256": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1770234/source.json",
+        "sha256": "ac055129f64d27bb1f71561eac96c5b304b299803b51680b9c3e2e56df56cda1",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1770234.181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6.json"
+      },
+      "existingEntryResult": null
+    },
+    {
+      "chapterId": "79-cn-chapter-208-4",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1770245.display.json",
+        "sha256": "0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1770245/source.json",
+        "sha256": "0d6849d5bb4cb250ce9070a883fa072f9025c8411563b9f74fe9fd9d616fa17c",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1770245.0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "parent-audit-declares-no-error-target"
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-215-4",
+      "category": "source-recapture-or-pdf",
+      "parent": null,
+      "source": null,
+      "notes": null,
+      "existingEntryResult": null
+    },
+    {
+      "chapterId": "79-cn-chapter-217-4",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1775174.display.json",
+        "sha256": "4e9e896794fce70fbcbfed0b223c6cfd2e7c643c7713556e5d096ab7a7df8de0",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1775174/source.json",
+        "sha256": "9c8ac96ad4a283248195ea4f6c6da89c86e335fde3e9571aa434e95fd27bd521",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1775174.4e9e896794fce70fbcbfed0b223c6cfd2e7c643c7713556e5d096ab7a7df8de0.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_parent_has_other_unresolved_checks",
+        "figureTargets": [
+          "79-bilibili-cn:cv1775174:b0004:figure",
+          "79-bilibili-cn:cv1775174:b0010:figure"
+        ],
+        "textTargets": []
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-222-5",
+      "category": "A-terminal-review-source-reading-conflict-owner-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1775262.display.json",
+        "sha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1775262/source.json",
+        "sha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1775262.b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4.json"
+      },
+      "existingEntryResult": null
+    },
+    {
+      "chapterId": "79-cn-chapter-234-12",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+        "sha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1780400/source.json",
+        "sha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_changed_body_or_scope",
+        "figureTargets": [],
+        "textTargets": [
+          "79-bilibili-cn:cv1780400:b0003"
+        ]
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-242-3",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1780438.display.json",
+        "sha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1780438/source.json",
+        "sha256": "3cac4b7103309b092edada33aa8f698b606aa283ae1ce18f8ce9ba9e8428f6e0",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1780438.62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "parent-audit-declares-no-error-target"
+      }
+    },
+    {
+      "chapterId": "79-cn-chapter-256-18",
+      "category": "A-terminal-review-tile-error-and-unknown-discards-owner-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1785770.display.json",
+        "sha256": "84f27b9562fc5341a15ff938abf2db84a2ba0ba25cd30241e84996101500df69",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1785770/source.json",
+        "sha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1785770.84f27b9562fc5341a15ff938abf2db84a2ba0ba25cd30241e84996101500df69.json"
+      },
+      "existingEntryResult": null
+    },
+    {
+      "chapterId": "79-cn-chapter-276-4",
+      "category": "A-current-batch-failed-no-output-no-retry",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1793434.display.json",
+        "sha256": "34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1793434/source.json",
+        "sha256": "db1218e9226ef5ccaf978ec6b6801bd07498017b821973647d0e551ed518439f",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1793434.34cd6f77ec400bacdfaf0e51c20d700e0add78523583949392f7a056f148e3af.json"
+      },
+      "existingEntryResult": null
+    },
+    {
+      "chapterId": "79-cn-chapter-311-18",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1815400.display.json",
+        "sha256": "5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97",
+        "registerShaMatches": true,
+        "bodyMode": "verbatim"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1815400/source.json",
+        "sha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1815400.5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_notes_scope",
+        "figureTargets": [
+          "79-bilibili-cn:cv1815400:b0156:figure",
+          "79-bilibili-cn:cv1815400:b0158:figure"
+        ],
+        "textTargets": []
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-001-64",
+      "category": "source-recapture-or-pdf",
+      "parent": null,
+      "source": null,
+      "notes": null,
+      "existingEntryResult": null
+    },
+    {
+      "chapterId": "nemata-jp-chapter-100-1",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section035.display.json",
+        "sha256": "0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077",
+        "registerShaMatches": true,
+        "bodyMode": "translated"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter01-section035/source.json",
+        "sha256": "722ef1a43bed6650c33930abe2625641b0b9ffa271091c376c6efb8b684b517b",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter01-section035.0439c38228989d2f997036eaa0e4a4522cfb40e6c141469b1c83abf66db2c077.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "parent-audit-declares-no-error-target"
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-183-1",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section003.display.json",
+        "sha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+        "registerShaMatches": true,
+        "bodyMode": "translated"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section003/source.v2.json",
+        "sha256": "cb73d3a88d017081031a4de4961ae1a431c7ea24a384eed91865ac70a94b3cf3",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter03-section003.889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "parent-audit-declares-no-error-target"
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-193-1",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.display.json",
+        "sha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+        "registerShaMatches": true,
+        "bodyMode": "translated"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section009/source.json",
+        "sha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter03-section009.abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_changed_body_or_scope",
+        "figureTargets": [
+          "modern-yabejp-ja:chapter03-section009:b0080:figure"
+        ],
+        "textTargets": [
+          "modern-yabejp-ja:chapter03-section009:b0081"
+        ]
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-213-1",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.display.json",
+        "sha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+        "registerShaMatches": true,
+        "bodyMode": "translated"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section026/source.json",
+        "sha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_changed_body_or_scope",
+        "figureTargets": [
+          "modern-yabejp-ja:chapter03-section026:b0032:figure"
+        ],
+        "textTargets": [
+          "modern-yabejp-ja:chapter03-section026:b0017"
+        ]
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-224-1",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section005.display.json",
+        "sha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+        "registerShaMatches": true,
+        "bodyMode": "translated"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter04-section005/source.json",
+        "sha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_changed_body_or_scope",
+        "figureTargets": [
+          "modern-yabejp-ja:chapter04-section005:b0013:figure"
+        ],
+        "textTargets": []
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-232-1",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section012.display.json",
+        "sha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+        "registerShaMatches": true,
+        "bodyMode": "translated"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter04-section012/source.json",
+        "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "web_revision_changed_body_or_scope",
+        "figureTargets": [
+          "modern-yabejp-ja:chapter04-section012:b0005:figure"
+        ],
+        "textTargets": [
+          "modern-yabejp-ja:chapter04-section012:b0002",
+          "modern-yabejp-ja:chapter04-section012:b0004"
+        ]
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-236-1",
+      "category": "parent-evidence-or-adjudication",
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section015.display.json",
+        "sha256": "51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0",
+        "registerShaMatches": true,
+        "bodyMode": "translated"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter04-section015/source.json",
+        "sha256": "bece7c97b81c5ba283582cd1568404e8fb490ed1d5484267e6e7915785d1d93c",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter04-section015.51da8dd9a6968fc79e8dff4809c58805badb982f100c8803c6134fc1b32e12f0.json"
+      },
+      "existingEntryResult": {
+        "passed": false,
+        "error": "parent-audit-declares-no-error-target"
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-250-1",
+      "category": "source-recapture-or-pdf",
+      "parent": null,
+      "source": null,
+      "notes": null,
+      "existingEntryResult": null
+    },
+    {
+      "chapterId": "nemata-jp-chapter-283-1",
+      "category": "source-recapture-or-pdf",
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev1.json",
+        "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+        "registerShaMatches": true,
+        "bodyMode": "translated"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter06-exercise003/source.v3.json",
+        "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json"
+      },
+      "existingEntryResult": null
+    },
+    {
+      "chapterId": "nemata-jp-chapter-317-51",
+      "category": "source-recapture-or-pdf",
+      "parent": null,
+      "source": null,
+      "notes": null,
+      "existingEntryResult": null
+    },
+    {
+      "chapterId": "nemata-jp-chapter-347-1",
+      "category": "existing-scope-check-now-passes-no-production-authorization",
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/archive01-section008.r1.display.json",
+        "sha256": "5051732a44803c58f82b528b6ac8ccc9657c560a28fa869b97a68241004f4cd7",
+        "registerShaMatches": true,
+        "bodyMode": "translated"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/archive01-section008/source.json",
+        "sha256": "62523932b13fc685e8c46c0ea7b2a765d1dff51ea39746ea9e2585cf92cfee21",
+        "parentSourceMatches": true
+      },
+      "notes": {
+        "path": "audit/web/articles/modern-yabejp-ja/archive01-section008.5051732a44803c58f82b528b6ac8ccc9657c560a28fa869b97a68241004f4cd7.json"
+      },
+      "existingEntryResult": {
+        "passed": true,
+        "targets": [
+          "modern-yabejp-ja:archive01-section008:b0066"
+        ],
+        "semanticAcceptance": null
+      }
+    }
+  ],
+  "newBatch": [
+    {
+      "chapterId": "79-cn-chapter-256-18",
+      "candidateSha256": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2",
+      "status": "awaiting-COAC-249-first-independent-full-article-review",
+      "additionalUnknowns": [
+        {
+          "field": "unknowns",
+          "from": [],
+          "to": [
+            "下方手牌从左到右第12张：可辨为索子，数字无法可靠辨认。",
+            "上方弃牌第二行最右一张，即1p右侧的万子：数字无法可靠辨认。",
+            "右方弃牌靠中央一列最上方一张：可辨为索子，数字无法可靠辨认。"
+          ]
+        }
+      ],
+      "semanticAcceptance": null
+    },
+    {
+      "chapterId": "79-cn-chapter-276-4",
+      "candidateSha256": null,
+      "status": "failed-no-output-no-retry",
+      "callId": "2375640c-3a8d-45e7-9601-4b810fe87e80",
+      "usage": null,
+      "semanticAcceptance": null
+    }
+  ],
+  "conclusion": "No automatic v3 expansion or bulk production. Existing source/parent disputes require exact owner evidence or a separately authorized narrow gate change; none is inferred here. B 157/205 and prior A 222/246 are excluded from this production batch.",
+  "feedbackUpdatedAt": "2026-10-27T16:02:14.560180+00:00",
+  "feedbackScope": "Only222-5 and256-18 feedback updated; original225/256 coverage snapshot retained, not recomputed."
+}

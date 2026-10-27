@@ -1,0 +1,100 @@
+{
+  "modelCalls": 0,
+  "newCandidates": 0,
+  "patches": [
+    {
+      "chapterId": "79-cn-chapter-155-4",
+      "targetId": "79-bilibili-cn:cv1751265:b0008",
+      "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1751265.display.json",
+      "parentFileSha256": "20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f",
+      "parentCandidateSha256": "74c05811edb31a23a548b39887bf6f5e72f859de218d70fd93d7c831c6fa66ed",
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1751265/source.json",
+        "sha256": "aee2ec6c75983ee81447d08298a1fb1dd6cbd9e3ddd4753b0f6894223a630b22",
+        "parentSourceMatches": true
+      },
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1751265.20f4b2fcb544f458312f2c5bb11ab90096d5198c42c19400f73534b287402f4f.retry-1792948405214-96b97389.json",
+      "auditFileSha256": "190621efba617c7b101ecd4f9d21fcb1d7af2280b362669413235140e8c96627",
+      "auditIssue": {
+        "severity": "error",
+        "targetId": "79-bilibili-cn:cv1751265:b0008",
+        "sourceEvidence": "原文包含粗体“大丈夫だ，問題ない！”，候选正文仍保留该日文。",
+        "description": "日文引语未译成中文。",
+        "suggestedRepair": "将该引语译为“没关系，没问题！”，保留原有粗体强调，其余中文原文保持不变。"
+      },
+      "operations": [
+        {
+          "op": "test",
+          "path": "/body/blocks/7/text",
+          "value": "例2的形，东和北场上都已经切出了2张。 这种情况也是常有的。 “大丈夫だ，問題ない！”而去碰牌的人也不少 有死对子的情况去做门混七对子才是比较好的策略。"
+        },
+        {
+          "op": "replace",
+          "path": "/body/blocks/7/text",
+          "value": "例2的形，东和北场上都已经切出了2张。 这种情况也是常有的。 “没关系，没问题！”而去碰牌的人也不少 有死对子的情况去做门混七对子才是比较好的策略。"
+        }
+      ],
+      "verified": {
+        "exactOneReplacement": true,
+        "allOtherFieldsUnchanged": true,
+        "figuresAndSourceSegmentsUnchanged": true
+      },
+      "state": "prepared-exact-patch-not-production-or-independent-pass",
+      "entryConstraint": {
+        "passed": false,
+        "error": "web_revision_changed_body_or_scope",
+        "figureTargets": [],
+        "textTargets": [
+          "79-bilibili-cn:cv1751265:b0008"
+        ]
+      }
+    },
+    {
+      "chapterId": "nemata-jp-chapter-347-1",
+      "targetId": "modern-yabejp-ja:archive01-section008:b0066",
+      "parentPath": "web-production/v1/candidates/modern-yabejp-ja/archive01-section008.r1.display.json",
+      "parentFileSha256": "5051732a44803c58f82b528b6ac8ccc9657c560a28fa869b97a68241004f4cd7",
+      "parentCandidateSha256": "2ae4a223830c04d5a3cdbdcabeeec340416265884b702eabf50da1c92789f9f2",
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/archive01-section008/source.json",
+        "sha256": "62523932b13fc685e8c46c0ea7b2a765d1dff51ea39746ea9e2585cf92cfee21",
+        "parentSourceMatches": true
+      },
+      "auditPath": "audit/web/articles/modern-yabejp-ja/archive01-section008.5051732a44803c58f82b528b6ac8ccc9657c560a28fa869b97a68241004f4cd7.json",
+      "auditFileSha256": "039d5c84c20db7ff0521efb682ce45cb0bfb754a1582ff5d8bf131e653db6aec",
+      "auditIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:archive01-section008:b0066",
+        "sourceEvidence": "場の安さや待ちになったときの強さで",
+        "description": "“場の安さ”指相关花色在场上较“便宜”、较少被他家使用的情况，不能等同于舍出相关牌的安全程度。现译改变了拆两面的判断依据。",
+        "suggestedRepair": "将“相关牌在场上的安全程度”改为“相关花色在场上是否便宜（较少被他家使用）”，其余文字保留。"
+      },
+      "operations": [
+        {
+          "op": "test",
+          "path": "/body/blocks/65/text",
+          "value": "摸入后也有进张范围进一步扩大的优点。基本上应固定雀头，但也要记住，根据相关牌在场上的安全程度以及形成听口时的强度，也可能选择拆掉两面搭子。"
+        },
+        {
+          "op": "replace",
+          "path": "/body/blocks/65/text",
+          "value": "摸入后也有进张范围进一步扩大的优点。基本上应固定雀头，但也要记住，根据相关花色在场上是否便宜（较少被他家使用）以及形成听口时的强度，也可能选择拆掉两面搭子。"
+        }
+      ],
+      "verified": {
+        "exactOneReplacement": true,
+        "allOtherFieldsUnchanged": true,
+        "figuresAndSourceSegmentsUnchanged": true
+      },
+      "state": "prepared-exact-patch-not-production-or-independent-pass",
+      "entryConstraint": {
+        "passed": true,
+        "targets": [
+          "modern-yabejp-ja:archive01-section008:b0066"
+        ],
+        "semanticAcceptance": null
+      }
+    }
+  ],
+  "applicationRule": "Do not forge producer provenance. 155 remains blocked by the existing verbatim gate; owner must authorize the exact translation exception before applying through the supported entry. 347 needs an admitted revision mechanism and same-SHA audit. Existing passed receipts do not apply to a changed SHA."
+}
