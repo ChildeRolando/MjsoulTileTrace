@@ -277,13 +277,13 @@
     "error:79-cn-p217-r1",
     "uncertain:79-cn-p217-r1"
    ],
-   "currentDisposition": "quarantined-rev5-second-tile9m-supported-first-and-west-unknown-remain",
+   "currentDisposition": "west-impact-semantically-closed-exact-display-draft-pending-217-contract-admission",
    "origin": "COAC-248 old PDF 12",
    "newThisStage": false,
    "revisionChain": "receipt-p217-revision-chain-20261027.json",
    "adjudication": "adjudication-p217-tile-20261027.json",
    "candidateSelfSha256": "953b58901a062f166820ba61cc5660a0146c8c2866058b088064c62f67ac1c62",
-   "nextAction": "Existing244 owner review of the bound two-unknown proposal: north first requires truthful unknown display; west requires only scoped impact/display confirmation. North second9m resolved. No new model call or candidate edit authorized.",
+   "nextAction": "Existing244 owner: register exact217 native-inline/raw-overlay job, support only its bound unknown-array insertion, and place limitation note after complete218-b3 argument. No recognition or impact-model re-review is needed; current rev5 remains selected unchanged until legal admission.",
    "handoff249": "integration/coac249-p217-single-tile-read-20261027.json",
    "stage20261027T1419": "owner本阶段暂分流；保留已有证据与unknown，不追加研究、制作、整页审校，不阻塞090-6。",
    "chapterId": "79-cn-chapter-217-4",
@@ -427,7 +427,50 @@
     "newCandidates": 0,
     "newCompleteChaptersClosable": 0,
     "exactWebB0004PixelsMatchPdf": true,
-    "webRouteKnownFieldDifferencesRecorded": 5
+    "webRouteKnownFieldDifferencesRecorded": 5,
+    "supersededWestImpactState": "limited-unknown-acceptable-closed-with-conditions"
+   },
+   "westImpactImplementation20261028": {
+    "recordedAt": "2026-10-27T20:11:40.668818+00:00",
+    "handoffPath": "integration\\coac248-p217-west-implementation-20261028\\implementation-plan.json",
+    "handoffSha256": "577b38c5d962773b8d8d55d95855c6a1cfa8118ca31dcaead4ba3c507693c77f",
+    "westImpact": "limited-unknown-acceptable-closed-with-conditions",
+    "westImpactCallId": "6dd8a1d9-44a7-4a8b-958e-cf6a64c18636",
+    "westRequiresFurtherTileReading": false,
+    "westRequiresFurtherImpactReview": false,
+    "northSecond": "resolved9m-no-change",
+    "northFirst": "unreadable-manzu-no-number-inference",
+    "draftSha256": "fd9f781c25a7cae0d66aaf79031ce495420d5ca773bb9120c944a6f18f0e41a0",
+    "draftAdmitted": false,
+    "displayActuallyInstalled": false,
+    "actualGateError": "Error: audit_native_inline_correction_unapproved_page",
+    "remainingTechnicalItems": [
+     {
+      "id": "page-registration",
+      "actual": "knownNativeInlineCorrections has no79-cn:217 approval/job pin; actual loader check recorded separately.",
+      "needed": "One exact217 approval/job binding real original raw, audited parent chain, new draft SHA, independent point/impact receipts and only these fields.",
+      "legacyFlowEvidence": {
+       "flowMode": null,
+       "bodyMode": "verbatim",
+       "nativeSourceFlowPlanPresent": false,
+       "requiredBoundary": "Do not relabel legacy provenance as native. Any217 exact approval must genuinely bridge this preserved raw representation through the existing correction/validation contract."
+      }
+     },
+     {
+      "id": "unknown-array-cardinality",
+      "actual": "Existing approved array operation replaces entries only. Original model raw has0 entries; rev5 has1; requested explicit coordinates require2. Inserting is rejected by the existing contract.",
+      "needed": "A page-specific exact0→2 corrected-raw overlay/approved chain for217, retaining original raw and strict from/to SHA. No general unknown acceptance relaxation."
+     },
+     {
+      "id": "limitation-note-placement",
+      "actual": "The original example continues inPDF218-b3. No accepted PDF218 candidate exists in the current chapter register, and current217 legacy verbatim mode has no approved after-argument annotation slot.",
+      "needed": "Use the existing assembly/editorial-note contract at the exact218-b3 after-argument anchor, preserving author words; no new model transcription or premature caption note."
+     }
+    ],
+    "remainingModelBudget": 0,
+    "newCalls": 0,
+    "newAcceptedPages": 0,
+    "newAcceptedChapters": 0
    }
   },
   {
@@ -4614,7 +4657,7 @@
   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter03-section011.6ad44173945b9347cd8dd7c44640fa3341bf8e83109695e4cd8aacc6d3d98b21.json",
   "note": "Isolated revision from the 249/250 register set; parent receipt, parent candidate and raw preserved."
  },
- "refreshedAt": "2026-10-27T19:59:04.558778+00:00",
+ "refreshedAt": "2026-10-27T20:11:40.668818+00:00",
  "byOrigin": {
   "COAC-248 old PDF 12": 5,
   "COAC-247 new PDF return": 3,

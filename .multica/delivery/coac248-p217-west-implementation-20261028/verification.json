@@ -1,0 +1,82 @@
+{
+  "newCalls": 0,
+  "allSixRealImagePayloadFilesReverified": [
+    {
+      "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\original-p217-b8.png",
+      "commit": "6060360e9b98b730b9de0325ac24553a64056fe9",
+      "gitPath": ".multica/delivery/coac249-p217-west-impact-20261028/inputs/evidence/original-p217-b8.png",
+      "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+      "copy": "evidence\\actual-inputs\\1-original-p217-b8.png"
+    },
+    {
+      "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\inputs\\evidence\\pdf-page-image.png",
+      "commit": "6060360e9b98b730b9de0325ac24553a64056fe9",
+      "gitPath": ".multica/delivery/coac249-p217-west-impact-20261028/inputs/evidence/pdf-page-image.png",
+      "sha256": "c52048b9b1a0650b9041cc74a18cb0576c71eb68ccb61c5c4b482dffd79a1ba0",
+      "copy": "evidence\\actual-inputs\\2-pdf-page-image.png"
+    },
+    {
+      "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\visual\\west-context.png",
+      "commit": "6060360e9b98b730b9de0325ac24553a64056fe9",
+      "gitPath": ".multica/delivery/coac249-p217-west-impact-20261028/visual/west-context.png",
+      "sha256": "cd819d871b4c998c498908c59e857c66ddea984a985ac8755191380cc25ae6ac",
+      "copy": "evidence\\actual-inputs\\3-west-context.png"
+    },
+    {
+      "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\visual\\west-context-nearest4x.png",
+      "commit": "6060360e9b98b730b9de0325ac24553a64056fe9",
+      "gitPath": ".multica/delivery/coac249-p217-west-impact-20261028/visual/west-context-nearest4x.png",
+      "sha256": "6af117e0401db71fe4928c5dd2d48d3b8c92d7b625d7ef6a2c0bf55dfd8a62f5",
+      "copy": "evidence\\actual-inputs\\4-west-context-nearest4x.png"
+    },
+    {
+      "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\visual\\west-target.png",
+      "commit": "6060360e9b98b730b9de0325ac24553a64056fe9",
+      "gitPath": ".multica/delivery/coac249-p217-west-impact-20261028/visual/west-target.png",
+      "sha256": "e43705bf4908a16b5b83ee0fd6de8104d6f0a87879208b0ebab38bdc65b28b12",
+      "copy": "evidence\\actual-inputs\\5-west-target.png"
+    },
+    {
+      "recordedPath": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-138de1185b2d\\worktree\\.multica\\delivery\\coac249-p217-west-impact-20261028\\visual\\west-target-nearest4x.png",
+      "commit": "6060360e9b98b730b9de0325ac24553a64056fe9",
+      "gitPath": ".multica/delivery/coac249-p217-west-impact-20261028/visual/west-target-nearest4x.png",
+      "sha256": "89665734ab05e0c5cea0055c8b0e152342fd79fdcd8876bf61874868ca0c9a5c",
+      "copy": "evidence\\actual-inputs\\6-west-target-nearest4x.png"
+    }
+  ],
+  "actualTargetCropAndNearest4x": true,
+  "independentSixPremiseResultPreserved": true,
+  "westImpactClosed": true,
+  "draftHasTwoCoordinateUnknowns": true,
+  "northSecond9mPreserved": true,
+  "authorBodyAndOriginalCaptionPreserved": true,
+  "originalRawAndOldReceiptsUnchanged": true,
+  "currentCandidateUnchanged": true,
+  "legallyAdmittedCandidateWritten": false,
+  "notesInstalled": false,
+  "changedInventoryRows": [
+    1
+  ],
+  "other62RowsCountsAndFailureHistoryPreserved": true,
+  "noNewModelBudgetOrGlobalGateChange": true,
+  "contractCheck": {
+    "modelCalls": 0,
+    "actualLoaderError": "Error: audit_native_inline_correction_unapproved_page",
+    "existingLoaderModule": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/textbook-audit-pdf-native-corrections.mjs",
+    "moduleSha256": "31b8c8022ab00e8f3f89d85d8889ad9f1fd61269d6449da736c0ab142b90f74b",
+    "productionFlowMode": null,
+    "bodyMode": "verbatim",
+    "legacySourceModelRawUnchanged": true,
+    "draftAdmitted": false,
+    "unknownsRecognitionalImpactStillOpen": false
+  },
+  "limitationNotePlacement": "after218-b3 relevant argument, before next section; proposal-only",
+  "wholePagePassed": false,
+  "wholeChapterPassed": false,
+  "issueStatus": "in_progress",
+  "nativeFieldContractTests": {
+    "passed": 14,
+    "failed": 0,
+    "command": "node node_modules/vitest/vitest.mjs run scripts/scene-study/textbook-audit-pdf-native-corrections.test.mjs --no-file-parallelism"
+  }
+}

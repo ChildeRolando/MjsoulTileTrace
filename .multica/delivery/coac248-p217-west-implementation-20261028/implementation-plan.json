@@ -1,0 +1,164 @@
+{
+  "schema": "coac248-p217-bounded-field-implementation-plan/1",
+  "recordedAt": "2026-10-27T20:10:32.859846+00:00",
+  "chapterId": "79-cn-chapter-217-4",
+  "figureId": "79-cn-p217-r1",
+  "sourceImageBlockId": "79-cn-p217-b8",
+  "sourcePixels": [
+    430,
+    463
+  ],
+  "impactState": "closed-with-mandatory-limitations-no-further-tile-reading",
+  "westImpact": {
+    "handoffPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p217-west-impact-20261028.json",
+    "handoffSha256": "1fe84448edbf053d6a61ea4bb550518d6a4875df566347b72964ad8f8a65dedd",
+    "receiptSha256": "5f2e2fd009758c3df6d435073bf1f9dcb80c6f033f06213d931a668ef957e18b",
+    "rawSha256": "fa68f2f3be0e6b2eb496007d6d5638c7cc7aabd322975cfa24e048d96e849e81",
+    "callId": "6dd8a1d9-44a7-4a8b-958e-cf6a64c18636",
+    "classification": "limited-unknown-acceptable",
+    "sixPremiseChecks": [
+      {
+        "claimId": "dealer-souzu-dye",
+        "dependency": "independent-of-target-number",
+        "evidence": "正文称“很明显下家是索子的一色手”，并称下家为亲家。现有图示将右侧下家列为东家，其舍牌列为万、饼、字牌，并显示白牌副露；目标则是另一家的万子舍牌，其具体数字不决定这些观察。染索是作者依据场面的判断，东家暗手并未展示，不能说已经证实。"
+      },
+      {
+        "claimId": "south-round-lead",
+        "dependency": "independent-of-target-number",
+        "evidence": "正文说“自己在南场是TOP”。图示为南3局1本场，北家显示 +16900，其他三家显示 +5500、△4900、△17500。局次和显示值均不取决于西家这张万子的数字。"
+      },
+      {
+        "claimId": "shanten-yakuless-poor-wait",
+        "dependency": "independent-of-target-number",
+        "evidence": "正文说自己“一向听，但是是无役的愚型”。现有手牌转录中，本家有8万对子、两组已成顺子，以及尚未完成的索子和饼子组合；该判断针对本家手牌形状，西家这张万子的具体数字不是该形状的组成部分。未知数字可能影响特定万子的可见张数，不能据此断言精确进张或所有后续牌形。"
+      },
+      {
+        "claimId": "retain-9p-safety",
+        "dependency": "independent-of-target-number",
+        "evidence": "正文说“9饼有两家切掉了，以防有人立直是应该留下的”。现有图示转录列出南家和西家各舍过9饼，本家持有9饼；目标已知是万子，不属于这两张9饼。留下它是作者提出的防守准备，不等于它对所有对手都安全。"
+      },
+      {
+        "claimId": "break-8m-pair-hold-souzu",
+        "dependency": "independent-of-target-number",
+        "evidence": "正文建议“拆掉8万的对子，把索子紧紧扣住”。现有本家手牌显示8万对子和索子；目标是西家的万子，不是本家对子中的牌，也不是要扣住的索子。因此提出该操作不需要目标的具体数字。具体万子数字仍可能影响逐张计数、对西家的安全判断及打法比较，不能据此宣称8万绝对安全或必然最优。"
+      },
+      {
+        "claimId": "prevent-dealer-repeat",
+        "dependency": "independent-of-target-number",
+        "evidence": "作者先说“现在亲家应该还没有听牌吧”，再提出扣索以“施行让亲家未听下庄的战术”。对推测染索的下家扣住索子，是为了减少向其送出可用索子的机会；西家所舍万子的具体数字不是这一战术意图的必要前提。原图不能证明东家当时未听，也不能证明最后一定未听下庄。"
+      }
+    ],
+    "acceptanceConditions": [
+      "在西家自身第二行第二张明确显示“万子（数字未辨清）”，并保留对应 unknown；不赋具体牌码，也不依据牌河或暗手补猜。",
+      "附非原文审校注，说明该万子的数字未知，因此不能复原该张的精确牌码、完整精确牌谱，或据它确定相关万子的精确可见张数、余张、进张和安全度。",
+      "忠实保留“应该还没有听牌吧”的推测语气，以及争取亲家未听下庄的战术表述；不改写成已证实的听牌状态或实际结果。",
+      "本结论只验收西家这一处 unknown 的教学影响。北家另有的既有修正按原有证据处理，当前转录中待改的牌码不得作为本次结论的依据。"
+    ],
+    "newCallsBy249": 1,
+    "newCallsThisImplementation": 0,
+    "reviewBudgetRemaining": 0
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\candidates\\79-cn\\page-0217.json",
+    "sha256": "7766c2217ecb1bc04dfa98ecad9ca9d0e1221a695259a791d1d214e3a8c77777",
+    "changed": false
+  },
+  "draft": {
+    "path": "draft-page-0217.rev6.json",
+    "sha256": "fd9f781c25a7cae0d66aaf79031ce495420d5ca773bb9120c944a6f18f0e41a0",
+    "kind": "non-admitted-explicit-field-proposal",
+    "notModelOutput": true,
+    "eligibleForSelection": false
+  },
+  "changes": [
+    {
+      "target": "figure",
+      "figureId": "79-cn-p217-r1",
+      "field": "transcription",
+      "fromValue": "牌码：m=万，p=饼，s=索；1z=东、2z=南、3z=西、4z=北、5z=白、6z=发、7z=中。可辨认的明牌中无赤五。\n中央文字：南3局1本场，立直棒0根。座位：下方北家、右方东家、上方南家、左方西家；东家为庄家。中央“ドラ”栏显示西（3z），画面未注明该栏为宝牌还是宝牌指示牌。\n画面显示值：北家+16900，东家△4900，南家△17500，西家+5500。\n北家手牌从左至右：8m 8m 1s 2s 3s 6s 8s 1p 2p 3p 5p 7p 9p；右侧分开的摸牌为6s。其余三家的暗手牌背面朝外，牌种未知（画面可见南家13张、西家13张、东家10张）。\n北家舍牌，按其自身视角逐行从左至右：第一行1z 9s 1m 9s 1p 3z；第二行5m 9m。\n东家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，各列自下向上）：第一行8p 2m 1p 3p 7m 7z；第二行2z 9m 5p 4z。右上角副露为碰5z 5z 5z，中间一张横置，来自对家西家。\n南家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一行，自右向左）：第一行2z 1z 7z 4z 3z 2s；第二行3m 5p 5z 1s 9p。\n西家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，自上向下）：第一行9p 1s 1m 6z 9s 2p；第二行7z 万子（数字未辨清）2m 6m。",
+      "toValue": "牌码：m=万，p=饼，s=索；1z=东、2z=南、3z=西、4z=北、5z=白、6z=发、7z=中。可辨认的明牌中无赤五。\n中央文字：南3局1本场，立直棒0根。座位：下方北家、右方东家、上方南家、左方西家；东家为庄家。中央“ドラ”栏显示西（3z），画面未注明该栏为宝牌还是宝牌指示牌。\n画面显示值：北家+16900，东家△4900，南家△17500，西家+5500。\n北家手牌从左至右：8m 8m 1s 2s 3s 6s 8s 1p 2p 3p 5p 7p 9p；右侧分开的摸牌为6s。其余三家的暗手牌背面朝外，牌种未知（画面可见南家13张、西家13张、东家10张）。\n北家舍牌，按其自身视角逐行从左至右：第一行1z 9s 1m 9s 1p 3z；第二行万子（数字未辨清） 9m。\n东家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，各列自下向上）：第一行8p 2m 1p 3p 7m 7z；第二行2z 9m 5p 4z。右上角副露为碰5z 5z 5z，中间一张横置，来自对家西家。\n南家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一行，自右向左）：第一行2z 1z 7z 4z 3z 2s；第二行3m 5p 5z 1s 9p。\n西家舍牌，按其自身视角逐行从左至右（画面中先读靠中央的一列，自上向下）：第一行9p 1s 1m 6z 9s 2p；第二行7z 万子（数字未辨清）2m 6m。",
+      "replacements": [
+        {
+          "from": "第二行5m 9m。",
+          "to": "第二行万子（数字未辨清） 9m。",
+          "occurrences": 1
+        }
+      ]
+    },
+    {
+      "target": "figure",
+      "figureId": "79-cn-p217-r1",
+      "field": "unknowns",
+      "fromValue": [
+        "西家舍牌第二行第二张为旋转万子牌，数字笔画在当前嵌入位图分辨率下不能可靠辨定；未确认前不赋具体牌码，不据暗手或牌河推断补全。"
+      ],
+      "toValue": [
+        "西家舍牌第二行第二张为旋转万子牌，数字笔画在当前嵌入位图分辨率下不能可靠辨定；未确认前不赋具体牌码，不据暗手或牌河推断补全。 原嵌图坐标[81,175,112,199)，西家自身第二行第二张；保留未知，不赋点数。",
+        "北家舍牌第二行第一张为万子，数字未辨清；原嵌图坐标[150,325,175,357)，不再赋5m或6m。第二张9m另有独立坐标裁决，保持不变。"
+      ],
+      "requiresExistingEntryReplacementAndOneBoundedInsertion": true
+    }
+  ],
+  "note": {
+    "kind": "non-author-limitation-note-not-installed",
+    "text": "【审校注（非原文）：图中北家舍牌第二行第一张及西家舍牌第二行第二张均为万子，数字未辨清。西家该数字不影响本段亲家染索、南场领先、无役愚形一向听、留两家切过的9饼、拆8万对子扣索及争取亲家未听下庄的六项论证；北家第一张的未知不妨碍总体扣牌说明。两处未知限制精确牌谱复原，不能据此确定相关万子的精确可见张数、余张、进张和安全度。原文“现在亲家应该还没有听牌吧”为推测，扣索是战术意图，不证明对手暗手、实际结局、打法绝对安全或最优。】",
+    "chapterId": "79-cn-chapter-217-4",
+    "placement": {
+      "sourceBlockId": "79-cn-p218-b3",
+      "sourcePageSha256": "83d1909e9e92a9622c46c9ba0ea46efca12bef60cb27ec5b35d72fcbd8f92abd",
+      "afterExactText": "施行让亲家未听下庄的战术。",
+      "afterCharacterOffset": 165,
+      "beforeNextSection": "后付的字牌"
+    },
+    "authorTextUnchanged": true,
+    "placementReason": "Preserve the full continuous217–218 argument before the note; do not insert a disclaimer into the original paragraph or before its continuation.",
+    "notCurrentCaptionEdit": true,
+    "installed": false
+  },
+  "originalRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\raw-calls\\e12aa4a6-65f4-4a23-9579-09f887f568be.json",
+    "sha256": "6112c207fc1d5922e88af671f0a02b7e13623af7edee15a18a9b0c76bed59203",
+    "originalUnknowns": []
+  },
+  "specificContractGaps": [
+    {
+      "id": "page-registration",
+      "actual": "knownNativeInlineCorrections has no79-cn:217 approval/job pin; actual loader check recorded separately.",
+      "needed": "One exact217 approval/job binding real original raw, audited parent chain, new draft SHA, independent point/impact receipts and only these fields.",
+      "legacyFlowEvidence": {
+        "flowMode": null,
+        "bodyMode": "verbatim",
+        "nativeSourceFlowPlanPresent": false,
+        "requiredBoundary": "Do not relabel legacy provenance as native. Any217 exact approval must genuinely bridge this preserved raw representation through the existing correction/validation contract."
+      }
+    },
+    {
+      "id": "unknown-array-cardinality",
+      "actual": "Existing approved array operation replaces entries only. Original model raw has0 entries; rev5 has1; requested explicit coordinates require2. Inserting is rejected by the existing contract.",
+      "needed": "A page-specific exact0→2 corrected-raw overlay/approved chain for217, retaining original raw and strict from/to SHA. No general unknown acceptance relaxation."
+    },
+    {
+      "id": "limitation-note-placement",
+      "actual": "The original example continues inPDF218-b3. No accepted PDF218 candidate exists in the current chapter register, and current217 legacy verbatim mode has no approved after-argument annotation slot.",
+      "needed": "Use the existing assembly/editorial-note contract at the exact218-b3 after-argument anchor, preserving author words; no new model transcription or premature caption note."
+    }
+  ],
+  "semanticProblemsNotReopened": [
+    "North second9m point resolved",
+    "West number need not be read; six teaching dependencies independently accepted with limitations"
+  ],
+  "newCalls": 0,
+  "rawEdits": 0,
+  "oldAuditEdits": 0,
+  "globalGateChanges": 0,
+  "selectedCandidateChanged": false,
+  "noAdditionalModelBudget": true,
+  "wholePagePassed": false,
+  "wholeChapterPassed": false,
+  "integrationAllowed": false,
+  "otherAcceptanceGaps": [
+    "PDF218–220 and full217-4 unit coverage remain outside this impact result",
+    "Existing web variant source/field differences remain separate"
+  ],
+  "disposition": "Semantic impact closed; exact display/note content staged, but not legally installed. Existing244 owner receives technical admission gaps, not another recognition request."
+}
