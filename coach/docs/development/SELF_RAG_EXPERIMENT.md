@@ -1,7 +1,7 @@
 # Self-RAG 配对实验协议与结果
 
 日期：2026-10-27
-状态：**工具已实现并通过纯函数/夹具验证（含两轮独立就绪审查的全部修复）；真实语料规则来源适配已修复并有回归。正式 20 次模型评估未运行。**
+状态：**formal-v2 真实实验已完成（2 局 pilot + 8 局 evaluation，一次跑完）；工具与两轮独立就绪审查的全部修复均已验证；本批多数 selfrag 批次降级，结论为“本批未能检验语义过滤效果”。**
 
 本文件是该实验**真实结果**的 owner。契约与不变量见
 [冻结规格](../specs/2026-10-27-self-rag-applicability.md)（下称“规格”）；
@@ -28,9 +28,9 @@
 | CLI 入口可加载（`bin/selfrag-study.mjs` 的本地命名导入必须真实存在） | 已修复：`buildResearchArenaCorpus` 现从 `knowledge.mjs` 导入；`entry.test.mjs` 逐条核对 |
 | 真实语料规则来源：只用自身 `nikke-tenhou` observation 的 Tenhou GO locator 位域（四麻/东南、赤牌、食断），未观察规则保持 `unknown` | 已实现并有回归：缺失/不可解析/冲突/三麻/东只/非 mjai 均带原因排除，规则来源与摘要随 case 冻结并在 `verify` 由 locator 重算 |
 | 抽样排除原因与逐局进度（不再静默扫描全集） | 已实现并有回归：`freeze.sampling.exclusions` 记录每局原因；CLI 向 stderr 输出 `game_analyzed` / `slot_selected` 进度 |
-| 与工单 A 的真实门控联通 | **未验证**：A 的 `blind-discard-arena-rag-applicability` 尚未合入；harness 用夹具 gate 验证纯函数，`prepare`/`run` 在真实导入失败时以 `applicability_gate_unavailable` 停止 |
-| pilot（2 局）与 evaluation（8 局）真实运行 | **未运行** |
-| 真实质量、token、失败与耗时数字 | **未产生**；本文件不给出任何质量结论 |
+| 与工单 A 的真实门控联通 | **已验证**：A/COAC-266 合并后，formal-v2 的 pilot 与 evaluation 均实际调用 `blind-discard-arena-rag-applicability`（evaluation 3 applied / 5 degraded；含 pilot 共 4 applied / 6 degraded / 0 failed） |
+| pilot（2 局 × 2 臂）与 evaluation（8 局 × 2 臂）真实运行 | **已运行**：4/4 与 16/16 completed，无失败、无重试、无换题（§6.1） |
+| 真实质量、token、失败与耗时数字 | **已产生**：见 §6.2；结论按预声明规则写作“本批未能检验语义过滤效果”（§6.3） |
 
 `prepare` 在没有工单 A 导出的环境会直接失败并报 `applicability_gate_unavailable`；它不会把 mock gate 当作已集成，
 也不会伪造候选或判定。
@@ -165,9 +165,76 @@ evaluation 全程只用该组合。参数字节由 harness 在 selector provider
 
 ## 6. 真实结果
 
-**未运行。** 尚无 pilot、evaluation 或真实模型调用；本文件没有质量、token、失败或耗时数字。
-原因：工单 A 的 selector/gate 实现尚未合入（COAC-266 的 PR 未合并），且正式实验的前置门要求
-“A 已正常合并 + 干净精确 HEAD”。本文件不把任何夹具或单元测试数字写成实验结果。
+**已运行：formal-v2（2026-10-27）。** 唯一正式产物根
+`E:/AgentData/Coach/selfrag-applicability-20261027/formal-v2`，代码 SHA
+`d68aa088537349cd1f21617eec2795341af40811`（含 A/COAC-266 合并 `61547bd` 与 B/COAC-267 `c5b7bf0`）。
+执行身份为冻结值：`codex-cli 0.162.1`、原生可执行文件 SHA-256 `dd13bd…9a6a`
+（333 479 728 字节）、`gpt-6-luna`、`high`；`verify` 在 pilot 与 evaluation 前各核对一次。
+seed `coach-selfrag-20261027-v1`、20 张研究卡、三个历史实验排除集、场景槽位与预算 ladder 均未改变。
+formal-v1 只留下 `exclusions.json` / `research-subset.json`，没有任何模型调用（见下）。
+
+### 6.1 运行链路
+
+| 步骤 | 结果 |
+|---|---|
+| `prepare --artifacts formal-v2 --seed coach-selfrag-20261027-v1` | 退出 0；freeze 摘要写入；10 次独立 prejudge 调用全部完成（claim 10 / settle 10 / 失败 0）；预判 27 useful / 15 irrelevant / 8 uncertain |
+| `verify --phase pilot` | `status=verified`，全部摘要、执行身份与门控版本一致 |
+| `run --phase pilot` | 2 局 × 2 臂，4/4 completed；pilot selfrag 1 applied、1 degraded（`timeout`，45 s 门控超时，selector 用量 `unknown`） |
+| 预算冻结 | 从 pilot 唯一可观测 selfrag 运行（1546 output tokens / 2083 参数字节）各取最小可容纳档位 → **tokens 2048 / bytes 4096**，一次性写入 `freeze.json` |
+| `verify --phase evaluation` | `status=verified`，冻结预算在预声明 ladder 内 |
+| `run --phase evaluation` | 8 局 × 2 臂，16/16 completed（attempt 1，无重试、无失败、无替换） |
+| `report --judge-reasons` | 退出 0；2 次独立理由判读调用完成；报告摘要 `221f2ad6…4ba5` |
+
+脱敏验收回执（只含 SHA、计数、指标与文件摘要，不含私有牌谱或研究语料）位于
+`E:/文档/日麻教学/production-review-results/selfrag-acceptance-20261027/formal-v2/`；formal-v1 的失败说明在同级
+`formal-v1/`。
+
+### 6.2 evaluation 质量问题（8 局）
+
+| 指标 | baseline | selfrag |
+|---|---|---|
+| 尝试 / 完成 / 失败 | 8 / 8 / 0 | 8 / 8 / 0 |
+| 门控 applied / degraded / failed | — | 3 / 5 / 0 |
+| 交付片段 | 40（prejudge irrelevant 14） | 38（prejudge irrelevant 12） |
+| 剔除片段 / 其中 irrelevant | 0 | 2 / 2 |
+| drop precision | n/a（baseline 不过滤） | 1.000 |
+| useful drop rate | 0 | 0 |
+| uncertain 保留 | 6/6 = 1.000 | 6/6 = 1.000 |
+| citation 越界 / 指向 irrelevant | 0 / 1 | 0 / 1 |
+| 墙钟合计 | 193 698 ms | 536 085 ms |
+| 生成器 tokens（in/out） | 150 978 / 7 597 | 149 451 / 8 996 |
+| selector tokens（in/out） | 0 / 0 | 333 253 / 17 136 |
+
+过滤通道（evaluation）：`declared-condition-not-met` 2、`visible-fact-mismatch` 0、`context-mismatch` 0、
+机械特例 0、无法归类 0、逐条降级 0、**整批 degraded 5**、整批 failed 0。语义剔除共 2 次，
+两次剔除的独立理由判读为 1 成立 / 0 不成立 / 1 无法判断（AI 判读，非专家真值；2 次调用，66 253 / 916 tokens）。
+
+pilot 单列（不进入质量、通道、结论与理由判读）：baseline 31654/1782 tokens、72131 ms；
+selfrag 生成器 31654/2241、selector 1 次已报告 27485/1546、1 次未知（timeout）、136221 ms。
+
+全部尝试成本（pilot + evaluation + 所有失败，不可用于质量比较）：baseline 10/10 completed，182 632 / 9 379 tokens；
+selfrag 10/10 completed，生成器 181 105 / 11 237、selector 9 已报告 + 1 未知，360 738 / 18 682 tokens，
+合计 541 843 / 29 919（1 个 run 为部分报告）。非两臂调用：prejudge 191 617 / 10 704、理由判读 66 253 / 916。
+
+### 6.3 结论
+
+本批按预声明规则给出：**“selfrag 臂多数反思批次降级或失败，本批未能检验语义过滤效果。”**
+8 个 evaluation selfrag 批次中 5 个在冻结的 2048-token 预算下 `output_budget_exhausted`
+（实际报告输出 3122 / 2260 / 2215 / 2320 / 2468 tokens，均超过 2048；3 个 applied 批次为
+1237 / 1810 / 1704 tokens，均在预算内；参数字节均未触发 4096 上限）。因此：
+筛选只在 3 个可用批次上发生，2 次剔除的理由均被独立判读为成立或无法判断、无有用误删，
+但样本太小且多数批次降级，不能据此声称语义过滤有效或无效。token 总量 selfrag 明显更高
+（selector 成本），不构成成功指标。10 局不声称统计显著性。
+
+预算是进行到 pilot 之后、evaluation 之前一次性冻结的；评估期已开始后没有调整预算、提示词、
+语料、查询、场景样本或 seed，也没有重跑任何 evaluation attempt。若后续需要检验过滤效果，
+必须作为新的、事先登记的批次（新预算 profile）重新冻结，不能用本批数据回头调参。
+
+### 6.4 formal-v1 与实现修复历史
+
+**formal-v1 未产生模型调用。** 首次 prepare 在输入准备阶段失败，没有写出 `freeze.json` 或
+`prejudge-attempts.jsonl`，已发生模型调用为 **0**；目录与 `formal-v1-run-session.json` 原样保留。
+失败原因与修复见本节后半段。
 
 独立就绪审查（`experiment-readiness-review.json`，审查提交 `c5b7bf0`）指出的 3 个 P2 已在本 harness 修复，
 不改变冻结研究协议：pilot 污染质量口径、理由判读缺少原片段/盲观察、prepare 失败丢失已发生成本。
@@ -223,12 +290,9 @@ seed、20 张卡、排除集、场景槽位、Luna/high 与预算 ladder 均不�
 - `selection records why a game was skipped and streams progress for every analysis`
 - `the freeze binds every selected game to its corpus rule source and verify recomputes it`
 
-真实运行完成后按以下顺序补齐，不删失败、不改样本：
-
-1. `prepare` → `verify --phase pilot` → `run --phase pilot`（2 局，自动冻结 `selectorBudget`）。
-2. `verify --phase evaluation` → `run --phase evaluation`（8 局，一次跑完，失败不补跑）。
-3. `report --judge-reasons`，把 `report.md` 的真实数字与失败原样粘贴到本节，并保留
-   `report.json` 摘要与 freeze SHA。
+formal-v2 已按同一顺序完成（§6.1），没有删除失败、没有改样本；`report.json` 摘要为
+`221f2ad6cf562e2a01b04851bcdfc4c934370b275b84052d6b81d0fd7f3f4ba5`，freeze 的代码 SHA 为
+`d68aa088537349cd1f21617eec2795341af40811`。`report.md` 与 `report.json` 保存在上述私有产物根，不入仓。
 
 ## 7. 明确不做
 
