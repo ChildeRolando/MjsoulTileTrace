@@ -1,0 +1,30 @@
+[
+  {
+    "name": "wrong candidate",
+    "error": "283_table_reuse_exact_identity"
+  },
+  {
+    "name": "changed output verdict",
+    "error": "283_table_reuse_independent_receipt"
+  },
+  {
+    "name": "changed source projection",
+    "error": "283_table_reuse_actual_request_content_and_context"
+  },
+  {
+    "name": "changed presentation",
+    "error": "283_table_reuse_presentation_and_original_order"
+  },
+  {
+    "name": "changed image order",
+    "error": "283_table_reuse_presentation_and_original_order"
+  },
+  {
+    "name": "wrong scope",
+    "error": "283_table_reuse_scope"
+  },
+  {
+    "name": "changed table coordinate bytes",
+    "error": "283_table_reuse_bound_sha"
+  }
+]

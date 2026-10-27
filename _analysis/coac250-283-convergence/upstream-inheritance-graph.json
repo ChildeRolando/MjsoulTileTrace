@@ -1,0 +1,90 @@
+{
+  "schema": "coac244-283-candidate-evidence-graph/1",
+  "nodes": {
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter06-exercise003\\source.v3.json",
+      "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+      "bytes": 1998292
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev1.json",
+      "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+      "bytes": 2169759
+    },
+    "latest": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0168r1.json",
+      "sha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f",
+      "bytes": 2119310
+    },
+    "parentAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+      "sha256": "749e242c54019cb6b855a03e6df4fe465bed86e1cf50d7869be548a3b0144d40",
+      "bytes": 1690739
+    },
+    "latestAggregate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f.json",
+      "sha256": "d7c8b54d6b4bef37a4c6c0a97b88831a551ce4be8eb938fe51823a9ea1e401df"
+    },
+    "tableReceipt": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-283-tables-20261028\\receipt.json",
+      "sha256": "68f0a463533b01b57b242daaa9d42124e8e5a527f889350a64fad03aec86809b"
+    },
+    "tableRaw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\f5141a65-3fce-47c3-8a94-a0a9a2c9a528.json",
+      "sha256": "f8b6039206d68c70cfeb27d244d2dce557ab3f11d6f70ff44b2160359b2e0864"
+    },
+    "targetCheckpoint": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-002.json",
+      "sha256": "311df0ca752e1b34dfea16e2f07192f61dd886905b0a87fbdf8cf7d167314e5e"
+    },
+    "targetRaw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\3bbbff33-f638-4b9c-ae03-01b8d77e2a5a.json",
+      "sha256": "4f7193e61c9dd86512e8cd6ec86c7d2840176c92e127d46b6933a4bc365443db"
+    },
+    "batch010": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-010.json",
+      "sha256": "0f7ba48598f4f46d5d0bc1de613a288633346559ee3ce089d6f0accb699646aa"
+    }
+  },
+  "edges": [
+    {
+      "from": "parent",
+      "to": "latest",
+      "changed": [
+        "modern-yabejp-ja:chapter06-exercise003:b0168"
+      ],
+      "unchangedBlocks": 1194,
+      "unchangedFigures": 524,
+      "hashes": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\content-hashes.json",
+        "sha256": "ae4d53191b213ea67ba60406480b24f9dfa5916b276fb9402cbe88e8e18e5401"
+      }
+    },
+    {
+      "from": "tableReceipt",
+      "to": "latest",
+      "kind": "independent-supplement-reuse-on-identical-target-content-and-context",
+      "sourceBlocks": 137,
+      "tableFigures": 94,
+      "newIndependentFigureTargets": 66,
+      "tables": 6,
+      "actualProjectionHash": "7a2c7b769e3bfe2a7573bd8b18c49134b06b2cb955f8487e35e6b4ee24372ab0",
+      "presentationHash": "84039a4e80c5a5d051f79c039e12811a02afb3d5da58000d92a8a14745d37708",
+      "imageAttachmentOrderHash": "4ce356aeb0c5de296d46cba28393ad5ae51890e18eb9b624c4f969b41d0b9522"
+    },
+    {
+      "from": "targetCheckpoint",
+      "to": "latest",
+      "kind": "independent-first-target-review",
+      "target": "modern-yabejp-ja:chapter06-exercise003:b0168",
+      "status": "passed"
+    },
+    {
+      "from": "batch010",
+      "to": "latest",
+      "kind": "unchanged-block-context-inheritance",
+      "blocks": 113
+    }
+  ],
+  "wholeChapterAccepted": false
+}
