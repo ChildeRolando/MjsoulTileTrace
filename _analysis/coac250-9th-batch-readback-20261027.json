@@ -1,0 +1,73 @@
+{
+  "checkedAt": "2026-10-27T11:06:03.808Z",
+  "preview": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T10-38-35-579Z",
+  "corpusId": "5eebf4df6b1593749040570ed8e789b2809b1579cf51f2bf50f43dd2516f37fe",
+  "catalogEntries": 214,
+  "rows": [
+    {
+      "chapterId": "modern-yabejp-ja-chapter03-section015-chapter",
+      "unitId": "modern-yabejp-ja-chapter03-section015-argument",
+      "catalogPresent": true,
+      "catalogTitle": "牌役推测1",
+      "corpusBlocks": 9,
+      "readBlocks": 9,
+      "exactBody": true,
+      "revisedTextInBody": true,
+      "query": "z 单骑的优先度低于所选的单骑听牌，因此很可能是",
+      "searchTop5": [
+        "modern-yabejp-ja-chapter03-section015-argument",
+        "modern-yabejp-ja-chapter03-section017-argument",
+        "modern-yabejp-ja-chapter02-section023-argument",
+        "79-bilibili-cn-cv1770189-argument",
+        "modern-yabejp-ja-chapter01-section007-argument"
+      ],
+      "searchHitsUnit": true
+    },
+    {
+      "chapterId": "modern-yabejp-ja-archive01-section006-chapter",
+      "unitId": "modern-yabejp-ja-archive01-section006-argument",
+      "catalogPresent": true,
+      "catalogTitle": "６　孤立牌理论",
+      "corpusBlocks": 107,
+      "readBlocks": 107,
+      "exactBody": true,
+      "revisedTextInBody": true,
+      "query": "可。至于根据场况判断牌的“便宜”或“昂贵”，将在",
+      "searchTop5": [
+        "modern-yabejp-ja-archive01-section006-argument",
+        "79-cn-chapter-087-6-unit-1",
+        "modern-yabejp-ja-archive01-section005-argument",
+        "modern-yabejp-ja-chapter01-section045-argument",
+        "modern-yabejp-ja-chapter02-section026-argument"
+      ],
+      "searchHitsUnit": true
+    },
+    {
+      "chapterId": "modern-yabejp-ja-chapter06-exercise002-02-chapter",
+      "unitId": "modern-yabejp-ja-chapter06-exercise002-02-argument",
+      "catalogPresent": true,
+      "catalogTitle": "「数字麻将何切？」网站题目2",
+      "corpusBlocks": 265,
+      "readBlocks": 265,
+      "exactBody": true,
+      "revisedTextInBody": true,
+      "query": "m 立直与本方案相比，待牌张数仅相差1张，而且 ",
+      "searchTop5": [
+        "modern-yabejp-ja-chapter06-exercise002-02-argument",
+        "79-bilibili-cn-cv1760582-argument",
+        "79-bilibili-cn-cv1760595-argument",
+        "79-bilibili-cn-cv1760558-argument",
+        "79-cn-chapter-035-6-unit-1"
+      ],
+      "searchHitsUnit": true
+    }
+  ],
+  "images": {
+    "checked": 571,
+    "allReachable": true,
+    "mismatched": []
+  },
+  "maxTextBytes": 14879,
+  "totalCallMs": 92,
+  "modelCalls": 0
+}

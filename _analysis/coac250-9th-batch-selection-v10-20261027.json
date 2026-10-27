@@ -1,0 +1,300 @@
+{
+  "schema": "coach-specific-web-variant-selection/1",
+  "recordedAt": "2026-10-27T10:37:05.044Z",
+  "purpose": "Explicit source-reviewed revisions; this selection alone is not audit approval. Every selected candidate must still pass independent gate before stage.",
+  "sourceManifests": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\chinese-labels-v1\\manifest.json",
+      "sha256": "6cc126e1c95021b381cb2f8d52f46c919dc9b09f55278e02bf951b5bd5ff133a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\modern-targeted-text-r1\\manifest.json",
+      "sha256": "070310f5bba67056603468dadbc699c55203bee1d5d76556f07a5ecb15a316a3"
+    }
+  ],
+  "editorialManifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\specific-source-editorial-notes-final-v2\\manifest.json",
+    "sha256": "d79eaceb950acf5aaf0e72959c2f1911c3a728607710cb8399a99e2adcf17b9b"
+  },
+  "previousSelection": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v9.json",
+    "sha256": "10db28df45d476d9364051413cd45f8fb1e87b0160f6298130bad280d2e609c4"
+  },
+  "jobs": [
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1716163",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1716163.labels-v1.display.json",
+      "candidateSha256": "c552660659e5029381662d4290633f323e82c282714d6b2435f4d160347d0b95",
+      "sourceSha256": "bb3ffb81b946e1dc232323d2d8a3e81a17d07469424f0963e9db3dad126d2944"
+    },
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1708627",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1708627.labels-v1.display.json",
+      "candidateSha256": "b06423f81a1aac49d3b255f74eed8ecd1ff5a37bbbc0f1e0d56a99b3eae63889",
+      "sourceSha256": "80f9b1f8452fd1c6feea4a809830811e20edea8e4fcc046330bb8e8030f8c8c8"
+    },
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1716151",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1716151.labels-v1.display.json",
+      "candidateSha256": "d07ae41baabb63906807bd605cd7bd8de6f002003621a23175919f4bcc3d8f8a",
+      "sourceSha256": "c4ab95c0c3e9a6c6b079c48a197cb5bf23ec1e0dad83e86668107ae4db8d47d2"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "archive01-section002",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\archive01-section002.r1.display.json",
+      "candidateSha256": "60bce80dd897b9cc4315b9175f4a2f84070c71d2e3a1782bdcae1063cd7de8a1",
+      "sourceSha256": "a384ea11a0cf161f8576f81cf02a08b70208e2305d64bedf94ab7320fac0d7b4"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "archive01-section008",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\archive01-section008.r1.display.json",
+      "candidateSha256": "5051732a44803c58f82b528b6ac8ccc9657c560a28fa869b97a68241004f4cd7",
+      "sourceSha256": "62523932b13fc685e8c46c0ea7b2a765d1dff51ea39746ea9e2585cf92cfee21"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter01-section004",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section004.r1.display.json",
+      "candidateSha256": "632b7a027c5fa6894d944445e232a96b76d13561a649fbf1df25af239c62579d",
+      "sourceSha256": "24cc4ce3a88b7efd4f84fea300dedbaa7b1351f193cd43c3e00c270490279b04"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "archive01-section005",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\archive01-section005.source-note-v2.display.json",
+      "candidateSha256": "d666725a21e7f2c340238312ea16599073dba062de81fe95d4441bdd3bb26724",
+      "sourceSha256": "2f7f778da0394c1819dc9a16c481ab13878fc65dce6b574d4ed601691326c0ba",
+      "selectionReason": "root-approved exact editorial note appended to complete original paragraph; independent bound parent audit retained"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter01-section020",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter01-section020.source-note-v2.display.json",
+      "candidateSha256": "28f1afe58b1facfb19a03e78d42afe18a13d95868883e2611c4cc93a3763bf22",
+      "sourceSha256": "59ec9cf530b4506be93e05d09807c46ac494adc297c2d008e63e0059b9558c8f",
+      "selectionReason": "root-approved exact editorial note appended to complete original paragraph; independent bound parent audit retained"
+    },
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1726202",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1726202.processing-note-v1.display.json",
+      "candidateSha256": "8a3b546c6c01390e479b940ed5077f4ddbbf32afd3ac73a29c67619037ca865d",
+      "sourceSha256": "9cf54abb007ac9c124ca3cd1152a0369d3b7edb0534a70e126d27ea7b2717b63",
+      "selectionReason": "root-approved exact removal of processing-only attachment notes; unchanged teaching content inherits independent parent review",
+      "sourceCorrection": {
+        "path": "audit/specific-source-corrections-20261026.accepted.json",
+        "sha256": "5d92f934eb070064c2cfd46d7a628b092f5d8cfc8aff881955bae7826e66dc4f",
+        "parent": {
+          "path": "web-production/v1/candidates/79-bilibili-cn/cv1726202.display.json",
+          "sha256": "6dfa82554fa63ea52d6a5565055687f3bf0a74a9a6b0f2d756ca7772e7596c54"
+        },
+        "originalAudit": {
+          "path": "audit/web/articles/79-bilibili-cn/cv1726202.6dfa82554fa63ea52d6a5565055687f3bf0a74a9a6b0f2d756ca7772e7596c54.retry-1792943511485-24197019.json",
+          "sha256": "cc543a80650a58d8e2262f42041584232f6ba6a3850f37549b7967bec1309bcc"
+        },
+        "originalCalls": [
+          {
+            "path": "audit/calls/6aec7882-511e-40af-8fb4-5b1a15f30b59.json",
+            "sha256": "a530bad9a745dbea8f7e048b49dbb93bc5c64a870782bfcc150ec013bb74a77b"
+          }
+        ],
+        "resolutions": [
+          {
+            "figureId": "79-bilibili-cn:cv1726202:b0004:figure",
+            "field": "sourceNotes",
+            "fromValue": [
+              "附件1与附件2为同一原图及其最近邻放大视图，仅计一次。",
+              "牌顶的金色细边属于牌面绘图。"
+            ],
+            "toValue": [
+              "牌顶的金色细边属于牌面绘图。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1726202:b0006:figure",
+            "field": "sourceNotes",
+            "fromValue": [
+              "附件3与附件4为同一原图及其最近邻放大视图，仅计一次。"
+            ],
+            "toValue": []
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1726202:b0008:figure",
+            "field": "sourceNotes",
+            "fromValue": [
+              "附件5与附件6为同一原图及其最近邻放大视图，仅计一次。"
+            ],
+            "toValue": []
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1726202:b0010:figure",
+            "field": "sourceNotes",
+            "fromValue": [
+              "附件7与附件8为同一原图及其最近邻放大视图，仅计一次。"
+            ],
+            "toValue": []
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1726202:b0012:figure",
+            "field": "sourceNotes",
+            "fromValue": [
+              "附件9与附件10为同一原图及其最近邻放大视图，仅计一次。",
+              "牌河按画面中的行列和相邻位置记录；左右两家的牌面旋转是座位朝向。",
+              "背面朝外的牌未展示牌值，不作推断。"
+            ],
+            "toValue": [
+              "牌河按画面中的行列和相邻位置记录；左右两家的牌面旋转是座位朝向。",
+              "背面朝外的牌未展示牌值，不作推断。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1726202:b0014:figure",
+            "field": "sourceNotes",
+            "fromValue": [
+              "附件11与附件12为同一原图及其最近邻放大视图，仅计一次。",
+              "副露最左侧7m横置，其余牌竖置。"
+            ],
+            "toValue": [
+              "副露最左侧7m横置，其余牌竖置。"
+            ]
+          }
+        ],
+        "approvedBy": "root",
+        "approvedAt": "2026-10-25T16:39:13.915146+00:00"
+      }
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section011",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section011.rev1.json",
+      "candidateSha256": "6ad44173945b9347cd8dd7c44640fa3341bf8e83109695e4cd8aacc6d3d98b21",
+      "sourceSha256": "ecc4814ddf8838b473b6b05ff6389763b92379f1a7d7b0eee884167334288ee1",
+      "selectionReason": "COAC-248 targeted text revision of b0010; independent parent-scope review plus targeted text audit passed; unchanged figures inherit the parent presentation assets"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter04-section016",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter04-section016.rev1.json",
+      "candidateSha256": "d14aac65a3d02d8a44bf633bb969f1c057660d875a9aeb792cc022826293bc97",
+      "sourceSha256": "046ce78d8fb40ed0ca560ee7cc440f42ef92cab782178369069b6c2011d91e41",
+      "selectionReason": "COAC-248 targeted text revision of b0002; independent parent-scope review plus targeted text audit passed"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter01-section049",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section049.rev1.json",
+      "candidateSha256": "20e84a64d9ea6526ceea7395131bf96825133244b84d41c9ef0bd0f94799be33",
+      "sourceSha256": "a463edd2bf6d41428d46be506a60cf27615b2bd7c698b16dd39ced7ee30968bd",
+      "selectionReason": "COAC-248 targeted text revision of b0123; independent parent-scope review plus targeted text audit passed at 2026-10-27T03:07:42Z; unchanged figures inherit the parent presentation assets"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section024",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section024.rev1.json",
+      "selectionReason": "COAC-248 targeted text revision of b0039; independent parent-scope review plus targeted text audit passed 2026-10-27T04:09:52Z; unchanged figures inherit the parent presentation assets",
+      "candidateSha256": "643cc5850bc62f76e02c5efca69466cefb8f995a48f05dfc41f12829ec196eba",
+      "sourceSha256": "dd48007d553888bed502a78d5439905cb5b4f9a8d746c67b0f9e28f6b8cb2329"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter02-section023",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter02-section023.rev1.json",
+      "selectionReason": "COAC-248 targeted text revision of b0004; first audit transport failed, retryOfAudit passed 2026-10-27T04:15:18Z",
+      "candidateSha256": "098459b6cfb390423774251152486801538839a95d5b39c10a0a5fe133b69cd3",
+      "sourceSha256": "8efe3de13959b6dd7cae70eabc8608efe67bb5544d3729a9991d7082b2d2a2bb"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter01-section041",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter01-section041.rev3.json",
+      "selectionReason": "COAC-248 first revision of the placeholder-rejected b0016 only, verified against the deterministic rejection evidence; full-article first independent review passed 2026-10-27T03:22:55Z under the frozen web-first-revision runtime",
+      "candidateSha256": "6d5fd5aef0b8e6a1cb926b89a485488e7669ad98119201a1fe5ef5a2a86e9e46",
+      "sourceSha256": "bdd7228b6b5f066ce9866cc7f5b23e0c5039245fbb3d20b31a65a15d22650181"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter04-section007",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter04-section007.rev1.json",
+      "selectionReason": "COAC-248 sixth batch: targeted re-translation of b0007 only, the single block the parent independent review flagged as error; the other 9 blocks and the unchanged parent audit are byte-identical. Independent target-text audit passed 2026-10-27T05:24:25Z.",
+      "candidateSha256": "4e1c6ed36bef34ff0a9848ba8915f46b0422a9f71b611775f5ee7981292590d6",
+      "sourceSha256": "c4357e17bac3e079bffc1f39f53c6d190a4d4597f1ecde07275d29fba5e53d5b"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter06-section002",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter06-section002.rev1.json",
+      "selectionReason": "COAC-248 sixth batch: targeted re-translation of b0070 only, the single block the parent independent review flagged as error; the other 95 blocks and all 10 figures are substantively identical. Independent target-text audit passed 2026-10-27T05:26:32Z.",
+      "candidateSha256": "bbf15bbd1390a0b7ce729d5205a65dad72e0f24cb6c2fe1f9789aaaea26e1904",
+      "sourceSha256": "8ea3a7139a78ed4fcdfd36f663c2a47d0eb15efb8c4b88d4aff07336642f2933"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter04-section004",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter04-section004.rev1.json",
+      "selectionReason": "COAC-248 seventh batch: targeted re-translation of b0016 (超过一半 -> 情况好的话能达到一半以上, restoring the inclusive \"half or more\" reading) and b0018 (两面听牌的立直无役 -> 比起两面听牌、仅有立直这一役的听法, removing the false \"no yaku\" claim); the other 19 blocks and the unchanged parent audit are byte-identical, the chapter has no figures. Independent target-text audit passed 2026-10-27T07:00:52Z.",
+      "candidateSha256": "3910165816bc9776e27fccd11e9e46636c0eef860949df2978cb1481dde4d56a",
+      "sourceSha256": "cd98c1b548c5d7ca4040ba0bbc07d6390114116ec8257392ec1e96054a557605"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter02-section024",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter02-section024.rev1.json",
+      "selectionReason": "COAC-248 eighth batch: targeted re-translation of b0036 (处于1向听或以上 -> 对方处于一向听或已经听牌的可能性会变高, restoring the completion-direction reading); the other 44 blocks are byte-identical, all 8 inline tile figures inherit the parent presentationAsset unchanged. Independent target-text audit passed 2026-10-27T08:03:37Z.",
+      "candidateSha256": "7ceae3d061f859f9d4c93822422be385100396e12593a3980045e871f2adc5a7",
+      "sourceSha256": "732efdb6692088602c843f21574b251013482e826be79c14669f8c336bce6e1f"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section006",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section006.rev1.json",
+      "selectionReason": "COAC-248 eighth batch: targeted re-translation of b0095 (后，鸣了某张牌，再切出 -> 被切出后，鸣了某张牌，再切出, restoring the prior discard of the five pin); the other 103 blocks are byte-identical, all 48 figures inherit the parent presentationAsset unchanged. Independent target-text audit passed 2026-10-27T09:22:00Z.",
+      "candidateSha256": "310a9fb99713adf007a7226cc01fcf848b16cf3b164fc1094d2a81a644f2d2e2",
+      "sourceSha256": "cc67a6d1dcb9ed4415176da143bce497a806174f0bad22952c0fd61c6a29737f"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section012",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section012.rev1.json",
+      "selectionReason": "COAC-248 eighth batch: targeted re-translation of b0082 (那就更有可能是特殊牌型 -> 那么特殊牌型的可能性就很高了, keeping the strong-likelihood judgement, plus wording convergence inside the same block); the other 81 blocks are byte-identical, all 36 figures inherit the parent presentationAsset unchanged. Independent target-text audit passed 2026-10-27T09:19:00Z.",
+      "candidateSha256": "af5ea28cb84f84f9006f5c205c7fa4f99431bf7b3bad8e22e47a3a1245820e3b",
+      "sourceSha256": "894d33804c0b8528a38f91fc1750759f26588936791bc981cd0bf2870c364092"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section027",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section027.rev2.json",
+      "selectionReason": "COAC-249 independent review lane: second-order targeted re-translation of b0011 on its needs-repair rev1 parent (若打出的这张牌并非新摸入的牌 -> 若这张牌不是进张完成面子后切出的余牌); the other 12 blocks are byte-identical and the chapter has no figures. Independent target-text audit passed 2026-10-27T09:33:30Z on the frozen web-target-text-chain runtime (manifest 0aa071a4, auditor snapshot 856dad9d).",
+      "candidateSha256": "a75742e9c2bcb5b1c39453c6d8f795bea24cc5a431657b318ec7f5280a431817",
+      "sourceSha256": "76944539e0a90d8d6063968465768e01a13badf8b589e7d36fe0db7317d8b0c4"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section015",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section015.rev1.json",
+      "selectionReason": "COAC-248 ninth batch: targeted re-translation of b0041; the other 46 blocks are byte-identical and all 19 figures inherit the parent presentationAsset unchanged. Independent target-text audit passed 2026-10-27T09:47:54Z.",
+      "candidateSha256": "d63f3a896005f1b939302ddf7268b99bead9e66d0542d545071a014ca24da5ed",
+      "sourceSha256": "8939308a3d76e724013b74b04de6d17c733314b67117a9bced68dc4bc169289a"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "archive01-section006",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\archive01-section006.coac269rev1.json",
+      "selectionReason": "COAC-269 line-B first batch: targeted re-translation of b0518 (board cheap/expensive reading); the other 587 blocks are byte-identical and all 260 figures inherit the parent presentationAsset. Independent audit by COAC-249 passed 2026-10-27T10:01:45Z (receipt 74b93630).",
+      "candidateSha256": "ff5a9b524d8e10c62f97011bde7f6a5a837f58e8557230ca60c67581b426f782",
+      "sourceSha256": "6438c449b1284be3a7be4fd5004bfcda10517716c7cbbbf8b09df2cc92722548"
+    },
+    {
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter06-exercise002-02",
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise002-02.coac269rev1.json",
+      "selectionReason": "COAC-269 line-B first batch: targeted re-translation of b0263 and b0545 (comparison object of the wait-count sentence; chiitoitsu one-shanten wording); the other 690 blocks are byte-identical and all 292 figures inherit the parent presentationAsset. Independent audit by COAC-249 passed 2026-10-27T10:02:55Z (receipt 0553be30).",
+      "candidateSha256": "42991d764c900c46cba313848cc1c5138789c60079e6a988d4f6df5e09da330e",
+      "sourceSha256": "460025a88a0adcc545afa893594c6653d0b121f75fdcfd9512350f9292b984f4"
+    }
+  ]
+}

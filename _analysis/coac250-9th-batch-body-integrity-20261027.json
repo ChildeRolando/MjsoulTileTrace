@@ -1,0 +1,2766 @@
+{
+  "schema": "coac250-9th-batch-body-integrity/1",
+  "modelCalls": 0,
+  "preview": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T10-38-35-579Z",
+  "chapters": [
+    {
+      "chapterId": "modern-yabejp-ja-chapter03-section015-chapter",
+      "original": "nemata-jp-chapter-201-1",
+      "candidateSha256": "d63f3a896005f1b939302ddf7268b99bead9e66d0542d545071a014ca24da5ed",
+      "candidateBlocks": 47,
+      "candidateTextBlocks": 28,
+      "stagedUnits": [
+        "modern-yabejp-ja-chapter03-section015-argument"
+      ],
+      "stagedBlocks": 9,
+      "stagedFigures": 19,
+      "candidateFigures": 19,
+      "mapping": "staged locator.sourceBlockIds -> candidate sourceBlockIds; staged paragraphs merge candidate text blocks and render inline tile figures as codes",
+      "missingSourceBlocks": [],
+      "blocksNotContainedVerbatim": [],
+      "stagedParagraphs": [
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter03-section015-b1",
+          "memberBlocks": 1,
+          "candidateChars": 5,
+          "stagedChars": 5,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter03-section015-b2",
+          "memberBlocks": 1,
+          "candidateChars": 106,
+          "stagedChars": 106,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter03-section015-b3",
+          "memberBlocks": 1,
+          "candidateChars": 119,
+          "stagedChars": 119,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter03-section015-p4",
+          "memberBlocks": 4,
+          "candidateChars": 73,
+          "stagedChars": 79,
+          "tileRenderDeltaChars": 6
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter03-section015-p5",
+          "memberBlocks": 6,
+          "candidateChars": 111,
+          "stagedChars": 139,
+          "tileRenderDeltaChars": 28
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter03-section015-b22",
+          "memberBlocks": 1,
+          "candidateChars": 225,
+          "stagedChars": 225,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter03-section015-b23",
+          "memberBlocks": 1,
+          "candidateChars": 239,
+          "stagedChars": 239,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter03-section015-p8",
+          "memberBlocks": 4,
+          "candidateChars": 111,
+          "stagedChars": 128,
+          "tileRenderDeltaChars": 17
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter03-section015-p9",
+          "memberBlocks": 9,
+          "candidateChars": 399,
+          "stagedChars": 418,
+          "tileRenderDeltaChars": 19
+        }
+      ],
+      "revised": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section015:b0041",
+          "parentText": "更优先选择的单骑听牌，因此很可能是",
+          "candidateText": "单骑的优先度低于所选的单骑听牌，因此很可能是",
+          "stagedText": " 67s 这组两面搭子先被拆掉，而 3z 却保留到了更后面，这一点是关键。 3z 如果是数牌，根据[读牌技术论12](http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section012.html)，可以认为立直宣言牌这张数牌的周边是主要怀疑范围，但只有 3z 暗刻的无雀头形，才可能是顺着牌形推进的手牌。因此，出于牌役方面的原因， 3z 当时是必需的。将这一点与舍牌结合起来看，所追求的牌型就限定在万子的染手或七对子（ 3z 单骑的优先度低于所选的单骑听牌，因此很可能是 4z 单骑或宝牌单骑）之中。这一局，庄家的藤崎职业选手以七对子听宝牌单骑，用 7m 进行对攻，结果放铳给跳满（立直、门前混一色、双南）。如果是庄家的七对子加两张宝牌，放铳或许也无可奈何，但如果这只是便宜手的听牌， 7m 放铳的可能性很高（因为待牌范围已经限定），而且一旦放铳就会损失很多分，这一点也很明确，因此即使是庄家，选择弃和也更稳妥吧。",
+          "candidateDiffersFromParent": true,
+          "stagedCarriesNewPhrase": true,
+          "parentPhraseIsSubstringOfCandidate": false,
+          "stagedDropsOldPhrase": true,
+          "pass": {
+            "staged": true,
+            "revisedTextLanded": true
+          }
+        }
+      ],
+      "pass": {
+        "allSourceBlocksStaged": true,
+        "everyCandidateTextBlockPresent": true,
+        "allRevisedBlocksStaged": true,
+        "allRevisedTextsLanded": true,
+        "figureAssetsInherited": true
+      },
+      "allPassed": true
+    },
+    {
+      "chapterId": "modern-yabejp-ja-archive01-section006-chapter",
+      "original": "nemata-jp-chapter-338-1",
+      "candidateSha256": "ff5a9b524d8e10c62f97011bde7f6a5a837f58e8557230ca60c67581b426f782",
+      "candidateBlocks": 588,
+      "candidateTextBlocks": 328,
+      "stagedUnits": [
+        "modern-yabejp-ja-archive01-section006-argument"
+      ],
+      "stagedBlocks": 107,
+      "stagedFigures": 260,
+      "candidateFigures": 260,
+      "mapping": "staged locator.sourceBlockIds -> candidate sourceBlockIds; staged paragraphs merge candidate text blocks and render inline tile figures as codes",
+      "missingSourceBlocks": [],
+      "blocksNotContainedVerbatim": [],
+      "stagedParagraphs": [
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b1",
+          "memberBlocks": 1,
+          "candidateChars": 6,
+          "stagedChars": 6,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b2",
+          "memberBlocks": 1,
+          "candidateChars": 13,
+          "stagedChars": 13,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b3",
+          "memberBlocks": 1,
+          "candidateChars": 27,
+          "stagedChars": 27,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p4",
+          "memberBlocks": 4,
+          "candidateChars": 49,
+          "stagedChars": 57,
+          "tileRenderDeltaChars": 8
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p5",
+          "memberBlocks": 5,
+          "candidateChars": 124,
+          "stagedChars": 141,
+          "tileRenderDeltaChars": 17
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b20",
+          "memberBlocks": 1,
+          "candidateChars": 37,
+          "stagedChars": 37,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b21",
+          "memberBlocks": 1,
+          "candidateChars": 75,
+          "stagedChars": 75,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p8",
+          "memberBlocks": 5,
+          "candidateChars": 91,
+          "stagedChars": 101,
+          "tileRenderDeltaChars": 10
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b31",
+          "memberBlocks": 1,
+          "candidateChars": 14,
+          "stagedChars": 14,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p10",
+          "memberBlocks": 6,
+          "candidateChars": 52,
+          "stagedChars": 85,
+          "tileRenderDeltaChars": 33
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p11",
+          "memberBlocks": 2,
+          "candidateChars": 55,
+          "stagedChars": 68,
+          "tileRenderDeltaChars": 13
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b46",
+          "memberBlocks": 1,
+          "candidateChars": 28,
+          "stagedChars": 28,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p13",
+          "memberBlocks": 3,
+          "candidateChars": 41,
+          "stagedChars": 57,
+          "tileRenderDeltaChars": 16
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p14",
+          "memberBlocks": 3,
+          "candidateChars": 62,
+          "stagedChars": 72,
+          "tileRenderDeltaChars": 10
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p15",
+          "memberBlocks": 3,
+          "candidateChars": 96,
+          "stagedChars": 106,
+          "tileRenderDeltaChars": 10
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p16",
+          "memberBlocks": 11,
+          "candidateChars": 48,
+          "stagedChars": 98,
+          "tileRenderDeltaChars": 50
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p17",
+          "memberBlocks": 5,
+          "candidateChars": 32,
+          "stagedChars": 57,
+          "tileRenderDeltaChars": 25
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p18",
+          "memberBlocks": 7,
+          "candidateChars": 31,
+          "stagedChars": 63,
+          "tileRenderDeltaChars": 32
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b107",
+          "memberBlocks": 1,
+          "candidateChars": 14,
+          "stagedChars": 14,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p20",
+          "memberBlocks": 7,
+          "candidateChars": 154,
+          "stagedChars": 180,
+          "tileRenderDeltaChars": 26
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p21-slice1",
+          "memberBlocks": 12,
+          "candidateChars": 12,
+          "stagedChars": 60,
+          "tileRenderDeltaChars": 48
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p22-slice1",
+          "memberBlocks": 12,
+          "candidateChars": 12,
+          "stagedChars": 58,
+          "tileRenderDeltaChars": 46
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p22-slice2",
+          "memberBlocks": 2,
+          "candidateChars": 2,
+          "stagedChars": 12,
+          "tileRenderDeltaChars": 10
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p23",
+          "memberBlocks": 13,
+          "candidateChars": 81,
+          "stagedChars": 117,
+          "tileRenderDeltaChars": 36
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p24-slice1",
+          "memberBlocks": 12,
+          "candidateChars": 12,
+          "stagedChars": 60,
+          "tileRenderDeltaChars": 48
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p24-slice2",
+          "memberBlocks": 6,
+          "candidateChars": 7,
+          "stagedChars": 29,
+          "tileRenderDeltaChars": 22
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b236",
+          "memberBlocks": 1,
+          "candidateChars": 13,
+          "stagedChars": 13,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b237",
+          "memberBlocks": 1,
+          "candidateChars": 14,
+          "stagedChars": 14,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p28",
+          "memberBlocks": 5,
+          "candidateChars": 5,
+          "stagedChars": 34,
+          "tileRenderDeltaChars": 29
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b252",
+          "memberBlocks": 1,
+          "candidateChars": 15,
+          "stagedChars": 15,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b254",
+          "memberBlocks": 1,
+          "candidateChars": 42,
+          "stagedChars": 42,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p32",
+          "memberBlocks": 10,
+          "candidateChars": 26,
+          "stagedChars": 63,
+          "tileRenderDeltaChars": 37
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b274",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p34-slice1",
+          "memberBlocks": 12,
+          "candidateChars": 64,
+          "stagedChars": 108,
+          "tileRenderDeltaChars": 44
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p34-slice2",
+          "memberBlocks": 3,
+          "candidateChars": 45,
+          "stagedChars": 52,
+          "tileRenderDeltaChars": 7
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b305",
+          "memberBlocks": 1,
+          "candidateChars": 15,
+          "stagedChars": 15,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p36",
+          "memberBlocks": 12,
+          "candidateChars": 91,
+          "stagedChars": 139,
+          "tileRenderDeltaChars": 48
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p38",
+          "memberBlocks": 9,
+          "candidateChars": 172,
+          "stagedChars": 196,
+          "tileRenderDeltaChars": 24
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p40",
+          "memberBlocks": 10,
+          "candidateChars": 82,
+          "stagedChars": 111,
+          "tileRenderDeltaChars": 29
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b368",
+          "memberBlocks": 1,
+          "candidateChars": 18,
+          "stagedChars": 18,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p43",
+          "memberBlocks": 5,
+          "candidateChars": 43,
+          "stagedChars": 56,
+          "tileRenderDeltaChars": 13
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p45",
+          "memberBlocks": 5,
+          "candidateChars": 81,
+          "stagedChars": 90,
+          "tileRenderDeltaChars": 9
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b389",
+          "memberBlocks": 1,
+          "candidateChars": 58,
+          "stagedChars": 58,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b390",
+          "memberBlocks": 1,
+          "candidateChars": 14,
+          "stagedChars": 14,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b391",
+          "memberBlocks": 1,
+          "candidateChars": 50,
+          "stagedChars": 50,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b392",
+          "memberBlocks": 1,
+          "candidateChars": 16,
+          "stagedChars": 16,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p50",
+          "memberBlocks": 9,
+          "candidateChars": 180,
+          "stagedChars": 206,
+          "tileRenderDeltaChars": 26
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b410",
+          "memberBlocks": 1,
+          "candidateChars": 15,
+          "stagedChars": 15,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p52-slice1",
+          "memberBlocks": 12,
+          "candidateChars": 12,
+          "stagedChars": 62,
+          "tileRenderDeltaChars": 50
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p52-slice2",
+          "memberBlocks": 2,
+          "candidateChars": 2,
+          "stagedChars": 14,
+          "tileRenderDeltaChars": 12
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b440",
+          "memberBlocks": 1,
+          "candidateChars": 32,
+          "stagedChars": 32,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b441",
+          "memberBlocks": 1,
+          "candidateChars": 9,
+          "stagedChars": 9,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b442",
+          "memberBlocks": 1,
+          "candidateChars": 129,
+          "stagedChars": 129,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b443",
+          "memberBlocks": 1,
+          "candidateChars": 181,
+          "stagedChars": 181,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b444",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b445",
+          "memberBlocks": 1,
+          "candidateChars": 66,
+          "stagedChars": 66,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b446",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p60",
+          "memberBlocks": 2,
+          "candidateChars": 35,
+          "stagedChars": 45,
+          "tileRenderDeltaChars": 10
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b451",
+          "memberBlocks": 1,
+          "candidateChars": 11,
+          "stagedChars": 11,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b452",
+          "memberBlocks": 1,
+          "candidateChars": 100,
+          "stagedChars": 100,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b453",
+          "memberBlocks": 1,
+          "candidateChars": 14,
+          "stagedChars": 14,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b454",
+          "memberBlocks": 1,
+          "candidateChars": 57,
+          "stagedChars": 57,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b455",
+          "memberBlocks": 1,
+          "candidateChars": 16,
+          "stagedChars": 16,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p66",
+          "memberBlocks": 7,
+          "candidateChars": 69,
+          "stagedChars": 93,
+          "tileRenderDeltaChars": 24
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p67",
+          "memberBlocks": 4,
+          "candidateChars": 68,
+          "stagedChars": 80,
+          "tileRenderDeltaChars": 12
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b476",
+          "memberBlocks": 1,
+          "candidateChars": 12,
+          "stagedChars": 12,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b477",
+          "memberBlocks": 1,
+          "candidateChars": 63,
+          "stagedChars": 63,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b478",
+          "memberBlocks": 1,
+          "candidateChars": 15,
+          "stagedChars": 15,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p71",
+          "memberBlocks": 3,
+          "candidateChars": 83,
+          "stagedChars": 91,
+          "tileRenderDeltaChars": 8
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p72",
+          "memberBlocks": 3,
+          "candidateChars": 75,
+          "stagedChars": 80,
+          "tileRenderDeltaChars": 5
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b489",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b490",
+          "memberBlocks": 1,
+          "candidateChars": 99,
+          "stagedChars": 99,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b491",
+          "memberBlocks": 1,
+          "candidateChars": 67,
+          "stagedChars": 67,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b492",
+          "memberBlocks": 1,
+          "candidateChars": 108,
+          "stagedChars": 108,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b493",
+          "memberBlocks": 1,
+          "candidateChars": 77,
+          "stagedChars": 77,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b494",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p79-s1",
+          "memberBlocks": 2,
+          "candidateChars": 123,
+          "stagedChars": 123,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b497",
+          "memberBlocks": 1,
+          "candidateChars": 15,
+          "stagedChars": 15,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b498",
+          "memberBlocks": 1,
+          "candidateChars": 60,
+          "stagedChars": 60,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p82",
+          "memberBlocks": 6,
+          "candidateChars": 147,
+          "stagedChars": 161,
+          "tileRenderDeltaChars": 14
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p83",
+          "memberBlocks": 4,
+          "candidateChars": 132,
+          "stagedChars": 141,
+          "tileRenderDeltaChars": 9
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b517",
+          "memberBlocks": 1,
+          "candidateChars": 17,
+          "stagedChars": 17,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b518",
+          "memberBlocks": 1,
+          "candidateChars": 69,
+          "stagedChars": 69,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b519",
+          "memberBlocks": 1,
+          "candidateChars": 5,
+          "stagedChars": 5,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b520",
+          "memberBlocks": 1,
+          "candidateChars": 71,
+          "stagedChars": 71,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b521",
+          "memberBlocks": 1,
+          "candidateChars": 11,
+          "stagedChars": 11,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b522",
+          "memberBlocks": 1,
+          "candidateChars": 16,
+          "stagedChars": 16,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p90",
+          "memberBlocks": 6,
+          "candidateChars": 158,
+          "stagedChars": 174,
+          "tileRenderDeltaChars": 16
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p91",
+          "memberBlocks": 2,
+          "candidateChars": 18,
+          "stagedChars": 22,
+          "tileRenderDeltaChars": 4
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p92",
+          "memberBlocks": 4,
+          "candidateChars": 166,
+          "stagedChars": 172,
+          "tileRenderDeltaChars": 6
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b545",
+          "memberBlocks": 1,
+          "candidateChars": 15,
+          "stagedChars": 15,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b546",
+          "memberBlocks": 1,
+          "candidateChars": 68,
+          "stagedChars": 68,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p95",
+          "memberBlocks": 2,
+          "candidateChars": 146,
+          "stagedChars": 152,
+          "tileRenderDeltaChars": 6
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p96",
+          "memberBlocks": 2,
+          "candidateChars": 94,
+          "stagedChars": 99,
+          "tileRenderDeltaChars": 5
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p97",
+          "memberBlocks": 1,
+          "candidateChars": 21,
+          "stagedChars": 27,
+          "tileRenderDeltaChars": 6
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p98",
+          "memberBlocks": 7,
+          "candidateChars": 14,
+          "stagedChars": 53,
+          "tileRenderDeltaChars": 39
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b573",
+          "memberBlocks": 1,
+          "candidateChars": 14,
+          "stagedChars": 14,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b574",
+          "memberBlocks": 1,
+          "candidateChars": 45,
+          "stagedChars": 45,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-p101",
+          "memberBlocks": 7,
+          "candidateChars": 80,
+          "stagedChars": 102,
+          "tileRenderDeltaChars": 22
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-archive01-section006-b588",
+          "memberBlocks": 1,
+          "candidateChars": 57,
+          "stagedChars": 57,
+          "tileRenderDeltaChars": 0
+        }
+      ],
+      "revised": [
+        {
+          "id": "modern-yabejp-ja:archive01-section006:b0518",
+          "parentText": "基本上，只需确认能形成两面的牌已被切出多少，切掉相关牌被切出较多的那一边即可。对场上牌的疏密情况的考虑，将在读牌一节中讨论。",
+          "candidateText": "基本上，只需确认能形成两面的牌已被切出多少，切掉相关牌被切出较多的那一边即可。至于根据场况判断牌的“便宜”或“昂贵”，将在读牌一节中讨论。",
+          "stagedText": "基本上，只需确认能形成两面的牌已被切出多少，切掉相关牌被切出较多的那一边即可。至于根据场况判断牌的“便宜”或“昂贵”，将在读牌一节中讨论。",
+          "candidateDiffersFromParent": true,
+          "stagedCarriesNewPhrase": true,
+          "parentPhraseIsSubstringOfCandidate": false,
+          "stagedDropsOldPhrase": true,
+          "pass": {
+            "staged": true,
+            "revisedTextLanded": true
+          }
+        }
+      ],
+      "pass": {
+        "allSourceBlocksStaged": true,
+        "everyCandidateTextBlockPresent": true,
+        "allRevisedBlocksStaged": true,
+        "allRevisedTextsLanded": true,
+        "figureAssetsInherited": true
+      },
+      "allPassed": true
+    },
+    {
+      "chapterId": "modern-yabejp-ja-chapter06-exercise002-02-chapter",
+      "original": "nemata-jp-chapter-273-1",
+      "candidateSha256": "42991d764c900c46cba313848cc1c5138789c60079e6a988d4f6df5e09da330e",
+      "candidateBlocks": 692,
+      "candidateTextBlocks": 400,
+      "stagedUnits": [
+        "modern-yabejp-ja-chapter06-exercise002-02-argument"
+      ],
+      "stagedBlocks": 265,
+      "stagedFigures": 292,
+      "candidateFigures": 292,
+      "mapping": "staged locator.sourceBlockIds -> candidate sourceBlockIds; staged paragraphs merge candidate text blocks and render inline tile figures as codes",
+      "missingSourceBlocks": [],
+      "blocksNotContainedVerbatim": [],
+      "stagedParagraphs": [
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b1",
+          "memberBlocks": 1,
+          "candidateChars": 14,
+          "stagedChars": 14,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b2",
+          "memberBlocks": 1,
+          "candidateChars": 167,
+          "stagedChars": 167,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p3-s1",
+          "memberBlocks": 3,
+          "candidateChars": 196,
+          "stagedChars": 196,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b6",
+          "memberBlocks": 1,
+          "candidateChars": 66,
+          "stagedChars": 66,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b7",
+          "memberBlocks": 1,
+          "candidateChars": 50,
+          "stagedChars": 50,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b8",
+          "memberBlocks": 1,
+          "candidateChars": 10,
+          "stagedChars": 10,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b9",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p8",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b15",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p10",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p11",
+          "memberBlocks": 3,
+          "candidateChars": 25,
+          "stagedChars": 29,
+          "tileRenderDeltaChars": 4
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b23",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p13",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b29",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p15",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b32",
+          "memberBlocks": 1,
+          "candidateChars": 23,
+          "stagedChars": 23,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b33",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p18",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b39",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p20",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p21",
+          "memberBlocks": 3,
+          "candidateChars": 47,
+          "stagedChars": 51,
+          "tileRenderDeltaChars": 4
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b47",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p23",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b53",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p25",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b56",
+          "memberBlocks": 1,
+          "candidateChars": 17,
+          "stagedChars": 17,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b57",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p28",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b63",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p30",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p31",
+          "memberBlocks": 2,
+          "candidateChars": 31,
+          "stagedChars": 33,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b69",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p33",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b75",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p35",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b78",
+          "memberBlocks": 1,
+          "candidateChars": 39,
+          "stagedChars": 39,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b79",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p38",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b85",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p40",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b88",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p42",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b94",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p44",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b97",
+          "memberBlocks": 1,
+          "candidateChars": 31,
+          "stagedChars": 31,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b98",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p47",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 23,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b104",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p49",
+          "memberBlocks": 2,
+          "candidateChars": 3,
+          "stagedChars": 5,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p50",
+          "memberBlocks": 2,
+          "candidateChars": 45,
+          "stagedChars": 47,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b111",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p52",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b117",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p54",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p55",
+          "memberBlocks": 8,
+          "candidateChars": 33,
+          "stagedChars": 47,
+          "tileRenderDeltaChars": 14
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b135",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p57",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b141",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p59",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p60",
+          "memberBlocks": 2,
+          "candidateChars": 22,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b147",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p62",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b153",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p64",
+          "memberBlocks": 2,
+          "candidateChars": 3,
+          "stagedChars": 5,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b157",
+          "memberBlocks": 1,
+          "candidateChars": 19,
+          "stagedChars": 19,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b158",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p67",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b164",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p69",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b167",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b168",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p72",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b174",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p74",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p75",
+          "memberBlocks": 2,
+          "candidateChars": 44,
+          "stagedChars": 48,
+          "tileRenderDeltaChars": 4
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b181",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p77",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 23,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b187",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p79",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p80",
+          "memberBlocks": 3,
+          "candidateChars": 44,
+          "stagedChars": 50,
+          "tileRenderDeltaChars": 6
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b196",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p82",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b202",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p84",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b205",
+          "memberBlocks": 1,
+          "candidateChars": 30,
+          "stagedChars": 30,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b206",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p87",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b212",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p89",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b215",
+          "memberBlocks": 1,
+          "candidateChars": 47,
+          "stagedChars": 47,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b216",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p92",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b222",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p94",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b225",
+          "memberBlocks": 1,
+          "candidateChars": 33,
+          "stagedChars": 33,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b226",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p97",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 23,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b232",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p99",
+          "memberBlocks": 2,
+          "candidateChars": 3,
+          "stagedChars": 5,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b236",
+          "memberBlocks": 1,
+          "candidateChars": 27,
+          "stagedChars": 27,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b237",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p102",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b243",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p104",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p105",
+          "memberBlocks": 3,
+          "candidateChars": 16,
+          "stagedChars": 22,
+          "tileRenderDeltaChars": 6
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b252",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p107",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b258",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p109",
+          "memberBlocks": 2,
+          "candidateChars": 3,
+          "stagedChars": 5,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p110",
+          "memberBlocks": 2,
+          "candidateChars": 29,
+          "stagedChars": 33,
+          "tileRenderDeltaChars": 4
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b266",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p112",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b272",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p114",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p115",
+          "memberBlocks": 3,
+          "candidateChars": 26,
+          "stagedChars": 30,
+          "tileRenderDeltaChars": 4
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b280",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p117",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b286",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p119",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b289",
+          "memberBlocks": 1,
+          "candidateChars": 30,
+          "stagedChars": 30,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b290",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p122",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b296",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p124",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p125",
+          "memberBlocks": 2,
+          "candidateChars": 74,
+          "stagedChars": 76,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b302",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p127",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 23,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b308",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p129",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p130",
+          "memberBlocks": 14,
+          "candidateChars": 24,
+          "stagedChars": 50,
+          "tileRenderDeltaChars": 26
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b338",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p132",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b344",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p134",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b347",
+          "memberBlocks": 1,
+          "candidateChars": 29,
+          "stagedChars": 29,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b348",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p137",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b354",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p139",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b357",
+          "memberBlocks": 1,
+          "candidateChars": 5,
+          "stagedChars": 5,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b358",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p142",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b364",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p144",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p145",
+          "memberBlocks": 2,
+          "candidateChars": 17,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 4
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b371",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p147",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b377",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p149",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p150",
+          "memberBlocks": 3,
+          "candidateChars": 27,
+          "stagedChars": 33,
+          "tileRenderDeltaChars": 6
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b386",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p152",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b392",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p154",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b395",
+          "memberBlocks": 1,
+          "candidateChars": 10,
+          "stagedChars": 10,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b396",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p157",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b402",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p159",
+          "memberBlocks": 2,
+          "candidateChars": 3,
+          "stagedChars": 5,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b406",
+          "memberBlocks": 1,
+          "candidateChars": 30,
+          "stagedChars": 30,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b407",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p162",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 23,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b413",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p164",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p165",
+          "memberBlocks": 2,
+          "candidateChars": 35,
+          "stagedChars": 37,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b419",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p167",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b425",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p169",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p170",
+          "memberBlocks": 2,
+          "candidateChars": 34,
+          "stagedChars": 36,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b431",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p172",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b437",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p174",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p175",
+          "memberBlocks": 3,
+          "candidateChars": 44,
+          "stagedChars": 48,
+          "tileRenderDeltaChars": 4
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b445",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p177",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b451",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p179",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p180",
+          "memberBlocks": 2,
+          "candidateChars": 23,
+          "stagedChars": 25,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b457",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p182",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b463",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p184",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b466",
+          "memberBlocks": 1,
+          "candidateChars": 21,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b467",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p187",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b473",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p189",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p190",
+          "memberBlocks": 2,
+          "candidateChars": 25,
+          "stagedChars": 29,
+          "tileRenderDeltaChars": 4
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b480",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p192",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b486",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p194",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b489",
+          "memberBlocks": 1,
+          "candidateChars": 21,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b490",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p197",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b496",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p199",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b499",
+          "memberBlocks": 1,
+          "candidateChars": 29,
+          "stagedChars": 29,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b500",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p202",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b506",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p204",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p205",
+          "memberBlocks": 2,
+          "candidateChars": 18,
+          "stagedChars": 20,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b512",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p207",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b518",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p209",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p210",
+          "memberBlocks": 1,
+          "candidateChars": 44,
+          "stagedChars": 46,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b523",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p212",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b529",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p214",
+          "memberBlocks": 2,
+          "candidateChars": 3,
+          "stagedChars": 5,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p215",
+          "memberBlocks": 2,
+          "candidateChars": 33,
+          "stagedChars": 35,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b536",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p217",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b542",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p219",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b545",
+          "memberBlocks": 1,
+          "candidateChars": 21,
+          "stagedChars": 21,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b546",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p222",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b552",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p224",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p225",
+          "memberBlocks": 3,
+          "candidateChars": 55,
+          "stagedChars": 61,
+          "tileRenderDeltaChars": 6
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b561",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p227",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b567",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p229",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p230",
+          "memberBlocks": 7,
+          "candidateChars": 46,
+          "stagedChars": 58,
+          "tileRenderDeltaChars": 12
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b583",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p232",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b589",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p234",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p235",
+          "memberBlocks": 3,
+          "candidateChars": 30,
+          "stagedChars": 36,
+          "tileRenderDeltaChars": 6
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b598",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p237",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b604",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p239",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p240",
+          "memberBlocks": 3,
+          "candidateChars": 48,
+          "stagedChars": 52,
+          "tileRenderDeltaChars": 4
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b612",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p242",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b618",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p244",
+          "memberBlocks": 2,
+          "candidateChars": 3,
+          "stagedChars": 5,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p245",
+          "memberBlocks": 3,
+          "candidateChars": 44,
+          "stagedChars": 50,
+          "tileRenderDeltaChars": 6
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b628",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p247",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b634",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p249",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p250",
+          "memberBlocks": 7,
+          "candidateChars": 43,
+          "stagedChars": 55,
+          "tileRenderDeltaChars": 12
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b650",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p252",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b656",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p254",
+          "memberBlocks": 1,
+          "candidateChars": 1,
+          "stagedChars": 3,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b659",
+          "memberBlocks": 1,
+          "candidateChars": 37,
+          "stagedChars": 37,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b660",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p257",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 23,
+          "tileRenderDeltaChars": 19
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b666",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p259",
+          "memberBlocks": 2,
+          "candidateChars": 3,
+          "stagedChars": 5,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p260",
+          "memberBlocks": 4,
+          "candidateChars": 36,
+          "stagedChars": 44,
+          "tileRenderDeltaChars": 8
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b678",
+          "memberBlocks": 1,
+          "candidateChars": 8,
+          "stagedChars": 8,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p262",
+          "memberBlocks": 2,
+          "candidateChars": 4,
+          "stagedChars": 24,
+          "tileRenderDeltaChars": 20
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-b684",
+          "memberBlocks": 1,
+          "candidateChars": 7,
+          "stagedChars": 7,
+          "tileRenderDeltaChars": 0
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p264",
+          "memberBlocks": 2,
+          "candidateChars": 3,
+          "stagedChars": 5,
+          "tileRenderDeltaChars": 2
+        },
+        {
+          "stagedBlockId": "modern-yabejp-ja-chapter06-exercise002-02-p265",
+          "memberBlocks": 3,
+          "candidateChars": 18,
+          "stagedChars": 22,
+          "tileRenderDeltaChars": 4
+        }
+      ],
+      "revised": [
+        {
+          "id": "modern-yabejp-ja:chapter06-exercise002-02:b0263",
+          "parentText": "立直相比，待牌张数仅相差1张，而且",
+          "candidateText": "立直与本方案相比，待牌张数仅相差1张，而且",
+          "stagedText": " 3m 立直与本方案相比，待牌张数仅相差1张，而且 5m 自摸时还能跳符。",
+          "candidateDiffersFromParent": true,
+          "stagedCarriesNewPhrase": true,
+          "parentPhraseIsSubstringOfCandidate": false,
+          "stagedDropsOldPhrase": true,
+          "pass": {
+            "staged": true,
+            "revisedTextLanded": true
+          }
+        },
+        {
+          "id": "modern-yabejp-ja:chapter06-exercise002-02:b0545",
+          "parentText": "选择七对子的向听形，同时保留面子手的可能性。",
+          "candidateText": "选择七对子一向听，同时保留面子手的可能性。",
+          "stagedText": "选择七对子一向听，同时保留面子手的可能性。",
+          "candidateDiffersFromParent": true,
+          "stagedCarriesNewPhrase": true,
+          "parentPhraseIsSubstringOfCandidate": false,
+          "stagedDropsOldPhrase": true,
+          "pass": {
+            "staged": true,
+            "revisedTextLanded": true
+          }
+        }
+      ],
+      "pass": {
+        "allSourceBlocksStaged": true,
+        "everyCandidateTextBlockPresent": true,
+        "allRevisedBlocksStaged": true,
+        "allRevisedTextsLanded": true,
+        "figureAssetsInherited": true
+      },
+      "allPassed": true
+    }
+  ],
+  "allPassed": true
+}

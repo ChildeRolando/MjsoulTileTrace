@@ -1,0 +1,57 @@
+{
+  "schema": "coac250-9th-batch-builder-patch-record/1",
+  "recordedAt": "2026-10-27T11:07:03.752Z",
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "builder": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.mjs",
+    "sha256Before": "bcf2f2a2c123570893ac2f6f700f5c9cd7f02b6183eda1323c583239b54789fb",
+    "sha256After": "a64310c6cec9dfc57a83fced7375ed461410c5cfff081dc149aeab8ff5823bc0",
+    "backupPath": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.before-v10-20261027.mjs",
+    "backupSha256": "bcf2f2a2c123570893ac2f6f700f5c9cd7f02b6183eda1323c583239b54789fb"
+  },
+  "selection": {
+    "v9": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v9.json",
+      "sha256": "10db28df45d476d9364051413cd45f8fb1e87b0160f6298130bad280d2e609c4",
+      "jobs": 22
+    },
+    "v10": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v10.json",
+      "sha256": "901cd88fde29f0adc373a2eab441b4fb8a0512893a0c027b8180ee9655572198",
+      "jobs": 25
+    }
+  },
+  "changes": [
+    {
+      "kind": "pin",
+      "detail": "builder pin moved from specific-web-variant-selection.v9.json (10db28df) to .v10.json (901cd88f), both the literal path and the pinned sha"
+    },
+    {
+      "kind": "canonical-key",
+      "detail": "flat candidate scan: file name -> canonical article id (strip .display/.coac269revN/.revN/.rN), explicit preference display=3 > plain=2 > revision/draft=1, one entry per canonical article"
+    },
+    {
+      "kind": "receipt-field",
+      "detail": "preview receipt gains webCandidateDedupe: per canonical article every candidate version with audit status and effective-latest-passed choice"
+    },
+    {
+      "kind": "inventory-scope",
+      "detail": "the inventory skips the separate editorial artifact families (source-note-v / formal-v / labels-v / processing-note-v) so they are not mislabelled as duplicate drafts"
+    }
+  ],
+  "scanSimulation": {
+    "note": "old vs new flat-scan keys over both source directories: 79-bilibili-cn 81->81 unchanged; modern-yabejp-ja 148->142, the only difference is the six pseudo-articles that the raw file name used to create for the .coac269rev1 drafts; no existing article changed its selected file",
+    "script": "_analysis/q-scan-sim-coac250-9th.mjs"
+  },
+  "scripts": [
+    "_analysis/patch-builder-pin-coac250-9th-20261027.mjs",
+    "_analysis/patch-builder-dedupe-filter-coac250-9th-20261027.mjs",
+    "_analysis/q-scan-sim-coac250-9th.mjs",
+    "_analysis/verify-canonical-dedupe-coac250-9th-20261027.mjs"
+  ],
+  "artifacts": {
+    "patchedBuilderCopy": "_analysis/coac250-9th-batch-builder-build-accepted-preview.patched.mjs",
+    "patchedBuilderCopySha256": "a64310c6cec9dfc57a83fced7375ed461410c5cfff081dc149aeab8ff5823bc0"
+  }
+}
