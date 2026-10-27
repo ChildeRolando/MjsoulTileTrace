@@ -10,3 +10,14 @@
 关键文件：`final-verification.json`、`readback.json`、`display-tests.json`、`persisted-route-verification.json`、`display-limitations.final.json`、`stage-receipt.final.json`、`binding.json`、`variants.after.json`及`builder.after.mjs`。`stage/`保留首次准备的同字节正文，最终投影/收据另用`.final.json`标识。`evidence/`按原字节SHA归档实际依赖，`evidence-bindings.json`保留来源。v28及旧台账快照保留。
 
 本阶段模型/制作0，未切正式active。共享审校ledger期间只追加了其它候选的两项调用；首次全文件SHA保护因此在构建前拒绝，错误原样保存在`assembly-failure.json`。后续使用原冻结验证器核本次精确call/候选记录，允许共享ledger正常追加其它票的调用；未改ledger、原call或任何质量门禁。
+
+Packaging repair (COAC-269): local assets use a01.png–a04.png; all12 copies retain original image bytes.
+The4 archived upstream audit copies use audit.json without changing their bytes. See
+`../path250/manifest.json` for every original repository path, Git blob and full SHA256.
+Only local relative image references and this package's archive index changed. Absolute data-root
+paths, original source/audit receipts and body hashes remain historical provenance; the alias map
+restores the original compiled objects exactly. These wrappers are not new candidates or receipts.
+Run `python _analysis/path250/verify.py` at repository root before packaging/committing future
+delivery/_analysis evidence. It checks every tracked path plus new files in both packaging trees,
+using the actual managed Windows root and a strict full-path limit below240 UTF16 characters.
+No v29 rebuild, model call, source/raw/candidate/active change or global configuration change.

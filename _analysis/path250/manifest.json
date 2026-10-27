@@ -1,0 +1,193 @@
+{
+  "schema": "coac250-packaging-path-map/1",
+  "sourceCommit": "f1435b192a5ce02935b5145b6cb19f9b2a5ed2b3",
+  "branch": "agent/mika/coac-250",
+  "failedRun": "01a17f90-dd76-7202-b0b2-d4f39be097e0",
+  "checkoutRoot": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-250-d4f39be097e0\\worktree",
+  "limitExclusiveUtf16": 240,
+  "oldTrackedFiles": 3153,
+  "newTrackedFiles": 3157,
+  "oldMaximumUtf16": 267,
+  "maximumUtf16": 229,
+  "renames": [
+    {
+      "oldPath": "_analysis/coac250-217-display/route-stage/assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png",
+      "path": "_analysis/coac250-217-display/route-stage/assets/a01.png",
+      "originalGitBlobId": "74f7a548aa10de49b90229afe3189ed27865edc0",
+      "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0",
+      "bytes": 86925
+    },
+    {
+      "oldPath": "_analysis/coac250-217-display/route-stage/assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png",
+      "path": "_analysis/coac250-217-display/route-stage/assets/a02.png",
+      "originalGitBlobId": "6ae02c8fd948f847454362d9a61fd8e1ef3cdd75",
+      "sha256": "2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c",
+      "bytes": 80354
+    },
+    {
+      "oldPath": "_analysis/coac250-217-display/route-stage/assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png",
+      "path": "_analysis/coac250-217-display/route-stage/assets/a03.png",
+      "originalGitBlobId": "bf0402ebdd74256f9ae3f567a6ba48836c3cd039",
+      "sha256": "dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5",
+      "bytes": 37886
+    },
+    {
+      "oldPath": "_analysis/coac250-217-display/route-stage/assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png",
+      "path": "_analysis/coac250-217-display/route-stage/assets/a04.png",
+      "originalGitBlobId": "52582e592e6b016d14d2467d4000f6c5023af162",
+      "sha256": "f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78",
+      "bytes": 88859
+    },
+    {
+      "oldPath": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png",
+      "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a01.png",
+      "originalGitBlobId": "74f7a548aa10de49b90229afe3189ed27865edc0",
+      "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0",
+      "bytes": 86925
+    },
+    {
+      "oldPath": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png",
+      "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a02.png",
+      "originalGitBlobId": "6ae02c8fd948f847454362d9a61fd8e1ef3cdd75",
+      "sha256": "2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c",
+      "bytes": 80354
+    },
+    {
+      "oldPath": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png",
+      "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a03.png",
+      "originalGitBlobId": "bf0402ebdd74256f9ae3f567a6ba48836c3cd039",
+      "sha256": "dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5",
+      "bytes": 37886
+    },
+    {
+      "oldPath": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png",
+      "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/assets/a04.png",
+      "originalGitBlobId": "52582e592e6b016d14d2467d4000f6c5023af162",
+      "sha256": "f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78",
+      "bytes": 88859
+    },
+    {
+      "oldPath": "_analysis/coac250-217-display/stage/assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png",
+      "path": "_analysis/coac250-217-display/stage/assets/a01.png",
+      "originalGitBlobId": "74f7a548aa10de49b90229afe3189ed27865edc0",
+      "sha256": "106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0",
+      "bytes": 86925
+    },
+    {
+      "oldPath": "_analysis/coac250-217-display/stage/assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png",
+      "path": "_analysis/coac250-217-display/stage/assets/a02.png",
+      "originalGitBlobId": "6ae02c8fd948f847454362d9a61fd8e1ef3cdd75",
+      "sha256": "2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c",
+      "bytes": 80354
+    },
+    {
+      "oldPath": "_analysis/coac250-217-display/stage/assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png",
+      "path": "_analysis/coac250-217-display/stage/assets/a03.png",
+      "originalGitBlobId": "bf0402ebdd74256f9ae3f567a6ba48836c3cd039",
+      "sha256": "dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5",
+      "bytes": 37886
+    },
+    {
+      "oldPath": "_analysis/coac250-217-display/stage/assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png",
+      "path": "_analysis/coac250-217-display/stage/assets/a04.png",
+      "originalGitBlobId": "52582e592e6b016d14d2467d4000f6c5023af162",
+      "sha256": "f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78",
+      "bytes": 88859
+    },
+    {
+      "oldPath": "_analysis/coac250-217/upstream/evidence/parentAudit/page-0217.99f98c0257142c5a02f701b0293263e7fa9d28f34cf6a023ca6dca79bd267101.6baa4a7e1404.json",
+      "path": "_analysis/coac250-217/upstream/evidence/parentAudit/audit.json",
+      "originalGitBlobId": "8142211c452a7f8176c9c8cbf40e22784bf4d9c5",
+      "sha256": "44e101c7fbf8813d9db7a18af177a42b27b51ebaf92945761787b8b25764b3ec",
+      "bytes": 36865
+    },
+    {
+      "oldPath": "_analysis/coac250-217/upstream/evidence/rev1Audit/page-0217.279dab7bb834bc463ce8b0c89678f2dc8c164af9e7f3c3504784fde4d7876494.6baa4a7e1404.json",
+      "path": "_analysis/coac250-217/upstream/evidence/rev1Audit/audit.json",
+      "originalGitBlobId": "1a6ad2e1df1497e2f042be46a67964eecae2ff0e",
+      "sha256": "48188a41382d98a5af7272851ba96f8d209213ee5befb3f4fd2fbf0b738574be",
+      "bytes": 36582
+    },
+    {
+      "oldPath": "_analysis/coac250-217/upstream/evidence/rev2Audit/page-0217.2a7551768ad0668da86d159e9f677b45a6c7a68a0500a2b3ef95b461bf33e5cd.6baa4a7e1404.json",
+      "path": "_analysis/coac250-217/upstream/evidence/rev2Audit/audit.json",
+      "originalGitBlobId": "6f0d68759f36a27210d151e3080723c6aea60721",
+      "sha256": "70e67fec9ff86c6eeb77019a488c68b2b8836d7610b1b88eee3bb1785348c1b4",
+      "bytes": 39701
+    },
+    {
+      "oldPath": "_analysis/coac250-217/upstream/evidence/rev3Audit/page-0217.ebe43a8c9e3a181bf26a10dd2afc9d472cd4645833a99f3803e2b6edfc27d2ea.6baa4a7e1404.json",
+      "path": "_analysis/coac250-217/upstream/evidence/rev3Audit/audit.json",
+      "originalGitBlobId": "574b730927a065259f58fbeb5bffc5f6966a6447",
+      "sha256": "7dc668f386cbc8c4a5f7ee7c253d0958b688f76de48ac6a82edba24e770bb33c",
+      "bytes": 34611
+    }
+  ],
+  "wrapperEdits": [
+    {
+      "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/knowledge.html",
+      "kind": "relative-image-reference-html",
+      "originalGitBlobId": "fb14cf0084605f9be6928f9196cf38014d246c9b",
+      "originalSha256": "1a7872c104efe2e3a7c9f0a2ca0abfcdf94d57d8f35fe1ef4f9d38037e48512f",
+      "sha256": "f58a7527b67fee20c270ac647dd0d98f4a9db3fab786f872d4e9fddf028e2772"
+    },
+    {
+      "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/textbook-bodies.json",
+      "kind": "relative-image-reference-json",
+      "originalGitBlobId": "ee3b6aec20e6edd0c828b10b3fc44ae0b6d9b0f0",
+      "originalSha256": "e0c181dd7b0e7ea40a1ded0e45550e1efca0a9c19b88056eebeb5a98f4bdb1d0",
+      "sha256": "40b19af0f1b7f22fd39012457329baee92b75362a088726acb3ddabbac753732"
+    },
+    {
+      "path": "_analysis/coac250-217-display/route-stage/stages/pdf-79-cn-chapter-217-4/textbook-corpus.json",
+      "kind": "relative-image-reference-json",
+      "originalGitBlobId": "b88ecd9032bc1aee8d192dfae134229a2d947a6d",
+      "originalSha256": "64a36cf6afd9ad85c100736c51213cab8c694537693f09fdeee25668c72f906c",
+      "sha256": "06f9ac0ff354637a401ed66e1e3a36891f69f4b2c341fadf070c406280be908c"
+    },
+    {
+      "path": "_analysis/coac250-217-display/stage/knowledge.html",
+      "kind": "relative-image-reference-html",
+      "originalGitBlobId": "fb14cf0084605f9be6928f9196cf38014d246c9b",
+      "originalSha256": "1a7872c104efe2e3a7c9f0a2ca0abfcdf94d57d8f35fe1ef4f9d38037e48512f",
+      "sha256": "f58a7527b67fee20c270ac647dd0d98f4a9db3fab786f872d4e9fddf028e2772"
+    },
+    {
+      "path": "_analysis/coac250-217-display/stage/textbook-bodies.json",
+      "kind": "relative-image-reference-json",
+      "originalGitBlobId": "ee3b6aec20e6edd0c828b10b3fc44ae0b6d9b0f0",
+      "originalSha256": "e0c181dd7b0e7ea40a1ded0e45550e1efca0a9c19b88056eebeb5a98f4bdb1d0",
+      "sha256": "40b19af0f1b7f22fd39012457329baee92b75362a088726acb3ddabbac753732"
+    },
+    {
+      "path": "_analysis/coac250-217-display/stage/textbook-corpus.json",
+      "kind": "relative-image-reference-json",
+      "originalGitBlobId": "b88ecd9032bc1aee8d192dfae134229a2d947a6d",
+      "originalSha256": "64a36cf6afd9ad85c100736c51213cab8c694537693f09fdeee25668c72f906c",
+      "sha256": "06f9ac0ff354637a401ed66e1e3a36891f69f4b2c341fadf070c406280be908c"
+    },
+    {
+      "path": "_analysis/coac250-217-display/README.md",
+      "kind": "packaging-owner-note",
+      "originalGitBlobId": "d1be1fc6044af6bdbc3885f840be16bd8bf5f0d9",
+      "originalSha256": "95bddc5040494c0aa7082a423e136a24ef24418f8424cfc5bc663dd6e97af05e",
+      "sha256": "b6af205aa301b4e978c4ed3a895a8b747e88a979d299920f4fecfb06622a2b57"
+    },
+    {
+      "path": "_analysis/coac250-217-display/archive-shas.json",
+      "kind": "local-package-hash-index",
+      "originalGitBlobId": "a1e1a62b9478497a50a5fbcace93e2b2fbbbf9d7",
+      "originalSha256": "c481e40a27f14b66a8a0efd97a82c0804524e3d1be94e53ff32fd242e1e95004",
+      "sha256": "01347f1906e32b9f3884d4c11bbcdcd61902b652f773298788d5b87fd5f9f777"
+    }
+  ],
+  "assetAliases": {
+    "assets/full-106a64491e8136c516bc9138ef50eba7e15e953a31818c6296d4e65e407cfef0.png": "assets/a01.png",
+    "assets/full-2cfbf465981738d76e953e8af2c3b08a186b5adaffcd9548b71fd1f3a7e7650c.png": "assets/a02.png",
+    "assets/full-dc78f87215c714a4cfa31d52b3210cab5085470f8c3d39fcd2b983d94fac9ca5.png": "assets/a03.png",
+    "assets/full-f0129fbfa6a40d950650da302f380ad8d640433c3295ce1d434bf0dcafbaab78.png": "assets/a04.png"
+  },
+  "modelCalls": 0,
+  "dataRootTouched": false,
+  "v29Rebuilt": false
+}
