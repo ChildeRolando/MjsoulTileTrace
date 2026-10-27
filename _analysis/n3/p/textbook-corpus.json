@@ -1,0 +1,2074 @@
+{
+  "schema": "coach-textbook-corpus/1",
+  "corpusId": "bcc5ba984a8762f54ff8105f642928d4361ead7b241bd483183d0b725ca52c7e",
+  "bodySha256": "54307134ee827b9a6af87d4abed54f92cb444d6fdaf21e7491f941c159083ba3",
+  "reviewStatus": "text-extraction-accepted-content-review-pending",
+  "units": [
+    {
+      "unitId": "79-cn-chapter-193-4-pdf193-supplement-unit-1",
+      "chapterId": "79-cn-chapter-193-4-pdf193-supplement",
+      "title": "PDF193来源对照补文（非完整章）",
+      "chapterTitle": "防守3—筋（1）：PDF193两句补文（非完整章）",
+      "topics": [],
+      "contentRole": "navigation",
+      "source": {
+        "sourceId": "79-cn",
+        "title": "79 博客 · 中文 PDF",
+        "sha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+        "pages": [
+          193
+        ]
+      },
+      "translationStatus": "batch-audited-pending-user-review",
+      "previousUnitId": null,
+      "nextUnitId": null,
+      "blocks": [
+        {
+          "type": "p",
+          "id": "79-cn-p193-b6-version-sentence-1",
+          "page": 193,
+          "text": "有人立直的时候，最应该警戒的就要是两面听牌了。 "
+        },
+        {
+          "type": "p",
+          "id": "79-cn-p193-b6-version-sentence-2",
+          "page": 193,
+          "text": "大体的数据显示，所有的立直中三分之二的立直都是两面听牌。 "
+        }
+      ]
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1765377-argument",
+      "chapterId": "79-bilibili-cn-cv1765377-chapter",
+      "title": "【日本麻雀讲座译文】防守3—筋（1）",
+      "chapterTitle": "【日本麻雀讲座译文】防守3—筋（1）",
+      "topics": [],
+      "source": {
+        "sourceId": "79-bilibili-cn-cv1765377",
+        "title": "【日本麻雀讲座译文】防守3—筋（1）",
+        "sha256": "a02309bd8815b85dead3e8b2e1c37de11ed89e909ff6f76e8e6543b8f01a581c",
+        "pages": [],
+        "format": "web",
+        "web": {
+          "url": "https://www.bilibili.com/read/cv1765377",
+          "articleId": "cv1765377",
+          "htmlSha256": "a02309bd8815b85dead3e8b2e1c37de11ed89e909ff6f76e8e6543b8f01a581c"
+        }
+      },
+      "translationStatus": "batch-audited-pending-user-review",
+      "previousUnitId": null,
+      "nextUnitId": null,
+      "blocks": [
+        {
+          "type": "p",
+          "id": "limited-next3-193-1",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）1】保留原图及右侧牌河第2行右列万子点数未知的明确标记，不填入猜测牌码，也不宣称该牌河已逐牌完整转录。"
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-193-2",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）2】保留原文对非初学者、一般情况下、可能和往往的限定；原文及候选的段落顺序、sourceSegments、tableContext和图序照所给数据保留，图中红圈继续显示。"
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-193-3",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）3】原样保留作者对5万的安全牌表述及其上下文：所给理由涉及立直上家的2万、8万和34万、67万两面听牌；7饼的结论也限定为至少不会铳两面听牌。不得扩写为对所有听型或所有玩家绝对安全。"
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-193-4",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）4】保留b0008至b0009及b0015至b0016的Web捕获残句和继承的不完整限制。PDF版本的完整句子如另行展示，须明确标注独立来源与版本，不能作为Web原文的无注补写。"
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-193-5",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）5】完整牌河、暗手、概率和最优策略不属于本次有限许可；不据此宣称整章通过。"
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-193-pdf-pair",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【来源版本说明（非原文）】本网页b0008–b0009及b0015–b0016保留原捕获残句和不完整标记；对应完整句子成对展示于独立PDF第193页b6版本摘录，单元79-cn-chapter-193-4-pdf193-supplement-unit-1。两处PDF原句另列于该版本，原PDF来源、父稿、已审切片及navigation角色保持；不是网页原文补写，也不将版本差异冒充同一来源。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b1",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "免责声明："
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b2",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0002"
+            ],
+            "domPaths": [
+              "main/p[1]"
+            ]
+          },
+          "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b3",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0003"
+            ],
+            "domPaths": [
+              "main/p[3]"
+            ]
+          },
+          "text": "免责声明："
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b4",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0004"
+            ],
+            "domPaths": [
+              "main/p[4]"
+            ]
+          },
+          "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b5",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0005"
+            ],
+            "domPaths": [
+              "main/p[5]"
+            ]
+          },
+          "text": "原文地址：http://beginners.biz/reach/mamori3.html"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b6",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0006"
+            ],
+            "domPaths": [
+              "main/p[6]"
+            ]
+          },
+          "text": "------------------------------------------------------------------------------------"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b7",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0007"
+            ],
+            "domPaths": [
+              "main/p[7]"
+            ]
+          },
+          "text": "筋1："
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b8",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0008"
+            ],
+            "domPaths": [
+              "main/p[8]"
+            ]
+          },
+          "text": "有人立直的时候，最应该警戒的就要是"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b9",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0009"
+            ],
+            "domPaths": [
+              "main/p[9]"
+            ]
+          },
+          "text": "了。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b10",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0010"
+            ],
+            "domPaths": [
+              "main/p[10]"
+            ]
+          },
+          "text": "只要对手不是麻将的初学者，"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b11",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0011"
+            ],
+            "domPaths": [
+              "main/p[11]"
+            ]
+          },
+          "text": "一般情况下都会等待嵌张、双碰听牌变化成两面听牌。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b12",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0012"
+            ],
+            "domPaths": [
+              "main/p[12]"
+            ]
+          },
+          "text": "因为对手会等待嵌张和双碰听牌变化成两面的好形听牌，"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b13",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0013"
+            ],
+            "domPaths": [
+              "main/p[13]"
+            ]
+          },
+          "text": "所以听牌了也有可能不会立直。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b14",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0014"
+            ],
+            "domPaths": [
+              "main/p[14]"
+            ]
+          },
+          "text": "因此立直的听牌形往往是两面居多，"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b15",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0015"
+            ],
+            "domPaths": [
+              "main/p[15]"
+            ]
+          },
+          "text": "大体的数据显示，所有的立直中"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b16",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0016"
+            ],
+            "domPaths": [
+              "main/p[16]"
+            ]
+          },
+          "text": "。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b17",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0017"
+            ],
+            "domPaths": [
+              "main/p[17]"
+            ]
+          },
+          "text": "为了不铳两面听牌的理论就叫做“筋”。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b18",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0018"
+            ],
+            "domPaths": [
+              "main/p[18]"
+            ]
+          },
+          "text": "------------------------------------------------------------------------------------"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b19",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0019"
+            ],
+            "domPaths": [
+              "main/p[19]"
+            ]
+          },
+          "text": "6个基本筋"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b20",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0020"
+            ],
+            "domPaths": [
+              "main/p[20]"
+            ]
+          },
+          "text": "------------------------------------------------------------------------------------"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b21",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0021"
+            ],
+            "domPaths": [
+              "main/p[21]"
+            ]
+          },
+          "text": "我们来看看实际的两面听牌吧。"
+        },
+        {
+          "type": "figure",
+          "id": "79-bilibili-cn-cv1765377-b22",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0022"
+            ],
+            "domPaths": [
+              "main/div[22]/div[0]/div[0]/div[0]/div[0]"
+            ]
+          },
+          "figure": {
+            "figureId": "79-bilibili-cn-cv1765377-b22",
+            "unitId": "79-bilibili-cn-cv1765377-argument",
+            "page": null,
+            "locator": {
+              "url": "https://www.bilibili.com/read/cv1765377",
+              "sourceBlockIds": [
+                "79-bilibili-cn:cv1765377:b0022"
+              ],
+              "domPaths": [
+                "main/div[22]/div[0]/div[0]/div[0]/div[0]"
+              ]
+            },
+            "caption": "六种基本两面搭子及其听牌。",
+            "imageSha256": "48d8d2e5b545c2d9658b66383b3bd6434237b486e92ed93ad0edd14785e89606",
+            "imageProvenance": {
+              "kind": "derived-source-assets",
+              "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+              "sourceAssetSha256s": [
+                "1139fe45c9e86dd112dc39c6039be6c195765432a7f652f2945aa37d422f4213"
+              ]
+            },
+            "transcription": {
+              "text": "自上而下共六行，每行左侧为搭子，右侧红字为对应听牌：\n第1行：2m 3m；右侧标签：听1m、4m。\n第2行：3m 4m；右侧标签：听2m、5m。\n第3行：4m 5m；右侧标签：听3m、6m。\n第4行：5m 6m；右侧标签：听4m、7m。\n第5行：6m 7m；右侧标签：听5m、8m。\n第6行：7m 8m；右侧标签：听6m、9m。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b23",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0023"
+            ],
+            "domPaths": [
+              "main/p[23]"
+            ]
+          },
+          "text": "以上六组就是两面听牌的所有形。这六组需要全部记住。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b24",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0024"
+            ],
+            "domPaths": [
+              "main/p[24]"
+            ]
+          },
+          "text": "要记住这六组应该是非常容易的。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b25",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0025"
+            ],
+            "domPaths": [
+              "main/p[25]"
+            ]
+          },
+          "text": "------------------------------------------------------------------------------------"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b26",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0026"
+            ],
+            "domPaths": [
+              "main/p[26]"
+            ]
+          },
+          "text": "3条筋"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b27",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0027"
+            ],
+            "domPaths": [
+              "main/p[27]"
+            ]
+          },
+          "text": "------------------------------------------------------------------------------------"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b28",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0028"
+            ],
+            "domPaths": [
+              "main/p[28]"
+            ]
+          },
+          "text": "看了上面的六组听牌，"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b29",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0029"
+            ],
+            "domPaths": [
+              "main/p[29]"
+            ]
+          },
+          "text": "我们可以发现，1-4与4-7、2-5与5-8、3-6与6-9之间有相连的地方。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b30",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0030"
+            ],
+            "domPaths": [
+              "main/p[30]"
+            ]
+          },
+          "text": "这样就可以推导出三面张的筋。"
+        },
+        {
+          "type": "figure",
+          "id": "79-bilibili-cn-cv1765377-b31",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0031"
+            ],
+            "domPaths": [
+              "main/div[31]/div[0]/div[0]/div[0]/div[0]"
+            ]
+          },
+          "figure": {
+            "figureId": "79-bilibili-cn-cv1765377-b31",
+            "unitId": "79-bilibili-cn-cv1765377-argument",
+            "page": null,
+            "locator": {
+              "url": "https://www.bilibili.com/read/cv1765377",
+              "sourceBlockIds": [
+                "79-bilibili-cn:cv1765377:b0031"
+              ],
+              "domPaths": [
+                "main/div[31]/div[0]/div[0]/div[0]/div[0]"
+              ]
+            },
+            "caption": "三组连续五张牌形成的三面听牌。",
+            "imageSha256": "0201a49b66cd8658e3131c9dba7f2089dc1f4ec808833975c3fd591b64959311",
+            "imageProvenance": {
+              "kind": "derived-source-assets",
+              "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+              "sourceAssetSha256s": [
+                "64a5b703058f7e6b0af20e63b5fc9cf0c3e747d57185f6bef95c24d4c41e6d95"
+              ]
+            },
+            "transcription": {
+              "text": "自上而下共三行，每行左侧为五张牌，右侧红字为对应听牌：\n第1行：2m 3m 4m 5m 6m；右侧标签：听1m、4m、7m。\n第2行：3m 4m 5m 6m 7m；右侧标签：听2m、5m、8m。\n第3行：4m 5m 6m 7m 8m；右侧标签：听3m、6m、9m。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b32",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0032"
+            ],
+            "domPaths": [
+              "main/p[32]"
+            ]
+          },
+          "text": "把基本两面听牌组合起来就可以形成三面听牌。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b33",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0033"
+            ],
+            "domPaths": [
+              "main/p[33]"
+            ]
+          },
+          "text": "正是因为这样，6组基本的筋可以看作3条大筋。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b34",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0034"
+            ],
+            "domPaths": [
+              "main/p[34]"
+            ]
+          },
+          "text": "6个筋分为3条大筋是非常重要的。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b35",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0035"
+            ],
+            "domPaths": [
+              "main/p[35]"
+            ]
+          },
+          "text": "大家把筋的概念作为麻将的一个常识来记住吧。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b36",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0036"
+            ],
+            "domPaths": [
+              "main/p[36]"
+            ]
+          },
+          "text": "------------------------------------------------------------------------------------"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b37",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0037"
+            ],
+            "domPaths": [
+              "main/p[37]"
+            ]
+          },
+          "text": "根据筋我们能知道什么"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b38",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0038"
+            ],
+            "domPaths": [
+              "main/p[38]"
+            ]
+          },
+          "text": "------------------------------------------------------------------------------------"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b39",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0039"
+            ],
+            "domPaths": [
+              "main/p[39]"
+            ]
+          },
+          "text": "（1）自己切过自己所听的牌即会振听，不能荣和。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b40",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0040"
+            ],
+            "domPaths": [
+              "main/p[40]"
+            ]
+          },
+          "text": "（2）麻将中的两面听牌只有六种（1-4、2-5、3-6、4-7、5-8、6-9）"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b41",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0041"
+            ],
+            "domPaths": [
+              "main/p[41]"
+            ]
+          },
+          "text": "由以上两点，我们就可以知道什么牌不会铳两面听牌。"
+        },
+        {
+          "type": "figure",
+          "id": "79-bilibili-cn-cv1765377-b42",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0042"
+            ],
+            "domPaths": [
+              "main/div[42]/div[0]/div[0]/div[0]/div[0]"
+            ]
+          },
+          "figure": {
+            "figureId": "79-bilibili-cn-cv1765377-b42",
+            "unitId": "79-bilibili-cn-cv1765377-argument",
+            "page": null,
+            "locator": {
+              "url": "https://www.bilibili.com/read/cv1765377",
+              "sourceBlockIds": [
+                "79-bilibili-cn:cv1765377:b0042"
+              ],
+              "domPaths": [
+                "main/div[42]/div[0]/div[0]/div[0]/div[0]"
+              ]
+            },
+            "caption": "筋防守牌例：红圈标出上方牌河的7p和右侧牌河的5m，左侧玩家已立直。",
+            "imageSha256": "47f30ddb5adba4b582f2dec59978dcf2321754033834db2837e174f83ba5222d",
+            "imageProvenance": {
+              "kind": "derived-source-assets",
+              "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+              "sourceAssetSha256s": [
+                "09f2d1d029d2e7562c9abb19c1f693e9c25b9c005dfb7d20a736b593aa7618de"
+              ]
+            },
+            "transcription": {
+              "text": "麻将桌俯视图。以下牌河均按画面位置记录，保留各排、各列关系。\n\n下方手牌从左至右：2m 3m 4m 4m 6m 6m 7p 8p 2s 3s 4s 5s 8s；右侧分隔放置的摸入牌：6z。\n\n上方牌河，牌面朝向上方玩家，整体相对画面旋转180度；每排按画面从左至右：\n上排：7z 7p 6s 8s 5z 9s。\n下排：1m 6z 4z 2m 8m 9s。\n上排第2张7p有红圈。\n\n右侧牌河，牌面朝向右侧玩家；每行按画面从左至右，自上而下：\n第1行：2m 5m。\n第2行：2z 万子牌（点数未能可靠辨认）。\n第3行：5z 2p。\n第4行：7z 1p。\n第5行：2z 8p。\n第6行：9s 1m。\n右列最上方的5m有红圈。\n\n下方牌河，牌面朝向下方玩家；每排按画面从左至右：\n上排：3z 4z 6z 6z 1z 8s。\n下排：8m 8s 4p 9m 2z 4p。\n\n左侧牌河，牌面朝向左侧玩家；每行按画面从左至右，自上而下：\n第1行：9s 7z 1p，其中9s位于另外两列的左侧。\n第2行：3z 7z。\n第3行：6p 5z。\n第4行：4p 2m。\n第5行：1s 9m。\n第6行：2s 8m。\n左、右两侧牌河的牌面均横向于画面，分别朝向各自玩家。\n\n中央方框的风位文字：左上为东，右上为北，左下为南，右下为西；对应左侧东家、上方北家、下方南家、右侧西家。\n中央偏下显示1s，左侧标签为“宝牌”。\n中央方框左侧放有一根竖向白色红点立直棒。\n上、左、右三边分别显示13张牌背。\n原图未显示的信息：右侧牌河第2行右列的万子牌：黑色点数字形无法可靠辨认。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1765377-b43",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1765377",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1765377:b0043"
+            ],
+            "domPaths": [
+              "main/p[43]"
+            ]
+          },
+          "text": "我们再来看看这个例子吧。  对家切7饼以及下家切的5万都通过了。 这就是通过“筋”得出的判断。  由于立直的上家切掉了4饼，所以至少他不是56饼的两面听牌，即使是也会振听。 所以切7饼至少不会铳两面听牌。  下家切的5万，是有2、8万所推导出的筋。  5万虽然可以有34万和67万两面听牌荣和， 但是上家切掉了2万和8万，所以不管是34万还是67万都会振听。 因此5万也可以说是一张安全牌。     （待续）"
+        }
+      ]
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1770245-argument",
+      "chapterId": "79-bilibili-cn-cv1770245-chapter",
+      "title": "【日本麻雀讲座译文】防守9—兜牌",
+      "chapterTitle": "【日本麻雀讲座译文】防守9—兜牌",
+      "topics": [],
+      "source": {
+        "sourceId": "79-bilibili-cn-cv1770245",
+        "title": "【日本麻雀讲座译文】防守9—兜牌",
+        "sha256": "c8bf234e6e35be559bde96237becf6f9a4ae4702275785c06115c265ff404df8",
+        "pages": [],
+        "format": "web",
+        "web": {
+          "url": "https://www.bilibili.com/read/cv1770245",
+          "articleId": "cv1770245",
+          "htmlSha256": "c8bf234e6e35be559bde96237becf6f9a4ae4702275785c06115c265ff404df8"
+        }
+      },
+      "translationStatus": "batch-audited-pending-user-review",
+      "previousUnitId": null,
+      "nextUnitId": null,
+      "blocks": [
+        {
+          "type": "p",
+          "id": "limited-next3-208-1",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1770245",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1770245:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）1】保留两张原图及其候选转录中的四处明确未知：b0004上方第一排最左万子，以及b0006左方A、B和右方C；不得以推测牌码替换。"
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-208-2",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1770245",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1770245:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）2】保持b0001至b0009的原始DOM顺序、图文对应关系、原文条件、sourceSegments及其marks和href，并保留各块给出的tableContext。原文中的字词不因本次辨识而改写。"
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-208-3",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1770245",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1770245:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）3】保留“没有人立直”“一向听”“摸到5饼什么的”“可以考虑”“摸到危险牌”等条件，以及七对子缺少确实性、须根据点数判断和防守基本为弃和的限制。"
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-208-4",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1770245",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1770245:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）4】将作者的建议和风险评价作为原文论证展示；不得把筋牌3万或“两张牌的安全”扩写为已独立证明对所有对手绝对安全。"
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-208-5",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1770245",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1770245:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）5】不得声称完整牌河、对手暗手、概率或最优策略已由本次审查恢复或验证；这也不是整章通过结论。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1770245-b1",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1770245",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1770245:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "免责声明："
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1770245-b2",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1770245",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1770245:b0002"
+            ],
+            "domPaths": [
+              "main/p[1]"
+            ]
+          },
+          "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1770245-b3",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1770245",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1770245:b0003"
+            ],
+            "domPaths": [
+              "main/p[2]"
+            ]
+          },
+          "text": "原文地址：http://beginners.biz/reach/mamori9.html ------------------------------------------------------------------------------------ 兜牌：  兜牌即一边扣住危险牌，一边向着和牌或者是听牌前进的打法。  一般情况下，对手立直之后：  1.自己没有听牌也要向着听牌或者和牌前进。 2.如果对日对自己不利的话。即使自己听牌也会拆掉手牌。  这样的情况就出现了“兜”这个选择了。  具体的说就是： 拆对子、拆搭子、拆暗刻、七对子4种方法。  ------------------------------------------------------------------------------------ 拆对子 ------------------------------------------------------------------------------------ 这是兜牌的常用手段， 通过一次的话，第二次也能通过。而且不会拆乱自己的手牌。  例1： "
+        },
+        {
+          "type": "figure",
+          "id": "79-bilibili-cn-cv1770245-b4",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1770245",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1770245:b0004"
+            ],
+            "domPaths": [
+              "main/div[3]/div[0]/div[0]/div[0]/div[0]"
+            ]
+          },
+          "figure": {
+            "figureId": "79-bilibili-cn-cv1770245-b4",
+            "unitId": "79-bilibili-cn-cv1770245-argument",
+            "page": null,
+            "locator": {
+              "url": "https://www.bilibili.com/read/cv1770245",
+              "sourceBlockIds": [
+                "79-bilibili-cn:cv1770245:b0004"
+              ],
+              "domPaths": [
+                "main/div[3]/div[0]/div[0]/div[0]/div[0]"
+              ]
+            },
+            "caption": "拆对子兜牌的局面示例。",
+            "imageSha256": "dfddfb73dc520b2aa4229a2694440538020971d181a03da0c4c29f5e9e0887bf",
+            "imageProvenance": {
+              "kind": "derived-source-assets",
+              "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+              "sourceAssetSha256s": [
+                "ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b"
+              ]
+            },
+            "transcription": {
+              "text": "中央文字：东3局0本场；立直棒1根；“宝牌”右侧为2p。中央左侧竖放一根立直棒。中央四角风位：左上北（4z）、右上西（3z）、左下东（1z）、右下南（2z）。\n点数标记按画面位置：左上+7700，右上+2000，右下△7700，左下△2000。\n下方手牌从左至右：6m 7m 7m 2p 3p 3p 4p 5p 6p 6s 7s 6z 6z；右侧分隔的摸入牌：8s。\n下方牌河：第一排从画面左至右为1s 3z 1s 1m 4s 2s；第二排在第一排最左侧1s下方为1z。牌面均朝向下方玩家。\n左方牌河：靠中央的一列从画面上至下为1p 9s 2s 7z 8p 4p，牌面相对画面顺时针旋转90度；第二列在最上方1p左侧为6s，此牌相对该玩家正常弃牌横置，是立直宣言牌，在画面中呈竖向。\n上方牌河：第一排从画面左至右为［万子点数未辨明］9m 2z 2z 1s 5z；第二排在第一排最右侧5z上方为9p。牌面均相对画面倒置。\n右方牌河：靠中央的一列从画面上至下为7z 2m 1m 2z 3z 6z；第二列在最下方6z右侧为1z。牌面相对画面逆时针旋转90度。\n上方、左方、右方各显示13张背面朝向画面的暗手牌。\n原图未显示的信息：上方牌河第一排从画面左数第1张：可辨为万子，但倒置的点数未能可靠辨明。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1770245-b5",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1770245",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1770245:b0005"
+            ],
+            "domPaths": [
+              "main/p[4]"
+            ]
+          },
+          "text": "比如这样的例子，这是一个很能体现兜牌效果的例子。 弃和去切掉4饼和6索实在是太可惜了。 一发打3饼确实有点危险。 这里切掉已经打出1张的發是好手， 能够做成门断平宝牌1追立的话是很理想的。  ------------------------------------------------------------------------------------ 拆搭子 ------------------------------------------------------------------------------------ 我们再来看具体的例子吧。  "
+        },
+        {
+          "type": "figure",
+          "id": "79-bilibili-cn-cv1770245-b6",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1770245",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1770245:b0006"
+            ],
+            "domPaths": [
+              "main/div[5]/div[0]/div[0]/div[0]/div[0]"
+            ]
+          },
+          "figure": {
+            "figureId": "79-bilibili-cn-cv1770245-b6",
+            "unitId": "79-bilibili-cn-cv1770245-argument",
+            "page": null,
+            "locator": {
+              "url": "https://www.bilibili.com/read/cv1770245",
+              "sourceBlockIds": [
+                "79-bilibili-cn:cv1770245:b0006"
+              ],
+              "domPaths": [
+                "main/div[5]/div[0]/div[0]/div[0]/div[0]"
+              ]
+            },
+            "caption": "拆搭子兜牌的局面示例。",
+            "imageSha256": "c61725589c6e62616200bbe4bd53854dd9acfdee60197c817ef95fb2485af657",
+            "imageProvenance": {
+              "kind": "derived-source-assets",
+              "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+              "sourceAssetSha256s": [
+                "fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985"
+              ]
+            },
+            "transcription": {
+              "text": "中央文字：东2局0本场；立直棒1根；“宝牌”右侧为2s。中央上侧横放一根立直棒。中央四角风位：左上东（1z）、右上北（4z）、左下南（2z）、右下西（3z）。\n点数标记按画面位置：左上+3900，右上△3900，右下原点，左下原点。\n下方手牌从左至右：2m 3m 7m 7m 8m 8m 2p 4p 6p 7p 8p 3s 4s；右侧分隔的摸入牌：8m。\n下方牌河：第一排从画面左至右为3z 7z 5z 2z 1p 9s；第二排在第一排最左侧3z下方为7s。牌面均朝向下方玩家。\n左方牌河：靠中央的一列从画面上至下为4z ［万子点数未辨明A］6z 1z ［万子点数未辨明B］5z；第二列在最上方4z左侧为2p，在其下方为3z。牌面相对画面顺时针旋转90度。\n上方牌河：第一排从画面左至右为6m 2m 8p 5z 6z 2m，牌面均相对画面倒置；第二排在第一排最右侧2m上方为4s，此牌相对该玩家正常弃牌横置，是立直宣言牌，在画面中呈横向。\n右方牌河：靠中央的一列从画面上至下为1s 8m 1m 1z 7z 2z；第二列在最下方2z右侧为［万子点数未辨明C］。牌面相对画面逆时针旋转90度。\n上方、左方、右方各显示13张背面朝向画面的暗手牌。\n原图未显示的信息：万子点数未辨明A：左方牌河靠中央一列从画面上数第2张，可辨为万子，点数未能可靠辨明。；万子点数未辨明B：左方牌河靠中央一列从画面上数第5张，可辨为万子，点数未能可靠辨明。；万子点数未辨明C：右方牌河第二列、最下方2z右侧的一张，可辨为万子，点数未能可靠辨明。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1770245-b7",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1770245",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1770245:b0007"
+            ],
+            "domPaths": [
+              "main/p[6]"
+            ]
+          },
+          "text": "要是没有人立直的话应该拆掉24饼的搭子。（全攻的时候就该这么打） 兜牌的话，这里应该切掉2万。神进张摸到3饼的话就立直。  一向听的话，摸到5饼什么的，可以可以考虑切掉筋牌的3万。  同样是兜牌，这里打4索就是恶手。 不仅宝牌是2索，作为胜负牌的3索是非常危险的。  要拆掉搭子兜牌的话，就需要保证两张牌的安全。  上面虽然这么说，不过切掉2万之后摸到危险牌的话，拿还是快快弃和为上。  ------------------------------------------------------------------------------------ 拆暗刻 ------------------------------------------------------------------------------------ 拆掉3张安全牌的暗刻时，也还是可以让手牌有所进展的。 在这三巡里能够通过的牌增加的话，偶尔还是可以向和牌前进的。  "
+        },
+        {
+          "type": "figure",
+          "id": "79-bilibili-cn-cv1770245-b8",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1770245",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1770245:b0008"
+            ],
+            "domPaths": [
+              "main/div[7]/div[0]/div[0]/div[0]/div[0]"
+            ]
+          },
+          "figure": {
+            "figureId": "79-bilibili-cn-cv1770245-b8",
+            "unitId": "79-bilibili-cn-cv1770245-argument",
+            "page": null,
+            "locator": {
+              "url": "https://www.bilibili.com/read/cv1770245",
+              "sourceBlockIds": [
+                "79-bilibili-cn:cv1770245:b0008"
+              ],
+              "domPaths": [
+                "main/div[7]/div[0]/div[0]/div[0]/div[0]"
+              ]
+            },
+            "caption": "拆西风暗刻兜牌的手牌示例。",
+            "imageSha256": "8e6f1e00f3c26b5dd772cda987f7cc6ff9528ac41fca3fcea9695590bcc2447f",
+            "imageProvenance": {
+              "kind": "derived-source-assets",
+              "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+              "sourceAssetSha256s": [
+                "14213716936de7497f9fcdf7a05f722cfd677884e1f71bde9cbb4811729076aa"
+              ]
+            },
+            "transcription": {
+              "text": "上排左侧标签“立直”；其右侧弃牌从左至右为：1p 5z 7z 6z 4z 4p 7z 7p 5s 2m。最后一张2m横置，其余牌竖向排列。\n下排左侧标签“手牌”；其右侧手牌从左至右为：3m 7m 5p 6p 2s 4s 4s 5s 6s 7s 3z 3z 3z。\n手牌右侧标签“摸入”，其右侧为3s。\n最右侧标签“宝牌”，其右侧为6m。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1770245-b9",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1770245",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1770245:b0009"
+            ],
+            "domPaths": [
+              "main/p[8]"
+            ]
+          },
+          "text": "比如这样的手牌，拆掉西的暗刻。 偶尔最后还是能以食断和牌的。  ------------------------------------------------------------------------------------ 七对子 ------------------------------------------------------------------------------------  这是一个缺少确实性的方法，大家有没有面对立直弃和的时候，不知什么时候手牌居然七对子听牌了呢？  比如役牌是宝牌，用不上的牌却又打不出去，同时自己有非向着听牌前进不可的时候。那就只能霸王硬上弓强凹单骑听牌了。  这个时候七对子是可以放手一搏的方法。  ------------------------------------------------------------------------------------ 兜牌需要注意的地方 ------------------------------------------------------------------------------------  兜牌是应该在“能兜牌”的情况下使用的。 本来有和牌希望的牌也应该弃和；有些苦逼的牌也必须放手一搏。 这些都要根据自己的点数情况来进行判断。  “能兜牌”的状况是不确定的。  不要忘了防守的基本是“弃和”。     （待续）"
+        }
+      ]
+    },
+    {
+      "unitId": "79-bilibili-cn-cv1793434-argument",
+      "chapterId": "79-bilibili-cn-cv1793434-chapter",
+      "title": "【日本麻雀讲座译文】攻守判断3—攻守判断的标准",
+      "chapterTitle": "【日本麻雀讲座译文】攻守判断3—攻守判断的标准",
+      "topics": [],
+      "source": {
+        "sourceId": "79-bilibili-cn-cv1793434",
+        "title": "【日本麻雀讲座译文】攻守判断3—攻守判断的标准",
+        "sha256": "69818826df9a3c931a23419e0e9b9bfb1763e74c68bd14f45822134f4077a935",
+        "pages": [],
+        "format": "web",
+        "web": {
+          "url": "https://www.bilibili.com/read/cv1793434",
+          "articleId": "cv1793434",
+          "htmlSha256": "69818826df9a3c931a23419e0e9b9bfb1763e74c68bd14f45822134f4077a935"
+        }
+      },
+      "translationStatus": "batch-audited-pending-user-review",
+      "previousUnitId": null,
+      "nextUnitId": null,
+      "blocks": [
+        {
+          "type": "p",
+          "id": "limited-next3-276-1",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）1】在例1图的转录和unknowns中保留左侧第4、5张及右侧第2、5张的明确未知和原有位置；不得填入猜测牌码或表示四家牌河已完整复原。"
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-276-2",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）2】保留例1原图及其在正文中的位置，并按原始顺序保留例2、例3；目标和邻位近邻放大图是本次审查资料，不生成新的牌面细节。"
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-276-3",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）3】保留正文原有顺序、原句、条件和强调语气，包括例1“立直的话”才有11600点、例2平和的可能条件、例3关于进张数与连续进攻的条件，以及理论中的“基本”。"
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-276-4",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）4】保留各块原有tableContext、sourceSegments和标记；本次给出的正文块tableContext均为null，原有segments的marks均为空。"
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-276-5",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）5】保留免责声明、译者及原文来源、例题标题、分隔、续篇标记和原始图序。"
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-276-6",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）6】将作者的安全度、危险度、概率和攻守判断呈现为作者所写判断；不把本次有限辨识包装为完整牌河、暗手、概率或最优策略的独立验证。"
+        },
+        {
+          "type": "p",
+          "id": "limited-next3-276-7",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "【审校范围（非原文）7】附件编号及放大图说明若对读者显示，应区分历史加工附件与本次orderedImages；附件说明笔误属于source-note，不是教学错误。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b1",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0001"
+            ],
+            "domPaths": [
+              "main/p[0]"
+            ]
+          },
+          "text": "免责声明：  以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。 原文地址： http://beginners.biz/osihiki/osihiki03.html  ------------------------------------------------------------------------------------"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b2",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0002"
+            ],
+            "domPaths": [
+              "main/p[1]"
+            ]
+          },
+          "text": "那么，前一节我列举了攻守判断的要素"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b3",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0003"
+            ],
+            "domPaths": [
+              "main/p[2]"
+            ]
+          },
+          "text": "我们来看看实际的几个是应该攻，还是应该守的例子。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b4",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0004"
+            ],
+            "domPaths": [
+              "main/p[3]"
+            ]
+          },
+          "text": "例1："
+        },
+        {
+          "type": "figure",
+          "id": "79-bilibili-cn-cv1793434-b5",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0005"
+            ],
+            "domPaths": [
+              "main/div[4]/div[0]/div[0]/div[0]/div[0]"
+            ]
+          },
+          "figure": {
+            "figureId": "79-bilibili-cn-cv1793434-b5",
+            "unitId": "79-bilibili-cn-cv1793434-argument",
+            "page": null,
+            "locator": {
+              "url": "https://www.bilibili.com/read/cv1793434",
+              "sourceBlockIds": [
+                "79-bilibili-cn:cv1793434:b0005"
+              ],
+              "domPaths": [
+                "main/div[4]/div[0]/div[0]/div[0]/div[0]"
+              ]
+            },
+            "caption": "例1",
+            "imageSha256": "633fc44741c600056f9789a52b8323120132af995ba69adab7b3e43194279e52",
+            "imageProvenance": {
+              "kind": "derived-source-assets",
+              "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+              "sourceAssetSha256s": [
+                "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c"
+              ]
+            },
+            "transcription": {
+              "text": "中央：东2局0本场。白色立直棒右侧标示1根；下方“宝牌”标签右侧为9p。\n座位及点数：下方东家24000，右侧南家25000，上方西家27000，左侧北家23000。\n下方手牌，按屏幕从左至右：3m 4m 5m 7m 8m 9p 9p 3s 4s 6s 7s 8s 6z。右侧隔开的一张：6m。\n下方弃牌，按屏幕从左至右：1p 1s 1z 6p 7s 2m。\n上方弃牌，按屏幕从左至右：6s（相对上家正常牌向横置）5z 6p 9m 7z 1z。除横置的6s外，牌面相对屏幕倒置。\n左侧弃牌，按屏幕从上至下：1m 9m 7z [风牌未辨明] [风牌未辨明] 3p。牌面相对屏幕顺时针旋转90°。\n右侧弃牌，按屏幕从上至下：9s [风牌未辨明] 5z 7z [风牌未辨明] 9m。牌面相对屏幕逆时针旋转90°。\n上方、左侧、右侧各有13张背面朝上的手牌。未见副露。\n原图未显示的信息：左侧弃牌从上至下第4张的风牌牌码未辨明。；左侧弃牌从上至下第5张的风牌牌码未辨明。；右侧弃牌从上至下第2张的风牌牌码未辨明。；右侧弃牌从上至下第5张的风牌牌码未辨明。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b6",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0006"
+            ],
+            "domPaths": [
+              "main/p[6]"
+            ]
+          },
+          "text": "看到这个牌的瞬间就有一种想扔棒子的冲动，一上来我就给了一个比较极端的例子。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b7",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0007"
+            ],
+            "domPaths": [
+              "main/p[7]"
+            ]
+          },
+          "text": "【和牌的容易度】好型两面听牌"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b8",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0008"
+            ],
+            "domPaths": [
+              "main/p[8]"
+            ]
+          },
+          "text": "【打点】立直的话有11600点"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b9",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0009"
+            ],
+            "domPaths": [
+              "main/p[9]"
+            ]
+          },
+          "text": "【牌的危险度】发并不是特别危险的一张牌"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b10",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0010"
+            ],
+            "domPaths": [
+              "main/p[10]"
+            ]
+          },
+          "text": "【弃和成功率】安全牌只有6索"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b11",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0011"
+            ],
+            "domPaths": [
+              "main/p[11]"
+            ]
+          },
+          "text": "不管怎么看，这牌没有理由不对日。应该毫不犹豫地扔棒子对攻。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b12",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0012"
+            ],
+            "domPaths": [
+              "main/p[12]"
+            ]
+          },
+          "text": "------------------------------------------------------------------------------------"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b13",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0013"
+            ],
+            "domPaths": [
+              "main/p[13]"
+            ]
+          },
+          "text": "例2："
+        },
+        {
+          "type": "figure",
+          "id": "79-bilibili-cn-cv1793434-b14",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0014"
+            ],
+            "domPaths": [
+              "main/div[14]/div[0]/div[0]/div[0]/div[0]"
+            ]
+          },
+          "figure": {
+            "figureId": "79-bilibili-cn-cv1793434-b14",
+            "unitId": "79-bilibili-cn-cv1793434-argument",
+            "page": null,
+            "locator": {
+              "url": "https://www.bilibili.com/read/cv1793434",
+              "sourceBlockIds": [
+                "79-bilibili-cn:cv1793434:b0014"
+              ],
+              "domPaths": [
+                "main/div[14]/div[0]/div[0]/div[0]/div[0]"
+              ]
+            },
+            "caption": "例2：东4局，北家手牌与四家弃牌。",
+            "imageSha256": "35938b3e17117bfcdefe24b239370902ebbd9493ab6a48b9102b7389936f01a9",
+            "imageProvenance": {
+              "kind": "derived-source-assets",
+              "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+              "sourceAssetSha256s": [
+                "2e1922c12278d34420f83670d380962821a6ab55a328925892ee308db069e8a3"
+              ]
+            },
+            "transcription": {
+              "text": "中央：东4局0本场。白色立直棒右侧标示1根；下方“宝牌”标签右侧为3z。\n座位及点数：下方北家33500，右侧东家25500，上方南家24500，左侧西家15500。\n下方手牌，按屏幕从左至右：1m 1m 2p 2p 3p 7p 9p 5s 5s（赤）6s 7s 8s 9s。右侧隔开的一张：2s。\n下方弃牌：第一行从左至右为6z 3m 8m 1s 5z 9m；第二行在第一行左端下方，从左至右为1s 2s。\n上方弃牌：靠中央一行按屏幕从左至右为2m 2p 1z 9s 3m 3s；外侧一行位于其右端上方，从左至右为9p 5z 4z。牌面均相对屏幕倒置。\n左侧弃牌：靠中央一列按屏幕从上至下为4z 1z 8s 5z 9s 1z；外侧一列从上至下为4m 4s 9m。外侧9m相对左家正常牌向横置，屏幕上呈直立；其余牌面相对屏幕顺时针旋转90°。\n右侧弃牌：靠中央一列按屏幕从上至下为9p 8m 7p 3m 6z 4z；外侧一列与内列后三张对齐，从上至下为1m 2z 9s。牌面均相对屏幕逆时针旋转90°。\n上方、左侧、右侧各有13张背面朝上的手牌。未见副露。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b15",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0015"
+            ],
+            "domPaths": [
+              "main/p[16]"
+            ]
+          },
+          "text": "接下来是一个明显该弃和的例子。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b16",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0016"
+            ],
+            "domPaths": [
+              "main/p[17]"
+            ]
+          },
+          "text": "【和牌的容易度】两向听而且还有愚型，鸣牌也没什么帮助，要和出概率很低。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b17",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0017"
+            ],
+            "domPaths": [
+              "main/p[18]"
+            ]
+          },
+          "text": "【打点】立直宝牌1，运气好的可能有平和"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b18",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0018"
+            ],
+            "domPaths": [
+              "main/p[19]"
+            ]
+          },
+          "text": "【牌的危险度】最没用的这张2索危险度还是比较高"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b19",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0019"
+            ],
+            "domPaths": [
+              "main/p[20]"
+            ]
+          },
+          "text": "【弃和成功率】8、9索两种现物，而且1万的安全度比较高"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b20",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0020"
+            ],
+            "domPaths": [
+              "main/p[21]"
+            ]
+          },
+          "text": "还有就是，自己是TOP，而立直的人是四位。这些条件结合起来看，没有必要去进攻。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b21",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0021"
+            ],
+            "domPaths": [
+              "main/p[22]"
+            ]
+          },
+          "text": "为了以防别人追立，先从8索开始切，共同的安全牌9索留到以后的巡目再切。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b22",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0022"
+            ],
+            "domPaths": [
+              "main/p[23]"
+            ]
+          },
+          "text": "以上是一些很容易明白的例子，所以还没什么难度。实际上进攻和防守的因素混合在一起的比较难以判断的情况比较多。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b23",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0023"
+            ],
+            "domPaths": [
+              "main/p[24]"
+            ]
+          },
+          "text": "------------------------------------------------------------------------------------"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b24",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0024"
+            ],
+            "domPaths": [
+              "main/p[25]"
+            ]
+          },
+          "text": "例3："
+        },
+        {
+          "type": "figure",
+          "id": "79-bilibili-cn-cv1793434-b25",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0025"
+            ],
+            "domPaths": [
+              "main/div[26]/div[0]/div[0]/div[0]/div[0]"
+            ]
+          },
+          "figure": {
+            "figureId": "79-bilibili-cn-cv1793434-b25",
+            "unitId": "79-bilibili-cn-cv1793434-argument",
+            "page": null,
+            "locator": {
+              "url": "https://www.bilibili.com/read/cv1793434",
+              "sourceBlockIds": [
+                "79-bilibili-cn:cv1793434:b0025"
+              ],
+              "domPaths": [
+                "main/div[26]/div[0]/div[0]/div[0]/div[0]"
+              ]
+            },
+            "caption": "例3：南1局，北家手牌、四家弃牌与西家副露。",
+            "imageSha256": "b6ae15a171ba9adc826591f4cbc5e06738f218214a5ab7db49c8d76859b734f9",
+            "imageProvenance": {
+              "kind": "derived-source-assets",
+              "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+              "sourceAssetSha256s": [
+                "6c9edd4f497f984fb3696c165cfdc8386ea375fcd9d053543a842a63aec5de20"
+              ]
+            },
+            "transcription": {
+              "text": "中央：南1局0本场。白色立直棒右侧标示1根；下方“宝牌”标签右侧为5p。\n座位及点数：下方北家21100，右侧东家21000，上方南家32000，左侧西家25000。\n下方手牌，按屏幕从左至右：2m 3m 5m 7m 7m 5p 5p 6p 7p 5s 7s 8s 9s。右侧隔开的一张：6m。\n下方弃牌：第一行从左至右为1s 1p 7z 2z 5z 2p；第二行位于第一行左端下方，从左至右为1z 1s 8s。\n上方弃牌：靠中央一行按屏幕从左至右为1z 8p 9s 8m 3z 2m；外侧一行位于其右端上方，从左至右为6p（相对上家正常牌向横置）7z 2z。除横置6p外，牌面均相对屏幕倒置。\n左侧弃牌：靠中央一列按屏幕从上至下为1z 7z 6z 3z 1p 8m；外侧一列从上至下为7s 5z 2m 8p。牌面均相对屏幕顺时针旋转90°。\n右侧弃牌：靠中央一列按屏幕从上至下为1s 3s 2z 6z 5z 3z；外侧一列与内列后四张对齐，从上至下为9p 1z 1m 4m。牌面均相对屏幕逆时针旋转90°。\n左下角西家副露，按屏幕从上至下：4s 3s 5s（赤）。4s相对西家正常牌向横置，在屏幕上呈直立；3s与赤5s的牌面相对屏幕顺时针旋转90°。\n上方、右侧各有13张背面朝上的手牌；左侧有10张背面朝上的手牌。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b26",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0026"
+            ],
+            "domPaths": [
+              "main/p[28]"
+            ]
+          },
+          "text": "【和牌的容易度】一向听，进张不太多了"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b27",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0027"
+            ],
+            "domPaths": [
+              "main/p[29]"
+            ]
+          },
+          "text": "【打点】门平宝牌1~3，足够了"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b28",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0028"
+            ],
+            "domPaths": [
+              "main/p[30]"
+            ]
+          },
+          "text": "【牌的危险度】没有通过的筋牌比较多，7万、5索都很危险"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b29",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0029"
+            ],
+            "domPaths": [
+              "main/p[31]"
+            ]
+          },
+          "text": "【弃和成功率】现物两张、筋牌一张，估计能够弃和成功"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b30",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0030"
+            ],
+            "domPaths": [
+              "main/p[32]"
+            ]
+          },
+          "text": "除了基本的判断材料之外，南场的TOP立直，看来是想确定自己的领先优势。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b31",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0031"
+            ],
+            "domPaths": [
+              "main/p[33]"
+            ]
+          },
+          "text": "这样的状况下，为了减少自己的迷惑、冷静的进行攻守判断，有攻守判断的“脊柱”材料是非常重要的。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b32",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0032"
+            ],
+            "domPaths": [
+              "main/p[34]"
+            ]
+          },
+          "text": "这个讲座里，我比较推荐以“自己的向听数”来进行判断。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b33",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0033"
+            ],
+            "domPaths": [
+              "main/p[35]"
+            ]
+          },
+          "text": "具体来说就是，“要与立直对攻，自己要先听牌了”是基本；“一向听的话，就可以攻一巡”，这么记就好了。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b34",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0034"
+            ],
+            "domPaths": [
+              "main/p[36]"
+            ]
+          },
+          "text": "为什么一向听一下不能对攻呢？"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b35",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0035"
+            ],
+            "domPaths": [
+              "main/p[37]"
+            ]
+          },
+          "text": "自己听牌之前是不会有获得点棒的机会的。即使对攻，也不能保证下一巡能够维持听牌，说不定危险牌还回来。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b36",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0036"
+            ],
+            "domPaths": [
+              "main/p[38]"
+            ]
+          },
+          "text": "自己还没有听牌的时候切危险牌，只是给对手增加机会而已。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b37",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0037"
+            ],
+            "domPaths": [
+              "main/p[39]"
+            ]
+          },
+          "text": "宝牌2的一向听，听牌了的话，打点比较有优势。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b38",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0038"
+            ],
+            "domPaths": [
+              "main/p[40]"
+            ]
+          },
+          "text": "如同例3一样，那样的进张数要连续攻2次也是不利的。还是弃和比较好。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b39",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0039"
+            ],
+            "domPaths": [
+              "main/p[41]"
+            ]
+          },
+          "text": "理论："
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b40",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0040"
+            ],
+            "domPaths": [
+              "main/p[42]"
+            ]
+          },
+          "text": "攻守判断以向听数做主线是比较主流的方式。听牌的话就攻，一向听的话攻一次，两向听以下弃和是基本。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b41",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0041"
+            ],
+            "domPaths": [
+              "main/p[43]"
+            ]
+          },
+          "text": "攻守判断想要模式化是非常困难的，所以下一节就不在打算再系统化了，而去考虑一下赤牌麻将中应该攻、还是该守的实例。"
+        },
+        {
+          "type": "p",
+          "id": "79-bilibili-cn-cv1793434-b42",
+          "page": null,
+          "locator": {
+            "url": "https://www.bilibili.com/read/cv1793434",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1793434:b0042"
+            ],
+            "domPaths": [
+              "main/p[44]"
+            ]
+          },
+          "text": "（待续）"
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "figureId": "79-bilibili-cn-cv1765377-b22",
+      "path": "assets/79-bilibili-cn-cv1765377-b22.png",
+      "sha256": "48d8d2e5b545c2d9658b66383b3bd6434237b486e92ed93ad0edd14785e89606"
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1765377-b31",
+      "path": "assets/79-bilibili-cn-cv1765377-b31.png",
+      "sha256": "0201a49b66cd8658e3131c9dba7f2089dc1f4ec808833975c3fd591b64959311"
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1765377-b42",
+      "path": "assets/79-bilibili-cn-cv1765377-b42.png",
+      "sha256": "47f30ddb5adba4b582f2dec59978dcf2321754033834db2837e174f83ba5222d"
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1770245-b4",
+      "path": "assets/79-bilibili-cn-cv1770245-b4.png",
+      "sha256": "dfddfb73dc520b2aa4229a2694440538020971d181a03da0c4c29f5e9e0887bf"
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1770245-b6",
+      "path": "assets/79-bilibili-cn-cv1770245-b6.png",
+      "sha256": "c61725589c6e62616200bbe4bd53854dd9acfdee60197c817ef95fb2485af657"
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1770245-b8",
+      "path": "assets/79-bilibili-cn-cv1770245-b8.png",
+      "sha256": "8e6f1e00f3c26b5dd772cda987f7cc6ff9528ac41fca3fcea9695590bcc2447f"
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1793434-b5",
+      "path": "assets/79-bilibili-cn-cv1793434-b5.png",
+      "sha256": "633fc44741c600056f9789a52b8323120132af995ba69adab7b3e43194279e52"
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1793434-b14",
+      "path": "assets/79-bilibili-cn-cv1793434-b14.png",
+      "sha256": "35938b3e17117bfcdefe24b239370902ebbd9493ab6a48b9102b7389936f01a9"
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1793434-b25",
+      "path": "assets/79-bilibili-cn-cv1793434-b25.png",
+      "sha256": "b6ae15a171ba9adc826591f4cbc5e06738f218214a5ab7db49c8d76859b734f9"
+    }
+  ]
+}

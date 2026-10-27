@@ -1,0 +1,82 @@
+{
+  "schema": "coach-textbook-web-stage/1",
+  "status": "independently-audited-chapter-preview",
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1765377.display.json",
+  "candidateSha256": "e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e",
+  "sourceSha256": "75b3eae5938bd5e635089891d6ee721575cf9d8fddce050dadcb90a5f47f48c5",
+  "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/supplements/coac249-193208276-20261028/current-binding-193.json",
+  "auditStatus": "admitted-exact-limited-unknown-fidelity",
+  "limitedUnknownFidelity": {
+    "unknowns": [
+      {
+        "figureId": "79-bilibili-cn:cv1765377:b0042:figure",
+        "unknowns": [
+          "右侧牌河第2行右列的万子牌：黑色点数字形无法可靠辨认。"
+        ]
+      }
+    ],
+    "sourceNotes": [
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1765377:b0022:figure",
+        "sourceEvidence": "sourceNotes称附件1为原图、附件2为其放大图；实际配对为附件1与附件4。",
+        "description": "加工附件配对说明有编号笔误，不影响六组搭子及听牌语义。",
+        "suggestedRepair": "将放大视图编号改为附件4。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1765377:b0031:figure",
+        "sourceEvidence": "sourceNotes称附件3为原图、附件4为其放大图；实际配对为附件2与附件5。",
+        "description": "加工附件配对说明有编号笔误，不影响三组五张牌及听牌语义。",
+        "suggestedRepair": "将说明改为附件2为原图、附件5为放大视图。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1765377:b0042:figure",
+        "sourceEvidence": "sourceNotes称附件5为原图、附件6为其放大图；实际配对为附件3与附件6。",
+        "description": "原图附件编号笔误，与另行列出的未定牌码问题不同。",
+        "suggestedRepair": "将原图编号改为附件3，保留放大视图编号6。"
+      }
+    ],
+    "conclusion": "limited-unknown-acceptable",
+    "modelCalls": 0
+  },
+  "imageDerivations": [],
+  "chapters": 1,
+  "units": 1,
+  "blocks": 49,
+  "figures": 3,
+  "corpusId": "9805d60b23a5be5782840b441943f9504f040154a157095a5b1cbdb63fafc690",
+  "bodySha256": "67b497b283b2450a7d8941edd21cc7f33be3be75f484cb72c0a054e9dd8683ea",
+  "maxUnitBytes": 19637,
+  "modelCalls": 0,
+  "activeLibraryChanged": false,
+  "humanReview": "pending",
+  "canonical": "79-cn-chapter-193-4",
+  "key": "193",
+  "standardWholeArticlePassed": false,
+  "originalModelChecks": {
+    "passed": false,
+    "errors": [
+      "uncertain:79-bilibili-cn:cv1765377:b0008",
+      "uncertain:79-bilibili-cn:cv1765377:b0009",
+      "uncertain:79-bilibili-cn:cv1765377:b0015",
+      "uncertain:79-bilibili-cn:cv1765377:b0016",
+      "uncertain:79-bilibili-cn:cv1765377:b0042",
+      "uncertain:79-bilibili-cn:cv1765377:b0042:figure",
+      "uncertain:79-bilibili-cn:cv1765377:i00003",
+      "semantic_information_missing",
+      "uncertain:79-bilibili-cn:cv1765377:b0008",
+      "uncertain:79-bilibili-cn:cv1765377:b0015",
+      "uncertain:79-bilibili-cn:cv1765377:b0042:figure"
+    ]
+  },
+  "independentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-193208276-20261028\\receipt-193.json",
+    "sha256": "1303cb2c932a2450d1fcd8d7c02ff5b9e135c21c9ade3e1b1f27383f9adc04a6"
+  },
+  "displayLimits": {
+    "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-250-2b5a0cbe65e0\\worktree/_analysis/n3/r193/display-limits.json",
+    "sha256": "9b43021d1428bc4369c4b30c2035a8d1e9ce0b81b21c7903ab71fe073165d4f6"
+  }
+}

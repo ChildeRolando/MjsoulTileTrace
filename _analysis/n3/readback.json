@@ -1,0 +1,520 @@
+{
+  "schema": "coac250-next3-limited-readback/1",
+  "allPassed": true,
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T23-16-37-815Z",
+    "corpusId": "4261edd9ce14e8f75f8aa903f1112c5ba863662eb3fa96033cd6b365c898973f",
+    "chapters": 242,
+    "units": 250,
+    "blocks": 6685,
+    "figures": 5289
+  },
+  "chapters": [
+    {
+      "canonical": "79-cn-chapter-193-4",
+      "chapter": "79-bilibili-cn-cv1765377-chapter",
+      "key": "193",
+      "sourceBlocks": 43,
+      "compiledBlocks": 49,
+      "figures": 3,
+      "pages": [
+        {
+          "offset": 0,
+          "blocks": 40,
+          "next": 40
+        },
+        {
+          "offset": 40,
+          "blocks": 9,
+          "next": null
+        }
+      ],
+      "images": [
+        {
+          "figureId": "79-bilibili-cn-cv1765377-b22",
+          "sha256": "48d8d2e5b545c2d9658b66383b3bd6434237b486e92ed93ad0edd14785e89606",
+          "mcpBytesExact": true
+        },
+        {
+          "figureId": "79-bilibili-cn-cv1765377-b31",
+          "sha256": "0201a49b66cd8658e3131c9dba7f2089dc1f4ec808833975c3fd591b64959311",
+          "mcpBytesExact": true
+        },
+        {
+          "figureId": "79-bilibili-cn-cv1765377-b42",
+          "sha256": "47f30ddb5adba4b582f2dec59978dcf2321754033834db2837e174f83ba5222d",
+          "mcpBytesExact": true
+        }
+      ],
+      "requiredLimits": 5,
+      "originalModelChecks": {
+        "passed": false,
+        "errors": [
+          "uncertain:79-bilibili-cn:cv1765377:b0008",
+          "uncertain:79-bilibili-cn:cv1765377:b0009",
+          "uncertain:79-bilibili-cn:cv1765377:b0015",
+          "uncertain:79-bilibili-cn:cv1765377:b0016",
+          "uncertain:79-bilibili-cn:cv1765377:b0042",
+          "uncertain:79-bilibili-cn:cv1765377:b0042:figure",
+          "uncertain:79-bilibili-cn:cv1765377:i00003",
+          "semantic_information_missing",
+          "uncertain:79-bilibili-cn:cv1765377:b0008",
+          "uncertain:79-bilibili-cn:cv1765377:b0015",
+          "uncertain:79-bilibili-cn:cv1765377:b0042:figure"
+        ]
+      },
+      "sourceNotes": [
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1765377:b0022:figure",
+          "sourceEvidence": "sourceNotes称附件1为原图、附件2为其放大图；实际配对为附件1与附件4。",
+          "description": "加工附件配对说明有编号笔误，不影响六组搭子及听牌语义。",
+          "suggestedRepair": "将放大视图编号改为附件4。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1765377:b0031:figure",
+          "sourceEvidence": "sourceNotes称附件3为原图、附件4为其放大图；实际配对为附件2与附件5。",
+          "description": "加工附件配对说明有编号笔误，不影响三组五张牌及听牌语义。",
+          "suggestedRepair": "将说明改为附件2为原图、附件5为放大视图。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1765377:b0042:figure",
+          "sourceEvidence": "sourceNotes称附件5为原图、附件6为其放大图；实际配对为附件3与附件6。",
+          "description": "原图附件编号笔误，与另行列出的未定牌码问题不同。",
+          "suggestedRepair": "将原图编号改为附件3，保留放大视图编号6。"
+        }
+      ],
+      "allUnknownsPresent": true,
+      "allSourceBlocksCovered": true,
+      "authorBodyAndSegmentsRetained": true,
+      "arenaReads": [
+        {
+          "offset": 0,
+          "blocks": 40,
+          "next": 40,
+          "bytes": 14851,
+          "sourceRefs": 0
+        },
+        {
+          "offset": 40,
+          "blocks": 9,
+          "next": null,
+          "bytes": 6467,
+          "sourceRefs": 1
+        }
+      ]
+    },
+    {
+      "canonical": "79-cn-chapter-208-4",
+      "chapter": "79-bilibili-cn-cv1770245-chapter",
+      "key": "208",
+      "sourceBlocks": 9,
+      "compiledBlocks": 14,
+      "figures": 3,
+      "pages": [
+        {
+          "offset": 0,
+          "blocks": 14,
+          "next": null
+        }
+      ],
+      "images": [
+        {
+          "figureId": "79-bilibili-cn-cv1770245-b4",
+          "sha256": "dfddfb73dc520b2aa4229a2694440538020971d181a03da0c4c29f5e9e0887bf",
+          "mcpBytesExact": true
+        },
+        {
+          "figureId": "79-bilibili-cn-cv1770245-b6",
+          "sha256": "c61725589c6e62616200bbe4bd53854dd9acfdee60197c817ef95fb2485af657",
+          "mcpBytesExact": true
+        },
+        {
+          "figureId": "79-bilibili-cn-cv1770245-b8",
+          "sha256": "8e6f1e00f3c26b5dd772cda987f7cc6ff9528ac41fca3fcea9695590bcc2447f",
+          "mcpBytesExact": true
+        }
+      ],
+      "requiredLimits": 5,
+      "originalModelChecks": {
+        "passed": false,
+        "errors": [
+          "uncertain:79-bilibili-cn:cv1770245:b0004",
+          "uncertain:79-bilibili-cn:cv1770245:b0006",
+          "uncertain:79-bilibili-cn:cv1770245:b0004:figure",
+          "uncertain:79-bilibili-cn:cv1770245:b0006:figure",
+          "semantic_information_missing",
+          "uncertain:79-bilibili-cn:cv1770245:b0004:figure",
+          "uncertain:79-bilibili-cn:cv1770245:b0006:figure"
+        ]
+      },
+      "sourceNotes": [
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1770245:b0004:figure",
+          "sourceEvidence": "visualEvidence将原图指定为附件1、对应2倍放大图指定为附件4；sourceNotes却写“附件1为原图，附件2为……放大图”。",
+          "description": "加工附件配对编号错误，不属于教材教学内容。",
+          "suggestedRepair": "将该说明中的放大图编号改为附件4。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1770245:b0006:figure",
+          "sourceEvidence": "visualEvidence将原图指定为附件2、对应2倍放大图指定为附件5；sourceNotes写为附件3和附件4。",
+          "description": "加工附件配对编号错误，不影响原图本身的教学内容。",
+          "suggestedRepair": "将说明改为附件2为原图、附件5为对应2倍放大图。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1770245:b0008:figure",
+          "sourceEvidence": "visualEvidence将原图指定为附件3、对应4倍放大图指定为附件6；sourceNotes却将原图写为附件5。",
+          "description": "原图附件编号笔误；该图教学牌码及标签完整。",
+          "suggestedRepair": "将原图编号改为附件3，保留放大图编号附件6。"
+        }
+      ],
+      "allUnknownsPresent": true,
+      "allSourceBlocksCovered": true,
+      "authorBodyAndSegmentsRetained": true,
+      "arenaReads": [
+        {
+          "offset": 0,
+          "blocks": 14,
+          "next": null,
+          "bytes": 14111,
+          "sourceRefs": 1
+        }
+      ]
+    },
+    {
+      "canonical": "79-cn-chapter-276-4",
+      "chapter": "79-bilibili-cn-cv1793434-chapter",
+      "key": "276",
+      "sourceBlocks": 42,
+      "compiledBlocks": 49,
+      "figures": 3,
+      "pages": [
+        {
+          "offset": 0,
+          "blocks": 31,
+          "next": 31
+        },
+        {
+          "offset": 31,
+          "blocks": 18,
+          "next": null
+        }
+      ],
+      "images": [
+        {
+          "figureId": "79-bilibili-cn-cv1793434-b5",
+          "sha256": "633fc44741c600056f9789a52b8323120132af995ba69adab7b3e43194279e52",
+          "mcpBytesExact": true
+        },
+        {
+          "figureId": "79-bilibili-cn-cv1793434-b14",
+          "sha256": "35938b3e17117bfcdefe24b239370902ebbd9493ab6a48b9102b7389936f01a9",
+          "mcpBytesExact": true
+        },
+        {
+          "figureId": "79-bilibili-cn-cv1793434-b25",
+          "sha256": "b6ae15a171ba9adc826591f4cbc5e06738f218214a5ab7db49c8d76859b734f9",
+          "mcpBytesExact": true
+        }
+      ],
+      "requiredLimits": 7,
+      "originalModelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:79-bilibili-cn:cv1793434:b0005",
+          "uncertain:79-bilibili-cn:cv1793434:b0014",
+          "uncertain:79-bilibili-cn:cv1793434:b0025",
+          "needs-repair:79-bilibili-cn:cv1793434:b0005:figure",
+          "uncertain:79-bilibili-cn:cv1793434:b0014:figure",
+          "uncertain:79-bilibili-cn:cv1793434:b0025:figure",
+          "semantic_information_missing",
+          "incomplete_article_comparison",
+          "error:79-bilibili-cn:cv1793434:b0005:figure",
+          "uncertain:79-bilibili-cn:cv1793434:b0014:figure",
+          "uncertain:79-bilibili-cn:cv1793434:b0025:figure"
+        ]
+      },
+      "sourceNotes": [
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1793434:b0014:figure",
+          "sourceEvidence": "候选 sourceNotes 称附件3、4为例2原图及放大图；给定附件仅有例1的附件1、2，例2列为已审原图复用。",
+          "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+          "suggestedRepair": "删除或更正附件3、4的配对说明，说明例2使用已审原图复用。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "79-bilibili-cn:cv1793434:b0025:figure",
+          "sourceEvidence": "候选 sourceNotes 称附件5、6为例3原图及放大图；给定附件仅有例1的附件1、2，例3列为已审原图复用。",
+          "description": "加工附件编号与本次输入不符，不属于教材教学内容。",
+          "suggestedRepair": "删除或更正附件5、6的配对说明，说明例3使用已审原图复用。"
+        }
+      ],
+      "allUnknownsPresent": true,
+      "allSourceBlocksCovered": true,
+      "authorBodyAndSegmentsRetained": true,
+      "arenaReads": [
+        {
+          "offset": 0,
+          "blocks": 31,
+          "next": 31,
+          "bytes": 14350,
+          "sourceRefs": 0
+        },
+        {
+          "offset": 31,
+          "blocks": 18,
+          "next": null,
+          "bytes": 8500,
+          "sourceRefs": 1
+        }
+      ]
+    }
+  ],
+  "pdf193PairedVersion": {
+    "unitId": "79-cn-chapter-193-4-pdf193-supplement-unit-1",
+    "twoOriginalSlicesRead": true,
+    "unitUnchanged": true,
+    "navigationCannotGrantTacticalCitation": true,
+    "webResidualTextUnchanged": true,
+    "htmlLink": true
+  },
+  "priorUnitsUnchanged": 247,
+  "allImageBytesExact": true,
+  "allMandatoryLimitsRead": true,
+  "completeCanonicalCatalog": true,
+  "sourceCollisions": 0,
+  "fullMcp": {
+    "units": 250,
+    "images": 5289
+  },
+  "arena": {
+    "units": 250,
+    "exactBody": true,
+    "completeReadRequiredBeforeCitation": true
+  },
+  "calls": [
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 0,
+        "limit": 20
+      },
+      "bytes": 4758
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 20,
+        "limit": 20
+      },
+      "bytes": 4852
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 40,
+        "limit": 20
+      },
+      "bytes": 4910
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 60,
+        "limit": 20
+      },
+      "bytes": 5054
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 80,
+        "limit": 20
+      },
+      "bytes": 5122
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 100,
+        "limit": 20
+      },
+      "bytes": 5127
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 120,
+        "limit": 20
+      },
+      "bytes": 5098
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 140,
+        "limit": 20
+      },
+      "bytes": 5011
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 160,
+        "limit": 20
+      },
+      "bytes": 5060
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 180,
+        "limit": 20
+      },
+      "bytes": 4392
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 200,
+        "limit": 20
+      },
+      "bytes": 2817
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 220,
+        "limit": 20
+      },
+      "bytes": 4575
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 240,
+        "limit": 20
+      },
+      "bytes": 754
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1765377-argument",
+        "blockOffset": 0
+      },
+      "bytes": 14719
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1765377-argument",
+        "blockOffset": 40
+      },
+      "bytes": 6284
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1765377-b22"
+      },
+      "bytes": 1284
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1765377-b31"
+      },
+      "bytes": 1191
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1765377-b42"
+      },
+      "bytes": 2559
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1770245-argument",
+        "blockOffset": 0
+      },
+      "bytes": 13928
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1770245-b4"
+      },
+      "bytes": 2225
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1770245-b6"
+      },
+      "bytes": 2567
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1770245-b8"
+      },
+      "bytes": 1271
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1793434-argument",
+        "blockOffset": 0
+      },
+      "bytes": 14218
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1793434-argument",
+        "blockOffset": 31
+      },
+      "bytes": 8317
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1793434-b5"
+      },
+      "bytes": 2002
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1793434-b14"
+      },
+      "bytes": 2013
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1793434-b25"
+      },
+      "bytes": 2215
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-cn-chapter-193-4-pdf193-supplement-unit-1",
+        "blockOffset": 0
+      },
+      "bytes": 1167
+    }
+  ],
+  "newModelCalls": 0,
+  "formalActiveChanged": false
+}

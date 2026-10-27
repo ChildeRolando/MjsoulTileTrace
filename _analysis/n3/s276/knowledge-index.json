@@ -1,0 +1,41 @@
+{
+  "schema": "coach-textbook-index/1",
+  "status": "chapter-auto-audited",
+  "title": "【日本麻雀讲座译文】攻守判断3—攻守判断的标准",
+  "policy": {
+    "cardRole": "index-only",
+    "bodyRole": "complete-source-body-with-chinese-translation",
+    "modelExperiments": false,
+    "reviewStatus": "pending-user-review"
+  },
+  "sources": [
+    {
+      "id": "79-bilibili-cn-cv1793434",
+      "title": "【日本麻雀讲座译文】攻守判断3—攻守判断的标准",
+      "format": "web",
+      "language": "zh-CN",
+      "url": "https://www.bilibili.com/read/cv1793434",
+      "articleId": "cv1793434",
+      "sha256": "69818826df9a3c931a23419e0e9b9bfb1763e74c68bd14f45822134f4077a935",
+      "htmlSha256": "69818826df9a3c931a23419e0e9b9bfb1763e74c68bd14f45822134f4077a935",
+      "bytes": 73067,
+      "sourceJsonSha256": "db1218e9226ef5ccaf978ec6b6801bd07498017b821973647d0e551ed518439f",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1793434/source.json"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "79-bilibili-cn-cv1793434-chapter",
+      "title": "【日本麻雀讲座译文】攻守判断3—攻守判断的标准",
+      "sourceId": "79-bilibili-cn-cv1793434",
+      "startPage": null,
+      "bodyStartPage": null,
+      "endPage": null,
+      "topics": [],
+      "indexDescription": "完整原文论证和牌例；索引只定位。",
+      "anchors": [],
+      "relatedChapterIds": [],
+      "reviewFocus": "完整来源正文与原图，限定审校范围及未知限制随正文展示；未作普通模型整章通过声明。"
+    }
+  ]
+}

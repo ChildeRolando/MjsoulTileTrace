@@ -1,0 +1,117 @@
+{
+  "chapters": 242,
+  "units": 250,
+  "blocks": 6685,
+  "figures": 5289,
+  "corpusId": "4261edd9ce14e8f75f8aa903f1112c5ba863662eb3fa96033cd6b365c898973f",
+  "bodySha256": "9dc80f66e9e0e084e8c343e051dee396ede5dfb3e730636be2ba7e113aeb497c",
+  "maxUnitBytes": 358204,
+  "modelCalls": 0,
+  "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T23-16-37-815Z",
+  "stages": [
+    {
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1765377.display.json",
+      "candidateSha256": "e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e",
+      "stageReceiptPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T23-16-37-815Z/stages/n193/web-stage-receipt.json",
+      "auditStatus": "admitted-exact-limited-unknown-fidelity",
+      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/supplements/coac249-193208276-20261028/current-binding-193.json",
+      "chapterIds": [
+        "79-bilibili-cn-cv1765377-chapter"
+      ],
+      "next3LimitedReview": {
+        "candidateSha256": "e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e",
+        "module": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/admit.mjs",
+          "sha256": "def9104e6e24faa0a0386366c2dc204b3713e0eb62de2b59fa79cc6e117a6726"
+        },
+        "stage": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/stage.mjs",
+          "sha256": "202400b8a606d765cf9415e50443d0efbb9ee3b63cc709ef28834a2eaac325ba"
+        },
+        "manifest": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/manifest.json",
+          "sha256": "2563f7c113cbdcdfd3360085a00aa3e086b9f9246429a54b9f4064ac5ee6221d"
+        },
+        "contract": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/contract.md",
+          "sha256": "a4000df17e8d9d297327e4e3d288306680a8c3f925f9f83995f8639df35fdea5"
+        }
+      },
+      "standardWholeArticlePassed": false,
+      "displayLimits": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T23-16-37-815Z/stages/n193/display-limits.json",
+        "sha256": "9b43021d1428bc4369c4b30c2035a8d1e9ce0b81b21c7903ab71fe073165d4f6"
+      }
+    },
+    {
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770245.display.json",
+      "candidateSha256": "0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97",
+      "stageReceiptPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T23-16-37-815Z/stages/n208/web-stage-receipt.json",
+      "auditStatus": "admitted-exact-limited-unknown-fidelity",
+      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/supplements/coac249-193208276-20261028/current-binding-208.json",
+      "chapterIds": [
+        "79-bilibili-cn-cv1770245-chapter"
+      ],
+      "next3LimitedReview": {
+        "candidateSha256": "0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97",
+        "module": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/admit.mjs",
+          "sha256": "def9104e6e24faa0a0386366c2dc204b3713e0eb62de2b59fa79cc6e117a6726"
+        },
+        "stage": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/stage.mjs",
+          "sha256": "202400b8a606d765cf9415e50443d0efbb9ee3b63cc709ef28834a2eaac325ba"
+        },
+        "manifest": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/manifest.json",
+          "sha256": "2563f7c113cbdcdfd3360085a00aa3e086b9f9246429a54b9f4064ac5ee6221d"
+        },
+        "contract": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/contract.md",
+          "sha256": "a4000df17e8d9d297327e4e3d288306680a8c3f925f9f83995f8639df35fdea5"
+        }
+      },
+      "standardWholeArticlePassed": false,
+      "displayLimits": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T23-16-37-815Z/stages/n208/display-limits.json",
+        "sha256": "ada9424362050f39c88dabb035539e7578c01528fd683170b52811bb194c9c47"
+      }
+    },
+    {
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1793434.r2.display.json",
+      "candidateSha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+      "stageReceiptPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T23-16-37-815Z/stages/n276/web-stage-receipt.json",
+      "auditStatus": "admitted-exact-limited-unknown-fidelity",
+      "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/supplements/coac249-193208276-20261028/current-binding-276.json",
+      "chapterIds": [
+        "79-bilibili-cn-cv1793434-chapter"
+      ],
+      "next3LimitedReview": {
+        "candidateSha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+        "module": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/admit.mjs",
+          "sha256": "def9104e6e24faa0a0386366c2dc204b3713e0eb62de2b59fa79cc6e117a6726"
+        },
+        "stage": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/stage.mjs",
+          "sha256": "202400b8a606d765cf9415e50443d0efbb9ee3b63cc709ef28834a2eaac325ba"
+        },
+        "manifest": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/manifest.json",
+          "sha256": "2563f7c113cbdcdfd3360085a00aa3e086b9f9246429a54b9f4064ac5ee6221d"
+        },
+        "contract": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/contract.md",
+          "sha256": "a4000df17e8d9d297327e4e3d288306680a8c3f925f9f83995f8639df35fdea5"
+        }
+      },
+      "standardWholeArticlePassed": false,
+      "displayLimits": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T23-16-37-815Z/stages/n276/display-limits.json",
+        "sha256": "6c6b66e89830ee1941012ca3057e1536f4bb97fe81c0e2b284e86b583256e83f"
+      }
+    }
+  ],
+  "priorUnitsUnchanged": 247,
+  "models": 0
+}

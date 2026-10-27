@@ -1,0 +1,43 @@
+{
+  "schema": "coac244-next3-zero-193208276/1",
+  "newModelCalls": 0,
+  "newAcceptedChapters": 0,
+  "canonical": [
+    "79-cn-chapter-193-4",
+    "79-cn-chapter-208-4",
+    "79-cn-chapter-276-4"
+  ],
+  "packets": [
+    "193-packet.json",
+    "208-packet.json",
+    "276-packet.json"
+  ],
+  "resolvedEvidenceOnly": [
+    "276 b0014/b0025 unchanged full object/body; actual parent independent per-tile raw recovered"
+  ],
+  "minimumNextBatch": {
+    "production": 0,
+    "independentRecognitionAndImpact": 3,
+    "totalNewCallsMaximum": 3,
+    "perChapter": 1,
+    "retry": 0,
+    "failedVoidCount": true,
+    "authorized": false,
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "money": "unknown; no tariff or remote upstream execution evidence"
+  },
+  "notSelected256": {
+    "canonical": "79-cn-chapter-256-18",
+    "candidateSha256": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2",
+    "actualError": "b0016 hand tile12 between7s/9s independently read8s; current placeholder remains. Only this transcription token and matching unknown are potential future repair targets, not obsolete base seat error.",
+    "remainingUnknown": "upper river second row Manzu right of1p; right river central column top Souzu",
+    "next": "Separate lawful maker1+target-audit1 proposal after 3-chapter stage; no current new call."
+  },
+  "timeout234": {
+    "canonical": "79-cn-chapter-234-12",
+    "status": "900s timeout; local attempt known, remote upstream execution/fee unknown; no complete output recovered in prior diagnostic",
+    "next": "Separately inspect original transport/session terminal and ledger before any budget proposal; no blind retry or borrowing old audit quota."
+  },
+  "universe": "remaining-universe.json"
+}

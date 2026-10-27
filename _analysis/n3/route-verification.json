@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "version": 30,
+  "tests": [
+    {
+      "key": "193",
+      "actualFrozenRouteRebuilt": true,
+      "sameCorpus": true,
+      "wrongCandidateRejected": true,
+      "changedManifestRejected": true
+    },
+    {
+      "key": "208",
+      "actualFrozenRouteRebuilt": true,
+      "sameCorpus": true,
+      "wrongCandidateRejected": true,
+      "changedManifestRejected": true
+    },
+    {
+      "key": "276",
+      "actualFrozenRouteRebuilt": true,
+      "sameCorpus": true,
+      "wrongCandidateRejected": true,
+      "changedManifestRejected": true
+    }
+  ],
+  "historicalStagesRebuilt": 0,
+  "models": 0
+}

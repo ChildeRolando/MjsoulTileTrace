@@ -1,0 +1,41 @@
+{
+  "schema": "coach-textbook-index/1",
+  "status": "chapter-auto-audited",
+  "title": "【日本麻雀讲座译文】防守3—筋（1）",
+  "policy": {
+    "cardRole": "index-only",
+    "bodyRole": "complete-source-body-with-chinese-translation",
+    "modelExperiments": false,
+    "reviewStatus": "pending-user-review"
+  },
+  "sources": [
+    {
+      "id": "79-bilibili-cn-cv1765377",
+      "title": "【日本麻雀讲座译文】防守3—筋（1）",
+      "format": "web",
+      "language": "zh-CN",
+      "url": "https://www.bilibili.com/read/cv1765377",
+      "articleId": "cv1765377",
+      "sha256": "a02309bd8815b85dead3e8b2e1c37de11ed89e909ff6f76e8e6543b8f01a581c",
+      "htmlSha256": "a02309bd8815b85dead3e8b2e1c37de11ed89e909ff6f76e8e6543b8f01a581c",
+      "bytes": 77707,
+      "sourceJsonSha256": "75b3eae5938bd5e635089891d6ee721575cf9d8fddce050dadcb90a5f47f48c5",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1765377/source.json"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "79-bilibili-cn-cv1765377-chapter",
+      "title": "【日本麻雀讲座译文】防守3—筋（1）",
+      "sourceId": "79-bilibili-cn-cv1765377",
+      "startPage": null,
+      "bodyStartPage": null,
+      "endPage": null,
+      "topics": [],
+      "indexDescription": "完整原文论证和牌例；索引只定位。",
+      "anchors": [],
+      "relatedChapterIds": [],
+      "reviewFocus": "完整来源正文与原图，限定审校范围及未知限制随正文展示；未作普通模型整章通过声明。"
+    }
+  ]
+}

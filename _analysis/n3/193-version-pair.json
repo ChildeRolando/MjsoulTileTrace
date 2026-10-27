@@ -1,0 +1,41 @@
+{
+  "webUnitId": "79-bilibili-cn-cv1765377-argument",
+  "pdfUnitId": "79-cn-chapter-193-4-pdf193-supplement-unit-1",
+  "pdfChapterId": "79-cn-chapter-193-4-pdf193-supplement",
+  "sourcePdfSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+  "sourcePage": 193,
+  "slices": [
+    {
+      "id": "79-cn-p193-b6-version-sentence-1",
+      "sourceBlockId": "79-cn-p193-b6",
+      "fromCodepoint": 5,
+      "toCodepoint": 29,
+      "text": "有人立直的时候，最应该警戒的就要是两面听牌了。 ",
+      "lineIndex": 2,
+      "bbox": [
+        90.02400207519531,
+        400.9819641113281,
+        337.8699951171875,
+        412.9819641113281
+      ]
+    },
+    {
+      "id": "79-cn-p193-b6-version-sentence-2",
+      "sourceBlockId": "79-cn-p193-b6",
+      "fromCodepoint": 129,
+      "toCodepoint": 158,
+      "text": "大体的数据显示，所有的立直中三分之二的立直都是两面听牌。 ",
+      "lineIndex": 11,
+      "bbox": [
+        90.02400207519531,
+        541.4019775390625,
+        390.70001220703125,
+        553.4019775390625
+      ]
+    }
+  ],
+  "webIncompleteRemains": true,
+  "pdfRole": "navigation",
+  "bothSentencesPresent": true,
+  "htmlLink": true
+}

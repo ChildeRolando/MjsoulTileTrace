@@ -1,0 +1,134 @@
+{
+  "schema": "coach-textbook-page-draft/3",
+  "status": "draft",
+  "productionStatus": "draft-awaiting-independent-review",
+  "manifestSha256": "159975081c5e7c6edf887cae47bab49c99b4f63868538ac621b8feb1bd8c0d7f",
+  "runnerSha256": "56dc3937e2f6fc61100de88fc157077500eaa1d04adfbb0df0c45cd652f11af5",
+  "source": {
+    "sourceId": "79-cn",
+    "pdfSha256": "92969578b06cd5dbcc6970fe02803a78531455ce49b0f347e6869f19c694f482",
+    "page": 193,
+    "pageDataSha256": "15141d56251a928031afdb04dc40d5d72bcdc960b8672a93f0b00e8a516dca0d"
+  },
+  "body": {
+    "language": "zh-CN",
+    "mode": "verbatim",
+    "flowOrder": "model-reading-flow",
+    "blocks": [
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-cn-p193-b1"
+        ],
+        "chapterId": "79-cn-chapter-191-4",
+        "unitId": "79-cn-chapter-191-4-unit-1",
+        "titleSource": false,
+        "sourceText": " ",
+        "text": " "
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-cn-p193-b3"
+        ],
+        "chapterId": "79-cn-chapter-191-4",
+        "unitId": "79-cn-chapter-191-4-unit-1",
+        "titleSource": false,
+        "sourceText": "上家刚刚切过的牌。（也是3 家现物） 没有国士无双听牌时，第四张字牌。 完全的NO CHANCE。   后面会进入“壁”的说明。  上图的例子的安全牌已经很充分了。想要避免放铳的话还是很容易的。 但是，安全牌不是什么时候都有的。 因此，“筋”和“壁”就比较重要了。   （待续）   ",
+        "text": "上家刚刚切过的牌。（也是3 家现物） 没有国士无双听牌时，第四张字牌。 完全的NO CHANCE。   后面会进入“壁”的说明。  上图的例子的安全牌已经很充分了。想要避免放铳的话还是很容易的。 但是，安全牌不是什么时候都有的。 因此，“筋”和“壁”就比较重要了。   （待续）   "
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-cn-p193-b4"
+        ],
+        "chapterId": "79-cn-chapter-193-4",
+        "unitId": "79-cn-chapter-193-4-unit-1",
+        "titleSource": true,
+        "sourceText": "防守3—筋（1） ",
+        "text": "防守3—筋（1） "
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-cn-p193-b5"
+        ],
+        "chapterId": "79-cn-chapter-193-4",
+        "unitId": "79-cn-chapter-193-4-unit-1",
+        "titleSource": false,
+        "sourceText": " ",
+        "text": " "
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-cn-p193-b6"
+        ],
+        "chapterId": "79-cn-chapter-193-4",
+        "unitId": "79-cn-chapter-193-4-unit-1",
+        "titleSource": false,
+        "sourceText": "筋1：  有人立直的时候，最应该警戒的就要是两面听牌了。  只要对手不是麻将的初学者， 一般情况下都会等待嵌张、双碰听牌变化成两面听牌。  因为对手会等待嵌张和双碰听牌变化成两面的好形听牌， 所以听牌了也有可能不会立直。  因此立直的听牌形往往是两面居多， 大体的数据显示，所有的立直中三分之二的立直都是两面听牌。  为了不铳两面听牌的理论就叫做“筋”。  ------------------------------------------------------------------------------------6 个基本筋 ------------------------------------------------------------------------------------ 我们来看看实际的两面听牌吧。  ",
+        "text": "筋1：  有人立直的时候，最应该警戒的就要是两面听牌了。  只要对手不是麻将的初学者， 一般情况下都会等待嵌张、双碰听牌变化成两面听牌。  因为对手会等待嵌张和双碰听牌变化成两面的好形听牌， 所以听牌了也有可能不会立直。  因此立直的听牌形往往是两面居多， 大体的数据显示，所有的立直中三分之二的立直都是两面听牌。  为了不铳两面听牌的理论就叫做“筋”。  ------------------------------------------------------------------------------------6 个基本筋 ------------------------------------------------------------------------------------ 我们来看看实际的两面听牌吧。  "
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-cn-p193-b2"
+        ],
+        "chapterId": "79-cn-chapter-193-4",
+        "unitId": "79-cn-chapter-193-4-unit-1",
+        "titleSource": false,
+        "sourceText": " 第 193 页 共 340 页 ",
+        "text": " 第 193 页 共 340 页 "
+      }
+    ]
+  },
+  "figures": [],
+  "imageCoverage": [],
+  "coverage": {
+    "textBlockCount": 6,
+    "coveredTextBlockCount": 6,
+    "imageBlockCount": 0,
+    "coveredImageBlockCount": 0,
+    "pageImageSha256": "2e5448aca2c2fc662899a16513e33ae12a7aff9f08220e25b2dcb296e0055eaa"
+  },
+  "provenance": {
+    "runId": "sol-high-fallback-finite-20261024-schemafix",
+    "model": null,
+    "reasoningEffort": null,
+    "promptVersion": "textbook-page-transcription/4",
+    "schemaVersion": "coach-textbook-page-draft/3",
+    "schemaSha256": null,
+    "promptSha256": null,
+    "contextPages": [
+      {
+        "page": 192,
+        "pageDataSha256": "622e4d688a08d691ac625cfd654fd4d108aec15ce994be3edf49246cb00eaa9a"
+      },
+      {
+        "page": 194,
+        "pageDataSha256": "796cc9da264704fd942ac5110de5b7598534e43cfbe673e985bb8a2f740f5a7e"
+      }
+    ],
+    "chapterMapSha256": "d38bbd1a72defef709f4e2f336b3447e4fc677183b88b7e8d6aa050258017a8e",
+    "ownershipSha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60",
+    "flowValidation": "unique-complete-source-ID-set and same-unit paragraph checks; visual order pending independent audit",
+    "semanticStatus": "not-reviewed",
+    "usage": null,
+    "attempts": [],
+    "renderedPage": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\renders\\79-cn\\page-0193.png",
+      "sha256": "2e5448aca2c2fc662899a16513e33ae12a7aff9f08220e25b2dcb296e0055eaa"
+    },
+    "renderedRegions": [],
+    "repairParent": {
+      "parentPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0193.json",
+      "parentFileSha256": "a85134a4897d084b141848b3807c2eec3e6ccda017bc4bed5c410b52eb8ca854",
+      "parentCandidateSha256": "4bf1aa330505022ff090a0f308853b5474c5a879f21742bdb9011600cd6a152d",
+      "notesPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-schemafix\\notes\\page-0193.json",
+      "notesSha256": "30cff538eeed9f45f23b76e45a166d5b74b5be222e11a72fbecb5c8503bbaf44"
+    },
+    "repairKind": "deterministic-footer-order"
+  },
+  "candidateSha256": "c861e8c8ae6b04f36fb5f08b6c3bb803e4aac1b95d0d48df092204b0cf3407ef"
+}

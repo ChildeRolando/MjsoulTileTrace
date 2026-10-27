@@ -1,0 +1,132 @@
+{
+  "schema": "coac250-next3-current-parent-evidence/1",
+  "originalManifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\runtime-manifest.json",
+    "sha256": "a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c",
+    "bytes": 6776
+  },
+  "originalWebModuleSha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b",
+  "privateVerifierDelta": "Exact three-SHA evidence-reader export only: require original needs-repair/semantic false and recompute equality to original modelChecks. Ordinary verifier and all production/source/pixel/raw/model-pair gates unchanged.",
+  "files": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/capability-evidence.json",
+      "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-audit-definition.mjs",
+      "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-audit-legacy.mjs",
+      "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-audit-pdf-layout.mjs",
+      "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-audit-pdf-native-structure-corrections.mjs",
+      "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-audit-pdf-native.mjs",
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-audit-pdf-scope.mjs",
+      "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-audit-tile-dictionary.mjs",
+      "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-audit-verification-dependencies.mjs",
+      "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-audit-web-batches.mjs",
+      "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-audit-web.mjs",
+      "sha256": "494645dfd62ba329d8373ed463d7af1c97f39fd4583978a369113bdf01d074ac"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-audit.mjs",
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-production-pdf-flow.mjs",
+      "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-production-web-dictionary.mjs",
+      "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-production-web-formal.mjs",
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-production-web-labels.mjs",
+      "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-production-web-sources.py",
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-production-web.mjs",
+      "sha256": "07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/textbook-production.mjs",
+      "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/verification-dependencies.json",
+      "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/runtime/production-schema.mjs",
+      "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/stage-limited.mjs",
+      "sha256": "161609f940f4f379caed9fb880050c48e30c061e3bcd6073e36ecb3890e7be36"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/contract.md",
+      "sha256": "a4000df17e8d9d297327e4e3d288306680a8c3f925f9f83995f8639df35fdea5"
+    }
+  ]
+}

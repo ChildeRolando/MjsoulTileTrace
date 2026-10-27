@@ -1,0 +1,102 @@
+{
+  "schema": "coach-textbook-web-stage/1",
+  "status": "independently-audited-chapter-preview",
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770245.display.json",
+  "candidateSha256": "0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97",
+  "sourceSha256": "0d6849d5bb4cb250ce9070a883fa072f9025c8411563b9f74fe9fd9d616fa17c",
+  "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/supplements/coac249-193208276-20261028/current-binding-208.json",
+  "auditStatus": "admitted-exact-limited-unknown-fidelity",
+  "limitedUnknownFidelity": {
+    "unknowns": [
+      {
+        "figureId": "79-bilibili-cn:cv1770245:b0004:figure",
+        "unknowns": [
+          "上方牌河第一排从画面左数第1张：可辨为万子，但倒置的点数未能可靠辨明。"
+        ]
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1770245:b0006:figure",
+        "unknowns": [
+          "万子点数未辨明A：左方牌河靠中央一列从画面上数第2张，可辨为万子，点数未能可靠辨明。",
+          "万子点数未辨明B：左方牌河靠中央一列从画面上数第5张，可辨为万子，点数未能可靠辨明。",
+          "万子点数未辨明C：右方牌河第二列、最下方2z右侧的一张，可辨为万子，点数未能可靠辨明。"
+        ]
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1770245:b0006:figure",
+        "unknowns": [
+          "万子点数未辨明A：左方牌河靠中央一列从画面上数第2张，可辨为万子，点数未能可靠辨明。",
+          "万子点数未辨明B：左方牌河靠中央一列从画面上数第5张，可辨为万子，点数未能可靠辨明。",
+          "万子点数未辨明C：右方牌河第二列、最下方2z右侧的一张，可辨为万子，点数未能可靠辨明。"
+        ]
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1770245:b0006:figure",
+        "unknowns": [
+          "万子点数未辨明A：左方牌河靠中央一列从画面上数第2张，可辨为万子，点数未能可靠辨明。",
+          "万子点数未辨明B：左方牌河靠中央一列从画面上数第5张，可辨为万子，点数未能可靠辨明。",
+          "万子点数未辨明C：右方牌河第二列、最下方2z右侧的一张，可辨为万子，点数未能可靠辨明。"
+        ]
+      }
+    ],
+    "sourceNotes": [
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1770245:b0004:figure",
+        "sourceEvidence": "visualEvidence将原图指定为附件1、对应2倍放大图指定为附件4；sourceNotes却写“附件1为原图，附件2为……放大图”。",
+        "description": "加工附件配对编号错误，不属于教材教学内容。",
+        "suggestedRepair": "将该说明中的放大图编号改为附件4。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1770245:b0006:figure",
+        "sourceEvidence": "visualEvidence将原图指定为附件2、对应2倍放大图指定为附件5；sourceNotes写为附件3和附件4。",
+        "description": "加工附件配对编号错误，不影响原图本身的教学内容。",
+        "suggestedRepair": "将说明改为附件2为原图、附件5为对应2倍放大图。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1770245:b0008:figure",
+        "sourceEvidence": "visualEvidence将原图指定为附件3、对应4倍放大图指定为附件6；sourceNotes却将原图写为附件5。",
+        "description": "原图附件编号笔误；该图教学牌码及标签完整。",
+        "suggestedRepair": "将原图编号改为附件3，保留放大图编号附件6。"
+      }
+    ],
+    "conclusion": "limited-unknown-acceptable",
+    "modelCalls": 0
+  },
+  "imageDerivations": [],
+  "chapters": 1,
+  "units": 1,
+  "blocks": 14,
+  "figures": 3,
+  "corpusId": "7fcdeb32596b1eda8e5ff330e2d452829c02890d8bb628e4353306f52d26b7b6",
+  "bodySha256": "7413ecb7f1c61af3db5fa3aa85741d3e031cc0054b3c41e4a590bba9e1c01f18",
+  "maxUnitBytes": 13602,
+  "modelCalls": 0,
+  "activeLibraryChanged": false,
+  "humanReview": "pending",
+  "canonical": "79-cn-chapter-208-4",
+  "key": "208",
+  "standardWholeArticlePassed": false,
+  "originalModelChecks": {
+    "passed": false,
+    "errors": [
+      "uncertain:79-bilibili-cn:cv1770245:b0004",
+      "uncertain:79-bilibili-cn:cv1770245:b0006",
+      "uncertain:79-bilibili-cn:cv1770245:b0004:figure",
+      "uncertain:79-bilibili-cn:cv1770245:b0006:figure",
+      "semantic_information_missing",
+      "uncertain:79-bilibili-cn:cv1770245:b0004:figure",
+      "uncertain:79-bilibili-cn:cv1770245:b0006:figure"
+    ]
+  },
+  "independentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-193208276-20261028\\receipt-208.json",
+    "sha256": "d4ee73bd11dbc900ad6ec4dc327f6f106b377616dfc2a5e0c3d94b0ef41b9be9"
+  },
+  "displayLimits": {
+    "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-250-2b5a0cbe65e0\\worktree/_analysis/n3/r208/display-limits.json",
+    "sha256": "ada9424362050f39c88dabb035539e7578c01528fd683170b52811bb194c9c47"
+  }
+}
