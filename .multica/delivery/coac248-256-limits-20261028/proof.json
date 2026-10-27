@@ -1,0 +1,296 @@
+{
+  "schema": "coac248256-six-limit-mapping-proof/1",
+  "canonical": "79-cn-chapter-256-18",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r2.display.json",
+    "sha256": "0877ccd8c34fed1b2728eec6c8dd912559e852d653b5fedda8f5b6e4469aa0bd"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1785770\\source.json",
+    "sha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23"
+  },
+  "independentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-256-impact-20261028\\receipt.json",
+    "sha256": "f2de18998185283ea785048f65e5b406ae100549a569eefa82c4214dc8cf43e2"
+  },
+  "independentRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\68f60ecb-24d4-4d88-972a-4996c456506a.json",
+    "sha256": "56995b3c9bb536ab34bee7ea40165fdfc01e47f62e12e1c76ac46300b868df4c"
+  },
+  "independentModelReviewUnchanged": {
+    "tileRepair": {
+      "verdict": "faithful",
+      "sourceEvidence": "原图及其同源两倍放大图中，下方手牌第12张位于7s与9s之间，可辨为8s。原审记录该位置曾写为索子数字不明；现稿写为8s，unknowns中也不再包含该手牌。两处河牌unknown逐字保留。所给资料没有修订前的完整目标对象，不能独立核对目标对象所有字段的历史差异。"
+    },
+    "unknownImpact": [
+      {
+        "unknownText": "上方弃牌第二行最右一张，即1p右侧的万子：数字无法可靠辨认。",
+        "displayFaithful": true,
+        "argumentFaithfulWithUnknown": true,
+        "requiresExactTileForAuthorArgument": false,
+        "evidence": "现稿标明该牌是数字不明的万子，没有猜测牌码。例2正文写出4、7万可默听和牌、1万因无役不能和，并称做食断的对家可能打出1万；理解这些已写出的判断不要求确定这张弃牌的数字。",
+        "requiredDisplayLimitations": [
+          "保留该位置的万子数字不明标记，不推补具体牌码。",
+          "该牌可能影响1万、4万或7万的可见张数，不能据此精确核算剩余张数或验证1万更容易被打出的判断。",
+          "对家做食断及已满足逆转条件应保留为作者的论述，不能当作已由可见牌面证实的暗手事实。"
+        ]
+      },
+      {
+        "unknownText": "右方弃牌靠中央一列最上方一张：可辨为索子，数字无法可靠辨认。",
+        "displayFaithful": true,
+        "argumentFaithfulWithUnknown": true,
+        "requiresExactTileForAuthorArgument": false,
+        "evidence": "现稿只标明该牌为索子且数字不明。正文关于默听改良、立直进攻及顺位风险的论证仍可按作者所写理解，无需把这张牌补成确定牌码。",
+        "requiredDisplayLimitations": [
+          "保留该位置的索子数字不明标记，不推补具体牌码。",
+          "不能完整核算索子牌河、剩余张数或据此独立验证改良机会。",
+          "保留作者所写上下两家尚未听牌的前提；隐藏手牌和实际听牌状态不能由本图确认。"
+        ]
+      }
+    ],
+    "orderedContextFaithful": true,
+    "completeTargetScopeCompared": true,
+    "conclusion": "limited-unknown-acceptable",
+    "issues": [
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+        "description": "两张河牌的数字仍未确定。可以在明确限制下展示并理解作者论证，但不能认证完整牌河或战术判断；原审的uncertain仍保留。",
+        "evidence": "现稿和retainedUnknowns均保留上方万子及右方索子的数字不明说明；例2正文的出牌可能性、改良机会及对手状态包含无法仅凭这两处图像确定的判断。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+        "description": "无法独立确认目标对象的全部历史字段差异。",
+        "evidence": "原审给出了第12张手牌的旧占位描述，但未提供修订前的完整目标对象；因此可确认该项修复和两处unknown保留，不能据此断言目标对象其余字段绝无改动。"
+      }
+    ],
+    "summary": "8s修复与原图相符，两处河牌unknown可在保留限制时用于展示作者已写论证。42块的展示顺序及tableContext对应关系保持一致，例2正文中的条件也已纳入本次判断；其他范围依父审继承。本结论不认证完整牌河、隐藏手牌、真实战术事实或绝对最优，也不改写原审uncertain记录。"
+  },
+  "oldParentIssuesUnchanged": [
+    {
+      "severity": "error",
+      "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+      "sourceEvidence": "例2原图及放大图下方手牌第12张，位于7s与9s之间，可辨为8s；候选写作“[索子，数字不明]”。",
+      "description": "可辨认的教学手牌仍用占位描述，漏失具体牌码。",
+      "suggestedRepair": "将该位置改为8s，并删除unknowns中对应条目。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+      "sourceEvidence": "候选将上方弃牌第二行1p右侧的万子及右方靠中央一列最上方的索子记为数字不明；两者均是原图中的实际弃牌。",
+      "description": "两张弃牌的具体牌码尚未可靠确定，无法确认例2完整牌河忠实性，不能以unknowns声明替代完整教学转录。",
+      "suggestedRepair": "逐牌确认这两处牌面并补入确定牌码；确认前保持阻断，不依据正文或牌序推补。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1785770:b0006:figure",
+      "sourceEvidence": "例1备注称“附件1与附件2”属于例1，但本次附件1、2绑定的是例2；例3、例4备注另引用附件5至8。",
+      "description": "加工附件编号与本次附图编号不对应，不影响已核原图的教学语义。",
+      "suggestedRepair": "将附件说明改为按对应图例或assetId描述原图与放大图，避免沿用其他批次的附件编号。"
+    }
+  ],
+  "historicalDiffMechanicallyVerified": true,
+  "historicalDiffModelUncertainPreserved": true,
+  "all42AuthorBlocksAndOther3FiguresUnchanged": true,
+  "unknowns": [
+    "上方弃牌第二行最右一张，即1p右侧的万子：数字无法可靠辨认。",
+    "右方弃牌靠中央一列最上方一张：可辨为索子，数字无法可靠辨认。"
+  ],
+  "limitations": [
+    {
+      "noteId": "limited256-1",
+      "independentReceiptPointer": "/modelReview/unknownImpact/0/requiredDisplayLimitations/0",
+      "unknownPointer": "/figures/1/unknowns/0",
+      "unknownLiteral": "上方弃牌第二行最右一张，即1p右侧的万子：数字无法可靠辨认。",
+      "unknownMarkerAlreadyInCandidate": true,
+      "fullLimitationAlreadyDisplayedInLibrary": false,
+      "preparedOverlayNote": "【审校范围（非原文）1】保留该位置的万子数字不明标记，不推补具体牌码。",
+      "authorContextFields": [
+        "/body/blocks/16/text",
+        "/body/blocks/17/text",
+        "/body/blocks/18/text",
+        "/body/blocks/19/text",
+        "/body/blocks/20/text"
+      ],
+      "requiresOverlayConsumption": true
+    },
+    {
+      "noteId": "limited256-2",
+      "independentReceiptPointer": "/modelReview/unknownImpact/0/requiredDisplayLimitations/1",
+      "unknownPointer": "/figures/1/unknowns/0",
+      "unknownLiteral": "上方弃牌第二行最右一张，即1p右侧的万子：数字无法可靠辨认。",
+      "unknownMarkerAlreadyInCandidate": true,
+      "fullLimitationAlreadyDisplayedInLibrary": false,
+      "preparedOverlayNote": "【审校范围（非原文）2】该牌可能影响1万、4万或7万的可见张数，不能据此精确核算剩余张数或验证1万更容易被打出的判断。",
+      "authorContextFields": [
+        "/body/blocks/16/text",
+        "/body/blocks/17/text",
+        "/body/blocks/18/text",
+        "/body/blocks/19/text",
+        "/body/blocks/20/text"
+      ],
+      "requiresOverlayConsumption": true
+    },
+    {
+      "noteId": "limited256-3",
+      "independentReceiptPointer": "/modelReview/unknownImpact/0/requiredDisplayLimitations/2",
+      "unknownPointer": "/figures/1/unknowns/0",
+      "unknownLiteral": "上方弃牌第二行最右一张，即1p右侧的万子：数字无法可靠辨认。",
+      "unknownMarkerAlreadyInCandidate": true,
+      "fullLimitationAlreadyDisplayedInLibrary": false,
+      "preparedOverlayNote": "【审校范围（非原文）3】对家做食断及已满足逆转条件应保留为作者的论述，不能当作已由可见牌面证实的暗手事实。",
+      "authorContextFields": [
+        "/body/blocks/16/text",
+        "/body/blocks/17/text",
+        "/body/blocks/18/text",
+        "/body/blocks/19/text",
+        "/body/blocks/20/text"
+      ],
+      "requiresOverlayConsumption": true
+    },
+    {
+      "noteId": "limited256-4",
+      "independentReceiptPointer": "/modelReview/unknownImpact/1/requiredDisplayLimitations/0",
+      "unknownPointer": "/figures/1/unknowns/1",
+      "unknownLiteral": "右方弃牌靠中央一列最上方一张：可辨为索子，数字无法可靠辨认。",
+      "unknownMarkerAlreadyInCandidate": true,
+      "fullLimitationAlreadyDisplayedInLibrary": false,
+      "preparedOverlayNote": "【审校范围（非原文）4】保留该位置的索子数字不明标记，不推补具体牌码。",
+      "authorContextFields": [
+        "/body/blocks/16/text",
+        "/body/blocks/17/text",
+        "/body/blocks/18/text",
+        "/body/blocks/19/text",
+        "/body/blocks/20/text"
+      ],
+      "requiresOverlayConsumption": true
+    },
+    {
+      "noteId": "limited256-5",
+      "independentReceiptPointer": "/modelReview/unknownImpact/1/requiredDisplayLimitations/1",
+      "unknownPointer": "/figures/1/unknowns/1",
+      "unknownLiteral": "右方弃牌靠中央一列最上方一张：可辨为索子，数字无法可靠辨认。",
+      "unknownMarkerAlreadyInCandidate": true,
+      "fullLimitationAlreadyDisplayedInLibrary": false,
+      "preparedOverlayNote": "【审校范围（非原文）5】不能完整核算索子牌河、剩余张数或据此独立验证改良机会。",
+      "authorContextFields": [
+        "/body/blocks/16/text",
+        "/body/blocks/17/text",
+        "/body/blocks/18/text",
+        "/body/blocks/19/text",
+        "/body/blocks/20/text"
+      ],
+      "requiresOverlayConsumption": true
+    },
+    {
+      "noteId": "limited256-6",
+      "independentReceiptPointer": "/modelReview/unknownImpact/1/requiredDisplayLimitations/2",
+      "unknownPointer": "/figures/1/unknowns/1",
+      "unknownLiteral": "右方弃牌靠中央一列最上方一张：可辨为索子，数字无法可靠辨认。",
+      "unknownMarkerAlreadyInCandidate": true,
+      "fullLimitationAlreadyDisplayedInLibrary": false,
+      "preparedOverlayNote": "【审校范围（非原文）6】保留作者所写上下两家尚未听牌的前提；隐藏手牌和实际听牌状态不能由本图确认。",
+      "authorContextFields": [
+        "/body/blocks/16/text",
+        "/body/blocks/17/text",
+        "/body/blocks/18/text",
+        "/body/blocks/19/text",
+        "/body/blocks/20/text"
+      ],
+      "requiresOverlayConsumption": true
+    }
+  ],
+  "proposal": {
+    "schema": "coac248-exact256-display-overlay-proposal/1",
+    "canonical": "79-cn-chapter-256-18",
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r2.display.json",
+      "sha256": "0877ccd8c34fed1b2728eec6c8dd912559e852d653b5fedda8f5b6e4469aa0bd"
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1785770\\source.json",
+      "sha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23"
+    },
+    "independentReceipt": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-256-impact-20261028\\receipt.json",
+      "sha256": "f2de18998185283ea785048f65e5b406ae100549a569eefa82c4214dc8cf43e2"
+    },
+    "independentRaw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\68f60ecb-24d4-4d88-972a-4996c456506a.json",
+      "sha256": "56995b3c9bb536ab34bee7ea40165fdfc01e47f62e12e1c76ac46300b868df4c"
+    },
+    "targetFigureId": "79-bilibili-cn:cv1785770:b0016:figure",
+    "placement": {
+      "afterCandidatePointer": "/body/blocks/20",
+      "afterSourceBlockId": "79-bilibili-cn:cv1785770:b0021",
+      "afterFullBlockSha256": "1c607185c941c0aeea2c4061c9600111c6db0edd7cb741945c7fa4fffbd1a883",
+      "beforeSourceBlockId": "79-bilibili-cn:cv1785770:b0022",
+      "beforeFullBlockSha256": "faaed28aa0be8ac102bbcfa4129bfc69ca1d03d49ec1c95f65513ab9bc26ddc6",
+      "stageMapping": "after the LAST staged block mapped to b0021, before separator b0022; never split author paragraph or insert within figure transcription"
+    },
+    "notes": [
+      {
+        "id": "limited256-1",
+        "type": "p",
+        "authorText": false,
+        "text": "【审校范围（非原文）1】保留该位置的万子数字不明标记，不推补具体牌码。",
+        "independentReceiptPointer": "/modelReview/unknownImpact/0/requiredDisplayLimitations/0",
+        "unknownCandidatePointer": "/figures/1/unknowns/0"
+      },
+      {
+        "id": "limited256-2",
+        "type": "p",
+        "authorText": false,
+        "text": "【审校范围（非原文）2】该牌可能影响1万、4万或7万的可见张数，不能据此精确核算剩余张数或验证1万更容易被打出的判断。",
+        "independentReceiptPointer": "/modelReview/unknownImpact/0/requiredDisplayLimitations/1",
+        "unknownCandidatePointer": "/figures/1/unknowns/0"
+      },
+      {
+        "id": "limited256-3",
+        "type": "p",
+        "authorText": false,
+        "text": "【审校范围（非原文）3】对家做食断及已满足逆转条件应保留为作者的论述，不能当作已由可见牌面证实的暗手事实。",
+        "independentReceiptPointer": "/modelReview/unknownImpact/0/requiredDisplayLimitations/2",
+        "unknownCandidatePointer": "/figures/1/unknowns/0"
+      },
+      {
+        "id": "limited256-4",
+        "type": "p",
+        "authorText": false,
+        "text": "【审校范围（非原文）4】保留该位置的索子数字不明标记，不推补具体牌码。",
+        "independentReceiptPointer": "/modelReview/unknownImpact/1/requiredDisplayLimitations/0",
+        "unknownCandidatePointer": "/figures/1/unknowns/1"
+      },
+      {
+        "id": "limited256-5",
+        "type": "p",
+        "authorText": false,
+        "text": "【审校范围（非原文）5】不能完整核算索子牌河、剩余张数或据此独立验证改良机会。",
+        "independentReceiptPointer": "/modelReview/unknownImpact/1/requiredDisplayLimitations/1",
+        "unknownCandidatePointer": "/figures/1/unknowns/1"
+      },
+      {
+        "id": "limited256-6",
+        "type": "p",
+        "authorText": false,
+        "text": "【审校范围（非原文）6】保留作者所写上下两家尚未听牌的前提；隐藏手牌和实际听牌状态不能由本图确认。",
+        "independentReceiptPointer": "/modelReview/unknownImpact/1/requiredDisplayLimitations/2",
+        "unknownCandidatePointer": "/figures/1/unknowns/1"
+      }
+    ],
+    "candidateChanged": false,
+    "oldRawOrAuditChanged": false,
+    "admissionGranted": false,
+    "ordinaryWholeChapterPassed": false,
+    "status": "prepared-exact-overlay-awaiting-existing-owner-admission",
+    "newModelCalls": 0
+  },
+  "previewBlocks": 48,
+  "libraryOverlayInstalledClaimed": false,
+  "admissionGranted": false,
+  "ordinaryWholeChapterPassed": false,
+  "newModelCalls": 0,
+  "budgetRemaining": 0,
+  "remaining": "Install exact256 overlay via existing legal supplemental admission and then actualMCP/Arena readback; no semantic/model/maker gap identified. Do not borrow159/242 exact pins."
+}

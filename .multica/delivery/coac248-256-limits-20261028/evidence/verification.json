@@ -1,0 +1,105 @@
+{
+  "schema": "coac249-exact256-real-execution-verification-and-field-binding/1",
+  "recordedAt": "2026-10-27T23:27:24.533Z",
+  "canonical": "79-cn-chapter-256-18",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r2.display.json",
+    "sha256": "0877ccd8c34fed1b2728eec6c8dd912559e852d653b5fedda8f5b6e4469aa0bd"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1785770\\source.json",
+    "sha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r1.display.json",
+    "sha256": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2"
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1785770.56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2.json",
+    "sha256": "8341055fc9fec8aacf5c8dd6344cb5af99cfc6998f76105f7dc7d8e13a9a4b21"
+  },
+  "realReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-256-impact-20261028\\receipt.json",
+    "sha256": "f2de18998185283ea785048f65e5b406ae100549a569eefa82c4214dc8cf43e2"
+  },
+  "realRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\68f60ecb-24d4-4d88-972a-4996c456506a.json",
+    "sha256": "56995b3c9bb536ab34bee7ea40165fdfc01e47f62e12e1c76ac46300b868df4c"
+  },
+  "realCallId": "68f60ecb-24d4-4d88-972a-4996c456506a",
+  "frozenVerification": {
+    "passed": true,
+    "errors": [],
+    "wholeChapterPassed": false,
+    "admissionGranted": false,
+    "meaning": "Only independent bounded fidelity evidence if passed; original parent and new raw issues remain. Required display limitations must be mapped and verified before any downstream limited admission."
+  },
+  "actualRuntimeFiles": 30,
+  "actualImages": 2,
+  "boundInputs": 50,
+  "sourceAndBodyPairs": 42,
+  "bodyJsonSha256": "8e5cdb506471545adf8130d3c73b21e48b439e928a355065ec83bd0006674537",
+  "sourceBlocksJsonSha256": "169118c6e400397e6d66968ddbb84889ebe4a8f90fd175e44299abf7f4c458b9",
+  "textBlocks": 38,
+  "allBodyBlocksUnchanged": true,
+  "otherFiguresUnchanged": 3,
+  "target": {
+    "figureId": "79-bilibili-cn:cv1785770:b0016:figure",
+    "jsonPointer": "/figures/1",
+    "transcription": "中央：南4局0本场；立直供托0根；“宝牌”标签右侧为6p。\n点数位置：下方东家（1z）31700点；右方南家（2z）22300点；上方西家（3z）30000点；左方北家（4z）26000点。\n下方手牌从左到右共13张：1m 2m 3m 4m 4m 5m 6m 4p 5s 6s 7s 8s 9s；最右侧分开的摸入牌为6z。\n画面左上方的副露属于上方西家（对家）：从画面左到右为5p 6p 7p，其中7p横置，另外两张竖放；整组朝向上方玩家。\n上方弃牌：靠中央一行从画面左到右为7s 1m 5z 9p 9s 1z；该行最右两张的上方，从画面左到右另有1p和一张数字不明的万子。牌面朝向上方玩家。\n左方弃牌：靠中央一列从画面上到下为1p 3z 4z 4z 6z 5z；该列最上方一张的左侧另有1s，第二张的左侧另有3m。牌面相对画面顺时针旋转90度。\n右方弃牌：靠中央一列从画面上到下为[索子，数字不明] 7z 6z 2z 1z 4z；该列最下方一张的右侧另有5m。牌面相对画面逆时针旋转90度。\n下方弃牌：第一行从画面左到右为5z 9m 3z 8p 1s 2s；第二行位于第一行最左两张下方，从左到右为1p 2z。\n暗手牌背：上方10张，左方13张，右方13张。未见赤牌。",
+    "transcriptionJsonSha256": "d9a0070a8763eaa0b7c6d66e63892bce94cb9d1f9f9fce0c5ef491e9da20cc3d",
+    "unknowns": [
+      "上方弃牌第二行最右一张，即1p右侧的万子：数字无法可靠辨认。",
+      "右方弃牌靠中央一列最上方一张：可辨为索子，数字无法可靠辨认。"
+    ],
+    "unknownsJsonSha256": "e7747a18a1f4adb91d296b1cec06fa2fff160ad14e403857e236889f719cf2f1",
+    "caption": "例2：南4局0本场，东家31700点，对家（上方西家）已有5p 6p 7p副露。",
+    "sourceNotes": [
+      "本次附件1为原图，附件2为同一原图的2倍近邻放大图，只计一个原始图例。",
+      "画面左上方的筒子副露属于上方西家（对家）；左方北家的暗手仍有13张牌背。",
+      "牌面上的普通红色花纹及红色“萬”字不作为赤牌标记。"
+    ]
+  },
+  "independentTileRepair": {
+    "verdict": "faithful",
+    "sourceEvidence": "原图及其同源两倍放大图中，下方手牌第12张位于7s与9s之间，可辨为8s。原审记录该位置曾写为索子数字不明；现稿写为8s，unknowns中也不再包含该手牌。两处河牌unknown逐字保留。所给资料没有修订前的完整目标对象，不能独立核对目标对象所有字段的历史差异。"
+  },
+  "unknownBindings": [
+    {
+      "unknownText": "上方弃牌第二行最右一张，即1p右侧的万子：数字无法可靠辨认。",
+      "displayFaithful": true,
+      "argumentFaithfulWithUnknown": true,
+      "requiresExactTileForAuthorArgument": false,
+      "evidence": "现稿标明该牌是数字不明的万子，没有猜测牌码。例2正文写出4、7万可默听和牌、1万因无役不能和，并称做食断的对家可能打出1万；理解这些已写出的判断不要求确定这张弃牌的数字。",
+      "requiredDisplayLimitations": [
+        "保留该位置的万子数字不明标记，不推补具体牌码。",
+        "该牌可能影响1万、4万或7万的可见张数，不能据此精确核算剩余张数或验证1万更容易被打出的判断。",
+        "对家做食断及已满足逆转条件应保留为作者的论述，不能当作已由可见牌面证实的暗手事实。"
+      ],
+      "unknownPointer": "/figures/1/unknowns/0",
+      "completeFigureJsonSha256": "1c129379147761870da2b781e554fbed8687f414843307c459a3a17c057b6c0b"
+    },
+    {
+      "unknownText": "右方弃牌靠中央一列最上方一张：可辨为索子，数字无法可靠辨认。",
+      "displayFaithful": true,
+      "argumentFaithfulWithUnknown": true,
+      "requiresExactTileForAuthorArgument": false,
+      "evidence": "现稿只标明该牌为索子且数字不明。正文关于默听改良、立直进攻及顺位风险的论证仍可按作者所写理解，无需把这张牌补成确定牌码。",
+      "requiredDisplayLimitations": [
+        "保留该位置的索子数字不明标记，不推补具体牌码。",
+        "不能完整核算索子牌河、剩余张数或据此独立验证改良机会。",
+        "保留作者所写上下两家尚未听牌的前提；隐藏手牌和实际听牌状态不能由本图确认。"
+      ],
+      "unknownPointer": "/figures/1/unknowns/1",
+      "completeFigureJsonSha256": "1c129379147761870da2b781e554fbed8687f414843307c459a3a17c057b6c0b"
+    }
+  ],
+  "oldUncertainAndSourceNotePreserved": true,
+  "candidateModified": false,
+  "rawOrOldAuditModified": false,
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "ordinaryWholeChapterPassed": false,
+  "admissionGranted": false,
+  "meaning": "Exact current-candidate binding of the actual independent target/unknown-impact result. Any limited admission still requires the legal exact-SHA owner route with all required display limitations exposed."
+}

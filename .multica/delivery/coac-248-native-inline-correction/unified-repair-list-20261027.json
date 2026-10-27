@@ -3170,7 +3170,7 @@
     259,
     260
    ],
-   "currentDisposition": "real-exact8s-r2-maker-complete-awaiting-one-independent-target-impact-review",
+   "currentDisposition": "independent8s-and-unknown-impact-complete-six-display-limits-prepared-awaiting-legal-consumption",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
    "auditRecordedAt": "2026-10-27T15:46:52.626Z",
@@ -3322,8 +3322,55 @@
     "nextAction": "Existing249 sole target/two-unknown impact review via frozen textbook-256-impact.mjs. Then map actual limits to legal exact supplemental admission; no full-article audit.",
     "wakeup249": "01a17fa9-e621-7508-ae2e-fd725ff43b23"
    },
-   "nextAction": "Existing249 sole target/two-unknown impact review via frozen textbook-256-impact.mjs. Then map actual limits to legal exact supplemental admission; no full-article audit.",
-   "currentValidUnauditedCandidate": {
+   "nextAction": "Legal exact256 overlay consumption with all6 explicit non-author limits, then realMCP/Arena readback; no more maker, digit reading or model review.",
+   "independent256Limits20261028": {
+    "recordedAt": "2026-10-27T23:34:21.830423+00:00",
+    "status": "independent8s-and-unknown-impact-complete-six-display-limits-prepared-awaiting-legal-consumption",
+    "candidate": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r2.display.json",
+     "sha256": "0877ccd8c34fed1b2728eec6c8dd912559e852d653b5fedda8f5b6e4469aa0bd"
+    },
+    "independentReceipt": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-256-impact-20261028\\receipt.json",
+     "sha256": "f2de18998185283ea785048f65e5b406ae100549a569eefa82c4214dc8cf43e2"
+    },
+    "independentRaw": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\68f60ecb-24d4-4d88-972a-4996c456506a.json",
+     "sha256": "56995b3c9bb536ab34bee7ea40165fdfc01e47f62e12e1c76ac46300b868df4c"
+    },
+    "independentCallId": "68f60ecb-24d4-4d88-972a-4996c456506a",
+    "phaseCalls": {
+     "maker": 1,
+     "review": 1,
+     "maximum": 2,
+     "remaining": 0,
+     "retry": 0
+    },
+    "unknownReadingTodo": false,
+    "unknownsRetained": [
+     "上方弃牌第二行最右一张，即1p右侧的万子：数字无法可靠辨认。",
+     "右方弃牌靠中央一列最上方一张：可辨为索子，数字无法可靠辨认。"
+    ],
+    "handoff": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-256-limits-20261028\\handoff.json",
+     "sha256": "d70c155ac5a765d9c78bca7056b94d73cafdf447a447d6962ee34b7ad14b71e2"
+    },
+    "proof": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-256-limits-20261028\\proof.json",
+     "sha256": "959fe15db13620cf79e66e91fba91f38431a436b952db33fa471d510df9204de"
+    },
+    "overlayProposal": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-256-limits-20261028\\overlay.json",
+     "sha256": "db851911bc1759ceb4fd6dcba4a1ede826b523d334ab94b0fce54fc353cc8ec1"
+    },
+    "modelCallsThisRun": 0,
+    "originalAuditAndRawChanged": false,
+    "candidateChanged": false,
+    "admissionGranted": false,
+    "ordinaryWholeChapterPassed": false,
+    "remaining": "Legal exact256 overlay consumption with all6 explicit non-author limits, then realMCP/Arena readback; no more maker, digit reading or model review."
+   },
+   "currentValidCandidate": {
     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r2.display.json",
     "sha256": "0877ccd8c34fed1b2728eec6c8dd912559e852d653b5fedda8f5b6e4469aa0bd"
    }
