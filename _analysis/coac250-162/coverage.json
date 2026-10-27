@@ -1,0 +1,249 @@
+{
+  "schema": "coac250-162-coverage/1",
+  "recordedAt": "2026-10-27T17:41:23.142Z",
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-40-18-145Z",
+    "corpusId": "fdfc71e80574ade5d655a0195854d099ee00a629a3568838e65c253a117969c6",
+    "chapters": 229,
+    "units": 237,
+    "blocks": 6312,
+    "figures": 5121
+  },
+  "coverage": {
+    "originalChaptersCovered": 229,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 261,
+    "originalUnitsTotal": 303
+  },
+  "register": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+    "beforeSha256": "a4d4ed5152ea1ebecbda7ea9b71cbc4c186e0417423b8b277cb1e64884bec993",
+    "afterSha256": "774071c28ea36f2b461b8eec5392f205f650a3c52c4a33a89b47debc113d4dcf",
+    "backup": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.before-coac250-162-2026-10-27T17-41-23-138Z.json"
+  },
+  "verdicts": {
+    "covered-effective": 229,
+    "produced-needs-repair": 27,
+    "produced-passed-not-staged": 0,
+    "produced-pdf-passed-not-staged": 0,
+    "produced-unreviewed": 0,
+    "produced-audit-failed": 0,
+    "total": 256
+  },
+  "remaining": {
+    "denominator": "original chapters (256) minus covered (receipt.chapters); one chapter can be one original chapter only, no overlap",
+    "total": 27,
+    "byVerdict": {
+      "produced-needs-repair": 27,
+      "produced-passed-not-staged": 0
+    },
+    "byAdjudicationGroup": {
+      "confirmed-produced-not-covered": 22,
+      "additional-uncovered-not-in-246": 5
+    },
+    "byRoute": {
+      "web": 24,
+      "pdfOnly": 3
+    },
+    "blockedBySourceStructureHold": [],
+    "eligibleForNextStage": [],
+    "note": "162-3 is now covered after target-text independent passed audit plus authenticated unchanged full parent review; the inherited parent source-note and original raw and transport event history are retained and actual MCP/Arena full readback. Remaining 27 original chapters retain their previous needs-repair state. Prior 027-1, other source holds, p217/p257 and all other row evidence are unchanged; no other queue was refreshed.",
+    "blockedByHoldButPassed": [],
+    "eligibleNote": "This increment consumed only the unique newly passed 162-3. No other queue or eligibility claim was refreshed."
+  },
+  "readback": {
+    "schema": "coac250-162-readback/1",
+    "recordedAt": "2026-10-27T17:41:19.522Z",
+    "preview": {
+      "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-40-18-145Z",
+      "corpusId": "fdfc71e80574ade5d655a0195854d099ee00a629a3568838e65c253a117969c6",
+      "chapters": 229,
+      "units": 237,
+      "blocks": 6312,
+      "figures": 5121
+    },
+    "rows": [
+      {
+        "unitId": "79-bilibili-cn-cv1751316-argument",
+        "blocks": 34,
+        "pages": [
+          {
+            "offset": 0,
+            "blocks": 20,
+            "nextOffset": 20
+          },
+          {
+            "offset": 20,
+            "blocks": 14,
+            "nextOffset": null
+          }
+        ],
+        "exactBody": true,
+        "images": 15,
+        "searchHit": true,
+        "sourceArticle": "cv1751316"
+      }
+    ],
+    "images": [
+      {
+        "figureId": "79-bilibili-cn-cv1751316-b5",
+        "sha256": "721e4539cdbd98b892722169dd23a3e0ec331dd3560d1eeb0b71117f254c0852",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751316-b7",
+        "sha256": "3592504d959a96d502b3928610ff1c66223a04602ccdfd753529a192c512755f",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751316-b9",
+        "sha256": "dc8373db95f7f63737ffce4c6c848c2423ba530ce4f40437cda1aa11f30f867d",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751316-b11",
+        "sha256": "a009adc734caf171229f781d2d5cee10e44523c876ef34d1abdb0ad5b17fb742",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751316-b13",
+        "sha256": "2a1e4020d25eacda96e6838a8d09f7ca09bbda88877f969a20dd2779ef2cebd7",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751316-b15",
+        "sha256": "b194955ec6da15ddb3d2d2fdd0bdfd911dc55c39cd0f13024045d925254cb18f",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751316-b17",
+        "sha256": "235babe9bfb9a5da197382da43be6e2147f977c04d0a612b5e00457a80cf23cf",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751316-b19",
+        "sha256": "ce8acd4ddccbcc7eb43255fd94dd41252666164f11eaabb52aed5d65e55c69c6",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751316-b21",
+        "sha256": "8d727ab36edd2116c7b1b1d0b4a64cfb39ecb8eb40f065ce9e57a8d8badad04b",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751316-b23",
+        "sha256": "7fdb504a1de6396a9a2f82af0c6c45808db2fa620d37c3e493229783e1a6114e",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751316-b25",
+        "sha256": "27a7a4b9652f65446bf93eb03de74acff60678d6d7f676a4d8ba2c369ebc311b",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751316-b27",
+        "sha256": "eabfaf1ca111ce4569d5047c23e16c2a28902578f7b84c3c13697f6dabf6c40c",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751316-b29",
+        "sha256": "729e350e4a78a585090a79eaa4a29b73fdc2c4b0048f7e88dc97fd60ea005a41",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751316-b31",
+        "sha256": "ec4b92fb587a4cc2990930556416366d696a5dba6c7e1a13867786fff444bed6",
+        "exactMcpBytes": true
+      },
+      {
+        "figureId": "79-bilibili-cn-cv1751316-b33",
+        "sha256": "12ec78f5723df35ef7a369615669e2df2bf972a383fb8828130787700aabd38c",
+        "exactMcpBytes": true
+      }
+    ],
+    "targetMcpCalls": 30,
+    "maxTargetTextBytes": 14811,
+    "originalTextBlocks": 19,
+    "originalTextExact": true,
+    "sourceOccurrences": 15,
+    "sourceBindingsAndTranscriptionsExact": true,
+    "retainedFigureUncertainties": [
+      {
+        "figureId": "79-bilibili-cn:cv1751316:b0029:figure",
+        "unknowns": [
+          "最右侧红色左箭头右方表情的括号内部字符无法准确辨清。"
+        ]
+      }
+    ],
+    "intakeAnnotations": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-40-18-145Z/162-3-intake-annotations.json",
+      "sha256": "e612c6b17bb8ab827e5f2f5adbe48e6f9b7e7c7f59d80a32d739ae97c6a53399",
+      "issues": 1
+    },
+    "nonblockingIssues": [
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1751316:b0029:figure",
+        "sourceEvidence": "附件13及放大图28的红色左箭头右方有括号状表情，候选将其内部字符标为无法准确辨清。",
+        "description": "未辨清部分为表情细节，不影响牌码、牌背数量、排列、判断或适用条件，不构成教学语义阻断。",
+        "suggestedRepair": "保留原图及局部不确定说明，不猜补表情字符。"
+      }
+    ],
+    "reviewScope": {
+      "method": "independent-target-text-review-plus-unchanged-parent-audit",
+      "bodyBlocks": 34,
+      "textBlocks": 19,
+      "figures": 15,
+      "imageOccurrences": 15,
+      "onlyNewTextReview": [
+        "79-bilibili-cn:cv1751316:b0004",
+        "79-bilibili-cn:cv1751316:b0034"
+      ],
+      "newImageReview": false,
+      "parentCandidate": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+      "parentAudit": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+      "targetCallId": "d47ebb3d-967e-4882-9f6e-59a52fb58803"
+    },
+    "sourceCorrespondence": {
+      "articleId": "cv1751316",
+      "webSourceId": "79-bilibili-cn",
+      "tier": "body",
+      "evidencePath": "integration/chinese-source-body-correspondence.json",
+      "substitutionAllowed": true,
+      "bodyEquivalenceConfirmed": true,
+      "articleInPreview": false
+    },
+    "historyPreserved": true,
+    "emphasis": {
+      "allTextCharactersMarksHrefExact": true,
+      "mcpTranslatedTextExact": true,
+      "mcpCarriesDisplaySegments": false,
+      "htmlFullChapterExact": true,
+      "htmlGlossesExact": true,
+      "sourceTextBlocks": 19
+    },
+    "sourceBodyBlocks": 34,
+    "priorUnitsUnchanged": 236,
+    "prior027Preserved": true,
+    "priorJpegOriginalsRetained": 5,
+    "canonicalArticles": 200,
+    "sourceCollisions": 0,
+    "allProtectedInputsUnchanged": true,
+    "otherHoldsAndDefinitionBindingsUnchanged": true,
+    "activeLibraryChanged": false,
+    "formalSha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2",
+    "fullMcp": {
+      "units": 237,
+      "images": 5121,
+      "maxTextBytes": 14883
+    },
+    "arena": {
+      "units": 237,
+      "exactBody": true,
+      "maxEnvelopeBytes": 15066
+    },
+    "modelCalls": 0,
+    "productionCalls": 0
+  },
+  "modelCalls": 0
+}

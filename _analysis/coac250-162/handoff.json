@@ -1,0 +1,404 @@
+{
+  "schema": "coac269-inline-passed-handoff/1",
+  "chapterId": "79-cn-chapter-162-3",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751316.coac244inline20261027.display.json",
+    "sha256": "0d0d54818b5b686d34936a4a5f59ae90d83345dd636e33d423d34d9f5b16b481"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1751316\\source.json",
+    "sha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751316.display.json",
+    "sha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52"
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751316.1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52.retry-1792951224780-a2783f95.json",
+    "sha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec"
+  },
+  "plan": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-inline-japanese-20261027\\plan-162.json",
+    "sha256": "da13dd719d339778d8ddfd67f397d07fa930b88c0a16e94cc7df01962ba7883e"
+  },
+  "independentPass": {
+    "chapterId": "79-cn-chapter-162-3",
+    "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751316.coac244inline20261027.display.json",
+    "candidateSha256": "0d0d54818b5b686d34936a4a5f59ae90d83345dd636e33d423d34d9f5b16b481",
+    "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1751316.0d0d54818b5b686d34936a4a5f59ae90d83345dd636e33d423d34d9f5b16b481.json",
+    "auditSha256": "25c0966eecf2747e6401ae09c6677dc7de3c0ae90b936a4e231317d049281cb5",
+    "status": "passed",
+    "method": "independent-target-text-review-plus-unchanged-parent-audit",
+    "calls": [
+      {
+        "callId": "d47ebb3d-967e-4882-9f6e-59a52fb58803",
+        "scope": "textbook-web-target-text-audit",
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1751316",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "success": true,
+        "usage": {
+          "inputTokens": 15580,
+          "cachedInputTokens": 0,
+          "outputTokens": 518
+        },
+        "promptSha256": "61eff8e62d574cbc58a7ddb95c65de1fd8d43a7f01d2e47125ad311112c77e27",
+        "semanticPromptSha256": "88120cf0fdbf19c8b13b1fc7d13afc621f51220d20df3b0e6b342559c70c3335",
+        "schemaSha256": "98f2348a21942124029bc44aa07595ece12a6e371cfc9202fdf7f8b6a051fe8a",
+        "outputSha256": "dc39824c4c8974e20e4a196596d1828f6703f67b03af69ff108899763ec28b2e",
+        "requestPromptBytes": 17079,
+        "semanticPromptBytes": 16597,
+        "binding": {
+          "productionSha256": "0d0d54818b5b686d34936a4a5f59ae90d83345dd636e33d423d34d9f5b16b481",
+          "sourceFileSha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464",
+          "auditorSnapshotSha256": "95af0326a6a52eb21187896ee4cf313b5e4e7c83e360a11d6759ba645ed2fa3c",
+          "semanticProjectionSha256": "5304425e29d3d6c76e67fef03097cc41e525c9847f2558a5494b6de032cc56e0",
+          "semanticProjectionVersion": 2,
+          "targetTextIds": [
+            "79-bilibili-cn:cv1751316:b0004",
+            "79-bilibili-cn:cv1751316:b0034"
+          ],
+          "verifiedAssetIds": [
+            "79-bilibili-cn:8fba0d12a2b13cc7a0f0fb04",
+            "79-bilibili-cn:4fbe44b5dbba1f80aa13d7cc",
+            "79-bilibili-cn:0ece45c9101542071cd35ced",
+            "79-bilibili-cn:8c7e3e56d0008eaa79097b97",
+            "79-bilibili-cn:8eeab132c3902a60b92f9e35",
+            "79-bilibili-cn:fdc2c6ffd881b065380ee4a5",
+            "79-bilibili-cn:d7b5a7fcd8bcacfa662eba4d",
+            "79-bilibili-cn:df357c4827a537a752e0efe8",
+            "79-bilibili-cn:20acdfb14b8d2465201dcb12",
+            "79-bilibili-cn:7040936888d26eba724b8e3a",
+            "79-bilibili-cn:ebfe81720e5f0d8fd1a7a178",
+            "79-bilibili-cn:18954697382eb1a4d6a0c21c",
+            "79-bilibili-cn:2d8e7ff3623df4b03aeab723",
+            "79-bilibili-cn:8edd38a8a10a5524363ba72b",
+            "79-bilibili-cn:b045014005d299a112f9f8b0"
+          ],
+          "originalImageAssetIds": []
+        },
+        "recordedAt": "2026-10-27T17:26:07.367Z"
+      }
+    ]
+  },
+  "productionCalls": [
+    {
+      "callId": "bd7b1408-514a-4d7d-b674-18202fc0c556",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1751316",
+      "sourceSha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "timeoutMs": 900000,
+      "startedAt": "2026-10-27T17:20:45.216Z",
+      "durationMs": 185487,
+      "usage": {
+        "inputTokens": 14366,
+        "cachedInputTokens": 0,
+        "outputTokens": 408
+      },
+      "success": true,
+      "failureClass": null,
+      "transportStatus": "completed",
+      "rawArtifactPath": "raw-calls/bd7b1408-514a-4d7d-b674-18202fc0c556.json",
+      "rawArtifactSha256": "2c993624b9c40ef5b950794d5e6c321b763f2e05d4e1b75336f120b1a85f561d",
+      "outputSha256": "a1f283588f103253d7e03783ed250858199d2a1d03bdafccbea23b33aa6406d7",
+      "schemaSha256": "f8f324207bb7d90d4d5162a69bd03cdbfb6fac502e55b7ebc9a26f6f5c86dd2a",
+      "promptSha256": "a4656c7ff9665fecf2b0e309e03d6a3b8d2a00327935638259c7a2afc1f60b5f",
+      "semanticPromptSha256": "79024d0ab64ed137fa6a06de4a33b3c27edfe0828cdfaed8295682a4da78eca3",
+      "cliSnapshot": {
+        "path": "web-production/v1/runners/ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a.cli.mjs",
+        "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+      },
+      "targets": {
+        "textIds": [
+          "79-bilibili-cn:cv1751316:b0004",
+          "79-bilibili-cn:cv1751316:b0034"
+        ],
+        "figureIds": []
+      },
+      "terminalEvents": [
+        {
+          "type": "error",
+          "code": null,
+          "message": "Reconnecting... 2/5 (workspace routing discovery timed out)",
+          "param": null
+        },
+        {
+          "type": "error",
+          "code": null,
+          "message": "Reconnecting... 3/5 (workspace routing discovery timed out)",
+          "param": null
+        },
+        {
+          "type": "error",
+          "code": null,
+          "message": "Reconnecting... 4/5 (workspace routing discovery timed out)",
+          "param": null
+        },
+        {
+          "type": "error",
+          "code": null,
+          "message": "Reconnecting... 5/5 (workspace routing discovery timed out)",
+          "param": null
+        },
+        {
+          "type": "error",
+          "code": null,
+          "message": "Reconnecting... 1/5 (workspace routing discovery timed out)",
+          "param": null
+        },
+        {
+          "type": "error",
+          "code": null,
+          "message": "Reconnecting... 2/5 (workspace routing discovery timed out)",
+          "param": null
+        }
+      ],
+      "visualInputs": [],
+      "revision": {
+        "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1751316.display.json",
+        "parentSha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+        "notesPath": "audit/web/articles/79-bilibili-cn/cv1751316.1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52.retry-1792951224780-a2783f95.json",
+        "notesSha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+        "figureIds": [],
+        "textBlockIds": [
+          "79-bilibili-cn:cv1751316:b0004",
+          "79-bilibili-cn:cv1751316:b0034"
+        ],
+        "inlineJapanese": {
+          "path": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-162.json",
+          "sha256": "da13dd719d339778d8ddfd67f397d07fa930b88c0a16e94cc7df01962ba7883e",
+          "plan": {
+            "schema": "coach-inline-japanese-revision/1",
+            "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+            "chapterId": "79-cn-chapter-162-3",
+            "bindings": {
+              "parentSha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+              "notesSha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+              "sourceSha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464"
+            },
+            "edits": [
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1751316:b0004",
+                "quotedText": "食いのばし",
+                "operation": "gloss"
+              },
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1751316:b0034",
+                "quotedText": "食いのばし",
+                "operation": "gloss"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "auditRawCalls": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d47ebb3d-967e-4882-9f6e-59a52fb58803.json",
+      "sha256": "25300e59990a0453aaa2dd716c285d9eca46cf46d9a513363d88fbb219d7493a"
+    }
+  ],
+  "runtime": {
+    "runtime": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-inline-japanese-v2-20261027",
+    "files": [
+      {
+        "name": "inline-japanese-revision.mjs",
+        "sha256": "69a9a0db3fccc07bf85c6720606fefb60bac54c689e2402f96bfe018a358e6a6"
+      },
+      {
+        "name": "textbook-audit-legacy.mjs",
+        "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1"
+      },
+      {
+        "name": "textbook-audit-pdf-layout.mjs",
+        "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+      },
+      {
+        "name": "textbook-audit-pdf-native.mjs",
+        "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+      },
+      {
+        "name": "textbook-audit-pdf-scope.mjs",
+        "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+      },
+      {
+        "name": "textbook-audit-pdf-source-corrections.mjs",
+        "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+      },
+      {
+        "name": "textbook-audit-tile-dictionary.mjs",
+        "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+      },
+      {
+        "name": "textbook-audit-web-batches.mjs",
+        "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+      },
+      {
+        "name": "textbook-audit-web-source.py",
+        "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+      },
+      {
+        "name": "textbook-audit-web.mjs",
+        "sha256": "5d015b457efd1c6010b09199ff3d575232a97999ef54847c53b2265ab6e50530"
+      },
+      {
+        "name": "textbook-audit.mjs",
+        "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+      },
+      {
+        "name": "textbook-production-cli.mjs",
+        "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+      },
+      {
+        "name": "textbook-production-web-present.py",
+        "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+      },
+      {
+        "name": "textbook-production-web-visual.py",
+        "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+      },
+      {
+        "name": "textbook-production-web.mjs",
+        "sha256": "1dd367f57ab5ec127152136141d343efa836486b01ddde8aff7c7cb3046ef57e"
+      }
+    ]
+  },
+  "parentProof": {
+    "chapterId": "79-cn-chapter-162-3",
+    "passed": true,
+    "modelCalls": 0,
+    "proof": {
+      "inlineJapanese": {
+        "plan": {
+          "schema": "coach-inline-japanese-revision/1",
+          "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+          "chapterId": "79-cn-chapter-162-3",
+          "bindings": {
+            "parentSha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+            "notesSha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+            "sourceSha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464"
+          },
+          "edits": [
+            {
+              "sourceBlockId": "79-bilibili-cn:cv1751316:b0004",
+              "quotedText": "食いのばし",
+              "operation": "gloss"
+            },
+            {
+              "sourceBlockId": "79-bilibili-cn:cv1751316:b0034",
+              "quotedText": "食いのばし",
+              "operation": "gloss"
+            }
+          ]
+        },
+        "binding": {
+          "path": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-162.json",
+          "sha256": "da13dd719d339778d8ddfd67f397d07fa930b88c0a16e94cc7df01962ba7883e",
+          "plan": {
+            "schema": "coach-inline-japanese-revision/1",
+            "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+            "chapterId": "79-cn-chapter-162-3",
+            "bindings": {
+              "parentSha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+              "notesSha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+              "sourceSha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464"
+            },
+            "edits": [
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1751316:b0004",
+                "quotedText": "食いのばし",
+                "operation": "gloss"
+              },
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1751316:b0034",
+                "quotedText": "食いのばし",
+                "operation": "gloss"
+              }
+            ]
+          }
+        },
+        "sourceLanguage": "zh-CN",
+        "bodyMode": "verbatim-with-bound-inline-translation-only"
+      },
+      "revision": {
+        "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1751316.display.json",
+        "parentSha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+        "notesPath": "audit/web/articles/79-bilibili-cn/cv1751316.1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52.retry-1792951224780-a2783f95.json",
+        "notesSha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+        "figureIds": [],
+        "textBlockIds": [
+          "79-bilibili-cn:cv1751316:b0004",
+          "79-bilibili-cn:cv1751316:b0034"
+        ],
+        "inlineJapanese": {
+          "path": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-162.json",
+          "sha256": "da13dd719d339778d8ddfd67f397d07fa930b88c0a16e94cc7df01962ba7883e",
+          "plan": {
+            "schema": "coach-inline-japanese-revision/1",
+            "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+            "chapterId": "79-cn-chapter-162-3",
+            "bindings": {
+              "parentSha256": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+              "notesSha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+              "sourceSha256": "1197e880bc562dc75a0eec1791d3a9c0671212bd48bd3b2d21ea0cc107eb4464"
+            },
+            "edits": [
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1751316:b0004",
+                "quotedText": "食いのばし",
+                "operation": "gloss"
+              },
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1751316:b0034",
+                "quotedText": "食いのばし",
+                "operation": "gloss"
+              }
+            ]
+          }
+        }
+      },
+      "parentAudit": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1751316.1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52.retry-1792951224780-a2783f95.json",
+        "sha256": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+        "originalStatus": "needs-repair"
+      },
+      "parentCall": {
+        "callId": "b393fa57-fbd6-4d8c-b9e7-390c69015677",
+        "path": "audit/calls/b393fa57-fbd6-4d8c-b9e7-390c69015677.json",
+        "sha256": "6ec5ab6b606d2fc40de38a7a975afc09a3dbc624920403fe1e2dce86a8d61c29"
+      },
+      "inheritedAssetIds": [
+        "79-bilibili-cn:8fba0d12a2b13cc7a0f0fb04",
+        "79-bilibili-cn:4fbe44b5dbba1f80aa13d7cc",
+        "79-bilibili-cn:0ece45c9101542071cd35ced",
+        "79-bilibili-cn:8c7e3e56d0008eaa79097b97",
+        "79-bilibili-cn:8eeab132c3902a60b92f9e35",
+        "79-bilibili-cn:fdc2c6ffd881b065380ee4a5",
+        "79-bilibili-cn:d7b5a7fcd8bcacfa662eba4d",
+        "79-bilibili-cn:df357c4827a537a752e0efe8",
+        "79-bilibili-cn:20acdfb14b8d2465201dcb12",
+        "79-bilibili-cn:7040936888d26eba724b8e3a",
+        "79-bilibili-cn:ebfe81720e5f0d8fd1a7a178",
+        "79-bilibili-cn:18954697382eb1a4d6a0c21c",
+        "79-bilibili-cn:2d8e7ff3623df4b03aeab723",
+        "79-bilibili-cn:8edd38a8a10a5524363ba72b",
+        "79-bilibili-cn:b045014005d299a112f9f8b0"
+      ]
+    },
+    "checks": {
+      "passed": true,
+      "errors": [],
+      "textBlocks": 19,
+      "imageRuns": 15,
+      "imageOccurrences": 15,
+      "figures": 15
+    }
+  },
+  "normalization": null,
+  "newOriginalImagesReviewed": 0,
+  "rule": "Use this frozen v2 verifier, not a legacy verifier; preserve all raw and candidate bytes. Incremental single-writer integration plus actual MCP/Arena readback only; no formal active switch; no new models."
+}

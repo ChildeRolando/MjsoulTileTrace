@@ -1,0 +1,132 @@
+{
+  "schema": "coac250-162-final-verification/1",
+  "recordedAt": "2026-10-27T17:41:23.481Z",
+  "allPassed": true,
+  "checks": [
+    {
+      "name": "builder-syntax",
+      "exitCode": 0
+    },
+    {
+      "name": "full-MCP",
+      "units": 237,
+      "exactImages": 5121
+    },
+    {
+      "name": "full-Arena",
+      "units": 237,
+      "exactBody": true
+    },
+    {
+      "name": "target-MCP-readback-before-publication",
+      "sourceBlocks": 34,
+      "images": 15,
+      "exactBody": true
+    },
+    {
+      "name": "source-deduplication",
+      "collisions": 0
+    }
+  ],
+  "coverage": {
+    "originalChaptersCovered": 229,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 261,
+    "originalUnitsTotal": 303
+  },
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T17-40-18-145Z",
+    "corpusId": "fdfc71e80574ade5d655a0195854d099ee00a629a3568838e65c253a117969c6",
+    "chapters": 229,
+    "units": 237,
+    "blocks": 6312,
+    "figures": 5121
+  },
+  "history": "E:/AgentData/Coach/knowledge/processing/integration/coac250-162-history-20261028",
+  "files": {
+    "selection-pin.patch": "7754ecd823ceb4f6997874de1116f8c6b4fcda66787ce0e8aad3ae383fad9fe7",
+    "display-stage-manifest.json": "1f336c157c7a26f22583534827dce7c2c3a3a46dc4537966ebdf839e7460434b",
+    "display-segments-proof.json": "3b6b0158c4ba3798c05cc4fa6f4d84da74034a7458b3bbce63f78edd8cd91b66",
+    "builder.after.mjs": "a383384de7e6353e0321b3c22a5189229ecb82b573de22bdda0d6402135632c5",
+    "variants.after.json": "a0cf78673a396a954009457f9b181b893111b610cf54948ea9496ba2cd5f11d7",
+    "handoff.json": "8dc5c535b8a4ce9933ea0bb6411c76bd6d0bb7dbf209f6953501792984740753",
+    "preconsume.json": "8f249f60b90b9bb1f553ef6954f39c9a39322ea9c5114cc07c123ea1cbfc3cc9",
+    "gate-reverified.json": "02537f261a953cabfc2647cb862023830b97dd24e25e520ca9f4949c915df46d",
+    "stage-receipt.json": "9d94d24c8182cf2ed8bc43d97304aaeaba67b2bdaab1dca06550c3a383da891a",
+    "intake-annotations.json": "e612c6b17bb8ab827e5f2f5adbe48e6f9b7e7c7f59d80a32d739ae97c6a53399",
+    "readback.json": "9b19d4133c332451438e3767b3dfbfe4f4e4f0189d26bf7668f0dd0308577c2a",
+    "coverage.json": "951d6d95bfcc404833e221872b86d6edb1bafbe15fc65c601b8766924e22845d",
+    "publication-journal.json": "fd26041e5f1df9a94e62343cb7d3d2d005de33d317c503882bf8eb4334047dd3"
+  },
+  "upstreamReviewScope": {
+    "method": "independent-target-text-review-plus-unchanged-parent-audit",
+    "bodyBlocks": 34,
+    "textBlocks": 19,
+    "figures": 15,
+    "imageOccurrences": 15,
+    "onlyNewTextReview": [
+      "79-bilibili-cn:cv1751316:b0004",
+      "79-bilibili-cn:cv1751316:b0034"
+    ],
+    "newImageReview": false,
+    "parentCandidate": "1f33f5838fc635cb78306f848198cd30a03ab403ee53ee61eb3e7effe1a99b52",
+    "parentAudit": "2f9124ce76bc264fd98a420f85eb0ee891ede0db56f61bd8c28be5c8954805ec",
+    "targetCallId": "d47ebb3d-967e-4882-9f6e-59a52fb58803"
+  },
+  "originalProductionHistory": {
+    "productionCallId": "bd7b1408-514a-4d7d-b674-18202fc0c556",
+    "rawSha256": "2c993624b9c40ef5b950794d5e6c321b763f2e05d4e1b75336f120b1a85f561d",
+    "outputNormalization": null,
+    "upstreamProductionCalls": 1,
+    "upstreamTargetReviewCalls": 1,
+    "productionTransportEvents": [
+      {
+        "type": "error",
+        "code": null,
+        "message": "Reconnecting... 2/5 (workspace routing discovery timed out)",
+        "param": null
+      },
+      {
+        "type": "error",
+        "code": null,
+        "message": "Reconnecting... 3/5 (workspace routing discovery timed out)",
+        "param": null
+      },
+      {
+        "type": "error",
+        "code": null,
+        "message": "Reconnecting... 4/5 (workspace routing discovery timed out)",
+        "param": null
+      },
+      {
+        "type": "error",
+        "code": null,
+        "message": "Reconnecting... 5/5 (workspace routing discovery timed out)",
+        "param": null
+      },
+      {
+        "type": "error",
+        "code": null,
+        "message": "Reconnecting... 1/5 (workspace routing discovery timed out)",
+        "param": null
+      },
+      {
+        "type": "error",
+        "code": null,
+        "message": "Reconnecting... 2/5 (workspace routing discovery timed out)",
+        "param": null
+      }
+    ]
+  },
+  "protectedInputsUnchanged": 132,
+  "unchangedOtherRegisterRows": 79,
+  "prior236UnitsIncluding155205347246090And027Unchanged": true,
+  "allOtherSelectionJobsUnchanged": true,
+  "otherHoldsAndDefinitionBindingsUnchanged": true,
+  "stagingCodeUnchanged": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a",
+  "builderPinsVerified": true,
+  "writerLocksAbsent": true,
+  "activeLibraryChanged": false,
+  "modelCalls": 0,
+  "productionCalls": 0
+}
