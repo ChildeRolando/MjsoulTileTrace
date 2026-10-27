@@ -1,0 +1,175 @@
+{
+  "chapters": 231,
+  "units": 239,
+  "blocks": 6337,
+  "figures": 5128,
+  "corpusId": "2a451fdafd5110958120deced371ebc981a54669de5c20c53d7c661b2c9c6acb",
+  "bodySha256": "69c5570fb2c636b0562b927a21cae1d5030ab0dba3e8a85628dc65a74ec87f1e",
+  "maxUnitBytes": 358204,
+  "modelCalls": 0,
+  "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T19-12-31-254Z",
+  "stageReceipt": {
+    "schema": "coac244-owned-chapter-stage/1",
+    "chapterId": "79-cn-chapter-215-4",
+    "status": "complete-owned-chapter-ready-for-incremental-integration",
+    "stage": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T19-12-31-254Z/stages/pdf-79-cn-chapter-215-4",
+    "scopeProof": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/215-scope-proof.json",
+      "sha256": "716441570a09e78a306a97447eab39130a31b84d55e145f8bad4c40a677c17e7"
+    },
+    "pages": [
+      {
+        "page": 215,
+        "candidate": {
+          "sourceId": "79-cn",
+          "page": 215,
+          "candidatePath": "production/sol-high-layout-repair-20261026-schemafix/candidates/79-cn/page-0215.json",
+          "candidateSha256": "7bd609bad81f11dc0ef5c786a14d7b30d3d303f2c742049693283e42cfc2315f",
+          "auditStatus": "passed",
+          "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0215.7bd609bad81f11dc0ef5c786a14d7b30d3d303f2c742049693283e42cfc2315f.6baa4a7e1404.json",
+          "gateCheckedAt": "2026-10-26T10:45:00+00:00",
+          "layoutRepair": {
+            "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\layout-repair-resolution-20261026.json",
+            "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0215.json",
+            "parentFileSha256": "19e46d9109ea72d97887234d31531211041170934fafda4cf52d418e379e2e26",
+            "notesPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-schemafix\\notes\\page-0215.json"
+          }
+        },
+        "auditStatus": "passed",
+        "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0215.7bd609bad81f11dc0ef5c786a14d7b30d3d303f2c742049693283e42cfc2315f.6baa4a7e1404.json",
+        "scopeOnly": false
+      },
+      {
+        "page": 216,
+        "candidate": {
+          "sourceId": "79-cn",
+          "page": 216,
+          "candidatePath": "production/sol-high-layout-repair-20261026-schemafix/candidates/79-cn/page-0216.json",
+          "candidateSha256": "2c1624387bfc1c92cfd3b16e2c8ce4c541acb359be61ce8b155131838d9916ee",
+          "auditStatus": "passed",
+          "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0216.2c1624387bfc1c92cfd3b16e2c8ce4c541acb359be61ce8b155131838d9916ee.6baa4a7e1404.json",
+          "gateCheckedAt": "2026-10-26T10:45:00+00:00",
+          "layoutRepair": {
+            "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\layout-repair-resolution-20261026.json",
+            "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0216.json",
+            "parentFileSha256": "0d2807eb69ba81f6f45aaf66dcb6c8d73a6cdcf0e6ad203ea1a727d617a7b762",
+            "notesPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-schemafix\\notes\\page-0216.json"
+          }
+        },
+        "auditStatus": "passed",
+        "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0216.2c1624387bfc1c92cfd3b16e2c8ce4c541acb359be61ce8b155131838d9916ee.6baa4a7e1404.json",
+        "scopeOnly": false
+      },
+      {
+        "page": 217,
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0217.json",
+          "sha256": "73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add"
+        },
+        "auditStatus": "needs-repair",
+        "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0217.73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add.6baa4a7e1404.retry-1792979810396-c29948ed.json",
+        "scopeOnly": true
+      }
+    ],
+    "blocks": 7,
+    "figures": 0,
+    "sourceBlockIds": [
+      "79-cn:215:79-cn-p215-b4",
+      "79-cn:215:79-cn-p215-b5",
+      "79-cn:215:79-cn-p215-b6",
+      "79-cn:215:79-cn-p215-b7",
+      "79-cn:215:79-cn-p215-b2",
+      "79-cn:216:79-cn-p216-b1",
+      "79-cn:216:79-cn-p216-b3",
+      "79-cn:216:79-cn-p216-b2",
+      "79-cn:217:79-cn-p217-b1",
+      "79-cn:217:79-cn-p217-b3"
+    ],
+    "chapters": 1,
+    "units": 1,
+    "corpusId": "82178dd9552e5f2a3f91e7441b0ef3f364f215437e309304811e221902f7ff04",
+    "bodySha256": "15b1684eb9a3cba8a04f6e8eba0705cf7156af34730a9455952cba116c89de51",
+    "maxUnitBytes": 4133,
+    "modelCalls": 0,
+    "fullPage217Passed": false,
+    "formalActiveChanged": false,
+    "scopeSelection": {
+      "chapterId": "79-cn-chapter-215-4",
+      "module": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/stage-owned-215.mjs",
+        "sha256": "5c698bfc204cda6191453f8839e757f8b42c07fcac879cb00855d2026fb621ab"
+      },
+      "config": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/config.json",
+        "sha256": "a3205fbdaf78b205ff744d96f9337de7fb7845364d678ddccff70fa1f7ffde38"
+      },
+      "scopeProof": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/215-scope-proof.json",
+        "sha256": "716441570a09e78a306a97447eab39130a31b84d55e145f8bad4c40a677c17e7"
+      },
+      "stageReceipt": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/215-stage-receipt.json",
+        "sha256": "4e373543cf9cb8551905cb08db04e7b1fce4167a1899a903dc2bc3479db6b106"
+      },
+      "runtimeManifest": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-scope215-pdf193-20261028\\verification-runtime-manifest.json",
+        "sha256": "41e7e0140ec3bed00b76f04e6ba5e1294975275c01660d8e887f330af7260480"
+      },
+      "files": [
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/config.json",
+          "sha256": "a3205fbdaf78b205ff744d96f9337de7fb7845364d678ddccff70fa1f7ffde38"
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/215-scope-proof.json",
+          "sha256": "716441570a09e78a306a97447eab39130a31b84d55e145f8bad4c40a677c17e7"
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/215-stage-receipt.json",
+          "sha256": "4e373543cf9cb8551905cb08db04e7b1fce4167a1899a903dc2bc3479db6b106"
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/stage-and-verify.mjs",
+          "sha256": "63d29fe7d2c31ad04c60e5182f0691dbf86dc6f872ddb884cb74ae0a19b1a3de"
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-scope215-pdf193-20261028\\verification-runtime-manifest.json",
+          "sha256": "41e7e0140ec3bed00b76f04e6ba5e1294975275c01660d8e887f330af7260480"
+        },
+        {
+          "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/publish-textbooks.mjs",
+          "sha256": "ffa7b575475bb3a0b65e13560081354a6adf78a9d51d09958cd0f8385bd04026"
+        },
+        {
+          "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/compile-textbook-corpus.mjs",
+          "sha256": "b4a8fb7432847e54b3c922a5b83e88b3d957abd6a16e726c772188fa5db4a2db"
+        },
+        {
+          "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/textbook-review.mjs",
+          "sha256": "11b3b9c1dcb41b2cdde72517dca733a84a352e75eea154edea5acc36408c7edf"
+        }
+      ],
+      "sourceBlockIds": [
+        "79-cn-p217-b1",
+        "79-cn-p217-b3"
+      ],
+      "originalPage217Status": "needs-repair",
+      "fullPage217Passed": false,
+      "modelCalls": 0
+    }
+  },
+  "priorUnitsUnchanged": 238,
+  "retainedNotes": [
+    "090-6-intake-annotations.json",
+    "155-4-intake-annotations.json",
+    "155-display-segments-proof.json",
+    "157-11-intake-annotations.json",
+    "162-3-intake-annotations.json",
+    "162-display-segments-proof.json",
+    "205-5-intake-annotations.json",
+    "246-3-intake-annotations.json",
+    "347-1-intake-annotations.json",
+    "b8-source-notes.json"
+  ],
+  "allImageBytesVerified": 5128
+}

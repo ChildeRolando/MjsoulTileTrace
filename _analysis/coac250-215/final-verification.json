@@ -1,0 +1,166 @@
+{
+  "schema": "coac250-215-final-verification/1",
+  "recordedAt": "2026-10-27T19:14:11.587Z",
+  "allPassed": true,
+  "coverage": {
+    "originalChaptersCovered": 231,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 263,
+    "originalUnitsTotal": 303
+  },
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T19-12-31-254Z",
+    "corpusId": "2a451fdafd5110958120deced371ebc981a54669de5c20c53d7c661b2c9c6acb",
+    "chapters": 231,
+    "units": 239,
+    "blocks": 6337,
+    "figures": 5128
+  },
+  "selection": {
+    "version": 22,
+    "sha256": "998cf2e31f67ba0af05495cbfa4a7454f8691db1573b51efc5f2fb0ab517faf5",
+    "previous": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v21.json",
+      "sha256": "ca4af6ef8ecaefd2a9bef3efdc42357b6c33da78fafd5a0e1c14b7b3be12a786"
+    }
+  },
+  "scope": {
+    "chapterId": "79-cn-chapter-215-4",
+    "module": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/stage-owned-215.mjs",
+      "sha256": "5c698bfc204cda6191453f8839e757f8b42c07fcac879cb00855d2026fb621ab"
+    },
+    "config": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/config.json",
+      "sha256": "a3205fbdaf78b205ff744d96f9337de7fb7845364d678ddccff70fa1f7ffde38"
+    },
+    "scopeProof": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/215-scope-proof.json",
+      "sha256": "716441570a09e78a306a97447eab39130a31b84d55e145f8bad4c40a677c17e7"
+    },
+    "stageReceipt": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/215-stage-receipt.json",
+      "sha256": "4e373543cf9cb8551905cb08db04e7b1fce4167a1899a903dc2bc3479db6b106"
+    },
+    "runtimeManifest": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-scope215-pdf193-20261028\\verification-runtime-manifest.json",
+      "sha256": "41e7e0140ec3bed00b76f04e6ba5e1294975275c01660d8e887f330af7260480"
+    },
+    "files": [
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/config.json",
+        "sha256": "a3205fbdaf78b205ff744d96f9337de7fb7845364d678ddccff70fa1f7ffde38"
+      },
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/215-scope-proof.json",
+        "sha256": "716441570a09e78a306a97447eab39130a31b84d55e145f8bad4c40a677c17e7"
+      },
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/215-stage-receipt.json",
+        "sha256": "4e373543cf9cb8551905cb08db04e7b1fce4167a1899a903dc2bc3479db6b106"
+      },
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-scope215-pdf193-20261028/stage-and-verify.mjs",
+        "sha256": "63d29fe7d2c31ad04c60e5182f0691dbf86dc6f872ddb884cb74ae0a19b1a3de"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-scope215-pdf193-20261028\\verification-runtime-manifest.json",
+        "sha256": "41e7e0140ec3bed00b76f04e6ba5e1294975275c01660d8e887f330af7260480"
+      },
+      {
+        "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/publish-textbooks.mjs",
+        "sha256": "ffa7b575475bb3a0b65e13560081354a6adf78a9d51d09958cd0f8385bd04026"
+      },
+      {
+        "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/compile-textbook-corpus.mjs",
+        "sha256": "b4a8fb7432847e54b3c922a5b83e88b3d957abd6a16e726c772188fa5db4a2db"
+      },
+      {
+        "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/textbook-review.mjs",
+        "sha256": "11b3b9c1dcb41b2cdde72517dca733a84a352e75eea154edea5acc36408c7edf"
+      }
+    ],
+    "sourceBlockIds": [
+      "79-cn-p217-b1",
+      "79-cn-p217-b3"
+    ],
+    "originalPage217Status": "needs-repair",
+    "fullPage217Passed": false,
+    "modelCalls": 0
+  },
+  "verificationRuntimeFiles": 30,
+  "actualVerifierDependencies": 8,
+  "onlyExistingVerifierExportAdded": true,
+  "fullPage217Status": "needs-repair",
+  "fullPage217Passed": false,
+  "scopeChecks": [
+    "79-cn-p217-b1",
+    "79-cn-p217-b3"
+  ],
+  "excludedFigureOwner": "79-cn-chapter-217-4",
+  "newBlocks": 7,
+  "newFigures": 0,
+  "newUnits": 1,
+  "targetReadbackPages": [
+    {
+      "offset": 0,
+      "blocks": 7,
+      "nextOffset": null
+    }
+  ],
+  "fullMcp": {
+    "units": 239,
+    "images": 5128
+  },
+  "arena": {
+    "units": 239,
+    "exactBody": true
+  },
+  "sourceCollisions": 0,
+  "priorUnitsUnchanged": 238,
+  "unchangedOtherRegisterRows": 79,
+  "allWebSelectionJobsUnchanged": true,
+  "otherHoldsUnchanged": true,
+  "protectedInputsChecked": 239,
+  "explicitOwnerUpdate": {
+    "before": {
+      "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/docs/plans/2026-10-24-full-textbook-processing.md",
+      "sha256": "81229be8035709da70e1b7ff4febf8e69ca857bfe97133f5c930d978a590f6aa"
+    },
+    "afterSha256": "b2319fd83152042b2099331777e7832a1808d13bc72ff94fc7aae8ba3cb722bf"
+  },
+  "persistedRebuildRoute": {
+    "installedBuilderBranchExecuted": true,
+    "selectionVersion": 22,
+    "fullChapterRebuiltWithSameCorpusId": true,
+    "historicalReadyChaptersRebuilt": 0,
+    "selectionHashRejection": true,
+    "duplicateReadyScopeRejection": true,
+    "changedStageModuleRefused": true,
+    "originalPage217Status": "needs-repair",
+    "fullPage217Passed": false,
+    "modelCalls": 0
+  },
+  "history": "E:/AgentData/Coach/knowledge/processing/integration/coac250-215-history-20261028",
+  "writerLocksAbsent": true,
+  "activeLibraryChanged": false,
+  "modelCalls": 0,
+  "files": {
+    "preconsume.json": "9bbc0f94a40f425b35b9653b44fffe6006821580046ca8c5bfa6e91e3cfa7645",
+    "stage-receipt.json": "352dc675d1685fda510679a136deac87895a9eea23f191012a734449811caece",
+    "variants.after.json": "998cf2e31f67ba0af05495cbfa4a7454f8691db1573b51efc5f2fb0ab517faf5",
+    "builder.after.mjs": "d4832c5edc1028a49e420bb1c76ad152f60c37c1f529ca72e2ff7a5519e66ce5",
+    "stage-owned-215.mjs": "5c698bfc204cda6191453f8839e757f8b42c07fcac879cb00855d2026fb621ab",
+    "readback.json": "6e945e903bfdc6aec53ad0da47ab98fbe9e965aa025ad2101726d143eb7235c2",
+    "coverage.json": "73e262d182c242720db40f67380cabdb16679b071a21942fdf712efce4f4b1fd",
+    "route-verification.json": "3f3f0ce6ae303d00f67b96edd9db8d20183316ec62614471a0bd97355e1e5de5",
+    "persisted-route-verification.json": "16b9d6215e25b437e354f62c44d27ee24c7f72207d6745aed533ca004f3472b8",
+    "publication-journal.json": "c4b91949fea9845078abe779dbc387f2a7efa4fa1facb3778d97fa9b6c1e39f2",
+    "owner.after.md": "b2319fd83152042b2099331777e7832a1808d13bc72ff94fc7aae8ba3cb722bf",
+    "assembly-failure.json": "c94d733e18bd2b50551b2c470bcaee4521b0f815582aaaf4534c069617785521"
+  },
+  "prePublicationFailure": {
+    "record": "assembly-failure.json",
+    "cause": "Owner documentation was intentionally updated; inherited protected-input list still bound its old bytes. Explicit before/after owner binding added; all other protected files retained exact SHA. Failure occurred before creating a preview or changing selection/pointer."
+  }
+}

@@ -1,0 +1,1 @@
+export const root='E:/AgentData/Coach/knowledge/processing',repo='E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach',integration=root+'/integration',pkg=integration+'/coac244-scope215-pdf193-20261028',dir='_analysis/coac250-215',chapter='79-cn-chapter-215-4';

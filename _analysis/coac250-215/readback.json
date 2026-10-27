@@ -1,0 +1,197 @@
+{
+  "schema": "coac250-owned215-readback/1",
+  "recordedAt": "2026-10-27T19:13:08.560Z",
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T19-12-31-254Z",
+    "corpusId": "2a451fdafd5110958120deced371ebc981a54669de5c20c53d7c661b2c9c6acb",
+    "chapters": 231,
+    "units": 239,
+    "blocks": 6337,
+    "figures": 5128
+  },
+  "chapterId": "79-cn-chapter-215-4",
+  "unitId": "79-cn-chapter-215-4-unit-1",
+  "pages": [
+    {
+      "offset": 0,
+      "blocks": 7,
+      "nextOffset": null
+    }
+  ],
+  "exactBody": true,
+  "blocks": 7,
+  "figures": 0,
+  "sourceBlockIds": [
+    "79-cn-p215-b4",
+    "79-cn-p215-b6",
+    "79-cn-p215-b7",
+    "79-cn-p215-b2",
+    "79-cn-p216-b3",
+    "79-cn-p216-b2",
+    "79-cn-p217-b3"
+  ],
+  "completeCanonicalOwnershipVerified": true,
+  "excludedP217FigureOwner": "79-cn-chapter-217-4",
+  "fullPage217Status": "needs-repair",
+  "fullPage217Passed": false,
+  "fullPage217Issues": [
+    {
+      "severity": "error",
+      "targetId": "79-cn-p217-r1",
+      "sourceEvidence": "原图北家舍牌第二行从左至右为六万、八万，即6m、8m。",
+      "description": "候选将北家第二行第一张六万误录为5m。",
+      "suggestedRepair": "将北家舍牌第二行改为“6m 8m”。"
+    },
+    {
+      "severity": "error",
+      "targetId": "79-cn-p217-r1",
+      "sourceEvidence": "东家位于画面右侧，舍牌字头朝左，其自身视角逐行从左至右对应画面每列自下向上。候选明确写成“自上向下”。",
+      "description": "东家两列舍牌均被反向转录，改变了各行的出牌顺序。",
+      "suggestedRepair": "保留先靠中央列、后外侧列的行顺序，每列改为自下向上抄录；第一行应从8p开始、7z结束，第二行从2z开始、4z结束。"
+    },
+    {
+      "severity": "error",
+      "targetId": "79-cn-p217-r1",
+      "sourceEvidence": "原图上方南家可见13张牌背，左方西家可见13张牌背，右方东家可见10张牌背，另有白碰。",
+      "description": "候选仅笼统说明其余三家暗手未知，遗漏了可见牌背数量。",
+      "suggestedRepair": "补录南家13张、西家13张、东家10张暗手牌背；牌种继续标为未知。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "79-cn-p217-r1",
+      "sourceEvidence": "中央可见“ドラ”标签及西（3z），本页没有说明该界面显示实际宝牌还是宝牌指示牌。",
+      "description": "候选直接认定西为宝牌，并排除另示指示牌，超出了本页可确认的信息。",
+      "suggestedRepair": "保留“中央‘ドラ’栏显示西（3z）”，将其为实际宝牌还是指示牌标为未知，删除确定性分类。"
+    }
+  ],
+  "priorUnitsUnchanged": 238,
+  "allSelectedWebUnchanged": true,
+  "crossChapterNavigation": false,
+  "catalogChapters": 231,
+  "sourceCollisions": 0,
+  "fullMcp": {
+    "units": 239,
+    "images": 5128
+  },
+  "arena": {
+    "units": 239,
+    "exactBody": true
+  },
+  "mcpCalls": [
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 0,
+        "limit": 20
+      },
+      "bytes": 4758
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 20,
+        "limit": 20
+      },
+      "bytes": 4852
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 40,
+        "limit": 20
+      },
+      "bytes": 4910
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 60,
+        "limit": 20
+      },
+      "bytes": 5054
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 80,
+        "limit": 20
+      },
+      "bytes": 5122
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 100,
+        "limit": 20
+      },
+      "bytes": 5127
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 120,
+        "limit": 20
+      },
+      "bytes": 5098
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 140,
+        "limit": 20
+      },
+      "bytes": 5011
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 160,
+        "limit": 20
+      },
+      "bytes": 5060
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 180,
+        "limit": 20
+      },
+      "bytes": 4392
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 200,
+        "limit": 20
+      },
+      "bytes": 2817
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 220,
+        "limit": 20
+      },
+      "bytes": 2688
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-cn-chapter-215-4-unit-1",
+        "blockOffset": 0
+      },
+      "bytes": 4458
+    },
+    {
+      "name": "search_textbook",
+      "args": {
+        "query": "防守11—扣牌（1）",
+        "chapterId": "79-cn-chapter-215-4",
+        "limit": 5
+      },
+      "bytes": 605
+    }
+  ],
+  "activeLibraryChanged": false,
+  "modelCalls": 0
+}

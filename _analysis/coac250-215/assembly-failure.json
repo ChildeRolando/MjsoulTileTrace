@@ -1,0 +1,5 @@
+{
+  "message": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/docs/plans/2026-10-24-full-textbook-processing.md\n+ actual - expected\n\n+ 'b2319fd83152042b2099331777e7832a1808d13bc72ff94fc7aae8ba3cb722bf'\n- '81229be8035709da70e1b7ff4febf8e69ca857bfe97133f5c930d978a590f6aa'\n",
+  "stack": "AssertionError [ERR_ASSERTION]: E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/docs/plans/2026-10-24-full-textbook-processing.md\n+ actual - expected\n\n+ 'b2319fd83152042b2099331777e7832a1808d13bc72ff94fc7aae8ba3cb722bf'\n- '81229be8035709da70e1b7ff4febf8e69ca857bfe97133f5c930d978a590f6aa'\n\n    at unchanged (file:///C:/Users/Roland/multica_workspaces_desktop-api.multica.ai/coach-rolan-2123e9a3b805/coac-250-59dbbe325603/worktree/_analysis/coac250-215/integrate.mjs:13:68)\n    at async file:///C:/Users/Roland/multica_workspaces_desktop-api.multica.ai/coach-rolan-2123e9a3b805/coac-250-59dbbe325603/worktree/_analysis/coac250-215/integrate.mjs:16:2",
+  "modelCalls": 0
+}
