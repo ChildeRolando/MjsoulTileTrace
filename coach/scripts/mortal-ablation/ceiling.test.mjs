@@ -7,8 +7,14 @@ import { indexTextbook, retrieveTextbook } from './ceiling-textbook.mjs';
 import { pairedDifference, summarizeRows, decide } from './ceiling-report.mjs';
 import { decisionRequest,runDecision } from './ceiling-run.mjs';
 import { hash,read } from './ceiling-protocol.mjs';
+import { assertStudySource,selfWindows } from './ceiling-prepare.mjs';
 
 describe('ceiling research boundaries', () => {
+  it('keeps the same game-level West exclusion after lazy snapshot optimization',()=>{
+    expect(()=>assertStudySource({completeness:{scores:'complete'},events:[{type:'round_started',roundWind:'E'},{type:'round_started',roundWind:'W'}]})).toThrow(/unsupported_round_wind/);
+    expect(()=>assertStudySource({completeness:{scores:'partial'},events:[]})).toThrow(/incomplete/);
+    expect(selfWindows({selfActor:0,events:[{type:'tile_drawn',actor:0,tile:{visibility:'visible'},eventId:'draw'},{type:'riichi_declared',actor:0,eventId:'riichi'},{type:'pon_called',actor:0,eventId:'pon'}]}).map(w=>w.kind)).toEqual(['self_turn','post_riichi_discard','post_call_discard']);
+  });
   it('publishes immutable files atomically and does not replace a conflicting payload',async()=>{
     const dir=await mkdtemp(join(tmpdir(),'ceiling-atomic-')),path=join(dir,'artifact.json');
     await Promise.all([writeOnce(path,{value:'x'.repeat(100000)}),writeOnce(path,{value:'x'.repeat(100000)})]);

@@ -46,6 +46,12 @@ export function oneDecision(context,window){
   // This is a pending research decision. Recorded resolution is deliberately absent.
   return {decisionEventRef:window.triggerEventRef,snapshot,facts,actualDiscard:null,actualAction:null};
 }
+export function assertStudySource(stream){
+  if(stream.completeness.scores!=='complete')throw Error('rules_input_incomplete');
+  // Full replay's KnownGameFacts projection rejects West rounds. Keep that
+  // game-level eligibility rule when only materializing selected windows.
+  if(stream.events.some(e=>e.type==='round_started'&&e.roundWind==='W'))throw Error('known_facts_v2_unsupported_round_wind');
+}
 export async function prepareCeiling({out,database=DEFAULT_DATABASE,snapshot=DEFAULT_SNAPSHOT}){
   await mkdir(out,{recursive:true});
   await snapshotTextbook(out,snapshot);
@@ -71,8 +77,14 @@ export async function prepareCeiling({out,database=DEFAULT_DATABASE,snapshot=DEF
         const stream=mapMjaiRecord(raw,r.game_id,selfActor,tenhouRules(r.locator));
         // The existing projector also requires complete source scores. Reject the
         // same inadmissible sources before paying to reduce all their events.
-        if(stream.completeness.scores!=='complete')throw Error('rules_input_incomplete');
-        const context=freezeDecisionStreamContext(stream),windows=selfWindows(stream),project=createLibriichiRuleProjector(context.stream,runtime.ruleIdentity,context),pool=[];
+        assertStudySource(stream);
+        const cachePath=join(out,'preparation-cache',hash(r.game_id)+'.'+slot.stratum+'.json');let pool;
+        if(await exists(cachePath)){
+          const cached=await read(cachePath),b=cached.body;
+          if(hash(b)!==cached.digest||b.version!=='visible-pool/v1'||b.seed!==SEED||b.mode!==slot.stratum||b.sourceHash!==r.hash||b.gameId!==r.game_id||b.selfActor!==selfActor||!Array.isArray(b.pool)||b.pool.some(c=>c.gameId!==r.game_id||c.sourceHash!==r.hash||c.selfActor!==selfActor))throw Error('preparation_cache_changed');
+          pool=b.pool;state.screening.cacheHits=(state.screening.cacheHits??0)+1;
+        }else{
+        const context=freezeDecisionStreamContext(stream),windows=selfWindows(stream),project=createLibriichiRuleProjector(context.stream,runtime.ruleIdentity,context);pool=[];
         for(const {window,i}of ordered(windows.map((window,i)=>({window,i})),x=>r.game_id+':'+x.i,SEED+'windows')){
           if(!['self_turn','post_call_discard'].includes(window.kind))continue;
           const d=oneDecision(context,window);
@@ -86,20 +98,23 @@ export async function prepareCeiling({out,database=DEFAULT_DATABASE,snapshot=DEF
           const c={id:hash(SEED+r.game_id+':'+i).slice(0,24),gameId:r.game_id,sourceHash:r.hash,sourceLocator:r.locator,selfActor,canonicalDecisionOrder:i,roundOrdinal:d.snapshot.publicState.roundOrdinal,observation,facts,binding:createArenaToolBinding({caseRef:observation.caseRef,selected}),...slot};
           pool.push(c);if(pool.length===(slot.stratum==='challenge'?6:1))break;
         }
+        const body={version:'visible-pool/v1',seed:SEED,mode:slot.stratum,selfActor,sourceHash:r.hash,gameId:r.game_id,pool:pool.map(({split,stratum,...c})=>c)};
+        await writeOnce(cachePath,{body,digest:hash(body)});
+        }
         if(!pool.length)throw Error('no_eligible_pure_discard');
         const rank=c=>challengeTags(c).filter(t=>!state.covered.includes(t)).length*100+challengeTags(c).length;
-        const c=slot.stratum==='challenge'?pool.sort((a,b)=>rank(b)-rank(a)||a.id.localeCompare(b.id))[0]:pool[0];
+        const picked=slot.stratum==='challenge'?[...pool].sort((a,b)=>rank(b)-rank(a)||a.id.localeCompare(b.id))[0]:pool[0],c={...picked,...slot};
         state.cases.push(c);state.covered=[...new Set([...state.covered,...challengeTags(c)])];usedGames.add(c.gameId);usedHashes.add(c.sourceHash);
         await writeOnce(join(out,'prepared',c.id+'.json'),c);
         console.log(JSON.stringify({prepared:state.cases.length,required:980,split:c.split,stratum:c.stratum,screening:state.screening.checked}));
-      }catch(e){state.rejectedGames++;await appendFile(join(out,'exclusions.jsonl'),JSON.stringify({gameId:r.game_id,sourceHash:r.hash,error:String(e.message)})+'\n');}
+      }catch(e){if(e.message==='preparation_cache_changed')throw e;state.rejectedGames++;await appendFile(join(out,'exclusions.jsonl'),JSON.stringify({gameId:r.game_id,sourceHash:r.hash,error:String(e.message)})+'\n');}
       await save(join(out,'prepare-state.json'),state);
     }
     const cases=state.cases;
     const oracle=['random','challenge'].flatMap(s=>ordered(cases.filter(c=>c.split==='evaluation'&&c.stratum===s),c=>c.id,SEED+'oracle').slice(0,s==='random'?150:50).map(c=>c.id));
     const practical=['random','challenge'].flatMap(s=>ordered(cases.filter(c=>oracle.includes(c.id)&&c.stratum===s),c=>c.id,SEED+'practical').slice(0,s==='random'?75:25).map(c=>c.id));
     const stability=['random','challenge'].flatMap(s=>ordered(cases.filter(c=>c.split==='evaluation'&&c.stratum===s),c=>c.id,SEED+'stability').slice(0,s==='random'?40:10).map(c=>c.id));
-    const dataset={version:VERSION,seed:SEED,database,priorSourcesDigest:hash(prior),excludedGames:prior.games,excludedHashes:prior.hashes,ruleIdentity:runtime.ruleIdentity,factIdentity:await engine.identity(),screening:state.screening,rejectedGames:state.rejectedGames,sourcePopulation:'nikke-tenhou four-player south; equal game weight; one seeded seat and uniformly permuted eligible pure discard window',cases,oracle,practical,stability};
+    const dataset={version:VERSION,seed:SEED,database,priorSourcesDigest:hash(prior),excludedGames:prior.games,excludedHashes:prior.hashes,ruleIdentity:runtime.ruleIdentity,factIdentity:await engine.identity(),screening:state.screening,rejectedGames:state.rejectedGames,sourcePopulation:'nikke-tenhou four-player south without West-extension games; equal game weight; one seeded seat and uniformly permuted eligible pure discard window',cases,oracle,practical,stability};
     assertDataset(dataset);await writeOnce(join(out,'dataset.json'),dataset);return dataset;
   }finally{db.close();await Promise.allSettled([engine.close(),runtime.close()]);}
 }
@@ -139,6 +154,7 @@ export async function labelCeiling(out,database=DEFAULT_DATABASE){
       else{
         try{
           const raw=zstdDecompressSync(db.prepare('SELECT data FROM variants WHERE hash=?').get(c.sourceHash).data),stream=mapMjaiRecord(raw,c.gameId,c.selfActor,tenhouRules(c.sourceLocator));
+          assertStudySource(stream);
           const context=freezeDecisionStreamContext(stream),window=selfWindows(stream)[c.canonicalDecisionOrder];if(!window)throw Error('label_window_missing');
           const decision=oneDecision(context,window),ruleRequest=createArenaBlindRuleRequest(createLibriichiRuleProjector(context.stream,runtime.ruleIdentity,context)(decision)),ruleResult=await runtime.queryRules(ruleRequest);
           const selected=screenArenaDecisions([{canonicalDecisionOrder:c.canonicalDecisionOrder,decision:{decisionEventRef:decision.decisionEventRef,snapshot:decision.snapshot,facts:decision.facts},ruleRequest,ruleResponse:ruleResult}]).selected[0];
