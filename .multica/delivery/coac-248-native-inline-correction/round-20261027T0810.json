@@ -1,0 +1,151 @@
+{
+ "schema": "coac-248-round-record/1",
+ "recordedAt": "2026-10-27T08:10:00.000000+00:00",
+ "round": "2026-10-27T07:50-08:15Z",
+ "receipts": [
+  {
+   "objectId": "web-chapter:nemata-jp-chapter-174-1",
+   "chapterId": "nemata-jp-chapter-174-1",
+   "articleId": "chapter02-section024",
+   "parent": {
+    "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter02-section024.display.json",
+    "sha256": "0af14db9257c169c8dd0884fac2668d1d222b53b31bd00d319e9f02950cfb659",
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter02-section024.0af14db9257c169c8dd0884fac2668d1d222b53b31bd00d319e9f02950cfb659.retry-1792976734826-6b625934.json",
+    "auditSha256": "678e5c8d03559643b5fbbc2ba7b09fb542d5cc6f57b2ce16ef50b2a19cd197d2",
+    "auditStatus": "needs-repair"
+   },
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter02-section024.rev1.json",
+    "sha256": "7ceae3d061f859f9d4c93822422be385100396e12593a3980045e871f2adc5a7"
+   },
+   "audit": {
+    "path": "audit/web/articles/modern-yabejp-ja/chapter02-section024.7ceae3d061f859f9d4c93822422be385100396e12593a3980045e871f2adc5a7.json",
+    "sha256": "8f586cab236f47fdddbb4a7e9fc3a53721205d5fae72e10ef5d0dff08c9290fa",
+    "status": "passed",
+    "method": "independent-target-text-review-plus-unchanged-parent-audit"
+   },
+   "targets": [
+    "modern-yabejp-ja:chapter02-section024:b0036"
+   ],
+   "unchanged": "the other 36 text blocks are byte-identical; the 8 inline tile figures recompute deterministically from dictionary+verified-assets and equal the parent field by field (presentationAsset excluded, it is added by the render step)",
+   "callIds": {
+    "production": "c1f02b4a-083e-4cb9-afeb-7f47026d3819",
+    "audit": "9cc8e03d-3565-425d-87a6-829796a11ca1"
+   },
+   "handoff250": "integration/coac250-incremental-174-1-20261027.json"
+  }
+ ],
+ "stillOpenReceipts": [
+  {
+   "objectId": "web-chapter:nemata-jp-chapter-215-4",
+   "chapterId": "nemata-jp-chapter-215-4",
+   "articleId": "chapter03-section027",
+   "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section027.rev2.json",
+    "sha256": "a75742e9c2bcb5b1c39453c6d8f795bea24cc5a431657b318ec7f5280a431817"
+   },
+   "parent": {
+    "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section027.rev1.json",
+    "sha256": "e9a9376e2a870f6f9236e3ce574972d1c68226d9597f9c7dd53d781d12da2af9",
+    "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section027.e9a9376e2a870f6f9236e3ce574972d1c68226d9597f9c7dd53d781d12da2af9.retry-1793084669596-d7092797.json",
+    "auditSha256": "42d80845eb434439bf7d81a811749b743de18b5043ed4ff930683a6d0c9ed918",
+    "auditStatus": "needs-repair"
+   },
+   "targets": [
+    "modern-yabejp-ja:chapter03-section027:b0011"
+   ],
+   "changed": "b0011 从「若打出的这张牌并非新摸入的牌」改为「若这张牌不是进张完成面子后切出的余牌」；其余 12 块逐字节不变",
+   "audit": {
+    "status": "not-reachable-through-the-existing-entry",
+    "modelCalls": 0,
+    "rejections": [
+     {
+      "where": "audit/audit-explicit-targets.mjs with the default frozen runtime",
+      "error": "web_revision_notes_scope"
+     },
+     {
+      "where": "direct auditWebCandidate under audit/runtimes/web-revision-chain-20261027-tentative-not-adopted (scope and per-block checks read from the effective review)",
+      "error": "web_revision_parent_receipt_changed"
+     }
+    ],
+    "why": "proof the notes receipt must be a full-article review: verifyWebRevisionContent needs modelReview.completeArticleCompared, modelReview.domOrder and a faithful blockCheck for every untargeted block, and verifyWebRevisionInheritance recomputes modelChecks with validateWebReview(modelReview). A target-text receipt carries only target scope and target_text_* check codes.",
+    "note": "both rejections are deterministic and made no model call; the tentative runtime produced no receipt and is not adopted"
+   }
+  }
+ ],
+ "entryChecksNoDispatch": [
+  {
+   "objectId": "web-chapter:nemata-jp-chapter-236-1",
+   "finding": "b0003 is the only non-faithful item and its severity is uncertain, not error",
+   "entrySupported": false,
+   "reason": "the revision verifier requires severity=error plus a needs-repair blockCheck and rejects any non-source-note issue whose severity is not error, so an uncertain-only receipt cannot pass web_revision_notes_scope",
+   "modelCalls": 0
+  }
+ ],
+ "modelCalls": {
+  "production": 2,
+  "audit": 1,
+  "deterministicRejections": 3,
+  "usage": {
+   "production": {
+    "inputTokens": 25242,
+    "outputTokens": 697
+   },
+   "audit": {
+    "inputTokens": 13268,
+    "cachedInputTokens": 13056,
+    "outputTokens": 721
+   }
+  },
+  "detail": [
+   {
+    "chapter": "215-4",
+    "production": "8bff0a68-16ec-4ac1-8aa8-105a87467a6f",
+    "audit": null
+   },
+   {
+    "chapter": "174-1",
+    "production": "c1f02b4a-083e-4cb9-afeb-7f47026d3819",
+    "audit": "9cc8e03d-3565-425d-87a6-829796a11ca1"
+   }
+  ]
+ },
+ "runtimeChanges": [
+  {
+   "what": "production runner for the 215-4 rev2 chain",
+   "path": "web-production/v1/runs/coac248-web-215-4-rev2-20261027/frozen-runner/textbook-production-web.mjs",
+   "sha256": "d6651f509e66d296fc94cc7464ae482ccb925f05a2012d11c96da69025517677",
+   "base": "web-production/v1/runners/4a5ce8ab361e659bf7a8e822d3e013ccf413701cfa604aaa1c58c688beab8ca9.mjs",
+   "change": "for a rewritten chain the untargeted-block faithfulness requirement reads notes.effectiveModelReview.blockChecks when the notes receipt carries one; receipts without that field behave exactly as before",
+   "adopted": true
+  },
+  {
+   "what": "audit verifier for a second-generation targeted revision",
+   "path": "audit/runtimes/web-revision-chain-20261027-tentative-not-adopted",
+   "change": "verifyWebRevisionContent reads the effective review for the scope and per-block checks",
+   "adopted": false,
+   "why": "insufficient: verifyWebRevisionInheritance still fails on modelChecks vs validateWebReview"
+  }
+ ],
+ "mergeConfirmation": {
+  "objectId": "web-chapter:nemata-jp-chapter-222-1",
+  "pointer": "accepted-content-preview-2026-10-27T07-16-27-706Z",
+  "corpusId": "472db63a58434c11bbbb542d082e66d780300d4527a14fbca9ca4f113ced52d5",
+  "chapters": 207,
+  "selectedWeb": 178,
+  "pendingWeb": 45,
+  "previewChapterId": "modern-yabejp-ja-chapter04-section004-chapter",
+  "candidateSha256": "3910165816bc9776e27fccd11e9e46636c0eef860949df2978cb1481dde4d56a",
+  "note": "222-1 is in selectedWeb with auditStatus passed; no second handoff"
+ },
+ "handoff250": "integration/coac250-incremental-174-1-20261027.json",
+ "list": {
+  "path": ".multica/delivery/coac-248-native-inline-correction/unified-repair-list-20261027.json",
+  "hashConvention": "sha256 of the LF content, i.e. the committed blob"
+ },
+ "stillOpen": {
+  "needsRepair": 51,
+  "chapter283_1": "needs-repair: b0099 uncertain remains; zero calls this round"
+ },
+ "nextBatchWish": "other small web chapters continue independently: 198-1 (b0082), 187-1, 199-1, 201-1; 215-4 and 236-1 wait on an entry decision"
+}

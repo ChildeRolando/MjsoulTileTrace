@@ -1,0 +1,14 @@
+继续 COAC-248 主线。先读本票最新评论、`.multica/delivery/coac-248-native-inline-correction/round-20261027T0810.json`、`.multica/delivery/coac-248-native-inline-correction/unified-repair-list-20261027.json`。
+
+上轮（07:50–08:15Z）结果：
+- 174-1 passed：chapter02-section024 b0036「处于1向听或以上」→「对方处于一向听或已经听牌」。候选 7ceae3d0…（production c1f02b4a…，12634/341），独审 9cc8e03d… passed（13268/13056/721）。8 张图确定性重算与父稿一致，其余 36 块逐字节不变。已写 `integration/coac250-incremental-174-1-20261027.json`（5430586e…），交 250。
+- 215-4 rev2 候选已产出但审不过现有入口：a75742e9…（production 8bff0a68…，12608/356），b0011 改为「若这张牌不是进张完成面子后切出的余牌」，12/13 块不变。审校两次都是确定性拒绝、0 模型调用（web_revision_notes_scope；修掉后 web_revision_parent_receipt_changed）。原因：revision 入口只接受 full-article 的 notes 回执（completeArticleCompared / domOrder / 全块 faithful / modelChecks==validateWebReview），target-text 回执带的是 target_text_* 码。未绕过、未采用试验 runtime。
+- 236-1 免费核完：唯一未 faithful 项 b0003 是 uncertain，入口要求 severity=error + needs-repair，uncertain-only 必然过不了，已记录跳过。
+- 222-1 已由 250 合入：pointer accepted-content-preview-2026-10-27T07-16-27-706Z、corpusId 472db63a…、207 章 / 178 web / 45 pending，previewChapterId modern-yabejp-ja-chapter04-section004-chapter。不重复交接。
+- 283-1 本轮 0 调用。
+
+本轮任务：
+1. 继续其它小章定点 revision + 独立审校，保持 1–2 章前台有限批次。优先 198-1（b0082「いよいよ変則手濃厚」判断力度），随后 187-1 / 199-1 / 201-1。每章 1 制作 + 1 审校；审校失败且无模型结论才允许一次 retry。
+2. 215-4 与 236-1 在用户就入口给出裁决前不要再派调用；283-1 也只在用户另行授权时再动（b0099 仍未审）。
+3. 若 250 已把 174-1 合入预览，只记录 pointer/corpusId 与 chapter id，不重复交接。
+4. 不重审已通过对象、不改旧 raw、不加豁免；轮末更新清单与本轮记录、正常提交并将结果写在一条评论里，再建下一批唤醒。

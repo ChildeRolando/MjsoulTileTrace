@@ -1,0 +1,43 @@
+{
+ "schema": "coac-248-object-receipt/1",
+ "objectId": "web-chapter:nemata-jp-chapter-215-4",
+ "chapterId": "nemata-jp-chapter-215-4",
+ "articleId": "chapter03-section027",
+ "recordedAt": "2026-10-27T08:10:00.000000+00:00",
+ "status": "revision-produced-audit-blocked-by-entry",
+ "chain": [
+  {
+   "step": "display parent",
+   "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section027.display.json",
+   "sha256": "17f902a2c809d3af8206983f5d1bb40c36b76005176a3959a5e891bb6371677d",
+   "auditStatus": "needs-repair"
+  },
+  {
+   "step": "rev1",
+   "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section027.rev1.json",
+   "sha256": "e9a9376e2a870f6f9236e3ce574972d1c68226d9597f9c7dd53d781d12da2af9",
+   "audit": "audit/web/articles/modern-yabejp-ja/chapter03-section027.e9a9376e2a870f6f9236e3ce574972d1c68226d9597f9c7dd53d781d12da2af9.retry-1793084669596-d7092797.json",
+   "auditStatus": "needs-repair",
+   "rejected": "入り目 被译成摸切/手切条件"
+  },
+  {
+   "step": "rev2",
+   "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section027.rev2.json",
+   "sha256": "a75742e9c2bcb5b1c39453c6d8f795bea24cc5a431657b318ec7f5280a431817",
+   "auditStatus": "none",
+   "from": "若打出的这张牌并非新摸入的牌",
+   "to": "若这张牌不是进张完成面子后切出的余牌",
+   "productionCallId": "8bff0a68-16ec-4ac1-8aa8-105a87467a6f"
+  }
+ ],
+ "isolation": "12 of 13 text blocks byte-identical to rev1; the article has no figure runs",
+ "entryLimit": {
+  "modelCalls": 0,
+  "rejections": [
+   "web_revision_notes_scope (default frozen runtime, audit/audit-explicit-targets.mjs)",
+   "web_revision_parent_receipt_changed (tentative runtime, effective-review scope patch)"
+  ],
+  "reason": "the revision verifier only accepts a full-article notes receipt: completeArticleCompared, domOrder, a faithful blockCheck for every untargeted block, and modelChecks equal to validateWebReview(modelReview). A target-text receipt carries only target scope and target_text_* codes, so a second-generation targeted revision cannot be verified by the existing entry.",
+  "notDone": "no receipt was written, no gate was bypassed, the tentative runtime was not adopted"
+ }
+}

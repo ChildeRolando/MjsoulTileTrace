@@ -1,0 +1,36 @@
+{
+ "schema": "coac-248-object-receipt/1",
+ "objectId": "web-chapter:nemata-jp-chapter-174-1",
+ "chapterId": "nemata-jp-chapter-174-1",
+ "articleId": "chapter02-section024",
+ "recordedAt": "2026-10-27T08:10:00.000000+00:00",
+ "status": "passed",
+ "parent": {
+  "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter02-section024.display.json",
+  "sha256": "0af14db9257c169c8dd0884fac2668d1d222b53b31bd00d319e9f02950cfb659"
+ },
+ "candidate": {
+  "path": "web-production/v1/candidates/modern-yabejp-ja/chapter02-section024.rev1.json",
+  "sha256": "7ceae3d061f859f9d4c93822422be385100396e12593a3980045e871f2adc5a7"
+ },
+ "audit": {
+  "path": "audit/web/articles/modern-yabejp-ja/chapter02-section024.7ceae3d061f859f9d4c93822422be385100396e12593a3980045e871f2adc5a7.json",
+  "sha256": "8f586cab236f47fdddbb4a7e9fc3a53721205d5fae72e10ef5d0dff08c9290fa",
+  "status": "passed",
+  "modelChecks": {
+   "passed": true,
+   "errors": []
+  }
+ },
+ "targets": [
+  "modern-yabejp-ja:chapter02-section024:b0036"
+ ],
+ "from": "尚未露面的役牌也有很高的利用价值，因此处于1向听或以上的可能性会变高。",
+ "to": "尚未露面的役牌也有很高的利用价值，因此对方处于一向听或已经听牌的可能性会变高。",
+ "reason": "「１シャンテン以上」沿手牌完成度方向表示一向听或已听牌；「处于1向听或以上」按向听数读会包含二向听并排除听牌，方向相反",
+ "modelCalls": {
+  "production": 1,
+  "audit": 1
+ },
+ "handoff250": "integration/coac250-incremental-174-1-20261027.json"
+}
