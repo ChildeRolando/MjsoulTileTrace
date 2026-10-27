@@ -1,0 +1,251 @@
+{
+ "schema": "coach-coac248-round-summary/1",
+ "ticket": "COAC-248",
+ "recordedAt": "2026-10-27T09:40:00.000Z",
+ "triggerCommentId": "01a17ae6-9e33-7829-af2b-0bf303f2fc9f",
+ "roundResult": "Two bounded items resolved without a full-page pass and without re-reviewing unrelated text: the contested p261 r50 tile (kept at 3m) and the p50 unknowns entry (right-edge crop fragment). Both answers come from an independent model adjudication bound to the exact candidate and verification-dependency manifest.",
+ "code": {
+  "repo": "ChildeRolando/MjsoulTileTrace sibling checkout E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach",
+  "branch": "codex/mortal-rag-ablation",
+  "modules": [
+   {
+    "path": "scripts/scene-study/textbook-audit-pdf-native-corrections.mjs",
+    "change": "page-scoped exact-field route also accepts an explicit unknowns ARRAY entry replacement (entry-by-entry, exact occurrence count, no insert/remove); registered the root-accepted 79-cn:50 approval",
+    "sha256": "31b8c8022ab00e8f3f89d85d8889ad9f1fd61269d6449da736c0ab142b90f74b"
+   },
+   {
+    "path": "scripts/scene-study/textbook-audit.mjs",
+    "change": "route marker page-scoped-unknowns-evidence keeps such a revision on its own route instead of the older 79-cn redirects; source adjudication accepts one bounded independent model recheck bound to candidate + manifest, can clear the affected text block that inlines the disputed figure, and may clear an uncertain target only when the model adjudication resolved that evidence question",
+    "sha256": "8660208dbb9ab80bff445d84402e169a0294b5485316c3ef1c080b42ea095893"
+   }
+  ],
+  "tests": {
+   "command": "npx vitest run scripts/scene-study/textbook-audit-pdf-native.test.mjs scripts/scene-study/textbook-audit-pdf-native-corrections.test.mjs scripts/scene-study/textbook-audit-pdf-native-structure-corrections.test.mjs scripts/scene-study/textbook-audit-pdf-layout.test.mjs scripts/scene-study/textbook-audit-verification-dependencies.test.mjs --no-file-parallelism",
+   "result": "84/84 passed",
+   "newTests": [
+    "replaces an approved page-scoped unknowns entry only",
+    "rejects an unknowns change that also drops or adds an entry",
+    "rejects an unknowns entry replacement with the wrong occurrence count"
+   ]
+  },
+  "runtime": {
+   "path": "audit/runtimes/native-repair-d0782d5041cfb2",
+   "auditorScriptSha256": "d0782d5041cfb26f2ee2d25a30167da303e25e834750a33c9dde14465c512cb1",
+   "manifestSha256": "03052928bac4af79b7db51c9cb4cf260f2b8276e2ddbc08dd9c6643321c00258",
+   "files": 8,
+   "pageApprovals": 9,
+   "verify": "ok",
+   "history": [
+    "8020f7b2e760ad443e6951ac1074c571f9dc5878f47e8df20759db8d3d5e1452",
+    "5a60dfbce5ccb3726c0ecc109bb1f23af3cfeca6546ff671a789cfd7e4d4ef21"
+   ]
+  },
+  "intermediateRuntimes": [
+   "audit/runtimes/native-repair-91f13b14678b96",
+   "audit/runtimes/native-repair-741b2fbca5581c",
+   "audit/runtimes/native-repair-5c754f1f209aca",
+   "audit/runtimes/native-repair-9ab63d6729a1ed"
+  ]
+ },
+ "objects": [
+  {
+   "objectId": "79-cn:page:50",
+   "decision": "revision",
+   "parent": {
+    "candidateSha256": "6d33c81805e404c9dcacda38075ea644e3d2401cc0205b1a7732ff2a49097dac",
+    "auditStatus": "needs-repair",
+    "auditError": "uncertain:79-cn-p50-r2"
+   },
+   "revision": {
+    "candidatePath": "production/sol-high-field-repair-20261027-p50-unknowns/candidates/79-cn/page-0050.json",
+    "candidateSha256": "002a79eaa4873701c876bc0a319bf28005d9403ad88119936893c583f4474028",
+    "approvalPath": "audit/source-corrections/native-inline-field-corrections.p50.root-acceptance.json",
+    "approvalSha256": "1d1e22613606f6ed4c061e45bbfbee1c199b59ec330b6eec64d28f32a06c3300",
+    "proofPath": "audit/source-corrections/proofs/native-inline-p50.002a79eaa4873701c876bc0a319bf28005d9403ad88119936893c583f4474028.json",
+    "proofSha256": "bdd4307a8d5f0da62a178c2bfb8d7a865194bcc6b28dda0e9cb472f40a5ac82a",
+    "onlyChange": "figure 79-cn-p50-r2 .unknowns array entry replaced; transcription, caption and body untouched; no production model call",
+    "fromValue": [
+     "牌列右侧的细小灰色符号不够清晰，无法确认具体字符。"
+    ],
+    "toValue": [
+     "牌列右侧紧贴框线的痕迹是嵌图右缘的2×7像素裁切残片：同书p49-b12、p166-b11同位置同形，PDF文本层该处只有两个空格span、无字形，也没有drawing/annotation；它不是可转录字符，不改变牌列牌形。"
+    ]
+   },
+   "audit": {
+    "receiptPath": "audit/pages/79-cn/page-0050.002a79eaa4873701c876bc0a319bf28005d9403ad88119936893c583f4474028.91f13b14678b.json",
+    "status": "needs-repair",
+    "callId": "889390ce-6687-4384-b36e-91134252b886",
+    "usage": {
+     "inputTokens": 21875,
+     "cachedInputTokens": 0,
+     "outputTokens": 2170
+    },
+    "reason": "The page reviewer only sees the page image; it cannot confirm the cross-page comparison from the attached material and kept the item uncertain."
+   },
+   "adjudication": {
+    "path": "audit/adjudications/79-cn/page-0050.002a79eaa4873701c876bc0a319bf28005d9403ad88119936893c583f4474028.unknowns-evidence-adjudication.json",
+    "sha256": "387f7e82aed64250bf1dc358f94d7ead1c57ed448487ee124f3337cb9b60ef4e",
+    "callId": "bf00d3de-1313-4fec-a64c-4131627245cc",
+    "verdict": "resolved-as-non-body-crop-fragment",
+    "usage": {
+     "inputTokens": 12303,
+     "cachedInputTokens": 0,
+     "outputTokens": 809
+    },
+    "evidenceShown": [
+     "79-cn-p50-b12 asset",
+     "79-cn-p49-b12 asset",
+     "79-cn-p166-b11 asset",
+     "10x zoom of the p50 right edge",
+     "14x zoom of the p49 right edge"
+    ],
+    "manifestSha256": "03052928bac4af79b7db51c9cb4cf260f2b8276e2ddbc08dd9c6643321c00258"
+   },
+   "effectiveStatus": "passed-after-source-adjudication",
+   "notAFullPagePass": true
+  },
+  {
+   "objectId": "nemata-jp:page:261",
+   "decision": "no candidate change for r50; adjudicate the dispute",
+   "candidate": {
+    "path": "production/sol-high-field-repair18-20261027-p261/candidates/nemata-jp/page-0261.json",
+    "sha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+    "unchanged": true
+   },
+   "dispute": "The revision review asked to change r50 (and the inline reference in b33) from 3m to 5m.",
+   "counterEvidence": {
+    "targetAsset": "assets/f502bc2382ccc4076a54928cec3588aa60096ff42b7f221abba1e074ad7045a9.png",
+    "known3m": [
+     "nemata-jp-p255-b42",
+     "nemata-jp-p255-b71",
+     "nemata-jp-p255-b78"
+    ],
+    "known5m": [
+     "nemata-jp-p255-b43",
+     "nemata-jp-p255-b72",
+     "nemata-jp-p255-b79"
+    ],
+    "deterministic": "Ink-mask IoU of the target against the three 3m anchors is 0.83-0.94; against the three 5m anchors 0.72-0.75. Visually the target carries the three-stroke 三 numeral; the 5m anchors carry the 五 form.",
+    "montage": ".multica/delivery/coac-248-native-inline-correction/evidence/p261-r50-adjudication-montage.png"
+   },
+   "adjudication": {
+    "path": "audit/adjudications/nemata-jp/page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.source-3m-adjudication.json",
+    "sha256": "5248fba6665bdc8928b5460921dcf173297913262459828a17dab52e0de04c58",
+    "callId": "91507699-61d3-496d-9481-de5f38e8418c",
+    "verdict": "target-is-3m",
+    "usage": {
+     "inputTokens": 11360,
+     "cachedInputTokens": 0,
+     "outputTokens": 191
+    },
+    "resolvedIssue": "nemata-jp-p261-r50",
+    "affectedExampleCleared": "nemata-jp-p261-b33",
+    "manifestSha256": "03052928bac4af79b7db51c9cb4cf260f2b8276e2ddbc08dd9c6643321c00258",
+    "evidenceShown": [
+     "target tile asset f502bc23 (p261-b92)",
+     "three 3m anchors (p255-b42/b71/b78)",
+     "three 5m anchors (p255-b43/b72/b79)"
+    ]
+   },
+   "effectiveStatus": "passed-after-source-adjudication",
+   "notAFullPagePass": true
+  }
+ ],
+ "calls": {
+  "productionModelCalls": 0,
+  "auditModelCalls": 1,
+  "adjudicationModelCallsRecorded": 2,
+  "recorded": [
+   {
+    "callId": "889390ce-6687-4384-b36e-91134252b886",
+    "purpose": "p50 revision audit",
+    "usage": {
+     "inputTokens": 21875,
+     "cachedInputTokens": 0,
+     "outputTokens": 2170
+    }
+   },
+   {
+    "callId": "bf00d3de-1313-4fec-a64c-4131627245cc",
+    "purpose": "p50 adjudication (final)",
+    "usage": {
+     "inputTokens": 12303,
+     "cachedInputTokens": 0,
+     "outputTokens": 809
+    }
+   },
+   {
+    "callId": "91507699-61d3-496d-9481-de5f38e8418c",
+    "purpose": "p261 adjudication (final)",
+    "usage": {
+     "inputTokens": 11360,
+     "cachedInputTokens": 0,
+     "outputTokens": 191
+    }
+   }
+  ],
+  "supersededAdjudicationCalls": [
+   {
+    "callId": "5c2072c7-8421-4a46-b6f8-8c9ebec98e4a",
+    "purpose": "p261 adjudication, first pass (decision superseded before the verifier fix)",
+    "usage": {
+     "inputTokens": 11362,
+     "cachedInputTokens": 0,
+     "outputTokens": 194
+    }
+   },
+   {
+    "callId": "c39ae650-4e0f-4ae1-bee7-f100094dbcb3",
+    "purpose": "p261 adjudication, second pass (decision superseded on manifest rebind)",
+    "usage": {
+     "inputTokens": 11360,
+     "cachedInputTokens": 0,
+     "outputTokens": 172
+    }
+   },
+   {
+    "callId": "e3ff9737-da35-4648-8a68-ee0f49ec0cd5",
+    "purpose": "p50 adjudication, first pass (decision superseded on manifest rebind)",
+    "usage": {
+     "inputTokens": 12297,
+     "cachedInputTokens": 0,
+     "outputTokens": 1100
+    }
+   }
+  ],
+  "unrecorded": [
+   {
+    "purpose": "p261 adjudication attempt 0",
+    "transport": "the model turn completed, then the local script threw on an import after the call and exited before writing the call artifact",
+    "usage": null,
+    "note": "Usage is unknown and stays null; the raw transport output was not persisted. No decision or receipt was produced from it."
+   }
+  ],
+  "recordedTotals": {
+   "calls": 6,
+   "inputTokens": 80557,
+   "cachedInputTokens": 0,
+   "outputTokens": 4636,
+   "unknownUsageCalls": 1
+  }
+ },
+ "failedSeparateStatus": {
+  "checkedAt": "2026-10-27T09:30:00.000Z",
+  "admissionStops": "none (no STOP, no web STOP, no model-admission-stop.json); production lane lock not touched by this round",
+  "inflight": "no in-flight call for either failed article was observed",
+  "web-failed:chapter06-exercise003": "not retried; recovery still requires re-deriving the assembled output from the stored batch raw before any review (0 model calls)",
+  "web-failed:chapter06-exercise004": "not retried; recovery still requires re-running only batch-003 as one review call, reusing the passed batch-001/002 receipts"
+ },
+ "nextRound": [
+  "79-cn:217, 79-cn:263, nemata-jp:98, nemata-jp:257: free source checks first, then the approved exact-field route.",
+  "nemata-jp:317 b5: use the same page-scoped unknowns-entry mechanism for the mistranslation fix; keep the four genuinely illegible cover pages unresolved and do not empty unknowns to force a pass.",
+  "web 7 and the protected supplement next in line; check the source first when an image is missing or unclear.",
+  "exercise004: one batch-003 review call only; exercise003: deterministic re-assembly from the stored raw before any review."
+ ],
+ "invariants": [
+  "No production model call was made in this round.",
+  "No full-page pass was claimed by the producer; both outcomes are passed-after-source-adjudication.",
+  "Original parent candidates, raw calls, failed audits and the original unknowns wording are preserved.",
+  "The old manifests stay archived; drift detection stays on."
+ ]
+}

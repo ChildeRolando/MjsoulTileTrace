@@ -15,16 +15,16 @@
   "deduped": 1
  },
  "countsCurrent": {
-  "needsRepair": 18,
+  "needsRepair": 16,
   "failedSeparate": 2,
-  "resolvedThisStage": 18,
-  "newObjectsStillUnresolved": 13,
-  "oldObjectsStillUnresolved": 5,
+  "resolvedThisStage": 20,
+  "newObjectsStillUnresolved": 12,
+  "oldObjectsStillUnresolved": 4,
   "totalTracked": 38
  },
  "breakdown": {
-  "oldPdfRemaining": 5,
-  "newPdfPages": 1,
+  "oldPdfRemaining": 4,
+  "newPdfPages": 0,
   "web": 7,
   "protectedSupplement": 1,
   "failed": 2,
@@ -50,13 +50,13 @@
    "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-full\\candidates\\79-cn\\page-0050.json",
    "candidateSha256": "6d33c81805e404c9dcacda38075ea644e3d2401cc0205b1a7732ff2a49097dac",
    "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0050.6d33c81805e404c9dcacda38075ea644e3d2401cc0205b1a7732ff2a49097dac.c398d43a97fc.json",
-   "auditStatus": "needs-repair",
+   "auditStatus": "passed-after-source-adjudication",
    "issueCount": 1,
    "reviewErrors": [
     "uncertain:79-cn-p50-r2",
     "uncertain:79-cn-p50-r2"
    ],
-   "currentDisposition": "needs-repair",
+   "currentDisposition": "resolved-passed-after-source-adjudication-awaiting-250-handoff",
    "origin": "COAC-248 old PDF 12",
    "newThisStage": false,
    "sourceCheckThisRound": {
@@ -65,6 +65,57 @@
     "candidateChanged": false,
     "reason": "the exact-field route cannot replace the unknowns array and this ticket has no root-accepted 79-cn:50 job",
     "record": ".multica/delivery/coac-248-native-inline-correction/source-check-p50-20261027.json"
+   },
+   "resolution": {
+    "kind": "page-scoped-unknowns-evidence-revision",
+    "scope": "only the single verified right-edge 2x7 px crop-fragment record; body text, captions and tile transcription unchanged",
+    "parent": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-full\\candidates\\79-cn\\page-0050.json",
+     "sha256": "6d33c81805e404c9dcacda38075ea644e3d2401cc0205b1a7732ff2a49097dac",
+     "audit": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0050.6d33c81805e404c9dcacda38075ea644e3d2401cc0205b1a7732ff2a49097dac.c398d43a97fc.json",
+     "auditStatus": "needs-repair",
+     "unknownsPreserved": [
+      "牌列右侧的细小灰色符号不够清晰，无法确认具体字符。"
+     ]
+    },
+    "revisionCandidate": {
+     "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair-20261027-p50-unknowns/candidates/79-cn/page-0050.json",
+     "sha256": "002a79eaa4873701c876bc0a319bf28005d9403ad88119936893c583f4474028"
+    },
+    "approval": {
+     "path": "E:/AgentData/Coach/knowledge/processing/audit/source-corrections/native-inline-field-corrections.p50.root-acceptance.json",
+     "sha256": "1d1e22613606f6ed4c061e45bbfbee1c199b59ec330b6eec64d28f32a06c3300"
+    },
+    "audit": {
+     "path": "E:/AgentData/Coach/knowledge/processing/audit/pages/79-cn/page-0050.002a79eaa4873701c876bc0a319bf28005d9403ad88119936893c583f4474028.91f13b14678b.json",
+     "status": "needs-repair",
+     "callId": "889390ce-6687-4384-b36e-91134252b886",
+     "usage": {
+      "inputTokens": 21875,
+      "cachedInputTokens": 0,
+      "outputTokens": 2170
+     },
+     "note": "the page reviewer could not confirm the cross-page evidence from the page image alone and kept the item uncertain"
+    },
+    "adjudication": {
+     "path": "E:/AgentData/Coach/knowledge/processing/audit/adjudications/79-cn/page-0050.002a79eaa4873701c876bc0a319bf28005d9403ad88119936893c583f4474028.unknowns-evidence-adjudication.json",
+     "sha256": "387f7e82aed64250bf1dc358f94d7ead1c57ed448487ee124f3337cb9b60ef4e",
+     "callId": "bf00d3de-1313-4fec-a64c-4131627245cc",
+     "verdict": "resolved-as-non-body-crop-fragment",
+     "usage": {
+      "inputTokens": 12303,
+      "cachedInputTokens": 0,
+      "outputTokens": 809
+     },
+     "manifestSha256": "03052928bac4af79b7db51c9cb4cf260f2b8276e2ddbc08dd9c6643321c00258"
+    },
+    "evidencePreserved": [
+     ".multica/delivery/coac-248-native-inline-correction/source-check-p50-20261027.json",
+     ".multica/delivery/coac-248-native-inline-correction/evidence/p50-r2-asset-mark-x10.png",
+     ".multica/delivery/coac-248-native-inline-correction/evidence/p49-r12-asset-mark-x14.png"
+    ],
+    "effectiveStatus": "passed-after-source-adjudication",
+    "notAFullPagePass": true
    }
   },
   {
@@ -180,20 +231,20 @@
    "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0261.json",
    "candidateSha256": "b63d2c602ec030eb9c2d5f7852e5119363391f8f9ba24992bbfab42fc847ecd7",
    "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0261.b63d2c602ec030eb9c2d5f7852e5119363391f8f9ba24992bbfab42fc847ecd7.6baa4a7e1404.json",
-   "auditStatus": "needs-repair",
+   "auditStatus": "passed-after-source-adjudication",
    "issueCount": 2,
    "reviewErrors": [
     "needs-repair:nemata-jp-p261-b4",
     "error:nemata-jp-p261-b4"
    ],
-   "currentDisposition": "needs-repair",
+   "currentDisposition": "resolved-via-revision1-passed-after-source-adjudication-awaiting-250-handoff",
    "origin": "COAC-247 new PDF return",
    "newThisStage": true,
    "revision1": {
     "candidatePath": "E:/AgentData/Coach/knowledge/processing/production/sol-high-field-repair18-20261027-p261/candidates/nemata-jp/page-0261.json",
     "candidateSha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
     "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.7076217daf84.json",
-    "auditStatus": "needs-repair",
+    "auditStatus": "passed-after-source-adjudication",
     "reviewErrors": [
      "needs-repair:nemata-jp-p261-b33",
      "needs-repair:nemata-jp-p261-r50",
@@ -215,19 +266,37 @@
      "sourceGround": "Source b4 reads ピンポイントに［5p］･［7p］を引かなければ成立しない — both tiles are required.",
      "confirmedBy": "The revision review marks b4 faithful (「三色必须恰好摸5p、7p的不确定性及另一方案的牌引用准确」)."
     },
-    "remainingItem": {
-     "target": "nemata-jp-p261-r50",
-     "locatedBy": "the same revision review (body b33 + figure r50 verdict needs-repair)",
-     "defect": "The inline tile for the second draw of problem 17 is transcribed, captioned and referenced as 3m; the source page shows 5m (五万).",
-     "sourceGround": "Source page block nemata-jp-p261-b92 / the problem-17 paragraph 「ドラ［5m］引きでもペン［3p］のダマ跳」 — the drawn tile before ダマ満テンパイ is 5m.",
-     "whyNotFixedThisRound": "Round budget is 1-2 objects; the item needs its own revision candidate, its own independent review call, and a fresh approval job bound to the new parent. Recorded here as the next entry in this page's chain.",
-     "sourceCheckThisRound": {
-      "result": "contested-not-applied",
-      "finding": "The source tile at nemata-jp-p261-b92 is 3m, not 5m. The revision review (a78f22ab…) misread the tile: the candidate transcription, caption and inline text were already correct.",
-      "method": "Pixel comparison of the embedded source asset f502bc23… against same-book anchor tiles whose block order is fixed by an unmistakable 8m (八), a 6s (six green bamboos) and the 5m tiles in the same figure. 3m anchors cc38d849 (b42), 7a889595 (b71) and 2c730d58 (b78) match the source tile at 0.97-0.99 mask IoU; 5m anchors 8da455ae (b43), 183da1d5 (b72) and 909943e9 (b79) sit at ~0.64 and show the distinct 五 glyph.",
-      "action": "No 5m revision was built. The page stays needs-repair on its recorded review results pending an owner decision on the contested tile, so nothing fabricated enters the corpus."
-     }
-    }
+    "resolution": {
+     "kind": "bounded-independent-source-adjudication",
+     "dispute": "review asked to change r50 from 3m to 5m",
+     "decision": "reviewer-visible-tile-misread",
+     "candidateChanged": false,
+     "candidateSha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+     "adjudication": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/adjudications/nemata-jp/page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.source-3m-adjudication.json",
+      "sha256": "5248fba6665bdc8928b5460921dcf173297913262459828a17dab52e0de04c58",
+      "callId": "91507699-61d3-496d-9481-de5f38e8418c",
+      "verdict": "target-is-3m",
+      "usage": {
+       "inputTokens": 11360,
+       "cachedInputTokens": 0,
+       "outputTokens": 191
+      },
+      "manifestSha256": "03052928bac4af79b7db51c9cb4cf260f2b8276e2ddbc08dd9c6643321c00258"
+     },
+     "affectedExamples": {
+      "nemata-jp-p261-b33": "reviewer flagged the inline reference in this paragraph as 5m; the adjudication shows the source tile is 3m"
+     },
+     "evidencePreserved": [
+      ".multica/delivery/coac-248-native-inline-correction/evidence/p261-r50-tile-comparison.png"
+     ],
+     "effectiveStatus": "passed-after-source-adjudication",
+     "notAFullPagePass": true
+    },
+    "remainingItemsResolved": [
+     "nemata-jp-p261-b33",
+     "nemata-jp-p261-r50"
+    ]
    }
   },
   {
@@ -1289,7 +1358,7 @@
   "auditPath": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0309.d323290d8eb056b85a64563702b4d1d1283b3c6eff70cf7ecdb34c9faa84337b.6baa4a7e1404.json",
   "note": "Produced once; audit needs-repair; repair preserved, no re-production."
  },
- "refreshedAt": "2026-10-27T00:58:00.000Z",
+ "refreshedAt": "2026-10-27T09:40:00.000Z",
  "byOrigin": {
   "COAC-248 old PDF 12": 5,
   "COAC-247 new PDF return": 3,
@@ -1511,5 +1580,19 @@
   "path": ".multica/delivery/coac-248-native-inline-correction/metadata-evidence-inventory-20261027.json",
   "finding": "Pages 1/2/3/317 stay unresolved-evidence. Every failing item is microprint inside a 272-416 px embedded cover bitmap (~300 dpi native); no local source can resolve it, and none of the missing text carries the body argument. p317 b5 is a separate, proven translation defect; correcting it is authorised and queued because the exact-field route cannot rewrite the figure unknowns array.",
   "bodyTextImpact": "none of the missing microprint is cited by any paragraph on those pages"
+ },
+ "latestRound": {
+  "at": "2026-10-27T09:40:00.000Z",
+  "objects": [
+   "79-cn:page:50",
+   "nemata-jp:page:261"
+  ],
+  "productionModelCalls": 0,
+  "auditModelCalls": 1,
+  "adjudicationModelCalls": 2,
+  "runtime": "audit/runtimes/native-repair-d0782d5041cfb2",
+  "auditorScriptSha256": "d0782d5041cfb26f2ee2d25a30167da303e25e834750a33c9dde14465c512cb1",
+  "manifestSha256": "03052928bac4af79b7db51c9cb4cf260f2b8276e2ddbc08dd9c6643321c00258",
+  "note": "p261 r50 not changed; independent adjudication agreed with the source check. p50 only the unknowns entry changed; independent adjudication confirmed the mark is a non-body crop fragment."
  }
 }
