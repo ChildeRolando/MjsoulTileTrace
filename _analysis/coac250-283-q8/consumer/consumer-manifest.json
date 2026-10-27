@@ -1,0 +1,24 @@
+{
+  "files": [
+    {
+      "path": "prepare_q8.py",
+      "sha256": "7e89bceb39d4f4e0af180de47f302e2285b6d6138ad88df0c0f137a86798d3bd"
+    },
+    {
+      "path": "review-q8.mjs",
+      "sha256": "88f62789b18acd8ac7aa8699ced821adff54f5ca66929ec2ef2f894b08e4c147"
+    },
+    {
+      "path": "request-q8.json",
+      "sha256": "3ffef0bbdb8b54edf452e0c307fc58c1a08a24361fb739ff73ef953c7eb0de67"
+    },
+    {
+      "path": "preflight-q8.json",
+      "sha256": "d9614d1aa2bb3a856b3ea3095d79a780e6e1284859640b4ffd21bb12dd79d795"
+    }
+  ],
+  "schema": "coac249-q8-consumer-freeze/1",
+  "retry": 0,
+  "newCallsMaximum": 1,
+  "authorizationComment": "01a17f14-8f65-75b5-a22a-ce09fa39569c"
+}

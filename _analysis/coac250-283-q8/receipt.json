@@ -1,0 +1,763 @@
+{
+  "schema": "coac249-independent-q8-source-supplement/1",
+  "method": "independent-full-q8-source-scene-review",
+  "status": "passed-for-target-q8",
+  "chapterId": "nemata-jp-chapter-283-1",
+  "chapterAccepted": false,
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev1.json",
+    "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+    "bytes": 2169759
+  },
+  "currentQ8IdenticalCandidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0168r1.json",
+    "sha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter06-exercise003\\source.v3.json",
+    "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+    "bytes": 1998292
+  },
+  "originalAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+    "sha256": "749e242c54019cb6b855a03e6df4fe465bed86e1cf50d7869be548a3b0144d40",
+    "bytes": 1690739
+  },
+  "call": {
+    "callId": "a5187359-48f0-48b6-9527-210a251efae4",
+    "scope": "textbook-web-q8-external-scene-supplement",
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter06-exercise003",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "success": true,
+    "usage": {
+      "inputTokens": 45600,
+      "cachedInputTokens": 0,
+      "outputTokens": 26403
+    },
+    "durationMs": 310938,
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-terra-max-v1-20261027",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "callerRequested": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-terra",
+        "--config",
+        "model_reasoning_effort=\"max\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-MfITwS\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-MfITwS\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-MfITwS",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\6a4318558f4be89ec3319f3c50e3f074e0736ea485953c23a1d52676b9438594.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\2795660de462ca33ac391fce0a672cad3a1346a9e0666eacb170858b3c0e4c4b.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\b4c1b2c00f52bba7061a658f91eb252d5399d3d2e49b943eec997764ef1a976b.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\ee8d103822c0811a18107b3d4362c7fe5cfb4c302df5fd25a6b5e9fa073dc7d4.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\74a2d4d27adc2b5e61d65cb4a8e229e307a54e18465f116f52f785188f34ed17.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\1766b8a6690e9af20c24d76a1973632cfd9ee935d03544b89da9ba345e17727a.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\f38d614043d2fde1595329cbdd4c90815ab4fda83d84d21db34f5bf406e93a27.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\7f591513750e0a0f6eca7e5efce42cd6415b99bc6378b396241f669e5120811c.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\346bb333657eca75927ac24ce75b4b6f27b467ad252457a34f8cdcd890f7f6b6.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\6720a061ff6942a14624235a8b3ae4084307fbd723821cb6aa19f69ce8a3a325.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\e5f873212057ca626b02116936b06a74e16f224340b1a98bc12b35c19d63f95b.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\04fbb9d86fb607b0bf95a29422c32da0a5bf427ed6ed05a674470fa15cfa281b.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\1dc342b718affed37b1ea24e68ac8d239bd702afbd5534502f0c4318b9c55960.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\nanikiru0703.original.jpg",
+        "-i",
+        "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-8cff6bdc3d3e\\worktree\\artifacts\\a249-q8-236\\scene-x4-nearest.png",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\6a4318558f4be89ec3319f3c50e3f074e0736ea485953c23a1d52676b9438594.png",
+          "sha256": "6a4318558f4be89ec3319f3c50e3f074e0736ea485953c23a1d52676b9438594",
+          "bytes": 653
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\2795660de462ca33ac391fce0a672cad3a1346a9e0666eacb170858b3c0e4c4b.png",
+          "sha256": "2795660de462ca33ac391fce0a672cad3a1346a9e0666eacb170858b3c0e4c4b",
+          "bytes": 678
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\b4c1b2c00f52bba7061a658f91eb252d5399d3d2e49b943eec997764ef1a976b.png",
+          "sha256": "b4c1b2c00f52bba7061a658f91eb252d5399d3d2e49b943eec997764ef1a976b",
+          "bytes": 689
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\ee8d103822c0811a18107b3d4362c7fe5cfb4c302df5fd25a6b5e9fa073dc7d4.png",
+          "sha256": "ee8d103822c0811a18107b3d4362c7fe5cfb4c302df5fd25a6b5e9fa073dc7d4",
+          "bytes": 616
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\74a2d4d27adc2b5e61d65cb4a8e229e307a54e18465f116f52f785188f34ed17.png",
+          "sha256": "74a2d4d27adc2b5e61d65cb4a8e229e307a54e18465f116f52f785188f34ed17",
+          "bytes": 682
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\1766b8a6690e9af20c24d76a1973632cfd9ee935d03544b89da9ba345e17727a.png",
+          "sha256": "1766b8a6690e9af20c24d76a1973632cfd9ee935d03544b89da9ba345e17727a",
+          "bytes": 508
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\f38d614043d2fde1595329cbdd4c90815ab4fda83d84d21db34f5bf406e93a27.png",
+          "sha256": "f38d614043d2fde1595329cbdd4c90815ab4fda83d84d21db34f5bf406e93a27",
+          "bytes": 593
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\7f591513750e0a0f6eca7e5efce42cd6415b99bc6378b396241f669e5120811c.png",
+          "sha256": "7f591513750e0a0f6eca7e5efce42cd6415b99bc6378b396241f669e5120811c",
+          "bytes": 641
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\346bb333657eca75927ac24ce75b4b6f27b467ad252457a34f8cdcd890f7f6b6.png",
+          "sha256": "346bb333657eca75927ac24ce75b4b6f27b467ad252457a34f8cdcd890f7f6b6",
+          "bytes": 787
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\6720a061ff6942a14624235a8b3ae4084307fbd723821cb6aa19f69ce8a3a325.png",
+          "sha256": "6720a061ff6942a14624235a8b3ae4084307fbd723821cb6aa19f69ce8a3a325",
+          "bytes": 505
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\e5f873212057ca626b02116936b06a74e16f224340b1a98bc12b35c19d63f95b.png",
+          "sha256": "e5f873212057ca626b02116936b06a74e16f224340b1a98bc12b35c19d63f95b",
+          "bytes": 520
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\04fbb9d86fb607b0bf95a29422c32da0a5bf427ed6ed05a674470fa15cfa281b.png",
+          "sha256": "04fbb9d86fb607b0bf95a29422c32da0a5bf427ed6ed05a674470fa15cfa281b",
+          "bytes": 343
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\q8-assets\\1dc342b718affed37b1ea24e68ac8d239bd702afbd5534502f0c4318b9c55960.png",
+          "sha256": "1dc342b718affed37b1ea24e68ac8d239bd702afbd5534502f0c4318b9c55960",
+          "bytes": 507
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\nanikiru0703.original.jpg",
+          "sha256": "a3bdb2bc66153cb38a43608f9665b9c281cb918d4029dc555ffee6b74c1c25e6",
+          "bytes": 246632
+        },
+        {
+          "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-8cff6bdc3d3e\\worktree\\artifacts\\a249-q8-236\\scene-x4-nearest.png",
+          "sha256": "cf2e4013a1bd3356aee4a0a93967c1b57ce2c9094a5c8b895eb94a5342e1d92c",
+          "bytes": 572398
+        }
+      ],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "binding": {
+      "productionSha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+      "sourceFileSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+      "originalAuditSha256": "749e242c54019cb6b855a03e6df4fe465bed86e1cf50d7869be548a3b0144d40",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+      "authorizationComment": "01a17f14-8f65-75b5-a22a-ce09fa39569c",
+      "requestSha256": "3ffef0bbdb8b54edf452e0c307fc58c1a08a24361fb739ff73ef953c7eb0de67",
+      "runtimeManifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6",
+      "consumerManifestSha256": "df366aab26a765f08a968769e48e19cd9973a72f804a231736c22372683f6925"
+    },
+    "recordedAt": "2026-10-27T21:10:38.094Z"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\a5187359-48f0-48b6-9527-210a251efae4.json",
+    "sha256": "4ce48a9d6721425f9dd53a9abf17204ca02f6d74f35108fe00e00547640d4437"
+  },
+  "request": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-q8-source-20261028\\request.json",
+    "sha256": "3ffef0bbdb8b54edf452e0c307fc58c1a08a24361fb739ff73ef953c7eb0de67",
+    "promptSha256": "a54cf773e668aca3ada712252edc6014e03bc5895bb529d73d7f00a0e81359b7"
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-terra-max-v1-20261027",
+    "manifestSha256": "12a058d48014dbe52b3bdd8257282e159754047861be5e8fc1489d06a4e3d7c6"
+  },
+  "checks": {
+    "configOkay": true,
+    "actualPromptOkay": true,
+    "unchanged": true,
+    "transport": true,
+    "complete": true,
+    "valid": true
+  },
+  "modelReview": {
+    "correspondence": {
+      "status": "confirmed",
+      "evidence": "仅核对Q8的b0093—b0113：题号链接指向“何切る？８”，该页又指向题干所列联盟2007年3月场况页。原文和候选均为东3局1本场北家；JPEG左下局数与之相符。原文内联手牌为33455m 445p 233s 78s、摸8s；JPEG底部是同一组牌，排序为33455m 233s 78s 445p，另摸8s。图中右侧东家有吃8m的公开副露，牌河可见5m；与原文第6巡吃8m及联盟页面所述第6巡吃后切5m相符。静态图本身不能独立证明事件发生的巡目。",
+      "archiveCaptureLimitation": "联盟页面HTML存档于2007-03-20，JPEG存档于2007-10-16，不能假定二者版本相同；页面声明图像显示尺寸640×447，所供JPEG为640×442。HTML关于白色牌面为手出、暗色为摸切的说明用于解释图中明暗，但不能证明这条图例在JPEG抓取时仍属于同一版本。4倍最近邻图仅放大既有像素。"
+    },
+    "seats": [
+      {
+        "seat": "E",
+        "score": {
+          "value": "35400",
+          "status": "readable",
+          "evidence": "右侧分数框清楚显示35,400。",
+          "coordinates": "原JPEG x=[583,634), y=[121,136)",
+          "teachingImpact": "东家与南、北家的分数接近。"
+        },
+        "melds": [
+          {
+            "value": "吃入8m；该牌相对于同组另两张横置",
+            "status": "readable",
+            "evidence": "右上公开牌组中可见被横置的八万；题干称东家第6巡吃8m，静态图支持牌组对应，但不单独证明巡目。",
+            "coordinates": "原JPEG x=[465,491), y=[69,110)",
+            "teachingImpact": "支持题干所述庄家副露；被吃牌只在副露中计数一次。"
+          },
+          {
+            "value": "同一吃牌中的另外两张万子，具体数字unknown",
+            "status": "unknown",
+            "evidence": "两张牌可见红色万字，但原始像素不足以可靠辨清数字；不能根据吃牌规则补出。",
+            "coordinates": "原JPEG x=[454,491), y=[31,69)",
+            "teachingImpact": "不能据此重建完整顺子；可确认它们不增加1s或2s的可见数。"
+          }
+        ],
+        "discards": [
+          {
+            "value": "7z；白色",
+            "status": "readable",
+            "evidence": "牌面为中；白色按存档图例对应手出。",
+            "coordinates": "原JPEG x=[329,365), y=[245,264)",
+            "teachingImpact": "构成东家牌河记录。"
+          },
+          {
+            "value": "2s；白色",
+            "status": "readable",
+            "evidence": "横向牌面可辨二索。",
+            "coordinates": "原JPEG x=[329,365), y=[225,245)",
+            "teachingImpact": "计入2s弃牌1张。"
+          },
+          {
+            "value": "2m；白色",
+            "status": "readable",
+            "evidence": "横向牌面可辨二万。",
+            "coordinates": "原JPEG x=[329,365), y=[206,225)",
+            "teachingImpact": "构成东家牌河记录。"
+          },
+          {
+            "value": "1s；暗色",
+            "status": "readable",
+            "evidence": "鸟形一索可辨；暗色按存档图例对应摸切。",
+            "coordinates": "原JPEG x=[329,365), y=[187,206)",
+            "teachingImpact": "计入1s弃牌1张。"
+          },
+          {
+            "value": "筒子，点数unknown；暗色标识unknown",
+            "status": "unknown",
+            "evidence": "可见横向筒子图案，但圈数和明暗不足以可靠判定。",
+            "coordinates": "原JPEG x=[329,365), y=[168,187)",
+            "teachingImpact": "该牌不影响1s、2s计数，不能据此推断具体筒子安全牌。"
+          },
+          {
+            "value": "5m；白色",
+            "status": "readable",
+            "evidence": "第一列最上方可辨五万；与联盟页面所称吃后切五万相符。",
+            "coordinates": "原JPEG x=[329,365), y=[149,168)",
+            "teachingImpact": "支持副露事件对应，但静态图不独立证明第6巡。"
+          },
+          {
+            "value": "1s；暗色",
+            "status": "readable",
+            "evidence": "第二列下方可辨鸟形一索，牌面较暗。",
+            "coordinates": "原JPEG x=[365,401), y=[245,264)",
+            "teachingImpact": "计入另一张1s弃牌。"
+          },
+          {
+            "value": "5p；暗色",
+            "status": "readable",
+            "evidence": "第二列可辨四角与中央的五筒图案，牌面较暗。",
+            "coordinates": "原JPEG x=[365,401), y=[225,245)",
+            "teachingImpact": "构成东家牌河记录。"
+          },
+          {
+            "value": "多根索子，具体点数unknown；暗色",
+            "status": "unknown",
+            "evidence": "牌面可辨多根索子，具体数码无法可靠点清；牌面较暗。",
+            "coordinates": "原JPEG x=[365,401), y=[206,225)",
+            "teachingImpact": "不能用于确定具体索子安全牌；图案不是1s或2s。"
+          },
+          {
+            "value": "3p；暗色",
+            "status": "readable",
+            "evidence": "可辨三枚斜列筒子，牌面较暗。",
+            "coordinates": "原JPEG x=[365,401), y=[187,206)",
+            "teachingImpact": "构成东家牌河记录。"
+          }
+        ],
+        "completeness": "已检查右侧两列共10张现存弃牌及右上唯一公开牌组。右侧弃牌在画面中横向是该座位的通常朝向，未能确认另有单独横置的弃牌。部分牌面及明暗保留unknown。"
+      },
+      {
+        "seat": "S",
+        "score": {
+          "value": "37300",
+          "status": "readable",
+          "evidence": "上方分数框清楚显示37,300。",
+          "coordinates": "原JPEG x=[551,600), y=[72,87)",
+          "teachingImpact": "与东、北家分数接近。"
+        },
+        "melds": [
+          {
+            "value": "未见公开副露",
+            "status": "readable",
+            "evidence": "上方座位可见背面手牌；未见该座位的公开牌组。",
+            "coordinates": "原JPEG x=[89,432), y=[18,61)",
+            "teachingImpact": "不向1s或2s公开副露计数添加牌。"
+          }
+        ],
+        "discards": [
+          {
+            "value": "7z；白色",
+            "status": "readable",
+            "evidence": "靠右牌面为中。",
+            "coordinates": "原JPEG x=[301,327), y=[121,160)",
+            "teachingImpact": "构成南家牌河记录。"
+          },
+          {
+            "value": "6z；白色",
+            "status": "readable",
+            "evidence": "可辨绿色发。",
+            "coordinates": "原JPEG x=[274,301), y=[121,160)",
+            "teachingImpact": "构成南家牌河记录。"
+          },
+          {
+            "value": "3z；白色",
+            "status": "readable",
+            "evidence": "倒置牌面可辨西。",
+            "coordinates": "原JPEG x=[248,274), y=[121,160)",
+            "teachingImpact": "构成南家牌河记录。"
+          },
+          {
+            "value": "5z；白色",
+            "status": "readable",
+            "evidence": "白板牌面为空白，牌体可见。",
+            "coordinates": "原JPEG x=[222,248), y=[121,160)",
+            "teachingImpact": "构成南家牌河记录。"
+          },
+          {
+            "value": "1s；白色",
+            "status": "readable",
+            "evidence": "倒置鸟形一索可辨。",
+            "coordinates": "原JPEG x=[196,222), y=[121,160)",
+            "teachingImpact": "计入1s弃牌1张。"
+          },
+          {
+            "value": "6z；白色",
+            "status": "readable",
+            "evidence": "最左牌面可辨绿色发。",
+            "coordinates": "原JPEG x=[169,196), y=[121,160)",
+            "teachingImpact": "构成南家牌河记录。"
+          },
+          {
+            "value": "9p；暗色",
+            "status": "readable",
+            "evidence": "上排右侧可辨九筒三行图案，牌面较暗。",
+            "coordinates": "原JPEG x=[301,327), y=[96,121)",
+            "teachingImpact": "构成南家牌河记录。"
+          },
+          {
+            "value": "2s；暗色",
+            "status": "readable",
+            "evidence": "上排可辨二索，牌面较暗。",
+            "coordinates": "原JPEG x=[274,301), y=[96,121)",
+            "teachingImpact": "计入2s弃牌1张。"
+          },
+          {
+            "value": "1p；白色",
+            "status": "readable",
+            "evidence": "上排单个筒子图案清楚。",
+            "coordinates": "原JPEG x=[248,274), y=[96,121)",
+            "teachingImpact": "构成南家牌河记录。"
+          },
+          {
+            "value": "1z；白色",
+            "status": "readable",
+            "evidence": "上排可辨倒置的东。",
+            "coordinates": "原JPEG x=[222,248), y=[96,121)",
+            "teachingImpact": "构成南家牌河记录。"
+          }
+        ],
+        "completeness": "已检查上方两排共10张现存弃牌；牌面整体倒置是南家通常朝向，未确认额外横置弃牌。白色和暗色的手出、摸切解释以异时抓取的HTML图例为条件。"
+      },
+      {
+        "seat": "W",
+        "score": {
+          "value": "14000",
+          "status": "readable",
+          "evidence": "左侧分数框清楚显示14,000。",
+          "coordinates": "原JPEG x=[520,566), y=[121,136)",
+          "teachingImpact": "西家比其余三家明显落后，支持题干的点差描述。"
+        },
+        "melds": [
+          {
+            "value": "未见公开副露",
+            "status": "readable",
+            "evidence": "左侧可见背面手牌，未见该座位公开牌组。",
+            "coordinates": "原JPEG x=[8,34), y=[64,339)",
+            "teachingImpact": "不向1s或2s公开副露计数添加牌。"
+          }
+        ],
+        "discards": [
+          {
+            "value": "1p；明暗unknown",
+            "status": "readable",
+            "evidence": "靠内列上方可辨一筒；明暗不能可靠区分。",
+            "coordinates": "原JPEG x=[131,168), y=[149,168)",
+            "teachingImpact": "构成西家牌河记录。"
+          },
+          {
+            "value": "2m；明暗unknown",
+            "status": "readable",
+            "evidence": "可辨二万；明暗不能可靠区分。",
+            "coordinates": "原JPEG x=[131,168), y=[168,187)",
+            "teachingImpact": "构成西家牌河记录。"
+          },
+          {
+            "value": "筒子，点数unknown；明暗unknown",
+            "status": "unknown",
+            "evidence": "可见筒子图案，但圈数及明暗不能可靠判定。",
+            "coordinates": "原JPEG x=[131,168), y=[187,206)",
+            "teachingImpact": "不能据此确定具体筒子安全牌；不影响1s、2s计数。"
+          },
+          {
+            "value": "3m；明暗unknown",
+            "status": "readable",
+            "evidence": "可辨三万；明暗不能可靠区分。",
+            "coordinates": "原JPEG x=[131,168), y=[206,225)",
+            "teachingImpact": "构成西家牌河记录。"
+          },
+          {
+            "value": "万子，数字unknown；明暗unknown",
+            "status": "unknown",
+            "evidence": "可辨万字，数字和明暗不足以可靠判定。",
+            "coordinates": "原JPEG x=[131,168), y=[225,245)",
+            "teachingImpact": "不能确定该万子的安全牌信息；不影响1s、2s计数。"
+          },
+          {
+            "value": "8m；明暗unknown",
+            "status": "readable",
+            "evidence": "靠内列下方可辨八万；明暗不能可靠区分。",
+            "coordinates": "原JPEG x=[131,168), y=[245,264)",
+            "teachingImpact": "构成西家牌河记录。"
+          },
+          {
+            "value": "8m；明暗unknown",
+            "status": "readable",
+            "evidence": "靠外列上方可辨八万；明暗不能可靠区分。",
+            "coordinates": "原JPEG x=[94,131), y=[149,168)",
+            "teachingImpact": "构成西家牌河记录。"
+          },
+          {
+            "value": "4m；明暗unknown",
+            "status": "readable",
+            "evidence": "可辨四万；明暗不能可靠区分。",
+            "coordinates": "原JPEG x=[94,131), y=[168,187)",
+            "teachingImpact": "构成西家牌河记录。"
+          },
+          {
+            "value": "5s；白色",
+            "status": "readable",
+            "evidence": "横向五索图案及较亮牌面可辨。",
+            "coordinates": "原JPEG x=[94,131), y=[187,206)",
+            "teachingImpact": "支持链接解说关注上家5s手出的场况描述，手出含义仍受异时图例限制。"
+          },
+          {
+            "value": "1m；明暗unknown",
+            "status": "readable",
+            "evidence": "可辨一万；明暗不能可靠区分。",
+            "coordinates": "原JPEG x=[94,131), y=[206,225)",
+            "teachingImpact": "构成西家牌河记录。"
+          }
+        ],
+        "completeness": "已检查左侧两列共10张现存弃牌。横向为该座位的通常朝向；未确认额外横置弃牌。多个具体数码或明暗标识因像素限制保留unknown。"
+      },
+      {
+        "seat": "N",
+        "score": {
+          "value": "33300",
+          "status": "readable",
+          "evidence": "下方分数框清楚显示33,300。",
+          "coordinates": "原JPEG x=[551,601), y=[170,186)",
+          "teachingImpact": "与东、南家相近；西家与北家相差19,300点。"
+        },
+        "melds": [
+          {
+            "value": "未见公开副露",
+            "status": "readable",
+            "evidence": "底部为可见手牌及单独摸牌，未见北家公开牌组。",
+            "coordinates": "原JPEG x=[67,474), y=[365,414)",
+            "teachingImpact": "不向1s或2s公开副露计数添加牌。"
+          }
+        ],
+        "discards": [
+          {
+            "value": "6z；白色",
+            "status": "readable",
+            "evidence": "可辨绿色发。",
+            "coordinates": "原JPEG x=[169,196), y=[269,294)",
+            "teachingImpact": "构成北家牌河记录。"
+          },
+          {
+            "value": "1p；白色",
+            "status": "readable",
+            "evidence": "单个筒子图案清楚。",
+            "coordinates": "原JPEG x=[196,222), y=[269,294)",
+            "teachingImpact": "构成北家牌河记录。"
+          },
+          {
+            "value": "9p；明暗unknown",
+            "status": "readable",
+            "evidence": "可辨九筒三行图案；明暗不能可靠区分。",
+            "coordinates": "原JPEG x=[222,248), y=[269,294)",
+            "teachingImpact": "构成北家牌河记录。"
+          },
+          {
+            "value": "3z；暗色",
+            "status": "readable",
+            "evidence": "可辨西，牌面较暗。",
+            "coordinates": "原JPEG x=[248,274), y=[269,294)",
+            "teachingImpact": "构成北家牌河记录。"
+          },
+          {
+            "value": "9m；暗色",
+            "status": "readable",
+            "evidence": "可辨九万，牌面较暗。",
+            "coordinates": "原JPEG x=[274,301), y=[269,294)",
+            "teachingImpact": "构成北家牌河记录。"
+          },
+          {
+            "value": "5z；暗色",
+            "status": "readable",
+            "evidence": "可见空白白板牌面和牌体，牌面较暗。",
+            "coordinates": "原JPEG x=[301,327), y=[269,294)",
+            "teachingImpact": "构成北家牌河记录。"
+          },
+          {
+            "value": "1m；白色",
+            "status": "readable",
+            "evidence": "第二排可辨一万。",
+            "coordinates": "原JPEG x=[169,196), y=[294,333)",
+            "teachingImpact": "构成北家牌河记录。"
+          },
+          {
+            "value": "1z；暗色",
+            "status": "readable",
+            "evidence": "第二排可辨东，牌面较暗。",
+            "coordinates": "原JPEG x=[196,222), y=[294,333)",
+            "teachingImpact": "构成北家牌河记录。"
+          }
+        ],
+        "completeness": "已检查底部牌河现存8张弃牌；未确认额外横置弃牌。北家手牌及摸牌另在对应关系和1s/2s计数中记录，不计入牌河。"
+      }
+    ],
+    "tileVisibility": [
+      {
+        "tile": "1s",
+        "discardCount": {
+          "value": "3",
+          "status": "readable",
+          "evidence": "东家两张鸟形一索，南家一张鸟形一索；西、北现存牌河未见一索。",
+          "coordinates": "原JPEG东家 x=[329,365), y=[187,206)；x=[365,401), y=[245,264)；南家 x=[196,222), y=[121,160)",
+          "teachingImpact": "三张弃牌已见，支持原文“一索薄”的依据。"
+        },
+        "ownHandCount": {
+          "value": "0",
+          "status": "readable",
+          "evidence": "底部13张手牌及单独摸入的8s中均无鸟形一索；与原文内联牌一致。",
+          "coordinates": "原JPEG x=[67,474), y=[365,414)",
+          "teachingImpact": "自家手牌不增加1s可见数。"
+        },
+        "exposedMeldCount": {
+          "value": "0",
+          "status": "readable",
+          "evidence": "唯一可见公开牌组为万子吃牌；另两张数字虽未知，牌面仍可辨为万子。",
+          "coordinates": "原JPEG x=[454,491), y=[31,110)",
+          "teachingImpact": "公开副露不增加1s可见数。"
+        },
+        "totalVisible": {
+          "value": "3",
+          "status": "readable",
+          "evidence": "牌河3、自家0、副露0；另有1张未见。",
+          "coordinates": "以上三处1s弃牌位置",
+          "teachingImpact": "未见的1张可能在其他隐藏位置，不能断言仍在可摸牌山。"
+        },
+        "countingScope": "只计JPEG中现存牌河、自家可见手牌和公开副露；不计他家隐藏手牌，也不把被吃走的牌同时计入牌河和副露。宝牌指示牌为东，不增加1s。"
+      },
+      {
+        "tile": "2s",
+        "discardCount": {
+          "value": "2",
+          "status": "readable",
+          "evidence": "东家一张、南家一张；西、北现存牌河未见二索。",
+          "coordinates": "原JPEG东家 x=[329,365), y=[225,245)；南家 x=[274,301), y=[96,121)",
+          "teachingImpact": "已有两张二索弃牌。"
+        },
+        "ownHandCount": {
+          "value": "1",
+          "status": "readable",
+          "evidence": "底部手牌中的二索与原文内联二索相符；单独摸牌为8s。",
+          "coordinates": "原JPEG x=[210,239), y=[365,414)",
+          "teachingImpact": "切牌决策前，自家这张也必须计入可见数。"
+        },
+        "exposedMeldCount": {
+          "value": "0",
+          "status": "readable",
+          "evidence": "唯一可见公开牌组为万子吃牌，不含二索。",
+          "coordinates": "原JPEG x=[454,491), y=[31,110)",
+          "teachingImpact": "公开副露不增加2s可见数。"
+        },
+        "totalVisible": {
+          "value": "3",
+          "status": "readable",
+          "evidence": "牌河2、自家1、副露0；另有1张未见。",
+          "coordinates": "上述两处弃牌及底部手牌二索",
+          "teachingImpact": "支持原文“二索薄”的依据；未见一张的位置不明。"
+        },
+        "countingScope": "按切牌前状态计算：自家待切二索仍在手中，不能同时算作弃牌；不计隐藏手牌，不重复计被副露的弃牌。"
+      }
+    ],
+    "q8Argument": {
+      "verdict": "faithful",
+      "evidence": "b0093—b0113的中文、内联牌和原文相符：切2s、取七对子一向听；1s和2s薄；基本无视庄家副露及他家出牌；只在摸入宝牌南时固定七对子。切2s前已有3m、5m、4p、3s、8s五组对子。JPEG分别可见1s三张、2s三张，其中2s有一张在自家手中，支持“薄”的场况依据；中央指示牌可辨东，与南为宝牌相符。西家14,000，其余三家33,300—37,300，也支持点差文字。链接解说可辅助对应题目，但其防守判断不替代JPEG读取。",
+      "remainingProblem": "JPEG不能独立证明吃牌恰在第6巡；异时存档也不能证明HTML图例与JPEG必为同版。部分万子数字、筒子点数及明暗仍未知。链接解说对2s是否为上家现物存在内部矛盾，不能把该说法作为Q8候选的无条件场况证据。上述限制不改变已核对的Q8译文和1s、2s可见数。"
+    },
+    "fieldsStillUnknown": [
+      {
+        "value": "东家吃牌中除8m外的两张万子的具体数字",
+        "status": "unknown",
+        "evidence": "可辨万字，但数码不足以可靠辨认。",
+        "coordinates": "原JPEG x=[454,491), y=[31,69)",
+        "teachingImpact": "无法完整转写顺子；不影响1s和2s的副露计数。"
+      },
+      {
+        "value": "东、西牌河中各一张筒子的点数，以及东家第二列一张多根索子的点数",
+        "status": "unknown",
+        "evidence": "原始像素不能可靠数清图案；4倍最近邻不产生新细节。",
+        "coordinates": "原JPEG东家 x=[329,365), y=[168,187)及x=[365,401), y=[206,225)；西家 x=[131,168), y=[187,206)",
+        "teachingImpact": "不能用这些牌确定具体安全牌；已辨类别和图案不增加1s或2s。"
+      },
+      {
+        "value": "西家一张万子的数字及若干弃牌的明暗标识",
+        "status": "unknown",
+        "evidence": "数字或灰度不足以可靠判定；各弃牌条目已注明明暗unknown。",
+        "coordinates": "原JPEG西家数字unknown：x=[131,168), y=[225,245)；其余明暗范围见各座位牌河条目。",
+        "teachingImpact": "不能完整还原这些牌的手出、摸切信息。"
+      },
+      {
+        "value": "链接解说中2s对上家是否为现物",
+        "status": "source-conflict",
+        "evidence": "同一解说先称2s可能打中“カミチャ”，后又称2s是“カミチャ、トイメンの現物”。JPEG中的两张2s弃牌位于东家和南家，未在西家现存牌河见到2s。解说与JPEG可能并非同一版本，不能据此选择其中一句作为确定事实。",
+        "coordinates": "原JPEG东家 x=[329,365), y=[225,245)；南家 x=[274,301), y=[96,121)；西家牌河 x=[94,168), y=[149,264)",
+        "teachingImpact": "不能依该解说断定对上家的安全性；Q8教材的“1s、2s薄”仍有独立图像计数支持。"
+      }
+    ],
+    "resolution": "supported",
+    "completeTargetScopeCompared": true,
+    "summary": "Q8候选的原缺外链场况所致uncertain可以解除：题目、手牌、摸牌、点差、副露及关键可见数与所供场况对应，译文忠实。结论仅限Q8；个别牌面与标识仍为unknown，链接解说的2s上家现物说法另有冲突，且HTML和JPEG抓取时间不同。"
+  },
+  "newCalls": 1,
+  "retry": 0,
+  "remaining": 0,
+  "fee": null,
+  "remoteWeights": "unknown",
+  "recordedAt": "2026-10-27T21:10:38.106Z"
+}

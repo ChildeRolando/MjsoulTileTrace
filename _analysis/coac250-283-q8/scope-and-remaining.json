@@ -1,0 +1,678 @@
+{
+  "chapterId": "nemata-jp-chapter-283-1",
+  "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+  "status": "passed-for-target-q8",
+  "chapterAccepted": false,
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev1.json",
+    "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+    "bytes": 2169759
+  },
+  "identicalQ8Reuse": {
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0168r1.json",
+      "sha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f"
+    },
+    "blocks": 21,
+    "figures": 7,
+    "objectsExact": true,
+    "entireCandidateAccepted": false
+  },
+  "closedOriginalIssue": [
+    {
+      "severity": "uncertain",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+      "sourceEvidence": "第8题以「場況↓」指向「2007年03月の『何を切る？』」外链；后文依据「一索・二索が薄い」作出选择，并提到东家第6巡吃八万。",
+      "description": "外链及相关文字翻译忠实，但实际场况未在本组展开。无法从已提供的内联牌面确认一索、二索的可见张数、完整副露组合及各家具体点数，因此第8题完整教学场况的核验受阻；这不是已确认的候选漏译。",
+      "suggestedRepair": "补充该引用场况的原始图或完整文字转录后复核；在补齐前明确标注场况核验未完成，不推定牌河、副露组合、点数或他家隐手。"
+    }
+  ],
+  "sourceFindings": {
+    "correspondence": {
+      "status": "confirmed",
+      "evidence": "仅核对Q8的b0093—b0113：题号链接指向“何切る？８”，该页又指向题干所列联盟2007年3月场况页。原文和候选均为东3局1本场北家；JPEG左下局数与之相符。原文内联手牌为33455m 445p 233s 78s、摸8s；JPEG底部是同一组牌，排序为33455m 233s 78s 445p，另摸8s。图中右侧东家有吃8m的公开副露，牌河可见5m；与原文第6巡吃8m及联盟页面所述第6巡吃后切5m相符。静态图本身不能独立证明事件发生的巡目。",
+      "archiveCaptureLimitation": "联盟页面HTML存档于2007-03-20，JPEG存档于2007-10-16，不能假定二者版本相同；页面声明图像显示尺寸640×447，所供JPEG为640×442。HTML关于白色牌面为手出、暗色为摸切的说明用于解释图中明暗，但不能证明这条图例在JPEG抓取时仍属于同一版本。4倍最近邻图仅放大既有像素。"
+    },
+    "seats": [
+      {
+        "seat": "E",
+        "score": {
+          "value": "35400",
+          "status": "readable",
+          "evidence": "右侧分数框清楚显示35,400。",
+          "coordinates": "原JPEG x=[583,634), y=[121,136)",
+          "teachingImpact": "东家与南、北家的分数接近。"
+        },
+        "melds": [
+          {
+            "value": "吃入8m；该牌相对于同组另两张横置",
+            "status": "readable",
+            "evidence": "右上公开牌组中可见被横置的八万；题干称东家第6巡吃8m，静态图支持牌组对应，但不单独证明巡目。",
+            "coordinates": "原JPEG x=[465,491), y=[69,110)",
+            "teachingImpact": "支持题干所述庄家副露；被吃牌只在副露中计数一次。"
+          },
+          {
+            "value": "同一吃牌中的另外两张万子，具体数字unknown",
+            "status": "unknown",
+            "evidence": "两张牌可见红色万字，但原始像素不足以可靠辨清数字；不能根据吃牌规则补出。",
+            "coordinates": "原JPEG x=[454,491), y=[31,69)",
+            "teachingImpact": "不能据此重建完整顺子；可确认它们不增加1s或2s的可见数。"
+          }
+        ],
+        "discards": [
+          {
+            "value": "7z；白色",
+            "status": "readable",
+            "evidence": "牌面为中；白色按存档图例对应手出。",
+            "coordinates": "原JPEG x=[329,365), y=[245,264)",
+            "teachingImpact": "构成东家牌河记录。"
+          },
+          {
+            "value": "2s；白色",
+            "status": "readable",
+            "evidence": "横向牌面可辨二索。",
+            "coordinates": "原JPEG x=[329,365), y=[225,245)",
+            "teachingImpact": "计入2s弃牌1张。"
+          },
+          {
+            "value": "2m；白色",
+            "status": "readable",
+            "evidence": "横向牌面可辨二万。",
+            "coordinates": "原JPEG x=[329,365), y=[206,225)",
+            "teachingImpact": "构成东家牌河记录。"
+          },
+          {
+            "value": "1s；暗色",
+            "status": "readable",
+            "evidence": "鸟形一索可辨；暗色按存档图例对应摸切。",
+            "coordinates": "原JPEG x=[329,365), y=[187,206)",
+            "teachingImpact": "计入1s弃牌1张。"
+          },
+          {
+            "value": "筒子，点数unknown；暗色标识unknown",
+            "status": "unknown",
+            "evidence": "可见横向筒子图案，但圈数和明暗不足以可靠判定。",
+            "coordinates": "原JPEG x=[329,365), y=[168,187)",
+            "teachingImpact": "该牌不影响1s、2s计数，不能据此推断具体筒子安全牌。"
+          },
+          {
+            "value": "5m；白色",
+            "status": "readable",
+            "evidence": "第一列最上方可辨五万；与联盟页面所称吃后切五万相符。",
+            "coordinates": "原JPEG x=[329,365), y=[149,168)",
+            "teachingImpact": "支持副露事件对应，但静态图不独立证明第6巡。"
+          },
+          {
+            "value": "1s；暗色",
+            "status": "readable",
+            "evidence": "第二列下方可辨鸟形一索，牌面较暗。",
+            "coordinates": "原JPEG x=[365,401), y=[245,264)",
+            "teachingImpact": "计入另一张1s弃牌。"
+          },
+          {
+            "value": "5p；暗色",
+            "status": "readable",
+            "evidence": "第二列可辨四角与中央的五筒图案，牌面较暗。",
+            "coordinates": "原JPEG x=[365,401), y=[225,245)",
+            "teachingImpact": "构成东家牌河记录。"
+          },
+          {
+            "value": "多根索子，具体点数unknown；暗色",
+            "status": "unknown",
+            "evidence": "牌面可辨多根索子，具体数码无法可靠点清；牌面较暗。",
+            "coordinates": "原JPEG x=[365,401), y=[206,225)",
+            "teachingImpact": "不能用于确定具体索子安全牌；图案不是1s或2s。"
+          },
+          {
+            "value": "3p；暗色",
+            "status": "readable",
+            "evidence": "可辨三枚斜列筒子，牌面较暗。",
+            "coordinates": "原JPEG x=[365,401), y=[187,206)",
+            "teachingImpact": "构成东家牌河记录。"
+          }
+        ],
+        "completeness": "已检查右侧两列共10张现存弃牌及右上唯一公开牌组。右侧弃牌在画面中横向是该座位的通常朝向，未能确认另有单独横置的弃牌。部分牌面及明暗保留unknown。"
+      },
+      {
+        "seat": "S",
+        "score": {
+          "value": "37300",
+          "status": "readable",
+          "evidence": "上方分数框清楚显示37,300。",
+          "coordinates": "原JPEG x=[551,600), y=[72,87)",
+          "teachingImpact": "与东、北家分数接近。"
+        },
+        "melds": [
+          {
+            "value": "未见公开副露",
+            "status": "readable",
+            "evidence": "上方座位可见背面手牌；未见该座位的公开牌组。",
+            "coordinates": "原JPEG x=[89,432), y=[18,61)",
+            "teachingImpact": "不向1s或2s公开副露计数添加牌。"
+          }
+        ],
+        "discards": [
+          {
+            "value": "7z；白色",
+            "status": "readable",
+            "evidence": "靠右牌面为中。",
+            "coordinates": "原JPEG x=[301,327), y=[121,160)",
+            "teachingImpact": "构成南家牌河记录。"
+          },
+          {
+            "value": "6z；白色",
+            "status": "readable",
+            "evidence": "可辨绿色发。",
+            "coordinates": "原JPEG x=[274,301), y=[121,160)",
+            "teachingImpact": "构成南家牌河记录。"
+          },
+          {
+            "value": "3z；白色",
+            "status": "readable",
+            "evidence": "倒置牌面可辨西。",
+            "coordinates": "原JPEG x=[248,274), y=[121,160)",
+            "teachingImpact": "构成南家牌河记录。"
+          },
+          {
+            "value": "5z；白色",
+            "status": "readable",
+            "evidence": "白板牌面为空白，牌体可见。",
+            "coordinates": "原JPEG x=[222,248), y=[121,160)",
+            "teachingImpact": "构成南家牌河记录。"
+          },
+          {
+            "value": "1s；白色",
+            "status": "readable",
+            "evidence": "倒置鸟形一索可辨。",
+            "coordinates": "原JPEG x=[196,222), y=[121,160)",
+            "teachingImpact": "计入1s弃牌1张。"
+          },
+          {
+            "value": "6z；白色",
+            "status": "readable",
+            "evidence": "最左牌面可辨绿色发。",
+            "coordinates": "原JPEG x=[169,196), y=[121,160)",
+            "teachingImpact": "构成南家牌河记录。"
+          },
+          {
+            "value": "9p；暗色",
+            "status": "readable",
+            "evidence": "上排右侧可辨九筒三行图案，牌面较暗。",
+            "coordinates": "原JPEG x=[301,327), y=[96,121)",
+            "teachingImpact": "构成南家牌河记录。"
+          },
+          {
+            "value": "2s；暗色",
+            "status": "readable",
+            "evidence": "上排可辨二索，牌面较暗。",
+            "coordinates": "原JPEG x=[274,301), y=[96,121)",
+            "teachingImpact": "计入2s弃牌1张。"
+          },
+          {
+            "value": "1p；白色",
+            "status": "readable",
+            "evidence": "上排单个筒子图案清楚。",
+            "coordinates": "原JPEG x=[248,274), y=[96,121)",
+            "teachingImpact": "构成南家牌河记录。"
+          },
+          {
+            "value": "1z；白色",
+            "status": "readable",
+            "evidence": "上排可辨倒置的东。",
+            "coordinates": "原JPEG x=[222,248), y=[96,121)",
+            "teachingImpact": "构成南家牌河记录。"
+          }
+        ],
+        "completeness": "已检查上方两排共10张现存弃牌；牌面整体倒置是南家通常朝向，未确认额外横置弃牌。白色和暗色的手出、摸切解释以异时抓取的HTML图例为条件。"
+      },
+      {
+        "seat": "W",
+        "score": {
+          "value": "14000",
+          "status": "readable",
+          "evidence": "左侧分数框清楚显示14,000。",
+          "coordinates": "原JPEG x=[520,566), y=[121,136)",
+          "teachingImpact": "西家比其余三家明显落后，支持题干的点差描述。"
+        },
+        "melds": [
+          {
+            "value": "未见公开副露",
+            "status": "readable",
+            "evidence": "左侧可见背面手牌，未见该座位公开牌组。",
+            "coordinates": "原JPEG x=[8,34), y=[64,339)",
+            "teachingImpact": "不向1s或2s公开副露计数添加牌。"
+          }
+        ],
+        "discards": [
+          {
+            "value": "1p；明暗unknown",
+            "status": "readable",
+            "evidence": "靠内列上方可辨一筒；明暗不能可靠区分。",
+            "coordinates": "原JPEG x=[131,168), y=[149,168)",
+            "teachingImpact": "构成西家牌河记录。"
+          },
+          {
+            "value": "2m；明暗unknown",
+            "status": "readable",
+            "evidence": "可辨二万；明暗不能可靠区分。",
+            "coordinates": "原JPEG x=[131,168), y=[168,187)",
+            "teachingImpact": "构成西家牌河记录。"
+          },
+          {
+            "value": "筒子，点数unknown；明暗unknown",
+            "status": "unknown",
+            "evidence": "可见筒子图案，但圈数及明暗不能可靠判定。",
+            "coordinates": "原JPEG x=[131,168), y=[187,206)",
+            "teachingImpact": "不能据此确定具体筒子安全牌；不影响1s、2s计数。"
+          },
+          {
+            "value": "3m；明暗unknown",
+            "status": "readable",
+            "evidence": "可辨三万；明暗不能可靠区分。",
+            "coordinates": "原JPEG x=[131,168), y=[206,225)",
+            "teachingImpact": "构成西家牌河记录。"
+          },
+          {
+            "value": "万子，数字unknown；明暗unknown",
+            "status": "unknown",
+            "evidence": "可辨万字，数字和明暗不足以可靠判定。",
+            "coordinates": "原JPEG x=[131,168), y=[225,245)",
+            "teachingImpact": "不能确定该万子的安全牌信息；不影响1s、2s计数。"
+          },
+          {
+            "value": "8m；明暗unknown",
+            "status": "readable",
+            "evidence": "靠内列下方可辨八万；明暗不能可靠区分。",
+            "coordinates": "原JPEG x=[131,168), y=[245,264)",
+            "teachingImpact": "构成西家牌河记录。"
+          },
+          {
+            "value": "8m；明暗unknown",
+            "status": "readable",
+            "evidence": "靠外列上方可辨八万；明暗不能可靠区分。",
+            "coordinates": "原JPEG x=[94,131), y=[149,168)",
+            "teachingImpact": "构成西家牌河记录。"
+          },
+          {
+            "value": "4m；明暗unknown",
+            "status": "readable",
+            "evidence": "可辨四万；明暗不能可靠区分。",
+            "coordinates": "原JPEG x=[94,131), y=[168,187)",
+            "teachingImpact": "构成西家牌河记录。"
+          },
+          {
+            "value": "5s；白色",
+            "status": "readable",
+            "evidence": "横向五索图案及较亮牌面可辨。",
+            "coordinates": "原JPEG x=[94,131), y=[187,206)",
+            "teachingImpact": "支持链接解说关注上家5s手出的场况描述，手出含义仍受异时图例限制。"
+          },
+          {
+            "value": "1m；明暗unknown",
+            "status": "readable",
+            "evidence": "可辨一万；明暗不能可靠区分。",
+            "coordinates": "原JPEG x=[94,131), y=[206,225)",
+            "teachingImpact": "构成西家牌河记录。"
+          }
+        ],
+        "completeness": "已检查左侧两列共10张现存弃牌。横向为该座位的通常朝向；未确认额外横置弃牌。多个具体数码或明暗标识因像素限制保留unknown。"
+      },
+      {
+        "seat": "N",
+        "score": {
+          "value": "33300",
+          "status": "readable",
+          "evidence": "下方分数框清楚显示33,300。",
+          "coordinates": "原JPEG x=[551,601), y=[170,186)",
+          "teachingImpact": "与东、南家相近；西家与北家相差19,300点。"
+        },
+        "melds": [
+          {
+            "value": "未见公开副露",
+            "status": "readable",
+            "evidence": "底部为可见手牌及单独摸牌，未见北家公开牌组。",
+            "coordinates": "原JPEG x=[67,474), y=[365,414)",
+            "teachingImpact": "不向1s或2s公开副露计数添加牌。"
+          }
+        ],
+        "discards": [
+          {
+            "value": "6z；白色",
+            "status": "readable",
+            "evidence": "可辨绿色发。",
+            "coordinates": "原JPEG x=[169,196), y=[269,294)",
+            "teachingImpact": "构成北家牌河记录。"
+          },
+          {
+            "value": "1p；白色",
+            "status": "readable",
+            "evidence": "单个筒子图案清楚。",
+            "coordinates": "原JPEG x=[196,222), y=[269,294)",
+            "teachingImpact": "构成北家牌河记录。"
+          },
+          {
+            "value": "9p；明暗unknown",
+            "status": "readable",
+            "evidence": "可辨九筒三行图案；明暗不能可靠区分。",
+            "coordinates": "原JPEG x=[222,248), y=[269,294)",
+            "teachingImpact": "构成北家牌河记录。"
+          },
+          {
+            "value": "3z；暗色",
+            "status": "readable",
+            "evidence": "可辨西，牌面较暗。",
+            "coordinates": "原JPEG x=[248,274), y=[269,294)",
+            "teachingImpact": "构成北家牌河记录。"
+          },
+          {
+            "value": "9m；暗色",
+            "status": "readable",
+            "evidence": "可辨九万，牌面较暗。",
+            "coordinates": "原JPEG x=[274,301), y=[269,294)",
+            "teachingImpact": "构成北家牌河记录。"
+          },
+          {
+            "value": "5z；暗色",
+            "status": "readable",
+            "evidence": "可见空白白板牌面和牌体，牌面较暗。",
+            "coordinates": "原JPEG x=[301,327), y=[269,294)",
+            "teachingImpact": "构成北家牌河记录。"
+          },
+          {
+            "value": "1m；白色",
+            "status": "readable",
+            "evidence": "第二排可辨一万。",
+            "coordinates": "原JPEG x=[169,196), y=[294,333)",
+            "teachingImpact": "构成北家牌河记录。"
+          },
+          {
+            "value": "1z；暗色",
+            "status": "readable",
+            "evidence": "第二排可辨东，牌面较暗。",
+            "coordinates": "原JPEG x=[196,222), y=[294,333)",
+            "teachingImpact": "构成北家牌河记录。"
+          }
+        ],
+        "completeness": "已检查底部牌河现存8张弃牌；未确认额外横置弃牌。北家手牌及摸牌另在对应关系和1s/2s计数中记录，不计入牌河。"
+      }
+    ],
+    "tileVisibility": [
+      {
+        "tile": "1s",
+        "discardCount": {
+          "value": "3",
+          "status": "readable",
+          "evidence": "东家两张鸟形一索，南家一张鸟形一索；西、北现存牌河未见一索。",
+          "coordinates": "原JPEG东家 x=[329,365), y=[187,206)；x=[365,401), y=[245,264)；南家 x=[196,222), y=[121,160)",
+          "teachingImpact": "三张弃牌已见，支持原文“一索薄”的依据。"
+        },
+        "ownHandCount": {
+          "value": "0",
+          "status": "readable",
+          "evidence": "底部13张手牌及单独摸入的8s中均无鸟形一索；与原文内联牌一致。",
+          "coordinates": "原JPEG x=[67,474), y=[365,414)",
+          "teachingImpact": "自家手牌不增加1s可见数。"
+        },
+        "exposedMeldCount": {
+          "value": "0",
+          "status": "readable",
+          "evidence": "唯一可见公开牌组为万子吃牌；另两张数字虽未知，牌面仍可辨为万子。",
+          "coordinates": "原JPEG x=[454,491), y=[31,110)",
+          "teachingImpact": "公开副露不增加1s可见数。"
+        },
+        "totalVisible": {
+          "value": "3",
+          "status": "readable",
+          "evidence": "牌河3、自家0、副露0；另有1张未见。",
+          "coordinates": "以上三处1s弃牌位置",
+          "teachingImpact": "未见的1张可能在其他隐藏位置，不能断言仍在可摸牌山。"
+        },
+        "countingScope": "只计JPEG中现存牌河、自家可见手牌和公开副露；不计他家隐藏手牌，也不把被吃走的牌同时计入牌河和副露。宝牌指示牌为东，不增加1s。"
+      },
+      {
+        "tile": "2s",
+        "discardCount": {
+          "value": "2",
+          "status": "readable",
+          "evidence": "东家一张、南家一张；西、北现存牌河未见二索。",
+          "coordinates": "原JPEG东家 x=[329,365), y=[225,245)；南家 x=[274,301), y=[96,121)",
+          "teachingImpact": "已有两张二索弃牌。"
+        },
+        "ownHandCount": {
+          "value": "1",
+          "status": "readable",
+          "evidence": "底部手牌中的二索与原文内联二索相符；单独摸牌为8s。",
+          "coordinates": "原JPEG x=[210,239), y=[365,414)",
+          "teachingImpact": "切牌决策前，自家这张也必须计入可见数。"
+        },
+        "exposedMeldCount": {
+          "value": "0",
+          "status": "readable",
+          "evidence": "唯一可见公开牌组为万子吃牌，不含二索。",
+          "coordinates": "原JPEG x=[454,491), y=[31,110)",
+          "teachingImpact": "公开副露不增加2s可见数。"
+        },
+        "totalVisible": {
+          "value": "3",
+          "status": "readable",
+          "evidence": "牌河2、自家1、副露0；另有1张未见。",
+          "coordinates": "上述两处弃牌及底部手牌二索",
+          "teachingImpact": "支持原文“二索薄”的依据；未见一张的位置不明。"
+        },
+        "countingScope": "按切牌前状态计算：自家待切二索仍在手中，不能同时算作弃牌；不计隐藏手牌，不重复计被副露的弃牌。"
+      }
+    ],
+    "q8Argument": {
+      "verdict": "faithful",
+      "evidence": "b0093—b0113的中文、内联牌和原文相符：切2s、取七对子一向听；1s和2s薄；基本无视庄家副露及他家出牌；只在摸入宝牌南时固定七对子。切2s前已有3m、5m、4p、3s、8s五组对子。JPEG分别可见1s三张、2s三张，其中2s有一张在自家手中，支持“薄”的场况依据；中央指示牌可辨东，与南为宝牌相符。西家14,000，其余三家33,300—37,300，也支持点差文字。链接解说可辅助对应题目，但其防守判断不替代JPEG读取。",
+      "remainingProblem": "JPEG不能独立证明吃牌恰在第6巡；异时存档也不能证明HTML图例与JPEG必为同版。部分万子数字、筒子点数及明暗仍未知。链接解说对2s是否为上家现物存在内部矛盾，不能把该说法作为Q8候选的无条件场况证据。上述限制不改变已核对的Q8译文和1s、2s可见数。"
+    },
+    "fieldsStillUnknown": [
+      {
+        "value": "东家吃牌中除8m外的两张万子的具体数字",
+        "status": "unknown",
+        "evidence": "可辨万字，但数码不足以可靠辨认。",
+        "coordinates": "原JPEG x=[454,491), y=[31,69)",
+        "teachingImpact": "无法完整转写顺子；不影响1s和2s的副露计数。"
+      },
+      {
+        "value": "东、西牌河中各一张筒子的点数，以及东家第二列一张多根索子的点数",
+        "status": "unknown",
+        "evidence": "原始像素不能可靠数清图案；4倍最近邻不产生新细节。",
+        "coordinates": "原JPEG东家 x=[329,365), y=[168,187)及x=[365,401), y=[206,225)；西家 x=[131,168), y=[187,206)",
+        "teachingImpact": "不能用这些牌确定具体安全牌；已辨类别和图案不增加1s或2s。"
+      },
+      {
+        "value": "西家一张万子的数字及若干弃牌的明暗标识",
+        "status": "unknown",
+        "evidence": "数字或灰度不足以可靠判定；各弃牌条目已注明明暗unknown。",
+        "coordinates": "原JPEG西家数字unknown：x=[131,168), y=[225,245)；其余明暗范围见各座位牌河条目。",
+        "teachingImpact": "不能完整还原这些牌的手出、摸切信息。"
+      },
+      {
+        "value": "链接解说中2s对上家是否为现物",
+        "status": "source-conflict",
+        "evidence": "同一解说先称2s可能打中“カミチャ”，后又称2s是“カミチャ、トイメンの現物”。JPEG中的两张2s弃牌位于东家和南家，未在西家现存牌河见到2s。解说与JPEG可能并非同一版本，不能据此选择其中一句作为确定事实。",
+        "coordinates": "原JPEG东家 x=[329,365), y=[225,245)；南家 x=[274,301), y=[96,121)；西家牌河 x=[94,168), y=[149,264)",
+        "teachingImpact": "不能依该解说断定对上家的安全性；Q8教材的“1s、2s薄”仍有独立图像计数支持。"
+      }
+    ],
+    "resolution": "supported",
+    "completeTargetScopeCompared": true,
+    "summary": "Q8候选的原缺外链场况所致uncertain可以解除：题目、手牌、摸牌、点差、副露及关键可见数与所供场况对应，译文忠实。结论仅限Q8；个别牌面与标识仍为unknown，链接解说的2s上家现物说法另有冲突，且HTML和JPEG抓取时间不同。"
+  },
+  "mandatoryLimits": {
+    "notFullMeldTranscription": true,
+    "unknownEastMeldOtherTwoManzuDigits": true,
+    "otherUnknownDiscardsAndTsumogiriMarkers": true,
+    "htmlAndJpegDifferentArchiveCaptureDates": true,
+    "linkedCommentary2sSafetyConflict": true,
+    "noExactSafetyOrHiddenHandInference": true
+  },
+  "originalOtherIssuesPreserved": [
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0168",
+      "sourceEvidence": "问题12的b0153明确给出宝牌北；括号原文连续为“（ドラ［四索］引きの場合の差で［七索］より［五索］）”。结合题设，此处列举摸入宝牌或四索时的差异。",
+      "description": "候选“（由于摸入宝牌”直接接四索图，构成“摸入宝牌四索”，错误地把四索认作宝牌，并丢失摸入真正宝牌北这一独立条件。",
+      "suggestedRepair": "将b0168改为“摸到后再改为③即可，（由于摸入宝牌或”，保留后续四索图和比较顺序，使括号表达摸入宝牌或四索时，切五索优于切七索。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+      "sourceEvidence": "问题17弃牌表：第1、3、5、7行分别为东、南、西、北家；第1、2列依次为北/1m、南/7m、9m/西、9m/3s；各格rowspan与colspan均为1。",
+      "description": "b0266、b0267、b0269、b0270、b0272、b0273、b0275、b0276的牌面正确，但其候选figure块均遗漏表格定位，且无替代表格行列结构。单纯保留线性顺序不足以完整保留原表格位。",
+      "suggestedRepair": "为上述八个figure块恢复源tableContext中的tableId、row、column、rowspan、colspan和header，或提供包含这些格位及原空格的完整表格结构。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+      "sourceEvidence": "问题18弃牌表：第0行第2列为↓；东家第1行依次4s、3s，南家第3行7p、8p，西家第5行北、7p，北家第7行1m、3m；跨度均为1。",
+      "description": "b0292、b0293、b0295、b0296、b0298、b0299、b0301、b0302均遗漏表格定位。尤其3s未保留第1行第2列定位，导致其与上方↓的明确对齐关系缺失。",
+      "suggestedRepair": "恢复八个牌图块的完整tableContext，或重建原表格；确保↓位于第0行第2列并与东家第二张弃牌3s对齐。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+      "sourceEvidence": "问题20弃牌表：第1、3、5、7行为东、南、西、北家；第1至3列依次为北/9s/9s、北/1s/中、南/1p/2p、北/1m/9s；跨度均为1。",
+      "description": "b0325—b0327、b0329—b0331、b0333—b0335、b0337—b0339的十二个牌图块均遗漏原表格定位，候选无完整表格结构承载座位与三列弃牌关系。",
+      "suggestedRepair": "恢复十二个figure块的完整tableContext，或提供忠实保留四家、三列弃牌、空格及跨度的完整表格结构。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0396",
+      "sourceEvidence": "手広い④に受ける。裏目の［五索］引きでも三色が狙える。",
+      "description": "「裏目」描述选择后摸到不利牌的情形，不表示此前选择属于失算。译文「失算的」误加了判断失误的含义。",
+      "suggestedRepair": "将本块改为「选择进张宽的④。即使出现不利的」，接原有五索图及下一块「进张，也能争取三色。」。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+      "sourceEvidence": "问题33弃牌表为8行7列，各格rowspan、colspan均为1。东家行1列1—6为西、白、中、1m、3p、南；南家行3列1—6为南、白、1s、4s、5m、西；西家行5列1—5为北、1m、3s、8s、白，列6为空；北家行7列1—6为西、北、中、2s、3s、中。箭头行0位于列3、4、6，行2位于列4、5，行4位于列1、4、5，行6位于列1、2、3、6。",
+      "description": "候选保留了表题、座次和箭头文本的tableContext，但23个牌河figure块及其figure记录均无表格格位。牌面编码虽然正确，仍不能完整表达各牌所在单元格及其与上方箭头的对应关系。",
+      "suggestedRepair": "为b0507—b0512、b0516—b0521、b0526—b0530、b0536—b0541的候选figure块恢复源tableContext，包括同一tableId、对应row/column、rowspan=1、colspan=1、header=false；完整保留8×7表格的空格，尤其西家第6张弃牌位置为空，并保持箭头与牌面的列对齐。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+      "sourceEvidence": "源舍牌表为8行9列；东、南、西、北家表头分别位于行1、3、5、7的列0。各家前六张舍牌位于列1至6；东、南、西家的第七张位于列8，列7为空；北家列8为空。所有单元格rowspan、colspan均为1。",
+      "description": "候选保留表题和表头的tableContext，但27个舍牌figure块均缺少tableContext，也没有候选表格结构。牌面及线性顺序正确，仍未保留要求核对的表格格位与空格关系。",
+      "suggestedRepair": "为b0627—b0633、b0635—b0641、b0643—b0649、b0651—b0656恢复各自源tableContext，并提供或重建源8行9列表格，保留空行、列7空格、北家末格为空及所有单格跨度。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "sourceEvidence": "原图、放大图及源alt一致：12355789m34688s，摸5s。候选为12355789m36788s，摸5s。",
+      "description": "下方13张手牌中的4s、6s被依次错录为6s、7s。正确牌形切8s后听嵌7s；候选牌形会改变这一教学前提。",
+      "suggestedRepair": "将下方手牌完整改为1m 2m 3m 5m 5m 7m 8m 9m 3s 4s 6s 8s 8s；分开的摸入牌仍为5s。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "sourceEvidence": "截图顶部及左右边缘的三列牌分别位于其他三家的手牌位置；中央翻开9s指示牌附近才是牌墙。",
+      "description": "候选将其他三家的隐手统称为牌墙，遗漏了隐手未知这一局面信息。",
+      "suggestedRepair": "区分三家背面或侧面朝向观者的隐手与中央牌墙，明确三家隐手牌面未知，不推定具体牌码。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "sourceEvidence": "候选unknowns仍列左河从上至下第4、6张及右河第1张万子点数未辨清；本次也未能可靠确认这三张的全部牌码。",
+      "description": "这三张属于公开河牌，并非源隐手；可能影响可见张数与等待判断，不能以完整转录通过。",
+      "suggestedRepair": "逐张确认这三张河牌并同步更新transcription及unknowns；确认前保留阻断状态，不臆填牌码。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "sourceEvidence": "右上副露最上方牌受黑色遮挡，右下信息栏边缘裁切，中央骰子点数未可靠辨清。",
+      "description": "遮挡、裁切及骰子辨读限制应如实保留；不得由另外两张东牌反推被遮挡牌面。",
+      "suggestedRepair": "保留对应源图限制说明及未知标记；骰子未确认点数时继续注明未知。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+      "sourceEvidence": "源弃牌表各格均为rowspan=1、colspan=1：第1行第1—4列为北、西、9s、9p；第3行为2m、5m、3s、4s；第5行为南、北、1p、8m；第7行为中、1m、3s、3s。对应源块分别为b0811—b0814、b0816—b0819、b0821—b0824、b0826—b0829。",
+      "description": "候选保留了表题及四家表头的tableContext，却将16个弃牌单元格转换成没有tableContext的独立figure；figures中也未补充表格坐标。牌面和线性顺序正确，但四家牌河与各弃牌位置的表格关联未完整表示。",
+      "suggestedRepair": "为这16个候选figure块恢复源tableContext中的tableId、row、column、rowspan、colspan和header=false，或提供等价的完整候选表格结构，确保每张牌仍属于原单元格。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "sourceEvidence": "源图替代文本为“立体牌姿（４５赤５６７ｍ２２４５赤５６７９ｓ ２ｓポン？）”；图中左方末张2s有蓝色高亮。",
+      "description": "候选记录了高亮牌，却没有明确转写本题询问是否碰2s。仅有“问题60的牌局画面”不足以完整呈现题目。",
+      "suggestedRepair": "在图注或转写中补入：“是否碰上家刚切出的2s？”并明确高亮2s是此次鸣牌判断的对象。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "sourceEvidence": "候选将上方牌河首张及右方牌河首张分别记作“[风牌未辨明]”；两处在所附原图及放大图中均有可见牌面。",
+      "description": "这两处是实际弃牌，不是隐手或装饰。当前转写尚未满足完整读取牌河的要求，本次不能确认其精确牌种。",
+      "suggestedRepair": "完成两张风牌的定向辨认并替换占位符；在确认前保留unknowns，不得猜填或将完整牌河标为已通过。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0962",
+      "sourceEvidence": "“メンタンピンや３４５三色もあるので一色手に決め打たない。”",
+      "description": "メンタンピン是立直、断幺九、平和三者结合的术语。候选串列为“立直、断幺九、平和或345三色同顺”，组合关系不明确。",
+      "suggestedRepair": "改为：“也有立直＋断幺九＋平和或345三色同顺的可能，因此不预先锁定染手。染手只考虑清一色就足够了。”"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+      "sourceEvidence": "“ターツオーバーで三元役の可能性があるので発は残す”；手中已有白与中的对子及孤张发。",
+      "description": "“三元牌役种”容易泛指普通役牌，未清楚表达此处小三元／大三元方向对保留发的意义。",
+      "suggestedRepair": "改为：“搭子过多，又有三元役（小三元／大三元）的可能，所以保留发，宝牌为……”"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "sourceEvidence": "画面中央有两枚骰子，四周及下方有黑色区域；候选已分别记入unknowns和sourceNotes。",
+      "description": "骰子点数未获可靠确认，黑色遮挡或裁切也已如实说明。它们不改变本题是否碰2s的教学论证。",
+      "suggestedRepair": "保留说明；无需据此推测隐藏内容或单独阻断战术结论。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+      "sourceEvidence": "b1179—b1181连读为「ドラ［三萬］でなくてもダブルリャンメンは他のトイツより優先して残す。」",
+      "description": "候选连读为“宝牌［3m］即使不是，也应……”，未形成明确的中文让步条件句。",
+      "suggestedRepair": "将b1179改为“即使”，保留b1180的3m牌图，将b1181改为“不是宝牌，也应优先于其他对子保留双两面形。”"
+    }
+  ],
+  "otherEvidenceBranches": [
+    {
+      "scope": "66 figure targets and six tables",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev1.json",
+        "sha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+        "bytes": 2169759
+      },
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-283-tables-20261028\\receipt.json",
+        "sha256": "68f0a463533b01b57b242daaa9d42124e8e5a527f889350a64fad03aec86809b"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\f5141a65-3fce-47c3-8a94-a0a9a2c9a528.json",
+        "sha256": "f8b6039206d68c70cfeb27d244d2dce557ab3f11d6f70ff44b2160359b2e0864"
+      },
+      "registration": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-283-six-table-evidence-intake-20261028.json"
+    },
+    {
+      "scope": "b0168 only",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0168r1.json",
+        "sha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f",
+        "bytes": 2119310
+      },
+      "checkpoint": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-002.json",
+        "sha256": "311df0ca752e1b34dfea16e2f07192f61dd886905b0a87fbdf8cf7d167314e5e"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\3bbbff33-f638-4b9c-ae03-01b8d77e2a5a.json",
+        "sha256": "4f7193e61c9dd86512e8cd6ec86c7d2840176c92e127d46b6933a4bc365443db"
+      },
+      "registration": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-b0168-target-evidence-intake-20261028.json"
+    }
+  ],
+  "owner": "Existing COAC-244/269 chapter owner; COAC-250 limited evidence register only",
+  "reconciliation": "The18 findings are preserved on the original dea1ba24 branch; b0168 and table conclusions remain separately SHA-bound. Do not treat18 as a freshly audited global remainder, overwrite branches/deferred, infer unseen ranks/safety, or promote any whole chapter. No new production/review authorized."
+}
