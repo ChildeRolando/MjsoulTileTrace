@@ -30,9 +30,8 @@ import {
 } from "@riichi-coach/desktop/blind-discard-arena";
 import { createArenaRagRetriever } from "@riichi-coach/desktop/blind-discard-arena-rag";
 import { createArenaToolCallProvider } from "@riichi-coach/desktop/llm-provider/service";
-import { createLibriichiRuleProjector, replayCanonicalStream } from "@riichi-coach/reasoning";
-import { LibriichiRuleResponseSchema, libriichiRuleCanonicalJson } from "@riichi-coach/contracts";
-import { mapMjaiRecord } from "../scripts/replay-corpus/canonical.mjs";
+import { createLibriichiRuleProjector } from "@riichi-coach/reasoning";
+import { LibriichiRuleResponseSchema } from "@riichi-coach/contracts";
 
 import { digestOf, sha256Bytes, studyError } from "../scripts/selfrag-study/canonical.mjs";
 import {
@@ -42,28 +41,33 @@ import {
   usage,
 } from "../scripts/selfrag-study/cli.mjs";
 import { openReplayCorpus } from "../scripts/selfrag-study/corpus.mjs";
+import { resolveCorpusGameRules } from "../scripts/selfrag-study/corpus-rules.mjs";
+import { replayCorpusGame } from "../scripts/selfrag-study/corpus-replay.mjs";
 import {
   SELF_RAG_STUDY_ARTIFACTS,
   SELF_RAG_STUDY_EXECUTION_IDENTITY,
   SELF_RAG_STUDY_PREJUDGE_PROMPT,
   SELF_RAG_STUDY_REASON_REVIEW_PROMPT_VERSION,
   SELF_RAG_STUDY_SELF_ACTOR,
-  buildResearchArenaCorpus,
   classifySceneLayers,
   freezeSelectorBudget,
   loadStudyExclusions,
   prepareStudy,
+  readPrejudgeAttempts,
   sceneFactsFromSnapshot,
   verifyStudy,
 } from "../scripts/selfrag-study/prepare.mjs";
-import { loadResearchSubset } from "../scripts/selfrag-study/knowledge.mjs";
+import { buildResearchArenaCorpus, loadResearchSubset } from "../scripts/selfrag-study/knowledge.mjs";
 import { readAttempts } from "../scripts/selfrag-study/schedule.mjs";
 import { runStudyAttempt, selectSelectorBudget } from "../scripts/selfrag-study/run.mjs";
 import {
+  SELF_RAG_STUDY_REASON_AUDIT_ATTESTATION,
+  buildReasonEntries,
   computeStudyReport,
+  deriveStudyPhases,
   renderStudyReportMarkdown,
+  runReasonAudit,
   validateReasonReview,
-  buildReasonReviewRequest,
 } from "../scripts/selfrag-study/report.mjs";
 
 const coachRoot = resolve(fileURLToPath(new URL("..", import.meta.url)));
@@ -171,11 +175,47 @@ async function writeJsonReplacing(path, value) {
   await rename(temporary, path);
 }
 
-function replayGame(gameId, raw) {
-  // The corpus carries no rule-set fields; the mapper records them as unknown
-  // and the Arena screening rules out decisions without usable rule input.
-  const stream = mapMjaiRecord(raw, gameId, SELF_RAG_STUDY_SELF_ACTOR);
-  return { stream, decisions: replayCanonicalStream(stream) };
+/**
+ * Completeness the native rule projection requires before it will answer. A
+ * partial field is reported as the exclusion reason and never upgraded.
+ */
+const STREAM_REQUIRED_COMPLETENESS = Object.freeze([
+  "eventSequence", "scores", "doraIndicators", "rivers",
+  "calledDiscardMarkers", "melds", "remainingDraws", "responseOpportunities",
+]);
+
+function replayGame(gameId, record, ruleSource) {
+  // Rule provenance comes from the corpus observations. Without it the mapper
+  // marks every rule unknown and libriichi refuses the request, which used to
+  // turn into a silent scan of the whole corpus.
+  return replayCorpusGame({ raw: record.raw, gameId, ruleSource, selfActor: SELF_RAG_STUDY_SELF_ACTOR });
+}
+
+function failureCode(error) {
+  const message = error instanceof Error ? error.message : "";
+  return /^[a-z0-9_]+$/u.test(message) ? message : "analyze_failed";
+}
+
+function failureDetail(error) {
+  if (error?.detail !== undefined && error.detail !== null) return String(error.detail);
+  const message = error instanceof Error ? error.message : "";
+  return /^[a-z0-9_]+$/u.test(message) ? undefined : message.slice(0, 160);
+}
+
+function skippedFrom(error) {
+  const detail = failureDetail(error);
+  return { status: "skipped", reason: failureCode(error), ...(detail === undefined ? {} : { detail }) };
+}
+
+/** Resolve the variant's own rule evidence before anything is mapped. */
+function resolveCorpusGame(game, corpus) {
+  const record = requireRecord(corpus, game);
+  const observations = typeof corpus.readObservations === "function"
+    ? corpus.readObservations({ sourceHash: game.sourceHash })
+    : [];
+  const resolution = resolveCorpusGameRules({ format: record.format, observations });
+  if (resolution.status !== "ok") throw studyError(resolution.reason, resolution.detail);
+  return { record, ruleSource: resolution.ruleSource };
 }
 
 async function buildRuleInputs(runtime, stream, decisions) {
@@ -220,9 +260,25 @@ function createStudyDeps(options) {
     loadResearchSubset: async () => loadResearchSubset(await readFile(options.knowledgeFile), { knowledgePath: options.knowledgeFile }),
     loadExclusions: async () => loadStudyExclusions({ root: options.exclusionRoot }),
     openCorpus: async () => openReplayCorpus(options.corpusFile),
+    onProgress: (event) => {
+      process.stderr.write(`${JSON.stringify({ at: new Date().toISOString(), progress: event })}\n`);
+    },
     analyzeGame: async ({ game, corpus }) => {
+      let resolved;
       try {
-        const { stream, decisions } = replayGame(game.gameId, requireRecord(corpus, game).raw);
+        resolved = resolveCorpusGame(game, corpus);
+      } catch (error) {
+        // Missing/conflicting/three-player evidence and non-mjai variants are
+        // recorded with their reason instead of being retried across the corpus.
+        return skippedFrom(error);
+      }
+      try {
+        const { stream, decisions } = replayGame(game.gameId, resolved.record, resolved.ruleSource);
+        const partial = STREAM_REQUIRED_COMPLETENESS.find((field) => stream.completeness[field] !== "complete");
+        if (partial !== undefined) {
+          // Partial stays partial: the field is reported, never upgraded.
+          return { status: "skipped", reason: `stream_${partial}_partial`, detail: game.gameId };
+        }
         const ruleInputs = await buildRuleInputs(runtime, stream, decisions);
         const screening = screenArenaDecisions(ruleInputs, { maxIncluded: 128 });
         const layers = {};
@@ -231,13 +287,17 @@ function createStudyDeps(options) {
             if (layers[layer] === undefined) layers[layer] = row.canonicalDecisionOrder;
           }
         }
-        return { status: "ok", layers };
+        return { status: "ok", layers, ruleSource: resolved.ruleSource };
       } catch (error) {
-        return { status: "skipped", reason: String(error?.message ?? "analyze_failed") };
+        return skippedFrom(error);
       }
     },
     buildCase: async ({ selected, corpus }) => {
-      const { stream, decisions } = replayGame(selected.gameId, requireRecord(corpus, selected).raw);
+      const resolved = resolveCorpusGame(selected, corpus);
+      if (selected.ruleSource !== undefined && resolved.ruleSource.digest !== selected.ruleSource.digest) {
+        throw studyError("study_case_rule_source_mismatch", selected.caseId);
+      }
+      const { stream, decisions } = replayGame(selected.gameId, resolved.record, resolved.ruleSource);
       const ruleInputs = await buildRuleInputs(runtime, stream, decisions);
       const screening = screenArenaDecisions(ruleInputs, { maxIncluded: 128 });
       const row = screening.selected.find((candidate) => candidate.canonicalDecisionOrder === selected.canonicalDecisionOrder);
@@ -251,7 +311,7 @@ function createStudyDeps(options) {
           supportedCapabilities: [],
         },
       });
-      return { observation, aliases };
+      return { observation, aliases, ruleSource: resolved.ruleSource };
     },
     retrieverVersion: "arena-local-terms/v1",
     createRetriever: async ({ caseRef, aliases, researchCorpus }) => createArenaRagRetriever({
@@ -264,15 +324,24 @@ function createStudyDeps(options) {
       const provider = createProvider();
       const request = prejudgeRequest(observation, passages);
       const started = Date.now();
+      // Every failure below is re-thrown with whatever the provider reported,
+      // so the append-only prejudge ledger keeps the paid cost of a call that
+      // never produced a usable judgement.
+      const failed = (code, detail, usage) => {
+        const error = studyError(code, detail);
+        error.usage = usage ?? null;
+        error.elapsedMs = Date.now() - started;
+        return error;
+      };
       const result = await withTimeout((signal) => provider.request(request, signal), CALL_TIMEOUT_MS);
-      if (result.status !== "ready") throw studyError("prejudge_provider_failed", result.status);
+      if (result.status !== "ready") throw failed("prejudge_provider_failed", result.status, result.usage);
       let parsed;
       try {
         parsed = JSON.parse(result.call.arguments);
       } catch {
-        throw studyError("prejudge_invalid", "json");
+        throw failed("prejudge_invalid", "json", result.usage);
       }
-      if (parsed?.caseId !== observation.caseRef) throw studyError("prejudge_invalid", "caseRef");
+      if (parsed?.caseId !== observation.caseRef) throw failed("prejudge_invalid", "caseRef", result.usage);
       return { verdicts: parsed.verdicts, usage: result.usage ?? null, elapsedMs: Date.now() - started, judge: provider.descriptor() };
     },
   };
@@ -516,63 +585,87 @@ async function commandRun(options) {
   if (result.failed.length > 0) process.exitCode = 1;
 }
 
-async function collectReasonEntries(artifactDir) {
+const REASON_REVIEW_ARTIFACT_VERSION = "selfrag-study-reason-review-artifact/v1";
+
+/**
+ * Binds every evaluation drop to its frozen original passage and frozen blind
+ * observation. The selector's reason travels as an untrusted claim; missing or
+ * cross-case bindings are refused by `buildReasonEntries`.
+ */
+async function collectReasonEntries(artifactDir, evaluationCaseIds) {
   const runs = await readRuns(artifactDir);
-  const entries = [];
-  for (const run of runs) {
-    if (run.arm !== "selfrag" || run.status !== "completed") continue;
-    const verdicts = run.gate?.receipt?.verdicts;
-    if (!Array.isArray(verdicts)) continue;
-    for (const verdict of verdicts) {
-      if (verdict.effectiveVerdict !== "irrelevant") continue;
-      entries.push({
-        caseId: run.caseId,
-        sourceRef: verdict.sourceRef,
-        verdict: verdict.verdict,
-        reason: verdict.reason,
-        basis: verdict.basis,
-        premises: verdict.premises,
-      });
+  const candidates = await readJson(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.candidates));
+  const candidatesByCase = Object.fromEntries(candidates.cases.map((entry) => [entry.caseId, { result: entry.result }]));
+  const observationsByCase = {};
+  for (const caseId of evaluationCaseIds) {
+    try {
+      observationsByCase[caseId] = await readJson(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.observations, `${caseId}.json`));
+    } catch (error) {
+      // Only an absent observation is tolerated here; a corrupt one still
+      // fails loudly in the reader.
+      if (error?.code !== "ENOENT") throw error;
     }
   }
-  return entries;
+  return buildReasonEntries({ runs, candidatesByCase, observationsByCase, evaluationCaseIds });
 }
 
-async function judgeReasons(artifactDir) {
-  const entries = await collectReasonEntries(artifactDir);
-  if (entries.length === 0) throw studyError("reason_review_no_entries");
-  const provider = createProvider();
-  const request = buildReasonReviewRequest({ entries });
-  const started = Date.now();
-  const result = await withTimeout((signal) => provider.request(request, signal), CALL_TIMEOUT_MS);
-  if (result.status !== "ready") throw studyError("reason_review_provider_failed", result.status);
-  let parsed;
-  try {
-    parsed = JSON.parse(result.call.arguments);
-  } catch {
-    throw studyError("reason_review_invalid", "json");
+async function judgeReasons(artifactDir, entries) {
+  const artifactPath = join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.reasonReview);
+  const createdAt = new Date().toISOString();
+  if (entries.length === 0) {
+    // Evaluation dropped nothing: say so instead of inventing a judgement.
+    const artifact = {
+      schemaVersion: REASON_REVIEW_ARTIFACT_VERSION,
+      promptVersion: SELF_RAG_STUDY_REASON_REVIEW_PROMPT_VERSION,
+      attestation: SELF_RAG_STUDY_REASON_AUDIT_ATTESTATION,
+      status: "not_applicable",
+      createdAt,
+      reason: "evaluation_no_irrelevant_drop",
+      entries: [],
+      verdicts: [],
+      counts: null,
+      calls: [],
+      digest: digestOf({ status: "not_applicable", entries: [], verdicts: [] }),
+    };
+    await writeJsonExclusive(artifactPath, artifact);
+    return { status: "not_applicable", counts: null, calls: [] };
   }
-  const counts = validateReasonReview({ entries, verdicts: parsed.verdicts });
-  const artifact = {
-    schemaVersion: "selfrag-study-reason-review/v1",
-    promptVersion: SELF_RAG_STUDY_REASON_REVIEW_PROMPT_VERSION,
-    attestation: "ai_judgement_not_expert_gold",
-    createdAt: new Date().toISOString(),
-    judge: provider.descriptor(),
-    usage: result.usage ?? null,
-    elapsedMs: Date.now() - started,
+
+  const provider = createProvider();
+  // One fresh provider context per audited reason, fixed prompt, and only the
+  // frozen source plus the frozen blind observation. Every call, including a
+  // returned answer whose verdicts are rejected, stays in `calls` with its
+  // real usage, so known paid tokens are never lost as unknown.
+  const { verdicts, calls, failure } = await runReasonAudit({
     entries,
-    verdicts: parsed.verdicts,
+    auditCall: (request) => withTimeout((signal) => provider.request(request, signal), CALL_TIMEOUT_MS),
+  });
+
+  const counts = failure === null ? validateReasonReview({ entries, verdicts }) : null;
+  const artifact = {
+    schemaVersion: REASON_REVIEW_ARTIFACT_VERSION,
+    promptVersion: SELF_RAG_STUDY_REASON_REVIEW_PROMPT_VERSION,
+    attestation: SELF_RAG_STUDY_REASON_AUDIT_ATTESTATION,
+    status: failure === null ? "run" : "failed",
+    createdAt,
+    judge: provider.descriptor(),
+    entries,
+    verdicts,
     counts,
-    digest: digestOf({ entries, verdicts: parsed.verdicts }),
+    calls,
+    digest: digestOf({ entries, verdicts }),
   };
-  await writeJsonExclusive(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.reasonReview), artifact);
-  return artifact;
+  // Written even for an incomplete audit: those calls really were paid for.
+  await writeJsonExclusive(artifactPath, artifact);
+  if (failure !== null) throw failure;
+  return { status: "run", counts, calls };
 }
 
 async function commandReport(options) {
   const artifactDir = resolve(options["--artifacts"]);
   const freeze = await readJson(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.freeze));
+  // Quality is evaluation-only; phase membership is frozen before any call.
+  const phases = deriveStudyPhases({ sampling: freeze.sampling });
   const candidates = await readJson(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.candidates));
   const candidatesByCase = Object.fromEntries(candidates.cases.map((entry) => [entry.caseId, { result: entry.result }]));
   const prejudgeByCase = {};
@@ -581,21 +674,25 @@ async function commandReport(options) {
   }
   const runs = await readRuns(artifactDir);
   const attempts = await readAttempts(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.attempts));
+  const prejudgeAttempts = await readPrejudgeAttempts(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.prejudgeAttempts));
 
   let reasonReview = null;
   if (options["--judge-reasons"] === true) {
-    reasonReview = await judgeReasons(artifactDir);
+    reasonReview = await judgeReasons(artifactDir, await collectReasonEntries(artifactDir, phases.evaluationCaseIds));
   } else if (typeof options["--reason-review"] === "string") {
     const stored = await readJson(resolve(options["--reason-review"]));
-    reasonReview = { counts: stored.counts };
+    reasonReview = { status: stored.status ?? "run", counts: stored.counts ?? null, calls: stored.calls ?? [] };
   }
 
   const report = computeStudyReport({
-    caseIds: freeze.caseIds,
+    caseIds: phases.evaluationCaseIds,
+    pilotCaseIds: phases.pilotCaseIds,
+    allCaseIds: freeze.caseIds,
     candidatesByCase,
     prejudgeByCase,
     runs,
     attempts,
+    prejudgeAttempts,
     createdAt: new Date().toISOString(),
     reasonReview,
   });

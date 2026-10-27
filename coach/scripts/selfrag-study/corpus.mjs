@@ -75,6 +75,19 @@ export function openReplayCorpus(file, options = {}) {
         return rows.map((row) => ({ gameId: row.gameId, sourceHash: row.sourceHash, format: row.format }));
       });
     },
+    /**
+     * Provenance rows for one variant hash. The study reads rule evidence from
+     * here instead of guessing a standard profile for the raw stream.
+     */
+    readObservations({ sourceHash }) {
+      return guarded(() => {
+        const hash = requireString(sourceHash, "sourceHash");
+        const rows = database.prepare(
+          "SELECT source, locator FROM observations WHERE hash = ? ORDER BY source ASC, locator ASC",
+        ).all(hash);
+        return rows.map((row) => ({ source: row.source, locator: row.locator }));
+      });
+    },
     readRecord({ gameId, sourceHash }) {
       return guarded(() => {
         const id = requireString(gameId, "gameId");

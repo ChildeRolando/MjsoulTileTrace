@@ -1,4 +1,4 @@
-import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
+import { appendFile, mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { canonicalJson, digestOf, sha256Text, studyError } from "./canonical.mjs";
 import {
@@ -7,6 +7,7 @@ import {
   SELF_RAG_STUDY_MAX_PASSAGE_CHARS,
 } from "./knowledge.mjs";
 import { assertScheduleShape, buildSchedule } from "./schedule.mjs";
+import { verifyFrozenRuleSource } from "./corpus-rules.mjs";
 
 /**
  * Frozen preparation artifacts for the paired Self-RAG study (spec §9.1).
@@ -21,7 +22,7 @@ export const SELF_RAG_STUDY_SAMPLING_VERSION = "scene-layer-hash-slots/v1";
 export const SELF_RAG_STUDY_QUERY_RULE_VERSION = "selfrag-study-query/v1";
 export const SELF_RAG_STUDY_PREJUDGE_PROMPT_VERSION = "selfrag-study-prejudge/v1";
 export const SELF_RAG_STUDY_GENERATOR_PROMPT_VERSION = "selfrag-study-generator/v1";
-export const SELF_RAG_STUDY_REASON_REVIEW_PROMPT_VERSION = "selfrag-study-reason-review/v1";
+export const SELF_RAG_STUDY_REASON_REVIEW_PROMPT_VERSION = "selfrag-study-reason-review/v2";
 export const SELF_RAG_STUDY_FREEZE_VERSION = "selfrag-study-freeze/v1";
 export const SELF_RAG_STUDY_RESEARCH_SUBSET_VERSION = "selfrag-study-research-subset/v1";
 export const SELF_RAG_STUDY_EXCLUSIONS_VERSION = "selfrag-study-exclusions/v1";
@@ -29,6 +30,7 @@ export const SELF_RAG_STUDY_REQUESTS_VERSION = "selfrag-study-requests/v1";
 export const SELF_RAG_STUDY_CANDIDATES_VERSION = "selfrag-study-candidates/v1";
 export const SELF_RAG_STUDY_OBSERVATION_VERSION = "selfrag-study-observation/v1";
 export const SELF_RAG_STUDY_PREJUDGE_VERSION = "selfrag-study-prejudge/v1";
+export const SELF_RAG_STUDY_PREJUDGE_ATTEMPT_VERSION = "selfrag-study-prejudge-attempt/v1";
 export const SELF_RAG_STUDY_PREJUDGE_ATTESTATION = "ai_judgement_not_expert_gold";
 
 /**
@@ -66,7 +68,7 @@ export const SELF_RAG_STUDY_EXECUTION_IDENTITY = Object.freeze({
 
 /** §4.7 pilot-calibration ladder; one combination is frozen after the pilot. */
 export const SELF_RAG_STUDY_SELECTOR_BUDGET_LADDER = Object.freeze({
-  maxOutputTokens: Object.freeze([512, 768, 1024]),
+  maxOutputTokens: Object.freeze([1024, 2048, 4096]),
   maxOutputBytes: Object.freeze([4096, 8192]),
 });
 
@@ -81,6 +83,7 @@ export const SELF_RAG_STUDY_ARTIFACTS = Object.freeze({
   runs: "runs",
   reasonReview: "reason-review.json",
   prejudge: "prejudge",
+  prejudgeAttempts: "prejudge-attempts.jsonl",
   attempts: "attempts.jsonl",
 });
 
@@ -388,11 +391,18 @@ export function isExcludedGame(exclusions, game) {
  * Hash-ordered slot selection (spec §9.1.1). Games already chosen, excluded,
  * or without a usable in-layer decision cannot claim a slot. A slot with no
  * candidate stops the study before any model call.
+ *
+ * Every analyzed game that cannot be used is recorded with the reason the
+ * corpus adapter gave (`rule_source_missing`, `stream_scores_partial`, ...);
+ * silent full-corpus scanning is what this record exists to prevent.
  */
 export async function selectStudyGames(input) {
   const { games, exclusions, seed, plan, analyzeGame } = input;
   if (!Array.isArray(games) || games.length === 0) throw studyError("study_corpus_empty");
   if (!Array.isArray(plan) || plan.length === 0) throw studyError("study_input_invalid", "plan");
+  const onProgress = typeof input.onProgress === "function" ? input.onProgress : null;
+  const analyzedExclusions = [];
+  const recordedExclusions = new Set();
   const eligible = games.filter((game) => !isExcludedGame(exclusions, game));
   const analyses = new Map();
   const chosen = new Set();
@@ -410,9 +420,27 @@ export async function selectStudyGames(input) {
       if (analysis === undefined) {
         analysis = await analyzeGame(game);
         analyses.set(game.gameId, analysis);
+        const status = analysis?.status ?? "unknown";
+        const reason = typeof analysis?.reason === "string" ? analysis.reason : null;
+        if (status !== "ok" && !recordedExclusions.has(game.gameId)) {
+          recordedExclusions.add(game.gameId);
+          analyzedExclusions.push({
+            gameId: game.gameId,
+            sourceHash: game.sourceHash,
+            slotIndex: slot.slotIndex,
+            layer: slot.layer,
+            reason: reason ?? "analyze_failed",
+            ...(typeof analysis?.detail === "string" ? { detail: analysis.detail } : {}),
+          });
+        }
+        onProgress?.({
+          event: "game_analyzed", slotIndex: slot.slotIndex, layer: slot.layer,
+          gameId: game.gameId, sourceHash: game.sourceHash, status, reason,
+          layers: status === "ok" ? analysis?.layers ?? null : null,
+        });
       }
       if (analysis?.status === "ok" && analysis.layers?.[slot.layer] !== undefined) {
-        match = { game, canonicalDecisionOrder: analysis.layers[slot.layer] };
+        match = { game, canonicalDecisionOrder: analysis.layers[slot.layer], ruleSource: analysis.ruleSource };
         break;
       }
     }
@@ -431,10 +459,19 @@ export async function selectStudyGames(input) {
       canonicalDecisionOrder: match.canonicalDecisionOrder,
       selfActor: SELF_RAG_STUDY_SELF_ACTOR,
       selectionKey: slotSelectionKey(seed, match.game.sourceHash, slot.slotIndex),
+      ...(match.ruleSource === undefined ? {} : { ruleSource: match.ruleSource }),
+    });
+    onProgress?.({
+      event: "slot_selected", slotIndex: slot.slotIndex, layer: slot.layer,
+      caseId: studyCaseId(slot.slotIndex), gameId: match.game.gameId,
+      canonicalDecisionOrder: match.canonicalDecisionOrder,
     });
   }
-  const sampling = { version: SELF_RAG_STUDY_SAMPLING_VERSION, seed, plan: plan.map((slot) => ({ ...slot })), selected };
-  return { selected, sampling: { ...sampling, digest: digestOf(sampling) } };
+  const sampling = {
+    version: SELF_RAG_STUDY_SAMPLING_VERSION, seed, plan: plan.map((slot) => ({ ...slot })), selected,
+    exclusions: analyzedExclusions,
+  };
+  return { selected, exclusions: analyzedExclusions, sampling: { ...sampling, digest: digestOf(sampling) } };
 }
 
 /** Independent prejudge verdicts are structural input, never gold labels. */
@@ -467,6 +504,110 @@ function defaultWriteJson() {
 
 function defaultReadJson() {
   return async (path) => JSON.parse(await readFile(path, "utf8"));
+}
+
+/**
+ * Append-only ledger for the paid prejudge calls (spec §9.1.3, §9.3).
+ *
+ * The claim line is written before the provider request and the settle line
+ * immediately after it returns or throws, so a failure, a coverage rejection
+ * or the `prejudge_no_irrelevant_instances` stop can never erase usage that was
+ * already paid for. `usage` is the raw reported amount; `null` means the
+ * provider reported nothing, which stays unknown rather than becoming zero.
+ */
+export async function readPrejudgeAttempts(path, readFileImpl = readFile) {
+  if (typeof path !== "string" || path.length === 0) throw studyError("study_input_invalid", "path");
+  let text;
+  try {
+    text = await readFileImpl(path, "utf8");
+  } catch (error) {
+    if (error?.code === "ENOENT") return [];
+    throw error;
+  }
+  const records = [];
+  for (const [index, line] of text.split("\n").entries()) {
+    if (line.trim().length === 0) continue;
+    let record;
+    try {
+      record = JSON.parse(line);
+    } catch {
+      throw studyError("study_prejudge_attempt_ledger_corrupt", `line:${index + 1}`);
+    }
+    if (record?.schemaVersion !== SELF_RAG_STUDY_PREJUDGE_ATTEMPT_VERSION) {
+      throw studyError("study_prejudge_attempt_ledger_corrupt", `line:${index + 1}`);
+    }
+    records.push(record);
+  }
+  return records;
+}
+
+async function appendPrejudgeAttempt(path, record) {
+  await mkdir(dirname(path), { recursive: true });
+  await appendFile(path, `${JSON.stringify(record)}\n`, { encoding: "utf8", mode: 0o600 });
+}
+
+/** Persists the intent before any provider request is made. */
+export async function claimPrejudgeAttempt(input) {
+  const path = input.path;
+  if (typeof path !== "string" || path.length === 0) throw studyError("study_input_invalid", "path");
+  if (typeof input.caseId !== "string" || input.caseId.length === 0) throw studyError("study_input_invalid", "caseId");
+  const existing = await readPrejudgeAttempts(path, input.readFile);
+  const attempt = existing.filter((record) => record.caseId === input.caseId).length + 1;
+  const claim = {
+    schemaVersion: SELF_RAG_STUDY_PREJUDGE_ATTEMPT_VERSION,
+    callId: `${input.caseId}#${attempt}`,
+    caseId: input.caseId,
+    attempt,
+    kind: "prejudge",
+    promptVersion: input.promptVersion ?? SELF_RAG_STUDY_PREJUDGE_PROMPT_VERSION,
+    candidateCount: Number.isInteger(input.candidateCount) ? input.candidateCount : null,
+    status: "claimed",
+    claimedAt: input.claimedAt ?? new Date().toISOString(),
+  };
+  await appendPrejudgeAttempt(path, claim);
+  return claim;
+}
+
+function sanitizeAttemptUsage(usage) {
+  if (usage === null || typeof usage !== "object" || Array.isArray(usage)) return null;
+  const tokens = {};
+  for (const field of ["inputTokens", "outputTokens"]) {
+    if (Number.isInteger(usage[field]) && usage[field] >= 0) tokens[field] = usage[field];
+  }
+  return Object.keys(tokens).length === 0 ? null : tokens;
+}
+
+/** Persists the real outcome of a claimed call, success or not. */
+export async function settlePrejudgeAttempt(input) {
+  const path = input.path;
+  if (typeof path !== "string" || path.length === 0) throw studyError("study_input_invalid", "path");
+  const claim = requireObject(input.claim, "claim");
+  if (input.status !== "completed" && input.status !== "failed") {
+    throw studyError("study_input_invalid", `status:${String(input.status)}`);
+  }
+  const record = {
+    ...claim,
+    status: input.status,
+    settledAt: input.settledAt ?? new Date().toISOString(),
+    elapsedMs: Number.isFinite(input.elapsedMs) ? input.elapsedMs : null,
+    usage: sanitizeAttemptUsage(input.usage ?? null),
+    ...(input.failureCode === undefined ? {} : { failureCode: input.failureCode }),
+    ...(input.verdictCounts === undefined ? {} : { verdictCounts: input.verdictCounts }),
+  };
+  await appendPrejudgeAttempt(path, record);
+  return record;
+}
+
+/** Counts and digest the ledger for the freeze; a claim without settle is not success. */
+export function summarizePrejudgeAttemptRecords(records) {
+  const list = Array.isArray(records) ? records : [];
+  return {
+    digest: digestOf(list),
+    records: list.length,
+    claimed: list.filter((record) => record?.status === "claimed").length,
+    completed: list.filter((record) => record?.status === "completed").length,
+    failed: list.filter((record) => record?.status === "failed").length,
+  };
 }
 
 async function listAllGames(corpus) {
@@ -536,6 +677,7 @@ export async function prepareStudy(input) {
 
 async function prepareWithCorpus(input) {
   const { artifactDir, createdAt, seed, research, exclusions, corpus, deps, writeJson, codeSha } = input;
+  const ledgerPath = join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.prejudgeAttempts);
   const games = await listAllGames(corpus);
 
   const plan = slotPlan();
@@ -545,6 +687,7 @@ async function prepareWithCorpus(input) {
     seed,
     plan,
     analyzeGame: (game) => deps.analyzeGame({ game, corpus }),
+    ...(typeof deps.onProgress === "function" ? { onProgress: deps.onProgress } : {}),
   });
   if (new Set(sample.selected.map((entry) => entry.layer)).size !== 5) {
     throw studyError("insufficient_scene_coverage", "not_all_layers");
@@ -558,6 +701,15 @@ async function prepareWithCorpus(input) {
   for (const selected of sample.selected) {
     const built = await deps.buildCase({ selected, corpus });
     const observation = built?.observation;
+    // `buildCase` must replay the same corpus game with exactly the rules the
+    // sample bound, otherwise the frozen case is not the analyzed one.
+    if (selected.ruleSource !== undefined) {
+      verifyFrozenRuleSource(selected.ruleSource);
+      if (built?.ruleSource === undefined) throw studyError("study_case_rule_source_missing", selected.caseId);
+      if (built.ruleSource.digest !== selected.ruleSource.digest) {
+        throw studyError("study_case_rule_source_mismatch", selected.caseId);
+      }
+    }
     const layers = classifySceneLayers(sceneFactsFromObservation(observation));
     if (!layers.includes(selected.layer)) throw studyError("study_case_layer_mismatch", selected.caseId);
     if (observation.caseRef === undefined) throw studyError("study_case_invalid", selected.caseId);
@@ -575,10 +727,46 @@ async function prepareWithCorpus(input) {
     candidates.push({ caseId: selected.caseId, request, result });
 
     const candidateRefs = result.sourceRefs;
-    const prejudged = candidateRefs.length === 0
-      ? { verdicts: [], usage: null, elapsedMs: 0, judge: null }
-      : await deps.prejudge({ caseId: selected.caseId, observation, passages: result.passages });
-    const counts = validatePrejudgeVerdicts({ candidateRefs, verdicts: prejudged.verdicts });
+    let prejudged;
+    let counts;
+    if (candidateRefs.length === 0) {
+      prejudged = { verdicts: [], usage: null, elapsedMs: 0, judge: null };
+      counts = validatePrejudgeVerdicts({ candidateRefs, verdicts: prejudged.verdicts });
+    } else {
+      const claim = await claimPrejudgeAttempt({
+        path: ledgerPath, caseId: selected.caseId, candidateCount: candidateRefs.length,
+      });
+      const started = Date.now();
+      try {
+        prejudged = await deps.prejudge({ caseId: selected.caseId, observation, passages: result.passages });
+        // Validation belongs to the call, before it is settled: a returned
+        // judgement with invalid coverage was paid for but is not a completed
+        // call, so the ledger records it as failed with its real usage.
+        counts = validatePrejudgeVerdicts({ candidateRefs, verdicts: prejudged.verdicts });
+      } catch (error) {
+        // A failed call stays in the ledger with whatever usage the adapter
+        // could observe: unknown is recorded as unknown, never as zero.
+        await settlePrejudgeAttempt({
+          path: ledgerPath,
+          claim,
+          status: "failed",
+          usage: error?.usage ?? prejudged?.usage ?? null,
+          elapsedMs: Number.isFinite(error?.elapsedMs)
+            ? error.elapsedMs
+            : Number.isFinite(prejudged?.elapsedMs) ? prejudged.elapsedMs : Date.now() - started,
+          failureCode: typeof error?.message === "string" && /^[a-z0-9_]+$/u.test(error.message)
+            ? error.message : "prejudge_failed",
+        });
+        throw error;
+      }
+      await settlePrejudgeAttempt({
+        path: ledgerPath,
+        claim,
+        status: "completed",
+        usage: prejudged?.usage ?? null,
+        elapsedMs: Number.isFinite(prejudged?.elapsedMs) ? prejudged.elapsedMs : Date.now() - started,
+      });
+    }
     for (const key of Object.keys(counts)) verdictCounts[key] += counts[key];
     prejudgeArtifacts.push({
       caseId: selected.caseId,
@@ -675,6 +863,7 @@ async function prepareWithCorpus(input) {
       attestation: SELF_RAG_STUDY_PREJUDGE_ATTESTATION,
       verdictCounts,
       caseCount: prejudgeArtifacts.length,
+      attempts: summarizePrejudgeAttemptRecords(await readPrejudgeAttempts(ledgerPath)),
     },
     schedule: { digest: schedule.digest, rows: schedule.rows.length },
     executionIdentity: providerIdentity,
@@ -750,8 +939,18 @@ export async function verifyStudy(input) {
     }
     const expectedKey = slotSelectionKey(freeze.seed, entry.sourceHash, entry.slotIndex);
     if (entry.selectionKey !== expectedKey) throw studyError("verify_sample_key_mismatch", entry.caseId);
+    // The rules that let the native rule query run are frozen with the case and
+    // recomputed from their own locator; an edited profile cannot slip through.
+    if (entry.ruleSource === undefined) throw studyError("verify_rule_source_missing", entry.caseId);
+    verifyFrozenRuleSource(entry.ruleSource);
   }
-  const sampling = { version: freeze.sampling.version, seed: freeze.sampling.seed, plan: freeze.sampling.plan, selected: freeze.sampling.selected };
+  const sampling = {
+    version: freeze.sampling.version, seed: freeze.sampling.seed, plan: freeze.sampling.plan,
+    selected: freeze.sampling.selected,
+  };
+  // Older artifacts predate the exclusion record; only a freeze that carries it
+  // has it recomputed, so an unchanged artifact keeps verifying.
+  if (freeze.sampling.exclusions !== undefined) sampling.exclusions = freeze.sampling.exclusions;
   if (digestOf(sampling) !== freeze.sampling.digest) throw studyError("verify_sample_digest_mismatch");
 
   const requests = await readJson(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.requests));
@@ -819,6 +1018,18 @@ export async function verifyStudy(input) {
   if (verdictCounts.irrelevant === 0) throw studyError("verify_prejudge_no_irrelevant_instances");
   if (canonicalJson(verdictCounts) !== canonicalJson(freeze.prejudge?.verdictCounts)) {
     throw studyError("verify_prejudge_mismatch", "verdictCounts");
+  }
+  // The per-call ledger is part of the frozen evidence: editing, deleting or
+  // appending a call after the fact invalidates the preparation.
+  if (freeze.prejudge?.attempts !== undefined) {
+    const attemptRecords = await readPrejudgeAttempts(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.prejudgeAttempts));
+    const attemptSummary = summarizePrejudgeAttemptRecords(attemptRecords);
+    if (attemptSummary.digest !== freeze.prejudge.attempts.digest ||
+        attemptSummary.completed !== freeze.prejudge.attempts.completed ||
+        attemptSummary.failed !== freeze.prejudge.attempts.failed ||
+        attemptSummary.claimed !== freeze.prejudge.attempts.claimed) {
+      throw studyError("verify_prejudge_mismatch", "attempts");
+    }
   }
 
   const schedule = await readJson(join(artifactDir, SELF_RAG_STUDY_ARTIFACTS.schedule));

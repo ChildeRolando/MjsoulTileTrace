@@ -417,3 +417,82 @@ test('the selector budget is picked once from pilot observations, never from eva
   assert.throws(() => selectSelectorBudget({ ladder, observations: [] }), /selector_budget_unobservable/u);
   assert.throws(() => selectSelectorBudget({ ladder, observations: [{ outputTokens: -1, outputBytes: 1 }] }), /selector_budget_observation_invalid/u);
 });
+
+test('the declared default ladder accommodates observed high-effort pilot costs and still stops above4096', () => {
+  assert.deepEqual(selectSelectorBudget({ observations: [{ outputTokens: 921, outputBytes: 900 }, { outputTokens: 1300, outputBytes: 5000 }] }),
+    { maxOutputTokens: 2048, maxOutputBytes: 8192, observedMax: { outputTokens: 1300, outputBytes: 5000 } });
+  assert.equal(selectSelectorBudget({ observations: [{ outputTokens: 3500, outputBytes: 7000 }] }).maxOutputTokens, 4096);
+  assert.throws(() => selectSelectorBudget({ observations: [{ outputTokens: 4097, outputBytes: 100 }] }), /selector_budget_ladder_exhausted/u);
+});
+
+test('a returned failed gate is terminal: the generator is not called and only its real selector cost is kept', async () => {
+  const observation = runObservation();
+  const candidates = candidateResult(observation);
+  const provider = fakeProvider(() => ready(submissionArguments(observation), usage));
+  const receipt = { gateVersion: 'applicability-v1', status: 'failed', failureCode: 'receipt_too_large', droppedRefs: [] };
+  const failed = await executeStudyRun(baseRun({
+    arm: 'selfrag', generatorProvider: provider,
+    gate: {
+      apply: async () => ({
+        // A failed batch still carries the untouched passages; it is not a
+        // fallback that the generator may be called on.
+        output: candidates, receipt, status: 'failed', failureCode: 'receipt_too_large',
+        usage: { inputTokens: 50, outputTokens: 10 }, elapsedMs: 9, outputBytes: 64,
+      }),
+    },
+  }));
+  assert.equal(failed.status, 'failed');
+  assert.equal(failed.failureCode, 'receipt_too_large');
+  assert.equal(provider.calls.length, 0);
+  assert.equal(failed.request, null);
+  assert.deepEqual(failed.response, { status: 'not_called' });
+  assert.equal(failed.gate.status, 'failed');
+  assert.equal(failed.gate.failureCode, 'receipt_too_large');
+  assert.deepEqual(failed.gate.receipt, receipt);
+  assert.match(failed.gate.receiptDigest, /^[0-9a-f]{64}$/u);
+  assert.deepEqual(failed.usage.selector, { status: 'reported', tokens: { inputTokens: 50, outputTokens: 10 } });
+  // Only the selector really ran, so the total is its reported cost rather
+  // than an unknown that would silently hide the missing generator call.
+  assert.deepEqual(failed.usage.combined, { status: 'reported', tokens: { inputTokens: 50, outputTokens: 10 } });
+
+  // The gate's own failure wins even when its fallback is not deliverable:
+  // nothing was delivered, so the original code and receipt must not be
+  // replaced by a later binding error.
+  const otherProvider = fakeProvider(() => ready(submissionArguments(observation), usage));
+  const unbound = await executeStudyRun(baseRun({
+    arm: 'selfrag', generatorProvider: otherProvider,
+    gate: {
+      apply: async () => ({
+        output: { ...candidates, passages: [{ ...candidates.passages[0], sourceRef: 'arena-ref:v1:forged' }] },
+        receipt, status: 'failed', failureCode: 'receipt_too_large', usage: { inputTokens: 5, outputTokens: 2 }, elapsedMs: 1,
+      }),
+    },
+  }));
+  assert.equal(unbound.status, 'failed');
+  assert.equal(unbound.failureCode, 'receipt_too_large');
+  assert.equal(otherProvider.calls.length, 0);
+  assert.deepEqual(unbound.gate.receipt, receipt);
+  assert.deepEqual(unbound.usage.combined, { status: 'reported', tokens: { inputTokens: 5, outputTokens: 2 } });
+});
+
+test('a degraded gate still proceeds to the generator and records the downgrade', async () => {
+  const observation = runObservation();
+  const candidates = candidateResult(observation);
+  const provider = fakeProvider(() => ready(submissionArguments(observation), usage));
+  const record = await executeStudyRun(baseRun({
+    arm: 'selfrag', generatorProvider: provider,
+    gate: {
+      apply: async () => ({
+        output: candidates, receipt: { degraded: true }, status: 'degraded',
+        failureCode: 'invalid_response', usage: { inputTokens: 5, outputTokens: 2 }, elapsedMs: 4,
+      }),
+    },
+  }));
+  assert.equal(record.status, 'completed');
+  assert.equal(record.failureCode, null);
+  assert.equal(provider.calls.length, 1);
+  assert.equal(record.gate.status, 'degraded');
+  assert.equal(record.gate.failureCode, 'invalid_response');
+  assert.deepEqual(record.delivered.sourceRefs, candidates.sourceRefs);
+  assert.deepEqual(record.usage.combined, { status: 'reported', tokens: { inputTokens: 105, outputTokens: 22 } });
+});

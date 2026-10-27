@@ -295,13 +295,7 @@ export async function executeStudyRun(input) {
       return failedRecord({ input, observation, candidateResult, startedAt, started, clock,
         failureCode: "applicability_gate_case_mismatch", gateRecord: null });
     }
-    try {
-      maybeAssertDelivered(output.passages, candidateResult);
-    } catch (error) {
-      return failedRecord({ input, observation, candidateResult, startedAt, started, clock,
-        failureCode: "study_delivery_binding_invalid", gateRecord: null, detail: error?.detail, selectorAttempted: true });
-    }
-    delivered = output.passages;
+    const returned = Array.isArray(output.passages) ? output.passages : [];
     gateRecord = {
       status: gateResult.status,
       failureCode: gateResult.failureCode ?? null,
@@ -312,12 +306,32 @@ export async function executeStudyRun(input) {
       outputBytes: gateResult.outputBytes ?? null,
       retention: {
         candidateCount: candidateResult.passages.length,
-        retainedCount: delivered.length,
-        droppedCount: candidateResult.passages.length - delivered.length,
+        retainedCount: returned.length,
+        droppedCount: candidateResult.passages.length - returned.length,
       },
       receipt: gateResult.receipt ?? null,
       receiptDigest: gateResult.receipt === undefined ? null : digestOf(gateResult.receipt),
     };
+    if (gateResult.status === "failed") {
+      // A failed reflection batch is terminal, not a fallback: the requested
+      // budget was exceeded (e.g. `receipt_too_large`), so the generator must
+      // not run on an arm that would then look completed. The gate's own
+      // failure code, its receipt and the selector's real usage are kept; the
+      // fallback shape is irrelevant because nothing is delivered, and the
+      // generator was never called, so the combined cost is the selector's.
+      return failedRecord({ input, observation, candidateResult, startedAt, started, clock,
+        failureCode: gateResult.failureCode ?? "applicability_gate_failed",
+        gateRecord,
+        selectorAttempted: true,
+        usageParts: [reportedUsage(gateRecord.usage)] });
+    }
+    try {
+      maybeAssertDelivered(output.passages, candidateResult);
+    } catch (error) {
+      return failedRecord({ input, observation, candidateResult, startedAt, started, clock,
+        failureCode: "study_delivery_binding_invalid", gateRecord: null, detail: error?.detail, selectorAttempted: true });
+    }
+    delivered = output.passages;
   }
 
   const request = buildGeneratorRequest({ observation, candidateResult, passages: delivered });
