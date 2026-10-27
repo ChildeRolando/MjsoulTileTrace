@@ -1,0 +1,64 @@
+{
+  "page": 218,
+  "candidate": {
+    "path": "production/coac247-pdf218219-target-fix-v2-20261028/candidates/79-cn/page-0218.json",
+    "sha256": "5d0091cb957cc14b4436947ffa8207b65838302a1438442aca854664f05667c8"
+  },
+  "receipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218219-target-20261028\\receipt-218.json",
+    "sha256": "d50eb164b82dda0ee11ee92a700c9c63ca17d206edbac56354fa74b0edd05c11"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7160c860-7aaf-429a-a7a5-8321d9a96694.json",
+    "sha256": "72ee756127b8b30d0898ff6974ca8835b7a17f626c2eda13eec1c2730b4dc820"
+  },
+  "status": "needs-repair",
+  "targetVerdict": "needs-repair",
+  "originalIssueChecks": [
+    {
+      "issueId": "original-1",
+      "outcome": "resolved",
+      "evidence": "原图可数出北家13张、东家10张、西家13张牌背；候选已补充数量，并保留暗手牌面不可见的说明。"
+    },
+    {
+      "issueId": "original-2",
+      "outcome": "unresolved",
+      "evidence": "已逐项查看东家第2、3、5、10、11张和北家第1、6、7张舍牌；所给图像不足以可靠确认这些风牌的风向或数牌的点数。候选保留了未知，但这些可见牌尚未完整辨认。"
+    },
+    {
+      "issueId": "original-3",
+      "outcome": "unresolved",
+      "evidence": "南家手牌第一张索子的点数仍不能独立确认。候选末尾及unknowns承认该牌未确认，但前文仍将手牌确定写成67s，存在矛盾。"
+    },
+    {
+      "issueId": "original-4",
+      "outcome": "uncertain",
+      "evidence": "图面写有“ドラ”并显示非赤5m；候选已撤去确定的“宝牌指示牌”表述。仅凭图面仍不能确认界面显示的是宝牌本身还是指示牌。"
+    }
+  ],
+  "blockingIssues": [
+    {
+      "severity": "error",
+      "location": "79-cn-p218-r1.transcription，南家手牌",
+      "evidence": "候选先写“11334789m 234p 67s”，后又写“原稿所记67s中的第一张6s未能由独审确认，仍为未确认牌”。",
+      "description": "确定牌码与未确认说明互相矛盾。应将首张索子直接表示为点数未知，再单独注明原稿记为6s但尚未核实；不要猜改成另一牌码。"
+    },
+    {
+      "severity": "uncertain",
+      "location": "79-cn-p218-r1，东家及北家牌河",
+      "evidence": "东家第2、3、5、10、11张及北家第1、6、7张在图中可见，但所给图像不足以可靠辨认各自风向或点数。",
+      "description": "这些牌仍需保持未确认。它们限制对全部舍牌及正文役种推断的独立复核。"
+    },
+    {
+      "severity": "uncertain",
+      "location": "79-cn-p218-r1，中央ドラ标签",
+      "evidence": "图面显示“ドラ”和非赤5m，没有说明该界面使用宝牌本身还是指示牌。",
+      "description": "候选已准确保留语义未知；在取得界面规则依据之前，不能进一步确定其含义。"
+    }
+  ],
+  "repairGoal": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-pdf219-limited-20261028\\218-exact-repair-goal.json",
+    "sha256": "d98b0390dfe4ff83f94d1c77e9fee1f81881d691de31c8633dfa2742eeb8f70a"
+  },
+  "newCalls": 0
+}

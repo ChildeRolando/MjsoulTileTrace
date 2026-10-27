@@ -1,0 +1,676 @@
+{
+  "schema": "coac250-pdf219-limited-intake/1",
+  "recordedAt": "2026-10-27T22:28:30.783Z",
+  "canonical": "79-cn-chapter-217-4",
+  "handoff": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-pdf219-limited-20261028/handoff.json",
+    "sha256": "190b37dcb93a3aec7402c4fed3aa6fd052faacac817f6c47fd6b45f1fbbfa569"
+  },
+  "verifier": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-pdf219-limited-20261028\\limited219.mjs",
+    "sha256": "6b9521c449501d77412968c517945991714001354723cf281fccd0d8ed81fd98",
+    "export": "verify219LimitedFidelity"
+  },
+  "candidate": {
+    "path": "production/coac247-pdf218219-target-fix-v2-20261028/candidates/79-cn/page-0219.json",
+    "sha256": "464c607a262b415dece3f35b213aef19b632266f7c4917f3107a04d5e1971bc9"
+  },
+  "admission": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-pdf219-limited-20261028\\219-limited-admission.json",
+    "sha256": "7e839e813d5363098863c2e03606fa0ea51e7d6c57c9f8fd69d8a88efdb48392"
+  },
+  "receipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218219-target-20261028\\receipt-219.json",
+    "sha256": "8a0000a6a8ea3714d6bbfe2abef7f10f859457035f8e5fa8a84eb00dd2bcfb54"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\9c0751f9-9535-49dd-b156-97f2805bc605.json",
+    "sha256": "417ea1301bcc3d49ce8ab1e1e47c1a50e2e4f32e527bf8a0d78a453dcd85ddbb"
+  },
+  "callId": "9c0751f9-9535-49dd-b156-97f2805bc605",
+  "status": "accepted-for-specific-pdf219-conditional-argument-display",
+  "limitedFidelityAdmission": true,
+  "sourceBlockIds": [
+    "79-cn-p219-b5",
+    "79-cn-p219-b9",
+    "79-cn-p219-b7"
+  ],
+  "bodySha256": "658bd505d063b4f7e32d31e812ea59d6adbc59b28130188f4c36919e38e55cc3",
+  "retainedUnknowns": [
+    "西家靠中央一行的第2张字牌倒置且字形模糊，无法可靠辨认牌名。",
+    "西家靠中央一行的第6张万子数字倒置且模糊，无法可靠辨认。",
+    "西家靠中央一行的第4格为灰色空位，原牌面不可见。",
+    "其他三家的手牌牌面、各家点数和宝牌指示牌未另行显示。"
+  ],
+  "originalModelVerdict": "uncertain",
+  "originalTechnicalStatus": "needs-repair",
+  "originalChecks": {
+    "passed": false,
+    "configOkay": true,
+    "errors": [
+      "target_not_faithful",
+      "original_issue_not_resolved:original-2",
+      "unresolved_model_issues"
+    ]
+  },
+  "standardWholePagePassed": false,
+  "scopedTargetPassed": false,
+  "wholeChapterAccepted": false,
+  "forbiddenInferences": [
+    "完整牌河已核定",
+    "推补西家两张未知牌",
+    "对手暗手牌面已知",
+    "实际已听牌或具体打点",
+    "具体吃牌概率或立即成和已证明"
+  ],
+  "independentQuote": {
+    "jsonPointer": "/output/unknownTeachingImpact",
+    "fullFieldSha256": "0ce37f68b27182767c5818a56f50804f19c89c116b30db9eca5b076135e542c3",
+    "utf8Range": [
+      500,
+      599
+    ],
+    "exactQuote": "因此这些未知不妨碍理解上述条件性论证，但仍须保留原问题的不确定性。"
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime-manifest.json",
+    "sha256": "22467ecebc38c4cd32e8d535e2b1344e57fd7f4518a77a7a7a03c7e298e07c23",
+    "files": 30
+  },
+  "nativeReceiptVerification": {
+    "page219": {
+      "schema": "coac249-exact-pdf-target-verification/1",
+      "page": 219,
+      "candidate": {
+        "path": "production/coac247-pdf218219-target-fix-v2-20261028/candidates/79-cn/page-0219.json",
+        "sha256": "464c607a262b415dece3f35b213aef19b632266f7c4917f3107a04d5e1971bc9"
+      },
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218219-target-20261028\\receipt-219.json",
+        "sha256": "8a0000a6a8ea3714d6bbfe2abef7f10f859457035f8e5fa8a84eb00dd2bcfb54"
+      },
+      "status": "needs-repair",
+      "transportCompleted": true,
+      "scopedTargetPassed": false,
+      "standardWholePagePassed": false,
+      "wholeChapterAccepted": false,
+      "unresolvedOriginalIssues": [
+        {
+          "issueId": "original-2",
+          "outcome": "uncertain",
+          "evidence": "西家靠中央一行自右向左第2张是字牌、第6张是万子，但图中倒置且模糊，不能可靠确认具体牌名。候选已明确保留这两处未知，牌名本身仍未核实。"
+        }
+      ],
+      "blockingIssues": [
+        {
+          "severity": "uncertain",
+          "location": "西家靠中央一行，自右向左第2张和第6张",
+          "evidence": "两张牌面可见但倒置模糊，只能分别辨为字牌和万子，无法可靠读取具体牌名。",
+          "description": "候选已明确标为未知，但西家河牌的具体牌码尚不能完整核实。"
+        }
+      ],
+      "checks": {
+        "passed": false,
+        "configOkay": true,
+        "errors": [
+          "target_not_faithful",
+          "original_issue_not_resolved:original-2",
+          "unresolved_model_issues"
+        ]
+      },
+      "newCallsDuringVerification": 0
+    },
+    "page218": {
+      "schema": "coac249-exact-pdf-target-verification/1",
+      "page": 218,
+      "candidate": {
+        "path": "production/coac247-pdf218219-target-fix-v2-20261028/candidates/79-cn/page-0218.json",
+        "sha256": "5d0091cb957cc14b4436947ffa8207b65838302a1438442aca854664f05667c8"
+      },
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218219-target-20261028\\receipt-218.json",
+        "sha256": "d50eb164b82dda0ee11ee92a700c9c63ca17d206edbac56354fa74b0edd05c11"
+      },
+      "status": "needs-repair",
+      "transportCompleted": true,
+      "scopedTargetPassed": false,
+      "standardWholePagePassed": false,
+      "wholeChapterAccepted": false,
+      "unresolvedOriginalIssues": [
+        {
+          "issueId": "original-2",
+          "outcome": "unresolved",
+          "evidence": "已逐项查看东家第2、3、5、10、11张和北家第1、6、7张舍牌；所给图像不足以可靠确认这些风牌的风向或数牌的点数。候选保留了未知，但这些可见牌尚未完整辨认。"
+        },
+        {
+          "issueId": "original-3",
+          "outcome": "unresolved",
+          "evidence": "南家手牌第一张索子的点数仍不能独立确认。候选末尾及unknowns承认该牌未确认，但前文仍将手牌确定写成67s，存在矛盾。"
+        },
+        {
+          "issueId": "original-4",
+          "outcome": "uncertain",
+          "evidence": "图面写有“ドラ”并显示非赤5m；候选已撤去确定的“宝牌指示牌”表述。仅凭图面仍不能确认界面显示的是宝牌本身还是指示牌。"
+        }
+      ],
+      "blockingIssues": [
+        {
+          "severity": "error",
+          "location": "79-cn-p218-r1.transcription，南家手牌",
+          "evidence": "候选先写“11334789m 234p 67s”，后又写“原稿所记67s中的第一张6s未能由独审确认，仍为未确认牌”。",
+          "description": "确定牌码与未确认说明互相矛盾。应将首张索子直接表示为点数未知，再单独注明原稿记为6s但尚未核实；不要猜改成另一牌码。"
+        },
+        {
+          "severity": "uncertain",
+          "location": "79-cn-p218-r1，东家及北家牌河",
+          "evidence": "东家第2、3、5、10、11张及北家第1、6、7张在图中可见，但所给图像不足以可靠辨认各自风向或点数。",
+          "description": "这些牌仍需保持未确认。它们限制对全部舍牌及正文役种推断的独立复核。"
+        },
+        {
+          "severity": "uncertain",
+          "location": "79-cn-p218-r1，中央ドラ标签",
+          "evidence": "图面显示“ドラ”和非赤5m，没有说明该界面使用宝牌本身还是指示牌。",
+          "description": "候选已准确保留语义未知；在取得界面规则依据之前，不能进一步确定其含义。"
+        }
+      ],
+      "checks": {
+        "passed": false,
+        "configOkay": true,
+        "errors": [
+          "target_not_faithful",
+          "original_issue_not_resolved:original-2",
+          "original_issue_not_resolved:original-3",
+          "original_issue_not_resolved:original-4",
+          "unresolved_model_issues"
+        ]
+      },
+      "newCallsDuringVerification": 0
+    }
+  },
+  "negativeTests": [
+    {
+      "name": "wrongCandidateSha",
+      "rejected": true
+    },
+    {
+      "name": "missingUnknown",
+      "rejected": true
+    },
+    {
+      "name": "guessedRiverRank",
+      "rejected": true
+    },
+    {
+      "name": "changedAuthorModality",
+      "rejected": true
+    },
+    {
+      "name": "missingIndependentPermission",
+      "rejected": true
+    },
+    {
+      "name": "fakeWholePagePass",
+      "rejected": true
+    },
+    {
+      "name": "changedParentNonTarget",
+      "rejected": true
+    },
+    {
+      "name": "changedIssueToResolved",
+      "rejected": true
+    },
+    {
+      "name": "changedQuoteRange",
+      "rejected": true
+    },
+    {
+      "name": "missingParentBodyCoverage",
+      "rejected": true
+    }
+  ],
+  "pending": {
+    "page": 218,
+    "candidate": {
+      "path": "production/coac247-pdf218219-target-fix-v2-20261028/candidates/79-cn/page-0218.json",
+      "sha256": "5d0091cb957cc14b4436947ffa8207b65838302a1438442aca854664f05667c8"
+    },
+    "receipt": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218219-target-20261028\\receipt-218.json",
+      "sha256": "d50eb164b82dda0ee11ee92a700c9c63ca17d206edbac56354fa74b0edd05c11"
+    },
+    "blockingIssues": [
+      {
+        "severity": "error",
+        "location": "79-cn-p218-r1.transcription，南家手牌",
+        "evidence": "候选先写“11334789m 234p 67s”，后又写“原稿所记67s中的第一张6s未能由独审确认，仍为未确认牌”。",
+        "description": "确定牌码与未确认说明互相矛盾。应将首张索子直接表示为点数未知，再单独注明原稿记为6s但尚未核实；不要猜改成另一牌码。"
+      },
+      {
+        "severity": "uncertain",
+        "location": "79-cn-p218-r1，东家及北家牌河",
+        "evidence": "东家第2、3、5、10、11张及北家第1、6、7张在图中可见，但所给图像不足以可靠辨认各自风向或点数。",
+        "description": "这些牌仍需保持未确认。它们限制对全部舍牌及正文役种推断的独立复核。"
+      },
+      {
+        "severity": "uncertain",
+        "location": "79-cn-p218-r1，中央ドラ标签",
+        "evidence": "图面显示“ドラ”和非赤5m，没有说明该界面使用宝牌本身还是指示牌。",
+        "description": "候选已准确保留语义未知；在取得界面规则依据之前，不能进一步确定其含义。"
+      }
+    ],
+    "repairGoalOnly": true,
+    "repairAuthorized": false,
+    "modelCallsAuthorized": 0
+  },
+  "partition": {
+    "total": 22,
+    "perPage": [
+      6,
+      5,
+      9,
+      2
+    ]
+  },
+  "mandatory217Pair": {
+    "sourceBlockId": "79-cn-p218-b3",
+    "afterCharacterOffset": 165,
+    "authorText": false,
+    "text": "【审校注（非原文）：图中北家舍牌第二行第一张及西家舍牌第二行第二张均为万子，数字未辨清。西家该数字不影响本段亲家染索、南场领先、无役愚形一向听、留两家切过的9饼、拆8万对子扣索及争取亲家未听下庄的六项论证；北家第一张的未知不妨碍总体扣牌说明。两处未知限制精确牌谱复原，不能据此确定相关万子的精确可见张数、余张、进张和安全度。原文“现在亲家应该还没有听牌吧”为推测，扣索是战术意图，不证明对手暗手、实际结局、打法绝对安全或最优。】"
+  },
+  "page220": {
+    "page": 220,
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf220-terra-20261028\\candidates\\79-cn\\page-0220.json",
+      "sha256": "49df5a1cdba1d14e8feaf19a2ce1ae41cfc690c0cfeb047e6e290e032ca2ceeb"
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\220.json",
+      "sha256": "3df3b2ec7e9503cfe2916d831fcfee8773e3f9bc71c610705268dd2f56ea5450"
+    },
+    "completePhysicalCandidate": true,
+    "physicalSourceBlocks": 10,
+    "chapterOwnedSourceBlocks": 2,
+    "chapterSourceBlockIds": [
+      "79-cn-p220-b1",
+      "79-cn-p220-b3"
+    ],
+    "excludedOtherChapterBlocks": [
+      {
+        "sourceId": "79-cn",
+        "page": 220,
+        "sourceBlockId": "79-cn-p220-b4",
+        "chapterId": "79-cn-chapter-220-4",
+        "unitId": "79-cn-chapter-220-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 220,
+        "sourceBlockId": "79-cn-p220-b5",
+        "chapterId": "79-cn-chapter-220-4",
+        "unitId": "79-cn-chapter-220-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 220,
+        "sourceBlockId": "79-cn-p220-b6",
+        "chapterId": "79-cn-chapter-220-4",
+        "unitId": "79-cn-chapter-220-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 220,
+        "sourceBlockId": "79-cn-p220-b9",
+        "chapterId": "79-cn-chapter-220-4",
+        "unitId": "79-cn-chapter-220-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 220,
+        "sourceBlockId": "79-cn-p220-b7",
+        "chapterId": "79-cn-chapter-220-4",
+        "unitId": "79-cn-chapter-220-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 220,
+        "sourceBlockId": "79-cn-p220-b10",
+        "chapterId": "79-cn-chapter-220-4",
+        "unitId": "79-cn-chapter-220-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 220,
+        "sourceBlockId": "79-cn-p220-b8",
+        "chapterId": "79-cn-chapter-220-4",
+        "unitId": "79-cn-chapter-220-4-unit-1"
+      },
+      {
+        "sourceId": "79-cn",
+        "page": 220,
+        "sourceBlockId": "79-cn-p220-b2",
+        "chapterId": "79-cn-chapter-220-4",
+        "unitId": "79-cn-chapter-220-4-unit-1"
+      }
+    ],
+    "manifestStatus": "unreviewed-first-review-reserved",
+    "observedStatus": "passed",
+    "latestReceipt": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/pages/79-cn/page-0220.49df5a1cdba1d14e8feaf19a2ce1ae41cfc690c0cfeb047e6e290e032ca2ceeb.38f0d64d609b.json",
+      "sha256": "2cb298d9caa74b9d18dfb14684b544390b0e5d95db36e4bee95147a6fbd39540",
+      "status": "passed",
+      "recordedAt": "2026-10-27T21:43:37.991Z"
+    },
+    "receiptHistory": [
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/audit/pages/79-cn/page-0220.49df5a1cdba1d14e8feaf19a2ce1ae41cfc690c0cfeb047e6e290e032ca2ceeb.38f0d64d609b.json",
+        "sha256": "2cb298d9caa74b9d18dfb14684b544390b0e5d95db36e4bee95147a6fbd39540",
+        "status": "passed",
+        "recordedAt": "2026-10-27T21:43:37.991Z"
+      }
+    ],
+    "gate": {
+      "accepted": true,
+      "status": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0220.49df5a1cdba1d14e8feaf19a2ce1ae41cfc690c0cfeb047e6e290e032ca2ceeb.38f0d64d609b.json",
+      "auditSha256": "2cb298d9caa74b9d18dfb14684b544390b0e5d95db36e4bee95147a6fbd39540"
+    },
+    "blockingIssues": [],
+    "sourceNotes": [],
+    "wholePageAccepted": true,
+    "limitedPairedEvidence": null,
+    "selected": false,
+    "firstReviewUsed": 1,
+    "reviewBudgetNote": "Original first review has completed; not an unspent reservation. No extra review/production authorized."
+  },
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "newConsumerStarted": false,
+  "previewBuilt": false,
+  "mcpReadbackPerformed": false,
+  "arenaReadbackPerformed": false,
+  "coverageIncrement": 0,
+  "coverage": {
+    "chapters": 237,
+    "total": 256,
+    "remaining": 19
+  },
+  "preview": {
+    "corpusId": "cbb2a0bb46307d1a17b44f56990300f2864ae25c10cb58360d090af7721a692c",
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T22-11-13-395Z"
+  },
+  "formalActiveChanged": false,
+  "protectedInputs": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-pdf219-limited-20261028\\handoff.json",
+      "sha256": "190b37dcb93a3aec7402c4fed3aa6fd052faacac817f6c47fd6b45f1fbbfa569"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-pdf219-limited-20261028\\limited219.mjs",
+      "sha256": "6b9521c449501d77412968c517945991714001354723cf281fccd0d8ed81fd98",
+      "export": "verify219LimitedFidelity"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-pdf219-limited-20261028\\219-limited-admission.json",
+      "sha256": "7e839e813d5363098863c2e03606fa0ea51e7d6c57c9f8fd69d8a88efdb48392"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218219-target-20261028\\receipt-219.json",
+      "sha256": "8a0000a6a8ea3714d6bbfe2abef7f10f859457035f8e5fa8a84eb00dd2bcfb54"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime-manifest.json",
+      "sha256": "22467ecebc38c4cd32e8d535e2b1344e57fd7f4518a77a7a7a03c7e298e07c23"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\capability-evidence.json",
+      "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-audit-definition.mjs",
+      "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-audit-legacy.mjs",
+      "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-audit-pdf-layout.mjs",
+      "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "d6dbfed50dac57bbf879870463f22d474df3ef449261ed13d93bea76cfa9ed36"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-audit-pdf-native-structure-corrections.mjs",
+      "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-audit-pdf-native.mjs",
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-audit-pdf-scope.mjs",
+      "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-audit-verification-dependencies.mjs",
+      "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-audit-web-batches.mjs",
+      "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-audit-web.mjs",
+      "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-audit.mjs",
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-production-pdf-flow.mjs",
+      "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-production-web-dictionary.mjs",
+      "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-production-web-formal.mjs",
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-production-web-labels.mjs",
+      "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-production-web-sources.py",
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-production-web.mjs",
+      "sha256": "07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\textbook-production.mjs",
+      "sha256": "3c04c7ec796f414c08ef2e5967346fdf9f0db7c92144b3558809ed11763072b1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\verification-dependencies.json",
+      "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\production-schema.mjs",
+      "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\render-textbook-page.py",
+      "sha256": "6219e82ebb07a5f69e91b6e45ccadda00d85138c33bb67adaf6b40dd4a5f8c04"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime\\render-textbook-region.py",
+      "sha256": "488de7788ec5a2b95b411f31acdece59d806e59360c32bdb2bf20f76f1093fec"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\runtime-manifest.json",
+      "sha256": "c7c273d17c2685e4cf3f0251ebe345fff34a0d40865ab5e83cb1ced47ca97945"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-pdf218219-target-results-20261028.json",
+      "sha256": "b4755f133f70298679b6115b14933d807a5b70c31f099a9ab89534ef3379900b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218219-target-20261028\\receipt-219.json",
+      "sha256": "8a0000a6a8ea3714d6bbfe2abef7f10f859457035f8e5fa8a84eb00dd2bcfb54"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-target-fix-v2-20261028\\candidates\\79-cn\\page-0219.json",
+      "sha256": "464c607a262b415dece3f35b213aef19b632266f7c4917f3107a04d5e1971bc9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\9c0751f9-9535-49dd-b156-97f2805bc605.json",
+      "sha256": "417ea1301bcc3d49ce8ab1e1e47c1a50e2e4f32e527bf8a0d78a453dcd85ddbb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218219-target-20261028\\219-independent-limits.json",
+      "sha256": "8ac4991c4a970cb1ed6facf183c791a808d6f409e855e12db1caf0633bca0ac6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\candidates\\79-cn\\page-0219.json",
+      "sha256": "4ed396279c5eff45b5c9d399f7950394ac1c36b0cc638b22f67d0f30fb03ff54"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0219.4ed396279c5eff45b5c9d399f7950394ac1c36b0cc638b22f67d0f30fb03ff54.38f0d64d609b.json",
+      "sha256": "485247f1aabde12801df12bdd4e989a1fa3071148a17acd7a68dfd1285b15c14"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\ac6bf0ed-e84d-4bc7-b64c-cecf3550dd86.json",
+      "sha256": "314d27f4981a93efe9c448cd541bba62e75d0fbe6f3d3fe97692d5daf4ab8f94"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\219.json",
+      "sha256": "27ae7567c1ba544cf5b5bdbf3a75abeb95e650c84ba9ce2114b2143340d99a28"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\raw-calls\\717d547b-6aac-4e2a-8ef2-cccbbdcfdd07.json",
+      "sha256": "eb9c196deb5be95e2ffe0cddc654550ee6941d9387859389374f69c486ba3c55"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\approval-219.json",
+      "sha256": "231d24c07eea42e19cd1a1720444d39b7cf1c142cfb47ca19cd4dce107cd74f8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\proof-219.json",
+      "sha256": "767b706ccba86e9fce04ae60d4e8eadbcf18a7551fc2b6109994ef8528c02608"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\target-request-219.json",
+      "sha256": "901bceb588631e7c01e2dedc12b870722939e50d198a9c5f8fd9d6181e4a7c68"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac247-pdf218219-target-fix-v2-20261028\\runtime-manifest.json",
+      "sha256": "22467ecebc38c4cd32e8d535e2b1344e57fd7f4518a77a7a7a03c7e298e07c23"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218219-target-20261028\\verify.mjs",
+      "sha256": "e965aceb28f35215a61a1394aa4d19782b08af755adac47f64c2ff7a306366ba"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-pdf219-limited-20261028\\218-disposition.json",
+      "sha256": "c1e6ff2a733d9cebe3d562b3fde88ded2e14924c94e1ea2c041fbc011f3bbb61"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-target-fix-v2-20261028\\candidates\\79-cn\\page-0218.json",
+      "sha256": "5d0091cb957cc14b4436947ffa8207b65838302a1438442aca854664f05667c8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218219-target-20261028\\receipt-218.json",
+      "sha256": "d50eb164b82dda0ee11ee92a700c9c63ca17d206edbac56354fa74b0edd05c11"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7160c860-7aaf-429a-a7a5-8321d9a96694.json",
+      "sha256": "72ee756127b8b30d0898ff6974ca8835b7a17f626c2eda13eec1c2730b4dc820"
+    }
+  ],
+  "protectedFiles": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-preview-current.json",
+      "sha256": "4c31559cd768b8c6a59b187d5ea2274cfec96dfdd972a915fa2a7ef385b66415"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v28.json",
+      "sha256": "44afea30f4d12f76803eafe29e7a49805d4b852d1b01471edc36c631ba0d5046"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-web-candidate-selection.json",
+      "sha256": "5ca13667f5e9b09ddbab0147e0a6985327aa609ad5d5f17477e2b63b32ac41e1"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-candidate-selection.json",
+      "sha256": "621e4d88cf890f901a41506adbb42ab3b37febafa95d62cfb2bc4abbab0e78aa"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.mjs",
+      "sha256": "4f393a548a087aff2cb2900830db0340d22b99cf35bb647795fbbafbe1abc28d"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/candidate-exclusions.json",
+      "sha256": "4835655ad7fa323e2acc94d4e04824dc1c56b4b67ceec1b1449617c79c3411a3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/source-structure-holds.json",
+      "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-pdf217220-assembly-intake-20261028.json",
+      "sha256": "b159d3282f0bf6020d2ffb61c693198499df02ae53bba842f0aea5c94bbe99b3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-uncovered-chapter-continuation-register-20261027b.json",
+      "sha256": "63469abf79df28cdd7064fb8d501fc14dd6bd5014fe8626aa1414c846daa6e9e"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+      "sha256": "70e34c1944ea44c4752594a010e1ce125a6ae6591e895141b210b9c4c39bcad9"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/review/textbook-corpus.json",
+      "sha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/calls.jsonl",
+      "sha256": "92732f132dab601138eb6a5fa9152b21cb58750b2b480ea4f6bfe9a8a5fcaf65"
+    }
+  ]
+}

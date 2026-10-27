@@ -1,0 +1,71 @@
+{
+  "allPassed": true,
+  "recordedAt": "2026-10-27T22:28:30.850Z",
+  "registration": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-pdf219-limited-intake-20261028.json",
+    "sha256": "5893bff16f8b8ab0d5dbc1458be72ea60e81f0399d20475f3b0307649900cc8d"
+  },
+  "register": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+    "beforeSha256": "cb16fcdca7204986cec280e1cf1b822197d20af5f80d06bee7e3bf6fa7de5eb8",
+    "afterSha256": "53e334adaf6c49d8caee4af03485245742a305d91e262492dd992327699892aa"
+  },
+  "runtimeFiles": 30,
+  "nativeVerifierSha256": "e965aceb28f35215a61a1394aa4d19782b08af755adac47f64c2ff7a306366ba",
+  "limitedVerifierSha256": "6b9521c449501d77412968c517945991714001354723cf281fccd0d8ed81fd98",
+  "negativeTests": [
+    {
+      "name": "wrongCandidateSha",
+      "rejected": true
+    },
+    {
+      "name": "missingUnknown",
+      "rejected": true
+    },
+    {
+      "name": "guessedRiverRank",
+      "rejected": true
+    },
+    {
+      "name": "changedAuthorModality",
+      "rejected": true
+    },
+    {
+      "name": "missingIndependentPermission",
+      "rejected": true
+    },
+    {
+      "name": "fakeWholePagePass",
+      "rejected": true
+    },
+    {
+      "name": "changedParentNonTarget",
+      "rejected": true
+    },
+    {
+      "name": "changedIssueToResolved",
+      "rejected": true
+    },
+    {
+      "name": "changedQuoteRange",
+      "rejected": true
+    },
+    {
+      "name": "missingParentBodyCoverage",
+      "rejected": true
+    }
+  ],
+  "callbackMatchesOriginalAdmission": true,
+  "originalUncertainAndFalsePreserved": true,
+  "allOtherRowsUnchanged": true,
+  "pointerSelectionAndFormalUnchanged": true,
+  "coverage": {
+    "chapters": 237,
+    "total": 256,
+    "remaining": 19
+  },
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "newConsumerStarted": false,
+  "previewBuilt": false
+}

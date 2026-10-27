@@ -1,0 +1,44 @@
+{
+  "schema": "coac249-original-independent-limitation-extract/1",
+  "page": 219,
+  "candidate": {
+    "path": "production/coac247-pdf218219-target-fix-v2-20261028/candidates/79-cn/page-0219.json",
+    "sha256": "464c607a262b415dece3f35b213aef19b632266f7c4917f3107a04d5e1971bc9"
+  },
+  "receipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-pdf218219-target-20261028\\receipt-219.json",
+    "sha256": "8a0000a6a8ea3714d6bbfe2abef7f10f859457035f8e5fa8a84eb00dd2bcfb54"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\9c0751f9-9535-49dd-b156-97f2805bc605.json",
+    "sha256": "417ea1301bcc3d49ce8ab1e1e47c1a50e2e4f32e527bf8a0d78a453dcd85ddbb"
+  },
+  "modelVerdictUnchanged": "uncertain",
+  "technicalStatusUnchanged": "needs-repair",
+  "originalIssue2Unchanged": {
+    "issueId": "original-2",
+    "outcome": "uncertain",
+    "evidence": "西家靠中央一行自右向左第2张是字牌、第6张是万子，但图中倒置且模糊，不能可靠确认具体牌名。候选已明确保留这两处未知，牌名本身仍未核实。"
+  },
+  "independentQuote": {
+    "jsonPointer": "/output/unknownTeachingImpact",
+    "fullFieldSha256": "0ce37f68b27182767c5818a56f50804f19c89c116b30db9eca5b076135e542c3",
+    "utf8Range": [
+      500,
+      599
+    ],
+    "exactQuote": "因此这些未知不妨碍理解上述条件性论证，但仍须保留原问题的不确定性。"
+  },
+  "completeIndependentTeachingImpact": "图中自家有两张1p及1s、2s、3s，南家已有白牌副露。若南家暗手有2p和3p，便可能吃自家打出的1p；这是条件性的可能，不能据图断言南家持有这两张牌、已听牌或有某个打点。摸到4s也可为把1s、2s、3s改成2s、3s、4s提供向断幺发展的机会，并非立即证明成和。西家两张未辨明的可见牌分别属于字牌和万子，不是2p或3p；灰格及暗手仍未知，完整牌河和具体吃牌概率不能由此核定。因此这些未知不妨碍理解上述条件性论证，但仍须保留原问题的不确定性。",
+  "preservedCandidateUnknowns": [
+    "西家靠中央一行的第2张字牌倒置且字形模糊，无法可靠辨认牌名。",
+    "西家靠中央一行的第6张万子数字倒置且模糊，无法可靠辨认。",
+    "西家靠中央一行的第4格为灰色空位，原牌面不可见。",
+    "其他三家的手牌牌面、各家点数和宝牌指示牌未另行显示。"
+  ],
+  "authorBodySha256": "658bd505d063b4f7e32d31e812ea59d6adbc59b28130188f4c36919e38e55cc3",
+  "scope": "Evidence that understanding the stated conditional argument does not require guessing these two ranks; not complete river verification, actual hidden hand/tenpai/points or a concrete call probability.",
+  "admissionGranted": false,
+  "newModelCalls": 0,
+  "next": "Existing owner may check an exact bounded-fidelity composition against the unchanged author body and original independent limits. This extract does not change uncertain into resolved or grant a full page/chapter pass."
+}
