@@ -1,0 +1,296 @@
+{
+  "schema": "coac248-222-review-return-intake/1",
+  "recordedAt": "2026-10-27T20:54:10.319207+00:00",
+  "chapterId": "79-cn-chapter-222-5",
+  "candidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r2.display.json",
+    "sha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d"
+  },
+  "status": "needs-repair",
+  "integrationAllowed": false,
+  "call": {
+    "callId": "5b131a9b-8592-4789-922a-1ab7306b9581",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "images": 2,
+    "durationMs": 184089,
+    "usage": {
+      "inputTokens": 17543,
+      "cachedInputTokens": 0,
+      "outputTokens": 12953
+    },
+    "fee": null,
+    "upstreamExecutionCount": null,
+    "remoteWeights": null
+  },
+  "budget": {
+    "phaseUsed": 3,
+    "phaseMaximum": 3,
+    "remaining": 0,
+    "retry": 0,
+    "newCallsThisIntake": 0
+  },
+  "findings": {
+    "targetBlock": "faithful",
+    "targetFigure": "faithful",
+    "image": "represented",
+    "both1mReferencesConfirmed": true,
+    "unresolved": [
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1775262:b0018",
+        "sourceEvidence": "源顺序为 main/p[16] 的 b0017、main/div[17] 的 b0018、main/p[18] 的 b0019；候选中的目标块和上下文块分属不同数组。",
+        "description": "无法从所给候选数据确定目标 figure 是否实际处于两段教学文字之间，因此上下文连续性仍待确认。",
+        "suggestedRepair": "提供或核对候选文档包含 b0017、b0018、b0019 的同一有序块序列，确认目标位于两段之间，并保留后续已继承的教学内容。"
+      }
+    ],
+    "domOrder": {
+      "faithful": false,
+      "evidence": "源中目标位于 b0017 和 b0019 之间；候选目标块与上下文块分别列在不同数组中，未展示包含目标及邻接块的合并顺序，故无法独立确认实际插入位置。这是不确定，并非已证实错序。"
+    },
+    "contextContinuity": {
+      "faithful": false,
+      "evidence": "所给继承上下文包含之后摸切、拆掉23饼、14饼听牌及避免二度进张的说明；但缺少与目标块合并的有序序列，无法确认这些说明在成品中与例5连续呈现。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "目标图的牌序、箭头、横置和赤牌信息以及所给教学文字均已覆盖；由于目标与上下文的实际组合顺序未展示，尚不能确认完整教学上下文在成品中的连续性。"
+    }
+  },
+  "orderEvidence": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-222-order-context-evidence-20261028.json",
+    "sha256": "a3666b72d7f9e9677a0e3116a301b9e0e78a0514208639a179fdd97456f4222e",
+    "bodyCanonicalBytesEqual": true,
+    "parentIndependentDomOrder": {
+      "faithful": true,
+      "evidence": "23个正文块依b0001至b0023自然顺序一一对应，10次图片出现均在原段落位置，未见重排、重复或遗漏。"
+    },
+    "actualSequence": [
+      {
+        "index": 16,
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0017"
+        ]
+      },
+      {
+        "index": 17,
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0018"
+        ]
+      },
+      {
+        "index": 18,
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0019"
+        ]
+      },
+      {
+        "index": 20,
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0021"
+        ]
+      }
+    ],
+    "requestSuppliedCombinedCandidateOrder": false,
+    "establishedWrongOrder": false,
+    "unknownsBefore": [],
+    "unknownsAfter": [],
+    "historyCorrection": "Reviewer wording that unknowns were cleared is not adopted; both parent and new candidate already had []. Raw unchanged."
+  },
+  "nextAction": "Existing COAC244 owner assesses lawful reuse of independently audited unchanged order, zero models. Preserve new uncertain and semantic gates. No248 production/review dispatch or new consumers.",
+  "bindings": {
+    "handoff": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-reviewed222-target-figure-v3-20261028.json",
+      "sha256": "5573da4d2d8933823c9ad747f0bf332be397a303301baf6d35b68139e052788e",
+      "copy": "evidence/handoff.json"
+    },
+    "audit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d.json",
+      "sha256": "06658a3d465820d3523fb1a28ff0a0ffd9c6a6484a92be4f68984dd0dc1a4e24",
+      "copy": "evidence/audit.json"
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\5b131a9b-8592-4789-922a-1ab7306b9581.json",
+      "sha256": "88d71694aaa3485b0f30f03477d0389e82615147162b3970c9833aa8e5c01ea2",
+      "copy": "evidence/raw.json"
+    },
+    "ordered-context": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-222-order-context-evidence-20261028.json",
+      "sha256": "a3666b72d7f9e9677a0e3116a301b9e0e78a0514208639a179fdd97456f4222e",
+      "copy": "evidence/ordered-context.json"
+    },
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.r2.display.json",
+      "sha256": "c51650a43ec7b124b8aaf0dba0b3d7918f674e150cc710141d7ee6230688357d",
+      "copy": "evidence/candidate.json"
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1775262.r1.display.json",
+      "sha256": "f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6",
+      "copy": "evidence/parent.json"
+    },
+    "parent-audit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1775262.f26e0767a7c2ce54998646bea45175589f9aa48ec7ed8284824ca9e5e3ddf2d6.json",
+      "sha256": "403417eaef97305d99506bc9d0a2ec39d4128cfedd0a609ecb470f22a4b252ec",
+      "copy": "evidence/parent-audit.json"
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1775262\\source.json",
+      "sha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+      "copy": "evidence/source.json"
+    },
+    "runtime-manifest": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-222-target-figure-v3-20261028\\runtime-manifest.json",
+      "sha256": "8c416f3afbb3e8647e1761d526151825cb79927741d9f331c44225679be6705f",
+      "copy": "evidence/runtime-manifest.json"
+    },
+    "image-0": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+      "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+      "copy": "evidence/image-0.png"
+    },
+    "image-1": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png",
+      "sha256": "98f2495dfb2b67f1e57c6639f533e9630c5ce46a35e89fbc55248e60f2136126",
+      "copy": "evidence/image-1.png"
+    }
+  },
+  "runtimeVerifiedFiles": [
+    {
+      "path": "capability-evidence.json",
+      "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2"
+    },
+    {
+      "path": "production-schema.mjs",
+      "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9"
+    },
+    {
+      "path": "textbook-audit-222-figure.mjs",
+      "sha256": "8f79a0928d8bc761c9c6ceb5cf643fe80c1a56c2f2600016ccce45f03071b2e8"
+    },
+    {
+      "path": "textbook-audit-definition.mjs",
+      "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711"
+    },
+    {
+      "path": "textbook-audit-image-binding.test.mjs",
+      "sha256": "1e8968987bd3082740c7044855379c4f193ce9c4d13470c32a1ae1fd4593f832"
+    },
+    {
+      "path": "textbook-audit-legacy.mjs",
+      "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619"
+    },
+    {
+      "path": "textbook-audit-pdf-layout.mjs",
+      "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06"
+    },
+    {
+      "path": "textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05"
+    },
+    {
+      "path": "textbook-audit-pdf-native-structure-corrections.mjs",
+      "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b"
+    },
+    {
+      "path": "textbook-audit-pdf-native.mjs",
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+    },
+    {
+      "path": "textbook-audit-pdf-scope.mjs",
+      "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf"
+    },
+    {
+      "path": "textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff"
+    },
+    {
+      "path": "textbook-audit-tile-dictionary.mjs",
+      "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30"
+    },
+    {
+      "path": "textbook-audit-verification-dependencies.mjs",
+      "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08"
+    },
+    {
+      "path": "textbook-audit-web-batches.mjs",
+      "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69"
+    },
+    {
+      "path": "textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "path": "textbook-audit-web.mjs",
+      "sha256": "89a233e3bb45fde75bba0b20b9c0aa273093443f65e288fee912f80fda6a717c"
+    },
+    {
+      "path": "textbook-audit-web.test.mjs",
+      "sha256": "f3c19856af72c0078611b1155fd22ed098727c6d9fc163265fde4e54ffa67074"
+    },
+    {
+      "path": "textbook-audit.mjs",
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+    },
+    {
+      "path": "textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+    },
+    {
+      "path": "textbook-production-pdf-flow.mjs",
+      "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3"
+    },
+    {
+      "path": "textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+    },
+    {
+      "path": "textbook-production-web-dictionary.mjs",
+      "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824"
+    },
+    {
+      "path": "textbook-production-web-formal.mjs",
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd"
+    },
+    {
+      "path": "textbook-production-web-labels.mjs",
+      "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274"
+    },
+    {
+      "path": "textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    {
+      "path": "textbook-production-web-sources.py",
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f"
+    },
+    {
+      "path": "textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "path": "textbook-production-web.mjs",
+      "sha256": "07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf"
+    },
+    {
+      "path": "textbook-production.mjs",
+      "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355"
+    },
+    {
+      "path": "verification-dependencies.json",
+      "sha256": "f48df330e0e4f37797cec4014db8f7a9bfd12ffc35d61a9b8f972d74b1f78294"
+    }
+  ],
+  "worktreeRecovery": {
+    "ancestor": "a7f5201e90aa8846051c7f06f22e0bdac482968c",
+    "pathMapSha256": "83b5ac3f6508e4b9e29c9ab87f0a034e06af20493e0f8133cbe1500ef36d14aa",
+    "deliveryCopiesVerified": 29,
+    "originalFailedRunPreserved": "01a17f16-8947-7e89-971e-fdea09027ce6",
+    "oldRunNeverStarted": true,
+    "recoveryIsNotProductionRetry": true
+  },
+  "originalInputsChanged": false,
+  "buildOrFinalizeExecuted": false,
+  "newWakeups": 0,
+  "to250": false
+}

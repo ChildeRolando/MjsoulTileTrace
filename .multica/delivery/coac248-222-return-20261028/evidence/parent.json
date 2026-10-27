@@ -1,0 +1,2174 @@
+{
+  "schema": "coach-textbook-web-article-draft/1",
+  "status": "draft",
+  "productionStatus": "draft-awaiting-independent-web-review",
+  "source": {
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1775262",
+    "url": "https://www.bilibili.com/read/cv1775262",
+    "title": "【日本麻雀讲座译文】防守14—立直的读牌（一）",
+    "language": "zh-CN",
+    "fetchedAt": "2026-10-23T20:31:50.303666+00:00",
+    "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1775262/source.json",
+    "sourceSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+    "htmlSha256": "00ba55b262d15739f0f6cf28b92e56751ff0ea9e38aed7e8e2349de8edfa7ae1",
+    "mainSha256": "8311e4033b07646c4a91acfbe1bea660d805802ccbb204c11a5423ce6a810706"
+  },
+  "body": {
+    "language": "zh-CN",
+    "mode": "verbatim",
+    "flowOrder": "source-dom-order",
+    "blocks": [
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0001"
+        ],
+        "sourceText": "免责声明：",
+        "text": "免责声明：",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0001",
+        "sourceSegments": [
+          {
+            "text": "免责声明：",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0002"
+        ],
+        "sourceText": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+        "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0002",
+        "sourceSegments": [
+          {
+            "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0003"
+        ],
+        "sourceText": "原文地址：http://beginners.biz/reach/mamori14.html ------------------------------------------------------------------------------------ 立直的读牌1：  虽说是立直的读牌，并不是传说中读出对手听什么牌的高难度技术。 毫不夸张的说，读出立直者听什么这是不可能的。  ",
+        "text": "原文地址：http://beginners.biz/reach/mamori14.html ------------------------------------------------------------------------------------ 立直的读牌1：  虽说是立直的读牌，并不是传说中读出对手听什么牌的高难度技术。 毫不夸张的说，读出立直者听什么这是不可能的。  ",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0003",
+        "sourceSegments": [
+          {
+            "text": "原文地址：http://beginners.biz/reach/mamori14.html",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "立直的读牌1：",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "虽说是立直的读牌，并不是传说中读出对手听什么牌的高难度技术。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "毫不夸张的说，读出立直者听什么这是不可能的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0004"
+        ],
+        "figureId": "79-bilibili-cn:cv1775262:b0004:figure",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0004",
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0005"
+        ],
+        "sourceText": "比如例1的立直的手牌一向听的情况如图所示（假设）。 但是，我们是不能断定立直时所听的是什么牌。  摸到14万的话就听69索； 摸到69索的话就听14万。  听牌时的有效牌叫做“入目”， 正式因为有了入目，所以不能够做到一点读。  而且本来例1的手牌，除了现物之外，其他的牌危险程度都差不多。 随便给几个例子吧。图B~D的情况都是不能否定的。 ",
+        "text": "比如例1的立直的手牌一向听的情况如图所示（假设）。 但是，我们是不能断定立直时所听的是什么牌。  摸到14万的话就听69索； 摸到69索的话就听14万。  听牌时的有效牌叫做“入目”， 正式因为有了入目，所以不能够做到一点读。  而且本来例1的手牌，除了现物之外，其他的牌危险程度都差不多。 随便给几个例子吧。图B~D的情况都是不能否定的。 ",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0005",
+        "sourceSegments": [
+          {
+            "text": "比如例1的立直的手牌一向听的情况如图所示（假设）。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是，我们是不能断定立直时所听的是什么牌。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "摸到14万的话就听69索；",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "摸到69索的话就听14万。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "听牌时的有效牌叫做“入目”，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "正式因为有了入目，所以不能够做到一点读。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "而且本来例1的手牌，除了现物之外，其他的牌危险程度都差不多。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "随便给几个例子吧。图B~D的情况都是不能否定的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0006"
+        ],
+        "figureId": "79-bilibili-cn:cv1775262:b0006:figure",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0006",
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0007"
+        ],
+        "sourceText": "结果就是，不要有“去判断立直者听什么”这种错误的想法。 “立直的听牌是不能读出的，也没有必要去读”，这个认识是立直读牌的第一步。  这样一来，我们读牌到底读什么呢？ 其实是“牌的危险度”和“牌的安全度”。  能够在攻守两方面灵活运用读牌，我觉得就是一位一流的雀士。 特别是寻找安全牌的技术是非常重要的，这对放铳率有着很深的影响。  理论、总结： 读出立直者听什么牌是不可能的，也没有这个必要。 对于有一定舍牌特征的立直，能够把握“危险的牌”和“相当安全的牌”才是真正的读牌。  下面，举几个“危险度比较高的牌”的例子。 ------------------------------------------------------------------------------------ 五的里筋 ------------------------------------------------------------------------------------ 有关里筋其他很多网站有许多记述，这里就不再详细说明了。 在实战中，里筋危险度比较高的就是“五的里筋”和“间四间” 过去常常说“早巡切5，就很可能是14或者69听牌。” 虽然还不知道统计的结果，不过这也是可以容易感觉到的东西。 ",
+        "text": "结果就是，不要有“去判断立直者听什么”这种错误的想法。 “立直的听牌是不能读出的，也没有必要去读”，这个认识是立直读牌的第一步。  这样一来，我们读牌到底读什么呢？ 其实是“牌的危险度”和“牌的安全度”。  能够在攻守两方面灵活运用读牌，我觉得就是一位一流的雀士。 特别是寻找安全牌的技术是非常重要的，这对放铳率有着很深的影响。  理论、总结： 读出立直者听什么牌是不可能的，也没有这个必要。 对于有一定舍牌特征的立直，能够把握“危险的牌”和“相当安全的牌”才是真正的读牌。  下面，举几个“危险度比较高的牌”的例子。 ------------------------------------------------------------------------------------ 五的里筋 ------------------------------------------------------------------------------------ 有关里筋其他很多网站有许多记述，这里就不再详细说明了。 在实战中，里筋危险度比较高的就是“五的里筋”和“间四间” 过去常常说“早巡切5，就很可能是14或者69听牌。” 虽然还不知道统计的结果，不过这也是可以容易感觉到的东西。 ",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0007",
+        "sourceSegments": [
+          {
+            "text": "结果就是，不要有“去判断立直者听什么”这种错误的想法。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "“立直的听牌是不能读出的，也没有必要去读”，这个认识是立直读牌的第一步。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这样一来，我们读牌到底读什么呢？",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "其实是",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "“牌的危险度”",
+            "marks": [
+              "strong:background:;color:#ee230d;:"
+            ],
+            "href": null
+          },
+          {
+            "text": "和",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "“牌的安全度”",
+            "marks": [
+              "strong:background:;color:#02a2ff;:"
+            ],
+            "href": null
+          },
+          {
+            "text": "。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "能够在攻守两方面灵活运用读牌，我觉得就是一位一流的雀士。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "特别是寻找安全牌的技术是非常重要的，这对放铳率有着很深的影响。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "理论、总结：",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": "读出立直者听什么牌是不可能的，也没有这个必要。",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": "对于有一定舍牌特征的立直，能够把握“危险的牌”和“相当安全的牌”才是真正的读牌。",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "下面，举几个“危险度比较高的牌”的例子。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "五的里筋",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "有关里筋其他很多网站有许多记述，这里就不再详细说明了。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "在实战中，里筋危险度比较高的就是“五的里筋”和“间四间”",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "过去常常说“早巡切5，就很可能是14或者69听牌。”",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "虽然还不知道统计的结果，不过这也是可以容易感觉到的东西。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0008"
+        ],
+        "figureId": "79-bilibili-cn:cv1775262:b0008:figure",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0008",
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0009"
+        ],
+        "sourceText": "例2的手牌，比较早得切出了5饼是一个特征。 9饼已经被切出了，所以14饼的危险度就比较高了。 实际的手牌如下： ",
+        "text": "例2的手牌，比较早得切出了5饼是一个特征。 9饼已经被切出了，所以14饼的危险度就比较高了。 实际的手牌如下： ",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0009",
+        "sourceSegments": [
+          {
+            "text": "例2的手牌，比较早得切出了5饼是一个特征。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "9饼已经被切出了，所以14饼的危险度就比较高了。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "实际的手牌如下：",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0010"
+        ],
+        "figureId": "79-bilibili-cn:cv1775262:b0010:figure",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0010",
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0011"
+        ],
+        "sourceText": "当然听索子或者万子的可能性也是很高的， 但是14饼也要看做是危险的牌。  “早巡切了数牌5”这是非常重要的信息。 正是因为早巡切了利用价值很高的数牌5， 所以不难想象，他手牌里有23或者78的搭子。  即使是立直时切出数牌5， 我们也很难判断是以什么牌型切出来的。 是浮牌？还是57搭子摸到8之后才打出的？还是455切掉5来固定两面？ 总之有着很多的可能性。  例2立直时切出了5索， 但也不能说69索比其他无筋的牌要危险。  总结、理论： 面对早巡切出了数牌5的立直， 就应该警戒数牌5对应花色的14和69.  ------------------------------------------------------------------------------------ 间四间（注：有关间四间，在福地诚与凸东北撰写的《科学麻将中》指出了其错误性，这里各位读者可以查阅资料了解。） ------------------------------------------------------------------------------------  间四间读作“aidayonken”,有以下四种情况。  ",
+        "text": "当然听索子或者万子的可能性也是很高的， 但是14饼也要看做是危险的牌。  “早巡切了数牌5”这是非常重要的信息。 正是因为早巡切了利用价值很高的数牌5， 所以不难想象，他手牌里有23或者78的搭子。  即使是立直时切出数牌5， 我们也很难判断是以什么牌型切出来的。 是浮牌？还是57搭子摸到8之后才打出的？还是455切掉5来固定两面？ 总之有着很多的可能性。  例2立直时切出了5索， 但也不能说69索比其他无筋的牌要危险。  总结、理论： 面对早巡切出了数牌5的立直， 就应该警戒数牌5对应花色的14和69.  ------------------------------------------------------------------------------------ 间四间（注：有关间四间，在福地诚与凸东北撰写的《科学麻将中》指出了其错误性，这里各位读者可以查阅资料了解。） ------------------------------------------------------------------------------------  间四间读作“aidayonken”,有以下四种情况。  ",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0011",
+        "sourceSegments": [
+          {
+            "text": "当然听索子或者万子的可能性也是很高的，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是14饼也要看做是危险的牌。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "“早巡切了数牌5”这是非常重要的信息。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "正是因为早巡切了利用价值很高的数牌5，",
+            "marks": [
+              "strong:background:;color:#ee230d;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [
+              "strong:background:;color:#ee230d;:"
+            ],
+            "href": null
+          },
+          {
+            "text": "所以不难想象，他手牌里有23或者78的搭子。",
+            "marks": [
+              "strong:background:;color:#ee230d;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "即使是立直时切出数牌5，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "我们也很难判断是以什么牌型切出来的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "是浮牌？还是57搭子摸到8之后才打出的？还是455切掉5来固定两面？ 总之有着很多的可能性。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "例2立直时切出了5索，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但也不能说69索比其他无筋的牌要危险。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "总结、理论：",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": "面对早巡切出了数牌5的立直，",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": "就应该警戒数牌5对应花色的14和69.",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [
+              "span:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "间四间（注：有关间四间，在福地诚与凸东北撰写的《科学麻将中》指出了其错误性，这里各位读者可以查阅资料了解。）",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "间四间读作“aidayonken”,有以下四种情况。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0012"
+        ],
+        "figureId": "79-bilibili-cn:cv1775262:b0012:figure",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0012",
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0013"
+        ],
+        "sourceText": "两张相差5的数牌的里筋就叫做“间四间” “早巡切掉”是关键词， 利用度比较高的34和67在早巡被切出是间四间的一个条件。 ",
+        "text": "两张相差5的数牌的里筋就叫做“间四间” “早巡切掉”是关键词， 利用度比较高的34和67在早巡被切出是间四间的一个条件。 ",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0013",
+        "sourceSegments": [
+          {
+            "text": "两张相差5的数牌的里筋就叫做“间四间”",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "“早巡切掉”",
+            "marks": [
+              "strong:background:;color:;:"
+            ],
+            "href": null
+          },
+          {
+            "text": "是关键词，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "利用度比较高的34和67在早巡被切出是间四间的一个条件。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0014"
+        ],
+        "figureId": "79-bilibili-cn:cv1775262:b0014:figure",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0014",
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0015"
+        ],
+        "sourceText": "（之后是摸切） 序盘是字牌的连切，所以第七巡的7万可以说是切的比较早的了。 而且2万也被切过，这里36万是万子的本线。 饼子和索子这里没有什么判断的材料，只能够认为所有的饼子和索子都是危险的。  实际的手牌如下： ",
+        "text": "（之后是摸切） 序盘是字牌的连切，所以第七巡的7万可以说是切的比较早的了。 而且2万也被切过，这里36万是万子的本线。 饼子和索子这里没有什么判断的材料，只能够认为所有的饼子和索子都是危险的。  实际的手牌如下： ",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0015",
+        "sourceSegments": [
+          {
+            "text": "（之后是摸切）",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "序盘是字牌的连切，所以第七巡的7万可以说是切的比较早的了。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "而且2万也被切过，这里36万是万子的本线。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "饼子和索子这里没有什么判断的材料，只能够认为所有的饼子和索子都是危险的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "实际的手牌如下：",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0016"
+        ],
+        "figureId": "79-bilibili-cn:cv1775262:b0016:figure",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0016",
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0017"
+        ],
+        "sourceText": "（之后是摸切）  有一个常常被误解的东西，这里需要事先说明以下。 例4中58索是间四间的危险牌， 但是终盘切出的6饼并不能说明25饼是危险的。  如果是单纯的346饼的话，6饼应该被更早切出。 间四间确实是危险的， 但是不能正确掌握间四间的条件也是毫无意义的。  ------------------------------------------------------------------------------------ 被拆掉的两面搭子的里筋 ------------------------------------------------------------------------------------ 这是由“二度进张不利”的牌理反过来推导的逻辑。 ",
+        "text": "（之后是摸切）  有一个常常被误解的东西，这里需要事先说明以下。 例4中58索是间四间的危险牌， 但是终盘切出的6饼并不能说明25饼是危险的。  如果是单纯的346饼的话，6饼应该被更早切出。 间四间确实是危险的， 但是不能正确掌握间四间的条件也是毫无意义的。  ------------------------------------------------------------------------------------ 被拆掉的两面搭子的里筋 ------------------------------------------------------------------------------------ 这是由“二度进张不利”的牌理反过来推导的逻辑。 ",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0017",
+        "sourceSegments": [
+          {
+            "text": "（之后是摸切）",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "有一个常常被误解的东西，这里需要事先说明以下。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "例4中58索是间四间的危险牌，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是终盘切出的6饼并不能说明25饼是危险的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "如果是单纯的346饼的话，6饼应该被更早切出。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "间四间确实是危险的，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是不能正确掌握间四间的条件也是毫无意义的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "被拆掉的两面搭子的里筋",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这是由“二度进张不利”的牌理反过来推导的逻辑。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0018"
+        ],
+        "figureId": "79-bilibili-cn:cv1775262:b0018:figure",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0018",
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0019"
+        ],
+        "sourceText": "（之后摸切）  例5的立直很显眼的地方就是拆掉了23饼的两面搭子。 “正是因为拆掉了，所以才不会是14饼听牌啊”，这样的想法只是初学者的天真想法…… 实际上14饼才是关键啊，不是吗？ ",
+        "text": "（之后摸切）  例5的立直很显眼的地方就是拆掉了23饼的两面搭子。 “正是因为拆掉了，所以才不会是14饼听牌啊”，这样的想法只是初学者的天真想法…… 实际上14饼才是关键啊，不是吗？ ",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0019",
+        "sourceSegments": [
+          {
+            "text": "（之后摸切）",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "例5的立直很显眼的地方就是拆掉了23饼的两面搭子。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "“正是因为拆掉了，所以才不会是14饼听牌啊”，这样的想法只是初学者的天真想法……",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "实际上14饼才是关键啊，不是吗？",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0020"
+        ],
+        "figureId": "79-bilibili-cn:cv1775262:b0020:figure",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0020",
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0021"
+        ],
+        "sourceText": "想象一下A和B的两种牌型吧。  正是想避免二度进张，所以才拆掉了23饼的搭子。 留下了146饼听牌的可能性。 这种拆掉两面搭子的立直，一定要对其筋保持警惕。  总结、理论： 拆掉两面搭子的立直，要小心其二度进张。  ------------------------------------------------------------------------------------ 拆掉嵌张搭子的立直的跨筋 ------------------------------------------------------------------------------------  这种情况的条件比较复杂，但也是危险度非常高的情况。 从外→内拆掉嵌张搭子的立直，跨筋是危险的。 用文字说明有点难懂，我们来看看实际的例子吧。 ",
+        "text": "想象一下A和B的两种牌型吧。  正是想避免二度进张，所以才拆掉了23饼的搭子。 留下了146饼听牌的可能性。 这种拆掉两面搭子的立直，一定要对其筋保持警惕。  总结、理论： 拆掉两面搭子的立直，要小心其二度进张。  ------------------------------------------------------------------------------------ 拆掉嵌张搭子的立直的跨筋 ------------------------------------------------------------------------------------  这种情况的条件比较复杂，但也是危险度非常高的情况。 从外→内拆掉嵌张搭子的立直，跨筋是危险的。 用文字说明有点难懂，我们来看看实际的例子吧。 ",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0021",
+        "sourceSegments": [
+          {
+            "text": "想象一下A和B的两种牌型吧。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "正是想避免二度进张，所以才拆掉了23饼的搭子。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "留下了146饼听牌的可能性。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这种拆掉两面搭子的立直，一定要对其筋保持警惕。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "总结、理论：",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": "拆掉两面搭子的立直，要小心其二度进张。",
+            "marks": [
+              "strong:background:;color:#017001;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "拆掉嵌张搭子的立直的跨筋",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这种情况的条件比较复杂，但也是危险度非常高的情况。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "从外→内拆掉嵌张搭子的立直，跨筋是危险的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "用文字说明有点难懂，我们来看看实际的例子吧。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0022"
+        ],
+        "figureId": "79-bilibili-cn:cv1775262:b0022:figure",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0022",
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1775262:b0023"
+        ],
+        "sourceText": "（之后摸切）  一眼看去没什么特征的舍牌，虽然无筋的牌都狠危险。 但是有一组危险等级更高的筋。  那就是25万。下面来说明理由。 这个立直拆掉了13万的嵌张搭子。 但是中间切掉了5索和东，所以不是单纯的拆掉嵌张搭子。 没有留下安全牌东，是因为手牌的需要。 也不像是摸到4万形成两面，因为要做两面的话，5索要优秀一些。 也就是说，从334万这种形里切出3万的可能性是很高的。  这种情况要是条件没有齐，或者是远离立直宣言牌拆掉的嵌张搭子，跨筋也不是那么危险的。  对立直危险牌的读牌这样的程度已经足够了， 更重要的还是下一节的“安全的情况”。     （待续）",
+        "text": "（之后摸切）  一眼看去没什么特征的舍牌，虽然无筋的牌都狠危险。 但是有一组危险等级更高的筋。  那就是25万。下面来说明理由。 这个立直拆掉了13万的嵌张搭子。 但是中间切掉了5索和东，所以不是单纯的拆掉嵌张搭子。 没有留下安全牌东，是因为手牌的需要。 也不像是摸到4万形成两面，因为要做两面的话，5索要优秀一些。 也就是说，从334万这种形里切出3万的可能性是很高的。  这种情况要是条件没有齐，或者是远离立直宣言牌拆掉的嵌张搭子，跨筋也不是那么危险的。  对立直危险牌的读牌这样的程度已经足够了， 更重要的还是下一节的“安全的情况”。     （待续）",
+        "paragraphId": "79-bilibili-cn:cv1775262:p0023",
+        "sourceSegments": [
+          {
+            "text": "（之后摸切）",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "一眼看去没什么特征的舍牌，虽然无筋的牌都狠危险。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是有一组危险等级更高的筋。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "那就是25万。下面来说明理由。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这个立直拆掉了13万的嵌张搭子。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "但是中间切掉了5索和东，所以不是单纯的拆掉嵌张搭子。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "没有留下安全牌东，是因为手牌的需要。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "也不像是摸到4万形成两面，因为要做两面的话，5索要优秀一些。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "也就是说，从334万这种形里切出3万的可能性是很高的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这种情况要是条件没有齐，或者是远离立直宣言牌拆掉的嵌张搭子，跨筋也不是那么危险的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "对立直危险牌的读牌这样的程度已经足够了，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "更重要的还是下一节的“安全的情况”。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "（待续）",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      }
+    ]
+  },
+  "figures": [
+    {
+      "figureId": "79-bilibili-cn:cv1775262:b0004:figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1775262:b0004"
+      ],
+      "sourceOccurrenceIds": [
+        "79-bilibili-cn:cv1775262:i00001"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:4ff806d68ab98feab4e37046",
+          "path": "web-sources/v1/79-bilibili-cn/assets/93b6e63210fc9d684a0b61c311f6cfa216b39fcc3c9ca97386330cf784bb3a99.png",
+          "sha256": "93b6e63210fc9d684a0b61c311f6cfa216b39fcc3c9ca97386330cf784bb3a99",
+          "url": "https://i0.hdslb.com/bfs/article/bd2aef32beb6352d10a1d76f753879bec5913747.png"
+        }
+      ],
+      "kind": "mahjong-example",
+      "transcription": "上排左侧标签：例1。牌序从左至右：3z 7z 1s 7m 3z 9m 1p 9p；第8张9p横置。\n下排左侧标签：假设A。手牌从左至右：2m 3m 3p 4p 5p 8p 8p 9p 7s 8s 1z 1z 1z。手牌右侧为“摸入”标签，标签右侧另有一张牌背朝外的牌。",
+      "unknowns": [
+        "假设A右侧“摸入”标签后的牌仅显示牌背，无法确定其牌面编码。"
+      ],
+      "caption": "例1的舍牌与假设A手牌。",
+      "sourceNotes": [
+        "附件1与附件2是同一原图及其4倍最近邻放大视图，只计一次。"
+      ],
+      "provenance": {
+        "method": "model-transcription",
+        "callId": "3baadcb1-43ae-44bb-a0aa-746ad8749154",
+        "outputSourceBlockId": "79-bilibili-cn:cv1775262:b0004"
+      },
+      "presentationAsset": {
+        "path": "web-production/v1/presentations/79-bilibili-cn/cv1775262/aaa00594d20ce4cc/figure-0001.png",
+        "sha256": "f5f5b538f849ffaed26ffdf3ab8260988d1e31be62c29a46196b6d3ea4b0ff6c",
+        "width": 455,
+        "height": 106,
+        "derivation": {
+          "kind": "single-source-image-rgba-to-png",
+          "alignment": "original-size",
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:4ff806d68ab98feab4e37046",
+              "path": "web-sources/v1/79-bilibili-cn/assets/93b6e63210fc9d684a0b61c311f6cfa216b39fcc3c9ca97386330cf784bb3a99.png",
+              "sha256": "93b6e63210fc9d684a0b61c311f6cfa216b39fcc3c9ca97386330cf784bb3a99",
+              "url": "https://i0.hdslb.com/bfs/article/bd2aef32beb6352d10a1d76f753879bec5913747.png"
+            }
+          ],
+          "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+        }
+      }
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1775262:b0006:figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1775262:b0006"
+      ],
+      "sourceOccurrenceIds": [
+        "79-bilibili-cn:cv1775262:i00002"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:999daad6f550e9d0bfcd8cc0",
+          "path": "web-sources/v1/79-bilibili-cn/assets/1c362622f447f9ff1db1f0fee2f4851f552bb413e7f5821b1824010cbf8a3676.png",
+          "sha256": "1c362622f447f9ff1db1f0fee2f4851f552bb413e7f5821b1824010cbf8a3676",
+          "url": "https://i0.hdslb.com/bfs/article/bc3339d6bca1ee6da327ab738f009285a8ef3b0c.png"
+        }
+      ],
+      "kind": "mahjong-example",
+      "transcription": "上排左侧标签：假设B。牌序从左至右：1m 2m 3m 3p 4p 5p 8p 8p 6s 7s 8s 9s 9s。\n中排左侧标签：假设C。牌序从左至右：3m 3m 4m 4m 5m 2p 3p 4p 6p 6p 7p 8p 9p。\n下排左侧标签：假设D。牌序从左至右：4m 4m 2p 4p 7p 8p 9p 4s 4s 5s 5s 6s 6s。",
+      "unknowns": [],
+      "caption": "假设B、C、D的三组手牌。",
+      "sourceNotes": [
+        "附件3与附件4是同一原图及其4倍最近邻放大视图，只计一次。"
+      ],
+      "provenance": {
+        "method": "model-transcription",
+        "callId": "3baadcb1-43ae-44bb-a0aa-746ad8749154",
+        "outputSourceBlockId": "79-bilibili-cn:cv1775262:b0006"
+      },
+      "presentationAsset": {
+        "path": "web-production/v1/presentations/79-bilibili-cn/cv1775262/aaa00594d20ce4cc/figure-0002.png",
+        "sha256": "f66217f6bd67534d7617d54b8b8b4f11e08de3a8e2ec556a20109f4451edf24b",
+        "width": 392,
+        "height": 198,
+        "derivation": {
+          "kind": "single-source-image-rgba-to-png",
+          "alignment": "original-size",
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:999daad6f550e9d0bfcd8cc0",
+              "path": "web-sources/v1/79-bilibili-cn/assets/1c362622f447f9ff1db1f0fee2f4851f552bb413e7f5821b1824010cbf8a3676.png",
+              "sha256": "1c362622f447f9ff1db1f0fee2f4851f552bb413e7f5821b1824010cbf8a3676",
+              "url": "https://i0.hdslb.com/bfs/article/bc3339d6bca1ee6da327ab738f009285a8ef3b0c.png"
+            }
+          ],
+          "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+        }
+      }
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1775262:b0008:figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1775262:b0008"
+      ],
+      "sourceOccurrenceIds": [
+        "79-bilibili-cn:cv1775262:i00003"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:f6e6f1345fa33b2bd93fc140",
+          "path": "web-sources/v1/79-bilibili-cn/assets/2c7447cceb73ec5956fdde2f8a354c72cccd85d49173855b3ec0d2dc75fe6a00.png",
+          "sha256": "2c7447cceb73ec5956fdde2f8a354c72cccd85d49173855b3ec0d2dc75fe6a00",
+          "url": "https://i0.hdslb.com/bfs/article/1197c25f89d05981c2a156204df52595ec24c91f.png"
+        }
+      ],
+      "kind": "mahjong-example",
+      "transcription": "左上方标签：例2。牌序从左至右：7z 9p 1z 5p 9m 8p 1s 7m 5s；第9张5s横置。\n三支向下箭头分别位于第3张1z、第6张8p、第7张1s的正上方。",
+      "unknowns": [],
+      "caption": "例2的舍牌及三处向下箭头。",
+      "sourceNotes": [
+        "附件5与附件6是同一原图及其4倍最近邻放大视图，只计一次。"
+      ],
+      "provenance": {
+        "method": "model-transcription",
+        "callId": "3baadcb1-43ae-44bb-a0aa-746ad8749154",
+        "outputSourceBlockId": "79-bilibili-cn:cv1775262:b0008"
+      },
+      "presentationAsset": {
+        "path": "web-production/v1/presentations/79-bilibili-cn/cv1775262/aaa00594d20ce4cc/figure-0003.png",
+        "sha256": "cb31e5367a24a3a2e1a23d541a897bfe09b22aca0636eaf8c92a9d1fe036dd18",
+        "width": 304,
+        "height": 83,
+        "derivation": {
+          "kind": "single-source-image-rgba-to-png",
+          "alignment": "original-size",
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:f6e6f1345fa33b2bd93fc140",
+              "path": "web-sources/v1/79-bilibili-cn/assets/2c7447cceb73ec5956fdde2f8a354c72cccd85d49173855b3ec0d2dc75fe6a00.png",
+              "sha256": "2c7447cceb73ec5956fdde2f8a354c72cccd85d49173855b3ec0d2dc75fe6a00",
+              "url": "https://i0.hdslb.com/bfs/article/1197c25f89d05981c2a156204df52595ec24c91f.png"
+            }
+          ],
+          "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+        }
+      }
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1775262:b0010:figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1775262:b0010"
+      ],
+      "sourceOccurrenceIds": [
+        "79-bilibili-cn:cv1775262:i00004"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:ac1227cfc248f158cf13a4f5",
+          "path": "web-sources/v1/79-bilibili-cn/assets/607e79373012217eb1dfe99a24741363491f333f456ce06e0ec52574c25bd33f.png",
+          "sha256": "607e79373012217eb1dfe99a24741363491f333f456ce06e0ec52574c25bd33f",
+          "url": "https://i0.hdslb.com/bfs/article/b51754e402da97bbe264e9f948a51f416257a300.png"
+        }
+      ],
+      "kind": "mahjong-example",
+      "transcription": "单排手牌，从左至右：1m 1m 3m 4m 5m 2p 3p 2s 2s 3s 3s 4s 4s。",
+      "unknowns": [],
+      "caption": "例2对应的实际手牌。",
+      "sourceNotes": [
+        "附件7与附件8是同一原图及其4倍最近邻放大视图，只计一次。"
+      ],
+      "provenance": {
+        "method": "model-transcription",
+        "callId": "3baadcb1-43ae-44bb-a0aa-746ad8749154",
+        "outputSourceBlockId": "79-bilibili-cn:cv1775262:b0010"
+      },
+      "presentationAsset": {
+        "path": "web-production/v1/presentations/79-bilibili-cn/cv1775262/aaa00594d20ce4cc/figure-0004.png",
+        "sha256": "c0bbd1c4171eea4674f517b96ef4cbccd49a7479669f535f65f0522936cc5cad",
+        "width": 336,
+        "height": 55,
+        "derivation": {
+          "kind": "single-source-image-rgba-to-png",
+          "alignment": "original-size",
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:ac1227cfc248f158cf13a4f5",
+              "path": "web-sources/v1/79-bilibili-cn/assets/607e79373012217eb1dfe99a24741363491f333f456ce06e0ec52574c25bd33f.png",
+              "sha256": "607e79373012217eb1dfe99a24741363491f333f456ce06e0ec52574c25bd33f",
+              "url": "https://i0.hdslb.com/bfs/article/b51754e402da97bbe264e9f948a51f416257a300.png"
+            }
+          ],
+          "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+        }
+      }
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1775262:b0012:figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1775262:b0012"
+      ],
+      "sourceOccurrenceIds": [
+        "79-bilibili-cn:cv1775262:i00005"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:ae83195091b81bec79b1bfdf",
+          "path": "web-sources/v1/79-bilibili-cn/assets/2e12d2a575793c871251f352a3baa22e94f553d4892b3c98a343ac5824a8dda1.png",
+          "sha256": "2e12d2a575793c871251f352a3baa22e94f553d4892b3c98a343ac5824a8dda1",
+          "url": "https://i0.hdslb.com/bfs/article/76027f6012f5e8d2aeb0d77773b5178075fa3d90.png"
+        }
+      ],
+      "kind": "table",
+      "transcription": "| 条件1 | 条件2 | 危险牌 |\n| --- | --- | --- |\n| 早巡切掉数牌3 | 舍牌中有数牌8 | 四七 |\n| 早巡切掉数牌4 | 舍牌中有数牌9 | 五八 |\n| 早巡切掉数牌6 | 舍牌中有数牌1 | 二五 |\n| 早巡切掉数牌7 | 舍牌中有数牌2 | 三六 |",
+      "unknowns": [],
+      "caption": "间四间的四种条件与对应危险牌。",
+      "sourceNotes": [
+        "附件9与附件10是同一原图及其4倍最近邻放大视图，只计一次。"
+      ],
+      "provenance": {
+        "method": "model-transcription",
+        "callId": "3baadcb1-43ae-44bb-a0aa-746ad8749154",
+        "outputSourceBlockId": "79-bilibili-cn:cv1775262:b0012"
+      },
+      "presentationAsset": {
+        "path": "web-production/v1/presentations/79-bilibili-cn/cv1775262/aaa00594d20ce4cc/figure-0005.png",
+        "sha256": "bb7f02f4157f636e0ad02cf92e9dc82136dc170af3380faf3b2473b02049d6b3",
+        "width": 352,
+        "height": 197,
+        "derivation": {
+          "kind": "single-source-image-rgba-to-png",
+          "alignment": "original-size",
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:ae83195091b81bec79b1bfdf",
+              "path": "web-sources/v1/79-bilibili-cn/assets/2e12d2a575793c871251f352a3baa22e94f553d4892b3c98a343ac5824a8dda1.png",
+              "sha256": "2e12d2a575793c871251f352a3baa22e94f553d4892b3c98a343ac5824a8dda1",
+              "url": "https://i0.hdslb.com/bfs/article/76027f6012f5e8d2aeb0d77773b5178075fa3d90.png"
+            }
+          ],
+          "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+        }
+      }
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1775262:b0014:figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1775262:b0014"
+      ],
+      "sourceOccurrenceIds": [
+        "79-bilibili-cn:cv1775262:i00006"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:c9579005445a78fd7b453000",
+          "path": "web-sources/v1/79-bilibili-cn/assets/59af3ba21e62d26a37e577da8b4b1e1cbc19436382f44998231cceefb6fcc7ed.png",
+          "sha256": "59af3ba21e62d26a37e577da8b4b1e1cbc19436382f44998231cceefb6fcc7ed",
+          "url": "https://i0.hdslb.com/bfs/article/d8531f8c8f6cadcb1028a2fbe5545e437de93a90.png"
+        }
+      ],
+      "kind": "mahjong-example",
+      "transcription": "左上方标签：例3。牌序从左至右：4z 3z 7z 2z 1s 2m 7m 2m 8p 9p 8s；第11张8s横置。\n三支向下箭头分别位于第4张2z、第5张1s、第8张2m的正上方。",
+      "unknowns": [],
+      "caption": "例3的舍牌及三处向下箭头。",
+      "sourceNotes": [
+        "附件11与附件12是同一原图及其4倍最近邻放大视图，只计一次。"
+      ],
+      "provenance": {
+        "method": "model-transcription",
+        "callId": "3baadcb1-43ae-44bb-a0aa-746ad8749154",
+        "outputSourceBlockId": "79-bilibili-cn:cv1775262:b0014"
+      },
+      "presentationAsset": {
+        "path": "web-production/v1/presentations/79-bilibili-cn/cv1775262/aaa00594d20ce4cc/figure-0006.png",
+        "sha256": "d656a8c69cdfc1c07020d935dea22910f16bb41c608bd2398e49dbbf5057f219",
+        "width": 334,
+        "height": 76,
+        "derivation": {
+          "kind": "single-source-image-rgba-to-png",
+          "alignment": "original-size",
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:c9579005445a78fd7b453000",
+              "path": "web-sources/v1/79-bilibili-cn/assets/59af3ba21e62d26a37e577da8b4b1e1cbc19436382f44998231cceefb6fcc7ed.png",
+              "sha256": "59af3ba21e62d26a37e577da8b4b1e1cbc19436382f44998231cceefb6fcc7ed",
+              "url": "https://i0.hdslb.com/bfs/article/d8531f8c8f6cadcb1028a2fbe5545e437de93a90.png"
+            }
+          ],
+          "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+        }
+      }
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1775262:b0016:figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1775262:b0016"
+      ],
+      "sourceOccurrenceIds": [
+        "79-bilibili-cn:cv1775262:i00007"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:822cd7d9d2e330d06ecac5a3",
+          "path": "web-sources/v1/79-bilibili-cn/assets/1d4a1109c991fc03b9c976afd918376feb2e9b497de0f63a57cc4313c02cb63f.png",
+          "sha256": "1d4a1109c991fc03b9c976afd918376feb2e9b497de0f63a57cc4313c02cb63f",
+          "url": "https://i0.hdslb.com/bfs/article/b0f621846eea2c318c903e432f27ff5772a28781.png"
+        }
+      ],
+      "kind": "mahjong-example",
+      "transcription": "上排手牌从左至右：4m 4m 5m 5m 6m 1p 2p 3p 4p 5p 6p 7s 7s。\n下排左上方标签：例4。下排牌序从左至右：4z 3z 7z 2z 1p 9m 1m 4s 2s 9s 3z 6p；第12张6p横置。\n下排四支向下箭头分别位于第4张2z、第5张1p、第10张9s、第11张3z的正上方。",
+      "unknowns": [],
+      "caption": "例3的实际手牌与例4的舍牌。",
+      "sourceNotes": [
+        "附件13与附件14是同一原图及其4倍最近邻放大视图，只计一次。"
+      ],
+      "provenance": {
+        "method": "model-transcription",
+        "callId": "3baadcb1-43ae-44bb-a0aa-746ad8749154",
+        "outputSourceBlockId": "79-bilibili-cn:cv1775262:b0016"
+      },
+      "presentationAsset": {
+        "path": "web-production/v1/presentations/79-bilibili-cn/cv1775262/aaa00594d20ce4cc/figure-0007.png",
+        "sha256": "2893976db50ecab99b2cb96f64505e46fc4ab25d43f48e2f7bdafc4fcdc91c50",
+        "width": 362,
+        "height": 125,
+        "derivation": {
+          "kind": "single-source-image-rgba-to-png",
+          "alignment": "original-size",
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:822cd7d9d2e330d06ecac5a3",
+              "path": "web-sources/v1/79-bilibili-cn/assets/1d4a1109c991fc03b9c976afd918376feb2e9b497de0f63a57cc4313c02cb63f.png",
+              "sha256": "1d4a1109c991fc03b9c976afd918376feb2e9b497de0f63a57cc4313c02cb63f",
+              "url": "https://i0.hdslb.com/bfs/article/b0f621846eea2c318c903e432f27ff5772a28781.png"
+            }
+          ],
+          "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+        }
+      }
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1775262:b0018:figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1775262:b0018"
+      ],
+      "sourceOccurrenceIds": [
+        "79-bilibili-cn:cv1775262:i00008"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+          "path": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+          "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+          "url": "https://i0.hdslb.com/bfs/article/dc53a3abb116b4afb2cab4e787e7746d4ef8a975.png"
+        }
+      ],
+      "kind": "mahjong-example",
+      "transcription": "左上方标签：例5。牌序从左至右：2z 3z 6z 8m 5m 2m 4z 3p 2p，共9张；第9张2p横置，无赤牌。\n两支向下箭头分别位于第6张2m、第7张4z的正上方。",
+      "unknowns": [],
+      "caption": "例5：带两支向下箭头的舍牌示例。",
+      "sourceNotes": [
+        "附件1为原图，附件2为同一原图的4倍最近邻放大视图，非额外牌列。",
+        "牌上方的棕黄色线条为牌背边缘。"
+      ],
+      "provenance": {
+        "method": "model-transcription",
+        "callId": "20d7f5e0-2640-4b87-bde1-e6505d839822",
+        "outputSourceBlockId": "79-bilibili-cn:cv1775262:b0018"
+      },
+      "presentationAsset": {
+        "path": "web-production/v1/presentations/79-bilibili-cn/cv1775262/aaa00594d20ce4cc/figure-0008.png",
+        "sha256": "4a6639cfdae4cfa47a4583b2991965cf53555b34631bca6e720981a59cb5bac9",
+        "width": 304,
+        "height": 74,
+        "derivation": {
+          "kind": "single-source-image-rgba-to-png",
+          "alignment": "original-size",
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+              "path": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+              "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+              "url": "https://i0.hdslb.com/bfs/article/dc53a3abb116b4afb2cab4e787e7746d4ef8a975.png"
+            }
+          ],
+          "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+        }
+      }
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1775262:b0020:figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1775262:b0020"
+      ],
+      "sourceOccurrenceIds": [
+        "79-bilibili-cn:cv1775262:i00009"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:e37c65845d580365c4b6672c",
+          "path": "web-sources/v1/79-bilibili-cn/assets/acff5a27e07328adb3584d0f39c4c4e7e05e57a69363edc18b900f144d9369c5.png",
+          "sha256": "acff5a27e07328adb3584d0f39c4c4e7e05e57a69363edc18b900f144d9369c5",
+          "url": "https://i0.hdslb.com/bfs/article/0c79d8f92dc97f3020bab22fe80c30e3e398087a.png"
+        }
+      ],
+      "kind": "mahjong-example",
+      "transcription": "上排左侧标签：假设A。连续排列的13张牌从左至右：2p 2p 3p 3p 7p 8p 7s 8s 8s 8s 7z 7z 7z；右侧间隔后另列1张9s。\n下排左侧标签：假设B。连续排列的13张牌从左至右：2p 3p 5p（赤牌） 6p 3s 4s 5s 5s 7s 8s 7z 7z 7z；右侧间隔后另列1张5s。",
+      "unknowns": [],
+      "caption": "假设A、B的手牌与各自右侧单列的牌。",
+      "sourceNotes": [
+        "附件17与附件18是同一原图及其4倍最近邻放大视图，只计一次。"
+      ],
+      "provenance": {
+        "method": "model-transcription",
+        "callId": "3baadcb1-43ae-44bb-a0aa-746ad8749154",
+        "outputSourceBlockId": "79-bilibili-cn:cv1775262:b0020"
+      },
+      "presentationAsset": {
+        "path": "web-production/v1/presentations/79-bilibili-cn/cv1775262/aaa00594d20ce4cc/figure-0009.png",
+        "sha256": "e4c9391e311a60c1394bf76b9e696f4a9d7620e6edee002a7c41d069ec697738",
+        "width": 434,
+        "height": 108,
+        "derivation": {
+          "kind": "single-source-image-rgba-to-png",
+          "alignment": "original-size",
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:e37c65845d580365c4b6672c",
+              "path": "web-sources/v1/79-bilibili-cn/assets/acff5a27e07328adb3584d0f39c4c4e7e05e57a69363edc18b900f144d9369c5.png",
+              "sha256": "acff5a27e07328adb3584d0f39c4c4e7e05e57a69363edc18b900f144d9369c5",
+              "url": "https://i0.hdslb.com/bfs/article/0c79d8f92dc97f3020bab22fe80c30e3e398087a.png"
+            }
+          ],
+          "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+        }
+      }
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1775262:b0022:figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1775262:b0022"
+      ],
+      "sourceOccurrenceIds": [
+        "79-bilibili-cn:cv1775262:i00010"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:4caa022d0d4e924f4e7db15b",
+          "path": "web-sources/v1/79-bilibili-cn/assets/6623913226656c52598bae069f6ec63566ca68500f34f01e83fd988eb25b997b.png",
+          "sha256": "6623913226656c52598bae069f6ec63566ca68500f34f01e83fd988eb25b997b",
+          "url": "https://i0.hdslb.com/bfs/article/1a9bcce11c9640573ef0c69dc901e2eeb0e8035c.png"
+        }
+      ],
+      "kind": "mahjong-example",
+      "transcription": "左上方标签：例6。牌序从左至右：1z 5z 3z 9s 7p 1m 5s 1z 3m；第9张3m横置。\n三支向下箭头分别位于第3张3z、第4张9s、第8张1z的正上方。",
+      "unknowns": [],
+      "caption": "例6的舍牌及三处向下箭头。",
+      "sourceNotes": [
+        "附件19与附件20是同一原图及其4倍最近邻放大视图，只计一次。",
+        "第2张空白牌面为白板5z。"
+      ],
+      "provenance": {
+        "method": "model-transcription",
+        "callId": "3baadcb1-43ae-44bb-a0aa-746ad8749154",
+        "outputSourceBlockId": "79-bilibili-cn:cv1775262:b0022"
+      },
+      "presentationAsset": {
+        "path": "web-production/v1/presentations/79-bilibili-cn/cv1775262/aaa00594d20ce4cc/figure-0010.png",
+        "sha256": "763fcb2bcd82f0c22846158652bb1e89bd205ff0411cac7c665d0da5a1a24fcc",
+        "width": 307,
+        "height": 77,
+        "derivation": {
+          "kind": "single-source-image-rgba-to-png",
+          "alignment": "original-size",
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:4caa022d0d4e924f4e7db15b",
+              "path": "web-sources/v1/79-bilibili-cn/assets/6623913226656c52598bae069f6ec63566ca68500f34f01e83fd988eb25b997b.png",
+              "sha256": "6623913226656c52598bae069f6ec63566ca68500f34f01e83fd988eb25b997b",
+              "url": "https://i0.hdslb.com/bfs/article/1a9bcce11c9640573ef0c69dc901e2eeb0e8035c.png"
+            }
+          ],
+          "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+        }
+      }
+    }
+  ],
+  "provenance": {
+    "sourceVersion": "web-sources/v1",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "artifactRoot": "web-production/v1",
+    "attempts": [
+      {
+        "callId": "20d7f5e0-2640-4b87-bde1-e6505d839822",
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1775262",
+        "sourceSha256": "361ae397c03f0ea2cd58a178341da860a83b6e39ff1ed0baeee6294e13361031",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "timeoutMs": 900000,
+        "startedAt": "2026-10-27T14:49:50.555Z",
+        "durationMs": 218519,
+        "usage": {
+          "inputTokens": 20162,
+          "cachedInputTokens": 0,
+          "outputTokens": 348
+        },
+        "success": true,
+        "failureClass": null,
+        "transportStatus": "completed",
+        "rawArtifactPath": "raw-calls/20d7f5e0-2640-4b87-bde1-e6505d839822.json",
+        "rawArtifactSha256": "29f20bf007f3fed7ab1cf0ed1e6dd21b3d8c2d4dfccea5cf1187095bd759a579",
+        "outputSha256": "5286912eda8973a4fee8337b21a1203289a35d80dc7304c38fcb93fed78dca96",
+        "schemaSha256": "9742c108d41e5b6996d005457010b71858eaddc4a473a262c5cc6934b79a239b",
+        "promptSha256": "3f4c962aebc4bcbba9716aca2b0cc46509f1454fdeac83f460cab9a5f728736a",
+        "semanticPromptSha256": "e5914c5303ac01c39ffc64dfa74642f89fbe8440ed54062152d8294238ebbacf",
+        "cliSnapshot": {
+          "path": "web-production/v1/runners/3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1.cli.mjs",
+          "sha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+        },
+        "targets": {
+          "textIds": [],
+          "figureIds": [
+            "79-bilibili-cn:cv1775262:b0018"
+          ]
+        },
+        "terminalEvents": [
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 2/5 (workspace routing discovery timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 3/5 (workspace routing discovery timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 4/5 (workspace routing discovery timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 5/5 (workspace routing discovery timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 1/5 (workspace routing discovery timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 2/5 (workspace routing discovery timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 3/5 (workspace routing discovery timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 4/5 (workspace routing discovery timed out)",
+            "param": null
+          },
+          {
+            "type": "error",
+            "code": null,
+            "message": "Reconnecting... 5/5 (workspace routing discovery timed out)",
+            "param": null
+          }
+        ],
+        "visualInputs": [
+          {
+            "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+            "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+            "sha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+            "role": "original",
+            "scale": 1,
+            "resampling": "none",
+            "width": 304,
+            "height": 74
+          },
+          {
+            "assetId": "79-bilibili-cn:c9aa4cb8776452b777c28214",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.png",
+            "sourceSha256": "d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/d2274e920d3d4ce0bf95992da486067edfb14c13ccd227529a050faa0542e7cf.x4.png",
+            "sha256": "98f2495dfb2b67f1e57c6639f533e9630c5ce46a35e89fbc55248e60f2136126",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 1216,
+            "height": 296
+          }
+        ],
+        "revision": {
+          "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1775262.display.json",
+          "parentSha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4",
+          "notesPath": "audit/web/articles/79-bilibili-cn/cv1775262.b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4.json",
+          "notesSha256": "7fc9a1172bf463691aa08b8ebf3d69e788d7ec1ff5e9e526b498b2c5b53a8199",
+          "figureIds": [
+            "79-bilibili-cn:cv1775262:b0018:figure"
+          ]
+        },
+        "transportRecovery": {
+          "schema": "coach-textbook-production-transport-recovery/1",
+          "classification": "exact-websocket-https-tls-fallback-item-after-completed-turn",
+          "originalLedgerRecord": {
+            "path": "web-production/v1/recoveries/20d7f5e0-2640-4b87-bde1-e6505d839822.original-ledger.json",
+            "sha256": "e50fdbed3507769aa27d11d909cddb46597fa5c6c906cb1a951f6b976cb86671"
+          },
+          "rawArtifact": {
+            "path": "web-production/v1/raw-calls/20d7f5e0-2640-4b87-bde1-e6505d839822.json",
+            "sha256": "29f20bf007f3fed7ab1cf0ed1e6dd21b3d8c2d4dfccea5cf1187095bd759a579"
+          },
+          "classifierHelper": {
+            "path": "web-production/v1/runners/ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a.cli.mjs",
+            "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+          },
+          "diagnostic": "Falling back from WebSockets to HTTPS transport. workspace routing discovery timed out",
+          "recoveredAt": "2026-10-27T14:57:16.892Z",
+          "newModelCalls": 0
+        }
+      }
+    ],
+    "usage": {
+      "inputTokens": 20162,
+      "cachedInputTokens": 0,
+      "outputTokens": 348
+    },
+    "modelCalls": 1,
+    "reuseMap": {
+      "path": "web-production/v1/reuse-maps/f487068a206864c7e600346e5d561fcf619a03782befce3402991aa48204f381.json",
+      "sha256": "f487068a206864c7e600346e5d561fcf619a03782befce3402991aa48204f381"
+    },
+    "runnerSha256": "f31c255e0654af7c88f240067b886cc92f6de5aa9242eeca12292b52eee3945c",
+    "extractorSha256": "a871cf3765d340535ba6c8401a6d58d1c5391d4c1da6ad53e0ac96be2da7cbea",
+    "attribution": "Original author, translator and reposter references remain in the bound source HTML; existing Chinese source body is verbatim.",
+    "revision": {
+      "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1775262.display.json",
+      "parentSha256": "b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4",
+      "notesPath": "audit/web/articles/79-bilibili-cn/cv1775262.b6f7651df3189cc705e2c1c5f15715b3788352e27368fb6d21efa998b9461ee4.json",
+      "notesSha256": "7fc9a1172bf463691aa08b8ebf3d69e788d7ec1ff5e9e526b498b2c5b53a8199",
+      "figureIds": [
+        "79-bilibili-cn:cv1775262:b0018:figure"
+      ]
+    },
+    "transportRecovery": {
+      "schema": "coach-textbook-production-transport-recovery/1",
+      "classification": "exact-websocket-https-tls-fallback-item-after-completed-turn",
+      "originalLedgerRecord": {
+        "path": "web-production/v1/recoveries/20d7f5e0-2640-4b87-bde1-e6505d839822.original-ledger.json",
+        "sha256": "e50fdbed3507769aa27d11d909cddb46597fa5c6c906cb1a951f6b976cb86671"
+      },
+      "rawArtifact": {
+        "path": "web-production/v1/raw-calls/20d7f5e0-2640-4b87-bde1-e6505d839822.json",
+        "sha256": "29f20bf007f3fed7ab1cf0ed1e6dd21b3d8c2d4dfccea5cf1187095bd759a579"
+      },
+      "classifierHelper": {
+        "path": "web-production/v1/runners/ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a.cli.mjs",
+        "sha256": "ff04388dc5bca14a290ec1e4e1868907063c5bc349d9c1a058f7bfec75e1486a"
+      },
+      "diagnostic": "Falling back from WebSockets to HTTPS transport. workspace routing discovery timed out",
+      "recoveredAt": "2026-10-27T14:57:16.892Z",
+      "newModelCalls": 0
+    },
+    "derivedFromCandidate": {
+      "path": "web-production/v1/candidates/79-bilibili-cn/cv1775262.r1.json",
+      "sha256": "9ac44dcd61b8228464689b9d7754ff1fc49ebd4d6d9337da4d3d2c33540a9623",
+      "reason": "Lossless display bindings inherited from bound parent; model output and all body/figure semantic content unchanged"
+    },
+    "presentationRendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+  },
+  "candidateSha256": "1c48828dd3773e4e63d1dce7f3701d58a49cada7c74593326886ac42951413f6"
+}
