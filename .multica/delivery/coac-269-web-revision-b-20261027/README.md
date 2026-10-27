@@ -209,3 +209,54 @@ rewriting), the batch-3 revision is evidence, not a candidate:
   `chapter03-section003.coac269rev1.json` (`50831436…`).
 - Batch 5's joint exclusion now skips the chapter with reason `ticket-pending-adjudication`, even though
   the chapter is not in the coverage union.
+
+## Batch 6 — 2026-10-27, the next batch at the end of the batch-5 stage
+
+The member's instruction was to hand the two fixable chapters over and then keep the next batch
+moving instead of turning the report into a permanent wait. Batch 6 therefore ran in the same
+session, immediately after the batch-5 handoff.
+
+Only **one** chapter still passes the revision entry guard:
+
+| chapter | article | parent candidate SHA | target | candidate SHA | production call | in / out | duration |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| nemata-jp-chapter-027-1 | chapter01-section010 | `7ebd1f97…` | b0056 | `44ce506db642a287d8becffe155bf287a147032cc11b0b0b992fa7a85eace50c` | `daa27aa1-c3a2-43e1-80b4-81026bfe6667` | 15,470 / 301 | 42.6 s |
+
+- Joint exclusion re-run three more times (`11:10:54`, `11:11:19`, `11:11:40` immediately before
+  dispatch), each with its own receipt sha. The preflight rejected its own first attempt
+  (`b6-preflight-rejected-missing-notes-sha.json`): the case table did not yet pin
+  `expectedNotesSha`, and the guard refused to proceed — that is the gate working, not a retry budget.
+- Claim keyed `chapterId + current candidate SHA`; `passedCandidatesForArticle: 0`.
+- maker-B held `11:11:41.0`–`11:12:23.8Z`, acquire/release exit 0, legacy lock byte-identical,
+  one real call, no retries, no audit-side overlap in the window.
+- Revision: b0056 was 「的情况与此不同：若打出」 — the comparison subject was ambiguous and risked
+  merging the two tile shapes of figure b0055 into one eight-tile shape. It now reads
+  「与后一个牌形不同，前一个牌形若打出」, i.e. the first four tiles of b0055 are the example and the
+  last four are the comparison object. The parent audit had suggested restating the tile codes
+  (1344m / 1124m); this candidate keeps the shape-relative wording because the source 「と違って打」
+  does not repeat tile codes. **COAC-249 must judge the referent ordering against b0055** — that is
+  the open semantic question, not something this line declared.
+- Self-check `selfcheck-b6-b7470d87d4fe34cc.json`, `ok: true`: only the target block changed, all 77
+  figures and the body flow identical to the parent, one attempt, raw-artifact sha verified.
+- Handed to COAC-249: `handoff-b6-5455076a53c6565c.json` + `explicit-targets-b6-36667349329f7dfb.json`.
+
+### The ordinary-web repair pool is now exhausted under the current entry
+
+Latest joint exclusion (`11:11:40`). Of the remaining uncovered chapters, none is a valid repair
+target under the unchanged revision entry:
+
+| chapter | why it cannot be produced |
+| --- | --- |
+| 347-1 | revisable by the guard, but skipped per the standing instruction (parent-audit figure gap is a root-level decision) |
+| 232-1 | 2 non-faithful text targets, plus 1 figure without a faithful check |
+| 224-1 | 0 text targets, 1 figure without a faithful check |
+| 213-1 | 1 figure without a faithful check |
+| 193-1 | 1 figure without a faithful check |
+| 100-1 | 0 non-faithful text targets |
+| 089-1 | 4 non-faithful text targets |
+| 060-1 | 2 non-faithful text targets |
+
+`183-1` is under pending adjudication, `236-1`/`283-1` are COAC-248 reservations and `250-1` has no
+audited parent candidate. Continuing means either a root decision on 347-1, a wider revision entry
+(multi-target / missing-figure-checks), or chapters from another source — none of which this ticket
+may decide on its own.

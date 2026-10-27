@@ -1,0 +1,256 @@
+{
+  "schema": "coac269-web-revision-preflight/1",
+  "scriptVersion": 2,
+  "batch": "b6",
+  "recordedAt": "2026-10-27T11:11:26.359Z",
+  "ticket": "COAC-269",
+  "line": "B-ordinary-web-targeted-revision",
+  "variant": "coac269rev1",
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "selectionRule": "zero-call joint exclusion by canonical original chapter id over latest active preview unit-map/selection + latest unified register + latest passed receipts bound to current source sha; then chapterId + current candidateSHA claim; then the revision-entry guards",
+  "jointExclusion": {
+    "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/coac269-20261027/preflight/joint-exclusion-2026-10-27T11-11-19-796Z-6df4fae8.json",
+    "sha256": "caed469a141e86e19083dcc2238e0b6f731e61504ac667e2266947b44b34b933",
+    "recordedAt": "2026-10-27T11:11:19.796Z",
+    "ageSeconds": 7,
+    "maxAgeSeconds": 900,
+    "eligibleRepairTargets": [
+      "nemata-jp-chapter-347-1",
+      "nemata-jp-chapter-232-1",
+      "nemata-jp-chapter-224-1",
+      "nemata-jp-chapter-213-1",
+      "nemata-jp-chapter-193-1",
+      "nemata-jp-chapter-142-1",
+      "nemata-jp-chapter-127-1",
+      "nemata-jp-chapter-100-1",
+      "nemata-jp-chapter-089-1",
+      "nemata-jp-chapter-060-1",
+      "nemata-jp-chapter-027-1"
+    ],
+    "incidentControlsOk": true
+  },
+  "activePreviewPointer": {
+    "path": "integration/accepted-preview-current.json",
+    "sha256": "3927fdab261bd3b1f4a8caa6b59314650f3e09687b4a009716a64894b6f63ea7",
+    "output": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T10-38-35-579Z",
+    "createdAt": "2026-10-27T11:03:12.905Z"
+  },
+  "unifiedRegister": {
+    "path": "integration/coac250-unified-chapter-register-20261027b.json",
+    "sha256": "8db9643f5d3a53227d515279726b48ffe1e2b3ef65fd65a8e0d6687432a2a3da"
+  },
+  "incidentRegression": {
+    "nemata-jp-chapter-246-1": {
+      "covered": true,
+      "reasons": [
+        "active-preview-selectedWeb",
+        "unified-register-covered-effective",
+        "latest-passed-audit-current-source",
+        "active-preview-unit-map"
+      ]
+    },
+    "nemata-jp-chapter-237-1": {
+      "covered": true,
+      "reasons": [
+        "active-preview-selectedWeb",
+        "unified-register-covered-effective",
+        "latest-passed-audit-current-source",
+        "active-preview-unit-map"
+      ]
+    },
+    "nemata-jp-chapter-131-1": {
+      "covered": true,
+      "reasons": [
+        "active-preview-selectedWeb",
+        "unified-register-covered-effective",
+        "latest-passed-audit-current-source",
+        "active-preview-unit-map"
+      ]
+    },
+    "nemata-jp-chapter-183-1": {
+      "covered": false,
+      "reasons": []
+    }
+  },
+  "excluded": {
+    "nemata-jp-chapter-246-1": "covered (active preview + register + passed receipt chapter06-section002.rev1.json); b2 duplicate production withdrawn, not deleted",
+    "nemata-jp-chapter-237-1": "covered (active preview + register + passed receipt chapter04-section016.rev1.json); b2 duplicate production withdrawn, not deleted",
+    "nemata-jp-chapter-131-1": "covered (active preview + register + passed receipt chapter01-section049.rev1.json); b3 duplicate production withdrawn, not deleted",
+    "nemata-jp-chapter-183-1": "moved to pending adjudication: 249 confirmed the parent audit is only uncertain and forbids unconfirmed rewriting; the b3 revision stays as evidence, it is neither audited nor ingested"
+  },
+  "slotEntry": {
+    "mechanism": "parallel/slots.mjs",
+    "owner": "COAC-269 Ticket executor",
+    "lane": "B",
+    "maxMakerSlots": 2,
+    "verification": "parallel/verification-20261027.json"
+  },
+  "legacyLock": {
+    "path": "production-lane.lock",
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+    "size": 1,
+    "mtime": "2026-10-25T15:40:57.879Z",
+    "contentHex": "30",
+    "note": "read-only evidence; the dual-slot contract keeps this legacy lock untouched. B capacity is the maker-B slot."
+  },
+  "dictionary": {
+    "path": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+    "sha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+  },
+  "verifiedAssets": {
+    "path": "audit/web/verified-assets/modern-ch01-s001-exact-42.json",
+    "sha256": "dd3058698dc2630a1767e27791b07ce3617c0e141957d8000bcd9e97331df193"
+  },
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-027-1",
+      "articleId": "chapter01-section010",
+      "checks": [
+        "joint_exclusion",
+        "joint_exclusion_freshness",
+        "claim_binding",
+        "source_binding",
+        "parent_self_sha",
+        "notes_binding",
+        "target_projection",
+        "non_target_faithful_blocks",
+        "all_figures_faithful",
+        "dictionary_coverage",
+        "no_existing_variant"
+      ],
+      "errors": [],
+      "claim": {
+        "key": "nemata-jp-chapter-027-1:7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b",
+        "existing": [],
+        "conflicts": []
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter01-section010/source.json",
+        "sha256": "eead468938ab9770eecc8b2323f72be0dd4dae72618355e4c9bee227dd527387",
+        "language": "ja",
+        "status": "captured-not-translated-or-audited",
+        "blocks": 160,
+        "assets": 16
+      },
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.display.json",
+        "sha256": "7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b",
+        "schema": "coach-textbook-web-article-draft/1",
+        "textBlocks": 83,
+        "figures": 77
+      },
+      "notes": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter01-section010.7ebd1f9736018ab21e85e0a91d2517e1c738fa56a9d4ca060c360bf9c21a566b.json",
+        "sha256": "57d283a67ea10b4ba1ec399700a8c31fc849d625ca001bb03f5dac41ac8dd6f4",
+        "schema": "coach-textbook-web-article-audit/1",
+        "status": "needs-repair",
+        "recordedAt": "2026-10-23T22:09:54.038Z"
+      },
+      "targets": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section010:b0056",
+          "sourceText": "と違って打",
+          "priorTranslation": "的情况与此不同：若打出",
+          "paragraphId": "modern-yabejp-ja:chapter01-section010:p0005",
+          "contextIds": [
+            "modern-yabejp-ja:chapter01-section010:b0039",
+            "modern-yabejp-ja:chapter01-section010:b0040",
+            "modern-yabejp-ja:chapter01-section010:b0041",
+            "modern-yabejp-ja:chapter01-section010:b0042",
+            "modern-yabejp-ja:chapter01-section010:b0043",
+            "modern-yabejp-ja:chapter01-section010:b0044",
+            "modern-yabejp-ja:chapter01-section010:b0045",
+            "modern-yabejp-ja:chapter01-section010:b0046",
+            "modern-yabejp-ja:chapter01-section010:b0047",
+            "modern-yabejp-ja:chapter01-section010:b0048",
+            "modern-yabejp-ja:chapter01-section010:b0049",
+            "modern-yabejp-ja:chapter01-section010:b0050",
+            "modern-yabejp-ja:chapter01-section010:b0051",
+            "modern-yabejp-ja:chapter01-section010:b0052",
+            "modern-yabejp-ja:chapter01-section010:b0053",
+            "modern-yabejp-ja:chapter01-section010:b0054",
+            "modern-yabejp-ja:chapter01-section010:b0055",
+            "modern-yabejp-ja:chapter01-section010:b0056",
+            "modern-yabejp-ja:chapter01-section010:b0057",
+            "modern-yabejp-ja:chapter01-section010:b0058",
+            "modern-yabejp-ja:chapter01-section010:b0059",
+            "modern-yabejp-ja:chapter01-section010:b0060",
+            "modern-yabejp-ja:chapter01-section010:b0061",
+            "modern-yabejp-ja:chapter01-section010:b0062",
+            "modern-yabejp-ja:chapter01-section010:b0063",
+            "modern-yabejp-ja:chapter01-section010:b0064",
+            "modern-yabejp-ja:chapter01-section010:b0065",
+            "modern-yabejp-ja:chapter01-section010:b0066",
+            "modern-yabejp-ja:chapter01-section010:b0067",
+            "modern-yabejp-ja:chapter01-section010:b0068",
+            "modern-yabejp-ja:chapter01-section010:b0069",
+            "modern-yabejp-ja:chapter01-section010:b0070",
+            "modern-yabejp-ja:chapter01-section010:b0071",
+            "modern-yabejp-ja:chapter01-section010:b0072",
+            "modern-yabejp-ja:chapter01-section010:b0073",
+            "modern-yabejp-ja:chapter01-section010:b0074",
+            "modern-yabejp-ja:chapter01-section010:b0075",
+            "modern-yabejp-ja:chapter01-section010:b0076",
+            "modern-yabejp-ja:chapter01-section010:b0077",
+            "modern-yabejp-ja:chapter01-section010:b0078",
+            "modern-yabejp-ja:chapter01-section010:b0079",
+            "modern-yabejp-ja:chapter01-section010:b0080",
+            "modern-yabejp-ja:chapter01-section010:b0081",
+            "modern-yabejp-ja:chapter01-section010:b0082"
+          ]
+        }
+      ],
+      "contextBlockIds": [
+        "modern-yabejp-ja:chapter01-section010:b0039",
+        "modern-yabejp-ja:chapter01-section010:b0040",
+        "modern-yabejp-ja:chapter01-section010:b0041",
+        "modern-yabejp-ja:chapter01-section010:b0042",
+        "modern-yabejp-ja:chapter01-section010:b0043",
+        "modern-yabejp-ja:chapter01-section010:b0044",
+        "modern-yabejp-ja:chapter01-section010:b0045",
+        "modern-yabejp-ja:chapter01-section010:b0046",
+        "modern-yabejp-ja:chapter01-section010:b0047",
+        "modern-yabejp-ja:chapter01-section010:b0048",
+        "modern-yabejp-ja:chapter01-section010:b0049",
+        "modern-yabejp-ja:chapter01-section010:b0050",
+        "modern-yabejp-ja:chapter01-section010:b0051",
+        "modern-yabejp-ja:chapter01-section010:b0052",
+        "modern-yabejp-ja:chapter01-section010:b0053",
+        "modern-yabejp-ja:chapter01-section010:b0054",
+        "modern-yabejp-ja:chapter01-section010:b0055",
+        "modern-yabejp-ja:chapter01-section010:b0056",
+        "modern-yabejp-ja:chapter01-section010:b0057",
+        "modern-yabejp-ja:chapter01-section010:b0058",
+        "modern-yabejp-ja:chapter01-section010:b0059",
+        "modern-yabejp-ja:chapter01-section010:b0060",
+        "modern-yabejp-ja:chapter01-section010:b0061",
+        "modern-yabejp-ja:chapter01-section010:b0062",
+        "modern-yabejp-ja:chapter01-section010:b0063",
+        "modern-yabejp-ja:chapter01-section010:b0064",
+        "modern-yabejp-ja:chapter01-section010:b0065",
+        "modern-yabejp-ja:chapter01-section010:b0066",
+        "modern-yabejp-ja:chapter01-section010:b0067",
+        "modern-yabejp-ja:chapter01-section010:b0068",
+        "modern-yabejp-ja:chapter01-section010:b0069",
+        "modern-yabejp-ja:chapter01-section010:b0070",
+        "modern-yabejp-ja:chapter01-section010:b0071",
+        "modern-yabejp-ja:chapter01-section010:b0072",
+        "modern-yabejp-ja:chapter01-section010:b0073",
+        "modern-yabejp-ja:chapter01-section010:b0074",
+        "modern-yabejp-ja:chapter01-section010:b0075",
+        "modern-yabejp-ja:chapter01-section010:b0076",
+        "modern-yabejp-ja:chapter01-section010:b0077",
+        "modern-yabejp-ja:chapter01-section010:b0078",
+        "modern-yabejp-ja:chapter01-section010:b0079",
+        "modern-yabejp-ja:chapter01-section010:b0080",
+        "modern-yabejp-ja:chapter01-section010:b0081",
+        "modern-yabejp-ja:chapter01-section010:b0082"
+      ],
+      "dictionaryUnboundImages": 0,
+      "outputPath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section010.coac269rev1.json"
+    }
+  ],
+  "ok": true,
+  "errors": []
+}
