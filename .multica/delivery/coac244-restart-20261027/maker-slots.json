@@ -1,0 +1,136 @@
+{
+  "ok": true,
+  "action": "status",
+  "root": "E:/AgentData/Coach/knowledge/processing/parallel",
+  "maxMakerSlots": 2,
+  "liveMakers": 0,
+  "slots": [],
+  "claims": [
+    {
+      "schema": "coach-textbook-chapter-claim/1",
+      "chapterId": "79-cn-chapter-081-8",
+      "candidateSha256": "50b62ce5b808d89f5f6231e8a88ed7ce546731211bb73684642d54d700d11853",
+      "lane": "A",
+      "owner": "COAC-248 Mika",
+      "slot": null,
+      "claimedAt": "2026-10-27T11:33:47.044Z"
+    },
+    {
+      "schema": "coach-textbook-chapter-claim/1",
+      "chapterId": "79-cn-chapter-090-6",
+      "candidateSha256": "4cb573da8c93c6764aaccb68db5b5dad2fcec66ab3486b39e93696f23745149f",
+      "lane": "A",
+      "owner": "COAC-248 Mika",
+      "slot": null,
+      "claimedAt": "2026-10-27T14:23:07.020Z"
+    },
+    {
+      "schema": "coach-textbook-chapter-claim/1",
+      "chapterId": "79-cn-chapter-128-14",
+      "candidateSha256": "2aec7345fda18914b17cab6d01703d1a5e0fb5bee27eb056e62453f4f24887ec",
+      "lane": "B",
+      "owner": "COAC-269 Ticket executor",
+      "slot": null,
+      "claimedAt": "2026-10-27T12:39:19.784Z"
+    },
+    {
+      "schema": "coach-textbook-chapter-claim/1",
+      "chapterId": "79-cn-chapter-145-4",
+      "candidateSha256": "7557da593c6cdee11ca01853639150f50e39cbc9dc94bd51f0461d65d18ad92a",
+      "lane": "B",
+      "owner": "COAC-269 Ticket executor",
+      "slot": null,
+      "claimedAt": "2026-10-27T12:39:19.847Z"
+    },
+    {
+      "schema": "coach-textbook-chapter-claim/1",
+      "chapterId": "79-cn-chapter-205-5",
+      "candidateSha256": "181e5da06710e24009128eb6254071ec141983ca34b9a0448b1cd36f61b0d3b6",
+      "lane": "B",
+      "owner": "COAC-269 Ticket executor",
+      "slot": null,
+      "claimedAt": "2026-10-27T14:41:32.047Z"
+    },
+    {
+      "schema": "coach-textbook-chapter-claim/1",
+      "chapterId": "79-cn-chapter-217-4",
+      "candidateSha256": "73410520b240c15305d220c0aa472bb0f53392255dd0167b78d8a4627aac0add",
+      "lane": "A",
+      "owner": "COAC-248 Mika",
+      "slot": null,
+      "claimedAt": "2026-10-27T10:17:06.637Z"
+    },
+    {
+      "schema": "coach-textbook-chapter-claim/1",
+      "chapterId": "nemata-jp-chapter-060-1",
+      "candidateSha256": "ff1f57ff633d050ec1edff51301a3e4a4e3f68d690774a7a8c60893f4300f828",
+      "lane": "B",
+      "owner": "COAC-269 Ticket executor",
+      "slot": null,
+      "claimedAt": "2026-10-27T11:51:37.235Z"
+    },
+    {
+      "schema": "coach-textbook-chapter-claim/1",
+      "chapterId": "nemata-jp-chapter-089-1",
+      "candidateSha256": "9fa0255f1dbe5bdf38e94d0e6c447c09d4a97d689611f41fd1676af27fd89ffb",
+      "lane": "B",
+      "owner": "COAC-269 Ticket executor",
+      "slot": null,
+      "claimedAt": "2026-10-27T11:51:37.176Z"
+    },
+    {
+      "schema": "coach-textbook-chapter-claim/1",
+      "chapterId": "nemata-jp-chapter-131-1",
+      "candidateSha256": "470217d79cd1acd28f234a1e691d4d950ae99d0c0463e6bd0211561c95de28ac",
+      "lane": "B",
+      "owner": "COAC-269 Ticket executor",
+      "slot": null,
+      "claimedAt": "2026-10-27T10:16:59.281Z"
+    },
+    {
+      "schema": "coach-textbook-chapter-claim/1",
+      "chapterId": "nemata-jp-chapter-183-1",
+      "candidateSha256": "889adf0d0f694bc09475a5c35d83d758493e94af90c3e389dfdebfa5bf205b02",
+      "lane": "B",
+      "owner": "COAC-269 Ticket executor",
+      "slot": null,
+      "claimedAt": "2026-10-27T10:16:59.202Z"
+    },
+    {
+      "schema": "coach-textbook-chapter-claim/1",
+      "chapterId": "nemata-jp-chapter-237-1",
+      "candidateSha256": "5c4048adf1b398f2a202dbdd0a1485cdaa539ad2ad4fd80e053dd0f2db17a959",
+      "lane": "B",
+      "owner": "COAC-269 Ticket executor",
+      "slot": null,
+      "claimedAt": "2026-10-27T10:06:48.760Z"
+    },
+    {
+      "schema": "coach-textbook-chapter-claim/1",
+      "chapterId": "nemata-jp-chapter-246-1",
+      "candidateSha256": "eb4caf1b93fc906a5a7286419009256337e9f886ce82123091931c8c5e5c4fc4",
+      "lane": "B",
+      "owner": "COAC-269 Ticket executor",
+      "slot": null,
+      "claimedAt": "2026-10-27T10:06:48.682Z"
+    },
+    {
+      "schema": "coach-textbook-chapter-claim/1",
+      "chapterId": "nemata-jp-chapter-273-1",
+      "candidateSha256": "c57c30e4ffddb9ea661295364ee46739438c2c17a4f4c772e5df0b8391c7576b",
+      "lane": "B",
+      "owner": "COAC-269 Ticket executor",
+      "slot": null,
+      "claimedAt": "2026-10-27T09:40:47.474Z"
+    },
+    {
+      "schema": "coach-textbook-chapter-claim/1",
+      "chapterId": "nemata-jp-chapter-338-1",
+      "candidateSha256": "04ab76405f88fa1df61d68c2047cf3cb344b8db8644f193c520fee805b83c427",
+      "lane": "B",
+      "owner": "COAC-269 Ticket executor",
+      "slot": null,
+      "claimedAt": "2026-10-27T09:40:47.394Z"
+    }
+  ]
+}

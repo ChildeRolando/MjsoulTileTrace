@@ -1,0 +1,55 @@
+{
+  "preview": {
+    "chapters": 226,
+    "units": 234,
+    "blocks": 6239,
+    "figures": 5094,
+    "activeLibraryChanged": false,
+    "corpusId": "326c23bef26c91b9336e9216b3b6df5707ebd3124fca0fb394deeb8e7ad06bcd"
+  },
+  "registerCounts": {
+    "originalChapters": 256,
+    "originalUnits": 303,
+    "originalSourceBlocks": 21212,
+    "displayChapters": 226,
+    "displayUnits": 234,
+    "displayBlocks": 6239,
+    "displayFigures": 5094,
+    "effectiveCoveredOriginalChapters": 226,
+    "effectiveUncoveredOriginalChapters": 30,
+    "uncoveredProduced": 30,
+    "trulyUnproduced": 0,
+    "register80": 80,
+    "register80Groups": {
+      "confirmed-produced-not-covered": 56,
+      "reclassified-covered": 17,
+      "legacy-covered": 1,
+      "additional-uncovered-not-in-246": 6
+    },
+    "verdicts": {
+      "covered-effective": 226,
+      "produced-needs-repair": 30,
+      "produced-passed-not-staged": 0,
+      "produced-pdf-passed-not-staged": 0,
+      "produced-unreviewed": 0,
+      "produced-audit-failed": 0,
+      "total": 256
+    }
+  },
+  "v16SelectionSha256": "54c89aac50d1c5535a824b70309404dfa9b5454712f6592e74177684d97c0556",
+  "priorUnitsPreservedExactly": 233,
+  "incrementalAssembly": {
+    "from": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T15-36-30-338Z",
+    "priorPointerSha256": "4ac01424f64328f350c27d25318e5a119eaba8855088e7875fae3ead37ec6b05",
+    "retainedUnits": 233,
+    "recompiledPriorStages": 0,
+    "addedChapters": [
+      "nemata-jp-chapter-347-1"
+    ],
+    "intakeAnnotations": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T16-43-36-491Z/347-1-intake-annotations.json",
+      "sha256": "f2973556142f62a03f7b754306639d35f5c2deae6804dd83662d19a73f46d875",
+      "issues": 0
+    }
+  }
+}

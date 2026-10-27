@@ -1,0 +1,22 @@
+{
+  "b": {
+    "id": "01a17d8f-972b-74fb-a899-249bd7a2862c",
+    "status": "completed",
+    "runtime_id": "0b72e5d1-8839-4d7e-b0a1-298e457c3d1e",
+    "started_at": "2026-10-27T13:32:13Z",
+    "completed_at": "2026-10-27T16:41:49Z",
+    "error": null,
+    "sessionId": "f9942075-21e8-446e-9956-7cd42ab74727",
+    "output": "Batch 9 is closed out and the record is corrected.\n\n**What happened**\n- **157-11**: not dispatched (0 model calls, 0 candidate). The five declared `4s→6s` targets conflict with this line's readings of the bound source; since no independent image audit exists for `cv1751276`, it stays withheld with the conflict and the `b0011` dora doubt recorded as unresolved items — no tile-code change, no target expansion.\n- **205-5**: one real production call `358f4e70` (16,342 in / 7,186 out, 306.0 s), maker-B held 14:46:05–14:51:12Z and released, legacy lock untouched, all mechanical gates green. Candidate `8c0cfff8…` is kept exactly as produced; this line's five-to-six per-area discrepancies against the source are recorded as a **producer accusation**, not a confirmed semantic failure (no independent first audit on that SHA). No handoff to 249/250, no retry, first-audit budget unspent.\n\n**After the owner's 15:52Z correction**, I withdrew the \"audit misread / semantic failure\" framing in the evidence bundle, README and my first comment, and posted a short correction reply: visual and pixel readings are diagnostics only; semantic status stays pending independent adjudication.\n\n**State**: `agent/ticket/coac-269` at `66e7552` (both branches pushed), PR #73 body updated and the new head registered (`QUEUED`), issue `in_review`. No new production, audit, dispatch or wakeup was run for the correction."
+  },
+  "mika1620": {
+    "id": "01a17e29-723d-711b-ad69-08707ea09a97",
+    "status": "completed",
+    "runtime_id": "731c52da-6d5e-4c5b-80c9-e9f39803735b",
+    "started_at": "2026-10-27T16:20:17Z",
+    "completed_at": "2026-10-27T16:40:44Z",
+    "error": null,
+    "sessionId": "01a17db7-aa62-7c42-99b9-358b950be378",
+    "output": "347已真实独审pass并交250，集成run已启动。155被现有修订门禁阻断，未调用模型、未生成候选。\n\n实际新增调用2/4次，0重试。正式active未切，B未加工作。完整证据及调用账已回帖，提交`e61a3a8`已推送。"
+  }
+}

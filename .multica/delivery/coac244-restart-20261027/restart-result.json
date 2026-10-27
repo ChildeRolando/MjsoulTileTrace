@@ -1,0 +1,189 @@
+{
+  "at": "2026-10-27T16:46:45.408688+00:00",
+  "newModelCallsThisRun": 0,
+  "historicalStageNewCalls": 2,
+  "historicalStageBudget": 4,
+  "automaticRetries": 0,
+  "priorRuns": {
+    "b": {
+      "id": "01a17d8f-972b-74fb-a899-249bd7a2862c",
+      "status": "completed",
+      "runtime_id": "0b72e5d1-8839-4d7e-b0a1-298e457c3d1e",
+      "started_at": "2026-10-27T13:32:13Z",
+      "completed_at": "2026-10-27T16:41:49Z",
+      "error": null,
+      "sessionId": "f9942075-21e8-446e-9956-7cd42ab74727",
+      "output": "Batch 9 is closed out and the record is corrected.\n\n**What happened**\n- **157-11**: not dispatched (0 model calls, 0 candidate). The five declared `4s→6s` targets conflict with this line's readings of the bound source; since no independent image audit exists for `cv1751276`, it stays withheld with the conflict and the `b0011` dora doubt recorded as unresolved items — no tile-code change, no target expansion.\n- **205-5**: one real production call `358f4e70` (16,342 in / 7,186 out, 306.0 s), maker-B held 14:46:05–14:51:12Z and released, legacy lock untouched, all mechanical gates green. Candidate `8c0cfff8…` is kept exactly as produced; this line's five-to-six per-area discrepancies against the source are recorded as a **producer accusation**, not a confirmed semantic failure (no independent first audit on that SHA). No handoff to 249/250, no retry, first-audit budget unspent.\n\n**After the owner's 15:52Z correction**, I withdrew the \"audit misread / semantic failure\" framing in the evidence bundle, README and my first comment, and posted a short correction reply: visual and pixel readings are diagnostics only; semantic status stays pending independent adjudication.\n\n**State**: `agent/ticket/coac-269` at `66e7552` (both branches pushed), PR #73 body updated and the new head registered (`QUEUED`), issue `in_review`. No new production, audit, dispatch or wakeup was run for the correction."
+    },
+    "mika1620": {
+      "id": "01a17e29-723d-711b-ad69-08707ea09a97",
+      "status": "completed",
+      "runtime_id": "731c52da-6d5e-4c5b-80c9-e9f39803735b",
+      "started_at": "2026-10-27T16:20:17Z",
+      "completed_at": "2026-10-27T16:40:44Z",
+      "error": null,
+      "sessionId": "01a17db7-aa62-7c42-99b9-358b950be378",
+      "output": "347已真实独审pass并交250，集成run已启动。155被现有修订门禁阻断，未调用模型、未生成候选。\n\n实际新增调用2/4次，0重试。正式active未切，B未加工作。完整证据及调用账已回帖，提交`e61a3a8`已推送。"
+    }
+  },
+  "realCallIds": [
+    "b8e3bd21-b7ae-4f09-a15b-345b1bba167a",
+    "cfc3e7a6-ca0e-417c-8157-3b126ae55d1b"
+  ],
+  "verifiedFileCount": 10,
+  "verifiedFiles": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\archive01-section008.coac244text20261027.display.json",
+      "sha256": "45b67ef632f54a213a8c33bc4cc4c7b656e10d47123a35b8ec57f0d17abb6814"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\archive01-section008.45b67ef632f54a213a8c33bc4cc4c7b656e10d47123a35b8ec57f0d17abb6814.json",
+      "sha256": "5215961e821d727ef1b5ac2e3f19fe0664cbe01f1181e44d8a082ef18049dbae"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\archive01-section008.coac244text20261027.display.json",
+      "sha256": "45b67ef632f54a213a8c33bc4cc4c7b656e10d47123a35b8ec57f0d17abb6814"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\archive01-section008.45b67ef632f54a213a8c33bc4cc4c7b656e10d47123a35b8ec57f0d17abb6814.json",
+      "sha256": "5215961e821d727ef1b5ac2e3f19fe0664cbe01f1181e44d8a082ef18049dbae"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\b8e3bd21-b7ae-4f09-a15b-345b1bba167a.json",
+      "sha256": "db0f88f180ed563fb3dd7e4aca4e3fd94ce8a05d26690d0c7b11a5d3d9073ca9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\cfc3e7a6-ca0e-417c-8157-3b126ae55d1b.json",
+      "sha256": "34ead984ea73fb799abafc0ceb3f239d3f621c147a0a3a3fbfbb00fca3217439"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-text-347-20261027\\dispatch-started.json",
+      "sha256": "9c717ed26203c88c32caedea023ba140e5c9c65eb1099f4ce59c5f46af49d3bd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-text-347-20261027\\dispatch-finished.json",
+      "sha256": "002dec8223fa3ccbad3b6a11f0c51f730b233baf9e401c75ad029aa22c376068"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-text-347-20261027\\slot-released.json",
+      "sha256": "293fd0cf8a5d433d220009d3d0492be3308baba67c4f9358004262f82b2ad7f6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac244-text-347-20261027\\chapter-released.json",
+      "sha256": "0e0c133c5acb449522712b6f39342478eef7938c5f0cb6f6e282fdd5ffd97579"
+    }
+  ],
+  "makers": 0,
+  "auditDriverLockPresent": false,
+  "providerPidEvidence": {
+    "currentMika": 60208,
+    "integration250": 42532,
+    "oldBObservedCandidate": 2356,
+    "oldBObservedCandidateExited": true,
+    "qualification": "2356 was the Claude CLI launched three seconds after old B start; temporal association, not an exposed per-run PID binding. It disappeared naturally during inspection."
+  },
+  "platformLeaseEvidence": "CLI exposes run lifecycle/runtime and daemon active/pending-terminal counts, not lease token/expiry. Both old runs completed normally; no cancel or lease write performed.",
+  "desktopRestartEvidence": "Desktop --updated process started 2026-10-27T16:19:51Z. Daemon PID16076 predates this restart; desktop restart is not evidence of daemon restart.",
+  "daemonReadback": {
+    "pid": 16076,
+    "runningTaskCountAfterBFinished": 2,
+    "resourceWaitTaskCount": 0,
+    "pendingTerminalReportCount": 0,
+    "failedTerminalReportCount": 0
+  },
+  "coverage": {
+    "preview": {
+      "chapters": 226,
+      "units": 234,
+      "blocks": 6239,
+      "figures": 5094,
+      "activeLibraryChanged": false,
+      "corpusId": "326c23bef26c91b9336e9216b3b6df5707ebd3124fca0fb394deeb8e7ad06bcd"
+    },
+    "registerCounts": {
+      "originalChapters": 256,
+      "originalUnits": 303,
+      "originalSourceBlocks": 21212,
+      "displayChapters": 226,
+      "displayUnits": 234,
+      "displayBlocks": 6239,
+      "displayFigures": 5094,
+      "effectiveCoveredOriginalChapters": 226,
+      "effectiveUncoveredOriginalChapters": 30,
+      "uncoveredProduced": 30,
+      "trulyUnproduced": 0,
+      "register80": 80,
+      "register80Groups": {
+        "confirmed-produced-not-covered": 56,
+        "reclassified-covered": 17,
+        "legacy-covered": 1,
+        "additional-uncovered-not-in-246": 6
+      },
+      "verdicts": {
+        "covered-effective": 226,
+        "produced-needs-repair": 30,
+        "produced-passed-not-staged": 0,
+        "produced-pdf-passed-not-staged": 0,
+        "produced-unreviewed": 0,
+        "produced-audit-failed": 0,
+        "total": 256
+      }
+    },
+    "v16SelectionSha256": "54c89aac50d1c5535a824b70309404dfa9b5454712f6592e74177684d97c0556",
+    "priorUnitsPreservedExactly": 233,
+    "incrementalAssembly": {
+      "from": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T15-36-30-338Z",
+      "priorPointerSha256": "4ac01424f64328f350c27d25318e5a119eaba8855088e7875fae3ead37ec6b05",
+      "retainedUnits": 233,
+      "recompiledPriorStages": 0,
+      "addedChapters": [
+        "nemata-jp-chapter-347-1"
+      ],
+      "intakeAnnotations": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T16-43-36-491Z/347-1-intake-annotations.json",
+        "sha256": "f2973556142f62a03f7b754306639d35f5c2deae6804dd83662d19a73f46d875",
+        "issues": 0
+      }
+    }
+  },
+  "laterActiveFamily": [
+    {
+      "agent_id": "e860cd42-646c-47e5-9076-5ef82fc3efe1",
+      "created_at": "2026-10-27T16:44:36Z",
+      "issue_id": "01a17cae-06e4-7b30-a93f-3a030d1ae63f",
+      "issue_identifier": "COAC-269",
+      "issue_title": "教材并行修订 B：普通网页章节定点编修",
+      "started_at": "2026-10-27T16:44:44Z",
+      "status": "running",
+      "task_id": "01a17e3f-d9b2-786c-bd31-3888850a9be1"
+    },
+    {
+      "agent_id": "b144c077-cadd-4749-a53d-4b9cb98191b8",
+      "created_at": "2026-10-27T16:36:42Z",
+      "issue_id": "01a17471-25e6-7731-a529-3df99acf3d42",
+      "issue_identifier": "COAC-250",
+      "issue_title": "教材接管 5/5：增量合库与全量教材 MCP 最终切换",
+      "started_at": "2026-10-27T16:36:51Z",
+      "status": "running",
+      "task_id": "01a17e38-9efc-7a70-a791-fba54ab28640"
+    },
+    {
+      "agent_id": "b144c077-cadd-4749-a53d-4b9cb98191b8",
+      "created_at": "2026-10-27T16:21:37Z",
+      "issue_id": "01a1746d-cf4a-7ecc-9fae-3d4c2b55c39f",
+      "issue_identifier": "COAC-244",
+      "issue_title": "教材全量加工与检索 MCP 收口：用户与 Multica 调度",
+      "started_at": "2026-10-27T16:40:50Z",
+      "status": "running",
+      "task_id": "01a17e2a-cea0-7948-b726-f77cf9f85877"
+    }
+  ],
+  "laterBRunQualification": "New B run 01a17e3f-d9b2-786c-bd31-3888850a9be1 is a separate run on agent e860cd42-646c-47e5-9076-5ef82fc3efe1. This verification did not create or modify it. Its scope/runtime could not be freshly read during intermittent network failures; no claim that it is the historical B process.",
+  "mutations": {
+    "cancelledRuns": [],
+    "killedProcesses": [],
+    "deletedLocks": [],
+    "configurationChanges": [],
+    "restartedOld157205": false
+  }
+}
