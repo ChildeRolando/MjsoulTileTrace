@@ -1,0 +1,261 @@
+{
+  "schema": "coac269-web-revision-preflight/1",
+  "scriptVersion": 2,
+  "batch": "b5",
+  "recordedAt": "2026-10-27T11:05:48.589Z",
+  "ticket": "COAC-269",
+  "line": "B-ordinary-web-targeted-revision",
+  "variant": "coac269rev1",
+  "modelCalls": 0,
+  "productionCalls": 0,
+  "selectionRule": "zero-call joint exclusion by canonical original chapter id over latest active preview unit-map/selection + latest unified register + latest passed receipts bound to current source sha; then chapterId + current candidateSHA claim; then the revision-entry guards",
+  "jointExclusion": {
+    "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/coac269-20261027/preflight/joint-exclusion-2026-10-27T11-05-38-944Z-6df4fae8.json",
+    "sha256": "32e674d2e26d1b646ca02d72c86af5ae605be926a0af6b6b10d7e0a2e7a948e3",
+    "recordedAt": "2026-10-27T11:05:38.944Z",
+    "ageSeconds": 10,
+    "maxAgeSeconds": 900,
+    "eligibleRepairTargets": [
+      "nemata-jp-chapter-347-1",
+      "nemata-jp-chapter-232-1",
+      "nemata-jp-chapter-224-1",
+      "nemata-jp-chapter-213-1",
+      "nemata-jp-chapter-193-1",
+      "nemata-jp-chapter-142-1",
+      "nemata-jp-chapter-127-1",
+      "nemata-jp-chapter-100-1",
+      "nemata-jp-chapter-089-1",
+      "nemata-jp-chapter-060-1",
+      "nemata-jp-chapter-027-1"
+    ],
+    "incidentControlsOk": true
+  },
+  "activePreviewPointer": {
+    "path": "integration/accepted-preview-current.json",
+    "sha256": "3927fdab261bd3b1f4a8caa6b59314650f3e09687b4a009716a64894b6f63ea7",
+    "output": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-27T10-38-35-579Z",
+    "createdAt": "2026-10-27T11:03:12.905Z"
+  },
+  "unifiedRegister": {
+    "path": "integration/coac250-unified-chapter-register-20261027b.json",
+    "sha256": "20b535391fbfb54fbd5a3d8d810d756fb4f78ee964c81e2921d1cbbcd516660f"
+  },
+  "incidentRegression": {
+    "nemata-jp-chapter-246-1": {
+      "covered": true,
+      "reasons": [
+        "active-preview-selectedWeb",
+        "unified-register-covered-effective",
+        "latest-passed-audit-current-source",
+        "active-preview-unit-map"
+      ]
+    },
+    "nemata-jp-chapter-237-1": {
+      "covered": true,
+      "reasons": [
+        "active-preview-selectedWeb",
+        "unified-register-covered-effective",
+        "latest-passed-audit-current-source",
+        "active-preview-unit-map"
+      ]
+    },
+    "nemata-jp-chapter-131-1": {
+      "covered": true,
+      "reasons": [
+        "active-preview-selectedWeb",
+        "unified-register-covered-effective",
+        "latest-passed-audit-current-source",
+        "active-preview-unit-map"
+      ]
+    },
+    "nemata-jp-chapter-183-1": {
+      "covered": false,
+      "reasons": []
+    }
+  },
+  "excluded": {
+    "nemata-jp-chapter-246-1": "covered (active preview + register + passed receipt chapter06-section002.rev1.json); b2 duplicate production withdrawn, not deleted",
+    "nemata-jp-chapter-237-1": "covered (active preview + register + passed receipt chapter04-section016.rev1.json); b2 duplicate production withdrawn, not deleted",
+    "nemata-jp-chapter-131-1": "covered (active preview + register + passed receipt chapter01-section049.rev1.json); b3 duplicate production withdrawn, not deleted",
+    "nemata-jp-chapter-183-1": "moved to pending adjudication: 249 confirmed the parent audit is only uncertain and forbids unconfirmed rewriting; the b3 revision stays as evidence, it is neither audited nor ingested"
+  },
+  "slotEntry": {
+    "mechanism": "parallel/slots.mjs",
+    "owner": "COAC-269 Ticket executor",
+    "lane": "B",
+    "maxMakerSlots": 2,
+    "verification": "parallel/verification-20261027.json"
+  },
+  "legacyLock": {
+    "path": "production-lane.lock",
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+    "size": 1,
+    "mtime": "2026-10-25T15:40:57.879Z",
+    "contentHex": "30",
+    "note": "read-only evidence; the dual-slot contract keeps this legacy lock untouched. B capacity is the maker-B slot."
+  },
+  "dictionary": {
+    "path": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+    "sha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+  },
+  "verifiedAssets": {
+    "path": "audit/web/verified-assets/modern-ch01-s001-exact-42.json",
+    "sha256": "dd3058698dc2630a1767e27791b07ce3617c0e141957d8000bcd9e97331df193"
+  },
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-142-1",
+      "articleId": "chapter01-section054",
+      "checks": [
+        "joint_exclusion",
+        "joint_exclusion_freshness",
+        "claim_binding",
+        "source_binding",
+        "parent_self_sha",
+        "notes_binding",
+        "target_projection",
+        "non_target_faithful_blocks",
+        "all_figures_faithful",
+        "dictionary_coverage",
+        "no_existing_variant"
+      ],
+      "errors": [],
+      "claim": {
+        "key": "nemata-jp-chapter-142-1:264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e",
+        "existing": [
+          {
+            "path": "web-production/v1/coac269-20261027/claims/claim-b5-nemata-jp-chapter-142-1-264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e.json",
+            "owner": "COAC-269 Ticket executor",
+            "parentSha256": "264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e",
+            "plannedOutput": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section054.coac269rev1.json"
+          }
+        ],
+        "conflicts": []
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter01-section054/source.json",
+        "sha256": "89afec31ea77168cb86f94a4919bd5ef813f59029e4452f77e3874dee88676cc",
+        "language": "ja",
+        "status": "captured-not-translated-or-audited",
+        "blocks": 185,
+        "assets": 45
+      },
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section054.display.json",
+        "sha256": "264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e",
+        "schema": "coach-textbook-web-article-draft/1",
+        "textBlocks": 101,
+        "figures": 84
+      },
+      "notes": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter01-section054.264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e.retry-1792969500839-d3667291.json",
+        "sha256": "78ffbdda38185f4ae14f4caeae0a4e9ac015998658f831714e0bf856cd2a6872",
+        "schema": "coach-textbook-web-article-audit/1",
+        "status": "needs-repair",
+        "recordedAt": "2026-10-25T23:05:00.839Z"
+      },
+      "targets": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section054:b0173",
+          "sourceText": "引きでもリャンメンテンパイになる。",
+          "priorTranslation": "，也能形成两面听牌。",
+          "paragraphId": "modern-yabejp-ja:chapter01-section054:p0030",
+          "contextIds": [
+            "modern-yabejp-ja:chapter01-section054:b0171",
+            "modern-yabejp-ja:chapter01-section054:b0172",
+            "modern-yabejp-ja:chapter01-section054:b0173",
+            "modern-yabejp-ja:chapter01-section054:b0174",
+            "modern-yabejp-ja:chapter01-section054:b0175"
+          ]
+        }
+      ],
+      "contextBlockIds": [
+        "modern-yabejp-ja:chapter01-section054:b0171",
+        "modern-yabejp-ja:chapter01-section054:b0172",
+        "modern-yabejp-ja:chapter01-section054:b0173",
+        "modern-yabejp-ja:chapter01-section054:b0174",
+        "modern-yabejp-ja:chapter01-section054:b0175"
+      ],
+      "dictionaryUnboundImages": 0,
+      "outputPath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section054.coac269rev1.json"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-127-1",
+      "articleId": "chapter01-section047",
+      "checks": [
+        "joint_exclusion",
+        "joint_exclusion_freshness",
+        "claim_binding",
+        "source_binding",
+        "parent_self_sha",
+        "notes_binding",
+        "target_projection",
+        "non_target_faithful_blocks",
+        "all_figures_faithful",
+        "dictionary_coverage",
+        "no_existing_variant"
+      ],
+      "errors": [],
+      "claim": {
+        "key": "nemata-jp-chapter-127-1:0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc",
+        "existing": [
+          {
+            "path": "web-production/v1/coac269-20261027/claims/claim-b5-nemata-jp-chapter-127-1-0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc.json",
+            "owner": "COAC-269 Ticket executor",
+            "parentSha256": "0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc",
+            "plannedOutput": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section047.coac269rev1.json"
+          }
+        ],
+        "conflicts": []
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter01-section047/source.json",
+        "sha256": "15fa058ba54622b1c812b29dd0b1d8b2b612d68b8fe1386a8f501cb6b4f83371",
+        "language": "ja",
+        "status": "captured-not-translated-or-audited",
+        "blocks": 162,
+        "assets": 49
+      },
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section047.display.json",
+        "sha256": "0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc",
+        "schema": "coach-textbook-web-article-draft/1",
+        "textBlocks": 90,
+        "figures": 72
+      },
+      "notes": {
+        "path": "audit/web/articles/modern-yabejp-ja/chapter01-section047.0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc.retry-1792965844463-86544923.json",
+        "sha256": "3d5a7175621388527f9a3af6158cb21eb8bb83338acdcf2d0d214a8d691aad5a",
+        "schema": "coach-textbook-web-article-audit/1",
+        "status": "needs-repair",
+        "recordedAt": "2026-10-25T22:04:04.463Z"
+      },
+      "targets": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section047:b0030",
+          "sourceText": "但し、ドラ無しで、愚形リーチのみは避けたい局面（押し引き論参照）なら打",
+          "priorTranslation": "不过，如果没有宝牌，而且局面上希望避免愚形立直nomi（参见攻守判断论），那么打",
+          "paragraphId": "modern-yabejp-ja:chapter01-section047:p0010",
+          "contextIds": [
+            "modern-yabejp-ja:chapter01-section047:b0028",
+            "modern-yabejp-ja:chapter01-section047:b0029",
+            "modern-yabejp-ja:chapter01-section047:b0030",
+            "modern-yabejp-ja:chapter01-section047:b0031",
+            "modern-yabejp-ja:chapter01-section047:b0032"
+          ]
+        }
+      ],
+      "contextBlockIds": [
+        "modern-yabejp-ja:chapter01-section047:b0028",
+        "modern-yabejp-ja:chapter01-section047:b0029",
+        "modern-yabejp-ja:chapter01-section047:b0030",
+        "modern-yabejp-ja:chapter01-section047:b0031",
+        "modern-yabejp-ja:chapter01-section047:b0032"
+      ],
+      "dictionaryUnboundImages": 0,
+      "outputPath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section047.coac269rev1.json"
+    }
+  ],
+  "ok": true,
+  "errors": []
+}

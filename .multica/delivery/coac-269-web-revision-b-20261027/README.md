@@ -155,3 +155,57 @@ and `covered-effective` in the unified register. Those three productions are wit
 not erased); `183-1` remains valid. Root cause, measured surplus (39,069 tokens), the canonical
 joint-exclusion gate, the regression test and the staged next batch (`142-1`, `127-1`) are documented
 in `INCIDENT-20261027-duplicate-production.md`.
+
+## Batch 5 — 2026-10-27 after the duplicate-production correction
+
+Executed on the member's explicit resume instruction (comment `01a17d04-0b7e-71d4-b962-d36a2ae49981`):
+two fixable chapters, one production call plus one first-audit quota each, no guessing on undecided
+source, and no report-first stall.
+
+| chapter | article | parent candidate SHA | target | candidate SHA | production call | in / out | duration |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| nemata-jp-chapter-142-1 | chapter01-section054 | `264116a9…` | b0173 | `f3570e7bbe61e0ef99e45a2f4185ed3f0c1fe1840f670783c7fd2402352dedca` | `1e6b913f-714d-4417-8ca4-d46915d06a2c` | 11,894 / 419 | 50.1 s |
+| nemata-jp-chapter-127-1 | chapter01-section047 | `0dcafc25…` | b0030 | `363fd45cc99f099cfbaec296a1102af0d6dd5519596af707697c21154280c86d` | `154b724a-171f-48ab-85c9-270b82c22579` | 11,966 / 293 | 45.1 s |
+
+- **Selection was re-derived, not reused.** The three-source joint exclusion ran four times:
+  `11:02:10` (initial), `11:03:38` (the active-preview pointer had moved to
+  `accepted-content-preview-2026-10-27T10-38-35-579Z` at `11:03:12`, and the claim gate refused the
+  stale pointer — see `b5-joint-exclusion-11-03-38-r2-after-pointer-move.json`), `11:05:38` (after the
+  gate defect below was fixed), and `11:05:54` immediately before dispatch. The `10:38` preflight was
+  never reused: `coac269-preflight-b5.mjs` hard-fails a joint receipt older than 900 s, one that
+  predates the active pointer, or one computed against a different pointer/register sha.
+- **Gate defect found and fixed before any call.** The first pre-dispatch run
+  (`11:04:32`, `b5-joint-exclusion-11-04-32-refused-by-self-claim.json`) aborted with zero model calls
+  because the joint exclusion treated the ticket's *own* claim as a competing claim and dropped both
+  chapters. The claim rule is now explicit: another owner's claim blocks, this line's own claim is the
+  reservation. A ticket-level denylist was added at the same time: a chapter with a pending-adjudication
+  or withdrawn-duplicate record can never become an eligible repair target again.
+- **Claims** are keyed `chapterId + current candidate SHA` (`claim-b5-…`, `b5-claims-batch.json`) and
+  re-prove at claim time that no other candidate of the article has a passed audit bound to the current
+  source sha (`passedCandidatesForArticle: 0`).
+- **Capacity**: maker-B slot held `11:05:54.4`–`11:07:30.0Z`, acquire/release exit 0, legacy
+  `production-lane.lock` never acquired and byte-identical (`unchanged: true`). Two real calls, one per
+  chapter, zero retries. No audit-side call overlapped the window, so this batch claims **no**
+  production/audit concurrency — the earlier 42.7 s / 26.8 s overlap was batch 3 and is not re-claimed here.
+- **Revisions**:
+  - 142-1 `b0173` — parent dropped 「引きでも」; now 「，摸到其中任意一张也能形成两面听牌。」
+  - 127-1 `b0030` — untranslated 「立直nomi」; now 「处于希望避免仅有立直一役的愚形立直的局面」.
+- **Self-check** (`selfcheck-b5-31d78fb246d54415.json`, `ok: true`): exactly the one target text block
+  changed per chapter; every other text block, the body flow order and all 84 / 72 figures are identical
+  to the parent; candidate self-sha, source/parent/notes bindings and raw-artifact sha all verified; one
+  attempt per candidate. This is not the independent audit.
+- **Handed to COAC-249**: `handoff-b5-efc4945f29d89376.json` + `explicit-targets-b5-c6f8abb95f3a0e90.json`
+  (one first audit per candidate sha; do not re-audit passed SHAs).
+
+### 183-1 moved to pending adjudication
+
+Per the member's ruling (249 confirmed the parent audit is only `uncertain` and forbids unconfirmed
+rewriting), the batch-3 revision is evidence, not a candidate:
+
+- `pending-adjudication-183-1.json` (schema `coac269-pending-adjudication/1`) records
+  `doNotAudit`, `doNotIngestTo250`, `doNotOverwriteParent`, `furtherPaidCalls: 0`, `evidencePreserved: true`
+  and the surviving artifact shas.
+- `notice-249-do-not-audit-183-1.json` tells COAC-249 to stop the registered first audit for
+  `chapter03-section003.coac269rev1.json` (`50831436…`).
+- Batch 5's joint exclusion now skips the chapter with reason `ticket-pending-adjudication`, even though
+  the chapter is not in the coverage union.

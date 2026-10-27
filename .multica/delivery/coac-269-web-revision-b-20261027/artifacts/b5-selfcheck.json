@@ -1,0 +1,103 @@
+{
+  "schema": "coac269-revision-selfcheck/1",
+  "ticket": "COAC-269",
+  "batch": "b5",
+  "recordedAt": "2026-10-27T11:07:54.671Z",
+  "modelCalls": 0,
+  "chapters": [
+    {
+      "chapterId": "nemata-jp-chapter-142-1",
+      "candidateSha256": "f3570e7bbe61e0ef99e45a2f4185ed3f0c1fe1840f670783c7fd2402352dedca",
+      "parentSha256": "264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e",
+      "notesSha256": "78ffbdda38185f4ae14f4caeae0a4e9ac015998658f831714e0bf856cd2a6872",
+      "sourceSha256": "89afec31ea77168cb86f94a4919bd5ef813f59029e4452f77e3874dee88676cc",
+      "candidateSelfConsistent": true,
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section054.display.json",
+        "parentSha256": "264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter01-section054.264116a9f0d98a22e3d5ae6218adf35a677aecc154c6f4bbad4982240c11b04e.retry-1792969500839-d3667291.json",
+        "notesSha256": "78ffbdda38185f4ae14f4caeae0a4e9ac015998658f831714e0bf856cd2a6872",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter01-section054:b0173"
+        ]
+      },
+      "productionCall": {
+        "callId": "1e6b913f-714d-4417-8ca4-d46915d06a2c",
+        "success": true,
+        "usage": {
+          "inputTokens": 11894,
+          "cachedInputTokens": 0,
+          "outputTokens": 419
+        },
+        "durationMs": 50076,
+        "rawArtifactPath": "raw-calls/1e6b913f-714d-4417-8ca4-d46915d06a2c.json",
+        "rawArtifactSha256": "8881a2a0ea505e3fb8bb9b14c1325d8bc05aadf891cbe62d5d177d21e2e49a2b",
+        "targets": {
+          "textIds": [
+            "modern-yabejp-ja:chapter01-section054:b0173"
+          ],
+          "figureIds": []
+        }
+      },
+      "targets": [
+        "modern-yabejp-ja:chapter01-section054:b0173"
+      ],
+      "changed": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section054:b0173",
+          "before": "，也能形成两面听牌。",
+          "after": "，摸到其中任意一张也能形成两面听牌。"
+        }
+      ]
+    },
+    {
+      "chapterId": "nemata-jp-chapter-127-1",
+      "candidateSha256": "363fd45cc99f099cfbaec296a1102af0d6dd5519596af707697c21154280c86d",
+      "parentSha256": "0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc",
+      "notesSha256": "3d5a7175621388527f9a3af6158cb21eb8bb83338acdcf2d0d214a8d691aad5a",
+      "sourceSha256": "15fa058ba54622b1c812b29dd0b1d8b2b612d68b8fe1386a8f501cb6b4f83371",
+      "candidateSelfConsistent": true,
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section047.display.json",
+        "parentSha256": "0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter01-section047.0dcafc25b6ad5686171ab4a90472ee7fdc69a651ed9be98c8a5a411646e551dc.retry-1792965844463-86544923.json",
+        "notesSha256": "3d5a7175621388527f9a3af6158cb21eb8bb83338acdcf2d0d214a8d691aad5a",
+        "figureIds": [],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter01-section047:b0030"
+        ]
+      },
+      "productionCall": {
+        "callId": "154b724a-171f-48ab-85c9-270b82c22579",
+        "success": true,
+        "usage": {
+          "inputTokens": 11966,
+          "cachedInputTokens": 0,
+          "outputTokens": 293
+        },
+        "durationMs": 45144,
+        "rawArtifactPath": "raw-calls/154b724a-171f-48ab-85c9-270b82c22579.json",
+        "rawArtifactSha256": "944edf85910440868f7c3ac7a5a68ac87f0748b750acbad1acc95aeb78ca5777",
+        "targets": {
+          "textIds": [
+            "modern-yabejp-ja:chapter01-section047:b0030"
+          ],
+          "figureIds": []
+        }
+      },
+      "targets": [
+        "modern-yabejp-ja:chapter01-section047:b0030"
+      ],
+      "changed": [
+        {
+          "sourceBlockId": "modern-yabejp-ja:chapter01-section047:b0030",
+          "before": "不过，如果没有宝牌，而且局面上希望避免愚形立直nomi（参见攻守判断论），那么打",
+          "after": "不过，如果没有宝牌，而且处于希望避免仅有立直一役的愚形立直的局面（参见攻守判断论），那么打"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "ok": true
+}

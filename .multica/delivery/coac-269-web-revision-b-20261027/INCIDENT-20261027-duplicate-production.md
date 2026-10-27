@@ -117,3 +117,11 @@ Claims for `142-1`/`127-1` are **not** created yet; they are created in the prod
 `chapterId + current candidateSHA`, after re-reading the active-preview pointer (a preview build
 `accepted-content-preview-2026-10-27T10-38-35-579Z` was still in progress when the gate ran, so the
 gate must be re-run, not reused, at claim time).
+
+## Resolution
+
+The staged batch above ran afterwards as batch 5 (see `README.md`, section "Batch 5 — 2026-10-27 after
+the duplicate-production correction"): 142-1 and 127-1 were produced on the maker-B slot with the
+three-source joint exclusion re-run four times (including once immediately before dispatch), and 183-1
+was moved to pending adjudication with a do-not-audit notice for COAC-249. The 39,069 surplus tokens from
+the three withdrawn duplicates remain on the books and were not netted out.
