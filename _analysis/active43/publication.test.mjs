@@ -1,0 +1,10 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {mkdtemp,writeFile,readFile,access} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {captureBaseline,restoreBaseline,names,sha} from './publication.mjs';
+test('failed activation restores exact old manifest bytes and missing-file state',async()=>{
+ const root=await mkdtemp(join(tmpdir(),'coach-release-rollback-')),backup=await mkdtemp(join(tmpdir(),'coach-release-backup-'));const originals={};
+ for(const name of names.slice(0,5)){const bytes=name==='textbook-corpus.json'?JSON.stringify({corpusId:'old',units:[{}],images:[]}):'original:'+name;originals[name]=bytes;await writeFile(join(root,name),bytes);}
+ await writeFile(join(root,'mcp-config.json'),'config unchanged');const baseline=await captureBaseline(root,backup);for(const name of names)await writeFile(join(root,name),'new:'+name);await writeFile(join(root,'publication-in-progress.json'),'new journal');
+ const result=await restoreBaseline(baseline);assert.equal(result.corpusId,'old');for(const[name,bytes]of Object.entries(originals))assert.equal((await readFile(join(root,name))).toString(),bytes);await assert.rejects(access(join(root,'textbook-unit-map.json')),{code:'ENOENT'});await assert.rejects(access(join(root,'full-publication.json')),{code:'ENOENT'});await assert.rejects(access(join(root,'publication-in-progress.json')),{code:'ENOENT'});assert.equal((await readFile(join(root,'mcp-config.json'))).toString(),'config unchanged');
+});
+test('rollback rejects altered backup bytes',async()=>{
+ const root=await mkdtemp(join(tmpdir(),'coach-release-reject-')),backup=await mkdtemp(join(tmpdir(),'coach-release-reject-backup-'));await writeFile(join(root,'textbook-corpus.json'),JSON.stringify({corpusId:'old',units:[{}],images:[]}));await writeFile(join(root,'textbook-bodies.json'),'old body');const baseline=await captureBaseline(root,backup);await writeFile(join(backup,'textbook-bodies.json'),'tampered');await assert.rejects(restoreBaseline(baseline),/Assertion/);assert.notEqual(sha(await readFile(join(backup,'textbook-bodies.json'))),baseline.files[0].sha256);
+});

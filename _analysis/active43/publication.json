@@ -1,0 +1,65 @@
+{
+  "schema": "coach-textbook-full-publication/1",
+  "status": "owner-accepted-exact-mixed-v43",
+  "publishedAt": "2026-10-28T18:19:58.310Z",
+  "authorization": {
+    "commentId": "01a183b2-ff41-7c65-ae8d-5f588217e992",
+    "userAcceptedAt": "2026-10-28T18:07:54Z"
+  },
+  "corpusId": "bd7a83525edb8cb69f27d8aa050dcb010047f79ae318748bdbe448d5b797836d",
+  "replacesPriorCorpusId": "3f44d5dcaf8dfadf64dc0225e40e5f97773da659bf4a6cc3ba18569c642b6129",
+  "originalScope": {
+    "originalChaptersCovered": 256,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 303,
+    "originalUnitsTotal": 303,
+    "originalSourcePositions": 21212,
+    "remainingChapterIds": [],
+    "sourceRouteMap": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-p250-final-20261029/book-map.json",
+      "sha256": "9a6177417e270a416d8e6b4b203a7dcf195e4d7769bf9505854f53e08c3284a1"
+    },
+    "sourceVersionVerbatimEqualityClaimed": false
+  },
+  "display": {
+    "chapters": 258,
+    "units": 266,
+    "blocks": 8274,
+    "figures": 6288
+  },
+  "acceptedPreview": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T16-50-25-203Z/accepted-preview-receipt.json",
+    "sha256": "c63f69c1c3ce6a4730c2c2f47552a3f2c20c03c82ad2c665e2ca8671f5e34f84"
+  },
+  "releaseInputs": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/release-inputs.json",
+    "sha256": "3105364386985c52e25dee942fa9995fe74e6d26908eff9a90e82246126594e2"
+  },
+  "sourceRouteMap": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-p250-final-20261029/book-map.json",
+    "sha256": "9a6177417e270a416d8e6b4b203a7dcf195e4d7769bf9505854f53e08c3284a1"
+  },
+  "approvedCommits": [
+    "2133c68cbd30d30780d53953cf34a3435af3d652",
+    "45d78562fe03f3ff69d6af4d483b9a404966227b"
+  ],
+  "ordinaryWholeChapterModelPassed": false,
+  "inheritedScopeVerdictsUnchanged": true,
+  "newModelCalls": 0,
+  "productionInferenceEnabled": false,
+  "githubPrApproveAuthorized": false,
+  "rollbackBaseline": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/before.json",
+  "consumerConfigUnchanged": true,
+  "existingPublisher": {
+    "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/publish-textbooks.mjs",
+    "sha256": "ffa7b575475bb3a0b65e13560081354a6adf78a9d51d09958cd0f8385bd04026"
+  },
+  "journal": {
+    "path": "E:/AgentData/Coach/knowledge/review/publication-in-progress.json",
+    "sha256": "8e79a7983d1fa5bc3bb0835e492f051b2277f1acbeb3d0c65d40b611e12f45fb"
+  },
+  "existingResumeResult": {
+    "status": "completed",
+    "corpusId": "bd7a83525edb8cb69f27d8aa050dcb010047f79ae318748bdbe448d5b797836d"
+  }
+}

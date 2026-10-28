@@ -1,0 +1,126 @@
+{
+  "schema": "coac250-owner-accepted-formal-v43-activation/1",
+  "activated": true,
+  "before": {
+    "formalRoot": "E:/AgentData/Coach/knowledge/review",
+    "corpusId": "3f44d5dcaf8dfadf64dc0225e40e5f97773da659bf4a6cc3ba18569c642b6129",
+    "units": 13,
+    "figures": 33,
+    "baseline": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/before.json",
+      "sha256": "9de5bcdb7c374e3b7b1e746291b3c1888dfa9b6c5ad33a4e2a959f5e57feaa47"
+    }
+  },
+  "after": {
+    "formalRoot": "E:/AgentData/Coach/knowledge/review",
+    "version": 43,
+    "corpusId": "bd7a83525edb8cb69f27d8aa050dcb010047f79ae318748bdbe448d5b797836d",
+    "corpusSha256": "bbbb34f83033081e80752a45aca9575e08ebea6d79d2b44869416105090982d4",
+    "htmlSha256": "f59bed9ed30b739bf7ea231b1150b177141d1066d2ca7db8b3762dd21b4b165d",
+    "originalScope": {
+      "originalChaptersCovered": 256,
+      "originalChaptersTotal": 256,
+      "originalUnitsCovered": 303,
+      "originalUnitsTotal": 303,
+      "originalSourcePositions": 21212,
+      "remainingChapterIds": [],
+      "sourceRouteMap": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-p250-final-20261029/book-map.json",
+        "sha256": "9a6177417e270a416d8e6b4b203a7dcf195e4d7769bf9505854f53e08c3284a1"
+      },
+      "sourceVersionVerbatimEqualityClaimed": false
+    },
+    "display": {
+      "chapters": 258,
+      "units": 266,
+      "blocks": 8274,
+      "figures": 6288
+    },
+    "consumerConfig": {
+      "path": "E:/AgentData/Coach/knowledge/review/mcp-config.json",
+      "sha256": "0929c4e9e2c6b8a89ba881aab90360b56b4bea77be1f4e5929b22296e7c9dcc8"
+    }
+  },
+  "publication": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/publication.json",
+    "sha256": "7c9bf5340eb419d8b461eb6b407dd51d08107909a19aca09dd2bf9679bdb6d46"
+  },
+  "formalMcp": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/formal-mcp.json",
+    "sha256": "c1636c220373de3036336b67c4446f2063c41b8a4c192914640d0df43a1228a9"
+  },
+  "formalArena": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/arena-validation.json",
+    "sha256": "e0c100e5a1ffb3bddd84d36963a0994cd979fd2be3cb66d669b49d0b27b43a5f"
+  },
+  "formalBrowser": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/browser.json",
+    "sha256": "db3d9f8f05d6ee74b00e347a57b74c6791523509fdb9b4b65c1ee4b7042532ab"
+  },
+  "rebuild": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/rebuild.json",
+    "sha256": "93f4ff5ec9c15fce02c9c8511b817453e87e62f468dcf22783981a50039b330f"
+  },
+  "releaseInputs": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/release-inputs.json",
+    "sha256": "3105364386985c52e25dee942fa9995fe74e6d26908eff9a90e82246126594e2"
+  },
+  "reader": {
+    "url": "http://127.0.0.1:8767/knowledge.html",
+    "directory": "E:/AgentData/Coach/knowledge/review",
+    "startedAt": "2026-10-28T18:22:50.1224669Z",
+    "stderr": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/reader.restart.stderr.log",
+    "corpusId": "bd7a83525edb8cb69f27d8aa050dcb010047f79ae318748bdbe448d5b797836d",
+    "stdout": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/reader.restart.stdout.log",
+    "port": 8767,
+    "survival": "Best effort without supervisor",
+    "pid": 63672,
+    "bind": "127.0.0.1",
+    "stop": "Confirm PID command line then Stop-Process -Id 63672",
+    "version": 43
+  },
+  "rollback": {
+    "command": "node E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/code/rollback.mjs",
+    "baseline": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/before.json",
+    "originalBytesAndMissingFileStatePreserved": true
+  },
+  "originalEvidenceAndHumanAnnotationsUnchanged": true,
+  "previewAndSelectionsUnchanged": true,
+  "originalModelFlagsNotRewritten": true,
+  "newModelCalls": 0,
+  "newReviewCalls": 0,
+  "productionInferenceOrMortalRagExpanded": false,
+  "githubPrApproveExecuted": false,
+  "sourceVersionLiteralEqualityClaimed": false,
+  "postActivationRebuild": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/rebuild-after.json",
+    "sha256": "54a57a71c16fcb6ecb4b1881afdb5042c340c3d0a891ad5f66d2c22ed440e821"
+  },
+  "historicalTemplateArchive": {
+    "originalPath": "E:/AgentData/Coach/knowledge/review/knowledge-index.json",
+    "archivedPath": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/rollback/formal-before/knowledge-index.json",
+    "sha256": "3a1a8e5bb1097b7e27eafb72faf7f8b5fd0fc5319f89ec3824a9d857a7c846da",
+    "meaning": "Original source-library template consumed by historical exact257 gate. Formal publication replaces that mutable path; its original bytes remain archived. Formal rebuild uses sealed already-accepted source bodies/definitions plus SHA-checked modules/images; it does not reinterpret historical model flags or rerun semantic review."
+  },
+  "readOnlyServiceTransportAdjustment": {
+    "firstPid": 64256,
+    "finalPid": 63672,
+    "reason": "Inherited pipe kept service-launch wrapper open. Restarted only this owned read-only HTTP service outside the captured pipe; publication journal was not repeated, no content or evidence changed.",
+    "formalPublicationTransactions": 1,
+    "newModelCalls": 0
+  },
+  "requiredScopeVerification": {
+    "originalChapters": 256,
+    "originalUnits": 303,
+    "displayUnits": 266,
+    "allBodyBlocks": 8274,
+    "allNativeImages": 6288,
+    "jp232FourNotesAnd9m3s": true,
+    "p257SixNotesAndTwoSourceLinks": true,
+    "twentyHumanApplicationsAndFirstNineRetained": true,
+    "p261ThreeM": true,
+    "cn311CurvesAndHandA": true,
+    "separatorGroups": 772,
+    "postActivationRebuildExact": true
+  }
+}

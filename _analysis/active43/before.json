@@ -1,0 +1,51 @@
+{
+  "root": "E:/AgentData/Coach/knowledge/review",
+  "backup": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/rollback/formal-before",
+  "corpusId": "3f44d5dcaf8dfadf64dc0225e40e5f97773da659bf4a6cc3ba18569c642b6129",
+  "units": 13,
+  "figures": 33,
+  "files": [
+    {
+      "name": "textbook-bodies.json",
+      "present": true,
+      "sha256": "f1a8f97ccbac3ca8e56eaf31fbc81174e72ff86cd36a54f295a06ac4633877b1"
+    },
+    {
+      "name": "knowledge-index.json",
+      "present": true,
+      "sha256": "3a1a8e5bb1097b7e27eafb72faf7f8b5fd0fc5319f89ec3824a9d857a7c846da"
+    },
+    {
+      "name": "textbook-corpus.json",
+      "present": true,
+      "sha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+    },
+    {
+      "name": "knowledge.html",
+      "present": true,
+      "sha256": "03c6727bf9bef8e3741952b0465a314146a276f513b19502eafab37113783139"
+    },
+    {
+      "name": "mcp-build.json",
+      "present": true,
+      "sha256": "79847632f9025a04c085f1f52354c4479141ada75d9a2b088bbea5b31c28bdf5"
+    },
+    {
+      "name": "textbook-unit-map.json",
+      "present": false
+    },
+    {
+      "name": "full-publication.json",
+      "present": false
+    },
+    {
+      "name": "publication-in-progress.json",
+      "present": false
+    },
+    {
+      "name": "mcp-config.json",
+      "present": true,
+      "sha256": "0929c4e9e2c6b8a89ba881aab90360b56b4bea77be1f4e5929b22296e7c9dcc8"
+    }
+  ]
+}
