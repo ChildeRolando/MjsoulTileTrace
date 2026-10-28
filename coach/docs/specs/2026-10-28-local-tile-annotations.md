@@ -21,6 +21,12 @@ selection、unified/continuation/closure register、对应候选、源映射、�
 167 审校使用已有原尺寸 PNG 展示别名，另核对其源 GIF 绑定与实际 PNG 字节 SHA，
 页面仍显示原 GIF，不制作新图。原位置字符串与图 SHA 不变，保留既有人标靶点 ID。
 
+232 同样消费最新精确回执，但其 `unknownImpacts` 以源块定位：必须同时匹配候选的
+原始 unknown 字符串、sourceBlockIds 和被核对的 figureId，并校验 targetChecks、
+scopeComplete、上下文连续性与父稿/父审绑定。整图仍为 uncertain、repairPassed=false
+不代表已修正的本家 3s 需要重标；只保留右侧第2张未知万子，沿用原 ID 和严格阻塞，
+机器候选及证据改指新稿和本次 raw，不再沿用父审错误，不改变整章准入结论。
+
 源 asset 必须与图块/occurrence、SHA 对应；同一 SHA + 源块 + 局部未知靶点去重。
 多源块组成的 PDF 场景使用已有完整区域图，并保留原图块 SHA 列表；不临时制作图片。
 已有的原嵌图像素坐标才画框，PDF 区域坐标另外显示；没有单牌坐标仅给文字定位。
@@ -85,3 +91,6 @@ node 脚本后停止。PID、stdout/stderr 位于同目录 `server.pid/server.lo
 首版自验队列为 54 项（26 阻塞、28 非阻塞）；纳入最新精确回执与现行候选后为
 51 项（16 阻塞、35 非阻塞）。图片可用性与绑定以交付时实际 HTTP
 逐项核验为准。该数量是队列靶点数，不是完整教材章数或已完成人工标注数。
+232 评审修复后的最新 processing 重建为 49 项（14 阻塞、35 非阻塞）；这是新生成
+快照，现有服务仍使用启动时的 51 项。本次不重启、不替换在用队列或用户事件，
+修复在后续正常重建/启动时生效；旧标注仍可按原 queue SHA 解释。

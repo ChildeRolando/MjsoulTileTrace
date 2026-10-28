@@ -82,7 +82,7 @@ export function buildQueue(root) {
   // These exact receipts supersede their old parent findings, but a faithful repair does not
   // clear unresolved tiles. Strict limitedUnknownOkay=false remains blocking even when a
   // separate author-fidelity display register lists the chapter as covered.
-  for (const key of ['109','167','201']) {
+  for (const key of ['109','167','201','232']) {
     const reviewPath=`integration/coac249-${key}-target-impact-reviewed-20261028.json`;
     if (!fs.existsSync(within(root,reviewPath))) continue;
     const review=load(reviewPath), candidate=load(review.candidate.path,review.candidate.sha256);
@@ -93,11 +93,26 @@ export function buildQueue(root) {
     if (raw.success!==true || raw.binding?.productionSha256!==review.candidate.sha256
       || raw.binding?.canonical!==review.canonical || raw.binding?.sourceFileSha256!==review.source.sha256
       || JSON.stringify(raw.output)!==JSON.stringify(review.modelReview)) throw new Error(`精确审校绑定不匹配：${key}`);
-    const positions=key==='201'
+    const positions=key==='232'
+      // This receipt scopes unknowns by source blocks, not figureId. Match both the exact
+      // unknown text and its source block; never infer a tile from an uncertain whole figure.
+      ? raw.output.unknownImpacts?.map(impact=>{
+        const matches=candidate.figures.filter(f=>f.unknowns?.includes(impact.unknownText)
+          && f.sourceBlockIds?.some(id=>impact.sourceBlockIds?.includes(id))
+          && raw.output.targetChecks?.some(check=>check.id===f.figureId));
+        if(matches.length!==1)throw new Error(`精确审校位置不匹配：${key}`);
+        return {figureId:matches[0].figureId,unknownText:impact.unknownText};
+      })
+      : key==='201'
       ? candidate.figures.filter(f=>f.figureId===raw.output.carriedIssue?.targetId).flatMap(f=>(f.unknowns??[]).map(unknownText=>({figureId:f.figureId,unknownText})))
       : raw.output.unknownImpacts;
     if (!positions?.length || positions.some(p=>!candidate.figures.some(f=>f.figureId===p.figureId && f.unknowns?.includes(p.unknownText)))) throw new Error(`精确审校位置不匹配：${key}`);
-    if (key==='201' ? review.verification?.limitedEvidenceVerified!==true || raw.output.carriedIssue?.positionConfirmed!==true
+    if (key==='232' ? raw.output.scopeComplete!=='yes' || raw.output.contextContinuity?.verdict!=='faithful'
+        || !raw.output.targetChecks?.length || raw.output.targetChecks.some(check=>!['faithful','uncertain'].includes(check.verdict)
+          || ![...candidate.body.blocks,...candidate.figures].some(target=>(target.id??target.figureId)===check.id || target.sourceBlockIds?.includes(check.id)))
+        || raw.binding.parentSha256!==review.parent.sha256 || raw.binding.parentAuditSha256!==review.parentAudit.sha256
+        || review.verification?.limitedUnknownOkay!==false
+      : key==='201' ? review.verification?.limitedEvidenceVerified!==true || raw.output.carriedIssue?.positionConfirmed!==true
         || raw.output.carriedIssue.currentDisplayFaithful!==true || raw.output.carriedIssue.authorArgumentFaithfulWithCurrentLimitation!==true || raw.output.carriedIssue.requiresResolvedMeaningOrExactTileForAuthorArgument!==false
       : review.verification?.repairPassed!==true || raw.output.completeTargetScopeCompared!==true || !raw.output.repairChecks?.length || raw.output.repairChecks.some(c=>c.verdict!=='faithful') || typeof review.verification.limitedUnknownOkay!=='boolean') throw new Error(`精确审校结论不完整：${key}`);
     for (const [id,ref] of references) {
@@ -106,7 +121,7 @@ export function buildQueue(root) {
     const nonblocking=key==='201' || review.verification.limitedUnknownOkay===true;
     put({candidatePath:review.candidate.path,candidateSha256:review.candidate.sha256,auditPath:reviewPath,
       canonical:review.canonical,row:rows.find(r=>r.chapterId===review.canonical),accepted:nonblocking,
-      priority:key==='167'?3:0,reviewedPositions:positions,reviewRaw:raw,reviewRawPath:review.raw.path,
+      priority:key==='167'?3:key==='232'?100:0,reviewedPositions:positions,reviewRaw:raw,reviewRawPath:review.raw.path,
       admission:nonblocking?'非阻塞：限定展示证据有效，牌码仍未知':'严格逐牌核验仍阻塞：limitedUnknownOkay=false',
       reviewState:{limitedUnknownOkay:review.verification.limitedUnknownOkay??null,limitedEvidenceVerified:review.verification.limitedEvidenceVerified??null,wholeChapterPassed:review.wholeChapterPassed??false}});
   }

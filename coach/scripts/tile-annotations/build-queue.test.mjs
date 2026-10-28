@@ -6,6 +6,73 @@ import path from 'node:path';
 import { buildQueue } from './build-queue.mjs';
 import { sha256 } from './server.mjs';
 
+test('232 exact review retires the repaired tile in an uncertain figure while preserving its blocking unknown and ID', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'coach-232-queue-'));
+  const write = (file, value) => {
+    const absolute = path.join(root, file);
+    fs.mkdirSync(path.dirname(absolute), { recursive: true });
+    fs.writeFileSync(absolute, JSON.stringify(value));
+    return { path: file, sha256: sha256(fs.readFileSync(absolute)) };
+  };
+  try {
+    const canonical = 'nemata-jp-chapter-232-1';
+    const block = 'modern-yabejp-ja:chapter04-section012:b0005', figureId = block + ':figure';
+    const position = '右侧牌河从上数第2张为万子，但无法可靠辨认具体点数。';
+    const imagePath = 'web-sources/v1/image.png';
+    const image = write(imagePath, { independent: '232 fixture' });
+    const source = write('source.json', { blocks: [{ id: block, images: [{ assetId: 'asset' }] }],
+      assets: [{ assetId: 'asset', sha256: image.sha256, path: 'image.png' }] });
+    const candidate = { source: { sourceId: 'modern-yabejp-ja', articleId: 'chapter04-section012',
+      sourcePath: source.path, sourceSha256: source.sha256 }, body: { blocks: [{ sourceBlockIds: [block], type: 'text', text: 'fixture context' }] },
+      figures: [{ figureId, sourceBlockIds: [block], sourceAssetBindings: [{ assetId: 'asset', sha256: image.sha256 }],
+        transcription: '本家 3s；右侧万子点数未知。', unknowns: [position, '中央两个0旁的小图标无法可靠辨认。'] }] };
+    const parent = write('web-production/v1/candidates/modern-yabejp-ja/chapter04-section012.old.json',
+      { ...candidate, figures: [{ ...candidate.figures[0], transcription: '本家 2s；右侧万子点数未知。' }] });
+    const current = write('web-production/v1/candidates/modern-yabejp-ja/chapter04-section012.new.json', candidate);
+    const parentAudit = write('parent-audit.json', { modelReview: { issues: [
+      { severity: 'error', targetId: figureId, description: '本家手牌3s误写成2s。' },
+      { severity: 'uncertain', targetId: figureId, description: '右侧牌河万子点数未知。' },
+    ] } });
+    write('integration/accepted-preview-current.json', { selectedWeb: [] });
+    write('integration/current-web-candidate-selection.json', { candidates: [] });
+    write('integration/current-candidate-selection.json', { pages: [] });
+    write('integration/coac250-unified-chapter-register-20261027b.json', { rows: [{ chapterId: canonical,
+      covered: false, existingCandidate: { ...parent, auditPath: parentAudit.path } }] });
+    write('integration/coac244-remaining26-closure-register-20261028.json', { rows: [] });
+    write('integration/coac250-uncovered-chapter-continuation-register-20261027b.json', { rows: [] });
+    const oldQueue = buildQueue(root), unknownId = oldQueue.items.find(i => i.position === position).id;
+    assert.equal(oldQueue.counts.blocking, 2);
+    const output = { targetChecks: [{ id: block, verdict: 'faithful' }, { id: figureId, verdict: 'uncertain', evidence: '本家3s修订正确，另一张未知万子仍阻断。' }],
+      unknownImpacts: candidate.figures[0].unknowns.map(unknownText => ({ unknownText, sourceBlockIds: [block], disposition: 'blocking' })),
+      contextContinuity: { verdict: 'faithful' }, scopeComplete: 'yes',
+      issues: [{ severity: 'uncertain', targetId: figureId, description: '右侧牌河万子点数未知，本家3s已修正。' }] };
+    const rawValue = { success: true, binding: { canonical, productionSha256: current.sha256, sourceFileSha256: source.sha256,
+      parentSha256: parent.sha256, parentAuditSha256: parentAudit.sha256 },
+      requestExecution: { images: [image] }, output };
+    const raw = write('raw.json', rawValue);
+    const receiptPath = 'integration/coac249-232-target-impact-reviewed-20261028.json';
+    const receipt = { canonical, candidate: current, source, parent, parentAudit, raw, modelReview: output,
+      verification: { repairPassed: false, limitedUnknownOkay: false }, wholeChapterPassed: false };
+    write(receiptPath, receipt);
+    const queue = buildQueue(root);
+    assert.deepEqual(queue.counts, { total: 1, blocking: 1, nonblocking: 0 });
+    assert.equal(queue.items[0].id, unknownId);
+    assert.equal(queue.items[0].position, position);
+    assert.equal(queue.items[0].machine.transcription, candidate.figures[0].transcription);
+    assert.equal(queue.items[0].machine.reviewState.limitedUnknownOkay, false);
+    assert.equal(queue.items[0].machine.reviewState.wholeChapterPassed, false);
+    assert.equal(queue.items[0].machine.issues.some(i => i.severity === 'error'), false);
+    assert.equal(queue.items[0].evidence[0].candidatePath, current.path);
+    assert.equal(queue.items[0].evidence[0].candidateSha256, current.sha256);
+    assert.equal(queue.items[0].evidence[0].reviewRawPath, raw.path);
+    // A matching unknown string is insufficient without its reviewed source block.
+    output.unknownImpacts[0].sourceBlockIds = ['different-block'];
+    receipt.raw = write('raw.json', rawValue);
+    write(receiptPath, receipt);
+    assert.throws(() => buildQueue(root), /精确审校位置不匹配/);
+  } finally { fs.rmSync(root, { recursive: true, force: true }); }
+});
+
 test('queue uses accepted revisions, filters non-tile unknowns, deduplicates and preserves source binding', () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'coach-queue-test-'));
   const write = (file, obj) => { const p = path.join(root,file);fs.mkdirSync(path.dirname(p),{recursive:true});fs.writeFileSync(p,JSON.stringify(obj));return sha256(fs.readFileSync(p)); };
