@@ -1,0 +1,1189 @@
+{
+  "passed": true,
+  "corpusId": "bd7a83525edb8cb69f27d8aa050dcb010047f79ae318748bdbe448d5b797836d",
+  "coverage": {
+    "originalChaptersCovered": 256,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 303,
+    "originalUnitsTotal": 303,
+    "originalSourcePositions": 21212,
+    "remainingChapterIds": [],
+    "sourceRouteMap": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-p250-final-20261029/book-map.json",
+      "sha256": "9a6177417e270a416d8e6b4b203a7dcf195e4d7769bf9505854f53e08c3284a1"
+    },
+    "sourceVersionVerbatimEqualityClaimed": false
+  },
+  "selectedWebCandidateFileBytesRechecked": 222,
+  "selectedStageReceiptsAccessible": true,
+  "versionMappingsRechecked": 223,
+  "sourceVersionEvidence": [
+    {
+      "chapterId": "79-cn-chapter-004-5",
+      "articleId": "cv1689302",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-006-6",
+      "articleId": "cv1689331",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-009-3",
+      "articleId": "cv1689340",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-012-7",
+      "articleId": "cv1689350",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-015-3",
+      "articleId": "cv1693763",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-018-4",
+      "articleId": "cv1693794",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-021-8",
+      "articleId": "cv1693812",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-023-4",
+      "articleId": "cv1693838",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-024-4",
+      "articleId": "cv1693854",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-032-4",
+      "articleId": "cv1697932",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-038-4",
+      "articleId": "cv1697952",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-039-4",
+      "articleId": "cv1697964",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-042-6",
+      "articleId": "cv1704166",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-044-6",
+      "articleId": "cv1704179",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-047-5",
+      "articleId": "cv1704192",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-050-5",
+      "articleId": "cv1704202",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-052-6",
+      "articleId": "cv1704217",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-054-4",
+      "articleId": "cv1708627",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-059-6",
+      "articleId": "cv1708652",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-061-6",
+      "articleId": "cv1708665",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-064-4",
+      "articleId": "cv1716127",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-067-5",
+      "articleId": "cv1716136",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-070-6",
+      "articleId": "cv1716151",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-072-7",
+      "articleId": "cv1716163",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-076-6",
+      "articleId": "cv1716187",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-081-8",
+      "articleId": "cv1721475",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-084-5",
+      "articleId": "cv1721490",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-090-6",
+      "articleId": "cv1721510",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-094-4",
+      "articleId": "cv1721517",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-098-6",
+      "articleId": "cv1726169",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-101-5",
+      "articleId": "cv1726181",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-104-5",
+      "articleId": "cv1726202",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-109-4",
+      "articleId": "cv1729038",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-114-4",
+      "articleId": "cv1729062",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-117-3",
+      "articleId": "cv1729076",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-120-5",
+      "articleId": "cv1729089",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-125-18",
+      "articleId": "cv1734724",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-128-14",
+      "articleId": "cv1734739",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-131-7",
+      "articleId": "cv1734748",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-136-4",
+      "articleId": "cv1738927",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-138-5",
+      "articleId": "cv1738941",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-141-3",
+      "articleId": "cv1738963",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-142-10",
+      "articleId": "cv1744243",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-145-4",
+      "articleId": "cv1744266",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-155-4",
+      "articleId": "cv1751265",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-157-11",
+      "articleId": "cv1751276",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-159-9",
+      "articleId": "cv1751292",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-162-3",
+      "articleId": "cv1751316",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-165-4",
+      "articleId": "cv1754612",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-167-4",
+      "articleId": "cv1754620",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-172-4",
+      "articleId": "cv1754761",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-174-4",
+      "articleId": "cv1754776",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-176-8",
+      "articleId": "cv1760541",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-180-5",
+      "articleId": "cv1760558",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-182-5",
+      "articleId": "cv1760573",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-184-4",
+      "articleId": "cv1760582",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-186-4",
+      "articleId": "cv1760595",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-190-5",
+      "articleId": "cv1765351",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-193-4",
+      "articleId": "cv1765377",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-198-6",
+      "articleId": "cv1765417",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-201-6",
+      "articleId": "cv1770179",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-203-6",
+      "articleId": "cv1770189",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-205-5",
+      "articleId": "cv1770234",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-208-4",
+      "articleId": "cv1770245",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-211-5",
+      "articleId": "cv1771570",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-220-4",
+      "articleId": "cv1775245",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-222-5",
+      "articleId": "cv1775262",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-232-5",
+      "articleId": "cv1780378",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-234-12",
+      "articleId": "cv1780400",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-236-3",
+      "articleId": "cv1780410",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-238-7",
+      "articleId": "cv1780420",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-242-3",
+      "articleId": "cv1780438",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-246-3",
+      "articleId": "cv1785741",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-256-18",
+      "articleId": "cv1785770",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-266-4",
+      "articleId": "cv1785820",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-276-4",
+      "articleId": "cv1793434",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-280-4",
+      "articleId": "cv1800671",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-292-8",
+      "articleId": "cv1810877",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-301-12",
+      "articleId": "cv1806391",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "79-cn-chapter-311-18",
+      "articleId": "cv1815400",
+      "kind": "explicit-body-version-correspondence"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-004-1",
+      "articleId": "chapter00-section001",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-006-1",
+      "articleId": "chapter01-section001",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-010-1",
+      "articleId": "chapter01-section002",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-013-1",
+      "articleId": "chapter01-section003",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-015-1",
+      "articleId": "chapter01-section004",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-016-1",
+      "articleId": "chapter01-section005",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-020-1",
+      "articleId": "chapter01-section006",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-022-1",
+      "articleId": "chapter01-section007",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-023-1",
+      "articleId": "chapter01-section008",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-025-1",
+      "articleId": "chapter01-section009",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-027-1",
+      "articleId": "chapter01-section010",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-029-1",
+      "articleId": "chapter01-section011",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-031-1",
+      "articleId": "chapter01-section012",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-033-1",
+      "articleId": "chapter01-section013",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-034-1",
+      "articleId": "chapter01-section014",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-037-1",
+      "articleId": "chapter01-section015",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-039-1",
+      "articleId": "chapter01-section016",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-042-1",
+      "articleId": "chapter01-section017",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-044-1",
+      "articleId": "chapter01-section018",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-046-1",
+      "articleId": "chapter01-section019",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-047-1",
+      "articleId": "chapter01-section020",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-050-1",
+      "articleId": "chapter01-section021-01",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-051-1",
+      "articleId": "chapter01-section021-02",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-054-1",
+      "articleId": "chapter01-section021-03",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-055-1",
+      "articleId": "chapter01-section021-04",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-057-1",
+      "articleId": "chapter01-section021-05",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-060-1",
+      "articleId": "chapter01-section021-06",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-063-3",
+      "articleId": "chapter01-section022-01",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-065-1",
+      "articleId": "chapter01-section022-02",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-069-1",
+      "articleId": "chapter01-section022-04",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-071-1",
+      "articleId": "chapter01-section023",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-075-1",
+      "articleId": "chapter01-section024",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-077-1",
+      "articleId": "chapter01-section025",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-080-3",
+      "articleId": "chapter01-section026",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-081-1",
+      "articleId": "chapter01-section027",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-082-1",
+      "articleId": "chapter01-section028",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-083-1",
+      "articleId": "chapter01-section029",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-087-1",
+      "articleId": "chapter01-section030",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-089-1",
+      "articleId": "chapter01-section031",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-092-1",
+      "articleId": "chapter01-section032",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-095-1",
+      "articleId": "chapter01-section033",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-100-1",
+      "articleId": "chapter01-section035",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-108-1",
+      "articleId": "chapter01-section036",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-110-1",
+      "articleId": "chapter01-section037",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-111-1",
+      "articleId": "chapter01-section038",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-111-25",
+      "articleId": "chapter01-section038",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-113-1",
+      "articleId": "chapter01-section039",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-115-1",
+      "articleId": "chapter01-section040",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-116-1",
+      "articleId": "chapter01-section041",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-118-1",
+      "articleId": "chapter01-section042",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-119-1",
+      "articleId": "chapter01-section043",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-121-1",
+      "articleId": "chapter01-section044",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-123-1",
+      "articleId": "chapter01-section045",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-126-1",
+      "articleId": "chapter01-section046",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-127-1",
+      "articleId": "chapter01-section047",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-130-1",
+      "articleId": "chapter01-section048",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-131-1",
+      "articleId": "chapter01-section049",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-134-1",
+      "articleId": "chapter01-section050",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-135-1",
+      "articleId": "chapter01-section051",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-136-1",
+      "articleId": "chapter01-section052",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-139-1",
+      "articleId": "chapter01-section053",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-142-1",
+      "articleId": "chapter01-section054",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-145-1",
+      "articleId": "chapter01-section055",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-148-11",
+      "articleId": "chapter02-section001",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-150-1",
+      "articleId": "chapter02-section002",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-151-1",
+      "articleId": "chapter02-section003",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-153-1",
+      "articleId": "chapter02-section004",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-154-1",
+      "articleId": "chapter02-section013",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-156-1",
+      "articleId": "chapter02-section014",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-158-1",
+      "articleId": "chapter02-section015",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-159-1",
+      "articleId": "chapter02-section016",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-160-1",
+      "articleId": "chapter02-section017",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-163-1",
+      "articleId": "chapter02-section018",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-168-1",
+      "articleId": "chapter02-section020",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-169-1",
+      "articleId": "chapter02-section021",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-171-1",
+      "articleId": "chapter02-section022",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-173-1",
+      "articleId": "chapter02-section023",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-174-1",
+      "articleId": "chapter02-section024",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-176-1",
+      "articleId": "chapter02-section025",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-177-1",
+      "articleId": "chapter02-section026",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-179-1",
+      "articleId": "chapter02-section027",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-180-1",
+      "articleId": "chapter03-section001",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-182-1",
+      "articleId": "chapter03-section002",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-183-1",
+      "articleId": "chapter03-section003",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-184-1",
+      "articleId": "chapter03-section004",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-185-1",
+      "articleId": "chapter03-section005",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-187-1",
+      "articleId": "chapter03-section006",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-189-1",
+      "articleId": "chapter03-section007",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-191-1",
+      "articleId": "chapter03-section008",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-193-1",
+      "articleId": "chapter03-section009",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-195-1",
+      "articleId": "chapter03-section010",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-197-1",
+      "articleId": "chapter03-section011",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-198-1",
+      "articleId": "chapter03-section012",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-199-1",
+      "articleId": "chapter03-section013",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-200-1",
+      "articleId": "chapter03-section014",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-201-1",
+      "articleId": "chapter03-section015",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-202-1",
+      "articleId": "chapter03-section016",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-203-1",
+      "articleId": "chapter03-section017",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-204-1",
+      "articleId": "chapter03-section018",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-205-1",
+      "articleId": "chapter03-section019",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-206-1",
+      "articleId": "chapter03-section020",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-207-1",
+      "articleId": "chapter03-section021",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-208-1",
+      "articleId": "chapter03-section022",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-209-1",
+      "articleId": "chapter03-section023",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-211-1",
+      "articleId": "chapter03-section024",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-212-1",
+      "articleId": "chapter03-section025",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-213-1",
+      "articleId": "chapter03-section026",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-215-4",
+      "articleId": "chapter03-section027",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-216-1",
+      "articleId": "chapter03-section028",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-217-1",
+      "articleId": "chapter03-section029",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-219-1",
+      "articleId": "chapter04-section001",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-220-1",
+      "articleId": "chapter04-section002",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-221-1",
+      "articleId": "chapter04-section003",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-222-1",
+      "articleId": "chapter04-section004",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-224-1",
+      "articleId": "chapter04-section005",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-226-1",
+      "articleId": "chapter04-section006",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-227-1",
+      "articleId": "chapter04-section007",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-228-1",
+      "articleId": "chapter04-section008",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-229-1",
+      "articleId": "chapter04-section009",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-230-1",
+      "articleId": "chapter04-section010",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-231-1",
+      "articleId": "chapter04-section011",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-232-1",
+      "articleId": "chapter04-section012",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-234-1",
+      "articleId": "chapter04-section013",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-235-1",
+      "articleId": "chapter04-section014",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-236-1",
+      "articleId": "chapter04-section015",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-237-1",
+      "articleId": "chapter04-section016",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-238-1",
+      "articleId": "chapter04-section017",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-240-1",
+      "articleId": "chapter05-section001",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-242-1",
+      "articleId": "chapter05-section002",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-244-1",
+      "articleId": "chapter05-section003",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-245-1",
+      "articleId": "chapter06-section001",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-246-1",
+      "articleId": "chapter06-section002",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-263-1",
+      "articleId": "chapter06-exercise002-01",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-273-1",
+      "articleId": "chapter06-exercise002-02",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-283-1",
+      "articleId": "chapter06-exercise003",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-303-1",
+      "articleId": "chapter06-exercise004",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-318-1",
+      "articleId": "archive01-section001",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-319-1",
+      "articleId": "archive01-section002",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-324-1",
+      "articleId": "archive01-section003",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-335-1",
+      "articleId": "archive01-section005",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-338-1",
+      "articleId": "archive01-section006",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-345-1",
+      "articleId": "archive01-section007",
+      "kind": "approved-printed-url-version-mapping"
+    },
+    {
+      "chapterId": "nemata-jp-chapter-347-1",
+      "articleId": "archive01-section008",
+      "kind": "approved-printed-url-version-mapping"
+    }
+  ],
+  "versionManifests": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/chinese-source-body-correspondence.json",
+      "sha256": "2f1057b83ec2295e8cec3457b4a0d9a8e5d752df64e0cad52c7d8b286761ebfc"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/modern-pdf-url-coverage.json",
+      "sha256": "11a012eed7091abd03a0f4ebbe9162cd7abfbb518af1bee56b65867d014e902a"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/modern-web-pdf-correspondence.json",
+      "sha256": "94d2315302652deaf6ff9da50fe0885e27cb83cad47af6918ef5c89fcabd2709"
+    }
+  ],
+  "searchesBeyondOriginal18UnitSubset": [
+    {
+      "query": "复式模式",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "returnedUnits": [
+        "nemata-jp-chapter-250-1-unit-1"
+      ]
+    },
+    {
+      "query": "切宝牌",
+      "chapterId": "modern-yabejp-ja-chapter03-section009-chapter",
+      "returnedUnits": [
+        "modern-yabejp-ja-chapter03-section009-argument"
+      ]
+    },
+    {
+      "query": "顺位",
+      "chapterId": "79-bilibili-cn-cv1780400-chapter",
+      "returnedUnits": [
+        "79-bilibili-cn-cv1780400-argument"
+      ]
+    }
+  ],
+  "additionalDiagnostic": {
+    "query": "入り目",
+    "chapterId": "modern-yabejp-ja-chapter03-section009-chapter",
+    "expectedChapterHit": false,
+    "fullTextConfirmedPresent": true,
+    "note": "Additional original-Japanese token probe did not retrieve the chapter; Chinese-title scoped search and catalog/full read succeed. Not a claim of Japanese-term retrieval quality or an LLM effectiveness evaluation."
+  },
+  "persistentBuilderAndSelectionBytesVerified": true,
+  "locksReleased": true,
+  "formalActiveProtectedHash": {
+    "path": "E:/AgentData/Coach/knowledge/review/textbook-corpus.json",
+    "sha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+  },
+  "ordinaryModelFlagsUnchanged": true,
+  "newModelCalls": 0
+}

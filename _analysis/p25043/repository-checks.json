@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "exitCodes": {
+    "packageImport": 0,
+    "architecture": 0,
+    "textbookMcp": 0,
+    "arenaRegressions": 0,
+    "typecheck": 0
+  },
+  "tests": {
+    "packageImport": 2,
+    "textbookMcp": 17,
+    "arena": 41
+  },
+  "architecture": {
+    "packages": 8,
+    "files": 695,
+    "imports": 3567,
+    "violations": 0
+  },
+  "newModelCalls": 0
+}

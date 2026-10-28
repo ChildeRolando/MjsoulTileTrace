@@ -1,0 +1,149 @@
+{
+  "before": {
+    "pointer": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-preview-current.json",
+      "sha256": "6c0a6076c4c7177d3bbeb42aee80f92c283caffefccd8bdee2a9c348111fa029"
+    },
+    "variants": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v42.json",
+      "sha256": "ce485ab8283dc6d345ae656f3aa8f6d3c60cd688bf88b6575b20589bfa5d56d3"
+    },
+    "builder": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.mjs",
+      "sha256": "deebea3a51ef93772731da95d56b531b84dc9c765ad206323b5b6b5ac6b0068a"
+    },
+    "webSelection": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-web-candidate-selection.json",
+      "sha256": "41e2cab265398d48848309007dbbc71fe6a46eecf33ff2b5d58178fcf7254c70"
+    },
+    "register": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+      "sha256": "11e6c19e5b2e6c561037e3a9fe39fafd019fa212b47f0be362012d358490156f"
+    },
+    "owner": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+      "sha256": "7460508baa2af71843fa77249c5aa7a29b1d5ff7abc6b3e8dcf7c96645a4f2b7"
+    },
+    "continuation": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-uncovered-chapter-continuation-register-20261027b.json",
+      "sha256": "699ee253f57fb91b1546927bfa0ff0c45e02be67cffd8d99fe66a15b8004007e"
+    }
+  },
+  "binding": {
+    "chapterId": "nemata-jp-chapter-250-1",
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\257.human20.json",
+      "sha256": "a9ce50898c0407ecca32dc538ad208f667a0a950372acec1114263e177f000e7"
+    },
+    "module": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-human20-admission-20261029\\stage.mjs",
+      "sha256": "b7b8f212cbace14c690ed8265da85a9a89364952596953bfed1b2c8c7249bd04"
+    },
+    "admit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-human20-admission-20261029\\admit.mjs",
+      "sha256": "29f2043e243f3939e03a24df9e8d3cb1787ae114305a1e084d8915d3a305ba77"
+    },
+    "manifest": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-human20-admission-20261029\\manifest.json",
+      "sha256": "36017ef3de158a7454b58ea55c12d2be8f2171950858c6f1bbd4a456aa8712c7"
+    },
+    "stageSeal": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-human20-admission-20261029\\stage-files.sha256.json",
+      "sha256": "146dc6f249b70816f8df10fda3ce79f335b2c7902d99191a38d77ef991264bbe"
+    },
+    "handoff": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-p257-human20-admission-20261029/handoff.json",
+      "sha256": "6547ee7314a31b29bd5d03b60023ac663e598023baf0e662281721d517dce6ba"
+    }
+  },
+  "package": "E:/AgentData/Coach/knowledge/processing/integration/coac244-p257-human20-admission-20261029",
+  "originalStage": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-human20-admission-20261029\\stage",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\257.human20.json",
+    "sha256": "a9ce50898c0407ecca32dc538ad208f667a0a950372acec1114263e177f000e7"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\257.json",
+    "sha256": "ca63823638f042d84419560d2618879b80972410d0e290f6b12c9860e19639a6",
+    "bytes": 14350
+  },
+  "protectedFiles": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/source-structure-holds.json",
+      "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/candidate-exclusions.json",
+      "sha256": "4835655ad7fa323e2acc94d4e04824dc1c56b4b67ceec1b1449617c79c3411a3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-candidate-selection.json",
+      "sha256": "82c654fc34a4e509c9878065684306246f61324879f64eef1dc7f9aef964f4f2"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/source-block-ownership.json",
+      "sha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/chapter-map.navigation-v3.json",
+      "sha256": "f1d2755b0cc55f50f1242c9ce17e2791b0fe58eee144ad51b65fee50400c5114"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/review/textbook-corpus.json",
+      "sha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\257.json",
+      "sha256": "ca63823638f042d84419560d2618879b80972410d0e290f6b12c9860e19639a6",
+      "bytes": 14350
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\candidates\\257.human-final.json",
+      "sha256": "5403cb35614b1edab17488458dbaf0571e1a48e1972d2d04c9ebc30a03da67dc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\257.human20.json",
+      "sha256": "a9ce50898c0407ecca32dc538ad208f667a0a950372acec1114263e177f000e7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2b216edc-24ba-4bdc-aa3c-153bdd6b9608.json",
+      "sha256": "4a6ec4819e7f86519bcba051e43f3f5149340ebe2898fe7ac10676498ff54e9b",
+      "bytes": 529188
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p257-human20-reviewed-20261028.json",
+      "sha256": "4e1cc55ad35e0c649bd836946e1b9fddc9476bdee60da552ec212915106a2b0e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair18-20261027-p261\\candidates\\nemata-jp\\page-0261.json",
+      "sha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+      "bytes": 142025
+    }
+  ],
+  "sealed": {
+    "status": "verified-exact-p257-human20-canonical-stage",
+    "canonical": "nemata-jp-chapter-250-1",
+    "sourceBlocksOwned": 945,
+    "displayBlocks": 344,
+    "figures": 303,
+    "mandatoryDisplayConditions": 6,
+    "originalUncertainRetained": true,
+    "isolatedDisplayVerified": true,
+    "ordinaryWholePagePassed": false,
+    "wholeChapterPassed": false,
+    "globalAdmissionGranted": false,
+    "actualGlobalMcpArenaReadbackRequired": true,
+    "newModelCalls": 0
+  },
+  "gateStatus": "verified-exact-p257-human20-conditional-display",
+  "stageSeal": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-human20-admission-20261029\\stage-files.sha256.json",
+    "sha256": "146dc6f249b70816f8df10fda3ce79f335b2c7902d99191a38d77ef991264bbe"
+  },
+  "source261": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair18-20261027-p261\\candidates\\nemata-jp\\page-0261.json",
+    "sha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+    "bytes": 142025
+  },
+  "newModelCalls": 0
+}

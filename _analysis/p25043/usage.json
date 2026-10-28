@@ -1,0 +1,376 @@
+{
+  "schema": "coac250-observed-call-accounting/1",
+  "newCallsThisIntegration": 0,
+  "uniqueObservedIdentities": 1356,
+  "duplicateRecordsIgnored": 2353,
+  "usageConflicts": [],
+  "legacyFingerprints": 15,
+  "recordedSuccess": 1094,
+  "recordedUnsuccessful": 262,
+  "successUnknown": 0,
+  "totals": {
+    "inputTokens": {
+      "knownSum": 30779637,
+      "unknownCalls": 249
+    },
+    "cachedInputTokens": {
+      "knownSum": 1703808,
+      "unknownCalls": 249
+    },
+    "outputTokens": {
+      "knownSum": 5072018,
+      "unknownCalls": 249
+    }
+  },
+  "ledgerBindings": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls.jsonl",
+      "sha256": "ad72655c0b3aee9deabc8238b6ed40cbf032321233c98fab5b1b2e80cfdc8fdf",
+      "bytes": 13994800
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\calls.jsonl",
+      "sha256": "70e3d609dd7b21e5d2e6ac734b4b1b298f8a2d8950a69e87f5263c040f4abf86",
+      "bytes": 2288
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218-consistent-unknown-20261028\\calls.jsonl",
+      "sha256": "dc15417f7cefbaa96515f95277ef7f77b7ffbb75de9cf48e897fa36b220fa88b",
+      "bytes": 10771
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-target-fix-20261028\\calls.jsonl",
+      "sha256": "dc15417f7cefbaa96515f95277ef7f77b7ffbb75de9cf48e897fa36b220fa88b",
+      "bytes": 10771
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-target-fix-v2-20261028\\calls.jsonl",
+      "sha256": "dc15417f7cefbaa96515f95277ef7f77b7ffbb75de9cf48e897fa36b220fa88b",
+      "bytes": 10771
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-terra-v2-20261028\\calls.jsonl",
+      "sha256": "dc15417f7cefbaa96515f95277ef7f77b7ffbb75de9cf48e897fa36b220fa88b",
+      "bytes": 10771
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf220-terra-20261028\\calls.jsonl",
+      "sha256": "8d5330609fa4c2f248cb2e12e1e02d6b5203ce5f3b8173425bb451024db035f8",
+      "bytes": 5450
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high\\calls.jsonl",
+      "sha256": "5dddf1a3b69b3d7449307f44f85a4724201187a7bfb394cf0ce497912314dfb7",
+      "bytes": 8539
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\calls.jsonl",
+      "sha256": "e89fc14bfc3468c5813e19da1d64829589dfbd2ef06cf9b115630402a60791db",
+      "bytes": 50317
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024\\calls.jsonl",
+      "sha256": "60fe1473aa14e676141fd30623ffaedca24aa7bc4829f9834e63d6559d068450",
+      "bytes": 46959
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\calls.jsonl",
+      "sha256": "321f92a9b167a9df931e02d8102241a94240b32da73031a219cea181263c3154",
+      "bytes": 228187
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\calls.jsonl",
+      "sha256": "338c730179a67ce34dee5ff2077909fcc68c27e7a2f39db4fb8516a85c22c0aa",
+      "bytes": 103876
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-protected-two-pages\\calls.jsonl",
+      "sha256": "d5beec3d160b9686a30756d4e139593a1c4e743ea0c6d2589198af3762b87113",
+      "bytes": 4349
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-quota-resume-20261025\\calls.jsonl",
+      "sha256": "14b2c5492faf6157bdab8d536ab580fe30528408c486947e4e5cb1dae5c2b247",
+      "bytes": 2620
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-repair-79-cn-p0112-r1\\calls.jsonl",
+      "sha256": "2d6b615511e8b6d4dfe3f7b05d97f988a0e8297b8a550bdd3afeef9c2f23750d",
+      "bytes": 2215
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair-20261026-fb-finite-20261024\\calls.jsonl",
+      "sha256": "60fe1473aa14e676141fd30623ffaedca24aa7bc4829f9834e63d6559d068450",
+      "bytes": 46959
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair-20261026-fb-finite-20261024-schemafix\\calls.jsonl",
+      "sha256": "321f92a9b167a9df931e02d8102241a94240b32da73031a219cea181263c3154",
+      "bytes": 228187
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair-20261026-full\\calls.jsonl",
+      "sha256": "2d0b1da63bf8134c399667ff2e9ca7718624a9ed195351a350910fdb40830ce7",
+      "bytes": 87370
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair-20261027-p263\\calls.jsonl",
+      "sha256": "321f92a9b167a9df931e02d8102241a94240b32da73031a219cea181263c3154",
+      "bytes": 228187
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair-20261027-p50-unknowns\\calls.jsonl",
+      "sha256": "6bfcddabf4075eab7fee49100494f3e93631d5dc6278340c9db0f37e965f71f4",
+      "bytes": 2153
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair10-20261027-p250\\calls.jsonl",
+      "sha256": "e89fc14bfc3468c5813e19da1d64829589dfbd2ef06cf9b115630402a60791db",
+      "bytes": 50317
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair11-20261027-p256\\calls.jsonl",
+      "sha256": "e89fc14bfc3468c5813e19da1d64829589dfbd2ef06cf9b115630402a60791db",
+      "bytes": 50317
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair12-20261027-p253\\calls.jsonl",
+      "sha256": "e89fc14bfc3468c5813e19da1d64829589dfbd2ef06cf9b115630402a60791db",
+      "bytes": 50317
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair12-20261027-p263\\calls.jsonl",
+      "sha256": "321f92a9b167a9df931e02d8102241a94240b32da73031a219cea181263c3154",
+      "bytes": 228187
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair13-20261027-p309\\calls.jsonl",
+      "sha256": "9c9fb6528263d21c1c10dc6f571bf0175baef14415d4e0d9dfac1dfb14229de4",
+      "bytes": 89975
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair14-20261027-p315\\calls.jsonl",
+      "sha256": "4614cae4fe8b180084514a2d9e93d3fb3f5dcae6d557158c8fc53e36057258ed",
+      "bytes": 5331
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair15-20261027-p315\\calls.jsonl",
+      "sha256": "4614cae4fe8b180084514a2d9e93d3fb3f5dcae6d557158c8fc53e36057258ed",
+      "bytes": 5331
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair16-20261027-p329\\calls.jsonl",
+      "sha256": "3bdc27a9596d979bab2cf81ef7eaa8c47427a7e318fbf92f457bfe4ef918477d",
+      "bytes": 2696
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair17-20261027-p330\\calls.jsonl",
+      "sha256": "7003228730176c54c0dc98a41ceaec6eb0e9ecac16196042279dacdc54528689",
+      "bytes": 5241
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair18-20261027-p261\\calls.jsonl",
+      "sha256": "6aebd8eb44c6faadd626195f6b5f1764535fc8a860735f264f0c94fe258a44a5",
+      "bytes": 8331
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair19-20261027-p262\\calls.jsonl",
+      "sha256": "e91d24398abe33c85cea8af89986d97172282562102e4713b0638aa88067c990",
+      "bytes": 5131
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair2-20261026-fb-finite-20261024-schemafix\\calls.jsonl",
+      "sha256": "321f92a9b167a9df931e02d8102241a94240b32da73031a219cea181263c3154",
+      "bytes": 228187
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair20-20261027-p330\\calls.jsonl",
+      "sha256": "7003228730176c54c0dc98a41ceaec6eb0e9ecac16196042279dacdc54528689",
+      "bytes": 5241
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair21-20261027-p260\\calls.jsonl",
+      "sha256": "9a1053c8f8eca9211d4582fd16cf3ca47156b56f781e28cca476892b88bd1601",
+      "bytes": 6235
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair22-20261027-p217\\calls.jsonl",
+      "sha256": "321f92a9b167a9df931e02d8102241a94240b32da73031a219cea181263c3154",
+      "bytes": 228187
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair23-20261027-p217b\\calls.jsonl",
+      "sha256": "321f92a9b167a9df931e02d8102241a94240b32da73031a219cea181263c3154",
+      "bytes": 228187
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair24-20261027-p217c\\calls.jsonl",
+      "sha256": "321f92a9b167a9df931e02d8102241a94240b32da73031a219cea181263c3154",
+      "bytes": 228187
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair25-20261027-p217d\\calls.jsonl",
+      "sha256": "321f92a9b167a9df931e02d8102241a94240b32da73031a219cea181263c3154",
+      "bytes": 228187
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair26-20261027-p217e\\calls.jsonl",
+      "sha256": "321f92a9b167a9df931e02d8102241a94240b32da73031a219cea181263c3154",
+      "bytes": 228187
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair3-20261026-field-repair-20261026-full\\calls.jsonl",
+      "sha256": "2d0b1da63bf8134c399667ff2e9ca7718624a9ed195351a350910fdb40830ce7",
+      "bytes": 87370
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair3-20261026-full\\calls.jsonl",
+      "sha256": "2d0b1da63bf8134c399667ff2e9ca7718624a9ed195351a350910fdb40830ce7",
+      "bytes": 87370
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair4-20261026-schemafix\\calls.jsonl",
+      "sha256": "321f92a9b167a9df931e02d8102241a94240b32da73031a219cea181263c3154",
+      "bytes": 228187
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair5-20261027-p254\\calls.jsonl",
+      "sha256": "321f92a9b167a9df931e02d8102241a94240b32da73031a219cea181263c3154",
+      "bytes": 228187
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair6-20261027-p263\\calls.jsonl",
+      "sha256": "321f92a9b167a9df931e02d8102241a94240b32da73031a219cea181263c3154",
+      "bytes": 228187
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair7-20261027-p153\\calls.jsonl",
+      "sha256": "321f92a9b167a9df931e02d8102241a94240b32da73031a219cea181263c3154",
+      "bytes": 228187
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair8-20261027-p67\\calls.jsonl",
+      "sha256": "5dddf1a3b69b3d7449307f44f85a4724201187a7bfb394cf0ce497912314dfb7",
+      "bytes": 8539
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair9-20261027-p254nemata\\calls.jsonl",
+      "sha256": "e89fc14bfc3468c5813e19da1d64829589dfbd2ef06cf9b115630402a60791db",
+      "bytes": 50317
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-full\\calls.jsonl",
+      "sha256": "2d0b1da63bf8134c399667ff2e9ca7718624a9ed195351a350910fdb40830ce7",
+      "bytes": 87370
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\calls.jsonl",
+      "sha256": "d1f236a598ab25d6d8e18d48d006dd5bc9221becf24dda9898d2b62d3e760c5f",
+      "bytes": 16264
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-partial-p114-20261026\\calls.jsonl",
+      "sha256": "f6a6dfce7a0e3be0de347d2d1725c380d8e9d353a99e965a51b589cc67fec9b1",
+      "bytes": 2489
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-repair-79-cn-p0001-r1\\calls.jsonl",
+      "sha256": "3c899795252e515b9a278bbdf132fe175539bd1d7672c2e77e78f6afdf0f3aea",
+      "bytes": 1719
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-repair-79-cn-p0002-r1\\calls.jsonl",
+      "sha256": "1619997ca362de07d4249af1e68e4d8a923eae1f9ae9bbf27b7067fb5eb764c4",
+      "bytes": 1719
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-repair-79-cn-p0003-r1\\calls.jsonl",
+      "sha256": "a05378b97db1d12672da94c9860f34f7f813724c3c5b7bf7d526cf4be33aba33",
+      "bytes": 1719
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-repair-79-cn-p0004-r1\\calls.jsonl",
+      "sha256": "0eb0df0f0d61bba4fcb0f99d67d4c87327768dc38f2ceea85c8428edb86216e9",
+      "bytes": 1719
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-repair-79-cn-p0011-r1\\calls.jsonl",
+      "sha256": "ebfb2b6a18897f631758196e690343c1985b3bd979b2121fef3d0d5e1aba2253",
+      "bytes": 2032
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-repair-79-cn-p0016-r1\\calls.jsonl",
+      "sha256": "215701580582ffa433ad4484bbbd584912f8fc1f36ba4fcc36f50f4cba7dafe7",
+      "bytes": 1840
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-repair-79-cn-p0024-r1\\calls.jsonl",
+      "sha256": "d16f1b963a0ae10283542d8e286d290b2343262d23dafe8bc8d6b06efa55c375",
+      "bytes": 1720
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-repair-79-cn-p0032-r1\\calls.jsonl",
+      "sha256": "05767150efdc486ec86dda6d087f77507f249e2f45ac28a357e680d3397d2bfe",
+      "bytes": 1943
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-repair-79-cn-p0033-r1\\calls.jsonl",
+      "sha256": "53159d854c12c5442ff1a0a00ae3ee4aae7cbff06e8e5f661d561301ff9fe7fc",
+      "bytes": 2136
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-repair-79-cn-p0050-r1\\calls.jsonl",
+      "sha256": "39bd580db2d19f1c8d7ed138f8340e90f526dc1fb56bd0852e347d2fa29a3942",
+      "bytes": 2053
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\source-correction-three-tiles-p333-v1\\calls.jsonl",
+      "sha256": "972b3178f3a18a2ef7e136c8b38b7c723f103283d1d02947ec502a591759b5d7",
+      "bytes": 2426
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\source-correction-three-tiles-p336-v1\\calls.jsonl",
+      "sha256": "3902930c6f5dfd186498e317ad752f485e65ed1179388f0c602c14f0ab55a1ff",
+      "bytes": 2690
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\source-correction-three-tiles-p337-v1\\calls.jsonl",
+      "sha256": "6e5bc330d821e50777dbcdb6d1cfaa68eb0a015d72ea045364fd6b50574b6d82",
+      "bytes": 2900
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\source-correction-three-tiles-p339-v1\\calls.jsonl",
+      "sha256": "556636a6f94a7ff9ea35205f38834ad6415153db233c6a30e8ac783b3019af91",
+      "bytes": 2885
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\v2\\calls.jsonl",
+      "sha256": "4bca8ca0a57fad8141cd47f2d5444626272827bba24267d8afc3682e71abfbba",
+      "bytes": 7072
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\v3\\calls.jsonl",
+      "sha256": "67163aedd678468e581d324857d4208cf18e2df14d1c9b73734ca73e3811a5c9",
+      "bytes": 3280
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\v4\\calls.jsonl",
+      "sha256": "59df3a4a821d681c0e444ceef7740553c4f3379c58700d8718374fec37c92e7a",
+      "bytes": 5518
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\calls.jsonl",
+      "sha256": "34b52fde991382577b89a117d74e67ba563a6ab6522defbd6bd2f39f443a5bdd",
+      "bytes": 1833474
+    }
+  ],
+  "baseline": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\full-coverage-and-usage.json",
+    "sha256": "449d8ed05a17261fe04e98956ea24efbd2b9de000d4d2e945d3f0db95cf9eb0c"
+  },
+  "fee": "unknown",
+  "upstreamExecutions": "unknown",
+  "remoteWeights": "unknown",
+  "completeProviderBillingClaimed": false,
+  "note": "Observed retained ledgers plus earlier accounting snapshot, deduplicated by actual callId; no-id records retain explicit legacy fingerprint. Failed/void and missing usage are retained. This is a bounded observed-accounting report, not a claim that unrecorded remote executions or fees are known."
+}
