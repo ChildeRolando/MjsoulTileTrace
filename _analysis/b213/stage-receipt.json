@@ -1,0 +1,48 @@
+{
+  "schema": "coach-textbook-web-stage/1",
+  "status": "independently-audited-chapter-preview",
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.r1.display.json",
+  "candidateSha256": "a667937d4e119a1b22659fc60987f07d3eea9d246c8b2b6ddabcdacb4fe5dd47",
+  "sourceSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+  "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-213-target-impact-reviewed-20261028.json",
+  "auditStatus": "verified-exact-jp213-composite-evidence",
+  "limitedUnknownFidelity": null,
+  "imageDerivations": [],
+  "chapters": 1,
+  "units": 1,
+  "blocks": 19,
+  "figures": 24,
+  "corpusId": "58adbc330a50686973f066e797661e2b73d1194d84f0da711ea68ae103ab5a09",
+  "bodySha256": "3d79a72b68dc24aa441415f75a910e7d50ec58809880b434194e2ac54d85f073",
+  "maxUnitBytes": 33730,
+  "modelCalls": 0,
+  "activeLibraryChanged": false,
+  "humanReview": "pending",
+  "canonical": "nemata-jp-chapter-213-1",
+  "standardWholeArticlePassed": false,
+  "globalAdmissionGranted": false,
+  "displayLimits": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T11-15-39-549Z/stages/jp213/display-limits.json",
+    "sha256": "550e43f58884737d930a6d81775c5829c989836f32714d1a679f46c20d9bc72c"
+  },
+  "sourceNotes": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T11-15-39-549Z/stages/jp213/source-notes.json",
+    "sha256": "2941b0d0ce68b146bb07fafd58c32a3c8751070543fa6e15134b194f5013b48a"
+  },
+  "jp213Review": {
+    "module": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp213-composite-20261028/admit.mjs",
+      "sha256": "51f18fd7b1d0a8cb32f02ed85090ff52f6d44de720dabbcd4770ca551ffcf083",
+      "function": "verifyLimited(root,candidatePath)"
+    },
+    "stage": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-jp213-display-20261028/stage.mjs",
+      "sha256": "c65fa0ea73ca4250b92296cde4ef06dd4d4401a15870b0c4b10e005ef885e300"
+    },
+    "manifest": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-jp213-display-20261028/manifest.json",
+      "sha256": "64ff6b36ccbd9a788b8c9ac02a556790d86adfa4a30400c703f876951944da5c"
+    },
+    "candidateSha256": "a667937d4e119a1b22659fc60987f07d3eea9d246c8b2b6ddabcdacb4fe5dd47"
+  }
+}

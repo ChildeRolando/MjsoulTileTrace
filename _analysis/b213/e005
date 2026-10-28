@@ -1,0 +1,206 @@
+{
+  "runtimePath": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac248-193213-mixed-v1-20261028",
+  "runtimeManifestSha256": "722e33f454e4b739cf0fccea1c974086c1e63f2b32083048b572f2b0372fec32",
+  "jobs": [
+    {
+      "key": "193",
+      "chapterId": "nemata-jp-chapter-193-1",
+      "articleId": "chapter03-section009",
+      "sourceId": "modern-yabejp-ja",
+      "authorizationCommentId": "01a181be-9dce-7647-abb5-1d0f3c67509d",
+      "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.display.json",
+      "parentSha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+      "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section009/source.json",
+      "sourceSha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+      "notesPath": "audit/web/articles/modern-yabejp-ja/chapter03-section009.abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3.json",
+      "notesSha256": "8ce0cde5d4eb0d8a8538b6751cd8a3b35b3fa8d3a20d7929fea6d7548bb09ce0",
+      "parentObjectSha256": "a92bf2c3c0eea37b7bec1b370b15fdb400ce75feaf5e0a88323dc8cb42034b7d",
+      "notesObjectSha256": "566dddebf089e45baff43170ec4337d4d5913303c4b12c66b15b7c2d90f9b111",
+      "targetTextId": "modern-yabejp-ja:chapter03-section009:b0081",
+      "targetFigureId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+      "textBefore": "面对上图这样的牌河，有人立直时，只要相关牌不是使其进张听牌的那一张，就基本可以读出其听牌是",
+      "textSpanBefore": "只要相关牌不是使其进张听牌的那一张",
+      "sampleReplacement": "若立直宣言牌并非从此次进张完成的面子一侧切出",
+      "textPrefix": "面对上图这样的牌河，有人立直时，",
+      "textSuffix": "，就基本可以读出其听牌是",
+      "figureReplacements": [
+        {
+          "before": "下方手牌，从左至右：5m 6m 7m 8m 6s 7s 8s 3p 4p 5p 8p 8p 8p",
+          "after": "下方手牌，从左至右：5m 6m 7m 8m 6s 7s 8s 3p 4p 5p 6p 6p 6p"
+        }
+      ],
+      "expectedTranscription": "四人麻将牌局截图。以下位置均以图片方向为准；牌序按所注明的画面方向记录。\n\n左上玩家：大富豪，18800，(-23300)。右上玩家：贵族，15600，(-26500)。左下玩家：庶民，42100，第1名。右下玩家：上流，22500，(-19600)。\n\n上方手牌，从画面左至右：9p 8p 7p 3s 2s 1s 9m 9m 8m 7m 3m 2m 1m；牌面均朝向上方玩家，即相对画面倒置。\n下方手牌，从左至右：5m 6m 7m 8m 6s 7s 8s 3p 4p 5p 6p 6p 6p；均正立，5m和5p未见赤牌标记。手牌上方另有橙色“南”标记。\n左侧手牌，从画面上至下：1m 2m 3m 5m 6m 6s 7s 8s 9s 9s 1p 2z 2z；牌面相对画面顺时针旋转90度。\n右侧手牌，从画面上至下：9s 8s 7s，随后三张筒子点数无法可靠辨认，再后为8m 7m 7m 4m；牌面朝向右侧玩家。右上另有6z 6z 6z副露组，最上方一张向左突出。\n\n上方牌河，靠牌山一排从画面左至右：6p 7m 9s 5z 8p 3z；牌面倒置。其上方一排从画面左至右：6s 8m，其中8m横置。\n左侧牌河，靠中央一列从上至下：3z 1s 9p 1m 9s 5m；其左侧、与最上方3z相邻的位置另有2p。牌面朝向左侧玩家。\n右侧牌河，靠中央一列从上至下：8p 6s 1m 4z 1p 9p；右侧另有7z 5z，分别与1p、9p相邻。牌面朝向右侧玩家。\n下方牌河，第一排从左至右：1s 5z 7z 5z 6s 7p；第二排左端为9m，牌面带蓝紫色高亮。\n\n上方牌山可见连续牌背；其中一张翻开的宝牌指示牌为6m。中央显示“南二局”“剩40张”，两个红色计数值均为0。中央四角可见西、南、北、东字样，其中北为黄色。中央还可见点棒和两枚骰子图案，骰子点数无法可靠辨认。\n\n底部状态栏可辨认“半”“食”；其后有黄色圆形标记和若干小型状态、操作图标，其中包含红色三角形图标及7z图案。部分图标内的细小文字和点数无法可靠辨认。图中没有另外标出的摸入、切牌或变化箭头。",
+      "expectedUnknowns": [
+        "右侧手牌从画面上方起第4、5、6张筒子的具体点数及赤牌状态无法可靠辨认。",
+        "右上6z副露组中，各张牌相对该玩家的精确横置关系无法可靠辨认；只能确认最上方一张向左突出。",
+        "中央两枚骰子的具体点数无法可靠辨认。",
+        "底部“半”“食”之后黄色圆形标记内的字样，以及相邻小型状态图标内的细字、筒子图案点数和最右圆形图标内容无法可靠辨认。"
+      ],
+      "allOriginalUnknowns": [
+        "右侧手牌从画面上方起第4、5、6张筒子的具体点数及赤牌状态无法可靠辨认。",
+        "右上6z副露组中，各张牌相对该玩家的精确横置关系无法可靠辨认；只能确认最上方一张向左突出。",
+        "中央两枚骰子的具体点数无法可靠辨认。",
+        "底部“半”“食”之后黄色圆形标记内的字样，以及相邻小型状态图标内的细字、筒子图案点数和最右圆形图标内容无法可靠辨认。"
+      ],
+      "fixedFigure": {
+        "kind": "mahjong-example",
+        "caption": "切宝牌后立直的读牌例。",
+        "sourceNotes": [
+          "原图与两倍最近邻放大图为同一张牌局截图，未重复计算牌或图中信息。",
+          "画面四角和底部的白色区域属于截图布局。",
+          "玩家称号已转为简体中文；点数、括号内数值及名次按画面保留。",
+          "蓝紫色牌面高亮、橙色“南”标记和底部操作图标属于原游戏界面；未据此补画弃牌或摸牌箭头。"
+        ]
+      },
+      "visualInputs": [
+        {
+          "assetId": "modern-yabejp-ja:59adb6484eba424a1d54a13f",
+          "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+          "sourceSha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/modern-yabejp-ja/assets/a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+          "sha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 620,
+          "height": 565
+        },
+        {
+          "assetId": "modern-yabejp-ja:59adb6484eba424a1d54a13f",
+          "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+          "sourceSha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.x2.png",
+          "sha256": "c48e2477714b9ecbd32e621e76e3603d7337f5de15a9074f2e2f3f3ed576c194",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 2,
+          "resampling": "nearest",
+          "width": 1240,
+          "height": 1130
+        }
+      ],
+      "priorCallIds": [
+        "bba0071e-a273-465a-a5bb-7abe1faa7f1a"
+      ],
+      "history": [
+        {
+          "callId": "bba0071e-a273-465a-a5bb-7abe1faa7f1a",
+          "success": true,
+          "usage": {
+            "inputTokens": 23811,
+            "cachedInputTokens": 0,
+            "outputTokens": 10583
+          }
+        }
+      ],
+      "reviewRawPath": "audit/calls/0176608e-ec2b-453a-a93b-607d9e27615d.json",
+      "reviewRawSha256": "a55e0be94f65b3c11fec96648a72fbe6a8561926c13fe2f3814847fef6509e85",
+      "bodyCount": 97,
+      "figureCount": 41
+    },
+    {
+      "key": "213",
+      "chapterId": "nemata-jp-chapter-213-1",
+      "articleId": "chapter03-section026",
+      "sourceId": "modern-yabejp-ja",
+      "authorizationCommentId": "01a181be-9dce-7647-abb5-1d0f3c67509d",
+      "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.display.json",
+      "parentSha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+      "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section026/source.json",
+      "sourceSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+      "notesPath": "audit/web/articles/modern-yabejp-ja/chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+      "notesSha256": "a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc",
+      "parentObjectSha256": "28844f568c676957337f23afe52857c7702a87bd9f314332b6b6d21537daf566",
+      "notesObjectSha256": "13c21d585a0dc4ce33f5919b2d6bfd37a9f856d57a8882335d6e2d9b8e4d7369",
+      "targetTextId": "modern-yabejp-ja:chapter03-section026:b0017",
+      "targetFigureId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+      "textBefore": "也很可疑。因为，如果听牌时打出的牌并非作为安全牌保留的，也不是因为进张而打出的，那么其附近就是所听的牌。",
+      "textSpanBefore": "也不是因为进张而打出的",
+      "sampleReplacement": "其周边也不属于进张完成面子的一侧",
+      "textPrefix": "也很可疑。因为，如果听牌时打出的牌并非作为安全牌保留的，",
+      "textSuffix": "，那么其附近就是所听的牌。",
+      "figureReplacements": [
+        {
+          "before": "1p [点数不清的筒子牌] 4s",
+          "after": "1p 7p 4s"
+        },
+        {
+          "before": "左列第1张1p、第2张筒子牌、第4张9s",
+          "after": "左列第1张1p、第2张7p、第4张9s"
+        }
+      ],
+      "expectedTranscription": "牌局画面。以下牌河均先列靠近中央的一排，再列外侧各排，并按各家自己的出牌方向记录；红线单独说明，不表示赤牌。\n\n下方本家：手牌从图像左至右为1m 2m 3m 7m 8m 9m 4p 4p 8p 9p；右侧隔开放置的摸入牌为5p。右下方副露从图像左至右为3m（横置，牌面相对画面逆时针旋转90°）4m 5m。其他这些手牌与副露牌均朝上。\n本家牌河：第1排从左至右为1z 3z 4z 5s 1p 1z；第2排从左至右为6s 3p 9s 3p 7z 2s。红线位于第1排第3张4z、第6张1z，以及第2排第1张6s、第3张9s、第4张3p的下缘。\n\n上方对家：牌河普通牌面相对画面旋转180°。第1排从图像右至左为2m 4z 1z 8m 2p [字面不清的字牌]；第2排从右至左为3s 7s 6s 9p 5z（横置）1p；第3排仅有1m，位于图像右端。红线位于第1排第6张字牌、第2排第3张6s与第6张1p、第3排1m的图像上缘。对家牌河与中央显示区之间有一根白底红点的立直棒。\n\n左家：牌面相对画面顺时针旋转90°。靠中央的右列从图像上至下为2p 1s 9s 8m 6p 3s；外侧左列从上至下为1p 7p 4s 9s 6s 2s。红线位于右列第6张3s，以及左列第1张1p、第2张7p、第4张9s、第6张2s的图像左缘。\n\n右家：牌面相对画面逆时针旋转90°。靠中央的左列从图像下至上为2z 2z 4z 1m 4m 3m；中间列从下至上为1m 2z 2p 3z 7s 6z；最外侧列从下至上为9s 4s。红线位于靠中央列第3张4z、第6张3m，以及中间列第4张3z、第5张7s、第6张6z的图像右缘。右上角副露从图像上至下为7z 7z 7z；最上方7z相对于该家的另外两张牌横置，其字面朝上，下面两张的牌面相对画面逆时针旋转90°。\n\n牌墙：左侧竖墙顶面从上至下有11个位置，第3个位置亮出的牌为6p，牌面相对画面逆时针旋转90°，其他10个位置为蓝色牌背；下方横墙可见5个蓝色牌背顶面。\n\n中央显示：东4局；下方两个小图标后的数字依次为0、1。座风为下方北、上方南、左侧西、右侧东。下方分数为20000，右侧分数为20000；上方及左侧分数无法可靠完整辨认。右上方规则文字表示东南战、允许食断、含赤牌。各家座位旁还有小号文字，无法完整辨认。",
+      "expectedUnknowns": [
+        "对家牌河第1排从其出牌方向数第6张，即图像靠中央一排最左端的字牌，其具体字面无法可靠辨认。",
+        "中央上方与左侧的完整分数无法可靠辨认。",
+        "中央数字0、1前的小图标无法辨认，无法仅凭图标确认各自所指的计数项目。",
+        "各家座位旁的小号姓名或其他附属文字无法完整辨认。"
+      ],
+      "allOriginalUnknowns": [
+        "对家牌河第1排从其出牌方向数第6张，即图像靠中央一排最左端的字牌，其具体字面无法可靠辨认。",
+        "左家牌河外侧左列自上而下第2张筒子牌的具体点数无法可靠辨认。",
+        "中央上方与左侧的完整分数无法可靠辨认。",
+        "中央数字0、1前的小图标无法辨认，无法仅凭图标确认各自所指的计数项目。",
+        "各家座位旁的小号姓名或其他附属文字无法完整辨认。"
+      ],
+      "fixedFigure": {
+        "kind": "mahjong-example",
+        "caption": "根据对家保留后打出的9p，判断继续进攻是否合适。红线表示摸切牌。",
+        "sourceNotes": [
+          "两张附件是同一张截图的原图与2倍最近邻放大图，只记录一次牌局。",
+          "青色矩形遮住了其他三家的手牌；蓝色牌背不提供牌种信息。",
+          "红色边线是摸切标记，不能据此将牌认作赤牌；5s牌面上的红色中间竹节也不表示赤牌。",
+          "黄色鼠标指针、黑色背景和画面下缘细线属于截图或布局痕迹，不是教学箭头或牌面符号。",
+          "牌墙下层有重叠和遮挡，顶面位置数不代表完整可见牌墙的总张数。"
+        ]
+      },
+      "visualInputs": [
+        {
+          "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+          "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+          "sourceSha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+          "sha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 640,
+          "height": 505
+        },
+        {
+          "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+          "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+          "sourceSha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.x2.png",
+          "sha256": "0fd640eefd45747cb62c6c5c24fb46b66d52ba26ad06c987bd0f03799b932fc4",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 2,
+          "resampling": "nearest",
+          "width": 1280,
+          "height": 1010
+        }
+      ],
+      "priorCallIds": [
+        "478ca8f6-cab6-4873-8cde-44bdf4f58d7f"
+      ],
+      "history": [
+        {
+          "callId": "478ca8f6-cab6-4873-8cde-44bdf4f58d7f",
+          "success": true,
+          "usage": {
+            "inputTokens": 18762,
+            "cachedInputTokens": 0,
+            "outputTokens": 11008
+          }
+        }
+      ],
+      "reviewRawPath": "audit/calls/93f4a5a8-e5fb-4b57-b5b7-c05946e951d7.json",
+      "reviewRawSha256": "ad4cf4f177742d2eff4f96a4147ddde1abdd9bf99baadd14b64d36b1a87a9b5c",
+      "bodyCount": 53,
+      "figureCount": 24
+    }
+  ]
+}

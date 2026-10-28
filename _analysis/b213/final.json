@@ -1,0 +1,233 @@
+{
+  "schema": "coac250-jp213-final/1",
+  "allPassed": true,
+  "preview": {
+    "chapters": 255,
+    "units": 263,
+    "blocks": 7673,
+    "figures": 5961,
+    "corpusId": "e2fbd3aea58502937e15f2282e227a583e7eed231945ec347b7169208513257c",
+    "bodySha256": "b1230f84fb63ce3f4ba9995962c9215f2517a6fec67d901c22908fe7e78aa546",
+    "maxUnitBytes": 592593,
+    "modelCalls": 0,
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T11-15-39-549Z",
+    "destination": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T11-15-39-549Z/stages/jp213",
+    "selectionVersion": 40,
+    "rollbackVersion": 39
+  },
+  "coverage": {
+    "originalChaptersCovered": 253,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 285,
+    "originalUnitsTotal": 303,
+    "remainingChapters": 3,
+    "remainingUnits": 18
+  },
+  "intake": {
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.r1.display.json",
+      "sha256": "a667937d4e119a1b22659fc60987f07d3eea9d246c8b2b6ddabcdacb4fe5dd47"
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter03-section026\\source.json",
+      "sha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a"
+    },
+    "route": {
+      "module": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp213-composite-20261028/admit.mjs",
+        "sha256": "51f18fd7b1d0a8cb32f02ed85090ff52f6d44de720dabbcd4770ca551ffcf083",
+        "function": "verifyLimited(root,candidatePath)"
+      },
+      "stage": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-jp213-display-20261028/stage.mjs",
+        "sha256": "c65fa0ea73ca4250b92296cde4ef06dd4d4401a15870b0c4b10e005ef885e300"
+      },
+      "manifest": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-jp213-display-20261028/manifest.json",
+        "sha256": "64ff6b36ccbd9a788b8c9ac02a556790d86adfa4a30400c703f876951944da5c"
+      },
+      "candidateSha256": "a667937d4e119a1b22659fc60987f07d3eea9d246c8b2b6ddabcdacb4fe5dd47"
+    },
+    "previewOutput": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T11-15-39-549Z",
+    "corpusId": "e2fbd3aea58502937e15f2282e227a583e7eed231945ec347b7169208513257c",
+    "stageReceiptPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T11-15-39-549Z/stages/jp213/web-stage-receipt.json",
+    "displayLimits": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T11-15-39-549Z/stages/jp213/display-limits.json",
+      "sha256": "550e43f58884737d930a6d81775c5829c989836f32714d1a679f46c20d9bc72c"
+    },
+    "sourceNotes": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T11-15-39-549Z/stages/jp213/source-notes.json",
+      "sha256": "2941b0d0ce68b146bb07fafd58c32a3c8751070543fa6e15134b194f5013b48a"
+    },
+    "requiredDisplayLimitations": [
+      "保留原图，并在该具体位置标明字牌字面不清，不填入猜测的字牌。",
+      "说明对家暗手被遮挡；实际听5p–8p是作者的文字陈述，不能说是从截图独立证实的。",
+      "随原图保留上方和左侧完整分数无法可靠辨认的说明，不补猜数值。",
+      "将弃和呈现为作者的结论，不宣称已利用完整点数证明它是最优选择。",
+      "保留图标不可辨及不能仅凭图标确认计数项目的说明，不为0、1擅自指定计数名称。",
+      "保留原图，避免把转录当作完整可识别的计数信息。",
+      "保留座位旁小字无法完整辨认的说明和原图，不推定姓名或其他文字。",
+      "不将转录描述为包含全部玩家身份及附属信息。"
+    ],
+    "originalStrictVerification": {
+      "limitedEvidenceVerified": false,
+      "errors": [
+        "no_limited_allowance"
+      ],
+      "requiredDisplayLimitations": [
+        "保留原图，并在该具体位置标明字牌字面不清，不填入猜测的字牌。",
+        "说明对家暗手被遮挡；实际听5p–8p是作者的文字陈述，不能说是从截图独立证实的。",
+        "随原图保留上方和左侧完整分数无法可靠辨认的说明，不补猜数值。",
+        "将弃和呈现为作者的结论，不宣称已利用完整点数证明它是最优选择。",
+        "保留图标不可辨及不能仅凭图标确认计数项目的说明，不为0、1擅自指定计数名称。",
+        "保留原图，避免把转录当作完整可识别的计数信息。",
+        "保留座位旁小字无法完整辨认的说明和原图，不推定姓名或其他文字。",
+        "不将转录描述为包含全部玩家身份及附属信息。"
+      ],
+      "wholeChapterPassed": false,
+      "admissionGranted": false,
+      "originalIssuesPreserved": true,
+      "meaning": "Only independent limited target/impact evidence. Every required display limitation and remaining author contribution must be mapped to legal exact admission and actual readback by250."
+    },
+    "issueObjectsByteIdentical": false,
+    "originalIssueHashes": [
+      "98209965aa6d0f9f9fa0b5001a159074fb25da7627d09d41854bb3607d796863",
+      "2c5f3a21f01d8e3435fe97d674f1f81dc39785d55491c39b2ccb81dcc2f23862",
+      "aa9845d29d0c34f1449948d4543569feb1dbfa717f2429781f9fd3e753394988"
+    ],
+    "independentIssueHashes": [
+      "2ec6db73c0002b62bf8f3d7a1e3c98db3d5a03dc0462628b888cecbb5776cb35",
+      "f96b7f77ba4ddf61ad8711f1b58ad74a41745726cc2eb86ff2c20cfff774f674",
+      "41409a13ba5ad463d19793df3eb724d1fd2b9c632bb93cfdc7911dca3b478475"
+    ],
+    "issueMappingKind": "exact-pinned-restatement-of-historical-scope-with-current-faithful-targets",
+    "readback": {
+      "path": "_analysis/b213/readback.json",
+      "sha256": "bdd6241e64efaa3f9b6ee4bd0865b96496d48c2eba43df215cbb708db33a8b82"
+    },
+    "sourceBlocks": 53,
+    "authorBlocks": 6,
+    "displayBlocks": 19,
+    "figures": 24,
+    "displayLimitationsMapped": 8,
+    "unknownValues": 4,
+    "allSourceNotesPreserved": true,
+    "originalReceiptAndRawPreserved": true,
+    "ordinaryWholeArticlePassed": false,
+    "limitedAuthorPresentationAccepted": true,
+    "newModelCalls": 0
+  },
+  "prior262UnitsUnchanged": true,
+  "otherRowsUnchanged": true,
+  "otherChaptersNotTouched": true,
+  "registerAfter": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+      "sha256": "93d224d96e8a8482eb65a7d09bc4365a6e5bd649af4c307b5c471ce9a8d2c452"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+      "sha256": "73b9e2811d75814071e0b18600a82a9fceaa4f82487e5183dc9ef01912b38c02"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-uncovered-chapter-continuation-register-20261027b.json",
+      "sha256": "819938726f4d4186bc52503e985028c99df1a6021ebafe972fa2bd281f16be0b"
+    }
+  ],
+  "readback": {
+    "path": "_analysis/b213/readback.json",
+    "sha256": "bdd6241e64efaa3f9b6ee4bd0865b96496d48c2eba43df215cbb708db33a8b82"
+  },
+  "routeTests": {
+    "passed": true,
+    "checks": [
+      {
+        "name": "wrong candidateSha256",
+        "rejected": true
+      },
+      {
+        "name": "wrong module",
+        "rejected": true
+      },
+      {
+        "name": "wrong stage",
+        "rejected": true
+      },
+      {
+        "name": "wrong manifest",
+        "rejected": true
+      },
+      {
+        "name": "missing source note",
+        "rejected": true
+      },
+      {
+        "name": "changed source note",
+        "rejected": true
+      },
+      {
+        "name": "source note as author",
+        "rejected": true
+      }
+    ],
+    "persistentEarlyRoutePassed": true,
+    "ordinarySidecarAccesses": 0,
+    "upstream35RefusalsHashVerifiedNotRerun": true,
+    "newModelCalls": 0
+  },
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "formalActiveChanged": false,
+  "bookComplete": false,
+  "safeToResume": true,
+  "rebuild": {
+    "path": "_analysis/b213/rebuild.json",
+    "sha256": "35573fd3ce9fb2e5ce48180a914bc896ebcea7d82fc2af36a9556626284b956b"
+  },
+  "finalChecks": {
+    "passed": true,
+    "coverage": {
+      "originalChaptersCovered": 253,
+      "originalChaptersTotal": 256,
+      "originalUnitsCovered": 285,
+      "originalUnitsTotal": 303,
+      "remainingChapters": 3,
+      "remainingUnits": 18
+    },
+    "display": {
+      "chapters": 255,
+      "units": 263,
+      "blocks": 7673,
+      "figures": 5961
+    },
+    "selectionVersion": 40,
+    "rollbackVersion": 39,
+    "sourceCandidateRawAndFrozenRuntimeUnchanged": true,
+    "originalStrictFalseAndSeveritiesPreserved": true,
+    "issueObjectsByteIdentical": false,
+    "threeOldNewIssuePairsIndividuallyPinned": true,
+    "archiveByteExact": true,
+    "prior262UnitsUnchanged": true,
+    "otherHoldsAndFormalUnchanged": true,
+    "writerLockReleased": true,
+    "actualMcpArenaReadback": true,
+    "persistentRouteRebuiltAndRead": true,
+    "remaining": [
+      {
+        "canonical": "79-cn-chapter-311-18",
+        "units": 16
+      },
+      {
+        "canonical": "nemata-jp-chapter-232-1",
+        "units": 1
+      },
+      {
+        "canonical": "nemata-jp-chapter-250-1",
+        "units": 1
+      }
+    ],
+    "newModelCalls": 0,
+    "humanAnnotationDataUsed": false,
+    "safeToResume": true
+  }
+}
