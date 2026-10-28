@@ -11,9 +11,24 @@
       "bytes": 7614
     },
     {
+      "path": "browser-verification.json",
+      "sha256": "33277e6384402685d3d3e6a2d8d0ca6a96caabb0dc3c3ebe040754e8433a7d9a",
+      "bytes": 358
+    },
+    {
+      "path": "browser.py",
+      "sha256": "4b28424796fdbb967e86fca9c656758b14d71d4fb5e5398b60f4d31541787a8a",
+      "bytes": 3204
+    },
+    {
       "path": "check.mjs",
       "sha256": "17eca7c557706abbaaa4dade3a1ebe7f2ea477bfa40efac74b4cf8f0e82c94f1",
       "bytes": 7406
+    },
+    {
+      "path": "finalize.py",
+      "sha256": "43c5ac9c218548fc3196925d6156d6ed45323474ef90a749ade5f59e7d6bc399",
+      "bytes": 4164
     },
     {
       "path": "handoff.json",
@@ -39,6 +54,16 @@
       "path": "register-update.json",
       "sha256": "45562bcaaa304dde0684ff2027f5ae31b7ac7814311458150bd70b35225eea7c",
       "bytes": 261
+    },
+    {
+      "path": "routing-register-update.json",
+      "sha256": "e85a46630668371c7053adcdfc29393aa28e3ade2fff6f055e69acb533b44df1",
+      "bytes": 261
+    },
+    {
+      "path": "routing.json",
+      "sha256": "c3756cd65b00ade53eeb99ea37f994a4a152b4b41c03bff0db0175eb64939bb6",
+      "bytes": 757
     },
     {
       "path": "seal.py",

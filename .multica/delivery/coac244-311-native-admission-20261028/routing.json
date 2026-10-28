@@ -1,0 +1,19 @@
+{
+  "existingIssue": "01a17471-25e6-7731-a529-3df99acf3d42",
+  "existingOnce": "01a18293-aaba-73c8-a12b-476c85a24e1c",
+  "revision": 3,
+  "fireCount": 1,
+  "enabledAfterFire": false,
+  "previousRun": "01a18295-0172-786c-816b-fd96ed45fce0",
+  "previousRunCompletedAt": "2026-10-28T13:08:36Z",
+  "previousInterfaceRequestCommit": "314b995f",
+  "interfaceCommit": "2fb35faf",
+  "newRun": "01a182d7-4c87-779b-8b0d-f6ce9b915a86",
+  "startedAt": "2026-10-28T14:08:42Z",
+  "observedStatus": "running",
+  "newConsumers": 0,
+  "newModelSubcalls": 0,
+  "actualGlobalMcpArenaReadbackCompleted": false,
+  "newRunWriterReleaseVerified": false,
+  "pendingReleaseOwner": "Existing250 writes result and releases its own normal writer lock; root does not hold that lock."
+}
