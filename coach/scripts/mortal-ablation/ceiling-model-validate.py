@@ -165,14 +165,15 @@ def validate(out):
             buckets[row['bucket']] += 1
             model = 'sol' if seq < f['ledgerBaseline']['rows'] else expected_models[key]
             request = read(out / 'requests' / (key + '.json'))
-            assert request['model'] == f['models'][model]
+            assert request['model'] == f.get('historicalRequestModels', {}).get(key, f['models'][model])
             assert row['requestDigest'] == digest({'request': request['request'], 'model': request['model']})
             if row['bucket'] == 'evaluation':
                 formal_models[model] += 1
             call = read(out / 'calls' / (key + '.json'))
             if model == 'deepseek_via_claude' and call['response']['status'] == 'ready':
                 proof = call['transportProof']
-                assert proof['forwardedModelRequests'] == 1 and proof['nativeTurnCount'] == 1
+                assert proof['forwardedModelRequests'] == 1
+                assert proof['nativeTurnCount'] == 1 or proof['nativeTurnCount'] == 2 and proof['structuredOutput'] and proof['outputToolCalls'] == 1
                 assert proof['observedBackend'].startswith(f['models'][model]['expectedBackendPrefix'])
                 assert proof['requestedApiEffort'] == 'high'
                 raw = proof.get('nativeUsage', {})

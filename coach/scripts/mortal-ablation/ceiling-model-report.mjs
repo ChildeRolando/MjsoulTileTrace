@@ -48,7 +48,7 @@ export async function reportModelStudy(out){
   const runByKey=new Map();for(const file of await readdir(join(out,'runs')))if(file.endsWith('.json')){const r=await read(join(out,'runs',file));runByKey.set(r.key,r);}
   const failedSelections=new Set(selections.filter(s=>s.status==='failed').map(s=>s.caseId)),costCalls=[];
   for(const claim of ledger.claims.values()){
-    const request=await read(join(out,'requests',claim.key+'.json')),call=await read(join(out,'calls',claim.key+'.json')),model=Object.keys(f.models).find(id=>hash(f.models[id])===hash(request.model));if(!model)throw Error('model_cost_unknown_profile');
+    const request=await read(join(out,'requests',claim.key+'.json')),call=await read(join(out,'calls',claim.key+'.json')),model=Object.keys(f.models).find(id=>hash(f.models[id])===hash(request.model))??(f.historicalRequestModels?.[claim.key]&&hash(f.historicalRequestModels[claim.key])===hash(request.model)?'deepseek_via_claude':null);if(!model)throw Error('model_cost_unknown_profile');
     const run=runByKey.get(claim.key),selectionCase=/^oracle-select-(?:chapters|passages)-([a-f0-9]+)$/.exec(claim.key)?.[1];
     costCalls.push({key:claim.key,bucket:claim.bucket,modelProfileId:model,status:run?.status??call.response.status,usage:call.response.usage??null,elapsedMs:call.elapsedMs,providerFailed:call.response.status!=='ready',failureRelated:run?run.status!=='submitted':Boolean(selectionCase&&failedSelections.has(selectionCase)),reconnectCount:call.response.reconnectCount??0,transportProof:call.transportProof??null});
   }

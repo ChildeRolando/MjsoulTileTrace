@@ -32,7 +32,10 @@ describe('bounded model-amendment transport and accounting',()=>{
   it('accepts a single native turn and rejects retries, schema escape and non-JSON output',()=>{
     expect(parseClaudeResult(event,request)).toMatchObject({status:'ready',call:{name:'submit_decision',arguments:'{"actionRef":"x"}'},usage:{totalTokens:64}});
     expect(parseClaudeResult({...event,num_turns:2},request).status).toBe('provider_error');
-    expect(parseClaudeResult({...event,result:'```json\n'+event.result+'\n```'},request).status).toBe('provider_error');
+    expect(parseClaudeResult({...event,result:'```json\n'+event.result+'\n```'},request).status).toBe('ready');
+    expect(parseClaudeResult({...event,result:'commentary\n```json\n'+event.result+'\n```'},request).status).toBe('provider_error');
+    expect(parseClaudeResult({...event,num_turns:2,structured_output:JSON.parse(event.result)},request).status).toBe('ready');
+    expect(parseClaudeResult({...event,num_turns:3,structured_output:JSON.parse(event.result)},request).status).toBe('provider_error');
     expect(parseClaudeResult({...event,result:JSON.stringify({call:{name:'shell',arguments:{}},decisionSummary:'x'})},request).status).toBe('provider_error');
     expect(parseClaudeResult({...event,result:JSON.stringify({call:{name:'submit_decision',arguments:'{}'},decisionSummary:'x'})},request).status).toBe('provider_error');
   });

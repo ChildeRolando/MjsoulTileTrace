@@ -9,7 +9,7 @@ import {runDecision,oracleMaterials,exclusive,serviceFailureStreak} from './ceil
 import {CLAUDE_EXE,COMMAND_CODE_ID,DEEPSEEK_PREFIX,createClaudeCeilingProvider,proxyTarget} from './ceiling-claude.mjs';
 const exec=promisify(execFile);
 export const MODEL_BUDGETS=Object.freeze({development:800,evaluation:4090,oracle:600,practical:400,stability:100,smoke:150});
-export const STUDY_MODELS=Object.freeze({sol:MODELS.strong,terra:{modelName:'gpt-6.1-terra',reasoningEffort:'high'},deepseek_via_claude:{modelName:'opus',reasoningEffort:'high',transport:'claude-code-command-code',providerId:COMMAND_CODE_ID,expectedBackendPrefix:DEEPSEEK_PREFIX},practical:MODELS.practical});
+export const STUDY_MODELS=Object.freeze({sol:MODELS.strong,terra:{modelName:'gpt-6.1-terra',reasoningEffort:'high'},deepseek_via_claude:{modelName:'opus',reasoningEffort:'high',transport:'claude-code-command-code',providerId:COMMAND_CODE_ID,expectedBackendPrefix:DEEPSEEK_PREFIX,outputMode:'schema-tool-r2'},practical:MODELS.practical});
 export const MODEL_CONCURRENCY=Object.freeze({sol:2,deepseek_via_claude:4,terra:2,oracle:2,practical:4,smoke:1});
 const newFiles=['scripts/mortal-ablation/ceiling-model-study.mjs','scripts/mortal-ablation/ceiling-claude.mjs','bin/scene-pattern-models.mjs'];
 async function currentExecution(){return [...await executionFiles(),...await Promise.all(newFiles.map(async p=>[p,hash(await readFile(join(ROOT,p)))]))].sort((a,b)=>a[0].localeCompare(b[0]));}
@@ -75,6 +75,21 @@ export async function verifyModelStudy(out){
   if(hash(await readFile(f.claudeRuntime.executable))!==f.claudeRuntime.sha256)throw Error('model_claude_runtime_changed');
   await validateFrozenInputs(out,original);return f;
 }
+export async function repairModelEngineeringFreeze(out){
+  const previous=await read(join(out,'model-freeze.json')),binding=await read(join(out,'model-freeze-binding.json')),approval=await read(join(out,'model-amendment-approved.json')),proposal=await read(join(out,approval.proposal)),original=await read(join(out,'freeze.json')),ledger=new BudgetLedger(out,MODEL_BUDGETS);
+  if(binding.freezeHash!==hash(previous)||previous.engineeringRevision||await exists(join(out,'model-smoke-ready.json'))||previous.approvalHash!==hash(approval)||previous.proposalHash!==hash(proposal)||approval.totalLimit!==6140)throw Error('engineering_repair_not_applicable');
+  const added=ledger.rows.slice(previous.ledgerBaseline.rows).filter(r=>r.type==='claim'),pilot=(await read(join(original.engineeringSupplement.directory,'dataset.json'))).cases,key=`model-smoke-deepseek_via_claude-${pilot[0].id}-A`;
+  if(added.length!==1||added[0].bucket!=='smoke'||added[0].key!==key||ledger.snapshot().unsettled||ledger.snapshot().buckets.smoke!==148||ledger.snapshot().buckets.evaluation!==345)throw Error('engineering_repair_after_formal_or_extra_calls');
+  const failed=await read(join(out,'calls',key+'.json'));
+  if(failed.response.failureCode!=='claude_invalid_model_response'||failed.transportProof?.forwardedModelRequests!==1||!failed.transportProof?.observedBackend?.startsWith(DEEPSEEK_PREFIX))throw Error('engineering_repair_wrong_failure');
+  const {d}=await validateFrozenInputs(out,original);
+  assertModelPlan(d,proposal,approval,{rows:ledger.rows.slice(0,previous.ledgerBaseline.rows),snapshot:()=>({claimed:1292,unsettled:0})});
+  const files=await currentExecution(),generationCommit=(await exec('git',['rev-parse','HEAD'],{cwd:ROOT,windowsHide:true})).stdout.trim();
+  const f={...previous,models:STUDY_MODELS,generationCommit,engineeringRevision:2,requiredSmoke:2,previousModelFreezeHash:hash(previous),failedEngineeringKeys:[key],historicalRequestModels:{[key]:previous.models.deepseek_via_claude},executionFiles:files,codeDigest:hash(files)};
+  await writeOnce(join(out,'model-revisions','engineering-initial-'+hash(previous)+'.json'),previous);
+  await writeOnce(join(out,'model-revisions','engineering-initial-failure.json'),{freezeHash:hash(previous),plannedBeforeStop:1,submitted:0,key,allFailuresRetained:true,remainingAuthorizedEngineeringCalls:2});
+  await save(join(out,'model-freeze.json'),f);await save(join(out,'model-freeze-binding.json'),{freezeHash:hash(f)});return f;
+}
 function factory(f,model){
   if(model==='deepseek_via_claude')return createClaudeCeilingProvider({runtime:f.claudeRuntime});
   return createArenaToolCallProvider({settings:null,arenaCodex:{...f.models[model],timeoutMs:GENERATION_TIMEOUT_MS},credentials:{readKey:async()=>null},fetchImpl:fetch});
@@ -89,9 +104,9 @@ export async function runModelPhase(out,phase){
     const f=await verifyModelStudy(out),d=await read(join(out,'dataset.json')),index=await read(join(out,'textbook/index.json')),ledger=new BudgetLedger(out,f.budgets);let jobs,bucket;
     if(phase==='smoke'){
       const original=await read(join(out,'freeze.json')),pilot=(await read(join(original.engineeringSupplement.directory,'dataset.json'))).cases;
-      jobs=[['deepseek_via_claude','A'],['terra','D'],['deepseek_via_claude','D']].map(([model,arm],i)=>({c:pilot[i],model,arm,key:`model-smoke-${model}-${pilot[i].id}-${arm}`}));bucket='smoke';
+      jobs=[['deepseek_via_claude','A'],['terra','D'],['deepseek_via_claude','D']].map(([model,arm],i)=>({c:pilot[i],model,arm,key:`model-smoke-${model}-${pilot[i].id}-${arm}`}));if(f.engineeringRevision===2)jobs=jobs.slice(1);bucket='smoke';
     }else{
-      const gate=await read(join(out,'model-smoke-ready.json'));if(gate.freezeHash!==hash(f)||gate.submitted!==3||gate.planned!==3)throw Error('model_smoke_gate_not_passed');
+      const gate=await read(join(out,'model-smoke-ready.json')),required=f.requiredSmoke??3;if(gate.freezeHash!==hash(f)||gate.submitted!==required||gate.planned!==required)throw Error('model_smoke_gate_not_passed');
       if(!['evaluation','oracle','practical','stability'].includes(phase))throw Error('unknown_model_phase');jobs=studyCells(d,f.assignment,phase);bucket=phase;
     }
     jobs=phase==='smoke'?jobs:ordered(jobs,j=>j.c.id+j.arm,SEED+phase);const rows=[],streaks={};
@@ -112,7 +127,7 @@ export async function runModelPhase(out,phase){
     });
     const receipt={phase,freezeHash:hash(f),planned:jobs.length,submitted:rows.filter(r=>r.status==='submitted').length,rowsDigest:hash([...rows].sort((a,b)=>a.key.localeCompare(b.key)))};
     await writeOnce(join(out,'phases','models-'+phase+'.json'),receipt);
-    if(phase==='smoke')await writeOnce(join(out,'model-smoke-ready.json'),{freezeHash:hash(f),planned:3,submitted:3});return receipt;
+    if(phase==='smoke')await writeOnce(join(out,'model-smoke-ready.json'),{freezeHash:hash(f),planned:jobs.length,submitted:receipt.submitted,priorFailedKeys:f.failedEngineeringKeys??[]});return receipt;
   });
 }
 export async function modelStudyStatus(out){const ledger=new BudgetLedger(out,MODEL_BUDGETS);return {version:'ceiling-model-progress/v1',calls:ledger.snapshot(),modelFreeze:await exists(join(out,'model-freeze.json')),modelSmokeReady:await exists(join(out,'model-smoke-ready.json'))};}
