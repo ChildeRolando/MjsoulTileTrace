@@ -1,0 +1,105 @@
+{
+  "schema": "coac244-311-native-current-evidence-register/1",
+  "canonical": "79-cn-chapter-311-18",
+  "proposalSha256": "ca5792a85433de54d0bfa82649a3707707ef64747d3beb5f8944a5bec372ad97",
+  "references": {
+    "zeroIntake": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-zero-intake-20261028.json",
+      "sha256": "e9fb7b3780b69c6ec0125dd5e243a63f8042de34f42e9a019cc4674acfcbd0b3"
+    },
+    "purePreparedSummary": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-prepared-boundary-20261028.json",
+      "sha256": "34116ca04f4ad65e00e91719eb3df86bbdb19fb24710ba59fec0d2a0be5e82d5"
+    },
+    "oldBudgetProposal": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-scope-budget-proposal-20261028.json",
+      "sha256": "e2d21e31faa310a1b48652d7c4be6f34596a1306da339933487d4308a7784df1"
+    },
+    "purePreparedBoundary": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-311-native-intake-20261028\\prepared-boundary.json",
+      "sha256": "bb28eaf3673becc6498b9f86c9f96ee1fab771272d5c6ed5299f6eb2014c3b28"
+    },
+    "latestReceipt": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-fidelity-reviewed-20261028.json",
+      "sha256": "9245894ecccf7e94f3fac8f3b5e177d5014d29a8f99baca40bb31e892afc22c6"
+    },
+    "latestRaw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\47c48143-2aaf-433f-829d-91aa9b07461d.json",
+      "sha256": "f68c9936f06e16b29110f3789756cc17f7f54332dc7fb5ec37fefb70df3b1268"
+    },
+    "latestDisplayScope": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-mandatory-display-20261028.json",
+      "sha256": "5502384c26e5e939284b07b9a2ee073a4a75043926acfb1ac4ecaaf72c2c3b12"
+    },
+    "latestInheritance": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-fidelity-inheritance-20261028.json",
+      "sha256": "a9684639e2bc0a49888ba114a25e57305623e6db0fe4d026f38bff207738c765"
+    }
+  },
+  "zeroPreparation": {
+    "newCallsAtThatTime": 0,
+    "bindingsVerifiedBy249": 109,
+    "negativeChecksVerifiedBy249": 13,
+    "purePreparedImages": 8,
+    "modelInvoked": false,
+    "semanticVerdict": false,
+    "oldProposalAuthorizedCalls": 0
+  },
+  "laterExplicitAuthorization": {
+    "commentId": "01a1828a-5da5-7c3c-914f-e22fe0311e8a",
+    "readFromCurrent249MemberThread": true,
+    "notAnAuthorizationFromThisWakeup": true,
+    "maximum": 1,
+    "used": 1,
+    "remaining": 0,
+    "retry": 0
+  },
+  "currentAuthorizedReview": {
+    "callId": "47c48143-2aaf-433f-829d-91aa9b07461d",
+    "model": "gpt-6.1-terra",
+    "effort": "max",
+    "actualImages": 9,
+    "ninthImage": "hand A source context, expressly included in later authorization",
+    "usage": {
+      "inputTokens": 169380,
+      "cachedInputTokens": 0,
+      "outputTokens": 17754
+    },
+    "durationMs": 255431,
+    "ledgerMatches": 1,
+    "semanticVerdict": "faithful-with-mandatory-limits",
+    "eightFiguresFaithful": true,
+    "actualFidelityGaps": [],
+    "originalEditorialLimitsSufficient": false,
+    "originalLimitedFidelityAccepted": false,
+    "handADisposition": "inherited-source-limit-with-mandatory-note",
+    "mandatoryDisplayConditions": 10
+  },
+  "originalPhase": {
+    "maker": 1,
+    "review": 1,
+    "maximum": 2,
+    "remaining": 0,
+    "originalLedgerMatches": 1
+  },
+  "currentEffectivePendingWork": [
+    "Install the ten exact mandatory non-author conditions while retaining the eight existing notes.",
+    "At b0154 explain source has twelve visible tiles; do not invent the thirteenth or certify author waits/probability/graph14 input.",
+    "Hide/correct wrong attachment pairing in outward display and show source-image-binding explanation; preserve historical sourceNotes.",
+    "Existing250 must perform legal exact admission and actual MCP/Arena readback of225 source positions,204 author texts,21 figures and all limits."
+  ],
+  "existing250RunObserved": "01a18295-0172-786c-816b-fd96ed45fce0",
+  "newConsumersCreated": 0,
+  "newModelCallsThisRootRun": 0,
+  "newMakerCallsThisRootRun": 0,
+  "newVisionCallsThisRootRun": 0,
+  "supersededAsCurrentState": "Waiting for authorization of first review; no proposal call yet. These were true only at zero-intake time.",
+  "oldRawSeverityAndStrictFalseUnchanged": true,
+  "authorCalculationsVerified": false,
+  "wholeChapterPassed": false,
+  "admissionGranted": false,
+  "actualGlobalReadbackCompleted": false,
+  "ledgerSnapshotSha256": "1a3d331127ad50c89b1278e3200d85db9681b74e2313f4cad1a1ce56f40c9800",
+  "fee": "unknown",
+  "upstreamExecutionCount": "unknown"
+}
