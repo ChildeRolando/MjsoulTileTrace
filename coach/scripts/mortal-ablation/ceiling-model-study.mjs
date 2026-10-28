@@ -1,4 +1,4 @@
-import {readFile,stat,unlink} from 'node:fs/promises';
+import {readFile,unlink} from 'node:fs/promises';
 import {join} from 'node:path';
 import {execFile} from 'node:child_process';
 import {createHash} from 'node:crypto';
@@ -6,9 +6,9 @@ import {promisify} from 'node:util';
 import {createArenaToolCallProvider} from '@riichi-coach/desktop/llm-provider/service';
 import {BudgetLedger,MODELS,ARMS,ROOT,SEED,GENERATION_TIMEOUT_MS,hash,read,save,writeOnce,exists,ordered,assertDataset,executionFiles,supplementBinding} from './ceiling-protocol.mjs';
 import {runDecision,oracleMaterials,exclusive,serviceFailureStreak} from './ceiling-run.mjs';
-import {CLAUDE_EXE,COMMAND_CODE_ID,DEEPSEEK_PREFIX,createClaudeCeilingProvider,proxyTarget} from './ceiling-claude.mjs';
+import {COMMAND_CODE_ID,DEEPSEEK_PREFIX,createClaudeCeilingProvider} from './ceiling-claude.mjs';
 const exec=promisify(execFile);
-export const MODEL_BUDGETS=Object.freeze({development:800,evaluation:4090,oracle:600,practical:400,stability:100,smoke:150});
+export const MODEL_BUDGETS=Object.freeze({development:800,evaluation:4090,oracle:600,practical:400,stability:100,smoke:151});
 export const STUDY_MODELS=Object.freeze({sol:MODELS.strong,terra:{modelName:'gpt-6.1-terra',reasoningEffort:'high'},deepseek_via_claude:{modelName:'opus',reasoningEffort:'high',transport:'claude-code-command-code',providerId:COMMAND_CODE_ID,expectedBackendPrefix:DEEPSEEK_PREFIX,outputMode:'schema-tool-r2'},practical:MODELS.practical});
 export const MODEL_CONCURRENCY=Object.freeze({sol:2,deepseek_via_claude:4,terra:2,oracle:2,practical:4,smoke:1});
 const newFiles=['scripts/mortal-ablation/ceiling-model-study.mjs','scripts/mortal-ablation/ceiling-claude.mjs','bin/scene-pattern-models.mjs'];
@@ -56,19 +56,14 @@ async function validateFrozenInputs(out,original){
 }
 export async function freezeModelStudy(out){
   if(await exists(join(out,'model-freeze.json')))return verifyModelStudy(out);
-  const approval=await read(join(out,'model-amendment-approved.json')),proposal=await read(join(out,approval.proposal)),original=await read(join(out,'freeze.json')),ledger=new BudgetLedger(out,MODEL_BUDGETS);
-  assertModelPlan(await read(join(out,'dataset.json')),proposal,approval,ledger);const {d}=await validateFrozenInputs(out,original);
-  const selected=await read(join(out,'selected-version.json'));
-  if(selected.version!=='V0'||selected.freezeHash!==hash(original)||(await read(join(out,'selection-binding.json'))).selectionHash!==hash(selected))throw Error('model_selected_version_changed');
-  if(await proxyTarget()!==COMMAND_CODE_ID)throw Error('model_claude_proxy_not_ready');
-  const info=await stat(CLAUDE_EXE),version=(await exec(CLAUDE_EXE,['--version'],{windowsHide:true,timeout:10000})).stdout.trim();
-  const generationCommit=(await exec('git',['rev-parse','HEAD'],{cwd:ROOT,windowsHide:true})).stdout.trim();
-  const files=await currentExecution(),f={version:'ceiling-model-amendment/v1',nodeVersion:process.version,generationCommit,originalFreezeHash:hash(original),approvalHash:hash(approval),proposalHash:hash(proposal),datasetHash:hash(d),selectedHash:hash(selected),budgets:MODEL_BUDGETS,models:STUDY_MODELS,concurrency:MODEL_CONCURRENCY,assignment:proposal.assignment,legacyPrimaryKeys:proposal.reuseLegacySolCallsInPrimary,legacySupplementalKeys:proposal.retainLegacySolCallsForCrossModelDiagnostics,ledgerBaseline:{rows:ledger.rows.length,head:ledger.rows.at(-1).digest,claims:1292},executionFiles:files,codeDigest:hash(files),claudeRuntime:{executable:CLAUDE_EXE,size:info.size,mtimeMs:info.mtimeMs,sha256:hash(await readFile(CLAUDE_EXE)),version},statistics:{primary:'Three within-model natural D-A tests, Holm across three; paired 95% bootstrap intervals',secondary:'Nine within-model D-V0/D-B/D-C tests, Holm across nine',mixedModelTotal:'descriptive only',selection:'Sol development selected V0; other models test transfer, not their individually optimized ceiling'}};
-  await writeOnce(join(out,'model-freeze.json'),f);await writeOnce(join(out,'model-freeze-binding.json'),{freezeHash:hash(f)});return f;
+  throw Error('existing_approved_model_freeze_required');
+
 }
 export async function verifyModelStudy(out){
   const f=await read(join(out,'model-freeze.json')),original=await read(join(out,'freeze.json')),approval=await read(join(out,'model-amendment-approved.json'));
   if(f.version!=='ceiling-model-amendment/v1'||f.nodeVersion!==process.version||(await read(join(out,'model-freeze-binding.json'))).freezeHash!==hash(f)||f.originalFreezeHash!==hash(original)||f.approvalHash!==hash(approval)||approval.approved!==true||approval.totalLimit!==6140||hash(await read(join(out,approval.proposal)))!==f.proposalHash)throw Error('model_freeze_binding_changed');
+  const topup=await read(join(out,'engineering-runtime-amendment-approved.json'));
+  if(topup.approved!==true||topup.totalLimit!==6141||topup.additionalEngineeringCalls!==1||topup.engineeringLimit!==151||f.engineeringTopupHash!==hash(topup)||f.engineeringRevision!==3)throw Error('runtime_engineering_topup_not_authorized');
   if(f.codeDigest!==hash(await currentExecution())||hash(f.models)!==hash(STUDY_MODELS)||hash(f.budgets)!==hash(MODEL_BUDGETS)||hash(f.concurrency)!==hash(MODEL_CONCURRENCY))throw Error('model_execution_changed');
   if(hash(await read(join(out,'selected-version.json')))!==f.selectedHash)throw Error('model_selection_changed');
   const ledger=new BudgetLedger(out,f.budgets);if(ledger.rows[f.ledgerBaseline.rows-1]?.digest!==f.ledgerBaseline.head)throw Error('model_legacy_ledger_changed');
@@ -76,18 +71,21 @@ export async function verifyModelStudy(out){
   await validateFrozenInputs(out,original);return f;
 }
 export async function repairModelEngineeringFreeze(out){
-  const previous=await read(join(out,'model-freeze.json')),binding=await read(join(out,'model-freeze-binding.json')),approval=await read(join(out,'model-amendment-approved.json')),proposal=await read(join(out,approval.proposal)),original=await read(join(out,'freeze.json')),ledger=new BudgetLedger(out,MODEL_BUDGETS);
-  if(binding.freezeHash!==hash(previous)||previous.engineeringRevision||await exists(join(out,'model-smoke-ready.json'))||previous.approvalHash!==hash(approval)||previous.proposalHash!==hash(proposal)||approval.totalLimit!==6140)throw Error('engineering_repair_not_applicable');
-  const added=ledger.rows.slice(previous.ledgerBaseline.rows).filter(r=>r.type==='claim'),pilot=(await read(join(original.engineeringSupplement.directory,'dataset.json'))).cases,key=`model-smoke-deepseek_via_claude-${pilot[0].id}-A`;
-  if(added.length!==1||added[0].bucket!=='smoke'||added[0].key!==key||ledger.snapshot().unsettled||ledger.snapshot().buckets.smoke!==148||ledger.snapshot().buckets.evaluation!==345)throw Error('engineering_repair_after_formal_or_extra_calls');
-  const failed=await read(join(out,'calls',key+'.json'));
-  if(failed.response.failureCode!=='claude_invalid_model_response'||failed.transportProof?.forwardedModelRequests!==1||!failed.transportProof?.observedBackend?.startsWith(DEEPSEEK_PREFIX))throw Error('engineering_repair_wrong_failure');
-  const {d}=await validateFrozenInputs(out,original);
-  assertModelPlan(d,proposal,approval,{rows:ledger.rows.slice(0,previous.ledgerBaseline.rows),snapshot:()=>({claimed:1292,unsettled:0})});
+  throw Error('initial_engineering_repair_already_archived');
+
+}
+export async function repairRuntimeEngineeringFreeze(out){
+  const previous=await read(join(out,'model-freeze.json')),binding=await read(join(out,'model-freeze-binding.json')),topup=await read(join(out,'engineering-runtime-amendment-approved.json')),original=await read(join(out,'freeze.json')),ledger=new BudgetLedger(out,MODEL_BUDGETS);
+  if(binding.freezeHash!==hash(previous)||previous.engineeringRevision!==2||await exists(join(out,'model-smoke-ready.json'))||topup.approved!==true||topup.totalLimit!==6141||topup.additionalEngineeringCalls!==1||topup.engineeringLimit!==151||topup.previousModelFreezeHash!==hash(previous)||topup.ledgerHead!==ledger.rows.at(-1)?.digest)throw Error('runtime_engineering_repair_not_authorized');
+  const added=ledger.rows.slice(previous.ledgerBaseline.rows).filter(r=>r.type==='claim'),pilot=(await read(join(original.engineeringSupplement.directory,'dataset.json'))).cases,key=`model-smoke-deepseek_via_claude-${pilot[2].id}-D`;
+  if(added.length!==3||added.some(r=>r.bucket!=='smoke')||ledger.snapshot().claimed!==1295||ledger.snapshot().unsettled||ledger.snapshot().buckets.smoke!==150||ledger.snapshot().buckets.evaluation!==345)throw Error('runtime_repair_after_extra_calls');
+  const failed=await read(join(out,'calls',key+'.json')),terra=await read(join(out,'runs',`model-smoke-terra-${pilot[1].id}-D.json`));
+  if(failed.response.failureCode!=='claude_runtime_changed'||failed.transportProof?.forwardedModelRequests!==0||terra.status!=='submitted'||hash(await readFile(previous.claudeRuntime.executable))!==previous.claudeRuntime.sha256)throw Error('runtime_repair_wrong_failure');
+  await validateFrozenInputs(out,original);
   const files=await currentExecution(),generationCommit=(await exec('git',['rev-parse','HEAD'],{cwd:ROOT,windowsHide:true})).stdout.trim();
-  const f={...previous,models:STUDY_MODELS,generationCommit,engineeringRevision:2,requiredSmoke:2,previousModelFreezeHash:hash(previous),failedEngineeringKeys:[key],historicalRequestModels:{[key]:previous.models.deepseek_via_claude},executionFiles:files,codeDigest:hash(files)};
-  await writeOnce(join(out,'model-revisions','engineering-initial-'+hash(previous)+'.json'),previous);
-  await writeOnce(join(out,'model-revisions','engineering-initial-failure.json'),{freezeHash:hash(previous),plannedBeforeStop:1,submitted:0,key,allFailuresRetained:true,remainingAuthorizedEngineeringCalls:2});
+  const f={...previous,budgets:MODEL_BUDGETS,generationCommit,engineeringRevision:3,requiredSmoke:2,engineeringTopupHash:hash(topup),previousModelFreezeHash:hash(previous),failedEngineeringKeys:[...previous.failedEngineeringKeys,key],executionFiles:files,codeDigest:hash(files)};
+  await writeOnce(join(out,'model-revisions','engineering-runtime-before-'+hash(previous)+'.json'),previous);
+  await writeOnce(join(out,'model-revisions','engineering-runtime-failure.json'),{freezeHash:hash(previous),key,forwardedModelRequests:0,allFailuresRetained:true,authorizedAdditionalCalls:1,independentNewPilotId:pilot[3].id});
   await save(join(out,'model-freeze.json'),f);await save(join(out,'model-freeze-binding.json'),{freezeHash:hash(f)});return f;
 }
 function factory(f,model){
@@ -104,7 +102,7 @@ export async function runModelPhase(out,phase){
     const f=await verifyModelStudy(out),d=await read(join(out,'dataset.json')),index=await read(join(out,'textbook/index.json')),ledger=new BudgetLedger(out,f.budgets);let jobs,bucket;
     if(phase==='smoke'){
       const original=await read(join(out,'freeze.json')),pilot=(await read(join(original.engineeringSupplement.directory,'dataset.json'))).cases;
-      jobs=[['deepseek_via_claude','A'],['terra','D'],['deepseek_via_claude','D']].map(([model,arm],i)=>({c:pilot[i],model,arm,key:`model-smoke-${model}-${pilot[i].id}-${arm}`}));if(f.engineeringRevision===2)jobs=jobs.slice(1);bucket='smoke';
+      jobs=(f.engineeringRevision===3?[{c:pilot[1],model:'terra',arm:'D'},{c:pilot[3],model:'deepseek_via_claude',arm:'D'}]:[['deepseek_via_claude','A'],['terra','D'],['deepseek_via_claude','D']].map(([model,arm],i)=>({c:pilot[i],model,arm}))).map(j=>({...j,key:`model-smoke-${j.model}-${j.c.id}-${j.arm}`}));if(f.engineeringRevision===2)jobs=jobs.slice(1);bucket='smoke';
     }else{
       const gate=await read(join(out,'model-smoke-ready.json')),required=f.requiredSmoke??3;if(gate.freezeHash!==hash(f)||gate.submitted!==required||gate.planned!==required)throw Error('model_smoke_gate_not_passed');
       if(!['evaluation','oracle','practical','stability'].includes(phase))throw Error('unknown_model_phase');jobs=studyCells(d,f.assignment,phase);bucket=phase;
