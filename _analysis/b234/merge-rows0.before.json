@@ -1,0 +1,88 @@
+[
+  {
+    "chapterId": "79-cn-chapter-234-12",
+    "originalChapterId": "79-cn-chapter-234-12",
+    "sourceId": "79-cn",
+    "title": "状况判断2—要有顺位意识",
+    "units": 1,
+    "ownedSourceBlocks": 11,
+    "adjudicationGroup": "confirmed-produced-not-covered",
+    "covered": false,
+    "coverageRoute": null,
+    "approvedWebCorrespondence": {
+      "articleId": "cv1780400",
+      "webSourceId": "79-bilibili-cn",
+      "tier": "body",
+      "evidencePath": "integration/chinese-source-body-correspondence.json",
+      "substitutionAllowed": true,
+      "bodyEquivalenceConfirmed": true,
+      "articleInPreview": false
+    },
+    "existingCandidate": {
+      "path": "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+      "sha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+      "bodyBlocks": 5,
+      "sourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+      "currentSourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+      "sourceBoundCurrent": true,
+      "auditStatus": "needs-repair",
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+      "auditRecordedAt": "2026-10-25T22:26:34.154Z",
+      "deterministicPassed": true,
+      "semanticComplete": false
+    },
+    "pdfRoute": {
+      "pagesTotal": 2,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        234,
+        235
+      ],
+      "pagesDetail": [
+        {
+          "page": 234,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 14
+        },
+        {
+          "page": 235,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 7
+        }
+      ]
+    },
+    "gaps": {
+      "ownedSourceBlocks": 11,
+      "missingProductionBlocks": 0,
+      "producedBlocks": 11,
+      "acceptedBlocks": 0,
+      "acceptanceGapBlocks": 11,
+      "acceptanceGapPages": [
+        234,
+        235
+      ],
+      "pagesWithoutCandidate": [],
+      "pagesWithoutPassedCandidate": [
+        234,
+        235
+      ]
+    },
+    "verdict": "produced-needs-repair",
+    "coac246": {
+      "action": "repair",
+      "auditStatus": "needs-repair",
+      "candidateSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+      "repairErrors": 3,
+      "units": 1,
+      "blocks": 11
+    }
+  }
+]

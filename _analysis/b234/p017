@@ -1,0 +1,22 @@
+{
+  "canonical": "79-cn-chapter-234-12",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.r1.display.json",
+    "sha256": "7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae"
+  },
+  "package": "E:/AgentData/Coach/knowledge/processing/integration/coac244-cn234-text-scope-20261028",
+  "loader": "E:/AgentData/Coach/knowledge/processing/integration/coac244-cn234-text-scope-20261028/admit.mjs",
+  "loaderFunction": "verifyLimited(root,candidatePath)",
+  "stageEntry": "E:/AgentData/Coach/knowledge/processing/integration/coac244-cn234-text-scope-20261028/stage.mjs",
+  "stageFunction": "stageLimited(options)",
+  "stage": "E:/AgentData/Coach/knowledge/processing/integration/coac244-cn234-text-scope-20261028/stage",
+  "manifest": "E:/AgentData/Coach/knowledge/processing/integration/coac244-cn234-text-scope-20261028/manifest.json",
+  "verification": "E:/AgentData/Coach/knowledge/processing/integration/coac244-cn234-text-scope-20261028/verification.json",
+  "existing250Wakeup": "01a18200-0759-7d9d-b455-e21de363f98a",
+  "onlyExisting250Writer": true,
+  "ordinaryWholeArticlePassed": false,
+  "globalAdmissionGranted": false,
+  "actualGlobalMcpArenaReadbackRequired": true,
+  "newCalls": 0,
+  "newConsumers": 0
+}

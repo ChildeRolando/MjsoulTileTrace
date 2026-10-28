@@ -1,0 +1,795 @@
+[
+  {
+    "chapterId": "79-cn-chapter-234-12",
+    "covered": true,
+    "baseVerdictPreserved": "produced-needs-repair",
+    "category": "accepted-exact-cn234-text-and-readback",
+    "owner": "COAC-248",
+    "nextAction": "234 exact three glosses, five source blocks and one unchanged figure fully read through MCP/Arena. Three audit/provenance requirements mapped outside author text; old timeout retained. No new maker, model or review.",
+    "baseEvidence": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.display.json",
+        "sha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+        "bytes": 25107
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+        "sha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+        "bytes": 11192
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1780400\\source.json",
+        "sha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+        "bytes": 17332
+      }
+    ],
+    "blockingIssues": [],
+    "existingVariants": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.display.json",
+        "sha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+        "audits": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+            "sha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+            "status": "needs-repair",
+            "blockingIssues": [
+              {
+                "severity": "error",
+                "targetId": "79-bilibili-cn:cv1780400:b0003",
+                "sourceEvidence": "三条规则分别含“5-10 ゴットー”“10-20 ワンツー”“10-30 ワンスリー”；候选原样保留三个日文俗称，未附中文释义。",
+                "description": "日文规则俗称未完成中文翻译。括号中的支付数额虽完整，但不能替代对日文标签的中文表达。",
+                "suggestedRepair": "分别补充ゴットー为“五—十”、ワンツー为“一—二”、ワンスリー为“一—三”的规则俗称释义；保留已有中文、数值及支付说明。"
+              }
+            ]
+          }
+        ],
+        "notAutomaticallySelected": true
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.json",
+        "sha256": "d34379e7b22e184db97de723c301c28c101fee74c63c899dfa1991e4b5ed4024",
+        "audits": [],
+        "notAutomaticallySelected": true
+      }
+    ],
+    "pdfBoundary": {
+      "pagesTotal": 2,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        234,
+        235
+      ],
+      "pagesDetail": [
+        {
+          "page": 234,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 14
+        },
+        {
+          "page": 235,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 7
+        }
+      ]
+    },
+    "modelCallsThisStage": 0,
+    "textRecovery193234": {
+      "schema": "coac248-193234-text-recovery-handoff/1",
+      "recordedAt": "2026-10-28T10:00:27.037843+00:00",
+      "authorizationCommentId": "01a181e7-d3dc-76f2-adb8-00cbb4f4e332",
+      "canonical": "79-cn-chapter-234-12",
+      "bindings": [
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1780400.r1.display.json",
+          "sha256": "7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae",
+          "bytes": 32652
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+          "sha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+          "bytes": 25107
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+          "sha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+          "bytes": 11192
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/79-bilibili-cn/articles/cv1780400/source.json",
+          "sha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+          "bytes": 17332
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/release.json",
+          "sha256": "09173a6b76f75fb1c0f8f1ed85813c94e78e5aef83712795fe1e848bdab33e1b",
+          "bytes": 14748
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/review.mjs",
+          "sha256": "09bbaa4254fba82c5b9934856146b4df301077b0a15a84619c55baa01afd9982",
+          "bytes": 8599
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/run.mjs",
+          "sha256": "b7dd831b8500005bc843493e46aed52cd0da81816b909bfe3d1361cd464f110d",
+          "bytes": 16794
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/234-review-plan.json",
+          "sha256": "9463fc34a47f1581f20cb21f29a5780d69a16e634ab6d27f0cf16808698f4dd2",
+          "bytes": 88086
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/cv1780400-production.json",
+          "sha256": "678e5010ef65228f5beba91ffd5becbb265e292db31b794a27b58c62af855355",
+          "bytes": 15980
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/997c8aa4-7101-4c1e-9a9f-9af76deb1e70.json",
+          "sha256": "d6925ea556f2fe9d9ad8e9175981907541f1823b7b9a96a6ac13b3911ce4600c",
+          "bytes": 112840
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac248-193234-text-v1-20261028/runtime-manifest.json",
+          "sha256": "aa0239b728832854641f964760f2affa4efd9e6eb6f960e69b17ee9f0d0c08c2",
+          "bytes": 18007
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/runner234.mjs",
+          "sha256": "64cc07b31753cc95572f62bdafe6aa566c4712ac12644b7fa0ae95fc962b01fe",
+          "bytes": 17016
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/ba432ee3-0d28-42b9-ad34-cde09c97313e.json",
+          "sha256": "0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734",
+          "bytes": 35030
+        }
+      ],
+      "candidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1780400.r1.display.json",
+        "sha256": "7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae"
+      },
+      "source": {
+        "path": "web-sources/v1/79-bilibili-cn/articles/cv1780400/source.json",
+        "sha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57"
+      },
+      "parent": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+        "sha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110"
+      },
+      "parentReview": {
+        "path": "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+        "sha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60"
+      },
+      "productionCall": "997c8aa4-7101-4c1e-9a9f-9af76deb1e70",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "images": [],
+      "usage": {
+        "inputTokens": 24546,
+        "cachedInputTokens": 0,
+        "outputTokens": 414
+      },
+      "fee": "unknown",
+      "remoteWeights": "unknown",
+      "upstreamExecutions": "unknown",
+      "diff": {
+        "path": "/body/blocks/2/text",
+        "from": "原文地址：http://beginners.biz/joukyou/joukyou02.html ------------------------------------------------------------------------------------ ※要有顺位意识：   为什么点棒状况很重要呢？ 这是因为麻将中有 马和头名奖两个顺位点的原因。  马  马其实就是，半庄结束时根据顺位每人必须支付的点数。 大多数的场合，采用以下3种形式。  ·5-10  ゴットー（四位支付给一位10000点，三位支付给二位5000点） ·10-20 ワンツー （四位支付给一位20000点，三位支付给二位10000点） ·10-30 ワンスリー （四位支付给一位30000点，三位支付给二位10000点）  头名奖  头名奖是麻将中一次比赛给予TOP的奖励点数。 麻将中30000点原点，一般情况下每人所持点都是从25000点开始的。 这中间所差得5000点就全部由TOP获得。 简单的说，拿到TOP的话，就可以额外获得5000*4=20000点的点数。  这样一来的话： ",
+        "to": "原文地址：http://beginners.biz/joukyou/joukyou02.html ------------------------------------------------------------------------------------ ※要有顺位意识：   为什么点棒状况很重要呢？ 这是因为麻将中有 马和头名奖两个顺位点的原因。  马  马其实就是，半庄结束时根据顺位每人必须支付的点数。 大多数的场合，采用以下3种形式。  ·5-10  ゴットー（五—十）（四位支付给一位10000点，三位支付给二位5000点） ·10-20 ワンツー（一—二） （四位支付给一位20000点，三位支付给二位10000点） ·10-30 ワンスリー（一—三） （四位支付给一位30000点，三位支付给二位10000点）  头名奖  头名奖是麻将中一次比赛给予TOP的奖励点数。 麻将中30000点原点，一般情况下每人所持点都是从25000点开始的。 这中间所差得5000点就全部由TOP获得。 简单的说，拿到TOP的话，就可以额外获得5000*4=20000点的点数。  这样一来的话： "
+      },
+      "preservation": {
+        "allNonTargetBodyBytes": true,
+        "allCompleteFiguresBytes": true,
+        "unknownsUnchanged": true,
+        "captionAndSourceNotesUnchanged": true,
+        "orderUnchanged": true
+      },
+      "budget": {
+        "thisItemMaximum": 2,
+        "makerConsumed": 1,
+        "reservedIndependentTextReview": 1,
+        "retry": 0,
+        "failedVoidCount": true,
+        "prior193PhaseConsumed": null,
+        "old234Timeout": {
+          "callId": "ba432ee3-0d28-42b9-ad34-cde09c97313e",
+          "rawPath": "web-production/v1/raw-calls/ba432ee3-0d28-42b9-ad34-cde09c97313e.json",
+          "rawSha256": "0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734",
+          "localInvocations": 1,
+          "reconnectionNotices": 2,
+          "upstreamExecutions": "unknown",
+          "usage": null,
+          "fee": "unknown",
+          "recoverableOutput": false,
+          "newAttemptIsNewCall": true
+        },
+        "noBudgetBorrowing": true
+      },
+      "reviewEntry": {
+        "module": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/review.mjs",
+        "prepare": "prepare193234TextReview(root,\"234\")",
+        "verify": "verify193234TextReviewExecution(result,plan)",
+        "publishedPlan": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/234-review-plan.json",
+        "publishedPlanSha256": "9463fc34a47f1581f20cb21f29a5780d69a16e634ab6d27f0cf16808698f4dd2",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "images": [],
+        "scope": "Only one complete text target with full ordered argument, no image or full-chapter review"
+      },
+      "chapterAccepted": false,
+      "wholeChapterPassed": false,
+      "admissionGranted": false,
+      "independentRequiredDisplayLimitationsInstalled": null
+    },
+    "modelCallsThisRecoveryStage": 1,
+    "cn234IndependentIntake": {
+      "canonical": "79-cn-chapter-234-12",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.r1.display.json",
+        "sha256": "7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae"
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1780400\\source.json",
+        "sha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57"
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.display.json",
+        "sha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110"
+      },
+      "parentAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+        "sha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60"
+      },
+      "parentRaw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\9bbec3c1-907b-434b-8f71-e69ed35b271d.json",
+        "sha256": "e8774416f453a416db9801b145c524c5b82a8b389c23a3cb71413bac2e337d10"
+      },
+      "receipt": {
+        "path": "integration/coac249-cn234-text-r1-target-reviewed-20261028.json",
+        "sha256": "d0a8e533bfcd1fc5b48fab3a064e8d674b8cd92111e0b242a2ed2c6fde0b4ba6"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\22b90f5e-1807-4b83-87f7-41df5485067d.json",
+        "sha256": "9beb422f213044a58dc83e1a37bc9fc4ec1d09991d9603d0e743d374f398402f"
+      },
+      "independentCall": {
+        "callId": "22b90f5e-1807-4b83-87f7-41df5485067d",
+        "scope": "textbook-cn234-independent-text-r1",
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1780400",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "success": true,
+        "usage": {
+          "inputTokens": 19609,
+          "cachedInputTokens": 0,
+          "outputTokens": 3083
+        },
+        "durationMs": 80466,
+        "requestExecution": {
+          "schema": "coach-textbook-cli-request/1",
+          "policy": "coac244-vision-production-schema-v2-20261028",
+          "model": "gpt-6.1-sol",
+          "reasoningEffort": "high",
+          "callerRequested": {
+            "model": "gpt-6.1-sol",
+            "reasoningEffort": "high"
+          },
+          "args": [
+            "exec",
+            "--model",
+            "gpt-6.1-sol",
+            "--config",
+            "model_reasoning_effort=\"high\"",
+            "--config",
+            "web_search=\"disabled\"",
+            "--ephemeral",
+            "--ignore-user-config",
+            "--ignore-rules",
+            "--sandbox",
+            "read-only",
+            "--strict-config",
+            "--skip-git-repo-check",
+            "--json",
+            "--output-schema",
+            "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-omHECC\\output.schema.json",
+            "--output-last-message",
+            "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-omHECC\\final.json",
+            "--cd",
+            "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-omHECC",
+            "--disable",
+            "apps",
+            "--disable",
+            "auth_elicitation",
+            "--disable",
+            "browser_use",
+            "--disable",
+            "browser_use_external",
+            "--disable",
+            "browser_use_full_cdp_access",
+            "--disable",
+            "computer_use",
+            "--disable",
+            "fast_mode",
+            "--disable",
+            "goals",
+            "--disable",
+            "guardian_approval",
+            "--disable",
+            "hooks",
+            "--disable",
+            "image_generation",
+            "--disable",
+            "in_app_browser",
+            "--disable",
+            "in_app_chat",
+            "--disable",
+            "in_app_dictation",
+            "--disable",
+            "in_app_local_automation",
+            "--disable",
+            "in_app_updates",
+            "--disable",
+            "memories",
+            "--disable",
+            "mentions_v2",
+            "--disable",
+            "multi_agent",
+            "--disable",
+            "plugin_sharing",
+            "--disable",
+            "plugins",
+            "--disable",
+            "remote_plugin",
+            "--disable",
+            "shell_snapshot",
+            "--disable",
+            "shell_tool",
+            "--disable",
+            "skill_mcp_dependency_install",
+            "--disable",
+            "skill_search",
+            "--disable",
+            "sleep_tool",
+            "--disable",
+            "tool_call_mcp_elicitation",
+            "--disable",
+            "tool_suggest",
+            "--disable",
+            "unbounded_connection_retries",
+            "--disable",
+            "unified_exec",
+            "--disable",
+            "unified_exec_tty",
+            "--disable",
+            "view_image",
+            "--disable",
+            "workspace_dependencies",
+            "-"
+          ],
+          "images": [],
+          "remoteBackend": "unverified; request arguments and returned events only"
+        },
+        "binding": {
+          "canonical": "79-cn-chapter-234-12",
+          "productionSha256": "7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae",
+          "sourceFileSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+          "parentSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+          "parentAuditSha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+          "parentRawSha256": "e8774416f453a416db9801b145c524c5b82a8b389c23a3cb71413bac2e337d10",
+          "runtimeManifestSha256": "aa0239b728832854641f964760f2affa4efd9e6eb6f960e69b17ee9f0d0c08c2",
+          "projectionSha256": "a89334ab383edb12b8992f79e28f6e621bea11b4e9cd4c032da46ed99837a4db",
+          "scope": "cn234-b0003-text-only-r1",
+          "textTarget": "79-bilibili-cn:cv1780400:b0003",
+          "authorizationComment": "01a181e7-d3dc-76f2-adb8-00cbb4f4e332"
+        },
+        "promptSha256": "7450c40bd69e34a308fb40ea7399af2a0689ce894ec188356c011df9bc10c208",
+        "semanticPromptSha256": "2e876cd4509886f5830faefebd6a42c95620b4c32e58af53d1349a4acb73c3fc",
+        "schemaSha256": "5835a6e83035d32fd5943a060b1220b12dbbd6524da402341d70781621a7b8c0",
+        "recordedAt": "2026-10-28T10:11:00.711Z"
+      },
+      "originalModelReview": {
+        "translation": {
+          "targetId": "79-bilibili-cn:cv1780400:b0003",
+          "verdict": "faithful",
+          "evidence": "独立结合各条前置数字和后接支付说明判断：ゴットー的“五—十”对应5-10；ワンツー的“一—二”对应10-20的简称；ワンスリー的“一—三”对应10-30的简称。后两项不是支付一、二或三点。三处均保留日文原词及完整支付说明，新增释义未改变规则意义或教学语气。"
+        },
+        "argumentChecks": [
+          {
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1780400:b0003"
+            ],
+            "authorContribution": "以马和头名奖两种顺位点解释点棒状况为何重要。",
+            "preservedConditionsAndModality": "保留作者明确的因果说明及“要有顺位意识”的教学要求。",
+            "faithful": true,
+            "evidence": "“这是因为麻将中有 马和头名奖两个顺位点的原因”及其前后中文未改。"
+          },
+          {
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1780400:b0003"
+            ],
+            "authorContribution": "定义半庄结束时按顺位支付的马，并介绍三种常见形式。",
+            "preservedConditionsAndModality": "“半庄结束时”“根据顺位”“必须支付”和“大多数的场合”均保留；常见形式未被改写为全部规则。",
+            "faithful": true,
+            "evidence": "新增释义仅位于三个俗称后，未改变定义、适用时点及常见程度。"
+          },
+          {
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1780400:b0003"
+            ],
+            "authorContribution": "列出5-10的规则俗称及支付关系。",
+            "preservedConditionsAndModality": "ゴットー保留；四位向一位支付10000点，三位向二位支付5000点，支付方向和数值均不变。",
+            "faithful": true,
+            "evidence": "“5-10 ゴットー（五—十）”与原有两项支付说明相接；“五—十”准确表达该俗称所指的档位组合。"
+          },
+          {
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1780400:b0003"
+            ],
+            "authorContribution": "列出10-20的规则俗称及支付关系。",
+            "preservedConditionsAndModality": "ワンツー保留；四位向一位支付20000点，三位向二位支付10000点，未新增条件。",
+            "faithful": true,
+            "evidence": "“10-20 ワンツー（一—二）”中的中文是简称释义；前置10-20和后接完整点数说明共同限定其意义。"
+          },
+          {
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1780400:b0003"
+            ],
+            "authorContribution": "列出10-30的规则俗称及支付关系。",
+            "preservedConditionsAndModality": "ワンスリー保留；四位向一位支付30000点，三位向二位支付10000点，未新增条件。",
+            "faithful": true,
+            "evidence": "“10-30 ワンスリー（一—三）”与所列支付关系一致，未将简称解释为另一套支付数额。"
+          },
+          {
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1780400:b0003"
+            ],
+            "authorContribution": "解释头名奖及四人起始点与原点之差归TOP的计算。",
+            "preservedConditionsAndModality": "保留30000点原点、一般情况下25000点起始、每人差5000点，以及拿到TOP可额外获得5000*4=20000点的条件与计算。",
+            "faithful": true,
+            "evidence": "头名奖全部旧中文及公式原样保留；三处释义没有改变这部分规则前提。"
+          },
+          {
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1780400:b0003",
+              "79-bilibili-cn:cv1780400:b0004",
+              "79-bilibili-cn:cv1780400:b0005"
+            ],
+            "authorContribution": "由规则说明接入马1－2、头名奖+20的示例，再引出图后结论。",
+            "preservedConditionsAndModality": "示例仍受所列马和头名奖条件限定；继承原图审，不将示意柱高扩展为精确点数或其他证明。",
+            "faithful": true,
+            "evidence": "实际顺序仍为“这样一来的话：”、原图表对象、“最终结果就会像上图这个样子了”。图表及unknown证据按父链继承，本次未重新审图。"
+          },
+          {
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1780400:b0005"
+            ],
+            "authorContribution": "强调收支中对局后的顺位点加成比对局时所持点更加重要。",
+            "preservedConditionsAndModality": "保留“根据规则”的限定与“更加重要”的明确比较力度。",
+            "faithful": true,
+            "evidence": "原有比较句完整保留；不要求作者额外提供机制、概率或最优性证明才能忠实呈现此教学判断。"
+          },
+          {
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1780400:b0005"
+            ],
+            "authorContribution": "要求注意四人点数，并在南场存在点差时明确自己的目标顺位。",
+            "preservedConditionsAndModality": "保留注意点数意识“是必要的”的要求，以及“到了南场，4人的点数有差距时”的具体条件。",
+            "faithful": true,
+            "evidence": "目标顺位问题及其前置条件均原样保留，没有扩展为任意阶段都必须争取固定顺位。"
+          },
+          {
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1780400:b0005"
+            ],
+            "authorContribution": "在TOP顺位点特别大时，倡导强烈的争取头名意识。",
+            "preservedConditionsAndModality": "保留“特别是TOP的顺位点很大时”的条件、“TOP以外都是没价值”的引语及“尽全力”的劝诫力度。",
+            "faithful": true,
+            "evidence": "原句未改；其意义仍是条件下的打牌心态指导，没有被新增释义变成无条件收益定理。"
+          },
+          {
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1780400:b0005"
+            ],
+            "authorContribution": "说明网络麻将Ranking按顺位判定成绩，并要求根据状况采用不同顺位的打法。",
+            "preservedConditionsAndModality": "保留网络麻将Ranking的对象范围、“只根据顺位”的判断力度，以及“要根据状况”的要求。",
+            "faithful": true,
+            "evidence": "排位算法说明、“第四有第四的打法、TOP也有TOP的打法”及“（待续）”均未改变。"
+          }
+        ],
+        "orderedContextFaithful": true,
+        "completeRequestedScopeCompared": true,
+        "conclusion": "text-target-faithful",
+        "requiredDisplayLimitations": [
+          "本次仅独立审查b0003三处新增中文释义及其实际有序教学上下文。所给对应文本显示，原日文、支付数值、条件及全部旧中文说明保留；其他已独审且未变范围沿精确父链继承，不构成重新审图或重新审查全章。",
+          "继承绑定采用所给sourceSha256=7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57、parentSha256=e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110、currentCandidateSha256=7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae；未自行检查或重算绑定。原审记录及图像、unknown证据保持独立，不予改写。",
+          "旧超时记录继续保留：callId=ba432ee3-0d28-42b9-ad34-cde09c97313e；rawPath=web-production/v1/raw-calls/ba432ee3-0d28-42b9-ad34-cde09c97313e.json；rawSha256=0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734；localInvocations=1，reconnectionNotices=2，upstreamExecutions=unknown，usage=null，fee=unknown，recoverableOutput=false，newAttemptIsNewCall=true。本次不视为零调用恢复。"
+        ],
+        "minimumRemainingGap": "无。三处新增释义在原数字标签及支付说明的完整上下文中语义充分，无需补充子句或新条件。",
+        "issues": [],
+        "summary": "三处中文释义忠实；原词、支付关系、数值、条件和教学判断力度均保留。未变范围继承原独审，旧超时记录不变。"
+      },
+      "originalVerification": {
+        "textTargetEvidenceVerified": true,
+        "errors": [],
+        "requiredDisplayLimitations": [
+          "本次仅独立审查b0003三处新增中文释义及其实际有序教学上下文。所给对应文本显示，原日文、支付数值、条件及全部旧中文说明保留；其他已独审且未变范围沿精确父链继承，不构成重新审图或重新审查全章。",
+          "继承绑定采用所给sourceSha256=7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57、parentSha256=e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110、currentCandidateSha256=7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae；未自行检查或重算绑定。原审记录及图像、unknown证据保持独立，不予改写。",
+          "旧超时记录继续保留：callId=ba432ee3-0d28-42b9-ad34-cde09c97313e；rawPath=web-production/v1/raw-calls/ba432ee3-0d28-42b9-ad34-cde09c97313e.json；rawSha256=0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734；localInvocations=1，reconnectionNotices=2，upstreamExecutions=unknown，usage=null，fee=unknown，recoverableOutput=false，newAttemptIsNewCall=true。本次不视为零调用恢复。"
+        ],
+        "inheritedDisplayLimitations": [],
+        "originalIssuesAndFalsePreserved": true,
+        "wholeChapterPassed": false,
+        "admissionGranted": false,
+        "meaning": "Bounded independent textual evidence only; exact inherited partial reviews and actual required display/readback must be combined by existing244/250 contract."
+      },
+      "scopeSidecar": {
+        "path": "integration/coac249-cn234-text-r1-scope-binding-20261028.json",
+        "sha256": "be0f28bef7cc945e004ab27cfdf4f27845060647be060cf3dfa1726f7a7cee77",
+        "metadataBindingOnly": true,
+        "originalLabel": "coac249-jp193-independent-text-r2/1",
+        "originalReceiptAndRawPreserved": true,
+        "newSemanticVerdict": false
+      },
+      "actualArgumentChecks": 11,
+      "status": "text-target-faithful-awaiting-exact-admission-and-readback",
+      "preservation": {
+        "completeOrderedPairs": 5,
+        "nonTargetBlocks": 4,
+        "completeFigures": 1,
+        "originalJapaneseChinesePaymentValuesConditionsUnknownNotesMarksTableContextOrderUnchanged": true
+      },
+      "auditRequirementsMapped": [
+        {
+          "index": 0,
+          "originalIndependentRequirement": "本次仅独立审查b0003三处新增中文释义及其实际有序教学上下文。所给对应文本显示，原日文、支付数值、条件及全部旧中文说明保留；其他已独审且未变范围沿精确父链继承，不构成重新审图或重新审查全章。",
+          "layer": "audit-and-source-provenance",
+          "mappedEvidence": {
+            "actualCanonical": "79-cn-chapter-234-12",
+            "actualTarget": "79-bilibili-cn:cv1780400:b0003",
+            "raw": {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\22b90f5e-1807-4b83-87f7-41df5485067d.json",
+              "sha256": "9beb422f213044a58dc83e1a37bc9fc4ec1d09991d9603d0e743d374f398402f"
+            },
+            "plan": {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-cn234-text-r1-target-20261028\\plan.json",
+              "sha256": "9463fc34a47f1581f20cb21f29a5780d69a16e634ab6d27f0cf16808698f4dd2"
+            },
+            "orderedPairs": 5,
+            "unchangedBlocks": 4,
+            "unchangedFigures": 1
+          },
+          "authorBodyInjection": false
+        },
+        {
+          "index": 1,
+          "originalIndependentRequirement": "继承绑定采用所给sourceSha256=7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57、parentSha256=e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110、currentCandidateSha256=7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae；未自行检查或重算绑定。原审记录及图像、unknown证据保持独立，不予改写。",
+          "layer": "audit-and-source-provenance",
+          "mappedEvidence": {
+            "source": {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1780400\\source.json",
+              "sha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57"
+            },
+            "parent": {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.display.json",
+              "sha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110"
+            },
+            "candidate": {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.r1.display.json",
+              "sha256": "7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae"
+            },
+            "parentAudit": {
+              "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+              "sha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60"
+            },
+            "actualMechanicalShaChecks": true
+          },
+          "authorBodyInjection": false
+        },
+        {
+          "index": 2,
+          "originalIndependentRequirement": "旧超时记录继续保留：callId=ba432ee3-0d28-42b9-ad34-cde09c97313e；rawPath=web-production/v1/raw-calls/ba432ee3-0d28-42b9-ad34-cde09c97313e.json；rawSha256=0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734；localInvocations=1，reconnectionNotices=2，upstreamExecutions=unknown，usage=null，fee=unknown，recoverableOutput=false，newAttemptIsNewCall=true。本次不视为零调用恢复。",
+          "layer": "audit-and-source-provenance",
+          "mappedEvidence": {
+            "oldTimeout": {
+              "callId": "ba432ee3-0d28-42b9-ad34-cde09c97313e",
+              "rawPath": "web-production/v1/raw-calls/ba432ee3-0d28-42b9-ad34-cde09c97313e.json",
+              "rawSha256": "0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734",
+              "localInvocations": 1,
+              "reconnectionNotices": 2,
+              "upstreamExecutions": "unknown",
+              "usage": null,
+              "fee": "unknown",
+              "recoverableOutput": false,
+              "newAttemptIsNewCall": true,
+              "raw": {
+                "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\ba432ee3-0d28-42b9-ad34-cde09c97313e.json",
+                "sha256": "0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734"
+              },
+              "originalRawUnchanged": true
+            },
+            "oldRawUnchanged": true
+          },
+          "authorBodyInjection": false
+        }
+      ],
+      "oldTimeout": {
+        "callId": "ba432ee3-0d28-42b9-ad34-cde09c97313e",
+        "rawPath": "web-production/v1/raw-calls/ba432ee3-0d28-42b9-ad34-cde09c97313e.json",
+        "rawSha256": "0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734",
+        "localInvocations": 1,
+        "reconnectionNotices": 2,
+        "upstreamExecutions": "unknown",
+        "usage": null,
+        "fee": "unknown",
+        "recoverableOutput": false,
+        "newAttemptIsNewCall": true,
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\ba432ee3-0d28-42b9-ad34-cde09c97313e.json",
+          "sha256": "0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734"
+        },
+        "originalRawUnchanged": true
+      },
+      "minimumRemaining": {
+        "currentTextSemanticRepairIdentified": false,
+        "actualModelMinimumRemainingGap": "无。三处新增释义在原数字标签及支付说明的完整上下文中语义充分，无需补充子句或新条件。",
+        "newModelBudgetAuthorized": 0,
+        "gaps": [
+          "Existing244/250 exact234 supplement must bind the real canonical, target, source, parent, original review and actual text-target-faithful receipt plus its metadata sidecar. No cross-chapter dedicated route or forged whole-article pass.",
+          "Map the three original independent requirements at audit/source evidence level: bounded scope, immutable inheritance hashes, and preserved old timeout/call-count uncertainty. Do not insert SHA or call-ledger implementation details into author prose.",
+          "Existing250 unique writer must verify the three real Chinese glosses plus unchanged Japanese, payment values, conditions, original figure/unknown and actual MCP/Arena readback before admission."
+        ],
+        "wholeChapterPassed": false,
+        "admissionGranted": false
+      },
+      "budget": {
+        "current234Stage": {
+          "maker": 1,
+          "review": 1,
+          "consumed": 2,
+          "remaining": 0,
+          "retry": 0
+        },
+        "noOldUnusedReviewDoubleCounted": true,
+        "noBudgetBorrowing": true
+      },
+      "dedupe": {
+        "selectedWeb": [],
+        "registerCovered": false,
+        "existing244Wakeup": "01a181ff-f934-7a95-a7c5-9652a8679a93",
+        "existing244Run": "01a18201-9655-7cba-bc05-e32b2ad97b5e",
+        "existing244Status": "running",
+        "existing250Wakeup": "01a18200-0759-7d9d-b455-e21de363f98a",
+        "existing250Run": "01a18201-9676-799d-9167-113975722b02",
+        "existing250Status": "queued",
+        "newDispatches": 0
+      },
+      "wholeChapterPassed": false,
+      "admissionGranted": false,
+      "newModelCalls": 0,
+      "newProductionCalls": 0,
+      "newReviews": 0,
+      "newConsumers": 0,
+      "verificationPath": "integration/coac248-cn234-intake-20261028/verification.json"
+    },
+    "current234TextR1Authorization": {
+      "commentId": "01a181e7-d3dc-76f2-adb8-00cbb4f4e332",
+      "candidateSha256": "7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae",
+      "makerCallId": "997c8aa4-7101-4c1e-9a9f-9af76deb1e70",
+      "independentReviewCallId": "22b90f5e-1807-4b83-87f7-41df5485067d",
+      "makerConsumed": 1,
+      "independentReviewConsumed": 1,
+      "consumed": 2,
+      "remaining": 0,
+      "retry": 0,
+      "noOldUnusedReviewDoubleCounted": true,
+      "phase": "text-target-faithful-awaiting-exact-admission-and-readback",
+      "wholeChapterPassed": false,
+      "admissionGranted": false
+    },
+    "nextActionBefore234IndependentIntake": "本次真实纯文字制作完成，原父审/原raw/历史失败不变；仅余249一次独立文字靶审，0retry。只核b0003三处中文释义及完整条件/支付数值；旧900秒timeout/2重连/unknown usage保留，新attempt为新增真实调用，不重复计算旧首审。",
+    "historyBeforeCn234Text": {
+      "blockingIssues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1780400:b0003",
+          "sourceEvidence": "三条规则分别含“5-10 ゴットー”“10-20 ワンツー”“10-30 ワンスリー”；候选原样保留三个日文俗称，未附中文释义。",
+          "description": "日文规则俗称未完成中文翻译。括号中的支付数额虽完整，但不能替代对日文标签的中文表达。",
+          "suggestedRepair": "分别补充ゴットー为“五—十”、ワンツー为“一—二”、ワンスリー为“一—三”的规则俗称释义；保留已有中文、数值及支付说明。"
+        }
+      ],
+      "nextAction": "234/b0003三处术语释义获真实纯文字独审faithful，textTargetEvidenceVerified=true、errors=[]、11组论证均faithful；旧jp193 schema标签仅元数据误留，精确234 sidecar绑定actual canonical/target/raw/plan，不是新审。现有244/250已接同SHA：只核合法精确234补充scope、三条审计/来源层要求映射、实际三释义及支付条件/原图/unknown呈现与真实MCP/Arena读回。不得将SHA/调用账插入作者正文或称全章重新审图。新本项2/2余0、0retry；旧900秒超时/2重连/usage=null及其它失败不改，不重复识图或收费审校。"
+    },
+    "cn234TextIntake": {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.r1.display.json",
+        "sha256": "7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae"
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1780400\\source.json",
+        "sha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57"
+      },
+      "route": {
+        "module": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-cn234-text-scope-20261028/admit.mjs",
+          "sha256": "7d40542540e3abfdd1d672358c7576a7e0e2626e7ae02a92f467472af57a634d"
+        },
+        "stage": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-cn234-text-scope-20261028/stage.mjs",
+          "sha256": "973235fa1511236d43f4cdd06d387aa6bfba4510c48e5cea770a6f355a83471e"
+        },
+        "manifest": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-cn234-text-scope-20261028/manifest.json",
+          "sha256": "b245a94caad8a8050c817bac74df4ed9602509d2d43c85c3dac97d2285fca916"
+        },
+        "candidateSha256": "7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae"
+      },
+      "previewOutput": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-32-57-393Z",
+      "corpusId": "ea8fb2e9c1d7334be79f2a98af5cdc86f5c8068f5723f76f3e4afe4a6a1062e2",
+      "stageReceiptPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-32-57-393Z/stages/cn234/web-stage-receipt.json",
+      "scopeProvenance": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-32-57-393Z/stages/cn234/scope-provenance.json",
+        "sha256": "0a5809b17eb9a475a50712772ed243612ff823fc633ce0cc0476024b9abcdaa9"
+      },
+      "metadataBinding": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-cn234-text-r1-scope-binding-20261028.json",
+        "sha256": "be0f28bef7cc945e004ab27cfdf4f27845060647be060cf3dfa1726f7a7cee77"
+      },
+      "auditRequirements": [
+        "本次仅独立审查b0003三处新增中文释义及其实际有序教学上下文。所给对应文本显示，原日文、支付数值、条件及全部旧中文说明保留；其他已独审且未变范围沿精确父链继承，不构成重新审图或重新审查全章。",
+        "继承绑定采用所给sourceSha256=7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57、parentSha256=e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110、currentCandidateSha256=7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae；未自行检查或重算绑定。原审记录及图像、unknown证据保持独立，不予改写。",
+        "旧超时记录继续保留：callId=ba432ee3-0d28-42b9-ad34-cde09c97313e；rawPath=web-production/v1/raw-calls/ba432ee3-0d28-42b9-ad34-cde09c97313e.json；rawSha256=0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734；localInvocations=1，reconnectionNotices=2，upstreamExecutions=unknown，usage=null，fee=unknown，recoverableOutput=false，newAttemptIsNewCall=true。本次不视为零调用恢复。"
+      ],
+      "oldTimeout": {
+        "callId": "ba432ee3-0d28-42b9-ad34-cde09c97313e",
+        "rawPath": "web-production/v1/raw-calls/ba432ee3-0d28-42b9-ad34-cde09c97313e.json",
+        "rawSha256": "0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734",
+        "localInvocations": 1,
+        "reconnectionNotices": 2,
+        "upstreamExecutions": "unknown",
+        "usage": null,
+        "fee": "unknown",
+        "recoverableOutput": false,
+        "newAttemptIsNewCall": true,
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\ba432ee3-0d28-42b9-ad34-cde09c97313e.json",
+          "sha256": "0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734"
+        },
+        "originalRawUnchanged": true
+      },
+      "readback": {
+        "path": "_analysis/b234/readback.json",
+        "sha256": "43ab6b0b692aca2e57bcd8ff3d9284d3beecf2bc3747abae9af7aa73b25e49b8"
+      },
+      "sourceBlocks": 5,
+      "authorBlocks": 5,
+      "displayBlocks": 5,
+      "figures": 1,
+      "auditScopeRequirementsMapped": 3,
+      "originalReceiptRawAndOldTimeoutPreserved": true,
+      "ordinaryWholeArticlePassed": false,
+      "limitedAuthorPresentationAccepted": true,
+      "newModelCalls": 0
+    },
+    "latestScopedCandidate": {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.r1.display.json",
+        "sha256": "7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae"
+      },
+      "status": "limited-presentation-accepted-after-real-readback",
+      "limitedChapterPresentationAccepted": true,
+      "ordinaryWholeArticlePassed": false,
+      "originalTextTargetEvidenceVerified": true
+    },
+    "effectiveBlockingIssues": []
+  }
+]

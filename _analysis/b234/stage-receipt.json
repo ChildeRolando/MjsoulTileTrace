@@ -1,0 +1,47 @@
+{
+  "schema": "coach-textbook-web-stage/1",
+  "status": "exact-cn234-composed-preview",
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.r1.display.json",
+  "candidateSha256": "7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae",
+  "sourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+  "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-cn234-text-r1-target-reviewed-20261028.json",
+  "auditStatus": "verified-exact-cn234-text-evidence",
+  "limitedUnknownFidelity": null,
+  "imageDerivations": [],
+  "chapters": 1,
+  "units": 1,
+  "blocks": 5,
+  "figures": 1,
+  "corpusId": "fa77ce7b1b57347f749e6e0d36a8a46a16879cd684fe8c8c930ed195cf52d8d0",
+  "bodySha256": "b53d4265e9640fe9e0df0353d5aa56825f21d4eb80439b94fdf8a3e05b9af2f6",
+  "maxUnitBytes": 5415,
+  "modelCalls": 0,
+  "activeLibraryChanged": false,
+  "humanReview": "pending",
+  "sourceBlocks": 5,
+  "authorMetadataInjection": false,
+  "canonical": "79-cn-chapter-234-12",
+  "scopeProvenance": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-32-57-393Z/stages/cn234/scope-provenance.json",
+    "sha256": "0a5809b17eb9a475a50712772ed243612ff823fc633ce0cc0476024b9abcdaa9"
+  },
+  "standardWholeArticlePassed": false,
+  "globalAdmissionGranted": false,
+  "actualMcpArenaReadback": null,
+  "newModelCalls": 0,
+  "cn234TextReview": {
+    "module": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-cn234-text-scope-20261028/admit.mjs",
+      "sha256": "7d40542540e3abfdd1d672358c7576a7e0e2626e7ae02a92f467472af57a634d"
+    },
+    "stage": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-cn234-text-scope-20261028/stage.mjs",
+      "sha256": "973235fa1511236d43f4cdd06d387aa6bfba4510c48e5cea770a6f355a83471e"
+    },
+    "manifest": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-cn234-text-scope-20261028/manifest.json",
+      "sha256": "b245a94caad8a8050c817bac74df4ed9602509d2d43c85c3dac97d2285fca916"
+    },
+    "candidateSha256": "7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae"
+  }
+}

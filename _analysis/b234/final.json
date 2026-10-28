@@ -1,0 +1,160 @@
+{
+  "schema": "coac250-cn234-text-final/1",
+  "allPassed": true,
+  "preview": {
+    "chapters": 253,
+    "units": 261,
+    "blocks": 7626,
+    "figures": 5936,
+    "corpusId": "ea8fb2e9c1d7334be79f2a98af5cdc86f5c8068f5723f76f3e4afe4a6a1062e2",
+    "bodySha256": "4e90053d09b70e873f17724ca03b05e1e2241e9360fd6535de4af5feb8ca4a1c",
+    "maxUnitBytes": 592593,
+    "modelCalls": 0,
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-32-57-393Z",
+    "destination": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-32-57-393Z/stages/cn234",
+    "selectionVersion": 38,
+    "rollbackVersion": 37
+  },
+  "coverage": {
+    "originalChaptersCovered": 251,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 283,
+    "originalUnitsTotal": 303,
+    "remainingChapters": 5,
+    "remainingUnits": 20
+  },
+  "intake": {
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780400.r1.display.json",
+      "sha256": "7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae"
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1780400\\source.json",
+      "sha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57"
+    },
+    "route": {
+      "module": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-cn234-text-scope-20261028/admit.mjs",
+        "sha256": "7d40542540e3abfdd1d672358c7576a7e0e2626e7ae02a92f467472af57a634d"
+      },
+      "stage": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-cn234-text-scope-20261028/stage.mjs",
+        "sha256": "973235fa1511236d43f4cdd06d387aa6bfba4510c48e5cea770a6f355a83471e"
+      },
+      "manifest": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-cn234-text-scope-20261028/manifest.json",
+        "sha256": "b245a94caad8a8050c817bac74df4ed9602509d2d43c85c3dac97d2285fca916"
+      },
+      "candidateSha256": "7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae"
+    },
+    "previewOutput": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-32-57-393Z",
+    "corpusId": "ea8fb2e9c1d7334be79f2a98af5cdc86f5c8068f5723f76f3e4afe4a6a1062e2",
+    "stageReceiptPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-32-57-393Z/stages/cn234/web-stage-receipt.json",
+    "scopeProvenance": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-32-57-393Z/stages/cn234/scope-provenance.json",
+      "sha256": "0a5809b17eb9a475a50712772ed243612ff823fc633ce0cc0476024b9abcdaa9"
+    },
+    "metadataBinding": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-cn234-text-r1-scope-binding-20261028.json",
+      "sha256": "be0f28bef7cc945e004ab27cfdf4f27845060647be060cf3dfa1726f7a7cee77"
+    },
+    "auditRequirements": [
+      "本次仅独立审查b0003三处新增中文释义及其实际有序教学上下文。所给对应文本显示，原日文、支付数值、条件及全部旧中文说明保留；其他已独审且未变范围沿精确父链继承，不构成重新审图或重新审查全章。",
+      "继承绑定采用所给sourceSha256=7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57、parentSha256=e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110、currentCandidateSha256=7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae；未自行检查或重算绑定。原审记录及图像、unknown证据保持独立，不予改写。",
+      "旧超时记录继续保留：callId=ba432ee3-0d28-42b9-ad34-cde09c97313e；rawPath=web-production/v1/raw-calls/ba432ee3-0d28-42b9-ad34-cde09c97313e.json；rawSha256=0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734；localInvocations=1，reconnectionNotices=2，upstreamExecutions=unknown，usage=null，fee=unknown，recoverableOutput=false，newAttemptIsNewCall=true。本次不视为零调用恢复。"
+    ],
+    "oldTimeout": {
+      "callId": "ba432ee3-0d28-42b9-ad34-cde09c97313e",
+      "rawPath": "web-production/v1/raw-calls/ba432ee3-0d28-42b9-ad34-cde09c97313e.json",
+      "rawSha256": "0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734",
+      "localInvocations": 1,
+      "reconnectionNotices": 2,
+      "upstreamExecutions": "unknown",
+      "usage": null,
+      "fee": "unknown",
+      "recoverableOutput": false,
+      "newAttemptIsNewCall": true,
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\ba432ee3-0d28-42b9-ad34-cde09c97313e.json",
+        "sha256": "0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734"
+      },
+      "originalRawUnchanged": true
+    },
+    "readback": {
+      "path": "_analysis/b234/readback.json",
+      "sha256": "43ab6b0b692aca2e57bcd8ff3d9284d3beecf2bc3747abae9af7aa73b25e49b8"
+    },
+    "sourceBlocks": 5,
+    "authorBlocks": 5,
+    "displayBlocks": 5,
+    "figures": 1,
+    "auditScopeRequirementsMapped": 3,
+    "originalReceiptRawAndOldTimeoutPreserved": true,
+    "ordinaryWholeArticlePassed": false,
+    "limitedAuthorPresentationAccepted": true,
+    "newModelCalls": 0
+  },
+  "prior260UnitsUnchanged": true,
+  "otherRowsUnchanged": true,
+  "notAdmitted232": true,
+  "registerAfter": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+      "sha256": "66e13d186721d495bb640d80a70d749344b0673bdede7e38b8d12fd0c44a65f4"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+      "sha256": "85add7dcd5ca8acbd51bd166255e160ec28cce766f40877c9059922fa5ecf457"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-uncovered-chapter-continuation-register-20261027b.json",
+      "sha256": "6b098d5230ec046d26e8523ca4d285bca05412309b8a263435568a0c96aa93ef"
+    }
+  ],
+  "readback": {
+    "path": "_analysis/b234/readback.json",
+    "sha256": "43ab6b0b692aca2e57bcd8ff3d9284d3beecf2bc3747abae9af7aa73b25e49b8"
+  },
+  "routeTests": {
+    "passed": true,
+    "checks": [
+      {
+        "name": "wrong candidateSha256",
+        "rejected": true
+      },
+      {
+        "name": "wrong module",
+        "rejected": true
+      },
+      {
+        "name": "wrong stage",
+        "rejected": true
+      },
+      {
+        "name": "wrong manifest",
+        "rejected": true
+      },
+      {
+        "name": "missing gloss",
+        "rejected": true
+      },
+      {
+        "name": "audit metadata in author body",
+        "rejected": true
+      },
+      {
+        "name": "invented author annotation",
+        "rejected": true
+      }
+    ],
+    "persistentEarlyRoutePassed": true,
+    "ordinarySidecarAccesses": 0,
+    "upstream28RefusalsHashVerifiedNotRerun": true,
+    "newModelCalls": 0
+  },
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "formalActiveChanged": false,
+  "bookComplete": false,
+  "safeToResume": true
+}

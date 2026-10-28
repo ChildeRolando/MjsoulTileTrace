@@ -1,0 +1,113 @@
+[
+  {
+    "chapterId": "79-cn-chapter-234-12",
+    "priorGroup": "unproduced-remains-57",
+    "sourceId": "79-cn",
+    "title": "状况判断2—要有顺位意识",
+    "titleStatus": "verified-source-chinese",
+    "unitCount": 1,
+    "units": [
+      {
+        "unitId": "79-cn-chapter-234-12-unit-1",
+        "title": "状况判断2—要有顺位意识",
+        "from": {
+          "page": 234,
+          "sourceBlockId": "79-cn-p234-b12"
+        },
+        "to": {
+          "page": 235,
+          "sourceBlockId": "79-cn-p235-b2"
+        }
+      }
+    ],
+    "pages": [
+      234,
+      235
+    ],
+    "pageFrom": 234,
+    "pageTo": 235,
+    "ownedSourceBlocks": 5,
+    "pageTextBlocks": 20,
+    "pageImageBlocks": 1,
+    "pageBlocksTotal": 21,
+    "classification": "truly-unproduced",
+    "flags": {
+      "sourcePagesMissing": [],
+      "duplicateTitle": false
+    },
+    "existingPartial": {
+      "producedPages": [],
+      "passedPages": [],
+      "selectedPages": []
+    },
+    "webCorrespondence": [
+      {
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1780400",
+        "evidence": "integration/chinese-source-body-correspondence.json",
+        "decision": "body-equivalence-recorded",
+        "webSourceFetched": true,
+        "webSourceDir": "web-sources/v1/79-bilibili-cn/articles/cv1780400",
+        "candidateFiles": [
+          "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+          "web-production/v1/candidates/79-bilibili-cn/cv1780400.json"
+        ],
+        "webAuditReceipts": [
+          "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json"
+        ]
+      }
+    ],
+    "continuation": [
+      {
+        "owner": "COAC-246",
+        "route": "web-article-79-bilibili-cn",
+        "articleIds": [
+          "cv1780400"
+        ],
+        "webSourceFetched": true,
+        "candidateExists": true,
+        "reason": "已有逐块 body 对应证据；网页版候选可覆盖该原章，避免重制 PDF 页"
+      },
+      {
+        "owner": "COAC-247",
+        "route": "pdf-pages",
+        "pages": [
+          234,
+          235
+        ],
+        "reason": "按原 PDF 页制作；已 produced 且 passed 的页按候选 SHA 复用，不重制；需先确认未覆盖页的归属边界"
+      }
+    ],
+    "pagesDetail": [
+      {
+        "page": 234,
+        "sourcePageExists": true,
+        "sourcePageData": "79-cn/pages/234.json",
+        "pageBlocks": 14,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 235,
+        "sourcePageExists": true,
+        "sourcePageData": "79-cn/pages/235.json",
+        "pageBlocks": 7,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      }
+    ],
+    "closurePlan": {
+      "category": "transport-count-unknown",
+      "owner": "COAC-269",
+      "nextAction": "旧生产ba432ee3超时且rawLastMessage=null，完整raw无可恢复输出；上游请求数/usage未知。先明确观测边界和追加授权，最小仅b0003三个俗称，无图，不自动重试。",
+      "modelCallsThisStage": 0,
+      "evidenceRegister": "integration/coac244-remaining26-closure-register-20261028.json"
+    }
+  }
+]

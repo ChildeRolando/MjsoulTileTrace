@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "wrong candidateSha256",
+      "rejected": true
+    },
+    {
+      "name": "wrong module",
+      "rejected": true
+    },
+    {
+      "name": "wrong stage",
+      "rejected": true
+    },
+    {
+      "name": "wrong manifest",
+      "rejected": true
+    },
+    {
+      "name": "missing gloss",
+      "rejected": true
+    },
+    {
+      "name": "audit metadata in author body",
+      "rejected": true
+    },
+    {
+      "name": "invented author annotation",
+      "rejected": true
+    }
+  ],
+  "persistentEarlyRoutePassed": true,
+  "ordinarySidecarAccesses": 0,
+  "upstream28RefusalsHashVerifiedNotRerun": true,
+  "newModelCalls": 0
+}
