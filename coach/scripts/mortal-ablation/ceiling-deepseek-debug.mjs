@@ -5,7 +5,8 @@ import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
 import {BudgetLedger,ROOT,hash,read,writeOnce} from './ceiling-protocol.mjs';
 import {decisionRequest,validateDecision,runDecision,exclusive} from './ceiling-run.mjs';
-import {createClaudeCeilingProvider,parseClaudeResult} from './ceiling-claude.mjs';
+import {createClaudeCeilingProvider,claudeUsage} from './ceiling-claude.mjs';
+import {ArenaToolCallProviderResultSchema} from '@riichi-coach/desktop/blind-discard-arena-provider';
 import {MODEL_BUDGETS,verifyModelStudy} from './ceiling-model-study.mjs';
 const exec=promisify(execFile);
 const ownFiles=['scripts/mortal-ablation/ceiling-deepseek-debug.mjs','bin/scene-pattern-deepseek-debug.mjs'];
@@ -15,11 +16,12 @@ export function normalizeDeepSeekMetadata(response,proof,request){
   if(response.status!=='provider_error'||response.failureCode!=='claude_invalid_model_response'||proof.acceptedResponseSource!=='first_model_response'||!proof.firstResponseComplete||proof.forwardedModelRequests!==1)return null;
   try{
     const original=proof.visibleResultText.trim(),fence=/^```(?:json)?\s*\n([\s\S]*?)\n```$/.exec(original),p=JSON.parse(fence?fence[1]:original);
-    if(Object.keys(p).sort().join(',')!=='call,decisionSummary'||Object.keys(p.call).sort().join(',')!=='arguments,decisionSummary,name'||typeof p.call.decisionSummary!=='string'||p.call.decisionSummary.length>600||Buffer.byteLength(original)>request.maxOutputBytes)return null;
-    const before=JSON.stringify(p.call.arguments);delete p.call.decisionSummary;
-    const normalized=JSON.stringify(p),result=parseClaudeResult({type:'result',subtype:'success',num_turns:1,result:normalized,usage:proof.nativeUsage},request);
-    if(result.status!=='ready'||JSON.stringify(p.call.arguments)!==before)return null;
-    return {result,proof:{protocolCompatibility:'metadata-v5',normalization:{removedField:'call.decisionSummary',argumentsUnchanged:true,summarySource:'outer decisionSummary'},normalizedVisibleResultText:normalized}};
+    if(Object.keys(p).some(k=>!['call','decisionSummary'].includes(k))||!p.call||Object.keys(p.call).some(k=>!['name','arguments','decisionSummary'].includes(k))||Buffer.byteLength(original)>request.maxOutputBytes)return null;
+    const tool=request.tools.find(t=>t.function.name===p.call.name),args=p.call.arguments;
+    if(!tool||(tool.function.strict?(typeof args!=='object'||args===null||Array.isArray(args)):typeof args!=='string'))return null;
+    const canonical={call:{name:p.call.name,arguments:args}},normalized=JSON.stringify(canonical),usage=claudeUsage(proof.nativeUsage);
+    const result=ArenaToolCallProviderResultSchema.parse({status:'ready',call:{name:p.call.name,arguments:typeof args==='string'?args:JSON.stringify(args)},outputBytes:Buffer.byteLength(original),...(usage?{usage}:{})});
+    return {result,proof:{protocolCompatibility:'metadata-v6',normalization:{discardedPublicMetadata:['decisionSummary','call.decisionSummary'].filter(path=>path.includes('.')?Object.hasOwn(p.call,'decisionSummary'):Object.hasOwn(p,'decisionSummary')),argumentsUnchanged:true,summaryPolicy:'Display metadata ignored; public rationale remains in submission arguments'},normalizedVisibleResultText:normalized}};
   }catch{return null;}
 }
 
@@ -29,7 +31,7 @@ export function createCompatibleDeepSeekProvider(options){
     const result=await inner.request(request,signal);proof=inner.getAuditProof();
     const normalized=normalizeDeepSeekMetadata(result,proof,request);
     if(normalized){Object.assign(proof,normalized.proof);return normalized.result;}
-    proof.protocolCompatibility='metadata-v5';return result;
+    proof.protocolCompatibility='metadata-v6';return result;
   }};
 }
 
@@ -39,7 +41,7 @@ export async function replayDeepSeekFailure(out){
   const verdict=normalized?validateDecision(normalized.result,context):null;
   const result={version:'ceiling-deepseek-offline-replay/v1',newModelRequests:0,originalCallHash:hash(call),originalKey:stop.failedKey,originalFailurePreserved:true,normalization:normalized?.proof??null,verdict:verdict?.status??'not_normalized',candidateAndCitationValidationUnchanged:true,sourceFiles:await sourceFiles()};
   if(result.verdict!=='submitted')throw Error('offline_replay_did_not_pass_full_submission_validation');
-  await writeOnce(join(out,'qa/deepseek-metadata-v5-offline-replay.json'),result);return result;
+  await writeOnce(join(out,'qa/deepseek-metadata-v6-offline-replay.json'),result);return result;
 }
 
 export async function runDeepSeekDebug(out){

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import {resolve,join} from 'node:path';
-import {freezeModelStudy,repairModelEngineeringFreeze,repairRuntimeEngineeringFreeze,repairSingleResponseFreeze,stopDeepSeekRoute,resumeDeepSeekRoute,runModelPhase,modelStudyStatus,recoverModelStudy} from '../scripts/mortal-ablation/ceiling-model-study.mjs';
+import {freezeModelStudy,repairModelEngineeringFreeze,repairRuntimeEngineeringFreeze,repairSingleResponseFreeze,stopDeepSeekRoute,resumeDeepSeekRoute,repairProtocolMetadata,runModelPhase,modelStudyStatus,recoverModelStudy} from '../scripts/mortal-ablation/ceiling-model-study.mjs';
 import {reportModelStudy} from '../scripts/mortal-ablation/ceiling-model-report.mjs';
 import {save,exists,hash} from '../scripts/mortal-ablation/ceiling-protocol.mjs';
 const [command='status',...args]=process.argv.slice(2),options={};
@@ -14,6 +14,7 @@ try{
   else if(command==='repair-single-response')result=await repairSingleResponseFreeze(out);
   else if(command==='stop-deepseek')result=await stopDeepSeekRoute(out);
   else if(command==='resume-deepseek')result=await resumeDeepSeekRoute(out);
+  else if(command==='repair-protocol')result=await repairProtocolMetadata(out);
   else if(command==='status')result=await modelStudyStatus(out);
   else if(command==='recover')result=await recoverModelStudy(out);
   else if(command==='run')result=await runModelPhase(out,options.phase??'smoke');
@@ -23,5 +24,5 @@ try{
     for(const phase of ['evaluation','oracle','practical','stability'])await runModelPhase(out,phase);
     result=await reportModelStudy(out);
   }else throw Error('unknown_command');
-  console.log(JSON.stringify({command,out,result:command==='all'||command==='report'?{complete:result.complete,conclusion:result.conclusion}:['freeze','repair-engineering','repair-runtime','repair-single-response','stop-deepseek','resume-deepseek'].includes(command)?{freezeHash:hash(result),models:result.models,budgets:result.budgets}:result}));
+  console.log(JSON.stringify({command,out,result:command==='all'||command==='report'?{complete:result.complete,conclusion:result.conclusion}:['freeze','repair-engineering','repair-runtime','repair-single-response','stop-deepseek','resume-deepseek','repair-protocol'].includes(command)?{freezeHash:hash(result),models:result.models,budgets:result.budgets}:result}));
 }catch(e){await save(join(out,'last-error.json'),{command,message:String(e.message),at:new Date().toISOString(),pid:process.pid});console.error(e.stack);process.exitCode=1;}

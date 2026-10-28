@@ -4,7 +4,7 @@ import {createHash} from 'node:crypto';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {claudeUsage,parseClaudeResult,collectClaudeResponse,verifyClaudeRuntime,DEEPSEEK_PREFIX} from './ceiling-claude.mjs';
-import {MODEL_BUDGETS,STUDY_MODELS,MODEL_CONCURRENCY,allocateModelCases,assertModelPlan,studyCells,runModelJobs} from './ceiling-model-study.mjs';
+import {MODEL_BUDGETS,STUDY_MODELS,MODEL_CONCURRENCY,allocateModelCases,assertModelPlan,studyCells,runModelJobs,modelServiceFailureStreak} from './ceiling-model-study.mjs';
 import {BudgetLedger,read} from './ceiling-protocol.mjs';
 import {runDecision} from './ceiling-run.mjs';
 import {indexTextbook} from './ceiling-textbook.mjs';
@@ -13,6 +13,12 @@ import {adjustModelComparisons,modelDecision} from './ceiling-model-report.mjs';
 const request={tools:[{type:'function',function:{name:'submit_decision',strict:true}}],maxOutputBytes:16384};
 const event={type:'result',subtype:'success',is_error:false,num_turns:1,result:JSON.stringify({call:{name:'submit_decision',arguments:{actionRef:'x'}},decisionSummary:'公开说明。'}),usage:{input_tokens:30,cache_read_input_tokens:20,cache_creation_input_tokens:10,output_tokens:4}};
 describe('bounded model-amendment transport and accounting',()=>{
+  it('scores malformed completed model answers as failures without misclassifying them as a service outage',()=>{
+    const malformed={status:'provider_error',failureCode:'claude_invalid_model_response'};
+    expect(modelServiceFailureStreak(2,malformed,true,'deepseek_via_claude')).toBe(0);
+    expect(modelServiceFailureStreak(2,malformed,false,'deepseek_via_claude')).toBe(2);
+    expect(modelServiceFailureStreak(2,{status:'provider_error',failureCode:'unknown_network_failure'},true,'deepseek_via_claude')).toBe(3);
+  });
   it('consumes one complete API answer without a CLI formatting inference, and never repairs invalid answers',()=>{
     const run=(content,stop='end_turn',complete=true)=>{const c=collectClaudeResponse(request);c.event({type:'message_start',message:{usage:event.usage}});for(const e of content)c.event(e);c.event({type:'message_delta',delta:{stop_reason:stop},usage:{output_tokens:4}});if(complete)c.event({type:'message_stop'});return c.finish();};
     const text=[{type:'content_block_delta',delta:{type:'thinking_delta',thinking:'hidden canary'}},{type:'content_block_delta',delta:{type:'text_delta',text:event.result}}];

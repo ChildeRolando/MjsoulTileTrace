@@ -192,14 +192,22 @@ def validate(out):
                 assert proof['observedBackend'].startswith(f['models'][model]['expectedBackendPrefix'])
                 assert proof['requestedApiEffort'] == 'high'
                 if proof.get('normalization'):
-                    assert proof['normalization']['removedField'] == 'call.decisionSummary' and proof['normalization']['argumentsUnchanged']
+                    assert proof['normalization']['argumentsUnchanged']
                     visible = proof['visibleResultText'].strip()
                     fence = re.fullmatch(r'```(?:json)?\s*\n([\s\S]*?)\n```', visible)
                     raw_answer = json.loads(fence.group(1) if fence else visible)
-                    assert set(raw_answer) == {'call', 'decisionSummary'} and set(raw_answer['call']) == {'name', 'arguments', 'decisionSummary'}
                     assert raw_answer['call']['arguments'] == json.loads(call['response']['call']['arguments'])
-                    assert raw_answer['decisionSummary'] == call['response']['decisionSummary']
-                    del raw_answer['call']['decisionSummary']
+                    if proof['normalization'].get('removedField'):
+                        assert proof['normalization']['removedField'] == 'call.decisionSummary'
+                        assert set(raw_answer) == {'call', 'decisionSummary'} and set(raw_answer['call']) == {'name', 'arguments', 'decisionSummary'}
+                        assert raw_answer['decisionSummary'] == call['response']['decisionSummary']
+                        del raw_answer['call']['decisionSummary']
+                    else:
+                        assert set(raw_answer) <= {'call', 'decisionSummary'} and set(raw_answer['call']) <= {'name', 'arguments', 'decisionSummary'}
+                        removed = proof['normalization']['discardedPublicMetadata']
+                        assert set(removed) <= {'decisionSummary', 'call.decisionSummary'}
+                        raw_answer.pop('decisionSummary', None)
+                        raw_answer['call'].pop('decisionSummary', None)
                     assert raw_answer == json.loads(proof['normalizedVisibleResultText'])
                 raw = proof.get('nativeUsage', {})
                 if all(k in raw for k in ('input_tokens', 'cache_read_input_tokens', 'cache_creation_input_tokens', 'output_tokens')):
