@@ -1,0 +1,680 @@
+{
+  "canonical": "nemata-jp-chapter-213-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.r1.display.json",
+    "sha256": "a667937d4e119a1b22659fc60987f07d3eea9d246c8b2b6ddabcdacb4fe5dd47"
+  },
+  "receipt": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-213-target-impact-reviewed-20261028.json",
+    "sha256": "a91fd5ef0e13a880d32e0036c87f34f341d54b4c7afa9088f636b3dc857321d8"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\c0d77d4f-25ea-401b-939e-c956e81e1713.json",
+    "sha256": "0f401fb2bdba23993719062663b69b6ddcc9df2c268727ebe94d1e9041d867ea"
+  },
+  "status": "target-faithful-limited-unknown-acceptable",
+  "verification": {
+    "limitedEvidenceVerified": false,
+    "errors": [
+      "no_limited_allowance"
+    ],
+    "requiredDisplayLimitations": [
+      "保留原图，并在该具体位置标明字牌字面不清，不填入猜测的字牌。",
+      "说明对家暗手被遮挡；实际听5p–8p是作者的文字陈述，不能说是从截图独立证实的。",
+      "随原图保留上方和左侧完整分数无法可靠辨认的说明，不补猜数值。",
+      "将弃和呈现为作者的结论，不宣称已利用完整点数证明它是最优选择。",
+      "保留图标不可辨及不能仅凭图标确认计数项目的说明，不为0、1擅自指定计数名称。",
+      "保留原图，避免把转录当作完整可识别的计数信息。",
+      "保留座位旁小字无法完整辨认的说明和原图，不推定姓名或其他文字。",
+      "不将转录描述为包含全部玩家身份及附属信息。"
+    ],
+    "wholeChapterPassed": false,
+    "admissionGranted": false,
+    "originalIssuesPreserved": true,
+    "meaning": "Only independent limited target/impact evidence. Every required display limitation and remaining author contribution must be mapped to legal exact admission and actual readback by250."
+  },
+  "sourceText": {
+    "id": "modern-yabejp-ja:chapter03-section026:b0017",
+    "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+    "tag": "p",
+    "domPath": "main/p[7]",
+    "tableContext": null,
+    "type": "text",
+    "text": "も怪しいところです。テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+    "segments": [
+      {
+        "text": "も怪しいところです。テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+        "marks": [],
+        "href": null
+      }
+    ]
+  },
+  "currentText": {
+    "type": "text",
+    "sourceBlockIds": [
+      "modern-yabejp-ja:chapter03-section026:b0017"
+    ],
+    "sourceText": "も怪しいところです。テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+    "text": "也很可疑。因为，如果听牌时打出的牌并非作为安全牌保留的，该牌附近也不属于因摸入另一张牌而完成面子的那一侧，那么其附近就是所听的牌。",
+    "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+    "sourceSegments": [
+      {
+        "text": "も怪しいところです。テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+        "marks": [],
+        "href": null
+      }
+    ],
+    "tableContext": null
+  },
+  "parentText": {
+    "type": "text",
+    "sourceBlockIds": [
+      "modern-yabejp-ja:chapter03-section026:b0017"
+    ],
+    "sourceText": "も怪しいところです。テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+    "text": "也很可疑。因为，如果听牌时打出的牌并非作为安全牌保留的，也不是因为进张而打出的，那么其附近就是所听的牌。",
+    "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+    "sourceSegments": [
+      {
+        "text": "も怪しいところです。テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+        "marks": [],
+        "href": null
+      }
+    ],
+    "tableContext": null
+  },
+  "targetChecks": {
+    "textRepair": {
+      "targetId": "modern-yabejp-ja:chapter03-section026:b0017",
+      "verdict": "faithful",
+      "evidence": "原文并列排除两种情况：听牌时切出的牌原本作为安全牌保留，以及其周边属于入り目一侧；两者均不成立时，才说其周边是待牌。修订译文保留了这两个条件，并将第二项解释为进张完成面子的那一侧，不再笼统地说“不是因为进张而打出”。连读前面的6p、7p、8p和9p，以及后面列举的多种牌形，不能把这些后续牌形一律当成已经完成面子。"
+    },
+    "figureRepair": {
+      "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+      "verdict": "faithful",
+      "evidence": "原图中左家外侧左列从图像上至下第2张是7p，牌面相对画面顺时针旋转90°，该张图像左缘有红线。修订同时更新牌列和红线说明，并移除这一张的未知记录；红线依b0031表示摸切，不表示赤牌。2倍图是同源放大，不构成新增细节。本判断只复核指定牌位及其方向、红线，其他牌位沿父链继承。"
+    }
+  },
+  "issueMapping": [
+    {
+      "originalOutputPointer": "/issues/0",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter03-section026:b0017",
+        "description": "保留原审对旧译的error记录：旧译把入り目例外泛化为“不是因为进张而打出的”。本次比较认为当前修订已在指定范围内表达该例外，不改写原审severity。",
+        "evidence": "原文为“安牌として持たれていた訳でなく、入り目でもなければ”；当前译文分别表达安全牌条件和进张完成面子一侧的例外。"
+      },
+      "originalIssueSha256": "2ec6db73c0002b62bf8f3d7a1e3c98db3d5a03dc0462628b888cecbb5776cb35",
+      "category": "historical-error-with-current-target-faithful-evidence",
+      "resolutionEvidence": {
+        "targetId": "modern-yabejp-ja:chapter03-section026:b0017",
+        "verdict": "faithful",
+        "evidence": "原文并列排除两种情况：听牌时切出的牌原本作为安全牌保留，以及其周边属于入り目一侧；两者均不成立时，才说其周边是待牌。修订译文保留了这两个条件，并将第二项解释为进张完成面子的那一侧，不再笼统地说“不是因为进张而打出”。连读前面的6p、7p、8p和9p，以及后面列举的多种牌形，不能把这些后续牌形一律当成已经完成面子。"
+      },
+      "originalSeverityPreserved": true,
+      "ordinaryWholeChapterPassed": false
+    },
+    {
+      "originalOutputPointer": "/issues/1",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+        "description": "保留原审对旧图转录的error记录：旧版未识别左家外侧第2张7p。当前指定替换及对应红线、unknowns更新与该牌位相符，不改写原审severity。",
+        "evidence": "原图该张为7p，顺时针旋转90°，左缘有摸切红线；修订将其写入牌列及红线说明。"
+      },
+      "originalIssueSha256": "f96b7f77ba4ddf61ad8711f1b58ad74a41745726cc2eb86ff2c20cfff774f674",
+      "category": "historical-error-with-current-target-faithful-evidence",
+      "resolutionEvidence": {
+        "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+        "verdict": "faithful",
+        "evidence": "原图中左家外侧左列从图像上至下第2张是7p，牌面相对画面顺时针旋转90°，该张图像左缘有红线。修订同时更新牌列和红线说明，并移除这一张的未知记录；红线依b0031表示摸切，不表示赤牌。2倍图是同源放大，不构成新增细节。本判断只复核指定牌位及其方向、红线，其他牌位沿父链继承。"
+      },
+      "originalSeverityPreserved": true,
+      "ordinaryWholeChapterPassed": false
+    },
+    {
+      "originalOutputPointer": "/issues/2",
+      "originalIssue": {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+        "description": "保留原审对对家字牌及中央上方、左侧完整分数的uncertain记录；具体值仍未解决。本次只是在明确展示限制下，对指定作者论证作有限影响判断，不改变原审记录或授予全章通过。",
+        "evidence": "当前对象继续标记这些位置为未知；作者的相关命题不要求其具体值，但完整精确牌谱和点数局面仍无法据此确认。"
+      },
+      "originalIssueSha256": "41409a13ba5ad463d19793df3eb724d1fd2b9c632bb93cfdc7911dca3b478475",
+      "category": "retained-unknown-with-conditional-contribution-evidence",
+      "resolutionEvidence": [
+        {
+          "unknownText": "对家牌河第1排从其出牌方向数第6张，即图像靠中央一排最左端的字牌，其具体字面无法可靠辨认。",
+          "positionConfirmed": true,
+          "displayFaithful": true,
+          "authorArgumentFaithfulWithUnknown": true,
+          "requiresExactValueForAuthorArgument": false,
+          "evidence": "位置对应对家靠中央一排的图像最左端，候选保留字面不清的占位及该位置的红线，没有指定具体字牌。作者的9p、7p和弃和论证没有使用该字牌的具体字面；不能用论证反推其字面。",
+          "requiredDisplayLimitations": [
+            "保留原图，并在该具体位置标明字牌字面不清，不填入猜测的字牌。",
+            "说明对家暗手被遮挡；实际听5p–8p是作者的文字陈述，不能说是从截图独立证实的。"
+          ],
+          "minimumUncoveredTeachingContribution": "无。该未知不遮蔽作者明确写出的条件、可能性或结论；它仍使完整精确牌谱无法由此转录确认。"
+        },
+        {
+          "unknownText": "中央上方与左侧的完整分数无法可靠辨认。",
+          "positionConfirmed": true,
+          "displayFaithful": true,
+          "authorArgumentFaithfulWithUnknown": true,
+          "requiresExactValueForAuthorArgument": false,
+          "evidence": "未知对应中央显示区上方和左侧的分数字段，候选明确保留两处完整分数不可可靠辨认。作者的文字论证没有引用这两个具体分数；这只足以展示作者的弃和建议，不足以独立证明该建议在所有点数情境下最优。",
+          "requiredDisplayLimitations": [
+            "随原图保留上方和左侧完整分数无法可靠辨认的说明，不补猜数值。",
+            "将弃和呈现为作者的结论，不宣称已利用完整点数证明它是最优选择。"
+          ],
+          "minimumUncoveredTeachingContribution": "无。作者没有给出以这两项具体分数为条件的命题；点数未知限制的是进一步的局面评价。"
+        },
+        {
+          "unknownText": "中央数字0、1前的小图标无法辨认，无法仅凭图标确认各自所指的计数项目。",
+          "positionConfirmed": true,
+          "displayFaithful": true,
+          "authorArgumentFaithfulWithUnknown": true,
+          "requiresExactValueForAuthorArgument": false,
+          "evidence": "位置在中央数字0、1附近。候选记录数字并保留图标含义未知，没有把它们指定为某项计数；作者的论证没有调用这些计数项目的名称或具体含义。",
+          "requiredDisplayLimitations": [
+            "保留图标不可辨及不能仅凭图标确认计数项目的说明，不为0、1擅自指定计数名称。",
+            "保留原图，避免把转录当作完整可识别的计数信息。"
+          ],
+          "minimumUncoveredTeachingContribution": "无。图标的确切含义不是作者所写论证的条件。"
+        },
+        {
+          "unknownText": "各家座位旁的小号姓名或其他附属文字无法完整辨认。",
+          "positionConfirmed": true,
+          "displayFaithful": true,
+          "authorArgumentFaithfulWithUnknown": true,
+          "requiresExactValueForAuthorArgument": false,
+          "evidence": "未知定位于各家座位旁的小字，候选如实说明无法完整辨认，没有补写姓名或附属文字。作者的牌形分析与建议没有依赖这些文字的具体内容。",
+          "requiredDisplayLimitations": [
+            "保留座位旁小字无法完整辨认的说明和原图，不推定姓名或其他文字。",
+            "不将转录描述为包含全部玩家身份及附属信息。"
+          ],
+          "minimumUncoveredTeachingContribution": "无。作者没有使用这些小字作为论证条件。"
+        }
+      ],
+      "originalSeverityPreserved": true,
+      "ordinaryWholeChapterPassed": false
+    }
+  ],
+  "argumentChecks": [
+    {
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section026:b0002",
+        "modern-yabejp-ja:chapter03-section026:b0003",
+        "modern-yabejp-ja:chapter03-section026:b0004",
+        "modern-yabejp-ja:chapter03-section026:b0005",
+        "modern-yabejp-ja:chapter03-section026:b0006",
+        "modern-yabejp-ja:chapter03-section026:b0007",
+        "modern-yabejp-ja:chapter03-section026:b0008",
+        "modern-yabejp-ja:chapter03-section026:b0009"
+      ],
+      "authorContribution": "本文补充读牌技术论6、7：按容易构成面子到不容易构成面子的顺序手切，往往提供有力信息；这一点还有其他用途。例子是5m→9m后，即使8m是筋张也相当危险。",
+      "preservedConditionsAndModality": "保留手切顺序、“往往”和“即使是筋张”的限定，不把危险说成必然放铳。",
+      "faithfulWithCurrentUnknown": true,
+      "evidence": "文字与内联5m、9m、8m按实际顺序连读；这段一般命题不依赖截图中的保留未知。"
+    },
+    {
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section026:b0010",
+        "modern-yabejp-ja:chapter03-section026:b0011",
+        "modern-yabejp-ja:chapter03-section026:b0012",
+        "modern-yabejp-ja:chapter03-section026:b0013",
+        "modern-yabejp-ja:chapter03-section026:b0014",
+        "modern-yabejp-ja:chapter03-section026:b0015",
+        "modern-yabejp-ja:chapter03-section026:b0016",
+        "modern-yabejp-ja:chapter03-section026:b0017"
+      ],
+      "authorContribution": "6p被杠或场上可见四张，而对手切7p进入听牌时，尽管形成壁，8p和9p仍可疑。解释是：若听牌时切出的牌既非保留的安全牌，也非入り目一侧，则其周边为待牌。",
+      "preservedConditionsAndModality": "保留6p被杠与四张可见的替代条件、切7p进入听牌的条件、8p和9p只是可疑，以及解释中两个并列例外和其后的判断。",
+      "faithfulWithCurrentUnknown": true,
+      "evidence": "相邻内联牌与修订后的b0017构成完整句子；这段条件性解释不需要确定截图中的未知字牌、分数或小字。"
+    },
+    {
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section026:b0018",
+        "modern-yabejp-ja:chapter03-section026:b0019",
+        "modern-yabejp-ja:chapter03-section026:b0020",
+        "modern-yabejp-ja:chapter03-section026:b0021",
+        "modern-yabejp-ja:chapter03-section026:b0022",
+        "modern-yabejp-ja:chapter03-section026:b0023",
+        "modern-yabejp-ja:chapter03-section026:b0024",
+        "modern-yabejp-ja:chapter03-section026:b0025",
+        "modern-yabejp-ja:chapter03-section026:b0026",
+        "modern-yabejp-ja:chapter03-section026:b0027",
+        "modern-yabejp-ja:chapter03-section026:b0028",
+        "modern-yabejp-ja:chapter03-section026:b0029",
+        "modern-yabejp-ja:chapter03-section026:b0030"
+      ],
+      "authorContribution": "中张之后切1、9的可能来由包括从1s1s2s等复合搭子拆出、因相对安全而保留，以及从7s8s9s、7s9s或8s9s摸6s后切9s。对于后一类，作者说不能断言附近成为待牌的可能性升高，但附近构成面子的可能性相当高；复合搭子拆出也有类似道理。",
+      "preservedConditionsAndModality": "保留示例牌形、摸6s切9s，以及“不能说待牌可能性升高”和“面子可能性相当高”的区别；这些是作者列出的可能性，不视为穷尽所有来由。",
+      "faithfulWithCurrentUnknown": true,
+      "evidence": "实际顺序包含三组不同内联牌形；不能把三组都改写为当时必然已经完成面子，也不需截图未知值来展示本段。"
+    },
+    {
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section026:b0031",
+        "modern-yabejp-ja:chapter03-section026:b0032",
+        "modern-yabejp-ja:chapter03-section026:b0033",
+        "modern-yabejp-ja:chapter03-section026:b0034",
+        "modern-yabejp-ja:chapter03-section026:b0035"
+      ],
+      "authorContribution": "图中红线表示摸切。作者认为对家一直保留9p，很可能属于上面举出的情况。",
+      "preservedConditionsAndModality": "保留“很可能”及其对上文情形的指向，不将某个具体暗手或来由说成已由截图证明。",
+      "faithfulWithCurrentUnknown": true,
+      "evidence": "原文及其内联9p给出作者的判断；四项保留未知没有提供或否定该判断所需的具体字面。"
+    },
+    {
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section026:b0036",
+        "modern-yabejp-ja:chapter03-section026:b0037",
+        "modern-yabejp-ja:chapter03-section026:b0038",
+        "modern-yabejp-ja:chapter03-section026:b0039",
+        "modern-yabejp-ja:chapter03-section026:b0040",
+        "modern-yabejp-ja:chapter03-section026:b0041",
+        "modern-yabejp-ja:chapter03-section026:b0042",
+        "modern-yabejp-ja:chapter03-section026:b0043",
+        "modern-yabejp-ja:chapter03-section026:b0044",
+        "modern-yabejp-ja:chapter03-section026:b0045",
+        "modern-yabejp-ja:chapter03-section026:b0046",
+        "modern-yabejp-ja:chapter03-section026:b0047",
+        "modern-yabejp-ja:chapter03-section026:b0048",
+        "modern-yabejp-ja:chapter03-section026:b0049"
+      ],
+      "authorContribution": "若从7p9p摸6p后切9p，5p–8p是主要考虑的听牌；作者另在括号中陈述对手实际听牌也是5p–8p。",
+      "preservedConditionsAndModality": "区分前一项条件下的主要判断与作者另行陈述的实际结果；不把截图遮住的暗手当作对后者的独立证明。",
+      "faithfulWithCurrentUnknown": true,
+      "evidence": "条件牌列和两个5p–8p按文本与内联牌的实际顺序呈现。保留未知不妨碍转述作者的条件判断或事实陈述。"
+    },
+    {
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section026:b0050",
+        "modern-yabejp-ja:chapter03-section026:b0051",
+        "modern-yabejp-ja:chapter03-section026:b0052",
+        "modern-yabejp-ja:chapter03-section026:b0053"
+      ],
+      "authorContribution": "即使不是前述7p9p摸6p切9p的情况，对家持有至少一张7p的可能性仍很大；这样7p最多剩两张，继续进攻很勉强，因此作者建议弃和。",
+      "preservedConditionsAndModality": "保留替代情况、至少一张是高可能性而非独立证实、最多两张是上限而非恰好两张，以及作者的弃和建议。",
+      "faithfulWithCurrentUnknown": true,
+      "evidence": "指定修复确认左家外侧第2张可见7p；作者关于对家持有7p的判断来自其论证，暗手仍被遮挡。忠实展示不要求证明实际剩余数量、数值概率或最优性。"
+    }
+  ],
+  "argumentCheckCount": 6,
+  "allSixArgumentChecksFaithful": true,
+  "orderedContextFaithful": true,
+  "completeRequestedScopeCompared": true,
+  "unknownImpact": [
+    {
+      "unknownText": "对家牌河第1排从其出牌方向数第6张，即图像靠中央一排最左端的字牌，其具体字面无法可靠辨认。",
+      "positionConfirmed": true,
+      "displayFaithful": true,
+      "authorArgumentFaithfulWithUnknown": true,
+      "requiresExactValueForAuthorArgument": false,
+      "evidence": "位置对应对家靠中央一排的图像最左端，候选保留字面不清的占位及该位置的红线，没有指定具体字牌。作者的9p、7p和弃和论证没有使用该字牌的具体字面；不能用论证反推其字面。",
+      "requiredDisplayLimitations": [
+        "保留原图，并在该具体位置标明字牌字面不清，不填入猜测的字牌。",
+        "说明对家暗手被遮挡；实际听5p–8p是作者的文字陈述，不能说是从截图独立证实的。"
+      ],
+      "minimumUncoveredTeachingContribution": "无。该未知不遮蔽作者明确写出的条件、可能性或结论；它仍使完整精确牌谱无法由此转录确认。"
+    },
+    {
+      "unknownText": "中央上方与左侧的完整分数无法可靠辨认。",
+      "positionConfirmed": true,
+      "displayFaithful": true,
+      "authorArgumentFaithfulWithUnknown": true,
+      "requiresExactValueForAuthorArgument": false,
+      "evidence": "未知对应中央显示区上方和左侧的分数字段，候选明确保留两处完整分数不可可靠辨认。作者的文字论证没有引用这两个具体分数；这只足以展示作者的弃和建议，不足以独立证明该建议在所有点数情境下最优。",
+      "requiredDisplayLimitations": [
+        "随原图保留上方和左侧完整分数无法可靠辨认的说明，不补猜数值。",
+        "将弃和呈现为作者的结论，不宣称已利用完整点数证明它是最优选择。"
+      ],
+      "minimumUncoveredTeachingContribution": "无。作者没有给出以这两项具体分数为条件的命题；点数未知限制的是进一步的局面评价。"
+    },
+    {
+      "unknownText": "中央数字0、1前的小图标无法辨认，无法仅凭图标确认各自所指的计数项目。",
+      "positionConfirmed": true,
+      "displayFaithful": true,
+      "authorArgumentFaithfulWithUnknown": true,
+      "requiresExactValueForAuthorArgument": false,
+      "evidence": "位置在中央数字0、1附近。候选记录数字并保留图标含义未知，没有把它们指定为某项计数；作者的论证没有调用这些计数项目的名称或具体含义。",
+      "requiredDisplayLimitations": [
+        "保留图标不可辨及不能仅凭图标确认计数项目的说明，不为0、1擅自指定计数名称。",
+        "保留原图，避免把转录当作完整可识别的计数信息。"
+      ],
+      "minimumUncoveredTeachingContribution": "无。图标的确切含义不是作者所写论证的条件。"
+    },
+    {
+      "unknownText": "各家座位旁的小号姓名或其他附属文字无法完整辨认。",
+      "positionConfirmed": true,
+      "displayFaithful": true,
+      "authorArgumentFaithfulWithUnknown": true,
+      "requiresExactValueForAuthorArgument": false,
+      "evidence": "未知定位于各家座位旁的小字，候选如实说明无法完整辨认，没有补写姓名或附属文字。作者的牌形分析与建议没有依赖这些文字的具体内容。",
+      "requiredDisplayLimitations": [
+        "保留座位旁小字无法完整辨认的说明和原图，不推定姓名或其他文字。",
+        "不将转录描述为包含全部玩家身份及附属信息。"
+      ],
+      "minimumUncoveredTeachingContribution": "无。作者没有使用这些小字作为论证条件。"
+    }
+  ],
+  "originalParentIssues": [
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter03-section026:b0017",
+      "sourceEvidence": "テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+      "description": "“入り目でもなければ”不是泛指“不是因为进张而打出的”。原文排除的是该牌周边属于进张完成面子一侧的情况；候选译法模糊了判断待牌位置的重要例外。",
+      "suggestedRepair": "改为明确表达：听牌时切出的牌若并非留作安全牌，且其周边也不是进张完成面子的部分，那么其周边就是待牌所在。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+      "sourceEvidence": "附图左家牌河外侧左列从图像上至下第2张为7p；末段原文说对家很可能持有至少一张7p，因此7p最多只剩两张。",
+      "description": "候选将这张可见7p写作“点数不清的筒子牌”，遗漏了直接影响剩余张数论证的明牌。",
+      "suggestedRepair": "将左家外列第2张补为7p，同时更新对应红线说明及unknowns；保留其顺时针旋转90°和摸切标记。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+      "sourceEvidence": "候选将对家靠中央一排最左端字牌，以及中央上方、左侧的完整点数列为无法辨认。",
+      "description": "这些属于牌局牌码和数值数据，本次无法可靠确认其准确转录，不能作为非教学边缘残痕直接放行。",
+      "suggestedRepair": "复核附图中该字牌及两家点数，补录能够确定的内容；确实无法辨认的继续如实标未知并保留原图，但在相关歧义解决前保持阻断。"
+    }
+  ],
+  "sourceBlocks": 53,
+  "unchangedBodyBlocks": 52,
+  "unchangedCompleteFigures": 23,
+  "runtimeFiles": 32,
+  "uniqueLedger": true,
+  "originalTransportRequestAndFrozenVerifierReplayed": true,
+  "existingContracts": {
+    "pair109167": "actual gate rejects this candidate SHA",
+    "exact201": "actual gate rejects this candidate SHA",
+    "exact159242": "static source pins do not cover this candidate",
+    "scope193213": "production/review only; verifier returns no_limited_allowance"
+  },
+  "minimumGap": [
+    "exact213 supplementary loader: bind candidate/source/parent/audit/real call and preserve original false and issues; consume only the explicit target and contribution fields",
+    "install all eight distinct visible non-author limits beside b0032, preserving every author block, unknown, original image and ordering",
+    "read actual rendered/compiled content and reverse-remove the notes to verify author bytes/marks/conditions exactly; fail closed on any missing binding or limit",
+    "existing250 unique writer installs persistent exact-SHA route and performs complete MCP/Arena readback before coverage update"
+  ],
+  "additionalModelBudgetNeeded": 0,
+  "archive": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-213-target-impact-reviewed-20261028.json",
+      "sha256": "a91fd5ef0e13a880d32e0036c87f34f341d54b4c7afa9088f636b3dc857321d8",
+      "copy": "evidence/e0.json"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-213-scope-inheritance-20261028.json",
+      "sha256": "8ff79cba55f85ca53f3ca30831683c7c9bcd7506dc74a97a6062c8af044ad2f7",
+      "copy": "evidence/e1.json"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-213-display-and-residual-20261028.json",
+      "sha256": "d5047dad1115c6c6d81d7dbb26e63e559521d8dde54a589de9f659215dc0eb06",
+      "copy": "evidence/e2.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\c0d77d4f-25ea-401b-939e-c956e81e1713.json",
+      "sha256": "0f401fb2bdba23993719062663b69b6ddcc9df2c268727ebe94d1e9041d867ea",
+      "copy": "evidence/e3.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.r1.display.json",
+      "sha256": "a667937d4e119a1b22659fc60987f07d3eea9d246c8b2b6ddabcdacb4fe5dd47",
+      "copy": "evidence/e4.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter03-section026\\source.json",
+      "sha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+      "copy": "evidence/e5.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.display.json",
+      "sha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+      "copy": "evidence/e6.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+      "sha256": "a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc",
+      "copy": "evidence/e7.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-213-target-impact-20261028\\plan.json",
+      "sha256": "d75fa455ffcc4d9d61312394c5bb5e6d13658fbe942ea0340ed6889dfcb7ad2e",
+      "copy": "evidence/e8.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\runtime-manifest.json",
+      "sha256": "722e33f454e4b739cf0fccea1c974086c1e63f2b32083048b572f2b0372fec32",
+      "files": 32,
+      "copy": "evidence/e9.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-193213-20261028\\213-handoff249.json",
+      "sha256": "9bbcaf3212273226ae249ca247e0046a7a2e4489ffdb8fdef73dbe12c76e88cf",
+      "copy": "evidence/e10.json"
+    }
+  ],
+  "dependencies": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-213-target-impact-reviewed-20261028.json",
+      "sha256": "a91fd5ef0e13a880d32e0036c87f34f341d54b4c7afa9088f636b3dc857321d8"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-213-scope-inheritance-20261028.json",
+      "sha256": "8ff79cba55f85ca53f3ca30831683c7c9bcd7506dc74a97a6062c8af044ad2f7"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-213-display-and-residual-20261028.json",
+      "sha256": "d5047dad1115c6c6d81d7dbb26e63e559521d8dde54a589de9f659215dc0eb06"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\c0d77d4f-25ea-401b-939e-c956e81e1713.json",
+      "sha256": "0f401fb2bdba23993719062663b69b6ddcc9df2c268727ebe94d1e9041d867ea"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.r1.display.json",
+      "sha256": "a667937d4e119a1b22659fc60987f07d3eea9d246c8b2b6ddabcdacb4fe5dd47"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter03-section026\\source.json",
+      "sha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.display.json",
+      "sha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+      "sha256": "a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-213-target-impact-20261028\\plan.json",
+      "sha256": "d75fa455ffcc4d9d61312394c5bb5e6d13658fbe942ea0340ed6889dfcb7ad2e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\runtime-manifest.json",
+      "sha256": "722e33f454e4b739cf0fccea1c974086c1e63f2b32083048b572f2b0372fec32",
+      "files": 32
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-193213-20261028\\213-handoff249.json",
+      "sha256": "9bbcaf3212273226ae249ca247e0046a7a2e4489ffdb8fdef73dbe12c76e88cf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\capability-evidence.json",
+      "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\mixed-contract.json",
+      "sha256": "d07d197ffce26ef08b710205f8f9dcba113c757685d79c30a0d17ad9ba5dc500"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\mixed.mjs",
+      "sha256": "43993d0d15e8199a9128e48fd256c3a55ce35b57da98b0b3892a963f1bf7aef0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\production-schema.mjs",
+      "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-definition.mjs",
+      "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-image-binding.test.mjs",
+      "sha256": "1e8968987bd3082740c7044855379c4f193ce9c4d13470c32a1ae1fd4593f832"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-legacy.mjs",
+      "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-pdf-layout.mjs",
+      "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-pdf-native-structure-corrections.mjs",
+      "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-pdf-native.mjs",
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-pdf-scope.mjs",
+      "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-verification-dependencies.mjs",
+      "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-web-batches.mjs",
+      "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-web.mjs",
+      "sha256": "0f4ab0b222327b14d2b054b743183507c065abf2dc0485a04542ae9ae65f2a11"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit-web.test.mjs",
+      "sha256": "f3c19856af72c0078611b1155fd22ed098727c6d9fc163265fde4e54ffa67074"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-audit.mjs",
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-pdf-flow.mjs",
+      "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-web-dictionary.mjs",
+      "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-web-formal.mjs",
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-web-labels.mjs",
+      "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-web-sources.py",
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production-web.mjs",
+      "sha256": "07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\textbook-production.mjs",
+      "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-193213-mixed-v1-20261028\\verification-dependencies.json",
+      "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193213-20261028/review.mjs",
+      "sha256": "b9855b0f55f763a5e205dc6ec1f400d86d635480efb60dd2c4a20831294273c3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193213-20261028/release.json",
+      "sha256": "3e8c23a5baad71ba06b1569a7703c7e8c19ff9b379396b88ca87a00d62c1cc00"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-109167-limited-display-20261028/admit.mjs",
+      "sha256": "42710450e1769a87b8c5967182f66ce1ea3da1f9ee2eca9131cd75bdda9569fa"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-201-limited-display-20261028/admit201.mjs",
+      "sha256": "a3baa7ff4b328e99af5514d011a5e9bbfa7301d4a1f68bf1c0b7431631ef4726"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-limited-159242-20261028/admit.mjs",
+      "sha256": "166614d1653214eb10de193a00b36667fdde2b76e45c01d7f676c46d562b22d1"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-limited-159242-20261028/contract.json",
+      "sha256": "d250e4fa99a7c4ee3c028859e1c437d46d3e8532abed0457ca6f669a91bc1a1b"
+    }
+  ],
+  "phaseBudget": {
+    "maker": 1,
+    "review": 1,
+    "maximum": 2,
+    "remaining": 0,
+    "failedVoidCount": true,
+    "retry": 0
+  },
+  "batchUsed": 4,
+  "batchMaximum": 4,
+  "admissionGranted": false,
+  "ordinaryWholeChapterPassed": false,
+  "limitsInstalled": false,
+  "newCalls": 0,
+  "newConsumers": 0,
+  "fee": "unknown",
+  "upstreamExecutions": "unknown",
+  "remoteWeights": "unknown"
+}
