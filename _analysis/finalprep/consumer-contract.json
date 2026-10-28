@@ -1,0 +1,390 @@
+{
+  "proposalOnly": true,
+  "existingOwner": "COAC-244",
+  "canonical": "nemata-jp-chapter-250-1",
+  "observedDraftExports": {
+    "pageVerifier": "admit.mjs::verifyLimited(processingRoot,candidatePath)",
+    "chapterStage": "stage.mjs::stageOwnedHuman257({processingRoot,destination,sourceLibraryPath,binding})",
+    "directStage": "stage.mjs::stageLimited({processingRoot,candidatePath,destination,sourceLibraryPath})",
+    "stageVerifier": "stage.mjs::verifyStage(processingRoot,candidatePath,stageDirectory)"
+  },
+  "actualNamesMustBePinnedByFinalHandoff": true,
+  "requiredHandoffFields": [
+    "schema",
+    "canonical",
+    "candidate.path/sha256",
+    "source.path/sha256",
+    "parent.path/sha256",
+    "parentAudit.path/sha256",
+    "receipt.path/sha256",
+    "raw.path/sha256/callId",
+    "scope.path/sha256",
+    "runtime.path/sha256",
+    "module/stageModule/verifierModule.path+sha256+export",
+    "manifest.path/sha256",
+    "stage.path",
+    "stageSeal.path/sha256",
+    "pageSelections[13] with candidateSha256 from actual file bytes",
+    "sourceOwnership.path/sha256",
+    "sourcePositions945",
+    "unitIds[1]",
+    "visibleConditions[6]",
+    "unknownsPreserved",
+    "originalModelIssuesPreserved",
+    "missingHistoricalEvidence",
+    "ordinaryWholePagePassed=false",
+    "wholeChapterPassed=false",
+    "globalAdmissionGranted=false",
+    "newModelCalls=0"
+  ],
+  "pageVerifierEnvelope": {
+    "status": "owner-declared exact257 conditional status; never ordinary passed",
+    "production": {
+      "sha256": "a9ce50898c0407ecca32dc538ad208f667a0a950372acec1114263e177f000e7",
+      "meaning": "file binding only; deterministic human derivative, not new model production"
+    },
+    "conditionalCompositionAllowed": true,
+    "modelProduced": false,
+    "ordinaryWholePagePassed": false,
+    "wholeChapterPassed": false,
+    "globalAdmissionGranted": false,
+    "originalUncertainAndSourceNotesUnchanged": true
+  },
+  "currentConsumerConstraints": {
+    "stagePdfChapters": {
+      "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/stage-pdf-chapters.mjs",
+      "sha256": "b6f4f1284ff37c4167d27116c9b9d7d951fb9587841762119b5036b9df706315"
+    },
+    "publishHelpers": {
+      "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/publish-textbooks.mjs",
+      "sha256": "ffa7b575475bb3a0b65e13560081354a6adf78a9d51d09958cd0f8385bd04026"
+    },
+    "readApprovedPdfPage": "Current audit.status allowlist rejects a new conditional status. Supply a private exact-scope adapter; do not relabel257 as261 source-adjudication or change the shared gate.",
+    "figureDisplay": "Current generic PDF makeFigure copies transcription only. Exact stage must also display all4 r1 unknowns and all6 visible conditions, preserving original source/image/crop objects.",
+    "stageLayout": "knowledge-index.json,textbook-bodies.json,textbook-unit-map.json,textbook-corpus.json,knowledge.html,pdf-stage-receipt.json plus separate display/provenance proof and assets"
+  },
+  "visibleConditions": [
+    {
+      "index": 0,
+      "text": "本次仅依据所供文字核对确定性应用及Q9有序论证；实际没有图片输入，没有新增看图、识字或牌面认证。",
+      "sourceBlockIds": [
+        "nemata-jp-p257-r1"
+      ],
+      "editorialNotAuthorText": true,
+      "mustRemainVisible": true,
+      "conditionId": "p257-human20-limit-1",
+      "authorText": false,
+      "installed": false,
+      "displayRequirement": "visible non-author explanation near r1/Q9; retain full original wording and provenance"
+    },
+    {
+      "index": 1,
+      "text": "在r1转录旁增加独立于原文的说明：上河第15张6p为旧机器转录保留，未纳入本批人标且未经本次复核；保留牌码，不把它归为背面暗手unknown。",
+      "sourceBlockIds": [
+        "nemata-jp-p257-b3",
+        "nemata-jp-p257-b4"
+      ],
+      "editorialNotAuthorText": true,
+      "mustRemainVisible": true,
+      "conditionId": "p257-human20-limit-2",
+      "authorText": false,
+      "installed": false,
+      "displayRequirement": "visible non-author explanation near r1/Q9; retain full original wording and provenance"
+    },
+    {
+      "index": 2,
+      "text": "将87处及6p共5处标为显示标签计数诊断，并注明未认证同时性、实体互斥关系及完整合法牌谱；四处人标6p不得为平衡计数而修改。",
+      "sourceBlockIds": [
+        "nemata-jp-p257-b4"
+      ],
+      "editorialNotAuthorText": true,
+      "mustRemainVisible": true,
+      "conditionId": "p257-human20-limit-3",
+      "authorText": false,
+      "installed": false,
+      "displayRequirement": "visible non-author explanation near r1/Q9; retain full original wording and provenance"
+    },
+    {
+      "index": 3,
+      "text": "Q9作为作者在所述条件下的论述及参考结果比较呈现；不得标成已由完整牌谱独立验证，亦不得把12,000、16,000、2,600点的条件性路线改写为截图已证实的结果。",
+      "sourceBlockIds": [
+        "nemata-jp-p256-b39",
+        "nemata-jp-p256-b40",
+        "nemata-jp-p257-b1",
+        "nemata-jp-p257-b2"
+      ],
+      "editorialNotAuthorText": true,
+      "mustRemainVisible": true,
+      "conditionId": "p257-human20-limit-4",
+      "authorText": false,
+      "installed": false,
+      "displayRequirement": "visible non-author explanation near r1/Q9; retain full original wording and provenance"
+    },
+    {
+      "index": 4,
+      "text": "继续完整保留r1的原图引用、裁图引用及源图对象，包括nemata-jp-p257-b3和nemata-jp-p257-b4；保留图片本身不构成逐牌完整性认证。",
+      "sourceBlockIds": [
+        "nemata-jp-p257-b3",
+        "nemata-jp-p257-b4"
+      ],
+      "editorialNotAuthorText": true,
+      "mustRemainVisible": true,
+      "conditionId": "p257-human20-limit-5",
+      "authorText": false,
+      "installed": false,
+      "displayRequirement": "visible non-author explanation near r1/Q9; retain full original wording and provenance"
+    },
+    {
+      "index": 5,
+      "text": "旧raw、uncertain及count诊断作为历史保留；本次结论另列。未改正文、unknown和其它三图沿用原独审，Q10及全章不重审，不授予整页整章普通passed或正式准入。",
+      "sourceBlockIds": [
+        "nemata-jp-p257-r1"
+      ],
+      "editorialNotAuthorText": true,
+      "mustRemainVisible": true,
+      "conditionId": "p257-human20-limit-6",
+      "authorText": false,
+      "installed": false,
+      "displayRequirement": "visible non-author explanation near r1/Q9; retain full original wording and provenance"
+    }
+  ],
+  "original261": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair18-20261027-p261\\candidates\\nemata-jp\\page-0261.json",
+    "sha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+    "bytes": 142025
+  },
+  "source261Status": "passed-after-source-adjudication",
+  "all13Pages": [
+    {
+      "page": 250,
+      "source": {
+        "path": "E:/AgentData/Coach/knowledge/processing/nemata-jp/pages/250.json",
+        "sha256": "04bf92599fe2a60a630da080ae8a49511368ec77f22c308d30c312aa660955fa"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair10-20261027-p250\\candidates\\nemata-jp\\page-0250.json",
+        "sha256": "1a3e1c8ce49532298caf98b7fabc00a91fa830a6f8a5e892db8199e457a43786",
+        "bytes": 60428
+      },
+      "sourcePositions": 69,
+      "bodyBlocks": 39,
+      "figures": 18,
+      "auditStatus": "passed"
+    },
+    {
+      "page": 251,
+      "source": {
+        "path": "E:/AgentData/Coach/knowledge/processing/nemata-jp/pages/251.json",
+        "sha256": "ed9755c3a77e8bcee728b1f1e178706ebb380ed769fa3d5a11ff0d786ecd7ec5"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\candidates\\nemata-jp\\page-0251.json",
+        "sha256": "f9a76b0e4f4605a034de404d2fa95bbb914f6a00b9859cd7058e7110f70d10e2",
+        "bytes": 66313
+      },
+      "sourcePositions": 78,
+      "bodyBlocks": 41,
+      "figures": 20,
+      "auditStatus": "passed"
+    },
+    {
+      "page": 252,
+      "source": {
+        "path": "E:/AgentData/Coach/knowledge/processing/nemata-jp/pages/252.json",
+        "sha256": "9cf23b88391aa532e6422651d0678d0e2f3dfac3957e799e60c9d73105083fc2"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\candidates\\nemata-jp\\page-0252.json",
+        "sha256": "f0e75d84935bdcafff4ee43629406f35208b29d4e007579e5328463e91a099c8",
+        "bytes": 61282
+      },
+      "sourcePositions": 85,
+      "bodyBlocks": 33,
+      "figures": 14,
+      "auditStatus": "passed"
+    },
+    {
+      "page": 253,
+      "source": {
+        "path": "E:/AgentData/Coach/knowledge/processing/nemata-jp/pages/253.json",
+        "sha256": "9b0a1ad0237cbe79d8b0a4500cfc5983b0c0f6fd9049bf488578da8485d7ed89"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair12-20261027-p253\\candidates\\nemata-jp\\page-0253.json",
+        "sha256": "78b98bcd25a3bec7a6facea85f01973ae17d0735a2f3de418cb39826587b9a6f",
+        "bytes": 78037
+      },
+      "sourcePositions": 92,
+      "bodyBlocks": 40,
+      "figures": 24,
+      "auditStatus": "passed"
+    },
+    {
+      "page": 254,
+      "source": {
+        "path": "E:/AgentData/Coach/knowledge/processing/nemata-jp/pages/254.json",
+        "sha256": "6738ddc707f553ddc85a40a362e03f63523bd04812d68d1ecd48e1c1e9c388f2"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair9-20261027-p254nemata\\candidates\\nemata-jp\\page-0254.json",
+        "sha256": "bdc0dcb315a56712edc68450c22c1b838a315683a5d9f0650395ac5f9c03f690",
+        "bytes": 67796
+      },
+      "sourcePositions": 72,
+      "bodyBlocks": 39,
+      "figures": 23,
+      "auditStatus": "passed"
+    },
+    {
+      "page": 255,
+      "source": {
+        "path": "E:/AgentData/Coach/knowledge/processing/nemata-jp/pages/255.json",
+        "sha256": "c8993104cbbfe135fbfcdd98323929c877416497c99d9015d2aca08b9616fef4"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\candidates\\nemata-jp\\page-0255.json",
+        "sha256": "86e8129b8d692bed934ce99522433c8e6072ed1b9c717e22f9907b628f3fdada",
+        "bytes": 71217
+      },
+      "sourcePositions": 95,
+      "bodyBlocks": 37,
+      "figures": 20,
+      "auditStatus": "passed"
+    },
+    {
+      "page": 256,
+      "source": {
+        "path": "E:/AgentData/Coach/knowledge/processing/nemata-jp/pages/256.json",
+        "sha256": "77717438bdb22c52c04d70370ce2440054ef5c1a590fac4c84fcec6036ac8635"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair11-20261027-p256\\candidates\\nemata-jp\\page-0256.json",
+        "sha256": "bf9d64107b4b3d425c1ec16aa97baf9178799f8371f1e4879f7fde0f6489c2cf",
+        "bytes": 43189
+      },
+      "sourcePositions": 60,
+      "bodyBlocks": 27,
+      "figures": 10,
+      "auditStatus": "passed"
+    },
+    {
+      "page": 257,
+      "source": {
+        "path": "E:/AgentData/Coach/knowledge/processing/nemata-jp/pages/257.json",
+        "sha256": "ca63823638f042d84419560d2618879b80972410d0e290f6b12c9860e19639a6"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\257.human20.json",
+        "sha256": "a9ce50898c0407ecca32dc538ad208f667a0a950372acec1114263e177f000e7"
+      },
+      "sourcePositions": 15,
+      "bodyBlocks": 9,
+      "figures": 4,
+      "auditStatus": "conditional-evidence-only-not-admitted"
+    },
+    {
+      "page": 258,
+      "source": {
+        "path": "E:/AgentData/Coach/knowledge/processing/nemata-jp/pages/258.json",
+        "sha256": "5172c81050b3247930f01e2a18e5a24f4a9ddd50938f0ca4c8ba44b5e4750c01"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0258.json",
+        "sha256": "9bad063f7409d94bad026217777b1be78a5589f7c1216f6fa7a21791744189e5",
+        "bytes": 95051
+      },
+      "sourcePositions": 85,
+      "bodyBlocks": 13,
+      "figures": 30,
+      "auditStatus": "passed"
+    },
+    {
+      "page": 259,
+      "source": {
+        "path": "E:/AgentData/Coach/knowledge/processing/nemata-jp/pages/259.json",
+        "sha256": "7fd8b1a9f066e3de37cd901aee4dfab647dd507f1aff5c91fdf45fd2c5120a30"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0259.json",
+        "sha256": "dcc2f619d7195d65f10db732127f4bb4d498df742741a6e52b9d6bc5442f1cda",
+        "bytes": 99703
+      },
+      "sourcePositions": 76,
+      "bodyBlocks": 13,
+      "figures": 33,
+      "auditStatus": "passed"
+    },
+    {
+      "page": 260,
+      "source": {
+        "path": "E:/AgentData/Coach/knowledge/processing/nemata-jp/pages/260.json",
+        "sha256": "8c206873b295e85e961d4f47d65da4019f60d98a916e049b6374bcbecf7bf827"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair21-20261027-p260\\candidates\\nemata-jp\\page-0260.json",
+        "sha256": "8bbfb99c94116aa6b87ed1ead415406e8025329c53292e2dd5dc40b76f3bbfda",
+        "bytes": 112516
+      },
+      "sourcePositions": 76,
+      "bodyBlocks": 18,
+      "figures": 33,
+      "auditStatus": "passed"
+    },
+    {
+      "page": 261,
+      "source": {
+        "path": "E:/AgentData/Coach/knowledge/processing/nemata-jp/pages/261.json",
+        "sha256": "6cdfa8cefcbd8e38f618da86d9adc5ba5796f1c6f40fcb4729c0ceee4a3200a6"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair18-20261027-p261\\candidates\\nemata-jp\\page-0261.json",
+        "sha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+        "bytes": 142025
+      },
+      "sourcePositions": 93,
+      "bodyBlocks": 18,
+      "figures": 51,
+      "auditStatus": "passed-after-source-adjudication"
+    },
+    {
+      "page": 262,
+      "source": {
+        "path": "E:/AgentData/Coach/knowledge/processing/nemata-jp/pages/262.json",
+        "sha256": "30347446f28a83ab764f25e0e9d840665edf35e377d0c4ac87150e5604fd698e"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair19-20261027-p262\\candidates\\nemata-jp\\page-0262.json",
+        "sha256": "5c25921e229d285ea1ae30ec2baef23adbd9d7e20ee9740d7ef524809d9daba6",
+        "bytes": 72955
+      },
+      "sourcePositions": 49,
+      "bodyBlocks": 11,
+      "figures": 23,
+      "auditStatus": "passed"
+    }
+  ],
+  "sourcePositions": 945,
+  "unitCount": 1,
+  "refusalChecks": [
+    "wrong candidate/source/parent/receipt/raw/call",
+    "changed or withdrawn latest human event",
+    "different20 values or first9 facts",
+    "missing/reordered18 Q9 source positions",
+    "deleted or moved any visible condition",
+    "compiler drops4 unknowns",
+    "changed author text/other3 figures/Q10",
+    "upper15 guessed or human6p rebalanced",
+    "wrong261 adjudication or reused page",
+    "duplicate/missing source/image or wrong asset bytes",
+    "forged ordinary passed/model-produced/global-admission",
+    "lost recovery missing-evidence statement"
+  ],
+  "originalRecoveryEvidenceMissing": [
+    "original preflight.json",
+    "private historical admission pointer/register snapshots"
+  ],
+  "postHocVerificationOnly": true,
+  "noNewReviewRequired": true,
+  "requireVisibleAllSix": true,
+  "supersedesPriorAuditOnlyPlacementForConditions1And6": true
+}
