@@ -1,0 +1,535 @@
+{
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\257.human20.json",
+    "sha256": "a9ce50898c0407ecca32dc538ad208f667a0a950372acec1114263e177f000e7"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\candidates\\257.human-final.json",
+    "sha256": "5403cb35614b1edab17488458dbaf0571e1a48e1972d2d04c9ebc30a03da67dc"
+  },
+  "determinate": 20,
+  "unclear": 0,
+  "missing": 0,
+  "withdrawn": 0,
+  "changed": 10,
+  "confirmedUnchanged": 10,
+  "batchHistoryEvents": 40,
+  "firstNineRetained": true,
+  "authorBodyAndThreeOtherFiguresUnchanged": true,
+  "originalImagesAndFourUnknownsUnchanged": true,
+  "changes": [
+    {
+      "scope": "CPU hand",
+      "ordinal": 6,
+      "from": "4p",
+      "to": "6p",
+      "itemId": "56961fdcb2b76e62eaaf724a74ad3f22"
+    },
+    {
+      "scope": "right",
+      "ordinal": 10,
+      "from": "4p",
+      "to": "6p",
+      "itemId": "939308447c23b0ccbdf737cf5a9d3f28"
+    },
+    {
+      "scope": "bottom",
+      "ordinal": 5,
+      "from": "4p",
+      "to": "6p",
+      "itemId": "4c311b445aa60ff083d25a764f8f2889"
+    },
+    {
+      "scope": "bottom",
+      "ordinal": 6,
+      "from": "4p",
+      "to": "6p",
+      "itemId": "b61952dc8eb8f1e3f3ac4f24fed9e174"
+    },
+    {
+      "scope": "right",
+      "ordinal": 9,
+      "from": "1s",
+      "to": "2z",
+      "itemId": "c89eeeff0e31514624ec798a2e52c701"
+    },
+    {
+      "scope": "CPU hand",
+      "ordinal": 9,
+      "from": "8s",
+      "to": "6s",
+      "itemId": "3cd0dfbf6494b4e5170d3323e0423ccc"
+    },
+    {
+      "scope": "right",
+      "ordinal": 16,
+      "from": "8s",
+      "to": "6s",
+      "itemId": "f4f9d92d9154fd5460e99c5c3f3e4d05"
+    },
+    {
+      "scope": "upper",
+      "ordinal": 5,
+      "from": "9s",
+      "to": "5s",
+      "itemId": "845eb1e5d2f0c196ea04836ccebbc6e8"
+    },
+    {
+      "scope": "right",
+      "ordinal": 4,
+      "from": "9s",
+      "to": "5s",
+      "itemId": "31e5892f3bcfc136239751559b3b33ff"
+    },
+    {
+      "scope": "bottom",
+      "ordinal": 14,
+      "from": "9s",
+      "to": "7s",
+      "itemId": "f5d9e1d1975fa768e8912eda5ecef92b"
+    }
+  ],
+  "eventBindings": [
+    {
+      "itemId": "56961fdcb2b76e62eaaf724a74ad3f22",
+      "targetId": "nemata-jp-p257-b4:old-transcription:CPU hand:6",
+      "eventSha256": "d3bfb2133058be44211ac887a3fd32ddf0c4caaeb7c20ee124a3120067ac954c",
+      "timestamp": "2026-10-28T13:38:28.461Z",
+      "revision": 2,
+      "oldTile": "4p",
+      "tile": "6p",
+      "scope": "CPU hand",
+      "ordinal": 6
+    },
+    {
+      "itemId": "00eb871076a053d19696a8d8068362c7",
+      "targetId": "nemata-jp-p257-b4:old-transcription:upper:3",
+      "eventSha256": "63e03e14cbf88ac45f183af717ece57baa321c4f293c604b9917f127a158e208",
+      "timestamp": "2026-10-28T13:38:42.036Z",
+      "revision": 2,
+      "oldTile": "4p",
+      "tile": "4p",
+      "scope": "upper",
+      "ordinal": 3
+    },
+    {
+      "itemId": "ffde62ad7e1c1235b4d7d8146492d7b1",
+      "targetId": "nemata-jp-p257-b4:old-transcription:upper:8",
+      "eventSha256": "b82627cb0ac640cb2a3bb86ab09c6f34301aec6d698b47605936af4119f8dbb2",
+      "timestamp": "2026-10-28T13:38:51.087Z",
+      "revision": 2,
+      "oldTile": "4p",
+      "tile": "4p",
+      "scope": "upper",
+      "ordinal": 8
+    },
+    {
+      "itemId": "ed19e0d584b6d8dcb8e0eae96999a43c",
+      "targetId": "nemata-jp-p257-b4:old-transcription:left:11",
+      "eventSha256": "bcb746c91ee8616f0278c250c764bece63e3b34e43c993e20b0c9439776147db",
+      "timestamp": "2026-10-28T13:38:57.461Z",
+      "revision": 2,
+      "oldTile": "4p",
+      "tile": "4p",
+      "scope": "left",
+      "ordinal": 11
+    },
+    {
+      "itemId": "939308447c23b0ccbdf737cf5a9d3f28",
+      "targetId": "nemata-jp-p257-b4:old-transcription:right:10",
+      "eventSha256": "9992f40236d96a3b65cb4801dd903977083561a0a2e9f9eda1e280dd08df4fb6",
+      "timestamp": "2026-10-28T13:39:03.506Z",
+      "revision": 2,
+      "oldTile": "4p",
+      "tile": "6p",
+      "scope": "right",
+      "ordinal": 10
+    },
+    {
+      "itemId": "642bb0faf25bcc2c3ff338bb2e6be856",
+      "targetId": "nemata-jp-p257-b4:old-transcription:right:12",
+      "eventSha256": "823563bcfc5696ac36d2b48e528f24f2c04f6de62bb3e2a197a271a6b9104253",
+      "timestamp": "2026-10-28T13:39:15.888Z",
+      "revision": 2,
+      "oldTile": "4p",
+      "tile": "4p",
+      "scope": "right",
+      "ordinal": 12
+    },
+    {
+      "itemId": "4c311b445aa60ff083d25a764f8f2889",
+      "targetId": "nemata-jp-p257-b4:old-transcription:bottom:5",
+      "eventSha256": "b9fe4b06e0eb6cbd3b61ee26c3afae8d7b86814d61c809dc2a3de9095f81627d",
+      "timestamp": "2026-10-28T13:39:22.181Z",
+      "revision": 2,
+      "oldTile": "4p",
+      "tile": "6p",
+      "scope": "bottom",
+      "ordinal": 5
+    },
+    {
+      "itemId": "b61952dc8eb8f1e3f3ac4f24fed9e174",
+      "targetId": "nemata-jp-p257-b4:old-transcription:bottom:6",
+      "eventSha256": "b38bcb19d436d131c44d7fd714d36aa82fe82cf296bce89e9cbccc48ced9af32",
+      "timestamp": "2026-10-28T13:39:27.491Z",
+      "revision": 2,
+      "oldTile": "4p",
+      "tile": "6p",
+      "scope": "bottom",
+      "ordinal": 6
+    },
+    {
+      "itemId": "4768c27ef6e103fb13409f0766c3a1c9",
+      "targetId": "nemata-jp-p257-b4:old-transcription:CPU hand:7",
+      "eventSha256": "77336471e3757dee6bca677bbf72b1fd90b86b508c43eeeb8160e17a65d51df5",
+      "timestamp": "2026-10-28T13:39:32.297Z",
+      "revision": 2,
+      "oldTile": "1s",
+      "tile": "1s",
+      "scope": "CPU hand",
+      "ordinal": 7
+    },
+    {
+      "itemId": "5ac20da5b45ef701199632ede3f2173e",
+      "targetId": "nemata-jp-p257-b4:old-transcription:left:7",
+      "eventSha256": "1ac81edfd55aec82d2cf28f57734c39531bf6dc108d46f1bcb348bcf1bc7e10e",
+      "timestamp": "2026-10-28T13:39:38.433Z",
+      "revision": 2,
+      "oldTile": "1s",
+      "tile": "1s",
+      "scope": "left",
+      "ordinal": 7
+    },
+    {
+      "itemId": "c89eeeff0e31514624ec798a2e52c701",
+      "targetId": "nemata-jp-p257-b4:old-transcription:right:9",
+      "eventSha256": "9d58d01358aa9f2c0c106c49948585db67b44b13e3b42a5f04f4ab44b2d6af1d",
+      "timestamp": "2026-10-28T13:39:48.388Z",
+      "revision": 2,
+      "oldTile": "1s",
+      "tile": "2z",
+      "scope": "right",
+      "ordinal": 9
+    },
+    {
+      "itemId": "3cd0dfbf6494b4e5170d3323e0423ccc",
+      "targetId": "nemata-jp-p257-b4:old-transcription:CPU hand:9",
+      "eventSha256": "27de36f90865bb262a2ec5bbd770cfd38cab9f07ab29641859686f63737c2a64",
+      "timestamp": "2026-10-28T13:39:54.180Z",
+      "revision": 2,
+      "oldTile": "8s",
+      "tile": "6s",
+      "scope": "CPU hand",
+      "ordinal": 9
+    },
+    {
+      "itemId": "f7527bf32b0bd57f69146759f3e35d20",
+      "targetId": "nemata-jp-p257-b4:old-transcription:left:9",
+      "eventSha256": "9b4a37d9ff5d48da05534233000c564351aacd75b74fab815421cc5b3f8af2c9",
+      "timestamp": "2026-10-28T13:40:00.300Z",
+      "revision": 2,
+      "oldTile": "8s",
+      "tile": "8s",
+      "scope": "left",
+      "ordinal": 9
+    },
+    {
+      "itemId": "f4f9d92d9154fd5460e99c5c3f3e4d05",
+      "targetId": "nemata-jp-p257-b4:old-transcription:right:16",
+      "eventSha256": "3eddce4f705d11a16982e138f18d4bcdb91e7c309374a2d1d79e8f385fb755db",
+      "timestamp": "2026-10-28T13:40:04.664Z",
+      "revision": 2,
+      "oldTile": "8s",
+      "tile": "6s",
+      "scope": "right",
+      "ordinal": 16
+    },
+    {
+      "itemId": "08d9cfa0639f552aca35213187bf27da",
+      "targetId": "nemata-jp-p257-b4:old-transcription:right:17",
+      "eventSha256": "8be293458d40e17c31088775c2542ab61cb466ca800473c29326fd61ec2e6e7e",
+      "timestamp": "2026-10-28T13:40:09.320Z",
+      "revision": 2,
+      "oldTile": "8s",
+      "tile": "8s",
+      "scope": "right",
+      "ordinal": 17
+    },
+    {
+      "itemId": "0f8ddbcf869630821f266df7e769cfec",
+      "targetId": "nemata-jp-p257-b4:old-transcription:CPU hand:10",
+      "eventSha256": "97e10abacf10c0899b7fd4a842e3ab50cd2b9ec8dc1a4d1f5e4165c97b005f01",
+      "timestamp": "2026-10-28T13:40:14.509Z",
+      "revision": 2,
+      "oldTile": "9s",
+      "tile": "9s",
+      "scope": "CPU hand",
+      "ordinal": 10
+    },
+    {
+      "itemId": "598e02afb62eb5697a240cec61f3064f",
+      "targetId": "nemata-jp-p257-b4:old-transcription:CPU hand:11",
+      "eventSha256": "4f95364a36cab5da3d5487eada305f803943c8d62bbf0c3d2d3b4a2e9fb0d8f9",
+      "timestamp": "2026-10-28T13:40:18.083Z",
+      "revision": 1,
+      "oldTile": "9s",
+      "tile": "9s",
+      "scope": "CPU hand",
+      "ordinal": 11
+    },
+    {
+      "itemId": "845eb1e5d2f0c196ea04836ccebbc6e8",
+      "targetId": "nemata-jp-p257-b4:old-transcription:upper:5",
+      "eventSha256": "fc0352376b9817c271e134a0617af9f5466b632ceb20c5b7de78ed0cfebcfac7",
+      "timestamp": "2026-10-28T13:40:22.045Z",
+      "revision": 2,
+      "oldTile": "9s",
+      "tile": "5s",
+      "scope": "upper",
+      "ordinal": 5
+    },
+    {
+      "itemId": "31e5892f3bcfc136239751559b3b33ff",
+      "targetId": "nemata-jp-p257-b4:old-transcription:right:4",
+      "eventSha256": "1cc0bbfd9548676a22289adbefee90aa326afdc9362224c6a57fb6260b407432",
+      "timestamp": "2026-10-28T13:40:24.991Z",
+      "revision": 2,
+      "oldTile": "9s",
+      "tile": "5s",
+      "scope": "right",
+      "ordinal": 4
+    },
+    {
+      "itemId": "f5d9e1d1975fa768e8912eda5ecef92b",
+      "targetId": "nemata-jp-p257-b4:old-transcription:bottom:14",
+      "eventSha256": "8398896de8eb1c68038da8f9ae759ff884ed056b5e1cdd7b5557d7cde21d0552",
+      "timestamp": "2026-10-28T13:40:30.783Z",
+      "revision": 3,
+      "oldTile": "9s",
+      "tile": "7s",
+      "scope": "bottom",
+      "ordinal": 14
+    }
+  ],
+  "displayCount": {
+    "totalDisplayPositions": 87,
+    "regions": {
+      "hand": 13,
+      "exposed": 3,
+      "indicator": 1,
+      "rivers": [
+        17,
+        18,
+        17,
+        18
+      ]
+    },
+    "totals": {
+      "3m": 3,
+      "6m": 2,
+      "8m": 1,
+      "6p": 5,
+      "1s": 4,
+      "3s": 3,
+      "6s": 3,
+      "9s": 2,
+      "3z": 4,
+      "9m": 4,
+      "6z": 4,
+      "2z": 3,
+      "4p": 4,
+      "3p": 3,
+      "5s": 2,
+      "2s": 3,
+      "5p": 3,
+      "2p": 4,
+      "5z": 2,
+      "7s": 2,
+      "1m": 3,
+      "1p": 3,
+      "1z": 3,
+      "8s": 3,
+      "7p": 3,
+      "2m": 3,
+      "4m": 1,
+      "4s": 1,
+      "4z": 3,
+      "7z": 3
+    },
+    "overFour": [
+      {
+        "tile": "6p",
+        "count": 5,
+        "positions": [
+          {
+            "scope": "CPU hand",
+            "ordinal": 6,
+            "tile": "6p",
+            "humanItemId": "56961fdcb2b76e62eaaf724a74ad3f22"
+          },
+          {
+            "scope": "upper",
+            "ordinal": 15,
+            "tile": "6p"
+          },
+          {
+            "scope": "right",
+            "ordinal": 10,
+            "tile": "6p",
+            "humanItemId": "939308447c23b0ccbdf737cf5a9d3f28"
+          },
+          {
+            "scope": "bottom",
+            "ordinal": 5,
+            "tile": "6p",
+            "humanItemId": "4c311b445aa60ff083d25a764f8f2889"
+          },
+          {
+            "scope": "bottom",
+            "ordinal": 6,
+            "tile": "6p",
+            "humanItemId": "b61952dc8eb8f1e3f3ac4f24fed9e174"
+          }
+        ]
+      }
+    ],
+    "physicalMultiplicityCertified": false,
+    "completeLegalRecordCertified": false,
+    "exclusions": [
+      "other result or start panels",
+      "image enlargement copies",
+      "captions",
+      "hidden backs",
+      "riichi sticks"
+    ],
+    "meaning": "Counts of distinct displayed labels in one CPU result; no assertion that all displayed slots are simultaneous mutually exclusive physical entities. Do not alter human facts to balance counts."
+  },
+  "minimalUnconfirmedLabel": {
+    "scope": "upper",
+    "ordinal": 15,
+    "oldTile": "6p",
+    "status": "old-machine-not-in-human20; not re-read or corrected"
+  },
+  "source261": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair18-20261027-p261\\candidates\\nemata-jp\\page-0261.json",
+    "sha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+    "bytes": 142025
+  },
+  "source261Verification": "passed-after-source-adjudication",
+  "reusedPages": [
+    {
+      "page": 250,
+      "sourceBlocks": 69,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair10-20261027-p250\\candidates\\nemata-jp\\page-0250.json",
+        "sha256": "1a3e1c8ce49532298caf98b7fabc00a91fa830a6f8a5e892db8199e457a43786",
+        "bytes": 60428
+      },
+      "status": "passed"
+    },
+    {
+      "page": 251,
+      "sourceBlocks": 78,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\candidates\\nemata-jp\\page-0251.json",
+        "sha256": "f9a76b0e4f4605a034de404d2fa95bbb914f6a00b9859cd7058e7110f70d10e2",
+        "bytes": 66313
+      },
+      "status": "passed"
+    },
+    {
+      "page": 252,
+      "sourceBlocks": 85,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\candidates\\nemata-jp\\page-0252.json",
+        "sha256": "f0e75d84935bdcafff4ee43629406f35208b29d4e007579e5328463e91a099c8",
+        "bytes": 61282
+      },
+      "status": "passed"
+    },
+    {
+      "page": 253,
+      "sourceBlocks": 92,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair12-20261027-p253\\candidates\\nemata-jp\\page-0253.json",
+        "sha256": "78b98bcd25a3bec7a6facea85f01973ae17d0735a2f3de418cb39826587b9a6f",
+        "bytes": 78037
+      },
+      "status": "passed"
+    },
+    {
+      "page": 254,
+      "sourceBlocks": 72,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair9-20261027-p254nemata\\candidates\\nemata-jp\\page-0254.json",
+        "sha256": "bdc0dcb315a56712edc68450c22c1b838a315683a5d9f0650395ac5f9c03f690",
+        "bytes": 67796
+      },
+      "status": "passed"
+    },
+    {
+      "page": 255,
+      "sourceBlocks": 95,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\candidates\\nemata-jp\\page-0255.json",
+        "sha256": "86e8129b8d692bed934ce99522433c8e6072ed1b9c717e22f9907b628f3fdada",
+        "bytes": 71217
+      },
+      "status": "passed"
+    },
+    {
+      "page": 256,
+      "sourceBlocks": 60,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair11-20261027-p256\\candidates\\nemata-jp\\page-0256.json",
+        "sha256": "bf9d64107b4b3d425c1ec16aa97baf9178799f8371f1e4879f7fde0f6489c2cf",
+        "bytes": 43189
+      },
+      "status": "passed"
+    },
+    {
+      "page": 258,
+      "sourceBlocks": 85,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0258.json",
+        "sha256": "9bad063f7409d94bad026217777b1be78a5589f7c1216f6fa7a21791744189e5",
+        "bytes": 95051
+      },
+      "status": "passed"
+    },
+    {
+      "page": 259,
+      "sourceBlocks": 76,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0259.json",
+        "sha256": "dcc2f619d7195d65f10db732127f4bb4d498df742741a6e52b9d6bc5442f1cda",
+        "bytes": 99703
+      },
+      "status": "passed"
+    },
+    {
+      "page": 260,
+      "sourceBlocks": 76,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair21-20261027-p260\\candidates\\nemata-jp\\page-0260.json",
+        "sha256": "8bbfb99c94116aa6b87ed1ead415406e8025329c53292e2dd5dc40b76f3bbfda",
+        "bytes": 112516
+      },
+      "status": "passed"
+    },
+    {
+      "page": 262,
+      "sourceBlocks": 49,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair19-20261027-p262\\candidates\\nemata-jp\\page-0262.json",
+        "sha256": "5c25921e229d285ea1ae30ec2baef23adbd9d7e20ee9740d7ef524809d9daba6",
+        "bytes": 72955
+      },
+      "status": "passed"
+    }
+  ],
+  "reusedSourceBlocks": 837,
+  "newModelCalls": 0,
+  "wholeChapterPassed": false,
+  "admissionGranted": false
+}

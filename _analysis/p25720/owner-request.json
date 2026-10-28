@@ -1,0 +1,118 @@
+{
+  "schema": "coac250-p257-human20-exact-display-owner-request/1",
+  "canonical": "nemata-jp-chapter-250-1",
+  "existingOwners": [
+    "COAC-269",
+    "COAC-244"
+  ],
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\257.human20.json",
+    "sha256": "a9ce50898c0407ecca32dc538ad208f667a0a950372acec1114263e177f000e7"
+  },
+  "independentReceipt": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-p257-human20-reviewed-20261028.json",
+    "sha256": "4e1cc55ad35e0c649bd836946e1b9fddc9476bdee60da552ec212915106a2b0e"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2b216edc-24ba-4bdc-aa3c-153bdd6b9608.json",
+    "sha256": "4a6ec4819e7f86519bcba051e43f3f5149340ebe2898fe7ac10676498ff54e9b",
+    "bytes": 529188
+  },
+  "requiredDisplayLimitations": [
+    {
+      "id": "p257-human20-limit-1",
+      "text": "本次仅依据所供文字核对确定性应用及Q9有序论证；实际没有图片输入，没有新增看图、识字或牌面认证。",
+      "authorText": false,
+      "installed": false,
+      "layer": "audit-and-source-provenance",
+      "anchor": null
+    },
+    {
+      "id": "p257-human20-limit-2",
+      "text": "在r1转录旁增加独立于原文的说明：上河第15张6p为旧机器转录保留，未纳入本批人标且未经本次复核；保留牌码，不把它归为背面暗手unknown。",
+      "authorText": false,
+      "installed": false,
+      "layer": "visible-editorial-note-adjacent-to-r1",
+      "anchor": {
+        "figureId": "nemata-jp-p257-r1",
+        "sourceBlockIds": [
+          "nemata-jp-p257-b3",
+          "nemata-jp-p257-b4"
+        ],
+        "afterFigure": true,
+        "beforeQ10": true
+      }
+    },
+    {
+      "id": "p257-human20-limit-3",
+      "text": "将87处及6p共5处标为显示标签计数诊断，并注明未认证同时性、实体互斥关系及完整合法牌谱；四处人标6p不得为平衡计数而修改。",
+      "authorText": false,
+      "installed": false,
+      "layer": "visible-editorial-note-adjacent-to-r1",
+      "anchor": {
+        "figureId": "nemata-jp-p257-r1",
+        "sourceBlockIds": [
+          "nemata-jp-p257-b3",
+          "nemata-jp-p257-b4"
+        ],
+        "afterFigure": true,
+        "beforeQ10": true
+      }
+    },
+    {
+      "id": "p257-human20-limit-4",
+      "text": "Q9作为作者在所述条件下的论述及参考结果比较呈现；不得标成已由完整牌谱独立验证，亦不得把12,000、16,000、2,600点的条件性路线改写为截图已证实的结果。",
+      "authorText": false,
+      "installed": false,
+      "layer": "visible-editorial-note-adjacent-to-r1",
+      "anchor": {
+        "figureId": "nemata-jp-p257-r1",
+        "sourceBlockIds": [
+          "nemata-jp-p257-b3",
+          "nemata-jp-p257-b4"
+        ],
+        "afterFigure": true,
+        "beforeQ10": true
+      }
+    },
+    {
+      "id": "p257-human20-limit-5",
+      "text": "继续完整保留r1的原图引用、裁图引用及源图对象，包括nemata-jp-p257-b3和nemata-jp-p257-b4；保留图片本身不构成逐牌完整性认证。",
+      "authorText": false,
+      "installed": false,
+      "layer": "visible-editorial-note-adjacent-to-r1",
+      "anchor": {
+        "figureId": "nemata-jp-p257-r1",
+        "sourceBlockIds": [
+          "nemata-jp-p257-b3",
+          "nemata-jp-p257-b4"
+        ],
+        "afterFigure": true,
+        "beforeQ10": true
+      }
+    },
+    {
+      "id": "p257-human20-limit-6",
+      "text": "旧raw、uncertain及count诊断作为历史保留；本次结论另列。未改正文、unknown和其它三图沿用原独审，Q10及全章不重审，不授予整页整章普通passed或正式准入。",
+      "authorText": false,
+      "installed": false,
+      "layer": "audit-and-source-provenance",
+      "anchor": null
+    }
+  ],
+  "originalUncertainPreserved": true,
+  "minimumWork": [
+    "Bind a legal exact257 supplemental verifier to current human20/source/parent/old independent scope/new raw and the honest post-hoc recovery receipt; never substitute ordinary whole-page passed.",
+    "Map all six restrictions to the actual visible non-author display and provenance layers; place the specific upper15 old6p disclosure next to r1, keep four human6p values and original image/crop references. Do not classify the old visible label as a hidden-hand unknown.",
+    "Provide exact existing PDF stage/verify callback compatibility for full canonical250 scope, preserving Q9 cross-page18 source positions, Q10 isolation, original body/three other figures/four unknowns and reusable261+11 pages. Seal stage checks before250 globalMCP/Arena readback."
+  ],
+  "notAuthorized": [
+    "new maker/model/OCR/review/retry",
+    "guessing upper15",
+    "editing human UI or events",
+    "formal active switch"
+  ],
+  "newSemanticVerdict": false,
+  "admissionGranted": false,
+  "newModelCalls": 0
+}

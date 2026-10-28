@@ -1,0 +1,650 @@
+{
+  "schema": "coac250-p257-human20-intake-final/1",
+  "recordedAt": "2026-10-28T14:38:18.601Z",
+  "evidenceRegistered": true,
+  "pendingPageSelectionSavedInExistingCanonicalRows": true,
+  "acceptedPagesSelectionChanged": false,
+  "pending": {
+    "schema": "coac250-p257-human20-pending-selection/1",
+    "canonical": "nemata-jp-chapter-250-1",
+    "page": 257,
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\257.human20.json",
+      "sha256": "a9ce50898c0407ecca32dc538ad208f667a0a950372acec1114263e177f000e7"
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\candidates\\257.human-final.json",
+      "sha256": "5403cb35614b1edab17488458dbaf0571e1a48e1972d2d04c9ebc30a03da67dc"
+    },
+    "manifest": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac269-p257-human20-20261028/manifest.json",
+      "sha256": "45b6956cb20b1f5595f9a42d67972778da8d6f481a145f71d249201b2d46a9b3"
+    },
+    "source": {
+      "path": "E:/AgentData/Coach/knowledge/processing/nemata-jp/pages/257.json",
+      "sha256": "ca63823638f042d84419560d2618879b80972410d0e290f6b12c9860e19639a6"
+    },
+    "independentReceipt": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-p257-human20-reviewed-20261028.json",
+      "sha256": "4e1cc55ad35e0c649bd836946e1b9fddc9476bdee60da552ec212915106a2b0e"
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2b216edc-24ba-4bdc-aa3c-153bdd6b9608.json",
+      "sha256": "4a6ec4819e7f86519bcba051e43f3f5149340ebe2898fe7ac10676498ff54e9b",
+      "bytes": 529188
+    },
+    "callId": "2b216edc-24ba-4bdc-aa3c-153bdd6b9608",
+    "status": "independent-application-Q9-evidence-verified-display-composition-pending",
+    "deterministicApplicationVerified": true,
+    "applicationAllFaithful": true,
+    "firstNinePreserved": true,
+    "authorArgumentFaithful": true,
+    "completeOrderedScopeCompared": true,
+    "requiredDisplayLimitations": [
+      {
+        "id": "p257-human20-limit-1",
+        "text": "本次仅依据所供文字核对确定性应用及Q9有序论证；实际没有图片输入，没有新增看图、识字或牌面认证。",
+        "authorText": false,
+        "installed": false,
+        "layer": "audit-and-source-provenance",
+        "anchor": null
+      },
+      {
+        "id": "p257-human20-limit-2",
+        "text": "在r1转录旁增加独立于原文的说明：上河第15张6p为旧机器转录保留，未纳入本批人标且未经本次复核；保留牌码，不把它归为背面暗手unknown。",
+        "authorText": false,
+        "installed": false,
+        "layer": "visible-editorial-note-adjacent-to-r1",
+        "anchor": {
+          "figureId": "nemata-jp-p257-r1",
+          "sourceBlockIds": [
+            "nemata-jp-p257-b3",
+            "nemata-jp-p257-b4"
+          ],
+          "afterFigure": true,
+          "beforeQ10": true
+        }
+      },
+      {
+        "id": "p257-human20-limit-3",
+        "text": "将87处及6p共5处标为显示标签计数诊断，并注明未认证同时性、实体互斥关系及完整合法牌谱；四处人标6p不得为平衡计数而修改。",
+        "authorText": false,
+        "installed": false,
+        "layer": "visible-editorial-note-adjacent-to-r1",
+        "anchor": {
+          "figureId": "nemata-jp-p257-r1",
+          "sourceBlockIds": [
+            "nemata-jp-p257-b3",
+            "nemata-jp-p257-b4"
+          ],
+          "afterFigure": true,
+          "beforeQ10": true
+        }
+      },
+      {
+        "id": "p257-human20-limit-4",
+        "text": "Q9作为作者在所述条件下的论述及参考结果比较呈现；不得标成已由完整牌谱独立验证，亦不得把12,000、16,000、2,600点的条件性路线改写为截图已证实的结果。",
+        "authorText": false,
+        "installed": false,
+        "layer": "visible-editorial-note-adjacent-to-r1",
+        "anchor": {
+          "figureId": "nemata-jp-p257-r1",
+          "sourceBlockIds": [
+            "nemata-jp-p257-b3",
+            "nemata-jp-p257-b4"
+          ],
+          "afterFigure": true,
+          "beforeQ10": true
+        }
+      },
+      {
+        "id": "p257-human20-limit-5",
+        "text": "继续完整保留r1的原图引用、裁图引用及源图对象，包括nemata-jp-p257-b3和nemata-jp-p257-b4；保留图片本身不构成逐牌完整性认证。",
+        "authorText": false,
+        "installed": false,
+        "layer": "visible-editorial-note-adjacent-to-r1",
+        "anchor": {
+          "figureId": "nemata-jp-p257-r1",
+          "sourceBlockIds": [
+            "nemata-jp-p257-b3",
+            "nemata-jp-p257-b4"
+          ],
+          "afterFigure": true,
+          "beforeQ10": true
+        }
+      },
+      {
+        "id": "p257-human20-limit-6",
+        "text": "旧raw、uncertain及count诊断作为历史保留；本次结论另列。未改正文、unknown和其它三图沿用原独审，Q10及全章不重审，不授予整页整章普通passed或正式准入。",
+        "authorText": false,
+        "installed": false,
+        "layer": "audit-and-source-provenance",
+        "anchor": null
+      }
+    ],
+    "originalModelIssues": [
+      {
+        "severity": "source-note",
+        "targetId": "PDF257/r1:human20",
+        "description": "20项均忠实应用：10项改值、10项原值确认，无错位、漏用或额外改值。",
+        "evidence": "acceptedSecondBatch的itemId、targetId、scope、ordinal及最新事件牌码，与receipt.events、10条changes和currentAllFigures中r1对应位置一致。备注仅作定位和证据，没有转成额外牌理判断。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "PDF257/r1:firstNine",
+        "description": "第一批九个牌位及已有朝向标注均保留。",
+        "evidence": "fa50e1c25728194fcbbb2fec9841b592：右河7=8s；69395d14b0bb8aed53bfa51b0850ddcb：上河1/6/17=2z/1s/1s；19124d6cc326a5bc70fd54b4086fa20c：右河1/2/13/14=1m/4m/1m/3m；ba273dc871055c6f06083a007a390ac1：左河16=2m，保留“人工标注：立直宣言牌”。本批20项未覆盖这些位置。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "nemata-jp-p257-b4:old-transcription:upper:15",
+        "description": "此处旧6p尚未人标确认；最小处理是在r1转录旁补充该位置的来源与未核状态，不改牌码、不改作者正文。",
+        "evidence": "currentAllFigures中r1.transcription的“第13—16张为7s 1m 6p 1p”保留上河15=6p；receipt.minimalUnconfirmedLabel明确为old-machine-not-in-human20。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "nemata-jp-p256-b39,nemata-jp-p256-b40,nemata-jp-p257-b1",
+        "description": "作者关于活张、门清困难和副露目的的条件完整保留；本次没有认证参考画面满足这些条件的全部实体牌状态。",
+        "evidence": "原句为“ヤオ九牌のトイツか刻子が２～３種＋生きている孤立ヤオ九牌数種（もしくは同色牌か字牌トイツ２～３種＋生きている孤立同色牌か字牌数種）あって、メンゼンの和了が厳しい場合は、このような仕掛け（ブラフは副次的なもので、あくまで主眼はアガリにあります）も有効です。”候选保留两种条件、门清困难及诈唬次于和牌的限定；显示计数不能替代“生きている”的验证。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "nemata-jp-p257-b2,nemata-jp-p257-r1",
+        "description": "参考比较贡献保留，不能扩张为完整牌谱认证或普遍策略结论。",
+        "evidence": "原句“参考事例：「まったり麻雀」デュプリケートモードにおけるCPUとの結果比較”及其后r1顺序保留；相同起始画面、你与CPU两列及各自结果的既有描述未改。20项只更新右下CPU结果的指定牌位，没有改写比较标题或左下结果。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "PDF257/r1:Q9-ordered-scope",
+        "description": "已比较本次提供的完整Q9有序文字范围；该范围完整比较不等于新增图像核验。",
+        "evidence": "依次比较p256-b27至b40、p257-b1跨页承接、b2参考标题及由b3/b4共同承接的r1，包含条件、例外、打点路线与参考比较；正文及其它三图的既有结论沿用原独审，未扩展到Q10或全章。"
+      }
+    ],
+    "displayCountDiagnostic": {
+      "totalDisplayPositions": 87,
+      "regions": {
+        "hand": 13,
+        "exposed": 3,
+        "indicator": 1,
+        "rivers": [
+          17,
+          18,
+          17,
+          18
+        ]
+      },
+      "totals": {
+        "3m": 3,
+        "6m": 2,
+        "8m": 1,
+        "6p": 5,
+        "1s": 4,
+        "3s": 3,
+        "6s": 3,
+        "9s": 2,
+        "3z": 4,
+        "9m": 4,
+        "6z": 4,
+        "2z": 3,
+        "4p": 4,
+        "3p": 3,
+        "5s": 2,
+        "2s": 3,
+        "5p": 3,
+        "2p": 4,
+        "5z": 2,
+        "7s": 2,
+        "1m": 3,
+        "1p": 3,
+        "1z": 3,
+        "8s": 3,
+        "7p": 3,
+        "2m": 3,
+        "4m": 1,
+        "4s": 1,
+        "4z": 3,
+        "7z": 3
+      },
+      "overFour": [
+        {
+          "tile": "6p",
+          "count": 5,
+          "positions": [
+            {
+              "scope": "CPU hand",
+              "ordinal": 6,
+              "tile": "6p",
+              "humanItemId": "56961fdcb2b76e62eaaf724a74ad3f22"
+            },
+            {
+              "scope": "upper",
+              "ordinal": 15,
+              "tile": "6p"
+            },
+            {
+              "scope": "right",
+              "ordinal": 10,
+              "tile": "6p",
+              "humanItemId": "939308447c23b0ccbdf737cf5a9d3f28"
+            },
+            {
+              "scope": "bottom",
+              "ordinal": 5,
+              "tile": "6p",
+              "humanItemId": "4c311b445aa60ff083d25a764f8f2889"
+            },
+            {
+              "scope": "bottom",
+              "ordinal": 6,
+              "tile": "6p",
+              "humanItemId": "b61952dc8eb8f1e3f3ac4f24fed9e174"
+            }
+          ]
+        }
+      ],
+      "physicalMultiplicityCertified": false,
+      "completeLegalRecordCertified": false,
+      "exclusions": [
+        "other result or start panels",
+        "image enlargement copies",
+        "captions",
+        "hidden backs",
+        "riichi sticks"
+      ],
+      "meaning": "Counts of distinct displayed labels in one CPU result; no assertion that all displayed slots are simultaneous mutually exclusive physical entities. Do not alter human facts to balance counts."
+    },
+    "minimalUnconfirmedLabel": {
+      "scope": "upper",
+      "ordinal": 15,
+      "oldTile": "6p",
+      "status": "old-machine-not-in-human20; not re-read or corrected"
+    },
+    "missingHistoricalEvidence": [
+      "original preflight.json",
+      "private historical admission pointer/register snapshots"
+    ],
+    "postHocVerificationOnly": true,
+    "acceptedPageSelected": false,
+    "source261": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair18-20261027-p261\\candidates\\nemata-jp\\page-0261.json",
+      "sha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+      "bytes": 142025
+    },
+    "source261Verification": "passed-after-source-adjudication",
+    "reusedPages": [
+      {
+        "page": 250,
+        "sourceBlocks": 69,
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair10-20261027-p250\\candidates\\nemata-jp\\page-0250.json",
+          "sha256": "1a3e1c8ce49532298caf98b7fabc00a91fa830a6f8a5e892db8199e457a43786",
+          "bytes": 60428
+        },
+        "status": "passed"
+      },
+      {
+        "page": 251,
+        "sourceBlocks": 78,
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\candidates\\nemata-jp\\page-0251.json",
+          "sha256": "f9a76b0e4f4605a034de404d2fa95bbb914f6a00b9859cd7058e7110f70d10e2",
+          "bytes": 66313
+        },
+        "status": "passed"
+      },
+      {
+        "page": 252,
+        "sourceBlocks": 85,
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\candidates\\nemata-jp\\page-0252.json",
+          "sha256": "f0e75d84935bdcafff4ee43629406f35208b29d4e007579e5328463e91a099c8",
+          "bytes": 61282
+        },
+        "status": "passed"
+      },
+      {
+        "page": 253,
+        "sourceBlocks": 92,
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair12-20261027-p253\\candidates\\nemata-jp\\page-0253.json",
+          "sha256": "78b98bcd25a3bec7a6facea85f01973ae17d0735a2f3de418cb39826587b9a6f",
+          "bytes": 78037
+        },
+        "status": "passed"
+      },
+      {
+        "page": 254,
+        "sourceBlocks": 72,
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair9-20261027-p254nemata\\candidates\\nemata-jp\\page-0254.json",
+          "sha256": "bdc0dcb315a56712edc68450c22c1b838a315683a5d9f0650395ac5f9c03f690",
+          "bytes": 67796
+        },
+        "status": "passed"
+      },
+      {
+        "page": 255,
+        "sourceBlocks": 95,
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\candidates\\nemata-jp\\page-0255.json",
+          "sha256": "86e8129b8d692bed934ce99522433c8e6072ed1b9c717e22f9907b628f3fdada",
+          "bytes": 71217
+        },
+        "status": "passed"
+      },
+      {
+        "page": 256,
+        "sourceBlocks": 60,
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair11-20261027-p256\\candidates\\nemata-jp\\page-0256.json",
+          "sha256": "bf9d64107b4b3d425c1ec16aa97baf9178799f8371f1e4879f7fde0f6489c2cf",
+          "bytes": 43189
+        },
+        "status": "passed"
+      },
+      {
+        "page": 258,
+        "sourceBlocks": 85,
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0258.json",
+          "sha256": "9bad063f7409d94bad026217777b1be78a5589f7c1216f6fa7a21791744189e5",
+          "bytes": 95051
+        },
+        "status": "passed"
+      },
+      {
+        "page": 259,
+        "sourceBlocks": 76,
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0259.json",
+          "sha256": "dcc2f619d7195d65f10db732127f4bb4d498df742741a6e52b9d6bc5442f1cda",
+          "bytes": 99703
+        },
+        "status": "passed"
+      },
+      {
+        "page": 260,
+        "sourceBlocks": 76,
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair21-20261027-p260\\candidates\\nemata-jp\\page-0260.json",
+          "sha256": "8bbfb99c94116aa6b87ed1ead415406e8025329c53292e2dd5dc40b76f3bbfda",
+          "bytes": 112516
+        },
+        "status": "passed"
+      },
+      {
+        "page": 262,
+        "sourceBlocks": 49,
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair19-20261027-p262\\candidates\\nemata-jp\\page-0262.json",
+          "sha256": "5c25921e229d285ea1ae30ec2baef23adbd9d7e20ee9740d7ef524809d9daba6",
+          "bytes": 72955
+        },
+        "status": "passed"
+      }
+    ],
+    "reusedSourceBlocks": 837,
+    "oldCandidateRawAndCountDiagnosticsPreserved": true,
+    "modelProduced": false,
+    "newModelCalls": 0,
+    "newProductionCalls": 0,
+    "wholeChapterPassed": false,
+    "admissionGranted": false,
+    "displayImplementationVerified": false,
+    "actualMcpArenaReadbackCompleted": false,
+    "ownerRequest": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-p257-human20-display-owner-request-20261028.json",
+      "sha256": "5b2ca547f0920f661049818e0c348daaf8a84c3d713102a8b21a975571890c9f"
+    }
+  },
+  "ownerRequest": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-p257-human20-display-owner-request-20261028.json",
+    "sha256": "5b2ca547f0920f661049818e0c348daaf8a84c3d713102a8b21a975571890c9f"
+  },
+  "applicationChecks": {
+    "passed": true,
+    "negativeCases": [
+      "withdrawn",
+      "unclear",
+      "missing-image",
+      "changed-code",
+      "inference-note-change",
+      "wrong-target",
+      "wrong-image",
+      "newer-save",
+      "wrong-human-value",
+      "body-changed",
+      "other-figure",
+      "unknown-deleted",
+      "caption-changed",
+      "first-nine-changed",
+      "source-changed",
+      "fake-model-provenance",
+      "old-provenance-deleted",
+      "self-hash-changed",
+      "wrong-owner"
+    ],
+    "negativeCount": 19,
+    "requestImages": [],
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\257.human20.json",
+      "sha256": "a9ce50898c0407ecca32dc538ad208f667a0a950372acec1114263e177f000e7"
+    },
+    "determinate": 20,
+    "unclear": 0,
+    "missing": 0,
+    "withdrawn": 0,
+    "changed": 10,
+    "confirmedUnchanged": 10,
+    "firstNineRetained": true,
+    "nonTargetBodyAnd3FiguresAndAllImagesAnd4UnknownsUnchanged": true,
+    "source261Status": "passed-after-source-adjudication",
+    "reusedPages": 11,
+    "reusedBlocks": 837,
+    "newModelCalls": 0,
+    "newProductionCalls": 0,
+    "newVisionCalls": 0,
+    "request": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac269-p257-human20-20261028/review-request.json",
+      "sha256": "94625b5b9da7f0c662cc70aa6fd0208be01b8e3b84212d1ddcad5889f1a08105",
+      "promptSha256": "e086241daffc4cac0cfe893fd839024852e8e34bcb6dcbfd6ed810840c8219dc",
+      "schemaSha256": "f5a2b7d98f7b8a491443b3ea5d2727d0aa0a1ccf2b75c31e31466a95c0d0a36b"
+    },
+    "wholeChapterPassed": false,
+    "admissionGranted": false
+  },
+  "executionChecks": {
+    "schema": "coac269-completed249-transport-recovery-verification/1",
+    "callId": "2b216edc-24ba-4bdc-aa3c-153bdd6b9608",
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2b216edc-24ba-4bdc-aa3c-153bdd6b9608.json",
+      "sha256": "4a6ec4819e7f86519bcba051e43f3f5149340ebe2898fe7ac10676498ff54e9b",
+      "bytes": 529188
+    },
+    "executedByOriginal249": true,
+    "newModelCalls": 0,
+    "retry": 0,
+    "requestMatchesFrozenSemanticPromptAndSchema": true,
+    "actualModel": "gpt-6.1-sol",
+    "actualEffort": "high",
+    "images": [],
+    "exactCandidateAndLiveHumanFactsVerified": true,
+    "immutablePacketFiles": 11,
+    "inputBindings": 53,
+    "runtimeFiles": 28,
+    "strictOutputSchemaVerified": true,
+    "ledgerRows": 1,
+    "usage": {
+      "inputTokens": 66973,
+      "cachedInputTokens": 0,
+      "outputTokens": 5029
+    },
+    "durationMs": 534455,
+    "originalPreflightAndAdmissionSnapshotsMissing": true,
+    "missingArtifactsReconstructedOrSubstituted": false,
+    "postHocVerificationOnly": true,
+    "negativeChecks": [
+      "wrong-call",
+      "wrong-candidate",
+      "wrong-model",
+      "wrong-effort",
+      "image-added",
+      "schema-changed",
+      "prompt-changed",
+      "output-vote"
+    ],
+    "originalModelOutputUnchanged": true,
+    "applicationAllFaithful": true,
+    "firstNinePreserved": true,
+    "authorArgumentFaithful": true,
+    "completeOrderedScopeCompared": true,
+    "actualRequiredDisplayLimitations": [
+      "本次仅依据所供文字核对确定性应用及Q9有序论证；实际没有图片输入，没有新增看图、识字或牌面认证。",
+      "在r1转录旁增加独立于原文的说明：上河第15张6p为旧机器转录保留，未纳入本批人标且未经本次复核；保留牌码，不把它归为背面暗手unknown。",
+      "将87处及6p共5处标为显示标签计数诊断，并注明未认证同时性、实体互斥关系及完整合法牌谱；四处人标6p不得为平衡计数而修改。",
+      "Q9作为作者在所述条件下的论述及参考结果比较呈现；不得标成已由完整牌谱独立验证，亦不得把12,000、16,000、2,600点的条件性路线改写为截图已证实的结果。",
+      "继续完整保留r1的原图引用、裁图引用及源图对象，包括nemata-jp-p257-b3和nemata-jp-p257-b4；保留图片本身不构成逐牌完整性认证。",
+      "旧raw、uncertain及count诊断作为历史保留；本次结论另列。未改正文、unknown和其它三图沿用原独审，Q10及全章不重审，不授予整页整章普通passed或正式准入。"
+    ],
+    "originalModelIssues": [
+      {
+        "severity": "source-note",
+        "targetId": "PDF257/r1:human20",
+        "description": "20项均忠实应用：10项改值、10项原值确认，无错位、漏用或额外改值。",
+        "evidence": "acceptedSecondBatch的itemId、targetId、scope、ordinal及最新事件牌码，与receipt.events、10条changes和currentAllFigures中r1对应位置一致。备注仅作定位和证据，没有转成额外牌理判断。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "PDF257/r1:firstNine",
+        "description": "第一批九个牌位及已有朝向标注均保留。",
+        "evidence": "fa50e1c25728194fcbbb2fec9841b592：右河7=8s；69395d14b0bb8aed53bfa51b0850ddcb：上河1/6/17=2z/1s/1s；19124d6cc326a5bc70fd54b4086fa20c：右河1/2/13/14=1m/4m/1m/3m；ba273dc871055c6f06083a007a390ac1：左河16=2m，保留“人工标注：立直宣言牌”。本批20项未覆盖这些位置。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "nemata-jp-p257-b4:old-transcription:upper:15",
+        "description": "此处旧6p尚未人标确认；最小处理是在r1转录旁补充该位置的来源与未核状态，不改牌码、不改作者正文。",
+        "evidence": "currentAllFigures中r1.transcription的“第13—16张为7s 1m 6p 1p”保留上河15=6p；receipt.minimalUnconfirmedLabel明确为old-machine-not-in-human20。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "nemata-jp-p256-b39,nemata-jp-p256-b40,nemata-jp-p257-b1",
+        "description": "作者关于活张、门清困难和副露目的的条件完整保留；本次没有认证参考画面满足这些条件的全部实体牌状态。",
+        "evidence": "原句为“ヤオ九牌のトイツか刻子が２～３種＋生きている孤立ヤオ九牌数種（もしくは同色牌か字牌トイツ２～３種＋生きている孤立同色牌か字牌数種）あって、メンゼンの和了が厳しい場合は、このような仕掛け（ブラフは副次的なもので、あくまで主眼はアガリにあります）も有効です。”候选保留两种条件、门清困难及诈唬次于和牌的限定；显示计数不能替代“生きている”的验证。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "nemata-jp-p257-b2,nemata-jp-p257-r1",
+        "description": "参考比较贡献保留，不能扩张为完整牌谱认证或普遍策略结论。",
+        "evidence": "原句“参考事例：「まったり麻雀」デュプリケートモードにおけるCPUとの結果比較”及其后r1顺序保留；相同起始画面、你与CPU两列及各自结果的既有描述未改。20项只更新右下CPU结果的指定牌位，没有改写比较标题或左下结果。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "PDF257/r1:Q9-ordered-scope",
+        "description": "已比较本次提供的完整Q9有序文字范围；该范围完整比较不等于新增图像核验。",
+        "evidence": "依次比较p256-b27至b40、p257-b1跨页承接、b2参考标题及由b3/b4共同承接的r1，包含条件、例外、打点路线与参考比较；正文及其它三图的既有结论沿用原独审，未扩展到Q10或全章。"
+      }
+    ],
+    "conditionalSemanticEvidenceExists": true,
+    "ordinaryWholePagePassed": false,
+    "wholeChapterPassed": false,
+    "admissionGranted": false
+  },
+  "coverage": {
+    "originalChaptersCovered": 255,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 302,
+    "originalUnitsTotal": 303
+  },
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T14-13-58-135Z",
+    "corpusId": "564d1ab9499c67dcc9ab794696ba3b375646dfc1472b11d787c18a0c26c19d19",
+    "chapters": 257,
+    "units": 265,
+    "blocks": 7930,
+    "figures": 5985,
+    "unchanged": true
+  },
+  "page261SelectionPreserved": true,
+  "otherChapterRowsUnchanged": true,
+  "oldEvidencePreserved": true,
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "newVisionCalls": 0,
+  "newRetry": 0,
+  "wholeChapterPassed": false,
+  "admissionGranted": false,
+  "displayImplementationVerified": false,
+  "actualMcpArenaReadbackCompleted": false,
+  "formalActiveChanged": false,
+  "protectedBefore": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-preview-current.json",
+      "sha256": "6c0a6076c4c7177d3bbeb42aee80f92c283caffefccd8bdee2a9c348111fa029"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v42.json",
+      "sha256": "ce485ab8283dc6d345ae656f3aa8f6d3c60cd688bf88b6575b20589bfa5d56d3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.mjs",
+      "sha256": "deebea3a51ef93772731da95d56b531b84dc9c765ad206323b5b6b5ac6b0068a"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-web-candidate-selection.json",
+      "sha256": "41e2cab265398d48848309007dbbc71fe6a46eecf33ff2b5d58178fcf7254c70"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-candidate-selection.json",
+      "sha256": "82c654fc34a4e509c9878065684306246f61324879f64eef1dc7f9aef964f4f2"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/source-structure-holds.json",
+      "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/candidate-exclusions.json",
+      "sha256": "4835655ad7fa323e2acc94d4e04824dc1c56b4b67ceec1b1449617c79c3411a3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-human257261-cn311-intake-20261028.json",
+      "sha256": "45ee27ca8e8784b48073df4a1b4b3db58f9d4761720521955c5585f6ec63311f"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/review/textbook-corpus.json",
+      "sha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\257.human20.json",
+      "sha256": "a9ce50898c0407ecca32dc538ad208f667a0a950372acec1114263e177f000e7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\candidates\\257.human-final.json",
+      "sha256": "5403cb35614b1edab17488458dbaf0571e1a48e1972d2d04c9ebc30a03da67dc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2b216edc-24ba-4bdc-aa3c-153bdd6b9608.json",
+      "sha256": "4a6ec4819e7f86519bcba051e43f3f5149340ebe2898fe7ac10676498ff54e9b"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-p257-human20-reviewed-20261028.json",
+      "sha256": "4e1cc55ad35e0c649bd836946e1b9fddc9476bdee60da552ec212915106a2b0e"
+    }
+  ],
+  "registers": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+      "sha256": "11e6c19e5b2e6c561037e3a9fe39fafd019fa212b47f0be362012d358490156f"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+      "sha256": "4e1d2b80d6edbb3366e3ad7ed47bf76c6b586ac2ff416efdf8b401b1c4b33029"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-uncovered-chapter-continuation-register-20261027b.json",
+      "sha256": "699ee253f57fb91b1546927bfa0ff0c45e02be67cffd8d99fe66a15b8004007e"
+    }
+  ],
+  "safeToResume": true
+}
