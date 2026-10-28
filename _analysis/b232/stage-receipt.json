@@ -1,0 +1,43 @@
+{
+  "schema": "coach-textbook-web-stage/1",
+  "status": "independently-audited-chapter-preview",
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section009.r2.display.json",
+  "candidateSha256": "f3c960182adb5913b82f22504b703cc8fe6d69561acc8c7f43c19e364184e7d7",
+  "sourceSha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+  "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-jp193-text-r2-target-reviewed-20261028.json",
+  "auditStatus": "verified-exact-jp193-r2-composite-evidence",
+  "limitedUnknownFidelity": null,
+  "imageDerivations": [],
+  "chapters": 1,
+  "units": 1,
+  "blocks": 24,
+  "figures": 41,
+  "corpusId": "45ea7f7e869cb161f776161f322f40b0a2f953088b9853bb5c2b4b1fbffffbbe",
+  "bodySha256": "ee095cdadf7bb6540a555fa8dea48a00644895cf86e82c8a89fb1c27089992b7",
+  "maxUnitBytes": 48357,
+  "modelCalls": 0,
+  "activeLibraryChanged": false,
+  "humanReview": "pending",
+  "canonical": "nemata-jp-chapter-193-1",
+  "standardWholeArticlePassed": false,
+  "globalAdmissionGranted": false,
+  "displayLimits": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-24-36-725Z/stages/jp193/display-limits.json",
+    "sha256": "fb4b6cf7d6118a19f09120cb075a09bf41433515b55a6c5ec9ac953d5f09457c"
+  },
+  "jp193CompositeReview": {
+    "module": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-jp193-r2-composite-20261028/admit.mjs",
+      "sha256": "4232d4d63b889bfa6a35b9a13a55c0c1444ffa0765c67f5f038c7b9b6961a9e3"
+    },
+    "stage": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-jp193-r2-composite-20261028/stage.mjs",
+      "sha256": "d4974dd2ec0d079c1ea4cac8a478bc7bc9946d921771c81522e9bba44102714e"
+    },
+    "manifest": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-jp193-r2-composite-20261028/manifest.json",
+      "sha256": "b9cd5861919f4850bf6879d60c143f56534c1c9c52b9ec0e9733842593f90045"
+    },
+    "candidateSha256": "f3c960182adb5913b82f22504b703cc8fe6d69561acc8c7f43c19e364184e7d7"
+  }
+}

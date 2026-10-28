@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "refusalChecks": [
+    {
+      "scope": "jp193r2",
+      "name": "changed inherited issue",
+      "rejected": true
+    },
+    {
+      "scope": "jp193r2",
+      "name": "wrong candidate",
+      "rejected": true
+    },
+    {
+      "scope": "jp193r2",
+      "name": "false rewritten true",
+      "rejected": true
+    },
+    {
+      "scope": "jp193r2",
+      "name": "missing visible limitation",
+      "rejected": true
+    },
+    {
+      "scope": "jp193r2",
+      "name": "changed preserved figure",
+      "rejected": true
+    },
+    {
+      "scope": "jp193r2",
+      "name": "new issue misattributed as old",
+      "rejected": true
+    },
+    {
+      "scope": "jp193r2",
+      "name": "proposal claimed installed",
+      "rejected": true
+    },
+    {
+      "scope": "232",
+      "name": "strict false rewritten",
+      "rejected": true
+    },
+    {
+      "scope": "232",
+      "name": "blocking impact erased",
+      "rejected": true
+    },
+    {
+      "scope": "232",
+      "name": "figure uncertain claimed faithful",
+      "rejected": true
+    },
+    {
+      "scope": "232",
+      "name": "proposal claimed installed",
+      "rejected": true
+    }
+  ],
+  "count": 11,
+  "modelCalls": 0
+}

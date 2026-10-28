@@ -1,0 +1,32 @@
+{
+  "recordedAt": "2026-10-28T08:48:13.7340611Z",
+  "claimed": false,
+  "STOP": [
+    {
+      "path": "STOP",
+      "exists": false
+    },
+    {
+      "path": "web-production/v1/STOP",
+      "exists": false
+    },
+    {
+      "path": "model-admission-stop.json",
+      "exists": false
+    }
+  ],
+  "checks": [
+    {
+      "ok": true,
+      "action": "check-chapter",
+      "chapter": "79-cn-chapter-109-4",
+      "held": false
+    },
+    {
+      "ok": true,
+      "action": "check-chapter",
+      "chapter": "79-cn-chapter-167-4",
+      "held": false
+    }
+  ]
+}

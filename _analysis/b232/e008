@@ -1,0 +1,316 @@
+{
+  "schema": "coac269-exact224232-first-combined-target-review/1",
+  "key": "232",
+  "canonical": "nemata-jp-chapter-232-1",
+  "authorizationComment": "01a181c4-730d-7821-8325-b8bc9e48a7cc",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+    "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+    "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+    "bytes": 23933
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.display.json",
+    "sha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+    "bytes": 35623
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+    "sha256": "24293aa4da6b71079ed47600d45229e972e1f8b1256a9dcc573af827c05514f6",
+    "bytes": 21102
+  },
+  "originalIndependentRaws": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\f35ad846-9a43-434d-b649-6eccbb3a61a4.json",
+      "sha256": "675369eb3e5e93a7c274f21b1160a72229ec609f8bbc6914b4c71d2179962e4b",
+      "bytes": 104111
+    }
+  ],
+  "originalIssues": [
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter04-section012:b0002",
+      "sourceEvidence": "“確和了でも構わないようなケース”",
+      "description": "“确保和牌也无妨”把名次不变的结束和牌误译成确保能够和牌，改变了最快和牌策略的适用情形。",
+      "suggestedRepair": "改为“允许以不改变当前名次的和牌结束比赛的情况”，保留原有判断技术7链接。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter04-section012:b0004",
+      "sourceEvidence": "“運良く配牌やツモに恵まれたら逆転手を目指し”",
+      "description": "“起手牌和摸牌都不错”增加了两者必须同时有利的条件。",
+      "suggestedRepair": "改为“运气好，起手牌或摸牌有利时，就争取做出反超牌”。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+      "sourceEvidence": "附图本家手牌从左数第7张可见上方一根、下方两根索子，为3s。",
+      "description": "手牌中的3s被误记为2s，影响手牌结构及做牌分析。",
+      "suggestedRepair": "将手牌序列修正为“3m 4m 6m 7m 4p 4p 3s 4s 6s 7s 8s 5z 5z”，摸入牌仍为3p。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+      "sourceEvidence": "右侧牌河从上数第2张有可见万子牌面；候选仅记录“［万子，点数无法辨认］”。",
+      "description": "该张明示弃牌的具体点数尚未可靠确定，逐牌核对仍有缺口。",
+      "suggestedRepair": "保留原图和当前未知说明；可靠确认后补齐具体牌码及赤色情况，在此之前保持阻断状态。"
+    }
+  ],
+  "packet": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\232-packet.json",
+    "sha256": "f4b4a8858af471b02322a29c405108098ad18de16a7f8f6d66e0e36574647cb8",
+    "bytes": 71487
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\runtime-manifest.json",
+    "sha256": "0d890d3bbfd3fe1dbe588f068e17de41312916c1d068d246d080d0ec6feaa973",
+    "bytes": 8403
+  },
+  "runtimeFiles": 32,
+  "entry": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\pair.mjs",
+  "verifyProduction": "verifyProduction(key,candidatePath,manifestSHA)",
+  "prepare": "prepareReview(key,candidatePath,manifestSHA)",
+  "verifyReview": "verifyReviewExecution(key,realResult,plan,manifestSHA)",
+  "reviewRequest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac269-224232-exact-v1-20261028\\232-review-request.json",
+    "sha256": "a08c5e23f004b79c6adfc8a529e951309ce91bc355d63c30393292e7dc829020",
+    "bytes": 128158
+  },
+  "selfcheck": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac269-224232-exact-v1-20261028\\232-selfcheck.json",
+    "sha256": "7b71b112fb10592d4e55da3b7219ac24f1d6ec80df49f37902b750a21b64c5bb",
+    "bytes": 16220
+  },
+  "maker": {
+    "callId": "3002a835-2cff-4bcf-b07b-2b03d1968e5b",
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter04-section012",
+    "sourceSha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "callerRequested": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-terra",
+        "--config",
+        "model_reasoning_effort=\"max\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-3SYhfL\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-3SYhfL\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-3SYhfL",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.x2.png",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg",
+          "sha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135",
+          "bytes": 58290
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.x2.png",
+          "sha256": "aaf1ac188c4b7660d0f533c9eef0e6aac07d1b91a7c35f7c03c647b450ad1563",
+          "bytes": 346476
+        }
+      ],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "startedAt": "2026-10-28T09:27:09.210Z",
+    "durationMs": 16919,
+    "usage": {
+      "inputTokens": 30337,
+      "cachedInputTokens": 0,
+      "outputTokens": 1259
+    },
+    "success": true,
+    "transportStatus": "completed",
+    "rawArtifactPath": "raw-calls/3002a835-2cff-4bcf-b07b-2b03d1968e5b.json",
+    "rawArtifactSha256": "b8c7a62d41f076c47d07963388a5ee917183e334c9f13a1a3e910d5253b0c0ae",
+    "promptSha256": "efeec72b3a6c24f852981a51e408ac790cea36f739963c971ff50720fd41181c",
+    "schemaSha256": "69f8c2ae53d65e553482d0ad0232294ef4d08da0ca3b1385cdf74970291f565d",
+    "method": "coac269-exact224232/1",
+    "targets": {
+      "textIds": [
+        "modern-yabejp-ja:chapter04-section012:b0002",
+        "modern-yabejp-ja:chapter04-section012:b0004"
+      ],
+      "figureIds": [
+        "modern-yabejp-ja:chapter04-section012:b0005"
+      ]
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.display.json",
+      "sha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+      "bytes": 35623
+    },
+    "parentAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+      "sha256": "24293aa4da6b71079ed47600d45229e972e1f8b1256a9dcc573af827c05514f6",
+      "bytes": 21102
+    },
+    "runtime": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\runtime-manifest.json",
+      "sha256": "0d890d3bbfd3fe1dbe588f068e17de41312916c1d068d246d080d0ec6feaa973"
+    },
+    "runner": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\pair.mjs",
+      "sha256": "1b6579d6eed480d955d82bbad0279756d415421c1b5482a66d9d82c002c38909"
+    },
+    "cliSnapshot": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+    }
+  },
+  "raw": {
+    "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/3002a835-2cff-4bcf-b07b-2b03d1968e5b.json",
+    "sha256": "b8c7a62d41f076c47d07963388a5ee917183e334c9f13a1a3e910d5253b0c0ae"
+  },
+  "exactDiff": {
+    "text": [
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter04-section012:b0002",
+        "before": "在末局的做牌中，重要性最高（使用频率高，技术优劣容易反映在战绩上）的，是不考虑打点、以最快和牌为目标的“和牌即可获得第一”的技术。因为平均每四次就有一次是在末局处于第一，而且在与第一分差很小的第二名，以及[判断技术7](http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section007.html)中提到过的、确保和牌也无妨的情况下，也会用到这种技术，所以使用频率非常高，并且成功（和牌）的概率也高。",
+        "after": "在末局的做牌中，重要性最高（使用频率高，技术优劣容易反映在战绩上）的，是不考虑打点、以最快和牌为目标的“和牌即可获得第一”的技术。因为平均每四次就有一次是在末局处于第一，而且在与第一分差很小的第二名，以及[判断技术7](http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section007.html)中提到过的、以不改变当前名次的和牌结束比赛也无妨的情况下，也会用到这种技术，所以使用频率非常高，并且成功（和牌）的概率也高。"
+      },
+      {
+        "sourceBlockId": "modern-yabejp-ja:chapter04-section012:b0004",
+        "before": "不过，正如此前所说，如果自己处于第二，自摸满贯就能升至第一，但与第三、第四的分差也很小，那么运气好、起手牌和摸牌都不错时，就争取做出反超牌；否则，应当像和牌即可获得第一时一样，朝着最快和牌的方向打。反过来，如果即使下位者自摸满贯，自己的名次也不会改变，就应尽量以能够反超为目标做牌。即使自己是庄家，也优先考虑靠一次和牌反超，而不是争取连庄。",
+        "after": "不过，正如此前所说，如果自己处于第二，自摸满贯就能升至第一，但与第三、第四的分差也很小，那么运气好、起手牌或摸牌有利时，就争取做出反超牌；否则，应当像和牌即可获得第一时一样，朝着最快和牌的方向打。反过来，如果即使下位者自摸满贯，自己的名次也不会改变，就应尽量以能够反超为目标做牌。即使自己是庄家，也优先考虑靠一次和牌反超，而不是争取连庄。"
+      }
+    ],
+    "figureId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+    "before": "右上方规则标签，自上而下：特上级；东风战；允许食断；有赤牌；末局。\n中央：东4局。东家（本家，下方）31400分；南家（右方）10300分；西家（上方）39300分；北家（左方）19000分。局数下方两个计数均为0。\n本家手牌，按画面从左到右：3m 4m 6m 7m 4p 4p 2s 4s 6s 7s 8s 5z 5z。右端分开的摸入牌：3p。手牌与摸入牌均直立。\n右下方牌墙中翻开的宝牌指示牌：9m，直立。\n下方牌河，从左到右：6s 9s 2z 6z 2z 9m，均朝向本家。\n上方牌河，按画面从左到右：4z 1p 9s 4z 7z 6z，牌面朝向对家，相对画面倒置。\n左侧牌河，按画面从上到下：6z 1z 5p 8p 8p 6p，牌面随左侧座位横向排列。\n右侧牌河，按画面从上到下：8s［万子，点数无法辨认］7z 1z 5z 4z，牌面随右侧座位横向排列。\n其余三家的手牌及未翻开的牌墙显示牌背。",
+    "after": "右上方规则标签，自上而下：特上级；东风战；允许食断；有赤牌；末局。\n中央：东4局。东家（本家，下方）31400分；南家（右方）10300分；西家（上方）39300分；北家（左方）19000分。局数下方两个计数均为0。\n本家手牌，按画面从左到右：3m 4m 6m 7m 4p 4p 3s 4s 6s 7s 8s 5z 5z。右端分开的摸入牌：3p。手牌与摸入牌均直立。\n右下方牌墙中翻开的宝牌指示牌：9m，直立。\n下方牌河，从左到右：6s 9s 2z 6z 2z 9m，均朝向本家。\n上方牌河，按画面从左到右：4z 1p 9s 4z 7z 6z，牌面朝向对家，相对画面倒置。\n左侧牌河，按画面从上到下：6z 1z 5p 8p 8p 6p，牌面随左侧座位横向排列。\n右侧牌河，按画面从上到下：8s［万子，点数无法辨认］7z 1z 5z 4z，牌面随右侧座位横向排列。\n其余三家的手牌及未翻开的牌墙显示牌背。",
+    "originalUnknowns": [
+      "右侧牌河从上数第2张为万子，但无法可靠辨认具体点数。",
+      "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+      "中央分数周围的玩家名及段位小字无法完整可靠辨认。"
+    ],
+    "currentUnknowns": [
+      "右侧牌河从上数第2张为万子，但无法可靠辨认具体点数。",
+      "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+      "中央分数周围的玩家名及段位小字无法完整可靠辨认。"
+    ],
+    "unknownRelation": "All unknown strings unchanged.",
+    "transformation": "Exact two text replacements and one tile correction from real output."
+  },
+  "textIds": [
+    "modern-yabejp-ja:chapter04-section012:b0002",
+    "modern-yabejp-ja:chapter04-section012:b0004"
+  ],
+  "figureIds": [
+    "modern-yabejp-ja:chapter04-section012:b0005:figure"
+  ],
+  "preservedUnknowns": [
+    "右侧牌河从上数第2张为万子，但无法可靠辨认具体点数。",
+    "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+    "中央分数周围的玩家名及段位小字无法完整可靠辨认。"
+  ],
+  "budget": {
+    "maximumPair": 4,
+    "maximumThisChapter": 2,
+    "makerUsed": 1,
+    "independentUsedHere": 0,
+    "remainingIndependentMaximum": 1,
+    "failedVoidCount": true,
+    "retry": 0
+  },
+  "wholeChapterAccepted": false,
+  "fee": null,
+  "upstreamExecutionCount": null
+}

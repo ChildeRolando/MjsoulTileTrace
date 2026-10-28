@@ -1,0 +1,3569 @@
+{
+  "schema": "coach-textbook-web-article-source/1",
+  "sourceId": "modern-yabejp-ja",
+  "articleId": "chapter03-section009",
+  "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section009.html",
+  "title": "ドラ切り",
+  "language": "ja",
+  "fetchedAt": "2026-10-23T20:48:56.067065+00:00",
+  "html": {
+    "requestedUrl": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section009.html",
+    "httpStatus": 200,
+    "finalUrl": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section009.html",
+    "contentType": "text/html",
+    "fetchedAt": "2026-10-23T20:48:56.067065+00:00",
+    "encoding": "shift_jis",
+    "path": "modern-yabejp-ja/html/9ec74d0e9d7b468b45b492e1/source.html",
+    "sha256": "c98ae45d57f51b7631779fe895c1644362cc67b3c22d8a12f1e5884634cf9818",
+    "bytes": 14092
+  },
+  "main": {
+    "selector": "#contents",
+    "path": "modern-yabejp-ja/articles/chapter03-section009/main.html",
+    "sha256": "1e0d3ac8dedcc922f0609c9698d6e3b30e70f7efea0f6fda80cec42566569a17"
+  },
+  "blocks": [
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0001",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0001",
+      "tag": "h2",
+      "domPath": "main/h2[3]",
+      "tableContext": null,
+      "type": "text",
+      "text": "ドラ切り",
+      "segments": [
+        {
+          "text": "ドラ切り",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0002",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0002",
+      "tag": "p",
+      "domPath": "main/p[5]",
+      "tableContext": null,
+      "type": "text",
+      "text": "相手の手牌を読む上で、特に強い情報となり得るのがドラ（特に中張牌のドラ）です。",
+      "segments": [
+        {
+          "text": "相手の手牌を読む上で、特に強い情報となり得るのがドラ（特に中張牌のドラ）です。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0003",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0003",
+      "tag": "h3",
+      "domPath": "main/h3[7]",
+      "tableContext": null,
+      "type": "text",
+      "text": "ドラ切りリーチ（ダマや仕掛けてのテンパイも含む）",
+      "segments": [
+        {
+          "text": "ドラ切りリーチ（ダマや仕掛けてのテンパイも含む）",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0004",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0004",
+      "tag": "p",
+      "domPath": "main/p[9]",
+      "tableContext": null,
+      "type": "text",
+      "text": "ドラを切っても打点十分の手（他のドラがあるかドラ暗刻からの切り出しである七対子やメンホン七対等、いずれもレアケース）でなければ単騎待ちであることはほぼ無いと言えます。また、カンチャン待ちのもろ引っ掛けである可能性もドラを切っても打点十分の手でない限り可能性は低くなります。ただ、これ以外に分かることはあまりありません。何故なら、ドラはできるだけ使いたい牌であるので、ドラがテンパイまで残されることはごく自然なことである為、特定の形を想定しづらいからです。（特定の形を想定する為には、他のケースを否定できるほどのレアケースが起きている必要がある。）",
+      "segments": [
+        {
+          "text": "ドラを切っても打点十分の手（他のドラがあるかドラ暗刻からの切り出しである七対子やメンホン七対等、いずれもレアケース）でなければ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "単騎待ちであることはほぼ無い",
+          "marks": [
+            "em::"
+          ],
+          "href": null
+        },
+        {
+          "text": "と言えます。また、カンチャン待ちのもろ引っ掛けである可能性もドラを切っても打点十分の手でない限り可能性は低くなります。ただ、これ以外に分かることはあまりありません。何故なら、ドラはできるだけ使いたい牌であるので、ドラがテンパイまで残されることはごく自然なことである為、特定の形を想定しづらいからです。（特定の形を想定する為には、他のケースを否定できるほどのレアケースが起きている必要がある。）",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0005",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0005",
+      "tag": "p",
+      "domPath": "main/p[11]",
+      "tableContext": null,
+      "type": "text",
+      "text": "「ドラ切りリーチのドラ跨ぎは安全」という格言もありますが、これはドラ切りリーチが特定の形を想定しづらい故に待ちが絞りにくいので、相対的にドラ跨ぎでも通る確率が増すというだけであり、他の無スジに比べてとりわけ安全になるというわけではありません。",
+      "segments": [
+        {
+          "text": "「ドラ切りリーチのドラ跨ぎは安全」という格言もありますが、これはドラ切りリーチが特定の形を想定しづらい故に待ちが絞りにくいので、相対的にドラ跨ぎでも通る確率が増すというだけであり、他の無スジに比べてとりわけ安全になるというわけではありません。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0006",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0006",
+      "tag": "h3",
+      "domPath": "main/h3[13]",
+      "tableContext": null,
+      "type": "text",
+      "text": "ドラ→ある牌でリーチ",
+      "segments": [
+        {
+          "text": "ドラ→ある牌でリーチ",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0007",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0007",
+      "tag": "p",
+      "domPath": "main/p[15]",
+      "tableContext": null,
+      "type": "text",
+      "text": "逆に、テンパイ以前の段階でドラが切られている場合は、情報として有力なものになると言えるのです。",
+      "segments": [
+        {
+          "text": "逆に、テンパイ以前の段階でドラが切られている場合は、情報として有力なものになると言えるのです。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0008",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "テンパイ以前にドラが切られている場合は、ドラが待ちの関連牌である可能性はかなり低くなるというのが分かりやすい（出現頻度も高いので読みとして役に立つ機会も多い）例です。例外は",
+      "segments": [
+        {
+          "text": "テンパイ以前にドラが切られている場合は、ドラが待ちの関連牌である可能性はかなり低くなるというのが分かりやすい（出現頻度も高いので読みとして役に立つ機会も多い）例です。例外は",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0009",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00001",
+          "assetId": "modern-yabejp-ja:cf903c27e3d6d79024397f25",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m2.png"
+          ],
+          "alt": "二",
+          "title": "二萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "2m",
+            "filename": "m2.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "二萬",
+            "alt": "二",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00002",
+          "assetId": "modern-yabejp-ja:fa4ca8dbce129a7a05fc2fa8",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m3.png"
+          ],
+          "alt": "三",
+          "title": "三萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "3m",
+            "filename": "m3.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "三萬",
+            "alt": "三",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00003",
+          "assetId": "modern-yabejp-ja:fae4f4d8fc74f83a0364ba1a",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m4.png"
+          ],
+          "alt": "四",
+          "title": "四萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "4m",
+            "filename": "m4.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "四萬",
+            "alt": "四",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00004",
+          "assetId": "modern-yabejp-ja:31607e0c4823773206eee230",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p3.png"
+          ],
+          "alt": "(3)",
+          "title": "三筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "3p",
+            "filename": "p3.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "三筒",
+            "alt": "(3)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00005",
+          "assetId": "modern-yabejp-ja:91f021916047e51111e56542",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p4.png"
+          ],
+          "alt": "(4)",
+          "title": "四筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "4p",
+            "filename": "p4.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "四筒",
+            "alt": "(4)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00006",
+          "assetId": "modern-yabejp-ja:91f021916047e51111e56542",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p4.png"
+          ],
+          "alt": "(4)",
+          "title": "四筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "4p",
+            "filename": "p4.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "四筒",
+            "alt": "(4)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00007",
+          "assetId": "modern-yabejp-ja:3d679855094c9151924672ea",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p6.png"
+          ],
+          "alt": "(6)",
+          "title": "六筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "6p",
+            "filename": "p6.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "六筒",
+            "alt": "(6)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00008",
+          "assetId": "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p7.png"
+          ],
+          "alt": "(7)",
+          "title": "七筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "7p",
+            "filename": "p7.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "七筒",
+            "alt": "(7)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00009",
+          "assetId": "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p8.png"
+          ],
+          "alt": "(8)",
+          "title": "八筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "8p",
+            "filename": "p8.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "八筒",
+            "alt": "(8)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00010",
+          "assetId": "modern-yabejp-ja:ff0605857cc5c60bc5c303e3",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/s2.png"
+          ],
+          "alt": "２",
+          "title": "二索",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "2s",
+            "filename": "s2.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "二索",
+            "alt": "２",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00011",
+          "assetId": "modern-yabejp-ja:ff0605857cc5c60bc5c303e3",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/s2.png"
+          ],
+          "alt": "２",
+          "title": "二索",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "2s",
+            "filename": "s2.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "二索",
+            "alt": "２",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00012",
+          "assetId": "modern-yabejp-ja:13fefae159ce62a1e4cf2f11",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/s4.png"
+          ],
+          "alt": "４",
+          "title": "四索",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "4s",
+            "filename": "s4.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "四索",
+            "alt": "４",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00013",
+          "assetId": "modern-yabejp-ja:ddfc65a49b12ba9eaad31799",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/s6.png"
+          ],
+          "alt": "６",
+          "title": "六索",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "6s",
+            "filename": "s6.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "六索",
+            "alt": "６",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00014",
+          "assetId": "modern-yabejp-ja:ddfc65a49b12ba9eaad31799",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/s6.png"
+          ],
+          "alt": "６",
+          "title": "六索",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "6s",
+            "filename": "s6.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "六索",
+            "alt": "６",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0010",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": " ドラ",
+      "segments": [
+        {
+          "text": " ドラ",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0011",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00015",
+          "assetId": "modern-yabejp-ja:91f021916047e51111e56542",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p4.png"
+          ],
+          "alt": "(4)",
+          "title": "四筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "4p",
+            "filename": "p4.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "四筒",
+            "alt": "(4)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0012",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "からの打",
+      "segments": [
+        {
+          "text": "からの打",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0013",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00016",
+          "assetId": "modern-yabejp-ja:91f021916047e51111e56542",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p4.png"
+          ],
+          "alt": "(4)",
+          "title": "四筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "4p",
+            "filename": "p4.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "四筒",
+            "alt": "(4)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0014",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "や、",
+      "segments": [
+        {
+          "text": "や、",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0015",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00017",
+          "assetId": "modern-yabejp-ja:cf903c27e3d6d79024397f25",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m2.png"
+          ],
+          "alt": "二",
+          "title": "二萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "2m",
+            "filename": "m2.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "二萬",
+            "alt": "二",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00018",
+          "assetId": "modern-yabejp-ja:fa4ca8dbce129a7a05fc2fa8",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m3.png"
+          ],
+          "alt": "三",
+          "title": "三萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "3m",
+            "filename": "m3.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "三萬",
+            "alt": "三",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00019",
+          "assetId": "modern-yabejp-ja:fa4ca8dbce129a7a05fc2fa8",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m3.png"
+          ],
+          "alt": "三",
+          "title": "三萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "3m",
+            "filename": "m3.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "三萬",
+            "alt": "三",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00020",
+          "assetId": "modern-yabejp-ja:986d40b46b37e422bf8a6cd2",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m6.png"
+          ],
+          "alt": "六",
+          "title": "六萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "6m",
+            "filename": "m6.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "六萬",
+            "alt": "六",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00021",
+          "assetId": "modern-yabejp-ja:b07a932f05c190748a79505f",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m7.png"
+          ],
+          "alt": "七",
+          "title": "七萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "7m",
+            "filename": "m7.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "七萬",
+            "alt": "七",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00022",
+          "assetId": "modern-yabejp-ja:f5980e09ae04d921ed066df7",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m8.png"
+          ],
+          "alt": "八",
+          "title": "八萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "8m",
+            "filename": "m8.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "八萬",
+            "alt": "八",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00023",
+          "assetId": "modern-yabejp-ja:1119c0419882e1131940f3bd",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/pe.png"
+          ],
+          "alt": "(r5)",
+          "title": "赤五筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": null
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00024",
+          "assetId": "modern-yabejp-ja:3d679855094c9151924672ea",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p6.png"
+          ],
+          "alt": "(6)",
+          "title": "六筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "6p",
+            "filename": "p6.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "六筒",
+            "alt": "(6)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00025",
+          "assetId": "modern-yabejp-ja:3d679855094c9151924672ea",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p6.png"
+          ],
+          "alt": "(6)",
+          "title": "六筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "6p",
+            "filename": "p6.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "六筒",
+            "alt": "(6)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00026",
+          "assetId": "modern-yabejp-ja:ff0605857cc5c60bc5c303e3",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/s2.png"
+          ],
+          "alt": "２",
+          "title": "二索",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "2s",
+            "filename": "s2.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "二索",
+            "alt": "２",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00027",
+          "assetId": "modern-yabejp-ja:86ff3e6aae7c47c4bd14a3be",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/s3.png"
+          ],
+          "alt": "３",
+          "title": "三索",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "3s",
+            "filename": "s3.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "三索",
+            "alt": "３",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00028",
+          "assetId": "modern-yabejp-ja:13fefae159ce62a1e4cf2f11",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/s4.png"
+          ],
+          "alt": "４",
+          "title": "四索",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "4s",
+            "filename": "s4.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "四索",
+            "alt": "４",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00029",
+          "assetId": "modern-yabejp-ja:5323955b942f8b4fbeab214c",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/s8.png"
+          ],
+          "alt": "８",
+          "title": "八索",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "8s",
+            "filename": "s8.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "八索",
+            "alt": "８",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00030",
+          "assetId": "modern-yabejp-ja:5323955b942f8b4fbeab214c",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/s8.png"
+          ],
+          "alt": "８",
+          "title": "八索",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "8s",
+            "filename": "s8.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "八索",
+            "alt": "８",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0016",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": " ドラ",
+      "segments": [
+        {
+          "text": " ドラ",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0017",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00031",
+          "assetId": "modern-yabejp-ja:3d679855094c9151924672ea",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p6.png"
+          ],
+          "alt": "(6)",
+          "title": "六筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "6p",
+            "filename": "p6.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "六筒",
+            "alt": "(6)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0018",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "から打",
+      "segments": [
+        {
+          "text": "から打",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0019",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00032",
+          "assetId": "modern-yabejp-ja:3d679855094c9151924672ea",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p6.png"
+          ],
+          "alt": "(6)",
+          "title": "六筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "6p",
+            "filename": "p6.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "六筒",
+            "alt": "(6)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0020",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "のような、ドラを切らないとしても打点面で余り差がつかない（あるいは手役絡みで高くなる）上に待ちが悪くなったり手役が確定し辛くなる（あるいは消える）場合です。限定された牌姿を想定しないといけないのでレアケースであると言えます。ドラが",
+      "segments": [
+        {
+          "text": "のような、ドラを切らないとしても打点面で余り差がつかない（あるいは手役絡みで高くなる）上に待ちが悪くなったり手役が確定し辛くなる（あるいは消える）場合です。限定された牌姿を想定しないといけないのでレアケースであると言えます。ドラが",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0021",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00033",
+          "assetId": "modern-yabejp-ja:f5980e09ae04d921ed066df7",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m8.png"
+          ],
+          "alt": "八",
+          "title": "八萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "8m",
+            "filename": "m8.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "八萬",
+            "alt": "八",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0022",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "であれば",
+      "segments": [
+        {
+          "text": "であれば",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0023",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00034",
+          "assetId": "modern-yabejp-ja:986d40b46b37e422bf8a6cd2",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m6.png"
+          ],
+          "alt": "六",
+          "title": "六萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "6m",
+            "filename": "m6.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "六萬",
+            "alt": "六",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0024",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "−",
+      "segments": [
+        {
+          "text": "−",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0025",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00035",
+          "assetId": "modern-yabejp-ja:3e03d661064b04283aeea2c5",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m9.png"
+          ],
+          "alt": "九",
+          "title": "九萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "9m",
+            "filename": "m9.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "九萬",
+            "alt": "九",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0026",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "リャンメン、",
+      "segments": [
+        {
+          "text": "リャンメン、",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0027",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00036",
+          "assetId": "modern-yabejp-ja:b07a932f05c190748a79505f",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m7.png"
+          ],
+          "alt": "七",
+          "title": "七萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "7m",
+            "filename": "m7.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "七萬",
+            "alt": "七",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0028",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "･",
+      "segments": [
+        {
+          "text": "･",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0029",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00037",
+          "assetId": "modern-yabejp-ja:3e03d661064b04283aeea2c5",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m9.png"
+          ],
+          "alt": "九",
+          "title": "九萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "9m",
+            "filename": "m9.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "九萬",
+            "alt": "九",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0030",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "のシャボ、ペン",
+      "segments": [
+        {
+          "text": "のシャボ、ペン",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0031",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00038",
+          "assetId": "modern-yabejp-ja:b07a932f05c190748a79505f",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m7.png"
+          ],
+          "alt": "七",
+          "title": "七萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "7m",
+            "filename": "m7.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "七萬",
+            "alt": "七",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0032",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "、カン",
+      "segments": [
+        {
+          "text": "、カン",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0033",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00039",
+          "assetId": "modern-yabejp-ja:aaaa5fd72ccc12bd7da6f6aa",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m5.png"
+          ],
+          "alt": "五",
+          "title": "五萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "5m",
+            "filename": "m5.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "五萬",
+            "alt": "五",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0034",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "･",
+      "segments": [
+        {
+          "text": "･",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0035",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00040",
+          "assetId": "modern-yabejp-ja:b07a932f05c190748a79505f",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m7.png"
+          ],
+          "alt": "七",
+          "title": "七萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "7m",
+            "filename": "m7.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "七萬",
+            "alt": "七",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0036",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "が否定される程度ですが、ドラが",
+      "segments": [
+        {
+          "text": "が否定される程度ですが、ドラが",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0037",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00041",
+          "assetId": "modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p5.png"
+          ],
+          "alt": "(5)",
+          "title": "五筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "5p",
+            "filename": "p5.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "五筒",
+            "alt": "(5)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0038",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "であればペン",
+      "segments": [
+        {
+          "text": "であればペン",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0039",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00042",
+          "assetId": "modern-yabejp-ja:31607e0c4823773206eee230",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p3.png"
+          ],
+          "alt": "(3)",
+          "title": "三筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "3p",
+            "filename": "p3.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "三筒",
+            "alt": "(3)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0040",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "、",
+      "segments": [
+        {
+          "text": "、",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0041",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00043",
+          "assetId": "modern-yabejp-ja:4d318826f6a4e9aecadb6da9",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p2.png"
+          ],
+          "alt": "(2)",
+          "title": "二筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "2p",
+            "filename": "p2.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "二筒",
+            "alt": "(2)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0042",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "･",
+      "segments": [
+        {
+          "text": "･",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0043",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00044",
+          "assetId": "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p8.png"
+          ],
+          "alt": "(8)",
+          "title": "八筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "8p",
+            "filename": "p8.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "八筒",
+            "alt": "(8)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0044",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "シャボ、",
+      "segments": [
+        {
+          "text": "シャボ、",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0045",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00045",
+          "assetId": "modern-yabejp-ja:113916eafff92e1ddd5d5360",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p1.png"
+          ],
+          "alt": "(1)",
+          "title": "一筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "1p",
+            "filename": "p1.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "一筒",
+            "alt": "(1)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0046",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "−",
+      "segments": [
+        {
+          "text": "−",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0047",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00046",
+          "assetId": "modern-yabejp-ja:91f021916047e51111e56542",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p4.png"
+          ],
+          "alt": "(4)",
+          "title": "四筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "4p",
+            "filename": "p4.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "四筒",
+            "alt": "(4)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0048",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "･",
+      "segments": [
+        {
+          "text": "･",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0049",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00047",
+          "assetId": "modern-yabejp-ja:3d679855094c9151924672ea",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p6.png"
+          ],
+          "alt": "(6)",
+          "title": "六筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "6p",
+            "filename": "p6.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "六筒",
+            "alt": "(6)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0050",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "−",
+      "segments": [
+        {
+          "text": "−",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0051",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00048",
+          "assetId": "modern-yabejp-ja:59887c6a14f55b27663151a1",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png"
+          ],
+          "alt": "(9)",
+          "title": "九筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "9p",
+            "filename": "p9.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "九筒",
+            "alt": "(9)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0052",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "リャンメン以外の",
+      "segments": [
+        {
+          "text": "リャンメン以外の",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0053",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00049",
+          "assetId": "modern-yabejp-ja:4d318826f6a4e9aecadb6da9",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p2.png"
+          ],
+          "alt": "(2)",
+          "title": "二筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "2p",
+            "filename": "p2.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "二筒",
+            "alt": "(2)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0054",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "〜",
+      "segments": [
+        {
+          "text": "〜",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0055",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00050",
+          "assetId": "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p8.png"
+          ],
+          "alt": "(8)",
+          "title": "八筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "8p",
+            "filename": "p8.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "八筒",
+            "alt": "(8)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0056",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "牌がほぼ通ることになるように、ドラが真ん中に近いほど強い情報になります。",
+      "segments": [
+        {
+          "text": "牌がほぼ通ることになるように、ドラが真ん中に近いほど強い情報になります。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0057",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0009",
+      "tag": "p",
+      "domPath": "main/p[19]",
+      "tableContext": null,
+      "type": "text",
+      "text": "そして、ある牌が待ちの関連牌である、２面子完全形であったケースが多いことが次の理由から読めます。",
+      "segments": [
+        {
+          "text": "そして、ある牌が待ちの関連牌である、２面子完全形であったケースが多いことが次の理由から読めます。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0058",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0010",
+      "tag": "li",
+      "domPath": "main/ul[21]/li[1]",
+      "tableContext": null,
+      "type": "text",
+      "text": "ドラは通常孤立牌として残すのに最高の牌なので、２面子余剰牌形であったとは考えにくい。（例外は一色手等の変則手や、安全度を重視する場合の安牌。）",
+      "segments": [
+        {
+          "text": "ドラは通常孤立牌として残すのに最高の牌なので、２面子余剰牌形であったとは考えにくい。",
+          "marks": [
+            "em::"
+          ],
+          "href": null
+        },
+        {
+          "text": "（例外は一色手等の変則手や、安全度を重視する場合の安牌。）",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0059",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0011",
+      "tag": "li",
+      "domPath": "main/ul[21]/li[3]",
+      "tableContext": null,
+      "type": "text",
+      "text": "同様の理由でくっつき形であった可能性も低くなる。",
+      "segments": [
+        {
+          "text": "同様の理由で",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "くっつき形であった可能性も低くなる。",
+          "marks": [
+            "em::"
+          ],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0060",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0011",
+      "tag": "li",
+      "domPath": "main/ul[21]/li[3]",
+      "tableContext": null,
+      "type": "text",
+      "text": " ドラが端に近い牌であればくっつき枚数重視でドラを切ることも多いが、ドラが３〜７の中張牌であれば特に低くなる。",
+      "segments": [
+        {
+          "text": " ドラが端に近い牌であればくっつき枚数重視でドラを切ることも多いが、ドラが３〜７の中張牌であれば特に低くなる。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0061",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0012",
+      "tag": "li",
+      "domPath": "main/ul[21]/li[5]",
+      "tableContext": null,
+      "type": "text",
+      "text": "ヘッドレス形であったケースも若干減る。（",
+      "segments": [
+        {
+          "text": "ヘッドレス形であったケースも若干減る。",
+          "marks": [
+            "em::"
+          ],
+          "href": null
+        },
+        {
+          "text": "（",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0062",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0012",
+      "tag": "li",
+      "domPath": "main/ul[21]/li[5]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00051",
+          "assetId": "modern-yabejp-ja:e11b4a7fa60544eb721099fb",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m1.png"
+          ],
+          "alt": "一",
+          "title": "一萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "1m",
+            "filename": "m1.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "一萬",
+            "alt": "一",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00052",
+          "assetId": "modern-yabejp-ja:e11b4a7fa60544eb721099fb",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m1.png"
+          ],
+          "alt": "一",
+          "title": "一萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "1m",
+            "filename": "m1.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "一萬",
+            "alt": "一",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00053",
+          "assetId": "modern-yabejp-ja:cf903c27e3d6d79024397f25",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m2.png"
+          ],
+          "alt": "二",
+          "title": "二萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "2m",
+            "filename": "m2.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "二萬",
+            "alt": "二",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00054",
+          "assetId": "modern-yabejp-ja:fa4ca8dbce129a7a05fc2fa8",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m3.png"
+          ],
+          "alt": "三",
+          "title": "三萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "3m",
+            "filename": "m3.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "三萬",
+            "alt": "三",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0063",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0012",
+      "tag": "li",
+      "domPath": "main/ul[21]/li[5]",
+      "tableContext": null,
+      "type": "text",
+      "text": "と持っていて",
+      "segments": [
+        {
+          "text": "と持っていて",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0064",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0012",
+      "tag": "li",
+      "domPath": "main/ul[21]/li[5]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00055",
+          "assetId": "modern-yabejp-ja:e11b4a7fa60544eb721099fb",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m1.png"
+          ],
+          "alt": "一",
+          "title": "一萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "1m",
+            "filename": "m1.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "一萬",
+            "alt": "一",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0065",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0012",
+      "tag": "li",
+      "domPath": "main/ul[21]/li[5]",
+      "tableContext": null,
+      "type": "text",
+      "text": "を切ればヘッドレス形になるが、ドラが",
+      "segments": [
+        {
+          "text": "を切ればヘッドレス形になるが、ドラが",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0066",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0012",
+      "tag": "li",
+      "domPath": "main/ul[21]/li[5]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00056",
+          "assetId": "modern-yabejp-ja:e11b4a7fa60544eb721099fb",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m1.png"
+          ],
+          "alt": "一",
+          "title": "一萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "1m",
+            "filename": "m1.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "一萬",
+            "alt": "一",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0067",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0012",
+      "tag": "li",
+      "domPath": "main/ul[21]/li[5]",
+      "tableContext": null,
+      "type": "text",
+      "text": "なら",
+      "segments": [
+        {
+          "text": "なら",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0068",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0012",
+      "tag": "li",
+      "domPath": "main/ul[21]/li[5]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00057",
+          "assetId": "modern-yabejp-ja:cf903c27e3d6d79024397f25",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m2.png"
+          ],
+          "alt": "二",
+          "title": "二萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "2m",
+            "filename": "m2.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "二萬",
+            "alt": "二",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00058",
+          "assetId": "modern-yabejp-ja:fa4ca8dbce129a7a05fc2fa8",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m3.png"
+          ],
+          "alt": "三",
+          "title": "三萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "3m",
+            "filename": "m3.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "三萬",
+            "alt": "三",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0069",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0012",
+      "tag": "li",
+      "domPath": "main/ul[21]/li[5]",
+      "tableContext": null,
+      "type": "text",
+      "text": "落としてドラヘッドの２面子余剰牌形に受ける等打点面の理由で。）",
+      "segments": [
+        {
+          "text": "落としてドラヘッドの２面子余剰牌形に受ける等打点面の理由で。）",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0070",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0013",
+      "tag": "p",
+      "domPath": "main/p[23]",
+      "tableContext": null,
+      "type": "text",
+      "text": "ただ、否定できるほどではない。",
+      "segments": [
+        {
+          "text": "ただ、否定できるほどではない。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0071",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0014",
+      "tag": "p",
+      "domPath": "main/p[25]",
+      "tableContext": null,
+      "type": "text",
+      "text": "更に、前回挙げた、",
+      "segments": [
+        {
+          "text": "更に、前回挙げた、",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0072",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0014",
+      "tag": "p",
+      "domPath": "main/p[25]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00059",
+          "assetId": "modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p5.png"
+          ],
+          "alt": "(5)",
+          "title": "五筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "5p",
+            "filename": "p5.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "五筒",
+            "alt": "(5)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0073",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0014",
+      "tag": "p",
+      "domPath": "main/p[25]",
+      "tableContext": null,
+      "type": "text",
+      "text": "→",
+      "segments": [
+        {
+          "text": "→",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0074",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0014",
+      "tag": "p",
+      "domPath": "main/p[25]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00060",
+          "assetId": "modern-yabejp-ja:4d318826f6a4e9aecadb6da9",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p2.png"
+          ],
+          "alt": "(2)",
+          "title": "二筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "2p",
+            "filename": "p2.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "二筒",
+            "alt": "(2)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0075",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0014",
+      "tag": "p",
+      "domPath": "main/p[25]",
+      "tableContext": null,
+      "type": "text",
+      "text": "（ドラ",
+      "segments": [
+        {
+          "text": "（ドラ",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0076",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0014",
+      "tag": "p",
+      "domPath": "main/p[25]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00061",
+          "assetId": "modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p5.png"
+          ],
+          "alt": "(5)",
+          "title": "五筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "5p",
+            "filename": "p5.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "五筒",
+            "alt": "(5)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0077",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0014",
+      "tag": "p",
+      "domPath": "main/p[25]",
+      "tableContext": null,
+      "type": "text",
+      "text": "）のような場合と合わされば、上で挙げたような例外のケースもほとんど無くなるので、２面子完全形であった可能性がほぼ100%になるのです。考えられる例外はヘッドレス形で",
+      "segments": [
+        {
+          "text": "）のような場合と合わされば、上で挙げたような例外のケースもほとんど無くなるので、２面子完全形であった可能性がほぼ100%になるのです。考えられる例外はヘッドレス形で",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0078",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0014",
+      "tag": "p",
+      "domPath": "main/p[25]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00062",
+          "assetId": "modern-yabejp-ja:4d318826f6a4e9aecadb6da9",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p2.png"
+          ],
+          "alt": "(2)",
+          "title": "二筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "2p",
+            "filename": "p2.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "二筒",
+            "alt": "(2)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00063",
+          "assetId": "modern-yabejp-ja:4d318826f6a4e9aecadb6da9",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p2.png"
+          ],
+          "alt": "(2)",
+          "title": "二筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "2p",
+            "filename": "p2.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "二筒",
+            "alt": "(2)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00064",
+          "assetId": "modern-yabejp-ja:4d318826f6a4e9aecadb6da9",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p2.png"
+          ],
+          "alt": "(2)",
+          "title": "二筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "2p",
+            "filename": "p2.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "二筒",
+            "alt": "(2)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        },
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00065",
+          "assetId": "modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p5.png"
+          ],
+          "alt": "(5)",
+          "title": "五筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "5p",
+            "filename": "p5.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "五筒",
+            "alt": "(5)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0079",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0014",
+      "tag": "p",
+      "domPath": "main/p[25]",
+      "tableContext": null,
+      "type": "text",
+      "text": "と持っていた場合くらいです。",
+      "segments": [
+        {
+          "text": "と持っていた場合くらいです。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0080",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0015",
+      "tag": "p",
+      "domPath": "main/p[27]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00066",
+          "assetId": "modern-yabejp-ja:59adb6484eba424a1d54a13f",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section009/001.jpg"
+          ],
+          "alt": "立体牌図",
+          "title": "",
+          "width": "620",
+          "height": "565",
+          "tileHint": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0081",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0016",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "tableContext": null,
+      "type": "text",
+      "text": "上のような河でリーチが入った場合、入り目でなければまず待ちは",
+      "segments": [
+        {
+          "text": "上のような河でリーチが入った場合、入り目でなければまず待ちは",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0082",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0016",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00067",
+          "assetId": "modern-yabejp-ja:986d40b46b37e422bf8a6cd2",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m6.png"
+          ],
+          "alt": "六",
+          "title": "六萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "6m",
+            "filename": "m6.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "六萬",
+            "alt": "六",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0083",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0016",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "tableContext": null,
+      "type": "text",
+      "text": "−",
+      "segments": [
+        {
+          "text": "−",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0084",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0016",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00068",
+          "assetId": "modern-yabejp-ja:3e03d661064b04283aeea2c5",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m9.png"
+          ],
+          "alt": "九",
+          "title": "九萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "9m",
+            "filename": "m9.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "九萬",
+            "alt": "九",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0085",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0016",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "tableContext": null,
+      "type": "text",
+      "text": "か",
+      "segments": [
+        {
+          "text": "か",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0086",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0016",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00069",
+          "assetId": "modern-yabejp-ja:3e03d661064b04283aeea2c5",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m9.png"
+          ],
+          "alt": "九",
+          "title": "九萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "9m",
+            "filename": "m9.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "九萬",
+            "alt": "九",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0087",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0016",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "tableContext": null,
+      "type": "text",
+      "text": "と何かのシャボであることが読めます。つまり、",
+      "segments": [
+        {
+          "text": "と何かのシャボであることが読めます。つまり、",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0088",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0016",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00070",
+          "assetId": "modern-yabejp-ja:3e03d661064b04283aeea2c5",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m9.png"
+          ],
+          "alt": "九",
+          "title": "九萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "9m",
+            "filename": "m9.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "九萬",
+            "alt": "九",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0089",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0016",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "tableContext": null,
+      "type": "text",
+      "text": "が当たる確率は約50%（",
+      "segments": [
+        {
+          "text": "が当たる確率は約50%（",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0090",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0016",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00071",
+          "assetId": "modern-yabejp-ja:986d40b46b37e422bf8a6cd2",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/m6.png"
+          ],
+          "alt": "六",
+          "title": "六萬",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "6m",
+            "filename": "m6.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "六萬",
+            "alt": "六",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0091",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0016",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "tableContext": null,
+      "type": "text",
+      "text": "も25%以上の確率で当たる）です。例えテンパイしていたとしても、よっぽどの勝負手でなければ切るべきではありません。（ドラ",
+      "segments": [
+        {
+          "text": "も25%以上の確率で当たる）です。例えテンパイしていたとしても、よっぽどの勝負手でなければ切るべきではありません。（ドラ",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0092",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0016",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00072",
+          "assetId": "modern-yabejp-ja:3d679855094c9151924672ea",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p6.png"
+          ],
+          "alt": "(6)",
+          "title": "六筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "6p",
+            "filename": "p6.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "六筒",
+            "alt": "(6)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0093",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0016",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "tableContext": null,
+      "type": "text",
+      "text": "→",
+      "segments": [
+        {
+          "text": "→",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0094",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0016",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00073",
+          "assetId": "modern-yabejp-ja:31607e0c4823773206eee230",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p3.png"
+          ],
+          "alt": "(3)",
+          "title": "三筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "3p",
+            "filename": "p3.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "三筒",
+            "alt": "(3)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0095",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0016",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "tableContext": null,
+      "type": "text",
+      "text": "のような場合でも、",
+      "segments": [
+        {
+          "text": "のような場合でも、",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0096",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0016",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter03-section009:i00074",
+          "assetId": "modern-yabejp-ja:31607e0c4823773206eee230",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/p3.png"
+          ],
+          "alt": "(3)",
+          "title": "三筒",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "3p",
+            "filename": "p3.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "三筒",
+            "alt": "(3)",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:b0097",
+      "paragraphId": "modern-yabejp-ja:chapter03-section009:p0016",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "tableContext": null,
+      "type": "text",
+      "text": "周りはFランク牌より危険になる。）",
+      "segments": [
+        {
+          "text": "周りはFランク牌より危険になる。）",
+          "marks": [],
+          "href": null
+        }
+      ]
+    }
+  ],
+  "paragraphs": [
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:p0001",
+      "tag": "h2",
+      "domPath": "main/h2[3]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section009:b0001"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:p0002",
+      "tag": "p",
+      "domPath": "main/p[5]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section009:b0002"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:p0003",
+      "tag": "h3",
+      "domPath": "main/h3[7]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section009:b0003"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:p0004",
+      "tag": "p",
+      "domPath": "main/p[9]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section009:b0004"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:p0005",
+      "tag": "p",
+      "domPath": "main/p[11]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section009:b0005"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:p0006",
+      "tag": "h3",
+      "domPath": "main/h3[13]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section009:b0006"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:p0007",
+      "tag": "p",
+      "domPath": "main/p[15]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section009:b0007"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section009:b0008",
+        "modern-yabejp-ja:chapter03-section009:b0009",
+        "modern-yabejp-ja:chapter03-section009:b0010",
+        "modern-yabejp-ja:chapter03-section009:b0011",
+        "modern-yabejp-ja:chapter03-section009:b0012",
+        "modern-yabejp-ja:chapter03-section009:b0013",
+        "modern-yabejp-ja:chapter03-section009:b0014",
+        "modern-yabejp-ja:chapter03-section009:b0015",
+        "modern-yabejp-ja:chapter03-section009:b0016",
+        "modern-yabejp-ja:chapter03-section009:b0017",
+        "modern-yabejp-ja:chapter03-section009:b0018",
+        "modern-yabejp-ja:chapter03-section009:b0019",
+        "modern-yabejp-ja:chapter03-section009:b0020",
+        "modern-yabejp-ja:chapter03-section009:b0021",
+        "modern-yabejp-ja:chapter03-section009:b0022",
+        "modern-yabejp-ja:chapter03-section009:b0023",
+        "modern-yabejp-ja:chapter03-section009:b0024",
+        "modern-yabejp-ja:chapter03-section009:b0025",
+        "modern-yabejp-ja:chapter03-section009:b0026",
+        "modern-yabejp-ja:chapter03-section009:b0027",
+        "modern-yabejp-ja:chapter03-section009:b0028",
+        "modern-yabejp-ja:chapter03-section009:b0029",
+        "modern-yabejp-ja:chapter03-section009:b0030",
+        "modern-yabejp-ja:chapter03-section009:b0031",
+        "modern-yabejp-ja:chapter03-section009:b0032",
+        "modern-yabejp-ja:chapter03-section009:b0033",
+        "modern-yabejp-ja:chapter03-section009:b0034",
+        "modern-yabejp-ja:chapter03-section009:b0035",
+        "modern-yabejp-ja:chapter03-section009:b0036",
+        "modern-yabejp-ja:chapter03-section009:b0037",
+        "modern-yabejp-ja:chapter03-section009:b0038",
+        "modern-yabejp-ja:chapter03-section009:b0039",
+        "modern-yabejp-ja:chapter03-section009:b0040",
+        "modern-yabejp-ja:chapter03-section009:b0041",
+        "modern-yabejp-ja:chapter03-section009:b0042",
+        "modern-yabejp-ja:chapter03-section009:b0043",
+        "modern-yabejp-ja:chapter03-section009:b0044",
+        "modern-yabejp-ja:chapter03-section009:b0045",
+        "modern-yabejp-ja:chapter03-section009:b0046",
+        "modern-yabejp-ja:chapter03-section009:b0047",
+        "modern-yabejp-ja:chapter03-section009:b0048",
+        "modern-yabejp-ja:chapter03-section009:b0049",
+        "modern-yabejp-ja:chapter03-section009:b0050",
+        "modern-yabejp-ja:chapter03-section009:b0051",
+        "modern-yabejp-ja:chapter03-section009:b0052",
+        "modern-yabejp-ja:chapter03-section009:b0053",
+        "modern-yabejp-ja:chapter03-section009:b0054",
+        "modern-yabejp-ja:chapter03-section009:b0055",
+        "modern-yabejp-ja:chapter03-section009:b0056"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:p0009",
+      "tag": "p",
+      "domPath": "main/p[19]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section009:b0057"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:p0010",
+      "tag": "li",
+      "domPath": "main/ul[21]/li[1]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section009:b0058"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:p0011",
+      "tag": "li",
+      "domPath": "main/ul[21]/li[3]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section009:b0059",
+        "modern-yabejp-ja:chapter03-section009:b0060"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:p0012",
+      "tag": "li",
+      "domPath": "main/ul[21]/li[5]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section009:b0061",
+        "modern-yabejp-ja:chapter03-section009:b0062",
+        "modern-yabejp-ja:chapter03-section009:b0063",
+        "modern-yabejp-ja:chapter03-section009:b0064",
+        "modern-yabejp-ja:chapter03-section009:b0065",
+        "modern-yabejp-ja:chapter03-section009:b0066",
+        "modern-yabejp-ja:chapter03-section009:b0067",
+        "modern-yabejp-ja:chapter03-section009:b0068",
+        "modern-yabejp-ja:chapter03-section009:b0069"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:p0013",
+      "tag": "p",
+      "domPath": "main/p[23]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section009:b0070"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:p0014",
+      "tag": "p",
+      "domPath": "main/p[25]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section009:b0071",
+        "modern-yabejp-ja:chapter03-section009:b0072",
+        "modern-yabejp-ja:chapter03-section009:b0073",
+        "modern-yabejp-ja:chapter03-section009:b0074",
+        "modern-yabejp-ja:chapter03-section009:b0075",
+        "modern-yabejp-ja:chapter03-section009:b0076",
+        "modern-yabejp-ja:chapter03-section009:b0077",
+        "modern-yabejp-ja:chapter03-section009:b0078",
+        "modern-yabejp-ja:chapter03-section009:b0079"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:p0015",
+      "tag": "p",
+      "domPath": "main/p[27]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section009:b0080"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter03-section009:p0016",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter03-section009:b0081",
+        "modern-yabejp-ja:chapter03-section009:b0082",
+        "modern-yabejp-ja:chapter03-section009:b0083",
+        "modern-yabejp-ja:chapter03-section009:b0084",
+        "modern-yabejp-ja:chapter03-section009:b0085",
+        "modern-yabejp-ja:chapter03-section009:b0086",
+        "modern-yabejp-ja:chapter03-section009:b0087",
+        "modern-yabejp-ja:chapter03-section009:b0088",
+        "modern-yabejp-ja:chapter03-section009:b0089",
+        "modern-yabejp-ja:chapter03-section009:b0090",
+        "modern-yabejp-ja:chapter03-section009:b0091",
+        "modern-yabejp-ja:chapter03-section009:b0092",
+        "modern-yabejp-ja:chapter03-section009:b0093",
+        "modern-yabejp-ja:chapter03-section009:b0094",
+        "modern-yabejp-ja:chapter03-section009:b0095",
+        "modern-yabejp-ja:chapter03-section009:b0096",
+        "modern-yabejp-ja:chapter03-section009:b0097"
+      ],
+      "tableContext": null
+    }
+  ],
+  "assets": [
+    {
+      "assetId": "modern-yabejp-ja:cf903c27e3d6d79024397f25",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m2.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m2.png",
+      "fetchedAt": "2026-10-23T20:09:08.099400+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 499,
+      "sha256": "e00db918035e7ccab3985d5944c52457eb0705b2bc44b6a4e1a46ee17a81bd82",
+      "path": "modern-yabejp-ja/assets/e00db918035e7ccab3985d5944c52457eb0705b2bc44b6a4e1a46ee17a81bd82.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:fa4ca8dbce129a7a05fc2fa8",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m3.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m3.png",
+      "fetchedAt": "2026-10-23T20:09:09.531200+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 512,
+      "sha256": "57e8ed0e406f0577bcbb144f4df6952fa83d2791310f73cb61bcc4b568b3793d",
+      "path": "modern-yabejp-ja/assets/57e8ed0e406f0577bcbb144f4df6952fa83d2791310f73cb61bcc4b568b3793d.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:fae4f4d8fc74f83a0364ba1a",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m4.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m4.png",
+      "fetchedAt": "2026-10-23T20:09:10.453883+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 524,
+      "sha256": "36ab58b499cf45d306deb55158dd9fdb6d7ed23d8bce86c5df719418f12e1611",
+      "path": "modern-yabejp-ja/assets/36ab58b499cf45d306deb55158dd9fdb6d7ed23d8bce86c5df719418f12e1611.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:31607e0c4823773206eee230",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p3.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p3.png",
+      "fetchedAt": "2026-10-23T20:09:19.032517+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 443,
+      "sha256": "adda1658bdc69be1d2cc953b061e1b9b322926af81d8298b12dc803697f86a80",
+      "path": "modern-yabejp-ja/assets/adda1658bdc69be1d2cc953b061e1b9b322926af81d8298b12dc803697f86a80.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:91f021916047e51111e56542",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p4.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p4.png",
+      "fetchedAt": "2026-10-23T20:09:24.032166+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 466,
+      "sha256": "6a095ab935afcfd1b79e3014dd1dcee741bfc9ac5f7540568c6b22ee2e76a754",
+      "path": "modern-yabejp-ja/assets/6a095ab935afcfd1b79e3014dd1dcee741bfc9ac5f7540568c6b22ee2e76a754.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:3d679855094c9151924672ea",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p6.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p6.png",
+      "fetchedAt": "2026-10-23T20:47:18.484973+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 460,
+      "sha256": "c93fbabcbb4340f251e1d305b4c9f2176cf4140c809327f8bec09ef727216551",
+      "path": "modern-yabejp-ja/assets/c93fbabcbb4340f251e1d305b4c9f2176cf4140c809327f8bec09ef727216551.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p7.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p7.png",
+      "fetchedAt": "2026-10-23T20:47:19.745713+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 501,
+      "sha256": "adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef",
+      "path": "modern-yabejp-ja/assets/adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p8.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p8.png",
+      "fetchedAt": "2026-10-23T20:47:27.108578+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 501,
+      "sha256": "5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295",
+      "path": "modern-yabejp-ja/assets/5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:ff0605857cc5c60bc5c303e3",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s2.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s2.png",
+      "fetchedAt": "2026-10-23T20:47:20.399442+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 343,
+      "sha256": "04fbb9d86fb607b0bf95a29422c32da0a5bf427ed6ed05a674470fa15cfa281b",
+      "path": "modern-yabejp-ja/assets/04fbb9d86fb607b0bf95a29422c32da0a5bf427ed6ed05a674470fa15cfa281b.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:13fefae159ce62a1e4cf2f11",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s4.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s4.png",
+      "fetchedAt": "2026-10-23T20:09:16.621499+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 382,
+      "sha256": "664ea678d254c0a7b72e2998b7a5e7c85f8b66d01d0156a35ad56aa044247de3",
+      "path": "modern-yabejp-ja/assets/664ea678d254c0a7b72e2998b7a5e7c85f8b66d01d0156a35ad56aa044247de3.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:ddfc65a49b12ba9eaad31799",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s6.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s6.png",
+      "fetchedAt": "2026-10-23T20:47:21.028018+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 470,
+      "sha256": "b3dd465d6b409b704aac6aa188d3f40982e2b03ae772971dbfc973ca90c35fcd",
+      "path": "modern-yabejp-ja/assets/b3dd465d6b409b704aac6aa188d3f40982e2b03ae772971dbfc973ca90c35fcd.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:986d40b46b37e422bf8a6cd2",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m6.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m6.png",
+      "fetchedAt": "2026-10-23T20:09:22.794508+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 519,
+      "sha256": "e01bc8a4fc6a6cf8b459dad8909c9b82553ebdeff25dc217dce94b6c90f27890",
+      "path": "modern-yabejp-ja/assets/e01bc8a4fc6a6cf8b459dad8909c9b82553ebdeff25dc217dce94b6c90f27890.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:b07a932f05c190748a79505f",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m7.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m7.png",
+      "fetchedAt": "2026-10-23T20:09:23.401102+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 509,
+      "sha256": "8b444ba3413da7b802da2570cfa6cd10e733be710cea5f7ce6660e2bc36fe3da",
+      "path": "modern-yabejp-ja/assets/8b444ba3413da7b802da2570cfa6cd10e733be710cea5f7ce6660e2bc36fe3da.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:f5980e09ae04d921ed066df7",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m8.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m8.png",
+      "fetchedAt": "2026-10-23T20:09:25.891366+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 505,
+      "sha256": "6720a061ff6942a14624235a8b3ae4084307fbd723821cb6aa19f69ce8a3a325",
+      "path": "modern-yabejp-ja/assets/6720a061ff6942a14624235a8b3ae4084307fbd723821cb6aa19f69ce8a3a325.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:1119c0419882e1131940f3bd",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/pe.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/pe.png",
+      "fetchedAt": "2026-10-23T20:47:42.558051+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 503,
+      "sha256": "1584510d75994d951b0dd9d2c702fd8c8c63854e3c3d49c470dce8a2e33956ea",
+      "path": "modern-yabejp-ja/assets/1584510d75994d951b0dd9d2c702fd8c8c63854e3c3d49c470dce8a2e33956ea.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:86ff3e6aae7c47c4bd14a3be",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s3.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s3.png",
+      "fetchedAt": "2026-10-23T20:47:20.340894+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 382,
+      "sha256": "a85604f4fe7b71642dc3821b8ece948061056b973780837e41467e4369591240",
+      "path": "modern-yabejp-ja/assets/a85604f4fe7b71642dc3821b8ece948061056b973780837e41467e4369591240.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:5323955b942f8b4fbeab214c",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s8.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s8.png",
+      "fetchedAt": "2026-10-23T20:09:06.473577+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 544,
+      "sha256": "0be7ec4042b1aa0ef244a2848a2d13fab62b96c30fa730c650a64fe761440b73",
+      "path": "modern-yabejp-ja/assets/0be7ec4042b1aa0ef244a2848a2d13fab62b96c30fa730c650a64fe761440b73.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:3e03d661064b04283aeea2c5",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m9.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m9.png",
+      "fetchedAt": "2026-10-23T20:47:17.176350+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 523,
+      "sha256": "d5fc796860fcbf45537080d63f7396ff45cf2a762adc59c751b37ec7ce1978ef",
+      "path": "modern-yabejp-ja/assets/d5fc796860fcbf45537080d63f7396ff45cf2a762adc59c751b37ec7ce1978ef.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:aaaa5fd72ccc12bd7da6f6aa",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m5.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m5.png",
+      "fetchedAt": "2026-10-23T20:09:08.933157+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 531,
+      "sha256": "5a4a77aad3598a95a46e284e4425da8370c58a7c6ad7e142ceb70725897973b4",
+      "path": "modern-yabejp-ja/assets/5a4a77aad3598a95a46e284e4425da8370c58a7c6ad7e142ceb70725897973b4.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p5.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p5.png",
+      "fetchedAt": "2026-10-23T20:47:17.856441+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 479,
+      "sha256": "3a742c41a6fd13988ae765423ed55ae263fd9c7883e6f1e0dc03670077b30c78",
+      "path": "modern-yabejp-ja/assets/3a742c41a6fd13988ae765423ed55ae263fd9c7883e6f1e0dc03670077b30c78.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:4d318826f6a4e9aecadb6da9",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p2.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p2.png",
+      "fetchedAt": "2026-10-23T20:09:18.448268+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 440,
+      "sha256": "03718424cb16ab52db153a98f34955b5f0ab92db3c299debf341470f9debfaa1",
+      "path": "modern-yabejp-ja/assets/03718424cb16ab52db153a98f34955b5f0ab92db3c299debf341470f9debfaa1.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:113916eafff92e1ddd5d5360",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p1.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p1.png",
+      "fetchedAt": "2026-10-23T20:09:17.897571+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 483,
+      "sha256": "7f708a0ec1ad3c89e4a43b3e48ab3fcd703569e57d8926e3e0e57a9c3776c94c",
+      "path": "modern-yabejp-ja/assets/7f708a0ec1ad3c89e4a43b3e48ab3fcd703569e57d8926e3e0e57a9c3776c94c.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:59887c6a14f55b27663151a1",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png",
+      "fetchedAt": "2026-10-23T20:09:24.618784+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 502,
+      "sha256": "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141",
+      "path": "modern-yabejp-ja/assets/8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:e11b4a7fa60544eb721099fb",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m1.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m1.png",
+      "fetchedAt": "2026-10-23T20:47:15.741072+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 489,
+      "sha256": "7e9fc720d8d828be9e9773a1137a3e5da020b35f1ab6ae5478a366553e0643f9",
+      "path": "modern-yabejp-ja/assets/7e9fc720d8d828be9e9773a1137a3e5da020b35f1ab6ae5478a366553e0643f9.png"
+    },
+    {
+      "assetId": "modern-yabejp-ja:59adb6484eba424a1d54a13f",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section009/001.jpg",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section009/001.jpg",
+      "fetchedAt": "2026-10-23T20:48:56.984038+00:00",
+      "httpStatus": 200,
+      "contentType": "image/jpeg",
+      "bytes": 61986,
+      "sha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+      "path": "modern-yabejp-ja/assets/a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg"
+    }
+  ],
+  "links": [
+    {
+      "visibleText": "",
+      "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section008.html"
+    },
+    {
+      "visibleText": "",
+      "href": "http://yabejp.web.fc2.com/mahjong/index.html"
+    },
+    {
+      "visibleText": "",
+      "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section010.html"
+    }
+  ],
+  "originalReferenceLinks": [],
+  "ignoredPlaceholders": [
+    {
+      "reason": "explicit-book-navigation-image",
+      "sourceUrls": [
+        "http://yabejp.web.fc2.com/mahjong/img/back.gif"
+      ],
+      "attrs": {
+        "src": "../../img/back.gif",
+        "alt": "前のページに戻る",
+        "name": "Back",
+        "width": "88",
+        "height": "31",
+        "border": "0",
+        "id": "Back"
+      }
+    },
+    {
+      "reason": "explicit-book-navigation-image",
+      "sourceUrls": [
+        "http://yabejp.web.fc2.com/mahjong/img/home.gif"
+      ],
+      "attrs": {
+        "src": "../../img/home.gif",
+        "alt": "目次に戻る",
+        "name": "Home",
+        "width": "88",
+        "height": "31",
+        "border": "0",
+        "id": "Home"
+      }
+    },
+    {
+      "reason": "explicit-book-navigation-image",
+      "sourceUrls": [
+        "http://yabejp.web.fc2.com/mahjong/img/next.gif"
+      ],
+      "attrs": {
+        "src": "../../img/next.gif",
+        "alt": "次のページに進む",
+        "name": "Next",
+        "width": "88",
+        "height": "31",
+        "border": "0",
+        "id": "Next"
+      }
+    }
+  ],
+  "attributionNote": "Original source attribution, translator disclaimers and reference visible text are preserved in the body. Link href and visible URL are recorded separately, never treated as equivalent without review.",
+  "status": "captured-not-translated-or-audited",
+  "extractorSha256": "c9ec6d0591a42dc8570d43bc1c32d1502f7a7693fd1ec05a172e2fd1f1f9c8d7",
+  "sourceSha256": "95512a491e6fd289b259fad800372e2a737e97da513a7afa1dce82e326233692"
+}

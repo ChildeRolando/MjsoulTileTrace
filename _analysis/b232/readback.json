@@ -1,0 +1,651 @@
+{
+  "allPassed": true,
+  "corpusId": "4f259feb523f76b892efa047d47fb8e92d52196cc1d4d187a63881dd9309b4c6",
+  "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-24-36-725Z",
+  "canonical": "nemata-jp-chapter-193-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section009.r2.display.json",
+    "sha256": "f3c960182adb5913b82f22504b703cc8fe6d69561acc8c7f43c19e364184e7d7"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter03-section009\\source.json",
+    "sha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743"
+  },
+  "sourceBlocks": 97,
+  "authorPresentationBlocks": 17,
+  "nonAuthorNotes": 7,
+  "displayBlocks": 24,
+  "figures": 41,
+  "pages": [
+    {
+      "offset": 0,
+      "count": 7,
+      "next": 7
+    },
+    {
+      "offset": 7,
+      "count": 1,
+      "next": 8
+    },
+    {
+      "offset": 8,
+      "count": 4,
+      "next": 12
+    },
+    {
+      "offset": 12,
+      "count": 9,
+      "next": 21
+    },
+    {
+      "offset": 21,
+      "count": 3,
+      "next": null
+    }
+  ],
+  "images": [
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b9",
+      "sha256": "eba5384493ba9d03756f7665c33debe532bada7a80119d86fc0fc179ca929d74",
+      "bytes": 5617
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b11",
+      "sha256": "abe88d2cdbed6c3063c4480264246771fc1130b90224bc9d6a1c6bf4afd8e64c",
+      "bytes": 586
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b13",
+      "sha256": "abe88d2cdbed6c3063c4480264246771fc1130b90224bc9d6a1c6bf4afd8e64c",
+      "bytes": 586
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b15",
+      "sha256": "1f834c908e2632a124b67d08b801ffb7bb07552c1384e021205993e86e919b3e",
+      "bytes": 5407
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b17",
+      "sha256": "38c5185a0b58f99046f7edadab3e536c0bb08133600be495e622639aa14cca0a",
+      "bytes": 586
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b19",
+      "sha256": "38c5185a0b58f99046f7edadab3e536c0bb08133600be495e622639aa14cca0a",
+      "bytes": 586
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b21",
+      "sha256": "97424b00e2013a637ce299a5a4a639e9e25a039173ae9b656815758469278bc1",
+      "bytes": 651
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b23",
+      "sha256": "969230055083bd9995afd306713705c0a228ad78a6c6add4b39a6f2b03953382",
+      "bytes": 683
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b25",
+      "sha256": "59033702a047b1628005b1203b5a3ded5251177a163486512f284331375ef402",
+      "bytes": 705
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b27",
+      "sha256": "d2d69292e926902ce77ff7b0297b0ebb2aec01a4f2c5629fde8c179634013c1c",
+      "bytes": 658
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b29",
+      "sha256": "59033702a047b1628005b1203b5a3ded5251177a163486512f284331375ef402",
+      "bytes": 705
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b31",
+      "sha256": "d2d69292e926902ce77ff7b0297b0ebb2aec01a4f2c5629fde8c179634013c1c",
+      "bytes": 658
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b33",
+      "sha256": "b4421145dd8991af733b5c71110b9445da8c768fcc995b35dc246d389d9ed5de",
+      "bytes": 731
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b35",
+      "sha256": "d2d69292e926902ce77ff7b0297b0ebb2aec01a4f2c5629fde8c179634013c1c",
+      "bytes": 658
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b37",
+      "sha256": "9a73b46aa6d3935c70f57e921e044c2e53c33adccc8f0fb3e4327343b597344e",
+      "bytes": 658
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b39",
+      "sha256": "84ae75a0c9ebc356678c8961abeda40cc72d0a75411d97fb7db736471a531b60",
+      "bytes": 527
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b41",
+      "sha256": "fda8d4e5f3a761cebed7c2a147871035be0e42fd3057257b5338df1be036cb76",
+      "bytes": 562
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b43",
+      "sha256": "a1143210abefd418cef18d7370fc67c6f94e171c2c0ceb2caafe7a1fc8ca2fbf",
+      "bytes": 723
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b45",
+      "sha256": "0dacc0fd0ca8ab9dcc217f6a746da24c84ba49e6174672322bdb3803858bfaf4",
+      "bytes": 665
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b47",
+      "sha256": "abe88d2cdbed6c3063c4480264246771fc1130b90224bc9d6a1c6bf4afd8e64c",
+      "bytes": 586
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b49",
+      "sha256": "38c5185a0b58f99046f7edadab3e536c0bb08133600be495e622639aa14cca0a",
+      "bytes": 586
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b51",
+      "sha256": "6f3a4bc5a5813a108733605ceae92bd0fbda33d7be17de49347acbb2f06313af",
+      "bytes": 723
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b53",
+      "sha256": "fda8d4e5f3a761cebed7c2a147871035be0e42fd3057257b5338df1be036cb76",
+      "bytes": 562
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b55",
+      "sha256": "a1143210abefd418cef18d7370fc67c6f94e171c2c0ceb2caafe7a1fc8ca2fbf",
+      "bytes": 723
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b62",
+      "sha256": "b3ebdb9f62c9970267044479b2fec453f00ec451c5031da0d35da733c6d430ca",
+      "bytes": 1741
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b64",
+      "sha256": "d534829b75d8198d0f9b21f737703a7f334a104be8852c0f6599ef2eba2a66ea",
+      "bytes": 610
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b66",
+      "sha256": "d534829b75d8198d0f9b21f737703a7f334a104be8852c0f6599ef2eba2a66ea",
+      "bytes": 610
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b68",
+      "sha256": "42c356f8bf0692a4a69311e80016eb9628012e2bc1c43baa558f66f49ea33280",
+      "bytes": 1208
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b72",
+      "sha256": "9a73b46aa6d3935c70f57e921e044c2e53c33adccc8f0fb3e4327343b597344e",
+      "bytes": 658
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b74",
+      "sha256": "fda8d4e5f3a761cebed7c2a147871035be0e42fd3057257b5338df1be036cb76",
+      "bytes": 562
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b76",
+      "sha256": "9a73b46aa6d3935c70f57e921e044c2e53c33adccc8f0fb3e4327343b597344e",
+      "bytes": 658
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b78",
+      "sha256": "009f49fc7d31d08a2073282a4b530c47b5b151d4f57756e712a1793783a2279e",
+      "bytes": 1149
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b80",
+      "sha256": "e06e0548f4764a831def9142e3c8530e7dfcf577f3ec8becc3ba3c8a00363b3e",
+      "bytes": 417395
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b82",
+      "sha256": "969230055083bd9995afd306713705c0a228ad78a6c6add4b39a6f2b03953382",
+      "bytes": 683
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b84",
+      "sha256": "59033702a047b1628005b1203b5a3ded5251177a163486512f284331375ef402",
+      "bytes": 705
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b86",
+      "sha256": "59033702a047b1628005b1203b5a3ded5251177a163486512f284331375ef402",
+      "bytes": 705
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b88",
+      "sha256": "59033702a047b1628005b1203b5a3ded5251177a163486512f284331375ef402",
+      "bytes": 705
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b90",
+      "sha256": "969230055083bd9995afd306713705c0a228ad78a6c6add4b39a6f2b03953382",
+      "bytes": 683
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b92",
+      "sha256": "38c5185a0b58f99046f7edadab3e536c0bb08133600be495e622639aa14cca0a",
+      "bytes": 586
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b94",
+      "sha256": "84ae75a0c9ebc356678c8961abeda40cc72d0a75411d97fb7db736471a531b60",
+      "bytes": 527
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section009-b96",
+      "sha256": "84ae75a0c9ebc356678c8961abeda40cc72d0a75411d97fb7db736471a531b60",
+      "bytes": 527
+    }
+  ],
+  "allSevenLimitsActuallyDisplayed": true,
+  "sourceFigureOrderCaptionUnknownAndCandidateSourceNotesPreserved": true,
+  "currentAndOriginalStrictFalsePreserved": true,
+  "historicalIssuesPreserved": true,
+  "priorUnitsUnchanged": 259,
+  "completeCanonicalCatalog": true,
+  "arena": {
+    "units": 260,
+    "exactBody": true,
+    "fullReadRequiredBeforeCitation": true
+  },
+  "fullMcp": {
+    "units": 260,
+    "images": 5935
+  },
+  "sourceDedupPassed": true,
+  "calls": [
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 0,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 20,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 40,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 60,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 80,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 100,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 120,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 140,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 160,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 180,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 200,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 220,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 240,
+        "limit": 20
+      }
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "modern-yabejp-ja-chapter03-section009-argument",
+        "blockOffset": 0
+      }
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "modern-yabejp-ja-chapter03-section009-argument",
+        "blockOffset": 7
+      }
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "modern-yabejp-ja-chapter03-section009-argument",
+        "blockOffset": 8
+      }
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "modern-yabejp-ja-chapter03-section009-argument",
+        "blockOffset": 12
+      }
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "modern-yabejp-ja-chapter03-section009-argument",
+        "blockOffset": 21
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b9"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b11"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b13"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b15"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b17"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b19"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b21"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b23"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b25"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b27"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b29"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b31"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b33"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b35"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b37"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b39"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b41"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b43"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b45"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b47"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b49"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b51"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b53"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b55"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b62"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b64"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b66"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b68"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b72"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b74"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b76"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b78"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b80"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b82"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b84"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b86"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b88"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b90"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b92"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b94"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter03-section009-b96"
+      }
+    },
+    {
+      "name": "search_textbook",
+      "args": {
+        "query": "若排除入り目的情形"
+      }
+    }
+  ],
+  "newModelCalls": 0,
+  "formalActiveChanged": false
+}

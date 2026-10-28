@@ -1,0 +1,143 @@
+{
+  "schema": "coac248-193234-text-recovery-handoff/1",
+  "recordedAt": "2026-10-28T09:59:02.630427+00:00",
+  "authorizationCommentId": "01a181e7-d3dc-76f2-adb8-00cbb4f4e332",
+  "canonical": "nemata-jp-chapter-193-1",
+  "bindings": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.r2.display.json",
+      "sha256": "f3c960182adb5913b82f22504b703cc8fe6d69561acc8c7f43c19e364184e7d7",
+      "bytes": 203377
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.r1.display.json",
+      "sha256": "af8071cfdbaabf8f469f84fa4daa6fd2d7d377c3dc2b277ef766e34a22324ba1",
+      "bytes": 207848
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-jp193-target-impact-reviewed-20261028.json",
+      "sha256": "a70006b0e912a7089bf2ae7cebd3d9e366275ca3e25cc8a3ea1356335b410b6c",
+      "bytes": 37844
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/articles/chapter03-section009/source.json",
+      "sha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+      "bytes": 123896
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/release.json",
+      "sha256": "09173a6b76f75fb1c0f8f1ed85813c94e78e5aef83712795fe1e848bdab33e1b",
+      "bytes": 14748
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/review.mjs",
+      "sha256": "09bbaa4254fba82c5b9934856146b4df301077b0a15a84619c55baa01afd9982",
+      "bytes": 8599
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/run.mjs",
+      "sha256": "b7dd831b8500005bc843493e46aed52cd0da81816b909bfe3d1361cd464f110d",
+      "bytes": 16794
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/193-review-plan.json",
+      "sha256": "d45fcdf55ab69723882d37f63383d0a0370187db7443d476544eeb391970a546",
+      "bytes": 415442
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/chapter03-section009-production.json",
+      "sha256": "a4400343cb210be62a003cf6d1cb46be45f70ea6c44f2c55905403b0d1b93061",
+      "bytes": 44064
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/1f923bbe-3124-4975-be79-4551ea607ab3.json",
+      "sha256": "9abc9cf1d41efafa369e22bf2588ee3c50b3763e86678e18e2a36a73234780b8",
+      "bytes": 966555
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac248-193234-text-v1-20261028/runtime-manifest.json",
+      "sha256": "aa0239b728832854641f964760f2affa4efd9e6eb6f960e69b17ee9f0d0c08c2",
+      "bytes": 18007
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/calls/45129550-169e-4015-a297-8726ee5cd9c5.json",
+      "sha256": "0098bd9a196c7f711cb1d953c2148ff9d9ff1a4f852333bb2efa90dab244a6a4",
+      "bytes": 395893
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-jp193-display-and-residual-20261028.json",
+      "sha256": "844bc0a6989a0d1c8c1681101d1f41ae94554ed22170fac0b553638f4c6759b3",
+      "bytes": 20197
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-jp193-scope-inheritance-20261028.json",
+      "sha256": "6195fc8abb583f795bd3e54832c26bc67aa698aa39c28c49304757104d491ecf",
+      "bytes": 31111
+    }
+  ],
+  "candidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.r2.display.json",
+    "sha256": "f3c960182adb5913b82f22504b703cc8fe6d69561acc8c7f43c19e364184e7d7"
+  },
+  "source": {
+    "path": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section009/source.json",
+    "sha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743"
+  },
+  "parent": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.r1.display.json",
+    "sha256": "af8071cfdbaabf8f469f84fa4daa6fd2d7d377c3dc2b277ef766e34a22324ba1"
+  },
+  "parentReview": {
+    "path": "integration/coac249-jp193-target-impact-reviewed-20261028.json",
+    "sha256": "a70006b0e912a7089bf2ae7cebd3d9e366275ca3e25cc8a3ea1356335b410b6c"
+  },
+  "productionCall": "1f923bbe-3124-4975-be79-4551ea607ab3",
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "images": [],
+  "usage": {
+    "inputTokens": 161992,
+    "cachedInputTokens": 0,
+    "outputTokens": 138
+  },
+  "fee": "unknown",
+  "remoteWeights": "unknown",
+  "upstreamExecutions": "unknown",
+  "diff": {
+    "path": "/body/blocks/80/text",
+    "from": "面对上图这样的牌河，有人立直时，只要立直宣言牌不是使其听牌时新摸入的同种牌，且新摸入的牌没有补成宣言牌所在一侧的面子，就基本可以读出其听牌是",
+    "to": "面对上图这样的牌河，有人立直时，若排除入り目的情形，就基本可以读出其听牌是"
+  },
+  "preservation": {
+    "allNonTargetBodyBytes": true,
+    "allCompleteFiguresBytes": true,
+    "unknownsUnchanged": true,
+    "captionAndSourceNotesUnchanged": true,
+    "orderUnchanged": true
+  },
+  "budget": {
+    "thisItemMaximum": 2,
+    "makerConsumed": 1,
+    "reservedIndependentTextReview": 1,
+    "retry": 0,
+    "failedVoidCount": true,
+    "prior193PhaseConsumed": 2,
+    "old234Timeout": null,
+    "noBudgetBorrowing": true
+  },
+  "reviewEntry": {
+    "module": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/review.mjs",
+    "prepare": "prepare193234TextReview(root,\"193\")",
+    "verify": "verify193234TextReviewExecution(result,plan)",
+    "publishedPlan": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/193-review-plan.json",
+    "publishedPlanSha256": "d45fcdf55ab69723882d37f63383d0a0370187db7443d476544eeb391970a546",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "images": [],
+    "scope": "Only one complete text target with full ordered argument, no image or full-chapter review"
+  },
+  "chapterAccepted": false,
+  "wholeChapterPassed": false,
+  "admissionGranted": false,
+  "independentRequiredDisplayLimitationsInstalled": false
+}

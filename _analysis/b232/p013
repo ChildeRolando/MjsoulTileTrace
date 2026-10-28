@@ -1,0 +1,356 @@
+{
+  "schema": "coac249-jp193-text-r2-display-proposal/1",
+  "canonical": "nemata-jp-chapter-193-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section009.r2.display.json",
+    "sha256": "f3c960182adb5913b82f22504b703cc8fe6d69561acc8c7f43c19e364184e7d7"
+  },
+  "receipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-jp193-text-r2-target-reviewed-20261028.json",
+    "sha256": "0d908f3ae536e17b12380e7394f26eef64bf75afe2e910aa000797eb24b8f219"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2c4e7f59-a462-4759-87be-30e8632ee206.json",
+    "sha256": "521e522337d5ef45d7c5d3347b87a953d0a266874960ee517527452ebf38b568"
+  },
+  "modelReview": {
+    "translation": {
+      "targetId": "modern-yabejp-ja:chapter03-section009:b0081",
+      "verdict": "faithful",
+      "evidence": "原句「上のような河でリーチが入った場合、入り目でなければまず待ちは」以图示牌河有人立直为情境，并将非入り目限定为后续推读的适用范围。现文「面对上图这样的牌河，有人立直时，若排除入り目的情形，就基本可以读出其听牌是」保留了这一例外边界；「基本可以读出」也保留了「まず」「読めます」的判断力度。旧文新增的宣言牌与新摸牌不同种、且新摸牌未补成宣言牌所在一侧面子的双重判定已删除，现文没有另造入り目的等价定义。此判断依据原句及实际连续下文，不以父审建议作为正确性的证明。"
+    },
+    "argumentChecks": [
+      {
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section009:b0001",
+          "modern-yabejp-ja:chapter03-section009:b0002",
+          "modern-yabejp-ja:chapter03-section009:b0003",
+          "modern-yabejp-ja:chapter03-section009:b0004",
+          "modern-yabejp-ja:chapter03-section009:b0005"
+        ],
+        "authorContribution": "宝牌尤其是中张宝牌可能提供有力的读牌信息；切宝牌立直也包括默听和副露后听牌。作者限定单骑及嵌张设筋陷阱的可能性，并纠正跨宝牌特别安全的理解。",
+        "preservedConditionsAndModality": "除非切宝牌后打点仍足够，否则单骑几乎没有，嵌张直接设筋陷阱的可能性较低；罕见高打点例外仍保留。宝牌留到听牌很自然，难以锁定特定牌形。跨宝牌通过概率相对增加，不等于比其他无筋牌特别安全。",
+        "faithful": true,
+        "evidence": "按给定精确父链继承未变范围的独立结论。对应文字保留例外、因果及「可能」「几乎」「较低」等强弱程度，本次b0081替换不改变这些内容。"
+      },
+      {
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section009:b0006",
+          "modern-yabejp-ja:chapter03-section009:b0007",
+          "modern-yabejp-ja:chapter03-section009:b0008",
+          "modern-yabejp-ja:chapter03-section009:b0009",
+          "modern-yabejp-ja:chapter03-section009:b0010",
+          "modern-yabejp-ja:chapter03-section009:b0011",
+          "modern-yabejp-ja:chapter03-section009:b0012",
+          "modern-yabejp-ja:chapter03-section009:b0013",
+          "modern-yabejp-ja:chapter03-section009:b0014",
+          "modern-yabejp-ja:chapter03-section009:b0015",
+          "modern-yabejp-ja:chapter03-section009:b0016",
+          "modern-yabejp-ja:chapter03-section009:b0017",
+          "modern-yabejp-ja:chapter03-section009:b0018",
+          "modern-yabejp-ja:chapter03-section009:b0019",
+          "modern-yabejp-ja:chapter03-section009:b0020"
+        ],
+        "authorContribution": "听牌前切宝牌可提供较强信息：宝牌与最终听牌相关的可能性显著降低。两组内联牌形说明罕见例外。",
+        "preservedConditionsAndModality": "依次保留给定牌形、宝牌4p时切4p，以及另一给定牌形、宝牌6p时切6p。例外涉及保留宝牌打点差别不大，或切掉后因牌役提高打点，同时保留宝牌使听牌变差或牌役难以确定、甚至消失。需要限定牌形，故称罕见，而非不可能。",
+        "faithful": true,
+        "evidence": "继承父链中未变范围的独立结论。按实际块序，b0008的「例外包括」连续接两组牌列、各自宝牌与切牌标示，再由b0020解释；文字与内联对象没有因本次替换发生错接。本次不重新认读牌图。"
+      },
+      {
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section009:b0021",
+          "modern-yabejp-ja:chapter03-section009:b0022",
+          "modern-yabejp-ja:chapter03-section009:b0023",
+          "modern-yabejp-ja:chapter03-section009:b0024",
+          "modern-yabejp-ja:chapter03-section009:b0025",
+          "modern-yabejp-ja:chapter03-section009:b0026",
+          "modern-yabejp-ja:chapter03-section009:b0027",
+          "modern-yabejp-ja:chapter03-section009:b0028",
+          "modern-yabejp-ja:chapter03-section009:b0029",
+          "modern-yabejp-ja:chapter03-section009:b0030",
+          "modern-yabejp-ja:chapter03-section009:b0031",
+          "modern-yabejp-ja:chapter03-section009:b0032",
+          "modern-yabejp-ja:chapter03-section009:b0033",
+          "modern-yabejp-ja:chapter03-section009:b0034",
+          "modern-yabejp-ja:chapter03-section009:b0035",
+          "modern-yabejp-ja:chapter03-section009:b0036",
+          "modern-yabejp-ja:chapter03-section009:b0037",
+          "modern-yabejp-ja:chapter03-section009:b0038",
+          "modern-yabejp-ja:chapter03-section009:b0039",
+          "modern-yabejp-ja:chapter03-section009:b0040",
+          "modern-yabejp-ja:chapter03-section009:b0041",
+          "modern-yabejp-ja:chapter03-section009:b0042",
+          "modern-yabejp-ja:chapter03-section009:b0043",
+          "modern-yabejp-ja:chapter03-section009:b0044",
+          "modern-yabejp-ja:chapter03-section009:b0045",
+          "modern-yabejp-ja:chapter03-section009:b0046",
+          "modern-yabejp-ja:chapter03-section009:b0047",
+          "modern-yabejp-ja:chapter03-section009:b0048",
+          "modern-yabejp-ja:chapter03-section009:b0049",
+          "modern-yabejp-ja:chapter03-section009:b0050",
+          "modern-yabejp-ja:chapter03-section009:b0051",
+          "modern-yabejp-ja:chapter03-section009:b0052",
+          "modern-yabejp-ja:chapter03-section009:b0053",
+          "modern-yabejp-ja:chapter03-section009:b0054",
+          "modern-yabejp-ja:chapter03-section009:b0055",
+          "modern-yabejp-ja:chapter03-section009:b0056"
+        ],
+        "authorContribution": "比较8m和5p作为宝牌时的信息强度，说明宝牌越接近中间，听牌前切宝牌提供的信息越强。",
+        "preservedConditionsAndModality": "8m宝牌时，大致可排除6m−9m两面、7m与9m双碰、边7m及嵌5m或7m。5p宝牌时，保留边3p、2p与8p双碰、1p−4p或6p−9p两面等例外，其余2p至8p几乎都能通过。前述例外与近似语气持续适用。",
+        "faithful": true,
+        "evidence": "继承父链中未变范围的独立结论。条件文字、内联牌、连接符及听牌类型按实际顺序相接；「大致」「几乎」没有变成绝对安全。本次仅检查其与目标修订的连续关系，不重做牌图核验。"
+      },
+      {
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section009:b0057",
+          "modern-yabejp-ja:chapter03-section009:b0058",
+          "modern-yabejp-ja:chapter03-section009:b0059",
+          "modern-yabejp-ja:chapter03-section009:b0060",
+          "modern-yabejp-ja:chapter03-section009:b0061",
+          "modern-yabejp-ja:chapter03-section009:b0062",
+          "modern-yabejp-ja:chapter03-section009:b0063",
+          "modern-yabejp-ja:chapter03-section009:b0064",
+          "modern-yabejp-ja:chapter03-section009:b0065",
+          "modern-yabejp-ja:chapter03-section009:b0066",
+          "modern-yabejp-ja:chapter03-section009:b0067",
+          "modern-yabejp-ja:chapter03-section009:b0068",
+          "modern-yabejp-ja:chapter03-section009:b0069",
+          "modern-yabejp-ja:chapter03-section009:b0070"
+        ],
+        "authorContribution": "后来切出的牌与听牌有关、原属两面子完全形的情况较多；作者说明两面子余牌形、靠张形和无雀头形为何相对减少。",
+        "preservedConditionsAndModality": "宝牌通常适合作为孤立牌保留，故两面子余牌形难以设想，但保留染手等特殊手牌及重视安全度的例外。靠张形可能性降低；宝牌靠近两端时为靠张张数切宝牌并不少见，3至7中张宝牌时尤其低。无雀头形仅略减，保留1123m、1m为宝牌时拆23m留宝牌雀头的打点理由，且仍未达到可以排除的程度。",
+        "faithful": true,
+        "evidence": "继承父链中未变范围的独立结论。b0061至b0069的括号例子按内联顺序连续，b0070保留最终限制；本次修订没有把相对减少强化为排除。"
+      },
+      {
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section009:b0071",
+          "modern-yabejp-ja:chapter03-section009:b0072",
+          "modern-yabejp-ja:chapter03-section009:b0073",
+          "modern-yabejp-ja:chapter03-section009:b0074",
+          "modern-yabejp-ja:chapter03-section009:b0075",
+          "modern-yabejp-ja:chapter03-section009:b0076",
+          "modern-yabejp-ja:chapter03-section009:b0077",
+          "modern-yabejp-ja:chapter03-section009:b0078",
+          "modern-yabejp-ja:chapter03-section009:b0079"
+        ],
+        "authorContribution": "结合宝牌5p先切、随后2p立直这样的情况，作者认为两面子完全形的可能性接近100%。",
+        "preservedConditionsAndModality": "判断依赖5p→2p且宝牌为5p的组合；上述例外几乎消失，仍保留无雀头形持有2p 2p 2p 5p这一可想到的例外，不能改成绝对确定。",
+        "faithful": true,
+        "evidence": "继承父链中未变范围的独立结论。b0071的组合条件接5p→2p及宝牌标示，b0077的接近100%判断再接b0078至b0079的例外，实际连续性保留。"
+      },
+      {
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section009:b0080",
+          "modern-yabejp-ja:chapter03-section009:b0081",
+          "modern-yabejp-ja:chapter03-section009:b0082",
+          "modern-yabejp-ja:chapter03-section009:b0083",
+          "modern-yabejp-ja:chapter03-section009:b0084",
+          "modern-yabejp-ja:chapter03-section009:b0085",
+          "modern-yabejp-ja:chapter03-section009:b0086",
+          "modern-yabejp-ja:chapter03-section009:b0087"
+        ],
+        "authorContribution": "面对图示牌河有人立直时，排除入り目情形后，基本可以读出6m−9m，或者9m与某张牌双碰。",
+        "preservedConditionsAndModality": "保留图示牌河、立直、非入り目三个情境或条件；保留两种备选听牌及基本可读出的语气，没有指定双碰的另一张牌，也没有把推读写成已证实的暗手。",
+        "faithful": true,
+        "evidence": "现文b0081直接保留入り目术语及排除条件，后接b0082的6m、b0083连接符、b0084的9m、b0085的或者、b0086的9m及b0087的「与某张牌的双碰」，完整句义连续。旧双重判定式已删除。b0080指定6p修订及四项unknown影响仅继承既有独立证据，本次未读图或重审。"
+      },
+      {
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section009:b0081",
+          "modern-yabejp-ja:chapter03-section009:b0088",
+          "modern-yabejp-ja:chapter03-section009:b0089",
+          "modern-yabejp-ja:chapter03-section009:b0090",
+          "modern-yabejp-ja:chapter03-section009:b0091",
+          "modern-yabejp-ja:chapter03-section009:b0092",
+          "modern-yabejp-ja:chapter03-section009:b0093",
+          "modern-yabejp-ja:chapter03-section009:b0094",
+          "modern-yabejp-ja:chapter03-section009:b0095",
+          "modern-yabejp-ja:chapter03-section009:b0096",
+          "modern-yabejp-ja:chapter03-section009:b0097"
+        ],
+        "authorContribution": "作者称9m放铳概率约50%，6m也有25%以上；即使已经听牌，除非手牌非常值得一搏，否则不应切。另称即使是宝牌6p→3p的情况，3p附近也比F级牌危险。",
+        "preservedConditionsAndModality": "前两项概率承接非入り目条件下的两种听牌推读，保留「约50%」「25%以上」、即使听牌及值得一搏的例外。括号内另保留宝牌6p→3p的假设及危险度比较；未新增实际概率验证或全局最优证明。",
+        "faithful": true,
+        "evidence": "修订后的b0081不再错误限定前置例外，故其与后续概率及建议的语义连接得到修复。b0088至b0091依序保持9m、约50%、6m、25%以上及建议；b0092至b0097依序保持宝牌6p→3p、即使如此及3p附近的比较。这里只判断忠实转述，不将作者数值、建议或继承的unknown影响结论冒充独立实战验证。"
+      }
+    ],
+    "orderedContextFaithful": true,
+    "completeRequestedScopeCompared": true,
+    "conclusion": "text-target-faithful",
+    "requiredDisplayLimitations": [
+      "以可见编者注标明右侧手牌自上而下第4、5、6张的点数及赤牌状态均未确认；三个位置须保留，不能填入推测牌值。",
+      "不得把该不完整转录称为完整精确牌谱，或据未知牌断言完整可见张数、实际安全度或概率。",
+      "以可见编者注说明该组各牌相对玩家的精确横置关系未确认，仅最上方一张可确认向左突出。",
+      "不得将未知方向补画为确定的横置关系或据此指定鸣牌来源。",
+      "以可见编者注保留中央两枚骰子点数未知，不给出猜测值。",
+      "以可见编者注说明黄色标记字样、相邻图标细字和筒子点数、最右圆形图标内容均未确认，不补写或补画。",
+      "这些限制是编者对图像可辨性的说明，不应呈现为原作者的文字。"
+    ],
+    "minimumRemainingGap": "本次b0081例外子句及其有序论证连续性无剩余语义缺口。继承的七条可见限制仍须实际安装，并由250完成精确许可映射及实际回读；本次未验证其展示完成，也未覆盖完整牌谱或全章通过。",
+    "issues": [
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+        "description": "原审问题，保留原severity：旧图转录将下方手牌末三张写为8p 8p 8p，实际为6p 6p 6p。当前指定替换已修正这一旧错误；这不改写原审记录。",
+        "evidence": "原图指定牌位三张均为六筒；新旧完整图对象的指定差异为末三张从8p改为6p。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+        "description": "原审问题，保留原severity：右侧手牌三张筒子的点数及赤牌状态尚未完成逐牌确认，不能当作无教学意义的界面残痕放行，也不能据此给予完整牌谱通过。",
+        "evidence": "原图对应三个牌位存在；候选转录和unknowns保留具体未知。此次仅认定在实际展示限制的前提下，未知不妨碍转述作者明确命题，不把该有限结论改写为原审通过。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter03-section009:b0081",
+        "description": "原审问题，保留原severity：旧候选将入り目表达成相关牌是否就是使其进张听牌的摸入牌，原审认为这混淆了切牌与进张关系并改变例外条件。",
+        "evidence": "旧候选为「只要相关牌不是使其进张听牌的那一张」；原文为「入り目でなければ」。该记录针对旧候选，不能自动作为新候选语义正确的证明。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter03-section009:b0081",
+        "description": "当前修订仍需修复：它将入り目例外写成「宣言牌不同种」与「新摸牌未补成宣言侧面子」两个联立条件，原文未确立两者与入り目例外等价。",
+        "evidence": "连读b0081及b0082—b0087，原文只在排除入り目情形后提出6m−9m或9m双碰两种推读；后续牌列没有给出修订文新增的双重判定式。"
+      }
+    ],
+    "summary": "本次仅补充确认b0081最小文字返修及相关有序论证忠实。按输入所绑定的父记录af8071cfdbaabf8f469f84fa4daa6fd2d7d377c3dc2b277ef766e34a22324ba1继承未变独审范围。issues原样保留父审历史，其中「当前修订仍需修复」指父候选；父审orderedContextFaithful=false及旧验证各false均不改写。本次true仅适用于现稿限定文字范围，不构成全章passed、完整图审通过或展示许可已完成。"
+  },
+  "verification": {
+    "textTargetEvidenceVerified": false,
+    "errors": [
+      "target_not_accepted"
+    ],
+    "requiredDisplayLimitations": [
+      "以可见编者注标明右侧手牌自上而下第4、5、6张的点数及赤牌状态均未确认；三个位置须保留，不能填入推测牌值。",
+      "不得把该不完整转录称为完整精确牌谱，或据未知牌断言完整可见张数、实际安全度或概率。",
+      "以可见编者注说明该组各牌相对玩家的精确横置关系未确认，仅最上方一张可确认向左突出。",
+      "不得将未知方向补画为确定的横置关系或据此指定鸣牌来源。",
+      "以可见编者注保留中央两枚骰子点数未知，不给出猜测值。",
+      "以可见编者注说明黄色标记字样、相邻图标细字和筒子点数、最右圆形图标内容均未确认，不补写或补画。",
+      "这些限制是编者对图像可辨性的说明，不应呈现为原作者的文字。"
+    ],
+    "inheritedDisplayLimitations": [
+      "以可见编者注标明右侧手牌自上而下第4、5、6张的点数及赤牌状态均未确认；三个位置须保留，不能填入推测牌值。",
+      "不得把该不完整转录称为完整精确牌谱，或据未知牌断言完整可见张数、实际安全度或概率。",
+      "以可见编者注说明该组各牌相对玩家的精确横置关系未确认，仅最上方一张可确认向左突出。",
+      "不得将未知方向补画为确定的横置关系或据此指定鸣牌来源。",
+      "以可见编者注保留中央两枚骰子点数未知，不给出猜测值。",
+      "以可见编者注说明黄色标记字样、相邻图标细字和筒子点数、最右圆形图标内容均未确认，不补写或补画。",
+      "这些限制是编者对图像可辨性的说明，不应呈现为原作者的文字。"
+    ],
+    "originalIssuesAndFalsePreserved": true,
+    "wholeChapterPassed": false,
+    "admissionGranted": false,
+    "meaning": "Bounded independent textual evidence only; exact inherited partial reviews and actual required display/readback must be combined by existing244/250 contract."
+  },
+  "inheritedScope": {
+    "faithful6pRepair": {
+      "targetId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+      "verdict": "faithful",
+      "evidence": "仅核指定牌位：原图下方手牌最右三张各有上方两枚黑点、下方四枚红点，为正立的6p；由8p 8p 8p改为6p 6p 6p与图一致。红色圆点是牌面图案，不能据此认定赤牌。两倍图只是同源放大，并非新增证据。此结论仅覆盖指定修订，不构成全图逐牌通过。"
+    },
+    "unknownImpact": [
+      {
+        "unknownText": "右侧手牌从画面上方起第4、5、6张筒子的具体点数及赤牌状态无法可靠辨认。",
+        "positionConfirmed": true,
+        "displayFaithful": true,
+        "authorArgumentFaithfulWithUnknown": true,
+        "requiresExactValueForAuthorArgument": false,
+        "evidence": "三张待辨筒子的位置可定位；图对象的转录保留三个未知牌位，unknowns另明确点数和赤牌状态均未知。该未知本身不妨碍转述作者在b0081—b0097写出的条件性读牌、概率和建议，也不妨碍转述6p→3p的另一个假设。它确实妨碍完整逐牌、可见张数及实际安全度的独立核验；这些核验不是原文展示其主张所必需的证明。b0081的翻译问题是另行存在的缺陷。这里对展示的判断以转录和unknowns共同可见为条件，输入未提供实际渲染页面。",
+        "requiredDisplayLimitations": [
+          "以可见编者注标明右侧手牌自上而下第4、5、6张的点数及赤牌状态均未确认；三个位置须保留，不能填入推测牌值。",
+          "不得把该不完整转录称为完整精确牌谱，或据未知牌断言完整可见张数、实际安全度或概率。"
+        ],
+        "minimumUncoveredTeachingContribution": "没有因这三张未知而无法转述的作者明确命题；无法独立核实完整牌谱、张数和实战风险，应保留这一限制。"
+      },
+      {
+        "unknownText": "右上6z副露组中，各张牌相对该玩家的精确横置关系无法可靠辨认；只能确认最上方一张向左突出。",
+        "positionConfirmed": true,
+        "displayFaithful": true,
+        "authorArgumentFaithfulWithUnknown": true,
+        "requiresExactValueForAuthorArgument": false,
+        "evidence": "右上副露组的位置及最上方牌向左突出可定位；对各牌相对玩家的精确横置关系，图对象保留unknown，没有补成确定方向。本次不重新认读字牌。作者的目标读牌命题并未以该组的精确横置关系为条件。图对象诚实展示的判断以unknowns实际可见为条件。",
+        "requiredDisplayLimitations": [
+          "以可见编者注说明该组各牌相对玩家的精确横置关系未确认，仅最上方一张可确认向左突出。",
+          "不得将未知方向补画为确定的横置关系或据此指定鸣牌来源。"
+        ],
+        "minimumUncoveredTeachingContribution": "没有未覆盖的作者明确命题；该组不能作为精确副露方向和来源的证明。"
+      },
+      {
+        "unknownText": "中央两枚骰子的具体点数无法可靠辨认。",
+        "positionConfirmed": true,
+        "displayFaithful": true,
+        "authorArgumentFaithfulWithUnknown": true,
+        "requiresExactValueForAuthorArgument": false,
+        "evidence": "两枚骰子位于中央显示区；图对象明确写出点数无法可靠辨认。作者的宝牌读牌、听牌可能性、概率主张和建议没有以这两个骰子的点数为条件。图对象诚实展示的判断以该限制实际可见为条件。",
+        "requiredDisplayLimitations": [
+          "以可见编者注保留中央两枚骰子点数未知，不给出猜测值。"
+        ],
+        "minimumUncoveredTeachingContribution": "无；骰子点数并非作者所写读牌命题的必要条件。"
+      },
+      {
+        "unknownText": "底部“半”“食”之后黄色圆形标记内的字样，以及相邻小型状态图标内的细字、筒子图案点数和最右圆形图标内容无法可靠辨认。",
+        "positionConfirmed": true,
+        "displayFaithful": true,
+        "authorArgumentFaithfulWithUnknown": true,
+        "requiresExactValueForAuthorArgument": false,
+        "evidence": "这些项目位于底部状态栏，图对象的unknowns逐项保留字样、细字、筒子图案点数及最右图标内容未知。作者没有把这些具体图标内容作为所述读牌结论的条件。转录和unknowns共同展示时没有虚构细节；实际页面如何展示未在输入中提供。",
+        "requiredDisplayLimitations": [
+          "以可见编者注说明黄色标记字样、相邻图标细字和筒子点数、最右圆形图标内容均未确认，不补写或补画。",
+          "这些限制是编者对图像可辨性的说明，不应呈现为原作者的文字。"
+        ],
+        "minimumUncoveredTeachingContribution": "无；这些界面细节的精确内容不是作者所写读牌命题的必要条件。"
+      }
+    ],
+    "requiredDisplayLimitations": [
+      "以可见编者注标明右侧手牌自上而下第4、5、6张的点数及赤牌状态均未确认；三个位置须保留，不能填入推测牌值。",
+      "不得把该不完整转录称为完整精确牌谱，或据未知牌断言完整可见张数、实际安全度或概率。",
+      "以可见编者注说明该组各牌相对玩家的精确横置关系未确认，仅最上方一张可确认向左突出。",
+      "不得将未知方向补画为确定的横置关系或据此指定鸣牌来源。",
+      "以可见编者注保留中央两枚骰子点数未知，不给出猜测值。",
+      "以可见编者注说明黄色标记字样、相邻图标细字和筒子点数、最右圆形图标内容均未确认，不补写或补画。",
+      "这些限制是编者对图像可辨性的说明，不应呈现为原作者的文字。"
+    ],
+    "oldOrderedContextFaithful": false,
+    "oldVerification": {
+      "limitedEvidenceVerified": false,
+      "errors": [
+        "textRepair_not_faithful",
+        "argument_or_order_gap",
+        "no_limited_allowance"
+      ],
+      "requiredDisplayLimitations": [
+        "以可见编者注标明右侧手牌自上而下第4、5、6张的点数及赤牌状态均未确认；三个位置须保留，不能填入推测牌值。",
+        "不得把该不完整转录称为完整精确牌谱，或据未知牌断言完整可见张数、实际安全度或概率。",
+        "以可见编者注说明该组各牌相对玩家的精确横置关系未确认，仅最上方一张可确认向左突出。",
+        "不得将未知方向补画为确定的横置关系或据此指定鸣牌来源。",
+        "以可见编者注保留中央两枚骰子点数未知，不给出猜测值。",
+        "以可见编者注说明黄色标记字样、相邻图标细字和筒子点数、最右圆形图标内容均未确认，不补写或补画。",
+        "这些限制是编者对图像可辨性的说明，不应呈现为原作者的文字。"
+      ],
+      "wholeChapterPassed": false,
+      "admissionGranted": false,
+      "originalIssuesPreserved": true,
+      "meaning": "Only independent limited target/impact evidence. Every required display limitation and remaining author contribution must be mapped to legal exact admission and actual readback by250."
+    },
+    "warning": "原false、issues和raw保持。新请求只核b0081子句及相关论证连续性；不重识牌或重做图审。旧unknown影响许可的全部非原文可见限制仍必须实际安装；这不是已完成展示的声明。"
+  },
+  "requiredDisplayLimitations": [
+    "以可见编者注标明右侧手牌自上而下第4、5、6张的点数及赤牌状态均未确认；三个位置须保留，不能填入推测牌值。",
+    "不得把该不完整转录称为完整精确牌谱，或据未知牌断言完整可见张数、实际安全度或概率。",
+    "以可见编者注说明该组各牌相对玩家的精确横置关系未确认，仅最上方一张可确认向左突出。",
+    "不得将未知方向补画为确定的横置关系或据此指定鸣牌来源。",
+    "以可见编者注保留中央两枚骰子点数未知，不给出猜测值。",
+    "以可见编者注说明黄色标记字样、相邻图标细字和筒子点数、最右圆形图标内容均未确认，不补写或补画。",
+    "这些限制是编者对图像可辨性的说明，不应呈现为原作者的文字。"
+  ],
+  "label": "审校限制（非原文）",
+  "proposalOnly": true,
+  "implementationVerified": false,
+  "authorBodyInjection": false,
+  "wholeChapterPassed": false,
+  "admissionGranted": false,
+  "actualReadbackRequired": true,
+  "newModelCalls": 0
+}

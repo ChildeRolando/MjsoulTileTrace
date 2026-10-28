@@ -1,0 +1,131 @@
+{
+  "schema": "coac250-jp193r2-composite-final/1",
+  "allPassed": true,
+  "preview": {
+    "chapters": 252,
+    "units": 260,
+    "blocks": 7621,
+    "figures": 5935,
+    "corpusId": "4f259feb523f76b892efa047d47fb8e92d52196cc1d4d187a63881dd9309b4c6",
+    "bodySha256": "b6e44a131522c6c196b39ea38bd50c9423a03cfc041161b20f1e4d1ede7d1415",
+    "maxUnitBytes": 592593,
+    "modelCalls": 0,
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-24-36-725Z",
+    "destination": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-24-36-725Z/stages/jp193",
+    "selectionVersion": 37,
+    "rollbackVersion": 36
+  },
+  "coverage": {
+    "originalChaptersCovered": 250,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 282,
+    "originalUnitsTotal": 303,
+    "remainingChapters": 6,
+    "remainingUnits": 21
+  },
+  "intake": {
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section009.r2.display.json",
+      "sha256": "f3c960182adb5913b82f22504b703cc8fe6d69561acc8c7f43c19e364184e7d7"
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter03-section009\\source.json",
+      "sha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743"
+    },
+    "route": {
+      "module": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-jp193-r2-composite-20261028/admit.mjs",
+        "sha256": "4232d4d63b889bfa6a35b9a13a55c0c1444ffa0765c67f5f038c7b9b6961a9e3"
+      },
+      "stage": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-jp193-r2-composite-20261028/stage.mjs",
+        "sha256": "d4974dd2ec0d079c1ea4cac8a478bc7bc9946d921771c81522e9bba44102714e"
+      },
+      "manifest": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-jp193-r2-composite-20261028/manifest.json",
+        "sha256": "b9cd5861919f4850bf6879d60c143f56534c1c9c52b9ec0e9733842593f90045"
+      },
+      "candidateSha256": "f3c960182adb5913b82f22504b703cc8fe6d69561acc8c7f43c19e364184e7d7"
+    },
+    "previewOutput": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-24-36-725Z",
+    "corpusId": "4f259feb523f76b892efa047d47fb8e92d52196cc1d4d187a63881dd9309b4c6",
+    "stageReceiptPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-24-36-725Z/stages/jp193/web-stage-receipt.json",
+    "readback": {
+      "path": "_analysis/b232/readback.json",
+      "sha256": "cb15a386a02a92900f6c0b728133876ffc2d5c3d262c601c2151c16214413ba6"
+    },
+    "sourceBlocks": 97,
+    "authorBlocks": 17,
+    "displayBlocks": 24,
+    "figures": 41,
+    "actualSevenLimitsInstalled": true,
+    "originalStrictFalseAndHistoricalIssuesPreserved": true,
+    "ordinaryWholeArticlePassed": false,
+    "limitedAuthorPresentationAccepted": true,
+    "newModelCalls": 0
+  },
+  "prior259UnitsUnchanged": true,
+  "otherRowsUnchanged": true,
+  "notAdmitted232": true,
+  "registerAfter": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+      "sha256": "f6902e16c1c8817619a949dd3cde6559732b7fc010ea7753469dc608dfd43a7e"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+      "sha256": "c86c825256160a6ce5e2988f95acd779c8d56bcfd1de9c132b4a54aaf7aab4f6"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-uncovered-chapter-continuation-register-20261027b.json",
+      "sha256": "1269c61d3afc77756bc31e4e2576680817f391646f77024aaf9c1cc1c71952f7"
+    }
+  ],
+  "readback": {
+    "path": "_analysis/b232/readback.json",
+    "sha256": "cb15a386a02a92900f6c0b728133876ffc2d5c3d262c601c2151c16214413ba6"
+  },
+  "routeTests": {
+    "passed": true,
+    "checks": [
+      {
+        "name": "wrong candidateSha256",
+        "rejected": true
+      },
+      {
+        "name": "wrong manifest",
+        "rejected": true
+      },
+      {
+        "name": "wrong module",
+        "rejected": true
+      },
+      {
+        "name": "wrong stage",
+        "rejected": true
+      },
+      {
+        "name": "missing limit",
+        "rejected": true
+      },
+      {
+        "name": "author annotation",
+        "rejected": true
+      },
+      {
+        "name": "wrong order",
+        "rejected": true
+      }
+    ],
+    "persistentEarlyRoutePassed": true,
+    "upstream29RefusalsHashVerifiedNotRerun": true,
+    "ordinarySidecarAccesses": 0,
+    "newModelCalls": 0
+  },
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "formalActiveChanged": false,
+  "bookComplete": false,
+  "safeToResume": true,
+  "initialEvidenceCheckpointSupersededFor193Only": true
+}

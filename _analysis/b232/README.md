@@ -1,0 +1,17 @@
+本阶段先零模型登记232及日文193/r2独立证据。收证期间既有244 owner落盘专属组合包，随后沿同一250写者完成日文193/r2实际限定合库至v37。没有新制作、模型、识图、复审、retry或第二消费者。232始终未准入；正式active和其它hold保持，v36回滚选择保留。
+
+232精确候选d01f8696…：冻结32文件与原生产/源/父审、实际两图顺序及字节、原独审request/argv/closedPrompt/raw/唯一ledger已由原prepareReview和verifyReviewExecution重算。b0002、b0004文字faithful，原raw明确本家3s修正正确，但整图target仍uncertain，右侧牌河第2张万子unknownImpact为blocking。原repairPassed=false、limitedUnknownOkay=false、所有issues不改。七条显示提案未安装，未准入、未回读，不把文字及3s正确当作整章接受，不追加识牌预算。
+
+日文193/r2精确候选f3c96018…：冻结21文件和全部外部父/生产/源/raw链、实际sol/high无图请求及97有序配对，由原prepare193234TextReview及verify193234TextReviewExecution重算。b0081、七组论证与实际连续性均faithful；四条issues序列化字节/SHA及每项severity与父审完全相同，新增issue数0。“当前修订仍需修复”明确属于父候选，不是r2新语义缺陷。原target_not_accepted和textTargetEvidenceVerified=false仍保存。
+
+随后实接integration/coac244-jp193-r2-composite-20261028的原verifyLimited和stageLimited，不自造普通passed。专属manifest90依赖、包内文件及完整隔离stage逐字节核验；原21文件纯文与32文件含图验证器均由组合入口实际重算。41完整figure、四unknown和96非靶块继承原样，6p图修与原未知影响证据按精确父链复用，没有将纯文调用冒称新图审。
+
+原17作者呈现块与41图原样，加七条明确标识的非原文说明形成24显示块，位于b0080图后、b0081正文前。真实stdio MCP分页读全97来源贡献映射、24块和41图字节，核新入り目例外、四unknown、作者完整条件及全部七条说明。全库260单元/5935图MCP、Arena完整正文/引用边界/目录与source dedup通过；原259单元逐对象相同。候选sourceNotes原对象未改，portable包另附原图来源说明JSON，不冒称作者正文。
+
+route.mjs只允许本r2完整SHA、固定owner module/stage/manifest及各依赖，接入v37持久builder选择，普通全库gate和原runtime不变。11项问题归属/布尔/显示边界拒绝检查、7项精确路由/显示拒绝检查与实际持久路由通过。上游29项回归是原owner已执行结果，本阶段核原包SHA，没有声称重跑模型或该上游脚本。
+
+`final.json`为最终真实合库结果，`readback.json`为实际MCP/Arena证据，`jp193-preview.zip`可解压打开knowledge.html。`result.json`是最初零模型收件检查点，保留原两份证据admissionGranted=false并追加实际193后续完成引用，不能将其历史检查点误作最终覆盖。`archive.json`的e000等和`package-archive.json`的p000等短名保留原路径/SHA/字节；历史私有preview/register观测快照仅保留原引用，不猜造，不冒称模型输入。
+
+本run只更新三份register的232和日文193行。后续193实际合库时重新读取owner实时版本，保留244在途写入的无关新证据，没有用旧整表覆盖；初次全文件SHA检查因此看到owner后续变化，目标两行当时仍逐对象一致。最终对应行、其它行/元数据不变约束及当前指针重新核验通过。旧b0081错误与旧合同缺口移入历史，当前193已按限定呈现覆盖；原raw/issues仍保留。
+
+当前覆盖250/256原章、282/303原单元，剩6章21原单元；展示库252章、260单元、7621块、5935图，主书未完成。写者锁正常释放，路径最长229字符，可安全从v37接续。工单继续in_progress。

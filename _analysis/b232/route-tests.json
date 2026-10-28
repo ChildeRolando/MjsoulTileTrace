@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "wrong candidateSha256",
+      "rejected": true
+    },
+    {
+      "name": "wrong manifest",
+      "rejected": true
+    },
+    {
+      "name": "wrong module",
+      "rejected": true
+    },
+    {
+      "name": "wrong stage",
+      "rejected": true
+    },
+    {
+      "name": "missing limit",
+      "rejected": true
+    },
+    {
+      "name": "author annotation",
+      "rejected": true
+    },
+    {
+      "name": "wrong order",
+      "rejected": true
+    }
+  ],
+  "persistentEarlyRoutePassed": true,
+  "upstream29RefusalsHashVerifiedNotRerun": true,
+  "ordinarySidecarAccesses": 0,
+  "newModelCalls": 0
+}

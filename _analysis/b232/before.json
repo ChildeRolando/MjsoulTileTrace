@@ -1,0 +1,46 @@
+{
+  "pointer": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-preview-current.json",
+    "sha256": "48c10ee3063e57893f724f1ae8ceb4d0a799cb94d08d63d5daee915de0c98d72"
+  },
+  "selection": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v36.json",
+    "sha256": "5f3a0b14c293f446fda14af6779da98afeef1fb616de25ea9a7a57f662623b26"
+  },
+  "builder": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.mjs",
+    "sha256": "dee9b5fbbccb8597a19d477e19180622ce4b969fd343726d6f997f89b909da85"
+  },
+  "webSelection": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/current-web-candidate-selection.json",
+    "sha256": "481f2fa96a9cf7d9869eadbd0107c18caaf79b070db2f48d71626184f4f13762"
+  },
+  "register": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+    "sha256": "5a851e4f104844980e774f145d0c42f9b6283ae8e955ba0aa2e10e39ce308a9a"
+  },
+  "owner": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+    "sha256": "481d62af29f0d03477f31596db89d11e5a95285e24492894b7bb2cfc447df508"
+  },
+  "continuation": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-uncovered-chapter-continuation-register-20261027b.json",
+    "sha256": "0d40381766472eb61640ee79d1114eb495bc4e07e3a68a7c50df47f8352027eb"
+  },
+  "holds": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/source-structure-holds.json",
+    "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+  },
+  "exclusions": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/candidate-exclusions.json",
+    "sha256": "4835655ad7fa323e2acc94d4e04824dc1c56b4b67ceec1b1449617c79c3411a3"
+  },
+  "accepted167": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-exact167-three-evidence-intake-20261028.json",
+    "sha256": "4b89795abca7f2e24d0e9cd0872ccdf8df293cb38ccbc2b2f357a79f6128ee89"
+  },
+  "formal": {
+    "path": "E:/AgentData/Coach/knowledge/review/textbook-corpus.json",
+    "sha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+  }
+}
