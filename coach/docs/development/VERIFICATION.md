@@ -62,6 +62,19 @@ SHA 一致，过期靶点图片路由返回 404；现网 queue SHA 不变，even
 PID 73764；stderr 为空。固定证据与回滚位置见现有
 [spec](../specs/2026-10-28-local-tile-annotations.md)。没有重跑无关全量构建或模型调用。
 
+257第二批增量上线后，`node --test scripts/tile-annotations/annotations.test.mjs
+scripts/tile-annotations/build-queue.test.mjs scripts/tile-annotations/append-p257-batch.test.mjs`
+为7项通过。新增隔离回归覆盖20项增量、旧条目/事件原字节保留、幂等ID、九个人标保护、
+新项保存/重启读回/导出，以及越界框、裁剪/原图SHA错配拒绝。原浏览器回归也通过。
+Pillow逐像素验证20张已有裁剪，包括T06独立框；未生成或修改图片。
+
+隔离预上线及真实线上Edge逐项核对20项默认批次、空答案（预上线）、折叠旧码、
+2109×1210完整图、每张原裁剪尺寸、SVG精确框和实际屏幕对齐；旧浏览位置不抢占第二批，
+1440/800/390无横向溢出，核验0次POST。静态检测的3个缺src提示来自按靶点动态赋值，
+以上实图加载已核验。正常本机切换后68项中20项待标，旧48项逐字段及190条导出事件
+逐项一致，事件文件SHA不变；40个原图/裁剪HTTP请求均200且SHA正确。仅监听127.0.0.1，
+PID49724。没有对用户目录写测试答案，没有修改教材或调用模型。
+
 在 `coach/` 运行：
 
 ```powershell

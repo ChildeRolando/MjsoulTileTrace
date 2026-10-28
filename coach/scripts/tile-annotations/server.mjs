@@ -58,6 +58,10 @@ export async function startServer({ root, queuePath, dataDir, port = 8765 }) {
     if (!/^[a-zA-Z0-9_-]+$/.test(item.id) || ids.has(item.id) || !/^[a-f0-9]{64}$/.test(item.imageSha256)) throw fail('队列靶点身份无效或重复');
     ids.add(item.id);
     if (item.imagePath) within(root, item.imagePath);
+    if (item.cropImagePath) {
+      within(root, item.cropImagePath);
+      if (!/^[a-f0-9]{64}$/.test(item.cropImageSha256)) throw fail('裁剪图片SHA无效');
+    }
   }
   fs.mkdirSync(dataDir, { recursive: true });
   const token = randomBytes(32).toString('hex'), queueSha256 = sha256(queueBytes);
@@ -96,10 +100,16 @@ export async function startServer({ root, queuePath, dataDir, port = 8765 }) {
         res.setHeader('Content-Disposition', 'attachment; filename="human-annotations.json"');
         return send(200, { schema: 'coach-human-tile-annotations/1', exportedAt: new Date().toISOString(), queueSha256, queue, events: state.events });
       }
-      if (req.method === 'GET' && url.pathname.startsWith('/image/')) {
-        const item = items.get(url.pathname.slice(7));
+      if (req.method === 'GET' && (url.pathname.startsWith('/image/') || url.pathname.startsWith('/crop/'))) {
+        const isCrop = url.pathname.startsWith('/crop/');
+        const item = items.get(url.pathname.slice(isCrop ? 6 : 7));
         if (!item) throw fail('图片靶点不存在', 404);
-        const { file, bytes } = checkedImage(item);
+        let { file, bytes } = checkedImage(item);
+        if (isCrop) {
+          if (!item.cropImagePath) throw fail('此靶点没有原像素裁剪', 404);
+          file = within(root, item.cropImagePath); bytes = fs.readFileSync(file);
+          if (sha256(bytes) !== item.cropImageSha256) throw fail('裁剪图片SHA不匹配', 409);
+        }
         const type = ({ '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.gif': 'image/gif', '.webp': 'image/webp' })[path.extname(file).toLowerCase()];
         if (!type) throw fail('图片类型不支持');
         return send(200, bytes, type);

@@ -15,10 +15,14 @@ async function request(url, options) {
 function progress() {
   const q = state.queue.items, done = q.filter(x => processed(x.id)).length;
   text('progress', `共 ${q.length} 条（阻塞 ${q.filter(x=>x.blocking).length} / 非阻塞 ${q.filter(x=>!x.blocking).length}） · 已处理 ${done} · 剩余 ${q.length-done}`);
+  if (state.queue.defaultBatch) {
+    const batch = q.filter(x=>x.batchId===state.queue.defaultBatch);
+    text('progress', $('progress').textContent + ` · 第二批 ${batch.length} 条，待核对 ${batch.filter(x=>!processed(x.id)).length}`);
+  }
 }
 function filtered() {
   const mode = $('filter').value;
-  return state.queue.items.filter(x => mode === 'all' || mode === 'blocking' && x.blocking || mode === 'nonblocking' && !x.blocking || mode === 'todo' && !processed(x.id) || mode === 'answered' && processed(x.id));
+  return state.queue.items.filter(x => mode === 'all' || mode === 'batch' && x.batchId === state.queue.defaultBatch || mode === 'blocking' && x.blocking || mode === 'nonblocking' && !x.blocking || mode === 'todo' && !processed(x.id) || mode === 'answered' && processed(x.id));
 }
 function rebuild(keepId) {
   list = filtered(); index = Math.max(0, list.findIndex(x => x.id === keepId));
@@ -54,13 +58,16 @@ function render() {
   $('jump').value = current.id;
   const saved = record(current.id);
   text('admission', current.admission); $('admission').classList.toggle('nonblocking', !current.blocking);
-  text('entryTitle', current.book); text('chapter', `${current.chapter} · ${current.page ? `章起始页 / PDF 页 ${current.page}` : '网页来源'} · ${current.canonical}`);
+  text('entryTitle', current.batchLabel ?? current.book); text('chapter', `${current.chapter} · ${current.page ? `章起始页 / PDF 页 ${current.page}` : '网页来源'} · ${current.canonical}`);
   text('position', current.prompt ?? current.position);
   text('coordinates', current.bbox ? '红框来自源记录中的原嵌图像素坐标。' : current.regionBBox ? `PDF 图区域坐标：${current.regionBBox.map(x=>Math.round(x*100)/100).join(', ')}。单牌用文字定位。` : '此靶点没有单牌坐标，请按文字定位。');
   const imageURL = '/image/' + current.id;
   text('locationHelp','单击原图中的位置，放大视图将滚动到该处。没有单牌坐标时仅提供文字定位。');
   imagePoint = [.5,.5]; $('overview').hidden = false;
   $('overview').src = imageURL; $('detailImage').src = imageURL; $('original').href = imageURL;
+  $('targetCrop').hidden = !current.cropImagePath;
+  if (current.cropImagePath) $('cropImage').src = '/crop/' + current.id;
+  else $('cropImage').removeAttribute('src');
   text('context', current.context || '此图没有相邻文字记录，请按图内场景标注。');
   text('machineText', JSON.stringify(current.machine, null, 2)); $('machine').open = false;
   text('source', `靶点：${current.targetId}\n图 SHA256：${current.imageSha256}\n${JSON.stringify(current.evidence, null, 2)}`);
@@ -137,4 +144,4 @@ $('zoom').onchange=imageSize;$('center').onclick=()=>{imagePoint=[.5,.5];imageSi
 new ResizeObserver(imageSize).observe($('overview'));
 document.addEventListener('keydown',event=>{if(event.ctrlKey&&event.key==='Enter'){event.preventDefault();move(1,true);}else if(event.altKey&&['ArrowLeft','ArrowRight'].includes(event.key)){event.preventDefault();move(event.key==='ArrowLeft'?-1:1);}});
 window.addEventListener('beforeunload',event=>{if(dirty||saving){event.preventDefault();event.returnValue='';}});
-(async()=>{try{state=await request('/api/state');const history=await request('/api/export');state.events=history.events;rebuild(localStorage.getItem('coach-label-current'));}catch(error){$('error').hidden=false;text('error',`加载失败：${error.message}。请检查服务日志后刷新。`);}})();
+(async()=>{try{state=await request('/api/state');const history=await request('/api/export');state.events=history.events;if(state.queue.defaultBatch){$('batchFilter').hidden=false;$('filter').value='batch';oldFilter='batch';}rebuild(localStorage.getItem('coach-label-current'));}catch(error){$('error').hidden=false;text('error',`加载失败：${error.message}。请检查服务日志后刷新。`);}})();
