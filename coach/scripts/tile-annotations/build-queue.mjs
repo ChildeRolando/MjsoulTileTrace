@@ -79,6 +79,38 @@ export function buildQueue(root) {
     if (pending.candidatePath && pending.auditPath) put({ ...pending, accepted: false });
   }
 
+  // These exact receipts supersede their old parent findings, but a faithful repair does not
+  // clear unresolved tiles. Strict limitedUnknownOkay=false remains blocking even when a
+  // separate author-fidelity display register lists the chapter as covered.
+  for (const key of ['109','167','201']) {
+    const reviewPath=`integration/coac249-${key}-target-impact-reviewed-20261028.json`;
+    if (!fs.existsSync(within(root,reviewPath))) continue;
+    const review=load(reviewPath), candidate=load(review.candidate.path,review.candidate.sha256);
+    const raw=load(review.raw.path,review.raw.sha256);
+    load(review.source.path,review.source.sha256);
+    load(review.parent.path,review.parent.sha256);
+    load(review.parentAudit.path,review.parentAudit.sha256);
+    if (raw.success!==true || raw.binding?.productionSha256!==review.candidate.sha256
+      || raw.binding?.canonical!==review.canonical || raw.binding?.sourceFileSha256!==review.source.sha256
+      || JSON.stringify(raw.output)!==JSON.stringify(review.modelReview)) throw new Error(`精确审校绑定不匹配：${key}`);
+    const positions=key==='201'
+      ? candidate.figures.filter(f=>f.figureId===raw.output.carriedIssue?.targetId).flatMap(f=>(f.unknowns??[]).map(unknownText=>({figureId:f.figureId,unknownText})))
+      : raw.output.unknownImpacts;
+    if (!positions?.length || positions.some(p=>!candidate.figures.some(f=>f.figureId===p.figureId && f.unknowns?.includes(p.unknownText)))) throw new Error(`精确审校位置不匹配：${key}`);
+    if (key==='201' ? review.verification?.limitedEvidenceVerified!==true || raw.output.carriedIssue?.positionConfirmed!==true
+        || raw.output.carriedIssue.currentDisplayFaithful!==true || raw.output.carriedIssue.authorArgumentFaithfulWithCurrentLimitation!==true || raw.output.carriedIssue.requiresResolvedMeaningOrExactTileForAuthorArgument!==false
+      : review.verification?.repairPassed!==true || raw.output.completeTargetScopeCompared!==true || !raw.output.repairChecks?.length || raw.output.repairChecks.some(c=>c.verdict!=='faithful') || typeof review.verification.limitedUnknownOkay!=='boolean') throw new Error(`精确审校结论不完整：${key}`);
+    for (const [id,ref] of references) {
+      if (ref.canonical===review.canonical || (path.basename(path.dirname(ref.candidatePath))===candidate.source.sourceId && path.basename(ref.candidatePath).startsWith(candidate.source.articleId+'.'))) references.delete(id);
+    }
+    const nonblocking=key==='201' || review.verification.limitedUnknownOkay===true;
+    put({candidatePath:review.candidate.path,candidateSha256:review.candidate.sha256,auditPath:reviewPath,
+      canonical:review.canonical,row:rows.find(r=>r.chapterId===review.canonical),accepted:nonblocking,
+      priority:key==='167'?3:0,reviewedPositions:positions,reviewRaw:raw,reviewRawPath:review.raw.path,
+      admission:nonblocking?'非阻塞：限定展示证据有效，牌码仍未知':'严格逐牌核验仍阻塞：limitedUnknownOkay=false',
+      reviewState:{limitedUnknownOkay:review.verification.limitedUnknownOkay??null,limitedEvidenceVerified:review.verification.limitedEvidenceVerified??null,wholeChapterPassed:review.wholeChapterPassed??false}});
+  }
+
   function add(ref, candidate, source, figure, position, machineIssues, kind = 'unknown') {
     if (kind === 'unknown' && (!unresolved(position) || /表示宝牌本身还是宝牌指示牌/.test(position))) return;
     let bindings = [];
@@ -112,6 +144,17 @@ export function buildQueue(root) {
     const context = blocks.slice(Math.max(0, idx - 2), idx + 3).filter(b => b.type === 'text').map(b => b.text ?? b.sourceText ?? '').join('\n').slice(0,6000);
     for (const binding of bindings) {
       const absolute = within(root, binding.path);
+      if (ref.reviewRaw && !ref.reviewRaw.requestExecution?.images?.some(image=>image.sha256===binding.sha256)) {
+        // 167's original is GIF; its exact review used the existing source-bound PNG presentation.
+        // Bind that declared original-size alias and its actual bytes; keep showing the original.
+        const alias=figure.presentationAsset, derivation=alias?.derivation;
+        const reviewedAlias=ref.reviewRaw.requestExecution?.images?.find(image=>image.sha256===alias?.sha256 && path.resolve(root,image.path)===path.resolve(root,alias.path));
+        if (!reviewedAlias || derivation?.kind!=='single-source-image-rgba-to-png' || derivation.alignment!=='original-size'
+          || derivation.sourceAssetBindings?.length!==1 || derivation.sourceAssetBindings[0].sha256!==binding.sha256) throw new Error(`精确审校图片不匹配：${figure.figureId}`);
+        const aliasPath=within(root,alias.path), aliasHash=sha256(fs.readFileSync(aliasPath));
+        if(aliasHash!==alias.sha256)throw new Error(`精确审校图片别名SHA不匹配：${figure.figureId}`);
+        inputFiles.set(relative(aliasPath),aliasHash);
+      }
       let available = fs.existsSync(absolute);
       if (available && sha256(fs.readFileSync(absolute)) !== binding.sha256) throw new Error(`原图SHA不匹配：${binding.path}`);
       const targetId = `${binding.sourceBlockId}:${kind}:${sha256(normalize(position)).slice(0,16)}`;
@@ -122,12 +165,13 @@ export function buildQueue(root) {
       const item = { id, targetId, figureId: figure.figureId, canonical,
         book: canonical.startsWith('79-') ? '79 日麻讲座（中文）' : '现代麻雀技术论（Nemata）',
         chapter: source.title ?? row?.title ?? canonical, page: candidate.source.page ?? Number(canonical.match(/chapter-(\d+)/)?.[1]) ?? null,
-        position, prompt, blocking: !ref.accepted, admission: ref.accepted ? '已准入，保留未知' : '阻塞编校或展示准入',
+        position, prompt, blocking: !ref.accepted, admission: ref.admission ?? (ref.accepted ? '已准入，保留未知' : '阻塞编校或展示准入'),
+        priority:(ref.priority??100)+(ref.reviewedPositions?.findIndex(p=>p.figureId===figure.figureId && p.unknownText===position)??0),
         imagePath: available ? relative(absolute) : null, imageSha256: binding.sha256,
         sourceBlockId: binding.sourceBlockId, regionBBox: figure.bbox ?? null, bbox: pixelBox?.length === 4 ? pixelBox : null,
         originalImages: binding.originalImages ?? [{ path: binding.path, sha256: binding.sha256 }],
-        context, machine: { transcription: figure.transcription, unknowns: figure.unknowns, issues: machineIssues },
-        evidence: [{ candidatePath: relative(path.resolve(root, ref.candidatePath)), candidateSha256: inputFiles.get(relative(path.resolve(root, ref.candidatePath))), auditPath: ref.auditPath ? relative(path.resolve(root, ref.auditPath)) : null, sourcePath: candidate.source.sourcePath ?? `${candidate.source.sourceId}/pages/${String(candidate.source.page).padStart(3, '0')}.json` }] };
+        context, machine: { transcription: figure.transcription, unknowns: figure.unknowns, issues: machineIssues, reviewState:ref.reviewState },
+        evidence: [{ candidatePath: relative(path.resolve(root, ref.candidatePath)), candidateSha256: inputFiles.get(relative(path.resolve(root, ref.candidatePath))), auditPath: ref.auditPath ? relative(path.resolve(root, ref.auditPath)) : null, reviewRawPath:ref.reviewRawPath?relative(path.resolve(root,ref.reviewRawPath)):null, sourcePath: candidate.source.sourcePath ?? `${candidate.source.sourceId}/pages/${String(candidate.source.page).padStart(3, '0')}.json` }] };
       if (existing) { existing.blocking ||= item.blocking; existing.evidence.push(...item.evidence); }
       else items.set(id, item);
     }
@@ -159,7 +203,9 @@ export function buildQueue(root) {
       if (!figure) continue;
       const figIssues = issues.filter(issue => issue.targetId === figure.figureId || (figure.sourceBlockIds ?? []).includes(issue.targetId));
       // Unknown positions are independent targets, deduplicated by source SHA + source location.
-      for (const position of figure.unknowns ?? []) add(activeRef, candidate, source, figure, position, figIssues);
+      for (const position of figure.unknowns ?? []) {
+        if (!ref.reviewedPositions || ref.reviewedPositions.some(p=>p.figureId===figure.figureId && p.unknownText===position)) add(activeRef, candidate, source, figure, position, figIssues);
+      }
       if (!ref.accepted) {
         const errors = figIssues.filter(i => ['error', 'uncertain'].includes(i.severity) && tileError(`${i.description} ${i.sourceEvidence}`));
         // An uncertain review already represented by concrete unknown positions is the same task.
@@ -178,7 +224,7 @@ export function buildQueue(root) {
       }
     }
   }
-  const sorted = [...items.values()].sort((a,b) => Number(b.blocking) - Number(a.blocking) || a.canonical.localeCompare(b.canonical) || a.targetId.localeCompare(b.targetId));
+  const sorted = [...items.values()].sort((a,b) => Number(b.blocking) - Number(a.blocking) || a.priority-b.priority || a.canonical.localeCompare(b.canonical) || a.targetId.localeCompare(b.targetId));
   return { schema: 'coach-tile-annotation-queue/1', generatedAt: new Date().toISOString(), modelCalls: 0,
     counts: { total: sorted.length, blocking: sorted.filter(x=>x.blocking).length, nonblocking: sorted.filter(x=>!x.blocking).length },
     inputs: [...inputFiles].map(([file, sha256])=>({ path: file, sha256 })),
