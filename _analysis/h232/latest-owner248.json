@@ -1,0 +1,33 @@
+{
+  "scope": "same-SHA conditional evidence, no exact stage/admission entry",
+  "bindings": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-jp232-reviewed-intake-20261028\\handoff.json",
+      "copy": "owner248-handoff.json",
+      "sha256": "7f46078c10abe9aa36cf0330c99d83687a2b3e9a01471d28c24f11066ef15a88"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-jp232-reviewed-intake-20261028\\verification.json",
+      "copy": "owner248-verification.json",
+      "sha256": "71d51b0ab4a2f4f742b3e2402bc01d4d2bbc462e5f38001488097ea55a6dc585"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-jp232-reviewed-intake-20261028\\manifest.json",
+      "copy": "owner248-manifest.json",
+      "sha256": "b33214e78b18c97b46b6426f441313255dd8383234da30012b4b0793a6b90415"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-jp232-reviewed-intake-20261028\\verify.mjs",
+      "copy": "owner248-verify.mjs",
+      "sha256": "4b3dc01f96a60e62d71cbbf6362c6a639522f12c756e9a80d926a1a951a9c736"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-jp232-reviewed-intake-20261028\\README.md",
+      "copy": "owner248-README.md",
+      "sha256": "dfd7ba892b01d2ae7ed287ffa1cddc53bb9f493ce37a3ead61744fae55e6857f"
+    }
+  ],
+  "independentSemanticGap": false,
+  "negativeChecks": 11,
+  "newModelCalls": 0
+}

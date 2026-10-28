@@ -1,0 +1,36 @@
+{
+  "schema": "coac248-232-reviewed-existing-writer-handoff/1",
+  "canonical": "nemata-jp-chapter-232-1",
+  "candidate": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+    "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+  },
+  "receipt": {
+    "path": "integration/coac249-232-human-reviewed-20261028.json",
+    "sha256": "2280884a55df3ba010ceac36c5c4832deb2b4dc15b15f2e07d8db554a8f3a94c"
+  },
+  "scope": {
+    "path": "integration/coac249-232-human-display-scope-20261028.json",
+    "sha256": "fdb1e1196023764a5ac571f9ff0175102416848b39332862ca2fb6748b018d84"
+  },
+  "verification": {
+    "path": "integration/coac248-jp232-reviewed-intake-20261028/verification.json",
+    "sha256": "71d51b0ab4a2f4f742b3e2402bc01d4d2bbc462e5f38001488097ea55a6dc585"
+  },
+  "verifyCommand": "node E:/AgentData/Coach/knowledge/processing/integration/coac248-jp232-reviewed-intake-20261028/verify.mjs",
+  "existing250Run": "01a1824a-58ab-79eb-bfb3-b07d11dba72e",
+  "newDispatchNeeded": false,
+  "independentSemanticGap": false,
+  "remaining": "仅合法精确组合、b0005后/b0006前四条非原文限制安装及250真实MCP/Arena读回；两unknown及原图/作者条件保持。",
+  "originalTechnicalLimitedUnknownOkay": false,
+  "admissionGranted": false,
+  "wholeChapterPassed": false,
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "budgetAlreadyConsumedElsewhere": {
+    "maximum": 1,
+    "used": 1,
+    "remaining": 0,
+    "retry": 0
+  }
+}

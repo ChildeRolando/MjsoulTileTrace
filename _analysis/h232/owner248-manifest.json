@@ -1,0 +1,37 @@
+{
+  "schema": "coac248-232-reviewed-metadata-packet/1",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "9bebd2c649ab83e1e228db8e466819cf91d41a83e12b6940d3c309b15e0a7a46",
+      "bytes": 90
+    },
+    {
+      "path": "dedupe.json",
+      "sha256": "21bcbafa04b87e2a6acb8b09ffeb2aebc16bb09c89de9aa7a387a029be78f5de",
+      "bytes": 719
+    },
+    {
+      "path": "handoff.json",
+      "sha256": "7f46078c10abe9aa36cf0330c99d83687a2b3e9a01471d28c24f11066ef15a88",
+      "bytes": 1588
+    },
+    {
+      "path": "README.md",
+      "sha256": "dfd7ba892b01d2ae7ed287ffa1cddc53bb9f493ce37a3ead61744fae55e6857f",
+      "bytes": 1964
+    },
+    {
+      "path": "verification.json",
+      "sha256": "71d51b0ab4a2f4f742b3e2402bc01d4d2bbc462e5f38001488097ea55a6dc585",
+      "bytes": 7536
+    },
+    {
+      "path": "verify.mjs",
+      "sha256": "4b3dc01f96a60e62d71cbbf6362c6a639522f12c756e9a80d926a1a951a9c736",
+      "bytes": 9586
+    }
+  ],
+  "noOriginalBookBodyImagesOrHumanExports": true,
+  "newModelCalls": 0
+}
