@@ -1,0 +1,47 @@
+{
+  "schema": "coac244-cn311-intake-inventory/1",
+  "canonical": "79-cn-chapter-311-18",
+  "noSourceBooksOrRawUploaded": true,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "bytes": 8
+    },
+    {
+      "path": "consumer-dedup.json",
+      "sha256": "347c271f5cff81e08446a2a68c8c6b36f9f69ea0dda836843f9a329658401f6c",
+      "bytes": 701
+    },
+    {
+      "path": "latest311-row.json",
+      "sha256": "fb3dd9e23ef3db0bc4ad630149765ff117ba75c3dc3093b65a5283f0652f957a",
+      "bytes": 23181
+    },
+    {
+      "path": "README.md",
+      "sha256": "97e2da1879705f051529fdd59530efd5e51dd23fa1a6bacfb9b452c77c676bd4",
+      "bytes": 6173
+    },
+    {
+      "path": "record.json",
+      "sha256": "75091096d3fae26a1c71cc304eca061aeba349c29b9b70b55bafa994dac2bd5b",
+      "bytes": 89235
+    },
+    {
+      "path": "record.py",
+      "sha256": "cff622fb0fe277bfc5c78d5cd51b67220e5658931cff0a21ca13917021a33521",
+      "bytes": 7805
+    },
+    {
+      "path": "register-update.json",
+      "sha256": "94a5c1e265c936f6e405eaa6fc83f0f3e8b4985885d3c81bf16f95777430eaff",
+      "bytes": 766
+    },
+    {
+      "path": "verify.mjs",
+      "sha256": "74dab8bfb506ad5d737daffc0a554ee4621845073bce03bc023e12235fc7387e",
+      "bytes": 8478
+    }
+  ]
+}
