@@ -1,0 +1,99 @@
+{
+  "schema": "coac244-b0947-exact-composition-proof/1",
+  "authorization": "01a18193-acf0-7b75-a947-a354214b1a45",
+  "canonical": "nemata-jp-chapter-283-1",
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t1017r2.json",
+    "sha256": "de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c",
+    "bytes": 2132086
+  },
+  "donor": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev2.json",
+    "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+    "bytes": 2147441
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter06-exercise003\\source.v3.json",
+    "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+    "bytes": 1998292
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c.json",
+    "sha256": "6c0de2ee947e3867fbd32e9cc89d23cb9a47c99c5e9521e7e46972ce50f1e4b5"
+  },
+  "donorAudit": {
+    "path": "E:/AgentData/Coach/knowledge/processing/audit/web/articles/modern-yabejp-ja/chapter06-exercise003.849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3.json",
+    "sha256": "21d909b832c28e62a76f453863ed24d8fc8738adbb54b36bfd8117b9395d5aea"
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-1017-v2-20261028\\runtime-manifest.json",
+    "sha256": "0f0c2846f961e12c12aaee72c5c06cfef3166087f0da21219cb9c609f13b7715"
+  },
+  "independentCallId": "7896f6fb-3a56-4444-bf7f-761db2958445",
+  "independentCheckpoint": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-009.json",
+    "sha256": "50a4862f7d2262d3ac34e1136b1f874e5f342142133dec25e0c5e57abd5cafc7",
+    "bytes": 22186
+  },
+  "independentRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7896f6fb-3a56-4444-bf7f-761db2958445.json",
+    "sha256": "cec5e1c91a2db633a5e7fe55eeea9bff61d177e23106e38c6610240229a36d0b",
+    "bytes": 332061
+  },
+  "productionRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\fafc75a7-a3fb-4db5-b899-aa4ae346fa0c.json",
+    "sha256": "02260915db5aa39d0a08aa51333328b92d8cc941e8cca7b757ee8df2d58ccc9b",
+    "bytes": 158971
+  },
+  "contextIds": [
+    "modern-yabejp-ja:chapter06-exercise003:b0001",
+    "modern-yabejp-ja:chapter06-exercise003:b0002",
+    "modern-yabejp-ja:chapter06-exercise003:b0003",
+    "modern-yabejp-ja:chapter06-exercise003:b0004",
+    "modern-yabejp-ja:chapter06-exercise003:b0005",
+    "modern-yabejp-ja:chapter06-exercise003:b0006",
+    "modern-yabejp-ja:chapter06-exercise003:b0007",
+    "modern-yabejp-ja:chapter06-exercise003:b0008",
+    "modern-yabejp-ja:chapter06-exercise003:b0009",
+    "modern-yabejp-ja:chapter06-exercise003:b0945",
+    "modern-yabejp-ja:chapter06-exercise003:b0946",
+    "modern-yabejp-ja:chapter06-exercise003:b0947",
+    "modern-yabejp-ja:chapter06-exercise003:b0948",
+    "modern-yabejp-ja:chapter06-exercise003:b0949",
+    "modern-yabejp-ja:chapter06-exercise003:b0950"
+  ],
+  "contextHashes": {
+    "modern-yabejp-ja:chapter06-exercise003:b0001": "35fe4fae07f7e2c8caa84081a1252ff1c26f159047d2650efcd4332b3063801d",
+    "modern-yabejp-ja:chapter06-exercise003:b0002": "b178425f6bc87c1ff84c1e0d20322ac2e30211ccb1a5b4b554cbddc6bb46ee93",
+    "modern-yabejp-ja:chapter06-exercise003:b0003": "7382bbeac869ab6c77cf6a759e9dc8230b81021456604965fe9e26e4093f4b2a",
+    "modern-yabejp-ja:chapter06-exercise003:b0004": "a115c17e51a036700bfddc489d2695377a44520925f4b9b4583f48b6484a9553",
+    "modern-yabejp-ja:chapter06-exercise003:b0005": "a3e7473e73193c79de6081a50a39e04c049dd8297bcb063bea9bc93a973df89d",
+    "modern-yabejp-ja:chapter06-exercise003:b0006": "c3f3086233527fa36bd98ea5996905209720a2fee22de5e405ba4a5c28a80020",
+    "modern-yabejp-ja:chapter06-exercise003:b0007": "d99b45430b69cfa83b4328b6e1a0053d935b2a8a475d62c469f33881c94b2456",
+    "modern-yabejp-ja:chapter06-exercise003:b0008": "fec4e4312a1a23f018933bac75af22d6355b5501ab69af9a1475ee061ed20a45",
+    "modern-yabejp-ja:chapter06-exercise003:b0009": "6b5c019ce23491466705867b5269d15adcda0f49cf1eb180a9cd219c1ed47332",
+    "modern-yabejp-ja:chapter06-exercise003:b0945": "568d9d3220ba4c905dd63d44fb5b903a569b575e95893148bf51c31bb19fc666",
+    "modern-yabejp-ja:chapter06-exercise003:b0946": "de862ba31192fb2ea9e211d702a5849cf920a58283c832ead8b99dbe8c84eeb4",
+    "modern-yabejp-ja:chapter06-exercise003:b0947": "268477f0eedde5db0426e82a0a886acf223b58f26d5bd6b1290f5332bbe1a009",
+    "modern-yabejp-ja:chapter06-exercise003:b0948": "bf523e82006d938701c424253e49b6898366d76fa23d390de4ce78c1d6179988",
+    "modern-yabejp-ja:chapter06-exercise003:b0949": "12a5a8e771e6909231a8add3c6346646e142405dac32d260cd27b50c6cd45f70",
+    "modern-yabejp-ja:chapter06-exercise003:b0950": "de1aad241ad233bf74d64b7fdc315e91f624ef6121c5ff8bff9b38895e92adff"
+  },
+  "targetFigureSha256": "ee733318a7cc1b62668f8f8b0d6c9ece03bb0c1321b5c5c3a14e5ccf012a7c53",
+  "originalUnknowns": [
+    "上方牌河靠近中央牌墙的一排，画面最左端风牌的确切牌码未能可靠辨认。",
+    "右侧牌河靠近中央的一列，最上端风牌的确切牌码未能可靠辨认。",
+    "上方、左侧和右侧三家隐手的具体牌面未显示。",
+    "中央两枚骰子的各自点数未能可靠辨认。",
+    "右侧橙色矩形标记内的黑色字形未能可靠辨认。"
+  ],
+  "wholeChapterAccepted": false,
+  "standardWholeArticlePassed": false,
+  "newModelCalls": 0,
+  "oldRawModified": false,
+  "additionalPendingTarget": "b0785 remains on existing269→249 line; no whole283 staging before its true pass",
+  "derived": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-0947-composition-20261028/chapter06-exercise003.b0947-derived.json",
+    "sha256": "ec43d8af0c82a3b53bf7c924804ebf00d6c65515ac3a7b21728b26f9e10ac85b"
+  }
+}

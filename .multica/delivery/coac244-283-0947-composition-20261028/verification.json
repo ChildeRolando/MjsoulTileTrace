@@ -1,0 +1,103 @@
+{
+  "verification": {
+    "passed": true,
+    "status": "accepted-for-exact-b0947-existing-independent-figure-reuse",
+    "canonical": "nemata-jp-chapter-283-1",
+    "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947",
+    "wholeChapterAccepted": false,
+    "standardWholeArticlePassed": false,
+    "newModelCalls": 0,
+    "unchangedBodyBlocks": 1195,
+    "unchangedOtherFigures": 523,
+    "preservedUnknowns": 5
+  },
+  "negativeTests": [
+    {
+      "name": "wrong source",
+      "rejected": true
+    },
+    {
+      "name": "wrong parent",
+      "rejected": true
+    },
+    {
+      "name": "wrong donor",
+      "rejected": true
+    },
+    {
+      "name": "wrong raw",
+      "rejected": true
+    },
+    {
+      "name": "wrong checkpoint",
+      "rejected": true
+    },
+    {
+      "name": "wrong call",
+      "rejected": true
+    },
+    {
+      "name": "wrong target hash",
+      "rejected": true
+    },
+    {
+      "name": "missing public wind unknown",
+      "rejected": true
+    },
+    {
+      "name": "guessed public wind",
+      "rejected": true
+    },
+    {
+      "name": "Q60 condition changed",
+      "rejected": true
+    },
+    {
+      "name": "body order changed",
+      "rejected": true
+    },
+    {
+      "name": "tableContext removed",
+      "rejected": true
+    },
+    {
+      "name": "non-target figure changed",
+      "rejected": true
+    },
+    {
+      "name": "missing definition context",
+      "rejected": true
+    },
+    {
+      "name": "missing context hash",
+      "rejected": true
+    },
+    {
+      "name": "whole article passed forged",
+      "rejected": true
+    },
+    {
+      "name": "standard pass forged",
+      "rejected": true
+    },
+    {
+      "name": "new production claimed",
+      "rejected": true
+    },
+    {
+      "name": "production raw changed",
+      "rejected": true
+    },
+    {
+      "name": "ordered context rearranged",
+      "rejected": true
+    },
+    {
+      "name": "producer provenance changed",
+      "rejected": true
+    }
+  ],
+  "newModelCalls": 0,
+  "parentChain": "real frozen recursive group + production verifiers, both full parent branches",
+  "prior84And27Rerun": false
+}

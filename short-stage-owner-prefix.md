@@ -1,3 +1,9 @@
+2026-10-28 08:27 UTC交付状态：250已在v33/10bec5c完成nemata-jp-chapter-001-64（08:22:03评论01a1819a-1e54），当前244/256原章、276/303单元，剩12章/27单元。原13章基线完整保留于新包continuation-13-baseline-current12.md，001标完成，不沿用旧243/13。新增b0947包已由一次wakeup01a1819e-9777派到250现有唯一写者，run01a1819e-afdd-7450-a972-a6a2faeddbe0于08:27:10Z实际启动；仅登记限定目标，不当整283合库。本轮模型子调用0，b0785仍由269→249原授权处理、不重复派。
+
+2026-10-28 b0947实际装配完成：派生稿ec43d8af0c82a3b53bf7c924804ebf00d6c65515ac3a7b21728b26f9e10ac85b，完整目标对象hash ee733318a7cc1b62668f8f8b0d6c9ece03bb0c1321b5c5c3a14e5ccf012a7c53与旧真实独审donor完全相同。共享路径verify0947Composition实际通过，21项新增反向拒绝通过，未重跑旧84/27。b0947两旧阻断仅在此精确装配scope解除，原19条变14补证/3阻断/2source-note；三阻断都在b0785原269→249授权路径，不增派、不宣布全章passed。上次恢复评论01a18190-43cd及附件08:11:17已成功，08:12capacity在其后，不重发旧交付。
+
+2026-10-28 b0947精确装配合同：授权评论01a18193-acf0-7b75-a947-a354214b1a45，仅把已审rev2/849267b8的完整b0947 figure原对象继承到de3c0fa2工作稿，目标hash必须等于真实独审7896f6fb对应对象；1195正文块/其它523图/源/题60六块及共同定义九块/顺序/tableContext原样。新派生文件及scopeComposition明确零新制作，保留旧producer fafc75a7与独审/raw和两处公开风牌unknown（含另外隐手/骰子/橙标限制），不伪造新raw、普通整章passed或当前283全章准入。现有冻结verifyGroupRevisionAudit完整核donor及当前父链，专用只读verifier仅准入此目标。后续b0785分支需再次证明目标和15块上下文未变才可继承，不覆盖其在途候选。反向检查必须拒错source/parent/donor/raw/call/target hash/unknown/题问条件/邻文图序/非靶改变/伪wholePassed。产物integration/coac244-283-0947-composition-20261028；250只登记精确靶证，待b0785真实通过及完整组装后统一读回，不写共享指针、不启动新收费消费者。
+
 2026-10-28 07:51 UTC恢复指令已在run01a18181-4d08-7e39-a43b-f99f0d8011d5实际执行（07:55:10Z启动）。前run01a1817e-7e73-7cd3-ae2e-99571382ab77是start API EOF、started_at=null、事件[]，不是制作/审校失败；保留原错、不再派恢复消费者。模型子调用0、预算未重置、源/候选/raw/共享集成指针未写。新补证包integration/coac244-recovery-20261028，仓库.multica/delivery同名；只追加恢复证据，不覆盖失败run原283准备包。
 
 283/b1017提交02d2f27→d7a3602与候选de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c真实链核符；3a171a7b独审terra/max11原图、目标passed，32依赖/1194非靶块/524完整图对象已重核。现有效原19条=12补证/5复杂尚未装配/2source-note；不再把b1017挂待修，也不按旧12条deferred重复派发。aggregate仍needs-repair，普通整章门禁实际拒绝，旧raw不改。

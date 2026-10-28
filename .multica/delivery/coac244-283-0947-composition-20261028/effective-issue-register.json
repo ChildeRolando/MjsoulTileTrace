@@ -1,0 +1,2287 @@
+{
+  "schema": "coac244-283-effective-issues-after10171181/1",
+  "chapterId": "nemata-jp-chapter-283-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t396962r1.json",
+    "sha256": "00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2"
+  },
+  "originalAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+    "sha256": "749e242c54019cb6b855a03e6df4fe465bed86e1cf50d7869be548a3b0144d40",
+    "bytes": 1690739
+  },
+  "aggregateAuditUnchanged": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f.json",
+    "sha256": "d7c8b54d6b4bef37a4c6c0a97b88831a551ce4be8eb938fe51823a9ea1e401df"
+  },
+  "tableSupplement": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\table-reuse-supplement.json",
+    "sha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c"
+  },
+  "targetCheckpoint": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-002.json",
+    "sha256": "311df0ca752e1b34dfea16e2f07192f61dd886905b0a87fbdf8cf7d167314e5e"
+  },
+  "issues": [
+    {
+      "originalIssueSha256": "ebc185ca1cdb9cbc960fa244aebb327c614eff2de9a32a2fdb4d40e005b8ffa3",
+      "originalIssue": {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+        "sourceEvidence": "第8题以「場況↓」指向「2007年03月の『何を切る？』」外链；后文依据「一索・二索が薄い」作出选择，并提到东家第6巡吃八万。",
+        "description": "外链及相关文字翻译忠实，但实际场况未在本组展开。无法从已提供的内联牌面确认一索、二索的可见张数、完整副露组合及各家具体点数，因此第8题完整教学场况的核验受阻；这不是已确认的候选漏译。",
+        "suggestedRepair": "补充该引用场况的原始图或完整文字转录后复核；在补齐前明确标注场况核验未完成，不推定牌河、副露组合、点数或他家隐手。"
+      },
+      "category": "关键未知图/源场况",
+      "status": "resolved-by-independent-q8-supplement",
+      "evidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-q8-source-20261028\\receipt.json",
+        "sha256": "267e223aa0eae3e5659e69d15c9f84a58e1002331bac7ae12151e7b689d9cfbf"
+      },
+      "owner": "Existing COAC-244 owner; already verified COAC-250 Q8 intake",
+      "mandatoryLimits": {
+        "notFullMeldTranscription": true,
+        "unknownEastMeldOtherTwoManzuDigits": true,
+        "otherUnknownDiscardsAndTsumogiriMarkers": true,
+        "htmlAndJpegDifferentArchiveCaptureDates": true,
+        "linkedCommentary2sSafetyConflict": true,
+        "noExactSafetyOrHiddenHandInference": true
+      }
+    },
+    {
+      "originalIssueSha256": "01dde9804888dc311fbe9ebfc3ca747dcc7463fe945752d2b530b34663c4cbd6",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0168",
+        "sourceEvidence": "问题12的b0153明确给出宝牌北；括号原文连续为“（ドラ［四索］引きの場合の差で［七索］より［五索］）”。结合题设，此处列举摸入宝牌或四索时的差异。",
+        "description": "候选“（由于摸入宝牌”直接接四索图，构成“摸入宝牌四索”，错误地把四索认作宝牌，并丢失摸入真正宝牌北这一独立条件。",
+        "suggestedRepair": "将b0168改为“摸到后再改为③即可，（由于摸入宝牌或”，保留后续四索图和比较顺序，使括号表达摸入宝牌或四索时，切五索优于切七索。"
+      },
+      "category": "语义/条件/图转录",
+      "status": "resolved-by-independent-target-checkpoint",
+      "evidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-002.json",
+        "sha256": "311df0ca752e1b34dfea16e2f07192f61dd886905b0a87fbdf8cf7d167314e5e"
+      },
+      "owner": "COAC-244/248/269既有目标路径"
+    },
+    {
+      "originalIssueSha256": "436b899a4562361e876abd0136d9f0c088c05b492e22fcea94b73467389a3886",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+        "sourceEvidence": "问题17弃牌表：第1、3、5、7行分别为东、南、西、北家；第1、2列依次为北/1m、南/7m、9m/西、9m/3s；各格rowspan与colspan均为1。",
+        "description": "b0266、b0267、b0269、b0270、b0272、b0273、b0275、b0276的牌面正确，但其候选figure块均遗漏表格定位，且无替代表格行列结构。单纯保留线性顺序不足以完整保留原表格位。",
+        "suggestedRepair": "为上述八个figure块恢复源tableContext中的tableId、row、column、rowspan、colspan和header，或提供包含这些格位及原空格的完整表格结构。"
+      },
+      "category": "DOM/表格几何",
+      "status": "resolved-by-independent-supplement",
+      "evidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\table-reuse-supplement.json",
+        "sha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c"
+      },
+      "owner": "COAC-244/248/269既有目标路径"
+    },
+    {
+      "originalIssueSha256": "e64b38ad0f1b35a0ac42e77cf1ef7ffad33588f0a918885a180bed0798c7328d",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+        "sourceEvidence": "问题18弃牌表：第0行第2列为↓；东家第1行依次4s、3s，南家第3行7p、8p，西家第5行北、7p，北家第7行1m、3m；跨度均为1。",
+        "description": "b0292、b0293、b0295、b0296、b0298、b0299、b0301、b0302均遗漏表格定位。尤其3s未保留第1行第2列定位，导致其与上方↓的明确对齐关系缺失。",
+        "suggestedRepair": "恢复八个牌图块的完整tableContext，或重建原表格；确保↓位于第0行第2列并与东家第二张弃牌3s对齐。"
+      },
+      "category": "DOM/表格几何",
+      "status": "resolved-by-independent-supplement",
+      "evidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\table-reuse-supplement.json",
+        "sha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c"
+      },
+      "owner": "COAC-244/248/269既有目标路径"
+    },
+    {
+      "originalIssueSha256": "c0e2e07e9a0ec7f3e18a2eaac002025b3f3a82b50d42dfc335892dd0dc5bd880",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+        "sourceEvidence": "问题20弃牌表：第1、3、5、7行为东、南、西、北家；第1至3列依次为北/9s/9s、北/1s/中、南/1p/2p、北/1m/9s；跨度均为1。",
+        "description": "b0325—b0327、b0329—b0331、b0333—b0335、b0337—b0339的十二个牌图块均遗漏原表格定位，候选无完整表格结构承载座位与三列弃牌关系。",
+        "suggestedRepair": "恢复十二个figure块的完整tableContext，或提供忠实保留四家、三列弃牌、空格及跨度的完整表格结构。"
+      },
+      "category": "DOM/表格几何",
+      "status": "resolved-by-independent-supplement",
+      "evidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\table-reuse-supplement.json",
+        "sha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c"
+      },
+      "owner": "COAC-244/248/269既有目标路径"
+    },
+    {
+      "originalIssueSha256": "c31ac57262de40b3b035f3ad062b6e050c86743e2fcf567011600a655baeacf6",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0396",
+        "sourceEvidence": "手広い④に受ける。裏目の［五索］引きでも三色が狙える。",
+        "description": "「裏目」描述选择后摸到不利牌的情形，不表示此前选择属于失算。译文「失算的」误加了判断失误的含义。",
+        "suggestedRepair": "将本块改为「选择进张宽的④。即使出现不利的」，接原有五索图及下一块「进张，也能争取三色。」。"
+      },
+      "category": "语义/条件/图转录",
+      "status": "resolved-by-independent-target-checkpoint",
+      "evidence": {
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t396962r1.json",
+          "sha256": "00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2"
+        },
+        "checkpoint": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-004.json",
+          "sha256": "e0bce7ea57114babe0e0adfe650f659f98b491d6fd69ecd7d982cb2113d8b726"
+        },
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\c500112c-2e65-418d-bda9-8948ea4d6e16.json",
+          "sha256": "f381604197b33c1c60b53423c8f0f571d13efb6a11c1a52ddd2d635958d9fbfc"
+        },
+        "callId": "c500112c-2e65-418d-bda9-8948ea4d6e16",
+        "unchangedParent": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0168r1.json",
+          "sha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f"
+        }
+      },
+      "owner": "COAC-244/248/269既有目标路径"
+    },
+    {
+      "originalIssueSha256": "ef68b9277f648ef0096cf407ca8857af8c420ba28d2032aab215eea2540061e4",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+        "sourceEvidence": "问题33弃牌表为8行7列，各格rowspan、colspan均为1。东家行1列1—6为西、白、中、1m、3p、南；南家行3列1—6为南、白、1s、4s、5m、西；西家行5列1—5为北、1m、3s、8s、白，列6为空；北家行7列1—6为西、北、中、2s、3s、中。箭头行0位于列3、4、6，行2位于列4、5，行4位于列1、4、5，行6位于列1、2、3、6。",
+        "description": "候选保留了表题、座次和箭头文本的tableContext，但23个牌河figure块及其figure记录均无表格格位。牌面编码虽然正确，仍不能完整表达各牌所在单元格及其与上方箭头的对应关系。",
+        "suggestedRepair": "为b0507—b0512、b0516—b0521、b0526—b0530、b0536—b0541的候选figure块恢复源tableContext，包括同一tableId、对应row/column、rowspan=1、colspan=1、header=false；完整保留8×7表格的空格，尤其西家第6张弃牌位置为空，并保持箭头与牌面的列对齐。"
+      },
+      "category": "DOM/表格几何",
+      "status": "resolved-by-independent-supplement",
+      "evidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\table-reuse-supplement.json",
+        "sha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c"
+      },
+      "owner": "COAC-244/248/269既有目标路径"
+    },
+    {
+      "originalIssueSha256": "99d6ea21d837d54dd3d9520de49feb7ef6c39a722257fac5088c2951738354cf",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+        "sourceEvidence": "源舍牌表为8行9列；东、南、西、北家表头分别位于行1、3、5、7的列0。各家前六张舍牌位于列1至6；东、南、西家的第七张位于列8，列7为空；北家列8为空。所有单元格rowspan、colspan均为1。",
+        "description": "候选保留表题和表头的tableContext，但27个舍牌figure块均缺少tableContext，也没有候选表格结构。牌面及线性顺序正确，仍未保留要求核对的表格格位与空格关系。",
+        "suggestedRepair": "为b0627—b0633、b0635—b0641、b0643—b0649、b0651—b0656恢复各自源tableContext，并提供或重建源8行9列表格，保留空行、列7空格、北家末格为空及所有单格跨度。"
+      },
+      "category": "DOM/表格几何",
+      "status": "resolved-by-independent-supplement",
+      "evidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\table-reuse-supplement.json",
+        "sha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c"
+      },
+      "owner": "COAC-244/248/269既有目标路径"
+    },
+    {
+      "originalIssueSha256": "feed6d512d4fec8d15f46265c3473629c7553adb1adeff4fece490eadfac4acb",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "原图、放大图及源alt一致：12355789m34688s，摸5s。候选为12355789m36788s，摸5s。",
+        "description": "下方13张手牌中的4s、6s被依次错录为6s、7s。正确牌形切8s后听嵌7s；候选牌形会改变这一教学前提。",
+        "suggestedRepair": "将下方手牌完整改为1m 2m 3m 5m 5m 7m 8m 9m 3s 4s 6s 8s 8s；分开的摸入牌仍为5s。"
+      },
+      "category": "语义/条件/图转录",
+      "status": "open",
+      "evidence": null,
+      "owner": "COAC-244/248/269既有目标路径"
+    },
+    {
+      "originalIssueSha256": "20d6f61af624a83fef7882e3fd9da39449b16b4c92edff67f3fd9134fe66d085",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "截图顶部及左右边缘的三列牌分别位于其他三家的手牌位置；中央翻开9s指示牌附近才是牌墙。",
+        "description": "候选将其他三家的隐手统称为牌墙，遗漏了隐手未知这一局面信息。",
+        "suggestedRepair": "区分三家背面或侧面朝向观者的隐手与中央牌墙，明确三家隐手牌面未知，不推定具体牌码。"
+      },
+      "category": "语义/条件/图转录",
+      "status": "open",
+      "evidence": null,
+      "owner": "COAC-244/248/269既有目标路径"
+    },
+    {
+      "originalIssueSha256": "d3c5278fc47e6d40b97380a3386e039632af2ad3b4eb806f7113e3ef708de019",
+      "originalIssue": {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "候选unknowns仍列左河从上至下第4、6张及右河第1张万子点数未辨清；本次也未能可靠确认这三张的全部牌码。",
+        "description": "这三张属于公开河牌，并非源隐手；可能影响可见张数与等待判断，不能以完整转录通过。",
+        "suggestedRepair": "逐张确认这三张河牌并同步更新transcription及unknowns；确认前保留阻断状态，不臆填牌码。"
+      },
+      "category": "关键未知图/源场况",
+      "status": "open",
+      "evidence": null,
+      "owner": "COAC-244/248/269既有目标路径"
+    },
+    {
+      "originalIssueSha256": "44d8dcbb0b947b5bcaa97f4ac9587c0ab9c1519d7e30c13af91a96eb82522b80",
+      "originalIssue": {
+        "severity": "source-note",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "右上副露最上方牌受黑色遮挡，右下信息栏边缘裁切，中央骰子点数未可靠辨清。",
+        "description": "遮挡、裁切及骰子辨读限制应如实保留；不得由另外两张东牌反推被遮挡牌面。",
+        "suggestedRepair": "保留对应源图限制说明及未知标记；骰子未确认点数时继续注明未知。"
+      },
+      "category": "source-note",
+      "status": "open",
+      "evidence": null,
+      "owner": "COAC-244/248/269既有目标路径"
+    },
+    {
+      "originalIssueSha256": "6eefa362aa4eff0b8a6c01124327671789207b6fc7fa45d8a7f6a08f74953c54",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+        "sourceEvidence": "源弃牌表各格均为rowspan=1、colspan=1：第1行第1—4列为北、西、9s、9p；第3行为2m、5m、3s、4s；第5行为南、北、1p、8m；第7行为中、1m、3s、3s。对应源块分别为b0811—b0814、b0816—b0819、b0821—b0824、b0826—b0829。",
+        "description": "候选保留了表题及四家表头的tableContext，却将16个弃牌单元格转换成没有tableContext的独立figure；figures中也未补充表格坐标。牌面和线性顺序正确，但四家牌河与各弃牌位置的表格关联未完整表示。",
+        "suggestedRepair": "为这16个候选figure块恢复源tableContext中的tableId、row、column、rowspan、colspan和header=false，或提供等价的完整候选表格结构，确保每张牌仍属于原单元格。"
+      },
+      "category": "DOM/表格几何",
+      "status": "resolved-by-independent-supplement",
+      "evidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\table-reuse-supplement.json",
+        "sha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c"
+      },
+      "owner": "COAC-244/248/269既有目标路径"
+    },
+    {
+      "originalIssueSha256": "e6be649aaee9e4da2c0e399415841c68d7923ce7f186151584a2b7c346d2ae89",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+        "sourceEvidence": "源图替代文本为“立体牌姿（４５赤５６７ｍ２２４５赤５６７９ｓ ２ｓポン？）”；图中左方末张2s有蓝色高亮。",
+        "description": "候选记录了高亮牌，却没有明确转写本题询问是否碰2s。仅有“问题60的牌局画面”不足以完整呈现题目。",
+        "suggestedRepair": "在图注或转写中补入：“是否碰上家刚切出的2s？”并明确高亮2s是此次鸣牌判断的对象。"
+      },
+      "category": "语义/条件/图转录",
+      "status": "resolved-for-exact-reviewed-figure-composition",
+      "evidence": {
+        "proof": "composition-proof.json",
+        "originalIndependentCallId": "7896f6fb-3a56-4444-bf7f-761db2958445",
+        "targetFigureSha256": "ee733318a7cc1b62668f8f8b0d6c9ece03bb0c1321b5c5c3a14e5ccf012a7c53"
+      },
+      "owner": "COAC-244/248/269既有目标路径"
+    },
+    {
+      "originalIssueSha256": "6cd3acb48f43e89ddeb0fb6401683764e4be22e446d99b8e8d47171339b8c21c",
+      "originalIssue": {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+        "sourceEvidence": "候选将上方牌河首张及右方牌河首张分别记作“[风牌未辨明]”；两处在所附原图及放大图中均有可见牌面。",
+        "description": "这两处是实际弃牌，不是隐手或装饰。当前转写尚未满足完整读取牌河的要求，本次不能确认其精确牌种。",
+        "suggestedRepair": "完成两张风牌的定向辨认并替换占位符；在确认前保留unknowns，不得猜填或将完整牌河标为已通过。"
+      },
+      "category": "关键未知图/源场况",
+      "status": "resolved-for-exact-reviewed-figure-composition",
+      "evidence": {
+        "proof": "composition-proof.json",
+        "originalIndependentCallId": "7896f6fb-3a56-4444-bf7f-761db2958445",
+        "targetFigureSha256": "ee733318a7cc1b62668f8f8b0d6c9ece03bb0c1321b5c5c3a14e5ccf012a7c53"
+      },
+      "owner": "COAC-244/248/269既有目标路径"
+    },
+    {
+      "originalIssueSha256": "1d779179f2e8f5fdee2c3b4ec9f6998e5016876e0714ccd447aab3c8f9260eab",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0962",
+        "sourceEvidence": "“メンタンピンや３４５三色もあるので一色手に決め打たない。”",
+        "description": "メンタンピン是立直、断幺九、平和三者结合的术语。候选串列为“立直、断幺九、平和或345三色同顺”，组合关系不明确。",
+        "suggestedRepair": "改为：“也有立直＋断幺九＋平和或345三色同顺的可能，因此不预先锁定染手。染手只考虑清一色就足够了。”"
+      },
+      "category": "语义/条件/图转录",
+      "status": "resolved-by-independent-target-checkpoint",
+      "evidence": {
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t396962r1.json",
+          "sha256": "00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2"
+        },
+        "checkpoint": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-009.json",
+          "sha256": "882344e39af1888d3367ebb5154642cb09e5f9f20cd1a0cc6d8fa8fe721762f0"
+        },
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\1ca0aa10-d2d0-489c-8f89-ca667e4cba4f.json",
+          "sha256": "a38891d3866cbd2decb70c8f0ab3fb219cbc332617f5369198eb3f80e36340cc"
+        },
+        "callId": "1ca0aa10-d2d0-489c-8f89-ca667e4cba4f",
+        "unchangedParent": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0168r1.json",
+          "sha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f"
+        }
+      },
+      "owner": "COAC-244/248/269既有目标路径"
+    },
+    {
+      "originalIssueSha256": "6073a735d8306cdca382542f31cdb1359d2af7c8d8a7ff93caf8dfc5c496dc3d",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+        "sourceEvidence": "“ターツオーバーで三元役の可能性があるので発は残す”；手中已有白与中的对子及孤张发。",
+        "description": "“三元牌役种”容易泛指普通役牌，未清楚表达此处小三元／大三元方向对保留发的意义。",
+        "suggestedRepair": "改为：“搭子过多，又有三元役（小三元／大三元）的可能，所以保留发，宝牌为……”"
+      },
+      "category": "语义/条件/图转录",
+      "status": "resolved-by-independent-target-checkpoint",
+      "evidence": {
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+        "status": "passed",
+        "checkpoint": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-009.json",
+          "sha256": "23e0fda1196b42064570ffe9cea5a2155c08f23a9b08fcfcb88dd8d9c578a5e8"
+        },
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\3a171a7b-e469-40ca-beeb-8495d353ce9b.json",
+          "sha256": "a1342165351a7dd71c2010d2cb046110b104ce871d3da0dc66d776478286311d"
+        },
+        "call": {
+          "callId": "3a171a7b-e469-40ca-beeb-8495d353ce9b",
+          "scope": "textbook-web-complete-unit-group-revision-audit",
+          "sourceId": "modern-yabejp-ja",
+          "articleId": "chapter06-exercise003",
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max",
+          "requestExecution": {
+            "schema": "coach-textbook-cli-request/1",
+            "policy": "coac244-vision-production-schema-v2-20261028",
+            "model": "gpt-6.1-terra",
+            "reasoningEffort": "max",
+            "callerRequested": {
+              "model": "gpt-6.1-sol",
+              "reasoningEffort": "high"
+            },
+            "args": [
+              "exec",
+              "--model",
+              "gpt-6.1-terra",
+              "--config",
+              "model_reasoning_effort=\"max\"",
+              "--config",
+              "web_search=\"disabled\"",
+              "--ephemeral",
+              "--ignore-user-config",
+              "--ignore-rules",
+              "--sandbox",
+              "read-only",
+              "--strict-config",
+              "--skip-git-repo-check",
+              "--json",
+              "--output-schema",
+              "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-yxkONU\\output.schema.json",
+              "--output-last-message",
+              "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-yxkONU\\final.json",
+              "--cd",
+              "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-yxkONU",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/7f05bd281937602f8fcd2b7311a041bbee178bb3dc4f98db59da44275dc425a8.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/ee8d103822c0811a18107b3d4362c7fe5cfb4c302df5fd25a6b5e9fa073dc7d4.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/0873883657e93a76932d7e0eee33fa15fccb7ec1fff5dcc2b9053bb21b259b82.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/27f61798f4e97e2eb5bce2fb9321189c13b390812cd9a3b4626cddd06c623b47.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/b3dd465d6b409b704aac6aa188d3f40982e2b03ae772971dbfc973ca90c35fcd.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/77be92012dd03415d3f2387471d07d6b2fc50b7db8ddee1ec9b51e94e2f96777.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/c31b7d9f4fa48bd75ce2433392e47e839340850d9aa2b7b8d58eb7baa23d77a4.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/1a014c9814f949815eb309d51f23ea50c8ca5fec6d91ef6069625cab78cc01e4.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/2b9f5e3e2acce95e3cbac558472d48b13c26e5019965796fce0be3c4553c7b8a.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/e00db918035e7ccab3985d5944c52457eb0705b2bc44b6a4e1a46ee17a81bd82.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/f0fd00d98625fce60de4ba376df061c68cfa505d2a0c92fe8fbc92a250d0747c.png",
+              "--disable",
+              "apps",
+              "--disable",
+              "auth_elicitation",
+              "--disable",
+              "browser_use",
+              "--disable",
+              "browser_use_external",
+              "--disable",
+              "browser_use_full_cdp_access",
+              "--disable",
+              "computer_use",
+              "--disable",
+              "fast_mode",
+              "--disable",
+              "goals",
+              "--disable",
+              "guardian_approval",
+              "--disable",
+              "hooks",
+              "--disable",
+              "image_generation",
+              "--disable",
+              "in_app_browser",
+              "--disable",
+              "in_app_chat",
+              "--disable",
+              "in_app_dictation",
+              "--disable",
+              "in_app_local_automation",
+              "--disable",
+              "in_app_updates",
+              "--disable",
+              "memories",
+              "--disable",
+              "mentions_v2",
+              "--disable",
+              "multi_agent",
+              "--disable",
+              "plugin_sharing",
+              "--disable",
+              "plugins",
+              "--disable",
+              "remote_plugin",
+              "--disable",
+              "shell_snapshot",
+              "--disable",
+              "shell_tool",
+              "--disable",
+              "skill_mcp_dependency_install",
+              "--disable",
+              "skill_search",
+              "--disable",
+              "sleep_tool",
+              "--disable",
+              "tool_call_mcp_elicitation",
+              "--disable",
+              "tool_suggest",
+              "--disable",
+              "unbounded_connection_retries",
+              "--disable",
+              "unified_exec",
+              "--disable",
+              "unified_exec_tty",
+              "--disable",
+              "view_image",
+              "--disable",
+              "workspace_dependencies",
+              "-"
+            ],
+            "images": [
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/7f05bd281937602f8fcd2b7311a041bbee178bb3dc4f98db59da44275dc425a8.png",
+                "sha256": "7f05bd281937602f8fcd2b7311a041bbee178bb3dc4f98db59da44275dc425a8",
+                "bytes": 574
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/ee8d103822c0811a18107b3d4362c7fe5cfb4c302df5fd25a6b5e9fa073dc7d4.png",
+                "sha256": "ee8d103822c0811a18107b3d4362c7fe5cfb4c302df5fd25a6b5e9fa073dc7d4",
+                "bytes": 616
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/0873883657e93a76932d7e0eee33fa15fccb7ec1fff5dcc2b9053bb21b259b82.png",
+                "sha256": "0873883657e93a76932d7e0eee33fa15fccb7ec1fff5dcc2b9053bb21b259b82",
+                "bytes": 590
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/27f61798f4e97e2eb5bce2fb9321189c13b390812cd9a3b4626cddd06c623b47.png",
+                "sha256": "27f61798f4e97e2eb5bce2fb9321189c13b390812cd9a3b4626cddd06c623b47",
+                "bytes": 681
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/b3dd465d6b409b704aac6aa188d3f40982e2b03ae772971dbfc973ca90c35fcd.png",
+                "sha256": "b3dd465d6b409b704aac6aa188d3f40982e2b03ae772971dbfc973ca90c35fcd",
+                "bytes": 470
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/77be92012dd03415d3f2387471d07d6b2fc50b7db8ddee1ec9b51e94e2f96777.png",
+                "sha256": "77be92012dd03415d3f2387471d07d6b2fc50b7db8ddee1ec9b51e94e2f96777",
+                "bytes": 641
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/c31b7d9f4fa48bd75ce2433392e47e839340850d9aa2b7b8d58eb7baa23d77a4.png",
+                "sha256": "c31b7d9f4fa48bd75ce2433392e47e839340850d9aa2b7b8d58eb7baa23d77a4",
+                "bytes": 615
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/1a014c9814f949815eb309d51f23ea50c8ca5fec6d91ef6069625cab78cc01e4.png",
+                "sha256": "1a014c9814f949815eb309d51f23ea50c8ca5fec6d91ef6069625cab78cc01e4",
+                "bytes": 316
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/2b9f5e3e2acce95e3cbac558472d48b13c26e5019965796fce0be3c4553c7b8a.png",
+                "sha256": "2b9f5e3e2acce95e3cbac558472d48b13c26e5019965796fce0be3c4553c7b8a",
+                "bytes": 689
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/e00db918035e7ccab3985d5944c52457eb0705b2bc44b6a4e1a46ee17a81bd82.png",
+                "sha256": "e00db918035e7ccab3985d5944c52457eb0705b2bc44b6a4e1a46ee17a81bd82",
+                "bytes": 499
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/f0fd00d98625fce60de4ba376df061c68cfa505d2a0c92fe8fbc92a250d0747c.png",
+                "sha256": "f0fd00d98625fce60de4ba376df061c68cfa505d2a0c92fe8fbc92a250d0747c",
+                "bytes": 566
+              }
+            ],
+            "remoteBackend": "unverified; request arguments and returned events only"
+          },
+          "success": true,
+          "usage": {
+            "inputTokens": 54974,
+            "cachedInputTokens": 0,
+            "outputTokens": 932
+          },
+          "auditor": {
+            "path": "audit/web/auditors/51c6b94939276aa170e48e4b3a0c66dfa53584c3c230ff3bda6c1aaf58d0690c.json",
+            "sha256": "770827d86d3895a7efa8bdc7941f02b5e4f8f84d4029c8af85e9b2716ba2e749",
+            "combinedSha256": "51c6b94939276aa170e48e4b3a0c66dfa53584c3c230ff3bda6c1aaf58d0690c"
+          },
+          "promptSha256": "3d2cc75431d37f33d80a854b72b84d4ba9f1dc7fbf4f5475c0b2dd4131dbacc6",
+          "semanticPromptSha256": "f80e0a302052954a486dce784bae075d2a1cd76661aead4e9b1345f2871947ab",
+          "schemaSha256": "1c0fdd7c493ee870ebbf2614e29f391c3e5394943f60bb17801342268996b49b",
+          "outputSha256": "ae24ea34a8061336e718f3c3cbc9fb85bf85db6c91bb6d11ba51099c7e607eac",
+          "binding": {
+            "productionSha256": "de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c",
+            "sourceFileSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+            "auditorSnapshotSha256": "770827d86d3895a7efa8bdc7941f02b5e4f8f84d4029c8af85e9b2716ba2e749",
+            "semanticProjectionSha256": "bf955a0acc2681619650b0f37c38bbc542435bca8a5587cbd5a4a28983b5ccd0",
+            "semanticProjectionVersion": 3,
+            "batch": {
+              "planSha256": "554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421",
+              "group": {
+                "batchId": "chapter06-exercise003-batch-009",
+                "unitIds": [
+                  "modern-yabejp-ja-chapter06-exercise003-u57",
+                  "modern-yabejp-ja-chapter06-exercise003-u58",
+                  "modern-yabejp-ja-chapter06-exercise003-u59",
+                  "modern-yabejp-ja-chapter06-exercise003-u60",
+                  "modern-yabejp-ja-chapter06-exercise003-u61",
+                  "modern-yabejp-ja-chapter06-exercise003-u62",
+                  "modern-yabejp-ja-chapter06-exercise003-u63",
+                  "modern-yabejp-ja-chapter06-exercise003-u64",
+                  "modern-yabejp-ja-chapter06-exercise003-u65",
+                  "modern-yabejp-ja-chapter06-exercise003-u66"
+                ],
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter06-exercise003:b0903",
+                  "modern-yabejp-ja:chapter06-exercise003:b0904",
+                  "modern-yabejp-ja:chapter06-exercise003:b0905",
+                  "modern-yabejp-ja:chapter06-exercise003:b0906",
+                  "modern-yabejp-ja:chapter06-exercise003:b0907",
+                  "modern-yabejp-ja:chapter06-exercise003:b0908",
+                  "modern-yabejp-ja:chapter06-exercise003:b0909",
+                  "modern-yabejp-ja:chapter06-exercise003:b0910",
+                  "modern-yabejp-ja:chapter06-exercise003:b0911",
+                  "modern-yabejp-ja:chapter06-exercise003:b0912",
+                  "modern-yabejp-ja:chapter06-exercise003:b0913",
+                  "modern-yabejp-ja:chapter06-exercise003:b0914",
+                  "modern-yabejp-ja:chapter06-exercise003:b0915",
+                  "modern-yabejp-ja:chapter06-exercise003:b0916",
+                  "modern-yabejp-ja:chapter06-exercise003:b0917",
+                  "modern-yabejp-ja:chapter06-exercise003:b0918",
+                  "modern-yabejp-ja:chapter06-exercise003:b0919",
+                  "modern-yabejp-ja:chapter06-exercise003:b0920",
+                  "modern-yabejp-ja:chapter06-exercise003:b0921",
+                  "modern-yabejp-ja:chapter06-exercise003:b0922",
+                  "modern-yabejp-ja:chapter06-exercise003:b0923",
+                  "modern-yabejp-ja:chapter06-exercise003:b0924",
+                  "modern-yabejp-ja:chapter06-exercise003:b0925",
+                  "modern-yabejp-ja:chapter06-exercise003:b0926",
+                  "modern-yabejp-ja:chapter06-exercise003:b0927",
+                  "modern-yabejp-ja:chapter06-exercise003:b0928",
+                  "modern-yabejp-ja:chapter06-exercise003:b0929",
+                  "modern-yabejp-ja:chapter06-exercise003:b0930",
+                  "modern-yabejp-ja:chapter06-exercise003:b0931",
+                  "modern-yabejp-ja:chapter06-exercise003:b0932",
+                  "modern-yabejp-ja:chapter06-exercise003:b0933",
+                  "modern-yabejp-ja:chapter06-exercise003:b0934",
+                  "modern-yabejp-ja:chapter06-exercise003:b0935",
+                  "modern-yabejp-ja:chapter06-exercise003:b0936",
+                  "modern-yabejp-ja:chapter06-exercise003:b0937",
+                  "modern-yabejp-ja:chapter06-exercise003:b0938",
+                  "modern-yabejp-ja:chapter06-exercise003:b0939",
+                  "modern-yabejp-ja:chapter06-exercise003:b0940",
+                  "modern-yabejp-ja:chapter06-exercise003:b0941",
+                  "modern-yabejp-ja:chapter06-exercise003:b0942",
+                  "modern-yabejp-ja:chapter06-exercise003:b0943",
+                  "modern-yabejp-ja:chapter06-exercise003:b0944",
+                  "modern-yabejp-ja:chapter06-exercise003:b0945",
+                  "modern-yabejp-ja:chapter06-exercise003:b0946",
+                  "modern-yabejp-ja:chapter06-exercise003:b0947",
+                  "modern-yabejp-ja:chapter06-exercise003:b0948",
+                  "modern-yabejp-ja:chapter06-exercise003:b0949",
+                  "modern-yabejp-ja:chapter06-exercise003:b0950",
+                  "modern-yabejp-ja:chapter06-exercise003:b0951",
+                  "modern-yabejp-ja:chapter06-exercise003:b0952",
+                  "modern-yabejp-ja:chapter06-exercise003:b0953",
+                  "modern-yabejp-ja:chapter06-exercise003:b0954",
+                  "modern-yabejp-ja:chapter06-exercise003:b0955",
+                  "modern-yabejp-ja:chapter06-exercise003:b0956",
+                  "modern-yabejp-ja:chapter06-exercise003:b0957",
+                  "modern-yabejp-ja:chapter06-exercise003:b0958",
+                  "modern-yabejp-ja:chapter06-exercise003:b0959",
+                  "modern-yabejp-ja:chapter06-exercise003:b0960",
+                  "modern-yabejp-ja:chapter06-exercise003:b0961",
+                  "modern-yabejp-ja:chapter06-exercise003:b0962",
+                  "modern-yabejp-ja:chapter06-exercise003:b0963",
+                  "modern-yabejp-ja:chapter06-exercise003:b0964",
+                  "modern-yabejp-ja:chapter06-exercise003:b0965",
+                  "modern-yabejp-ja:chapter06-exercise003:b0966",
+                  "modern-yabejp-ja:chapter06-exercise003:b0967",
+                  "modern-yabejp-ja:chapter06-exercise003:b0968",
+                  "modern-yabejp-ja:chapter06-exercise003:b0969",
+                  "modern-yabejp-ja:chapter06-exercise003:b0970",
+                  "modern-yabejp-ja:chapter06-exercise003:b0971",
+                  "modern-yabejp-ja:chapter06-exercise003:b0972",
+                  "modern-yabejp-ja:chapter06-exercise003:b0973",
+                  "modern-yabejp-ja:chapter06-exercise003:b0974",
+                  "modern-yabejp-ja:chapter06-exercise003:b0975",
+                  "modern-yabejp-ja:chapter06-exercise003:b0976",
+                  "modern-yabejp-ja:chapter06-exercise003:b0977",
+                  "modern-yabejp-ja:chapter06-exercise003:b0978",
+                  "modern-yabejp-ja:chapter06-exercise003:b0979",
+                  "modern-yabejp-ja:chapter06-exercise003:b0980",
+                  "modern-yabejp-ja:chapter06-exercise003:b0981",
+                  "modern-yabejp-ja:chapter06-exercise003:b0982",
+                  "modern-yabejp-ja:chapter06-exercise003:b0983",
+                  "modern-yabejp-ja:chapter06-exercise003:b0984",
+                  "modern-yabejp-ja:chapter06-exercise003:b0985",
+                  "modern-yabejp-ja:chapter06-exercise003:b0986",
+                  "modern-yabejp-ja:chapter06-exercise003:b0987",
+                  "modern-yabejp-ja:chapter06-exercise003:b0988",
+                  "modern-yabejp-ja:chapter06-exercise003:b0989",
+                  "modern-yabejp-ja:chapter06-exercise003:b0990",
+                  "modern-yabejp-ja:chapter06-exercise003:b0991",
+                  "modern-yabejp-ja:chapter06-exercise003:b0992",
+                  "modern-yabejp-ja:chapter06-exercise003:b0993",
+                  "modern-yabejp-ja:chapter06-exercise003:b0994",
+                  "modern-yabejp-ja:chapter06-exercise003:b0995",
+                  "modern-yabejp-ja:chapter06-exercise003:b0996",
+                  "modern-yabejp-ja:chapter06-exercise003:b0997",
+                  "modern-yabejp-ja:chapter06-exercise003:b0998",
+                  "modern-yabejp-ja:chapter06-exercise003:b0999",
+                  "modern-yabejp-ja:chapter06-exercise003:b1000",
+                  "modern-yabejp-ja:chapter06-exercise003:b1001",
+                  "modern-yabejp-ja:chapter06-exercise003:b1002",
+                  "modern-yabejp-ja:chapter06-exercise003:b1003",
+                  "modern-yabejp-ja:chapter06-exercise003:b1004",
+                  "modern-yabejp-ja:chapter06-exercise003:b1005",
+                  "modern-yabejp-ja:chapter06-exercise003:b1006",
+                  "modern-yabejp-ja:chapter06-exercise003:b1007",
+                  "modern-yabejp-ja:chapter06-exercise003:b1008",
+                  "modern-yabejp-ja:chapter06-exercise003:b1009",
+                  "modern-yabejp-ja:chapter06-exercise003:b1010",
+                  "modern-yabejp-ja:chapter06-exercise003:b1011",
+                  "modern-yabejp-ja:chapter06-exercise003:b1012",
+                  "modern-yabejp-ja:chapter06-exercise003:b1013",
+                  "modern-yabejp-ja:chapter06-exercise003:b1014",
+                  "modern-yabejp-ja:chapter06-exercise003:b1015",
+                  "modern-yabejp-ja:chapter06-exercise003:b1016",
+                  "modern-yabejp-ja:chapter06-exercise003:b1017",
+                  "modern-yabejp-ja:chapter06-exercise003:b1018",
+                  "modern-yabejp-ja:chapter06-exercise003:b1019",
+                  "modern-yabejp-ja:chapter06-exercise003:b1020",
+                  "modern-yabejp-ja:chapter06-exercise003:b1021"
+                ],
+                "contextSourceBlockIds": [
+                  "modern-yabejp-ja:chapter06-exercise003:b0001",
+                  "modern-yabejp-ja:chapter06-exercise003:b0002",
+                  "modern-yabejp-ja:chapter06-exercise003:b0003",
+                  "modern-yabejp-ja:chapter06-exercise003:b0004",
+                  "modern-yabejp-ja:chapter06-exercise003:b0005",
+                  "modern-yabejp-ja:chapter06-exercise003:b0006",
+                  "modern-yabejp-ja:chapter06-exercise003:b0007",
+                  "modern-yabejp-ja:chapter06-exercise003:b0008",
+                  "modern-yabejp-ja:chapter06-exercise003:b0009"
+                ],
+                "sourceCharacters": 760,
+                "imageOccurrences": 156,
+                "sourceBlocks": 119,
+                "completeQuestionAnswers": true,
+                "completeHtmlTables": true,
+                "largeIntactCluster": false
+              }
+            },
+            "originalImageAssetIds": [
+              "modern-yabejp-ja:642ddd0dab75b2ca1f3ad744",
+              "modern-yabejp-ja:fdb2ccb08161e856627296f4",
+              "modern-yabejp-ja:66f4fc88f899af0258244da2",
+              "modern-yabejp-ja:e55f2661c108fb3854242c3f",
+              "modern-yabejp-ja:ddfc65a49b12ba9eaad31799",
+              "modern-yabejp-ja:283d95909f085c408e33545e",
+              "modern-yabejp-ja:4e968347146a35ff5443c3aa",
+              "modern-yabejp-ja:054fd32aab9471e32e860206",
+              "modern-yabejp-ja:6699bf75ba7f1eba39a76bd0",
+              "modern-yabejp-ja:cf903c27e3d6d79024397f25",
+              "modern-yabejp-ja:3226b6f2ab0bfc8693018476"
+            ]
+          },
+          "recordedAt": "2026-10-27T23:35:55.231Z"
+        },
+        "durationMs": 16502,
+        "modelReview": {
+          "textChecks": [
+            {
+              "id": "modern-yabejp-ja:chapter06-exercise003:b1017",
+              "verdict": "faithful",
+              "evidence": "原文因搭子过多且有三元役的可能而保留发，并以“ドラ”引出后续六索；译文对应为“搭子过多，又有三元役的可能，所以保留发，宝牌为”，意思和句中牌序一致。"
+            }
+          ],
+          "figureChecks": [],
+          "contextContinuity": {
+            "faithful": true,
+            "evidence": "该句接在切三筒的答案之后，随后依次引出宝牌六索和切二万的比较；译文保留了论证的连贯性。"
+          },
+          "issues": [],
+          "completeTargetScopeCompared": true,
+          "summary": "目标文本忠实于原文；本次没有目标牌图。"
+        },
+        "modelChecks": {
+          "passed": true,
+          "errors": []
+        }
+      },
+      "owner": "COAC-244/248/269既有目标路径",
+      "independentRaw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\53722d02-3924-4fba-b304-68df1b2b45f0.json",
+        "sha256": "da68153eccbd6de19017bafd73c67404e0c31f56dbcda103264d9a6167c2b1e9"
+      },
+      "callId": "53722d02-3924-4fba-b304-68df1b2b45f0",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t10171181r1.json",
+        "sha256": "b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458"
+      },
+      "effectiveIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+        "sourceEvidence": "「ターツオーバーで三元役の可能性があるので発は残す、ドラ」；题中有白白、发、中中。",
+        "description": "候选将未具体限定的「三元役」解释为「小三元／大三元」，可能排除三元牌相关的役牌，增加了原文没有明确给出的限定。",
+        "suggestedRepair": "删除括注，译为「搭子过多，又有三元役的可能，所以保留发，宝牌为」。"
+      },
+      "effectiveIssueSha256": "55b1617dcbfcffe22ac3fdac37a4884d72a104cd00dea339ed23840a49f0fe1a",
+      "historicalAdvicePreserved": true,
+      "disposition": "旧“三元牌役种”问题及旧建议原样留历史；当前责任是新独立确认括注缩窄范围，删除括注并保留三元役。不能把旧建议当作推翻新审的授权。"
+    },
+    {
+      "originalIssueSha256": "0b64e1ce9aae098f34994eaefe07f7676d1f399accb2a295da8d5794b8fe211e",
+      "originalIssue": {
+        "severity": "source-note",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+        "sourceEvidence": "画面中央有两枚骰子，四周及下方有黑色区域；候选已分别记入unknowns和sourceNotes。",
+        "description": "骰子点数未获可靠确认，黑色遮挡或裁切也已如实说明。它们不改变本题是否碰2s的教学论证。",
+        "suggestedRepair": "保留说明；无需据此推测隐藏内容或单独阻断战术结论。"
+      },
+      "category": "source-note",
+      "status": "open",
+      "evidence": null,
+      "owner": "COAC-244/248/269既有目标路径"
+    },
+    {
+      "originalIssueSha256": "a9f6001a46e729e44587190fbffd36f7e9cd9b0762f898cbf9f27517c4df6b8f",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+        "sourceEvidence": "b1179—b1181连读为「ドラ［三萬］でなくてもダブルリャンメンは他のトイツより優先して残す。」",
+        "description": "候选连读为“宝牌［3m］即使不是，也应……”，未形成明确的中文让步条件句。",
+        "suggestedRepair": "将b1179改为“即使”，保留b1180的3m牌图，将b1181改为“不是宝牌，也应优先于其他对子保留双两面形。”"
+      },
+      "category": "语义/条件/图转录",
+      "status": "resolved-by-independent-target-checkpoint",
+      "evidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-011.json",
+        "sha256": "a7d7d184db39c9bb4ea73ae7bf0a895fe555e0b5fdce9ec44fc24d2d71e268c3"
+      },
+      "owner": "COAC-244/248/269既有目标路径",
+      "independentRaw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\236cb892-1825-4c9d-801e-e889c71681d5.json",
+        "sha256": "a9d691972b6443f956e81277717ed1f26f518bbf8309879bf3a87ae85626914e"
+      },
+      "callId": "236cb892-1825-4c9d-801e-e889c71681d5",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t10171181r1.json",
+        "sha256": "b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458"
+      }
+    }
+  ],
+  "deferred": [
+    {
+      "batchId": "chapter06-exercise003-batch-001",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+      "severity": "uncertain",
+      "issueSha256": "ebc185ca1cdb9cbc960fa244aebb327c614eff2de9a32a2fdb4d40e005b8ffa3",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "effectiveStatus": "resolved-by-independent-q8-supplement",
+      "supplement": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-q8-source-20261028\\receipt.json",
+        "sha256": "267e223aa0eae3e5659e69d15c9f84a58e1002331bac7ae12151e7b689d9cfbf"
+      },
+      "originalIssue": {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+        "sourceEvidence": "第8题以「場況↓」指向「2007年03月の『何を切る？』」外链；后文依据「一索・二索が薄い」作出选择，并提到东家第6巡吃八万。",
+        "description": "外链及相关文字翻译忠实，但实际场况未在本组展开。无法从已提供的内联牌面确认一索、二索的可见张数、完整副露组合及各家具体点数，因此第8题完整教学场况的核验受阻；这不是已确认的候选漏译。",
+        "suggestedRepair": "补充该引用场况的原始图或完整文字转录后复核；在补齐前明确标注场况核验未完成，不推定牌河、副露组合、点数或他家隐手。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-003",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+      "severity": "error",
+      "issueSha256": "436b899a4562361e876abd0136d9f0c088c05b492e22fcea94b73467389a3886",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "effectiveStatus": "resolved-by-independent-supplement",
+      "supplement": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\table-reuse-supplement.json",
+        "sha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c"
+      },
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+        "sourceEvidence": "问题17弃牌表：第1、3、5、7行分别为东、南、西、北家；第1、2列依次为北/1m、南/7m、9m/西、9m/3s；各格rowspan与colspan均为1。",
+        "description": "b0266、b0267、b0269、b0270、b0272、b0273、b0275、b0276的牌面正确，但其候选figure块均遗漏表格定位，且无替代表格行列结构。单纯保留线性顺序不足以完整保留原表格位。",
+        "suggestedRepair": "为上述八个figure块恢复源tableContext中的tableId、row、column、rowspan、colspan和header，或提供包含这些格位及原空格的完整表格结构。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-003",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+      "severity": "error",
+      "issueSha256": "e64b38ad0f1b35a0ac42e77cf1ef7ffad33588f0a918885a180bed0798c7328d",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "effectiveStatus": "resolved-by-independent-supplement",
+      "supplement": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\table-reuse-supplement.json",
+        "sha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c"
+      },
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+        "sourceEvidence": "问题18弃牌表：第0行第2列为↓；东家第1行依次4s、3s，南家第3行7p、8p，西家第5行北、7p，北家第7行1m、3m；跨度均为1。",
+        "description": "b0292、b0293、b0295、b0296、b0298、b0299、b0301、b0302均遗漏表格定位。尤其3s未保留第1行第2列定位，导致其与上方↓的明确对齐关系缺失。",
+        "suggestedRepair": "恢复八个牌图块的完整tableContext，或重建原表格；确保↓位于第0行第2列并与东家第二张弃牌3s对齐。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-003",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+      "severity": "error",
+      "issueSha256": "c0e2e07e9a0ec7f3e18a2eaac002025b3f3a82b50d42dfc335892dd0dc5bd880",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "effectiveStatus": "resolved-by-independent-supplement",
+      "supplement": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\table-reuse-supplement.json",
+        "sha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c"
+      },
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+        "sourceEvidence": "问题20弃牌表：第1、3、5、7行为东、南、西、北家；第1至3列依次为北/9s/9s、北/1s/中、南/1p/2p、北/1m/9s；跨度均为1。",
+        "description": "b0325—b0327、b0329—b0331、b0333—b0335、b0337—b0339的十二个牌图块均遗漏原表格定位，候选无完整表格结构承载座位与三列弃牌关系。",
+        "suggestedRepair": "恢复十二个figure块的完整tableContext，或提供忠实保留四家、三列弃牌、空格及跨度的完整表格结构。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-004",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0396",
+      "severity": "error",
+      "issueSha256": "c31ac57262de40b3b035f3ad062b6e050c86743e2fcf567011600a655baeacf6",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "effectiveStatus": "resolved-by-independent-target-checkpoint",
+      "supplement": {
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t396962r1.json",
+          "sha256": "00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2"
+        },
+        "checkpoint": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-004.json",
+          "sha256": "e0bce7ea57114babe0e0adfe650f659f98b491d6fd69ecd7d982cb2113d8b726"
+        }
+      },
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0396",
+        "sourceEvidence": "手広い④に受ける。裏目の［五索］引きでも三色が狙える。",
+        "description": "「裏目」描述选择后摸到不利牌的情形，不表示此前选择属于失算。译文「失算的」误加了判断失误的含义。",
+        "suggestedRepair": "将本块改为「选择进张宽的④。即使出现不利的」，接原有五索图及下一块「进张，也能争取三色。」。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-005",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+      "severity": "error",
+      "issueSha256": "ef68b9277f648ef0096cf407ca8857af8c420ba28d2032aab215eea2540061e4",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "effectiveStatus": "resolved-by-independent-supplement",
+      "supplement": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\table-reuse-supplement.json",
+        "sha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c"
+      },
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+        "sourceEvidence": "问题33弃牌表为8行7列，各格rowspan、colspan均为1。东家行1列1—6为西、白、中、1m、3p、南；南家行3列1—6为南、白、1s、4s、5m、西；西家行5列1—5为北、1m、3s、8s、白，列6为空；北家行7列1—6为西、北、中、2s、3s、中。箭头行0位于列3、4、6，行2位于列4、5，行4位于列1、4、5，行6位于列1、2、3、6。",
+        "description": "候选保留了表题、座次和箭头文本的tableContext，但23个牌河figure块及其figure记录均无表格格位。牌面编码虽然正确，仍不能完整表达各牌所在单元格及其与上方箭头的对应关系。",
+        "suggestedRepair": "为b0507—b0512、b0516—b0521、b0526—b0530、b0536—b0541的候选figure块恢复源tableContext，包括同一tableId、对应row/column、rowspan=1、colspan=1、header=false；完整保留8×7表格的空格，尤其西家第6张弃牌位置为空，并保持箭头与牌面的列对齐。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-006",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+      "severity": "error",
+      "issueSha256": "99d6ea21d837d54dd3d9520de49feb7ef6c39a722257fac5088c2951738354cf",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "effectiveStatus": "resolved-by-independent-supplement",
+      "supplement": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\table-reuse-supplement.json",
+        "sha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c"
+      },
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+        "sourceEvidence": "源舍牌表为8行9列；东、南、西、北家表头分别位于行1、3、5、7的列0。各家前六张舍牌位于列1至6；东、南、西家的第七张位于列8，列7为空；北家列8为空。所有单元格rowspan、colspan均为1。",
+        "description": "候选保留表题和表头的tableContext，但27个舍牌figure块均缺少tableContext，也没有候选表格结构。牌面及线性顺序正确，仍未保留要求核对的表格格位与空格关系。",
+        "suggestedRepair": "为b0627—b0633、b0635—b0641、b0643—b0649、b0651—b0656恢复各自源tableContext，并提供或重建源8行9列表格，保留空行、列7空格、北家末格为空及所有单格跨度。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "error",
+      "issueSha256": "feed6d512d4fec8d15f46265c3473629c7553adb1adeff4fece490eadfac4acb",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "effectiveStatus": "open",
+      "supplement": null,
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "原图、放大图及源alt一致：12355789m34688s，摸5s。候选为12355789m36788s，摸5s。",
+        "description": "下方13张手牌中的4s、6s被依次错录为6s、7s。正确牌形切8s后听嵌7s；候选牌形会改变这一教学前提。",
+        "suggestedRepair": "将下方手牌完整改为1m 2m 3m 5m 5m 7m 8m 9m 3s 4s 6s 8s 8s；分开的摸入牌仍为5s。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "error",
+      "issueSha256": "20d6f61af624a83fef7882e3fd9da39449b16b4c92edff67f3fd9134fe66d085",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "effectiveStatus": "open",
+      "supplement": null,
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "截图顶部及左右边缘的三列牌分别位于其他三家的手牌位置；中央翻开9s指示牌附近才是牌墙。",
+        "description": "候选将其他三家的隐手统称为牌墙，遗漏了隐手未知这一局面信息。",
+        "suggestedRepair": "区分三家背面或侧面朝向观者的隐手与中央牌墙，明确三家隐手牌面未知，不推定具体牌码。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "uncertain",
+      "issueSha256": "d3c5278fc47e6d40b97380a3386e039632af2ad3b4eb806f7113e3ef708de019",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "effectiveStatus": "open",
+      "supplement": null,
+      "originalIssue": {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "候选unknowns仍列左河从上至下第4、6张及右河第1张万子点数未辨清；本次也未能可靠确认这三张的全部牌码。",
+        "description": "这三张属于公开河牌，并非源隐手；可能影响可见张数与等待判断，不能以完整转录通过。",
+        "suggestedRepair": "逐张确认这三张河牌并同步更新transcription及unknowns；确认前保留阻断状态，不臆填牌码。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-008",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+      "severity": "error",
+      "issueSha256": "6eefa362aa4eff0b8a6c01124327671789207b6fc7fa45d8a7f6a08f74953c54",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "effectiveStatus": "resolved-by-independent-supplement",
+      "supplement": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\table-reuse-supplement.json",
+        "sha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c"
+      },
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+        "sourceEvidence": "源弃牌表各格均为rowspan=1、colspan=1：第1行第1—4列为北、西、9s、9p；第3行为2m、5m、3s、4s；第5行为南、北、1p、8m；第7行为中、1m、3s、3s。对应源块分别为b0811—b0814、b0816—b0819、b0821—b0824、b0826—b0829。",
+        "description": "候选保留了表题及四家表头的tableContext，却将16个弃牌单元格转换成没有tableContext的独立figure；figures中也未补充表格坐标。牌面和线性顺序正确，但四家牌河与各弃牌位置的表格关联未完整表示。",
+        "suggestedRepair": "为这16个候选figure块恢复源tableContext中的tableId、row、column、rowspan、colspan和header=false，或提供等价的完整候选表格结构，确保每张牌仍属于原单元格。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "severity": "error",
+      "issueSha256": "e6be649aaee9e4da2c0e399415841c68d7923ce7f186151584a2b7c346d2ae89",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "effectiveStatus": "resolved-for-exact-reviewed-figure-composition",
+      "supplement": "composition-proof.json",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+        "sourceEvidence": "源图替代文本为“立体牌姿（４５赤５６７ｍ２２４５赤５６７９ｓ ２ｓポン？）”；图中左方末张2s有蓝色高亮。",
+        "description": "候选记录了高亮牌，却没有明确转写本题询问是否碰2s。仅有“问题60的牌局画面”不足以完整呈现题目。",
+        "suggestedRepair": "在图注或转写中补入：“是否碰上家刚切出的2s？”并明确高亮2s是此次鸣牌判断的对象。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "severity": "uncertain",
+      "issueSha256": "6cd3acb48f43e89ddeb0fb6401683764e4be22e446d99b8e8d47171339b8c21c",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "effectiveStatus": "resolved-for-exact-reviewed-figure-composition",
+      "supplement": "composition-proof.json",
+      "originalIssue": {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+        "sourceEvidence": "候选将上方牌河首张及右方牌河首张分别记作“[风牌未辨明]”；两处在所附原图及放大图中均有可见牌面。",
+        "description": "这两处是实际弃牌，不是隐手或装饰。当前转写尚未满足完整读取牌河的要求，本次不能确认其精确牌种。",
+        "suggestedRepair": "完成两张风牌的定向辨认并替换占位符；在确认前保留unknowns，不得猜填或将完整牌河标为已通过。"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0962",
+      "severity": "error",
+      "issueSha256": "1d779179f2e8f5fdee2c3b4ec9f6998e5016876e0714ccd447aab3c8f9260eab",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "effectiveStatus": "resolved-by-independent-target-checkpoint",
+      "supplement": {
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t396962r1.json",
+          "sha256": "00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2"
+        },
+        "checkpoint": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\00074d1c55051aa61e463d466a3ae43c2e4c5a9967c3aa291996656d2e09cbe2\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-009.json",
+          "sha256": "882344e39af1888d3367ebb5154642cb09e5f9f20cd1a0cc6d8fa8fe721762f0"
+        }
+      },
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0962",
+        "sourceEvidence": "“メンタンピンや３４５三色もあるので一色手に決め打たない。”",
+        "description": "メンタンピン是立直、断幺九、平和三者结合的术语。候选串列为“立直、断幺九、平和或345三色同顺”，组合关系不明确。",
+        "suggestedRepair": "改为：“也有立直＋断幺九＋平和或345三色同顺的可能，因此不预先锁定染手。染手只考虑清一色就足够了。”"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+      "severity": "error",
+      "issueSha256": "6073a735d8306cdca382542f31cdb1359d2af7c8d8a7ff93caf8dfc5c496dc3d",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "effectiveStatus": "resolved-by-independent-target-checkpoint",
+      "supplement": {
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+        "status": "passed",
+        "checkpoint": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-009.json",
+          "sha256": "23e0fda1196b42064570ffe9cea5a2155c08f23a9b08fcfcb88dd8d9c578a5e8"
+        },
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\3a171a7b-e469-40ca-beeb-8495d353ce9b.json",
+          "sha256": "a1342165351a7dd71c2010d2cb046110b104ce871d3da0dc66d776478286311d"
+        },
+        "call": {
+          "callId": "3a171a7b-e469-40ca-beeb-8495d353ce9b",
+          "scope": "textbook-web-complete-unit-group-revision-audit",
+          "sourceId": "modern-yabejp-ja",
+          "articleId": "chapter06-exercise003",
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max",
+          "requestExecution": {
+            "schema": "coach-textbook-cli-request/1",
+            "policy": "coac244-vision-production-schema-v2-20261028",
+            "model": "gpt-6.1-terra",
+            "reasoningEffort": "max",
+            "callerRequested": {
+              "model": "gpt-6.1-sol",
+              "reasoningEffort": "high"
+            },
+            "args": [
+              "exec",
+              "--model",
+              "gpt-6.1-terra",
+              "--config",
+              "model_reasoning_effort=\"max\"",
+              "--config",
+              "web_search=\"disabled\"",
+              "--ephemeral",
+              "--ignore-user-config",
+              "--ignore-rules",
+              "--sandbox",
+              "read-only",
+              "--strict-config",
+              "--skip-git-repo-check",
+              "--json",
+              "--output-schema",
+              "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-yxkONU\\output.schema.json",
+              "--output-last-message",
+              "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-yxkONU\\final.json",
+              "--cd",
+              "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-yxkONU",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/7f05bd281937602f8fcd2b7311a041bbee178bb3dc4f98db59da44275dc425a8.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/ee8d103822c0811a18107b3d4362c7fe5cfb4c302df5fd25a6b5e9fa073dc7d4.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/0873883657e93a76932d7e0eee33fa15fccb7ec1fff5dcc2b9053bb21b259b82.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/27f61798f4e97e2eb5bce2fb9321189c13b390812cd9a3b4626cddd06c623b47.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/b3dd465d6b409b704aac6aa188d3f40982e2b03ae772971dbfc973ca90c35fcd.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/77be92012dd03415d3f2387471d07d6b2fc50b7db8ddee1ec9b51e94e2f96777.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/c31b7d9f4fa48bd75ce2433392e47e839340850d9aa2b7b8d58eb7baa23d77a4.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/1a014c9814f949815eb309d51f23ea50c8ca5fec6d91ef6069625cab78cc01e4.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/2b9f5e3e2acce95e3cbac558472d48b13c26e5019965796fce0be3c4553c7b8a.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/e00db918035e7ccab3985d5944c52457eb0705b2bc44b6a4e1a46ee17a81bd82.png",
+              "-i",
+              "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/f0fd00d98625fce60de4ba376df061c68cfa505d2a0c92fe8fbc92a250d0747c.png",
+              "--disable",
+              "apps",
+              "--disable",
+              "auth_elicitation",
+              "--disable",
+              "browser_use",
+              "--disable",
+              "browser_use_external",
+              "--disable",
+              "browser_use_full_cdp_access",
+              "--disable",
+              "computer_use",
+              "--disable",
+              "fast_mode",
+              "--disable",
+              "goals",
+              "--disable",
+              "guardian_approval",
+              "--disable",
+              "hooks",
+              "--disable",
+              "image_generation",
+              "--disable",
+              "in_app_browser",
+              "--disable",
+              "in_app_chat",
+              "--disable",
+              "in_app_dictation",
+              "--disable",
+              "in_app_local_automation",
+              "--disable",
+              "in_app_updates",
+              "--disable",
+              "memories",
+              "--disable",
+              "mentions_v2",
+              "--disable",
+              "multi_agent",
+              "--disable",
+              "plugin_sharing",
+              "--disable",
+              "plugins",
+              "--disable",
+              "remote_plugin",
+              "--disable",
+              "shell_snapshot",
+              "--disable",
+              "shell_tool",
+              "--disable",
+              "skill_mcp_dependency_install",
+              "--disable",
+              "skill_search",
+              "--disable",
+              "sleep_tool",
+              "--disable",
+              "tool_call_mcp_elicitation",
+              "--disable",
+              "tool_suggest",
+              "--disable",
+              "unbounded_connection_retries",
+              "--disable",
+              "unified_exec",
+              "--disable",
+              "unified_exec_tty",
+              "--disable",
+              "view_image",
+              "--disable",
+              "workspace_dependencies",
+              "-"
+            ],
+            "images": [
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/7f05bd281937602f8fcd2b7311a041bbee178bb3dc4f98db59da44275dc425a8.png",
+                "sha256": "7f05bd281937602f8fcd2b7311a041bbee178bb3dc4f98db59da44275dc425a8",
+                "bytes": 574
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/ee8d103822c0811a18107b3d4362c7fe5cfb4c302df5fd25a6b5e9fa073dc7d4.png",
+                "sha256": "ee8d103822c0811a18107b3d4362c7fe5cfb4c302df5fd25a6b5e9fa073dc7d4",
+                "bytes": 616
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/0873883657e93a76932d7e0eee33fa15fccb7ec1fff5dcc2b9053bb21b259b82.png",
+                "sha256": "0873883657e93a76932d7e0eee33fa15fccb7ec1fff5dcc2b9053bb21b259b82",
+                "bytes": 590
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/27f61798f4e97e2eb5bce2fb9321189c13b390812cd9a3b4626cddd06c623b47.png",
+                "sha256": "27f61798f4e97e2eb5bce2fb9321189c13b390812cd9a3b4626cddd06c623b47",
+                "bytes": 681
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/b3dd465d6b409b704aac6aa188d3f40982e2b03ae772971dbfc973ca90c35fcd.png",
+                "sha256": "b3dd465d6b409b704aac6aa188d3f40982e2b03ae772971dbfc973ca90c35fcd",
+                "bytes": 470
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/77be92012dd03415d3f2387471d07d6b2fc50b7db8ddee1ec9b51e94e2f96777.png",
+                "sha256": "77be92012dd03415d3f2387471d07d6b2fc50b7db8ddee1ec9b51e94e2f96777",
+                "bytes": 641
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/c31b7d9f4fa48bd75ce2433392e47e839340850d9aa2b7b8d58eb7baa23d77a4.png",
+                "sha256": "c31b7d9f4fa48bd75ce2433392e47e839340850d9aa2b7b8d58eb7baa23d77a4",
+                "bytes": 615
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/1a014c9814f949815eb309d51f23ea50c8ca5fec6d91ef6069625cab78cc01e4.png",
+                "sha256": "1a014c9814f949815eb309d51f23ea50c8ca5fec6d91ef6069625cab78cc01e4",
+                "bytes": 316
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/2b9f5e3e2acce95e3cbac558472d48b13c26e5019965796fce0be3c4553c7b8a.png",
+                "sha256": "2b9f5e3e2acce95e3cbac558472d48b13c26e5019965796fce0be3c4553c7b8a",
+                "bytes": 689
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/e00db918035e7ccab3985d5944c52457eb0705b2bc44b6a4e1a46ee17a81bd82.png",
+                "sha256": "e00db918035e7ccab3985d5944c52457eb0705b2bc44b6a4e1a46ee17a81bd82",
+                "bytes": 499
+              },
+              {
+                "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/f0fd00d98625fce60de4ba376df061c68cfa505d2a0c92fe8fbc92a250d0747c.png",
+                "sha256": "f0fd00d98625fce60de4ba376df061c68cfa505d2a0c92fe8fbc92a250d0747c",
+                "bytes": 566
+              }
+            ],
+            "remoteBackend": "unverified; request arguments and returned events only"
+          },
+          "success": true,
+          "usage": {
+            "inputTokens": 54974,
+            "cachedInputTokens": 0,
+            "outputTokens": 932
+          },
+          "auditor": {
+            "path": "audit/web/auditors/51c6b94939276aa170e48e4b3a0c66dfa53584c3c230ff3bda6c1aaf58d0690c.json",
+            "sha256": "770827d86d3895a7efa8bdc7941f02b5e4f8f84d4029c8af85e9b2716ba2e749",
+            "combinedSha256": "51c6b94939276aa170e48e4b3a0c66dfa53584c3c230ff3bda6c1aaf58d0690c"
+          },
+          "promptSha256": "3d2cc75431d37f33d80a854b72b84d4ba9f1dc7fbf4f5475c0b2dd4131dbacc6",
+          "semanticPromptSha256": "f80e0a302052954a486dce784bae075d2a1cd76661aead4e9b1345f2871947ab",
+          "schemaSha256": "1c0fdd7c493ee870ebbf2614e29f391c3e5394943f60bb17801342268996b49b",
+          "outputSha256": "ae24ea34a8061336e718f3c3cbc9fb85bf85db6c91bb6d11ba51099c7e607eac",
+          "binding": {
+            "productionSha256": "de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c",
+            "sourceFileSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+            "auditorSnapshotSha256": "770827d86d3895a7efa8bdc7941f02b5e4f8f84d4029c8af85e9b2716ba2e749",
+            "semanticProjectionSha256": "bf955a0acc2681619650b0f37c38bbc542435bca8a5587cbd5a4a28983b5ccd0",
+            "semanticProjectionVersion": 3,
+            "batch": {
+              "planSha256": "554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421",
+              "group": {
+                "batchId": "chapter06-exercise003-batch-009",
+                "unitIds": [
+                  "modern-yabejp-ja-chapter06-exercise003-u57",
+                  "modern-yabejp-ja-chapter06-exercise003-u58",
+                  "modern-yabejp-ja-chapter06-exercise003-u59",
+                  "modern-yabejp-ja-chapter06-exercise003-u60",
+                  "modern-yabejp-ja-chapter06-exercise003-u61",
+                  "modern-yabejp-ja-chapter06-exercise003-u62",
+                  "modern-yabejp-ja-chapter06-exercise003-u63",
+                  "modern-yabejp-ja-chapter06-exercise003-u64",
+                  "modern-yabejp-ja-chapter06-exercise003-u65",
+                  "modern-yabejp-ja-chapter06-exercise003-u66"
+                ],
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter06-exercise003:b0903",
+                  "modern-yabejp-ja:chapter06-exercise003:b0904",
+                  "modern-yabejp-ja:chapter06-exercise003:b0905",
+                  "modern-yabejp-ja:chapter06-exercise003:b0906",
+                  "modern-yabejp-ja:chapter06-exercise003:b0907",
+                  "modern-yabejp-ja:chapter06-exercise003:b0908",
+                  "modern-yabejp-ja:chapter06-exercise003:b0909",
+                  "modern-yabejp-ja:chapter06-exercise003:b0910",
+                  "modern-yabejp-ja:chapter06-exercise003:b0911",
+                  "modern-yabejp-ja:chapter06-exercise003:b0912",
+                  "modern-yabejp-ja:chapter06-exercise003:b0913",
+                  "modern-yabejp-ja:chapter06-exercise003:b0914",
+                  "modern-yabejp-ja:chapter06-exercise003:b0915",
+                  "modern-yabejp-ja:chapter06-exercise003:b0916",
+                  "modern-yabejp-ja:chapter06-exercise003:b0917",
+                  "modern-yabejp-ja:chapter06-exercise003:b0918",
+                  "modern-yabejp-ja:chapter06-exercise003:b0919",
+                  "modern-yabejp-ja:chapter06-exercise003:b0920",
+                  "modern-yabejp-ja:chapter06-exercise003:b0921",
+                  "modern-yabejp-ja:chapter06-exercise003:b0922",
+                  "modern-yabejp-ja:chapter06-exercise003:b0923",
+                  "modern-yabejp-ja:chapter06-exercise003:b0924",
+                  "modern-yabejp-ja:chapter06-exercise003:b0925",
+                  "modern-yabejp-ja:chapter06-exercise003:b0926",
+                  "modern-yabejp-ja:chapter06-exercise003:b0927",
+                  "modern-yabejp-ja:chapter06-exercise003:b0928",
+                  "modern-yabejp-ja:chapter06-exercise003:b0929",
+                  "modern-yabejp-ja:chapter06-exercise003:b0930",
+                  "modern-yabejp-ja:chapter06-exercise003:b0931",
+                  "modern-yabejp-ja:chapter06-exercise003:b0932",
+                  "modern-yabejp-ja:chapter06-exercise003:b0933",
+                  "modern-yabejp-ja:chapter06-exercise003:b0934",
+                  "modern-yabejp-ja:chapter06-exercise003:b0935",
+                  "modern-yabejp-ja:chapter06-exercise003:b0936",
+                  "modern-yabejp-ja:chapter06-exercise003:b0937",
+                  "modern-yabejp-ja:chapter06-exercise003:b0938",
+                  "modern-yabejp-ja:chapter06-exercise003:b0939",
+                  "modern-yabejp-ja:chapter06-exercise003:b0940",
+                  "modern-yabejp-ja:chapter06-exercise003:b0941",
+                  "modern-yabejp-ja:chapter06-exercise003:b0942",
+                  "modern-yabejp-ja:chapter06-exercise003:b0943",
+                  "modern-yabejp-ja:chapter06-exercise003:b0944",
+                  "modern-yabejp-ja:chapter06-exercise003:b0945",
+                  "modern-yabejp-ja:chapter06-exercise003:b0946",
+                  "modern-yabejp-ja:chapter06-exercise003:b0947",
+                  "modern-yabejp-ja:chapter06-exercise003:b0948",
+                  "modern-yabejp-ja:chapter06-exercise003:b0949",
+                  "modern-yabejp-ja:chapter06-exercise003:b0950",
+                  "modern-yabejp-ja:chapter06-exercise003:b0951",
+                  "modern-yabejp-ja:chapter06-exercise003:b0952",
+                  "modern-yabejp-ja:chapter06-exercise003:b0953",
+                  "modern-yabejp-ja:chapter06-exercise003:b0954",
+                  "modern-yabejp-ja:chapter06-exercise003:b0955",
+                  "modern-yabejp-ja:chapter06-exercise003:b0956",
+                  "modern-yabejp-ja:chapter06-exercise003:b0957",
+                  "modern-yabejp-ja:chapter06-exercise003:b0958",
+                  "modern-yabejp-ja:chapter06-exercise003:b0959",
+                  "modern-yabejp-ja:chapter06-exercise003:b0960",
+                  "modern-yabejp-ja:chapter06-exercise003:b0961",
+                  "modern-yabejp-ja:chapter06-exercise003:b0962",
+                  "modern-yabejp-ja:chapter06-exercise003:b0963",
+                  "modern-yabejp-ja:chapter06-exercise003:b0964",
+                  "modern-yabejp-ja:chapter06-exercise003:b0965",
+                  "modern-yabejp-ja:chapter06-exercise003:b0966",
+                  "modern-yabejp-ja:chapter06-exercise003:b0967",
+                  "modern-yabejp-ja:chapter06-exercise003:b0968",
+                  "modern-yabejp-ja:chapter06-exercise003:b0969",
+                  "modern-yabejp-ja:chapter06-exercise003:b0970",
+                  "modern-yabejp-ja:chapter06-exercise003:b0971",
+                  "modern-yabejp-ja:chapter06-exercise003:b0972",
+                  "modern-yabejp-ja:chapter06-exercise003:b0973",
+                  "modern-yabejp-ja:chapter06-exercise003:b0974",
+                  "modern-yabejp-ja:chapter06-exercise003:b0975",
+                  "modern-yabejp-ja:chapter06-exercise003:b0976",
+                  "modern-yabejp-ja:chapter06-exercise003:b0977",
+                  "modern-yabejp-ja:chapter06-exercise003:b0978",
+                  "modern-yabejp-ja:chapter06-exercise003:b0979",
+                  "modern-yabejp-ja:chapter06-exercise003:b0980",
+                  "modern-yabejp-ja:chapter06-exercise003:b0981",
+                  "modern-yabejp-ja:chapter06-exercise003:b0982",
+                  "modern-yabejp-ja:chapter06-exercise003:b0983",
+                  "modern-yabejp-ja:chapter06-exercise003:b0984",
+                  "modern-yabejp-ja:chapter06-exercise003:b0985",
+                  "modern-yabejp-ja:chapter06-exercise003:b0986",
+                  "modern-yabejp-ja:chapter06-exercise003:b0987",
+                  "modern-yabejp-ja:chapter06-exercise003:b0988",
+                  "modern-yabejp-ja:chapter06-exercise003:b0989",
+                  "modern-yabejp-ja:chapter06-exercise003:b0990",
+                  "modern-yabejp-ja:chapter06-exercise003:b0991",
+                  "modern-yabejp-ja:chapter06-exercise003:b0992",
+                  "modern-yabejp-ja:chapter06-exercise003:b0993",
+                  "modern-yabejp-ja:chapter06-exercise003:b0994",
+                  "modern-yabejp-ja:chapter06-exercise003:b0995",
+                  "modern-yabejp-ja:chapter06-exercise003:b0996",
+                  "modern-yabejp-ja:chapter06-exercise003:b0997",
+                  "modern-yabejp-ja:chapter06-exercise003:b0998",
+                  "modern-yabejp-ja:chapter06-exercise003:b0999",
+                  "modern-yabejp-ja:chapter06-exercise003:b1000",
+                  "modern-yabejp-ja:chapter06-exercise003:b1001",
+                  "modern-yabejp-ja:chapter06-exercise003:b1002",
+                  "modern-yabejp-ja:chapter06-exercise003:b1003",
+                  "modern-yabejp-ja:chapter06-exercise003:b1004",
+                  "modern-yabejp-ja:chapter06-exercise003:b1005",
+                  "modern-yabejp-ja:chapter06-exercise003:b1006",
+                  "modern-yabejp-ja:chapter06-exercise003:b1007",
+                  "modern-yabejp-ja:chapter06-exercise003:b1008",
+                  "modern-yabejp-ja:chapter06-exercise003:b1009",
+                  "modern-yabejp-ja:chapter06-exercise003:b1010",
+                  "modern-yabejp-ja:chapter06-exercise003:b1011",
+                  "modern-yabejp-ja:chapter06-exercise003:b1012",
+                  "modern-yabejp-ja:chapter06-exercise003:b1013",
+                  "modern-yabejp-ja:chapter06-exercise003:b1014",
+                  "modern-yabejp-ja:chapter06-exercise003:b1015",
+                  "modern-yabejp-ja:chapter06-exercise003:b1016",
+                  "modern-yabejp-ja:chapter06-exercise003:b1017",
+                  "modern-yabejp-ja:chapter06-exercise003:b1018",
+                  "modern-yabejp-ja:chapter06-exercise003:b1019",
+                  "modern-yabejp-ja:chapter06-exercise003:b1020",
+                  "modern-yabejp-ja:chapter06-exercise003:b1021"
+                ],
+                "contextSourceBlockIds": [
+                  "modern-yabejp-ja:chapter06-exercise003:b0001",
+                  "modern-yabejp-ja:chapter06-exercise003:b0002",
+                  "modern-yabejp-ja:chapter06-exercise003:b0003",
+                  "modern-yabejp-ja:chapter06-exercise003:b0004",
+                  "modern-yabejp-ja:chapter06-exercise003:b0005",
+                  "modern-yabejp-ja:chapter06-exercise003:b0006",
+                  "modern-yabejp-ja:chapter06-exercise003:b0007",
+                  "modern-yabejp-ja:chapter06-exercise003:b0008",
+                  "modern-yabejp-ja:chapter06-exercise003:b0009"
+                ],
+                "sourceCharacters": 760,
+                "imageOccurrences": 156,
+                "sourceBlocks": 119,
+                "completeQuestionAnswers": true,
+                "completeHtmlTables": true,
+                "largeIntactCluster": false
+              }
+            },
+            "originalImageAssetIds": [
+              "modern-yabejp-ja:642ddd0dab75b2ca1f3ad744",
+              "modern-yabejp-ja:fdb2ccb08161e856627296f4",
+              "modern-yabejp-ja:66f4fc88f899af0258244da2",
+              "modern-yabejp-ja:e55f2661c108fb3854242c3f",
+              "modern-yabejp-ja:ddfc65a49b12ba9eaad31799",
+              "modern-yabejp-ja:283d95909f085c408e33545e",
+              "modern-yabejp-ja:4e968347146a35ff5443c3aa",
+              "modern-yabejp-ja:054fd32aab9471e32e860206",
+              "modern-yabejp-ja:6699bf75ba7f1eba39a76bd0",
+              "modern-yabejp-ja:cf903c27e3d6d79024397f25",
+              "modern-yabejp-ja:3226b6f2ab0bfc8693018476"
+            ]
+          },
+          "recordedAt": "2026-10-27T23:35:55.231Z"
+        },
+        "durationMs": 16502,
+        "modelReview": {
+          "textChecks": [
+            {
+              "id": "modern-yabejp-ja:chapter06-exercise003:b1017",
+              "verdict": "faithful",
+              "evidence": "原文因搭子过多且有三元役的可能而保留发，并以“ドラ”引出后续六索；译文对应为“搭子过多，又有三元役的可能，所以保留发，宝牌为”，意思和句中牌序一致。"
+            }
+          ],
+          "figureChecks": [],
+          "contextContinuity": {
+            "faithful": true,
+            "evidence": "该句接在切三筒的答案之后，随后依次引出宝牌六索和切二万的比较；译文保留了论证的连贯性。"
+          },
+          "issues": [],
+          "completeTargetScopeCompared": true,
+          "summary": "目标文本忠实于原文；本次没有目标牌图。"
+        },
+        "modelChecks": {
+          "passed": true,
+          "errors": []
+        }
+      },
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+        "sourceEvidence": "“ターツオーバーで三元役の可能性があるので発は残す”；手中已有白与中的对子及孤张发。",
+        "description": "“三元牌役种”容易泛指普通役牌，未清楚表达此处小三元／大三元方向对保留发的意义。",
+        "suggestedRepair": "改为：“搭子过多，又有三元役（小三元／大三元）的可能，所以保留发，宝牌为……”"
+      }
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-011",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+      "severity": "error",
+      "issueSha256": "a9f6001a46e729e44587190fbffd36f7e9cd9b0762f898cbf9f27517c4df6b8f",
+      "reason": "outside b0168-only authorization; retained unchanged",
+      "effectiveStatus": "resolved-by-independent-target-checkpoint",
+      "supplement": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-011.json",
+        "sha256": "a7d7d184db39c9bb4ea73ae7bf0a895fe555e0b5fdce9ec44fc24d2d71e268c3"
+      },
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+        "sourceEvidence": "b1179—b1181连读为「ドラ［三萬］でなくてもダブルリャンメンは他のトイツより優先して残す。」",
+        "description": "候选连读为“宝牌［3m］即使不是，也应……”，未形成明确的中文让步条件句。",
+        "suggestedRepair": "将b1179改为“即使”，保留b1180的3m牌图，将b1181改为“不是宝牌，也应优先于其他对子保留双两面形。”"
+      }
+    }
+  ],
+  "counts": {
+    "originalIssues": 19,
+    "resolved": 14,
+    "remainingBlocking": 3,
+    "sourceNotes": 2,
+    "originalDeferred": 16,
+    "effectiveDeferredResolved": 13,
+    "effectiveDeferredOpen": 3
+  },
+  "wholeChapterAccepted": false,
+  "oldRawOrDeferredModified": false,
+  "supersedes": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-283-396962-effective-issues-20261028.json",
+    "sha256": "6d122aa508b6eb57a4122472c52bd96ee78e1b54ec8d1299ac77c0aa1e688617",
+    "bytes": 56892
+  },
+  "additionalAcceptedQ8": {
+    "registration": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-q8-target-evidence-intake-20261028.json",
+    "receipt": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-q8-source-20261028\\receipt.json",
+      "sha256": "267e223aa0eae3e5659e69d15c9f84a58e1002331bac7ae12151e7b689d9cfbf"
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\a5187359-48f0-48b6-9527-210a251efae4.json",
+      "sha256": "4ce48a9d6721425f9dd53a9abf17204ca02f6d74f35108fe00e00547640d4437"
+    },
+    "mandatoryLimits": {
+      "notFullMeldTranscription": true,
+      "unknownEastMeldOtherTwoManzuDigits": true,
+      "otherUnknownDiscardsAndTsumogiriMarkers": true,
+      "htmlAndJpegDifferentArchiveCaptureDates": true,
+      "linkedCommentary2sSafetyConflict": true,
+      "noExactSafetyOrHiddenHandInference": true
+    },
+    "fieldsStillUnknown": [
+      {
+        "value": "东家吃牌中除8m外的两张万子的具体数字",
+        "status": "unknown",
+        "evidence": "可辨万字，但数码不足以可靠辨认。",
+        "coordinates": "原JPEG x=[454,491), y=[31,69)",
+        "teachingImpact": "无法完整转写顺子；不影响1s和2s的副露计数。"
+      },
+      {
+        "value": "东、西牌河中各一张筒子的点数，以及东家第二列一张多根索子的点数",
+        "status": "unknown",
+        "evidence": "原始像素不能可靠数清图案；4倍最近邻不产生新细节。",
+        "coordinates": "原JPEG东家 x=[329,365), y=[168,187)及x=[365,401), y=[206,225)；西家 x=[131,168), y=[187,206)",
+        "teachingImpact": "不能用这些牌确定具体安全牌；已辨类别和图案不增加1s或2s。"
+      },
+      {
+        "value": "西家一张万子的数字及若干弃牌的明暗标识",
+        "status": "unknown",
+        "evidence": "数字或灰度不足以可靠判定；各弃牌条目已注明明暗unknown。",
+        "coordinates": "原JPEG西家数字unknown：x=[131,168), y=[225,245)；其余明暗范围见各座位牌河条目。",
+        "teachingImpact": "不能完整还原这些牌的手出、摸切信息。"
+      },
+      {
+        "value": "链接解说中2s对上家是否为现物",
+        "status": "source-conflict",
+        "evidence": "同一解说先称2s可能打中“カミチャ”，后又称2s是“カミチャ、トイメンの現物”。JPEG中的两张2s弃牌位于东家和南家，未在西家现存牌河见到2s。解说与JPEG可能并非同一版本，不能据此选择其中一句作为确定事实。",
+        "coordinates": "原JPEG东家 x=[329,365), y=[225,245)；南家 x=[274,301), y=[96,121)；西家牌河 x=[94,168), y=[149,264)",
+        "teachingImpact": "不能依该解说断定对上家的安全性；Q8教材的“1s、2s薄”仍有独立图像计数支持。"
+      }
+    ],
+    "candidateScopeObjectsExact": true
+  },
+  "recordedAt": "2026-10-27T22:53:04.071445+00:00",
+  "newModelCalls": 0,
+  "latestAggregate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c.json",
+    "sha256": "6c0de2ee947e3867fbd32e9cc89d23cb9a47c99c5e9521e7e46972ce50f1e4b5"
+  },
+  "targetCheckpoints": [
+    {
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+      "status": "needs-repair",
+      "checkpoint": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-009.json",
+        "sha256": "109b6aefd9597ea6c0b74c3d1069515a7edfb9a69761ddab9a6bd1bb00085c49"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\53722d02-3924-4fba-b304-68df1b2b45f0.json",
+        "sha256": "da68153eccbd6de19017bafd73c67404e0c31f56dbcda103264d9a6167c2b1e9"
+      }
+    },
+    {
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b1181",
+      "status": "passed",
+      "checkpoint": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\b90f7c4fbedb5b6498a1a783cf514303c23288eae36e73624788d2142f507458\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-011.json",
+        "sha256": "a7d7d184db39c9bb4ea73ae7bf0a895fe555e0b5fdce9ec44fc24d2d71e268c3"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\236cb892-1825-4c9d-801e-e889c71681d5.json",
+        "sha256": "a9d691972b6443f956e81277717ed1f26f518bbf8309879bf3a87ae85626914e"
+      }
+    }
+  ],
+  "scopeInheritance": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-283-10171181-scope-inheritance-20261028.json",
+    "sha256": "a5765f56d01f99f16a54819a0c2ff674e2828a861acf234e8cc1d148336efae9"
+  },
+  "latestCandidate": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-0947-composition-20261028/chapter06-exercise003.b0947-derived.json",
+    "sha256": "ec43d8af0c82a3b53bf7c924804ebf00d6c65515ac3a7b21728b26f9e10ac85b"
+  },
+  "classification": {
+    "domTableGeometry": 0,
+    "semanticConditionOrFigureTranscription": 2,
+    "criticalUnknownFigure": 1,
+    "sourceNotes": 2
+  },
+  "b1017ExactClosure": {
+    "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+    "status": "passed",
+    "checkpoint": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-009.json",
+      "sha256": "23e0fda1196b42064570ffe9cea5a2155c08f23a9b08fcfcb88dd8d9c578a5e8"
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\3a171a7b-e469-40ca-beeb-8495d353ce9b.json",
+      "sha256": "a1342165351a7dd71c2010d2cb046110b104ce871d3da0dc66d776478286311d"
+    },
+    "call": {
+      "callId": "3a171a7b-e469-40ca-beeb-8495d353ce9b",
+      "scope": "textbook-web-complete-unit-group-revision-audit",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter06-exercise003",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "requestExecution": {
+        "schema": "coach-textbook-cli-request/1",
+        "policy": "coac244-vision-production-schema-v2-20261028",
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max",
+        "callerRequested": {
+          "model": "gpt-6.1-sol",
+          "reasoningEffort": "high"
+        },
+        "args": [
+          "exec",
+          "--model",
+          "gpt-6.1-terra",
+          "--config",
+          "model_reasoning_effort=\"max\"",
+          "--config",
+          "web_search=\"disabled\"",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox",
+          "read-only",
+          "--strict-config",
+          "--skip-git-repo-check",
+          "--json",
+          "--output-schema",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-yxkONU\\output.schema.json",
+          "--output-last-message",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-yxkONU\\final.json",
+          "--cd",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-yxkONU",
+          "-i",
+          "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/7f05bd281937602f8fcd2b7311a041bbee178bb3dc4f98db59da44275dc425a8.png",
+          "-i",
+          "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/ee8d103822c0811a18107b3d4362c7fe5cfb4c302df5fd25a6b5e9fa073dc7d4.png",
+          "-i",
+          "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/0873883657e93a76932d7e0eee33fa15fccb7ec1fff5dcc2b9053bb21b259b82.png",
+          "-i",
+          "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/27f61798f4e97e2eb5bce2fb9321189c13b390812cd9a3b4626cddd06c623b47.png",
+          "-i",
+          "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/b3dd465d6b409b704aac6aa188d3f40982e2b03ae772971dbfc973ca90c35fcd.png",
+          "-i",
+          "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/77be92012dd03415d3f2387471d07d6b2fc50b7db8ddee1ec9b51e94e2f96777.png",
+          "-i",
+          "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/c31b7d9f4fa48bd75ce2433392e47e839340850d9aa2b7b8d58eb7baa23d77a4.png",
+          "-i",
+          "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/1a014c9814f949815eb309d51f23ea50c8ca5fec6d91ef6069625cab78cc01e4.png",
+          "-i",
+          "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/2b9f5e3e2acce95e3cbac558472d48b13c26e5019965796fce0be3c4553c7b8a.png",
+          "-i",
+          "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/e00db918035e7ccab3985d5944c52457eb0705b2bc44b6a4e1a46ee17a81bd82.png",
+          "-i",
+          "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/f0fd00d98625fce60de4ba376df061c68cfa505d2a0c92fe8fbc92a250d0747c.png",
+          "--disable",
+          "apps",
+          "--disable",
+          "auth_elicitation",
+          "--disable",
+          "browser_use",
+          "--disable",
+          "browser_use_external",
+          "--disable",
+          "browser_use_full_cdp_access",
+          "--disable",
+          "computer_use",
+          "--disable",
+          "fast_mode",
+          "--disable",
+          "goals",
+          "--disable",
+          "guardian_approval",
+          "--disable",
+          "hooks",
+          "--disable",
+          "image_generation",
+          "--disable",
+          "in_app_browser",
+          "--disable",
+          "in_app_chat",
+          "--disable",
+          "in_app_dictation",
+          "--disable",
+          "in_app_local_automation",
+          "--disable",
+          "in_app_updates",
+          "--disable",
+          "memories",
+          "--disable",
+          "mentions_v2",
+          "--disable",
+          "multi_agent",
+          "--disable",
+          "plugin_sharing",
+          "--disable",
+          "plugins",
+          "--disable",
+          "remote_plugin",
+          "--disable",
+          "shell_snapshot",
+          "--disable",
+          "shell_tool",
+          "--disable",
+          "skill_mcp_dependency_install",
+          "--disable",
+          "skill_search",
+          "--disable",
+          "sleep_tool",
+          "--disable",
+          "tool_call_mcp_elicitation",
+          "--disable",
+          "tool_suggest",
+          "--disable",
+          "unbounded_connection_retries",
+          "--disable",
+          "unified_exec",
+          "--disable",
+          "unified_exec_tty",
+          "--disable",
+          "view_image",
+          "--disable",
+          "workspace_dependencies",
+          "-"
+        ],
+        "images": [
+          {
+            "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/7f05bd281937602f8fcd2b7311a041bbee178bb3dc4f98db59da44275dc425a8.png",
+            "sha256": "7f05bd281937602f8fcd2b7311a041bbee178bb3dc4f98db59da44275dc425a8",
+            "bytes": 574
+          },
+          {
+            "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/ee8d103822c0811a18107b3d4362c7fe5cfb4c302df5fd25a6b5e9fa073dc7d4.png",
+            "sha256": "ee8d103822c0811a18107b3d4362c7fe5cfb4c302df5fd25a6b5e9fa073dc7d4",
+            "bytes": 616
+          },
+          {
+            "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/0873883657e93a76932d7e0eee33fa15fccb7ec1fff5dcc2b9053bb21b259b82.png",
+            "sha256": "0873883657e93a76932d7e0eee33fa15fccb7ec1fff5dcc2b9053bb21b259b82",
+            "bytes": 590
+          },
+          {
+            "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/27f61798f4e97e2eb5bce2fb9321189c13b390812cd9a3b4626cddd06c623b47.png",
+            "sha256": "27f61798f4e97e2eb5bce2fb9321189c13b390812cd9a3b4626cddd06c623b47",
+            "bytes": 681
+          },
+          {
+            "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/b3dd465d6b409b704aac6aa188d3f40982e2b03ae772971dbfc973ca90c35fcd.png",
+            "sha256": "b3dd465d6b409b704aac6aa188d3f40982e2b03ae772971dbfc973ca90c35fcd",
+            "bytes": 470
+          },
+          {
+            "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/77be92012dd03415d3f2387471d07d6b2fc50b7db8ddee1ec9b51e94e2f96777.png",
+            "sha256": "77be92012dd03415d3f2387471d07d6b2fc50b7db8ddee1ec9b51e94e2f96777",
+            "bytes": 641
+          },
+          {
+            "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/c31b7d9f4fa48bd75ce2433392e47e839340850d9aa2b7b8d58eb7baa23d77a4.png",
+            "sha256": "c31b7d9f4fa48bd75ce2433392e47e839340850d9aa2b7b8d58eb7baa23d77a4",
+            "bytes": 615
+          },
+          {
+            "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/1a014c9814f949815eb309d51f23ea50c8ca5fec6d91ef6069625cab78cc01e4.png",
+            "sha256": "1a014c9814f949815eb309d51f23ea50c8ca5fec6d91ef6069625cab78cc01e4",
+            "bytes": 316
+          },
+          {
+            "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/2b9f5e3e2acce95e3cbac558472d48b13c26e5019965796fce0be3c4553c7b8a.png",
+            "sha256": "2b9f5e3e2acce95e3cbac558472d48b13c26e5019965796fce0be3c4553c7b8a",
+            "bytes": 689
+          },
+          {
+            "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/e00db918035e7ccab3985d5944c52457eb0705b2bc44b6a4e1a46ee17a81bd82.png",
+            "sha256": "e00db918035e7ccab3985d5944c52457eb0705b2bc44b6a4e1a46ee17a81bd82",
+            "bytes": 499
+          },
+          {
+            "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/assets/f0fd00d98625fce60de4ba376df061c68cfa505d2a0c92fe8fbc92a250d0747c.png",
+            "sha256": "f0fd00d98625fce60de4ba376df061c68cfa505d2a0c92fe8fbc92a250d0747c",
+            "bytes": 566
+          }
+        ],
+        "remoteBackend": "unverified; request arguments and returned events only"
+      },
+      "success": true,
+      "usage": {
+        "inputTokens": 54974,
+        "cachedInputTokens": 0,
+        "outputTokens": 932
+      },
+      "auditor": {
+        "path": "audit/web/auditors/51c6b94939276aa170e48e4b3a0c66dfa53584c3c230ff3bda6c1aaf58d0690c.json",
+        "sha256": "770827d86d3895a7efa8bdc7941f02b5e4f8f84d4029c8af85e9b2716ba2e749",
+        "combinedSha256": "51c6b94939276aa170e48e4b3a0c66dfa53584c3c230ff3bda6c1aaf58d0690c"
+      },
+      "promptSha256": "3d2cc75431d37f33d80a854b72b84d4ba9f1dc7fbf4f5475c0b2dd4131dbacc6",
+      "semanticPromptSha256": "f80e0a302052954a486dce784bae075d2a1cd76661aead4e9b1345f2871947ab",
+      "schemaSha256": "1c0fdd7c493ee870ebbf2614e29f391c3e5394943f60bb17801342268996b49b",
+      "outputSha256": "ae24ea34a8061336e718f3c3cbc9fb85bf85db6c91bb6d11ba51099c7e607eac",
+      "binding": {
+        "productionSha256": "de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c",
+        "sourceFileSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+        "auditorSnapshotSha256": "770827d86d3895a7efa8bdc7941f02b5e4f8f84d4029c8af85e9b2716ba2e749",
+        "semanticProjectionSha256": "bf955a0acc2681619650b0f37c38bbc542435bca8a5587cbd5a4a28983b5ccd0",
+        "semanticProjectionVersion": 3,
+        "batch": {
+          "planSha256": "554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421",
+          "group": {
+            "batchId": "chapter06-exercise003-batch-009",
+            "unitIds": [
+              "modern-yabejp-ja-chapter06-exercise003-u57",
+              "modern-yabejp-ja-chapter06-exercise003-u58",
+              "modern-yabejp-ja-chapter06-exercise003-u59",
+              "modern-yabejp-ja-chapter06-exercise003-u60",
+              "modern-yabejp-ja-chapter06-exercise003-u61",
+              "modern-yabejp-ja-chapter06-exercise003-u62",
+              "modern-yabejp-ja-chapter06-exercise003-u63",
+              "modern-yabejp-ja-chapter06-exercise003-u64",
+              "modern-yabejp-ja-chapter06-exercise003-u65",
+              "modern-yabejp-ja-chapter06-exercise003-u66"
+            ],
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter06-exercise003:b0903",
+              "modern-yabejp-ja:chapter06-exercise003:b0904",
+              "modern-yabejp-ja:chapter06-exercise003:b0905",
+              "modern-yabejp-ja:chapter06-exercise003:b0906",
+              "modern-yabejp-ja:chapter06-exercise003:b0907",
+              "modern-yabejp-ja:chapter06-exercise003:b0908",
+              "modern-yabejp-ja:chapter06-exercise003:b0909",
+              "modern-yabejp-ja:chapter06-exercise003:b0910",
+              "modern-yabejp-ja:chapter06-exercise003:b0911",
+              "modern-yabejp-ja:chapter06-exercise003:b0912",
+              "modern-yabejp-ja:chapter06-exercise003:b0913",
+              "modern-yabejp-ja:chapter06-exercise003:b0914",
+              "modern-yabejp-ja:chapter06-exercise003:b0915",
+              "modern-yabejp-ja:chapter06-exercise003:b0916",
+              "modern-yabejp-ja:chapter06-exercise003:b0917",
+              "modern-yabejp-ja:chapter06-exercise003:b0918",
+              "modern-yabejp-ja:chapter06-exercise003:b0919",
+              "modern-yabejp-ja:chapter06-exercise003:b0920",
+              "modern-yabejp-ja:chapter06-exercise003:b0921",
+              "modern-yabejp-ja:chapter06-exercise003:b0922",
+              "modern-yabejp-ja:chapter06-exercise003:b0923",
+              "modern-yabejp-ja:chapter06-exercise003:b0924",
+              "modern-yabejp-ja:chapter06-exercise003:b0925",
+              "modern-yabejp-ja:chapter06-exercise003:b0926",
+              "modern-yabejp-ja:chapter06-exercise003:b0927",
+              "modern-yabejp-ja:chapter06-exercise003:b0928",
+              "modern-yabejp-ja:chapter06-exercise003:b0929",
+              "modern-yabejp-ja:chapter06-exercise003:b0930",
+              "modern-yabejp-ja:chapter06-exercise003:b0931",
+              "modern-yabejp-ja:chapter06-exercise003:b0932",
+              "modern-yabejp-ja:chapter06-exercise003:b0933",
+              "modern-yabejp-ja:chapter06-exercise003:b0934",
+              "modern-yabejp-ja:chapter06-exercise003:b0935",
+              "modern-yabejp-ja:chapter06-exercise003:b0936",
+              "modern-yabejp-ja:chapter06-exercise003:b0937",
+              "modern-yabejp-ja:chapter06-exercise003:b0938",
+              "modern-yabejp-ja:chapter06-exercise003:b0939",
+              "modern-yabejp-ja:chapter06-exercise003:b0940",
+              "modern-yabejp-ja:chapter06-exercise003:b0941",
+              "modern-yabejp-ja:chapter06-exercise003:b0942",
+              "modern-yabejp-ja:chapter06-exercise003:b0943",
+              "modern-yabejp-ja:chapter06-exercise003:b0944",
+              "modern-yabejp-ja:chapter06-exercise003:b0945",
+              "modern-yabejp-ja:chapter06-exercise003:b0946",
+              "modern-yabejp-ja:chapter06-exercise003:b0947",
+              "modern-yabejp-ja:chapter06-exercise003:b0948",
+              "modern-yabejp-ja:chapter06-exercise003:b0949",
+              "modern-yabejp-ja:chapter06-exercise003:b0950",
+              "modern-yabejp-ja:chapter06-exercise003:b0951",
+              "modern-yabejp-ja:chapter06-exercise003:b0952",
+              "modern-yabejp-ja:chapter06-exercise003:b0953",
+              "modern-yabejp-ja:chapter06-exercise003:b0954",
+              "modern-yabejp-ja:chapter06-exercise003:b0955",
+              "modern-yabejp-ja:chapter06-exercise003:b0956",
+              "modern-yabejp-ja:chapter06-exercise003:b0957",
+              "modern-yabejp-ja:chapter06-exercise003:b0958",
+              "modern-yabejp-ja:chapter06-exercise003:b0959",
+              "modern-yabejp-ja:chapter06-exercise003:b0960",
+              "modern-yabejp-ja:chapter06-exercise003:b0961",
+              "modern-yabejp-ja:chapter06-exercise003:b0962",
+              "modern-yabejp-ja:chapter06-exercise003:b0963",
+              "modern-yabejp-ja:chapter06-exercise003:b0964",
+              "modern-yabejp-ja:chapter06-exercise003:b0965",
+              "modern-yabejp-ja:chapter06-exercise003:b0966",
+              "modern-yabejp-ja:chapter06-exercise003:b0967",
+              "modern-yabejp-ja:chapter06-exercise003:b0968",
+              "modern-yabejp-ja:chapter06-exercise003:b0969",
+              "modern-yabejp-ja:chapter06-exercise003:b0970",
+              "modern-yabejp-ja:chapter06-exercise003:b0971",
+              "modern-yabejp-ja:chapter06-exercise003:b0972",
+              "modern-yabejp-ja:chapter06-exercise003:b0973",
+              "modern-yabejp-ja:chapter06-exercise003:b0974",
+              "modern-yabejp-ja:chapter06-exercise003:b0975",
+              "modern-yabejp-ja:chapter06-exercise003:b0976",
+              "modern-yabejp-ja:chapter06-exercise003:b0977",
+              "modern-yabejp-ja:chapter06-exercise003:b0978",
+              "modern-yabejp-ja:chapter06-exercise003:b0979",
+              "modern-yabejp-ja:chapter06-exercise003:b0980",
+              "modern-yabejp-ja:chapter06-exercise003:b0981",
+              "modern-yabejp-ja:chapter06-exercise003:b0982",
+              "modern-yabejp-ja:chapter06-exercise003:b0983",
+              "modern-yabejp-ja:chapter06-exercise003:b0984",
+              "modern-yabejp-ja:chapter06-exercise003:b0985",
+              "modern-yabejp-ja:chapter06-exercise003:b0986",
+              "modern-yabejp-ja:chapter06-exercise003:b0987",
+              "modern-yabejp-ja:chapter06-exercise003:b0988",
+              "modern-yabejp-ja:chapter06-exercise003:b0989",
+              "modern-yabejp-ja:chapter06-exercise003:b0990",
+              "modern-yabejp-ja:chapter06-exercise003:b0991",
+              "modern-yabejp-ja:chapter06-exercise003:b0992",
+              "modern-yabejp-ja:chapter06-exercise003:b0993",
+              "modern-yabejp-ja:chapter06-exercise003:b0994",
+              "modern-yabejp-ja:chapter06-exercise003:b0995",
+              "modern-yabejp-ja:chapter06-exercise003:b0996",
+              "modern-yabejp-ja:chapter06-exercise003:b0997",
+              "modern-yabejp-ja:chapter06-exercise003:b0998",
+              "modern-yabejp-ja:chapter06-exercise003:b0999",
+              "modern-yabejp-ja:chapter06-exercise003:b1000",
+              "modern-yabejp-ja:chapter06-exercise003:b1001",
+              "modern-yabejp-ja:chapter06-exercise003:b1002",
+              "modern-yabejp-ja:chapter06-exercise003:b1003",
+              "modern-yabejp-ja:chapter06-exercise003:b1004",
+              "modern-yabejp-ja:chapter06-exercise003:b1005",
+              "modern-yabejp-ja:chapter06-exercise003:b1006",
+              "modern-yabejp-ja:chapter06-exercise003:b1007",
+              "modern-yabejp-ja:chapter06-exercise003:b1008",
+              "modern-yabejp-ja:chapter06-exercise003:b1009",
+              "modern-yabejp-ja:chapter06-exercise003:b1010",
+              "modern-yabejp-ja:chapter06-exercise003:b1011",
+              "modern-yabejp-ja:chapter06-exercise003:b1012",
+              "modern-yabejp-ja:chapter06-exercise003:b1013",
+              "modern-yabejp-ja:chapter06-exercise003:b1014",
+              "modern-yabejp-ja:chapter06-exercise003:b1015",
+              "modern-yabejp-ja:chapter06-exercise003:b1016",
+              "modern-yabejp-ja:chapter06-exercise003:b1017",
+              "modern-yabejp-ja:chapter06-exercise003:b1018",
+              "modern-yabejp-ja:chapter06-exercise003:b1019",
+              "modern-yabejp-ja:chapter06-exercise003:b1020",
+              "modern-yabejp-ja:chapter06-exercise003:b1021"
+            ],
+            "contextSourceBlockIds": [
+              "modern-yabejp-ja:chapter06-exercise003:b0001",
+              "modern-yabejp-ja:chapter06-exercise003:b0002",
+              "modern-yabejp-ja:chapter06-exercise003:b0003",
+              "modern-yabejp-ja:chapter06-exercise003:b0004",
+              "modern-yabejp-ja:chapter06-exercise003:b0005",
+              "modern-yabejp-ja:chapter06-exercise003:b0006",
+              "modern-yabejp-ja:chapter06-exercise003:b0007",
+              "modern-yabejp-ja:chapter06-exercise003:b0008",
+              "modern-yabejp-ja:chapter06-exercise003:b0009"
+            ],
+            "sourceCharacters": 760,
+            "imageOccurrences": 156,
+            "sourceBlocks": 119,
+            "completeQuestionAnswers": true,
+            "completeHtmlTables": true,
+            "largeIntactCluster": false
+          }
+        },
+        "originalImageAssetIds": [
+          "modern-yabejp-ja:642ddd0dab75b2ca1f3ad744",
+          "modern-yabejp-ja:fdb2ccb08161e856627296f4",
+          "modern-yabejp-ja:66f4fc88f899af0258244da2",
+          "modern-yabejp-ja:e55f2661c108fb3854242c3f",
+          "modern-yabejp-ja:ddfc65a49b12ba9eaad31799",
+          "modern-yabejp-ja:283d95909f085c408e33545e",
+          "modern-yabejp-ja:4e968347146a35ff5443c3aa",
+          "modern-yabejp-ja:054fd32aab9471e32e860206",
+          "modern-yabejp-ja:6699bf75ba7f1eba39a76bd0",
+          "modern-yabejp-ja:cf903c27e3d6d79024397f25",
+          "modern-yabejp-ja:3226b6f2ab0bfc8693018476"
+        ]
+      },
+      "recordedAt": "2026-10-27T23:35:55.231Z"
+    },
+    "durationMs": 16502,
+    "modelReview": {
+      "textChecks": [
+        {
+          "id": "modern-yabejp-ja:chapter06-exercise003:b1017",
+          "verdict": "faithful",
+          "evidence": "原文因搭子过多且有三元役的可能而保留发，并以“ドラ”引出后续六索；译文对应为“搭子过多，又有三元役的可能，所以保留发，宝牌为”，意思和句中牌序一致。"
+        }
+      ],
+      "figureChecks": [],
+      "contextContinuity": {
+        "faithful": true,
+        "evidence": "该句接在切三筒的答案之后，随后依次引出宝牌六索和切二万的比较；译文保留了论证的连贯性。"
+      },
+      "issues": [],
+      "completeTargetScopeCompared": true,
+      "summary": "目标文本忠实于原文；本次没有目标牌图。"
+    },
+    "modelChecks": {
+      "passed": true,
+      "errors": []
+    }
+  },
+  "activeLegacyComplexIssues": [
+    {
+      "originalIssueSha256": "feed6d512d4fec8d15f46265c3473629c7553adb1adeff4fece490eadfac4acb",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "原图、放大图及源alt一致：12355789m34688s，摸5s。候选为12355789m36788s，摸5s。",
+        "description": "下方13张手牌中的4s、6s被依次错录为6s、7s。正确牌形切8s后听嵌7s；候选牌形会改变这一教学前提。",
+        "suggestedRepair": "将下方手牌完整改为1m 2m 3m 5m 5m 7m 8m 9m 3s 4s 6s 8s 8s；分开的摸入牌仍为5s。"
+      },
+      "currentCandidateStillHasOldFigure": true,
+      "donorDisposition": "donor-produced-and-independently-confirmed-hand",
+      "donor": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev2.json",
+        "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+        "bytes": 2147441
+      },
+      "maker": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\9f557ee3-0c5e-4b7e-9f17-013466f46aa3.json",
+        "sha256": "85787a240047dadad8ca2c39785027f7b6c8953b3d8abb6269a90b164c8f5b9e",
+        "bytes": 153117
+      },
+      "independentCheckpoint": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-007.json",
+        "sha256": "9fa518acb13dbdfac78129917d547b1ad38a7e54c53cd8938a83de66c0b9af85",
+        "bytes": 21564
+      },
+      "independentRaw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\51d6b447-2446-4afa-9c30-5d1d1b4dfcc5.json",
+        "sha256": "38527d316659248b36da9b0429a18d455c4aeb683b19cf3b9532d1df15932ec7",
+        "bytes": 316132
+      },
+      "appliesToCurrentOnlyAfterExactScopedAssembly": true,
+      "originalSeverityUnchanged": true
+    },
+    {
+      "originalIssueSha256": "20d6f61af624a83fef7882e3fd9da39449b16b4c92edff67f3fd9134fe66d085",
+      "originalIssue": {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "截图顶部及左右边缘的三列牌分别位于其他三家的手牌位置；中央翻开9s指示牌附近才是牌墙。",
+        "description": "候选将其他三家的隐手统称为牌墙，遗漏了隐手未知这一局面信息。",
+        "suggestedRepair": "区分三家背面或侧面朝向观者的隐手与中央牌墙，明确三家隐手牌面未知，不推定具体牌码。"
+      },
+      "currentCandidateStillHasOldFigure": true,
+      "donorDisposition": "donor-produced-and-independently-confirmed-hidden-hand-distinction",
+      "donor": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev2.json",
+        "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+        "bytes": 2147441
+      },
+      "maker": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\9f557ee3-0c5e-4b7e-9f17-013466f46aa3.json",
+        "sha256": "85787a240047dadad8ca2c39785027f7b6c8953b3d8abb6269a90b164c8f5b9e",
+        "bytes": 153117
+      },
+      "independentCheckpoint": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-007.json",
+        "sha256": "9fa518acb13dbdfac78129917d547b1ad38a7e54c53cd8938a83de66c0b9af85",
+        "bytes": 21564
+      },
+      "independentRaw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\51d6b447-2446-4afa-9c30-5d1d1b4dfcc5.json",
+        "sha256": "38527d316659248b36da9b0429a18d455c4aeb683b19cf3b9532d1df15932ec7",
+        "bytes": 316132
+      },
+      "appliesToCurrentOnlyAfterExactScopedAssembly": true,
+      "originalSeverityUnchanged": true
+    },
+    {
+      "originalIssueSha256": "d3c5278fc47e6d40b97380a3386e039632af2ad3b4eb806f7113e3ef708de019",
+      "originalIssue": {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "sourceEvidence": "候选unknowns仍列左河从上至下第4、6张及右河第1张万子点数未辨清；本次也未能可靠确认这三张的全部牌码。",
+        "description": "这三张属于公开河牌，并非源隐手；可能影响可见张数与等待判断，不能以完整转录通过。",
+        "suggestedRepair": "逐张确认这三张河牌并同步更新transcription及unknowns；确认前保留阻断状态，不臆填牌码。"
+      },
+      "currentCandidateStillHasOldFigure": true,
+      "donorDisposition": "honest-public-unknown-retained-with-positive-context-but-seat-error-still-open",
+      "donor": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev2.json",
+        "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+        "bytes": 2147441
+      },
+      "maker": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\9f557ee3-0c5e-4b7e-9f17-013466f46aa3.json",
+        "sha256": "85787a240047dadad8ca2c39785027f7b6c8953b3d8abb6269a90b164c8f5b9e",
+        "bytes": 153117
+      },
+      "independentCheckpoint": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-007.json",
+        "sha256": "9fa518acb13dbdfac78129917d547b1ad38a7e54c53cd8938a83de66c0b9af85",
+        "bytes": 21564
+      },
+      "independentRaw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\51d6b447-2446-4afa-9c30-5d1d1b4dfcc5.json",
+        "sha256": "38527d316659248b36da9b0429a18d455c4aeb683b19cf3b9532d1df15932ec7",
+        "bytes": 316132
+      },
+      "appliesToCurrentOnlyAfterExactScopedAssembly": true,
+      "originalSeverityUnchanged": true
+    }
+  ],
+  "effectiveLegacyBlockers": 3,
+  "sourceNoteCount": 2,
+  "nextOperationalRepair": "b0785 existing269→249 authorized 1maker+1audit; do not redispatch",
+  "countsWarning": "5为主分支尚未装配的原问题，非5个需要重新识字的任务。旧rev2已有独立证据；只在精确装配后解除当前对应项。",
+  "historicalCountsBeforeRecovery": {
+    "originalIssues": 19,
+    "resolved": 11,
+    "remainingBlocking": 6,
+    "sourceNotes": 2,
+    "originalDeferred": 16,
+    "effectiveDeferredResolved": 10,
+    "effectiveDeferredOpen": 6,
+    "newAggregateDeferred": 12,
+    "newAggregateDeferredResolved": 7,
+    "newAggregateDeferredOpen": 5,
+    "currentTargetErrorsOutsideDeferred": 1
+  },
+  "historicalDeferredBeforeRecovery": [
+    {
+      "batchId": "chapter06-exercise003-batch-001",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+      "severity": "uncertain",
+      "issueSha256": "ebc185ca1cdb9cbc960fa244aebb327c614eff2de9a32a2fdb4d40e005b8ffa3",
+      "reason": "outside the two exact authorized text targets; original finding retained",
+      "effectiveStatus": "resolved-by-existing-independent-supplement"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-003",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+      "severity": "error",
+      "issueSha256": "436b899a4562361e876abd0136d9f0c088c05b492e22fcea94b73467389a3886",
+      "reason": "outside the two exact authorized text targets; original finding retained",
+      "effectiveStatus": "resolved-by-existing-independent-supplement"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-003",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+      "severity": "error",
+      "issueSha256": "e64b38ad0f1b35a0ac42e77cf1ef7ffad33588f0a918885a180bed0798c7328d",
+      "reason": "outside the two exact authorized text targets; original finding retained",
+      "effectiveStatus": "resolved-by-existing-independent-supplement"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-003",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+      "severity": "error",
+      "issueSha256": "c0e2e07e9a0ec7f3e18a2eaac002025b3f3a82b50d42dfc335892dd0dc5bd880",
+      "reason": "outside the two exact authorized text targets; original finding retained",
+      "effectiveStatus": "resolved-by-existing-independent-supplement"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-005",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+      "severity": "error",
+      "issueSha256": "ef68b9277f648ef0096cf407ca8857af8c420ba28d2032aab215eea2540061e4",
+      "reason": "outside the two exact authorized text targets; original finding retained",
+      "effectiveStatus": "resolved-by-existing-independent-supplement"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-006",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+      "severity": "error",
+      "issueSha256": "99d6ea21d837d54dd3d9520de49feb7ef6c39a722257fac5088c2951738354cf",
+      "reason": "outside the two exact authorized text targets; original finding retained",
+      "effectiveStatus": "resolved-by-existing-independent-supplement"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "error",
+      "issueSha256": "feed6d512d4fec8d15f46265c3473629c7553adb1adeff4fece490eadfac4acb",
+      "reason": "outside the two exact authorized text targets; original finding retained",
+      "effectiveStatus": "open"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "error",
+      "issueSha256": "20d6f61af624a83fef7882e3fd9da39449b16b4c92edff67f3fd9134fe66d085",
+      "reason": "outside the two exact authorized text targets; original finding retained",
+      "effectiveStatus": "open"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-007",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "severity": "uncertain",
+      "issueSha256": "d3c5278fc47e6d40b97380a3386e039632af2ad3b4eb806f7113e3ef708de019",
+      "reason": "outside the two exact authorized text targets; original finding retained",
+      "effectiveStatus": "open"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-008",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+      "severity": "error",
+      "issueSha256": "6eefa362aa4eff0b8a6c01124327671789207b6fc7fa45d8a7f6a08f74953c54",
+      "reason": "outside the two exact authorized text targets; original finding retained",
+      "effectiveStatus": "resolved-by-existing-independent-supplement"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "severity": "error",
+      "issueSha256": "e6be649aaee9e4da2c0e399415841c68d7923ce7f186151584a2b7c346d2ae89",
+      "reason": "outside the two exact authorized text targets; original finding retained",
+      "effectiveStatus": "open"
+    },
+    {
+      "batchId": "chapter06-exercise003-batch-009",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "severity": "uncertain",
+      "issueSha256": "6cd3acb48f43e89ddeb0fb6401683764e4be22e446d99b8e8d47171339b8c21c",
+      "reason": "outside the two exact authorized text targets; original finding retained",
+      "effectiveStatus": "open"
+    }
+  ],
+  "historicalCountsBeforeB0947Composition": {
+    "originalIssues": 19,
+    "resolved": 12,
+    "remainingBlocking": 5,
+    "sourceNotes": 2,
+    "originalDeferred": 16,
+    "effectiveDeferredResolved": 11,
+    "effectiveDeferredOpen": 5,
+    "currentTargetErrorsOutsideDeferred": 0
+  }
+}
