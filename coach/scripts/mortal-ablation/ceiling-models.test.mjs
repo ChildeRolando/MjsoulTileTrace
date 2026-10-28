@@ -3,7 +3,7 @@ import {mkdtemp,readFile,writeFile,stat,utimes} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {claudeUsage,parseClaudeResult,verifyClaudeRuntime,DEEPSEEK_PREFIX} from './ceiling-claude.mjs';
+import {claudeUsage,parseClaudeResult,collectClaudeResponse,verifyClaudeRuntime,DEEPSEEK_PREFIX} from './ceiling-claude.mjs';
 import {MODEL_BUDGETS,STUDY_MODELS,MODEL_CONCURRENCY,allocateModelCases,assertModelPlan,studyCells,runModelJobs} from './ceiling-model-study.mjs';
 import {BudgetLedger,read} from './ceiling-protocol.mjs';
 import {runDecision} from './ceiling-run.mjs';
@@ -13,6 +13,17 @@ import {adjustModelComparisons,modelDecision} from './ceiling-model-report.mjs';
 const request={tools:[{type:'function',function:{name:'submit_decision',strict:true}}],maxOutputBytes:16384};
 const event={type:'result',subtype:'success',is_error:false,num_turns:1,result:JSON.stringify({call:{name:'submit_decision',arguments:{actionRef:'x'}},decisionSummary:'公开说明。'}),usage:{input_tokens:30,cache_read_input_tokens:20,cache_creation_input_tokens:10,output_tokens:4}};
 describe('bounded model-amendment transport and accounting',()=>{
+  it('consumes one complete API answer without a CLI formatting inference, and never repairs invalid answers',()=>{
+    const run=(content,stop='end_turn',complete=true)=>{const c=collectClaudeResponse(request);c.event({type:'message_start',message:{usage:event.usage}});for(const e of content)c.event(e);c.event({type:'message_delta',delta:{stop_reason:stop},usage:{output_tokens:4}});if(complete)c.event({type:'message_stop'});return c.finish();};
+    const text=[{type:'content_block_delta',delta:{type:'thinking_delta',thinking:'hidden canary'}},{type:'content_block_delta',delta:{type:'text_delta',text:event.result}}];
+    const ready=run(text);expect(ready.result.status).toBe('ready');expect(ready.result.usage.totalTokens).toBe(64);expect(JSON.stringify(ready.proof)).not.toContain('hidden canary');expect(ready.proof.acceptedResponseSource).toBe('first_model_response');
+    expect(run(text,'max_tokens').result.status).toBe('provider_error');expect(run(text,'end_turn',false).result.status).toBe('provider_error');
+    expect(run([{type:'content_block_delta',delta:{type:'text_delta',text:'prefix '+event.result}}]).result.status).toBe('provider_error');
+    const tool={type:'content_block_start',index:0,content_block:{type:'tool_use',name:'StructuredOutput',input:{}}};
+    const value={type:'content_block_delta',index:0,delta:{type:'input_json_delta',partial_json:event.result}};
+    expect(run([tool,value],'tool_use').result.status).toBe('ready');
+    expect(run([tool,value,{...tool,index:1}],'tool_use').result.failureCode).toBe('claude_multiple_submissions');
+  });
   it('accepts a timestamp-only runtime change while rejecting changed executable bytes',async()=>{
     const executable=join(await mkdtemp(join(tmpdir(),'ceiling-runtime-')),'runtime');await writeFile(executable,'first');
     const info=await stat(executable),runtime={executable,size:info.size,mtimeMs:info.mtimeMs,sha256:createHash('sha256').update('first').digest('hex')};
