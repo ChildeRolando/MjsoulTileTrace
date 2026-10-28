@@ -111,6 +111,8 @@ describe('real projected case request and resume',()=>{
     await runDecision({out,ledger,c,arm:'A',version:'V0',index,key:'failure-0',bucket:'smoke',providerFactory});
     expect(requests).toBe(3);expect(serviceFailureStreak(2,{status:'timeout'})).toBe(3);
     expect(serviceFailureStreak(2,{status:'submitted'})).toBe(0);
+    expect(serviceFailureStreak(2,{status:'provider_error',failureCode:'cli_unexpected_event'},false)).toBe(2);
+    expect(serviceFailureStreak(2,{status:'submitted'},false)).toBe(2);
   });
   it('cannot expose privileged canaries, performs one request, validates citations and never repeats it',async()=>{
     const fixture=JSON.parse(await readFile(new URL('./ceiling-case.fixture.json',import.meta.url),'utf8')),c={...fixture,gameId:'GAME_CANARY',privateLabels:{answer:'LABEL_CANARY'},actualAction:'ACTUAL_CANARY',future:'FUTURE_CANARY',binding:{secret:'BINDING_CANARY'}};

@@ -37,7 +37,10 @@ export function validateDecision(response,context){
   return valid.status==='valid'?{status:'submitted',attempt:{status:'submitted',submission:valid.submission}}:{status:'invalid_submission',attempt:{status:'invalid_submission'},reason:valid.reason};
 }
 
-export function serviceFailureStreak(previous,row){
+export function serviceFailureStreak(previous,row,freshRequest=true){
+  // Archived attempts are replayed for phase bookkeeping, never dispatched again.
+  // They must not re-trigger the circuit when service has recovered.
+  if(!freshRequest)return previous;
   // Provider diagnostic codes evolve. Unknown transport failures must also stop
   // dispatch; a code allowlist previously missed unexpected CLI event/item diagnostics.
   if(['provider_error','provider_unavailable','timeout'].includes(row.status))return previous+1;
@@ -177,8 +180,9 @@ export async function runPhase(out,phase){
             await writeOnce(join(out,'runs',key+'.json'),row);results.push(row);continue;
           }
         }
+        const previouslyClaimed=ledger.claims.has(key);
         const row=await runDecision({out,ledger,...j,index,key,bucket,override});results.push(row);
-        serviceFailures=serviceFailureStreak(serviceFailures,row);
+        serviceFailures=serviceFailureStreak(serviceFailures,row,!previouslyClaimed);
         if(serviceFailures>=3)throw Error('provider_service_unavailable_resume_unstarted_requests_after_recovery');
       }}catch(e){stop=true;throw e;}
     }));
