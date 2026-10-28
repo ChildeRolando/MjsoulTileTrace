@@ -2019,3 +2019,97 @@ This run made0 model/maker/review calls. Pair accounting is maker2+independent2=
 0retry, failed/void counted. Fees, remote weights and upstream execution totals remain unknown.
 Both wakeups are one-shot disabled and joined delivery is consumed; no recurring task is needed.
 224/232 and other owner tasks are untouched; formal active unchanged, issue remains in_progress.
+
+## Batch29 — zero-call closure preparation for311 and Nemata250
+
+Authorization comment `01a181e7-f366-7187-9a4d-4f0a70eaba7a` authorizes preparation only:
+**0 new paid calls,0 dispatches,0 maker-slot acquisitions,0 consumers**. No candidate, original
+raw/audit/source, human queue, shared selection, coverage or active pointer was changed.
+Ready packet: `artifacts/b29-311250-prep`, mirrored in the processing root under
+`integration/coac269-311250-zero-preparation-20261028/`. Run `python prepare.py --check`
+from its directory to rehash the233 immutable inputs and bounded artifact manifest. `preflight.mjs`
+is a read-only original-entry probe, not a dispatch script; neither accepts a production command.
+
+311 is `79-cn-chapter-311-18`, `79-bilibili-cn:cv1815400`. Current parent
+`5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97`, source
+`935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec`, audit
+`12f0f3a74c5261077907d0d9218bacf1177173c64a1e2c1ceeff9eed6729e77a`.
+Actual parent producer `52eacfe7-2da7-4fd0-a10d-a5d177950c3b`, independent
+`5b1284f6-dcf3-4a55-92fd-9ed2aa20b6d8`, both originalsol/high, remain bound to their real raw
+and unique ledger records. All225 source/candidate blocks and21 complete figures are supplied
+in order, with original assets, conditions, sourceSegments/tableContext and original modelReview.
+
+The actual review has seven uncertain issues, two error issues and one source-note, rather than
+37 independent faults (the older register counts repeated checker diagnostics). Small leaf drafts:
+b0156/b0158 rename “和牌时摸入率”“被摸入率” to “和牌时的自摸比例”“被自摸率” in transcription
+and existing unknown strings. b0154 only adds the explicit12-visible-card source limitation;
+its recorded12 tiles are unchanged and no13th tile may be guessed. Six charts b0122/0124/0126/
+0128/0130/0132 each lack two condition series at turns2/4/6/8/10/12/14 (84 points); b0156/0158
+each lack two self-draw series across turns1–15 (60 points). The144 point IDs, precise condition,
+marker, axes, unit, approximate-value requirement and original image bindings are enumerated.
+No new value was read or supplied. Existing other arrays stay verbatim; b0132's cross-marked
+unbound curve must not be assigned to either condition. Unreadable points remain unknown.
+Attachment-number sourceNotes are a separate nonblocking version note (original1–21,
+magnified22–42), not an excuse to rewrite figures. The old general revision gate was actually
+probed and rejected `web_revision_notes_scope`; a future fixed-tuple adapter is not yet declared
+or frozen for311, and109/167 or256 exceptions cannot be borrowed.
+
+Nemata250 uses PDF250–262. Eleven genuine, source-current passed candidates were individually
+verified through the frozen `verifyAuditForCandidate`, covering837 original source blocks.
+`reuse-pages.json` binds exact source/candidate/audit/raw for250–256,258–260 and262. They are
+reuse inputs only, never future review targets. PDF257 parent
+`6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88`, source
+`ca63823638f042d84419560d2618879b80972410d0e290f6b12c9860e19639a6`, audit
+`82b49d1750bc01c1c0bdee87ccd6190a78c7e0645fd7d738f802fb7b8b712144` remains uncertain.
+Actual producer `08715337-9169-4e72-a855-f8d71c32ba53` and independent
+`f860de79-0df7-40dd-a1a2-0fa4bdedecb5` are preserved. Human targets are exactly CPU-result
+upper river1/6/17, left16, right1/2/7/13/14; four existing queue IDs cover these nine positions.
+Exact tile/red-state answers must bind original images and human events. Concealed hands,
+unflipped indicators and unmarked call origin remain unknown. No repeat paid OCR is proposed.
+
+PDF261 current parent `376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359`,
+source `6cdfa8cefcbd8e38f618da86d9adc5ba5796f1c6f40fcb4729c0ceee4a3200a6`, audit
+`4ab382b1a427ca266b8aa8148eed21800be971534627f69c04379e8f83e41b06`. It is an explicitly
+declared deterministic b4 correction from parentb63d2c60, **0 new production calls**; its carried
+producer is the original `67bf982c-f150-415d-9ab4-3c8abe106f19`. Current independent
+`a78f22ab-f417-4382-bc8d-cdd4f9e6f65f` flags r50/sourceb92 as5m, affecting b33/Q17. The exact
+conditional draft changes only r50.transcription/caption, its inline figure text, and the derived
+body text's one “若摸入3m” occurrence; all other content, including the already corrected b4
+“5p和7p”, stays identical. The rawSlotText keeps its figure placeholder. Old b4 review
+`e3563cdf-8750-4458-b568-a3dfd6315153` is historical, not a new repair target.
+
+Conflicting genuine evidence is explicitly retained: historical independent source adjudication
+`91507699-61d3-496d-9481-de5f38e8418c` reports3m (sol/high,11360 input/0 cache/191 output,
+39548ms). The original frozen verifier currently returns `passed-after-source-adjudication`,
+not ordinarypassed; this observation does not override the latest5m instruction or authorize
+applying a new candidate. Existing human queue ID `84791e37a95dcfa295e38dbf27855039` asks for
+the exact r50/b92 tile and red state, original asset
+`f502bc2382ccc4076a54928cec3588aa60096ff42b7f221abba1e074ad7045a9`. No relevant answer was
+present at this snapshot. Keep both raw conclusions, await the precise human answer without
+another model vote, and apply only a legally bound leaf correction after future authorization.
+
+The packet contains full ordered15/93-source-block PDF contexts, complete current visual body,
+figures/image coverage, neighboring pages for context only, all original issues and minimal leaf
+whitelists. `human-targets.json` maps the five existing queue items and optional chart point
+evidence; b0154's unseen13th tile is explicitly not a human guessing task. The live queue/events
+were only observed, not edited. Current queue labels do not replace canonical/source identities.
+
+Proposed future calls, **not budget granted by this phase**:311 one bounded maker plus one249
+combined target/impact review;261 one exact repair plus one249 Q17 target review after human
+binding;257 zero while answers are missing, then prefer an existing lawful deterministic human
+import plus one249 target/impact review, otherwise propose one maker plus one review. Every
+actual new SHA needs its own bounded independent request. New budget, current dedup/claims,
+fixed tuple admission, negative tests and actual prompt/schema/image equality must all be ready
+before dispatch. Vision uses244 schema-v2 terra/max. Normal independent queue remains untouched;
+maker-B is free while human annotation proceeds.
+
+Validation:233 immutable SHA references (including the30-file frozen verifier and manifest) and original unique call ledgers passed; original311
+production/presentations/deterministic checks and actual independent request projection/schema
+passed; eleven passed PDF entries replayed. Actual257 refusal is `audit_checks_not_passed`.
+Eleven preparation negative checks plus six in-memory exact-draft mutation checks passed,
+rejecting dispatch/budget/slot escalation, model substitution, re-review of837 blocks, loss of
+historical evidence, inferred hidden hands, ambiguous-curve assignment and non-target punctuation/
+unknown/image-order edits. Python AST/Node syntax and artifact SHA checks passed; longest real
+Windows path214, strict limit240. No draft was saved as a candidate or endowed with provenance.
+All historical calls, including adjudication and zero-call b4 derivation, are separately recorded
+in `call-account.json`; money/upstream execution count unknown. Wider ticket remains in_progress.

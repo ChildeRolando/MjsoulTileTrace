@@ -1,0 +1,37 @@
+{
+  "candidateWritten": false,
+  "exactDraftsApplyInMemory": true,
+  "negativeChecks": [
+    {
+      "scope": "311",
+      "name": "non-target-punctuation",
+      "rejected": true
+    },
+    {
+      "scope": "311",
+      "name": "unknown-removed",
+      "rejected": true
+    },
+    {
+      "scope": "311",
+      "name": "image-reordered",
+      "rejected": true
+    },
+    {
+      "scope": "261",
+      "name": "non-target-punctuation",
+      "rejected": true
+    },
+    {
+      "scope": "261",
+      "name": "unknown-removed",
+      "rejected": true
+    },
+    {
+      "scope": "261",
+      "name": "image-reordered",
+      "rejected": true
+    }
+  ],
+  "conditionalCurvesNotFilled": true
+}

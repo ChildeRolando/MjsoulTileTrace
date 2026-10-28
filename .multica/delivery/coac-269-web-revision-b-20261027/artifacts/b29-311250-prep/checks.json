@@ -1,0 +1,91 @@
+{
+  "passed": true,
+  "negativeChecks": [
+    {
+      "name": "dispatch",
+      "rejected": true
+    },
+    {
+      "name": "paid-budget",
+      "rejected": true
+    },
+    {
+      "name": "slot-hold",
+      "rejected": true
+    },
+    {
+      "name": "replace-provider-model",
+      "rejected": true
+    },
+    {
+      "name": "re-audit837",
+      "rejected": true
+    },
+    {
+      "name": "redo-solved-b4",
+      "rejected": true
+    },
+    {
+      "name": "ignore-conflicting-evidence",
+      "rejected": true
+    },
+    {
+      "name": "auto-decide-r50",
+      "rejected": true
+    },
+    {
+      "name": "infer-hidden-hand",
+      "rejected": true
+    },
+    {
+      "name": "assign-ambiguous-curve",
+      "rejected": true
+    },
+    {
+      "name": "rewrite-body",
+      "rejected": true
+    }
+  ],
+  "exactDraftMutationChecks": [
+    {
+      "scope": "311",
+      "name": "non-target-punctuation",
+      "rejected": true
+    },
+    {
+      "scope": "311",
+      "name": "unknown-removed",
+      "rejected": true
+    },
+    {
+      "scope": "311",
+      "name": "image-reordered",
+      "rejected": true
+    },
+    {
+      "scope": "261",
+      "name": "non-target-punctuation",
+      "rejected": true
+    },
+    {
+      "scope": "261",
+      "name": "unknown-removed",
+      "rejected": true
+    },
+    {
+      "scope": "261",
+      "name": "image-reordered",
+      "rejected": true
+    }
+  ],
+  "newModelCalls": 0,
+  "sourceAndParentPinsVerified": true,
+  "rawAndUniqueLedgerVerified": true,
+  "humanEventsAtObservation": 0,
+  "immutableInputsRehashed": 233,
+  "reusePages": 11,
+  "reuseSourceBlocks": 837,
+  "wholeChapterPassed": false,
+  "candidateCreated": false,
+  "slotsAcquired": 0
+}

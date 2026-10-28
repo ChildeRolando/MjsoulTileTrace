@@ -1,0 +1,41 @@
+{
+  "observedAt": "2026-10-28T09:56:15.8354870Z",
+  "activeRuns": [
+    {
+      "issueId": "01a17cae-06e4-7b30-a93f-3a030d1ae63f",
+      "id": "01a181ef-e745-77d8-b1b7-21c0c4518057",
+      "status": "queued",
+      "startedAt": null,
+      "evidence": {
+        "kind": "issue_wakeup",
+        "ref_id": "01a181ee-9a39-7613-8982-fea51ee3e4af"
+      },
+      "mentionsCurrentTargets": false
+    },
+    {
+      "issueId": "01a17cae-06e4-7b30-a93f-3a030d1ae63f",
+      "id": "01a181e7-f378-7341-8f00-cca689f19d65",
+      "status": "running",
+      "startedAt": "2026-10-28T09:48:26Z",
+      "evidence": {
+        "kind": "comment",
+        "ref_id": "01a181e7-f366-7187-9a4d-4f0a70eaba7a"
+      },
+      "mentionsCurrentTargets": false
+    },
+    {
+      "issueId": "01a17471-1595-79d5-bdfa-6feaa65172c0",
+      "id": "01a181d3-5d72-7c7c-baa2-a2c2cdc48b56",
+      "status": "running",
+      "startedAt": "2026-10-28T09:37:22Z",
+      "evidence": {
+        "kind": "issue_wakeup",
+        "ref_id": "01a181d2-0a69-7ef7-bce4-1e63e79c80f3"
+      },
+      "mentionsCurrentTargets": false
+    }
+  ],
+  "newConsumersStarted": 0,
+  "claimsAcquired": 0,
+  "normalIndependentQueueNotChanged": true
+}
