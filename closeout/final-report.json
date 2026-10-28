@@ -1,0 +1,255 @@
+{
+  "schema": "coac244-textbook-project-closeout/1",
+  "at": "2026-10-28T18:42:05.385515+00:00",
+  "authorizationComment": "01a183b6-080b-7e99-8697-bbd245566e5a",
+  "release": {
+    "releaseRun": "01a183b2-ff4e-7eee-a546-667fda1dfd34",
+    "completedAt": "2026-10-28T18:33:48Z",
+    "releaseCommit": "e8ecec1a93bc4ecd273a813c18e54fce3873da29",
+    "finalPath": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/final.json",
+    "finalSha256": "4ea0e0d6a18001e008312ffe0be0529b19b3030d8bd67d97cbf88ccde1c9a94f",
+    "after": {
+      "formalRoot": "E:/AgentData/Coach/knowledge/review",
+      "version": 43,
+      "corpusId": "bd7a83525edb8cb69f27d8aa050dcb010047f79ae318748bdbe448d5b797836d",
+      "corpusSha256": "bbbb34f83033081e80752a45aca9575e08ebea6d79d2b44869416105090982d4",
+      "htmlSha256": "f59bed9ed30b739bf7ea231b1150b177141d1066d2ca7db8b3762dd21b4b165d",
+      "originalScope": {
+        "originalChaptersCovered": 256,
+        "originalChaptersTotal": 256,
+        "originalUnitsCovered": 303,
+        "originalUnitsTotal": 303,
+        "originalSourcePositions": 21212,
+        "remainingChapterIds": [],
+        "sourceRouteMap": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-p250-final-20261029/book-map.json",
+          "sha256": "9a6177417e270a416d8e6b4b203a7dcf195e4d7769bf9505854f53e08c3284a1"
+        },
+        "sourceVersionVerbatimEqualityClaimed": false
+      },
+      "display": {
+        "chapters": 258,
+        "units": 266,
+        "blocks": 8274,
+        "figures": 6288
+      },
+      "consumerConfig": {
+        "path": "E:/AgentData/Coach/knowledge/review/mcp-config.json",
+        "sha256": "0929c4e9e2c6b8a89ba881aab90360b56b4bea77be1f4e5929b22296e7c9dcc8"
+      }
+    },
+    "before": {
+      "formalRoot": "E:/AgentData/Coach/knowledge/review",
+      "corpusId": "3f44d5dcaf8dfadf64dc0225e40e5f97773da659bf4a6cc3ba18569c642b6129",
+      "units": 13,
+      "figures": 33,
+      "baseline": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/before.json",
+        "sha256": "9de5bcdb7c374e3b7b1e746291b3c1888dfa9b6c5ad33a4e2a959f5e57feaa47"
+      }
+    },
+    "rollback": {
+      "command": "node E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/code/rollback.mjs",
+      "baseline": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/before.json",
+      "originalBytesAndMissingFileStatePreserved": true
+    }
+  },
+  "releaseRun": {
+    "id": "01a183b2-ff4e-7eee-a546-667fda1dfd34",
+    "status": "completed",
+    "started_at": "2026-10-28T18:08:42Z",
+    "completed_at": "2026-10-28T18:33:48Z",
+    "error": null
+  },
+  "cleanup": {
+    "categories": {
+      "recycle-cache-receipts.jsonl": {
+        "items": 252,
+        "recycled": 252,
+        "logicalBytes": 11170881861
+      },
+      "recycle-claims-receipts.jsonl": {
+        "items": 13,
+        "recycled": 13,
+        "logicalBytes": 3753
+      },
+      "recycle-preview-receipts.jsonl": {
+        "items": 37,
+        "recycled": 37,
+        "logicalBytes": 1129091390
+      },
+      "recycle-temporary-receipts.jsonl": {
+        "items": 21,
+        "recycled": 21,
+        "logicalBytes": 1121160.0
+      }
+    },
+    "items": 323,
+    "logicalBytes": 12301098164.0,
+    "recycleBinRecoverabilityVerified": true,
+    "diskSpaceReleasedClaimed": false,
+    "manuallyRemovedGitWorktrees": 0,
+    "platformAutomaticallyRemovedCompleted250Worktree": true,
+    "remoteBranchesDeleted": 0,
+    "permanentDeletes": 0,
+    "newLargeArchives": 0
+  },
+  "preserved": {
+    "currentReferenceFilesStillPresent": 12205,
+    "protectedLibraryAndHumanFilesByteUnchanged": 17,
+    "sourceOriginalsRawAuditHistoryAndHumanEventsUnmodified": true,
+    "retainedInventory": "retained-inventory.json",
+    "historicalPreviewsWithAssetDirectoriesRetained": 42,
+    "legacyDirtyCodeTree": "E:/AgentWorkspaces/Coach/mortal-rag-ablation",
+    "legacyDirtyOrUntrackedEntries": 26,
+    "legacyIgnoredEntries": 7580,
+    "legacyUncommittedPatch": "legacy-uncommitted.patch",
+    "scopeExclusions": [
+      "Review Loop",
+      "Other Coach business",
+      "Other user projects",
+      "Unknown ownership",
+      "Platform task/issue history"
+    ]
+  },
+  "postCleanup": {
+    "http": [
+      {
+        "url": "http://127.0.0.1:8765/",
+        "status": 200,
+        "bytes": 4939,
+        "sha256": "e4841d4d7e21436ba5c996b42c2726874d00ef10e3244df19e734cc8a6086d0d"
+      },
+      {
+        "url": "http://127.0.0.1:8765/api/export",
+        "status": 200,
+        "bytes": 692747,
+        "sha256": "ed47bfa48dd358fd69c23b80c97fa9b8d666a6ff8ade891911634314baabb2b4"
+      },
+      {
+        "url": "http://127.0.0.1:8766/knowledge.html",
+        "status": 200,
+        "bytes": 6182657,
+        "sha256": "f59bed9ed30b739bf7ea231b1150b177141d1066d2ca7db8b3762dd21b4b165d"
+      },
+      {
+        "url": "http://127.0.0.1:8767/knowledge.html",
+        "status": 200,
+        "bytes": 6182657,
+        "sha256": "f59bed9ed30b739bf7ea231b1150b177141d1066d2ca7db8b3762dd21b4b165d"
+      }
+    ],
+    "realMcp": {
+      "units": 266,
+      "figures": 6288,
+      "corpusId": "bd7a83525edb8cb69f27d8aa050dcb010047f79ae318748bdbe448d5b797836d",
+      "requiredScopes": {
+        "jp232FourNotesAnd9m3s": true,
+        "p257SixNotesAndTwoOriginalLinks": true,
+        "p261ThreeM": true,
+        "cn311CurvesAndHandALimits": true,
+        "separatorGroups": 772
+      }
+    },
+    "arena": {
+      "units": 266,
+      "localVerificationPassed": true,
+      "evidence": "post-consumer/arena-validation.json"
+    },
+    "services": [
+      {
+        "LocalAddress": "127.0.0.1",
+        "LocalPort": 8767,
+        "OwningProcess": 63672
+      },
+      {
+        "LocalAddress": "127.0.0.1",
+        "LocalPort": 8766,
+        "OwningProcess": 43868
+      },
+      {
+        "LocalAddress": "127.0.0.1",
+        "LocalPort": 8765,
+        "OwningProcess": 49724
+      }
+    ],
+    "allSourceBindingsStillExist": true
+  },
+  "issues": [
+    {
+      "identifier": "COAC-245",
+      "id": "01a1746f-3d87-7380-bd01-d29c376ea76d",
+      "status": "cancelled"
+    },
+    {
+      "identifier": "COAC-246",
+      "id": "01a17470-e3bb-7b84-acfe-690c8ef8cbdc",
+      "status": "done"
+    },
+    {
+      "identifier": "COAC-247",
+      "id": "01a17470-f3c6-7b93-a3ca-77d47c11a8cf",
+      "status": "done"
+    },
+    {
+      "identifier": "COAC-248",
+      "id": "01a17471-0529-7d3d-bd8d-8b54ef38290d",
+      "status": "done"
+    },
+    {
+      "identifier": "COAC-249",
+      "id": "01a17471-1595-79d5-bdfa-6feaa65172c0",
+      "status": "done"
+    },
+    {
+      "identifier": "COAC-250",
+      "id": "01a17471-25e6-7731-a529-3df99acf3d42",
+      "status": "done"
+    },
+    {
+      "identifier": "COAC-258",
+      "id": "01a17824-1bb2-7d5a-8619-7834f96b76c2",
+      "status": "done"
+    },
+    {
+      "identifier": "COAC-269",
+      "id": "01a17cae-06e4-7b30-a93f-3a030d1ae63f",
+      "status": "done"
+    },
+    {
+      "identifier": "COAC-270",
+      "id": "01a181ce-18cb-736c-8f4f-58bf04465e2e",
+      "status": "done"
+    }
+  ],
+  "wakeupSummary": {
+    "enabled": 0,
+    "rules": 38,
+    "historicalRecordsRetainedOnPlatform": true
+  },
+  "residual": {
+    "blockingCleanupErrors": [],
+    "retainedByDesign": [
+      "Current cleanup worktree until run exit; branch is preserved in Git",
+      "Legacy dirty dependency code tree and all unique untracked/ignored files",
+      "Source/raw/candidate/runtime evidence",
+      "Current preview and exact-bound older preview/stage dependencies",
+      "Both human annotation batches/history and running local services"
+    ],
+    "acceptedConsumerLockAbsent": true,
+    "makerSlotCount": 0,
+    "chapterClaimCount": 0,
+    "productionLaneLockFile": "Persistent empty lock inode retained, not a running owner",
+    "historicallyNamedStaleDriverLock": "Retained historical stale-20261025 record; not an active lock",
+    "running": {
+      "task_id": "01a183b6-0829-7037-806a-3e7a6961844a",
+      "issue_identifier": "COAC-244",
+      "status": "running"
+    }
+  },
+  "newModelCalls": 0,
+  "textbookChanges": 0,
+  "reviewLoopChanges": 0,
+  "prApprovalActions": 0,
+  "persistentMetadata": "E:/AgentData/Coach/knowledge/processing/integration/coac244-project-closeout-20261029"
+}

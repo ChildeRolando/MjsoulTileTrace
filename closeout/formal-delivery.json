@@ -1,0 +1,40 @@
+[
+  {
+    "author_id": "19bc279c-5832-46ce-b738-9f11c08fddc5",
+    "author_type": "member",
+    "content": "用户已检视并明确授权：『可以了，切换正式库』（2026-10-28 18:07:54 UTC，Sentinel_4568d78aee988191b2e52c72f24401cf）。请作为唯一集成写者执行正式 active 切换到已验收 v43，并包含用户刚确认的分隔符显示修复 commit45d78562，原整书验收commit2133c68c。先验证当前实际 active、v43预览和代码/语料 SHA，保存原正式指针及可靠回滚点，再通过既有发布流程原子切换；不要凭历史猜旧正式版本。保持所有人工标注、原图、来源映射、校注/未知和原始审计证据不变，零新增模型调用、不重跑编校、不扩展生产推理/Mortal/RAG功能。此授权为教材正式库切换，不包括任何 GitHub PR approve。切换后从正式消费者而非仅8766预览验证：256/256原章303/303原单元、全文与图片、232四注/9m与3s、257六注及两原图链接/20人标、261 3m、311曲线与手牌A限制、772处分隔符显示修复及重建持久性，MCP/Arena正式读取端实际指向v43。若验证失败按保留指针回滚并报告，不伪报上线。返回切换前后正式指针/版本、验证结果、正式用户阅读入口（若没有独立入口说明清楚）、回滚方式以及提交/运行证据。正常释放写锁。",
+    "created_at": "2026-10-28T18:08:28Z",
+    "id": "01a183b2-ff41-7c65-ae8d-5f588217e992",
+    "revision": 1,
+    "type": "comment"
+  },
+  {
+    "attachments": [
+      {
+        "chat_message_id": null,
+        "chat_session_id": null,
+        "comment_id": "01a183c9-c0f7-75cb-b6c2-b1edce6fc0cd",
+        "content_type": "application/zip",
+        "created_at": "2026-10-28T18:33:19Z",
+        "download_url": "/api/attachments/01a183c9-bfec-728f-8576-c501625add91/download",
+        "filename": "formal-v43-activation.zip",
+        "id": "01a183c9-bfec-728f-8576-c501625add91",
+        "issue_id": "01a17471-25e6-7731-a529-3df99acf3d42",
+        "markdown_url": "https://multica.ai/api/attachments/01a183c9-bfec-728f-8576-c501625add91/download",
+        "size_bytes": 436926,
+        "uploader_id": "b144c077-cadd-4749-a53d-4b9cb98191b8",
+        "uploader_type": "agent",
+        "url": "https://static.multica.ai/workspaces/c68413ed-69a0-4781-b155-2123e9a3b805/01a183c9-bfec-728f-8576-c501625add91.zip",
+        "workspace_id": "c68413ed-69a0-4781-b155-2123e9a3b805"
+      }
+    ],
+    "author_id": "b144c077-cadd-4749-a53d-4b9cb98191b8",
+    "author_type": "agent",
+    "content": "**已切换正式教材库：[正式阅读入口](http://127.0.0.1:8767/knowledge.html)**。8767实际服务 `knowledge/review`；8766预览保持原样。\n\n正式MCP配置的目录参数仍为 `E:/AgentData/Coach/knowledge/review`，没有另造active指针。已通过既有发布日志/原子文件替换流程完成一次发布：\n\n- 切换前实测：四章、13单元、33图，corpus `3f44d5dcaf8dfadf64dc0225e40e5f97773da659bf4a6cc3ba18569c642b6129`。\n- 切换后：**v43**，corpus `bd7a83525edb8cb69f27d8aa050dcb010047f79ae318748bdbe448d5b797836d`；**256/256原章、303/303原单元**，21212原来源位置映射齐备。展示258章、266单元、8274块、6288图。\n\n**正式端验证通过：**从原正式MCP配置启动真实消费者，逐页全文及6288图字节核对一致；Arena正式读取的全文、分页、完整读取后才准引用和navigation引用隔离通过。232四注/9m与3s、257六注/两原图链接/20人标既有应用、261的3m、311曲线与手牌A限制均保留。真实浏览器从8767核验重点锚点，772处分隔符修复仍生效。切换后又从固定SHA输入重建，语料与HTML字节精确恢复，含三个既有链接hook及分隔符处理。\n\n原unknown、校注、人工标注、原始审计/raw和原false/uncertain未改；不是把限定证据改成普通全章模型passed。新增模型/制作/编校调用 **0**，未扩展生产推理/Mortal/RAG，**未执行GitHub PR approve**。\n\n旧正式清单、配置、原文件存在状态及完整读者资源已归档。回滚命令会核对当前仍为本次v43、取得同一写锁，再恢复实测旧版本：\n\n```powershell\nnode E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/code/rollback.mjs\n```\n\n本次验证全部通过，未触发回滚；两项新增回滚测试通过，写锁已正常释放。固定输入重建命令、逐文件SHA及正式MCP/Arena/浏览器记录见附件和共享 `integration/coac250-formal-v43-20261029/final.json`。提交 **`e8ecec1a`**，沿用已验收 `2133c68c` 与分隔符修复 `45d78562`，本票交付后转in_review。\n\n正式阅读服务仅监听127.0.0.1，PID **63672**；无守护器，尽力保持。日志为该共享目录的 `reader.restart.stdout.log`、`reader.restart.stderr.log`。停止前核对PID命令为本次 `python http.server 8767`，再执行 `Stop-Process -Id 63672`。附件仅代码、SHA与验证摘要，不含教材全文、图片或完整raw。",
+    "created_at": "2026-10-28T18:33:19Z",
+    "id": "01a183c9-c0f7-75cb-b6c2-b1edce6fc0cd",
+    "parent_id": "01a183b2-ff41-7c65-ae8d-5f588217e992",
+    "revision": 1,
+    "type": "comment"
+  }
+]

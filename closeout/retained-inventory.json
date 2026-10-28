@@ -1,0 +1,77 @@
+[
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\review",
+    "reason": "Formal active v43, complete assets and previous formal assets needed for rollback; serving8767/MCP/Arena.",
+    "bytes": 195111104,
+    "files": 6331,
+    "links": [],
+    "errors": []
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\human-annotations",
+    "reason": "Both user annotation batches, latest queue and complete event history; serving8765.",
+    "bytes": 3645249,
+    "files": 10,
+    "links": [],
+    "errors": []
+  },
+  {
+    "path": "E:\\CoachLabel",
+    "reason": "Durable human annotation server code; running PID49724.",
+    "bytes": 14000538,
+    "files": 80,
+    "links": [],
+    "errors": []
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\textbook-source-inspection",
+    "reason": "Original textbooks; never a cleanup candidate.",
+    "bytes": 162532277,
+    "files": 23,
+    "links": [],
+    "errors": []
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-28T16-50-25-203Z",
+    "reason": "Current v43 preview, serving8766; exact current evidence and assets.",
+    "bytes": 236349830,
+    "files": 6647,
+    "links": [],
+    "errors": []
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-formal-v43-20261029",
+    "reason": "Current release inputs/build code, former formal byte/presence baseline and all formal consumer proofs.",
+    "bytes": 486845142,
+    "files": 12879,
+    "links": [],
+    "errors": []
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-ascii-divider-layout-20261029",
+    "reason": "Current separator repair module required by exact release rebuild.",
+    "bytes": 76114898,
+    "files": 72,
+    "links": [
+      "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-ascii-divider-layout-20261029\\rebuild\\assets"
+    ],
+    "errors": []
+  },
+  {
+    "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation",
+    "reason": "Legacy code/dependency worktree used by formal MCP config/build modules; uncommitted changes and unique files retained.",
+    "bytes": 123557858,
+    "files": 7437,
+    "links": [
+      "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\node_modules\\@riichi-coach\\contracts",
+      "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\node_modules\\@riichi-coach\\desktop",
+      "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\node_modules\\@riichi-coach\\mahjong-soul-source",
+      "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\node_modules\\@riichi-coach\\mortal-runtime",
+      "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\node_modules\\@riichi-coach\\mortal-source",
+      "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\node_modules\\@riichi-coach\\question-lab",
+      "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\node_modules\\@riichi-coach\\reasoning",
+      "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\node_modules\\@riichi-coach\\tenhou-source"
+    ],
+    "errors": []
+  }
+]

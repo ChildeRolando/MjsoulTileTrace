@@ -1,0 +1,52 @@
+{
+  "releaseRun": "01a183b2-ff4e-7eee-a546-667fda1dfd34",
+  "completedAt": "2026-10-28T18:33:48Z",
+  "releaseCommit": "e8ecec1a93bc4ecd273a813c18e54fce3873da29",
+  "finalPath": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/final.json",
+  "finalSha256": "4ea0e0d6a18001e008312ffe0be0529b19b3030d8bd67d97cbf88ccde1c9a94f",
+  "after": {
+    "formalRoot": "E:/AgentData/Coach/knowledge/review",
+    "version": 43,
+    "corpusId": "bd7a83525edb8cb69f27d8aa050dcb010047f79ae318748bdbe448d5b797836d",
+    "corpusSha256": "bbbb34f83033081e80752a45aca9575e08ebea6d79d2b44869416105090982d4",
+    "htmlSha256": "f59bed9ed30b739bf7ea231b1150b177141d1066d2ca7db8b3762dd21b4b165d",
+    "originalScope": {
+      "originalChaptersCovered": 256,
+      "originalChaptersTotal": 256,
+      "originalUnitsCovered": 303,
+      "originalUnitsTotal": 303,
+      "originalSourcePositions": 21212,
+      "remainingChapterIds": [],
+      "sourceRouteMap": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-p250-final-20261029/book-map.json",
+        "sha256": "9a6177417e270a416d8e6b4b203a7dcf195e4d7769bf9505854f53e08c3284a1"
+      },
+      "sourceVersionVerbatimEqualityClaimed": false
+    },
+    "display": {
+      "chapters": 258,
+      "units": 266,
+      "blocks": 8274,
+      "figures": 6288
+    },
+    "consumerConfig": {
+      "path": "E:/AgentData/Coach/knowledge/review/mcp-config.json",
+      "sha256": "0929c4e9e2c6b8a89ba881aab90360b56b4bea77be1f4e5929b22296e7c9dcc8"
+    }
+  },
+  "before": {
+    "formalRoot": "E:/AgentData/Coach/knowledge/review",
+    "corpusId": "3f44d5dcaf8dfadf64dc0225e40e5f97773da659bf4a6cc3ba18569c642b6129",
+    "units": 13,
+    "figures": 33,
+    "baseline": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/before.json",
+      "sha256": "9de5bcdb7c374e3b7b1e746291b3c1888dfa9b6c5ad33a4e2a959f5e57feaa47"
+    }
+  },
+  "rollback": {
+    "command": "node E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/code/rollback.mjs",
+    "baseline": "E:/AgentData/Coach/knowledge/processing/integration/coac250-formal-v43-20261029/before.json",
+    "originalBytesAndMissingFileStatePreserved": true
+  }
+}

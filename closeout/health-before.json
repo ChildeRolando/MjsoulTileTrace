@@ -1,0 +1,101 @@
+{
+  "at": "2026-10-28T18:23:56.071592+00:00",
+  "phase": "before",
+  "files": {
+    "E:\\AgentData\\Coach\\knowledge\\human-annotations\\events.jsonl": {
+      "sha256": "136050642e5b68273f4751d2ccc3fd2f90d81a7f037e4f0f3f416477f5f56015",
+      "bytes": 237609
+    },
+    "E:\\AgentData\\Coach\\knowledge\\human-annotations\\queue.json": {
+      "sha256": "5a315a1720fa54d8fa25b1a894423f5060055c3e0f2370b63312ec8b0af8e00c",
+      "bytes": 522840
+    },
+    "E:\\AgentData\\Coach\\knowledge\\human-annotations\\backups\\events.before-exact-reviews-4c6cd981c755b2bf136ec89c9f9535fc4e2aee67d8c5fe1a66c00d14a5c2a503.jsonl": {
+      "sha256": "4c6cd981c755b2bf136ec89c9f9535fc4e2aee67d8c5fe1a66c00d14a5c2a503",
+      "bytes": 65826
+    },
+    "E:\\AgentData\\Coach\\knowledge\\human-annotations\\queues\\26d1ad2828810247e75ae86306c3cc5c718a2f38037b7f548f82d0c72d47f29a.json": {
+      "sha256": "26d1ad2828810247e75ae86306c3cc5c718a2f38037b7f548f82d0c72d47f29a",
+      "bytes": 439123
+    },
+    "E:\\AgentData\\Coach\\knowledge\\human-annotations\\queues\\3c4a7311ddfccddbc062b69d07a2af5f1660e712bd79ba965f079bc53ef6c63c.json": {
+      "sha256": "3c4a7311ddfccddbc062b69d07a2af5f1660e712bd79ba965f079bc53ef6c63c",
+      "bytes": 466937
+    },
+    "E:\\AgentData\\Coach\\knowledge\\human-annotations\\queues\\5a315a1720fa54d8fa25b1a894423f5060055c3e0f2370b63312ec8b0af8e00c.json": {
+      "sha256": "5a315a1720fa54d8fa25b1a894423f5060055c3e0f2370b63312ec8b0af8e00c",
+      "bytes": 522840
+    },
+    "E:\\AgentData\\Coach\\knowledge\\human-annotations\\queues\\796cc3a2653982bf77587e13ff55fd95058f1c048083f4efe494a22a3b6d2e8e.json": {
+      "sha256": "796cc3a2653982bf77587e13ff55fd95058f1c048083f4efe494a22a3b6d2e8e",
+      "bytes": 466937
+    },
+    "E:\\AgentData\\Coach\\knowledge\\human-annotations\\queues\\7ec1b8fb47ef8a1f80f9a5098904170432d44c6d81ac042b34aa622d6c97f58b.json": {
+      "sha256": "7ec1b8fb47ef8a1f80f9a5098904170432d44c6d81ac042b34aa622d6c97f58b",
+      "bytes": 456004
+    },
+    "E:\\AgentData\\Coach\\knowledge\\human-annotations\\queues\\8cf1e8da76fee598f6917e27da507e86edc91879984253775cf437dab35f1ff2.json": {
+      "sha256": "8cf1e8da76fee598f6917e27da507e86edc91879984253775cf437dab35f1ff2",
+      "bytes": 467045
+    },
+    "E:\\AgentData\\Coach\\knowledge\\review\\textbook-corpus.json": {
+      "sha256": "bbbb34f83033081e80752a45aca9575e08ebea6d79d2b44869416105090982d4",
+      "bytes": 14116982
+    },
+    "E:\\AgentData\\Coach\\knowledge\\review\\textbook-bodies.json": {
+      "sha256": "017fff705a643dd7410a055581680e45227b5f05af6b64f5d2491c1017b02d05",
+      "bytes": 43198018
+    },
+    "E:\\AgentData\\Coach\\knowledge\\review\\knowledge.html": {
+      "sha256": "f59bed9ed30b739bf7ea231b1150b177141d1066d2ca7db8b3762dd21b4b165d",
+      "bytes": 6182657
+    },
+    "E:\\AgentData\\Coach\\knowledge\\review\\mcp-config.json": {
+      "sha256": "0929c4e9e2c6b8a89ba881aab90360b56b4bea77be1f4e5929b22296e7c9dcc8",
+      "bytes": 272
+    },
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-28T16-50-25-203Z\\textbook-corpus.json": {
+      "sha256": "bbbb34f83033081e80752a45aca9575e08ebea6d79d2b44869416105090982d4",
+      "bytes": 14116982
+    },
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-28T16-50-25-203Z\\textbook-bodies.json": {
+      "sha256": "017fff705a643dd7410a055581680e45227b5f05af6b64f5d2491c1017b02d05",
+      "bytes": 43198018
+    },
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-28T16-50-25-203Z\\knowledge.html": {
+      "sha256": "f59bed9ed30b739bf7ea231b1150b177141d1066d2ca7db8b3762dd21b4b165d",
+      "bytes": 6182657
+    },
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-28T16-50-25-203Z\\mcp-config.json": {
+      "sha256": "613fa4641e724cc85a96f841bf4ccf94777a0da4d11b70e253e95d1699afd6b1",
+      "bytes": 340
+    }
+  },
+  "http": [
+    {
+      "url": "http://127.0.0.1:8765/",
+      "status": 200,
+      "bytes": 4939,
+      "sha256": "e4841d4d7e21436ba5c996b42c2726874d00ef10e3244df19e734cc8a6086d0d"
+    },
+    {
+      "url": "http://127.0.0.1:8765/api/export",
+      "status": 200,
+      "bytes": 692747,
+      "sha256": "591de5642f87022ec3759adb8aed8120419fc528ed46c69fbdcd30ccb487a420"
+    },
+    {
+      "url": "http://127.0.0.1:8766/knowledge.html",
+      "status": 200,
+      "bytes": 6182657,
+      "sha256": "f59bed9ed30b739bf7ea231b1150b177141d1066d2ca7db8b3762dd21b4b165d"
+    },
+    {
+      "url": "http://127.0.0.1:8767/knowledge.html",
+      "status": 200,
+      "bytes": 6182657,
+      "sha256": "f59bed9ed30b739bf7ea231b1150b177141d1066d2ca7db8b3762dd21b4b165d"
+    }
+  ],
+  "newModelCalls": 0
+}
