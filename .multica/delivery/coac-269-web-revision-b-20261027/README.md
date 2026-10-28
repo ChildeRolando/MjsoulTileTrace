@@ -2113,3 +2113,78 @@ unknown/image-order edits. Python AST/Node syntax and artifact SHA checks passed
 Windows path214, strict limit240. No draft was saved as a candidate or endowed with provenance.
 All historical calls, including adjudication and zero-call b4 derivation, are separately recorded
 in `call-account.json`; money/upstream execution count unknown. Wider ticket remains in_progress.
+
+## Batch30 —224/232 real independent results, both unadmitted
+
+Both once wakeups were joined into the existing269 run and are already disabled. Original
+authorization thread `01a181c4-730d-7821-8325-b8bc9e48a7cc` receives one combined result.
+This updates Batch27's pending review state: both actual scopes are `needs-repair-or-uncertain`,
+**transportCompleted=true, repairPassed=false, limitedUnknownOkay=false**. Original output,
+issues, flags, source/parent/raw and candidates are untouched. No ordinary chapter pass, admission,
+display installation, new maker/review/OCR/consumer or global write is performed here.
+
+224 candidate `82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea`, receipt
+`20d624441531f37ebd9b69f5407c69dd03a5eedbc6390edc04fe51c108be4c20`, real independent call
+`7d1efbaa-589f-4b2e-9199-28f7141f890b`: terra/max,2 images,15 ordered pairs,
+26966 input/0 cached/16318 output,220011ms. Raw
+`51549ca0d773aae36a5edee8757571b2f877c5cf82ab0886ffbe99793b9df0e4` confirms the two self-draw
+legend translations, the retained turn13 approximately30 reading, unchanged conditions and
+“似乎有效” strength, and no invented chart unit. The81 approximate values and24 unknown cells
+still leave at least seven directly readable omissions, so b0013's target verdict is needs-repair:
+
+- 放铳率 turns6/7: independent evidence says approximately15–16.
+- 和牌中自摸所占比例 turn6: approximately49.
+- 立直棒被没收率 turn12: approximately20–21.
+- 和牌时一发比例 turns6/7: approximately16–17; turn12: approximately22.
+
+Each is mapped to its exact original maker `/output/rows/{row}/values/{turn-1}` unknown slot.
+These are recorded reviewer quotes, **not new maker readings or applied corrections**. All other
+unknown points remain unresolved; no interpolation, percentage unit or invented raw derivation.
+b0008's original36.765% argument and associated source-note remain unchanged and are not
+reclassified as a translation error. All15 body blocks and other target-figure fields inherit exactly.
+Five required non-author display limits are bound verbatim to the true raw fields and full figure
+SHA; the current partial table cannot be represented as all105 points read or as admitted.
+
+232 candidate `d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb`, receipt
+`5ed3b5117151b9cf5555d223d714131c5593f1f9042c6e91a9bb005a68fbb9ea`, real independent call
+`0dae5b1a-76be-45d5-b2f0-410bc5853cb3`: terra/max,2 images,14 ordered pairs,
+28474 input/0 cached/10180 output,150779ms. Raw
+`426d49b11f72317b32fdf1b6b7a14ba6308ec8db9da9ae7706079933304eea3c` gives faithful verdicts
+for b0002's unchanged-rank ending-hand meaning and b0004's starting-hand-or-draw condition.
+b0005 evidence explicitly confirms the corrected seventh hand tile3s and separate draw3p;
+the complete figure target verdict nevertheless remains uncertain. Right-river second manzu's
+number/red state still blocks complete tile verification and any dependent count/efficiency claim.
+Two unnamed0 counters and unreadable names/ranks are separately nonblocking-with-limits;
+they are never assigned identities or values. Three original unknown strings,12 non-target body
+blocks and2 complete non-target figures remain unchanged. Seven non-author limitations are
+mapped verbatim, without claiming installation or admission. Existing human queue target
+`4ce1c71647c8da4352eb117e5d2f1094` is the remaining river tile; no repeat request is made for
+the already-confirmed3s fact or concealed information. No relevant human answer was present
+in this observation; live queue/events were not changed.
+
+`artifacts/b30-224232-result/consume.mjs` replayed the original `verifyProduction`,
+`prepareReview`, `verifyReviewExecution`, published boundary prompt/schema/image equality,
+full session events/output and unique standard ledger. Frozen manifest
+`0d890d3bbfd3fe1dbe588f068e17de41312916c1d068d246d080d0ec6feaa973` and all32 dependencies
+rehashed before/after.102/103 extant inheritance references rehashed. Four retired private
+preview/register observations per chapter remain unavailable and are explicitly listed rather
+than recreated or counted verified; critical immutable source/parent/audit/plan/raw chains passed.
+Current preview contained neither exact new candidate SHA. No new semantic pass is inferred
+from transport/schema completion, display proposals, positive partial facts or prior reviews.
+
+Dedup found existing244 run `01a181ef-e765-754d-8e95-c28cb1bfedc1` handling224 and existing250
+running/queued work including232 run `01a181f1-9a9c-7cfd-b5a9-fa024f47ee17`. Only those owners
+continue the unresolved-scope register; no replacement consumer or paid retry was started.
+Shared result: `integration/coac269-224232-results-consumed-20261028.json`. The artifact folder
+contains byte-exact original receipts/raw/inheritance/proposals, both actual call accounts, exact
+residual mappings and executable checks. `verify-pack.py` passed hashes/syntax/32 frozen files;
+26 negative checks reject altered false flags/target verdicts/issues, wrong candidate/figure SHA,
+missing or paraphrased limitations and invented author notes/installation/admission. Windows
+longest path213, strict limit240; normal staged diff check is required before commit.
+
+Actual phase accounting is maker2+independent2=4/4, each chapter2/2, remaining0, failed/void
+counted,0retry; this consumption adds0 calls. Both reviews completed normally, not transport
+failures. Money, remote weights and upstream execution totals unknown. No193/213,311/PDF257/
+261 preparation,283 assembly, human annotation service, shared selection or formal active changed.
+The batch has residual blockers and the wider ticket remains in_progress; draft PR74 is evidence
+delivery, not independent textbook acceptance or permission to merge chapters.

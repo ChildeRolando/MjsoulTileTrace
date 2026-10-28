@@ -1,0 +1,43 @@
+{
+  "observedAt": "2026-10-28T10:03:13.8875246Z",
+  "activeRuns": [
+    {
+      "issueId": "01a1746d-cf4a-7ecc-9fae-3d4c2b55c39f",
+      "id": "01a181ef-e765-754d-8e95-c28cb1bfedc1",
+      "status": "running",
+      "startedAt": "2026-10-28T09:59:17Z",
+      "evidence": {
+        "kind": "issue_wakeup",
+        "ref_id": "01a181ee-a90f-7dae-974e-cf0f4898ab76"
+      },
+      "contains224": true,
+      "contains232": false
+    },
+    {
+      "issueId": "01a17471-25e6-7731-a529-3df99acf3d42",
+      "id": "01a181f1-9a9c-7cfd-b5a9-fa024f47ee17",
+      "status": "queued",
+      "startedAt": null,
+      "evidence": {
+        "kind": "issue_wakeup",
+        "ref_id": "01a181f0-951d-7d17-88a3-f66ea7ae8bf0"
+      },
+      "contains224": false,
+      "contains232": true
+    },
+    {
+      "issueId": "01a17471-25e6-7731-a529-3df99acf3d42",
+      "id": "01a181cd-17c0-7ed0-828b-cfab604f1d80",
+      "status": "running",
+      "startedAt": "2026-10-28T09:56:40Z",
+      "evidence": {
+        "kind": "issue_wakeup",
+        "ref_id": "01a181cb-dd6c-7383-93ba-7650c3d17db7"
+      },
+      "contains224": false,
+      "contains232": false
+    }
+  ],
+  "newConsumersStarted": 0,
+  "existingOwnerHandoffsReused": true
+}
