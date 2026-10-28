@@ -1,0 +1,102 @@
+{
+  "schema": "coac244-human-final-delivery-inventory/1",
+  "privateSnapshotExcluded": true,
+  "fullBookCandidatesAndRequestsExcluded": true,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "bytes": 8
+    },
+    {
+      "path": "assemble.py",
+      "sha256": "b0d9444d6266b57ad66cdfc233c11cb46cb6cf6c73ae418841fad72eb07beff0",
+      "bytes": 10395
+    },
+    {
+      "path": "capture.json",
+      "sha256": "9cc29e6b2944c3df8c55b106c128f6559d13a14371ccbfd2f9427c0e32e75e30",
+      "bytes": 343
+    },
+    {
+      "path": "check.mjs",
+      "sha256": "2b5432c9d5f53fd2a79e6b1c180b58d92233b7afa1e12a99153c53f2cc463785",
+      "bytes": 5847
+    },
+    {
+      "path": "derivation-receipts.json",
+      "sha256": "fc5ae29996415fa88144782fb14719de315423ac781d5b946b5a719d6a4c079d",
+      "bytes": 19456
+    },
+    {
+      "path": "entry.mjs",
+      "sha256": "a7ff01b70e8e9b960e9f0c8f163465c134032145702d0511ec770fa6ba76110a",
+      "bytes": 13378
+    },
+    {
+      "path": "final-evidence.json",
+      "sha256": "40e44645a84f72b7729036b191c2c80fe2f0948b3df65c2a0016f235f4308915",
+      "bytes": 249940
+    },
+    {
+      "path": "handoff248.md",
+      "sha256": "16448fea1ee264817f271ea329449fb48c22c0a03fc2972d99ff21098c1079a7",
+      "bytes": 2283
+    },
+    {
+      "path": "handoff269.md",
+      "sha256": "3b3b2d92996c7246a9e8fe0701d902dddf9a9538748ed7c3b2ad84b5ef9529b0",
+      "bytes": 2898
+    },
+    {
+      "path": "input-bindings.json",
+      "sha256": "5d48ad321792896380bacdbbff8bc8d6d55132e73e989614e2025692a5b97f3a",
+      "bytes": 43772
+    },
+    {
+      "path": "local-drafts.json",
+      "sha256": "10feed992b51d1978faa41f19afa447cf91309213faad8b37924c05f8b7c4ae0",
+      "bytes": 441
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "1afdf2dfebb8c2801130e996beb9fd4ded396f04b482012f800ede04ab0b6dd2",
+      "bytes": 1012
+    },
+    {
+      "path": "plans.json",
+      "sha256": "8330c415df917f8430a83ceb6821a5f382cc2188a515fa4fd2907d897c139fc1",
+      "bytes": 4677
+    },
+    {
+      "path": "prepare.py",
+      "sha256": "85a6cd46a97fb58257fc24d438fd25a3c4721c6ad8b3b01e059fc3663eee0a86",
+      "bytes": 7934
+    },
+    {
+      "path": "README.md",
+      "sha256": "f26ce50be1bbdec346cba42afe3385b2c63e23fc1656c65ddf6d1fe547be7a2d",
+      "bytes": 7268
+    },
+    {
+      "path": "regression.json",
+      "sha256": "2ead36c6bba6616fd6dbb2b525a6eb8eab52dc344e34adddfd2e80ecdf6078f2",
+      "bytes": 2098
+    },
+    {
+      "path": "review-budget-proposal.json",
+      "sha256": "3925eff33cf3897b23ab32d3de4ba2c8d2223636b90396ed982e04488d056952",
+      "bytes": 954
+    },
+    {
+      "path": "routing.json",
+      "sha256": "9cac11a0bbfe701370f80764da93d0eaf4a307b760a8122b6fdc9bd7cf648247",
+      "bytes": 808
+    },
+    {
+      "path": "secondary-batches.json",
+      "sha256": "5d5e7385a6b3dc1e522983a509c06c8edddb87f18538f1e4cc8f1da89b4b4eb0",
+      "bytes": 138612
+    }
+  ]
+}

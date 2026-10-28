@@ -1,0 +1,92 @@
+{
+  "232": {
+    "key": "232",
+    "canonical": "nemata-jp-chapter-232-1",
+    "ownerIssueId": "01a17471-0529-7d3d-bd8d-8b54ef38290d",
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+      "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb"
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+      "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+      "bytes": 23933
+    },
+    "parentAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+      "sha256": "24293aa4da6b71079ed47600d45229e972e1f8b1256a9dcc573af827c05514f6",
+      "bytes": 21102
+    },
+    "newModelCalls": 0,
+    "wholeChapterPassed": false,
+    "newTargetReceipt": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-232-target-impact-reviewed-20261028.json",
+      "sha256": "5ed3b5117151b9cf5555d223d714131c5593f1f9042c6e91a9bb005a68fbb9ea"
+    },
+    "newTargetRaw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\0dae5b1a-76be-45d5-b2f0-410bc5853cb3.json",
+      "sha256": "426d49b11f72317b32fdf1b6b7a14ba6308ec8db9da9ae7706079933304eea3c"
+    }
+  },
+  "257": {
+    "key": "257",
+    "canonical": "nemata-jp-chapter-250-1",
+    "ownerIssueId": "01a17cae-06e4-7b30-a93f-3a030d1ae63f",
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0257.json",
+      "sha256": "6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88",
+      "bytes": 25248
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\257.json",
+      "sha256": "ca63823638f042d84419560d2618879b80972410d0e290f6b12c9860e19639a6",
+      "bytes": 14350
+    },
+    "parentAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0257.6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88.6baa4a7e1404.json",
+      "sha256": "82b49d1750bc01c1c0bdee87ccd6190a78c7e0645fd7d738f802fb7b8b712144",
+      "bytes": 59383
+    },
+    "newModelCalls": 0,
+    "wholeChapterPassed": false,
+    "orderedContext": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-311250-zero-preparation-20261028\\257-context.json",
+      "sha256": "8ee743e7fe3dce2679adb5799aafa435792dc8bc10b3b6e6d4a213b37644fd7a"
+    }
+  },
+  "261": {
+    "key": "261",
+    "canonical": "nemata-jp-chapter-250-1",
+    "ownerIssueId": "01a17cae-06e4-7b30-a93f-3a030d1ae63f",
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair18-20261027-p261\\candidates\\nemata-jp\\page-0261.json",
+      "sha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+      "bytes": 142025
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\261.json",
+      "sha256": "6cdfa8cefcbd8e38f618da86d9adc5ba5796f1c6f40fcb4729c0ceee4a3200a6",
+      "bytes": 90416
+    },
+    "parentAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.7076217daf84.json",
+      "sha256": "4ab382b1a427ca266b8aa8148eed21800be971534627f69c04379e8f83e41b06",
+      "bytes": 190907
+    },
+    "newModelCalls": 0,
+    "wholeChapterPassed": false,
+    "orderedContext": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-311250-zero-preparation-20261028\\261-context.json",
+      "sha256": "034c864c5a658d667445a408272244478015b5bde79498bb0ed71b620b291924"
+    },
+    "oldAdjudication": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\adjudications\\nemata-jp\\page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.source-3m-adjudication.json",
+      "sha256": "5248fba6665bdc8928b5460921dcf173297913262459828a17dab52e0de04c58",
+      "bytes": 7160
+    },
+    "independentRaw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\91507699-61d3-496d-9481-de5f38e8418c.json",
+      "sha256": "4803be122fb4d59f1bfe52f4eb8607dc5c0c897b02cb9def2604ca9e04fd3255"
+    }
+  }
+}

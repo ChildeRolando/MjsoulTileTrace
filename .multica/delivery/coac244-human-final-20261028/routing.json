@@ -1,0 +1,25 @@
+{
+  "248": {
+    "issue": "01a17471-0529-7d3d-bd8d-8b54ef38290d",
+    "scope": [
+      "232"
+    ],
+    "wakeup": "01a18232-57b5-7001-b929-175ce0511fbe",
+    "afterTask": "01a18226-92f0-7a6e-a16d-3842f32d6730",
+    "stateAtCheck": "enabled waiting terminal fact"
+  },
+  "269": {
+    "issue": "01a17cae-06e4-7b30-a93f-3a030d1ae63f",
+    "scope": [
+      "257",
+      "261"
+    ],
+    "wakeup": "01a18232-6e7b-7916-87be-c9adae990cd1",
+    "afterTask": "01a18226-73e4-721b-97f2-aa9ffa2dfc83",
+    "run": "01a18232-8cb1-76e6-946b-322468524149",
+    "stateAtCheck": "dispatched once after task.completed"
+  },
+  "newModelCallsAuthorized": 0,
+  "newModelCallsExecuted": 0,
+  "250": "single global writer after legal scope verification and actual readback; not re-dispatched in this run"
+}

@@ -1,0 +1,34 @@
+{
+  "schema": "coac244-human-final-frozen-entry/1",
+  "newModelCalls": 0,
+  "files": [
+    {
+      "path": "entry.mjs",
+      "sha256": "a7ff01b70e8e9b960e9f0c8f163465c134032145702d0511ec770fa6ba76110a"
+    },
+    {
+      "path": "prepare.py",
+      "sha256": "85a6cd46a97fb58257fc24d438fd25a3c4721c6ad8b3b01e059fc3663eee0a86"
+    },
+    {
+      "path": "final-evidence.json",
+      "sha256": "40e44645a84f72b7729036b191c2c80fe2f0948b3df65c2a0016f235f4308915"
+    },
+    {
+      "path": "plans.json",
+      "sha256": "8330c415df917f8430a83ceb6821a5f382cc2188a515fa4fd2907d897c139fc1"
+    },
+    {
+      "path": "input-bindings.json",
+      "sha256": "5d48ad321792896380bacdbbff8bc8d6d55132e73e989614e2025692a5b97f3a"
+    },
+    {
+      "path": "capture.json",
+      "sha256": "9cc29e6b2944c3df8c55b106c128f6559d13a14371ccbfd2f9427c0e32e75e30"
+    },
+    {
+      "path": "check.mjs",
+      "sha256": "2b5432c9d5f53fd2a79e6b1c180b58d92233b7afa1e12a99153c53f2cc463785"
+    }
+  ]
+}
