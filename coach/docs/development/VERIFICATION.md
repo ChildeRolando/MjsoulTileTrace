@@ -23,6 +23,17 @@ Board、吃碰／三类杠／立直、指定副露后暗手、全候选 Mortal�
 
 ## 日常门禁
 
+### 牌面人工标注辅助工具（COAC-270）
+
+独立运行 `node --test scripts/tile-annotations/annotations.test.mjs
+scripts/tile-annotations/build-queue.test.mjs`：4 项通过，覆盖重启读回、追加/撤回、
+图 SHA 与靶点绑定、跨站写入拒绝、路径穿越/junction、单写者及准入新候选优先。
+`node scripts/tile-annotations/browser-check.mjs` 只写临时数据，验证自动保存、非法码、
+刷新/导出、快捷键、网络失败与 1440/800/390 排版；本机已执行通过。真实队列 54 张
+靶图全部经 HTTP 200 与浏览器解码验证，未向真实标注文件写测试值。静态界面检测器的
+两处无 src 提示来自运行时按靶点设置图片 URL，实际加载已验证。运行/导入边界见
+[本机牌面人工标注](../specs/2026-10-28-local-tile-annotations.md)，此处为作者自验记录。
+
 在 `coach/` 运行：
 
 ```powershell
