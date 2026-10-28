@@ -12,6 +12,33 @@
   "actualMcpArenaReadback": false,
   "previewUnchanged": true,
   "otherRowsUnchangedAtRegistration": true,
+  "concurrentOwnerUpdates": [
+    {
+      "kind": "248-additive-confirmation-in-existing244-row-after250-registration",
+      "evidence": {
+        "candidateSha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c",
+        "receiptSha256": "2280884a55df3ba010ceac36c5c4832deb2b4dc15b15f2e07d8db554a8f3a94c",
+        "callId": "d1640db7-8722-4d0d-bdba-da5c2ba54f84",
+        "applicationFaithful": true,
+        "authorArgumentFaithful": true,
+        "unknownAndLimitsSufficientWhenInstalled": true,
+        "originalTechnicalLimitedUnknownOkay": false,
+        "semanticScopeComplete": true,
+        "remainingUnknowns": 2,
+        "visibleLimitations": 4,
+        "installedByThisRun": false,
+        "newModelCallsThisRun": 0,
+        "newConsumerCreated": false,
+        "existing250Run": "01a1824a-58ab-79eb-bfb3-b07d11dba72e",
+        "evidence": {
+          "path": "integration/coac248-jp232-reviewed-intake-20261028/handoff.json",
+          "sha256": "7f46078c10abe9aa36cf0330c99d83687a2b3e9a01471d28c24f11066ef15a88",
+          "manifestSha256": "b33214e78b18c97b46b6426f441313255dd8383234da30012b4b0793a6b90415"
+        }
+      },
+      "notAnAdmission": true
+    }
+  ],
   "newModelCalls": 0,
   "formalActiveChanged": false
 }
