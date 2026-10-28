@@ -1,0 +1,1224 @@
+{
+  "schema": "coac269-human257261-zero-consumption/1",
+  "ownerIssueId": "01a17cae-06e4-7b30-a93f-3a030d1ae63f",
+  "authorizationComment": "01a18217-36bb-7c2e-9dd7-46600908ab9a",
+  "originalDeliveryThread": "01a181e7-f366-7187-9a4d-4f0a70eaba7a",
+  "packageBindings": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/README.md",
+      "sha256": "f26ce50be1bbdec346cba42afe3385b2c63e23fc1656c65ddf6d1fe547be7a2d"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/manifest.json",
+      "sha256": "1afdf2dfebb8c2801130e996beb9fd4ded396f04b482012f800ede04ab0b6dd2"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/derivation-receipts.json",
+      "sha256": "fc5ae29996415fa88144782fb14719de315423ac781d5b946b5a719d6a4c079d"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/review-budget-proposal.json",
+      "sha256": "3925eff33cf3897b23ab32d3de4ba2c8d2223636b90396ed982e04488d056952"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/entry.mjs",
+      "sha256": "a7ff01b70e8e9b960e9f0c8f163465c134032145702d0511ec770fa6ba76110a"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/check.mjs",
+      "sha256": "2b5432c9d5f53fd2a79e6b1c180b58d92233b7afa1e12a99153c53f2cc463785"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/input-bindings.json",
+      "sha256": "5d48ad321792896380bacdbbff8bc8d6d55132e73e989614e2025692a5b97f3a"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/final-evidence.json",
+      "sha256": "40e44645a84f72b7729036b191c2c80fe2f0948b3df65c2a0016f235f4308915"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/request-257.json",
+      "sha256": "ecca03bb0e329c83425dda8aa95bd4cbed96cf407dd43c5420e7c57b99469dd2"
+    }
+  ],
+  "bindingsChecked": 180,
+  "packageManifestFiles": 7,
+  "originalChecksReplayed": 37,
+  "additionalNegativeChecks": [
+    "wrong-owner",
+    "human-code",
+    "old-machine-correction",
+    "body",
+    "other-figure",
+    "unknowns",
+    "fake-model"
+  ],
+  "consumerDedup": {
+    "scannedPriorOwnerJsonCount": 142,
+    "matchingNew257SHAOr261HumanEvent": [],
+    "selectedTargetPages": [],
+    "preview": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+      "sha256": "547f143d75c9ed02e7050b543385634ad61e657acec032c7ef797de89c2acef7"
+    },
+    "prior311RunCompleted": "01a18226-73e4-721b-97f2-aa9ffa2dfc83",
+    "thisConsumerIssue": "01a17cae-06e4-7b30-a93f-3a030d1ae63f",
+    "noMakerOrAuditSlotAcquired": true
+  },
+  "p257": {
+    "verification": {
+      "key": "257",
+      "canonical": "nemata-jp-chapter-250-1",
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0257.json",
+        "sha256": "6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88",
+        "bytes": 25248
+      },
+      "candidate": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/257.human-final.json",
+        "sha256": "5403cb35614b1edab17488458dbaf0571e1a48e1972d2d04c9ebc30a03da67dc"
+      },
+      "humanFacts": [
+        {
+          "itemId": "fa50e1c25728194fcbbb2fec9841b592",
+          "targetId": "nemata-jp-p257-b3,nemata-jp-p257-b4:unknown:2feb5e02f9816a91",
+          "position": "CPU结果右方牌河第7张的绿色细节模糊，无法可靠区分8s与6z。",
+          "imageSha256": "62a6a6c4f94a754ca7e41d82bc32964736fd525331c29eafd9cb5ce68ca05397",
+          "originalImages": [
+            {
+              "path": "assets/b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+              "sha256": "b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03",
+              "sourceBlockId": "nemata-jp-p257-b3"
+            },
+            {
+              "path": "assets/6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png",
+              "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8",
+              "sourceBlockId": "nemata-jp-p257-b4"
+            }
+          ],
+          "tiles": [
+            "8s"
+          ],
+          "orientation": "",
+          "timestamp": "2026-10-28T10:06:02.564Z",
+          "revision": 2,
+          "eventSha256": "45934b573076c70a5a4be1d1a56cf730ba0a63c18e61d1a34737010334acac0c"
+        },
+        {
+          "itemId": "69395d14b0bb8aed53bfa51b0850ddcb",
+          "targetId": "nemata-jp-p257-b3,nemata-jp-p257-b4:unknown:973cbbb8d03f05db",
+          "position": "CPU结果上方牌河第1张无法可靠区分1s与6z；第6、17张图案模糊，花色、点数及赤五状态不能可靠确定。",
+          "imageSha256": "62a6a6c4f94a754ca7e41d82bc32964736fd525331c29eafd9cb5ce68ca05397",
+          "originalImages": [
+            {
+              "path": "assets/b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+              "sha256": "b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03",
+              "sourceBlockId": "nemata-jp-p257-b3"
+            },
+            {
+              "path": "assets/6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png",
+              "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8",
+              "sourceBlockId": "nemata-jp-p257-b4"
+            }
+          ],
+          "tiles": [
+            "2z",
+            "1s",
+            "1s"
+          ],
+          "orientation": "",
+          "timestamp": "2026-10-28T10:06:50.399Z",
+          "revision": 12,
+          "eventSha256": "fd08085eb80264f64ad887fb8e367f4188dea41c2586e630fdf7f2a20768538c"
+        },
+        {
+          "itemId": "19124d6cc326a5bc70fd54b4086fa20c",
+          "targetId": "nemata-jp-p257-b3,nemata-jp-p257-b4:unknown:e4ed38c230294df7",
+          "position": "CPU结果右方牌河第1、2、13、14张均能辨认为万子，但旋转后的小字笔画粘连，点数及赤五状态不能可靠确定。",
+          "imageSha256": "62a6a6c4f94a754ca7e41d82bc32964736fd525331c29eafd9cb5ce68ca05397",
+          "originalImages": [
+            {
+              "path": "assets/b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+              "sha256": "b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03",
+              "sourceBlockId": "nemata-jp-p257-b3"
+            },
+            {
+              "path": "assets/6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png",
+              "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8",
+              "sourceBlockId": "nemata-jp-p257-b4"
+            }
+          ],
+          "tiles": [
+            "1m",
+            "4m",
+            "1m",
+            "3m"
+          ],
+          "orientation": "",
+          "timestamp": "2026-10-28T10:07:37.781Z",
+          "revision": 7,
+          "eventSha256": "68074c29b44e27c84499b5043c2b0ad268a4c20c9ba88482b240b2a609ab0917"
+        },
+        {
+          "itemId": "ba273dc871055c6f06083a007a390ac1",
+          "targetId": "nemata-jp-p257-b3,nemata-jp-p257-b4:unknown:eb863331517aa225",
+          "position": "CPU结果左方牌河第16张的数字笔画模糊，无法可靠区分2m与3m。",
+          "imageSha256": "62a6a6c4f94a754ca7e41d82bc32964736fd525331c29eafd9cb5ce68ca05397",
+          "originalImages": [
+            {
+              "path": "assets/b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+              "sha256": "b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03",
+              "sourceBlockId": "nemata-jp-p257-b3"
+            },
+            {
+              "path": "assets/6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png",
+              "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8",
+              "sourceBlockId": "nemata-jp-p257-b4"
+            }
+          ],
+          "tiles": [
+            "2m"
+          ],
+          "orientation": "立直宣言牌",
+          "timestamp": "2026-10-28T10:08:25.128Z",
+          "revision": 3,
+          "eventSha256": "04705f72aac1de8e00ba3f4372ef71aa99573e028d6c39f288983cc0f5258ea6"
+        }
+      ],
+      "contentDiffFields": [
+        "/figures/0/transcription",
+        "/figures/0/unknowns"
+      ],
+      "originalAuthorBodyAndOtherFiguresUnchanged": true,
+      "counts": {
+        "before": {
+          "sameSingleCpuPanelOnly": true,
+          "totalPositions": 87,
+          "unknownPositions": 9,
+          "riverLengths": {
+            "upper": 17,
+            "left": 18,
+            "right": 17,
+            "bottom": 18
+          },
+          "counts": {
+            "3m": 2,
+            "6m": 2,
+            "8m": 1,
+            "4p": 8,
+            "1s": 3,
+            "3s": 3,
+            "8s": 4,
+            "9s": 5,
+            "3z": 4,
+            "9m": 4,
+            "6z": 4,
+            "3p": 3,
+            "2s": 3,
+            "5p": 3,
+            "2p": 4,
+            "5z": 2,
+            "7s": 1,
+            "1m": 1,
+            "6p": 1,
+            "1p": 3,
+            "2z": 1,
+            "1z": 3,
+            "7p": 3,
+            "6s": 1,
+            "4s": 1,
+            "4z": 3,
+            "7z": 3,
+            "2m": 2
+          },
+          "overFour": [
+            {
+              "tile": "4p",
+              "count": 8,
+              "positions": [
+                {
+                  "scope": "CPU hand",
+                  "ordinal": 6,
+                  "tile": "4p"
+                },
+                {
+                  "scope": "upper",
+                  "ordinal": 3,
+                  "tile": "4p"
+                },
+                {
+                  "scope": "upper",
+                  "ordinal": 8,
+                  "tile": "4p"
+                },
+                {
+                  "scope": "left",
+                  "ordinal": 11,
+                  "tile": "4p"
+                },
+                {
+                  "scope": "right",
+                  "ordinal": 10,
+                  "tile": "4p"
+                },
+                {
+                  "scope": "right",
+                  "ordinal": 12,
+                  "tile": "4p"
+                },
+                {
+                  "scope": "bottom",
+                  "ordinal": 5,
+                  "tile": "4p"
+                },
+                {
+                  "scope": "bottom",
+                  "ordinal": 6,
+                  "tile": "4p"
+                }
+              ],
+              "humanPositions": []
+            },
+            {
+              "tile": "9s",
+              "count": 5,
+              "positions": [
+                {
+                  "scope": "CPU hand",
+                  "ordinal": 10,
+                  "tile": "9s"
+                },
+                {
+                  "scope": "CPU hand",
+                  "ordinal": 11,
+                  "tile": "9s"
+                },
+                {
+                  "scope": "upper",
+                  "ordinal": 5,
+                  "tile": "9s"
+                },
+                {
+                  "scope": "right",
+                  "ordinal": 4,
+                  "tile": "9s"
+                },
+                {
+                  "scope": "bottom",
+                  "ordinal": 14,
+                  "tile": "9s"
+                }
+              ],
+              "humanPositions": []
+            }
+          ],
+          "interpretation": "Transcription consistency only, not a new reading of pixels. Preserve human values; existing machine-labelled positions must not be silently trusted as a complete legal record."
+        },
+        "after": {
+          "sameSingleCpuPanelOnly": true,
+          "totalPositions": 87,
+          "unknownPositions": 0,
+          "riverLengths": {
+            "upper": 17,
+            "left": 18,
+            "right": 17,
+            "bottom": 18
+          },
+          "counts": {
+            "3m": 3,
+            "6m": 2,
+            "8m": 1,
+            "4p": 8,
+            "1s": 5,
+            "3s": 3,
+            "8s": 5,
+            "9s": 5,
+            "3z": 4,
+            "9m": 4,
+            "6z": 4,
+            "2z": 2,
+            "3p": 3,
+            "2s": 3,
+            "5p": 3,
+            "2p": 4,
+            "5z": 2,
+            "7s": 1,
+            "1m": 3,
+            "6p": 1,
+            "1p": 3,
+            "1z": 3,
+            "7p": 3,
+            "2m": 3,
+            "4m": 1,
+            "6s": 1,
+            "4s": 1,
+            "4z": 3,
+            "7z": 3
+          },
+          "overFour": [
+            {
+              "tile": "4p",
+              "count": 8,
+              "positions": [
+                {
+                  "scope": "CPU hand",
+                  "ordinal": 6,
+                  "tile": "4p"
+                },
+                {
+                  "scope": "upper",
+                  "ordinal": 3,
+                  "tile": "4p"
+                },
+                {
+                  "scope": "upper",
+                  "ordinal": 8,
+                  "tile": "4p"
+                },
+                {
+                  "scope": "left",
+                  "ordinal": 11,
+                  "tile": "4p"
+                },
+                {
+                  "scope": "right",
+                  "ordinal": 10,
+                  "tile": "4p"
+                },
+                {
+                  "scope": "right",
+                  "ordinal": 12,
+                  "tile": "4p"
+                },
+                {
+                  "scope": "bottom",
+                  "ordinal": 5,
+                  "tile": "4p"
+                },
+                {
+                  "scope": "bottom",
+                  "ordinal": 6,
+                  "tile": "4p"
+                }
+              ],
+              "humanPositions": []
+            },
+            {
+              "tile": "1s",
+              "count": 5,
+              "positions": [
+                {
+                  "scope": "CPU hand",
+                  "ordinal": 7,
+                  "tile": "1s"
+                },
+                {
+                  "scope": "upper",
+                  "ordinal": 6,
+                  "tile": "1s"
+                },
+                {
+                  "scope": "upper",
+                  "ordinal": 17,
+                  "tile": "1s"
+                },
+                {
+                  "scope": "left",
+                  "ordinal": 7,
+                  "tile": "1s"
+                },
+                {
+                  "scope": "right",
+                  "ordinal": 9,
+                  "tile": "1s"
+                }
+              ],
+              "humanPositions": [
+                {
+                  "river": "upper",
+                  "ordinal": 6,
+                  "tile": "1s"
+                },
+                {
+                  "river": "upper",
+                  "ordinal": 17,
+                  "tile": "1s"
+                }
+              ]
+            },
+            {
+              "tile": "8s",
+              "count": 5,
+              "positions": [
+                {
+                  "scope": "CPU hand",
+                  "ordinal": 9,
+                  "tile": "8s"
+                },
+                {
+                  "scope": "left",
+                  "ordinal": 9,
+                  "tile": "8s"
+                },
+                {
+                  "scope": "right",
+                  "ordinal": 7,
+                  "tile": "8s"
+                },
+                {
+                  "scope": "right",
+                  "ordinal": 16,
+                  "tile": "8s"
+                },
+                {
+                  "scope": "right",
+                  "ordinal": 17,
+                  "tile": "8s"
+                }
+              ],
+              "humanPositions": [
+                {
+                  "river": "right",
+                  "ordinal": 7,
+                  "tile": "8s"
+                }
+              ]
+            },
+            {
+              "tile": "9s",
+              "count": 5,
+              "positions": [
+                {
+                  "scope": "CPU hand",
+                  "ordinal": 10,
+                  "tile": "9s"
+                },
+                {
+                  "scope": "CPU hand",
+                  "ordinal": 11,
+                  "tile": "9s"
+                },
+                {
+                  "scope": "upper",
+                  "ordinal": 5,
+                  "tile": "9s"
+                },
+                {
+                  "scope": "right",
+                  "ordinal": 4,
+                  "tile": "9s"
+                },
+                {
+                  "scope": "bottom",
+                  "ordinal": 14,
+                  "tile": "9s"
+                }
+              ],
+              "humanPositions": []
+            }
+          ],
+          "interpretation": "Transcription consistency only, not a new reading of pixels. Preserve human values; existing machine-labelled positions must not be silently trusted as a complete legal record."
+        }
+      },
+      "deterministicApplicationVerified": true,
+      "fullRecordMultiplicityPassed": false,
+      "requiresIndependentApplicationArgumentReview": true,
+      "modelProduced": false,
+      "wholeChapterPassed": false,
+      "admissionGranted": false,
+      "newModelCalls": 0
+    },
+    "rawMachine": {
+      "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+      "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256"
+    },
+    "originalIndependentRaw": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/calls/f860de79-0df7-40dd-a1a2-0fa4bdedecb5.json",
+      "sha256": "d698345f6fcc3078cfad0389b9eac666e6a3d767b884cbe0fbd8877ce4e2db5e"
+    },
+    "originalIndependentIssues": [
+      {
+        "severity": "uncertain",
+        "targetId": "nemata-jp-p257-r1",
+        "sourceEvidence": "CPU结果画面中的牌河均为公开牌面。候选对上方第1、6、17张、左方第16张、右方第1、2、7、13、14张仍注明无法辨认或存在多个候选。",
+        "description": "这些属于已显示但未能确认的教学信息。候选如实说明了辨认限制，但尚不足以判定整幅图逐牌转录忠实。",
+        "suggestedRepair": "保留原图并将上述具体河牌标为待核；依据更清晰的源图逐张确认牌码及可能涉及的赤五状态，补全后再复核r1。不能通过推断暗手或牌数补出牌面。"
+      }
+    ],
+    "conflictPositions": [
+      {
+        "tile": "4p",
+        "count": 8,
+        "positions": [
+          {
+            "scope": "CPU hand",
+            "ordinal": 6,
+            "tile": "4p",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "右下CPU结果：中央仍为“东3局，0本场”，宝牌指示牌6z，后面四张背面朝上。下方手牌从左到右为：3m 3m 6m 6m 8m 4p 1s 3s 8s 9s 9s 3z 3z；全部正向，无另列摸牌标记，无赤五。上方左端显示一组9m 9m 9m副露，画面右端一张横置；上方其余暗手及左右两家暗手背面朝上，牌面未知。左右两侧牌河旁各有一根竖向白棒，中央带红点。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          },
+          {
+            "scope": "upper",
+            "ordinal": 3,
+            "tile": "4p",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "上方牌河：第1张图案模糊，无法可靠区分1s与6z；第2—5张为3s 4p 3p 9s；第6张红绿深色图案模糊，无法可靠辨认花色和点数；第7—12张为2s 4p 5p 2p 2p 5z；第13—16张为7s 1m 6p 1p；第17张红绿深色图案模糊，无法可靠辨认花色和点数。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          },
+          {
+            "scope": "upper",
+            "ordinal": 8,
+            "tile": "4p",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "上方牌河：第1张图案模糊，无法可靠区分1s与6z；第2—5张为3s 4p 3p 9s；第6张红绿深色图案模糊，无法可靠辨认花色和点数；第7—12张为2s 4p 5p 2p 2p 5z；第13—16张为7s 1m 6p 1p；第17张红绿深色图案模糊，无法可靠辨认花色和点数。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          },
+          {
+            "scope": "left",
+            "ordinal": 11,
+            "tile": "4p",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "左方牌河：第1—6张为6z 3z 3z 2z 1z 1p；第7—12张为1s 1z 8s 7p 4p 5p；第13—15张为9m 6z 2p；第16张为万子，数字因旋转后笔画粘连，无法可靠区分2m和3m，不是赤五；第17—18张为6z 7p。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          },
+          {
+            "scope": "right",
+            "ordinal": 10,
+            "tile": "4p",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "右方牌河：第1张为万子，数字及赤五状态无法可靠辨认；第2张为万子，数字及赤五状态无法可靠辨认；第3—6张为5p 9s 6s 3p；第7张绿色图案模糊，无法可靠区分8s与6z；第8—12张为2p 1s 4p 7p 4p；第13张为万子，数字及赤五状态无法可靠辨认；第14张为万子，数字及赤五状态无法可靠辨认；第15—17张为4s 8s 8s。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          },
+          {
+            "scope": "right",
+            "ordinal": 12,
+            "tile": "4p",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "右方牌河：第1张为万子，数字及赤五状态无法可靠辨认；第2张为万子，数字及赤五状态无法可靠辨认；第3—6张为5p 9s 6s 3p；第7张绿色图案模糊，无法可靠区分8s与6z；第8—12张为2p 1s 4p 7p 4p；第13张为万子，数字及赤五状态无法可靠辨认；第14张为万子，数字及赤五状态无法可靠辨认；第15—17张为4s 8s 8s。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          },
+          {
+            "scope": "bottom",
+            "ordinal": 5,
+            "tile": "4p",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "下方牌河：第一排1z 4z 5z 7z 4p 4p；第二排2s 7z 4z 3p 3s 2s；第三排7z 9s 4z 2m 2m 1p。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          },
+          {
+            "scope": "bottom",
+            "ordinal": 6,
+            "tile": "4p",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "下方牌河：第一排1z 4z 5z 7z 4p 4p；第二排2s 7z 4z 3p 3s 2s；第三排7z 9s 4z 2m 2m 1p。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          }
+        ],
+        "humanPositions": [],
+        "whichInheritedPositionIsWrong": "unresolved; no new image reading or tile reassignment"
+      },
+      {
+        "tile": "1s",
+        "count": 5,
+        "positions": [
+          {
+            "scope": "CPU hand",
+            "ordinal": 7,
+            "tile": "1s",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "右下CPU结果：中央仍为“东3局，0本场”，宝牌指示牌6z，后面四张背面朝上。下方手牌从左到右为：3m 3m 6m 6m 8m 4p 1s 3s 8s 9s 9s 3z 3z；全部正向，无另列摸牌标记，无赤五。上方左端显示一组9m 9m 9m副露，画面右端一张横置；上方其余暗手及左右两家暗手背面朝上，牌面未知。左右两侧牌河旁各有一根竖向白棒，中央带红点。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          },
+          {
+            "scope": "upper",
+            "ordinal": 6,
+            "tile": "1s",
+            "origin": "trusted-final-human-observation",
+            "sourceRaw": null,
+            "sourceFragment": null,
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          },
+          {
+            "scope": "upper",
+            "ordinal": 17,
+            "tile": "1s",
+            "origin": "trusted-final-human-observation",
+            "sourceRaw": null,
+            "sourceFragment": null,
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          },
+          {
+            "scope": "left",
+            "ordinal": 7,
+            "tile": "1s",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "左方牌河：第1—6张为6z 3z 3z 2z 1z 1p；第7—12张为1s 1z 8s 7p 4p 5p；第13—15张为9m 6z 2p；第16张为万子，数字因旋转后笔画粘连，无法可靠区分2m和3m，不是赤五；第17—18张为6z 7p。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          },
+          {
+            "scope": "right",
+            "ordinal": 9,
+            "tile": "1s",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "右方牌河：第1张为万子，数字及赤五状态无法可靠辨认；第2张为万子，数字及赤五状态无法可靠辨认；第3—6张为5p 9s 6s 3p；第7张绿色图案模糊，无法可靠区分8s与6z；第8—12张为2p 1s 4p 7p 4p；第13张为万子，数字及赤五状态无法可靠辨认；第14张为万子，数字及赤五状态无法可靠辨认；第15—17张为4s 8s 8s。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          }
+        ],
+        "humanPositions": [
+          {
+            "river": "upper",
+            "ordinal": 6,
+            "tile": "1s"
+          },
+          {
+            "river": "upper",
+            "ordinal": 17,
+            "tile": "1s"
+          }
+        ],
+        "whichInheritedPositionIsWrong": "unresolved; no new image reading or tile reassignment"
+      },
+      {
+        "tile": "8s",
+        "count": 5,
+        "positions": [
+          {
+            "scope": "CPU hand",
+            "ordinal": 9,
+            "tile": "8s",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "右下CPU结果：中央仍为“东3局，0本场”，宝牌指示牌6z，后面四张背面朝上。下方手牌从左到右为：3m 3m 6m 6m 8m 4p 1s 3s 8s 9s 9s 3z 3z；全部正向，无另列摸牌标记，无赤五。上方左端显示一组9m 9m 9m副露，画面右端一张横置；上方其余暗手及左右两家暗手背面朝上，牌面未知。左右两侧牌河旁各有一根竖向白棒，中央带红点。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          },
+          {
+            "scope": "left",
+            "ordinal": 9,
+            "tile": "8s",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "左方牌河：第1—6张为6z 3z 3z 2z 1z 1p；第7—12张为1s 1z 8s 7p 4p 5p；第13—15张为9m 6z 2p；第16张为万子，数字因旋转后笔画粘连，无法可靠区分2m和3m，不是赤五；第17—18张为6z 7p。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          },
+          {
+            "scope": "right",
+            "ordinal": 7,
+            "tile": "8s",
+            "origin": "trusted-final-human-observation",
+            "sourceRaw": null,
+            "sourceFragment": null,
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          },
+          {
+            "scope": "right",
+            "ordinal": 16,
+            "tile": "8s",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "右方牌河：第1张为万子，数字及赤五状态无法可靠辨认；第2张为万子，数字及赤五状态无法可靠辨认；第3—6张为5p 9s 6s 3p；第7张绿色图案模糊，无法可靠区分8s与6z；第8—12张为2p 1s 4p 7p 4p；第13张为万子，数字及赤五状态无法可靠辨认；第14张为万子，数字及赤五状态无法可靠辨认；第15—17张为4s 8s 8s。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          },
+          {
+            "scope": "right",
+            "ordinal": 17,
+            "tile": "8s",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "右方牌河：第1张为万子，数字及赤五状态无法可靠辨认；第2张为万子，数字及赤五状态无法可靠辨认；第3—6张为5p 9s 6s 3p；第7张绿色图案模糊，无法可靠区分8s与6z；第8—12张为2p 1s 4p 7p 4p；第13张为万子，数字及赤五状态无法可靠辨认；第14张为万子，数字及赤五状态无法可靠辨认；第15—17张为4s 8s 8s。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          }
+        ],
+        "humanPositions": [
+          {
+            "river": "right",
+            "ordinal": 7,
+            "tile": "8s"
+          }
+        ],
+        "whichInheritedPositionIsWrong": "unresolved; no new image reading or tile reassignment"
+      },
+      {
+        "tile": "9s",
+        "count": 5,
+        "positions": [
+          {
+            "scope": "CPU hand",
+            "ordinal": 10,
+            "tile": "9s",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "右下CPU结果：中央仍为“东3局，0本场”，宝牌指示牌6z，后面四张背面朝上。下方手牌从左到右为：3m 3m 6m 6m 8m 4p 1s 3s 8s 9s 9s 3z 3z；全部正向，无另列摸牌标记，无赤五。上方左端显示一组9m 9m 9m副露，画面右端一张横置；上方其余暗手及左右两家暗手背面朝上，牌面未知。左右两侧牌河旁各有一根竖向白棒，中央带红点。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          },
+          {
+            "scope": "CPU hand",
+            "ordinal": 11,
+            "tile": "9s",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "右下CPU结果：中央仍为“东3局，0本场”，宝牌指示牌6z，后面四张背面朝上。下方手牌从左到右为：3m 3m 6m 6m 8m 4p 1s 3s 8s 9s 9s 3z 3z；全部正向，无另列摸牌标记，无赤五。上方左端显示一组9m 9m 9m副露，画面右端一张横置；上方其余暗手及左右两家暗手背面朝上，牌面未知。左右两侧牌河旁各有一根竖向白棒，中央带红点。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          },
+          {
+            "scope": "upper",
+            "ordinal": 5,
+            "tile": "9s",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "上方牌河：第1张图案模糊，无法可靠区分1s与6z；第2—5张为3s 4p 3p 9s；第6张红绿深色图案模糊，无法可靠辨认花色和点数；第7—12张为2s 4p 5p 2p 2p 5z；第13—16张为7s 1m 6p 1p；第17张红绿深色图案模糊，无法可靠辨认花色和点数。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          },
+          {
+            "scope": "right",
+            "ordinal": 4,
+            "tile": "9s",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "右方牌河：第1张为万子，数字及赤五状态无法可靠辨认；第2张为万子，数字及赤五状态无法可靠辨认；第3—6张为5p 9s 6s 3p；第7张绿色图案模糊，无法可靠区分8s与6z；第8—12张为2p 1s 4p 7p 4p；第13张为万子，数字及赤五状态无法可靠辨认；第14张为万子，数字及赤五状态无法可靠辨认；第15—17张为4s 8s 8s。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          },
+          {
+            "scope": "bottom",
+            "ordinal": 14,
+            "tile": "9s",
+            "origin": "inherited-machine-transcription",
+            "sourceRaw": {
+              "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+              "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+              "pointer": "/parsedOutput/figures/0/transcription"
+            },
+            "sourceFragment": "下方牌河：第一排1z 4z 5z 7z 4p 4p；第二排2s 7z 4z 3p 3s 2s；第三排7z 9s 4z 2m 2m 1p。",
+            "positionConvention": "CPU lower-right single result only; original transcription ordering, not new pixel coordinates"
+          }
+        ],
+        "humanPositions": [],
+        "whichInheritedPositionIsWrong": "unresolved; no new image reading or tile reassignment"
+      }
+    ],
+    "impact": {
+      "kind": "zero-model-dependency-analysis-not-independent-semantic-acceptance",
+      "specificAffectedScope": "nemata-jp-p257-r1; CPU lower-right result public record",
+      "sourceBlockIds": [
+        "nemata-jp-p256-b27",
+        "nemata-jp-p256-b28",
+        "nemata-jp-p256-b29",
+        "nemata-jp-p256-b30",
+        "nemata-jp-p256-b31",
+        "nemata-jp-p256-b32",
+        "nemata-jp-p256-b33",
+        "nemata-jp-p256-b34",
+        "nemata-jp-p256-b35",
+        "nemata-jp-p256-b36",
+        "nemata-jp-p256-b37",
+        "nemata-jp-p256-b38",
+        "nemata-jp-p256-b39",
+        "nemata-jp-p256-b40",
+        "nemata-jp-p257-b1",
+        "nemata-jp-p257-b2",
+        "nemata-jp-p257-b3",
+        "nemata-jp-p257-b4"
+      ],
+      "sourceAndContext": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\257.json",
+          "sha256": "ca63823638f042d84419560d2618879b80972410d0e290f6b12c9860e19639a6",
+          "bytes": 14350
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-311250-zero-preparation-20261028\\257-context.json",
+          "sha256": "8ee743e7fe3dce2679adb5799aafa435792dc8bc10b3b6e6d4a213b37644fd7a"
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\256.json",
+          "sha256": "77717438bdb22c52c04d70370ce2440054ef5c1a590fac4c84fcec6036ac8635",
+          "bytes": 63058
+        }
+      ],
+      "authorContribution": "Q9条件性鸣牌/一色手论证及其与CPU的结果比较；257 b1延续诈唬次要、和牌为主，b2引出参考比较。",
+      "dependency": "计数冲突使CPU结果不能被认证为完整合法逐牌记录，不能据这些位置独立证明可见/剩余张数、受入、安全度、概率或策略最优性。",
+      "unresolved": "没有现成精确源证据判定23个冲突位置中哪个旧机器牌码或位置归属有误；不能改九个人工值凑数，不能将原独审的部分faithful扩为完整牌谱pass。",
+      "separateScope": "Q10位于b5之后，r2/r3/r4与b6–b10沿原真实独审faithful及未改hash继承；这里只证明结构/字节隔离，不代替整章或Q9影响独审。",
+      "wholeArgumentAccepted": false,
+      "proposedLimitsNotInstalled": [
+        "保留原图与九个人工值，明确CPU结果转录仍有逐牌计数冲突及四条隐藏/不可见unknown。",
+        "不得把87位置清单称为已完整核准的合法牌谱，或由冲突记录推出精确张数、概率、安全性、受入及最优性。",
+        "CPU比较只能按作者所述参考案例及原条件呈现，不能把该有冲突转录当作独立量化证明。",
+        "任何显示限制均为非原文审校说明；当前未安装、未做MCP/Arena读回。"
+      ]
+    },
+    "deterministicApplicationVerified": true,
+    "fullRecordMultiplicityPassed": false,
+    "semanticApplicationReviewAuthorized": false,
+    "requestIsUnexecutedProposalOnly": true
+  },
+  "p261": {
+    "verification": {
+      "key": "261",
+      "canonical": "nemata-jp-chapter-250-1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair18-20261027-p261\\candidates\\nemata-jp\\page-0261.json",
+        "sha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+        "bytes": 142025
+      },
+      "derivation": "unchanged-same-SHA-human-confirmation",
+      "humanFacts": [
+        {
+          "itemId": "84791e37a95dcfa295e38dbf27855039",
+          "targetId": "nemata-jp-p261-b92:dispute:a553fc2fba204224",
+          "position": "第261页问题17末段、r50图块的摸入牌，请确认牌码与赤牌状态。",
+          "imageSha256": "f502bc2382ccc4076a54928cec3588aa60096ff42b7f221abba1e074ad7045a9",
+          "originalImages": [
+            {
+              "path": "assets/f502bc2382ccc4076a54928cec3588aa60096ff42b7f221abba1e074ad7045a9.png",
+              "sha256": "f502bc2382ccc4076a54928cec3588aa60096ff42b7f221abba1e074ad7045a9"
+            }
+          ],
+          "tiles": [
+            "3m"
+          ],
+          "orientation": "",
+          "timestamp": "2026-10-28T10:08:34.667Z",
+          "revision": 2,
+          "eventSha256": "23e393c61f516c0aef0552ba6b9c9eb76a7e61215996c8792bc6c82f5ac581c6"
+        }
+      ],
+      "independentEvidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\91507699-61d3-496d-9481-de5f38e8418c.json",
+        "sha256": "4803be122fb4d59f1bfe52f4eb8607dc5c0c897b02cb9def2604ca9e04fd3255"
+      },
+      "affectedExampleFaithful": true,
+      "old5mErrorPreserved": [
+        {
+          "severity": "error",
+          "targetId": "nemata-jp-p261-r50",
+          "sourceEvidence": "完整源页问题17末段及r50高清局部中，“引きならダマ満テンパイで四暗への手変わりもあります”之前的牌面为五万，即5m；对应源图片块为nemata-jp-p261-b92。",
+          "description": "候选将该摸牌误写为3m，导致b33对应译文的默听满贯及四暗刻改良条件引用错误。",
+          "suggestedRepair": "将r50的transcription改为“摸入牌：5m，普通五万，非赤五；竖置。”，caption改为“5m”，并将对应inlineContent中的figure文本从“3m”改为“5m”。"
+        }
+      ],
+      "scopeEvidenceVerified": true,
+      "ordinaryWholePagePassed": false,
+      "wholeChapterPassed": false,
+      "newModelCalls": 0
+    },
+    "originalAdjudication": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\adjudications\\nemata-jp\\page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.source-3m-adjudication.json",
+      "sha256": "5248fba6665bdc8928b5460921dcf173297913262459828a17dab52e0de04c58",
+      "bytes": 7160
+    },
+    "actualFrozenVerifier": {
+      "module": {
+        "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac269-109167-exact-v1-20261028/textbook-audit.mjs",
+        "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+      },
+      "runtime": {
+        "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac269-109167-exact-v1-20261028/runtime-manifest.json",
+        "sha256": "814df700d298188dea14d20fd84ac818d1ded9a706e370bc7a1714141ad6a7a9"
+      },
+      "status": "passed-after-source-adjudication",
+      "adjudication": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\adjudications\\nemata-jp\\page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.source-3m-adjudication.json",
+        "sha256": "5248fba6665bdc8928b5460921dcf173297913262459828a17dab52e0de04c58",
+        "status": "resolved-with-source-evidence",
+        "verification": "root-authorized-source-adjudication-with-independent-model-recheck-not-full-page-pass-not-user-human-gold-standard",
+        "originalAudit": {
+          "path": "audit/pages/nemata-jp/page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.7076217daf84.json",
+          "sha256": "4ab382b1a427ca266b8aa8148eed21800be971534627f69c04379e8f83e41b06",
+          "callIds": [
+            "a78f22ab-f417-4382-bc8d-cdd4f9e6f65f"
+          ]
+        },
+        "resolvedIssueIndices": [
+          0
+        ],
+        "modelAdjudication": {
+          "callId": "91507699-61d3-496d-9481-de5f38e8418c",
+          "sha256": "4803be122fb4d59f1bfe52f4eb8607dc5c0c897b02cb9def2604ca9e04fd3255",
+          "verdict": "target-is-3m",
+          "manifestSha256": "03052928bac4af79b7db51c9cb4cf260f2b8276e2ddbc08dd9c6643321c00258"
+        }
+      }
+    },
+    "newProduction": 0,
+    "newReview": 0,
+    "old5mAndB33HistoryPreserved": true
+  },
+  "reusedPages": [
+    {
+      "page": 250,
+      "sourceBlocks": 69,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair10-20261027-p250\\candidates\\nemata-jp\\page-0250.json",
+        "sha256": "1a3e1c8ce49532298caf98b7fabc00a91fa830a6f8a5e892db8199e457a43786",
+        "bytes": 60428
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0250.1a3e1c8ce49532298caf98b7fabc00a91fa830a6f8a5e892db8199e457a43786.6baa4a7e1404.json",
+        "sha256": "300d82bf0bd10f334e0e446b8cedfb2bfe861d665dfd2d41f39c5e9cbb23cb09",
+        "bytes": 163858
+      },
+      "status": "passed",
+      "newModelCalls": 0
+    },
+    {
+      "page": 251,
+      "sourceBlocks": 78,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\candidates\\nemata-jp\\page-0251.json",
+        "sha256": "f9a76b0e4f4605a034de404d2fa95bbb914f6a00b9859cd7058e7110f70d10e2",
+        "bytes": 66313
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0251.f9a76b0e4f4605a034de404d2fa95bbb914f6a00b9859cd7058e7110f70d10e2.696268c32cdb.json",
+        "sha256": "d0c0b4db53cf9e4950a81159a7df69aea71f4fdab35608fbd0234d79158f7c3c",
+        "bytes": 176505
+      },
+      "status": "passed",
+      "newModelCalls": 0
+    },
+    {
+      "page": 252,
+      "sourceBlocks": 85,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\candidates\\nemata-jp\\page-0252.json",
+        "sha256": "f0e75d84935bdcafff4ee43629406f35208b29d4e007579e5328463e91a099c8",
+        "bytes": 61282
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0252.f0e75d84935bdcafff4ee43629406f35208b29d4e007579e5328463e91a099c8.696268c32cdb.json",
+        "sha256": "8007c605c310418209d5113990bd6dac44a046d8c3f61efb4638159882adca8f",
+        "bytes": 180644
+      },
+      "status": "passed",
+      "newModelCalls": 0
+    },
+    {
+      "page": 253,
+      "sourceBlocks": 92,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair12-20261027-p253\\candidates\\nemata-jp\\page-0253.json",
+        "sha256": "78b98bcd25a3bec7a6facea85f01973ae17d0735a2f3de418cb39826587b9a6f",
+        "bytes": 78037
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0253.78b98bcd25a3bec7a6facea85f01973ae17d0735a2f3de418cb39826587b9a6f.6b1b0eb6efaf.json",
+        "sha256": "6084c156fdd063e77423e477e01d632762d7ee3a6617b8a8a81493ea813b2527",
+        "bytes": 214532
+      },
+      "status": "passed",
+      "newModelCalls": 0
+    },
+    {
+      "page": 254,
+      "sourceBlocks": 72,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair9-20261027-p254nemata\\candidates\\nemata-jp\\page-0254.json",
+        "sha256": "bdc0dcb315a56712edc68450c22c1b838a315683a5d9f0650395ac5f9c03f690",
+        "bytes": 67796
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0254.bdc0dcb315a56712edc68450c22c1b838a315683a5d9f0650395ac5f9c03f690.image-binding-revalidated.json",
+        "sha256": "60e89549f35c5c4f99cf97ae5934ae0d5bbd667a917a7c408a4b5abd4349206f",
+        "bytes": 174391
+      },
+      "status": "passed",
+      "newModelCalls": 0
+    },
+    {
+      "page": 255,
+      "sourceBlocks": 95,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\candidates\\nemata-jp\\page-0255.json",
+        "sha256": "86e8129b8d692bed934ce99522433c8e6072ed1b9c717e22f9907b628f3fdada",
+        "bytes": 71217
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0255.86e8129b8d692bed934ce99522433c8e6072ed1b9c717e22f9907b628f3fdada.7ffa307c5cd0.json",
+        "sha256": "f61e05ede3da66303399773b3f2636c9c7c401ef7cab49cf242f1aba1f99158a",
+        "bytes": 202180
+      },
+      "status": "passed",
+      "newModelCalls": 0
+    },
+    {
+      "page": 256,
+      "sourceBlocks": 60,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair11-20261027-p256\\candidates\\nemata-jp\\page-0256.json",
+        "sha256": "bf9d64107b4b3d425c1ec16aa97baf9178799f8371f1e4879f7fde0f6489c2cf",
+        "bytes": 43189
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0256.bf9d64107b4b3d425c1ec16aa97baf9178799f8371f1e4879f7fde0f6489c2cf.6baa4a7e1404.json",
+        "sha256": "145abb2d105f7c5dee6905a206770fc08f2dbe684f852a9e12c0c212d0f57b4f",
+        "bytes": 128148
+      },
+      "status": "passed",
+      "newModelCalls": 0
+    },
+    {
+      "page": 258,
+      "sourceBlocks": 85,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0258.json",
+        "sha256": "9bad063f7409d94bad026217777b1be78a5589f7c1216f6fa7a21791744189e5",
+        "bytes": 95051
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0258.9bad063f7409d94bad026217777b1be78a5589f7c1216f6fa7a21791744189e5.6baa4a7e1404.json",
+        "sha256": "8174e677aec3ecc9659b34ec03286b4b67d0d1e6b0dee3b163b657ca246248c1",
+        "bytes": 152881
+      },
+      "status": "passed",
+      "newModelCalls": 0
+    },
+    {
+      "page": 259,
+      "sourceBlocks": 76,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0259.json",
+        "sha256": "dcc2f619d7195d65f10db732127f4bb4d498df742741a6e52b9d6bc5442f1cda",
+        "bytes": 99703
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0259.dcc2f619d7195d65f10db732127f4bb4d498df742741a6e52b9d6bc5442f1cda.6baa4a7e1404.json",
+        "sha256": "bcd8e5e3d56092b8f178726c0b981c9b6fc92dd4fd1452c32cf2169a11fb5e04",
+        "bytes": 152941
+      },
+      "status": "passed",
+      "newModelCalls": 0
+    },
+    {
+      "page": 260,
+      "sourceBlocks": 76,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair21-20261027-p260\\candidates\\nemata-jp\\page-0260.json",
+        "sha256": "8bbfb99c94116aa6b87ed1ead415406e8025329c53292e2dd5dc40b76f3bbfda",
+        "bytes": 112516
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0260.8bbfb99c94116aa6b87ed1ead415406e8025329c53292e2dd5dc40b76f3bbfda.7076217daf84.json",
+        "sha256": "231583d8e17a0828d669ab49d64927a9f43cfd93bc4d5a938f8ee1c9be252f69",
+        "bytes": 161724
+      },
+      "status": "passed",
+      "newModelCalls": 0
+    },
+    {
+      "page": 262,
+      "sourceBlocks": 49,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair19-20261027-p262\\candidates\\nemata-jp\\page-0262.json",
+        "sha256": "5c25921e229d285ea1ae30ec2baef23adbd9d7e20ee9740d7ef524809d9daba6",
+        "bytes": 72955
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0262.5c25921e229d285ea1ae30ec2baef23adbd9d7e20ee9740d7ef524809d9daba6.7076217daf84.json",
+        "sha256": "2fa72bdfc7c5e4658a6a5d2b0db0f16ba1f73edb3915bcd85d68a6dcdd4cb2da",
+        "bytes": 109661
+      },
+      "status": "passed",
+      "newModelCalls": 0
+    }
+  ],
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "newVisionCalls": 0,
+  "newIndependentCalls": 0,
+  "retry": 0,
+  "wholeChapterPassed": false,
+  "admissionGranted": false,
+  "displayImplementationVerified": false,
+  "annotationPageAndQueueModified": false,
+  "makerSlotAcquired": false,
+  "formalActiveChanged": false,
+  "monetaryCost": null
+}

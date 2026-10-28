@@ -1,0 +1,116 @@
+{
+  "schema": "coac250-independent-pdf261-page-selection/1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair18-20261027-p261\\candidates\\nemata-jp\\page-0261.json",
+    "sha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+    "bytes": 142025
+  },
+  "selected": {
+    "sourceId": "nemata-jp",
+    "page": 261,
+    "candidatePath": "production/sol-high-field-repair18-20261027-p261/candidates/nemata-jp/page-0261.json",
+    "candidateSha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+    "auditStatus": "passed-after-source-adjudication",
+    "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.7076217daf84.json",
+    "gateCheckedAt": "2026-10-28T11:30:06.634Z",
+    "adjudication": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\adjudications\\nemata-jp\\page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.source-3m-adjudication.json",
+      "sha256": "5248fba6665bdc8928b5460921dcf173297913262459828a17dab52e0de04c58",
+      "status": "resolved-with-source-evidence",
+      "verification": "root-authorized-source-adjudication-with-independent-model-recheck-not-full-page-pass-not-user-human-gold-standard",
+      "originalAudit": {
+        "path": "audit/pages/nemata-jp/page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.7076217daf84.json",
+        "sha256": "4ab382b1a427ca266b8aa8148eed21800be971534627f69c04379e8f83e41b06",
+        "callIds": [
+          "a78f22ab-f417-4382-bc8d-cdd4f9e6f65f"
+        ]
+      },
+      "resolvedIssueIndices": [
+        0
+      ],
+      "modelAdjudication": {
+        "callId": "91507699-61d3-496d-9481-de5f38e8418c",
+        "sha256": "4803be122fb4d59f1bfe52f4eb8607dc5c0c897b02cb9def2604ca9e04fd3255",
+        "verdict": "target-is-3m",
+        "manifestSha256": "03052928bac4af79b7db51c9cb4cf260f2b8276e2ddbc08dd9c6643321c00258"
+      }
+    },
+    "originalModelChecks": {
+      "passed": false,
+      "errors": [
+        "needs-repair:nemata-jp-p261-b33",
+        "needs-repair:nemata-jp-p261-r50",
+        "error:nemata-jp-p261-r50"
+      ]
+    },
+    "effectiveModelChecks": null
+  },
+  "humanFacts": [
+    {
+      "itemId": "84791e37a95dcfa295e38dbf27855039",
+      "targetId": "nemata-jp-p261-b92:dispute:a553fc2fba204224",
+      "position": "第261页问题17末段、r50图块的摸入牌，请确认牌码与赤牌状态。",
+      "imageSha256": "f502bc2382ccc4076a54928cec3588aa60096ff42b7f221abba1e074ad7045a9",
+      "originalImages": [
+        {
+          "path": "assets/f502bc2382ccc4076a54928cec3588aa60096ff42b7f221abba1e074ad7045a9.png",
+          "sha256": "f502bc2382ccc4076a54928cec3588aa60096ff42b7f221abba1e074ad7045a9"
+        }
+      ],
+      "tiles": [
+        "3m"
+      ],
+      "orientation": "",
+      "timestamp": "2026-10-28T10:08:34.667Z",
+      "revision": 2,
+      "eventSha256": "23e393c61f516c0aef0552ba6b9c9eb76a7e61215996c8792bc6c82f5ac581c6"
+    }
+  ],
+  "old5mErrorPreserved": [
+    {
+      "severity": "error",
+      "targetId": "nemata-jp-p261-r50",
+      "sourceEvidence": "完整源页问题17末段及r50高清局部中，“引きならダマ満テンパイで四暗への手変わりもあります”之前的牌面为五万，即5m；对应源图片块为nemata-jp-p261-b92。",
+      "description": "候选将该摸牌误写为3m，导致b33对应译文的默听满贯及四暗刻改良条件引用错误。",
+      "suggestedRepair": "将r50的transcription改为“摸入牌：5m，普通五万，非赤五；竖置。”，caption改为“5m”，并将对应inlineContent中的figure文本从“3m”改为“5m”。"
+    }
+  ],
+  "sourceAdjudication": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\adjudications\\nemata-jp\\page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.source-3m-adjudication.json",
+    "sha256": "5248fba6665bdc8928b5460921dcf173297913262459828a17dab52e0de04c58",
+    "status": "resolved-with-source-evidence",
+    "verification": "root-authorized-source-adjudication-with-independent-model-recheck-not-full-page-pass-not-user-human-gold-standard",
+    "originalAudit": {
+      "path": "audit/pages/nemata-jp/page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.7076217daf84.json",
+      "sha256": "4ab382b1a427ca266b8aa8148eed21800be971534627f69c04379e8f83e41b06",
+      "callIds": [
+        "a78f22ab-f417-4382-bc8d-cdd4f9e6f65f"
+      ]
+    },
+    "resolvedIssueIndices": [
+      0
+    ],
+    "modelAdjudication": {
+      "callId": "91507699-61d3-496d-9481-de5f38e8418c",
+      "sha256": "4803be122fb4d59f1bfe52f4eb8607dc5c0c897b02cb9def2604ca9e04fd3255",
+      "verdict": "target-is-3m",
+      "manifestSha256": "03052928bac4af79b7db51c9cb4cf260f2b8276e2ddbc08dd9c6643321c00258"
+    }
+  },
+  "approvedPageLoader": {
+    "module": {
+      "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/publish-textbooks.mjs",
+      "sha256": "ffa7b575475bb3a0b65e13560081354a6adf78a9d51d09958cd0f8385bd04026"
+    },
+    "status": "passed-after-source-adjudication",
+    "sourcePage": 261,
+    "sourceBlocks": 93
+  },
+  "sourceHumanAndExistingIndependentReviewAgree": true,
+  "ordinaryNewWholePageAudit": false,
+  "pageEvidenceSaved": true,
+  "actualMcpArenaReadback": false,
+  "chapterCovered": false,
+  "readbackBoundary": "Existing stagePdfChapters accepts complete chapters only. Chapter250 requires pages250–262;257 has no legal acceptance. No authorized isolated261 stage/display scope supplied; page selection/evidence may be saved independently, but no chapter/readback coverage is claimed.",
+  "newModelCalls": 0
+}

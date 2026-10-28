@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "archivesVerified": 83,
+  "page261SelectedOnce": true,
+  "protectedFilesUnchanged": 8,
+  "remainingChapters": 3,
+  "remainingUnits": 18,
+  "coverage": "253/256 chapters;285/303 units",
+  "concurrentOwnerAdditions": [
+    {
+      "kind": "244-additive-source-gap-diagnosis-after250-registration",
+      "binding": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-source-gap-20261028\\minimal-gap-map.json",
+        "sha256": "3f64c9a720b2c83cdd9f4e0caebefaaf2365137543e1249b59b57a8ef5ebe82c",
+        "sourceReadback": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-source-gap-20261028\\source-readback.json",
+          "sha256": "4d774701f59fe5db838c0bbe8e9ad8700c2c9655d01df2ffff2fe5268cd51efb"
+        },
+        "author144PointTableRequired": false,
+        "actualMissingAuthorSentence": false,
+        "priorityGraphCheckPointsIfNeeded": 2,
+        "originalFalsePreserved": true,
+        "newModelCalls": 0
+      },
+      "originalFalsePreserved": true,
+      "author144PointTableRequired": false,
+      "doesNotGrantAdmission": true,
+      "ownerRegisterNow": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+        "sha256": "d914752d9ccee69b61182b4351d981f43f93b5a00adc6fe319336254a1154da8"
+      }
+    }
+  ],
+  "noNewPreview": true,
+  "noNewModelCalls": true,
+  "noRunOwnedWorkPending": true,
+  "formalActiveChanged": false
+}

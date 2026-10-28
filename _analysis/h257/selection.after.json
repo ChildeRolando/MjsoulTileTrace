@@ -1,0 +1,2655 @@
+{
+  "schema": "coach-textbook-candidate-selection/1",
+  "pages": [
+    {
+      "sourceId": "79-cn",
+      "page": 1,
+      "candidatePath": "production/sol-high-layout-repair-20261026-full/candidates/79-cn/page-0001.json",
+      "candidateSha256": "3e228491b34476fcba0243ac1ca882b882870a05573ef09c3736f067ffa956c9",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0001.3e228491b34476fcba0243ac1ca882b882870a05573ef09c3736f067ffa956c9.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T10:45:00+00:00",
+      "layoutRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\layout-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-full\\candidates\\79-cn\\page-0001.json",
+        "parentFileSha256": "29efb014d6082b157139d1d56b4b4dddadfd002a3e22ed61ee23172795aee92e",
+        "notesPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-full\\notes\\page-0001.json"
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 2,
+      "candidatePath": "production/sol-high-layout-repair-20261026-full/candidates/79-cn/page-0002.json",
+      "candidateSha256": "975365d7b86af52a0b4560864047695b26e30d8e293c15c779513449255fd0cb",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0002.975365d7b86af52a0b4560864047695b26e30d8e293c15c779513449255fd0cb.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T10:45:00+00:00",
+      "layoutRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\layout-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-full\\candidates\\79-cn\\page-0002.json",
+        "parentFileSha256": "5ad37938b6782eb2d6a234562209dcbb09072c37196daf84292c2e797bf0573b",
+        "notesPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-full\\notes\\page-0002.json"
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 3,
+      "candidatePath": "production/sol-high-layout-repair-20261026-full/candidates/79-cn/page-0003.json",
+      "candidateSha256": "09def78ea4aae041a33116f3c0065a692a030fd0fdf8fc6f69ab7e24261477df",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0003.09def78ea4aae041a33116f3c0065a692a030fd0fdf8fc6f69ab7e24261477df.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T10:45:00+00:00",
+      "layoutRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\layout-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-full\\candidates\\79-cn\\page-0003.json",
+        "parentFileSha256": "6fd839e94a61ac14da8ed84eae8ce147a2a914014f00618a02b439581d6d7d74",
+        "notesPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-full\\notes\\page-0003.json"
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 4,
+      "candidatePath": "production/sol-high-layout-repair-20261026-full/candidates/79-cn/page-0004.json",
+      "candidateSha256": "1396b73335c6def0070d77322f31a099d753706cdc5d9adbcda22cc5f4395302",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0004.1396b73335c6def0070d77322f31a099d753706cdc5d9adbcda22cc5f4395302.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T10:45:00+00:00",
+      "layoutRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\layout-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-full\\candidates\\79-cn\\page-0004.json",
+        "parentFileSha256": "a330ea41f7556bdc06b22724b3faa8208e233015beee0076787767f6f437070f",
+        "notesPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-full\\notes\\page-0004.json"
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 5,
+      "candidatePath": "production/sol-high/candidates/79-cn/page-0005.json",
+      "candidateSha256": "92fb10b1cbc9cb47edab11053fb72ffc2b26e014d7d1e7ebe3f1595ed059e3a1",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0005.92fb10b1cbc9cb47edab11053fb72ffc2b26e014d7d1e7ebe3f1595ed059e3a1.db7af3b674fe.json",
+      "gateCheckedAt": "2026-10-26T10:45:21.363Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 11,
+      "candidatePath": "production/sol-high-field-repair3-20261026-field-repair-20261026-full/candidates/79-cn/page-0011.json",
+      "candidateSha256": "bfed10168db4dbce79de144f28d1843c8890ca1f3f51ce7e6d5f69f77ec1803a",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0011.bfed10168db4dbce79de144f28d1843c8890ca1f3f51ce7e6d5f69f77ec1803a.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T14:59:19.804Z",
+      "fieldRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\field-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair-20261026-full\\candidates\\79-cn\\page-0011.json",
+        "parentFileSha256": "58b6129eebe614ee0a3f1e55df73e63b1da0b0128bdcd97cc8c37e0b08f27182",
+        "replacements": [
+          [
+            "1m 4m 8m 2p 5p 8p 2s 5s 8s 2z 3z 4z 5z",
+            "1m 4m 8m 2p 5p 9p 2s 5s 8s 2z 3z 4z 5z",
+            1
+          ]
+        ]
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 16,
+      "candidatePath": "production/sol-high-layout-repair-20261026-full/candidates/79-cn/page-0016.json",
+      "candidateSha256": "5ca2d863d5e0a9853f42009fd6fd22f82309cc107f905f3816facdbcc7974c7e",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0016.5ca2d863d5e0a9853f42009fd6fd22f82309cc107f905f3816facdbcc7974c7e.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T10:45:00+00:00",
+      "layoutRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\layout-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-full\\candidates\\79-cn\\page-0016.json",
+        "parentFileSha256": "293bb242bfa08b231a4720e6ea77a4ad5a5dcfc3761c43c132a70bb2a9706af4",
+        "notesPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-full\\notes\\page-0016.json"
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 24,
+      "candidatePath": "production/sol-high-layout-repair-20261026-full/candidates/79-cn/page-0024.json",
+      "candidateSha256": "c96be5b78d71f648bb2635c4eb1ea5a4cc62b7ec16d42ce9b92a1fb0fc1f33df",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0024.c96be5b78d71f648bb2635c4eb1ea5a4cc62b7ec16d42ce9b92a1fb0fc1f33df.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T10:45:00+00:00",
+      "layoutRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\layout-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-full\\candidates\\79-cn\\page-0024.json",
+        "parentFileSha256": "18d89ab9e602f5e18e54ea705df5402412ef55f8c45a0f33e8a76cf94172119f",
+        "notesPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-full\\notes\\page-0024.json"
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 32,
+      "candidatePath": "production/sol-high-field-repair3-20261026-full/candidates/79-cn/page-0032.json",
+      "candidateSha256": "ef5c1d2238fcded064cfd26f0c359326736f40812352fd80b5b8679823112d06",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0032.ef5c1d2238fcded064cfd26f0c359326736f40812352fd80b5b8679823112d06.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T14:59:19.804Z",
+      "fieldRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\field-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-full\\candidates\\79-cn\\page-0032.json",
+        "parentFileSha256": "08c905c402986dc8880188cf7ba782a07e9664525ced4ff86b91123b2eda5387",
+        "replacements": [
+          [
+            "西（4z）",
+            "西（3z）",
+            2
+          ]
+        ]
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 33,
+      "candidatePath": "production/sol-high-field-repair-20261026-full/candidates/79-cn/page-0033.json",
+      "candidateSha256": "e0fb62c5273ed07fddebb6921eb4ead035119fd9e7acd24718d8f19f0fbcb05f",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0033.e0fb62c5273ed07fddebb6921eb4ead035119fd9e7acd24718d8f19f0fbcb05f.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T14:59:19.803Z",
+      "fieldRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\field-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-full\\candidates\\79-cn\\page-0033.json",
+        "parentFileSha256": "c198cc9686ecc4b04717aa6b8e8bace556130ed5ff09207836c97be7ebb5a503",
+        "replacements": [
+          [
+            "123589s",
+            "123567s",
+            2
+          ]
+        ]
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 57,
+      "candidatePath": "production/sol-high-fallback-finite-20261024/candidates/79-cn/page-0057.json",
+      "candidateSha256": "06ec88b7865b3dd06aa768f4422ea2624f2a92980009820cfadc916277682fb4",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0057.06ec88b7865b3dd06aa768f4422ea2624f2a92980009820cfadc916277682fb4.f08615ca4f80.json",
+      "gateCheckedAt": "2026-10-26T10:45:22.397Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 58,
+      "candidatePath": "production/sol-high-fallback-finite-20261024/candidates/79-cn/page-0058.json",
+      "candidateSha256": "44ca7a429fa813ab944bf5c18acd5852984310f0b451be7bf450f129553e90eb",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0058.44ca7a429fa813ab944bf5c18acd5852984310f0b451be7bf450f129553e90eb.9607a8efbe08.json",
+      "gateCheckedAt": "2026-10-26T10:45:22.355Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 59,
+      "candidatePath": "production/sol-high-fallback-finite-20261024/candidates/79-cn/page-0059.json",
+      "candidateSha256": "7c2256be9b9b34f3477f6c0e5b5cb733545e3cc6533429bda22fd4a070930bea",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0059.7c2256be9b9b34f3477f6c0e5b5cb733545e3cc6533429bda22fd4a070930bea.f08615ca4f80.json",
+      "gateCheckedAt": "2026-10-26T10:45:22.439Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 87,
+      "candidatePath": "production/sol-high-fallback-finite-20261024/candidates/79-cn/page-0087.json",
+      "candidateSha256": "924d3d1afa396e1a01d3b9c4fe05571be832c785b3cfa210b98d989c307f3941",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0087.924d3d1afa396e1a01d3b9c4fe05571be832c785b3cfa210b98d989c307f3941.f08615ca4f80.json",
+      "gateCheckedAt": "2026-10-26T10:45:22.486Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 88,
+      "candidatePath": "production/sol-high-fallback-finite-20261024/candidates/79-cn/page-0088.json",
+      "candidateSha256": "6dbbc60cc046cd63a9b9130a82482791a44596f78b22609bceb610f1dca33315",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0088.6dbbc60cc046cd63a9b9130a82482791a44596f78b22609bceb610f1dca33315.f08615ca4f80.json",
+      "gateCheckedAt": "2026-10-26T10:45:22.532Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 89,
+      "candidatePath": "production/sol-high-fallback-finite-20261024/candidates/79-cn/page-0089.json",
+      "candidateSha256": "bd0ff6a5f509e50627d71696922ac089c778b2b29b0a1df43383e372a1d5cda7",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0089.bd0ff6a5f509e50627d71696922ac089c778b2b29b0a1df43383e372a1d5cda7.f08615ca4f80.json",
+      "gateCheckedAt": "2026-10-26T10:45:22.575Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 90,
+      "candidatePath": "production/sol-high-fallback-finite-20261024/candidates/79-cn/page-0090.json",
+      "candidateSha256": "f5e5c085ea08e2bfee4321431e02a44c56de58e0eaa7496b90c08b02d2651c42",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0090.f5e5c085ea08e2bfee4321431e02a44c56de58e0eaa7496b90c08b02d2651c42.f08615ca4f80.json",
+      "gateCheckedAt": "2026-10-26T10:45:22.617Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 95,
+      "candidatePath": "production/sol-high-fallback-finite-20261024/candidates/79-cn/page-0095.json",
+      "candidateSha256": "b883edfdac6da8e1c8a22eafdf473d93c72dc6dcdb44d2b09e0e5d0f6ae7e98d",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0095.b883edfdac6da8e1c8a22eafdf473d93c72dc6dcdb44d2b09e0e5d0f6ae7e98d.f08615ca4f80.json",
+      "gateCheckedAt": "2026-10-26T10:45:22.663Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 96,
+      "candidatePath": "production/sol-high-fallback-finite-20261024/candidates/79-cn/page-0096.json",
+      "candidateSha256": "73c61637710fcab8a355e86c4ea145f1e3dcc12863be8fcfac6b1d7a04c326bd",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0096.73c61637710fcab8a355e86c4ea145f1e3dcc12863be8fcfac6b1d7a04c326bd.f08615ca4f80.json",
+      "gateCheckedAt": "2026-10-26T10:45:22.706Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 97,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0097.json",
+      "candidateSha256": "e4615afd7063ea8c5f251df14ad2be200c42be0643f0bcbd466fca2b1ba93b57",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0097.e4615afd7063ea8c5f251df14ad2be200c42be0643f0bcbd466fca2b1ba93b57.d510b3d9d5cb.json",
+      "gateCheckedAt": "2026-10-26T10:45:23.193Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 98,
+      "candidatePath": "production/sol-high-fallback-finite-20261024/candidates/79-cn/page-0098.json",
+      "candidateSha256": "e6a646949e4b9775e8255942d416126ff6ada17210cecc3c128940c89e94a74a",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0098.e6a646949e4b9775e8255942d416126ff6ada17210cecc3c128940c89e94a74a.f08615ca4f80.json",
+      "gateCheckedAt": "2026-10-26T10:45:22.762Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 106,
+      "candidatePath": "production/sol-high-fallback-finite-20261024/candidates/79-cn/page-0106.json",
+      "candidateSha256": "57d93fcaa7370032ead69d220377fa919600de148f9c18a7a4ded8beddf04ea8",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0106.57d93fcaa7370032ead69d220377fa919600de148f9c18a7a4ded8beddf04ea8.f08615ca4f80.json",
+      "gateCheckedAt": "2026-10-26T10:45:22.807Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 107,
+      "candidatePath": "production/sol-high-fallback-finite-20261024/candidates/79-cn/page-0107.json",
+      "candidateSha256": "9badca8dbb13c8797515867947c66eac3121cd45a717fcc6699de04e8d47f5af",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0107.9badca8dbb13c8797515867947c66eac3121cd45a717fcc6699de04e8d47f5af.f08615ca4f80.json",
+      "gateCheckedAt": "2026-10-26T10:45:22.848Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 108,
+      "candidatePath": "production/sol-high-fallback-finite-20261024/candidates/79-cn/page-0108.json",
+      "candidateSha256": "9bfa6576fce650c9a73e868e394a7aca64300436a32172dbd8cd6980c28cf2d7",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0108.9bfa6576fce650c9a73e868e394a7aca64300436a32172dbd8cd6980c28cf2d7.f08615ca4f80.json",
+      "gateCheckedAt": "2026-10-26T10:45:22.887Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 109,
+      "candidatePath": "production/sol-high-fallback-finite-20261024/candidates/79-cn/page-0109.json",
+      "candidateSha256": "6b4ed2f8d3079d786a88aafa8edd23193733602a07fedb9171a67fc9c97bac62",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0109.6b4ed2f8d3079d786a88aafa8edd23193733602a07fedb9171a67fc9c97bac62.f08615ca4f80.json",
+      "gateCheckedAt": "2026-10-26T10:45:22.932Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 112,
+      "candidatePath": "production/sol-high-field-repair-20261026-fb-finite-20261024/candidates/79-cn/page-0112.json",
+      "candidateSha256": "bd91c013edcd7ecf24e852cf07ac1caf1ea7d5bb8de2092a1b94c147cd7e5c8f",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0112.bd91c013edcd7ecf24e852cf07ac1caf1ea7d5bb8de2092a1b94c147cd7e5c8f.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T14:59:19.804Z",
+      "fieldRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\field-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024\\candidates\\79-cn\\page-0112.json",
+        "parentFileSha256": "1453975fa6f655863fb8d1767bf8046e56f813cacce5c193acaadcc5822fda20",
+        "replacements": [
+          [
+            "34588p",
+            "34599p",
+            1
+          ],
+          [
+            "45688p",
+            "45699p",
+            1
+          ],
+          [
+            "23488p",
+            "23499p",
+            1
+          ]
+        ]
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 113,
+      "candidatePath": "production/sol-high-fallback-finite-20261024/candidates/79-cn/page-0113.json",
+      "candidateSha256": "5e85411ed322d3e72311f849e936503a9030b79b185d79d1a41ad838cb938688",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0113.5e85411ed322d3e72311f849e936503a9030b79b185d79d1a41ad838cb938688.f08615ca4f80.json",
+      "gateCheckedAt": "2026-10-26T10:45:23.020Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 114,
+      "candidatePath": "production/sol-high-partial-p114-20261026/candidates/79-cn/page-0114.json",
+      "candidateSha256": "3252313233b48bd84a6fafb4093eb10d864ad5d3b437aec0fb424ddfd56a32d8",
+      "auditStatus": "passed-explicit-source-block-scope",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0114.3252313233b48bd84a6fafb4093eb10d864ad5d3b437aec0fb424ddfd56a32d8.6baa4a7e1404.json",
+      "auditRecordedAt": "2026-10-26T22:10:06.494Z"
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 122,
+      "candidatePath": "production/sol-high-fallback-finite-20261024/candidates/79-cn/page-0122.json",
+      "candidateSha256": "2da184a2b8a91e5410667f203ff0e160626e469718aa8da199c9881dd0d3956e",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0122.2da184a2b8a91e5410667f203ff0e160626e469718aa8da199c9881dd0d3956e.f08615ca4f80.json",
+      "gateCheckedAt": "2026-10-26T10:45:23.059Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 123,
+      "candidatePath": "production/sol-high-fallback-finite-20261024/candidates/79-cn/page-0123.json",
+      "candidateSha256": "2d289e4b882938e68d11f410aa77c33d3281361266763c4b0bb335354c8e8df7",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0123.2d289e4b882938e68d11f410aa77c33d3281361266763c4b0bb335354c8e8df7.f08615ca4f80.json",
+      "gateCheckedAt": "2026-10-26T10:45:23.100Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 124,
+      "candidatePath": "production/sol-high-fallback-finite-20261024/candidates/79-cn/page-0124.json",
+      "candidateSha256": "4c06ef821f5dacf2d81ef21bb4b037a3f5f49aaebee830ae6d9af2f93b2af2cf",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0124.4c06ef821f5dacf2d81ef21bb4b037a3f5f49aaebee830ae6d9af2f93b2af2cf.d510b3d9d5cb.json",
+      "gateCheckedAt": "2026-10-26T10:45:23.147Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 125,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0125.json",
+      "candidateSha256": "249262c1913a41dc29bce9f272e900259c64065c9ac41957837ba90ab7b3f71c",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0125.249262c1913a41dc29bce9f272e900259c64065c9ac41957837ba90ab7b3f71c.d510b3d9d5cb.retry-1792941172963-e19da3bb.json",
+      "gateCheckedAt": "2026-10-26T10:45:23.240Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 134,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0134.json",
+      "candidateSha256": "45fd1d6d5096b0c7b41577e59656e68ee40ddb991a8be94ff0cdc0bb590d53b1",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0134.45fd1d6d5096b0c7b41577e59656e68ee40ddb991a8be94ff0cdc0bb590d53b1.6d90dc876438.retry-1792941809460-99316ecf.json",
+      "gateCheckedAt": "2026-10-26T10:45:23.285Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 135,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0135.json",
+      "candidateSha256": "070f4b8f8d80f700e8055197c28bd0373481c7f957f09e00a5a7467f53e4e847",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0135.070f4b8f8d80f700e8055197c28bd0373481c7f957f09e00a5a7467f53e4e847.696268c32cdb.retry-1792941940416-3cf73f89.json",
+      "gateCheckedAt": "2026-10-26T10:45:23.329Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 136,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0136.json",
+      "candidateSha256": "23df86f412631cab275233cb6f0b0a3d03b0adc88069972d78aae913066bbce2",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0136.23df86f412631cab275233cb6f0b0a3d03b0adc88069972d78aae913066bbce2.696268c32cdb.retry-1792942506176-914607e5.json",
+      "gateCheckedAt": "2026-10-26T10:45:23.375Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 147,
+      "candidatePath": "production/sol-high-field-repair-20261026-fb-finite-20261024-schemafix/candidates/79-cn/page-0147.json",
+      "candidateSha256": "8fdca0a05c62f56dc2dfe9fed1f9b19c12aa01f1ba0f08506f29354475d19389",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0147.8fdca0a05c62f56dc2dfe9fed1f9b19c12aa01f1ba0f08506f29354475d19389.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T14:59:19.804Z",
+      "fieldRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\field-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0147.json",
+        "parentFileSha256": "83880b7b3154b3a75cf18e44c5f9869b5b3d5bb3a9e9bbea819c0e9ac3bbfdfe",
+        "replacements": [
+          [
+            "668s",
+            "669s",
+            1
+          ]
+        ]
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 148,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0148.json",
+      "candidateSha256": "90eff692240daa171692d3c12b6cbe90ed3c7875f0d4d2f995892a8bb7cb4868",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0148.90eff692240daa171692d3c12b6cbe90ed3c7875f0d4d2f995892a8bb7cb4868.7ffa307c5cd0.retry-1792952361400-cc02c07c.json",
+      "gateCheckedAt": "2026-10-26T10:45:23.467Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 149,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0149.json",
+      "candidateSha256": "edc4a8cee2382702fc2ba204d6c744a96451383b6ed8b70de4e78b7f95f0847b",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0149.edc4a8cee2382702fc2ba204d6c744a96451383b6ed8b70de4e78b7f95f0847b.7ffa307c5cd0.retry-1792952775119-d5ae238f.json",
+      "gateCheckedAt": "2026-10-26T10:45:23.509Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 150,
+      "candidatePath": "production/sol-high-field-repair2-20261026-fb-finite-20261024-schemafix/candidates/79-cn/page-0150.json",
+      "candidateSha256": "7cd7c8b404048383427e17c1c90203937757f6356d15ed1b9128b30ebc63a670",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0150.7cd7c8b404048383427e17c1c90203937757f6356d15ed1b9128b30ebc63a670.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T14:59:19.804Z",
+      "fieldRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\field-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0150.json",
+        "parentFileSha256": "1c1ced1bc27aafb9006336fa666f751529ef70c15ae0385a5be4e40d83d6b2c8",
+        "replacements": [
+          [
+            "113477s",
+            "123677s",
+            1
+          ],
+          [
+            "6678s",
+            "9978s",
+            1
+          ],
+          [
+            "23467m 66s",
+            "23467m 99s",
+            1
+          ]
+        ]
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 151,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0151.json",
+      "candidateSha256": "86453b81f9ac44256b224bd19ffefcedbb0cc87c90ecd13aae4fbd68c5c3f71e",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0151.86453b81f9ac44256b224bd19ffefcedbb0cc87c90ecd13aae4fbd68c5c3f71e.7ffa307c5cd0.retry-1792953358790-c6fe1227.json",
+      "gateCheckedAt": "2026-10-26T10:45:23.602Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 152,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0152.json",
+      "candidateSha256": "bb9fafe856b7141774fb0bfcb29d4af37a2fccdb6dc10f3ff725b6e5ac3cbd7c",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0152.bb9fafe856b7141774fb0bfcb29d4af37a2fccdb6dc10f3ff725b6e5ac3cbd7c.6baa4a7e1404.retry-1792956385984-74a16825.json",
+      "gateCheckedAt": "2026-10-26T10:45:23.645Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 153,
+      "candidatePath": "production/sol-high-field-repair7-20261027-p153/candidates/79-cn/page-0153.json",
+      "candidateSha256": "89371a3d25579b86b220027666c1f85745747b396a6214dfa1f7629cdeb2a2ad",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0153.89371a3d25579b86b220027666c1f85745747b396a6214dfa1f7629cdeb2a2ad.6baa4a7e1404.json",
+      "auditRecordedAt": "2026-10-26T17:09:30.465Z"
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 154,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0154.json",
+      "candidateSha256": "8c06f2217b22dc67b4541a1796df1471711dffaef7f139fcadd340b23e43450e",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0154.8c06f2217b22dc67b4541a1796df1471711dffaef7f139fcadd340b23e43450e.6baa4a7e1404.retry-1792973642193-a8be7140.json",
+      "gateCheckedAt": "2026-10-26T10:45:23.741Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 155,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0155.json",
+      "candidateSha256": "7287fee24dbe64233b5cc24cc4abdc706dd1c815831f5bf3913c83b7eae1abbf",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0155.7287fee24dbe64233b5cc24cc4abdc706dd1c815831f5bf3913c83b7eae1abbf.6baa4a7e1404.retry-1792973720989-b7b4b1ce.json",
+      "gateCheckedAt": "2026-10-26T10:45:23.790Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 170,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0170.json",
+      "candidateSha256": "2610bb716b6bcd9c540fb738e87a3901ab32e97a9cccc492ffaa176be1cfff4e",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0170.2610bb716b6bcd9c540fb738e87a3901ab32e97a9cccc492ffaa176be1cfff4e.6baa4a7e1404.retry-1792974484806-4f7d4482.json",
+      "gateCheckedAt": "2026-10-26T10:45:23.836Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 171,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0171.json",
+      "candidateSha256": "fb6c77d85d93809f2a0cfad49062a8b1fe6b3df590e6c4dd67782703fa1a4812",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0171.fb6c77d85d93809f2a0cfad49062a8b1fe6b3df590e6c4dd67782703fa1a4812.6baa4a7e1404.retry-1792974552684-43bbed1c.json",
+      "gateCheckedAt": "2026-10-26T10:45:23.877Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 172,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0172.json",
+      "candidateSha256": "bec5a4bd21ac7a72a7b0ec79e594d7e659afb57adf03de49bc32433686e2c1ec",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0172.bec5a4bd21ac7a72a7b0ec79e594d7e659afb57adf03de49bc32433686e2c1ec.6baa4a7e1404.retry-1792975374433-24d3919f.json",
+      "gateCheckedAt": "2026-10-26T10:45:23.925Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 191,
+      "candidatePath": "production/sol-high-layout-repair-20261026-schemafix/candidates/79-cn/page-0191.json",
+      "candidateSha256": "e6809aabe6875a84a7da535fa4ef95dafc215aa35f4afed86cbda8cad84072f4",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0191.e6809aabe6875a84a7da535fa4ef95dafc215aa35f4afed86cbda8cad84072f4.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T10:45:00+00:00",
+      "layoutRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\layout-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0191.json",
+        "parentFileSha256": "919fc710d65d28588501fc720a505323695007e55485a649e43cf14cd2a828e4",
+        "notesPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-schemafix\\notes\\page-0191.json"
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 192,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0192.json",
+      "candidateSha256": "51719bb2ed7cd826b8a2afbdbecf6eab63863c2b7e000223f30be3a75d3e6979",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0192.51719bb2ed7cd826b8a2afbdbecf6eab63863c2b7e000223f30be3a75d3e6979.6baa4a7e1404.retry-1792976734457-5226e47c.json",
+      "gateCheckedAt": "2026-10-26T10:45:24.016Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 193,
+      "candidatePath": "production/sol-high-layout-repair-20261026-schemafix/candidates/79-cn/page-0193.json",
+      "candidateSha256": "046188e3be510f12c1e729353aa01fb5b1ce866685acf84e34284b8571f49e93",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0193.046188e3be510f12c1e729353aa01fb5b1ce866685acf84e34284b8571f49e93.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T10:45:00+00:00",
+      "layoutRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\layout-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0193.json",
+        "parentFileSha256": "a85134a4897d084b141848b3807c2eec3e6ccda017bc4bed5c410b52eb8ca854",
+        "notesPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-schemafix\\notes\\page-0193.json"
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 196,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0196.json",
+      "candidateSha256": "80ba100cf3fe0174261c6c2d762fa554d55d89bfacc358a1b4a35c9dfc754215",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0196.80ba100cf3fe0174261c6c2d762fa554d55d89bfacc358a1b4a35c9dfc754215.6baa4a7e1404.retry-1792977864907-1ea41ac2.json",
+      "gateCheckedAt": "2026-10-26T10:45:24.099Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 197,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0197.json",
+      "candidateSha256": "c66ab28f288331ca6cc9b2adf2ff86a6753eef17088b6adbdd17805b16c7daa0",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0197.c66ab28f288331ca6cc9b2adf2ff86a6753eef17088b6adbdd17805b16c7daa0.6baa4a7e1404.retry-1792977937148-d6321641.json",
+      "gateCheckedAt": "2026-10-26T10:45:24.141Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 198,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0198.json",
+      "candidateSha256": "4bb5e5544e7f2dbd382324f73968d6d2207664f37273edef0338c70a145a3f9a",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0198.4bb5e5544e7f2dbd382324f73968d6d2207664f37273edef0338c70a145a3f9a.6baa4a7e1404.retry-1792978738254-6397af21.json",
+      "gateCheckedAt": "2026-10-26T10:45:24.188Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 215,
+      "candidatePath": "production/sol-high-layout-repair-20261026-schemafix/candidates/79-cn/page-0215.json",
+      "candidateSha256": "7bd609bad81f11dc0ef5c786a14d7b30d3d303f2c742049693283e42cfc2315f",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0215.7bd609bad81f11dc0ef5c786a14d7b30d3d303f2c742049693283e42cfc2315f.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T10:45:00+00:00",
+      "layoutRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\layout-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0215.json",
+        "parentFileSha256": "19e46d9109ea72d97887234d31531211041170934fafda4cf52d418e379e2e26",
+        "notesPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-schemafix\\notes\\page-0215.json"
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 216,
+      "candidatePath": "production/sol-high-layout-repair-20261026-schemafix/candidates/79-cn/page-0216.json",
+      "candidateSha256": "2c1624387bfc1c92cfd3b16e2c8ce4c541acb359be61ce8b155131838d9916ee",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0216.2c1624387bfc1c92cfd3b16e2c8ce4c541acb359be61ce8b155131838d9916ee.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T10:45:00+00:00",
+      "layoutRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\layout-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0216.json",
+        "parentFileSha256": "0d2807eb69ba81f6f45aaf66dcb6c8d73a6cdcf0e6ad203ea1a727d617a7b762",
+        "notesPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-schemafix\\notes\\page-0216.json"
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 227,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0227.json",
+      "candidateSha256": "c4ce74ad4f6a642713c4f617ecc7a59b99a52f0893cf26d00dba2c68b548d9db",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0227.c4ce74ad4f6a642713c4f617ecc7a59b99a52f0893cf26d00dba2c68b548d9db.6baa4a7e1404.retry-1792980735618-b881c88a.json",
+      "gateCheckedAt": "2026-10-26T10:45:24.368Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 228,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0228.json",
+      "candidateSha256": "b09a871031ebbf8eefc11b64f45b10a46d8d7ebc81a14dc50fdbaf94e5a9162e",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0228.b09a871031ebbf8eefc11b64f45b10a46d8d7ebc81a14dc50fdbaf94e5a9162e.6baa4a7e1404.retry-1792980855780-dad7d073.json",
+      "gateCheckedAt": "2026-10-26T10:45:24.412Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 229,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0229.json",
+      "candidateSha256": "a7d1263213ef1856cf7a3e7fdcb89b8b293f29ac13c356dc18c285e97bc0c166",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0229.a7d1263213ef1856cf7a3e7fdcb89b8b293f29ac13c356dc18c285e97bc0c166.6baa4a7e1404.retry-1792981853531-56718b59.json",
+      "gateCheckedAt": "2026-10-26T10:45:24.463Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 230,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0230.json",
+      "candidateSha256": "f8dca86ad849bc1681c8e2a71dbfcf71d6c5e72ed1b0d3a55837997a9ae50471",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0230.f8dca86ad849bc1681c8e2a71dbfcf71d6c5e72ed1b0d3a55837997a9ae50471.6baa4a7e1404.retry-1792982097994-1db83b77.json",
+      "gateCheckedAt": "2026-10-26T10:45:24.509Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 231,
+      "candidatePath": "production/sol-high-layout-repair-20261026-schemafix/candidates/79-cn/page-0231.json",
+      "candidateSha256": "cc1bf4f8aef2d38da22478dd851326b6f2d7d10517806d45f84b8f1865f9bb80",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0231.cc1bf4f8aef2d38da22478dd851326b6f2d7d10517806d45f84b8f1865f9bb80.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T10:45:00+00:00",
+      "layoutRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\layout-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0231.json",
+        "parentFileSha256": "1d06eee8a53c8cae485c25db49249e57c77f7401d0cbc5c9f01c5289825d851e",
+        "notesPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-schemafix\\notes\\page-0231.json"
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 251,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0251.json",
+      "candidateSha256": "71b883505f163f1e441cfb878519499534df84be6882a43bcc38a843a6ec71fb",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0251.71b883505f163f1e441cfb878519499534df84be6882a43bcc38a843a6ec71fb.6baa4a7e1404.retry-1792983525775-c80316ec.json",
+      "gateCheckedAt": "2026-10-26T10:45:24.596Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 252,
+      "candidatePath": "production/sol-high-layout-repair-20261026-schemafix/candidates/79-cn/page-0252.json",
+      "candidateSha256": "17cbbcef33b6d0c3b097d573ee3840fcfd33c10043efcda0ac72d4710efd022d",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0252.17cbbcef33b6d0c3b097d573ee3840fcfd33c10043efcda0ac72d4710efd022d.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T10:45:00+00:00",
+      "layoutRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\layout-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0252.json",
+        "parentFileSha256": "a52d6421434cc71d5ceff297e3866cccd802635143ae580ac42200500d420425",
+        "notesPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-schemafix\\notes\\page-0252.json"
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 253,
+      "candidatePath": "production/sol-high-field-repair-20261026-fb-finite-20261024-schemafix/candidates/79-cn/page-0253.json",
+      "candidateSha256": "660ee21ba5710d2db803efe73c29b1de017b2781924d0671b38b8cf059ec49d8",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0253.660ee21ba5710d2db803efe73c29b1de017b2781924d0671b38b8cf059ec49d8.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T14:59:19.804Z",
+      "fieldRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\field-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0253.json",
+        "parentFileSha256": "86250f980ec75c04f0658f1db812e257254bb1aec26fff36dd882d8abce3c345",
+        "replacements": [
+          [
+            "8s 9s",
+            "8s 7s",
+            1
+          ],
+          [
+            "宝牌指示牌",
+            "宝牌",
+            1
+          ]
+        ]
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 254,
+      "candidatePath": "production/sol-high-field-repair5-20261027-p254/candidates/79-cn/page-0254.json",
+      "candidateSha256": "b4df282fa7f428f294a67e14f6183f03d38a6c96bfef2241b3dfe455fabddf4a",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0254.b4df282fa7f428f294a67e14f6183f03d38a6c96bfef2241b3dfe455fabddf4a.6baa4a7e1404.json",
+      "auditRecordedAt": "2026-10-26T16:38:17.670Z"
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 255,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0255.json",
+      "candidateSha256": "dc2eda22b0a1729c55ae1097dacd80d2e5feb92fc57ab114e26ed4a4c7f453e8",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0255.dc2eda22b0a1729c55ae1097dacd80d2e5feb92fc57ab114e26ed4a4c7f453e8.6baa4a7e1404.retry-1792985970067-b0e2ed6d.json",
+      "gateCheckedAt": "2026-10-26T10:45:24.778Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 256,
+      "candidatePath": "production/sol-high-layout-repair-20261026-schemafix/candidates/79-cn/page-0256.json",
+      "candidateSha256": "b1b59e30c3ae070999b66bc18232c976c2fb77a73b430312d4326af3ff114280",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0256.b1b59e30c3ae070999b66bc18232c976c2fb77a73b430312d4326af3ff114280.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T10:45:00+00:00",
+      "layoutRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\layout-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0256.json",
+        "parentFileSha256": "3d0e729bb71704a6e0391f6bee8d0823757a3bc7e61193dcf178f9e9130d1511",
+        "notesPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-schemafix\\notes\\page-0256.json"
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 260,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0260.json",
+      "candidateSha256": "76881370f987b316de5768ba9e82f045ce7539fbccd08d546bdc18c07aa0bf12",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0260.76881370f987b316de5768ba9e82f045ce7539fbccd08d546bdc18c07aa0bf12.6baa4a7e1404.retry-1792987047359-b4ba712f.json",
+      "gateCheckedAt": "2026-10-26T10:45:24.863Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 261,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0261.json",
+      "candidateSha256": "30bda45e8d14b0bce70ee6c8f4c24797d54c8c3c4e34fe572e154fd138720889",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0261.30bda45e8d14b0bce70ee6c8f4c24797d54c8c3c4e34fe572e154fd138720889.6baa4a7e1404.retry-1792987964740-5efd89b2.json",
+      "gateCheckedAt": "2026-10-26T10:45:24.906Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 262,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0262.json",
+      "candidateSha256": "76b4cc5c305a0a3a10b2fb79b49a3b8f31ab7dee73b59cc6900b9b5bc5435813",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0262.76b4cc5c305a0a3a10b2fb79b49a3b8f31ab7dee73b59cc6900b9b5bc5435813.6baa4a7e1404.retry-1792988073604-957f40bc.json",
+      "gateCheckedAt": "2026-10-26T10:45:24.947Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 263,
+      "candidatePath": "production/sol-high-field-repair-20261027-p263/candidates/79-cn/page-0263.json",
+      "candidateSha256": "4fb2bd6dd485f463498671be4c7e7898e5f24da88390bf7938f47f0450aed61c",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0263.4fb2bd6dd485f463498671be4c7e7898e5f24da88390bf7938f47f0450aed61c.d0782d5041cf.json",
+      "gateCheckedAt": "2026-10-27T03:11:48.476Z",
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null,
+      "fieldRepair": {
+        "batch": "production/sol-high-field-repair-20261027-p263",
+        "batchManifestSha256": "8e2e61b642ff1fc2349fa01fcecec7e079db81d44353230e73cf087222508461",
+        "selectionReason": "COAC-250 persisted passed p263 so ready-pdf-gap-chapters can complete 79-cn-chapter-260-18"
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 264,
+      "candidatePath": "production/sol-high-field-repair-20261026-fb-finite-20261024-schemafix/candidates/79-cn/page-0264.json",
+      "candidateSha256": "280af4d2da5d06e91ce665a9e214bec841de335dae71aea9dd3eead7de485f09",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0264.280af4d2da5d06e91ce665a9e214bec841de335dae71aea9dd3eead7de485f09.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T14:59:19.804Z",
+      "fieldRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\field-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0264.json",
+        "parentFileSha256": "55965f5c90711aad42f21970ad38d7dc1ed9a26790a7e2eeb5a7978957438b97",
+        "replacements": [
+          [
+            "宝牌指示牌：8m",
+            "宝牌（原图标注“ドラ”）：8m",
+            1
+          ]
+        ]
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 265,
+      "candidatePath": "production/sol-high-field-repair-20261026-fb-finite-20261024-schemafix/candidates/79-cn/page-0265.json",
+      "candidateSha256": "566b6776dda3f2b26d68cda871e56c5a32772ce85fe7f15240d1a9d1c8b1673c",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0265.566b6776dda3f2b26d68cda871e56c5a32772ce85fe7f15240d1a9d1c8b1673c.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T14:59:19.804Z",
+      "fieldRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\field-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0265.json",
+        "parentFileSha256": "836c856a99a0dc188cd73fea0834211d182cdb6759cceb2791a20d55c5b5213c",
+        "replacements": [
+          [
+            "1m、2m、3m、0m",
+            "1m、2m、2m、0m",
+            1
+          ]
+        ]
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 270,
+      "candidatePath": "production/sol-high-layout-repair-20261026-schemafix/candidates/79-cn/page-0270.json",
+      "candidateSha256": "662f4848243c1a402a2232728d17480a0355c6444d0e6b3910308249751d92f8",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0270.662f4848243c1a402a2232728d17480a0355c6444d0e6b3910308249751d92f8.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T10:45:00+00:00",
+      "layoutRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\layout-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0270.json",
+        "parentFileSha256": "5d2a03b855afd55e5b284773d996be827f25ec5c578fda10ba57a8b96bc092b0",
+        "notesPath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-layout-repair-20261026-schemafix\\notes\\page-0270.json"
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 271,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0271.json",
+      "candidateSha256": "4381441a0b962963142b28216a628b05b8dea5659b0ba8372e00eeaa3a289dd2",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0271.4381441a0b962963142b28216a628b05b8dea5659b0ba8372e00eeaa3a289dd2.6baa4a7e1404.retry-1792990271802-1322a3d2.json",
+      "gateCheckedAt": "2026-10-26T10:45:25.163Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 272,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0272.json",
+      "candidateSha256": "b06f2b3ddb9e9323ca9664a6b64e64d4fb7c789c3537f002c02302b5be64d346",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0272.b06f2b3ddb9e9323ca9664a6b64e64d4fb7c789c3537f002c02302b5be64d346.6baa4a7e1404.retry-1792991074123-10c88638.json",
+      "gateCheckedAt": "2026-10-26T10:45:25.205Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 273,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0273.json",
+      "candidateSha256": "6b4291f48e3f8b8fa9e5b287161d5170a968d2289300596fd6a48e12ad11732b",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0273.6b4291f48e3f8b8fa9e5b287161d5170a968d2289300596fd6a48e12ad11732b.6baa4a7e1404.retry-1792991211224-0ce0d4d0.json",
+      "gateCheckedAt": "2026-10-26T10:45:25.252Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 274,
+      "candidatePath": "production/sol-high-field-repair4-20261026-schemafix/candidates/79-cn/page-0274.json",
+      "candidateSha256": "3970530b4809c4e7b252dad6d5809917579a052ce04d9c1f04839014d170bb4e",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0274.3970530b4809c4e7b252dad6d5809917579a052ce04d9c1f04839014d170bb4e.6baa4a7e1404.json",
+      "auditRecordedAt": "2026-10-26T15:32:49.755Z"
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 275,
+      "candidatePath": "production/sol-high-field-repair-20261026-fb-finite-20261024-schemafix/candidates/79-cn/page-0275.json",
+      "candidateSha256": "9dfaec77fdb6cb8118beaedf2394c4794c91fd0546f149bbe1ce40df6f1c049c",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0275.9dfaec77fdb6cb8118beaedf2394c4794c91fd0546f149bbe1ce40df6f1c049c.6baa4a7e1404.json",
+      "gateCheckedAt": "2026-10-26T14:59:19.804Z",
+      "fieldRepair": {
+        "batch": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\field-repair-resolution-20261026.json",
+        "parentCandidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-finite-20261024-schemafix\\candidates\\79-cn\\page-0275.json",
+        "parentFileSha256": "5bcf8c761e157ed6fc5841b5006b259ccec9876ae5e44e6424f7427e536f37b5",
+        "replacements": [
+          [
+            "3z（南）",
+            "2z（南）",
+            2
+          ]
+        ]
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 330,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0330.json",
+      "candidateSha256": "af3b4556b3c3be200f62ae53d981d3632e27de2a91ea02952bb85265afb464f3",
+      "auditStatus": "passed-after-source-flow-repair",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\source-flow\\79-cn-p330.dd3fc208a49a768e9e63fcbe4f5fe34151992d2a8c738f668647fa17eadee3e4.json",
+      "gateCheckedAt": "2026-10-26T10:45:27.947Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": {
+        "layout": {
+          "path": "production/pdf-inline-layout-p330-v1/p330/layout.json",
+          "sha256": "dd3fc208a49a768e9e63fcbe4f5fe34151992d2a8c738f668647fa17eadee3e4"
+        },
+        "parent": {
+          "path": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0330.json",
+          "sha256": "af3b4556b3c3be200f62ae53d981d3632e27de2a91ea02952bb85265afb464f3"
+        },
+        "originalAudit": {
+          "path": "audit/pages/79-cn/page-0330.af3b4556b3c3be200f62ae53d981d3632e27de2a91ea02952bb85265afb464f3.7ffa307c5cd0.retry-1792950650657-0f8b0e61.json",
+          "sha256": "dbc968b07595208c4a605463fd16e08573c334c651e035bfe16f470759e7829d"
+        },
+        "originalProductionRaw": {
+          "path": "production/sol-high-fallback-finite-20261024-schemafix/raw-calls/3db5c4f5-b46a-4ff7-8a9a-884317738ecd.json",
+          "sha256": "aedfeb820863a06b63e79815c1db98b6b18cf8cea468876e6e7a2c87f38458a1"
+        },
+        "originalCalls": [
+          {
+            "path": "audit/calls/181f2210-be82-448d-88fd-ee16a9cf354d.json",
+            "sha256": "d479afd7aa3b5e6126c94603bf0364381205e338c9841f013a66cd4a4bfb608b"
+          }
+        ],
+        "resolvedIssueHashes": [
+          "3188ea1ac36c9000a7feb4d5f8edfa59a04c80bf0e5ec6184ab0daf85ff7c46c"
+        ],
+        "checks": {
+          "paragraphs": 1,
+          "sourceTextBlocks": 3,
+          "imageOccurrences": 2,
+          "figureGroups": 2,
+          "unchangedBodyBlocks": 17,
+          "exactSourceTextAndCodepointOffsets": true,
+          "originalNativeTextGapAnchors": true,
+          "originalNativeLineReadingTokens": true,
+          "fullParentCodeSequences": true,
+          "fullRiverRotationTranscriptions": true,
+          "pixels": {
+            "passed": true,
+            "groups": 2
+          }
+        },
+        "verification": "independent-source-line-offset-and-image-occurrence-layout-check-not-new-model-review-not-human-gold"
+      },
+      "sourceFlowLayout": {
+        "path": "production/pdf-inline-layout-p330-v1/p330/layout.json",
+        "sha256": "dd3fc208a49a768e9e63fcbe4f5fe34151992d2a8c738f668647fa17eadee3e4"
+      },
+      "originalModelChecks": {
+        "passed": false,
+        "errors": [
+          "visual_reading_flow_not_faithful",
+          "needs-repair:79-cn-p330-b18",
+          "needs-repair:79-cn-p330-b19",
+          "error:flowCheck"
+        ]
+      },
+      "effectiveModelChecks": {
+        "passed": true,
+        "errors": []
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 331,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0331.json",
+      "candidateSha256": "d2f26fa62af5d3020e5ee757b173c2b877f40d742568bfa25337d91c6ba8cfd5",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0331.d2f26fa62af5d3020e5ee757b173c2b877f40d742568bfa25337d91c6ba8cfd5.7ffa307c5cd0.retry-1792950779349-abd05967.json",
+      "gateCheckedAt": "2026-10-26T10:45:25.393Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 332,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0332.json",
+      "candidateSha256": "770ca7ef4a6bc6459b4579ccf215b2e79cdc892b0bc0a879690e06143571e41e",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0332.770ca7ef4a6bc6459b4579ccf215b2e79cdc892b0bc0a879690e06143571e41e.7ffa307c5cd0.retry-1792950819903-3183c04b.json",
+      "gateCheckedAt": "2026-10-26T10:45:25.433Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 333,
+      "candidatePath": "production/source-correction-three-tiles-p333-v1/candidates/79-cn/page-0333.json",
+      "candidateSha256": "5882fb7f6a18a971ea89a82bd38d0393673a4c959374c4bbb45da1096023be7b",
+      "auditStatus": "passed-after-specific-source-correction",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-333.5882fb7f6a18a971ea89a82bd38d0393673a4c959374c4bbb45da1096023be7b.three-tile-source-correction.json",
+      "gateCheckedAt": "2026-10-26T10:45:28.038Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": {
+        "path": "audit/source-corrections/three-exact-tiles.root-acceptance.json",
+        "sha256": "3a084fbfdda818ca3b099b8da759776e30512b81d62466e96ec2af14022470f7",
+        "parent": {
+          "path": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0333.json",
+          "sha256": "64814da0ef8cec536daba50c6235523cf7b45dd0d6ee2c275e1cded483f98e2e"
+        },
+        "originalAudit": {
+          "path": "audit/pages/79-cn/page-0333.64814da0ef8cec536daba50c6235523cf7b45dd0d6ee2c275e1cded483f98e2e.7ffa307c5cd0.retry-1792950870741-952810b5.json",
+          "sha256": "a299fbf034fff090568d41f34aa1488461141beae4b82b0db58003d68fdec4b0"
+        },
+        "originalCalls": [
+          {
+            "path": "audit/calls/cf694a7f-0b1c-4f84-b71b-a4899c9013fc.json",
+            "sha256": "836d9e0c542382febd96905fa2cf78974c3fc0835d90679dec926516ad850a86",
+            "callId": "cf694a7f-0b1c-4f84-b71b-a4899c9013fc"
+          }
+        ],
+        "resolutions": [
+          {
+            "figureId": "79-cn-p333-r1",
+            "field": "transcription",
+            "fromValue": "按从左到右的顺序：79-cn-p333-b27：1s（一索），作为宝牌，不是宝牌指示牌；79-cn-p333-b28：1s（一索）；79-cn-p333-b29：索子牌，竹节纹样模糊，点数无法可靠辨认。前两张均非赤五。",
+            "toValue": "按从左到右的顺序：79-cn-p333-b27：1s（一索），作为宝牌，不是宝牌指示牌；79-cn-p333-b28：1s（一索）；79-cn-p333-b29：4s（四索，非赤牌）。前两张均非赤五。",
+            "replacements": [
+              {
+                "from": "79-cn-p333-b29：索子牌，竹节纹样模糊，点数无法可靠辨认。",
+                "to": "79-cn-p333-b29：4s（四索，非赤牌）。",
+                "occurrences": 1
+              }
+            ],
+            "sourceAssetBindings": [
+              {
+                "sourceImageBlockId": "79-cn-p333-b29",
+                "path": "assets/32cc3a6b59c2396c78164cfdb014653c7e5d7081314334cc1dfa283ad39086da.png",
+                "sha256": "32cc3a6b59c2396c78164cfdb014653c7e5d7081314334cc1dfa283ad39086da",
+                "confirmedCode": "4s"
+              }
+            ]
+          },
+          {
+            "figureId": "79-cn-p333-r1",
+            "field": "unknowns",
+            "fromValue": [
+              "79-cn-p333-b29的竹节细节模糊，无法可靠判定索子点数及赤五状态。"
+            ],
+            "toValue": [],
+            "replacements": [],
+            "sourceAssetBindings": [
+              {
+                "sourceImageBlockId": "79-cn-p333-b29",
+                "path": "assets/32cc3a6b59c2396c78164cfdb014653c7e5d7081314334cc1dfa283ad39086da.png",
+                "sha256": "32cc3a6b59c2396c78164cfdb014653c7e5d7081314334cc1dfa283ad39086da",
+                "confirmedCode": "4s"
+              }
+            ]
+          }
+        ],
+        "approvedBy": "root",
+        "approvedAt": "2026-10-25T18:15:45.849Z",
+        "requiresAdditionalSourceLayoutGate": false
+      },
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": false,
+        "errors": [
+          "uncertain:79-cn-p333-b6",
+          "uncertain:79-cn-p333-r1",
+          "uncertain:79-cn-p333-b29",
+          "uncertain:79-cn-p333-r1"
+        ]
+      },
+      "effectiveModelChecks": {
+        "passed": true,
+        "errors": []
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 334,
+      "candidatePath": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0334.json",
+      "candidateSha256": "8f818a28ab1ac5811ba57b3469005a22cbc5ce79615e844797933334471713ef",
+      "auditStatus": "passed-after-source-flow-repair",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\source-flow\\79-cn-p334.9c00250427953cf1db9ebf65f60b1f1ba0a0054855673b1051a9bccf948cbff5.json",
+      "gateCheckedAt": "2026-10-26T10:45:29.480Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": {
+        "layout": {
+          "path": "production/pdf-text-layout-p334-v1/layout.json",
+          "sha256": "9c00250427953cf1db9ebf65f60b1f1ba0a0054855673b1051a9bccf948cbff5"
+        },
+        "parent": {
+          "path": "production/sol-high-fallback-finite-20261024-schemafix/candidates/79-cn/page-0334.json",
+          "sha256": "8f818a28ab1ac5811ba57b3469005a22cbc5ce79615e844797933334471713ef"
+        },
+        "originalAudit": {
+          "path": "audit/pages/79-cn/page-0334.8f818a28ab1ac5811ba57b3469005a22cbc5ce79615e844797933334471713ef.7ffa307c5cd0.retry-1792951013357-9b3df735.json",
+          "sha256": "ddc1880cd859323697b3e9a1cbd66c2afd43a30750a01d2aa389a1ff86cf99c3"
+        },
+        "originalProductionRaw": null,
+        "deterministicOriginalProduction": {
+          "manifest": {
+            "path": "production\\sol-high-fallback-finite-20261024-schemafix\\manifest.json",
+            "sha256": "8e2e61b642ff1fc2349fa01fcecec7e079db81d44353230e73cf087222508461"
+          },
+          "candidateSha256": "8f818a28ab1ac5811ba57b3469005a22cbc5ce79615e844797933334471713ef",
+          "model": null,
+          "attemptCount": 0
+        },
+        "originalCalls": [
+          {
+            "path": "audit/calls/890172f1-a77c-4846-b973-1d652af16659.json",
+            "sha256": "4603be323615a3e2468f1b8d14571141b13e8695d68637f919ce5ca796c27945"
+          }
+        ],
+        "resolvedIssueHashes": [
+          "5f423134a856d3b3f090dfe6acd8e912057543675ce851aa38d450f1ccd3bba9",
+          "a9073bf232b8d780a4a9b692a8c4dfc7f32224b540917717ff4007a405aa37d1",
+          "ee3f87099ec9ca6fcb704d75236939668b66dddfd5c73c053e4358d9b8d69085"
+        ],
+        "checks": {
+          "paragraphs": 3,
+          "sourceTextBlocks": 4,
+          "imageOccurrences": 0,
+          "figureGroups": 0,
+          "unchangedBodyBlocks": 17,
+          "exactSourceTextAndCodepointOffsets": true,
+          "originalNativeTextGapAnchors": true,
+          "originalNativeLineReadingTokens": true,
+          "fullParentCodeSequences": true,
+          "fullRiverRotationTranscriptions": true,
+          "footerMovedToEnd": true,
+          "sourceHeadingPreserved": true,
+          "sourceHeadingLevel": 2,
+          "noOriginalProductionModelCall": true,
+          "pixels": {
+            "passed": true,
+            "groups": 0
+          }
+        },
+        "verification": "independent-source-line-offset-and-image-occurrence-layout-check-not-new-model-review-not-human-gold"
+      },
+      "sourceFlowLayout": {
+        "path": "production/pdf-text-layout-p334-v1/layout.json",
+        "sha256": "9c00250427953cf1db9ebf65f60b1f1ba0a0054855673b1051a9bccf948cbff5"
+      },
+      "originalModelChecks": {
+        "passed": false,
+        "errors": [
+          "visual_reading_flow_not_faithful",
+          "needs-repair:79-cn-p334-b2",
+          "needs-repair:79-cn-p334-b12",
+          "needs-repair:79-cn-p334-b14",
+          "needs-repair:79-cn-p334-b15",
+          "error:79-cn-p334-b2",
+          "error:79-cn-p334-b12",
+          "error:79-cn-p334-b14"
+        ]
+      },
+      "effectiveModelChecks": {
+        "passed": true,
+        "errors": []
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 335,
+      "candidatePath": "production/sol-high-fallback-15min-20261025/candidates/79-cn/page-0335.json",
+      "candidateSha256": "9b8c5f10b8d485d5faf7154bafe57d82835f488d4ba5b31488e7279f929a7127",
+      "auditStatus": "passed-after-source-flow-repair",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\source-flow\\79-cn-p335.47037dd5f09c8bcefcc034ad9bd1fda68e6c629b47ac237f84b9d6f2b2267571.json",
+      "gateCheckedAt": "2026-10-26T10:45:27.125Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": {
+        "layout": {
+          "path": "production/pdf-inline-layout-p335-v2/layout.json",
+          "sha256": "47037dd5f09c8bcefcc034ad9bd1fda68e6c629b47ac237f84b9d6f2b2267571"
+        },
+        "parent": {
+          "path": "production/sol-high-fallback-15min-20261025/candidates/79-cn/page-0335.json",
+          "sha256": "9b8c5f10b8d485d5faf7154bafe57d82835f488d4ba5b31488e7279f929a7127"
+        },
+        "originalAudit": {
+          "path": "audit/pages/79-cn/page-0335.9b8c5f10b8d485d5faf7154bafe57d82835f488d4ba5b31488e7279f929a7127.696268c32cdb.json",
+          "sha256": "bd98f891b6c76abdbd93d724fd1e07c5e4504de37cfd42dba2e05a561f255195"
+        },
+        "originalProductionRaw": {
+          "path": "production/sol-high-fallback-15min-20261025/raw-calls/77d960f8-340b-4895-be7a-1b880f928300.json",
+          "sha256": "f844d9139b2397228a92081a1fcef0855c364c13ccb31fb7912fe7218f995197"
+        },
+        "originalCalls": [
+          {
+            "path": "audit/calls/43ffa7f9-cbd3-4aaf-b33e-a14fd6d73d06.json",
+            "sha256": "e9cd8c5a0bfb47925f3889093a43fed02c88c7520a82d6098728dc3709c79a90"
+          }
+        ],
+        "resolvedIssueHashes": [
+          "66b0fcf9f022330c6307001d4f4363b7f80a6ef1b1422b3776fe1f3f5a8a2302",
+          "6308b351eb093135a22418d28f0383c65fbad173893ea6cfd760a8534cd1e9a2"
+        ],
+        "checks": {
+          "paragraphs": 2,
+          "sourceTextBlocks": 6,
+          "imageOccurrences": 9,
+          "figureGroups": 3,
+          "unchangedBodyBlocks": 15,
+          "exactSourceTextAndCodepointOffsets": true,
+          "originalNativeTextGapAnchors": true,
+          "pixels": {
+            "passed": true,
+            "groups": 3
+          }
+        },
+        "verification": "independent-source-line-offset-and-image-occurrence-layout-check-not-new-model-review-not-human-gold"
+      },
+      "sourceFlowLayout": {
+        "path": "production/pdf-inline-layout-p335-v2/layout.json",
+        "sha256": "47037dd5f09c8bcefcc034ad9bd1fda68e6c629b47ac237f84b9d6f2b2267571"
+      },
+      "originalModelChecks": {
+        "passed": false,
+        "errors": [
+          "visual_reading_flow_not_faithful",
+          "error:body.flowOrder",
+          "error:body.flowOrder"
+        ]
+      },
+      "effectiveModelChecks": {
+        "passed": true,
+        "errors": []
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 336,
+      "candidatePath": "production/source-correction-three-tiles-p336-v1/candidates/79-cn/page-0336.json",
+      "candidateSha256": "5a456fc5846524a811e379bb9b5e785852eaff4800ec6e751a3483f4103ba148",
+      "auditStatus": "passed-after-specific-source-and-flow-repair",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-336.5a456fc5846524a811e379bb9b5e785852eaff4800ec6e751a3483f4103ba148.three-tile-source-correction.json",
+      "gateCheckedAt": "2026-10-26T10:45:28.528Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": {
+        "path": "audit/source-corrections/three-exact-tiles.root-acceptance.json",
+        "sha256": "3a084fbfdda818ca3b099b8da759776e30512b81d62466e96ec2af14022470f7",
+        "parent": {
+          "path": "production/sol-high-fallback-15min-20261025/candidates/79-cn/page-0336.json",
+          "sha256": "4e79e89550e5aaf47cdf02d24d3652b16cd4ccd1a8ab0633ec19a9d88cee799d"
+        },
+        "originalAudit": {
+          "path": "audit/pages/79-cn/page-0336.4e79e89550e5aaf47cdf02d24d3652b16cd4ccd1a8ab0633ec19a9d88cee799d.696268c32cdb.json",
+          "sha256": "6dfb2e4b4b0731d2bc9bfe8e35d30b73aea5ed62b9932021469db5e8414776ff"
+        },
+        "originalCalls": [
+          {
+            "path": "audit/calls/9a19507b-a23b-4a6c-837a-6465b963ed02.json",
+            "sha256": "2845af6c98104a53df44b773921821bfe41c29d828151421c9cea7833d8db2c5",
+            "callId": "9a19507b-a23b-4a6c-837a-6465b963ed02"
+          }
+        ],
+        "resolutions": [
+          {
+            "figureId": "79-cn-p336-r2",
+            "field": "transcription",
+            "fromValue": "手牌A，从左到右逐张为：3m 4m 5m 7m 7m 5p 6p 2s 3s 3s 8s 8s 7s。另列自摸牌：7p。5m、5p均为普通五，非赤五。",
+            "toValue": "手牌A，从左到右逐张为：3m 4m 5m 7m 7m 5p 6p 2s 3s 3s 6s 6s 7s。另列自摸牌：7p。5m、5p均为普通五，非赤五。",
+            "replacements": [
+              {
+                "from": "2s 3s 3s 8s 8s 7s",
+                "to": "2s 3s 3s 6s 6s 7s",
+                "occurrences": 1
+              }
+            ],
+            "sourceAssetBindings": [
+              {
+                "sourceImageBlockId": "79-cn-p336-b34",
+                "path": "assets/681e594fb34a81b21af14e0192f9bb352c39679cc7bba50a0dc241ec955a3925.png",
+                "sha256": "681e594fb34a81b21af14e0192f9bb352c39679cc7bba50a0dc241ec955a3925",
+                "confirmedCode": "6s"
+              },
+              {
+                "sourceImageBlockId": "79-cn-p336-b35",
+                "path": "assets/681e594fb34a81b21af14e0192f9bb352c39679cc7bba50a0dc241ec955a3925.png",
+                "sha256": "681e594fb34a81b21af14e0192f9bb352c39679cc7bba50a0dc241ec955a3925",
+                "confirmedCode": "6s"
+              }
+            ]
+          },
+          {
+            "figureId": "79-cn-p336-r3",
+            "field": "transcription",
+            "fromValue": "牌图B，立直家的舍牌按图中从左到右顺序为：第1张1m，第2张4z（北），第3张9s，第4张2p，第5张7z（中），第6张4m，第7张6s，第8张7p。第8张7p横置，为立直宣言牌。所示牌中无赤五。",
+            "toValue": "牌图B，立直家的舍牌按图中从左到右顺序为：第1张1m，第2张4z（北），第3张9s，第4张2p，第5张7z（中），第6张4m，第7张4s，第8张7p。第8张7p横置，为立直宣言牌。所示牌中无赤五。",
+            "replacements": [
+              {
+                "from": "第7张6s",
+                "to": "第7张4s",
+                "occurrences": 1
+              }
+            ],
+            "sourceAssetBindings": [
+              {
+                "sourceImageBlockId": "79-cn-p336-b44",
+                "path": "assets/32cc3a6b59c2396c78164cfdb014653c7e5d7081314334cc1dfa283ad39086da.png",
+                "sha256": "32cc3a6b59c2396c78164cfdb014653c7e5d7081314334cc1dfa283ad39086da",
+                "confirmedCode": "4s"
+              }
+            ]
+          },
+          {
+            "figureId": "79-cn-p336-r4",
+            "field": "transcription",
+            "fromValue": "从左到右的三张行内牌分别为：8s、4m、7p。第一张对应“一条线向着和牌前进”的切牌；后两张分别对应弃和时的两种切牌选择。三张牌均非赤五。",
+            "toValue": "从左到右的三张行内牌分别为：6s、4m、7p。第一张对应“一条线向着和牌前进”的切牌；后两张分别对应弃和时的两种切牌选择。三张牌均非赤五。",
+            "replacements": [
+              {
+                "from": "分别为：8s、4m、7p",
+                "to": "分别为：6s、4m、7p",
+                "occurrences": 1
+              }
+            ],
+            "sourceAssetBindings": [
+              {
+                "sourceImageBlockId": "79-cn-p336-b46",
+                "path": "assets/681e594fb34a81b21af14e0192f9bb352c39679cc7bba50a0dc241ec955a3925.png",
+                "sha256": "681e594fb34a81b21af14e0192f9bb352c39679cc7bba50a0dc241ec955a3925",
+                "confirmedCode": "6s"
+              }
+            ]
+          }
+        ],
+        "approvedBy": "root",
+        "approvedAt": "2026-10-25T18:15:45.849Z",
+        "requiresAdditionalSourceLayoutGate": true
+      },
+      "sourceFlowRepair": {
+        "layout": {
+          "path": "production/pdf-inline-layout-three-tiles-corrected-v1/p336/layout.json",
+          "sha256": "7eac777b106387cf4a4b5256af969075965b385b5526ffe6c5b40d770e8bcdde"
+        },
+        "parent": {
+          "path": "production/source-correction-three-tiles-p336-v1/candidates/79-cn/page-0336.json",
+          "sha256": "5a456fc5846524a811e379bb9b5e785852eaff4800ec6e751a3483f4103ba148"
+        },
+        "originalAudit": {
+          "path": "audit/pages/79-cn/page-0336.4e79e89550e5aaf47cdf02d24d3652b16cd4ccd1a8ab0633ec19a9d88cee799d.696268c32cdb.json",
+          "sha256": "6dfb2e4b4b0731d2bc9bfe8e35d30b73aea5ed62b9932021469db5e8414776ff"
+        },
+        "originalProductionRaw": {
+          "path": "production/source-correction-three-tiles-p336-v1/raw-calls/6518e4d2-cb71-4f27-b1ee-185c081143ae.json",
+          "sha256": "f03e1748bf93a11af70428ba374269426ca1abb1d51e477f5782141a11577ae4"
+        },
+        "originalCalls": [
+          {
+            "path": "audit/calls/9a19507b-a23b-4a6c-837a-6465b963ed02.json",
+            "sha256": "2845af6c98104a53df44b773921821bfe41c29d828151421c9cea7833d8db2c5",
+            "callId": "9a19507b-a23b-4a6c-837a-6465b963ed02"
+          }
+        ],
+        "sourceFieldCorrectionProof": {
+          "path": "production/source-correction-three-tiles-p336-v1/source-correction-proof.json",
+          "sha256": "afe35ad8a7388a9b929a23cf6bff9e3fd5ab7f079450a2c299fdd74a0629b1c1"
+        },
+        "checks": {
+          "paragraphs": 6,
+          "sourceTextBlocks": 9,
+          "imageOccurrences": 30,
+          "figureGroups": 10,
+          "unchangedBodyBlocks": 10,
+          "exactSourceTextAndCodepointOffsets": true,
+          "originalNativeTextGapAnchors": true,
+          "originalNativeLineReadingTokens": true,
+          "fullParentCodeSequences": true,
+          "fullRiverRotationTranscriptions": true,
+          "pixels": {
+            "passed": true,
+            "groups": 10
+          }
+        },
+        "verification": "exact-source-tiles-plus-independent-source-line-layout-proof-not-new-model-review"
+      },
+      "sourceFlowLayout": {
+        "path": "production/pdf-inline-layout-three-tiles-corrected-v1/p336/layout.json",
+        "sha256": "7eac777b106387cf4a4b5256af969075965b385b5526ffe6c5b40d770e8bcdde"
+      },
+      "originalModelChecks": {
+        "passed": false,
+        "errors": [
+          "visual_reading_flow_not_faithful",
+          "needs-repair:79-cn-p336-b4",
+          "needs-repair:79-cn-p336-b5",
+          "needs-repair:79-cn-p336-b6",
+          "error:flowCheck"
+        ]
+      },
+      "effectiveModelChecks": {
+        "passed": true,
+        "errors": []
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 337,
+      "candidatePath": "production/source-correction-three-tiles-p337-v1/candidates/79-cn/page-0337.json",
+      "candidateSha256": "9b990cab6ded6e8189c05c40137f5aef7911e872db70354e2a1105fddd85de05",
+      "auditStatus": "passed-after-specific-source-correction",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-337.9b990cab6ded6e8189c05c40137f5aef7911e872db70354e2a1105fddd85de05.three-tile-source-correction.json",
+      "gateCheckedAt": "2026-10-26T10:45:28.606Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": {
+        "path": "audit/source-corrections/three-exact-tiles.root-acceptance.json",
+        "sha256": "3a084fbfdda818ca3b099b8da759776e30512b81d62466e96ec2af14022470f7",
+        "parent": {
+          "path": "production/sol-high-fallback-15min-20261025/candidates/79-cn/page-0337.json",
+          "sha256": "88541292b1d58099de3ea1a22df0c40a30635d0f9b2bdb380aa8fab3c5537caf"
+        },
+        "originalAudit": {
+          "path": "audit/pages/79-cn/page-0337.88541292b1d58099de3ea1a22df0c40a30635d0f9b2bdb380aa8fab3c5537caf.696268c32cdb.json",
+          "sha256": "42751cbe9c02618e9e02d9224878bae47e9052f039ec6218a8ce60a642747600"
+        },
+        "originalCalls": [
+          {
+            "path": "audit/calls/e7df5fe9-d523-4c01-9651-d622a1d2693a.json",
+            "sha256": "eb6f6abff9f8c4c397df9dd0516961346a60820258d548dcac2c672f7a79b4e5",
+            "callId": "e7df5fe9-d523-4c01-9651-d622a1d2693a"
+          }
+        ],
+        "resolutions": [
+          {
+            "figureId": "79-cn-p337-r1",
+            "field": "transcription",
+            "fromValue": "79-cn-p337-b26：9s（九索，非赤牌）。",
+            "toValue": "79-cn-p337-b26：6s（六索，非赤牌）。",
+            "replacements": [
+              {
+                "from": "9s（九索，非赤牌）",
+                "to": "6s（六索，非赤牌）",
+                "occurrences": 1
+              }
+            ],
+            "sourceAssetBindings": [
+              {
+                "sourceImageBlockId": "79-cn-p337-b26",
+                "path": "assets/681e594fb34a81b21af14e0192f9bb352c39679cc7bba50a0dc241ec955a3925.png",
+                "sha256": "681e594fb34a81b21af14e0192f9bb352c39679cc7bba50a0dc241ec955a3925",
+                "confirmedCode": "6s"
+              }
+            ]
+          },
+          {
+            "figureId": "79-cn-p337-r3",
+            "field": "transcription",
+            "fromValue": "从左至右：79-cn-p337-b28：7m（七万），对应“是筋牌”；79-cn-p337-b29：2s（二索）、79-cn-p337-b30：3s（三索）、79-cn-p337-b31：9s（九索），相邻显示为239s，对应“比较危险”；79-cn-p337-b32：7m（七万），对应所说要拆的对子，图中仅显示一张。以上均非赤牌。",
+            "toValue": "从左至右：79-cn-p337-b28：7m（七万），对应“是筋牌”；79-cn-p337-b29：2s（二索）、79-cn-p337-b30：3s（三索）、79-cn-p337-b31：6s（六索），相邻显示为236s，对应“比较危险”；79-cn-p337-b32：7m（七万），对应所说要拆的对子，图中仅显示一张。以上均非赤牌。",
+            "replacements": [
+              {
+                "from": "79-cn-p337-b31：9s（九索）",
+                "to": "79-cn-p337-b31：6s（六索）",
+                "occurrences": 1
+              },
+              {
+                "from": "相邻显示为239s",
+                "to": "相邻显示为236s",
+                "occurrences": 1
+              }
+            ],
+            "sourceAssetBindings": [
+              {
+                "sourceImageBlockId": "79-cn-p337-b31",
+                "path": "assets/681e594fb34a81b21af14e0192f9bb352c39679cc7bba50a0dc241ec955a3925.png",
+                "sha256": "681e594fb34a81b21af14e0192f9bb352c39679cc7bba50a0dc241ec955a3925",
+                "confirmedCode": "6s"
+              }
+            ]
+          }
+        ],
+        "approvedBy": "root",
+        "approvedAt": "2026-10-25T18:15:45.849Z",
+        "requiresAdditionalSourceLayoutGate": false
+      },
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": {
+        "passed": true,
+        "errors": []
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 338,
+      "candidatePath": "production/sol-high-fallback-15min-20261025/candidates/79-cn/page-0338.json",
+      "candidateSha256": "0f9c666beb20b4a0515cc3b037a5313e2ce7f25dfd2fce5d16bcfe1df1339d58",
+      "auditStatus": "passed-after-source-flow-repair",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\source-flow\\79-cn-p338.8bb86d214e1e14513b5d1ba11d5b3b9b32ab6ecbb00bc52a4f1d3b81f5f70d78.json",
+      "gateCheckedAt": "2026-10-26T10:45:27.567Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": {
+        "layout": {
+          "path": "production/pdf-inline-layout-repairs-v1/p338/layout.json",
+          "sha256": "8bb86d214e1e14513b5d1ba11d5b3b9b32ab6ecbb00bc52a4f1d3b81f5f70d78"
+        },
+        "parent": {
+          "path": "production/sol-high-fallback-15min-20261025/candidates/79-cn/page-0338.json",
+          "sha256": "0f9c666beb20b4a0515cc3b037a5313e2ce7f25dfd2fce5d16bcfe1df1339d58"
+        },
+        "originalAudit": {
+          "path": "audit/pages/79-cn/page-0338.0f9c666beb20b4a0515cc3b037a5313e2ce7f25dfd2fce5d16bcfe1df1339d58.696268c32cdb.json",
+          "sha256": "ae8ca7904758502e4567ec49ff708c7906463c8bc46197607c71bcefff3450bb"
+        },
+        "originalProductionRaw": {
+          "path": "production/sol-high-fallback-15min-20261025/raw-calls/d2ed0a7d-40d2-40f7-85e6-73d0d5d1dc60.json",
+          "sha256": "f3af3cb2ea31e232125bf892cad3c1c2215b1e2a022b9c4632682dd8f95156c9"
+        },
+        "originalCalls": [
+          {
+            "path": "audit/calls/b343c681-f17e-4067-accd-ab21d4e6f94b.json",
+            "sha256": "5a3a6ad63b9649dede00f10dcc6e707003660bb6346f5c1e1f964b561586c8b9"
+          }
+        ],
+        "resolvedIssueHashes": [
+          "4645c38f63dec2cff429edfcd7a0fa62f71ff73495c171f2663068b4f7189a30",
+          "795d1466f8c4b42d15d63b0ad50c98a4acf81e035cf8630a97eb818fa9e1c674"
+        ],
+        "checks": {
+          "paragraphs": 8,
+          "sourceTextBlocks": 17,
+          "imageOccurrences": 55,
+          "figureGroups": 23,
+          "unchangedBodyBlocks": 8,
+          "exactSourceTextAndCodepointOffsets": true,
+          "originalNativeTextGapAnchors": true,
+          "originalNativeLineReadingTokens": true,
+          "fullParentCodeSequences": true,
+          "fullRiverRotationTranscriptions": true,
+          "pixels": {
+            "passed": true,
+            "groups": 23
+          }
+        },
+        "verification": "independent-source-line-offset-and-image-occurrence-layout-check-not-new-model-review-not-human-gold"
+      },
+      "sourceFlowLayout": {
+        "path": "production/pdf-inline-layout-repairs-v1/p338/layout.json",
+        "sha256": "8bb86d214e1e14513b5d1ba11d5b3b9b32ab6ecbb00bc52a4f1d3b81f5f70d78"
+      },
+      "originalModelChecks": {
+        "passed": false,
+        "errors": [
+          "visual_reading_flow_not_faithful",
+          "needs-repair:79-cn-p338-b3",
+          "needs-repair:79-cn-p338-b4",
+          "needs-repair:79-cn-p338-b5",
+          "needs-repair:79-cn-p338-b6",
+          "needs-repair:79-cn-p338-b7",
+          "needs-repair:79-cn-p338-b8",
+          "needs-repair:79-cn-p338-b15",
+          "needs-repair:79-cn-p338-b16",
+          "needs-repair:79-cn-p338-b20",
+          "needs-repair:79-cn-p338-b21",
+          "needs-repair:79-cn-p338-b25",
+          "needs-repair:79-cn-p338-b26",
+          "error:flowCheck",
+          "error:79-cn-p338-b8"
+        ]
+      },
+      "effectiveModelChecks": {
+        "passed": true,
+        "errors": []
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 339,
+      "candidatePath": "production/source-correction-three-tiles-p339-v1/candidates/79-cn/page-0339.json",
+      "candidateSha256": "c5e1c8100f03f7fc0c1ff61d074ff18bace365aa8c9037b4608ac86ddc96c8e6",
+      "auditStatus": "passed-after-specific-source-and-flow-repair",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-339.c5e1c8100f03f7fc0c1ff61d074ff18bace365aa8c9037b4608ac86ddc96c8e6.three-tile-source-correction.json",
+      "gateCheckedAt": "2026-10-26T10:45:29.136Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": {
+        "path": "audit/source-corrections/three-exact-tiles.root-acceptance.json",
+        "sha256": "3a084fbfdda818ca3b099b8da759776e30512b81d62466e96ec2af14022470f7",
+        "parent": {
+          "path": "production/sol-high-fallback-15min-20261025/candidates/79-cn/page-0339.json",
+          "sha256": "a13dbaa742aa5f4c9b04cbf4da20d27d8b73ae60968ad7f88910658ed5749fcf"
+        },
+        "originalAudit": {
+          "path": "audit/pages/79-cn/page-0339.a13dbaa742aa5f4c9b04cbf4da20d27d8b73ae60968ad7f88910658ed5749fcf.696268c32cdb.json",
+          "sha256": "758c2bc3b202b9252b0fd5f7dc9c71efdcc691675a926d3e340749dfdf814fde"
+        },
+        "originalCalls": [
+          {
+            "path": "audit/calls/4bd5996b-39d6-4926-95e3-398accdc4ede.json",
+            "sha256": "8d4dca995446f1c41a966dc073cb05926dba85f87a734da32eec7284bced0d99",
+            "callId": "4bd5996b-39d6-4926-95e3-398accdc4ede"
+          }
+        ],
+        "resolutions": [
+          {
+            "figureId": "79-cn-p339-r4",
+            "field": "transcription",
+            "fromValue": "牌图D，同一家舍牌从左到右依次为：9m、3z（西）、1p、7z（中）、4m、4s、6p、6z（发）、2m、2s。第10张2s横置，其余牌直立。逐块对应：79-cn-p339-b31=9m，79-cn-p339-b32=3z，79-cn-p339-b33=1p，79-cn-p339-b34=7z，79-cn-p339-b35=4m，79-cn-p339-b36=4s，79-cn-p339-b37=6p，79-cn-p339-b38=6z，79-cn-p339-b39=2m，79-cn-p339-b40=2s（横置）。",
+            "toValue": "牌图D，同一家舍牌从左到右依次为：9m、3z（西）、1p、7z（中）、4m、8s、6p、6z（发）、2m、2s。第10张2s横置，其余牌直立。逐块对应：79-cn-p339-b31=9m，79-cn-p339-b32=3z，79-cn-p339-b33=1p，79-cn-p339-b34=7z，79-cn-p339-b35=4m，79-cn-p339-b36=8s，79-cn-p339-b37=6p，79-cn-p339-b38=6z，79-cn-p339-b39=2m，79-cn-p339-b40=2s（横置）。",
+            "replacements": [
+              {
+                "from": "4m、4s、6p",
+                "to": "4m、8s、6p",
+                "occurrences": 1
+              },
+              {
+                "from": "79-cn-p339-b36=4s",
+                "to": "79-cn-p339-b36=8s",
+                "occurrences": 1
+              }
+            ],
+            "sourceAssetBindings": [
+              {
+                "sourceImageBlockId": "79-cn-p339-b36",
+                "path": "assets/cc4940cc9ee7d67b086e4f375aa91e10f7ab8fd3c0a782363fc29eac89244278.png",
+                "sha256": "cc4940cc9ee7d67b086e4f375aa91e10f7ab8fd3c0a782363fc29eac89244278",
+                "confirmedCode": "8s"
+              }
+            ]
+          }
+        ],
+        "approvedBy": "root",
+        "approvedAt": "2026-10-25T18:15:45.849Z",
+        "requiresAdditionalSourceLayoutGate": true
+      },
+      "sourceFlowRepair": {
+        "layout": {
+          "path": "production/pdf-inline-layout-three-tiles-corrected-v1/p339/layout.json",
+          "sha256": "2eb0ae59acd26b64786a9ac48f47788871212080243ca5742c98076639e5751e"
+        },
+        "parent": {
+          "path": "production/source-correction-three-tiles-p339-v1/candidates/79-cn/page-0339.json",
+          "sha256": "c5e1c8100f03f7fc0c1ff61d074ff18bace365aa8c9037b4608ac86ddc96c8e6"
+        },
+        "originalAudit": {
+          "path": "audit/pages/79-cn/page-0339.a13dbaa742aa5f4c9b04cbf4da20d27d8b73ae60968ad7f88910658ed5749fcf.696268c32cdb.json",
+          "sha256": "758c2bc3b202b9252b0fd5f7dc9c71efdcc691675a926d3e340749dfdf814fde"
+        },
+        "originalProductionRaw": {
+          "path": "production/source-correction-three-tiles-p339-v1/raw-calls/3022b2ec-7429-4365-811e-49557ddf27d9.json",
+          "sha256": "b2ee615af61f656555038ac0be959e0f0e8a323509af949ec5e2b7fb4c65115e"
+        },
+        "originalCalls": [
+          {
+            "path": "audit/calls/4bd5996b-39d6-4926-95e3-398accdc4ede.json",
+            "sha256": "8d4dca995446f1c41a966dc073cb05926dba85f87a734da32eec7284bced0d99",
+            "callId": "4bd5996b-39d6-4926-95e3-398accdc4ede"
+          }
+        ],
+        "sourceFieldCorrectionProof": {
+          "path": "production/source-correction-three-tiles-p339-v1/source-correction-proof.json",
+          "sha256": "a9e79b014c5d33213f14d3d9f93e0dfde0d3fdf83eb5d3bee06c1ff0074de205"
+        },
+        "checks": {
+          "paragraphs": 6,
+          "sourceTextBlocks": 13,
+          "imageOccurrences": 48,
+          "figureGroups": 25,
+          "unchangedBodyBlocks": 9,
+          "exactSourceTextAndCodepointOffsets": true,
+          "originalNativeTextGapAnchors": true,
+          "originalNativeLineReadingTokens": true,
+          "fullParentCodeSequences": true,
+          "fullRiverRotationTranscriptions": true,
+          "pixels": {
+            "passed": true,
+            "groups": 25
+          }
+        },
+        "verification": "exact-source-tiles-plus-independent-source-line-layout-proof-not-new-model-review"
+      },
+      "sourceFlowLayout": {
+        "path": "production/pdf-inline-layout-three-tiles-corrected-v1/p339/layout.json",
+        "sha256": "2eb0ae59acd26b64786a9ac48f47788871212080243ca5742c98076639e5751e"
+      },
+      "originalModelChecks": {
+        "passed": false,
+        "errors": [
+          "visual_reading_flow_not_faithful",
+          "error:flowCheck"
+        ]
+      },
+      "effectiveModelChecks": {
+        "passed": true,
+        "errors": []
+      }
+    },
+    {
+      "sourceId": "79-cn",
+      "page": 340,
+      "candidatePath": "production/sol-high-fallback-15min-20261025/candidates/79-cn/page-0340.json",
+      "candidateSha256": "bcae4f87ee79125dfc171b1ea17b3a52045c0b3729d9a0576ccdb647fb0243b8",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\79-cn\\page-0340.bcae4f87ee79125dfc171b1ea17b3a52045c0b3729d9a0576ccdb647fb0243b8.696268c32cdb.json",
+      "gateCheckedAt": "2026-10-26T10:45:25.703Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 67,
+      "candidatePath": "production/sol-high/candidates/nemata-jp/page-0067.json",
+      "candidateSha256": "d631a655a8e04f596ed1407a4ee88028c92fc068fa9a0322ddcfe6d895cfb96b",
+      "auditStatus": "passed-after-source-adjudication",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0067.d631a655a8e04f596ed1407a4ee88028c92fc068fa9a0322ddcfe6d895cfb96b.db7af3b674fe.json",
+      "gateCheckedAt": "2026-10-26T10:45:21.648Z",
+      "adjudication": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\adjudications\\nemata-jp\\page-0067.d631a655a8e04f596ed1407a4ee88028c92fc068fa9a0322ddcfe6d895cfb96b.source-2m-adjudication.json",
+        "sha256": "18947c5b3aeb9305b903f4177d8f49cb51d49fcb74fee97d066aa0c0d14a574e",
+        "status": "resolved-with-source-evidence",
+        "verification": "root-authorized-assistant-source-visual-recheck-not-user-human-gold-standard",
+        "originalAudit": {
+          "path": "audit/pages/nemata-jp/page-0067.d631a655a8e04f596ed1407a4ee88028c92fc068fa9a0322ddcfe6d895cfb96b.db7af3b674fe.json",
+          "sha256": "f1aa499b59c06b0cb5367071ecb5e9a78584e2bff70a6e8c17bb0a6b6eb94085",
+          "callIds": [
+            "094bde65-323b-4ba0-8eba-6e137e33e4d8"
+          ]
+        },
+        "resolvedIssueIndices": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:nemata-jp-p67-b20",
+          "needs-repair:nemata-jp-p67-r2",
+          "needs-repair:nemata-jp-p67-r3",
+          "needs-repair:nemata-jp-p67-r4",
+          "error:nemata-jp-p67-b20",
+          "error:nemata-jp-p67-r2",
+          "error:nemata-jp-p67-r3",
+          "error:nemata-jp-p67-r4"
+        ]
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 68,
+      "candidatePath": "production/sol-high-fallback-protected-two-pages/candidates/nemata-jp/page-0068.json",
+      "candidateSha256": "257c83b0e52300a6d7e9138f61f671b8c99810face0de3570dca9900dc8d5f35",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0068.257c83b0e52300a6d7e9138f61f671b8c99810face0de3570dca9900dc8d5f35.d510b3d9d5cb.json",
+      "gateCheckedAt": "2026-10-26T10:45:25.576Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 98,
+      "candidatePath": "production/sol-high/candidates/nemata-jp/page-0098.json",
+      "candidateSha256": "7103e5e377259e2775cc2d74595784e94e453ebeefe55e8821c15b814b840ae4",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0098.7103e5e377259e2775cc2d74595784e94e453ebeefe55e8821c15b814b840ae4.db7af3b674fe.json",
+      "gateCheckedAt": "2026-10-26T10:45:21.735Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 146,
+      "candidatePath": "production/sol-high-fallback-15min-20261025/candidates/nemata-jp/page-0146.json",
+      "candidateSha256": "62f0b6c28bdccb3aac06ce1d056af7c786ec28f3aa771c42c5d1be2b6386d795",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0146.62f0b6c28bdccb3aac06ce1d056af7c786ec28f3aa771c42c5d1be2b6386d795.696268c32cdb.json",
+      "gateCheckedAt": "2026-10-26T10:45:25.806Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 147,
+      "candidatePath": "production/sol-high-fallback-15min-20261025/candidates/nemata-jp/page-0147.json",
+      "candidateSha256": "ddaeaf4f333ef977db1b8e47e23141035f1b198dd5880e24535de90fcb908bcd",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0147.ddaeaf4f333ef977db1b8e47e23141035f1b198dd5880e24535de90fcb908bcd.696268c32cdb.json",
+      "gateCheckedAt": "2026-10-26T10:45:25.899Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 166,
+      "candidatePath": "production/sol-high/candidates/nemata-jp/page-0166.json",
+      "candidateSha256": "ecc2a22dafe9098940f1c95d7de4d97992cf023a996e1b6781a5e288bc07acd4",
+      "auditStatus": "passed-after-transport-recovery",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0166.ecc2a22dafe9098940f1c95d7de4d97992cf023a996e1b6781a5e288bc07acd4.transport-recovery-e73ba4e9-bfd9-4933-8932-6fda5b8f05fd.json",
+      "gateCheckedAt": "2026-10-26T10:45:21.830Z",
+      "adjudication": null,
+      "transportRecovery": {
+        "originalAudit": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0166.ecc2a22dafe9098940f1c95d7de4d97992cf023a996e1b6781a5e288bc07acd4.39efa50a6948.json",
+          "sha256": "e9242982e33911dbe70700e79a73a959287a87ecb578ccbabd5da98e3f4ac549"
+        },
+        "originalCall": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\62ccf752-2932-44fc-b532-6c018075ab64.json",
+          "sha256": "d5fdc39eb5611f2e316d116f3420bfe69611c57422f4ae2855eedda4f200bffe",
+          "callId": "62ccf752-2932-44fc-b532-6c018075ab64"
+        },
+        "reason": "A completed turn and exact structured output survived reconnect diagnostics; original failed classification is preserved."
+      },
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 167,
+      "candidatePath": "production/source-correction-nemata-p0167-legend-v1/candidates/nemata-jp/page-0167.json",
+      "candidateSha256": "10cfa1a2fb3b4314538578485bdb6c14164c8e302b3cd8ab1c8c93783fbefd68",
+      "auditStatus": "passed-after-specific-source-correction",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0167.10cfa1a2fb3b4314538578485bdb6c14164c8e302b3cd8ab1c8c93783fbefd68.source-correction.json",
+      "gateCheckedAt": "2026-10-26T10:45:26.731Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": {
+        "path": "audit/specific-source-corrections-20261026.accepted.json",
+        "sha256": "5d92f934eb070064c2cfd46d7a628b092f5d8cfc8aff881955bae7826e66dc4f",
+        "parent": {
+          "path": "production/sol-high-fallback-protected-two-pages/candidates/nemata-jp/page-0167.json",
+          "sha256": "da5a5ff725fb6d37327a8983c700ee07f474cc30a99d9ca16153eb2b76a3a71c"
+        },
+        "originalAudit": {
+          "path": "audit/pages/nemata-jp/page-0167.da5a5ff725fb6d37327a8983c700ee07f474cc30a99d9ca16153eb2b76a3a71c.d510b3d9d5cb.json",
+          "sha256": "849a8f3562146d12ab3c47a762457fc81e65cd190c4bffd264d270386b124029"
+        },
+        "originalCalls": [
+          {
+            "path": "audit/calls/c944d5d6-b69a-49cc-9cb7-b57e5994c276.json",
+            "sha256": "5508455750ba7bc0b9df96d6222b6e945451702ee7e937ec576034a311f54d3f"
+          }
+        ],
+        "resolutions": [
+          {
+            "figureId": "nemata-jp-p167-r1",
+            "field": "transcription",
+            "fromValue": "本区域包含左右两张折线图，没有麻将牌图。\n\n两图共用的坐标与图例：横轴为“巡目”，刻度为0、1、2、3、4、5、6、7、8、9、10、11、12、13、14、15、16，绘制的数据点为第1至第15巡。纵轴刻度为0、10、20、30、40、50、60、70、80、90、100，表示百分比，另有间隔5的虚线网格。图例：蓝线方形标记＝流局率；红线菱形标记＝和牌率；黄线三角形标记＝放铳率；深绿线方形标记＝被自摸率；橙线三角形标记＝和牌时自摸比例；亮绿线＝和牌时一发比例；紫线＝立直棒被没收率。\n\n左图，源图像块nemata-jp-p167-b1：标题为“面对两家立直完全弃和（0%）”。以下按第1至第15巡依次列出曲线的目测约值，单位为%，并非原图标注的精确数值。流局率约为：1、1、2、2、3、4、5、6、8、10、13、18、23、30、39。被自摸率约为：46、46、46、46、46、45、45、44、44、42、41、39、37、34、30。流局率随巡目推进而上升，后半段上升加快；被自摸率前段基本持平，随后下降，两线在第14至第15巡之间交叉。和牌率、放铳率、和牌时自摸比例、和牌时一发比例及立直棒被没收率均位于或贴近0%的基线，多条曲线重叠。\n\n右图，源图像块nemata-jp-p167-b3：标题为“面对两家立直不完全弃和（25%）”。以下同样为第1至第15巡的目测约值，单位为%。流局率约为：1、1、1、2、2、2、3、4、6、8、11、14、19、25、35。被自摸率约为：41、41、41、41、41、41、40、40、40、39、37、36、34、31、28。放铳率约为：11、11、11、11、11、11、11、10、10、10、10、9、9、8、8。流局率随巡目推进而上升，后半段上升加快；被自摸率前段基本持平，随后下降，两线在第14至第15巡之间交叉；放铳率前段约为11%，后段逐渐下降。和牌率、和牌时自摸比例、和牌时一发比例及立直棒被没收率均位于或贴近0%的基线，多条曲线重叠。",
+            "toValue": "本区域包含左右两张折线图，没有麻将牌图。\n\n两图共用的坐标与图例：横轴为“巡目”，刻度为0、1、2、3、4、5、6、7、8、9、10、11、12、13、14、15、16，绘制的数据点为第1至第15巡。纵轴刻度为0、10、20、30、40、50、60、70、80、90、100，表示百分比，另有间隔5的虚线网格。图例：蓝线方形标记＝流局率；红线菱形标记＝和牌率；黄线三角形标记＝放铳率；深绿线圆形标记＝被自摸率；橙线三角形标记＝和牌时自摸比例；亮绿线＝和牌时一发比例；紫线＝立直棒被没收率。\n\n左图，源图像块nemata-jp-p167-b1：标题为“面对两家立直完全弃和（0%）”。以下按第1至第15巡依次列出曲线的目测约值，单位为%，并非原图标注的精确数值。流局率约为：1、1、2、2、3、4、5、6、8、10、13、18、23、30、39。被自摸率约为：46、46、46、46、46、45、45、44、44、42、41、39、37、34、30。流局率随巡目推进而上升，后半段上升加快；被自摸率前段基本持平，随后下降，两线在第14至第15巡之间交叉。和牌率、放铳率、和牌时自摸比例、和牌时一发比例及立直棒被没收率均位于或贴近0%的基线，多条曲线重叠。\n\n右图，源图像块nemata-jp-p167-b3：标题为“面对两家立直不完全弃和（25%）”。以下同样为第1至第15巡的目测约值，单位为%。流局率约为：1、1、1、2、2、2、3、4、6、8、11、14、19、25、35。被自摸率约为：41、41、41、41、41、41、40、40、40、39、37、36、34、31、28。放铳率约为：11、11、11、11、11、11、11、10、10、10、10、9、9、8、8。流局率随巡目推进而上升，后半段上升加快；被自摸率前段基本持平，随后下降，两线在第14至第15巡之间交叉；放铳率前段约为11%，后段逐渐下降。和牌率、和牌时自摸比例、和牌时一发比例及立直棒被没收率均位于或贴近0%的基线，多条曲线重叠。",
+            "replaceFrom": "深绿线方形标记＝被自摸率",
+            "replaceTo": "深绿线圆形标记＝被自摸率",
+            "occurrences": 1
+          }
+        ],
+        "approvedBy": "root",
+        "approvedAt": "2026-10-25T16:39:13.915146+00:00"
+      },
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:nemata-jp-p167-r1",
+          "error:nemata-jp-p167-r1"
+        ]
+      },
+      "effectiveModelChecks": {
+        "passed": true,
+        "errors": []
+      }
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 251,
+      "candidatePath": "production/sol-high-fallback-15min-20261025/candidates/nemata-jp/page-0251.json",
+      "candidateSha256": "f9a76b0e4f4605a034de404d2fa95bbb914f6a00b9859cd7058e7110f70d10e2",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0251.f9a76b0e4f4605a034de404d2fa95bbb914f6a00b9859cd7058e7110f70d10e2.696268c32cdb.json",
+      "gateCheckedAt": "2026-10-26T10:45:26.107Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 252,
+      "candidatePath": "production/sol-high-fallback-15min-20261025/candidates/nemata-jp/page-0252.json",
+      "candidateSha256": "f0e75d84935bdcafff4ee43629406f35208b29d4e007579e5328463e91a099c8",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0252.f0e75d84935bdcafff4ee43629406f35208b29d4e007579e5328463e91a099c8.696268c32cdb.json",
+      "gateCheckedAt": "2026-10-26T10:45:26.214Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 255,
+      "candidatePath": "production/sol-high-fallback-15min-20261025/candidates/nemata-jp/page-0255.json",
+      "candidateSha256": "86e8129b8d692bed934ce99522433c8e6072ed1b9c717e22f9907b628f3fdada",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0255.86e8129b8d692bed934ce99522433c8e6072ed1b9c717e22f9907b628f3fdada.7ffa307c5cd0.json",
+      "gateCheckedAt": "2026-10-26T10:45:26.543Z",
+      "adjudication": null,
+      "transportRecovery": null,
+      "sourceCorrection": null,
+      "sourceFlowRepair": null,
+      "originalModelChecks": {
+        "passed": true,
+        "errors": []
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 261,
+      "candidatePath": "production/sol-high-field-repair18-20261027-p261/candidates/nemata-jp/page-0261.json",
+      "candidateSha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+      "auditStatus": "passed-after-source-adjudication",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.7076217daf84.json",
+      "gateCheckedAt": "2026-10-28T11:30:06.634Z",
+      "adjudication": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\adjudications\\nemata-jp\\page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.source-3m-adjudication.json",
+        "sha256": "5248fba6665bdc8928b5460921dcf173297913262459828a17dab52e0de04c58",
+        "status": "resolved-with-source-evidence",
+        "verification": "root-authorized-source-adjudication-with-independent-model-recheck-not-full-page-pass-not-user-human-gold-standard",
+        "originalAudit": {
+          "path": "audit/pages/nemata-jp/page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.7076217daf84.json",
+          "sha256": "4ab382b1a427ca266b8aa8148eed21800be971534627f69c04379e8f83e41b06",
+          "callIds": [
+            "a78f22ab-f417-4382-bc8d-cdd4f9e6f65f"
+          ]
+        },
+        "resolvedIssueIndices": [
+          0
+        ],
+        "modelAdjudication": {
+          "callId": "91507699-61d3-496d-9481-de5f38e8418c",
+          "sha256": "4803be122fb4d59f1bfe52f4eb8607dc5c0c897b02cb9def2604ca9e04fd3255",
+          "verdict": "target-is-3m",
+          "manifestSha256": "03052928bac4af79b7db51c9cb4cf260f2b8276e2ddbc08dd9c6643321c00258"
+        }
+      },
+      "originalModelChecks": {
+        "passed": false,
+        "errors": [
+          "needs-repair:nemata-jp-p261-b33",
+          "needs-repair:nemata-jp-p261-r50",
+          "error:nemata-jp-p261-r50"
+        ]
+      },
+      "effectiveModelChecks": null
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 309,
+      "candidatePath": "production/sol-high-field-repair13-20261027-p309/candidates/nemata-jp/page-0309.json",
+      "candidateSha256": "83950d4ee8aca893170904d43e8526b7a7ec1990fe6fdd238b7a3d40dfea8272",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0309.83950d4ee8aca893170904d43e8526b7a7ec1990fe6fdd238b7a3d40dfea8272.7076217daf84.json",
+      "auditRecordedAt": "2026-10-26T21:50:27.388Z"
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 310,
+      "candidatePath": "production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0310.json",
+      "candidateSha256": "d605e842bec56aeb408d33815ce7e3847a03a9bd03e0c300d096f82f47590296",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0310.d605e842bec56aeb408d33815ce7e3847a03a9bd03e0c300d096f82f47590296.6baa4a7e1404.json",
+      "auditRecordedAt": "2026-10-26T17:20:10.998Z"
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 311,
+      "candidatePath": "production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0311.json",
+      "candidateSha256": "9eccb98ba1d9112c7e1177b1d43c0a70ebdcf28710508c787850350d5a2db940",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0311.9eccb98ba1d9112c7e1177b1d43c0a70ebdcf28710508c787850350d5a2db940.6baa4a7e1404.json",
+      "auditRecordedAt": "2026-10-26T17:58:44.269Z"
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 312,
+      "candidatePath": "production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0312.json",
+      "candidateSha256": "e06b2007a82872b7ade9811c01fc13aebf85f095fefe23ebe0c36a9c3f8cbc7e",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0312.e06b2007a82872b7ade9811c01fc13aebf85f095fefe23ebe0c36a9c3f8cbc7e.6baa4a7e1404.json",
+      "auditRecordedAt": "2026-10-26T18:25:41.563Z"
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 313,
+      "candidatePath": "production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0313.json",
+      "candidateSha256": "057be2fc59bf87a8227cc510a4df12a7b5d5f629b4307b8f8f920e9928655ff1",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0313.057be2fc59bf87a8227cc510a4df12a7b5d5f629b4307b8f8f920e9928655ff1.6baa4a7e1404.json",
+      "auditRecordedAt": "2026-10-26T18:56:33.911Z"
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 314,
+      "candidatePath": "production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0314.json",
+      "candidateSha256": "2aecee43d30a47fb58fe85c85ad3891ddba4dd63ed8af4dbd47778bf5c97d311",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0314.2aecee43d30a47fb58fe85c85ad3891ddba4dd63ed8af4dbd47778bf5c97d311.6baa4a7e1404.json",
+      "auditRecordedAt": "2026-10-26T19:11:52.836Z"
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 315,
+      "candidatePath": "production/sol-high-field-repair15-20261027-p315/candidates/nemata-jp/page-0315.json",
+      "candidateSha256": "bc2afae254cbb243aa04ba23b73b4a13aa6513d17445c2b895bb7528d43469e3",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0315.bc2afae254cbb243aa04ba23b73b4a13aa6513d17445c2b895bb7528d43469e3.7076217daf84.json",
+      "auditRecordedAt": "2026-10-26T22:02:21.988Z"
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 316,
+      "candidatePath": "production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0316.json",
+      "candidateSha256": "1c981577c9a43c10285b111e9f17e3b086906c5a28f7e9bb1bc4b5dde2e7fb92",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0316.1c981577c9a43c10285b111e9f17e3b086906c5a28f7e9bb1bc4b5dde2e7fb92.6baa4a7e1404.json",
+      "auditRecordedAt": "2026-10-26T19:44:39.521Z"
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 328,
+      "candidatePath": "production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0328.json",
+      "candidateSha256": "60231b2967c86ca9e1e62b9af66b0aba9b37fd0e6f24af5e8e34e26bb2e64ce2",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0328.60231b2967c86ca9e1e62b9af66b0aba9b37fd0e6f24af5e8e34e26bb2e64ce2.6baa4a7e1404.json",
+      "auditRecordedAt": "2026-10-26T19:56:15.200Z"
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 329,
+      "candidatePath": "production/sol-high-field-repair16-20261027-p329/candidates/nemata-jp/page-0329.json",
+      "candidateSha256": "a991dd8900f39256c130e38974acc971f5fa798ae5db5cd101fa49e1a7bedcb7",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0329.a991dd8900f39256c130e38974acc971f5fa798ae5db5cd101fa49e1a7bedcb7.7076217daf84.json",
+      "auditRecordedAt": "2026-10-26T22:43:47.931Z"
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 330,
+      "candidatePath": "production/sol-high-field-repair20-20261027-p330/candidates/nemata-jp/page-0330.json",
+      "candidateSha256": "314cb19f1b1cf8ed7d420cbccb00cdea1c8ae8210fd5bcdb88953d90f42c25f6",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0330.314cb19f1b1cf8ed7d420cbccb00cdea1c8ae8210fd5bcdb88953d90f42c25f6.7076217daf84.json",
+      "auditRecordedAt": "2026-10-26T23:53:37.295Z"
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 331,
+      "candidatePath": "production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0331.json",
+      "candidateSha256": "c164202b7e3263639d475e63870f3e71e8177f3858f30d743b423b69a1104c32",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0331.c164202b7e3263639d475e63870f3e71e8177f3858f30d743b423b69a1104c32.6baa4a7e1404.json",
+      "auditRecordedAt": "2026-10-26T20:52:14.617Z"
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 332,
+      "candidatePath": "production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0332.json",
+      "candidateSha256": "abebcc239e0be2b26d8d11848615ec2399d5f65eee57576b8b918eac8585aea6",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0332.abebcc239e0be2b26d8d11848615ec2399d5f65eee57576b8b918eac8585aea6.6baa4a7e1404.json",
+      "auditRecordedAt": "2026-10-26T21:50:13.005Z"
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 333,
+      "candidatePath": "production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0333.json",
+      "candidateSha256": "dd4f90d878f5a9ed2f4d57f3d20cf34ba60a9fc0938c6c00d8461d7962e636ea",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0333.dd4f90d878f5a9ed2f4d57f3d20cf34ba60a9fc0938c6c00d8461d7962e636ea.6baa4a7e1404.json",
+      "auditRecordedAt": "2026-10-26T21:55:08.148Z"
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 334,
+      "candidatePath": "production/sol-high-fallback-inline-20261026/candidates/nemata-jp/page-0334.json",
+      "candidateSha256": "d6e54f102af492b0cf8bf5a68dd31479c1c17e3cf9763a507df46ba1ec588edf",
+      "auditStatus": "passed",
+      "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0334.d6e54f102af492b0cf8bf5a68dd31479c1c17e3cf9763a507df46ba1ec588edf.6baa4a7e1404.json",
+      "auditRecordedAt": "2026-10-26T21:57:53.000Z"
+    }
+  ]
+}

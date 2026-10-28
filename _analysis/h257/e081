@@ -1,0 +1,268 @@
+{
+  "schema": "coac244-cn311-presentation-versus-graph-verification/1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1815400.coac269b33r1.json",
+    "sha256": "f44231f95310e33608a596f1f4153f0e35afb55490fc3db1fdccd3fc11d3a125"
+  },
+  "sourceSentences": [
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1815400:b0114",
+      "text": "有些细小的比如100、200点左右的误差其实并没有什么特别重要的影响。",
+      "sourceTextSha256": "ad03f292ff1b21b3883382097ced43956221ce2c7c313d9eeb2bc904f97089c8",
+      "candidateTextIdentical": true
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1815400:b0121",
+      "text": "虽然各种条件可以进行组合计算，但是每多一个条件其组合就会成倍的增加。因此面对一般打点的立直，我给出了6个以良形、愚形；立直与否；牌的危险度；亲子关系为条件的图示。",
+      "sourceTextSha256": "b6ec82acd1126e9d10e8463a2cf65927c5a87b4f40be1d2604fcf87d95b49c43",
+      "candidateTextIdentical": true
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1815400:b0135",
+      "text": "在序盘的第4巡，基本上不管什么样的条件下，有对手的立直棒的收入，两面听牌的话都是可以进攻的。",
+      "sourceTextSha256": "b74bc5ee729a6abafa1e378be16af74041338913363f2a7d7c398815559d508c",
+      "candidateTextIdentical": true
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1815400:b0136",
+      "text": "在第10巡左右，切10%左右的危险牌，拿立直NOMI的手牌与亲家的立直对攻是不利的。除此之外，两面听牌基本上是可以追立的。如果你是一个NOMI手牌，切危险的456进攻是很苦的。",
+      "sourceTextSha256": "fbb0d3a98b61b680dc3dd851370ba6e34f6bd650d11b5d3b017361c35d5a450d",
+      "candidateTextIdentical": true
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1815400:b0137",
+      "text": "第14巡的话情况就更糟了，如果是切安全牌追立基本没问题，如果是切10%的危险牌且自己是NOMI手牌，面对亲家的立直我建议还是不要对攻。",
+      "sourceTextSha256": "c1488b3d852a75e23750a6d8ea855f98f6e3633001c5886cc1182190c5c62a87",
+      "candidateTextIdentical": true
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1815400:b0138",
+      "text": "从这6个图示大家可以看的出来，立直宣言牌的危险程度左右着我们的攻守判断。",
+      "sourceTextSha256": "1efdb9b3f3428ac69f83538bc2c4455253c5befbd34646643ca6daad6c0a1acb",
+      "candidateTextIdentical": true
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1815400:b0148",
+      "text": "愚形要对攻，即使是在第6巡，没有对手打点的2/3都是很不利的",
+      "sourceTextSha256": "86ab3289616ddf62a98abad8705336954e7eb18eb6fecba0f913fdfb01c30332",
+      "candidateTextIdentical": true
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1815400:b0149",
+      "text": "在第12巡要愚形追立，自己是亲家是包括立直要2翻，自己是子家则包括立直要3翻",
+      "sourceTextSha256": "160e18d04ce04fa5f187b8e2e1893913f62936a903233e79f42bcc69bc0d796c",
+      "candidateTextIdentical": true
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1815400:b0155",
+      "text": "手牌A的听牌进张为一四万、三六饼、这4种牌，一巡能够听牌的概率大约是10%。这种情况的收支就如图14所示。与之前的图示都不同的是，和牌率比放铳率还要低。",
+      "sourceTextSha256": "fbbed6b35c5b8683b525ccd32802d394997cb9a64e5a2ad02b22bee6eef07c3b",
+      "candidateTextIdentical": true
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1815400:b0160",
+      "text": "如果现在是第12巡，自己的手牌只是一巡能够有10%听牌概率的一向听。有一个子家已经立直。我们来算算能这个时候切掉一张7%左右放铳率的危险牌维持一向听能够划得来所需要的打点吧。",
+      "sourceTextSha256": "01040b3c119c92060f99bd2eb3861b888d3b3036b0aa039c4d9d7306127874ac",
+      "candidateTextIdentical": true
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1815400:b0161",
+      "text": "即使这张牌通过了，从图示上面来看，自己的和牌率只有11%，放铳率是20，被自摸率是22%，弃和被自摸率是26%。根据判别式，所计算出的结果显示没有18000点的收入都是不可以进攻的。即使不考虑“7%的危险度”，也至少需要16000点左右的收入才行。",
+      "sourceTextSha256": "1b6dfebf2c0a52844d96ec186c803376b0b5c9064735cdd7c6e79fe76085240a",
+      "candidateTextIdentical": true
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1815400:b0166",
+      "text": "这8种牌，一巡能够听牌的概率有大约是20%。顺便说一句，这里所说的20%的听牌概率，同样符合进张搭子能够吃的情况。",
+      "sourceTextSha256": "ba27d7771c6469805b828d5cefe7ee3f7ed6e114b6f25f692fbcd623d29f97ac",
+      "candidateTextIdentical": true
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1815400:b0167",
+      "text": "想这样的牌，切一张7%的危险牌维持一向听能够划得来的打点经过计算是7000点左右。",
+      "sourceTextSha256": "22a9a9c63113879493153b0536816e294c333879f7767bcada499d03ef439c95",
+      "candidateTextIdentical": true
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1815400:b0168",
+      "text": "进张如此多的手牌，而且还是在第7巡这种离流局还有很远的巡目。没有7000打点的手牌都是弃和比较好。这确实有太不合理了。",
+      "sourceTextSha256": "1381114ead4327a7f914942f0cd3e5fdac733a92f12b0baf9e4da16b999bc004",
+      "candidateTextIdentical": true
+    }
+  ],
+  "gridOrigin": {
+    "formula": "6*2*7 + 2*2*15 = 144",
+    "contract": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-311-curves-v1-20261028\\contract.json",
+      "sha256": "7d0eea43f34f8288c3093617051f3308a9af93f10c62dc4517fcef3c38db69db"
+    },
+    "wasFixedBeforeMaker": true,
+    "wasNewlyImposedByThisReview": false,
+    "wasOriginalAuthorPrinted144ValueTable": false,
+    "interpretation": "Old machine review requested missing series; the preparation contract chose a fixed grid for transcription. This must not be treated as a source-authored data table."
+  },
+  "canResolveByNativeDisplay": {
+    "sourceImagePresenceAndCompleteAuthorText": true,
+    "allEightTitlesAxesLegendsAndConditionsPresent": true,
+    "preciseRemainingCurveBindingOrPointValue": false,
+    "allowedFuturePresentation": "原图＋图例/条件＋完整作者原文；现有数组只标为部分图读约值，保留未绑定/精度未知。必须另核精确合法显示范围，不能以此改原false或自动准入。"
+  },
+  "priorityGraphChecksIfRequired": [
+    {
+      "figureId": "79-bilibili-cn:cv1815400:b0156:figure",
+      "originalImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\bfea6a4a3b1b55e9e6fbcdb8b4b4a82076715f026f64b08784d0d96b3bc5b35e.png",
+        "sha256": "bfea6a4a3b1b55e9e6fbcdb8b4b4a82076715f026f64b08784d0d96b3bc5b35e",
+        "bytes": 360056,
+        "size": [
+          642,
+          380
+        ],
+        "url": "https://i0.hdslb.com/bfs/article/3773bb74f46caf0b903bc979b39ffa7d5d872be7.png",
+        "pixelSha256": "57733628964869ad8756b9525184871ae6997ba144f929fa5638bff6d8233788"
+      },
+      "x": {
+        "axis": "巡目",
+        "value": 12
+      },
+      "y": {
+        "axis": "被ツモ率 / 被自摸率",
+        "unit": "%",
+        "value": "unknown"
+      },
+      "nativePixelFullHeightQueryStrip": [
+        461,
+        65,
+        484,
+        354
+      ],
+      "legendNativePixelBox": [
+        65,
+        72,
+        214,
+        181
+      ],
+      "pixelBoxMeaning": "Approximate navigation strip only, not an identified curve point or extracted value. Complete original image remains required.",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1815400:b0160",
+        "79-bilibili-cn:cv1815400:b0161"
+      ],
+      "question": "独立核对作者明示的被自摸率22%；不预填22为图读结果。",
+      "mustFirstIdentifyLegendToCurve": true,
+      "allowedAnswer": [
+        "带原图坐标的图读约值",
+        "看不清／无法绑定"
+      ],
+      "modelOrHumanValueSuppliedThisRun": false,
+      "onlyNeededIfIndependentGraphCalculationVerificationRequired": true
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1815400:b0158:figure",
+      "originalImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\76efb2db059af06179fa2d2bea2a2299ef9c8ac2f2baafd8ca4afb179ff4f8e1.png",
+        "sha256": "76efb2db059af06179fa2d2bea2a2299ef9c8ac2f2baafd8ca4afb179ff4f8e1",
+        "bytes": 361653,
+        "size": [
+          642,
+          379
+        ],
+        "url": "https://i0.hdslb.com/bfs/article/c44e2c10be7c6d40b13496738837beb3387574ca.png",
+        "pixelSha256": "480f41c9cb764a5272926610ed54e65de232377298c2b22fc531c0847da7e9b3"
+      },
+      "x": {
+        "axis": "巡目",
+        "value": 7
+      },
+      "y": {
+        "axis": "被ツモ率 / 被自摸率",
+        "unit": "%",
+        "value": "unknown"
+      },
+      "nativePixelFullHeightQueryStrip": [
+        274,
+        60,
+        295,
+        351
+      ],
+      "legendNativePixelBox": [
+        65,
+        72,
+        214,
+        181
+      ],
+      "pixelBoxMeaning": "Approximate navigation strip only, not an identified curve point or extracted value. Complete original image remains required.",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1815400:b0166",
+        "79-bilibili-cn:cv1815400:b0167",
+        "79-bilibili-cn:cv1815400:b0168"
+      ],
+      "question": "作者未给该例被自摸率的具体输入；若要求复算约7000点，需先得到此输入及曲线绑定。",
+      "mustFirstIdentifyLegendToCurve": true,
+      "allowedAnswer": [
+        "带原图坐标的图读约值",
+        "看不清／无法绑定"
+      ],
+      "modelOrHumanValueSuppliedThisRun": false,
+      "onlyNeededIfIndependentGraphCalculationVerificationRequired": true
+    }
+  ],
+  "optionalAuthorThresholdCrossChecks": [
+    {
+      "figures": [
+        "b0122",
+        "b0126",
+        "b0130"
+      ],
+      "xTurns": [
+        4,
+        14
+      ],
+      "yAxis": "所需收入",
+      "seriesAtTurn4": [
+        "不立直·10%",
+        "立直·0%"
+      ],
+      "seriesAtTurn14": [
+        "立直·0%"
+      ],
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1815400:b0135",
+        "79-bilibili-cn:cv1815400:b0137"
+      ],
+      "purpose": "仅在要求独立复核作者良形概括时；三种亲子条件不可拿一张图代证。",
+      "maximumRelevantPointValues": 9
+    },
+    {
+      "figures": [
+        "b0124",
+        "b0128",
+        "b0132"
+      ],
+      "xTurns": [
+        6,
+        12
+      ],
+      "yAxis": "所需收入",
+      "seriesAtTurn6": [
+        "不立直·10%",
+        "立直·0%"
+      ],
+      "seriesAtTurn12": [
+        "立直·0%"
+      ],
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1815400:b0148",
+        "79-bilibili-cn:cv1815400:b0149"
+      ],
+      "purpose": "仅在要求独立复核愚形概括时；作者给了阈值句子，当前缺的是指定条件的图读对照，不是原句。",
+      "maximumRelevantPointValues": 9
+    }
+  ],
+  "maximumOptionalThresholdValues": 18,
+  "automaticHumanQueueOr144ItemFormCreated": false,
+  "requiresUserToFill144": false,
+  "currentWholeChapterPassed": false,
+  "originalReviewAndIssuesUnchanged": true,
+  "newModelCalls": 0,
+  "newAuthorizationRequested": "none; only present minimum future scope to root"
+}

@@ -1,0 +1,429 @@
+[
+  {
+    "chapterId": "79-cn-chapter-311-18",
+    "originalChapterId": "79-cn-chapter-311-18",
+    "sourceId": "79-cn",
+    "title": "第三节 攻守判断的基准",
+    "units": 16,
+    "ownedSourceBlocks": 339,
+    "adjudicationGroup": "confirmed-produced-not-covered",
+    "covered": false,
+    "coverageRoute": null,
+    "approvedWebCorrespondence": {
+      "articleId": "cv1815400",
+      "webSourceId": "79-bilibili-cn",
+      "tier": "body",
+      "evidencePath": "integration/chinese-source-body-correspondence.json",
+      "substitutionAllowed": true,
+      "bodyEquivalenceConfirmed": true,
+      "articleInPreview": false
+    },
+    "existingCandidate": {
+      "path": "web-production/v1/candidates/79-bilibili-cn/cv1815400.display.json",
+      "sha256": "5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97",
+      "bodyBlocks": 225,
+      "sourceSha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+      "currentSourceSha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+      "sourceBoundCurrent": true,
+      "auditStatus": "needs-repair",
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1815400.5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97.json",
+      "auditRecordedAt": "2026-10-25T23:57:25.496Z",
+      "deterministicPassed": true,
+      "semanticComplete": false
+    },
+    "pdfRoute": {
+      "pagesTotal": 19,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        311,
+        312,
+        313,
+        314,
+        315,
+        316,
+        317,
+        318,
+        319,
+        320,
+        321,
+        322,
+        323,
+        324,
+        325,
+        326,
+        327,
+        328,
+        329
+      ],
+      "pagesDetail": [
+        {
+          "page": 311,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 39
+        },
+        {
+          "page": 312,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 21
+        },
+        {
+          "page": 313,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 19
+        },
+        {
+          "page": 314,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 14
+        },
+        {
+          "page": 315,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 8
+        },
+        {
+          "page": 316,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 17
+        },
+        {
+          "page": 317,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 13
+        },
+        {
+          "page": 318,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 11
+        },
+        {
+          "page": 319,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 14
+        },
+        {
+          "page": 320,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 11
+        },
+        {
+          "page": 321,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 6
+        },
+        {
+          "page": 322,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 6
+        },
+        {
+          "page": 323,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 10
+        },
+        {
+          "page": 324,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 33
+        },
+        {
+          "page": 325,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 37
+        },
+        {
+          "page": 326,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 19
+        },
+        {
+          "page": 327,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 15
+        },
+        {
+          "page": 328,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 14
+        },
+        {
+          "page": 329,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 63
+        }
+      ]
+    },
+    "gaps": {
+      "ownedSourceBlocks": 339,
+      "missingProductionBlocks": 0,
+      "producedBlocks": 339,
+      "acceptedBlocks": 0,
+      "acceptanceGapBlocks": 339,
+      "acceptanceGapPages": [
+        311,
+        312,
+        313,
+        314,
+        315,
+        316,
+        317,
+        318,
+        319,
+        320,
+        321,
+        322,
+        323,
+        324,
+        325,
+        326,
+        327,
+        328,
+        329
+      ],
+      "pagesWithoutCandidate": [],
+      "pagesWithoutPassedCandidate": [
+        311,
+        312,
+        313,
+        314,
+        315,
+        316,
+        317,
+        318,
+        319,
+        320,
+        321,
+        322,
+        323,
+        324,
+        325,
+        326,
+        327,
+        328,
+        329
+      ]
+    },
+    "verdict": "produced-needs-repair",
+    "coac246": {
+      "action": "repair",
+      "auditStatus": "needs-repair",
+      "candidateSha256": "5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1815400.display.json",
+      "repairErrors": 37,
+      "units": 16,
+      "blocks": 339
+    }
+  },
+  {
+    "chapterId": "nemata-jp-chapter-250-1",
+    "originalChapterId": "nemata-jp-chapter-250-1",
+    "sourceId": "nemata-jp",
+    "title": "「ネマー日記」ブログ問題",
+    "units": 1,
+    "ownedSourceBlocks": 945,
+    "adjudicationGroup": "additional-uncovered-not-in-246",
+    "covered": false,
+    "coverageRoute": null,
+    "approvedWebCorrespondence": {
+      "articleId": "chapter06-exercise001",
+      "webSourceId": "modern-yabejp-ja",
+      "tier": "url-header",
+      "evidencePath": "integration/modern-pdf-url-coverage.json",
+      "substitutionAllowed": true,
+      "bodyEquivalenceConfirmed": false,
+      "articleInPreview": false
+    },
+    "existingCandidate": null,
+    "pdfRoute": {
+      "pagesTotal": 13,
+      "pagesWithCandidate": 13,
+      "pagesWithPassedCandidate": 11,
+      "missingPassedPages": [
+        257,
+        261
+      ],
+      "pagesDetail": [
+        {
+          "page": 250,
+          "candidates": 5,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 69
+        },
+        {
+          "page": 251,
+          "candidates": 5,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": true,
+          "blocks": 78
+        },
+        {
+          "page": 252,
+          "candidates": 5,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": true,
+          "blocks": 85
+        },
+        {
+          "page": 253,
+          "candidates": 5,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 92
+        },
+        {
+          "page": 254,
+          "candidates": 5,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 72
+        },
+        {
+          "page": 255,
+          "candidates": 5,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": true,
+          "blocks": 95
+        },
+        {
+          "page": 256,
+          "candidates": 5,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 60
+        },
+        {
+          "page": 257,
+          "candidates": 1,
+          "receiptStatus": "needs-repair",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 15
+        },
+        {
+          "page": 258,
+          "candidates": 1,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 85
+        },
+        {
+          "page": 259,
+          "candidates": 1,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 76
+        },
+        {
+          "page": 260,
+          "candidates": 2,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 76
+        },
+        {
+          "page": 261,
+          "candidates": 2,
+          "receiptStatus": "needs-repair",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 93
+        },
+        {
+          "page": 262,
+          "candidates": 2,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 49
+        }
+      ]
+    },
+    "gaps": {
+      "ownedSourceBlocks": 945,
+      "missingProductionBlocks": 0,
+      "producedBlocks": 945,
+      "acceptedBlocks": 837,
+      "acceptanceGapBlocks": 108,
+      "acceptanceGapPages": [
+        257,
+        261
+      ],
+      "pagesWithoutCandidate": [],
+      "pagesWithoutPassedCandidate": [
+        257,
+        261
+      ]
+    },
+    "verdict": "produced-needs-repair",
+    "coac246": null
+  }
+]

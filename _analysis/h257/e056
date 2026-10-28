@@ -1,0 +1,2267 @@
+{
+  "schema": "coach-textbook-page-draft/3",
+  "status": "draft",
+  "productionStatus": "draft-awaiting-independent-review",
+  "manifestSha256": "b0b83ca9e8d6382c3eb28eccab8157cf3a762f34c6ddf916a7c845b4d1fbe3b7",
+  "runnerSha256": "62c12e283f5984304fdb977a1ec98de13eeda509bc0c243db500bcba99fd1436",
+  "source": {
+    "sourceId": "nemata-jp",
+    "pdfSha256": "4d1c12042589a1b34d6e1f874b79b4ee1d79f4c1c26c62bda0ba94394e47250a",
+    "page": 258,
+    "pageDataSha256": "5172c81050b3247930f01e2a18e5a24f4a9ddd50938f0ca4c8ba44b5e4750c01"
+  },
+  "body": {
+    "language": "zh-CN",
+    "mode": "translated",
+    "flowOrder": "model-inline-source-regions",
+    "blocks": [
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "nemata-jp-p258-b39"
+        ],
+        "chapterId": "nemata-jp-chapter-250-1",
+        "unitId": "nemata-jp-chapter-250-1-unit-1",
+        "titleSource": false,
+        "sourceText": "現代麻雀技術論- 何切る問題検討１．「ネマー日記」ブログ問題http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise001.html",
+        "text": "现代麻将技术论——何切问题探讨1：“ネマー日记”博客问题\nhttp://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise001.html",
+        "inlineContent": [
+          {
+            "type": "text",
+            "text": "现代麻将技术论——何切问题探讨1：“ネマー日记”博客问题\nhttp://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise001.html"
+          }
+        ],
+        "inlineFigureIds": [],
+        "rawSlotText": "现代麻将技术论——何切问题探讨1：“ネマー日记”博客问题\nhttp://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise001.html"
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "nemata-jp-p258-b1",
+          "nemata-jp-p258-b2"
+        ],
+        "chapterId": "nemata-jp-chapter-250-1",
+        "unitId": "nemata-jp-chapter-250-1-unit-1",
+        "titleSource": false,
+        "sourceText": "打、打もあり非常に迷うところです。ドラ表示牌のカンが残っても三色や三暗刻がつけばダマでもツモって跳満になります。但しここを外せば良形確定で、メンゼンなら最低でも5,200点と赤１枚は確保されます。",
+        "text": "打0m（赤五万）、打6p也都是选择，实在很难取舍。即使保留等待宝牌指示牌6s（宝牌指示牌）的嵌张，只要带上三色或三暗刻，即使默听，自摸也能达到跳满。不过，拆掉这里就能确保好形；保持门前的话，至少能确保5,200点以及一张赤牌。",
+        "inlineContent": [
+          {
+            "type": "text",
+            "text": "打"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r1",
+            "text": "0m（赤五万）"
+          },
+          {
+            "type": "text",
+            "text": "、打"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r2",
+            "text": "6p"
+          },
+          {
+            "type": "text",
+            "text": "也都是选择，实在很难取舍。即使保留等待宝牌指示牌"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r3",
+            "text": "6s（宝牌指示牌）"
+          },
+          {
+            "type": "text",
+            "text": "的嵌张，只要带上三色或三暗刻，即使默听，自摸也能达到跳满。不过，拆掉这里就能确保好形；保持门前的话，至少能确保5,200点以及一张赤牌。"
+          }
+        ],
+        "inlineFigureIds": [
+          "nemata-jp-p258-r1",
+          "nemata-jp-p258-r2",
+          "nemata-jp-p258-r3"
+        ],
+        "rawSlotText": "打[[figure:nemata-jp-p258-r1]]、打[[figure:nemata-jp-p258-r2]]也都是选择，实在很难取舍。即使保留等待宝牌指示牌[[figure:nemata-jp-p258-r3]]的嵌张，只要带上三色或三暗刻，即使默听，自摸也能达到跳满。不过，拆掉这里就能确保好形；保持门前的话，至少能确保5,200点以及一张赤牌。"
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "nemata-jp-p258-b3",
+          "nemata-jp-p258-b4",
+          "nemata-jp-p258-b5",
+          "nemata-jp-p258-b6"
+        ],
+        "chapterId": "nemata-jp-chapter-250-1",
+        "unitId": "nemata-jp-chapter-250-1-unit-1",
+        "titleSource": false,
+        "sourceText": "良形リーチなら一発率やツモ率も増え、祝儀はツモった場合は３倍になるので、5,200～8,000点の良形リーチ＞ドラ表示牌のカンチャン待ち8,000～12,000点と見ます。三面＋リャンメンならメンゼンでテンパイできる可能性が高いので仕掛けたときに安くなるデメリットも薄いでしょう。祝儀5,000点相当なので、ツモのテンパイよりツモでテンパイするほうが嬉しいので表ドラから切ります。",
+        "text": "好形立直会提高一发率和自摸率，而自摸时祝仪会变成三倍，所以我认为：5,200～8,000点的好形立直＞等待宝牌指示牌的8,000～12,000点嵌张。三面＋两面的形状很有可能保持门前听牌，因此，副露后打点降低的缺点应该也不大。祝仪相当于5,000点，比起摸到7s后听牌，我更希望摸到5s后听牌，所以先切通常宝牌。",
+        "inlineContent": [
+          {
+            "type": "text",
+            "text": "好形立直会提高一发率和自摸率，而自摸时祝仪会变成三倍，所以我认为：5,200～8,000点的好形立直＞等待宝牌指示牌的8,000～12,000点嵌张。三面＋两面的形状很有可能保持门前听牌，因此，副露后打点降低的缺点应该也不大。祝仪相当于5,000点，比起摸到"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r4",
+            "text": "7s"
+          },
+          {
+            "type": "text",
+            "text": "后听牌，我更希望摸到"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r5",
+            "text": "5s"
+          },
+          {
+            "type": "text",
+            "text": "后听牌，所以先切通常宝牌。"
+          }
+        ],
+        "inlineFigureIds": [
+          "nemata-jp-p258-r4",
+          "nemata-jp-p258-r5"
+        ],
+        "rawSlotText": "好形立直会提高一发率和自摸率，而自摸时祝仪会变成三倍，所以我认为：5,200～8,000点的好形立直＞等待宝牌指示牌的8,000～12,000点嵌张。三面＋两面的形状很有可能保持门前听牌，因此，副露后打点降低的缺点应该也不大。祝仪相当于5,000点，比起摸到[[figure:nemata-jp-p258-r4]]后听牌，我更希望摸到[[figure:nemata-jp-p258-r5]]后听牌，所以先切通常宝牌。"
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "nemata-jp-p258-b7"
+        ],
+        "chapterId": "nemata-jp-chapter-250-1",
+        "unitId": "nemata-jp-chapter-250-1-unit-1",
+        "titleSource": false,
+        "sourceText": "【問題11】",
+        "text": "【问题11】",
+        "inlineContent": [
+          {
+            "type": "text",
+            "text": "【问题11】"
+          }
+        ],
+        "inlineFigureIds": [],
+        "rawSlotText": "【问题11】"
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "nemata-jp-p258-b8",
+          "nemata-jp-p258-b9"
+        ],
+        "chapterId": "nemata-jp-chapter-250-1",
+        "unitId": "nemata-jp-chapter-250-1-unit-1",
+        "titleSource": false,
+        "sourceText": "日本プロ麻雀連盟の問題から2006年12月の『何を切る？』 (h ttp :/ / www.ma - j a n .o r.j p / j a n - u p/ na n i ki ru 0 6 12 q .p h p )",
+        "text": "本题选自日本职业麻将联盟2006年12月的《切什么？》（http://www.ma-jan.or.jp/jan-up/nanikiru0612q.php）。",
+        "inlineContent": [
+          {
+            "type": "text",
+            "text": "本题选自日本职业麻将联盟2006年12月的《切什么？》（http://www.ma-jan.or.jp/jan-up/nanikiru0612q.php）。"
+          }
+        ],
+        "inlineFigureIds": [],
+        "rawSlotText": "本题选自日本职业麻将联盟2006年12月的《切什么？》（http://www.ma-jan.or.jp/jan-up/nanikiru0612q.php）。"
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "nemata-jp-p258-b10",
+          "nemata-jp-p258-b11",
+          "nemata-jp-p258-b12"
+        ],
+        "chapterId": "nemata-jp-chapter-250-1",
+        "unitId": "nemata-jp-chapter-250-1-unit-1",
+        "titleSource": false,
+        "sourceText": "競技ルール（一発裏無し）東南戦　 東１局 ０本場　西家　８巡目　ドラ　ツモ",
+        "text": "竞技规则（无一发、无里宝牌）。东南战，东1局，0本场，西家，第8巡，宝牌及手牌：手牌及宝牌3p；摸牌：摸牌（源图加载失败）。",
+        "inlineContent": [
+          {
+            "type": "text",
+            "text": "竞技规则（无一发、无里宝牌）。东南战，东1局，0本场，西家，第8巡，宝牌及手牌："
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r6",
+            "text": "手牌及宝牌3p"
+          },
+          {
+            "type": "text",
+            "text": "；摸牌："
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r7",
+            "text": "摸牌（源图加载失败）"
+          },
+          {
+            "type": "text",
+            "text": "。"
+          }
+        ],
+        "inlineFigureIds": [
+          "nemata-jp-p258-r6",
+          "nemata-jp-p258-r7"
+        ],
+        "rawSlotText": "竞技规则（无一发、无里宝牌）。东南战，东1局，0本场，西家，第8巡，宝牌及手牌：[[figure:nemata-jp-p258-r6]]；摸牌：[[figure:nemata-jp-p258-r7]]。"
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "nemata-jp-p258-b13",
+          "nemata-jp-p258-b14",
+          "nemata-jp-p258-b15",
+          "nemata-jp-p258-b16",
+          "nemata-jp-p258-b17",
+          "nemata-jp-p258-b18",
+          "nemata-jp-p258-b19",
+          "nemata-jp-p258-b20",
+          "nemata-jp-p258-b21"
+        ],
+        "chapterId": "nemata-jp-chapter-250-1",
+        "unitId": "nemata-jp-chapter-250-1-unit-1",
+        "titleSource": false,
+        "sourceText": "捨て牌東家           南家           西家            北家  ",
+        "text": "舍牌：东家东家舍牌；南家南家舍牌；西家西家舍牌；北家北家舍牌。",
+        "inlineContent": [
+          {
+            "type": "text",
+            "text": "舍牌：东家"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r8",
+            "text": "东家舍牌"
+          },
+          {
+            "type": "text",
+            "text": "；南家"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r9",
+            "text": "南家舍牌"
+          },
+          {
+            "type": "text",
+            "text": "；西家"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r10",
+            "text": "西家舍牌"
+          },
+          {
+            "type": "text",
+            "text": "；北家"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r11",
+            "text": "北家舍牌"
+          },
+          {
+            "type": "text",
+            "text": "。"
+          }
+        ],
+        "inlineFigureIds": [
+          "nemata-jp-p258-r8",
+          "nemata-jp-p258-r9",
+          "nemata-jp-p258-r10",
+          "nemata-jp-p258-r11"
+        ],
+        "rawSlotText": "舍牌：东家[[figure:nemata-jp-p258-r8]]；南家[[figure:nemata-jp-p258-r9]]；西家[[figure:nemata-jp-p258-r10]]；北家[[figure:nemata-jp-p258-r11]]。"
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "nemata-jp-p258-b22"
+        ],
+        "chapterId": "nemata-jp-chapter-250-1",
+        "unitId": "nemata-jp-chapter-250-1-unit-1",
+        "titleSource": false,
+        "sourceText": "（場況やルールの詳細については上のURL及び連盟のHP参照）",
+        "text": "（有关场况和规则的详情，请参阅上述网址及联盟官网。）",
+        "inlineContent": [
+          {
+            "type": "text",
+            "text": "（有关场况和规则的详情，请参阅上述网址及联盟官网。）"
+          }
+        ],
+        "inlineFigureIds": [],
+        "rawSlotText": "（有关场况和规则的详情，请参阅上述网址及联盟官网。）"
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "nemata-jp-p258-b23"
+        ],
+        "chapterId": "nemata-jp-chapter-250-1",
+        "unitId": "nemata-jp-chapter-250-1-unit-1",
+        "titleSource": false,
+        "sourceText": "【解答と解説】",
+        "text": "【答案与解说】",
+        "inlineContent": [
+          {
+            "type": "text",
+            "text": "【答案与解说】"
+          }
+        ],
+        "inlineFigureIds": [],
+        "rawSlotText": "【答案与解说】"
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "nemata-jp-p258-b24",
+          "nemata-jp-p258-b25",
+          "nemata-jp-p258-b26"
+        ],
+        "chapterId": "nemata-jp-chapter-250-1",
+        "unitId": "nemata-jp-chapter-250-1-unit-1",
+        "titleSource": false,
+        "sourceText": "打ターツオーバー形なので弱い単独ターツを落とします。を切っても受けのフォローがあるのでここが形として一番弱いです。よって打とします。",
+        "text": "打6p。由于是搭子过剩的牌形，要拆掉较弱的独立搭子。即使切掉6p，也有承接5p进张的后援，因此这里在牌形上最弱。所以选择打6p。",
+        "inlineContent": [
+          {
+            "type": "text",
+            "text": "打"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r12",
+            "text": "6p"
+          },
+          {
+            "type": "text",
+            "text": "。由于是搭子过剩的牌形，要拆掉较弱的独立搭子。即使切掉"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r13",
+            "text": "6p"
+          },
+          {
+            "type": "text",
+            "text": "，也有承接"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r14",
+            "text": "5p"
+          },
+          {
+            "type": "text",
+            "text": "进张的后援，因此这里在牌形上最弱。所以选择打"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r15",
+            "text": "6p"
+          },
+          {
+            "type": "text",
+            "text": "。"
+          }
+        ],
+        "inlineFigureIds": [
+          "nemata-jp-p258-r12",
+          "nemata-jp-p258-r13",
+          "nemata-jp-p258-r14",
+          "nemata-jp-p258-r15"
+        ],
+        "rawSlotText": "打[[figure:nemata-jp-p258-r12]]。由于是搭子过剩的牌形，要拆掉较弱的独立搭子。即使切掉[[figure:nemata-jp-p258-r13]]，也有承接[[figure:nemata-jp-p258-r14]]进张的后援，因此这里在牌形上最弱。所以选择打[[figure:nemata-jp-p258-r15]]。"
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "nemata-jp-p258-b27",
+          "nemata-jp-p258-b28",
+          "nemata-jp-p258-b29",
+          "nemata-jp-p258-b30"
+        ],
+        "chapterId": "nemata-jp-chapter-250-1",
+        "unitId": "nemata-jp-chapter-250-1-unit-1",
+        "titleSource": false,
+        "sourceText": "これはタイトル戦で実際に出現した牌姿で、打ち手のプロは打としてマンズを－－のリャンメン･カンチャンに固定したそうですが、牌効率論18  (../ ch ap ter0 1 / secti o n 0 1 8 .h tml ) で述べたように、ターツオーバーの場合は複合ターツに固定するより先に弱い単独ターツを落とすべきです。また打は引きで１シャンテンにならず、七対子の可能性も消えます。打とするくらいなら打の方がいいでしょう。",
+        "text": "这是头衔战中实际出现过的牌姿。据说当时的职业选手打了5m，将万子固定为等待1m－4m－6m的两面＋嵌张形。不过，正如《牌效率论18》（../chapter01/section018.html）中所述，搭子过剩时，应先拆掉较弱的独立搭子，而不是先固定复合搭子。另外，打5m后，摸到2p也无法进入一向听，还会失去七对子的可能性。与其打5m，打7m应该更好。",
+        "inlineContent": [
+          {
+            "type": "text",
+            "text": "这是头衔战中实际出现过的牌姿。据说当时的职业选手打了"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r16",
+            "text": "5m"
+          },
+          {
+            "type": "text",
+            "text": "，将万子固定为等待"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r17",
+            "text": "1m"
+          },
+          {
+            "type": "text",
+            "text": "－"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r18",
+            "text": "4m"
+          },
+          {
+            "type": "text",
+            "text": "－"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r19",
+            "text": "6m"
+          },
+          {
+            "type": "text",
+            "text": "的两面＋嵌张形。不过，正如《牌效率论18》（../chapter01/section018.html）中所述，搭子过剩时，应先拆掉较弱的独立搭子，而不是先固定复合搭子。另外，打"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r20",
+            "text": "5m"
+          },
+          {
+            "type": "text",
+            "text": "后，摸到"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r21",
+            "text": "2p"
+          },
+          {
+            "type": "text",
+            "text": "也无法进入一向听，还会失去七对子的可能性。与其打"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r22",
+            "text": "5m"
+          },
+          {
+            "type": "text",
+            "text": "，打"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r23",
+            "text": "7m"
+          },
+          {
+            "type": "text",
+            "text": "应该更好。"
+          }
+        ],
+        "inlineFigureIds": [
+          "nemata-jp-p258-r16",
+          "nemata-jp-p258-r17",
+          "nemata-jp-p258-r18",
+          "nemata-jp-p258-r19",
+          "nemata-jp-p258-r20",
+          "nemata-jp-p258-r21",
+          "nemata-jp-p258-r22",
+          "nemata-jp-p258-r23"
+        ],
+        "rawSlotText": "这是头衔战中实际出现过的牌姿。据说当时的职业选手打了[[figure:nemata-jp-p258-r16]]，将万子固定为等待[[figure:nemata-jp-p258-r17]]－[[figure:nemata-jp-p258-r18]]－[[figure:nemata-jp-p258-r19]]的两面＋嵌张形。不过，正如《牌效率论18》（../chapter01/section018.html）中所述，搭子过剩时，应先拆掉较弱的独立搭子，而不是先固定复合搭子。另外，打[[figure:nemata-jp-p258-r20]]后，摸到[[figure:nemata-jp-p258-r21]]也无法进入一向听，还会失去七对子的可能性。与其打[[figure:nemata-jp-p258-r22]]，打[[figure:nemata-jp-p258-r23]]应该更好。"
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "nemata-jp-p258-b31",
+          "nemata-jp-p258-b32",
+          "nemata-jp-p258-b33",
+          "nemata-jp-p258-b34",
+          "nemata-jp-p258-b35",
+          "nemata-jp-p258-b36",
+          "nemata-jp-p258-b37",
+          "nemata-jp-p258-b38"
+        ],
+        "chapterId": "nemata-jp-chapter-250-1",
+        "unitId": "nemata-jp-chapter-250-1-unit-1",
+        "titleSource": false,
+        "sourceText": "打としてを引くとドラが出て行く可能性もあります。また、引きでタンヤオが崩れます。しかし、他の何を切っても”高目になる受け”が増えるわけでは無い以上、これらの受けを否定するのは、単に損な安目拒否に相当します。プロであれば敢えて安目を拒否して高目追求をする”魅せる麻雀”を打つべきであると主張する人もいます。そのような麻雀観を否定するつもりはありませんが、今回はそもそも高目追求をするにしても打が優れているのです。この後ツモに非常に恵まれているのであれば、　ツモ　ツモ　ツモ",
+        "text": "打6p后，如果摸到5p，也有可能需要打掉宝牌。另外，摸到1m会破坏断幺九。但是，既然改切其他任何牌也不会增加“能做成高打点的进张”，拒绝这些进张就只是让自己吃亏地拒绝低打点。也有人主张，职业选手就应该刻意拒绝低打点、追求高打点，打出“吸引观众的麻将”。我无意否定这种麻将观，不过，这次即使是追求高打点，原本也是打6p更优。如果此后的摸牌极为顺利：\n23455m 23344p 236s；自摸2p（自摸）；\n23345m 23334p 236s；自摸4m（自摸）；\n334455m 33445p 22s；自摸5p（自摸）。",
+        "inlineContent": [
+          {
+            "type": "text",
+            "text": "打"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r24",
+            "text": "6p"
+          },
+          {
+            "type": "text",
+            "text": "后，如果摸到"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r25",
+            "text": "5p"
+          },
+          {
+            "type": "text",
+            "text": "，也有可能需要打掉宝牌。另外，摸到"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r26",
+            "text": "1m"
+          },
+          {
+            "type": "text",
+            "text": "会破坏断幺九。但是，既然改切其他任何牌也不会增加“能做成高打点的进张”，拒绝这些进张就只是让自己吃亏地拒绝低打点。也有人主张，职业选手就应该刻意拒绝低打点、追求高打点，打出“吸引观众的麻将”。我无意否定这种麻将观，不过，这次即使是追求高打点，原本也是打"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r27",
+            "text": "6p"
+          },
+          {
+            "type": "text",
+            "text": "更优。如果此后的摸牌极为顺利：\n"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r28",
+            "text": "23455m 23344p 236s；自摸2p"
+          },
+          {
+            "type": "text",
+            "text": "（自摸）；\n"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r29",
+            "text": "23345m 23334p 236s；自摸4m"
+          },
+          {
+            "type": "text",
+            "text": "（自摸）；\n"
+          },
+          {
+            "type": "figure",
+            "figureId": "nemata-jp-p258-r30",
+            "text": "334455m 33445p 22s；自摸5p"
+          },
+          {
+            "type": "text",
+            "text": "（自摸）。"
+          }
+        ],
+        "inlineFigureIds": [
+          "nemata-jp-p258-r24",
+          "nemata-jp-p258-r25",
+          "nemata-jp-p258-r26",
+          "nemata-jp-p258-r27",
+          "nemata-jp-p258-r28",
+          "nemata-jp-p258-r29",
+          "nemata-jp-p258-r30"
+        ],
+        "rawSlotText": "打[[figure:nemata-jp-p258-r24]]后，如果摸到[[figure:nemata-jp-p258-r25]]，也有可能需要打掉宝牌。另外，摸到[[figure:nemata-jp-p258-r26]]会破坏断幺九。但是，既然改切其他任何牌也不会增加“能做成高打点的进张”，拒绝这些进张就只是让自己吃亏地拒绝低打点。也有人主张，职业选手就应该刻意拒绝低打点、追求高打点，打出“吸引观众的麻将”。我无意否定这种麻将观，不过，这次即使是追求高打点，原本也是打[[figure:nemata-jp-p258-r27]]更优。如果此后的摸牌极为顺利：\n[[figure:nemata-jp-p258-r28]]（自摸）；\n[[figure:nemata-jp-p258-r29]]（自摸）；\n[[figure:nemata-jp-p258-r30]]（自摸）。"
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "nemata-jp-p258-b40"
+        ],
+        "chapterId": "nemata-jp-chapter-250-1",
+        "unitId": "nemata-jp-chapter-250-1-unit-1",
+        "titleSource": false,
+        "sourceText": "第 9 頁，共13 頁2014-03-02 00:07",
+        "text": "第9页，共13页　2014-03-02 00:07",
+        "inlineContent": [
+          {
+            "type": "text",
+            "text": "第9页，共13页　2014-03-02 00:07"
+          }
+        ],
+        "inlineFigureIds": [],
+        "rawSlotText": "第9页，共13页　2014-03-02 00:07"
+      }
+    ]
+  },
+  "figures": [
+    {
+      "figureId": "nemata-jp-p258-r1",
+      "bbox": [
+        51.599998474121094,
+        19.440021514892578,
+        100.79999542236328,
+        72.96002197265625
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r1.png",
+      "croppedImageSha256": "c3845114535b241ecdb570ee746f6b9a48e01fbf0a53476e6d1f22c86ebb47a6",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b41"
+      ],
+      "sourceImageSha256s": [
+        "12b5714094ef3194a75771cfb39238c3dcc3975f4154a982b4a47805bf66c3a2"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b1",
+        "nemata-jp-p258-b2"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "打牌候选：0m，即赤五万。牌面直立。",
+      "unknowns": [],
+      "caption": "0m（赤五万）"
+    },
+    {
+      "figureId": "nemata-jp-p258-r2",
+      "bbox": [
+        82.55999755859375,
+        19.440021514892578,
+        131.75999450683594,
+        72.96002197265625
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r2.png",
+      "croppedImageSha256": "c207083af635d75550391549fc3515346586057be4688b254ef10866eca4cdc0",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b42"
+      ],
+      "sourceImageSha256s": [
+        "51290726cbe3ab65bb90b29d4635ee77255493036f06862dc79241c579fb01f1"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b1",
+        "nemata-jp-p258-b2"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "打牌候选：6p，六筒。牌面直立。",
+      "unknowns": [],
+      "caption": "6p"
+    },
+    {
+      "figureId": "nemata-jp-p258-r3",
+      "bbox": [
+        300.4800109863281,
+        19.440021514892578,
+        349.6800231933594,
+        72.96002197265625
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r3.png",
+      "croppedImageSha256": "ea172ade39089e96a4ef8eeca69629ca98fb957f9c85b63d79f42a6338916afd",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b43"
+      ],
+      "sourceImageSha256s": [
+        "a76b109689bac5a5cca42f06199d152a61b86e9aae0a9959a0c51e8f05bdbce6"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b1",
+        "nemata-jp-p258-b2"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "6s，六索，牌面直立。正文将其标为宝牌指示牌，并讨论等待此牌的嵌张。",
+      "unknowns": [],
+      "caption": "6s（宝牌指示牌）"
+    },
+    {
+      "figureId": "nemata-jp-p258-r4",
+      "bbox": [
+        436.32000732421875,
+        90.95997619628906,
+        485.52001953125,
+        144.47998046875
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r4.png",
+      "croppedImageSha256": "15f839e1a3d46ec249eab397284dc1969b84a359281bef7e0b96efef51ffe1b3",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b44"
+      ],
+      "sourceImageSha256s": [
+        "2e8a9956685357b679fef1b0ee118d137fd71dc8951c9935c0110c96d07d45f8"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b4",
+        "nemata-jp-p258-b5",
+        "nemata-jp-p258-b6"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "摸牌：7s，七索。牌面直立。",
+      "unknowns": [],
+      "caption": "7s"
+    },
+    {
+      "figureId": "nemata-jp-p258-r5",
+      "bbox": [
+        37.68000030517578,
+        109.92001342773438,
+        86.87999725341797,
+        163.20001220703125
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r5.png",
+      "croppedImageSha256": "83f0c06175af2b0ea09b43db0e774f49b0212418d4522efff2c1b19b6b771337",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b45"
+      ],
+      "sourceImageSha256s": [
+        "52b960d928943159f5d7adb2f1b7ec1c7290b14d740d448eb76592abc2daf84b"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b5",
+        "nemata-jp-p258-b6",
+        "nemata-jp-p258-b7"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "摸牌：5s，普通五索，非赤五索。牌面直立。",
+      "unknowns": [],
+      "caption": "5s"
+    },
+    {
+      "figureId": "nemata-jp-p258-r6",
+      "bbox": [
+        37.91999816894531,
+        203.99996948242188,
+        294.96002197265625,
+        280.32000732421875
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r6.png",
+      "croppedImageSha256": "3b407fe6f333f70a0ac5345e20e255d006e4dd9d805487739ee8c5a7ad1fc3d6",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b46",
+        "nemata-jp-p258-b47",
+        "nemata-jp-p258-b48",
+        "nemata-jp-p258-b49",
+        "nemata-jp-p258-b50",
+        "nemata-jp-p258-b55",
+        "nemata-jp-p258-b51",
+        "nemata-jp-p258-b52",
+        "nemata-jp-p258-b53"
+      ],
+      "sourceImageSha256s": [
+        "9198a660fc2b066688a991529c9f23031077860e4eba300e1b2e9888a3c896ca",
+        "5d80ad65f1e7b390187fa4668906320e7b4adaaebe04ccee5e1c1b151b08250a",
+        "5d3b42ab6237d58266a89352909656b16537b8c1f145e9e5baec3169a695ae49",
+        "e5d7a4056ed5d231b75c8cbe6ecbeb7b16ba6ceff31434a66e6bea4c5d73c891",
+        "a10f789270258402e9631b42527bdcabd063152f7627378d730740f85267c9f7",
+        "f2641ceabf6626f897e5df308a42eea775d2f79e53b65b91064061eed42372f2",
+        "ecd417b990bb1d73ee790e792a318095c1d3d61dd13384f6377871f49d0eb086",
+        "d8efe7b80976d381d33d811c74c8adbe0520b45f79acece4ce4445e9acf301c5",
+        "217e964ca051dd5abcf8ab4092165fadb6388777d7f880e4db94470ccf59f90b"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b10",
+        "nemata-jp-p258-b11",
+        "nemata-jp-p258-b12",
+        "nemata-jp-p258-b13"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "宝牌：3p，三筒，原文标为宝牌而非宝牌指示牌。手牌从左至右可读部分为2334557m 334p，随后还有三张图像加载失败的牌，分别位于手牌第11、12、13张；这三张无法读出花色、点数及赤五状态。可读的两张5m均为普通五万，非赤五万。所有可见牌面均直立，未显示副露。题面条件为竞技规则、无一发及里宝牌；东南战，东1局，0本场，西家，第8巡。",
+      "unknowns": [
+        "手牌第11张：源图显示图像加载失败图标，无法辨认花色、点数及赤五状态。",
+        "手牌第12张：源图显示图像加载失败图标，无法辨认花色、点数及赤五状态。",
+        "手牌第13张：源图显示图像加载失败图标，无法辨认花色、点数及赤五状态。"
+      ],
+      "caption": "手牌及宝牌3p"
+    },
+    {
+      "figureId": "nemata-jp-p258-r7",
+      "bbox": [
+        291.1199951171875,
+        224.6399688720703,
+        338.6399841308594,
+        272.39996337890625
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r7.png",
+      "croppedImageSha256": "ee2d8d8ec7cb9c805d6c2b477908f21489345e35751a306025acc601d691a88d",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b54"
+      ],
+      "sourceImageSha256s": [
+        "a533544d14d82dd7aa342889a64bd3506b318ac41e9a42d2b3c845f138f92d1f"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b11",
+        "nemata-jp-p258-b12",
+        "nemata-jp-p258-b13"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "单独列于手牌右侧、标注“摸牌”的一张牌。源图显示图像加载失败图标，无法辨认花色、点数及赤五状态；不得据正文推定其牌面。",
+      "unknowns": [
+        "摸入的一张牌：源图图像加载失败，牌面不可读。"
+      ],
+      "caption": "摸牌（源图加载失败）"
+    },
+    {
+      "figureId": "nemata-jp-p258-r8",
+      "bbox": [
+        52.08000183105469,
+        274.3199768066406,
+        197.0399932861328,
+        327.8399658203125
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r8.png",
+      "croppedImageSha256": "ad1a8d4a39155263203483e21c83c798a82c893dc93e06b1964d81178e4b2e1a",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b56",
+        "nemata-jp-p258-b57"
+      ],
+      "sourceImageSha256s": [
+        "4e26696678c9e889eea80009dcfdcd8d5bd99d25bb2833ab5d1e06be35119e25",
+        "4cb32685cf31c244b57b69f6df54711172ee4d282f4ab31c860a28a7c7adb349"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b13",
+        "nemata-jp-p258-b14",
+        "nemata-jp-p258-b15",
+        "nemata-jp-p258-b16"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "东家舍牌，按从左至右的先后顺序：1p、1s、1m、發、8p、中；间隔后为9p、東。共8张，原图分为前6张及后2张两组横向排列，均为直立牌，无横置牌。",
+      "unknowns": [],
+      "caption": "东家舍牌"
+    },
+    {
+      "figureId": "nemata-jp-p258-r9",
+      "bbox": [
+        52.08000183105469,
+        311.760009765625,
+        197.0399932861328,
+        365.2799987792969
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r9.png",
+      "croppedImageSha256": "0a15613d15e7d67441d59dafbc8cc808fc694f0662bb6f9f80a59695501bf530",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b58",
+        "nemata-jp-p258-b59"
+      ],
+      "sourceImageSha256s": [
+        "cc8f84d5776a25b1209c4632f5d0d187b6bdd283f8bbc826c7a558ce9a37e1c8",
+        "d1fb6aa0b75e70e80b74b4fd97868a71f77e39ca0b6c3e8836bbc6f6f339bdaf"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b14",
+        "nemata-jp-p258-b16",
+        "nemata-jp-p258-b17",
+        "nemata-jp-p258-b18"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "南家舍牌，按从左至右的先后顺序：東、1p、2s、9m、中、白；间隔后为1m、西。共8张，原图分为前6张及后2张两组横向排列，均为直立牌，无横置牌。第6张为白板，并非缺失图像。",
+      "unknowns": [],
+      "caption": "南家舍牌"
+    },
+    {
+      "figureId": "nemata-jp-p258-r10",
+      "bbox": [
+        52.08000183105469,
+        348.9599914550781,
+        183.83999633789062,
+        402.47998046875
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r10.png",
+      "croppedImageSha256": "ae7091463a04b70f6cfe9638bf40d400e79943d99c0294e64af0bc12d0669e6c",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b60",
+        "nemata-jp-p258-b61"
+      ],
+      "sourceImageSha256s": [
+        "66310f40f163b7b635eb07b70f5d1928241b6da9f4fcf619d5fc8bb74b20d63a",
+        "6a509228eb63b9b1508e7865229215eb198f33dc6e82147c12e2f888debf209e"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b16",
+        "nemata-jp-p258-b18",
+        "nemata-jp-p258-b19",
+        "nemata-jp-p258-b20"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "西家舍牌，按从左至右的先后顺序：9s、北、8s、9m、東、北；间隔后为8s。共7张，原图分为前6张及后1张两组横向排列，均为直立牌，无横置牌。",
+      "unknowns": [],
+      "caption": "西家舍牌"
+    },
+    {
+      "figureId": "nemata-jp-p258-r11",
+      "bbox": [
+        52.08000183105469,
+        386.1600036621094,
+        183.83999633789062,
+        439.67999267578125
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r11.png",
+      "croppedImageSha256": "88fef4a000fd0cc38414995b81b0387f14093401409b1452906d1ef60ec12fc1",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b62",
+        "nemata-jp-p258-b63"
+      ],
+      "sourceImageSha256s": [
+        "7f52715e5f03e0425bbb890bbe61164aaddeecdf15b3636a4799874c38058eea",
+        "d3891958097d0d17feb21fcdb1e89254c45d5d0cca43dfa873b4c8ef1e0c4339"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b18",
+        "nemata-jp-p258-b20",
+        "nemata-jp-p258-b21",
+        "nemata-jp-p258-b22"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "北家舍牌，按从左至右的先后顺序：北、2m、發、中、白、白；间隔后为5p。共7张，原图分为前6张及后1张两组横向排列，均为直立牌，无横置牌。5p为普通五筒，非赤五筒；第5、6张均为白板，并非缺失图像。",
+      "unknowns": [],
+      "caption": "北家舍牌"
+    },
+    {
+      "figureId": "nemata-jp-p258-r12",
+      "bbox": [
+        51.599998474121094,
+        462.239990234375,
+        105.1199951171875,
+        521.5199890136719
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r12.png",
+      "croppedImageSha256": "7adb6e855aaa45ffe5c672f83e58c7b94189ffec75711590745b062bddeba722",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b64"
+      ],
+      "sourceImageSha256s": [
+        "1b5b92e5628df7081eda786cdfefaeb167db4a9b61477e5c42f97a6b0572aa8f"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b23",
+        "nemata-jp-p258-b24",
+        "nemata-jp-p258-b25"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "答案打牌：6p，六筒。牌面直立。",
+      "unknowns": [],
+      "caption": "6p"
+    },
+    {
+      "figureId": "nemata-jp-p258-r13",
+      "bbox": [
+        285.3599853515625,
+        486.7200012207031,
+        334.3199768066406,
+        540.239990234375
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r13.png",
+      "croppedImageSha256": "476d22daa9d0c4e7ef536b87d82099c9d9618e26673345ab337c8b964e611d9f",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b65"
+      ],
+      "sourceImageSha256s": [
+        "f9d4e91632f86f7ec264e132427e66e64c7c5566fc7b1cc25f25296898aaefde"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b24",
+        "nemata-jp-p258-b25",
+        "nemata-jp-p258-b26"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "所讨论的切牌：6p，六筒。牌面直立。",
+      "unknowns": [],
+      "caption": "6p"
+    },
+    {
+      "figureId": "nemata-jp-p258-r14",
+      "bbox": [
+        344.3999938964844,
+        486.7200012207031,
+        393.3599853515625,
+        540.239990234375
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r14.png",
+      "croppedImageSha256": "bdf9c2d92bf7dca545b7e0ec48b61e9e928b6cb371ed9ff840432cb5e5530bc7",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b66"
+      ],
+      "sourceImageSha256s": [
+        "f17dd66e1f182df72cff9c1b0cf4d28c570a33e98ed481f2d6111444b1437c07"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b24",
+        "nemata-jp-p258-b25",
+        "nemata-jp-p258-b26"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "所讨论的进张：5p，普通五筒，非赤五筒。牌面直立。",
+      "unknowns": [],
+      "caption": "5p"
+    },
+    {
+      "figureId": "nemata-jp-p258-r15",
+      "bbox": [
+        149.27999877929688,
+        505.679931640625,
+        198.47999572753906,
+        559.199951171875
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r15.png",
+      "croppedImageSha256": "c763aa25effc9f6adad17da2904d41a8a6f715ed42fe4865189890b04d0aa876",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b67"
+      ],
+      "sourceImageSha256s": [
+        "0173e3249c80e5263c3b2d926588efc6f2f9748c5366132cf864b34fd0d63fe6"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b25",
+        "nemata-jp-p258-b26",
+        "nemata-jp-p258-b27"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "结论打牌：6p，六筒。牌面直立。",
+      "unknowns": [],
+      "caption": "6p"
+    },
+    {
+      "figureId": "nemata-jp-p258-r16",
+      "bbox": [
+        316.55999755859375,
+        524.3999633789062,
+        365.760009765625,
+        577.9199829101562
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r16.png",
+      "croppedImageSha256": "a315aef92f3077553702e3f2fb0c6b5e6db9628bc3da0c97fdafcd7cfff4adfa",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b68"
+      ],
+      "sourceImageSha256s": [
+        "2bf1a300cf1d3a0ed308d8b5307aee5ba5e2b2bd87fbf32dc092f09a160c1752"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b26",
+        "nemata-jp-p258-b27",
+        "nemata-jp-p258-b28"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "实际对局中职业选手所打的牌：5m，普通五万，非赤五万。牌面直立。",
+      "unknowns": [],
+      "caption": "5m"
+    },
+    {
+      "figureId": "nemata-jp-p258-r17",
+      "bbox": [
+        393.8399963378906,
+        524.3999633789062,
+        443.0400085449219,
+        577.9199829101562
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r17.png",
+      "croppedImageSha256": "ba3278f1a6eb297b6e3391a00a30c0ad17ce1a71008fa05213c468593d546d1f",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b69"
+      ],
+      "sourceImageSha256s": [
+        "1f1ea4b998231ee9e96559ae03c0d502f83a8e0d34971e008a0dd5722b4fcf93"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b26",
+        "nemata-jp-p258-b27",
+        "nemata-jp-p258-b28"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "万子两面＋嵌张进张序列中的第一张：1m，一万。牌面直立。",
+      "unknowns": [],
+      "caption": "1m"
+    },
+    {
+      "figureId": "nemata-jp-p258-r18",
+      "bbox": [
+        417.3599853515625,
+        524.3999633789062,
+        466.55999755859375,
+        577.9199829101562
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r18.png",
+      "croppedImageSha256": "24a48c3f9ddb6cfa0c5d99bc1eee7a3a9f7a066263d10ace29366e49db679a19",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b70"
+      ],
+      "sourceImageSha256s": [
+        "a2e9d744afba74c7d129d027073dfcb464253a2fec4c82ab407faa587e27452f"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b26",
+        "nemata-jp-p258-b27",
+        "nemata-jp-p258-b28"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "万子两面＋嵌张进张序列中的第二张：4m，四万。牌面直立。",
+      "unknowns": [],
+      "caption": "4m"
+    },
+    {
+      "figureId": "nemata-jp-p258-r19",
+      "bbox": [
+        441.1199951171875,
+        524.3999633789062,
+        490.32000732421875,
+        577.9199829101562
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r19.png",
+      "croppedImageSha256": "346aa7703bed96cf6a560d6153efc68f28100090ececb9b3475c4f27c4a52873",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b71"
+      ],
+      "sourceImageSha256s": [
+        "af5a90f383260bd3bb9b37c2e8d2b83504a5d48b573c23d83f6f3055de1ab728"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b26",
+        "nemata-jp-p258-b27",
+        "nemata-jp-p258-b28"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "万子两面＋嵌张进张序列中的第三张：6m，六万。牌面直立。",
+      "unknowns": [],
+      "caption": "6m"
+    },
+    {
+      "figureId": "nemata-jp-p258-r20",
+      "bbox": [
+        417.1199951171875,
+        561.3599853515625,
+        466.32000732421875,
+        614.8800048828125
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r20.png",
+      "croppedImageSha256": "2bc5c94e7c42b20651034568285894ba5c8fa8140b4c9705e4a232ed56deb826",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b72"
+      ],
+      "sourceImageSha256s": [
+        "48c72efae13f41413afdd5c3b95991cfeee6932e137c1e85f6e8c2ef703d860e"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b28",
+        "nemata-jp-p258-b29",
+        "nemata-jp-p258-b30"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "所讨论的切牌：5m，普通五万，非赤五万。牌面直立。",
+      "unknowns": [],
+      "caption": "5m"
+    },
+    {
+      "figureId": "nemata-jp-p258-r21",
+      "bbox": [
+        440.3999938964844,
+        561.3599853515625,
+        489.6000061035156,
+        614.8800048828125
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r21.png",
+      "croppedImageSha256": "fbc7a0c788caafc2860415638fd95cc49604de57b03c675fa88938d59f0fdf2d",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b73"
+      ],
+      "sourceImageSha256s": [
+        "9be0f2584f391e00c6a1ad33b91342de06148f88546543c70ebb86d92a883e31"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b28",
+        "nemata-jp-p258-b29",
+        "nemata-jp-p258-b30"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "所讨论的摸牌：2p，二筒。牌面直立。",
+      "unknowns": [],
+      "caption": "2p"
+    },
+    {
+      "figureId": "nemata-jp-p258-r22",
+      "bbox": [
+        227.27999877929688,
+        580.0799560546875,
+        276.4800109863281,
+        633.5999755859375
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r22.png",
+      "croppedImageSha256": "2125d2a1a647633afdad3c5bdad2ba1e29fb9ef0237b006f7c6d58d60dc3621d",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b74"
+      ],
+      "sourceImageSha256s": [
+        "4c275039191c6f3cd53c3eccfc6966c885b1059a7065af48655193e4454d58ce"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b29",
+        "nemata-jp-p258-b30",
+        "nemata-jp-p258-b31"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "用于比较的切牌：5m，普通五万，非赤五万。牌面直立。",
+      "unknowns": [],
+      "caption": "5m"
+    },
+    {
+      "figureId": "nemata-jp-p258-r23",
+      "bbox": [
+        322.0799865722656,
+        580.0799560546875,
+        371.2799987792969,
+        633.5999755859375
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r23.png",
+      "croppedImageSha256": "05759ba150e4a7136ebf5b30afcb56b92d5131fe197686ba486ed5006a36e06f",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b75"
+      ],
+      "sourceImageSha256s": [
+        "310c1323325eda75aaa48dfa2eb69c8714a803e48adda0cbec5131e71d10f2bf"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b29",
+        "nemata-jp-p258-b30",
+        "nemata-jp-p258-b31"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "作者认为更好的比较选项：打7m，七万。牌面直立。",
+      "unknowns": [],
+      "caption": "7m"
+    },
+    {
+      "figureId": "nemata-jp-p258-r24",
+      "bbox": [
+        51.599998474121094,
+        599.0399780273438,
+        100.79999542236328,
+        652.3200073242188
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r24.png",
+      "croppedImageSha256": "29092cc6951a7106e76246678acddab5f16f4e19219b4e62c7e85fe64afbb603",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b76"
+      ],
+      "sourceImageSha256s": [
+        "3e5c8f687bbf047de8f35f6a8f0c9b74e525f3eaaf78f22fe58e05730872be89"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b30",
+        "nemata-jp-p258-b31",
+        "nemata-jp-p258-b32"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "所讨论的切牌：6p，六筒。牌面直立。",
+      "unknowns": [],
+      "caption": "6p"
+    },
+    {
+      "figureId": "nemata-jp-p258-r25",
+      "bbox": [
+        90.4800033569336,
+        599.0399780273438,
+        139.68000030517578,
+        652.3200073242188
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r25.png",
+      "croppedImageSha256": "1816f3092e3cfc2e2539812012fddd841f2375a20365acc8803ebca063a86619",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b77"
+      ],
+      "sourceImageSha256s": [
+        "97fa2e0fd3ba8a3069f86e8e50de46b9114c6658e8845404fd625e9d8be90e51"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b30",
+        "nemata-jp-p258-b31",
+        "nemata-jp-p258-b32"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "所讨论的摸牌：5p，普通五筒，非赤五筒。牌面直立。",
+      "unknowns": [],
+      "caption": "5p"
+    },
+    {
+      "figureId": "nemata-jp-p258-r26",
+      "bbox": [
+        311.0400085449219,
+        599.0399780273438,
+        360.2400207519531,
+        652.3200073242188
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r26.png",
+      "croppedImageSha256": "5323df44c15e3a2948fc2bb1848e95a530b504b1c02c96c8102e8c564b9fa79e",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b78"
+      ],
+      "sourceImageSha256s": [
+        "248387ac849cbbd914e4f7fac53c46ab29686fb80233e2d280357063829395a7"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b30",
+        "nemata-jp-p258-b31",
+        "nemata-jp-p258-b32"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "所讨论的摸牌：1m，一万。牌面直立。裁图上方的7m属于相邻区域，不计入本区域。",
+      "unknowns": [],
+      "caption": "1m"
+    },
+    {
+      "figureId": "nemata-jp-p258-r27",
+      "bbox": [
+        479.760009765625,
+        653.2799682617188,
+        528.9600219726562,
+        706.7999877929688
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r27.png",
+      "croppedImageSha256": "5c8246db0e3531f8d24559c8377948cc19e95391567414455825eb383966a881",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b79"
+      ],
+      "sourceImageSha256s": [
+        "aa67fbf9588d599a97ad736804d27aae76434a8d1821834847c4a89c25c3d87f"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b33",
+        "nemata-jp-p258-b34",
+        "nemata-jp-p258-b35"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "作者认为即使追求高打点也更优的切牌：6p，六筒。牌面直立。",
+      "unknowns": [],
+      "caption": "6p"
+    },
+    {
+      "figureId": "nemata-jp-p258-r28",
+      "bbox": [
+        33.599998474121094,
+        699.8399658203125,
+        258,
+        753.3599853515625
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r28.png",
+      "croppedImageSha256": "ebdd0dfcc0cf80dd3da6478a3c9bba2d5ac91581d0df5380e855694556625c37",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b80",
+        "nemata-jp-p258-b81"
+      ],
+      "sourceImageSha256s": [
+        "4c9254270b77c53e3e97272d467673da2abcae8699669f63b33df4d0becfaf1d",
+        "43419c0a05662fcaed548353cc1bd7eef943e3543cc78be925d7032367b08c3a"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b35",
+        "nemata-jp-p258-b36",
+        "nemata-jp-p258-b37"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "第一例。手牌从左至右：23455m 23344p 236s，共13张。右侧另列自摸牌：2p。两张5m均为普通五万，非赤五万。所有牌面均直立，未显示副露。",
+      "unknowns": [],
+      "caption": "23455m 23344p 236s；自摸2p"
+    },
+    {
+      "figureId": "nemata-jp-p258-r29",
+      "bbox": [
+        33.599998474121094,
+        728.6399536132812,
+        258,
+        782.1599731445312
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r29.png",
+      "croppedImageSha256": "1adad5e12e6566b444047e78022746539cf99f663f090f23b967c97894a94940",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b82",
+        "nemata-jp-p258-b83"
+      ],
+      "sourceImageSha256s": [
+        "e4f0958b20598520ebeae24869640102be6e6f083072d51dc99ef9a4d626ba57",
+        "930abab867334b4f8127cecf104bba6ddba14a1e2df4e87e639ad35077052566"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b36",
+        "nemata-jp-p258-b37",
+        "nemata-jp-p258-b38"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "第二例。手牌从左至右：23345m 23334p 236s，共13张。右侧另列自摸牌：4m。5m为普通五万，非赤五万。所有牌面均直立，未显示副露。",
+      "unknowns": [],
+      "caption": "23345m 23334p 236s；自摸4m"
+    },
+    {
+      "figureId": "nemata-jp-p258-r30",
+      "bbox": [
+        33.599998474121094,
+        757.43994140625,
+        258,
+        810.9599609375
+      ],
+      "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+      "croppedImagePath": "production/sol-high-fallback-inline-20261026/renders/nemata-jp/page-0258-r30.png",
+      "croppedImageSha256": "e40c75051531ff33c07fff3cb5da90d9b6ba4064a9ac75c62396ea7e03619489",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "sourceImageBlockIds": [
+        "nemata-jp-p258-b84",
+        "nemata-jp-p258-b85"
+      ],
+      "sourceImageSha256s": [
+        "641cc4b81e4a977edfab948247d15992c444aacb08647f35818219177a183c15",
+        "ddee71d5fc26ae00371254448cafac66a8d38a8d96b90005f874517012fa3c16"
+      ],
+      "inlineWithTextBlockIds": [
+        "nemata-jp-p258-b37",
+        "nemata-jp-p258-b38"
+      ],
+      "kind": "mahjong-example",
+      "transcription": "第三例。手牌从左至右：334455m 33445p 22s，共13张。右侧另列自摸牌：5p。两张5m均为普通五万；手牌中的5p及自摸的5p均为普通五筒，均非赤五。所有牌面均直立，未显示副露。",
+      "unknowns": [],
+      "caption": "334455m 33445p 22s；自摸5p"
+    }
+  ],
+  "imageCoverage": [
+    {
+      "blockId": "nemata-jp-p258-b41",
+      "imageSha256": "12b5714094ef3194a75771cfb39238c3dcc3975f4154a982b4a47805bf66c3a2",
+      "regionId": "nemata-jp-p258-r1",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b42",
+      "imageSha256": "51290726cbe3ab65bb90b29d4635ee77255493036f06862dc79241c579fb01f1",
+      "regionId": "nemata-jp-p258-r2",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b43",
+      "imageSha256": "a76b109689bac5a5cca42f06199d152a61b86e9aae0a9959a0c51e8f05bdbce6",
+      "regionId": "nemata-jp-p258-r3",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b44",
+      "imageSha256": "2e8a9956685357b679fef1b0ee118d137fd71dc8951c9935c0110c96d07d45f8",
+      "regionId": "nemata-jp-p258-r4",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b45",
+      "imageSha256": "52b960d928943159f5d7adb2f1b7ec1c7290b14d740d448eb76592abc2daf84b",
+      "regionId": "nemata-jp-p258-r5",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b46",
+      "imageSha256": "9198a660fc2b066688a991529c9f23031077860e4eba300e1b2e9888a3c896ca",
+      "regionId": "nemata-jp-p258-r6",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b47",
+      "imageSha256": "5d80ad65f1e7b390187fa4668906320e7b4adaaebe04ccee5e1c1b151b08250a",
+      "regionId": "nemata-jp-p258-r6",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b48",
+      "imageSha256": "5d3b42ab6237d58266a89352909656b16537b8c1f145e9e5baec3169a695ae49",
+      "regionId": "nemata-jp-p258-r6",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b49",
+      "imageSha256": "e5d7a4056ed5d231b75c8cbe6ecbeb7b16ba6ceff31434a66e6bea4c5d73c891",
+      "regionId": "nemata-jp-p258-r6",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b50",
+      "imageSha256": "a10f789270258402e9631b42527bdcabd063152f7627378d730740f85267c9f7",
+      "regionId": "nemata-jp-p258-r6",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b55",
+      "imageSha256": "f2641ceabf6626f897e5df308a42eea775d2f79e53b65b91064061eed42372f2",
+      "regionId": "nemata-jp-p258-r6",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b51",
+      "imageSha256": "ecd417b990bb1d73ee790e792a318095c1d3d61dd13384f6377871f49d0eb086",
+      "regionId": "nemata-jp-p258-r6",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b52",
+      "imageSha256": "d8efe7b80976d381d33d811c74c8adbe0520b45f79acece4ce4445e9acf301c5",
+      "regionId": "nemata-jp-p258-r6",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b53",
+      "imageSha256": "217e964ca051dd5abcf8ab4092165fadb6388777d7f880e4db94470ccf59f90b",
+      "regionId": "nemata-jp-p258-r6",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b54",
+      "imageSha256": "a533544d14d82dd7aa342889a64bd3506b318ac41e9a42d2b3c845f138f92d1f",
+      "regionId": "nemata-jp-p258-r7",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b56",
+      "imageSha256": "4e26696678c9e889eea80009dcfdcd8d5bd99d25bb2833ab5d1e06be35119e25",
+      "regionId": "nemata-jp-p258-r8",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b57",
+      "imageSha256": "4cb32685cf31c244b57b69f6df54711172ee4d282f4ab31c860a28a7c7adb349",
+      "regionId": "nemata-jp-p258-r8",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b58",
+      "imageSha256": "cc8f84d5776a25b1209c4632f5d0d187b6bdd283f8bbc826c7a558ce9a37e1c8",
+      "regionId": "nemata-jp-p258-r9",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b59",
+      "imageSha256": "d1fb6aa0b75e70e80b74b4fd97868a71f77e39ca0b6c3e8836bbc6f6f339bdaf",
+      "regionId": "nemata-jp-p258-r9",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b60",
+      "imageSha256": "66310f40f163b7b635eb07b70f5d1928241b6da9f4fcf619d5fc8bb74b20d63a",
+      "regionId": "nemata-jp-p258-r10",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b61",
+      "imageSha256": "6a509228eb63b9b1508e7865229215eb198f33dc6e82147c12e2f888debf209e",
+      "regionId": "nemata-jp-p258-r10",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b62",
+      "imageSha256": "7f52715e5f03e0425bbb890bbe61164aaddeecdf15b3636a4799874c38058eea",
+      "regionId": "nemata-jp-p258-r11",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b63",
+      "imageSha256": "d3891958097d0d17feb21fcdb1e89254c45d5d0cca43dfa873b4c8ef1e0c4339",
+      "regionId": "nemata-jp-p258-r11",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b64",
+      "imageSha256": "1b5b92e5628df7081eda786cdfefaeb167db4a9b61477e5c42f97a6b0572aa8f",
+      "regionId": "nemata-jp-p258-r12",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b65",
+      "imageSha256": "f9d4e91632f86f7ec264e132427e66e64c7c5566fc7b1cc25f25296898aaefde",
+      "regionId": "nemata-jp-p258-r13",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b66",
+      "imageSha256": "f17dd66e1f182df72cff9c1b0cf4d28c570a33e98ed481f2d6111444b1437c07",
+      "regionId": "nemata-jp-p258-r14",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b67",
+      "imageSha256": "0173e3249c80e5263c3b2d926588efc6f2f9748c5366132cf864b34fd0d63fe6",
+      "regionId": "nemata-jp-p258-r15",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b68",
+      "imageSha256": "2bf1a300cf1d3a0ed308d8b5307aee5ba5e2b2bd87fbf32dc092f09a160c1752",
+      "regionId": "nemata-jp-p258-r16",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b69",
+      "imageSha256": "1f1ea4b998231ee9e96559ae03c0d502f83a8e0d34971e008a0dd5722b4fcf93",
+      "regionId": "nemata-jp-p258-r17",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b70",
+      "imageSha256": "a2e9d744afba74c7d129d027073dfcb464253a2fec4c82ab407faa587e27452f",
+      "regionId": "nemata-jp-p258-r18",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b71",
+      "imageSha256": "af5a90f383260bd3bb9b37c2e8d2b83504a5d48b573c23d83f6f3055de1ab728",
+      "regionId": "nemata-jp-p258-r19",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b72",
+      "imageSha256": "48c72efae13f41413afdd5c3b95991cfeee6932e137c1e85f6e8c2ef703d860e",
+      "regionId": "nemata-jp-p258-r20",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b73",
+      "imageSha256": "9be0f2584f391e00c6a1ad33b91342de06148f88546543c70ebb86d92a883e31",
+      "regionId": "nemata-jp-p258-r21",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b74",
+      "imageSha256": "4c275039191c6f3cd53c3eccfc6966c885b1059a7065af48655193e4454d58ce",
+      "regionId": "nemata-jp-p258-r22",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b75",
+      "imageSha256": "310c1323325eda75aaa48dfa2eb69c8714a803e48adda0cbec5131e71d10f2bf",
+      "regionId": "nemata-jp-p258-r23",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b76",
+      "imageSha256": "3e5c8f687bbf047de8f35f6a8f0c9b74e525f3eaaf78f22fe58e05730872be89",
+      "regionId": "nemata-jp-p258-r24",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b77",
+      "imageSha256": "97fa2e0fd3ba8a3069f86e8e50de46b9114c6658e8845404fd625e9d8be90e51",
+      "regionId": "nemata-jp-p258-r25",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b78",
+      "imageSha256": "248387ac849cbbd914e4f7fac53c46ab29686fb80233e2d280357063829395a7",
+      "regionId": "nemata-jp-p258-r26",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b79",
+      "imageSha256": "aa67fbf9588d599a97ad736804d27aae76434a8d1821834847c4a89c25c3d87f",
+      "regionId": "nemata-jp-p258-r27",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b80",
+      "imageSha256": "4c9254270b77c53e3e97272d467673da2abcae8699669f63b33df4d0becfaf1d",
+      "regionId": "nemata-jp-p258-r28",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b81",
+      "imageSha256": "43419c0a05662fcaed548353cc1bd7eef943e3543cc78be925d7032367b08c3a",
+      "regionId": "nemata-jp-p258-r28",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b82",
+      "imageSha256": "e4f0958b20598520ebeae24869640102be6e6f083072d51dc99ef9a4d626ba57",
+      "regionId": "nemata-jp-p258-r29",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b83",
+      "imageSha256": "930abab867334b4f8127cecf104bba6ddba14a1e2df4e87e639ad35077052566",
+      "regionId": "nemata-jp-p258-r29",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b84",
+      "imageSha256": "641cc4b81e4a977edfab948247d15992c444aacb08647f35818219177a183c15",
+      "regionId": "nemata-jp-p258-r30",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    },
+    {
+      "blockId": "nemata-jp-p258-b85",
+      "imageSha256": "ddee71d5fc26ae00371254448cafac66a8d38a8d96b90005f874517012fa3c16",
+      "regionId": "nemata-jp-p258-r30",
+      "chapterId": "nemata-jp-chapter-250-1",
+      "unitId": "nemata-jp-chapter-250-1-unit-1",
+      "status": "mapped-to-visual-region"
+    }
+  ],
+  "coverage": {
+    "textBlockCount": 40,
+    "coveredTextBlockCount": 40,
+    "imageBlockCount": 45,
+    "coveredImageBlockCount": 45,
+    "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce"
+  },
+  "provenance": {
+    "runId": "sol-high-fallback-inline-20261026",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "promptVersion": "textbook-page-transcription/5-inline",
+    "schemaVersion": "coach-textbook-page-draft/3",
+    "flowMode": "native-source-inline-slots",
+    "nativeSourceFlow": {
+      "path": "production/sol-high-fallback-inline-20261026/native-source-flow/nemata-jp-258.json",
+      "sha256": "b3f4641273a8b69661b22d608d2346aa5c8e7e3793722b1fa07b7126e2d88fc6",
+      "helperPath": "production/sol-high-fallback-inline-20261026/native-source-flow/3645d394ceab227e4204534822273ab0ad2ff17cfac59ce1443633e55b0f3423.mjs",
+      "helperSha256": "3645d394ceab227e4204534822273ab0ad2ff17cfac59ce1443633e55b0f3423"
+    },
+    "schemaSha256": "febdecb3f4abdd8ff0b97f788079d72ec668b8f926fc333036aed5b55e9fd34b",
+    "promptSha256": "f1a06006ded9ae71a279c5efb55cf6ab5437823adeccfa5034c0e524ca72b672",
+    "contextPages": [
+      {
+        "page": 257,
+        "pageDataSha256": "ca63823638f042d84419560d2618879b80972410d0e290f6b12c9860e19639a6"
+      },
+      {
+        "page": 259,
+        "pageDataSha256": "7fd8b1a9f066e3de37cd901aee4dfab647dd507f1aff5c91fdf45fd2c5120a30"
+      }
+    ],
+    "chapterMapSha256": "d38bbd1a72defef709f4e2f336b3447e4fc677183b88b7e8d6aa050258017a8e",
+    "ownershipSha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60",
+    "revision": null,
+    "flowValidation": "unique-complete-source-ID-set and same-unit paragraph checks; visual order pending independent audit",
+    "semanticStatus": "not-reviewed",
+    "usage": {
+      "inputTokens": 55980,
+      "cachedInputTokens": 0,
+      "outputTokens": 7201
+    },
+    "attempts": [
+      {
+        "callId": "23b0d429-3f97-4252-ac18-5d999f60a873",
+        "sourceId": "nemata-jp",
+        "page": 258,
+        "pageDataSha256": "5172c81050b3247930f01e2a18e5a24f4a9ddd50938f0ca4c8ba44b5e4750c01",
+        "pdfSha256": "4d1c12042589a1b34d6e1f874b79b4ee1d79f4c1c26c62bda0ba94394e47250a",
+        "attempt": 1,
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "promptVersion": "textbook-page-transcription/5-inline",
+        "schemaVersion": "coach-textbook-page-draft/3",
+        "runnerSha256": "62c12e283f5984304fdb977a1ec98de13eeda509bc0c243db500bcba99fd1436",
+        "schemaSha256": "febdecb3f4abdd8ff0b97f788079d72ec668b8f926fc333036aed5b55e9fd34b",
+        "cliVersion": "codex-cli 0.162.1",
+        "cliArguments": [
+          "exec",
+          "--model",
+          "gpt-6.1-sol",
+          "--config model_reasoning_effort=high",
+          "--config web_search=disabled",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox read-only",
+          "--strict-config",
+          "--skip-git-repo-check",
+          "--json",
+          "--output-schema <temp>",
+          "--output-last-message <temp>",
+          "--cd <temp>",
+          "-i <full-page>",
+          "-i <one-crop-per-region>",
+          "--disable <tool-features>",
+          "-"
+        ],
+        "startedAt": "2026-10-26T09:46:59.103Z",
+        "durationMs": 185366,
+        "usage": {
+          "inputTokens": 55980,
+          "cachedInputTokens": 0,
+          "outputTokens": 7201
+        },
+        "transportStatus": "completed",
+        "schemaStatus": "valid",
+        "coverageStatus": "pending",
+        "semanticStatus": "not-reviewed",
+        "success": true,
+        "failure": null,
+        "terminalEvents": [],
+        "stderr": "",
+        "pageImageSha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce",
+        "regionImageSha256s": [
+          {
+            "regionId": "nemata-jp-p258-r1",
+            "sha256": "c3845114535b241ecdb570ee746f6b9a48e01fbf0a53476e6d1f22c86ebb47a6"
+          },
+          {
+            "regionId": "nemata-jp-p258-r2",
+            "sha256": "c207083af635d75550391549fc3515346586057be4688b254ef10866eca4cdc0"
+          },
+          {
+            "regionId": "nemata-jp-p258-r3",
+            "sha256": "ea172ade39089e96a4ef8eeca69629ca98fb957f9c85b63d79f42a6338916afd"
+          },
+          {
+            "regionId": "nemata-jp-p258-r4",
+            "sha256": "15f839e1a3d46ec249eab397284dc1969b84a359281bef7e0b96efef51ffe1b3"
+          },
+          {
+            "regionId": "nemata-jp-p258-r5",
+            "sha256": "83f0c06175af2b0ea09b43db0e774f49b0212418d4522efff2c1b19b6b771337"
+          },
+          {
+            "regionId": "nemata-jp-p258-r6",
+            "sha256": "3b407fe6f333f70a0ac5345e20e255d006e4dd9d805487739ee8c5a7ad1fc3d6"
+          },
+          {
+            "regionId": "nemata-jp-p258-r7",
+            "sha256": "ee2d8d8ec7cb9c805d6c2b477908f21489345e35751a306025acc601d691a88d"
+          },
+          {
+            "regionId": "nemata-jp-p258-r8",
+            "sha256": "ad1a8d4a39155263203483e21c83c798a82c893dc93e06b1964d81178e4b2e1a"
+          },
+          {
+            "regionId": "nemata-jp-p258-r9",
+            "sha256": "0a15613d15e7d67441d59dafbc8cc808fc694f0662bb6f9f80a59695501bf530"
+          },
+          {
+            "regionId": "nemata-jp-p258-r10",
+            "sha256": "ae7091463a04b70f6cfe9638bf40d400e79943d99c0294e64af0bc12d0669e6c"
+          },
+          {
+            "regionId": "nemata-jp-p258-r11",
+            "sha256": "88fef4a000fd0cc38414995b81b0387f14093401409b1452906d1ef60ec12fc1"
+          },
+          {
+            "regionId": "nemata-jp-p258-r12",
+            "sha256": "7adb6e855aaa45ffe5c672f83e58c7b94189ffec75711590745b062bddeba722"
+          },
+          {
+            "regionId": "nemata-jp-p258-r13",
+            "sha256": "476d22daa9d0c4e7ef536b87d82099c9d9618e26673345ab337c8b964e611d9f"
+          },
+          {
+            "regionId": "nemata-jp-p258-r14",
+            "sha256": "bdf9c2d92bf7dca545b7e0ec48b61e9e928b6cb371ed9ff840432cb5e5530bc7"
+          },
+          {
+            "regionId": "nemata-jp-p258-r15",
+            "sha256": "c763aa25effc9f6adad17da2904d41a8a6f715ed42fe4865189890b04d0aa876"
+          },
+          {
+            "regionId": "nemata-jp-p258-r16",
+            "sha256": "a315aef92f3077553702e3f2fb0c6b5e6db9628bc3da0c97fdafcd7cfff4adfa"
+          },
+          {
+            "regionId": "nemata-jp-p258-r17",
+            "sha256": "ba3278f1a6eb297b6e3391a00a30c0ad17ce1a71008fa05213c468593d546d1f"
+          },
+          {
+            "regionId": "nemata-jp-p258-r18",
+            "sha256": "24a48c3f9ddb6cfa0c5d99bc1eee7a3a9f7a066263d10ace29366e49db679a19"
+          },
+          {
+            "regionId": "nemata-jp-p258-r19",
+            "sha256": "346aa7703bed96cf6a560d6153efc68f28100090ececb9b3475c4f27c4a52873"
+          },
+          {
+            "regionId": "nemata-jp-p258-r20",
+            "sha256": "2bc5c94e7c42b20651034568285894ba5c8fa8140b4c9705e4a232ed56deb826"
+          },
+          {
+            "regionId": "nemata-jp-p258-r21",
+            "sha256": "fbc7a0c788caafc2860415638fd95cc49604de57b03c675fa88938d59f0fdf2d"
+          },
+          {
+            "regionId": "nemata-jp-p258-r22",
+            "sha256": "2125d2a1a647633afdad3c5bdad2ba1e29fb9ef0237b006f7c6d58d60dc3621d"
+          },
+          {
+            "regionId": "nemata-jp-p258-r23",
+            "sha256": "05759ba150e4a7136ebf5b30afcb56b92d5131fe197686ba486ed5006a36e06f"
+          },
+          {
+            "regionId": "nemata-jp-p258-r24",
+            "sha256": "29092cc6951a7106e76246678acddab5f16f4e19219b4e62c7e85fe64afbb603"
+          },
+          {
+            "regionId": "nemata-jp-p258-r25",
+            "sha256": "1816f3092e3cfc2e2539812012fddd841f2375a20365acc8803ebca063a86619"
+          },
+          {
+            "regionId": "nemata-jp-p258-r26",
+            "sha256": "5323df44c15e3a2948fc2bb1848e95a530b504b1c02c96c8102e8c564b9fa79e"
+          },
+          {
+            "regionId": "nemata-jp-p258-r27",
+            "sha256": "5c8246db0e3531f8d24559c8377948cc19e95391567414455825eb383966a881"
+          },
+          {
+            "regionId": "nemata-jp-p258-r28",
+            "sha256": "ebdd0dfcc0cf80dd3da6478a3c9bba2d5ac91581d0df5380e855694556625c37"
+          },
+          {
+            "regionId": "nemata-jp-p258-r29",
+            "sha256": "1adad5e12e6566b444047e78022746539cf99f663f090f23b967c97894a94940"
+          },
+          {
+            "regionId": "nemata-jp-p258-r30",
+            "sha256": "e40c75051531ff33c07fff3cb5da90d9b6ba4064a9ac75c62396ea7e03619489"
+          }
+        ],
+        "outputSha256": "453e1be21161437166d0d174403ac18e3e7540a180f27d47df7a3d26978b7908",
+        "rawArtifactPath": "raw-calls/23b0d429-3f97-4252-ac18-5d999f60a873.json",
+        "cliEventTypes": [
+          "thread.started",
+          "turn.started",
+          "item.completed",
+          "turn.completed"
+        ],
+        "rawArtifactSha256": "726267b007b2f048db7f0cb2ca9e81d4c68eb58d12d10b15a7ea592c8eb7957f",
+        "timeoutMs": 900000,
+        "nativeSourceFlow": {
+          "path": "production/sol-high-fallback-inline-20261026/native-source-flow/nemata-jp-258.json",
+          "sha256": "b3f4641273a8b69661b22d608d2346aa5c8e7e3793722b1fa07b7126e2d88fc6",
+          "helperPath": "production/sol-high-fallback-inline-20261026/native-source-flow/3645d394ceab227e4204534822273ab0ad2ff17cfac59ce1443633e55b0f3423.mjs",
+          "helperSha256": "3645d394ceab227e4204534822273ab0ad2ff17cfac59ce1443633e55b0f3423"
+        },
+        "failureClass": null,
+        "requestPromptSha256": "812fd568e961bb2a6a1e22ccf42ac10ea1b9b0fed9c4b3b25f6c3af47b139a28",
+        "semanticPromptSha256": "f1a06006ded9ae71a279c5efb55cf6ab5437823adeccfa5034c0e524ca72b672"
+      }
+    ],
+    "renderedPage": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258.png",
+      "sha256": "98b89eb136bf342d3bdc1157256834ba1e386266ce2b3e4dc85aa3c3c1d17dce"
+    },
+    "renderedRegions": [
+      {
+        "regionId": "nemata-jp-p258-r1",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r1.png",
+        "sha256": "c3845114535b241ecdb570ee746f6b9a48e01fbf0a53476e6d1f22c86ebb47a6"
+      },
+      {
+        "regionId": "nemata-jp-p258-r2",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r2.png",
+        "sha256": "c207083af635d75550391549fc3515346586057be4688b254ef10866eca4cdc0"
+      },
+      {
+        "regionId": "nemata-jp-p258-r3",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r3.png",
+        "sha256": "ea172ade39089e96a4ef8eeca69629ca98fb957f9c85b63d79f42a6338916afd"
+      },
+      {
+        "regionId": "nemata-jp-p258-r4",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r4.png",
+        "sha256": "15f839e1a3d46ec249eab397284dc1969b84a359281bef7e0b96efef51ffe1b3"
+      },
+      {
+        "regionId": "nemata-jp-p258-r5",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r5.png",
+        "sha256": "83f0c06175af2b0ea09b43db0e774f49b0212418d4522efff2c1b19b6b771337"
+      },
+      {
+        "regionId": "nemata-jp-p258-r6",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r6.png",
+        "sha256": "3b407fe6f333f70a0ac5345e20e255d006e4dd9d805487739ee8c5a7ad1fc3d6"
+      },
+      {
+        "regionId": "nemata-jp-p258-r7",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r7.png",
+        "sha256": "ee2d8d8ec7cb9c805d6c2b477908f21489345e35751a306025acc601d691a88d"
+      },
+      {
+        "regionId": "nemata-jp-p258-r8",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r8.png",
+        "sha256": "ad1a8d4a39155263203483e21c83c798a82c893dc93e06b1964d81178e4b2e1a"
+      },
+      {
+        "regionId": "nemata-jp-p258-r9",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r9.png",
+        "sha256": "0a15613d15e7d67441d59dafbc8cc808fc694f0662bb6f9f80a59695501bf530"
+      },
+      {
+        "regionId": "nemata-jp-p258-r10",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r10.png",
+        "sha256": "ae7091463a04b70f6cfe9638bf40d400e79943d99c0294e64af0bc12d0669e6c"
+      },
+      {
+        "regionId": "nemata-jp-p258-r11",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r11.png",
+        "sha256": "88fef4a000fd0cc38414995b81b0387f14093401409b1452906d1ef60ec12fc1"
+      },
+      {
+        "regionId": "nemata-jp-p258-r12",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r12.png",
+        "sha256": "7adb6e855aaa45ffe5c672f83e58c7b94189ffec75711590745b062bddeba722"
+      },
+      {
+        "regionId": "nemata-jp-p258-r13",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r13.png",
+        "sha256": "476d22daa9d0c4e7ef536b87d82099c9d9618e26673345ab337c8b964e611d9f"
+      },
+      {
+        "regionId": "nemata-jp-p258-r14",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r14.png",
+        "sha256": "bdf9c2d92bf7dca545b7e0ec48b61e9e928b6cb371ed9ff840432cb5e5530bc7"
+      },
+      {
+        "regionId": "nemata-jp-p258-r15",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r15.png",
+        "sha256": "c763aa25effc9f6adad17da2904d41a8a6f715ed42fe4865189890b04d0aa876"
+      },
+      {
+        "regionId": "nemata-jp-p258-r16",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r16.png",
+        "sha256": "a315aef92f3077553702e3f2fb0c6b5e6db9628bc3da0c97fdafcd7cfff4adfa"
+      },
+      {
+        "regionId": "nemata-jp-p258-r17",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r17.png",
+        "sha256": "ba3278f1a6eb297b6e3391a00a30c0ad17ce1a71008fa05213c468593d546d1f"
+      },
+      {
+        "regionId": "nemata-jp-p258-r18",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r18.png",
+        "sha256": "24a48c3f9ddb6cfa0c5d99bc1eee7a3a9f7a066263d10ace29366e49db679a19"
+      },
+      {
+        "regionId": "nemata-jp-p258-r19",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r19.png",
+        "sha256": "346aa7703bed96cf6a560d6153efc68f28100090ececb9b3475c4f27c4a52873"
+      },
+      {
+        "regionId": "nemata-jp-p258-r20",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r20.png",
+        "sha256": "2bc5c94e7c42b20651034568285894ba5c8fa8140b4c9705e4a232ed56deb826"
+      },
+      {
+        "regionId": "nemata-jp-p258-r21",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r21.png",
+        "sha256": "fbc7a0c788caafc2860415638fd95cc49604de57b03c675fa88938d59f0fdf2d"
+      },
+      {
+        "regionId": "nemata-jp-p258-r22",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r22.png",
+        "sha256": "2125d2a1a647633afdad3c5bdad2ba1e29fb9ef0237b006f7c6d58d60dc3621d"
+      },
+      {
+        "regionId": "nemata-jp-p258-r23",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r23.png",
+        "sha256": "05759ba150e4a7136ebf5b30afcb56b92d5131fe197686ba486ed5006a36e06f"
+      },
+      {
+        "regionId": "nemata-jp-p258-r24",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r24.png",
+        "sha256": "29092cc6951a7106e76246678acddab5f16f4e19219b4e62c7e85fe64afbb603"
+      },
+      {
+        "regionId": "nemata-jp-p258-r25",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r25.png",
+        "sha256": "1816f3092e3cfc2e2539812012fddd841f2375a20365acc8803ebca063a86619"
+      },
+      {
+        "regionId": "nemata-jp-p258-r26",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r26.png",
+        "sha256": "5323df44c15e3a2948fc2bb1848e95a530b504b1c02c96c8102e8c564b9fa79e"
+      },
+      {
+        "regionId": "nemata-jp-p258-r27",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r27.png",
+        "sha256": "5c8246db0e3531f8d24559c8377948cc19e95391567414455825eb383966a881"
+      },
+      {
+        "regionId": "nemata-jp-p258-r28",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r28.png",
+        "sha256": "ebdd0dfcc0cf80dd3da6478a3c9bba2d5ac91581d0df5380e855694556625c37"
+      },
+      {
+        "regionId": "nemata-jp-p258-r29",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r29.png",
+        "sha256": "1adad5e12e6566b444047e78022746539cf99f663f090f23b967c97894a94940"
+      },
+      {
+        "regionId": "nemata-jp-p258-r30",
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r30.png",
+        "sha256": "e40c75051531ff33c07fff3cb5da90d9b6ba4064a9ac75c62396ea7e03619489"
+      }
+    ]
+  },
+  "candidateSha256": "90a3f0d63c013d11230552cb994d805118c8eb673d6c8ffe8674685fa08e5e0d"
+}

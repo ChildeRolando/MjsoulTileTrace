@@ -1,0 +1,675 @@
+[
+  {
+    "chapterId": "79-cn-chapter-311-18",
+    "covered": false,
+    "baseVerdictPreserved": "produced-needs-repair",
+    "category": "complex-figure-and-text",
+    "owner": "COAC-269",
+    "nextAction": "保留八个具体曲线未决及非靶b0154源缺张；只复用已确认图例译义，不凭80限制提案放行；任何后续需先有明确证据/授权，不自动重制/重审。",
+    "baseEvidence": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1815400.display.json",
+        "sha256": "5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97",
+        "bytes": 279228
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1815400.5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97.json",
+        "sha256": "12f0f3a74c5261077907d0d9218bacf1177173c64a1e2c1ceeff9eed6729e77a",
+        "bytes": 115627
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1815400\\source.json",
+        "sha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+        "bytes": 215199
+      }
+    ],
+    "blockingIssues": [
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1815400:b0122:figure",
+        "sourceEvidence": "附图8、29的图例包含不立直0%、5%、10%及立直0%、5%、10%六系列；候选明确未记录其中两系列在2、4、6、8、10、12、14巡的数据。",
+        "description": "图8缺少不立直10%与立直0%的完整条件曲线，不能仅凭其余四系列通过语义完整性检查。",
+        "suggestedRepair": "依据已给原图补充可辨的标记对应和逐点约值；确实无法读取的点逐项保留未知及原图，并维持阻断状态，不推算填补。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1815400:b0124:figure",
+        "sourceEvidence": "附图9、30为双方子家恶形六系列图；候选不立直10%、立直0%两项均写为逐点位置无法可靠辨识。",
+        "description": "两系列各七点未核定，危险度与是否立直对应的所需收入信息不完整。",
+        "suggestedRepair": "补全能够直接辨认的系列、标记及近似读数；余下逐点说明未知，保留原图，不以文字概括替代数据。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1815400:b0126:figure",
+        "sourceEvidence": "附图10、31包含对手亲家良形的六种条件；候选两条浅色曲线及中间重叠标记未完整记录。",
+        "description": "不立直10%和立直0%的曲线数据仍未核定，条件化判断缺少信息。",
+        "suggestedRepair": "分别核对两系列的标记和七个巡目位置，近似读数明确标近似；不能分辨处列为具体未知并保持uncertain。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1815400:b0128:figure",
+        "sourceEvidence": "附图11、32六项图例中，候选只提供第1、第2、第5、第6系列完整数组。",
+        "description": "图11两条系列未完整转录，无法审定所有危险度、立直条件对应的所需收入。",
+        "suggestedRepair": "补充可辨的两系列数据及图例标记；无法辨认的数据继续逐点标未知，不凭其他图或公式补齐。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1815400:b0130:figure",
+        "sourceEvidence": "附图12、33的自己亲家良形图有六系列；候选不立直10%和立直0%没有七巡读数。",
+        "description": "该图仍缺两系列教学数据，完整性不能通过。",
+        "suggestedRepair": "逐系列补齐可辨的标记与近似点值；其余保留明确未知及原图，维持阻断。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1815400:b0132:figure",
+        "sourceEvidence": "附图13、34中候选另列叉形曲线约值[3400,3550,3700,3850,3900,3950,3800]，但未确定属于不立直10%还是立直0%。",
+        "description": "已记录数据没有可靠绑定条件，且另一条系列未完整读取；不能用于明确的攻守判断。",
+        "suggestedRepair": "核对原图图例与叉形、浅色曲线的对应，再分别记录两系列。不能确定的绑定和点值保留未知，禁止任选条件。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1815400:b0154:figure",
+        "sourceEvidence": "附图14、35可见牌列为2m 3m 9m 9m 9m 4p 5p 6s 7s 8s 9s 2z，仅12张；b0155将其用于一向听进张示例。",
+        "description": "可见牌码转录准确，缺失来自源图；但不能据这12张核定完整手牌的一向听构型，候选unknowns为空。",
+        "suggestedRepair": "保留现有12张及原图，在unknowns中明确完整手牌其余信息未知、不能核定第13张及完整构型；不得补牌，该例完整牌型判断保持uncertain。"
+      },
+      {
+        "severity": "error",
+        "targetId": "79-bilibili-cn:cv1815400:b0156:figure",
+        "sourceEvidence": "附图15、36图例为“和了時ツモ率”“被ツモ率”；候选译为“和牌时摸入率”“被摸入率”，并未完整读取这两系列的15巡数据。",
+        "description": "“摸入”未准确表达自摸和牌及被他家自摸，且两个教学系列的数据仍不完整。",
+        "suggestedRepair": "将图例译为“和牌时的自摸比例”“被自摸率”，同步修改unknowns中的名称；补录可辨的标记与各巡约值，无法辨认处明确列未知并保持完整性阻断。"
+      },
+      {
+        "severity": "error",
+        "targetId": "79-bilibili-cn:cv1815400:b0158:figure",
+        "sourceEvidence": "附图16、37的20%一向听图同样使用“和了時ツモ率”“被ツモ率”，候选仍使用摸入率译名且省缺两系列逐巡数据。",
+        "description": "自摸相关教学图例译义不准确，五系列图表尚未完整表达。",
+        "suggestedRepair": "改为“和牌时的自摸比例”“被自摸率”，补充能直接读取的系列标记和15巡约值；其余保留具体未知及原图，不推补。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "candidate.figures.sourceNotes",
+        "sourceEvidence": "本次给出的原图为附件1～21，对应放大图为22～42；例如图1对应1与22，图2对应2与23，C/D图对应21与42。",
+        "description": "各figure的sourceNotes把附件按相邻两张配对，属于加工附件编号说明错误，不影响已绑定的教材图像身份。",
+        "suggestedRepair": "按本次明确给出的原图与放大图对应关系修正附件编号说明；此项不作为教学语义阻断。"
+      }
+    ],
+    "existingVariants": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1815400.display.json",
+        "sha256": "5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97",
+        "audits": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1815400.5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97.json",
+            "sha256": "12f0f3a74c5261077907d0d9218bacf1177173c64a1e2c1ceeff9eed6729e77a",
+            "status": "needs-repair",
+            "blockingIssues": [
+              {
+                "severity": "uncertain",
+                "targetId": "79-bilibili-cn:cv1815400:b0122:figure",
+                "sourceEvidence": "附图8、29的图例包含不立直0%、5%、10%及立直0%、5%、10%六系列；候选明确未记录其中两系列在2、4、6、8、10、12、14巡的数据。",
+                "description": "图8缺少不立直10%与立直0%的完整条件曲线，不能仅凭其余四系列通过语义完整性检查。",
+                "suggestedRepair": "依据已给原图补充可辨的标记对应和逐点约值；确实无法读取的点逐项保留未知及原图，并维持阻断状态，不推算填补。"
+              },
+              {
+                "severity": "uncertain",
+                "targetId": "79-bilibili-cn:cv1815400:b0124:figure",
+                "sourceEvidence": "附图9、30为双方子家恶形六系列图；候选不立直10%、立直0%两项均写为逐点位置无法可靠辨识。",
+                "description": "两系列各七点未核定，危险度与是否立直对应的所需收入信息不完整。",
+                "suggestedRepair": "补全能够直接辨认的系列、标记及近似读数；余下逐点说明未知，保留原图，不以文字概括替代数据。"
+              },
+              {
+                "severity": "uncertain",
+                "targetId": "79-bilibili-cn:cv1815400:b0126:figure",
+                "sourceEvidence": "附图10、31包含对手亲家良形的六种条件；候选两条浅色曲线及中间重叠标记未完整记录。",
+                "description": "不立直10%和立直0%的曲线数据仍未核定，条件化判断缺少信息。",
+                "suggestedRepair": "分别核对两系列的标记和七个巡目位置，近似读数明确标近似；不能分辨处列为具体未知并保持uncertain。"
+              },
+              {
+                "severity": "uncertain",
+                "targetId": "79-bilibili-cn:cv1815400:b0128:figure",
+                "sourceEvidence": "附图11、32六项图例中，候选只提供第1、第2、第5、第6系列完整数组。",
+                "description": "图11两条系列未完整转录，无法审定所有危险度、立直条件对应的所需收入。",
+                "suggestedRepair": "补充可辨的两系列数据及图例标记；无法辨认的数据继续逐点标未知，不凭其他图或公式补齐。"
+              },
+              {
+                "severity": "uncertain",
+                "targetId": "79-bilibili-cn:cv1815400:b0130:figure",
+                "sourceEvidence": "附图12、33的自己亲家良形图有六系列；候选不立直10%和立直0%没有七巡读数。",
+                "description": "该图仍缺两系列教学数据，完整性不能通过。",
+                "suggestedRepair": "逐系列补齐可辨的标记与近似点值；其余保留明确未知及原图，维持阻断。"
+              },
+              {
+                "severity": "uncertain",
+                "targetId": "79-bilibili-cn:cv1815400:b0132:figure",
+                "sourceEvidence": "附图13、34中候选另列叉形曲线约值[3400,3550,3700,3850,3900,3950,3800]，但未确定属于不立直10%还是立直0%。",
+                "description": "已记录数据没有可靠绑定条件，且另一条系列未完整读取；不能用于明确的攻守判断。",
+                "suggestedRepair": "核对原图图例与叉形、浅色曲线的对应，再分别记录两系列。不能确定的绑定和点值保留未知，禁止任选条件。"
+              },
+              {
+                "severity": "uncertain",
+                "targetId": "79-bilibili-cn:cv1815400:b0154:figure",
+                "sourceEvidence": "附图14、35可见牌列为2m 3m 9m 9m 9m 4p 5p 6s 7s 8s 9s 2z，仅12张；b0155将其用于一向听进张示例。",
+                "description": "可见牌码转录准确，缺失来自源图；但不能据这12张核定完整手牌的一向听构型，候选unknowns为空。",
+                "suggestedRepair": "保留现有12张及原图，在unknowns中明确完整手牌其余信息未知、不能核定第13张及完整构型；不得补牌，该例完整牌型判断保持uncertain。"
+              },
+              {
+                "severity": "error",
+                "targetId": "79-bilibili-cn:cv1815400:b0156:figure",
+                "sourceEvidence": "附图15、36图例为“和了時ツモ率”“被ツモ率”；候选译为“和牌时摸入率”“被摸入率”，并未完整读取这两系列的15巡数据。",
+                "description": "“摸入”未准确表达自摸和牌及被他家自摸，且两个教学系列的数据仍不完整。",
+                "suggestedRepair": "将图例译为“和牌时的自摸比例”“被自摸率”，同步修改unknowns中的名称；补录可辨的标记与各巡约值，无法辨认处明确列未知并保持完整性阻断。"
+              },
+              {
+                "severity": "error",
+                "targetId": "79-bilibili-cn:cv1815400:b0158:figure",
+                "sourceEvidence": "附图16、37的20%一向听图同样使用“和了時ツモ率”“被ツモ率”，候选仍使用摸入率译名且省缺两系列逐巡数据。",
+                "description": "自摸相关教学图例译义不准确，五系列图表尚未完整表达。",
+                "suggestedRepair": "改为“和牌时的自摸比例”“被自摸率”，补充能直接读取的系列标记和15巡约值；其余保留具体未知及原图，不推补。"
+              }
+            ]
+          }
+        ],
+        "notAutomaticallySelected": true
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1815400.json",
+        "sha256": "9ddd83620c7a7fa14f5403c8bfd86b56c0b309df2ba5fedc76201c010704da80",
+        "audits": [],
+        "notAutomaticallySelected": true
+      }
+    ],
+    "pdfBoundary": {
+      "pagesTotal": 19,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        311,
+        312,
+        313,
+        314,
+        315,
+        316,
+        317,
+        318,
+        319,
+        320,
+        321,
+        322,
+        323,
+        324,
+        325,
+        326,
+        327,
+        328,
+        329
+      ],
+      "pagesDetail": [
+        {
+          "page": 311,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 39
+        },
+        {
+          "page": 312,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 21
+        },
+        {
+          "page": 313,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 19
+        },
+        {
+          "page": 314,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 14
+        },
+        {
+          "page": 315,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 8
+        },
+        {
+          "page": 316,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 17
+        },
+        {
+          "page": 317,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 13
+        },
+        {
+          "page": 318,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 11
+        },
+        {
+          "page": 319,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 14
+        },
+        {
+          "page": 320,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 11
+        },
+        {
+          "page": 321,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 6
+        },
+        {
+          "page": 322,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 6
+        },
+        {
+          "page": 323,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 10
+        },
+        {
+          "page": 324,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 33
+        },
+        {
+          "page": 325,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 37
+        },
+        {
+          "page": 326,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 19
+        },
+        {
+          "page": 327,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 15
+        },
+        {
+          "page": 328,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 14
+        },
+        {
+          "page": 329,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 63
+        }
+      ]
+    },
+    "modelCallsThisStage": 0,
+    "latestTargetReview": {
+      "schema": "coac244-cn311-latest-target-evidence/1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1815400.coac269b33r1.json",
+        "sha256": "f44231f95310e33608a596f1f4153f0e35afb55490fc3db1fdccd3fc11d3a125"
+      },
+      "receipt": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-311-curves-reviewed-20261028.json",
+        "sha256": "3d86eddcfb776a7eaf07dd8e511b71cb8d501f6d74c35930da6c486dfdd14200"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7777908d-0298-450a-a5f8-a3ff98af7329.json",
+        "sha256": "6fbcbc785b03f84644a70f83bffb68bcf17ff41e8ab76afbbf2a1e781b64da62"
+      },
+      "record": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-curves-recorded-20261028\\record.json",
+        "sha256": "75091096d3fae26a1c71cc304eca061aeba349c29b9b70b55bafa994dac2bd5b"
+      },
+      "transportCompleted": true,
+      "repairPassed": false,
+      "limitedUnknownOkay": false,
+      "wholeChapterPassed": false,
+      "newNumericReadings": 0,
+      "targetSeries": 16,
+      "unknownSlots": 144,
+      "impactCounts": {
+        "nonblocking-with-limits": 12,
+        "blocking": 24,
+        "uncertain": 4
+      },
+      "effectiveTargetIssues": [
+        {
+          "id": "79-bilibili-cn:cv1815400:b0122:figure",
+          "verdict": "uncertain",
+          "evidence": "raw与候选一致：不立直·10%、立直·0%两行在第2、4、6、8、10、12、14巡均为[unknown,unknown,unknown,unknown,unknown,unknown,unknown]，标记及绑定均为unknown。原图浅色线痕与网格、其他曲线混杂，图例第3、4项标记不能可靠配对；未能核定两条件的逐巡阈值。原有四行保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1815400:b0124:figure",
+          "verdict": "uncertain",
+          "evidence": "raw与候选一致：不立直·10%、立直·0%在第2、4、6、8、10、12、14巡各为[unknown,unknown,unknown,unknown,unknown,unknown,unknown]，标记及绑定均为unknown。原图中部浅色痕迹靠近方形和星形轨迹，图例标记不足以可靠绑定；两条件的完整曲线仍未核定。原有四行保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1815400:b0126:figure",
+          "verdict": "uncertain",
+          "evidence": "raw与候选一致：不立直·10%、立直·0%在第2、4、6、8、10、12、14巡各为[unknown,unknown,unknown,unknown,unknown,unknown,unknown]，标记及绑定均为unknown。原图叉状浅色痕迹与方形轨迹接近或重叠，无法可靠确定各巡所属条件；原有四行保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1815400:b0128:figure",
+          "verdict": "uncertain",
+          "evidence": "raw与候选一致：不立直·10%、立直·0%在第2、4、6、8、10、12、14巡各为[unknown,unknown,unknown,unknown,unknown,unknown,unknown]，标记及绑定均为unknown。原图浅色点线靠近其他轨迹，图例第3、4项标记不能可靠配对；原有四行保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1815400:b0130:figure",
+          "verdict": "uncertain",
+          "evidence": "raw与候选一致：不立直·10%、立直·0%在第2、4、6、8、10、12、14巡各为[unknown,unknown,unknown,unknown,unknown,unknown,unknown]，标记及绑定均为unknown。原图浅色痕迹与方形线、网格混杂，无法可靠绑定逐巡读数；原有四行保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1815400:b0132:figure",
+          "verdict": "uncertain",
+          "evidence": "raw与候选一致：不立直·10%、立直·0%在第2、4、6、8、10、12、14巡各为[unknown,unknown,unknown,unknown,unknown,unknown,unknown]，标记及绑定均为unknown。候选保留原先叉形曲线约值[3400,3550,3700,3850,3900,3950,3800]及其条件未定说明，没有将它强配给任一条件；另一条系列也未完整核定。原有四行保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1815400:b0156:figure",
+          "verdict": "uncertain",
+          "evidence": "原图图例“和了時ツモ率”“被ツモ率”已分别译为“和牌时的自摸比例”“被自摸率”。raw与候选一致：两系列第1至15巡各为[unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown]，标记及绑定均为unknown。浅色线条和扫描底纹妨碍逐巡配对，五系列图的完整数据仍未核定；原有三行保留。"
+        },
+        {
+          "id": "79-bilibili-cn:cv1815400:b0158:figure",
+          "verdict": "uncertain",
+          "evidence": "原图图例“和了時ツモ率”“被ツモ率”已分别译为“和牌时的自摸比例”“被自摸率”。raw与候选一致：两系列第1至15巡各为[unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown]，标记及绑定均为unknown。浅色线条、网格及后段相近曲线妨碍逐巡配对；原有三行保留。"
+        }
+      ],
+      "inheritedNonTargetIssue": {
+        "originalWrongIssuePreserved": {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1815400:b0156:figure",
+          "description": "可见牌码转录准确，缺失来自源图；但不能据这12张核定完整手牌的一向听构型，候选unknowns为空。",
+          "sourceEvidence": "附图14、35可见牌列为2m 3m 9m 9m 9m 4p 5p 6s 7s 8s 9s 2z，仅12张；b0155将其用于一向听进张示例。"
+        },
+        "actualTarget": "79-bilibili-cn:cv1815400:b0154:figure",
+        "kind": "inherited-non-target-source-incompleteness",
+        "isNewCurveError": false,
+        "basis": "Unchanged complete b0154 figure and original parent uncertain; output targetId typo remains unchanged."
+      },
+      "originalIssuesPreserved": true,
+      "phaseBudget": {
+        "maker": 1,
+        "review": 1,
+        "total": 2,
+        "used": 2,
+        "remaining": 0,
+        "retry": 0
+      },
+      "thisRunNewModelCalls": 0,
+      "currentDisplayLimitationsImplemented": false,
+      "globalCoverageChanged": false
+    }
+  },
+  {
+    "chapterId": "nemata-jp-chapter-250-1",
+    "covered": false,
+    "baseVerdictPreserved": "produced-needs-repair",
+    "category": "pdf-image-and-flow-hold",
+    "owner": "COAC-247/248",
+    "nextAction": "复用11页真实passed，只处理p257与p261；p257旧主控像素断言不作裁决，p261查现有完整raw/布局验证后限定修复，不重开258或13页整制。",
+    "baseEvidence": [],
+    "blockingIssues": [],
+    "existingVariants": [],
+    "pdfBoundary": {
+      "pagesTotal": 13,
+      "pagesWithCandidate": 13,
+      "pagesWithPassedCandidate": 11,
+      "missingPassedPages": [
+        257,
+        261
+      ],
+      "pagesDetail": [
+        {
+          "page": 250,
+          "candidates": 5,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 69
+        },
+        {
+          "page": 251,
+          "candidates": 5,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": true,
+          "blocks": 78
+        },
+        {
+          "page": 252,
+          "candidates": 5,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": true,
+          "blocks": 85
+        },
+        {
+          "page": 253,
+          "candidates": 5,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 92
+        },
+        {
+          "page": 254,
+          "candidates": 5,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 72
+        },
+        {
+          "page": 255,
+          "candidates": 5,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": true,
+          "blocks": 95
+        },
+        {
+          "page": 256,
+          "candidates": 5,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 60
+        },
+        {
+          "page": 257,
+          "candidates": 1,
+          "receiptStatus": "needs-repair",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 15
+        },
+        {
+          "page": 258,
+          "candidates": 1,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 85
+        },
+        {
+          "page": 259,
+          "candidates": 1,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 76
+        },
+        {
+          "page": 260,
+          "candidates": 2,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 76
+        },
+        {
+          "page": 261,
+          "candidates": 2,
+          "receiptStatus": "needs-repair",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 93
+        },
+        {
+          "page": 262,
+          "candidates": 2,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": false,
+          "blocks": 49
+        }
+      ]
+    },
+    "modelCallsThisStage": 0,
+    "pdfEvidence": [
+      {
+        "page": 257,
+        "source": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\257.json",
+          "sha256": "ca63823638f042d84419560d2618879b80972410d0e290f6b12c9860e19639a6"
+        },
+        "audit": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0257.6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88.6baa4a7e1404.json",
+          "sha256": "82b49d1750bc01c1c0bdee87ccd6190a78c7e0645fd7d738f802fb7b8b712144"
+        },
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0257.json",
+          "sha256": "6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88"
+        },
+        "status": "needs-repair",
+        "issues": [
+          {
+            "severity": "uncertain",
+            "targetId": "nemata-jp-p257-r1",
+            "sourceEvidence": "CPU结果画面中的牌河均为公开牌面。候选对上方第1、6、17张、左方第16张、右方第1、2、7、13、14张仍注明无法辨认或存在多个候选。",
+            "description": "这些属于已显示但未能确认的教学信息。候选如实说明了辨认限制，但尚不足以判定整幅图逐牌转录忠实。",
+            "suggestedRepair": "保留原图并将上述具体河牌标为待核；依据更清晰的源图逐张确认牌码及可能涉及的赤五状态，补全后再复核r1。不能通过推断暗手或牌数补出牌面。"
+          }
+        ],
+        "callIds": [
+          "f860de79-0df7-40dd-a1a2-0fa4bdedecb5"
+        ]
+      },
+      {
+        "page": 261,
+        "source": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\261.json",
+          "sha256": "6cdfa8cefcbd8e38f618da86d9adc5ba5796f1c6f40fcb4729c0ceee4a3200a6"
+        },
+        "audit": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.7076217daf84.json",
+          "sha256": "4ab382b1a427ca266b8aa8148eed21800be971534627f69c04379e8f83e41b06"
+        },
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair18-20261027-p261\\candidates\\nemata-jp\\page-0261.json",
+          "sha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359"
+        },
+        "status": "needs-repair",
+        "issues": [
+          {
+            "severity": "error",
+            "targetId": "nemata-jp-p261-r50",
+            "sourceEvidence": "完整源页问题17末段及r50高清局部中，“引きならダマ満テンパイで四暗への手変わりもあります”之前的牌面为五万，即5m；对应源图片块为nemata-jp-p261-b92。",
+            "description": "候选将该摸牌误写为3m，导致b33对应译文的默听满贯及四暗刻改良条件引用错误。",
+            "suggestedRepair": "将r50的transcription改为“摸入牌：5m，普通五万，非赤五；竖置。”，caption改为“5m”，并将对应inlineContent中的figure文本从“3m”改为“5m”。"
+          }
+        ],
+        "callIds": [
+          "a78f22ab-f417-4382-bc8d-cdd4f9e6f65f"
+        ]
+      },
+      {
+        "page": 261,
+        "source": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\261.json",
+          "sha256": "6cdfa8cefcbd8e38f618da86d9adc5ba5796f1c6f40fcb4729c0ceee4a3200a6"
+        },
+        "audit": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0261.b63d2c602ec030eb9c2d5f7852e5119363391f8f9ba24992bbfab42fc847ecd7.6baa4a7e1404.json",
+          "sha256": "9998ff1b450ba2ad24915865b2be6b3ffa22cc92e41868e1049be527dcd4b318"
+        },
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0261.json",
+          "sha256": "b63d2c602ec030eb9c2d5f7852e5119363391f8f9ba24992bbfab42fc847ecd7"
+        },
+        "status": "needs-repair",
+        "issues": [
+          {
+            "severity": "error",
+            "targetId": "nemata-jp-p261-b4",
+            "sourceEvidence": "原文：“三色は……ピンポイントに［5p］･［7p］を引かなければ成立しない”。本页摸5p后的示例牌形也明确显示筒子为56p。",
+            "description": "候选写成“必须恰好摸入5p或7p”，把做成567三色同顺需要补齐5p和7p的共同条件改成任选其一，削弱了作者说明三色相当不确定的论据。",
+            "suggestedRepair": "将r8与r9之间的“或”改为“和”，表述为“必须恰好摸入5p和7p”，保留两张句内牌图及后续判断。"
+          }
+        ],
+        "callIds": [
+          "e3563cdf-8750-4458-b568-a3dfd6315153"
+        ]
+      }
+    ]
+  }
+]

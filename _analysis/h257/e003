@@ -1,0 +1,626 @@
+{
+  "232": {
+    "key": "232",
+    "canonical": "nemata-jp-chapter-232-1",
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+      "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb"
+    },
+    "candidate": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+      "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+    },
+    "humanFacts": [
+      {
+        "itemId": "4ce1c71647c8da4352eb117e5d2f1094",
+        "targetId": "modern-yabejp-ja:chapter04-section012:b0005:unknown:cd7c88dbdfde5bcc",
+        "position": "右侧牌河从上数第2张为万子，但无法可靠辨认具体点数。",
+        "imageSha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135",
+        "originalImages": [
+          {
+            "path": "web-sources/v1/modern-yabejp-ja/assets/c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg",
+            "sha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135"
+          }
+        ],
+        "tiles": [
+          "9m"
+        ],
+        "orientation": "",
+        "timestamp": "2026-10-28T10:04:57.255Z",
+        "revision": 2,
+        "eventSha256": "ff8a1be9e06189c487559b4d5ea497a528edac2f64a6fa9009eb2f28ffb0eceb"
+      }
+    ],
+    "contentDiffFields": [
+      "/figures/0/transcription",
+      "/figures/0/unknowns"
+    ],
+    "originalAuthorBodyAndOtherFiguresUnchanged": true,
+    "counts": {
+      "before": {
+        "knownTiles": 38,
+        "counts": {
+          "3m": 1,
+          "4m": 1,
+          "6m": 1,
+          "7m": 1,
+          "4p": 2,
+          "3s": 1,
+          "4s": 1,
+          "6s": 2,
+          "7s": 1,
+          "8s": 2,
+          "5z": 3,
+          "3p": 1,
+          "9m": 2,
+          "9s": 2,
+          "2z": 2,
+          "6z": 3,
+          "4z": 3,
+          "1p": 1,
+          "7z": 2,
+          "1z": 2,
+          "5p": 1,
+          "8p": 2,
+          "6p": 1
+        },
+        "overFour": [],
+        "handTiles": 13,
+        "separateDraw": 1,
+        "discardTiles": 24,
+        "doraIndicator": 1
+      },
+      "after": {
+        "knownTiles": 39,
+        "counts": {
+          "3m": 1,
+          "4m": 1,
+          "6m": 1,
+          "7m": 1,
+          "4p": 2,
+          "3s": 1,
+          "4s": 1,
+          "6s": 2,
+          "7s": 1,
+          "8s": 2,
+          "5z": 3,
+          "3p": 1,
+          "9m": 3,
+          "9s": 2,
+          "2z": 2,
+          "6z": 3,
+          "4z": 3,
+          "1p": 1,
+          "7z": 2,
+          "1z": 2,
+          "5p": 1,
+          "8p": 2,
+          "6p": 1
+        },
+        "overFour": [],
+        "handTiles": 13,
+        "separateDraw": 1,
+        "discardTiles": 24,
+        "doraIndicator": 1
+      }
+    },
+    "deterministicApplicationVerified": true,
+    "fullRecordMultiplicityPassed": true,
+    "requiresIndependentApplicationArgumentReview": true,
+    "modelProduced": false,
+    "wholeChapterPassed": false,
+    "admissionGranted": false,
+    "newModelCalls": 0
+  },
+  "257": {
+    "key": "257",
+    "canonical": "nemata-jp-chapter-250-1",
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0257.json",
+      "sha256": "6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88",
+      "bytes": 25248
+    },
+    "candidate": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/257.human-final.json",
+      "sha256": "5403cb35614b1edab17488458dbaf0571e1a48e1972d2d04c9ebc30a03da67dc"
+    },
+    "humanFacts": [
+      {
+        "itemId": "fa50e1c25728194fcbbb2fec9841b592",
+        "targetId": "nemata-jp-p257-b3,nemata-jp-p257-b4:unknown:2feb5e02f9816a91",
+        "position": "CPU结果右方牌河第7张的绿色细节模糊，无法可靠区分8s与6z。",
+        "imageSha256": "62a6a6c4f94a754ca7e41d82bc32964736fd525331c29eafd9cb5ce68ca05397",
+        "originalImages": [
+          {
+            "path": "assets/b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+            "sha256": "b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03",
+            "sourceBlockId": "nemata-jp-p257-b3"
+          },
+          {
+            "path": "assets/6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png",
+            "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8",
+            "sourceBlockId": "nemata-jp-p257-b4"
+          }
+        ],
+        "tiles": [
+          "8s"
+        ],
+        "orientation": "",
+        "timestamp": "2026-10-28T10:06:02.564Z",
+        "revision": 2,
+        "eventSha256": "45934b573076c70a5a4be1d1a56cf730ba0a63c18e61d1a34737010334acac0c"
+      },
+      {
+        "itemId": "69395d14b0bb8aed53bfa51b0850ddcb",
+        "targetId": "nemata-jp-p257-b3,nemata-jp-p257-b4:unknown:973cbbb8d03f05db",
+        "position": "CPU结果上方牌河第1张无法可靠区分1s与6z；第6、17张图案模糊，花色、点数及赤五状态不能可靠确定。",
+        "imageSha256": "62a6a6c4f94a754ca7e41d82bc32964736fd525331c29eafd9cb5ce68ca05397",
+        "originalImages": [
+          {
+            "path": "assets/b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+            "sha256": "b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03",
+            "sourceBlockId": "nemata-jp-p257-b3"
+          },
+          {
+            "path": "assets/6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png",
+            "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8",
+            "sourceBlockId": "nemata-jp-p257-b4"
+          }
+        ],
+        "tiles": [
+          "2z",
+          "1s",
+          "1s"
+        ],
+        "orientation": "",
+        "timestamp": "2026-10-28T10:06:50.399Z",
+        "revision": 12,
+        "eventSha256": "fd08085eb80264f64ad887fb8e367f4188dea41c2586e630fdf7f2a20768538c"
+      },
+      {
+        "itemId": "19124d6cc326a5bc70fd54b4086fa20c",
+        "targetId": "nemata-jp-p257-b3,nemata-jp-p257-b4:unknown:e4ed38c230294df7",
+        "position": "CPU结果右方牌河第1、2、13、14张均能辨认为万子，但旋转后的小字笔画粘连，点数及赤五状态不能可靠确定。",
+        "imageSha256": "62a6a6c4f94a754ca7e41d82bc32964736fd525331c29eafd9cb5ce68ca05397",
+        "originalImages": [
+          {
+            "path": "assets/b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+            "sha256": "b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03",
+            "sourceBlockId": "nemata-jp-p257-b3"
+          },
+          {
+            "path": "assets/6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png",
+            "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8",
+            "sourceBlockId": "nemata-jp-p257-b4"
+          }
+        ],
+        "tiles": [
+          "1m",
+          "4m",
+          "1m",
+          "3m"
+        ],
+        "orientation": "",
+        "timestamp": "2026-10-28T10:07:37.781Z",
+        "revision": 7,
+        "eventSha256": "68074c29b44e27c84499b5043c2b0ad268a4c20c9ba88482b240b2a609ab0917"
+      },
+      {
+        "itemId": "ba273dc871055c6f06083a007a390ac1",
+        "targetId": "nemata-jp-p257-b3,nemata-jp-p257-b4:unknown:eb863331517aa225",
+        "position": "CPU结果左方牌河第16张的数字笔画模糊，无法可靠区分2m与3m。",
+        "imageSha256": "62a6a6c4f94a754ca7e41d82bc32964736fd525331c29eafd9cb5ce68ca05397",
+        "originalImages": [
+          {
+            "path": "assets/b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+            "sha256": "b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03",
+            "sourceBlockId": "nemata-jp-p257-b3"
+          },
+          {
+            "path": "assets/6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png",
+            "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8",
+            "sourceBlockId": "nemata-jp-p257-b4"
+          }
+        ],
+        "tiles": [
+          "2m"
+        ],
+        "orientation": "立直宣言牌",
+        "timestamp": "2026-10-28T10:08:25.128Z",
+        "revision": 3,
+        "eventSha256": "04705f72aac1de8e00ba3f4372ef71aa99573e028d6c39f288983cc0f5258ea6"
+      }
+    ],
+    "contentDiffFields": [
+      "/figures/0/transcription",
+      "/figures/0/unknowns"
+    ],
+    "originalAuthorBodyAndOtherFiguresUnchanged": true,
+    "counts": {
+      "before": {
+        "sameSingleCpuPanelOnly": true,
+        "totalPositions": 87,
+        "unknownPositions": 9,
+        "riverLengths": {
+          "upper": 17,
+          "left": 18,
+          "right": 17,
+          "bottom": 18
+        },
+        "counts": {
+          "3m": 2,
+          "6m": 2,
+          "8m": 1,
+          "4p": 8,
+          "1s": 3,
+          "3s": 3,
+          "8s": 4,
+          "9s": 5,
+          "3z": 4,
+          "9m": 4,
+          "6z": 4,
+          "3p": 3,
+          "2s": 3,
+          "5p": 3,
+          "2p": 4,
+          "5z": 2,
+          "7s": 1,
+          "1m": 1,
+          "6p": 1,
+          "1p": 3,
+          "2z": 1,
+          "1z": 3,
+          "7p": 3,
+          "6s": 1,
+          "4s": 1,
+          "4z": 3,
+          "7z": 3,
+          "2m": 2
+        },
+        "overFour": [
+          {
+            "tile": "4p",
+            "count": 8,
+            "positions": [
+              {
+                "scope": "CPU hand",
+                "ordinal": 6,
+                "tile": "4p"
+              },
+              {
+                "scope": "upper",
+                "ordinal": 3,
+                "tile": "4p"
+              },
+              {
+                "scope": "upper",
+                "ordinal": 8,
+                "tile": "4p"
+              },
+              {
+                "scope": "left",
+                "ordinal": 11,
+                "tile": "4p"
+              },
+              {
+                "scope": "right",
+                "ordinal": 10,
+                "tile": "4p"
+              },
+              {
+                "scope": "right",
+                "ordinal": 12,
+                "tile": "4p"
+              },
+              {
+                "scope": "bottom",
+                "ordinal": 5,
+                "tile": "4p"
+              },
+              {
+                "scope": "bottom",
+                "ordinal": 6,
+                "tile": "4p"
+              }
+            ],
+            "humanPositions": []
+          },
+          {
+            "tile": "9s",
+            "count": 5,
+            "positions": [
+              {
+                "scope": "CPU hand",
+                "ordinal": 10,
+                "tile": "9s"
+              },
+              {
+                "scope": "CPU hand",
+                "ordinal": 11,
+                "tile": "9s"
+              },
+              {
+                "scope": "upper",
+                "ordinal": 5,
+                "tile": "9s"
+              },
+              {
+                "scope": "right",
+                "ordinal": 4,
+                "tile": "9s"
+              },
+              {
+                "scope": "bottom",
+                "ordinal": 14,
+                "tile": "9s"
+              }
+            ],
+            "humanPositions": []
+          }
+        ],
+        "interpretation": "Transcription consistency only, not a new reading of pixels. Preserve human values; existing machine-labelled positions must not be silently trusted as a complete legal record."
+      },
+      "after": {
+        "sameSingleCpuPanelOnly": true,
+        "totalPositions": 87,
+        "unknownPositions": 0,
+        "riverLengths": {
+          "upper": 17,
+          "left": 18,
+          "right": 17,
+          "bottom": 18
+        },
+        "counts": {
+          "3m": 3,
+          "6m": 2,
+          "8m": 1,
+          "4p": 8,
+          "1s": 5,
+          "3s": 3,
+          "8s": 5,
+          "9s": 5,
+          "3z": 4,
+          "9m": 4,
+          "6z": 4,
+          "2z": 2,
+          "3p": 3,
+          "2s": 3,
+          "5p": 3,
+          "2p": 4,
+          "5z": 2,
+          "7s": 1,
+          "1m": 3,
+          "6p": 1,
+          "1p": 3,
+          "1z": 3,
+          "7p": 3,
+          "2m": 3,
+          "4m": 1,
+          "6s": 1,
+          "4s": 1,
+          "4z": 3,
+          "7z": 3
+        },
+        "overFour": [
+          {
+            "tile": "4p",
+            "count": 8,
+            "positions": [
+              {
+                "scope": "CPU hand",
+                "ordinal": 6,
+                "tile": "4p"
+              },
+              {
+                "scope": "upper",
+                "ordinal": 3,
+                "tile": "4p"
+              },
+              {
+                "scope": "upper",
+                "ordinal": 8,
+                "tile": "4p"
+              },
+              {
+                "scope": "left",
+                "ordinal": 11,
+                "tile": "4p"
+              },
+              {
+                "scope": "right",
+                "ordinal": 10,
+                "tile": "4p"
+              },
+              {
+                "scope": "right",
+                "ordinal": 12,
+                "tile": "4p"
+              },
+              {
+                "scope": "bottom",
+                "ordinal": 5,
+                "tile": "4p"
+              },
+              {
+                "scope": "bottom",
+                "ordinal": 6,
+                "tile": "4p"
+              }
+            ],
+            "humanPositions": []
+          },
+          {
+            "tile": "1s",
+            "count": 5,
+            "positions": [
+              {
+                "scope": "CPU hand",
+                "ordinal": 7,
+                "tile": "1s"
+              },
+              {
+                "scope": "upper",
+                "ordinal": 6,
+                "tile": "1s"
+              },
+              {
+                "scope": "upper",
+                "ordinal": 17,
+                "tile": "1s"
+              },
+              {
+                "scope": "left",
+                "ordinal": 7,
+                "tile": "1s"
+              },
+              {
+                "scope": "right",
+                "ordinal": 9,
+                "tile": "1s"
+              }
+            ],
+            "humanPositions": [
+              {
+                "river": "upper",
+                "ordinal": 6,
+                "tile": "1s"
+              },
+              {
+                "river": "upper",
+                "ordinal": 17,
+                "tile": "1s"
+              }
+            ]
+          },
+          {
+            "tile": "8s",
+            "count": 5,
+            "positions": [
+              {
+                "scope": "CPU hand",
+                "ordinal": 9,
+                "tile": "8s"
+              },
+              {
+                "scope": "left",
+                "ordinal": 9,
+                "tile": "8s"
+              },
+              {
+                "scope": "right",
+                "ordinal": 7,
+                "tile": "8s"
+              },
+              {
+                "scope": "right",
+                "ordinal": 16,
+                "tile": "8s"
+              },
+              {
+                "scope": "right",
+                "ordinal": 17,
+                "tile": "8s"
+              }
+            ],
+            "humanPositions": [
+              {
+                "river": "right",
+                "ordinal": 7,
+                "tile": "8s"
+              }
+            ]
+          },
+          {
+            "tile": "9s",
+            "count": 5,
+            "positions": [
+              {
+                "scope": "CPU hand",
+                "ordinal": 10,
+                "tile": "9s"
+              },
+              {
+                "scope": "CPU hand",
+                "ordinal": 11,
+                "tile": "9s"
+              },
+              {
+                "scope": "upper",
+                "ordinal": 5,
+                "tile": "9s"
+              },
+              {
+                "scope": "right",
+                "ordinal": 4,
+                "tile": "9s"
+              },
+              {
+                "scope": "bottom",
+                "ordinal": 14,
+                "tile": "9s"
+              }
+            ],
+            "humanPositions": []
+          }
+        ],
+        "interpretation": "Transcription consistency only, not a new reading of pixels. Preserve human values; existing machine-labelled positions must not be silently trusted as a complete legal record."
+      }
+    },
+    "deterministicApplicationVerified": true,
+    "fullRecordMultiplicityPassed": false,
+    "requiresIndependentApplicationArgumentReview": true,
+    "modelProduced": false,
+    "wholeChapterPassed": false,
+    "admissionGranted": false,
+    "newModelCalls": 0
+  },
+  "261": {
+    "key": "261",
+    "canonical": "nemata-jp-chapter-250-1",
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair18-20261027-p261\\candidates\\nemata-jp\\page-0261.json",
+      "sha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+      "bytes": 142025
+    },
+    "derivation": "unchanged-same-SHA-human-confirmation",
+    "humanFacts": [
+      {
+        "itemId": "84791e37a95dcfa295e38dbf27855039",
+        "targetId": "nemata-jp-p261-b92:dispute:a553fc2fba204224",
+        "position": "第261页问题17末段、r50图块的摸入牌，请确认牌码与赤牌状态。",
+        "imageSha256": "f502bc2382ccc4076a54928cec3588aa60096ff42b7f221abba1e074ad7045a9",
+        "originalImages": [
+          {
+            "path": "assets/f502bc2382ccc4076a54928cec3588aa60096ff42b7f221abba1e074ad7045a9.png",
+            "sha256": "f502bc2382ccc4076a54928cec3588aa60096ff42b7f221abba1e074ad7045a9"
+          }
+        ],
+        "tiles": [
+          "3m"
+        ],
+        "orientation": "",
+        "timestamp": "2026-10-28T10:08:34.667Z",
+        "revision": 2,
+        "eventSha256": "23e393c61f516c0aef0552ba6b9c9eb76a7e61215996c8792bc6c82f5ac581c6"
+      }
+    ],
+    "independentEvidence": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\91507699-61d3-496d-9481-de5f38e8418c.json",
+      "sha256": "4803be122fb4d59f1bfe52f4eb8607dc5c0c897b02cb9def2604ca9e04fd3255"
+    },
+    "affectedExampleFaithful": true,
+    "old5mErrorPreserved": [
+      {
+        "severity": "error",
+        "targetId": "nemata-jp-p261-r50",
+        "sourceEvidence": "完整源页问题17末段及r50高清局部中，“引きならダマ満テンパイで四暗への手変わりもあります”之前的牌面为五万，即5m；对应源图片块为nemata-jp-p261-b92。",
+        "description": "候选将该摸牌误写为3m，导致b33对应译文的默听满贯及四暗刻改良条件引用错误。",
+        "suggestedRepair": "将r50的transcription改为“摸入牌：5m，普通五万，非赤五；竖置。”，caption改为“5m”，并将对应inlineContent中的figure文本从“3m”改为“5m”。"
+      }
+    ],
+    "scopeEvidenceVerified": true,
+    "ordinaryWholePagePassed": false,
+    "wholeChapterPassed": false,
+    "newModelCalls": 0
+  }
+}

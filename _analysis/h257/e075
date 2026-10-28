@@ -1,0 +1,162 @@
+{
+  "schema": "coach-textbook-source-adjudication/1",
+  "status": "resolved-with-source-evidence",
+  "productionSha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+  "source": {
+    "sourceId": "nemata-jp",
+    "pdfSha256": "4d1c12042589a1b34d6e1f874b79b4ee1d79f4c1c26c62bda0ba94394e47250a",
+    "page": 261,
+    "pageDataSha256": "6cdfa8cefcbd8e38f618da86d9adc5ba5796f1c6f40fcb4729c0ceee4a3200a6"
+  },
+  "originalAudit": {
+    "path": "audit/pages/nemata-jp/page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.7076217daf84.json",
+    "sha256": "4ab382b1a427ca266b8aa8148eed21800be971534627f69c04379e8f83e41b06",
+    "callIds": [
+      "a78f22ab-f417-4382-bc8d-cdd4f9e6f65f"
+    ]
+  },
+  "approval": {
+    "authority": "root",
+    "scope": "specified-issues-only",
+    "reference": "Root instructed a single bounded independent adjudication of the p261 r50 dispute and its affected example, without changing 3m and without re-reviewing the rest of the page (COAC-248 comment 01a17ae6-9e33-7829-af2b-0bf303f2fc9f)."
+  },
+  "verification": "root-authorized-source-adjudication-with-independent-model-recheck-not-full-page-pass-not-user-human-gold-standard",
+  "manifest": {
+    "path": "audit/runtimes/native-repair-d0782d5041cfb2/verification-dependencies.json",
+    "sha256": "c507222a5a746392fbfea9e331fbdb31fc5fcb50cd301ab001a82828d6178051",
+    "manifestSha256": "03052928bac4af79b7db51c9cb4cf260f2b8276e2ddbc08dd9c6643321c00258"
+  },
+  "modelAdjudication": {
+    "callId": "91507699-61d3-496d-9481-de5f38e8418c",
+    "sha256": "4803be122fb4d59f1bfe52f4eb8607dc5c0c897b02cb9def2604ca9e04fd3255",
+    "outputSha256": "f9b699599449ee02a2cd092e863dc44476cc7785ec2d1e3879294b06ade90104",
+    "verdict": "target-is-3m",
+    "manifestSha256": "03052928bac4af79b7db51c9cb4cf260f2b8276e2ddbc08dd9c6643321c00258",
+    "review": {
+      "verdict": "target-is-3m",
+      "matchesReferenceGroup": "3m",
+      "affectedExampleFaithful": true,
+      "evidence": "目标牌上半部黑字呈三横结构，与图2—4的3m参照一致；未见图5—7中5m的竖折和交叉结构。候选牌例引用3m与源图一致。"
+    }
+  },
+  "sourceConclusion": {
+    "kind": "tile-code",
+    "tileCode": "3m",
+    "note": "The source tile at b92 shows the three-stroke 三 numeral and matches the same-book 3m anchors, not the 五 form of the 5m anchors."
+  },
+  "evidence": [
+    {
+      "id": "target-inline-tile",
+      "kind": "source-image",
+      "path": "assets/f502bc2382ccc4076a54928cec3588aa60096ff42b7f221abba1e074ad7045a9.png",
+      "sourceImageBlockId": "nemata-jp-p261-b92",
+      "sourceId": "nemata-jp",
+      "page": 261,
+      "pdfSha256": "4d1c12042589a1b34d6e1f874b79b4ee1d79f4c1c26c62bda0ba94394e47250a",
+      "pageDataSha256": "6cdfa8cefcbd8e38f618da86d9adc5ba5796f1c6f40fcb4729c0ceee4a3200a6",
+      "sha256": "f502bc2382ccc4076a54928cec3588aa60096ff42b7f221abba1e074ad7045a9"
+    },
+    {
+      "id": "known-3m-1",
+      "kind": "source-image",
+      "path": "assets/cc38d8492ce1d13e511fc927877c2757dec56ed051f9dc57c92982a4e0c82c5c.png",
+      "sourceImageBlockId": "nemata-jp-p255-b42",
+      "sourceId": "nemata-jp",
+      "page": 255,
+      "pdfSha256": "4d1c12042589a1b34d6e1f874b79b4ee1d79f4c1c26c62bda0ba94394e47250a",
+      "pageDataSha256": "c8993104cbbfe135fbfcdd98323929c877416497c99d9015d2aca08b9616fef4",
+      "sha256": "cc38d8492ce1d13e511fc927877c2757dec56ed051f9dc57c92982a4e0c82c5c"
+    },
+    {
+      "id": "known-3m-2",
+      "kind": "source-image",
+      "path": "assets/7a88959550a28c8d85174e3b9d1e5467b3d024fd39cc54c4238e912a37e89234.png",
+      "sourceImageBlockId": "nemata-jp-p255-b71",
+      "sourceId": "nemata-jp",
+      "page": 255,
+      "pdfSha256": "4d1c12042589a1b34d6e1f874b79b4ee1d79f4c1c26c62bda0ba94394e47250a",
+      "pageDataSha256": "c8993104cbbfe135fbfcdd98323929c877416497c99d9015d2aca08b9616fef4",
+      "sha256": "7a88959550a28c8d85174e3b9d1e5467b3d024fd39cc54c4238e912a37e89234"
+    },
+    {
+      "id": "known-3m-3",
+      "kind": "source-image",
+      "path": "assets/2c730d58e72fe6756e3320a8b0df1891a72b009a264f47632dbd0a7a48f268b8.png",
+      "sourceImageBlockId": "nemata-jp-p255-b78",
+      "sourceId": "nemata-jp",
+      "page": 255,
+      "pdfSha256": "4d1c12042589a1b34d6e1f874b79b4ee1d79f4c1c26c62bda0ba94394e47250a",
+      "pageDataSha256": "c8993104cbbfe135fbfcdd98323929c877416497c99d9015d2aca08b9616fef4",
+      "sha256": "2c730d58e72fe6756e3320a8b0df1891a72b009a264f47632dbd0a7a48f268b8"
+    },
+    {
+      "id": "known-5m-1",
+      "kind": "source-image",
+      "path": "assets/8da455ae2dd9b0fe3ad2ed68b41c06f894343f9115ff4fbf3c5e7b85aa143176.png",
+      "sourceImageBlockId": "nemata-jp-p255-b43",
+      "sourceId": "nemata-jp",
+      "page": 255,
+      "pdfSha256": "4d1c12042589a1b34d6e1f874b79b4ee1d79f4c1c26c62bda0ba94394e47250a",
+      "pageDataSha256": "c8993104cbbfe135fbfcdd98323929c877416497c99d9015d2aca08b9616fef4",
+      "sha256": "8da455ae2dd9b0fe3ad2ed68b41c06f894343f9115ff4fbf3c5e7b85aa143176"
+    },
+    {
+      "id": "known-5m-2",
+      "kind": "source-image",
+      "path": "assets/183da1d552afaabdfa833545c3d958bbbecf4170c1681eeace822960fc46de0b.png",
+      "sourceImageBlockId": "nemata-jp-p255-b72",
+      "sourceId": "nemata-jp",
+      "page": 255,
+      "pdfSha256": "4d1c12042589a1b34d6e1f874b79b4ee1d79f4c1c26c62bda0ba94394e47250a",
+      "pageDataSha256": "c8993104cbbfe135fbfcdd98323929c877416497c99d9015d2aca08b9616fef4",
+      "sha256": "183da1d552afaabdfa833545c3d958bbbecf4170c1681eeace822960fc46de0b"
+    },
+    {
+      "id": "known-5m-3",
+      "kind": "source-image",
+      "path": "assets/909943e9f9918ff23f8925bab6e7ae2f6c3fbc404ed5bc36d156fd710448a35c.png",
+      "sourceImageBlockId": "nemata-jp-p255-b79",
+      "sourceId": "nemata-jp",
+      "page": 255,
+      "pdfSha256": "4d1c12042589a1b34d6e1f874b79b4ee1d79f4c1c26c62bda0ba94394e47250a",
+      "pageDataSha256": "c8993104cbbfe135fbfcdd98323929c877416497c99d9015d2aca08b9616fef4",
+      "sha256": "909943e9f9918ff23f8925bab6e7ae2f6c3fbc404ed5bc36d156fd710448a35c"
+    }
+  ],
+  "requiredEvidenceIds": [
+    "target-inline-tile",
+    "known-3m-1",
+    "known-3m-2",
+    "known-3m-3",
+    "known-5m-1",
+    "known-5m-2",
+    "known-5m-3"
+  ],
+  "resolutions": [
+    {
+      "issueIndex": 0,
+      "issueSha256": "56f19ab553c8a4c2fce340e6dcb7cc7cc4e2a565544aaec85f304c98cb57dc2e",
+      "targetId": "nemata-jp-p261-r50",
+      "decision": "reviewer-visible-tile-misread",
+      "reason": "目标牌上半部黑字呈三横结构，与图2—4的3m参照一致；未见图5—7中5m的竖折和交叉结构。候选牌例引用3m与源图一致。",
+      "evidenceIds": [
+        "target-inline-tile",
+        "known-3m-1",
+        "known-3m-2",
+        "known-3m-3",
+        "known-5m-1",
+        "known-5m-2",
+        "known-5m-3"
+      ],
+      "affectedReviewChecks": [
+        {
+          "key": "bodyChecks",
+          "id": "nemata-jp-p261-b33",
+          "verdict": "needs-repair",
+          "sha256": "6e880935985519b0d59b1614bfa8f5a657ae6dbb82ecc42f65741064f8c21f4f"
+        }
+      ]
+    }
+  ],
+  "recordedAt": "2026-10-27T01:31:15.159Z"
+}
