@@ -1,0 +1,78 @@
+{
+  "observedAt": "2026-10-28T09:36:35.1405721Z",
+  "runs": [
+    {
+      "issueId": "01a1746d-cf4a-7ecc-9fae-3d4c2b55c39f",
+      "id": "01a181dd-906c-7962-9a06-147960d6b505",
+      "taskId": null,
+      "status": "queued",
+      "createdAt": "2026-10-28T09:35:43Z",
+      "startedAt": null,
+      "evidence": {
+        "kind": "issue_wakeup",
+        "ref_id": "01a181dc-8181-7dfa-945b-0ef063e40d26"
+      },
+      "contains109": false,
+      "contains167": false
+    },
+    {
+      "issueId": "01a1746d-cf4a-7ecc-9fae-3d4c2b55c39f",
+      "id": "01a181cc-0985-7940-b924-f3bd78312323",
+      "taskId": null,
+      "status": "running",
+      "createdAt": "2026-10-28T09:16:35Z",
+      "startedAt": "2026-10-28T09:30:37Z",
+      "evidence": {
+        "kind": "issue_wakeup",
+        "ref_id": "01a181ca-acd5-71e2-be25-fd96ae4ecbc2"
+      },
+      "contains109": true,
+      "contains167": false
+    },
+    {
+      "issueId": "01a17471-25e6-7731-a529-3df99acf3d42",
+      "id": "01a181cd-17c0-7ed0-828b-cfab604f1d80",
+      "taskId": null,
+      "status": "queued",
+      "createdAt": "2026-10-28T09:17:44Z",
+      "startedAt": null,
+      "evidence": {
+        "kind": "issue_wakeup",
+        "ref_id": "01a181cb-dd6c-7383-93ba-7650c3d17db7"
+      },
+      "contains109": false,
+      "contains167": true
+    },
+    {
+      "issueId": "01a17471-25e6-7731-a529-3df99acf3d42",
+      "id": "01a181c4-5975-737e-a21a-67fafbaea8cf",
+      "taskId": null,
+      "status": "running",
+      "createdAt": "2026-10-28T09:08:11Z",
+      "startedAt": "2026-10-28T09:17:54Z",
+      "evidence": {
+        "kind": "comment",
+        "ref_id": "01a181c4-5965-7b3a-ba31-1e67aec22540"
+      },
+      "contains109": false,
+      "contains167": false
+    },
+    {
+      "issueId": "01a17cae-06e4-7b30-a93f-3a030d1ae63f",
+      "id": "01a181cc-0627-7ca5-86cc-70edfdf543c0",
+      "taskId": null,
+      "status": "running",
+      "createdAt": "2026-10-28T09:16:34Z",
+      "startedAt": "2026-10-28T09:32:37Z",
+      "evidence": {
+        "kind": "issue_wakeup",
+        "ref_id": "01a181ca-a8b3-7969-bc8e-573c9a6ad8c7"
+      },
+      "contains109": true,
+      "contains167": false
+    }
+  ],
+  "newConsumersStarted": 0,
+  "existingOwnersAlreadyReceived": true,
+  "installationNotInferredFromDispatch": true
+}

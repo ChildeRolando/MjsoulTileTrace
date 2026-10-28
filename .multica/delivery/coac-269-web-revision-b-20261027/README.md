@@ -1964,3 +1964,58 @@ was changed. Evidence/raw/candidates, exact diffs, executable checks and bounded
 are in `artifacts/b27-224232`. `verify-pack.py` additionally verifies rawLastMessage parses exactly
 to the recorded output, runtime/immutable copies, syntax and strict Windows paths below240.
 Issue stays in_progress; draft PR74 is software/evidence delivery, not independent textbook pass.
+
+## Batch28 —109/167 independent results registered without new calls
+
+This supersedes Batch25's pending-review state. Both actual independent reviews completed:
+109 candidate `3cfe3a27bd799782d6ac8e626fcf97d26e1724ce544b6ccf26bcd740bd259dcb` and167
+candidate `5bfa90e3e15deb0c3f868ee1811fe50cdba75357f2805b3c37ed5f1d86538a58` each have
+**repairPassed=true, limitedUnknownOkay=false**, status `repair-passed-unknown-unresolved`.
+109's b0004/b0006 first5m and167's b0005 north7p riichi/orientation corrections are faithful.
+Each retains exactly one independent uncertain issue. Neither ordinary whole-chapter acceptance
+nor admission is granted. Positive contribution-specific impact prose does not override strictfalse.
+
+Actual independent109 call `4fe3048c-dbf1-4b52-a4f2-80ab94310477` used terra/max,3 realimages,
+17 ordered source/candidate pairs,31920 input/31232 cached/8255 output,302248ms.167 call
+`edf73a16-7c1c-44e2-9d22-52d2f3c0e267` used terra/max,1 realimage,6 ordered pairs,
+25259 input/0 cached/7447 output,124318ms. The original rawLastMessage/output, actual argv,
+closed prompt/schema, ordered image SHA/bytes, session events, usage and unique standard ledger
+were replayed through the original frozen `verifyProduction`, `prepareReview` and
+`verifyReviewExecution`. All30 runtime files and manifest
+`814df700d298188dea14d20fd84ac818d1ded9a706e370bc7a1714141ad6a7a9` rehashed unchanged.
+Source/parent/audit/maker raw chains,17/6 unchanged body blocks,5/0 non-target figures and all
+original unknowns/captions/sourceNotes remain verified. Original generic refusal is unchanged.
+
+`artifacts/b28-109167-result/verification.json` binds the two real receipts/raws/inheritance
+proofs and display proposals to literal SHA pins. It maps109's six and167's three verbatim display
+limitations to every matching original model field, unknown, author contribution and source block;
+duplicate raw occurrences remain bound. The non-author label is `审校限制（非原文）`.
+Proposals still have implementationVerified=false. No author text, candidate, raw or audit was edited.
+
+Dedup found existing244 run `01a181cc-0985-7940-b924-f3bd78312323` handling109 and existing250
+running/queued work including167 run `01a181cd-17c0-7ed0-828b-cfab604f1d80`; no consumer was added.
+During this verification244 prepared `integration/coac244-109167-limited-display-20261028/`.
+Its existing `verifyLimited` was reused read-only for both candidates, manifest
+`1af40da20c7c399096a58eafbee0d613383aac660228cc7f79ad453e324fd3dd`. It preserves strictfalse
+and permits only the exact supplementary editorial scope. This is not proof of actual display
+installation or global admission. The observed current preview selected neither chapter. Existing
+244/250 must finish/freeze the supplement, install all nine restrictions beside their exact figures
+and author conditions, then verify actual MCP/Arena output before updating coverage. No paid
+re-reading, new consumer or ordinary whole-chapter pass is required or authorized by this handoff.
+
+107/102 extant inheritance references rehashed. Four historical private preview/register snapshots
+per chapter are unavailable from249's retired worktree and were not delivered in its Git tree.
+These eight missing historical dedup observations are explicitly listed, never recreated or claimed
+verified; critical source/parent/audit/raw/runtime/plan evidence is present and verified independently.
+Current preview/register and active-owner observations are recorded separately, not substituted
+for historical snapshots.
+
+`consume.mjs` passed with26 negative checks rejecting altered strictflags/issues/candidate/figure
+bindings, missing or paraphrased limits, false author labels, installation and admission claims.
+`verify-pack.py` passed artifact/raw hashes, syntax,30 frozen files and real Windows path lengths:
+maximum213, strict limit240. Shared receipt is
+`integration/coac269-109167-results-consumed-20261028.json`; this namespace writes evidence only.
+This run made0 model/maker/review calls. Pair accounting is maker2+independent2=4/4, remaining0,
+0retry, failed/void counted. Fees, remote weights and upstream execution totals remain unknown.
+Both wakeups are one-shot disabled and joined delivery is consumed; no recurring task is needed.
+224/232 and other owner tasks are untouched; formal active unchanged, issue remains in_progress.
