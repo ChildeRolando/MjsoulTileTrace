@@ -1,0 +1,119 @@
+{
+  "runtimePath": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac248-182201-inline-v1-20261028",
+  "runtimeManifestSha256": "2df26827a1d13f9b9e13569b0628c987fbb3b7be04f9e0b8a186589e115c84b4",
+  "packagePath": "E:/AgentData/Coach/knowledge/processing/integration/coac248-182201-20261028",
+  "jobs": [
+    {
+      "chapterId": "79-cn-chapter-182-5",
+      "articleId": "cv1760573",
+      "targetId": "79-bilibili-cn:cv1760573:b0003",
+      "carryId": "79-bilibili-cn:cv1760573:b0013",
+      "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1760573.display.json",
+      "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+      "notesPath": "audit/web/articles/79-bilibili-cn/cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+      "notesSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1760573/source.json",
+      "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+      "parentObjectSha256": "9b6b61e10e2f544d55b68cd57078be7a1e78a495ca0621b13b42178d52a65ddc",
+      "notesObjectSha256": "2ca9b7eed25170e786a1136bb1bfd7e71b3af86a90b93d591a2dce83450024a6",
+      "sourceObjectSha256": "e079abb65dce03cf67537fc585f093b719fb8c05db924638ec3a4fe10fdcf7d3",
+      "planPath": "integration/coac248-182201-20261028/cv1760573-plan.json",
+      "planSha256": "dc1e4f6d7a09d95dd646fc1da796d7b8a28701be64fc3a100478e976a3bd6055",
+      "plan": {
+        "schema": "coach-inline-japanese-revision/1",
+        "authorizationCommentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+        "chapterId": "79-cn-chapter-182-5",
+        "bindings": {
+          "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+          "notesSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+          "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+        },
+        "edits": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1760573:b0003",
+            "quotedText": "かけるは内、のばすは外",
+            "operation": "gloss"
+          }
+        ]
+      },
+      "priorCallIds": [
+        "e5808fb6-9080-4bae-9b64-5e1ed83c7d40",
+        "cb644e86-c191-4b51-9111-b3cc0ccdc927"
+      ],
+      "history": [
+        {
+          "callId": "e5808fb6-9080-4bae-9b64-5e1ed83c7d40",
+          "success": false,
+          "usage": null,
+          "transportStatus": "failed"
+        },
+        {
+          "callId": "cb644e86-c191-4b51-9111-b3cc0ccdc927",
+          "success": true,
+          "usage": {
+            "inputTokens": 17123,
+            "cachedInputTokens": 0,
+            "outputTokens": 2174
+          },
+          "transportStatus": "completed"
+        }
+      ]
+    },
+    {
+      "chapterId": "79-cn-chapter-201-6",
+      "articleId": "cv1770179",
+      "targetId": "79-bilibili-cn:cv1770179:b0006",
+      "carryId": "79-bilibili-cn:cv1770179:b0005:figure",
+      "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1770179.display.json",
+      "parentSha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+      "notesPath": "audit/web/articles/79-bilibili-cn/cv1770179.52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8.json",
+      "notesSha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1770179/source.json",
+      "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+      "parentObjectSha256": "5865d7b2ffaca4b042d322e2c7502c69f799c53086ccc6645ee5a9bd97873ac1",
+      "notesObjectSha256": "5700cd29dbab85bc9d8f67654b0fedaeb3c5d4291caef2dcd7a4e3f6022c1a6e",
+      "sourceObjectSha256": "bb5dbb1adf684e5b0b0ff6ada6ee9346d75dae4970e2f7df5c74cc180bef7d09",
+      "planPath": "integration/coac248-182201-20261028/cv1770179-plan.json",
+      "planSha256": "9b1656e26dc00ffe39f2ed4bafc10b9ea4c1fce9848a5e74e0a4b67f6a0db12a",
+      "plan": {
+        "schema": "coach-inline-japanese-revision/1",
+        "authorizationCommentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+        "chapterId": "79-cn-chapter-201-6",
+        "bindings": {
+          "parentSha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+          "notesSha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+          "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb"
+        },
+        "edits": [
+          {
+            "sourceBlockId": "79-bilibili-cn:cv1770179:b0006",
+            "quotedText": "日本がアメリカに戦争を挑むくらい無謀でしょう。",
+            "operation": "gloss"
+          }
+        ]
+      },
+      "priorCallIds": [
+        "2460a9dc-5be4-4225-9a9f-a554c0c298f6",
+        "dc9f1a25-82a9-4950-a199-c4a0a8cc9342"
+      ],
+      "history": [
+        {
+          "callId": "2460a9dc-5be4-4225-9a9f-a554c0c298f6",
+          "success": false,
+          "usage": null,
+          "transportStatus": "failed"
+        },
+        {
+          "callId": "dc9f1a25-82a9-4950-a199-c4a0a8cc9342",
+          "success": true,
+          "usage": {
+            "inputTokens": 15194,
+            "cachedInputTokens": 0,
+            "outputTokens": 4763
+          },
+          "transportStatus": "completed"
+        }
+      ]
+    }
+  ]
+}

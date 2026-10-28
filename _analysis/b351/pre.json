@@ -1,0 +1,140 @@
+{
+  "before": {
+    "pointer": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-preview-current.json",
+      "sha256": "582a21739ba267b8954806d070de07b3fc4fb3395798fac65087d6e75c9ab74a"
+    },
+    "variants": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v34.json",
+      "sha256": "54963b81bb3a7eb3c8151d4e2ba1b3a086c65f16d572d95585a528aeb94811a0"
+    },
+    "builder": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.mjs",
+      "sha256": "5f1fd08da8ad80c64847e2208545bf50cae1135c0c667ea2eef9c035a0d30cb9"
+    },
+    "webSelection": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-web-candidate-selection.json",
+      "sha256": "6fdd69b8f38dba9469b0a1a53335b917a033e90dc34b229561bdf60af65c5fc3"
+    },
+    "register": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+      "sha256": "a3f74c9fa2a206cd31c3b5074dc9efe1651ab097b0b9789bc453656fcaa25c04"
+    },
+    "owner": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+      "sha256": "addb3512bf211bb8af8c62072d258e4d7fcb2ca017412b84311bf0ced55222bf"
+    }
+  },
+  "protectedFiles": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-candidate-selection.json",
+      "sha256": "621e4d88cf890f901a41506adbb42ab3b37febafa95d62cfb2bc4abbab0e78aa"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/source-structure-holds.json",
+      "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/candidate-exclusions.json",
+      "sha256": "4835655ad7fa323e2acc94d4e04824dc1c56b4b67ceec1b1449617c79c3411a3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-exact182-intake-20261028.json",
+      "sha256": "948444adbb7273314716f0b6c73b3ad75cc34023b8cff2db87e8a203320cc1d3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-b0947-composition-intake-20261028.json",
+      "sha256": "910ac36d6745ed06133161f9852ec9197cb8ae00782c39e9e4a271c88513fdd4"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-b0785-evidence-intake-20261028.json",
+      "sha256": "a29759e2926ac003964d74e63aed74da54ef64335ac0f847b287367c5191a0a3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/review/textbook-corpus.json",
+      "sha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+    }
+  ],
+  "jobs": [
+    {
+      "key": "283",
+      "canonical": "nemata-jp-chapter-283-1",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter06-exercise003",
+      "candidate": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-bounded-merge-20261028/chapter06-exercise003.bounded-composed.json",
+        "sha256": "ff3b1f36ffbd8daa23509a7375d0aaee533648299d636af2fa51be47657965d7"
+      },
+      "source": {
+        "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/articles/chapter06-exercise003/source.v3.json",
+        "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de"
+      },
+      "chapter": "modern-yabejp-ja-chapter06-exercise003-chapter"
+    },
+    {
+      "key": "201",
+      "receipt": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-201-target-impact-reviewed-20261028.json",
+        "sha256": "3a37da953a628ba7ab8bc031df939c0f168ca7e623150d7c5c4beba5a0f5a3e7"
+      },
+      "scope": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-201-scope-inheritance-20261028.json",
+        "sha256": "0d739b400c4025872070a6968180bec4642f96011467a3705d65c37a94af2258"
+      },
+      "proposal": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-201-display-requirements-20261028.json",
+        "sha256": "e80625a0088ab997f8753853f3ae6a9f752ddb8af4415638a6ac798ac243fef7"
+      },
+      "canonical": "79-cn-chapter-201-6",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.r1.display.json",
+        "sha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77"
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1770179\\source.json",
+        "sha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb"
+      },
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1770179",
+      "chapter": "79-bilibili-cn-cv1770179-chapter"
+    },
+    {
+      "key": "109",
+      "receipt": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-109-target-impact-reviewed-20261028.json",
+        "sha256": "67421d448b13f720947ca5472d7a0dfba1ee95e2f710f79ec1d5e86703baa986"
+      },
+      "scope": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-109-scope-inheritance-20261028.json",
+        "sha256": "7cd0aff5f8ea7e8f0cd504f90a88072790c7e401e29cfab2b9a50ba42a817db8"
+      },
+      "proposal": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-109-display-requirements-20261028.json",
+        "sha256": "1e1f10128fb2f5b84b73cf3dcfd454599108774df4bfc7972f83f92908a9e6ef"
+      },
+      "canonical": "79-cn-chapter-109-4",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1729038.coac269b25r1.json",
+        "sha256": "3cfe3a27bd799782d6ac8e626fcf97d26e1724ce544b6ccf26bcd740bd259dcb"
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1729038\\source.json",
+        "sha256": "b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc",
+        "bytes": 33421,
+        "copy": "evidence/cv1729038-source.json"
+      },
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1729038",
+      "chapter": "79-bilibili-cn-cv1729038-chapter"
+    }
+  ],
+  "prior": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-07-55-856Z",
+    "corpusId": "fbfbc438f33ce1fe5a90aa23c509c59828275fa3d0c44160efba811bb89b0043",
+    "chapters": 247,
+    "units": 255,
+    "blocks": 6862,
+    "figures": 5360
+  },
+  "newModelCalls": 0
+}

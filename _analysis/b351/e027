@@ -1,0 +1,638 @@
+{
+  "schema": "coach-textbook-web-article-source/1",
+  "sourceId": "79-bilibili-cn",
+  "articleId": "cv1770179",
+  "url": "https://www.bilibili.com/read/cv1770179",
+  "title": "【日本麻雀讲座译文】防守6—弃和的切牌顺序（1）",
+  "language": "zh-CN",
+  "fetchedAt": "2026-10-23T20:31:43.199072+00:00",
+  "html": {
+    "requestedUrl": "https://www.bilibili.com/read/cv1770179",
+    "httpStatus": 200,
+    "finalUrl": "https://www.bilibili.com/opus/202137486123279191",
+    "contentType": "text/html; charset=utf-8",
+    "fetchedAt": "2026-10-23T20:31:43.199072+00:00",
+    "encoding": "utf-8",
+    "path": "79-bilibili-cn/html/63bb757439ed214ad0bf2d43/source.html",
+    "sha256": "7a3aedc2a156a6d9b5c861787c08da1d4d57eefb122ddef271f60022bbd9cb26",
+    "bytes": 74858
+  },
+  "main": {
+    "selector": ".opus-module-content",
+    "path": "79-bilibili-cn/articles/cv1770179/main.html",
+    "sha256": "89b6fa42532ac733308c69b8dba72b6652e43e42e9f735543d73a521152537ec"
+  },
+  "blocks": [
+    {
+      "id": "79-bilibili-cn:cv1770179:b0001",
+      "paragraphId": "79-bilibili-cn:cv1770179:p0001",
+      "tag": "p",
+      "domPath": "main/p[0]",
+      "tableContext": null,
+      "type": "text",
+      "text": "免责声明：",
+      "segments": [
+        {
+          "text": "免责声明：",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "79-bilibili-cn:cv1770179:b0002",
+      "paragraphId": "79-bilibili-cn:cv1770179:p0002",
+      "tag": "p",
+      "domPath": "main/p[1]",
+      "tableContext": null,
+      "type": "text",
+      "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+      "segments": [
+        {
+          "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "79-bilibili-cn:cv1770179:b0003",
+      "paragraphId": "79-bilibili-cn:cv1770179:p0003",
+      "tag": "p",
+      "domPath": "main/p[2]",
+      "tableContext": null,
+      "type": "text",
+      "text": "原文地址：http://beginners.biz/mamori/mamori06.html",
+      "segments": [
+        {
+          "text": "原文地址：http://beginners.biz/mamori/mamori06.html",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "79-bilibili-cn:cv1770179:b0004",
+      "paragraphId": "79-bilibili-cn:cv1770179:p0004",
+      "tag": "p",
+      "domPath": "main/p[3]",
+      "tableContext": null,
+      "type": "text",
+      "text": "------------------------------------------------------------------------------------ 弃和的切牌顺序（1）：  弃和有着明确的切牌顺序，所以弃和要按照切牌顺序。 这样放铳率才会大幅下降。  ------------------------------------------------------------------------------------ 弃和的基本思路 ------------------------------------------------------------------------------------  从安全度高地牌开始切。  这是弃和的原则， 即使拆散手牌也不要紧。  因此，有“现物”，或者场上已经切了三张的字牌等“完全安全牌”的话，首先就切这些。  从已经通过的牌开始切，这个是非常重要的。 一巡中有可能现物会增加，也有可能他家放铳，还有可能立直者自摸等等情况出现。  明明有现物的时候，却从“一眼看上去貌似能通过”的牌开始切， 从防守的观点来看都是有损失的。  ------------------------------------------------------------------------------------ 现物的优先度 ------------------------------------------------------------------------------------  如果有多张现物的话，切牌也还是有顺序的。 这个顺序就是“将来可能有危险的牌先切”。  ",
+      "segments": [
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "弃和的切牌顺序（1）：",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "弃和有着明确的切牌顺序，所以弃和要按照切牌顺序。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这样放铳率才会大幅下降。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "弃和的基本思路",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "从安全度高地牌开始切。",
+          "marks": [
+            "strong:background:;color:#004e80;:"
+          ],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这是弃和的原则，",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "即使拆散手牌也不要紧。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "因此，有“现物”，或者场上已经切了三张的字牌等“完全安全牌”的话，首先就切这些。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "从已经通过的牌开始切，这个是非常重要的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "一巡中有可能现物会增加，也有可能他家放铳，还有可能立直者自摸等等情况出现。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "明明有现物的时候，却从“一眼看上去貌似能通过”的牌开始切，",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "从防守的观点来看都是有损失的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "现物的优先度",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "------------------------------------------------------------------------------------",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "如果有多张现物的话，切牌也还是有顺序的。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这个顺序就是",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "“将来可能有危险的牌先切”",
+          "marks": [
+            "strong:background:;color:;:"
+          ],
+          "href": null
+        },
+        {
+          "text": "。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "79-bilibili-cn:cv1770179:b0005",
+      "paragraphId": "79-bilibili-cn:cv1770179:p0005",
+      "tag": "div",
+      "domPath": "main/div[4]/div[0]/div[0]/div[0]/div[0]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "79-bilibili-cn:cv1770179:i00001",
+          "assetId": "79-bilibili-cn:17f83d84efc76a05aa889c27",
+          "sourceUrls": [
+            "https://i0.hdslb.com/bfs/article/7b8a39fdba136f1c55b85c224802b57cf3f6777c.png",
+            "https://i0.hdslb.com/bfs/article/7b8a39fdba136f1c55b85c224802b57cf3f6777c.png@1002w_1000h"
+          ],
+          "alt": "",
+          "title": "",
+          "width": null,
+          "height": null,
+          "tileHint": null
+        }
+      ]
+    },
+    {
+      "id": "79-bilibili-cn:cv1770179:b0006",
+      "paragraphId": "79-bilibili-cn:cv1770179:p0006",
+      "tag": "p",
+      "domPath": "main/p[5]",
+      "tableContext": null,
+      "type": "text",
+      "text": "这里手牌很烂，这个时候和亲家对日的话 日本がアメリカに戦争を挑むくらい無謀でしょう。（这句话不好翻译，总之是形容蠢）",
+      "segments": [
+        {
+          "text": "这里手牌很烂，这个时候和亲家对日的话",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "日本がアメリカに戦争を挑むくらい無謀でしょう。（这句话不好翻译，总之是形容蠢）",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "79-bilibili-cn:cv1770179:b0007",
+      "paragraphId": "79-bilibili-cn:cv1770179:p0007",
+      "tag": "p",
+      "domPath": "main/p[6]",
+      "tableContext": null,
+      "type": "text",
+      "text": "5万、6索和西是安全牌。 5万和6索切哪张都没什么问题，不过切西的话就是一个切牌顺序的失误了。  这里要是有人追立的话，安全牌就全没了。 下家突然切出一张无筋的3饼， 很有追立的可能。  毫无悬念，这里应该切掉5万或者6索。  理论： 有多张现物的时候，应该保留共同的安全牌。  下一回我们讲手牌没有安全牌的时候该怎么办。    （待续）",
+      "segments": [
+        {
+          "text": "5万、6索和西是安全牌。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "5万和6索切哪张都没什么问题，不过切西的话就是一个切牌顺序的失误了。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "这里要是有人追立的话，安全牌就全没了。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "下家突然切出一张无筋的3饼，",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "很有追立的可能。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "毫无悬念，这里应该切掉5万或者6索。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "理论：",
+          "marks": [
+            "strong:background:;color:#1db100;:"
+          ],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [
+            "strong:background:;color:#1db100;:"
+          ],
+          "href": null
+        },
+        {
+          "text": "有多张现物的时候，应该保留共同的安全牌。",
+          "marks": [
+            "strong:background:;color:#1db100;:"
+          ],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "下一回我们讲手牌没有安全牌的时候该怎么办。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "（待续）",
+          "marks": [],
+          "href": null
+        }
+      ]
+    }
+  ],
+  "paragraphs": [
+    {
+      "id": "79-bilibili-cn:cv1770179:p0001",
+      "tag": "p",
+      "domPath": "main/p[0]",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1770179:b0001"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "79-bilibili-cn:cv1770179:p0002",
+      "tag": "p",
+      "domPath": "main/p[1]",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1770179:b0002"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "79-bilibili-cn:cv1770179:p0003",
+      "tag": "p",
+      "domPath": "main/p[2]",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1770179:b0003"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "79-bilibili-cn:cv1770179:p0004",
+      "tag": "p",
+      "domPath": "main/p[3]",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1770179:b0004"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "79-bilibili-cn:cv1770179:p0005",
+      "tag": "div",
+      "domPath": "main/div[4]/div[0]/div[0]/div[0]/div[0]",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1770179:b0005"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "79-bilibili-cn:cv1770179:p0006",
+      "tag": "p",
+      "domPath": "main/p[5]",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1770179:b0006"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "79-bilibili-cn:cv1770179:p0007",
+      "tag": "p",
+      "domPath": "main/p[6]",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1770179:b0007"
+      ],
+      "tableContext": null
+    }
+  ],
+  "assets": [
+    {
+      "assetId": "79-bilibili-cn:17f83d84efc76a05aa889c27",
+      "status": "downloaded",
+      "url": "https://i0.hdslb.com/bfs/article/7b8a39fdba136f1c55b85c224802b57cf3f6777c.png",
+      "finalUrl": "https://i0.hdslb.com/bfs/article/7b8a39fdba136f1c55b85c224802b57cf3f6777c.png",
+      "fetchedAt": "2026-10-23T20:31:43.354726+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 16376,
+      "sha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+      "path": "79-bilibili-cn/assets/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png"
+    }
+  ],
+  "links": [],
+  "originalReferenceLinks": [
+    {
+      "visibleText": "http://beginners.biz/mamori/mamori06.html",
+      "href": null,
+      "evidence": "visible-body-text"
+    }
+  ],
+  "ignoredPlaceholders": [],
+  "attributionNote": "Original source attribution, translator disclaimers and reference visible text are preserved in the body. Link href and visible URL are recorded separately, never treated as equivalent without review.",
+  "status": "captured-not-translated-or-audited",
+  "extractorSha256": "a871cf3765d340535ba6c8401a6d58d1c5391d4c1da6ad53e0ac96be2da7cbea",
+  "sourceSha256": "3217daa8fff481319d185ae5a4fac027d4bb5656e74d99c91f60b32f3b4f5906"
+}

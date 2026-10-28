@@ -1,0 +1,36 @@
+{
+  "chapters": 250,
+  "units": 258,
+  "blocks": 7585,
+  "figures": 5893,
+  "corpusId": "df8320d297001c4b174cfc2f2964c376395587577f488a5b408a6536df8f0f61",
+  "bodySha256": "435b6189cde4464b23e259632104c6351eeee707eb10008271b8d1406070b924",
+  "maxUnitBytes": 592593,
+  "modelCalls": 0,
+  "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-44-10-491Z",
+  "stages": [
+    {
+      "key": "283",
+      "destination": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-44-10-491Z/stages/s283",
+      "blocks": 675,
+      "figures": 525,
+      "corpusId": "05e574d465b07324b6c7042ba714d2d6dcc814335b1a53c0df85917f2816772e"
+    },
+    {
+      "key": "201",
+      "destination": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-44-10-491Z/stages/s201",
+      "blocks": 16,
+      "figures": 1,
+      "corpusId": "b4e71af2ded315fc80071833dd82363724df741c51fa3c4e3d79c1cf807fb5c7"
+    },
+    {
+      "key": "109",
+      "destination": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-44-10-491Z/stages/s109",
+      "blocks": 32,
+      "figures": 7,
+      "corpusId": "04c07f9321edd8c1d03e1a8c53f19cd7470afecd59752ad76868da83a1f450b1"
+    }
+  ],
+  "priorUnitsUnchanged": 255,
+  "models": 0
+}

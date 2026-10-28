@@ -1,0 +1,117 @@
+{
+  "schema": "coac244-b0785-b0947-bounded-proof/1",
+  "canonical": "nemata-jp-chapter-283-1",
+  "primaryParent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0785r1.json",
+    "sha256": "434120af284195ddf27b491a1c2c4cd9ea25072d40e9c6a366bcd8ac3cb03b9b"
+  },
+  "b0785Receipt": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-283-0785-reviewed-20261028.json",
+    "sha256": "49dc8c91614a3a4b726b41e69f3c2ddcdbd581c31973763930b222c11bd88b36"
+  },
+  "b0785Raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4690455a-50a9-4675-8572-27e789204cc6.json",
+    "sha256": "15d6f153d54e1beb35b2405caa8943d6cf79ccb180a8badfd58917a676b1b9c5"
+  },
+  "b0785Call": "4690455a-50a9-4675-8572-27e789204cc6",
+  "b0785Runtime": {
+    "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac269-283-0785-v1-20261028/runtime-manifest.json",
+    "sha256": "d167ab2e2beab21dda23336b40e341e1972ffbd894b2413702f04f8d08b3a4bb"
+  },
+  "b0785FigureSha256": "a5920c978ed6c4d5893f7cb017f93200e2d9de672dfe8f1c969c813d144b841d",
+  "b0785OriginalTargetPassed": false,
+  "b0785IndependentModelReview": {
+    "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+    "seatVerdict": "faithful",
+    "seatEvidence": "原图中央面板及放大图显示：左上西、右上北、左下南、右下东；手牌上方另有橙色“东”标记。当前转录与这些画面位置一致。与已审 donor 相比，转录的实质变化是修正左上和右下的东、西；provenance.callId 也已更新。",
+    "preservedUnknowns": {
+      "acknowledged": true,
+      "evidence": "当前 unknowns 保留了三张万子弃牌的未知数字、右上受遮挡副露牌、三家隐手、骰子点数和右下裁切文字；未见猜填。此前已审的手牌与隐手、牌墙区分按原样继承。"
+    },
+    "contextFaithful": true,
+    "contextEvidence": "Q48 的答案为切 8s 立直；继承的手牌切去一张 8s 后可呈现 7s 嵌张听牌。作者随后指出手变机会不多，并认为即使变为良形，若打点下降，其改良价值也有限。b0009 定义了四类一向听形，Q48 解说没有使用这些编号。b0003—b0005 的规则和场况是无另行说明时的默认条件；截图可见中张弃牌及右上副露，不能将默认的幺九字牌河、无鸣直接当作截图实况。",
+    "unknownTeachingImpact": "nonblocking-with-limits",
+    "impactEvidence": "已知手牌与 Q48 文字足以忠实呈现切 8s 立直及作者关于手变数量、良形与打点的定性论证。三张未知万子可能影响相关牌的可见数量，受遮挡副露牌也可能影响可见牌；因此不能据截图精确核算实况下的改良张数、概率或打点比较，也不能据此独立证明所有实战场况下该选择最优。作者的 Q48 解说没有依赖这些未知牌的具体牌码给出计算，故这些未知不阻断其定性论证的呈现。",
+    "mandatoryLimits": [
+      "保留三张万子数字、受遮挡副露牌、三家隐手、骰点及裁切内容为未知，不补猜。",
+      "区分正文默认条件与截图实况；不得用默认条件填补图中未知牌，或断言截图无鸣、牌河只有幺九字牌。",
+      "不得由现有转录断言精确可见张数、牌山存量、改良概率或所有实战场况下的最优选择。",
+      "本结论仅覆盖 b0785 的方位、保留未知及其对 Q48 论证呈现的影响。"
+    ],
+    "issues": [
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "description": "三张万子弃牌、受遮挡副露牌及其余列出的未知信息仍未确定。相关万子和副露牌可能影响实况可见牌的计算，但不阻断对 Q48 定性论证的呈现。",
+        "sourceEvidence": "figure.unknowns 将左河第 4、6 张和右河第 1 张的万子数字，以及右上副露最上方牌保留为未知；同时保留三家隐手、骰点和右下裁切内容。b0790 仅给出手变机会和打点的定性说明。"
+      }
+    ],
+    "wholeChapterAccepted": false
+  },
+  "b0947Donor": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev2.json",
+    "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+    "bytes": 2147441
+  },
+  "b0947CompositionProof": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-0947-composition-20261028/composition-proof.json",
+    "sha256": "b32438de34fe2222625c4c61b33309935a697034066cfc063951de77f32b643b"
+  },
+  "b0947ObjectSha256": "ee733318a7cc1b62668f8f8b0d6c9ece03bb0c1321b5c5c3a14e5ccf012a7c53",
+  "derived": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-bounded-merge-20261028/chapter06-exercise003.bounded-composed.json",
+    "sha256": "ff3b1f36ffbd8daa23509a7375d0aaee533648299d636af2fa51be47657965d7"
+  },
+  "overlay": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-bounded-merge-20261028/b0785-display-contract.json",
+    "sha256": "1c8fefac153094fbde93e234961ef4475259ba38dbae3298779e542d271905ba"
+  },
+  "mandatoryLimitQuoteBindings": [
+    {
+      "field": "/mandatoryLimits/0",
+      "text": "保留三张万子数字、受遮挡副露牌、三家隐手、骰点及裁切内容为未知，不补猜。",
+      "rawLastMessageUtf8Start": 1823,
+      "rawLastMessageUtf8Length": 110,
+      "quotedJsonSha256": "3055709db6e77db1ca508eb21bac3df9fead10688de010ca5a0ae9bc7ae1c8c3"
+    },
+    {
+      "field": "/mandatoryLimits/1",
+      "text": "区分正文默认条件与截图实况；不得用默认条件填补图中未知牌，或断言截图无鸣、牌河只有幺九字牌。",
+      "rawLastMessageUtf8Start": 1939,
+      "rawLastMessageUtf8Length": 140,
+      "quotedJsonSha256": "4387996126695a7fd9d7200ec00ddd7d57682802c2a9cb75abc5a8d2e19bcae9"
+    },
+    {
+      "field": "/mandatoryLimits/2",
+      "text": "不得由现有转录断言精确可见张数、牌山存量、改良概率或所有实战场况下的最优选择。",
+      "rawLastMessageUtf8Start": 2085,
+      "rawLastMessageUtf8Length": 119,
+      "quotedJsonSha256": "4a44a2794e2be72cf20eef6a17ecb93bca29e47d2d1ac1f663bd90477d45e456"
+    },
+    {
+      "field": "/mandatoryLimits/3",
+      "text": "本结论仅覆盖 b0785 的方位、保留未知及其对 Q48 论证呈现的影响。",
+      "rawLastMessageUtf8Start": 2210,
+      "rawLastMessageUtf8Length": 89,
+      "quotedJsonSha256": "aec1f0e8b584e4a07e5d8e9977e84675f4a48118852e245ac6b14a510a47def7"
+    }
+  ],
+  "newModelCalls": 0,
+  "admissionGranted": false,
+  "standardWholeArticlePassed": false,
+  "wholeChapterAccepted": false,
+  "effectiveAccount": {
+    "original19": {
+      "evidenceResolved": 16,
+      "limitedUnknownPendingActualDisplay": 1,
+      "sourceNotes": 2
+    },
+    "oldThree0785": {
+      "handTranscription": "resolved-by-reviewed-donor-and-current-unchanged-object",
+      "hiddenHandsVersusWall": "resolved-by-reviewed-donor-and-current-unchanged-object",
+      "publicManzuUnknown": "independently-allowed-only-with-four-display-limits"
+    },
+    "newSeatError": "independent-faithful",
+    "remainingPaidReadingTasks": 0
+  }
+}

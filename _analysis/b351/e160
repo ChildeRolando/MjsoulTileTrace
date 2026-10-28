@@ -1,0 +1,5288 @@
+{
+  "schema": "coac244-next-pair-evidence-proposal/1",
+  "canonical": "nemata-jp-chapter-213-1",
+  "article": "chapter03-section026",
+  "selectedReadyProposal": false,
+  "status": "held-for-later-mixed-text-and-figure-scope",
+  "authorizationForNewCalls": false,
+  "newCallsThisStage": 0,
+  "bindings": {
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.display.json",
+      "sha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+      "bytes": 107372,
+      "copy": "evidence/chapter03-section026-parent.json"
+    },
+    "audit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+      "sha256": "a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc",
+      "bytes": 37129,
+      "copy": "evidence/chapter03-section026-audit.json"
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter03-section026\\source.json",
+      "sha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+      "bytes": 62908,
+      "copy": "evidence/chapter03-section026-source.json"
+    },
+    "productionRaws": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\478ca8f6-cab6-4873-8cde-44bdf4f58d7f.json",
+        "sha256": "a92600d3b37530e696e011fe615defec56aa030f75c359bc88b9cfb7df8f9a5c",
+        "bytes": 86074,
+        "copy": "evidence/478ca8f6-cab6-4873-8cde-44bdf4f58d7f-producer.json"
+      }
+    ],
+    "independentRaws": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\93f4a5a8-e5fb-4b57-b5b7-c05946e951d7.json",
+        "sha256": "ad4cf4f177742d2eff4f96a4147ddde1abdd9bf99baadd14b64d36b1a87a9b5c",
+        "bytes": 214749,
+        "copy": "evidence/93f4a5a8-e5fb-4b57-b5b7-c05946e951d7-audit-raw.json",
+        "callId": "93f4a5a8-e5fb-4b57-b5b7-c05946e951d7",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      }
+    ]
+  },
+  "masterRow": {
+    "chapterId": "nemata-jp-chapter-213-1",
+    "originalChapterId": "nemata-jp-chapter-213-1",
+    "sourceId": "nemata-jp",
+    "title": "逆切り３",
+    "units": 1,
+    "ownedSourceBlocks": 51,
+    "adjudicationGroup": "confirmed-produced-not-covered",
+    "covered": false,
+    "coverageRoute": null,
+    "approvedWebCorrespondence": {
+      "articleId": "chapter03-section026",
+      "webSourceId": "modern-yabejp-ja",
+      "tier": "url-header",
+      "evidencePath": "integration/modern-pdf-url-coverage.json",
+      "substitutionAllowed": true,
+      "bodyEquivalenceConfirmed": false,
+      "articleInPreview": false
+    },
+    "existingCandidate": {
+      "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.display.json",
+      "sha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+      "bodyBlocks": 53,
+      "sourceSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+      "currentSourceSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+      "sourceBoundCurrent": true,
+      "auditStatus": "needs-repair",
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+      "auditRecordedAt": "2026-10-26T13:20:26.533Z",
+      "deterministicPassed": true,
+      "semanticComplete": false
+    },
+    "pdfRoute": {
+      "pagesTotal": 3,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        213,
+        214,
+        215
+      ],
+      "pagesDetail": [
+        {
+          "page": 213,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 44
+        },
+        {
+          "page": 214,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 3
+        },
+        {
+          "page": 215,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 33
+        }
+      ]
+    },
+    "gaps": {
+      "ownedSourceBlocks": 51,
+      "missingProductionBlocks": 0,
+      "producedBlocks": 51,
+      "acceptedBlocks": 0,
+      "acceptanceGapBlocks": 51,
+      "acceptanceGapPages": [
+        213,
+        214,
+        215
+      ],
+      "pagesWithoutCandidate": [],
+      "pagesWithoutPassedCandidate": [
+        213,
+        214,
+        215
+      ]
+    },
+    "verdict": "produced-needs-repair",
+    "coac246": {
+      "action": "repair",
+      "auditStatus": "needs-repair",
+      "candidateSha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.display.json",
+      "repairErrors": 8,
+      "units": 1,
+      "blocks": 51
+    }
+  },
+  "productionLedger": [
+    {
+      "callId": "478ca8f6-cab6-4873-8cde-44bdf4f58d7f",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section026",
+      "sourceSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "startedAt": "2026-10-25T21:22:18.715Z",
+      "durationMs": 338089,
+      "usage": {
+        "inputTokens": 18762,
+        "cachedInputTokens": 0,
+        "outputTokens": 11008
+      },
+      "success": true,
+      "transportStatus": "completed",
+      "rawArtifactPath": "raw-calls/478ca8f6-cab6-4873-8cde-44bdf4f58d7f.json",
+      "rawArtifactSha256": "a92600d3b37530e696e011fe615defec56aa030f75c359bc88b9cfb7df8f9a5c",
+      "outputSha256": "8f7484c385c7474efc09d39ca819b1c8bfbd16ab9fe5466ce72d7f66fd15b293",
+      "schemaSha256": "6ddddfe8c3b7a968beeb27292bef4f9b7aa28d90942646feb15caa73b4cb802a",
+      "promptSha256": "00d34a2eb3ffacd730fefa670e78268421936b3fa3faf745d211a360bd1d05c4",
+      "semanticPromptSha256": "d0b0eb5c4afe82750598bf4ab87ab02c7113b713a14ee1f108c64ffc6336ca43",
+      "cliSnapshot": {
+        "path": "web-production/v1/runners/d544c65de266a0299f64f9056c45cdd4e5fff861090a60c45d203bce36dc6deb.cli.mjs",
+        "sha256": "d544c65de266a0299f64f9056c45cdd4e5fff861090a60c45d203bce36dc6deb"
+      },
+      "targets": {
+        "textIds": [
+          "modern-yabejp-ja:chapter03-section026:b0001",
+          "modern-yabejp-ja:chapter03-section026:b0002",
+          "modern-yabejp-ja:chapter03-section026:b0003",
+          "modern-yabejp-ja:chapter03-section026:b0005",
+          "modern-yabejp-ja:chapter03-section026:b0007",
+          "modern-yabejp-ja:chapter03-section026:b0009",
+          "modern-yabejp-ja:chapter03-section026:b0011",
+          "modern-yabejp-ja:chapter03-section026:b0013",
+          "modern-yabejp-ja:chapter03-section026:b0015",
+          "modern-yabejp-ja:chapter03-section026:b0017",
+          "modern-yabejp-ja:chapter03-section026:b0018",
+          "modern-yabejp-ja:chapter03-section026:b0020",
+          "modern-yabejp-ja:chapter03-section026:b0022",
+          "modern-yabejp-ja:chapter03-section026:b0024",
+          "modern-yabejp-ja:chapter03-section026:b0026",
+          "modern-yabejp-ja:chapter03-section026:b0028",
+          "modern-yabejp-ja:chapter03-section026:b0030",
+          "modern-yabejp-ja:chapter03-section026:b0031",
+          "modern-yabejp-ja:chapter03-section026:b0033",
+          "modern-yabejp-ja:chapter03-section026:b0035",
+          "modern-yabejp-ja:chapter03-section026:b0037",
+          "modern-yabejp-ja:chapter03-section026:b0039",
+          "modern-yabejp-ja:chapter03-section026:b0041",
+          "modern-yabejp-ja:chapter03-section026:b0043",
+          "modern-yabejp-ja:chapter03-section026:b0045",
+          "modern-yabejp-ja:chapter03-section026:b0047",
+          "modern-yabejp-ja:chapter03-section026:b0049",
+          "modern-yabejp-ja:chapter03-section026:b0051",
+          "modern-yabejp-ja:chapter03-section026:b0053"
+        ],
+        "figureIds": [
+          "modern-yabejp-ja:chapter03-section026:b0032"
+        ]
+      },
+      "terminalEvents": [],
+      "visualInputs": [
+        {
+          "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+          "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+          "sourceSha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+          "sha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 640,
+          "height": 505
+        },
+        {
+          "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+          "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+          "sourceSha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.x2.png",
+          "sha256": "0fd640eefd45747cb62c6c5c24fb46b66d52ba26ad06c987bd0f03799b932fc4",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 2,
+          "resampling": "nearest",
+          "width": 1280,
+          "height": 1010
+        }
+      ]
+    }
+  ],
+  "originalIndependentModelReview": {
+    "blockChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0001",
+        "verdict": "faithful",
+        "evidence": "标题“逆切3”保留原意与编号。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0002",
+        "verdict": "faithful",
+        "evidence": "补充说明及第6、7节正文链接均保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0003",
+        "verdict": "faithful",
+        "evidence": "容易成面子到不易成面子的手切顺序、信息强度及适用范围均完整，四处链接保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0004",
+        "verdict": "faithful",
+        "evidence": "五万对应5m。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0005",
+        "verdict": "faithful",
+        "evidence": "顺序箭头保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0006",
+        "verdict": "faithful",
+        "evidence": "九万对应9m。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0007",
+        "verdict": "faithful",
+        "evidence": "连读保留先切5m再切9m及“即使是筋张”的条件。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0008",
+        "verdict": "faithful",
+        "evidence": "八万对应8m。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0009",
+        "verdict": "faithful",
+        "evidence": "8m相当危险的判断力度保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0010",
+        "verdict": "faithful",
+        "evidence": "六筒对应6p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0011",
+        "verdict": "faithful",
+        "evidence": "6p被杠或四张已见的两种条件均保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0012",
+        "verdict": "faithful",
+        "evidence": "七筒对应7p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0013",
+        "verdict": "faithful",
+        "evidence": "切7p进入听牌及虽有壁仍需警惕的关系保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0014",
+        "verdict": "faithful",
+        "evidence": "八筒对应8p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0015",
+        "verdict": "faithful",
+        "evidence": "并列关系保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0016",
+        "verdict": "faithful",
+        "evidence": "九筒对应9p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0017",
+        "verdict": "needs-repair",
+        "evidence": "“入り目でもなければ”译成“不是因为进张而打出的”，未准确表达排除进张完成面子一侧的条件，影响等待位置的推论。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0018",
+        "verdict": "faithful",
+        "evidence": "中张牌之后才切1、9牌的条件保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0019",
+        "verdict": "faithful",
+        "evidence": "复合搭子112s逐张一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0020",
+        "verdict": "faithful",
+        "evidence": "从复合搭子拆出、作为相对安全牌保留及第三种解释均有对应。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0021",
+        "verdict": "faithful",
+        "evidence": "789s顺序一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0022",
+        "verdict": "faithful",
+        "evidence": "牌形之间的并列分隔保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0023",
+        "verdict": "faithful",
+        "evidence": "79s顺序一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0024",
+        "verdict": "faithful",
+        "evidence": "牌形之间的并列分隔保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0025",
+        "verdict": "faithful",
+        "evidence": "89s顺序一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0026",
+        "verdict": "faithful",
+        "evidence": "连读准确指向前述三种牌形；原文重复的“から”未造成语义遗漏。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0027",
+        "verdict": "faithful",
+        "evidence": "摸入牌六索对应6s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0028",
+        "verdict": "faithful",
+        "evidence": "摸入6s的动作保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0029",
+        "verdict": "faithful",
+        "evidence": "随后切出的九索对应9s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0030",
+        "verdict": "faithful",
+        "evidence": "未必提高附近成为待牌的概率、但很可能在附近构成面子，以及复合搭子同理的括注均保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0031",
+        "verdict": "faithful",
+        "evidence": "红线表示摸切牌的教学图例准确保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0032",
+        "verdict": "needs-repair",
+        "evidence": "牌桌转录将左家外列第2张7p留作未知，缺少支撑末段剩余张数判断的可见牌；另有字牌和点数未能确认。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0033",
+        "verdict": "faithful",
+        "evidence": "与后续块连读，对家保留9p的主语和动作完整。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0034",
+        "verdict": "faithful",
+        "evidence": "对家保留的九筒对应9p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0035",
+        "verdict": "faithful",
+        "evidence": "很可能属于前述情况的判断保留；条件句引导词按中文语序前移。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0036",
+        "verdict": "faithful",
+        "evidence": "原有79p牌形准确保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0037",
+        "verdict": "faithful",
+        "evidence": "从79p牌形出发的关系保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0038",
+        "verdict": "faithful",
+        "evidence": "摸入的六筒对应6p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0039",
+        "verdict": "faithful",
+        "evidence": "摸6p后打牌的动作顺序保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0040",
+        "verdict": "faithful",
+        "evidence": "打出的九筒对应9p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0041",
+        "verdict": "faithful",
+        "evidence": "条件与结论衔接完整。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0042",
+        "verdict": "faithful",
+        "evidence": "主要待牌之一五筒对应5p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0043",
+        "verdict": "faithful",
+        "evidence": "5p与8p之间的连接符保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0044",
+        "verdict": "faithful",
+        "evidence": "主要待牌之二八筒对应8p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0045",
+        "verdict": "faithful",
+        "evidence": "5p—8p为本线及实际等待的括注引导均保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0046",
+        "verdict": "faithful",
+        "evidence": "实际待牌中的五筒对应5p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0047",
+        "verdict": "faithful",
+        "evidence": "实际待牌之间的连接符保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0048",
+        "verdict": "faithful",
+        "evidence": "实际待牌中的八筒对应8p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0049",
+        "verdict": "faithful",
+        "evidence": "实际等待的括注及即使不是这种情况的让步条件均保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0050",
+        "verdict": "faithful",
+        "evidence": "推定对家持有的七筒对应7p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0051",
+        "verdict": "faithful",
+        "evidence": "对家很可能至少持有一张7p的数量和判断保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0052",
+        "verdict": "faithful",
+        "evidence": "计算剩余张数的七筒对应7p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0053",
+        "verdict": "faithful",
+        "evidence": "最多剩两张、进攻困难及应弃和的结论完整。"
+      }
+    ],
+    "figureChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0004:figure",
+        "verdict": "faithful",
+        "evidence": "5m与原文五万一致，非赤、正立记录一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0006:figure",
+        "verdict": "faithful",
+        "evidence": "9m与原文九万一致，顺接先5m后9m。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0008:figure",
+        "verdict": "faithful",
+        "evidence": "8m准确承接虽为筋仍危险的论述。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0010:figure",
+        "verdict": "faithful",
+        "evidence": "6p准确对应被杠或四张已见的牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0012:figure",
+        "verdict": "faithful",
+        "evidence": "7p准确对应听牌时的切出牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0014:figure",
+        "verdict": "faithful",
+        "evidence": "8p准确对应虽有壁仍可疑的牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0016:figure",
+        "verdict": "faithful",
+        "evidence": "9p准确对应另一张可疑牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0019:figure",
+        "verdict": "faithful",
+        "evidence": "1s、1s、2s共三张，数量、顺序及非赤正立记录一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0021:figure",
+        "verdict": "faithful",
+        "evidence": "7s、8s、9s三张顺序一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0023:figure",
+        "verdict": "faithful",
+        "evidence": "7s、9s两张顺序一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0025:figure",
+        "verdict": "faithful",
+        "evidence": "8s、9s两张顺序一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0027:figure",
+        "verdict": "faithful",
+        "evidence": "6s准确对应三种牌形共同的摸入牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0029:figure",
+        "verdict": "faithful",
+        "evidence": "9s准确对应摸6s后的切出牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+        "verdict": "needs-repair",
+        "evidence": "本家手牌、摸入5p、345m副露、本家牌河、右家牌河及中碰、对家9p位置、立直棒和红线图例均有对应。左家外列从上数第2张可见7p，却被写作点数不清；这张明牌参与末段7p最多剩两张的判断。对家靠中央排最左字牌以及上方、左侧点数仍存在未解决的转录歧义。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0034:figure",
+        "verdict": "faithful",
+        "evidence": "9p准确对应对家拖后切出的牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0036:figure",
+        "verdict": "faithful",
+        "evidence": "7p、9p两张顺序及原牌形一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0038:figure",
+        "verdict": "faithful",
+        "evidence": "6p准确对应假设摸入牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0040:figure",
+        "verdict": "faithful",
+        "evidence": "9p准确对应假设切出牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0042:figure",
+        "verdict": "faithful",
+        "evidence": "5p准确对应本线等待的第一端。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0044:figure",
+        "verdict": "faithful",
+        "evidence": "8p准确对应本线等待的第二端。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0046:figure",
+        "verdict": "faithful",
+        "evidence": "5p准确对应实际等待的第一端。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0048:figure",
+        "verdict": "faithful",
+        "evidence": "8p准确对应实际等待的第二端。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0050:figure",
+        "verdict": "faithful",
+        "evidence": "7p准确对应推定至少持有一张的牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0052:figure",
+        "verdict": "faithful",
+        "evidence": "7p准确对应最多剩两张的牌。"
+      }
+    ],
+    "imageChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00001",
+        "disposition": "represented",
+        "evidence": "五万逐次对应5m。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00002",
+        "disposition": "represented",
+        "evidence": "九万逐次对应9m。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00003",
+        "disposition": "represented",
+        "evidence": "八万逐次对应8m。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00004",
+        "disposition": "represented",
+        "evidence": "六筒逐次对应6p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00005",
+        "disposition": "represented",
+        "evidence": "七筒逐次对应7p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00006",
+        "disposition": "represented",
+        "evidence": "八筒逐次对应8p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00007",
+        "disposition": "represented",
+        "evidence": "九筒逐次对应9p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00008",
+        "disposition": "represented",
+        "evidence": "112s中的第一张一索对应1s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00009",
+        "disposition": "represented",
+        "evidence": "112s中的第二张一索对应1s，未去重。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00010",
+        "disposition": "represented",
+        "evidence": "112s末张二索对应2s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00011",
+        "disposition": "represented",
+        "evidence": "789s首张七索对应7s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00012",
+        "disposition": "represented",
+        "evidence": "789s中张八索对应8s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00013",
+        "disposition": "represented",
+        "evidence": "789s末张九索对应9s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00014",
+        "disposition": "represented",
+        "evidence": "79s首张七索对应7s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00015",
+        "disposition": "represented",
+        "evidence": "79s末张九索对应9s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00016",
+        "disposition": "represented",
+        "evidence": "89s首张八索对应8s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00017",
+        "disposition": "represented",
+        "evidence": "89s末张九索对应9s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00018",
+        "disposition": "represented",
+        "evidence": "摸入六索对应6s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00019",
+        "disposition": "represented",
+        "evidence": "切出九索对应9s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00020",
+        "disposition": "uncertain",
+        "evidence": "牌桌已有详细转录，但左家可见7p被遗漏为未知，另有字牌和点数歧义，不能确认教学图语义完整。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00021",
+        "disposition": "represented",
+        "evidence": "对家保留的九筒对应9p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00022",
+        "disposition": "represented",
+        "evidence": "79p首张七筒对应7p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00023",
+        "disposition": "represented",
+        "evidence": "79p末张九筒对应9p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00024",
+        "disposition": "represented",
+        "evidence": "假设摸入六筒对应6p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00025",
+        "disposition": "represented",
+        "evidence": "假设切出九筒对应9p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00026",
+        "disposition": "represented",
+        "evidence": "本线待牌五筒对应5p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00027",
+        "disposition": "represented",
+        "evidence": "本线待牌八筒对应8p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00028",
+        "disposition": "represented",
+        "evidence": "实际待牌五筒对应5p，重复出现完整保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00029",
+        "disposition": "represented",
+        "evidence": "实际待牌八筒对应8p，重复出现完整保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00030",
+        "disposition": "represented",
+        "evidence": "推定对家持有的七筒对应7p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00031",
+        "disposition": "represented",
+        "evidence": "剩余张数论证中的七筒对应7p。"
+      }
+    ],
+    "domOrder": {
+      "faithful": true,
+      "evidence": "53个源块均按自然顺序对应；同一paragraphId内跨牌图短句连读，无重复贡献或跳块。中文条件词和动作的局部移位未改变牌图所指。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "全文、正文链接、红线摸切注释及全部31次图片出现均已比较，30次行内牌对应完整。但b0017对“入り目”例外条件的译法不准确；牌桌中左家外列第2张7p被留作未知，影响“7p最多剩2张”的可复核依据；另有字牌和点数尚未确认，因此不能认定完整。"
+    },
+    "issues": [
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter03-section026:b0017",
+        "sourceEvidence": "テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+        "description": "“入り目でもなければ”不是泛指“不是因为进张而打出的”。原文排除的是该牌周边属于进张完成面子一侧的情况；候选译法模糊了判断待牌位置的重要例外。",
+        "suggestedRepair": "改为明确表达：听牌时切出的牌若并非留作安全牌，且其周边也不是进张完成面子的部分，那么其周边就是待牌所在。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+        "sourceEvidence": "附图左家牌河外侧左列从图像上至下第2张为7p；末段原文说对家很可能持有至少一张7p，因此7p最多只剩两张。",
+        "description": "候选将这张可见7p写作“点数不清的筒子牌”，遗漏了直接影响剩余张数论证的明牌。",
+        "suggestedRepair": "将左家外列第2张补为7p，同时更新对应红线说明及unknowns；保留其顺时针旋转90°和摸切标记。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+        "sourceEvidence": "候选将对家靠中央一排最左端字牌，以及中央上方、左侧的完整点数列为无法辨认。",
+        "description": "这些属于牌局牌码和数值数据，本次无法可靠确认其准确转录，不能作为非教学边缘残痕直接放行。",
+        "suggestedRepair": "复核附图中该字牌及两家点数，补录能够确定的内容；确实无法辨认的继续如实标未知并保留原图，但在相关歧义解决前保持阻断。"
+      }
+    ],
+    "completeArticleCompared": true,
+    "summary": "已逐项比较53个块、24个figure和31次图片出现。顺序及行内牌对应完整；一处术语条件误译、牌桌7p遗漏及未决牌局数据阻止通过。"
+  },
+  "originalIssues": [
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter03-section026:b0017",
+      "sourceEvidence": "テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+      "description": "“入り目でもなければ”不是泛指“不是因为进张而打出的”。原文排除的是该牌周边属于进张完成面子一侧的情况；候选译法模糊了判断待牌位置的重要例外。",
+      "suggestedRepair": "改为明确表达：听牌时切出的牌若并非留作安全牌，且其周边也不是进张完成面子的部分，那么其周边就是待牌所在。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+      "sourceEvidence": "附图左家牌河外侧左列从图像上至下第2张为7p；末段原文说对家很可能持有至少一张7p，因此7p最多只剩两张。",
+      "description": "候选将这张可见7p写作“点数不清的筒子牌”，遗漏了直接影响剩余张数论证的明牌。",
+      "suggestedRepair": "将左家外列第2张补为7p，同时更新对应红线说明及unknowns；保留其顺时针旋转90°和摸切标记。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+      "sourceEvidence": "候选将对家靠中央一排最左端字牌，以及中央上方、左侧的完整点数列为无法辨认。",
+      "description": "这些属于牌局牌码和数值数据，本次无法可靠确认其准确转录，不能作为非教学边缘残痕直接放行。",
+      "suggestedRepair": "复核附图中该字牌及两家点数，补录能够确定的内容；确实无法辨认的继续如实标未知并保留原图，但在相关歧义解决前保持阻断。"
+    }
+  ],
+  "sameShaAuditInventory": [
+    {
+      "artifact": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+        "sha256": "a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc",
+        "bytes": 37129
+      },
+      "status": "needs-repair",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter03-section026:b0017",
+          "sourceEvidence": "テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+          "description": "“入り目でもなければ”不是泛指“不是因为进张而打出的”。原文排除的是该牌周边属于进张完成面子一侧的情况；候选译法模糊了判断待牌位置的重要例外。",
+          "suggestedRepair": "改为明确表达：听牌时切出的牌若并非留作安全牌，且其周边也不是进张完成面子的部分，那么其周边就是待牌所在。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+          "sourceEvidence": "附图左家牌河外侧左列从图像上至下第2张为7p；末段原文说对家很可能持有至少一张7p，因此7p最多只剩两张。",
+          "description": "候选将这张可见7p写作“点数不清的筒子牌”，遗漏了直接影响剩余张数论证的明牌。",
+          "suggestedRepair": "将左家外列第2张补为7p，同时更新对应红线说明及unknowns；保留其顺时针旋转90°和摸切标记。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+          "sourceEvidence": "候选将对家靠中央一排最左端字牌，以及中央上方、左侧的完整点数列为无法辨认。",
+          "description": "这些属于牌局牌码和数值数据，本次无法可靠确认其准确转录，不能作为非教学边缘残痕直接放行。",
+          "suggestedRepair": "复核附图中该字牌及两家点数，补录能够确定的内容；确实无法辨认的继续如实标未知并保留原图，但在相关歧义解决前保持阻断。"
+        }
+      ],
+      "callIds": [
+        "93f4a5a8-e5fb-4b57-b5b7-c05946e951d7"
+      ]
+    }
+  ],
+  "reusableParentScope": {
+    "faithfulTextChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0001",
+        "verdict": "faithful",
+        "evidence": "标题“逆切3”保留原意与编号。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0002",
+        "verdict": "faithful",
+        "evidence": "补充说明及第6、7节正文链接均保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0003",
+        "verdict": "faithful",
+        "evidence": "容易成面子到不易成面子的手切顺序、信息强度及适用范围均完整，四处链接保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0004",
+        "verdict": "faithful",
+        "evidence": "五万对应5m。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0005",
+        "verdict": "faithful",
+        "evidence": "顺序箭头保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0006",
+        "verdict": "faithful",
+        "evidence": "九万对应9m。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0007",
+        "verdict": "faithful",
+        "evidence": "连读保留先切5m再切9m及“即使是筋张”的条件。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0008",
+        "verdict": "faithful",
+        "evidence": "八万对应8m。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0009",
+        "verdict": "faithful",
+        "evidence": "8m相当危险的判断力度保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0010",
+        "verdict": "faithful",
+        "evidence": "六筒对应6p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0011",
+        "verdict": "faithful",
+        "evidence": "6p被杠或四张已见的两种条件均保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0012",
+        "verdict": "faithful",
+        "evidence": "七筒对应7p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0013",
+        "verdict": "faithful",
+        "evidence": "切7p进入听牌及虽有壁仍需警惕的关系保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0014",
+        "verdict": "faithful",
+        "evidence": "八筒对应8p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0015",
+        "verdict": "faithful",
+        "evidence": "并列关系保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0016",
+        "verdict": "faithful",
+        "evidence": "九筒对应9p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0018",
+        "verdict": "faithful",
+        "evidence": "中张牌之后才切1、9牌的条件保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0019",
+        "verdict": "faithful",
+        "evidence": "复合搭子112s逐张一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0020",
+        "verdict": "faithful",
+        "evidence": "从复合搭子拆出、作为相对安全牌保留及第三种解释均有对应。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0021",
+        "verdict": "faithful",
+        "evidence": "789s顺序一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0022",
+        "verdict": "faithful",
+        "evidence": "牌形之间的并列分隔保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0023",
+        "verdict": "faithful",
+        "evidence": "79s顺序一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0024",
+        "verdict": "faithful",
+        "evidence": "牌形之间的并列分隔保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0025",
+        "verdict": "faithful",
+        "evidence": "89s顺序一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0026",
+        "verdict": "faithful",
+        "evidence": "连读准确指向前述三种牌形；原文重复的“から”未造成语义遗漏。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0027",
+        "verdict": "faithful",
+        "evidence": "摸入牌六索对应6s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0028",
+        "verdict": "faithful",
+        "evidence": "摸入6s的动作保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0029",
+        "verdict": "faithful",
+        "evidence": "随后切出的九索对应9s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0030",
+        "verdict": "faithful",
+        "evidence": "未必提高附近成为待牌的概率、但很可能在附近构成面子，以及复合搭子同理的括注均保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0031",
+        "verdict": "faithful",
+        "evidence": "红线表示摸切牌的教学图例准确保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0033",
+        "verdict": "faithful",
+        "evidence": "与后续块连读，对家保留9p的主语和动作完整。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0034",
+        "verdict": "faithful",
+        "evidence": "对家保留的九筒对应9p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0035",
+        "verdict": "faithful",
+        "evidence": "很可能属于前述情况的判断保留；条件句引导词按中文语序前移。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0036",
+        "verdict": "faithful",
+        "evidence": "原有79p牌形准确保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0037",
+        "verdict": "faithful",
+        "evidence": "从79p牌形出发的关系保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0038",
+        "verdict": "faithful",
+        "evidence": "摸入的六筒对应6p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0039",
+        "verdict": "faithful",
+        "evidence": "摸6p后打牌的动作顺序保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0040",
+        "verdict": "faithful",
+        "evidence": "打出的九筒对应9p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0041",
+        "verdict": "faithful",
+        "evidence": "条件与结论衔接完整。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0042",
+        "verdict": "faithful",
+        "evidence": "主要待牌之一五筒对应5p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0043",
+        "verdict": "faithful",
+        "evidence": "5p与8p之间的连接符保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0044",
+        "verdict": "faithful",
+        "evidence": "主要待牌之二八筒对应8p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0045",
+        "verdict": "faithful",
+        "evidence": "5p—8p为本线及实际等待的括注引导均保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0046",
+        "verdict": "faithful",
+        "evidence": "实际待牌中的五筒对应5p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0047",
+        "verdict": "faithful",
+        "evidence": "实际待牌之间的连接符保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0048",
+        "verdict": "faithful",
+        "evidence": "实际待牌中的八筒对应8p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0049",
+        "verdict": "faithful",
+        "evidence": "实际等待的括注及即使不是这种情况的让步条件均保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0050",
+        "verdict": "faithful",
+        "evidence": "推定对家持有的七筒对应7p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0051",
+        "verdict": "faithful",
+        "evidence": "对家很可能至少持有一张7p的数量和判断保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0052",
+        "verdict": "faithful",
+        "evidence": "计算剩余张数的七筒对应7p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0053",
+        "verdict": "faithful",
+        "evidence": "最多剩两张、进攻困难及应弃和的结论完整。"
+      }
+    ],
+    "faithfulFigureChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0004:figure",
+        "verdict": "faithful",
+        "evidence": "5m与原文五万一致，非赤、正立记录一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0006:figure",
+        "verdict": "faithful",
+        "evidence": "9m与原文九万一致，顺接先5m后9m。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0008:figure",
+        "verdict": "faithful",
+        "evidence": "8m准确承接虽为筋仍危险的论述。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0010:figure",
+        "verdict": "faithful",
+        "evidence": "6p准确对应被杠或四张已见的牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0012:figure",
+        "verdict": "faithful",
+        "evidence": "7p准确对应听牌时的切出牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0014:figure",
+        "verdict": "faithful",
+        "evidence": "8p准确对应虽有壁仍可疑的牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0016:figure",
+        "verdict": "faithful",
+        "evidence": "9p准确对应另一张可疑牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0019:figure",
+        "verdict": "faithful",
+        "evidence": "1s、1s、2s共三张，数量、顺序及非赤正立记录一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0021:figure",
+        "verdict": "faithful",
+        "evidence": "7s、8s、9s三张顺序一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0023:figure",
+        "verdict": "faithful",
+        "evidence": "7s、9s两张顺序一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0025:figure",
+        "verdict": "faithful",
+        "evidence": "8s、9s两张顺序一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0027:figure",
+        "verdict": "faithful",
+        "evidence": "6s准确对应三种牌形共同的摸入牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0029:figure",
+        "verdict": "faithful",
+        "evidence": "9s准确对应摸6s后的切出牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0034:figure",
+        "verdict": "faithful",
+        "evidence": "9p准确对应对家拖后切出的牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0036:figure",
+        "verdict": "faithful",
+        "evidence": "7p、9p两张顺序及原牌形一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0038:figure",
+        "verdict": "faithful",
+        "evidence": "6p准确对应假设摸入牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0040:figure",
+        "verdict": "faithful",
+        "evidence": "9p准确对应假设切出牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0042:figure",
+        "verdict": "faithful",
+        "evidence": "5p准确对应本线等待的第一端。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0044:figure",
+        "verdict": "faithful",
+        "evidence": "8p准确对应本线等待的第二端。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0046:figure",
+        "verdict": "faithful",
+        "evidence": "5p准确对应实际等待的第一端。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0048:figure",
+        "verdict": "faithful",
+        "evidence": "8p准确对应实际等待的第二端。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0050:figure",
+        "verdict": "faithful",
+        "evidence": "7p准确对应推定至少持有一张的牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0052:figure",
+        "verdict": "faithful",
+        "evidence": "7p准确对应最多剩两张的牌。"
+      }
+    ],
+    "condition": "Only unchanged exact content/ordered context and original source/raw; never relabel original uncertain."
+  },
+  "sameShaIndependentUnknownAllowance": false,
+  "unknownImpactDecision": "not independently established; must assess contribution-specific dependencies, never assume non-core",
+  "requiredPreservation": "All author conditions, qualifiers, exceptions, sourceSegments/marks/href/tableContext, original image order, unknowns, body and other figures unchanged.",
+  "orderedContext": [
+    {
+      "position": 0,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0001",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0001",
+          "tag": "h2",
+          "domPath": "main/h2[3]",
+          "tableContext": null,
+          "type": "text",
+          "text": "逆切り３",
+          "segments": [
+            {
+              "text": "逆切り３",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0001"
+        ],
+        "sourceText": "逆切り３",
+        "text": "逆切3",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0001",
+        "sourceSegments": [
+          {
+            "text": "逆切り３",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 1,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0002",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0002",
+          "tag": "p",
+          "domPath": "main/p[5]",
+          "tableContext": null,
+          "type": "text",
+          "text": "読みの技術論６，７辺りの補足になります。",
+          "segments": [
+            {
+              "text": "読みの技術論６",
+              "marks": [],
+              "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html"
+            },
+            {
+              "text": "，",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "７",
+              "marks": [],
+              "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html"
+            },
+            {
+              "text": "辺りの補足になります。",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0002"
+        ],
+        "sourceText": "読みの技術論６，７辺りの補足になります。",
+        "text": "这是对[读牌技术论6](http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html)、[7](http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html)等内容的补充。",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0002",
+        "sourceSegments": [
+          {
+            "text": "読みの技術論６",
+            "marks": [],
+            "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html"
+          },
+          {
+            "text": "，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "７",
+            "marks": [],
+            "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html"
+          },
+          {
+            "text": "辺りの補足になります。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 2,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0003",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+          "tag": "p",
+          "domPath": "main/p[7]",
+          "tableContext": null,
+          "type": "text",
+          "text": "面子構成しやすい牌→面子構成しにくい牌の順で手出しで切られている場合は強い情報になりやすいということは６，７で挙げました。このことは６，７で取り上げた例以外にも活用できる場面が多くあります。",
+          "segments": [
+            {
+              "text": "面子構成しやすい牌→面子構成しにくい牌の順で手出しで切られている場合は強い情報になりやすいということは",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "６",
+              "marks": [],
+              "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html"
+            },
+            {
+              "text": "，",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "７",
+              "marks": [],
+              "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html"
+            },
+            {
+              "text": "で挙げました。このことは",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "６",
+              "marks": [],
+              "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html"
+            },
+            {
+              "text": "，",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "７",
+              "marks": [],
+              "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html"
+            },
+            {
+              "text": "で取り上げた例以外にも活用できる場面が多くあります。",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0003"
+        ],
+        "sourceText": "面子構成しやすい牌→面子構成しにくい牌の順で手出しで切られている場合は強い情報になりやすいということは６，７で挙げました。このことは６，７で取り上げた例以外にも活用できる場面が多くあります。",
+        "text": "在[6](http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html)、[7](http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html)中提到过，如果按容易构成面子的牌→不易构成面子的牌的顺序手切，往往能提供很有力的信息。除了[6](http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html)、[7](http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html)中举出的例子，还有很多场合可以运用这一点。",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+        "sourceSegments": [
+          {
+            "text": "面子構成しやすい牌→面子構成しにくい牌の順で手出しで切られている場合は強い情報になりやすいということは",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "６",
+            "marks": [],
+            "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html"
+          },
+          {
+            "text": "，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "７",
+            "marks": [],
+            "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html"
+          },
+          {
+            "text": "で挙げました。このことは",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "６",
+            "marks": [],
+            "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html"
+          },
+          {
+            "text": "，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "７",
+            "marks": [],
+            "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html"
+          },
+          {
+            "text": "で取り上げた例以外にも活用できる場面が多くあります。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 3,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0004",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+          "tag": "p",
+          "domPath": "main/p[7]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00001",
+              "assetId": "modern-yabejp-ja:aaaa5fd72ccc12bd7da6f6aa",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/m5.png"
+              ],
+              "alt": "五",
+              "title": "五萬",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "5m",
+                "filename": "m5.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "五萬",
+                "alt": "五",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0004"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0004:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0004:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0004"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00001"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:aaaa5fd72ccc12bd7da6f6aa",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/5a4a77aad3598a95a46e284e4425da8370c58a7c6ad7e142ceb70725897973b4.png",
+            "sha256": "5a4a77aad3598a95a46e284e4425da8370c58a7c6ad7e142ceb70725897973b4",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m5.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "5m",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00001",
+            "assetId": "modern-yabejp-ja:aaaa5fd72ccc12bd7da6f6aa",
+            "assetSha256": "5a4a77aad3598a95a46e284e4425da8370c58a7c6ad7e142ceb70725897973b4",
+            "code": "5m",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0001.png",
+          "sha256": "b4421145dd8991af733b5c71110b9445da8c768fcc995b35dc246d389d9ed5de",
+          "width": 18,
+          "height": 24,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:aaaa5fd72ccc12bd7da6f6aa",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/5a4a77aad3598a95a46e284e4425da8370c58a7c6ad7e142ceb70725897973b4.png",
+                "sha256": "5a4a77aad3598a95a46e284e4425da8370c58a7c6ad7e142ceb70725897973b4",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m5.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 4,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0005",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+          "tag": "p",
+          "domPath": "main/p[7]",
+          "tableContext": null,
+          "type": "text",
+          "text": "→",
+          "segments": [
+            {
+              "text": "→",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0005"
+        ],
+        "sourceText": "→",
+        "text": "→",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+        "sourceSegments": [
+          {
+            "text": "→",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 5,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0006",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+          "tag": "p",
+          "domPath": "main/p[7]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00002",
+              "assetId": "modern-yabejp-ja:3e03d661064b04283aeea2c5",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/m9.png"
+              ],
+              "alt": "九",
+              "title": "九萬",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "9m",
+                "filename": "m9.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "九萬",
+                "alt": "九",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0006"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0006:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0006:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0006"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00002"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:3e03d661064b04283aeea2c5",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/d5fc796860fcbf45537080d63f7396ff45cf2a762adc59c751b37ec7ce1978ef.png",
+            "sha256": "d5fc796860fcbf45537080d63f7396ff45cf2a762adc59c751b37ec7ce1978ef",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m9.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "9m",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00002",
+            "assetId": "modern-yabejp-ja:3e03d661064b04283aeea2c5",
+            "assetSha256": "d5fc796860fcbf45537080d63f7396ff45cf2a762adc59c751b37ec7ce1978ef",
+            "code": "9m",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0002.png",
+          "sha256": "59033702a047b1628005b1203b5a3ded5251177a163486512f284331375ef402",
+          "width": 18,
+          "height": 24,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:3e03d661064b04283aeea2c5",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/d5fc796860fcbf45537080d63f7396ff45cf2a762adc59c751b37ec7ce1978ef.png",
+                "sha256": "d5fc796860fcbf45537080d63f7396ff45cf2a762adc59c751b37ec7ce1978ef",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m9.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 6,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0007",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+          "tag": "p",
+          "domPath": "main/p[7]",
+          "tableContext": null,
+          "type": "text",
+          "text": "の順で切られていればスジでも",
+          "segments": [
+            {
+              "text": "の順で切られていればスジでも",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0007"
+        ],
+        "sourceText": "の順で切られていればスジでも",
+        "text": "按这个顺序打出的话，即使是筋张，",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+        "sourceSegments": [
+          {
+            "text": "の順で切られていればスジでも",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 7,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0008",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+          "tag": "p",
+          "domPath": "main/p[7]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00003",
+              "assetId": "modern-yabejp-ja:f5980e09ae04d921ed066df7",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/m8.png"
+              ],
+              "alt": "八",
+              "title": "八萬",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "8m",
+                "filename": "m8.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "八萬",
+                "alt": "八",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0008"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0008:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0008:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0008"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00003"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:f5980e09ae04d921ed066df7",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/6720a061ff6942a14624235a8b3ae4084307fbd723821cb6aa19f69ce8a3a325.png",
+            "sha256": "6720a061ff6942a14624235a8b3ae4084307fbd723821cb6aa19f69ce8a3a325",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m8.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "8m",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00003",
+            "assetId": "modern-yabejp-ja:f5980e09ae04d921ed066df7",
+            "assetSha256": "6720a061ff6942a14624235a8b3ae4084307fbd723821cb6aa19f69ce8a3a325",
+            "code": "8m",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0003.png",
+          "sha256": "97424b00e2013a637ce299a5a4a639e9e25a039173ae9b656815758469278bc1",
+          "width": 18,
+          "height": 24,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:f5980e09ae04d921ed066df7",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/6720a061ff6942a14624235a8b3ae4084307fbd723821cb6aa19f69ce8a3a325.png",
+                "sha256": "6720a061ff6942a14624235a8b3ae4084307fbd723821cb6aa19f69ce8a3a325",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m8.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 8,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0009",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+          "tag": "p",
+          "domPath": "main/p[7]",
+          "tableContext": null,
+          "type": "text",
+          "text": "は結構危険になりますし、",
+          "segments": [
+            {
+              "text": "は結構危険になりますし、",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0009"
+        ],
+        "sourceText": "は結構危険になりますし、",
+        "text": "也相当危险；而且，",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+        "sourceSegments": [
+          {
+            "text": "は結構危険になりますし、",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 9,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0010",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+          "tag": "p",
+          "domPath": "main/p[7]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00004",
+              "assetId": "modern-yabejp-ja:3d679855094c9151924672ea",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/p6.png"
+              ],
+              "alt": "(6)",
+              "title": "六筒",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "6p",
+                "filename": "p6.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "六筒",
+                "alt": "(6)",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0010"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0010:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0010:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0010"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00004"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:3d679855094c9151924672ea",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/c93fbabcbb4340f251e1d305b4c9f2176cf4140c809327f8bec09ef727216551.png",
+            "sha256": "c93fbabcbb4340f251e1d305b4c9f2176cf4140c809327f8bec09ef727216551",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p6.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "6p",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00004",
+            "assetId": "modern-yabejp-ja:3d679855094c9151924672ea",
+            "assetSha256": "c93fbabcbb4340f251e1d305b4c9f2176cf4140c809327f8bec09ef727216551",
+            "code": "6p",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0004.png",
+          "sha256": "38c5185a0b58f99046f7edadab3e536c0bb08133600be495e622639aa14cca0a",
+          "width": 18,
+          "height": 24,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:3d679855094c9151924672ea",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/c93fbabcbb4340f251e1d305b4c9f2176cf4140c809327f8bec09ef727216551.png",
+                "sha256": "c93fbabcbb4340f251e1d305b4c9f2176cf4140c809327f8bec09ef727216551",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p6.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 10,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0011",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+          "tag": "p",
+          "domPath": "main/p[7]",
+          "tableContext": null,
+          "type": "text",
+          "text": "がカンされていたり場に４枚見えているのに",
+          "segments": [
+            {
+              "text": "がカンされていたり場に４枚見えているのに",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0011"
+        ],
+        "sourceText": "がカンされていたり場に４枚見えているのに",
+        "text": "被杠，或场上已经能看到4张时，却又打出",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+        "sourceSegments": [
+          {
+            "text": "がカンされていたり場に４枚見えているのに",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 11,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0012",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+          "tag": "p",
+          "domPath": "main/p[7]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00005",
+              "assetId": "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/p7.png"
+              ],
+              "alt": "(7)",
+              "title": "七筒",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "7p",
+                "filename": "p7.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "七筒",
+                "alt": "(7)",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0012"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0012:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0012:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0012"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00005"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef.png",
+            "sha256": "adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p7.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "7p",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00005",
+            "assetId": "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+            "assetSha256": "adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef",
+            "code": "7p",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0005.png",
+          "sha256": "781b5f82fe25327868a860c265b45a7a13f9184a7decf09ac8f050a4ac86e1a3",
+          "width": 18,
+          "height": 24,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef.png",
+                "sha256": "adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p7.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 12,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0013",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+          "tag": "p",
+          "domPath": "main/p[7]",
+          "tableContext": null,
+          "type": "text",
+          "text": "が切られてテンパイとなれば壁になっているとはいえ",
+          "segments": [
+            {
+              "text": "が切られてテンパイとなれば壁になっているとはいえ",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0013"
+        ],
+        "sourceText": "が切られてテンパイとなれば壁になっているとはいえ",
+        "text": "而进入听牌的话，虽说已经形成了壁，",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+        "sourceSegments": [
+          {
+            "text": "が切られてテンパイとなれば壁になっているとはいえ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 13,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0014",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+          "tag": "p",
+          "domPath": "main/p[7]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00006",
+              "assetId": "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/p8.png"
+              ],
+              "alt": "(8)",
+              "title": "八筒",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "8p",
+                "filename": "p8.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "八筒",
+                "alt": "(8)",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0014"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0014:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0014:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0014"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00006"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295.png",
+            "sha256": "5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p8.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "8p",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00006",
+            "assetId": "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+            "assetSha256": "5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295",
+            "code": "8p",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0006.png",
+          "sha256": "a1143210abefd418cef18d7370fc67c6f94e171c2c0ceb2caafe7a1fc8ca2fbf",
+          "width": 18,
+          "height": 24,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295.png",
+                "sha256": "5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p8.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 14,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0015",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+          "tag": "p",
+          "domPath": "main/p[7]",
+          "tableContext": null,
+          "type": "text",
+          "text": "，",
+          "segments": [
+            {
+              "text": "，",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0015"
+        ],
+        "sourceText": "，",
+        "text": "、",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+        "sourceSegments": [
+          {
+            "text": "，",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 15,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0016",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+          "tag": "p",
+          "domPath": "main/p[7]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00007",
+              "assetId": "modern-yabejp-ja:59887c6a14f55b27663151a1",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png"
+              ],
+              "alt": "(9)",
+              "title": "九筒",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "9p",
+                "filename": "p9.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "九筒",
+                "alt": "(9)",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0016"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0016:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0016:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0016"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00007"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:59887c6a14f55b27663151a1",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141.png",
+            "sha256": "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "9p",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00007",
+            "assetId": "modern-yabejp-ja:59887c6a14f55b27663151a1",
+            "assetSha256": "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141",
+            "code": "9p",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0007.png",
+          "sha256": "6f3a4bc5a5813a108733605ceae92bd0fbda33d7be17de49347acbb2f06313af",
+          "width": 18,
+          "height": 24,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:59887c6a14f55b27663151a1",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141.png",
+                "sha256": "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 16,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0017",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+          "tag": "p",
+          "domPath": "main/p[7]",
+          "tableContext": null,
+          "type": "text",
+          "text": "も怪しいところです。テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+          "segments": [
+            {
+              "text": "も怪しいところです。テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0017"
+        ],
+        "sourceText": "も怪しいところです。テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+        "text": "也很可疑。因为，如果听牌时打出的牌并非作为安全牌保留的，也不是因为进张而打出的，那么其附近就是所听的牌。",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0003",
+        "sourceSegments": [
+          {
+            "text": "も怪しいところです。テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 17,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0018",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+          "tag": "p",
+          "domPath": "main/p[9]",
+          "tableContext": null,
+          "type": "text",
+          "text": "中張牌より後に１･９牌が切られるケースは、",
+          "segments": [
+            {
+              "text": "中張牌より後に１･９牌が切られるケースは、",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0018"
+        ],
+        "sourceText": "中張牌より後に１･９牌が切られるケースは、",
+        "text": "在中张牌之后才打出1、9牌的情况，",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+        "sourceSegments": [
+          {
+            "text": "中張牌より後に１･９牌が切られるケースは、",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 18,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0019",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+          "tag": "p",
+          "domPath": "main/p[9]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00008",
+              "assetId": "modern-yabejp-ja:328555e7a72fc7783dd5d75d",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/s1.png"
+              ],
+              "alt": "１",
+              "title": "一索",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "1s",
+                "filename": "s1.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "一索",
+                "alt": "１",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            },
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00009",
+              "assetId": "modern-yabejp-ja:328555e7a72fc7783dd5d75d",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/s1.png"
+              ],
+              "alt": "１",
+              "title": "一索",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "1s",
+                "filename": "s1.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "一索",
+                "alt": "１",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            },
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00010",
+              "assetId": "modern-yabejp-ja:ff0605857cc5c60bc5c303e3",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/s2.png"
+              ],
+              "alt": "２",
+              "title": "二索",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "2s",
+                "filename": "s2.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "二索",
+                "alt": "２",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0019"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0019:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0019:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0019"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00008",
+          "modern-yabejp-ja:chapter03-section026:i00009",
+          "modern-yabejp-ja:chapter03-section026:i00010"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:328555e7a72fc7783dd5d75d",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/e5f873212057ca626b02116936b06a74e16f224340b1a98bc12b35c19d63f95b.png",
+            "sha256": "e5f873212057ca626b02116936b06a74e16f224340b1a98bc12b35c19d63f95b",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s1.png"
+          },
+          {
+            "assetId": "modern-yabejp-ja:328555e7a72fc7783dd5d75d",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/e5f873212057ca626b02116936b06a74e16f224340b1a98bc12b35c19d63f95b.png",
+            "sha256": "e5f873212057ca626b02116936b06a74e16f224340b1a98bc12b35c19d63f95b",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s1.png"
+          },
+          {
+            "assetId": "modern-yabejp-ja:ff0605857cc5c60bc5c303e3",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/04fbb9d86fb607b0bf95a29422c32da0a5bf427ed6ed05a674470fa15cfa281b.png",
+            "sha256": "04fbb9d86fb607b0bf95a29422c32da0a5bf427ed6ed05a674470fa15cfa281b",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s2.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "1s 1s 2s",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00008",
+            "assetId": "modern-yabejp-ja:328555e7a72fc7783dd5d75d",
+            "assetSha256": "e5f873212057ca626b02116936b06a74e16f224340b1a98bc12b35c19d63f95b",
+            "code": "1s",
+            "red": false,
+            "orientation": "upright"
+          },
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00009",
+            "assetId": "modern-yabejp-ja:328555e7a72fc7783dd5d75d",
+            "assetSha256": "e5f873212057ca626b02116936b06a74e16f224340b1a98bc12b35c19d63f95b",
+            "code": "1s",
+            "red": false,
+            "orientation": "upright"
+          },
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00010",
+            "assetId": "modern-yabejp-ja:ff0605857cc5c60bc5c303e3",
+            "assetSha256": "04fbb9d86fb607b0bf95a29422c32da0a5bf427ed6ed05a674470fa15cfa281b",
+            "code": "2s",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0008.png",
+          "sha256": "445a498fe085f3d7ac4d09b9e0c7741b6cb41d413030b953513801cc3e74e511",
+          "width": 54,
+          "height": 24,
+          "derivation": {
+            "kind": "lossless-source-images-in-original-horizontal-order",
+            "alignment": "bottom",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:328555e7a72fc7783dd5d75d",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/e5f873212057ca626b02116936b06a74e16f224340b1a98bc12b35c19d63f95b.png",
+                "sha256": "e5f873212057ca626b02116936b06a74e16f224340b1a98bc12b35c19d63f95b",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s1.png"
+              },
+              {
+                "assetId": "modern-yabejp-ja:328555e7a72fc7783dd5d75d",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/e5f873212057ca626b02116936b06a74e16f224340b1a98bc12b35c19d63f95b.png",
+                "sha256": "e5f873212057ca626b02116936b06a74e16f224340b1a98bc12b35c19d63f95b",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s1.png"
+              },
+              {
+                "assetId": "modern-yabejp-ja:ff0605857cc5c60bc5c303e3",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/04fbb9d86fb607b0bf95a29422c32da0a5bf427ed6ed05a674470fa15cfa281b.png",
+                "sha256": "04fbb9d86fb607b0bf95a29422c32da0a5bf427ed6ed05a674470fa15cfa281b",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s2.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 19,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0020",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+          "tag": "p",
+          "domPath": "main/p[9]",
+          "tableContext": null,
+          "type": "text",
+          "text": "等の複合ターツからの切り出し、比較的安牌であった為に持たれていた以外にもう一つ考えられるのは、",
+          "segments": [
+            {
+              "text": "等の複合ターツからの切り出し、比較的安牌であった為に持たれていた以外にもう一つ考えられるのは、",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0020"
+        ],
+        "sourceText": "等の複合ターツからの切り出し、比較的安牌であった為に持たれていた以外にもう一つ考えられるのは、",
+        "text": "等复合搭子中拆出、因为相对安全而保留之外，还可以考虑另一种情况，即从",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+        "sourceSegments": [
+          {
+            "text": "等の複合ターツからの切り出し、比較的安牌であった為に持たれていた以外にもう一つ考えられるのは、",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 20,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0021",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+          "tag": "p",
+          "domPath": "main/p[9]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00011",
+              "assetId": "modern-yabejp-ja:9da9b8a56900c3b0b5e431c4",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/s7.png"
+              ],
+              "alt": "７",
+              "title": "七索",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "7s",
+                "filename": "s7.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "七索",
+                "alt": "７",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            },
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00012",
+              "assetId": "modern-yabejp-ja:5323955b942f8b4fbeab214c",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/s8.png"
+              ],
+              "alt": "８",
+              "title": "八索",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "8s",
+                "filename": "s8.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "八索",
+                "alt": "８",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            },
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00013",
+              "assetId": "modern-yabejp-ja:f55c3ee9049517f305f5f288",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/s9.png"
+              ],
+              "alt": "９",
+              "title": "九索",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "9s",
+                "filename": "s9.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "九索",
+                "alt": "９",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0021"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0021:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0021:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0021"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00011",
+          "modern-yabejp-ja:chapter03-section026:i00012",
+          "modern-yabejp-ja:chapter03-section026:i00013"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:9da9b8a56900c3b0b5e431c4",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/9602f1a7e5a4e6f2c98f1bedae7362e68c0bc82df76da636e15bad6c94a0d13d.png",
+            "sha256": "9602f1a7e5a4e6f2c98f1bedae7362e68c0bc82df76da636e15bad6c94a0d13d",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s7.png"
+          },
+          {
+            "assetId": "modern-yabejp-ja:5323955b942f8b4fbeab214c",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/0be7ec4042b1aa0ef244a2848a2d13fab62b96c30fa730c650a64fe761440b73.png",
+            "sha256": "0be7ec4042b1aa0ef244a2848a2d13fab62b96c30fa730c650a64fe761440b73",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s8.png"
+          },
+          {
+            "assetId": "modern-yabejp-ja:f55c3ee9049517f305f5f288",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b.png",
+            "sha256": "8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s9.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "7s 8s 9s",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00011",
+            "assetId": "modern-yabejp-ja:9da9b8a56900c3b0b5e431c4",
+            "assetSha256": "9602f1a7e5a4e6f2c98f1bedae7362e68c0bc82df76da636e15bad6c94a0d13d",
+            "code": "7s",
+            "red": false,
+            "orientation": "upright"
+          },
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00012",
+            "assetId": "modern-yabejp-ja:5323955b942f8b4fbeab214c",
+            "assetSha256": "0be7ec4042b1aa0ef244a2848a2d13fab62b96c30fa730c650a64fe761440b73",
+            "code": "8s",
+            "red": false,
+            "orientation": "upright"
+          },
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00013",
+            "assetId": "modern-yabejp-ja:f55c3ee9049517f305f5f288",
+            "assetSha256": "8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b",
+            "code": "9s",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0009.png",
+          "sha256": "0e08634d5c8ea41f0adcf48cc3b69a45c7e51d2498e386262e149fbd54205a5c",
+          "width": 54,
+          "height": 24,
+          "derivation": {
+            "kind": "lossless-source-images-in-original-horizontal-order",
+            "alignment": "bottom",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:9da9b8a56900c3b0b5e431c4",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/9602f1a7e5a4e6f2c98f1bedae7362e68c0bc82df76da636e15bad6c94a0d13d.png",
+                "sha256": "9602f1a7e5a4e6f2c98f1bedae7362e68c0bc82df76da636e15bad6c94a0d13d",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s7.png"
+              },
+              {
+                "assetId": "modern-yabejp-ja:5323955b942f8b4fbeab214c",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/0be7ec4042b1aa0ef244a2848a2d13fab62b96c30fa730c650a64fe761440b73.png",
+                "sha256": "0be7ec4042b1aa0ef244a2848a2d13fab62b96c30fa730c650a64fe761440b73",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s8.png"
+              },
+              {
+                "assetId": "modern-yabejp-ja:f55c3ee9049517f305f5f288",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b.png",
+                "sha256": "8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s9.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 21,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0022",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+          "tag": "p",
+          "domPath": "main/p[9]",
+          "tableContext": null,
+          "type": "text",
+          "text": "･",
+          "segments": [
+            {
+              "text": "･",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0022"
+        ],
+        "sourceText": "･",
+        "text": "、",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+        "sourceSegments": [
+          {
+            "text": "･",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 22,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0023",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+          "tag": "p",
+          "domPath": "main/p[9]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00014",
+              "assetId": "modern-yabejp-ja:9da9b8a56900c3b0b5e431c4",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/s7.png"
+              ],
+              "alt": "７",
+              "title": "七索",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "7s",
+                "filename": "s7.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "七索",
+                "alt": "７",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            },
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00015",
+              "assetId": "modern-yabejp-ja:f55c3ee9049517f305f5f288",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/s9.png"
+              ],
+              "alt": "９",
+              "title": "九索",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "9s",
+                "filename": "s9.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "九索",
+                "alt": "９",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0023"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0023:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0023:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0023"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00014",
+          "modern-yabejp-ja:chapter03-section026:i00015"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:9da9b8a56900c3b0b5e431c4",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/9602f1a7e5a4e6f2c98f1bedae7362e68c0bc82df76da636e15bad6c94a0d13d.png",
+            "sha256": "9602f1a7e5a4e6f2c98f1bedae7362e68c0bc82df76da636e15bad6c94a0d13d",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s7.png"
+          },
+          {
+            "assetId": "modern-yabejp-ja:f55c3ee9049517f305f5f288",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b.png",
+            "sha256": "8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s9.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "7s 9s",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00014",
+            "assetId": "modern-yabejp-ja:9da9b8a56900c3b0b5e431c4",
+            "assetSha256": "9602f1a7e5a4e6f2c98f1bedae7362e68c0bc82df76da636e15bad6c94a0d13d",
+            "code": "7s",
+            "red": false,
+            "orientation": "upright"
+          },
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00015",
+            "assetId": "modern-yabejp-ja:f55c3ee9049517f305f5f288",
+            "assetSha256": "8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b",
+            "code": "9s",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0010.png",
+          "sha256": "29b044391053e3913d74c6a900faa3e80c3d71d9beb3a4b34e33503fe3a44723",
+          "width": 36,
+          "height": 24,
+          "derivation": {
+            "kind": "lossless-source-images-in-original-horizontal-order",
+            "alignment": "bottom",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:9da9b8a56900c3b0b5e431c4",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/9602f1a7e5a4e6f2c98f1bedae7362e68c0bc82df76da636e15bad6c94a0d13d.png",
+                "sha256": "9602f1a7e5a4e6f2c98f1bedae7362e68c0bc82df76da636e15bad6c94a0d13d",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s7.png"
+              },
+              {
+                "assetId": "modern-yabejp-ja:f55c3ee9049517f305f5f288",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b.png",
+                "sha256": "8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s9.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 23,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0024",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+          "tag": "p",
+          "domPath": "main/p[9]",
+          "tableContext": null,
+          "type": "text",
+          "text": "･",
+          "segments": [
+            {
+              "text": "･",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0024"
+        ],
+        "sourceText": "･",
+        "text": "、",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+        "sourceSegments": [
+          {
+            "text": "･",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 24,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0025",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+          "tag": "p",
+          "domPath": "main/p[9]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00016",
+              "assetId": "modern-yabejp-ja:5323955b942f8b4fbeab214c",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/s8.png"
+              ],
+              "alt": "８",
+              "title": "八索",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "8s",
+                "filename": "s8.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "八索",
+                "alt": "８",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            },
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00017",
+              "assetId": "modern-yabejp-ja:f55c3ee9049517f305f5f288",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/s9.png"
+              ],
+              "alt": "９",
+              "title": "九索",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "9s",
+                "filename": "s9.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "九索",
+                "alt": "９",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0025"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0025:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0025:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0025"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00016",
+          "modern-yabejp-ja:chapter03-section026:i00017"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:5323955b942f8b4fbeab214c",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/0be7ec4042b1aa0ef244a2848a2d13fab62b96c30fa730c650a64fe761440b73.png",
+            "sha256": "0be7ec4042b1aa0ef244a2848a2d13fab62b96c30fa730c650a64fe761440b73",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s8.png"
+          },
+          {
+            "assetId": "modern-yabejp-ja:f55c3ee9049517f305f5f288",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b.png",
+            "sha256": "8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s9.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "8s 9s",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00016",
+            "assetId": "modern-yabejp-ja:5323955b942f8b4fbeab214c",
+            "assetSha256": "0be7ec4042b1aa0ef244a2848a2d13fab62b96c30fa730c650a64fe761440b73",
+            "code": "8s",
+            "red": false,
+            "orientation": "upright"
+          },
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00017",
+            "assetId": "modern-yabejp-ja:f55c3ee9049517f305f5f288",
+            "assetSha256": "8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b",
+            "code": "9s",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0011.png",
+          "sha256": "464b60dbba9fde5f39ee6c9d2ef4713a59664f8fd44cf8cf4118e2daed791041",
+          "width": 36,
+          "height": 24,
+          "derivation": {
+            "kind": "lossless-source-images-in-original-horizontal-order",
+            "alignment": "bottom",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:5323955b942f8b4fbeab214c",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/0be7ec4042b1aa0ef244a2848a2d13fab62b96c30fa730c650a64fe761440b73.png",
+                "sha256": "0be7ec4042b1aa0ef244a2848a2d13fab62b96c30fa730c650a64fe761440b73",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s8.png"
+              },
+              {
+                "assetId": "modern-yabejp-ja:f55c3ee9049517f305f5f288",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b.png",
+                "sha256": "8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s9.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 25,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0026",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+          "tag": "p",
+          "domPath": "main/p[9]",
+          "tableContext": null,
+          "type": "text",
+          "text": "の形からから",
+          "segments": [
+            {
+              "text": "の形からから",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0026"
+        ],
+        "sourceText": "の形からから",
+        "text": "这样的牌形中，",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+        "sourceSegments": [
+          {
+            "text": "の形からから",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 26,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0027",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+          "tag": "p",
+          "domPath": "main/p[9]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00018",
+              "assetId": "modern-yabejp-ja:ddfc65a49b12ba9eaad31799",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/s6.png"
+              ],
+              "alt": "６",
+              "title": "六索",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "6s",
+                "filename": "s6.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "六索",
+                "alt": "６",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0027"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0027:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0027:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0027"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00018"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:ddfc65a49b12ba9eaad31799",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/b3dd465d6b409b704aac6aa188d3f40982e2b03ae772971dbfc973ca90c35fcd.png",
+            "sha256": "b3dd465d6b409b704aac6aa188d3f40982e2b03ae772971dbfc973ca90c35fcd",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s6.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "6s",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00018",
+            "assetId": "modern-yabejp-ja:ddfc65a49b12ba9eaad31799",
+            "assetSha256": "b3dd465d6b409b704aac6aa188d3f40982e2b03ae772971dbfc973ca90c35fcd",
+            "code": "6s",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0012.png",
+          "sha256": "e88709072125c0c5b9dd788a2b46d31d19ce478c71a3cccfb3eb5eba99dc68be",
+          "width": 18,
+          "height": 24,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:ddfc65a49b12ba9eaad31799",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/b3dd465d6b409b704aac6aa188d3f40982e2b03ae772971dbfc973ca90c35fcd.png",
+                "sha256": "b3dd465d6b409b704aac6aa188d3f40982e2b03ae772971dbfc973ca90c35fcd",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s6.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 27,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0028",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+          "tag": "p",
+          "domPath": "main/p[9]",
+          "tableContext": null,
+          "type": "text",
+          "text": "を引いて",
+          "segments": [
+            {
+              "text": "を引いて",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0028"
+        ],
+        "sourceText": "を引いて",
+        "text": "摸入后，",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+        "sourceSegments": [
+          {
+            "text": "を引いて",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 28,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0029",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+          "tag": "p",
+          "domPath": "main/p[9]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00019",
+              "assetId": "modern-yabejp-ja:f55c3ee9049517f305f5f288",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/s9.png"
+              ],
+              "alt": "９",
+              "title": "九索",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "9s",
+                "filename": "s9.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "九索",
+                "alt": "９",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0029"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0029:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0029:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0029"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00019"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:f55c3ee9049517f305f5f288",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b.png",
+            "sha256": "8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s9.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "9s",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00019",
+            "assetId": "modern-yabejp-ja:f55c3ee9049517f305f5f288",
+            "assetSha256": "8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b",
+            "code": "9s",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0013.png",
+          "sha256": "164f6643a34ca99f9e521ff85f4efaa1f1645261db88a7c37a4e7e5a06da1664",
+          "width": 18,
+          "height": 24,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:f55c3ee9049517f305f5f288",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b.png",
+                "sha256": "8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s9.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 29,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0030",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+          "tag": "p",
+          "domPath": "main/p[9]",
+          "tableContext": null,
+          "type": "text",
+          "text": "が切られるような場合です。この場合はその周辺が待ちになっている可能性が高くなるとまでは言えませんが、その周辺で面子が構成されている可能性はかなり高いと言えます（複合ターツからの切り出しでも同様のことが成り立つので）。",
+          "segments": [
+            {
+              "text": "が切られるような場合です。この場合はその周辺が待ちになっている可能性が高くなるとまでは言えませんが、その周辺で面子が構成されている可能性はかなり高いと言えます（複合ターツからの切り出しでも同様のことが成り立つので）。",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0030"
+        ],
+        "sourceText": "が切られるような場合です。この場合はその周辺が待ちになっている可能性が高くなるとまでは言えませんが、その周辺で面子が構成されている可能性はかなり高いと言えます（複合ターツからの切り出しでも同様のことが成り立つので）。",
+        "text": "被打出的情况。这种情况下，虽然还不能说其附近成为待牌的可能性会升高，但可以说，在其附近构成面子的可能性相当高（因为从复合搭子中拆出时，同样的道理也成立）。",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0004",
+        "sourceSegments": [
+          {
+            "text": "が切られるような場合です。この場合はその周辺が待ちになっている可能性が高くなるとまでは言えませんが、その周辺で面子が構成されている可能性はかなり高いと言えます（複合ターツからの切り出しでも同様のことが成り立つので）。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 30,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0031",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0005",
+          "tag": "p",
+          "domPath": "main/p[11]",
+          "tableContext": null,
+          "type": "text",
+          "text": "※赤線はツモ切り牌",
+          "segments": [
+            {
+              "text": "※赤線はツモ切り牌",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0031"
+        ],
+        "sourceText": "※赤線はツモ切り牌",
+        "text": "※红线表示摸切牌",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0005",
+        "sourceSegments": [
+          {
+            "text": "※赤線はツモ切り牌",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 31,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0032",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0005",
+          "tag": "p",
+          "domPath": "main/p[11]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00020",
+              "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026/001.jpg"
+              ],
+              "alt": "",
+              "title": "",
+              "width": "640",
+              "height": "505",
+              "tileHint": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0032"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0005",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0032"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00020"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+            "sha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026/001.jpg"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "牌局画面。以下牌河均先列靠近中央的一排，再列外侧各排，并按各家自己的出牌方向记录；红线单独说明，不表示赤牌。\n\n下方本家：手牌从图像左至右为1m 2m 3m 7m 8m 9m 4p 4p 8p 9p；右侧隔开放置的摸入牌为5p。右下方副露从图像左至右为3m（横置，牌面相对画面逆时针旋转90°）4m 5m。其他这些手牌与副露牌均朝上。\n本家牌河：第1排从左至右为1z 3z 4z 5s 1p 1z；第2排从左至右为6s 3p 9s 3p 7z 2s。红线位于第1排第3张4z、第6张1z，以及第2排第1张6s、第3张9s、第4张3p的下缘。\n\n上方对家：牌河普通牌面相对画面旋转180°。第1排从图像右至左为2m 4z 1z 8m 2p [字面不清的字牌]；第2排从右至左为3s 7s 6s 9p 5z（横置）1p；第3排仅有1m，位于图像右端。红线位于第1排第6张字牌、第2排第3张6s与第6张1p、第3排1m的图像上缘。对家牌河与中央显示区之间有一根白底红点的立直棒。\n\n左家：牌面相对画面顺时针旋转90°。靠中央的右列从图像上至下为2p 1s 9s 8m 6p 3s；外侧左列从上至下为1p [点数不清的筒子牌] 4s 9s 6s 2s。红线位于右列第6张3s，以及左列第1张1p、第2张筒子牌、第4张9s、第6张2s的图像左缘。\n\n右家：牌面相对画面逆时针旋转90°。靠中央的左列从图像下至上为2z 2z 4z 1m 4m 3m；中间列从下至上为1m 2z 2p 3z 7s 6z；最外侧列从下至上为9s 4s。红线位于靠中央列第3张4z、第6张3m，以及中间列第4张3z、第5张7s、第6张6z的图像右缘。右上角副露从图像上至下为7z 7z 7z；最上方7z相对于该家的另外两张牌横置，其字面朝上，下面两张的牌面相对画面逆时针旋转90°。\n\n牌墙：左侧竖墙顶面从上至下有11个位置，第3个位置亮出的牌为6p，牌面相对画面逆时针旋转90°，其他10个位置为蓝色牌背；下方横墙可见5个蓝色牌背顶面。\n\n中央显示：东4局；下方两个小图标后的数字依次为0、1。座风为下方北、上方南、左侧西、右侧东。下方分数为20000，右侧分数为20000；上方及左侧分数无法可靠完整辨认。右上方规则文字表示东南战、允许食断、含赤牌。各家座位旁还有小号文字，无法完整辨认。",
+        "unknowns": [
+          "对家牌河第1排从其出牌方向数第6张，即图像靠中央一排最左端的字牌，其具体字面无法可靠辨认。",
+          "左家牌河外侧左列自上而下第2张筒子牌的具体点数无法可靠辨认。",
+          "中央上方与左侧的完整分数无法可靠辨认。",
+          "中央数字0、1前的小图标无法辨认，无法仅凭图标确认各自所指的计数项目。",
+          "各家座位旁的小号姓名或其他附属文字无法完整辨认。"
+        ],
+        "caption": "根据对家保留后打出的9p，判断继续进攻是否合适。红线表示摸切牌。",
+        "sourceNotes": [
+          "两张附件是同一张截图的原图与2倍最近邻放大图，只记录一次牌局。",
+          "青色矩形遮住了其他三家的手牌；蓝色牌背不提供牌种信息。",
+          "红色边线是摸切标记，不能据此将牌认作赤牌；5s牌面上的红色中间竹节也不表示赤牌。",
+          "黄色鼠标指针、黑色背景和画面下缘细线属于截图或布局痕迹，不是教学箭头或牌面符号。",
+          "牌墙下层有重叠和遮挡，顶面位置数不代表完整可见牌墙的总张数。"
+        ],
+        "provenance": {
+          "method": "model-transcription",
+          "callId": "478ca8f6-cab6-4873-8cde-44bdf4f58d7f",
+          "outputSourceBlockId": "modern-yabejp-ja:chapter03-section026:b0032"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0014.png",
+          "sha256": "593c3a08d5b7a2693f3e8e140af41cff6b95de4b5e2866ecdc7eeb3bcc2370b3",
+          "width": 640,
+          "height": 505,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+                "sha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026/001.jpg"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 32,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0033",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "text",
+          "text": "対面が",
+          "segments": [
+            {
+              "text": "対面が",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0033"
+        ],
+        "sourceText": "対面が",
+        "text": "对家一直保留",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "sourceSegments": [
+          {
+            "text": "対面が",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 33,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0034",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00021",
+              "assetId": "modern-yabejp-ja:59887c6a14f55b27663151a1",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png"
+              ],
+              "alt": "(9)",
+              "title": "九筒",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "9p",
+                "filename": "p9.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "九筒",
+                "alt": "(9)",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0034"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0034:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0034:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0034"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00021"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:59887c6a14f55b27663151a1",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141.png",
+            "sha256": "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "9p",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00021",
+            "assetId": "modern-yabejp-ja:59887c6a14f55b27663151a1",
+            "assetSha256": "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141",
+            "code": "9p",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0015.png",
+          "sha256": "6f3a4bc5a5813a108733605ceae92bd0fbda33d7be17de49347acbb2f06313af",
+          "width": 18,
+          "height": 24,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:59887c6a14f55b27663151a1",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141.png",
+                "sha256": "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 34,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0035",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "text",
+          "text": "を引っ張っていたのは上で挙げたケースに該当する可能性が高い。",
+          "segments": [
+            {
+              "text": "を引っ張っていたのは上で挙げたケースに該当する可能性が高い。",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0035"
+        ],
+        "sourceText": "を引っ張っていたのは上で挙げたケースに該当する可能性が高い。",
+        "text": "，很可能属于上面举出的情况。若是从",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "sourceSegments": [
+          {
+            "text": "を引っ張っていたのは上で挙げたケースに該当する可能性が高い。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 35,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0036",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00022",
+              "assetId": "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/p7.png"
+              ],
+              "alt": "(7)",
+              "title": "七筒",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "7p",
+                "filename": "p7.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "七筒",
+                "alt": "(7)",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            },
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00023",
+              "assetId": "modern-yabejp-ja:59887c6a14f55b27663151a1",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png"
+              ],
+              "alt": "(9)",
+              "title": "九筒",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "9p",
+                "filename": "p9.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "九筒",
+                "alt": "(9)",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0036"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0036:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0036:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0036"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00022",
+          "modern-yabejp-ja:chapter03-section026:i00023"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef.png",
+            "sha256": "adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p7.png"
+          },
+          {
+            "assetId": "modern-yabejp-ja:59887c6a14f55b27663151a1",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141.png",
+            "sha256": "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "7p 9p",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00022",
+            "assetId": "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+            "assetSha256": "adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef",
+            "code": "7p",
+            "red": false,
+            "orientation": "upright"
+          },
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00023",
+            "assetId": "modern-yabejp-ja:59887c6a14f55b27663151a1",
+            "assetSha256": "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141",
+            "code": "9p",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0016.png",
+          "sha256": "1043053dcf6c4cc46dec3258db2ae3473af1ff1c64eb4de6cd5d860b258b18fd",
+          "width": 36,
+          "height": 24,
+          "derivation": {
+            "kind": "lossless-source-images-in-original-horizontal-order",
+            "alignment": "bottom",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef.png",
+                "sha256": "adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p7.png"
+              },
+              {
+                "assetId": "modern-yabejp-ja:59887c6a14f55b27663151a1",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141.png",
+                "sha256": "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 36,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0037",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "text",
+          "text": "から",
+          "segments": [
+            {
+              "text": "から",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0037"
+        ],
+        "sourceText": "から",
+        "text": "的牌形中，",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "sourceSegments": [
+          {
+            "text": "から",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 37,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0038",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00024",
+              "assetId": "modern-yabejp-ja:3d679855094c9151924672ea",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/p6.png"
+              ],
+              "alt": "(6)",
+              "title": "六筒",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "6p",
+                "filename": "p6.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "六筒",
+                "alt": "(6)",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0038"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0038:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0038:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0038"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00024"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:3d679855094c9151924672ea",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/c93fbabcbb4340f251e1d305b4c9f2176cf4140c809327f8bec09ef727216551.png",
+            "sha256": "c93fbabcbb4340f251e1d305b4c9f2176cf4140c809327f8bec09ef727216551",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p6.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "6p",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00024",
+            "assetId": "modern-yabejp-ja:3d679855094c9151924672ea",
+            "assetSha256": "c93fbabcbb4340f251e1d305b4c9f2176cf4140c809327f8bec09ef727216551",
+            "code": "6p",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0017.png",
+          "sha256": "38c5185a0b58f99046f7edadab3e536c0bb08133600be495e622639aa14cca0a",
+          "width": 18,
+          "height": 24,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:3d679855094c9151924672ea",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/c93fbabcbb4340f251e1d305b4c9f2176cf4140c809327f8bec09ef727216551.png",
+                "sha256": "c93fbabcbb4340f251e1d305b4c9f2176cf4140c809327f8bec09ef727216551",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p6.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 38,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0039",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "text",
+          "text": "引いての打",
+          "segments": [
+            {
+              "text": "引いての打",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0039"
+        ],
+        "sourceText": "引いての打",
+        "text": "摸入后打出",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "sourceSegments": [
+          {
+            "text": "引いての打",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 39,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0040",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00025",
+              "assetId": "modern-yabejp-ja:59887c6a14f55b27663151a1",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png"
+              ],
+              "alt": "(9)",
+              "title": "九筒",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "9p",
+                "filename": "p9.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "九筒",
+                "alt": "(9)",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0040"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0040:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0040:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0040"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00025"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:59887c6a14f55b27663151a1",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141.png",
+            "sha256": "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "9p",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00025",
+            "assetId": "modern-yabejp-ja:59887c6a14f55b27663151a1",
+            "assetSha256": "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141",
+            "code": "9p",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0018.png",
+          "sha256": "6f3a4bc5a5813a108733605ceae92bd0fbda33d7be17de49347acbb2f06313af",
+          "width": 18,
+          "height": 24,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:59887c6a14f55b27663151a1",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141.png",
+                "sha256": "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 40,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0041",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "text",
+          "text": "なら",
+          "segments": [
+            {
+              "text": "なら",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0041"
+        ],
+        "sourceText": "なら",
+        "text": "，那么",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "sourceSegments": [
+          {
+            "text": "なら",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 41,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0042",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00026",
+              "assetId": "modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/p5.png"
+              ],
+              "alt": "(5)",
+              "title": "五筒",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "5p",
+                "filename": "p5.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "五筒",
+                "alt": "(5)",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0042"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0042:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0042:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0042"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00026"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/3a742c41a6fd13988ae765423ed55ae263fd9c7883e6f1e0dc03670077b30c78.png",
+            "sha256": "3a742c41a6fd13988ae765423ed55ae263fd9c7883e6f1e0dc03670077b30c78",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p5.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "5p",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00026",
+            "assetId": "modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71",
+            "assetSha256": "3a742c41a6fd13988ae765423ed55ae263fd9c7883e6f1e0dc03670077b30c78",
+            "code": "5p",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0019.png",
+          "sha256": "9a73b46aa6d3935c70f57e921e044c2e53c33adccc8f0fb3e4327343b597344e",
+          "width": 18,
+          "height": 24,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/3a742c41a6fd13988ae765423ed55ae263fd9c7883e6f1e0dc03670077b30c78.png",
+                "sha256": "3a742c41a6fd13988ae765423ed55ae263fd9c7883e6f1e0dc03670077b30c78",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p5.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 42,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0043",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "text",
+          "text": "−",
+          "segments": [
+            {
+              "text": "−",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0043"
+        ],
+        "sourceText": "−",
+        "text": "−",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "sourceSegments": [
+          {
+            "text": "−",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 43,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0044",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00027",
+              "assetId": "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/p8.png"
+              ],
+              "alt": "(8)",
+              "title": "八筒",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "8p",
+                "filename": "p8.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "八筒",
+                "alt": "(8)",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0044"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0044:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0044:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0044"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00027"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295.png",
+            "sha256": "5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p8.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "8p",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00027",
+            "assetId": "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+            "assetSha256": "5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295",
+            "code": "8p",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0020.png",
+          "sha256": "a1143210abefd418cef18d7370fc67c6f94e171c2c0ceb2caafe7a1fc8ca2fbf",
+          "width": 18,
+          "height": 24,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295.png",
+                "sha256": "5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p8.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 44,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0045",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "text",
+          "text": "が本線（実際に相手の待ちは",
+          "segments": [
+            {
+              "text": "が本線（実際に相手の待ちは",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0045"
+        ],
+        "sourceText": "が本線（実際に相手の待ちは",
+        "text": "就是主要应考虑的听牌（实际上对手听的也是",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "sourceSegments": [
+          {
+            "text": "が本線（実際に相手の待ちは",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 45,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0046",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00028",
+              "assetId": "modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/p5.png"
+              ],
+              "alt": "(5)",
+              "title": "五筒",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "5p",
+                "filename": "p5.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "五筒",
+                "alt": "(5)",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0046"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0046:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0046:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0046"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00028"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/3a742c41a6fd13988ae765423ed55ae263fd9c7883e6f1e0dc03670077b30c78.png",
+            "sha256": "3a742c41a6fd13988ae765423ed55ae263fd9c7883e6f1e0dc03670077b30c78",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p5.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "5p",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00028",
+            "assetId": "modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71",
+            "assetSha256": "3a742c41a6fd13988ae765423ed55ae263fd9c7883e6f1e0dc03670077b30c78",
+            "code": "5p",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0021.png",
+          "sha256": "9a73b46aa6d3935c70f57e921e044c2e53c33adccc8f0fb3e4327343b597344e",
+          "width": 18,
+          "height": 24,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/3a742c41a6fd13988ae765423ed55ae263fd9c7883e6f1e0dc03670077b30c78.png",
+                "sha256": "3a742c41a6fd13988ae765423ed55ae263fd9c7883e6f1e0dc03670077b30c78",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p5.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 46,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0047",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "text",
+          "text": "−",
+          "segments": [
+            {
+              "text": "−",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0047"
+        ],
+        "sourceText": "−",
+        "text": "−",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "sourceSegments": [
+          {
+            "text": "−",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 47,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0048",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00029",
+              "assetId": "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/p8.png"
+              ],
+              "alt": "(8)",
+              "title": "八筒",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "8p",
+                "filename": "p8.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "八筒",
+                "alt": "(8)",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0048"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0048:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0048:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0048"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00029"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295.png",
+            "sha256": "5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p8.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "8p",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00029",
+            "assetId": "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+            "assetSha256": "5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295",
+            "code": "8p",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0022.png",
+          "sha256": "a1143210abefd418cef18d7370fc67c6f94e171c2c0ceb2caafe7a1fc8ca2fbf",
+          "width": 18,
+          "height": 24,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295.png",
+                "sha256": "5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p8.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 48,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0049",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "text",
+          "text": "であった）になるし、そうでない場合でも対面が",
+          "segments": [
+            {
+              "text": "であった）になるし、そうでない場合でも対面が",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0049"
+        ],
+        "sourceText": "であった）になるし、そうでない場合でも対面が",
+        "text": "）；即使并非如此，对家",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "sourceSegments": [
+          {
+            "text": "であった）になるし、そうでない場合でも対面が",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 49,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0050",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00030",
+              "assetId": "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/p7.png"
+              ],
+              "alt": "(7)",
+              "title": "七筒",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "7p",
+                "filename": "p7.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "七筒",
+                "alt": "(7)",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0050"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0050:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0050:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0050"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00030"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef.png",
+            "sha256": "adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p7.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "7p",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00030",
+            "assetId": "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+            "assetSha256": "adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef",
+            "code": "7p",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0023.png",
+          "sha256": "781b5f82fe25327868a860c265b45a7a13f9184a7decf09ac8f050a4ac86e1a3",
+          "width": 18,
+          "height": 24,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef.png",
+                "sha256": "adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p7.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 50,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0051",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "text",
+          "text": "を１枚以上持っていることが濃厚。そうなると",
+          "segments": [
+            {
+              "text": "を１枚以上持っていることが濃厚。そうなると",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0051"
+        ],
+        "sourceText": "を１枚以上持っていることが濃厚。そうなると",
+        "text": "至少持有1张的可能性也很大。这样一来，",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "sourceSegments": [
+          {
+            "text": "を１枚以上持っていることが濃厚。そうなると",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 51,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0052",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00031",
+              "assetId": "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+              "sourceUrls": [
+                "http://yabejp.web.fc2.com/mahjong/img/tile_s/p7.png"
+              ],
+              "alt": "(7)",
+              "title": "七筒",
+              "width": "18",
+              "height": "24",
+              "tileHint": {
+                "proposedCode": "7p",
+                "filename": "p7.png",
+                "sizeVariant": "s",
+                "suffix": "",
+                "redStatus": "unverified",
+                "orientation": "unverified",
+                "title": "七筒",
+                "alt": "(7)",
+                "status": "pending-independent-image-dictionary-check"
+              }
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0052"
+        ],
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0052:figure",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "modern-yabejp-ja:chapter03-section026:b0052:figure",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0052"
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter03-section026:i00031"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef.png",
+            "sha256": "adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef",
+            "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p7.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "7p",
+        "unknowns": [],
+        "caption": "原文内联牌列",
+        "sourceNotes": [],
+        "tiles": [
+          {
+            "occurrenceId": "modern-yabejp-ja:chapter03-section026:i00031",
+            "assetId": "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+            "assetSha256": "adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef",
+            "code": "7p",
+            "red": false,
+            "orientation": "upright"
+          }
+        ],
+        "provenance": {
+          "method": "independently-verified-exact-tile-assets",
+          "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+          "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter03-section026/8c8e9b06b51a50ad/figure-0024.png",
+          "sha256": "781b5f82fe25327868a860c265b45a7a13f9184a7decf09ac8f050a4ac86e1a3",
+          "width": 18,
+          "height": 24,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef.png",
+                "sha256": "adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p7.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 52,
+      "source": [
+        {
+          "id": "modern-yabejp-ja:chapter03-section026:b0053",
+          "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+          "tag": "p",
+          "domPath": "main/p[13]",
+          "tableContext": null,
+          "type": "text",
+          "text": "は最高でも残り２枚しかないので押すのは厳しい。よってオリるべき。 ",
+          "segments": [
+            {
+              "text": "は最高でも残り２枚しかないので押すのは厳しい。よってオリるべき。 ",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0053"
+        ],
+        "sourceText": "は最高でも残り２枚しかないので押すのは厳しい。よってオリるべき。 ",
+        "text": "最多也只剩2张，继续进攻很勉强。因此应该弃和。",
+        "paragraphId": "modern-yabejp-ja:chapter03-section026:p0006",
+        "sourceSegments": [
+          {
+            "text": "は最高でも残り２枚しかないので押すのは厳しい。よってオリるべき。 ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    }
+  ],
+  "contextContentSha256": "f891cad05505628fa31a8c4e17e5c6320f342049c7cf080b3a6c2ee6c8f3b91e",
+  "images": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+      "sha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+      "bytes": 54287,
+      "copy": "evidence/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+      "width": 640,
+      "height": 505,
+      "format": "JPEG",
+      "frames": 1,
+      "figureId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+      "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+      "role": "original-source-no-invented-detail"
+    }
+  ],
+  "whitelist": [],
+  "textErrorsAlsoRequired": [
+    "modern-yabejp-ja:chapter03-section026:b0017"
+  ],
+  "reviewTargets": {
+    "repairFigureIds": [],
+    "unknownImpactFigureIds": [
+      "modern-yabejp-ja:chapter03-section026:b0032:figure"
+    ],
+    "existingUnknowns": {
+      "modern-yabejp-ja:chapter03-section026:b0032:figure": [
+        "对家牌河第1排从其出牌方向数第6张，即图像靠中央一排最左端的字牌，其具体字面无法可靠辨认。",
+        "左家牌河外侧左列自上而下第2张筒子牌的具体点数无法可靠辨认。",
+        "中央上方与左侧的完整分数无法可靠辨认。",
+        "中央数字0、1前的小图标无法辨认，无法仅凭图标确认各自所指的计数项目。",
+        "各家座位旁的小号姓名或其他附属文字无法完整辨认。"
+      ]
+    },
+    "notFullArticleReReview": true,
+    "independentImageDecisionRequired": true,
+    "requirements": [
+      "Confirm the exact repaired fact from the attached original image.",
+      "Enumerate actual author claims and source block IDs; decide each unknown dependency.",
+      "Do not require recovering hidden hands or certify complete probability/optimality facts.",
+      "If unknown is acceptable, give explicit required display limitations; if not, name the blocked claim.",
+      "Return unresolved uncertain unchanged; no conversion to error/source-note or whole chapter pass."
+    ]
+  },
+  "proposedBudget": null
+}

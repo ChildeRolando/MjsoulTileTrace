@@ -1,0 +1,390 @@
+{
+  "schema": "coac250-b0785-scoped-target-registration/1",
+  "recordedAt": "2026-10-28T08:58:26.760Z",
+  "status": "evidence-verified-display-contract-pending",
+  "receipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-283-0785-reviewed-20261028.json",
+    "sha256": "49dc8c91614a3a4b726b41e69f3c2ddcdbd581c31973763930b222c11bd88b36"
+  },
+  "scope": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-283-0785-scope-inheritance-20261028.json",
+    "sha256": "bd8e040789cef358c4b615a3a97a2e6ee4edf896a8b7353ab418a4a56b4191a7"
+  },
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0785r1.json",
+    "sha256": "434120af284195ddf27b491a1c2c4cd9ea25072d40e9c6a366bcd8ac3cb03b9b"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t1017r2.json",
+    "sha256": "de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c",
+    "bytes": 2132086
+  },
+  "donor": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev2.json",
+    "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+    "bytes": 2147441
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4690455a-50a9-4675-8572-27e789204cc6.json",
+    "sha256": "15d6f153d54e1beb35b2405caa8943d6cf79ccb180a8badfd58917a676b1b9c5"
+  },
+  "runtime": {
+    "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac269-283-0785-v1-20261028/runtime-manifest.json",
+    "sha256": "d167ab2e2beab21dda23336b40e341e1972ffbd894b2413702f04f8d08b3a4bb"
+  },
+  "seatVerdict": "faithful",
+  "contextFaithful": true,
+  "unknownTeachingImpact": "nonblocking-with-limits",
+  "limitedUnknownOkay": true,
+  "strictTargetPassed": false,
+  "originalIssues": [
+    {
+      "severity": "uncertain",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "description": "三张万子弃牌、受遮挡副露牌及其余列出的未知信息仍未确定。相关万子和副露牌可能影响实况可见牌的计算，但不阻断对 Q48 定性论证的呈现。",
+      "sourceEvidence": "figure.unknowns 将左河第 4、6 张和右河第 1 张的万子数字，以及右上副露最上方牌保留为未知；同时保留三家隐手、骰点和右下裁切内容。b0790 仅给出手变机会和打点的定性说明。"
+    }
+  ],
+  "mandatoryLimits": [
+    "保留三张万子数字、受遮挡副露牌、三家隐手、骰点及裁切内容为未知，不补猜。",
+    "区分正文默认条件与截图实况；不得用默认条件填补图中未知牌，或断言截图无鸣、牌河只有幺九字牌。",
+    "不得由现有转录断言精确可见张数、牌山存量、改良概率或所有实战场况下的最优选择。",
+    "本结论仅覆盖 b0785 的方位、保留未知及其对 Q48 论证呈现的影响。"
+  ],
+  "limitsInstalled": false,
+  "displayVerified": false,
+  "displayContractOwner": "Existing COAC-244 owner",
+  "effectiveIssueRegister": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-283-0785-effective-issues-20261028.json",
+    "sha256": "50c66c625830b668eb1b9ebaa38ac9b2ed900778f1bf6e62af792fc8c6167803"
+  },
+  "b0947CompositionUnchanged": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-0947-composition-20261028/chapter06-exercise003.b0947-derived.json",
+    "sha256": "ec43d8af0c82a3b53bf7c924804ebf00d6c65515ac3a7b21728b26f9e10ac85b"
+  },
+  "wholeChapterAccepted": false,
+  "standardWholeArticlePassed": false,
+  "admissionGranted": false,
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "remainingModelBudget": 0,
+  "intakePath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-b0785-evidence-intake-20261028.json",
+  "actualVerification": {
+    "transportCompleted": true,
+    "targetPassed": false,
+    "limitedUnknownOkay": true,
+    "wholeChapterAccepted": false,
+    "modelReview": {
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "seatVerdict": "faithful",
+      "seatEvidence": "原图中央面板及放大图显示：左上西、右上北、左下南、右下东；手牌上方另有橙色“东”标记。当前转录与这些画面位置一致。与已审 donor 相比，转录的实质变化是修正左上和右下的东、西；provenance.callId 也已更新。",
+      "preservedUnknowns": {
+        "acknowledged": true,
+        "evidence": "当前 unknowns 保留了三张万子弃牌的未知数字、右上受遮挡副露牌、三家隐手、骰子点数和右下裁切文字；未见猜填。此前已审的手牌与隐手、牌墙区分按原样继承。"
+      },
+      "contextFaithful": true,
+      "contextEvidence": "Q48 的答案为切 8s 立直；继承的手牌切去一张 8s 后可呈现 7s 嵌张听牌。作者随后指出手变机会不多，并认为即使变为良形，若打点下降，其改良价值也有限。b0009 定义了四类一向听形，Q48 解说没有使用这些编号。b0003—b0005 的规则和场况是无另行说明时的默认条件；截图可见中张弃牌及右上副露，不能将默认的幺九字牌河、无鸣直接当作截图实况。",
+      "unknownTeachingImpact": "nonblocking-with-limits",
+      "impactEvidence": "已知手牌与 Q48 文字足以忠实呈现切 8s 立直及作者关于手变数量、良形与打点的定性论证。三张未知万子可能影响相关牌的可见数量，受遮挡副露牌也可能影响可见牌；因此不能据截图精确核算实况下的改良张数、概率或打点比较，也不能据此独立证明所有实战场况下该选择最优。作者的 Q48 解说没有依赖这些未知牌的具体牌码给出计算，故这些未知不阻断其定性论证的呈现。",
+      "mandatoryLimits": [
+        "保留三张万子数字、受遮挡副露牌、三家隐手、骰点及裁切内容为未知，不补猜。",
+        "区分正文默认条件与截图实况；不得用默认条件填补图中未知牌，或断言截图无鸣、牌河只有幺九字牌。",
+        "不得由现有转录断言精确可见张数、牌山存量、改良概率或所有实战场况下的最优选择。",
+        "本结论仅覆盖 b0785 的方位、保留未知及其对 Q48 论证呈现的影响。"
+      ],
+      "issues": [
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "description": "三张万子弃牌、受遮挡副露牌及其余列出的未知信息仍未确定。相关万子和副露牌可能影响实况可见牌的计算，但不阻断对 Q48 定性论证的呈现。",
+          "sourceEvidence": "figure.unknowns 将左河第 4、6 张和右河第 1 张的万子数字，以及右上副露最上方牌保留为未知；同时保留三家隐手、骰点和右下裁切内容。b0790 仅给出手变机会和打点的定性说明。"
+        }
+      ],
+      "wholeChapterAccepted": false
+    }
+  },
+  "protectedFiles": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+      "sha256": "53d88fef65a44e02210dd1a9eca6314319b15f0efec6f2d1591b6cdb908f0c1d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\specific-web-variant-selection.v33.json",
+      "sha256": "600a898d1329ab92f0e5ae2e304f91f96d01f311e531f95a538d57f24560e3f5"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\current-web-candidate-selection.json",
+      "sha256": "f7b51d2461059ad109a97746a1ba06e7f3d435923588ba1d5351c0c84dae5b39"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\current-candidate-selection.json",
+      "sha256": "621e4d88cf890f901a41506adbb42ab3b37febafa95d62cfb2bc4abbab0e78aa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\build-accepted-preview.mjs",
+      "sha256": "6e6458eed163db2d94d090b93d4063766d709eef09dba01befac7739465a4cfa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\source-structure-holds.json",
+      "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\candidate-exclusions.json",
+      "sha256": "4835655ad7fa323e2acc94d4e04824dc1c56b4b67ceec1b1449617c79c3411a3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-b0947-composition-intake-20261028.json",
+      "sha256": "910ac36d6745ed06133161f9852ec9197cb8ae00782c39e9e4a271c88513fdd4"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/review/textbook-corpus.json",
+      "sha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+    }
+  ],
+  "protectedUnchanged": true,
+  "changes": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+      "beforeSha256": "fc544ce02428e26c433cb1d07d6432ed1a06e2210b4d0e4769a23cbc28836c17",
+      "afterSha256": "23875cdc373dd3bfdecad049e8881b7f9ad687bace272c256ef67d0af39ba2a3",
+      "onlyChangedCanonical": "nemata-jp-chapter-283-1",
+      "otherRowsAndMetadataUnchanged": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-uncovered-chapter-continuation-register-20261027b.json",
+      "beforeSha256": "e2d2c171465bf20e69e6df30c495eeb0485370118345993c73b7156b201a555c",
+      "afterSha256": "2373cf4e5d581c5a5aa3a5dee0eb5d3660625883cc56c3f5de05b49f3610cde4",
+      "onlyChangedCanonical": "nemata-jp-chapter-283-1",
+      "otherRowsAndMetadataUnchanged": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-remaining26-closure-register-20261028.json",
+      "beforeSha256": "538d84b89544a5ac91971a50c7e1acec5f342fe709c163d60422128bd1409925",
+      "afterSha256": "04601ccb7fda93b8c23dd55aac7a95759424942c0eb0d6797e3ff8238010296c",
+      "onlyChangedCanonical": "nemata-jp-chapter-283-1",
+      "otherRowsAndMetadataUnchanged": true
+    }
+  ],
+  "counts": {
+    "originalIssues": 19,
+    "resolved": 14,
+    "remainingBlocking": 3,
+    "sourceNotes": 2,
+    "originalDeferred": 16,
+    "effectiveDeferredResolved": 13,
+    "effectiveDeferredOpen": 3
+  },
+  "originalIssueIdentitiesAndStatusesPreserved": true,
+  "operationalBlockers": [
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "originalIssueSha256": "feed6d512d4fec8d15f46265c3473629c7553adb1adeff4fece490eadfac4acb",
+      "sourceEvidence": "Existing donor evidence plus call 4690455a-50a9-4675-8572-27e789204cc6; receipt 49dc8c91614a3a4b726b41e69f3c2ddcdbd581c31973763930b222c11bd88b36; original finding retained in effective register.",
+      "description": "Existing independently reviewed donor hand/hidden-hand distinction inherited exactly; new target seat correction faithful. No new unresolved transcription repair identified.",
+      "suggestedRepair": "Pending exact-SHA limited display contract: install four verbatim editorial limitations, especially defaults versus screenshot; admission/readback not yet granted. No maker/OCR/review call.",
+      "blockingKind": "limited-display-contract-pending",
+      "notANewOcrOrModelTask": true
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "originalIssueSha256": "20d6f61af624a83fef7882e3fd9da39449b16b4c92edff67f3fd9134fe66d085",
+      "sourceEvidence": "Existing donor evidence plus call 4690455a-50a9-4675-8572-27e789204cc6; receipt 49dc8c91614a3a4b726b41e69f3c2ddcdbd581c31973763930b222c11bd88b36; original finding retained in effective register.",
+      "description": "Existing independently reviewed donor hand/hidden-hand distinction inherited exactly; new target seat correction faithful. No new unresolved transcription repair identified.",
+      "suggestedRepair": "Pending exact-SHA limited display contract: install four verbatim editorial limitations, especially defaults versus screenshot; admission/readback not yet granted. No maker/OCR/review call.",
+      "blockingKind": "limited-display-contract-pending",
+      "notANewOcrOrModelTask": true
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "originalIssueSha256": "d3c5278fc47e6d40b97380a3386e039632af2ad3b4eb806f7113e3ef708de019",
+      "sourceEvidence": "Existing donor evidence plus call 4690455a-50a9-4675-8572-27e789204cc6; receipt 49dc8c91614a3a4b726b41e69f3c2ddcdbd581c31973763930b222c11bd88b36; original finding retained in effective register.",
+      "description": "Explicit unknown retained; independently nonblocking for Q48 qualitative argument under all four mandatory limits. Do not schedule tile reading.",
+      "suggestedRepair": "Pending exact-SHA limited display contract: install four verbatim editorial limitations, especially defaults versus screenshot; admission/readback not yet granted. No maker/OCR/review call.",
+      "blockingKind": "limited-display-contract-pending",
+      "notANewOcrOrModelTask": true
+    }
+  ],
+  "remainingDisplayWork": [
+    {
+      "index": 1,
+      "text": "保留三张万子数字、受遮挡副露牌、三家隐手、骰点及裁切内容为未知，不补猜。",
+      "rawOutputPath": "/output/mandatoryLimits/0",
+      "candidateSha256": "434120af284195ddf27b491a1c2c4cd9ea25072d40e9c6a366bcd8ac3cb03b9b",
+      "targetFigureSha256": "a5920c978ed6c4d5893f7cb017f93200e2d9de672dfe8f1c969c813d144b841d",
+      "currentObjectEvidence": {
+        "unknowns": [
+          "左侧牌河从画面上至下第4张为万子，数字未能可靠辨清。",
+          "左侧牌河从画面上至下第6张为万子，数字未能可靠辨清。",
+          "右侧牌河从画面上至下第1张为万子，数字未能可靠辨清。",
+          "右上副露区最上方竖向牌受遮挡，完整牌面及牌码未知。",
+          "上、左、右三家的隐手牌面未知；左、右侧隐手仅露出窄侧面，逐张数量未能可靠确认。",
+          "中央两枚骰子的具体点数未能可靠辨清。",
+          "右下信息栏等级文字及分数变化的右端被裁切，缺失部分未知。"
+        ],
+        "unknownsSha256": "993452fb644a035195865a0ea425401eed621752254bcedbba904cbd7952491b",
+        "sourceNotes": [
+          "原图与最近邻放大图是同一画面的两种视图，不代表额外牌张或额外出现次数。",
+          "画面四周及下方存在黑色遮挡区域；右上副露最上方牌受遮挡，右下信息栏右端被裁切。",
+          "其他三家边缘位置的牌背或侧面属于隐手，中央翻开9s附近的叠放牌属于牌墙。",
+          "三张公开万子弃牌的数字仍未可靠辨清，牌河转录尚有明确未知项。"
+        ]
+      },
+      "currentUnknownMarkersPreserved": true,
+      "editorialDisplaySlotInstalled": false,
+      "actualMcpArenaDisplayVerified": false,
+      "status": "unknown-fields-present-final-display-unverified",
+      "requiredNextAction": "Existing COAC-244 owner: bind these verbatim model limitations to this exact SHA/scope in a legal non-author display contract. Preserve body/raw/uncertain; no OCR/maker/review call."
+    },
+    {
+      "index": 2,
+      "text": "区分正文默认条件与截图实况；不得用默认条件填补图中未知牌，或断言截图无鸣、牌河只有幺九字牌。",
+      "rawOutputPath": "/output/mandatoryLimits/1",
+      "candidateSha256": "434120af284195ddf27b491a1c2c4cd9ea25072d40e9c6a366bcd8ac3cb03b9b",
+      "targetFigureSha256": "a5920c978ed6c4d5893f7cb017f93200e2d9de672dfe8f1c969c813d144b841d",
+      "currentObjectEvidence": {
+        "defaultBody": [
+          {
+            "type": "text",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter06-exercise003:b0003"
+            ],
+            "sourceText": "特に断りがない部分は、以下のルールと状況を適用。",
+            "text": "除非另有说明，均适用以下规则和状况。",
+            "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0003",
+            "sourceSegments": [
+              {
+                "text": "特に断りがない部分は、以下のルールと状況を適用。",
+                "marks": [],
+                "href": null
+              }
+            ],
+            "tableContext": null
+          },
+          {
+            "type": "text",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter06-exercise003:b0004"
+            ],
+            "sourceText": "ルール：アリアリ、赤なし、一発･裏ドラ･カンドラ･カン裏あり。",
+            "text": "规则：允许食断、后付，无赤宝牌，有一发、里宝牌、杠宝牌、杠里宝牌。",
+            "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0004",
+            "sourceSegments": [
+              {
+                "text": "ルール：アリアリ、赤なし、一発･裏ドラ･カンドラ･カン裏あり。",
+                "marks": [],
+                "href": null
+              }
+            ],
+            "tableContext": null
+          },
+          {
+            "type": "text",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter06-exercise003:b0005"
+            ],
+            "sourceText": " 状況：全体的に１･９･字牌しか切れてない捨て牌で、鳴きも一切なし。場に関連牌は飛んでいないものとする。",
+            "text": " 状况：所有人的牌河中都只切出了1、9和字牌，也完全没有鸣牌。假定场上没有出现相关牌。",
+            "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0004",
+            "sourceSegments": [
+              {
+                "text": " 状況：全体的に１･９･字牌しか切れてない捨て牌で、鳴きも一切なし。場に関連牌は飛んでいないものとする。",
+                "marks": [],
+                "href": null
+              }
+            ],
+            "tableContext": null
+          }
+        ],
+        "caption": "问题48：下方手牌摸入5s后的牌局画面。",
+        "sourceNotes": [
+          "原图与最近邻放大图是同一画面的两种视图，不代表额外牌张或额外出现次数。",
+          "画面四周及下方存在黑色遮挡区域；右上副露最上方牌受遮挡，右下信息栏右端被裁切。",
+          "其他三家边缘位置的牌背或侧面属于隐手，中央翻开9s附近的叠放牌属于牌墙。",
+          "三张公开万子弃牌的数字仍未可靠辨清，牌河转录尚有明确未知项。"
+        ]
+      },
+      "currentUnknownMarkersPreserved": true,
+      "editorialDisplaySlotInstalled": false,
+      "actualMcpArenaDisplayVerified": false,
+      "status": "explicit-editorial-display-limitation-pending",
+      "requiredNextAction": "Existing COAC-244 owner: bind these verbatim model limitations to this exact SHA/scope in a legal non-author display contract. Preserve body/raw/uncertain; no OCR/maker/review call."
+    },
+    {
+      "index": 3,
+      "text": "不得由现有转录断言精确可见张数、牌山存量、改良概率或所有实战场况下的最优选择。",
+      "rawOutputPath": "/output/mandatoryLimits/2",
+      "candidateSha256": "434120af284195ddf27b491a1c2c4cd9ea25072d40e9c6a366bcd8ac3cb03b9b",
+      "targetFigureSha256": "a5920c978ed6c4d5893f7cb017f93200e2d9de672dfe8f1c969c813d144b841d",
+      "currentObjectEvidence": {
+        "caption": "问题48：下方手牌摸入5s后的牌局画面。",
+        "sourceNotes": [
+          "原图与最近邻放大图是同一画面的两种视图，不代表额外牌张或额外出现次数。",
+          "画面四周及下方存在黑色遮挡区域；右上副露最上方牌受遮挡，右下信息栏右端被裁切。",
+          "其他三家边缘位置的牌背或侧面属于隐手，中央翻开9s附近的叠放牌属于牌墙。",
+          "三张公开万子弃牌的数字仍未可靠辨清，牌河转录尚有明确未知项。"
+        ]
+      },
+      "currentUnknownMarkersPreserved": true,
+      "editorialDisplaySlotInstalled": false,
+      "actualMcpArenaDisplayVerified": false,
+      "status": "explicit-editorial-display-limitation-pending",
+      "requiredNextAction": "Existing COAC-244 owner: bind these verbatim model limitations to this exact SHA/scope in a legal non-author display contract. Preserve body/raw/uncertain; no OCR/maker/review call."
+    },
+    {
+      "index": 4,
+      "text": "本结论仅覆盖 b0785 的方位、保留未知及其对 Q48 论证呈现的影响。",
+      "rawOutputPath": "/output/mandatoryLimits/3",
+      "candidateSha256": "434120af284195ddf27b491a1c2c4cd9ea25072d40e9c6a366bcd8ac3cb03b9b",
+      "targetFigureSha256": "a5920c978ed6c4d5893f7cb017f93200e2d9de672dfe8f1c969c813d144b841d",
+      "currentObjectEvidence": {
+        "caption": "问题48：下方手牌摸入5s后的牌局画面。",
+        "sourceNotes": [
+          "原图与最近邻放大图是同一画面的两种视图，不代表额外牌张或额外出现次数。",
+          "画面四周及下方存在黑色遮挡区域；右上副露最上方牌受遮挡，右下信息栏右端被裁切。",
+          "其他三家边缘位置的牌背或侧面属于隐手，中央翻开9s附近的叠放牌属于牌墙。",
+          "三张公开万子弃牌的数字仍未可靠辨清，牌河转录尚有明确未知项。"
+        ]
+      },
+      "currentUnknownMarkersPreserved": true,
+      "editorialDisplaySlotInstalled": false,
+      "actualMcpArenaDisplayVerified": false,
+      "status": "explicit-editorial-display-limitation-pending",
+      "requiredNextAction": "Existing COAC-244 owner: bind these verbatim model limitations to this exact SHA/scope in a legal non-author display contract. Preserve body/raw/uncertain; no OCR/maker/review call."
+    }
+  ],
+  "preview": {
+    "corpusId": "d05520874d6d617f7fcd20f3686d39f0799da8f8067d4bf16cb2182575ab11a5",
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T08-14-39-872Z"
+  },
+  "coverage": {
+    "originalChaptersCovered": 244,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 276,
+    "originalUnitsTotal": 303,
+    "remainingChapters": 12,
+    "remainingUnits": 27,
+    "increment": 0
+  },
+  "selectionVersion": 33,
+  "previewBuilt": false,
+  "consumerStarted": false,
+  "formalActiveChanged": false,
+  "wholeChapterReadbackPerformed": false,
+  "newCalls": 0,
+  "bookComplete": false,
+  "safeToResume": true,
+  "upstreamUsage": {
+    "inputTokens": 25359,
+    "cachedInputTokens": 0,
+    "outputTokens": 9786
+  },
+  "upstreamDurationMs": 178648,
+  "measurementLimits": {
+    "fee": null,
+    "remoteWeights": "unknown",
+    "upstreamExecutionCount": null
+  }
+}

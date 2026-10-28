@@ -1,0 +1,167 @@
+{
+  "schema": "coac250-bounded351-exact-admission/1",
+  "status": "admitted-exact-bounded351-display",
+  "production": {
+    "sha256": "ff3b1f36ffbd8daa23509a7375d0aaee533648299d636af2fa51be47657965d7"
+  },
+  "auditPath": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-bounded-merge-20261028/proof.json",
+  "auditSha256": "aaa94ae21945476fd8dc9eb0ba7cd1a3748b20ee83cd2476cc9ec26f725a962d",
+  "presentation": {
+    "input": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-bounded351-20261028/render-input.json",
+      "sha256": "ff3b1f36ffbd8daa23509a7375d0aaee533648299d636af2fa51be47657965d7"
+    },
+    "display": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-bounded351-20261028/render-input.display.json",
+      "sha256": "2c6bdf88fbdee5ee73c2f172494257c20daa8e150f507d8bfa9e78a6479a26f7"
+    },
+    "renderer": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac269-283-0785-v1-20261028/textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    "purpose": "Only bound deterministic original-size image presentations; original passed scope candidate remains ff3b1f36. This display derivative is never independently admitted as a new candidate.",
+    "newModelCalls": 0
+  },
+  "q8Image": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-q8-source-20261028\\nanikiru0703.original.jpg",
+    "sha256": "a3bdb2bc66153cb38a43608f9665b9c281cb918d4029dc555ffee6b74c1c25e6",
+    "bytes": 246632
+  },
+  "key": "283",
+  "canonical": "nemata-jp-chapter-283-1",
+  "candidate": {
+    "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.coac244bounded.json",
+    "sha256": "ff3b1f36ffbd8daa23509a7375d0aaee533648299d636af2fa51be47657965d7"
+  },
+  "source": {
+    "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/articles/chapter06-exercise003/source.v3.json",
+    "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de"
+  },
+  "notes": [
+    {
+      "beforeSourceId": "modern-yabejp-ja:chapter06-exercise003:b0785",
+      "label": "来源限制（编者说明，非作者原文）",
+      "texts": [
+        "保留三张万子数字、受遮挡副露牌、三家隐手、骰点及裁切内容为未知，不补猜。",
+        "区分正文默认条件与截图实况；不得用默认条件填补图中未知牌，或断言截图无鸣、牌河只有幺九字牌。",
+        "不得由现有转录断言精确可见张数、牌山存量、改良概率或所有实战场况下的最优选择。",
+        "本结论仅覆盖 b0785 的方位、保留未知及其对 Q48 论证呈现的影响。"
+      ],
+      "kind": "q48"
+    },
+    {
+      "beforeSourceId": "modern-yabejp-ja:chapter06-exercise003:b0093",
+      "label": "来源限制（编者说明，非作者原文）",
+      "texts": [
+        "联盟页面HTML存档于2007-03-20，JPEG存档于2007-10-16，不能假定二者版本相同；页面声明图像显示尺寸640×447，所供JPEG为640×442。HTML关于白色牌面为手出、暗色为摸切的说明用于解释图中明暗，但不能证明这条图例在JPEG抓取时仍属于同一版本。4倍最近邻图仅放大既有像素。",
+        "JPEG不能独立证明吃牌恰在第6巡；异时存档也不能证明HTML图例与JPEG必为同版。部分万子数字、筒子点数及明暗仍未知。链接解说对2s是否为上家现物存在内部矛盾，不能把该说法作为Q8候选的无条件场况证据。上述限制不改变已核对的Q8译文和1s、2s可见数。",
+        "东家吃牌中除8m外的两张万子的具体数字；可辨万字，但数码不足以可靠辨认。；无法完整转写顺子；不影响1s和2s的副露计数。",
+        "东、西牌河中各一张筒子的点数，以及东家第二列一张多根索子的点数；原始像素不能可靠数清图案；4倍最近邻不产生新细节。；不能用这些牌确定具体安全牌；已辨类别和图案不增加1s或2s。",
+        "西家一张万子的数字及若干弃牌的明暗标识；数字或灰度不足以可靠判定；各弃牌条目已注明明暗unknown。；不能完整还原这些牌的手出、摸切信息。",
+        "链接解说中2s对上家是否为现物；同一解说先称2s可能打中“カミチャ”，后又称2s是“カミチャ、トイメンの現物”。JPEG中的两张2s弃牌位于东家和南家，未在西家现存牌河见到2s。解说与JPEG可能并非同一版本，不能据此选择其中一句作为确定事实。；不能依该解说断定对上家的安全性；Q8教材的“1s、2s薄”仍有独立图像计数支持。"
+      ],
+      "kind": "q8"
+    },
+    {
+      "beforeSourceId": "modern-yabejp-ja:chapter06-exercise003:b0785",
+      "label": "来源限制（编者说明，非作者原文）",
+      "texts": [
+        "遮挡、裁切及骰子辨读限制应如实保留；不得由另外两张东牌反推被遮挡牌面。"
+      ],
+      "kind": "source-note-0"
+    },
+    {
+      "beforeSourceId": "modern-yabejp-ja:chapter06-exercise003:b0947",
+      "label": "来源限制（编者说明，非作者原文）",
+      "texts": [
+        "骰子点数未获可靠确认，黑色遮挡或裁切也已如实说明。它们不改变本题是否碰2s的教学论证。"
+      ],
+      "kind": "source-note-1"
+    },
+    {
+      "beforeSourceId": "modern-yabejp-ja:chapter06-exercise003:b0785",
+      "label": "原图来源说明（编者说明，非作者原文）",
+      "texts": [
+        "原图与最近邻放大图是同一画面的两种视图，不代表额外牌张或额外出现次数。",
+        "画面四周及下方存在黑色遮挡区域；右上副露最上方牌受遮挡，右下信息栏右端被裁切。",
+        "其他三家边缘位置的牌背或侧面属于隐手，中央翻开9s附近的叠放牌属于牌墙。",
+        "三张公开万子弃牌的数字仍未可靠辨清，牌河转录尚有明确未知项。"
+      ],
+      "kind": "figure-source-notes-0"
+    },
+    {
+      "beforeSourceId": "modern-yabejp-ja:chapter06-exercise003:b0947",
+      "label": "原图来源说明（编者说明，非作者原文）",
+      "texts": [
+        "原图与最近邻放大图是同一画面的两种视图，不构成额外牌张或额外出现次数。",
+        "画面四周及下方有黑色区域，部分界面边缘被遮挡或裁切；未据此推定隐藏内容。"
+      ],
+      "kind": "figure-source-notes-1"
+    },
+    {
+      "beforeSourceId": "modern-yabejp-ja:chapter06-exercise003:b1191",
+      "label": "原图来源说明（编者说明，非作者原文）",
+      "texts": [
+        "原图与2倍最近邻放大图为同一画面，仅计一次。",
+        "画面边缘及玩家姓名附近存在黑色遮挡区域。"
+      ],
+      "kind": "figure-source-notes-2"
+    }
+  ],
+  "sourceNotes": [
+    {
+      "severity": "source-note",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "sourceEvidence": "右上副露最上方牌受黑色遮挡，右下信息栏边缘裁切，中央骰子点数未可靠辨清。",
+      "description": "遮挡、裁切及骰子辨读限制应如实保留；不得由另外两张东牌反推被遮挡牌面。",
+      "suggestedRepair": "保留对应源图限制说明及未知标记；骰子未确认点数时继续注明未知。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+      "sourceEvidence": "画面中央有两枚骰子，四周及下方有黑色区域；候选已分别记入unknowns和sourceNotes。",
+      "description": "骰子点数未获可靠确认，黑色遮挡或裁切也已如实说明。它们不改变本题是否碰2s的教学论证。",
+      "suggestedRepair": "保留说明；无需据此推测隐藏内容或单独阻断战术结论。"
+    }
+  ],
+  "details": {
+    "passed": true,
+    "scopedCompositionVerified": true,
+    "independentLimitedAllowance": true,
+    "originalTargetPassed": false,
+    "originalUncertainPreserved": true,
+    "authorBlocksUnchanged": 1195,
+    "nonTargetFiguresUnchanged": 522,
+    "b0785ExactObjectPreserved": true,
+    "b0947ExactObjectPreserved": true,
+    "mandatoryLimits": 4,
+    "newModelCalls": 0,
+    "displayContractPrepared": true,
+    "displayInstalled": false,
+    "admissionGranted": false,
+    "wholeChapterAccepted": false,
+    "standardWholeArticlePassed": false,
+    "originalIssues": [
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+        "description": "三张万子弃牌、受遮挡副露牌及其余列出的未知信息仍未确定。相关万子和副露牌可能影响实况可见牌的计算，但不阻断对 Q48 定性论证的呈现。",
+        "sourceEvidence": "figure.unknowns 将左河第 4、6 张和右河第 1 张的万子数字，以及右上副露最上方牌保留为未知；同时保留三家隐手、骰点和右下裁切内容。b0790 仅给出手变机会和打点的定性说明。"
+      }
+    ],
+    "q8OriginalLimits": {
+      "notFullMeldTranscription": true,
+      "unknownEastMeldOtherTwoManzuDigits": true,
+      "otherUnknownDiscardsAndTsumogiriMarkers": true,
+      "htmlAndJpegDifferentArchiveCaptureDates": true,
+      "linkedCommentary2sSafetyConflict": true,
+      "noExactSafetyOrHiddenHandInference": true
+    },
+    "q8Summary": "Q8候选的原缺外链场况所致uncertain可以解除：题目、手牌、摸牌、点差、副露及关键可见数与所供场况对应，译文忠实。结论仅限Q8；个别牌面与标识仍为unknown，链接解说的2s上家现物说法另有冲突，且HTML和JPEG抓取时间不同。",
+    "sixTableVerified": true,
+    "batch010Inherited": true
+  },
+  "originalModelChecks": null,
+  "ordinaryWholeArticlePassed": false,
+  "newModelCalls": 0
+}

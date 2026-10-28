@@ -1,0 +1,11 @@
+{
+  "scope": "Run-owned negative display test only",
+  "failure": "Node assert deep object diff on reversed large chapter exhausted host memory",
+  "ownedTestPid": 13972,
+  "observedRssBytes": 45449822208,
+  "exactPidScriptAndWorkspaceVerifiedBeforeTermination": true,
+  "multicaOrOtherWriterTouched": false,
+  "previewPublishedAtFailure": false,
+  "fix": "Compare exact serialized author-object SHA256 values, keeping failure diagnostics bounded; run test with finite Node heap",
+  "newModelCalls": 0
+}

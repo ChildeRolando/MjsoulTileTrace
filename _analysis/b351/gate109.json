@@ -1,0 +1,239 @@
+{
+  "schema": "coac250-bounded351-exact-admission/1",
+  "status": "admitted-exact-bounded351-display",
+  "production": {
+    "sha256": "3cfe3a27bd799782d6ac8e626fcf97d26e1724ce544b6ccf26bcd740bd259dcb"
+  },
+  "auditPath": "E:/AgentData/Coach/knowledge/processing/integration/coac249-109-target-impact-reviewed-20261028.json",
+  "auditSha256": "67421d448b13f720947ca5472d7a0dfba1ee95e2f710f79ec1d5e86703baa986",
+  "presentation": null,
+  "q8Image": null,
+  "key": "109",
+  "canonical": "79-cn-chapter-109-4",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1729038.coac269b25r1.json",
+    "sha256": "3cfe3a27bd799782d6ac8e626fcf97d26e1724ce544b6ccf26bcd740bd259dcb"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1729038\\source.json",
+    "sha256": "b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc",
+    "bytes": 33421,
+    "copy": "evidence/cv1729038-source.json"
+  },
+  "notes": [
+    {
+      "beforeSourceId": "79-bilibili-cn:cv1729038:b0012",
+      "label": "审校限制（非原文）",
+      "texts": [
+        "保留例3原图，在转录中原位标明上方第4张为点数未知的万子，不补写或省略该弃牌。",
+        "将牌河标为不完整；不得认证依赖该点数的精确张数、安全性或概率。",
+        "将迷彩效果和切牌作为作者的有条件建议呈现，保留“少数时候”及摸3饼、假设摸4饼的区别，不认证必然效果或最优性。",
+        "保留例3原图，在转录中原位标明左方第1张为点数未知的万子，不补写或省略该弃牌。",
+        "保留例3原图，在转录中原位标明右方第6张为字样未知的字牌，不补写或省略该弃牌。",
+        "将牌河标为不完整；不得认证依赖该字样的精确张数、安全性或概率。"
+      ],
+      "kind": "109"
+    },
+    {
+      "beforeSourceId": "79-bilibili-cn:cv1729038:b0004",
+      "label": "原图来源说明（编者说明，非作者原文）",
+      "texts": [
+        "原图与4倍最近邻放大图为同一资产，仅记录一次。"
+      ],
+      "kind": "figure-source-notes-0"
+    },
+    {
+      "beforeSourceId": "79-bilibili-cn:cv1729038:b0006",
+      "label": "原图来源说明（编者说明，非作者原文）",
+      "texts": [
+        "原图与4倍最近邻放大图为同一资产，仅记录一次。"
+      ],
+      "kind": "figure-source-notes-1"
+    },
+    {
+      "beforeSourceId": "79-bilibili-cn:cv1729038:b0008",
+      "label": "原图来源说明（编者说明，非作者原文）",
+      "texts": [
+        "原图与4倍最近邻放大图为同一资产，仅记录一次。"
+      ],
+      "kind": "figure-source-notes-2"
+    },
+    {
+      "beforeSourceId": "79-bilibili-cn:cv1729038:b0010",
+      "label": "原图来源说明（编者说明，非作者原文）",
+      "texts": [
+        "原图与4倍最近邻放大图为同一资产，仅记录一次。"
+      ],
+      "kind": "figure-source-notes-3"
+    },
+    {
+      "beforeSourceId": "79-bilibili-cn:cv1729038:b0012",
+      "label": "原图来源说明（编者说明，非作者原文）",
+      "texts": [
+        "原图与2倍最近邻放大图为同一资产，仅记录一次。",
+        "三家外围的牌背与下方副露中的白板正面分别记录。"
+      ],
+      "kind": "figure-source-notes-4"
+    },
+    {
+      "beforeSourceId": "79-bilibili-cn:cv1729038:b0014",
+      "label": "原图来源说明（编者说明，非作者原文）",
+      "texts": [
+        "原图与4倍最近邻放大图为同一资产，仅记录一次。"
+      ],
+      "kind": "figure-source-notes-5"
+    },
+    {
+      "beforeSourceId": "79-bilibili-cn:cv1729038:b0016",
+      "label": "原图来源说明（编者说明，非作者原文）",
+      "texts": [
+        "原图与4倍最近邻放大图为同一资产，仅记录一次。",
+        "副露中三张无字牌面为白板。"
+      ],
+      "kind": "figure-source-notes-6"
+    }
+  ],
+  "sourceNotes": [],
+  "details": {
+    "verification": {
+      "transportCompleted": true,
+      "repairPassed": true,
+      "limitedUnknownOkay": false,
+      "wholeChapterAccepted": false,
+      "modelReview": {
+        "repairChecks": [
+          {
+            "figureId": "79-bilibili-cn:cv1729038:b0004:figure",
+            "verdict": "faithful",
+            "evidence": "原图例1手牌左起为5m、6m、6m；其后为3s、4s、5s、6s、9s、9s、西、西，右侧为红中碰。修订后的首张5m及其顺序与原图相符，也与b0005所说切6万、保留索子连续形相接。"
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1729038:b0006:figure",
+            "verdict": "faithful",
+            "evidence": "原图手牌左起为5m、6m，右侧单独摸入2s，再右侧为红中碰。修订符合原图；与前图切去一张6m后的牌形连续。"
+          }
+        ],
+        "unknownImpacts": [
+          {
+            "figureId": "79-bilibili-cn:cv1729038:b0012:figure",
+            "unknownText": "上方弃牌区从左至右第4张为万子，具体点数无法可靠辨认。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1729038:b0011",
+              "79-bilibili-cn:cv1729038:b0012",
+              "79-bilibili-cn:cv1729038:b0013"
+            ],
+            "authorClaim": "作者称迷彩战术少数时候对混一色有效。例3中，作者认为必要面子已凑齐，为避免混一色容易被看破，建议保留6万：摸3饼时切5饼；假如摸4饼则切2饼。",
+            "faithfulWithExplicitUnknown": true,
+            "requiresExactTile": false,
+            "evidence": "该未知牌是上方玩家的第4张弃牌，不是下方玩家手中的6万或分开放置的3饼。作者没有把这张弃牌的具体点数列为上述切牌建议的条件；它仍是实际弃牌，其点数可能影响相关万子的可见张数或安全性判断。",
+            "requiredDisplayLimitations": [
+              "保留例3原图，在转录中原位标明上方第4张为点数未知的万子，不补写或省略该弃牌。",
+              "将牌河标为不完整；不得认证依赖该点数的精确张数、安全性或概率。",
+              "将迷彩效果和切牌作为作者的有条件建议呈现，保留“少数时候”及摸3饼、假设摸4饼的区别，不认证必然效果或最优性。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1729038:b0012:figure",
+            "unknownText": "左方弃牌区从上至下第1张为万子，具体点数无法可靠辨认。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1729038:b0011",
+              "79-bilibili-cn:cv1729038:b0012",
+              "79-bilibili-cn:cv1729038:b0013"
+            ],
+            "authorClaim": "作者称迷彩战术少数时候对混一色有效。例3中，作者认为必要面子已凑齐，为避免混一色容易被看破，建议保留6万：摸3饼时切5饼；假如摸4饼则切2饼。",
+            "faithfulWithExplicitUnknown": true,
+            "requiresExactTile": false,
+            "evidence": "这张是左方玩家的第一张弃牌；例3的建议针对下方玩家手中的6万及饼子。尽管本节讨论先打，作者并未以左方开河万子的具体点数作为该建议的条件；其点数仍可能影响相关万子的可见张数或安全性判断。",
+            "requiredDisplayLimitations": [
+              "保留例3原图，在转录中原位标明左方第1张为点数未知的万子，不补写或省略该弃牌。",
+              "将牌河标为不完整；不得认证依赖该点数的精确张数、安全性或概率。",
+              "将迷彩效果和切牌作为作者的有条件建议呈现，保留“少数时候”及摸3饼、假设摸4饼的区别，不认证必然效果或最优性。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1729038:b0012:figure",
+            "unknownText": "右方弃牌区从上至下第6张为字牌，具体字样无法可靠辨认。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1729038:b0011",
+              "79-bilibili-cn:cv1729038:b0012",
+              "79-bilibili-cn:cv1729038:b0013"
+            ],
+            "authorClaim": "作者称迷彩战术少数时候对混一色有效。例3中，作者认为必要面子已凑齐，为避免混一色容易被看破，建议保留6万：摸3饼时切5饼；假如摸4饼则切2饼。",
+            "faithfulWithExplicitUnknown": true,
+            "requiresExactTile": false,
+            "evidence": "这张字牌位于右方玩家弃牌区；作者论述的手牌形、摸牌和切牌位于下方玩家牌区，正文没有以右方第6张字牌的字样或剩余张数为条件。具体字样仍可能影响字牌的可见张数或安全性判断。",
+            "requiredDisplayLimitations": [
+              "保留例3原图，在转录中原位标明右方第6张为字样未知的字牌，不补写或省略该弃牌。",
+              "将牌河标为不完整；不得认证依赖该字样的精确张数、安全性或概率。",
+              "将迷彩效果和切牌作为作者的有条件建议呈现，保留“少数时候”及摸3饼、假设摸4饼的区别，不认证必然效果或最优性。"
+            ]
+          }
+        ],
+        "contextContinuity": {
+          "faithful": true,
+          "evidence": "按给定顺序，b0004至b0007先展示例1切6万、摸2索，并保留巡目尚早及能碰9索或西的条件；例2随后讨论听牌与摸8饼。b0011转入先打和迷彩，b0012至b0013展示例3及摸3饼、假设摸4饼的区别；其后转入让形变强及例4、例5。此判断限于目标事实和相关论述的衔接。"
+        },
+        "completeTargetScopeCompared": true,
+        "issues": [
+          {
+            "severity": "uncertain",
+            "targetId": "79-bilibili-cn:cv1729038:b0012:figure",
+            "evidence": "候选将上方弃牌区第4张、左方弃牌区第1张及右方弃牌区第6张分别记为点数不清的万子、点数不清的万子及字样不清的字牌。",
+            "description": "三处均属于实际弃牌，具有教学语义；当前无法可靠确认其具体牌码，不能作为完整逐牌转录通过。"
+          }
+        ],
+        "summary": "两项批准的图修订与原图相符。三处未知弃牌不阻断例3作者的有条件迷彩论述，可在保留原图、逐项明确未知及所列限制下展示；完整逐牌转录仍为uncertain。本次仅完成目标审，未接受全章。",
+        "wholeChapterAccepted": false
+      }
+    },
+    "originalIssues": [
+      {
+        "severity": "error",
+        "targetId": "79-bilibili-cn:cv1729038:b0004:figure",
+        "sourceEvidence": "附图1、8手牌前三张为5m 6m 6m。",
+        "description": "候选写成6m 6m 6m，将含5万的搭子结构改成6万刻子，影响切牌教学含义。",
+        "suggestedRepair": "仅将手牌首张改为5m，保留后续顺序及副露记录。"
+      },
+      {
+        "severity": "error",
+        "targetId": "79-bilibili-cn:cv1729038:b0006:figure",
+        "sourceEvidence": "附图2、9手牌前两张为5m 6m，右侧摸入2s。",
+        "description": "候选写成6m 6m，遗漏保留下来的5万，与前图切一张6万后的牌形不符。",
+        "suggestedRepair": "将手牌首张改为5m，其余牌及摸入2s保持原顺序。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1729038:b0012:figure",
+        "sourceEvidence": "候选将上方弃牌区第4张、左方弃牌区第1张及右方弃牌区第6张分别记为点数不清的万子、点数不清的万子及字样不清的字牌。",
+        "description": "三处均属于实际弃牌，具有教学语义；当前无法可靠确认其具体牌码，不能作为完整逐牌转录通过。",
+        "suggestedRepair": "保留原图及明确未知说明；在能够可靠辨认前维持阻断，不猜补牌码，也不将这些弃牌视为装饰。"
+      }
+    ],
+    "independentIssues": [
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1729038:b0012:figure",
+        "evidence": "候选将上方弃牌区第4张、左方弃牌区第1张及右方弃牌区第6张分别记为点数不清的万子、点数不清的万子及字样不清的字牌。",
+        "description": "三处均属于实际弃牌，具有教学语义；当前无法可靠确认其具体牌码，不能作为完整逐牌转录通过。"
+      }
+    ]
+  },
+  "originalModelChecks": {
+    "passed": false,
+    "errors": [
+      "needs-repair:79-bilibili-cn:cv1729038:b0004",
+      "needs-repair:79-bilibili-cn:cv1729038:b0006",
+      "uncertain:79-bilibili-cn:cv1729038:b0012",
+      "needs-repair:79-bilibili-cn:cv1729038:b0004:figure",
+      "needs-repair:79-bilibili-cn:cv1729038:b0006:figure",
+      "uncertain:79-bilibili-cn:cv1729038:b0012:figure",
+      "uncertain:79-bilibili-cn:cv1729038:i00005",
+      "semantic_information_missing",
+      "error:79-bilibili-cn:cv1729038:b0004:figure",
+      "error:79-bilibili-cn:cv1729038:b0006:figure",
+      "uncertain:79-bilibili-cn:cv1729038:b0012:figure"
+    ]
+  },
+  "ordinaryWholeArticlePassed": false,
+  "newModelCalls": 0
+}

@@ -1,0 +1,114 @@
+{
+  "passed": true,
+  "newRefusalChecks": [
+    {
+      "key": "283",
+      "name": "missing limit",
+      "rejected": true
+    },
+    {
+      "key": "283",
+      "name": "note as author text",
+      "rejected": true
+    },
+    {
+      "key": "283",
+      "name": "wrong position",
+      "rejected": true
+    },
+    {
+      "key": "283",
+      "name": "author contribution changed",
+      "rejected": true
+    },
+    {
+      "key": "283",
+      "name": "wrong route candidateSha256",
+      "rejected": true
+    },
+    {
+      "key": "283",
+      "name": "wrong route manifest",
+      "rejected": true
+    },
+    {
+      "key": "283",
+      "name": "wrong route contract",
+      "rejected": true
+    },
+    {
+      "key": "201",
+      "name": "missing limit",
+      "rejected": true
+    },
+    {
+      "key": "201",
+      "name": "note as author text",
+      "rejected": true
+    },
+    {
+      "key": "201",
+      "name": "wrong position",
+      "rejected": true
+    },
+    {
+      "key": "201",
+      "name": "author contribution changed",
+      "rejected": true
+    },
+    {
+      "key": "201",
+      "name": "wrong route candidateSha256",
+      "rejected": true
+    },
+    {
+      "key": "201",
+      "name": "wrong route manifest",
+      "rejected": true
+    },
+    {
+      "key": "201",
+      "name": "wrong route contract",
+      "rejected": true
+    },
+    {
+      "key": "109",
+      "name": "missing limit",
+      "rejected": true
+    },
+    {
+      "key": "109",
+      "name": "note as author text",
+      "rejected": true
+    },
+    {
+      "key": "109",
+      "name": "wrong position",
+      "rejected": true
+    },
+    {
+      "key": "109",
+      "name": "author contribution changed",
+      "rejected": true
+    },
+    {
+      "key": "109",
+      "name": "wrong route candidateSha256",
+      "rejected": true
+    },
+    {
+      "key": "109",
+      "name": "wrong route manifest",
+      "rejected": true
+    },
+    {
+      "key": "109",
+      "name": "wrong route contract",
+      "rejected": true
+    }
+  ],
+  "actualPersistentEarlyRoutes": 3,
+  "ordinarySidecarAccesses": 0,
+  "upstream23RefusalsHashVerifiedNotRerun": true,
+  "newModelCalls": 0
+}

@@ -1,0 +1,433 @@
+{
+  "schema": "coac250-bounded351-final/1",
+  "allPassed": true,
+  "preview": {
+    "chapters": 250,
+    "units": 258,
+    "blocks": 7585,
+    "figures": 5893,
+    "corpusId": "df8320d297001c4b174cfc2f2964c376395587577f488a5b408a6536df8f0f61",
+    "bodySha256": "435b6189cde4464b23e259632104c6351eeee707eb10008271b8d1406070b924",
+    "maxUnitBytes": 592593,
+    "modelCalls": 0,
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-44-10-491Z",
+    "stages": [
+      {
+        "key": "283",
+        "destination": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-44-10-491Z/stages/s283",
+        "blocks": 675,
+        "figures": 525,
+        "corpusId": "05e574d465b07324b6c7042ba714d2d6dcc814335b1a53c0df85917f2816772e"
+      },
+      {
+        "key": "201",
+        "destination": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-44-10-491Z/stages/s201",
+        "blocks": 16,
+        "figures": 1,
+        "corpusId": "b4e71af2ded315fc80071833dd82363724df741c51fa3c4e3d79c1cf807fb5c7"
+      },
+      {
+        "key": "109",
+        "destination": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-44-10-491Z/stages/s109",
+        "blocks": 32,
+        "figures": 7,
+        "corpusId": "04c07f9321edd8c1d03e1a8c53f19cd7470afecd59752ad76868da83a1f450b1"
+      }
+    ],
+    "priorUnitsUnchanged": 255,
+    "models": 0
+  },
+  "coverage": {
+    "originalChaptersCovered": 248,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 280,
+    "originalUnitsTotal": 303
+  },
+  "remainingChapters": 8,
+  "remainingOriginalUnits": 23,
+  "remaining": [
+    {
+      "canonical": "79-cn-chapter-167-4",
+      "title": "鸣牌15—鸣牌的技巧（3）",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "b0005先保留7p立直宣言牌方向修订目标，另将南家第5行第3列万子未明点数定位补证；两项均闭合后再独审。"
+    },
+    {
+      "canonical": "79-cn-chapter-234-12",
+      "title": "状况判断2—要有顺位意识",
+      "units": 1,
+      "owner": "COAC-269",
+      "nextAction": "旧生产ba432ee3超时且rawLastMessage=null，完整raw无可恢复输出；上游请求数/usage未知。先明确观测边界和追加授权，最小仅b0003三个俗称，无图，不自动重试。"
+    },
+    {
+      "canonical": "79-cn-chapter-311-18",
+      "title": "第三节 攻守判断的基准",
+      "units": 16,
+      "owner": "COAC-248",
+      "nextAction": "按原独审逐target/group生成有限补丁和shared-premise闭包，保留题库225块原顺序；先核当前修订/失败ledger，不整章从头再制。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-193-1",
+      "title": "ドラ切り",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "当前SHA不准入：唯一实际修订残留为b0081入り目例外被扩成两个未经原文确立的联立条件，影响b0081–0097的听牌/概率论证。保留已独审faithful的6p图修及4unknown；7条非原文限制只存证、尚未安装。本章2/2额度耗尽，停止制作/重审/识字，后续仅在另有明确授权及精确合法入口时处理该文字子句。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-213-1",
+      "title": "逆切り３",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "b0017入り目条件限定与b0032左家7p分别定点；对家字牌/两家点数未知仍需源图补证，不能由牌理推。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-224-1",
+      "title": "オーラスの見逃し判断",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "b0013保留7系列x15巡图，原轴坐标可机械形成空表；读数需明确约值与误差，图例自摸译名定点修，不把相关率或曲线走向替代105格定量独审。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-232-1",
+      "title": "満貫和了技術",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "b0002確和了、b0004や并列可文字定修；b0005手牌3s/2s及右家万子未明分别带图审，不能只修文字放行。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-250-1",
+      "title": "「ネマー日記」ブログ問題",
+      "units": 1,
+      "owner": "COAC-247/248",
+      "nextAction": "复用11页真实passed，只处理p257与p261；p257旧主控像素断言不作裁决，p261查现有完整raw/布局验证后限定修复，不重开258或13页整制。"
+    }
+  ],
+  "addedOriginalChapters": [
+    "nemata-jp-chapter-283-1",
+    "79-cn-chapter-201-6",
+    "79-cn-chapter-109-4"
+  ],
+  "selection": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v35.json",
+    "sha256": "31cb03245b2284c9c695c7dfbe1f6f5cda425e0285f59e9783ed82de724d3aa9",
+    "version": 35,
+    "rollbackVersion": 34
+  },
+  "intakes": [
+    {
+      "status": "admitted-exact-bounded351-display",
+      "candidate": {
+        "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.coac244bounded.json",
+        "sha256": "ff3b1f36ffbd8daa23509a7375d0aaee533648299d636af2fa51be47657965d7"
+      },
+      "source": {
+        "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/articles/chapter06-exercise003/source.v3.json",
+        "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de"
+      },
+      "canonical": "nemata-jp-chapter-283-1",
+      "previewChapterId": "modern-yabejp-ja-chapter06-exercise003-chapter",
+      "binding": {
+        "module": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-bounded351-20261028/admit.mjs",
+          "sha256": "c723d60f72c4027172f31de091b3947aa6c1894d8e1c04bbfb83ce64d786706e"
+        },
+        "stage": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-bounded351-20261028/stage.mjs",
+          "sha256": "84d831bdb473f4a3a32b9c36a99dcbf051ee6857b09cd76ea9131613fb20f5fe"
+        },
+        "manifest": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-bounded351-20261028/manifest.json",
+          "sha256": "ca8db328e6d05faecdd3337cf7e28ebb641852e06d27b7e093f3b8d796b1899b"
+        },
+        "candidateSha256": "ff3b1f36ffbd8daa23509a7375d0aaee533648299d636af2fa51be47657965d7",
+        "contract": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-bounded-merge-20261028/250-display-route-contract.json",
+          "sha256": "6c75e9c4abfb2dda6afd8561f6b67385e915d6ba1f15ddeb46ee96fc03a45b7e"
+        }
+      },
+      "previewOutput": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-44-10-491Z",
+      "corpusId": "df8320d297001c4b174cfc2f2964c376395587577f488a5b408a6536df8f0f61",
+      "stageReceiptPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-44-10-491Z/stages/s283/web-stage-receipt.json",
+      "sourceBlocks": 1195,
+      "pdfOwnedSourceBlocks": 1124,
+      "compiledBlocks": 675,
+      "candidateFigures": 524,
+      "imagesRead": 525,
+      "allActualLimitsAndSourceNotesDisplayed": true,
+      "readback": {
+        "path": "_analysis/b351/readback.json",
+        "sha256": "cf6bd1f642613e26eb072e9f2381e546bbbd002e45118ea9fc30501b72737b7e"
+      },
+      "sourceVersionBodyEquivalenceConfirmed": false,
+      "ordinaryWholeArticlePassed": false,
+      "originalFalseAndUncertainPreserved": true,
+      "newModelCalls": 0
+    },
+    {
+      "status": "admitted-exact-bounded351-display",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.r1.display.json",
+        "sha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77"
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1770179\\source.json",
+        "sha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb"
+      },
+      "canonical": "79-cn-chapter-201-6",
+      "previewChapterId": "79-bilibili-cn-cv1770179-chapter",
+      "binding": {
+        "module": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-bounded351-20261028/admit.mjs",
+          "sha256": "c723d60f72c4027172f31de091b3947aa6c1894d8e1c04bbfb83ce64d786706e"
+        },
+        "stage": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-bounded351-20261028/stage.mjs",
+          "sha256": "84d831bdb473f4a3a32b9c36a99dcbf051ee6857b09cd76ea9131613fb20f5fe"
+        },
+        "manifest": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-bounded351-20261028/manifest.json",
+          "sha256": "ca8db328e6d05faecdd3337cf7e28ebb641852e06d27b7e093f3b8d796b1899b"
+        },
+        "candidateSha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77",
+        "contract": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-182201-20261028/201-limited-display-contract.json",
+          "sha256": "9a0d8dc9feb314c9ec28885c439c6f304b6a2c4f52e455dc724a456829d46e5c"
+        }
+      },
+      "previewOutput": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-44-10-491Z",
+      "corpusId": "df8320d297001c4b174cfc2f2964c376395587577f488a5b408a6536df8f0f61",
+      "stageReceiptPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-44-10-491Z/stages/s201/web-stage-receipt.json",
+      "sourceBlocks": 7,
+      "pdfOwnedSourceBlocks": 16,
+      "compiledBlocks": 16,
+      "candidateFigures": 1,
+      "imagesRead": 1,
+      "allActualLimitsAndSourceNotesDisplayed": true,
+      "readback": {
+        "path": "_analysis/b351/readback.json",
+        "sha256": "cf6bd1f642613e26eb072e9f2381e546bbbd002e45118ea9fc30501b72737b7e"
+      },
+      "sourceVersionBodyEquivalenceConfirmed": true,
+      "ordinaryWholeArticlePassed": false,
+      "originalFalseAndUncertainPreserved": true,
+      "newModelCalls": 0
+    },
+    {
+      "status": "admitted-exact-bounded351-display",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1729038.coac269b25r1.json",
+        "sha256": "3cfe3a27bd799782d6ac8e626fcf97d26e1724ce544b6ccf26bcd740bd259dcb"
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1729038\\source.json",
+        "sha256": "b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc",
+        "bytes": 33421,
+        "copy": "evidence/cv1729038-source.json"
+      },
+      "canonical": "79-cn-chapter-109-4",
+      "previewChapterId": "79-bilibili-cn-cv1729038-chapter",
+      "binding": {
+        "module": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-bounded351-20261028/admit.mjs",
+          "sha256": "c723d60f72c4027172f31de091b3947aa6c1894d8e1c04bbfb83ce64d786706e"
+        },
+        "stage": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-bounded351-20261028/stage.mjs",
+          "sha256": "84d831bdb473f4a3a32b9c36a99dcbf051ee6857b09cd76ea9131613fb20f5fe"
+        },
+        "manifest": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-bounded351-20261028/manifest.json",
+          "sha256": "ca8db328e6d05faecdd3337cf7e28ebb641852e06d27b7e093f3b8d796b1899b"
+        },
+        "candidateSha256": "3cfe3a27bd799782d6ac8e626fcf97d26e1724ce544b6ccf26bcd740bd259dcb",
+        "contract": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-ready109167-zero-20261028/109-limited-display-contract.json",
+          "sha256": "28cba1926a83d63d1e99a4cd20b016ecab577ccb01495c1f9a3c7cd02bf4ee47"
+        }
+      },
+      "previewOutput": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-44-10-491Z",
+      "corpusId": "df8320d297001c4b174cfc2f2964c376395587577f488a5b408a6536df8f0f61",
+      "stageReceiptPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-44-10-491Z/stages/s109/web-stage-receipt.json",
+      "sourceBlocks": 17,
+      "pdfOwnedSourceBlocks": 25,
+      "compiledBlocks": 32,
+      "candidateFigures": 7,
+      "imagesRead": 7,
+      "allActualLimitsAndSourceNotesDisplayed": true,
+      "readback": {
+        "path": "_analysis/b351/readback.json",
+        "sha256": "cf6bd1f642613e26eb072e9f2381e546bbbd002e45118ea9fc30501b72737b7e"
+      },
+      "sourceVersionBodyEquivalenceConfirmed": true,
+      "ordinaryWholeArticlePassed": false,
+      "originalFalseAndUncertainPreserved": true,
+      "newModelCalls": 0
+    }
+  ],
+  "ordinaryWholeArticlePassed": false,
+  "priorUnitsUnchanged": 255,
+  "tests": {
+    "passed": true,
+    "newRefusalChecks": [
+      {
+        "key": "283",
+        "name": "missing limit",
+        "rejected": true
+      },
+      {
+        "key": "283",
+        "name": "note as author text",
+        "rejected": true
+      },
+      {
+        "key": "283",
+        "name": "wrong position",
+        "rejected": true
+      },
+      {
+        "key": "283",
+        "name": "author contribution changed",
+        "rejected": true
+      },
+      {
+        "key": "283",
+        "name": "wrong route candidateSha256",
+        "rejected": true
+      },
+      {
+        "key": "283",
+        "name": "wrong route manifest",
+        "rejected": true
+      },
+      {
+        "key": "283",
+        "name": "wrong route contract",
+        "rejected": true
+      },
+      {
+        "key": "201",
+        "name": "missing limit",
+        "rejected": true
+      },
+      {
+        "key": "201",
+        "name": "note as author text",
+        "rejected": true
+      },
+      {
+        "key": "201",
+        "name": "wrong position",
+        "rejected": true
+      },
+      {
+        "key": "201",
+        "name": "author contribution changed",
+        "rejected": true
+      },
+      {
+        "key": "201",
+        "name": "wrong route candidateSha256",
+        "rejected": true
+      },
+      {
+        "key": "201",
+        "name": "wrong route manifest",
+        "rejected": true
+      },
+      {
+        "key": "201",
+        "name": "wrong route contract",
+        "rejected": true
+      },
+      {
+        "key": "109",
+        "name": "missing limit",
+        "rejected": true
+      },
+      {
+        "key": "109",
+        "name": "note as author text",
+        "rejected": true
+      },
+      {
+        "key": "109",
+        "name": "wrong position",
+        "rejected": true
+      },
+      {
+        "key": "109",
+        "name": "author contribution changed",
+        "rejected": true
+      },
+      {
+        "key": "109",
+        "name": "wrong route candidateSha256",
+        "rejected": true
+      },
+      {
+        "key": "109",
+        "name": "wrong route manifest",
+        "rejected": true
+      },
+      {
+        "key": "109",
+        "name": "wrong route contract",
+        "rejected": true
+      }
+    ],
+    "actualPersistentEarlyRoutes": 3,
+    "ordinarySidecarAccesses": 0,
+    "upstream23RefusalsHashVerifiedNotRerun": true,
+    "newModelCalls": 0
+  },
+  "registerChanges": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+      "beforeSha256": "a3f74c9fa2a206cd31c3b5074dc9efe1651ab097b0b9789bc453656fcaa25c04",
+      "afterSha256": "ff68bc08229c88f747366ec13a5841b2c5f2ee8e8bd2e44d1c485d3f3f552063",
+      "onlyChangedCanonicals": [
+        "nemata-jp-chapter-283-1",
+        "79-cn-chapter-201-6",
+        "79-cn-chapter-109-4"
+      ],
+      "otherRowsUnchanged": true
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+      "beforeSha256": "fc4d87154edb3116455ba5f27af58d3aa89fa7190d0049eba88e9ac9aa4b451e",
+      "afterSha256": "fd64483dcb348aec99d0b14bfbf1c8f8a5cf361075418fd73f6781667b1d1160",
+      "onlyChangedCanonicals": [
+        "nemata-jp-chapter-283-1",
+        "79-cn-chapter-201-6",
+        "79-cn-chapter-109-4"
+      ],
+      "otherRowsUnchanged": true
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-uncovered-chapter-continuation-register-20261027b.json",
+      "beforeSha256": "9b722181129878b8e870cc7fdca7c7bfb98253743db7dca7f9fe3d33487de2dc",
+      "afterSha256": "153eddec4eb44421401ec5b40f368020a772785ad9113a188bf0a2722206d33f",
+      "onlyChangedCanonicals": [
+        "nemata-jp-chapter-283-1",
+        "79-cn-chapter-201-6",
+        "79-cn-chapter-109-4"
+      ],
+      "otherRowsUnchanged": true
+    }
+  ],
+  "effective283": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-283-bounded-display-effective-20261028.json",
+    "sha256": "0bd0eb5b55b38b93eb196f79f0f7faa76ef700788194b642009484e7309d0027"
+  },
+  "readback": {
+    "path": "_analysis/b351/readback.json",
+    "sha256": "cf6bd1f642613e26eb072e9f2381e546bbbd002e45118ea9fc30501b72737b7e"
+  },
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "newConsumerStarted": false,
+  "formalActiveChanged": false,
+  "safeToResume": true,
+  "bookComplete": false
+}

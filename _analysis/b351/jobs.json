@@ -1,0 +1,89 @@
+[
+  {
+    "key": "283",
+    "canonical": "nemata-jp-chapter-283-1",
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter06-exercise003",
+    "candidate": {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.coac244bounded.json",
+      "sha256": "ff3b1f36ffbd8daa23509a7375d0aaee533648299d636af2fa51be47657965d7"
+    },
+    "source": {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/articles/chapter06-exercise003/source.v3.json",
+      "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de"
+    },
+    "chapter": "modern-yabejp-ja-chapter06-exercise003-chapter",
+    "derivedOriginal": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-bounded-merge-20261028/chapter06-exercise003.bounded-composed.json",
+      "sha256": "ff3b1f36ffbd8daa23509a7375d0aaee533648299d636af2fa51be47657965d7"
+    },
+    "contract": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-bounded-merge-20261028/250-display-route-contract.json",
+      "sha256": "6c75e9c4abfb2dda6afd8561f6b67385e915d6ba1f15ddeb46ee96fc03a45b7e"
+    }
+  },
+  {
+    "key": "201",
+    "receipt": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-201-target-impact-reviewed-20261028.json",
+      "sha256": "3a37da953a628ba7ab8bc031df939c0f168ca7e623150d7c5c4beba5a0f5a3e7"
+    },
+    "scope": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-201-scope-inheritance-20261028.json",
+      "sha256": "0d739b400c4025872070a6968180bec4642f96011467a3705d65c37a94af2258"
+    },
+    "proposal": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-201-display-requirements-20261028.json",
+      "sha256": "e80625a0088ab997f8753853f3ae6a9f752ddb8af4415638a6ac798ac243fef7"
+    },
+    "canonical": "79-cn-chapter-201-6",
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.r1.display.json",
+      "sha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77"
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1770179\\source.json",
+      "sha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb"
+    },
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1770179",
+    "chapter": "79-bilibili-cn-cv1770179-chapter",
+    "contract": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-182201-20261028/201-limited-display-contract.json",
+      "sha256": "9a0d8dc9feb314c9ec28885c439c6f304b6a2c4f52e455dc724a456829d46e5c"
+    }
+  },
+  {
+    "key": "109",
+    "receipt": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-109-target-impact-reviewed-20261028.json",
+      "sha256": "67421d448b13f720947ca5472d7a0dfba1ee95e2f710f79ec1d5e86703baa986"
+    },
+    "scope": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-109-scope-inheritance-20261028.json",
+      "sha256": "7cd0aff5f8ea7e8f0cd504f90a88072790c7e401e29cfab2b9a50ba42a817db8"
+    },
+    "proposal": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-109-display-requirements-20261028.json",
+      "sha256": "1e1f10128fb2f5b84b73cf3dcfd454599108774df4bfc7972f83f92908a9e6ef"
+    },
+    "canonical": "79-cn-chapter-109-4",
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1729038.coac269b25r1.json",
+      "sha256": "3cfe3a27bd799782d6ac8e626fcf97d26e1724ce544b6ccf26bcd740bd259dcb"
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1729038\\source.json",
+      "sha256": "b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc",
+      "bytes": 33421,
+      "copy": "evidence/cv1729038-source.json"
+    },
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1729038",
+    "chapter": "79-bilibili-cn-cv1729038-chapter",
+    "contract": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-ready109167-zero-20261028/109-limited-display-contract.json",
+      "sha256": "28cba1926a83d63d1e99a4cd20b016ecab577ccb01495c1f9a3c7cd02bf4ee47"
+    }
+  }
+]

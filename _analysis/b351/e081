@@ -1,0 +1,98 @@
+{
+  "schema": "coac269-exact-109167-only/1",
+  "authorizationComment": "01a181af-e1d9-7e64-8dcf-1607be707075",
+  "packageManifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\files.sha256.json",
+    "sha256": "d8e012c8ca1112782678992dab142d91c51a940aa77aa39fb60702ec8dbe6d7b",
+    "bytes": 6803
+  },
+  "baseManifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\runtime-manifest.json",
+    "sha256": "a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c",
+    "bytes": 6776
+  },
+  "jobs": {
+    "109": {
+      "canonical": "79-cn-chapter-109-4",
+      "article": "cv1729038",
+      "packet": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\packets\\cv1729038.json",
+        "sha256": "4bec42b7f31093130873dda4286c50bacc0a389f9eb6f2ee469612d535126399",
+        "bytes": 111268
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1729038.display.json",
+        "sha256": "ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22",
+        "bytes": 57289,
+        "copy": "evidence/cv1729038-parent.json"
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1729038\\source.json",
+        "sha256": "b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc",
+        "bytes": 33421,
+        "copy": "evidence/cv1729038-source.json"
+      },
+      "parentAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1729038.ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22.retry-1792943789870-ade1138e.json",
+        "sha256": "254405ec0e5e50e057a662509f8ac087e4d1ed84c0e60b40e185182585130eda",
+        "bytes": 32355,
+        "copy": "evidence/cv1729038-audit.json"
+      },
+      "auditor": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\auditors\\8d0ed1a6d57b66f19551c12ed504466c6d20d1abd1b6127393d2b688c3ef9782.json",
+        "sha256": "1a72a5401a46f0ba95bc189c69d711a5fafde066402d3e29e37914900f420d92",
+        "bytes": 113870
+      },
+      "repairFigureIds": [
+        "79-bilibili-cn:cv1729038:b0004:figure",
+        "79-bilibili-cn:cv1729038:b0006:figure"
+      ],
+      "unknownImpactFigureIds": [
+        "79-bilibili-cn:cv1729038:b0012:figure"
+      ],
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1729038.coac269b25r1.json"
+    },
+    "167": {
+      "canonical": "79-cn-chapter-167-4",
+      "article": "cv1754620",
+      "packet": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\packets\\cv1754620.json",
+        "sha256": "3d40a5da4437c29ba57e0b4c125e3620e966ece61a74e6c8952c5963b021888f",
+        "bytes": 76582
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.display.json",
+        "sha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+        "bytes": 32855,
+        "copy": "evidence/cv1754620-parent.json"
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1754620\\source.json",
+        "sha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+        "bytes": 23000,
+        "copy": "evidence/cv1754620-source.json"
+      },
+      "parentAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1754620.7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737.json",
+        "sha256": "8c52da176b472a79f63b7cce50f29ce66710718beea7631b1cf3b0a2a9910c73",
+        "bytes": 12132,
+        "copy": "evidence/cv1754620-audit.json"
+      },
+      "auditor": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\auditors\\74294d6a953e93cc943a29bdfa8c073f4889fc4e2ffc12e13b051d42ca1275e8.json",
+        "sha256": "56db018fb59312ce413ba53f1d80c78b66a4564e61f9955a5076f607417dcb15",
+        "bytes": 158379
+      },
+      "repairFigureIds": [
+        "79-bilibili-cn:cv1754620:b0005:figure"
+      ],
+      "unknownImpactFigureIds": [
+        "79-bilibili-cn:cv1754620:b0005:figure"
+      ],
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.coac269b25r1.json"
+    }
+  },
+  "maximumMakerPerChapter": 1,
+  "maximumIndependentPerChapter": 1,
+  "retry": 0
+}

@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';import {readFile,writeFile,access} from 'node:fs/promises';import {createHash} from 'node:crypto';
+const dir='_analysis/b351',base='E:/AgentData/Coach/knowledge/processing/integration',load=async p=>JSON.parse(await readFile(p)),sha=x=>createHash('sha256').update(x).digest('hex'),pre=await load(dir+'/pre.json'),final=await load(dir+'/final.json'),pointer=await load(pre.before.pointer.path),pub=await load(dir+'/publication.json');
+assert.equal(final.allPassed,true);assert.equal(pointer.corpusId,final.preview.corpusId);assert.equal(sha(await readFile(pre.before.pointer.path)),pub.pointerSha256);assert.equal(sha(await readFile(pre.before.builder.path)),sha(await readFile(dir+'/builder.after.mjs')));assert.equal(sha(await readFile(pub.selection.path)),pub.selection.sha256);assert.equal(sha(await readFile(pre.before.variants.path)),pre.before.variants.sha256);
+for(const f of pre.protectedFiles)assert.equal(sha(await readFile(f.path)),f.sha256,f.path);
+for(const f of(await load(dir+'/manifest.json')).files)assert.equal(sha(await readFile(f.path)),f.sha256,f.path);
+for(const f of await load(dir+'/archive.json'))assert.equal(sha(await readFile(dir+'/'+f.local)),f.sha256,f.local);
+for(const f of await load(dir+'/package.json'))assert.equal(sha(await readFile(dir+'/'+f.local)),f.sha256,f.local);
+for(const c of final.registerChanges)assert.equal(sha(await readFile(c.path)),c.afterSha256);
+for(const n of ['accepted-consumer.lock','selection-maintainer.lock.json','ACCEPTED-CONSUMER-STOP'])await assert.rejects(access(base+'/'+n),{code:'ENOENT'});
+const report={passed:true,corpusId:pointer.corpusId,version:35,rollbackVersion:34,coverage:final.coverage,immutableSourceRawAndPinnedRuntime:true,archivedEvidenceByteExact:true,otherHoldsAndFormalUnchanged:true,noWriterLeft:true,safeToResume:true,newModelCalls:0};await writeFile(dir+'/verified.json',JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));

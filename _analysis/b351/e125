@@ -1,0 +1,240 @@
+{
+  "schema": "coach-textbook-web-article-audit/1",
+  "status": "needs-repair",
+  "recordedAt": "2026-10-25T16:41:10.409Z",
+  "source": {
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1754620",
+    "url": "https://www.bilibili.com/read/cv1754620",
+    "title": "【日本麻雀讲座译文】鸣牌15—鸣牌的技巧（3）",
+    "language": "zh-CN",
+    "fetchedAt": "2026-10-23T20:31:30.255214+00:00",
+    "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1754620/source.json",
+    "sourceSha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+    "htmlSha256": "74fc517663058abeaa248548415cc374f6cb3f6e2552b0d181add5c03f3e7a0e",
+    "mainSha256": "6cb991dadf399c177ee575eb3a5ff70be5b09061e595a1cc92c8e1f790ded982"
+  },
+  "production": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.display.json",
+    "sha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737"
+  },
+  "verification": "automatic-independent-review-not-user-human-gold-standard",
+  "deterministicChecks": {
+    "passed": true,
+    "errors": [],
+    "textBlocks": 5,
+    "imageRuns": 1,
+    "imageOccurrences": 1,
+    "figures": 1
+  },
+  "independentSource": {
+    "schema": "coach-textbook-web-independent-source-check/1",
+    "passed": true,
+    "errors": [],
+    "sourceFileSha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+    "rawHtmlSha256": "74fc517663058abeaa248548415cc374f6cb3f6e2552b0d181add5c03f3e7a0e",
+    "mainSha256": "6cb991dadf399c177ee575eb3a5ff70be5b09061e595a1cc92c8e1f790ded982",
+    "textBlocks": 5,
+    "imageRuns": 1,
+    "imageOccurrences": 1,
+    "uniqueAssets": 1,
+    "method": "offline independent html.parser character-and-image DOM event comparison",
+    "modelCalls": 0
+  },
+  "semanticCompleteness": {
+    "complete": false,
+    "evidence": "六个正文块均已比较，文字、署名、原文地址及教学条件完整；但原图北家7p的立直宣言横置状态未被准确表达，且南家牌河第5行第3列的万子数字尚未确定，不能确认完整保留牌局教学语义。"
+  },
+  "modelChecks": {
+    "passed": false,
+    "errors": [
+      "needs-repair:79-bilibili-cn:cv1754620:b0005",
+      "needs-repair:79-bilibili-cn:cv1754620:b0005:figure",
+      "semantic_information_missing",
+      "error:79-bilibili-cn:cv1754620:b0005:figure",
+      "uncertain:79-bilibili-cn:cv1754620:b0005:figure"
+    ]
+  },
+  "modelReview": {
+    "blockChecks": [
+      {
+        "id": "79-bilibili-cn:cv1754620:b0001",
+        "verdict": "faithful",
+        "evidence": "“免责声明：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1754620:b0002",
+        "verdict": "faithful",
+        "evidence": "著作权声明、译者SeventhTG（XD）及转载署名要求逐字保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1754620:b0003",
+        "verdict": "faithful",
+        "evidence": "原文地址http://beginners.biz/naki/naki15.html、分隔线及“鸣牌的技巧3：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1754620:b0004",
+        "verdict": "faithful",
+        "evidence": "阻止对手和牌的目的、实战注意事项、鸣牌消除一发及不宜承担风险破一发的判断均与原文一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1754620:b0005",
+        "verdict": "needs-repair",
+        "evidence": "图已对应，但转写遗漏北家7p立直宣言牌的特殊方向，并将南家牌河一张万子牌保留为数字未知。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1754620:b0006",
+        "verdict": "faithful",
+        "evidence": "全文及段内顺序一致：吃7饼拆白暗刻、碰优先及例外、转移或消除海底、终盘杠的时机、增加宝牌的风险、顺位战术和安全牌条件均完整保留；“亲家かぶり”及原有中文解释、结尾“（待续）”未遗漏。"
+      }
+    ],
+    "figureChecks": [
+      {
+        "id": "79-bilibili-cn:cv1754620:b0005:figure",
+        "verdict": "needs-repair",
+        "evidence": "东1局0本场、1根立直棒、2p宝牌图示、四家各25000点及东家13张手牌的转写对应原图；三家背面手牌各13张。逐格核对四家牌河后，北家画面第3行最左侧7p明显与该家其他舍牌方向相差90°，候选却统一记为顺时针90°并称未见横置牌，遗漏立直宣言信息。南家第5行第3列仍缺确定牌码，其余已列牌面未发现差异。"
+      }
+    ],
+    "imageChecks": [
+      {
+        "id": "79-bilibili-cn:cv1754620:i00001",
+        "disposition": "represented",
+        "evidence": "唯一图片出现已对应至b0005:figure；已结合所附原图和放大视图审查。图中立直宣言牌方向及一张未确定万子牌的问题见figureChecks和issues。"
+      }
+    ],
+    "domOrder": {
+      "faithful": true,
+      "evidence": "候选按b0001至b0006的自然顺序排列，牌局图位于破一发的一般说明之后、“如果是零风险的情况”之前；无正文移位或重复。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "六个正文块均已比较，文字、署名、原文地址及教学条件完整；但原图北家7p的立直宣言横置状态未被准确表达，且南家牌河第5行第3列的万子数字尚未确定，不能确认完整保留牌局教学语义。"
+    },
+    "issues": [
+      {
+        "severity": "error",
+        "targetId": "79-bilibili-cn:cv1754620:b0005:figure",
+        "sourceEvidence": "原图左侧北家牌河按画面第3行最左侧的7p呈纵向，与该家其余横向舍牌方向相差90°；中央同时显示1根立直棒。后文明确讨论吃7饼破一发。",
+        "description": "候选将北家牌河统一标为顺时针旋转90度，并写“未见……横置牌”，遗漏7p为立直宣言牌的关键状态。",
+        "suggestedRepair": "单独注明该7p相对于北家其他舍牌横置、为立直宣言牌，并修正统一方向说明及“未见横置牌”的表述。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1754620:b0005:figure",
+        "sourceEvidence": "南家牌河按画面第5行第3列存在一张万子牌；候选写“数字未辨清的万子牌”，并在unknowns中重复列为未确定。",
+        "description": "此处缺少确定牌码；本次从所附视图无法可靠确认数字，不能判定逐牌转写完整。",
+        "suggestedRepair": "保留原图与此项未知状态，待可靠辨认该牌数字后补齐确定牌码；在此之前阻断语义完整通过。"
+      }
+    ],
+    "completeArticleCompared": true,
+    "summary": "全文文字和DOM顺序忠实；牌局图遗漏北家7p立直宣言状态，另有一张万子牌未确定，需修复后通过。"
+  },
+  "calls": [
+    {
+      "callId": "1a849f14-2853-47b0-9961-c414cfd152bc",
+      "scope": "textbook-web-article-audit",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1754620",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 20014,
+        "cachedInputTokens": 0,
+        "outputTokens": 5191
+      },
+      "promptSha256": "47b051fc5b98859877e833f3628c3c22ae5296a1d5c468fa0d6d23e376bd2170",
+      "semanticPromptSha256": "a7bbdd3c327c97ce02b8e109e5e05e4bdfb8d31a0c243e2416a73b805e162aa4",
+      "schemaSha256": "59460df0a52625a8ae0ddc492a173cb4dc09279cd8e0e5f906c4a94a3fcf0edb",
+      "outputSha256": "bc90bc3ead0d3e60824d6955ff307cf430d68292d0ecada5fb8f6ed3b51be9be",
+      "requestPromptBytes": 28125,
+      "semanticPromptBytes": 27643,
+      "binding": {
+        "productionSha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+        "sourceFileSha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+        "auditorSnapshotSha256": "56db018fb59312ce413ba53f1d80c78b66a4564e61f9955a5076f607417dcb15",
+        "semanticProjectionSha256": "aa9b240affafd4212a7934fda8958971291b514737e105030e52d294fe9b698f",
+        "semanticProjectionVersion": 2,
+        "verifiedAssetIds": [],
+        "originalImageAssetIds": [
+          "79-bilibili-cn:ca42baaf730487f5baed937e"
+        ],
+        "supplementalInputs": [
+          {
+            "assetId": "79-bilibili-cn:ca42baaf730487f5baed937e",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/59c525639dcbed32f3e084b3ba249716649f8be24805394d1489cfa84cd1db88.gif",
+            "sourceSha256": "59c525639dcbed32f3e084b3ba249716649f8be24805394d1489cfa84cd1db88",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/59c525639dcbed32f3e084b3ba249716649f8be24805394d1489cfa84cd1db88.x2.png",
+            "sha256": "c882307b5583644c4efd90d9757fcd3ddea04a8131259484331a67b953ceeddd",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 2,
+            "resampling": "nearest",
+            "width": 990,
+            "height": 1002
+          }
+        ]
+      },
+      "recordedAt": "2026-10-25T16:44:46.956Z"
+    }
+  ],
+  "exactReuse": null,
+  "auditor": {
+    "path": "audit/web/auditors/74294d6a953e93cc943a29bdfa8c073f4889fc4e2ffc12e13b051d42ca1275e8.json",
+    "sha256": "56db018fb59312ce413ba53f1d80c78b66a4564e61f9955a5076f607417dcb15",
+    "combinedSha256": "74294d6a953e93cc943a29bdfa8c073f4889fc4e2ffc12e13b051d42ca1275e8"
+  },
+  "presentation": {
+    "parent": {
+      "path": "web-production/v1/candidates/79-bilibili-cn/cv1754620.json",
+      "sha256": "d55d188c3661912fb87039393188efe886946b15b7dcb16a54f539761d69647f",
+      "reason": "Lossless display images only; translations and source figure sequences unchanged"
+    },
+    "pixels": {
+      "passed": true,
+      "figures": 1,
+      "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+    }
+  },
+  "productionCall": {
+    "callId": "7f3905c9-d231-4bc3-a252-ba5f60c3517e",
+    "rawArtifactPath": "raw-calls/7f3905c9-d231-4bc3-a252-ba5f60c3517e.json",
+    "rawArtifactSha256": "11dcebcd8fbe73c85887c011d10e4f953b8d1c994f043f9450e2f764d0d4b011",
+    "visualInputs": {
+      "inputs": [
+        {
+          "assetId": "79-bilibili-cn:ca42baaf730487f5baed937e",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/59c525639dcbed32f3e084b3ba249716649f8be24805394d1489cfa84cd1db88.gif",
+          "sourceSha256": "59c525639dcbed32f3e084b3ba249716649f8be24805394d1489cfa84cd1db88",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/59c525639dcbed32f3e084b3ba249716649f8be24805394d1489cfa84cd1db88.gif",
+          "sha256": "59c525639dcbed32f3e084b3ba249716649f8be24805394d1489cfa84cd1db88",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 495,
+          "height": 501
+        },
+        {
+          "assetId": "79-bilibili-cn:ca42baaf730487f5baed937e",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/59c525639dcbed32f3e084b3ba249716649f8be24805394d1489cfa84cd1db88.gif",
+          "sourceSha256": "59c525639dcbed32f3e084b3ba249716649f8be24805394d1489cfa84cd1db88",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/59c525639dcbed32f3e084b3ba249716649f8be24805394d1489cfa84cd1db88.x2.png",
+          "sha256": "c882307b5583644c4efd90d9757fcd3ddea04a8131259484331a67b953ceeddd",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 2,
+          "resampling": "nearest",
+          "width": 990,
+          "height": 1002
+        }
+      ],
+      "pixels": {
+        "passed": true,
+        "inputs": 2
+      }
+    }
+  },
+  "verifiedAssets": null,
+  "method": "independent-sol-high-full-article-review"
+}

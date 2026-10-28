@@ -1,0 +1,47 @@
+{
+  "schema": "coach-textbook-web-stage/1",
+  "status": "independently-audited-chapter-preview",
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac244bounded.json",
+  "candidateSha256": "ff3b1f36ffbd8daa23509a7375d0aaee533648299d636af2fa51be47657965d7",
+  "sourceSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+  "auditPath": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-bounded-merge-20261028/proof.json",
+  "auditStatus": "admitted-exact-bounded351-display",
+  "limitedUnknownFidelity": null,
+  "imageDerivations": [],
+  "chapters": 1,
+  "units": 1,
+  "blocks": 675,
+  "figures": 525,
+  "corpusId": "05e574d465b07324b6c7042ba714d2d6dcc814335b1a53c0df85917f2816772e",
+  "bodySha256": "20b869fe5535ec30dc9afd4ecb8fc5aefdade97b77c28a37b4aeb33a5313d7ab",
+  "maxUnitBytes": 592593,
+  "modelCalls": 0,
+  "activeLibraryChanged": false,
+  "humanReview": "pending",
+  "key": "283",
+  "canonical": "nemata-jp-chapter-283-1",
+  "standardWholeArticlePassed": false,
+  "displayLimits": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-44-10-491Z/stages/s283/display-limits.json",
+    "sha256": "7c2f8b6e7eceb94e728da204c89b6467767d4c045c817fc1a45a12bc5f28a6ab"
+  },
+  "bounded351Review": {
+    "module": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-bounded351-20261028/admit.mjs",
+      "sha256": "c723d60f72c4027172f31de091b3947aa6c1894d8e1c04bbfb83ce64d786706e"
+    },
+    "stage": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-bounded351-20261028/stage.mjs",
+      "sha256": "84d831bdb473f4a3a32b9c36a99dcbf051ee6857b09cd76ea9131613fb20f5fe"
+    },
+    "manifest": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-bounded351-20261028/manifest.json",
+      "sha256": "ca8db328e6d05faecdd3337cf7e28ebb641852e06d27b7e093f3b8d796b1899b"
+    },
+    "candidateSha256": "ff3b1f36ffbd8daa23509a7375d0aaee533648299d636af2fa51be47657965d7",
+    "contract": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-bounded-merge-20261028/250-display-route-contract.json",
+      "sha256": "6c75e9c4abfb2dda6afd8561f6b67385e915d6ba1f15ddeb46ee96fc03a45b7e"
+    }
+  }
+}

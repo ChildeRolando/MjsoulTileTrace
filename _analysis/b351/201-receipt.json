@@ -1,0 +1,47 @@
+{
+  "schema": "coach-textbook-web-stage/1",
+  "status": "independently-audited-chapter-preview",
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.r1.display.json",
+  "candidateSha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77",
+  "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+  "auditPath": "E:/AgentData/Coach/knowledge/processing/integration/coac249-201-target-impact-reviewed-20261028.json",
+  "auditStatus": "admitted-exact-bounded351-display",
+  "limitedUnknownFidelity": null,
+  "imageDerivations": [],
+  "chapters": 1,
+  "units": 1,
+  "blocks": 16,
+  "figures": 1,
+  "corpusId": "b4e71af2ded315fc80071833dd82363724df741c51fa3c4e3d79c1cf807fb5c7",
+  "bodySha256": "1eea186c3b03f0e8a4feaa132ac2bc073c8a3df8b10a7359edc676395cfde608",
+  "maxUnitBytes": 9873,
+  "modelCalls": 0,
+  "activeLibraryChanged": false,
+  "humanReview": "pending",
+  "key": "201",
+  "canonical": "79-cn-chapter-201-6",
+  "standardWholeArticlePassed": false,
+  "displayLimits": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-44-10-491Z/stages/s201/display-limits.json",
+    "sha256": "6ec02e3d359e646e826d761e00727ec49ba63d97911df8271e33a033d2b88bf3"
+  },
+  "bounded351Review": {
+    "module": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-bounded351-20261028/admit.mjs",
+      "sha256": "c723d60f72c4027172f31de091b3947aa6c1894d8e1c04bbfb83ce64d786706e"
+    },
+    "stage": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-bounded351-20261028/stage.mjs",
+      "sha256": "84d831bdb473f4a3a32b9c36a99dcbf051ee6857b09cd76ea9131613fb20f5fe"
+    },
+    "manifest": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-bounded351-20261028/manifest.json",
+      "sha256": "ca8db328e6d05faecdd3337cf7e28ebb641852e06d27b7e093f3b8d796b1899b"
+    },
+    "candidateSha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77",
+    "contract": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-182201-20261028/201-limited-display-contract.json",
+      "sha256": "9a0d8dc9feb314c9ec28885c439c6f304b6a2c4f52e455dc724a456829d46e5c"
+    }
+  }
+}

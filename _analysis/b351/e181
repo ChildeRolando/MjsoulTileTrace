@@ -1,0 +1,44 @@
+{
+  "historicalObservationSnapshots": [
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-4db4597b3ef6\\worktree\\artifacts\\a249-201-109167\\109\\admission-0-preview.json",
+      "sha256": "53d88fef65a44e02210dd1a9eca6314319b15f0efec6f2d1591b6cdb908f0c1d",
+      "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+      "bytes": 6307396,
+      "status": "historical-observation-only; original private copy unavailable; not a model-input or semantic gate dependency"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-4db4597b3ef6\\worktree\\artifacts\\a249-201-109167\\109\\admission-0-register.json",
+      "sha256": "23875cdc373dd3bfdecad049e8881b7f9ad687bace272c256ef67d0af39ba2a3",
+      "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+      "bytes": 676235,
+      "status": "historical-observation-only; original private copy unavailable; not a model-input or semantic gate dependency"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-4db4597b3ef6\\worktree\\artifacts\\a249-201-109167\\109\\admission-1-preview.json",
+      "sha256": "53d88fef65a44e02210dd1a9eca6314319b15f0efec6f2d1591b6cdb908f0c1d",
+      "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+      "bytes": 6307396,
+      "status": "historical-observation-only; original private copy unavailable; not a model-input or semantic gate dependency"
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-4db4597b3ef6\\worktree\\artifacts\\a249-201-109167\\109\\admission-1-register.json",
+      "sha256": "23875cdc373dd3bfdecad049e8881b7f9ad687bace272c256ef67d0af39ba2a3",
+      "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+      "bytes": 676235,
+      "status": "historical-observation-only; original private copy unavailable; not a model-input or semantic gate dependency"
+    }
+  ],
+  "schema": "coac244-exact-109-limited-display-route/1",
+  "canonical": "79-cn-chapter-109-4",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1729038.coac269b25r1.json",
+    "sha256": "3cfe3a27bd799782d6ac8e626fcf97d26e1724ce544b6ccf26bcd740bd259dcb"
+  },
+  "authorization": "01a181af-e1d9-7e64-8dcf-1607be707075",
+  "scope": "Only exact independently allowed author-fidelity scope with all original mandatory limits, notes, unknowns and full existing parent evidence. Original targetPassed/limitedUnknownOkay false and uncertain stay unchanged.",
+  "requiredActualMcpArenaReadback": true,
+  "ordinaryWholeArticlePassed": false,
+  "newModelCalls": 0,
+  "newProductionCalls": 0
+}

@@ -1,0 +1,114 @@
+{
+  "verification": {
+    "passed": true,
+    "scopedCompositionVerified": true,
+    "independentLimitedAllowance": true,
+    "originalTargetPassed": false,
+    "originalUncertainPreserved": true,
+    "authorBlocksUnchanged": 1195,
+    "nonTargetFiguresUnchanged": 522,
+    "b0785ExactObjectPreserved": true,
+    "b0947ExactObjectPreserved": true,
+    "mandatoryLimits": 4,
+    "newModelCalls": 0,
+    "displayContractPrepared": true,
+    "displayInstalled": false,
+    "admissionGranted": false,
+    "wholeChapterAccepted": false,
+    "standardWholeArticlePassed": false
+  },
+  "negativeChecks": [
+    {
+      "name": "wrong-parent",
+      "rejected": true
+    },
+    {
+      "name": "wrong-call",
+      "rejected": true
+    },
+    {
+      "name": "wrong-raw",
+      "rejected": true
+    },
+    {
+      "name": "wrong-receipt",
+      "rejected": true
+    },
+    {
+      "name": "missing-limit",
+      "rejected": true
+    },
+    {
+      "name": "default-screen-confusion",
+      "rejected": true
+    },
+    {
+      "name": "guess-unknown",
+      "rejected": true
+    },
+    {
+      "name": "old-seat-restored",
+      "rejected": true
+    },
+    {
+      "name": "old0947-object",
+      "rejected": true
+    },
+    {
+      "name": "body-edited",
+      "rejected": true
+    },
+    {
+      "name": "non-target-figure",
+      "rejected": true
+    },
+    {
+      "name": "wrong-scope",
+      "rejected": true
+    },
+    {
+      "name": "unanchored",
+      "rejected": true
+    },
+    {
+      "name": "author-note",
+      "rejected": true
+    },
+    {
+      "name": "drop-original-uncertain",
+      "rejected": true
+    },
+    {
+      "name": "target-pass-forged",
+      "rejected": true
+    },
+    {
+      "name": "chapter-pass-forged",
+      "rejected": true
+    },
+    {
+      "name": "admission-forged",
+      "rejected": true
+    },
+    {
+      "name": "new-call",
+      "rejected": true
+    },
+    {
+      "name": "default-condition-deleted",
+      "rejected": true
+    },
+    {
+      "name": "wrong-donor",
+      "rejected": true
+    },
+    {
+      "name": "wrong-limit-quote-position",
+      "rejected": true
+    },
+    {
+      "name": "raw-uncertain-forged",
+      "rejected": true
+    }
+  ]
+}

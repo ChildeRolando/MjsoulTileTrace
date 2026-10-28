@@ -1,0 +1,24 @@
+{
+  "canonical": "nemata-jp-chapter-283-1",
+  "derived": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-bounded-merge-20261028/chapter06-exercise003.bounded-composed.json",
+    "sha256": "ff3b1f36ffbd8daa23509a7375d0aaee533648299d636af2fa51be47657965d7"
+  },
+  "proof": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-bounded-merge-20261028/proof.json",
+  "overlay": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-bounded-merge-20261028/b0785-display-contract.json",
+    "sha256": "1c8fefac153094fbde93e234961ef4475259ba38dbae3298779e542d271905ba"
+  },
+  "verifier": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-bounded-merge-20261028/merge.mjs",
+  "status": "bounded-scope-and-composition-proof-ready-for-existing250-writer",
+  "newCalls": 0,
+  "newConsumers": 0,
+  "originalTargetPassed": false,
+  "admissionGranted": false,
+  "wholeChapterAccepted": false,
+  "remaining": "Existing250 installs all four non-author limits with Q48 and verifies actual MCP/Arena display plus inherited complete scopes before any chapter admission. Do not repeat model reading.",
+  "original250IntakeRun": "01a181b5-b8af-7ad3-9e86-1ff49309e1ef",
+  "original250IntakeStatus": "completed",
+  "original250Commit": "9bb97ed",
+  "doNotStartDuplicateConsumer": true
+}
