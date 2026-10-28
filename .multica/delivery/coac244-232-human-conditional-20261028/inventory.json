@@ -1,0 +1,83 @@
+{
+  "schema": "coac244-232-conditional-delivery-inventory-v1",
+  "codeCommit": "2e2dea91",
+  "files": [
+    {
+      "name": ".gitattributes",
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    {
+      "name": "admit.mjs",
+      "bytes": 7392,
+      "sha256": "535b27670e9608602b1a382c2cb68e4c6818fcfd0f523595d409d7bd1f0707ff"
+    },
+    {
+      "name": "check.mjs",
+      "bytes": 3982,
+      "sha256": "aae51cfb6154ec0a1660c72ae81945cf43076f4e6b73992d9732c49cdadc9095"
+    },
+    {
+      "name": "finalize.py",
+      "bytes": 3119,
+      "sha256": "5ba4caeb491e0e8d2b40895c3bcba8667adaaf59676e211104b582d2c3164788"
+    },
+    {
+      "name": "handoff250.json",
+      "bytes": 4288,
+      "sha256": "4bbf1e98fa5231e24a203623a2d81f5f01f5e09d770b6be61e42e92769bf43ee"
+    },
+    {
+      "name": "handoff250.md",
+      "bytes": 2181,
+      "sha256": "ffb1351005103a4c1e25d4ed99804b5f552d2ea7368f09d211f675db114f0248"
+    },
+    {
+      "name": "manifest.json",
+      "bytes": 75374,
+      "sha256": "8330bcbd79d6721a3602b0484814ed786686240a9b590d92b657f217719e96f6"
+    },
+    {
+      "name": "prepare.py",
+      "bytes": 3221,
+      "sha256": "21a2095fd25390973678b0e401548b2712a48d088ccb0b6de628c104cb4f6e94"
+    },
+    {
+      "name": "README.md",
+      "bytes": 3940,
+      "sha256": "c60f8995e1b4e3404bfccb5ce69d1d9ac19ab8391e2c5b429f37e8fe8932b31e"
+    },
+    {
+      "name": "rebuild-verification.json",
+      "bytes": 664,
+      "sha256": "1db2c4e51a572367ee12bfe4d8d0913bfd159d48c71052717ff97e6b11de9ddb"
+    },
+    {
+      "name": "register-update.json",
+      "bytes": 458,
+      "sha256": "125246e4d4d4953d2a93d44cd5097c193658c49e3245c5299c8f5f1efb7efe57"
+    },
+    {
+      "name": "routing.json",
+      "bytes": 665,
+      "sha256": "86009d993e0d905df1c1f89c1787112528e38b71ce48ce89e2f4e3dd22a969f8"
+    },
+    {
+      "name": "stage-base.mjs",
+      "bytes": 21228,
+      "sha256": "29c9cad8d7f3a78e3f3366eb5d560e7e164abaacb7ecdf701c9c669fd1cf59bb"
+    },
+    {
+      "name": "stage.mjs",
+      "bytes": 6926,
+      "sha256": "4c6419d7662a313c1eef862b1fff7d58aeb6afc91b3bfef86815bf48182105da"
+    },
+    {
+      "name": "verification.json",
+      "bytes": 3008,
+      "sha256": "3949b07271402a5864fa5c734f0a03ce24ab2509f94a6be0240082dad5c4be71"
+    }
+  ],
+  "containsOriginalBookRawOrStage": false,
+  "globalReadbackCompleted": false
+}
