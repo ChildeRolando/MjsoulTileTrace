@@ -1,0 +1,52 @@
+{
+  "schema": "coach-preview-source-deduplication/1",
+  "recordedAt": "2026-10-28T09:08:46.461Z",
+  "corpusId": "fbfbc438f33ce1fe5a90aa23c509c59828275fa3d0c44160efba811bb89b0043",
+  "chapters": 247,
+  "formalBlocksExactlyPreserved": 32,
+  "formalBlocksPreservedByExplicitSourceReuse": 91,
+  "formalFiguresSourceReused": 23,
+  "formalFiguresExactlyReused": 19,
+  "formalFiguresWithApprovedSourceCorrection": 4,
+  "declaredSourceDifferences": [
+    {
+      "oldBlockId": "pairs-route-b1",
+      "oldType": "h2",
+      "oldText": "手役9—对子手（一）",
+      "kind": "heading-format-or-source-title",
+      "oldTextWithFinalFullStopRemovedOccursInWeb": false
+    },
+    {
+      "oldBlockId": "pairs-route-b9",
+      "oldType": "h2",
+      "oldText": "2．5 组对子",
+      "kind": "heading-format-or-source-title",
+      "oldTextWithFinalFullStopRemovedOccursInWeb": false
+    },
+    {
+      "oldBlockId": "pairs-route-b25",
+      "oldType": "h2",
+      "oldText": "3．4 组对子＋1 组暗刻",
+      "kind": "heading-format-or-source-title",
+      "oldTextWithFinalFullStopRemovedOccursInWeb": false
+    },
+    {
+      "oldBlockId": "pairs-standard-b1",
+      "oldType": "h2",
+      "oldText": "手役10—对子手（二）",
+      "kind": "heading-format-or-source-title",
+      "oldTextWithFinalFullStopRemovedOccursInWeb": false
+    },
+    {
+      "oldBlockId": "open-hand-defense-b30",
+      "oldType": "p",
+      "oldText": "很像后附的鸣牌，\n需要注意役牌的生牌。\n当然对手有役牌暗刻也是很常见的。",
+      "kind": "source-final-full-stop-difference",
+      "oldTextWithFinalFullStopRemovedOccursInWeb": true
+    }
+  ],
+  "uniqueWebSourceBlocks": 12762,
+  "uniqueImageOccurrences": 14018,
+  "crossChapterSourceCollisions": 0,
+  "modelCalls": 0
+}

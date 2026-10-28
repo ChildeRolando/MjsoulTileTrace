@@ -1,0 +1,12 @@
+import {readFile} from 'node:fs/promises';import {createHash} from 'node:crypto';import {pathToFileURL} from 'node:url';
+export async function load182Limited(root,path,binding){
+ const sha=b=>createHash('sha256').update(b).digest('hex');if(sha(await readFile(path))!=='32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc'||binding.candidateSha256!=='32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc')throw Error('exact182_candidate_binding');
+ for(const f of [binding.module,binding.stage,binding.manifest,binding.contract])if(sha(await readFile(f.path))!==f.sha256)throw Error('exact182_bound_file_changed');const manifest=JSON.parse(await readFile(binding.manifest.path));for(const f of manifest.files)if(sha(await readFile(f.path))!==f.sha256)throw Error('exact182_dependency_changed');return {verify:(await import(pathToFileURL(binding.module.path))).verify182Limited,stage:(await import(pathToFileURL(binding.stage.path))).stageWebTextbook};
+}
+export function patch182(before,selectionSha,oldSha){
+ if(before.split('specific-web-variant-selection.v33.json').length!==3||before.split(oldSha).length!==3)throw Error('v33_builder_pins');let s=before.replaceAll('specific-web-variant-selection.v33.json','specific-web-variant-selection.v34.json').replaceAll(oldSha,selectionSha);
+ const anchor='if(!exact256Review)try{await access';if(s.split(anchor).length!==2)throw Error('exact182_early_anchor');s=s.replaceAll(anchor,"const exact182Review=JSON.parse(variantBytes).jobs.find(j=>j.sourceId===sid&&j.articleId===article)?.exact182Review;if(!exact256Review&&!exact182Review)try{await access");
+ const verify='try{audit=await verifySelected(root,path);}catch(e)';if(s.split(verify).length!==2)throw Error('exact182_verify_anchor');s=s.replaceAll(verify,'if(exact182Review){const route=await load182Limited(root,path,exact182Review);verifySelected=route.verify;stageSelected=route.stage;}'+verify);
+ const step="  const nextLibrary=await load(join(dest,'knowledge-index.json'))";if(s.split(step).length!==2)throw Error('exact182_receipt_anchor');s=s.replaceAll(step,"  if(exact182Review){Object.assign(receipt,{exact182Review});await atomicJson(join(dest,'web-stage-receipt.json'),receipt);}\n"+step);
+ s=s.replaceAll('inputAdjudication:audit.inputAdjudication,...(exact256Review?', 'inputAdjudication:audit.inputAdjudication,...(exact182Review?{exact182Review}:{}),...(exact256Review?');return load182Limited.toString()+'\n'+s;
+}

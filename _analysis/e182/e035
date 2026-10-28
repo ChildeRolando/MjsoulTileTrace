@@ -1,0 +1,32 @@
+{
+  "schema": "coac244-existing182-limited-display-contract/1",
+  "canonical": "79-cn-chapter-182-5",
+  "scope": "exact182-source-ambiguity-with-neighbor-editorial-note",
+  "authorization": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+  "integrationWakeup": "01a181bb-a978-7c22-8787-06f89d12ae29",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1760573.r1.display.json",
+    "sha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1760573\\source.json",
+    "sha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1760573.display.json",
+    "sha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270"
+  },
+  "independentReceipt": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-182-target-impact-reviewed-20261028.json",
+    "sha256": "14442a0ef1dfa65e159ec3e887a56c9d83beb2fb7d32ffdf114a547c31248a62"
+  },
+  "displayProposal": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-182-display-requirements-20261028.json",
+    "sha256": "93f8864e139223dbe9dcb8607bcdd52ae2b799d2b867501fd3bd1ff283fa03c2"
+  },
+  "requirements": "Keep all author text/marks/Japanese/old Chinese note and all 5 figures. Place exact non-author annotation immediately after the exact ambiguous sentence, plus remaining three verbatim display limits. Preserve original uncertain and ordinary needs-repair. Full actual MCP/Arena readback before coverage.",
+  "ordinaryWholeArticlePassed": false,
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "otherScopesAccepted": false
+}

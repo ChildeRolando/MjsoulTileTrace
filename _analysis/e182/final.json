@@ -1,0 +1,272 @@
+{
+  "schema": "coac250-exact182-final/1",
+  "allPassed": true,
+  "preview": {
+    "chapters": 247,
+    "units": 255,
+    "blocks": 6862,
+    "figures": 5360,
+    "corpusId": "fbfbc438f33ce1fe5a90aa23c509c59828275fa3d0c44160efba811bb89b0043",
+    "bodySha256": "d0432de1679a663e6a0801cf2abb36ae543502f96d3c81da038611e5f4487437",
+    "maxUnitBytes": 358204,
+    "modelCalls": 0,
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-07-55-856Z",
+    "stage": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-07-55-856Z/stages/e182",
+    "priorUnitsUnchanged": 254,
+    "models": 0
+  },
+  "coverage": {
+    "originalChaptersCovered": 245,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 277,
+    "originalUnitsTotal": 303
+  },
+  "remainingChapters": 11,
+  "remainingOriginalUnits": 26,
+  "remaining": [
+    {
+      "canonical": "79-cn-chapter-109-4",
+      "title": "手役7—染手（二）",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "复用最新同源修订和父审；b0004/b0006的5m读法与b0012三处未明牌分开，后者取更清晰同源图或定位审证；不得仅修已知两牌就放行。"
+    },
+    {
+      "canonical": "79-cn-chapter-167-4",
+      "title": "鸣牌15—鸣牌的技巧（3）",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "b0005先保留7p立直宣言牌方向修订目标，另将南家第5行第3列万子未明点数定位补证；两项均闭合后再独审。"
+    },
+    {
+      "canonical": "79-cn-chapter-201-6",
+      "title": "防守6—弃和的切牌顺序（1）",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "先复用已有rev1及独审差异；b0006比喻翻译与b0005北家9m各有原定位，限定同源目标，不覆盖其它正文。"
+    },
+    {
+      "canonical": "79-cn-chapter-234-12",
+      "title": "状况判断2—要有顺位意识",
+      "units": 1,
+      "owner": "COAC-269",
+      "nextAction": "旧生产ba432ee3超时且rawLastMessage=null，完整raw无可恢复输出；上游请求数/usage未知。先明确观测边界和追加授权，最小仅b0003三个俗称，无图，不自动重试。"
+    },
+    {
+      "canonical": "79-cn-chapter-311-18",
+      "title": "第三节 攻守判断的基准",
+      "units": 16,
+      "owner": "COAC-248",
+      "nextAction": "按原独审逐target/group生成有限补丁和shared-premise闭包，保留题库225块原顺序；先核当前修订/失败ledger，不整章从头再制。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-193-1",
+      "title": "ドラ切り",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "与79-cn-193不同：b0080末三张6p/8p、右手第4-6张未明牌；b0081“入り目”需同作者原语境。补文术语不替代三张图证。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-213-1",
+      "title": "逆切り３",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "b0017入り目条件限定与b0032左家7p分别定点；对家字牌/两家点数未知仍需源图补证，不能由牌理推。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-224-1",
+      "title": "オーラスの見逃し判断",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "b0013保留7系列x15巡图，原轴坐标可机械形成空表；读数需明确约值与误差，图例自摸译名定点修，不把相关率或曲线走向替代105格定量独审。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-232-1",
+      "title": "満貫和了技術",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "b0002確和了、b0004や并列可文字定修；b0005手牌3s/2s及右家万子未明分别带图审，不能只修文字放行。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-250-1",
+      "title": "「ネマー日記」ブログ問題",
+      "units": 1,
+      "owner": "COAC-247/248",
+      "nextAction": "复用11页真实passed，只处理p257与p261；p257旧主控像素断言不作裁决，p261查现有完整raw/布局验证后限定修复，不重开258或13页整制。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-283-1",
+      "title": "「鴉〃の麻雀解説」サイト問題",
+      "units": 1,
+      "owner": "COAC-248/249",
+      "nextAction": "b0785真实独审已结束：方位faithful、contextFaithful、unknown影响nonblocking-with-limits；原targetPassed=false及1条uncertain原样。当前只待现有244零模型落实四条原显示限制及精确SHA合法scope/loader，尤其默认条件与截图实况区分；不再派识字、制作或复审。原19=14已有补证/3限定准入待核/2source-note。b0947装配保留；整283不合库，不启动MCP/Arena整章验收，不切active。"
+    }
+  ],
+  "addedOriginalChapters": [
+    "79-cn-chapter-182-5"
+  ],
+  "selection": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v34.json",
+    "sha256": "54963b81bb3a7eb3c8151d4e2ba1b3a086c65f16d572d95585a528aeb94811a0",
+    "version": 34,
+    "rollbackVersion": 33
+  },
+  "intake": {
+    "status": "admitted-exact182-source-ambiguity-display",
+    "binding": {
+      "candidateSha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc",
+      "module": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-182-limited-display-20261028/admit.mjs",
+        "sha256": "7dba2290a49cb7818c07cb0aaba0fafe362f58011d586d1cc0ec1182c88fde15"
+      },
+      "stage": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-182-limited-display-20261028/stage.mjs",
+        "sha256": "4bd0f8db726e5398f1c510e504720fa385b3ae056f280548d52e0af3b1390c44"
+      },
+      "manifest": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-182-limited-display-20261028/manifest.json",
+        "sha256": "382cf583429f1f0b27fb86336897e9ffb4a397377db0aa8fdb63532c7f116af5"
+      },
+      "contract": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-182201-20261028/182-limited-display-contract.json",
+        "sha256": "1b50a4ee5163f5677a183bfe5867caed0e52ede59f765430c31acc742e40572e"
+      }
+    },
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1760573.r1.display.json",
+      "sha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc"
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1760573\\source.json",
+      "sha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1760573.display.json",
+      "sha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270"
+    },
+    "independentReceipt": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-182-target-impact-reviewed-20261028.json",
+      "sha256": "14442a0ef1dfa65e159ec3e887a56c9d83beb2fb7d32ffdf114a547c31248a62"
+    },
+    "displayProposal": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-182-display-requirements-20261028.json",
+      "sha256": "93f8864e139223dbe9dcb8607bcdd52ae2b799d2b867501fd3bd1ff283fa03c2"
+    },
+    "previewOutput": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-07-55-856Z",
+    "corpusId": "fbfbc438f33ce1fe5a90aa23c509c59828275fa3d0c44160efba811bb89b0043",
+    "previewChapterId": "79-bilibili-cn-cv1760573-chapter",
+    "stageReceiptPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-07-55-856Z/stages/e182/web-stage-receipt.json",
+    "readback": {
+      "path": "_analysis/e182/readback.json",
+      "sha256": "0b72e6212e8a901e75c168af43e4df32d41e841b7c8bc743a2ba1176d59a4eb5"
+    },
+    "sourceBlocks": 13,
+    "pdfOwnedSourceBlocks": 23,
+    "compiledBlocks": 18,
+    "figures": 5,
+    "actualNeighborAnnotation": true,
+    "actualDisplayLimits": 4,
+    "ordinaryWholeArticlePassed": false,
+    "originalUncertainAndRawPreserved": true,
+    "newModelCalls": 0
+  },
+  "ordinaryWholeArticlePassed": false,
+  "sourceAmbiguityStillUnresolved": true,
+  "priorUnitsUnchanged": 254,
+  "tests": {
+    "passed": true,
+    "refusalTests": [
+      {
+        "name": "author body changed",
+        "rejected": true
+      },
+      {
+        "name": "non-target figure changed",
+        "rejected": true
+      },
+      {
+        "name": "removed original uncertain",
+        "rejected": true
+      },
+      {
+        "name": "source ambiguity rewritten",
+        "rejected": true
+      },
+      {
+        "name": "wrong candidate proposal",
+        "rejected": true
+      },
+      {
+        "name": "wrong anchor range",
+        "rejected": true
+      },
+      {
+        "name": "missing independent limitation",
+        "rejected": true
+      },
+      {
+        "name": "annotation missing",
+        "rejected": true
+      },
+      {
+        "name": "annotation unlabeled",
+        "rejected": true
+      },
+      {
+        "name": "annotation wrong position",
+        "rejected": true
+      },
+      {
+        "name": "author emphasis lost",
+        "rejected": true
+      },
+      {
+        "name": "wrong route candidateSha256",
+        "rejected": true
+      },
+      {
+        "name": "wrong route manifest",
+        "rejected": true
+      },
+      {
+        "name": "wrong route contract",
+        "rejected": true
+      }
+    ],
+    "routeRebuiltSameCorpus": true,
+    "newModelCalls": 0
+  },
+  "registerChanges": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+      "beforeSha256": "23875cdc373dd3bfdecad049e8881b7f9ad687bace272c256ef67d0af39ba2a3",
+      "afterSha256": "a3f74c9fa2a206cd31c3b5074dc9efe1651ab097b0b9789bc453656fcaa25c04",
+      "onlyChangedCanonical": "79-cn-chapter-182-5",
+      "otherRowsUnchanged": true
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+      "beforeSha256": "02190117bc4d36b04cb9ebd54cae6d012c91f620af3505f851e4d1fae713abdc",
+      "afterSha256": "ca4370e8bbc47e1853f74f4360dcfe22cc97fcdb0a1fdb372f18cd657c1c4bf3",
+      "onlyChangedCanonical": "79-cn-chapter-182-5",
+      "otherRowsUnchanged": true
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-uncovered-chapter-continuation-register-20261027b.json",
+      "beforeSha256": "2373cf4e5d581c5a5aa3a5dee0eb5d3660625883cc56c3f5de05b49f3610cde4",
+      "afterSha256": "9b722181129878b8e870cc7fdca7c7bfb98253743db7dca7f9fe3d33487de2dc",
+      "onlyChangedCanonical": "79-cn-chapter-182-5",
+      "otherRowsUnchanged": true
+    }
+  ],
+  "readback": {
+    "path": "_analysis/e182/readback.json",
+    "sha256": "0b72e6212e8a901e75c168af43e4df32d41e841b7c8bc743a2ba1176d59a4eb5"
+  },
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "newConsumerStarted": false,
+  "formalActiveChanged": false,
+  "safeToResume": true,
+  "bookComplete": false
+}

@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "refusalTests": [
+    {
+      "name": "author body changed",
+      "rejected": true
+    },
+    {
+      "name": "non-target figure changed",
+      "rejected": true
+    },
+    {
+      "name": "removed original uncertain",
+      "rejected": true
+    },
+    {
+      "name": "source ambiguity rewritten",
+      "rejected": true
+    },
+    {
+      "name": "wrong candidate proposal",
+      "rejected": true
+    },
+    {
+      "name": "wrong anchor range",
+      "rejected": true
+    },
+    {
+      "name": "missing independent limitation",
+      "rejected": true
+    },
+    {
+      "name": "annotation missing",
+      "rejected": true
+    },
+    {
+      "name": "annotation unlabeled",
+      "rejected": true
+    },
+    {
+      "name": "annotation wrong position",
+      "rejected": true
+    },
+    {
+      "name": "author emphasis lost",
+      "rejected": true
+    },
+    {
+      "name": "wrong route candidateSha256",
+      "rejected": true
+    },
+    {
+      "name": "wrong route manifest",
+      "rejected": true
+    },
+    {
+      "name": "wrong route contract",
+      "rejected": true
+    }
+  ],
+  "routeRebuiltSameCorpus": true,
+  "newModelCalls": 0
+}

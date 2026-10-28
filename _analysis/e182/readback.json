@@ -1,0 +1,249 @@
+{
+  "schema": "coac250-exact182-readback/1",
+  "allPassed": true,
+  "preview": {
+    "chapters": 247,
+    "units": 255,
+    "blocks": 6862,
+    "figures": 5360,
+    "corpusId": "fbfbc438f33ce1fe5a90aa23c509c59828275fa3d0c44160efba811bb89b0043",
+    "bodySha256": "d0432de1679a663e6a0801cf2abb36ae543502f96d3c81da038611e5f4487437",
+    "maxUnitBytes": 358204,
+    "modelCalls": 0,
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-07-55-856Z",
+    "stage": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-07-55-856Z/stages/e182",
+    "priorUnitsUnchanged": 254,
+    "models": 0
+  },
+  "canonical": "79-cn-chapter-182-5",
+  "webSourceBlocks": 13,
+  "pdfOwnedBlocks": 23,
+  "sourceVersionCorrespondencePreserved": true,
+  "compiledBlocks": 18,
+  "figures": 5,
+  "pages": [
+    {
+      "offset": 0,
+      "blocks": 18,
+      "next": null
+    }
+  ],
+  "images": [
+    {
+      "figureId": "79-bilibili-cn-cv1760573-b4",
+      "sha256": "bb16632d9f0dd565352345085759d51eedf624c51a46dd8c08861b0ca7df0c36",
+      "bytes": 12454,
+      "mcpBytesExact": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1760573-b6",
+      "sha256": "af06892e72328a29f35eb95fec9965f6995cc4d122ee06768354fba053d794cf",
+      "bytes": 12254,
+      "mcpBytesExact": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1760573-b8",
+      "sha256": "d56b078cd2ac6631d929c73fa5a68c1d6628e612f56c25d913ca56f3c48f3845",
+      "bytes": 15971,
+      "mcpBytesExact": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1760573-b10",
+      "sha256": "356b879620ba833ad49a8b9532f9966ee1eff4cb2c172e7637b9d3958772672d",
+      "bytes": 7219,
+      "mcpBytesExact": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1760573-b12",
+      "sha256": "6626bccacf4c1491bb3cd973590fe930d754ad139cbc2aa88cd5eb177c73bf16",
+      "bytes": 4828,
+      "mcpBytesExact": true
+    }
+  ],
+  "allFourLimitsActuallyDisplayed": true,
+  "exactAdjacentAnnotation": true,
+  "sourceAmbiguityUnresolved": true,
+  "ordinaryWholeArticlePassed": false,
+  "originalUncertainAndRawPreserved": true,
+  "authorTextMarksJapaneseAndOldChineseNotePreserved": true,
+  "sourceBodyBindingComplete": true,
+  "priorUnitsUnchanged": 254,
+  "fullMcp": {
+    "units": 255,
+    "images": 5360
+  },
+  "arena": {
+    "units": 255,
+    "exactBody": true,
+    "reads": [
+      {
+        "offset": 0,
+        "blocks": 18,
+        "next": null,
+        "bytes": 11566,
+        "sourceRefs": 1
+      }
+    ],
+    "completeReadRequiredBeforeCitation": true
+  },
+  "completeCanonicalCatalog": true,
+  "crossChapterSourceCollisions": 0,
+  "calls": [
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 0,
+        "limit": 20
+      },
+      "textBytes": 4758
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 20,
+        "limit": 20
+      },
+      "textBytes": 4852
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 40,
+        "limit": 20
+      },
+      "textBytes": 4910
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 60,
+        "limit": 20
+      },
+      "textBytes": 5054
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 80,
+        "limit": 20
+      },
+      "textBytes": 5122
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 100,
+        "limit": 20
+      },
+      "textBytes": 5127
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 120,
+        "limit": 20
+      },
+      "textBytes": 5098
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 140,
+        "limit": 20
+      },
+      "textBytes": 5011
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 160,
+        "limit": 20
+      },
+      "textBytes": 5060
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 180,
+        "limit": 20
+      },
+      "textBytes": 4392
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 200,
+        "limit": 20
+      },
+      "textBytes": 2817
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 220,
+        "limit": 20
+      },
+      "textBytes": 4575
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 240,
+        "limit": 20
+      },
+      "textBytes": 1600
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1760573-argument",
+        "blockOffset": 0
+      },
+      "textBytes": 11383
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1760573-b4"
+      },
+      "textBytes": 995
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1760573-b6"
+      },
+      "textBytes": 995
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1760573-b8"
+      },
+      "textBytes": 995
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1760573-b10"
+      },
+      "textBytes": 931
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1760573-b12"
+      },
+      "textBytes": 934
+    },
+    {
+      "name": "search_textbook",
+      "args": {
+        "query": "不能据此确定对手只能采取何种行动"
+      },
+      "textBytes": 3090
+    }
+  ],
+  "newModelCalls": 0,
+  "formalActiveChanged": false
+}

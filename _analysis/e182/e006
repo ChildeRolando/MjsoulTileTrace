@@ -1,0 +1,475 @@
+{
+  "schema": "coach-textbook-web-article-audit/1",
+  "status": "needs-repair",
+  "recordedAt": "2026-10-25T18:14:01.257Z",
+  "source": {
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1760573",
+    "url": "https://www.bilibili.com/read/cv1760573",
+    "title": "【日本麻雀讲座译文】立直6—立直理论（2）",
+    "language": "zh-CN",
+    "fetchedAt": "2026-10-23T20:31:34.485015+00:00",
+    "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1760573/source.json",
+    "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+    "htmlSha256": "8a102ea653c55333fa63d3dfc3b521fded52893bbc84e6f30bbeb8a5ad53716b",
+    "mainSha256": "2e46be5da338df06dea7ead2bae1d35eb8f58b9cb3357bb9c1b3ed25e6f35281"
+  },
+  "production": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1760573.display.json",
+    "sha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270"
+  },
+  "verification": "automatic-independent-review-not-user-human-gold-standard",
+  "deterministicChecks": {
+    "passed": true,
+    "errors": [],
+    "textBlocks": 8,
+    "imageRuns": 5,
+    "imageOccurrences": 5,
+    "figures": 5
+  },
+  "independentSource": {
+    "schema": "coach-textbook-web-independent-source-check/1",
+    "passed": true,
+    "errors": [],
+    "sourceFileSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+    "rawHtmlSha256": "8a102ea653c55333fa63d3dfc3b521fded52893bbc84e6f30bbeb8a5ad53716b",
+    "mainSha256": "2e46be5da338df06dea7ead2bae1d35eb8f58b9cb3357bb9c1b3ed25e6f35281",
+    "textBlocks": 8,
+    "imageRuns": 5,
+    "imageOccurrences": 5,
+    "uniqueAssets": 5,
+    "method": "offline independent html.parser character-and-image DOM event comparison",
+    "modelCalls": 0
+  },
+  "semanticCompleteness": {
+    "complete": false,
+    "evidence": "全文13块及5次图片出现均已核对，牌码、数量、顺序、例号和图例含义完整；但b0003的日文格言未译为中文，且b0013源文“对手只能对日”的应对判断语义不明，不能确认完整教学语义。"
+  },
+  "modelChecks": {
+    "passed": false,
+    "errors": [
+      "needs-repair:79-bilibili-cn:cv1760573:b0003",
+      "uncertain:79-bilibili-cn:cv1760573:b0013",
+      "semantic_information_missing",
+      "error:79-bilibili-cn:cv1760573:b0003",
+      "uncertain:79-bilibili-cn:cv1760573:b0013"
+    ]
+  },
+  "modelReview": {
+    "blockChecks": [
+      {
+        "id": "79-bilibili-cn:cv1760573:b0001",
+        "verdict": "faithful",
+        "evidence": "“免责声明：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:b0002",
+        "verdict": "faithful",
+        "evidence": "著作权说明、译者SeventhTG（XD）署名及转载要求均逐字保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:b0003",
+        "verdict": "needs-repair",
+        "evidence": "原文地址、标题及124索摸5索的中文论述均保留，但“かけるは内、のばすは外”仍为日文，未完成中文翻译。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:b0004",
+        "verdict": "faithful",
+        "evidence": "例1的13张手牌、摸入7索、宝牌6索及例号均完整对应原图。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:b0005",
+        "verdict": "faithful",
+        "evidence": "打4索立直的判断、现物4索的条件、效果有限的限定及4索危险时可切1索的例外均逐字保留；“暗刻优先”标题保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:b0006",
+        "verdict": "faithful",
+        "evidence": "例2的13张手牌、摸入4索、宝牌3索及例号均完整对应原图。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:b0007",
+        "verdict": "faithful",
+        "evidence": "切2饼或3饼、无平和时保留暗刻、摸1饼暗杠的收益及对迷彩战术的判断均逐字保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:b0008",
+        "verdict": "faithful",
+        "evidence": "例3的13张手牌、摸入4饼、宝牌9索及例号均完整对应原图。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:b0009",
+        "verdict": "faithful",
+        "evidence": "以4饼替换雀头、切北的建议完整保留；末句与紧随其后的五张筒子牌连读，未遗漏其宾语。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:b0010",
+        "verdict": "faithful",
+        "evidence": "承接“他家会很容易切出”的牌列完整保留，顺序为1饼、2饼、3饼、4饼、7饼。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:b0011",
+        "verdict": "faithful",
+        "evidence": "切北仅透露非单骑听牌的判断、幺九牌舍牌的论述及引出下一示例的“比如：”均逐字保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:b0012",
+        "verdict": "faithful",
+        "evidence": "舍牌顺序为南、北、中、横置1万；横置方向亦有记录。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:b0013",
+        "verdict": "uncertain",
+        "evidence": "候选逐字保留原文及“强大的河”的强调和“（待续）”，但源文“这样的立直话，对手只能对日”中的“对日”语义不明，无法确认该应对判断的完整含义。"
+      }
+    ],
+    "figureChecks": [
+      {
+        "id": "79-bilibili-cn:cv1760573:b0004:figure",
+        "verdict": "faithful",
+        "evidence": "逐牌核对为1m 2m 2m 2m 3m 1s 2s 4s 6s 8s 3z 3z 3z；摸入7s，宝牌6s。例1标签保留，ツモ、ドラ已译为摸入、宝牌，未见赤牌误记。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:b0006:figure",
+        "verdict": "faithful",
+        "evidence": "逐牌核对为6m 6m 6m 1p 1p 1p 2p 2p 3p 5s 5s 6s 7s；摸入4s，宝牌3s。例2及教学图例标签完整，两张5索均为普通5索。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:b0008:figure",
+        "verdict": "faithful",
+        "evidence": "逐牌核对为5m 6m 4p 6p 7p 8p 2s 3s 7s 8s 9s 4z 4z；摸入4p，宝牌9s。例3及教学图例标签完整，5万为普通5万。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:b0010:figure",
+        "verdict": "faithful",
+        "evidence": "原图从左至右确为1p 2p 3p 4p 7p，五张牌均完整转录，与前文所述易被打出的牌对应。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:b0012:figure",
+        "verdict": "faithful",
+        "evidence": "原图从左至右为南、北、中、横置1万，对应2z 4z 7z 1m；末张牌顶朝左的说明与图一致。"
+      }
+    ],
+    "imageChecks": [
+      {
+        "id": "79-bilibili-cn:cv1760573:i00001",
+        "disposition": "represented",
+        "evidence": "已由例1图完整表达：13张手牌、摸入牌、宝牌、例号及日文图例的中文含义均对应。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:i00002",
+        "disposition": "represented",
+        "evidence": "已由例2图完整表达：13张手牌、摸入4索、宝牌3索及例号均对应。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:i00003",
+        "disposition": "represented",
+        "evidence": "已由例3图完整表达：13张手牌、摸入4饼、宝牌9索及例号均对应。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:i00004",
+        "disposition": "represented",
+        "evidence": "五张筒子牌的牌种、数量及左右顺序均完整表达。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1760573:i00005",
+        "disposition": "represented",
+        "evidence": "四张舍牌的牌种、顺序及末张1万的横置方向均完整表达。"
+      }
+    ],
+    "domOrder": {
+      "faithful": true,
+      "evidence": "候选按b0001至b0013保留全部正文顺序，五次图片出现均位于原位置；“他家会很容易切出”紧接五张筒子牌，示例与前后论述关系未改变。署名、原文地址和末段强调均保留。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "全文13块及5次图片出现均已核对，牌码、数量、顺序、例号和图例含义完整；但b0003的日文格言未译为中文，且b0013源文“对手只能对日”的应对判断语义不明，不能确认完整教学语义。"
+    },
+    "issues": [
+      {
+        "severity": "error",
+        "targetId": "79-bilibili-cn:cv1760573:b0003",
+        "sourceEvidence": "かけるは内、のばすは外（太专业了= =，没想好怎么翻）",
+        "description": "教学格言仍保留日文，未满足日文完整译成中文的要求。",
+        "suggestedRepair": "将日文部分译为“立直时切内侧牌，发展牌形时切外侧牌”，原有中文括注及其余中文原文保持不变。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1760573:b0013",
+        "sourceEvidence": "源文与候选均为“这样的立直话，对手只能对日”。",
+        "description": "候选未改写中文，但源句中的“对日”无法确定所指的对手应对行为，涉及教学判断，不能视为语义已确认完整。",
+        "suggestedRepair": "保留所给中文，不推测补写；需有该句的明确校勘文本，才能消除此项语义不确定。"
+      }
+    ],
+    "completeArticleCompared": true,
+    "summary": "已逐项核对全部13个正文块、5个figure及5次图片出现。牌图转录与正文顺序忠实；存在一处日文未译及一处源文判断语义不明，暂不能确认教学语义完整。"
+  },
+  "calls": [
+    {
+      "callId": "7cbb6bf1-006b-4a2f-af51-6e923fd11242",
+      "scope": "textbook-web-article-audit",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1760573",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 20801,
+        "cachedInputTokens": 0,
+        "outputTokens": 3553
+      },
+      "promptSha256": "60bdc1f607663dd918be1b30ca467d94be302a646b9425807c32bf37c7827aff",
+      "semanticPromptSha256": "1bd81b7191f92481ef8fc3dc0f3a52877979f37c88a46dbc6c2b3aca8634d657",
+      "schemaSha256": "565194aa222b645bbad561c6a83059ca0bfed483e7c66327fdafb59b809da55b",
+      "outputSha256": "4673736c41556843425843256daec900546b8bf187a7c8d0b75eb9e643400c2f",
+      "requestPromptBytes": 24093,
+      "semanticPromptBytes": 23611,
+      "binding": {
+        "productionSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+        "sourceFileSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+        "auditorSnapshotSha256": "ec038e42ee0e6ad708712bc1d4c958388c25423f1dcfeda822a94c2b35471dd2",
+        "semanticProjectionSha256": "5ca80611a6b401ac0787915d23ec4be135e697b8e162d5bb80732664163a0807",
+        "semanticProjectionVersion": 2,
+        "verifiedAssetIds": [],
+        "originalImageAssetIds": [
+          "79-bilibili-cn:44917f8f12fd4651d3a063e7",
+          "79-bilibili-cn:c460098233420c9079af7e97",
+          "79-bilibili-cn:b099921584c1e416f23305f7",
+          "79-bilibili-cn:99559ead44ea73dbf96deeec",
+          "79-bilibili-cn:d9f4279a06c20d92b768cbb8"
+        ],
+        "supplementalInputs": [
+          {
+            "assetId": "79-bilibili-cn:44917f8f12fd4651d3a063e7",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/e3367f0fbd1220491e574e5c011bab37a8205b22b32190a6fcbc4e38b901dc12.png",
+            "sourceSha256": "e3367f0fbd1220491e574e5c011bab37a8205b22b32190a6fcbc4e38b901dc12",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/e3367f0fbd1220491e574e5c011bab37a8205b22b32190a6fcbc4e38b901dc12.x4.png",
+            "sha256": "6e9c654091776a601ac4bb9908d0049bb64a314d4d50a7faab821dddd6e9633e",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 2376,
+            "height": 268
+          },
+          {
+            "assetId": "79-bilibili-cn:c460098233420c9079af7e97",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/2fdf1786a308dde24c7a8352ac5c6133eea45579ff81dc58000d8eb93482c2ec.png",
+            "sourceSha256": "2fdf1786a308dde24c7a8352ac5c6133eea45579ff81dc58000d8eb93482c2ec",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/2fdf1786a308dde24c7a8352ac5c6133eea45579ff81dc58000d8eb93482c2ec.x4.png",
+            "sha256": "953c99339cef0df865b5bb434cdbac85a89ac1af33d0f95a4912acb3f90e696d",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 2400,
+            "height": 256
+          },
+          {
+            "assetId": "79-bilibili-cn:b099921584c1e416f23305f7",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/444a3e2d0184d4df3e173cc69a9c27040475b8ddbfd671b8f14fdf7db7402028.png",
+            "sourceSha256": "444a3e2d0184d4df3e173cc69a9c27040475b8ddbfd671b8f14fdf7db7402028",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/444a3e2d0184d4df3e173cc69a9c27040475b8ddbfd671b8f14fdf7db7402028.x4.png",
+            "sha256": "588f16e9bcfddf8ec4cd4738ece86c8e7cebd3245601e5b7957c3526c9b3cc8f",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 2348,
+            "height": 256
+          },
+          {
+            "assetId": "79-bilibili-cn:99559ead44ea73dbf96deeec",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/9a2ba127e1852a01cce531938cacbd4a7a9e30609ef24f75bac5c8a1d11b0583.png",
+            "sourceSha256": "9a2ba127e1852a01cce531938cacbd4a7a9e30609ef24f75bac5c8a1d11b0583",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/9a2ba127e1852a01cce531938cacbd4a7a9e30609ef24f75bac5c8a1d11b0583.x4.png",
+            "sha256": "7796752ed345c9342cfdd724245fa7c61292fdd05a75d6b6275812ddebe13bb7",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 584,
+            "height": 184
+          },
+          {
+            "assetId": "79-bilibili-cn:d9f4279a06c20d92b768cbb8",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/c9d10d79898cfa2dcfcca98c5b2df17caa908012e404fc7b339e56bb532adc50.png",
+            "sourceSha256": "c9d10d79898cfa2dcfcca98c5b2df17caa908012e404fc7b339e56bb532adc50",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/c9d10d79898cfa2dcfcca98c5b2df17caa908012e404fc7b339e56bb532adc50.x4.png",
+            "sha256": "496063c63bec6969d7c660cb38604e850e4f74d476c626a9802220217c22c7e2",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 4,
+            "resampling": "nearest",
+            "width": 544,
+            "height": 172
+          }
+        ]
+      },
+      "recordedAt": "2026-10-25T18:15:24.134Z"
+    }
+  ],
+  "exactReuse": null,
+  "auditor": {
+    "path": "audit/web/auditors/d1a12f594369881bc81719e480f7df3ad9a5641d4d1ccd017a2ab2444931adea.json",
+    "sha256": "ec038e42ee0e6ad708712bc1d4c958388c25423f1dcfeda822a94c2b35471dd2",
+    "combinedSha256": "d1a12f594369881bc81719e480f7df3ad9a5641d4d1ccd017a2ab2444931adea"
+  },
+  "presentation": {
+    "parent": {
+      "path": "web-production/v1/candidates/79-bilibili-cn/cv1760573.json",
+      "sha256": "d36bcb189a3a10a540e676f3bbae087ca2f9c397492afc9a3a389de510920fc1",
+      "reason": "Lossless display images only; translations and source figure sequences unchanged"
+    },
+    "pixels": {
+      "passed": true,
+      "figures": 5,
+      "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+    }
+  },
+  "productionCall": {
+    "callId": "cb644e86-c191-4b51-9111-b3cc0ccdc927",
+    "rawArtifactPath": "raw-calls/cb644e86-c191-4b51-9111-b3cc0ccdc927.json",
+    "rawArtifactSha256": "977f1b6fac7ed363b9192f3d381fe865f26525120ce8a6cdfbb6c32583845e84",
+    "visualInputs": {
+      "inputs": [
+        {
+          "assetId": "79-bilibili-cn:44917f8f12fd4651d3a063e7",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/e3367f0fbd1220491e574e5c011bab37a8205b22b32190a6fcbc4e38b901dc12.png",
+          "sourceSha256": "e3367f0fbd1220491e574e5c011bab37a8205b22b32190a6fcbc4e38b901dc12",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/e3367f0fbd1220491e574e5c011bab37a8205b22b32190a6fcbc4e38b901dc12.png",
+          "sha256": "e3367f0fbd1220491e574e5c011bab37a8205b22b32190a6fcbc4e38b901dc12",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 594,
+          "height": 67
+        },
+        {
+          "assetId": "79-bilibili-cn:44917f8f12fd4651d3a063e7",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/e3367f0fbd1220491e574e5c011bab37a8205b22b32190a6fcbc4e38b901dc12.png",
+          "sourceSha256": "e3367f0fbd1220491e574e5c011bab37a8205b22b32190a6fcbc4e38b901dc12",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/e3367f0fbd1220491e574e5c011bab37a8205b22b32190a6fcbc4e38b901dc12.x4.png",
+          "sha256": "6e9c654091776a601ac4bb9908d0049bb64a314d4d50a7faab821dddd6e9633e",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 2376,
+          "height": 268
+        },
+        {
+          "assetId": "79-bilibili-cn:c460098233420c9079af7e97",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/2fdf1786a308dde24c7a8352ac5c6133eea45579ff81dc58000d8eb93482c2ec.png",
+          "sourceSha256": "2fdf1786a308dde24c7a8352ac5c6133eea45579ff81dc58000d8eb93482c2ec",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/2fdf1786a308dde24c7a8352ac5c6133eea45579ff81dc58000d8eb93482c2ec.png",
+          "sha256": "2fdf1786a308dde24c7a8352ac5c6133eea45579ff81dc58000d8eb93482c2ec",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 600,
+          "height": 64
+        },
+        {
+          "assetId": "79-bilibili-cn:c460098233420c9079af7e97",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/2fdf1786a308dde24c7a8352ac5c6133eea45579ff81dc58000d8eb93482c2ec.png",
+          "sourceSha256": "2fdf1786a308dde24c7a8352ac5c6133eea45579ff81dc58000d8eb93482c2ec",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/2fdf1786a308dde24c7a8352ac5c6133eea45579ff81dc58000d8eb93482c2ec.x4.png",
+          "sha256": "953c99339cef0df865b5bb434cdbac85a89ac1af33d0f95a4912acb3f90e696d",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 2400,
+          "height": 256
+        },
+        {
+          "assetId": "79-bilibili-cn:b099921584c1e416f23305f7",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/444a3e2d0184d4df3e173cc69a9c27040475b8ddbfd671b8f14fdf7db7402028.png",
+          "sourceSha256": "444a3e2d0184d4df3e173cc69a9c27040475b8ddbfd671b8f14fdf7db7402028",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/444a3e2d0184d4df3e173cc69a9c27040475b8ddbfd671b8f14fdf7db7402028.png",
+          "sha256": "444a3e2d0184d4df3e173cc69a9c27040475b8ddbfd671b8f14fdf7db7402028",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 587,
+          "height": 64
+        },
+        {
+          "assetId": "79-bilibili-cn:b099921584c1e416f23305f7",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/444a3e2d0184d4df3e173cc69a9c27040475b8ddbfd671b8f14fdf7db7402028.png",
+          "sourceSha256": "444a3e2d0184d4df3e173cc69a9c27040475b8ddbfd671b8f14fdf7db7402028",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/444a3e2d0184d4df3e173cc69a9c27040475b8ddbfd671b8f14fdf7db7402028.x4.png",
+          "sha256": "588f16e9bcfddf8ec4cd4738ece86c8e7cebd3245601e5b7957c3526c9b3cc8f",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 2348,
+          "height": 256
+        },
+        {
+          "assetId": "79-bilibili-cn:99559ead44ea73dbf96deeec",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/9a2ba127e1852a01cce531938cacbd4a7a9e30609ef24f75bac5c8a1d11b0583.png",
+          "sourceSha256": "9a2ba127e1852a01cce531938cacbd4a7a9e30609ef24f75bac5c8a1d11b0583",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/9a2ba127e1852a01cce531938cacbd4a7a9e30609ef24f75bac5c8a1d11b0583.png",
+          "sha256": "9a2ba127e1852a01cce531938cacbd4a7a9e30609ef24f75bac5c8a1d11b0583",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 146,
+          "height": 46
+        },
+        {
+          "assetId": "79-bilibili-cn:99559ead44ea73dbf96deeec",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/9a2ba127e1852a01cce531938cacbd4a7a9e30609ef24f75bac5c8a1d11b0583.png",
+          "sourceSha256": "9a2ba127e1852a01cce531938cacbd4a7a9e30609ef24f75bac5c8a1d11b0583",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/9a2ba127e1852a01cce531938cacbd4a7a9e30609ef24f75bac5c8a1d11b0583.x4.png",
+          "sha256": "7796752ed345c9342cfdd724245fa7c61292fdd05a75d6b6275812ddebe13bb7",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 584,
+          "height": 184
+        },
+        {
+          "assetId": "79-bilibili-cn:d9f4279a06c20d92b768cbb8",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/c9d10d79898cfa2dcfcca98c5b2df17caa908012e404fc7b339e56bb532adc50.png",
+          "sourceSha256": "c9d10d79898cfa2dcfcca98c5b2df17caa908012e404fc7b339e56bb532adc50",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/c9d10d79898cfa2dcfcca98c5b2df17caa908012e404fc7b339e56bb532adc50.png",
+          "sha256": "c9d10d79898cfa2dcfcca98c5b2df17caa908012e404fc7b339e56bb532adc50",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 136,
+          "height": 43
+        },
+        {
+          "assetId": "79-bilibili-cn:d9f4279a06c20d92b768cbb8",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/c9d10d79898cfa2dcfcca98c5b2df17caa908012e404fc7b339e56bb532adc50.png",
+          "sourceSha256": "c9d10d79898cfa2dcfcca98c5b2df17caa908012e404fc7b339e56bb532adc50",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/c9d10d79898cfa2dcfcca98c5b2df17caa908012e404fc7b339e56bb532adc50.x4.png",
+          "sha256": "496063c63bec6969d7c660cb38604e850e4f74d476c626a9802220217c22c7e2",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 544,
+          "height": 172
+        }
+      ],
+      "pixels": {
+        "passed": true,
+        "inputs": 10
+      }
+    }
+  },
+  "verifiedAssets": null,
+  "method": "independent-sol-high-full-article-review"
+}

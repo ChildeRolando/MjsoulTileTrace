@@ -1,0 +1,111 @@
+{
+  "chapterId": "79-cn-chapter-182-5",
+  "priorGroup": "unproduced-remains-57",
+  "sourceId": "79-cn",
+  "title": "立直6—立直理论（2）",
+  "titleStatus": "verified-source-chinese",
+  "unitCount": 1,
+  "units": [
+    {
+      "unitId": "79-cn-chapter-182-5-unit-1",
+      "title": "立直6—立直理论（2）",
+      "from": {
+        "page": 182,
+        "sourceBlockId": "79-cn-p182-b5"
+      },
+      "to": {
+        "page": 183,
+        "sourceBlockId": "79-cn-p183-b2"
+      }
+    }
+  ],
+  "pages": [
+    182,
+    183
+  ],
+  "pageFrom": 182,
+  "pageTo": 183,
+  "ownedSourceBlocks": 9,
+  "pageTextBlocks": 21,
+  "pageImageBlocks": 6,
+  "pageBlocksTotal": 27,
+  "classification": "truly-unproduced",
+  "flags": {
+    "sourcePagesMissing": [],
+    "duplicateTitle": false
+  },
+  "existingPartial": {
+    "producedPages": [],
+    "passedPages": [],
+    "selectedPages": []
+  },
+  "webCorrespondence": [
+    {
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1760573",
+      "evidence": "integration/chinese-source-body-correspondence.json",
+      "decision": "body-equivalence-recorded",
+      "webSourceFetched": true,
+      "webSourceDir": "web-sources/v1/79-bilibili-cn/articles/cv1760573",
+      "candidateFiles": [
+        "web-production/v1/candidates/79-bilibili-cn/cv1760573.display.json",
+        "web-production/v1/candidates/79-bilibili-cn/cv1760573.json"
+      ],
+      "webAuditReceipts": [
+        "audit/web/articles/79-bilibili-cn/cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json"
+      ]
+    }
+  ],
+  "continuation": [
+    {
+      "owner": "COAC-246",
+      "route": "web-article-79-bilibili-cn",
+      "articleIds": [
+        "cv1760573"
+      ],
+      "webSourceFetched": true,
+      "candidateExists": true,
+      "reason": "已有逐块 body 对应证据；网页版候选可覆盖该原章，避免重制 PDF 页"
+    },
+    {
+      "owner": "COAC-247",
+      "route": "pdf-pages",
+      "pages": [
+        182,
+        183
+      ],
+      "reason": "按原 PDF 页制作；已 produced 且 passed 的页按候选 SHA 复用，不重制；需先确认未覆盖页的归属边界"
+    }
+  ],
+  "pagesDetail": [
+    {
+      "page": 182,
+      "sourcePageExists": true,
+      "sourcePageData": "79-cn/pages/182.json",
+      "pageBlocks": 11,
+      "candidateCount": 0,
+      "candidatePaths": [],
+      "receiptCount": 0,
+      "latestReceipt": null,
+      "selected": false
+    },
+    {
+      "page": 183,
+      "sourcePageExists": true,
+      "sourcePageData": "79-cn/pages/183.json",
+      "pageBlocks": 16,
+      "candidateCount": 0,
+      "candidatePaths": [],
+      "receiptCount": 0,
+      "latestReceipt": null,
+      "selected": false
+    }
+  ],
+  "closurePlan": {
+    "category": "source-text-ambiguity",
+    "owner": "COAC-248",
+    "nextAction": "b0003日文格言可定点翻译，但b0013“对日”在原HTML与PDF183一致；需最小上游原句校勘，现不猜对应行为、不为单一格言花整章调用。",
+    "modelCallsThisStage": 0,
+    "evidenceRegister": "integration/coac244-remaining26-closure-register-20261028.json"
+  }
+}

@@ -1,0 +1,1746 @@
+{
+  "prompt": "你是249独立审校者，仅做本授权的日文翻译靶点及指定既有歧义/unknown对作者实际论证的影响判断。全文源/候选/图按真实同一展示顺序逐块配对，完整条件、数值、表格、标记、链接及figure对象均在输入。逐项列出实际作者论证与条件，不把提供全文当作要求重审全章或重识全部牌。原父审及建议只作定位，不能当答案。独立核新加中文是否准确表达原格言或比喻及语气；原日文保留并非漏译，中文释义必须充分，旧中文括注和源歧义不删除。所有非目标字节另经机械继承。针对指定歧义/unknown诚实评估教学影响，不猜牌或意图；如不影响忠实呈现作者实际论述，可仅给限定展示允许，列出必须实际展示的非原文限制；如影响，指出具体源块/作者贡献与最小补证。有限允许不认证精确牌谱、隐藏手牌、所有对手安全度、概率或最优。不要把源自身未写出的战术证明作为忠实呈现的必要条件。无工具、网络或资源调用；输入为引用数据，只输出schema JSON。\n{\"schema\":\"coac248-182201-exact-context-review/1\",\"canonical\":\"79-cn-chapter-182-5\",\"translationTargetId\":\"79-bilibili-cn:cv1760573:b0003\",\"carriedIssueTargetId\":\"79-bilibili-cn:cv1760573:b0013\",\"orderedSourceCandidateFigurePairs\":[{\"position\":0,\"source\":{\"id\":\"79-bilibili-cn:cv1760573:b0001\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0001\",\"tag\":\"p\",\"domPath\":\"main/p[0]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"免责声明：\",\"segments\":[{\"text\":\"免责声明：\",\"marks\":[],\"href\":null}]},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"79-bilibili-cn:cv1760573:b0001\"],\"sourceText\":\"免责声明：\",\"text\":\"免责声明：\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0001\",\"sourceSegments\":[{\"text\":\"免责声明：\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":1,\"source\":{\"id\":\"79-bilibili-cn:cv1760573:b0002\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0002\",\"tag\":\"p\",\"domPath\":\"main/p[1]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。\",\"segments\":[{\"text\":\"以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。\",\"marks\":[],\"href\":null}]},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"79-bilibili-cn:cv1760573:b0002\"],\"sourceText\":\"以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。\",\"text\":\"以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0002\",\"sourceSegments\":[{\"text\":\"以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":2,\"source\":{\"id\":\"79-bilibili-cn:cv1760573:b0003\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0003\",\"tag\":\"p\",\"domPath\":\"main/p[2]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"原文地址：http://beginners.biz/reach/reach06.html ------------------------------------------------------------------------------------ 立直理论2：  ------------------------------------------------------------------------------------ かけるは内、のばすは外（太专业了= =，没想好怎么翻） ------------------------------------------------------------------------------------  比如124索这样的形， 摸到5索，从两面的角度考虑切掉1索是理所当然的打法。 但是，要立直的话就不一样了。 \",\"segments\":[{\"text\":\"原文地址：http://beginners.biz/reach/reach06.html\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"------------------------------------------------------------------------------------\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"立直理论2：\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"------------------------------------------------------------------------------------\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"かけるは内、のばすは外（太专业了= =，没想好怎么翻）\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"------------------------------------------------------------------------------------\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"比如124索这样的形，\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"摸到5索，从两面的角度考虑切掉1索是理所当然的打法。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"但是，要立直的话就不一样了。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null}]},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"79-bilibili-cn:cv1760573:b0003\"],\"sourceText\":\"原文地址：http://beginners.biz/reach/reach06.html ------------------------------------------------------------------------------------ 立直理论2：  ------------------------------------------------------------------------------------ かけるは内、のばすは外（太专业了= =，没想好怎么翻） ------------------------------------------------------------------------------------  比如124索这样的形， 摸到5索，从两面的角度考虑切掉1索是理所当然的打法。 但是，要立直的话就不一样了。 \",\"text\":\"原文地址：http://beginners.biz/reach/reach06.html ------------------------------------------------------------------------------------ 立直理论2：  ------------------------------------------------------------------------------------ かけるは内、のばすは外（立直舍内，发展舍外）（太专业了= =，没想好怎么翻） ------------------------------------------------------------------------------------  比如124索这样的形， 摸到5索，从两面的角度考虑切掉1索是理所当然的打法。 但是，要立直的话就不一样了。 \",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0003\",\"sourceSegments\":[{\"text\":\"原文地址：http://beginners.biz/reach/reach06.html\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"------------------------------------------------------------------------------------\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"立直理论2：\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"------------------------------------------------------------------------------------\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"かけるは内、のばすは外（太专业了= =，没想好怎么翻）\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"------------------------------------------------------------------------------------\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"比如124索这样的形，\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"摸到5索，从两面的角度考虑切掉1索是理所当然的打法。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"但是，要立直的话就不一样了。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":3,\"source\":{\"id\":\"79-bilibili-cn:cv1760573:b0004\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0004\",\"tag\":\"div\",\"domPath\":\"main/div[3]/div[0]/div[0]/div[0]/div[0]\",\"tableContext\":null,\"type\":\"image-run\",\"images\":[{\"occurrenceId\":\"79-bilibili-cn:cv1760573:i00001\",\"assetId\":\"79-bilibili-cn:44917f8f12fd4651d3a063e7\",\"sourceUrls\":[\"https://i0.hdslb.com/bfs/article/5c65ebd50531be5dcc61fd52218d88713cac9cd4.png\",\"https://i0.hdslb.com/bfs/article/5c65ebd50531be5dcc61fd52218d88713cac9cd4.png@1188w_134h\"],\"alt\":\"\",\"title\":\"\",\"width\":null,\"height\":null,\"tileHint\":null}]},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"79-bilibili-cn:cv1760573:b0004\"],\"figureId\":\"79-bilibili-cn:cv1760573:b0004:figure\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0004\",\"tableContext\":null},\"figure\":{\"figureId\":\"79-bilibili-cn:cv1760573:b0004:figure\",\"sourceBlockIds\":[\"79-bilibili-cn:cv1760573:b0004\"],\"sourceOccurrenceIds\":[\"79-bilibili-cn:cv1760573:i00001\"],\"sourceAssetBindings\":[{\"assetId\":\"79-bilibili-cn:44917f8f12fd4651d3a063e7\",\"path\":\"web-sources/v1/79-bilibili-cn/assets/e3367f0fbd1220491e574e5c011bab37a8205b22b32190a6fcbc4e38b901dc12.png\",\"sha256\":\"e3367f0fbd1220491e574e5c011bab37a8205b22b32190a6fcbc4e38b901dc12\",\"url\":\"https://i0.hdslb.com/bfs/article/5c65ebd50531be5dcc61fd52218d88713cac9cd4.png\"}],\"kind\":\"mahjong-example\",\"transcription\":\"例1　1m 2m 2m 2m 3m 1s 2s 4s 6s 8s 3z 3z 3z　摸入 7s　宝牌 6s\",\"unknowns\":[],\"caption\":\"例1，手牌右侧依次为摸入牌和宝牌。\",\"sourceNotes\":[],\"provenance\":{\"method\":\"model-transcription\",\"callId\":\"cb644e86-c191-4b51-9111-b3cc0ccdc927\",\"outputSourceBlockId\":\"79-bilibili-cn:cv1760573:b0004\"},\"presentationAsset\":{\"path\":\"web-production/v1/presentations/79-bilibili-cn/cv1760573/d36bcb189a3a10a5/figure-0001.png\",\"sha256\":\"bb16632d9f0dd565352345085759d51eedf624c51a46dd8c08861b0ca7df0c36\",\"width\":594,\"height\":67,\"derivation\":{\"kind\":\"single-source-image-rgba-to-png\",\"alignment\":\"original-size\",\"sourceAssetBindings\":[{\"assetId\":\"79-bilibili-cn:44917f8f12fd4651d3a063e7\",\"path\":\"web-sources/v1/79-bilibili-cn/assets/e3367f0fbd1220491e574e5c011bab37a8205b22b32190a6fcbc4e38b901dc12.png\",\"sha256\":\"e3367f0fbd1220491e574e5c011bab37a8205b22b32190a6fcbc4e38b901dc12\",\"url\":\"https://i0.hdslb.com/bfs/article/5c65ebd50531be5dcc61fd52218d88713cac9cd4.png\"}],\"rendererSha256\":\"17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1\"}}}},{\"position\":4,\"source\":{\"id\":\"79-bilibili-cn:cv1760573:b0005\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0005\",\"tag\":\"p\",\"domPath\":\"main/p[4]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"这样的牌大致可以立直了。 要立直的话，打4索才是合理的。  要是场上已经有现物的4索，3索也会更加容易被打出一点。 但是这也不是非常有效果的。 4索要是非常危险的话，切1索立直也是可以的。 ------------------------------------------------------------------------------------ 暗刻优先 ------------------------------------------------------------------------------------ \",\"segments\":[{\"text\":\"这样的牌大致可以立直了。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"要立直的话，打4索才是合理的。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"要是场上已经有现物的4索，3索也会更加容易被打出一点。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"但是这也不是非常有效果的。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"4索要是非常危险的话，切1索立直也是可以的。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"------------------------------------------------------------------------------------\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"暗刻优先\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"------------------------------------------------------------------------------------\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null}]},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"79-bilibili-cn:cv1760573:b0005\"],\"sourceText\":\"这样的牌大致可以立直了。 要立直的话，打4索才是合理的。  要是场上已经有现物的4索，3索也会更加容易被打出一点。 但是这也不是非常有效果的。 4索要是非常危险的话，切1索立直也是可以的。 ------------------------------------------------------------------------------------ 暗刻优先 ------------------------------------------------------------------------------------ \",\"text\":\"这样的牌大致可以立直了。 要立直的话，打4索才是合理的。  要是场上已经有现物的4索，3索也会更加容易被打出一点。 但是这也不是非常有效果的。 4索要是非常危险的话，切1索立直也是可以的。 ------------------------------------------------------------------------------------ 暗刻优先 ------------------------------------------------------------------------------------ \",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0005\",\"sourceSegments\":[{\"text\":\"这样的牌大致可以立直了。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"要立直的话，打4索才是合理的。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"要是场上已经有现物的4索，3索也会更加容易被打出一点。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"但是这也不是非常有效果的。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"4索要是非常危险的话，切1索立直也是可以的。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"------------------------------------------------------------------------------------\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"暗刻优先\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"------------------------------------------------------------------------------------\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":5,\"source\":{\"id\":\"79-bilibili-cn:cv1760573:b0006\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0006\",\"tag\":\"div\",\"domPath\":\"main/div[5]/div[0]/div[0]/div[0]/div[0]\",\"tableContext\":null,\"type\":\"image-run\",\"images\":[{\"occurrenceId\":\"79-bilibili-cn:cv1760573:i00002\",\"assetId\":\"79-bilibili-cn:c460098233420c9079af7e97\",\"sourceUrls\":[\"https://i0.hdslb.com/bfs/article/b7e0176b2f8e6284e3e07af5bb7adf1f2216edfa.png\",\"https://i0.hdslb.com/bfs/article/b7e0176b2f8e6284e3e07af5bb7adf1f2216edfa.png@1192w\"],\"alt\":\"\",\"title\":\"\",\"width\":null,\"height\":null,\"tileHint\":null}]},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"79-bilibili-cn:cv1760573:b0006\"],\"figureId\":\"79-bilibili-cn:cv1760573:b0006:figure\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0006\",\"tableContext\":null},\"figure\":{\"figureId\":\"79-bilibili-cn:cv1760573:b0006:figure\",\"sourceBlockIds\":[\"79-bilibili-cn:cv1760573:b0006\"],\"sourceOccurrenceIds\":[\"79-bilibili-cn:cv1760573:i00002\"],\"sourceAssetBindings\":[{\"assetId\":\"79-bilibili-cn:c460098233420c9079af7e97\",\"path\":\"web-sources/v1/79-bilibili-cn/assets/2fdf1786a308dde24c7a8352ac5c6133eea45579ff81dc58000d8eb93482c2ec.png\",\"sha256\":\"2fdf1786a308dde24c7a8352ac5c6133eea45579ff81dc58000d8eb93482c2ec\",\"url\":\"https://i0.hdslb.com/bfs/article/b7e0176b2f8e6284e3e07af5bb7adf1f2216edfa.png\"}],\"kind\":\"mahjong-example\",\"transcription\":\"例2　6m 6m 6m 1p 1p 1p 2p 2p 3p 5s 5s 6s 7s　摸入 4s　宝牌 3s\",\"unknowns\":[],\"caption\":\"例2，手牌右侧依次为摸入牌和宝牌。\",\"sourceNotes\":[],\"provenance\":{\"method\":\"model-transcription\",\"callId\":\"cb644e86-c191-4b51-9111-b3cc0ccdc927\",\"outputSourceBlockId\":\"79-bilibili-cn:cv1760573:b0006\"},\"presentationAsset\":{\"path\":\"web-production/v1/presentations/79-bilibili-cn/cv1760573/d36bcb189a3a10a5/figure-0002.png\",\"sha256\":\"af06892e72328a29f35eb95fec9965f6995cc4d122ee06768354fba053d794cf\",\"width\":600,\"height\":64,\"derivation\":{\"kind\":\"single-source-image-rgba-to-png\",\"alignment\":\"original-size\",\"sourceAssetBindings\":[{\"assetId\":\"79-bilibili-cn:c460098233420c9079af7e97\",\"path\":\"web-sources/v1/79-bilibili-cn/assets/2fdf1786a308dde24c7a8352ac5c6133eea45579ff81dc58000d8eb93482c2ec.png\",\"sha256\":\"2fdf1786a308dde24c7a8352ac5c6133eea45579ff81dc58000d8eb93482c2ec\",\"url\":\"https://i0.hdslb.com/bfs/article/b7e0176b2f8e6284e3e07af5bb7adf1f2216edfa.png\"}],\"rendererSha256\":\"17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1\"}}}},{\"position\":6,\"source\":{\"id\":\"79-bilibili-cn:cv1760573:b0007\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0007\",\"tag\":\"p\",\"domPath\":\"main/p[6]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"这样的牌切2饼和3饼都可以立直。 像这样没有平和的牌应该保留暗刻立直。 摸到1饼可以暗杠，不仅可以增加符数，还有可能增加宝牌。 ------------------------------------------------------------------------------------ 情报要少 ------------------------------------------------------------------------------------ 以前流行的迷彩战术（给捨牌中设下陷阱）受到了压倒性的否定。反而是捨牌越没有特征越好。 \",\"segments\":[{\"text\":\"这样的牌切2饼和3饼都可以立直。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"像这样没有平和的牌应该保留暗刻立直。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"摸到1饼可以暗杠，不仅可以增加符数，还有可能增加宝牌。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"------------------------------------------------------------------------------------\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"情报要少\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"------------------------------------------------------------------------------------\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"以前流行的迷彩战术（给捨牌中设下陷阱）受到了压倒性的否定。反而是捨牌越没有特征越好。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null}]},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"79-bilibili-cn:cv1760573:b0007\"],\"sourceText\":\"这样的牌切2饼和3饼都可以立直。 像这样没有平和的牌应该保留暗刻立直。 摸到1饼可以暗杠，不仅可以增加符数，还有可能增加宝牌。 ------------------------------------------------------------------------------------ 情报要少 ------------------------------------------------------------------------------------ 以前流行的迷彩战术（给捨牌中设下陷阱）受到了压倒性的否定。反而是捨牌越没有特征越好。 \",\"text\":\"这样的牌切2饼和3饼都可以立直。 像这样没有平和的牌应该保留暗刻立直。 摸到1饼可以暗杠，不仅可以增加符数，还有可能增加宝牌。 ------------------------------------------------------------------------------------ 情报要少 ------------------------------------------------------------------------------------ 以前流行的迷彩战术（给捨牌中设下陷阱）受到了压倒性的否定。反而是捨牌越没有特征越好。 \",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0007\",\"sourceSegments\":[{\"text\":\"这样的牌切2饼和3饼都可以立直。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"像这样没有平和的牌应该保留暗刻立直。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"摸到1饼可以暗杠，不仅可以增加符数，还有可能增加宝牌。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"------------------------------------------------------------------------------------\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"情报要少\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"------------------------------------------------------------------------------------\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"以前流行的迷彩战术（给捨牌中设下陷阱）受到了压倒性的否定。反而是捨牌越没有特征越好。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":7,\"source\":{\"id\":\"79-bilibili-cn:cv1760573:b0008\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0008\",\"tag\":\"div\",\"domPath\":\"main/div[7]/div[0]/div[0]/div[0]/div[0]\",\"tableContext\":null,\"type\":\"image-run\",\"images\":[{\"occurrenceId\":\"79-bilibili-cn:cv1760573:i00003\",\"assetId\":\"79-bilibili-cn:b099921584c1e416f23305f7\",\"sourceUrls\":[\"https://i0.hdslb.com/bfs/article/ff29732b24760b68dfd8d1e2ab9a31a3288d4229.png\",\"https://i0.hdslb.com/bfs/article/ff29732b24760b68dfd8d1e2ab9a31a3288d4229.png@1174w_128h\"],\"alt\":\"\",\"title\":\"\",\"width\":null,\"height\":null,\"tileHint\":null}]},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"79-bilibili-cn:cv1760573:b0008\"],\"figureId\":\"79-bilibili-cn:cv1760573:b0008:figure\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0008\",\"tableContext\":null},\"figure\":{\"figureId\":\"79-bilibili-cn:cv1760573:b0008:figure\",\"sourceBlockIds\":[\"79-bilibili-cn:cv1760573:b0008\"],\"sourceOccurrenceIds\":[\"79-bilibili-cn:cv1760573:i00003\"],\"sourceAssetBindings\":[{\"assetId\":\"79-bilibili-cn:b099921584c1e416f23305f7\",\"path\":\"web-sources/v1/79-bilibili-cn/assets/444a3e2d0184d4df3e173cc69a9c27040475b8ddbfd671b8f14fdf7db7402028.png\",\"sha256\":\"444a3e2d0184d4df3e173cc69a9c27040475b8ddbfd671b8f14fdf7db7402028\",\"url\":\"https://i0.hdslb.com/bfs/article/ff29732b24760b68dfd8d1e2ab9a31a3288d4229.png\"}],\"kind\":\"mahjong-example\",\"transcription\":\"例3　5m 6m 4p 6p 7p 8p 2s 3s 7s 8s 9s 4z 4z　摸入 4p　宝牌 9s\",\"unknowns\":[],\"caption\":\"例3，手牌右侧依次为摸入牌和宝牌。\",\"sourceNotes\":[],\"provenance\":{\"method\":\"model-transcription\",\"callId\":\"cb644e86-c191-4b51-9111-b3cc0ccdc927\",\"outputSourceBlockId\":\"79-bilibili-cn:cv1760573:b0008\"},\"presentationAsset\":{\"path\":\"web-production/v1/presentations/79-bilibili-cn/cv1760573/d36bcb189a3a10a5/figure-0003.png\",\"sha256\":\"d56b078cd2ac6631d929c73fa5a68c1d6628e612f56c25d913ca56f3c48f3845\",\"width\":587,\"height\":64,\"derivation\":{\"kind\":\"single-source-image-rgba-to-png\",\"alignment\":\"original-size\",\"sourceAssetBindings\":[{\"assetId\":\"79-bilibili-cn:b099921584c1e416f23305f7\",\"path\":\"web-sources/v1/79-bilibili-cn/assets/444a3e2d0184d4df3e173cc69a9c27040475b8ddbfd671b8f14fdf7db7402028.png\",\"sha256\":\"444a3e2d0184d4df3e173cc69a9c27040475b8ddbfd671b8f14fdf7db7402028\",\"url\":\"https://i0.hdslb.com/bfs/article/ff29732b24760b68dfd8d1e2ab9a31a3288d4229.png\"}],\"rendererSha256\":\"17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1\"}}}},{\"position\":8,\"source\":{\"id\":\"79-bilibili-cn:cv1760573:b0009\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0009\",\"tag\":\"p\",\"domPath\":\"main/p[8]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"例3是典型的立直手牌，应该用4饼替换雀头，切北。 这里要是切掉4饼的话，立直之后。 他家会很容易切出\",\"segments\":[{\"text\":\"例3是典型的立直手牌，应该用4饼替换雀头，切北。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"这里要是切掉4饼的话，立直之后。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"他家会很容易切出\",\"marks\":[],\"href\":null}]},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"79-bilibili-cn:cv1760573:b0009\"],\"sourceText\":\"例3是典型的立直手牌，应该用4饼替换雀头，切北。 这里要是切掉4饼的话，立直之后。 他家会很容易切出\",\"text\":\"例3是典型的立直手牌，应该用4饼替换雀头，切北。 这里要是切掉4饼的话，立直之后。 他家会很容易切出\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0009\",\"sourceSegments\":[{\"text\":\"例3是典型的立直手牌，应该用4饼替换雀头，切北。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"这里要是切掉4饼的话，立直之后。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"他家会很容易切出\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":9,\"source\":{\"id\":\"79-bilibili-cn:cv1760573:b0010\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0010\",\"tag\":\"div\",\"domPath\":\"main/div[9]/div[0]/div[0]/div[0]/div[0]\",\"tableContext\":null,\"type\":\"image-run\",\"images\":[{\"occurrenceId\":\"79-bilibili-cn:cv1760573:i00004\",\"assetId\":\"79-bilibili-cn:99559ead44ea73dbf96deeec\",\"sourceUrls\":[\"https://i0.hdslb.com/bfs/article/bb3c242110e36554e018f70afc5c278bf34e357b.png\",\"https://i0.hdslb.com/bfs/article/bb3c242110e36554e018f70afc5c278bf34e357b.png@292w_92h\"],\"alt\":\"\",\"title\":\"\",\"width\":null,\"height\":null,\"tileHint\":null}]},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"79-bilibili-cn:cv1760573:b0010\"],\"figureId\":\"79-bilibili-cn:cv1760573:b0010:figure\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0010\",\"tableContext\":null},\"figure\":{\"figureId\":\"79-bilibili-cn:cv1760573:b0010:figure\",\"sourceBlockIds\":[\"79-bilibili-cn:cv1760573:b0010\"],\"sourceOccurrenceIds\":[\"79-bilibili-cn:cv1760573:i00004\"],\"sourceAssetBindings\":[{\"assetId\":\"79-bilibili-cn:99559ead44ea73dbf96deeec\",\"path\":\"web-sources/v1/79-bilibili-cn/assets/9a2ba127e1852a01cce531938cacbd4a7a9e30609ef24f75bac5c8a1d11b0583.png\",\"sha256\":\"9a2ba127e1852a01cce531938cacbd4a7a9e30609ef24f75bac5c8a1d11b0583\",\"url\":\"https://i0.hdslb.com/bfs/article/bb3c242110e36554e018f70afc5c278bf34e357b.png\"}],\"kind\":\"mahjong-example\",\"transcription\":\"1p 2p 3p 4p 7p\",\"unknowns\":[],\"caption\":\"从左至右排列的五张筒子牌。\",\"sourceNotes\":[],\"provenance\":{\"method\":\"model-transcription\",\"callId\":\"cb644e86-c191-4b51-9111-b3cc0ccdc927\",\"outputSourceBlockId\":\"79-bilibili-cn:cv1760573:b0010\"},\"presentationAsset\":{\"path\":\"web-production/v1/presentations/79-bilibili-cn/cv1760573/d36bcb189a3a10a5/figure-0004.png\",\"sha256\":\"356b879620ba833ad49a8b9532f9966ee1eff4cb2c172e7637b9d3958772672d\",\"width\":146,\"height\":46,\"derivation\":{\"kind\":\"single-source-image-rgba-to-png\",\"alignment\":\"original-size\",\"sourceAssetBindings\":[{\"assetId\":\"79-bilibili-cn:99559ead44ea73dbf96deeec\",\"path\":\"web-sources/v1/79-bilibili-cn/assets/9a2ba127e1852a01cce531938cacbd4a7a9e30609ef24f75bac5c8a1d11b0583.png\",\"sha256\":\"9a2ba127e1852a01cce531938cacbd4a7a9e30609ef24f75bac5c8a1d11b0583\",\"url\":\"https://i0.hdslb.com/bfs/article/bb3c242110e36554e018f70afc5c278bf34e357b.png\"}],\"rendererSha256\":\"17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1\"}}}},{\"position\":10,\"source\":{\"id\":\"79-bilibili-cn:cv1760573:b0011\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0011\",\"tag\":\"p\",\"domPath\":\"main/p[10]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"切掉北的话，他家也只能知道你不是单骑听牌而已。 捨牌是幺九牌这种没有什么特征的牌可以说理想的捨牌。 比如： \",\"segments\":[{\"text\":\"切掉北的话，他家也只能知道你不是单骑听牌而已。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"捨牌是幺九牌这种没有什么特征的牌可以说理想的捨牌。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"比如：\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null}]},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"79-bilibili-cn:cv1760573:b0011\"],\"sourceText\":\"切掉北的话，他家也只能知道你不是单骑听牌而已。 捨牌是幺九牌这种没有什么特征的牌可以说理想的捨牌。 比如： \",\"text\":\"切掉北的话，他家也只能知道你不是单骑听牌而已。 捨牌是幺九牌这种没有什么特征的牌可以说理想的捨牌。 比如： \",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0011\",\"sourceSegments\":[{\"text\":\"切掉北的话，他家也只能知道你不是单骑听牌而已。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"捨牌是幺九牌这种没有什么特征的牌可以说理想的捨牌。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"比如：\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":11,\"source\":{\"id\":\"79-bilibili-cn:cv1760573:b0012\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0012\",\"tag\":\"div\",\"domPath\":\"main/div[11]/div[0]/div[0]/div[0]/div[0]\",\"tableContext\":null,\"type\":\"image-run\",\"images\":[{\"occurrenceId\":\"79-bilibili-cn:cv1760573:i00005\",\"assetId\":\"79-bilibili-cn:d9f4279a06c20d92b768cbb8\",\"sourceUrls\":[\"https://i0.hdslb.com/bfs/article/e310dc8c49aefe9e81b98a519df188f3d6d3baf2.png\",\"https://i0.hdslb.com/bfs/article/e310dc8c49aefe9e81b98a519df188f3d6d3baf2.png@92h\"],\"alt\":\"\",\"title\":\"\",\"width\":null,\"height\":null,\"tileHint\":null}]},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"79-bilibili-cn:cv1760573:b0012\"],\"figureId\":\"79-bilibili-cn:cv1760573:b0012:figure\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0012\",\"tableContext\":null},\"figure\":{\"figureId\":\"79-bilibili-cn:cv1760573:b0012:figure\",\"sourceBlockIds\":[\"79-bilibili-cn:cv1760573:b0012\"],\"sourceOccurrenceIds\":[\"79-bilibili-cn:cv1760573:i00005\"],\"sourceAssetBindings\":[{\"assetId\":\"79-bilibili-cn:d9f4279a06c20d92b768cbb8\",\"path\":\"web-sources/v1/79-bilibili-cn/assets/c9d10d79898cfa2dcfcca98c5b2df17caa908012e404fc7b339e56bb532adc50.png\",\"sha256\":\"c9d10d79898cfa2dcfcca98c5b2df17caa908012e404fc7b339e56bb532adc50\",\"url\":\"https://i0.hdslb.com/bfs/article/e310dc8c49aefe9e81b98a519df188f3d6d3baf2.png\"}],\"kind\":\"mahjong-example\",\"transcription\":\"2z 4z 7z 1m（横置）\",\"unknowns\":[],\"caption\":\"舍牌示例，末张1m横置。\",\"sourceNotes\":[\"末张1m的牌顶朝左。\"],\"provenance\":{\"method\":\"model-transcription\",\"callId\":\"cb644e86-c191-4b51-9111-b3cc0ccdc927\",\"outputSourceBlockId\":\"79-bilibili-cn:cv1760573:b0012\"},\"presentationAsset\":{\"path\":\"web-production/v1/presentations/79-bilibili-cn/cv1760573/d36bcb189a3a10a5/figure-0005.png\",\"sha256\":\"6626bccacf4c1491bb3cd973590fe930d754ad139cbc2aa88cd5eb177c73bf16\",\"width\":136,\"height\":43,\"derivation\":{\"kind\":\"single-source-image-rgba-to-png\",\"alignment\":\"original-size\",\"sourceAssetBindings\":[{\"assetId\":\"79-bilibili-cn:d9f4279a06c20d92b768cbb8\",\"path\":\"web-sources/v1/79-bilibili-cn/assets/c9d10d79898cfa2dcfcca98c5b2df17caa908012e404fc7b339e56bb532adc50.png\",\"sha256\":\"c9d10d79898cfa2dcfcca98c5b2df17caa908012e404fc7b339e56bb532adc50\",\"url\":\"https://i0.hdslb.com/bfs/article/e310dc8c49aefe9e81b98a519df188f3d6d3baf2.png\"}],\"rendererSha256\":\"17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1\"}}}},{\"position\":12,\"source\":{\"id\":\"79-bilibili-cn:cv1760573:b0013\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0013\",\"tag\":\"p\",\"domPath\":\"main/p[12]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"这样的立直话，对手只能对日 相比不靠谱的迷彩战术，有着“强大的河”更加容易荣和。    （待续）\",\"segments\":[{\"text\":\"这样的立直话，对手只能对日\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"相比不靠谱的迷彩战术，有着\",\"marks\":[],\"href\":null},{\"text\":\"“强大的河”\",\"marks\":[\"strong:background:;color:;:\"],\"href\":null},{\"text\":\"更加容易荣和。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"（待续）\",\"marks\":[],\"href\":null}]},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"79-bilibili-cn:cv1760573:b0013\"],\"sourceText\":\"这样的立直话，对手只能对日 相比不靠谱的迷彩战术，有着“强大的河”更加容易荣和。    （待续）\",\"text\":\"这样的立直话，对手只能对日 相比不靠谱的迷彩战术，有着“强大的河”更加容易荣和。    （待续）\",\"paragraphId\":\"79-bilibili-cn:cv1760573:p0013\",\"sourceSegments\":[{\"text\":\"这样的立直话，对手只能对日\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"相比不靠谱的迷彩战术，有着\",\"marks\":[],\"href\":null},{\"text\":\"“强大的河”\",\"marks\":[\"strong:background:;color:;:\"],\"href\":null},{\"text\":\"更加容易荣和。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"（待续）\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null}],\"exactGlossPlan\":{\"schema\":\"coach-inline-japanese-revision/1\",\"authorizationCommentId\":\"01a181a7-0e17-79cd-9f13-c8fe5cf060b2\",\"chapterId\":\"79-cn-chapter-182-5\",\"bindings\":{\"parentSha256\":\"d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270\",\"notesSha256\":\"8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8\",\"sourceSha256\":\"92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381\"},\"edits\":[{\"sourceBlockId\":\"79-bilibili-cn:cv1760573:b0003\",\"quotedText\":\"かけるは内、のばすは外\",\"operation\":\"gloss\"}]},\"actualDiff\":{\"path\":\"/body/blocks/2/text\",\"from\":\"原文地址：http://beginners.biz/reach/reach06.html ------------------------------------------------------------------------------------ 立直理论2：  ------------------------------------------------------------------------------------ かけるは内、のばすは外（太专业了= =，没想好怎么翻） ------------------------------------------------------------------------------------  比如124索这样的形， 摸到5索，从两面的角度考虑切掉1索是理所当然的打法。 但是，要立直的话就不一样了。 \",\"to\":\"原文地址：http://beginners.biz/reach/reach06.html ------------------------------------------------------------------------------------ 立直理论2：  ------------------------------------------------------------------------------------ かけるは内、のばすは外（立直舍内，发展舍外）（太专业了= =，没想好怎么翻） ------------------------------------------------------------------------------------  比如124索这样的形， 摸到5索，从两面的角度考虑切掉1索是理所当然的打法。 但是，要立直的话就不一样了。 \"},\"originalParentIssues\":[{\"severity\":\"error\",\"targetId\":\"79-bilibili-cn:cv1760573:b0003\",\"sourceEvidence\":\"かけるは内、のばすは外（太专业了= =，没想好怎么翻）\",\"description\":\"教学格言仍保留日文，未满足日文完整译成中文的要求。\",\"suggestedRepair\":\"将日文部分译为“立直时切内侧牌，发展牌形时切外侧牌”，原有中文括注及其余中文原文保持不变。\"},{\"severity\":\"uncertain\",\"targetId\":\"79-bilibili-cn:cv1760573:b0013\",\"sourceEvidence\":\"源文与候选均为“这样的立直话，对手只能对日”。\",\"description\":\"候选未改写中文，但源句中的“对日”无法确定所指的对手应对行为，涉及教学判断，不能视为语义已确认完整。\",\"suggestedRepair\":\"保留所给中文，不推测补写；需有该句的明确校勘文本，才能消除此项语义不确定。\"}],\"images\":[],\"inheritance\":\"The complete unchanged body blocks/marks/tableContext/order and full figures inherit the exact bound parent audit only to its original scope. Original error/uncertain remain. The new request covers only the quoted translation and the explicitly carried ambiguity/unknown educational impact with full context. It is not a full-chapter pass or a new board transcription.\",\"carriedScope\":{\"kind\":\"source-ambiguity\",\"sourceText\":\"这样的立直话，对手只能对日 相比不靠谱的迷彩战术，有着“强大的河”更加容易荣和。    （待续）\",\"question\":\"原文“这样的立直话，对手只能对日”如实保留。独立判断其原句歧义如何影响本章作者明确写出的论证；不猜“对日”的意图，不以忠实复制等同语义已解。若可在明确限制下注明源歧义而忠实展示，给具体限制；否则指出最小缺失原句/实际贡献。\"}}",
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "translation": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "targetId": {
+            "type": "string",
+            "enum": [
+              "79-bilibili-cn:cv1760573:b0003"
+            ]
+          },
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "faithful",
+              "needs-repair",
+              "uncertain"
+            ]
+          },
+          "evidence": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "targetId",
+          "verdict",
+          "evidence"
+        ]
+      },
+      "carriedIssue": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "targetId": {
+            "type": "string",
+            "enum": [
+              "79-bilibili-cn:cv1760573:b0013"
+            ]
+          },
+          "positionConfirmed": {
+            "type": "boolean"
+          },
+          "currentDisplayFaithful": {
+            "type": "boolean"
+          },
+          "authorArgumentFaithfulWithCurrentLimitation": {
+            "type": "boolean"
+          },
+          "requiresResolvedMeaningOrExactTileForAuthorArgument": {
+            "type": "boolean"
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "requiredDisplayLimitations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "unresolvedContributionOrMinimumGap": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "targetId",
+          "positionConfirmed",
+          "currentDisplayFaithful",
+          "authorArgumentFaithfulWithCurrentLimitation",
+          "requiresResolvedMeaningOrExactTileForAuthorArgument",
+          "evidence",
+          "requiredDisplayLimitations",
+          "unresolvedContributionOrMinimumGap"
+        ]
+      },
+      "argumentChecks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "sourceBlockIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "authorContribution": {
+              "type": "string"
+            },
+            "preservedConditions": {
+              "type": "string"
+            },
+            "faithfulWithCurrentLimitation": {
+              "type": "boolean"
+            },
+            "evidence": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "sourceBlockIds",
+            "authorContribution",
+            "preservedConditions",
+            "faithfulWithCurrentLimitation",
+            "evidence"
+          ]
+        }
+      },
+      "orderedContextFaithful": {
+        "type": "boolean"
+      },
+      "completeRequestedScopeCompared": {
+        "type": "boolean"
+      },
+      "conclusion": {
+        "type": "string",
+        "enum": [
+          "target-faithful-limited-display-acceptable",
+          "material-unresolved-gap",
+          "translation-needs-repair",
+          "insufficient-evidence"
+        ]
+      },
+      "issues": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "severity": {
+              "type": "string",
+              "enum": [
+                "error",
+                "uncertain",
+                "source-note"
+              ]
+            },
+            "targetId": {
+              "type": "string"
+            },
+            "evidence": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "severity",
+            "targetId",
+            "evidence",
+            "description"
+          ]
+        }
+      },
+      "summary": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "translation",
+      "carriedIssue",
+      "argumentChecks",
+      "orderedContextFaithful",
+      "completeRequestedScopeCompared",
+      "conclusion",
+      "issues",
+      "summary"
+    ]
+  },
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "images": [],
+  "timeoutMs": 900000,
+  "projection": {
+    "schema": "coac248-182201-exact-context-review/1",
+    "canonical": "79-cn-chapter-182-5",
+    "translationTargetId": "79-bilibili-cn:cv1760573:b0003",
+    "carriedIssueTargetId": "79-bilibili-cn:cv1760573:b0013",
+    "orderedSourceCandidateFigurePairs": [
+      {
+        "position": 0,
+        "source": {
+          "id": "79-bilibili-cn:cv1760573:b0001",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0001",
+          "tag": "p",
+          "domPath": "main/p[0]",
+          "tableContext": null,
+          "type": "text",
+          "text": "免责声明：",
+          "segments": [
+            {
+              "text": "免责声明：",
+              "marks": [],
+              "href": null
+            }
+          ]
+        },
+        "candidate": {
+          "type": "text",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1760573:b0001"
+          ],
+          "sourceText": "免责声明：",
+          "text": "免责声明：",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0001",
+          "sourceSegments": [
+            {
+              "text": "免责声明：",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        "figure": null
+      },
+      {
+        "position": 1,
+        "source": {
+          "id": "79-bilibili-cn:cv1760573:b0002",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0002",
+          "tag": "p",
+          "domPath": "main/p[1]",
+          "tableContext": null,
+          "type": "text",
+          "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+          "segments": [
+            {
+              "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+              "marks": [],
+              "href": null
+            }
+          ]
+        },
+        "candidate": {
+          "type": "text",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1760573:b0002"
+          ],
+          "sourceText": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+          "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0002",
+          "sourceSegments": [
+            {
+              "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        "figure": null
+      },
+      {
+        "position": 2,
+        "source": {
+          "id": "79-bilibili-cn:cv1760573:b0003",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0003",
+          "tag": "p",
+          "domPath": "main/p[2]",
+          "tableContext": null,
+          "type": "text",
+          "text": "原文地址：http://beginners.biz/reach/reach06.html ------------------------------------------------------------------------------------ 立直理论2：  ------------------------------------------------------------------------------------ かけるは内、のばすは外（太专业了= =，没想好怎么翻） ------------------------------------------------------------------------------------  比如124索这样的形， 摸到5索，从两面的角度考虑切掉1索是理所当然的打法。 但是，要立直的话就不一样了。 ",
+          "segments": [
+            {
+              "text": "原文地址：http://beginners.biz/reach/reach06.html",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "立直理论2：",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "かけるは内、のばすは外（太专业了= =，没想好怎么翻）",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "比如124索这样的形，",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "摸到5索，从两面的角度考虑切掉1索是理所当然的打法。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "但是，要立直的话就不一样了。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            }
+          ]
+        },
+        "candidate": {
+          "type": "text",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1760573:b0003"
+          ],
+          "sourceText": "原文地址：http://beginners.biz/reach/reach06.html ------------------------------------------------------------------------------------ 立直理论2：  ------------------------------------------------------------------------------------ かけるは内、のばすは外（太专业了= =，没想好怎么翻） ------------------------------------------------------------------------------------  比如124索这样的形， 摸到5索，从两面的角度考虑切掉1索是理所当然的打法。 但是，要立直的话就不一样了。 ",
+          "text": "原文地址：http://beginners.biz/reach/reach06.html ------------------------------------------------------------------------------------ 立直理论2：  ------------------------------------------------------------------------------------ かけるは内、のばすは外（立直舍内，发展舍外）（太专业了= =，没想好怎么翻） ------------------------------------------------------------------------------------  比如124索这样的形， 摸到5索，从两面的角度考虑切掉1索是理所当然的打法。 但是，要立直的话就不一样了。 ",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0003",
+          "sourceSegments": [
+            {
+              "text": "原文地址：http://beginners.biz/reach/reach06.html",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "立直理论2：",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "かけるは内、のばすは外（太专业了= =，没想好怎么翻）",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "比如124索这样的形，",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "摸到5索，从两面的角度考虑切掉1索是理所当然的打法。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "但是，要立直的话就不一样了。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        "figure": null
+      },
+      {
+        "position": 3,
+        "source": {
+          "id": "79-bilibili-cn:cv1760573:b0004",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0004",
+          "tag": "div",
+          "domPath": "main/div[3]/div[0]/div[0]/div[0]/div[0]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "79-bilibili-cn:cv1760573:i00001",
+              "assetId": "79-bilibili-cn:44917f8f12fd4651d3a063e7",
+              "sourceUrls": [
+                "https://i0.hdslb.com/bfs/article/5c65ebd50531be5dcc61fd52218d88713cac9cd4.png",
+                "https://i0.hdslb.com/bfs/article/5c65ebd50531be5dcc61fd52218d88713cac9cd4.png@1188w_134h"
+              ],
+              "alt": "",
+              "title": "",
+              "width": null,
+              "height": null,
+              "tileHint": null
+            }
+          ]
+        },
+        "candidate": {
+          "type": "figure",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1760573:b0004"
+          ],
+          "figureId": "79-bilibili-cn:cv1760573:b0004:figure",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0004",
+          "tableContext": null
+        },
+        "figure": {
+          "figureId": "79-bilibili-cn:cv1760573:b0004:figure",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1760573:b0004"
+          ],
+          "sourceOccurrenceIds": [
+            "79-bilibili-cn:cv1760573:i00001"
+          ],
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:44917f8f12fd4651d3a063e7",
+              "path": "web-sources/v1/79-bilibili-cn/assets/e3367f0fbd1220491e574e5c011bab37a8205b22b32190a6fcbc4e38b901dc12.png",
+              "sha256": "e3367f0fbd1220491e574e5c011bab37a8205b22b32190a6fcbc4e38b901dc12",
+              "url": "https://i0.hdslb.com/bfs/article/5c65ebd50531be5dcc61fd52218d88713cac9cd4.png"
+            }
+          ],
+          "kind": "mahjong-example",
+          "transcription": "例1　1m 2m 2m 2m 3m 1s 2s 4s 6s 8s 3z 3z 3z　摸入 7s　宝牌 6s",
+          "unknowns": [],
+          "caption": "例1，手牌右侧依次为摸入牌和宝牌。",
+          "sourceNotes": [],
+          "provenance": {
+            "method": "model-transcription",
+            "callId": "cb644e86-c191-4b51-9111-b3cc0ccdc927",
+            "outputSourceBlockId": "79-bilibili-cn:cv1760573:b0004"
+          },
+          "presentationAsset": {
+            "path": "web-production/v1/presentations/79-bilibili-cn/cv1760573/d36bcb189a3a10a5/figure-0001.png",
+            "sha256": "bb16632d9f0dd565352345085759d51eedf624c51a46dd8c08861b0ca7df0c36",
+            "width": 594,
+            "height": 67,
+            "derivation": {
+              "kind": "single-source-image-rgba-to-png",
+              "alignment": "original-size",
+              "sourceAssetBindings": [
+                {
+                  "assetId": "79-bilibili-cn:44917f8f12fd4651d3a063e7",
+                  "path": "web-sources/v1/79-bilibili-cn/assets/e3367f0fbd1220491e574e5c011bab37a8205b22b32190a6fcbc4e38b901dc12.png",
+                  "sha256": "e3367f0fbd1220491e574e5c011bab37a8205b22b32190a6fcbc4e38b901dc12",
+                  "url": "https://i0.hdslb.com/bfs/article/5c65ebd50531be5dcc61fd52218d88713cac9cd4.png"
+                }
+              ],
+              "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+            }
+          }
+        }
+      },
+      {
+        "position": 4,
+        "source": {
+          "id": "79-bilibili-cn:cv1760573:b0005",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0005",
+          "tag": "p",
+          "domPath": "main/p[4]",
+          "tableContext": null,
+          "type": "text",
+          "text": "这样的牌大致可以立直了。 要立直的话，打4索才是合理的。  要是场上已经有现物的4索，3索也会更加容易被打出一点。 但是这也不是非常有效果的。 4索要是非常危险的话，切1索立直也是可以的。 ------------------------------------------------------------------------------------ 暗刻优先 ------------------------------------------------------------------------------------ ",
+          "segments": [
+            {
+              "text": "这样的牌大致可以立直了。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "要立直的话，打4索才是合理的。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "要是场上已经有现物的4索，3索也会更加容易被打出一点。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "但是这也不是非常有效果的。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "4索要是非常危险的话，切1索立直也是可以的。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "暗刻优先",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            }
+          ]
+        },
+        "candidate": {
+          "type": "text",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1760573:b0005"
+          ],
+          "sourceText": "这样的牌大致可以立直了。 要立直的话，打4索才是合理的。  要是场上已经有现物的4索，3索也会更加容易被打出一点。 但是这也不是非常有效果的。 4索要是非常危险的话，切1索立直也是可以的。 ------------------------------------------------------------------------------------ 暗刻优先 ------------------------------------------------------------------------------------ ",
+          "text": "这样的牌大致可以立直了。 要立直的话，打4索才是合理的。  要是场上已经有现物的4索，3索也会更加容易被打出一点。 但是这也不是非常有效果的。 4索要是非常危险的话，切1索立直也是可以的。 ------------------------------------------------------------------------------------ 暗刻优先 ------------------------------------------------------------------------------------ ",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0005",
+          "sourceSegments": [
+            {
+              "text": "这样的牌大致可以立直了。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "要立直的话，打4索才是合理的。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "要是场上已经有现物的4索，3索也会更加容易被打出一点。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "但是这也不是非常有效果的。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "4索要是非常危险的话，切1索立直也是可以的。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "暗刻优先",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        "figure": null
+      },
+      {
+        "position": 5,
+        "source": {
+          "id": "79-bilibili-cn:cv1760573:b0006",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0006",
+          "tag": "div",
+          "domPath": "main/div[5]/div[0]/div[0]/div[0]/div[0]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "79-bilibili-cn:cv1760573:i00002",
+              "assetId": "79-bilibili-cn:c460098233420c9079af7e97",
+              "sourceUrls": [
+                "https://i0.hdslb.com/bfs/article/b7e0176b2f8e6284e3e07af5bb7adf1f2216edfa.png",
+                "https://i0.hdslb.com/bfs/article/b7e0176b2f8e6284e3e07af5bb7adf1f2216edfa.png@1192w"
+              ],
+              "alt": "",
+              "title": "",
+              "width": null,
+              "height": null,
+              "tileHint": null
+            }
+          ]
+        },
+        "candidate": {
+          "type": "figure",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1760573:b0006"
+          ],
+          "figureId": "79-bilibili-cn:cv1760573:b0006:figure",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0006",
+          "tableContext": null
+        },
+        "figure": {
+          "figureId": "79-bilibili-cn:cv1760573:b0006:figure",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1760573:b0006"
+          ],
+          "sourceOccurrenceIds": [
+            "79-bilibili-cn:cv1760573:i00002"
+          ],
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:c460098233420c9079af7e97",
+              "path": "web-sources/v1/79-bilibili-cn/assets/2fdf1786a308dde24c7a8352ac5c6133eea45579ff81dc58000d8eb93482c2ec.png",
+              "sha256": "2fdf1786a308dde24c7a8352ac5c6133eea45579ff81dc58000d8eb93482c2ec",
+              "url": "https://i0.hdslb.com/bfs/article/b7e0176b2f8e6284e3e07af5bb7adf1f2216edfa.png"
+            }
+          ],
+          "kind": "mahjong-example",
+          "transcription": "例2　6m 6m 6m 1p 1p 1p 2p 2p 3p 5s 5s 6s 7s　摸入 4s　宝牌 3s",
+          "unknowns": [],
+          "caption": "例2，手牌右侧依次为摸入牌和宝牌。",
+          "sourceNotes": [],
+          "provenance": {
+            "method": "model-transcription",
+            "callId": "cb644e86-c191-4b51-9111-b3cc0ccdc927",
+            "outputSourceBlockId": "79-bilibili-cn:cv1760573:b0006"
+          },
+          "presentationAsset": {
+            "path": "web-production/v1/presentations/79-bilibili-cn/cv1760573/d36bcb189a3a10a5/figure-0002.png",
+            "sha256": "af06892e72328a29f35eb95fec9965f6995cc4d122ee06768354fba053d794cf",
+            "width": 600,
+            "height": 64,
+            "derivation": {
+              "kind": "single-source-image-rgba-to-png",
+              "alignment": "original-size",
+              "sourceAssetBindings": [
+                {
+                  "assetId": "79-bilibili-cn:c460098233420c9079af7e97",
+                  "path": "web-sources/v1/79-bilibili-cn/assets/2fdf1786a308dde24c7a8352ac5c6133eea45579ff81dc58000d8eb93482c2ec.png",
+                  "sha256": "2fdf1786a308dde24c7a8352ac5c6133eea45579ff81dc58000d8eb93482c2ec",
+                  "url": "https://i0.hdslb.com/bfs/article/b7e0176b2f8e6284e3e07af5bb7adf1f2216edfa.png"
+                }
+              ],
+              "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+            }
+          }
+        }
+      },
+      {
+        "position": 6,
+        "source": {
+          "id": "79-bilibili-cn:cv1760573:b0007",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0007",
+          "tag": "p",
+          "domPath": "main/p[6]",
+          "tableContext": null,
+          "type": "text",
+          "text": "这样的牌切2饼和3饼都可以立直。 像这样没有平和的牌应该保留暗刻立直。 摸到1饼可以暗杠，不仅可以增加符数，还有可能增加宝牌。 ------------------------------------------------------------------------------------ 情报要少 ------------------------------------------------------------------------------------ 以前流行的迷彩战术（给捨牌中设下陷阱）受到了压倒性的否定。反而是捨牌越没有特征越好。 ",
+          "segments": [
+            {
+              "text": "这样的牌切2饼和3饼都可以立直。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "像这样没有平和的牌应该保留暗刻立直。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "摸到1饼可以暗杠，不仅可以增加符数，还有可能增加宝牌。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "情报要少",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "以前流行的迷彩战术（给捨牌中设下陷阱）受到了压倒性的否定。反而是捨牌越没有特征越好。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            }
+          ]
+        },
+        "candidate": {
+          "type": "text",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1760573:b0007"
+          ],
+          "sourceText": "这样的牌切2饼和3饼都可以立直。 像这样没有平和的牌应该保留暗刻立直。 摸到1饼可以暗杠，不仅可以增加符数，还有可能增加宝牌。 ------------------------------------------------------------------------------------ 情报要少 ------------------------------------------------------------------------------------ 以前流行的迷彩战术（给捨牌中设下陷阱）受到了压倒性的否定。反而是捨牌越没有特征越好。 ",
+          "text": "这样的牌切2饼和3饼都可以立直。 像这样没有平和的牌应该保留暗刻立直。 摸到1饼可以暗杠，不仅可以增加符数，还有可能增加宝牌。 ------------------------------------------------------------------------------------ 情报要少 ------------------------------------------------------------------------------------ 以前流行的迷彩战术（给捨牌中设下陷阱）受到了压倒性的否定。反而是捨牌越没有特征越好。 ",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0007",
+          "sourceSegments": [
+            {
+              "text": "这样的牌切2饼和3饼都可以立直。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "像这样没有平和的牌应该保留暗刻立直。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "摸到1饼可以暗杠，不仅可以增加符数，还有可能增加宝牌。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "情报要少",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "以前流行的迷彩战术（给捨牌中设下陷阱）受到了压倒性的否定。反而是捨牌越没有特征越好。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        "figure": null
+      },
+      {
+        "position": 7,
+        "source": {
+          "id": "79-bilibili-cn:cv1760573:b0008",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0008",
+          "tag": "div",
+          "domPath": "main/div[7]/div[0]/div[0]/div[0]/div[0]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "79-bilibili-cn:cv1760573:i00003",
+              "assetId": "79-bilibili-cn:b099921584c1e416f23305f7",
+              "sourceUrls": [
+                "https://i0.hdslb.com/bfs/article/ff29732b24760b68dfd8d1e2ab9a31a3288d4229.png",
+                "https://i0.hdslb.com/bfs/article/ff29732b24760b68dfd8d1e2ab9a31a3288d4229.png@1174w_128h"
+              ],
+              "alt": "",
+              "title": "",
+              "width": null,
+              "height": null,
+              "tileHint": null
+            }
+          ]
+        },
+        "candidate": {
+          "type": "figure",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1760573:b0008"
+          ],
+          "figureId": "79-bilibili-cn:cv1760573:b0008:figure",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0008",
+          "tableContext": null
+        },
+        "figure": {
+          "figureId": "79-bilibili-cn:cv1760573:b0008:figure",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1760573:b0008"
+          ],
+          "sourceOccurrenceIds": [
+            "79-bilibili-cn:cv1760573:i00003"
+          ],
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:b099921584c1e416f23305f7",
+              "path": "web-sources/v1/79-bilibili-cn/assets/444a3e2d0184d4df3e173cc69a9c27040475b8ddbfd671b8f14fdf7db7402028.png",
+              "sha256": "444a3e2d0184d4df3e173cc69a9c27040475b8ddbfd671b8f14fdf7db7402028",
+              "url": "https://i0.hdslb.com/bfs/article/ff29732b24760b68dfd8d1e2ab9a31a3288d4229.png"
+            }
+          ],
+          "kind": "mahjong-example",
+          "transcription": "例3　5m 6m 4p 6p 7p 8p 2s 3s 7s 8s 9s 4z 4z　摸入 4p　宝牌 9s",
+          "unknowns": [],
+          "caption": "例3，手牌右侧依次为摸入牌和宝牌。",
+          "sourceNotes": [],
+          "provenance": {
+            "method": "model-transcription",
+            "callId": "cb644e86-c191-4b51-9111-b3cc0ccdc927",
+            "outputSourceBlockId": "79-bilibili-cn:cv1760573:b0008"
+          },
+          "presentationAsset": {
+            "path": "web-production/v1/presentations/79-bilibili-cn/cv1760573/d36bcb189a3a10a5/figure-0003.png",
+            "sha256": "d56b078cd2ac6631d929c73fa5a68c1d6628e612f56c25d913ca56f3c48f3845",
+            "width": 587,
+            "height": 64,
+            "derivation": {
+              "kind": "single-source-image-rgba-to-png",
+              "alignment": "original-size",
+              "sourceAssetBindings": [
+                {
+                  "assetId": "79-bilibili-cn:b099921584c1e416f23305f7",
+                  "path": "web-sources/v1/79-bilibili-cn/assets/444a3e2d0184d4df3e173cc69a9c27040475b8ddbfd671b8f14fdf7db7402028.png",
+                  "sha256": "444a3e2d0184d4df3e173cc69a9c27040475b8ddbfd671b8f14fdf7db7402028",
+                  "url": "https://i0.hdslb.com/bfs/article/ff29732b24760b68dfd8d1e2ab9a31a3288d4229.png"
+                }
+              ],
+              "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+            }
+          }
+        }
+      },
+      {
+        "position": 8,
+        "source": {
+          "id": "79-bilibili-cn:cv1760573:b0009",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0009",
+          "tag": "p",
+          "domPath": "main/p[8]",
+          "tableContext": null,
+          "type": "text",
+          "text": "例3是典型的立直手牌，应该用4饼替换雀头，切北。 这里要是切掉4饼的话，立直之后。 他家会很容易切出",
+          "segments": [
+            {
+              "text": "例3是典型的立直手牌，应该用4饼替换雀头，切北。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "这里要是切掉4饼的话，立直之后。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "他家会很容易切出",
+              "marks": [],
+              "href": null
+            }
+          ]
+        },
+        "candidate": {
+          "type": "text",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1760573:b0009"
+          ],
+          "sourceText": "例3是典型的立直手牌，应该用4饼替换雀头，切北。 这里要是切掉4饼的话，立直之后。 他家会很容易切出",
+          "text": "例3是典型的立直手牌，应该用4饼替换雀头，切北。 这里要是切掉4饼的话，立直之后。 他家会很容易切出",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0009",
+          "sourceSegments": [
+            {
+              "text": "例3是典型的立直手牌，应该用4饼替换雀头，切北。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "这里要是切掉4饼的话，立直之后。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "他家会很容易切出",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        "figure": null
+      },
+      {
+        "position": 9,
+        "source": {
+          "id": "79-bilibili-cn:cv1760573:b0010",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0010",
+          "tag": "div",
+          "domPath": "main/div[9]/div[0]/div[0]/div[0]/div[0]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "79-bilibili-cn:cv1760573:i00004",
+              "assetId": "79-bilibili-cn:99559ead44ea73dbf96deeec",
+              "sourceUrls": [
+                "https://i0.hdslb.com/bfs/article/bb3c242110e36554e018f70afc5c278bf34e357b.png",
+                "https://i0.hdslb.com/bfs/article/bb3c242110e36554e018f70afc5c278bf34e357b.png@292w_92h"
+              ],
+              "alt": "",
+              "title": "",
+              "width": null,
+              "height": null,
+              "tileHint": null
+            }
+          ]
+        },
+        "candidate": {
+          "type": "figure",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1760573:b0010"
+          ],
+          "figureId": "79-bilibili-cn:cv1760573:b0010:figure",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0010",
+          "tableContext": null
+        },
+        "figure": {
+          "figureId": "79-bilibili-cn:cv1760573:b0010:figure",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1760573:b0010"
+          ],
+          "sourceOccurrenceIds": [
+            "79-bilibili-cn:cv1760573:i00004"
+          ],
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:99559ead44ea73dbf96deeec",
+              "path": "web-sources/v1/79-bilibili-cn/assets/9a2ba127e1852a01cce531938cacbd4a7a9e30609ef24f75bac5c8a1d11b0583.png",
+              "sha256": "9a2ba127e1852a01cce531938cacbd4a7a9e30609ef24f75bac5c8a1d11b0583",
+              "url": "https://i0.hdslb.com/bfs/article/bb3c242110e36554e018f70afc5c278bf34e357b.png"
+            }
+          ],
+          "kind": "mahjong-example",
+          "transcription": "1p 2p 3p 4p 7p",
+          "unknowns": [],
+          "caption": "从左至右排列的五张筒子牌。",
+          "sourceNotes": [],
+          "provenance": {
+            "method": "model-transcription",
+            "callId": "cb644e86-c191-4b51-9111-b3cc0ccdc927",
+            "outputSourceBlockId": "79-bilibili-cn:cv1760573:b0010"
+          },
+          "presentationAsset": {
+            "path": "web-production/v1/presentations/79-bilibili-cn/cv1760573/d36bcb189a3a10a5/figure-0004.png",
+            "sha256": "356b879620ba833ad49a8b9532f9966ee1eff4cb2c172e7637b9d3958772672d",
+            "width": 146,
+            "height": 46,
+            "derivation": {
+              "kind": "single-source-image-rgba-to-png",
+              "alignment": "original-size",
+              "sourceAssetBindings": [
+                {
+                  "assetId": "79-bilibili-cn:99559ead44ea73dbf96deeec",
+                  "path": "web-sources/v1/79-bilibili-cn/assets/9a2ba127e1852a01cce531938cacbd4a7a9e30609ef24f75bac5c8a1d11b0583.png",
+                  "sha256": "9a2ba127e1852a01cce531938cacbd4a7a9e30609ef24f75bac5c8a1d11b0583",
+                  "url": "https://i0.hdslb.com/bfs/article/bb3c242110e36554e018f70afc5c278bf34e357b.png"
+                }
+              ],
+              "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+            }
+          }
+        }
+      },
+      {
+        "position": 10,
+        "source": {
+          "id": "79-bilibili-cn:cv1760573:b0011",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0011",
+          "tag": "p",
+          "domPath": "main/p[10]",
+          "tableContext": null,
+          "type": "text",
+          "text": "切掉北的话，他家也只能知道你不是单骑听牌而已。 捨牌是幺九牌这种没有什么特征的牌可以说理想的捨牌。 比如： ",
+          "segments": [
+            {
+              "text": "切掉北的话，他家也只能知道你不是单骑听牌而已。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "捨牌是幺九牌这种没有什么特征的牌可以说理想的捨牌。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "比如：",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            }
+          ]
+        },
+        "candidate": {
+          "type": "text",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1760573:b0011"
+          ],
+          "sourceText": "切掉北的话，他家也只能知道你不是单骑听牌而已。 捨牌是幺九牌这种没有什么特征的牌可以说理想的捨牌。 比如： ",
+          "text": "切掉北的话，他家也只能知道你不是单骑听牌而已。 捨牌是幺九牌这种没有什么特征的牌可以说理想的捨牌。 比如： ",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0011",
+          "sourceSegments": [
+            {
+              "text": "切掉北的话，他家也只能知道你不是单骑听牌而已。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "捨牌是幺九牌这种没有什么特征的牌可以说理想的捨牌。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "比如：",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        "figure": null
+      },
+      {
+        "position": 11,
+        "source": {
+          "id": "79-bilibili-cn:cv1760573:b0012",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0012",
+          "tag": "div",
+          "domPath": "main/div[11]/div[0]/div[0]/div[0]/div[0]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "79-bilibili-cn:cv1760573:i00005",
+              "assetId": "79-bilibili-cn:d9f4279a06c20d92b768cbb8",
+              "sourceUrls": [
+                "https://i0.hdslb.com/bfs/article/e310dc8c49aefe9e81b98a519df188f3d6d3baf2.png",
+                "https://i0.hdslb.com/bfs/article/e310dc8c49aefe9e81b98a519df188f3d6d3baf2.png@92h"
+              ],
+              "alt": "",
+              "title": "",
+              "width": null,
+              "height": null,
+              "tileHint": null
+            }
+          ]
+        },
+        "candidate": {
+          "type": "figure",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1760573:b0012"
+          ],
+          "figureId": "79-bilibili-cn:cv1760573:b0012:figure",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0012",
+          "tableContext": null
+        },
+        "figure": {
+          "figureId": "79-bilibili-cn:cv1760573:b0012:figure",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1760573:b0012"
+          ],
+          "sourceOccurrenceIds": [
+            "79-bilibili-cn:cv1760573:i00005"
+          ],
+          "sourceAssetBindings": [
+            {
+              "assetId": "79-bilibili-cn:d9f4279a06c20d92b768cbb8",
+              "path": "web-sources/v1/79-bilibili-cn/assets/c9d10d79898cfa2dcfcca98c5b2df17caa908012e404fc7b339e56bb532adc50.png",
+              "sha256": "c9d10d79898cfa2dcfcca98c5b2df17caa908012e404fc7b339e56bb532adc50",
+              "url": "https://i0.hdslb.com/bfs/article/e310dc8c49aefe9e81b98a519df188f3d6d3baf2.png"
+            }
+          ],
+          "kind": "mahjong-example",
+          "transcription": "2z 4z 7z 1m（横置）",
+          "unknowns": [],
+          "caption": "舍牌示例，末张1m横置。",
+          "sourceNotes": [
+            "末张1m的牌顶朝左。"
+          ],
+          "provenance": {
+            "method": "model-transcription",
+            "callId": "cb644e86-c191-4b51-9111-b3cc0ccdc927",
+            "outputSourceBlockId": "79-bilibili-cn:cv1760573:b0012"
+          },
+          "presentationAsset": {
+            "path": "web-production/v1/presentations/79-bilibili-cn/cv1760573/d36bcb189a3a10a5/figure-0005.png",
+            "sha256": "6626bccacf4c1491bb3cd973590fe930d754ad139cbc2aa88cd5eb177c73bf16",
+            "width": 136,
+            "height": 43,
+            "derivation": {
+              "kind": "single-source-image-rgba-to-png",
+              "alignment": "original-size",
+              "sourceAssetBindings": [
+                {
+                  "assetId": "79-bilibili-cn:d9f4279a06c20d92b768cbb8",
+                  "path": "web-sources/v1/79-bilibili-cn/assets/c9d10d79898cfa2dcfcca98c5b2df17caa908012e404fc7b339e56bb532adc50.png",
+                  "sha256": "c9d10d79898cfa2dcfcca98c5b2df17caa908012e404fc7b339e56bb532adc50",
+                  "url": "https://i0.hdslb.com/bfs/article/e310dc8c49aefe9e81b98a519df188f3d6d3baf2.png"
+                }
+              ],
+              "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+            }
+          }
+        }
+      },
+      {
+        "position": 12,
+        "source": {
+          "id": "79-bilibili-cn:cv1760573:b0013",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0013",
+          "tag": "p",
+          "domPath": "main/p[12]",
+          "tableContext": null,
+          "type": "text",
+          "text": "这样的立直话，对手只能对日 相比不靠谱的迷彩战术，有着“强大的河”更加容易荣和。    （待续）",
+          "segments": [
+            {
+              "text": "这样的立直话，对手只能对日",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "相比不靠谱的迷彩战术，有着",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "“强大的河”",
+              "marks": [
+                "strong:background:;color:;:"
+              ],
+              "href": null
+            },
+            {
+              "text": "更加容易荣和。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "（待续）",
+              "marks": [],
+              "href": null
+            }
+          ]
+        },
+        "candidate": {
+          "type": "text",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1760573:b0013"
+          ],
+          "sourceText": "这样的立直话，对手只能对日 相比不靠谱的迷彩战术，有着“强大的河”更加容易荣和。    （待续）",
+          "text": "这样的立直话，对手只能对日 相比不靠谱的迷彩战术，有着“强大的河”更加容易荣和。    （待续）",
+          "paragraphId": "79-bilibili-cn:cv1760573:p0013",
+          "sourceSegments": [
+            {
+              "text": "这样的立直话，对手只能对日",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "相比不靠谱的迷彩战术，有着",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "“强大的河”",
+              "marks": [
+                "strong:background:;color:;:"
+              ],
+              "href": null
+            },
+            {
+              "text": "更加容易荣和。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "（待续）",
+              "marks": [],
+              "href": null
+            }
+          ],
+          "tableContext": null
+        },
+        "figure": null
+      }
+    ],
+    "exactGlossPlan": {
+      "schema": "coach-inline-japanese-revision/1",
+      "authorizationCommentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+      "chapterId": "79-cn-chapter-182-5",
+      "bindings": {
+        "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+        "notesSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+        "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+      },
+      "edits": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1760573:b0003",
+          "quotedText": "かけるは内、のばすは外",
+          "operation": "gloss"
+        }
+      ]
+    },
+    "actualDiff": {
+      "path": "/body/blocks/2/text",
+      "from": "原文地址：http://beginners.biz/reach/reach06.html ------------------------------------------------------------------------------------ 立直理论2：  ------------------------------------------------------------------------------------ かけるは内、のばすは外（太专业了= =，没想好怎么翻） ------------------------------------------------------------------------------------  比如124索这样的形， 摸到5索，从两面的角度考虑切掉1索是理所当然的打法。 但是，要立直的话就不一样了。 ",
+      "to": "原文地址：http://beginners.biz/reach/reach06.html ------------------------------------------------------------------------------------ 立直理论2：  ------------------------------------------------------------------------------------ かけるは内、のばすは外（立直舍内，发展舍外）（太专业了= =，没想好怎么翻） ------------------------------------------------------------------------------------  比如124索这样的形， 摸到5索，从两面的角度考虑切掉1索是理所当然的打法。 但是，要立直的话就不一样了。 "
+    },
+    "originalParentIssues": [
+      {
+        "severity": "error",
+        "targetId": "79-bilibili-cn:cv1760573:b0003",
+        "sourceEvidence": "かけるは内、のばすは外（太专业了= =，没想好怎么翻）",
+        "description": "教学格言仍保留日文，未满足日文完整译成中文的要求。",
+        "suggestedRepair": "将日文部分译为“立直时切内侧牌，发展牌形时切外侧牌”，原有中文括注及其余中文原文保持不变。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1760573:b0013",
+        "sourceEvidence": "源文与候选均为“这样的立直话，对手只能对日”。",
+        "description": "候选未改写中文，但源句中的“对日”无法确定所指的对手应对行为，涉及教学判断，不能视为语义已确认完整。",
+        "suggestedRepair": "保留所给中文，不推测补写；需有该句的明确校勘文本，才能消除此项语义不确定。"
+      }
+    ],
+    "images": [],
+    "inheritance": "The complete unchanged body blocks/marks/tableContext/order and full figures inherit the exact bound parent audit only to its original scope. Original error/uncertain remain. The new request covers only the quoted translation and the explicitly carried ambiguity/unknown educational impact with full context. It is not a full-chapter pass or a new board transcription.",
+    "carriedScope": {
+      "kind": "source-ambiguity",
+      "sourceText": "这样的立直话，对手只能对日 相比不靠谱的迷彩战术，有着“强大的河”更加容易荣和。    （待续）",
+      "question": "原文“这样的立直话，对手只能对日”如实保留。独立判断其原句歧义如何影响本章作者明确写出的论证；不猜“对日”的意图，不以忠实复制等同语义已解。若可在明确限制下注明源歧义而忠实展示，给具体限制；否则指出最小缺失原句/实际贡献。"
+    }
+  },
+  "proof": {
+    "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1760573.r1.display.json",
+    "candidateSha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc",
+    "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+    "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+    "parentAuditSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+    "parentRawSha256": "3b65106ad0d28b7f61161058781fb69a2d722b805f34a2113595896905b5a8bf",
+    "production": {
+      "callId": "ec351354-9bb2-4ce0-9e9e-67f4f31f8615",
+      "rawArtifactPath": "raw-calls/ec351354-9bb2-4ce0-9e9e-67f4f31f8615.json",
+      "rawArtifactSha256": "48af218acc698641792f05ff357236d66c48b38cf55b1b451d98c402ef955d91",
+      "revision": {
+        "inlineJapanese": {
+          "plan": {
+            "schema": "coach-inline-japanese-revision/1",
+            "authorizationCommentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+            "chapterId": "79-cn-chapter-182-5",
+            "bindings": {
+              "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+              "notesSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+              "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+            },
+            "edits": [
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1760573:b0003",
+                "quotedText": "かけるは内、のばすは外",
+                "operation": "gloss"
+              }
+            ]
+          },
+          "binding": {
+            "path": "integration/coac248-182201-20261028/cv1760573-plan.json",
+            "sha256": "dc1e4f6d7a09d95dd646fc1da796d7b8a28701be64fc3a100478e976a3bd6055",
+            "plan": {
+              "schema": "coach-inline-japanese-revision/1",
+              "authorizationCommentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+              "chapterId": "79-cn-chapter-182-5",
+              "bindings": {
+                "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+                "notesSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+                "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+              },
+              "edits": [
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1760573:b0003",
+                  "quotedText": "かけるは内、のばすは外",
+                  "operation": "gloss"
+                }
+              ]
+            }
+          },
+          "sourceLanguage": "zh-CN",
+          "bodyMode": "verbatim-with-bound-inline-translation-only"
+        },
+        "revision": {
+          "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1760573.display.json",
+          "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+          "notesPath": "audit/web/articles/79-bilibili-cn/cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+          "notesSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+          "textBlockIds": [
+            "79-bilibili-cn:cv1760573:b0003"
+          ],
+          "figureIds": [],
+          "inlineJapanese": {
+            "path": "integration/coac248-182201-20261028/cv1760573-plan.json",
+            "sha256": "dc1e4f6d7a09d95dd646fc1da796d7b8a28701be64fc3a100478e976a3bd6055",
+            "plan": {
+              "schema": "coach-inline-japanese-revision/1",
+              "authorizationCommentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+              "chapterId": "79-cn-chapter-182-5",
+              "bindings": {
+                "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+                "notesSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+                "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+              },
+              "edits": [
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1760573:b0003",
+                  "quotedText": "かけるは内、のばすは外",
+                  "operation": "gloss"
+                }
+              ]
+            }
+          }
+        },
+        "parentAudit": {
+          "path": "audit/web/articles/79-bilibili-cn/cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+          "sha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+          "originalStatus": "needs-repair"
+        },
+        "parentCall": {
+          "callId": "7cbb6bf1-006b-4a2f-af51-6e923fd11242",
+          "path": "audit/calls/7cbb6bf1-006b-4a2f-af51-6e923fd11242.json",
+          "sha256": "3b65106ad0d28b7f61161058781fb69a2d722b805f34a2113595896905b5a8bf"
+        },
+        "inheritedAssetIds": [
+          "79-bilibili-cn:44917f8f12fd4651d3a063e7",
+          "79-bilibili-cn:c460098233420c9079af7e97",
+          "79-bilibili-cn:b099921584c1e416f23305f7",
+          "79-bilibili-cn:99559ead44ea73dbf96deeec",
+          "79-bilibili-cn:d9f4279a06c20d92b768cbb8"
+        ],
+        "unresolvedParentIssuesPreserved": [
+          {
+            "severity": "uncertain",
+            "targetId": "79-bilibili-cn:cv1760573:b0013",
+            "sourceEvidence": "源文与候选均为“这样的立直话，对手只能对日”。",
+            "description": "候选未改写中文，但源句中的“对日”无法确定所指的对手应对行为，涉及教学判断，不能视为语义已确认完整。",
+            "suggestedRepair": "保留所给中文，不推测补写；需有该句的明确校勘文本，才能消除此项语义不确定。"
+          }
+        ],
+        "productionOnlyAuthorization": true,
+        "chapterAccepted": false
+      }
+    },
+    "presentation": {
+      "parent": {
+        "path": "web-production/v1/runs/coac248-182201-cv1760573-20261028/model-output-without-display.json",
+        "sha256": "fbcabbff2d5d8ff3974e75de6ac3c869dbcb383dec4bf849a9ee327f089fb55e",
+        "reason": "Exact real model-authored inline translation with unchanged original-image presentations. Intermediate is not a separate review candidate."
+      },
+      "pixels": {
+        "passed": true,
+        "figures": 5,
+        "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+      }
+    },
+    "checks": {
+      "passed": true,
+      "errors": [],
+      "textBlocks": 8,
+      "imageRuns": 5,
+      "imageOccurrences": 5,
+      "figures": 5
+    },
+    "visualProof": null,
+    "runtimeManifestSha256": "2df26827a1d13f9b9e13569b0628c987fbb3b7be04f9e0b8a186589e115c84b4",
+    "projectionSha256": "d17893de726407d8c22807e3aae40f56b6c52b15ae13e55464d439e0af005d1b"
+  },
+  "budget": {
+    "independentFirstReview": 1,
+    "retry": 0,
+    "failedVoidCount": true
+  },
+  "chapterAccepted": false
+}

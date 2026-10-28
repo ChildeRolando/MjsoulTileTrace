@@ -1,0 +1,86 @@
+{
+  "chapterId": "79-cn-chapter-182-5",
+  "originalChapterId": "79-cn-chapter-182-5",
+  "sourceId": "79-cn",
+  "title": "立直6—立直理论（2）",
+  "units": 1,
+  "ownedSourceBlocks": 23,
+  "adjudicationGroup": "confirmed-produced-not-covered",
+  "covered": false,
+  "coverageRoute": null,
+  "approvedWebCorrespondence": {
+    "articleId": "cv1760573",
+    "webSourceId": "79-bilibili-cn",
+    "tier": "body",
+    "evidencePath": "integration/chinese-source-body-correspondence.json",
+    "substitutionAllowed": true,
+    "bodyEquivalenceConfirmed": true,
+    "articleInPreview": false
+  },
+  "existingCandidate": {
+    "path": "web-production/v1/candidates/79-bilibili-cn/cv1760573.display.json",
+    "sha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+    "bodyBlocks": 13,
+    "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+    "currentSourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+    "sourceBoundCurrent": true,
+    "auditStatus": "needs-repair",
+    "auditPath": "audit/web/articles/79-bilibili-cn/cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+    "auditRecordedAt": "2026-10-25T18:14:01.257Z",
+    "deterministicPassed": true,
+    "semanticComplete": false
+  },
+  "pdfRoute": {
+    "pagesTotal": 2,
+    "pagesWithCandidate": 0,
+    "pagesWithPassedCandidate": 0,
+    "missingPassedPages": [
+      182,
+      183
+    ],
+    "pagesDetail": [
+      {
+        "page": 182,
+        "candidates": 0,
+        "receiptStatus": null,
+        "sourceBound": null,
+        "selected": false,
+        "blocks": 11
+      },
+      {
+        "page": 183,
+        "candidates": 0,
+        "receiptStatus": null,
+        "sourceBound": null,
+        "selected": false,
+        "blocks": 16
+      }
+    ]
+  },
+  "gaps": {
+    "ownedSourceBlocks": 23,
+    "missingProductionBlocks": 0,
+    "producedBlocks": 23,
+    "acceptedBlocks": 0,
+    "acceptanceGapBlocks": 23,
+    "acceptanceGapPages": [
+      182,
+      183
+    ],
+    "pagesWithoutCandidate": [],
+    "pagesWithoutPassedCandidate": [
+      182,
+      183
+    ]
+  },
+  "verdict": "produced-needs-repair",
+  "coac246": {
+    "action": "repair",
+    "auditStatus": "needs-repair",
+    "candidateSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+    "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1760573.display.json",
+    "repairErrors": 5,
+    "units": 1,
+    "blocks": 23
+  }
+}

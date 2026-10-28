@@ -1,0 +1,172 @@
+{
+  "chapterId": "79-cn-chapter-182-5",
+  "covered": false,
+  "baseVerdictPreserved": "produced-needs-repair",
+  "category": "source-text-ambiguity",
+  "owner": "COAC-248",
+  "nextAction": "仅零模型落实b0013邻近的独立非原文审校注和四条限制；原句/作者body不变。复用已在途244精确scope适配、250单写者及MCP/Arena读回；不猜“对日”、不再派制作或独审。",
+  "baseEvidence": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1760573.display.json",
+      "sha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+      "bytes": 41083
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+      "sha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+      "bytes": 25032
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1760573\\source.json",
+      "sha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+      "bytes": 25356
+    }
+  ],
+  "blockingIssues": [
+    {
+      "severity": "error",
+      "targetId": "79-bilibili-cn:cv1760573:b0003",
+      "sourceEvidence": "かけるは内、のばすは外（太专业了= =，没想好怎么翻）",
+      "description": "教学格言仍保留日文，未满足日文完整译成中文的要求。",
+      "suggestedRepair": "将日文部分译为“立直时切内侧牌，发展牌形时切外侧牌”，原有中文括注及其余中文原文保持不变。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "79-bilibili-cn:cv1760573:b0013",
+      "sourceEvidence": "源文与候选均为“这样的立直话，对手只能对日”。",
+      "description": "候选未改写中文，但源句中的“对日”无法确定所指的对手应对行为，涉及教学判断，不能视为语义已确认完整。",
+      "suggestedRepair": "保留所给中文，不推测补写；需有该句的明确校勘文本，才能消除此项语义不确定。"
+    }
+  ],
+  "existingVariants": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1760573.display.json",
+      "sha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+      "audits": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+          "sha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+          "status": "needs-repair",
+          "blockingIssues": [
+            {
+              "severity": "error",
+              "targetId": "79-bilibili-cn:cv1760573:b0003",
+              "sourceEvidence": "かけるは内、のばすは外（太专业了= =，没想好怎么翻）",
+              "description": "教学格言仍保留日文，未满足日文完整译成中文的要求。",
+              "suggestedRepair": "将日文部分译为“立直时切内侧牌，发展牌形时切外侧牌”，原有中文括注及其余中文原文保持不变。"
+            },
+            {
+              "severity": "uncertain",
+              "targetId": "79-bilibili-cn:cv1760573:b0013",
+              "sourceEvidence": "源文与候选均为“这样的立直话，对手只能对日”。",
+              "description": "候选未改写中文，但源句中的“对日”无法确定所指的对手应对行为，涉及教学判断，不能视为语义已确认完整。",
+              "suggestedRepair": "保留所给中文，不推测补写；需有该句的明确校勘文本，才能消除此项语义不确定。"
+            }
+          ]
+        }
+      ],
+      "notAutomaticallySelected": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1760573.json",
+      "sha256": "d36bcb189a3a10a540e676f3bbae087ca2f9c397492afc9a3a389de510920fc1",
+      "audits": [],
+      "notAutomaticallySelected": true
+    }
+  ],
+  "pdfBoundary": {
+    "pagesTotal": 2,
+    "pagesWithCandidate": 0,
+    "pagesWithPassedCandidate": 0,
+    "missingPassedPages": [
+      182,
+      183
+    ],
+    "pagesDetail": [
+      {
+        "page": 182,
+        "candidates": 0,
+        "receiptStatus": null,
+        "sourceBound": null,
+        "selected": false,
+        "blocks": 11
+      },
+      {
+        "page": 183,
+        "candidates": 0,
+        "receiptStatus": null,
+        "sourceBound": null,
+        "selected": false,
+        "blocks": 16
+      }
+    ]
+  },
+  "modelCallsThisStage": 0,
+  "current182201Authorization": {
+    "commentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+    "phase": "independent-evidence-verified-awaiting-exact-adjacent-editorial-display",
+    "runtimeManifestSha256": "2df26827a1d13f9b9e13569b0628c987fbb3b7be04f9e0b8a186589e115c84b4",
+    "binding": {
+      "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+      "notesSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+      "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+    },
+    "target": "79-bilibili-cn:cv1760573:b0003",
+    "preservedUnresolvedTarget": "79-bilibili-cn:cv1760573:b0013",
+    "newMakerBudget": 1,
+    "independentReviewReservedFor249": 0,
+    "retry": 0,
+    "chapterAccepted": false,
+    "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1760573.r1.display.json",
+    "candidateSha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc",
+    "makerCallId": "ec351354-9bb2-4ce0-9e9e-67f4f31f8615",
+    "makerUsage": {
+      "inputTokens": 21063,
+      "cachedInputTokens": 0,
+      "outputTokens": 398
+    },
+    "makerConsumed": 1,
+    "makerRemaining": 0,
+    "handoffPath": "E:/AgentData/Coach/knowledge/processing/integration/coac248-182201-20261028/cv1760573-handoff249.json",
+    "allNonTargetBytesPreserved": true,
+    "independentReviewConsumed": 1,
+    "chapterPhaseCallsConsumed": 2,
+    "remainingModelBudget": 0
+  },
+  "previousNextActionBeforeIndependent182": "b0003日文格言可定点翻译，但b0013“对日”在原HTML与PDF183一致；需最小上游原句校勘，现不猜对应行为、不为单一格言花整章调用。",
+  "zeroCall182EvidenceConsumption": {
+    "canonical": "79-cn-chapter-182-5",
+    "candidateSha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc",
+    "newCalls": 0,
+    "originalMakerAndFirstReviewConsumed": 2,
+    "remainingModelBudget": 0,
+    "translationTarget": "79-bilibili-cn:cv1760573:b0003",
+    "translationVerdict": "faithful",
+    "carriedSourceTarget": "79-bilibili-cn:cv1760573:b0013",
+    "carriedSourceVerdict": "limited-display-allowed-by-independent-review",
+    "specificMeaningStillUnknown": true,
+    "notAnIdentificationTodo": true,
+    "originalUncertainPreserved": true,
+    "annotationInstalled": false,
+    "admissionGranted": false,
+    "wholeChapterPassed": false,
+    "requiredDisplayLimitations": [
+      "须在该句邻近实际展示并标明为非原文审校注：“源文‘这样的立直话，对手只能对日’语义不明，现照录；不能据此确定对手只能采取何种行动。”",
+      "不得补写、翻译性改写或讲解“对日”为任何确定战术行为，也不得把“只能”扩展成已确认的对手行动限制。",
+      "后文“强大的河”更容易荣和须作为作者明确提出的主张展示，不得声称歧义句已经证明其机制、概率或最优性。",
+      "本次有限允许不认证精确牌谱、隐藏手牌、所有对手的安全度、概率或最优打法。"
+    ],
+    "verificationPath": "integration/coac248-182-limits-20261028/verification.json",
+    "exactNoteBindingPath": "integration/coac248-182-limits-20261028/note-binding.json",
+    "existingOwnerRuns": {
+      "selected": false,
+      "registerCovered": false,
+      "existing244Wakeup": "01a181bb-a320-79b5-84ce-ed6e7fbcd010",
+      "existing244Run": "01a181bd-07bd-75bb-a7bf-52676fccf157",
+      "existing250Wakeup": "01a181bb-a978-7c22-8787-06f89d12ae29",
+      "existing250Run": "01a181bd-110f-7cba-bad6-9dfc285b07ec",
+      "newDispatches": 0
+    },
+    "remainingAction": "Install the separately labeled adjacent non-author annotation using an exact182 loader pin; keep b0013 author bytes intact. Then existing250 reads the source sentence, note, original author claim, all limits and original images through real MCP/Arena before coverage changes."
+  }
+}

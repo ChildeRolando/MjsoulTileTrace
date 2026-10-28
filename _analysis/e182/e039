@@ -1,0 +1,193 @@
+{
+  "schema": "coac250-exact182-bound-limited-display/1",
+  "receipt": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-182-target-impact-reviewed-20261028.json",
+    "sha256": "14442a0ef1dfa65e159ec3e887a56c9d83beb2fb7d32ffdf114a547c31248a62"
+  },
+  "scope": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-182-scope-inheritance-20261028.json",
+    "sha256": "b981c50527728b1eb654c43892536566835ac65374686e9f3dfd4dc173bea7b8"
+  },
+  "proposal": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-182-display-requirements-20261028.json",
+    "sha256": "93f8864e139223dbe9dcb8607bcdd52ae2b799d2b867501fd3bd1ff283fa03c2"
+  },
+  "reviewModule": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-182201-20261028/review.mjs",
+    "sha256": "53f1d124b785919b1377954fdf02ce2d254cd05bf8d7bcab45c4bce9c22bba06"
+  },
+  "contract": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-182201-20261028/182-limited-display-contract.json",
+    "sha256": "1b50a4ee5163f5677a183bfe5867caed0e52ede59f765430c31acc742e40572e"
+  },
+  "files": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-182-target-impact-reviewed-20261028.json",
+      "sha256": "14442a0ef1dfa65e159ec3e887a56c9d83beb2fb7d32ffdf114a547c31248a62"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-182-scope-inheritance-20261028.json",
+      "sha256": "b981c50527728b1eb654c43892536566835ac65374686e9f3dfd4dc173bea7b8"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-182-display-requirements-20261028.json",
+      "sha256": "93f8864e139223dbe9dcb8607bcdd52ae2b799d2b867501fd3bd1ff283fa03c2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1760573.r1.display.json",
+      "sha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1760573\\source.json",
+      "sha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1760573.display.json",
+      "sha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+      "sha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7cbb6bf1-006b-4a2f-af51-6e923fd11242.json",
+      "sha256": "3b65106ad0d28b7f61161058781fb69a2d722b805f34a2113595896905b5a8bf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\ec351354-9bb2-4ce0-9e9e-67f4f31f8615.json",
+      "sha256": "48af218acc698641792f05ff357236d66c48b38cf55b1b451d98c402ef955d91"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2c5124ed-ccb2-41e0-90db-cbb6e80141fa.json",
+      "sha256": "667ec48a9f8132ebde5277f56bc4e98bbdf5d6b5d2d2c6a2fdabe1f6c62c3482"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-182-target-impact-20261028\\plan.json",
+      "sha256": "648532eb249eb3ef862df0aec13032919c3665d3f259cfb8af716e2a6917369c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\runtime-manifest.json",
+      "sha256": "2df26827a1d13f9b9e13569b0628c987fbb3b7be04f9e0b8a186589e115c84b4",
+      "files": 19
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\exact-carry.mjs",
+      "sha256": "029e5dbe1a1690a341769801bc9a9093bd21e60b23229f9ca75ad2ae60ee58ca"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\exact-text-contract.mjs",
+      "sha256": "2f082bd1d85c99cfb4a59e51a14b3d9a55e5dfc3a75154f534aabe90ee93e1b2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\inline-japanese-revision.mjs",
+      "sha256": "d00b99f922ed06d03cc1751409526432028307b06a069aa0eed69890f25e651a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\jobs.json",
+      "sha256": "b1503ba5ddaa287955b09f45de77c872bf39da9320157530c8fbe10c3370b3a2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\production-schema.mjs",
+      "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit-legacy.mjs",
+      "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit-pdf-layout.mjs",
+      "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit-pdf-native.mjs",
+      "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit-pdf-scope.mjs",
+      "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit-web-batches.mjs",
+      "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit-web.mjs",
+      "sha256": "506ecba0240b9aade71389ac964771e14248f6299ae92d206b3af69ef801e76b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit.mjs",
+      "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-production-web.mjs",
+      "sha256": "495b9aedb65d91248a85c6c4911d01dce3783c85a623e8ce876351c199a73ee3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-182201-20261028/review.mjs",
+      "sha256": "53f1d124b785919b1377954fdf02ce2d254cd05bf8d7bcab45c4bce9c22bba06"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-182201-20261028/release.json",
+      "sha256": "38a9137c65504b404abcd882129c57cd3d7cdb82df8493ea7a26f4377268d332"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-182201-20261028/cv1760573-production.json",
+      "sha256": "47beae1e36eb4727a6b6baa4e9bdfcbcf7c5a81e5cc5d3a57217f4a95f72620c"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-182201-20261028/cv1760573-preflight.json",
+      "sha256": "8be6d61a5567b1095a5d7f5559a15d85f3fabd62ba3959b6511b55b2572abe95"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-182201-20261028/182-limited-display-contract.json",
+      "sha256": "1b50a4ee5163f5677a183bfe5867caed0e52ede59f765430c31acc742e40572e"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-182-limited-display-20261028/admit.mjs",
+      "sha256": "7dba2290a49cb7818c07cb0aaba0fafe362f58011d586d1cc0ec1182c88fde15"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-182-limited-display-20261028/stage.mjs",
+      "sha256": "4bd0f8db726e5398f1c510e504720fa385b3ae056f280548d52e0af3b1390c44"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-182-limited-display-20261028/stage-base.mjs",
+      "sha256": "ee5f9b4b6d0fc4e3b116cddf0eeb1205bf16989f93e9eb08a8728a8ed0801962"
+    }
+  ],
+  "shadowStage": {
+    "original": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-next3-limited-20261028/stage-limited.mjs",
+      "sha256": "161609f940f4f379caed9fb880050c48e30c061e3bcd6073e36ecb3890e7be36"
+    },
+    "allowedChanges": [
+      "exact182 callback/status only",
+      "exact derived displaySegments for one translated phrase; original candidate/sourceSegments untouched"
+    ]
+  },
+  "newModelCalls": 0
+}

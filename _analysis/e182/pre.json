@@ -1,0 +1,91 @@
+{
+  "canonical": "79-cn-chapter-182-5",
+  "chapter": "79-bilibili-cn-cv1760573-chapter",
+  "refs": {
+    "receipt": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-182-target-impact-reviewed-20261028.json",
+      "sha256": "14442a0ef1dfa65e159ec3e887a56c9d83beb2fb7d32ffdf114a547c31248a62"
+    },
+    "scope": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-182-scope-inheritance-20261028.json",
+      "sha256": "b981c50527728b1eb654c43892536566835ac65374686e9f3dfd4dc173bea7b8"
+    },
+    "proposal": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-182-display-requirements-20261028.json",
+      "sha256": "93f8864e139223dbe9dcb8607bcdd52ae2b799d2b867501fd3bd1ff283fa03c2"
+    }
+  },
+  "before": {
+    "pointer": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-preview-current.json",
+      "sha256": "53d88fef65a44e02210dd1a9eca6314319b15f0efec6f2d1591b6cdb908f0c1d"
+    },
+    "variants": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v33.json",
+      "sha256": "600a898d1329ab92f0e5ae2e304f91f96d01f311e531f95a538d57f24560e3f5"
+    },
+    "builder": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.mjs",
+      "sha256": "6e6458eed163db2d94d090b93d4063766d709eef09dba01befac7739465a4cfa"
+    },
+    "webSelection": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-web-candidate-selection.json",
+      "sha256": "f7b51d2461059ad109a97746a1ba06e7f3d435923588ba1d5351c0c84dae5b39"
+    },
+    "register": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+      "sha256": "23875cdc373dd3bfdecad049e8881b7f9ad687bace272c256ef67d0af39ba2a3"
+    },
+    "owner": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+      "sha256": "9dac1f12873fab6bb26a0198e7916418f69d87642c7af26d47b39cab841076ef"
+    }
+  },
+  "protectedFiles": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-candidate-selection.json",
+      "sha256": "621e4d88cf890f901a41506adbb42ab3b37febafa95d62cfb2bc4abbab0e78aa"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/source-structure-holds.json",
+      "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/candidate-exclusions.json",
+      "sha256": "4835655ad7fa323e2acc94d4e04824dc1c56b4b67ceec1b1449617c79c3411a3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-b0947-composition-intake-20261028.json",
+      "sha256": "910ac36d6745ed06133161f9852ec9197cb8ae00782c39e9e4a271c88513fdd4"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-b0785-evidence-intake-20261028.json",
+      "sha256": "a29759e2926ac003964d74e63aed74da54ef64335ac0f847b287367c5191a0a3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/review/textbook-corpus.json",
+      "sha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+    }
+  ],
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1760573.r1.display.json",
+    "sha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1760573\\source.json",
+    "sha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1760573.display.json",
+    "sha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270"
+  },
+  "prior": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T08-14-39-872Z",
+    "corpusId": "d05520874d6d617f7fcd20f3686d39f0799da8f8067d4bf16cb2182575ab11a5",
+    "chapters": 246,
+    "units": 254,
+    "blocks": 6844,
+    "figures": 5355
+  },
+  "newModelCalls": 0
+}
