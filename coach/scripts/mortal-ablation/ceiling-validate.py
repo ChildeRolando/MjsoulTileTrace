@@ -158,6 +158,85 @@ def grade(out, case, key, label):
     return {"match": int(choice == groups[preferred]), "choice": choice, "valid": True}
 
 
+def supplemental_checks(out, cases, labels, formal, metrics, dataset):
+    """Regrade all planned O/practical attempts, including selection failures."""
+    def summary(recorded, values):
+        n = len(values)
+        matches = sum(x["match"] for x in values)
+        valid = sum(x["valid"] for x in values)
+        assert recorded["planned"] == n and recorded["matches"] == matches
+        assert recorded["submitted"] == valid
+        assert close(recorded["rate"], matches / n)
+        assert close(recorded["successRate"], valid / n)
+        assert close(recorded["conditionalRate"], matches / valid if valid else None)
+
+    def phase(selected, name, arms):
+        result = {}
+        for c in selected:
+            result[c["id"]] = {}
+            for arm in arms:
+                key = name + "-" + c["id"] + "-" + arm
+                run = read(out / "runs" / (key + ".json"))
+                assert run["status"] != "not_started"
+                if not (out / "calls" / (key + ".json")).exists():
+                    assert run["status"] in ("material_selection_failed", "input_too_large")
+                g = grade(out, c, key, labels[c["id"]])
+                assert g["valid"] == (run["status"] == "submitted")
+                result[c["id"]][arm] = g
+        return result
+
+    def total(key):
+        path = out / "calls" / (key + ".json")
+        value = (read(path)["response"].get("usage") or {}).get("totalTokens") if path.exists() else None
+        return value if isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value) else None
+
+    def contrast(selected, values, treatment, control, t_phase, c_phase, recorded):
+        computed = paired(values, treatment, control)
+        assert recorded["pairs"] == len(selected)
+        for field in ("estimate", "low", "high", "wins", "losses", "p"):
+            assert close(computed[field], recorded[field]), (t_phase, treatment, control, field)
+        tokens = [(total(t_phase + "-" + c["id"] + "-" + treatment),
+                   total(c_phase + "-" + c["id"] + "-" + control)) for c in selected]
+        tokens = [(t, c) for t, c in tokens if t is not None and c is not None]
+        denominator = sum(c for _, c in tokens)
+        ratio = sum(t for t, _ in tokens) / denominator if denominator else None
+        assert recorded["tokenPairs"] == len(tokens) and close(recorded["tokenRatio"], ratio)
+        return {**computed, "tokenPairs": len(tokens), "tokenRatio": ratio}
+
+    oracle_cases = [c for c in cases if c["id"] in dataset["oracle"]]
+    practical_cases = [c for c in cases if c["id"] in dataset["practical"]]
+    assert len(oracle_cases) == 200 and len(practical_cases) == 100
+    oracle = phase(oracle_cases, "oracle", ("O",))
+    summary(metrics["oracle"]["summary"], [oracle[c["id"]]["O"] for c in oracle_cases])
+    oracle_values = [{"O": oracle[c["id"]]["O"]["match"],
+                      "D": formal[c["id"]]["D"]["match"],
+                      "A": formal[c["id"]]["A"]["match"]} for c in oracle_cases]
+    oracle_comparisons = {a: contrast(oracle_cases, oracle_values, "O", a, "oracle", "evaluation",
+                                     metrics["oracle"]["versus" + a]) for a in ("D", "A")}
+    arms = ("A", "V0", "D", "O")
+    practical = phase(practical_cases, "practical", arms)
+    for arm in arms:
+        summary(metrics["practical"]["arms"][arm], [practical[c["id"]][arm] for c in practical_cases])
+    practical_values = [{a: practical[c["id"]][a]["match"] for a in arms} for c in practical_cases]
+    practical_comparison = contrast(practical_cases, practical_values, "D", "A", "practical", "practical",
+                                    metrics["practical"]["versusA"])
+    selections = {"selected": 0, "failed": 0, "emptySelected": 0, "errors": {}}
+    for c in oracle_cases:
+        selection = read(out / "oracle" / (c["id"] + ".json"))
+        assert selection["status"] in ("selected", "failed")
+        selections[selection["status"]] += 1
+        if selection["status"] == "selected":
+            assert len(selection["passages"]) <= 6
+            assert sum(utf16_length(p["content"]) for p in selection["passages"]) <= 6000
+            selections["emptySelected"] += not selection["passages"]
+        else:
+            assert oracle[c["id"]]["O"]["valid"] is False
+            error = selection.get("error", "unknown")
+            selections["errors"][error] = selections["errors"].get(error, 0) + 1
+    return {"oracleScores": 200, "practicalScores": 400, "oracleComparisons": oracle_comparisons,
+            "practicalComparison": practical_comparison, "materialSelection": selections}
+
+
 def validate(out):
     metrics = read(out / "metrics.json")
     assert metrics["complete"] is True
@@ -189,6 +268,7 @@ def validate(out):
             if i:
                 assert close(adjusted[i - 1], recorded["adjustedP"])
         comparisons[name] = contrasts
+    supplements = supplemental_checks(out, cases, labels, grades, metrics, dataset)
     previous, claims, settled = None, {}, set()
     buckets = {k: 0 for k in freeze["budgets"]}
     for seq, line in enumerate((out / "calls.jsonl").read_text(encoding="utf-8").splitlines()):
@@ -236,7 +316,8 @@ def validate(out):
             assert (page.parent / url.split("#")[0]).exists(), (page.name, url)
     return {"status": "computed_checks_passed", "formalCases": 800, "formalScores": 4000,
             "claims": len(claims), "buckets": buckets, "comparisons": comparisons,
-            "stability": stability, "casePages": len(pages), "visualInspectionPerformed": False}
+            "stability": stability, "supplements": supplements,
+            "casePages": len(pages), "visualInspectionPerformed": False}
 
 
 def main():
@@ -257,7 +338,7 @@ def main():
     try:
         assert (out / "archive-manifest.json").exists(), "Pipeline has not produced a final archive"
         result = validate(out)
-        text = "# 独立统计复算与文件检查\n\n已通过：4000次正式评分、自然/挑战分层、配对区间、精确检验、Holm校正、调用账本与上限、800个逐题页面链接。\n\n稳定性复验见 validation.json；未挑选重复答案中的最优者。页面像素布局未在此脚本中做人工视觉验收。\n"
+        text = "# 独立统计复算与文件检查\n\n已通过：4000次正式评分、200次优选资料对照、400次实用模型复验、自然/挑战分层、配对区间、精确检验、Holm校正、已知用量的配对token比值、调用账本与上限、800个逐题页面链接。\n\n选材失败保留在计划分母；选材状态与稳定性复验见 validation.json，未挑选重复答案中的最优者。页面像素布局未在此脚本中做人工视觉验收。\n"
     except Exception as error:
         message = type(error).__name__ + ": " + str(error)
         result = {"status": "not_complete_or_validation_failed", "error": message}
