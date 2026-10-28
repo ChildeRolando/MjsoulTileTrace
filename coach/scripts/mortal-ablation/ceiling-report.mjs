@@ -38,21 +38,22 @@ export function decide(m){
   if(primary.high<.05)return '本轮区间未支持达到预设5个百分点的投入价值；停止本轮追加，不能据此宣称所有规则路线无效。';
   return '证据不足：区间仍容纳无收益或有价值收益，不将其解释为路线被证伪。';
 }
-async function rowsFor(out,dataset,phase,arms,versions){
+async function rowsFor(out,dataset,phase,arms,versions,options={}){
   const datasetHash=hash(dataset);
-  const ledger=new BudgetLedger(out),settlements=new Map(ledger.rows.filter(x=>x.type==='settle').map(x=>[x.key,x.result]));
-  const selected=phase==='development'?dataset.cases.filter(c=>c.split==='development'):phase==='evaluation'?dataset.cases.filter(c=>c.split==='evaluation'):dataset.cases.filter(c=>(phase==='oracle'?dataset.oracle:phase==='practical'?dataset.practical:dataset.stability).includes(c.id));
+  const ledger=new BudgetLedger(out,options.budgets),settlements=new Map(ledger.rows.filter(x=>x.type==='settle').map(x=>[x.key,x.result]));
+  const selected=options.selectedCases??(phase==='development'?dataset.cases.filter(c=>c.split==='development'):phase==='evaluation'?dataset.cases.filter(c=>c.split==='evaluation'):dataset.cases.filter(c=>(phase==='oracle'?dataset.oracle:phase==='practical'?dataset.practical:dataset.stability).includes(c.id)));
   const rows=[];
   for(const c of selected){
     const label=await read(join(out,'private-labels',c.id+'.json'));
     const receipt=await read(join(out,'labels-receipt.json')),binding=receipt.rows.find(r=>r.caseId===c.id);
     if(!binding||binding.hash!==hash(label)||label.datasetHash!==datasetHash)throw Error('report_label_changed');
-    for(const arm of arms){
-      const prefix=phase==='development'?'dev-'+arm:phase,key=prefix+'-'+c.id+'-'+(phase==='development'?arm==='A'?'A':arm==='V0'?'V0':'D':arm);
+    for(const arm of options.armsFor?.(c)??arms){
+      const prefix=phase==='development'?'dev-'+arm:phase,key=options.keyFor?.(c,arm)??prefix+'-'+c.id+'-'+(phase==='development'?arm==='A'?'A':arm==='V0'?'V0':'D':arm);
       let run=await exists(join(out,'runs',key+'.json'))?await read(join(out,'runs',key+'.json')):{key,caseId:c.id,arm,status:'not_started',attempt:{status:'missing_submission'},elapsedMs:null,retrieval:null,patterns:[]};
       if(run.caseId!==c.id)throw Error('report_run_case_mismatch');
       if(ledger.claims.has(key)){
         const call=await read(join(out,'calls',key+'.json')),request=await read(join(out,'requests',key+'.json'));
+        if(options.modelFor&&hash(request.model)!==hash(options.modelFor(c,arm)))throw Error('report_model_binding_changed');
         if(ledger.claims.get(key).requestDigest!==hash({request:request.request,model:request.model})||call.requestDigest!==ledger.claims.get(key).requestDigest)throw Error('report_request_changed');
         const settled=settlements.get(key);if(settled?.callDigest&&settled.callDigest!==hash(call))throw Error('report_call_changed');
         const body=JSON.parse(request.request.messages[1].content),pub=publicCase(c);
@@ -110,10 +111,16 @@ async function renderCeiling(out,d,m){
   const cases=d.cases.filter(c=>c.split==='evaluation');
   const tile=(c,ref)=>{const a=c.binding.candidates.flatMap(x=>x.physicalRealizations).find(p=>p.actionRef===ref);return a?tileImages([a.action.tile],a.action.discardMode==='tsumogiri'?'摸切':'手切').replaceAll('src="/tiles/','src="assets/tiles/'):'无有效提交';};
   for(const [i,c]of cases.entries()){
-    const rows=[...m.rows,...m.oracleRows].filter(r=>r.caseId===c.id),label=await read(join(out,'private-labels',c.id+'.json'));
+    const rows=[...m.rows,...m.oracleRows,...(m.practicalRows??[]),...(m.stabilityRows??[]),...(m.supplementalRows??[])].filter(r=>r.caseId===c.id),label=await read(join(out,'private-labels',c.id+'.json'));
     const focuses=new Map(await Promise.all(rows.map(async r=>{const path=join(out,'requests',r.key+'.json');return [r.key,await exists(path)?JSON.parse((await read(path)).request.messages[1].content).sceneFocus??null:null];})));
-    const body=`<nav><a href="${i?'case-'+cases[i-1].id+'.html':'index.html'}">上一题</a> · ${i+1}/${cases.length} · <a href="${i+1<cases.length?'case-'+cases[i+1].id+'.html':'index.html'}">下一题</a></nav>${graphicalScene(c.observation)}<p>Mortal 原生一选：${tile(c,label.reference.label.actionRef)}；${esc(c.stratum)}</p><details><summary>共同候选事实</summary><pre>${esc(JSON.stringify(c.facts,null,2))}</pre></details><div class="comparisons">${rows.map(r=>`<section><h2>${esc(r.arm)}</h2><p>${tile(c,r.chosenAction)} · ${r.match?'一致':'未匹配'} · ${esc(r.status)}</p><p>Q 差 ${r.regret??'未知'}；token ${r.usage?.totalTokens??'未知'}</p><p>${esc(r.attempt.submission?.rationale??'无有效提交')}</p><p>${esc(r.attempt.submission?.uncertainty??'')}</p>${patternDetails(r,focuses.get(r.key))}<details><summary>实际交付资料与限制</summary>${(r.retrieval?.passages??[]).map(p=>`<a href="knowledge.html#${esc(p.id)}">${esc(p.title)}</a><pre>${esc(p.content)}</pre>`).join('')}<pre>${esc(JSON.stringify(r.retrieval?.rejected??[],null,2))}</pre></details></section>`).join('')}</div><details><summary>Mortal 完整候选 Q</summary><pre>${esc(JSON.stringify(label.boundScores.actions,null,2))}</pre></details>`;
+    const body=`<nav><a href="${i?'case-'+cases[i-1].id+'.html':'index.html'}">上一题</a> · ${i+1}/${cases.length} · <a href="${i+1<cases.length?'case-'+cases[i+1].id+'.html':'index.html'}">下一题</a></nav>${m.modelStudy?`<p>本题固定模型：${esc(m.modelStudy.labels[m.modelStudy.assignment[c.id].model])}</p>`:''}${graphicalScene(c.observation)}<p>Mortal 原生一选：${tile(c,label.reference.label.actionRef)}；${esc(c.stratum)}</p><details><summary>共同候选事实</summary><pre>${esc(JSON.stringify(c.facts,null,2))}</pre></details><div class="comparisons">${rows.map(r=>`<section><h2>${esc(r.arm)}${r.supplemental?' · Sol补充':r.bucket==='practical'?' · Luna复验':r.bucket==='stability'?' · 重复生成':''}</h2>${m.modelStudy?`<p>${esc(m.modelStudy.labels[r.modelProfileId]??r.modelProfileId)}</p>`:''}<p>${tile(c,r.chosenAction)} · ${r.match?'一致':'未匹配'} · ${esc(r.status)}</p><p>Q 差 ${r.regret??'未知'}；token ${r.usage?.totalTokens??'未知'}</p><p>${esc(r.attempt.submission?.rationale??'无有效提交')}</p><p>${esc(r.attempt.submission?.uncertainty??'')}</p>${patternDetails(r,focuses.get(r.key))}<details><summary>实际交付资料与限制</summary>${(r.retrieval?.passages??[]).map(p=>`<a href="knowledge.html#${esc(p.id)}">${esc(p.title)}</a><pre>${esc(p.content)}</pre>`).join('')}<pre>${esc(JSON.stringify(r.retrieval?.rejected??[],null,2))}</pre></details></section>`).join('')}</div><details><summary>Mortal 完整候选 Q</summary><pre>${esc(JSON.stringify(label.boundScores.actions,null,2))}</pre></details>`;
     await writeFile(join(dir,'case-'+c.id+'.html'),shell('纯弃牌配对局面 '+(i+1),body));
   }
-  await writeFile(join(dir,'index.html'),shell('场景模式＋直接匹配 RAG 评测',`<p>${esc(m.conclusion)}</p><p>自然集600题；挑战集200题；最终版本 ${esc(m.selected.version)}。Mortal 一致率不是教材正确率。</p><table><thead><tr><th>组</th><th>匹配/计划</th><th>一致率</th><th>成功率</th></tr></thead><tbody>${ARMS.map(a=>{const s=m.natural.arms[a];return `<tr><td>${a}</td><td>${s.matches}/${s.planned}</td><td>${pct(s.rate)}</td><td>${pct(s.successRate)}</td></tr>`;}).join('')}</tbody></table><ol>${cases.map((c,i)=>`<li><a href="case-${c.id}.html">局面 ${i+1} · ${c.stratum==='random'?'自然':'挑战'}</a></li>`).join('')}</ol>`));
+  await writeFile(join(dir,'index.html'),shell('场景模式＋直接匹配 RAG 评测',`<p>${esc(m.conclusion)}</p>${modelOverview(m)}<p>自然集600题；挑战集200题；最终版本 ${esc(m.selected.version)}。Mortal 一致率不是教材正确率。</p><table><thead><tr><th>组</th><th>匹配/计划</th><th>一致率</th><th>成功率</th></tr></thead><tbody>${ARMS.map(a=>{const s=m.natural.arms[a];return `<tr><td>${a}</td><td>${s.matches}/${s.planned}</td><td>${pct(s.rate)}</td><td>${pct(s.successRate)}</td></tr>`;}).join('')}</tbody></table><ol>${cases.map((c,i)=>`<li><a href="case-${c.id}.html">局面 ${i+1} · ${c.stratum==='random'?'自然':'挑战'}</a></li>`).join('')}</ol>`));
 }
+
+function modelOverview(m){
+  if(!m.modelStudy)return "";
+  return `<p>下方汇总为固定模型配比的描述统计；主要结论按模型分层。</p><table><thead><tr><th>模型</th><th>自然集 A</th><th>自然集 D</th><th>D-A</th></tr></thead><tbody>${Object.entries(m.byModel).map(([id,v])=>`<tr><td>${esc(m.modelStudy.labels[id])}</td><td>${pct(v.natural.arms.A.rate)}</td><td>${pct(v.natural.arms.D.rate)}</td><td>${pct(v.natural.comparisons[0].estimate)}</td></tr>`).join("")}</tbody></table>`;
+}
+export {rowsFor as scoreCeilingRows,renderCeiling as renderCeilingReview};

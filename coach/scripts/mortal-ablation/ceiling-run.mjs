@@ -47,7 +47,7 @@ export function serviceFailureStreak(previous,row,freshRequest=true){
   return row.status==='submitted'?0:previous;
 }
 
-async function callModel({out,ledger,key,bucket,request,model,providerFactory}){
+export async function callModel({out,ledger,key,bucket,request,model,providerFactory}){
   const destination=join(out,'calls',key+'.json');
   if(ledger.claims.has(key)){
     if(ledger.claims.get(key).requestDigest!==hash({request,model}))throw Error('model_resume_input_changed');
@@ -67,18 +67,20 @@ async function callModel({out,ledger,key,bucket,request,model,providerFactory}){
   if(Buffer.byteLength(JSON.stringify(request),'utf8')>request.maxInputBytes)throw Error('request_input_over_budget');
   await writeOnce(join(out,'requests',key+'.json'),{request,model,requestDigest});
   ledger.claim(key,bucket,requestDigest);
-  const started=Date.now();let response;
+  const started=Date.now();let response,provider,transportProof;
   try{
-    const provider=providerFactory?providerFactory(model):createArenaToolCallProvider({settings:null,arenaCodex:{...model,timeoutMs:GENERATION_TIMEOUT_MS},credentials:{readKey:async()=>null},fetchImpl:fetch});
+    provider=providerFactory?providerFactory(model):createArenaToolCallProvider({settings:null,arenaCodex:{...model,timeoutMs:GENERATION_TIMEOUT_MS},credentials:{readKey:async()=>null},fetchImpl:fetch});
     if(!provider)throw Error('provider_unconfigured');
     response=await provider.request(request,AbortSignal.timeout(GENERATION_TIMEOUT_MS+5000));
   }catch(e){response={status:'provider_error',failureCode:String(e.message)};}
-  const saved={key,requestDigest,status:response.status,response,elapsedMs:Date.now()-started};
+  finally{if(typeof provider?.getAuditProof==='function')transportProof=provider.getAuditProof();}
+  const saved={key,requestDigest,status:response.status,response,elapsedMs:Date.now()-started,...(transportProof===undefined?{}:{transportProof})};
   await writeOnce(destination,saved);ledger.settle(key,{status:response.status,callDigest:hash(saved),usage:response.usage??null,reconnectCount:response.reconnectCount??0});return saved;
 }
-export async function runDecision({out,ledger,c,arm,version,index,key,bucket,modelKind='strong',override,providerFactory}){
+export async function runDecision({out,ledger,c,arm,version,index,key,bucket,modelKind='strong',modelOverride,override,providerFactory}){
   const path=join(out,'runs',key+'.json');
   const context=decisionRequest(c,arm,version,index,override,modelKind);
+  if(modelOverride!==undefined)context.model=modelOverride;
   if(await exists(path)){
     const saved=await read(path);if(saved.inputDigest!==hash(context)||saved.caseId!==c.id)throw Error('decision_resume_binding_changed');return saved;
   }
