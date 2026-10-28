@@ -1863,3 +1863,104 @@ The own-namespace consumption report is `integration/coac269-b0785-result-consum
 its repo copy and immutable input copies are in `artifacts/b26-0785-result`. Status stays
 in_progress; PR74 remains draft. Neither display installation nor independent textbook acceptance
 is inferred from this successful zero-model registration.
+
+## Batch27 —224/232 bounded production, real chart rows and mixed target repair
+
+Authorization `01a181c4-730d-7821-8325-b8bc9e48a7cc` authorizes only
+`nemata-jp-chapter-224-1` and `nemata-jp-chapter-232-1`: each one maker here and at most one
+combined target/unknown-impact independent call by existing249, four actual calls total,
+failed/void counted and zero automatic retries.193/213 belong to the other maker;283 composition
+and integration are excluded. This executor produced once per chapter and did not audit either.
+
+Current register, preview, source-bound real passed alternatives, prior calls/variants and canonical
+claims were checked again at each dispatch using the existing joint exclusion helper and maker-B.
+The exact issues from244's `eea0245` package were matched to each real parent audit; its45-file
+manifest `d8e012c8ca1112782678992dab142d91c51a940aa77aa39fb60702ec8dbe6d7b` was rehashed.
+The frozen `coac269-224232-exact-v1-20261028` runtime pins32 files, including both exact packets,
+with manifest `0d890d3bbfd3fe1dbe588f068e17de41312916c1d068d246d080d0ec6feaa973`.
+The adapter accepts only two literal source/parent/audit SHA tuples, replays genuine original
+maker/raw/auditor/review/projection/schema/ledger checks and preserves every original issue.
+The unchanged generic entry rejects these translated-figure or mixed text/figure revisions with
+`web_revision_changed_body_or_scope`; this refusal remains visible. No256 exception or general
+rewrite framework was introduced, and the underlying transport/provider/gates retain their bytes.
+
+77 zero-model checks passed before either paid dispatch. They exercise exact actual closed prompt,
+portable wire schema, model/effort/ordered image payloads, full ordered source/candidate/figure
+context, exact text and fixed figure leaves, and chart105-slot cardinality/series/order. Negative
+cases reject extra/missing/duplicate targets, new punctuation/text/notes/unknown changes, wrong
+parent/source/audit, missing/reordered context, removed original issues, body/source/table/order
+changes, non-target figures, invented percentages/precision/out-of-axis values, all-unknown output,
+and incorrect actual request configuration. Test-only invented chart zeros remain in memory and
+were never serialized into a request, candidate, raw or production receipt.
+
+224 is `modern-yabejp-ja:chapter04-section005`, source
+`8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a`, parent
+`24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408`, original audit
+`112ca259dd236a649e3fbbac885c5056452a262a1ecb47735faba6bf9049a3b2` and independent
+call `43ba37fe-e636-4b4b-8a61-e0c1b63870ce`. b0008 remains its original source-note and
+its source/translated text, formula/numbers, strength and conditions are byte-identical.
+Only b0013 changes: the two actual self-draw series names are corrected in the original chart
+description and unknown-list terminology, and a bound105-slot near-value table is appended.
+No unknown-list item is removed, and the original inability to read exact values or an unstated
+unit is retained. All15 body blocks, caption/sourceNotes, image/source identity and order stay intact.
+
+The real224 maker returns only one bound sourceBlockId and seven named series of15 string cells
+each. A cell must be `约0`…`约90` in the original vertical-axis scale, or `unknown`; the actual
+request forbids interpolation, formula reconstruction, invented percentages or false precision.
+The frozen renderer preserves the approved original prefix and appends these genuine raw cells
+in order. This deterministic raw-to-display rendering is explicitly declared in provenance and
+replayed by `verifyProduction`; there is no controller-supplied chart reading or post-call edit.
+The actual output contains **81 approximate readings and24 explicit unknown cells**. Cardinality
+is complete, quantitative fidelity/completeness is still for249 to judge, and unknown cells are
+not counted as resolved readings.
+
+Real224 maker `7721e646-88f5-4572-8deb-b2ced73aab27` completed on **gpt-6.1-terra/max**,
+two ordered original/existing-nearest-neighbor views,25199 input/0 cached/11912 output,175190ms.
+Raw SHA `c0734e1738dacc1fe3b8142ff426dbca9589c4f317a36467035b2af27454e7a1`;
+candidate `82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea`.
+
+232 is `modern-yabejp-ja:chapter04-section012`, source
+`893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214`, parent
+`2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37`, original audit
+`24293aa4da6b71079ed47600d45229e972e1f8b1256a9dcc573af827c05514f6` and independent
+call `f35ad846-9a43-434d-b649-6eccbb3a61a4`. Only b0002's “确保和牌也无妨” becomes
+“以不改变当前名次的和牌结束比赛也无妨”, preserving its existing link; b0004's
+“起手牌和摸牌都不错时” becomes “起手牌或摸牌有利时”; b0005's one hand tile2s becomes3s.
+All12 other body blocks, sourceSegments/href/conditions/numbers/emphasis, two non-target complete
+figure objects, target caption/sourceNotes and all three existing unknown strings are unchanged.
+The real output is matched to exact per-target expected text/figure fields before candidate creation.
+
+Real232 maker `3002a835-2cff-4bcf-b07b-2b03d1968e5b` completed on **gpt-6.1-terra/max**,
+two ordered original/existing-nearest-neighbor views,30337 input/0 cached/1259 output,16919ms.
+Raw SHA `b8c7a62d41f076c47d07963388a5ee917183e334c9f13a1a3e910d5253b0c0ae`;
+candidate `d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb`.
+
+Each completed call was collected in the foreground. `collect.mjs` verifies real raw/ledger/
+provenance, actual closed prompt/schema/images against preflight, completed session events, exact
+text/figure diff and unknown preservation, then builds the actual new-SHA independent request
+without sending it.224's review has all15 ordered source/candidate/figure pairs and real105-cell
+maker data;232's has all14 ordered pairs and original author conditions. Each includes both real
+image views, source/parent/raw SHA chains, preserved unknown text and contribution-specific impact
+questions. Independent acceptance must separately assess repair fidelity and unknown impact,
+with actual display restrictions if allowed; no ordinary whole-chapter pass is manufactured.
+
+Ready candidates were handed off immediately, before proceeding to the next chapter. Each exact
+new SHA had no existing audit ledger/receipt/checkpoint or duplicate rule. The shared handoffs are:
+
+- `integration/coac269-224232-224-handoff-249-20261028.json`, SHA
+  `739f79f3910de97a3aca1321696e8fa48991482fe740a2770b879f334c1db16e`,
+  existing249 once rule `01a181d5-5a8b-7e39-9bad-74997627365f`.
+- `integration/coac269-224232-232-handoff-249-20261028.json`, SHA
+  `0af4be67d999a663006c0b01faaa260801c4e3ed1cd7b3967af08a18bd386a63`,
+  existing249 once rule `01a181d6-8017-78ce-94e2-a13dd27d1a90`.
+
+The latest recorded rules are enabled but have no task/call result yet. Existing249 serialized
+work is respected; registration is not actual audit completion and no duplicate trigger/consumer
+is added. Both maker-B slots and claims released normally before any review wait. Actual maker
+calls2, audits here0, failed/void0, retries0; at most one independent call per chapter remains,
+within the original four-call cap. Charges, remote weights and upstream execution total are unknown.
+No193/213 task,283 assembly, shared selection/pointer, formal active, original source/raw or audit
+was changed. Evidence/raw/candidates, exact diffs, executable checks and bounded request contracts
+are in `artifacts/b27-224232`. `verify-pack.py` additionally verifies rawLastMessage parses exactly
+to the recorded output, runtime/immutable copies, syntax and strict Windows paths below240.
+Issue stays in_progress; draft PR74 is software/evidence delivery, not independent textbook pass.

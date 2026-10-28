@@ -1,0 +1,109 @@
+{
+  "at": "2026-10-28T09:27:07.221873+00:00",
+  "chapterId": "nemata-jp-chapter-232-1",
+  "sourceId": "modern-yabejp-ja",
+  "articleId": "chapter04-section012",
+  "registerSha256": "a3f74c9fa2a206cd31c3b5074dc9efe1651ab097b0b9789bc453656fcaa25c04",
+  "previewSha256": "582a21739ba267b8954806d070de07b3fc4fb3395798fac65087d6e75c9ab74a",
+  "registerRow": {
+    "chapterId": "nemata-jp-chapter-232-1",
+    "originalChapterId": "nemata-jp-chapter-232-1",
+    "sourceId": "nemata-jp",
+    "title": "満貫和了技術",
+    "units": 1,
+    "ownedSourceBlocks": 44,
+    "adjudicationGroup": "confirmed-produced-not-covered",
+    "covered": false,
+    "coverageRoute": null,
+    "approvedWebCorrespondence": {
+      "articleId": "chapter04-section012",
+      "webSourceId": "modern-yabejp-ja",
+      "tier": "url-header",
+      "evidencePath": "integration/modern-pdf-url-coverage.json",
+      "substitutionAllowed": true,
+      "bodyEquivalenceConfirmed": false,
+      "articleInPreview": false
+    },
+    "existingCandidate": {
+      "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section012.display.json",
+      "sha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+      "bodyBlocks": 14,
+      "sourceSha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+      "currentSourceSha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+      "sourceBoundCurrent": true,
+      "auditStatus": "needs-repair",
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+      "auditRecordedAt": "2026-10-26T13:24:40.601Z",
+      "deterministicPassed": true,
+      "semanticComplete": false
+    },
+    "pdfRoute": {
+      "pagesTotal": 2,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        232,
+        233
+      ],
+      "pagesDetail": [
+        {
+          "page": 232,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 26
+        },
+        {
+          "page": 233,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 18
+        }
+      ]
+    },
+    "gaps": {
+      "ownedSourceBlocks": 44,
+      "missingProductionBlocks": 0,
+      "producedBlocks": 44,
+      "acceptedBlocks": 0,
+      "acceptanceGapBlocks": 44,
+      "acceptanceGapPages": [
+        232,
+        233
+      ],
+      "pagesWithoutCandidate": [],
+      "pagesWithoutPassedCandidate": [
+        232,
+        233
+      ]
+    },
+    "verdict": "produced-needs-repair",
+    "coac246": {
+      "action": "repair",
+      "auditStatus": "needs-repair",
+      "candidateSha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter04-section012.display.json",
+      "repairErrors": 9,
+      "units": 1,
+      "blocks": 44
+    }
+  },
+  "selectedWeb": [],
+  "selectedPdf": [],
+  "boundPassedAlternatives": [],
+  "claim": {
+    "ok": true,
+    "action": "check-chapter",
+    "chapter": "nemata-jp-chapter-232-1",
+    "held": false
+  },
+  "existingCandidateNames": [
+    "chapter04-section012.display.json"
+  ],
+  "priorCallIds": [
+    "aab4b6c9-c6c6-40e2-9d6e-33ac10c3ed4a"
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "at": "2026-10-28T09:27:59.927078+00:00",
+  "active249": [
+    {
+      "agent_id": "b144c077-cadd-4749-a53d-4b9cb98191b8",
+      "attempt": 1,
+      "attribution": {
+        "delegated_from_task_id": "01a181be-9dd8-7390-beda-11b745d1d718",
+        "evidence": {
+          "kind": "issue_wakeup",
+          "ref_id": "01a181d2-0a69-7ef7-bce4-1e63e79c80f3"
+        },
+        "initiator": {
+          "avatar_url": "https://lh3.googleusercontent.com/a/ACg8ocKzN2Qu67BZFbviPJ_kdF2roz84uZSg-02QIY5cNE3fRv3CDg=s96-c",
+          "email": "childerolandoo@gmail.com",
+          "id": "19bc279c-5832-46ce-b738-9f11c08fddc5",
+          "name": "Roland Deschain"
+        },
+        "originator": {
+          "avatar_url": "https://lh3.googleusercontent.com/a/ACg8ocKzN2Qu67BZFbviPJ_kdF2roz84uZSg-02QIY5cNE3fRv3CDg=s96-c",
+          "email": "childerolandoo@gmail.com",
+          "id": "19bc279c-5832-46ce-b738-9f11c08fddc5",
+          "name": "Roland Deschain"
+        },
+        "precise": true,
+        "source": "trigger_owner"
+      },
+      "completed_at": null,
+      "created_at": "2026-10-28T09:24:35Z",
+      "delivered_comment_ids": [],
+      "dispatched_at": null,
+      "error": null,
+      "handoff_note": "Wakeup 01a181d2-0a69-7ef7-bce4-1e63e79c80f3 triggered. Instruction:\n248已完成本章唯一真实混合文字/图制作，立即交既有249，不等另一章、不新建消费者/流程票。授权为248用户评论01a181be-9dce-7647-abb5-1d0f3c67509d：nemata193/213每章1maker+1合并目标/unknown影响独审，总最多4新calls，失败void计0retry。本章maker已用1，唯一首次合并靶审余1，无制作或全章重审预算。\r\n\r\n共享根E:/AgentData/Coach/knowledge/processing。唯一canonical nemata-jp-chapter-213-1，原文modern-yabejp-ja/chapter03-section026，不是中文193。候选web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.r1.display.json，SHAa667937d4e119a1b22659fc60987f07d3eea9d246c8b2b6ddabcdacb4fe5dd47；真实makeraa40d762-02aa-4855-a0f7-4104167d3ad9，实际terra/max、原JPEG+逐像素2倍图2张，无silent fallback。完整handoff integration/coac248-193213-20261028/213-handoff249.json，SHA9bbcaf3212273226ae249ca247e0046a7a2e4489ffdb8fdef73dbe12c76e88cf。父4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4、源224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a、父审a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc、原raw全部不改；非目标52块/23完整图、caption/sourceNotes/kind/顺序/标记/tableContext继承未变。原error/uncertain不改严重度。\r\n\r\n仅修文字modern-yabejp-ja:chapter03-section026:b0017入り目例外条件的指定子句与图modern-yabejp-ja:chapter03-section026:b0032:figure的白名单牌码/必要一致性字段。193只将下方末三张8p改为6p，右手4–6筒子/赤及所有原4unknown保持；213只将外侧左列第二张指定牌补7p、相应红线引用及删除同位置旧unknown，其余4unknown保持，不读对家字牌或猜分数。不能把制作建议/父审当答案，独审须真读原日文与原图。\r\n\r\n先核本票最新指令、实际同SHA accepted/register/原call/审账/在途及STOP，已在途/终态不得再派。复用249现有单guard，别另开并行消费者，283/109/167/234、182/201各自原额度不碰。导入integration/coac248-193213-20261028/review.mjs（SHAb9855b0f55f763a5e205dc6ec1f400d86d635480efb60dd2c4a20831294273c3）的prepare193213Review(root,'213')，现场重构必须与同目录213-review-plan.json全文相等；handoff全部绑定及冻结runtime E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac248-193213-mixed-v1-20261028 manifest 722e33f454e4b739cf0fccea1c974086c1e63f2b32083048b572f2b0372fec32 的32依赖前后重算。仅该plan实际prompt/schema/model/effort/images顺序和冻结CLI原invokeTextbookCodex恰1次，任何失败void都计，0retry，不用通用auditWebCandidate扩大成全章。\r\n\r\n实际request包含完整53个有序源/候选/figure配对（实际总53位置）、原旧及新完整目标对象、相邻inline牌和全部教学论证/数值/条件，不是孤立词条或只有新版figure。原JPEG及2倍图真实入payload，用gpt-6.1-terra/max。独立核两靶修订及每条保留unknown的定位/教学影响，不重识整页其它牌，不强补未知/原文歧义。区分忠实呈现作者已写论证与认证完整牌谱、隐手、所有安全度、数量、概率、最优；若可有限展示给必须实际显示的限制，若关键未知仍缺则指出具体源块/作者贡献/最小补证，不仅整章needs-repair。\r\n\r\n收齐真实原raw/session/events/stdout/closedPrompt/schema/requestExecution/图片SHA字节顺序/usage/耗时，标准audit ledger恰一条。verify193213ReviewExecution(realResult,plan)检查实际执行与限定证据；调用schema必须与plan一致。原模型issues/raw保存，不自改pass。本模块即使limitedEvidenceVerified也wholeChapterPassed=false/admissionGranted=false，只有实际独立限制映射合法并由250真实MCP/Arena读回后才有限准入；缺精确scope交已有244零模型补齐，不能自加模型或maker。每章完成即交既有244/250单写者，并回248原授权线程。guard/claim正常释放，费用/上游执行总数/远端权重unknown，正式active不切。\nTrigger facts (read current state before deciding what to do):\ntime.due {\"kind\":\"at\",\"planned_at\":\"2026-10-28T09:23:09Z\"}\n",
+      "id": "01a181d3-5d72-7c7c-baa2-a2c2cdc48b56",
+      "issue_id": "01a17471-1595-79d5-bdfa-6feaa65172c0",
+      "kind": "direct",
+      "max_attempts": 2,
+      "priority": 3,
+      "result": null,
+      "runtime_id": "731c52da-6d5e-4c5b-80c9-e9f39803735b",
+      "started_at": null,
+      "status": "queued",
+      "trigger_summary": "Wakeup: 248已完成本章唯一真实混合文字/图制作，立即交既有249，不等另一章、不新建消费者/流程票。授权为248用户评论01a181be-9dce-7647-abb5-1d0f3c67509d：nemata193/213每章1maker+1合并目标/unknown影响独审，总最多4新calls，失败void计0retry。本…",
+      "wakeup_id": "01a181d2-0a69-7ef7-bce4-1e63e79c80f3",
+      "workspace_id": "c68413ed-69a0-4781-b155-2123e9a3b805"
+    },
+    {
+      "agent_id": "b144c077-cadd-4749-a53d-4b9cb98191b8",
+      "attempt": 1,
+      "attribution": {
+        "delegated_from_task_id": "01a181be-9dd8-7390-beda-11b745d1d718",
+        "evidence": {
+          "kind": "issue_wakeup",
+          "ref_id": "01a181cf-e022-7379-a831-a1f34886bfef"
+        },
+        "initiator": {
+          "avatar_url": "https://lh3.googleusercontent.com/a/ACg8ocKzN2Qu67BZFbviPJ_kdF2roz84uZSg-02QIY5cNE3fRv3CDg=s96-c",
+          "email": "childerolandoo@gmail.com",
+          "id": "19bc279c-5832-46ce-b738-9f11c08fddc5",
+          "name": "Roland Deschain"
+        },
+        "originator": {
+          "avatar_url": "https://lh3.googleusercontent.com/a/ACg8ocKzN2Qu67BZFbviPJ_kdF2roz84uZSg-02QIY5cNE3fRv3CDg=s96-c",
+          "email": "childerolandoo@gmail.com",
+          "id": "19bc279c-5832-46ce-b738-9f11c08fddc5",
+          "name": "Roland Deschain"
+        },
+        "precise": true,
+        "source": "trigger_owner"
+      },
+      "can_supplement": true,
+      "completed_at": null,
+      "created_at": "2026-10-28T09:22:33Z",
+      "delivered_comment_ids": [],
+      "dispatched_at": "2026-10-28T09:22:33Z",
+      "error": null,
+      "handoff_note": "Wakeup 01a181cf-e022-7379-a831-a1f34886bfef triggered. Instruction:\n248已完成本章唯一真实混合文字/图制作，立即交既有249，不等另一章、不新建消费者/流程票。授权为248用户评论01a181be-9dce-7647-abb5-1d0f3c67509d：nemata193/213每章1maker+1合并目标/unknown影响独审，总最多4新calls，失败void计0retry。本章maker已用1，唯一首次合并靶审余1，无制作或全章重审预算。\r\n\r\n共享根E:/AgentData/Coach/knowledge/processing。唯一canonical nemata-jp-chapter-193-1，原文modern-yabejp-ja/chapter03-section009，不是中文193。候选web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.r1.display.json，SHAaf8071cfdbaabf8f469f84fa4daa6fd2d7d377c3dc2b277ef766e34a22324ba1；真实makerda426322-fc53-44d7-8314-66472ff2b31f，实际terra/max、原JPEG+逐像素2倍图2张，无silent fallback。完整handoff integration/coac248-193213-20261028/193-handoff249.json，SHAc64105d8be1c5ab1740099a632e3924a450e76a7913db1ebf1cede8e5c8b0f12。父abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3、源0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743、父审8ce0cde5d4eb0d8a8538b6751cd8a3b35b3fa8d3a20d7929fea6d7548bb09ce0、原raw全部不改；非目标96块/40完整图、caption/sourceNotes/kind/顺序/标记/tableContext继承未变。原error/uncertain不改严重度。\r\n\r\n仅修文字modern-yabejp-ja:chapter03-section009:b0081入り目例外条件的指定子句与图modern-yabejp-ja:chapter03-section009:b0080:figure的白名单牌码/必要一致性字段。193只将下方末三张8p改为6p，右手4–6筒子/赤及所有原4unknown保持；213只将外侧左列第二张指定牌补7p、相应红线引用及删除同位置旧unknown，其余4unknown保持，不读对家字牌或猜分数。不能把制作建议/父审当答案，独审须真读原日文与原图。\r\n\r\n先核本票最新指令、实际同SHA accepted/register/原call/审账/在途及STOP，已在途/终态不得再派。复用249现有单guard，别另开并行消费者，283/109/167/234、182/201各自原额度不碰。导入integration/coac248-193213-20261028/review.mjs（SHAb9855b0f55f763a5e205dc6ec1f400d86d635480efb60dd2c4a20831294273c3）的prepare193213Review(root,'193')，现场重构必须与同目录193-review-plan.json全文相等；handoff全部绑定及冻结runtime E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac248-193213-mixed-v1-20261028 manifest 722e33f454e4b739cf0fccea1c974086c1e63f2b32083048b572f2b0372fec32 的32依赖前后重算。仅该plan实际prompt/schema/model/effort/images顺序和冻结CLI原invokeTextbookCodex恰1次，任何失败void都计，0retry，不用通用auditWebCandidate扩大成全章。\r\n\r\n实际request包含完整97个有序源/候选/figure配对（实际总97位置）、原旧及新完整目标对象、相邻inline牌和全部教学论证/数值/条件，不是孤立词条或只有新版figure。原JPEG及2倍图真实入payload，用gpt-6.1-terra/max。独立核两靶修订及每条保留unknown的定位/教学影响，不重识整页其它牌，不强补未知/原文歧义。区分忠实呈现作者已写论证与认证完整牌谱、隐手、所有安全度、数量、概率、最优；若可有限展示给必须实际显示的限制，若关键未知仍缺则指出具体源块/作者贡献/最小补证，不仅整章needs-repair。\r\n\r\n收齐真实原raw/session/events/stdout/closedPrompt/schema/requestExecution/图片SHA字节顺序/usage/耗时，标准audit ledger恰一条。verify193213ReviewExecution(realResult,plan)检查实际执行与限定证据；调用schema必须与plan一致。原模型issues/raw保存，不自改pass。本模块即使limitedEvidenceVerified也wholeChapterPassed=false/admissionGranted=false，只有实际独立限制映射合法并由250真实MCP/Arena读回后才有限准入；缺精确scope交已有244零模型补齐，不能自加模型或maker。每章完成即交既有244/250单写者，并回248原授权线程。guard/claim正常释放，费用/上游执行总数/远端权重unknown，正式active不切。\nTrigger facts (read current state before deciding what to do):\ntime.due {\"kind\":\"at\",\"planned_at\":\"2026-10-28T09:20:47Z\"}\n",
+      "id": "01a181d1-80df-7707-b4ad-ee316ce41134",
+      "issue_id": "01a17471-1595-79d5-bdfa-6feaa65172c0",
+      "kind": "direct",
+      "max_attempts": 2,
+      "priority": 3,
+      "relative_work_dir": "coach-rolan-2123e9a3b805/coac-249-ee316ce41134/worktree",
+      "result": null,
+      "runtime_id": "731c52da-6d5e-4c5b-80c9-e9f39803735b",
+      "started_at": "2026-10-28T09:22:47Z",
+      "status": "running",
+      "supplement_capability": "task-supplement-v1",
+      "trigger_summary": "Wakeup: 248已完成本章唯一真实混合文字/图制作，立即交既有249，不等另一章、不新建消费者/流程票。授权为248用户评论01a181be-9dce-7647-abb5-1d0f3c67509d：nemata193/213每章1maker+1合并目标/unknown影响独审，总最多4新calls，失败void计0retry。本…",
+      "wakeup_id": "01a181cf-e022-7379-a831-a1f34886bfef",
+      "work_dir": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-ee316ce41134\\worktree",
+      "workspace_id": "c68413ed-69a0-4781-b155-2123e9a3b805"
+    }
+  ],
+  "sameSHARules": [],
+  "sameSHAAuditRows": [],
+  "sameSHAReceipts": []
+}

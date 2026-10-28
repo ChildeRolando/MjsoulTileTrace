@@ -1,0 +1,192 @@
+{
+  "key": "232",
+  "canonical": "nemata-jp-chapter-232-1",
+  "exitCode": 0,
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+    "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb"
+  },
+  "calls": [
+    {
+      "callId": "3002a835-2cff-4bcf-b07b-2b03d1968e5b",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter04-section012",
+      "sourceSha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "requestExecution": {
+        "schema": "coach-textbook-cli-request/1",
+        "policy": "coac244-vision-production-schema-v2-20261028",
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max",
+        "callerRequested": {
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max"
+        },
+        "args": [
+          "exec",
+          "--model",
+          "gpt-6.1-terra",
+          "--config",
+          "model_reasoning_effort=\"max\"",
+          "--config",
+          "web_search=\"disabled\"",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox",
+          "read-only",
+          "--strict-config",
+          "--skip-git-repo-check",
+          "--json",
+          "--output-schema",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-3SYhfL\\output.schema.json",
+          "--output-last-message",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-3SYhfL\\final.json",
+          "--cd",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-3SYhfL",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.x2.png",
+          "--disable",
+          "apps",
+          "--disable",
+          "auth_elicitation",
+          "--disable",
+          "browser_use",
+          "--disable",
+          "browser_use_external",
+          "--disable",
+          "browser_use_full_cdp_access",
+          "--disable",
+          "computer_use",
+          "--disable",
+          "fast_mode",
+          "--disable",
+          "goals",
+          "--disable",
+          "guardian_approval",
+          "--disable",
+          "hooks",
+          "--disable",
+          "image_generation",
+          "--disable",
+          "in_app_browser",
+          "--disable",
+          "in_app_chat",
+          "--disable",
+          "in_app_dictation",
+          "--disable",
+          "in_app_local_automation",
+          "--disable",
+          "in_app_updates",
+          "--disable",
+          "memories",
+          "--disable",
+          "mentions_v2",
+          "--disable",
+          "multi_agent",
+          "--disable",
+          "plugin_sharing",
+          "--disable",
+          "plugins",
+          "--disable",
+          "remote_plugin",
+          "--disable",
+          "shell_snapshot",
+          "--disable",
+          "shell_tool",
+          "--disable",
+          "skill_mcp_dependency_install",
+          "--disable",
+          "skill_search",
+          "--disable",
+          "sleep_tool",
+          "--disable",
+          "tool_call_mcp_elicitation",
+          "--disable",
+          "tool_suggest",
+          "--disable",
+          "unbounded_connection_retries",
+          "--disable",
+          "unified_exec",
+          "--disable",
+          "unified_exec_tty",
+          "--disable",
+          "view_image",
+          "--disable",
+          "workspace_dependencies",
+          "-"
+        ],
+        "images": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg",
+            "sha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135",
+            "bytes": 58290
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.x2.png",
+            "sha256": "aaf1ac188c4b7660d0f533c9eef0e6aac07d1b91a7c35f7c03c647b450ad1563",
+            "bytes": 346476
+          }
+        ],
+        "remoteBackend": "unverified; request arguments and returned events only"
+      },
+      "startedAt": "2026-10-28T09:27:09.210Z",
+      "durationMs": 16919,
+      "usage": {
+        "inputTokens": 30337,
+        "cachedInputTokens": 0,
+        "outputTokens": 1259
+      },
+      "success": true,
+      "transportStatus": "completed",
+      "rawArtifactPath": "raw-calls/3002a835-2cff-4bcf-b07b-2b03d1968e5b.json",
+      "rawArtifactSha256": "b8c7a62d41f076c47d07963388a5ee917183e334c9f13a1a3e910d5253b0c0ae",
+      "promptSha256": "efeec72b3a6c24f852981a51e408ac790cea36f739963c971ff50720fd41181c",
+      "schemaSha256": "69f8c2ae53d65e553482d0ad0232294ef4d08da0ca3b1385cdf74970291f565d",
+      "method": "coac269-exact224232/1",
+      "targets": {
+        "textIds": [
+          "modern-yabejp-ja:chapter04-section012:b0002",
+          "modern-yabejp-ja:chapter04-section012:b0004"
+        ],
+        "figureIds": [
+          "modern-yabejp-ja:chapter04-section012:b0005"
+        ]
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.display.json",
+        "sha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+        "bytes": 35623
+      },
+      "parentAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+        "sha256": "24293aa4da6b71079ed47600d45229e972e1f8b1256a9dcc573af827c05514f6",
+        "bytes": 21102
+      },
+      "runtime": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\runtime-manifest.json",
+        "sha256": "0d890d3bbfd3fe1dbe588f068e17de41312916c1d068d246d080d0ec6feaa973"
+      },
+      "runner": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\pair.mjs",
+        "sha256": "1b6579d6eed480d955d82bbad0279756d415421c1b5482a66d9d82c002c38909"
+      },
+      "cliSnapshot": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-cli.mjs",
+        "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+      }
+    }
+  ],
+  "makerBudgetConsumed": 1,
+  "callsRecorded": 1,
+  "independentCallsHere": 0,
+  "remainingIndependentMaximum": 1,
+  "retry": 0,
+  "capacityOrQuotaStop": false,
+  "fee": null,
+  "upstreamExecutionCount": null,
+  "stderrTail": ""
+}
