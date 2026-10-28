@@ -1,0 +1,297 @@
+{
+  "at": "2026-10-28T11:00:18.906750+00:00",
+  "chapterId": "79-cn-chapter-311-18",
+  "sourceId": "79-bilibili-cn",
+  "articleId": "cv1815400",
+  "registerSha256": "3cc2f1157b642db05ff013f1afdb783f5690a1c836f05d4fd2035a738754db77",
+  "previewSha256": "547f143d75c9ed02e7050b543385634ad61e657acec032c7ef797de89c2acef7",
+  "registerRow": {
+    "chapterId": "79-cn-chapter-311-18",
+    "originalChapterId": "79-cn-chapter-311-18",
+    "sourceId": "79-cn",
+    "title": "第三节 攻守判断的基准",
+    "units": 16,
+    "ownedSourceBlocks": 339,
+    "adjudicationGroup": "confirmed-produced-not-covered",
+    "covered": false,
+    "coverageRoute": null,
+    "approvedWebCorrespondence": {
+      "articleId": "cv1815400",
+      "webSourceId": "79-bilibili-cn",
+      "tier": "body",
+      "evidencePath": "integration/chinese-source-body-correspondence.json",
+      "substitutionAllowed": true,
+      "bodyEquivalenceConfirmed": true,
+      "articleInPreview": false
+    },
+    "existingCandidate": {
+      "path": "web-production/v1/candidates/79-bilibili-cn/cv1815400.display.json",
+      "sha256": "5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97",
+      "bodyBlocks": 225,
+      "sourceSha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+      "currentSourceSha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+      "sourceBoundCurrent": true,
+      "auditStatus": "needs-repair",
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1815400.5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97.json",
+      "auditRecordedAt": "2026-10-25T23:57:25.496Z",
+      "deterministicPassed": true,
+      "semanticComplete": false
+    },
+    "pdfRoute": {
+      "pagesTotal": 19,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        311,
+        312,
+        313,
+        314,
+        315,
+        316,
+        317,
+        318,
+        319,
+        320,
+        321,
+        322,
+        323,
+        324,
+        325,
+        326,
+        327,
+        328,
+        329
+      ],
+      "pagesDetail": [
+        {
+          "page": 311,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 39
+        },
+        {
+          "page": 312,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 21
+        },
+        {
+          "page": 313,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 19
+        },
+        {
+          "page": 314,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 14
+        },
+        {
+          "page": 315,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 8
+        },
+        {
+          "page": 316,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 17
+        },
+        {
+          "page": 317,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 13
+        },
+        {
+          "page": 318,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 11
+        },
+        {
+          "page": 319,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 14
+        },
+        {
+          "page": 320,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 11
+        },
+        {
+          "page": 321,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 6
+        },
+        {
+          "page": 322,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 6
+        },
+        {
+          "page": 323,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 10
+        },
+        {
+          "page": 324,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 33
+        },
+        {
+          "page": 325,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 37
+        },
+        {
+          "page": 326,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 19
+        },
+        {
+          "page": 327,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 15
+        },
+        {
+          "page": 328,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 14
+        },
+        {
+          "page": 329,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 63
+        }
+      ]
+    },
+    "gaps": {
+      "ownedSourceBlocks": 339,
+      "missingProductionBlocks": 0,
+      "producedBlocks": 339,
+      "acceptedBlocks": 0,
+      "acceptanceGapBlocks": 339,
+      "acceptanceGapPages": [
+        311,
+        312,
+        313,
+        314,
+        315,
+        316,
+        317,
+        318,
+        319,
+        320,
+        321,
+        322,
+        323,
+        324,
+        325,
+        326,
+        327,
+        328,
+        329
+      ],
+      "pagesWithoutCandidate": [],
+      "pagesWithoutPassedCandidate": [
+        311,
+        312,
+        313,
+        314,
+        315,
+        316,
+        317,
+        318,
+        319,
+        320,
+        321,
+        322,
+        323,
+        324,
+        325,
+        326,
+        327,
+        328,
+        329
+      ]
+    },
+    "verdict": "produced-needs-repair",
+    "coac246": {
+      "action": "repair",
+      "auditStatus": "needs-repair",
+      "candidateSha256": "5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1815400.display.json",
+      "repairErrors": 37,
+      "units": 16,
+      "blocks": 339
+    }
+  },
+  "selectedWeb": [],
+  "selectedPdf": [],
+  "boundPassedAlternatives": [],
+  "claim": {
+    "ok": true,
+    "action": "check-chapter",
+    "chapter": "79-cn-chapter-311-18",
+    "held": false
+  },
+  "existingCandidateNames": [
+    "cv1815400.display.json"
+  ],
+  "priorCallIds": [
+    "0aa4f813-4c13-44f3-9522-1712aba3c63f",
+    "52eacfe7-2da7-4fd0-a10d-a5d177950c3b"
+  ]
+}

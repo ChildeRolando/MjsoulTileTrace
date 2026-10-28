@@ -2331,3 +2331,60 @@ remaining0**, failed/void counted,0retry; prior224/232 **4/4** remains separate.
 calls/consumers/global writes. Money, remote weights and upstream execution totals unknown.
 232, live human page/queue,311/PDF257/261 and283 are untouched. Wider ticket stays in_progress;
 target evidence completion and draft PR74 delivery do not mean whole-book completion or active switch.
+
+## Batch33 — web311 eight-curve production, independent review handed off
+
+Authorization `01a18226-73d2-75c1-95bc-b6fe80283266` grants only one maker and one249
+independent combined target review for `79-cn-chapter-311-18`. The1875139e preparation
+remains the input owner; this is not another book's PDF311 damaged icon or human tile annotations.
+Current source935bbfe6…, parent5d74d383… and complete original review12f0f3a7… still match.
+Original maker52eacfe7 and independent5b1284f6 raw/projection/schema/source bindings were
+verified, not rewritten. Accepted-preview/register/bound-pass/call/candidate/claim checks rejected
+duplicates before atomic maker-B and chapter acquisition; both were normally released afterwards.
+
+The old generic revision entry still rejects mixed error+uncertain `web_revision_notes_scope`.
+`artifacts/b33-311/curves.mjs` supplies only this fixed source/parent/audit tuple and eight figure
+targets b0122/b0124/b0126/b0128/b0130/b0132/b0156/b0158. No other chapter exception is reused.
+Its actual structured request returns only the missing series' markers/bindings/approximate point
+strings; the frozen renderer preserves known arrays, axes, units, titles, thresholds and all other
+fields. b0132's unresolved cross-shaped curve remains unbound, as required by the preparation
+package. Missing readings are never filled by interpolation, formulas, another graph or human tiles.
+New rows explicitly say “审校补录（非原文）”; graph14/15's two self-draw legend names use the
+exact original independent-review correction. No author body is rewritten.
+
+Thirty-two zero-call negatives passed: changed body/conditions/emphasis/source/known readings,
+non-target hand A/figure/caption/sourceNotes/image/order/units, deleted unknowns, extra/missing
+series/turns/targets, invented exact precision, out-of-axis values, numbers on unbound curves,
+forced b0132 binding, wrong model/effort/image SHA/order/missing image/prompt and frozen manifest.
+Actual schema-v2 CLI request was built and checked before dispatch: gpt-6.1-terra/max, eight
+original PNGs in exact order, all225 ordered source/candidate/figure blocks and necessary legends.
+The33-file frozen runtime manifest is59d7d599ae1e05f05ccdd43a8127a5c21935afc8667280930461142ca1cc644b.
+
+The sole real maker `047c7b91-f632-4596-b964-afa026352da6` completed transport:
+**122673 input/0 cached/8643 output,133793ms**, actual **gpt-6.1-terra/max**,8 original images.
+Raw SHA50006634575e117176f43807d1803af70cd85cb1f7ec909037e3222083f2c54e,
+candidate **f44231f95310e33608a596f1f4153f0e35afb55490fc3db1fdccd3fc11d3a125**
+at `web-production/v1/candidates/79-bilibili-cn/cv1815400.coac269b33r1.json`.
+The model supplied **no new numerical values**: all144 target point slots/16 series retain
+unknown bindings/markers/readings. This is not a successful quantitative-completeness claim.
+Two legend names were corrected and each unknown point is explicitly represented; original
+known curve arrays and unbound cross-curve values remain exact. The225 body blocks,13 complete
+non-target figures,21 original image bindings and presentation objects, all author conditions and
+strength, hand A's separate missing-tile uncertainty and attachment-number source-note inherit.
+
+`collect.mjs` replayed source/parent/production/raw/unique-ledger verification; actual closed
+prompt/schema/ordered image SHA/bytes equal the published preflight. It built but did not invoke
+the249 review boundary, with all225 ordered pairs and8 original images. `verify-pack.py` passed
+33 frozen-file hashes, all immutable inputs,32 negatives, actual raw/candidate copies, Python AST
+and Windows full checkout lengths (maximum204, required less than240). No history/raw was edited.
+
+Shared handoff `integration/coac269-311-curves-handoff249-20261028.json`,
+SHAa2dbf0ac6ff7c3a9d7a88e97d449e491512d51bf727fdfd195c3c859e5cb4882,
+was actually dispatched to existing249 via wakeup `01a1822e-2b9f-79ed-a3e2-4a1092b5160e`.
+It requires one independent combined target call, actual terra/max image payload and exact
+published prompt/schema, per-figure conditions/unknown teaching impact, full session/raw/usage,
+and frozen verification. It preserves the original uncertainty and forbids whole-chapter pass.
+This run performs **maker1, independent0**; independent maximum1 is handed off, total ceiling2,
+failed/void counted,0retry. Costs, remote weights and upstream execution counts unknown.
+PDF257/261, human annotation service/queue and other chapters are untouched. No new consumer,
+full-chapter audit, admission, integration or active switch; issue remains in_progress.

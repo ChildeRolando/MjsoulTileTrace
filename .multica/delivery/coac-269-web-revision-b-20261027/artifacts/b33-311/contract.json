@@ -1,0 +1,653 @@
+{
+  "schema": "coac269-fixed-web311-curves/1",
+  "canonical": "79-cn-chapter-311-18",
+  "authorizationComment": "01a18226-73d2-75c1-95bc-b6fe80283266",
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1815400.display.json",
+    "sha256": "5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97",
+    "bytes": 279228
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1815400\\source.json",
+    "sha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+    "bytes": 215199
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1815400.5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97.json",
+    "sha256": "12f0f3a74c5261077907d0d9218bacf1177173c64a1e2c1ceeff9eed6729e77a",
+    "bytes": 115627
+  },
+  "parentReviewRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\5b1284f6-dcf3-4a55-92fd-9ed2aa20b6d8.json",
+    "sha256": "abce2b31d3fb704c84cf37784e1ec846fe235b2a6102a6f8b0b36b46d06b960d"
+  },
+  "baseRuntime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\runtime-manifest.json",
+    "sha256": "814df700d298188dea14d20fd84ac818d1ded9a706e370bc7a1714141ad6a7a9"
+  },
+  "preparationPlan": {
+    "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-269-aa9ffa2dfc83\\worktree\\.multica\\delivery\\coac-269-web-revision-b-20261027\\artifacts\\b29-311250-prep\\plan.json",
+    "sha256": "540d8adf5caf86df2cba6798090ce2134d75cca7730d3104cf34a38eef83cb16"
+  },
+  "context": {
+    "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-269-aa9ffa2dfc83\\worktree\\.multica\\delivery\\coac-269-web-revision-b-20261027\\artifacts\\b29-311250-prep\\311-context.json",
+    "sha256": "a86c8e900e1f81918de0263a1bda224a151935583184467dcd29f1b73a8723df"
+  },
+  "images": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\bfe8735a4711bc2453d66751c2d6ad09ed1f177ef9246c4f84832219e68a5e88.png",
+      "sha256": "bfe8735a4711bc2453d66751c2d6ad09ed1f177ef9246c4f84832219e68a5e88",
+      "bytes": 366556,
+      "width": 647,
+      "height": 380,
+      "figureId": "79-bilibili-cn:cv1815400:b0122:figure",
+      "assetId": "79-bilibili-cn:f279f128851595a5a6c5f0e3",
+      "role": "original"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\8e21f0df52ec2d918ba3153781d2ec004c183343b3a4229852b36ef28a46d822.png",
+      "sha256": "8e21f0df52ec2d918ba3153781d2ec004c183343b3a4229852b36ef28a46d822",
+      "bytes": 392654,
+      "width": 646,
+      "height": 378,
+      "figureId": "79-bilibili-cn:cv1815400:b0124:figure",
+      "assetId": "79-bilibili-cn:12ca6249535c3da56bcf5558",
+      "role": "original"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\54e6f36c5e4c6a040f43bceaebc013b5baa2b4b356a6998ab7a28aef6eff7ccc.png",
+      "sha256": "54e6f36c5e4c6a040f43bceaebc013b5baa2b4b356a6998ab7a28aef6eff7ccc",
+      "bytes": 351045,
+      "width": 645,
+      "height": 379,
+      "figureId": "79-bilibili-cn:cv1815400:b0126:figure",
+      "assetId": "79-bilibili-cn:6ab2a31dce57c726e40faeb8",
+      "role": "original"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\cb22b10e15a8cd6d180d3e2a19f4069f67235bfa8fdd1279b732fecd94440537.png",
+      "sha256": "cb22b10e15a8cd6d180d3e2a19f4069f67235bfa8fdd1279b732fecd94440537",
+      "bytes": 345999,
+      "width": 646,
+      "height": 378,
+      "figureId": "79-bilibili-cn:cv1815400:b0128:figure",
+      "assetId": "79-bilibili-cn:d19fc498a011c354764247ba",
+      "role": "original"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\3d4b9dca119449f49f0549a55e6ae8b4cd96d916346391240fcab291b5d94385.png",
+      "sha256": "3d4b9dca119449f49f0549a55e6ae8b4cd96d916346391240fcab291b5d94385",
+      "bytes": 325942,
+      "width": 643,
+      "height": 377,
+      "figureId": "79-bilibili-cn:cv1815400:b0130:figure",
+      "assetId": "79-bilibili-cn:71961d1952cf7818e615db7e",
+      "role": "original"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\377e7474db9bbf62f8efcaae391ae6dc5101b698b2ec968187911652c05e7db0.png",
+      "sha256": "377e7474db9bbf62f8efcaae391ae6dc5101b698b2ec968187911652c05e7db0",
+      "bytes": 350938,
+      "width": 646,
+      "height": 382,
+      "figureId": "79-bilibili-cn:cv1815400:b0132:figure",
+      "assetId": "79-bilibili-cn:e01262d422d2befb5ab391be",
+      "role": "original"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\bfea6a4a3b1b55e9e6fbcdb8b4b4a82076715f026f64b08784d0d96b3bc5b35e.png",
+      "sha256": "bfea6a4a3b1b55e9e6fbcdb8b4b4a82076715f026f64b08784d0d96b3bc5b35e",
+      "bytes": 360056,
+      "width": 642,
+      "height": 380,
+      "figureId": "79-bilibili-cn:cv1815400:b0156:figure",
+      "assetId": "79-bilibili-cn:4d85dc0dd2262ec2b1f5db7f",
+      "role": "original"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\76efb2db059af06179fa2d2bea2a2299ef9c8ac2f2baafd8ca4afb179ff4f8e1.png",
+      "sha256": "76efb2db059af06179fa2d2bea2a2299ef9c8ac2f2baafd8ca4afb179ff4f8e1",
+      "bytes": 361653,
+      "width": 642,
+      "height": 379,
+      "figureId": "79-bilibili-cn:cv1815400:b0158:figure",
+      "assetId": "79-bilibili-cn:9eda1df31824a4ce5554d83b",
+      "role": "original"
+    }
+  ],
+  "charts": [
+    {
+      "figureId": "79-bilibili-cn:cv1815400:b0122:figure",
+      "parentFullFigureSha256": "3a6904cd480920e51df00c561bf57dc23ff3966f092529dea622a73303e9612f",
+      "sourceAssets": [
+        {
+          "assetId": "79-bilibili-cn:f279f128851595a5a6c5f0e3",
+          "path": "web-sources/v1/79-bilibili-cn/assets/bfe8735a4711bc2453d66751c2d6ad09ed1f177ef9246c4f84832219e68a5e88.png",
+          "sha256": "bfe8735a4711bc2453d66751c2d6ad09ed1f177ef9246c4f84832219e68a5e88",
+          "url": "https://i0.hdslb.com/bfs/article/67561f3938667acae929ff98903a9e418886fc3d.png"
+        }
+      ],
+      "originalTranscription": "顶部标题：双方子家·良形。\n纵轴标签：所需收入；刻度：0、500、1000、1500、2000、2500、3000、3500、4000、4500。\n横轴标签：巡目；标注刻度：2、4、6、8、10、12、14。\n左上图例自上而下：不立直·0%；不立直·5%；不立直·10%；立直·0%；立直·5%；立直·10%。\n可辨的实心菱形、实心方形、实心星形、空心圆曲线，对应图例第1、第2、第5、第6项。\n以下数组按第2、4、6、8、10、12、14巡排列，均为图读约值：\n不立直·0%：[1300,1350,1400,1500,1550,1600,1550]。\n不立直·5%：[1850,1900,1950,2050,2150,2300,2500]。\n不立直·10%：逐点位置无法可靠辨识。\n立直·0%：逐点位置无法可靠辨识。\n立直·5%：[2550,2600,2700,2800,2900,3050,3250]。\n立直·10%：[3150,3250,3300,3450,3550,3800,4250]。",
+      "originalUnknowns": [
+        "图例第3、第4项的标记形状受扫描噪点影响，不能可靠确定。",
+        "不立直·10%和立直·0%的浅色曲线与其他线条及网格混杂，无法可靠逐点读取其7个数据点。",
+        "其余曲线没有印刷数值标签，所列数据为目测约值，精确数值未知。"
+      ],
+      "allowedLeafPaths": [
+        "/figures/7/transcription",
+        "/figures/7/unknowns"
+      ],
+      "series": [
+        "不立直·10%",
+        "立直·0%"
+      ],
+      "turns": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14
+      ],
+      "pointIds": [
+        "79-bilibili-cn:cv1815400:b0122:figure/不立直·10%/turn-2",
+        "79-bilibili-cn:cv1815400:b0122:figure/不立直·10%/turn-4",
+        "79-bilibili-cn:cv1815400:b0122:figure/不立直·10%/turn-6",
+        "79-bilibili-cn:cv1815400:b0122:figure/不立直·10%/turn-8",
+        "79-bilibili-cn:cv1815400:b0122:figure/不立直·10%/turn-10",
+        "79-bilibili-cn:cv1815400:b0122:figure/不立直·10%/turn-12",
+        "79-bilibili-cn:cv1815400:b0122:figure/不立直·10%/turn-14",
+        "79-bilibili-cn:cv1815400:b0122:figure/立直·0%/turn-2",
+        "79-bilibili-cn:cv1815400:b0122:figure/立直·0%/turn-4",
+        "79-bilibili-cn:cv1815400:b0122:figure/立直·0%/turn-6",
+        "79-bilibili-cn:cv1815400:b0122:figure/立直·0%/turn-8",
+        "79-bilibili-cn:cv1815400:b0122:figure/立直·0%/turn-10",
+        "79-bilibili-cn:cv1815400:b0122:figure/立直·0%/turn-12",
+        "79-bilibili-cn:cv1815400:b0122:figure/立直·0%/turn-14"
+      ],
+      "values": null,
+      "pointReadingsAuthorizedNow": true,
+      "retainOtherSeriesVerbatim": true,
+      "requireApproximateLabel": true,
+      "preserveAxesUnitsTitleThresholdsAndMarkers": true,
+      "unknownConditionBindingMustStayUnknown": false,
+      "index": 7,
+      "imageIndex": 1,
+      "axisMaximum": 4500
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1815400:b0124:figure",
+      "parentFullFigureSha256": "5418fc2404c5158db3475cf1f5687dd40e4478e99fadfe5ad57692ec60344d08",
+      "sourceAssets": [
+        {
+          "assetId": "79-bilibili-cn:12ca6249535c3da56bcf5558",
+          "path": "web-sources/v1/79-bilibili-cn/assets/8e21f0df52ec2d918ba3153781d2ec004c183343b3a4229852b36ef28a46d822.png",
+          "sha256": "8e21f0df52ec2d918ba3153781d2ec004c183343b3a4229852b36ef28a46d822",
+          "url": "https://i0.hdslb.com/bfs/article/c021b1ec22179b956da9e3edb81ff965b2f92769.png"
+        }
+      ],
+      "originalTranscription": "顶部标题：双方子家·恶形。\n纵轴标签：所需收入；刻度：0、1000、2000、3000、4000、5000、6000、7000、8000。\n横轴标签：巡目；标注刻度：2、4、6、8、10、12、14。\n左上图例自上而下：不立直·0%；不立直·5%；不立直·10%；立直·0%；立直·5%；立直·10%。\n可辨的实心菱形、实心方形、实心星形、空心圆曲线，对应图例第1、第2、第5、第6项。\n以下数组按第2、4、6、8、10、12、14巡排列，均为图读约值：\n不立直·0%：[2800,2850,2900,3000,3050,3100,3000]。\n不立直·5%：[3550,3650,3750,3850,4000,4200,4550]。\n不立直·10%：逐点位置无法可靠辨识。\n立直·0%：逐点位置无法可靠辨识。\n立直·5%：[4900,5000,5100,5200,5350,5600,5950]。\n立直·10%：[5800,5900,6050,6200,6400,6800,7550]。",
+      "originalUnknowns": [
+        "图例第3、第4项的标记形状受扫描噪点影响，不能可靠确定。",
+        "不立直·10%和立直·0%的浅色曲线与其他线条及网格混杂，无法可靠逐点读取其7个数据点。",
+        "其余曲线没有印刷数值标签，所列数据为目测约值，精确数值未知。"
+      ],
+      "allowedLeafPaths": [
+        "/figures/8/transcription",
+        "/figures/8/unknowns"
+      ],
+      "series": [
+        "不立直·10%",
+        "立直·0%"
+      ],
+      "turns": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14
+      ],
+      "pointIds": [
+        "79-bilibili-cn:cv1815400:b0124:figure/不立直·10%/turn-2",
+        "79-bilibili-cn:cv1815400:b0124:figure/不立直·10%/turn-4",
+        "79-bilibili-cn:cv1815400:b0124:figure/不立直·10%/turn-6",
+        "79-bilibili-cn:cv1815400:b0124:figure/不立直·10%/turn-8",
+        "79-bilibili-cn:cv1815400:b0124:figure/不立直·10%/turn-10",
+        "79-bilibili-cn:cv1815400:b0124:figure/不立直·10%/turn-12",
+        "79-bilibili-cn:cv1815400:b0124:figure/不立直·10%/turn-14",
+        "79-bilibili-cn:cv1815400:b0124:figure/立直·0%/turn-2",
+        "79-bilibili-cn:cv1815400:b0124:figure/立直·0%/turn-4",
+        "79-bilibili-cn:cv1815400:b0124:figure/立直·0%/turn-6",
+        "79-bilibili-cn:cv1815400:b0124:figure/立直·0%/turn-8",
+        "79-bilibili-cn:cv1815400:b0124:figure/立直·0%/turn-10",
+        "79-bilibili-cn:cv1815400:b0124:figure/立直·0%/turn-12",
+        "79-bilibili-cn:cv1815400:b0124:figure/立直·0%/turn-14"
+      ],
+      "values": null,
+      "pointReadingsAuthorizedNow": true,
+      "retainOtherSeriesVerbatim": true,
+      "requireApproximateLabel": true,
+      "preserveAxesUnitsTitleThresholdsAndMarkers": true,
+      "unknownConditionBindingMustStayUnknown": false,
+      "index": 8,
+      "imageIndex": 2,
+      "axisMaximum": 8000
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1815400:b0126:figure",
+      "parentFullFigureSha256": "b5202d5fff772ab5c1131240178ea48c6a56e1a1d542e12f8b72fa7dd358a546",
+      "sourceAssets": [
+        {
+          "assetId": "79-bilibili-cn:6ab2a31dce57c726e40faeb8",
+          "path": "web-sources/v1/79-bilibili-cn/assets/54e6f36c5e4c6a040f43bceaebc013b5baa2b4b356a6998ab7a28aef6eff7ccc.png",
+          "sha256": "54e6f36c5e4c6a040f43bceaebc013b5baa2b4b356a6998ab7a28aef6eff7ccc",
+          "url": "https://i0.hdslb.com/bfs/article/bf2349dd5cdefaa38faa8d12c97e39ef6e497996.png"
+        }
+      ],
+      "originalTranscription": "顶部标题：对手亲家·良形。\n纵轴标签：所需收入；刻度：0、1000、2000、3000、4000、5000、6000。\n横轴标签：巡目；标注刻度：2、4、6、8、10、12、14。\n左上图例自上而下：不立直·0%；不立直·5%；不立直·10%；立直·0%；立直·5%；立直·10%。\n可辨的实心菱形、实心方形、实心星形、空心圆曲线，对应图例第1、第2、第5、第6项。\n以下数组按第2、4、6、8、10、12、14巡排列，均为图读约值：\n不立直·0%：[1600,1700,1800,1900,2000,2050,2050]。\n不立直·5%：[2300,2400,2550,2700,2900,3100,3350]。\n不立直·10%：逐点位置无法可靠辨识。\n立直·0%：逐点位置无法可靠辨识。\n立直·5%：[3000,3100,3250,3400,3550,3750,4000]。\n立直·10%：[3800,3900,4050,4250,4450,4900,5500]。",
+      "originalUnknowns": [
+        "图例第3、第4项的标记形状受扫描噪点影响，不能可靠确定。",
+        "不立直·10%和立直·0%的浅色曲线与其他线条及网格混杂，无法可靠逐点读取其7个数据点；中间部分亦有标记重叠。",
+        "其余曲线没有印刷数值标签，所列数据为目测约值，精确数值未知。"
+      ],
+      "allowedLeafPaths": [
+        "/figures/9/transcription",
+        "/figures/9/unknowns"
+      ],
+      "series": [
+        "不立直·10%",
+        "立直·0%"
+      ],
+      "turns": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14
+      ],
+      "pointIds": [
+        "79-bilibili-cn:cv1815400:b0126:figure/不立直·10%/turn-2",
+        "79-bilibili-cn:cv1815400:b0126:figure/不立直·10%/turn-4",
+        "79-bilibili-cn:cv1815400:b0126:figure/不立直·10%/turn-6",
+        "79-bilibili-cn:cv1815400:b0126:figure/不立直·10%/turn-8",
+        "79-bilibili-cn:cv1815400:b0126:figure/不立直·10%/turn-10",
+        "79-bilibili-cn:cv1815400:b0126:figure/不立直·10%/turn-12",
+        "79-bilibili-cn:cv1815400:b0126:figure/不立直·10%/turn-14",
+        "79-bilibili-cn:cv1815400:b0126:figure/立直·0%/turn-2",
+        "79-bilibili-cn:cv1815400:b0126:figure/立直·0%/turn-4",
+        "79-bilibili-cn:cv1815400:b0126:figure/立直·0%/turn-6",
+        "79-bilibili-cn:cv1815400:b0126:figure/立直·0%/turn-8",
+        "79-bilibili-cn:cv1815400:b0126:figure/立直·0%/turn-10",
+        "79-bilibili-cn:cv1815400:b0126:figure/立直·0%/turn-12",
+        "79-bilibili-cn:cv1815400:b0126:figure/立直·0%/turn-14"
+      ],
+      "values": null,
+      "pointReadingsAuthorizedNow": true,
+      "retainOtherSeriesVerbatim": true,
+      "requireApproximateLabel": true,
+      "preserveAxesUnitsTitleThresholdsAndMarkers": true,
+      "unknownConditionBindingMustStayUnknown": false,
+      "index": 9,
+      "imageIndex": 3,
+      "axisMaximum": 6000
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1815400:b0128:figure",
+      "parentFullFigureSha256": "da5b90cdaefcc77067eeb5f4e7fbb0d4dfc7ebf19b42f255b062467f038fe80b",
+      "sourceAssets": [
+        {
+          "assetId": "79-bilibili-cn:d19fc498a011c354764247ba",
+          "path": "web-sources/v1/79-bilibili-cn/assets/cb22b10e15a8cd6d180d3e2a19f4069f67235bfa8fdd1279b732fecd94440537.png",
+          "sha256": "cb22b10e15a8cd6d180d3e2a19f4069f67235bfa8fdd1279b732fecd94440537",
+          "url": "https://i0.hdslb.com/bfs/article/4cf568a6f2c423dcb1b47dbaa65de6b974644144.png"
+        }
+      ],
+      "originalTranscription": "顶部标题：对手亲家·恶形。\n纵轴标签：所需收入；刻度：0、2000、4000、6000、8000、10000、12000。\n横轴标签：巡目；标注刻度：2、4、6、8、10、12、14。\n左上图例自上而下：不立直·0%；不立直·5%；不立直·10%；立直·0%；立直·5%；立直·10%。\n可辨的实心菱形、实心方形、实心星形、空心圆曲线，对应图例第1、第2、第5、第6项。\n以下数组按第2、4、6、8、10、12、14巡排列，均为图读约值：\n不立直·0%：[3800,3850,3900,4100,4200,4250,3950]。\n不立直·5%：[4800,4900,5050,5200,5400,5750,6150]。\n不立直·10%：逐点位置无法可靠辨识。\n立直·0%：逐点位置无法可靠辨识。\n立直·5%：[6000,6250,6400,6550,6800,7150,7450]。\n立直·10%：[7200,7450,7650,7900,8150,8800,9900]。",
+      "originalUnknowns": [
+        "图例第3、第4项的标记形状受扫描噪点影响，不能可靠确定。",
+        "不立直·10%和立直·0%的浅色曲线与其他线条及网格混杂，无法可靠逐点读取其7个数据点。",
+        "其余曲线没有印刷数值标签，所列数据为目测约值，精确数值未知。"
+      ],
+      "allowedLeafPaths": [
+        "/figures/10/transcription",
+        "/figures/10/unknowns"
+      ],
+      "series": [
+        "不立直·10%",
+        "立直·0%"
+      ],
+      "turns": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14
+      ],
+      "pointIds": [
+        "79-bilibili-cn:cv1815400:b0128:figure/不立直·10%/turn-2",
+        "79-bilibili-cn:cv1815400:b0128:figure/不立直·10%/turn-4",
+        "79-bilibili-cn:cv1815400:b0128:figure/不立直·10%/turn-6",
+        "79-bilibili-cn:cv1815400:b0128:figure/不立直·10%/turn-8",
+        "79-bilibili-cn:cv1815400:b0128:figure/不立直·10%/turn-10",
+        "79-bilibili-cn:cv1815400:b0128:figure/不立直·10%/turn-12",
+        "79-bilibili-cn:cv1815400:b0128:figure/不立直·10%/turn-14",
+        "79-bilibili-cn:cv1815400:b0128:figure/立直·0%/turn-2",
+        "79-bilibili-cn:cv1815400:b0128:figure/立直·0%/turn-4",
+        "79-bilibili-cn:cv1815400:b0128:figure/立直·0%/turn-6",
+        "79-bilibili-cn:cv1815400:b0128:figure/立直·0%/turn-8",
+        "79-bilibili-cn:cv1815400:b0128:figure/立直·0%/turn-10",
+        "79-bilibili-cn:cv1815400:b0128:figure/立直·0%/turn-12",
+        "79-bilibili-cn:cv1815400:b0128:figure/立直·0%/turn-14"
+      ],
+      "values": null,
+      "pointReadingsAuthorizedNow": true,
+      "retainOtherSeriesVerbatim": true,
+      "requireApproximateLabel": true,
+      "preserveAxesUnitsTitleThresholdsAndMarkers": true,
+      "unknownConditionBindingMustStayUnknown": false,
+      "index": 10,
+      "imageIndex": 4,
+      "axisMaximum": 12000
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1815400:b0130:figure",
+      "parentFullFigureSha256": "ea360402e7e3a9d6640f900ed14a8c1b2e103113daf73b9d010f4e3a38b7ee87",
+      "sourceAssets": [
+        {
+          "assetId": "79-bilibili-cn:71961d1952cf7818e615db7e",
+          "path": "web-sources/v1/79-bilibili-cn/assets/3d4b9dca119449f49f0549a55e6ae8b4cd96d916346391240fcab291b5d94385.png",
+          "sha256": "3d4b9dca119449f49f0549a55e6ae8b4cd96d916346391240fcab291b5d94385",
+          "url": "https://i0.hdslb.com/bfs/article/b12d9c3ae08a88ba53b8f1aaf395c13813e80de1.png"
+        }
+      ],
+      "originalTranscription": "顶部标题：自己亲家·良形。\n纵轴标签：所需收入；刻度：0、500、1000、1500、2000、2500、3000、3500、4000。\n横轴标签：巡目；标注刻度：2、4、6、8、10、12、14。\n左上图例自上而下：不立直·0%；不立直·5%；不立直·10%；立直·0%；立直·5%；立直·10%。\n可辨的实心菱形、实心方形、实心星形、空心圆曲线，对应图例第1、第2、第5、第6项。\n以下数组按第2、4、6、8、10、12、14巡排列，均为图读约值：\n不立直·0%：[700,800,950,1100,1150,1350,1300]。\n不立直·5%：[1200,1300,1450,1600,1750,1950,2150]。\n不立直·10%：逐点位置无法可靠辨识。\n立直·0%：逐点位置无法可靠辨识。\n立直·5%：[1900,2050,2200,2350,2450,2700,2900]。\n立直·10%：[2400,2550,2700,2900,3050,3400,3800]。",
+      "originalUnknowns": [
+        "图例第3、第4项的标记形状受扫描噪点影响，不能可靠确定。",
+        "不立直·10%和立直·0%的浅色曲线与其他线条及网格混杂，无法可靠逐点读取其7个数据点。",
+        "其余曲线没有印刷数值标签，所列数据为目测约值，精确数值未知。"
+      ],
+      "allowedLeafPaths": [
+        "/figures/11/transcription",
+        "/figures/11/unknowns"
+      ],
+      "series": [
+        "不立直·10%",
+        "立直·0%"
+      ],
+      "turns": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14
+      ],
+      "pointIds": [
+        "79-bilibili-cn:cv1815400:b0130:figure/不立直·10%/turn-2",
+        "79-bilibili-cn:cv1815400:b0130:figure/不立直·10%/turn-4",
+        "79-bilibili-cn:cv1815400:b0130:figure/不立直·10%/turn-6",
+        "79-bilibili-cn:cv1815400:b0130:figure/不立直·10%/turn-8",
+        "79-bilibili-cn:cv1815400:b0130:figure/不立直·10%/turn-10",
+        "79-bilibili-cn:cv1815400:b0130:figure/不立直·10%/turn-12",
+        "79-bilibili-cn:cv1815400:b0130:figure/不立直·10%/turn-14",
+        "79-bilibili-cn:cv1815400:b0130:figure/立直·0%/turn-2",
+        "79-bilibili-cn:cv1815400:b0130:figure/立直·0%/turn-4",
+        "79-bilibili-cn:cv1815400:b0130:figure/立直·0%/turn-6",
+        "79-bilibili-cn:cv1815400:b0130:figure/立直·0%/turn-8",
+        "79-bilibili-cn:cv1815400:b0130:figure/立直·0%/turn-10",
+        "79-bilibili-cn:cv1815400:b0130:figure/立直·0%/turn-12",
+        "79-bilibili-cn:cv1815400:b0130:figure/立直·0%/turn-14"
+      ],
+      "values": null,
+      "pointReadingsAuthorizedNow": true,
+      "retainOtherSeriesVerbatim": true,
+      "requireApproximateLabel": true,
+      "preserveAxesUnitsTitleThresholdsAndMarkers": true,
+      "unknownConditionBindingMustStayUnknown": false,
+      "index": 11,
+      "imageIndex": 5,
+      "axisMaximum": 7000
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1815400:b0132:figure",
+      "parentFullFigureSha256": "f87d5c3cbf6d8a7a3775ec75abb4f89c0f3fb957f79b19171a28cdc6aaa8a2f6",
+      "sourceAssets": [
+        {
+          "assetId": "79-bilibili-cn:e01262d422d2befb5ab391be",
+          "path": "web-sources/v1/79-bilibili-cn/assets/377e7474db9bbf62f8efcaae391ae6dc5101b698b2ec968187911652c05e7db0.png",
+          "sha256": "377e7474db9bbf62f8efcaae391ae6dc5101b698b2ec968187911652c05e7db0",
+          "url": "https://i0.hdslb.com/bfs/article/7100158b241dbc2f4763824d2b3900a6d88e5458.png"
+        }
+      ],
+      "originalTranscription": "顶部标题：自己亲家·恶形。\n纵轴标签：所需收入；刻度：0、1000、2000、3000、4000、5000、6000、7000、8000。\n横轴标签：巡目；标注刻度：2、4、6、8、10、12、14。\n左上图例自上而下：不立直·0%；不立直·5%；不立直·10%；立直·0%；立直·5%；立直·10%。\n可辨的实心菱形、实心方形、实心星形、空心圆曲线，对应图例第1、第2、第5、第6项。\n以下数组按第2、4、6、8、10、12、14巡排列，均为图读约值：\n不立直·0%：[2150,2250,2350,2550,2600,2700,2450]。\n不立直·5%：[2800,3000,3100,3250,3500,3800,3950]。\n不立直·10%：与立直·0%的逐点位置及标记对应关系无法可靠辨识。\n立直·0%：与不立直·10%的逐点位置及标记对应关系无法可靠辨识。\n立直·5%：[4100,4300,4450,4650,4800,5050,5300]。\n立直·10%：[4900,5100,5300,5500,5750,6250,6900]。\n另有一条可见叉形标记曲线，其图读约值为[3400,3550,3700,3850,3900,3950,3800]，但不能可靠判定它对应图例第3项还是第4项。",
+      "originalUnknowns": [
+        "图例第3、第4项的标记形状及其与浅色、叉形曲线的对应关系不能可靠确定。",
+        "不立直·10%和立直·0%两条曲线无法分别完整读取。",
+        "曲线没有印刷数值标签，所列数据为目测约值，精确数值未知。"
+      ],
+      "allowedLeafPaths": [
+        "/figures/12/transcription",
+        "/figures/12/unknowns"
+      ],
+      "series": [
+        "不立直·10%",
+        "立直·0%"
+      ],
+      "turns": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14
+      ],
+      "pointIds": [
+        "79-bilibili-cn:cv1815400:b0132:figure/不立直·10%/turn-2",
+        "79-bilibili-cn:cv1815400:b0132:figure/不立直·10%/turn-4",
+        "79-bilibili-cn:cv1815400:b0132:figure/不立直·10%/turn-6",
+        "79-bilibili-cn:cv1815400:b0132:figure/不立直·10%/turn-8",
+        "79-bilibili-cn:cv1815400:b0132:figure/不立直·10%/turn-10",
+        "79-bilibili-cn:cv1815400:b0132:figure/不立直·10%/turn-12",
+        "79-bilibili-cn:cv1815400:b0132:figure/不立直·10%/turn-14",
+        "79-bilibili-cn:cv1815400:b0132:figure/立直·0%/turn-2",
+        "79-bilibili-cn:cv1815400:b0132:figure/立直·0%/turn-4",
+        "79-bilibili-cn:cv1815400:b0132:figure/立直·0%/turn-6",
+        "79-bilibili-cn:cv1815400:b0132:figure/立直·0%/turn-8",
+        "79-bilibili-cn:cv1815400:b0132:figure/立直·0%/turn-10",
+        "79-bilibili-cn:cv1815400:b0132:figure/立直·0%/turn-12",
+        "79-bilibili-cn:cv1815400:b0132:figure/立直·0%/turn-14"
+      ],
+      "values": null,
+      "pointReadingsAuthorizedNow": true,
+      "retainOtherSeriesVerbatim": true,
+      "requireApproximateLabel": true,
+      "preserveAxesUnitsTitleThresholdsAndMarkers": true,
+      "unknownConditionBindingMustStayUnknown": true,
+      "index": 12,
+      "imageIndex": 6,
+      "axisMaximum": 8000
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1815400:b0156:figure",
+      "parentFullFigureSha256": "55032771fa272712b02741d7e0cd8e2a04eebbd81d84955a97f13a5cc6a8a66d",
+      "sourceAssets": [
+        {
+          "assetId": "79-bilibili-cn:4d85dc0dd2262ec2b1f5db7f",
+          "path": "web-sources/v1/79-bilibili-cn/assets/bfea6a4a3b1b55e9e6fbcdb8b4b4a82076715f026f64b08784d0d96b3bc5b35e.png",
+          "sha256": "bfea6a4a3b1b55e9e6fbcdb8b4b4a82076715f026f64b08784d0d96b3bc5b35e",
+          "url": "https://i0.hdslb.com/bfs/article/3773bb74f46caf0b903bc979b39ffa7d5d872be7.png"
+        }
+      ],
+      "originalTranscription": "顶部标题：两面一向听（10%）的基本图表。\n纵轴单位：%；刻度：0、10、20、30、40、50、60、70、80。\n横轴标签：巡目；刻度：1、2、3、4、5、6、7、8、9、10、11、12、13、14、15。\n左上图例自上而下：和牌率；放铳率；和牌时摸入率；被摸入率；流局率。\n和牌率使用实心菱形，放铳率使用实心方形，流局率使用空心圆。\n以下数组按第1至15巡排列，均为图读约值：\n和牌率：[23,22,22,21,21,20,19,18,17,15,13,11,9,6,4]。\n放铳率：[30,30,29,29,28,28,27,26,25,24,22,20,17,14,10]。\n和牌时摸入率：浅色曲线无法可靠逐巡读取。\n被摸入率：浅色曲线无法可靠逐巡读取。\n流局率：[4,5,6,7,9,11,14,17,21,25,32,40,48,59,70]。",
+      "originalUnknowns": [
+        "和牌时摸入率、被摸入率的图例标记及各巡数据受扫描底纹和浅色线条影响，无法可靠辨识。",
+        "其余曲线没有印刷数值标签，所列数据为目测约值，精确百分比未知。"
+      ],
+      "allowedLeafPaths": [
+        "/figures/14/transcription",
+        "/figures/14/unknowns"
+      ],
+      "series": [
+        "和牌时的自摸比例",
+        "被自摸率"
+      ],
+      "turns": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "pointIds": [
+        "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-1",
+        "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-2",
+        "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-3",
+        "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-4",
+        "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-5",
+        "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-6",
+        "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-7",
+        "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-8",
+        "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-9",
+        "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-10",
+        "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-11",
+        "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-12",
+        "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-13",
+        "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-14",
+        "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-15",
+        "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-1",
+        "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-2",
+        "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-3",
+        "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-4",
+        "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-5",
+        "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-6",
+        "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-7",
+        "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-8",
+        "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-9",
+        "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-10",
+        "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-11",
+        "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-12",
+        "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-13",
+        "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-14",
+        "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-15"
+      ],
+      "values": null,
+      "pointReadingsAuthorizedNow": true,
+      "retainOtherSeriesVerbatim": true,
+      "requireApproximateLabel": true,
+      "preserveAxesUnitsTitleThresholdsAndMarkers": true,
+      "unknownConditionBindingMustStayUnknown": false,
+      "index": 14,
+      "imageIndex": 7,
+      "axisMaximum": 80
+    },
+    {
+      "figureId": "79-bilibili-cn:cv1815400:b0158:figure",
+      "parentFullFigureSha256": "f9029a1be0e1b93a5bb8a160b4e220213569804eb83f775d7acc9488c3171786",
+      "sourceAssets": [
+        {
+          "assetId": "79-bilibili-cn:9eda1df31824a4ce5554d83b",
+          "path": "web-sources/v1/79-bilibili-cn/assets/76efb2db059af06179fa2d2bea2a2299ef9c8ac2f2baafd8ca4afb179ff4f8e1.png",
+          "sha256": "76efb2db059af06179fa2d2bea2a2299ef9c8ac2f2baafd8ca4afb179ff4f8e1",
+          "url": "https://i0.hdslb.com/bfs/article/c44e2c10be7c6d40b13496738837beb3387574ca.png"
+        }
+      ],
+      "originalTranscription": "顶部标题：两面一向听（20%）的基本图表。\n纵轴单位：%；刻度：0、10、20、30、40、50、60、70、80。\n横轴标签：巡目；刻度：1、2、3、4、5、6、7、8、9、10、11、12、13、14、15。\n左上图例自上而下：和牌率；放铳率；和牌时摸入率；被摸入率；流局率。\n和牌率使用实心菱形，放铳率使用实心方形，流局率使用空心圆。\n以下数组按第1至15巡排列，均为图读约值：\n和牌率：[35,35,34,34,33,32,31,30,28,26,23,20,16,12,7]。\n放铳率：[26,25,25,25,25,24,24,23,22,21,20,18,16,12,9]。\n和牌时摸入率：浅色曲线无法可靠逐巡读取。\n被摸入率：浅色曲线无法可靠逐巡读取。\n流局率：[2,3,3,4,5,7,9,11,15,20,26,34,43,54,67]。",
+      "originalUnknowns": [
+        "和牌时摸入率、被摸入率的图例标记及各巡数据受扫描底纹和浅色线条影响，无法可靠辨识。",
+        "其余曲线没有印刷数值标签，所列数据为目测约值，精确百分比未知。"
+      ],
+      "allowedLeafPaths": [
+        "/figures/15/transcription",
+        "/figures/15/unknowns"
+      ],
+      "series": [
+        "和牌时的自摸比例",
+        "被自摸率"
+      ],
+      "turns": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "pointIds": [
+        "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-1",
+        "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-2",
+        "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-3",
+        "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-4",
+        "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-5",
+        "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-6",
+        "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-7",
+        "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-8",
+        "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-9",
+        "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-10",
+        "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-11",
+        "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-12",
+        "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-13",
+        "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-14",
+        "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-15",
+        "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-1",
+        "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-2",
+        "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-3",
+        "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-4",
+        "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-5",
+        "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-6",
+        "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-7",
+        "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-8",
+        "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-9",
+        "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-10",
+        "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-11",
+        "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-12",
+        "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-13",
+        "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-14",
+        "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-15"
+      ],
+      "values": null,
+      "pointReadingsAuthorizedNow": true,
+      "retainOtherSeriesVerbatim": true,
+      "requireApproximateLabel": true,
+      "preserveAxesUnitsTitleThresholdsAndMarkers": true,
+      "unknownConditionBindingMustStayUnknown": false,
+      "index": 15,
+      "imageIndex": 8,
+      "axisMaximum": 80
+    }
+  ],
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1815400.coac269b33r1.json",
+  "maximumMaker": 1,
+  "maximumIndependentReview": 1,
+  "retry": 0,
+  "wholeChapterPassed": false,
+  "nonTargetHandAUntouched": true,
+  "noHumanTileEvidenceUsed": true
+}
