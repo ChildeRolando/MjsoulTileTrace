@@ -1,0 +1,218 @@
+{
+  "verified": true,
+  "service": {
+    "stop": "Stop-Process -Id 43868 after checking its command line against this service record",
+    "survival": "Best effort without supervisor",
+    "directory": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T16-50-25-203Z",
+    "url": "http://127.0.0.1:8766/knowledge.html",
+    "startedAt": "2026-10-28T17:28:36.4184200Z",
+    "bind": "127.0.0.1",
+    "stderr": "E:/AgentData/Coach/knowledge/processing/integration/coac250-v43-local-inspection-20261029/stderr.log",
+    "corpusId": "bd7a83525edb8cb69f27d8aa050dcb010047f79ae318748bdbe448d5b797836d",
+    "pid": 43868,
+    "readOnlyServer": "Python standard-library http.server: GET/HEAD, no author-content writes",
+    "stdout": "E:/AgentData/Coach/knowledge/processing/integration/coac250-v43-local-inspection-20261029/stdout.log",
+    "selectionVersion": 43,
+    "port": 8766
+  },
+  "previewVersion": 43,
+  "corpusId": "bd7a83525edb8cb69f27d8aa050dcb010047f79ae318748bdbe448d5b797836d",
+  "http": [
+    {
+      "path": "knowledge.html",
+      "status": 200,
+      "bytes": 6148852,
+      "sha256": "b9a1fea4b71080e3d74eff4bc83dabf4842f93af9bff20644ae6662bef96465e"
+    },
+    {
+      "path": "textbook-corpus.json",
+      "status": 200,
+      "bytes": 14116982,
+      "sha256": "bbbb34f83033081e80752a45aca9575e08ebea6d79d2b44869416105090982d4"
+    },
+    {
+      "path": "knowledge-index.json",
+      "status": 200,
+      "bytes": 257597,
+      "sha256": "7b11e521870354b18e84fd66e48e81641862547fa944e00dda25085e8f3e6b40"
+    }
+  ],
+  "browserTargets": [
+    {
+      "label": "232四条审校限制",
+      "url": "http://127.0.0.1:8766/knowledge.html#limited232-1",
+      "chapter": "modern-yabejp-ja-chapter04-section012-chapter",
+      "visibleArticleCount": 1,
+      "activeNav": "modern-yabejp-ja-chapter04-section012-chapter",
+      "anchor": "limited232-1",
+      "anchorVisible": true,
+      "notes": [
+        {
+          "id": "limited232-1",
+          "visible": true
+        },
+        {
+          "id": "limited232-2",
+          "visible": true
+        },
+        {
+          "id": "limited232-3",
+          "visible": true
+        },
+        {
+          "id": "limited232-4",
+          "visible": true
+        }
+      ],
+      "image": {
+        "src": "http://127.0.0.1:8766/assets/modern-yabejp-ja-chapter04-section012-b5.png",
+        "loaded": true
+      },
+      "sourceLinks": [
+        "http://127.0.0.1:8766/source-assets/b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+        "http://127.0.0.1:8766/source-assets/6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png"
+      ],
+      "navigationCount": 258
+    },
+    {
+      "label": "257六条审校限制",
+      "url": "http://127.0.0.1:8766/knowledge.html#p257-human20-limit-1",
+      "chapter": "nemata-jp-chapter-250-1",
+      "visibleArticleCount": 1,
+      "activeNav": "nemata-jp-chapter-250-1",
+      "anchor": "p257-human20-limit-1",
+      "anchorVisible": true,
+      "notes": [
+        {
+          "id": "p257-human20-limit-1",
+          "visible": true
+        },
+        {
+          "id": "p257-human20-limit-2",
+          "visible": true
+        },
+        {
+          "id": "p257-human20-limit-3",
+          "visible": true
+        },
+        {
+          "id": "p257-human20-limit-4",
+          "visible": true
+        },
+        {
+          "id": "p257-human20-limit-5",
+          "visible": true
+        },
+        {
+          "id": "p257-human20-limit-6",
+          "visible": true
+        }
+      ],
+      "image": {
+        "src": "http://127.0.0.1:8766/assets/full-62a6a6c4f94a754ca7e41d82bc32964736fd525331c29eafd9cb5ce68ca05397.png",
+        "loaded": true
+      },
+      "sourceLinks": [
+        "http://127.0.0.1:8766/source-assets/b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+        "http://127.0.0.1:8766/source-assets/6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png"
+      ],
+      "navigationCount": 258
+    },
+    {
+      "label": "261问题17摸入3m",
+      "url": "http://127.0.0.1:8766/knowledge.html#nemata-jp-p261-r50",
+      "chapter": "nemata-jp-chapter-250-1",
+      "visibleArticleCount": 1,
+      "activeNav": "nemata-jp-chapter-250-1",
+      "anchor": "nemata-jp-p261-r50",
+      "anchorVisible": true,
+      "notes": [],
+      "image": {
+        "src": "http://127.0.0.1:8766/assets/full-3cdc97721f1d2158ece653f898146725db109ce4018de6918254a09251d3ca5a.png",
+        "loaded": true
+      },
+      "sourceLinks": [
+        "http://127.0.0.1:8766/source-assets/b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+        "http://127.0.0.1:8766/source-assets/6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png"
+      ],
+      "navigationCount": 258
+    },
+    {
+      "label": "311原图与曲线说明",
+      "url": "http://127.0.0.1:8766/knowledge.html#limited311-original-1",
+      "chapter": "79-bilibili-cn-cv1815400-chapter",
+      "visibleArticleCount": 1,
+      "activeNav": "79-bilibili-cn-cv1815400-chapter",
+      "anchor": "limited311-original-1",
+      "anchorVisible": true,
+      "notes": [
+        {
+          "id": "limited311-original-1",
+          "visible": true
+        },
+        {
+          "id": "limited311-required-1",
+          "visible": true
+        }
+      ],
+      "image": null,
+      "sourceLinks": [
+        "http://127.0.0.1:8766/source-assets/b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+        "http://127.0.0.1:8766/source-assets/6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png"
+      ],
+      "navigationCount": 258
+    },
+    {
+      "label": "311手牌A限制",
+      "url": "http://127.0.0.1:8766/knowledge.html#limited311-required-9",
+      "chapter": "79-bilibili-cn-cv1815400-chapter",
+      "visibleArticleCount": 1,
+      "activeNav": "79-bilibili-cn-cv1815400-chapter",
+      "anchor": "limited311-required-9",
+      "anchorVisible": true,
+      "notes": [
+        {
+          "id": "limited311-required-9",
+          "visible": true
+        }
+      ],
+      "image": {
+        "src": "http://127.0.0.1:8766/assets/79-bilibili-cn-cv1815400-b154.png",
+        "loaded": true
+      },
+      "sourceLinks": [
+        "http://127.0.0.1:8766/source-assets/b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+        "http://127.0.0.1:8766/source-assets/6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png"
+      ],
+      "navigationCount": 258
+    }
+  ],
+  "originalSourceLinks": [
+    {
+      "url": "http://127.0.0.1:8766/source-assets/b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+      "status": 200,
+      "sha256": "b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03"
+    },
+    {
+      "url": "http://127.0.0.1:8766/source-assets/6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png",
+      "status": 200,
+      "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+    }
+  ],
+  "protectedFilesUnchanged": {
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json": "c63f69c1c3ce6a4730c2c2f47552a3f2c20c03c82ad2c665e2ca8671f5e34f84",
+    "E:\\AgentData\\Coach\\knowledge\\review\\textbook-corpus.json": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-28T16-50-25-203Z\\knowledge.html": "b9a1fea4b71080e3d74eff4bc83dabf4842f93af9bff20644ae6662bef96465e",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-28T16-50-25-203Z\\textbook-corpus.json": "bbbb34f83033081e80752a45aca9575e08ebea6d79d2b44869416105090982d4",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-28T16-50-25-203Z\\textbook-bodies.json": "017fff705a643dd7410a055581680e45227b5f05af6b64f5d2491c1017b02d05",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-content-preview-2026-10-28T16-50-25-203Z\\knowledge-index.json": "7b11e521870354b18e84fd66e48e81641862547fa944e00dda25085e8f3e6b40"
+  },
+  "existingArenaReaderRoute": false,
+  "arenaConsoleStarted": false,
+  "readOnlyLoopback": true,
+  "newModelCalls": 0,
+  "newReviewCalls": 0,
+  "contentChanged": false,
+  "formalActiveChanged": false,
+  "temporaryBrowserExited": true
+}
