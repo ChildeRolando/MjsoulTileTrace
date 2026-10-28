@@ -1,0 +1,185 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "full source/parent/donor/raw/checkpoint and accepted b1017 gates",
+      "passed": true
+    },
+    {
+      "name": "all51 recovered manifest files",
+      "passed": true
+    },
+    {
+      "name": "actual closed request/schema/argv/terra-max/ordered4 images",
+      "passed": true
+    },
+    {
+      "name": "full Q48 seven blocks plus nine definitions and tableContext in actual stdin",
+      "passed": true
+    },
+    {
+      "name": "wrong-source refused",
+      "passed": true
+    },
+    {
+      "name": "wrong-parent refused",
+      "passed": true
+    },
+    {
+      "name": "wrong-donor refused",
+      "passed": true
+    },
+    {
+      "name": "missing-context refused",
+      "passed": true
+    },
+    {
+      "name": "context-order refused",
+      "passed": true
+    },
+    {
+      "name": "missing-table-context refused",
+      "passed": true
+    },
+    {
+      "name": "remove-unknown-attestation refused",
+      "passed": true
+    },
+    {
+      "name": "change-donor-call refused",
+      "passed": true
+    },
+    {
+      "name": "missing-original-image refused",
+      "passed": true
+    },
+    {
+      "name": "wrong-image-order refused",
+      "passed": true
+    },
+    {
+      "name": "wrong-seat-goal refused",
+      "passed": true
+    },
+    {
+      "name": "only exact approved figure output accepted",
+      "passed": true
+    },
+    {
+      "name": "extra-text refused",
+      "passed": true
+    },
+    {
+      "name": "wrong-figure refused",
+      "passed": true
+    },
+    {
+      "name": "old-seat refused",
+      "passed": true
+    },
+    {
+      "name": "punctuation refused",
+      "passed": true
+    },
+    {
+      "name": "guess-unknown refused",
+      "passed": true
+    },
+    {
+      "name": "caption refused",
+      "passed": true
+    },
+    {
+      "name": "source-notes refused",
+      "passed": true
+    },
+    {
+      "name": "extra-figure refused",
+      "passed": true
+    },
+    {
+      "name": "in-memory assembly only reviewed donor fields and exact seat goal",
+      "passed": true
+    },
+    {
+      "name": "body-text refused",
+      "passed": true
+    },
+    {
+      "name": "b1017-pass refused",
+      "passed": true
+    },
+    {
+      "name": "b1181-pass refused",
+      "passed": true
+    },
+    {
+      "name": "non-target-figure refused",
+      "passed": true
+    },
+    {
+      "name": "body-order refused",
+      "passed": true
+    },
+    {
+      "name": "target-unknowns refused",
+      "passed": true
+    },
+    {
+      "name": "target-source-binding refused",
+      "passed": true
+    },
+    {
+      "name": "foreign-table refused",
+      "passed": true
+    },
+    {
+      "name": "source refused",
+      "passed": true
+    },
+    {
+      "name": "wrong frozen manifest refused",
+      "passed": true
+    },
+    {
+      "name": "portable real production schema",
+      "passed": true
+    },
+    {
+      "name": "wrong actual model/effort/images refused",
+      "passed": true
+    },
+    {
+      "name": "wrong actual model/effort/images refused",
+      "passed": true
+    },
+    {
+      "name": "wrong actual model/effort/images refused",
+      "passed": true
+    }
+  ],
+  "count": 39,
+  "modelCalls": 0,
+  "candidateWrites": 0,
+  "rawWrites": 0,
+  "runtime": {
+    "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac269-283-0785-v1-20261028/runtime-manifest.json",
+    "sha256": "d167ab2e2beab21dda23336b40e341e1972ffbd894b2413702f04f8d08b3a4bb"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t1017r2.json",
+    "sha256": "de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c",
+    "bytes": 2132086
+  },
+  "donor": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev2.json",
+    "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+    "bytes": 2147441
+  },
+  "prior1017Audit": "6c0de2ee947e3867fbd32e9cc89d23cb9a47c99c5e9521e7e46972ce50f1e4b5",
+  "priorDonorAudit": "21d909b832c28e62a76f453863ed24d8fc8738adbb54b36bfd8117b9395d5aea",
+  "ordinaryParentError": "web_audit_not_passed_or_inputs_changed",
+  "maximumProductionCalls": 1,
+  "remainingExternalFirstAuditMaximum": 1,
+  "retry": 0
+}

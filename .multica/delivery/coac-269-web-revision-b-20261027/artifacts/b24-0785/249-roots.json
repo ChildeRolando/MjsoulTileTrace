@@ -1,0 +1,452 @@
+[
+  {
+    "id": "01a17490-dbd0-796a-ac7e-b07a93970b4c",
+    "last_activity_at": "2026-10-25T19:36:52Z",
+    "reply_count": 0,
+    "content": "已完成首段接管，工单继续进行中。\n\n- 旧审校 PID 36524 及两个子进程均已结束；交接用途的停派原件已归档，质量和限流停派规则保留。审校三文件及回归测试冻结于本地提交 `31095b5`；`scripts/scene-study` 168 项测试全通过。\n- 21 个真实 PDF 源页的审端机械预检通过：676 个文字块、716 个图片出现位置均绑定源页与位置计划，0 次模型调用。收据为 …"
+  },
+  {
+    "id": "01a17522-62b6-76be-946d-020293260db8",
+    "last_activity_at": "2026-10-25T22:15:50Z",
+    "reply_count": 0,
+    "content": "本轮已恢复并继续有限审核队列，工单保持 in_progress。\n\n- 上批中断留下的驱动锁 PID 64300 已确认不存在，残留锁已清理；该次中断未产生额外模型调用。`active=[]`、无 STOP、无在途进程后继续。\n- 本轮完成 4 个候选的独立审校：`cv1780378` 通过；`cv1775262` 退回（第 6 张牌误录：2m 记为 1m，且附件/放大图配对编号错误）；`chap…"
+  },
+  {
+    "id": "01a17530-4bb8-757f-a7d0-4035be972d94",
+    "last_activity_at": "2026-10-25T22:31:01Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain。\n- 通过 3 项：`cv1780410`、`chapter01-section050`、`chapter01-section051`。`cv1780410` 有一条非阻断的 source-note：六组原图/放大图附件配对编号需改为 1与…"
+  },
+  {
+    "id": "01a17545-3550-7794-9b63-3a0af7f6fdab",
+    "last_activity_at": "2026-10-25T22:53:52Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain。\n- 通过 3 项：`cv1780420`、`chapter01-section052`、`chapter01-section053`。\n- 退回 1 项：`cv1780438`，附图 1/放大图 6 有一张万子点数仍为 `?m`，逐牌完整…"
+  },
+  {
+    "id": "01a17555-3185-760d-b888-3df1e51c810a",
+    "last_activity_at": "2026-10-25T23:11:19Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain。\n- 通过 1 项：`chapter01-section055`。\n- 退回 3 项：`cv1785741`（三处赤5p/赤5s 被记成普通5，且宝牌9p/5m/4p 被误称为指示牌，影响打点论证）；`chapter01-section05…"
+  },
+  {
+    "id": "01a17562-e7e2-7986-a392-e7fb85d147e2",
+    "last_activity_at": "2026-10-25T23:26:18Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain。\n- 通过 3 项：`cv1785820`、`chapter02-section001`、`chapter02-section002`。\n- 退回 1 项：`cv1793434`，上方牌河可见的倒置万子实为 9m，候选却记为「[万子数字未辨…"
+  },
+  {
+    "id": "01a17572-6c27-76d1-8eb3-3cc18063c16b",
+    "last_activity_at": "2026-10-25T23:43:15Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain，全部通过：`cv1800671`、`chapter02-section003`、`chapter02-section004`、`cv1810877`。\n- 当前累计 285 项收据：有效通过 137 项，另有 1 项 exact-label…"
+  },
+  {
+    "id": "01a17584-817a-7441-9dd9-a43abb62bba0",
+    "last_activity_at": "2026-10-26T00:03:00Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain。\n- 通过 3 项：`chapter02-section014`、`cv1806391`（仅有非阻断 source-note，保留图内 W/正文 Y 差异说明）、`chapter02-section015`。\n- 退回 1 项：`cv181…"
+  },
+  {
+    "id": "01a17591-8497-7e0e-bbae-6261bfebc646",
+    "last_activity_at": "2026-10-26T00:17:13Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain，全部通过：`chapter02-section016`、`79-cn` PDF 第 154 页、第 155 页、`chapter02-section017`。\n- 当前累计 287 项收据：有效通过 144 项，另有 1 项 exact-l…"
+  },
+  {
+    "id": "01a1759e-8945-719f-8389-59387377afc0",
+    "last_activity_at": "2026-10-26T00:31:26Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain，全部通过：`chapter02-section020`、`79-cn` PDF 第 170 页、第 171 页、`chapter02-section021`。\n- 第 170 页仅有一条非阻断 source-note：源文「立直的有点」疑为…"
+  },
+  {
+    "id": "01a175ac-bb5c-7904-b66d-1de1f411e000",
+    "last_activity_at": "2026-10-26T00:46:56Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain。\n- 通过 2 项：`79-cn` PDF 第 172 页、`chapter02-section022`。\n- 退回 2 项：`chapter02-section023`（把「シャンテン」泛译为「向听状态」，未限定一向听或更好）；`79-c…"
+  },
+  {
+    "id": "01a175c2-ca1c-7a4d-aa15-f4247cb21b69",
+    "last_activity_at": "2026-10-26T01:11:02Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain。\n- 通过 2 项：`79-cn` PDF 第 192 页、`chapter02-section025`。第 192 页保留源文「有一下」原字；第 025 节保留源文不等式方向笔误，仅建议另加明确标注的勘误注，不改原文。\n- 退回 2 项：…"
+  },
+  {
+    "id": "01a175d2-1a5e-7af0-8ad0-e19fedbb9030",
+    "last_activity_at": "2026-10-26T01:27:46Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain，全部通过：`chapter02-section026`、`79-cn` PDF 第 196 页、`chapter02-section027`、第 197 页。\n- 第 196 页保留「只要不是两面听牌」的原条件措辞；第 197 页保留源表数…"
+  },
+  {
+    "id": "01a175e0-a0e1-74e7-abe9-a93e203aae54",
+    "last_activity_at": "2026-10-26T01:43:37Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain。\n- 通过 3 项：`79-cn` PDF 第 198 页、`chapter03-section001`、`chapter03-section002`。\n- 退回 1 项：`79-cn` PDF 第 215 页，页脚「第 215 页 共 3…"
+  },
+  {
+    "id": "01a175f0-d6a7-7604-a1c3-2d07fc5b8e8c",
+    "last_activity_at": "2026-10-26T02:01:20Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain。\n- 通过 1 项：`chapter03-section004`。\n- 退回 3 项：\n  - `79-cn` PDF 第 216 页：页脚页码仍被排在正文开头；这是第 191、193、215、216 页重复出现的同类布局缺陷。\n  - `…"
+  },
+  {
+    "id": "01a17600-fcd0-72d8-88a7-91df042080a5",
+    "last_activity_at": "2026-10-26T02:18:58Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain。\n- 通过 3 项：`79-cn` PDF 第 227 页、`chapter03-section005`、`79-cn` PDF 第 228 页。\n- 退回 1 项：`chapter03-section006`，候选把「五筒・を切った後何か…"
+  },
+  {
+    "id": "01a17612-d38d-73ae-b2f0-cb9ad9ccf928",
+    "last_activity_at": "2026-10-26T02:38:27Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain，全部通过：`79-cn` PDF 第 229、230 页、`chapter03-section007`、`chapter03-section010`。\n- 当前累计 287 项收据：有效通过 167 项，另有 1 项 exact-label…"
+  },
+  {
+    "id": "01a1762a-e899-764c-a141-a575851ee1ca",
+    "last_activity_at": "2026-10-26T03:04:45Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain。\n- 通过 1 项：`79-cn` PDF 第 251 页。\n- 退回 2 项：`79-cn` PDF 第 231 页（页脚页码仍被置于正文前，同类布局缺陷继续出现）；`chapter03-section012`（「変則手濃厚」判断力度被弱…"
+  },
+  {
+    "id": "01a1763b-de67-7e46-b379-934a15078ad4",
+    "last_activity_at": "2026-10-26T03:23:17Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain。\n- 通过 1 项：`chapter03-section014`。\n- 退回 3 项：`79-cn` PDF 第 252 页（页脚页码仍被置于正文前，同类布局缺陷持续）；`chapter03-section013`（两处「一向听」被泛译为「…"
+  },
+  {
+    "id": "01a1764f-46fd-7298-aa26-d87ddb5d559a",
+    "last_activity_at": "2026-10-26T03:44:29Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain。\n- 通过 2 项：`79-cn` PDF 第 255 页、`chapter03-section016`。\n- 退回 2 项：`chapter03-section015`（跨块连读缺少「比」的比较标记，单骑听牌优先级方向不明）；`79-cn…"
+  },
+  {
+    "id": "01a1765c-f586-7a97-a68f-170a9b166167",
+    "last_activity_at": "2026-10-26T03:59:26Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain。\n- 通过 3 项：`chapter03-section017`、`79-cn` PDF 第 260 页、`chapter03-section018`。\n- 退回 1 项：`79-cn` PDF 第 256 页，页脚页码仍被置于正文开头。该…"
+  },
+  {
+    "id": "01a1766c-7fb1-7e6b-9f91-98711e55139d",
+    "last_activity_at": "2026-10-26T04:16:24Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain，全部通过：`chapter03-section019`、`79-cn` PDF 第 261 页、`chapter03-section020`、`79-cn` PDF 第 262 页。\n- 第 261 页仅一条非阻断 source-note：…"
+  },
+  {
+    "id": "01a1767d-bddd-7213-9b91-98f523a63303",
+    "last_activity_at": "2026-10-26T04:35:14Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 2 批共 4 项独立审校自然 drain。期间 Multica 评论读取短暂网络失败，重试后正常。\n- 通过 2 项：`chapter03-section021`、`chapter03-section022`。\n- 退回 2 项：`79-cn` PDF 第 263 页（图例 5z/…"
+  },
+  {
+    "id": "01a1768e-2bff-7bb5-ba11-a57fe62c2374",
+    "last_activity_at": "2026-10-26T04:53:11Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 3 批共 6 项独立审校自然 drain。\n- 通过 2 项：`chapter03-section025`、`79-cn` PDF 第 271 页。\n- 退回 4 项：第 265 页（南家第三张 2m 误录为 3m）；`chapter03-section024`（强调范围漏掉「七对…"
+  },
+  {
+    "id": "01a1769e-3a49-75a4-a970-84c1d39fcabf",
+    "last_activity_at": "2026-10-26T05:10:43Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 3 批共 6 项独立审校自然 drain。\n- 通过 5 项：`79-cn` PDF 第 272、273 页、`chapter03-section028`、`chapter03-section029`、`chapter04-section001`。第 272 页保留源文「对日」原字…"
+  },
+  {
+    "id": "01a176af-0868-790a-a6d1-9b631330858f",
+    "last_activity_at": "2026-10-26T05:29:04Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- `active=[]`、无驱动锁、无 STOP；本轮 3 批共 6 项独立审校自然 drain。\n- 通过 3 项：`chapter04-section002`、`chapter04-section003`、`chapter04-section006`。\n- 退回 3 项：`79-cn` PDF 第 275 页（南风编码写成 3z，应…"
+  },
+  {
+    "id": "01a176c0-d183-78e5-a60e-44c0b4edad83",
+    "last_activity_at": "2026-10-26T05:48:30Z",
+    "reply_count": 0,
+    "content": "本轮继续有限审核队列，工单保持 in_progress。\n\n- 本轮共 5 项独立审校：通过 4 项（`chapter05-section001`、`chapter05-section002`、`chapter05-section003`、`chapter06-section001`）；退回 1 项（`chapter06-section002`，「３０秒未満」被译为包含 30 秒的「３０秒以内」，…"
+  },
+  {
+    "id": "01a176dd-bc81-7df7-b168-d6a265aad5ce",
+    "last_activity_at": "2026-10-26T06:20:05Z",
+    "reply_count": 0,
+    "content": "本轮为队列检查，工单保持 in_progress。\n\n- 未发现新候选：自上次 drain（2026-10-26T05:47:45Z）以来，web/PDF 候选目录无新增文件；`active=[]`、never-dispatched 0、限次恢复未用 0、无驱动锁、无 STOP，未派新审校，未重复审已通过同 SHA。\n- COAC-248 仍是 `backlog`、未指派、无评论，`audit/w…"
+  },
+  {
+    "id": "01a17717-ca3d-7e49-90a2-22d576243aed",
+    "last_activity_at": "2026-10-26T07:23:30Z",
+    "reply_count": 0,
+    "content": "本轮为队列检查，工单保持 in_progress。\n\n- 无新候选：自 2026-10-26T05:47:45Z drain 后，web/PDF 候选目录无新增；`active=[]`、never-dispatched 0、限次恢复 0，未派新审校，未重复审已通过同 SHA。\n- COAC-248 仍为 `backlog`、未指派、无评论；`audit/web/authorized-revisio…"
+  },
+  {
+    "id": "01a1780b-170b-7040-a329-b8b3780a3168",
+    "last_activity_at": "2026-10-26T11:49:15Z",
+    "reply_count": 0,
+    "content": "显式补接已实际入队（不只改状态）：\n\n- 从 COAC-246 handoff 50 个 auditTargets 去重：30 已有审核文件，20 缺失；清单 `audit/explicit-targets-20261026.json`。\n- 18 个 complete-web 已由 2 并发 worker 实际派审（PID 415）。当前 3 项完成，均 `needs-repair`：chapt…"
+  },
+  {
+    "id": "01a1782d-afa1-7b7e-be0a-f19a6ea481d0",
+    "last_activity_at": "2026-10-26T12:27:02Z",
+    "reply_count": 0,
+    "content": "显式批次已续跑，本轮不重复派已审 SHA。\n\n- 18 个 complete-web 中，已有 10 个唯一 SHA 完成审核：4 passed（chapter06-exercise002-01、chapter01-section008、chapter01-section021-02、chapter01-section038）、4 needs-repair（chapter01-section021…"
+  },
+  {
+    "id": "01a17866-1ce2-7527-a220-00756039fcde",
+    "last_activity_at": "2026-10-26T14:38:47Z",
+    "reply_count": 1,
+    "content": "COAC-258 实际命令验收发现仍未落实有限前台批次，且 failed SHA 被重复调用。已把最小脚本修复和无模型测试置于本票正文最前，请下一阶段先修入口再派稿，不能再只更新计划。当前在途自然结束、不再追加后台长等待。读取最新正文第一节：先终态receipt去重再取1–2项、one()二次防重、前台同步，实际1项验证并确认run终态。用户目标继续完成编校，不需要再次问是否继续。不要改平台权限/…"
+  },
+  {
+    "id": "01a1786a-4816-70b8-b872-d1080ec004c6",
+    "last_activity_at": "2026-10-26T13:33:13Z",
+    "reply_count": 0,
+    "content": "显式批次已完成 18 个 complete-web 与 2 个 protected supplement 的逐 SHA 去向，工单保持 in_progress。\n\n- complete-web：**8 passed、8 needs-repair、2 failed**。passed：chapter01-section008、chapter01-section021-02、chapter01-sect…"
+  },
+  {
+    "id": "01a1793d-1be4-7d1f-bc07-e278f189a0aa",
+    "last_activity_at": "2026-10-26T17:48:16Z",
+    "reply_count": 1,
+    "content": "请接手当前真实审校阻塞：248已产出chapter01-section021-05的web定点r2，但报告因batch父审回执继承兼容问题无法进入独审。请先核原错误、父/子/source SHA和batch各组收据，做现有审校入口的最小兼容修复，不重制该稿、不盲重试模型。\n必须保证：父稿完整组覆盖可追溯；仅对确已通过且未改动范围复用既有结论，父稿失败/未知范围不能伪继承；修改范围需真实独立语义/牌…"
+  },
+  {
+    "id": "01a1798b-d1db-769d-9d45-cef59a927add",
+    "last_activity_at": "2026-10-26T19:08:53Z",
+    "reply_count": 1,
+    "content": "248 连续两轮报告 nemata-jp p254 术语修订已完成，但 b58/b59 的 reviewer image-figure binding 异常阻挡独审。请接手该精确审校入口问题，先核实际源图/figure ID、block映射、输入包与原输出，区分打包绑定错误、schema错误和真正内容不确定。\n若为确定性绑定缺陷，在现有输入/校验器做最小修复与无模型测试（正确绑定可过、错图/缺图/…"
+  },
+  {
+    "id": "01a17a99-e9ec-7914-9d95-c2456fc7a8a7",
+    "last_activity_at": "2026-10-27T00:05:39Z",
+    "reply_count": 1,
+    "content": "编校证据链出现一个具体缺口，请做有限核查/最小修复，不另开工程、不重跑模型：248最新报告冻结runtime内textbook-audit-pdf-native-corrections.mjs曾是旧副本（仅309/315），导致329真实passed候选当前闸门报unapproved_page；同步模块后闸门通过，但auditorScriptSha身份只覆盖两个主脚本，未覆盖此实际验证依赖。请让后…"
+  },
+  {
+    "id": "01a17af9-a1b6-7172-bff2-8c8c13317100",
+    "last_activity_at": "2026-10-27T01:51:54Z",
+    "reply_count": 1,
+    "content": "246运行01a17ae6-82d2-79e8-931e-e99011fb5406已零调用核清57章并在原票附逐章JSON。请接其7章审校动作：2失败先查是否有真实结果/在途、仅恢复所缺；3源SHA过期必须查语义/源块差异，不能机械换绑旧回执冒充新审；2已制未审按冻结链真实独审。已通过批次/同SHA不重复调用，manifest依赖身份必须覆盖实际生效文件。有限1–2项前台批次，完成后交248/25…"
+  },
+  {
+    "id": "01a17b2c-9bbf-7bb7-90a9-8e24fb42dd12",
+    "last_activity_at": "2026-10-27T02:24:43Z",
+    "reply_count": 0,
+    "content": "第 2 批已按前台同步跑完，两项都出了真实结论；工单保持 in_progress。\n\n## 197-1 / `chapter03-section011`：needs-repair（真实内容结论）\n\n- 新回执 `…retry-1793066575642-39f02f00.json`（SHA `29e55b45…`），1 次调用 35,959 in / 9,853 out，单独进程前台完成、未触发超…"
+  },
+  {
+    "id": "01a17cae-8770-7533-a1bf-319978e2ed1b",
+    "last_activity_at": "2026-10-27T09:36:58Z",
+    "reply_count": 1,
+    "content": "用户09:23直接授权加速并行。244正在核实际2制作+2独审容量，新增269（01a17cae-06e4-7b30-a93f-3a030d1ae63f）由现有Ticket执行器独立web修订，与248分片。249负责两路独审按候选SHA去重接收两线新修订，优先复用已验证冻结runtime/manifest；当前无新candidate则只确认交接和容量，不付费轮询、不占长时间目录。新稿不必等待修订…"
+  },
+  {
+    "id": "01a17cbd-90be-72c5-9533-71d16848727b",
+    "last_activity_at": "2026-10-27T09:42:40Z",
+    "reply_count": 0,
+    "content": "COAC-269（B 线普通 web 定点修订）首批 2 章修订已完成，交 249 首次独审。两章各 1 次制作、各 1 个目标集，均未重审任何已通过 SHA。\n\n## 待独审候选（按候选 SHA 去重）\n\n1. **nemata-jp-chapter-338-1**（`archive01-section006`）\n   - 候选：`web-production/v1/candidates/mod…"
+  },
+  {
+    "id": "01a17cc9-f143-7843-912f-6b8de961b7dd",
+    "last_activity_at": "2026-10-27T10:09:00Z",
+    "reply_count": 1,
+    "content": "269首批实际已交候选，请更新09:37旧快照：338-1 ff5a9b52、273-1 42991d76，handoff-f5ed5b4472bbfe18.json，244已select-only实证selected2 terminalSkips0。现在接这两章按独立2审槽前台有限并行审校，各最多1首次模型调用（failed/void也计），先预检投影/图/父审/源SHA/manifest；同S…"
+  },
+  {
+    "id": "01a17cd9-9d4c-7bdc-a4a6-207f6aba8951",
+    "last_activity_at": "2026-10-27T10:13:18Z",
+    "reply_count": 0,
+    "content": "COAC-269 B 线第二批 2 章已真实产出，按候选 SHA 交 249 首次独审；两章各 1 次制作、0 重试，未审过任何已终态 SHA。\n\n## 待独审候选（按候选 SHA 去重）\n\n1. **nemata-jp-chapter-246-1**（`chapter06-section002`）：候选 `832aaae0860ab8792778355b0259469f30d633336ac84…"
+  },
+  {
+    "id": "01a17cdf-3fe5-71a9-a6f3-1dcb5a4c93e0",
+    "last_activity_at": "2026-10-27T10:19:28Z",
+    "reply_count": 0,
+    "content": "COAC-269 B 线第三批 2 章已真实产出，按候选 SHA 交 249 首次独审；各 1 次制作、0 重试，未审过已终态 SHA。\n\n## 待独审候选（按候选 SHA 去重）\n\n1. **nemata-jp-chapter-183-1**（`chapter03-section003`）：候选 `5083143622906fd318dfd9847c1a446f59deb78ff613a31ad…"
+  },
+  {
+    "id": "01a17ce7-b602-7ba7-93ab-5552f31c47ae",
+    "last_activity_at": "2026-10-27T10:40:32Z",
+    "reply_count": 1,
+    "content": "重要去重纠偏：269第二轮报告新制246-1/237-1/131-1，但这3原章早已真实passed并入预览（24606:08版，237/13104:29版）。不要对其新的重复revision发审校，不要替换已有通过稿；先核canonical chapterId→active preview/最新选择/最新passed回执，不仅以新candidateSHA判断未审。原始重复产物与调用保留核算，若已…"
+  },
+  {
+    "id": "01a17cf5-cb0d-71c8-ab1b-d3e6d80dedc9",
+    "last_activity_at": "2026-10-27T10:52:19Z",
+    "reply_count": 1,
+    "content": "10:40:32运行01a17ce7-b613-7c53-9b47-254fa0cf3ee0因流式解密错误终止，先核该轮实际工具日志/进程/调用/回执，未知结果不盲重发。恢复上条去重纠偏的确定性交接即可：246/237/131重复新稿不审不入库；338/273已passed不重审、确保250消费；183若此前已经调用则只收真实结果。若没有新的唯一未审候选，记录状态后退出，不为恢复运行制造模型调用。…"
+  },
+  {
+    "id": "01a17d18-7071-77b0-90bd-9f6d3b5c03ea",
+    "last_activity_at": "2026-10-27T11:31:45Z",
+    "reply_count": 1,
+    "content": "269新批142-1/127-1/027-1已完成真实制作并交接，尚未passed；请按最新canonical联合排除先确认未入库/未在途，各限1次首次独审，最多两路并行。使用当前匹配冻结依赖/完整真实投影，失败void均计额度不自行重试。已passed338/273已入214章预览，不重复审；183保持原稿待裁决不审越界改稿。通过即交250与已passed199-1合为2–4章批，失败精确反馈2…"
+  },
+  {
+    "id": "01a17d37-9f24-721e-9775-21a22d7166f1",
+    "last_activity_at": "2026-10-27T12:06:21Z",
+    "reply_count": 1,
+    "content": "COAC-269 B 线 batch b7 已产出 2 章多目标文本修订，交 249 首次独审。两章各 1 次制作、0 重试；未改任何门禁/runtime，未写共享 selection/pointer/register。按候选 SHA 去重，本批两 SHA 均未审过。\n\n## 待独审候选\n\n1. **nemata-jp-chapter-089-1**（`chapter01-section031`）…"
+  },
+  {
+    "id": "01a17d79-11a2-79e0-82e3-9e2a36aa01ee",
+    "last_activity_at": "2026-10-27T13:46:47Z",
+    "reply_count": 1,
+    "content": "B 线（COAC-269）batch 8 已真实产出并交本票**首次独立独审**：`79-cn-chapter-128-14`（cv1734739）与 `79-cn-chapter-145-4`（cv1744266），均为单 figure 定点修订。本票只记录“已交审”，不宣告任何通过。\n\n## 交审对象\n\n| 章 | 文章 | 目标 figure | 修订 | 候选 SHA256 |\n| ---…"
+  },
+  {
+    "id": "01a17d93-e291-7661-bf7d-d94e502aabec",
+    "last_activity_at": "2026-10-27T13:36:46Z",
+    "reply_count": 0,
+    "content": "# 027-1 / chapter01-section010：dt/dd 边界收口，零调用证据与具体审点\r\n\r\nCOAC-246 已完成零模型调用核验。本件不是结论——只是把可验证源、候选 SHA、完整上下文投影和审点交给你。文本面已经 passed，唯一未决的是 frozen source-structure hold 里的 dt/dd 边界呈现语义。\r\n\r\n## 1. 机械核验（0 次模型调用…"
+  },
+  {
+    "id": "01a17da4-83c6-7c38-8f2c-ba6b59f7aacd",
+    "last_activity_at": "2026-10-27T14:49:02Z",
+    "reply_count": 1,
+    "content": "请接246已完成的027边界证据包，先独立零调用核已有回执是否充分：raw main.html 6dl/17dt/16dd/33units/160blocks，216图occurrence，7跨边界图组与hold ee816566匹配；sidecar db081740、candidate44ce506d与parent7ebd1f97仅b0056文字变。旧passed bdb29387继承父审已有7…"
+  },
+  {
+    "id": "01a17df2-29fb-7e32-af96-c4ab640acc20",
+    "last_activity_at": "2026-10-27T15:19:44Z",
+    "reply_count": 0,
+    "content": "090-6 / `cv1721510` 首次独立全章审校 **passed**，确定性复验通过。仅消费候选 `82d7550d…`，1 次 `gpt-6.1-sol/high` 调用、0 重试：23,378 input / 0 cache / 6,363 output tokens。\n\n- 15 个源块、6 张 figure、6 次图片出现全部逐项覆盖；三目标图八处牌码修正及 caption 均 …"
+  },
+  {
+    "id": "01a17dfe-7305-79a8-9686-e4b23518593f",
+    "last_activity_at": "2026-10-27T15:33:10Z",
+    "reply_count": 0,
+    "content": "本批两章各完成 **1 次首次独立全章审校，合计 2 次、0 重试**，真实收据均已取回。\n\n| 章节 | 结果与去向 | 完整覆盖 |\n| --- | --- | --- |\n| 79-cn-chapter-222-5 / cv1775262 | **needs-repair**，原收据及读法冲突已交 COAC-248 | 23块 / 10图 / 10次出现 |\n| 79-cn-chapter-…"
+  },
+  {
+    "id": "01a17e10-969f-77af-b84f-a22e6f22f53e",
+    "last_activity_at": "2026-10-27T23:29:08Z",
+    "reply_count": 1,
+    "content": "**256-18 / cv1785770 首次独立全章审校：needs-repair，已精确反馈 COAC-248，未交合库。**\n\n只消费 display SHA `56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2`。全章42块、4图、4次图片出现均覆盖；目标b0016的完整牌码、unknowns、caption/s…"
+  },
+  {
+    "id": "01a17e4c-725f-7d91-9869-48989d1b829f",
+    "last_activity_at": "2026-10-27T17:08:24Z",
+    "reply_count": 1,
+    "content": "B旧run已正常收尾66e7552，205-5此前『void语义退化』已更正为producer accusation，不能当独立失败。请对已真实产出的候选8c0cfff8（call358f4e70，16342in7186out306sec）做未消耗的1次独立首审，0重制0retry，失败void全计。先核原始raw/来源/parent/候选SHA/修订范围与冻结manifest，机械门禁全绿再di…"
+  },
+  {
+    "id": "01a17e76-d495-76b3-b4ae-38ffd8123eb4",
+    "last_activity_at": "2026-10-27T17:59:10Z",
+    "reply_count": 2,
+    "content": "用户17:43明确新指令：『把识图脚本换成6.1 terra max』。本条覆盖旧gpt-6.1-sol/high的实际识图调用设置，但不是让主控agent/纯文字任务全换。请在安全阶段边界切实际图片制作/含图校对脚本模型为gpt-6.1-terra、reasoning effort=max（按现有CLI/API真实字段），不新建Work/Codex任务，不改provider/凭据/网关。正在执行…"
+  },
+  {
+    "id": "01a17e7f-b3c3-7477-ad9b-7390d2c63e95",
+    "last_activity_at": "2026-10-27T17:54:20Z",
+    "reply_count": 0,
+    "content": "157-11 已按唯一 display SHA `1807377c…` 零调用接入，保留 **pending**；首次独审额度1次尚未消耗。本轮制作0、审校0、retry0，没有派发含图请求，没有通过宣告。\n\n43项SHA绑定核验通过，包括交接 `d7be11ae…`、候选/源/父稿/父审/raw和视觉输入；全章18源块/7图，正文与顺序、另外2个非目标完整figure对象不变，5个目标全部字段变…"
+  },
+  {
+    "id": "01a17e8c-816f-7a41-9e85-8afb73554394",
+    "last_activity_at": "2026-10-27T18:08:19Z",
+    "reply_count": 0,
+    "content": "157-11 首次 terra/max 独审及复验通过：18 源块、7 图全部覆盖，无修复项；1 次调用、0 重试，进程和审核锁均已释放。\n\n证据已提交至任务分支（`8d444d6`）。Multica 持续返回 EOF，工单评论和 COAC-250 唤醒未确认发布成功；交接文件已保存，恢复后仅需补交，无需重审。"
+  },
+  {
+    "id": "01a17ea9-23bc-7cb9-b365-416a80b6a7fa",
+    "last_activity_at": "2026-10-27T18:39:36Z",
+    "reply_count": 0,
+    "content": "**276-4 首次独立全章含图审校：needs-repair，不交250合库。** 仅消费 display SHA`94b2d56a…`，未审中间稿，原候选和raw未改。\n\n- b0005例1左河第4/5张、右河第2/5张仍缺具体风牌码，教学信息不完整。独审未给出可靠新读法，不机械恢复父稿或猜牌；caption/sourceNotes等完整目标字段均已进入原始投影。\n- b0014/b0025另…"
+  },
+  {
+    "id": "01a17ebb-0fc9-73cb-9665-cad650511286",
+    "last_activity_at": "2026-10-27T19:09:59Z",
+    "reply_count": 1,
+    "content": "立即接244 commit394b830已备的两个单点图片争议证据包：222第6张和PDF217北家舍牌定位点。只使用包内明确完整canonical/figure/坐标，不凭章节尾号或『第几张』文字猜位置（旧记录曾有首张/第二张差异，必须先机械核位置一致）。各最多1次独立单点裁决，总2真实新call，失败void计0retry，不重复全章审。使用已验证terra/max snapshot12a05…"
+  },
+  {
+    "id": "01a17ed7-df74-7226-a7d3-666b71f2642b",
+    "last_activity_at": "2026-10-27T19:36:26Z",
+    "reply_count": 1,
+    "content": "立即对PDF217原始争议『北家舍牌第二行第二张』做1次独立单点terra/max裁决，最多1新增调用，失败void计0retry。2448ea8e86承认上一包错选第一张且已准备正确原图/裁剪包；必须调用前机械检查crop bbox确实对应第二张，邻近上下文显示第一/二/三位置关系，并绑定完整canonical/figure/SHA。第一张unknown旧结果保留但不当此点答案。用原图+正确裁剪…"
+  },
+  {
+    "id": "01a17ee6-67b9-7372-a68d-edac7ef52ede",
+    "last_activity_at": "2026-10-27T19:46:31Z",
+    "reply_count": 0,
+    "content": "183、236各一次首次独立文字审校均为 **needs-repair / uncertain**，不交250合库，原候选与旧审未改。\n\n- **nemata-jp-chapter-183-1**（display `973bbc3e…`）：正文判忠实；新增校注的数据缺少本次请求可核上下文。零调用补核已在绑定原源b0007/b0008/b0011/b0012找到4%、4%、3%、2%，但固定邻段投影…"
+  },
+  {
+    "id": "01a17eee-03a8-7800-83d2-18ed31f6e3c0",
+    "last_activity_at": "2026-10-27T20:58:05Z",
+    "reply_count": 2,
+    "content": "继续PDF217最后一个影响缺口，依据248 ffb6538证据，仅对『西家舍牌第二行第二张当前unknown是否影响本章教学论证/结论』做最多1次限定独立含图审，terra/max，失败void计0retry。先核已有同位置/同正文独立影响结论，若已有充分证据则0调用引用，不重复。若需调用，必须传完整相关教学正文+对应原图/邻近局面与准确坐标、当前unknown展示，问是否能在不猜牌的情况下忠实…"
+  },
+  {
+    "id": "01a17ef3-c615-7239-adda-3feb1b432e6f",
+    "last_activity_at": "2026-10-27T20:19:12Z",
+    "reply_count": 1,
+    "content": "183审校输入缺失已由2444a271b9确认：统计数字有绑定原源，仅projection漏统计行。现追加最多1次针对性独立复审（累计旧6+本1），先零调用修projection、核真正请求含完整统计行/邻上下文/候选精确段和非原文校注，原候选不重制。输出可faithful或仍缺证据，但不得沿用旧缺上下文请求重跑；新manifest/输入SHA与旧失败留档，失败void计0retry。该项实际输入…"
+  },
+  {
+    "id": "01a17ef9-3d57-76ab-a1c0-6ba9ea2be940",
+    "last_activity_at": "2026-10-27T20:25:10Z",
+    "reply_count": 1,
+    "content": "确认下一审校阶段不要漏222新候选：248b192035/candidate c51650a4已20:02完成terra/max制作，新production-schema-v2入口远端跑通，两处修正与非目标字节门禁通过。请在当前183有限复审之后接其原保留1次独立首审预算，先查真实ledger同SHA已有/在途，有则复用不重复。使用新terra/max冻结配置并实际图payload/manifes…"
+  },
+  {
+    "id": "01a17f09-055d-73b7-9352-1f8c8f25604a",
+    "last_activity_at": "2026-10-27T20:41:27Z",
+    "reply_count": 1,
+    "content": "当前222有限首审后接283六表专项补证，仅最多1次独立审、0制作，失败void计0retry。2444376e44实证：94图原候选tableContext齐，旧4请求projection漏传导致缺坐标；真实MCP/Arena/HTML六表248格117空格13↓94图保真，4破坏回归拒绝。使用显式v3补证包及完整tableContext/格位原图上下文，先检查真实请求确实含全部必要字段，若不齐…"
+  },
+  {
+    "id": "01a17f14-8f65-75b5-a22a-ce09fa39569c",
+    "last_activity_at": "2026-10-27T21:16:03Z",
+    "reply_count": 1,
+    "content": "按当前已准备证据接续两个独立最小审项，不重复当前六表/222/217：A)283 Q8，246已恢复存档HTML和真实场况JPEG并绑定URL/时间/SHA，先核包与原Q8对应，再最多1次terra/max含图独审核完整副露、各家具体点数、1s/2s可见数及Q8论证是否支撑，不猜看不清牌；给明确可验证field/unknown和语义影响，0制作。B)236现中性候选，2447d138dc零调用诊断…"
+  },
+  {
+    "id": "01a17f29-cddf-7108-91df-146ccfb0939f",
+    "last_activity_at": "2026-10-27T21:36:02Z",
+    "reply_count": 1,
+    "content": "接续2442304be1三件最小补证独审，明确新增总预算最多3次（各1），0制作0自动retry，失败void计。100-1投影已补A/B定义39上下文，仍只审原68块，另243块同SHApass复用；真实请求零调用验证上下文齐后仅1次纯文sol/high。159-9 b0013上方牌河第4张万子crop[298,126,324,161)、242-3 b0014上方牌河靠中央一行最左万子crop[…"
+  },
+  {
+    "id": "01a17f2f-39b5-7528-b13f-424d7bc2a37c",
+    "last_activity_at": "2026-10-27T21:53:07Z",
+    "reply_count": 1,
+    "content": "继续222最后顺序投影缺口，依据2442abe685。不得改原5b131a9b raw/false标志；原图及两处1m已独审确认，其余23块顺序与父审faithful未改。先零模型修审校投影：b0017–b0021目标与邻文按真实原序进入同一有序数组，带原索引/ID/候选hash，并保留父审顺序与逐字节未改证据，实际请求自动测缺块/乱序会拒绝。若现有独立证据可按既有补充证明路径正式覆盖输入缺失，则…"
+  },
+  {
+    "id": "01a17f51-ad02-7cc8-9b36-7a61db64898a",
+    "last_activity_at": "2026-10-27T22:39:05Z",
+    "reply_count": 3,
+    "content": "请接247已完PDF218/219/220各首次独审，现三页真实候选及217–220共22块归属assembly manifest已齐，不能只在回复线程留交接而不入队。原预算每页剩1首审，共最多3真实calls、0重制0retry，失败void计。先按真实candidateSHA查已有审/在途，重复跳过；实际含图terra/max最新冻结PDF-native入口，完整页原文字图顺序与归属、不猜un…"
+  },
+  {
+    "id": "01a17f57-4b81-7c85-973d-773a70295cc9",
+    "last_activity_at": "2026-10-27T22:04:24Z",
+    "reply_count": 1,
+    "content": "接续两份已就绪交接，避免仅留回复线程未执行：1)159/242现稿满足独立unknown限制，248 e4db2f7/8e653a0精确补证7组回归，先0模型核SHA/原审/影响审/当前稿一致，符合立即交250有限准入+真实MCP读回，不再识字。2)283 b0396/b0962新共同候选00074d1c，269a4bb1ca，两次真实terra/max制作13/12原图、32预检，保留b0168…"
+  },
+  {
+    "id": "01a17f78-7820-76a5-8d26-ae89380212df",
+    "last_activity_at": "2026-10-27T23:39:10Z",
+    "reply_count": 3,
+    "content": "接24622:20四页（现代1–3/317）226源块对应及两项定向审核包，明确本批最多2次独立审（每包1），0制作0retry，失败void计。先核已有同SHA证据，不能重复无新输入识低清封面；必须给真实原图/邻近正文/准确署名来源，含图terra/max。区分可读正文目录完整忠实、317已知译义错误、封面6项看不清文字、同图署名冲突，不凭常识猜人名出版信息。判断非核心封面unknown能否附明…"
+  },
+  {
+    "id": "01a17f7e-c454-73f2-88ed-c6b175301a5b",
+    "last_activity_at": "2026-10-27T23:07:01Z",
+    "reply_count": 1,
+    "content": "接26944945a3刚完成的283 b1017/b1181两处真实候选，34预检非靶正文524图保持，已用2maker，原余最多2首审调用仅此两目标，失败void计0retry。核最新候选链先前0168/0396/0962/六表/Q8未改hash，真实请求完整原段上下文/条件，不重审整章或已过范围；实际含图terra/max纯文sol/high。逐目标passed即交244/250收敛剩余7账，…"
+  },
+  {
+    "id": "01a17f8c-e33c-7399-9a2a-5d6f401a852d",
+    "last_activity_at": "2026-10-27T23:10:47Z",
+    "reply_count": 1,
+    "content": "接续24499c4293已完成真实请求预检的193/208/276三个最小图及教学影响审，本批明确最多3次真实独立调用（每章1），0制作0retry，失败void计。完整canonical：79-cn-chapter-193-4 b0042未知万子（PDF两句已入库保留）；208-4两图四未知位置（全部兜牌条件不可省）；276-4仅b0005四未知风牌，b0014/b0025已找回真实父审逐牌证据…"
+  },
+  {
+    "id": "01a17fba-6419-73f2-87b8-78be8cbd93e5",
+    "last_activity_at": "2026-10-27T23:38:04Z",
+    "reply_count": 0,
+    "content": "283 b1017删括注后的新SHA首次目标独审 **passed**。仅审b1017；“三元役”的表述忠实，宝牌6s及切2m比较的上下文衔接完整，issues=[]。\n\n真实call `3a171a7b-e469-40ca-beeb-8495d353ce9b`，实际**gpt-6.1-terra/max、11张原PNG**；54974输入/0缓存/932输出，16.502秒。候选SHA `de3…"
+  },
+  {
+    "id": "01a1817e-aff5-7d84-9d28-a55f743ae509",
+    "last_activity_at": "2026-10-28T08:08:51Z",
+    "reply_count": 1,
+    "content": "用户已确认额度重置，恢复上次 quota 中断的封面 1–3 组合证据零新增模型核验。246 commit da064fc，既有独审 10d63a8：各目标有限通过，原全局 uncertain 与封面6处未知保持，禁止猜作者/出版社。核对 nemata-jp-chapter-001-64 的226/226源块、复用18目录块、4处派生限制修订及 p2-r11 复用、全部父SHA/原始审校链和呈现限…"
+  }
+]

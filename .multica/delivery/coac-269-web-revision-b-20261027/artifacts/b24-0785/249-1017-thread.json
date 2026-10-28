@@ -1,0 +1,8 @@
+[
+  {
+    "id": "01a17fba-6419-73f2-87b8-78be8cbd93e5",
+    "parent_id": null,
+    "created_at": "2026-10-27T23:38:04Z",
+    "content": "283 b1017删括注后的新SHA首次目标独审 **passed**。仅审b1017；“三元役”的表述忠实，宝牌6s及切2m比较的上下文衔接完整，issues=[]。\n\n真实call `3a171a7b-e469-40ca-beeb-8495d353ce9b`，实际**gpt-6.1-terra/max、11张原PNG**；54974输入/0缓存/932输出，16.502秒。候选SHA `de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c`；checkpoint SHA `23e0fda1196b42064570ffe9cea5a2155c08f23a9b08fcfcb88dd8d9c578a5e8`；raw SHA `a1342165351a7dd71c2010d2cb046110b104ce871d3da0dc66d776478286311d`。\n\n32冻结依赖及实际prompt/schema/图序/图片字节均验真。1194非目标块、524完整图对象、b1181/0168/0396/0962、六表137块94图、Q8及其强制限制、batch010继续继承，未重复审。原error/raw、12条非靶deferred和2条source-note保留。\n\n已实际派交269原授权线程及244/250更新逐项账。**整章仍needs-repair**：目标验证器通过，通用全章验证器的拒绝原样保留，未合库或切active。\n\n本批maker1+独审1=2/2，余0，0失败/void、0retry；guard正常释放，无本次在途。费用、远端权重及上游总次数未知。附件含真实回执、继承证明及完整可离线复验包；89项输入引用复验通过。提交`d7a3602`，本票继续in_progress。"
+  }
+]

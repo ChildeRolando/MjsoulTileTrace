@@ -1,0 +1,363 @@
+{
+  "schema": "coac269-283-0785-seat-first-independent-target-review/1",
+  "authorization": {
+    "issue": "01a17cae-06e4-7b30-a93f-3a030d1ae63f",
+    "comment": "01a18193-7e18-7193-8ca8-89c80dae4edd"
+  },
+  "canonical": "nemata-jp-chapter-283-1",
+  "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0785r1.json",
+    "sha256": "434120af284195ddf27b491a1c2c4cd9ea25072d40e9c6a366bcd8ac3cb03b9b"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter06-exercise003\\source.v3.json",
+    "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+    "bytes": 1998292
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t1017r2.json",
+    "sha256": "de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c",
+    "bytes": 2132086
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c.json",
+    "sha256": "6c0de2ee947e3867fbd32e9cc89d23cb9a47c99c5e9521e7e46972ce50f1e4b5"
+  },
+  "reviewedDonor": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev2.json",
+    "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+    "bytes": 2147441
+  },
+  "donorAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3.json",
+    "sha256": "21d909b832c28e62a76f453863ed24d8fc8738adbb54b36bfd8117b9395d5aea"
+  },
+  "donorReview": {
+    "callId": "51d6b447-2446-4afa-9c30-5d1d1b4dfcc5",
+    "checkpoint": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-007.json",
+      "sha256": "9fa518acb13dbdfac78129917d547b1ad38a7e54c53cd8938a83de66c0b9af85",
+      "bytes": 21564
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\51d6b447-2446-4afa-9c30-5d1d1b4dfcc5.json",
+      "sha256": "38527d316659248b36da9b0429a18d455c4aeb683b19cf3b9532d1df15932ec7",
+      "bytes": 316132
+    },
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "usage": {
+      "inputTokens": 52091,
+      "cachedInputTokens": 0,
+      "outputTokens": 1482
+    },
+    "durationMs": 83289,
+    "evidenceBoundary": "Historical raw has frozen prompt/image asset bindings and completed semantic result; no structured requestExecution/argv captured. Do not invent old transport or remote-weight proof."
+  },
+  "packet": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-recovery-20261028\\complex-original\\b0785-packet.json",
+    "sha256": "fc7da7408411b6870f378e0407842048cd5905cbf0ecd6da902357acf1b001c3"
+  },
+  "recoveryManifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-recovery-20261028\\files.sha256.json",
+    "sha256": "e72683343d3dae50758617467c2d1edfb25876a6ca886c66ef763a1325560c1d"
+  },
+  "b1017Pass": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-283-1017-r2-reviewed-20261028.json",
+    "sha256": "1f2bc2c66d5d2021823f80547186a2431294eb3b9082af4f0af96aa59800034f"
+  },
+  "runtime": {
+    "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac269-283-0785-v1-20261028/runtime-manifest.json",
+    "sha256": "d167ab2e2beab21dda23336b40e341e1972ffbd894b2413702f04f8d08b3a4bb"
+  },
+  "runtimeFiles": 34,
+  "entry": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-0785-v1-20261028\\b0785.mjs",
+  "prepareFunction": "prepare0785Review",
+  "verifyProductionFunction": "verify0785Production",
+  "verifyReviewFunction": "verify0785ReviewExecution",
+  "reviewRequest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac269-283-0785-v1-20261028\\review-request.json",
+    "sha256": "0720565c0cfd3a8b38dde29faa0aa9db8ee536133cc63b2398a65d3fbf5b186f",
+    "bytes": 103613
+  },
+  "preflight": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac269-283-0785-v1-20261028\\preflight.json",
+    "sha256": "98945fa239dd7ab39af39cf13b47ab95a90c79e1b5e075e8c3f5b9a20f714635",
+    "bytes": 4351
+  },
+  "selfcheck": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac269-283-0785-v1-20261028\\selfcheck.json",
+    "sha256": "4875408caae3a865da592a006abaab3e1712382de4b6785ba9dcff6eb0d5639f",
+    "bytes": 9231
+  },
+  "exactDiff": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac269-283-0785-v1-20261028\\exact-diff.json",
+    "sha256": "5285ed24e67ebd48037efa8ef2dbb07e4fdb060984e89559d36478a0840410f0",
+    "bytes": 11021
+  },
+  "realMaker": {
+    "callId": "2969ad28-e823-41dc-8b63-45523e78c4b5",
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter06-exercise003",
+    "sourceSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "callerRequested": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-terra",
+        "--config",
+        "model_reasoning_effort=\"max\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-poXFhg\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-poXFhg\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-poXFhg",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-d3b908cf0a30.jpg",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-346bb333657e.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-original-x2.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-seat-panel-x4.png",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-d3b908cf0a30.jpg",
+          "sha256": "d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d",
+          "bytes": 53525
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-346bb333657e.png",
+          "sha256": "346bb333657eca75927ac24ce75b4b6f27b467ad252457a34f8cdcd890f7f6b6",
+          "bytes": 787
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-original-x2.png",
+          "sha256": "708b401ab3f9c4b1ab1b3fa066f3c07501597035600ce5ea086a87ff623577e9",
+          "bytes": 475368
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-seat-panel-x4.png",
+          "sha256": "359cd22cc33637c746698adf27a6d9652af198696d383f6b82a7678c172c4814",
+          "bytes": 48444
+        }
+      ],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "startedAt": "2026-10-28T08:31:03.198Z",
+    "durationMs": 32623,
+    "usage": {
+      "inputTokens": 30456,
+      "cachedInputTokens": 0,
+      "outputTokens": 1634
+    },
+    "success": true,
+    "transportStatus": "completed",
+    "rawArtifactPath": "raw-calls/2969ad28-e823-41dc-8b63-45523e78c4b5.json",
+    "rawArtifactSha256": "a47e36013f7de9811cc0f37fb5b4c369bd3088e77e06e85a4b9953f81543bd43",
+    "promptSha256": "cb94fc36b7ed29d59f5642e1a5158eb62d354f97ad1ac381b5b90bb24152a5ff",
+    "schemaSha256": "28c321ec1e7ad6f0a2d04ba2ff975c6a0fe8e11f5b5ab3d830904058d787c6ed",
+    "method": "coac269-exact-0785-seat/1",
+    "batchId": "chapter06-exercise003-batch-007",
+    "targets": {
+      "textIds": [],
+      "figureIds": [
+        "modern-yabejp-ja:chapter06-exercise003:b0785"
+      ]
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t1017r2.json",
+      "sha256": "de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c",
+      "bytes": 2132086
+    },
+    "donor": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev2.json",
+      "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+      "bytes": 2147441
+    },
+    "runtime": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-0785-v1-20261028\\runtime-manifest.json",
+      "sha256": "d167ab2e2beab21dda23336b40e341e1972ffbd894b2413702f04f8d08b3a4bb"
+    },
+    "runner": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-0785-v1-20261028\\b0785.mjs",
+      "sha256": "634413b049d4f2eb9388ddcdb825ce303656a87c4cc8b1d7cea2071a2dcdf852"
+    },
+    "cliSnapshot": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-0785-v1-20261028\\textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+    }
+  },
+  "productionRaw": {
+    "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/2969ad28-e823-41dc-8b63-45523e78c4b5.json",
+    "sha256": "a47e36013f7de9811cc0f37fb5b4c369bd3088e77e06e85a4b9953f81543bd43"
+  },
+  "budget": {
+    "maximumTotal": 2,
+    "makerUsed": 1,
+    "independentUsedHere": 0,
+    "remainingIndependentMaximum": 1,
+    "failedVoidCount": true,
+    "automaticRetries": 0
+  },
+  "images": [
+    {
+      "role": "ordered-original",
+      "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0785",
+      "occurrenceId": "modern-yabejp-ja:chapter06-exercise003:i00939",
+      "assetId": "modern-yabejp-ja:817cde2d79dae92dca2e0c63",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-d3b908cf0a30.jpg",
+      "sha256": "d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d",
+      "bytes": 53525,
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d.jpg"
+    },
+    {
+      "role": "ordered-original",
+      "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0788",
+      "occurrenceId": "modern-yabejp-ja:chapter06-exercise003:i00940",
+      "assetId": "modern-yabejp-ja:865231b0b04f914254e01fc9",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-346bb333657e.png",
+      "sha256": "346bb333657eca75927ac24ce75b4b6f27b467ad252457a34f8cdcd890f7f6b6",
+      "bytes": 787,
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\346bb333657eca75927ac24ce75b4b6f27b467ad252457a34f8cdcd890f7f6b6.png"
+    },
+    {
+      "role": "whole-original-nearest-x2",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-original-x2.png",
+      "sha256": "708b401ab3f9c4b1ab1b3fa066f3c07501597035600ce5ea086a87ff623577e9",
+      "bytes": 475368,
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d.x2.png"
+    },
+    {
+      "role": "seat-panel-nearest-x4",
+      "bbox": [
+        239,
+        232,
+        386,
+        322
+      ],
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-seat-panel-x4.png",
+      "sha256": "359cd22cc33637c746698adf27a6d9652af198696d383f6b82a7678c172c4814",
+      "bytes": 48444,
+      "sourceSha256": "d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d",
+      "resampling": "nearest"
+    }
+  ],
+  "actualReviewConfiguration": {
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "policy": "coac244-vision-production-schema-v2-20261028"
+  },
+  "scope": {
+    "bodyBlocksUnchanged": 1195,
+    "nonTargetBlocksUnchanged": 1194,
+    "nonTargetFiguresUnchanged": 523,
+    "donorOnlySeatChange": [
+      "左上东、右上北、左下南、右下西",
+      "左上西、右上北、左下南、右下东"
+    ],
+    "allDonorUnknownsPreserved": true,
+    "wholeChapterAccepted": false,
+    "b0947NotAssembled": true
+  },
+  "callCollection": "Existing249 owner only, existing STOP/claim/audit guard; exactly one invokeTextbookCodex with the frozen prepared plan. Preserve real raw even on failure and standard unique audit/calls.jsonl plus scoped receipt/checkpoint binding this exact candidate, source,parent,donor,contract,runtime. No retry or second consumer.",
+  "validation": "Recompute all manifest/source/parent/donor/raw/image hashes, run verify0785Production and prepare0785Review(root,candidatePath,manifestSHA). Compare actual closed prompt/schema/images against reviewRequest. Verify real response via verify0785ReviewExecution(result,plan,manifestSHA) and the full published strict output schema; keep raw/modelReview unchanged. Output has separate targetPassed and limitedUnknownOkay. A target seat pass does not resolve unknowns or accept the chapter.",
+  "boundary": "Complete16 ordered pairs: nine definitions plus Q48 b0784-b0790;4 images original JPG/inline8s/nearest originalx2/central seatx4. No new tile reading or guesses. Only reviewed east/west seat swap plus honest retained-unknown teaching impact. Do not audit other figures or b0947.",
+  "legacyGate": "The existing whole-chapter machinery does not recognize this exact bounded donor assembly. Its parent needs-repair refusal stays unchanged. Use the explicit frozen target supplement entry, not auditWebCandidate or a fake generic passed aggregate. No gate relaxation or historical receipt on newSHA.",
+  "nextAction": "249 returns one real independent scoped result to269 current authorization thread and existing244/250 aggregation. Keep chapter needs-repair, no active/integration switch. b1017/1181/0168/0396/0962/six tables/Q8/batch010 inherit unchanged content and prior exact evidence, no paid repeat. b0947 rev2 assembly belongs to244/250 separately.",
+  "monetaryCost": null,
+  "remoteWeights": null,
+  "upstreamExecutionCount": null
+}

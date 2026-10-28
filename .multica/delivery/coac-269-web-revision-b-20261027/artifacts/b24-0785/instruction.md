@@ -1,0 +1,18 @@
+接269本次明确授权01a18193-7e18-7193-8ca8-89c80dae4edd，只对283 b0785真实新候选执行一次独立目标审。用户已确认额度重置；本批最多2次：maker已用1，249现仅余1次独审，failed/void都计、0自动retry。不是制作/重识牌/整章审，不新增消费者，不重复b1017或b0947。
+
+根E:/AgentData/Coach/knowledge/processing。唯一完整交接integration/coac269-283-0785-handoff-249-20261028.json，SHA256 d9fb437f24d6c446c969be4abb7b519b50be7b7e5ad5c703488571a11a95646c。
+canonical nemata-jp-chapter-283-1，target modern-yabejp-ja:chapter06-exercise003:b0785:figure。真实candidate434120af284195ddf27b491a1c2c4cd9ea25072d40e9c6a366bcd8ac3cb03b9b，路径web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.coac269b0785r1.json。当前父de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c保留b1017已独审通过；只将b0785旧已独审donor849267b8…的中央左上东/右下西改为左上西/右下东，donor完整手牌12355789m34688s、摸5s、隐手/牌墙区分、全部unknown/caption/sourceNotes原样。1195正文块及523非靶完整figure对象未变。原raw/父审/unknown不改，b0947旧rev2装配另交244/250。
+
+唯一maker2969ad28-e823-41dc-8b63-45523e78c4b5真实完成，terra/max，4图，30456in/0cache/1634out、32623ms；raw SHA a47e36013f7de9811cc0f37fb5b4c369bd3088e77e06e85a4b9953f81543bd43。maker-B和canonical claim已正常释放。真实argv/-i图序/原SHA/bytes及完整session/events均在raw，不把远端权重说成已证。244恢复包51文件manifest、旧真实donor生产/审校raw链全核；新39项零调用failclosed通过，真实maker请求等于预检。
+
+唯一冻结runtime audit/runtimes/coac269-283-0785-v1-20261028/runtime-manifest.json，SHA d167ab2e2beab21dda23336b40e341e1972ffbd894b2413702f04f8d08b3a4bb，34文件。原32文件和244 schema-v2 CLI保持原字节，新增仅此目标精确parent+reviewed-donor适配器及contract。b0785.mjs SHA634413b049d4f2eb9388ddcdb825ce303656a87c4cc8b1d7cea2071a2dcdf852。制作已派，不能修改冻结模块/contract/候选来让检查过。
+
+先读当前249在途/相同SHA的ledger/raw/receipt/checkpoint/dispatch，排除重复；核既有STOP、原子claim和原独审guard，别删锁或开第二消费者。此前269去重时249空闲、此SHA无独审。若遇quota/capacity/质量STOP或预检异常就留证停派，不试探收费或换模型/provider。
+
+合法入口是上述冻结b0785.mjs的verify0785Production(root,candidatePath,manifestSHA)及prepare0785Review(root,candidatePath,manifestSHA)。后者返回真正完整16有序source/candidate配对：b0001-b0009定义和Q48 b0784-b0790、tableContext、相关图和原条件；4图依次原JPG、原inline8s、最近邻原图x2、中央方位框x4。共享web-production/v1/runs/coac269-283-0785-v1-20261028/review-request.json已发布真实构造的plan+actual。逐字段核prompt/schema/images，使用原字符串运输，路径分隔符别名只作核对。通过同冻结textbook-production-cli.mjs的invokeTextbookCodex({...plan,stopFiles:原STOP路径})恰1次，实际gpt-6.1-terra/max和4个-i都要入真实请求。本票269没有自行执行独审。
+
+收齐真实结果先保留完整raw/argv/requestExecution/session/events/stdout/modelReview/usage/耗时，在标准audit/calls.jsonl恰记此SHA一条；原guard正常释放。通过同冻结verify0785ReviewExecution(realResult,plan,manifestSHA)验真实执行，并按发布的完整严格schema验证输出。保存绑定此精确candidate/source/parent/donor/runtime/raw的目标checkpoint/receipt。不能把模型输出改写成更好判定。仅核方位和保留unknown对作者实际论证的影响，不逐牌重识或猜万子/暗手/遮挡/骰子/裁切；若仍阻断，指出具体作者论证与字段缺口。targetPassed和limitedUnknownOkay分开如实记录；方位passed不等于unknown消除或整章passed。
+
+通用auditWebCandidate不识别本bounded donor装配方法，整章原needs-repair门禁拒绝保留。勿调用通用入口退成全章审，勿伪造普通aggregate passed、套历史收据或为检查失败retry。上述显式目标补证入口验证真实生产/源/父/旧独审链，不放宽原门禁。0168/0396/0962/1181/1017/六表/Q8/batch010按未改hash继承，不收费重审。
+
+结果回269原授权线程01a18193-7e18-7193-8ca8-89c80dae4edd，并交既有244/250更新精确逐项目标/unknown影响账。整283仍不得提前通过、合库或切active；不覆盖其它分支。费用、远端权重、上游实际执行总数未知。失败也保留raw与调用账并结束，0retry。

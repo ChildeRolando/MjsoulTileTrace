@@ -1614,3 +1614,80 @@ The once-only249 wakeup has now fired exactly once. Its actual task
 running; `artifacts/b23-1017/handoff-started.json` records the real platform state. No independent
 result or audit call is invented from that startup signal. The one reserved target-audit allowance
 belongs exclusively to this249 handoff; this executor will not dispatch a second audit.
+
+## Batch24 — b0785 seat repair, one real maker and bounded249 handoff
+
+Authorization `01a18193-7e18-7193-8ca8-89c80dae4edd` confirms quota reset and adds exactly
+one maker here plus at most one independent target call by existing249. Failed/void count;
+zero automatic retries. This supersedes historical exhausted-budget summaries only for this
+target. The prior b1017 repair is now independently passed: real call
+`3a171a7b-e469-40ca-beeb-8495d353ce9b`, terra/max with11 images, checkpoint
+`23e0fda1196b42064570ffe9cea5a2155c08f23a9b08fcfcb88dd8d9c578a5e8`.
+Its candidate `de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c`
+is this batch's current parent; b1017 is closed rather than awaiting another review.
+
+244's recovery run failed during final reporting but its pushed commit
+`5c7092a9d4cad1e40f74a561ecb7b0177cd56197` and51-file package are real. Every file
+hash/size was recomputed; the shared manifest matches the pushed Git manifest byte-for-byte,
+SHA `e72683343d3dae50758617467c2d1edfb25876a6ca886c66ef763a1325560c1d`.
+The original recovery recorded84 evidence checks and27 preflight checks; this executor
+read those results and independently ran39 bounded zero-call checks, without rerunning a
+script that would rewrite the frozen recovery artifacts.
+
+Only `modern-yabejp-ja:chapter06-exercise003:b0785:figure` changes. The explicitly bound
+reviewed donor is rev2 `849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3`;
+real original maker `9f557ee3-0c5e-4b7e-9f17-013466f46aa3` and independent audit
+`51d6b447-2446-4afa-9c30-5d1d1b4dfcc5` authenticate its hand/hidden-hand distinction
+and retained unknowns. Their actual historical sol/high labels remain unchanged; old raw
+does not contain structured argv proof, which is not invented. The fixed new figure changes
+only the donor's `左上东、右上北、左下南、右下西` to `左上西、右上北、左下南、右下东`.
+The reviewed hand12355789m34688s, draw5s, hidden-hand/wall distinction, all seven unknowns,
+caption/sourceNotes and other donor characters remain identical. This is an explicit
+parent-and-reviewed-donor assembly, not a claim that the current parent's old hand was correct.
+
+The frozen `coac269-283-0785-v1-20261028` manifest
+`d167ab2e2beab21dda23336b40e341e1972ffbd894b2413702f04f8d08b3a4bb` pins34 files.
+The preceding32 runtime files and244 schema-v2 CLI retain their bytes; the two additions are
+only this exact target's contract and bounded entry. The original full-chapter gate remains
+unchanged and the parent's `web_audit_not_passed_or_inputs_changed` refusal is preserved.
+The new entry verifies genuine current-parent/donor production, audits, raw and source chains;
+it does not invent a generic whole-chapter pass or broaden production permissions.
+
+`preflight.mjs` passed39 zero-model checks before dispatch, including actual closed prompt,
+portable schema-v2, argv model/effort/image order,16 complete ordered source/candidate pairs
+(nine definitions and Q48 b0784–b0790), tableContext and all conditions. Wrong source/parent,
+donor/context/table/image bindings, extra text/figures, wrong target, punctuation/unknown edits,
+non-target body/figure/order/source changes and altered actual request configuration fail closed.
+The output's one-value exact transcription constraint is wired into the real production request.
+
+Real maker `2969ad28-e823-41dc-8b63-45523e78c4b5` completed successfully on
+**gpt-6.1-terra/max**,4 ordered images: original JPG, original inline8s, original nearest-neighbor
+x2 and central seat-panel x4. Usage30456 input/0 cached/1634 output,32623ms.
+Raw SHA `a47e36013f7de9811cc0f37fb5b4c369bd3088e77e06e85a4b9953f81543bd43`;
+new candidate SHA `434120af284195ddf27b491a1c2c4cd9ea25072d40e9c6a366bcd8ac3cb03b9b`.
+The standard production ledger has exactly one matching real call. `selfcheck.mjs` verifies
+raw execution/closed prompt/schema/images against the published request, completed session
+events, immutable runtime/inputs, true provenance and the exact candidate diff. Its zero-call
+review preview also constructs the actual terra/max four-image request without sending it.
+All1195 body blocks and523 non-target complete figure objects are identical to the current parent;
+0168/0396/0962/1181/1017/six-table/Q8/batch010 content inherits its existing evidence unchanged.
+maker-B and canonical claim both released normally. No raw/source/parent receipt was rewritten.
+
+Shared handoff `integration/coac269-283-0785-handoff-249-20261028.json` has SHA
+`d9fb437f24d6c446c969be4abb7b519b50be7b7e5ad5c703488571a11a95646c`.
+249 was idle and this candidate had no audit ledger row, receipt, checkpoint or duplicate rule
+before the once-only existing-owner wakeup `01a181a8-86b1-7c8a-a106-e18c1cad6277` was created.
+Only249 may consume the remaining one first target call; this executor made no independent call.
+The published exact request and frozen `prepare0785Review`/`verify0785ReviewExecution` separate
+seat fidelity from retained-unknown teaching impact. A target seat pass must not be represented
+as unknown resolution, ordinary whole-chapter acceptance or permission to change active.
+
+The recovery register contains19 original283 issues:12 supplemented, five not assembled and
+two source-notes. Its real supplemental evidence, rather than counts of old deferred raw rows,
+controls effective remaining findings. This production alone closes none. b0947's existing
+real rev2 production/review belongs to244/250's separate exact inheritance assembly and was
+neither repeated nor funded from this two-call batch. Other chapters, data roots, active and
+other task branches were untouched. The issue stays in_progress; draft PR74 carries software
+and evidence, not independent textbook acceptance. Maker1/2 used, failures/voids0, retries0;
+one target audit is reserved exclusively to249. Money, remote weights and upstream total are
+unknown. Evidence, raw and executable checks are in `artifacts/b24-0785`.
