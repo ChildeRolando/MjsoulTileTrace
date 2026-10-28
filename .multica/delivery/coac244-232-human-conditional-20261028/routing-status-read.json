@@ -1,0 +1,12 @@
+{
+  "schema": "coac244-232-routing-status-read-v1",
+  "updateAcknowledged": true,
+  "existingRuleId": "01a18249-0354-7cf1-a6bd-8811cf79798d",
+  "acknowledgedRevision": 2,
+  "readOperation": "multica issue wakeup get",
+  "exitCode": 2,
+  "exactError": "Request timed out: the server did not respond in time. Check your network connection or try again later. You can raise the limit with MULTICA_HTTP_TIMEOUT.",
+  "continuationRunIdConfirmed": false,
+  "duplicateDispatchAttempted": false,
+  "newModelCalls": 0
+}
