@@ -1,0 +1,231 @@
+{
+  "schema": "coac269-fixed224-seven-cells/1",
+  "canonical": "nemata-jp-chapter-224-1",
+  "authorizationComment": "01a181f7-0ecd-7a2e-80c8-ea12832c2685",
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b27r1.json",
+    "sha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea"
+  },
+  "receipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-224-target-impact-reviewed-20261028.json",
+    "sha256": "20d624441531f37ebd9b69f5407c69dd03a5eedbc6390edc04fe51c108be4c20"
+  },
+  "reviewRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7d1efbaa-589f-4b2e-9199-28f7141f890b.json",
+    "sha256": "51549ca0d773aae36a5edee8757571b2f877c5cf82ab0886ffbe99793b9df0e4"
+  },
+  "makerRaw": {
+    "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/7721e646-88f5-4572-8deb-b2ced73aab27.json",
+    "sha256": "c0734e1738dacc1fe3b8142ff426dbca9589c4f317a36467035b2af27454e7a1"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section005\\source.json",
+    "sha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+    "bytes": 26374
+  },
+  "baseRuntime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\runtime-manifest.json",
+    "sha256": "0d890d3bbfd3fe1dbe588f068e17de41312916c1d068d246d080d0ec6feaa973",
+    "files": 32
+  },
+  "figureId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b31r1.json",
+  "images": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+      "sha256": "d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f",
+      "bytes": 39633
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png",
+      "sha256": "f006dd5fe35e1ac07983c550033637fa9bb6474ed7130ac14ebedcd514a7e2ba",
+      "bytes": 171002
+    }
+  ],
+  "cells": [
+    {
+      "id": "224-b0013-1-6",
+      "row": 1,
+      "series": "放铳率",
+      "turn": 6,
+      "sourcePixelBox": [
+        203,
+        178,
+        219,
+        196
+      ],
+      "x2ViewPixelBox": [
+        406,
+        356,
+        438,
+        392
+      ],
+      "curveColor": "黄色",
+      "makerRawPointer": "/output/rows/1/values/5",
+      "reviewQuote": "放铳率第6、7巡约在15—16附近",
+      "reviewRawPointer": "/output/issues/0/sourceEvidence"
+    },
+    {
+      "id": "224-b0013-1-7",
+      "row": 1,
+      "series": "放铳率",
+      "turn": 7,
+      "sourcePixelBox": [
+        231,
+        178,
+        247,
+        196
+      ],
+      "x2ViewPixelBox": [
+        462,
+        356,
+        494,
+        392
+      ],
+      "curveColor": "黄色",
+      "makerRawPointer": "/output/rows/1/values/6",
+      "reviewQuote": "放铳率第6、7巡约在15—16附近",
+      "reviewRawPointer": "/output/issues/0/sourceEvidence"
+    },
+    {
+      "id": "224-b0013-2-6",
+      "row": 2,
+      "series": "和牌中自摸所占比例",
+      "turn": 6,
+      "sourcePixelBox": [
+        203,
+        111,
+        219,
+        129
+      ],
+      "x2ViewPixelBox": [
+        406,
+        222,
+        438,
+        258
+      ],
+      "curveColor": "橙色",
+      "makerRawPointer": "/output/rows/2/values/5",
+      "reviewQuote": "和牌中自摸所占比例第6巡约49",
+      "reviewRawPointer": "/output/issues/0/sourceEvidence"
+    },
+    {
+      "id": "224-b0013-3-12",
+      "row": 3,
+      "series": "立直棒被没收率",
+      "turn": 12,
+      "sourcePixelBox": [
+        367,
+        167,
+        383,
+        186
+      ],
+      "x2ViewPixelBox": [
+        734,
+        334,
+        766,
+        372
+      ],
+      "curveColor": "紫色",
+      "makerRawPointer": "/output/rows/3/values/11",
+      "reviewQuote": "立直棒被没收率第12巡约20—21",
+      "reviewRawPointer": "/output/issues/0/sourceEvidence"
+    },
+    {
+      "id": "224-b0013-6-6",
+      "row": 6,
+      "series": "和牌时一发比例",
+      "turn": 6,
+      "sourcePixelBox": [
+        203,
+        174,
+        219,
+        193
+      ],
+      "x2ViewPixelBox": [
+        406,
+        348,
+        438,
+        386
+      ],
+      "curveColor": "亮绿色",
+      "makerRawPointer": "/output/rows/6/values/5",
+      "reviewQuote": "和牌时一发比例第6、7巡约16—17",
+      "reviewRawPointer": "/output/issues/0/sourceEvidence"
+    },
+    {
+      "id": "224-b0013-6-7",
+      "row": 6,
+      "series": "和牌时一发比例",
+      "turn": 7,
+      "sourcePixelBox": [
+        231,
+        174,
+        247,
+        193
+      ],
+      "x2ViewPixelBox": [
+        462,
+        348,
+        494,
+        386
+      ],
+      "curveColor": "亮绿色",
+      "makerRawPointer": "/output/rows/6/values/6",
+      "reviewQuote": "和牌时一发比例第6、7巡约16—17",
+      "reviewRawPointer": "/output/issues/0/sourceEvidence"
+    },
+    {
+      "id": "224-b0013-6-12",
+      "row": 6,
+      "series": "和牌时一发比例",
+      "turn": 12,
+      "sourcePixelBox": [
+        367,
+        163,
+        383,
+        183
+      ],
+      "x2ViewPixelBox": [
+        734,
+        326,
+        766,
+        366
+      ],
+      "curveColor": "亮绿色",
+      "makerRawPointer": "/output/rows/6/values/11",
+      "reviewQuote": "第12巡约22",
+      "reviewRawPointer": "/output/issues/0/sourceEvidence"
+    }
+  ],
+  "pixelCalibration": {
+    "originalSize": [
+      480,
+      270
+    ],
+    "existingNearestNeighborViewSize": [
+      960,
+      540
+    ],
+    "coordinateOrigin": "top-left; boxes [left,top,right,bottom]",
+    "xAxisTurns1to15Centers": [
+      74.5,
+      456.5
+    ],
+    "yAxis0to90Centers": [
+      217.5,
+      40.5
+    ],
+    "legendBox": [
+      156,
+      45,
+      390,
+      100
+    ],
+    "condition": "先制愚形待ち立直（1人攻め）; original ordered author conditions inherited, not a new general recommendation"
+  },
+  "maximumMaker": 1,
+  "maximumIndependentReview": 1,
+  "retry": 0,
+  "wholeChapterPassed": false
+}

@@ -2188,3 +2188,78 @@ failures. Money, remote weights and upstream execution totals unknown. No193/213
 261 preparation,283 assembly, human annotation service, shared selection or formal active changed.
 The batch has residual blockers and the wider ticket remains in_progress; draft PR74 is evidence
 delivery, not independent textbook acceptance or permission to merge chapters.
+
+## Batch31 —224's seven readable omissions, one new real maker
+
+User comment `01a181f7-0ecd-7a2e-80c8-ea12832c2685` adds exactly one224 maker and one249
+independent target review, failed/void counted,0retry.232,311/PDF257/261 and the live human page
+are untouched. This is an extension separate from the closed original224/232 four-call phase.
+
+The original480×270 chart and existing960×540 nearest-neighbor view were inspected. Seven
+source-pixel boxes, corresponding×2 boxes, legend colors/series, exact turns, original maker
+unknown slots and independent review quotes are frozen in `artifacts/b31-224-seven/contract.json`.
+Only these cells are allowed: 放铳率6/7,和牌中自摸所占比例6,立直棒被没收率12,
+和牌时一发比例6/7/12. Original15-block ordered source/author context and actual images remain
+in the request. No other point is newly read, inferred or rewritten; all81 prior approximate values
+and17 other unknown cells are preserved. Original author conditions, sourceSegments/tableContext,
+emphasis, two unknown strings, caption/sourceNotes and b0008 source-note remain exact.
+
+The new fixed adapter `seven.mjs` only accepts seven ordered `{cellId,value}` outputs and rejects
+missing/extra cells, non-approximate values, invented units, unknown replacements for required
+points, and every non-target byte change. It uses the unchanged244-validated schema-v2 CLI,
+terra/max, and original chartRender with a declared raw derivation: replace exactly seven parent
+unknown slots using the seven real output values, then render the same figure string. No controller
+supplied number, forged model-transcription provenance, old raw edit or whole-chapter pass.
+New frozen runtime `audit/runtimes/coac269-224-seven-v1-20261028`, manifest
+`7307b5fc28df41a4a1396f19efde5be39f8a3ac7e24a7b18fa40ea878ac54e26`, binds35 files including
+the original32 dependencies, original manifest and two new fixed-scope contract/adapter files.
+Actual closed prompt/schema/model/effort/image argv/SHA/bytes were checked against published
+zero-call request preparation before dispatch and against the real response after completion.
+
+Parent `82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea`, source
+`8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a`, true parent receipt
+`20d624441531f37ebd9b69f5407c69dd03a5eedbc6390edc04fe51c108be4c20` and complete prior
+maker/audit/raw chain are verified. The first exclusion probe stopped before claim/reservation/
+dispatch because the unified register still names parent24832efd. The driver now uses the existing
+helper's registeredParentSha256 field with that exact verified ancestor, while the actual claim and
+new production parent remain82c282e5. Both real SHA files and identical source binding are
+checked; the ancestor-to-current production/review chain is replayed by the frozen base module.
+The shared register, exclusion helper and accepted state were not modified. This was zero-call
+preflight correction, not a model retry or changed-parent fallback.
+
+Accepted/preview/real bound-pass alternatives, original call ledger and canonical claim checks
+passed immediately before dispatch. Existing maker-B and parent-SHA claim acquired normally,
+then released in finally after foreground completion. A unique dispatch file and call-reservation
+file reject repeated invocations; all raw/results are retained even on failure. Actual new call
+`8ebc6463-6f09-4861-b48f-1205fcb2ec55`, **gpt-6.1-terra/max**,2 ordered actual images,
+26525 input/0 cache/1678 output,28916ms. Output in the exact order above is
+**约16,约16,约49,约21,约16,约17,约22**. The table now has88 approximate readings and17 unknowns;
+original exact-value/axis-unit uncertainty stays unchanged.
+
+New candidate `c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a` is
+`web-production/v1/candidates/modern-yabejp-ja/chapter04-section005.coac269b31r1.json`.
+`verifyProduction` validates the real output/session/ledger/provenance and seven-cell renderer
+against the entire unchanged parent. It does not grant semantic acceptance. `collect.mjs` passed,
+then published the exact-SHA independent request with seven target cells/source-pixel boxes,
+15 ordered blocks, both actual images and remaining-unknown impact questions. All81 old readings
+and17 non-target unknowns inherit actual prior evidence; they are not new review targets.
+
+Immediate existing249 handoff: `integration/coac269-224-seven-handoff249-20261028.json`, SHA
+`6345ba984e3a83d4d4e65337ac4ee788860fd98889f73aab6826d7c9d1f224c4`. After checking249's
+current assignee/history and same-SHA wakeup/ledger dedup, one rule was registered on the existing
+issue: `01a18200-3d43-7c2d-8ab9-0f6e2c5c09ce`. Last observed enabled,not-yet-fired; registration
+is not actual audit completion. The handoff provides frozen `prepareReview`, `verifyProduction`
+and `verifyReviewExecution` functions and demands actual prompt/schema/images/raw/session
+evidence, only one independent call, normal guard release and no retry. Target acceptance and
+unknown impact remain for249; no whole chapter passed/admission or250 integration is claimed.
+
+Validation:24 request/output/non-target/transport refusal tests passed; the fixture was never
+serialized as candidate or included in the request.35 frozen file hashes, actual request/response,
+all seven cell-only diffs,15 unchanged body blocks, original unknown strings and unique real maker
+ledger passed. `verify-pack.py` passed raw/candidate/immutable bytes, Python AST/Node syntax and
+Windows paths (maximum210, limit240). Own artifacts retain the raw, candidate, runtime manifest,
+exact source/parent contract, published maker/review requests, release receipts and handoff.
+This extension has actual maker1, independent0 here,1/2 consumed; remaining1 belongs only to249.
+No failed/void model call or retry occurred; the original4/4 account remains separate. Money,
+remote weights and upstream execution totals unknown. Wider ticket stays in_progress; no human
+annotation service restart/queue write,232 recognition or311/PDF257/261 call occurred.

@@ -1,0 +1,370 @@
+{
+  "passed": true,
+  "production": {
+    "passed": true,
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b31r1.json",
+      "sha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b27r1.json",
+      "sha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea"
+    },
+    "parentReview": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-224-target-impact-reviewed-20261028.json",
+      "sha256": "20d624441531f37ebd9b69f5407c69dd03a5eedbc6390edc04fe51c108be4c20"
+    },
+    "raw": {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/8ebc6463-6f09-4861-b48f-1205fcb2ec55.json",
+      "sha256": "ad97c55c3a8e28ed119ec72a44986328e0ea5e90ed91fe40c2b71da1b8f1e5a4"
+    },
+    "call": {
+      "callId": "8ebc6463-6f09-4861-b48f-1205fcb2ec55",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter04-section005",
+      "sourceSha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+      "method": "coac269-224-exact-seven-cells/1",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "requestExecution": {
+        "schema": "coach-textbook-cli-request/1",
+        "policy": "coac244-vision-production-schema-v2-20261028",
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max",
+        "callerRequested": {
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max"
+        },
+        "args": [
+          "exec",
+          "--model",
+          "gpt-6.1-terra",
+          "--config",
+          "model_reasoning_effort=\"max\"",
+          "--config",
+          "web_search=\"disabled\"",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox",
+          "read-only",
+          "--strict-config",
+          "--skip-git-repo-check",
+          "--json",
+          "--output-schema",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-nruFYI\\output.schema.json",
+          "--output-last-message",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-nruFYI\\final.json",
+          "--cd",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-nruFYI",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png",
+          "--disable",
+          "apps",
+          "--disable",
+          "auth_elicitation",
+          "--disable",
+          "browser_use",
+          "--disable",
+          "browser_use_external",
+          "--disable",
+          "browser_use_full_cdp_access",
+          "--disable",
+          "computer_use",
+          "--disable",
+          "fast_mode",
+          "--disable",
+          "goals",
+          "--disable",
+          "guardian_approval",
+          "--disable",
+          "hooks",
+          "--disable",
+          "image_generation",
+          "--disable",
+          "in_app_browser",
+          "--disable",
+          "in_app_chat",
+          "--disable",
+          "in_app_dictation",
+          "--disable",
+          "in_app_local_automation",
+          "--disable",
+          "in_app_updates",
+          "--disable",
+          "memories",
+          "--disable",
+          "mentions_v2",
+          "--disable",
+          "multi_agent",
+          "--disable",
+          "plugin_sharing",
+          "--disable",
+          "plugins",
+          "--disable",
+          "remote_plugin",
+          "--disable",
+          "shell_snapshot",
+          "--disable",
+          "shell_tool",
+          "--disable",
+          "skill_mcp_dependency_install",
+          "--disable",
+          "skill_search",
+          "--disable",
+          "sleep_tool",
+          "--disable",
+          "tool_call_mcp_elicitation",
+          "--disable",
+          "tool_suggest",
+          "--disable",
+          "unbounded_connection_retries",
+          "--disable",
+          "unified_exec",
+          "--disable",
+          "unified_exec_tty",
+          "--disable",
+          "view_image",
+          "--disable",
+          "workspace_dependencies",
+          "-"
+        ],
+        "images": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+            "sha256": "d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f",
+            "bytes": 39633
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png",
+            "sha256": "f006dd5fe35e1ac07983c550033637fa9bb6474ed7130ac14ebedcd514a7e2ba",
+            "bytes": 171002
+          }
+        ],
+        "remoteBackend": "unverified; request arguments and returned events only"
+      },
+      "success": true,
+      "startedAt": "2026-10-28T10:11:13.230Z",
+      "durationMs": 28916,
+      "usage": {
+        "inputTokens": 26525,
+        "cachedInputTokens": 0,
+        "outputTokens": 1678
+      },
+      "rawArtifactPath": "raw-calls/8ebc6463-6f09-4861-b48f-1205fcb2ec55.json",
+      "rawArtifactSha256": "ad97c55c3a8e28ed119ec72a44986328e0ea5e90ed91fe40c2b71da1b8f1e5a4",
+      "promptSha256": "32c92085d07183d966695fbddd94047c5ba54f9882e269808b964597b8eb39a0",
+      "schemaSha256": "c0ecb2b1cc23dc57f719b99c23964b5c1709badd5ef5c89c6519ffc4ff82b6e4",
+      "runtime": {
+        "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac269-224-seven-v1-20261028/runtime-manifest.json",
+        "sha256": "7307b5fc28df41a4a1396f19efde5be39f8a3ac7e24a7b18fa40ea878ac54e26"
+      },
+      "runner": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224-seven-v1-20261028\\seven.mjs",
+        "sha256": "fc84d20fdeb3ba204b7031589e428c47d6ca87eed1cb6642342e48aa06916c70"
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b27r1.json",
+        "sha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea"
+      },
+      "parentReview": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-224-target-impact-reviewed-20261028.json",
+        "sha256": "20d624441531f37ebd9b69f5407c69dd03a5eedbc6390edc04fe51c108be4c20"
+      },
+      "cellIds": [
+        "224-b0013-1-6",
+        "224-b0013-1-7",
+        "224-b0013-2-6",
+        "224-b0013-3-12",
+        "224-b0013-6-6",
+        "224-b0013-6-7",
+        "224-b0013-6-12"
+      ]
+    },
+    "unchangedBodyBlocks": 15,
+    "unchangedExistingReadings": 81,
+    "retainedOtherUnknownCells": 17,
+    "changedCells": [
+      {
+        "id": "224-b0013-1-6",
+        "row": 1,
+        "series": "放铳率",
+        "turn": 6,
+        "sourcePixelBox": [
+          203,
+          178,
+          219,
+          196
+        ],
+        "x2ViewPixelBox": [
+          406,
+          356,
+          438,
+          392
+        ],
+        "curveColor": "黄色",
+        "makerRawPointer": "/output/rows/1/values/5",
+        "reviewQuote": "放铳率第6、7巡约在15—16附近",
+        "reviewRawPointer": "/output/issues/0/sourceEvidence",
+        "value": "约16"
+      },
+      {
+        "id": "224-b0013-1-7",
+        "row": 1,
+        "series": "放铳率",
+        "turn": 7,
+        "sourcePixelBox": [
+          231,
+          178,
+          247,
+          196
+        ],
+        "x2ViewPixelBox": [
+          462,
+          356,
+          494,
+          392
+        ],
+        "curveColor": "黄色",
+        "makerRawPointer": "/output/rows/1/values/6",
+        "reviewQuote": "放铳率第6、7巡约在15—16附近",
+        "reviewRawPointer": "/output/issues/0/sourceEvidence",
+        "value": "约16"
+      },
+      {
+        "id": "224-b0013-2-6",
+        "row": 2,
+        "series": "和牌中自摸所占比例",
+        "turn": 6,
+        "sourcePixelBox": [
+          203,
+          111,
+          219,
+          129
+        ],
+        "x2ViewPixelBox": [
+          406,
+          222,
+          438,
+          258
+        ],
+        "curveColor": "橙色",
+        "makerRawPointer": "/output/rows/2/values/5",
+        "reviewQuote": "和牌中自摸所占比例第6巡约49",
+        "reviewRawPointer": "/output/issues/0/sourceEvidence",
+        "value": "约49"
+      },
+      {
+        "id": "224-b0013-3-12",
+        "row": 3,
+        "series": "立直棒被没收率",
+        "turn": 12,
+        "sourcePixelBox": [
+          367,
+          167,
+          383,
+          186
+        ],
+        "x2ViewPixelBox": [
+          734,
+          334,
+          766,
+          372
+        ],
+        "curveColor": "紫色",
+        "makerRawPointer": "/output/rows/3/values/11",
+        "reviewQuote": "立直棒被没收率第12巡约20—21",
+        "reviewRawPointer": "/output/issues/0/sourceEvidence",
+        "value": "约21"
+      },
+      {
+        "id": "224-b0013-6-6",
+        "row": 6,
+        "series": "和牌时一发比例",
+        "turn": 6,
+        "sourcePixelBox": [
+          203,
+          174,
+          219,
+          193
+        ],
+        "x2ViewPixelBox": [
+          406,
+          348,
+          438,
+          386
+        ],
+        "curveColor": "亮绿色",
+        "makerRawPointer": "/output/rows/6/values/5",
+        "reviewQuote": "和牌时一发比例第6、7巡约16—17",
+        "reviewRawPointer": "/output/issues/0/sourceEvidence",
+        "value": "约16"
+      },
+      {
+        "id": "224-b0013-6-7",
+        "row": 6,
+        "series": "和牌时一发比例",
+        "turn": 7,
+        "sourcePixelBox": [
+          231,
+          174,
+          247,
+          193
+        ],
+        "x2ViewPixelBox": [
+          462,
+          348,
+          494,
+          386
+        ],
+        "curveColor": "亮绿色",
+        "makerRawPointer": "/output/rows/6/values/6",
+        "reviewQuote": "和牌时一发比例第6、7巡约16—17",
+        "reviewRawPointer": "/output/issues/0/sourceEvidence",
+        "value": "约17"
+      },
+      {
+        "id": "224-b0013-6-12",
+        "row": 6,
+        "series": "和牌时一发比例",
+        "turn": 12,
+        "sourcePixelBox": [
+          367,
+          163,
+          383,
+          183
+        ],
+        "x2ViewPixelBox": [
+          734,
+          326,
+          766,
+          366
+        ],
+        "curveColor": "亮绿色",
+        "makerRawPointer": "/output/rows/6/values/11",
+        "reviewQuote": "第12巡约22",
+        "reviewRawPointer": "/output/issues/0/sourceEvidence",
+        "value": "约22"
+      }
+    ],
+    "wholeChapterPassed": false
+  },
+  "actualMakerMatchesPublished": true,
+  "reviewBuiltNotSent": true,
+  "reviewImages": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+      "sha256": "d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f",
+      "bytes": 39633
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png",
+      "sha256": "f006dd5fe35e1ac07983c550033637fa9bb6474ed7130ac14ebedcd514a7e2ba",
+      "bytes": 171002
+    }
+  ],
+  "newModelCallsHere": 0,
+  "wholeChapterPassed": false
+}
