@@ -2647,3 +2647,53 @@ MCP-Arena readback must precede admission. These are platform handoffs, not this
 semantic judgment or completed review. Result delivery stays on the current user thread.
 This owner new production/vision/independent calls0, retry0;249 alone has at most1 new
 text-only call. Whole chapter/book remain unaccepted, active unchanged; fees/upstream counts unknown.
+
+## Batch38 — Recover249 completed call after partial worktree cleanup, no new review
+
+Platform comment01a182e1-eec1-7eae-b715-bee3745808bd reports final local_directory_error
+for249 run01a182d6-e5fb-78d2-a797-6c869ff3839f. Failure status does **not** mean the
+independent call never ran. Actual run messages and process evidence show its original Node
+12704 and Codex64880 continued while the daemon partially removed the finalized worktree.
+The worktree's Git metadata and generated private evidence were already missing; no branch
+was switched or reset and no unknown workdir or process was deleted/killed by269.
+
+Original call **2b216edc-24ba-4bdc-aa3c-153bdd6b9608** completed naturally at14:22:05Z:
+success=true, exit0, not timed out; **gpt-6.1-sol/high, images=[],66973in/0cache/5029out,
+534455ms**. Standardraw529188bytes, originalCLI result, full events/stdout/stdin and exactly
+one standard ledger entry survive. Candidatea9ce5089, parent5403cb35 and frozen semantic
+request94625b5b are unchanged. The stage budget is now **1/1 used,remaining0,retry0**;
+this recovery invokes no production/OCR/review model. Remote cost/weights/upstream counts unknown.
+
+Original independent output has20 faithful applications, firstNinePreserved=true,
+authorArgumentFaithful=true and completeOrderedScopeCompared=true. Six verbatim display
+requirements are preserved alongside the genuine upper15 old6p **uncertain** and source-notes.
+The model retains the conditional Q9 argument and reference comparison, without certifying a
+complete legal record, simultaneous physical entities, quantitative claims or ordinary chapter pass.
+No new tile reading or semantic vote is made by269.
+
+The daemon removed originalpreflight.json and private admission snapshots before collection.
+They are **missing**, not regenerated or replaced with current pointer bytes.269 recovered8
+source/config scripts byte-for-byte from original Multica patch_apply inputs into the known
+failed-run artifact directory to restore output sinks, then preserved independent copies in
+`integration/coac269-p257-review-recovery-20261028/original-script-recovery`. The process
+had finished by the next observation. It wrote raw/ledger but receipt/finally bookkeeping was
+interrupted; chapter claim was already released, but its exact dead-owner audit guard remains
+for the original owner to close. No unconditional lock deletion or bypass was performed.
+
+`artifacts/b38-recover249/check.mjs` performs explicitly **post-hoc technical verification**:
+strict schema/output/raw-message equality, published semantic/closed prompt and stdin equality,
+actual argv model/effort/no-image arguments, frozen28 runtime/11 packet files/53 inputs,
+current human application and exact unique ledger/usage. Eight mutations of call/candidate/
+model/effort/images/schema/prompt/output are rejected. This proves surviving request/response
+integrity, not recovery of lost historical admission observations. Original raw/issues stay unchanged.
+Preservation receiptSHA24a5fc7e… and source references are in `packet.json`; raw, full messages
+and complete author text remain shared-local, outside Git/attachments.
+
+After owner/in-flight/exact-result dedup, once-rule01a182e7-a986-74d6-a814-863e70e6f48e
+hands **zero-model completion only** to the existing249 owner. It must not rerun the paid
+review script. It receives exact original raw, lost-evidence boundaries, dead-PID proof and
+instructions to validate/finish honest recovery receipts, release only its exact completed-call
+guard via owner protocol, and hand the six actual limits to the existing250 single writer.
+250's already-running intake is not cancelled or overwritten. Missing source-scope evidence
+remains explicitly missing; legal display installation and MCP/Arena readback remain pending.
+This branch remains COAC-269 in_progress; no ordinary full-page/chapter pass or active switch.
