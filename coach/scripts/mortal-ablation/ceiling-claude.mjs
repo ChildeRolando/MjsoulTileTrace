@@ -4,7 +4,7 @@ import {createServer} from 'node:http';
 import {mkdtemp,mkdir,readFile,rm,stat} from 'node:fs/promises';
 import {tmpdir,homedir} from 'node:os';
 import {join,resolve,sep} from 'node:path';
-import {randomUUID} from 'node:crypto';
+import {randomUUID,createHash} from 'node:crypto';
 import {promisify} from 'node:util';
 import {arenaCodexTurnInstructions,ArenaProviderRequestSchema,ArenaToolCallProviderResultSchema} from '@riichi-coach/desktop/blind-discard-arena-provider';
 const exec=promisify(execFile);
@@ -13,6 +13,15 @@ export const DEEPSEEK_PREFIX='deepseek/deepseek-v4.1-flash';
 export const CLAUDE_EXE=join(homedir(),'AppData/Roaming/npm/node_modules/@anthropic-ai/claude-code/bin/claude.exe');
 export const PROXY_URL='http://127.0.0.1:15721';
 const finite=x=>typeof x==='number'&&Number.isFinite(x)&&x>=0;
+const verifiedRuntimeContent=new Map();
+export async function verifyClaudeRuntime(runtime){
+  const info=await stat(runtime.executable);
+  if(info.size!==runtime.size)return false;
+  if(!runtime.sha256)return info.mtimeMs===runtime.mtimeMs;
+  const key=JSON.stringify([runtime.executable,info.size,info.mtimeMs,info.ctimeMs,runtime.sha256]);
+  if(!verifiedRuntimeContent.has(key))verifiedRuntimeContent.set(key,readFile(runtime.executable).then(bytes=>createHash('sha256').update(bytes).digest('hex')===runtime.sha256));
+  return verifiedRuntimeContent.get(key);
+}
 export function claudeUsage(raw){
   if(!raw||typeof raw!=='object')return undefined;
   const out={};
@@ -66,7 +75,7 @@ export function createClaudeCeilingProvider({runtime,fetchImpl=fetch,spawnImpl=s
       try{
         if(signal.aborted)return {status:'cancelled'};
         if(await proxyTarget(fetchImpl)!==COMMAND_CODE_ID)return fail('claude_proxy_route_changed');
-        const info=await stat(runtime.executable);if(info.size!==runtime.size||info.mtimeMs!==runtime.mtimeMs)return fail('claude_runtime_changed');
+        if(!await verifyClaudeRuntime(runtime))return fail('claude_runtime_changed');
         const settings=JSON.parse(await readFile(join(homedir(),'.claude/settings.json'),'utf8')),configured=settings.env??{},auth={};
         for(const key of ['ANTHROPIC_AUTH_TOKEN','ANTHROPIC_API_KEY'])if(typeof configured[key]==='string')auth[key]=configured[key];
         if(!Object.keys(auth).length)return fail('claude_proxy_credentials_missing');

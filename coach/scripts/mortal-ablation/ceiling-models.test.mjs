@@ -1,8 +1,9 @@
 import {describe,it,expect} from 'vitest';
-import {mkdtemp,readFile} from 'node:fs/promises';
+import {mkdtemp,readFile,writeFile,stat,utimes} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {claudeUsage,parseClaudeResult,DEEPSEEK_PREFIX} from './ceiling-claude.mjs';
+import {claudeUsage,parseClaudeResult,verifyClaudeRuntime,DEEPSEEK_PREFIX} from './ceiling-claude.mjs';
 import {MODEL_BUDGETS,STUDY_MODELS,MODEL_CONCURRENCY,allocateModelCases,assertModelPlan,studyCells,runModelJobs} from './ceiling-model-study.mjs';
 import {BudgetLedger,read} from './ceiling-protocol.mjs';
 import {runDecision} from './ceiling-run.mjs';
@@ -12,6 +13,12 @@ import {adjustModelComparisons,modelDecision} from './ceiling-model-report.mjs';
 const request={tools:[{type:'function',function:{name:'submit_decision',strict:true}}],maxOutputBytes:16384};
 const event={type:'result',subtype:'success',is_error:false,num_turns:1,result:JSON.stringify({call:{name:'submit_decision',arguments:{actionRef:'x'}},decisionSummary:'公开说明。'}),usage:{input_tokens:30,cache_read_input_tokens:20,cache_creation_input_tokens:10,output_tokens:4}};
 describe('bounded model-amendment transport and accounting',()=>{
+  it('accepts a timestamp-only runtime change while rejecting changed executable bytes',async()=>{
+    const executable=join(await mkdtemp(join(tmpdir(),'ceiling-runtime-')),'runtime');await writeFile(executable,'first');
+    const info=await stat(executable),runtime={executable,size:info.size,mtimeMs:info.mtimeMs,sha256:createHash('sha256').update('first').digest('hex')};
+    await utimes(executable,new Date(),new Date(info.mtimeMs+60000));expect(await verifyClaudeRuntime(runtime)).toBe(true);
+    await writeFile(executable,'other');expect(await verifyClaudeRuntime(runtime)).toBe(false);
+  });
   it('requires the full D cohort to meet the operational gate even when its natural contrast is positive',()=>{
     const v={overallArms:{D:{successRate:.94}},natural:{comparisons:[{estimate:.06,low:.01,adjustedP:.02}]}};
     expect(modelDecision(v)).toContain('95%');
