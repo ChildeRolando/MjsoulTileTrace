@@ -151,9 +151,10 @@ export async function runPhase(out,phase){
     const f=await verify(out);await labelsGate(out,f);
     const dataset=await read(join(out,'dataset.json')),index=await read(join(out,'textbook/index.json')),ledger=new BudgetLedger(out);
     let jobs=[],bucket,selected='V0';
-    if(phase==='smoke1'||phase==='smoke2'){
+    if(phase==='smoke1'||phase==='smoke2'||phase==='smoke3'){
       bucket='smoke';const offset=phase==='smoke1'?0:10;
-      jobs=dataset.cases.filter(c=>c.split==='pilot').slice(offset,offset+10).flatMap(c=>ARMS.map(arm=>({c,arm,version:'V0'})));
+      const pilotCases=phase==='smoke3'?(await read(join(f.engineeringSupplement.directory,'dataset.json'))).cases:dataset.cases.filter(c=>c.split==='pilot').slice(offset,offset+10);
+      jobs=pilotCases.flatMap(c=>ARMS.map(arm=>({c,arm,version:'V0'})));
     }else{
       await smokeGate(out);
       if(phase.startsWith('dev-')){

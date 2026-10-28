@@ -11,7 +11,7 @@ import { projectArenaLocalMortalRuleScoring } from '@riichi-coach/desktop/blind-
 import { mapMjaiRecord } from '../replay-corpus/canonical.mjs';
 import { tenhouRules } from '../scene-study/prepare.mjs';
 import { snapshotTextbook,VERSIONS } from './ceiling-textbook.mjs';
-import { ROOT,VERSION,SEED,QUOTAS,BUDGETS,MODELS,GENERATION_TIMEOUT_MS,BudgetLedger,hash,read,save,writeOnce,exists,ordered,assertDataset,executionFiles,verify,DEFAULT_DATABASE,DEFAULT_SNAPSHOT } from './ceiling-protocol.mjs';
+import { ROOT,VERSION,SEED,QUOTAS,BUDGETS,MODELS,GENERATION_TIMEOUT_MS,BudgetLedger,hash,read,save,writeOnce,exists,ordered,assertDataset,assertPilotSupplement,assertEngineeringApproval,supplementBinding,executionFiles,verify,DEFAULT_DATABASE,DEFAULT_SNAPSHOT } from './ceiling-protocol.mjs';
 
 export async function priorSources(parent,out){
   const games=new Set(),hashes=new Set(),files=[];
@@ -69,10 +69,10 @@ export async function savePreparationState(out,state,digests=new Map()){
   const caseRefs=cases.map(c=>{if(!digests.has(c.id))digests.set(c.id,hash(c));return {id:c.id,digest:digests.get(c.id)};});
   await save(join(out,'prepare-state.json'),{...metadata,checkpointVersion:'case-refs/v1',caseRefs});
 }
-export async function prepareCeiling({out,database=DEFAULT_DATABASE,snapshot=DEFAULT_SNAPSHOT}){
+export async function prepareCeiling({out,database=DEFAULT_DATABASE,snapshot=DEFAULT_SNAPSHOT,pilotOnly=false}){
   await mkdir(out,{recursive:true});
   await snapshotTextbook(out,snapshot);
-  if(await exists(join(out,'dataset.json'))){const d=await read(join(out,'dataset.json'));assertDataset(d);return d;}
+  if(await exists(join(out,'dataset.json'))){const d=await read(join(out,'dataset.json'));(pilotOnly?assertPilotSupplement:assertDataset)(d);return d;}
   const exclusionsPath=join(out,'prior-sources.json');
   const prior=await exists(exclusionsPath)?await read(exclusionsPath):await priorSources('E:/AgentData/Coach',out);await writeOnce(exclusionsPath,prior);
   const excluded=new Set(prior.games),excludedHashes=new Set(prior.hashes);
@@ -81,7 +81,7 @@ export async function prepareCeiling({out,database=DEFAULT_DATABASE,snapshot=DEF
   const assets=process.env.RIICHI_LOCAL_MORTAL_ROOT??join(process.env.LOCALAPPDATA,'RiichiCoach/local-mortal-spike');
   const runtime=await createManagedMortalRuntimeFromAssets({pythonExecutable:join(assets,'python/Scripts/python.exe'),packageRoot:join(ROOT,'packages/mortal-runtime'),artifactRoot:assets,platformManifest:'mortal-582500.windows-x64.json',nativeReceiptPath:await questionLabNativeReceipt(),inferenceTimeoutMs:60000});
   const engine=new JsonlFactEngineClient(new ManagedFactEngineTransport(join(ROOT,'resources')));
-  const slots=Object.entries(QUOTAS).flatMap(([split,strata])=>Object.entries(strata).flatMap(([stratum,n])=>Array.from({length:n},()=>({split,stratum}))));
+  const slots=Object.entries(pilotOnly?{pilot:{random:10}}:QUOTAS).flatMap(([split,strata])=>Object.entries(strata).flatMap(([stratum,n])=>Array.from({length:n},()=>({split,stratum}))));
   let state=await loadPreparationState(out);const caseDigests=new Map(state.cases.map(c=>[c.id,hash(c)]));
   const usedGames=new Set(state.cases.map(c=>c.gameId)),usedHashes=new Set(state.cases.map(c=>c.sourceHash));
   try{
@@ -123,7 +123,7 @@ export async function prepareCeiling({out,database=DEFAULT_DATABASE,snapshot=DEF
         const picked=slot.stratum==='challenge'?[...pool].sort((a,b)=>rank(b)-rank(a)||a.id.localeCompare(b.id))[0]:pool[0],c={...picked,...slot};
         await writeOnce(join(out,'prepared',c.id+'.json'),c);
         state.cases.push(c);caseDigests.set(c.id,hash(c));state.covered=[...new Set([...state.covered,...challengeTags(c)])];usedGames.add(c.gameId);usedHashes.add(c.sourceHash);
-        console.log(JSON.stringify({prepared:state.cases.length,required:980,split:c.split,stratum:c.stratum,screening:state.screening.checked}));
+        console.log(JSON.stringify({prepared:state.cases.length,required:slots.length,split:c.split,stratum:c.stratum,screening:state.screening.checked}));
       }catch(e){if(e.message==='preparation_cache_changed'||e.message.startsWith('immutable_artifact_changed')||/^E[A-Z]+$/.test(e.code??''))throw e;state.rejectedGames++;await appendFile(join(out,'exclusions.jsonl'),JSON.stringify({gameId:r.game_id,sourceHash:r.hash,error:String(e.message)})+'\n');}
       await savePreparationState(out,state,caseDigests);
     }
@@ -132,11 +132,11 @@ export async function prepareCeiling({out,database=DEFAULT_DATABASE,snapshot=DEF
     const practical=['random','challenge'].flatMap(s=>ordered(cases.filter(c=>oracle.includes(c.id)&&c.stratum===s),c=>c.id,SEED+'practical').slice(0,s==='random'?75:25).map(c=>c.id));
     const stability=['random','challenge'].flatMap(s=>ordered(cases.filter(c=>c.split==='evaluation'&&c.stratum===s),c=>c.id,SEED+'stability').slice(0,s==='random'?40:10).map(c=>c.id));
     const dataset={version:VERSION,seed:SEED,database,priorSourcesDigest:hash(prior),excludedGames:prior.games,excludedHashes:prior.hashes,ruleIdentity:runtime.ruleIdentity,factIdentity:await engine.identity(),screening:state.screening,rejectedGames:state.rejectedGames,sourcePopulation:'nikke-tenhou four-player south without West-extension games; equal game weight; one seeded seat and uniformly permuted eligible pure discard window',cases,oracle,practical,stability};
-    assertDataset(dataset);await writeOnce(join(out,'dataset.json'),dataset);return dataset;
+    (pilotOnly?assertPilotSupplement:assertDataset)(dataset);await writeOnce(join(out,'dataset.json'),dataset);return dataset;
   }finally{db.close();await Promise.allSettled([engine.close(),runtime.close()]);}
 }
-export async function freezeCeiling(out,{repair=false}={}){
-  if(!repair&&await exists(join(out,'freeze.json')))return verify(out);
+export async function freezeCeiling(out,{repair=false,amend=false}={}){
+  if(!repair&&!amend&&await exists(join(out,'freeze.json')))return verify(out);
   const d=await read(join(out,'dataset.json'));assertDataset(d);
   const index=await read(join(out,'textbook/index.json')),manifest=await read(join(out,'textbook/manifest.json')),files=await executionFiles();
   const basis={X01:index.passages.filter(p=>(p.title+' '+p.chapterTitle).includes('牌效率')||(p.title+' '+p.chapterTitle).includes('牌效')).map(p=>p.id),X02:['nemata-direction'],X03:'missing-data guard from strict visible-facts contract; not a teaching rule'};
@@ -144,9 +144,13 @@ export async function freezeCeiling(out,{repair=false}={}){
   const f={version:VERSION,datasetHash:hash(d),textbookDigest:hash(index),textbookManifestHash:hash(manifest),codeDigest:hash(files),executionFiles:files,versions:VERSIONS,newPatternBasis:basis,budgets:BUDGETS,models:MODELS,limits:{maxPassages:6,maxCharacters:6000,maxOutputTokens:32768,timeoutMs:GENERATION_TIMEOUT_MS,maxInputBytes:65536,maxOutputBytes:16384,concurrency:2},primary:'D-A, natural 600 planned attempts, native Mortal preferred top1',secondary:['D-V0','D-B','D-C'],statistics:{pairedBootstrap:2000,secondaryCorrection:'Holm',minUsefulGain:.05,minSuccessRate:.95},promptVersion:'ceiling-single-decision/v1'};
   f.executionCommit=execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim();
   f.nodeVersion=process.version;
-  if(repair){
+  if(repair||amend){
     const ledger=new BudgetLedger(out),old=await read(join(out,'freeze.json'));
-    if(ledger.snapshot().claimed>50||[...ledger.claims.values()].some(c=>c.bucket!=='smoke')||await exists(join(out,'smoke-ready.json'))||old.datasetHash!==f.datasetHash||old.textbookDigest!==f.textbookDigest||old.textbookManifestHash!==f.textbookManifestHash)throw Error('engineering_revision_not_allowed_after_admission');
+    if((!amend&&ledger.snapshot().claimed>50)||[...ledger.claims.values()].some(c=>c.bucket!=='smoke')||await exists(join(out,'smoke-ready.json'))||old.datasetHash!==f.datasetHash||old.textbookDigest!==f.textbookDigest||old.textbookManifestHash!==f.textbookManifestHash)throw Error('engineering_revision_not_allowed_after_admission');
+    if(amend){
+      const approval=await read(join(out,'engineering-amendment-approved.json'));assertEngineeringApproval(approval,ledger.snapshot());
+      f.engineeringSupplement=await supplementBinding(approval.supplementDirectory,d,hash(approval));
+    }
     const archive=join(out,'engineering-revisions',hash(old));await mkdir(archive,{recursive:true});
     await writeOnce(join(archive,'freeze.json'),old);await writeOnce(join(archive,'freeze-binding.json'),await read(join(out,'freeze-binding.json')));
     f.previousEngineeringFreezeHash=hash(old);
@@ -158,9 +162,10 @@ export async function freezeCeiling(out,{repair=false}={}){
   }
   return f;
 }
-export async function labelCeiling(out,database=DEFAULT_DATABASE){
-  const config=await verify(out),datasetHash=config.datasetHash;
+export async function labelCeiling(out,database=DEFAULT_DATABASE,{pilotOnly=false}={}){
+  const config=pilotOnly?{datasetHash:hash(await read(join(out,'dataset.json')))}:await verify(out),datasetHash=config.datasetHash;
   const d=await read(join(out,'dataset.json')),db=new DatabaseSync(database,{readOnly:true});
+  if(pilotOnly)assertPilotSupplement(d);
   const assets=process.env.RIICHI_LOCAL_MORTAL_ROOT??join(process.env.LOCALAPPDATA,'RiichiCoach/local-mortal-spike');
   const runtime=await createManagedMortalRuntimeFromAssets({pythonExecutable:join(assets,'python/Scripts/python.exe'),packageRoot:join(ROOT,'packages/mortal-runtime'),artifactRoot:assets,platformManifest:'mortal-582500.windows-x64.json',nativeReceiptPath:await questionLabNativeReceipt(),inferenceTimeoutMs:60000});
   const runtimeManifest=await loadManagedMortalManifest(join(ROOT,'packages/mortal-runtime/manifests/mortal-582500.windows-x64.json')),rows=[];

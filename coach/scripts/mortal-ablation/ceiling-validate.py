@@ -212,7 +212,7 @@ def validate(out):
             assert call["requestDigest"] == claims[key]["requestDigest"]
             if "callDigest" in row["result"]:
                 assert digest(call) == row["result"]["callDigest"]
-    assert len(claims) <= 6000 and len(settled) == len(claims)
+    assert len(claims) <= sum(freeze["budgets"].values()) and len(settled) == len(claims)
     assert all(buckets[k] <= freeze["budgets"][k] for k in buckets)
     stability = {}
     for arm in ("A", "D"):

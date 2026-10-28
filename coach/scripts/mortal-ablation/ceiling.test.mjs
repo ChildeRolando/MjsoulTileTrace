@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { mkdtemp, readFile, writeFile,rename } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { BudgetLedger, BUDGETS, assertDataset, chooseVersion,writeOnce,save } from './ceiling-protocol.mjs';
+import { BudgetLedger, BUDGETS, assertDataset, assertPilotSupplement,assertEngineeringApproval,supplementBinding, chooseVersion,writeOnce,save } from './ceiling-protocol.mjs';
 import { indexTextbook, retrieveTextbook } from './ceiling-textbook.mjs';
 import { pairedDifference, summarizeRows, decide } from './ceiling-report.mjs';
 import { decisionRequest,runDecision,serviceFailureStreak,parseSelection,oracleMaterials } from './ceiling-run.mjs';
@@ -10,6 +10,29 @@ import { hash,read } from './ceiling-protocol.mjs';
 import { assertStudySource,selfWindows,loadPreparationState,savePreparationState } from './ceiling-prepare.mjs';
 
 describe('ceiling research boundaries', () => {
+  it('requires the explicit 6050-call amendment and preserves the original core before adding ten pilot games',()=>{
+    const approval={approved:true,proposedTotalLimit:6050,additionalIndependentSmokeCalls:50,additionalPilotGames:10};
+    const snapshot={claimed:97,unsettled:0,buckets:{smoke:97,development:0,evaluation:0}};
+    expect(()=>assertEngineeringApproval(approval,snapshot)).not.toThrow();
+    expect(()=>assertEngineeringApproval({...approval,approved:false},snapshot)).toThrow();
+    expect(()=>assertEngineeringApproval(approval,{...snapshot,claimed:98})).toThrow();
+    expect(()=>assertEngineeringApproval(approval,{...snapshot,unsettled:1})).toThrow();
+    expect(()=>assertEngineeringApproval(approval,{...snapshot,buckets:{...snapshot.buckets,development:1}})).toThrow();
+    const d={cases:Array.from({length:10},(_,i)=>({id:'q'+i,gameId:'g'+i,sourceHash:'h'+i,split:'pilot',stratum:'random'}))};
+    expect(()=>assertPilotSupplement(d,{cases:[{id:'formal',gameId:'other',sourceHash:'other'}]})).not.toThrow();
+    expect(()=>assertPilotSupplement(d,{cases:[{id:'formal',gameId:'g0',sourceHash:'other'}]})).toThrow('supplement_source_collision');
+    expect(()=>assertPilotSupplement({...d,cases:d.cases.slice(1)})).toThrow('supplement_quota');
+  });
+  it('hash-binds supplemental labels and fails closed if one is edited',async()=>{
+    const out=await mkdtemp(join(tmpdir(),'ceiling-supplement-'));
+    const d={cases:Array.from({length:10},(_,i)=>({id:'q'+i,gameId:'g'+i,sourceHash:'h'+i,split:'pilot',stratum:'random'}))},datasetHash=hash(d),rows=[];
+    await writeOnce(join(out,'dataset.json'),d);
+    for(const c of d.cases){const label={datasetHash,reference:{status:'available'}};await writeOnce(join(out,'private-labels',c.id+'.json'),label);rows.push({caseId:c.id,status:'available',hash:hash(label)});}
+    const receipt={datasetHash,rows};await writeOnce(join(out,'labels-receipt.json'),receipt);await writeOnce(join(out,'labels-ready.json'),{datasetHash,receiptHash:hash(receipt),count:10});
+    expect(await supplementBinding(out,{cases:[]},'approval')).toMatchObject({datasetHash,approvalHash:'approval'});
+    await writeFile(join(out,'private-labels/q0.json'),JSON.stringify({datasetHash,reference:{status:'unavailable'}}));
+    await expect(supplementBinding(out,{cases:[]},'approval')).rejects.toThrow('supplement_label_binding');
+  });
   it('reads an archived curation failure without requesting it again or stopping later jobs',async()=>{
     const out=await mkdtemp(join(tmpdir(),'ceiling-curation-resume-'));
     const failed={status:'failed',passages:[],error:'oracle_provider_service_failure_stop'};
@@ -55,7 +78,7 @@ describe('ceiling research boundaries', () => {
     expect(() => resumed.claim('b', 'smoke', 'digest')).toThrow(/duplicate/);
     expect(() => resumed.claim('c', 'smoke', 'digest')).toThrow(/budget/);
     expect(resumed.snapshot()).toMatchObject({ claimed: 2, unsettled: 1 });
-    expect(Object.values(BUDGETS).reduce((a,b)=>a+b,0)).toBe(6000);
+    expect(Object.values(BUDGETS).reduce((a,b)=>a+b,0)).toBe(6050);
   });
   it('rejects cross-split source collisions and never promotes a tiny dataset to the full experiment', () => {
     const c = { id:'a',gameId:'g',sourceHash:'h',split:'development',stratum:'random' };

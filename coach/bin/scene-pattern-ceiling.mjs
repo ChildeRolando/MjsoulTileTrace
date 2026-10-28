@@ -8,10 +8,10 @@ const [command='status',...args]=process.argv.slice(2),options={};
 for(let i=0;i<args.length;i+=2){if(!args[i].startsWith('--')||args[i+1]===undefined)throw Error('expected_named_argument');options[args[i].slice(2)]=args[i+1];}
 const out=resolve(options.out??DEFAULT_OUT);
 async function execute(){
-  const prepare=()=>prepareCeiling({out,database:options.database??DEFAULT_DATABASE,snapshot:options.snapshot??DEFAULT_SNAPSHOT});
+  const prepare=()=>prepareCeiling({out,database:options.database??DEFAULT_DATABASE,snapshot:options.snapshot??DEFAULT_SNAPSHOT,pilotOnly:options['pilot-only']==='true'});
   if(command==='prepare')return prepare();
-  if(command==='freeze')return freezeCeiling(out,{repair:options.repair==='true'});
-  if(command==='label')return labelCeiling(out,options.database??DEFAULT_DATABASE);
+  if(command==='freeze')return freezeCeiling(out,{repair:options.repair==='true',amend:options.amend==='true'});
+  if(command==='label')return labelCeiling(out,options.database??DEFAULT_DATABASE,{pilotOnly:options['pilot-only']==='true'});
   if(command==='run')return runPhase(out,options.phase??'smoke1');
   if(command==='select')return selectCeilingVersion(out);
   if(command==='recover')return recoverCeiling(out);

@@ -9,7 +9,7 @@ export const ROOT=resolve(fileURLToPath(new URL('../..',import.meta.url)));
 export const VERSION='mortal-scene-ceiling/v1';
 export const SEED='coach-ceiling-20261028-v1';
 export const GENERATION_TIMEOUT_MS=300000;
-export const BUDGETS=Object.freeze({development:800,evaluation:4000,oracle:600,practical:400,stability:100,smoke:100});
+export const BUDGETS=Object.freeze({development:800,evaluation:4000,oracle:600,practical:400,stability:100,smoke:150});
 export const MODELS=Object.freeze({strong:{modelName:'gpt-6.1-sol',reasoningEffort:'high'},practical:{modelName:'gpt-6-luna',reasoningEffort:'max'}});
 export const QUOTAS=Object.freeze({pilot:{random:20,challenge:0},development:{random:120,challenge:40},evaluation:{random:600,challenge:200}});
 export const ARMS=['A','B','C','D','V0'];
@@ -104,12 +104,31 @@ export async function executionFiles(){
   paths.push('bin/scene-pattern-ceiling.mjs','package.json','package-lock.json');
   return Promise.all(paths.sort().map(async p=>[p,hash(await readFile(join(ROOT,p)))]));
 }
+export function assertPilotSupplement(d,core={cases:[]}){
+  if(d.cases.length!==10||d.cases.some(c=>c.split!=='pilot'||c.stratum!=='random'))throw Error('supplement_quota');
+  const games=new Set([...(core.excludedGames??[]),...(d.excludedGames??[]),...core.cases.map(c=>c.gameId)]),sources=new Set([...(core.excludedHashes??[]),...(d.excludedHashes??[]),...core.cases.map(c=>c.sourceHash)]),ids=new Set(core.cases.map(c=>c.id));
+  for(const c of d.cases){if(games.has(c.gameId)||sources.has(c.sourceHash)||ids.has(c.id))throw Error('supplement_source_collision');games.add(c.gameId);sources.add(c.sourceHash);ids.add(c.id);}
+}
+export function assertEngineeringApproval(approval,snapshot){
+  if(approval.approved!==true||approval.proposedTotalLimit!==6050||approval.additionalIndependentSmokeCalls!==50||approval.additionalPilotGames!==10||snapshot.claimed!==97||snapshot.unsettled!==0||snapshot.buckets.smoke!==97||Object.entries(snapshot.buckets).some(([k,v])=>k!=='smoke'&&v))throw Error('engineering_amendment_not_authorized');
+}
+export async function supplementBinding(directory,core,approvalHash){
+  const d=await read(join(directory,'dataset.json'));assertPilotSupplement(d,core);
+  const receipt=await read(join(directory,'labels-receipt.json')),ready=await read(join(directory,'labels-ready.json')),datasetHash=hash(d);
+  if(ready.count!==10||ready.datasetHash!==datasetHash||ready.receiptHash!==hash(receipt)||receipt.datasetHash!==datasetHash||receipt.rows.length!==10)throw Error('supplement_labels_not_ready');
+  for(const c of d.cases){const row=receipt.rows.find(r=>r.caseId===c.id),label=await read(join(directory,'private-labels',c.id+'.json'));if(!row||row.status!=='available'||row.hash!==hash(label)||label.datasetHash!==datasetHash||label.reference.status!=='available')throw Error('supplement_label_binding');}
+  return {directory,datasetHash,labelsReceiptHash:hash(receipt),labelsReadyHash:hash(ready),approvalHash};
+}
 export async function verify(out){
   const f=await read(join(out,'freeze.json'));
   if(f.nodeVersion!==process.version)throw Error('frozen_node_runtime_changed');
   if((await read(join(out,'freeze-binding.json'))).freezeHash!==hash(f))throw Error('freeze_metadata_changed');
   if(f.version!==VERSION||f.codeDigest!==hash(await executionFiles()))throw Error('frozen_execution_code_changed');
   const d=await read(join(out,'dataset.json'));assertDataset(d);
+  if(f.engineeringSupplement){
+    const approval=await read(join(out,'engineering-amendment-approved.json'));
+    if(hash(approval)!==f.engineeringSupplement.approvalHash||approval.approved!==true||approval.proposedTotalLimit!==6050||hash(await supplementBinding(f.engineeringSupplement.directory,d,hash(approval)))!==hash(f.engineeringSupplement))throw Error('engineering_supplement_changed');
+  }
   const prior=await read(join(out,'prior-sources.json'));
   if(d.priorSourcesDigest!==hash(prior)||hash(d.excludedGames)!==hash(prior.games)||hash(d.excludedHashes)!==hash(prior.hashes))throw Error('prior_source_binding_changed');
   if(f.datasetHash!==hash(d)||f.textbookDigest!==hash(await read(join(out,'textbook/index.json'))))throw Error('frozen_input_changed');
