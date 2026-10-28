@@ -1,0 +1,12 @@
+311新独立证据的零模型复验与现有owner接口交接。
+
+精确proposal：ca5792a85433de54d0bfa82649a3707707ef64747d3beb5f8944a5bec372ad97。
+真实独审收据：9245894ecccf7e94f3fac8f3b5e177d5014d29a8f99baca40bb31e892afc22c6。
+
+八目标原图呈现faithful，actualFidelityGaps为空；安装条件后的有限接受证据存在。原editorialLimitsSufficient=false和limitedFidelityAccepted=false不改。当前缺本精确native proposal的合法准入/stage/staged-verifier接口。既有proposal包仅含机械检查和预览，没有该接口；持久builder也没有311 callback。
+
+owner-request.json交既有244零模型补最小接口，逐条列出八条原注、十项真实强制条件和显示锚点。手牌A只保留12张可见牌，不能补第13张；历史附件错误配对只在显示层隐藏并展示真实限定说明。原作者正文、图、未知、历史数组标签、原raw及旧八uncertain/40影响/10issues保留。不再要求恢复144加工槽或重新审核作者计算。
+
+verification.json、execution.json及proposal-check.json分别记录源/父/原审/新审链、真实执行边界和原18项拒绝检查。152引用中148项已逐字节验真；原执行助手从249分支Git精确恢复，未执行其dispatch入口。四份被清理的旧排重快照只保留原SHA引用，不声称重读；本次另核当前实际指针/选择/注册账/运行排重。
+
+仅Chinese311三份现有账的该行更新。v41指针、其他章节、选择、正式active不改；当前未安装强制说明、未合311、未做311 MCP/Arena读回。无需新增模型、制作或识图。完整作者数据、原图、真实请求/raw仍在共享数据根；本包仅存代码、哈希、独立结论及交接摘要。

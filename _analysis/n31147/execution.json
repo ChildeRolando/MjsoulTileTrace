@@ -1,0 +1,21 @@
+{
+  "schema": "coac250-311-native-execution-recheck/1",
+  "schemaValidated": true,
+  "closedPromptEqual": true,
+  "promptSha256": "de16984fc21268f1fdfab6b232ea71e45d86f9e1a95657d803ed53dba8d0d35b",
+  "closedPromptSha256": "aa31e2abecb03d289318dd555d3536ceede374a48ad8c418c4dd765c052afb2e",
+  "schemaSha256": "c86735bd012e1f34bb8d3b66d64f4e8a439b3df5d91286890fcb8e3516b1caf4",
+  "argsAndImageOrderEqual": true,
+  "images": 9,
+  "outputEqualsRawAndReceipt": true,
+  "callId": "47c48143-2aaf-433f-829d-91aa9b07461d",
+  "usage": {
+    "inputTokens": 169380,
+    "cachedInputTokens": 0,
+    "outputTokens": 17754
+  },
+  "durationMs": 255431,
+  "newModelCalls": 0,
+  "dispatchHelperExecuted": false,
+  "admissionGranted": false
+}

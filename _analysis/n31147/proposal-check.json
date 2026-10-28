@@ -1,0 +1,113 @@
+{
+  "result": {
+    "canonical": "79-cn-chapter-311-18",
+    "parentSha256": "f44231f95310e33608a596f1f4153f0e35afb55490fc3db1fdccd3fc11d3a125",
+    "proposalSha256": "ca5792a85433de54d0bfa82649a3707707ef64747d3beb5f8944a5bec372ad97",
+    "bodyUnchanged": true,
+    "sourcePositions": 225,
+    "verbatimTextBlocks": 204,
+    "figures": 21,
+    "nativeTargetImages": 8,
+    "nonTargetFiguresUnchanged": 13,
+    "removedArtificialSlots": 144,
+    "editorialNotes": 8,
+    "existingArraysChanged": false,
+    "newReadings": 0,
+    "newModelCalls": 0,
+    "oldTargetUncertainCount": 8,
+    "oldImpactItemsMapped": 40,
+    "oldIssuesPreserved": 10,
+    "admissionGranted": false,
+    "wholeChapterPassed": false,
+    "actualMcpArenaReadbackCompleted": false,
+    "remainingSubstantiveReviewAlerts": [
+      "b0154 hand A: 12 source tiles, complete shape not established",
+      "historical attachment numbering source-note",
+      "249 must independently check native-display fidelity and distinguish additional numerical verification requirements"
+    ],
+    "negativeChecks": [
+      {
+        "name": "remove_author_condition",
+        "rejected": true
+      },
+      {
+        "name": "change_author_threshold",
+        "rejected": true
+      },
+      {
+        "name": "reorder_author_context",
+        "rejected": true
+      },
+      {
+        "name": "remove_source_position",
+        "rejected": true
+      },
+      {
+        "name": "alter_non_target_figure",
+        "rejected": true
+      },
+      {
+        "name": "restore_artificial_grid",
+        "rejected": true
+      },
+      {
+        "name": "add_numeric_reading",
+        "rejected": true
+      },
+      {
+        "name": "invent_curve_binding",
+        "rejected": true
+      },
+      {
+        "name": "change_original_image_sha",
+        "rejected": true
+      },
+      {
+        "name": "replace_with_resampled_image",
+        "rejected": true
+      },
+      {
+        "name": "missing_editorial_limit",
+        "rejected": true
+      },
+      {
+        "name": "pretend_editorial_is_author",
+        "rejected": true
+      },
+      {
+        "name": "move_note_to_other_graph",
+        "rejected": true
+      },
+      {
+        "name": "certify_author_calculation",
+        "rejected": true
+      },
+      {
+        "name": "forge_admission",
+        "rejected": true
+      },
+      {
+        "name": "forge_whole_chapter_pass",
+        "rejected": true
+      },
+      {
+        "name": "forge_model_production",
+        "rejected": true
+      },
+      {
+        "name": "change_parent_sha",
+        "rejected": true
+      }
+    ],
+    "negativeCheckCount": 18,
+    "rendered225SourceAnchorsVerified": true,
+    "all21RenderedImageBytesVerified": true,
+    "exactDeclaredParentObjectRestoration": true,
+    "htmlSourceAndEditorialStructureVerified": true,
+    "browserReadbackCompleted": false
+  },
+  "originalChecksUnchanged": true,
+  "writesSuppressed": [
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\checks.json"
+  ]
+}

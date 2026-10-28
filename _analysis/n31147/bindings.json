@@ -1,0 +1,817 @@
+{
+  "primary": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-fidelity-owner-handoff-20261028.md",
+      "sha256": "604be171ec1ee06e4bac4d639e0c36581c1578fb09c0d0275b964a33be40ad66",
+      "bytes": 19250
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\presentation-proposal.json",
+      "sha256": "ca5792a85433de54d0bfa82649a3707707ef64747d3beb5f8944a5bec372ad97",
+      "bytes": 248158
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-fidelity-reviewed-20261028.json",
+      "sha256": "9245894ecccf7e94f3fac8f3b5e177d5014d29a8f99baca40bb31e892afc22c6",
+      "bytes": 49420
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\47c48143-2aaf-433f-829d-91aa9b07461d.json",
+      "sha256": "f68c9936f06e16b29110f3789756cc17f7f54332dc7fb5ec37fefb70df3b1268",
+      "bytes": 1598722
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-fidelity-inheritance-20261028.json",
+      "sha256": "a9684639e2bc0a49888ba114a25e57305623e6db0fe4d026f38bff207738c765",
+      "bytes": 80471
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-mandatory-display-20261028.json",
+      "sha256": "5502384c26e5e939284b07b9a2ee073a4a75043926acfb1ac4ecaaf72c2c3b12",
+      "bytes": 46231
+    }
+  ],
+  "verifiedDependencies": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-zero-intake-20261028.json",
+      "sha256": "e9fb7b3780b69c6ec0125dd5e243a63f8042de34f42e9a019cc4674acfcbd0b3",
+      "bytes": 40092
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\handoff249.json",
+      "sha256": "0fe0a194d68169d7d81171a361e52bba19186369c18c6f38ce50fa2771957ac4",
+      "bytes": 3245
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\presentation-proposal.json",
+      "sha256": "ca5792a85433de54d0bfa82649a3707707ef64747d3beb5f8944a5bec372ad97",
+      "bytes": 248158
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\derivation.json",
+      "sha256": "8b07c8caec81a87da4cdb8c73a308813b9ed3374f696ed6bd22a33185f9c52c5",
+      "bytes": 44884
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\native-preview.html",
+      "sha256": "db7f60f73332094c64c5c6634c5d4a51ea483f804600aa6513baba5036eaaa99",
+      "bytes": 90506
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\source-to-display-map.json",
+      "sha256": "75f7f16ee7c5fa5071fbc1cfc1afd6d3f48a776c36aca9c095b22753e4cd1bef",
+      "bytes": 92067
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\native-image-proof.json",
+      "sha256": "209b9cb2a987ba2e94f315c463d8726599f133df3e831f06493eaa86f6d48dd9",
+      "bytes": 12673
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\independent-review-map.json",
+      "sha256": "6b03095329988c9734e988bd56caeba7126e0b3be80fdd6731b980380a5e9a81",
+      "bytes": 49470
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\ordered-review-context.json",
+      "sha256": "e152aa45bfa1cab1776c30aba7dfb7637405b6fd12facc0c4f128b0f1ed76b51",
+      "bytes": 917495
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\input-bindings.json",
+      "sha256": "7a522104b5823a89fe316cf10cea004e0fdd785d9f7c29a033db0250167a6ece",
+      "bytes": 22486
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\checks.json",
+      "sha256": "744251a3a259cd3526cd20dda0021e3e053d6bdf570825b94224f6ffe98b839c",
+      "bytes": 2750
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\browser-verification.json",
+      "sha256": "c3ec3e91c75dc9bb26a20d644b30cfac24b9bbc5a7853d7bcbd9b3e3818fe23d",
+      "bytes": 748
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\review-boundary.json",
+      "sha256": "4941108c10fa483d2f2a725988712bb9888dc1d1004a5d621ebe72dcd491c940",
+      "bytes": 2545
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\review-plan-proposal.json",
+      "sha256": "7a851cd9847243c9791c237a5dac6ec354c0e82ed358196a8122c434e9554715",
+      "bytes": 448831
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\manifest.json",
+      "sha256": "0e11e7c5b47b7fce7ce6cd5e4d8c3a56cfa9a0f3dddf95389301d48848fdc044",
+      "bytes": 5364
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\browser-dom.html",
+      "sha256": "7dfced8a7993600dbcbe85bd479611a02dd100d988de1d39d3b135b951784f0b",
+      "bytes": 90655
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\native-figure-visual.png",
+      "sha256": "4c20791deaea8a7e72b1dea0eb16366040a994b97887e9cd38ef84441ea9e65c",
+      "bytes": 318489
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\build.py",
+      "sha256": "870edeb393fc36ec354c97a167eb583b887603572baf0e6bbb9c87786fd8c956",
+      "bytes": 15328
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\check.py",
+      "sha256": "e9b6b0b05daadeb0fa024bb32ed791d2163d8b45ef6b90e52cb6444d01b49e85",
+      "bytes": 4689
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\finalize.py",
+      "sha256": "40d498cff07b89550e1f618e3eccbc74fd7287dd03dbfcaf4975e7bc7a8519a7",
+      "bytes": 8814
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\README.md",
+      "sha256": "6b4d83ba9addaf44b53908b132179466e80f56049d9c3fdcce0c30d4926db5cb",
+      "bytes": 4272
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\handoff249.md",
+      "sha256": "c97a70abb22fc669dc19360fb3baa9549ac0fcec1dccacae8f1d63fb37e8b110",
+      "bytes": 2876
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\derivation-summary.json",
+      "sha256": "580ce11000e2451c01680dc36157de9dac15f50241b597abaf65412d4ade3f54",
+      "bytes": 6231
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\evidence-map-summary.json",
+      "sha256": "492b977aa8418433f92124466d045edde6d45626ea37c1ec38fac1c21e5e043a",
+      "bytes": 22898
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\review-plan-summary.json",
+      "sha256": "e020b287973714b3e345522c596b3114ccae8e1e53adb7bda0fa52e27ed94202",
+      "bytes": 7552
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1815400\\source.json",
+      "sha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+      "bytes": 215199
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1815400.coac269b33r1.json",
+      "sha256": "f44231f95310e33608a596f1f4153f0e35afb55490fc3db1fdccd3fc11d3a125",
+      "bytes": 261831
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-curves-reviewed-20261028.json",
+      "sha256": "3d86eddcfb776a7eaf07dd8e511b71cb8d501f6d74c35930da6c486dfdd14200",
+      "bytes": 145176
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7777908d-0298-450a-a5f8-a3ff98af7329.json",
+      "sha256": "6fbcbc785b03f84644a70f83bffb68bcf17ff41e8ab76afbbf2a1e781b64da62",
+      "bytes": 1352185
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-curves-inheritance-20261028.json",
+      "sha256": "c98fbb4c76f855fdb4353237977bde62bf52f37e50393f6cd7d23e63375714cd",
+      "bytes": 96721
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\09838b88ac67ec75ece6a87c045082853e4befe69dcf321129b02bf0be328797.jpg",
+      "sha256": "09838b88ac67ec75ece6a87c045082853e4befe69dcf321129b02bf0be328797",
+      "bytes": 107217
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0001.png",
+      "sha256": "bbca9db14c3a80fbd5ff070c6eefd65152c97182158396f05ca373baec3a366c",
+      "bytes": 128982
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\8ccbe8352d55c98275f8e16e78b48d17646c1eb080536c5aba317228f62b6001.jpg",
+      "sha256": "8ccbe8352d55c98275f8e16e78b48d17646c1eb080536c5aba317228f62b6001",
+      "bytes": 110552
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0002.png",
+      "sha256": "42086babbd68ac15d56f9ffd9859cca672d7e3ca8d3d3492a30f29edeff6479c",
+      "bytes": 142117
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\ad1177702aa008f700b936ecee94e8182454bceab70df6065cb83a4de7b17370.png",
+      "sha256": "ad1177702aa008f700b936ecee94e8182454bceab70df6065cb83a4de7b17370",
+      "bytes": 8189
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0003.png",
+      "sha256": "2984cf32886471adbff74248de526f433d64078231de60fbc42916bf1f8de338",
+      "bytes": 8899
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\f97ed6ff98cdaf3ceea4c3c71315634c5d42cc79bfde1b378f943e4d96e6d8cb.jpg",
+      "sha256": "f97ed6ff98cdaf3ceea4c3c71315634c5d42cc79bfde1b378f943e4d96e6d8cb",
+      "bytes": 100103
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0004.png",
+      "sha256": "c3048b0d59c9b6f62dab70769c45da41ef410046a1fc81e7588fe082de4c3ea1",
+      "bytes": 81665
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\fd1d5fd7b428766c105a77c065a68377b4ddf2d14adfe4738e1b327127af292c.jpg",
+      "sha256": "fd1d5fd7b428766c105a77c065a68377b4ddf2d14adfe4738e1b327127af292c",
+      "bytes": 97689
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0005.png",
+      "sha256": "61b0283a57b1873cdc15d05de6b2f9048d1afbee5a90f1ff4b01e1fb9c8c2598",
+      "bytes": 79624
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\dc35c94b4ce63c99c782d52344190c5c63b906ba032f743c10e86a4228d8185c.jpg",
+      "sha256": "dc35c94b4ce63c99c782d52344190c5c63b906ba032f743c10e86a4228d8185c",
+      "bytes": 98849
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0006.png",
+      "sha256": "6ee9339e103b917d1047bb9d2ccd71ee948c5287ce2c7bdc985afff0b6909c0e",
+      "bytes": 80018
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\fb3e2519732acb160079ee0fea6ff4346bb7e71a9c6922e927701d1b06905c8a.jpg",
+      "sha256": "fb3e2519732acb160079ee0fea6ff4346bb7e71a9c6922e927701d1b06905c8a",
+      "bytes": 95005
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0007.png",
+      "sha256": "7b1e94ac28ed3cf3a0216fa007cde1f0a7814ff3ce5f7eddc6090ce591cac33c",
+      "bytes": 79022
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\bfe8735a4711bc2453d66751c2d6ad09ed1f177ef9246c4f84832219e68a5e88.png",
+      "sha256": "bfe8735a4711bc2453d66751c2d6ad09ed1f177ef9246c4f84832219e68a5e88",
+      "bytes": 366556
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0008.png",
+      "sha256": "807773eff7c8b5bd2adeb20aaa64a03d5fba865921a9b62cfdd40fab280d53e0",
+      "bytes": 416194
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\8e21f0df52ec2d918ba3153781d2ec004c183343b3a4229852b36ef28a46d822.png",
+      "sha256": "8e21f0df52ec2d918ba3153781d2ec004c183343b3a4229852b36ef28a46d822",
+      "bytes": 392654
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0009.png",
+      "sha256": "d9f40a0f38aebc09730c45a3ce8f829d67d8adf39e02907de324815fc8f1449a",
+      "bytes": 444388
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\54e6f36c5e4c6a040f43bceaebc013b5baa2b4b356a6998ab7a28aef6eff7ccc.png",
+      "sha256": "54e6f36c5e4c6a040f43bceaebc013b5baa2b4b356a6998ab7a28aef6eff7ccc",
+      "bytes": 351045
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0010.png",
+      "sha256": "96f4b435cb4d28d4273eeb0e24212063a95ee1cf4fe1c4aa132137e181a1111a",
+      "bytes": 397924
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\cb22b10e15a8cd6d180d3e2a19f4069f67235bfa8fdd1279b732fecd94440537.png",
+      "sha256": "cb22b10e15a8cd6d180d3e2a19f4069f67235bfa8fdd1279b732fecd94440537",
+      "bytes": 345999
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0011.png",
+      "sha256": "83f0f3c03621c73653e7f3c75c0b332f2e0c1af6430c56cc90113b673b586fc6",
+      "bytes": 394142
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\3d4b9dca119449f49f0549a55e6ae8b4cd96d916346391240fcab291b5d94385.png",
+      "sha256": "3d4b9dca119449f49f0549a55e6ae8b4cd96d916346391240fcab291b5d94385",
+      "bytes": 325942
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0012.png",
+      "sha256": "eeb30508d63817a168beb73b47916879060ddd69614015579fa71989384dffc0",
+      "bytes": 365586
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\377e7474db9bbf62f8efcaae391ae6dc5101b698b2ec968187911652c05e7db0.png",
+      "sha256": "377e7474db9bbf62f8efcaae391ae6dc5101b698b2ec968187911652c05e7db0",
+      "bytes": 350938
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0013.png",
+      "sha256": "f61757dea5a5b16117212aefc3d464132a2398c7d4566b4e89dc7114de181c5c",
+      "bytes": 395184
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\203555c05ae5772626a9ab60a777fec9adef3bfe74d2286d9200ca8cf566abf1.png",
+      "sha256": "203555c05ae5772626a9ab60a777fec9adef3bfe74d2286d9200ca8cf566abf1",
+      "bytes": 12832
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0014.png",
+      "sha256": "cf9e148f7efb214fd146eb1a4f637f7064229c9945bd9f42af49a89fe5a07cef",
+      "bytes": 12032
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\bfea6a4a3b1b55e9e6fbcdb8b4b4a82076715f026f64b08784d0d96b3bc5b35e.png",
+      "sha256": "bfea6a4a3b1b55e9e6fbcdb8b4b4a82076715f026f64b08784d0d96b3bc5b35e",
+      "bytes": 360056
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0015.png",
+      "sha256": "b6dc0ca038fd0e2c28bad11c9d89246de7c2f49a98747d347cdd128fa5be6850",
+      "bytes": 407453
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\76efb2db059af06179fa2d2bea2a2299ef9c8ac2f2baafd8ca4afb179ff4f8e1.png",
+      "sha256": "76efb2db059af06179fa2d2bea2a2299ef9c8ac2f2baafd8ca4afb179ff4f8e1",
+      "bytes": 361653
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0016.png",
+      "sha256": "35c49df81365af7861ffee43c08a65541132ba9680582c6931520ec2e7225588",
+      "bytes": 408890
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\e4eadcd4d3cd71dc3ca5fd26a8b447aca333e076191fcd7b51e33f88c0bf10dd.png",
+      "sha256": "e4eadcd4d3cd71dc3ca5fd26a8b447aca333e076191fcd7b51e33f88c0bf10dd",
+      "bytes": 12932
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0017.png",
+      "sha256": "c160aaf3d3c7b036a90addd7cb8b915bdd25321c040fb3203af4ef18703b4d92",
+      "bytes": 12089
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\00a21ae2b2e554c1a780d190c40bbe673f66eab3c625bfc026dd45d69c0c2ed8.png",
+      "sha256": "00a21ae2b2e554c1a780d190c40bbe673f66eab3c625bfc026dd45d69c0c2ed8",
+      "bytes": 8745
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0018.png",
+      "sha256": "b4906a2a9c50c289257598f663fd9df1a34fdf1d28aca292f384618a8eab46b4",
+      "bytes": 8373
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\0655d095d73e77eddd735654e04f73587a31bbd0c2d031b97f997f4914c185a1.png",
+      "sha256": "0655d095d73e77eddd735654e04f73587a31bbd0c2d031b97f997f4914c185a1",
+      "bytes": 232121
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0019.png",
+      "sha256": "3ccb3883ebb01f8a79ea50bd0049f36fdce18380be99b85a2cf1ee5c8feb9822",
+      "bytes": 260947
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\353bd63f74f8a97ed225d662e68252da29d7f420ebe71c7493ecac3f35d59522.png",
+      "sha256": "353bd63f74f8a97ed225d662e68252da29d7f420ebe71c7493ecac3f35d59522",
+      "bytes": 113954
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0020.png",
+      "sha256": "618ff97c6e12a206bb6accb24789fc73678a8bccb025f6c9196852141512d9ca",
+      "bytes": 131276
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\e4a259c12c7dc3e31cb9a03dffec1a946269ac9d476fd8c2c3930b7135ff3c73.png",
+      "sha256": "e4a259c12c7dc3e31cb9a03dffec1a946269ac9d476fd8c2c3930b7135ff3c73",
+      "bytes": 26452
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1815400\\9ddd83620c7a7fa1\\figure-0021.png",
+      "sha256": "45500e50811d2dd3758c44f45da2c0bd3117578c2eaedbccf2fa3bb3e95a22c8",
+      "bytes": 23906
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1815400.display.json",
+      "sha256": "5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97",
+      "bytes": 279228
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1815400.5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97.json",
+      "sha256": "12f0f3a74c5261077907d0d9218bacf1177173c64a1e2c1ceeff9eed6729e77a",
+      "bytes": 115627
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\5b1284f6-dcf3-4a55-92fd-9ed2aa20b6d8.json",
+      "sha256": "abce2b31d3fb704c84cf37784e1ec846fe235b2a6102a6f8b0b36b46d06b960d",
+      "bytes": 745447
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\047c7b91-f632-4596-b964-afa026352da6.json",
+      "sha256": "50006634575e117176f43807d1803af70cd85cb1f7ec909037e3222083f2c54e",
+      "bytes": 775954
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-311-curves-v1-20261028\\runtime-manifest.json",
+      "sha256": "59d7d599ae1e05f05ccdd43a8127a5c21935afc8667280930461142ca1cc644b",
+      "bytes": 8819
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\capability-evidence.json",
+      "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2",
+      "bytes": 594
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\pair-contract.json",
+      "sha256": "1d183b9b5c9cda49a29b9cd5aa71ebd7fc956fe10d1d98e80c31fb534ec2462e",
+      "bytes": 4789
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\pair.mjs",
+      "sha256": "9f1ec1896bf30a13cb2e9d1454d7bd8f2d60bd2158a29bfc2284d1867b299119",
+      "bytes": 21842
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\production-schema.mjs",
+      "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9",
+      "bytes": 3961
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-definition.mjs",
+      "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711",
+      "bytes": 5213
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-legacy.mjs",
+      "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619",
+      "bytes": 19381
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-pdf-layout.mjs",
+      "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06",
+      "bytes": 20673
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05",
+      "bytes": 14311
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-pdf-native-structure-corrections.mjs",
+      "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b",
+      "bytes": 22532
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-pdf-native.mjs",
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa",
+      "bytes": 9877
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-pdf-scope.mjs",
+      "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf",
+      "bytes": 3802
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff",
+      "bytes": 1990
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30",
+      "bytes": 15858
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-verification-dependencies.mjs",
+      "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08",
+      "bytes": 7384
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-web-batches.mjs",
+      "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69",
+      "bytes": 7061
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221",
+      "bytes": 20969
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-web.mjs",
+      "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b",
+      "bytes": 165915
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit.mjs",
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838",
+      "bytes": 84017
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7",
+      "bytes": 14045
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-pdf-flow.mjs",
+      "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3",
+      "bytes": 8112
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb",
+      "bytes": 5297
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-web-dictionary.mjs",
+      "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824",
+      "bytes": 7251
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-web-formal.mjs",
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd",
+      "bytes": 9385
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-web-labels.mjs",
+      "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274",
+      "bytes": 3726
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1",
+      "bytes": 2781
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-web-sources.py",
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f",
+      "bytes": 19235
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+      "bytes": 2089
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-web.mjs",
+      "sha256": "07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf",
+      "bytes": 36385
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production.mjs",
+      "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355",
+      "bytes": 54676
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\verification-dependencies.json",
+      "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68",
+      "bytes": 1404
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\runtime-manifest.json",
+      "sha256": "814df700d298188dea14d20fd84ac818d1ded9a706e370bc7a1714141ad6a7a9",
+      "bytes": 8072
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-311-curves-v1-20261028\\contract.json",
+      "sha256": "7d0eea43f34f8288c3093617051f3308a9af93f10c62dc4517fcef3c38db69db",
+      "bytes": 36567
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-311-curves-v1-20261028\\curves.mjs",
+      "sha256": "707dcde802c92d5aa91abfe94915f6b078549d455db38d1815adaaed326947d6",
+      "bytes": 18857
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-prepared-boundary-20261028.json",
+      "sha256": "34116ca04f4ad65e00e91719eb3df86bbdb19fb24710ba59fec0d2a0be5e82d5",
+      "bytes": 46731
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-311-native-intake-20261028\\prepared-boundary.json",
+      "sha256": "bb28eaf3673becc6498b9f86c9f96ee1fab771272d5c6ed5299f6eb2014c3b28",
+      "bytes": 906569
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\runtime-manifest.json",
+      "sha256": "a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c",
+      "bytes": 6776
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\capability-evidence.json",
+      "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2",
+      "bytes": 594
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-definition.mjs",
+      "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711",
+      "bytes": 5213
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-legacy.mjs",
+      "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619",
+      "bytes": 19381
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-pdf-layout.mjs",
+      "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06",
+      "bytes": 20673
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05",
+      "bytes": 14311
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-pdf-native-structure-corrections.mjs",
+      "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b",
+      "bytes": 22532
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-pdf-native.mjs",
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa",
+      "bytes": 9877
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-pdf-scope.mjs",
+      "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf",
+      "bytes": 3802
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff",
+      "bytes": 1990
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30",
+      "bytes": 15858
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-verification-dependencies.mjs",
+      "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08",
+      "bytes": 7384
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-web-batches.mjs",
+      "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69",
+      "bytes": 7061
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221",
+      "bytes": 20969
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-web.mjs",
+      "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b",
+      "bytes": 165915
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit.mjs",
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838",
+      "bytes": 84017
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7",
+      "bytes": 14045
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-pdf-flow.mjs",
+      "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3",
+      "bytes": 8112
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb",
+      "bytes": 5297
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-dictionary.mjs",
+      "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824",
+      "bytes": 7251
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-formal.mjs",
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd",
+      "bytes": 9385
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-labels.mjs",
+      "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274",
+      "bytes": 3726
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1",
+      "bytes": 2781
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-sources.py",
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f",
+      "bytes": 19235
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+      "bytes": 2089
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web.mjs",
+      "sha256": "07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf",
+      "bytes": 36385
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production.mjs",
+      "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355",
+      "bytes": 54676
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\verification-dependencies.json",
+      "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68",
+      "bytes": 1404
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\production-schema.mjs",
+      "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9",
+      "bytes": 3961
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-39793d02593b\\worktree\\artifacts\\a249-311-native-review\\review.mjs",
+      "sha256": "2c49d67bcb002c5a00154385140ef72b8f16948ba4d72c23502a44a9577da473",
+      "bytes": 23497,
+      "recoveredFrom": "agent/mika/coac-249:artifacts/a249-311-native-review/review.mjs",
+      "localAlias": "review-original.mjs"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots.mjs",
+      "sha256": "360298d7302fa17972f2460b93717ff274047624d80a7bef0bc7862c196bb077",
+      "bytes": 12728
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\CONTRACT.md",
+      "sha256": "05fc5c81bee7718d4e806245525a5d9aefaffb46865db3aae09c19e589afd080",
+      "bytes": 5270
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-311-native-review-20261028\\request-contract.json",
+      "sha256": "32c27520ee76f90f7fb0446e7fc43759e2a46bdada3d2cf121f3de581b4e1c59",
+      "bytes": 5906
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-311-native-review-20261028\\plan.json",
+      "sha256": "82a4f067e3196a054b18c93f0513948d2ab3ac5178a3ca624c8adbb6f3b5165e",
+      "bytes": 512857
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-311-native-review-20261028\\prepared-request.json",
+      "sha256": "0178a46e2be6e77ed33994aaa90720cafb197a6a8dbb3f6cf5f3ec3d331c9206",
+      "bytes": 516820
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\47c48143-2aaf-433f-829d-91aa9b07461d.json",
+      "sha256": "f68c9936f06e16b29110f3789756cc17f7f54332dc7fb5ec37fefb70df3b1268",
+      "bytes": 1598722
+    }
+  ],
+  "unavailableHistoricalSnapshots": [
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-39793d02593b\\worktree\\artifacts\\a249-311-native-review\\admission-0-preview.json",
+      "sha256": "7b1fe5f7cd9049d5edee65789975d645190e104d1d07039480265fc325486615",
+      "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+      "bytes": 6325006,
+      "classification": "historical-dedupe-snapshot-only",
+      "replayed": false,
+      "currentStateIndependentlyChecked": true
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-39793d02593b\\worktree\\artifacts\\a249-311-native-review\\admission-0-register.json",
+      "sha256": "c95dcb327abed87cfc8e7121ecef2b21339d242165a218c9852105b2a839cec1",
+      "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+      "bytes": 1266849,
+      "classification": "historical-dedupe-snapshot-only",
+      "replayed": false,
+      "currentStateIndependentlyChecked": true
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-39793d02593b\\worktree\\artifacts\\a249-311-native-review\\admission-1-preview.json",
+      "sha256": "7b1fe5f7cd9049d5edee65789975d645190e104d1d07039480265fc325486615",
+      "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+      "bytes": 6325006,
+      "classification": "historical-dedupe-snapshot-only",
+      "replayed": false,
+      "currentStateIndependentlyChecked": true
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-39793d02593b\\worktree\\artifacts\\a249-311-native-review\\admission-1-register.json",
+      "sha256": "c95dcb327abed87cfc8e7121ecef2b21339d242165a218c9852105b2a839cec1",
+      "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+      "bytes": 1266849,
+      "classification": "historical-dedupe-snapshot-only",
+      "replayed": false,
+      "currentStateIndependentlyChecked": true
+    }
+  ],
+  "runtimeFiles": 28
+}

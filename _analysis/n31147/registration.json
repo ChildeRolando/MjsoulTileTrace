@@ -1,0 +1,66 @@
+{
+  "schema": "coac250-311-native-owner-registration/1",
+  "interfaceRequest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-311-native-display-interface-request-20261028.json",
+    "sha256": "775bc28fe762ec76707904e08bb76df701cff5902315b6c351aca301834b4645"
+  },
+  "changes": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+      "beforeSha256": "c95dcb327abed87cfc8e7121ecef2b21339d242165a218c9852105b2a839cec1",
+      "afterSha256": "7a6096f9c8f6f925868d60bea5620c5b6ea93c0558963a6faeeac7c694d5aff1",
+      "changedChapterIds": [
+        "79-cn-chapter-311-18"
+      ],
+      "priorRowSha256": "bedcd654fc8ee7d6badfab0f987eb051cbbc6e1a5da371f4b1c1532509d18007",
+      "newRowSha256": "439bfae4cd7b1a2b03cbb592ababaf5682705f06a780f8a85ac746dd6bd12b5f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-remaining26-closure-register-20261028.json",
+      "beforeSha256": "988ea56c48b8ae900c310d92d643a47bce7b6998c5b30b3ff2af36a867c00e80",
+      "afterSha256": "04e1626a6c36afcade3637ab45d230955eeb17087261be284fe07c9170736171",
+      "changedChapterIds": [
+        "79-cn-chapter-311-18"
+      ],
+      "priorRowSha256": "b888aecdd70b6892c96896361a2137f15dfb4eda3066c1da88a7c614db7db3f0",
+      "newRowSha256": "f04ea513158a6e679b4e6d05f7cee169a715b79eee1f0fcb842937a2b5554638"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-uncovered-chapter-continuation-register-20261027b.json",
+      "beforeSha256": "e18665a9a36506cd01dce50d3a89112aae9f8479ceb6e360814cccae43b0027c",
+      "afterSha256": "ea12c4bf4e6a8f835740981984db674da9bd44f9581702e09c51ab642ee07f06",
+      "changedChapterIds": [
+        "79-cn-chapter-311-18"
+      ],
+      "priorRowSha256": "64dcec0b97e6bc45c90275ecdb10f3416bc68920562fe79db1ff7697872ebf00",
+      "newRowSha256": "2d415883ecac072e34725773b820126ace65cd573ce644e7338738bed4cc204c"
+    }
+  ],
+  "protectedInputsUnchanged": {
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json": "7b1fe5f7cd9049d5edee65789975d645190e104d1d07039480265fc325486615",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\specific-web-variant-selection.v41.json": "d29a59dde74386b65475ff56a483153fc9d23bcf3da43bfb885656541c1049a4",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\current-web-candidate-selection.json": "44f97301e0a24429d6b4326d4444df8faca287719220f94e1f330d58d7b5aa18",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\current-candidate-selection.json": "82c654fc34a4e509c9878065684306246f61324879f64eef1dc7f9aef964f4f2",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\build-accepted-preview.mjs": "18be97cd8db214ec5e3f22581acc83416aa3080b11bf8910129ba93c67965430",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\source-structure-holds.json": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\candidate-exclusions.json": "4835655ad7fa323e2acc94d4e04824dc1c56b4b67ceec1b1449617c79c3411a3",
+    "E:\\AgentData\\Coach\\knowledge\\review\\textbook-corpus.json": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\presentation-proposal.json": "ca5792a85433de54d0bfa82649a3707707ef64747d3beb5f8944a5bec372ad97",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1815400\\source.json": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1815400.coac269b33r1.json": "f44231f95310e33608a596f1f4153f0e35afb55490fc3db1fdccd3fc11d3a125",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\47c48143-2aaf-433f-829d-91aa9b07461d.json": "f68c9936f06e16b29110f3789756cc17f7f54332dc7fb5ec37fefb70df3b1268",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-curves-reviewed-20261028.json": "3d86eddcfb776a7eaf07dd8e511b71cb8d501f6d74c35930da6c486dfdd14200",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7777908d-0298-450a-a5f8-a3ff98af7329.json": "6fbcbc785b03f84644a70f83bffb68bcf17ff41e8ab76afbbf2a1e781b64da62",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-fidelity-reviewed-20261028.json": "9245894ecccf7e94f3fac8f3b5e177d5014d29a8f99baca40bb31e892afc22c6",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-mandatory-display-20261028.json": "5502384c26e5e939284b07b9a2ee073a4a75043926acfb1ac4ecaaf72c2c3b12",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-fidelity-inheritance-20261028.json": "a9684639e2bc0a49888ba114a25e57305623e6db0fe4d026f38bff207738c765"
+  },
+  "onlyCanonicalUpdated": "79-cn-chapter-311-18",
+  "otherChapterRowsUnchanged": true,
+  "coverageCountsUnchanged": true,
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "actualMcpArenaReadbackCompleted": false,
+  "admissionGranted": false,
+  "activeLibraryChanged": false
+}
