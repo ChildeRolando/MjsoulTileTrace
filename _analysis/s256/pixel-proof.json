@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "presentation": {
+    "parent": {
+      "path": "web-production/v1/runs/coac248-web-256-18-r2-20261028/model-output-without-display.json",
+      "sha256": "e011d4c611dfc5cedadae964465e49ed002afca542eafedc5ee826dd6fcfd832",
+      "reason": "Exact new model-authored semantic output; inherited original-image presentations bound separately. Not separately review eligible."
+    },
+    "pixels": {
+      "passed": true,
+      "figures": 4,
+      "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+    }
+  },
+  "visualInputs": {
+    "inputs": [
+      {
+        "assetId": "79-bilibili-cn:3616864698720812e29925d9",
+        "sourcePath": "web-sources/v1/79-bilibili-cn/assets/1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.png",
+        "sourceSha256": "1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-sources/v1/79-bilibili-cn/assets/1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.png",
+        "sha256": "1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce",
+        "role": "original",
+        "scale": 1,
+        "resampling": "none",
+        "width": 500,
+        "height": 500
+      },
+      {
+        "assetId": "79-bilibili-cn:3616864698720812e29925d9",
+        "sourcePath": "web-sources/v1/79-bilibili-cn/assets/1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.png",
+        "sourceSha256": "1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.x2.png",
+        "sha256": "2b42c5e4db8c3fa997c5715c012635834af4dbd9a8acced04aa2ca12edb4fd72",
+        "role": "nearest-neighbor-enlargement",
+        "scale": 2,
+        "resampling": "nearest",
+        "width": 1000,
+        "height": 1000
+      }
+    ],
+    "pixels": {
+      "passed": true,
+      "inputs": 2
+    }
+  },
+  "images": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.png",
+      "sha256": "1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce",
+      "bytes": 16584
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.x2.png",
+      "sha256": "2b42c5e4db8c3fa997c5715c012635834af4dbd9a8acced04aa2ca12edb4fd72",
+      "bytes": 25380
+    }
+  ],
+  "models": 0
+}

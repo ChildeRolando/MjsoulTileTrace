@@ -1,0 +1,244 @@
+{
+  "originalReviewCalls": [
+    {
+      "callId": "6bf6cb0d-1123-45f8-a4b0-975dd270b4c0",
+      "scope": "textbook-web-article-audit",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1785770",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 24940,
+        "cachedInputTokens": 0,
+        "outputTokens": 7321
+      },
+      "promptSha256": "51ed973a9717547d1996bae8e6f2683898326dd0e027ac4d4df7806cb373a663",
+      "semanticPromptSha256": "2983a7ccce2d22880e1de56532e698a21a2dadc43e72b1a0d419de82efafc019",
+      "schemaSha256": "b791670838faeb8c69328cf6bae113bfeb5e3d4d575f65b9c292a586c4177236",
+      "outputSha256": "85a9855a285f6d08277dc8190e651db9d9f3637e3755c8b6286259ef2ab810a2",
+      "requestPromptBytes": 38547,
+      "semanticPromptBytes": 38065,
+      "binding": {
+        "productionSha256": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2",
+        "sourceFileSha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23",
+        "auditorSnapshotSha256": "cc22ef78d8bc532ece4d5b23e0449d46ff7d4fe28eb05511fc205d95db10fde2",
+        "semanticProjectionSha256": "7eaaaaff9baf103d251c080e1bb7dae21681398fb779c97d07b19305315a2a6d",
+        "semanticProjectionVersion": 2,
+        "verifiedAssetIds": [
+          "79-bilibili-cn:46a844bc8817c1c2bd375689",
+          "79-bilibili-cn:ba838b7c8a17fac56966d463",
+          "79-bilibili-cn:1ffa430f68cbc99c2df6ad92"
+        ],
+        "originalImageAssetIds": [
+          "79-bilibili-cn:3616864698720812e29925d9"
+        ],
+        "supplementalInputs": [
+          {
+            "assetId": "79-bilibili-cn:3616864698720812e29925d9",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.png",
+            "sourceSha256": "1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.x2.png",
+            "sha256": "2b42c5e4db8c3fa997c5715c012635834af4dbd9a8acced04aa2ca12edb4fd72",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 2,
+            "resampling": "nearest",
+            "width": 1000,
+            "height": 1000
+          }
+        ]
+      },
+      "recordedAt": "2026-10-27T15:50:39.351Z"
+    }
+  ],
+  "newTargetReview": {
+    "callId": "68f60ecb-24d4-4d88-972a-4996c456506a",
+    "scope": "textbook-exact256-target-impact-independent-review",
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1785770",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "success": true,
+    "usage": {
+      "inputTokens": 30779,
+      "cachedInputTokens": 0,
+      "outputTokens": 12914
+    },
+    "durationMs": 156168,
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "callerRequested": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-terra",
+        "--config",
+        "model_reasoning_effort=\"max\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-3nzkTp\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-3nzkTp\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-3nzkTp",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.x2.png",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.png",
+          "sha256": "1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce",
+          "bytes": 16584
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.x2.png",
+          "sha256": "2b42c5e4db8c3fa997c5715c012635834af4dbd9a8acced04aa2ca12edb4fd72",
+          "bytes": 25380
+        }
+      ],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "binding": {
+      "canonical": "79-cn-chapter-256-18",
+      "productionSha256": "0877ccd8c34fed1b2728eec6c8dd912559e852d653b5fedda8f5b6e4469aa0bd",
+      "sourceFileSha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23",
+      "parentAuditSha256": "8341055fc9fec8aacf5c8dd6344cb5af99cfc6998f76105f7dc7d8e13a9a4b21",
+      "parentRawSha256": "6ed8519078198ecb6310bf2ed36dc5aaddff786ea5b79a82afdf555146ffcf1c",
+      "scope": "8s-repair-and-two-unknown-teaching-impact",
+      "authorizationComment": "01a17f8d-38c9-7cf9-ad2c-01bddd851470",
+      "runtimeManifestSha256": "7068edaa377784a0823c4c6b942d41f5e4533dfbd2f3331962bede454b01bf15",
+      "orderedProjectionSha256": "27e9fb486d78c27fb789f513c3d53956da2daf12b5224b0ce0b9de4d9477b841"
+    },
+    "promptSha256": "ed5f5c2129d09d0d6b4345063af026841ea4e57082fbf8ad73f7de80f1dc195d",
+    "semanticPromptSha256": "e8a2ff2222e948da413f892d8ebd72a356d5057de3026a7fb3e6763cef24082d",
+    "schemaSha256": "ea2c6b59b81963fa39ab054250b2ea905859b62d48034db3ae9418071fb6a6d1",
+    "recordedAt": "2026-10-27T23:26:33.871Z"
+  },
+  "actualNewCallsBy250": 0,
+  "oldIssues": [
+    {
+      "severity": "error",
+      "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+      "sourceEvidence": "例2原图及放大图下方手牌第12张，位于7s与9s之间，可辨为8s；候选写作“[索子，数字不明]”。",
+      "description": "可辨认的教学手牌仍用占位描述，漏失具体牌码。",
+      "suggestedRepair": "将该位置改为8s，并删除unknowns中对应条目。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+      "sourceEvidence": "候选将上方弃牌第二行1p右侧的万子及右方靠中央一列最上方的索子记为数字不明；两者均是原图中的实际弃牌。",
+      "description": "两张弃牌的具体牌码尚未可靠确定，无法确认例2完整牌河忠实性，不能以unknowns声明替代完整教学转录。",
+      "suggestedRepair": "逐牌确认这两处牌面并补入确定牌码；确认前保持阻断，不依据正文或牌序推补。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1785770:b0006:figure",
+      "sourceEvidence": "例1备注称“附件1与附件2”属于例1，但本次附件1、2绑定的是例2；例3、例4备注另引用附件5至8。",
+      "description": "加工附件编号与本次附图编号不对应，不影响已核原图的教学语义。",
+      "suggestedRepair": "将附件说明改为按对应图例或assetId描述原图与放大图，避免沿用其他批次的附件编号。"
+    }
+  ],
+  "newIssues": [
+    {
+      "severity": "uncertain",
+      "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+      "description": "两张河牌的数字仍未确定。可以在明确限制下展示并理解作者论证，但不能认证完整牌河或战术判断；原审的uncertain仍保留。",
+      "evidence": "现稿和retainedUnknowns均保留上方万子及右方索子的数字不明说明；例2正文的出牌可能性、改良机会及对手状态包含无法仅凭这两处图像确定的判断。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+      "description": "无法独立确认目标对象的全部历史字段差异。",
+      "evidence": "原审给出了第12张手牌的旧占位描述，但未提供修订前的完整目标对象；因此可确认该项修复和两处unknown保留，不能据此断言目标对象其余字段绝无改动。"
+    }
+  ],
+  "modelDidNotCompareCompleteHistoricalTargetObject": true,
+  "historyDifferencesSeparatelyProven": true
+}

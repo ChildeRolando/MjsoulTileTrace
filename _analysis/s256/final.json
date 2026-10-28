@@ -1,0 +1,274 @@
+{
+  "schema": "coac250-exact256-final/1",
+  "allPassed": true,
+  "preview": {
+    "chapters": 244,
+    "units": 252,
+    "blocks": 6754,
+    "figures": 5315,
+    "corpusId": "93866260afbca2a2f2c74f3da71c44a13f3963f686aa4233e9515c24e1baa895",
+    "bodySha256": "3fa840c708b0b32c3db4f7ada80c785c3355463f7c56d44c27c1c87283159b8e",
+    "maxUnitBytes": 358204,
+    "modelCalls": 0,
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T07-58-15-045Z",
+    "stage": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T07-58-15-045Z/stages/s256",
+    "priorUnitsUnchanged": 251,
+    "models": 0
+  },
+  "coverage": {
+    "originalChaptersCovered": 243,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 275,
+    "originalUnitsTotal": 303
+  },
+  "remainingChapters": 13,
+  "remaining": [
+    {
+      "canonical": "79-cn-chapter-109-4",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248"
+    },
+    {
+      "canonical": "79-cn-chapter-167-4",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248"
+    },
+    {
+      "canonical": "79-cn-chapter-182-5",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248"
+    },
+    {
+      "canonical": "79-cn-chapter-201-6",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248"
+    },
+    {
+      "canonical": "79-cn-chapter-234-12",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-269"
+    },
+    {
+      "canonical": "79-cn-chapter-311-18",
+      "units": 16,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248"
+    },
+    {
+      "canonical": "nemata-jp-chapter-001-64",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-250"
+    },
+    {
+      "canonical": "nemata-jp-chapter-193-1",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248"
+    },
+    {
+      "canonical": "nemata-jp-chapter-213-1",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248"
+    },
+    {
+      "canonical": "nemata-jp-chapter-224-1",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248"
+    },
+    {
+      "canonical": "nemata-jp-chapter-232-1",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248"
+    },
+    {
+      "canonical": "nemata-jp-chapter-250-1",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-247/248"
+    },
+    {
+      "canonical": "nemata-jp-chapter-283-1",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248/249"
+    }
+  ],
+  "addedOriginalChapters": [
+    "79-cn-chapter-256-18"
+  ],
+  "selection": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v32.json",
+    "sha256": "da59ba7de0fb1a6f033b5936a89cc7dd6fc578e88f39c4fd6464cf32d03b1c8e",
+    "version": 32,
+    "rollbackVersion": 31
+  },
+  "intake": {
+    "status": "admitted-exact256-limited-author-display",
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r2.display.json",
+      "sha256": "0877ccd8c34fed1b2728eec6c8dd912559e852d653b5fedda8f5b6e4469aa0bd"
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1785770\\source.json",
+      "sha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23"
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r1.display.json",
+      "sha256": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2"
+    },
+    "originalAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1785770.56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2.json",
+      "sha256": "8341055fc9fec8aacf5c8dd6344cb5af99cfc6998f76105f7dc7d8e13a9a4b21"
+    },
+    "independentReceipt": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/supplements/coac249-256-impact-20261028/receipt.json",
+      "sha256": "f2de18998185283ea785048f65e5b406ae100549a569eefa82c4214dc8cf43e2"
+    },
+    "independentRaw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\68f60ecb-24d4-4d88-972a-4996c456506a.json",
+      "sha256": "56995b3c9bb536ab34bee7ea40165fdfc01e47f62e12e1c76ac46300b868df4c"
+    },
+    "binding": {
+      "candidateSha256": "0877ccd8c34fed1b2728eec6c8dd912559e852d653b5fedda8f5b6e4469aa0bd",
+      "module": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-exact256-display-20261028/admit.mjs",
+        "sha256": "65f44c08b9e7ab74fdce91d490ebf5ecbf0c7aa2ff5f6f817c221be8c6587317"
+      },
+      "stage": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-exact256-display-20261028/stage.mjs",
+        "sha256": "ea359bc2c5a4417ade55448d314587e53320449ddf8be7bdcf8c6f995df24176"
+      },
+      "manifest": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-exact256-display-20261028/manifest.json",
+        "sha256": "d02be6c61170d0fefccf8a8a364c1a420804fb1e57363362623a2843b0440f74"
+      },
+      "contract": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-256-exact-gate-20261028/limited-display-contract.json",
+        "sha256": "e0b763b701edbd623d1c77b8b92a556a09e74b8d3bce23806de1c9d56deae76d"
+      }
+    },
+    "previewOutput": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T07-58-15-045Z",
+    "corpusId": "93866260afbca2a2f2c74f3da71c44a13f3963f686aa4233e9515c24e1baa895",
+    "previewChapterId": "79-bilibili-cn-cv1785770-chapter",
+    "stageReceiptPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T07-58-15-045Z/stages/s256/web-stage-receipt.json",
+    "readback": {
+      "path": "_analysis/s256/readback.json",
+      "sha256": "909168790c749d59ad817ad4593e81efb209f76a704ab7257fd3b0f21ce82e9e"
+    },
+    "sourceBodyBlocks": 42,
+    "pdfOwnedBlocks": 62,
+    "sourceVersionDifferencePreserved": true,
+    "compiledBlocks": 48,
+    "figures": 4,
+    "exact8s": true,
+    "unknowns": [
+      "上方弃牌第二行最右一张，即1p右侧的万子：数字无法可靠辨认。",
+      "右方弃牌靠中央一列最上方一张：可辨为索子，数字无法可靠辨认。"
+    ],
+    "mandatoryLimits": 6,
+    "displayLimits": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T07-58-15-045Z/stages/s256/display-limits.json",
+      "sha256": "15d37ab867eac2fad16c9ba9ceaa4bc4698df81769dd3c3f0ca64b1b53a1f7ac"
+    },
+    "originalTechnicalNeedsRepairPreserved": true,
+    "originalModelChecks": {
+      "passed": false,
+      "errors": [
+        "needs-repair:79-bilibili-cn:cv1785770:b0016",
+        "needs-repair:79-bilibili-cn:cv1785770:b0016:figure",
+        "semantic_information_missing",
+        "error:79-bilibili-cn:cv1785770:b0016:figure",
+        "uncertain:79-bilibili-cn:cv1785770:b0016:figure"
+      ]
+    },
+    "retainedOriginalIssues": [
+      {
+        "severity": "error",
+        "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+        "sourceEvidence": "例2原图及放大图下方手牌第12张，位于7s与9s之间，可辨为8s；候选写作“[索子，数字不明]”。",
+        "description": "可辨认的教学手牌仍用占位描述，漏失具体牌码。",
+        "suggestedRepair": "将该位置改为8s，并删除unknowns中对应条目。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+        "sourceEvidence": "候选将上方弃牌第二行1p右侧的万子及右方靠中央一列最上方的索子记为数字不明；两者均是原图中的实际弃牌。",
+        "description": "两张弃牌的具体牌码尚未可靠确定，无法确认例2完整牌河忠实性，不能以unknowns声明替代完整教学转录。",
+        "suggestedRepair": "逐牌确认这两处牌面并补入确定牌码；确认前保持阻断，不依据正文或牌序推补。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1785770:b0006:figure",
+        "sourceEvidence": "例1备注称“附件1与附件2”属于例1，但本次附件1、2绑定的是例2；例3、例4备注另引用附件5至8。",
+        "description": "加工附件编号与本次附图编号不对应，不影响已核原图的教学语义。",
+        "suggestedRepair": "将附件说明改为按对应图例或assetId描述原图与放大图，避免沿用其他批次的附件编号。"
+      }
+    ],
+    "retainedIndependentIssues": [
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+        "description": "两张河牌的数字仍未确定。可以在明确限制下展示并理解作者论证，但不能认证完整牌河或战术判断；原审的uncertain仍保留。",
+        "evidence": "现稿和retainedUnknowns均保留上方万子及右方索子的数字不明说明；例2正文的出牌可能性、改良机会及对手状态包含无法仅凭这两处图像确定的判断。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1785770:b0016:figure",
+        "description": "无法独立确认目标对象的全部历史字段差异。",
+        "evidence": "原审给出了第12张手牌的旧占位描述，但未提供修订前的完整目标对象；因此可确认该项修复和两处unknown保留，不能据此断言目标对象其余字段绝无改动。"
+      }
+    ],
+    "mechanicalHistoryProof": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/supplements/coac249-256-impact-20261028/verification.json",
+      "sha256": "e2b152df4cfac7fd2f49e4a3a7c37c7cef9c2e033ebd12e026a5e627380ea365"
+    },
+    "ordinaryWholeArticlePassed": false,
+    "newModelCalls": 0
+  },
+  "ordinaryWholeArticlePassed": false,
+  "priorUnitsUnchanged": 251,
+  "negativeTests": 16,
+  "persistedRoute": {
+    "passed": true,
+    "version": 32,
+    "exactModuleRebuiltSameCorpus": true,
+    "refusalChecks": 3,
+    "actualEarlyRoutingExecuted": true,
+    "ordinaryReceiptNotRequiredForThisBoundNamespace": true,
+    "historicalStagesRebuilt": 0,
+    "models": 0
+  },
+  "recovery": {
+    "path": "_analysis/s256/recovery.json",
+    "sha256": "f725e32b321e910b0bba604638a6fd173fc976bf29a6082bb9c3a640f806b0d3"
+  },
+  "register": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+    "beforeSha256": "0ee3be46a3facccbc22ef5719671b83ed0c38374a18977a707c4e5da653a543f",
+    "afterSha256": "7fa48f42237d7bd9ce9d36313138ee8d44754650210e67c2866954b1e8ff5c6d"
+  },
+  "owner": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+    "beforeSha256": "8b43baa9d02cdd9f5362f5628cd053dfaf594f83737e21ec36d25a21ab7f01c3",
+    "afterSha256": "7d8cd9a52938f53a93039b1f03f8860f05084256ebbda7932a90120fe1900205"
+  },
+  "readback": {
+    "path": "_analysis/s256/readback.json",
+    "sha256": "909168790c749d59ad817ad4593e81efb209f76a704ab7257fd3b0f21ce82e9e"
+  },
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "newConsumerStarted": false,
+  "formalActiveChanged": false,
+  "bookComplete": false,
+  "safeToResumeNextValidatedIncrement": true
+}

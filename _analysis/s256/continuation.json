@@ -1,0 +1,334 @@
+{
+  "safeToResume": true,
+  "currentSelection": 32,
+  "corpusId": "93866260afbca2a2f2c74f3da71c44a13f3963f686aa4233e9515c24e1baa895",
+  "coveredOriginalChapters": 243,
+  "coveredOriginalUnits": 275,
+  "remainingOriginalChapters": 13,
+  "remainingOriginalUnits": 28,
+  "remaining": [
+    {
+      "canonical": "79-cn-chapter-109-4",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248",
+      "title": "手役7—染手（二）",
+      "nextAction": "复用最新同源修订和父审；b0004/b0006的5m读法与b0012三处未明牌分开，后者取更清晰同源图或定位审证；不得仅修已知两牌就放行。",
+      "blockingTargets": [
+        {
+          "targetId": "79-bilibili-cn:cv1729038:b0004:figure",
+          "severity": "error"
+        },
+        {
+          "targetId": "79-bilibili-cn:cv1729038:b0006:figure",
+          "severity": "error"
+        },
+        {
+          "targetId": "79-bilibili-cn:cv1729038:b0012:figure",
+          "severity": "uncertain"
+        }
+      ],
+      "alreadyApprovedScopeEvidenceRetained": true
+    },
+    {
+      "canonical": "79-cn-chapter-167-4",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248",
+      "title": "鸣牌15—鸣牌的技巧（3）",
+      "nextAction": "b0005先保留7p立直宣言牌方向修订目标，另将南家第5行第3列万子未明点数定位补证；两项均闭合后再独审。",
+      "blockingTargets": [
+        {
+          "targetId": "79-bilibili-cn:cv1754620:b0005:figure",
+          "severity": "error"
+        },
+        {
+          "targetId": "79-bilibili-cn:cv1754620:b0005:figure",
+          "severity": "uncertain"
+        }
+      ],
+      "alreadyApprovedScopeEvidenceRetained": true
+    },
+    {
+      "canonical": "79-cn-chapter-182-5",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248",
+      "title": "立直6—立直理论（2）",
+      "nextAction": "b0003日文格言可定点翻译，但b0013“对日”在原HTML与PDF183一致；需最小上游原句校勘，现不猜对应行为、不为单一格言花整章调用。",
+      "blockingTargets": [
+        {
+          "targetId": "79-bilibili-cn:cv1760573:b0003",
+          "severity": "error"
+        },
+        {
+          "targetId": "79-bilibili-cn:cv1760573:b0013",
+          "severity": "uncertain"
+        }
+      ],
+      "alreadyApprovedScopeEvidenceRetained": true
+    },
+    {
+      "canonical": "79-cn-chapter-201-6",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248",
+      "title": "防守6—弃和的切牌顺序（1）",
+      "nextAction": "先复用已有rev1及独审差异；b0006比喻翻译与b0005北家9m各有原定位，限定同源目标，不覆盖其它正文。",
+      "blockingTargets": [
+        {
+          "targetId": "79-bilibili-cn:cv1770179:b0006",
+          "severity": "error"
+        },
+        {
+          "targetId": "79-bilibili-cn:cv1770179:b0005:figure",
+          "severity": "error"
+        }
+      ],
+      "alreadyApprovedScopeEvidenceRetained": true
+    },
+    {
+      "canonical": "79-cn-chapter-234-12",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-269",
+      "title": "状况判断2—要有顺位意识",
+      "nextAction": "旧生产ba432ee3超时且rawLastMessage=null，完整raw无可恢复输出；上游请求数/usage未知。先明确观测边界和追加授权，最小仅b0003三个俗称，无图，不自动重试。",
+      "blockingTargets": [
+        {
+          "targetId": "79-bilibili-cn:cv1780400:b0003",
+          "severity": "error"
+        }
+      ],
+      "alreadyApprovedScopeEvidenceRetained": true
+    },
+    {
+      "canonical": "79-cn-chapter-311-18",
+      "units": 16,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248",
+      "title": "第三节 攻守判断的基准",
+      "nextAction": "按原独审逐target/group生成有限补丁和shared-premise闭包，保留题库225块原顺序；先核当前修订/失败ledger，不整章从头再制。",
+      "blockingTargets": [
+        {
+          "targetId": "79-bilibili-cn:cv1815400:b0122:figure",
+          "severity": "uncertain"
+        },
+        {
+          "targetId": "79-bilibili-cn:cv1815400:b0124:figure",
+          "severity": "uncertain"
+        },
+        {
+          "targetId": "79-bilibili-cn:cv1815400:b0126:figure",
+          "severity": "uncertain"
+        },
+        {
+          "targetId": "79-bilibili-cn:cv1815400:b0128:figure",
+          "severity": "uncertain"
+        },
+        {
+          "targetId": "79-bilibili-cn:cv1815400:b0130:figure",
+          "severity": "uncertain"
+        },
+        {
+          "targetId": "79-bilibili-cn:cv1815400:b0132:figure",
+          "severity": "uncertain"
+        },
+        {
+          "targetId": "79-bilibili-cn:cv1815400:b0154:figure",
+          "severity": "uncertain"
+        },
+        {
+          "targetId": "79-bilibili-cn:cv1815400:b0156:figure",
+          "severity": "error"
+        },
+        {
+          "targetId": "79-bilibili-cn:cv1815400:b0158:figure",
+          "severity": "error"
+        },
+        {
+          "targetId": "candidate.figures.sourceNotes",
+          "severity": "source-note"
+        }
+      ],
+      "alreadyApprovedScopeEvidenceRetained": true
+    },
+    {
+      "canonical": "nemata-jp-chapter-001-64",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-250",
+      "title": "封面、目录与网页说明",
+      "nextAction": "Consume only the four pinned derivatives via exact A+B coverage composition: A eight cover fields accepted individually; original A uncertain/false retained; B same317 complete body/TOC/emphasis fills the accidentally common prompt obligation. Zero makers/reviews/retries; no OCR task. 250 performs finite scoped preview and actual per-page MCP/Arena readback; B already handed off, do not dispatch it again. No original chapter covered until scoped acceptance/readback.",
+      "blockingTargets": [
+        {
+          "targetId": "nemata-jp-p1-r4",
+          "severity": "error"
+        },
+        {
+          "targetId": "nemata-jp-p2-r15",
+          "severity": "error"
+        },
+        {
+          "targetId": "nemata-jp-p3-r1",
+          "severity": "error"
+        },
+        {
+          "targetId": "nemata-jp-p3-r3",
+          "severity": "error"
+        }
+      ],
+      "alreadyApprovedScopeEvidenceRetained": true
+    },
+    {
+      "canonical": "nemata-jp-chapter-193-1",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248",
+      "title": "ドラ切り",
+      "nextAction": "与79-cn-193不同：b0080末三张6p/8p、右手第4-6张未明牌；b0081“入り目”需同作者原语境。补文术语不替代三张图证。",
+      "blockingTargets": [
+        {
+          "targetId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+          "severity": "error"
+        },
+        {
+          "targetId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+          "severity": "uncertain"
+        },
+        {
+          "targetId": "modern-yabejp-ja:chapter03-section009:b0081",
+          "severity": "error"
+        }
+      ],
+      "alreadyApprovedScopeEvidenceRetained": true
+    },
+    {
+      "canonical": "nemata-jp-chapter-213-1",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248",
+      "title": "逆切り３",
+      "nextAction": "b0017入り目条件限定与b0032左家7p分别定点；对家字牌/两家点数未知仍需源图补证，不能由牌理推。",
+      "blockingTargets": [
+        {
+          "targetId": "modern-yabejp-ja:chapter03-section026:b0017",
+          "severity": "error"
+        },
+        {
+          "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+          "severity": "error"
+        },
+        {
+          "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+          "severity": "uncertain"
+        }
+      ],
+      "alreadyApprovedScopeEvidenceRetained": true
+    },
+    {
+      "canonical": "nemata-jp-chapter-224-1",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248",
+      "title": "オーラスの見逃し判断",
+      "nextAction": "b0013保留7系列x15巡图，原轴坐标可机械形成空表；读数需明确约值与误差，图例自摸译名定点修，不把相关率或曲线走向替代105格定量独审。",
+      "blockingTargets": [
+        {
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "severity": "error"
+        },
+        {
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "severity": "error"
+        },
+        {
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0008",
+          "severity": "source-note"
+        }
+      ],
+      "alreadyApprovedScopeEvidenceRetained": true
+    },
+    {
+      "canonical": "nemata-jp-chapter-232-1",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248",
+      "title": "満貫和了技術",
+      "nextAction": "b0002確和了、b0004や并列可文字定修；b0005手牌3s/2s及右家万子未明分别带图审，不能只修文字放行。",
+      "blockingTargets": [
+        {
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0002",
+          "severity": "error"
+        },
+        {
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0004",
+          "severity": "error"
+        },
+        {
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+          "severity": "error"
+        },
+        {
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+          "severity": "uncertain"
+        }
+      ],
+      "alreadyApprovedScopeEvidenceRetained": true
+    },
+    {
+      "canonical": "nemata-jp-chapter-250-1",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-247/248",
+      "title": "「ネマー日記」ブログ問題",
+      "nextAction": "复用11页真实passed，只处理p257与p261；p257旧主控像素断言不作裁决，p261查现有完整raw/布局验证后限定修复，不重开258或13页整制。",
+      "blockingTargets": [],
+      "alreadyApprovedScopeEvidenceRetained": true
+    },
+    {
+      "canonical": "nemata-jp-chapter-283-1",
+      "units": 1,
+      "verdict": "produced-needs-repair",
+      "owner": "COAC-248/249",
+      "title": "「鴉〃の麻雀解説」サイト問題",
+      "nextAction": "283当前精确工作稿b90f7c4f，原19问题有效11已补证/6阻断/2source-note；b1181据真实独审236cb892闭合，勿重复制作/复审。b1017独审53722d02确认括注小三元／大三元缩窄范围，仅删除该括注并保留三元役是后续最小修订目标，未改候选；未来需另获maker1+单目标独审1共2调用，当前4/4余0，不自动执行。剩b0785两error+河牌unknown、b0947题问error+两风牌unknown保持；六表/Q8/0168/0396/0962/batch010原证据精确继承，不重审、不合整283、不切active。",
+      "blockingTargets": [
+        {
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "severity": "error"
+        },
+        {
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "severity": "error"
+        },
+        {
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "severity": "uncertain"
+        },
+        {
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+          "severity": "error"
+        },
+        {
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+          "severity": "uncertain"
+        },
+        {
+          "targetId": "modern-yabejp-ja:chapter06-exercise003:b1017",
+          "severity": "error"
+        }
+      ],
+      "alreadyApprovedScopeEvidenceRetained": true
+    }
+  ],
+  "frontmatter1To3": {
+    "ownerProofAvailable": true,
+    "independent249ZeroCallVerificationNotReceivedInThisRun": true,
+    "notConsumed": true,
+    "noSlotWait": true
+  },
+  "noForeignLockRemoved": true,
+  "newModelCalls": 0,
+  "formalActiveChanged": false
+}

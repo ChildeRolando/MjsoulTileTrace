@@ -1,0 +1,85 @@
+{
+  "schema": "coac248-exact256-display-overlay-proposal/1",
+  "canonical": "79-cn-chapter-256-18",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r2.display.json",
+    "sha256": "0877ccd8c34fed1b2728eec6c8dd912559e852d653b5fedda8f5b6e4469aa0bd"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1785770\\source.json",
+    "sha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23"
+  },
+  "independentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-256-impact-20261028\\receipt.json",
+    "sha256": "f2de18998185283ea785048f65e5b406ae100549a569eefa82c4214dc8cf43e2"
+  },
+  "independentRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\68f60ecb-24d4-4d88-972a-4996c456506a.json",
+    "sha256": "56995b3c9bb536ab34bee7ea40165fdfc01e47f62e12e1c76ac46300b868df4c"
+  },
+  "targetFigureId": "79-bilibili-cn:cv1785770:b0016:figure",
+  "placement": {
+    "afterCandidatePointer": "/body/blocks/20",
+    "afterSourceBlockId": "79-bilibili-cn:cv1785770:b0021",
+    "afterFullBlockSha256": "1c607185c941c0aeea2c4061c9600111c6db0edd7cb741945c7fa4fffbd1a883",
+    "beforeSourceBlockId": "79-bilibili-cn:cv1785770:b0022",
+    "beforeFullBlockSha256": "faaed28aa0be8ac102bbcfa4129bfc69ca1d03d49ec1c95f65513ab9bc26ddc6",
+    "stageMapping": "after the LAST staged block mapped to b0021, before separator b0022; never split author paragraph or insert within figure transcription"
+  },
+  "notes": [
+    {
+      "id": "limited256-1",
+      "type": "p",
+      "authorText": false,
+      "text": "【审校范围（非原文）1】保留该位置的万子数字不明标记，不推补具体牌码。",
+      "independentReceiptPointer": "/modelReview/unknownImpact/0/requiredDisplayLimitations/0",
+      "unknownCandidatePointer": "/figures/1/unknowns/0"
+    },
+    {
+      "id": "limited256-2",
+      "type": "p",
+      "authorText": false,
+      "text": "【审校范围（非原文）2】该牌可能影响1万、4万或7万的可见张数，不能据此精确核算剩余张数或验证1万更容易被打出的判断。",
+      "independentReceiptPointer": "/modelReview/unknownImpact/0/requiredDisplayLimitations/1",
+      "unknownCandidatePointer": "/figures/1/unknowns/0"
+    },
+    {
+      "id": "limited256-3",
+      "type": "p",
+      "authorText": false,
+      "text": "【审校范围（非原文）3】对家做食断及已满足逆转条件应保留为作者的论述，不能当作已由可见牌面证实的暗手事实。",
+      "independentReceiptPointer": "/modelReview/unknownImpact/0/requiredDisplayLimitations/2",
+      "unknownCandidatePointer": "/figures/1/unknowns/0"
+    },
+    {
+      "id": "limited256-4",
+      "type": "p",
+      "authorText": false,
+      "text": "【审校范围（非原文）4】保留该位置的索子数字不明标记，不推补具体牌码。",
+      "independentReceiptPointer": "/modelReview/unknownImpact/1/requiredDisplayLimitations/0",
+      "unknownCandidatePointer": "/figures/1/unknowns/1"
+    },
+    {
+      "id": "limited256-5",
+      "type": "p",
+      "authorText": false,
+      "text": "【审校范围（非原文）5】不能完整核算索子牌河、剩余张数或据此独立验证改良机会。",
+      "independentReceiptPointer": "/modelReview/unknownImpact/1/requiredDisplayLimitations/1",
+      "unknownCandidatePointer": "/figures/1/unknowns/1"
+    },
+    {
+      "id": "limited256-6",
+      "type": "p",
+      "authorText": false,
+      "text": "【审校范围（非原文）6】保留作者所写上下两家尚未听牌的前提；隐藏手牌和实际听牌状态不能由本图确认。",
+      "independentReceiptPointer": "/modelReview/unknownImpact/1/requiredDisplayLimitations/2",
+      "unknownCandidatePointer": "/figures/1/unknowns/1"
+    }
+  ],
+  "candidateChanged": false,
+  "oldRawOrAuditChanged": false,
+  "admissionGranted": false,
+  "ordinaryWholeChapterPassed": false,
+  "status": "prepared-exact-overlay-awaiting-existing-owner-admission",
+  "newModelCalls": 0
+}

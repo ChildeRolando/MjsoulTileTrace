@@ -1,0 +1,37 @@
+{
+  "schema": "coac244-existing256-limited-display-contract/1",
+  "canonical": "79-cn-chapter-256-18",
+  "authorization": "01a17f8d-38c9-7cf9-ad2c-01bddd851470",
+  "integrationWakeup": "01a17fb1-463b-75a9-ba4b-306ce0ac21b9",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r2.display.json",
+    "sha256": "0877ccd8c34fed1b2728eec6c8dd912559e852d653b5fedda8f5b6e4469aa0bd"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1785770\\source.json",
+    "sha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r1.display.json",
+    "sha256": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2"
+  },
+  "receipt": {
+    "path": "E:/AgentData/Coach/knowledge/processing/audit/supplements/coac249-256-impact-20261028/receipt.json",
+    "sha256": "f2de18998185283ea785048f65e5b406ae100549a569eefa82c4214dc8cf43e2"
+  },
+  "verification": {
+    "path": "E:/AgentData/Coach/knowledge/processing/audit/supplements/coac249-256-impact-20261028/verification.json",
+    "sha256": "e2b152df4cfac7fd2f49e4a3a7c37c7cef9c2e033ebd12e026a5e627380ea365"
+  },
+  "overlay": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-256-limits-20261028/overlay.json",
+    "sha256": "db851911bc1759ceb4fd6dcba4a1ede826b523d334ab94b0fce54fc353cc8ec1"
+  },
+  "scope": "Only exact8s repair plus unchanged parent scope and independently allowed unknown author-argument display; six verbatim non-author limits after b0021 before b0022. Historical diff is mechanical proof, not a model claim.",
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "newRecognitionTasks": 0,
+  "ordinaryWholeArticlePassed": false,
+  "originalFalseAndUncertainMustRemain": true,
+  "coverageOnlyAfterActualFullMcpArenaReadback": true
+}

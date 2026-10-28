@@ -1,0 +1,339 @@
+{
+  "schema": "coac248256-independent-review-limits-to-existing-owner/1",
+  "recordedAt": "2026-10-27T23:34:21.830423+00:00",
+  "canonical": "79-cn-chapter-256-18",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r2.display.json",
+    "sha256": "0877ccd8c34fed1b2728eec6c8dd912559e852d653b5fedda8f5b6e4469aa0bd"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1785770\\source.json",
+    "sha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r1.display.json",
+    "sha256": "56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2"
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1785770.56ea08c0868e87628f61a777a35c40a9a8372bddfcca23a7daef6be3a3bdafe2.json",
+    "sha256": "8341055fc9fec8aacf5c8dd6344cb5af99cfc6998f76105f7dc7d8e13a9a4b21"
+  },
+  "independentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-256-impact-20261028\\receipt.json",
+    "sha256": "f2de18998185283ea785048f65e5b406ae100549a569eefa82c4214dc8cf43e2"
+  },
+  "independentRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\68f60ecb-24d4-4d88-972a-4996c456506a.json",
+    "sha256": "56995b3c9bb536ab34bee7ea40165fdfc01e47f62e12e1c76ac46300b868df4c"
+  },
+  "independentCall": {
+    "callId": "68f60ecb-24d4-4d88-972a-4996c456506a",
+    "scope": "textbook-exact256-target-impact-independent-review",
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1785770",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "success": true,
+    "usage": {
+      "inputTokens": 30779,
+      "cachedInputTokens": 0,
+      "outputTokens": 12914
+    },
+    "durationMs": 156168,
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "callerRequested": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-terra",
+        "--config",
+        "model_reasoning_effort=\"max\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-3nzkTp\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-3nzkTp\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-3nzkTp",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.x2.png",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.png",
+          "sha256": "1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce",
+          "bytes": 16584
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.x2.png",
+          "sha256": "2b42c5e4db8c3fa997c5715c012635834af4dbd9a8acced04aa2ca12edb4fd72",
+          "bytes": 25380
+        }
+      ],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "binding": {
+      "canonical": "79-cn-chapter-256-18",
+      "productionSha256": "0877ccd8c34fed1b2728eec6c8dd912559e852d653b5fedda8f5b6e4469aa0bd",
+      "sourceFileSha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23",
+      "parentAuditSha256": "8341055fc9fec8aacf5c8dd6344cb5af99cfc6998f76105f7dc7d8e13a9a4b21",
+      "parentRawSha256": "6ed8519078198ecb6310bf2ed36dc5aaddff786ea5b79a82afdf555146ffcf1c",
+      "scope": "8s-repair-and-two-unknown-teaching-impact",
+      "authorizationComment": "01a17f8d-38c9-7cf9-ad2c-01bddd851470",
+      "runtimeManifestSha256": "7068edaa377784a0823c4c6b942d41f5e4533dfbd2f3331962bede454b01bf15",
+      "orderedProjectionSha256": "27e9fb486d78c27fb789f513c3d53956da2daf12b5224b0ce0b9de4d9477b841"
+    },
+    "promptSha256": "ed5f5c2129d09d0d6b4345063af026841ea4e57082fbf8ad73f7de80f1dc195d",
+    "semanticPromptSha256": "e8a2ff2222e948da413f892d8ebd72a356d5057de3026a7fb3e6763cef24082d",
+    "schemaSha256": "ea2c6b59b81963fa39ab054250b2ea905859b62d48034db3ae9418071fb6a6d1",
+    "recordedAt": "2026-10-27T23:26:33.871Z"
+  },
+  "proof": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-256-limits-20261028\\proof.json",
+    "sha256": "959fe15db13620cf79e66e91fba91f38431a436b952db33fa471d510df9204de"
+  },
+  "exactOverlayProposal": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-256-limits-20261028\\overlay.json",
+    "sha256": "db851911bc1759ceb4fd6dcba4a1ede826b523d334ab94b0fce54fc353cc8ec1"
+  },
+  "readablePreview": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-256-limits-20261028\\overlay-preview.html",
+    "sha256": "7b38659911145d151413e1e9a03139d778b87afe03598d1fbd64b49ce5a33595",
+    "actualMcpReadback": false
+  },
+  "frozenExecutionRecheck": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-256-limits-20261028\\gates.json",
+    "sha256": "3339b33789ec660bf7ce904f6070260d691b79a75ee29f1740fede12394b5860"
+  },
+  "commands": [
+    "python -X utf8 E:/AgentData/Coach/knowledge/processing/integration/coac248-256-limits-20261028/verify.py",
+    "python -X utf8 E:/AgentData/Coach/knowledge/processing/integration/coac248-256-limits-20261028/verify_test.py",
+    "E:/IDE/NodeJS/node.exe E:/AgentData/Coach/knowledge/processing/integration/coac248-256-limits-20261028/gates.mjs"
+  ],
+  "displayRequirements": [
+    {
+      "noteId": "limited256-1",
+      "independentReceiptPointer": "/modelReview/unknownImpact/0/requiredDisplayLimitations/0",
+      "unknownPointer": "/figures/1/unknowns/0",
+      "unknownLiteral": "上方弃牌第二行最右一张，即1p右侧的万子：数字无法可靠辨认。",
+      "unknownMarkerAlreadyInCandidate": true,
+      "fullLimitationAlreadyDisplayedInLibrary": false,
+      "preparedOverlayNote": "【审校范围（非原文）1】保留该位置的万子数字不明标记，不推补具体牌码。",
+      "authorContextFields": [
+        "/body/blocks/16/text",
+        "/body/blocks/17/text",
+        "/body/blocks/18/text",
+        "/body/blocks/19/text",
+        "/body/blocks/20/text"
+      ],
+      "requiresOverlayConsumption": true
+    },
+    {
+      "noteId": "limited256-2",
+      "independentReceiptPointer": "/modelReview/unknownImpact/0/requiredDisplayLimitations/1",
+      "unknownPointer": "/figures/1/unknowns/0",
+      "unknownLiteral": "上方弃牌第二行最右一张，即1p右侧的万子：数字无法可靠辨认。",
+      "unknownMarkerAlreadyInCandidate": true,
+      "fullLimitationAlreadyDisplayedInLibrary": false,
+      "preparedOverlayNote": "【审校范围（非原文）2】该牌可能影响1万、4万或7万的可见张数，不能据此精确核算剩余张数或验证1万更容易被打出的判断。",
+      "authorContextFields": [
+        "/body/blocks/16/text",
+        "/body/blocks/17/text",
+        "/body/blocks/18/text",
+        "/body/blocks/19/text",
+        "/body/blocks/20/text"
+      ],
+      "requiresOverlayConsumption": true
+    },
+    {
+      "noteId": "limited256-3",
+      "independentReceiptPointer": "/modelReview/unknownImpact/0/requiredDisplayLimitations/2",
+      "unknownPointer": "/figures/1/unknowns/0",
+      "unknownLiteral": "上方弃牌第二行最右一张，即1p右侧的万子：数字无法可靠辨认。",
+      "unknownMarkerAlreadyInCandidate": true,
+      "fullLimitationAlreadyDisplayedInLibrary": false,
+      "preparedOverlayNote": "【审校范围（非原文）3】对家做食断及已满足逆转条件应保留为作者的论述，不能当作已由可见牌面证实的暗手事实。",
+      "authorContextFields": [
+        "/body/blocks/16/text",
+        "/body/blocks/17/text",
+        "/body/blocks/18/text",
+        "/body/blocks/19/text",
+        "/body/blocks/20/text"
+      ],
+      "requiresOverlayConsumption": true
+    },
+    {
+      "noteId": "limited256-4",
+      "independentReceiptPointer": "/modelReview/unknownImpact/1/requiredDisplayLimitations/0",
+      "unknownPointer": "/figures/1/unknowns/1",
+      "unknownLiteral": "右方弃牌靠中央一列最上方一张：可辨为索子，数字无法可靠辨认。",
+      "unknownMarkerAlreadyInCandidate": true,
+      "fullLimitationAlreadyDisplayedInLibrary": false,
+      "preparedOverlayNote": "【审校范围（非原文）4】保留该位置的索子数字不明标记，不推补具体牌码。",
+      "authorContextFields": [
+        "/body/blocks/16/text",
+        "/body/blocks/17/text",
+        "/body/blocks/18/text",
+        "/body/blocks/19/text",
+        "/body/blocks/20/text"
+      ],
+      "requiresOverlayConsumption": true
+    },
+    {
+      "noteId": "limited256-5",
+      "independentReceiptPointer": "/modelReview/unknownImpact/1/requiredDisplayLimitations/1",
+      "unknownPointer": "/figures/1/unknowns/1",
+      "unknownLiteral": "右方弃牌靠中央一列最上方一张：可辨为索子，数字无法可靠辨认。",
+      "unknownMarkerAlreadyInCandidate": true,
+      "fullLimitationAlreadyDisplayedInLibrary": false,
+      "preparedOverlayNote": "【审校范围（非原文）5】不能完整核算索子牌河、剩余张数或据此独立验证改良机会。",
+      "authorContextFields": [
+        "/body/blocks/16/text",
+        "/body/blocks/17/text",
+        "/body/blocks/18/text",
+        "/body/blocks/19/text",
+        "/body/blocks/20/text"
+      ],
+      "requiresOverlayConsumption": true
+    },
+    {
+      "noteId": "limited256-6",
+      "independentReceiptPointer": "/modelReview/unknownImpact/1/requiredDisplayLimitations/2",
+      "unknownPointer": "/figures/1/unknowns/1",
+      "unknownLiteral": "右方弃牌靠中央一列最上方一张：可辨为索子，数字无法可靠辨认。",
+      "unknownMarkerAlreadyInCandidate": true,
+      "fullLimitationAlreadyDisplayedInLibrary": false,
+      "preparedOverlayNote": "【审校范围（非原文）6】保留作者所写上下两家尚未听牌的前提；隐藏手牌和实际听牌状态不能由本图确认。",
+      "authorContextFields": [
+        "/body/blocks/16/text",
+        "/body/blocks/17/text",
+        "/body/blocks/18/text",
+        "/body/blocks/19/text",
+        "/body/blocks/20/text"
+      ],
+      "requiresOverlayConsumption": true
+    }
+  ],
+  "candidateEditNeeded": false,
+  "sixRestrictionsAlreadyInstalledClaimed": false,
+  "proposedPlacement": {
+    "afterCandidatePointer": "/body/blocks/20",
+    "afterSourceBlockId": "79-bilibili-cn:cv1785770:b0021",
+    "afterFullBlockSha256": "1c607185c941c0aeea2c4061c9600111c6db0edd7cb741945c7fa4fffbd1a883",
+    "beforeSourceBlockId": "79-bilibili-cn:cv1785770:b0022",
+    "beforeFullBlockSha256": "faaed28aa0be8ac102bbcfa4129bfc69ca1d03d49ec1c95f65513ab9bc26ddc6",
+    "stageMapping": "after the LAST staged block mapped to b0021, before separator b0022; never split author paragraph or insert within figure transcription"
+  },
+  "exactExistingOwnerWork": "Extend only legal256 supplemental scope for this precise source/parent/audit/maker/new-review/raw/SHA, consuming the proposed six non-author display blocks. Reuse existing overlay staging mechanics, never159/242 pins or a generic passed exception. Map insertion after the last staged chunk for b0021, before b0022 separator. Verify all other staged author blocks, images, links, marks, tableContext and order remain byte-equivalent.",
+  "specificRemaining": [
+    "Install six verbatim independent restrictions in actual256 consumer scope with explicit non-author marker; current unknown markers alone do not satisfy notes2/3/5/6.",
+    "ActualMCP/Arena readback: exact8s, both unknowns, all6 notes, all author conditions and source image references; preserve original uncertain/source-note and separate mechanical historical-diff proof."
+  ],
+  "existingDispatches": {
+    "owner244": "01a17fb1-429e-7e02-87c7-fd3138d21a40",
+    "consumer250": "01a17fb1-463b-75a9-ba4b-306ce0ac21b9",
+    "newWakeupsOrConsumers": 0
+  },
+  "phaseCalls": {
+    "maker": 1,
+    "review": 1,
+    "maximum": 2,
+    "remaining": 0,
+    "retry": 0
+  },
+  "newModelCallsThisRun": 0,
+  "newProductionCalls": 0,
+  "retry": 0,
+  "newSemanticReviewGapIdentified": false,
+  "ordinaryWholeChapterPassed": false,
+  "admissionGranted": false,
+  "formalActiveChanged": false,
+  "preserved": "The two original independent uncertain issues, old parent uncertain/source-note and every original raw/receipt are unchanged. Historical full-object differences are proven mechanically, not attributed to the model."
+}

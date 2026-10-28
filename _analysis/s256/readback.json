@@ -1,0 +1,260 @@
+{
+  "schema": "coac250-exact256-readback/1",
+  "allPassed": true,
+  "preview": {
+    "chapters": 244,
+    "units": 252,
+    "blocks": 6754,
+    "figures": 5315,
+    "corpusId": "93866260afbca2a2f2c74f3da71c44a13f3963f686aa4233e9515c24e1baa895",
+    "bodySha256": "3fa840c708b0b32c3db4f7ada80c785c3355463f7c56d44c27c1c87283159b8e",
+    "maxUnitBytes": 358204,
+    "modelCalls": 0,
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T07-58-15-045Z",
+    "stage": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T07-58-15-045Z/stages/s256",
+    "priorUnitsUnchanged": 251,
+    "models": 0
+  },
+  "canonical": "79-cn-chapter-256-18",
+  "webSourceBlocks": 42,
+  "pdfOwnedBlocks": 62,
+  "sourceVersionDifferencePreserved": true,
+  "compiledBlocks": 48,
+  "figures": 4,
+  "pages": [
+    {
+      "offset": 0,
+      "blocks": 29,
+      "next": 29
+    },
+    {
+      "offset": 29,
+      "blocks": 19,
+      "next": null
+    }
+  ],
+  "images": [
+    {
+      "figureId": "79-bilibili-cn-cv1785770-b6",
+      "sha256": "55e1e049e9fbb988adae5bc570c28e55c27a6ff32185e7de40213f447ef47b9a",
+      "bytes": 15948,
+      "mcpBytesExact": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1785770-b16",
+      "sha256": "0e247a5f8a27ca0bca25f447fb4a0fb5aad511e345b7b656e8190f850b4ad70c",
+      "bytes": 17600,
+      "mcpBytesExact": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1785770-b24",
+      "sha256": "7d05f45764d07777d4f84dfc7600d484745044572d99368fa1672fcadeb00c5b",
+      "bytes": 14358,
+      "mcpBytesExact": true
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1785770-b34",
+      "sha256": "eef7bddb7b60748f54bdba7a11c302818d96bb3927f8b5812457eeac91d8da31",
+      "bytes": 4087,
+      "mcpBytesExact": true
+    }
+  ],
+  "allSixLimitsActuallyDisplayed": true,
+  "exactOverlayPlacement": true,
+  "exact8s": true,
+  "unknowns": [
+    "上方弃牌第二行最右一张，即1p右侧的万子：数字无法可靠辨认。",
+    "右方弃牌靠中央一列最上方一张：可辨为索子，数字无法可靠辨认。"
+  ],
+  "ordinaryWholeArticlePassed": false,
+  "originalUncertainAndSourceNotePreserved": true,
+  "allAuthorBlocksAndMarksUnchanged": true,
+  "sourceBodyBindingComplete": true,
+  "priorUnitsUnchanged": 251,
+  "fullMcp": {
+    "units": 252,
+    "images": 5315
+  },
+  "arena": {
+    "units": 252,
+    "exactBody": true,
+    "reads": [
+      {
+        "offset": 0,
+        "blocks": 29,
+        "next": 29,
+        "bytes": 13788,
+        "sourceRefs": 0
+      },
+      {
+        "offset": 29,
+        "blocks": 19,
+        "next": null,
+        "bytes": 8886,
+        "sourceRefs": 1
+      }
+    ],
+    "completeReadRequiredBeforeCitation": true
+  },
+  "completeCanonicalCatalog": true,
+  "crossChapterSourceCollisions": 0,
+  "calls": [
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 0,
+        "limit": 20
+      },
+      "textBytes": 4758
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 20,
+        "limit": 20
+      },
+      "textBytes": 4852
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 40,
+        "limit": 20
+      },
+      "textBytes": 4910
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 60,
+        "limit": 20
+      },
+      "textBytes": 5054
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 80,
+        "limit": 20
+      },
+      "textBytes": 5122
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 100,
+        "limit": 20
+      },
+      "textBytes": 5127
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 120,
+        "limit": 20
+      },
+      "textBytes": 5098
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 140,
+        "limit": 20
+      },
+      "textBytes": 5011
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 160,
+        "limit": 20
+      },
+      "textBytes": 5060
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 180,
+        "limit": 20
+      },
+      "textBytes": 4392
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 200,
+        "limit": 20
+      },
+      "textBytes": 2817
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 220,
+        "limit": 20
+      },
+      "textBytes": 4575
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 240,
+        "limit": 20
+      },
+      "textBytes": 1105
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1785770-argument",
+        "blockOffset": 0
+      },
+      "textBytes": 13656
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1785770-argument",
+        "blockOffset": 29
+      },
+      "textBytes": 8703
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1785770-b6"
+      },
+      "textBytes": 1821
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1785770-b16"
+      },
+      "textBytes": 2420
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1785770-b24"
+      },
+      "textBytes": 1726
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1785770-b34"
+      },
+      "textBytes": 1157
+    },
+    {
+      "name": "search_textbook",
+      "args": {
+        "query": "不能完整核算索子牌河"
+      },
+      "textBytes": 3148
+    }
+  ],
+  "newModelCalls": 0,
+  "formalActiveChanged": false
+}

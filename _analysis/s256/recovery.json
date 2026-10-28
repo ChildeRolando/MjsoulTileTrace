@@ -1,0 +1,51 @@
+{
+  "schema": "coac250-exact256-recovery-audit/1",
+  "recordedAt": "2026-10-28T07:58:14.895Z",
+  "failedRuns": [
+    "01a17fb2-4537-7180-ae32-6d4bcf06cce7",
+    "01a1817e-9838-702e-84df-94293f5c99f6"
+  ],
+  "stageAlreadyPrepared": true,
+  "persistentRouteAlreadyVerified": {
+    "passed": true,
+    "version": 32,
+    "exactModuleRebuiltSameCorpus": true,
+    "refusalChecks": 3,
+    "actualEarlyRoutingExecuted": true,
+    "ordinaryReceiptNotRequiredForThisBoundNamespace": true,
+    "historicalStagesRebuilt": 0,
+    "models": 0
+  },
+  "mixedAssemblyStarted": false,
+  "selectedCandidateAlreadyConsumed": false,
+  "actualPointer": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-27T23-29-38-260Z",
+  "actualCorpus": "abc641515de7affeaddbfb6ab9dcf82a86c855095f985a3b1c29ff4971ae29a1",
+  "baseline": {
+    "originalChapters": 242,
+    "originalUnits": 274,
+    "displayChapters": 243,
+    "displayUnits": 251
+  },
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r2.display.json",
+    "sha256": "0877ccd8c34fed1b2728eec6c8dd912559e852d653b5fedda8f5b6e4469aa0bd"
+  },
+  "verifiedFreshGate": "admitted-exact256-limited-author-display",
+  "allSixLimits": [
+    "保留该位置的万子数字不明标记，不推补具体牌码。",
+    "该牌可能影响1万、4万或7万的可见张数，不能据此精确核算剩余张数或验证1万更容易被打出的判断。",
+    "对家做食断及已满足逆转条件应保留为作者的论述，不能当作已由可见牌面证实的暗手事实。",
+    "保留该位置的索子数字不明标记，不推补具体牌码。",
+    "不能完整核算索子牌河、剩余张数或据此独立验证改良机会。",
+    "保留作者所写上下两家尚未听牌的前提；隐藏手牌和实际听牌状态不能由本图确认。"
+  ],
+  "absent": [
+    "accepted-consumer.lock",
+    "selection-maintainer.lock.json",
+    "ACCEPTED-CONSUMER-STOP",
+    "specific-web-variant-selection.v32.json"
+  ],
+  "locksRemoved": false,
+  "newModels": 0,
+  "safeToResumeFiniteIntegration": true
+}
