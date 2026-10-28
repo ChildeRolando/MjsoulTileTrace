@@ -1,0 +1,56 @@
+{
+  "sourceId": "modern-yabejp-ja",
+  "articleId": "chapter03-section009",
+  "chapterId": "nemata-jp-chapter-193-1",
+  "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section009/source.json",
+  "sourceSha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+  "key": "193",
+  "targetId": "modern-yabejp-ja:chapter03-section009:b0081",
+  "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.r1.display.json",
+  "parentSha256": "af8071cfdbaabf8f469f84fa4daa6fd2d7d377c3dc2b277ef766e34a22324ba1",
+  "notesPath": "integration/coac249-jp193-target-impact-reviewed-20261028.json",
+  "notesSha256": "a70006b0e912a7089bf2ae7cebd3d9e366275ca3e25cc8a3ea1356335b410b6c",
+  "baseParentSha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+  "variant": "r2",
+  "textPrefix": "面对上图这样的牌河，有人立直时，",
+  "textSuffix": "，就基本可以读出其听牌是",
+  "authorizationCommentId": "01a181e7-d3dc-76f2-adb8-00cbb4f4e332",
+  "parentObjectSha256": "df1581b28dcfd3abef06fad2827b2ad88203b16da463e7d9c103cdc144f31039",
+  "notesObjectSha256": "5abdd1fcff0fb4ef97d3e0d8fce8d159084b95582af6090f2d3e637398136c63",
+  "priorCallIds": [
+    "bba0071e-a273-465a-a5bb-7abe1faa7f1a",
+    "da426322-fc53-44d7-8314-66472ff2b31f"
+  ],
+  "priorCandidateNames": [
+    "chapter03-section009.display.json",
+    "chapter03-section009.json",
+    "chapter03-section009.r1.display.json"
+  ],
+  "history": [
+    {
+      "callId": "bba0071e-a273-465a-a5bb-7abe1faa7f1a",
+      "success": true,
+      "usage": {
+        "inputTokens": 23811,
+        "cachedInputTokens": 0,
+        "outputTokens": 10583
+      },
+      "transportStatus": "completed"
+    },
+    {
+      "callId": "da426322-fc53-44d7-8314-66472ff2b31f",
+      "success": true,
+      "usage": {
+        "inputTokens": 50235,
+        "cachedInputTokens": 0,
+        "outputTokens": 7505
+      },
+      "transportStatus": "completed"
+    }
+  ],
+  "textBefore": "面对上图这样的牌河，有人立直时，只要立直宣言牌不是使其听牌时新摸入的同种牌，且新摸入的牌没有补成宣言牌所在一侧的面子，就基本可以读出其听牌是",
+  "reviewRawPath": "audit/calls/45129550-169e-4015-a297-8726ee5cd9c5.json",
+  "reviewRawSha256": "0098bd9a196c7f711cb1d953c2148ff9d9ff1a4f852333bb2efa90dab244a6a4",
+  "priorReviewPlanPath": "integration/coac248-193213-20261028/193-review-plan.json",
+  "priorReviewPlanSha256": "07ce97aef9c25f98b388353c281ba6be07e985a260ae297ca9fc4b4bbffed63f"
+}
