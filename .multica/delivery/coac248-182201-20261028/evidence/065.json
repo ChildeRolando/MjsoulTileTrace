@@ -1,0 +1,114 @@
+{
+  "schema": "coach-textbook-exact-web-reuse/1",
+  "sourcePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1760573\\source.json",
+  "sourceFileSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+  "pdfChapterIds": [
+    "79-cn-chapter-182-5"
+  ],
+  "imageComparison": "decoded RGBA exact dimensions and pixels, within corresponding PDF chapter; no fuzzy match",
+  "images": [
+    {
+      "assetId": "79-bilibili-cn:44917f8f12fd4651d3a063e7",
+      "assetSha256": "e3367f0fbd1220491e574e5c011bab37a8205b22b32190a6fcbc4e38b901dc12",
+      "pixelSignature": [
+        [
+          594,
+          67
+        ],
+        "829eed79468c1d6e0f5e532c2b1f2eedc3c568b8d110788b24e4f6cf2d63e902"
+      ],
+      "exactMatches": [],
+      "reusePermitted": false
+    },
+    {
+      "assetId": "79-bilibili-cn:c460098233420c9079af7e97",
+      "assetSha256": "2fdf1786a308dde24c7a8352ac5c6133eea45579ff81dc58000d8eb93482c2ec",
+      "pixelSignature": [
+        [
+          600,
+          64
+        ],
+        "6d3871189d5bbc63358fbafedb913dc85f589413a1212d8004a4fdd857868dba"
+      ],
+      "exactMatches": [],
+      "reusePermitted": false
+    },
+    {
+      "assetId": "79-bilibili-cn:b099921584c1e416f23305f7",
+      "assetSha256": "444a3e2d0184d4df3e173cc69a9c27040475b8ddbfd671b8f14fdf7db7402028",
+      "pixelSignature": [
+        [
+          587,
+          64
+        ],
+        "3b8c0ef049a15dc7a40aac9b164a086d189bf9b46edd6f00f5da073b281839a5"
+      ],
+      "exactMatches": [],
+      "reusePermitted": false
+    },
+    {
+      "assetId": "79-bilibili-cn:99559ead44ea73dbf96deeec",
+      "assetSha256": "9a2ba127e1852a01cce531938cacbd4a7a9e30609ef24f75bac5c8a1d11b0583",
+      "pixelSignature": [
+        [
+          146,
+          46
+        ],
+        "d3697abfa93126890b1f6b4f8c01dcced03722686cb55a7abbfff6946ee52461"
+      ],
+      "exactMatches": [],
+      "reusePermitted": false
+    },
+    {
+      "assetId": "79-bilibili-cn:d9f4279a06c20d92b768cbb8",
+      "assetSha256": "c9d10d79898cfa2dcfcca98c5b2df17caa908012e404fc7b339e56bb532adc50",
+      "pixelSignature": [
+        [
+          136,
+          43
+        ],
+        "962ee8f241a31912ccc759b0b898ea45abf2dcc3a2cbbc67289ebefb77718e25"
+      ],
+      "exactMatches": [],
+      "reusePermitted": false
+    }
+  ],
+  "paragraphs": [
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1760573:b0001",
+      "exactWhitespaceOnlyMatches": []
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1760573:b0002",
+      "exactWhitespaceOnlyMatches": []
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1760573:b0003",
+      "exactWhitespaceOnlyMatches": []
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1760573:b0005",
+      "exactWhitespaceOnlyMatches": []
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1760573:b0007",
+      "exactWhitespaceOnlyMatches": []
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1760573:b0009",
+      "exactWhitespaceOnlyMatches": []
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1760573:b0011",
+      "exactWhitespaceOnlyMatches": []
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1760573:b0013",
+      "exactWhitespaceOnlyMatches": []
+    }
+  ],
+  "assetErrors": [],
+  "modelCalls": 0,
+  "status": "reuse-mapped-body-differences-preserved",
+  "pdfBodyVersionEquivalence": "partial-exact-matches-only; title candidate is not full equivalence"
+}

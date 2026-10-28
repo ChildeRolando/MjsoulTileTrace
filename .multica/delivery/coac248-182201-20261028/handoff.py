@@ -1,0 +1,24 @@
+import json,hashlib,sys
+from pathlib import Path
+ROOT=Path('E:/AgentData/Coach/knowledge/processing');PKG=ROOT/'integration/coac248-182201-20261028';HERE=Path(__file__).resolve().parent
+article=sys.argv[1];sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+read=lambda p:json.loads(p.read_text(encoding='utf8'))
+def write(p,x):p.write_text(json.dumps(x,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+rel=read(PKG/'release.json');j=next(j for j in rel['jobs'] if j['articleId']==article);e=read(PKG/(article+'-production.json'));plan=read(PKG/(article+'-review-plan.json'))
+paths=[j['parentPath'],j['notesPath'],j['sourcePath'],j['planPath'],e['candidatePath'],'integration/coac248-182201-20261028/'+article+'-production.json','integration/coac248-182201-20261028/'+article+'-review-plan.json','integration/coac248-182201-20261028/review.mjs','integration/coac248-182201-20261028/release.json',rel['runtimePath']+'/runtime-manifest.json','web-production/v1/'+e['productionCall']['rawArtifactPath'],'audit/calls/'+read(ROOT/j['notesPath'])['calls'][0]['callId']+'.json']
+h={'schema':'coac248-182201-independent-target-handoff/1','authorizationCommentId':j['plan']['authorizationCommentId'],'canonical':j['chapterId'],'candidatePath':e['candidatePath'],'candidateSha256':e['candidateSha256'],'targetId':j['targetId'],'carriedIssueTargetId':j['carryId'],'bindings':[{'path':p,'sha256':sha(Path(p) if Path(p).is_absolute() else ROOT/p)} for p in paths],'production':e,'reviewRequest':{'path':'integration/coac248-182201-20261028/'+article+'-review-plan.json','model':plan['model'],'reasoningEffort':plan['reasoningEffort'],'images':plan['projection']['images'],'orderedPairs':len(plan['projection']['orderedSourceCandidateFigurePairs'])},'limits':{'makerConsumed':1,'independentReviewRemaining':1,'retry':0,'failedVoidCount':True},'chapterAccepted':False,'wholeChapterPassed':False,'notAuthorized':['new maker','full-chapter review','guessing ambiguous source or unknown tiles','changing old raw or issues','touching283 or234']}
+write(PKG/(article+'-handoff249.json'),h)
+p=ROOT/'integration/coac244-remaining26-closure-register-20261028.json';x=read(p)
+row=next(r for r in x['rows'] if r['chapterId']==j['chapterId']);row['current182201Authorization'].update({'phase':'real-maker-completed-awaiting-independent-target-context-review','candidatePath':e['candidatePath'],'candidateSha256':e['candidateSha256'],'makerCallId':e['productionCall']['callId'],'makerUsage':e['productionCall']['usage'],'makerConsumed':1,'makerRemaining':0,'independentReviewReservedFor249':1,'handoffPath':str(PKG/(article+'-handoff249.json')).replace('\\','/'),'allNonTargetBytesPreserved':True});write(p,x)
+text=f'''248→249，本章真实maker已完成，立即接既有182/201同一有限批，不等另一章，不新建消费者/工单。原授权248用户评论01a181a7-0e17-79cd-9f13-c8fe5cf060b2：每章1maker+1独立目标/影响审，总最多4，failed/void计0retry。本章maker已用1，249仅余首次独审1，不含制作或全章复审。283既有单点消费者/guard自然drain，不占其guard、不挪额度。
+
+共享根E:/AgentData/Coach/knowledge/processing。先读本票最新状态/相关线程及ledger/currentaccepted/register/在途去重、STOP与已有原guard；不要重复派同SHA。精确交接integration/coac248-182201-20261028/{article}-handoff249.json，SHA{sha(PKG/(article+'-handoff249.json'))}。canonical {j['chapterId']}，唯一候选{e['candidatePath']}，SHA{e['candidateSha256']}，真实maker{e['productionCall']['callId']}，sol/high纯文字，无图。父{j['parentSha256']}、源{j['sourceSha256']}、原独审/raw完整绑定，旧失败保留。仅{j['targetId']}指定日文后新增中文释义，日文/原括注/其余文字、全部图/unknown/caption/sourceNotes/顺序字节不变。不是普通全章passed。
+
+此票248不自审自己。请在既有249独立consumer中 import prepare182201Review/verify182201ReviewExecution from integration/coac248-182201-20261028/review.mjs（SHA{sha(PKG/'review.mjs')}）。先核handoff所有绑定和release.runtimeManifestSha256，然后 prepare182201Review(root,'{article}')；实际重构plan应与已发布{article}-review-plan.json全文完全相等。冻结runtime {rel['runtimePath']}，manifest {rel['runtimeManifestSha256']}，19依赖重算。仅用该plan的完整prompt/schema/model/effort/images顺序及此runtime原invokeTextbookCodex，既有单guard、STOP/ledger消费恰1次；不借通用auditWebCandidate退成全章。实际预定配置{plan['model']}/{plan['reasoningEffort']}，图片{len(plan['images'])}张；纯文保持原配置，任何实际含图必须terra/max及原图/SHA真实传入，不silent fallback。
+
+实际输入已逐块按同一顺序配对完整{len(plan['projection']['orderedSourceCandidateFigurePairs'])}源/候选/完整figure及全部教学条件；不仅孤立靶点。独审同时核指定译义及{j['carryId']}原歧义/unknown如何影响作者所写论证，不猜“对日”或填牌、不把原审建议当答案、不重复逐牌辨图。若允许限定忠实展示，必须列实际必须显示的限制；若仍阻断给具体作者贡献/字段及最小缺口，非笼统needs-repair。旧审severity/raw保留，不改成pass。
+
+真实请求自然结束，保留原raw/session/events/完整requestExecution/usage/耗时及standard audit ledger恰1条。用verify182201ReviewExecution(realResult,plan)检查实际模型/effort/图SHA顺序/closedPrompt/transport/原输出，结果只为限定独立证据，wholeChapterPassed=false/admissionGranted=false。成功限定证据及时交既有244/250精确准入和真实MCP/Arena读回，必须落实独立必要限制；不能直接切active或用机械生产证明当pass。失败void也耗本唯一额度，保存精确raw/错误后停，0retry。完成正常释放guard。结果回本票现有owner链并回248原授权线程，原主书未完成。
+'''
+(HERE/(article+'-wakeup.md')).write_text(text,encoding='utf8')
+print(json.dumps({'canonical':j['chapterId'],'handoffSha256':sha(PKG/(article+'-handoff249.json')),'candidateSha256':e['candidateSha256'],'reviewRemaining':1}))

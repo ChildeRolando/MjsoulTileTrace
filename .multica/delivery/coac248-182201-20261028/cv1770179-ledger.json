@@ -1,0 +1,309 @@
+[
+  {
+    "callId": "2460a9dc-5be4-4225-9a9f-a554c0c298f6",
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1770179",
+    "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "startedAt": "2026-10-23T22:54:14.644Z",
+    "durationMs": 34986,
+    "usage": null,
+    "success": false,
+    "transportStatus": "failed",
+    "rawArtifactPath": "raw-calls/2460a9dc-5be4-4225-9a9f-a554c0c298f6.json",
+    "rawArtifactSha256": "ea47e6c52bdf12f35f6bc0a1aed7dc12e4e8c735df6d189c0bbf6c608688cf5c",
+    "outputSha256": null,
+    "schemaSha256": "b75c540b3bc17c5a7a403481890d96dc8000cb9d229bea10c7dab317001fda27",
+    "promptSha256": "47b221cc47d9c0a830c7ac37dc0bc91392af349f58289f7397eec2379ac02712",
+    "semanticPromptSha256": "bb51545edd4b847e06baaeb433401a92b15ea4ee498c23fe2e276ada8d2202bb",
+    "cliSnapshot": {
+      "path": "web-production/v1/runners/d544c65de266a0299f64f9056c45cdd4e5fff861090a60c45d203bce36dc6deb.cli.mjs",
+      "sha256": "d544c65de266a0299f64f9056c45cdd4e5fff861090a60c45d203bce36dc6deb"
+    },
+    "targets": {
+      "textIds": [],
+      "figureIds": [
+        "79-bilibili-cn:cv1770179:b0005"
+      ]
+    },
+    "terminalEvents": [
+      {
+        "type": "error",
+        "code": null,
+        "message": "You’ve hit your usage limit. Visit https://chatgpt.com/settings/usage to purchase more credits or try again at Oct 31st, 2026 2:10 AM.",
+        "param": null
+      },
+      {
+        "type": "turn.failed",
+        "code": null,
+        "message": "You’ve hit your usage limit. Visit https://chatgpt.com/settings/usage to purchase more credits or try again at Oct 31st, 2026 2:10 AM.",
+        "param": null
+      }
+    ],
+    "visualInputs": [
+      {
+        "assetId": "79-bilibili-cn:17f83d84efc76a05aa889c27",
+        "sourcePath": "web-sources/v1/79-bilibili-cn/assets/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+        "sourceSha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-sources/v1/79-bilibili-cn/assets/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+        "sha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+        "role": "original",
+        "scale": 1,
+        "resampling": "none",
+        "width": 501,
+        "height": 500
+      },
+      {
+        "assetId": "79-bilibili-cn:17f83d84efc76a05aa889c27",
+        "sourcePath": "web-sources/v1/79-bilibili-cn/assets/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+        "sourceSha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.x2.png",
+        "sha256": "fc84150fe08ef0c4cd41c7289bfb8a2137caf10dca2e558b505b81898a42f0cc",
+        "role": "nearest-neighbor-enlargement",
+        "scale": 2,
+        "resampling": "nearest",
+        "width": 1002,
+        "height": 1000
+      }
+    ]
+  },
+  {
+    "callId": "dc9f1a25-82a9-4950-a199-c4a0a8cc9342",
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1770179",
+    "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "timeoutMs": 900000,
+    "startedAt": "2026-10-25T17:48:56.646Z",
+    "durationMs": 191866,
+    "usage": {
+      "inputTokens": 15194,
+      "cachedInputTokens": 0,
+      "outputTokens": 4763
+    },
+    "success": true,
+    "failureClass": null,
+    "transportStatus": "completed",
+    "rawArtifactPath": "raw-calls/dc9f1a25-82a9-4950-a199-c4a0a8cc9342.json",
+    "rawArtifactSha256": "2738935b95d7b3fb1f31170fee15d86fb06e6091141d2e159937c105083abc34",
+    "outputSha256": "1672a10eacf083a68a97b5008e54769953c438253beaf91df0af6620ae7a3ca9",
+    "schemaSha256": "b75c540b3bc17c5a7a403481890d96dc8000cb9d229bea10c7dab317001fda27",
+    "promptSha256": "47b221cc47d9c0a830c7ac37dc0bc91392af349f58289f7397eec2379ac02712",
+    "semanticPromptSha256": "bb51545edd4b847e06baaeb433401a92b15ea4ee498c23fe2e276ada8d2202bb",
+    "cliSnapshot": {
+      "path": "web-production/v1/runners/3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1.cli.mjs",
+      "sha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+    },
+    "targets": {
+      "textIds": [],
+      "figureIds": [
+        "79-bilibili-cn:cv1770179:b0005"
+      ]
+    },
+    "terminalEvents": [],
+    "visualInputs": [
+      {
+        "assetId": "79-bilibili-cn:17f83d84efc76a05aa889c27",
+        "sourcePath": "web-sources/v1/79-bilibili-cn/assets/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+        "sourceSha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-sources/v1/79-bilibili-cn/assets/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+        "sha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+        "role": "original",
+        "scale": 1,
+        "resampling": "none",
+        "width": 501,
+        "height": 500
+      },
+      {
+        "assetId": "79-bilibili-cn:17f83d84efc76a05aa889c27",
+        "sourcePath": "web-sources/v1/79-bilibili-cn/assets/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+        "sourceSha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.x2.png",
+        "sha256": "fc84150fe08ef0c4cd41c7289bfb8a2137caf10dca2e558b505b81898a42f0cc",
+        "role": "nearest-neighbor-enlargement",
+        "scale": 2,
+        "resampling": "nearest",
+        "width": 1002,
+        "height": 1000
+      }
+    ]
+  },
+  {
+    "callId": "3f706cc0-63ea-4721-934e-05e8816724e7",
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1770179",
+    "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "callerRequested": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-sol",
+        "--config",
+        "model_reasoning_effort=\"high\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-DRnO9N\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-DRnO9N\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-DRnO9N",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "timeoutMs": 900000,
+    "startedAt": "2026-10-28T08:49:29.741Z",
+    "durationMs": 34673,
+    "usage": {
+      "inputTokens": 18059,
+      "cachedInputTokens": 0,
+      "outputTokens": 266
+    },
+    "success": true,
+    "transportStatus": "completed",
+    "failureClass": null,
+    "rawArtifactPath": "raw-calls/3f706cc0-63ea-4721-934e-05e8816724e7.json",
+    "rawArtifactSha256": "ada513bd1b4413c346a98081be0171529a8f07f46041ffd8b0862574cf0eb773",
+    "outputSha256": "82d56ab800d6b41ddab717c85157df0868279951d5dae1b2eb9efe812bf0c883",
+    "schemaSha256": "e5e73606519474ca3bca8578e2545ea06353ed96165bc2496f7f6770ae98902f",
+    "promptSha256": "188c93d4338301e75105e4661c11651b7b4e4bf969b82a328ee02d1022dbbcb2",
+    "semanticPromptSha256": "dc45f07bb4d5099ee0c8c48818a2fba4abb754dadc00a0a93647f035468e0bb4",
+    "cliSnapshot": {
+      "path": "audit/runtimes/coac248-182201-inline-v1-20261028/textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+    },
+    "targets": {
+      "textIds": [
+        "79-bilibili-cn:cv1770179:b0006"
+      ],
+      "figureIds": []
+    },
+    "terminalEvents": [],
+    "visualInputs": [],
+    "revision": {
+      "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1770179.display.json",
+      "parentSha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+      "notesPath": "audit/web/articles/79-bilibili-cn/cv1770179.52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8.json",
+      "notesSha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+      "textBlockIds": [
+        "79-bilibili-cn:cv1770179:b0006"
+      ],
+      "figureIds": [],
+      "inlineJapanese": {
+        "path": "integration/coac248-182201-20261028/cv1770179-plan.json",
+        "sha256": "9b1656e26dc00ffe39f2ed4bafc10b9ea4c1fce9848a5e74e0a4b67f6a0db12a",
+        "plan": {
+          "schema": "coach-inline-japanese-revision/1",
+          "authorizationCommentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+          "chapterId": "79-cn-chapter-201-6",
+          "bindings": {
+            "parentSha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+            "notesSha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+            "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb"
+          },
+          "edits": [
+            {
+              "sourceBlockId": "79-bilibili-cn:cv1770179:b0006",
+              "quotedText": "日本がアメリカに戦争を挑むくらい無謀でしょう。",
+              "operation": "gloss"
+            }
+          ]
+        }
+      }
+    }
+  }
+]

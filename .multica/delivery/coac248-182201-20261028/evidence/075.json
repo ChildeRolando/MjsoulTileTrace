@@ -1,0 +1,153 @@
+{
+  "callId": "3f706cc0-63ea-4721-934e-05e8816724e7",
+  "at": "2026-10-28T08:49:29.739Z",
+  "pid": 11408,
+  "joint": {
+    "at": "2026-10-28T08:49:29.670Z",
+    "previewSha256": "53d88fef65a44e02210dd1a9eca6314319b15f0efec6f2d1591b6cdb908f0c1d",
+    "registerSha256": "fc544ce02428e26c433cb1d07d6432ed1a06e2210b4d0e4769a23cbc28836c17",
+    "registerRow": {
+      "chapterId": "79-cn-chapter-201-6",
+      "originalChapterId": "79-cn-chapter-201-6",
+      "sourceId": "79-cn",
+      "title": "防守6—弃和的切牌顺序（1）",
+      "units": 1,
+      "ownedSourceBlocks": 16,
+      "adjudicationGroup": "confirmed-produced-not-covered",
+      "covered": false,
+      "coverageRoute": null,
+      "approvedWebCorrespondence": {
+        "articleId": "cv1770179",
+        "webSourceId": "79-bilibili-cn",
+        "tier": "body",
+        "evidencePath": "integration/chinese-source-body-correspondence.json",
+        "substitutionAllowed": true,
+        "bodyEquivalenceConfirmed": true,
+        "articleInPreview": false
+      },
+      "existingCandidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1770179.display.json",
+        "sha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+        "bodyBlocks": 7,
+        "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+        "currentSourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/79-bilibili-cn/cv1770179.52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8.json",
+        "auditRecordedAt": "2026-10-25T18:53:27.161Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 3,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          201,
+          202,
+          203
+        ],
+        "pagesDetail": [
+          {
+            "page": 201,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 11
+          },
+          {
+            "page": 202,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 6
+          },
+          {
+            "page": 203,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 8
+          }
+        ]
+      },
+      "gaps": {
+        "ownedSourceBlocks": 16,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 16,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 16,
+        "acceptanceGapPages": [
+          201,
+          202,
+          203
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          201,
+          202,
+          203
+        ]
+      },
+      "verdict": "produced-needs-repair",
+      "coac246": {
+        "action": "repair",
+        "auditStatus": "needs-repair",
+        "candidateSha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+        "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1770179.display.json",
+        "repairErrors": 6,
+        "units": 1,
+        "blocks": 16
+      }
+    },
+    "passed": [],
+    "candidates": [
+      "cv1770179.display.json",
+      "cv1770179.json"
+    ],
+    "callHistory": [
+      {
+        "callId": "2460a9dc-5be4-4225-9a9f-a554c0c298f6",
+        "success": false,
+        "usage": null,
+        "transportStatus": "failed"
+      },
+      {
+        "callId": "dc9f1a25-82a9-4950-a199-c4a0a8cc9342",
+        "success": true,
+        "usage": {
+          "inputTokens": 15194,
+          "cachedInputTokens": 0,
+          "outputTokens": 4763
+        },
+        "transportStatus": "completed"
+      }
+    ]
+  },
+  "slot": {
+    "ok": true,
+    "action": "acquire",
+    "slot": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-A.json",
+    "record": {
+      "schema": "coach-textbook-maker-slot/1",
+      "slot": "maker-A",
+      "lane": "A",
+      "owner": "COAC-248 Mika",
+      "pid": 11408,
+      "claimedAt": "2026-10-28T08:49:29.608Z",
+      "heartbeatAt": "2026-10-28T08:49:29.608Z",
+      "ttlMinutes": 20
+    }
+  },
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "images": [],
+  "budget": {
+    "maker": 1,
+    "reviewReservedFor249": 1,
+    "retry": 0
+  }
+}

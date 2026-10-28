@@ -1,0 +1,54 @@
+{
+  "schema": "coach-textbook-exact-web-reuse/1",
+  "sourcePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1770179\\source.json",
+  "sourceFileSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+  "pdfChapterIds": [
+    "79-cn-chapter-201-6"
+  ],
+  "imageComparison": "decoded RGBA exact dimensions and pixels, within corresponding PDF chapter; no fuzzy match",
+  "images": [
+    {
+      "assetId": "79-bilibili-cn:17f83d84efc76a05aa889c27",
+      "assetSha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+      "pixelSignature": [
+        [
+          501,
+          500
+        ],
+        "d8858a06c6aa4da8dce59f63a424afb7281004acca8dc2fe2a2da7af0c21be08"
+      ],
+      "exactMatches": [],
+      "reusePermitted": false
+    }
+  ],
+  "paragraphs": [
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1770179:b0001",
+      "exactWhitespaceOnlyMatches": []
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1770179:b0002",
+      "exactWhitespaceOnlyMatches": []
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1770179:b0003",
+      "exactWhitespaceOnlyMatches": []
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1770179:b0004",
+      "exactWhitespaceOnlyMatches": []
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1770179:b0006",
+      "exactWhitespaceOnlyMatches": []
+    },
+    {
+      "sourceBlockId": "79-bilibili-cn:cv1770179:b0007",
+      "exactWhitespaceOnlyMatches": []
+    }
+  ],
+  "assetErrors": [],
+  "modelCalls": 0,
+  "status": "reuse-mapped-body-differences-preserved",
+  "pdfBodyVersionEquivalence": "partial-exact-matches-only; title candidate is not full equivalence"
+}

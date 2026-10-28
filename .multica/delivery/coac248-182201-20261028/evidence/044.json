@@ -1,0 +1,656 @@
+{
+  "schema": "coach-textbook-web-article-draft/1",
+  "status": "draft",
+  "productionStatus": "draft-awaiting-independent-web-review",
+  "source": {
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1770179",
+    "url": "https://www.bilibili.com/read/cv1770179",
+    "title": "【日本麻雀讲座译文】防守6—弃和的切牌顺序（1）",
+    "language": "zh-CN",
+    "fetchedAt": "2026-10-23T20:31:43.199072+00:00",
+    "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1770179/source.json",
+    "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+    "htmlSha256": "7a3aedc2a156a6d9b5c861787c08da1d4d57eefb122ddef271f60022bbd9cb26",
+    "mainSha256": "89b6fa42532ac733308c69b8dba72b6652e43e42e9f735543d73a521152537ec"
+  },
+  "body": {
+    "language": "zh-CN",
+    "mode": "verbatim",
+    "flowOrder": "source-dom-order",
+    "blocks": [
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770179:b0001"
+        ],
+        "sourceText": "免责声明：",
+        "text": "免责声明：",
+        "paragraphId": "79-bilibili-cn:cv1770179:p0001",
+        "sourceSegments": [
+          {
+            "text": "免责声明：",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770179:b0002"
+        ],
+        "sourceText": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+        "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+        "paragraphId": "79-bilibili-cn:cv1770179:p0002",
+        "sourceSegments": [
+          {
+            "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770179:b0003"
+        ],
+        "sourceText": "原文地址：http://beginners.biz/mamori/mamori06.html",
+        "text": "原文地址：http://beginners.biz/mamori/mamori06.html",
+        "paragraphId": "79-bilibili-cn:cv1770179:p0003",
+        "sourceSegments": [
+          {
+            "text": "原文地址：http://beginners.biz/mamori/mamori06.html",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770179:b0004"
+        ],
+        "sourceText": "------------------------------------------------------------------------------------ 弃和的切牌顺序（1）：  弃和有着明确的切牌顺序，所以弃和要按照切牌顺序。 这样放铳率才会大幅下降。  ------------------------------------------------------------------------------------ 弃和的基本思路 ------------------------------------------------------------------------------------  从安全度高地牌开始切。  这是弃和的原则， 即使拆散手牌也不要紧。  因此，有“现物”，或者场上已经切了三张的字牌等“完全安全牌”的话，首先就切这些。  从已经通过的牌开始切，这个是非常重要的。 一巡中有可能现物会增加，也有可能他家放铳，还有可能立直者自摸等等情况出现。  明明有现物的时候，却从“一眼看上去貌似能通过”的牌开始切， 从防守的观点来看都是有损失的。  ------------------------------------------------------------------------------------ 现物的优先度 ------------------------------------------------------------------------------------  如果有多张现物的话，切牌也还是有顺序的。 这个顺序就是“将来可能有危险的牌先切”。  ",
+        "text": "------------------------------------------------------------------------------------ 弃和的切牌顺序（1）：  弃和有着明确的切牌顺序，所以弃和要按照切牌顺序。 这样放铳率才会大幅下降。  ------------------------------------------------------------------------------------ 弃和的基本思路 ------------------------------------------------------------------------------------  从安全度高地牌开始切。  这是弃和的原则， 即使拆散手牌也不要紧。  因此，有“现物”，或者场上已经切了三张的字牌等“完全安全牌”的话，首先就切这些。  从已经通过的牌开始切，这个是非常重要的。 一巡中有可能现物会增加，也有可能他家放铳，还有可能立直者自摸等等情况出现。  明明有现物的时候，却从“一眼看上去貌似能通过”的牌开始切， 从防守的观点来看都是有损失的。  ------------------------------------------------------------------------------------ 现物的优先度 ------------------------------------------------------------------------------------  如果有多张现物的话，切牌也还是有顺序的。 这个顺序就是“将来可能有危险的牌先切”。  ",
+        "paragraphId": "79-bilibili-cn:cv1770179:p0004",
+        "sourceSegments": [
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "弃和的切牌顺序（1）：",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "弃和有着明确的切牌顺序，所以弃和要按照切牌顺序。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这样放铳率才会大幅下降。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "弃和的基本思路",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "从安全度高地牌开始切。",
+            "marks": [
+              "strong:background:;color:#004e80;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这是弃和的原则，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "即使拆散手牌也不要紧。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "因此，有“现物”，或者场上已经切了三张的字牌等“完全安全牌”的话，首先就切这些。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "从已经通过的牌开始切，这个是非常重要的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "一巡中有可能现物会增加，也有可能他家放铳，还有可能立直者自摸等等情况出现。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "明明有现物的时候，却从“一眼看上去貌似能通过”的牌开始切，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "从防守的观点来看都是有损失的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "现物的优先度",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "如果有多张现物的话，切牌也还是有顺序的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这个顺序就是",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "“将来可能有危险的牌先切”",
+            "marks": [
+              "strong:background:;color:;:"
+            ],
+            "href": null
+          },
+          {
+            "text": "。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770179:b0005"
+        ],
+        "figureId": "79-bilibili-cn:cv1770179:b0005:figure",
+        "paragraphId": "79-bilibili-cn:cv1770179:p0005",
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770179:b0006"
+        ],
+        "sourceText": "这里手牌很烂，这个时候和亲家对日的话 日本がアメリカに戦争を挑むくらい無謀でしょう。（这句话不好翻译，总之是形容蠢）",
+        "text": "这里手牌很烂，这个时候和亲家对日的话 日本がアメリカに戦争を挑むくらい無謀でしょう。（这句话不好翻译，总之是形容蠢）",
+        "paragraphId": "79-bilibili-cn:cv1770179:p0006",
+        "sourceSegments": [
+          {
+            "text": "这里手牌很烂，这个时候和亲家对日的话",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "日本がアメリカに戦争を挑むくらい無謀でしょう。（这句话不好翻译，总之是形容蠢）",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770179:b0007"
+        ],
+        "sourceText": "5万、6索和西是安全牌。 5万和6索切哪张都没什么问题，不过切西的话就是一个切牌顺序的失误了。  这里要是有人追立的话，安全牌就全没了。 下家突然切出一张无筋的3饼， 很有追立的可能。  毫无悬念，这里应该切掉5万或者6索。  理论： 有多张现物的时候，应该保留共同的安全牌。  下一回我们讲手牌没有安全牌的时候该怎么办。    （待续）",
+        "text": "5万、6索和西是安全牌。 5万和6索切哪张都没什么问题，不过切西的话就是一个切牌顺序的失误了。  这里要是有人追立的话，安全牌就全没了。 下家突然切出一张无筋的3饼， 很有追立的可能。  毫无悬念，这里应该切掉5万或者6索。  理论： 有多张现物的时候，应该保留共同的安全牌。  下一回我们讲手牌没有安全牌的时候该怎么办。    （待续）",
+        "paragraphId": "79-bilibili-cn:cv1770179:p0007",
+        "sourceSegments": [
+          {
+            "text": "5万、6索和西是安全牌。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "5万和6索切哪张都没什么问题，不过切西的话就是一个切牌顺序的失误了。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这里要是有人追立的话，安全牌就全没了。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "下家突然切出一张无筋的3饼，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "很有追立的可能。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "毫无悬念，这里应该切掉5万或者6索。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "理论：",
+            "marks": [
+              "strong:background:;color:#1db100;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [
+              "strong:background:;color:#1db100;:"
+            ],
+            "href": null
+          },
+          {
+            "text": "有多张现物的时候，应该保留共同的安全牌。",
+            "marks": [
+              "strong:background:;color:#1db100;:"
+            ],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "下一回我们讲手牌没有安全牌的时候该怎么办。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "（待续）",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      }
+    ]
+  },
+  "figures": [
+    {
+      "figureId": "79-bilibili-cn:cv1770179:b0005:figure",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1770179:b0005"
+      ],
+      "sourceOccurrenceIds": [
+        "79-bilibili-cn:cv1770179:i00001"
+      ],
+      "sourceAssetBindings": [
+        {
+          "assetId": "79-bilibili-cn:17f83d84efc76a05aa889c27",
+          "path": "web-sources/v1/79-bilibili-cn/assets/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+          "sha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+          "url": "https://i0.hdslb.com/bfs/article/7b8a39fdba136f1c55b85c224802b57cf3f6777c.png"
+        }
+      ],
+      "kind": "mahjong-example",
+      "transcription": "牌局信息：东1局1本场。中央显示立直棒图案及“1根”；“宝牌”标签右侧显示5p。\n座位与点数：上方东家27000；左侧南家24000；下方西家24000；右侧北家24000。\n下方西家手牌，从左至右：1m 2m 4m 5m 7m 2p 4p 6p 7p 7p 4s 6s 8s；右侧另隔开一张摸入牌3z。未见赤牌。\n上方东家牌河，牌面朝向东家，每行按画面从右至左读取：靠中央第一行9s 3z 5z 1s 1p 1p；外侧第二行6s 5m 3s 1z。其中3s相对东家其余弃牌横置，为立直宣言牌。\n左侧南家牌河，牌面朝向南家，每列按画面从上至下读取：靠中央第一列9p 3z 4z 3z 9m 9m；外侧第二列5s 3m 1s 1s。\n下方西家牌河，每行从左至右读取：靠中央第一行7z 1p 9m 8s 2z 9p；外侧第二行9s 5z 5m。\n右侧北家牌河，牌面朝向北家，每列按画面从下至上读取：靠中央第一列?m 7z 5z 3m 2s 4z；外侧第二列9s 6z 3p。?m为该列最下方、万子点数未能辨清的一张牌。\n上方、左侧、右侧各显示13张暗手牌的牌背。图中未见摸牌或切牌箭头。",
+      "unknowns": [
+        "右侧北家牌河靠中央第一列最下方万子的点数无法可靠辨清，记为?m。"
+      ],
+      "caption": "东1局1本场的弃和切牌顺序示例：西家手牌与四家牌河。",
+      "sourceNotes": [
+        "两张附件分别为同一原图及其2倍最近邻放大视图，仅计作一幅图。",
+        "牌面随各家座位旋转；转写中的横置专指东家3s相对其余弃牌的方向。",
+        "牌面中的红色万字、索子及筒子图案属于普通牌面配色，不表示赤牌。"
+      ],
+      "provenance": {
+        "method": "model-transcription",
+        "callId": "dc9f1a25-82a9-4950-a199-c4a0a8cc9342",
+        "outputSourceBlockId": "79-bilibili-cn:cv1770179:b0005"
+      }
+    }
+  ],
+  "provenance": {
+    "sourceVersion": "web-sources/v1",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "artifactRoot": "web-production/v1",
+    "attempts": [
+      {
+        "callId": "dc9f1a25-82a9-4950-a199-c4a0a8cc9342",
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1770179",
+        "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "timeoutMs": 900000,
+        "startedAt": "2026-10-25T17:48:56.646Z",
+        "durationMs": 191866,
+        "usage": {
+          "inputTokens": 15194,
+          "cachedInputTokens": 0,
+          "outputTokens": 4763
+        },
+        "success": true,
+        "failureClass": null,
+        "transportStatus": "completed",
+        "rawArtifactPath": "raw-calls/dc9f1a25-82a9-4950-a199-c4a0a8cc9342.json",
+        "rawArtifactSha256": "2738935b95d7b3fb1f31170fee15d86fb06e6091141d2e159937c105083abc34",
+        "outputSha256": "1672a10eacf083a68a97b5008e54769953c438253beaf91df0af6620ae7a3ca9",
+        "schemaSha256": "b75c540b3bc17c5a7a403481890d96dc8000cb9d229bea10c7dab317001fda27",
+        "promptSha256": "47b221cc47d9c0a830c7ac37dc0bc91392af349f58289f7397eec2379ac02712",
+        "semanticPromptSha256": "bb51545edd4b847e06baaeb433401a92b15ea4ee498c23fe2e276ada8d2202bb",
+        "cliSnapshot": {
+          "path": "web-production/v1/runners/3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1.cli.mjs",
+          "sha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+        },
+        "targets": {
+          "textIds": [],
+          "figureIds": [
+            "79-bilibili-cn:cv1770179:b0005"
+          ]
+        },
+        "terminalEvents": [],
+        "visualInputs": [
+          {
+            "assetId": "79-bilibili-cn:17f83d84efc76a05aa889c27",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+            "sourceSha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-sources/v1/79-bilibili-cn/assets/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+            "sha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+            "role": "original",
+            "scale": 1,
+            "resampling": "none",
+            "width": 501,
+            "height": 500
+          },
+          {
+            "assetId": "79-bilibili-cn:17f83d84efc76a05aa889c27",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+            "sourceSha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.x2.png",
+            "sha256": "fc84150fe08ef0c4cd41c7289bfb8a2137caf10dca2e558b505b81898a42f0cc",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 2,
+            "resampling": "nearest",
+            "width": 1002,
+            "height": 1000
+          }
+        ]
+      }
+    ],
+    "usage": {
+      "inputTokens": 15194,
+      "cachedInputTokens": 0,
+      "outputTokens": 4763
+    },
+    "modelCalls": 1,
+    "reuseMap": {
+      "path": "web-production/v1/reuse-maps/740c8658deeff36a55bdfcfc318cbe0754b503e13d354116f742db3483d786ed.json",
+      "sha256": "740c8658deeff36a55bdfcfc318cbe0754b503e13d354116f742db3483d786ed"
+    },
+    "runnerSha256": "f31c255e0654af7c88f240067b886cc92f6de5aa9242eeca12292b52eee3945c",
+    "extractorSha256": "a871cf3765d340535ba6c8401a6d58d1c5391d4c1da6ad53e0ac96be2da7cbea",
+    "attribution": "Original author, translator and reposter references remain in the bound source HTML; existing Chinese source body is verbatim."
+  },
+  "candidateSha256": "afdf64de6146d1388e708d6746afb29e603a91097fa0a98c7eb3e26ed45be8ed"
+}

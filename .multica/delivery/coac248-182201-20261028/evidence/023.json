@@ -1,0 +1,246 @@
+{
+  "schema": "coach-textbook-web-article-audit/1",
+  "status": "needs-repair",
+  "recordedAt": "2026-10-25T18:53:27.161Z",
+  "source": {
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1770179",
+    "url": "https://www.bilibili.com/read/cv1770179",
+    "title": "【日本麻雀讲座译文】防守6—弃和的切牌顺序（1）",
+    "language": "zh-CN",
+    "fetchedAt": "2026-10-23T20:31:43.199072+00:00",
+    "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1770179/source.json",
+    "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+    "htmlSha256": "7a3aedc2a156a6d9b5c861787c08da1d4d57eefb122ddef271f60022bbd9cb26",
+    "mainSha256": "89b6fa42532ac733308c69b8dba72b6652e43e42e9f735543d73a521152537ec"
+  },
+  "production": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.display.json",
+    "sha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8"
+  },
+  "verification": "automatic-independent-review-not-user-human-gold-standard",
+  "deterministicChecks": {
+    "passed": true,
+    "errors": [],
+    "textBlocks": 6,
+    "imageRuns": 1,
+    "imageOccurrences": 1,
+    "figures": 1
+  },
+  "independentSource": {
+    "schema": "coach-textbook-web-independent-source-check/1",
+    "passed": true,
+    "errors": [],
+    "sourceFileSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+    "rawHtmlSha256": "7a3aedc2a156a6d9b5c861787c08da1d4d57eefb122ddef271f60022bbd9cb26",
+    "mainSha256": "89b6fa42532ac733308c69b8dba72b6652e43e42e9f735543d73a521152537ec",
+    "textBlocks": 6,
+    "imageRuns": 1,
+    "imageOccurrences": 1,
+    "uniqueAssets": 1,
+    "method": "offline independent html.parser character-and-image DOM event comparison",
+    "modelCalls": 0
+  },
+  "semanticCompleteness": {
+    "complete": false,
+    "evidence": "全文七块及唯一图片出现均已核对。b0006仍有完整日文句子未译；牌桌转写将可辨认的北家九万写成?m，未完整落实逐牌信息。"
+  },
+  "modelChecks": {
+    "passed": false,
+    "errors": [
+      "needs-repair:79-bilibili-cn:cv1770179:b0005",
+      "needs-repair:79-bilibili-cn:cv1770179:b0006",
+      "needs-repair:79-bilibili-cn:cv1770179:b0005:figure",
+      "semantic_information_missing",
+      "error:79-bilibili-cn:cv1770179:b0006",
+      "error:79-bilibili-cn:cv1770179:b0005:figure"
+    ]
+  },
+  "modelReview": {
+    "blockChecks": [
+      {
+        "id": "79-bilibili-cn:cv1770179:b0001",
+        "verdict": "faithful",
+        "evidence": "“免责声明：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1770179:b0002",
+        "verdict": "faithful",
+        "evidence": "版权声明、译者SeventhTG（XD）署名及转载要求均完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1770179:b0003",
+        "verdict": "faithful",
+        "evidence": "原文地址及完整URL均保留，与源文一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1770179:b0004",
+        "verdict": "faithful",
+        "evidence": "标题、弃和原则、安全牌条件、一巡内可能发生的情况及现物优先度均逐句保留；两处强调保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1770179:b0005",
+        "verdict": "needs-repair",
+        "evidence": "图片已有对应figure，但北家牌河内列最下方的九万仍被转写为?m，逐牌信息不完整。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1770179:b0006",
+        "verdict": "needs-repair",
+        "evidence": "中文部分保留，但“日本がアメリカに戦争を挑むくらい無謀でしょう。”仍为日文；括注“总之是形容蠢”没有完整表达原句的比喻及推测语气。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1770179:b0007",
+        "verdict": "faithful",
+        "evidence": "5万、6索、西的安全性，保留共同安全牌的理由，下家切无筋3饼及可能追立的判断，结论、强调和续篇说明均完整保留。"
+      }
+    ],
+    "figureChecks": [
+      {
+        "id": "79-bilibili-cn:cv1770179:b0005:figure",
+        "verdict": "needs-repair",
+        "evidence": "局况为东1局1本场，中央1根立直棒，宝牌栏5p；东家27000，其余三家各24000。西家手牌为1m 2m 4m 5m 7m 2p 4p 6p 7p 7p 4s 6s 8s，另摸3z。东家牌河为9s 3z 5z 1s 1p 1p／6s 5m 3s 1z，3s横置；南家为9p 3z 4z 3z 9m 9m／5s 3m 1s 1s；西家为7z 1p 9m 8s 2z 9p／9s 5z 5m；北家为9m 7z 5z 3m 2s 4z／9s 6z 3p。候选其余牌码、顺序及方向说明对应原图，但将北家首张9m记为?m并列入unknowns，需要修复。三家暗手仅能确认牌背，未补造牌面。"
+      }
+    ],
+    "imageChecks": [
+      {
+        "id": "79-bilibili-cn:cv1770179:i00001",
+        "disposition": "represented",
+        "evidence": "该图片出现已有对应figure，附图提供原图和同图放大视图；其教学转写中的牌码缺失已在figure检查中指出。"
+      }
+    ],
+    "domOrder": {
+      "faithful": true,
+      "evidence": "候选依次对应b0001至b0007；牌桌图位于现物优先度说明之后、牌例评价之前，段落归属和顺序一致。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "全文七块及唯一图片出现均已核对。b0006仍有完整日文句子未译；牌桌转写将可辨认的北家九万写成?m，未完整落实逐牌信息。"
+    },
+    "issues": [
+      {
+        "severity": "error",
+        "targetId": "79-bilibili-cn:cv1770179:b0006",
+        "sourceEvidence": "日本がアメリカに戦争を挑むくらい無謀でしょう。",
+        "description": "日文未译，遗漏了日本向美国挑起战争的具体比喻以及“でしょう”的推测语气。",
+        "suggestedRepair": "将该日文句子译为“恐怕就像日本向美国挑起战争一样鲁莽吧。”，保留前后中文原文及原有括注。"
+      },
+      {
+        "severity": "error",
+        "targetId": "79-bilibili-cn:cv1770179:b0005:figure",
+        "sourceEvidence": "附图中，右侧北家牌河靠中央一列最下方为九万；候选将其写成?m。",
+        "description": "具体牌码被占位符替代，导致完整牌河转写缺失一张牌的点数。",
+        "suggestedRepair": "将北家牌河写为“9m 7z 5z 3m 2s 4z／9s 6z 3p”，删除相关?m解释及unknowns中的对应条目。"
+      }
+    ],
+    "completeArticleCompared": true,
+    "summary": "完整核对后发现两处需修复：一处日文未译，以及牌桌中北家九万被写为?m。其余正文、强调、署名、原文地址及DOM顺序保留完整。"
+  },
+  "calls": [
+    {
+      "callId": "0eb687de-1d35-4fe2-b823-05c58912cecc",
+      "scope": "textbook-web-article-audit",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1770179",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 18597,
+        "cachedInputTokens": 0,
+        "outputTokens": 3953
+      },
+      "promptSha256": "965ffab74f01441e78cc7b24ff79e835b6c1aa3748d571f1948a667b26b248b8",
+      "semanticPromptSha256": "996fd5be213402f577218490a1bb0623a5377d7114ff4061df03c07f36c46f14",
+      "schemaSha256": "39e417886da67d9ed7e5495dfe94aa38c052f27cf1a9c1a642b4c8d456f338f5",
+      "outputSha256": "27bedd8f68a6ad6493c676c43fe84d12b3521587471f99b95faf549843227521",
+      "requestPromptBytes": 22205,
+      "semanticPromptBytes": 21723,
+      "binding": {
+        "productionSha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+        "sourceFileSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+        "auditorSnapshotSha256": "ec038e42ee0e6ad708712bc1d4c958388c25423f1dcfeda822a94c2b35471dd2",
+        "semanticProjectionSha256": "d763744f523bde82ef26ff6f55314365e569453388b7542a972269f78cf1d3e9",
+        "semanticProjectionVersion": 2,
+        "verifiedAssetIds": [],
+        "originalImageAssetIds": [
+          "79-bilibili-cn:17f83d84efc76a05aa889c27"
+        ],
+        "supplementalInputs": [
+          {
+            "assetId": "79-bilibili-cn:17f83d84efc76a05aa889c27",
+            "sourcePath": "web-sources/v1/79-bilibili-cn/assets/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+            "sourceSha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.x2.png",
+            "sha256": "fc84150fe08ef0c4cd41c7289bfb8a2137caf10dca2e558b505b81898a42f0cc",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 2,
+            "resampling": "nearest",
+            "width": 1002,
+            "height": 1000
+          }
+        ]
+      },
+      "recordedAt": "2026-10-25T18:57:37.950Z"
+    }
+  ],
+  "exactReuse": null,
+  "auditor": {
+    "path": "audit/web/auditors/d1a12f594369881bc81719e480f7df3ad9a5641d4d1ccd017a2ab2444931adea.json",
+    "sha256": "ec038e42ee0e6ad708712bc1d4c958388c25423f1dcfeda822a94c2b35471dd2",
+    "combinedSha256": "d1a12f594369881bc81719e480f7df3ad9a5641d4d1ccd017a2ab2444931adea"
+  },
+  "presentation": {
+    "parent": {
+      "path": "web-production/v1/candidates/79-bilibili-cn/cv1770179.json",
+      "sha256": "ee00c7d94a5aae14b3f35929f51b171233f78dec1e04dd16ebdae6a8f165c271",
+      "reason": "Lossless display images only; translations and source figure sequences unchanged"
+    },
+    "pixels": {
+      "passed": true,
+      "figures": 1,
+      "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+    }
+  },
+  "productionCall": {
+    "callId": "dc9f1a25-82a9-4950-a199-c4a0a8cc9342",
+    "rawArtifactPath": "raw-calls/dc9f1a25-82a9-4950-a199-c4a0a8cc9342.json",
+    "rawArtifactSha256": "2738935b95d7b3fb1f31170fee15d86fb06e6091141d2e159937c105083abc34",
+    "visualInputs": {
+      "inputs": [
+        {
+          "assetId": "79-bilibili-cn:17f83d84efc76a05aa889c27",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+          "sourceSha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+          "sha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 501,
+          "height": 500
+        },
+        {
+          "assetId": "79-bilibili-cn:17f83d84efc76a05aa889c27",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+          "sourceSha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.x2.png",
+          "sha256": "fc84150fe08ef0c4cd41c7289bfb8a2137caf10dca2e558b505b81898a42f0cc",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 2,
+          "resampling": "nearest",
+          "width": 1002,
+          "height": 1000
+        }
+      ],
+      "pixels": {
+        "passed": true,
+        "inputs": 2
+      }
+    }
+  },
+  "verifiedAssets": null,
+  "method": "independent-sol-high-full-article-review"
+}

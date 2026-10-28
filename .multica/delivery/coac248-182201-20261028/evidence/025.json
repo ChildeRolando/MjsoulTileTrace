@@ -1,0 +1,432 @@
+{
+  "schema": "coac248-182201-independent-target-handoff/1",
+  "authorizationCommentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+  "canonical": "79-cn-chapter-182-5",
+  "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1760573.r1.display.json",
+  "candidateSha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc",
+  "targetId": "79-bilibili-cn:cv1760573:b0003",
+  "carriedIssueTargetId": "79-bilibili-cn:cv1760573:b0013",
+  "bindings": [
+    {
+      "path": "web-production/v1/candidates/79-bilibili-cn/cv1760573.display.json",
+      "sha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270"
+    },
+    {
+      "path": "audit/web/articles/79-bilibili-cn/cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+      "sha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8"
+    },
+    {
+      "path": "web-sources/v1/79-bilibili-cn/articles/cv1760573/source.json",
+      "sha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+    },
+    {
+      "path": "integration/coac248-182201-20261028/cv1760573-plan.json",
+      "sha256": "dc1e4f6d7a09d95dd646fc1da796d7b8a28701be64fc3a100478e976a3bd6055"
+    },
+    {
+      "path": "web-production/v1/candidates/79-bilibili-cn/cv1760573.r1.display.json",
+      "sha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc"
+    },
+    {
+      "path": "integration/coac248-182201-20261028/cv1760573-production.json",
+      "sha256": "47beae1e36eb4727a6b6baa4e9bdfcbcf7c5a81e5cc5d3a57217f4a95f72620c"
+    },
+    {
+      "path": "integration/coac248-182201-20261028/cv1760573-review-plan.json",
+      "sha256": "648532eb249eb3ef862df0aec13032919c3665d3f259cfb8af716e2a6917369c"
+    },
+    {
+      "path": "integration/coac248-182201-20261028/review.mjs",
+      "sha256": "53f1d124b785919b1377954fdf02ce2d254cd05bf8d7bcab45c4bce9c22bba06"
+    },
+    {
+      "path": "integration/coac248-182201-20261028/release.json",
+      "sha256": "38a9137c65504b404abcd882129c57cd3d7cdb82df8493ea7a26f4377268d332"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac248-182201-inline-v1-20261028/runtime-manifest.json",
+      "sha256": "2df26827a1d13f9b9e13569b0628c987fbb3b7be04f9e0b8a186589e115c84b4"
+    },
+    {
+      "path": "web-production/v1/raw-calls/ec351354-9bb2-4ce0-9e9e-67f4f31f8615.json",
+      "sha256": "48af218acc698641792f05ff357236d66c48b38cf55b1b451d98c402ef955d91"
+    },
+    {
+      "path": "audit/calls/7cbb6bf1-006b-4a2f-af51-6e923fd11242.json",
+      "sha256": "3b65106ad0d28b7f61161058781fb69a2d722b805f34a2113595896905b5a8bf"
+    }
+  ],
+  "production": {
+    "schema": "coac248-182201-exact-inline-production/1",
+    "at": "2026-10-28T08:47:09.520Z",
+    "chapterId": "79-cn-chapter-182-5",
+    "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1760573.r1.display.json",
+    "candidateSha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc",
+    "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+    "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1760573.display.json",
+    "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+    "parentAuditPath": "audit/web/articles/79-bilibili-cn/cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+    "parentAuditSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+    "productionCall": {
+      "callId": "ec351354-9bb2-4ce0-9e9e-67f4f31f8615",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1760573",
+      "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "requestExecution": {
+        "schema": "coach-textbook-cli-request/1",
+        "policy": "coac244-vision-production-schema-v2-20261028",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "callerRequested": {
+          "model": "gpt-6.1-sol",
+          "reasoningEffort": "high"
+        },
+        "args": [
+          "exec",
+          "--model",
+          "gpt-6.1-sol",
+          "--config",
+          "model_reasoning_effort=\"high\"",
+          "--config",
+          "web_search=\"disabled\"",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox",
+          "read-only",
+          "--strict-config",
+          "--skip-git-repo-check",
+          "--json",
+          "--output-schema",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-0za3ri\\output.schema.json",
+          "--output-last-message",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-0za3ri\\final.json",
+          "--cd",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-0za3ri",
+          "--disable",
+          "apps",
+          "--disable",
+          "auth_elicitation",
+          "--disable",
+          "browser_use",
+          "--disable",
+          "browser_use_external",
+          "--disable",
+          "browser_use_full_cdp_access",
+          "--disable",
+          "computer_use",
+          "--disable",
+          "fast_mode",
+          "--disable",
+          "goals",
+          "--disable",
+          "guardian_approval",
+          "--disable",
+          "hooks",
+          "--disable",
+          "image_generation",
+          "--disable",
+          "in_app_browser",
+          "--disable",
+          "in_app_chat",
+          "--disable",
+          "in_app_dictation",
+          "--disable",
+          "in_app_local_automation",
+          "--disable",
+          "in_app_updates",
+          "--disable",
+          "memories",
+          "--disable",
+          "mentions_v2",
+          "--disable",
+          "multi_agent",
+          "--disable",
+          "plugin_sharing",
+          "--disable",
+          "plugins",
+          "--disable",
+          "remote_plugin",
+          "--disable",
+          "shell_snapshot",
+          "--disable",
+          "shell_tool",
+          "--disable",
+          "skill_mcp_dependency_install",
+          "--disable",
+          "skill_search",
+          "--disable",
+          "sleep_tool",
+          "--disable",
+          "tool_call_mcp_elicitation",
+          "--disable",
+          "tool_suggest",
+          "--disable",
+          "unbounded_connection_retries",
+          "--disable",
+          "unified_exec",
+          "--disable",
+          "unified_exec_tty",
+          "--disable",
+          "view_image",
+          "--disable",
+          "workspace_dependencies",
+          "-"
+        ],
+        "images": [],
+        "remoteBackend": "unverified; request arguments and returned events only"
+      },
+      "timeoutMs": 900000,
+      "startedAt": "2026-10-28T08:46:41.689Z",
+      "durationMs": 26497,
+      "usage": {
+        "inputTokens": 21063,
+        "cachedInputTokens": 0,
+        "outputTokens": 398
+      },
+      "success": true,
+      "transportStatus": "completed",
+      "failureClass": null,
+      "rawArtifactPath": "raw-calls/ec351354-9bb2-4ce0-9e9e-67f4f31f8615.json",
+      "rawArtifactSha256": "48af218acc698641792f05ff357236d66c48b38cf55b1b451d98c402ef955d91",
+      "outputSha256": "d9c0214acdf992890e1ad5cb7a9a44f4104ed90e77ff604147d805e9be38dc9e",
+      "schemaSha256": "bd5d93698987d62399ac86c2e0fe029b1f9b3ebeb9c2a5baff468afd81f5af83",
+      "promptSha256": "0d33d1cc576460de1326788109441395da7bf7bb9c7de5dd2e51da26a95913e3",
+      "semanticPromptSha256": "8301ce793429722dc72913042ee68f0ccdd8ee47fe2418bc9d5a3ed95d71e2b6",
+      "cliSnapshot": {
+        "path": "audit/runtimes/coac248-182201-inline-v1-20261028/textbook-production-cli.mjs",
+        "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+      },
+      "targets": {
+        "textIds": [
+          "79-bilibili-cn:cv1760573:b0003"
+        ],
+        "figureIds": []
+      },
+      "terminalEvents": [],
+      "visualInputs": [],
+      "revision": {
+        "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1760573.display.json",
+        "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+        "notesPath": "audit/web/articles/79-bilibili-cn/cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+        "notesSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+        "textBlockIds": [
+          "79-bilibili-cn:cv1760573:b0003"
+        ],
+        "figureIds": [],
+        "inlineJapanese": {
+          "path": "integration/coac248-182201-20261028/cv1760573-plan.json",
+          "sha256": "dc1e4f6d7a09d95dd646fc1da796d7b8a28701be64fc3a100478e976a3bd6055",
+          "plan": {
+            "schema": "coach-inline-japanese-revision/1",
+            "authorizationCommentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+            "chapterId": "79-cn-chapter-182-5",
+            "bindings": {
+              "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+              "notesSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+              "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+            },
+            "edits": [
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1760573:b0003",
+                "quotedText": "かけるは内、のばすは外",
+                "operation": "gloss"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "productionProof": {
+      "callId": "ec351354-9bb2-4ce0-9e9e-67f4f31f8615",
+      "rawArtifactPath": "raw-calls/ec351354-9bb2-4ce0-9e9e-67f4f31f8615.json",
+      "rawArtifactSha256": "48af218acc698641792f05ff357236d66c48b38cf55b1b451d98c402ef955d91",
+      "revision": {
+        "inlineJapanese": {
+          "plan": {
+            "schema": "coach-inline-japanese-revision/1",
+            "authorizationCommentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+            "chapterId": "79-cn-chapter-182-5",
+            "bindings": {
+              "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+              "notesSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+              "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+            },
+            "edits": [
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1760573:b0003",
+                "quotedText": "かけるは内、のばすは外",
+                "operation": "gloss"
+              }
+            ]
+          },
+          "binding": {
+            "path": "integration/coac248-182201-20261028/cv1760573-plan.json",
+            "sha256": "dc1e4f6d7a09d95dd646fc1da796d7b8a28701be64fc3a100478e976a3bd6055",
+            "plan": {
+              "schema": "coach-inline-japanese-revision/1",
+              "authorizationCommentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+              "chapterId": "79-cn-chapter-182-5",
+              "bindings": {
+                "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+                "notesSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+                "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+              },
+              "edits": [
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1760573:b0003",
+                  "quotedText": "かけるは内、のばすは外",
+                  "operation": "gloss"
+                }
+              ]
+            }
+          },
+          "sourceLanguage": "zh-CN",
+          "bodyMode": "verbatim-with-bound-inline-translation-only"
+        },
+        "revision": {
+          "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1760573.display.json",
+          "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+          "notesPath": "audit/web/articles/79-bilibili-cn/cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+          "notesSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+          "textBlockIds": [
+            "79-bilibili-cn:cv1760573:b0003"
+          ],
+          "figureIds": [],
+          "inlineJapanese": {
+            "path": "integration/coac248-182201-20261028/cv1760573-plan.json",
+            "sha256": "dc1e4f6d7a09d95dd646fc1da796d7b8a28701be64fc3a100478e976a3bd6055",
+            "plan": {
+              "schema": "coach-inline-japanese-revision/1",
+              "authorizationCommentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+              "chapterId": "79-cn-chapter-182-5",
+              "bindings": {
+                "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+                "notesSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+                "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+              },
+              "edits": [
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1760573:b0003",
+                  "quotedText": "かけるは内、のばすは外",
+                  "operation": "gloss"
+                }
+              ]
+            }
+          }
+        },
+        "parentAudit": {
+          "path": "audit/web/articles/79-bilibili-cn/cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+          "sha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+          "originalStatus": "needs-repair"
+        },
+        "parentCall": {
+          "callId": "7cbb6bf1-006b-4a2f-af51-6e923fd11242",
+          "path": "audit/calls/7cbb6bf1-006b-4a2f-af51-6e923fd11242.json",
+          "sha256": "3b65106ad0d28b7f61161058781fb69a2d722b805f34a2113595896905b5a8bf"
+        },
+        "inheritedAssetIds": [
+          "79-bilibili-cn:44917f8f12fd4651d3a063e7",
+          "79-bilibili-cn:c460098233420c9079af7e97",
+          "79-bilibili-cn:b099921584c1e416f23305f7",
+          "79-bilibili-cn:99559ead44ea73dbf96deeec",
+          "79-bilibili-cn:d9f4279a06c20d92b768cbb8"
+        ],
+        "unresolvedParentIssuesPreserved": [
+          {
+            "severity": "uncertain",
+            "targetId": "79-bilibili-cn:cv1760573:b0013",
+            "sourceEvidence": "源文与候选均为“这样的立直话，对手只能对日”。",
+            "description": "候选未改写中文，但源句中的“对日”无法确定所指的对手应对行为，涉及教学判断，不能视为语义已确认完整。",
+            "suggestedRepair": "保留所给中文，不推测补写；需有该句的明确校勘文本，才能消除此项语义不确定。"
+          }
+        ],
+        "productionOnlyAuthorization": true,
+        "chapterAccepted": false
+      }
+    },
+    "presentation": {
+      "parent": {
+        "path": "web-production/v1/runs/coac248-182201-cv1760573-20261028/model-output-without-display.json",
+        "sha256": "fbcabbff2d5d8ff3974e75de6ac3c869dbcb383dec4bf849a9ee327f089fb55e",
+        "reason": "Exact real model-authored inline translation with unchanged original-image presentations. Intermediate is not a separate review candidate."
+      },
+      "pixels": {
+        "passed": true,
+        "figures": 5,
+        "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+      }
+    },
+    "checks": {
+      "passed": true,
+      "errors": [],
+      "textBlocks": 8,
+      "imageRuns": 5,
+      "imageOccurrences": 5,
+      "figures": 5
+    },
+    "runtimeManifestSha256": "2df26827a1d13f9b9e13569b0628c987fbb3b7be04f9e0b8a186589e115c84b4",
+    "whitelist": [
+      {
+        "sourceBlockId": "79-bilibili-cn:cv1760573:b0003",
+        "quotedText": "かけるは内、のばすは外",
+        "operation": "gloss"
+      }
+    ],
+    "diff": {
+      "path": "/body/blocks/2/text",
+      "from": "原文地址：http://beginners.biz/reach/reach06.html ------------------------------------------------------------------------------------ 立直理论2：  ------------------------------------------------------------------------------------ かけるは内、のばすは外（太专业了= =，没想好怎么翻） ------------------------------------------------------------------------------------  比如124索这样的形， 摸到5索，从两面的角度考虑切掉1索是理所当然的打法。 但是，要立直的话就不一样了。 ",
+      "to": "原文地址：http://beginners.biz/reach/reach06.html ------------------------------------------------------------------------------------ 立直理论2：  ------------------------------------------------------------------------------------ かけるは内、のばすは外（立直舍内，发展舍外）（太专业了= =，没想好怎么翻） ------------------------------------------------------------------------------------  比如124索这样的形， 摸到5索，从两面的角度考虑切掉1索是理所当然的打法。 但是，要立直的话就不一样了。 "
+    },
+    "carryIssue": [
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1760573:b0013",
+        "sourceEvidence": "源文与候选均为“这样的立直话，对手只能对日”。",
+        "description": "候选未改写中文，但源句中的“对日”无法确定所指的对手应对行为，涉及教学判断，不能视为语义已确认完整。",
+        "suggestedRepair": "保留所给中文，不推测补写；需有该句的明确校勘文本，才能消除此项语义不确定。"
+      }
+    ],
+    "preservation": {
+      "allNonTargetBodyBytes": true,
+      "allCompleteFiguresBytes": true,
+      "unknownsUnchanged": true,
+      "captionAndSourceNotesUnchanged": true,
+      "orderUnchanged": true
+    },
+    "newCalls": {
+      "maker": 1,
+      "review": 0,
+      "failed": 0,
+      "void": 0,
+      "retry": 0
+    },
+    "reservedIndependentReview": 1,
+    "chapterAccepted": false,
+    "wholeChapterPassed": false
+  },
+  "reviewRequest": {
+    "path": "integration/coac248-182201-20261028/cv1760573-review-plan.json",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "images": [],
+    "orderedPairs": 13
+  },
+  "limits": {
+    "makerConsumed": 1,
+    "independentReviewRemaining": 1,
+    "retry": 0,
+    "failedVoidCount": true
+  },
+  "chapterAccepted": false,
+  "wholeChapterPassed": false,
+  "notAuthorized": [
+    "new maker",
+    "full-chapter review",
+    "guessing ambiguous source or unknown tiles",
+    "changing old raw or issues",
+    "touching283 or234"
+  ]
+}

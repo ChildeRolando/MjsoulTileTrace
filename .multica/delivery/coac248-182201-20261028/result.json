@@ -1,0 +1,169 @@
+{
+  "schema": "coac248-182201-bounded-maker-batch/1",
+  "recordedAt": "2026-10-28T08:52:07.808878+00:00",
+  "authorizationCommentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+  "branch": "agent/mika/coac-248",
+  "startingCommit": "5c2733e1ba7f50fa6bef241932b96e9010a762a7",
+  "newCallsThisTicket": {
+    "maker": 2,
+    "independentAudit": 0,
+    "failed": 0,
+    "void": 0,
+    "retry": 0
+  },
+  "batchMaximumCalls": 4,
+  "reviewBudgetDelegatedTo249": {
+    "182-5": 1,
+    "201-6": 1
+  },
+  "runtimeManifestSha256": "2df26827a1d13f9b9e13569b0628c987fbb3b7be04f9e0b8a186589e115c84b4",
+  "runtimeFiles": 19,
+  "chapters": [
+    {
+      "canonical": "79-cn-chapter-182-5",
+      "articleId": "cv1760573",
+      "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1760573.r1.display.json",
+      "candidateSha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc",
+      "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+      "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+      "parentAuditSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+      "makerCallId": "ec351354-9bb2-4ce0-9e9e-67f4f31f8615",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageCount": 0,
+      "durationMs": 26497,
+      "usage": {
+        "inputTokens": 21063,
+        "cachedInputTokens": 0,
+        "outputTokens": 398
+      },
+      "diff": {
+        "path": "/body/blocks/2/text",
+        "from": "原文地址：http://beginners.biz/reach/reach06.html ------------------------------------------------------------------------------------ 立直理论2：  ------------------------------------------------------------------------------------ かけるは内、のばすは外（太专业了= =，没想好怎么翻） ------------------------------------------------------------------------------------  比如124索这样的形， 摸到5索，从两面的角度考虑切掉1索是理所当然的打法。 但是，要立直的话就不一样了。 ",
+        "to": "原文地址：http://beginners.biz/reach/reach06.html ------------------------------------------------------------------------------------ 立直理论2：  ------------------------------------------------------------------------------------ かけるは内、のばすは外（立直舍内，发展舍外）（太专业了= =，没想好怎么翻） ------------------------------------------------------------------------------------  比如124索这样的形， 摸到5索，从两面的角度考虑切掉1索是理所当然的打法。 但是，要立直的话就不一样了。 "
+      },
+      "whitelist": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1760573:b0003",
+          "quotedText": "かけるは内、のばすは外",
+          "operation": "gloss"
+        }
+      ],
+      "preservation": {
+        "allNonTargetBodyBytes": true,
+        "allCompleteFiguresBytes": true,
+        "unknownsUnchanged": true,
+        "captionAndSourceNotesUnchanged": true,
+        "orderUnchanged": true
+      },
+      "remainingSpecificScope": [
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1760573:b0013",
+          "sourceEvidence": "源文与候选均为“这样的立直话，对手只能对日”。",
+          "description": "候选未改写中文，但源句中的“对日”无法确定所指的对手应对行为，涉及教学判断，不能视为语义已确认完整。",
+          "suggestedRepair": "保留所给中文，不推测补写；需有该句的明确校勘文本，才能消除此项语义不确定。"
+        }
+      ],
+      "handoffPath": "integration/coac248-182201-20261028/cv1760573-handoff249.json",
+      "handoffSha256": "2e996defdf879d6e6b1401c7007cd69e6b4ef4e44324ebca11da670ea3c1231d",
+      "historicalCallsUnchanged": [
+        {
+          "callId": "e5808fb6-9080-4bae-9b64-5e1ed83c7d40",
+          "success": false,
+          "usage": null,
+          "transportStatus": "failed"
+        },
+        {
+          "callId": "cb644e86-c191-4b51-9111-b3cc0ccdc927",
+          "success": true,
+          "usage": {
+            "inputTokens": 17123,
+            "cachedInputTokens": 0,
+            "outputTokens": 2174
+          },
+          "transportStatus": "completed"
+        }
+      ],
+      "slotReleased": true,
+      "chapterClaimReleased": true,
+      "status": "awaiting-independent-target-context-review"
+    },
+    {
+      "canonical": "79-cn-chapter-201-6",
+      "articleId": "cv1770179",
+      "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1770179.r1.display.json",
+      "candidateSha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77",
+      "parentSha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+      "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+      "parentAuditSha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+      "makerCallId": "3f706cc0-63ea-4721-934e-05e8816724e7",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageCount": 0,
+      "durationMs": 34673,
+      "usage": {
+        "inputTokens": 18059,
+        "cachedInputTokens": 0,
+        "outputTokens": 266
+      },
+      "diff": {
+        "path": "/body/blocks/5/text",
+        "from": "这里手牌很烂，这个时候和亲家对日的话 日本がアメリカに戦争を挑むくらい無謀でしょう。（这句话不好翻译，总之是形容蠢）",
+        "to": "这里手牌很烂，这个时候和亲家对日的话 日本がアメリカに戦争を挑むくらい無謀でしょう。（恐怕就像日本向美国挑起战争一样鲁莽吧。）（这句话不好翻译，总之是形容蠢）"
+      },
+      "whitelist": [
+        {
+          "sourceBlockId": "79-bilibili-cn:cv1770179:b0006",
+          "quotedText": "日本がアメリカに戦争を挑むくらい無謀でしょう。",
+          "operation": "gloss"
+        }
+      ],
+      "preservation": {
+        "allNonTargetBodyBytes": true,
+        "allCompleteFiguresBytes": true,
+        "unknownsUnchanged": true,
+        "captionAndSourceNotesUnchanged": true,
+        "orderUnchanged": true
+      },
+      "remainingSpecificScope": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1770179:b0005:figure",
+          "sourceEvidence": "附图中，右侧北家牌河靠中央一列最下方为九万；候选将其写成?m。",
+          "description": "具体牌码被占位符替代，导致完整牌河转写缺失一张牌的点数。",
+          "suggestedRepair": "将北家牌河写为“9m 7z 5z 3m 2s 4z／9s 6z 3p”，删除相关?m解释及unknowns中的对应条目。"
+        }
+      ],
+      "handoffPath": "integration/coac248-182201-20261028/cv1770179-handoff249.json",
+      "handoffSha256": "9406e5af5c7ee74f8002767528784143a16082507a8723463d23def2a0b28e46",
+      "historicalCallsUnchanged": [
+        {
+          "callId": "2460a9dc-5be4-4225-9a9f-a554c0c298f6",
+          "success": false,
+          "usage": null,
+          "transportStatus": "failed"
+        },
+        {
+          "callId": "dc9f1a25-82a9-4950-a199-c4a0a8cc9342",
+          "success": true,
+          "usage": {
+            "inputTokens": 15194,
+            "cachedInputTokens": 0,
+            "outputTokens": 4763
+          },
+          "transportStatus": "completed"
+        }
+      ],
+      "slotReleased": true,
+      "chapterClaimReleased": true,
+      "status": "awaiting-independent-target-context-review"
+    }
+  ],
+  "wholeBookComplete": false,
+  "activeSwitched": false,
+  "chapterAccepted": false,
+  "upstreamExecutionCount": "unknown",
+  "remoteWeights": "unknown",
+  "fees": "unknown"
+}
