@@ -2189,7 +2189,7 @@
     202,
     203
    ],
-   "currentDisposition": "awaiting-independent-target-context-review",
+   "currentDisposition": "awaiting-global-exact-limited-display-readback",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
    "auditRecordedAt": "2026-10-25T18:53:27.161Z",
@@ -2268,7 +2268,47 @@
     "status": "awaiting-independent-target-context-review"
    },
    "oldAuditRetainedUnchanged": true,
-   "currentOrderedSourceBlocks": 7
+   "currentOrderedSourceBlocks": 7,
+   "independent201LimitedEvidence": {
+    "canonical": "79-cn-chapter-201-6",
+    "candidateSha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77",
+    "independentCall": "47cad59c-6a7b-41a6-9ae5-9a977e9d34b7",
+    "translationVerdict": "faithful",
+    "unknownImpact": "independently-allowed-with-five-actual-non-author-limits",
+    "tileStillUnknown": "rightNorthRiver-innerColumn-bottom-?m",
+    "notAnIdentificationTodo": true,
+    "originalUncertainAndSourceNotePreserved": true,
+    "newCalls": 0,
+    "chapterPhaseConsumed": 2,
+    "remainingModelBudget": 0,
+    "batch182201Consumed": 4,
+    "batch182201Remaining": 0,
+    "fiveLimitsInstalledInExistingStage": true,
+    "globalReadbackVerifiedBy248": false,
+    "wholeChapterPassed": false,
+    "globalAdmissionClaimedBy248": false,
+    "stagePath": "E:/AgentData/Coach/knowledge/processing/integration/coac244-201-limited-display-20261028/stage",
+    "loader": "E:/AgentData/Coach/knowledge/processing/integration/coac244-201-limited-display-20261028/admit201.mjs",
+    "loaderManifestSha256": "d847c978330f528e0c9373dd152bfded7c38fa3b4802da5002933f4e68decfe8",
+    "verificationPath": "integration/coac248-201-limits-20261028/verification.json",
+    "requiredDisplayLimitations": [
+     "以下限制是审校补充说明，并非原文内容。",
+     "北家牌河靠中央列最下方的万子点数未确认，转写为?m；该转写不能作为逐张确证的完整牌谱。",
+     "“5万、6索和西是安全牌”以及切西后有人追立则“安全牌就全没了”是作者对本局面的判断。未知万子使北家对5万是否为现物不能仅由这份转写独立确认，也不能据此证明后一句对每种具体追立情形必然成立。",
+     "作者将下家打出无筋3饼视为很有追立的可能；不能将可能性展示成已经追立或确定会追立。",
+     "本例不认证其他人的暗手、所有对手的安全度、追立概率或弃牌选择的最优性。"
+    ],
+    "remainingAction": "Existing250 alone adds the persistent exact201 route to its incremental library and performs actual MCP/Arena readback of author conditions,?m,source image and all5non-author limitations before coverage changes.",
+    "existingOwners": {
+     "selectedWeb": [],
+     "registerCovered": false,
+     "globalMcpArenaReadbackVerifiedByThisTicket": false,
+     "existing250Run": "01a181c4-5975-737e-a21a-67fafbaea8cf",
+     "existing244Run": "01a181c9-e40f-7e21-b216-ed6fc9c34f26",
+     "newConsumers": 0,
+     "newDispatches": 0
+    }
+   }
   },
   {
    "objectId": "web-chapter:79-cn-chapter-205-5",
@@ -10114,5 +10154,45 @@
   "fee": "unknown",
   "remoteWeights": "unknown",
   "upstreamExecutionCount": "unknown"
+ },
+ "latest201IndependentEvidenceConsumption": {
+  "canonical": "79-cn-chapter-201-6",
+  "candidateSha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77",
+  "independentCall": "47cad59c-6a7b-41a6-9ae5-9a977e9d34b7",
+  "translationVerdict": "faithful",
+  "unknownImpact": "independently-allowed-with-five-actual-non-author-limits",
+  "tileStillUnknown": "rightNorthRiver-innerColumn-bottom-?m",
+  "notAnIdentificationTodo": true,
+  "originalUncertainAndSourceNotePreserved": true,
+  "newCalls": 0,
+  "chapterPhaseConsumed": 2,
+  "remainingModelBudget": 0,
+  "batch182201Consumed": 4,
+  "batch182201Remaining": 0,
+  "fiveLimitsInstalledInExistingStage": true,
+  "globalReadbackVerifiedBy248": false,
+  "wholeChapterPassed": false,
+  "globalAdmissionClaimedBy248": false,
+  "stagePath": "E:/AgentData/Coach/knowledge/processing/integration/coac244-201-limited-display-20261028/stage",
+  "loader": "E:/AgentData/Coach/knowledge/processing/integration/coac244-201-limited-display-20261028/admit201.mjs",
+  "loaderManifestSha256": "d847c978330f528e0c9373dd152bfded7c38fa3b4802da5002933f4e68decfe8",
+  "verificationPath": "integration/coac248-201-limits-20261028/verification.json",
+  "requiredDisplayLimitations": [
+   "以下限制是审校补充说明，并非原文内容。",
+   "北家牌河靠中央列最下方的万子点数未确认，转写为?m；该转写不能作为逐张确证的完整牌谱。",
+   "“5万、6索和西是安全牌”以及切西后有人追立则“安全牌就全没了”是作者对本局面的判断。未知万子使北家对5万是否为现物不能仅由这份转写独立确认，也不能据此证明后一句对每种具体追立情形必然成立。",
+   "作者将下家打出无筋3饼视为很有追立的可能；不能将可能性展示成已经追立或确定会追立。",
+   "本例不认证其他人的暗手、所有对手的安全度、追立概率或弃牌选择的最优性。"
+  ],
+  "remainingAction": "Existing250 alone adds the persistent exact201 route to its incremental library and performs actual MCP/Arena readback of author conditions,?m,source image and all5non-author limitations before coverage changes.",
+  "existingOwners": {
+   "selectedWeb": [],
+   "registerCovered": false,
+   "globalMcpArenaReadbackVerifiedByThisTicket": false,
+   "existing250Run": "01a181c4-5975-737e-a21a-67fafbaea8cf",
+   "existing244Run": "01a181c9-e40f-7e21-b216-ed6fc9c34f26",
+   "newConsumers": 0,
+   "newDispatches": 0
+  }
  }
 }

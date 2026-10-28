@@ -1,0 +1,186 @@
+{
+  "chapterId": "79-cn-chapter-201-6",
+  "covered": false,
+  "baseVerdictPreserved": "produced-needs-repair",
+  "category": "text-and-image-repair",
+  "owner": "COAC-248",
+  "nextAction": "不填北家?m，不再收费识字/复审。现有244精确stage已安装5条非原文限制，复用已在途250单写者做持久精确路由及真实MCP/Arena读回；保留作者安全判断条件和追立可能性，覆盖仅在读回后更新。",
+  "baseEvidence": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.display.json",
+      "sha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+      "bytes": 26992
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1770179.52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8.json",
+      "sha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+      "bytes": 11973
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1770179\\source.json",
+      "sha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+      "bytes": 18914
+    }
+  ],
+  "blockingIssues": [
+    {
+      "severity": "error",
+      "targetId": "79-bilibili-cn:cv1770179:b0006",
+      "sourceEvidence": "日本がアメリカに戦争を挑むくらい無謀でしょう。",
+      "description": "日文未译，遗漏了日本向美国挑起战争的具体比喻以及“でしょう”的推测语气。",
+      "suggestedRepair": "将该日文句子译为“恐怕就像日本向美国挑起战争一样鲁莽吧。”，保留前后中文原文及原有括注。"
+    },
+    {
+      "severity": "error",
+      "targetId": "79-bilibili-cn:cv1770179:b0005:figure",
+      "sourceEvidence": "附图中，右侧北家牌河靠中央一列最下方为九万；候选将其写成?m。",
+      "description": "具体牌码被占位符替代，导致完整牌河转写缺失一张牌的点数。",
+      "suggestedRepair": "将北家牌河写为“9m 7z 5z 3m 2s 4z／9s 6z 3p”，删除相关?m解释及unknowns中的对应条目。"
+    }
+  ],
+  "existingVariants": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.display.json",
+      "sha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+      "audits": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1770179.52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8.json",
+          "sha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+          "status": "needs-repair",
+          "blockingIssues": [
+            {
+              "severity": "error",
+              "targetId": "79-bilibili-cn:cv1770179:b0006",
+              "sourceEvidence": "日本がアメリカに戦争を挑むくらい無謀でしょう。",
+              "description": "日文未译，遗漏了日本向美国挑起战争的具体比喻以及“でしょう”的推测语气。",
+              "suggestedRepair": "将该日文句子译为“恐怕就像日本向美国挑起战争一样鲁莽吧。”，保留前后中文原文及原有括注。"
+            },
+            {
+              "severity": "error",
+              "targetId": "79-bilibili-cn:cv1770179:b0005:figure",
+              "sourceEvidence": "附图中，右侧北家牌河靠中央一列最下方为九万；候选将其写成?m。",
+              "description": "具体牌码被占位符替代，导致完整牌河转写缺失一张牌的点数。",
+              "suggestedRepair": "将北家牌河写为“9m 7z 5z 3m 2s 4z／9s 6z 3p”，删除相关?m解释及unknowns中的对应条目。"
+            }
+          ]
+        }
+      ],
+      "notAutomaticallySelected": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.json",
+      "sha256": "ee00c7d94a5aae14b3f35929f51b171233f78dec1e04dd16ebdae6a8f165c271",
+      "audits": [],
+      "notAutomaticallySelected": true
+    }
+  ],
+  "pdfBoundary": {
+    "pagesTotal": 3,
+    "pagesWithCandidate": 0,
+    "pagesWithPassedCandidate": 0,
+    "missingPassedPages": [
+      201,
+      202,
+      203
+    ],
+    "pagesDetail": [
+      {
+        "page": 201,
+        "candidates": 0,
+        "receiptStatus": null,
+        "sourceBound": null,
+        "selected": false,
+        "blocks": 11
+      },
+      {
+        "page": 202,
+        "candidates": 0,
+        "receiptStatus": null,
+        "sourceBound": null,
+        "selected": false,
+        "blocks": 6
+      },
+      {
+        "page": 203,
+        "candidates": 0,
+        "receiptStatus": null,
+        "sourceBound": null,
+        "selected": false,
+        "blocks": 8
+      }
+    ]
+  },
+  "modelCallsThisStage": 0,
+  "current182201Authorization": {
+    "commentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+    "phase": "independent-evidence-and-existing-stage-five-limits-verified-awaiting-global-readback",
+    "runtimeManifestSha256": "2df26827a1d13f9b9e13569b0628c987fbb3b7be04f9e0b8a186589e115c84b4",
+    "binding": {
+      "parentSha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+      "notesSha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+      "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb"
+    },
+    "target": "79-bilibili-cn:cv1770179:b0006",
+    "preservedUnresolvedTarget": "79-bilibili-cn:cv1770179:b0005:figure",
+    "newMakerBudget": 1,
+    "independentReviewReservedFor249": 0,
+    "retry": 0,
+    "chapterAccepted": false,
+    "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1770179.r1.display.json",
+    "candidateSha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77",
+    "makerCallId": "3f706cc0-63ea-4721-934e-05e8816724e7",
+    "makerUsage": {
+      "inputTokens": 18059,
+      "cachedInputTokens": 0,
+      "outputTokens": 266
+    },
+    "makerConsumed": 1,
+    "makerRemaining": 0,
+    "handoffPath": "E:/AgentData/Coach/knowledge/processing/integration/coac248-182201-20261028/cv1770179-handoff249.json",
+    "allNonTargetBytesPreserved": true,
+    "independentReviewConsumed": 1,
+    "chapterPhaseCallsConsumed": 2,
+    "remainingModelBudget": 0
+  },
+  "previousNextActionBeforeIndependent201": "先复用已有rev1及独审差异；b0006比喻翻译与b0005北家9m各有原定位，限定同源目标，不覆盖其它正文。",
+  "zeroCall201EvidenceConsumption": {
+    "canonical": "79-cn-chapter-201-6",
+    "candidateSha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77",
+    "independentCall": "47cad59c-6a7b-41a6-9ae5-9a977e9d34b7",
+    "translationVerdict": "faithful",
+    "unknownImpact": "independently-allowed-with-five-actual-non-author-limits",
+    "tileStillUnknown": "rightNorthRiver-innerColumn-bottom-?m",
+    "notAnIdentificationTodo": true,
+    "originalUncertainAndSourceNotePreserved": true,
+    "newCalls": 0,
+    "chapterPhaseConsumed": 2,
+    "remainingModelBudget": 0,
+    "batch182201Consumed": 4,
+    "batch182201Remaining": 0,
+    "fiveLimitsInstalledInExistingStage": true,
+    "globalReadbackVerifiedBy248": false,
+    "wholeChapterPassed": false,
+    "globalAdmissionClaimedBy248": false,
+    "stagePath": "E:/AgentData/Coach/knowledge/processing/integration/coac244-201-limited-display-20261028/stage",
+    "loader": "E:/AgentData/Coach/knowledge/processing/integration/coac244-201-limited-display-20261028/admit201.mjs",
+    "loaderManifestSha256": "d847c978330f528e0c9373dd152bfded7c38fa3b4802da5002933f4e68decfe8",
+    "verificationPath": "integration/coac248-201-limits-20261028/verification.json",
+    "requiredDisplayLimitations": [
+      "以下限制是审校补充说明，并非原文内容。",
+      "北家牌河靠中央列最下方的万子点数未确认，转写为?m；该转写不能作为逐张确证的完整牌谱。",
+      "“5万、6索和西是安全牌”以及切西后有人追立则“安全牌就全没了”是作者对本局面的判断。未知万子使北家对5万是否为现物不能仅由这份转写独立确认，也不能据此证明后一句对每种具体追立情形必然成立。",
+      "作者将下家打出无筋3饼视为很有追立的可能；不能将可能性展示成已经追立或确定会追立。",
+      "本例不认证其他人的暗手、所有对手的安全度、追立概率或弃牌选择的最优性。"
+    ],
+    "remainingAction": "Existing250 alone adds the persistent exact201 route to its incremental library and performs actual MCP/Arena readback of author conditions,?m,source image and all5non-author limitations before coverage changes.",
+    "existingOwners": {
+      "selectedWeb": [],
+      "registerCovered": false,
+      "globalMcpArenaReadbackVerifiedByThisTicket": false,
+      "existing250Run": "01a181c4-5975-737e-a21a-67fafbaea8cf",
+      "existing244Run": "01a181c9-e40f-7e21-b216-ed6fc9c34f26",
+      "newConsumers": 0,
+      "newDispatches": 0
+    }
+  }
+}

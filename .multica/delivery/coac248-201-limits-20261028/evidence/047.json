@@ -1,0 +1,41 @@
+{
+  "schema": "coach-textbook-index/1",
+  "status": "chapter-auto-audited",
+  "title": "【日本麻雀讲座译文】防守6—弃和的切牌顺序（1）",
+  "policy": {
+    "cardRole": "index-only",
+    "bodyRole": "complete-source-body-with-chinese-translation",
+    "modelExperiments": false,
+    "reviewStatus": "pending-user-review"
+  },
+  "sources": [
+    {
+      "id": "79-bilibili-cn-cv1770179",
+      "title": "【日本麻雀讲座译文】防守6—弃和的切牌顺序（1）",
+      "format": "web",
+      "language": "zh-CN",
+      "url": "https://www.bilibili.com/read/cv1770179",
+      "articleId": "cv1770179",
+      "sha256": "7a3aedc2a156a6d9b5c861787c08da1d4d57eefb122ddef271f60022bbd9cb26",
+      "htmlSha256": "7a3aedc2a156a6d9b5c861787c08da1d4d57eefb122ddef271f60022bbd9cb26",
+      "bytes": 74858,
+      "sourceJsonSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+      "sourcePath": "web-sources/v1/79-bilibili-cn/articles/cv1770179/source.json"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "79-bilibili-cn-cv1770179-chapter",
+      "title": "【日本麻雀讲座译文】防守6—弃和的切牌顺序（1）",
+      "sourceId": "79-bilibili-cn-cv1770179",
+      "startPage": null,
+      "bodyStartPage": null,
+      "endPage": null,
+      "topics": [],
+      "indexDescription": "完整原文论证和牌例；索引只定位。",
+      "anchors": [],
+      "relatedChapterIds": [],
+      "reviewFocus": "201完整7来源块与原图，新增释义忠实；五条非原文限制锚定目标图，unknown及作者条件不变。"
+    }
+  ]
+}

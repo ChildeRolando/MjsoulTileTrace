@@ -1,0 +1,560 @@
+{
+  "schema": "coac248-201-readonly-evidence-and-installed-display/1",
+  "checkedAt": "2026-10-28T09:30:27.392Z",
+  "canonical": "79-cn-chapter-201-6",
+  "candidateSha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77",
+  "candidateUnchanged": true,
+  "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+  "parentSha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+  "parentAuditSha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+  "independentCall": {
+    "callId": "47cad59c-6a7b-41a6-9ae5-9a977e9d34b7",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "images": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+        "sha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+        "bytes": 16376
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.x2.png",
+        "sha256": "fc84150fe08ef0c4cd41c7289bfb8a2137caf10dca2e558b505b81898a42f0cc",
+        "bytes": 24093
+      }
+    ],
+    "usage": {
+      "inputTokens": 22286,
+      "cachedInputTokens": 0,
+      "outputTokens": 11293
+    },
+    "durationMs": 172487
+  },
+  "independentVerification": {
+    "limitedEvidenceVerified": true,
+    "errors": [],
+    "requiredDisplayLimitations": [
+      "以下限制是审校补充说明，并非原文内容。",
+      "北家牌河靠中央列最下方的万子点数未确认，转写为?m；该转写不能作为逐张确证的完整牌谱。",
+      "“5万、6索和西是安全牌”以及切西后有人追立则“安全牌就全没了”是作者对本局面的判断。未知万子使北家对5万是否为现物不能仅由这份转写独立确认，也不能据此证明后一句对每种具体追立情形必然成立。",
+      "作者将下家打出无筋3饼视为很有追立的可能；不能将可能性展示成已经追立或确定会追立。",
+      "本例不认证其他人的暗手、所有对手的安全度、追立概率或弃牌选择的最优性。"
+    ],
+    "originalIssuesPreserved": true,
+    "wholeChapterPassed": false,
+    "admissionGranted": false,
+    "meaning": "Independent bounded evidence only; all actual required limitations and any unresolved source contribution must be mapped to a legal exact display scope before 250 admission."
+  },
+  "originalUncertainAndSourceNote": [
+    {
+      "severity": "uncertain",
+      "targetId": "79-bilibili-cn:cv1770179:b0005:figure",
+      "evidence": "北家牌河靠中央列最下方万子在转写和unknowns中标为?m。",
+      "description": "点数及相关的具体安全关系仍未独立确定。原图和明确未知的转写可在实际展示规定限制的条件下用于呈现作者论述。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1770179:b0006",
+      "evidence": "源中文含“和亲家对日”及旧括注“这句话不好翻译，总之是形容蠢”。",
+      "description": "这两处源文字均按授权保留；新增释义独立补足日文比喻和语气。"
+    }
+  ],
+  "loader": "E:/AgentData/Coach/knowledge/processing/integration/coac244-201-limited-display-20261028/admit201.mjs",
+  "loaderStatus": "admitted-exact201-five-limit-display",
+  "loaderManifestSha256": "d847c978330f528e0c9373dd152bfded7c38fa3b4802da5002933f4e68decfe8",
+  "stagePath": "E:/AgentData/Coach/knowledge/processing/integration/coac244-201-limited-display-20261028/stage",
+  "stageReceipt": {
+    "schema": "coach-textbook-web-stage/1",
+    "status": "independently-audited-chapter-preview",
+    "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.r1.display.json",
+    "candidateSha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77",
+    "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+    "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-201-target-impact-reviewed-20261028.json",
+    "auditStatus": "admitted-exact201-five-limit-display",
+    "limitedUnknownFidelity": null,
+    "imageDerivations": [],
+    "chapters": 1,
+    "units": 1,
+    "blocks": 12,
+    "figures": 1,
+    "corpusId": "85dd3643b94edab2b8b0d30729c21bddfa39ce5c8a059fa708eb3fc07248a5f7",
+    "bodySha256": "80bef1137b025b7fedf26d081eca1109a2fbbf7035da9edd3d920141cf32c392",
+    "maxUnitBytes": 8390,
+    "modelCalls": 0,
+    "activeLibraryChanged": false,
+    "humanReview": "pending",
+    "canonical": "79-cn-chapter-201-6",
+    "standardWholeArticlePassed": false,
+    "displayLimits": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-201-limited-display-20261028/stage/display-limits.json",
+      "sha256": "fad33f19f0b3c8473ee8362f3ffac8416b4d1378f01b20028da6d31e240426f7"
+    }
+  },
+  "stageFilesChecked": 9,
+  "originalStageAuthorBlocks": 7,
+  "displayBlocks": 12,
+  "figures": 1,
+  "fiveNonAuthorLimitsInstalledInExistingStage": true,
+  "actualHtmlAndCompiledTextChecked": true,
+  "authorContentOrderMarksImagesUnchanged": true,
+  "requiredDisplayMappings": [
+    {
+      "id": "limited201-1",
+      "text": "【审校限制（非原文）1】以下限制是审校补充说明，并非原文内容。",
+      "authorText": false,
+      "corpusUnitIds": [
+        "79-bilibili-cn-cv1770179-argument"
+      ],
+      "afterSourceBlock": "79-bilibili-cn:cv1770179:b0005",
+      "beforeSourceBlock": "79-bilibili-cn:cv1770179:b0006",
+      "htmlAndCorpusPresent": true
+    },
+    {
+      "id": "limited201-2",
+      "text": "【审校限制（非原文）2】北家牌河靠中央列最下方的万子点数未确认，转写为?m；该转写不能作为逐张确证的完整牌谱。",
+      "authorText": false,
+      "corpusUnitIds": [
+        "79-bilibili-cn-cv1770179-argument"
+      ],
+      "afterSourceBlock": "79-bilibili-cn:cv1770179:b0005",
+      "beforeSourceBlock": "79-bilibili-cn:cv1770179:b0006",
+      "htmlAndCorpusPresent": true
+    },
+    {
+      "id": "limited201-3",
+      "text": "【审校限制（非原文）3】“5万、6索和西是安全牌”以及切西后有人追立则“安全牌就全没了”是作者对本局面的判断。未知万子使北家对5万是否为现物不能仅由这份转写独立确认，也不能据此证明后一句对每种具体追立情形必然成立。",
+      "authorText": false,
+      "corpusUnitIds": [
+        "79-bilibili-cn-cv1770179-argument"
+      ],
+      "afterSourceBlock": "79-bilibili-cn:cv1770179:b0005",
+      "beforeSourceBlock": "79-bilibili-cn:cv1770179:b0006",
+      "htmlAndCorpusPresent": true
+    },
+    {
+      "id": "limited201-4",
+      "text": "【审校限制（非原文）4】作者将下家打出无筋3饼视为很有追立的可能；不能将可能性展示成已经追立或确定会追立。",
+      "authorText": false,
+      "corpusUnitIds": [
+        "79-bilibili-cn-cv1770179-argument"
+      ],
+      "afterSourceBlock": "79-bilibili-cn:cv1770179:b0005",
+      "beforeSourceBlock": "79-bilibili-cn:cv1770179:b0006",
+      "htmlAndCorpusPresent": true
+    },
+    {
+      "id": "limited201-5",
+      "text": "【审校限制（非原文）5】本例不认证其他人的暗手、所有对手的安全度、追立概率或弃牌选择的最优性。",
+      "authorText": false,
+      "corpusUnitIds": [
+        "79-bilibili-cn-cv1770179-argument"
+      ],
+      "afterSourceBlock": "79-bilibili-cn:cv1770179:b0005",
+      "beforeSourceBlock": "79-bilibili-cn:cv1770179:b0006",
+      "htmlAndCorpusPresent": true
+    }
+  ],
+  "existingOwnerNegativeChecksReused": [
+    {
+      "name": "actual-wrong-parent-file",
+      "rejected": true
+    },
+    {
+      "name": "actual-wrong-processing-root",
+      "rejected": true
+    },
+    {
+      "name": "wrong-source",
+      "rejected": true
+    },
+    {
+      "name": "translation-not-faithful",
+      "rejected": true
+    },
+    {
+      "name": "unknown-requires-resolution",
+      "rejected": true
+    },
+    {
+      "name": "uncertain-downgraded",
+      "rejected": true
+    },
+    {
+      "name": "author-condition-lost",
+      "rejected": true
+    },
+    {
+      "name": "figure-guessed",
+      "rejected": true
+    },
+    {
+      "name": "unknown-deleted",
+      "rejected": true
+    },
+    {
+      "name": "unrequested-body-change",
+      "rejected": true
+    },
+    {
+      "name": "source-old-parenthetical-deleted",
+      "rejected": true
+    },
+    {
+      "name": "source-old-wording-deleted",
+      "rejected": true
+    },
+    {
+      "name": "five-limits-missing",
+      "rejected": true
+    },
+    {
+      "name": "proposal-as-author",
+      "rejected": true
+    },
+    {
+      "name": "wrong-full-object-hash",
+      "rejected": true
+    },
+    {
+      "name": "false-already-installed",
+      "rejected": true
+    },
+    {
+      "name": "display-note-deleted",
+      "rejected": true
+    },
+    {
+      "name": "display-note-text-changed",
+      "rejected": true
+    },
+    {
+      "name": "display-note-author-flag",
+      "rejected": true
+    },
+    {
+      "name": "display-note-not-near-target",
+      "rejected": true
+    },
+    {
+      "name": "display-author-marks-lost",
+      "rejected": true
+    }
+  ],
+  "unresolvedSpecificFacts": "North river ?m exact value; whether5m is genbutsu to North and whether no safe tile remains in each actual follow-up riichi scenario. Author follow-up riichi is only a possibility. No new tile-reading task is required for this limited fidelity scope.",
+  "globalStateAtCheck": {
+    "selectedWeb": [],
+    "registerCovered": false,
+    "globalMcpArenaReadbackVerifiedByThisTicket": false,
+    "existing250Run": "01a181c4-5975-737e-a21a-67fafbaea8cf",
+    "existing244Run": "01a181c9-e40f-7e21-b216-ed6fc9c34f26",
+    "newConsumers": 0,
+    "newDispatches": 0
+  },
+  "remainingAction": "Existing250 alone adds the persistent exact201 route to its incremental library and performs actual MCP/Arena readback of author conditions,?m,source image and all5non-author limitations before coverage changes.",
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "newReviews": 0,
+  "newStagesBuilt": 0,
+  "chapterBudget": {
+    "consumed": 2,
+    "remaining": 0,
+    "retry": 0
+  },
+  "wholeBatch182201Budget": {
+    "consumed": 4,
+    "remaining": 0
+  },
+  "ordinaryWholeArticlePassed": false,
+  "globalAdmissionClaimedByThisTicket": false,
+  "activeChanged": false,
+  "fees": "unknown",
+  "remoteWeights": "unknown",
+  "upstreamExecutionCount": "unknown",
+  "bindings": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.r1.display.json",
+      "sha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77",
+      "bytes": 33859
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-201-target-impact-reviewed-20261028.json",
+      "sha256": "3a37da953a628ba7ab8bc031df939c0f168ca7e623150d7c5c4beba5a0f5a3e7",
+      "bytes": 26942
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\47cad59c-6a7b-41a6-9ae5-9a977e9d34b7.json",
+      "sha256": "58e94e9b0a066c8974bff593c5f18004c4b6a1a730966b9b7cba65d65726c83d",
+      "bytes": 115876
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-201-scope-inheritance-20261028.json",
+      "sha256": "0d739b400c4025872070a6968180bec4642f96011467a3705d65c37a94af2258",
+      "bytes": 18854
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-201-display-requirements-20261028.json",
+      "sha256": "e80625a0088ab997f8753853f3ae6a9f752ddb8af4415638a6ac798ac243fef7",
+      "bytes": 2553
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-201-limited-display-20261028\\manifest.json",
+      "sha256": "d847c978330f528e0c9373dd152bfded7c38fa3b4802da5002933f4e68decfe8",
+      "bytes": 11764
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-201-target-impact-20261028\\plan.json",
+      "sha256": "7493135d97d674de41f308b29b072934e190364b5c983261b05ac373411e2cb9",
+      "bytes": 95997
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.display.json",
+      "sha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+      "bytes": 26992
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1770179.52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8.json",
+      "sha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+      "bytes": 11973
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1770179\\source.json",
+      "sha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+      "bytes": 18914
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\runtime-manifest.json",
+      "sha256": "2df26827a1d13f9b9e13569b0628c987fbb3b7be04f9e0b8a186589e115c84b4",
+      "bytes": 8503
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-182201-20261028\\review.mjs",
+      "sha256": "53f1d124b785919b1377954fdf02ce2d254cd05bf8d7bcab45c4bce9c22bba06",
+      "bytes": 9685
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-182201-20261028\\release.json",
+      "sha256": "38a9137c65504b404abcd882129c57cd3d7cdb82df8493ea7a26f4377268d332",
+      "bytes": 5591
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\exact-carry.mjs",
+      "sha256": "029e5dbe1a1690a341769801bc9a9093bd21e60b23229f9ca75ad2ae60ee58ca",
+      "bytes": 2938
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\exact-text-contract.mjs",
+      "sha256": "2f082bd1d85c99cfb4a59e51a14b3d9a55e5dfc3a75154f534aabe90ee93e1b2",
+      "bytes": 4175
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\inline-japanese-revision.mjs",
+      "sha256": "d00b99f922ed06d03cc1751409526432028307b06a069aa0eed69890f25e651a",
+      "bytes": 5095
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\jobs.json",
+      "sha256": "b1503ba5ddaa287955b09f45de77c872bf39da9320157530c8fbe10c3370b3a2",
+      "bytes": 5046
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\production-schema.mjs",
+      "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9",
+      "bytes": 3961
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit-legacy.mjs",
+      "sha256": "9afa0866101889722bd6c34379370b69b28f72542f3ed8060975fb76860f33e1",
+      "bytes": 19138
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit-pdf-layout.mjs",
+      "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34",
+      "bytes": 20603
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit-pdf-native.mjs",
+      "sha256": "51043b3eb214e3525784528838fd9aed7adef16994fd297220e5cc96af4544dc",
+      "bytes": 8937
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit-pdf-scope.mjs",
+      "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239",
+      "bytes": 3783
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb",
+      "bytes": 1982
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "89f0c97421f5537f62cb8169f3f41ee6710a71dda3c137bf38e10d76bec2090b",
+      "bytes": 15708
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit-web-batches.mjs",
+      "sha256": "9173fe4247ecc7fb77f07e996d6fb7746ec760b1c3c3224b5546d09946b861b9",
+      "bytes": 6989
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221",
+      "bytes": 20969
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit-web.mjs",
+      "sha256": "506ecba0240b9aade71389ac964771e14248f6299ae92d206b3af69ef801e76b",
+      "bytes": 132678
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-audit.mjs",
+      "sha256": "ba0dad26648fbe132731486eddf16c0c97a07b311c739ca8f74f4e6e34b8b4a1",
+      "bytes": 74908
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7",
+      "bytes": 14045
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1",
+      "bytes": 2781
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+      "bytes": 2089
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\textbook-production-web.mjs",
+      "sha256": "495b9aedb65d91248a85c6c4911d01dce3783c85a623e8ce876351c199a73ee3",
+      "bytes": 40079
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-182-limited-display-20261028\\stage-base.mjs",
+      "sha256": "ee5f9b4b6d0fc4e3b116cddf0eeb1205bf16989f93e9eb08a8728a8ed0801962",
+      "bytes": 21800
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\compile-textbook-corpus.mjs",
+      "sha256": "b4a8fb7432847e54b3c922a5b83e88b3d957abd6a16e726c772188fa5db4a2db",
+      "bytes": 5257
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\textbook-review.mjs",
+      "sha256": "11b3b9c1dcb41b2cdde72517dca733a84a352e75eea154edea5acc36408c7edf",
+      "bytes": 12516
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\publish-textbooks.mjs",
+      "sha256": "ffa7b575475bb3a0b65e13560081354a6adf78a9d51d09958cd0f8385bd04026",
+      "bytes": 26287
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-web-tables.mjs",
+      "sha256": "e898ae17934b1e4ad6d1b1a961dcb7af85f526c16f884046d45d6c47832b24ae",
+      "bytes": 3726
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-inline-chunks.mjs",
+      "sha256": "c6f97f37674ef4bfaff1921a49999762a293759061f0ab0e222d1d58d670e285",
+      "bytes": 3148
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-definition-boundaries.mjs",
+      "sha256": "a1a9df12caf1a78893414ad578281a479d89c7e4d968b5f80c53edb2b2f11ad7",
+      "bytes": 3074
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-web-image.py",
+      "sha256": "a437b4cfc2809ddf8c989cb6f32bb2097f46485a7d29ddbd714e262c5a5e68d1",
+      "bytes": 2394
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-201-limited-display-20261028\\admit201.mjs",
+      "sha256": "a3baa7ff4b328e99af5514d011a5e9bbfa7301d4a1f68bf1c0b7431631ef4726",
+      "bytes": 7120
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-201-limited-display-20261028\\stage201.mjs",
+      "sha256": "2c514771869c574b2bfadbe3ba251d46cf11814008ce1787a87a8d81aff4bf17",
+      "bytes": 3981
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-201-limited-display-20261028\\stage-base201.mjs",
+      "sha256": "b5303bf8c2cbc1e2c3c280f9174541de782d973494cf745cf9ad13ad2f130fd9",
+      "bytes": 21968
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-201-limited-display-20261028\\contract.json",
+      "sha256": "4ef6c1ee2d14e1282e23f67f3533a6620d1e894691198ccd2bfdc5886b1cd6e0",
+      "bytes": 2727
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-201-limited-display-20261028\\stage-files.sha256.json",
+      "sha256": "a0bfc3f8ac79bde116ce86b43e6773e5d7531f71d2bf04d53192c659722e27d8",
+      "bytes": 1182
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-201-limited-display-20261028\\stage\\assets\\79-bilibili-cn-cv1770179-b5.png",
+      "sha256": "c10b9322a92221e3eec09cef41b00d90ee1cc7cbbdbe27efd0860c41a5257afb",
+      "bytes": 17325
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-201-limited-display-20261028\\stage\\display-limits.json",
+      "sha256": "fad33f19f0b3c8473ee8362f3ffac8416b4d1378f01b20028da6d31e240426f7",
+      "bytes": 34478
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-201-limited-display-20261028\\stage\\knowledge-index.json",
+      "sha256": "aaf727c7680c173bd725520b5eea506ed7a8f04d7c2f83290fed9149a1aaf1f4",
+      "bytes": 1602
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-201-limited-display-20261028\\stage\\knowledge.html",
+      "sha256": "5ee86371903a1b14ff5805ebde1a412a5735370c65ff48cb891cefdaf4256ca1",
+      "bytes": 20335
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-201-limited-display-20261028\\stage\\mcp-build.json",
+      "sha256": "91decbd30a6169fd3648ae0d3dcf420af946fcfff8c4ce4ecebedf20b26a396d",
+      "bytes": 275
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-201-limited-display-20261028\\stage\\textbook-bodies.json",
+      "sha256": "80bef1137b025b7fedf26d081eca1109a2fbbf7035da9edd3d920141cf32c392",
+      "bytes": 36759
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-201-limited-display-20261028\\stage\\textbook-corpus.json",
+      "sha256": "324f12c6f270827314494b902bcaa880974bb55bfbccbbafdacae730274f4d63",
+      "bytes": 11730
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-201-limited-display-20261028\\stage\\textbook-unit-map.json",
+      "sha256": "f0d00e8c842dca7e596c6cc661ba855296f0b17e82135ebf8560b14c0a3af253",
+      "bytes": 225
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-201-limited-display-20261028\\stage\\web-stage-receipt.json",
+      "sha256": "e53841c8f1655cfdf28af6ad894277ec4e4de71b50258ea27a249148ec7bfe27",
+      "bytes": 1303
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-201-limited-display-20261028\\verification.json",
+      "sha256": "ac767b5ccb8d8efe1b607fb123c1ef51969aa9906e3eb3e8610476bbcd87a5c9",
+      "bytes": 7138
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+      "sha256": "582a21739ba267b8954806d070de07b3fc4fb3395798fac65087d6e75c9ab74a",
+      "bytes": 6309189
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+      "sha256": "a3f74c9fa2a206cd31c3b5074dc9efe1651ab097b0b9789bc453656fcaa25c04",
+      "bytes": 680256
+    }
+  ]
+}
