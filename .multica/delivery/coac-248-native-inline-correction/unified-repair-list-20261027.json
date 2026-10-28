@@ -2566,11 +2566,26 @@
     "modern-yabejp-ja:chapter04-section012:b0005:figure:error",
     "modern-yabejp-ja:chapter04-section012:b0005:figure:uncertain"
    ],
-   "currentDisposition": "needs-repair",
+   "currentDisposition": "human-9m-applied-awaiting-authorized-text-application-review-and-exact-admission",
    "origin": "COAC-249 explicit 20",
    "newThisStage": true,
    "alsoReportedBy": "COAC-246 coverage verification 2026-10-27",
-   "chapterId": "nemata-jp-chapter-232-1"
+   "chapterId": "nemata-jp-chapter-232-1",
+   "humanFinal232Application": {
+    "recordedAt": "2026-10-28T11:19:54.662239+00:00",
+    "candidateSha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c",
+    "evidence": {
+     "path": "integration/coac248-jp232-human-20261028/handoff.json",
+     "sha256": "d00d3d29b812bb3db34631b23b73f7884a69e671b9a79c308de431de9be2dd01",
+     "manifestSha256": "64302d7331baaa802614b1456d228c3b4d793a07fbff4d76049a0f33c49d2965"
+    },
+    "newModelCalls": 0,
+    "deterministicApplicationVerified": true,
+    "remainingUnknowns": 2,
+    "semanticReviewAuthorized": false,
+    "admissionGranted": false
+   },
+   "nextAction": "人工9m不再识字；纯文字应用/论证审提案未获安排。保留旧独审false/uncertain；两unknown四条限制待合法安装及250实际读回。"
   },
   {
    "objectId": "supplement:chapter02-section019",

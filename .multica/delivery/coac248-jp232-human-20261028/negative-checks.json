@@ -1,0 +1,103 @@
+{
+  "passed": true,
+  "count": 24,
+  "cases": [
+    {
+      "name": "non-target author body",
+      "rejected": true
+    },
+    {
+      "name": "wrong source SHA",
+      "rejected": true
+    },
+    {
+      "name": "wrong 9m",
+      "rejected": true
+    },
+    {
+      "name": "missing separator (old rejected draft)",
+      "rejected": true
+    },
+    {
+      "name": "delete unrelated unknown",
+      "rejected": true
+    },
+    {
+      "name": "duplicate unknown",
+      "rejected": true
+    },
+    {
+      "name": "non-target caption",
+      "rejected": true
+    },
+    {
+      "name": "non-target figure",
+      "rejected": true
+    },
+    {
+      "name": "reorder body",
+      "rejected": true
+    },
+    {
+      "name": "fake production provenance",
+      "rejected": true
+    },
+    {
+      "name": "wrong parent pin",
+      "rejected": true
+    },
+    {
+      "name": "missing limitation",
+      "rejected": true
+    },
+    {
+      "name": "wrong annotation anchor",
+      "rejected": true
+    },
+    {
+      "name": "false admission",
+      "rejected": true
+    },
+    {
+      "name": "invented review authorization",
+      "rejected": true
+    },
+    {
+      "name": "wrong mapped candidate",
+      "rejected": true
+    },
+    {
+      "name": "omit non-author label",
+      "rejected": true
+    },
+    {
+      "name": "vision input in text proposal",
+      "rejected": true
+    },
+    {
+      "name": "missing teaching context",
+      "rejected": true
+    },
+    {
+      "name": "wrong consumer owner",
+      "rejected": true
+    },
+    {
+      "name": "latest human skipped",
+      "rejected": true
+    },
+    {
+      "name": "latest human unclear",
+      "rejected": true
+    },
+    {
+      "name": "latest human withdrawn",
+      "rejected": true
+    },
+    {
+      "name": "newer changed human tile",
+      "rejected": true
+    }
+  ],
+  "newModelCalls": 0
+}

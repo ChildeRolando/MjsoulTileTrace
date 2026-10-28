@@ -1,0 +1,126 @@
+{
+  "schema": "coac248-232-zero-call-intake/1",
+  "canonical": "nemata-jp-chapter-232-1",
+  "candidate": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+    "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+    "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+    "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+    "bytes": 23933
+  },
+  "deterministicApplicationVerified": true,
+  "sourcePositions": 14,
+  "bodyPositions": 14,
+  "figures": 3,
+  "unchangedAuthorBody": true,
+  "unchangedNonTargetFigures": 2,
+  "remainingUnknowns": 2,
+  "knownPublicTiles": 39,
+  "overFour": [],
+  "latestHumanEvent": {
+    "itemId": "4ce1c71647c8da4352eb117e5d2f1094",
+    "targetId": "modern-yabejp-ja:chapter04-section012:b0005:unknown:cd7c88dbdfde5bcc",
+    "position": "右侧牌河从上数第2张为万子，但无法可靠辨认具体点数。",
+    "imageSha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135",
+    "originalImages": [
+      {
+        "path": "web-sources/v1/modern-yabejp-ja/assets/c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg",
+        "sha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135"
+      }
+    ],
+    "tiles": [
+      "9m"
+    ],
+    "orientation": "",
+    "timestamp": "2026-10-28T10:04:57.255Z",
+    "revision": 2,
+    "eventSha256": "ff8a1be9e06189c487559b4d5ea497a528edac2f64a6fa9009eb2f28ffb0eceb"
+  },
+  "rawIndependentReviewVerified": true,
+  "originalVerification": {
+    "transportCompleted": true,
+    "repairPassed": false,
+    "limitedUnknownOkay": false,
+    "wholeChapterAccepted": false
+  },
+  "bindings": [
+    {
+      "path": "integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+      "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c",
+      "bytes": 44480
+    },
+    {
+      "path": "integration/coac249-232-target-impact-reviewed-20261028.json",
+      "sha256": "5ed3b5117151b9cf5555d223d714131c5593f1f9042c6e91a9bb005a68fbb9ea",
+      "bytes": 29674
+    },
+    {
+      "path": "integration/coac249-232-scope-inheritance-20261028.json",
+      "sha256": "5b951df43fbd4becb26d5d3767641cf5ae68db2f71875acf89d1d6668bb50324",
+      "bytes": 57751
+    },
+    {
+      "path": "integration/coac249-232-display-and-residual-20261028.json",
+      "sha256": "ec96eb728673aedb18fbaf9c8a801c7eb99b692690545311959577fddbc9071c",
+      "bytes": 15826
+    },
+    {
+      "path": "audit/calls/0dae5b1a-76be-45d5-b2f0-410bc5853cb3.json",
+      "sha256": "426d49b11f72317b32fdf1b6b7a14ba6308ec8db9da9ae7706079933304eea3c",
+      "bytes": 143838
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+      "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.display.json",
+      "sha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+      "sha256": "24293aa4da6b71079ed47600d45229e972e1f8b1256a9dcc573af827c05514f6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\runtime-manifest.json",
+      "sha256": "0d890d3bbfd3fe1dbe588f068e17de41312916c1d068d246d080d0ec6feaa973"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-224232-232-handoff-249-20261028.json",
+      "sha256": "0af4be67d999a663006c0b01faaa260801c4e3ed1cd7b3967af08a18bd386a63"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/3002a835-2cff-4bcf-b07b-2b03d1968e5b.json",
+      "sha256": "b8c7a62d41f076c47d07963388a5ee917183e334c9f13a1a3e910d5253b0c0ae"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-232-target-impact-20261028\\plan.json",
+      "sha256": "c4395af144111c28b50718d4b8262499ed92fde9dded5b49b2697a080f57acab"
+    }
+  ],
+  "applicationMapSha256": "5f97b638f9e578bd376b9c751b7b2fe782d7590edc7e40218bb8341d9ce0ad3e",
+  "preparedRequest": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/request-232.json",
+    "sha256": "c3ac33626fa5edbf01b645bfc89f8fb04074fd819cbed949d157532668a9b6a0",
+    "promptSha256": "41fb9fc289358effbd834848d49bd8abab65ccd7e284fcac135c979fde9c68d1",
+    "schemaSha256": "ddefcba1171c91185d674185373719226f95ed35e51de39df605fd0be20aacdc",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "images": [],
+    "dispatched": false,
+    "authorized": false
+  },
+  "minimumGap": "人工9m已确定且机械应用正确；尚缺按既有提案安排的唯一纯文字应用/论证独立复核，随后组合原父审、四条剩余unknown展示限制的安装验证与250实际读回。不得把原blocking或false由主控改pass。",
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "modelProduced": false,
+  "admissionGranted": false,
+  "wholeChapterPassed": false,
+  "readbackCompleted": false
+}
