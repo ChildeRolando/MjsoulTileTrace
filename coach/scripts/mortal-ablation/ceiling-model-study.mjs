@@ -65,11 +65,15 @@ export async function verifyModelStudy(out){
   const topup=await read(join(out,'engineering-runtime-amendment-approved.json'));
   if(topup.approved!==true||topup.totalLimit!==6141||topup.additionalEngineeringCalls!==1||topup.engineeringLimit!==151||f.engineeringTopupHash!==hash(topup))throw Error('runtime_engineering_topup_not_authorized');
   const single=await read(join(out,'engineering-single-response-amendment-approved.json'));
-  if(single.approved!==true||single.totalLimit!==6144||single.additionalEngineeringCalls!==3||single.engineeringLimit!==154||f.singleResponseTopupHash!==hash(single)||f.engineeringRevision!==4)throw Error('single_response_engineering_topup_not_authorized');
+  if(single.approved!==true||single.totalLimit!==6144||single.additionalEngineeringCalls!==3||single.engineeringLimit!==154||f.singleResponseTopupHash!==hash(single)||![4,5].includes(f.engineeringRevision))throw Error('single_response_engineering_topup_not_authorized');
   if(f.codeDigest!==hash(await currentExecution())||hash(f.models)!==hash(STUDY_MODELS)||hash(f.budgets)!==hash(MODEL_BUDGETS)||hash(f.concurrency)!==hash(MODEL_CONCURRENCY))throw Error('model_execution_changed');
   if(hash(await read(join(out,'selected-version.json')))!==f.selectedHash)throw Error('model_selection_changed');
   const ledger=new BudgetLedger(out,f.budgets);if(ledger.rows[f.ledgerBaseline.rows-1]?.digest!==f.ledgerBaseline.head)throw Error('model_legacy_ledger_changed');
   if(hash(await readFile(f.claudeRuntime.executable))!==f.claudeRuntime.sha256)throw Error('model_claude_runtime_changed');
+  if(f.engineeringRevision===5){
+    const stop=await read(join(out,'model-route-stop.json')),sol=await read(join(out,'smoke-ready.json')),terra=await read(join(out,'calls',stop.terraKey+'.json'));
+    if(f.routeStopHash!==hash(stop)||stop.stoppedModel!=='deepseek_via_claude'||stop.noFurtherDeepSeekRequests!==true||hash(sol)!==stop.solGateHash||sol.freezeHash!==f.originalFreezeHash||sol.submitted/sol.planned<.95||hash(terra)!==stop.terraCallHash||terra.response.status!=='ready'||hash(await read(join(out,'calls',stop.failedKey+'.json')))!==stop.failedCallHash)throw Error('ready_route_gate_changed');
+  }
   await validateFrozenInputs(out,original);return f;
 }
 export async function repairModelEngineeringFreeze(out){
@@ -95,6 +99,17 @@ export async function repairSingleResponseFreeze(out){
   await writeOnce(join(out,'model-revisions','engineering-single-response-failure.json'),{freezeHash:hash(previous),key,forwardedModelRequests:1,allFailuresRetained:true,authorizedAdditionalCalls:3,independentNewPilotIds:pilot.slice(4,7).map(c=>c.id),stopOnFirstFailure:true});
   await save(join(out,'model-freeze.json'),f);await save(join(out,'model-freeze-binding.json'),{freezeHash:hash(f)});return f;
 }
+export async function stopDeepSeekRoute(out){
+  const previous=await read(join(out,'model-freeze.json')),binding=await read(join(out,'model-freeze-binding.json')),approval=await read(join(out,'engineering-single-response-amendment-approved.json')),ledger=new BudgetLedger(out,MODEL_BUDGETS),original=await read(join(out,'freeze.json'));
+  if(previous.engineeringRevision!==4||binding.freezeHash!==hash(previous)||previous.singleResponseTopupHash!==hash(approval)||approval.stopOnFirstFailure!==true||approval.noFurtherAutomaticTopups!==true||await exists(join(out,'model-smoke-ready.json'))||ledger.snapshot().claimed!==1297||ledger.snapshot().unsettled||ledger.snapshot().buckets.evaluation!==345||ledger.snapshot().buckets.smoke!==152)throw Error('route_stop_not_applicable');
+  const pilot=(await read(join(original.engineeringSupplement.directory,'dataset.json'))).cases,failedKey=`model-smoke-deepseek_via_claude-${pilot[4].id}-A`,terraKey=`model-smoke-terra-${pilot[1].id}-D`,failed=await read(join(out,'calls',failedKey+'.json')),terra=await read(join(out,'calls',terraKey+'.json')),sol=await read(join(out,'smoke-ready.json'));
+  if(failed.response.failureCode!=='claude_invalid_model_response'||failed.transportProof?.forwardedModelRequests!==1||!failed.transportProof?.firstResponseComplete||terra.response.status!=='ready'||sol.freezeHash!==hash(original)||sol.submitted/sol.planned<.95)throw Error('route_stop_evidence_changed');
+  await validateFrozenInputs(out,original);
+  const stop={version:'ceiling-route-stop/v1',at:new Date().toISOString(),previousFreezeHash:hash(previous),approvalHash:hash(approval),stoppedModel:'deepseek_via_claude',noFurtherDeepSeekRequests:true,reason:'Strict response schema failed on first final-batch request; honor approved stop condition',failedKey,failedCallHash:hash(failed),terraKey,terraCallHash:hash(terra),solGateHash:hash(sol),readyModels:['sol','terra'],ledgerRowsAtStop:ledger.rows.length,ledgerHeadAtStop:ledger.rows.at(-1).digest,unusedEngineeringCalls:2,formalSamplesUnchanged:true};
+  const files=await currentExecution(),generationCommit=(await exec('git',['rev-parse','HEAD'],{cwd:ROOT,windowsHide:true})).stdout.trim(),f={...previous,engineeringRevision:5,generationCommit,previousModelFreezeHash:hash(previous),routeStopHash:hash(stop),executionFiles:files,codeDigest:hash(files)};
+  await writeOnce(join(out,'model-revisions','before-deepseek-stop-'+hash(previous)+'.json'),previous);await writeOnce(join(out,'model-route-stop.json'),stop);
+  await save(join(out,'model-freeze.json'),f);await save(join(out,'model-freeze-binding.json'),{freezeHash:hash(f)});return f;
+}
 function factory(f,model){
   if(model==='deepseek_via_claude')return createClaudeCeilingProvider({runtime:f.claudeRuntime});
   return createArenaToolCallProvider({settings:null,arenaCodex:{...f.models[model],timeoutMs:GENERATION_TIMEOUT_MS},credentials:{readKey:async()=>null},fetchImpl:fetch});
@@ -106,13 +121,17 @@ export async function runModelJobs(groups,perform){
 }
 export async function runModelPhase(out,phase){
   return exclusive(out,async()=>{
+    const readyOnly=phase==='evaluation-ready';if(readyOnly)phase='evaluation';
     const f=await verifyModelStudy(out),d=await read(join(out,'dataset.json')),index=await read(join(out,'textbook/index.json')),ledger=new BudgetLedger(out,f.budgets);let jobs,bucket;
     if(phase==='smoke'){
+      if(f.engineeringRevision===5)throw Error('deepseek_route_stopped_no_more_engineering');
       const original=await read(join(out,'freeze.json')),pilot=(await read(join(original.engineeringSupplement.directory,'dataset.json'))).cases;
       jobs=[{c:pilot[1],model:'terra',arm:'D'},...['A','C','D'].map((arm,i)=>({c:pilot[i+4],model:'deepseek_via_claude',arm}))].map(j=>({...j,key:`model-smoke-${j.model}-${j.c.id}-${j.arm}`}));bucket='smoke';
     }else{
-      const gate=await read(join(out,'model-smoke-ready.json')),required=f.requiredSmoke??3;if(gate.freezeHash!==hash(f)||gate.submitted!==required||gate.planned!==required)throw Error('model_smoke_gate_not_passed');
+      if(readyOnly){if(f.engineeringRevision!==5)throw Error('ready_route_subset_not_bound');}
+      else{if(f.engineeringRevision===5)throw Error('deepseek_route_stopped_use_only_evaluation_ready');const gate=await read(join(out,'model-smoke-ready.json')),required=f.requiredSmoke??3;if(gate.freezeHash!==hash(f)||gate.submitted!==required||gate.planned!==required)throw Error('model_smoke_gate_not_passed');}
       if(!['evaluation','oracle','practical','stability'].includes(phase))throw Error('unknown_model_phase');jobs=studyCells(d,f.assignment,phase);bucket=phase;
+      if(readyOnly)jobs=jobs.filter(j=>j.model==='sol'||j.model==='terra');
     }
     jobs=phase==='smoke'?jobs:ordered(jobs,j=>j.c.id+j.arm,SEED+phase);const rows=[],streaks={};
     const groups=phase==='smoke'||phase==='oracle'||phase==='practical'?[{jobs,concurrency:f.concurrency[phase]}]:['sol','deepseek_via_claude','terra'].map(model=>({jobs:jobs.filter(j=>j.model===model),concurrency:f.concurrency[model]}));
@@ -130,8 +149,8 @@ export async function runModelPhase(out,phase){
       if(row.failureCode==='claude_backend_not_verified'||row.failureCode==='claude_proxy_route_changed'||row.failureCode==='claude_runtime_changed')throw Error('model_route_identity_changed');
       if(streaks[j.model]>=3)throw Error('model_service_unavailable_resume_unstarted_after_recovery');
     });
-    const receipt={phase,freezeHash:hash(f),planned:jobs.length,submitted:rows.filter(r=>r.status==='submitted').length,rowsDigest:hash([...rows].sort((a,b)=>a.key.localeCompare(b.key)))};
-    await writeOnce(join(out,'phases','models-'+phase+'.json'),receipt);
+    const receipt={phase:readyOnly?'evaluation-ready':phase,freezeHash:hash(f),planned:jobs.length,submitted:rows.filter(r=>r.status==='submitted').length,rowsDigest:hash([...rows].sort((a,b)=>a.key.localeCompare(b.key)))};
+    await writeOnce(join(out,'phases','models-'+receipt.phase+'.json'),receipt);
     if(phase==='smoke')await writeOnce(join(out,'model-smoke-ready.json'),{freezeHash:hash(f),planned:jobs.length,submitted:receipt.submitted,priorFailedKeys:f.failedEngineeringKeys??[]});return receipt;
   });
 }

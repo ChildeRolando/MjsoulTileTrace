@@ -132,3 +132,21 @@ engineering-single-response-amendment-approved.json，绑定1296次已结算账�
 任一新验证失败即停止DeepSeek接入，不再自动追加，失败和未花额度均如实保留。
 单响应读取改变客户端输出收集方式，首个模型请求正文不变；实际模型身份另记single-response-r4，
 之前失败请求使用各自历史模型定义，账本及旧记录不重写。
+
+
+## DeepSeek已按约定停止，继续已就绪的正式子集
+
+最终三次批次的第一题A在13.9秒返回完整StructuredOutput，但call内部多出一个不允许的
+字段decisionSummary，既有严格根结构校验拒绝；不删除字段、不放宽规则、不把失败改为成功。
+实际后端/high均正确；未知cache细分导致本次总token仍保留未知，已知输出1717。
+账本1297，工程152/154，剩余2次不再使用，不申请更多工程额度。
+
+stop-deepseek将首次失败和已批准的停止条件绑定为model-route-stop.json，禁止DeepSeek
+所有后续工程/正式请求。继续用户已经批准的Sol200题及Terra200题，各2路共4路并发；
+evaluation-ready只执行这两个原分组内全部五组共2000格，不换题、不把DeepSeek题转给其他模型。
+Sol沿用原49/50有效工程门禁，Terra沿用已有效的独立工程D；不得把就绪子集称为全轮完成。
+追加调用1745（Sol745、Terra1000）；原255主格复用、90旧跨模型补充和全部失败保留。
+
+子集使用独立复算ceiling-ready-validate.py；完成后权威状态为ready_subset_checked，
+wholeStudyComplete=false。完整三模型报告、O/Luna/稳定性和正式800题视觉验收仍未完成。
+DeepSeek路线后续如何处置需要新的明确决定，不得自行换模型、消耗预留2次或启动旧all。
