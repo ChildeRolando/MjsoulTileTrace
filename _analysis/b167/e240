@@ -1,0 +1,486 @@
+{
+  "schema": "coac248-193213-independent-combined-target-handoff/1",
+  "canonical": "nemata-jp-chapter-193-1",
+  "authorizationCommentId": "01a181be-9dce-7647-abb5-1d0f3c67509d",
+  "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.r1.display.json",
+  "candidateSha256": "af8071cfdbaabf8f469f84fa4daa6fd2d7d377c3dc2b277ef766e34a22324ba1",
+  "parentSha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+  "sourceSha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+  "textTarget": "modern-yabejp-ja:chapter03-section009:b0081",
+  "figureTarget": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+  "bindings": [
+    {
+      "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.display.json",
+      "sha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3"
+    },
+    {
+      "path": "audit/web/articles/modern-yabejp-ja/chapter03-section009.abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3.json",
+      "sha256": "8ce0cde5d4eb0d8a8538b6751cd8a3b35b3fa8d3a20d7929fea6d7548bb09ce0"
+    },
+    {
+      "path": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section009/source.json",
+      "sha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743"
+    },
+    {
+      "path": "audit/calls/0176608e-ec2b-453a-a93b-607d9e27615d.json",
+      "sha256": "a55e0be94f65b3c11fec96648a72fbe6a8561926c13fe2f3814847fef6509e85"
+    },
+    {
+      "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.r1.display.json",
+      "sha256": "af8071cfdbaabf8f469f84fa4daa6fd2d7d377c3dc2b277ef766e34a22324ba1"
+    },
+    {
+      "path": "web-production/v1/raw-calls/da426322-fc53-44d7-8314-66472ff2b31f.json",
+      "sha256": "6acc0ca5f86e9c02c18958f508f73d4382392c18ff86a2a3e9f2bc2ccac398c6"
+    },
+    {
+      "path": "integration/coac248-193213-20261028/release.json",
+      "sha256": "3e8c23a5baad71ba06b1569a7703c7e8c19ff9b379396b88ca87a00d62c1cc00"
+    },
+    {
+      "path": "integration/coac248-193213-20261028/review.mjs",
+      "sha256": "b9855b0f55f763a5e205dc6ec1f400d86d635480efb60dd2c4a20831294273c3"
+    },
+    {
+      "path": "integration/coac248-193213-20261028/193-production.json",
+      "sha256": "c88a6c7795f1df29fd823020c506b34c8e738e0b5bd18a80a1210a06e5458b2f"
+    },
+    {
+      "path": "integration/coac248-193213-20261028/193-review-plan.json",
+      "sha256": "07ce97aef9c25f98b388353c281ba6be07e985a260ae297ca9fc4b4bbffed63f"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac248-193213-mixed-v1-20261028/runtime-manifest.json",
+      "sha256": "722e33f454e4b739cf0fccea1c974086c1e63f2b32083048b572f2b0372fec32"
+    }
+  ],
+  "production": {
+    "schema": "coac248-193213-exact-mixed-production/1",
+    "at": "2026-10-28T09:20:30.776Z",
+    "canonical": "nemata-jp-chapter-193-1",
+    "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.r1.display.json",
+    "candidateSha256": "af8071cfdbaabf8f469f84fa4daa6fd2d7d377c3dc2b277ef766e34a22324ba1",
+    "sourceSha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+    "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.display.json",
+    "parentSha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+    "parentAuditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section009.abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3.json",
+    "parentAuditSha256": "8ce0cde5d4eb0d8a8538b6751cd8a3b35b3fa8d3a20d7929fea6d7548bb09ce0",
+    "call": {
+      "callId": "da426322-fc53-44d7-8314-66472ff2b31f",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section009",
+      "sourceSha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "requestExecution": {
+        "schema": "coach-textbook-cli-request/1",
+        "policy": "coac244-vision-production-schema-v2-20261028",
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max",
+        "callerRequested": {
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max"
+        },
+        "args": [
+          "exec",
+          "--model",
+          "gpt-6.1-terra",
+          "--config",
+          "model_reasoning_effort=\"max\"",
+          "--config",
+          "web_search=\"disabled\"",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox",
+          "read-only",
+          "--strict-config",
+          "--skip-git-repo-check",
+          "--json",
+          "--output-schema",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-vqlEgl\\output.schema.json",
+          "--output-last-message",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-vqlEgl\\final.json",
+          "--cd",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-vqlEgl",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.x2.png",
+          "--disable",
+          "apps",
+          "--disable",
+          "auth_elicitation",
+          "--disable",
+          "browser_use",
+          "--disable",
+          "browser_use_external",
+          "--disable",
+          "browser_use_full_cdp_access",
+          "--disable",
+          "computer_use",
+          "--disable",
+          "fast_mode",
+          "--disable",
+          "goals",
+          "--disable",
+          "guardian_approval",
+          "--disable",
+          "hooks",
+          "--disable",
+          "image_generation",
+          "--disable",
+          "in_app_browser",
+          "--disable",
+          "in_app_chat",
+          "--disable",
+          "in_app_dictation",
+          "--disable",
+          "in_app_local_automation",
+          "--disable",
+          "in_app_updates",
+          "--disable",
+          "memories",
+          "--disable",
+          "mentions_v2",
+          "--disable",
+          "multi_agent",
+          "--disable",
+          "plugin_sharing",
+          "--disable",
+          "plugins",
+          "--disable",
+          "remote_plugin",
+          "--disable",
+          "shell_snapshot",
+          "--disable",
+          "shell_tool",
+          "--disable",
+          "skill_mcp_dependency_install",
+          "--disable",
+          "skill_search",
+          "--disable",
+          "sleep_tool",
+          "--disable",
+          "tool_call_mcp_elicitation",
+          "--disable",
+          "tool_suggest",
+          "--disable",
+          "unbounded_connection_retries",
+          "--disable",
+          "unified_exec",
+          "--disable",
+          "unified_exec_tty",
+          "--disable",
+          "view_image",
+          "--disable",
+          "workspace_dependencies",
+          "-"
+        ],
+        "images": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+            "sha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+            "bytes": 61986
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.x2.png",
+            "sha256": "c48e2477714b9ecbd32e621e76e3603d7337f5de15a9074f2e2f3f3ed576c194",
+            "bytes": 518255
+          }
+        ],
+        "remoteBackend": "unverified; request arguments and returned events only"
+      },
+      "timeoutMs": 900000,
+      "startedAt": "2026-10-28T09:18:37.222Z",
+      "durationMs": 111834,
+      "usage": {
+        "inputTokens": 50235,
+        "cachedInputTokens": 0,
+        "outputTokens": 7505
+      },
+      "success": true,
+      "transportStatus": "completed",
+      "failureClass": null,
+      "rawArtifactPath": "raw-calls/da426322-fc53-44d7-8314-66472ff2b31f.json",
+      "rawArtifactSha256": "6acc0ca5f86e9c02c18958f508f73d4382392c18ff86a2a3e9f2bc2ccac398c6",
+      "outputSha256": "8f7b1807c1299a3dc1a79cc5cf28d9a72144c35f04c3cb8c26d450be99f63595",
+      "schemaSha256": "bdc6bdfb5f3cba9ad01f33f3f4bfb0a91b583dd364d91d0e3d872f7ec94d1fcd",
+      "promptSha256": "1816eba06fc06c83d077865a13e24358c5f695e49eddd258bd6ace25cf2eb13e",
+      "semanticPromptSha256": "8478a7d4de267c95bf1bc9164459507f5dab3c34728fef551103a3965613259f",
+      "cliSnapshot": {
+        "path": "audit/runtimes/coac248-193213-mixed-v1-20261028/textbook-production-cli.mjs",
+        "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+      },
+      "targets": {
+        "textIds": [
+          "modern-yabejp-ja:chapter03-section009:b0081"
+        ],
+        "figureIds": [
+          "modern-yabejp-ja:chapter03-section009:b0080"
+        ]
+      },
+      "terminalEvents": [],
+      "visualInputs": [
+        {
+          "assetId": "modern-yabejp-ja:59adb6484eba424a1d54a13f",
+          "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+          "sourceSha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/modern-yabejp-ja/assets/a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+          "sha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 620,
+          "height": 565
+        },
+        {
+          "assetId": "modern-yabejp-ja:59adb6484eba424a1d54a13f",
+          "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+          "sourceSha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.x2.png",
+          "sha256": "c48e2477714b9ecbd32e621e76e3603d7337f5de15a9074f2e2f3f3ed576c194",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 2,
+          "resampling": "nearest",
+          "width": 1240,
+          "height": 1130
+        }
+      ],
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.display.json",
+        "parentSha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter03-section009.abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3.json",
+        "notesSha256": "8ce0cde5d4eb0d8a8538b6751cd8a3b35b3fa8d3a20d7929fea6d7548bb09ce0",
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter03-section009:b0081"
+        ],
+        "figureIds": [
+          "modern-yabejp-ja:chapter03-section009:b0080:figure"
+        ],
+        "exact193213": {
+          "key": "193",
+          "authorizationCommentId": "01a181be-9dce-7647-abb5-1d0f3c67509d",
+          "contractSha256": "d07d197ffce26ef08b710205f8f9dcba113c757685d79c30a0d17ad9ba5dc500"
+        }
+      }
+    },
+    "productionProof": {
+      "callId": "da426322-fc53-44d7-8314-66472ff2b31f",
+      "rawArtifactPath": "raw-calls/da426322-fc53-44d7-8314-66472ff2b31f.json",
+      "rawArtifactSha256": "6acc0ca5f86e9c02c18958f508f73d4382392c18ff86a2a3e9f2bc2ccac398c6",
+      "revision": {
+        "revision": {
+          "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.display.json",
+          "parentSha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+          "notesPath": "audit/web/articles/modern-yabejp-ja/chapter03-section009.abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3.json",
+          "notesSha256": "8ce0cde5d4eb0d8a8538b6751cd8a3b35b3fa8d3a20d7929fea6d7548bb09ce0",
+          "textBlockIds": [
+            "modern-yabejp-ja:chapter03-section009:b0081"
+          ],
+          "figureIds": [
+            "modern-yabejp-ja:chapter03-section009:b0080:figure"
+          ],
+          "exact193213": {
+            "key": "193",
+            "authorizationCommentId": "01a181be-9dce-7647-abb5-1d0f3c67509d",
+            "contractSha256": "d07d197ffce26ef08b710205f8f9dcba113c757685d79c30a0d17ad9ba5dc500"
+          }
+        },
+        "parentAudit": {
+          "path": "audit/web/articles/modern-yabejp-ja/chapter03-section009.abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3.json",
+          "sha256": "8ce0cde5d4eb0d8a8538b6751cd8a3b35b3fa8d3a20d7929fea6d7548bb09ce0",
+          "originalStatus": "needs-repair"
+        },
+        "parentCall": {
+          "callId": "0176608e-ec2b-453a-a93b-607d9e27615d",
+          "path": "audit/calls/0176608e-ec2b-453a-a93b-607d9e27615d.json",
+          "sha256": "a55e0be94f65b3c11fec96648a72fbe6a8561926c13fe2f3814847fef6509e85"
+        },
+        "inheritedAssetIds": [
+          "modern-yabejp-ja:cf903c27e3d6d79024397f25",
+          "modern-yabejp-ja:fa4ca8dbce129a7a05fc2fa8",
+          "modern-yabejp-ja:fae4f4d8fc74f83a0364ba1a",
+          "modern-yabejp-ja:31607e0c4823773206eee230",
+          "modern-yabejp-ja:91f021916047e51111e56542",
+          "modern-yabejp-ja:3d679855094c9151924672ea",
+          "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+          "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+          "modern-yabejp-ja:ff0605857cc5c60bc5c303e3",
+          "modern-yabejp-ja:13fefae159ce62a1e4cf2f11",
+          "modern-yabejp-ja:ddfc65a49b12ba9eaad31799",
+          "modern-yabejp-ja:986d40b46b37e422bf8a6cd2",
+          "modern-yabejp-ja:b07a932f05c190748a79505f",
+          "modern-yabejp-ja:f5980e09ae04d921ed066df7",
+          "modern-yabejp-ja:1119c0419882e1131940f3bd",
+          "modern-yabejp-ja:86ff3e6aae7c47c4bd14a3be",
+          "modern-yabejp-ja:5323955b942f8b4fbeab214c",
+          "modern-yabejp-ja:3e03d661064b04283aeea2c5",
+          "modern-yabejp-ja:aaaa5fd72ccc12bd7da6f6aa",
+          "modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71",
+          "modern-yabejp-ja:4d318826f6a4e9aecadb6da9",
+          "modern-yabejp-ja:113916eafff92e1ddd5d5360",
+          "modern-yabejp-ja:59887c6a14f55b27663151a1",
+          "modern-yabejp-ja:e11b4a7fa60544eb721099fb"
+        ],
+        "productionOnlyAuthorization": true,
+        "wholeChapterPassed": false,
+        "unresolvedParentIssuesPreserved": [
+          {
+            "severity": "uncertain",
+            "targetId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+            "sourceEvidence": "附件中右侧手牌上方三张索子之后还有三张筒子；候选transcription及unknowns均明确未辨认其点数和赤牌状态。",
+            "description": "这三张实际展示的手牌尚未完成逐牌转录。其牌值及赤色情况属于教学牌桌数据，不能作为无教学意义的界面残痕放行。",
+            "suggestedRepair": "逐张确认右侧手牌自上而下第4至第6张的点数及赤牌状态，补齐后再审；无法可靠辨认时继续保留具体unknowns并阻断完整性通过。"
+          }
+        ]
+      },
+      "visualInputs": {
+        "inputs": [
+          {
+            "assetId": "modern-yabejp-ja:59adb6484eba424a1d54a13f",
+            "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+            "sourceSha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+            "sha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+            "role": "original",
+            "scale": 1,
+            "resampling": "none",
+            "width": 620,
+            "height": 565
+          },
+          {
+            "assetId": "modern-yabejp-ja:59adb6484eba424a1d54a13f",
+            "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+            "sourceSha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.x2.png",
+            "sha256": "c48e2477714b9ecbd32e621e76e3603d7337f5de15a9074f2e2f3f3ed576c194",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 2,
+            "resampling": "nearest",
+            "width": 1240,
+            "height": 1130
+          }
+        ],
+        "pixels": {
+          "passed": true,
+          "inputs": 2
+        }
+      }
+    },
+    "presentation": {
+      "parent": {
+        "path": "web-production/v1/runs/coac248-mixed-193-20261028/model-output-without-display.json",
+        "sha256": "66a62b4a3e1ec550929fd549d860cf15b1092c20b7ce30702312a5542d4a2f14",
+        "reason": "Exact real model output with separately inherited original presentations; not a distinct review candidate."
+      },
+      "pixels": {
+        "passed": true,
+        "figures": 41,
+        "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+      }
+    },
+    "checks": {
+      "passed": true,
+      "errors": [],
+      "textBlocks": 56,
+      "imageRuns": 41,
+      "imageOccurrences": 74,
+      "figures": 41
+    },
+    "runtimeManifestSha256": "722e33f454e4b739cf0fccea1c974086c1e63f2b32083048b572f2b0372fec32",
+    "textDiff": {
+      "id": "modern-yabejp-ja:chapter03-section009:b0081",
+      "from": "面对上图这样的牌河，有人立直时，只要相关牌不是使其进张听牌的那一张，就基本可以读出其听牌是",
+      "to": "面对上图这样的牌河，有人立直时，只要立直宣言牌不是使其听牌时新摸入的同种牌，且新摸入的牌没有补成宣言牌所在一侧的面子，就基本可以读出其听牌是"
+    },
+    "figureDiff": {
+      "id": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+      "replacements": [
+        {
+          "before": "下方手牌，从左至右：5m 6m 7m 8m 6s 7s 8s 3p 4p 5p 8p 8p 8p",
+          "after": "下方手牌，从左至右：5m 6m 7m 8m 6s 7s 8s 3p 4p 5p 6p 6p 6p"
+        }
+      ],
+      "unknownsFrom": [
+        "右侧手牌从画面上方起第4、5、6张筒子的具体点数及赤牌状态无法可靠辨认。",
+        "右上6z副露组中，各张牌相对该玩家的精确横置关系无法可靠辨认；只能确认最上方一张向左突出。",
+        "中央两枚骰子的具体点数无法可靠辨认。",
+        "底部“半”“食”之后黄色圆形标记内的字样，以及相邻小型状态图标内的细字、筒子图案点数和最右圆形图标内容无法可靠辨认。"
+      ],
+      "unknownsTo": [
+        "右侧手牌从画面上方起第4、5、6张筒子的具体点数及赤牌状态无法可靠辨认。",
+        "右上6z副露组中，各张牌相对该玩家的精确横置关系无法可靠辨认；只能确认最上方一张向左突出。",
+        "中央两枚骰子的具体点数无法可靠辨认。",
+        "底部“半”“食”之后黄色圆形标记内的字样，以及相邻小型状态图标内的细字、筒子图案点数和最右圆形图标内容无法可靠辨认。"
+      ]
+    },
+    "preservation": {
+      "bodyCount": 97,
+      "unchangedBodyBlocks": 96,
+      "unchangedFigures": 40,
+      "captionSourceNotesKindPreserved": true,
+      "allNonTargetFigureBytes": true,
+      "allRemainingUnknownsPreserved": true,
+      "orderAndMarksAndTableContext": true
+    },
+    "newCalls": {
+      "maker": 1,
+      "review": 0,
+      "failed": 0,
+      "void": 0,
+      "retry": 0
+    },
+    "reviewRemainingFor249": 1,
+    "wholeChapterPassed": false,
+    "admissionGranted": false
+  },
+  "remainingIndependentReview": 1,
+  "makerRemaining": 0,
+  "retry": 0,
+  "failedVoidCount": true,
+  "reviewModel": "gpt-6.1-terra",
+  "reviewEffort": "max",
+  "images": [
+    {
+      "assetId": "modern-yabejp-ja:59adb6484eba424a1d54a13f",
+      "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+      "sourceSha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+      "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+      "sha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+      "role": "original",
+      "scale": 1,
+      "resampling": "none",
+      "width": 620,
+      "height": 565
+    },
+    {
+      "assetId": "modern-yabejp-ja:59adb6484eba424a1d54a13f",
+      "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+      "sourceSha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+      "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.x2.png",
+      "sha256": "c48e2477714b9ecbd32e621e76e3603d7337f5de15a9074f2e2f3f3ed576c194",
+      "role": "nearest-neighbor-enlargement",
+      "scale": 2,
+      "resampling": "nearest",
+      "width": 1240,
+      "height": 1130
+    }
+  ],
+  "orderedPairs": 97,
+  "retainedUnknowns": [
+    "右侧手牌从画面上方起第4、5、6张筒子的具体点数及赤牌状态无法可靠辨认。",
+    "右上6z副露组中，各张牌相对该玩家的精确横置关系无法可靠辨认；只能确认最上方一张向左突出。",
+    "中央两枚骰子的具体点数无法可靠辨认。",
+    "底部“半”“食”之后黄色圆形标记内的字样，以及相邻小型状态图标内的细字、筒子图案点数和最右圆形图标内容无法可靠辨认。"
+  ],
+  "wholeChapterPassed": false,
+  "admissionGranted": false,
+  "cost": "unknown"
+}

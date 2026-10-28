@@ -1,0 +1,45 @@
+{
+  "schema": "coach-textbook-web-stage/1",
+  "status": "independently-audited-chapter-preview",
+  "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.coac269b25r1.json",
+  "candidateSha256": "5bfa90e3e15deb0c3f868ee1811fe50cdba75357f2805b3c37ed5f1d86538a58",
+  "sourceSha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+  "auditPath": "E:/AgentData/Coach/knowledge/processing/integration/coac249-167-target-impact-reviewed-20261028.json",
+  "auditStatus": "admitted-exact167-limited-display",
+  "limitedUnknownFidelity": null,
+  "imageDerivations": [],
+  "chapters": 1,
+  "units": 1,
+  "blocks": 12,
+  "figures": 1,
+  "corpusId": "7eee20eee076f8daa19ddeafedfe6c7489226800bb80783558b765b78a0d0836",
+  "bodySha256": "bdcc9482a24634e2196f5d93a9859a5662c02aa5b1bee3f10e3e5bcec3a1015e",
+  "maxUnitBytes": 9864,
+  "modelCalls": 0,
+  "activeLibraryChanged": false,
+  "humanReview": "pending",
+  "standardWholeArticlePassed": false,
+  "displayLimits": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-03-19-135Z/stages/s167/display-limits.json",
+    "sha256": "b2a6217562256573cfff955cf35db1b6b55017deafa0e65e8671a5fb26931f49"
+  },
+  "exact167Review": {
+    "module": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-exact167-20261028/admit.mjs",
+      "sha256": "7f860215ba4b48ca414133e37d4356dd6d54f7b7d8c1769226942c0b0b3d34ee"
+    },
+    "stage": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-exact167-20261028/stage.mjs",
+      "sha256": "2fe5a02c5912619a35800dae7dec9ead0cedac49da08778da01622a462982570"
+    },
+    "manifest": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-exact167-20261028/manifest.json",
+      "sha256": "b8a59e1efffadf3e14f856423e56d684816a8bd2d8a321ed54fc2963ef217806"
+    },
+    "contract": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-ready109167-zero-20261028/167-limited-display-contract.json",
+      "sha256": "4a4af706716676890523b8526c382e49e9c2dd7e6d99c4a4b27b5741b78c1313"
+    },
+    "candidateSha256": "5bfa90e3e15deb0c3f868ee1811fe50cdba75357f2805b3c37ed5f1d86538a58"
+  }
+}

@@ -1,0 +1,875 @@
+{
+  "schema": "coach-textbook-web-article-audit/1",
+  "status": "needs-repair",
+  "recordedAt": "2026-10-26T13:20:26.533Z",
+  "source": {
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter03-section026",
+    "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+    "title": "逆切り３",
+    "language": "ja",
+    "fetchedAt": "2026-10-23T20:49:04.337787+00:00",
+    "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section026/source.json",
+    "sourceSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+    "htmlSha256": "dae997144794f6b4c84de50824dd2a352c9244e6dc459a046097a5ff6642bb90",
+    "mainSha256": "46f3c5994479d9e455c4f9eff2a7c328f8d60e2b462327dcbc92d5483fe06422"
+  },
+  "production": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.display.json",
+    "sha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4"
+  },
+  "verification": "automatic-independent-review-not-user-human-gold-standard",
+  "deterministicChecks": {
+    "passed": true,
+    "errors": [],
+    "textBlocks": 29,
+    "imageRuns": 24,
+    "imageOccurrences": 31,
+    "figures": 24
+  },
+  "independentSource": {
+    "schema": "coach-textbook-web-independent-source-check/1",
+    "passed": true,
+    "errors": [],
+    "sourceFileSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+    "rawHtmlSha256": "dae997144794f6b4c84de50824dd2a352c9244e6dc459a046097a5ff6642bb90",
+    "mainSha256": "46f3c5994479d9e455c4f9eff2a7c328f8d60e2b462327dcbc92d5483fe06422",
+    "textBlocks": 29,
+    "imageRuns": 24,
+    "imageOccurrences": 31,
+    "uniqueAssets": 15,
+    "method": "offline independent html.parser character-and-image DOM event comparison",
+    "modelCalls": 0
+  },
+  "semanticCompleteness": {
+    "complete": false,
+    "evidence": "全文、正文链接、红线摸切注释及全部31次图片出现均已比较，30次行内牌对应完整。但b0017对“入り目”例外条件的译法不准确；牌桌中左家外列第2张7p被留作未知，影响“7p最多剩2张”的可复核依据；另有字牌和点数尚未确认，因此不能认定完整。"
+  },
+  "modelChecks": {
+    "passed": false,
+    "errors": [
+      "needs-repair:modern-yabejp-ja:chapter03-section026:b0017",
+      "needs-repair:modern-yabejp-ja:chapter03-section026:b0032",
+      "needs-repair:modern-yabejp-ja:chapter03-section026:b0032:figure",
+      "uncertain:modern-yabejp-ja:chapter03-section026:i00020",
+      "semantic_information_missing",
+      "error:modern-yabejp-ja:chapter03-section026:b0017",
+      "error:modern-yabejp-ja:chapter03-section026:b0032:figure",
+      "uncertain:modern-yabejp-ja:chapter03-section026:b0032:figure"
+    ]
+  },
+  "modelReview": {
+    "blockChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0001",
+        "verdict": "faithful",
+        "evidence": "标题“逆切3”保留原意与编号。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0002",
+        "verdict": "faithful",
+        "evidence": "补充说明及第6、7节正文链接均保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0003",
+        "verdict": "faithful",
+        "evidence": "容易成面子到不易成面子的手切顺序、信息强度及适用范围均完整，四处链接保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0004",
+        "verdict": "faithful",
+        "evidence": "五万对应5m。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0005",
+        "verdict": "faithful",
+        "evidence": "顺序箭头保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0006",
+        "verdict": "faithful",
+        "evidence": "九万对应9m。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0007",
+        "verdict": "faithful",
+        "evidence": "连读保留先切5m再切9m及“即使是筋张”的条件。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0008",
+        "verdict": "faithful",
+        "evidence": "八万对应8m。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0009",
+        "verdict": "faithful",
+        "evidence": "8m相当危险的判断力度保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0010",
+        "verdict": "faithful",
+        "evidence": "六筒对应6p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0011",
+        "verdict": "faithful",
+        "evidence": "6p被杠或四张已见的两种条件均保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0012",
+        "verdict": "faithful",
+        "evidence": "七筒对应7p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0013",
+        "verdict": "faithful",
+        "evidence": "切7p进入听牌及虽有壁仍需警惕的关系保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0014",
+        "verdict": "faithful",
+        "evidence": "八筒对应8p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0015",
+        "verdict": "faithful",
+        "evidence": "并列关系保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0016",
+        "verdict": "faithful",
+        "evidence": "九筒对应9p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0017",
+        "verdict": "needs-repair",
+        "evidence": "“入り目でもなければ”译成“不是因为进张而打出的”，未准确表达排除进张完成面子一侧的条件，影响等待位置的推论。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0018",
+        "verdict": "faithful",
+        "evidence": "中张牌之后才切1、9牌的条件保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0019",
+        "verdict": "faithful",
+        "evidence": "复合搭子112s逐张一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0020",
+        "verdict": "faithful",
+        "evidence": "从复合搭子拆出、作为相对安全牌保留及第三种解释均有对应。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0021",
+        "verdict": "faithful",
+        "evidence": "789s顺序一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0022",
+        "verdict": "faithful",
+        "evidence": "牌形之间的并列分隔保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0023",
+        "verdict": "faithful",
+        "evidence": "79s顺序一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0024",
+        "verdict": "faithful",
+        "evidence": "牌形之间的并列分隔保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0025",
+        "verdict": "faithful",
+        "evidence": "89s顺序一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0026",
+        "verdict": "faithful",
+        "evidence": "连读准确指向前述三种牌形；原文重复的“から”未造成语义遗漏。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0027",
+        "verdict": "faithful",
+        "evidence": "摸入牌六索对应6s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0028",
+        "verdict": "faithful",
+        "evidence": "摸入6s的动作保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0029",
+        "verdict": "faithful",
+        "evidence": "随后切出的九索对应9s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0030",
+        "verdict": "faithful",
+        "evidence": "未必提高附近成为待牌的概率、但很可能在附近构成面子，以及复合搭子同理的括注均保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0031",
+        "verdict": "faithful",
+        "evidence": "红线表示摸切牌的教学图例准确保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0032",
+        "verdict": "needs-repair",
+        "evidence": "牌桌转录将左家外列第2张7p留作未知，缺少支撑末段剩余张数判断的可见牌；另有字牌和点数未能确认。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0033",
+        "verdict": "faithful",
+        "evidence": "与后续块连读，对家保留9p的主语和动作完整。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0034",
+        "verdict": "faithful",
+        "evidence": "对家保留的九筒对应9p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0035",
+        "verdict": "faithful",
+        "evidence": "很可能属于前述情况的判断保留；条件句引导词按中文语序前移。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0036",
+        "verdict": "faithful",
+        "evidence": "原有79p牌形准确保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0037",
+        "verdict": "faithful",
+        "evidence": "从79p牌形出发的关系保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0038",
+        "verdict": "faithful",
+        "evidence": "摸入的六筒对应6p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0039",
+        "verdict": "faithful",
+        "evidence": "摸6p后打牌的动作顺序保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0040",
+        "verdict": "faithful",
+        "evidence": "打出的九筒对应9p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0041",
+        "verdict": "faithful",
+        "evidence": "条件与结论衔接完整。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0042",
+        "verdict": "faithful",
+        "evidence": "主要待牌之一五筒对应5p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0043",
+        "verdict": "faithful",
+        "evidence": "5p与8p之间的连接符保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0044",
+        "verdict": "faithful",
+        "evidence": "主要待牌之二八筒对应8p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0045",
+        "verdict": "faithful",
+        "evidence": "5p—8p为本线及实际等待的括注引导均保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0046",
+        "verdict": "faithful",
+        "evidence": "实际待牌中的五筒对应5p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0047",
+        "verdict": "faithful",
+        "evidence": "实际待牌之间的连接符保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0048",
+        "verdict": "faithful",
+        "evidence": "实际待牌中的八筒对应8p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0049",
+        "verdict": "faithful",
+        "evidence": "实际等待的括注及即使不是这种情况的让步条件均保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0050",
+        "verdict": "faithful",
+        "evidence": "推定对家持有的七筒对应7p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0051",
+        "verdict": "faithful",
+        "evidence": "对家很可能至少持有一张7p的数量和判断保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0052",
+        "verdict": "faithful",
+        "evidence": "计算剩余张数的七筒对应7p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0053",
+        "verdict": "faithful",
+        "evidence": "最多剩两张、进攻困难及应弃和的结论完整。"
+      }
+    ],
+    "figureChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0004:figure",
+        "verdict": "faithful",
+        "evidence": "5m与原文五万一致，非赤、正立记录一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0006:figure",
+        "verdict": "faithful",
+        "evidence": "9m与原文九万一致，顺接先5m后9m。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0008:figure",
+        "verdict": "faithful",
+        "evidence": "8m准确承接虽为筋仍危险的论述。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0010:figure",
+        "verdict": "faithful",
+        "evidence": "6p准确对应被杠或四张已见的牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0012:figure",
+        "verdict": "faithful",
+        "evidence": "7p准确对应听牌时的切出牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0014:figure",
+        "verdict": "faithful",
+        "evidence": "8p准确对应虽有壁仍可疑的牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0016:figure",
+        "verdict": "faithful",
+        "evidence": "9p准确对应另一张可疑牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0019:figure",
+        "verdict": "faithful",
+        "evidence": "1s、1s、2s共三张，数量、顺序及非赤正立记录一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0021:figure",
+        "verdict": "faithful",
+        "evidence": "7s、8s、9s三张顺序一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0023:figure",
+        "verdict": "faithful",
+        "evidence": "7s、9s两张顺序一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0025:figure",
+        "verdict": "faithful",
+        "evidence": "8s、9s两张顺序一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0027:figure",
+        "verdict": "faithful",
+        "evidence": "6s准确对应三种牌形共同的摸入牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0029:figure",
+        "verdict": "faithful",
+        "evidence": "9s准确对应摸6s后的切出牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+        "verdict": "needs-repair",
+        "evidence": "本家手牌、摸入5p、345m副露、本家牌河、右家牌河及中碰、对家9p位置、立直棒和红线图例均有对应。左家外列从上数第2张可见7p，却被写作点数不清；这张明牌参与末段7p最多剩两张的判断。对家靠中央排最左字牌以及上方、左侧点数仍存在未解决的转录歧义。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0034:figure",
+        "verdict": "faithful",
+        "evidence": "9p准确对应对家拖后切出的牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0036:figure",
+        "verdict": "faithful",
+        "evidence": "7p、9p两张顺序及原牌形一致。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0038:figure",
+        "verdict": "faithful",
+        "evidence": "6p准确对应假设摸入牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0040:figure",
+        "verdict": "faithful",
+        "evidence": "9p准确对应假设切出牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0042:figure",
+        "verdict": "faithful",
+        "evidence": "5p准确对应本线等待的第一端。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0044:figure",
+        "verdict": "faithful",
+        "evidence": "8p准确对应本线等待的第二端。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0046:figure",
+        "verdict": "faithful",
+        "evidence": "5p准确对应实际等待的第一端。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0048:figure",
+        "verdict": "faithful",
+        "evidence": "8p准确对应实际等待的第二端。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0050:figure",
+        "verdict": "faithful",
+        "evidence": "7p准确对应推定至少持有一张的牌。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:b0052:figure",
+        "verdict": "faithful",
+        "evidence": "7p准确对应最多剩两张的牌。"
+      }
+    ],
+    "imageChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00001",
+        "disposition": "represented",
+        "evidence": "五万逐次对应5m。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00002",
+        "disposition": "represented",
+        "evidence": "九万逐次对应9m。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00003",
+        "disposition": "represented",
+        "evidence": "八万逐次对应8m。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00004",
+        "disposition": "represented",
+        "evidence": "六筒逐次对应6p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00005",
+        "disposition": "represented",
+        "evidence": "七筒逐次对应7p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00006",
+        "disposition": "represented",
+        "evidence": "八筒逐次对应8p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00007",
+        "disposition": "represented",
+        "evidence": "九筒逐次对应9p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00008",
+        "disposition": "represented",
+        "evidence": "112s中的第一张一索对应1s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00009",
+        "disposition": "represented",
+        "evidence": "112s中的第二张一索对应1s，未去重。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00010",
+        "disposition": "represented",
+        "evidence": "112s末张二索对应2s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00011",
+        "disposition": "represented",
+        "evidence": "789s首张七索对应7s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00012",
+        "disposition": "represented",
+        "evidence": "789s中张八索对应8s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00013",
+        "disposition": "represented",
+        "evidence": "789s末张九索对应9s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00014",
+        "disposition": "represented",
+        "evidence": "79s首张七索对应7s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00015",
+        "disposition": "represented",
+        "evidence": "79s末张九索对应9s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00016",
+        "disposition": "represented",
+        "evidence": "89s首张八索对应8s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00017",
+        "disposition": "represented",
+        "evidence": "89s末张九索对应9s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00018",
+        "disposition": "represented",
+        "evidence": "摸入六索对应6s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00019",
+        "disposition": "represented",
+        "evidence": "切出九索对应9s。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00020",
+        "disposition": "uncertain",
+        "evidence": "牌桌已有详细转录，但左家可见7p被遗漏为未知，另有字牌和点数歧义，不能确认教学图语义完整。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00021",
+        "disposition": "represented",
+        "evidence": "对家保留的九筒对应9p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00022",
+        "disposition": "represented",
+        "evidence": "79p首张七筒对应7p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00023",
+        "disposition": "represented",
+        "evidence": "79p末张九筒对应9p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00024",
+        "disposition": "represented",
+        "evidence": "假设摸入六筒对应6p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00025",
+        "disposition": "represented",
+        "evidence": "假设切出九筒对应9p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00026",
+        "disposition": "represented",
+        "evidence": "本线待牌五筒对应5p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00027",
+        "disposition": "represented",
+        "evidence": "本线待牌八筒对应8p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00028",
+        "disposition": "represented",
+        "evidence": "实际待牌五筒对应5p，重复出现完整保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00029",
+        "disposition": "represented",
+        "evidence": "实际待牌八筒对应8p，重复出现完整保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00030",
+        "disposition": "represented",
+        "evidence": "推定对家持有的七筒对应7p。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter03-section026:i00031",
+        "disposition": "represented",
+        "evidence": "剩余张数论证中的七筒对应7p。"
+      }
+    ],
+    "domOrder": {
+      "faithful": true,
+      "evidence": "53个源块均按自然顺序对应；同一paragraphId内跨牌图短句连读，无重复贡献或跳块。中文条件词和动作的局部移位未改变牌图所指。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "全文、正文链接、红线摸切注释及全部31次图片出现均已比较，30次行内牌对应完整。但b0017对“入り目”例外条件的译法不准确；牌桌中左家外列第2张7p被留作未知，影响“7p最多剩2张”的可复核依据；另有字牌和点数尚未确认，因此不能认定完整。"
+    },
+    "issues": [
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter03-section026:b0017",
+        "sourceEvidence": "テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+        "description": "“入り目でもなければ”不是泛指“不是因为进张而打出的”。原文排除的是该牌周边属于进张完成面子一侧的情况；候选译法模糊了判断待牌位置的重要例外。",
+        "suggestedRepair": "改为明确表达：听牌时切出的牌若并非留作安全牌，且其周边也不是进张完成面子的部分，那么其周边就是待牌所在。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+        "sourceEvidence": "附图左家牌河外侧左列从图像上至下第2张为7p；末段原文说对家很可能持有至少一张7p，因此7p最多只剩两张。",
+        "description": "候选将这张可见7p写作“点数不清的筒子牌”，遗漏了直接影响剩余张数论证的明牌。",
+        "suggestedRepair": "将左家外列第2张补为7p，同时更新对应红线说明及unknowns；保留其顺时针旋转90°和摸切标记。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+        "sourceEvidence": "候选将对家靠中央一排最左端字牌，以及中央上方、左侧的完整点数列为无法辨认。",
+        "description": "这些属于牌局牌码和数值数据，本次无法可靠确认其准确转录，不能作为非教学边缘残痕直接放行。",
+        "suggestedRepair": "复核附图中该字牌及两家点数，补录能够确定的内容；确实无法辨认的继续如实标未知并保留原图，但在相关歧义解决前保持阻断。"
+      }
+    ],
+    "completeArticleCompared": true,
+    "summary": "已逐项比较53个块、24个figure和31次图片出现。顺序及行内牌对应完整；一处术语条件误译、牌桌7p遗漏及未决牌局数据阻止通过。"
+  },
+  "calls": [
+    {
+      "callId": "93f4a5a8-e5fb-4b57-b5b7-c05946e951d7",
+      "scope": "textbook-web-article-audit",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter03-section026",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 29972,
+        "cachedInputTokens": 0,
+        "outputTokens": 11075
+      },
+      "promptSha256": "c2ea8df4602c1e249a2844f20fd21bc00488ea4dab7591d62ba5c08efc24b92f",
+      "semanticPromptSha256": "db5c56dc850d7304dfa78ca7018c693f8166e436c1d17ce7288828f856b8031a",
+      "schemaSha256": "692ae4b9bc328168670a312d3383da22da0b57db68f879bf4d025d37ed250e61",
+      "outputSha256": "2332f73f1451def90a0fbd480526b61574e587b4c04077db9a1d1d114a4d6ae7",
+      "requestPromptBytes": 53256,
+      "semanticPromptBytes": 52774,
+      "binding": {
+        "productionSha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+        "sourceFileSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+        "auditorSnapshotSha256": "ec038e42ee0e6ad708712bc1d4c958388c25423f1dcfeda822a94c2b35471dd2",
+        "semanticProjectionSha256": "3116faa7bff20d41ef90f0f9417bd2acf256ece9355a610cfd2e1b803363eb47",
+        "semanticProjectionVersion": 2,
+        "verifiedAssetIds": [
+          "modern-yabejp-ja:aaaa5fd72ccc12bd7da6f6aa",
+          "modern-yabejp-ja:3e03d661064b04283aeea2c5",
+          "modern-yabejp-ja:f5980e09ae04d921ed066df7",
+          "modern-yabejp-ja:3d679855094c9151924672ea",
+          "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+          "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+          "modern-yabejp-ja:59887c6a14f55b27663151a1",
+          "modern-yabejp-ja:328555e7a72fc7783dd5d75d",
+          "modern-yabejp-ja:ff0605857cc5c60bc5c303e3",
+          "modern-yabejp-ja:9da9b8a56900c3b0b5e431c4",
+          "modern-yabejp-ja:5323955b942f8b4fbeab214c",
+          "modern-yabejp-ja:f55c3ee9049517f305f5f288",
+          "modern-yabejp-ja:ddfc65a49b12ba9eaad31799",
+          "modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71"
+        ],
+        "originalImageAssetIds": [
+          "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee"
+        ],
+        "supplementalInputs": [
+          {
+            "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+            "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+            "sourceSha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.x2.png",
+            "sha256": "0fd640eefd45747cb62c6c5c24fb46b66d52ba26ad06c987bd0f03799b932fc4",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 2,
+            "resampling": "nearest",
+            "width": 1280,
+            "height": 1010
+          }
+        ]
+      },
+      "recordedAt": "2026-10-26T13:26:52.569Z"
+    }
+  ],
+  "exactReuse": null,
+  "auditor": {
+    "path": "audit/web/auditors/d1a12f594369881bc81719e480f7df3ad9a5641d4d1ccd017a2ab2444931adea.json",
+    "sha256": "ec038e42ee0e6ad708712bc1d4c958388c25423f1dcfeda822a94c2b35471dd2",
+    "combinedSha256": "d1a12f594369881bc81719e480f7df3ad9a5641d4d1ccd017a2ab2444931adea"
+  },
+  "presentation": {
+    "parent": {
+      "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.json",
+      "sha256": "8c8e9b06b51a50ad502d39d71a1530009d2c4c72e7e6f602c0d313f0d78aa5ec",
+      "reason": "Lossless display images only; translations and source figure sequences unchanged"
+    },
+    "pixels": {
+      "passed": true,
+      "figures": 24,
+      "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+    }
+  },
+  "productionCall": {
+    "callId": "478ca8f6-cab6-4873-8cde-44bdf4f58d7f",
+    "rawArtifactPath": "raw-calls/478ca8f6-cab6-4873-8cde-44bdf4f58d7f.json",
+    "rawArtifactSha256": "a92600d3b37530e696e011fe615defec56aa030f75c359bc88b9cfb7df8f9a5c",
+    "visualInputs": {
+      "inputs": [
+        {
+          "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+          "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+          "sourceSha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+          "sha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 640,
+          "height": 505
+        },
+        {
+          "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+          "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+          "sourceSha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.x2.png",
+          "sha256": "0fd640eefd45747cb62c6c5c24fb46b66d52ba26ad06c987bd0f03799b932fc4",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 2,
+          "resampling": "nearest",
+          "width": 1280,
+          "height": 1010
+        }
+      ],
+      "pixels": {
+        "passed": true,
+        "inputs": 2
+      }
+    }
+  },
+  "dictionary": {
+    "dictionary": {
+      "path": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+      "sha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+    },
+    "pixels": {
+      "passed": true,
+      "occurrences": 30,
+      "uniqueAssets": 14
+    },
+    "reviewDependency": {
+      "dictionary": {
+        "path": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+        "sha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+      },
+      "baseDictionary": {
+        "path": "web-sources/root-checks/modern-ch01-s001-dictionary-acceptance.json",
+        "sha256": "5b31cf4aeb39b896a7e3c0d5b7799987b3370f48b07c953f3adecee769ab5820"
+      },
+      "baseVerifiedAssets": {
+        "path": "audit/web/verified-assets/modern-ch01-s001-exact-42.json",
+        "sha256": "dd3058698dc2630a1767e27791b07ce3617c0e141957d8000bcd9e97331df193"
+      },
+      "newDictionaryAudit": {
+        "candidate": {
+          "path": "web-production/v1/dictionaries/modern-new-tile-assets.draft.json",
+          "sha256": "72f871d8c22c3964c0487991ea6330bcb68c4bee7aff59fbdc3cf67b3aaaebd9"
+        },
+        "receipt": {
+          "path": "audit/web/dictionaries/modern-new.72f871d8c22c3964c0487991ea6330bcb68c4bee7aff59fbdc3cf67b3aaaebd9.json",
+          "sha256": "71203b266441bf53bae8bc7f33d89535e7276b0ad5dbf1a6f359696c71046f64"
+        },
+        "sourceResolution": {
+          "path": "audit/web/adjudications/modern-new-tiles/72f871d8c22c3964c0487991ea6330bcb68c4bee7aff59fbdc3cf67b3aaaebd9.source-resolution.json",
+          "sha256": "59b023d134c6d8b4aeda176a83121ac67e6bc55c46a962306eb227e647724cb8"
+        }
+      },
+      "newAuditStatus": "passed-after-specific-source-resolution",
+      "baseAuditStatus": "passed-after-specific-input-adjudication",
+      "uniqueImageHashes": 100
+    },
+    "limitation": "Only exact independently reviewed asset bytes, RGBA pixels, red flag and orientation; full-article semantic review remains required."
+  },
+  "verifiedAssets": {
+    "dependency": {
+      "path": "audit/web/verified-assets/modern-ch01-s001-exact-42.json",
+      "sha256": "dd3058698dc2630a1767e27791b07ce3617c0e141957d8000bcd9e97331df193"
+    },
+    "parentCandidate": {
+      "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section001.display.json",
+      "sha256": "091b4d145520b0280a5bdd7f94d91ab17c78534b0ea1cacaa1dca5f6278d9a87"
+    },
+    "parentAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section001.091b4d145520b0280a5bdd7f94d91ab17c78534b0ea1cacaa1dca5f6278d9a87.json",
+      "sha256": "9751067422a542eb74f52bb290ab88eb057b34b168cee567690c9f3c40f07f97",
+      "status": "passed-after-specific-input-adjudication",
+      "originalStatus": "failed"
+    },
+    "inputAdjudication": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\adjudications\\modern-yabejp-ja\\chapter01-section001.091b4d145520b0280a5bdd7f94d91ab17c78534b0ea1cacaa1dca5f6278d9a87.input-contract-adjudication.json",
+      "sha256": "e7533c9f7667d505575197e7e016b6bb19812232e1fba4c02754235649ce2f71"
+    },
+    "assetIds": [
+      "modern-yabejp-ja:aaaa5fd72ccc12bd7da6f6aa",
+      "modern-yabejp-ja:3e03d661064b04283aeea2c5",
+      "modern-yabejp-ja:f5980e09ae04d921ed066df7",
+      "modern-yabejp-ja:3d679855094c9151924672ea",
+      "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+      "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+      "modern-yabejp-ja:59887c6a14f55b27663151a1",
+      "modern-yabejp-ja:328555e7a72fc7783dd5d75d",
+      "modern-yabejp-ja:ff0605857cc5c60bc5c303e3",
+      "modern-yabejp-ja:9da9b8a56900c3b0b5e431c4",
+      "modern-yabejp-ja:5323955b942f8b4fbeab214c",
+      "modern-yabejp-ja:f55c3ee9049517f305f5f288",
+      "modern-yabejp-ja:ddfc65a49b12ba9eaad31799",
+      "modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71"
+    ],
+    "limits": "Any unseen URL or changed bytes/pixels/orientation/red variant and any complex diagram/table requires new original-image independent review. Future text/inline semantic review remains mandatory.",
+    "mergedDictionary": {
+      "dictionary": {
+        "path": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+        "sha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+      },
+      "baseDictionary": {
+        "path": "web-sources/root-checks/modern-ch01-s001-dictionary-acceptance.json",
+        "sha256": "5b31cf4aeb39b896a7e3c0d5b7799987b3370f48b07c953f3adecee769ab5820"
+      },
+      "baseVerifiedAssets": {
+        "path": "audit/web/verified-assets/modern-ch01-s001-exact-42.json",
+        "sha256": "dd3058698dc2630a1767e27791b07ce3617c0e141957d8000bcd9e97331df193"
+      },
+      "newDictionaryAudit": {
+        "candidate": {
+          "path": "web-production/v1/dictionaries/modern-new-tile-assets.draft.json",
+          "sha256": "72f871d8c22c3964c0487991ea6330bcb68c4bee7aff59fbdc3cf67b3aaaebd9"
+        },
+        "receipt": {
+          "path": "audit/web/dictionaries/modern-new.72f871d8c22c3964c0487991ea6330bcb68c4bee7aff59fbdc3cf67b3aaaebd9.json",
+          "sha256": "71203b266441bf53bae8bc7f33d89535e7276b0ad5dbf1a6f359696c71046f64"
+        },
+        "sourceResolution": {
+          "path": "audit/web/adjudications/modern-new-tiles/72f871d8c22c3964c0487991ea6330bcb68c4bee7aff59fbdc3cf67b3aaaebd9.source-resolution.json",
+          "sha256": "59b023d134c6d8b4aeda176a83121ac67e6bc55c46a962306eb227e647724cb8"
+        }
+      },
+      "newAuditStatus": "passed-after-specific-source-resolution",
+      "baseAuditStatus": "passed-after-specific-input-adjudication",
+      "uniqueImageHashes": 100
+    }
+  },
+  "method": "independent-sol-high-full-article-review"
+}

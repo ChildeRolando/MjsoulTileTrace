@@ -1,0 +1,67 @@
+{
+  "before": {
+    "pointer": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-preview-current.json",
+      "sha256": "2db05389143a2ef2580d348b892403b48a769c812fdcff6764a191521965fbf0"
+    },
+    "variants": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v35.json",
+      "sha256": "31cb03245b2284c9c695c7dfbe1f6f5cda425e0285f59e9783ed82de724d3aa9"
+    },
+    "builder": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.mjs",
+      "sha256": "2e1acd2e4b98eb91ed27afdfa1d0f3627d02423478e600a1ead4a3738e4b179c"
+    },
+    "webSelection": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-web-candidate-selection.json",
+      "sha256": "a0a1931f4dfebfa9e468f3350f57f2d19b7dd693c0a23e81a0d0a579fc269b32"
+    },
+    "register": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+      "sha256": "ff68bc08229c88f747366ec13a5841b2c5f2ee8e8bd2e44d1c485d3f3f552063"
+    },
+    "owner": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+      "sha256": "b24c5fcd409ac8e9ba751b001323177df0cacf7b8c92c2789ecb70bfc4bbdfbe"
+    },
+    "continuation": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-uncovered-chapter-continuation-register-20261027b.json",
+      "sha256": "153eddec4eb44421401ec5b40f368020a772785ad9113a188bf0a2722206d33f"
+    }
+  },
+  "prior": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T09-44-10-491Z",
+    "corpusId": "df8320d297001c4b174cfc2f2964c376395587577f488a5b408a6536df8f0f61",
+    "chapters": 250,
+    "units": 258,
+    "blocks": 7585,
+    "figures": 5893
+  },
+  "protectedFiles": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-candidate-selection.json",
+      "sha256": "621e4d88cf890f901a41506adbb42ab3b37febafa95d62cfb2bc4abbab0e78aa"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/source-structure-holds.json",
+      "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/candidate-exclusions.json",
+      "sha256": "4835655ad7fa323e2acc94d4e04824dc1c56b4b67ceec1b1449617c79c3411a3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-bounded351-intake-20261028.json",
+      "sha256": "948f8da6752902b596afd39e94fabf3d70cb7f03ef992662a7b79f66f48c9184"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-exact182-intake-20261028.json",
+      "sha256": "948444adbb7273314716f0b6c73b3ad75cc34023b8cff2db87e8a203320cc1d3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/review/textbook-corpus.json",
+      "sha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+    }
+  ],
+  "newModelCalls": 0
+}

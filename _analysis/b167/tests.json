@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "missing limitation",
+      "rejected": true
+    },
+    {
+      "name": "claim as author text",
+      "rejected": true
+    },
+    {
+      "name": "wrong order",
+      "rejected": true
+    },
+    {
+      "name": "changed original text",
+      "rejected": true
+    },
+    {
+      "name": "unknown dropped",
+      "rejected": true
+    },
+    {
+      "name": "changed limitation",
+      "rejected": true
+    },
+    {
+      "name": "wrong binding candidateSha256",
+      "rejected": true
+    },
+    {
+      "name": "wrong binding manifest",
+      "rejected": true
+    },
+    {
+      "name": "wrong binding contract",
+      "rejected": true
+    },
+    {
+      "name": "wrong binding module",
+      "rejected": true
+    },
+    {
+      "name": "wrong binding stage",
+      "rejected": true
+    }
+  ],
+  "persistentEarlyRoutePassed": true,
+  "ordinarySidecarAccesses": 0,
+  "originalStrictFalsePreserved": true,
+  "newModelCalls": 0
+}

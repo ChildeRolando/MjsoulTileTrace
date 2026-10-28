@@ -1,0 +1,417 @@
+{
+  "schema": "coach-textbook-web-article-audit/1",
+  "status": "needs-repair",
+  "recordedAt": "2026-10-26T13:24:40.601Z",
+  "source": {
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter04-section012",
+    "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+    "title": "満貫和了技術",
+    "language": "ja",
+    "fetchedAt": "2026-10-23T20:49:09.056648+00:00",
+    "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter04-section012/source.json",
+    "sourceSha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+    "htmlSha256": "e2618ca34b4eaa10c444d76ed20b4fb8765aa848d2e52947d49f122127b6a567",
+    "mainSha256": "93bc7deda4b4357b3af71abfc547b3fcaa8c3e42437aa0997a46ea1c1bf46ce7"
+  },
+  "production": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.display.json",
+    "sha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37"
+  },
+  "verification": "automatic-independent-review-not-user-human-gold-standard",
+  "deterministicChecks": {
+    "passed": true,
+    "errors": [],
+    "textBlocks": 11,
+    "imageRuns": 3,
+    "imageOccurrences": 3,
+    "figures": 3
+  },
+  "independentSource": {
+    "schema": "coach-textbook-web-independent-source-check/1",
+    "passed": true,
+    "errors": [],
+    "sourceFileSha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+    "rawHtmlSha256": "e2618ca34b4eaa10c444d76ed20b4fb8765aa848d2e52947d49f122127b6a567",
+    "mainSha256": "93bc7deda4b4357b3af71abfc547b3fcaa8c3e42437aa0997a46ea1c1bf46ce7",
+    "textBlocks": 11,
+    "imageRuns": 3,
+    "imageOccurrences": 3,
+    "uniqueAssets": 2,
+    "method": "offline independent html.parser character-and-image DOM event comparison",
+    "modelCalls": 0
+  },
+  "semanticCompleteness": {
+    "complete": false,
+    "evidence": "全文及全部图片出现均已覆盖，但“確和了”被误译、配牌与摸牌条件被加强，且牌桌手牌3s误记为2s、右侧牌河第2张点数未确定，尚不能视为教学语义完整准确。"
+  },
+  "modelChecks": {
+    "passed": false,
+    "errors": [
+      "needs-repair:modern-yabejp-ja:chapter04-section012:b0002",
+      "needs-repair:modern-yabejp-ja:chapter04-section012:b0004",
+      "needs-repair:modern-yabejp-ja:chapter04-section012:b0005",
+      "needs-repair:modern-yabejp-ja:chapter04-section012:b0005:figure",
+      "semantic_information_missing",
+      "error:modern-yabejp-ja:chapter04-section012:b0002",
+      "error:modern-yabejp-ja:chapter04-section012:b0004",
+      "error:modern-yabejp-ja:chapter04-section012:b0005:figure",
+      "uncertain:modern-yabejp-ja:chapter04-section012:b0005:figure"
+    ]
+  },
+  "modelReview": {
+    "blockChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:b0001",
+        "verdict": "faithful",
+        "evidence": "标题“満貫和了技術”已完整译为“满贯和牌技术”。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:b0002",
+        "verdict": "needs-repair",
+        "evidence": "“確和了”指不改变当前名次而结束比赛的和牌，候选译成“确保和牌”，改变了适用情形。其余论证、四分之一的频率及正文链接保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:b0003",
+        "verdict": "faithful",
+        "evidence": "满贯技术的重要性、计分制度原因、跳满以上成功率骤降及括号中的补充均完整保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:b0004",
+        "verdict": "needs-repair",
+        "evidence": "“配牌やツモに恵まれたら”未要求配牌和摸牌同时有利；“起手牌和摸牌都不错”加强了条件。其余名次风险、最快和牌及庄家优先一次反超的判断保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:b0005",
+        "verdict": "needs-repair",
+        "evidence": "复杂牌桌已对应转录，但本家手牌第7张实际为3s，候选误记为2s；右侧牌河第2张仍缺具体万子点数。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:b0006",
+        "verdict": "faithful",
+        "evidence": "与同段后续行内白牌连读，完整保留下位者自摸满贯也不能反超时的弃牌前提。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:b0007",
+        "verdict": "faithful",
+        "evidence": "该处原文白牌对应5z，衔接为“因此打白”。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:b0008",
+        "verdict": "faithful",
+        "evidence": "门清立直断幺平和、赤牌或三色形成确定反超牌，以及下位分差小时同样打白的过渡均保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:b0009",
+        "verdict": "faithful",
+        "evidence": "第二次行内白牌仍对应5z，没有遗漏或重复段落贡献。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:b0010",
+        "verdict": "faithful",
+        "evidence": "与前文连读，保留分差小时积极鸣牌、食断即可的不同策略。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:b0011",
+        "verdict": "faithful",
+        "evidence": "宝牌3张、宝牌对子、单张宝牌及无宝牌的分支，鸣牌条件、立直自摸及里宝牌条件、1翻与2翻役和不必拆面子强求的说明均保留。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:b0012",
+        "verdict": "faithful",
+        "evidence": "牌慢且宝牌或役不明确的条件、难用宝牌的包含情形、混一色及清一色的花色选择和下位反超风险条件均完整。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:b0013",
+        "verdict": "faithful",
+        "evidence": "保留Napa笔记的名称及《基于名次的攻守判断》引用标题。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:b0014",
+        "verdict": "faithful",
+        "evidence": "末局及倒数第二局的实战学习说明、讨论板正文链接，以及名次分3、1、−1、−3均保留。"
+      }
+    ],
+    "figureChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+        "verdict": "needs-repair",
+        "evidence": "两幅所附视图中，本家第7张手牌为上方一根、下方两根的3s，非2s。其余手牌、摸入3p、9m宝牌指示牌、四家分数及其余已明确转录的弃牌相符；右侧牌河第2张的具体万子点数仍未可靠确定。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:b0007:figure",
+        "verdict": "faithful",
+        "evidence": "已核原图复用对应白牌5z，非赤、正立，与本次弃白语义相符。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:b0009:figure",
+        "verdict": "faithful",
+        "evidence": "第二次复用同一已核白牌，5z、非赤、正立及出现顺序均与原文相符。"
+      }
+    ],
+    "imageChecks": [
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:i00001",
+        "disposition": "represented",
+        "evidence": "已由完整牌桌图例表示，并提供原图及放大视图；转录中的手牌错误与未确定弃牌另列为阻断问题。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:i00002",
+        "disposition": "represented",
+        "evidence": "第一次行内白牌由对应5z图例完整表示。"
+      },
+      {
+        "id": "modern-yabejp-ja:chapter04-section012:i00003",
+        "disposition": "represented",
+        "evidence": "第二次行内白牌由独立出现记录及对应5z图例完整表示。"
+      }
+    ],
+    "domOrder": {
+      "faithful": true,
+      "evidence": "14个源块均按自然顺序对应；p0006的文字、白牌、文字、白牌、文字连续排列，正文链接与引用位置保留。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "全文及全部图片出现均已覆盖，但“確和了”被误译、配牌与摸牌条件被加强，且牌桌手牌3s误记为2s、右侧牌河第2张点数未确定，尚不能视为教学语义完整准确。"
+    },
+    "issues": [
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter04-section012:b0002",
+        "sourceEvidence": "“確和了でも構わないようなケース”",
+        "description": "“确保和牌也无妨”把名次不变的结束和牌误译成确保能够和牌，改变了最快和牌策略的适用情形。",
+        "suggestedRepair": "改为“允许以不改变当前名次的和牌结束比赛的情况”，保留原有判断技术7链接。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter04-section012:b0004",
+        "sourceEvidence": "“運良く配牌やツモに恵まれたら逆転手を目指し”",
+        "description": "“起手牌和摸牌都不错”增加了两者必须同时有利的条件。",
+        "suggestedRepair": "改为“运气好，起手牌或摸牌有利时，就争取做出反超牌”。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+        "sourceEvidence": "附图本家手牌从左数第7张可见上方一根、下方两根索子，为3s。",
+        "description": "手牌中的3s被误记为2s，影响手牌结构及做牌分析。",
+        "suggestedRepair": "将手牌序列修正为“3m 4m 6m 7m 4p 4p 3s 4s 6s 7s 8s 5z 5z”，摸入牌仍为3p。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+        "sourceEvidence": "右侧牌河从上数第2张有可见万子牌面；候选仅记录“［万子，点数无法辨认］”。",
+        "description": "该张明示弃牌的具体点数尚未可靠确定，逐牌核对仍有缺口。",
+        "suggestedRepair": "保留原图和当前未知说明；可靠确认后补齐具体牌码及赤色情况，在此之前保持阻断状态。"
+      }
+    ],
+    "completeArticleCompared": true,
+    "summary": "已逐项审完全文、3个图例及3次图片出现。发现两处译义条件问题、一处手牌误码，另有一张弃牌点数未确定，需修复后通过。"
+  },
+  "calls": [
+    {
+      "callId": "f35ad846-9a43-434d-b649-6eccbb3a61a4",
+      "scope": "textbook-web-article-audit",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter04-section012",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "success": true,
+      "usage": {
+        "inputTokens": 21379,
+        "cachedInputTokens": 0,
+        "outputTokens": 4354
+      },
+      "promptSha256": "4d096942c3331b7582f78019ec6f0c71003c97f3c0084c31cd32bcb7e2099f9d",
+      "semanticPromptSha256": "8208a1fc22435686786d789c6188175acea557b89a8f3038a599964e6236a9a7",
+      "schemaSha256": "e9fa10d5e4118e738326e92806d7efa222244d79df6b63e691a0269c407f7dcd",
+      "outputSha256": "34167338f9c9746be1d86c06c9a0a30bf87a809462c48d5302cf8a579fe7c95f",
+      "requestPromptBytes": 30308,
+      "semanticPromptBytes": 29826,
+      "binding": {
+        "productionSha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+        "sourceFileSha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+        "auditorSnapshotSha256": "ec038e42ee0e6ad708712bc1d4c958388c25423f1dcfeda822a94c2b35471dd2",
+        "semanticProjectionSha256": "14883a08d760fc4333eab0b690094ac0db1c2daf5f8751650bd14759a6323ea6",
+        "semanticProjectionVersion": 2,
+        "verifiedAssetIds": [
+          "modern-yabejp-ja:cd5d183cae88a0cb2d844d20"
+        ],
+        "originalImageAssetIds": [
+          "modern-yabejp-ja:068e112356939113bfe8f0e4"
+        ],
+        "supplementalInputs": [
+          {
+            "assetId": "modern-yabejp-ja:068e112356939113bfe8f0e4",
+            "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg",
+            "sourceSha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135",
+            "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+            "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.x2.png",
+            "sha256": "aaf1ac188c4b7660d0f533c9eef0e6aac07d1b91a7c35f7c03c647b450ad1563",
+            "role": "nearest-neighbor-enlargement",
+            "scale": 2,
+            "resampling": "nearest",
+            "width": 1280,
+            "height": 898
+          }
+        ]
+      },
+      "recordedAt": "2026-10-26T13:27:27.303Z"
+    }
+  ],
+  "exactReuse": null,
+  "auditor": {
+    "path": "audit/web/auditors/d1a12f594369881bc81719e480f7df3ad9a5641d4d1ccd017a2ab2444931adea.json",
+    "sha256": "ec038e42ee0e6ad708712bc1d4c958388c25423f1dcfeda822a94c2b35471dd2",
+    "combinedSha256": "d1a12f594369881bc81719e480f7df3ad9a5641d4d1ccd017a2ab2444931adea"
+  },
+  "presentation": {
+    "parent": {
+      "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section012.json",
+      "sha256": "d2153000245c219122ccbaeb51a6bce00b38dc06e46f063b81c4b10d8d0e6c56",
+      "reason": "Lossless display images only; translations and source figure sequences unchanged"
+    },
+    "pixels": {
+      "passed": true,
+      "figures": 3,
+      "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+    }
+  },
+  "productionCall": {
+    "callId": "aab4b6c9-c6c6-40e2-9d6e-33ac10c3ed4a",
+    "rawArtifactPath": "raw-calls/aab4b6c9-c6c6-40e2-9d6e-33ac10c3ed4a.json",
+    "rawArtifactSha256": "4a2d9b99e68f72fa81c1bffe02f75a85984c103531ff36120ba111aab8f8ef5d",
+    "visualInputs": {
+      "inputs": [
+        {
+          "assetId": "modern-yabejp-ja:068e112356939113bfe8f0e4",
+          "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg",
+          "sourceSha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/modern-yabejp-ja/assets/c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg",
+          "sha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 640,
+          "height": 449
+        },
+        {
+          "assetId": "modern-yabejp-ja:068e112356939113bfe8f0e4",
+          "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg",
+          "sourceSha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.x2.png",
+          "sha256": "aaf1ac188c4b7660d0f533c9eef0e6aac07d1b91a7c35f7c03c647b450ad1563",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 2,
+          "resampling": "nearest",
+          "width": 1280,
+          "height": 898
+        }
+      ],
+      "pixels": {
+        "passed": true,
+        "inputs": 2
+      }
+    }
+  },
+  "dictionary": {
+    "dictionary": {
+      "path": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+      "sha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+    },
+    "pixels": {
+      "passed": true,
+      "occurrences": 2,
+      "uniqueAssets": 1
+    },
+    "reviewDependency": {
+      "dictionary": {
+        "path": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+        "sha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+      },
+      "baseDictionary": {
+        "path": "web-sources/root-checks/modern-ch01-s001-dictionary-acceptance.json",
+        "sha256": "5b31cf4aeb39b896a7e3c0d5b7799987b3370f48b07c953f3adecee769ab5820"
+      },
+      "baseVerifiedAssets": {
+        "path": "audit/web/verified-assets/modern-ch01-s001-exact-42.json",
+        "sha256": "dd3058698dc2630a1767e27791b07ce3617c0e141957d8000bcd9e97331df193"
+      },
+      "newDictionaryAudit": {
+        "candidate": {
+          "path": "web-production/v1/dictionaries/modern-new-tile-assets.draft.json",
+          "sha256": "72f871d8c22c3964c0487991ea6330bcb68c4bee7aff59fbdc3cf67b3aaaebd9"
+        },
+        "receipt": {
+          "path": "audit/web/dictionaries/modern-new.72f871d8c22c3964c0487991ea6330bcb68c4bee7aff59fbdc3cf67b3aaaebd9.json",
+          "sha256": "71203b266441bf53bae8bc7f33d89535e7276b0ad5dbf1a6f359696c71046f64"
+        },
+        "sourceResolution": {
+          "path": "audit/web/adjudications/modern-new-tiles/72f871d8c22c3964c0487991ea6330bcb68c4bee7aff59fbdc3cf67b3aaaebd9.source-resolution.json",
+          "sha256": "59b023d134c6d8b4aeda176a83121ac67e6bc55c46a962306eb227e647724cb8"
+        }
+      },
+      "newAuditStatus": "passed-after-specific-source-resolution",
+      "baseAuditStatus": "passed-after-specific-input-adjudication",
+      "uniqueImageHashes": 100
+    },
+    "limitation": "Only exact independently reviewed asset bytes, RGBA pixels, red flag and orientation; full-article semantic review remains required."
+  },
+  "verifiedAssets": {
+    "dependency": {
+      "path": "audit/web/verified-assets/modern-ch01-s001-exact-42.json",
+      "sha256": "dd3058698dc2630a1767e27791b07ce3617c0e141957d8000bcd9e97331df193"
+    },
+    "parentCandidate": {
+      "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section001.display.json",
+      "sha256": "091b4d145520b0280a5bdd7f94d91ab17c78534b0ea1cacaa1dca5f6278d9a87"
+    },
+    "parentAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section001.091b4d145520b0280a5bdd7f94d91ab17c78534b0ea1cacaa1dca5f6278d9a87.json",
+      "sha256": "9751067422a542eb74f52bb290ab88eb057b34b168cee567690c9f3c40f07f97",
+      "status": "passed-after-specific-input-adjudication",
+      "originalStatus": "failed"
+    },
+    "inputAdjudication": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\adjudications\\modern-yabejp-ja\\chapter01-section001.091b4d145520b0280a5bdd7f94d91ab17c78534b0ea1cacaa1dca5f6278d9a87.input-contract-adjudication.json",
+      "sha256": "e7533c9f7667d505575197e7e016b6bb19812232e1fba4c02754235649ce2f71"
+    },
+    "assetIds": [
+      "modern-yabejp-ja:cd5d183cae88a0cb2d844d20"
+    ],
+    "limits": "Any unseen URL or changed bytes/pixels/orientation/red variant and any complex diagram/table requires new original-image independent review. Future text/inline semantic review remains mandatory.",
+    "mergedDictionary": {
+      "dictionary": {
+        "path": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+        "sha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+      },
+      "baseDictionary": {
+        "path": "web-sources/root-checks/modern-ch01-s001-dictionary-acceptance.json",
+        "sha256": "5b31cf4aeb39b896a7e3c0d5b7799987b3370f48b07c953f3adecee769ab5820"
+      },
+      "baseVerifiedAssets": {
+        "path": "audit/web/verified-assets/modern-ch01-s001-exact-42.json",
+        "sha256": "dd3058698dc2630a1767e27791b07ce3617c0e141957d8000bcd9e97331df193"
+      },
+      "newDictionaryAudit": {
+        "candidate": {
+          "path": "web-production/v1/dictionaries/modern-new-tile-assets.draft.json",
+          "sha256": "72f871d8c22c3964c0487991ea6330bcb68c4bee7aff59fbdc3cf67b3aaaebd9"
+        },
+        "receipt": {
+          "path": "audit/web/dictionaries/modern-new.72f871d8c22c3964c0487991ea6330bcb68c4bee7aff59fbdc3cf67b3aaaebd9.json",
+          "sha256": "71203b266441bf53bae8bc7f33d89535e7276b0ad5dbf1a6f359696c71046f64"
+        },
+        "sourceResolution": {
+          "path": "audit/web/adjudications/modern-new-tiles/72f871d8c22c3964c0487991ea6330bcb68c4bee7aff59fbdc3cf67b3aaaebd9.source-resolution.json",
+          "sha256": "59b023d134c6d8b4aeda176a83121ac67e6bc55c46a962306eb227e647724cb8"
+        }
+      },
+      "newAuditStatus": "passed-after-specific-source-resolution",
+      "baseAuditStatus": "passed-after-specific-input-adjudication",
+      "uniqueImageHashes": 100
+    }
+  },
+  "method": "independent-sol-high-full-article-review"
+}

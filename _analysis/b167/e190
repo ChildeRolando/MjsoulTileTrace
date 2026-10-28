@@ -1,0 +1,90 @@
+{
+  "schema": "coac269-exact-224232-only/1",
+  "authorizationComment": "01a181c4-730d-7821-8325-b8bc9e48a7cc",
+  "packageManifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\files.sha256.json",
+    "sha256": "d8e012c8ca1112782678992dab142d91c51a940aa77aa39fb60702ec8dbe6d7b",
+    "bytes": 6803
+  },
+  "baseManifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\runtime-manifest.json",
+    "sha256": "a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c",
+    "bytes": 6776
+  },
+  "jobs": {
+    "224": {
+      "canonical": "nemata-jp-chapter-224-1",
+      "article": "chapter04-section005",
+      "packet": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\224-packet.json",
+        "sha256": "b2edbadd419cf327c241845ec7978181a97f750c23e62e34e2f499011ae84e61",
+        "bytes": 67575
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.display.json",
+        "sha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+        "bytes": 34202
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section005\\source.json",
+        "sha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+        "bytes": 26374
+      },
+      "parentAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json",
+        "sha256": "112ca259dd236a649e3fbbac885c5056452a262a1ecb47735faba6bf9049a3b2",
+        "bytes": 18385
+      },
+      "auditor": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\auditors\\d1a12f594369881bc81719e480f7df3ad9a5641d4d1ccd017a2ab2444931adea.json",
+        "sha256": "ec038e42ee0e6ad708712bc1d4c958388c25423f1dcfeda822a94c2b35471dd2",
+        "bytes": 169472
+      },
+      "textIds": [],
+      "repairFigureIds": [
+        "modern-yabejp-ja:chapter04-section005:b0013:figure"
+      ],
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b27r1.json"
+    },
+    "232": {
+      "canonical": "nemata-jp-chapter-232-1",
+      "article": "chapter04-section012",
+      "packet": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\232-packet.json",
+        "sha256": "f4b4a8858af471b02322a29c405108098ad18de16a7f8f6d66e0e36574647cb8",
+        "bytes": 71487
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.display.json",
+        "sha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+        "bytes": 35623
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+        "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+        "bytes": 23933
+      },
+      "parentAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+        "sha256": "24293aa4da6b71079ed47600d45229e972e1f8b1256a9dcc573af827c05514f6",
+        "bytes": 21102
+      },
+      "auditor": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\auditors\\d1a12f594369881bc81719e480f7df3ad9a5641d4d1ccd017a2ab2444931adea.json",
+        "sha256": "ec038e42ee0e6ad708712bc1d4c958388c25423f1dcfeda822a94c2b35471dd2",
+        "bytes": 169472
+      },
+      "textIds": [
+        "modern-yabejp-ja:chapter04-section012:b0002",
+        "modern-yabejp-ja:chapter04-section012:b0004"
+      ],
+      "repairFigureIds": [
+        "modern-yabejp-ja:chapter04-section012:b0005:figure"
+      ],
+      "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json"
+    }
+  },
+  "maximumMakerPerChapter": 1,
+  "maximumIndependentPerChapter": 1,
+  "retry": 0
+}

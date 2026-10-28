@@ -1,0 +1,481 @@
+[
+  {
+    "chapterId": "79-cn-chapter-167-4",
+    "priorGroup": "unproduced-remains-57",
+    "sourceId": "79-cn",
+    "title": "鸣牌15—鸣牌的技巧（3）",
+    "titleStatus": "verified-source-chinese",
+    "unitCount": 1,
+    "units": [
+      {
+        "unitId": "79-cn-chapter-167-4-unit-1",
+        "title": "鸣牌15—鸣牌的技巧（3）",
+        "from": {
+          "page": 167,
+          "sourceBlockId": "79-cn-p167-b4"
+        },
+        "to": {
+          "page": 169,
+          "sourceBlockId": "79-cn-p169-b2"
+        }
+      }
+    ],
+    "pages": [
+      167,
+      168,
+      169
+    ],
+    "pageFrom": 167,
+    "pageTo": 169,
+    "ownedSourceBlocks": 11,
+    "pageTextBlocks": 14,
+    "pageImageBlocks": 1,
+    "pageBlocksTotal": 15,
+    "classification": "truly-unproduced",
+    "flags": {
+      "sourcePagesMissing": [],
+      "duplicateTitle": false
+    },
+    "existingPartial": {
+      "producedPages": [],
+      "passedPages": [],
+      "selectedPages": []
+    },
+    "webCorrespondence": [
+      {
+        "sourceId": "79-bilibili-cn",
+        "articleId": "cv1754620",
+        "evidence": "integration/chinese-source-body-correspondence.json",
+        "decision": "body-equivalence-recorded",
+        "webSourceFetched": true,
+        "webSourceDir": "web-sources/v1/79-bilibili-cn/articles/cv1754620",
+        "candidateFiles": [
+          "web-production/v1/candidates/79-bilibili-cn/cv1754620.display.json",
+          "web-production/v1/candidates/79-bilibili-cn/cv1754620.json"
+        ],
+        "webAuditReceipts": [
+          "audit/web/articles/79-bilibili-cn/cv1754620.7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737.json"
+        ]
+      }
+    ],
+    "continuation": [
+      {
+        "owner": "COAC-246",
+        "route": "web-article-79-bilibili-cn",
+        "articleIds": [
+          "cv1754620"
+        ],
+        "webSourceFetched": true,
+        "candidateExists": true,
+        "reason": "已有逐块 body 对应证据；网页版候选可覆盖该原章，避免重制 PDF 页"
+      },
+      {
+        "owner": "COAC-247",
+        "route": "pdf-pages",
+        "pages": [
+          167,
+          168,
+          169
+        ],
+        "reason": "按原 PDF 页制作；已 produced 且 passed 的页按候选 SHA 复用，不重制；需先确认未覆盖页的归属边界"
+      }
+    ],
+    "pagesDetail": [
+      {
+        "page": 167,
+        "sourcePageExists": true,
+        "sourcePageData": "79-cn/pages/167.json",
+        "pageBlocks": 9,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 168,
+        "sourcePageExists": true,
+        "sourcePageData": "79-cn/pages/168.json",
+        "pageBlocks": 3,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 169,
+        "sourcePageExists": true,
+        "sourcePageData": "79-cn/pages/169.json",
+        "pageBlocks": 3,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      }
+    ],
+    "closurePlan": {
+      "category": "image-unknown",
+      "owner": "COAC-248",
+      "nextAction": "b0005先保留7p立直宣言牌方向修订目标，另将南家第5行第3列万子未明点数定位补证；两项均闭合后再独审。",
+      "modelCallsThisStage": 0,
+      "evidenceRegister": "integration/coac244-remaining26-closure-register-20261028.json"
+    }
+  },
+  {
+    "chapterId": "nemata-jp-chapter-193-1",
+    "priorGroup": "unproduced-remains-57",
+    "sourceId": "nemata-jp",
+    "title": "ドラ切り",
+    "titleStatus": "source-only-pending-audited-translation",
+    "unitCount": 1,
+    "units": [
+      {
+        "unitId": "nemata-jp-chapter-193-1-unit-1",
+        "title": "ドラ切り",
+        "from": {
+          "page": 193,
+          "sourceBlockId": "nemata-jp-p193-b33"
+        },
+        "to": {
+          "page": 194,
+          "sourceBlockId": "nemata-jp-p194-b7"
+        }
+      }
+    ],
+    "pages": [
+      193,
+      194
+    ],
+    "pageFrom": 193,
+    "pageTo": 194,
+    "ownedSourceBlocks": 42,
+    "pageTextBlocks": 40,
+    "pageImageBlocks": 42,
+    "pageBlocksTotal": 82,
+    "classification": "truly-unproduced",
+    "flags": {
+      "sourcePagesMissing": [],
+      "duplicateTitle": false
+    },
+    "existingPartial": {
+      "producedPages": [],
+      "passedPages": [],
+      "selectedPages": []
+    },
+    "webCorrespondence": [
+      {
+        "sourceId": "modern-yabejp-ja",
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section009.html",
+        "articleId": "chapter03-section009",
+        "decision": "requires-body-comparison",
+        "webSourceFetched": true,
+        "webSourceDir": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section009",
+        "candidateFiles": [
+          "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.display.json",
+          "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.json"
+        ],
+        "webAuditReceipts": [
+          "audit/web/articles/modern-yabejp-ja/chapter03-section009.abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3.json"
+        ]
+      }
+    ],
+    "continuation": [
+      {
+        "owner": "COAC-246",
+        "route": "web-article-title-candidate-only",
+        "articles": [
+          {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section009.html",
+            "articleId": "chapter03-section009",
+            "webSourceFetched": true,
+            "candidateExists": true
+          }
+        ],
+        "reason": "仅标题候选（requires-body-comparison），未确认逐块等价；只能作为评估来源，不能直接替代 PDF 原章"
+      },
+      {
+        "owner": "COAC-247",
+        "route": "pdf-pages",
+        "pages": [
+          193,
+          194
+        ],
+        "reason": "按原 PDF 页制作；已 produced 且 passed 的页按候选 SHA 复用，不重制；需先确认未覆盖页的归属边界"
+      }
+    ],
+    "pagesDetail": [
+      {
+        "page": 193,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/193.json",
+        "pageBlocks": 67,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 194,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/194.json",
+        "pageBlocks": 15,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      }
+    ],
+    "closurePlan": {
+      "category": "image-and-terminology",
+      "owner": "COAC-248",
+      "nextAction": "与79-cn-193不同：b0080末三张6p/8p、右手第4-6张未明牌；b0081“入り目”需同作者原语境。补文术语不替代三张图证。",
+      "modelCallsThisStage": 0,
+      "evidenceRegister": "integration/coac244-remaining26-closure-register-20261028.json"
+    }
+  },
+  {
+    "chapterId": "nemata-jp-chapter-213-1",
+    "priorGroup": "unproduced-remains-57",
+    "sourceId": "nemata-jp",
+    "title": "逆切り３",
+    "titleStatus": "source-only-pending-audited-translation",
+    "unitCount": 1,
+    "units": [
+      {
+        "unitId": "nemata-jp-chapter-213-1-unit-1",
+        "title": "逆切り３",
+        "from": {
+          "page": 213,
+          "sourceBlockId": "nemata-jp-p213-b20"
+        },
+        "to": {
+          "page": 215,
+          "sourceBlockId": "nemata-jp-p215-b3"
+        }
+      }
+    ],
+    "pages": [
+      213,
+      214,
+      215
+    ],
+    "pageFrom": 213,
+    "pageTo": 215,
+    "ownedSourceBlocks": 31,
+    "pageTextBlocks": 56,
+    "pageImageBlocks": 24,
+    "pageBlocksTotal": 80,
+    "classification": "truly-unproduced",
+    "flags": {
+      "sourcePagesMissing": [],
+      "duplicateTitle": false
+    },
+    "existingPartial": {
+      "producedPages": [],
+      "passedPages": [],
+      "selectedPages": []
+    },
+    "webCorrespondence": [
+      {
+        "sourceId": "modern-yabejp-ja",
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+        "articleId": "chapter03-section026",
+        "decision": "requires-body-comparison",
+        "webSourceFetched": true,
+        "webSourceDir": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section026",
+        "candidateFiles": [
+          "web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.display.json",
+          "web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.json"
+        ],
+        "webAuditReceipts": [
+          "audit/web/articles/modern-yabejp-ja/chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json"
+        ]
+      }
+    ],
+    "continuation": [
+      {
+        "owner": "COAC-246",
+        "route": "web-article-title-candidate-only",
+        "articles": [
+          {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+            "articleId": "chapter03-section026",
+            "webSourceFetched": true,
+            "candidateExists": true
+          }
+        ],
+        "reason": "仅标题候选（requires-body-comparison），未确认逐块等价；只能作为评估来源，不能直接替代 PDF 原章"
+      },
+      {
+        "owner": "COAC-247",
+        "route": "pdf-pages",
+        "pages": [
+          213,
+          214,
+          215
+        ],
+        "reason": "按原 PDF 页制作；已 produced 且 passed 的页按候选 SHA 复用，不重制；需先确认未覆盖页的归属边界"
+      }
+    ],
+    "pagesDetail": [
+      {
+        "page": 213,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/213.json",
+        "pageBlocks": 44,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 214,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/214.json",
+        "pageBlocks": 3,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 215,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/215.json",
+        "pageBlocks": 33,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      }
+    ],
+    "closurePlan": {
+      "category": "image-and-terminology",
+      "owner": "COAC-248",
+      "nextAction": "b0017入り目条件限定与b0032左家7p分别定点；对家字牌/两家点数未知仍需源图补证，不能由牌理推。",
+      "modelCallsThisStage": 0,
+      "evidenceRegister": "integration/coac244-remaining26-closure-register-20261028.json"
+    }
+  },
+  {
+    "chapterId": "nemata-jp-chapter-224-1",
+    "priorGroup": "unproduced-remains-57",
+    "sourceId": "nemata-jp",
+    "title": "オーラスの見逃し判断",
+    "titleStatus": "source-only-pending-audited-translation",
+    "unitCount": 1,
+    "units": [
+      {
+        "unitId": "nemata-jp-chapter-224-1-unit-1",
+        "title": "オーラスの見逃し判断",
+        "from": {
+          "page": 224,
+          "sourceBlockId": "nemata-jp-p224-b37"
+        },
+        "to": {
+          "page": 225,
+          "sourceBlockId": "nemata-jp-p225-b13"
+        }
+      }
+    ],
+    "pages": [
+      224,
+      225
+    ],
+    "pageFrom": 224,
+    "pageTo": 225,
+    "ownedSourceBlocks": 15,
+    "pageTextBlocks": 51,
+    "pageImageBlocks": 0,
+    "pageBlocksTotal": 51,
+    "classification": "truly-unproduced",
+    "flags": {
+      "sourcePagesMissing": [],
+      "duplicateTitle": false
+    },
+    "existingPartial": {
+      "producedPages": [],
+      "passedPages": [],
+      "selectedPages": []
+    },
+    "webCorrespondence": [
+      {
+        "sourceId": "modern-yabejp-ja",
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "articleId": "chapter04-section005",
+        "decision": "requires-body-comparison",
+        "webSourceFetched": true,
+        "webSourceDir": "web-sources/v1/modern-yabejp-ja/articles/chapter04-section005",
+        "candidateFiles": [
+          "web-production/v1/candidates/modern-yabejp-ja/chapter04-section005.display.json",
+          "web-production/v1/candidates/modern-yabejp-ja/chapter04-section005.json"
+        ],
+        "webAuditReceipts": [
+          "audit/web/articles/modern-yabejp-ja/chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json"
+        ]
+      }
+    ],
+    "continuation": [
+      {
+        "owner": "COAC-246",
+        "route": "web-article-title-candidate-only",
+        "articles": [
+          {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+            "articleId": "chapter04-section005",
+            "webSourceFetched": true,
+            "candidateExists": true
+          }
+        ],
+        "reason": "仅标题候选（requires-body-comparison），未确认逐块等价；只能作为评估来源，不能直接替代 PDF 原章"
+      },
+      {
+        "owner": "COAC-247",
+        "route": "pdf-pages",
+        "pages": [
+          224,
+          225
+        ],
+        "reason": "按原 PDF 页制作；已 produced 且 passed 的页按候选 SHA 复用，不重制；需先确认未覆盖页的归属边界"
+      }
+    ],
+    "pagesDetail": [
+      {
+        "page": 224,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/224.json",
+        "pageBlocks": 38,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      },
+      {
+        "page": 225,
+        "sourcePageExists": true,
+        "sourcePageData": "nemata-jp/pages/225.json",
+        "pageBlocks": 13,
+        "candidateCount": 0,
+        "candidatePaths": [],
+        "receiptCount": 0,
+        "latestReceipt": null,
+        "selected": false
+      }
+    ],
+    "closurePlan": {
+      "category": "chart-quantitative-repair",
+      "owner": "COAC-248",
+      "nextAction": "b0013保留7系列x15巡图，原轴坐标可机械形成空表；读数需明确约值与误差，图例自摸译名定点修，不把相关率或曲线走向替代105格定量独审。",
+      "modelCallsThisStage": 0,
+      "evidenceRegister": "integration/coac244-remaining26-closure-register-20261028.json"
+    }
+  }
+]

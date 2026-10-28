@@ -1,0 +1,360 @@
+{
+  "production": {
+    "passed": true,
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b27r1.json",
+      "sha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea"
+    },
+    "raw": {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/7721e646-88f5-4572-8deb-b2ced73aab27.json",
+      "sha256": "c0734e1738dacc1fe3b8142ff426dbca9589c4f317a36467035b2af27454e7a1"
+    },
+    "call": {
+      "callId": "7721e646-88f5-4572-8deb-b2ced73aab27",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter04-section005",
+      "sourceSha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "requestExecution": {
+        "schema": "coach-textbook-cli-request/1",
+        "policy": "coac244-vision-production-schema-v2-20261028",
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max",
+        "callerRequested": {
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max"
+        },
+        "args": [
+          "exec",
+          "--model",
+          "gpt-6.1-terra",
+          "--config",
+          "model_reasoning_effort=\"max\"",
+          "--config",
+          "web_search=\"disabled\"",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox",
+          "read-only",
+          "--strict-config",
+          "--skip-git-repo-check",
+          "--json",
+          "--output-schema",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-d1Fknf\\output.schema.json",
+          "--output-last-message",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-d1Fknf\\final.json",
+          "--cd",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-d1Fknf",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png",
+          "--disable",
+          "apps",
+          "--disable",
+          "auth_elicitation",
+          "--disable",
+          "browser_use",
+          "--disable",
+          "browser_use_external",
+          "--disable",
+          "browser_use_full_cdp_access",
+          "--disable",
+          "computer_use",
+          "--disable",
+          "fast_mode",
+          "--disable",
+          "goals",
+          "--disable",
+          "guardian_approval",
+          "--disable",
+          "hooks",
+          "--disable",
+          "image_generation",
+          "--disable",
+          "in_app_browser",
+          "--disable",
+          "in_app_chat",
+          "--disable",
+          "in_app_dictation",
+          "--disable",
+          "in_app_local_automation",
+          "--disable",
+          "in_app_updates",
+          "--disable",
+          "memories",
+          "--disable",
+          "mentions_v2",
+          "--disable",
+          "multi_agent",
+          "--disable",
+          "plugin_sharing",
+          "--disable",
+          "plugins",
+          "--disable",
+          "remote_plugin",
+          "--disable",
+          "shell_snapshot",
+          "--disable",
+          "shell_tool",
+          "--disable",
+          "skill_mcp_dependency_install",
+          "--disable",
+          "skill_search",
+          "--disable",
+          "sleep_tool",
+          "--disable",
+          "tool_call_mcp_elicitation",
+          "--disable",
+          "tool_suggest",
+          "--disable",
+          "unbounded_connection_retries",
+          "--disable",
+          "unified_exec",
+          "--disable",
+          "unified_exec_tty",
+          "--disable",
+          "view_image",
+          "--disable",
+          "workspace_dependencies",
+          "-"
+        ],
+        "images": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+            "sha256": "d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f",
+            "bytes": 39633
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png",
+            "sha256": "f006dd5fe35e1ac07983c550033637fa9bb6474ed7130ac14ebedcd514a7e2ba",
+            "bytes": 171002
+          }
+        ],
+        "remoteBackend": "unverified; request arguments and returned events only"
+      },
+      "startedAt": "2026-10-28T09:23:28.982Z",
+      "durationMs": 175190,
+      "usage": {
+        "inputTokens": 25199,
+        "cachedInputTokens": 0,
+        "outputTokens": 11912
+      },
+      "success": true,
+      "transportStatus": "completed",
+      "rawArtifactPath": "raw-calls/7721e646-88f5-4572-8deb-b2ced73aab27.json",
+      "rawArtifactSha256": "c0734e1738dacc1fe3b8142ff426dbca9589c4f317a36467035b2af27454e7a1",
+      "promptSha256": "d0f4dfb1b02d134d85dfc7104870e6b2c2fb33f4af2b8d1c1713bd32bf5f345c",
+      "schemaSha256": "a636b7d49944ab86d3fd3d7bfb0507910d53dbb2f05756d440a2b493b2345bf5",
+      "method": "coac269-exact224232/1",
+      "targets": {
+        "textIds": [],
+        "figureIds": [
+          "modern-yabejp-ja:chapter04-section005:b0013"
+        ]
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.display.json",
+        "sha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+        "bytes": 34202
+      },
+      "parentAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json",
+        "sha256": "112ca259dd236a649e3fbbac885c5056452a262a1ecb47735faba6bf9049a3b2",
+        "bytes": 18385
+      },
+      "runtime": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\runtime-manifest.json",
+        "sha256": "0d890d3bbfd3fe1dbe588f068e17de41312916c1d068d246d080d0ec6feaa973"
+      },
+      "runner": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\pair.mjs",
+        "sha256": "1b6579d6eed480d955d82bbad0279756d415421c1b5482a66d9d82c002c38909"
+      },
+      "cliSnapshot": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-cli.mjs",
+        "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+      }
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.display.json",
+      "sha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+      "bytes": 34202
+    },
+    "parentAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json",
+      "sha256": "112ca259dd236a649e3fbbac885c5056452a262a1ecb47735faba6bf9049a3b2",
+      "bytes": 18385
+    },
+    "unchangedBodyBlocks": 15,
+    "unchangedNonTargetFigures": 0,
+    "wholeChapterAccepted": false
+  },
+  "model": "gpt-6.1-terra",
+  "reasoningEffort": "max",
+  "timeoutMs": 900000,
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "targetChecks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "modern-yabejp-ja:chapter04-section005:b0013:figure"
+              ]
+            },
+            "verdict": {
+              "type": "string",
+              "enum": [
+                "faithful",
+                "needs-repair",
+                "uncertain"
+              ]
+            },
+            "evidence": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "verdict",
+            "evidence"
+          ]
+        }
+      },
+      "unknownImpacts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "unknownText": {
+              "type": "string"
+            },
+            "sourceBlockIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "authorClaim": {
+              "type": "string"
+            },
+            "disposition": {
+              "type": "string",
+              "enum": [
+                "nonblocking-with-limits",
+                "blocking",
+                "uncertain"
+              ]
+            },
+            "evidence": {
+              "type": "string"
+            },
+            "requiredDisplayLimitations": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "unknownText",
+            "sourceBlockIds",
+            "authorClaim",
+            "disposition",
+            "evidence",
+            "requiredDisplayLimitations"
+          ]
+        }
+      },
+      "contextContinuity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "faithful",
+              "needs-repair",
+              "uncertain"
+            ]
+          },
+          "evidence": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "verdict",
+          "evidence"
+        ]
+      },
+      "issues": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "severity": {
+              "type": "string",
+              "enum": [
+                "error",
+                "uncertain",
+                "source-note"
+              ]
+            },
+            "targetId": {
+              "type": "string",
+              "enum": [
+                "modern-yabejp-ja:chapter04-section005:b0013:figure"
+              ]
+            },
+            "description": {
+              "type": "string"
+            },
+            "sourceEvidence": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "severity",
+            "targetId",
+            "description",
+            "sourceEvidence"
+          ]
+        }
+      },
+      "scopeComplete": {
+        "type": "string",
+        "enum": [
+          "yes",
+          "no"
+        ]
+      },
+      "summary": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "targetChecks",
+      "unknownImpacts",
+      "contextContinuity",
+      "issues",
+      "scopeComplete",
+      "summary"
+    ]
+  },
+  "images": [
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png"
+  ],
+  "prompt": "独立首次合并靶审，只核本章明确修订及保留unknown/源歧义对作者论证的影响，不重审整章或改原审。完整有序source/candidate/figure和原图连读，按原文条件/数值精度/强弱判断。224须逐系列逐巡核105槽：读数必须为图上可辨约值，不能插值推算；unknown是诚实未读但仍须裁决定量教学完整性，不能机械放行。原图无单位明示不擅加百分号；两处自摸图例正确。b0008只继承原source-note，不能改成翻译错误或重算改作者数字。232核不改名次和牌含义、起手或摸牌的条件及本家3s，未知河牌保持；勿猜隐藏/模糊牌。每条unknownText逐字引用下面preservedUnknowns，给出依赖的作者贡献和sourceBlockIds；允许限定展示须明确实际显示限制，否则指明阻断命题。未改范围按真实父审继承。targetChecks按目标ids顺序齐全；不宣告整章passed。\n{\"canonical\":\"nemata-jp-chapter-224-1\",\"production\":{\"passed\":true,\"candidate\":{\"path\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\web-production\\\\v1\\\\candidates\\\\modern-yabejp-ja\\\\chapter04-section005.coac269b27r1.json\",\"sha256\":\"82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea\"},\"raw\":{\"path\":\"E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/7721e646-88f5-4572-8deb-b2ced73aab27.json\",\"sha256\":\"c0734e1738dacc1fe3b8142ff426dbca9589c4f317a36467035b2af27454e7a1\"},\"call\":{\"callId\":\"7721e646-88f5-4572-8deb-b2ced73aab27\",\"sourceId\":\"modern-yabejp-ja\",\"articleId\":\"chapter04-section005\",\"sourceSha256\":\"8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a\",\"model\":\"gpt-6.1-terra\",\"reasoningEffort\":\"max\",\"requestExecution\":{\"schema\":\"coach-textbook-cli-request/1\",\"policy\":\"coac244-vision-production-schema-v2-20261028\",\"model\":\"gpt-6.1-terra\",\"reasoningEffort\":\"max\",\"callerRequested\":{\"model\":\"gpt-6.1-terra\",\"reasoningEffort\":\"max\"},\"args\":[\"exec\",\"--model\",\"gpt-6.1-terra\",\"--config\",\"model_reasoning_effort=\\\"max\\\"\",\"--config\",\"web_search=\\\"disabled\\\"\",\"--ephemeral\",\"--ignore-user-config\",\"--ignore-rules\",\"--sandbox\",\"read-only\",\"--strict-config\",\"--skip-git-repo-check\",\"--json\",\"--output-schema\",\"C:\\\\Users\\\\Roland\\\\AppData\\\\Local\\\\Temp\\\\textbook-page-d1Fknf\\\\output.schema.json\",\"--output-last-message\",\"C:\\\\Users\\\\Roland\\\\AppData\\\\Local\\\\Temp\\\\textbook-page-d1Fknf\\\\final.json\",\"--cd\",\"C:\\\\Users\\\\Roland\\\\AppData\\\\Local\\\\Temp\\\\textbook-page-d1Fknf\",\"-i\",\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\web-sources\\\\v1\\\\modern-yabejp-ja\\\\assets\\\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg\",\"-i\",\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\web-production\\\\v1\\\\reading-views\\\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png\",\"--disable\",\"apps\",\"--disable\",\"auth_elicitation\",\"--disable\",\"browser_use\",\"--disable\",\"browser_use_external\",\"--disable\",\"browser_use_full_cdp_access\",\"--disable\",\"computer_use\",\"--disable\",\"fast_mode\",\"--disable\",\"goals\",\"--disable\",\"guardian_approval\",\"--disable\",\"hooks\",\"--disable\",\"image_generation\",\"--disable\",\"in_app_browser\",\"--disable\",\"in_app_chat\",\"--disable\",\"in_app_dictation\",\"--disable\",\"in_app_local_automation\",\"--disable\",\"in_app_updates\",\"--disable\",\"memories\",\"--disable\",\"mentions_v2\",\"--disable\",\"multi_agent\",\"--disable\",\"plugin_sharing\",\"--disable\",\"plugins\",\"--disable\",\"remote_plugin\",\"--disable\",\"shell_snapshot\",\"--disable\",\"shell_tool\",\"--disable\",\"skill_mcp_dependency_install\",\"--disable\",\"skill_search\",\"--disable\",\"sleep_tool\",\"--disable\",\"tool_call_mcp_elicitation\",\"--disable\",\"tool_suggest\",\"--disable\",\"unbounded_connection_retries\",\"--disable\",\"unified_exec\",\"--disable\",\"unified_exec_tty\",\"--disable\",\"view_image\",\"--disable\",\"workspace_dependencies\",\"-\"],\"images\":[{\"path\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\web-sources\\\\v1\\\\modern-yabejp-ja\\\\assets\\\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg\",\"sha256\":\"d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f\",\"bytes\":39633},{\"path\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\web-production\\\\v1\\\\reading-views\\\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png\",\"sha256\":\"f006dd5fe35e1ac07983c550033637fa9bb6474ed7130ac14ebedcd514a7e2ba\",\"bytes\":171002}],\"remoteBackend\":\"unverified; request arguments and returned events only\"},\"startedAt\":\"2026-10-28T09:23:28.982Z\",\"durationMs\":175190,\"usage\":{\"inputTokens\":25199,\"cachedInputTokens\":0,\"outputTokens\":11912},\"success\":true,\"transportStatus\":\"completed\",\"rawArtifactPath\":\"raw-calls/7721e646-88f5-4572-8deb-b2ced73aab27.json\",\"rawArtifactSha256\":\"c0734e1738dacc1fe3b8142ff426dbca9589c4f317a36467035b2af27454e7a1\",\"promptSha256\":\"d0f4dfb1b02d134d85dfc7104870e6b2c2fb33f4af2b8d1c1713bd32bf5f345c\",\"schemaSha256\":\"a636b7d49944ab86d3fd3d7bfb0507910d53dbb2f05756d440a2b493b2345bf5\",\"method\":\"coac269-exact224232/1\",\"targets\":{\"textIds\":[],\"figureIds\":[\"modern-yabejp-ja:chapter04-section005:b0013\"]},\"parent\":{\"path\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\web-production\\\\v1\\\\candidates\\\\modern-yabejp-ja\\\\chapter04-section005.display.json\",\"sha256\":\"24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408\",\"bytes\":34202},\"parentAudit\":{\"path\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\audit\\\\web\\\\articles\\\\modern-yabejp-ja\\\\chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json\",\"sha256\":\"112ca259dd236a649e3fbbac885c5056452a262a1ecb47735faba6bf9049a3b2\",\"bytes\":18385},\"runtime\":{\"path\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\audit\\\\runtimes\\\\coac269-224232-exact-v1-20261028\\\\runtime-manifest.json\",\"sha256\":\"0d890d3bbfd3fe1dbe588f068e17de41312916c1d068d246d080d0ec6feaa973\"},\"runner\":{\"path\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\audit\\\\runtimes\\\\coac269-224232-exact-v1-20261028\\\\pair.mjs\",\"sha256\":\"1b6579d6eed480d955d82bbad0279756d415421c1b5482a66d9d82c002c38909\"},\"cliSnapshot\":{\"path\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\audit\\\\runtimes\\\\coac269-224232-exact-v1-20261028\\\\textbook-production-cli.mjs\",\"sha256\":\"35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7\"}},\"parent\":{\"path\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\web-production\\\\v1\\\\candidates\\\\modern-yabejp-ja\\\\chapter04-section005.display.json\",\"sha256\":\"24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408\",\"bytes\":34202},\"parentAudit\":{\"path\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\audit\\\\web\\\\articles\\\\modern-yabejp-ja\\\\chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json\",\"sha256\":\"112ca259dd236a649e3fbbac885c5056452a262a1ecb47735faba6bf9049a3b2\",\"bytes\":18385},\"unchangedBodyBlocks\":15,\"unchangedNonTargetFigures\":0,\"wholeChapterAccepted\":false},\"source\":{\"path\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\web-sources\\\\v1\\\\modern-yabejp-ja\\\\articles\\\\chapter04-section005\\\\source.json\",\"sha256\":\"8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a\",\"bytes\":26374},\"parent\":{\"path\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\web-production\\\\v1\\\\candidates\\\\modern-yabejp-ja\\\\chapter04-section005.display.json\",\"sha256\":\"24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408\",\"bytes\":34202},\"parentAudit\":{\"path\":\"E:\\\\AgentData\\\\Coach\\\\knowledge\\\\processing\\\\audit\\\\web\\\\articles\\\\modern-yabejp-ja\\\\chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json\",\"sha256\":\"112ca259dd236a649e3fbbac885c5056452a262a1ecb47735faba6bf9049a3b2\",\"bytes\":18385},\"targetIds\":[\"modern-yabejp-ja:chapter04-section005:b0013:figure\"],\"originalIssues\":[{\"severity\":\"error\",\"targetId\":\"modern-yabejp-ja:chapter04-section005:b0013:figure\",\"sourceEvidence\":\"原图展示第1—15巡的流局率、放铳率、和了时自摸比例、立直棒没收率、和牌率、被自摸率及和了时一发比例七条曲线。\",\"description\":\"候选仅记录曲线走势，以无法精确读取为由未转录逐巡近似值，遗漏可从图中读取的定量教学信息。未标注精确值不等于无法提供近似读数。\",\"suggestedRepair\":\"补充第1—15巡、七个系列的近似读数表，所有读数明确标为约值，无法可靠分辨的个别点单独说明。例如第1巡和牌率约63%、流局率约10%；第13巡和牌率约30%；第15巡流局率约75%、和牌率约20%。继续保留原图及精确数值未标注的说明。\"},{\"severity\":\"error\",\"targetId\":\"modern-yabejp-ja:chapter04-section005:b0013:figure\",\"sourceEvidence\":\"橙色图例为「和了時ツモ割合」，深绿色图例为「被ツモ率」。\",\"description\":\"「和牌时摸入比例」「被摸入率」没有明确表达自摸和牌，尤其「被摸入率」无法清楚对应被他家自摸这一统计事件。\",\"suggestedRepair\":\"分别改为「和牌中自摸所占比例」和「被他家自摸率」，并同步修正曲线说明及unknowns中的系列名称。\"},{\"severity\":\"source-note\",\"targetId\":\"modern-yabejp-ja:chapter04-section005:b0008\",\"sourceEvidence\":\"源文先给出36.765%，再称其他家和牌概率为10%就会低于里宝牌率；前文里宝牌率约为三成。\",\"description\":\"按前文公式及30%的参照值计算，36.765%×90%=33.0885%，尚未低于30%。这是源文数值论证的疑点，候选忠实保留，不属于翻译错误。\",\"suggestedRepair\":\"保留忠实译文；如添加校注，应明确这是原文数值疑点，不要静默修改原文概率或结论。\"}],\"orderedContext\":[{\"position\":0,\"source\":[{\"id\":\"modern-yabejp-ja:chapter04-section005:b0001\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0001\",\"tag\":\"h2\",\"domPath\":\"main/h2[3]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"オーラスの見逃し判断\",\"segments\":[{\"text\":\"オーラスの見逃し判断\",\"marks\":[],\"href\":null}]}],\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section005:b0001\"],\"sourceText\":\"オーラスの見逃し判断\",\"text\":\"末局的放过和牌判断\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0001\",\"sourceSegments\":[{\"text\":\"オーラスの見逃し判断\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":1,\"source\":[{\"id\":\"modern-yabejp-ja:chapter04-section005:b0002\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0002\",\"tag\":\"p\",\"domPath\":\"main/p[5]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"前回、捲くり手を作る場合には多少偶発的要素に頼るくらいでよいということを述べました。ただ、確実に捲くれる選択とどちらを優先すべきか悩む場面は多くあります。特によくあるのが、リーチしていて当たり牌が他家から出て、ロンした場合捲くるためには裏ドラが１枚必要だが、見逃してツモれば必ず捲くれるという場合です。\",\"segments\":[{\"text\":\"前回\",\"marks\":[],\"href\":\"http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section004.html\"},{\"text\":\"、捲くり手を作る場合には多少偶発的要素に頼るくらいでよいということを述べました。ただ、確実に捲くれる選択とどちらを優先すべきか悩む場面は多くあります。特によくあるのが、リーチしていて当たり牌が他家から出て、ロンした場合捲くるためには裏ドラが１枚必要だが、見逃してツモれば必ず捲くれるという場合です。\",\"marks\":[],\"href\":null}]}],\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section005:b0002\"],\"sourceText\":\"前回、捲くり手を作る場合には多少偶発的要素に頼るくらいでよいということを述べました。ただ、確実に捲くれる選択とどちらを優先すべきか悩む場面は多くあります。特によくあるのが、リーチしていて当たり牌が他家から出て、ロンした場合捲くるためには裏ドラが１枚必要だが、見逃してツモれば必ず捲くれるという場合です。\",\"text\":\"[上次](http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section004.html)提到，做反超手牌时，适当依赖一些偶然因素也无妨。不过，也经常会遇到难以决定是否应优先选择能够确保反超的打法的场面。尤其常见的是，自己已经立直，其他家打出了自己的和牌张，此时若荣和，需要中1张里宝牌才能反超；但如果放过，之后自摸就一定能反超。\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0002\",\"sourceSegments\":[{\"text\":\"前回\",\"marks\":[],\"href\":\"http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section004.html\"},{\"text\":\"、捲くり手を作る場合には多少偶発的要素に頼るくらいでよいということを述べました。ただ、確実に捲くれる選択とどちらを優先すべきか悩む場面は多くあります。特によくあるのが、リーチしていて当たり牌が他家から出て、ロンした場合捲くるためには裏ドラが１枚必要だが、見逃してツモれば必ず捲くれるという場合です。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":2,\"source\":[{\"id\":\"modern-yabejp-ja:chapter04-section005:b0003\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0003\",\"tag\":\"p\",\"domPath\":\"main/p[7]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"裏ドラが乗る確率は約３割です。（トイツ以外２枚以上使っていないピンフ手ならもう少し上がり、七対子のように使用牌が7種しかなければ２割程度になる。）和了できなかった為に順位が落ちるリスクを考慮しなくていい（ラス目等）状況であれば、見逃してツモる確率がこれより大きければ見逃したほうが有利となります。\",\"segments\":[{\"text\":\"裏ドラが乗る確率は約３割です。（トイツ以外２枚以上使っていないピンフ手ならもう少し上がり、七対子のように使用牌が7種しかなければ２割程度になる。）和了できなかった為に順位が落ちるリスクを考慮しなくていい（ラス目等）状況であれば、見逃してツモる確率がこれより大きければ見逃したほうが有利となります。\",\"marks\":[],\"href\":null}]}],\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section005:b0003\"],\"sourceText\":\"裏ドラが乗る確率は約３割です。（トイツ以外２枚以上使っていないピンフ手ならもう少し上がり、七対子のように使用牌が7種しかなければ２割程度になる。）和了できなかった為に順位が落ちるリスクを考慮しなくていい（ラス目等）状況であれば、見逃してツモる確率がこれより大きければ見逃したほうが有利となります。\",\"text\":\"中里宝牌的概率约为三成。（如果是除了对子之外，没有重复使用两张及以上同种牌的平和手，这个概率会稍高一些；如果像七对子那样只使用了7种牌，则会降到两成左右。）如果处于不必考虑因未能和牌而导致名次下滑的风险的情况（例如当前垫底），那么，只要放过后自摸的概率高于这个数值，放过就更有利。\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0003\",\"sourceSegments\":[{\"text\":\"裏ドラが乗る確率は約３割です。（トイツ以外２枚以上使っていないピンフ手ならもう少し上がり、七対子のように使用牌が7種しかなければ２割程度になる。）和了できなかった為に順位が落ちるリスクを考慮しなくていい（ラス目等）状況であれば、見逃してツモる確率がこれより大きければ見逃したほうが有利となります。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":3,\"source\":[{\"id\":\"modern-yabejp-ja:chapter04-section005:b0004\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0004\",\"tag\":\"p\",\"domPath\":\"main/p[9]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"ツモ和了できる可能性は、もちろん巡目と自分の上がり牌が何枚残っているかに大きく影響します。何巡目で何枚残っていればどの程度の確率で当たり牌が自分のツモ列にあるかの計算は、こちらのサイトを参考にしました。\",\"segments\":[{\"text\":\"ツモ和了できる可能性は、もちろん巡目と自分の上がり牌が何枚残っているかに大きく影響します。何巡目で何枚残っていればどの程度の確率で当たり牌が自分のツモ列にあるかの計算は、こちらのサイトを参考にしました。\",\"marks\":[],\"href\":null}]}],\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section005:b0004\"],\"sourceText\":\"ツモ和了できる可能性は、もちろん巡目と自分の上がり牌が何枚残っているかに大きく影響します。何巡目で何枚残っていればどの程度の確率で当たり牌が自分のツモ列にあるかの計算は、こちらのサイトを参考にしました。\",\"text\":\"能否自摸和牌，当然很大程度上取决于巡目以及自己的和牌张还剩几张。关于在第几巡、剩余几张时，和牌张出现在自己摸牌序列中的概率有多高，计算时参考了以下网站。\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0004\",\"sourceSegments\":[{\"text\":\"ツモ和了できる可能性は、もちろん巡目と自分の上がり牌が何枚残っているかに大きく影響します。何巡目で何枚残っていればどの程度の確率で当たり牌が自分のツモ列にあるかの計算は、こちらのサイトを参考にしました。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":4,\"source\":[{\"id\":\"modern-yabejp-ja:chapter04-section005:b0005\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0005\",\"tag\":\"p\",\"domPath\":\"main/p[11]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"かじゃ研 「ツモ率論」「麻雀電卓 ツモ確率」\",\"segments\":[{\"text\":\"かじゃ研 「\",\"marks\":[],\"href\":null},{\"text\":\"ツモ率論\",\"marks\":[],\"href\":\"http://ameblo.jp/kazyake/entry-10076130541.html\"},{\"text\":\"」「\",\"marks\":[],\"href\":null},{\"text\":\"麻雀電卓 ツモ確率\",\"marks\":[],\"href\":\"http://kazyaken.web.fc2.com/mj/tumoritu.html\"},{\"text\":\"」\",\"marks\":[],\"href\":null}]}],\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section005:b0005\"],\"sourceText\":\"かじゃ研 「ツモ率論」「麻雀電卓 ツモ確率」\",\"text\":\"かじゃ研《[自摸率论](http://ameblo.jp/kazyake/entry-10076130541.html)》《[麻将计算器 自摸概率](http://kazyaken.web.fc2.com/mj/tumoritu.html)》\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0005\",\"sourceSegments\":[{\"text\":\"かじゃ研 「\",\"marks\":[],\"href\":null},{\"text\":\"ツモ率論\",\"marks\":[],\"href\":\"http://ameblo.jp/kazyake/entry-10076130541.html\"},{\"text\":\"」「\",\"marks\":[],\"href\":null},{\"text\":\"麻雀電卓 ツモ確率\",\"marks\":[],\"href\":\"http://kazyaken.web.fc2.com/mj/tumoritu.html\"},{\"text\":\"」\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":5,\"source\":[{\"id\":\"modern-yabejp-ja:chapter04-section005:b0006\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0006\",\"tag\":\"p\",\"domPath\":\"main/p[13]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"ただ、これは最後までツモれた場合の計算なので、実戦では途中で誰かが和了するケースを考慮せねばなりませんから、見逃しが有利になるのは、(1-他家が和了する確率)×(ツモ列に残っている確率)>(裏ドラ率)の場合です。\",\"segments\":[{\"text\":\"ただ、これは最後までツモれた場合の計算なので、実戦では途中で誰かが和了するケースを考慮せねばなりませんから、見逃しが有利になるのは、\",\"marks\":[],\"href\":null},{\"text\":\"(1-他家が和了する確率)×(ツモ列に残っている確率)>(裏ドラ率)\",\"marks\":[\"em::\"],\"href\":null},{\"text\":\"の場合です。\",\"marks\":[],\"href\":null}]}],\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section005:b0006\"],\"sourceText\":\"ただ、これは最後までツモれた場合の計算なので、実戦では途中で誰かが和了するケースを考慮せねばなりませんから、見逃しが有利になるのは、(1-他家が和了する確率)×(ツモ列に残っている確率)>(裏ドラ率)の場合です。\",\"text\":\"不过，这是在能够一直摸牌到最后的情况下进行的计算，实战中必须考虑中途有人和牌的情况，因此，放过更有利的条件是：*(1-其他家和牌的概率)×(和牌张留在自己摸牌序列中的概率)>(中里宝牌的概率)*。\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0006\",\"sourceSegments\":[{\"text\":\"ただ、これは最後までツモれた場合の計算なので、実戦では途中で誰かが和了するケースを考慮せねばなりませんから、見逃しが有利になるのは、\",\"marks\":[],\"href\":null},{\"text\":\"(1-他家が和了する確率)×(ツモ列に残っている確率)>(裏ドラ率)\",\"marks\":[\"em::\"],\"href\":null},{\"text\":\"の場合です。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":6,\"source\":[{\"id\":\"modern-yabejp-ja:chapter04-section005:b0007\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0007\",\"tag\":\"p\",\"domPath\":\"main/p[15]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"ここで、自分は東家か南家（ツモ18回）とします。西家か北家（ツモ17回）なら東家、南家の１巡遅れのツモ率に等しくなります。\",\"segments\":[{\"text\":\"ここで、自分は東家か南家（ツモ18回）とします。西家か北家（ツモ17回）なら東家、南家の１巡遅れのツモ率に等しくなります。\",\"marks\":[],\"href\":null}]}],\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section005:b0007\"],\"sourceText\":\"ここで、自分は東家か南家（ツモ18回）とします。西家か北家（ツモ17回）なら東家、南家の１巡遅れのツモ率に等しくなります。\",\"text\":\"这里假设自己是东家或南家（摸牌18次）。如果是西家或北家（摸牌17次），自摸率就相当于东家、南家晚1巡时的自摸率。\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0007\",\"sourceSegments\":[{\"text\":\"ここで、自分は東家か南家（ツモ18回）とします。西家か北家（ツモ17回）なら東家、南家の１巡遅れのツモ率に等しくなります。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":7,\"source\":[{\"id\":\"modern-yabejp-ja:chapter04-section005:b0008\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0008\",\"tag\":\"span\",\"domPath\":\"main/inline7\",\"tableContext\":null,\"type\":\"text\",\"text\":\"愚形待ちの場合（１枚見逃しているから残り３枚） 例え１巡目の時点だったとしても、残り３枚の待ちがツモ列に残っている確率は36.765%に過ぎません。他家が和了する確率が10%もあればもう裏ドラ率を下回ります。よって、愚形の場合は常に和了するべきと言えます。 リャンメン待ち（残り７枚）の場合 １巡目の時点で66.355%、４巡目で62.915%、８巡目で56.174%、12巡目で44.699%となります。中盤過ぎればリャンメンの待ち牌が他に見えていないことは珍しいでしょうが、残り５枚だとしても12巡目の時点で34.102%あります。  \",\"segments\":[{\"text\":\"愚形待ちの場合（１枚見逃しているから残り３枚）\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"例え１巡目の時点だったとしても、残り３枚の待ちがツモ列に残っている確率は36.765%に過ぎません。他家が和了する確率が10%もあればもう裏ドラ率を下回ります。よって、愚形の場合は常に和了するべきと言えます。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"リャンメン待ち（残り７枚）の場合\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"１巡目の時点で66.355%、４巡目で62.915%、８巡目で56.174%、12巡目で44.699%となります。中盤過ぎればリャンメンの待ち牌が他に見えていないことは珍しいでしょうが、残り５枚だとしても12巡目の時点で34.102%あります。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null}]}],\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section005:b0008\"],\"sourceText\":\"愚形待ちの場合（１枚見逃しているから残り３枚） 例え１巡目の時点だったとしても、残り３枚の待ちがツモ列に残っている確率は36.765%に過ぎません。他家が和了する確率が10%もあればもう裏ドラ率を下回ります。よって、愚形の場合は常に和了するべきと言えます。 リャンメン待ち（残り７枚）の場合 １巡目の時点で66.355%、４巡目で62.915%、８巡目で56.174%、12巡目で44.699%となります。中盤過ぎればリャンメンの待ち牌が他に見えていないことは珍しいでしょうが、残り５枚だとしても12巡目の時点で34.102%あります。  \",\"text\":\"愚形听牌的情况（已经放过1张，所以还剩3张）\\n即使是在第1巡，剩余3张和牌张中有牌留在自己摸牌序列中的概率也只有36.765%。其他家和牌的概率只要有10%，就已经低于中里宝牌的概率了。因此，可以说愚形时始终应该和牌。\\n两面听牌（剩余7张）的情况\\n第1巡时为66.355%，第4巡为62.915%，第8巡为56.174%，第12巡为44.699%。过了中盘，两面听牌的和牌张还一张都没有在其他地方出现，想必很少见；不过，即使只剩5张，第12巡时仍有34.102%。\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0008\",\"sourceSegments\":[{\"text\":\"愚形待ちの場合（１枚見逃しているから残り３枚）\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"例え１巡目の時点だったとしても、残り３枚の待ちがツモ列に残っている確率は36.765%に過ぎません。他家が和了する確率が10%もあればもう裏ドラ率を下回ります。よって、愚形の場合は常に和了するべきと言えます。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"リャンメン待ち（残り７枚）の場合\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\"１巡目の時点で66.355%、４巡目で62.915%、８巡目で56.174%、12巡目で44.699%となります。中盤過ぎればリャンメンの待ち牌が他に見えていないことは珍しいでしょうが、残り５枚だとしても12巡目の時点で34.102%あります。\",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null},{\"text\":\" \",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":8,\"source\":[{\"id\":\"modern-yabejp-ja:chapter04-section005:b0009\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0009\",\"tag\":\"p\",\"domPath\":\"main/p[19]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"他家の和了率をどの程度見積もるかが難しいところです。仮に残りの三人がベタオリしているのであれば、このツモ率をそのまま適用することができるので、７枚なら残りツモ４回、５枚なら残りツモ５回あればツモ率が30%を超えるので見逃しが有利になります。しかし、自分の当たり牌を切ってきた他家が一人居るのですから、少なくとも一人は攻めてきていると考えるのが無難です。\",\"segments\":[{\"text\":\"他家の和了率をどの程度見積もるかが難しいところです。仮に残りの三人がベタオリしているのであれば、このツモ率をそのまま適用することができるので、７枚なら残りツモ４回、５枚なら残りツモ５回あればツモ率が30%を超えるので見逃しが有利になります。しかし、自分の当たり牌を切ってきた他家が一人居るのですから、少なくとも一人は攻めてきていると考えるのが無難です。\",\"marks\":[],\"href\":null}]}],\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section005:b0009\"],\"sourceText\":\"他家の和了率をどの程度見積もるかが難しいところです。仮に残りの三人がベタオリしているのであれば、このツモ率をそのまま適用することができるので、７枚なら残りツモ４回、５枚なら残りツモ５回あればツモ率が30%を超えるので見逃しが有利になります。しかし、自分の当たり牌を切ってきた他家が一人居るのですから、少なくとも一人は攻めてきていると考えるのが無難です。\",\"text\":\"难点在于应该把其他家的和牌率估计为多少。假如其余三人都在完全弃和，就可以直接采用这个自摸率。因此，剩余7张时只要还有4次摸牌机会，剩余5张时只要还有5次摸牌机会，自摸率就会超过30%，放过就更有利。但是，既然有一家打出了自己的和牌张，稳妥起见，还是应当认为至少有一人在进攻。\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0009\",\"sourceSegments\":[{\"text\":\"他家の和了率をどの程度見積もるかが難しいところです。仮に残りの三人がベタオリしているのであれば、このツモ率をそのまま適用することができるので、７枚なら残りツモ４回、５枚なら残りツモ５回あればツモ率が30%を超えるので見逃しが有利になります。しかし、自分の当たり牌を切ってきた他家が一人居るのですから、少なくとも一人は攻めてきていると考えるのが無難です。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":9,\"source\":[{\"id\":\"modern-yabejp-ja:chapter04-section005:b0010\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0010\",\"tag\":\"p\",\"domPath\":\"main/p[21]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"攻めてきている他家の一人が既にテンパイしているのであれば、相手はどこからでも和了することができる以上、例え残りの二人がベタオリしていたとしても相手に和了される確率の方がまず高くなります。\",\"segments\":[{\"text\":\"攻めてきている他家の一人が既にテンパイしているのであれば、相手はどこからでも和了することができる以上、例え残りの二人がベタオリしていたとしても相手に和了される確率の方がまず高くなります。\",\"marks\":[],\"href\":null}]}],\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section005:b0010\"],\"sourceText\":\"攻めてきている他家の一人が既にテンパイしているのであれば、相手はどこからでも和了することができる以上、例え残りの二人がベタオリしていたとしても相手に和了される確率の方がまず高くなります。\",\"text\":\"如果进攻的其他家中有一人已经听牌，既然对手无论从谁那里都能和牌，那么即使其余两人都在完全弃和，对手和牌的概率通常也会更高。\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0010\",\"sourceSegments\":[{\"text\":\"攻めてきている他家の一人が既にテンパイしているのであれば、相手はどこからでも和了することができる以上、例え残りの二人がベタオリしていたとしても相手に和了される確率の方がまず高くなります。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":10,\"source\":[{\"id\":\"modern-yabejp-ja:chapter04-section005:b0011\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0011\",\"tag\":\"p\",\"domPath\":\"main/p[23]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"相手は二人（その相手と自分）のどちらかが当たり牌を引けばよく、自分は自分が当たり牌を引かなくてはならないからです。相手の待ちが65%で２種待ちリャンメン、他は１種待ちで、残りの二人は相手の当たり牌を一切切らないという条件下でも、ツモ列に残っている確率が59.4%以上（残り枚数7枚で残りツモ12回以上）なければ和了率は30%以下になります。脇の二人が当たり牌を切る確率が10%もあれば65.3%以上必要になります。配牌時点で７枚残りでさえ66.355%なのですから、他家のテンパイが入っている時点で見逃すこともまず有り得ないと言えます。\",\"segments\":[{\"text\":\"相手は二人（その相手と自分）のどちらかが当たり牌を引けばよく、自分は自分が当たり牌を引かなくてはならないからです。相手の待ちが65%で２種待ちリャンメン、他は１種待ちで、残りの二人は相手の当たり牌を一切切らないという条件下でも、ツモ列に残っている確率が59.4%以上（残り枚数7枚で残りツモ12回以上）なければ和了率は30%以下になります。脇の二人が当たり牌を切る確率が10%もあれば65.3%以上必要になります。配牌時点で７枚残りでさえ66.355%なのですから、他家のテンパイが入っている時点で見逃すこともまず有り得ないと言えます。\",\"marks\":[],\"href\":null}]}],\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section005:b0011\"],\"sourceText\":\"相手は二人（その相手と自分）のどちらかが当たり牌を引けばよく、自分は自分が当たり牌を引かなくてはならないからです。相手の待ちが65%で２種待ちリャンメン、他は１種待ちで、残りの二人は相手の当たり牌を一切切らないという条件下でも、ツモ列に残っている確率が59.4%以上（残り枚数7枚で残りツモ12回以上）なければ和了率は30%以下になります。脇の二人が当たり牌を切る確率が10%もあれば65.3%以上必要になります。配牌時点で７枚残りでさえ66.355%なのですから、他家のテンパイが入っている時点で見逃すこともまず有り得ないと言えます。\",\"text\":\"这是因为，两人（那名对手和自己）之中，只要有一人摸到对手的和牌张，对手就能和牌；而自己则必须亲自摸到自己的和牌张。即使假设对手有65%的概率是听两种牌的两面，其余情况都是听一种牌，而且剩下两人绝不打出对手的和牌张，自己的和牌张留在摸牌序列中的概率若没有达到59.4%以上（剩余7张，且还剩12次以上摸牌机会），和牌率就会在30%以下。如果旁边两人打出对手和牌张的概率有10%，那么这个概率就需要达到65.3%以上。即使在配牌时还剩7张，也只有66.355%，所以可以说，在其他家已经听牌的情况下，基本不可能选择放过。\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0011\",\"sourceSegments\":[{\"text\":\"相手は二人（その相手と自分）のどちらかが当たり牌を引けばよく、自分は自分が当たり牌を引かなくてはならないからです。相手の待ちが65%で２種待ちリャンメン、他は１種待ちで、残りの二人は相手の当たり牌を一切切らないという条件下でも、ツモ列に残っている確率が59.4%以上（残り枚数7枚で残りツモ12回以上）なければ和了率は30%以下になります。脇の二人が当たり牌を切る確率が10%もあれば65.3%以上必要になります。配牌時点で７枚残りでさえ66.355%なのですから、他家のテンパイが入っている時点で見逃すこともまず有り得ないと言えます。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":11,\"source\":[{\"id\":\"modern-yabejp-ja:chapter04-section005:b0012\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0012\",\"tag\":\"p\",\"domPath\":\"main/p[25]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"一人攻めている相手がいて（残り二人はベタオリ）、まだテンパイしていない場合なら、フリテンリャンメンの和了率は一人攻めてくる場合の愚形リーチの和了率にかなり近い値になります。（枚数が半分になるけど二回分ツモれると考えれば体感的にも納得されるのではないでしょうか。）以下の先制愚形リーチ（一人攻め）のシミュレーションのグラフを参照。\",\"segments\":[{\"text\":\"一人攻めている相手がいて（残り二人はベタオリ）、まだテンパイしていない場合なら、フリテンリャンメンの和了率は一人攻めてくる場合の愚形リーチの和了率にかなり近い値になります。（枚数が半分になるけど二回分ツモれると考えれば体感的にも納得されるのではないでしょうか。）以下の先制愚形リーチ（一人攻め）のシミュレーションのグラフを参照。\",\"marks\":[],\"href\":null}]}],\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section005:b0012\"],\"sourceText\":\"一人攻めている相手がいて（残り二人はベタオリ）、まだテンパイしていない場合なら、フリテンリャンメンの和了率は一人攻めてくる場合の愚形リーチの和了率にかなり近い値になります。（枚数が半分になるけど二回分ツモれると考えれば体感的にも納得されるのではないでしょうか。）以下の先制愚形リーチ（一人攻め）のシミュレーションのグラフを参照。\",\"text\":\"如果有一名对手在进攻（其余两人完全弃和），但对手尚未听牌，那么振听两面的和牌率，会与一人进攻时愚形立直的和牌率相当接近。（可以理解为，虽然张数减半，却能摸两次；这样想的话，是否在直觉上也能接受呢？）请参照下面先制愚形立直（一人进攻）的模拟图表。\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0012\",\"sourceSegments\":[{\"text\":\"一人攻めている相手がいて（残り二人はベタオリ）、まだテンパイしていない場合なら、フリテンリャンメンの和了率は一人攻めてくる場合の愚形リーチの和了率にかなり近い値になります。（枚数が半分になるけど二回分ツモれると考えれば体感的にも納得されるのではないでしょうか。）以下の先制愚形リーチ（一人攻め）のシミュレーションのグラフを参照。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":12,\"source\":[{\"id\":\"modern-yabejp-ja:chapter04-section005:b0013\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0013\",\"tag\":\"span\",\"domPath\":\"main/inline11\",\"tableContext\":null,\"type\":\"image-run\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter04-section005:i00001\",\"assetId\":\"modern-yabejp-ja:913eb194f610eb11b0ed18fa\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005/001.jpg\"],\"alt\":\"先制悪形待ち立直（１人攻め）\",\"title\":\"\",\"width\":\"480\",\"height\":\"270\",\"tileHint\":null}]}],\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section005:b0013\"],\"figureId\":\"modern-yabejp-ja:chapter04-section005:b0013:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0013\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter04-section005:b0013:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section005:b0013\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter04-section005:i00001\"],\"sourceAssetBindings\":[{\"assetId\":\"modern-yabejp-ja:913eb194f610eb11b0ed18fa\",\"path\":\"web-sources/v1/modern-yabejp-ja/assets/d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg\",\"sha256\":\"d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f\",\"url\":\"http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005/001.jpg\"}],\"kind\":\"chart\",\"transcription\":\"标题：先制愚形听牌立直（1人进攻）。\\n横轴：巡目；刻度为0、1、2、3、4、5、6、7、8、9、10、11、12、13、14、15。各曲线的数据点位于第1至第15巡。\\n纵轴：和牌率等；刻度为0、10、20、30、40、50、60、70、80、90。\\n图例位置与曲线对应关系：左列自上而下为蓝色方形标记「流局率」、黄色标记「放铳率」、橙色标记「和牌中自摸所占比例」、紫色叉形标记「立直棒被没收率」；右列自上而下为红色倒三角标记「和牌率」、深绿色标记「被他家自摸率」、亮绿色标记「和牌时一发比例」。\\n蓝色流局率曲线随巡目上升，后段上升更快；红色和牌率曲线持续下降；橙色和牌中自摸所占比例曲线在接近50的位置基本保持水平；紫色立直棒被没收率曲线先上升，在中段达到最高处后下降；黄色放铳率与深绿色被他家自摸率曲线均先小幅上升、后下降；亮绿色和牌时一发比例曲线整体上升，末段上升更快。各巡各曲线的精确纵坐标未以数字标注。\\n逐巡近似读数（按原图纵轴刻度，均为约值；原图未明确标注单位，不补定百分号；unknown表示该点不能可靠辨读，不推算）：\\n巡目：1,2,3,4,5,6,7,8,9,10,11,12,13,14,15。\\n流局率：约10,约11,约12,约13,unknown,约18,约20,约23,约27,约32,约39,约46,约55,约65,约75。\\n放铳率：unknown,unknown,unknown,unknown,unknown,unknown,unknown,约16,约15,约14,约12,约10,约7,约5,约3。\\n和牌中自摸所占比例：约49,约49,约49,约49,约49,unknown,约49,约49,约49,约49,约49,约49,约49,约49,约49。\\n立直棒被没收率：约28,约30,约32,约34,约35,约35,约35,约35,约32,约29,约25,unknown,约16,约10,约6。\\n和牌率：约63,约60,约57,约54,约51,unknown,约46,约44,约41,约39,约37,约34,约30,约26,约21。\\n被他家自摸率：unknown,unknown,unknown,unknown,unknown,约14,约14,约14,约13,约12,约10,约8,约6,约3,约1。\\n和牌时一发比例：unknown,unknown,unknown,unknown,unknown,unknown,unknown,约18,约19,约19,约20,unknown,约25,约30,约37。\",\"unknowns\":[\"第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。\",\"纵轴没有明确标注百分号或其他单位。\"],\"caption\":\"先制愚形立直、仅有一名对手进攻时的模拟图表。\",\"sourceNotes\":[\"原图与最近邻放大图是同一张图的两个视图，只转录一次。\",\"图表采用灰色绘图区、黑色网格和白底图例；图例遮住了绘图区上部的一部分。\",\"曲线、标记和文字边缘存在低分辨率栅格化痕迹；未将这些痕迹视为额外符号或数据。\"],\"provenance\":{\"method\":\"model-transcription\",\"callId\":\"7721e646-88f5-4572-8deb-b2ced73aab27\",\"outputSourceBlockId\":\"modern-yabejp-ja:chapter04-section005:b0013\"},\"presentationAsset\":{\"path\":\"web-production/v1/presentations/modern-yabejp-ja/chapter04-section005/144621343e5fa700/figure-0001.png\",\"sha256\":\"5768ed2fbc4b4fe3baaa0036530d311cd64693decd15d20cb07d882649d4c283\",\"width\":480,\"height\":270,\"derivation\":{\"kind\":\"single-source-image-rgba-to-png\",\"alignment\":\"original-size\",\"sourceAssetBindings\":[{\"assetId\":\"modern-yabejp-ja:913eb194f610eb11b0ed18fa\",\"path\":\"web-sources/v1/modern-yabejp-ja/assets/d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg\",\"sha256\":\"d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f\",\"url\":\"http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005/001.jpg\"}],\"rendererSha256\":\"17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1\"}}}},{\"position\":13,\"source\":[{\"id\":\"modern-yabejp-ja:chapter04-section005:b0014\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0014\",\"tag\":\"p\",\"domPath\":\"main/p[29]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"このグラフによると、13巡目での和了率がほぼ30%なので、それ以前なら見逃しが有効そうです。\",\"segments\":[{\"text\":\"このグラフによると、13巡目での和了率がほぼ30%なので、それ以前なら見逃しが有効そうです。\",\"marks\":[],\"href\":null}]}],\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section005:b0014\"],\"sourceText\":\"このグラフによると、13巡目での和了率がほぼ30%なので、それ以前なら見逃しが有効そうです。\",\"text\":\"根据这张图，第13巡的和牌率约为30%，所以在此之前，放过似乎是有效的。\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0014\",\"sourceSegments\":[{\"text\":\"このグラフによると、13巡目での和了率がほぼ30%なので、それ以前なら見逃しが有効そうです。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":14,\"source\":[{\"id\":\"modern-yabejp-ja:chapter04-section005:b0015\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0015\",\"tag\":\"p\",\"domPath\":\"main/p[31]\",\"tableContext\":null,\"type\":\"text\",\"text\":\"今回は和了できなかった場合の降着を一切考慮しなくて良い場合であったので、良形ならば案外見逃しが有効なケースは多いという結果が出ました。実戦では降着の可能性、親の連荘で流局しても続くケース、見た目は同じ枚数だけ残っていても山にあるかどうか等の要素で計算がより複雑になり、的確な判断を下すことが困難な場合もあるでしょう。しかしそのような場合でも、ここで用いたような方法で判断することになるのは変わりません。余裕があれば実際にとあるケースを自分で想定してみて計算してみることをお勧めします。\",\"segments\":[{\"text\":\"今回は和了できなかった場合の降着を一切考慮しなくて良い場合であったので、良形ならば案外見逃しが有効なケースは多いという結果が出ました。実戦では降着の可能性、親の連荘で流局しても続くケース、見た目は同じ枚数だけ残っていても山にあるかどうか等の要素で計算がより複雑になり、的確な判断を下すことが困難な場合もあるでしょう。しかしそのような場合でも、ここで用いたような方法で判断することになるのは変わりません。余裕があれば実際にとあるケースを自分で想定してみて計算してみることをお勧めします。\",\"marks\":[],\"href\":null}]}],\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter04-section005:b0015\"],\"sourceText\":\"今回は和了できなかった場合の降着を一切考慮しなくて良い場合であったので、良形ならば案外見逃しが有効なケースは多いという結果が出ました。実戦では降着の可能性、親の連荘で流局しても続くケース、見た目は同じ枚数だけ残っていても山にあるかどうか等の要素で計算がより複雑になり、的確な判断を下すことが困難な場合もあるでしょう。しかしそのような場合でも、ここで用いたような方法で判断することになるのは変わりません。余裕があれば実際にとあるケースを自分で想定してみて計算してみることをお勧めします。\",\"text\":\"这次讨论的情况，是完全不必考虑未能和牌时名次下滑的风险，因此得出的结果是：如果听牌形状良好，放过有效的情况意外地多。实战中，名次下滑的可能性、因庄家连庄而即使流局也会继续的情况，以及表面上剩余张数相同但牌是否在牌山中等因素，都会使计算更加复杂，有时可能难以作出准确判断。不过，即使遇到这种情况，仍然需要采用这里所用的这类方法来判断。如果有余力，建议自己实际设想一个具体情况，并试着计算一下。\",\"paragraphId\":\"modern-yabejp-ja:chapter04-section005:p0015\",\"sourceSegments\":[{\"text\":\"今回は和了できなかった場合の降着を一切考慮しなくて良い場合であったので、良形ならば案外見逃しが有効なケースは多いという結果が出ました。実戦では降着の可能性、親の連荘で流局しても続くケース、見た目は同じ枚数だけ残っていても山にあるかどうか等の要素で計算がより複雑になり、的確な判断を下すことが困難な場合もあるでしょう。しかしそのような場合でも、ここで用いたような方法で判断することになるのは変わりません。余裕があれば実際にとあるケースを自分で想定してみて計算してみることをお勧めします。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null}],\"realMakerData\":{\"sourceBlockId\":\"modern-yabejp-ja:chapter04-section005:b0013\",\"rows\":[{\"series\":\"流局率\",\"values\":[\"约10\",\"约11\",\"约12\",\"约13\",\"unknown\",\"约18\",\"约20\",\"约23\",\"约27\",\"约32\",\"约39\",\"约46\",\"约55\",\"约65\",\"约75\"]},{\"series\":\"放铳率\",\"values\":[\"unknown\",\"unknown\",\"unknown\",\"unknown\",\"unknown\",\"unknown\",\"unknown\",\"约16\",\"约15\",\"约14\",\"约12\",\"约10\",\"约7\",\"约5\",\"约3\"]},{\"series\":\"和牌中自摸所占比例\",\"values\":[\"约49\",\"约49\",\"约49\",\"约49\",\"约49\",\"unknown\",\"约49\",\"约49\",\"约49\",\"约49\",\"约49\",\"约49\",\"约49\",\"约49\",\"约49\"]},{\"series\":\"立直棒被没收率\",\"values\":[\"约28\",\"约30\",\"约32\",\"约34\",\"约35\",\"约35\",\"约35\",\"约35\",\"约32\",\"约29\",\"约25\",\"unknown\",\"约16\",\"约10\",\"约6\"]},{\"series\":\"和牌率\",\"values\":[\"约63\",\"约60\",\"约57\",\"约54\",\"约51\",\"unknown\",\"约46\",\"约44\",\"约41\",\"约39\",\"约37\",\"约34\",\"约30\",\"约26\",\"约21\"]},{\"series\":\"被他家自摸率\",\"values\":[\"unknown\",\"unknown\",\"unknown\",\"unknown\",\"unknown\",\"约14\",\"约14\",\"约14\",\"约13\",\"约12\",\"约10\",\"约8\",\"约6\",\"约3\",\"约1\"]},{\"series\":\"和牌时一发比例\",\"values\":[\"unknown\",\"unknown\",\"unknown\",\"unknown\",\"unknown\",\"unknown\",\"unknown\",\"约18\",\"约19\",\"约19\",\"约20\",\"unknown\",\"约25\",\"约30\",\"约37\"]}]},\"preservedUnknowns\":[\"第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。\",\"纵轴没有明确标注百分号或其他单位。\"],\"scope\":\"only specified repairs and their retained-unknown teaching impact; no whole-article re-review\"}"
+}

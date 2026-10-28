@@ -1,0 +1,201 @@
+{
+  "schema": "coac244-next-pair-ready-zero/1",
+  "recordedAt": "2026-10-28T08:46:12.586823+00:00",
+  "authorizationComment": "01a181a7-2d58-7bd0-87fe-71526222935b",
+  "ready": [
+    {
+      "canonical": "79-cn-chapter-109-4",
+      "packet": "packets/cv1729038.json",
+      "selected": true,
+      "sourceSha256": "b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc",
+      "parentSha256": "ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22",
+      "auditSha256": "254405ec0e5e50e057a662509f8ac087e4d1ed84c0e60b40e185182585130eda",
+      "independentCallIds": [
+        "7876c301-7ae9-44f7-bc42-d236a2d63c53"
+      ],
+      "errors": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1729038:b0004:figure",
+          "sourceEvidence": "附图1、8手牌前三张为5m 6m 6m。",
+          "description": "候选写成6m 6m 6m，将含5万的搭子结构改成6万刻子，影响切牌教学含义。",
+          "suggestedRepair": "仅将手牌首张改为5m，保留后续顺序及副露记录。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1729038:b0006:figure",
+          "sourceEvidence": "附图2、9手牌前两张为5m 6m，右侧摸入2s。",
+          "description": "候选写成6m 6m，遗漏保留下来的5万，与前图切一张6万后的牌形不符。",
+          "suggestedRepair": "将手牌首张改为5m，其余牌及摸入2s保持原顺序。"
+        }
+      ],
+      "uncertain": [
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1729038:b0012:figure",
+          "sourceEvidence": "候选将上方弃牌区第4张、左方弃牌区第1张及右方弃牌区第6张分别记为点数不清的万子、点数不清的万子及字样不清的字牌。",
+          "description": "三处均属于实际弃牌，具有教学语义；当前无法可靠确认其具体牌码，不能作为完整逐牌转录通过。",
+          "suggestedRepair": "保留原图及明确未知说明；在能够可靠辨认前维持阻断，不猜补牌码，也不将这些弃牌视为装饰。"
+        }
+      ],
+      "sameShaIndependentUnknownAllowance": false
+    },
+    {
+      "canonical": "79-cn-chapter-167-4",
+      "packet": "packets/cv1754620.json",
+      "selected": true,
+      "sourceSha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+      "parentSha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+      "auditSha256": "8c52da176b472a79f63b7cce50f29ce66710718beea7631b1cf3b0a2a9910c73",
+      "independentCallIds": [
+        "1a849f14-2853-47b0-9961-c414cfd152bc"
+      ],
+      "errors": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1754620:b0005:figure",
+          "sourceEvidence": "原图左侧北家牌河按画面第3行最左侧的7p呈纵向，与该家其余横向舍牌方向相差90°；中央同时显示1根立直棒。后文明确讨论吃7饼破一发。",
+          "description": "候选将北家牌河统一标为顺时针旋转90度，并写“未见……横置牌”，遗漏7p为立直宣言牌的关键状态。",
+          "suggestedRepair": "单独注明该7p相对于北家其他舍牌横置、为立直宣言牌，并修正统一方向说明及“未见横置牌”的表述。"
+        }
+      ],
+      "uncertain": [
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1754620:b0005:figure",
+          "sourceEvidence": "南家牌河按画面第5行第3列存在一张万子牌；候选写“数字未辨清的万子牌”，并在unknowns中重复列为未确定。",
+          "description": "此处缺少确定牌码；本次从所附视图无法可靠确认数字，不能判定逐牌转写完整。",
+          "suggestedRepair": "保留原图与此项未知状态，待可靠辨认该牌数字后补齐确定牌码；在此之前阻断语义完整通过。"
+        }
+      ],
+      "sameShaIndependentUnknownAllowance": false
+    }
+  ],
+  "alternates": [
+    {
+      "canonical": "nemata-jp-chapter-193-1",
+      "packet": "packets/chapter03-section009.json",
+      "selected": false,
+      "sourceSha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+      "parentSha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+      "auditSha256": "8ce0cde5d4eb0d8a8538b6751cd8a3b35b3fa8d3a20d7929fea6d7548bb09ce0",
+      "independentCallIds": [
+        "0176608e-ec2b-453a-a93b-607d9e27615d"
+      ],
+      "errors": [
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+          "sourceEvidence": "附件1及附件2下方手牌最右三张，每张均为两枚黑色圆点加四枚红色圆点，即六筒。",
+          "description": "下方手牌末三张被转录为8p8p8p，实际为6p6p6p，改变了三张牌的牌值。",
+          "suggestedRepair": "将下方手牌改为5m 6m 7m 8m 6s 7s 8s 3p 4p 5p 6p 6p 6p。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter03-section009:b0081",
+          "sourceEvidence": "原文：“上のような河でリーチが入った場合、入り目でなければまず待ちは”。候选：“只要相关牌不是使其进张听牌的那一张”。",
+          "description": "“入り目”在此区分立直宣言牌与进张侧的关系，候选却表达成相关牌是否就是使其听牌的摸入牌，混淆了切牌与进张牌，并改变后续读牌结论的例外条件。",
+          "suggestedRepair": "改为：“面对上图这样的牌河，有人立直时，若立直宣言牌并非从此次进张完成的面子一侧切出，就基本可以读出其听牌是……”并与后续6m−9m或9m双碰连读。"
+        }
+      ],
+      "uncertain": [
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+          "sourceEvidence": "附件中右侧手牌上方三张索子之后还有三张筒子；候选transcription及unknowns均明确未辨认其点数和赤牌状态。",
+          "description": "这三张实际展示的手牌尚未完成逐牌转录。其牌值及赤色情况属于教学牌桌数据，不能作为无教学意义的界面残痕放行。",
+          "suggestedRepair": "逐张确认右侧手牌自上而下第4至第6张的点数及赤牌状态，补齐后再审；无法可靠辨认时继续保留具体unknowns并阻断完整性通过。"
+        }
+      ],
+      "sameShaIndependentUnknownAllowance": false
+    },
+    {
+      "canonical": "nemata-jp-chapter-213-1",
+      "packet": "packets/chapter03-section026.json",
+      "selected": false,
+      "sourceSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+      "parentSha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+      "auditSha256": "a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc",
+      "independentCallIds": [
+        "93f4a5a8-e5fb-4b57-b5b7-c05946e951d7"
+      ],
+      "errors": [
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter03-section026:b0017",
+          "sourceEvidence": "テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+          "description": "“入り目でもなければ”不是泛指“不是因为进张而打出的”。原文排除的是该牌周边属于进张完成面子一侧的情况；候选译法模糊了判断待牌位置的重要例外。",
+          "suggestedRepair": "改为明确表达：听牌时切出的牌若并非留作安全牌，且其周边也不是进张完成面子的部分，那么其周边就是待牌所在。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+          "sourceEvidence": "附图左家牌河外侧左列从图像上至下第2张为7p；末段原文说对家很可能持有至少一张7p，因此7p最多只剩两张。",
+          "description": "候选将这张可见7p写作“点数不清的筒子牌”，遗漏了直接影响剩余张数论证的明牌。",
+          "suggestedRepair": "将左家外列第2张补为7p，同时更新对应红线说明及unknowns；保留其顺时针旋转90°和摸切标记。"
+        }
+      ],
+      "uncertain": [
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+          "sourceEvidence": "候选将对家靠中央一排最左端字牌，以及中央上方、左侧的完整点数列为无法辨认。",
+          "description": "这些属于牌局牌码和数值数据，本次无法可靠确认其准确转录，不能作为非教学边缘残痕直接放行。",
+          "suggestedRepair": "复核附图中该字牌及两家点数，补录能够确定的内容；确实无法辨认的继续如实标未知并保留原图，但在相关歧义解决前保持阻断。"
+        }
+      ],
+      "sameShaIndependentUnknownAllowance": false
+    }
+  ],
+  "master": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+    "sha256": "fc544ce02428e26c433cb1d07d6432ed1a06e2210b4d0e4769a23cbc28836c17",
+    "bytes": 671821
+  },
+  "counts": {
+    "originalChapters": 256,
+    "originalUnits": 303,
+    "originalSourceBlocks": 21212,
+    "displayChapters": 246,
+    "displayUnits": 254,
+    "displayBlocks": 6844,
+    "displayFigures": 5355,
+    "effectiveCoveredOriginalChapters": 244,
+    "effectiveUncoveredOriginalChapters": 12,
+    "uncoveredProduced": 12,
+    "trulyUnproduced": 0,
+    "register80": 80,
+    "register80Groups": {
+      "confirmed-produced-not-covered": 56,
+      "reclassified-covered": 17,
+      "legacy-covered": 1,
+      "additional-uncovered-not-in-246": 6
+    },
+    "verdicts": {
+      "covered-effective": 244,
+      "produced-needs-repair": 12,
+      "produced-passed-not-staged": 0,
+      "produced-pdf-passed-not-staged": 0,
+      "produced-unreviewed": 0,
+      "produced-audit-failed": 0,
+      "total": 256
+    }
+  },
+  "pointer": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+    "sha256": "53d88fef65a44e02210dd1a9eca6314319b15f0efec6f2d1591b6cdb908f0c1d",
+    "bytes": 6307396
+  },
+  "maximumProposedNewLocalInvocations": 4,
+  "moneyCost": null,
+  "upstreamExecutionCount": null,
+  "newCallsThisStage": 0,
+  "newDispatches": 0,
+  "notAuthorizedOrProduced": true,
+  "excludedExistingDispatch": [
+    "79-cn-chapter-182-5",
+    "79-cn-chapter-201-6",
+    "nemata-jp-chapter-283-1"
+  ],
+  "runtimeBoundary": "Evidence/request preflight only. The old error-only revision gate must not be bypassed: mixed uncertain admission and targeted impact receipt require exact parent/source/audit pins before execution; do not reuse the 256-only exception for these chapters."
+}

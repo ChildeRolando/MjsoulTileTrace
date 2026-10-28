@@ -1,0 +1,39 @@
+{
+  "schema": "coac244-exact167-limited-display-contract/1",
+  "canonical": "79-cn-chapter-167-4",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.coac269b25r1.json",
+    "sha256": "5bfa90e3e15deb0c3f868ee1811fe50cdba75357f2805b3c37ed5f1d86538a58"
+  },
+  "authorization": "01a181af-e1d9-7e64-8dcf-1607be707075",
+  "scope": "Exact7p-declaration repair and independent author argument faithfulWithExplicitUnknown only; preserve all three display limits, source notes, unknown and original repairPassed=true/limitedUnknownOkay=false/uncertain. Not a whole-article model pass.",
+  "historicalObservationSnapshots": [
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-4db4597b3ef6\\worktree\\artifacts\\a249-201-109167\\167\\admission-0-preview.json",
+      "sha256": "582a21739ba267b8954806d070de07b3fc4fb3395798fac65087d6e75c9ab74a",
+      "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+      "bytes": 6309189
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-4db4597b3ef6\\worktree\\artifacts\\a249-201-109167\\167\\admission-0-register.json",
+      "sha256": "23875cdc373dd3bfdecad049e8881b7f9ad687bace272c256ef67d0af39ba2a3",
+      "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+      "bytes": 676235
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-4db4597b3ef6\\worktree\\artifacts\\a249-201-109167\\167\\admission-1-preview.json",
+      "sha256": "582a21739ba267b8954806d070de07b3fc4fb3395798fac65087d6e75c9ab74a",
+      "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+      "bytes": 6309189
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-4db4597b3ef6\\worktree\\artifacts\\a249-201-109167\\167\\admission-1-register.json",
+      "sha256": "23875cdc373dd3bfdecad049e8881b7f9ad687bace272c256ef67d0af39ba2a3",
+      "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+      "bytes": 676235
+    }
+  ],
+  "requiredActualMcpArenaReadback": true,
+  "standardWholeArticlePassed": false,
+  "newModelCalls": 0
+}

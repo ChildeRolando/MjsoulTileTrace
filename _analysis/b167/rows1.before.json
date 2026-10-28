@@ -1,0 +1,998 @@
+[
+  {
+    "chapterId": "79-cn-chapter-167-4",
+    "covered": false,
+    "baseVerdictPreserved": "produced-needs-repair",
+    "category": "image-unknown",
+    "owner": "COAC-248",
+    "nextAction": "b0005先保留7p立直宣言牌方向修订目标，另将南家第5行第3列万子未明点数定位补证；两项均闭合后再独审。",
+    "baseEvidence": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.display.json",
+        "sha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+        "bytes": 32855
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1754620.7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737.json",
+        "sha256": "8c52da176b472a79f63b7cce50f29ce66710718beea7631b1cf3b0a2a9910c73",
+        "bytes": 12132
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1754620\\source.json",
+        "sha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+        "bytes": 23000
+      }
+    ],
+    "blockingIssues": [
+      {
+        "severity": "error",
+        "targetId": "79-bilibili-cn:cv1754620:b0005:figure",
+        "sourceEvidence": "原图左侧北家牌河按画面第3行最左侧的7p呈纵向，与该家其余横向舍牌方向相差90°；中央同时显示1根立直棒。后文明确讨论吃7饼破一发。",
+        "description": "候选将北家牌河统一标为顺时针旋转90度，并写“未见……横置牌”，遗漏7p为立直宣言牌的关键状态。",
+        "suggestedRepair": "单独注明该7p相对于北家其他舍牌横置、为立直宣言牌，并修正统一方向说明及“未见横置牌”的表述。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1754620:b0005:figure",
+        "sourceEvidence": "南家牌河按画面第5行第3列存在一张万子牌；候选写“数字未辨清的万子牌”，并在unknowns中重复列为未确定。",
+        "description": "此处缺少确定牌码；本次从所附视图无法可靠确认数字，不能判定逐牌转写完整。",
+        "suggestedRepair": "保留原图与此项未知状态，待可靠辨认该牌数字后补齐确定牌码；在此之前阻断语义完整通过。"
+      }
+    ],
+    "existingVariants": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.display.json",
+        "sha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+        "audits": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1754620.7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737.json",
+            "sha256": "8c52da176b472a79f63b7cce50f29ce66710718beea7631b1cf3b0a2a9910c73",
+            "status": "needs-repair",
+            "blockingIssues": [
+              {
+                "severity": "error",
+                "targetId": "79-bilibili-cn:cv1754620:b0005:figure",
+                "sourceEvidence": "原图左侧北家牌河按画面第3行最左侧的7p呈纵向，与该家其余横向舍牌方向相差90°；中央同时显示1根立直棒。后文明确讨论吃7饼破一发。",
+                "description": "候选将北家牌河统一标为顺时针旋转90度，并写“未见……横置牌”，遗漏7p为立直宣言牌的关键状态。",
+                "suggestedRepair": "单独注明该7p相对于北家其他舍牌横置、为立直宣言牌，并修正统一方向说明及“未见横置牌”的表述。"
+              },
+              {
+                "severity": "uncertain",
+                "targetId": "79-bilibili-cn:cv1754620:b0005:figure",
+                "sourceEvidence": "南家牌河按画面第5行第3列存在一张万子牌；候选写“数字未辨清的万子牌”，并在unknowns中重复列为未确定。",
+                "description": "此处缺少确定牌码；本次从所附视图无法可靠确认数字，不能判定逐牌转写完整。",
+                "suggestedRepair": "保留原图与此项未知状态，待可靠辨认该牌数字后补齐确定牌码；在此之前阻断语义完整通过。"
+              }
+            ]
+          }
+        ],
+        "notAutomaticallySelected": true
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.json",
+        "sha256": "d55d188c3661912fb87039393188efe886946b15b7dcb16a54f539761d69647f",
+        "audits": [],
+        "notAutomaticallySelected": true
+      }
+    ],
+    "pdfBoundary": {
+      "pagesTotal": 3,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        167,
+        168,
+        169
+      ],
+      "pagesDetail": [
+        {
+          "page": 167,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 9
+        },
+        {
+          "page": 168,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 3
+        },
+        {
+          "page": 169,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 3
+        }
+      ]
+    },
+    "modelCallsThisStage": 0
+  },
+  {
+    "chapterId": "nemata-jp-chapter-193-1",
+    "covered": false,
+    "baseVerdictPreserved": "produced-needs-repair",
+    "category": "image-and-terminology",
+    "owner": "COAC-248",
+    "nextAction": "本次真实纯文字制作完成，原父审/原raw/历史失败不变；仅余249一次独立文字靶审，0retry。只核b0081入り目子句及完整b0080–0097论证；6p图修与4unknown影响及7条可见限制继承，不重识牌；实际限制须后续244/250依法安装并读回。",
+    "baseEvidence": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section009.display.json",
+        "sha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+        "bytes": 205462
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section009.abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3.json",
+        "sha256": "8ce0cde5d4eb0d8a8538b6751cd8a3b35b3fa8d3a20d7929fea6d7548bb09ce0",
+        "bytes": 55237
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter03-section009\\source.json",
+        "sha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+        "bytes": 123896
+      }
+    ],
+    "blockingIssues": [
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+        "sourceEvidence": "附件1及附件2下方手牌最右三张，每张均为两枚黑色圆点加四枚红色圆点，即六筒。",
+        "description": "下方手牌末三张被转录为8p8p8p，实际为6p6p6p，改变了三张牌的牌值。",
+        "suggestedRepair": "将下方手牌改为5m 6m 7m 8m 6s 7s 8s 3p 4p 5p 6p 6p 6p。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+        "sourceEvidence": "附件中右侧手牌上方三张索子之后还有三张筒子；候选transcription及unknowns均明确未辨认其点数和赤牌状态。",
+        "description": "这三张实际展示的手牌尚未完成逐牌转录。其牌值及赤色情况属于教学牌桌数据，不能作为无教学意义的界面残痕放行。",
+        "suggestedRepair": "逐张确认右侧手牌自上而下第4至第6张的点数及赤牌状态，补齐后再审；无法可靠辨认时继续保留具体unknowns并阻断完整性通过。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter03-section009:b0081",
+        "sourceEvidence": "原文：“上のような河でリーチが入った場合、入り目でなければまず待ちは”。候选：“只要相关牌不是使其进张听牌的那一张”。",
+        "description": "“入り目”在此区分立直宣言牌与进张侧的关系，候选却表达成相关牌是否就是使其听牌的摸入牌，混淆了切牌与进张牌，并改变后续读牌结论的例外条件。",
+        "suggestedRepair": "改为：“面对上图这样的牌河，有人立直时，若立直宣言牌并非从此次进张完成的面子一侧切出，就基本可以读出其听牌是……”并与后续6m−9m或9m双碰连读。"
+      }
+    ],
+    "existingVariants": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section009.display.json",
+        "sha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+        "audits": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section009.abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3.json",
+            "sha256": "8ce0cde5d4eb0d8a8538b6751cd8a3b35b3fa8d3a20d7929fea6d7548bb09ce0",
+            "status": "needs-repair",
+            "blockingIssues": [
+              {
+                "severity": "error",
+                "targetId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+                "sourceEvidence": "附件1及附件2下方手牌最右三张，每张均为两枚黑色圆点加四枚红色圆点，即六筒。",
+                "description": "下方手牌末三张被转录为8p8p8p，实际为6p6p6p，改变了三张牌的牌值。",
+                "suggestedRepair": "将下方手牌改为5m 6m 7m 8m 6s 7s 8s 3p 4p 5p 6p 6p 6p。"
+              },
+              {
+                "severity": "uncertain",
+                "targetId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+                "sourceEvidence": "附件中右侧手牌上方三张索子之后还有三张筒子；候选transcription及unknowns均明确未辨认其点数和赤牌状态。",
+                "description": "这三张实际展示的手牌尚未完成逐牌转录。其牌值及赤色情况属于教学牌桌数据，不能作为无教学意义的界面残痕放行。",
+                "suggestedRepair": "逐张确认右侧手牌自上而下第4至第6张的点数及赤牌状态，补齐后再审；无法可靠辨认时继续保留具体unknowns并阻断完整性通过。"
+              },
+              {
+                "severity": "error",
+                "targetId": "modern-yabejp-ja:chapter03-section009:b0081",
+                "sourceEvidence": "原文：“上のような河でリーチが入った場合、入り目でなければまず待ちは”。候选：“只要相关牌不是使其进张听牌的那一张”。",
+                "description": "“入り目”在此区分立直宣言牌与进张侧的关系，候选却表达成相关牌是否就是使其听牌的摸入牌，混淆了切牌与进张牌，并改变后续读牌结论的例外条件。",
+                "suggestedRepair": "改为：“面对上图这样的牌河，有人立直时，若立直宣言牌并非从此次进张完成的面子一侧切出，就基本可以读出其听牌是……”并与后续6m−9m或9m双碰连读。"
+              }
+            ]
+          }
+        ],
+        "notAutomaticallySelected": true
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section009.json",
+        "sha256": "bb8a7b6bd8361c9b7aaf2867e623990f70809dc47dc53de9e58d21b9bf627f3b",
+        "audits": [],
+        "notAutomaticallySelected": true
+      }
+    ],
+    "pdfBoundary": {
+      "pagesTotal": 2,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        193,
+        194
+      ],
+      "pagesDetail": [
+        {
+          "page": 193,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 67
+        },
+        {
+          "page": 194,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 15
+        }
+      ]
+    },
+    "modelCallsThisStage": 0,
+    "current193213Authorization": {
+      "commentId": "01a181be-9dce-7647-abb5-1d0f3c67509d",
+      "phase": "returned-repair-needed-exact-b0081-residual",
+      "parentSha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+      "sourceSha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+      "parentAuditSha256": "8ce0cde5d4eb0d8a8538b6751cd8a3b35b3fa8d3a20d7929fea6d7548bb09ce0",
+      "textTarget": "modern-yabejp-ja:chapter03-section009:b0081",
+      "figureTarget": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+      "runtimeManifestSha256": "722e33f454e4b739cf0fccea1c974086c1e63f2b32083048b572f2b0372fec32",
+      "makerBudget": 1,
+      "independentReviewReservedFor249": 0,
+      "retry": 0,
+      "wholeChapterPassed": false,
+      "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.r1.display.json",
+      "candidateSha256": "af8071cfdbaabf8f469f84fa4daa6fd2d7d377c3dc2b277ef766e34a22324ba1",
+      "makerCallId": "da426322-fc53-44d7-8314-66472ff2b31f",
+      "makerUsage": {
+        "inputTokens": 50235,
+        "cachedInputTokens": 0,
+        "outputTokens": 7505
+      },
+      "makerConsumed": 1,
+      "makerRemaining": 0,
+      "handoffPath": "integration/coac248-193213-20261028/193-handoff249.json",
+      "independentReviewConsumed": 1,
+      "chapterPhaseCallsConsumed": 2,
+      "remainingModelBudget": 0
+    },
+    "nextActionBeforeJp193Return": "与79-cn-193不同：b0080末三张6p/8p、右手第4-6张未明牌；b0081“入り目”需同作者原语境。补文术语不替代三张图证。",
+    "jp193FirstIndependentReturn": {
+      "canonical": "nemata-jp-chapter-193-1",
+      "candidateSha256": "af8071cfdbaabf8f469f84fa4daa6fd2d7d377c3dc2b277ef766e34a22324ba1",
+      "independentCallId": "45129550-169e-4015-a297-8726ee5cd9c5",
+      "status": "returned-repair-needed-exact-b0081-residual",
+      "textRepair": {
+        "targetId": "modern-yabejp-ja:chapter03-section009:b0081",
+        "verdict": "needs-repair",
+        "evidence": "原文以「入り目でなければ」保留进张相关的例外，随后才推读6m−9m或9m与其他牌双碰。修订文将例外具体化为两项联立测试：宣言牌与使其听牌的新摸牌不同种，且新摸牌没有补成宣言牌所在一侧的面子。原文及相邻牌列没有给出这两项作为入り目的等价定义；进张也可能直接涉及听牌侧的搭子或对子，不能仅凭是否补成一个面子判定。建议保留「若排除入り目的情形」这一条件，再接原文的两种听牌可能性，避免把未证实的细分条件写成原文判定式。"
+      },
+      "figureRepair": {
+        "targetId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+        "verdict": "faithful",
+        "evidence": "仅核指定牌位：原图下方手牌最右三张各有上方两枚黑点、下方四枚红点，为正立的6p；由8p 8p 8p改为6p 6p 6p与图一致。红色圆点是牌面图案，不能据此认定赤牌。两倍图只是同源放大，并非新增证据。此结论仅覆盖指定修订，不构成全图逐牌通过。"
+      },
+      "unknownImpact": [
+        {
+          "unknownText": "右侧手牌从画面上方起第4、5、6张筒子的具体点数及赤牌状态无法可靠辨认。",
+          "positionConfirmed": true,
+          "displayFaithful": true,
+          "authorArgumentFaithfulWithUnknown": true,
+          "requiresExactValueForAuthorArgument": false,
+          "evidence": "三张待辨筒子的位置可定位；图对象的转录保留三个未知牌位，unknowns另明确点数和赤牌状态均未知。该未知本身不妨碍转述作者在b0081—b0097写出的条件性读牌、概率和建议，也不妨碍转述6p→3p的另一个假设。它确实妨碍完整逐牌、可见张数及实际安全度的独立核验；这些核验不是原文展示其主张所必需的证明。b0081的翻译问题是另行存在的缺陷。这里对展示的判断以转录和unknowns共同可见为条件，输入未提供实际渲染页面。",
+          "requiredDisplayLimitations": [
+            "以可见编者注标明右侧手牌自上而下第4、5、6张的点数及赤牌状态均未确认；三个位置须保留，不能填入推测牌值。",
+            "不得把该不完整转录称为完整精确牌谱，或据未知牌断言完整可见张数、实际安全度或概率。"
+          ],
+          "minimumUncoveredTeachingContribution": "没有因这三张未知而无法转述的作者明确命题；无法独立核实完整牌谱、张数和实战风险，应保留这一限制。"
+        },
+        {
+          "unknownText": "右上6z副露组中，各张牌相对该玩家的精确横置关系无法可靠辨认；只能确认最上方一张向左突出。",
+          "positionConfirmed": true,
+          "displayFaithful": true,
+          "authorArgumentFaithfulWithUnknown": true,
+          "requiresExactValueForAuthorArgument": false,
+          "evidence": "右上副露组的位置及最上方牌向左突出可定位；对各牌相对玩家的精确横置关系，图对象保留unknown，没有补成确定方向。本次不重新认读字牌。作者的目标读牌命题并未以该组的精确横置关系为条件。图对象诚实展示的判断以unknowns实际可见为条件。",
+          "requiredDisplayLimitations": [
+            "以可见编者注说明该组各牌相对玩家的精确横置关系未确认，仅最上方一张可确认向左突出。",
+            "不得将未知方向补画为确定的横置关系或据此指定鸣牌来源。"
+          ],
+          "minimumUncoveredTeachingContribution": "没有未覆盖的作者明确命题；该组不能作为精确副露方向和来源的证明。"
+        },
+        {
+          "unknownText": "中央两枚骰子的具体点数无法可靠辨认。",
+          "positionConfirmed": true,
+          "displayFaithful": true,
+          "authorArgumentFaithfulWithUnknown": true,
+          "requiresExactValueForAuthorArgument": false,
+          "evidence": "两枚骰子位于中央显示区；图对象明确写出点数无法可靠辨认。作者的宝牌读牌、听牌可能性、概率主张和建议没有以这两个骰子的点数为条件。图对象诚实展示的判断以该限制实际可见为条件。",
+          "requiredDisplayLimitations": [
+            "以可见编者注保留中央两枚骰子点数未知，不给出猜测值。"
+          ],
+          "minimumUncoveredTeachingContribution": "无；骰子点数并非作者所写读牌命题的必要条件。"
+        },
+        {
+          "unknownText": "底部“半”“食”之后黄色圆形标记内的字样，以及相邻小型状态图标内的细字、筒子图案点数和最右圆形图标内容无法可靠辨认。",
+          "positionConfirmed": true,
+          "displayFaithful": true,
+          "authorArgumentFaithfulWithUnknown": true,
+          "requiresExactValueForAuthorArgument": false,
+          "evidence": "这些项目位于底部状态栏，图对象的unknowns逐项保留字样、细字、筒子图案点数及最右图标内容未知。作者没有把这些具体图标内容作为所述读牌结论的条件。转录和unknowns共同展示时没有虚构细节；实际页面如何展示未在输入中提供。",
+          "requiredDisplayLimitations": [
+            "以可见编者注说明黄色标记字样、相邻图标细字和筒子点数、最右圆形图标内容均未确认，不补写或补画。",
+            "这些限制是编者对图像可辨性的说明，不应呈现为原作者的文字。"
+          ],
+          "minimumUncoveredTeachingContribution": "无；这些界面细节的精确内容不是作者所写读牌命题的必要条件。"
+        }
+      ],
+      "argumentChecks": [
+        {
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter03-section009:b0002",
+            "modern-yabejp-ja:chapter03-section009:b0003",
+            "modern-yabejp-ja:chapter03-section009:b0004",
+            "modern-yabejp-ja:chapter03-section009:b0005"
+          ],
+          "authorContribution": "宝牌，尤其是中张宝牌，可能是读对手手牌的有力信息；切宝牌立直的讨论也包括默听及副露后听牌。作者区分单骑、嵌张设筋陷阱与跨宝牌安全的推读。",
+          "preservedConditionsAndModality": "除非切宝牌后打点仍足够，例如另有宝牌、从宝牌暗刻切出涉及七对子或门清混一色七对子等罕见情况，否则单骑几乎没有，嵌张的直接设筋陷阱可能性也低；并非绝对排除。宝牌留到听牌很自然，难以锁定特定形。跨宝牌通过概率相对增加，不等于比其他无筋牌特别安全。",
+          "faithfulWithCurrentUnknown": true,
+          "evidence": "这些一般性命题及其例外、概率语气均由原文和对应候选文字直接给出，不依赖图中四项未知。"
+        },
+        {
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter03-section009:b0006",
+            "modern-yabejp-ja:chapter03-section009:b0007",
+            "modern-yabejp-ja:chapter03-section009:b0008",
+            "modern-yabejp-ja:chapter03-section009:b0009",
+            "modern-yabejp-ja:chapter03-section009:b0011",
+            "modern-yabejp-ja:chapter03-section009:b0013",
+            "modern-yabejp-ja:chapter03-section009:b0015",
+            "modern-yabejp-ja:chapter03-section009:b0017",
+            "modern-yabejp-ja:chapter03-section009:b0019",
+            "modern-yabejp-ja:chapter03-section009:b0020"
+          ],
+          "authorContribution": "听牌前切宝牌可提供较强信息：宝牌成为待牌相关牌的可能性显著降低。作者用两组内联牌形说明罕见例外。",
+          "preservedConditionsAndModality": "例外包括给定牌形在宝牌4p时切4p、另一给定牌形在宝牌6p时切6p：保留宝牌也未必明显提高打点，切掉甚至可能因牌役提高打点；同时保留宝牌可能使听牌变差、牌役更难确定或消失。因为须设想限定牌形，作者称其罕见，并非不可能。",
+          "faithfulWithCurrentUnknown": true,
+          "evidence": "按实际顺序连读b0008、两组牌列、宝牌与切牌标示及b0020；此论证不依赖目标截图中的未知牌或图标。"
+        },
+        {
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter03-section009:b0021",
+            "modern-yabejp-ja:chapter03-section009:b0023",
+            "modern-yabejp-ja:chapter03-section009:b0025",
+            "modern-yabejp-ja:chapter03-section009:b0027",
+            "modern-yabejp-ja:chapter03-section009:b0029",
+            "modern-yabejp-ja:chapter03-section009:b0031",
+            "modern-yabejp-ja:chapter03-section009:b0033",
+            "modern-yabejp-ja:chapter03-section009:b0035",
+            "modern-yabejp-ja:chapter03-section009:b0036",
+            "modern-yabejp-ja:chapter03-section009:b0037",
+            "modern-yabejp-ja:chapter03-section009:b0039",
+            "modern-yabejp-ja:chapter03-section009:b0041",
+            "modern-yabejp-ja:chapter03-section009:b0043",
+            "modern-yabejp-ja:chapter03-section009:b0045",
+            "modern-yabejp-ja:chapter03-section009:b0047",
+            "modern-yabejp-ja:chapter03-section009:b0049",
+            "modern-yabejp-ja:chapter03-section009:b0051",
+            "modern-yabejp-ja:chapter03-section009:b0053",
+            "modern-yabejp-ja:chapter03-section009:b0055",
+            "modern-yabejp-ja:chapter03-section009:b0056"
+          ],
+          "authorContribution": "作者比较宝牌位于8m和5p时，听牌前切宝牌所提供的信息强度。",
+          "preservedConditionsAndModality": "8m宝牌时，大致可排除6m−9m两面、7m与9m双碰、边7m及嵌5m或7m；5p宝牌时，除边3p、2p与8p双碰、1p−4p或6p−9p两面等列出的情况外，2p至8p几乎都能通过。宝牌越靠近中间，信息越强；「大致」「几乎」及前述例外不能改成绝对安全。",
+          "faithfulWithCurrentUnknown": true,
+          "evidence": "按原有内联牌和连接文字顺序读取，保留全部列举的听牌类型与近似语气；右侧未知筒子不决定这些一般例子的文字内容。"
+        },
+        {
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter03-section009:b0057",
+            "modern-yabejp-ja:chapter03-section009:b0058",
+            "modern-yabejp-ja:chapter03-section009:b0059",
+            "modern-yabejp-ja:chapter03-section009:b0060",
+            "modern-yabejp-ja:chapter03-section009:b0061",
+            "modern-yabejp-ja:chapter03-section009:b0062",
+            "modern-yabejp-ja:chapter03-section009:b0064",
+            "modern-yabejp-ja:chapter03-section009:b0066",
+            "modern-yabejp-ja:chapter03-section009:b0068",
+            "modern-yabejp-ja:chapter03-section009:b0069",
+            "modern-yabejp-ja:chapter03-section009:b0070"
+          ],
+          "authorContribution": "作者认为后来切出的相关牌原属两面子完全形的情况较多，并说明两面子余牌形、靠张形和无雀头形为何相对减少。",
+          "preservedConditionsAndModality": "宝牌通常适合留作孤立牌，故两面子余牌形难以设想；例外包括一色手等特殊手，以及重视防守而保留安全牌。靠张形也较少，宝牌靠近端牌时为了靠张张数切宝牌并不少见，但宝牌为3至7时尤其少。无雀头形仅略减：1123m中若1m为宝牌，拆23m保留宝牌雀头等打点理由可能改变选择；这些形仍未达到可以排除的程度。",
+          "faithfulWithCurrentUnknown": true,
+          "evidence": "b0057—b0070均为一般推读及指定内联例子，保留各例外和强弱程度，无需读出目标图的未知细节。"
+        },
+        {
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter03-section009:b0071",
+            "modern-yabejp-ja:chapter03-section009:b0072",
+            "modern-yabejp-ja:chapter03-section009:b0074",
+            "modern-yabejp-ja:chapter03-section009:b0076",
+            "modern-yabejp-ja:chapter03-section009:b0077",
+            "modern-yabejp-ja:chapter03-section009:b0078",
+            "modern-yabejp-ja:chapter03-section009:b0079"
+          ],
+          "authorContribution": "结合宝牌5p先切、随后2p立直这样的情况，作者认为两面子完全形的可能性接近100%。",
+          "preservedConditionsAndModality": "该判断依赖5p→2p且宝牌为5p这一组合；作者仍举出无雀头形持有2p 2p 2p 5p作为可想到的例外，因此不能改成绝对确定。",
+          "faithfulWithCurrentUnknown": true,
+          "evidence": "原文内联5p、2p、宝牌5p和例外牌列均有对应候选并保持顺序；目标图未知不影响转述。"
+        },
+        {
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter03-section009:b0080",
+            "modern-yabejp-ja:chapter03-section009:b0081",
+            "modern-yabejp-ja:chapter03-section009:b0082",
+            "modern-yabejp-ja:chapter03-section009:b0084",
+            "modern-yabejp-ja:chapter03-section009:b0086",
+            "modern-yabejp-ja:chapter03-section009:b0087"
+          ],
+          "authorContribution": "面对图示牌河有人立直时，排除入り目情形后，作者认为大致可以读出6m−9m两面，或者9m与某张牌双碰。",
+          "preservedConditionsAndModality": "必须保留入り目例外、两种备选听牌及「首先、大致可读出」的语气；不可将某一听牌当作已经证明的暗手。",
+          "faithfulWithCurrentUnknown": false,
+          "evidence": "三张下方6p的图像修订正确，四项保留未知不阻断该作者命题；但b0081将入り目具体化为原文未确立等价关系的两个联立条件，需先修复。"
+        },
+        {
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter03-section009:b0081",
+            "modern-yabejp-ja:chapter03-section009:b0088",
+            "modern-yabejp-ja:chapter03-section009:b0089",
+            "modern-yabejp-ja:chapter03-section009:b0090",
+            "modern-yabejp-ja:chapter03-section009:b0091",
+            "modern-yabejp-ja:chapter03-section009:b0092",
+            "modern-yabejp-ja:chapter03-section009:b0094",
+            "modern-yabejp-ja:chapter03-section009:b0095",
+            "modern-yabejp-ja:chapter03-section009:b0096",
+            "modern-yabejp-ja:chapter03-section009:b0097"
+          ],
+          "authorContribution": "作者称9m放铳概率约50%，6m也有25%以上；即使自己听牌，除非手牌非常值得一搏，否则不应切。作者又称即使是宝牌6p→3p的情况，3p附近也比F级牌危险。",
+          "preservedConditionsAndModality": "保留约50%、25%以上、即使听牌及值得一搏的例外，以及6p→3p的条件。前两项概率与前述入り目条件和两种推读相连；不得将它们改为保证命中，或将作者建议改为已证明的全局最优。",
+          "faithfulWithCurrentUnknown": false,
+          "evidence": "候选保留了数值、建议和后一个条件性比较，但其前置入り目条件仍需修复。四项图像未知不妨碍引用作者的主张；这不等于独立验证完整牌谱、真实安全度、可见张数、概率或最优决策。"
+        }
+      ],
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+          "description": "原审问题，保留原severity：旧图转录将下方手牌末三张写为8p 8p 8p，实际为6p 6p 6p。当前指定替换已修正这一旧错误；这不改写原审记录。",
+          "evidence": "原图指定牌位三张均为六筒；新旧完整图对象的指定差异为末三张从8p改为6p。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter03-section009:b0080:figure",
+          "description": "原审问题，保留原severity：右侧手牌三张筒子的点数及赤牌状态尚未完成逐牌确认，不能当作无教学意义的界面残痕放行，也不能据此给予完整牌谱通过。",
+          "evidence": "原图对应三个牌位存在；候选转录和unknowns保留具体未知。此次仅认定在实际展示限制的前提下，未知不妨碍转述作者明确命题，不把该有限结论改写为原审通过。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter03-section009:b0081",
+          "description": "原审问题，保留原severity：旧候选将入り目表达成相关牌是否就是使其进张听牌的摸入牌，原审认为这混淆了切牌与进张关系并改变例外条件。",
+          "evidence": "旧候选为「只要相关牌不是使其进张听牌的那一张」；原文为「入り目でなければ」。该记录针对旧候选，不能自动作为新候选语义正确的证明。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter03-section009:b0081",
+          "description": "当前修订仍需修复：它将入り目例外写成「宣言牌不同种」与「新摸牌未补成宣言侧面子」两个联立条件，原文未确立两者与入り目例外等价。",
+          "evidence": "连读b0081及b0082—b0087，原文只在排除入り目情形后提出6m−9m或9m双碰两种推读；后续牌列没有给出修订文新增的双重判定式。"
+        }
+      ],
+      "verification": {
+        "limitedEvidenceVerified": false,
+        "errors": [
+          "textRepair_not_faithful",
+          "argument_or_order_gap",
+          "no_limited_allowance"
+        ],
+        "requiredDisplayLimitations": [
+          "以可见编者注标明右侧手牌自上而下第4、5、6张的点数及赤牌状态均未确认；三个位置须保留，不能填入推测牌值。",
+          "不得把该不完整转录称为完整精确牌谱，或据未知牌断言完整可见张数、实际安全度或概率。",
+          "以可见编者注说明该组各牌相对玩家的精确横置关系未确认，仅最上方一张可确认向左突出。",
+          "不得将未知方向补画为确定的横置关系或据此指定鸣牌来源。",
+          "以可见编者注保留中央两枚骰子点数未知，不给出猜测值。",
+          "以可见编者注说明黄色标记字样、相邻图标细字和筒子点数、最右圆形图标内容均未确认，不补写或补画。",
+          "这些限制是编者对图像可辨性的说明，不应呈现为原作者的文字。"
+        ],
+        "wholeChapterPassed": false,
+        "admissionGranted": false,
+        "originalIssuesPreserved": true,
+        "meaning": "Only independent limited target/impact evidence. Every required display limitation and remaining author contribution must be mapped to legal exact admission and actual readback by250."
+      },
+      "orderedContextFaithful": false,
+      "originalFalseRetained": true,
+      "minimumResidual": {
+        "targetId": "modern-yabejp-ja:chapter03-section009:b0081",
+        "originalJapanese": "上のような河でリーチが入った場合、入り目でなければまず待ちは",
+        "currentChinese": "面对上图这样的牌河，有人立直时，只要立直宣言牌不是使其听牌时新摸入的同种牌，且新摸入的牌没有补成宣言牌所在一侧的面子，就基本可以读出其听牌是",
+        "independentRejection": "原文以「入り目でなければ」保留进张相关的例外，随后才推读6m−9m或9m与其他牌双碰。修订文将例外具体化为两项联立测试：宣言牌与使其听牌的新摸牌不同种，且新摸牌没有补成宣言牌所在一侧的面子。原文及相邻牌列没有给出这两项作为入り目的等价定义；进张也可能直接涉及听牌侧的搭子或对子，不能仅凭是否补成一个面子判定。建议保留「若排除入り目的情形」这一条件，再接原文的两种听牌可能性，避免把未证实的细分条件写成原文判定式。",
+        "affectedAuthorContributions": [
+          {
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section009:b0080",
+              "modern-yabejp-ja:chapter03-section009:b0081",
+              "modern-yabejp-ja:chapter03-section009:b0082",
+              "modern-yabejp-ja:chapter03-section009:b0084",
+              "modern-yabejp-ja:chapter03-section009:b0086",
+              "modern-yabejp-ja:chapter03-section009:b0087"
+            ],
+            "authorContribution": "面对图示牌河有人立直时，排除入り目情形后，作者认为大致可以读出6m−9m两面，或者9m与某张牌双碰。",
+            "preservedConditionsAndModality": "必须保留入り目例外、两种备选听牌及「首先、大致可读出」的语气；不可将某一听牌当作已经证明的暗手。",
+            "faithfulWithCurrentUnknown": false,
+            "evidence": "三张下方6p的图像修订正确，四项保留未知不阻断该作者命题；但b0081将入り目具体化为原文未确立等价关系的两个联立条件，需先修复。"
+          },
+          {
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section009:b0081",
+              "modern-yabejp-ja:chapter03-section009:b0088",
+              "modern-yabejp-ja:chapter03-section009:b0089",
+              "modern-yabejp-ja:chapter03-section009:b0090",
+              "modern-yabejp-ja:chapter03-section009:b0091",
+              "modern-yabejp-ja:chapter03-section009:b0092",
+              "modern-yabejp-ja:chapter03-section009:b0094",
+              "modern-yabejp-ja:chapter03-section009:b0095",
+              "modern-yabejp-ja:chapter03-section009:b0096",
+              "modern-yabejp-ja:chapter03-section009:b0097"
+            ],
+            "authorContribution": "作者称9m放铳概率约50%，6m也有25%以上；即使自己听牌，除非手牌非常值得一搏，否则不应切。作者又称即使是宝牌6p→3p的情况，3p附近也比F级牌危险。",
+            "preservedConditionsAndModality": "保留约50%、25%以上、即使听牌及值得一搏的例外，以及6p→3p的条件。前两项概率与前述入り目条件和两种推读相连；不得将它们改为保证命中，或将作者建议改为已证明的全局最优。",
+            "faithfulWithCurrentUnknown": false,
+            "evidence": "候选保留了数值、建议和后一个条件性比较，但其前置入り目条件仍需修复。四项图像未知不妨碍引用作者的主张；这不等于独立验证完整牌谱、真实安全度、可见张数、概率或最优决策。"
+          }
+        ],
+        "minimumRepairTextBlockIds": [
+          "modern-yabejp-ja:chapter03-section009:b0081"
+        ],
+        "reviewContextSourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section009:b0080",
+          "modern-yabejp-ja:chapter03-section009:b0081",
+          "modern-yabejp-ja:chapter03-section009:b0082",
+          "modern-yabejp-ja:chapter03-section009:b0083",
+          "modern-yabejp-ja:chapter03-section009:b0084",
+          "modern-yabejp-ja:chapter03-section009:b0085",
+          "modern-yabejp-ja:chapter03-section009:b0086",
+          "modern-yabejp-ja:chapter03-section009:b0087",
+          "modern-yabejp-ja:chapter03-section009:b0088",
+          "modern-yabejp-ja:chapter03-section009:b0089",
+          "modern-yabejp-ja:chapter03-section009:b0090",
+          "modern-yabejp-ja:chapter03-section009:b0091",
+          "modern-yabejp-ja:chapter03-section009:b0092",
+          "modern-yabejp-ja:chapter03-section009:b0093",
+          "modern-yabejp-ja:chapter03-section009:b0094",
+          "modern-yabejp-ja:chapter03-section009:b0095",
+          "modern-yabejp-ja:chapter03-section009:b0096",
+          "modern-yabejp-ja:chapter03-section009:b0097"
+        ],
+        "futureBoundaryOnly": "If separately authorized, repair only b0081 exception wording with complete b0080-b0097 argument and inline tiles. Inherit the exact unchanged independently faithful6p target/other96blocks/40figures and all4unknowns; keep all7non-author limitations for future actual display. Reviewer suggestion is not a produced or accepted replacement.",
+        "currentlyAuthorizedCalls": 0
+      },
+      "remainingModelBudget": 0,
+      "phaseCallsConsumed": 2,
+      "noAdditionalIdentificationTasks": true,
+      "displayLimitationsInstalled": false,
+      "wholeChapterPassed": false,
+      "admissionGranted": false,
+      "verificationPath": "integration/coac248-jp193-return-20261028/verification.json",
+      "existingOwnerDelivery": {
+        "selectedWeb": [],
+        "registerCovered": false,
+        "existing244Wakeup": "01a181dc-8181-7dfa-945b-0ef063e40d26",
+        "existing244Run": "01a181dd-906c-7962-9a06-147960d6b505",
+        "existing250Wakeup": "01a181dc-8606-70c6-ba21-469b3dd6b677",
+        "newDispatches": 0
+      },
+      "newModelCalls": 0
+    },
+    "textRecovery193234": {
+      "schema": "coac248-193234-text-recovery-handoff/1",
+      "recordedAt": "2026-10-28T09:59:02.630427+00:00",
+      "authorizationCommentId": "01a181e7-d3dc-76f2-adb8-00cbb4f4e332",
+      "canonical": "nemata-jp-chapter-193-1",
+      "bindings": [
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.r2.display.json",
+          "sha256": "f3c960182adb5913b82f22504b703cc8fe6d69561acc8c7f43c19e364184e7d7",
+          "bytes": 203377
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.r1.display.json",
+          "sha256": "af8071cfdbaabf8f469f84fa4daa6fd2d7d377c3dc2b277ef766e34a22324ba1",
+          "bytes": 207848
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-jp193-target-impact-reviewed-20261028.json",
+          "sha256": "a70006b0e912a7089bf2ae7cebd3d9e366275ca3e25cc8a3ea1356335b410b6c",
+          "bytes": 37844
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/web-sources/v1/modern-yabejp-ja/articles/chapter03-section009/source.json",
+          "sha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+          "bytes": 123896
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/release.json",
+          "sha256": "09173a6b76f75fb1c0f8f1ed85813c94e78e5aef83712795fe1e848bdab33e1b",
+          "bytes": 14748
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/review.mjs",
+          "sha256": "09bbaa4254fba82c5b9934856146b4df301077b0a15a84619c55baa01afd9982",
+          "bytes": 8599
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/run.mjs",
+          "sha256": "b7dd831b8500005bc843493e46aed52cd0da81816b909bfe3d1361cd464f110d",
+          "bytes": 16794
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/193-review-plan.json",
+          "sha256": "d45fcdf55ab69723882d37f63383d0a0370187db7443d476544eeb391970a546",
+          "bytes": 415442
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/chapter03-section009-production.json",
+          "sha256": "a4400343cb210be62a003cf6d1cb46be45f70ea6c44f2c55905403b0d1b93061",
+          "bytes": 44064
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/1f923bbe-3124-4975-be79-4551ea607ab3.json",
+          "sha256": "9abc9cf1d41efafa369e22bf2588ee3c50b3763e86678e18e2a36a73234780b8",
+          "bytes": 966555
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac248-193234-text-v1-20261028/runtime-manifest.json",
+          "sha256": "aa0239b728832854641f964760f2affa4efd9e6eb6f960e69b17ee9f0d0c08c2",
+          "bytes": 18007
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/audit/calls/45129550-169e-4015-a297-8726ee5cd9c5.json",
+          "sha256": "0098bd9a196c7f711cb1d953c2148ff9d9ff1a4f852333bb2efa90dab244a6a4",
+          "bytes": 395893
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-jp193-display-and-residual-20261028.json",
+          "sha256": "844bc0a6989a0d1c8c1681101d1f41ae94554ed22170fac0b553638f4c6759b3",
+          "bytes": 20197
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-jp193-scope-inheritance-20261028.json",
+          "sha256": "6195fc8abb583f795bd3e54832c26bc67aa698aa39c28c49304757104d491ecf",
+          "bytes": 31111
+        }
+      ],
+      "candidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.r2.display.json",
+        "sha256": "f3c960182adb5913b82f22504b703cc8fe6d69561acc8c7f43c19e364184e7d7"
+      },
+      "source": {
+        "path": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section009/source.json",
+        "sha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743"
+      },
+      "parent": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.r1.display.json",
+        "sha256": "af8071cfdbaabf8f469f84fa4daa6fd2d7d377c3dc2b277ef766e34a22324ba1"
+      },
+      "parentReview": {
+        "path": "integration/coac249-jp193-target-impact-reviewed-20261028.json",
+        "sha256": "a70006b0e912a7089bf2ae7cebd3d9e366275ca3e25cc8a3ea1356335b410b6c"
+      },
+      "productionCall": "1f923bbe-3124-4975-be79-4551ea607ab3",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "images": [],
+      "usage": {
+        "inputTokens": 161992,
+        "cachedInputTokens": 0,
+        "outputTokens": 138
+      },
+      "fee": "unknown",
+      "remoteWeights": "unknown",
+      "upstreamExecutions": "unknown",
+      "diff": {
+        "path": "/body/blocks/80/text",
+        "from": "面对上图这样的牌河，有人立直时，只要立直宣言牌不是使其听牌时新摸入的同种牌，且新摸入的牌没有补成宣言牌所在一侧的面子，就基本可以读出其听牌是",
+        "to": "面对上图这样的牌河，有人立直时，若排除入り目的情形，就基本可以读出其听牌是"
+      },
+      "preservation": {
+        "allNonTargetBodyBytes": true,
+        "allCompleteFiguresBytes": true,
+        "unknownsUnchanged": true,
+        "captionAndSourceNotesUnchanged": true,
+        "orderUnchanged": true
+      },
+      "budget": {
+        "thisItemMaximum": 2,
+        "makerConsumed": 1,
+        "reservedIndependentTextReview": 1,
+        "retry": 0,
+        "failedVoidCount": true,
+        "prior193PhaseConsumed": 2,
+        "old234Timeout": null,
+        "noBudgetBorrowing": true
+      },
+      "reviewEntry": {
+        "module": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/review.mjs",
+        "prepare": "prepare193234TextReview(root,\"193\")",
+        "verify": "verify193234TextReviewExecution(result,plan)",
+        "publishedPlan": "E:/AgentData/Coach/knowledge/processing/integration/coac248-193234-text-20261028/193-review-plan.json",
+        "publishedPlanSha256": "d45fcdf55ab69723882d37f63383d0a0370187db7443d476544eeb391970a546",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high",
+        "images": [],
+        "scope": "Only one complete text target with full ordered argument, no image or full-chapter review"
+      },
+      "chapterAccepted": false,
+      "wholeChapterPassed": false,
+      "admissionGranted": false,
+      "independentRequiredDisplayLimitationsInstalled": false
+    },
+    "modelCallsThisRecoveryStage": 1
+  },
+  {
+    "chapterId": "nemata-jp-chapter-213-1",
+    "covered": false,
+    "baseVerdictPreserved": "produced-needs-repair",
+    "category": "image-and-terminology",
+    "owner": "COAC-248",
+    "nextAction": "b0017入り目条件限定与b0032左家7p分别定点；对家字牌/两家点数未知仍需源图补证，不能由牌理推。",
+    "baseEvidence": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.display.json",
+        "sha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+        "bytes": 107372
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+        "sha256": "a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc",
+        "bytes": 37129
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter03-section026\\source.json",
+        "sha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+        "bytes": 62908
+      }
+    ],
+    "blockingIssues": [
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter03-section026:b0017",
+        "sourceEvidence": "テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+        "description": "“入り目でもなければ”不是泛指“不是因为进张而打出的”。原文排除的是该牌周边属于进张完成面子一侧的情况；候选译法模糊了判断待牌位置的重要例外。",
+        "suggestedRepair": "改为明确表达：听牌时切出的牌若并非留作安全牌，且其周边也不是进张完成面子的部分，那么其周边就是待牌所在。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+        "sourceEvidence": "附图左家牌河外侧左列从图像上至下第2张为7p；末段原文说对家很可能持有至少一张7p，因此7p最多只剩两张。",
+        "description": "候选将这张可见7p写作“点数不清的筒子牌”，遗漏了直接影响剩余张数论证的明牌。",
+        "suggestedRepair": "将左家外列第2张补为7p，同时更新对应红线说明及unknowns；保留其顺时针旋转90°和摸切标记。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+        "sourceEvidence": "候选将对家靠中央一排最左端字牌，以及中央上方、左侧的完整点数列为无法辨认。",
+        "description": "这些属于牌局牌码和数值数据，本次无法可靠确认其准确转录，不能作为非教学边缘残痕直接放行。",
+        "suggestedRepair": "复核附图中该字牌及两家点数，补录能够确定的内容；确实无法辨认的继续如实标未知并保留原图，但在相关歧义解决前保持阻断。"
+      }
+    ],
+    "existingVariants": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.display.json",
+        "sha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+        "audits": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+            "sha256": "a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc",
+            "status": "needs-repair",
+            "blockingIssues": [
+              {
+                "severity": "error",
+                "targetId": "modern-yabejp-ja:chapter03-section026:b0017",
+                "sourceEvidence": "テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。",
+                "description": "“入り目でもなければ”不是泛指“不是因为进张而打出的”。原文排除的是该牌周边属于进张完成面子一侧的情况；候选译法模糊了判断待牌位置的重要例外。",
+                "suggestedRepair": "改为明确表达：听牌时切出的牌若并非留作安全牌，且其周边也不是进张完成面子的部分，那么其周边就是待牌所在。"
+              },
+              {
+                "severity": "error",
+                "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+                "sourceEvidence": "附图左家牌河外侧左列从图像上至下第2张为7p；末段原文说对家很可能持有至少一张7p，因此7p最多只剩两张。",
+                "description": "候选将这张可见7p写作“点数不清的筒子牌”，遗漏了直接影响剩余张数论证的明牌。",
+                "suggestedRepair": "将左家外列第2张补为7p，同时更新对应红线说明及unknowns；保留其顺时针旋转90°和摸切标记。"
+              },
+              {
+                "severity": "uncertain",
+                "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+                "sourceEvidence": "候选将对家靠中央一排最左端字牌，以及中央上方、左侧的完整点数列为无法辨认。",
+                "description": "这些属于牌局牌码和数值数据，本次无法可靠确认其准确转录，不能作为非教学边缘残痕直接放行。",
+                "suggestedRepair": "复核附图中该字牌及两家点数，补录能够确定的内容；确实无法辨认的继续如实标未知并保留原图，但在相关歧义解决前保持阻断。"
+              }
+            ]
+          }
+        ],
+        "notAutomaticallySelected": true
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.json",
+        "sha256": "8c8e9b06b51a50ad502d39d71a1530009d2c4c72e7e6f602c0d313f0d78aa5ec",
+        "audits": [],
+        "notAutomaticallySelected": true
+      }
+    ],
+    "pdfBoundary": {
+      "pagesTotal": 3,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        213,
+        214,
+        215
+      ],
+      "pagesDetail": [
+        {
+          "page": 213,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 44
+        },
+        {
+          "page": 214,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 3
+        },
+        {
+          "page": 215,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 33
+        }
+      ]
+    },
+    "modelCallsThisStage": 0,
+    "current193213Authorization": {
+      "commentId": "01a181be-9dce-7647-abb5-1d0f3c67509d",
+      "phase": "real-mixed-maker-completed-awaiting-independent-combined-target-impact-review",
+      "parentSha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+      "sourceSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+      "parentAuditSha256": "a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc",
+      "textTarget": "modern-yabejp-ja:chapter03-section026:b0017",
+      "figureTarget": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+      "runtimeManifestSha256": "722e33f454e4b739cf0fccea1c974086c1e63f2b32083048b572f2b0372fec32",
+      "makerBudget": 1,
+      "independentReviewReservedFor249": 1,
+      "retry": 0,
+      "wholeChapterPassed": false,
+      "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.r1.display.json",
+      "candidateSha256": "a667937d4e119a1b22659fc60987f07d3eea9d246c8b2b6ddabcdacb4fe5dd47",
+      "makerCallId": "aa40d762-02aa-4855-a0f7-4104167d3ad9",
+      "makerUsage": {
+        "inputTokens": 33619,
+        "cachedInputTokens": 0,
+        "outputTokens": 6220
+      },
+      "makerConsumed": 1,
+      "makerRemaining": 0,
+      "handoffPath": "integration/coac248-193213-20261028/213-handoff249.json"
+    }
+  },
+  {
+    "chapterId": "nemata-jp-chapter-224-1",
+    "covered": false,
+    "baseVerdictPreserved": "produced-needs-repair",
+    "category": "chart-quantitative-repair",
+    "owner": "COAC-248",
+    "nextAction": "b0013保留7系列x15巡图，原轴坐标可机械形成空表；读数需明确约值与误差，图例自摸译名定点修，不把相关率或曲线走向替代105格定量独审。",
+    "baseEvidence": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.display.json",
+        "sha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+        "bytes": 34202
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json",
+        "sha256": "112ca259dd236a649e3fbbac885c5056452a262a1ecb47735faba6bf9049a3b2",
+        "bytes": 18385
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section005\\source.json",
+        "sha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+        "bytes": 26374
+      }
+    ],
+    "blockingIssues": [
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+        "sourceEvidence": "原图展示第1—15巡的流局率、放铳率、和了时自摸比例、立直棒没收率、和牌率、被自摸率及和了时一发比例七条曲线。",
+        "description": "候选仅记录曲线走势，以无法精确读取为由未转录逐巡近似值，遗漏可从图中读取的定量教学信息。未标注精确值不等于无法提供近似读数。",
+        "suggestedRepair": "补充第1—15巡、七个系列的近似读数表，所有读数明确标为约值，无法可靠分辨的个别点单独说明。例如第1巡和牌率约63%、流局率约10%；第13巡和牌率约30%；第15巡流局率约75%、和牌率约20%。继续保留原图及精确数值未标注的说明。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+        "sourceEvidence": "橙色图例为「和了時ツモ割合」，深绿色图例为「被ツモ率」。",
+        "description": "「和牌时摸入比例」「被摸入率」没有明确表达自摸和牌，尤其「被摸入率」无法清楚对应被他家自摸这一统计事件。",
+        "suggestedRepair": "分别改为「和牌中自摸所占比例」和「被他家自摸率」，并同步修正曲线说明及unknowns中的系列名称。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "modern-yabejp-ja:chapter04-section005:b0008",
+        "sourceEvidence": "源文先给出36.765%，再称其他家和牌概率为10%就会低于里宝牌率；前文里宝牌率约为三成。",
+        "description": "按前文公式及30%的参照值计算，36.765%×90%=33.0885%，尚未低于30%。这是源文数值论证的疑点，候选忠实保留，不属于翻译错误。",
+        "suggestedRepair": "保留忠实译文；如添加校注，应明确这是原文数值疑点，不要静默修改原文概率或结论。"
+      }
+    ],
+    "existingVariants": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.display.json",
+        "sha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+        "audits": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json",
+            "sha256": "112ca259dd236a649e3fbbac885c5056452a262a1ecb47735faba6bf9049a3b2",
+            "status": "needs-repair",
+            "blockingIssues": [
+              {
+                "severity": "error",
+                "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+                "sourceEvidence": "原图展示第1—15巡的流局率、放铳率、和了时自摸比例、立直棒没收率、和牌率、被自摸率及和了时一发比例七条曲线。",
+                "description": "候选仅记录曲线走势，以无法精确读取为由未转录逐巡近似值，遗漏可从图中读取的定量教学信息。未标注精确值不等于无法提供近似读数。",
+                "suggestedRepair": "补充第1—15巡、七个系列的近似读数表，所有读数明确标为约值，无法可靠分辨的个别点单独说明。例如第1巡和牌率约63%、流局率约10%；第13巡和牌率约30%；第15巡流局率约75%、和牌率约20%。继续保留原图及精确数值未标注的说明。"
+              },
+              {
+                "severity": "error",
+                "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+                "sourceEvidence": "橙色图例为「和了時ツモ割合」，深绿色图例为「被ツモ率」。",
+                "description": "「和牌时摸入比例」「被摸入率」没有明确表达自摸和牌，尤其「被摸入率」无法清楚对应被他家自摸这一统计事件。",
+                "suggestedRepair": "分别改为「和牌中自摸所占比例」和「被他家自摸率」，并同步修正曲线说明及unknowns中的系列名称。"
+              }
+            ]
+          }
+        ],
+        "notAutomaticallySelected": true
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.json",
+        "sha256": "144621343e5fa7008ec5c303614e65f0c0f66bf0e3feab877dc91c2364f1a842",
+        "audits": [],
+        "notAutomaticallySelected": true
+      }
+    ],
+    "pdfBoundary": {
+      "pagesTotal": 2,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        224,
+        225
+      ],
+      "pagesDetail": [
+        {
+          "page": 224,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 38
+        },
+        {
+          "page": 225,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 13
+        }
+      ]
+    },
+    "modelCallsThisStage": 0
+  }
+]

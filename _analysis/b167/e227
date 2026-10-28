@@ -1,0 +1,505 @@
+{
+  "schema": "coach-textbook-web-article-source/1",
+  "sourceId": "modern-yabejp-ja",
+  "articleId": "chapter04-section012",
+  "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+  "title": "満貫和了技術",
+  "language": "ja",
+  "fetchedAt": "2026-10-23T20:49:09.056648+00:00",
+  "html": {
+    "requestedUrl": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+    "httpStatus": 200,
+    "finalUrl": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+    "contentType": "text/html",
+    "fetchedAt": "2026-10-23T20:49:09.056648+00:00",
+    "encoding": "shift_jis",
+    "path": "modern-yabejp-ja/html/609a2732ef4f99c772a2ee24/source.html",
+    "sha256": "e2618ca34b4eaa10c444d76ed20b4fb8765aa848d2e52947d49f122127b6a567",
+    "bytes": 7232
+  },
+  "main": {
+    "selector": "#contents",
+    "path": "modern-yabejp-ja/articles/chapter04-section012/main.html",
+    "sha256": "93bc7deda4b4357b3af71abfc547b3fcaa8c3e42437aa0997a46ea1c1bf46ce7"
+  },
+  "blocks": [
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:b0001",
+      "paragraphId": "modern-yabejp-ja:chapter04-section012:p0001",
+      "tag": "h2",
+      "domPath": "main/h2[3]",
+      "tableContext": null,
+      "type": "text",
+      "text": "満貫和了技術",
+      "segments": [
+        {
+          "text": "満貫和了技術",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:b0002",
+      "paragraphId": "modern-yabejp-ja:chapter04-section012:p0002",
+      "tag": "p",
+      "domPath": "main/p[5]",
+      "tableContext": null,
+      "type": "text",
+      "text": "オーラスにおける手作りで重要度が最も高い（利用頻度が多く、巧拙が戦績に反映されやすい）のは、打点は考慮せず最速の和了を目指すアガリトップの技術です。平均で四回に一回はオーラスでトップですし、トップと僅差の二位や、判断技術７でも述べたような確和了でも構わないようなケースでも用いることになるので非常に頻度が高く、且つ成功（和了）する確率も高いからです。",
+      "segments": [
+        {
+          "text": "オーラスにおける手作りで重要度が最も高い（利用頻度が多く、巧拙が戦績に反映されやすい）のは、打点は考慮せず最速の和了を目指すアガリトップの技術です。平均で四回に一回はオーラスでトップですし、トップと僅差の二位や、",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "判断技術７",
+          "marks": [],
+          "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section007.html"
+        },
+        {
+          "text": "でも述べたような確和了でも構わないようなケースでも用いることになるので非常に頻度が高く、且つ成功（和了）する確率も高いからです。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:b0003",
+      "paragraphId": "modern-yabejp-ja:chapter04-section012:p0003",
+      "tag": "p",
+      "domPath": "main/p[7]",
+      "tableContext": null,
+      "type": "text",
+      "text": "次いで重要度が高いのが満貫手を作る技術です。満貫（出アガリまたはツモ）で逆転というケースが多く、麻雀の点数計算のシステム（満貫以降は倍倍計算を打ち切る）上満貫手の出現率が高く、満貫までなら狙って作りやすい為です。（これが跳満以上が条件になると途端成功率は大きく下がる為、跳満以上の手作りをする技術の重要度は低くなります。もちろん、どのような技術でも身に付けていればそれに越したことはありませんが。）",
+      "segments": [
+        {
+          "text": "次いで重要度が高いのが満貫手を作る技術です。満貫（出アガリまたはツモ）で逆転というケースが多く、麻雀の点数計算のシステム（満貫以降は倍倍計算を打ち切る）上満貫手の出現率が高く、満貫までなら狙って作りやすい為です。（これが跳満以上が条件になると途端成功率は大きく下がる為、跳満以上の手作りをする技術の重要度は低くなります。もちろん、どのような技術でも身に付けていればそれに越したことはありませんが。）",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:b0004",
+      "paragraphId": "modern-yabejp-ja:chapter04-section012:p0004",
+      "tag": "p",
+      "domPath": "main/p[9]",
+      "tableContext": null,
+      "type": "text",
+      "text": "ただ、これまで述べてきたように、満貫ツモでトップの２位だけども３位４位とも僅差のような場合は、運良く配牌やツモに恵まれたら逆転手を目指し、そうでなければアガリトップの場合と同様に最速でアガリに向かうように打つべきです。逆に、下位に満貫ツモられても順位が変わらないなら、なるべく逆転できるように手作りをすべきです。親であっても連荘狙いよりも一発で捲くることを優先して考えます。 ",
+      "segments": [
+        {
+          "text": "ただ、これまで述べてきたように、満貫ツモでトップの２位だけども３位４位とも僅差のような場合は、運良く配牌やツモに恵まれたら逆転手を目指し、そうでなければアガリトップの場合と同様に最速でアガリに向かうように打つべきです。逆に、下位に満貫ツモられても順位が変わらないなら、なるべく逆転できるように手作りをすべきです。親であっても連荘狙いよりも一発で捲くることを優先して考えます。 ",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:b0005",
+      "paragraphId": "modern-yabejp-ja:chapter04-section012:p0005",
+      "tag": "p",
+      "domPath": "main/p[11]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter04-section012:i00001",
+          "assetId": "modern-yabejp-ja:068e112356939113bfe8f0e4",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012/001.jpg"
+          ],
+          "alt": "立体牌図",
+          "title": "",
+          "width": "640",
+          "height": "449",
+          "tileHint": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:b0006",
+      "paragraphId": "modern-yabejp-ja:chapter04-section012:p0006",
+      "tag": "p",
+      "domPath": "main/p[13]",
+      "tableContext": null,
+      "type": "text",
+      "text": "下位に満貫ツモでも捲くられないので、打",
+      "segments": [
+        {
+          "text": "下位に満貫ツモでも捲くられないので、打",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:b0007",
+      "paragraphId": "modern-yabejp-ja:chapter04-section012:p0006",
+      "tag": "p",
+      "domPath": "main/p[13]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter04-section012:i00002",
+          "assetId": "modern-yabejp-ja:cd5d183cae88a0cb2d844d20",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/j5.png"
+          ],
+          "alt": "白",
+          "title": "白板",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "5z",
+            "filename": "j5.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "白板",
+            "alt": "白",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:b0008",
+      "paragraphId": "modern-yabejp-ja:chapter04-section012:p0006",
+      "tag": "p",
+      "domPath": "main/p[13]",
+      "tableContext": null,
+      "type": "text",
+      "text": "としてなるだけメンゼンでメンタンピン（うまく行けば赤引きや三色で確定捲くり手に）狙い。下位と僅差の場合も打",
+      "segments": [
+        {
+          "text": "としてなるだけメンゼンでメンタンピン（うまく行けば赤引きや三色で確定捲くり手に）狙い。下位と僅差の場合も打",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:b0009",
+      "paragraphId": "modern-yabejp-ja:chapter04-section012:p0006",
+      "tag": "p",
+      "domPath": "main/p[13]",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter04-section012:i00003",
+          "assetId": "modern-yabejp-ja:cd5d183cae88a0cb2d844d20",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/img/tile_s/j5.png"
+          ],
+          "alt": "白",
+          "title": "白板",
+          "width": "18",
+          "height": "24",
+          "tileHint": {
+            "proposedCode": "5z",
+            "filename": "j5.png",
+            "sizeVariant": "s",
+            "suffix": "",
+            "redStatus": "unverified",
+            "orientation": "unverified",
+            "title": "白板",
+            "alt": "白",
+            "status": "pending-independent-image-dictionary-check"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:b0010",
+      "paragraphId": "modern-yabejp-ja:chapter04-section012:p0006",
+      "tag": "p",
+      "domPath": "main/p[13]",
+      "tableContext": null,
+      "type": "text",
+      "text": "だが、今度は鳴ける牌が出たら鳴いてクイタンのみで良い。",
+      "segments": [
+        {
+          "text": "だが、今度は鳴ける牌が出たら鳴いてクイタンのみで良い。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:b0011",
+      "paragraphId": "modern-yabejp-ja:chapter04-section012:p0007",
+      "tag": "p",
+      "domPath": "main/p[15]",
+      "tableContext": null,
+      "type": "text",
+      "text": "満貫手を狙う場合に特に鍵となるのがドラです。ドラが３枚あればもう満貫は確定なのでとにかく最速で和了に向かい、仕掛けられる手であればどんどん仕掛けていきます。ドラトイツで仕掛けていける（役牌がトイツ以上等）手でも基本的に仕掛けていって構いません。途中で表ドラや赤を引いてドラ３になることや他に手役がつくことは少なくなく、メンゼン限定で手を進めるよりは捲くれる可能性も高いからです。ドラが１枚の場合は、ドラを切っても他に手役があって十分捲くり手が目指せるというのでなければ使いづらいドラであっても残しておきたいです。重なりさえすれば後はリーチとツモだけでも逆転できますし、ドラが１枚だけでもツモ裏１で条件を満たします。ドラが無い場合でも、途中でドラを引くなり、タンヤオ、イーペーコーの１翻役がつくなりすれば手なりでも逆転が見込めるようになるのでとりあえずは手なりで手を進めても悪くありません。もちろん、三色やイッツーの２翻役が見えるようであれば意識しますが、無理してまで狙う（他の一面子を落としてまで狙う等）必要はありません。",
+      "segments": [
+        {
+          "text": "満貫手を狙う場合に特に鍵となるのがドラです。ドラが３枚あればもう満貫は確定なのでとにかく最速で和了に向かい、仕掛けられる手であればどんどん仕掛けていきます。ドラトイツで仕掛けていける（役牌がトイツ以上等）手でも基本的に仕掛けていって構いません。途中で表ドラや赤を引いてドラ３になることや他に手役がつくことは少なくなく、メンゼン限定で手を進めるよりは捲くれる可能性も高いからです。ドラが１枚の場合は、ドラを切っても他に手役があって十分捲くり手が目指せるというのでなければ使いづらいドラであっても残しておきたいです。重なりさえすれば後はリーチとツモだけでも逆転できますし、ドラが１枚だけでもツモ裏１で条件を満たします。ドラが無い場合でも、途中でドラを引くなり、タンヤオ、イーペーコーの１翻役がつくなりすれば手なりでも逆転が見込めるようになるのでとりあえずは手なりで手を進めても悪くありません。もちろん、三色やイッツーの２翻役が見えるようであれば意識しますが、無理してまで狙う（他の一面子を落としてまで狙う等）必要はありません。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:b0012",
+      "paragraphId": "modern-yabejp-ja:chapter04-section012:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "tableContext": null,
+      "type": "text",
+      "text": "しかし、メンゼンで手なりで進めても捲くり手はおろかそもそもテンパイすること自体困難な手であることもあります。手が遅い上にドラも手役もはっきり見えない（ドラを持っているが使いづらい場合も含む）場合がそうです。このような場合は、無理を承知でドラ色（字牌がドラなら最も多い色の）ホンイツや最も多い色のチンイツを目指すのも手です。特に下位に捲くられるリスクが小さい場合は、このような強引な仕掛けが有効になることもあるのです。",
+      "segments": [
+        {
+          "text": "しかし、メンゼンで手なりで進めても捲くり手はおろかそもそもテンパイすること自体困難な手であることもあります。手が遅い上にドラも手役もはっきり見えない（ドラを持っているが使いづらい場合も含む）場合がそうです。このような場合は、無理を承知でドラ色（字牌がドラなら最も多い色の）ホンイツや最も多い色のチンイツを目指すのも手です。特に下位に捲くられるリスクが小さい場合は、このような強引な仕掛けが有効になることもあるのです。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:b0013",
+      "paragraphId": "modern-yabejp-ja:chapter04-section012:p0009",
+      "tag": "p",
+      "domPath": "main/p[19]",
+      "tableContext": null,
+      "type": "text",
+      "text": "ナパノート 「順位的押し引き」",
+      "segments": [
+        {
+          "text": "ナパノート 「順位的押し引き」",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:b0014",
+      "paragraphId": "modern-yabejp-ja:chapter04-section012:p0010",
+      "tag": "p",
+      "domPath": "main/p[21]",
+      "tableContext": null,
+      "type": "text",
+      "text": "こちらのサイトで、これまで取り上げてきたオーラス、ラス前の状況判断について実戦の場面を取り上げて説明されています。また、同サイトの「何切る掲示板」でもオーラス、ラス前の手作り、押し引き判断の勉強になる問題が数多く投稿されています。参考にして頂ければ幸いです。尚、東風荘の順位点は、１位３　２位１　３位−１　４位−３　に相当します。",
+      "segments": [
+        {
+          "text": "こちらのサイトで、これまで取り上げてきたオーラス、ラス前の状況判断について実戦の場面を取り上げて説明されています。また、同サイトの「",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "何切る掲示板",
+          "marks": [],
+          "href": "http://mahjong.xrea.jp/mahjong/mahjong.cgi"
+        },
+        {
+          "text": "」でもオーラス、ラス前の手作り、押し引き判断の勉強になる問題が数多く投稿されています。参考にして頂ければ幸いです。尚、東風荘の順位点は、１位３　２位１　３位−１　４位−３　に相当します。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    }
+  ],
+  "paragraphs": [
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:p0001",
+      "tag": "h2",
+      "domPath": "main/h2[3]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0001"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:p0002",
+      "tag": "p",
+      "domPath": "main/p[5]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0002"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:p0003",
+      "tag": "p",
+      "domPath": "main/p[7]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0003"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:p0004",
+      "tag": "p",
+      "domPath": "main/p[9]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0004"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:p0005",
+      "tag": "p",
+      "domPath": "main/p[11]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0005"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:p0006",
+      "tag": "p",
+      "domPath": "main/p[13]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0006",
+        "modern-yabejp-ja:chapter04-section012:b0007",
+        "modern-yabejp-ja:chapter04-section012:b0008",
+        "modern-yabejp-ja:chapter04-section012:b0009",
+        "modern-yabejp-ja:chapter04-section012:b0010"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:p0007",
+      "tag": "p",
+      "domPath": "main/p[15]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0011"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:p0008",
+      "tag": "p",
+      "domPath": "main/p[17]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0012"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:p0009",
+      "tag": "p",
+      "domPath": "main/p[19]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0013"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:p0010",
+      "tag": "p",
+      "domPath": "main/p[21]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0014"
+      ],
+      "tableContext": null
+    }
+  ],
+  "assets": [
+    {
+      "assetId": "modern-yabejp-ja:068e112356939113bfe8f0e4",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012/001.jpg",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012/001.jpg",
+      "fetchedAt": "2026-10-23T20:49:10.131178+00:00",
+      "httpStatus": 200,
+      "contentType": "image/jpeg",
+      "bytes": 58290,
+      "sha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135",
+      "path": "modern-yabejp-ja/assets/c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg"
+    },
+    {
+      "assetId": "modern-yabejp-ja:cd5d183cae88a0cb2d844d20",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/j5.png",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/img/tile_s/j5.png",
+      "fetchedAt": "2026-10-23T20:47:32.533598+00:00",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "bytes": 277,
+      "sha256": "3059ee18f98fbb2f36a914b6f55601e22cf5545c312ccbbad399d1efab6722bd",
+      "path": "modern-yabejp-ja/assets/3059ee18f98fbb2f36a914b6f55601e22cf5545c312ccbbad399d1efab6722bd.png"
+    }
+  ],
+  "links": [
+    {
+      "visibleText": "判断技術７",
+      "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section007.html"
+    },
+    {
+      "visibleText": "何切る掲示板",
+      "href": "http://mahjong.xrea.jp/mahjong/mahjong.cgi"
+    },
+    {
+      "visibleText": "",
+      "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section011.html"
+    },
+    {
+      "visibleText": "",
+      "href": "http://yabejp.web.fc2.com/mahjong/index.html"
+    },
+    {
+      "visibleText": "",
+      "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section013.html"
+    }
+  ],
+  "originalReferenceLinks": [],
+  "ignoredPlaceholders": [
+    {
+      "reason": "explicit-book-navigation-image",
+      "sourceUrls": [
+        "http://yabejp.web.fc2.com/mahjong/img/back.gif"
+      ],
+      "attrs": {
+        "src": "../../img/back.gif",
+        "alt": "前のページに戻る",
+        "name": "Back",
+        "width": "88",
+        "height": "31",
+        "border": "0",
+        "id": "Back"
+      }
+    },
+    {
+      "reason": "explicit-book-navigation-image",
+      "sourceUrls": [
+        "http://yabejp.web.fc2.com/mahjong/img/home.gif"
+      ],
+      "attrs": {
+        "src": "../../img/home.gif",
+        "alt": "目次に戻る",
+        "name": "Home",
+        "width": "88",
+        "height": "31",
+        "border": "0",
+        "id": "Home"
+      }
+    },
+    {
+      "reason": "explicit-book-navigation-image",
+      "sourceUrls": [
+        "http://yabejp.web.fc2.com/mahjong/img/next.gif"
+      ],
+      "attrs": {
+        "src": "../../img/next.gif",
+        "alt": "次のページに進む",
+        "name": "Next",
+        "width": "88",
+        "height": "31",
+        "border": "0",
+        "id": "Next"
+      }
+    }
+  ],
+  "attributionNote": "Original source attribution, translator disclaimers and reference visible text are preserved in the body. Link href and visible URL are recorded separately, never treated as equivalent without review.",
+  "status": "captured-not-translated-or-audited",
+  "extractorSha256": "c9ec6d0591a42dc8570d43bc1c32d1502f7a7693fd1ec05a172e2fd1f1f9c8d7",
+  "sourceSha256": "049b2953c0a935f983202b765bea27d387a4fa4c1162b239553a0d54edd1d861"
+}

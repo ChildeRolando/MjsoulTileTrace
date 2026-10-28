@@ -1,0 +1,315 @@
+{
+  "schema": "coac250-exact167-three-evidence-final/1",
+  "allPassed": true,
+  "preview": {
+    "chapters": 251,
+    "units": 259,
+    "blocks": 7597,
+    "figures": 5894,
+    "corpusId": "96dff40d6e5d2d39eb7d337076216e95a8963ae5f4bbb672c466a499f5436da1",
+    "bodySha256": "1c6222f06dcd6b4757e5f4b935d4ca76fa99f3b309ce668e71d39e53ad968c22",
+    "maxUnitBytes": 592593,
+    "modelCalls": 0,
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-03-19-135Z",
+    "destination": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-03-19-135Z/stages/s167",
+    "selectionVersion": 36,
+    "rollbackVersion": 35
+  },
+  "coverage": {
+    "originalChaptersCovered": 249,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 281,
+    "originalUnitsTotal": 303
+  },
+  "remainingOriginalChapters": 7,
+  "remainingOriginalUnits": 22,
+  "intake167": {
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.coac269b25r1.json",
+      "sha256": "5bfa90e3e15deb0c3f868ee1811fe50cdba75357f2805b3c37ed5f1d86538a58"
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1754620\\source.json",
+      "sha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+      "bytes": 23000,
+      "copy": "evidence/cv1754620-source.json"
+    },
+    "receipt": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-167-target-impact-reviewed-20261028.json",
+      "sha256": "e291ebb02ed244689be9a7060659d4214d267189eb62e868c6747b7db9b027fe"
+    },
+    "scope": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-167-scope-inheritance-20261028.json",
+      "sha256": "ab99cd42314210150283d239c8a6759465f56453e836c8eb1f99eace63ff77ce"
+    },
+    "display": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-03-19-135Z/stages/s167/display-limits.json",
+      "sha256": "b2a6217562256573cfff955cf35db1b6b55017deafa0e65e8671a5fb26931f49"
+    },
+    "readback": {
+      "path": "_analysis/b167/readback.json",
+      "sha256": "df655a6986a12534132df7409dd2d02b8ae14eb94966a5619b856f183f76565c"
+    },
+    "exact167Review": {
+      "module": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-exact167-20261028/admit.mjs",
+        "sha256": "7f860215ba4b48ca414133e37d4356dd6d54f7b7d8c1769226942c0b0b3d34ee"
+      },
+      "stage": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-exact167-20261028/stage.mjs",
+        "sha256": "2fe5a02c5912619a35800dae7dec9ead0cedac49da08778da01622a462982570"
+      },
+      "manifest": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-exact167-20261028/manifest.json",
+        "sha256": "b8a59e1efffadf3e14f856423e56d684816a8bd2d8a321ed54fc2963ef217806"
+      },
+      "contract": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-ready109167-zero-20261028/167-limited-display-contract.json",
+        "sha256": "4a4af706716676890523b8526c382e49e9c2dd7e6d99c4a4b27b5741b78c1313"
+      },
+      "candidateSha256": "5bfa90e3e15deb0c3f868ee1811fe50cdba75357f2805b3c37ed5f1d86538a58"
+    },
+    "previewOutput": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-03-19-135Z",
+    "corpusId": "96dff40d6e5d2d39eb7d337076216e95a8963ae5f4bbb672c466a499f5436da1",
+    "sourceBlocks": 6,
+    "displayBlocks": 12,
+    "figures": 1,
+    "allThreeLimitsActuallyDisplayed": true,
+    "repairPassed": true,
+    "limitedUnknownOkay": false,
+    "originalUncertainPreserved": true,
+    "standardWholeArticlePassed": false,
+    "newModelCalls": 0
+  },
+  "notAdmitted": [
+    {
+      "key": "213",
+      "canonical": "nemata-jp-chapter-213-1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.r1.display.json",
+        "sha256": "a667937d4e119a1b22659fc60987f07d3eea9d246c8b2b6ddabcdacb4fe5dd47"
+      },
+      "receipt": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-213-target-impact-reviewed-20261028.json",
+        "sha256": "a91fd5ef0e13a880d32e0036c87f34f341d54b4c7afa9088f636b3dc857321d8"
+      },
+      "verification": {
+        "limitedEvidenceVerified": false,
+        "errors": [
+          "no_limited_allowance"
+        ],
+        "requiredDisplayLimitations": [
+          "保留原图，并在该具体位置标明字牌字面不清，不填入猜测的字牌。",
+          "说明对家暗手被遮挡；实际听5p–8p是作者的文字陈述，不能说是从截图独立证实的。",
+          "随原图保留上方和左侧完整分数无法可靠辨认的说明，不补猜数值。",
+          "将弃和呈现为作者的结论，不宣称已利用完整点数证明它是最优选择。",
+          "保留图标不可辨及不能仅凭图标确认计数项目的说明，不为0、1擅自指定计数名称。",
+          "保留原图，避免把转录当作完整可识别的计数信息。",
+          "保留座位旁小字无法完整辨认的说明和原图，不推定姓名或其他文字。",
+          "不将转录描述为包含全部玩家身份及附属信息。"
+        ],
+        "wholeChapterPassed": false,
+        "admissionGranted": false,
+        "originalIssuesPreserved": true,
+        "meaning": "Only independent limited target/impact evidence. Every required display limitation and remaining author contribution must be mapped to legal exact admission and actual readback by250."
+      },
+      "residual": {
+        "scope": "精确213补充准入合同及8条实际非原文显示限制",
+        "reason": "独立两靶faithful、8组作者贡献可带unknown，但原helper limitedEvidenceVerified=false/no_limited_allowance保持；交接明确只登记未准入范围。没有经现有owner批准并验真的本精确SHA补充loader/显示安装，不能套用167/109等合同。",
+        "next": "现有244 owner仅零模型核旧问题归属及精确213补充合同覆盖；保持未准入，不重复收费识字或重审。"
+      },
+      "admissionGranted": false
+    },
+    {
+      "key": "224",
+      "canonical": "nemata-jp-chapter-224-1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b27r1.json",
+        "sha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea"
+      },
+      "receipt": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-224-target-impact-reviewed-20261028.json",
+        "sha256": "20d624441531f37ebd9b69f5407c69dd03a5eedbc6390edc04fe51c108be4c20"
+      },
+      "verification": {
+        "transportCompleted": true,
+        "repairPassed": false,
+        "limitedUnknownOkay": false,
+        "wholeChapterAccepted": false,
+        "modelReview": {
+          "targetChecks": [
+            {
+              "id": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+              "verdict": "needs-repair",
+              "evidence": "逐系列、逐巡核对105槽：＝表示候选约值基本可由图支持；！表示候选标为unknown，但图上有可辨约值；？表示候选标为unknown，本次不能确定能否可靠分辨，不以相邻点推算。各行依次为第1至15巡：\n流局率：＝ ＝ ＝ ＝ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n放铳率：？ ？ ？ ？ ？ ！ ！ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n和牌中自摸所占比例：＝ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n立直棒被没收率：＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝\n和牌率：＝ ＝ ＝ ＝ ＝ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n被他家自摸率：？ ？ ？ ？ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n和牌时一发比例：？ ？ ？ ？ ？ ！ ！ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝\n候选列出81个约值和24个unknown；其中至少7个unknown有可辨约值，故七系列定量转录仍不完整。第13巡和牌率约30的关键读数得到保留；两处自摸图例译名正确，图表约值也未擅加百分号。"
+            }
+          ],
+          "unknownImpacts": [
+            {
+              "unknownText": "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section005:b0003",
+                "modern-yabejp-ja:chapter04-section005:b0012",
+                "modern-yabejp-ja:chapter04-section005:b0013",
+                "modern-yabejp-ja:chapter04-section005:b0014"
+              ],
+              "authorClaim": "在一名尚未听牌的对手进攻、其余两人完全弃和的条件下，振听两面的和牌率与所示先制愚形立直的和牌率相近；作者据图认为第13巡约为30%，此前放过似乎有效。前面的判断还以不必考虑未和牌导致名次下滑的风险为前提。",
+              "disposition": "nonblocking-with-limits",
+              "evidence": "图中没有逐点精确数值，无法提供精确坐标本身不阻断作者依据近似读数作出的比较。第13巡和牌率的近似读数可辨，但当前表把若干可辨点留作unknown，仍需修复，不能把精确值缺失当作省略这些约值的理由。",
+              "requiredDisplayLimitations": [
+                "保留原图，并将表中读数明确标为按图读取的约值；不能辨认的点逐项保留unknown，不插值推算。",
+                "补齐图上可辨的遗漏点；修复前若展示当前表，须明确它是未完成的部分读数，不得称已读出全部105点。",
+                "保留作者的条件和“似乎有效”的语气，不将第13巡附近的近似比较改成无条件的确定建议。"
+              ]
+            },
+            {
+              "unknownText": "纵轴没有明确标注百分号或其他单位。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section005:b0003",
+                "modern-yabejp-ja:chapter04-section005:b0013",
+                "modern-yabejp-ja:chapter04-section005:b0014"
+              ],
+              "authorClaim": "作者在正文中将第13巡的和牌率表述为约30%，并与前文约三成的里宝牌概率作比较。",
+              "disposition": "nonblocking-with-limits",
+              "evidence": "图的纵轴列有数值和“和了率等”，但没有明示单位；正文第13巡的30%有原文支持，不足以替整张图的所有纵轴读数补写单位。",
+              "requiredDisplayLimitations": [
+                "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+                "可保留正文明确写出的第13巡约30%，并使其来源和近似性质清楚。"
+              ]
+            }
+          ],
+          "contextContinuity": {
+            "verdict": "faithful",
+            "evidence": "上下文保留了一人进攻、其余两人弃和且该对手尚未听牌的模拟条件，以及第13巡约30%、此前放过似乎有效的论证强度；末段仍限定于不必考虑名次下滑风险的讨论。图表逐点遗漏需要修复，但不改变这些上下文关系。b0008沿用原审的源文数值疑点记录，不改判为翻译错误。"
+          },
+          "issues": [
+            {
+              "severity": "error",
+              "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+              "description": "若干可从图上辨认的逐巡约值仍被标为unknown，导致七系列的定量转录不完整。应补录可辨点，对确实难辨的点继续保留unknown，不用插值填充。",
+              "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。"
+            },
+            {
+              "severity": "source-note",
+              "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+              "description": "继承原审对b0008的源文数值论证疑点；候选忠实保留作者数字和结论，不将其改判为翻译错误。",
+              "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；b0003给出的参照约为三成。此疑点按原审作为source-note保留。"
+            }
+          ],
+          "scopeComplete": "yes",
+          "summary": "本次所列图靶需要修复：可辨的逐巡约值仍有遗漏。两项保留unknown可在明确显示限制下保留；本结论不代表整章通过。"
+        }
+      },
+      "residual": {
+        "scope": "b0013七系列105槽的7个可辨约值遗漏",
+        "reason": "放铳率6/7巡，自摸占比6巡，立直棒没收率12巡，一发比例6/7/12巡仍标unknown而真实独审认为可辨。81约值/24unknown现表仍未完成；原单位未知与b0008源文source-note保留。",
+        "next": "仅登记七个对应槽的精确缺口与近似读数证据；当前2/2额度耗尽，不自动补值、插值、制作或复审。"
+      },
+      "admissionGranted": false
+    },
+    {
+      "key": "jp193",
+      "canonical": "nemata-jp-chapter-193-1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section009.r1.display.json",
+        "sha256": "af8071cfdbaabf8f469f84fa4daa6fd2d7d377c3dc2b277ef766e34a22324ba1"
+      },
+      "receipt": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-jp193-target-impact-reviewed-20261028.json",
+        "sha256": "a70006b0e912a7089bf2ae7cebd3d9e366275ca3e25cc8a3ea1356335b410b6c"
+      },
+      "verification": {
+        "limitedEvidenceVerified": false,
+        "errors": [
+          "textRepair_not_faithful",
+          "argument_or_order_gap",
+          "no_limited_allowance"
+        ],
+        "requiredDisplayLimitations": [
+          "以可见编者注标明右侧手牌自上而下第4、5、6张的点数及赤牌状态均未确认；三个位置须保留，不能填入推测牌值。",
+          "不得把该不完整转录称为完整精确牌谱，或据未知牌断言完整可见张数、实际安全度或概率。",
+          "以可见编者注说明该组各牌相对玩家的精确横置关系未确认，仅最上方一张可确认向左突出。",
+          "不得将未知方向补画为确定的横置关系或据此指定鸣牌来源。",
+          "以可见编者注保留中央两枚骰子点数未知，不给出猜测值。",
+          "以可见编者注说明黄色标记字样、相邻图标细字和筒子点数、最右圆形图标内容均未确认，不补写或补画。",
+          "这些限制是编者对图像可辨性的说明，不应呈现为原作者的文字。"
+        ],
+        "wholeChapterPassed": false,
+        "admissionGranted": false,
+        "originalIssuesPreserved": true,
+        "meaning": "Only independent limited target/impact evidence. Every required display limitation and remaining author contribution must be mapped to legal exact admission and actual readback by250."
+      },
+      "residual": {
+        "scope": "b0081入り目例外",
+        "reason": "当前中文仍把入り目例外扩成两个未由原文确立的联立测试；图靶6p真实faithful与四unknown有限影响证据可复用，但不能抵消本句语义错误。7条显示限制未安装。",
+        "next": "仅登记当前b0081条件缺陷；2/2额度耗尽，不自动制作/复审/识字。若以后有授权，只处理该句，不重复6p图或四unknown。"
+      },
+      "admissionGranted": false
+    }
+  ],
+  "readback": {
+    "path": "_analysis/b167/readback.json",
+    "sha256": "df655a6986a12534132df7409dd2d02b8ae14eb94966a5619b856f183f76565c"
+  },
+  "tests": {
+    "passed": true,
+    "checks": [
+      {
+        "name": "missing limitation",
+        "rejected": true
+      },
+      {
+        "name": "claim as author text",
+        "rejected": true
+      },
+      {
+        "name": "wrong order",
+        "rejected": true
+      },
+      {
+        "name": "changed original text",
+        "rejected": true
+      },
+      {
+        "name": "unknown dropped",
+        "rejected": true
+      },
+      {
+        "name": "changed limitation",
+        "rejected": true
+      },
+      {
+        "name": "wrong binding candidateSha256",
+        "rejected": true
+      },
+      {
+        "name": "wrong binding manifest",
+        "rejected": true
+      },
+      {
+        "name": "wrong binding contract",
+        "rejected": true
+      },
+      {
+        "name": "wrong binding module",
+        "rejected": true
+      },
+      {
+        "name": "wrong binding stage",
+        "rejected": true
+      }
+    ],
+    "persistentEarlyRoutePassed": true,
+    "ordinarySidecarAccesses": 0,
+    "originalStrictFalsePreserved": true,
+    "newModelCalls": 0
+  },
+  "otherRowsUnchanged": true,
+  "priorUnitsUnchanged": 258,
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "newConsumerStarted": false,
+  "formalActiveChanged": false,
+  "bookComplete": false,
+  "safeToResume": true
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Type" content="text/html; charset=shift_jis" />
+<meta name="description" content="麻雀界最強の戦術論発表。最先端の研究結果と強豪雀士の打ち筋から緻密な考察により構築された最強理論を展開。" />
+<meta name="Keywords" content="麻雀,マージャン,牌,役,天鳳,雀龍門,ハンゲーム,麻雀格闘倶楽部,MJ,何切る,手筋,戦術,牌効率,デジタル,咲,saki" />
+<meta name="robots" content="index,follow" />
+<meta name="author" content="や～べ" />
+<meta name="copyright" content="雀Key会 All Rights Reserved." />
+<title>現代麻雀技術論 - 点棒状況判断技術５．オーラスの見逃し判断</title>
+<link rel="stylesheet" href="../../css/1columns.css" type="text/css" media="all" />
+</head>
+<body>
+<div id="wrapper">
+<div id="header">
+<h1><a href="../../index.html">
+<img src="../../img/title.gif" width="265" height="42" alt="現代麻雀技術論" border="0" /></a></h1>
+<p><a href="../../index.html">索引</a>　＞　<a href="../../tactics.html">戦術論</a>　＞　<b>点棒状況判断技術５</b>　　<a href="section004.html"><img src="../../img/back2.gif" alt="前のページに戻る" name="back" width="50" height="15" border="0" /></a>　　<a href="section006.html"><img src="../../img/next2.gif" alt="次のページに進む" name="next" width="50" height="15" border="0" /></a></p>
+</div>
+<!-- header end -->
+<div id="container">
+<div id="contents">
+<!--コンテンツここから-->
+<h2>オーラスの見逃し判断</h2>
+<p><a href="section004.html">前回</a>、捲くり手を作る場合には多少偶発的要素に頼るくらいでよいということを述べました。ただ、確実に捲くれる選択とどちらを優先すべきか悩む場面は多くあります。特によくあるのが、リーチしていて当たり牌が他家から出て、ロンした場合捲くるためには裏ドラが１枚必要だが、見逃してツモれば必ず捲くれるという場合です。</p>
+<p>裏ドラが乗る確率は約３割です。（トイツ以外２枚以上使っていないピンフ手ならもう少し上がり、七対子のように使用牌が7種しかなければ２割程度になる。）和了できなかった為に順位が落ちるリスクを考慮しなくていい（ラス目等）状況であれば、見逃してツモる確率がこれより大きければ見逃したほうが有利となります。</p>
+<p>ツモ和了できる可能性は、もちろん巡目と自分の上がり牌が何枚残っているかに大きく影響します。何巡目で何枚残っていればどの程度の確率で当たり牌が自分のツモ列にあるかの計算は、こちらのサイトを参考にしました。</p>
+<p class="none_indent">かじゃ研 「<a title="(外部へのリンク) http://ameblo.jp/kazyake/entry-10076130541.html" href="http://ameblo.jp/kazyake/entry-10076130541.html" target="_blank">ツモ率論</a>」「<a title="(外部へのリンク) http://kazyaken.web.fc2.com/mj/tumoritu.html" href="http://kazyaken.web.fc2.com/mj/tumoritu.html" target="_blank">麻雀電卓   ツモ確率</a>」</p>
+<p>ただ、これは最後までツモれた場合の計算なので、実戦では途中で誰かが和了するケースを考慮せねばなりませんから、見逃しが有利になるのは、<em>(1-他家が和了する確率)×(ツモ列に残っている確率)&gt;(裏ドラ率)</em>の場合です。</p>
+<p>ここで、自分は東家か南家（ツモ18回）とします。西家か北家（ツモ17回）なら東家、南家の１巡遅れのツモ率に等しくなります。</p>
+<dl>
+  <dt>愚形待ちの場合（１枚見逃しているから残り３枚）</dt>
+  <dd>例え１巡目の時点だったとしても、残り３枚の待ちがツモ列に残っている確率は36.765%に過ぎません。他家が和了する確率が10%もあればもう裏ドラ率を下回ります。よって、愚形の場合は常に和了するべきと言えます。</dd>
+  <dt>リャンメン待ち（残り７枚）の場合</dt>
+  <dd>１巡目の時点で66.355%、４巡目で62.915%、８巡目で56.174%、12巡目で44.699%となります。中盤過ぎればリャンメンの待ち牌が他に見えていないことは珍しいでしょうが、残り５枚だとしても12巡目の時点で34.102%あります。</dd>
+</dl>
+<p>他家の和了率をどの程度見積もるかが難しいところです。仮に残りの三人がベタオリしているのであれば、このツモ率をそのまま適用することができるので、７枚なら残りツモ４回、５枚なら残りツモ５回あればツモ率が30%を超えるので見逃しが有利になります。しかし、自分の当たり牌を切ってきた他家が一人居るのですから、少なくとも一人は攻めてきていると考えるのが無難です。</p>
+<p>攻めてきている他家の一人が既にテンパイしているのであれば、相手はどこからでも和了することができる以上、例え残りの二人がベタオリしていたとしても相手に和了される確率の方がまず高くなります。</p>
+<p>相手は二人（その相手と自分）のどちらかが当たり牌を引けばよく、自分は自分が当たり牌を引かなくてはならないからです。相手の待ちが65%で２種待ちリャンメン、他は１種待ちで、残りの二人は相手の当たり牌を一切切らないという条件下でも、ツモ列に残っている確率が59.4%以上（残り枚数7枚で残りツモ12回以上）なければ和了率は30%以下になります。脇の二人が当たり牌を切る確率が10%もあれば65.3%以上必要になります。配牌時点で７枚残りでさえ66.355%なのですから、他家のテンパイが入っている時点で見逃すこともまず有り得ないと言えます。</p>
+<p>一人攻めている相手がいて（残り二人はベタオリ）、まだテンパイしていない場合なら、フリテンリャンメンの和了率は一人攻めてくる場合の愚形リーチの和了率にかなり近い値になります。（枚数が半分になるけど二回分ツモれると考えれば体感的にも納得されるのではないでしょうか。）以下の先制愚形リーチ（一人攻め）のシミュレーションのグラフを参照。</p>
+<center><img src="section005/001.jpg" alt="先制悪形待ち立直（１人攻め）" name="グラフ" width="480" height="270" /></center>
+<p>このグラフによると、13巡目での和了率がほぼ30%なので、それ以前なら見逃しが有効そうです。</p>
+<p>今回は和了できなかった場合の降着を一切考慮しなくて良い場合であったので、良形ならば案外見逃しが有効なケースは多いという結果が出ました。実戦では降着の可能性、親の連荘で流局しても続くケース、見た目は同じ枚数だけ残っていても山にあるかどうか等の要素で計算がより複雑になり、的確な判断を下すことが困難な場合もあるでしょう。しかしそのような場合でも、ここで用いたような方法で判断することになるのは変わりません。余裕があれば実際にとあるケースを自分で想定してみて計算してみることをお勧めします。</p>
+<!--ページナビゲーションここから-->
+<div id="pagenavi">
+<a href="section004.html"><img src="../../img/back.gif" alt="前のページに戻る" name="Back" width="88" height="31" border="0" id="Back" /></a>　　　<a href="../../index.html"><img src="../../img/home.gif" alt="目次に戻る" name="Home" width="88" height="31" border="0" id="Home" /></a>　　　<a href="section006.html"><img src="../../img/next.gif" alt="次のページに進む" name="Next" width="88" height="31" border="0" id="Next" /></a>
+</div>
+<!--ページナビゲーションここまで-->
+</div>
+<!--コンテンツここまで-->
+
+<div id="footer">
+<!--コピーライトここから-->
+<p>Copyright（C）<a href="http://circle2.hangame.co.jp/detail.nhn?circleid=C000043824" target="_blank">雀Key会</a>. All Rights Reserved.</p>
+<!--コピーライトここまで-->
+<!--削除不可(実際のブラウザ上では表示されていません)-->
+<p id="cds">
+<a href="http://www.css-designsample.com/">Powered by CSS.DesignSample</a></p>
+</div>
+<!-- footer end -->
+<div id="globalnavi">
+<ul>
+	<li><a href="../../index.html">索引</a></li>
+	<li><a href="../../tactics.html"><b>旧戦術論</b></a></li>
+	<li><a href="../../archives.html">研究開発資料</a></li>
+	<li><a href="../../column.html">コラム</a></li>
+	<li><a href="../../reference.html">リファレンス</a></li>
+	<li><a href="http://astore.amazon.co.jp/yabe0b-22?_encoding=UTF8&node=2" target="_blank">書籍紹介</a></li>
+</ul>
+</div>
+</div>
+<!-- container end -->
+</div>
+<!-- wrapper end -->
+<script><!--
+var fc2footerparam = 'ver=1'
+    + '&url=' + encodeURIComponent(document.location)
+    + '&service=0'
+    + '&r=' + Math.floor(Math.random() * 99999999999);
+var fc2footertag = "//vip.chps-api.fc2.com/apis/footer/?" + fc2footerparam;
+var script = document.createElement('script');
+script.src = fc2footertag;
+script.charset = "UTF-8";
+script.async = true;
+document.getElementsByTagName('head')[0].appendChild(script);
+//--></script>
+<!-- FC2, inc.-->
+<img src="//media.fc2.com/counter_img.php?id=50" style="display:none" alt="inserted by FC2 system" width="0" height="0">
+<!-- FC2, inc.--></body>
+</html>

@@ -1,0 +1,157 @@
+{
+  "allPassed": true,
+  "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-03-19-135Z",
+  "corpusId": "96dff40d6e5d2d39eb7d337076216e95a8963ae5f4bbb672c466a499f5436da1",
+  "canonical": "79-cn-chapter-167-4",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.coac269b25r1.json",
+    "sha256": "5bfa90e3e15deb0c3f868ee1811fe50cdba75357f2805b3c37ed5f1d86538a58"
+  },
+  "sourceBlocks": 6,
+  "compiledBlocks": 12,
+  "figures": 1,
+  "pages": [
+    {
+      "offset": 0,
+      "blocks": 12,
+      "next": null
+    }
+  ],
+  "images": [
+    {
+      "figureId": "79-bilibili-cn-cv1754620-b5",
+      "sha256": "15dac224d26ee7b714840c547509f63bf772beb7ebc4a01716e6b812e37a6b7a",
+      "bytes": 18657
+    }
+  ],
+  "allThreeLimitsAndAllSourceNotesActuallyDisplayed": true,
+  "repairPassed": true,
+  "limitedUnknownOkay": false,
+  "uncertainPreserved": true,
+  "priorUnitsUnchanged": 258,
+  "fullMcp": {
+    "units": 259,
+    "images": 5894
+  },
+  "arena": {
+    "units": 259,
+    "exactBody": true,
+    "fullReadRequiredBeforeCitation": true
+  },
+  "sourceDedupPassed": true,
+  "completeCanonicalCatalog": true,
+  "calls": [
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 0,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 20,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 40,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 60,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 80,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 100,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 120,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 140,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 160,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 180,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 200,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 220,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 240,
+        "limit": 20
+      }
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1754620-argument",
+        "blockOffset": 0
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1754620-b5"
+      }
+    },
+    {
+      "name": "search_textbook",
+      "args": {
+        "query": "零风险保留为作者建议破一发"
+      }
+    }
+  ],
+  "newModelCalls": 0,
+  "formalActiveChanged": false
+}
