@@ -5,11 +5,17 @@ import { join } from 'node:path';
 import { BudgetLedger, BUDGETS, assertDataset, chooseVersion,writeOnce,save } from './ceiling-protocol.mjs';
 import { indexTextbook, retrieveTextbook } from './ceiling-textbook.mjs';
 import { pairedDifference, summarizeRows, decide } from './ceiling-report.mjs';
-import { decisionRequest,runDecision,serviceFailureStreak,parseSelection } from './ceiling-run.mjs';
+import { decisionRequest,runDecision,serviceFailureStreak,parseSelection,oracleMaterials } from './ceiling-run.mjs';
 import { hash,read } from './ceiling-protocol.mjs';
 import { assertStudySource,selfWindows,loadPreparationState,savePreparationState } from './ceiling-prepare.mjs';
 
 describe('ceiling research boundaries', () => {
+  it('reads an archived curation failure without requesting it again or stopping later jobs',async()=>{
+    const out=await mkdtemp(join(tmpdir(),'ceiling-curation-resume-'));
+    const failed={status:'failed',passages:[],error:'oracle_provider_service_failure_stop'};
+    await writeOnce(join(out,'oracle','case.json'),failed);
+    expect(await oracleMaterials({out,c:{id:'case'},ledger:null,index:null})).toEqual(failed);
+  });
   it('stops material curation on transport failure instead of consuming the next question',()=>{
     for(const failureCode of ['cli_unexpected_event','cli_unexpected_item','rate_limited'])
       expect(()=>parseSelection({response:{status:'provider_error',failureCode}},'select_chapters',['C001'])).toThrow('oracle_provider_service_failure_stop');

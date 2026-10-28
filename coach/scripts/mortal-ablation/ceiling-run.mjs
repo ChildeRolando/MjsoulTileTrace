@@ -103,7 +103,7 @@ export function chapterSelectionRequest(c,index){
   const catalog=chapters.map(ch=>({id:ch.alias,title:ch.title,readableCharacters:ch.units.filter(p=>p.content.length<=6000).reduce((n,p)=>n+p.content.length,0),overBudgetUnits:ch.units.filter(p=>p.content.length>6000).length}));
   return {chapters,request:selectionRequest(c,catalog,'select_chapters','从完整教材目录选择最相关的至多四章；所选readableCharacters之和必须不超过12000。下一步会读取可完整交付正文；overBudgetUnits不能交付，不把这理解为教材没有相关内容。',chapters.map(ch=>ch.alias),4)};
 }
-async function oracleMaterials({out,ledger,c,index}){
+export async function oracleMaterials({out,ledger,c,index}){
   const path=join(out,'oracle',c.id+'.json');if(await exists(path))return read(path);
   const {chapters,request:q}=chapterSelectionRequest(c,index);
   let selected;
@@ -118,8 +118,10 @@ async function oracleMaterials({out,ledger,c,index}){
     const picked=parseSelection(second,'select_passages',eligible.map(p=>p.id)),passages=picked.ids.map(id=>eligible.find(p=>p.id===id));
     const characters=passages.reduce((n,p)=>n+p.content.length,0);if(characters>6000||passages.length>6)throw Error('oracle_material_budget_exceeded');
     selected={status:'selected',passages,characters,rejected:all.filter(p=>p.content.length>6000).map(p=>({id:p.id,reason:'whole_argument_over_budget'})),reason:picked.reason,chapterReason:choice.reason,noHits:passages.length===0,authority:'independent_AI_judgment_not_expert_gold'};
-  }catch(e){if(!(e instanceof SyntaxError)&&!['oracle_selection_failed','oracle_selection_invalid','oracle_selected_chapters_over_input_budget','oracle_material_budget_exceeded','request_input_over_budget'].includes(e.message))throw e;selected={status:'failed',passages:[],characters:0,rejected:[],noHits:true,error:String(e.message),authority:'independent_AI_judgment_not_expert_gold'};}
-  await writeOnce(path,selected);return selected;
+  }catch(e){if(!(e instanceof SyntaxError)&&!['oracle_provider_service_failure_stop','oracle_selection_failed','oracle_selection_invalid','oracle_selected_chapters_over_input_budget','oracle_material_budget_exceeded','request_input_over_budget'].includes(e.message))throw e;selected={status:'failed',passages:[],characters:0,rejected:[],noHits:true,error:String(e.message),authority:'independent_AI_judgment_not_expert_gold'};}
+  await writeOnce(path,selected);
+  if(selected.error==='oracle_provider_service_failure_stop')throw Error(selected.error);
+  return selected;
 }
 export async function exclusive(out,fn){
   const path=join(out,'run.lock');await mkdir(out,{recursive:true});
