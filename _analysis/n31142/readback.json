@@ -1,0 +1,699 @@
+{
+  "allPassed": true,
+  "corpusId": "564d1ab9499c67dcc9ab794696ba3b375646dfc1472b11d787c18a0c26c19d19",
+  "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T14-13-58-135Z",
+  "canonical": "79-cn-chapter-311-18",
+  "proposal": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\presentation-proposal.json",
+    "sha256": "ca5792a85433de54d0bfa82649a3707707ef64747d3beb5f8944a5bec372ad97"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1815400\\source.json",
+    "sha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+    "bytes": 215199
+  },
+  "sourcePositions": 225,
+  "authorTextBlocks": 204,
+  "displayBlocks": 243,
+  "figures": 21,
+  "nonAuthorNotes": 18,
+  "originalNotes": 8,
+  "mandatoryConditions": 10,
+  "pages": [
+    {
+      "offset": 0,
+      "count": 45,
+      "next": 45
+    },
+    {
+      "offset": 45,
+      "count": 33,
+      "next": 78
+    },
+    {
+      "offset": 78,
+      "count": 22,
+      "next": 100
+    },
+    {
+      "offset": 100,
+      "count": 26,
+      "next": 126
+    },
+    {
+      "offset": 126,
+      "count": 13,
+      "next": 139
+    },
+    {
+      "offset": 139,
+      "count": 29,
+      "next": 168
+    },
+    {
+      "offset": 168,
+      "count": 19,
+      "next": 187
+    },
+    {
+      "offset": 187,
+      "count": 33,
+      "next": 220
+    },
+    {
+      "offset": 220,
+      "count": 23,
+      "next": null
+    }
+  ],
+  "images": [
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b72",
+      "sha256": "bbca9db14c3a80fbd5ff070c6eefd65152c97182158396f05ca373baec3a366c",
+      "bytes": 128982
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b74",
+      "sha256": "42086babbd68ac15d56f9ffd9859cca672d7e3ca8d3d3492a30f29edeff6479c",
+      "bytes": 142117
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b81",
+      "sha256": "2984cf32886471adbff74248de526f433d64078231de60fbc42916bf1f8de338",
+      "bytes": 8899
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b92",
+      "sha256": "c3048b0d59c9b6f62dab70769c45da41ef410046a1fc81e7588fe082de4c3ea1",
+      "bytes": 81665
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b94",
+      "sha256": "61b0283a57b1873cdc15d05de6b2f9048d1afbee5a90f1ff4b01e1fb9c8c2598",
+      "bytes": 79624
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b100",
+      "sha256": "6ee9339e103b917d1047bb9d2ccd71ee948c5287ce2c7bdc985afff0b6909c0e",
+      "bytes": 80018
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b102",
+      "sha256": "7b1e94ac28ed3cf3a0216fa007cde1f0a7814ff3ce5f7eddc6090ce591cac33c",
+      "bytes": 79022
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b122",
+      "sha256": "bfe8735a4711bc2453d66751c2d6ad09ed1f177ef9246c4f84832219e68a5e88",
+      "bytes": 366556
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b124",
+      "sha256": "8e21f0df52ec2d918ba3153781d2ec004c183343b3a4229852b36ef28a46d822",
+      "bytes": 392654
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b126",
+      "sha256": "54e6f36c5e4c6a040f43bceaebc013b5baa2b4b356a6998ab7a28aef6eff7ccc",
+      "bytes": 351045
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b128",
+      "sha256": "cb22b10e15a8cd6d180d3e2a19f4069f67235bfa8fdd1279b732fecd94440537",
+      "bytes": 345999
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b130",
+      "sha256": "3d4b9dca119449f49f0549a55e6ae8b4cd96d916346391240fcab291b5d94385",
+      "bytes": 325942
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b132",
+      "sha256": "377e7474db9bbf62f8efcaae391ae6dc5101b698b2ec968187911652c05e7db0",
+      "bytes": 350938
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b154",
+      "sha256": "cf9e148f7efb214fd146eb1a4f637f7064229c9945bd9f42af49a89fe5a07cef",
+      "bytes": 12032
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b156",
+      "sha256": "bfea6a4a3b1b55e9e6fbcdb8b4b4a82076715f026f64b08784d0d96b3bc5b35e",
+      "bytes": 360056
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b158",
+      "sha256": "76efb2db059af06179fa2d2bea2a2299ef9c8ac2f2baafd8ca4afb179ff4f8e1",
+      "bytes": 361653
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b163",
+      "sha256": "c160aaf3d3c7b036a90addd7cb8b915bdd25321c040fb3203af4ef18703b4d92",
+      "bytes": 12089
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b165",
+      "sha256": "b4906a2a9c50c289257598f663fd9df1a34fdf1d28aca292f384618a8eab46b4",
+      "bytes": 8373
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b186",
+      "sha256": "3ccb3883ebb01f8a79ea50bd0049f36fdce18380be99b85a2cf1ee5c8feb9822",
+      "bytes": 260947
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b204",
+      "sha256": "618ff97c6e12a206bb6accb24789fc73678a8bccb025f6c9196852141512d9ca",
+      "bytes": 131276
+    },
+    {
+      "figureId": "79-bilibili-cn-cv1815400-b214",
+      "sha256": "45500e50811d2dd3758c44f45da2c0bd3117578c2eaedbccf2fa3bb3e95a22c8",
+      "bytes": 23906
+    }
+  ],
+  "all18NotesDisplayedAndAdjacent": true,
+  "handAAfterB0154BeforeB0155": true,
+  "wrongAttachmentPairsHiddenAndNoticeShown": true,
+  "allAuthorBodyMarksLinksConditionsAndUnknownsUnchanged": true,
+  "historicalArraysUnchanged": true,
+  "originalStrictFalseAndHistoricalIssuesPreserved": true,
+  "ordinaryWholeArticlePassed": false,
+  "priorUnitsUnchanged": 264,
+  "completeCanonicalCatalog": true,
+  "arena": {
+    "units": 265,
+    "exactBody": true,
+    "fullReadRequiredBeforeCitation": true
+  },
+  "originalUnitScope": {
+    "canonical": "79-cn-chapter-311-18",
+    "originalUnits": [
+      {
+        "unitId": "79-cn-chapter-311-18-unit-1",
+        "title": "第三节 攻守判断的基准",
+        "from": {
+          "page": 311,
+          "sourceBlockId": "79-cn-p311-b18"
+        },
+        "to": {
+          "page": 311,
+          "sourceBlockId": "79-cn-p311-b18"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-2",
+        "title": "胜败的分歧点 攻守判断的基准",
+        "from": {
+          "page": 311,
+          "sourceBlockId": "79-cn-p311-b19"
+        },
+        "to": {
+          "page": 311,
+          "sourceBlockId": "79-cn-p311-b21"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-3",
+        "title": "攻守判断是最重要的",
+        "from": {
+          "page": 311,
+          "sourceBlockId": "79-cn-p311-b22"
+        },
+        "to": {
+          "page": 312,
+          "sourceBlockId": "79-cn-p312-b5"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-4",
+        "title": "打点比对手低也有可能有利",
+        "from": {
+          "page": 312,
+          "sourceBlockId": "79-cn-p312-b6"
+        },
+        "to": {
+          "page": 312,
+          "sourceBlockId": "79-cn-p312-b12"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-5",
+        "title": "打点比对手高也有可能不利",
+        "from": {
+          "page": 312,
+          "sourceBlockId": "79-cn-p312-b13"
+        },
+        "to": {
+          "page": 312,
+          "sourceBlockId": "79-cn-p312-b17"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-6",
+        "title": "到底应该如何判断有利还是不利呢？",
+        "from": {
+          "page": 312,
+          "sourceBlockId": "79-cn-p312-b18"
+        },
+        "to": {
+          "page": 313,
+          "sourceBlockId": "79-cn-p313-b6"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-7",
+        "title": "攻守的判别式",
+        "from": {
+          "page": 313,
+          "sourceBlockId": "79-cn-p313-b7"
+        },
+        "to": {
+          "page": 316,
+          "sourceBlockId": "79-cn-p316-b6"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-8",
+        "title": "弃和的情况下有多大概率被自摸？",
+        "from": {
+          "page": 316,
+          "sourceBlockId": "79-cn-p316-b7"
+        },
+        "to": {
+          "page": 317,
+          "sourceBlockId": "79-cn-p317-b6"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-9",
+        "title": "进攻与防守的标准的判断？",
+        "from": {
+          "page": 317,
+          "sourceBlockId": "79-cn-p317-b7"
+        },
+        "to": {
+          "page": 319,
+          "sourceBlockId": "79-cn-p319-b6"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-10",
+        "title": "来练习一下吧",
+        "from": {
+          "page": 319,
+          "sourceBlockId": "79-cn-p319-b7"
+        },
+        "to": {
+          "page": 320,
+          "sourceBlockId": "79-cn-p320-b7"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-11",
+        "title": "良形听牌时面对对手的立直可以进攻的打点",
+        "from": {
+          "page": 320,
+          "sourceBlockId": "79-cn-p320-b8"
+        },
+        "to": {
+          "page": 323,
+          "sourceBlockId": "79-cn-p323-b7"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-12",
+        "title": "愚形听牌时面对对手的立直可以进攻的打点",
+        "from": {
+          "page": 323,
+          "sourceBlockId": "79-cn-p323-b8"
+        },
+        "to": {
+          "page": 324,
+          "sourceBlockId": "79-cn-p324-b4"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-13",
+        "title": "从一向听开始进攻可以吗？",
+        "from": {
+          "page": 324,
+          "sourceBlockId": "79-cn-p324-b5"
+        },
+        "to": {
+          "page": 326,
+          "sourceBlockId": "79-cn-p326-b7"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-14",
+        "title": "副露手牌如何估计？",
+        "from": {
+          "page": 326,
+          "sourceBlockId": "79-cn-p326-b8"
+        },
+        "to": {
+          "page": 328,
+          "sourceBlockId": "79-cn-p328-b1"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-15",
+        "title": "应该扣住DORA 字牌吗？",
+        "from": {
+          "page": 328,
+          "sourceBlockId": "79-cn-p328-b3"
+        },
+        "to": {
+          "page": 329,
+          "sourceBlockId": "79-cn-p329-b7"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-16",
+        "title": "难以和牌的安全策略还是容易和牌的危险策略？",
+        "from": {
+          "page": 329,
+          "sourceBlockId": "79-cn-p329-b8"
+        },
+        "to": {
+          "page": 329,
+          "sourceBlockId": "79-cn-p329-b2"
+        }
+      }
+    ],
+    "originalUnitCount": 16,
+    "ownedPdfSourceBlocks": 339,
+    "acceptedWebSourcePositions": 225,
+    "bodyCorrespondence": {
+      "articleId": "cv1815400",
+      "webSourceId": "79-bilibili-cn",
+      "tier": "body",
+      "evidencePath": "integration/chinese-source-body-correspondence.json",
+      "substitutionAllowed": true,
+      "bodyEquivalenceConfirmed": true,
+      "articleInPreview": false
+    },
+    "correspondence": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/chinese-source-body-correspondence.json",
+      "sha256": "2f1057b83ec2295e8cec3457b4a0d9a8e5d752df64e0cad52c7d8b286761ebfc"
+    },
+    "versionEqualityClaimed": false,
+    "note": "Full web article is the pre-approved body-equivalent version for the existing16-unit canonical scope. One displayed web unit does not replace the original-unit denominator."
+  },
+  "sourceDedupPassed": true,
+  "calls": [
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 0,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 20,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 40,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 60,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 80,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 100,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 120,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 140,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 160,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 180,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 200,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 220,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 240,
+        "limit": 20
+      }
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1815400-argument",
+        "blockOffset": 0
+      }
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1815400-argument",
+        "blockOffset": 45
+      }
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1815400-argument",
+        "blockOffset": 78
+      }
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1815400-argument",
+        "blockOffset": 100
+      }
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1815400-argument",
+        "blockOffset": 126
+      }
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1815400-argument",
+        "blockOffset": 139
+      }
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1815400-argument",
+        "blockOffset": 168
+      }
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1815400-argument",
+        "blockOffset": 187
+      }
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "79-bilibili-cn-cv1815400-argument",
+        "blockOffset": 220
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b72"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b74"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b81"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b92"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b94"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b100"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b102"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b122"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b124"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b126"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b128"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b130"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b132"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b154"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b156"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b158"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b163"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b165"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b186"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b204"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "79-bilibili-cn-cv1815400-b214"
+      }
+    },
+    {
+      "name": "search_textbook",
+      "args": {
+        "query": "攻守判断",
+        "chapterId": "79-bilibili-cn-cv1815400-chapter",
+        "limit": 5
+      }
+    }
+  ],
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "formalActiveChanged": false
+}

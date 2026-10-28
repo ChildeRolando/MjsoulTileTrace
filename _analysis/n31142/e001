@@ -1,0 +1,39 @@
+{
+  "schema": "coac244-exact311-native-stage-handoff/1",
+  "canonical": "79-cn-chapter-311-18",
+  "proposal": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\presentation-proposal.json",
+    "sha256": "ca5792a85433de54d0bfa82649a3707707ef64747d3beb5f8944a5bec372ad97"
+  },
+  "package": "E:/AgentData/Coach/knowledge/processing/integration/coac244-311-native-admission-20261028",
+  "loader": "E:/AgentData/Coach/knowledge/processing/integration/coac244-311-native-admission-20261028/admit.mjs",
+  "loaderFunction": "verifyLimited(root,candidatePath)",
+  "stageEntry": "E:/AgentData/Coach/knowledge/processing/integration/coac244-311-native-admission-20261028/stage.mjs",
+  "stageFunction": "stageLimited({processingRoot,candidatePath,destination})",
+  "stage": "E:/AgentData/Coach/knowledge/processing/integration/coac244-311-native-admission-20261028/stage",
+  "stageVerifier": "E:/AgentData/Coach/knowledge/processing/integration/coac244-311-native-admission-20261028/stage.mjs",
+  "stageVerifierFunction": "verifyStage(root,candidatePath,stageDirectory)",
+  "manifest": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-311-native-admission-20261028/manifest.json",
+    "sha256": "40cdc98a74cd8cdb4488b97fc8a55c5517553015e755d63af06808d16bae98dd"
+  },
+  "verification": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-311-native-admission-20261028/verification.json",
+    "sha256": "b5960003990935d5bb7c7e14bc858c6e0179cc5a1c5c9fdbe11dd4785e0faf70"
+  },
+  "originalStrictFalsePreserved": true,
+  "conditionalCompositionAllowed": true,
+  "mandatoryDisplayConditions": 10,
+  "existingNotes": 8,
+  "ordinaryWholeArticlePassed": false,
+  "globalAdmissionGranted": false,
+  "actualGlobalMcpArenaReadbackRequired": true,
+  "newCalls": 0,
+  "next": "Existing250 sole writer verifies this sealed stage, registers an exact311 persistent route, merges the full225-source chapter and18 non-author notes, reads all225 positions/204texts/21images/conditions via actual MCP and Arena; no model calls or active switch.",
+  "stageSeal": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-admission-20261028\\stage-files.sha256.json",
+    "sha256": "19845284d5509c88e643a515e8e1ed310e91636a57033704ed25f2a38790d2b6"
+  },
+  "reproduction": "node check.mjs (reuses already-created stage; never invokes a model)",
+  "implementationGapResolved": "exact311 native conditional admission, actual18-note stage and stage verifier now provided; 250 owns persistent route and real global readback"
+}

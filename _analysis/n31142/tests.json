@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "wrong candidateSha256",
+      "rejected": true
+    },
+    {
+      "name": "wrong module",
+      "rejected": true
+    },
+    {
+      "name": "wrong stage",
+      "rejected": true
+    },
+    {
+      "name": "wrong manifest",
+      "rejected": true
+    },
+    {
+      "name": "wrong stageSeal",
+      "rejected": true
+    },
+    {
+      "name": "wrong handoff",
+      "rejected": true
+    }
+  ],
+  "persistentExternalProposalPathVerified": true,
+  "persistentEarlyExactRouteVerified": true,
+  "ordinarySidecarAccesses": 0,
+  "originalUnitScopeCount": 16,
+  "displayUnitCount": 1,
+  "newCalls": 0
+}

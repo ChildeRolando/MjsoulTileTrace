@@ -1,0 +1,74 @@
+{
+  "schema": "coac244-exact311-native-display-verification/1",
+  "canonical": "79-cn-chapter-311-18",
+  "proposal": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\presentation-proposal.json",
+    "sha256": "ca5792a85433de54d0bfa82649a3707707ef64747d3beb5f8944a5bec372ad97"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1815400\\source.json",
+    "sha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+    "bytes": 215199
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1815400.coac269b33r1.json",
+    "sha256": "f44231f95310e33608a596f1f4153f0e35afb55490fc3db1fdccd3fc11d3a125"
+  },
+  "independentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-fidelity-reviewed-20261028.json",
+    "sha256": "9245894ecccf7e94f3fac8f3b5e177d5014d29a8f99baca40bb31e892afc22c6"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\47c48143-2aaf-433f-829d-91aa9b07461d.json",
+    "sha256": "f68c9936f06e16b29110f3789756cc17f7f54332dc7fb5ec37fefb70df3b1268"
+  },
+  "sourcePositions": 225,
+  "verbatimTextBlocks": 204,
+  "figures": 21,
+  "stagedAuthorDisplayBlocks": 225,
+  "displayBlocks": 243,
+  "existingNotes": 8,
+  "mandatoryConditions": 10,
+  "all18NotesActuallyInstalledInHtmlAndCorpus": true,
+  "ordered225SourcePositionsPreserved": true,
+  "all21ImageBytesUnchanged": true,
+  "originalRawAndFalseUnchanged": true,
+  "handANoteAdjacentToB0154": true,
+  "wrongAttachmentPairsHiddenFromOutwardDisplay": true,
+  "artificial144SlotsAbsentOnlyInDerivedDisplay": true,
+  "negativeChecks": [
+    "wrong-candidate-sha",
+    "wrong-root",
+    "wrong-source-sha",
+    "wrong-parent-sha",
+    "wrong-proposal-sha",
+    "wrong-canonical",
+    "author-threshold-deleted",
+    "source-context-order-changed",
+    "non-target-figure-changed",
+    "invent-new-graph-value",
+    "fill-unknown-binding",
+    "wrong-image-sha",
+    "original-note-dropped",
+    "original-note-moved",
+    "wrong-actual-call",
+    "faithful-verdict-absent",
+    "mandatory-limit-deleted",
+    "hand-A-note-erased",
+    "old-false-forged-true",
+    "ordinary-pass-forged",
+    "author-computation-certified",
+    "wrong-reverse-diff",
+    "missing-hand-A-display",
+    "missing-attachment-warning",
+    "graph-condition-note-moved",
+    "editor-note-pretends-author",
+    "display-author-text-changed",
+    "display-source-image-changed"
+  ],
+  "conditionalCompositionAllowed": true,
+  "ordinaryWholeArticlePassed": false,
+  "globalAdmissionGranted": false,
+  "actualGlobalMcpArenaReadbackRequired": true,
+  "newModelCalls": 0
+}

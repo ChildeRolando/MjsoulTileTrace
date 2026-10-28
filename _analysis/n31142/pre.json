@@ -1,0 +1,1588 @@
+{
+  "before": {
+    "pointer": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-preview-current.json",
+      "sha256": "7b1fe5f7cd9049d5edee65789975d645190e104d1d07039480265fc325486615"
+    },
+    "variants": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v41.json",
+      "sha256": "d29a59dde74386b65475ff56a483153fc9d23bcf3da43bfb885656541c1049a4"
+    },
+    "builder": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.mjs",
+      "sha256": "18be97cd8db214ec5e3f22581acc83416aa3080b11bf8910129ba93c67965430"
+    },
+    "webSelection": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-web-candidate-selection.json",
+      "sha256": "44f97301e0a24429d6b4326d4444df8faca287719220f94e1f330d58d7b5aa18"
+    },
+    "register": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+      "sha256": "7a6096f9c8f6f925868d60bea5620c5b6ea93c0558963a6faeeac7c694d5aff1"
+    },
+    "owner": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+      "sha256": "e243bcdb0fbb53757359b4456d20b6e486721f332df19a33dc96d126331d6555"
+    },
+    "continuation": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-uncovered-chapter-continuation-register-20261027b.json",
+      "sha256": "ea12c4bf4e6a8f835740981984db674da9bd44f9581702e09c51ab642ee07f06"
+    }
+  },
+  "binding": {
+    "module": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-311-native-admission-20261028/admit.mjs",
+      "sha256": "d0895d44ad3603f4f65e97fb802a9089548b4b50f236a6a33715bea228834805"
+    },
+    "stage": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-311-native-admission-20261028/stage.mjs",
+      "sha256": "a34a8dc9a483dbb8b300222e6024f02c143ec58dc772ac244838c5da40d19c4e"
+    },
+    "manifest": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-311-native-admission-20261028/manifest.json",
+      "sha256": "40cdc98a74cd8cdb4488b97fc8a55c5517553015e755d63af06808d16bae98dd"
+    },
+    "stageSeal": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-admission-20261028\\stage-files.sha256.json",
+      "sha256": "19845284d5509c88e643a515e8e1ed310e91636a57033704ed25f2a38790d2b6"
+    },
+    "handoff": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-311-native-admission-20261028/handoff.json",
+      "sha256": "ef018c8dd89f31ee59652d49609674ff81ec178b0ea81948ef994096e8ce744a"
+    },
+    "candidateSha256": "ca5792a85433de54d0bfa82649a3707707ef64747d3beb5f8944a5bec372ad97"
+  },
+  "addition": {
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1815400",
+    "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\presentation-proposal.json",
+    "candidateSha256": "ca5792a85433de54d0bfa82649a3707707ef64747d3beb5f8944a5bec372ad97",
+    "sourceSha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+    "native311Review": {
+      "module": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-311-native-admission-20261028/admit.mjs",
+        "sha256": "d0895d44ad3603f4f65e97fb802a9089548b4b50f236a6a33715bea228834805"
+      },
+      "stage": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-311-native-admission-20261028/stage.mjs",
+        "sha256": "a34a8dc9a483dbb8b300222e6024f02c143ec58dc772ac244838c5da40d19c4e"
+      },
+      "manifest": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-311-native-admission-20261028/manifest.json",
+        "sha256": "40cdc98a74cd8cdb4488b97fc8a55c5517553015e755d63af06808d16bae98dd"
+      },
+      "stageSeal": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-admission-20261028\\stage-files.sha256.json",
+        "sha256": "19845284d5509c88e643a515e8e1ed310e91636a57033704ed25f2a38790d2b6"
+      },
+      "handoff": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-311-native-admission-20261028/handoff.json",
+        "sha256": "ef018c8dd89f31ee59652d49609674ff81ec178b0ea81948ef994096e8ce744a"
+      },
+      "candidateSha256": "ca5792a85433de54d0bfa82649a3707707ef64747d3beb5f8944a5bec372ad97"
+    },
+    "selectionReason": "Exact311 native-image conditional fidelity composition;18 non-author limits implemented; original strict false/history retained; not ordinary full-article passed."
+  },
+  "package": "E:/AgentData/Coach/knowledge/processing/integration/coac244-311-native-admission-20261028",
+  "originalStage": "E:/AgentData/Coach/knowledge/processing/integration/coac244-311-native-admission-20261028/stage",
+  "gate": {
+    "schema": "coac244-exact311-native-conditional-composition/1",
+    "status": "verified-exact311-native-conditional-display",
+    "canonical": "79-cn-chapter-311-18",
+    "production": {
+      "sha256": "ca5792a85433de54d0bfa82649a3707707ef64747d3beb5f8944a5bec372ad97"
+    },
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\presentation-proposal.json",
+      "sha256": "ca5792a85433de54d0bfa82649a3707707ef64747d3beb5f8944a5bec372ad97"
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1815400\\source.json",
+      "sha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+      "bytes": 215199
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1815400.coac269b33r1.json",
+      "sha256": "f44231f95310e33608a596f1f4153f0e35afb55490fc3db1fdccd3fc11d3a125"
+    },
+    "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-fidelity-reviewed-20261028.json",
+    "auditSha256": "9245894ecccf7e94f3fac8f3b5e177d5014d29a8f99baca40bb31e892afc22c6",
+    "independentReceipt": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-fidelity-reviewed-20261028.json",
+      "sha256": "9245894ecccf7e94f3fac8f3b5e177d5014d29a8f99baca40bb31e892afc22c6"
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\47c48143-2aaf-433f-829d-91aa9b07461d.json",
+      "sha256": "f68c9936f06e16b29110f3789756cc17f7f54332dc7fb5ec37fefb70df3b1268"
+    },
+    "scope": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-mandatory-display-20261028.json",
+      "sha256": "5502384c26e5e939284b07b9a2ee073a4a75043926acfb1ac4ecaaf72c2c3b12"
+    },
+    "derivation": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\derivation.json",
+      "sha256": "8b07c8caec81a87da4cdb8c73a308813b9ed3374f696ed6bd22a33185f9c52c5"
+    },
+    "originalStrictVerification": {
+      "executionVerified": true,
+      "eightFigureChecksFaithful": true,
+      "nativeDisplayVerdict": "faithful-with-mandatory-limits",
+      "editorialLimitsSufficient": false,
+      "actualFidelityGapCount": 0,
+      "handAResolvedWithinSourceLimits": true,
+      "limitedFidelityAccepted": false,
+      "wholeChapterPassed": false,
+      "modelReview": {
+        "nativeDisplayVerdict": "faithful-with-mandatory-limits",
+        "figureChecks": [
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0122:figure",
+            "verdict": "faithful",
+            "evidence": "所给源图为子同士·良形，方案绑定该原图并保留标题、坐标、六项图例及原句图8。既有四组数值是未逐点复核的历史图读；不立直·10%和立直·0%的轨迹及逐巡值仍未核定。"
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0124:figure",
+            "verdict": "faithful",
+            "evidence": "所给源图为子同士·恶形，方案保留原图、六项图例及原句图9。既有数组是历史图读约值；不立直·10%和立直·0%的轨迹及逐巡值仍未核定。"
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0126:figure",
+            "verdict": "faithful",
+            "evidence": "所给源图为相手亲·良形，方案保留原图及原句图10。浅色痕迹与其他轨迹接近，不能据此强配不立直·10%或立直·0%；既有数组未逐点复核。"
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0128:figure",
+            "verdict": "faithful",
+            "evidence": "所给源图为相手亲·恶形，方案保留原图及原句图11。两条指定条件的绑定和逐巡值仍未知；其余数组仅为未重新核准的历史图读约值。"
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0130:figure",
+            "verdict": "faithful",
+            "evidence": "所给源图为自分亲·良形，方案保留原图及原句图12。两条指定条件的绑定和逐巡值仍未知；既有数组不可视为作者提供的精确数据。"
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0132:figure",
+            "verdict": "faithful",
+            "evidence": "所给源图为自分亲·恶形，方案保留原图及原句图13。叉形数组继续单列为未重新核准的历史图读，未强配不立直·10%或立直·0%；这两项的绑定仍未知。"
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0156:figure",
+            "verdict": "faithful",
+            "evidence": "所给源图为两面一向听10%基本图，方案保留五项图例及原句图14。继承确认的两处译义；和牌时自摸比例及被自摸率的轨迹和逐巡值仍未知。b0161的第12巡被自摸率22%是作者正文陈述，未由本次图读核实。"
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0158:figure",
+            "verdict": "faithful",
+            "evidence": "所给源图为两面一向听20%基本图，方案保留五项图例及原句图15。继承确认的两处译义；和牌时自摸比例及被自摸率的轨迹和逐巡值仍未知。约7000点是作者结论，未由本次图读复核。"
+          }
+        ],
+        "actualFidelityGaps": [],
+        "unverifiedAuthorClaims": [
+          "b0112—b0113：作者给出的2859点、1859点及2785点等计算结果未独立复算；相关非目标图按父链继承。",
+          "b0135—b0137、b0140—b0142：第4巡良形听牌、第10巡约为对手三分之一打点、第13巡约为一半打点，以及第14巡安全牌或约10%危险牌条件下的判断，均保留为作者概括，未独立验证。",
+          "b0148—b0150：第6巡愚形对攻约需对手三分之二打点、第12巡自亲和自子愚形追立的翻数，以及第15巡满贯可进攻的结论，均未独立验证。",
+          "b0155：手牌A的四种听牌进张及一巡约10%听牌概率是作者陈述；源图仅有12张可见牌，完整一向听构型未核，不能据此独立确认。",
+          "b0160—b0162：第12巡、切约7%危险牌时所列概率及约18000点、忽略该危险度时约16000点的收入结论未独立验证；其中22%的被自摸率不能称为本次已核定图读。",
+          "b0166—b0168：一巡约20%的听牌概率及第7巡切约7%危险牌时约7000点的结论未独立验证。",
+          "b0054—b0070：用于相关判别式的平均打点、危险度与模拟近似值保留作者归属，本次未独立验证其统计或模型基础。"
+        ],
+        "editorialLimitsSufficient": false,
+        "orderedSourceCoverage": true,
+        "inheritedNonTargetAlerts": [
+          "手牌A的历史审查问题误标为b0156；实际图块为b0154。旧raw保持原样，本次影响判断锚定b0154、b0155及相关论证。",
+          "历史sourceNotes的相邻附件配对编号有误。例：手牌A写作附件27、28，而原审证据对应原图14、放大图35。该错误不改变源图身份；若该说明对读者显示，须隐藏或更正错误配对，历史记录不改。",
+          "原有八项uncertain、40条影响、10项issues及严格false继续保留；本次限定呈现判断不改写它们，也不重审其他章节或13幅非目标图。"
+        ],
+        "wholeChapterPassed": false,
+        "summary": "八张目标图按给定绑定呈现原始PNG，相关原句和图例保留；未发现需要列为实际教材缺口的漏句、错图或确定的错误曲线指认。删除空unknown行本身不是通过依据：本结论依赖原图、作者原句、未知绑定及历史图读限制同时呈现。现有八条图后说明基本覆盖图表限制，但手牌A尚需可见的论证限制，错误附件配对如对外显示也须处理，因此当前说明整体尚不充分。安装所列条件后可在本范围内限定接受；作者计算未独立证真，不授予全章通过、合库或正式active。",
+        "mandatoryDisplayConditions": [
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0122:figure",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0121",
+              "79-bilibili-cn:cv1815400:b0122",
+              "79-bilibili-cn:cv1815400:b0123",
+              "79-bilibili-cn:cv1815400:b0135",
+              "79-bilibili-cn:cv1815400:b0137"
+            ],
+            "conditionText": "审校说明（非原文）：本图保留源PNG的标题、坐标、图例和曲线。既有数组是未经本次逐点核准的历史图读约值，不是作者提供的完整数据表或精确阈值。不立直·10%与立直·0%的轨迹及第2、4、6、8、10、12、14巡读数仍未核定；不强配、不插值。正文判断按作者原文引用，未由本次审查验证。",
+            "evidence": "源图无逐点数字；第3、4图例项与浅色轨迹未可靠配对。b0135及b0137的判断仍须保留作者归属。",
+            "nonAuthorDisplayRequired": true
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0124:figure",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0121",
+              "79-bilibili-cn:cv1815400:b0124",
+              "79-bilibili-cn:cv1815400:b0125",
+              "79-bilibili-cn:cv1815400:b0148",
+              "79-bilibili-cn:cv1815400:b0149"
+            ],
+            "conditionText": "审校说明（非原文）：本图保留源PNG的标题、坐标、图例和曲线。既有数组是未经本次逐点核准的历史图读约值，不是作者提供的完整数据表或精确阈值。不立直·10%与立直·0%的轨迹及第2、4、6、8、10、12、14巡读数仍未核定；不强配、不插值。正文判断按作者原文引用，未由本次审查验证。",
+            "evidence": "浅色痕迹接近其他曲线；b0148和b0149的愚形判断不能被表述为缺失系列已核定的读数。",
+            "nonAuthorDisplayRequired": true
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0126:figure",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0121",
+              "79-bilibili-cn:cv1815400:b0126",
+              "79-bilibili-cn:cv1815400:b0127",
+              "79-bilibili-cn:cv1815400:b0136",
+              "79-bilibili-cn:cv1815400:b0137"
+            ],
+            "conditionText": "审校说明（非原文）：本图保留源PNG的标题、坐标、图例和曲线。既有数组是未经本次逐点核准的历史图读约值，不是作者提供的完整数据表或精确阈值。不立直·10%与立直·0%的轨迹及第2、4、6、8、10、12、14巡读数仍未核定；不强配、不插值。正文判断按作者原文引用，未由本次审查验证。",
+            "evidence": "叉状浅色痕迹与方形轨迹接近或重叠；b0136和b0137涉及面对亲家的不同危险度条件。",
+            "nonAuthorDisplayRequired": true
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0128:figure",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0121",
+              "79-bilibili-cn:cv1815400:b0128",
+              "79-bilibili-cn:cv1815400:b0129",
+              "79-bilibili-cn:cv1815400:b0148",
+              "79-bilibili-cn:cv1815400:b0149"
+            ],
+            "conditionText": "审校说明（非原文）：本图保留源PNG的标题、坐标、图例和曲线。既有数组是未经本次逐点核准的历史图读约值，不是作者提供的完整数据表或精确阈值。不立直·10%与立直·0%的轨迹及第2、4、6、8、10、12、14巡读数仍未核定；不强配、不插值。正文判断按作者原文引用，未由本次审查验证。",
+            "evidence": "图例第3、4项与浅色点线未可靠配对；作者愚形判断与历史图读须分开。",
+            "nonAuthorDisplayRequired": true
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0130:figure",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0121",
+              "79-bilibili-cn:cv1815400:b0130",
+              "79-bilibili-cn:cv1815400:b0131",
+              "79-bilibili-cn:cv1815400:b0135",
+              "79-bilibili-cn:cv1815400:b0137"
+            ],
+            "conditionText": "审校说明（非原文）：本图保留源PNG的标题、坐标、图例和曲线。既有数组是未经本次逐点核准的历史图读约值，不是作者提供的完整数据表或精确阈值。不立直·10%与立直·0%的轨迹及第2、4、6、8、10、12、14巡读数仍未核定；不强配、不插值。正文判断按作者原文引用，未由本次审查验证。",
+            "evidence": "浅色痕迹与方形线及网格混杂，不能把未绑定轨迹用于第4巡或第14巡条件的核验。",
+            "nonAuthorDisplayRequired": true
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0132:figure",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0121",
+              "79-bilibili-cn:cv1815400:b0132",
+              "79-bilibili-cn:cv1815400:b0133",
+              "79-bilibili-cn:cv1815400:b0148",
+              "79-bilibili-cn:cv1815400:b0149"
+            ],
+            "conditionText": "审校说明（非原文）：本图保留源PNG的标题、坐标、图例和曲线。既有数组是未经本次逐点核准的历史图读约值，不是作者提供的完整数据表或精确阈值。不立直·10%与立直·0%的轨迹及第2、4、6、8、10、12、14巡读数仍未核定；不强配、不插值。既有叉形数组的条件仍未确定，不归入任一条件系列。正文判断按作者原文引用，未由本次审查验证。",
+            "evidence": "叉形历史数组被保留，但其对应图例第3项还是第4项未定；不能拿它填充任一未知系列。",
+            "nonAuthorDisplayRequired": true
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0156:figure",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0155",
+              "79-bilibili-cn:cv1815400:b0156",
+              "79-bilibili-cn:cv1815400:b0157",
+              "79-bilibili-cn:cv1815400:b0160",
+              "79-bilibili-cn:cv1815400:b0161"
+            ],
+            "conditionText": "审校说明（非原文）：本图保留源PNG的标题、坐标、图例和曲线。既有数组是未经本次逐点核准的历史图读约值，不是作者提供的完整数据表。图例“和了時ツモ率”译为“和牌时的自摸比例”，“被ツモ率”译为“被自摸率”；这两系列的轨迹绑定及第1至15巡读数仍未核定，不插值。正文中的第12巡被自摸率22%及相关计算是作者陈述，未由本次图读或复算验证。",
+            "evidence": "两处译义可继承确认，但浅色曲线与底纹混杂；b0161的22%存在于正文，不能当作已核定的图表点值。",
+            "nonAuthorDisplayRequired": true
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0158:figure",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0158",
+              "79-bilibili-cn:cv1815400:b0159",
+              "79-bilibili-cn:cv1815400:b0166",
+              "79-bilibili-cn:cv1815400:b0167",
+              "79-bilibili-cn:cv1815400:b0168"
+            ],
+            "conditionText": "审校说明（非原文）：本图保留源PNG的标题、坐标、图例和曲线。既有数组是未经本次逐点核准的历史图读约值，不是作者提供的完整数据表。图例“和了時ツモ率”译为“和牌时的自摸比例”，“被ツモ率”译为“被自摸率”；这两系列的轨迹绑定及第1至15巡读数仍未核定，不插值。正文中的约7000点是作者计算结论，未由本次图读或复算验证。",
+            "evidence": "两处译义可继承确认；第7巡被自摸率输入未由图例绑定核定，正文也未列出该项输入。",
+            "nonAuthorDisplayRequired": true
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0154:figure",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0153",
+              "79-bilibili-cn:cv1815400:b0154",
+              "79-bilibili-cn:cv1815400:b0155",
+              "79-bilibili-cn:cv1815400:b0156",
+              "79-bilibili-cn:cv1815400:b0161",
+              "79-bilibili-cn:cv1815400:b0162"
+            ],
+            "conditionText": "审校说明（非原文）：手牌A源图仅有12张可见牌，完整一向听构型尚未核定。不能仅凭该图确认正文所述四种听牌进张及一巡约10%的听牌概率，也不能据此核实该牌例与图14的具体对应。上述进张、概率和后续判断按作者原文呈现，未独立验证；第13张牌不作推断或补录。",
+            "evidence": "b0154继承的源图只有12张可见牌；b0155据此陈述进张、10%及图14，b0161—b0162继续给出计算和结论。现有图后说明未明确这一论证限制。",
+            "nonAuthorDisplayRequired": true
+          },
+          {
+            "figureId": "79-cn-chapter-311-18",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0122",
+              "79-bilibili-cn:cv1815400:b0154",
+              "79-bilibili-cn:cv1815400:b0156"
+            ],
+            "conditionText": "审校说明（非原文）：历史审查附件的相邻编号配对有误，本页图像以源图绑定为准。",
+            "evidence": "若本范围内的历史sourceNotes会对读者显示，须隐藏或更正错误配对并显示本说明。例如，原审图8对应附件8与29，手牌A对应14与35，图14对应15与36；不修改旧审查记录。",
+            "nonAuthorDisplayRequired": true
+          }
+        ],
+        "handAImpact": {
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1815400:b0153",
+            "79-bilibili-cn:cv1815400:b0154",
+            "79-bilibili-cn:cv1815400:b0155",
+            "79-bilibili-cn:cv1815400:b0156",
+            "79-bilibili-cn:cv1815400:b0161",
+            "79-bilibili-cn:cv1815400:b0162"
+          ],
+          "inheritedVisibleSourceFact": "手牌A源图仅有12张可见牌；完整一向听构型未核定。原图与作者关于进张、约10%概率及图14的文字均已继承。",
+          "sourceFidelityGap": false,
+          "disposition": "inherited-source-limit-with-mandatory-note",
+          "evidence": "b0154呈现所绑定源图及已有12张可见牌记录；b0155原文保留四种进张和约10%陈述。源图本身不足以核定完整构型，因此不能把该例当作已独立证实的图14输入，但这不是方案漏掉源图中可确认牌张的证据。",
+          "requiredDisplayConditions": [
+            "审校说明（非原文）：手牌A源图仅有12张可见牌，完整一向听构型尚未核定。不能仅凭该图确认正文所述四种听牌进张及一巡约10%的听牌概率，也不能据此核实该牌例与图14的具体对应。上述进张、概率和后续判断按作者原文呈现，未独立验证；第13张牌不作推断或补录。"
+          ]
+        },
+        "historyBoundary": {
+          "originalStrictFalsePreserved": true,
+          "originalEightUncertainPreserved": true,
+          "authorCalculationsIndependentlyVerified": false,
+          "full144PointTableRequiredForFidelity": false
+        }
+      }
+    },
+    "oldStrictVerification": {
+      "transportCompleted": true,
+      "repairPassed": false,
+      "limitedUnknownOkay": false,
+      "wholeChapterPassed": false,
+      "modelReview": {
+        "targetChecks": [
+          {
+            "id": "79-bilibili-cn:cv1815400:b0122:figure",
+            "verdict": "uncertain",
+            "evidence": "raw与候选一致：不立直·10%、立直·0%两行在第2、4、6、8、10、12、14巡均为[unknown,unknown,unknown,unknown,unknown,unknown,unknown]，标记及绑定均为unknown。原图浅色线痕与网格、其他曲线混杂，图例第3、4项标记不能可靠配对；未能核定两条件的逐巡阈值。原有四行保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1815400:b0124:figure",
+            "verdict": "uncertain",
+            "evidence": "raw与候选一致：不立直·10%、立直·0%在第2、4、6、8、10、12、14巡各为[unknown,unknown,unknown,unknown,unknown,unknown,unknown]，标记及绑定均为unknown。原图中部浅色痕迹靠近方形和星形轨迹，图例标记不足以可靠绑定；两条件的完整曲线仍未核定。原有四行保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1815400:b0126:figure",
+            "verdict": "uncertain",
+            "evidence": "raw与候选一致：不立直·10%、立直·0%在第2、4、6、8、10、12、14巡各为[unknown,unknown,unknown,unknown,unknown,unknown,unknown]，标记及绑定均为unknown。原图叉状浅色痕迹与方形轨迹接近或重叠，无法可靠确定各巡所属条件；原有四行保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1815400:b0128:figure",
+            "verdict": "uncertain",
+            "evidence": "raw与候选一致：不立直·10%、立直·0%在第2、4、6、8、10、12、14巡各为[unknown,unknown,unknown,unknown,unknown,unknown,unknown]，标记及绑定均为unknown。原图浅色点线靠近其他轨迹，图例第3、4项标记不能可靠配对；原有四行保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1815400:b0130:figure",
+            "verdict": "uncertain",
+            "evidence": "raw与候选一致：不立直·10%、立直·0%在第2、4、6、8、10、12、14巡各为[unknown,unknown,unknown,unknown,unknown,unknown,unknown]，标记及绑定均为unknown。原图浅色痕迹与方形线、网格混杂，无法可靠绑定逐巡读数；原有四行保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1815400:b0132:figure",
+            "verdict": "uncertain",
+            "evidence": "raw与候选一致：不立直·10%、立直·0%在第2、4、6、8、10、12、14巡各为[unknown,unknown,unknown,unknown,unknown,unknown,unknown]，标记及绑定均为unknown。候选保留原先叉形曲线约值[3400,3550,3700,3850,3900,3950,3800]及其条件未定说明，没有将它强配给任一条件；另一条系列也未完整核定。原有四行保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1815400:b0156:figure",
+            "verdict": "uncertain",
+            "evidence": "原图图例“和了時ツモ率”“被ツモ率”已分别译为“和牌时的自摸比例”“被自摸率”。raw与候选一致：两系列第1至15巡各为[unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown]，标记及绑定均为unknown。浅色线条和扫描底纹妨碍逐巡配对，五系列图的完整数据仍未核定；原有三行保留。"
+          },
+          {
+            "id": "79-bilibili-cn:cv1815400:b0158:figure",
+            "verdict": "uncertain",
+            "evidence": "原图图例“和了時ツモ率”“被ツモ率”已分别译为“和牌时的自摸比例”“被自摸率”。raw与候选一致：两系列第1至15巡各为[unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown]，标记及绑定均为unknown。浅色线条、网格及后段相近曲线妨碍逐巡配对；原有三行保留。"
+          }
+        ],
+        "unknownImpacts": [
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0122:figure",
+            "unknownText": "其余曲线没有印刷数值标签，所列数据为目测约值，精确数值未知。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0114",
+              "79-bilibili-cn:cv1815400:b0115",
+              "79-bilibili-cn:cv1815400:b0122",
+              "79-bilibili-cn:cv1815400:b0135"
+            ],
+            "authorClaim": "作者以大致分歧点进行攻守判断，并提出第4巡良形听牌的概括。",
+            "disposition": "nonblocking-with-limits",
+            "evidence": "图上没有逐点印刷数值；作者亦说明小幅误差对实战判断的影响。",
+            "requiredDisplayLimitations": [
+              "已录数值须标明图读约值，不作为精确统计或精确临界点。",
+              "保留原图及未核定系列的提示。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0122:figure",
+            "unknownText": "不立直·10%的图例标记或条件绑定仍为unknown，不能将未绑定曲线用于该条件的读数。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0121",
+              "79-bilibili-cn:cv1815400:b0122",
+              "79-bilibili-cn:cv1815400:b0135",
+              "79-bilibili-cn:cv1815400:b0138"
+            ],
+            "authorClaim": "作者按立直与否、危险度等条件展示所需收入，并概括第4巡及危险度的影响。",
+            "disposition": "blocking",
+            "evidence": "图例文字可读，但第3项标记与浅色轨迹的绑定未核定，无法以该曲线验证不立直、10%条件。",
+            "requiredDisplayLimitations": [
+              "不得给未绑定轨迹指定不立直·10%条件。",
+              "保留原图；正文概括可归于作者，但不可称该条件已由转录曲线核实。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0122:figure",
+            "unknownText": "不立直·10%第2、4、6、8、10、12、14巡图读约值为unknown，不插值或由其他图/公式推断。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0122",
+              "79-bilibili-cn:cv1815400:b0135",
+              "79-bilibili-cn:cv1815400:b0138"
+            ],
+            "authorClaim": "第4巡良形听牌的概括包括不同危险度条件。",
+            "disposition": "blocking",
+            "evidence": "该条件七巡均无已绑定读数，包含作者概括涉及的第4巡。",
+            "requiredDisplayLimitations": [
+              "七巡均显示未知，不补点或推算。",
+              "保留作者原文与原图，不能展示该条件的已核定阈值。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0122:figure",
+            "unknownText": "立直·0%的图例标记或条件绑定仍为unknown，不能将未绑定曲线用于该条件的读数。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0121",
+              "79-bilibili-cn:cv1815400:b0122",
+              "79-bilibili-cn:cv1815400:b0137"
+            ],
+            "authorClaim": "作者称第14巡切安全牌追立基本没问题。",
+            "disposition": "blocking",
+            "evidence": "立直·0%图例与轨迹未可靠配对，不能用未绑定线核验安全牌追立条件。",
+            "requiredDisplayLimitations": [
+              "不将浅色轨迹强配为立直·0%。",
+              "作者的安全牌结论须保持原文归属，图表核验状态保留未知。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0122:figure",
+            "unknownText": "立直·0%第2、4、6、8、10、12、14巡图读约值为unknown，不插值或由其他图/公式推断。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0122",
+              "79-bilibili-cn:cv1815400:b0135",
+              "79-bilibili-cn:cv1815400:b0137"
+            ],
+            "authorClaim": "作者讨论第4巡良形及第14巡安全牌追立。",
+            "disposition": "blocking",
+            "evidence": "两处相关巡目均在该行七个未知点中，不能从候选取得条件阈值。",
+            "requiredDisplayLimitations": [
+              "保留七个未知点及原图，不插值。",
+              "不得把作者概括呈现为本行已读出的具体阈值。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0124:figure",
+            "unknownText": "其余曲线没有印刷数值标签，所列数据为目测约值，精确数值未知。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0114",
+              "79-bilibili-cn:cv1815400:b0124",
+              "79-bilibili-cn:cv1815400:b0148",
+              "79-bilibili-cn:cv1815400:b0149"
+            ],
+            "authorClaim": "作者概括愚形对攻在第6巡和第12巡所需的打点。",
+            "disposition": "nonblocking-with-limits",
+            "evidence": "既有曲线为目测约值，没有印刷逐点数字；正文给出的是作者的判断概括。",
+            "requiredDisplayLimitations": [
+              "既有读数须标为约值，不声称精确统计。",
+              "保留原图和未核定条件。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0124:figure",
+            "unknownText": "不立直·10%的图例标记或条件绑定仍为unknown，不能将未绑定曲线用于该条件的读数。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0121",
+              "79-bilibili-cn:cv1815400:b0124",
+              "79-bilibili-cn:cv1815400:b0138",
+              "79-bilibili-cn:cv1815400:b0148"
+            ],
+            "authorClaim": "六图用于比较危险度和立直条件，作者另概括第6巡愚形对攻。",
+            "disposition": "blocking",
+            "evidence": "第3项的标记和浅色轨迹未能可靠配对，无法验证该危险度下的不立直曲线。",
+            "requiredDisplayLimitations": [
+              "不绑定不明轨迹。",
+              "可保留作者概括，但不称该条件比较已由此行核实。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0124:figure",
+            "unknownText": "不立直·10%第2、4、6、8、10、12、14巡图读约值为unknown，不插值或由其他图/公式推断。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0124",
+              "79-bilibili-cn:cv1815400:b0138",
+              "79-bilibili-cn:cv1815400:b0148"
+            ],
+            "authorClaim": "作者用条件图支持危险度影响及第6巡愚形对攻的概括。",
+            "disposition": "blocking",
+            "evidence": "该条件在包括第6巡的七个巡目均未读出绑定值。",
+            "requiredDisplayLimitations": [
+              "逐巡保留unknown，不由其他图或公式补值。",
+              "保留原图，不宣称该条件阈值已核定。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0124:figure",
+            "unknownText": "立直·0%的图例标记或条件绑定仍为unknown，不能将未绑定曲线用于该条件的读数。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0124",
+              "79-bilibili-cn:cv1815400:b0149"
+            ],
+            "authorClaim": "作者概括第12巡子家愚形追立所需翻数。",
+            "disposition": "blocking",
+            "evidence": "安全牌追立的图例项无法可靠绑定原图轨迹，不能据此行核验第12巡条件。",
+            "requiredDisplayLimitations": [
+              "不得将未绑定曲线标为立直·0%。",
+              "保留作者原文和原图，并提示该条件未核定。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0124:figure",
+            "unknownText": "立直·0%第2、4、6、8、10、12、14巡图读约值为unknown，不插值或由其他图/公式推断。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0124",
+              "79-bilibili-cn:cv1815400:b0149"
+            ],
+            "authorClaim": "第12巡子家愚形追立的打点概括需要明确条件。",
+            "disposition": "blocking",
+            "evidence": "第12巡及其余六巡均无该条件的图读约值。",
+            "requiredDisplayLimitations": [
+              "逐巡显示未知并保留原图。",
+              "不得把正文概括转换成该行的图读点值。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0126:figure",
+            "unknownText": "其余曲线没有印刷数值标签，所列数据为目测约值，精确数值未知。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0114",
+              "79-bilibili-cn:cv1815400:b0126",
+              "79-bilibili-cn:cv1815400:b0136",
+              "79-bilibili-cn:cv1815400:b0137"
+            ],
+            "authorClaim": "作者讨论面对亲家立直时良形听牌的中后巡判断。",
+            "disposition": "nonblocking-with-limits",
+            "evidence": "既有曲线没有印刷点值，正文判断与图读近似值应分清。",
+            "requiredDisplayLimitations": [
+              "图读数字标为约值，不作精确阈值。",
+              "保留原图及缺失条件提示。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0126:figure",
+            "unknownText": "不立直·10%的图例标记或条件绑定仍为unknown，不能将未绑定曲线用于该条件的读数。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0121",
+              "79-bilibili-cn:cv1815400:b0126",
+              "79-bilibili-cn:cv1815400:b0135",
+              "79-bilibili-cn:cv1815400:b0138"
+            ],
+            "authorClaim": "作者按危险度、立直与否和亲子关系给出良形所需收入图示。",
+            "disposition": "blocking",
+            "evidence": "原图叉状痕迹贴近方形线，第3图例项与轨迹的对应仍不可靠。",
+            "requiredDisplayLimitations": [
+              "不把叉状痕迹指定为不立直·10%。",
+              "保留原图和作者概括，标明该条件图表证据未核定。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0126:figure",
+            "unknownText": "不立直·10%第2、4、6、8、10、12、14巡图读约值为unknown，不插值或由其他图/公式推断。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0126",
+              "79-bilibili-cn:cv1815400:b0135",
+              "79-bilibili-cn:cv1815400:b0138"
+            ],
+            "authorClaim": "作者概括第4巡良形听牌，并说明牌的危险度影响判断。",
+            "disposition": "blocking",
+            "evidence": "包括第4巡在内的七个点均未能绑定到该条件。",
+            "requiredDisplayLimitations": [
+              "显示七点未知，不从邻线或公式推补。",
+              "不能声称已核验该条件的所需收入。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0126:figure",
+            "unknownText": "立直·0%的图例标记或条件绑定仍为unknown，不能将未绑定曲线用于该条件的读数。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0126",
+              "79-bilibili-cn:cv1815400:b0137"
+            ],
+            "authorClaim": "作者称第14巡切安全牌追立基本没问题，并另讨论面对亲家切10%危险牌的情况。",
+            "disposition": "blocking",
+            "evidence": "第4图例项的轨迹绑定不明，故安全牌追立一侧不能由此行核验；既有立直·10%行不受此项改变。",
+            "requiredDisplayLimitations": [
+              "安全牌追立曲线不得强行绑定。",
+              "保留作者两种条件的区别及原图。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0126:figure",
+            "unknownText": "立直·0%第2、4、6、8、10、12、14巡图读约值为unknown，不插值或由其他图/公式推断。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0126",
+              "79-bilibili-cn:cv1815400:b0137"
+            ],
+            "authorClaim": "作者的第14巡安全牌追立判断涉及该条件。",
+            "disposition": "blocking",
+            "evidence": "第14巡与其他六巡均未有可靠绑定值。",
+            "requiredDisplayLimitations": [
+              "保留全部未知点，不从其他曲线猜补。",
+              "作者判断可原文显示，不作为该曲线已核定读数。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0128:figure",
+            "unknownText": "其余曲线没有印刷数值标签，所列数据为目测约值，精确数值未知。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0114",
+              "79-bilibili-cn:cv1815400:b0128",
+              "79-bilibili-cn:cv1815400:b0148",
+              "79-bilibili-cn:cv1815400:b0149"
+            ],
+            "authorClaim": "作者概括愚形对攻的第6巡和第12巡标准。",
+            "disposition": "nonblocking-with-limits",
+            "evidence": "图中既有曲线没有逐点印刷值，正文标准可作为作者概括保留。",
+            "requiredDisplayLimitations": [
+              "既有数据标注目测约值。",
+              "不得把图读值作为精确统计；保留原图。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0128:figure",
+            "unknownText": "不立直·10%的图例标记或条件绑定仍为unknown，不能将未绑定曲线用于该条件的读数。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0121",
+              "79-bilibili-cn:cv1815400:b0128",
+              "79-bilibili-cn:cv1815400:b0138",
+              "79-bilibili-cn:cv1815400:b0148"
+            ],
+            "authorClaim": "作者以亲子关系、危险度等条件图说明攻守判断。",
+            "disposition": "blocking",
+            "evidence": "图例第3项符号与靠近其他轨迹的浅色点线无法可靠配对。",
+            "requiredDisplayLimitations": [
+              "不将未绑定线指定为不立直·10%。",
+              "保留原图，不能宣称该条件比较已核实。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0128:figure",
+            "unknownText": "不立直·10%第2、4、6、8、10、12、14巡图读约值为unknown，不插值或由其他图/公式推断。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0128",
+              "79-bilibili-cn:cv1815400:b0148"
+            ],
+            "authorClaim": "作者提出第6巡愚形对攻的打点概括。",
+            "disposition": "blocking",
+            "evidence": "该条件包括第6巡在内的七点均未读取。",
+            "requiredDisplayLimitations": [
+              "七点保留unknown，不能推补。",
+              "正文结论保留作者归属，不当作该行已核定数据。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0128:figure",
+            "unknownText": "立直·0%的图例标记或条件绑定仍为unknown，不能将未绑定曲线用于该条件的读数。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0128",
+              "79-bilibili-cn:cv1815400:b0149"
+            ],
+            "authorClaim": "作者概括子家第12巡愚形追立的打点条件。",
+            "disposition": "blocking",
+            "evidence": "图例第4项与原图轨迹无法可靠绑定，安全牌条件不能由此行核验。",
+            "requiredDisplayLimitations": [
+              "不强配立直·0%曲线。",
+              "保留作者原文及原图，标出条件绑定未知。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0128:figure",
+            "unknownText": "立直·0%第2、4、6、8、10、12、14巡图读约值为unknown，不插值或由其他图/公式推断。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0128",
+              "79-bilibili-cn:cv1815400:b0149"
+            ],
+            "authorClaim": "作者的第12巡愚形追立标准需要明确适用条件。",
+            "disposition": "blocking",
+            "evidence": "该行第12巡及其他六点均为未知，不能读出安全牌条件的收入阈值。",
+            "requiredDisplayLimitations": [
+              "逐巡保留unknown，不插值。",
+              "不得将作者概括转写成该曲线的点值。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0130:figure",
+            "unknownText": "其余曲线没有印刷数值标签，所列数据为目测约值，精确数值未知。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0114",
+              "79-bilibili-cn:cv1815400:b0130",
+              "79-bilibili-cn:cv1815400:b0135",
+              "79-bilibili-cn:cv1815400:b0137"
+            ],
+            "authorClaim": "作者对良形听牌的早巡和安全牌追立给出概括。",
+            "disposition": "nonblocking-with-limits",
+            "evidence": "原图点位无印刷数字，既有读数只能作为近似量。",
+            "requiredDisplayLimitations": [
+              "标明图读约值和精确数值未知。",
+              "保留原图与未核定条件。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0130:figure",
+            "unknownText": "不立直·10%的图例标记或条件绑定仍为unknown，不能将未绑定曲线用于该条件的读数。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0121",
+              "79-bilibili-cn:cv1815400:b0130",
+              "79-bilibili-cn:cv1815400:b0135",
+              "79-bilibili-cn:cv1815400:b0138"
+            ],
+            "authorClaim": "作者按危险度及是否立直比较自己为亲家的所需收入。",
+            "disposition": "blocking",
+            "evidence": "图例第3项标记与靠近方形线的浅色痕迹无法可靠绑定。",
+            "requiredDisplayLimitations": [
+              "不把不明轨迹指定给不立直·10%。",
+              "保留作者原文及原图，提示该条件未核定。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0130:figure",
+            "unknownText": "不立直·10%第2、4、6、8、10、12、14巡图读约值为unknown，不插值或由其他图/公式推断。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0130",
+              "79-bilibili-cn:cv1815400:b0135",
+              "79-bilibili-cn:cv1815400:b0138"
+            ],
+            "authorClaim": "第4巡良形听牌的概括涉及不同危险度。",
+            "disposition": "blocking",
+            "evidence": "该条件第4巡及其他六巡均无可靠点值。",
+            "requiredDisplayLimitations": [
+              "七点显示未知，不根据其他曲线推补。",
+              "不声称该条件所需收入已被图读核实。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0130:figure",
+            "unknownText": "立直·0%的图例标记或条件绑定仍为unknown，不能将未绑定曲线用于该条件的读数。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0130",
+              "79-bilibili-cn:cv1815400:b0137"
+            ],
+            "authorClaim": "作者称第14巡切安全牌追立基本没问题。",
+            "disposition": "blocking",
+            "evidence": "图例第4项与方形、星形线之间的浅色轨迹未可靠配对。",
+            "requiredDisplayLimitations": [
+              "不强配安全牌追立轨迹。",
+              "保留作者原文及该条件未核定提示。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0130:figure",
+            "unknownText": "立直·0%第2、4、6、8、10、12、14巡图读约值为unknown，不插值或由其他图/公式推断。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0130",
+              "79-bilibili-cn:cv1815400:b0137"
+            ],
+            "authorClaim": "作者第14巡安全牌追立的概括涉及该系列。",
+            "disposition": "blocking",
+            "evidence": "第14巡及其余六巡均缺少该条件的已绑定约值。",
+            "requiredDisplayLimitations": [
+              "保留逐巡unknown及原图。",
+              "不能展示虚构的安全牌条件阈值。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0132:figure",
+            "unknownText": "曲线没有印刷数值标签，所列数据为目测约值，精确数值未知。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0114",
+              "79-bilibili-cn:cv1815400:b0132",
+              "79-bilibili-cn:cv1815400:b0148",
+              "79-bilibili-cn:cv1815400:b0149"
+            ],
+            "authorClaim": "作者概括愚形对攻的第6巡和第12巡标准。",
+            "disposition": "nonblocking-with-limits",
+            "evidence": "原图无逐点印刷值；叉形曲线的既有记录也是约值且条件未定。",
+            "requiredDisplayLimitations": [
+              "所有已录点值标为约值。",
+              "叉形数组须保持未绑定，保留原图。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0132:figure",
+            "unknownText": "不立直·10%的图例标记或条件绑定仍为unknown，不能将未绑定曲线用于该条件的读数。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0121",
+              "79-bilibili-cn:cv1815400:b0132",
+              "79-bilibili-cn:cv1815400:b0148"
+            ],
+            "authorClaim": "作者按是否立直与危险度区分自己为亲家的愚形所需收入。",
+            "disposition": "blocking",
+            "evidence": "可见叉形轨迹的条件在图例第3、4项之间未定，不能指定为不立直·10%。",
+            "requiredDisplayLimitations": [
+              "保留叉形约值及条件未定说明，不强配条件。",
+              "该条件比较不得称为已核定。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0132:figure",
+            "unknownText": "不立直·10%第2、4、6、8、10、12、14巡图读约值为unknown，不插值或由其他图/公式推断。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0132",
+              "79-bilibili-cn:cv1815400:b0148"
+            ],
+            "authorClaim": "第6巡愚形对攻概括涉及图中的条件化所需收入。",
+            "disposition": "blocking",
+            "evidence": "七个已绑定点均未知；已有叉形数组不能代作本行。",
+            "requiredDisplayLimitations": [
+              "保留七点unknown和未绑定叉形数组。",
+              "不得用叉形数组或公式填充该条件。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0132:figure",
+            "unknownText": "立直·0%的图例标记或条件绑定仍为unknown，不能将未绑定曲线用于该条件的读数。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0132",
+              "79-bilibili-cn:cv1815400:b0149"
+            ],
+            "authorClaim": "作者称第12巡自亲愚形追立，包括立直要2翻。",
+            "disposition": "blocking",
+            "evidence": "叉形轨迹不能可靠判定属于第3项还是第4项，安全牌追立条件未绑定。",
+            "requiredDisplayLimitations": [
+              "叉形数组继续单列为条件未定。",
+              "作者结论保留原文，但不以该未绑定轨迹声称已核验。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0132:figure",
+            "unknownText": "立直·0%第2、4、6、8、10、12、14巡图读约值为unknown，不插值或由其他图/公式推断。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0132",
+              "79-bilibili-cn:cv1815400:b0149"
+            ],
+            "authorClaim": "第12巡自亲愚形追立标准涉及立直条件。",
+            "disposition": "blocking",
+            "evidence": "第12巡及其他六巡无可靠绑定读数，叉形数组不能任选绑定。",
+            "requiredDisplayLimitations": [
+              "保留七点unknown和原叉形记录。",
+              "不得推算或把叉形值归入立直·0%。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0156:figure",
+            "unknownText": "其余曲线没有印刷数值标签，所列数据为目测约值，精确百分比未知。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0155",
+              "79-bilibili-cn:cv1815400:b0156",
+              "79-bilibili-cn:cv1815400:b0161"
+            ],
+            "authorClaim": "作者说10%一向听图中的和牌率低于放铳率，并给出第12巡例子。",
+            "disposition": "nonblocking-with-limits",
+            "evidence": "和牌率、放铳率已有近似曲线；正文另有明确的第12巡数值陈述，但图读精度有限。",
+            "requiredDisplayLimitations": [
+              "既有曲线值标为图读约值。",
+              "正文数字归于作者，未核定系列不得冒充图读值。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0156:figure",
+            "unknownText": "和牌时的自摸比例的图例标记或条件绑定仍为unknown，不能将未绑定曲线用于该条件的读数。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0155",
+              "79-bilibili-cn:cv1815400:b0156",
+              "79-bilibili-cn:cv1815400:b0161"
+            ],
+            "authorClaim": "作者比较和牌率与放铳率，并在第12巡例子中列出其他几项概率。",
+            "disposition": "nonblocking-with-limits",
+            "evidence": "这些正文陈述没有给出或要求逐巡自摸比例；但图例虽已正确翻译，轨迹绑定仍不能核实。",
+            "requiredDisplayLimitations": [
+              "保留自摸比例的正确图例和绑定未知提示。",
+              "不把正文论点当作完整五系列转录；保留原图。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0156:figure",
+            "unknownText": "和牌时的自摸比例第1、2、3、4、5、6、7、8、9、10、11、12、13、14、15巡图读约值为unknown，不插值或由其他图/公式推断。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0155",
+              "79-bilibili-cn:cv1815400:b0156",
+              "79-bilibili-cn:cv1815400:b0161"
+            ],
+            "authorClaim": "作者的和牌率与放铳率比较、第12巡文字例子仍可按原文呈现。",
+            "disposition": "nonblocking-with-limits",
+            "evidence": "正文未列出该系列逐巡值；全未知不妨碍保留上述文字，但不能重建自摸比例曲线。",
+            "requiredDisplayLimitations": [
+              "第1至15巡保留unknown，不补点。",
+              "显示原图并说明五系列数据不完整。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0156:figure",
+            "unknownText": "被自摸率的图例标记或条件绑定仍为unknown，不能将未绑定曲线用于该条件的读数。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0156",
+              "79-bilibili-cn:cv1815400:b0160",
+              "79-bilibili-cn:cv1815400:b0161"
+            ],
+            "authorClaim": "作者在10%听牌概率、第12巡例子中写被自摸率为22%，并给出所需收入结论。",
+            "disposition": "uncertain",
+            "evidence": "正文明确写出22%，但图例第4项与原图轨迹未能可靠核对，不能独立确认该值为图读结果。",
+            "requiredDisplayLimitations": [
+              "22%只能作为作者正文陈述引用，不能声称本次已从曲线核实。",
+              "保留正确图例、绑定未知及原图。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0156:figure",
+            "unknownText": "被自摸率第1、2、3、4、5、6、7、8、9、10、11、12、13、14、15巡图读约值为unknown，不插值或由其他图/公式推断。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0156",
+              "79-bilibili-cn:cv1815400:b0160",
+              "79-bilibili-cn:cv1815400:b0161",
+              "79-bilibili-cn:cv1815400:b0162"
+            ],
+            "authorClaim": "作者以第12巡被自摸率22%及其他概率计算所需收入，并得出该例对攻不划算。",
+            "disposition": "uncertain",
+            "evidence": "第12巡的22%来自正文，候选图表该点仍为unknown；其余巡目也没有可靠绑定读数。",
+            "requiredDisplayLimitations": [
+              "可逐字保留正文22%及结论，须标为作者陈述。",
+              "图表第1至15巡保持unknown，不插值或宣称图读核实。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0158:figure",
+            "unknownText": "其余曲线没有印刷数值标签，所列数据为目测约值，精确百分比未知。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0158",
+              "79-bilibili-cn:cv1815400:b0166",
+              "79-bilibili-cn:cv1815400:b0167",
+              "79-bilibili-cn:cv1815400:b0168"
+            ],
+            "authorClaim": "作者讨论一巡约20%听牌概率的手牌，并给出约7000点的判断。",
+            "disposition": "nonblocking-with-limits",
+            "evidence": "既有曲线无印刷点值；20%和约7000点有正文表述，应与图读约值区分。",
+            "requiredDisplayLimitations": [
+              "已录曲线数字标为约值。",
+              "20%与约7000点按作者正文归属显示，不作为精确图读统计。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0158:figure",
+            "unknownText": "和牌时的自摸比例的图例标记或条件绑定仍为unknown，不能将未绑定曲线用于该条件的读数。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0158",
+              "79-bilibili-cn:cv1815400:b0166",
+              "79-bilibili-cn:cv1815400:b0167"
+            ],
+            "authorClaim": "作者陈述约20%的听牌概率，并给出约7000点的例子。",
+            "disposition": "nonblocking-with-limits",
+            "evidence": "正文没有列出自摸比例曲线值；图例译义已正确，但轨迹绑定仍未知。",
+            "requiredDisplayLimitations": [
+              "保留正确图例及绑定未知提示。",
+              "保留原图，不称五系列均已完成转录。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0158:figure",
+            "unknownText": "和牌时的自摸比例第1、2、3、4、5、6、7、8、9、10、11、12、13、14、15巡图读约值为unknown，不插值或由其他图/公式推断。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0158",
+              "79-bilibili-cn:cv1815400:b0166",
+              "79-bilibili-cn:cv1815400:b0167",
+              "79-bilibili-cn:cv1815400:b0168"
+            ],
+            "authorClaim": "作者的20%听牌概率与约7000点判断可以按正文保留。",
+            "disposition": "nonblocking-with-limits",
+            "evidence": "正文没有逐巡引用自摸比例；缺行仍使该图不能作为完整五系列数据重建。",
+            "requiredDisplayLimitations": [
+              "第1至15巡均显示unknown，不推补。",
+              "作者结论注明其来源为正文，原图继续保留。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0158:figure",
+            "unknownText": "被自摸率的图例标记或条件绑定仍为unknown，不能将未绑定曲线用于该条件的读数。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0051",
+              "79-bilibili-cn:cv1815400:b0158",
+              "79-bilibili-cn:cv1815400:b0167",
+              "79-bilibili-cn:cv1815400:b0168"
+            ],
+            "authorClaim": "作者给出第7巡、切7%危险牌时约7000点的计算结论。",
+            "disposition": "uncertain",
+            "evidence": "判别式定义了进攻时被自摸率，但该例正文未列出该项输入；图例第4项与曲线也未能可靠配对，无法确认图表对计算的具体支撑。",
+            "requiredDisplayLimitations": [
+              "约7000点可作为作者结论保留，不称已用该曲线复核。",
+              "保留正确图例、绑定未知和原图。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1815400:b0158:figure",
+            "unknownText": "被自摸率第1、2、3、4、5、6、7、8、9、10、11、12、13、14、15巡图读约值为unknown，不插值或由其他图/公式推断。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1815400:b0051",
+              "79-bilibili-cn:cv1815400:b0158",
+              "79-bilibili-cn:cv1815400:b0167",
+              "79-bilibili-cn:cv1815400:b0168"
+            ],
+            "authorClaim": "作者给出第7巡约7000点的计算结果。",
+            "disposition": "uncertain",
+            "evidence": "第7巡及其他巡目的被自摸率均未核定，正文也未列出此项输入，无法从候选曲线重建该例所需数据。",
+            "requiredDisplayLimitations": [
+              "第1至15巡保持unknown，不从其他线或公式推补。",
+              "保留作者的约7000点陈述，同时说明图表数据不足以复核该输入。"
+            ]
+          }
+        ],
+        "contextContinuity": {
+          "verdict": "faithful",
+          "evidence": "按给定父审继承其余正文及13幅非目标图。本次八图仍处于六幅条件图及两幅一向听图的原有次序；b0121、b0135—b0149和b0155—b0168的作者判断与图表关系保留。连续性不等于缺失曲线已核定：正文具体数值须与未确认的图读值区分。父审手牌A完整性uncertain（b0154）及附件编号source-note（candidate.figures.sourceNotes）继续继承。"
+        },
+        "issues": [
+          {
+            "severity": "uncertain",
+            "targetId": "79-bilibili-cn:cv1815400:b0122:figure",
+            "description": "不立直·10%与立直·0%各七巡仍全未知，条件化收入曲线未完整核定。",
+            "sourceEvidence": "原图第3、4图例项的标记与浅色轨迹不能可靠配对；raw及候选两行均为unknown。"
+          },
+          {
+            "severity": "uncertain",
+            "targetId": "79-bilibili-cn:cv1815400:b0124:figure",
+            "description": "两条指定条件曲线各七巡及其绑定仍未核定，不能完整核验愚形条件比较。",
+            "sourceEvidence": "原图浅色痕迹靠近方形、星形轨迹；raw及候选两行均为unknown。"
+          },
+          {
+            "severity": "uncertain",
+            "targetId": "79-bilibili-cn:cv1815400:b0126:figure",
+            "description": "两条指定条件曲线各七巡及其绑定仍未核定。",
+            "sourceEvidence": "原图叉状痕迹接近或重叠方形轨迹；raw及候选两行均为unknown。"
+          },
+          {
+            "severity": "uncertain",
+            "targetId": "79-bilibili-cn:cv1815400:b0128:figure",
+            "description": "不立直·10%和立直·0%的条件绑定及七巡读数仍未知。",
+            "sourceEvidence": "原图浅色点线与其他轨迹接近，图例第3、4项未能可靠配对。"
+          },
+          {
+            "severity": "uncertain",
+            "targetId": "79-bilibili-cn:cv1815400:b0130:figure",
+            "description": "两条指定条件曲线各七巡仍未核定。",
+            "sourceEvidence": "原图浅色痕迹与方形线及网格混杂；raw及候选均保留unknown。"
+          },
+          {
+            "severity": "uncertain",
+            "targetId": "79-bilibili-cn:cv1815400:b0132:figure",
+            "description": "叉形曲线的条件仍未绑定，另一指定系列亦未完整读取；不能以叉形数组代表任一条件。",
+            "sourceEvidence": "候选保留叉形约值[3400,3550,3700,3850,3900,3950,3800]及第3、4项对应未定的说明，两指定行均为unknown。"
+          },
+          {
+            "severity": "uncertain",
+            "targetId": "79-bilibili-cn:cv1815400:b0156:figure",
+            "description": "自摸与被自摸图例译义已修正，但两系列15巡及标记绑定仍未核定。",
+            "sourceEvidence": "原图为“和了時ツモ率”“被ツモ率”；候选译为“和牌时的自摸比例”“被自摸率”。b0161的第12巡22%是正文陈述，图表该点仍为unknown。"
+          },
+          {
+            "severity": "uncertain",
+            "targetId": "79-bilibili-cn:cv1815400:b0158:figure",
+            "description": "自摸与被自摸图例译义已修正，但两系列15巡及标记绑定仍未核定。",
+            "sourceEvidence": "原图为“和了時ツモ率”“被ツモ率”；候选译义正确，两条raw行与候选均为unknown。"
+          },
+          {
+            "severity": "uncertain",
+            "targetId": "79-bilibili-cn:cv1815400:b0156:figure",
+            "description": "可见牌码转录准确，缺失来自源图；但不能据这12张核定完整手牌的一向听构型，候选unknowns为空。",
+            "sourceEvidence": "附图14、35可见牌列为2m 3m 9m 9m 9m 4p 5p 6s 7s 8s 9s 2z，仅12张；b0155将其用于一向听进张示例。"
+          },
+          {
+            "severity": "source-note",
+            "targetId": "79-bilibili-cn:cv1815400:b0122:figure",
+            "description": "各figure的sourceNotes把附件按相邻两张配对，属于加工附件编号说明错误，不影响已绑定的教材图像身份。",
+            "sourceEvidence": "本次给出的原图为附件1～21，对应放大图为22～42；例如图1对应1与22，图2对应2与23，C/D图对应21与42。"
+          }
+        ],
+        "scopeComplete": "yes",
+        "summary": "八个指定目标及40条保留unknown均已审查。两幅一向听图的自摸相关图例译义已修正；八图指定曲线仍存在未核定绑定和逐巡数据，靶审结论均为uncertain。部分正文贡献可在明确归属和显示限制下保留，条件阈值或图读复核仍受阻。父审手牌A完整性uncertain与附件编号source-note继续继承；本结果不表示全章通过或准入。"
+      }
+    },
+    "mandatoryDisplayConditions": [
+      {
+        "figureId": "79-bilibili-cn:cv1815400:b0122:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1815400:b0121",
+          "79-bilibili-cn:cv1815400:b0122",
+          "79-bilibili-cn:cv1815400:b0123",
+          "79-bilibili-cn:cv1815400:b0135",
+          "79-bilibili-cn:cv1815400:b0137"
+        ],
+        "conditionText": "审校说明（非原文）：本图保留源PNG的标题、坐标、图例和曲线。既有数组是未经本次逐点核准的历史图读约值，不是作者提供的完整数据表或精确阈值。不立直·10%与立直·0%的轨迹及第2、4、6、8、10、12、14巡读数仍未核定；不强配、不插值。正文判断按作者原文引用，未由本次审查验证。",
+        "evidence": "源图无逐点数字；第3、4图例项与浅色轨迹未可靠配对。b0135及b0137的判断仍须保留作者归属。",
+        "nonAuthorDisplayRequired": true
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1815400:b0124:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1815400:b0121",
+          "79-bilibili-cn:cv1815400:b0124",
+          "79-bilibili-cn:cv1815400:b0125",
+          "79-bilibili-cn:cv1815400:b0148",
+          "79-bilibili-cn:cv1815400:b0149"
+        ],
+        "conditionText": "审校说明（非原文）：本图保留源PNG的标题、坐标、图例和曲线。既有数组是未经本次逐点核准的历史图读约值，不是作者提供的完整数据表或精确阈值。不立直·10%与立直·0%的轨迹及第2、4、6、8、10、12、14巡读数仍未核定；不强配、不插值。正文判断按作者原文引用，未由本次审查验证。",
+        "evidence": "浅色痕迹接近其他曲线；b0148和b0149的愚形判断不能被表述为缺失系列已核定的读数。",
+        "nonAuthorDisplayRequired": true
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1815400:b0126:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1815400:b0121",
+          "79-bilibili-cn:cv1815400:b0126",
+          "79-bilibili-cn:cv1815400:b0127",
+          "79-bilibili-cn:cv1815400:b0136",
+          "79-bilibili-cn:cv1815400:b0137"
+        ],
+        "conditionText": "审校说明（非原文）：本图保留源PNG的标题、坐标、图例和曲线。既有数组是未经本次逐点核准的历史图读约值，不是作者提供的完整数据表或精确阈值。不立直·10%与立直·0%的轨迹及第2、4、6、8、10、12、14巡读数仍未核定；不强配、不插值。正文判断按作者原文引用，未由本次审查验证。",
+        "evidence": "叉状浅色痕迹与方形轨迹接近或重叠；b0136和b0137涉及面对亲家的不同危险度条件。",
+        "nonAuthorDisplayRequired": true
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1815400:b0128:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1815400:b0121",
+          "79-bilibili-cn:cv1815400:b0128",
+          "79-bilibili-cn:cv1815400:b0129",
+          "79-bilibili-cn:cv1815400:b0148",
+          "79-bilibili-cn:cv1815400:b0149"
+        ],
+        "conditionText": "审校说明（非原文）：本图保留源PNG的标题、坐标、图例和曲线。既有数组是未经本次逐点核准的历史图读约值，不是作者提供的完整数据表或精确阈值。不立直·10%与立直·0%的轨迹及第2、4、6、8、10、12、14巡读数仍未核定；不强配、不插值。正文判断按作者原文引用，未由本次审查验证。",
+        "evidence": "图例第3、4项与浅色点线未可靠配对；作者愚形判断与历史图读须分开。",
+        "nonAuthorDisplayRequired": true
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1815400:b0130:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1815400:b0121",
+          "79-bilibili-cn:cv1815400:b0130",
+          "79-bilibili-cn:cv1815400:b0131",
+          "79-bilibili-cn:cv1815400:b0135",
+          "79-bilibili-cn:cv1815400:b0137"
+        ],
+        "conditionText": "审校说明（非原文）：本图保留源PNG的标题、坐标、图例和曲线。既有数组是未经本次逐点核准的历史图读约值，不是作者提供的完整数据表或精确阈值。不立直·10%与立直·0%的轨迹及第2、4、6、8、10、12、14巡读数仍未核定；不强配、不插值。正文判断按作者原文引用，未由本次审查验证。",
+        "evidence": "浅色痕迹与方形线及网格混杂，不能把未绑定轨迹用于第4巡或第14巡条件的核验。",
+        "nonAuthorDisplayRequired": true
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1815400:b0132:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1815400:b0121",
+          "79-bilibili-cn:cv1815400:b0132",
+          "79-bilibili-cn:cv1815400:b0133",
+          "79-bilibili-cn:cv1815400:b0148",
+          "79-bilibili-cn:cv1815400:b0149"
+        ],
+        "conditionText": "审校说明（非原文）：本图保留源PNG的标题、坐标、图例和曲线。既有数组是未经本次逐点核准的历史图读约值，不是作者提供的完整数据表或精确阈值。不立直·10%与立直·0%的轨迹及第2、4、6、8、10、12、14巡读数仍未核定；不强配、不插值。既有叉形数组的条件仍未确定，不归入任一条件系列。正文判断按作者原文引用，未由本次审查验证。",
+        "evidence": "叉形历史数组被保留，但其对应图例第3项还是第4项未定；不能拿它填充任一未知系列。",
+        "nonAuthorDisplayRequired": true
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1815400:b0156:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1815400:b0155",
+          "79-bilibili-cn:cv1815400:b0156",
+          "79-bilibili-cn:cv1815400:b0157",
+          "79-bilibili-cn:cv1815400:b0160",
+          "79-bilibili-cn:cv1815400:b0161"
+        ],
+        "conditionText": "审校说明（非原文）：本图保留源PNG的标题、坐标、图例和曲线。既有数组是未经本次逐点核准的历史图读约值，不是作者提供的完整数据表。图例“和了時ツモ率”译为“和牌时的自摸比例”，“被ツモ率”译为“被自摸率”；这两系列的轨迹绑定及第1至15巡读数仍未核定，不插值。正文中的第12巡被自摸率22%及相关计算是作者陈述，未由本次图读或复算验证。",
+        "evidence": "两处译义可继承确认，但浅色曲线与底纹混杂；b0161的22%存在于正文，不能当作已核定的图表点值。",
+        "nonAuthorDisplayRequired": true
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1815400:b0158:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1815400:b0158",
+          "79-bilibili-cn:cv1815400:b0159",
+          "79-bilibili-cn:cv1815400:b0166",
+          "79-bilibili-cn:cv1815400:b0167",
+          "79-bilibili-cn:cv1815400:b0168"
+        ],
+        "conditionText": "审校说明（非原文）：本图保留源PNG的标题、坐标、图例和曲线。既有数组是未经本次逐点核准的历史图读约值，不是作者提供的完整数据表。图例“和了時ツモ率”译为“和牌时的自摸比例”，“被ツモ率”译为“被自摸率”；这两系列的轨迹绑定及第1至15巡读数仍未核定，不插值。正文中的约7000点是作者计算结论，未由本次图读或复算验证。",
+        "evidence": "两处译义可继承确认；第7巡被自摸率输入未由图例绑定核定，正文也未列出该项输入。",
+        "nonAuthorDisplayRequired": true
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1815400:b0154:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1815400:b0153",
+          "79-bilibili-cn:cv1815400:b0154",
+          "79-bilibili-cn:cv1815400:b0155",
+          "79-bilibili-cn:cv1815400:b0156",
+          "79-bilibili-cn:cv1815400:b0161",
+          "79-bilibili-cn:cv1815400:b0162"
+        ],
+        "conditionText": "审校说明（非原文）：手牌A源图仅有12张可见牌，完整一向听构型尚未核定。不能仅凭该图确认正文所述四种听牌进张及一巡约10%的听牌概率，也不能据此核实该牌例与图14的具体对应。上述进张、概率和后续判断按作者原文呈现，未独立验证；第13张牌不作推断或补录。",
+        "evidence": "b0154继承的源图只有12张可见牌；b0155据此陈述进张、10%及图14，b0161—b0162继续给出计算和结论。现有图后说明未明确这一论证限制。",
+        "nonAuthorDisplayRequired": true
+      },
+      {
+        "figureId": "79-cn-chapter-311-18",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1815400:b0122",
+          "79-bilibili-cn:cv1815400:b0154",
+          "79-bilibili-cn:cv1815400:b0156"
+        ],
+        "conditionText": "审校说明（非原文）：历史审查附件的相邻编号配对有误，本页图像以源图绑定为准。",
+        "evidence": "若本范围内的历史sourceNotes会对读者显示，须隐藏或更正错误配对并显示本说明。例如，原审图8对应附件8与29，手牌A对应14与35，图14对应15与36；不修改旧审查记录。",
+        "nonAuthorDisplayRequired": true
+      }
+    ],
+    "existingNotes": [
+      {
+        "id": "web311-native-note-0122",
+        "afterSourceBlockId": "79-bilibili-cn:cv1815400:b0122",
+        "figureId": "79-bilibili-cn:cv1815400:b0122:figure",
+        "authorText": false,
+        "text": "审校说明（非原文）：本图按源PNG原始像素呈现，保留原图的图例与曲线。低清源图中的逐巡数值及部分图例—曲线绑定未被独立恢复；本方案不新增读数、不插值，也不证明作者的阈值或计算成立。正文数字和结论按作者原文引用，不是本次已验证的数据。既有转录中的部分约值属于历史加工图读，不能视为作者提供的完整数据表，且本阶段没有重新核准。“不立直·10%”与“立直·0%”对应的轨迹仍未核定，不将不明轨迹强配条件。"
+      },
+      {
+        "id": "web311-native-note-0124",
+        "afterSourceBlockId": "79-bilibili-cn:cv1815400:b0124",
+        "figureId": "79-bilibili-cn:cv1815400:b0124:figure",
+        "authorText": false,
+        "text": "审校说明（非原文）：本图按源PNG原始像素呈现，保留原图的图例与曲线。低清源图中的逐巡数值及部分图例—曲线绑定未被独立恢复；本方案不新增读数、不插值，也不证明作者的阈值或计算成立。正文数字和结论按作者原文引用，不是本次已验证的数据。既有转录中的部分约值属于历史加工图读，不能视为作者提供的完整数据表，且本阶段没有重新核准。“不立直·10%”与“立直·0%”对应的轨迹仍未核定，不将不明轨迹强配条件。"
+      },
+      {
+        "id": "web311-native-note-0126",
+        "afterSourceBlockId": "79-bilibili-cn:cv1815400:b0126",
+        "figureId": "79-bilibili-cn:cv1815400:b0126:figure",
+        "authorText": false,
+        "text": "审校说明（非原文）：本图按源PNG原始像素呈现，保留原图的图例与曲线。低清源图中的逐巡数值及部分图例—曲线绑定未被独立恢复；本方案不新增读数、不插值，也不证明作者的阈值或计算成立。正文数字和结论按作者原文引用，不是本次已验证的数据。既有转录中的部分约值属于历史加工图读，不能视为作者提供的完整数据表，且本阶段没有重新核准。“不立直·10%”与“立直·0%”对应的轨迹仍未核定，不将不明轨迹强配条件。"
+      },
+      {
+        "id": "web311-native-note-0128",
+        "afterSourceBlockId": "79-bilibili-cn:cv1815400:b0128",
+        "figureId": "79-bilibili-cn:cv1815400:b0128:figure",
+        "authorText": false,
+        "text": "审校说明（非原文）：本图按源PNG原始像素呈现，保留原图的图例与曲线。低清源图中的逐巡数值及部分图例—曲线绑定未被独立恢复；本方案不新增读数、不插值，也不证明作者的阈值或计算成立。正文数字和结论按作者原文引用，不是本次已验证的数据。既有转录中的部分约值属于历史加工图读，不能视为作者提供的完整数据表，且本阶段没有重新核准。“不立直·10%”与“立直·0%”对应的轨迹仍未核定，不将不明轨迹强配条件。"
+      },
+      {
+        "id": "web311-native-note-0130",
+        "afterSourceBlockId": "79-bilibili-cn:cv1815400:b0130",
+        "figureId": "79-bilibili-cn:cv1815400:b0130:figure",
+        "authorText": false,
+        "text": "审校说明（非原文）：本图按源PNG原始像素呈现，保留原图的图例与曲线。低清源图中的逐巡数值及部分图例—曲线绑定未被独立恢复；本方案不新增读数、不插值，也不证明作者的阈值或计算成立。正文数字和结论按作者原文引用，不是本次已验证的数据。既有转录中的部分约值属于历史加工图读，不能视为作者提供的完整数据表，且本阶段没有重新核准。“不立直·10%”与“立直·0%”对应的轨迹仍未核定，不将不明轨迹强配条件。"
+      },
+      {
+        "id": "web311-native-note-0132",
+        "afterSourceBlockId": "79-bilibili-cn:cv1815400:b0132",
+        "figureId": "79-bilibili-cn:cv1815400:b0132:figure",
+        "authorText": false,
+        "text": "审校说明（非原文）：本图按源PNG原始像素呈现，保留原图的图例与曲线。低清源图中的逐巡数值及部分图例—曲线绑定未被独立恢复；本方案不新增读数、不插值，也不证明作者的阈值或计算成立。正文数字和结论按作者原文引用，不是本次已验证的数据。既有转录中的部分约值属于历史加工图读，不能视为作者提供的完整数据表，且本阶段没有重新核准。“不立直·10%”与“立直·0%”对应的轨迹仍未核定，不将不明轨迹强配条件。原叉形曲线约值继续保持条件未定，不归入任一条件系列。"
+      },
+      {
+        "id": "web311-native-note-0156",
+        "afterSourceBlockId": "79-bilibili-cn:cv1815400:b0156",
+        "figureId": "79-bilibili-cn:cv1815400:b0156:figure",
+        "authorText": false,
+        "text": "审校说明（非原文）：本图按源PNG原始像素呈现，保留原图的图例与曲线。低清源图中的逐巡数值及部分图例—曲线绑定未被独立恢复；本方案不新增读数、不插值，也不证明作者的阈值或计算成立。正文数字和结论按作者原文引用，不是本次已验证的数据。既有转录中的部分约值属于历史加工图读，不能视为作者提供的完整数据表，且本阶段没有重新核准。“和了時ツモ率”译为“和牌时的自摸比例”、“被ツモ率”译为“被自摸率”，仅继承真实独审确认的译义；这两系列的轨迹绑定和逐巡读数仍未核定。"
+      },
+      {
+        "id": "web311-native-note-0158",
+        "afterSourceBlockId": "79-bilibili-cn:cv1815400:b0158",
+        "figureId": "79-bilibili-cn:cv1815400:b0158:figure",
+        "authorText": false,
+        "text": "审校说明（非原文）：本图按源PNG原始像素呈现，保留原图的图例与曲线。低清源图中的逐巡数值及部分图例—曲线绑定未被独立恢复；本方案不新增读数、不插值，也不证明作者的阈值或计算成立。正文数字和结论按作者原文引用，不是本次已验证的数据。既有转录中的部分约值属于历史加工图读，不能视为作者提供的完整数据表，且本阶段没有重新核准。“和了時ツモ率”译为“和牌时的自摸比例”、“被ツモ率”译为“被自摸率”，仅继承真实独审确认的译义；这两系列的轨迹绑定和逐巡读数仍未核定。"
+      }
+    ],
+    "conditionalCompositionAllowed": true,
+    "ordinaryWholeArticlePassed": false,
+    "globalAdmissionGranted": false,
+    "actualGlobalMcpArenaReadbackRequired": true,
+    "newModelCalls": 0
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1815400\\source.json",
+    "sha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+    "bytes": 215199
+  },
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\presentation-proposal.json",
+    "sha256": "ca5792a85433de54d0bfa82649a3707707ef64747d3beb5f8944a5bec372ad97"
+  },
+  "protectedFiles": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/source-structure-holds.json",
+      "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/candidate-exclusions.json",
+      "sha256": "4835655ad7fa323e2acc94d4e04824dc1c56b4b67ceec1b1449617c79c3411a3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-candidate-selection.json",
+      "sha256": "82c654fc34a4e509c9878065684306246f61324879f64eef1dc7f9aef964f4f2"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-human257261-cn311-intake-20261028.json",
+      "sha256": "45ee27ca8e8784b48073df4a1b4b3db58f9d4761720521955c5585f6ec63311f"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/review/textbook-corpus.json",
+      "sha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1815400\\source.json",
+      "sha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+      "bytes": 215199
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1815400.coac269b33r1.json",
+      "sha256": "f44231f95310e33608a596f1f4153f0e35afb55490fc3db1fdccd3fc11d3a125"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-fidelity-reviewed-20261028.json",
+      "sha256": "9245894ecccf7e94f3fac8f3b5e177d5014d29a8f99baca40bb31e892afc22c6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\47c48143-2aaf-433f-829d-91aa9b07461d.json",
+      "sha256": "f68c9936f06e16b29110f3789756cc17f7f54332dc7fb5ec37fefb70df3b1268"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-311-native-mandatory-display-20261028.json",
+      "sha256": "5502384c26e5e939284b07b9a2ee073a4a75043926acfb1ac4ecaaf72c2c3b12"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-311-native-proposal-20261028\\presentation-proposal.json",
+      "sha256": "ca5792a85433de54d0bfa82649a3707707ef64747d3beb5f8944a5bec372ad97"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/chinese-source-body-correspondence.json",
+      "sha256": "2f1057b83ec2295e8cec3457b4a0d9a8e5d752df64e0cad52c7d8b286761ebfc"
+    }
+  ],
+  "ownershipScope": {
+    "canonical": "79-cn-chapter-311-18",
+    "originalUnits": [
+      {
+        "unitId": "79-cn-chapter-311-18-unit-1",
+        "title": "第三节 攻守判断的基准",
+        "from": {
+          "page": 311,
+          "sourceBlockId": "79-cn-p311-b18"
+        },
+        "to": {
+          "page": 311,
+          "sourceBlockId": "79-cn-p311-b18"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-2",
+        "title": "胜败的分歧点 攻守判断的基准",
+        "from": {
+          "page": 311,
+          "sourceBlockId": "79-cn-p311-b19"
+        },
+        "to": {
+          "page": 311,
+          "sourceBlockId": "79-cn-p311-b21"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-3",
+        "title": "攻守判断是最重要的",
+        "from": {
+          "page": 311,
+          "sourceBlockId": "79-cn-p311-b22"
+        },
+        "to": {
+          "page": 312,
+          "sourceBlockId": "79-cn-p312-b5"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-4",
+        "title": "打点比对手低也有可能有利",
+        "from": {
+          "page": 312,
+          "sourceBlockId": "79-cn-p312-b6"
+        },
+        "to": {
+          "page": 312,
+          "sourceBlockId": "79-cn-p312-b12"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-5",
+        "title": "打点比对手高也有可能不利",
+        "from": {
+          "page": 312,
+          "sourceBlockId": "79-cn-p312-b13"
+        },
+        "to": {
+          "page": 312,
+          "sourceBlockId": "79-cn-p312-b17"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-6",
+        "title": "到底应该如何判断有利还是不利呢？",
+        "from": {
+          "page": 312,
+          "sourceBlockId": "79-cn-p312-b18"
+        },
+        "to": {
+          "page": 313,
+          "sourceBlockId": "79-cn-p313-b6"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-7",
+        "title": "攻守的判别式",
+        "from": {
+          "page": 313,
+          "sourceBlockId": "79-cn-p313-b7"
+        },
+        "to": {
+          "page": 316,
+          "sourceBlockId": "79-cn-p316-b6"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-8",
+        "title": "弃和的情况下有多大概率被自摸？",
+        "from": {
+          "page": 316,
+          "sourceBlockId": "79-cn-p316-b7"
+        },
+        "to": {
+          "page": 317,
+          "sourceBlockId": "79-cn-p317-b6"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-9",
+        "title": "进攻与防守的标准的判断？",
+        "from": {
+          "page": 317,
+          "sourceBlockId": "79-cn-p317-b7"
+        },
+        "to": {
+          "page": 319,
+          "sourceBlockId": "79-cn-p319-b6"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-10",
+        "title": "来练习一下吧",
+        "from": {
+          "page": 319,
+          "sourceBlockId": "79-cn-p319-b7"
+        },
+        "to": {
+          "page": 320,
+          "sourceBlockId": "79-cn-p320-b7"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-11",
+        "title": "良形听牌时面对对手的立直可以进攻的打点",
+        "from": {
+          "page": 320,
+          "sourceBlockId": "79-cn-p320-b8"
+        },
+        "to": {
+          "page": 323,
+          "sourceBlockId": "79-cn-p323-b7"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-12",
+        "title": "愚形听牌时面对对手的立直可以进攻的打点",
+        "from": {
+          "page": 323,
+          "sourceBlockId": "79-cn-p323-b8"
+        },
+        "to": {
+          "page": 324,
+          "sourceBlockId": "79-cn-p324-b4"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-13",
+        "title": "从一向听开始进攻可以吗？",
+        "from": {
+          "page": 324,
+          "sourceBlockId": "79-cn-p324-b5"
+        },
+        "to": {
+          "page": 326,
+          "sourceBlockId": "79-cn-p326-b7"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-14",
+        "title": "副露手牌如何估计？",
+        "from": {
+          "page": 326,
+          "sourceBlockId": "79-cn-p326-b8"
+        },
+        "to": {
+          "page": 328,
+          "sourceBlockId": "79-cn-p328-b1"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-15",
+        "title": "应该扣住DORA 字牌吗？",
+        "from": {
+          "page": 328,
+          "sourceBlockId": "79-cn-p328-b3"
+        },
+        "to": {
+          "page": 329,
+          "sourceBlockId": "79-cn-p329-b7"
+        }
+      },
+      {
+        "unitId": "79-cn-chapter-311-18-unit-16",
+        "title": "难以和牌的安全策略还是容易和牌的危险策略？",
+        "from": {
+          "page": 329,
+          "sourceBlockId": "79-cn-p329-b8"
+        },
+        "to": {
+          "page": 329,
+          "sourceBlockId": "79-cn-p329-b2"
+        }
+      }
+    ],
+    "originalUnitCount": 16,
+    "ownedPdfSourceBlocks": 339,
+    "acceptedWebSourcePositions": 225,
+    "bodyCorrespondence": {
+      "articleId": "cv1815400",
+      "webSourceId": "79-bilibili-cn",
+      "tier": "body",
+      "evidencePath": "integration/chinese-source-body-correspondence.json",
+      "substitutionAllowed": true,
+      "bodyEquivalenceConfirmed": true,
+      "articleInPreview": false
+    },
+    "correspondence": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/chinese-source-body-correspondence.json",
+      "sha256": "2f1057b83ec2295e8cec3457b4a0d9a8e5d752df64e0cad52c7d8b286761ebfc"
+    },
+    "versionEqualityClaimed": false,
+    "note": "Full web article is the pre-approved body-equivalent version for the existing16-unit canonical scope. One displayed web unit does not replace the original-unit denominator."
+  }
+}
