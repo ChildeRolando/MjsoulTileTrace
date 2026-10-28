@@ -5,11 +5,16 @@ import { join } from 'node:path';
 import { BudgetLedger, BUDGETS, assertDataset, chooseVersion,writeOnce,save } from './ceiling-protocol.mjs';
 import { indexTextbook, retrieveTextbook } from './ceiling-textbook.mjs';
 import { pairedDifference, summarizeRows, decide } from './ceiling-report.mjs';
-import { decisionRequest,runDecision,serviceFailureStreak } from './ceiling-run.mjs';
+import { decisionRequest,runDecision,serviceFailureStreak,parseSelection } from './ceiling-run.mjs';
 import { hash,read } from './ceiling-protocol.mjs';
 import { assertStudySource,selfWindows,loadPreparationState,savePreparationState } from './ceiling-prepare.mjs';
 
 describe('ceiling research boundaries', () => {
+  it('stops material curation on transport failure instead of consuming the next question',()=>{
+    for(const failureCode of ['cli_unexpected_event','cli_unexpected_item','rate_limited'])
+      expect(()=>parseSelection({response:{status:'provider_error',failureCode}},'select_chapters',['C001'])).toThrow('oracle_provider_service_failure_stop');
+    expect(()=>parseSelection({response:{status:'ready',call:{name:'select_chapters',arguments:'bad json'}}},'select_chapters',['C001'])).toThrow(SyntaxError);
+  });
   it('round-trips compact checkpoints through immutable case digests and rejects edited case files',async()=>{
     const out=await mkdtemp(join(tmpdir(),'ceiling-case-refs-')),c={id:'a'.repeat(24),payload:'visible facts'},state={cases:[c],nextRecord:1,covered:[]};
     await writeOnce(join(out,'prepared',c.id+'.json'),c);await savePreparationState(out,state);
