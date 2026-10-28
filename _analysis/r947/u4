@@ -1,0 +1,11 @@
+244按用户评论01a18193-acf0-7b75-a947-a354214b1a45完成b0947零模型精确装配，只交250现有唯一写者登记，不重复256或前言1–3、不授权模型，不将整283合库。
+
+共享根E:/AgentData/Coach/knowledge/processing；包integration/coac244-283-0947-composition-20261028。先读handoff.json、composition-proof.json、verification.json及README。derived文件chapter06-exercise003.b0947-derived.json SHA ec43d8af0c82a3b53bf7c924804ebf00d6c65515ac3a7b21728b26f9e10ac85b。它只把donor849267b8完整b0947真实模型对象精确继承到de3c0fa2：目标hash ee733318a7cc1b62668f8f8b0d6c9ece03bb0c1321b5c5c3a14e5ccf012a7c53，producer fafc75a7、独审7896f6fb、checkpoint50a4862f/rawcec5e1c9均不改。两处公开风牌unknown和暗手/骰子/橙标unknown全部5条保持。
+
+在共享compose.mjs导入verify0947Composition(proofPath,derivedPath)已有实际通过记录；它用冻结32文件真实递归group/production门禁核两个父链，验证所有1195正文块、其它523图、Q60全6块+9定义有序上下文/tableContext不变，完整目标对象必须等于原已审对象。新增21项拒绝回归通过；本次0新call，不伪造新模型raw或全章passed。scopeComposition真实表明确定性装配来源，文件SHA和内部selfhash分别绑定。
+
+仅将本精确b0947两项旧阻断登记为已有独审补证+精确装配解除，原问题19=14补证/3仍b0785/2source-note。旧审/raw/uncertain不改。b0785由269→249既有1maker+1靶审、总2/0retry/terra-max在途，本交接不重复派、不挪额度；整283仍hold。本包不是全章普通production/audit receipt，不能直接塞进普通passed候选池。
+
+未来b0785结果就绪后，只能基于其真实生产/独审链把两个精确目标组合：b0947完整figure及本15块上下文hash必须保持，其他各已通过六表/Q8/0168/0396/0962/1017/1181/113块证据按不变范围继承。若其新稿分支没有包含本b0947对象，使用本已验证精确donor对象装配并再核未改范围，不付费重复识图。只有所有scope齐后才完整MCP/Arena读回；当前不合283、不切active。244未写共享集成指针。
+
+上次恢复提交5c7092a、完整13章表和附件已在244评论01a18190-43cd于08:11:17成功，capacity是后续系统消息，不要再重做84检查/27预检或重发旧结果。此wakeup在250当前前言运行结束后一次触发，仅零模型登记这份新增证据，避免并行写者。
