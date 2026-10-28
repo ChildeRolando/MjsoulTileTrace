@@ -1,0 +1,456 @@
+{
+  "schema": "coac249-182-independent-target-impact/1",
+  "recordedAt": "2026-10-28T08:55:57.461Z",
+  "issueId": "01a17471-1595-79d5-bdfa-6feaa65172c0",
+  "taskId": "01a181b4-adc8-730d-b6de-a9290e0991fb",
+  "canonical": "79-cn-chapter-182-5",
+  "targetId": "79-bilibili-cn:cv1760573:b0003",
+  "carriedIssueTargetId": "79-bilibili-cn:cv1760573:b0013",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1760573.r1.display.json",
+    "sha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1760573\\source.json",
+    "sha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1760573.display.json",
+    "sha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270"
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+    "sha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8"
+  },
+  "parentRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7cbb6bf1-006b-4a2f-af51-6e923fd11242.json",
+    "sha256": "3b65106ad0d28b7f61161058781fb69a2d722b805f34a2113595896905b5a8bf"
+  },
+  "makerRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\ec351354-9bb2-4ce0-9e9e-67f4f31f8615.json",
+    "sha256": "48af218acc698641792f05ff357236d66c48b38cf55b1b451d98c402ef955d91"
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\runtime-manifest.json",
+    "sha256": "2df26827a1d13f9b9e13569b0628c987fbb3b7be04f9e0b8a186589e115c84b4",
+    "files": 19
+  },
+  "status": "target-faithful-limited-display-evidence",
+  "modelReview": {
+    "translation": {
+      "targetId": "79-bilibili-cn:cv1760573:b0003",
+      "verdict": "faithful",
+      "evidence": "“立直舍内，发展舍外”准确而简练地表达了格言：立直时舍内侧牌，继续发展牌形时舍外侧牌。上下文以124索摸5索及例1的切牌选择说明内外所指，释义充分，保留了口诀语气。日文及旧中文括注均保留；后文效果有限、4索危险时可切1索的条件也未被删除，不能把口诀读成无条件规则。"
+    },
+    "carriedIssue": {
+      "targetId": "79-bilibili-cn:cv1760573:b0013",
+      "positionConfirmed": true,
+      "currentDisplayFaithful": true,
+      "authorArgumentFaithfulWithCurrentLimitation": true,
+      "requiresResolvedMeaningOrExactTileForAuthorArgument": false,
+      "evidence": "该块位于末尾position 12，承接b0011的低信息量舍牌说明及b0012的舍牌示例。候选如实保留“这样的立直话，对手只能对日”，但复制准确不等于语义已解。无法确定的只是该句所指的具体对手应对行为；作者明确写出的少暴露信息、偏好无特征舍牌，以及“强大的河”相比迷彩更容易荣和的主张仍可展示。允许仅限于实际附带下列审校限制，不表示当前正文已经包含这些说明。",
+      "requiredDisplayLimitations": [
+        "须在该句邻近实际展示并标明为非原文审校注：“源文‘这样的立直话，对手只能对日’语义不明，现照录；不能据此确定对手只能采取何种行动。”",
+        "不得补写、翻译性改写或讲解“对日”为任何确定战术行为，也不得把“只能”扩展成已确认的对手行动限制。",
+        "后文“强大的河”更容易荣和须作为作者明确提出的主张展示，不得声称歧义句已经证明其机制、概率或最优性。",
+        "本次有限允许不认证精确牌谱、隐藏手牌、所有对手的安全度、概率或最优打法。"
+      ],
+      "unresolvedContributionOrMinimumGap": "尚未确认的是“对手只能对日”这一局部句子具体断言了什么应对行为。展示其他明确论述无需先解决它；若要完整解释或引用该局部命题，最小补证是能明确其谓语及所指行为的可靠校勘原句，不能靠猜牌或推测意图补足。"
+    },
+    "argumentChecks": [
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1760573:b0003",
+          "79-bilibili-cn:cv1760573:b0004",
+          "79-bilibili-cn:cv1760573:b0005"
+        ],
+        "authorContribution": "区分发展牌形与立直时的切牌取向，并用例1说明立直时倾向舍内侧牌。",
+        "preservedConditions": "124索摸5索时，从两面发展角度切1索；例1要立直时推荐切4索。场上已有现物4索时，3索可能更容易被打出，但效果有限；4索非常危险时也可切1索立直。",
+        "faithfulWithCurrentLimitation": true,
+        "evidence": "新释义与这些条件一致，未将格言改成绝对命令；末段源歧义不影响此处论述。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1760573:b0006",
+          "79-bilibili-cn:cv1760573:b0007"
+        ],
+        "authorContribution": "例2比较切2饼与切3饼的立直选择，提出无平和时优先保留暗刻。",
+        "preservedConditions": "两种切法均可立直；建议针对“像这样没有平和的牌”。保留暗刻后摸1饼可暗杠，作者列出的收益是增加符数及可能增加宝牌。",
+        "faithfulWithCurrentLimitation": true,
+        "evidence": "条件、可能性措辞及图文承接均保留，不受“对日”歧义影响；无需另补作者未写出的战术证明。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1760573:b0007"
+        ],
+        "authorContribution": "提出“情报要少”，评价过去的迷彩战术，并主张舍牌越没有特征越好。",
+        "preservedConditions": "迷彩在原文中解释为在舍牌中设陷阱；对迷彩的否定及对无特征舍牌的偏好均作为作者观点保留。",
+        "faithfulWithCurrentLimitation": true,
+        "evidence": "这是作者直接写明的原则，不依赖末尾不明句才能辨认其主张。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1760573:b0008",
+          "79-bilibili-cn:cv1760573:b0009",
+          "79-bilibili-cn:cv1760573:b0010",
+          "79-bilibili-cn:cv1760573:b0011"
+        ],
+        "authorContribution": "例3建议用4饼替换北雀头、切北，以减少立直后泄露的信息。",
+        "preservedConditions": "切4饼的分支承接b0010所列1、2、3、4、7饼，作者称他家会容易切出这些牌；切北分支保留“他家也只能知道你不是单骑听牌”的原有说法。",
+        "faithfulWithCurrentLimitation": true,
+        "evidence": "文字被中间牌图接续的顺序完整保留，可辨认两个分支及其信息差异；此判断不额外认证这些牌对所有对手的安全度。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1760573:b0011",
+          "79-bilibili-cn:cv1760573:b0012"
+        ],
+        "authorContribution": "将幺九牌这类无明显特征的舍牌称为理想舍牌，并给出舍牌示例。",
+        "preservedConditions": "“比如”之后紧接所给2z、4z、7z、末张1m横置的figure对象，保持示例关系及横置说明。",
+        "faithfulWithCurrentLimitation": true,
+        "evidence": "可以忠实展示其作为低信息量舍牌的例示，无需由此推导隐藏手牌或全部安全牌。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1760573:b0012",
+          "79-bilibili-cn:cv1760573:b0013"
+        ],
+        "authorContribution": "承接舍牌示例，明确提出“强大的河”相比不靠谱的迷彩战术更容易荣和。",
+        "preservedConditions": "保留比较对象、“更加容易”的相对措辞、“强大的河”的强调标记及“待续”；前置的“对手只能对日”仍列为未解源句。",
+        "faithfulWithCurrentLimitation": true,
+        "evidence": "比较主张本身清楚且与前文少情报原则连续。限定展示可保留这一明确贡献，但不能把未解句当成已知的应对行为或该主张的完整证明。"
+      }
+    ],
+    "orderedContextFaithful": true,
+    "completeRequestedScopeCompared": true,
+    "conclusion": "target-faithful-limited-display-acceptable",
+    "issues": [
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1760573:b0013",
+        "evidence": "源与候选均为“这样的立直话，对手只能对日”。",
+        "description": "源句的具体对手行为仍无法确定，歧义未消除。仅在实际展示所列非原文审校限制后允许有限展示；不认证该局部命题已完整释明。"
+      }
+    ],
+    "summary": "新增中文释义忠实，原日文、旧括注及上下文条件均保留。末句歧义不妨碍有限展示作者其余明确论述，但须实际附上源句未解的审校说明；本结论不构成全章或精确牌谱认证。"
+  },
+  "verification": {
+    "limitedEvidenceVerified": true,
+    "errors": [],
+    "requiredDisplayLimitations": [
+      "须在该句邻近实际展示并标明为非原文审校注：“源文‘这样的立直话，对手只能对日’语义不明，现照录；不能据此确定对手只能采取何种行动。”",
+      "不得补写、翻译性改写或讲解“对日”为任何确定战术行为，也不得把“只能”扩展成已确认的对手行动限制。",
+      "后文“强大的河”更容易荣和须作为作者明确提出的主张展示，不得声称歧义句已经证明其机制、概率或最优性。",
+      "本次有限允许不认证精确牌谱、隐藏手牌、所有对手的安全度、概率或最优打法。"
+    ],
+    "originalIssuesPreserved": true,
+    "wholeChapterPassed": false,
+    "admissionGranted": false,
+    "meaning": "Independent bounded evidence only; all actual required limitations and any unresolved source contribution must be mapped to a legal exact display scope before 250 admission."
+  },
+  "verificationError": null,
+  "call": {
+    "callId": "2c5124ed-ccb2-41e0-90db-cbb6e80141fa",
+    "scope": "textbook-182-independent-translation-ambiguity-review",
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1760573",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "success": true,
+    "usage": {
+      "inputTokens": 21947,
+      "cachedInputTokens": 0,
+      "outputTokens": 2850
+    },
+    "durationMs": 92994,
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "callerRequested": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-sol",
+        "--config",
+        "model_reasoning_effort=\"high\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-n5hK6Q\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-n5hK6Q\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-n5hK6Q",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "binding": {
+      "canonical": "79-cn-chapter-182-5",
+      "productionSha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc",
+      "sourceFileSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+      "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+      "parentAuditSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+      "parentRawSha256": "3b65106ad0d28b7f61161058781fb69a2d722b805f34a2113595896905b5a8bf",
+      "runtimeManifestSha256": "2df26827a1d13f9b9e13569b0628c987fbb3b7be04f9e0b8a186589e115c84b4",
+      "projectionSha256": "d17893de726407d8c22807e3aae40f56b6c52b15ae13e55464d439e0af005d1b",
+      "scope": "182-translation-and-source-ambiguity-teaching-impact",
+      "targetId": "79-bilibili-cn:cv1760573:b0003",
+      "carriedIssueTargetId": "79-bilibili-cn:cv1760573:b0013",
+      "authorizationComment": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2"
+    },
+    "promptSha256": "5ddee6cb98dff1de2c6d40d2e2dd8d0d1269c843a381ef9661de6555bcd673da",
+    "semanticPromptSha256": "1ac0548f3615d4556e50cacfe07e13349e4a3cbc2667deb17669b3fc57931f01",
+    "schemaSha256": "66fa853a22a2cced0fa8f190888e57e02f2a62c8d9ab6e318a8b3ce9bdaa0423",
+    "recordedAt": "2026-10-28T08:55:57.442Z"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2c5124ed-ccb2-41e0-90db-cbb6e80141fa.json",
+    "sha256": "667ec48a9f8132ebde5277f56bc4e98bbdf5d6b5d2d2c6a2fdabe1f6c62c3482"
+  },
+  "plan": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-182-target-impact-20261028\\plan.json",
+    "sha256": "648532eb249eb3ef862df0aec13032919c3665d3f259cfb8af716e2a6917369c"
+  },
+  "productionProof": {
+    "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1760573.r1.display.json",
+    "candidateSha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc",
+    "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381",
+    "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+    "parentAuditSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+    "parentRawSha256": "3b65106ad0d28b7f61161058781fb69a2d722b805f34a2113595896905b5a8bf",
+    "production": {
+      "callId": "ec351354-9bb2-4ce0-9e9e-67f4f31f8615",
+      "rawArtifactPath": "raw-calls/ec351354-9bb2-4ce0-9e9e-67f4f31f8615.json",
+      "rawArtifactSha256": "48af218acc698641792f05ff357236d66c48b38cf55b1b451d98c402ef955d91",
+      "revision": {
+        "inlineJapanese": {
+          "plan": {
+            "schema": "coach-inline-japanese-revision/1",
+            "authorizationCommentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+            "chapterId": "79-cn-chapter-182-5",
+            "bindings": {
+              "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+              "notesSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+              "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+            },
+            "edits": [
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1760573:b0003",
+                "quotedText": "かけるは内、のばすは外",
+                "operation": "gloss"
+              }
+            ]
+          },
+          "binding": {
+            "path": "integration/coac248-182201-20261028/cv1760573-plan.json",
+            "sha256": "dc1e4f6d7a09d95dd646fc1da796d7b8a28701be64fc3a100478e976a3bd6055",
+            "plan": {
+              "schema": "coach-inline-japanese-revision/1",
+              "authorizationCommentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+              "chapterId": "79-cn-chapter-182-5",
+              "bindings": {
+                "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+                "notesSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+                "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+              },
+              "edits": [
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1760573:b0003",
+                  "quotedText": "かけるは内、のばすは外",
+                  "operation": "gloss"
+                }
+              ]
+            }
+          },
+          "sourceLanguage": "zh-CN",
+          "bodyMode": "verbatim-with-bound-inline-translation-only"
+        },
+        "revision": {
+          "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1760573.display.json",
+          "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+          "notesPath": "audit/web/articles/79-bilibili-cn/cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+          "notesSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+          "textBlockIds": [
+            "79-bilibili-cn:cv1760573:b0003"
+          ],
+          "figureIds": [],
+          "inlineJapanese": {
+            "path": "integration/coac248-182201-20261028/cv1760573-plan.json",
+            "sha256": "dc1e4f6d7a09d95dd646fc1da796d7b8a28701be64fc3a100478e976a3bd6055",
+            "plan": {
+              "schema": "coach-inline-japanese-revision/1",
+              "authorizationCommentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+              "chapterId": "79-cn-chapter-182-5",
+              "bindings": {
+                "parentSha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+                "notesSha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+                "sourceSha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+              },
+              "edits": [
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1760573:b0003",
+                  "quotedText": "かけるは内、のばすは外",
+                  "operation": "gloss"
+                }
+              ]
+            }
+          }
+        },
+        "parentAudit": {
+          "path": "audit/web/articles/79-bilibili-cn/cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+          "sha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+          "originalStatus": "needs-repair"
+        },
+        "parentCall": {
+          "callId": "7cbb6bf1-006b-4a2f-af51-6e923fd11242",
+          "path": "audit/calls/7cbb6bf1-006b-4a2f-af51-6e923fd11242.json",
+          "sha256": "3b65106ad0d28b7f61161058781fb69a2d722b805f34a2113595896905b5a8bf"
+        },
+        "inheritedAssetIds": [
+          "79-bilibili-cn:44917f8f12fd4651d3a063e7",
+          "79-bilibili-cn:c460098233420c9079af7e97",
+          "79-bilibili-cn:b099921584c1e416f23305f7",
+          "79-bilibili-cn:99559ead44ea73dbf96deeec",
+          "79-bilibili-cn:d9f4279a06c20d92b768cbb8"
+        ],
+        "unresolvedParentIssuesPreserved": [
+          {
+            "severity": "uncertain",
+            "targetId": "79-bilibili-cn:cv1760573:b0013",
+            "sourceEvidence": "源文与候选均为“这样的立直话，对手只能对日”。",
+            "description": "候选未改写中文，但源句中的“对日”无法确定所指的对手应对行为，涉及教学判断，不能视为语义已确认完整。",
+            "suggestedRepair": "保留所给中文，不推测补写；需有该句的明确校勘文本，才能消除此项语义不确定。"
+          }
+        ],
+        "productionOnlyAuthorization": true,
+        "chapterAccepted": false
+      }
+    },
+    "presentation": {
+      "parent": {
+        "path": "web-production/v1/runs/coac248-182201-cv1760573-20261028/model-output-without-display.json",
+        "sha256": "fbcabbff2d5d8ff3974e75de6ac3c869dbcb383dec4bf849a9ee327f089fb55e",
+        "reason": "Exact real model-authored inline translation with unchanged original-image presentations. Intermediate is not a separate review candidate."
+      },
+      "pixels": {
+        "passed": true,
+        "figures": 5,
+        "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+      }
+    },
+    "checks": {
+      "passed": true,
+      "errors": [],
+      "textBlocks": 8,
+      "imageRuns": 5,
+      "imageOccurrences": 5,
+      "figures": 5
+    },
+    "visualProof": null,
+    "runtimeManifestSha256": "2df26827a1d13f9b9e13569b0628c987fbb3b7be04f9e0b8a186589e115c84b4",
+    "projectionSha256": "d17893de726407d8c22807e3aae40f56b6c52b15ae13e55464d439e0af005d1b"
+  },
+  "orderedPairs": 13,
+  "images": [],
+  "newReviewCalls": 1,
+  "newProductionCalls": 0,
+  "chapterPhaseCalls": {
+    "maker": 1,
+    "review": 1,
+    "maximum": 2,
+    "remaining": 0,
+    "failedVoidCount": true,
+    "retry": 0
+  },
+  "batchMaximum": 4,
+  "otherChapterBudgetNotConsumed": true,
+  "wholeChapterPassed": false,
+  "admissionGranted": false,
+  "oldRawAuditOrCandidateChanged": false,
+  "fee": "unknown",
+  "remoteWeights": "unknown",
+  "upstreamExecutionCount": "unknown"
+}

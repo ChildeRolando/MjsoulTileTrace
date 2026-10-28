@@ -1789,7 +1789,7 @@
     182,
     183
    ],
-   "currentDisposition": "awaiting-independent-target-context-review",
+   "currentDisposition": "awaiting-exact-editorial-display-and-readback",
    "origin": "COAC-246 coverage verification 2026-10-27",
    "newThisStage": true,
    "auditRecordedAt": "2026-10-25T18:14:01.257Z",
@@ -1868,7 +1868,42 @@
     "status": "awaiting-independent-target-context-review"
    },
    "oldAuditRetainedUnchanged": true,
-   "currentOrderedSourceBlocks": 13
+   "currentOrderedSourceBlocks": 13,
+   "independent182LimitedEvidence": {
+    "canonical": "79-cn-chapter-182-5",
+    "candidateSha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc",
+    "newCalls": 0,
+    "originalMakerAndFirstReviewConsumed": 2,
+    "remainingModelBudget": 0,
+    "translationTarget": "79-bilibili-cn:cv1760573:b0003",
+    "translationVerdict": "faithful",
+    "carriedSourceTarget": "79-bilibili-cn:cv1760573:b0013",
+    "carriedSourceVerdict": "limited-display-allowed-by-independent-review",
+    "specificMeaningStillUnknown": true,
+    "notAnIdentificationTodo": true,
+    "originalUncertainPreserved": true,
+    "annotationInstalled": false,
+    "admissionGranted": false,
+    "wholeChapterPassed": false,
+    "requiredDisplayLimitations": [
+     "须在该句邻近实际展示并标明为非原文审校注：“源文‘这样的立直话，对手只能对日’语义不明，现照录；不能据此确定对手只能采取何种行动。”",
+     "不得补写、翻译性改写或讲解“对日”为任何确定战术行为，也不得把“只能”扩展成已确认的对手行动限制。",
+     "后文“强大的河”更容易荣和须作为作者明确提出的主张展示，不得声称歧义句已经证明其机制、概率或最优性。",
+     "本次有限允许不认证精确牌谱、隐藏手牌、所有对手的安全度、概率或最优打法。"
+    ],
+    "verificationPath": "integration/coac248-182-limits-20261028/verification.json",
+    "exactNoteBindingPath": "integration/coac248-182-limits-20261028/note-binding.json",
+    "existingOwnerRuns": {
+     "selected": false,
+     "registerCovered": false,
+     "existing244Wakeup": "01a181bb-a320-79b5-84ce-ed6e7fbcd010",
+     "existing244Run": "01a181bd-07bd-75bb-a7bf-52676fccf157",
+     "existing250Wakeup": "01a181bb-a978-7c22-8787-06f89d12ae29",
+     "existing250Run": "01a181bd-110f-7cba-bad6-9dfc285b07ec",
+     "newDispatches": 0
+    },
+    "remainingAction": "Install the separately labeled adjacent non-author annotation using an exact182 loader pin; keep b0013 author bytes intact. Then existing250 reads the source sentence, note, original author claim, all limits and original images through real MCP/Arena before coverage changes."
+   }
   },
   {
    "objectId": "web-chapter:79-cn-chapter-193-4",
@@ -9688,5 +9723,40 @@
   "upstreamExecutionCount": "unknown",
   "remoteWeights": "unknown",
   "fees": "unknown"
+ },
+ "latest182IndependentEvidenceConsumption": {
+  "canonical": "79-cn-chapter-182-5",
+  "candidateSha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc",
+  "newCalls": 0,
+  "originalMakerAndFirstReviewConsumed": 2,
+  "remainingModelBudget": 0,
+  "translationTarget": "79-bilibili-cn:cv1760573:b0003",
+  "translationVerdict": "faithful",
+  "carriedSourceTarget": "79-bilibili-cn:cv1760573:b0013",
+  "carriedSourceVerdict": "limited-display-allowed-by-independent-review",
+  "specificMeaningStillUnknown": true,
+  "notAnIdentificationTodo": true,
+  "originalUncertainPreserved": true,
+  "annotationInstalled": false,
+  "admissionGranted": false,
+  "wholeChapterPassed": false,
+  "requiredDisplayLimitations": [
+   "须在该句邻近实际展示并标明为非原文审校注：“源文‘这样的立直话，对手只能对日’语义不明，现照录；不能据此确定对手只能采取何种行动。”",
+   "不得补写、翻译性改写或讲解“对日”为任何确定战术行为，也不得把“只能”扩展成已确认的对手行动限制。",
+   "后文“强大的河”更容易荣和须作为作者明确提出的主张展示，不得声称歧义句已经证明其机制、概率或最优性。",
+   "本次有限允许不认证精确牌谱、隐藏手牌、所有对手的安全度、概率或最优打法。"
+  ],
+  "verificationPath": "integration/coac248-182-limits-20261028/verification.json",
+  "exactNoteBindingPath": "integration/coac248-182-limits-20261028/note-binding.json",
+  "existingOwnerRuns": {
+   "selected": false,
+   "registerCovered": false,
+   "existing244Wakeup": "01a181bb-a320-79b5-84ce-ed6e7fbcd010",
+   "existing244Run": "01a181bd-07bd-75bb-a7bf-52676fccf157",
+   "existing250Wakeup": "01a181bb-a978-7c22-8787-06f89d12ae29",
+   "existing250Run": "01a181bd-110f-7cba-bad6-9dfc285b07ec",
+   "newDispatches": 0
+  },
+  "remainingAction": "Install the separately labeled adjacent non-author annotation using an exact182 loader pin; keep b0013 author bytes intact. Then existing250 reads the source sentence, note, original author claim, all limits and original images through real MCP/Arena before coverage changes."
  }
 }
