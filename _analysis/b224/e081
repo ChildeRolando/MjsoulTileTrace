@@ -1,0 +1,68 @@
+{
+  "canonical": "nemata-jp-chapter-224-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b31r1.json",
+    "sha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+  },
+  "figureSha256": "88127197107201d7a2e39668f6a3e6d757c11fb00917bceab3f48ab57e696dac",
+  "sourceNotes": [
+    {
+      "type": "p",
+      "id": "source224-1",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0013"
+        ],
+        "domPaths": [
+          "main/inline11"
+        ]
+      },
+      "text": "【原图来源说明（编者说明，非作者原文）】原图与最近邻放大图是同一张图的两个视图，只转录一次。",
+      "authorText": false
+    },
+    {
+      "type": "p",
+      "id": "source224-2",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0013"
+        ],
+        "domPaths": [
+          "main/inline11"
+        ]
+      },
+      "text": "【原图来源说明（编者说明，非作者原文）】图表采用灰色绘图区、黑色网格和白底图例；图例遮住了绘图区上部的一部分。",
+      "authorText": false
+    },
+    {
+      "type": "p",
+      "id": "source224-3",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0013"
+        ],
+        "domPaths": [
+          "main/inline11"
+        ]
+      },
+      "text": "【原图来源说明（编者说明，非作者原文）】曲线、标记和文字边缘存在低分辨率栅格化痕迹；未将这些痕迹视为额外符号或数据。",
+      "authorText": false
+    }
+  ],
+  "originalNotes": [
+    "原图与最近邻放大图是同一张图的两个视图，只转录一次。",
+    "图表采用灰色绘图区、黑色网格和白底图例；图例遮住了绘图区上部的一部分。",
+    "曲线、标记和文字边缘存在低分辨率栅格化痕迹；未将这些痕迹视为额外符号或数据。"
+  ],
+  "label": "【原图来源说明（编者说明，非作者原文）】",
+  "allAuthorBlocksAndOwnerTenLimitSlotsUnchanged": true,
+  "originalCandidateChanged": false,
+  "newSemanticVerdict": false,
+  "newModelCalls": 0
+}

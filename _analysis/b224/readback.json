@@ -1,0 +1,181 @@
+{
+  "allPassed": true,
+  "corpusId": "05d89ee39d6f6a5e532d6680d53ef4c86a31aed9cfb50a7c2928fead00bacae1",
+  "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-50-19-493Z",
+  "canonical": "nemata-jp-chapter-224-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b31r1.json",
+    "sha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section005\\source.json",
+    "sha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+    "bytes": 26374
+  },
+  "sourceBlocks": 15,
+  "displayBlocks": 28,
+  "figures": 1,
+  "pages": [
+    {
+      "offset": 0,
+      "count": 22,
+      "next": 22
+    },
+    {
+      "offset": 22,
+      "count": 6,
+      "next": null
+    }
+  ],
+  "images": [
+    {
+      "figureId": "modern-yabejp-ja-chapter04-section005-b13",
+      "sha256": "5768ed2fbc4b4fe3baaa0036530d311cd64693decd15d20cb07d882649d4c283",
+      "bytes": 139114
+    }
+  ],
+  "approximateReadings": 88,
+  "unknownReadings": 17,
+  "visibleNonAuthorLimitations": 10,
+  "requiredDisplayLimitations": [
+    "保留原图，并明确逐巡表中的数字是按图读取的约值，不得显示为精确坐标。",
+    "保留作者的一人进攻、对手尚未听牌、其余两人弃和及不必考虑名次下滑风险等条件。",
+    "保留第13巡约30%和此前放过“似乎有效”的原文力度，不将其改成精确分界或无条件的确定建议。",
+    "将振听两面与愚形立直和牌率相近呈现为作者的判断，不将此图单独当作对两者接近程度的定量证明。",
+    "逐项保留这17处unknown，不插值或依据相邻点推算；不得声称本轮已确认这17点均无法辨读。",
+    "如展示该表，应说明它有88个约值和17个unknown，不能称已读出全部105个数值。",
+    "若以后能够可靠辨认目前遗漏的点，应补录约值；不能以精确坐标未知为由省略可辨近似值。",
+    "保留原图及作者的条件、近似表述和“似乎有效”的语气，不把缺口补成确定的逐巡结论。",
+    "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+    "可保留正文明确写出的第13巡约30%，并使其原文来源和近似性质清楚。"
+  ],
+  "sourceNotesPreserved": true,
+  "sourceNumericDoubtNotInjectedIntoAuthorText": true,
+  "priorUnitsUnchanged": 261,
+  "completeCanonicalCatalog": true,
+  "arena": {
+    "units": 262,
+    "exactBody": true,
+    "fullReadRequiredBeforeCitation": true
+  },
+  "fullMcp": {
+    "units": 262,
+    "images": 5937
+  },
+  "sourceDedupPassed": true,
+  "calls": [
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 0,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 20,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 40,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 60,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 80,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 100,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 120,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 140,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 160,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 180,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 200,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 220,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 240,
+        "limit": 20
+      }
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "modern-yabejp-ja-chapter04-section005-argument",
+        "blockOffset": 0
+      }
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "modern-yabejp-ja-chapter04-section005-argument",
+        "blockOffset": 22
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter04-section005-b13"
+      }
+    }
+  ],
+  "newModelCalls": 0,
+  "formalActiveChanged": false
+}

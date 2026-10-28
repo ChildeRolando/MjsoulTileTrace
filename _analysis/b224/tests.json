@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "wrong candidateSha256",
+      "rejected": true
+    },
+    {
+      "name": "wrong module",
+      "rejected": true
+    },
+    {
+      "name": "wrong stage",
+      "rejected": true
+    },
+    {
+      "name": "wrong manifest",
+      "rejected": true
+    },
+    {
+      "name": "missing source note",
+      "rejected": true
+    },
+    {
+      "name": "changed source note",
+      "rejected": true
+    },
+    {
+      "name": "source note as author",
+      "rejected": true
+    }
+  ],
+  "persistentEarlyRoutePassed": true,
+  "ordinarySidecarAccesses": 0,
+  "upstream27RefusalsHashVerifiedNotRerun": true,
+  "newModelCalls": 0
+}

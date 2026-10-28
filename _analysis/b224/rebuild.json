@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "selectionVersion": 39,
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b31r1.json",
+    "sha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+  },
+  "persistedBinding": {
+    "module": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-224-seven-limited-20261028/admit.mjs",
+      "sha256": "817af1cfca50faf10d304404a732ce53a47f27c122519e444e977ded58366e34"
+    },
+    "stage": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-224-seven-display-20261028/stage.mjs",
+      "sha256": "35679823da1448b91138ca77da1913b4265a32615903bbe88176d053f38ea5ee"
+    },
+    "manifest": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-224-seven-display-20261028/manifest.json",
+      "sha256": "f5394cbc0c7f0b60b4ac043183e17222ef321fd0c1b4ea2d7ab4122164600e27"
+    },
+    "candidateSha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+  },
+  "destination": "E:/AgentData/Coach/knowledge/processing/integration/coac250-224-seven-display-20261028/rebuild-check",
+  "corpusId": "a0cf4b4863a6e6cca56f5aa547d0becfe44c2bee2d3c425463126e140ddf56a5",
+  "exactBodyUnitMapAndCorpusMatch": true,
+  "actualMcpDisplayBlocks": 28,
+  "actualImageSha256": "5768ed2fbc4b4fe3baaa0036530d311cd64693decd15d20cb07d882649d4c283",
+  "visibleIndependentLimits": 10,
+  "visibleOriginalSourceNotes": 3,
+  "ordinaryWholeArticlePassed": false,
+  "newModelCalls": 0,
+  "calls": [
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "modern-yabejp-ja-chapter04-section005-argument",
+        "blockOffset": 0
+      }
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "modern-yabejp-ja-chapter04-section005-argument",
+        "blockOffset": 22
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter04-section005-b13"
+      }
+    }
+  ]
+}

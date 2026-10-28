@@ -1,0 +1,1543 @@
+[
+  {
+    "chapterId": "nemata-jp-chapter-224-1",
+    "originalChapterId": "nemata-jp-chapter-224-1",
+    "sourceId": "nemata-jp",
+    "title": "オーラスの見逃し判断",
+    "units": 1,
+    "ownedSourceBlocks": 51,
+    "adjudicationGroup": "confirmed-produced-not-covered",
+    "covered": true,
+    "coverageRoute": "exact224-owner-seven-cell-limited-display",
+    "approvedWebCorrespondence": {
+      "articleId": "chapter04-section005",
+      "webSourceId": "modern-yabejp-ja",
+      "tier": "url-header",
+      "evidencePath": "integration/modern-pdf-url-coverage.json",
+      "substitutionAllowed": true,
+      "bodyEquivalenceConfirmed": false,
+      "articleInPreview": true,
+      "acceptedCandidateSha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+    },
+    "existingCandidate": {
+      "path": "web-production/v1/candidates/modern-yabejp-ja/chapter04-section005.display.json",
+      "sha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+      "bodyBlocks": 15,
+      "sourceSha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+      "currentSourceSha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+      "sourceBoundCurrent": true,
+      "auditStatus": "needs-repair",
+      "auditPath": "audit/web/articles/modern-yabejp-ja/chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json",
+      "auditRecordedAt": "2026-10-26T13:21:45.456Z",
+      "deterministicPassed": true,
+      "semanticComplete": false
+    },
+    "pdfRoute": {
+      "pagesTotal": 2,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        224,
+        225
+      ],
+      "pagesDetail": [
+        {
+          "page": 224,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 38
+        },
+        {
+          "page": 225,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 13
+        }
+      ]
+    },
+    "gaps": {
+      "ownedSourceBlocks": 51,
+      "missingProductionBlocks": 0,
+      "producedBlocks": 51,
+      "acceptedBlocks": 51,
+      "acceptanceGapBlocks": 0,
+      "acceptanceGapPages": [],
+      "pagesWithoutCandidate": [],
+      "pagesWithoutPassedCandidate": [
+        224,
+        225
+      ]
+    },
+    "verdict": "covered-effective",
+    "coac246": {
+      "action": "repair",
+      "auditStatus": "needs-repair",
+      "candidateSha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter04-section005.display.json",
+      "repairErrors": 5,
+      "units": 1,
+      "blocks": 51
+    },
+    "historicalBeforeRecordedTarget": {},
+    "currentTargetEvidence": {
+      "key": "224-seven",
+      "canonical": "nemata-jp-chapter-224-1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b31r1.json",
+        "sha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section005\\source.json",
+        "sha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+        "bytes": 26374
+      },
+      "receipt": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-224-seven-reviewed-20261028.json",
+        "sha256": "3b9bab561f2ea1c0450156ef1135e879471c503cc8ff1a3e709d981188c79e2e"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\6dd562f2-2025-47b3-a48d-e8c6e5fdd12b.json",
+        "sha256": "45f1c2b88386c1399694e54ad013fadfb741110a63df15eb8cdc9ea65e12f6a0"
+      },
+      "runtime": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224-seven-v1-20261028\\runtime-manifest.json",
+        "sha256": "7307b5fc28df41a4a1396f19efde5be39f8a3ac7e24a7b18fa40ea878ac54e26",
+        "files": 35
+      },
+      "verification": {
+        "transportCompleted": true,
+        "repairPassed": true,
+        "limitedUnknownOkay": true,
+        "wholeChapterPassed": false
+      },
+      "remainingUnknownCells": 17,
+      "displayLimitations": 10,
+      "displayImplementationVerified": true,
+      "actual250ReadbackPerformed": true,
+      "admissionGranted": false,
+      "resolvedHistoricalResidual": {
+        "kind": "exact224-owner-admission-and-visible-limit-mapping-not-yet-delivered",
+        "owner": "COAC-244",
+        "required": [
+          "Fixed c38fbdd2 candidate/source/parent/native call/raw and recursive unchanged-range callback",
+          "Dedicated stage overlay showing all ten independent limitations as non-author notes while preserving author body/figure/source-notes",
+          "Persistence binding for current selection/rebuild; then actual250 complete stdio MCP/Arena readback"
+        ],
+        "notRequired": [
+          "New maker/review/OCR call",
+          "Resolving exact coordinates or chart unit",
+          "Re-reading the 17 retained unknown cells"
+        ]
+      },
+      "disposition": "specific-owner-composite-validated-and-actually-read-back",
+      "limitedPresentationAcceptedAfterReadback": true,
+      "compositeIntake": {
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b31r1.json",
+          "sha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+        },
+        "source": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section005\\source.json",
+          "sha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+          "bytes": 26374
+        },
+        "route": {
+          "module": {
+            "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-224-seven-limited-20261028/admit.mjs",
+            "sha256": "817af1cfca50faf10d304404a732ce53a47f27c122519e444e977ded58366e34"
+          },
+          "stage": {
+            "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-224-seven-display-20261028/stage.mjs",
+            "sha256": "35679823da1448b91138ca77da1913b4265a32615903bbe88176d053f38ea5ee"
+          },
+          "manifest": {
+            "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-224-seven-display-20261028/manifest.json",
+            "sha256": "f5394cbc0c7f0b60b4ac043183e17222ef321fd0c1b4ea2d7ab4122164600e27"
+          },
+          "candidateSha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+        },
+        "previewOutput": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-50-19-493Z",
+        "corpusId": "05d89ee39d6f6a5e532d6680d53ef4c86a31aed9cfb50a7c2928fead00bacae1",
+        "stageReceiptPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-50-19-493Z/stages/seven224/web-stage-receipt.json",
+        "displayLimits": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-50-19-493Z/stages/seven224/display-limits.json",
+          "sha256": "a09b3de3a2cb7190f2ab1981f7afaeceb5f4e569c9f8488e6adc97666727858f"
+        },
+        "sourceNotes": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-50-19-493Z/stages/seven224/source-notes.json",
+          "sha256": "231ce4f003494d4e2f62bc2d278a44b79bc36f845dec0c8cea53cfdeca3e02ee"
+        },
+        "requiredDisplayLimitations": [
+          "保留原图，并明确逐巡表中的数字是按图读取的约值，不得显示为精确坐标。",
+          "保留作者的一人进攻、对手尚未听牌、其余两人弃和及不必考虑名次下滑风险等条件。",
+          "保留第13巡约30%和此前放过“似乎有效”的原文力度，不将其改成精确分界或无条件的确定建议。",
+          "将振听两面与愚形立直和牌率相近呈现为作者的判断，不将此图单独当作对两者接近程度的定量证明。",
+          "逐项保留这17处unknown，不插值或依据相邻点推算；不得声称本轮已确认这17点均无法辨读。",
+          "如展示该表，应说明它有88个约值和17个unknown，不能称已读出全部105个数值。",
+          "若以后能够可靠辨认目前遗漏的点，应补录约值；不能以精确坐标未知为由省略可辨近似值。",
+          "保留原图及作者的条件、近似表述和“似乎有效”的语气，不把缺口补成确定的逐巡结论。",
+          "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+          "可保留正文明确写出的第13巡约30%，并使其原文来源和近似性质清楚。"
+        ],
+        "remainingUnknownCellIds": [
+          {
+            "series": "流局率",
+            "turn": 5
+          },
+          {
+            "series": "放铳率",
+            "turn": 1
+          },
+          {
+            "series": "放铳率",
+            "turn": 2
+          },
+          {
+            "series": "放铳率",
+            "turn": 3
+          },
+          {
+            "series": "放铳率",
+            "turn": 4
+          },
+          {
+            "series": "放铳率",
+            "turn": 5
+          },
+          {
+            "series": "和牌率",
+            "turn": 6
+          },
+          {
+            "series": "被他家自摸率",
+            "turn": 1
+          },
+          {
+            "series": "被他家自摸率",
+            "turn": 2
+          },
+          {
+            "series": "被他家自摸率",
+            "turn": 3
+          },
+          {
+            "series": "被他家自摸率",
+            "turn": 4
+          },
+          {
+            "series": "被他家自摸率",
+            "turn": 5
+          },
+          {
+            "series": "和牌时一发比例",
+            "turn": 1
+          },
+          {
+            "series": "和牌时一发比例",
+            "turn": 2
+          },
+          {
+            "series": "和牌时一发比例",
+            "turn": 3
+          },
+          {
+            "series": "和牌时一发比例",
+            "turn": 4
+          },
+          {
+            "series": "和牌时一发比例",
+            "turn": 5
+          }
+        ],
+        "currentStrictVerification": {
+          "transportCompleted": true,
+          "repairPassed": true,
+          "limitedUnknownOkay": true,
+          "wholeChapterPassed": false,
+          "modelReview": {
+            "cellChecks": [
+              {
+                "cellId": "224-b0013-1-6",
+                "verdict": "faithful",
+                "evidence": "黄色放铳率曲线第6巡约为15至16，补录约16可由图支持。第6巡中心约为原图x=211，曲线约在y=186附近，落在sourcePixelBox [203,178,219,196]内；该处与绿色曲线接近，读数应保持为约值。"
+              },
+              {
+                "cellId": "224-b0013-1-7",
+                "verdict": "faithful",
+                "evidence": "黄色放铳率曲线第7巡约为15至16，补录约16可由图支持。第7巡中心约为原图x=238，曲线约在y=186附近，落在sourcePixelBox [231,178,247,196]内；附近曲线接近，不能将其作为精确值。"
+              },
+              {
+                "cellId": "224-b0013-2-6",
+                "verdict": "faithful",
+                "evidence": "橙色和牌中自摸所占比例曲线第6巡接近49，补录约49与图相符。第6巡中心约为原图x=211，曲线约在y=121，落在sourcePixelBox [203,111,219,129]内。"
+              },
+              {
+                "cellId": "224-b0013-3-12",
+                "verdict": "faithful",
+                "evidence": "紫色立直棒被没收率曲线第12巡约为20至21，补录约21可由图支持。第12巡中心约为原图x=375，曲线约在y=176至178，落在sourcePixelBox [367,167,383,186]内；该处与亮绿色曲线接近。"
+              },
+              {
+                "cellId": "224-b0013-6-6",
+                "verdict": "faithful",
+                "evidence": "亮绿色和牌时一发比例曲线第6巡约在16附近，补录约16可由图支持。第6巡中心约为原图x=211，曲线约在y=184至186，落在sourcePixelBox [203,174,219,193]内；黄色及深绿色曲线靠近，须保留近似性质。"
+              },
+              {
+                "cellId": "224-b0013-6-7",
+                "verdict": "faithful",
+                "evidence": "亮绿色和牌时一发比例曲线第7巡约为16至17，补录约17可由图支持。第7巡中心约为原图x=238，曲线约在y=184附近，落在sourcePixelBox [231,174,247,193]内；该处邻近黄色曲线，不能当作精确值。"
+              },
+              {
+                "cellId": "224-b0013-6-12",
+                "verdict": "faithful",
+                "evidence": "亮绿色和牌时一发比例曲线第12巡约为22，补录约22可由图支持。第12巡中心约为原图x=375，曲线约在y=174附近，落在sourcePixelBox [367,163,383,183]内；应与附近的紫色曲线区分。"
+              }
+            ],
+            "contextContinuity": {
+              "verdict": "faithful",
+              "evidence": "b0012保留一名尚未听牌的对手进攻、其余两人完全弃和的条件，并将振听两面与先制愚形立直的和牌率接近作为作者的判断。b0014保留第13巡约30%及此前放过“似乎有效”的语气；b0003和b0015保留不必考虑未和牌导致名次下滑的讨论前提。正文依所提交的不变证明及父审继承；b0008的源文数值疑点继续作为source-note。"
+            },
+            "unknownImpacts": [
+              {
+                "unknownText": "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+                "disposition": "nonblocking-with-limits",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter04-section005:b0003",
+                  "modern-yabejp-ja:chapter04-section005:b0012",
+                  "modern-yabejp-ja:chapter04-section005:b0013",
+                  "modern-yabejp-ja:chapter04-section005:b0014",
+                  "modern-yabejp-ja:chapter04-section005:b0015"
+                ],
+                "authorClaim": "在一名尚未听牌的对手进攻、其余两人完全弃和的条件下，作者认为振听两面和牌率与所示先制愚形立直和牌率相近，并据图认为第13巡约为30%，此前放过似乎有效；讨论还以不必考虑未和牌导致名次下滑的风险为前提。",
+                "evidence": "图中未标出逐点精确数值。精确坐标缺失不阻断按原文呈现作者基于近似读数作出的判断：第13巡的关键近似读数依父审及不变证明继承。图中没有振听两面的独立曲线，因此仅凭该图不能定量证明两种和牌率的接近程度。",
+                "requiredDisplayLimitations": [
+                  "保留原图，并明确逐巡表中的数字是按图读取的约值，不得显示为精确坐标。",
+                  "保留作者的一人进攻、对手尚未听牌、其余两人弃和及不必考虑名次下滑风险等条件。",
+                  "保留第13巡约30%和此前放过“似乎有效”的原文力度，不将其改成精确分界或无条件的确定建议。",
+                  "将振听两面与愚形立直和牌率相近呈现为作者的判断，不将此图单独当作对两者接近程度的定量证明。"
+                ]
+              },
+              {
+                "unknownText": "逐巡近似表中保留17个非靶unknown：流局率第5巡；放铳率第1至5巡；和牌率第6巡；被他家自摸率第1至5巡；和牌时一发比例第1至5巡。",
+                "disposition": "nonblocking-with-limits",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter04-section005:b0003",
+                  "modern-yabejp-ja:chapter04-section005:b0012",
+                  "modern-yabejp-ja:chapter04-section005:b0013",
+                  "modern-yabejp-ja:chapter04-section005:b0014"
+                ],
+                "authorClaim": "作者根据模拟图和第13巡约30%的读数，在其限定条件下认为此前放过似乎有效。",
+                "evidence": "父审未确认这17点能否可靠辨读，本轮依不变证明继承其unknown状态，未逐点重审。它们不阻断忠实呈现作者依据第13巡近似读数作出的判断，但包括和牌率第6巡在内的缺口，限制了完整逐巡定量分析和对严格分界的主张。",
+                "requiredDisplayLimitations": [
+                  "逐项保留这17处unknown，不插值或依据相邻点推算；不得声称本轮已确认这17点均无法辨读。",
+                  "如展示该表，应说明它有88个约值和17个unknown，不能称已读出全部105个数值。",
+                  "若以后能够可靠辨认目前遗漏的点，应补录约值；不能以精确坐标未知为由省略可辨近似值。",
+                  "保留原图及作者的条件、近似表述和“似乎有效”的语气，不把缺口补成确定的逐巡结论。"
+                ]
+              },
+              {
+                "unknownText": "纵轴没有明确标注百分号或其他单位。",
+                "disposition": "nonblocking-with-limits",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter04-section005:b0003",
+                  "modern-yabejp-ja:chapter04-section005:b0013",
+                  "modern-yabejp-ja:chapter04-section005:b0014"
+                ],
+                "authorClaim": "作者在正文中将第13巡的和牌率表述为约30%，并与前文约三成的里宝牌概率作比较。",
+                "evidence": "图的纵轴有数值刻度和“和了率等”，但没有明确单位。正文第13巡约30%有原文支持；这一正文表述不足以替图中所有纵轴读数补写单位，因此单位未知不阻断保留作者的近似论证。",
+                "requiredDisplayLimitations": [
+                  "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+                  "可保留正文明确写出的第13巡约30%，并使其原文来源和近似性质清楚。"
+                ]
+              }
+            ],
+            "issues": [
+              {
+                "severity": "source-note",
+                "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+                "description": "继承父审对b0008的源文数值论证疑点。候选忠实保留作者数字和结论，不将该疑点改判为翻译错误。",
+                "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；按b0006所述乘法计算约为33.09%，而b0003的参照约为三成。该比较依父审保留为源文论证疑点。"
+              }
+            ],
+            "completeRequestedScopeCompared": true,
+            "summary": "仅针对新候选SHA c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a：七个补录点及其巡目、曲线和原图像素框均可支持，必要上下文保持忠实。剩余unknown在列明的显示限制下不阻断保留作者的近似论证。其余81个既有读数和17个非靶unknown依父审及不变证明继承，未重审；本结论不代表整章通过。"
+          }
+        },
+        "originalStrictVerification": {
+          "transportCompleted": true,
+          "repairPassed": false,
+          "limitedUnknownOkay": false,
+          "wholeChapterAccepted": false,
+          "modelReview": {
+            "targetChecks": [
+              {
+                "id": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+                "verdict": "needs-repair",
+                "evidence": "逐系列、逐巡核对105槽：＝表示候选约值基本可由图支持；！表示候选标为unknown，但图上有可辨约值；？表示候选标为unknown，本次不能确定能否可靠分辨，不以相邻点推算。各行依次为第1至15巡：\n流局率：＝ ＝ ＝ ＝ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n放铳率：？ ？ ？ ？ ？ ！ ！ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n和牌中自摸所占比例：＝ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n立直棒被没收率：＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝\n和牌率：＝ ＝ ＝ ＝ ＝ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n被他家自摸率：？ ？ ？ ？ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n和牌时一发比例：？ ？ ？ ？ ？ ！ ！ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝\n候选列出81个约值和24个unknown；其中至少7个unknown有可辨约值，故七系列定量转录仍不完整。第13巡和牌率约30的关键读数得到保留；两处自摸图例译名正确，图表约值也未擅加百分号。"
+              }
+            ],
+            "unknownImpacts": [
+              {
+                "unknownText": "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter04-section005:b0003",
+                  "modern-yabejp-ja:chapter04-section005:b0012",
+                  "modern-yabejp-ja:chapter04-section005:b0013",
+                  "modern-yabejp-ja:chapter04-section005:b0014"
+                ],
+                "authorClaim": "在一名尚未听牌的对手进攻、其余两人完全弃和的条件下，振听两面的和牌率与所示先制愚形立直的和牌率相近；作者据图认为第13巡约为30%，此前放过似乎有效。前面的判断还以不必考虑未和牌导致名次下滑的风险为前提。",
+                "disposition": "nonblocking-with-limits",
+                "evidence": "图中没有逐点精确数值，无法提供精确坐标本身不阻断作者依据近似读数作出的比较。第13巡和牌率的近似读数可辨，但当前表把若干可辨点留作unknown，仍需修复，不能把精确值缺失当作省略这些约值的理由。",
+                "requiredDisplayLimitations": [
+                  "保留原图，并将表中读数明确标为按图读取的约值；不能辨认的点逐项保留unknown，不插值推算。",
+                  "补齐图上可辨的遗漏点；修复前若展示当前表，须明确它是未完成的部分读数，不得称已读出全部105点。",
+                  "保留作者的条件和“似乎有效”的语气，不将第13巡附近的近似比较改成无条件的确定建议。"
+                ]
+              },
+              {
+                "unknownText": "纵轴没有明确标注百分号或其他单位。",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter04-section005:b0003",
+                  "modern-yabejp-ja:chapter04-section005:b0013",
+                  "modern-yabejp-ja:chapter04-section005:b0014"
+                ],
+                "authorClaim": "作者在正文中将第13巡的和牌率表述为约30%，并与前文约三成的里宝牌概率作比较。",
+                "disposition": "nonblocking-with-limits",
+                "evidence": "图的纵轴列有数值和“和了率等”，但没有明示单位；正文第13巡的30%有原文支持，不足以替整张图的所有纵轴读数补写单位。",
+                "requiredDisplayLimitations": [
+                  "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+                  "可保留正文明确写出的第13巡约30%，并使其来源和近似性质清楚。"
+                ]
+              }
+            ],
+            "contextContinuity": {
+              "verdict": "faithful",
+              "evidence": "上下文保留了一人进攻、其余两人弃和且该对手尚未听牌的模拟条件，以及第13巡约30%、此前放过似乎有效的论证强度；末段仍限定于不必考虑名次下滑风险的讨论。图表逐点遗漏需要修复，但不改变这些上下文关系。b0008沿用原审的源文数值疑点记录，不改判为翻译错误。"
+            },
+            "issues": [
+              {
+                "severity": "error",
+                "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+                "description": "若干可从图上辨认的逐巡约值仍被标为unknown，导致七系列的定量转录不完整。应补录可辨点，对确实难辨的点继续保留unknown，不用插值填充。",
+                "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。"
+              },
+              {
+                "severity": "source-note",
+                "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+                "description": "继承原审对b0008的源文数值论证疑点；候选忠实保留作者数字和结论，不将其改判为翻译错误。",
+                "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；b0003给出的参照约为三成。此疑点按原审作为source-note保留。"
+              }
+            ],
+            "scopeComplete": "yes",
+            "summary": "本次所列图靶需要修复：可辨的逐巡约值仍有遗漏。两项保留unknown可在明确显示限制下保留；本结论不代表整章通过。"
+          }
+        },
+        "readback": {
+          "path": "_analysis/b224/readback.json",
+          "sha256": "a403a3cfd11ef5ec924373d06dba6e647ccde687abd44c1e48dd41c5b75a9d45"
+        },
+        "sourceBlocks": 15,
+        "authorBlocks": 15,
+        "displayBlocks": 28,
+        "figures": 1,
+        "displayLimitationsMapped": 10,
+        "approximateValues": 88,
+        "unknownValues": 17,
+        "sourceNotePreserved": true,
+        "originalReceiptAndRawPreserved": true,
+        "ordinaryWholeArticlePassed": false,
+        "limitedAuthorPresentationAccepted": true,
+        "newModelCalls": 0
+      }
+    },
+    "latestScopedCandidate": {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b31r1.json",
+        "sha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+      },
+      "status": "limited-presentation-accepted-after-real-readback",
+      "limitedChapterPresentationAccepted": true,
+      "ordinaryWholeArticlePassed": false,
+      "sevenCellRepairPassed": true,
+      "limitedUnknownOkay": true
+    },
+    "historyBeforeSeven224": {
+      "currentTargetEvidence": {
+        "key": "224-seven",
+        "canonical": "nemata-jp-chapter-224-1",
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b31r1.json",
+          "sha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+        },
+        "source": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section005\\source.json",
+          "sha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+          "bytes": 26374
+        },
+        "receipt": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-224-seven-reviewed-20261028.json",
+          "sha256": "3b9bab561f2ea1c0450156ef1135e879471c503cc8ff1a3e709d981188c79e2e"
+        },
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\6dd562f2-2025-47b3-a48d-e8c6e5fdd12b.json",
+          "sha256": "45f1c2b88386c1399694e54ad013fadfb741110a63df15eb8cdc9ea65e12f6a0"
+        },
+        "runtime": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224-seven-v1-20261028\\runtime-manifest.json",
+          "sha256": "7307b5fc28df41a4a1396f19efde5be39f8a3ac7e24a7b18fa40ea878ac54e26",
+          "files": 35
+        },
+        "verification": {
+          "transportCompleted": true,
+          "repairPassed": true,
+          "limitedUnknownOkay": true,
+          "wholeChapterPassed": false
+        },
+        "remainingUnknownCells": 17,
+        "displayLimitations": 10,
+        "displayImplementationVerified": false,
+        "actual250ReadbackPerformed": false,
+        "residual": {
+          "kind": "exact224-owner-admission-and-visible-limit-mapping-not-yet-delivered",
+          "owner": "COAC-244",
+          "required": [
+            "Fixed c38fbdd2 candidate/source/parent/native call/raw and recursive unchanged-range callback",
+            "Dedicated stage overlay showing all ten independent limitations as non-author notes while preserving author body/figure/source-notes",
+            "Persistence binding for current selection/rebuild; then actual250 complete stdio MCP/Arena readback"
+          ],
+          "notRequired": [
+            "New maker/review/OCR call",
+            "Resolving exact coordinates or chart unit",
+            "Re-reading the 17 retained unknown cells"
+          ]
+        },
+        "admissionGranted": false
+      },
+      "latestScopedCandidate": {
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b31r1.json",
+          "sha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+        },
+        "receipt": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-224-seven-reviewed-20261028.json",
+          "sha256": "3b9bab561f2ea1c0450156ef1135e879471c503cc8ff1a3e709d981188c79e2e"
+        },
+        "status": "native-seven-cell-evidence-verified-exact-admission-and-display-pending",
+        "repairPassed": true,
+        "limitedUnknownOkay": true,
+        "limitedChapterPresentationAccepted": false,
+        "ordinaryWholeArticlePassed": false
+      },
+      "blockingIssues": [
+        {
+          "kind": "exact-owner-display-scope-pending",
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "description": "Seven known omissions independently repaired. Exact224 legal admission/ten visible non-author limitations and actual MCP/Arena readback remain; no new semantic review or OCR required."
+        }
+      ],
+      "effectiveBlockingIssues": [
+        {
+          "kind": "exact-owner-display-scope-pending",
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "description": "Seven known omissions independently repaired. Exact224 legal admission/ten visible non-author limitations and actual MCP/Arena readback remain; no new semantic review or OCR required."
+        }
+      ],
+      "nextAction": "Reuse current244 owner run for exact224 zero-model admission/display compatibility, then current250 single writer performs complete MCP/Arena readback. Keep88 approximate values/17unknown and source-note. No new model/maker/OCR."
+    },
+    "seven224NativeEvidence": {
+      "schema": "coac250-224-seven-native-evidence-verification/1",
+      "checkedAt": "2026-10-28T10:39:59.255Z",
+      "passed": true,
+      "canonical": "nemata-jp-chapter-224-1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b31r1.json",
+        "sha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section005\\source.json",
+        "sha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+        "bytes": 26374
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b27r1.json",
+        "sha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea"
+      },
+      "receipt": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-224-seven-reviewed-20261028.json",
+        "sha256": "3b9bab561f2ea1c0450156ef1135e879471c503cc8ff1a3e709d981188c79e2e"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\6dd562f2-2025-47b3-a48d-e8c6e5fdd12b.json",
+        "sha256": "45f1c2b88386c1399694e54ad013fadfb741110a63df15eb8cdc9ea65e12f6a0"
+      },
+      "runtime": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224-seven-v1-20261028\\runtime-manifest.json",
+        "sha256": "7307b5fc28df41a4a1396f19efde5be39f8a3ac7e24a7b18fa40ea878ac54e26",
+        "files": 35
+      },
+      "frozenFiles": 35,
+      "productionAndRecursiveParentChainRecomputed": true,
+      "actualRequestRebuiltExactly": true,
+      "standardLedgerUnique": true,
+      "unchangedBodyBlocks": 15,
+      "changedCells": [
+        {
+          "series": "放铳率",
+          "row": 1,
+          "turn": 6,
+          "before": "unknown",
+          "after": "约16",
+          "cellId": "224-b0013-1-6",
+          "sourcePixelBox": [
+            203,
+            178,
+            219,
+            196
+          ],
+          "x2ViewPixelBox": [
+            406,
+            356,
+            438,
+            392
+          ]
+        },
+        {
+          "series": "放铳率",
+          "row": 1,
+          "turn": 7,
+          "before": "unknown",
+          "after": "约16",
+          "cellId": "224-b0013-1-7",
+          "sourcePixelBox": [
+            231,
+            178,
+            247,
+            196
+          ],
+          "x2ViewPixelBox": [
+            462,
+            356,
+            494,
+            392
+          ]
+        },
+        {
+          "series": "和牌中自摸所占比例",
+          "row": 2,
+          "turn": 6,
+          "before": "unknown",
+          "after": "约49",
+          "cellId": "224-b0013-2-6",
+          "sourcePixelBox": [
+            203,
+            111,
+            219,
+            129
+          ],
+          "x2ViewPixelBox": [
+            406,
+            222,
+            438,
+            258
+          ]
+        },
+        {
+          "series": "立直棒被没收率",
+          "row": 3,
+          "turn": 12,
+          "before": "unknown",
+          "after": "约21",
+          "cellId": "224-b0013-3-12",
+          "sourcePixelBox": [
+            367,
+            167,
+            383,
+            186
+          ],
+          "x2ViewPixelBox": [
+            734,
+            334,
+            766,
+            372
+          ]
+        },
+        {
+          "series": "和牌时一发比例",
+          "row": 6,
+          "turn": 6,
+          "before": "unknown",
+          "after": "约16",
+          "cellId": "224-b0013-6-6",
+          "sourcePixelBox": [
+            203,
+            174,
+            219,
+            193
+          ],
+          "x2ViewPixelBox": [
+            406,
+            348,
+            438,
+            386
+          ]
+        },
+        {
+          "series": "和牌时一发比例",
+          "row": 6,
+          "turn": 7,
+          "before": "unknown",
+          "after": "约17",
+          "cellId": "224-b0013-6-7",
+          "sourcePixelBox": [
+            231,
+            174,
+            247,
+            193
+          ],
+          "x2ViewPixelBox": [
+            462,
+            348,
+            494,
+            386
+          ]
+        },
+        {
+          "series": "和牌时一发比例",
+          "row": 6,
+          "turn": 12,
+          "before": "unknown",
+          "after": "约22",
+          "cellId": "224-b0013-6-12",
+          "sourcePixelBox": [
+            367,
+            163,
+            383,
+            183
+          ],
+          "x2ViewPixelBox": [
+            734,
+            326,
+            766,
+            366
+          ]
+        }
+      ],
+      "unchangedExistingReadings": 81,
+      "approximateValues": 88,
+      "remainingUnknownCells": 17,
+      "remainingUnknownCellIds": [
+        {
+          "series": "流局率",
+          "turn": 5
+        },
+        {
+          "series": "放铳率",
+          "turn": 1
+        },
+        {
+          "series": "放铳率",
+          "turn": 2
+        },
+        {
+          "series": "放铳率",
+          "turn": 3
+        },
+        {
+          "series": "放铳率",
+          "turn": 4
+        },
+        {
+          "series": "放铳率",
+          "turn": 5
+        },
+        {
+          "series": "和牌率",
+          "turn": 6
+        },
+        {
+          "series": "被他家自摸率",
+          "turn": 1
+        },
+        {
+          "series": "被他家自摸率",
+          "turn": 2
+        },
+        {
+          "series": "被他家自摸率",
+          "turn": 3
+        },
+        {
+          "series": "被他家自摸率",
+          "turn": 4
+        },
+        {
+          "series": "被他家自摸率",
+          "turn": 5
+        },
+        {
+          "series": "和牌时一发比例",
+          "turn": 1
+        },
+        {
+          "series": "和牌时一发比例",
+          "turn": 2
+        },
+        {
+          "series": "和牌时一发比例",
+          "turn": 3
+        },
+        {
+          "series": "和牌时一发比例",
+          "turn": 4
+        },
+        {
+          "series": "和牌时一发比例",
+          "turn": 5
+        }
+      ],
+      "requiredDisplayLimitations": [
+        "保留原图，并明确逐巡表中的数字是按图读取的约值，不得显示为精确坐标。",
+        "保留作者的一人进攻、对手尚未听牌、其余两人弃和及不必考虑名次下滑风险等条件。",
+        "保留第13巡约30%和此前放过“似乎有效”的原文力度，不将其改成精确分界或无条件的确定建议。",
+        "将振听两面与愚形立直和牌率相近呈现为作者的判断，不将此图单独当作对两者接近程度的定量证明。",
+        "逐项保留这17处unknown，不插值或依据相邻点推算；不得声称本轮已确认这17点均无法辨读。",
+        "如展示该表，应说明它有88个约值和17个unknown，不能称已读出全部105个数值。",
+        "若以后能够可靠辨认目前遗漏的点，应补录约值；不能以精确坐标未知为由省略可辨近似值。",
+        "保留原图及作者的条件、近似表述和“似乎有效”的语气，不把缺口补成确定的逐巡结论。",
+        "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+        "可保留正文明确写出的第13巡约30%，并使其原文来源和近似性质清楚。"
+      ],
+      "sourceNote": [
+        {
+          "severity": "source-note",
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "description": "继承父审对b0008的源文数值论证疑点。候选忠实保留作者数字和结论，不将该疑点改判为翻译错误。",
+          "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；按b0006所述乘法计算约为33.09%，而b0003的参照约为三成。该比较依父审保留为源文论证疑点。"
+        }
+      ],
+      "wholeChapterPassed": false,
+      "admissionGranted": false,
+      "displayImplementationVerified": false,
+      "actual250Readback": false,
+      "newModelCalls": 0,
+      "newProductionCalls": 0,
+      "verification": {
+        "transportCompleted": true,
+        "repairPassed": true,
+        "limitedUnknownOkay": true,
+        "wholeChapterPassed": false
+      },
+      "independentIssues": [
+        {
+          "severity": "source-note",
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "description": "继承父审对b0008的源文数值论证疑点。候选忠实保留作者数字和结论，不将该疑点改判为翻译错误。",
+          "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；按b0006所述乘法计算约为33.09%，而b0003的参照约为三成。该比较依父审保留为源文论证疑点。"
+        }
+      ],
+      "nativeEvidence": {
+        "path": "_analysis/b224/verified.json",
+        "sha256": "5ce14d056e0c20d6d834d907ec6344c71c75ede6fec3e941f8e50d965d5743ad"
+      },
+      "refusalChecks": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "changed author condition",
+            "rejected": true
+          },
+          {
+            "name": "changed inherited chart reading",
+            "rejected": true
+          },
+          {
+            "name": "missing unknown",
+            "rejected": true
+          },
+          {
+            "name": "changed caption",
+            "rejected": true
+          },
+          {
+            "name": "changed source notes",
+            "rejected": true
+          },
+          {
+            "name": "wrong source binding",
+            "rejected": true
+          },
+          {
+            "name": "wrong frozen manifest",
+            "rejected": true
+          }
+        ],
+        "newModelCalls": 0,
+        "meaning": "Native fixed-candidate evidence refusal checks only. This is not a display/admission contract or readback."
+      },
+      "status": "native-seven-cell-evidence-verified-exact-admission-and-display-pending",
+      "standardWholeArticlePassed": false,
+      "covered": false,
+      "minimumRemainingGap": {
+        "kind": "exact224-owner-admission-and-visible-limit-mapping-not-yet-delivered",
+        "owner": "COAC-244",
+        "required": [
+          "Fixed c38fbdd2 candidate/source/parent/native call/raw and recursive unchanged-range callback",
+          "Dedicated stage overlay showing all ten independent limitations as non-author notes while preserving author body/figure/source-notes",
+          "Persistence binding for current selection/rebuild; then actual250 complete stdio MCP/Arena readback"
+        ],
+        "notRequired": [
+          "New maker/review/OCR call",
+          "Resolving exact coordinates or chart unit",
+          "Re-reading the 17 retained unknown cells"
+        ]
+      },
+      "ownerAlreadyRunning": {
+        "issueId": "01a1746d-cf4a-7ecc-9fae-3d4c2b55c39f",
+        "taskId": "01a1820e-a8f0-7781-8fc2-0d40d4d5eadd",
+        "observedStatus": "running",
+        "newDispatchCreated": false
+      },
+      "sourceNotePreserved": true
+    },
+    "blockingIssues": [],
+    "effectiveBlockingIssues": [],
+    "nextAction": "Exact224 bounded presentation actually accepted after full MCP/Arena and ten visible non-author limits,88 approximate readings/17unknown and original source notes. No remaining224 integration action; reuse current selection and do not re-audit.",
+    "seven224Intake": {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b31r1.json",
+        "sha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section005\\source.json",
+        "sha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+        "bytes": 26374
+      },
+      "route": {
+        "module": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-224-seven-limited-20261028/admit.mjs",
+          "sha256": "817af1cfca50faf10d304404a732ce53a47f27c122519e444e977ded58366e34"
+        },
+        "stage": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-224-seven-display-20261028/stage.mjs",
+          "sha256": "35679823da1448b91138ca77da1913b4265a32615903bbe88176d053f38ea5ee"
+        },
+        "manifest": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-224-seven-display-20261028/manifest.json",
+          "sha256": "f5394cbc0c7f0b60b4ac043183e17222ef321fd0c1b4ea2d7ab4122164600e27"
+        },
+        "candidateSha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+      },
+      "previewOutput": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-50-19-493Z",
+      "corpusId": "05d89ee39d6f6a5e532d6680d53ef4c86a31aed9cfb50a7c2928fead00bacae1",
+      "stageReceiptPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-50-19-493Z/stages/seven224/web-stage-receipt.json",
+      "displayLimits": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-50-19-493Z/stages/seven224/display-limits.json",
+        "sha256": "a09b3de3a2cb7190f2ab1981f7afaeceb5f4e569c9f8488e6adc97666727858f"
+      },
+      "sourceNotes": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-50-19-493Z/stages/seven224/source-notes.json",
+        "sha256": "231ce4f003494d4e2f62bc2d278a44b79bc36f845dec0c8cea53cfdeca3e02ee"
+      },
+      "requiredDisplayLimitations": [
+        "保留原图，并明确逐巡表中的数字是按图读取的约值，不得显示为精确坐标。",
+        "保留作者的一人进攻、对手尚未听牌、其余两人弃和及不必考虑名次下滑风险等条件。",
+        "保留第13巡约30%和此前放过“似乎有效”的原文力度，不将其改成精确分界或无条件的确定建议。",
+        "将振听两面与愚形立直和牌率相近呈现为作者的判断，不将此图单独当作对两者接近程度的定量证明。",
+        "逐项保留这17处unknown，不插值或依据相邻点推算；不得声称本轮已确认这17点均无法辨读。",
+        "如展示该表，应说明它有88个约值和17个unknown，不能称已读出全部105个数值。",
+        "若以后能够可靠辨认目前遗漏的点，应补录约值；不能以精确坐标未知为由省略可辨近似值。",
+        "保留原图及作者的条件、近似表述和“似乎有效”的语气，不把缺口补成确定的逐巡结论。",
+        "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+        "可保留正文明确写出的第13巡约30%，并使其原文来源和近似性质清楚。"
+      ],
+      "remainingUnknownCellIds": [
+        {
+          "series": "流局率",
+          "turn": 5
+        },
+        {
+          "series": "放铳率",
+          "turn": 1
+        },
+        {
+          "series": "放铳率",
+          "turn": 2
+        },
+        {
+          "series": "放铳率",
+          "turn": 3
+        },
+        {
+          "series": "放铳率",
+          "turn": 4
+        },
+        {
+          "series": "放铳率",
+          "turn": 5
+        },
+        {
+          "series": "和牌率",
+          "turn": 6
+        },
+        {
+          "series": "被他家自摸率",
+          "turn": 1
+        },
+        {
+          "series": "被他家自摸率",
+          "turn": 2
+        },
+        {
+          "series": "被他家自摸率",
+          "turn": 3
+        },
+        {
+          "series": "被他家自摸率",
+          "turn": 4
+        },
+        {
+          "series": "被他家自摸率",
+          "turn": 5
+        },
+        {
+          "series": "和牌时一发比例",
+          "turn": 1
+        },
+        {
+          "series": "和牌时一发比例",
+          "turn": 2
+        },
+        {
+          "series": "和牌时一发比例",
+          "turn": 3
+        },
+        {
+          "series": "和牌时一发比例",
+          "turn": 4
+        },
+        {
+          "series": "和牌时一发比例",
+          "turn": 5
+        }
+      ],
+      "currentStrictVerification": {
+        "transportCompleted": true,
+        "repairPassed": true,
+        "limitedUnknownOkay": true,
+        "wholeChapterPassed": false,
+        "modelReview": {
+          "cellChecks": [
+            {
+              "cellId": "224-b0013-1-6",
+              "verdict": "faithful",
+              "evidence": "黄色放铳率曲线第6巡约为15至16，补录约16可由图支持。第6巡中心约为原图x=211，曲线约在y=186附近，落在sourcePixelBox [203,178,219,196]内；该处与绿色曲线接近，读数应保持为约值。"
+            },
+            {
+              "cellId": "224-b0013-1-7",
+              "verdict": "faithful",
+              "evidence": "黄色放铳率曲线第7巡约为15至16，补录约16可由图支持。第7巡中心约为原图x=238，曲线约在y=186附近，落在sourcePixelBox [231,178,247,196]内；附近曲线接近，不能将其作为精确值。"
+            },
+            {
+              "cellId": "224-b0013-2-6",
+              "verdict": "faithful",
+              "evidence": "橙色和牌中自摸所占比例曲线第6巡接近49，补录约49与图相符。第6巡中心约为原图x=211，曲线约在y=121，落在sourcePixelBox [203,111,219,129]内。"
+            },
+            {
+              "cellId": "224-b0013-3-12",
+              "verdict": "faithful",
+              "evidence": "紫色立直棒被没收率曲线第12巡约为20至21，补录约21可由图支持。第12巡中心约为原图x=375，曲线约在y=176至178，落在sourcePixelBox [367,167,383,186]内；该处与亮绿色曲线接近。"
+            },
+            {
+              "cellId": "224-b0013-6-6",
+              "verdict": "faithful",
+              "evidence": "亮绿色和牌时一发比例曲线第6巡约在16附近，补录约16可由图支持。第6巡中心约为原图x=211，曲线约在y=184至186，落在sourcePixelBox [203,174,219,193]内；黄色及深绿色曲线靠近，须保留近似性质。"
+            },
+            {
+              "cellId": "224-b0013-6-7",
+              "verdict": "faithful",
+              "evidence": "亮绿色和牌时一发比例曲线第7巡约为16至17，补录约17可由图支持。第7巡中心约为原图x=238，曲线约在y=184附近，落在sourcePixelBox [231,174,247,193]内；该处邻近黄色曲线，不能当作精确值。"
+            },
+            {
+              "cellId": "224-b0013-6-12",
+              "verdict": "faithful",
+              "evidence": "亮绿色和牌时一发比例曲线第12巡约为22，补录约22可由图支持。第12巡中心约为原图x=375，曲线约在y=174附近，落在sourcePixelBox [367,163,383,183]内；应与附近的紫色曲线区分。"
+            }
+          ],
+          "contextContinuity": {
+            "verdict": "faithful",
+            "evidence": "b0012保留一名尚未听牌的对手进攻、其余两人完全弃和的条件，并将振听两面与先制愚形立直的和牌率接近作为作者的判断。b0014保留第13巡约30%及此前放过“似乎有效”的语气；b0003和b0015保留不必考虑未和牌导致名次下滑的讨论前提。正文依所提交的不变证明及父审继承；b0008的源文数值疑点继续作为source-note。"
+          },
+          "unknownImpacts": [
+            {
+              "unknownText": "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+              "disposition": "nonblocking-with-limits",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section005:b0003",
+                "modern-yabejp-ja:chapter04-section005:b0012",
+                "modern-yabejp-ja:chapter04-section005:b0013",
+                "modern-yabejp-ja:chapter04-section005:b0014",
+                "modern-yabejp-ja:chapter04-section005:b0015"
+              ],
+              "authorClaim": "在一名尚未听牌的对手进攻、其余两人完全弃和的条件下，作者认为振听两面和牌率与所示先制愚形立直和牌率相近，并据图认为第13巡约为30%，此前放过似乎有效；讨论还以不必考虑未和牌导致名次下滑的风险为前提。",
+              "evidence": "图中未标出逐点精确数值。精确坐标缺失不阻断按原文呈现作者基于近似读数作出的判断：第13巡的关键近似读数依父审及不变证明继承。图中没有振听两面的独立曲线，因此仅凭该图不能定量证明两种和牌率的接近程度。",
+              "requiredDisplayLimitations": [
+                "保留原图，并明确逐巡表中的数字是按图读取的约值，不得显示为精确坐标。",
+                "保留作者的一人进攻、对手尚未听牌、其余两人弃和及不必考虑名次下滑风险等条件。",
+                "保留第13巡约30%和此前放过“似乎有效”的原文力度，不将其改成精确分界或无条件的确定建议。",
+                "将振听两面与愚形立直和牌率相近呈现为作者的判断，不将此图单独当作对两者接近程度的定量证明。"
+              ]
+            },
+            {
+              "unknownText": "逐巡近似表中保留17个非靶unknown：流局率第5巡；放铳率第1至5巡；和牌率第6巡；被他家自摸率第1至5巡；和牌时一发比例第1至5巡。",
+              "disposition": "nonblocking-with-limits",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section005:b0003",
+                "modern-yabejp-ja:chapter04-section005:b0012",
+                "modern-yabejp-ja:chapter04-section005:b0013",
+                "modern-yabejp-ja:chapter04-section005:b0014"
+              ],
+              "authorClaim": "作者根据模拟图和第13巡约30%的读数，在其限定条件下认为此前放过似乎有效。",
+              "evidence": "父审未确认这17点能否可靠辨读，本轮依不变证明继承其unknown状态，未逐点重审。它们不阻断忠实呈现作者依据第13巡近似读数作出的判断，但包括和牌率第6巡在内的缺口，限制了完整逐巡定量分析和对严格分界的主张。",
+              "requiredDisplayLimitations": [
+                "逐项保留这17处unknown，不插值或依据相邻点推算；不得声称本轮已确认这17点均无法辨读。",
+                "如展示该表，应说明它有88个约值和17个unknown，不能称已读出全部105个数值。",
+                "若以后能够可靠辨认目前遗漏的点，应补录约值；不能以精确坐标未知为由省略可辨近似值。",
+                "保留原图及作者的条件、近似表述和“似乎有效”的语气，不把缺口补成确定的逐巡结论。"
+              ]
+            },
+            {
+              "unknownText": "纵轴没有明确标注百分号或其他单位。",
+              "disposition": "nonblocking-with-limits",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section005:b0003",
+                "modern-yabejp-ja:chapter04-section005:b0013",
+                "modern-yabejp-ja:chapter04-section005:b0014"
+              ],
+              "authorClaim": "作者在正文中将第13巡的和牌率表述为约30%，并与前文约三成的里宝牌概率作比较。",
+              "evidence": "图的纵轴有数值刻度和“和了率等”，但没有明确单位。正文第13巡约30%有原文支持；这一正文表述不足以替图中所有纵轴读数补写单位，因此单位未知不阻断保留作者的近似论证。",
+              "requiredDisplayLimitations": [
+                "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+                "可保留正文明确写出的第13巡约30%，并使其原文来源和近似性质清楚。"
+              ]
+            }
+          ],
+          "issues": [
+            {
+              "severity": "source-note",
+              "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+              "description": "继承父审对b0008的源文数值论证疑点。候选忠实保留作者数字和结论，不将该疑点改判为翻译错误。",
+              "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；按b0006所述乘法计算约为33.09%，而b0003的参照约为三成。该比较依父审保留为源文论证疑点。"
+            }
+          ],
+          "completeRequestedScopeCompared": true,
+          "summary": "仅针对新候选SHA c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a：七个补录点及其巡目、曲线和原图像素框均可支持，必要上下文保持忠实。剩余unknown在列明的显示限制下不阻断保留作者的近似论证。其余81个既有读数和17个非靶unknown依父审及不变证明继承，未重审；本结论不代表整章通过。"
+        }
+      },
+      "originalStrictVerification": {
+        "transportCompleted": true,
+        "repairPassed": false,
+        "limitedUnknownOkay": false,
+        "wholeChapterAccepted": false,
+        "modelReview": {
+          "targetChecks": [
+            {
+              "id": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+              "verdict": "needs-repair",
+              "evidence": "逐系列、逐巡核对105槽：＝表示候选约值基本可由图支持；！表示候选标为unknown，但图上有可辨约值；？表示候选标为unknown，本次不能确定能否可靠分辨，不以相邻点推算。各行依次为第1至15巡：\n流局率：＝ ＝ ＝ ＝ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n放铳率：？ ？ ？ ？ ？ ！ ！ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n和牌中自摸所占比例：＝ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n立直棒被没收率：＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝\n和牌率：＝ ＝ ＝ ＝ ＝ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n被他家自摸率：？ ？ ？ ？ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n和牌时一发比例：？ ？ ？ ？ ？ ！ ！ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝\n候选列出81个约值和24个unknown；其中至少7个unknown有可辨约值，故七系列定量转录仍不完整。第13巡和牌率约30的关键读数得到保留；两处自摸图例译名正确，图表约值也未擅加百分号。"
+            }
+          ],
+          "unknownImpacts": [
+            {
+              "unknownText": "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section005:b0003",
+                "modern-yabejp-ja:chapter04-section005:b0012",
+                "modern-yabejp-ja:chapter04-section005:b0013",
+                "modern-yabejp-ja:chapter04-section005:b0014"
+              ],
+              "authorClaim": "在一名尚未听牌的对手进攻、其余两人完全弃和的条件下，振听两面的和牌率与所示先制愚形立直的和牌率相近；作者据图认为第13巡约为30%，此前放过似乎有效。前面的判断还以不必考虑未和牌导致名次下滑的风险为前提。",
+              "disposition": "nonblocking-with-limits",
+              "evidence": "图中没有逐点精确数值，无法提供精确坐标本身不阻断作者依据近似读数作出的比较。第13巡和牌率的近似读数可辨，但当前表把若干可辨点留作unknown，仍需修复，不能把精确值缺失当作省略这些约值的理由。",
+              "requiredDisplayLimitations": [
+                "保留原图，并将表中读数明确标为按图读取的约值；不能辨认的点逐项保留unknown，不插值推算。",
+                "补齐图上可辨的遗漏点；修复前若展示当前表，须明确它是未完成的部分读数，不得称已读出全部105点。",
+                "保留作者的条件和“似乎有效”的语气，不将第13巡附近的近似比较改成无条件的确定建议。"
+              ]
+            },
+            {
+              "unknownText": "纵轴没有明确标注百分号或其他单位。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section005:b0003",
+                "modern-yabejp-ja:chapter04-section005:b0013",
+                "modern-yabejp-ja:chapter04-section005:b0014"
+              ],
+              "authorClaim": "作者在正文中将第13巡的和牌率表述为约30%，并与前文约三成的里宝牌概率作比较。",
+              "disposition": "nonblocking-with-limits",
+              "evidence": "图的纵轴列有数值和“和了率等”，但没有明示单位；正文第13巡的30%有原文支持，不足以替整张图的所有纵轴读数补写单位。",
+              "requiredDisplayLimitations": [
+                "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+                "可保留正文明确写出的第13巡约30%，并使其来源和近似性质清楚。"
+              ]
+            }
+          ],
+          "contextContinuity": {
+            "verdict": "faithful",
+            "evidence": "上下文保留了一人进攻、其余两人弃和且该对手尚未听牌的模拟条件，以及第13巡约30%、此前放过似乎有效的论证强度；末段仍限定于不必考虑名次下滑风险的讨论。图表逐点遗漏需要修复，但不改变这些上下文关系。b0008沿用原审的源文数值疑点记录，不改判为翻译错误。"
+          },
+          "issues": [
+            {
+              "severity": "error",
+              "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+              "description": "若干可从图上辨认的逐巡约值仍被标为unknown，导致七系列的定量转录不完整。应补录可辨点，对确实难辨的点继续保留unknown，不用插值填充。",
+              "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。"
+            },
+            {
+              "severity": "source-note",
+              "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+              "description": "继承原审对b0008的源文数值论证疑点；候选忠实保留作者数字和结论，不将其改判为翻译错误。",
+              "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；b0003给出的参照约为三成。此疑点按原审作为source-note保留。"
+            }
+          ],
+          "scopeComplete": "yes",
+          "summary": "本次所列图靶需要修复：可辨的逐巡约值仍有遗漏。两项保留unknown可在明确显示限制下保留；本结论不代表整章通过。"
+        }
+      },
+      "readback": {
+        "path": "_analysis/b224/readback.json",
+        "sha256": "a403a3cfd11ef5ec924373d06dba6e647ccde687abd44c1e48dd41c5b75a9d45"
+      },
+      "sourceBlocks": 15,
+      "authorBlocks": 15,
+      "displayBlocks": 28,
+      "figures": 1,
+      "displayLimitationsMapped": 10,
+      "approximateValues": 88,
+      "unknownValues": 17,
+      "sourceNotePreserved": true,
+      "originalReceiptAndRawPreserved": true,
+      "ordinaryWholeArticlePassed": false,
+      "limitedAuthorPresentationAccepted": true,
+      "newModelCalls": 0
+    },
+    "staging": {
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b31r1.json",
+        "sha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section005\\source.json",
+        "sha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+        "bytes": 26374
+      },
+      "route": {
+        "module": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-224-seven-limited-20261028/admit.mjs",
+          "sha256": "817af1cfca50faf10d304404a732ce53a47f27c122519e444e977ded58366e34"
+        },
+        "stage": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-224-seven-display-20261028/stage.mjs",
+          "sha256": "35679823da1448b91138ca77da1913b4265a32615903bbe88176d053f38ea5ee"
+        },
+        "manifest": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-224-seven-display-20261028/manifest.json",
+          "sha256": "f5394cbc0c7f0b60b4ac043183e17222ef321fd0c1b4ea2d7ab4122164600e27"
+        },
+        "candidateSha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+      },
+      "previewOutput": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-50-19-493Z",
+      "corpusId": "05d89ee39d6f6a5e532d6680d53ef4c86a31aed9cfb50a7c2928fead00bacae1",
+      "stageReceiptPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-50-19-493Z/stages/seven224/web-stage-receipt.json",
+      "displayLimits": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-50-19-493Z/stages/seven224/display-limits.json",
+        "sha256": "a09b3de3a2cb7190f2ab1981f7afaeceb5f4e569c9f8488e6adc97666727858f"
+      },
+      "sourceNotes": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T10-50-19-493Z/stages/seven224/source-notes.json",
+        "sha256": "231ce4f003494d4e2f62bc2d278a44b79bc36f845dec0c8cea53cfdeca3e02ee"
+      },
+      "requiredDisplayLimitations": [
+        "保留原图，并明确逐巡表中的数字是按图读取的约值，不得显示为精确坐标。",
+        "保留作者的一人进攻、对手尚未听牌、其余两人弃和及不必考虑名次下滑风险等条件。",
+        "保留第13巡约30%和此前放过“似乎有效”的原文力度，不将其改成精确分界或无条件的确定建议。",
+        "将振听两面与愚形立直和牌率相近呈现为作者的判断，不将此图单独当作对两者接近程度的定量证明。",
+        "逐项保留这17处unknown，不插值或依据相邻点推算；不得声称本轮已确认这17点均无法辨读。",
+        "如展示该表，应说明它有88个约值和17个unknown，不能称已读出全部105个数值。",
+        "若以后能够可靠辨认目前遗漏的点，应补录约值；不能以精确坐标未知为由省略可辨近似值。",
+        "保留原图及作者的条件、近似表述和“似乎有效”的语气，不把缺口补成确定的逐巡结论。",
+        "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+        "可保留正文明确写出的第13巡约30%，并使其原文来源和近似性质清楚。"
+      ],
+      "remainingUnknownCellIds": [
+        {
+          "series": "流局率",
+          "turn": 5
+        },
+        {
+          "series": "放铳率",
+          "turn": 1
+        },
+        {
+          "series": "放铳率",
+          "turn": 2
+        },
+        {
+          "series": "放铳率",
+          "turn": 3
+        },
+        {
+          "series": "放铳率",
+          "turn": 4
+        },
+        {
+          "series": "放铳率",
+          "turn": 5
+        },
+        {
+          "series": "和牌率",
+          "turn": 6
+        },
+        {
+          "series": "被他家自摸率",
+          "turn": 1
+        },
+        {
+          "series": "被他家自摸率",
+          "turn": 2
+        },
+        {
+          "series": "被他家自摸率",
+          "turn": 3
+        },
+        {
+          "series": "被他家自摸率",
+          "turn": 4
+        },
+        {
+          "series": "被他家自摸率",
+          "turn": 5
+        },
+        {
+          "series": "和牌时一发比例",
+          "turn": 1
+        },
+        {
+          "series": "和牌时一发比例",
+          "turn": 2
+        },
+        {
+          "series": "和牌时一发比例",
+          "turn": 3
+        },
+        {
+          "series": "和牌时一发比例",
+          "turn": 4
+        },
+        {
+          "series": "和牌时一发比例",
+          "turn": 5
+        }
+      ],
+      "currentStrictVerification": {
+        "transportCompleted": true,
+        "repairPassed": true,
+        "limitedUnknownOkay": true,
+        "wholeChapterPassed": false,
+        "modelReview": {
+          "cellChecks": [
+            {
+              "cellId": "224-b0013-1-6",
+              "verdict": "faithful",
+              "evidence": "黄色放铳率曲线第6巡约为15至16，补录约16可由图支持。第6巡中心约为原图x=211，曲线约在y=186附近，落在sourcePixelBox [203,178,219,196]内；该处与绿色曲线接近，读数应保持为约值。"
+            },
+            {
+              "cellId": "224-b0013-1-7",
+              "verdict": "faithful",
+              "evidence": "黄色放铳率曲线第7巡约为15至16，补录约16可由图支持。第7巡中心约为原图x=238，曲线约在y=186附近，落在sourcePixelBox [231,178,247,196]内；附近曲线接近，不能将其作为精确值。"
+            },
+            {
+              "cellId": "224-b0013-2-6",
+              "verdict": "faithful",
+              "evidence": "橙色和牌中自摸所占比例曲线第6巡接近49，补录约49与图相符。第6巡中心约为原图x=211，曲线约在y=121，落在sourcePixelBox [203,111,219,129]内。"
+            },
+            {
+              "cellId": "224-b0013-3-12",
+              "verdict": "faithful",
+              "evidence": "紫色立直棒被没收率曲线第12巡约为20至21，补录约21可由图支持。第12巡中心约为原图x=375，曲线约在y=176至178，落在sourcePixelBox [367,167,383,186]内；该处与亮绿色曲线接近。"
+            },
+            {
+              "cellId": "224-b0013-6-6",
+              "verdict": "faithful",
+              "evidence": "亮绿色和牌时一发比例曲线第6巡约在16附近，补录约16可由图支持。第6巡中心约为原图x=211，曲线约在y=184至186，落在sourcePixelBox [203,174,219,193]内；黄色及深绿色曲线靠近，须保留近似性质。"
+            },
+            {
+              "cellId": "224-b0013-6-7",
+              "verdict": "faithful",
+              "evidence": "亮绿色和牌时一发比例曲线第7巡约为16至17，补录约17可由图支持。第7巡中心约为原图x=238，曲线约在y=184附近，落在sourcePixelBox [231,174,247,193]内；该处邻近黄色曲线，不能当作精确值。"
+            },
+            {
+              "cellId": "224-b0013-6-12",
+              "verdict": "faithful",
+              "evidence": "亮绿色和牌时一发比例曲线第12巡约为22，补录约22可由图支持。第12巡中心约为原图x=375，曲线约在y=174附近，落在sourcePixelBox [367,163,383,183]内；应与附近的紫色曲线区分。"
+            }
+          ],
+          "contextContinuity": {
+            "verdict": "faithful",
+            "evidence": "b0012保留一名尚未听牌的对手进攻、其余两人完全弃和的条件，并将振听两面与先制愚形立直的和牌率接近作为作者的判断。b0014保留第13巡约30%及此前放过“似乎有效”的语气；b0003和b0015保留不必考虑未和牌导致名次下滑的讨论前提。正文依所提交的不变证明及父审继承；b0008的源文数值疑点继续作为source-note。"
+          },
+          "unknownImpacts": [
+            {
+              "unknownText": "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+              "disposition": "nonblocking-with-limits",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section005:b0003",
+                "modern-yabejp-ja:chapter04-section005:b0012",
+                "modern-yabejp-ja:chapter04-section005:b0013",
+                "modern-yabejp-ja:chapter04-section005:b0014",
+                "modern-yabejp-ja:chapter04-section005:b0015"
+              ],
+              "authorClaim": "在一名尚未听牌的对手进攻、其余两人完全弃和的条件下，作者认为振听两面和牌率与所示先制愚形立直和牌率相近，并据图认为第13巡约为30%，此前放过似乎有效；讨论还以不必考虑未和牌导致名次下滑的风险为前提。",
+              "evidence": "图中未标出逐点精确数值。精确坐标缺失不阻断按原文呈现作者基于近似读数作出的判断：第13巡的关键近似读数依父审及不变证明继承。图中没有振听两面的独立曲线，因此仅凭该图不能定量证明两种和牌率的接近程度。",
+              "requiredDisplayLimitations": [
+                "保留原图，并明确逐巡表中的数字是按图读取的约值，不得显示为精确坐标。",
+                "保留作者的一人进攻、对手尚未听牌、其余两人弃和及不必考虑名次下滑风险等条件。",
+                "保留第13巡约30%和此前放过“似乎有效”的原文力度，不将其改成精确分界或无条件的确定建议。",
+                "将振听两面与愚形立直和牌率相近呈现为作者的判断，不将此图单独当作对两者接近程度的定量证明。"
+              ]
+            },
+            {
+              "unknownText": "逐巡近似表中保留17个非靶unknown：流局率第5巡；放铳率第1至5巡；和牌率第6巡；被他家自摸率第1至5巡；和牌时一发比例第1至5巡。",
+              "disposition": "nonblocking-with-limits",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section005:b0003",
+                "modern-yabejp-ja:chapter04-section005:b0012",
+                "modern-yabejp-ja:chapter04-section005:b0013",
+                "modern-yabejp-ja:chapter04-section005:b0014"
+              ],
+              "authorClaim": "作者根据模拟图和第13巡约30%的读数，在其限定条件下认为此前放过似乎有效。",
+              "evidence": "父审未确认这17点能否可靠辨读，本轮依不变证明继承其unknown状态，未逐点重审。它们不阻断忠实呈现作者依据第13巡近似读数作出的判断，但包括和牌率第6巡在内的缺口，限制了完整逐巡定量分析和对严格分界的主张。",
+              "requiredDisplayLimitations": [
+                "逐项保留这17处unknown，不插值或依据相邻点推算；不得声称本轮已确认这17点均无法辨读。",
+                "如展示该表，应说明它有88个约值和17个unknown，不能称已读出全部105个数值。",
+                "若以后能够可靠辨认目前遗漏的点，应补录约值；不能以精确坐标未知为由省略可辨近似值。",
+                "保留原图及作者的条件、近似表述和“似乎有效”的语气，不把缺口补成确定的逐巡结论。"
+              ]
+            },
+            {
+              "unknownText": "纵轴没有明确标注百分号或其他单位。",
+              "disposition": "nonblocking-with-limits",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section005:b0003",
+                "modern-yabejp-ja:chapter04-section005:b0013",
+                "modern-yabejp-ja:chapter04-section005:b0014"
+              ],
+              "authorClaim": "作者在正文中将第13巡的和牌率表述为约30%，并与前文约三成的里宝牌概率作比较。",
+              "evidence": "图的纵轴有数值刻度和“和了率等”，但没有明确单位。正文第13巡约30%有原文支持；这一正文表述不足以替图中所有纵轴读数补写单位，因此单位未知不阻断保留作者的近似论证。",
+              "requiredDisplayLimitations": [
+                "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+                "可保留正文明确写出的第13巡约30%，并使其原文来源和近似性质清楚。"
+              ]
+            }
+          ],
+          "issues": [
+            {
+              "severity": "source-note",
+              "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+              "description": "继承父审对b0008的源文数值论证疑点。候选忠实保留作者数字和结论，不将该疑点改判为翻译错误。",
+              "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；按b0006所述乘法计算约为33.09%，而b0003的参照约为三成。该比较依父审保留为源文论证疑点。"
+            }
+          ],
+          "completeRequestedScopeCompared": true,
+          "summary": "仅针对新候选SHA c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a：七个补录点及其巡目、曲线和原图像素框均可支持，必要上下文保持忠实。剩余unknown在列明的显示限制下不阻断保留作者的近似论证。其余81个既有读数和17个非靶unknown依父审及不变证明继承，未重审；本结论不代表整章通过。"
+        }
+      },
+      "originalStrictVerification": {
+        "transportCompleted": true,
+        "repairPassed": false,
+        "limitedUnknownOkay": false,
+        "wholeChapterAccepted": false,
+        "modelReview": {
+          "targetChecks": [
+            {
+              "id": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+              "verdict": "needs-repair",
+              "evidence": "逐系列、逐巡核对105槽：＝表示候选约值基本可由图支持；！表示候选标为unknown，但图上有可辨约值；？表示候选标为unknown，本次不能确定能否可靠分辨，不以相邻点推算。各行依次为第1至15巡：\n流局率：＝ ＝ ＝ ＝ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n放铳率：？ ？ ？ ？ ？ ！ ！ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n和牌中自摸所占比例：＝ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n立直棒被没收率：＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝\n和牌率：＝ ＝ ＝ ＝ ＝ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n被他家自摸率：？ ？ ？ ？ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n和牌时一发比例：？ ？ ？ ？ ？ ！ ！ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝\n候选列出81个约值和24个unknown；其中至少7个unknown有可辨约值，故七系列定量转录仍不完整。第13巡和牌率约30的关键读数得到保留；两处自摸图例译名正确，图表约值也未擅加百分号。"
+            }
+          ],
+          "unknownImpacts": [
+            {
+              "unknownText": "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section005:b0003",
+                "modern-yabejp-ja:chapter04-section005:b0012",
+                "modern-yabejp-ja:chapter04-section005:b0013",
+                "modern-yabejp-ja:chapter04-section005:b0014"
+              ],
+              "authorClaim": "在一名尚未听牌的对手进攻、其余两人完全弃和的条件下，振听两面的和牌率与所示先制愚形立直的和牌率相近；作者据图认为第13巡约为30%，此前放过似乎有效。前面的判断还以不必考虑未和牌导致名次下滑的风险为前提。",
+              "disposition": "nonblocking-with-limits",
+              "evidence": "图中没有逐点精确数值，无法提供精确坐标本身不阻断作者依据近似读数作出的比较。第13巡和牌率的近似读数可辨，但当前表把若干可辨点留作unknown，仍需修复，不能把精确值缺失当作省略这些约值的理由。",
+              "requiredDisplayLimitations": [
+                "保留原图，并将表中读数明确标为按图读取的约值；不能辨认的点逐项保留unknown，不插值推算。",
+                "补齐图上可辨的遗漏点；修复前若展示当前表，须明确它是未完成的部分读数，不得称已读出全部105点。",
+                "保留作者的条件和“似乎有效”的语气，不将第13巡附近的近似比较改成无条件的确定建议。"
+              ]
+            },
+            {
+              "unknownText": "纵轴没有明确标注百分号或其他单位。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section005:b0003",
+                "modern-yabejp-ja:chapter04-section005:b0013",
+                "modern-yabejp-ja:chapter04-section005:b0014"
+              ],
+              "authorClaim": "作者在正文中将第13巡的和牌率表述为约30%，并与前文约三成的里宝牌概率作比较。",
+              "disposition": "nonblocking-with-limits",
+              "evidence": "图的纵轴列有数值和“和了率等”，但没有明示单位；正文第13巡的30%有原文支持，不足以替整张图的所有纵轴读数补写单位。",
+              "requiredDisplayLimitations": [
+                "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+                "可保留正文明确写出的第13巡约30%，并使其来源和近似性质清楚。"
+              ]
+            }
+          ],
+          "contextContinuity": {
+            "verdict": "faithful",
+            "evidence": "上下文保留了一人进攻、其余两人弃和且该对手尚未听牌的模拟条件，以及第13巡约30%、此前放过似乎有效的论证强度；末段仍限定于不必考虑名次下滑风险的讨论。图表逐点遗漏需要修复，但不改变这些上下文关系。b0008沿用原审的源文数值疑点记录，不改判为翻译错误。"
+          },
+          "issues": [
+            {
+              "severity": "error",
+              "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+              "description": "若干可从图上辨认的逐巡约值仍被标为unknown，导致七系列的定量转录不完整。应补录可辨点，对确实难辨的点继续保留unknown，不用插值填充。",
+              "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。"
+            },
+            {
+              "severity": "source-note",
+              "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+              "description": "继承原审对b0008的源文数值论证疑点；候选忠实保留作者数字和结论，不将其改判为翻译错误。",
+              "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；b0003给出的参照约为三成。此疑点按原审作为source-note保留。"
+            }
+          ],
+          "scopeComplete": "yes",
+          "summary": "本次所列图靶需要修复：可辨的逐巡约值仍有遗漏。两项保留unknown可在明确显示限制下保留；本结论不代表整章通过。"
+        }
+      },
+      "readback": {
+        "path": "_analysis/b224/readback.json",
+        "sha256": "a403a3cfd11ef5ec924373d06dba6e647ccde687abd44c1e48dd41c5b75a9d45"
+      },
+      "sourceBlocks": 15,
+      "authorBlocks": 15,
+      "displayBlocks": 28,
+      "figures": 1,
+      "displayLimitationsMapped": 10,
+      "approximateValues": 88,
+      "unknownValues": 17,
+      "sourceNotePreserved": true,
+      "originalReceiptAndRawPreserved": true,
+      "ordinaryWholeArticlePassed": false,
+      "limitedAuthorPresentationAccepted": true,
+      "newModelCalls": 0
+    }
+  }
+]

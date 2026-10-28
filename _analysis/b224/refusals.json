@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "changed author condition",
+      "rejected": true
+    },
+    {
+      "name": "changed inherited chart reading",
+      "rejected": true
+    },
+    {
+      "name": "missing unknown",
+      "rejected": true
+    },
+    {
+      "name": "changed caption",
+      "rejected": true
+    },
+    {
+      "name": "changed source notes",
+      "rejected": true
+    },
+    {
+      "name": "wrong source binding",
+      "rejected": true
+    },
+    {
+      "name": "wrong frozen manifest",
+      "rejected": true
+    }
+  ],
+  "newModelCalls": 0,
+  "meaning": "Native fixed-candidate evidence refusal checks only. This is not a display/admission contract or readback."
+}

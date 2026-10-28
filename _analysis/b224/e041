@@ -1,0 +1,579 @@
+{
+  "schema": "coach-textbook-web-article-source/1",
+  "sourceId": "modern-yabejp-ja",
+  "articleId": "chapter04-section005",
+  "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+  "title": "オーラスの見逃し判断",
+  "language": "ja",
+  "fetchedAt": "2026-10-23T20:49:11.186580+00:00",
+  "html": {
+    "requestedUrl": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+    "httpStatus": 200,
+    "finalUrl": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+    "contentType": "text/html",
+    "fetchedAt": "2026-10-23T20:49:11.186580+00:00",
+    "encoding": "shift_jis",
+    "path": "modern-yabejp-ja/html/f1732253b75acaa51fe012a2/source.html",
+    "sha256": "99c89512851ad2614183562f7aa009183c9e8b3effd8da32c0c36122b1df7622",
+    "bytes": 7954
+  },
+  "main": {
+    "selector": "#contents",
+    "path": "modern-yabejp-ja/articles/chapter04-section005/main.html",
+    "sha256": "a8b29bfd877b0a26785cbff4a38a388aafbaa29bc707e651313d2fe421b73299"
+  },
+  "blocks": [
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:b0001",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0001",
+      "tag": "h2",
+      "domPath": "main/h2[3]",
+      "tableContext": null,
+      "type": "text",
+      "text": "オーラスの見逃し判断",
+      "segments": [
+        {
+          "text": "オーラスの見逃し判断",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:b0002",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0002",
+      "tag": "p",
+      "domPath": "main/p[5]",
+      "tableContext": null,
+      "type": "text",
+      "text": "前回、捲くり手を作る場合には多少偶発的要素に頼るくらいでよいということを述べました。ただ、確実に捲くれる選択とどちらを優先すべきか悩む場面は多くあります。特によくあるのが、リーチしていて当たり牌が他家から出て、ロンした場合捲くるためには裏ドラが１枚必要だが、見逃してツモれば必ず捲くれるという場合です。",
+      "segments": [
+        {
+          "text": "前回",
+          "marks": [],
+          "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section004.html"
+        },
+        {
+          "text": "、捲くり手を作る場合には多少偶発的要素に頼るくらいでよいということを述べました。ただ、確実に捲くれる選択とどちらを優先すべきか悩む場面は多くあります。特によくあるのが、リーチしていて当たり牌が他家から出て、ロンした場合捲くるためには裏ドラが１枚必要だが、見逃してツモれば必ず捲くれるという場合です。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:b0003",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0003",
+      "tag": "p",
+      "domPath": "main/p[7]",
+      "tableContext": null,
+      "type": "text",
+      "text": "裏ドラが乗る確率は約３割です。（トイツ以外２枚以上使っていないピンフ手ならもう少し上がり、七対子のように使用牌が7種しかなければ２割程度になる。）和了できなかった為に順位が落ちるリスクを考慮しなくていい（ラス目等）状況であれば、見逃してツモる確率がこれより大きければ見逃したほうが有利となります。",
+      "segments": [
+        {
+          "text": "裏ドラが乗る確率は約３割です。（トイツ以外２枚以上使っていないピンフ手ならもう少し上がり、七対子のように使用牌が7種しかなければ２割程度になる。）和了できなかった為に順位が落ちるリスクを考慮しなくていい（ラス目等）状況であれば、見逃してツモる確率がこれより大きければ見逃したほうが有利となります。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:b0004",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0004",
+      "tag": "p",
+      "domPath": "main/p[9]",
+      "tableContext": null,
+      "type": "text",
+      "text": "ツモ和了できる可能性は、もちろん巡目と自分の上がり牌が何枚残っているかに大きく影響します。何巡目で何枚残っていればどの程度の確率で当たり牌が自分のツモ列にあるかの計算は、こちらのサイトを参考にしました。",
+      "segments": [
+        {
+          "text": "ツモ和了できる可能性は、もちろん巡目と自分の上がり牌が何枚残っているかに大きく影響します。何巡目で何枚残っていればどの程度の確率で当たり牌が自分のツモ列にあるかの計算は、こちらのサイトを参考にしました。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:b0005",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0005",
+      "tag": "p",
+      "domPath": "main/p[11]",
+      "tableContext": null,
+      "type": "text",
+      "text": "かじゃ研 「ツモ率論」「麻雀電卓 ツモ確率」",
+      "segments": [
+        {
+          "text": "かじゃ研 「",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "ツモ率論",
+          "marks": [],
+          "href": "http://ameblo.jp/kazyake/entry-10076130541.html"
+        },
+        {
+          "text": "」「",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "麻雀電卓 ツモ確率",
+          "marks": [],
+          "href": "http://kazyaken.web.fc2.com/mj/tumoritu.html"
+        },
+        {
+          "text": "」",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:b0006",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0006",
+      "tag": "p",
+      "domPath": "main/p[13]",
+      "tableContext": null,
+      "type": "text",
+      "text": "ただ、これは最後までツモれた場合の計算なので、実戦では途中で誰かが和了するケースを考慮せねばなりませんから、見逃しが有利になるのは、(1-他家が和了する確率)×(ツモ列に残っている確率)>(裏ドラ率)の場合です。",
+      "segments": [
+        {
+          "text": "ただ、これは最後までツモれた場合の計算なので、実戦では途中で誰かが和了するケースを考慮せねばなりませんから、見逃しが有利になるのは、",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "(1-他家が和了する確率)×(ツモ列に残っている確率)>(裏ドラ率)",
+          "marks": [
+            "em::"
+          ],
+          "href": null
+        },
+        {
+          "text": "の場合です。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:b0007",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0007",
+      "tag": "p",
+      "domPath": "main/p[15]",
+      "tableContext": null,
+      "type": "text",
+      "text": "ここで、自分は東家か南家（ツモ18回）とします。西家か北家（ツモ17回）なら東家、南家の１巡遅れのツモ率に等しくなります。",
+      "segments": [
+        {
+          "text": "ここで、自分は東家か南家（ツモ18回）とします。西家か北家（ツモ17回）なら東家、南家の１巡遅れのツモ率に等しくなります。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:b0008",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0008",
+      "tag": "span",
+      "domPath": "main/inline7",
+      "tableContext": null,
+      "type": "text",
+      "text": "愚形待ちの場合（１枚見逃しているから残り３枚） 例え１巡目の時点だったとしても、残り３枚の待ちがツモ列に残っている確率は36.765%に過ぎません。他家が和了する確率が10%もあればもう裏ドラ率を下回ります。よって、愚形の場合は常に和了するべきと言えます。 リャンメン待ち（残り７枚）の場合 １巡目の時点で66.355%、４巡目で62.915%、８巡目で56.174%、12巡目で44.699%となります。中盤過ぎればリャンメンの待ち牌が他に見えていないことは珍しいでしょうが、残り５枚だとしても12巡目の時点で34.102%あります。  ",
+      "segments": [
+        {
+          "text": "愚形待ちの場合（１枚見逃しているから残り３枚）",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "例え１巡目の時点だったとしても、残り３枚の待ちがツモ列に残っている確率は36.765%に過ぎません。他家が和了する確率が10%もあればもう裏ドラ率を下回ります。よって、愚形の場合は常に和了するべきと言えます。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "リャンメン待ち（残り７枚）の場合",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "１巡目の時点で66.355%、４巡目で62.915%、８巡目で56.174%、12巡目で44.699%となります。中盤過ぎればリャンメンの待ち牌が他に見えていないことは珍しいでしょうが、残り５枚だとしても12巡目の時点で34.102%あります。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:b0009",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0009",
+      "tag": "p",
+      "domPath": "main/p[19]",
+      "tableContext": null,
+      "type": "text",
+      "text": "他家の和了率をどの程度見積もるかが難しいところです。仮に残りの三人がベタオリしているのであれば、このツモ率をそのまま適用することができるので、７枚なら残りツモ４回、５枚なら残りツモ５回あればツモ率が30%を超えるので見逃しが有利になります。しかし、自分の当たり牌を切ってきた他家が一人居るのですから、少なくとも一人は攻めてきていると考えるのが無難です。",
+      "segments": [
+        {
+          "text": "他家の和了率をどの程度見積もるかが難しいところです。仮に残りの三人がベタオリしているのであれば、このツモ率をそのまま適用することができるので、７枚なら残りツモ４回、５枚なら残りツモ５回あればツモ率が30%を超えるので見逃しが有利になります。しかし、自分の当たり牌を切ってきた他家が一人居るのですから、少なくとも一人は攻めてきていると考えるのが無難です。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:b0010",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0010",
+      "tag": "p",
+      "domPath": "main/p[21]",
+      "tableContext": null,
+      "type": "text",
+      "text": "攻めてきている他家の一人が既にテンパイしているのであれば、相手はどこからでも和了することができる以上、例え残りの二人がベタオリしていたとしても相手に和了される確率の方がまず高くなります。",
+      "segments": [
+        {
+          "text": "攻めてきている他家の一人が既にテンパイしているのであれば、相手はどこからでも和了することができる以上、例え残りの二人がベタオリしていたとしても相手に和了される確率の方がまず高くなります。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:b0011",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0011",
+      "tag": "p",
+      "domPath": "main/p[23]",
+      "tableContext": null,
+      "type": "text",
+      "text": "相手は二人（その相手と自分）のどちらかが当たり牌を引けばよく、自分は自分が当たり牌を引かなくてはならないからです。相手の待ちが65%で２種待ちリャンメン、他は１種待ちで、残りの二人は相手の当たり牌を一切切らないという条件下でも、ツモ列に残っている確率が59.4%以上（残り枚数7枚で残りツモ12回以上）なければ和了率は30%以下になります。脇の二人が当たり牌を切る確率が10%もあれば65.3%以上必要になります。配牌時点で７枚残りでさえ66.355%なのですから、他家のテンパイが入っている時点で見逃すこともまず有り得ないと言えます。",
+      "segments": [
+        {
+          "text": "相手は二人（その相手と自分）のどちらかが当たり牌を引けばよく、自分は自分が当たり牌を引かなくてはならないからです。相手の待ちが65%で２種待ちリャンメン、他は１種待ちで、残りの二人は相手の当たり牌を一切切らないという条件下でも、ツモ列に残っている確率が59.4%以上（残り枚数7枚で残りツモ12回以上）なければ和了率は30%以下になります。脇の二人が当たり牌を切る確率が10%もあれば65.3%以上必要になります。配牌時点で７枚残りでさえ66.355%なのですから、他家のテンパイが入っている時点で見逃すこともまず有り得ないと言えます。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:b0012",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0012",
+      "tag": "p",
+      "domPath": "main/p[25]",
+      "tableContext": null,
+      "type": "text",
+      "text": "一人攻めている相手がいて（残り二人はベタオリ）、まだテンパイしていない場合なら、フリテンリャンメンの和了率は一人攻めてくる場合の愚形リーチの和了率にかなり近い値になります。（枚数が半分になるけど二回分ツモれると考えれば体感的にも納得されるのではないでしょうか。）以下の先制愚形リーチ（一人攻め）のシミュレーションのグラフを参照。",
+      "segments": [
+        {
+          "text": "一人攻めている相手がいて（残り二人はベタオリ）、まだテンパイしていない場合なら、フリテンリャンメンの和了率は一人攻めてくる場合の愚形リーチの和了率にかなり近い値になります。（枚数が半分になるけど二回分ツモれると考えれば体感的にも納得されるのではないでしょうか。）以下の先制愚形リーチ（一人攻め）のシミュレーションのグラフを参照。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:b0013",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0013",
+      "tag": "span",
+      "domPath": "main/inline11",
+      "tableContext": null,
+      "type": "image-run",
+      "images": [
+        {
+          "occurrenceId": "modern-yabejp-ja:chapter04-section005:i00001",
+          "assetId": "modern-yabejp-ja:913eb194f610eb11b0ed18fa",
+          "sourceUrls": [
+            "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005/001.jpg"
+          ],
+          "alt": "先制悪形待ち立直（１人攻め）",
+          "title": "",
+          "width": "480",
+          "height": "270",
+          "tileHint": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:b0014",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0014",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "tableContext": null,
+      "type": "text",
+      "text": "このグラフによると、13巡目での和了率がほぼ30%なので、それ以前なら見逃しが有効そうです。",
+      "segments": [
+        {
+          "text": "このグラフによると、13巡目での和了率がほぼ30%なので、それ以前なら見逃しが有効そうです。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:b0015",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0015",
+      "tag": "p",
+      "domPath": "main/p[31]",
+      "tableContext": null,
+      "type": "text",
+      "text": "今回は和了できなかった場合の降着を一切考慮しなくて良い場合であったので、良形ならば案外見逃しが有効なケースは多いという結果が出ました。実戦では降着の可能性、親の連荘で流局しても続くケース、見た目は同じ枚数だけ残っていても山にあるかどうか等の要素で計算がより複雑になり、的確な判断を下すことが困難な場合もあるでしょう。しかしそのような場合でも、ここで用いたような方法で判断することになるのは変わりません。余裕があれば実際にとあるケースを自分で想定してみて計算してみることをお勧めします。",
+      "segments": [
+        {
+          "text": "今回は和了できなかった場合の降着を一切考慮しなくて良い場合であったので、良形ならば案外見逃しが有効なケースは多いという結果が出ました。実戦では降着の可能性、親の連荘で流局しても続くケース、見た目は同じ枚数だけ残っていても山にあるかどうか等の要素で計算がより複雑になり、的確な判断を下すことが困難な場合もあるでしょう。しかしそのような場合でも、ここで用いたような方法で判断することになるのは変わりません。余裕があれば実際にとあるケースを自分で想定してみて計算してみることをお勧めします。",
+          "marks": [],
+          "href": null
+        }
+      ]
+    }
+  ],
+  "paragraphs": [
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:p0001",
+      "tag": "h2",
+      "domPath": "main/h2[3]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section005:b0001"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:p0002",
+      "tag": "p",
+      "domPath": "main/p[5]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section005:b0002"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:p0003",
+      "tag": "p",
+      "domPath": "main/p[7]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section005:b0003"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:p0004",
+      "tag": "p",
+      "domPath": "main/p[9]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section005:b0004"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:p0005",
+      "tag": "p",
+      "domPath": "main/p[11]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section005:b0005"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:p0006",
+      "tag": "p",
+      "domPath": "main/p[13]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section005:b0006"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:p0007",
+      "tag": "p",
+      "domPath": "main/p[15]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section005:b0007"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:p0008",
+      "tag": "span",
+      "domPath": "main/inline7",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section005:b0008"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:p0009",
+      "tag": "p",
+      "domPath": "main/p[19]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section005:b0009"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:p0010",
+      "tag": "p",
+      "domPath": "main/p[21]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section005:b0010"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:p0011",
+      "tag": "p",
+      "domPath": "main/p[23]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section005:b0011"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:p0012",
+      "tag": "p",
+      "domPath": "main/p[25]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section005:b0012"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:p0013",
+      "tag": "span",
+      "domPath": "main/inline11",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section005:b0013"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:p0014",
+      "tag": "p",
+      "domPath": "main/p[29]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section005:b0014"
+      ],
+      "tableContext": null
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:p0015",
+      "tag": "p",
+      "domPath": "main/p[31]",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section005:b0015"
+      ],
+      "tableContext": null
+    }
+  ],
+  "assets": [
+    {
+      "assetId": "modern-yabejp-ja:913eb194f610eb11b0ed18fa",
+      "status": "downloaded",
+      "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005/001.jpg",
+      "finalUrl": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005/001.jpg",
+      "fetchedAt": "2026-10-23T20:49:11.986808+00:00",
+      "httpStatus": 200,
+      "contentType": "image/jpeg",
+      "bytes": 39633,
+      "sha256": "d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f",
+      "path": "modern-yabejp-ja/assets/d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg"
+    }
+  ],
+  "links": [
+    {
+      "visibleText": "前回",
+      "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section004.html"
+    },
+    {
+      "visibleText": "ツモ率論",
+      "href": "http://ameblo.jp/kazyake/entry-10076130541.html"
+    },
+    {
+      "visibleText": "麻雀電卓   ツモ確率",
+      "href": "http://kazyaken.web.fc2.com/mj/tumoritu.html"
+    },
+    {
+      "visibleText": "",
+      "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section004.html"
+    },
+    {
+      "visibleText": "",
+      "href": "http://yabejp.web.fc2.com/mahjong/index.html"
+    },
+    {
+      "visibleText": "",
+      "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section006.html"
+    }
+  ],
+  "originalReferenceLinks": [],
+  "ignoredPlaceholders": [
+    {
+      "reason": "explicit-book-navigation-image",
+      "sourceUrls": [
+        "http://yabejp.web.fc2.com/mahjong/img/back.gif"
+      ],
+      "attrs": {
+        "src": "../../img/back.gif",
+        "alt": "前のページに戻る",
+        "name": "Back",
+        "width": "88",
+        "height": "31",
+        "border": "0",
+        "id": "Back"
+      }
+    },
+    {
+      "reason": "explicit-book-navigation-image",
+      "sourceUrls": [
+        "http://yabejp.web.fc2.com/mahjong/img/home.gif"
+      ],
+      "attrs": {
+        "src": "../../img/home.gif",
+        "alt": "目次に戻る",
+        "name": "Home",
+        "width": "88",
+        "height": "31",
+        "border": "0",
+        "id": "Home"
+      }
+    },
+    {
+      "reason": "explicit-book-navigation-image",
+      "sourceUrls": [
+        "http://yabejp.web.fc2.com/mahjong/img/next.gif"
+      ],
+      "attrs": {
+        "src": "../../img/next.gif",
+        "alt": "次のページに進む",
+        "name": "Next",
+        "width": "88",
+        "height": "31",
+        "border": "0",
+        "id": "Next"
+      }
+    }
+  ],
+  "attributionNote": "Original source attribution, translator disclaimers and reference visible text are preserved in the body. Link href and visible URL are recorded separately, never treated as equivalent without review.",
+  "status": "captured-not-translated-or-audited",
+  "extractorSha256": "c9ec6d0591a42dc8570d43bc1c32d1502f7a7693fd1ec05a172e2fd1f1f9c8d7",
+  "sourceSha256": "df1f8be9f18752c39419cdccaa0553c95cd83d9ea6bd627b60c225d4078d83c0"
+}

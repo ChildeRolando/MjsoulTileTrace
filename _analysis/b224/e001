@@ -1,0 +1,1044 @@
+{
+  "schema": "coac249-224-seven-independent-review/1",
+  "recordedAt": "2026-10-28T10:25:51.889Z",
+  "issueId": "01a17471-1595-79d5-bdfa-6feaa65172c0",
+  "taskId": "01a18201-a831-71f5-a2b8-27c68908ad22",
+  "canonical": "nemata-jp-chapter-224-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b31r1.json",
+    "sha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section005\\source.json",
+    "sha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+    "bytes": 26374
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b27r1.json",
+    "sha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea"
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-224-target-impact-reviewed-20261028.json",
+    "sha256": "20d624441531f37ebd9b69f5407c69dd03a5eedbc6390edc04fe51c108be4c20"
+  },
+  "parentRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7d1efbaa-589f-4b2e-9199-28f7141f890b.json",
+    "sha256": "51549ca0d773aae36a5edee8757571b2f877c5cf82ab0886ffbe99793b9df0e4"
+  },
+  "makerRaw": {
+    "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/8ebc6463-6f09-4861-b48f-1205fcb2ec55.json",
+    "sha256": "ad97c55c3a8e28ed119ec72a44986328e0ea5e90ed91fe40c2b71da1b8f1e5a4"
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224-seven-v1-20261028\\runtime-manifest.json",
+    "sha256": "7307b5fc28df41a4a1396f19efde5be39f8a3ac7e24a7b18fa40ea878ac54e26",
+    "files": 35
+  },
+  "handoff": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-224-seven-handoff249-20261028.json",
+    "sha256": "6345ba984e3a83d4d4e65337ac4ee788860fd98889f73aab6826d7c9d1f224c4"
+  },
+  "status": "seven-cells-faithful-limited-unknown-evidence",
+  "modelReview": {
+    "cellChecks": [
+      {
+        "cellId": "224-b0013-1-6",
+        "verdict": "faithful",
+        "evidence": "黄色放铳率曲线第6巡约为15至16，补录约16可由图支持。第6巡中心约为原图x=211，曲线约在y=186附近，落在sourcePixelBox [203,178,219,196]内；该处与绿色曲线接近，读数应保持为约值。"
+      },
+      {
+        "cellId": "224-b0013-1-7",
+        "verdict": "faithful",
+        "evidence": "黄色放铳率曲线第7巡约为15至16，补录约16可由图支持。第7巡中心约为原图x=238，曲线约在y=186附近，落在sourcePixelBox [231,178,247,196]内；附近曲线接近，不能将其作为精确值。"
+      },
+      {
+        "cellId": "224-b0013-2-6",
+        "verdict": "faithful",
+        "evidence": "橙色和牌中自摸所占比例曲线第6巡接近49，补录约49与图相符。第6巡中心约为原图x=211，曲线约在y=121，落在sourcePixelBox [203,111,219,129]内。"
+      },
+      {
+        "cellId": "224-b0013-3-12",
+        "verdict": "faithful",
+        "evidence": "紫色立直棒被没收率曲线第12巡约为20至21，补录约21可由图支持。第12巡中心约为原图x=375，曲线约在y=176至178，落在sourcePixelBox [367,167,383,186]内；该处与亮绿色曲线接近。"
+      },
+      {
+        "cellId": "224-b0013-6-6",
+        "verdict": "faithful",
+        "evidence": "亮绿色和牌时一发比例曲线第6巡约在16附近，补录约16可由图支持。第6巡中心约为原图x=211，曲线约在y=184至186，落在sourcePixelBox [203,174,219,193]内；黄色及深绿色曲线靠近，须保留近似性质。"
+      },
+      {
+        "cellId": "224-b0013-6-7",
+        "verdict": "faithful",
+        "evidence": "亮绿色和牌时一发比例曲线第7巡约为16至17，补录约17可由图支持。第7巡中心约为原图x=238，曲线约在y=184附近，落在sourcePixelBox [231,174,247,193]内；该处邻近黄色曲线，不能当作精确值。"
+      },
+      {
+        "cellId": "224-b0013-6-12",
+        "verdict": "faithful",
+        "evidence": "亮绿色和牌时一发比例曲线第12巡约为22，补录约22可由图支持。第12巡中心约为原图x=375，曲线约在y=174附近，落在sourcePixelBox [367,163,383,183]内；应与附近的紫色曲线区分。"
+      }
+    ],
+    "contextContinuity": {
+      "verdict": "faithful",
+      "evidence": "b0012保留一名尚未听牌的对手进攻、其余两人完全弃和的条件，并将振听两面与先制愚形立直的和牌率接近作为作者的判断。b0014保留第13巡约30%及此前放过“似乎有效”的语气；b0003和b0015保留不必考虑未和牌导致名次下滑的讨论前提。正文依所提交的不变证明及父审继承；b0008的源文数值疑点继续作为source-note。"
+    },
+    "unknownImpacts": [
+      {
+        "unknownText": "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+        "disposition": "nonblocking-with-limits",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0003",
+          "modern-yabejp-ja:chapter04-section005:b0012",
+          "modern-yabejp-ja:chapter04-section005:b0013",
+          "modern-yabejp-ja:chapter04-section005:b0014",
+          "modern-yabejp-ja:chapter04-section005:b0015"
+        ],
+        "authorClaim": "在一名尚未听牌的对手进攻、其余两人完全弃和的条件下，作者认为振听两面和牌率与所示先制愚形立直和牌率相近，并据图认为第13巡约为30%，此前放过似乎有效；讨论还以不必考虑未和牌导致名次下滑的风险为前提。",
+        "evidence": "图中未标出逐点精确数值。精确坐标缺失不阻断按原文呈现作者基于近似读数作出的判断：第13巡的关键近似读数依父审及不变证明继承。图中没有振听两面的独立曲线，因此仅凭该图不能定量证明两种和牌率的接近程度。",
+        "requiredDisplayLimitations": [
+          "保留原图，并明确逐巡表中的数字是按图读取的约值，不得显示为精确坐标。",
+          "保留作者的一人进攻、对手尚未听牌、其余两人弃和及不必考虑名次下滑风险等条件。",
+          "保留第13巡约30%和此前放过“似乎有效”的原文力度，不将其改成精确分界或无条件的确定建议。",
+          "将振听两面与愚形立直和牌率相近呈现为作者的判断，不将此图单独当作对两者接近程度的定量证明。"
+        ]
+      },
+      {
+        "unknownText": "逐巡近似表中保留17个非靶unknown：流局率第5巡；放铳率第1至5巡；和牌率第6巡；被他家自摸率第1至5巡；和牌时一发比例第1至5巡。",
+        "disposition": "nonblocking-with-limits",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0003",
+          "modern-yabejp-ja:chapter04-section005:b0012",
+          "modern-yabejp-ja:chapter04-section005:b0013",
+          "modern-yabejp-ja:chapter04-section005:b0014"
+        ],
+        "authorClaim": "作者根据模拟图和第13巡约30%的读数，在其限定条件下认为此前放过似乎有效。",
+        "evidence": "父审未确认这17点能否可靠辨读，本轮依不变证明继承其unknown状态，未逐点重审。它们不阻断忠实呈现作者依据第13巡近似读数作出的判断，但包括和牌率第6巡在内的缺口，限制了完整逐巡定量分析和对严格分界的主张。",
+        "requiredDisplayLimitations": [
+          "逐项保留这17处unknown，不插值或依据相邻点推算；不得声称本轮已确认这17点均无法辨读。",
+          "如展示该表，应说明它有88个约值和17个unknown，不能称已读出全部105个数值。",
+          "若以后能够可靠辨认目前遗漏的点，应补录约值；不能以精确坐标未知为由省略可辨近似值。",
+          "保留原图及作者的条件、近似表述和“似乎有效”的语气，不把缺口补成确定的逐巡结论。"
+        ]
+      },
+      {
+        "unknownText": "纵轴没有明确标注百分号或其他单位。",
+        "disposition": "nonblocking-with-limits",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0003",
+          "modern-yabejp-ja:chapter04-section005:b0013",
+          "modern-yabejp-ja:chapter04-section005:b0014"
+        ],
+        "authorClaim": "作者在正文中将第13巡的和牌率表述为约30%，并与前文约三成的里宝牌概率作比较。",
+        "evidence": "图的纵轴有数值刻度和“和了率等”，但没有明确单位。正文第13巡约30%有原文支持；这一正文表述不足以替图中所有纵轴读数补写单位，因此单位未知不阻断保留作者的近似论证。",
+        "requiredDisplayLimitations": [
+          "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+          "可保留正文明确写出的第13巡约30%，并使其原文来源和近似性质清楚。"
+        ]
+      }
+    ],
+    "issues": [
+      {
+        "severity": "source-note",
+        "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+        "description": "继承父审对b0008的源文数值论证疑点。候选忠实保留作者数字和结论，不将该疑点改判为翻译错误。",
+        "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；按b0006所述乘法计算约为33.09%，而b0003的参照约为三成。该比较依父审保留为源文论证疑点。"
+      }
+    ],
+    "completeRequestedScopeCompared": true,
+    "summary": "仅针对新候选SHA c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a：七个补录点及其巡目、曲线和原图像素框均可支持，必要上下文保持忠实。剩余unknown在列明的显示限制下不阻断保留作者的近似论证。其余81个既有读数和17个非靶unknown依父审及不变证明继承，未重审；本结论不代表整章通过。"
+  },
+  "verification": {
+    "transportCompleted": true,
+    "repairPassed": true,
+    "limitedUnknownOkay": true,
+    "wholeChapterPassed": false,
+    "modelReview": {
+      "cellChecks": [
+        {
+          "cellId": "224-b0013-1-6",
+          "verdict": "faithful",
+          "evidence": "黄色放铳率曲线第6巡约为15至16，补录约16可由图支持。第6巡中心约为原图x=211，曲线约在y=186附近，落在sourcePixelBox [203,178,219,196]内；该处与绿色曲线接近，读数应保持为约值。"
+        },
+        {
+          "cellId": "224-b0013-1-7",
+          "verdict": "faithful",
+          "evidence": "黄色放铳率曲线第7巡约为15至16，补录约16可由图支持。第7巡中心约为原图x=238，曲线约在y=186附近，落在sourcePixelBox [231,178,247,196]内；附近曲线接近，不能将其作为精确值。"
+        },
+        {
+          "cellId": "224-b0013-2-6",
+          "verdict": "faithful",
+          "evidence": "橙色和牌中自摸所占比例曲线第6巡接近49，补录约49与图相符。第6巡中心约为原图x=211，曲线约在y=121，落在sourcePixelBox [203,111,219,129]内。"
+        },
+        {
+          "cellId": "224-b0013-3-12",
+          "verdict": "faithful",
+          "evidence": "紫色立直棒被没收率曲线第12巡约为20至21，补录约21可由图支持。第12巡中心约为原图x=375，曲线约在y=176至178，落在sourcePixelBox [367,167,383,186]内；该处与亮绿色曲线接近。"
+        },
+        {
+          "cellId": "224-b0013-6-6",
+          "verdict": "faithful",
+          "evidence": "亮绿色和牌时一发比例曲线第6巡约在16附近，补录约16可由图支持。第6巡中心约为原图x=211，曲线约在y=184至186，落在sourcePixelBox [203,174,219,193]内；黄色及深绿色曲线靠近，须保留近似性质。"
+        },
+        {
+          "cellId": "224-b0013-6-7",
+          "verdict": "faithful",
+          "evidence": "亮绿色和牌时一发比例曲线第7巡约为16至17，补录约17可由图支持。第7巡中心约为原图x=238，曲线约在y=184附近，落在sourcePixelBox [231,174,247,193]内；该处邻近黄色曲线，不能当作精确值。"
+        },
+        {
+          "cellId": "224-b0013-6-12",
+          "verdict": "faithful",
+          "evidence": "亮绿色和牌时一发比例曲线第12巡约为22，补录约22可由图支持。第12巡中心约为原图x=375，曲线约在y=174附近，落在sourcePixelBox [367,163,383,183]内；应与附近的紫色曲线区分。"
+        }
+      ],
+      "contextContinuity": {
+        "verdict": "faithful",
+        "evidence": "b0012保留一名尚未听牌的对手进攻、其余两人完全弃和的条件，并将振听两面与先制愚形立直的和牌率接近作为作者的判断。b0014保留第13巡约30%及此前放过“似乎有效”的语气；b0003和b0015保留不必考虑未和牌导致名次下滑的讨论前提。正文依所提交的不变证明及父审继承；b0008的源文数值疑点继续作为source-note。"
+      },
+      "unknownImpacts": [
+        {
+          "unknownText": "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+          "disposition": "nonblocking-with-limits",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section005:b0003",
+            "modern-yabejp-ja:chapter04-section005:b0012",
+            "modern-yabejp-ja:chapter04-section005:b0013",
+            "modern-yabejp-ja:chapter04-section005:b0014",
+            "modern-yabejp-ja:chapter04-section005:b0015"
+          ],
+          "authorClaim": "在一名尚未听牌的对手进攻、其余两人完全弃和的条件下，作者认为振听两面和牌率与所示先制愚形立直和牌率相近，并据图认为第13巡约为30%，此前放过似乎有效；讨论还以不必考虑未和牌导致名次下滑的风险为前提。",
+          "evidence": "图中未标出逐点精确数值。精确坐标缺失不阻断按原文呈现作者基于近似读数作出的判断：第13巡的关键近似读数依父审及不变证明继承。图中没有振听两面的独立曲线，因此仅凭该图不能定量证明两种和牌率的接近程度。",
+          "requiredDisplayLimitations": [
+            "保留原图，并明确逐巡表中的数字是按图读取的约值，不得显示为精确坐标。",
+            "保留作者的一人进攻、对手尚未听牌、其余两人弃和及不必考虑名次下滑风险等条件。",
+            "保留第13巡约30%和此前放过“似乎有效”的原文力度，不将其改成精确分界或无条件的确定建议。",
+            "将振听两面与愚形立直和牌率相近呈现为作者的判断，不将此图单独当作对两者接近程度的定量证明。"
+          ]
+        },
+        {
+          "unknownText": "逐巡近似表中保留17个非靶unknown：流局率第5巡；放铳率第1至5巡；和牌率第6巡；被他家自摸率第1至5巡；和牌时一发比例第1至5巡。",
+          "disposition": "nonblocking-with-limits",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section005:b0003",
+            "modern-yabejp-ja:chapter04-section005:b0012",
+            "modern-yabejp-ja:chapter04-section005:b0013",
+            "modern-yabejp-ja:chapter04-section005:b0014"
+          ],
+          "authorClaim": "作者根据模拟图和第13巡约30%的读数，在其限定条件下认为此前放过似乎有效。",
+          "evidence": "父审未确认这17点能否可靠辨读，本轮依不变证明继承其unknown状态，未逐点重审。它们不阻断忠实呈现作者依据第13巡近似读数作出的判断，但包括和牌率第6巡在内的缺口，限制了完整逐巡定量分析和对严格分界的主张。",
+          "requiredDisplayLimitations": [
+            "逐项保留这17处unknown，不插值或依据相邻点推算；不得声称本轮已确认这17点均无法辨读。",
+            "如展示该表，应说明它有88个约值和17个unknown，不能称已读出全部105个数值。",
+            "若以后能够可靠辨认目前遗漏的点，应补录约值；不能以精确坐标未知为由省略可辨近似值。",
+            "保留原图及作者的条件、近似表述和“似乎有效”的语气，不把缺口补成确定的逐巡结论。"
+          ]
+        },
+        {
+          "unknownText": "纵轴没有明确标注百分号或其他单位。",
+          "disposition": "nonblocking-with-limits",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section005:b0003",
+            "modern-yabejp-ja:chapter04-section005:b0013",
+            "modern-yabejp-ja:chapter04-section005:b0014"
+          ],
+          "authorClaim": "作者在正文中将第13巡的和牌率表述为约30%，并与前文约三成的里宝牌概率作比较。",
+          "evidence": "图的纵轴有数值刻度和“和了率等”，但没有明确单位。正文第13巡约30%有原文支持；这一正文表述不足以替图中所有纵轴读数补写单位，因此单位未知不阻断保留作者的近似论证。",
+          "requiredDisplayLimitations": [
+            "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+            "可保留正文明确写出的第13巡约30%，并使其原文来源和近似性质清楚。"
+          ]
+        }
+      ],
+      "issues": [
+        {
+          "severity": "source-note",
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "description": "继承父审对b0008的源文数值论证疑点。候选忠实保留作者数字和结论，不将该疑点改判为翻译错误。",
+          "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；按b0006所述乘法计算约为33.09%，而b0003的参照约为三成。该比较依父审保留为源文论证疑点。"
+        }
+      ],
+      "completeRequestedScopeCompared": true,
+      "summary": "仅针对新候选SHA c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a：七个补录点及其巡目、曲线和原图像素框均可支持，必要上下文保持忠实。剩余unknown在列明的显示限制下不阻断保留作者的近似论证。其余81个既有读数和17个非靶unknown依父审及不变证明继承，未重审；本结论不代表整章通过。"
+    }
+  },
+  "verificationError": null,
+  "call": {
+    "callId": "6dd562f2-2025-47b3-a48d-e8c6e5fdd12b",
+    "scope": "textbook-nemata224-seven-independent-review",
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter04-section005",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "success": true,
+    "usage": {
+      "inputTokens": 36487,
+      "cachedInputTokens": 0,
+      "outputTokens": 10369
+    },
+    "durationMs": 147398,
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "callerRequested": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-terra",
+        "--config",
+        "model_reasoning_effort=\"max\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-9HQuWa\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-9HQuWa\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-9HQuWa",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+          "sha256": "d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f",
+          "bytes": 39633
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png",
+          "sha256": "f006dd5fe35e1ac07983c550033637fa9bb6474ed7130ac14ebedcd514a7e2ba",
+          "bytes": 171002
+        }
+      ],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "binding": {
+      "canonical": "nemata-jp-chapter-224-1",
+      "productionSha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a",
+      "sourceFileSha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+      "parentSha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea",
+      "parentAuditSha256": "20d624441531f37ebd9b69f5407c69dd03a5eedbc6390edc04fe51c108be4c20",
+      "runtimeManifestSha256": "7307b5fc28df41a4a1396f19efde5be39f8a3ac7e24a7b18fa40ea878ac54e26",
+      "scope": "nemata224-seven-new-cells-and-unknown-impact",
+      "targetFigureId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+      "targetCellIds": [
+        "224-b0013-1-6",
+        "224-b0013-1-7",
+        "224-b0013-2-6",
+        "224-b0013-3-12",
+        "224-b0013-6-6",
+        "224-b0013-6-7",
+        "224-b0013-6-12"
+      ],
+      "authorizationComment": "01a181f7-0ecd-7a2e-80c8-ea12832c2685"
+    },
+    "promptSha256": "339c2e568bfa774a0ca17d58954f58f5ba9f11774fa84f4be73027269a5c1144",
+    "semanticPromptSha256": "2782b2aa10664ce695001dd488447f9ab688820cc4ed5d4d4c54d3e3c3e2520d",
+    "schemaSha256": "f30f597973ae6f6c4fe85b27f11bceeb06f3c60a8b374c1a9fd23d4d25c5ebac",
+    "recordedAt": "2026-10-28T10:25:51.848Z"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\6dd562f2-2025-47b3-a48d-e8c6e5fdd12b.json",
+    "sha256": "45f1c2b88386c1399694e54ad013fadfb741110a63df15eb8cdc9ea65e12f6a0"
+  },
+  "plan": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-224-seven-20261028\\plan.json",
+    "sha256": "a4d0cbac93f9ce1a19cbce1ceb454be828df371c13b03175d4b31a16863ee309"
+  },
+  "productionProof": {
+    "passed": true,
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b31r1.json",
+      "sha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b27r1.json",
+      "sha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea"
+    },
+    "parentReview": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-224-target-impact-reviewed-20261028.json",
+      "sha256": "20d624441531f37ebd9b69f5407c69dd03a5eedbc6390edc04fe51c108be4c20"
+    },
+    "raw": {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/8ebc6463-6f09-4861-b48f-1205fcb2ec55.json",
+      "sha256": "ad97c55c3a8e28ed119ec72a44986328e0ea5e90ed91fe40c2b71da1b8f1e5a4"
+    },
+    "call": {
+      "callId": "8ebc6463-6f09-4861-b48f-1205fcb2ec55",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter04-section005",
+      "sourceSha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+      "method": "coac269-224-exact-seven-cells/1",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "requestExecution": {
+        "schema": "coach-textbook-cli-request/1",
+        "policy": "coac244-vision-production-schema-v2-20261028",
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max",
+        "callerRequested": {
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max"
+        },
+        "args": [
+          "exec",
+          "--model",
+          "gpt-6.1-terra",
+          "--config",
+          "model_reasoning_effort=\"max\"",
+          "--config",
+          "web_search=\"disabled\"",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox",
+          "read-only",
+          "--strict-config",
+          "--skip-git-repo-check",
+          "--json",
+          "--output-schema",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-nruFYI\\output.schema.json",
+          "--output-last-message",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-nruFYI\\final.json",
+          "--cd",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-nruFYI",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png",
+          "--disable",
+          "apps",
+          "--disable",
+          "auth_elicitation",
+          "--disable",
+          "browser_use",
+          "--disable",
+          "browser_use_external",
+          "--disable",
+          "browser_use_full_cdp_access",
+          "--disable",
+          "computer_use",
+          "--disable",
+          "fast_mode",
+          "--disable",
+          "goals",
+          "--disable",
+          "guardian_approval",
+          "--disable",
+          "hooks",
+          "--disable",
+          "image_generation",
+          "--disable",
+          "in_app_browser",
+          "--disable",
+          "in_app_chat",
+          "--disable",
+          "in_app_dictation",
+          "--disable",
+          "in_app_local_automation",
+          "--disable",
+          "in_app_updates",
+          "--disable",
+          "memories",
+          "--disable",
+          "mentions_v2",
+          "--disable",
+          "multi_agent",
+          "--disable",
+          "plugin_sharing",
+          "--disable",
+          "plugins",
+          "--disable",
+          "remote_plugin",
+          "--disable",
+          "shell_snapshot",
+          "--disable",
+          "shell_tool",
+          "--disable",
+          "skill_mcp_dependency_install",
+          "--disable",
+          "skill_search",
+          "--disable",
+          "sleep_tool",
+          "--disable",
+          "tool_call_mcp_elicitation",
+          "--disable",
+          "tool_suggest",
+          "--disable",
+          "unbounded_connection_retries",
+          "--disable",
+          "unified_exec",
+          "--disable",
+          "unified_exec_tty",
+          "--disable",
+          "view_image",
+          "--disable",
+          "workspace_dependencies",
+          "-"
+        ],
+        "images": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+            "sha256": "d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f",
+            "bytes": 39633
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png",
+            "sha256": "f006dd5fe35e1ac07983c550033637fa9bb6474ed7130ac14ebedcd514a7e2ba",
+            "bytes": 171002
+          }
+        ],
+        "remoteBackend": "unverified; request arguments and returned events only"
+      },
+      "success": true,
+      "startedAt": "2026-10-28T10:11:13.230Z",
+      "durationMs": 28916,
+      "usage": {
+        "inputTokens": 26525,
+        "cachedInputTokens": 0,
+        "outputTokens": 1678
+      },
+      "rawArtifactPath": "raw-calls/8ebc6463-6f09-4861-b48f-1205fcb2ec55.json",
+      "rawArtifactSha256": "ad97c55c3a8e28ed119ec72a44986328e0ea5e90ed91fe40c2b71da1b8f1e5a4",
+      "promptSha256": "32c92085d07183d966695fbddd94047c5ba54f9882e269808b964597b8eb39a0",
+      "schemaSha256": "c0ecb2b1cc23dc57f719b99c23964b5c1709badd5ef5c89c6519ffc4ff82b6e4",
+      "runtime": {
+        "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac269-224-seven-v1-20261028/runtime-manifest.json",
+        "sha256": "7307b5fc28df41a4a1396f19efde5be39f8a3ac7e24a7b18fa40ea878ac54e26"
+      },
+      "runner": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224-seven-v1-20261028\\seven.mjs",
+        "sha256": "fc84d20fdeb3ba204b7031589e428c47d6ca87eed1cb6642342e48aa06916c70"
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b27r1.json",
+        "sha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea"
+      },
+      "parentReview": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-224-target-impact-reviewed-20261028.json",
+        "sha256": "20d624441531f37ebd9b69f5407c69dd03a5eedbc6390edc04fe51c108be4c20"
+      },
+      "cellIds": [
+        "224-b0013-1-6",
+        "224-b0013-1-7",
+        "224-b0013-2-6",
+        "224-b0013-3-12",
+        "224-b0013-6-6",
+        "224-b0013-6-7",
+        "224-b0013-6-12"
+      ]
+    },
+    "unchangedBodyBlocks": 15,
+    "unchangedExistingReadings": 81,
+    "retainedOtherUnknownCells": 17,
+    "changedCells": [
+      {
+        "id": "224-b0013-1-6",
+        "row": 1,
+        "series": "放铳率",
+        "turn": 6,
+        "sourcePixelBox": [
+          203,
+          178,
+          219,
+          196
+        ],
+        "x2ViewPixelBox": [
+          406,
+          356,
+          438,
+          392
+        ],
+        "curveColor": "黄色",
+        "makerRawPointer": "/output/rows/1/values/5",
+        "reviewQuote": "放铳率第6、7巡约在15—16附近",
+        "reviewRawPointer": "/output/issues/0/sourceEvidence",
+        "value": "约16"
+      },
+      {
+        "id": "224-b0013-1-7",
+        "row": 1,
+        "series": "放铳率",
+        "turn": 7,
+        "sourcePixelBox": [
+          231,
+          178,
+          247,
+          196
+        ],
+        "x2ViewPixelBox": [
+          462,
+          356,
+          494,
+          392
+        ],
+        "curveColor": "黄色",
+        "makerRawPointer": "/output/rows/1/values/6",
+        "reviewQuote": "放铳率第6、7巡约在15—16附近",
+        "reviewRawPointer": "/output/issues/0/sourceEvidence",
+        "value": "约16"
+      },
+      {
+        "id": "224-b0013-2-6",
+        "row": 2,
+        "series": "和牌中自摸所占比例",
+        "turn": 6,
+        "sourcePixelBox": [
+          203,
+          111,
+          219,
+          129
+        ],
+        "x2ViewPixelBox": [
+          406,
+          222,
+          438,
+          258
+        ],
+        "curveColor": "橙色",
+        "makerRawPointer": "/output/rows/2/values/5",
+        "reviewQuote": "和牌中自摸所占比例第6巡约49",
+        "reviewRawPointer": "/output/issues/0/sourceEvidence",
+        "value": "约49"
+      },
+      {
+        "id": "224-b0013-3-12",
+        "row": 3,
+        "series": "立直棒被没收率",
+        "turn": 12,
+        "sourcePixelBox": [
+          367,
+          167,
+          383,
+          186
+        ],
+        "x2ViewPixelBox": [
+          734,
+          334,
+          766,
+          372
+        ],
+        "curveColor": "紫色",
+        "makerRawPointer": "/output/rows/3/values/11",
+        "reviewQuote": "立直棒被没收率第12巡约20—21",
+        "reviewRawPointer": "/output/issues/0/sourceEvidence",
+        "value": "约21"
+      },
+      {
+        "id": "224-b0013-6-6",
+        "row": 6,
+        "series": "和牌时一发比例",
+        "turn": 6,
+        "sourcePixelBox": [
+          203,
+          174,
+          219,
+          193
+        ],
+        "x2ViewPixelBox": [
+          406,
+          348,
+          438,
+          386
+        ],
+        "curveColor": "亮绿色",
+        "makerRawPointer": "/output/rows/6/values/5",
+        "reviewQuote": "和牌时一发比例第6、7巡约16—17",
+        "reviewRawPointer": "/output/issues/0/sourceEvidence",
+        "value": "约16"
+      },
+      {
+        "id": "224-b0013-6-7",
+        "row": 6,
+        "series": "和牌时一发比例",
+        "turn": 7,
+        "sourcePixelBox": [
+          231,
+          174,
+          247,
+          193
+        ],
+        "x2ViewPixelBox": [
+          462,
+          348,
+          494,
+          386
+        ],
+        "curveColor": "亮绿色",
+        "makerRawPointer": "/output/rows/6/values/6",
+        "reviewQuote": "和牌时一发比例第6、7巡约16—17",
+        "reviewRawPointer": "/output/issues/0/sourceEvidence",
+        "value": "约17"
+      },
+      {
+        "id": "224-b0013-6-12",
+        "row": 6,
+        "series": "和牌时一发比例",
+        "turn": 12,
+        "sourcePixelBox": [
+          367,
+          163,
+          383,
+          183
+        ],
+        "x2ViewPixelBox": [
+          734,
+          326,
+          766,
+          366
+        ],
+        "curveColor": "亮绿色",
+        "makerRawPointer": "/output/rows/6/values/11",
+        "reviewQuote": "第12巡约22",
+        "reviewRawPointer": "/output/issues/0/sourceEvidence",
+        "value": "约22"
+      }
+    ],
+    "wholeChapterPassed": false
+  },
+  "orderedPairs": 15,
+  "targetCells": [
+    {
+      "id": "224-b0013-1-6",
+      "row": 1,
+      "series": "放铳率",
+      "turn": 6,
+      "sourcePixelBox": [
+        203,
+        178,
+        219,
+        196
+      ],
+      "x2ViewPixelBox": [
+        406,
+        356,
+        438,
+        392
+      ],
+      "curveColor": "黄色",
+      "makerRawPointer": "/output/rows/1/values/5",
+      "reviewQuote": "放铳率第6、7巡约在15—16附近",
+      "reviewRawPointer": "/output/issues/0/sourceEvidence",
+      "value": "约16"
+    },
+    {
+      "id": "224-b0013-1-7",
+      "row": 1,
+      "series": "放铳率",
+      "turn": 7,
+      "sourcePixelBox": [
+        231,
+        178,
+        247,
+        196
+      ],
+      "x2ViewPixelBox": [
+        462,
+        356,
+        494,
+        392
+      ],
+      "curveColor": "黄色",
+      "makerRawPointer": "/output/rows/1/values/6",
+      "reviewQuote": "放铳率第6、7巡约在15—16附近",
+      "reviewRawPointer": "/output/issues/0/sourceEvidence",
+      "value": "约16"
+    },
+    {
+      "id": "224-b0013-2-6",
+      "row": 2,
+      "series": "和牌中自摸所占比例",
+      "turn": 6,
+      "sourcePixelBox": [
+        203,
+        111,
+        219,
+        129
+      ],
+      "x2ViewPixelBox": [
+        406,
+        222,
+        438,
+        258
+      ],
+      "curveColor": "橙色",
+      "makerRawPointer": "/output/rows/2/values/5",
+      "reviewQuote": "和牌中自摸所占比例第6巡约49",
+      "reviewRawPointer": "/output/issues/0/sourceEvidence",
+      "value": "约49"
+    },
+    {
+      "id": "224-b0013-3-12",
+      "row": 3,
+      "series": "立直棒被没收率",
+      "turn": 12,
+      "sourcePixelBox": [
+        367,
+        167,
+        383,
+        186
+      ],
+      "x2ViewPixelBox": [
+        734,
+        334,
+        766,
+        372
+      ],
+      "curveColor": "紫色",
+      "makerRawPointer": "/output/rows/3/values/11",
+      "reviewQuote": "立直棒被没收率第12巡约20—21",
+      "reviewRawPointer": "/output/issues/0/sourceEvidence",
+      "value": "约21"
+    },
+    {
+      "id": "224-b0013-6-6",
+      "row": 6,
+      "series": "和牌时一发比例",
+      "turn": 6,
+      "sourcePixelBox": [
+        203,
+        174,
+        219,
+        193
+      ],
+      "x2ViewPixelBox": [
+        406,
+        348,
+        438,
+        386
+      ],
+      "curveColor": "亮绿色",
+      "makerRawPointer": "/output/rows/6/values/5",
+      "reviewQuote": "和牌时一发比例第6、7巡约16—17",
+      "reviewRawPointer": "/output/issues/0/sourceEvidence",
+      "value": "约16"
+    },
+    {
+      "id": "224-b0013-6-7",
+      "row": 6,
+      "series": "和牌时一发比例",
+      "turn": 7,
+      "sourcePixelBox": [
+        231,
+        174,
+        247,
+        193
+      ],
+      "x2ViewPixelBox": [
+        462,
+        348,
+        494,
+        386
+      ],
+      "curveColor": "亮绿色",
+      "makerRawPointer": "/output/rows/6/values/6",
+      "reviewQuote": "和牌时一发比例第6、7巡约16—17",
+      "reviewRawPointer": "/output/issues/0/sourceEvidence",
+      "value": "约17"
+    },
+    {
+      "id": "224-b0013-6-12",
+      "row": 6,
+      "series": "和牌时一发比例",
+      "turn": 12,
+      "sourcePixelBox": [
+        367,
+        163,
+        383,
+        183
+      ],
+      "x2ViewPixelBox": [
+        734,
+        326,
+        766,
+        366
+      ],
+      "curveColor": "亮绿色",
+      "makerRawPointer": "/output/rows/6/values/11",
+      "reviewQuote": "第12巡约22",
+      "reviewRawPointer": "/output/issues/0/sourceEvidence",
+      "value": "约22"
+    }
+  ],
+  "retainedOtherUnknownCellIds": [
+    {
+      "series": "流局率",
+      "turn": 5
+    },
+    {
+      "series": "放铳率",
+      "turn": 1
+    },
+    {
+      "series": "放铳率",
+      "turn": 2
+    },
+    {
+      "series": "放铳率",
+      "turn": 3
+    },
+    {
+      "series": "放铳率",
+      "turn": 4
+    },
+    {
+      "series": "放铳率",
+      "turn": 5
+    },
+    {
+      "series": "和牌率",
+      "turn": 6
+    },
+    {
+      "series": "被他家自摸率",
+      "turn": 1
+    },
+    {
+      "series": "被他家自摸率",
+      "turn": 2
+    },
+    {
+      "series": "被他家自摸率",
+      "turn": 3
+    },
+    {
+      "series": "被他家自摸率",
+      "turn": 4
+    },
+    {
+      "series": "被他家自摸率",
+      "turn": 5
+    },
+    {
+      "series": "和牌时一发比例",
+      "turn": 1
+    },
+    {
+      "series": "和牌时一发比例",
+      "turn": 2
+    },
+    {
+      "series": "和牌时一发比例",
+      "turn": 3
+    },
+    {
+      "series": "和牌时一发比例",
+      "turn": 4
+    },
+    {
+      "series": "和牌时一发比例",
+      "turn": 5
+    }
+  ],
+  "images": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+      "sha256": "d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f",
+      "bytes": 39633
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png",
+      "sha256": "f006dd5fe35e1ac07983c550033637fa9bb6474ed7130ac14ebedcd514a7e2ba",
+      "bytes": 171002
+    }
+  ],
+  "newReviewCalls": 1,
+  "newProductionCalls": 0,
+  "chapterPhaseCalls": {
+    "maker": 1,
+    "review": 1,
+    "maximum": 2,
+    "remaining": 0,
+    "failedVoidCount": true,
+    "retry": 0
+  },
+  "priorPhaseMaximum4Preserved": true,
+  "otherBudgetNotBorrowed": true,
+  "wholeChapterPassed": false,
+  "admissionGranted": false,
+  "oldRawAuditCandidateOrSeverityChanged": false,
+  "fee": "unknown",
+  "remoteWeights": "unknown",
+  "upstreamExecutionCount": "unknown"
+}

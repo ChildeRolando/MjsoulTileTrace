@@ -1,0 +1,23 @@
+{
+  "canonical": "nemata-jp-chapter-224-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b31r1.json",
+    "sha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+  },
+  "package": "E:/AgentData/Coach/knowledge/processing/integration/coac244-224-seven-limited-20261028",
+  "loader": "E:/AgentData/Coach/knowledge/processing/integration/coac244-224-seven-limited-20261028/admit.mjs",
+  "loaderFunction": "verifyLimited(root,candidatePath)",
+  "stageEntry": "E:/AgentData/Coach/knowledge/processing/integration/coac244-224-seven-limited-20261028/stage.mjs",
+  "stageFunction": "stageLimited(options)",
+  "stage": "E:/AgentData/Coach/knowledge/processing/integration/coac244-224-seven-limited-20261028/stage",
+  "manifest": "E:/AgentData/Coach/knowledge/processing/integration/coac244-224-seven-limited-20261028/manifest.json",
+  "verification": "E:/AgentData/Coach/knowledge/processing/integration/coac244-224-seven-limited-20261028/verification.json",
+  "existing250Wakeup": "01a1820d-5a5b-791e-9505-0f3b62bc570d",
+  "existing250Run": "01a1820e-a904-7422-8df5-d04e1afb08ff",
+  "onlyExisting250Writer": true,
+  "ordinaryWholeArticlePassed": false,
+  "globalAdmissionGranted": false,
+  "actualGlobalMcpArenaReadbackRequired": true,
+  "newCalls": 0,
+  "newConsumers": 0
+}

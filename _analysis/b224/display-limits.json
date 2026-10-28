@@ -1,0 +1,961 @@
+{
+  "canonical": "nemata-jp-chapter-224-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b31r1.json",
+    "sha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+  },
+  "independentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-224-seven-reviewed-20261028.json",
+    "sha256": "3b9bab561f2ea1c0450156ef1135e879471c503cc8ff1a3e709d981188c79e2e"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\6dd562f2-2025-47b3-a48d-e8c6e5fdd12b.json",
+    "sha256": "45f1c2b88386c1399694e54ad013fadfb741110a63df15eb8cdc9ea65e12f6a0"
+  },
+  "anchor": {
+    "beforeSourceBlockId": "modern-yabejp-ja:chapter04-section005:b0013",
+    "followingSourceBlockId": "modern-yabejp-ja:chapter04-section005:b0014"
+  },
+  "originalBlocks": [
+    {
+      "type": "h2",
+      "id": "modern-yabejp-ja-chapter04-section005-b1",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0001"
+        ],
+        "domPaths": [
+          "main/h2[3]"
+        ]
+      },
+      "text": "末局的放过和牌判断",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0001",
+      "sourceSegments": [
+        {
+          "text": "オーラスの見逃し判断",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "displaySegments": [],
+      "tableContext": null
+    },
+    {
+      "type": "p",
+      "id": "modern-yabejp-ja-chapter04-section005-b2",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0002"
+        ],
+        "domPaths": [
+          "main/p[5]"
+        ]
+      },
+      "text": "[上次](http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section004.html)提到，做反超手牌时，适当依赖一些偶然因素也无妨。不过，也经常会遇到难以决定是否应优先选择能够确保反超的打法的场面。尤其常见的是，自己已经立直，其他家打出了自己的和牌张，此时若荣和，需要中1张里宝牌才能反超；但如果放过，之后自摸就一定能反超。",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0002",
+      "sourceSegments": [
+        {
+          "text": "前回",
+          "marks": [],
+          "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section004.html"
+        },
+        {
+          "text": "、捲くり手を作る場合には多少偶発的要素に頼るくらいでよいということを述べました。ただ、確実に捲くれる選択とどちらを優先すべきか悩む場面は多くあります。特によくあるのが、リーチしていて当たり牌が他家から出て、ロンした場合捲くるためには裏ドラが１枚必要だが、見逃してツモれば必ず捲くれるという場合です。",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "displaySegments": [],
+      "tableContext": null
+    },
+    {
+      "type": "p",
+      "id": "modern-yabejp-ja-chapter04-section005-b3",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0003"
+        ],
+        "domPaths": [
+          "main/p[7]"
+        ]
+      },
+      "text": "中里宝牌的概率约为三成。（如果是除了对子之外，没有重复使用两张及以上同种牌的平和手，这个概率会稍高一些；如果像七对子那样只使用了7种牌，则会降到两成左右。）如果处于不必考虑因未能和牌而导致名次下滑的风险的情况（例如当前垫底），那么，只要放过后自摸的概率高于这个数值，放过就更有利。",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0003",
+      "sourceSegments": [
+        {
+          "text": "裏ドラが乗る確率は約３割です。（トイツ以外２枚以上使っていないピンフ手ならもう少し上がり、七対子のように使用牌が7種しかなければ２割程度になる。）和了できなかった為に順位が落ちるリスクを考慮しなくていい（ラス目等）状況であれば、見逃してツモる確率がこれより大きければ見逃したほうが有利となります。",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "displaySegments": [],
+      "tableContext": null
+    },
+    {
+      "type": "p",
+      "id": "modern-yabejp-ja-chapter04-section005-b4",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0004"
+        ],
+        "domPaths": [
+          "main/p[9]"
+        ]
+      },
+      "text": "能否自摸和牌，当然很大程度上取决于巡目以及自己的和牌张还剩几张。关于在第几巡、剩余几张时，和牌张出现在自己摸牌序列中的概率有多高，计算时参考了以下网站。",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0004",
+      "sourceSegments": [
+        {
+          "text": "ツモ和了できる可能性は、もちろん巡目と自分の上がり牌が何枚残っているかに大きく影響します。何巡目で何枚残っていればどの程度の確率で当たり牌が自分のツモ列にあるかの計算は、こちらのサイトを参考にしました。",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "displaySegments": [],
+      "tableContext": null
+    },
+    {
+      "type": "p",
+      "id": "modern-yabejp-ja-chapter04-section005-b5",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0005"
+        ],
+        "domPaths": [
+          "main/p[11]"
+        ]
+      },
+      "text": "かじゃ研《[自摸率论](http://ameblo.jp/kazyake/entry-10076130541.html)》《[麻将计算器 自摸概率](http://kazyaken.web.fc2.com/mj/tumoritu.html)》",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0005",
+      "sourceSegments": [
+        {
+          "text": "かじゃ研 「",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "ツモ率論",
+          "marks": [],
+          "href": "http://ameblo.jp/kazyake/entry-10076130541.html"
+        },
+        {
+          "text": "」「",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "麻雀電卓 ツモ確率",
+          "marks": [],
+          "href": "http://kazyaken.web.fc2.com/mj/tumoritu.html"
+        },
+        {
+          "text": "」",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "displaySegments": [],
+      "tableContext": null
+    },
+    {
+      "type": "p",
+      "id": "modern-yabejp-ja-chapter04-section005-b6",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0006"
+        ],
+        "domPaths": [
+          "main/p[13]"
+        ]
+      },
+      "text": "不过，这是在能够一直摸牌到最后的情况下进行的计算，实战中必须考虑中途有人和牌的情况，因此，放过更有利的条件是：*(1-其他家和牌的概率)×(和牌张留在自己摸牌序列中的概率)>(中里宝牌的概率)*。",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0006",
+      "sourceSegments": [
+        {
+          "text": "ただ、これは最後までツモれた場合の計算なので、実戦では途中で誰かが和了するケースを考慮せねばなりませんから、見逃しが有利になるのは、",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "(1-他家が和了する確率)×(ツモ列に残っている確率)>(裏ドラ率)",
+          "marks": [
+            "em::"
+          ],
+          "href": null
+        },
+        {
+          "text": "の場合です。",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "displaySegments": [],
+      "tableContext": null
+    },
+    {
+      "type": "p",
+      "id": "modern-yabejp-ja-chapter04-section005-b7",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0007"
+        ],
+        "domPaths": [
+          "main/p[15]"
+        ]
+      },
+      "text": "这里假设自己是东家或南家（摸牌18次）。如果是西家或北家（摸牌17次），自摸率就相当于东家、南家晚1巡时的自摸率。",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0007",
+      "sourceSegments": [
+        {
+          "text": "ここで、自分は東家か南家（ツモ18回）とします。西家か北家（ツモ17回）なら東家、南家の１巡遅れのツモ率に等しくなります。",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "displaySegments": [],
+      "tableContext": null
+    },
+    {
+      "type": "p",
+      "id": "modern-yabejp-ja-chapter04-section005-b8",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0008"
+        ],
+        "domPaths": [
+          "main/inline7"
+        ]
+      },
+      "text": "愚形听牌的情况（已经放过1张，所以还剩3张）\n即使是在第1巡，剩余3张和牌张中有牌留在自己摸牌序列中的概率也只有36.765%。其他家和牌的概率只要有10%，就已经低于中里宝牌的概率了。因此，可以说愚形时始终应该和牌。\n两面听牌（剩余7张）的情况\n第1巡时为66.355%，第4巡为62.915%，第8巡为56.174%，第12巡为44.699%。过了中盘，两面听牌的和牌张还一张都没有在其他地方出现，想必很少见；不过，即使只剩5张，第12巡时仍有34.102%。",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0008",
+      "sourceSegments": [
+        {
+          "text": "愚形待ちの場合（１枚見逃しているから残り３枚）",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "例え１巡目の時点だったとしても、残り３枚の待ちがツモ列に残っている確率は36.765%に過ぎません。他家が和了する確率が10%もあればもう裏ドラ率を下回ります。よって、愚形の場合は常に和了するべきと言えます。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "リャンメン待ち（残り７枚）の場合",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": "１巡目の時点で66.355%、４巡目で62.915%、８巡目で56.174%、12巡目で44.699%となります。中盤過ぎればリャンメンの待ち牌が他に見えていないことは珍しいでしょうが、残り５枚だとしても12巡目の時点で34.102%あります。",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        },
+        {
+          "text": " ",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "displaySegments": [],
+      "tableContext": null
+    },
+    {
+      "type": "p",
+      "id": "modern-yabejp-ja-chapter04-section005-b9",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0009"
+        ],
+        "domPaths": [
+          "main/p[19]"
+        ]
+      },
+      "text": "难点在于应该把其他家的和牌率估计为多少。假如其余三人都在完全弃和，就可以直接采用这个自摸率。因此，剩余7张时只要还有4次摸牌机会，剩余5张时只要还有5次摸牌机会，自摸率就会超过30%，放过就更有利。但是，既然有一家打出了自己的和牌张，稳妥起见，还是应当认为至少有一人在进攻。",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0009",
+      "sourceSegments": [
+        {
+          "text": "他家の和了率をどの程度見積もるかが難しいところです。仮に残りの三人がベタオリしているのであれば、このツモ率をそのまま適用することができるので、７枚なら残りツモ４回、５枚なら残りツモ５回あればツモ率が30%を超えるので見逃しが有利になります。しかし、自分の当たり牌を切ってきた他家が一人居るのですから、少なくとも一人は攻めてきていると考えるのが無難です。",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "displaySegments": [],
+      "tableContext": null
+    },
+    {
+      "type": "p",
+      "id": "modern-yabejp-ja-chapter04-section005-b10",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0010"
+        ],
+        "domPaths": [
+          "main/p[21]"
+        ]
+      },
+      "text": "如果进攻的其他家中有一人已经听牌，既然对手无论从谁那里都能和牌，那么即使其余两人都在完全弃和，对手和牌的概率通常也会更高。",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0010",
+      "sourceSegments": [
+        {
+          "text": "攻めてきている他家の一人が既にテンパイしているのであれば、相手はどこからでも和了することができる以上、例え残りの二人がベタオリしていたとしても相手に和了される確率の方がまず高くなります。",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "displaySegments": [],
+      "tableContext": null
+    },
+    {
+      "type": "p",
+      "id": "modern-yabejp-ja-chapter04-section005-b11",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0011"
+        ],
+        "domPaths": [
+          "main/p[23]"
+        ]
+      },
+      "text": "这是因为，两人（那名对手和自己）之中，只要有一人摸到对手的和牌张，对手就能和牌；而自己则必须亲自摸到自己的和牌张。即使假设对手有65%的概率是听两种牌的两面，其余情况都是听一种牌，而且剩下两人绝不打出对手的和牌张，自己的和牌张留在摸牌序列中的概率若没有达到59.4%以上（剩余7张，且还剩12次以上摸牌机会），和牌率就会在30%以下。如果旁边两人打出对手和牌张的概率有10%，那么这个概率就需要达到65.3%以上。即使在配牌时还剩7张，也只有66.355%，所以可以说，在其他家已经听牌的情况下，基本不可能选择放过。",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0011",
+      "sourceSegments": [
+        {
+          "text": "相手は二人（その相手と自分）のどちらかが当たり牌を引けばよく、自分は自分が当たり牌を引かなくてはならないからです。相手の待ちが65%で２種待ちリャンメン、他は１種待ちで、残りの二人は相手の当たり牌を一切切らないという条件下でも、ツモ列に残っている確率が59.4%以上（残り枚数7枚で残りツモ12回以上）なければ和了率は30%以下になります。脇の二人が当たり牌を切る確率が10%もあれば65.3%以上必要になります。配牌時点で７枚残りでさえ66.355%なのですから、他家のテンパイが入っている時点で見逃すこともまず有り得ないと言えます。",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "displaySegments": [],
+      "tableContext": null
+    },
+    {
+      "type": "p",
+      "id": "modern-yabejp-ja-chapter04-section005-b12",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0012"
+        ],
+        "domPaths": [
+          "main/p[25]"
+        ]
+      },
+      "text": "如果有一名对手在进攻（其余两人完全弃和），但对手尚未听牌，那么振听两面的和牌率，会与一人进攻时愚形立直的和牌率相当接近。（可以理解为，虽然张数减半，却能摸两次；这样想的话，是否在直觉上也能接受呢？）请参照下面先制愚形立直（一人进攻）的模拟图表。",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0012",
+      "sourceSegments": [
+        {
+          "text": "一人攻めている相手がいて（残り二人はベタオリ）、まだテンパイしていない場合なら、フリテンリャンメンの和了率は一人攻めてくる場合の愚形リーチの和了率にかなり近い値になります。（枚数が半分になるけど二回分ツモれると考えれば体感的にも納得されるのではないでしょうか。）以下の先制愚形リーチ（一人攻め）のシミュレーションのグラフを参照。",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "displaySegments": [],
+      "tableContext": null
+    },
+    {
+      "type": "figure",
+      "id": "modern-yabejp-ja-chapter04-section005-b13",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0013"
+        ],
+        "domPaths": [
+          "main/inline11"
+        ]
+      },
+      "src": "assets/modern-yabejp-ja-chapter04-section005-b13.png",
+      "caption": "先制愚形立直、仅有一名对手进攻时的模拟图表。",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0013",
+      "transcriptionText": "标题：先制愚形听牌立直（1人进攻）。\n横轴：巡目；刻度为0、1、2、3、4、5、6、7、8、9、10、11、12、13、14、15。各曲线的数据点位于第1至第15巡。\n纵轴：和牌率等；刻度为0、10、20、30、40、50、60、70、80、90。\n图例位置与曲线对应关系：左列自上而下为蓝色方形标记「流局率」、黄色标记「放铳率」、橙色标记「和牌中自摸所占比例」、紫色叉形标记「立直棒被没收率」；右列自上而下为红色倒三角标记「和牌率」、深绿色标记「被他家自摸率」、亮绿色标记「和牌时一发比例」。\n蓝色流局率曲线随巡目上升，后段上升更快；红色和牌率曲线持续下降；橙色和牌中自摸所占比例曲线在接近50的位置基本保持水平；紫色立直棒被没收率曲线先上升，在中段达到最高处后下降；黄色放铳率与深绿色被他家自摸率曲线均先小幅上升、后下降；亮绿色和牌时一发比例曲线整体上升，末段上升更快。各巡各曲线的精确纵坐标未以数字标注。\n逐巡近似读数（按原图纵轴刻度，均为约值；原图未明确标注单位，不补定百分号；unknown表示该点不能可靠辨读，不推算）：\n巡目：1,2,3,4,5,6,7,8,9,10,11,12,13,14,15。\n流局率：约10,约11,约12,约13,unknown,约18,约20,约23,约27,约32,约39,约46,约55,约65,约75。\n放铳率：unknown,unknown,unknown,unknown,unknown,约16,约16,约16,约15,约14,约12,约10,约7,约5,约3。\n和牌中自摸所占比例：约49,约49,约49,约49,约49,约49,约49,约49,约49,约49,约49,约49,约49,约49,约49。\n立直棒被没收率：约28,约30,约32,约34,约35,约35,约35,约35,约32,约29,约25,约21,约16,约10,约6。\n和牌率：约63,约60,约57,约54,约51,unknown,约46,约44,约41,约39,约37,约34,约30,约26,约21。\n被他家自摸率：unknown,unknown,unknown,unknown,unknown,约14,约14,约14,约13,约12,约10,约8,约6,约3,约1。\n和牌时一发比例：unknown,unknown,unknown,unknown,unknown,约16,约17,约18,约19,约19,约20,约22,约25,约30,约37。\n原图未显示的信息：第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。；纵轴没有明确标注百分号或其他单位。",
+      "sourceAssetBindings": [
+        {
+          "assetId": "modern-yabejp-ja:913eb194f610eb11b0ed18fa",
+          "path": "web-sources/v1/modern-yabejp-ja/assets/d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+          "sha256": "d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f",
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005/001.jpg"
+        }
+      ],
+      "sourceOccurrenceIds": [
+        "modern-yabejp-ja:chapter04-section005:i00001"
+      ],
+      "presentationAsset": {
+        "path": "web-production/v1/presentations/modern-yabejp-ja/chapter04-section005/144621343e5fa700/figure-0001.png",
+        "sha256": "5768ed2fbc4b4fe3baaa0036530d311cd64693decd15d20cb07d882649d4c283",
+        "width": 480,
+        "height": 270,
+        "derivation": {
+          "kind": "single-source-image-rgba-to-png",
+          "alignment": "original-size",
+          "sourceAssetBindings": [
+            {
+              "assetId": "modern-yabejp-ja:913eb194f610eb11b0ed18fa",
+              "path": "web-sources/v1/modern-yabejp-ja/assets/d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+              "sha256": "d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f",
+              "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005/001.jpg"
+            }
+          ],
+          "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+        }
+      },
+      "transcriptionProvenance": {
+        "method": "model-seven-cell-revision-with-frozen-renderer",
+        "callId": "8ebc6463-6f09-4861-b48f-1205fcb2ec55",
+        "parent": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b27r1.json",
+          "sha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea"
+        },
+        "outputCellIds": [
+          "224-b0013-1-6",
+          "224-b0013-1-7",
+          "224-b0013-2-6",
+          "224-b0013-3-12",
+          "224-b0013-6-6",
+          "224-b0013-6-7",
+          "224-b0013-6-12"
+        ]
+      },
+      "imageProvenance": {
+        "kind": "derived-source-assets",
+        "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+        "sourceAssetSha256s": [
+          "d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f"
+        ]
+      }
+    },
+    {
+      "type": "p",
+      "id": "modern-yabejp-ja-chapter04-section005-b14",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0014"
+        ],
+        "domPaths": [
+          "main/p[29]"
+        ]
+      },
+      "text": "根据这张图，第13巡的和牌率约为30%，所以在此之前，放过似乎是有效的。",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0014",
+      "sourceSegments": [
+        {
+          "text": "このグラフによると、13巡目での和了率がほぼ30%なので、それ以前なら見逃しが有効そうです。",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "displaySegments": [],
+      "tableContext": null
+    },
+    {
+      "type": "p",
+      "id": "modern-yabejp-ja-chapter04-section005-b15",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0015"
+        ],
+        "domPaths": [
+          "main/p[31]"
+        ]
+      },
+      "text": "这次讨论的情况，是完全不必考虑未能和牌时名次下滑的风险，因此得出的结果是：如果听牌形状良好，放过有效的情况意外地多。实战中，名次下滑的可能性、因庄家连庄而即使流局也会继续的情况，以及表面上剩余张数相同但牌是否在牌山中等因素，都会使计算更加复杂，有时可能难以作出准确判断。不过，即使遇到这种情况，仍然需要采用这里所用的这类方法来判断。如果有余力，建议自己实际设想一个具体情况，并试着计算一下。",
+      "paragraphId": "modern-yabejp-ja:chapter04-section005:p0015",
+      "sourceSegments": [
+        {
+          "text": "今回は和了できなかった場合の降着を一切考慮しなくて良い場合であったので、良形ならば案外見逃しが有効なケースは多いという結果が出ました。実戦では降着の可能性、親の連荘で流局しても続くケース、見た目は同じ枚数だけ残っていても山にあるかどうか等の要素で計算がより複雑になり、的確な判断を下すことが困難な場合もあるでしょう。しかしそのような場合でも、ここで用いたような方法で判断することになるのは変わりません。余裕があれば実際にとあるケースを自分で想定してみて計算してみることをお勧めします。",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "displaySegments": [],
+      "tableContext": null
+    }
+  ],
+  "originalBlocksSha256": "6f0cf9dac1c569f8efb5ac9541802605e40c727528b0b05acf4b1c7b48bbcda9",
+  "notes": [
+    {
+      "type": "p",
+      "id": "limited224-1",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0013"
+        ],
+        "domPaths": [
+          "main/inline11"
+        ]
+      },
+      "text": "【审校限制（非原文）1】保留原图，并明确逐巡表中的数字是按图读取的约值，不得显示为精确坐标。",
+      "authorText": false
+    },
+    {
+      "type": "p",
+      "id": "limited224-2",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0013"
+        ],
+        "domPaths": [
+          "main/inline11"
+        ]
+      },
+      "text": "【审校限制（非原文）2】保留作者的一人进攻、对手尚未听牌、其余两人弃和及不必考虑名次下滑风险等条件。",
+      "authorText": false
+    },
+    {
+      "type": "p",
+      "id": "limited224-3",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0013"
+        ],
+        "domPaths": [
+          "main/inline11"
+        ]
+      },
+      "text": "【审校限制（非原文）3】保留第13巡约30%和此前放过“似乎有效”的原文力度，不将其改成精确分界或无条件的确定建议。",
+      "authorText": false
+    },
+    {
+      "type": "p",
+      "id": "limited224-4",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0013"
+        ],
+        "domPaths": [
+          "main/inline11"
+        ]
+      },
+      "text": "【审校限制（非原文）4】将振听两面与愚形立直和牌率相近呈现为作者的判断，不将此图单独当作对两者接近程度的定量证明。",
+      "authorText": false
+    },
+    {
+      "type": "p",
+      "id": "limited224-5",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0013"
+        ],
+        "domPaths": [
+          "main/inline11"
+        ]
+      },
+      "text": "【审校限制（非原文）5】逐项保留这17处unknown，不插值或依据相邻点推算；不得声称本轮已确认这17点均无法辨读。",
+      "authorText": false
+    },
+    {
+      "type": "p",
+      "id": "limited224-6",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0013"
+        ],
+        "domPaths": [
+          "main/inline11"
+        ]
+      },
+      "text": "【审校限制（非原文）6】如展示该表，应说明它有88个约值和17个unknown，不能称已读出全部105个数值。",
+      "authorText": false
+    },
+    {
+      "type": "p",
+      "id": "limited224-7",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0013"
+        ],
+        "domPaths": [
+          "main/inline11"
+        ]
+      },
+      "text": "【审校限制（非原文）7】若以后能够可靠辨认目前遗漏的点，应补录约值；不能以精确坐标未知为由省略可辨近似值。",
+      "authorText": false
+    },
+    {
+      "type": "p",
+      "id": "limited224-8",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0013"
+        ],
+        "domPaths": [
+          "main/inline11"
+        ]
+      },
+      "text": "【审校限制（非原文）8】保留原图及作者的条件、近似表述和“似乎有效”的语气，不把缺口补成确定的逐巡结论。",
+      "authorText": false
+    },
+    {
+      "type": "p",
+      "id": "limited224-9",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0013"
+        ],
+        "domPaths": [
+          "main/inline11"
+        ]
+      },
+      "text": "【审校限制（非原文）9】图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+      "authorText": false
+    },
+    {
+      "type": "p",
+      "id": "limited224-10",
+      "page": null,
+      "locator": {
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section005.html",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter04-section005:b0013"
+        ],
+        "domPaths": [
+          "main/inline11"
+        ]
+      },
+      "text": "【审校限制（非原文）10】可保留正文明确写出的第13巡约30%，并使其原文来源和近似性质清楚。",
+      "authorText": false
+    }
+  ],
+  "remainingUnknownCellIds": [
+    {
+      "series": "流局率",
+      "turn": 5
+    },
+    {
+      "series": "放铳率",
+      "turn": 1
+    },
+    {
+      "series": "放铳率",
+      "turn": 2
+    },
+    {
+      "series": "放铳率",
+      "turn": 3
+    },
+    {
+      "series": "放铳率",
+      "turn": 4
+    },
+    {
+      "series": "放铳率",
+      "turn": 5
+    },
+    {
+      "series": "和牌率",
+      "turn": 6
+    },
+    {
+      "series": "被他家自摸率",
+      "turn": 1
+    },
+    {
+      "series": "被他家自摸率",
+      "turn": 2
+    },
+    {
+      "series": "被他家自摸率",
+      "turn": 3
+    },
+    {
+      "series": "被他家自摸率",
+      "turn": 4
+    },
+    {
+      "series": "被他家自摸率",
+      "turn": 5
+    },
+    {
+      "series": "和牌时一发比例",
+      "turn": 1
+    },
+    {
+      "series": "和牌时一发比例",
+      "turn": 2
+    },
+    {
+      "series": "和牌时一发比例",
+      "turn": 3
+    },
+    {
+      "series": "和牌时一发比例",
+      "turn": 4
+    },
+    {
+      "series": "和牌时一发比例",
+      "turn": 5
+    }
+  ],
+  "originalIssues": [
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+      "description": "若干可从图上辨认的逐巡约值仍被标为unknown，导致七系列的定量转录不完整。应补录可辨点，对确实难辨的点继续保留unknown，不用插值填充。",
+      "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+      "description": "继承原审对b0008的源文数值论证疑点；候选忠实保留作者数字和结论，不将其改判为翻译错误。",
+      "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；b0003给出的参照约为三成。此疑点按原审作为source-note保留。"
+    }
+  ],
+  "independentIssues": [
+    {
+      "severity": "source-note",
+      "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+      "description": "继承父审对b0008的源文数值论证疑点。候选忠实保留作者数字和结论，不将该疑点改判为翻译错误。",
+      "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；按b0006所述乘法计算约为33.09%，而b0003的参照约为三成。该比较依父审保留为源文论证疑点。"
+    }
+  ],
+  "originalStrictVerification": {
+    "transportCompleted": true,
+    "repairPassed": false,
+    "limitedUnknownOkay": false,
+    "wholeChapterAccepted": false,
+    "modelReview": {
+      "targetChecks": [
+        {
+          "id": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "verdict": "needs-repair",
+          "evidence": "逐系列、逐巡核对105槽：＝表示候选约值基本可由图支持；！表示候选标为unknown，但图上有可辨约值；？表示候选标为unknown，本次不能确定能否可靠分辨，不以相邻点推算。各行依次为第1至15巡：\n流局率：＝ ＝ ＝ ＝ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n放铳率：？ ？ ？ ？ ？ ！ ！ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n和牌中自摸所占比例：＝ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n立直棒被没收率：＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝\n和牌率：＝ ＝ ＝ ＝ ＝ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n被他家自摸率：？ ？ ？ ？ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n和牌时一发比例：？ ？ ？ ？ ？ ！ ！ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝\n候选列出81个约值和24个unknown；其中至少7个unknown有可辨约值，故七系列定量转录仍不完整。第13巡和牌率约30的关键读数得到保留；两处自摸图例译名正确，图表约值也未擅加百分号。"
+        }
+      ],
+      "unknownImpacts": [
+        {
+          "unknownText": "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section005:b0003",
+            "modern-yabejp-ja:chapter04-section005:b0012",
+            "modern-yabejp-ja:chapter04-section005:b0013",
+            "modern-yabejp-ja:chapter04-section005:b0014"
+          ],
+          "authorClaim": "在一名尚未听牌的对手进攻、其余两人完全弃和的条件下，振听两面的和牌率与所示先制愚形立直的和牌率相近；作者据图认为第13巡约为30%，此前放过似乎有效。前面的判断还以不必考虑未和牌导致名次下滑的风险为前提。",
+          "disposition": "nonblocking-with-limits",
+          "evidence": "图中没有逐点精确数值，无法提供精确坐标本身不阻断作者依据近似读数作出的比较。第13巡和牌率的近似读数可辨，但当前表把若干可辨点留作unknown，仍需修复，不能把精确值缺失当作省略这些约值的理由。",
+          "requiredDisplayLimitations": [
+            "保留原图，并将表中读数明确标为按图读取的约值；不能辨认的点逐项保留unknown，不插值推算。",
+            "补齐图上可辨的遗漏点；修复前若展示当前表，须明确它是未完成的部分读数，不得称已读出全部105点。",
+            "保留作者的条件和“似乎有效”的语气，不将第13巡附近的近似比较改成无条件的确定建议。"
+          ]
+        },
+        {
+          "unknownText": "纵轴没有明确标注百分号或其他单位。",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section005:b0003",
+            "modern-yabejp-ja:chapter04-section005:b0013",
+            "modern-yabejp-ja:chapter04-section005:b0014"
+          ],
+          "authorClaim": "作者在正文中将第13巡的和牌率表述为约30%，并与前文约三成的里宝牌概率作比较。",
+          "disposition": "nonblocking-with-limits",
+          "evidence": "图的纵轴列有数值和“和了率等”，但没有明示单位；正文第13巡的30%有原文支持，不足以替整张图的所有纵轴读数补写单位。",
+          "requiredDisplayLimitations": [
+            "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+            "可保留正文明确写出的第13巡约30%，并使其来源和近似性质清楚。"
+          ]
+        }
+      ],
+      "contextContinuity": {
+        "verdict": "faithful",
+        "evidence": "上下文保留了一人进攻、其余两人弃和且该对手尚未听牌的模拟条件，以及第13巡约30%、此前放过似乎有效的论证强度；末段仍限定于不必考虑名次下滑风险的讨论。图表逐点遗漏需要修复，但不改变这些上下文关系。b0008沿用原审的源文数值疑点记录，不改判为翻译错误。"
+      },
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "description": "若干可从图上辨认的逐巡约值仍被标为unknown，导致七系列的定量转录不完整。应补录可辨点，对确实难辨的点继续保留unknown，不用插值填充。",
+          "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "description": "继承原审对b0008的源文数值论证疑点；候选忠实保留作者数字和结论，不将其改判为翻译错误。",
+          "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；b0003给出的参照约为三成。此疑点按原审作为source-note保留。"
+        }
+      ],
+      "scopeComplete": "yes",
+      "summary": "本次所列图靶需要修复：可辨的逐巡约值仍有遗漏。两项保留unknown可在明确显示限制下保留；本结论不代表整章通过。"
+    }
+  },
+  "currentStrictVerification": {
+    "transportCompleted": true,
+    "repairPassed": true,
+    "limitedUnknownOkay": true,
+    "wholeChapterPassed": false,
+    "modelReview": {
+      "cellChecks": [
+        {
+          "cellId": "224-b0013-1-6",
+          "verdict": "faithful",
+          "evidence": "黄色放铳率曲线第6巡约为15至16，补录约16可由图支持。第6巡中心约为原图x=211，曲线约在y=186附近，落在sourcePixelBox [203,178,219,196]内；该处与绿色曲线接近，读数应保持为约值。"
+        },
+        {
+          "cellId": "224-b0013-1-7",
+          "verdict": "faithful",
+          "evidence": "黄色放铳率曲线第7巡约为15至16，补录约16可由图支持。第7巡中心约为原图x=238，曲线约在y=186附近，落在sourcePixelBox [231,178,247,196]内；附近曲线接近，不能将其作为精确值。"
+        },
+        {
+          "cellId": "224-b0013-2-6",
+          "verdict": "faithful",
+          "evidence": "橙色和牌中自摸所占比例曲线第6巡接近49，补录约49与图相符。第6巡中心约为原图x=211，曲线约在y=121，落在sourcePixelBox [203,111,219,129]内。"
+        },
+        {
+          "cellId": "224-b0013-3-12",
+          "verdict": "faithful",
+          "evidence": "紫色立直棒被没收率曲线第12巡约为20至21，补录约21可由图支持。第12巡中心约为原图x=375，曲线约在y=176至178，落在sourcePixelBox [367,167,383,186]内；该处与亮绿色曲线接近。"
+        },
+        {
+          "cellId": "224-b0013-6-6",
+          "verdict": "faithful",
+          "evidence": "亮绿色和牌时一发比例曲线第6巡约在16附近，补录约16可由图支持。第6巡中心约为原图x=211，曲线约在y=184至186，落在sourcePixelBox [203,174,219,193]内；黄色及深绿色曲线靠近，须保留近似性质。"
+        },
+        {
+          "cellId": "224-b0013-6-7",
+          "verdict": "faithful",
+          "evidence": "亮绿色和牌时一发比例曲线第7巡约为16至17，补录约17可由图支持。第7巡中心约为原图x=238，曲线约在y=184附近，落在sourcePixelBox [231,174,247,193]内；该处邻近黄色曲线，不能当作精确值。"
+        },
+        {
+          "cellId": "224-b0013-6-12",
+          "verdict": "faithful",
+          "evidence": "亮绿色和牌时一发比例曲线第12巡约为22，补录约22可由图支持。第12巡中心约为原图x=375，曲线约在y=174附近，落在sourcePixelBox [367,163,383,183]内；应与附近的紫色曲线区分。"
+        }
+      ],
+      "contextContinuity": {
+        "verdict": "faithful",
+        "evidence": "b0012保留一名尚未听牌的对手进攻、其余两人完全弃和的条件，并将振听两面与先制愚形立直的和牌率接近作为作者的判断。b0014保留第13巡约30%及此前放过“似乎有效”的语气；b0003和b0015保留不必考虑未和牌导致名次下滑的讨论前提。正文依所提交的不变证明及父审继承；b0008的源文数值疑点继续作为source-note。"
+      },
+      "unknownImpacts": [
+        {
+          "unknownText": "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+          "disposition": "nonblocking-with-limits",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section005:b0003",
+            "modern-yabejp-ja:chapter04-section005:b0012",
+            "modern-yabejp-ja:chapter04-section005:b0013",
+            "modern-yabejp-ja:chapter04-section005:b0014",
+            "modern-yabejp-ja:chapter04-section005:b0015"
+          ],
+          "authorClaim": "在一名尚未听牌的对手进攻、其余两人完全弃和的条件下，作者认为振听两面和牌率与所示先制愚形立直和牌率相近，并据图认为第13巡约为30%，此前放过似乎有效；讨论还以不必考虑未和牌导致名次下滑的风险为前提。",
+          "evidence": "图中未标出逐点精确数值。精确坐标缺失不阻断按原文呈现作者基于近似读数作出的判断：第13巡的关键近似读数依父审及不变证明继承。图中没有振听两面的独立曲线，因此仅凭该图不能定量证明两种和牌率的接近程度。",
+          "requiredDisplayLimitations": [
+            "保留原图，并明确逐巡表中的数字是按图读取的约值，不得显示为精确坐标。",
+            "保留作者的一人进攻、对手尚未听牌、其余两人弃和及不必考虑名次下滑风险等条件。",
+            "保留第13巡约30%和此前放过“似乎有效”的原文力度，不将其改成精确分界或无条件的确定建议。",
+            "将振听两面与愚形立直和牌率相近呈现为作者的判断，不将此图单独当作对两者接近程度的定量证明。"
+          ]
+        },
+        {
+          "unknownText": "逐巡近似表中保留17个非靶unknown：流局率第5巡；放铳率第1至5巡；和牌率第6巡；被他家自摸率第1至5巡；和牌时一发比例第1至5巡。",
+          "disposition": "nonblocking-with-limits",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section005:b0003",
+            "modern-yabejp-ja:chapter04-section005:b0012",
+            "modern-yabejp-ja:chapter04-section005:b0013",
+            "modern-yabejp-ja:chapter04-section005:b0014"
+          ],
+          "authorClaim": "作者根据模拟图和第13巡约30%的读数，在其限定条件下认为此前放过似乎有效。",
+          "evidence": "父审未确认这17点能否可靠辨读，本轮依不变证明继承其unknown状态，未逐点重审。它们不阻断忠实呈现作者依据第13巡近似读数作出的判断，但包括和牌率第6巡在内的缺口，限制了完整逐巡定量分析和对严格分界的主张。",
+          "requiredDisplayLimitations": [
+            "逐项保留这17处unknown，不插值或依据相邻点推算；不得声称本轮已确认这17点均无法辨读。",
+            "如展示该表，应说明它有88个约值和17个unknown，不能称已读出全部105个数值。",
+            "若以后能够可靠辨认目前遗漏的点，应补录约值；不能以精确坐标未知为由省略可辨近似值。",
+            "保留原图及作者的条件、近似表述和“似乎有效”的语气，不把缺口补成确定的逐巡结论。"
+          ]
+        },
+        {
+          "unknownText": "纵轴没有明确标注百分号或其他单位。",
+          "disposition": "nonblocking-with-limits",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section005:b0003",
+            "modern-yabejp-ja:chapter04-section005:b0013",
+            "modern-yabejp-ja:chapter04-section005:b0014"
+          ],
+          "authorClaim": "作者在正文中将第13巡的和牌率表述为约30%，并与前文约三成的里宝牌概率作比较。",
+          "evidence": "图的纵轴有数值刻度和“和了率等”，但没有明确单位。正文第13巡约30%有原文支持；这一正文表述不足以替图中所有纵轴读数补写单位，因此单位未知不阻断保留作者的近似论证。",
+          "requiredDisplayLimitations": [
+            "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+            "可保留正文明确写出的第13巡约30%，并使其原文来源和近似性质清楚。"
+          ]
+        }
+      ],
+      "issues": [
+        {
+          "severity": "source-note",
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "description": "继承父审对b0008的源文数值论证疑点。候选忠实保留作者数字和结论，不将该疑点改判为翻译错误。",
+          "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；按b0006所述乘法计算约为33.09%，而b0003的参照约为三成。该比较依父审保留为源文论证疑点。"
+        }
+      ],
+      "completeRequestedScopeCompared": true,
+      "summary": "仅针对新候选SHA c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a：七个补录点及其巡目、曲线和原图像素框均可支持，必要上下文保持忠实。剩余unknown在列明的显示限制下不阻断保留作者的近似论证。其余81个既有读数和17个非靶unknown依父审及不变证明继承，未重审；本结论不代表整章通过。"
+    }
+  },
+  "authorCandidateChanged": false,
+  "ordinaryWholeArticlePassed": false,
+  "globalAdmissionGranted": false,
+  "newModelCalls": 0
+}

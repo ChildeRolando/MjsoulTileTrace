@@ -1,0 +1,1705 @@
+{
+  "schema": "coac249-224-seven-recorded-scope-inheritance-proof/1",
+  "checkedAt": "2026-10-28T10:26:29.066Z",
+  "canonical": "nemata-jp-chapter-224-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b31r1.json",
+    "sha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section005\\source.json",
+    "sha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+    "bytes": 26374
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b27r1.json",
+    "sha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea"
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-224-target-impact-reviewed-20261028.json",
+    "sha256": "20d624441531f37ebd9b69f5407c69dd03a5eedbc6390edc04fe51c108be4c20"
+  },
+  "parentRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7d1efbaa-589f-4b2e-9199-28f7141f890b.json",
+    "sha256": "51549ca0d773aae36a5edee8757571b2f877c5cf82ab0886ffbe99793b9df0e4"
+  },
+  "makerRaw": {
+    "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/8ebc6463-6f09-4861-b48f-1205fcb2ec55.json",
+    "sha256": "ad97c55c3a8e28ed119ec72a44986328e0ea5e90ed91fe40c2b71da1b8f1e5a4"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\6dd562f2-2025-47b3-a48d-e8c6e5fdd12b.json",
+    "sha256": "45f1c2b88386c1399694e54ad013fadfb741110a63df15eb8cdc9ea65e12f6a0"
+  },
+  "receipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-224-seven-reviewed-20261028.json",
+    "sha256": "3b9bab561f2ea1c0450156ef1135e879471c503cc8ff1a3e709d981188c79e2e"
+  },
+  "callId": "6dd562f2-2025-47b3-a48d-e8c6e5fdd12b",
+  "uniqueStandardLedger": true,
+  "actualImages": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+      "sha256": "d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f",
+      "bytes": 39633
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png",
+      "sha256": "f006dd5fe35e1ac07983c550033637fa9bb6474ed7130ac14ebedcd514a7e2ba",
+      "bytes": 171002
+    }
+  ],
+  "orderedPairs": 15,
+  "changedCells": [
+    {
+      "series": "放铳率",
+      "row": 1,
+      "turn": 6,
+      "before": "unknown",
+      "after": "约16",
+      "cellId": "224-b0013-1-6",
+      "sourcePixelBox": [
+        203,
+        178,
+        219,
+        196
+      ],
+      "x2ViewPixelBox": [
+        406,
+        356,
+        438,
+        392
+      ]
+    },
+    {
+      "series": "放铳率",
+      "row": 1,
+      "turn": 7,
+      "before": "unknown",
+      "after": "约16",
+      "cellId": "224-b0013-1-7",
+      "sourcePixelBox": [
+        231,
+        178,
+        247,
+        196
+      ],
+      "x2ViewPixelBox": [
+        462,
+        356,
+        494,
+        392
+      ]
+    },
+    {
+      "series": "和牌中自摸所占比例",
+      "row": 2,
+      "turn": 6,
+      "before": "unknown",
+      "after": "约49",
+      "cellId": "224-b0013-2-6",
+      "sourcePixelBox": [
+        203,
+        111,
+        219,
+        129
+      ],
+      "x2ViewPixelBox": [
+        406,
+        222,
+        438,
+        258
+      ]
+    },
+    {
+      "series": "立直棒被没收率",
+      "row": 3,
+      "turn": 12,
+      "before": "unknown",
+      "after": "约21",
+      "cellId": "224-b0013-3-12",
+      "sourcePixelBox": [
+        367,
+        167,
+        383,
+        186
+      ],
+      "x2ViewPixelBox": [
+        734,
+        334,
+        766,
+        372
+      ]
+    },
+    {
+      "series": "和牌时一发比例",
+      "row": 6,
+      "turn": 6,
+      "before": "unknown",
+      "after": "约16",
+      "cellId": "224-b0013-6-6",
+      "sourcePixelBox": [
+        203,
+        174,
+        219,
+        193
+      ],
+      "x2ViewPixelBox": [
+        406,
+        348,
+        438,
+        386
+      ]
+    },
+    {
+      "series": "和牌时一发比例",
+      "row": 6,
+      "turn": 7,
+      "before": "unknown",
+      "after": "约17",
+      "cellId": "224-b0013-6-7",
+      "sourcePixelBox": [
+        231,
+        174,
+        247,
+        193
+      ],
+      "x2ViewPixelBox": [
+        462,
+        348,
+        494,
+        386
+      ]
+    },
+    {
+      "series": "和牌时一发比例",
+      "row": 6,
+      "turn": 12,
+      "before": "unknown",
+      "after": "约22",
+      "cellId": "224-b0013-6-12",
+      "sourcePixelBox": [
+        367,
+        163,
+        383,
+        183
+      ],
+      "x2ViewPixelBox": [
+        734,
+        326,
+        766,
+        366
+      ]
+    }
+  ],
+  "unchangedCells": [
+    {
+      "series": "流局率",
+      "row": 0,
+      "turn": 1,
+      "before": "约10",
+      "after": "约10"
+    },
+    {
+      "series": "流局率",
+      "row": 0,
+      "turn": 2,
+      "before": "约11",
+      "after": "约11"
+    },
+    {
+      "series": "流局率",
+      "row": 0,
+      "turn": 3,
+      "before": "约12",
+      "after": "约12"
+    },
+    {
+      "series": "流局率",
+      "row": 0,
+      "turn": 4,
+      "before": "约13",
+      "after": "约13"
+    },
+    {
+      "series": "流局率",
+      "row": 0,
+      "turn": 5,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "series": "流局率",
+      "row": 0,
+      "turn": 6,
+      "before": "约18",
+      "after": "约18"
+    },
+    {
+      "series": "流局率",
+      "row": 0,
+      "turn": 7,
+      "before": "约20",
+      "after": "约20"
+    },
+    {
+      "series": "流局率",
+      "row": 0,
+      "turn": 8,
+      "before": "约23",
+      "after": "约23"
+    },
+    {
+      "series": "流局率",
+      "row": 0,
+      "turn": 9,
+      "before": "约27",
+      "after": "约27"
+    },
+    {
+      "series": "流局率",
+      "row": 0,
+      "turn": 10,
+      "before": "约32",
+      "after": "约32"
+    },
+    {
+      "series": "流局率",
+      "row": 0,
+      "turn": 11,
+      "before": "约39",
+      "after": "约39"
+    },
+    {
+      "series": "流局率",
+      "row": 0,
+      "turn": 12,
+      "before": "约46",
+      "after": "约46"
+    },
+    {
+      "series": "流局率",
+      "row": 0,
+      "turn": 13,
+      "before": "约55",
+      "after": "约55"
+    },
+    {
+      "series": "流局率",
+      "row": 0,
+      "turn": 14,
+      "before": "约65",
+      "after": "约65"
+    },
+    {
+      "series": "流局率",
+      "row": 0,
+      "turn": 15,
+      "before": "约75",
+      "after": "约75"
+    },
+    {
+      "series": "放铳率",
+      "row": 1,
+      "turn": 1,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "series": "放铳率",
+      "row": 1,
+      "turn": 2,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "series": "放铳率",
+      "row": 1,
+      "turn": 3,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "series": "放铳率",
+      "row": 1,
+      "turn": 4,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "series": "放铳率",
+      "row": 1,
+      "turn": 5,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "series": "放铳率",
+      "row": 1,
+      "turn": 8,
+      "before": "约16",
+      "after": "约16"
+    },
+    {
+      "series": "放铳率",
+      "row": 1,
+      "turn": 9,
+      "before": "约15",
+      "after": "约15"
+    },
+    {
+      "series": "放铳率",
+      "row": 1,
+      "turn": 10,
+      "before": "约14",
+      "after": "约14"
+    },
+    {
+      "series": "放铳率",
+      "row": 1,
+      "turn": 11,
+      "before": "约12",
+      "after": "约12"
+    },
+    {
+      "series": "放铳率",
+      "row": 1,
+      "turn": 12,
+      "before": "约10",
+      "after": "约10"
+    },
+    {
+      "series": "放铳率",
+      "row": 1,
+      "turn": 13,
+      "before": "约7",
+      "after": "约7"
+    },
+    {
+      "series": "放铳率",
+      "row": 1,
+      "turn": 14,
+      "before": "约5",
+      "after": "约5"
+    },
+    {
+      "series": "放铳率",
+      "row": 1,
+      "turn": 15,
+      "before": "约3",
+      "after": "约3"
+    },
+    {
+      "series": "和牌中自摸所占比例",
+      "row": 2,
+      "turn": 1,
+      "before": "约49",
+      "after": "约49"
+    },
+    {
+      "series": "和牌中自摸所占比例",
+      "row": 2,
+      "turn": 2,
+      "before": "约49",
+      "after": "约49"
+    },
+    {
+      "series": "和牌中自摸所占比例",
+      "row": 2,
+      "turn": 3,
+      "before": "约49",
+      "after": "约49"
+    },
+    {
+      "series": "和牌中自摸所占比例",
+      "row": 2,
+      "turn": 4,
+      "before": "约49",
+      "after": "约49"
+    },
+    {
+      "series": "和牌中自摸所占比例",
+      "row": 2,
+      "turn": 5,
+      "before": "约49",
+      "after": "约49"
+    },
+    {
+      "series": "和牌中自摸所占比例",
+      "row": 2,
+      "turn": 7,
+      "before": "约49",
+      "after": "约49"
+    },
+    {
+      "series": "和牌中自摸所占比例",
+      "row": 2,
+      "turn": 8,
+      "before": "约49",
+      "after": "约49"
+    },
+    {
+      "series": "和牌中自摸所占比例",
+      "row": 2,
+      "turn": 9,
+      "before": "约49",
+      "after": "约49"
+    },
+    {
+      "series": "和牌中自摸所占比例",
+      "row": 2,
+      "turn": 10,
+      "before": "约49",
+      "after": "约49"
+    },
+    {
+      "series": "和牌中自摸所占比例",
+      "row": 2,
+      "turn": 11,
+      "before": "约49",
+      "after": "约49"
+    },
+    {
+      "series": "和牌中自摸所占比例",
+      "row": 2,
+      "turn": 12,
+      "before": "约49",
+      "after": "约49"
+    },
+    {
+      "series": "和牌中自摸所占比例",
+      "row": 2,
+      "turn": 13,
+      "before": "约49",
+      "after": "约49"
+    },
+    {
+      "series": "和牌中自摸所占比例",
+      "row": 2,
+      "turn": 14,
+      "before": "约49",
+      "after": "约49"
+    },
+    {
+      "series": "和牌中自摸所占比例",
+      "row": 2,
+      "turn": 15,
+      "before": "约49",
+      "after": "约49"
+    },
+    {
+      "series": "立直棒被没收率",
+      "row": 3,
+      "turn": 1,
+      "before": "约28",
+      "after": "约28"
+    },
+    {
+      "series": "立直棒被没收率",
+      "row": 3,
+      "turn": 2,
+      "before": "约30",
+      "after": "约30"
+    },
+    {
+      "series": "立直棒被没收率",
+      "row": 3,
+      "turn": 3,
+      "before": "约32",
+      "after": "约32"
+    },
+    {
+      "series": "立直棒被没收率",
+      "row": 3,
+      "turn": 4,
+      "before": "约34",
+      "after": "约34"
+    },
+    {
+      "series": "立直棒被没收率",
+      "row": 3,
+      "turn": 5,
+      "before": "约35",
+      "after": "约35"
+    },
+    {
+      "series": "立直棒被没收率",
+      "row": 3,
+      "turn": 6,
+      "before": "约35",
+      "after": "约35"
+    },
+    {
+      "series": "立直棒被没收率",
+      "row": 3,
+      "turn": 7,
+      "before": "约35",
+      "after": "约35"
+    },
+    {
+      "series": "立直棒被没收率",
+      "row": 3,
+      "turn": 8,
+      "before": "约35",
+      "after": "约35"
+    },
+    {
+      "series": "立直棒被没收率",
+      "row": 3,
+      "turn": 9,
+      "before": "约32",
+      "after": "约32"
+    },
+    {
+      "series": "立直棒被没收率",
+      "row": 3,
+      "turn": 10,
+      "before": "约29",
+      "after": "约29"
+    },
+    {
+      "series": "立直棒被没收率",
+      "row": 3,
+      "turn": 11,
+      "before": "约25",
+      "after": "约25"
+    },
+    {
+      "series": "立直棒被没收率",
+      "row": 3,
+      "turn": 13,
+      "before": "约16",
+      "after": "约16"
+    },
+    {
+      "series": "立直棒被没收率",
+      "row": 3,
+      "turn": 14,
+      "before": "约10",
+      "after": "约10"
+    },
+    {
+      "series": "立直棒被没收率",
+      "row": 3,
+      "turn": 15,
+      "before": "约6",
+      "after": "约6"
+    },
+    {
+      "series": "和牌率",
+      "row": 4,
+      "turn": 1,
+      "before": "约63",
+      "after": "约63"
+    },
+    {
+      "series": "和牌率",
+      "row": 4,
+      "turn": 2,
+      "before": "约60",
+      "after": "约60"
+    },
+    {
+      "series": "和牌率",
+      "row": 4,
+      "turn": 3,
+      "before": "约57",
+      "after": "约57"
+    },
+    {
+      "series": "和牌率",
+      "row": 4,
+      "turn": 4,
+      "before": "约54",
+      "after": "约54"
+    },
+    {
+      "series": "和牌率",
+      "row": 4,
+      "turn": 5,
+      "before": "约51",
+      "after": "约51"
+    },
+    {
+      "series": "和牌率",
+      "row": 4,
+      "turn": 6,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "series": "和牌率",
+      "row": 4,
+      "turn": 7,
+      "before": "约46",
+      "after": "约46"
+    },
+    {
+      "series": "和牌率",
+      "row": 4,
+      "turn": 8,
+      "before": "约44",
+      "after": "约44"
+    },
+    {
+      "series": "和牌率",
+      "row": 4,
+      "turn": 9,
+      "before": "约41",
+      "after": "约41"
+    },
+    {
+      "series": "和牌率",
+      "row": 4,
+      "turn": 10,
+      "before": "约39",
+      "after": "约39"
+    },
+    {
+      "series": "和牌率",
+      "row": 4,
+      "turn": 11,
+      "before": "约37",
+      "after": "约37"
+    },
+    {
+      "series": "和牌率",
+      "row": 4,
+      "turn": 12,
+      "before": "约34",
+      "after": "约34"
+    },
+    {
+      "series": "和牌率",
+      "row": 4,
+      "turn": 13,
+      "before": "约30",
+      "after": "约30"
+    },
+    {
+      "series": "和牌率",
+      "row": 4,
+      "turn": 14,
+      "before": "约26",
+      "after": "约26"
+    },
+    {
+      "series": "和牌率",
+      "row": 4,
+      "turn": 15,
+      "before": "约21",
+      "after": "约21"
+    },
+    {
+      "series": "被他家自摸率",
+      "row": 5,
+      "turn": 1,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "series": "被他家自摸率",
+      "row": 5,
+      "turn": 2,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "series": "被他家自摸率",
+      "row": 5,
+      "turn": 3,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "series": "被他家自摸率",
+      "row": 5,
+      "turn": 4,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "series": "被他家自摸率",
+      "row": 5,
+      "turn": 5,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "series": "被他家自摸率",
+      "row": 5,
+      "turn": 6,
+      "before": "约14",
+      "after": "约14"
+    },
+    {
+      "series": "被他家自摸率",
+      "row": 5,
+      "turn": 7,
+      "before": "约14",
+      "after": "约14"
+    },
+    {
+      "series": "被他家自摸率",
+      "row": 5,
+      "turn": 8,
+      "before": "约14",
+      "after": "约14"
+    },
+    {
+      "series": "被他家自摸率",
+      "row": 5,
+      "turn": 9,
+      "before": "约13",
+      "after": "约13"
+    },
+    {
+      "series": "被他家自摸率",
+      "row": 5,
+      "turn": 10,
+      "before": "约12",
+      "after": "约12"
+    },
+    {
+      "series": "被他家自摸率",
+      "row": 5,
+      "turn": 11,
+      "before": "约10",
+      "after": "约10"
+    },
+    {
+      "series": "被他家自摸率",
+      "row": 5,
+      "turn": 12,
+      "before": "约8",
+      "after": "约8"
+    },
+    {
+      "series": "被他家自摸率",
+      "row": 5,
+      "turn": 13,
+      "before": "约6",
+      "after": "约6"
+    },
+    {
+      "series": "被他家自摸率",
+      "row": 5,
+      "turn": 14,
+      "before": "约3",
+      "after": "约3"
+    },
+    {
+      "series": "被他家自摸率",
+      "row": 5,
+      "turn": 15,
+      "before": "约1",
+      "after": "约1"
+    },
+    {
+      "series": "和牌时一发比例",
+      "row": 6,
+      "turn": 1,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "series": "和牌时一发比例",
+      "row": 6,
+      "turn": 2,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "series": "和牌时一发比例",
+      "row": 6,
+      "turn": 3,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "series": "和牌时一发比例",
+      "row": 6,
+      "turn": 4,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "series": "和牌时一发比例",
+      "row": 6,
+      "turn": 5,
+      "before": "unknown",
+      "after": "unknown"
+    },
+    {
+      "series": "和牌时一发比例",
+      "row": 6,
+      "turn": 8,
+      "before": "约18",
+      "after": "约18"
+    },
+    {
+      "series": "和牌时一发比例",
+      "row": 6,
+      "turn": 9,
+      "before": "约19",
+      "after": "约19"
+    },
+    {
+      "series": "和牌时一发比例",
+      "row": 6,
+      "turn": 10,
+      "before": "约19",
+      "after": "约19"
+    },
+    {
+      "series": "和牌时一发比例",
+      "row": 6,
+      "turn": 11,
+      "before": "约20",
+      "after": "约20"
+    },
+    {
+      "series": "和牌时一发比例",
+      "row": 6,
+      "turn": 13,
+      "before": "约25",
+      "after": "约25"
+    },
+    {
+      "series": "和牌时一发比例",
+      "row": 6,
+      "turn": 14,
+      "before": "约30",
+      "after": "约30"
+    },
+    {
+      "series": "和牌时一发比例",
+      "row": 6,
+      "turn": 15,
+      "before": "约37",
+      "after": "约37"
+    }
+  ],
+  "unchangedExistingReadings": 81,
+  "retainedOtherUnknownCells": 17,
+  "newApproximateValuesCount": 88,
+  "unchangedBodyBlocks": 15,
+  "allUnknownCaptionSourceNotesConditionsMarksTableContextOrderPreserved": true,
+  "originalParentIssues": [
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+      "description": "若干可从图上辨认的逐巡约值仍被标为unknown，导致七系列的定量转录不完整。应补录可辨点，对确实难辨的点继续保留unknown，不用插值填充。",
+      "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+      "description": "继承原审对b0008的源文数值论证疑点；候选忠实保留作者数字和结论，不将其改判为翻译错误。",
+      "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；b0003给出的参照约为三成。此疑点按原审作为source-note保留。"
+    }
+  ],
+  "originalParentVerification": {
+    "transportCompleted": true,
+    "repairPassed": false,
+    "limitedUnknownOkay": false,
+    "wholeChapterAccepted": false,
+    "modelReview": {
+      "targetChecks": [
+        {
+          "id": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "verdict": "needs-repair",
+          "evidence": "逐系列、逐巡核对105槽：＝表示候选约值基本可由图支持；！表示候选标为unknown，但图上有可辨约值；？表示候选标为unknown，本次不能确定能否可靠分辨，不以相邻点推算。各行依次为第1至15巡：\n流局率：＝ ＝ ＝ ＝ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n放铳率：？ ？ ？ ？ ？ ！ ！ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n和牌中自摸所占比例：＝ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n立直棒被没收率：＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝\n和牌率：＝ ＝ ＝ ＝ ＝ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n被他家自摸率：？ ？ ？ ？ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n和牌时一发比例：？ ？ ？ ？ ？ ！ ！ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝\n候选列出81个约值和24个unknown；其中至少7个unknown有可辨约值，故七系列定量转录仍不完整。第13巡和牌率约30的关键读数得到保留；两处自摸图例译名正确，图表约值也未擅加百分号。"
+        }
+      ],
+      "unknownImpacts": [
+        {
+          "unknownText": "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section005:b0003",
+            "modern-yabejp-ja:chapter04-section005:b0012",
+            "modern-yabejp-ja:chapter04-section005:b0013",
+            "modern-yabejp-ja:chapter04-section005:b0014"
+          ],
+          "authorClaim": "在一名尚未听牌的对手进攻、其余两人完全弃和的条件下，振听两面的和牌率与所示先制愚形立直的和牌率相近；作者据图认为第13巡约为30%，此前放过似乎有效。前面的判断还以不必考虑未和牌导致名次下滑的风险为前提。",
+          "disposition": "nonblocking-with-limits",
+          "evidence": "图中没有逐点精确数值，无法提供精确坐标本身不阻断作者依据近似读数作出的比较。第13巡和牌率的近似读数可辨，但当前表把若干可辨点留作unknown，仍需修复，不能把精确值缺失当作省略这些约值的理由。",
+          "requiredDisplayLimitations": [
+            "保留原图，并将表中读数明确标为按图读取的约值；不能辨认的点逐项保留unknown，不插值推算。",
+            "补齐图上可辨的遗漏点；修复前若展示当前表，须明确它是未完成的部分读数，不得称已读出全部105点。",
+            "保留作者的条件和“似乎有效”的语气，不将第13巡附近的近似比较改成无条件的确定建议。"
+          ]
+        },
+        {
+          "unknownText": "纵轴没有明确标注百分号或其他单位。",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section005:b0003",
+            "modern-yabejp-ja:chapter04-section005:b0013",
+            "modern-yabejp-ja:chapter04-section005:b0014"
+          ],
+          "authorClaim": "作者在正文中将第13巡的和牌率表述为约30%，并与前文约三成的里宝牌概率作比较。",
+          "disposition": "nonblocking-with-limits",
+          "evidence": "图的纵轴列有数值和“和了率等”，但没有明示单位；正文第13巡的30%有原文支持，不足以替整张图的所有纵轴读数补写单位。",
+          "requiredDisplayLimitations": [
+            "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+            "可保留正文明确写出的第13巡约30%，并使其来源和近似性质清楚。"
+          ]
+        }
+      ],
+      "contextContinuity": {
+        "verdict": "faithful",
+        "evidence": "上下文保留了一人进攻、其余两人弃和且该对手尚未听牌的模拟条件，以及第13巡约30%、此前放过似乎有效的论证强度；末段仍限定于不必考虑名次下滑风险的讨论。图表逐点遗漏需要修复，但不改变这些上下文关系。b0008沿用原审的源文数值疑点记录，不改判为翻译错误。"
+      },
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "description": "若干可从图上辨认的逐巡约值仍被标为unknown，导致七系列的定量转录不完整。应补录可辨点，对确实难辨的点继续保留unknown，不用插值填充。",
+          "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "description": "继承原审对b0008的源文数值论证疑点；候选忠实保留作者数字和结论，不将其改判为翻译错误。",
+          "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；b0003给出的参照约为三成。此疑点按原审作为source-note保留。"
+        }
+      ],
+      "scopeComplete": "yes",
+      "summary": "本次所列图靶需要修复：可辨的逐巡约值仍有遗漏。两项保留unknown可在明确显示限制下保留；本结论不代表整章通过。"
+    }
+  },
+  "priorUnknownImpactsAndLimits": [
+    {
+      "unknownText": "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section005:b0003",
+        "modern-yabejp-ja:chapter04-section005:b0012",
+        "modern-yabejp-ja:chapter04-section005:b0013",
+        "modern-yabejp-ja:chapter04-section005:b0014"
+      ],
+      "authorClaim": "在一名尚未听牌的对手进攻、其余两人完全弃和的条件下，振听两面的和牌率与所示先制愚形立直的和牌率相近；作者据图认为第13巡约为30%，此前放过似乎有效。前面的判断还以不必考虑未和牌导致名次下滑的风险为前提。",
+      "disposition": "nonblocking-with-limits",
+      "evidence": "图中没有逐点精确数值，无法提供精确坐标本身不阻断作者依据近似读数作出的比较。第13巡和牌率的近似读数可辨，但当前表把若干可辨点留作unknown，仍需修复，不能把精确值缺失当作省略这些约值的理由。",
+      "requiredDisplayLimitations": [
+        "保留原图，并将表中读数明确标为按图读取的约值；不能辨认的点逐项保留unknown，不插值推算。",
+        "补齐图上可辨的遗漏点；修复前若展示当前表，须明确它是未完成的部分读数，不得称已读出全部105点。",
+        "保留作者的条件和“似乎有效”的语气，不将第13巡附近的近似比较改成无条件的确定建议。"
+      ]
+    },
+    {
+      "unknownText": "纵轴没有明确标注百分号或其他单位。",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section005:b0003",
+        "modern-yabejp-ja:chapter04-section005:b0013",
+        "modern-yabejp-ja:chapter04-section005:b0014"
+      ],
+      "authorClaim": "作者在正文中将第13巡的和牌率表述为约30%，并与前文约三成的里宝牌概率作比较。",
+      "disposition": "nonblocking-with-limits",
+      "evidence": "图的纵轴列有数值和“和了率等”，但没有明示单位；正文第13巡的30%有原文支持，不足以替整张图的所有纵轴读数补写单位。",
+      "requiredDisplayLimitations": [
+        "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+        "可保留正文明确写出的第13巡约30%，并使其来源和近似性质清楚。"
+      ]
+    }
+  ],
+  "rawVerification": {
+    "transportCompleted": true,
+    "repairPassed": true,
+    "limitedUnknownOkay": true,
+    "wholeChapterPassed": false,
+    "modelReview": {
+      "cellChecks": [
+        {
+          "cellId": "224-b0013-1-6",
+          "verdict": "faithful",
+          "evidence": "黄色放铳率曲线第6巡约为15至16，补录约16可由图支持。第6巡中心约为原图x=211，曲线约在y=186附近，落在sourcePixelBox [203,178,219,196]内；该处与绿色曲线接近，读数应保持为约值。"
+        },
+        {
+          "cellId": "224-b0013-1-7",
+          "verdict": "faithful",
+          "evidence": "黄色放铳率曲线第7巡约为15至16，补录约16可由图支持。第7巡中心约为原图x=238，曲线约在y=186附近，落在sourcePixelBox [231,178,247,196]内；附近曲线接近，不能将其作为精确值。"
+        },
+        {
+          "cellId": "224-b0013-2-6",
+          "verdict": "faithful",
+          "evidence": "橙色和牌中自摸所占比例曲线第6巡接近49，补录约49与图相符。第6巡中心约为原图x=211，曲线约在y=121，落在sourcePixelBox [203,111,219,129]内。"
+        },
+        {
+          "cellId": "224-b0013-3-12",
+          "verdict": "faithful",
+          "evidence": "紫色立直棒被没收率曲线第12巡约为20至21，补录约21可由图支持。第12巡中心约为原图x=375，曲线约在y=176至178，落在sourcePixelBox [367,167,383,186]内；该处与亮绿色曲线接近。"
+        },
+        {
+          "cellId": "224-b0013-6-6",
+          "verdict": "faithful",
+          "evidence": "亮绿色和牌时一发比例曲线第6巡约在16附近，补录约16可由图支持。第6巡中心约为原图x=211，曲线约在y=184至186，落在sourcePixelBox [203,174,219,193]内；黄色及深绿色曲线靠近，须保留近似性质。"
+        },
+        {
+          "cellId": "224-b0013-6-7",
+          "verdict": "faithful",
+          "evidence": "亮绿色和牌时一发比例曲线第7巡约为16至17，补录约17可由图支持。第7巡中心约为原图x=238，曲线约在y=184附近，落在sourcePixelBox [231,174,247,193]内；该处邻近黄色曲线，不能当作精确值。"
+        },
+        {
+          "cellId": "224-b0013-6-12",
+          "verdict": "faithful",
+          "evidence": "亮绿色和牌时一发比例曲线第12巡约为22，补录约22可由图支持。第12巡中心约为原图x=375，曲线约在y=174附近，落在sourcePixelBox [367,163,383,183]内；应与附近的紫色曲线区分。"
+        }
+      ],
+      "contextContinuity": {
+        "verdict": "faithful",
+        "evidence": "b0012保留一名尚未听牌的对手进攻、其余两人完全弃和的条件，并将振听两面与先制愚形立直的和牌率接近作为作者的判断。b0014保留第13巡约30%及此前放过“似乎有效”的语气；b0003和b0015保留不必考虑未和牌导致名次下滑的讨论前提。正文依所提交的不变证明及父审继承；b0008的源文数值疑点继续作为source-note。"
+      },
+      "unknownImpacts": [
+        {
+          "unknownText": "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+          "disposition": "nonblocking-with-limits",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section005:b0003",
+            "modern-yabejp-ja:chapter04-section005:b0012",
+            "modern-yabejp-ja:chapter04-section005:b0013",
+            "modern-yabejp-ja:chapter04-section005:b0014",
+            "modern-yabejp-ja:chapter04-section005:b0015"
+          ],
+          "authorClaim": "在一名尚未听牌的对手进攻、其余两人完全弃和的条件下，作者认为振听两面和牌率与所示先制愚形立直和牌率相近，并据图认为第13巡约为30%，此前放过似乎有效；讨论还以不必考虑未和牌导致名次下滑的风险为前提。",
+          "evidence": "图中未标出逐点精确数值。精确坐标缺失不阻断按原文呈现作者基于近似读数作出的判断：第13巡的关键近似读数依父审及不变证明继承。图中没有振听两面的独立曲线，因此仅凭该图不能定量证明两种和牌率的接近程度。",
+          "requiredDisplayLimitations": [
+            "保留原图，并明确逐巡表中的数字是按图读取的约值，不得显示为精确坐标。",
+            "保留作者的一人进攻、对手尚未听牌、其余两人弃和及不必考虑名次下滑风险等条件。",
+            "保留第13巡约30%和此前放过“似乎有效”的原文力度，不将其改成精确分界或无条件的确定建议。",
+            "将振听两面与愚形立直和牌率相近呈现为作者的判断，不将此图单独当作对两者接近程度的定量证明。"
+          ]
+        },
+        {
+          "unknownText": "逐巡近似表中保留17个非靶unknown：流局率第5巡；放铳率第1至5巡；和牌率第6巡；被他家自摸率第1至5巡；和牌时一发比例第1至5巡。",
+          "disposition": "nonblocking-with-limits",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section005:b0003",
+            "modern-yabejp-ja:chapter04-section005:b0012",
+            "modern-yabejp-ja:chapter04-section005:b0013",
+            "modern-yabejp-ja:chapter04-section005:b0014"
+          ],
+          "authorClaim": "作者根据模拟图和第13巡约30%的读数，在其限定条件下认为此前放过似乎有效。",
+          "evidence": "父审未确认这17点能否可靠辨读，本轮依不变证明继承其unknown状态，未逐点重审。它们不阻断忠实呈现作者依据第13巡近似读数作出的判断，但包括和牌率第6巡在内的缺口，限制了完整逐巡定量分析和对严格分界的主张。",
+          "requiredDisplayLimitations": [
+            "逐项保留这17处unknown，不插值或依据相邻点推算；不得声称本轮已确认这17点均无法辨读。",
+            "如展示该表，应说明它有88个约值和17个unknown，不能称已读出全部105个数值。",
+            "若以后能够可靠辨认目前遗漏的点，应补录约值；不能以精确坐标未知为由省略可辨近似值。",
+            "保留原图及作者的条件、近似表述和“似乎有效”的语气，不把缺口补成确定的逐巡结论。"
+          ]
+        },
+        {
+          "unknownText": "纵轴没有明确标注百分号或其他单位。",
+          "disposition": "nonblocking-with-limits",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section005:b0003",
+            "modern-yabejp-ja:chapter04-section005:b0013",
+            "modern-yabejp-ja:chapter04-section005:b0014"
+          ],
+          "authorClaim": "作者在正文中将第13巡的和牌率表述为约30%，并与前文约三成的里宝牌概率作比较。",
+          "evidence": "图的纵轴有数值刻度和“和了率等”，但没有明确单位。正文第13巡约30%有原文支持；这一正文表述不足以替图中所有纵轴读数补写单位，因此单位未知不阻断保留作者的近似论证。",
+          "requiredDisplayLimitations": [
+            "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+            "可保留正文明确写出的第13巡约30%，并使其原文来源和近似性质清楚。"
+          ]
+        }
+      ],
+      "issues": [
+        {
+          "severity": "source-note",
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "description": "继承父审对b0008的源文数值论证疑点。候选忠实保留作者数字和结论，不将该疑点改判为翻译错误。",
+          "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；按b0006所述乘法计算约为33.09%，而b0003的参照约为三成。该比较依父审保留为源文论证疑点。"
+        }
+      ],
+      "completeRequestedScopeCompared": true,
+      "summary": "仅针对新候选SHA c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a：七个补录点及其巡目、曲线和原图像素框均可支持，必要上下文保持忠实。剩余unknown在列明的显示限制下不阻断保留作者的近似论证。其余81个既有读数和17个非靶unknown依父审及不变证明继承，未重审；本结论不代表整章通过。"
+    }
+  },
+  "requiredDisplayLimitations": [
+    "保留原图，并明确逐巡表中的数字是按图读取的约值，不得显示为精确坐标。",
+    "保留作者的一人进攻、对手尚未听牌、其余两人弃和及不必考虑名次下滑风险等条件。",
+    "保留第13巡约30%和此前放过“似乎有效”的原文力度，不将其改成精确分界或无条件的确定建议。",
+    "将振听两面与愚形立直和牌率相近呈现为作者的判断，不将此图单独当作对两者接近程度的定量证明。",
+    "逐项保留这17处unknown，不插值或依据相邻点推算；不得声称本轮已确认这17点均无法辨读。",
+    "如展示该表，应说明它有88个约值和17个unknown，不能称已读出全部105个数值。",
+    "若以后能够可靠辨认目前遗漏的点，应补录约值；不能以精确坐标未知为由省略可辨近似值。",
+    "保留原图及作者的条件、近似表述和“似乎有效”的语气，不把缺口补成确定的逐巡结论。",
+    "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+    "可保留正文明确写出的第13巡约30%，并使其原文来源和近似性质清楚。"
+  ],
+  "wholeChapterPassed": false,
+  "admissionGranted": false,
+  "actualDisplayImplementationAndReadbackRequired": true,
+  "newModelCalls": 0,
+  "refs": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-224-seven-handoff249-20261028.json",
+      "sha256": "6345ba984e3a83d4d4e65337ac4ee788860fd98889f73aab6826d7c9d1f224c4",
+      "bytes": 17777
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b31r1.json",
+      "sha256": "c38fbdd237d21b3f3d0093ebc0ebb06c0223cfe34b3953a3b61506041cc9291a",
+      "bytes": 42991
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section005\\source.json",
+      "sha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+      "bytes": 26374
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b27r1.json",
+      "sha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea",
+      "bytes": 42770
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-224-target-impact-reviewed-20261028.json",
+      "sha256": "20d624441531f37ebd9b69f5407c69dd03a5eedbc6390edc04fe51c108be4c20",
+      "bytes": 28196
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\8ebc6463-6f09-4861-b48f-1205fcb2ec55.json",
+      "sha256": "ad97c55c3a8e28ed119ec72a44986328e0ea5e90ed91fe40c2b71da1b8f1e5a4",
+      "bytes": 114952
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+      "sha256": "d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f",
+      "bytes": 39633
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png",
+      "sha256": "f006dd5fe35e1ac07983c550033637fa9bb6474ed7130ac14ebedcd514a7e2ba",
+      "bytes": 171002
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224-seven-v1-20261028\\runtime-manifest.json",
+      "sha256": "7307b5fc28df41a4a1396f19efde5be39f8a3ac7e24a7b18fa40ea878ac54e26",
+      "bytes": 9399
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224-seven-v1-20261028\\seven.mjs",
+      "sha256": "fc84d20fdeb3ba204b7031589e428c47d6ca87eed1cb6642342e48aa06916c70",
+      "bytes": 14219
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac269-224-seven-v1-20261028\\review-request.json",
+      "sha256": "5b2a978e224c27b5c7ce060341edbd7475f0a2a160131a681caf530b2523ddc2",
+      "bytes": 193380
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\224-packet.json",
+      "sha256": "b2edbadd419cf327c241845ec7978181a97f750c23e62e34e2f499011ae84e61",
+      "bytes": 67575
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\232-packet.json",
+      "sha256": "f4b4a8858af471b02322a29c405108098ad18de16a7f8f6d66e0e36574647cb8",
+      "bytes": 71487
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\capability-evidence.json",
+      "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2",
+      "bytes": 594
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\pair-contract.json",
+      "sha256": "12002152e29b720166e3355fa2f9f030b59491e63a57230f84a4f72d3afa27f4",
+      "bytes": 4538
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\pair.mjs",
+      "sha256": "1b6579d6eed480d955d82bbad0279756d415421c1b5482a66d9d82c002c38909",
+      "bytes": 23606
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\production-schema.mjs",
+      "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9",
+      "bytes": 3961
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-definition.mjs",
+      "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711",
+      "bytes": 5213
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-legacy.mjs",
+      "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619",
+      "bytes": 19381
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-pdf-layout.mjs",
+      "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06",
+      "bytes": 20673
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05",
+      "bytes": 14311
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-pdf-native-structure-corrections.mjs",
+      "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b",
+      "bytes": 22532
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-pdf-native.mjs",
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa",
+      "bytes": 9877
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-pdf-scope.mjs",
+      "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf",
+      "bytes": 3802
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff",
+      "bytes": 1990
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30",
+      "bytes": 15858
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-verification-dependencies.mjs",
+      "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08",
+      "bytes": 7384
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-web-batches.mjs",
+      "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69",
+      "bytes": 7061
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221",
+      "bytes": 20969
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-web.mjs",
+      "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b",
+      "bytes": 165915
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit.mjs",
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838",
+      "bytes": 84017
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7",
+      "bytes": 14045
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-pdf-flow.mjs",
+      "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3",
+      "bytes": 8112
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb",
+      "bytes": 5297
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-dictionary.mjs",
+      "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824",
+      "bytes": 7251
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-formal.mjs",
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd",
+      "bytes": 9385
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-labels.mjs",
+      "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274",
+      "bytes": 3726
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1",
+      "bytes": 2781
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-sources.py",
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f",
+      "bytes": 19235
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+      "bytes": 2089
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web.mjs",
+      "sha256": "07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf",
+      "bytes": 36385
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production.mjs",
+      "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355",
+      "bytes": 54676
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\verification-dependencies.json",
+      "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68",
+      "bytes": 1404
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\runtime-manifest.json",
+      "sha256": "0d890d3bbfd3fe1dbe588f068e17de41312916c1d068d246d080d0ec6feaa973",
+      "bytes": 8403
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224-seven-v1-20261028\\contract.json",
+      "sha256": "b167667978360dc2f3d1e726798784d37eb1de5fd81e1fb2f4298766600c5719",
+      "bytes": 6572
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7d1efbaa-589f-4b2e-9199-28f7141f890b.json",
+      "sha256": "51549ca0d773aae36a5edee8757571b2f877c5cf82ab0886ffbe99793b9df0e4",
+      "bytes": 141770
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\7721e646-88f5-4572-8deb-b2ced73aab27.json",
+      "sha256": "c0734e1738dacc1fe3b8142ff426dbca9589c4f317a36467035b2af27454e7a1",
+      "bytes": 115994
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\files.sha256.json",
+      "sha256": "d8e012c8ca1112782678992dab142d91c51a940aa77aa39fb60702ec8dbe6d7b",
+      "bytes": 6803
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\runtime-manifest.json",
+      "sha256": "a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c",
+      "bytes": 6776
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.display.json",
+      "sha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+      "bytes": 34202
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json",
+      "sha256": "112ca259dd236a649e3fbbac885c5056452a262a1ecb47735faba6bf9049a3b2",
+      "bytes": 18385
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\auditors\\d1a12f594369881bc81719e480f7df3ad9a5641d4d1ccd017a2ab2444931adea.json",
+      "sha256": "ec038e42ee0e6ad708712bc1d4c958388c25423f1dcfeda822a94c2b35471dd2",
+      "bytes": 169472
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.display.json",
+      "sha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+      "bytes": 35623
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+      "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+      "bytes": 23933
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+      "sha256": "24293aa4da6b71079ed47600d45229e972e1f8b1256a9dcc573af827c05514f6",
+      "bytes": 21102
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\.gitattributes",
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "bytes": 8
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\234-current-timeout-boundary.json",
+      "sha256": "7ae5744e98da4d74d3200861e83eeb0c6809969358a7f0853a85befb56440eb5",
+      "bytes": 13223
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\0176608e-ec2b-453a-a93b-607d9e27615d-audit-raw.json",
+      "sha256": "a55e0be94f65b3c11fec96648a72fbe6a8561926c13fe2f3814847fef6509e85",
+      "bytes": 379847
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\1a849f14-2853-47b0-9961-c414cfd152bc-audit-raw.json",
+      "sha256": "9ad107f6609b89a81d2b619984f46045c8bb601384dc154b700a97844eedc4ca",
+      "bytes": 86659
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\234-timeout-raw.json",
+      "sha256": "0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734",
+      "bytes": 35030
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\478ca8f6-cab6-4873-8cde-44bdf4f58d7f-producer.json",
+      "sha256": "a92600d3b37530e696e011fe615defec56aa030f75c359bc88b9cfb7df8f9a5c",
+      "bytes": 86074
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe.png",
+      "sha256": "49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe",
+      "bytes": 10724
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\59c525639dcbed32f3e084b3ba249716649f8be24805394d1489cfa84cd1db88.gif",
+      "sha256": "59c525639dcbed32f3e084b3ba249716649f8be24805394d1489cfa84cd1db88",
+      "bytes": 16718
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7.png",
+      "sha256": "65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7",
+      "bytes": 10882
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\7876c301-7ae9-44f7-bc42-d236a2d63c53-audit-raw.json",
+      "sha256": "5fb11208a1aa9f650f9427a42efaf2834e4d4259d33faf0d3d9271e7e779c0ea",
+      "bytes": 123965
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\78b7f59dcfddc79a8d52b60f7567452f57f955bf5e78a0c06c8caa5bd5b19a10.png",
+      "sha256": "78b7f59dcfddc79a8d52b60f7567452f57f955bf5e78a0c06c8caa5bd5b19a10",
+      "bytes": 57955
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\7f3905c9-d231-4bc3-a252-ba5f60c3517e-producer.json",
+      "sha256": "11dcebcd8fbe73c85887c011d10e4f953b8d1c994f043f9450e2f764d0d4b011",
+      "bytes": 43184
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\896037d2-8f7d-49c2-88aa-29c912f857ba-producer.json",
+      "sha256": "8f369470fe8c5552dedaea303b468fc26b5e3edb212a30f4371bed5c518fe80c",
+      "bytes": 69745
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\93f4a5a8-e5fb-4b57-b5b7-c05946e951d7-audit-raw.json",
+      "sha256": "ad4cf4f177742d2eff4f96a4147ddde1abdd9bf99baadd14b64d36b1a87a9b5c",
+      "bytes": 214749
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+      "sha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+      "bytes": 54287
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+      "sha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+      "bytes": 61986
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\bba0071e-a273-465a-a5bb-7abe1faa7f1a-producer.json",
+      "sha256": "f5156f8b38260726221a578be0773d300f1013ad97efd1d08399810fa633658f",
+      "bytes": 139640
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\chapter03-section009-audit.json",
+      "sha256": "8ce0cde5d4eb0d8a8538b6751cd8a3b35b3fa8d3a20d7929fea6d7548bb09ce0",
+      "bytes": 55237
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\chapter03-section009-parent.json",
+      "sha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+      "bytes": 205462
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\chapter03-section009-source.json",
+      "sha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+      "bytes": 123896
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\chapter03-section026-audit.json",
+      "sha256": "a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc",
+      "bytes": 37129
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\chapter03-section026-parent.json",
+      "sha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+      "bytes": 107372
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\chapter03-section026-source.json",
+      "sha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+      "bytes": 62908
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\cv1729038-audit.json",
+      "sha256": "254405ec0e5e50e057a662509f8ac087e4d1ed84c0e60b40e185182585130eda",
+      "bytes": 32355
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\cv1729038-parent.json",
+      "sha256": "ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22",
+      "bytes": 57289
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\cv1729038-source.json",
+      "sha256": "b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc",
+      "bytes": 33421
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\cv1754620-audit.json",
+      "sha256": "8c52da176b472a79f63b7cce50f29ce66710718beea7631b1cf3b0a2a9910c73",
+      "bytes": 12132
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\cv1754620-parent.json",
+      "sha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+      "bytes": 32855
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\cv1754620-source.json",
+      "sha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+      "bytes": 23000
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\evidence\\figure-0001.png",
+      "sha256": "15dac224d26ee7b714840c547509f63bf772beb7ebc4a01716e6b812e37a6b7a",
+      "bytes": 18657
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\handoff.json",
+      "sha256": "fdbcba177307eb8ec7f3c968a5d0c6816955e52f0ebbb6a68205844700bf90ee",
+      "bytes": 11333
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\other-exact-unresolved-targets.json",
+      "sha256": "8488d3b3c85e89f13d3241a2f1d25db37a8373d783078143e4db446b6967b69c",
+      "bytes": 230526
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\packets\\chapter03-section009.json",
+      "sha256": "7f9f0369a2119a1937ee36b6a93338343687e12ba791b5494935b8ced6551637",
+      "bytes": 403948
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\packets\\chapter03-section026.json",
+      "sha256": "f83c4bb604f6e2ad0ded221c75291fa5caa4b27eeb09085464db006f7a939459",
+      "bytes": 213525
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\packets\\cv1729038-maker-request.json",
+      "sha256": "8daa37e39d25e2fd2b7daa8a8b9c13233d516d4954891130e9a139ad15d0452c",
+      "bytes": 57092
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\packets\\cv1729038-review-template.json",
+      "sha256": "3e66f8db36fd6bcd06f7537682598f8001a80f63087edb64a5ead34e789d9f95",
+      "bytes": 59310
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\packets\\cv1729038.json",
+      "sha256": "4bec42b7f31093130873dda4286c50bacc0a389f9eb6f2ee469612d535126399",
+      "bytes": 111268
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\packets\\cv1754620-maker-request.json",
+      "sha256": "8121c2e40e9771a0448290ffd1635b70aa578b56b062e511a13583a0609ea4da",
+      "bytes": 42976
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\packets\\cv1754620-review-template.json",
+      "sha256": "61361fc20bf17407545f6280dcde9ea33afb49dc97bbf2a836f2e4cf08104693",
+      "bytes": 40835
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\packets\\cv1754620.json",
+      "sha256": "3d40a5da4437c29ba57e0b4c125e3620e966ece61a74e6c8952c5963b021888f",
+      "bytes": 76582
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\preflight-verification.json",
+      "sha256": "da8a6b4c1be70b6ee5d052c0d6e96638a4c713396f105c606ba0815c7d43987e",
+      "bytes": 20029
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\preflight.mjs",
+      "sha256": "1427d0e42141a9a5fe91d01faac11a4237bbc1c5145ce8778b93d101227be0f9",
+      "bytes": 9757
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\prepare.py",
+      "sha256": "c38d452c0b10cdf312195bfc31b4fe224cb2a3a271c412e56f2b618f53c81734",
+      "bytes": 16333
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\read-only-claim-check.json",
+      "sha256": "db39c8db2f856502fed102ba053ffe088f06e42184ebc6f55ef4f089da554229",
+      "bytes": 593
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-ready109167-zero-20261028\\README.md",
+      "sha256": "fe7c26fa1c78cc2ad28fc7767485ce26e3a38da53caa734554f95671dcdb9999",
+      "bytes": 6668
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\html\\f1732253b75acaa51fe012a2\\source.html",
+      "sha256": "99c89512851ad2614183562f7aa009183c9e8b3effd8da32c0c36122b1df7622",
+      "bytes": 7954
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section005\\main.html",
+      "sha256": "a8b29bfd877b0a26785cbff4a38a388aafbaa29bc707e651313d2fe421b73299",
+      "bytes": 6668
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\b77513cf-676b-4a0b-9b37-2c7aba933835.json",
+      "sha256": "613c0fc3f56bc0f05551ee26f9eab8c523c86b36dd700f2365bb2d17da70607f",
+      "bytes": 76618
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots.mjs",
+      "sha256": "360298d7302fa17972f2460b93717ff274047624d80a7bef0bc7862c196bb077",
+      "bytes": 12728
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\CONTRACT.md",
+      "sha256": "05fc5c81bee7718d4e806245525a5d9aefaffb46865db3aae09c19e589afd080",
+      "bytes": 5270
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/8ebc6463-6f09-4861-b48f-1205fcb2ec55.json",
+      "sha256": "ad97c55c3a8e28ed119ec72a44986328e0ea5e90ed91fe40c2b71da1b8f1e5a4",
+      "bytes": 114952
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\6dd562f2-2025-47b3-a48d-e8c6e5fdd12b.json",
+      "sha256": "45f1c2b88386c1399694e54ad013fadfb741110a63df15eb8cdc9ea65e12f6a0",
+      "bytes": 214038
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-224-seven-20261028\\plan.json",
+      "sha256": "a4d0cbac93f9ce1a19cbce1ceb454be828df371c13b03175d4b31a16863ee309",
+      "bytes": 100074
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-27c68908ad22\\worktree\\artifacts\\a249-224-seven\\admission-0-preview.json",
+      "sha256": "48c10ee3063e57893f724f1ae8ceb4d0a799cb94d08d63d5daee915de0c98d72",
+      "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+      "bytes": 6316671
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-27c68908ad22\\worktree\\artifacts\\a249-224-seven\\admission-0-register.json",
+      "sha256": "264a068e7701ce74062f51dfe5a5d4437a70af6d2f6f583ddb63703f513702c4",
+      "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+      "bytes": 839317
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-27c68908ad22\\worktree\\artifacts\\a249-224-seven\\admission-1-preview.json",
+      "sha256": "48c10ee3063e57893f724f1ae8ceb4d0a799cb94d08d63d5daee915de0c98d72",
+      "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+      "bytes": 6316671
+    },
+    {
+      "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-27c68908ad22\\worktree\\artifacts\\a249-224-seven\\admission-1-register.json",
+      "sha256": "264a068e7701ce74062f51dfe5a5d4437a70af6d2f6f583ddb63703f513702c4",
+      "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+      "bytes": 839317
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/7721e646-88f5-4572-8deb-b2ced73aab27.json",
+      "sha256": "c0734e1738dacc1fe3b8142ff426dbca9589c4f317a36467035b2af27454e7a1",
+      "bytes": 115994
+    }
+  ]
+}
