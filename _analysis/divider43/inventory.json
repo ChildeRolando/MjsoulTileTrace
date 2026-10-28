@@ -1,0 +1,60 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "7387ca610bdd141716020904e04ebe9ef138885a5b0eed8c11900c67304fa40e",
+      "bytes": 3190
+    },
+    {
+      "path": "isolate-ascii-separators.py",
+      "sha256": "7181864edba97d37ea3bf17e7018ef92436b76e2b381d0a7ac733bbaf95c2402",
+      "bytes": 7557
+    },
+    {
+      "path": "test-separators.py",
+      "sha256": "ea1583a49130c31d0b64fc6e5337a1e1338cb287e1054a656812a995661f9717",
+      "bytes": 4376
+    },
+    {
+      "path": "verify-invariants.py",
+      "sha256": "969bd231076fb46c864d59582654ea870801c267109e2fec1f1fb9280f630f7e",
+      "bytes": 2088
+    },
+    {
+      "path": "verify-browser.py",
+      "sha256": "fb28fbf363e0c19050be4dae258e46bf3cde983ea9b0a1554415b2eecbf1e0d9",
+      "bytes": 6027
+    },
+    {
+      "path": "apply.mjs",
+      "sha256": "fcefc7398c48a175b40cc160cb0ea3ab8cb982cc4251bb9103e6f7dd7289b66f",
+      "bytes": 6779
+    },
+    {
+      "path": "application.json",
+      "sha256": "0abec00c6bf1b4f5771ac97863cd4f73e7c2b088abe92f90b5b8fb5346054d2a",
+      "bytes": 4003
+    },
+    {
+      "path": "invariants.json",
+      "sha256": "29ddc67e36509f35e9cf38dced06623421299e83e39d514aca5f9aa378588108",
+      "bytes": 197
+    },
+    {
+      "path": "browser.json",
+      "sha256": "2854533682e6af42817cf411429ada717f98edbf34004bb3db1c6836161dbe66",
+      "bytes": 3678
+    },
+    {
+      "path": "builder.after.mjs",
+      "sha256": "cc0c5e6aa6f26956af1dfb3c44ca2d4bc5552fd83efbb5e4a2a985f4d993c40e",
+      "bytes": 55041
+    },
+    {
+      "path": "package.py",
+      "sha256": "07e613c1abc305040045a8a2fbde0dfa8e8d3c92b630b8c64bc190aeba98e0dd",
+      "bytes": 776
+    }
+  ],
+  "bookContentIncluded": false
+}

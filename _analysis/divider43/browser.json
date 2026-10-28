@@ -1,0 +1,120 @@
+{
+  "verified": true,
+  "url": "http://127.0.0.1:8766/knowledge.html",
+  "htmlSha256": "f59bed9ed30b739bf7ea231b1150b177141d1066d2ca7db8b3762dd21b4b165d",
+  "visibleGroupsInDocument": 772,
+  "actualSamples": [
+    {
+      "id": "79-bilibili-cn-cv1689302-b3",
+      "chapter": "79-bilibili-cn-cv1689302-chapter",
+      "url": "http://127.0.0.1:8766/knowledge.html#79-bilibili-cn-cv1689302-b3",
+      "visible": true,
+      "spans": [
+        {
+          "length": 84,
+          "display": "block",
+          "whiteSpace": "pre",
+          "rectCount": 1,
+          "top": 12774.203125,
+          "bottom": 12807.34375,
+          "previousBottom": 12768.0625,
+          "nextTop": 12846.484375,
+          "separateBefore": true,
+          "separateAfter": true
+        },
+        {
+          "length": 84,
+          "display": "block",
+          "whiteSpace": "pre",
+          "rectCount": 1,
+          "top": 13006.1875,
+          "bottom": 13039.328125,
+          "previousBottom": 13000.046875,
+          "nextTop": 13078.46875,
+          "separateBefore": true,
+          "separateAfter": true
+        },
+        {
+          "length": 84,
+          "display": "block",
+          "whiteSpace": "pre",
+          "rectCount": 1,
+          "top": 13105.609375,
+          "bottom": 13138.75,
+          "previousBottom": 13099.46875,
+          "nextTop": 13177.890625,
+          "separateBefore": true,
+          "separateAfter": true
+        }
+      ],
+      "captionPresent": true,
+      "firstImageSrc": "http://127.0.0.1:8766/assets/79-bilibili-cn-cv1689302-b4.png",
+      "navigationCount": 258
+    },
+    {
+      "id": "79-bilibili-cn-cv1689331-b3",
+      "chapter": "79-bilibili-cn-cv1689331-chapter",
+      "url": "http://127.0.0.1:8766/knowledge.html#79-bilibili-cn-cv1689331-b3",
+      "visible": true,
+      "spans": [
+        {
+          "length": 84,
+          "display": "block",
+          "whiteSpace": "pre",
+          "rectCount": 1,
+          "top": 56.71875,
+          "bottom": 89.859375,
+          "previousBottom": 50.578125,
+          "nextTop": 129,
+          "separateBefore": true,
+          "separateAfter": true
+        },
+        {
+          "length": 84,
+          "display": "block",
+          "whiteSpace": "pre",
+          "rectCount": 1,
+          "top": 354.984375,
+          "bottom": 388.125,
+          "previousBottom": 348.84375,
+          "nextTop": 427.265625,
+          "separateBefore": true,
+          "separateAfter": true
+        },
+        {
+          "length": 84,
+          "display": "block",
+          "whiteSpace": "pre",
+          "rectCount": 1,
+          "top": 454.40625,
+          "bottom": 487.546875,
+          "previousBottom": 448.265625,
+          "nextTop": 531.6875,
+          "separateBefore": true,
+          "separateAfter": true
+        }
+      ],
+      "captionPresent": true,
+      "firstImageSrc": "http://127.0.0.1:8766/assets/79-bilibili-cn-cv1689331-b4.png",
+      "navigationCount": 258
+    }
+  ],
+  "imageChecks": [
+    {
+      "url": "http://127.0.0.1:8766/assets/79-bilibili-cn-cv1689302-b4.png",
+      "status": 200,
+      "bytes": 14693,
+      "sha256": "17f2755165aa68040ac6f816092442781b94c8cfb7c136ee179113fb071161de"
+    },
+    {
+      "url": "http://127.0.0.1:8766/assets/79-bilibili-cn-cv1689331-b4.png",
+      "status": 200,
+      "bytes": 4246,
+      "sha256": "e075e7e66159e3017da1a3c930f52515b18efc65976ffac5fd4cbb1762bad9e4"
+    }
+  ],
+  "allOriginalProtectedFilesUnchanged": true,
+  "newModelCalls": 0,
+  "formalActiveChanged": false,
+  "temporaryBrowserExited": true
+}

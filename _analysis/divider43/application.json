@@ -1,0 +1,84 @@
+{
+  "applied": true,
+  "scope": "Derived HTML display only; body/corpus/source mappings and immutable evidence unchanged",
+  "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T16-50-25-203Z",
+  "module": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-ascii-divider-layout-20261029/isolate-ascii-separators.py",
+    "sha256": "7181864edba97d37ea3bf17e7018ef92436b76e2b381d0a7ac733bbaf95c2402"
+  },
+  "regularExpression": "(?<!-)-{64,}(?!-)",
+  "minimumLength": 64,
+  "groups": 772,
+  "blocks": 541,
+  "chapters": 101,
+  "observedRunLengths": {
+    "69": 1,
+    "79": 5,
+    "84": 766
+  },
+  "before": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T16-50-25-203Z/knowledge.html",
+    "sha256": "b9a1fea4b71080e3d74eff4bc83dabf4842f93af9bff20644ae6662bef96465e"
+  },
+  "after": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T16-50-25-203Z/knowledge.html",
+    "sha256": "f59bed9ed30b739bf7ea231b1150b177141d1066d2ca7db8b3762dd21b4b165d"
+  },
+  "builderBefore": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.mjs",
+    "sha256": "ed561a97da59164893b476f64575ac300e53653aebebeb84efe682cfcc148a1b"
+  },
+  "builderAfter": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.mjs",
+    "sha256": "cc0c5e6aa6f26956af1dfb3c44ca2d4bc5552fd83efbb5e4a2a985f4d993c40e"
+  },
+  "protectedFiles": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-preview-current.json",
+      "sha256": "c63f69c1c3ce6a4730c2c2f47552a3f2c20c03c82ad2c665e2ca8671f5e34f84"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v43.json",
+      "sha256": "cd2f27408778da530d6d748112f46da6c14ce82d3cbbe340f9ef8f7d5bb0b721"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-web-candidate-selection.json",
+      "sha256": "bcf99e8c59c0fa93cb368c71f85a2b0e1448c7aaad6ea8aba4958d4364c157bb"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-candidate-selection.json",
+      "sha256": "82c654fc34a4e509c9878065684306246f61324879f64eef1dc7f9aef964f4f2"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/../review/textbook-corpus.json",
+      "sha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T16-50-25-203Z/textbook-corpus.json",
+      "sha256": "bbbb34f83033081e80752a45aca9575e08ebea6d79d2b44869416105090982d4"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T16-50-25-203Z/textbook-bodies.json",
+      "sha256": "017fff705a643dd7410a055581680e45227b5f05af6b64f5d2491c1017b02d05"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T16-50-25-203Z/knowledge-index.json",
+      "sha256": "7b11e521870354b18e84fd66e48e81641862547fa944e00dda25085e8f3e6b40"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T16-50-25-203Z/textbook-unit-map.json",
+      "sha256": "39a0b44263b0fcceacf665e69e5ad4b103281e5a7c725b22a376ffc3136212ac"
+    }
+  ],
+  "protectedFilesUnchanged": true,
+  "rendererModuleChanged": false,
+  "rebuildExactBeforePatch": true,
+  "rebuild": "E:/AgentData/Coach/knowledge/processing/integration/coac250-ascii-divider-layout-20261029/rebuild/knowledge.html",
+  "idempotent": true,
+  "nonWhitespaceAndExistingTagsAttributesUnchanged": true,
+  "sourceNotesAndImageLinksUnchanged": true,
+  "corpusId": "bd7a83525edb8cb69f27d8aa050dcb010047f79ae318748bdbe448d5b797836d",
+  "newModelCalls": 0,
+  "newReviewCalls": 0,
+  "formalActiveChanged": false
+}
