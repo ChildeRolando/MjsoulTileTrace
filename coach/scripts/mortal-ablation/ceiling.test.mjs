@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { BudgetLedger, BUDGETS, assertDataset, chooseVersion,writeOnce,save } from './ceiling-protocol.mjs';
 import { indexTextbook, retrieveTextbook } from './ceiling-textbook.mjs';
 import { pairedDifference, summarizeRows, decide } from './ceiling-report.mjs';
-import { decisionRequest,runDecision } from './ceiling-run.mjs';
+import { decisionRequest,runDecision,serviceFailureStreak } from './ceiling-run.mjs';
 import { hash,read } from './ceiling-protocol.mjs';
 import { assertStudySource,selfWindows,loadPreparationState,savePreparationState } from './ceiling-prepare.mjs';
 
@@ -93,6 +93,20 @@ describe('ceiling research boundaries', () => {
 // This fixture was produced through the real canonical/rules/facts projection,
 // not by inventing a looser version of the public schemas.
 describe('real projected case request and resume',()=>{
+  it('halts on unmapped provider failures and keeps every failed request spent',async()=>{
+    const c=JSON.parse(await readFile(new URL('./ceiling-case.fixture.json',import.meta.url),'utf8'));
+    const index=indexTextbook({units:[]}),out=await mkdtemp(join(tmpdir(),'ceiling-circuit-')),ledger=new BudgetLedger(out,{smoke:10});
+    const codes=['cli_unexpected_event','cli_unexpected_item','future_unmapped_diagnostic','must_not_dispatch'];let requests=0,streak=0;
+    const providerFactory=()=>({request:async()=>({status:'provider_error',failureCode:codes[requests++]})});
+    for(let i=0;i<codes.length;i++){
+      const row=await runDecision({out,ledger,c,arm:'A',version:'V0',index,key:'failure-'+i,bucket:'smoke',providerFactory});
+      streak=serviceFailureStreak(streak,row);if(streak>=3)break;
+    }
+    expect(requests).toBe(3);expect(ledger.snapshot()).toMatchObject({claimed:3,settled:3,unsettled:0});
+    await runDecision({out,ledger,c,arm:'A',version:'V0',index,key:'failure-0',bucket:'smoke',providerFactory});
+    expect(requests).toBe(3);expect(serviceFailureStreak(2,{status:'timeout'})).toBe(3);
+    expect(serviceFailureStreak(2,{status:'submitted'})).toBe(0);
+  });
   it('cannot expose privileged canaries, performs one request, validates citations and never repeats it',async()=>{
     const fixture=JSON.parse(await readFile(new URL('./ceiling-case.fixture.json',import.meta.url),'utf8')),c={...fixture,gameId:'GAME_CANARY',privateLabels:{answer:'LABEL_CANARY'},actualAction:'ACTUAL_CANARY',future:'FUTURE_CANARY',binding:{secret:'BINDING_CANARY'}};
     const index=indexTextbook({units:[{unitId:'u',chapterId:'c',chapterTitle:'牌效率',title:'牌效率',topics:['牌效率'],blocks:[{id:'p',type:'p',text:'没有其他因素时比较进张，但有威胁时比较安全性。'}]}]});

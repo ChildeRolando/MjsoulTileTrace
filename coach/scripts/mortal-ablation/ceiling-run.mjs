@@ -37,6 +37,13 @@ export function validateDecision(response,context){
   return valid.status==='valid'?{status:'submitted',attempt:{status:'submitted',submission:valid.submission}}:{status:'invalid_submission',attempt:{status:'invalid_submission'},reason:valid.reason};
 }
 
+export function serviceFailureStreak(previous,row){
+  // Provider diagnostic codes evolve. Unknown transport failures must also stop
+  // dispatch; a code allowlist previously missed unexpected CLI event/item diagnostics.
+  if(['provider_error','provider_unavailable','timeout'].includes(row.status))return previous+1;
+  return row.status==='submitted'?0:previous;
+}
+
 async function callModel({out,ledger,key,bucket,request,model,providerFactory}){
   const destination=join(out,'calls',key+'.json');
   if(ledger.claims.has(key)){
@@ -170,9 +177,8 @@ export async function runPhase(out,phase){
           }
         }
         const row=await runDecision({out,ledger,...j,index,key,bucket,override});results.push(row);
-        if(row.status==='provider_unavailable'||row.status==='provider_error'&&['rate_limited','connection_failed','server_error','cli_process_failed'].includes(row.failureCode)){
-          if(++serviceFailures>=3)throw Error('provider_service_unavailable_resume_unstarted_requests_after_recovery');
-        }else if(row.status==='submitted')serviceFailures=0;
+        serviceFailures=serviceFailureStreak(serviceFailures,row);
+        if(serviceFailures>=3)throw Error('provider_service_unavailable_resume_unstarted_requests_after_recovery');
       }}catch(e){stop=true;throw e;}
     }));
     const failed=workers.find(w=>w.status==='rejected');if(failed)throw failed.reason;
