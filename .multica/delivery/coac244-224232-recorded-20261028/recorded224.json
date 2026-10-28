@@ -1,0 +1,874 @@
+{
+  "canonical": "nemata-jp-chapter-224-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b27r1.json",
+    "sha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section005\\source.json",
+    "sha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+    "bytes": 26374
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.display.json",
+    "sha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+    "bytes": 34202
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json",
+    "sha256": "112ca259dd236a649e3fbbac885c5056452a262a1ecb47735faba6bf9049a3b2",
+    "bytes": 18385
+  },
+  "receipt": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-224-target-impact-reviewed-20261028.json",
+    "sha256": "20d624441531f37ebd9b69f5407c69dd03a5eedbc6390edc04fe51c108be4c20"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7d1efbaa-589f-4b2e-9199-28f7141f890b.json",
+    "sha256": "51549ca0d773aae36a5edee8757571b2f877c5cf82ab0886ffbe99793b9df0e4"
+  },
+  "actualCall": {
+    "callId": "7d1efbaa-589f-4b2e-9199-28f7141f890b",
+    "scope": "textbook-224-independent-bounded-review",
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter04-section005",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "success": true,
+    "usage": {
+      "inputTokens": 26966,
+      "cachedInputTokens": 0,
+      "outputTokens": 16318
+    },
+    "durationMs": 220011,
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "callerRequested": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-terra",
+        "--config",
+        "model_reasoning_effort=\"max\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-vGJ8Gt\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-vGJ8Gt\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-vGJ8Gt",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+          "sha256": "d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f",
+          "bytes": 39633
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png",
+          "sha256": "f006dd5fe35e1ac07983c550033637fa9bb6474ed7130ac14ebedcd514a7e2ba",
+          "bytes": 171002
+        }
+      ],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "binding": {
+      "canonical": "nemata-jp-chapter-224-1",
+      "productionSha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea",
+      "sourceFileSha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+      "parentSha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+      "parentAuditSha256": "112ca259dd236a649e3fbbac885c5056452a262a1ecb47735faba6bf9049a3b2",
+      "runtimeManifestSha256": "0d890d3bbfd3fe1dbe588f068e17de41312916c1d068d246d080d0ec6feaa973",
+      "scope": "224-independent-target-and-unknown-impact",
+      "authorizationComment": "01a181c4-730d-7821-8325-b8bc9e48a7cc"
+    },
+    "promptSha256": "65be2965b97a6842f2a6f4e87c990f17fb752caccd636f3c125398a11af2d142",
+    "semanticPromptSha256": "d6689b43fe2c86d5dd13429fa78c93a4e9104d2b8a9b8adb3e5244b1d5b0dbba",
+    "schemaSha256": "9cc0ea0ae21fabe152c0929ebfb17b95e3ec609ef28e75c0b97ad3ace2349b71",
+    "recordedAt": "2026-10-28T09:53:25.516Z"
+  },
+  "status": "needs-repair-or-uncertain",
+  "verification": {
+    "transportCompleted": true,
+    "repairPassed": false,
+    "limitedUnknownOkay": false,
+    "wholeChapterAccepted": false,
+    "modelReview": {
+      "targetChecks": [
+        {
+          "id": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "verdict": "needs-repair",
+          "evidence": "逐系列、逐巡核对105槽：＝表示候选约值基本可由图支持；！表示候选标为unknown，但图上有可辨约值；？表示候选标为unknown，本次不能确定能否可靠分辨，不以相邻点推算。各行依次为第1至15巡：\n流局率：＝ ＝ ＝ ＝ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n放铳率：？ ？ ？ ？ ？ ！ ！ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n和牌中自摸所占比例：＝ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n立直棒被没收率：＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝\n和牌率：＝ ＝ ＝ ＝ ＝ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n被他家自摸率：？ ？ ？ ？ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n和牌时一发比例：？ ？ ？ ？ ？ ！ ！ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝\n候选列出81个约值和24个unknown；其中至少7个unknown有可辨约值，故七系列定量转录仍不完整。第13巡和牌率约30的关键读数得到保留；两处自摸图例译名正确，图表约值也未擅加百分号。"
+        }
+      ],
+      "unknownImpacts": [
+        {
+          "unknownText": "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section005:b0003",
+            "modern-yabejp-ja:chapter04-section005:b0012",
+            "modern-yabejp-ja:chapter04-section005:b0013",
+            "modern-yabejp-ja:chapter04-section005:b0014"
+          ],
+          "authorClaim": "在一名尚未听牌的对手进攻、其余两人完全弃和的条件下，振听两面的和牌率与所示先制愚形立直的和牌率相近；作者据图认为第13巡约为30%，此前放过似乎有效。前面的判断还以不必考虑未和牌导致名次下滑的风险为前提。",
+          "disposition": "nonblocking-with-limits",
+          "evidence": "图中没有逐点精确数值，无法提供精确坐标本身不阻断作者依据近似读数作出的比较。第13巡和牌率的近似读数可辨，但当前表把若干可辨点留作unknown，仍需修复，不能把精确值缺失当作省略这些约值的理由。",
+          "requiredDisplayLimitations": [
+            "保留原图，并将表中读数明确标为按图读取的约值；不能辨认的点逐项保留unknown，不插值推算。",
+            "补齐图上可辨的遗漏点；修复前若展示当前表，须明确它是未完成的部分读数，不得称已读出全部105点。",
+            "保留作者的条件和“似乎有效”的语气，不将第13巡附近的近似比较改成无条件的确定建议。"
+          ]
+        },
+        {
+          "unknownText": "纵轴没有明确标注百分号或其他单位。",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section005:b0003",
+            "modern-yabejp-ja:chapter04-section005:b0013",
+            "modern-yabejp-ja:chapter04-section005:b0014"
+          ],
+          "authorClaim": "作者在正文中将第13巡的和牌率表述为约30%，并与前文约三成的里宝牌概率作比较。",
+          "disposition": "nonblocking-with-limits",
+          "evidence": "图的纵轴列有数值和“和了率等”，但没有明示单位；正文第13巡的30%有原文支持，不足以替整张图的所有纵轴读数补写单位。",
+          "requiredDisplayLimitations": [
+            "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+            "可保留正文明确写出的第13巡约30%，并使其来源和近似性质清楚。"
+          ]
+        }
+      ],
+      "contextContinuity": {
+        "verdict": "faithful",
+        "evidence": "上下文保留了一人进攻、其余两人弃和且该对手尚未听牌的模拟条件，以及第13巡约30%、此前放过似乎有效的论证强度；末段仍限定于不必考虑名次下滑风险的讨论。图表逐点遗漏需要修复，但不改变这些上下文关系。b0008沿用原审的源文数值疑点记录，不改判为翻译错误。"
+      },
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "description": "若干可从图上辨认的逐巡约值仍被标为unknown，导致七系列的定量转录不完整。应补录可辨点，对确实难辨的点继续保留unknown，不用插值填充。",
+          "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。"
+        },
+        {
+          "severity": "source-note",
+          "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+          "description": "继承原审对b0008的源文数值论证疑点；候选忠实保留作者数字和结论，不将其改判为翻译错误。",
+          "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；b0003给出的参照约为三成。此疑点按原审作为source-note保留。"
+        }
+      ],
+      "scopeComplete": "yes",
+      "summary": "本次所列图靶需要修复：可辨的逐巡约值仍有遗漏。两项保留unknown可在明确显示限制下保留；本结论不代表整章通过。"
+    }
+  },
+  "sourceBlockCount": 15,
+  "unchangedBodyBlocks": 15,
+  "unchangedNonTargetFigures": 0,
+  "targetChecks": [
+    {
+      "id": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+      "verdict": "needs-repair",
+      "evidence": "逐系列、逐巡核对105槽：＝表示候选约值基本可由图支持；！表示候选标为unknown，但图上有可辨约值；？表示候选标为unknown，本次不能确定能否可靠分辨，不以相邻点推算。各行依次为第1至15巡：\n流局率：＝ ＝ ＝ ＝ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n放铳率：？ ？ ？ ？ ？ ！ ！ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n和牌中自摸所占比例：＝ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n立直棒被没收率：＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝\n和牌率：＝ ＝ ＝ ＝ ＝ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n被他家自摸率：？ ？ ？ ？ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n和牌时一发比例：？ ？ ？ ？ ？ ！ ！ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝\n候选列出81个约值和24个unknown；其中至少7个unknown有可辨约值，故七系列定量转录仍不完整。第13巡和牌率约30的关键读数得到保留；两处自摸图例译名正确，图表约值也未擅加百分号。"
+    }
+  ],
+  "unknownImpacts": [
+    {
+      "unknownText": "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section005:b0003",
+        "modern-yabejp-ja:chapter04-section005:b0012",
+        "modern-yabejp-ja:chapter04-section005:b0013",
+        "modern-yabejp-ja:chapter04-section005:b0014"
+      ],
+      "authorClaim": "在一名尚未听牌的对手进攻、其余两人完全弃和的条件下，振听两面的和牌率与所示先制愚形立直的和牌率相近；作者据图认为第13巡约为30%，此前放过似乎有效。前面的判断还以不必考虑未和牌导致名次下滑的风险为前提。",
+      "disposition": "nonblocking-with-limits",
+      "evidence": "图中没有逐点精确数值，无法提供精确坐标本身不阻断作者依据近似读数作出的比较。第13巡和牌率的近似读数可辨，但当前表把若干可辨点留作unknown，仍需修复，不能把精确值缺失当作省略这些约值的理由。",
+      "requiredDisplayLimitations": [
+        "保留原图，并将表中读数明确标为按图读取的约值；不能辨认的点逐项保留unknown，不插值推算。",
+        "补齐图上可辨的遗漏点；修复前若展示当前表，须明确它是未完成的部分读数，不得称已读出全部105点。",
+        "保留作者的条件和“似乎有效”的语气，不将第13巡附近的近似比较改成无条件的确定建议。"
+      ]
+    },
+    {
+      "unknownText": "纵轴没有明确标注百分号或其他单位。",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section005:b0003",
+        "modern-yabejp-ja:chapter04-section005:b0013",
+        "modern-yabejp-ja:chapter04-section005:b0014"
+      ],
+      "authorClaim": "作者在正文中将第13巡的和牌率表述为约30%，并与前文约三成的里宝牌概率作比较。",
+      "disposition": "nonblocking-with-limits",
+      "evidence": "图的纵轴列有数值和“和了率等”，但没有明示单位；正文第13巡的30%有原文支持，不足以替整张图的所有纵轴读数补写单位。",
+      "requiredDisplayLimitations": [
+        "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+        "可保留正文明确写出的第13巡约30%，并使其来源和近似性质清楚。"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+      "description": "若干可从图上辨认的逐巡约值仍被标为unknown，导致七系列的定量转录不完整。应补录可辨点，对确实难辨的点继续保留unknown，不用插值填充。",
+      "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+      "description": "继承原审对b0008的源文数值论证疑点；候选忠实保留作者数字和结论，不将其改判为翻译错误。",
+      "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；b0003给出的参照约为三成。此疑点按原审作为source-note保留。"
+    }
+  ],
+  "originalParentIssues": [
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+      "sourceEvidence": "原图展示第1—15巡的流局率、放铳率、和了时自摸比例、立直棒没收率、和牌率、被自摸率及和了时一发比例七条曲线。",
+      "description": "候选仅记录曲线走势，以无法精确读取为由未转录逐巡近似值，遗漏可从图中读取的定量教学信息。未标注精确值不等于无法提供近似读数。",
+      "suggestedRepair": "补充第1—15巡、七个系列的近似读数表，所有读数明确标为约值，无法可靠分辨的个别点单独说明。例如第1巡和牌率约63%、流局率约10%；第13巡和牌率约30%；第15巡流局率约75%、和牌率约20%。继续保留原图及精确数值未标注的说明。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+      "sourceEvidence": "橙色图例为「和了時ツモ割合」，深绿色图例为「被ツモ率」。",
+      "description": "「和牌时摸入比例」「被摸入率」没有明确表达自摸和牌，尤其「被摸入率」无法清楚对应被他家自摸这一统计事件。",
+      "suggestedRepair": "分别改为「和牌中自摸所占比例」和「被他家自摸率」，并同步修正曲线说明及unknowns中的系列名称。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "modern-yabejp-ja:chapter04-section005:b0008",
+      "sourceEvidence": "源文先给出36.765%，再称其他家和牌概率为10%就会低于里宝牌率；前文里宝牌率约为三成。",
+      "description": "按前文公式及30%的参照值计算，36.765%×90%=33.0885%，尚未低于30%。这是源文数值论证的疑点，候选忠实保留，不属于翻译错误。",
+      "suggestedRepair": "保留忠实译文；如添加校注，应明确这是原文数值疑点，不要静默修改原文概率或结论。"
+    }
+  ],
+  "residual": {
+    "kind": "current-quantitative-omission",
+    "chartSlots": [
+      {
+        "series": "放铳率",
+        "turn": 6,
+        "makerRawPointer": "/output/rows/1/values/5",
+        "current": "unknown",
+        "reviewApproximation": "约15—16",
+        "sourceEvidencePointer": "/issues/0/sourceEvidence",
+        "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。",
+        "proposedOnly": true
+      },
+      {
+        "series": "放铳率",
+        "turn": 7,
+        "makerRawPointer": "/output/rows/1/values/6",
+        "current": "unknown",
+        "reviewApproximation": "约15—16",
+        "sourceEvidencePointer": "/issues/0/sourceEvidence",
+        "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。",
+        "proposedOnly": true
+      },
+      {
+        "series": "和牌中自摸所占比例",
+        "turn": 6,
+        "makerRawPointer": "/output/rows/2/values/5",
+        "current": "unknown",
+        "reviewApproximation": "约49",
+        "sourceEvidencePointer": "/issues/0/sourceEvidence",
+        "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。",
+        "proposedOnly": true
+      },
+      {
+        "series": "立直棒被没收率",
+        "turn": 12,
+        "makerRawPointer": "/output/rows/3/values/11",
+        "current": "unknown",
+        "reviewApproximation": "约20—21",
+        "sourceEvidencePointer": "/issues/0/sourceEvidence",
+        "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。",
+        "proposedOnly": true
+      },
+      {
+        "series": "和牌时一发比例",
+        "turn": 6,
+        "makerRawPointer": "/output/rows/6/values/5",
+        "current": "unknown",
+        "reviewApproximation": "约16—17",
+        "sourceEvidencePointer": "/issues/0/sourceEvidence",
+        "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。",
+        "proposedOnly": true
+      },
+      {
+        "series": "和牌时一发比例",
+        "turn": 7,
+        "makerRawPointer": "/output/rows/6/values/6",
+        "current": "unknown",
+        "reviewApproximation": "约16—17",
+        "sourceEvidencePointer": "/issues/0/sourceEvidence",
+        "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。",
+        "proposedOnly": true
+      },
+      {
+        "series": "和牌时一发比例",
+        "turn": 12,
+        "makerRawPointer": "/output/rows/6/values/11",
+        "current": "unknown",
+        "reviewApproximation": "约22",
+        "sourceEvidencePointer": "/issues/0/sourceEvidence",
+        "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。",
+        "proposedOnly": true
+      }
+    ],
+    "existingReadings": 81,
+    "currentUnknownSlots": 24,
+    "minimumKnownOmissions": 7,
+    "remainingSlotUnknownsAfterOnlyTheseSeven": 17,
+    "makerDataOriginal": {
+      "sourceBlockId": "modern-yabejp-ja:chapter04-section005:b0013",
+      "rows": [
+        {
+          "series": "流局率",
+          "values": [
+            "约10",
+            "约11",
+            "约12",
+            "约13",
+            "unknown",
+            "约18",
+            "约20",
+            "约23",
+            "约27",
+            "约32",
+            "约39",
+            "约46",
+            "约55",
+            "约65",
+            "约75"
+          ]
+        },
+        {
+          "series": "放铳率",
+          "values": [
+            "unknown",
+            "unknown",
+            "unknown",
+            "unknown",
+            "unknown",
+            "unknown",
+            "unknown",
+            "约16",
+            "约15",
+            "约14",
+            "约12",
+            "约10",
+            "约7",
+            "约5",
+            "约3"
+          ]
+        },
+        {
+          "series": "和牌中自摸所占比例",
+          "values": [
+            "约49",
+            "约49",
+            "约49",
+            "约49",
+            "约49",
+            "unknown",
+            "约49",
+            "约49",
+            "约49",
+            "约49",
+            "约49",
+            "约49",
+            "约49",
+            "约49",
+            "约49"
+          ]
+        },
+        {
+          "series": "立直棒被没收率",
+          "values": [
+            "约28",
+            "约30",
+            "约32",
+            "约34",
+            "约35",
+            "约35",
+            "约35",
+            "约35",
+            "约32",
+            "约29",
+            "约25",
+            "unknown",
+            "约16",
+            "约10",
+            "约6"
+          ]
+        },
+        {
+          "series": "和牌率",
+          "values": [
+            "约63",
+            "约60",
+            "约57",
+            "约54",
+            "约51",
+            "unknown",
+            "约46",
+            "约44",
+            "约41",
+            "约39",
+            "约37",
+            "约34",
+            "约30",
+            "约26",
+            "约21"
+          ]
+        },
+        {
+          "series": "被他家自摸率",
+          "values": [
+            "unknown",
+            "unknown",
+            "unknown",
+            "unknown",
+            "unknown",
+            "约14",
+            "约14",
+            "约14",
+            "约13",
+            "约12",
+            "约10",
+            "约8",
+            "约6",
+            "约3",
+            "约1"
+          ]
+        },
+        {
+          "series": "和牌时一发比例",
+          "values": [
+            "unknown",
+            "unknown",
+            "unknown",
+            "unknown",
+            "unknown",
+            "unknown",
+            "unknown",
+            "约18",
+            "约19",
+            "约19",
+            "约20",
+            "unknown",
+            "约25",
+            "约30",
+            "约37"
+          ]
+        }
+      ]
+    },
+    "rendererSha256": "1b6579d6eed480d955d82bbad0279756d415421c1b5482a66d9d82c002c38909",
+    "unknownPreciseCoordinatesAndUnitPreserved": [
+      "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+      "纵轴没有明确标注百分号或其他单位。"
+    ],
+    "limits": [
+      "保留原图，并将表中读数明确标为按图读取的约值；不能辨认的点逐项保留unknown，不插值推算。",
+      "补齐图上可辨的遗漏点；修复前若展示当前表，须明确它是未完成的部分读数，不得称已读出全部105点。",
+      "保留作者的条件和“似乎有效”的语气，不将第13巡附近的近似比较改成无条件的确定建议。",
+      "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+      "可保留正文明确写出的第13巡约30%，并使其来源和近似性质清楚。"
+    ],
+    "nextProposal": {
+      "authorized": false,
+      "makerMaximum": 1,
+      "targetReviewMaximum": 1,
+      "newCallsMaximum": 2,
+      "retry": 0,
+      "failedVoidCount": true,
+      "target": "Only the seven listed cells and the corresponding derived transcript through an authorized frozen renderer; protect all other cells, units, legends, source-note and all 15 body blocks. Range endpoints must not be selected by the controller. No interpolation or review evidence masquerading as a maker output.",
+      "context": "Bind original seven series/105-slot maker data, complete original graph and same-pixel view, all 15 source/candidate blocks and b0003/b0012-b0014 author conditions. Audit only changed values plus unchanged-range evidence; do not repeat all 105 slots."
+    }
+  },
+  "fullTargetFigureSha256": "627d84ccb26c0b23b6ee08391aad877f3514e40e3d1f2dd9870c52b0c29083c3",
+  "phaseBudget": {
+    "maker": 1,
+    "review": 1,
+    "maximum": 2,
+    "remaining": 0,
+    "failedVoidCount": true,
+    "retry": 0
+  },
+  "dependencies": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-224-target-impact-reviewed-20261028.json",
+      "sha256": "20d624441531f37ebd9b69f5407c69dd03a5eedbc6390edc04fe51c108be4c20"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-224-scope-inheritance-20261028.json",
+      "sha256": "e9b87d53957533391e300056d4e680ee6e7266ee238e0af1569127331a18d28d"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-224-display-and-residual-20261028.json",
+      "sha256": "7827175073c2bb76c348dc33a13eff8aca026da9e553e55d13f630c1580cf8e5"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7d1efbaa-589f-4b2e-9199-28f7141f890b.json",
+      "sha256": "51549ca0d773aae36a5edee8757571b2f877c5cf82ab0886ffbe99793b9df0e4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b27r1.json",
+      "sha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section005\\source.json",
+      "sha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+      "bytes": 26374
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.display.json",
+      "sha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+      "bytes": 34202
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json",
+      "sha256": "112ca259dd236a649e3fbbac885c5056452a262a1ecb47735faba6bf9049a3b2",
+      "bytes": 18385
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-224-target-impact-20261028\\plan.json",
+      "sha256": "f4cac6611536e0224a7a95937abc8c1056243fdd8cc460f2ee84c6a660dfcef9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\runtime-manifest.json",
+      "sha256": "0d890d3bbfd3fe1dbe588f068e17de41312916c1d068d246d080d0ec6feaa973",
+      "files": 32
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-224232-224-handoff-249-20261028.json",
+      "sha256": "739f79f3910de97a3aca1321696e8fa48991482fe740a2770b879f334c1db16e"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/7721e646-88f5-4572-8deb-b2ced73aab27.json",
+      "sha256": "c0734e1738dacc1fe3b8142ff426dbca9589c4f317a36467035b2af27454e7a1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\224-packet.json",
+      "sha256": "b2edbadd419cf327c241845ec7978181a97f750c23e62e34e2f499011ae84e61",
+      "bytes": 67575
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\232-packet.json",
+      "sha256": "f4b4a8858af471b02322a29c405108098ad18de16a7f8f6d66e0e36574647cb8",
+      "bytes": 71487
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\capability-evidence.json",
+      "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2",
+      "bytes": 594
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\pair-contract.json",
+      "sha256": "12002152e29b720166e3355fa2f9f030b59491e63a57230f84a4f72d3afa27f4",
+      "bytes": 4538
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\pair.mjs",
+      "sha256": "1b6579d6eed480d955d82bbad0279756d415421c1b5482a66d9d82c002c38909",
+      "bytes": 23606
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\production-schema.mjs",
+      "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9",
+      "bytes": 3961
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-definition.mjs",
+      "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711",
+      "bytes": 5213
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-legacy.mjs",
+      "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619",
+      "bytes": 19381
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-pdf-layout.mjs",
+      "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06",
+      "bytes": 20673
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05",
+      "bytes": 14311
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-pdf-native-structure-corrections.mjs",
+      "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b",
+      "bytes": 22532
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-pdf-native.mjs",
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa",
+      "bytes": 9877
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-pdf-scope.mjs",
+      "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf",
+      "bytes": 3802
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff",
+      "bytes": 1990
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30",
+      "bytes": 15858
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-verification-dependencies.mjs",
+      "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08",
+      "bytes": 7384
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-web-batches.mjs",
+      "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69",
+      "bytes": 7061
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221",
+      "bytes": 20969
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-web.mjs",
+      "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b",
+      "bytes": 165915
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit.mjs",
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838",
+      "bytes": 84017
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7",
+      "bytes": 14045
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-pdf-flow.mjs",
+      "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3",
+      "bytes": 8112
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb",
+      "bytes": 5297
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-dictionary.mjs",
+      "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824",
+      "bytes": 7251
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-formal.mjs",
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd",
+      "bytes": 9385
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-labels.mjs",
+      "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274",
+      "bytes": 3726
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1",
+      "bytes": 2781
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-sources.py",
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f",
+      "bytes": 19235
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+      "bytes": 2089
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web.mjs",
+      "sha256": "07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf",
+      "bytes": 36385
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production.mjs",
+      "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355",
+      "bytes": 54676
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\verification-dependencies.json",
+      "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68",
+      "bytes": 1404
+    }
+  ],
+  "archive": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-224-target-impact-reviewed-20261028.json",
+      "sha256": "20d624441531f37ebd9b69f5407c69dd03a5eedbc6390edc04fe51c108be4c20",
+      "copy": "evidence/224e0.json"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-224-scope-inheritance-20261028.json",
+      "sha256": "e9b87d53957533391e300056d4e680ee6e7266ee238e0af1569127331a18d28d",
+      "copy": "evidence/224e1.json"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-224-display-and-residual-20261028.json",
+      "sha256": "7827175073c2bb76c348dc33a13eff8aca026da9e553e55d13f630c1580cf8e5",
+      "copy": "evidence/224e2.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7d1efbaa-589f-4b2e-9199-28f7141f890b.json",
+      "sha256": "51549ca0d773aae36a5edee8757571b2f877c5cf82ab0886ffbe99793b9df0e4",
+      "copy": "evidence/224e3.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b27r1.json",
+      "sha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea",
+      "copy": "evidence/224e4.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section005\\source.json",
+      "sha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+      "bytes": 26374,
+      "copy": "evidence/224e5.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.display.json",
+      "sha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+      "bytes": 34202,
+      "copy": "evidence/224e6.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json",
+      "sha256": "112ca259dd236a649e3fbbac885c5056452a262a1ecb47735faba6bf9049a3b2",
+      "bytes": 18385,
+      "copy": "evidence/224e7.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-224-target-impact-20261028\\plan.json",
+      "sha256": "f4cac6611536e0224a7a95937abc8c1056243fdd8cc460f2ee84c6a660dfcef9",
+      "copy": "evidence/224e8.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\runtime-manifest.json",
+      "sha256": "0d890d3bbfd3fe1dbe588f068e17de41312916c1d068d246d080d0ec6feaa973",
+      "files": 32,
+      "copy": "evidence/224e9.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-224232-224-handoff-249-20261028.json",
+      "sha256": "739f79f3910de97a3aca1321696e8fa48991482fe740a2770b879f334c1db16e",
+      "copy": "evidence/224e10.json"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/7721e646-88f5-4572-8deb-b2ced73aab27.json",
+      "sha256": "c0734e1738dacc1fe3b8142ff426dbca9589c4f317a36467035b2af27454e7a1",
+      "copy": "evidence/224e11.json"
+    }
+  ],
+  "admissionGranted": false,
+  "wholeChapterPassed": false,
+  "limitsInstalled": false,
+  "originalRequestAndProductionChainVerified": true,
+  "uniqueLedger": true,
+  "newCalls": 0,
+  "newConsumers": 0,
+  "fee": "unknown",
+  "upstreamExecutions": "unknown",
+  "remoteWeights": "unknown"
+}

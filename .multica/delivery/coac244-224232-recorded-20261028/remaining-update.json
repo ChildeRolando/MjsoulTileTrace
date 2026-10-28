@@ -1,0 +1,537 @@
+{
+  "scope": "only exact224/232; global coverage remains owned by250",
+  "items": [
+    {
+      "canonical": "nemata-jp-chapter-224-1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b27r1.json",
+        "sha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea"
+      },
+      "receipt": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-224-target-impact-reviewed-20261028.json",
+        "sha256": "20d624441531f37ebd9b69f5407c69dd03a5eedbc6390edc04fe51c108be4c20"
+      },
+      "residual": {
+        "kind": "current-quantitative-omission",
+        "chartSlots": [
+          {
+            "series": "放铳率",
+            "turn": 6,
+            "makerRawPointer": "/output/rows/1/values/5",
+            "current": "unknown",
+            "reviewApproximation": "约15—16",
+            "sourceEvidencePointer": "/issues/0/sourceEvidence",
+            "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。",
+            "proposedOnly": true
+          },
+          {
+            "series": "放铳率",
+            "turn": 7,
+            "makerRawPointer": "/output/rows/1/values/6",
+            "current": "unknown",
+            "reviewApproximation": "约15—16",
+            "sourceEvidencePointer": "/issues/0/sourceEvidence",
+            "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。",
+            "proposedOnly": true
+          },
+          {
+            "series": "和牌中自摸所占比例",
+            "turn": 6,
+            "makerRawPointer": "/output/rows/2/values/5",
+            "current": "unknown",
+            "reviewApproximation": "约49",
+            "sourceEvidencePointer": "/issues/0/sourceEvidence",
+            "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。",
+            "proposedOnly": true
+          },
+          {
+            "series": "立直棒被没收率",
+            "turn": 12,
+            "makerRawPointer": "/output/rows/3/values/11",
+            "current": "unknown",
+            "reviewApproximation": "约20—21",
+            "sourceEvidencePointer": "/issues/0/sourceEvidence",
+            "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。",
+            "proposedOnly": true
+          },
+          {
+            "series": "和牌时一发比例",
+            "turn": 6,
+            "makerRawPointer": "/output/rows/6/values/5",
+            "current": "unknown",
+            "reviewApproximation": "约16—17",
+            "sourceEvidencePointer": "/issues/0/sourceEvidence",
+            "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。",
+            "proposedOnly": true
+          },
+          {
+            "series": "和牌时一发比例",
+            "turn": 7,
+            "makerRawPointer": "/output/rows/6/values/6",
+            "current": "unknown",
+            "reviewApproximation": "约16—17",
+            "sourceEvidencePointer": "/issues/0/sourceEvidence",
+            "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。",
+            "proposedOnly": true
+          },
+          {
+            "series": "和牌时一发比例",
+            "turn": 12,
+            "makerRawPointer": "/output/rows/6/values/11",
+            "current": "unknown",
+            "reviewApproximation": "约22",
+            "sourceEvidencePointer": "/issues/0/sourceEvidence",
+            "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。",
+            "proposedOnly": true
+          }
+        ],
+        "existingReadings": 81,
+        "currentUnknownSlots": 24,
+        "minimumKnownOmissions": 7,
+        "remainingSlotUnknownsAfterOnlyTheseSeven": 17,
+        "makerDataOriginal": {
+          "sourceBlockId": "modern-yabejp-ja:chapter04-section005:b0013",
+          "rows": [
+            {
+              "series": "流局率",
+              "values": [
+                "约10",
+                "约11",
+                "约12",
+                "约13",
+                "unknown",
+                "约18",
+                "约20",
+                "约23",
+                "约27",
+                "约32",
+                "约39",
+                "约46",
+                "约55",
+                "约65",
+                "约75"
+              ]
+            },
+            {
+              "series": "放铳率",
+              "values": [
+                "unknown",
+                "unknown",
+                "unknown",
+                "unknown",
+                "unknown",
+                "unknown",
+                "unknown",
+                "约16",
+                "约15",
+                "约14",
+                "约12",
+                "约10",
+                "约7",
+                "约5",
+                "约3"
+              ]
+            },
+            {
+              "series": "和牌中自摸所占比例",
+              "values": [
+                "约49",
+                "约49",
+                "约49",
+                "约49",
+                "约49",
+                "unknown",
+                "约49",
+                "约49",
+                "约49",
+                "约49",
+                "约49",
+                "约49",
+                "约49",
+                "约49",
+                "约49"
+              ]
+            },
+            {
+              "series": "立直棒被没收率",
+              "values": [
+                "约28",
+                "约30",
+                "约32",
+                "约34",
+                "约35",
+                "约35",
+                "约35",
+                "约35",
+                "约32",
+                "约29",
+                "约25",
+                "unknown",
+                "约16",
+                "约10",
+                "约6"
+              ]
+            },
+            {
+              "series": "和牌率",
+              "values": [
+                "约63",
+                "约60",
+                "约57",
+                "约54",
+                "约51",
+                "unknown",
+                "约46",
+                "约44",
+                "约41",
+                "约39",
+                "约37",
+                "约34",
+                "约30",
+                "约26",
+                "约21"
+              ]
+            },
+            {
+              "series": "被他家自摸率",
+              "values": [
+                "unknown",
+                "unknown",
+                "unknown",
+                "unknown",
+                "unknown",
+                "约14",
+                "约14",
+                "约14",
+                "约13",
+                "约12",
+                "约10",
+                "约8",
+                "约6",
+                "约3",
+                "约1"
+              ]
+            },
+            {
+              "series": "和牌时一发比例",
+              "values": [
+                "unknown",
+                "unknown",
+                "unknown",
+                "unknown",
+                "unknown",
+                "unknown",
+                "unknown",
+                "约18",
+                "约19",
+                "约19",
+                "约20",
+                "unknown",
+                "约25",
+                "约30",
+                "约37"
+              ]
+            }
+          ]
+        },
+        "rendererSha256": "1b6579d6eed480d955d82bbad0279756d415421c1b5482a66d9d82c002c38909",
+        "unknownPreciseCoordinatesAndUnitPreserved": [
+          "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+          "纵轴没有明确标注百分号或其他单位。"
+        ],
+        "limits": [
+          "保留原图，并将表中读数明确标为按图读取的约值；不能辨认的点逐项保留unknown，不插值推算。",
+          "补齐图上可辨的遗漏点；修复前若展示当前表，须明确它是未完成的部分读数，不得称已读出全部105点。",
+          "保留作者的条件和“似乎有效”的语气，不将第13巡附近的近似比较改成无条件的确定建议。",
+          "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+          "可保留正文明确写出的第13巡约30%，并使其来源和近似性质清楚。"
+        ],
+        "nextProposal": {
+          "authorized": false,
+          "makerMaximum": 1,
+          "targetReviewMaximum": 1,
+          "newCallsMaximum": 2,
+          "retry": 0,
+          "failedVoidCount": true,
+          "target": "Only the seven listed cells and the corresponding derived transcript through an authorized frozen renderer; protect all other cells, units, legends, source-note and all 15 body blocks. Range endpoints must not be selected by the controller. No interpolation or review evidence masquerading as a maker output.",
+          "context": "Bind original seven series/105-slot maker data, complete original graph and same-pixel view, all 15 source/candidate blocks and b0003/b0012-b0014 author conditions. Audit only changed values plus unchanged-range evidence; do not repeat all 105 slots."
+        }
+      },
+      "originalChecks": {
+        "transportCompleted": true,
+        "repairPassed": false,
+        "limitedUnknownOkay": false,
+        "wholeChapterAccepted": false,
+        "modelReview": {
+          "targetChecks": [
+            {
+              "id": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+              "verdict": "needs-repair",
+              "evidence": "逐系列、逐巡核对105槽：＝表示候选约值基本可由图支持；！表示候选标为unknown，但图上有可辨约值；？表示候选标为unknown，本次不能确定能否可靠分辨，不以相邻点推算。各行依次为第1至15巡：\n流局率：＝ ＝ ＝ ＝ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n放铳率：？ ？ ？ ？ ？ ！ ！ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n和牌中自摸所占比例：＝ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n立直棒被没收率：＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝\n和牌率：＝ ＝ ＝ ＝ ＝ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n被他家自摸率：？ ？ ？ ？ ？ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝ ＝\n和牌时一发比例：？ ？ ？ ？ ？ ！ ！ ＝ ＝ ＝ ＝ ！ ＝ ＝ ＝\n候选列出81个约值和24个unknown；其中至少7个unknown有可辨约值，故七系列定量转录仍不完整。第13巡和牌率约30的关键读数得到保留；两处自摸图例译名正确，图表约值也未擅加百分号。"
+            }
+          ],
+          "unknownImpacts": [
+            {
+              "unknownText": "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section005:b0003",
+                "modern-yabejp-ja:chapter04-section005:b0012",
+                "modern-yabejp-ja:chapter04-section005:b0013",
+                "modern-yabejp-ja:chapter04-section005:b0014"
+              ],
+              "authorClaim": "在一名尚未听牌的对手进攻、其余两人完全弃和的条件下，振听两面的和牌率与所示先制愚形立直的和牌率相近；作者据图认为第13巡约为30%，此前放过似乎有效。前面的判断还以不必考虑未和牌导致名次下滑的风险为前提。",
+              "disposition": "nonblocking-with-limits",
+              "evidence": "图中没有逐点精确数值，无法提供精确坐标本身不阻断作者依据近似读数作出的比较。第13巡和牌率的近似读数可辨，但当前表把若干可辨点留作unknown，仍需修复，不能把精确值缺失当作省略这些约值的理由。",
+              "requiredDisplayLimitations": [
+                "保留原图，并将表中读数明确标为按图读取的约值；不能辨认的点逐项保留unknown，不插值推算。",
+                "补齐图上可辨的遗漏点；修复前若展示当前表，须明确它是未完成的部分读数，不得称已读出全部105点。",
+                "保留作者的条件和“似乎有效”的语气，不将第13巡附近的近似比较改成无条件的确定建议。"
+              ]
+            },
+            {
+              "unknownText": "纵轴没有明确标注百分号或其他单位。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section005:b0003",
+                "modern-yabejp-ja:chapter04-section005:b0013",
+                "modern-yabejp-ja:chapter04-section005:b0014"
+              ],
+              "authorClaim": "作者在正文中将第13巡的和牌率表述为约30%，并与前文约三成的里宝牌概率作比较。",
+              "disposition": "nonblocking-with-limits",
+              "evidence": "图的纵轴列有数值和“和了率等”，但没有明示单位；正文第13巡的30%有原文支持，不足以替整张图的所有纵轴读数补写单位。",
+              "requiredDisplayLimitations": [
+                "图表转录和逐巡约值表不自行给纵轴读数添加百分号或其他单位。",
+                "可保留正文明确写出的第13巡约30%，并使其来源和近似性质清楚。"
+              ]
+            }
+          ],
+          "contextContinuity": {
+            "verdict": "faithful",
+            "evidence": "上下文保留了一人进攻、其余两人弃和且该对手尚未听牌的模拟条件，以及第13巡约30%、此前放过似乎有效的论证强度；末段仍限定于不必考虑名次下滑风险的讨论。图表逐点遗漏需要修复，但不改变这些上下文关系。b0008沿用原审的源文数值疑点记录，不改判为翻译错误。"
+          },
+          "issues": [
+            {
+              "severity": "error",
+              "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+              "description": "若干可从图上辨认的逐巡约值仍被标为unknown，导致七系列的定量转录不完整。应补录可辨点，对确实难辨的点继续保留unknown，不用插值填充。",
+              "sourceEvidence": "图上放铳率第6、7巡约在15—16附近；和牌中自摸所占比例第6巡约49；立直棒被没收率第12巡约20—21；和牌时一发比例第6、7巡约16—17、第12巡约22。以上均为对应巡目的图上近似读数。"
+            },
+            {
+              "severity": "source-note",
+              "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+              "description": "继承原审对b0008的源文数值论证疑点；候选忠实保留作者数字和结论，不将其改判为翻译错误。",
+              "sourceEvidence": "b0008给出36.765%后称其他家和牌概率为10%就会低于里宝牌率；b0003给出的参照约为三成。此疑点按原审作为source-note保留。"
+            }
+          ],
+          "scopeComplete": "yes",
+          "summary": "本次所列图靶需要修复：可辨的逐巡约值仍有遗漏。两项保留unknown可在明确显示限制下保留；本结论不代表整章通过。"
+        }
+      },
+      "admissionGranted": false
+    },
+    {
+      "canonical": "nemata-jp-chapter-232-1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+        "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb"
+      },
+      "receipt": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-target-impact-reviewed-20261028.json",
+        "sha256": "5ed3b5117151b9cf5555d223d714131c5593f1f9042c6e91a9bb005a68fbb9ea"
+      },
+      "residual": {
+        "kind": "retained-unknown-with-explicit-independent-blocking",
+        "resolvedTextTargets": [
+          {
+            "id": "modern-yabejp-ja:chapter04-section012:b0002",
+            "verdict": "faithful",
+            "evidence": "译文保留了不考虑打点、以最快和牌为目标的技术及其使用频率和成功率较高的理由。“確和了でも構わない”已译为以不改变当前名次的和牌结束比赛也无妨，未误作确保能够和牌；平均四次一次及判断技术7链接也保留。"
+          },
+          {
+            "id": "modern-yabejp-ja:chapter04-section012:b0004",
+            "verdict": "faithful",
+            "evidence": "译文保留第二名自摸满贯可升第一、但与第三及第四名分差很小的条件；起手牌或摸牌有利时争取反超，否则追求最快和牌。下位者自摸满贯仍不改变名次时尽量争取反超，以及庄家优先一次反超的判断均保留。"
+          }
+        ],
+        "confirmed3sEvidence": "本家手牌从左数第7张已正确修为3s，分开的摸入牌仍为3p；可见席位分数及牌例与原图一致。右侧牌河第二张仍只标为点数无法辨认的万子，原审对该逐牌缺口的阻断尚未解除。",
+        "blockingUnknown": {
+          "unknownText": "右侧牌河从上数第2张为万子，但无法可靠辨认具体点数。",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section012:b0004",
+            "modern-yabejp-ja:chapter04-section012:b0005",
+            "modern-yabejp-ja:chapter04-section012:b0006",
+            "modern-yabejp-ja:chapter04-section012:b0007",
+            "modern-yabejp-ja:chapter04-section012:b0008",
+            "modern-yabejp-ja:chapter04-section012:b0009",
+            "modern-yabejp-ja:chapter04-section012:b0010"
+          ],
+          "authorClaim": "作者借牌例说明：下位者自摸满贯也无法反超时，打白并尽量门清争取反超；与下位者分差很小时，同样打白，但可鸣牌做食断。图中的可见牌还承载牌型分析。",
+          "disposition": "blocking",
+          "evidence": "该未知不改写作者明示的名次条件或打白建议，但阻断右侧牌河的完整逐牌核对，以及任何依赖该张点数或赤色情况的可见牌数量和牌效率结论。父审要求该缺口确认前保持阻断。",
+          "requiredDisplayLimitations": [
+            "保留原图，并明确标示右侧牌河第二张万子的点数未知；不得猜测具体牌码或赤色情况。",
+            "不得将该图标示为已完成逐牌核验的完整牌例，也不得依据该未知牌给出牌数或效率结论。",
+            "可引用作者明示的策略，但须同时保留牌例仍有逐牌核验缺口的提示。"
+          ]
+        },
+        "otherLimitedUnknowns": [
+          {
+            "unknownText": "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0004",
+              "modern-yabejp-ja:chapter04-section012:b0005",
+              "modern-yabejp-ja:chapter04-section012:b0006",
+              "modern-yabejp-ja:chapter04-section012:b0008",
+              "modern-yabejp-ja:chapter04-section012:b0010"
+            ],
+            "authorClaim": "作者根据名次及下位者自摸满贯是否会反超，区分争取反超和优先快速和牌的做牌路线；图例用于说明该判断。",
+            "disposition": "nonblocking-with-limits",
+            "evidence": "图中可记录两个显示为0的计数，但小图标的身份未确认，不能据此确定各自对应的计数项目。作者给出的名次条件和策略仍可作为原文判断呈现。",
+            "requiredDisplayLimitations": [
+              "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+              "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。"
+            ]
+          },
+          {
+            "unknownText": "中央分数周围的玩家名及段位小字无法完整可靠辨认。",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0004",
+              "modern-yabejp-ja:chapter04-section012:b0005",
+              "modern-yabejp-ja:chapter04-section012:b0006",
+              "modern-yabejp-ja:chapter04-section012:b0008",
+              "modern-yabejp-ja:chapter04-section012:b0010"
+            ],
+            "authorClaim": "作者以席位、分数、手牌和名次条件说明打白及不同分差下的做牌选择，并不依赖玩家姓名或段位。",
+            "disposition": "nonblocking-with-limits",
+            "evidence": "玩家名及段位小字未能完整辨认，不影响按图中可见席位与分数呈现作者的条件性策略；但不能据此补写玩家身份或段位。",
+            "requiredDisplayLimitations": [
+              "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+              "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+            ]
+          }
+        ],
+        "limits": [
+          "保留原图，并明确标示右侧牌河第二张万子的点数未知；不得猜测具体牌码或赤色情况。",
+          "不得将该图标示为已完成逐牌核验的完整牌例，也不得依据该未知牌给出牌数或效率结论。",
+          "可引用作者明示的策略，但须同时保留牌例仍有逐牌核验缺口的提示。",
+          "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+          "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+          "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+          "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+        ],
+        "nextProposal": {
+          "authorized": false,
+          "makerMaximum": 0,
+          "newCallsMaximum": 1,
+          "targetImpactReviewMaximum": 1,
+          "retry": 0,
+          "failedVoidCount": true,
+          "prerequisite": "First reuse existing raw and full author context to distinguish bounded author-statement fidelity from complete tile-ledger certification in the existing owner; preserve disposition=blocking and do not admit on that distinction alone.",
+          "target": "Only if newly authorized and still needed, one independent clarification of whether right-side second unknown manzu blocks specified author rank/white-discard/meld-choice contributions; preserve original image and unknown, do not re-identify all river tiles, do not re-make faithful text or 3s.",
+          "context": "All 14 source/candidate pairs, full current/parent target figures and original image/same-pixel view, especially b0004-b0010 and the original blocking rationale. If clearer source evidence is supplied, bind its actual source/resolution before any new tile reading. No resolution is promised."
+        }
+      },
+      "originalChecks": {
+        "transportCompleted": true,
+        "repairPassed": false,
+        "limitedUnknownOkay": false,
+        "wholeChapterAccepted": false,
+        "modelReview": {
+          "targetChecks": [
+            {
+              "id": "modern-yabejp-ja:chapter04-section012:b0002",
+              "verdict": "faithful",
+              "evidence": "译文保留了不考虑打点、以最快和牌为目标的技术及其使用频率和成功率较高的理由。“確和了でも構わない”已译为以不改变当前名次的和牌结束比赛也无妨，未误作确保能够和牌；平均四次一次及判断技术7链接也保留。"
+            },
+            {
+              "id": "modern-yabejp-ja:chapter04-section012:b0004",
+              "verdict": "faithful",
+              "evidence": "译文保留第二名自摸满贯可升第一、但与第三及第四名分差很小的条件；起手牌或摸牌有利时争取反超，否则追求最快和牌。下位者自摸满贯仍不改变名次时尽量争取反超，以及庄家优先一次反超的判断均保留。"
+            },
+            {
+              "id": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+              "verdict": "uncertain",
+              "evidence": "本家手牌从左数第7张已正确修为3s，分开的摸入牌仍为3p；可见席位分数及牌例与原图一致。右侧牌河第二张仍只标为点数无法辨认的万子，原审对该逐牌缺口的阻断尚未解除。"
+            }
+          ],
+          "unknownImpacts": [
+            {
+              "unknownText": "右侧牌河从上数第2张为万子，但无法可靠辨认具体点数。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0004",
+                "modern-yabejp-ja:chapter04-section012:b0005",
+                "modern-yabejp-ja:chapter04-section012:b0006",
+                "modern-yabejp-ja:chapter04-section012:b0007",
+                "modern-yabejp-ja:chapter04-section012:b0008",
+                "modern-yabejp-ja:chapter04-section012:b0009",
+                "modern-yabejp-ja:chapter04-section012:b0010"
+              ],
+              "authorClaim": "作者借牌例说明：下位者自摸满贯也无法反超时，打白并尽量门清争取反超；与下位者分差很小时，同样打白，但可鸣牌做食断。图中的可见牌还承载牌型分析。",
+              "disposition": "blocking",
+              "evidence": "该未知不改写作者明示的名次条件或打白建议，但阻断右侧牌河的完整逐牌核对，以及任何依赖该张点数或赤色情况的可见牌数量和牌效率结论。父审要求该缺口确认前保持阻断。",
+              "requiredDisplayLimitations": [
+                "保留原图，并明确标示右侧牌河第二张万子的点数未知；不得猜测具体牌码或赤色情况。",
+                "不得将该图标示为已完成逐牌核验的完整牌例，也不得依据该未知牌给出牌数或效率结论。",
+                "可引用作者明示的策略，但须同时保留牌例仍有逐牌核验缺口的提示。"
+              ]
+            },
+            {
+              "unknownText": "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0004",
+                "modern-yabejp-ja:chapter04-section012:b0005",
+                "modern-yabejp-ja:chapter04-section012:b0006",
+                "modern-yabejp-ja:chapter04-section012:b0008",
+                "modern-yabejp-ja:chapter04-section012:b0010"
+              ],
+              "authorClaim": "作者根据名次及下位者自摸满贯是否会反超，区分争取反超和优先快速和牌的做牌路线；图例用于说明该判断。",
+              "disposition": "nonblocking-with-limits",
+              "evidence": "图中可记录两个显示为0的计数，但小图标的身份未确认，不能据此确定各自对应的计数项目。作者给出的名次条件和策略仍可作为原文判断呈现。",
+              "requiredDisplayLimitations": [
+                "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+                "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。"
+              ]
+            },
+            {
+              "unknownText": "中央分数周围的玩家名及段位小字无法完整可靠辨认。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0004",
+                "modern-yabejp-ja:chapter04-section012:b0005",
+                "modern-yabejp-ja:chapter04-section012:b0006",
+                "modern-yabejp-ja:chapter04-section012:b0008",
+                "modern-yabejp-ja:chapter04-section012:b0010"
+              ],
+              "authorClaim": "作者以席位、分数、手牌和名次条件说明打白及不同分差下的做牌选择，并不依赖玩家姓名或段位。",
+              "disposition": "nonblocking-with-limits",
+              "evidence": "玩家名及段位小字未能完整辨认，不影响按图中可见席位与分数呈现作者的条件性策略；但不能据此补写玩家身份或段位。",
+              "requiredDisplayLimitations": [
+                "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+                "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+              ]
+            }
+          ],
+          "contextContinuity": {
+            "verdict": "faithful",
+            "evidence": "按顺序连读后，b0004先区分下位反超风险，图例展示本家及各席分数，b0006至b0010通过两处打白分别说明门清争取反超与鸣牌食断。未改文本和非目标图沿用父审；b0008的既有source-note按原审继承，不改判为翻译错误或重算作者数字。图例的未知牌仍按父审保持阻断。"
+          },
+          "issues": [
+            {
+              "severity": "uncertain",
+              "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+              "description": "右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。",
+              "sourceEvidence": "原图右侧牌河从上数第二张可辨为万子；候选保留“［万子，点数无法辨认］”。原审要求可靠确认前保持阻断。"
+            }
+          ],
+          "scopeComplete": "yes",
+          "summary": "两个目标文本修订忠实，本家3s已修正。图例的右侧未知万子仍阻断完整逐牌核验；其余未知项可在明确限制下展示。未改范围继承父审，本次不宣告整章通过。"
+        }
+      },
+      "admissionGranted": false
+    }
+  ],
+  "batchUsed": 4,
+  "batchMaximum": 4,
+  "remaining": 0,
+  "newCalls": 0,
+  "newConsumers": 0,
+  "wholeBookComplete": false
+}

@@ -1,0 +1,289 @@
+{
+  "schema": "coac269-exact224232-first-combined-target-review/1",
+  "key": "224",
+  "canonical": "nemata-jp-chapter-224-1",
+  "authorizationComment": "01a181c4-730d-7821-8325-b8bc9e48a7cc",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b27r1.json",
+    "sha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section005\\source.json",
+    "sha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+    "bytes": 26374
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.display.json",
+    "sha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+    "bytes": 34202
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json",
+    "sha256": "112ca259dd236a649e3fbbac885c5056452a262a1ecb47735faba6bf9049a3b2",
+    "bytes": 18385
+  },
+  "originalIndependentRaws": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\43ba37fe-e636-4b4b-8a61-e0c1b63870ce.json",
+      "sha256": "03c750bc4cdd76947ef5bcf7657174491685a5a62eb1c86ae289ef5d23ab115a",
+      "bytes": 112504
+    }
+  ],
+  "originalIssues": [
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+      "sourceEvidence": "原图展示第1—15巡的流局率、放铳率、和了时自摸比例、立直棒没收率、和牌率、被自摸率及和了时一发比例七条曲线。",
+      "description": "候选仅记录曲线走势，以无法精确读取为由未转录逐巡近似值，遗漏可从图中读取的定量教学信息。未标注精确值不等于无法提供近似读数。",
+      "suggestedRepair": "补充第1—15巡、七个系列的近似读数表，所有读数明确标为约值，无法可靠分辨的个别点单独说明。例如第1巡和牌率约63%、流局率约10%；第13巡和牌率约30%；第15巡流局率约75%、和牌率约20%。继续保留原图及精确数值未标注的说明。"
+    },
+    {
+      "severity": "error",
+      "targetId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+      "sourceEvidence": "橙色图例为「和了時ツモ割合」，深绿色图例为「被ツモ率」。",
+      "description": "「和牌时摸入比例」「被摸入率」没有明确表达自摸和牌，尤其「被摸入率」无法清楚对应被他家自摸这一统计事件。",
+      "suggestedRepair": "分别改为「和牌中自摸所占比例」和「被他家自摸率」，并同步修正曲线说明及unknowns中的系列名称。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "modern-yabejp-ja:chapter04-section005:b0008",
+      "sourceEvidence": "源文先给出36.765%，再称其他家和牌概率为10%就会低于里宝牌率；前文里宝牌率约为三成。",
+      "description": "按前文公式及30%的参照值计算，36.765%×90%=33.0885%，尚未低于30%。这是源文数值论证的疑点，候选忠实保留，不属于翻译错误。",
+      "suggestedRepair": "保留忠实译文；如添加校注，应明确这是原文数值疑点，不要静默修改原文概率或结论。"
+    }
+  ],
+  "packet": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\224-packet.json",
+    "sha256": "b2edbadd419cf327c241845ec7978181a97f750c23e62e34e2f499011ae84e61",
+    "bytes": 67575
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\runtime-manifest.json",
+    "sha256": "0d890d3bbfd3fe1dbe588f068e17de41312916c1d068d246d080d0ec6feaa973",
+    "bytes": 8403
+  },
+  "runtimeFiles": 32,
+  "entry": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\pair.mjs",
+  "verifyProduction": "verifyProduction(key,candidatePath,manifestSHA)",
+  "prepare": "prepareReview(key,candidatePath,manifestSHA)",
+  "verifyReview": "verifyReviewExecution(key,realResult,plan,manifestSHA)",
+  "reviewRequest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac269-224232-exact-v1-20261028\\224-review-request.json",
+    "sha256": "debe9cebd00fe7fcac32057900fd9bcf5f7506b188281ea2b7ecf9909b06f642",
+    "bytes": 128734
+  },
+  "selfcheck": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\runs\\coac269-224232-exact-v1-20261028\\224-selfcheck.json",
+    "sha256": "5fb76256b7a1521c3f84950b4c7448d2332f29f2fc26bef564e8e0575b8f00b5",
+    "bytes": 15483
+  },
+  "maker": {
+    "callId": "7721e646-88f5-4572-8deb-b2ced73aab27",
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter04-section005",
+    "sourceSha256": "8a77c2035e209cf221d497a9965bc8fdb5a264875c5b3837eb98304e88ee080a",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "callerRequested": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-terra",
+        "--config",
+        "model_reasoning_effort=\"max\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-d1Fknf\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-d1Fknf\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-d1Fknf",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.jpg",
+          "sha256": "d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f",
+          "bytes": 39633
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d8c752cbdea33fc8901762c0bb639dfd5486e95a31abb4d27a983d849fabc78f.x2.png",
+          "sha256": "f006dd5fe35e1ac07983c550033637fa9bb6474ed7130ac14ebedcd514a7e2ba",
+          "bytes": 171002
+        }
+      ],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "startedAt": "2026-10-28T09:23:28.982Z",
+    "durationMs": 175190,
+    "usage": {
+      "inputTokens": 25199,
+      "cachedInputTokens": 0,
+      "outputTokens": 11912
+    },
+    "success": true,
+    "transportStatus": "completed",
+    "rawArtifactPath": "raw-calls/7721e646-88f5-4572-8deb-b2ced73aab27.json",
+    "rawArtifactSha256": "c0734e1738dacc1fe3b8142ff426dbca9589c4f317a36467035b2af27454e7a1",
+    "promptSha256": "d0f4dfb1b02d134d85dfc7104870e6b2c2fb33f4af2b8d1c1713bd32bf5f345c",
+    "schemaSha256": "a636b7d49944ab86d3fd3d7bfb0507910d53dbb2f05756d440a2b493b2345bf5",
+    "method": "coac269-exact224232/1",
+    "targets": {
+      "textIds": [],
+      "figureIds": [
+        "modern-yabejp-ja:chapter04-section005:b0013"
+      ]
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.display.json",
+      "sha256": "24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408",
+      "bytes": 34202
+    },
+    "parentAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section005.24832efd142ba0574eadfa823ac2c63189e659fd185e579e2cadaf30cd1cf408.json",
+      "sha256": "112ca259dd236a649e3fbbac885c5056452a262a1ecb47735faba6bf9049a3b2",
+      "bytes": 18385
+    },
+    "runtime": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\runtime-manifest.json",
+      "sha256": "0d890d3bbfd3fe1dbe588f068e17de41312916c1d068d246d080d0ec6feaa973"
+    },
+    "runner": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\pair.mjs",
+      "sha256": "1b6579d6eed480d955d82bbad0279756d415421c1b5482a66d9d82c002c38909"
+    },
+    "cliSnapshot": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+    }
+  },
+  "raw": {
+    "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/7721e646-88f5-4572-8deb-b2ced73aab27.json",
+    "sha256": "c0734e1738dacc1fe3b8142ff426dbca9589c4f317a36467035b2af27454e7a1"
+  },
+  "exactDiff": {
+    "text": [],
+    "figureId": "modern-yabejp-ja:chapter04-section005:b0013:figure",
+    "before": "标题：先制愚形听牌立直（1人进攻）。\n横轴：巡目；刻度为0、1、2、3、4、5、6、7、8、9、10、11、12、13、14、15。各曲线的数据点位于第1至第15巡。\n纵轴：和牌率等；刻度为0、10、20、30、40、50、60、70、80、90。\n图例位置与曲线对应关系：左列自上而下为蓝色方形标记「流局率」、黄色标记「放铳率」、橙色标记「和牌时摸入比例」、紫色叉形标记「立直棒被没收率」；右列自上而下为红色倒三角标记「和牌率」、深绿色标记「被摸入率」、亮绿色标记「和牌时一发比例」。\n蓝色流局率曲线随巡目上升，后段上升更快；红色和牌率曲线持续下降；橙色和牌时摸入比例曲线在接近50的位置基本保持水平；紫色立直棒被没收率曲线先上升，在中段达到最高处后下降；黄色放铳率与深绿色被摸入率曲线均先小幅上升、后下降；亮绿色和牌时一发比例曲线整体上升，末段上升更快。各巡各曲线的精确纵坐标未以数字标注。",
+    "after": "标题：先制愚形听牌立直（1人进攻）。\n横轴：巡目；刻度为0、1、2、3、4、5、6、7、8、9、10、11、12、13、14、15。各曲线的数据点位于第1至第15巡。\n纵轴：和牌率等；刻度为0、10、20、30、40、50、60、70、80、90。\n图例位置与曲线对应关系：左列自上而下为蓝色方形标记「流局率」、黄色标记「放铳率」、橙色标记「和牌中自摸所占比例」、紫色叉形标记「立直棒被没收率」；右列自上而下为红色倒三角标记「和牌率」、深绿色标记「被他家自摸率」、亮绿色标记「和牌时一发比例」。\n蓝色流局率曲线随巡目上升，后段上升更快；红色和牌率曲线持续下降；橙色和牌中自摸所占比例曲线在接近50的位置基本保持水平；紫色立直棒被没收率曲线先上升，在中段达到最高处后下降；黄色放铳率与深绿色被他家自摸率曲线均先小幅上升、后下降；亮绿色和牌时一发比例曲线整体上升，末段上升更快。各巡各曲线的精确纵坐标未以数字标注。\n逐巡近似读数（按原图纵轴刻度，均为约值；原图未明确标注单位，不补定百分号；unknown表示该点不能可靠辨读，不推算）：\n巡目：1,2,3,4,5,6,7,8,9,10,11,12,13,14,15。\n流局率：约10,约11,约12,约13,unknown,约18,约20,约23,约27,约32,约39,约46,约55,约65,约75。\n放铳率：unknown,unknown,unknown,unknown,unknown,unknown,unknown,约16,约15,约14,约12,约10,约7,约5,约3。\n和牌中自摸所占比例：约49,约49,约49,约49,约49,unknown,约49,约49,约49,约49,约49,约49,约49,约49,约49。\n立直棒被没收率：约28,约30,约32,约34,约35,约35,约35,约35,约32,约29,约25,unknown,约16,约10,约6。\n和牌率：约63,约60,约57,约54,约51,unknown,约46,约44,约41,约39,约37,约34,约30,约26,约21。\n被他家自摸率：unknown,unknown,unknown,unknown,unknown,约14,约14,约14,约13,约12,约10,约8,约6,约3,约1。\n和牌时一发比例：unknown,unknown,unknown,unknown,unknown,unknown,unknown,约18,约19,约19,约20,unknown,约25,约30,约37。",
+    "originalUnknowns": [
+      "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌时摸入比例、立直棒被没收率、和牌率、被摸入率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+      "纵轴没有明确标注百分号或其他单位。"
+    ],
+    "currentUnknowns": [
+      "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+      "纵轴没有明确标注百分号或其他单位。"
+    ],
+    "unknownRelation": "Only approved self-draw series terminology renamed; no item removed, no exact value or unit invented. Unread chart slots remain explicit unknown.",
+    "transformation": "Pure frozen renderer: approved renamed prefix plus real raw seven-by-fifteen rows; no post-call edits."
+  },
+  "textIds": [],
+  "figureIds": [
+    "modern-yabejp-ja:chapter04-section005:b0013:figure"
+  ],
+  "preservedUnknowns": [
+    "第1至第15巡各点的精确纵坐标：流局率、放铳率、和牌中自摸所占比例、立直棒被没收率、和牌率、被他家自摸率、和牌时一发比例这七条曲线均未标注逐点数值，无法从所给栅格图精确读取。",
+    "纵轴没有明确标注百分号或其他单位。"
+  ],
+  "budget": {
+    "maximumPair": 4,
+    "maximumThisChapter": 2,
+    "makerUsed": 1,
+    "independentUsedHere": 0,
+    "remainingIndependentMaximum": 1,
+    "failedVoidCount": true,
+    "retry": 0
+  },
+  "wholeChapterAccepted": false,
+  "fee": null,
+  "upstreamExecutionCount": null
+}

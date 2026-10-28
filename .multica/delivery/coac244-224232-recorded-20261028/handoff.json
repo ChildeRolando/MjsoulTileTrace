@@ -1,0 +1,42 @@
+{
+  "package": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-224232-recorded-20261028",
+  "items": [
+    {
+      "canonical": "nemata-jp-chapter-224-1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section005.coac269b27r1.json",
+        "sha256": "82c282e5546ed39278a878cb160ef5ef7645d0190fded81d5b21fd5f5a3b01ea"
+      },
+      "receipt": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-224-target-impact-reviewed-20261028.json",
+        "sha256": "20d624441531f37ebd9b69f5407c69dd03a5eedbc6390edc04fe51c108be4c20"
+      },
+      "record": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-224232-recorded-20261028\\recorded224.json",
+      "residual": "current-quantitative-omission",
+      "existing250Wakeup": "01a181ee-b831-7215-a143-874a1ca44239",
+      "admissionGranted": false
+    },
+    {
+      "canonical": "nemata-jp-chapter-232-1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+        "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb"
+      },
+      "receipt": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-target-impact-reviewed-20261028.json",
+        "sha256": "5ed3b5117151b9cf5555d223d714131c5593f1f9042c6e91a9bb005a68fbb9ea"
+      },
+      "record": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-224232-recorded-20261028\\recorded232.json",
+      "residual": "retained-unknown-with-explicit-independent-blocking",
+      "existing250Wakeup": "01a181f0-951d-7d17-88a3-f66ea7ae8bf0",
+      "admissionGranted": false
+    }
+  ],
+  "newCalls": 0,
+  "newConsumers": 0,
+  "phaseUsed": 4,
+  "phaseMaximum": 4,
+  "remaining": 0,
+  "admissionGranted": false,
+  "wholeBookComplete": false
+}
