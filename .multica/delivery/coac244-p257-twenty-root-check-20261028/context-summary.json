@@ -1,0 +1,74 @@
+{
+  "schema": "coac244-p257-root-context-summary/1",
+  "canonical": "nemata-jp-chapter-250-1",
+  "sourceQ9Ids": [
+    "nemata-jp-p256-b27",
+    "nemata-jp-p256-b28",
+    "nemata-jp-p256-b29",
+    "nemata-jp-p256-b30",
+    "nemata-jp-p256-b31",
+    "nemata-jp-p256-b32",
+    "nemata-jp-p256-b33",
+    "nemata-jp-p256-b34",
+    "nemata-jp-p256-b35",
+    "nemata-jp-p256-b36",
+    "nemata-jp-p256-b37",
+    "nemata-jp-p256-b38",
+    "nemata-jp-p256-b39",
+    "nemata-jp-p256-b40",
+    "nemata-jp-p257-b1",
+    "nemata-jp-p257-b2",
+    "nemata-jp-p257-b3",
+    "nemata-jp-p257-b4"
+  ],
+  "candidateQ9BodyBlocks": 6,
+  "q9Figures": 1,
+  "page256InheritedPassed": {
+    "page": 256,
+    "sourceBlocks": 60,
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\256.json",
+      "sha256": "77717438bdb22c52c04d70370ce2440054ef5c1a590fac4c84fcec6036ac8635",
+      "bytes": 63058
+    },
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair11-20261027-p256\\candidates\\nemata-jp\\page-0256.json",
+      "sha256": "bf9d64107b4b3d425c1ec16aa97baf9178799f8371f1e4879f7fde0f6489c2cf",
+      "bytes": 43189
+    },
+    "audit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0256.bf9d64107b4b3d425c1ec16aa97baf9178799f8371f1e4879f7fde0f6489c2cf.6baa4a7e1404.json",
+      "sha256": "145abb2d105f7c5dee6905a206770fc08f2dbe684f852a9e12c0c212d0f57b4f",
+      "bytes": 128148
+    },
+    "raws": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\0adff228-bda6-4f57-a4f8-3cd20f719e16.json",
+        "sha256": "8c1617f243c2f42c4fb7d8f94dfe8a6e85230b004fee711ba34cc898d681d825",
+        "bytes": 118941
+      }
+    ],
+    "auditStatus": "passed",
+    "newCalls": 0
+  },
+  "page257Current": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/257.human-final.json",
+    "sha256": "5403cb35614b1edab17488458dbaf0571e1a48e1972d2d04c9ebc30a03da67dc"
+  },
+  "other11PagesSourceBlocks": 837,
+  "draft": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-twenty-root-check-20261028\\trusted-context-display-draft.json",
+    "sha256": "69e5fd5d6571b9e8c7890aa519bb65d55a2d2975e331a1031fc8abe4e0c131f8",
+    "changedFields": [
+      "transcription",
+      "unknowns"
+    ],
+    "trustedPositionCount": 9,
+    "unverifiedPublicSlots": 78,
+    "installed": false
+  },
+  "originalCandidateAndRawUnchanged": true,
+  "reviewDispatched": false,
+  "newModelCalls": 0,
+  "admissionGranted": false
+}

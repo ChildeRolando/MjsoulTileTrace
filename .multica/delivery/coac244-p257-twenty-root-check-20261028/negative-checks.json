@@ -1,0 +1,42 @@
+{
+  "negativeChecks": [
+    {
+      "name": "T06_v1_ordinary_row_box",
+      "rejected": true
+    },
+    {
+      "name": "composite_coordinates",
+      "rejected": true
+    },
+    {
+      "name": "wrong_source_frame",
+      "rejected": true
+    },
+    {
+      "name": "human_position_reasked",
+      "rejected": true
+    },
+    {
+      "name": "old_label_not_raw_bound",
+      "rejected": true
+    },
+    {
+      "name": "crop_shift_without_pixels",
+      "rejected": true
+    },
+    {
+      "name": "blank_converted_to_unknown",
+      "rejected": true
+    },
+    {
+      "name": "blank_converted_to_confirmed",
+      "rejected": true
+    },
+    {
+      "name": "wrong_raw_pointer",
+      "rejected": true
+    }
+  ],
+  "count": 9,
+  "newModelCalls": 0
+}

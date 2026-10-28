@@ -1,0 +1,57 @@
+{
+  "schema": "coac244-p257-root-check/1",
+  "canonical": "nemata-jp-chapter-250-1",
+  "scope": "PDF257/r1 only",
+  "manifestSha256": "862165cc57520ad90b426a523850ef51cb1b235b0b90f1f54ea4c32649075c4a",
+  "manifestFilesVerified": 28,
+  "candidate": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/257.human-final.json",
+    "sha256": "5403cb35614b1edab17488458dbaf0571e1a48e1972d2d04c9ebc30a03da67dc"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0257.json",
+    "sha256": "6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88",
+    "bytes": 25248
+  },
+  "oldRaw": {
+    "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+    "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+    "pointer": "/parsedOutput/figures/0/transcription"
+  },
+  "sourcePixels": [
+    2109,
+    1210
+  ],
+  "locatedMachineTargets": 20,
+  "trustedHumanPositionsExcluded": 9,
+  "currentHumanEvents": 4,
+  "originalPixelCropsVerified": 20,
+  "T06Box": [
+    1825,
+    410,
+    1873,
+    474
+  ],
+  "blankPdfFieldsVerified": 20,
+  "originalLabelDiagnosticPositions": 23,
+  "trustedPositionsWithinDiagnostic": 3,
+  "rootNegativeChecksPassed": 9,
+  "diagnosticDoesNotProvePhysicalMutualExclusivityOrWrongTile": true,
+  "all20NewTileValues": null,
+  "all20UserQuestionsRequested": false,
+  "oldMultiplicityBooleanUnchanged": false,
+  "sourcePublicDisplaySlots": 87,
+  "conservativeUnverifiedPositions": 78,
+  "other11PassedPagesSourceBlocks": 837,
+  "q9SourceBlocksIncluded": 18,
+  "decision": "Propose one pure-text trusted-application and Q9-author-contribution review before requesting any selective human correction.",
+  "recommendedDisplayProposal": "inherit-reviewed-context; candidate remains untouched; not yet admitted",
+  "newModelCalls": 0,
+  "newMakerCalls": 0,
+  "newVisionCalls": 0,
+  "newConsumers": 0,
+  "reviewDispatched": false,
+  "wholeChapterPassed": false,
+  "admissionGranted": false,
+  "formalActiveChanged": false
+}
