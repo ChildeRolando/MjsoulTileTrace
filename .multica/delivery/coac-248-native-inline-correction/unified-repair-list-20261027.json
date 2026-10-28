@@ -2566,7 +2566,7 @@
     "modern-yabejp-ja:chapter04-section012:b0005:figure:error",
     "modern-yabejp-ja:chapter04-section012:b0005:figure:uncertain"
    ],
-   "currentDisposition": "human-9m-applied-awaiting-authorized-text-application-review-and-exact-admission",
+   "currentDisposition": "independent-human-application-and-argument-complete-awaiting250-limited-display-readback",
    "origin": "COAC-249 explicit 20",
    "newThisStage": true,
    "alsoReportedBy": "COAC-246 coverage verification 2026-10-27",
@@ -2585,7 +2585,28 @@
     "semanticReviewAuthorized": false,
     "admissionGranted": false
    },
-   "nextAction": "人工9m不再识字；纯文字应用/论证审提案未获安排。保留旧独审false/uncertain；两unknown四条限制待合法安装及250实际读回。"
+   "nextAction": "独审1/1已消费，无新语义缺口。沿250现有同SHA消费者安装四条非原文限制并读回；原false/uncertain保留，不再派模型或识字。",
+   "humanFinal232IndependentEvidence": {
+    "candidateSha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c",
+    "receiptSha256": "2280884a55df3ba010ceac36c5c4832deb2b4dc15b15f2e07d8db554a8f3a94c",
+    "callId": "d1640db7-8722-4d0d-bdba-da5c2ba54f84",
+    "applicationFaithful": true,
+    "authorArgumentFaithful": true,
+    "unknownAndLimitsSufficientWhenInstalled": true,
+    "originalTechnicalLimitedUnknownOkay": false,
+    "semanticScopeComplete": true,
+    "remainingUnknowns": 2,
+    "visibleLimitations": 4,
+    "installedByThisRun": false,
+    "newModelCallsThisRun": 0,
+    "newConsumerCreated": false,
+    "existing250Run": "01a1824a-58ab-79eb-bfb3-b07d11dba72e",
+    "evidence": {
+     "path": "integration/coac248-jp232-reviewed-intake-20261028/handoff.json",
+     "sha256": "7f46078c10abe9aa36cf0330c99d83687a2b3e9a01471d28c24f11066ef15a88",
+     "manifestSha256": "b33214e78b18c97b46b6426f441313255dd8383234da30012b4b0793a6b90415"
+    }
+   }
   },
   {
    "objectId": "supplement:chapter02-section019",

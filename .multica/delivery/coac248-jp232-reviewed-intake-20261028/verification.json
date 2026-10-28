@@ -1,0 +1,191 @@
+{
+  "schema": "coac248-232-independent-conditional-intake/1",
+  "canonical": "nemata-jp-chapter-232-1",
+  "candidate": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+    "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+    "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+    "bytes": 23933
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+    "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb"
+  },
+  "references": [
+    {
+      "path": "integration/coac249-232-human-owner-handoff-20261028.md",
+      "sha256": "57e74739bb231b1214da0145c7b9f359652c0255ac6fcebc2d469e1758680244"
+    },
+    {
+      "path": "integration/coac249-232-human-reviewed-20261028.json",
+      "sha256": "2280884a55df3ba010ceac36c5c4832deb2b4dc15b15f2e07d8db554a8f3a94c"
+    },
+    {
+      "path": "audit/calls/d1640db7-8722-4d0d-bdba-da5c2ba54f84.json",
+      "sha256": "f84280661530678891d4d11ab4c00ff0b4f3542c435ed5e3b8716af8ac8ccd7b"
+    },
+    {
+      "path": "integration/coac249-232-human-inheritance-20261028.json",
+      "sha256": "8b85184a17332b8f0edca95acdecd8f4b96b864c7d68613861a721b8102ac949"
+    },
+    {
+      "path": "integration/coac249-232-human-display-scope-20261028.json",
+      "sha256": "fdb1e1196023764a5ac571f9ff0175102416848b39332862ca2fb6748b018d84"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-232-human-20261028\\plan.json",
+      "sha256": "0d1cff2776826c89c6835c2a46f87c91d36b241ce607f64f4e4d4c42021948df"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\runtime-manifest.json",
+      "sha256": "a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c",
+      "files": 28
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+      "sha256": "24293aa4da6b71079ed47600d45229e972e1f8b1256a9dcc573af827c05514f6",
+      "bytes": 21102
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-232-target-impact-reviewed-20261028.json",
+      "sha256": "5ed3b5117151b9cf5555d223d714131c5593f1f9042c6e91a9bb005a68fbb9ea"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\0dae5b1a-76be-45d5-b2f0-410bc5853cb3.json",
+      "sha256": "426d49b11f72317b32fdf1b6b7a14ba6308ec8db9da9ae7706079933304eea3c"
+    }
+  ],
+  "call": {
+    "callId": "d1640db7-8722-4d0d-bdba-da5c2ba54f84",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "images": [],
+    "usage": {
+      "inputTokens": 28432,
+      "cachedInputTokens": 0,
+      "outputTokens": 2717
+    },
+    "durationMs": 82537
+  },
+  "originalTechnicalVerification": {
+    "executionVerified": true,
+    "applicationPassed": true,
+    "authorArgumentFaithful": true,
+    "limitedUnknownOkay": false,
+    "wholeChapterPassed": false
+  },
+  "independentConditions": {
+    "applicationFaithful": true,
+    "authorArgumentFaithful": true,
+    "unknownChecksSufficientWhenImplemented": true,
+    "fourLimitationsSufficientWhenImplemented": true
+  },
+  "issuesSha256": "6954e8a2c2586fcb17d92442ca76092eb81fbf8c95bbb28a9aa9ad307ed1a3a2",
+  "currentUncertain": {
+    "targetId": "nemata-jp-chapter-232-1",
+    "severity": "uncertain",
+    "description": "四条限制尚未安装，实际展示与读回验收仍待完成。",
+    "evidence": "displayProposal.installed=false、actualReadbackRequired=true。须以“审校限制（非原文）”在b0005之后、b0006之前逐字展示四条限制，并通过真实MCP/Arena读回确认文字、顺序、位置及两个当前unknown均正确呈现；本次未执行安装或读回。"
+  },
+  "originalIssuesAndFalsePreserved": true,
+  "orderedSourceAndCandidateBlocks": 14,
+  "completeFigures": 3,
+  "authorBodyUnchanged": true,
+  "remainingUnknowns": [
+    "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+    "中央分数周围的玩家名及段位小字无法完整可靠辨认。"
+  ],
+  "annotation": {
+    "label": "审校限制（非原文）",
+    "anchor": {
+      "afterSourceBlock": "modern-yabejp-ja:chapter04-section012:b0005",
+      "beforeSourceBlock": "modern-yabejp-ja:chapter04-section012:b0006",
+      "figureSha256": "65b278a1f692ab370a91546c53fa6645059a39344d47c85fcbfcb3ebd52e081e"
+    },
+    "notes": [
+      "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+      "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+      "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+      "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+    ],
+    "installedAtIndependentReview": false
+  },
+  "historicalPreparedRequestHadFourLimits": false,
+  "actualReviewedRequestIncludesFourLimits": true,
+  "actualRequest": {
+    "plan": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-232-human-20261028\\plan.json",
+      "sha256": "0d1cff2776826c89c6835c2a46f87c91d36b241ce607f64f4e4d4c42021948df"
+    },
+    "closedPromptSha256": "7d295fa1ba9b3612139dafe8e76c3cd70b0311ccc2c85da748c2e4f66ba8494e",
+    "semanticPromptSha256": "092c6e4c650bfd7c56fbc8776a9e3900125132793dc64eaa7ef3586768d74900",
+    "schemaSha256": "72a043907d56aecbb5f2b6556c8cc1cd64a1dd1e21e7fb4dfed707488312b40a"
+  },
+  "reviewBudget": {
+    "maximum": 1,
+    "used": 1,
+    "remaining": 0,
+    "failedVoidCount": true,
+    "retry": 0
+  },
+  "newModelCallsThisRun": 0,
+  "newProductionCallsThisRun": 0,
+  "newConsumerCreated": false,
+  "remainingScope": "仅实际安装四条非原文限制、合法精确组合及250真实MCP/Arena读回；没有新牌码或作者论证语义缺口。",
+  "currentOrdinaryChapterPass": false,
+  "admissionGranted": false,
+  "sharedPointersChanged": false,
+  "negativeChecks": {
+    "passed": true,
+    "count": 11,
+    "cases": [
+      {
+        "name": "wrong candidate SHA",
+        "rejected": true
+      },
+      {
+        "name": "wrong source binding",
+        "rejected": true
+      },
+      {
+        "name": "wrong figure SHA",
+        "rejected": true
+      },
+      {
+        "name": "wrong annotation anchor",
+        "rejected": true
+      },
+      {
+        "name": "omit a limitation",
+        "rejected": true
+      },
+      {
+        "name": "guess unknown",
+        "rejected": true
+      },
+      {
+        "name": "promote technical false",
+        "rejected": true
+      },
+      {
+        "name": "delete current uncertain",
+        "rejected": true
+      },
+      {
+        "name": "new semantic error",
+        "rejected": true
+      },
+      {
+        "name": "fake installed state",
+        "rejected": true
+      },
+      {
+        "name": "claim chapter passed",
+        "rejected": true
+      }
+    ]
+  }
+}
