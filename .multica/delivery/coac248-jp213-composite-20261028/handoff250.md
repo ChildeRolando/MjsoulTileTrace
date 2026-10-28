@@ -1,0 +1,6 @@
+COAC-248→既有250唯一写者。用户01a18226-92e6-7a4a-81e0-3c365559b152授权的日文213零模型合法组合已完成，接此现有213范围，不创建新工单/并行消费者或模型调用，不用人标数据。先读当前票/相关评论并以精确候选和交接SHA核已消费/在途，已消费不重复。
+根E:/AgentData/Coach/knowledge/processing。交接integration/coac248-jp213-composite-20261028/handoff.json SHAddf6dec4d8ce482b27f2d0f4779dbbf15e0112a190488ce56db32135a9c4bbb6。候选a667937d4e119a1b22659fc60987f07d3eea9d246c8b2b6ddabcdacb4fe5dd47，原raw/父审/候选未动。
+重要：新issues不是父审字节相同，而是独审明确的历史重述。admit.mjs逐一固定三对旧新issue对象各自SHA及真实textRepair/figureRepair faithful与四unknown影响，不泛化忽略error；任何新增/改变issue或新语义error均拒绝。原limitedEvidenceVerified=false/no_limited_allowance及全部severity照留。
+按handoff精确hash读取manifest，调用verifyLimited(root,candidatePath)及verify-stage.mjs的verifyStaged(root,stagePath)。已有隔离stage含八条可见“审校限制（非原文）”，位置为保持原样的b0031+b0032内联图段落之后、b0033之前；53源位置/24完整图及四unknown保持，HTML和编译语料实际核验，反向去注精确恢复原作者块。35项负例全部拒绝。sealed stage-files.json SHAafd4b01ed6456c2c1be9613ce2d893b82e5c38c2be599bfab363216d4e815f79，32输出文件逐字节固定，stage-snapshot.zip和完整父链副本可还原。
+250继续依法接本213固定SHA持久重建路由，再真实MCP/Arena完整读回：b0017条件、7p/方向/摸切红线、四unknown、全部八条限制、暗手遮挡及作者所称5p–8p、弃和为作者结论，原图/作者全部条件/链接/标记/图序保持。不把本组合当普通全章passed；全局准入仍false，MCP/Arena未由248执行。正式active不切。
+本阶段新增模型预算0；原213 maker1+独审1=2/2余0，0retry。不重复193/234，不挪其它额度。若具体路由兼容尚缺，只零模型处理精确scope；不收费重审，不吞原false。正常在本票前台有限阶段完成并给真实结果。

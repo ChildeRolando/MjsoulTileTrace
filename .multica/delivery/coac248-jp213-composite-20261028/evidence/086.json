@@ -1,0 +1,267 @@
+{
+  "schema": "coac249-213-display-and-residual-evidence/1",
+  "canonical": "nemata-jp-chapter-213-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.r1.display.json",
+    "sha256": "a667937d4e119a1b22659fc60987f07d3eea9d246c8b2b6ddabcdacb4fe5dd47"
+  },
+  "receipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-213-target-impact-reviewed-20261028.json",
+    "sha256": "a91fd5ef0e13a880d32e0036c87f34f341d54b4c7afa9088f636b3dc857321d8"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\c0d77d4f-25ea-401b-939e-c956e81e1713.json",
+    "sha256": "0f401fb2bdba23993719062663b69b6ddcc9df2c268727ebe94d1e9041d867ea"
+  },
+  "modelReview": {
+    "textRepair": {
+      "targetId": "modern-yabejp-ja:chapter03-section026:b0017",
+      "verdict": "faithful",
+      "evidence": "原文并列排除两种情况：听牌时切出的牌原本作为安全牌保留，以及其周边属于入り目一侧；两者均不成立时，才说其周边是待牌。修订译文保留了这两个条件，并将第二项解释为进张完成面子的那一侧，不再笼统地说“不是因为进张而打出”。连读前面的6p、7p、8p和9p，以及后面列举的多种牌形，不能把这些后续牌形一律当成已经完成面子。"
+    },
+    "figureRepair": {
+      "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+      "verdict": "faithful",
+      "evidence": "原图中左家外侧左列从图像上至下第2张是7p，牌面相对画面顺时针旋转90°，该张图像左缘有红线。修订同时更新牌列和红线说明，并移除这一张的未知记录；红线依b0031表示摸切，不表示赤牌。2倍图是同源放大，不构成新增细节。本判断只复核指定牌位及其方向、红线，其他牌位沿父链继承。"
+    },
+    "unknownImpact": [
+      {
+        "unknownText": "对家牌河第1排从其出牌方向数第6张，即图像靠中央一排最左端的字牌，其具体字面无法可靠辨认。",
+        "positionConfirmed": true,
+        "displayFaithful": true,
+        "authorArgumentFaithfulWithUnknown": true,
+        "requiresExactValueForAuthorArgument": false,
+        "evidence": "位置对应对家靠中央一排的图像最左端，候选保留字面不清的占位及该位置的红线，没有指定具体字牌。作者的9p、7p和弃和论证没有使用该字牌的具体字面；不能用论证反推其字面。",
+        "requiredDisplayLimitations": [
+          "保留原图，并在该具体位置标明字牌字面不清，不填入猜测的字牌。",
+          "说明对家暗手被遮挡；实际听5p–8p是作者的文字陈述，不能说是从截图独立证实的。"
+        ],
+        "minimumUncoveredTeachingContribution": "无。该未知不遮蔽作者明确写出的条件、可能性或结论；它仍使完整精确牌谱无法由此转录确认。"
+      },
+      {
+        "unknownText": "中央上方与左侧的完整分数无法可靠辨认。",
+        "positionConfirmed": true,
+        "displayFaithful": true,
+        "authorArgumentFaithfulWithUnknown": true,
+        "requiresExactValueForAuthorArgument": false,
+        "evidence": "未知对应中央显示区上方和左侧的分数字段，候选明确保留两处完整分数不可可靠辨认。作者的文字论证没有引用这两个具体分数；这只足以展示作者的弃和建议，不足以独立证明该建议在所有点数情境下最优。",
+        "requiredDisplayLimitations": [
+          "随原图保留上方和左侧完整分数无法可靠辨认的说明，不补猜数值。",
+          "将弃和呈现为作者的结论，不宣称已利用完整点数证明它是最优选择。"
+        ],
+        "minimumUncoveredTeachingContribution": "无。作者没有给出以这两项具体分数为条件的命题；点数未知限制的是进一步的局面评价。"
+      },
+      {
+        "unknownText": "中央数字0、1前的小图标无法辨认，无法仅凭图标确认各自所指的计数项目。",
+        "positionConfirmed": true,
+        "displayFaithful": true,
+        "authorArgumentFaithfulWithUnknown": true,
+        "requiresExactValueForAuthorArgument": false,
+        "evidence": "位置在中央数字0、1附近。候选记录数字并保留图标含义未知，没有把它们指定为某项计数；作者的论证没有调用这些计数项目的名称或具体含义。",
+        "requiredDisplayLimitations": [
+          "保留图标不可辨及不能仅凭图标确认计数项目的说明，不为0、1擅自指定计数名称。",
+          "保留原图，避免把转录当作完整可识别的计数信息。"
+        ],
+        "minimumUncoveredTeachingContribution": "无。图标的确切含义不是作者所写论证的条件。"
+      },
+      {
+        "unknownText": "各家座位旁的小号姓名或其他附属文字无法完整辨认。",
+        "positionConfirmed": true,
+        "displayFaithful": true,
+        "authorArgumentFaithfulWithUnknown": true,
+        "requiresExactValueForAuthorArgument": false,
+        "evidence": "未知定位于各家座位旁的小字，候选如实说明无法完整辨认，没有补写姓名或附属文字。作者的牌形分析与建议没有依赖这些文字的具体内容。",
+        "requiredDisplayLimitations": [
+          "保留座位旁小字无法完整辨认的说明和原图，不推定姓名或其他文字。",
+          "不将转录描述为包含全部玩家身份及附属信息。"
+        ],
+        "minimumUncoveredTeachingContribution": "无。作者没有使用这些小字作为论证条件。"
+      }
+    ],
+    "argumentChecks": [
+      {
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0002",
+          "modern-yabejp-ja:chapter03-section026:b0003",
+          "modern-yabejp-ja:chapter03-section026:b0004",
+          "modern-yabejp-ja:chapter03-section026:b0005",
+          "modern-yabejp-ja:chapter03-section026:b0006",
+          "modern-yabejp-ja:chapter03-section026:b0007",
+          "modern-yabejp-ja:chapter03-section026:b0008",
+          "modern-yabejp-ja:chapter03-section026:b0009"
+        ],
+        "authorContribution": "本文补充读牌技术论6、7：按容易构成面子到不容易构成面子的顺序手切，往往提供有力信息；这一点还有其他用途。例子是5m→9m后，即使8m是筋张也相当危险。",
+        "preservedConditionsAndModality": "保留手切顺序、“往往”和“即使是筋张”的限定，不把危险说成必然放铳。",
+        "faithfulWithCurrentUnknown": true,
+        "evidence": "文字与内联5m、9m、8m按实际顺序连读；这段一般命题不依赖截图中的保留未知。"
+      },
+      {
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0010",
+          "modern-yabejp-ja:chapter03-section026:b0011",
+          "modern-yabejp-ja:chapter03-section026:b0012",
+          "modern-yabejp-ja:chapter03-section026:b0013",
+          "modern-yabejp-ja:chapter03-section026:b0014",
+          "modern-yabejp-ja:chapter03-section026:b0015",
+          "modern-yabejp-ja:chapter03-section026:b0016",
+          "modern-yabejp-ja:chapter03-section026:b0017"
+        ],
+        "authorContribution": "6p被杠或场上可见四张，而对手切7p进入听牌时，尽管形成壁，8p和9p仍可疑。解释是：若听牌时切出的牌既非保留的安全牌，也非入り目一侧，则其周边为待牌。",
+        "preservedConditionsAndModality": "保留6p被杠与四张可见的替代条件、切7p进入听牌的条件、8p和9p只是可疑，以及解释中两个并列例外和其后的判断。",
+        "faithfulWithCurrentUnknown": true,
+        "evidence": "相邻内联牌与修订后的b0017构成完整句子；这段条件性解释不需要确定截图中的未知字牌、分数或小字。"
+      },
+      {
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0018",
+          "modern-yabejp-ja:chapter03-section026:b0019",
+          "modern-yabejp-ja:chapter03-section026:b0020",
+          "modern-yabejp-ja:chapter03-section026:b0021",
+          "modern-yabejp-ja:chapter03-section026:b0022",
+          "modern-yabejp-ja:chapter03-section026:b0023",
+          "modern-yabejp-ja:chapter03-section026:b0024",
+          "modern-yabejp-ja:chapter03-section026:b0025",
+          "modern-yabejp-ja:chapter03-section026:b0026",
+          "modern-yabejp-ja:chapter03-section026:b0027",
+          "modern-yabejp-ja:chapter03-section026:b0028",
+          "modern-yabejp-ja:chapter03-section026:b0029",
+          "modern-yabejp-ja:chapter03-section026:b0030"
+        ],
+        "authorContribution": "中张之后切1、9的可能来由包括从1s1s2s等复合搭子拆出、因相对安全而保留，以及从7s8s9s、7s9s或8s9s摸6s后切9s。对于后一类，作者说不能断言附近成为待牌的可能性升高，但附近构成面子的可能性相当高；复合搭子拆出也有类似道理。",
+        "preservedConditionsAndModality": "保留示例牌形、摸6s切9s，以及“不能说待牌可能性升高”和“面子可能性相当高”的区别；这些是作者列出的可能性，不视为穷尽所有来由。",
+        "faithfulWithCurrentUnknown": true,
+        "evidence": "实际顺序包含三组不同内联牌形；不能把三组都改写为当时必然已经完成面子，也不需截图未知值来展示本段。"
+      },
+      {
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0031",
+          "modern-yabejp-ja:chapter03-section026:b0032",
+          "modern-yabejp-ja:chapter03-section026:b0033",
+          "modern-yabejp-ja:chapter03-section026:b0034",
+          "modern-yabejp-ja:chapter03-section026:b0035"
+        ],
+        "authorContribution": "图中红线表示摸切。作者认为对家一直保留9p，很可能属于上面举出的情况。",
+        "preservedConditionsAndModality": "保留“很可能”及其对上文情形的指向，不将某个具体暗手或来由说成已由截图证明。",
+        "faithfulWithCurrentUnknown": true,
+        "evidence": "原文及其内联9p给出作者的判断；四项保留未知没有提供或否定该判断所需的具体字面。"
+      },
+      {
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0036",
+          "modern-yabejp-ja:chapter03-section026:b0037",
+          "modern-yabejp-ja:chapter03-section026:b0038",
+          "modern-yabejp-ja:chapter03-section026:b0039",
+          "modern-yabejp-ja:chapter03-section026:b0040",
+          "modern-yabejp-ja:chapter03-section026:b0041",
+          "modern-yabejp-ja:chapter03-section026:b0042",
+          "modern-yabejp-ja:chapter03-section026:b0043",
+          "modern-yabejp-ja:chapter03-section026:b0044",
+          "modern-yabejp-ja:chapter03-section026:b0045",
+          "modern-yabejp-ja:chapter03-section026:b0046",
+          "modern-yabejp-ja:chapter03-section026:b0047",
+          "modern-yabejp-ja:chapter03-section026:b0048",
+          "modern-yabejp-ja:chapter03-section026:b0049"
+        ],
+        "authorContribution": "若从7p9p摸6p后切9p，5p–8p是主要考虑的听牌；作者另在括号中陈述对手实际听牌也是5p–8p。",
+        "preservedConditionsAndModality": "区分前一项条件下的主要判断与作者另行陈述的实际结果；不把截图遮住的暗手当作对后者的独立证明。",
+        "faithfulWithCurrentUnknown": true,
+        "evidence": "条件牌列和两个5p–8p按文本与内联牌的实际顺序呈现。保留未知不妨碍转述作者的条件判断或事实陈述。"
+      },
+      {
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter03-section026:b0050",
+          "modern-yabejp-ja:chapter03-section026:b0051",
+          "modern-yabejp-ja:chapter03-section026:b0052",
+          "modern-yabejp-ja:chapter03-section026:b0053"
+        ],
+        "authorContribution": "即使不是前述7p9p摸6p切9p的情况，对家持有至少一张7p的可能性仍很大；这样7p最多剩两张，继续进攻很勉强，因此作者建议弃和。",
+        "preservedConditionsAndModality": "保留替代情况、至少一张是高可能性而非独立证实、最多两张是上限而非恰好两张，以及作者的弃和建议。",
+        "faithfulWithCurrentUnknown": true,
+        "evidence": "指定修复确认左家外侧第2张可见7p；作者关于对家持有7p的判断来自其论证，暗手仍被遮挡。忠实展示不要求证明实际剩余数量、数值概率或最优性。"
+      }
+    ],
+    "orderedContextFaithful": true,
+    "completeRequestedScopeCompared": true,
+    "conclusion": "target-faithful-limited-unknown-acceptable",
+    "issues": [
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter03-section026:b0017",
+        "description": "保留原审对旧译的error记录：旧译把入り目例外泛化为“不是因为进张而打出的”。本次比较认为当前修订已在指定范围内表达该例外，不改写原审severity。",
+        "evidence": "原文为“安牌として持たれていた訳でなく、入り目でもなければ”；当前译文分别表达安全牌条件和进张完成面子一侧的例外。"
+      },
+      {
+        "severity": "error",
+        "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+        "description": "保留原审对旧图转录的error记录：旧版未识别左家外侧第2张7p。当前指定替换及对应红线、unknowns更新与该牌位相符，不改写原审severity。",
+        "evidence": "原图该张为7p，顺时针旋转90°，左缘有摸切红线；修订将其写入牌列及红线说明。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+        "description": "保留原审对对家字牌及中央上方、左侧完整分数的uncertain记录；具体值仍未解决。本次只是在明确展示限制下，对指定作者论证作有限影响判断，不改变原审记录或授予全章通过。",
+        "evidence": "当前对象继续标记这些位置为未知；作者的相关命题不要求其具体值，但完整精确牌谱和点数局面仍无法据此确认。"
+      }
+    ],
+    "summary": "指定文字修订和左家7p图修订在本次限定范围内忠实。四项保留未知可在保留原图、逐项标注未知并说明暗手遮挡及作者陈述来源的条件下展示；这不证明完整牌谱、精确暗手、实际安全度、剩余数量、概率或最优性。非目标内容沿原父链继承，原审error与uncertain记录均保留。"
+  },
+  "verification": {
+    "limitedEvidenceVerified": false,
+    "errors": [
+      "no_limited_allowance"
+    ],
+    "requiredDisplayLimitations": [
+      "保留原图，并在该具体位置标明字牌字面不清，不填入猜测的字牌。",
+      "说明对家暗手被遮挡；实际听5p–8p是作者的文字陈述，不能说是从截图独立证实的。",
+      "随原图保留上方和左侧完整分数无法可靠辨认的说明，不补猜数值。",
+      "将弃和呈现为作者的结论，不宣称已利用完整点数证明它是最优选择。",
+      "保留图标不可辨及不能仅凭图标确认计数项目的说明，不为0、1擅自指定计数名称。",
+      "保留原图，避免把转录当作完整可识别的计数信息。",
+      "保留座位旁小字无法完整辨认的说明和原图，不推定姓名或其他文字。",
+      "不将转录描述为包含全部玩家身份及附属信息。"
+    ],
+    "wholeChapterPassed": false,
+    "admissionGranted": false,
+    "originalIssuesPreserved": true,
+    "meaning": "Only independent limited target/impact evidence. Every required display limitation and remaining author contribution must be mapped to legal exact admission and actual readback by250."
+  },
+  "requiredDisplayLimitations": [
+    "保留原图，并在该具体位置标明字牌字面不清，不填入猜测的字牌。",
+    "说明对家暗手被遮挡；实际听5p–8p是作者的文字陈述，不能说是从截图独立证实的。",
+    "随原图保留上方和左侧完整分数无法可靠辨认的说明，不补猜数值。",
+    "将弃和呈现为作者的结论，不宣称已利用完整点数证明它是最优选择。",
+    "保留图标不可辨及不能仅凭图标确认计数项目的说明，不为0、1擅自指定计数名称。",
+    "保留原图，避免把转录当作完整可识别的计数信息。",
+    "保留座位旁小字无法完整辨认的说明和原图，不推定姓名或其他文字。",
+    "不将转录描述为包含全部玩家身份及附属信息。"
+  ],
+  "figureBindings": [
+    {
+      "figureId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+      "fullFigureSha256": "5d06d3086488a3d6348c049d75723b4574135ea001f23a7b9bf51449f6a29442",
+      "unknowns": [
+        "对家牌河第1排从其出牌方向数第6张，即图像靠中央一排最左端的字牌，其具体字面无法可靠辨认。",
+        "中央上方与左侧的完整分数无法可靠辨认。",
+        "中央数字0、1前的小图标无法辨认，无法仅凭图标确认各自所指的计数项目。",
+        "各家座位旁的小号姓名或其他附属文字无法完整辨认。"
+      ],
+      "caption": "根据对家保留后打出的9p，判断继续进攻是否合适。红线表示摸切牌。",
+      "sourceNotes": [
+        "两张附件是同一张截图的原图与2倍最近邻放大图，只记录一次牌局。",
+        "青色矩形遮住了其他三家的手牌；蓝色牌背不提供牌种信息。",
+        "红色边线是摸切标记，不能据此将牌认作赤牌；5s牌面上的红色中间竹节也不表示赤牌。",
+        "黄色鼠标指针、黑色背景和画面下缘细线属于截图或布局痕迹，不是教学箭头或牌面符号。",
+        "牌墙下层有重叠和遮挡，顶面位置数不代表完整可见牌墙的总张数。"
+      ]
+    }
+  ],
+  "label": "审校限制（非原文）",
+  "authorBodyInjection": false,
+  "proposalOnly": true,
+  "implementationVerified": false,
+  "actualReadbackRequired": true,
+  "admissionGranted": false,
+  "wholeChapterPassed": false,
+  "newModelCalls": 0,
+  "newProductionCalls": 0
+}

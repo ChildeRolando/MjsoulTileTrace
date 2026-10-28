@@ -1,0 +1,41 @@
+{
+  "schema": "coach-textbook-index/1",
+  "status": "chapter-auto-audited",
+  "title": "逆切3",
+  "policy": {
+    "cardRole": "index-only",
+    "bodyRole": "complete-source-body-with-chinese-translation",
+    "modelExperiments": false,
+    "reviewStatus": "pending-user-review"
+  },
+  "sources": [
+    {
+      "id": "modern-yabejp-ja-chapter03-section026",
+      "title": "逆切3",
+      "format": "web",
+      "language": "ja",
+      "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+      "articleId": "chapter03-section026",
+      "sha256": "dae997144794f6b4c84de50824dd2a352c9244e6dc459a046097a5ff6642bb90",
+      "htmlSha256": "dae997144794f6b4c84de50824dd2a352c9244e6dc459a046097a5ff6642bb90",
+      "bytes": 8203,
+      "sourceJsonSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+      "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section026/source.json"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "modern-yabejp-ja-chapter03-section026-chapter",
+      "title": "逆切3",
+      "sourceId": "modern-yabejp-ja-chapter03-section026",
+      "startPage": null,
+      "bodyStartPage": null,
+      "endPage": null,
+      "topics": [],
+      "indexDescription": "完整原文论证和牌例；索引只定位。",
+      "anchors": [],
+      "relatedChapterIds": [],
+      "reviewFocus": "固定nemata-jp-chapter-213-1、原图、未知原串、全部非原文限制与原作者条件；不是普通全章passed。"
+    }
+  ]
+}

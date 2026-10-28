@@ -1937,7 +1937,7 @@
     "modern-yabejp-ja:chapter03-section026:b0032:figure:error",
     "modern-yabejp-ja:chapter03-section026:b0032:figure:uncertain"
    ],
-   "currentDisposition": "targets-faithful-contract-and-display-not-installed",
+   "currentDisposition": "exact-composite-isolated-display-ready-awaiting250-readback",
    "origin": "COAC-249 explicit 20",
    "newThisStage": true,
    "alsoReportedBy": "COAC-246 coverage verification 2026-10-27",
@@ -2459,6 +2459,77 @@
     "newReviews": 0,
     "newConsumers": 0,
     "verificationPath": "integration/coac248-jp213-intake-20261028/verification.json"
+   },
+   "exact213Composite": {
+    "schema": "coac248-jp213-zero-call-composite-handoff/1",
+    "authorizationCommentId": "01a18226-92e6-7a4a-81e0-3c365559b152",
+    "canonical": "nemata-jp-chapter-213-1",
+    "candidate": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.r1.display.json",
+     "sha256": "a667937d4e119a1b22659fc60987f07d3eea9d246c8b2b6ddabcdacb4fe5dd47"
+    },
+    "source": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter03-section026\\source.json",
+     "sha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a"
+    },
+    "parent": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.display.json",
+     "sha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4"
+    },
+    "parentAudit": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+     "sha256": "a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc"
+    },
+    "independentReceipt": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-213-target-impact-reviewed-20261028.json",
+     "sha256": "a91fd5ef0e13a880d32e0036c87f34f341d54b4c7afa9088f636b3dc857321d8"
+    },
+    "raw": {
+     "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\c0d77d4f-25ea-401b-939e-c956e81e1713.json",
+     "sha256": "0f401fb2bdba23993719062663b69b6ddcc9df2c268727ebe94d1e9041d867ea"
+    },
+    "package": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp213-composite-20261028",
+    "loader": {
+     "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp213-composite-20261028/admit.mjs",
+     "sha256": "51f18fd7b1d0a8cb32f02ed85090ff52f6d44de720dabbcd4770ca551ffcf083",
+     "function": "verifyLimited(root,candidatePath)"
+    },
+    "stageEntry": {
+     "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp213-composite-20261028/stage.mjs",
+     "sha256": "db934ba70f7c601ce4a27c84ac0b95743a875891a3187c6d1d65366bff4c0073",
+     "function": "stageLimited(options)"
+    },
+    "stageVerifier": {
+     "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp213-composite-20261028/verify-stage.mjs",
+     "sha256": "8828866610338368239ccb91353c64661c6200ceabdde74924f6399b69d74864",
+     "function": "verifyStaged(root,stagePath)"
+    },
+    "stage": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp213-composite-20261028/stage",
+    "stageFiles": {
+     "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp213-composite-20261028/stage-files.json",
+     "sha256": "afd4b01ed6456c2c1be9613ce2d893b82e5c38c2be599bfab363216d4e815f79"
+    },
+    "manifest": {
+     "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp213-composite-20261028/manifest.json",
+     "sha256": "ffe1c4a7a105888b61f7524be63fb1be8710b79d92a4d0c1ef67f90c8a48bd09"
+    },
+    "verification": {
+     "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp213-composite-20261028/verification.json",
+     "sha256": "4c1ec1437d8c62504adfbc7ebf2b1929165486d5029efb167639702d8daccb18"
+    },
+    "exactLimitedCompositionVerified": true,
+    "isolatedNotesInstalled": 8,
+    "unknownsRetained": 4,
+    "negativeChecks": 35,
+    "issueObjectsByteIdentical": false,
+    "issueMapping": "Three old/new issue pairs each pinned separately; current two targets independently faithful, retained unknowns permitted only with eight limits. No generic ignoring of issues.",
+    "originalStrictFalseAndSeveritiesRetained": true,
+    "onlyExisting250Writer": true,
+    "ordinaryWholeArticlePassed": false,
+    "globalAdmissionGranted": false,
+    "actualGlobalMcpArenaReadbackRequired": true,
+    "newModelCalls": 0,
+    "humanAnnotationDataUsed": false
    }
   },
   {
@@ -14101,5 +14172,76 @@
   "newReviews": 0,
   "newConsumers": 0,
   "verificationPath": "integration/coac248-cn234-intake-20261028/verification.json"
+ },
+ "exact213Composite": {
+  "schema": "coac248-jp213-zero-call-composite-handoff/1",
+  "authorizationCommentId": "01a18226-92e6-7a4a-81e0-3c365559b152",
+  "canonical": "nemata-jp-chapter-213-1",
+  "candidate": {
+   "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.r1.display.json",
+   "sha256": "a667937d4e119a1b22659fc60987f07d3eea9d246c8b2b6ddabcdacb4fe5dd47"
+  },
+  "source": {
+   "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter03-section026\\source.json",
+   "sha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a"
+  },
+  "parent": {
+   "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.display.json",
+   "sha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4"
+  },
+  "parentAudit": {
+   "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+   "sha256": "a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc"
+  },
+  "independentReceipt": {
+   "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-213-target-impact-reviewed-20261028.json",
+   "sha256": "a91fd5ef0e13a880d32e0036c87f34f341d54b4c7afa9088f636b3dc857321d8"
+  },
+  "raw": {
+   "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\c0d77d4f-25ea-401b-939e-c956e81e1713.json",
+   "sha256": "0f401fb2bdba23993719062663b69b6ddcc9df2c268727ebe94d1e9041d867ea"
+  },
+  "package": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp213-composite-20261028",
+  "loader": {
+   "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp213-composite-20261028/admit.mjs",
+   "sha256": "51f18fd7b1d0a8cb32f02ed85090ff52f6d44de720dabbcd4770ca551ffcf083",
+   "function": "verifyLimited(root,candidatePath)"
+  },
+  "stageEntry": {
+   "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp213-composite-20261028/stage.mjs",
+   "sha256": "db934ba70f7c601ce4a27c84ac0b95743a875891a3187c6d1d65366bff4c0073",
+   "function": "stageLimited(options)"
+  },
+  "stageVerifier": {
+   "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp213-composite-20261028/verify-stage.mjs",
+   "sha256": "8828866610338368239ccb91353c64661c6200ceabdde74924f6399b69d74864",
+   "function": "verifyStaged(root,stagePath)"
+  },
+  "stage": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp213-composite-20261028/stage",
+  "stageFiles": {
+   "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp213-composite-20261028/stage-files.json",
+   "sha256": "afd4b01ed6456c2c1be9613ce2d893b82e5c38c2be599bfab363216d4e815f79"
+  },
+  "manifest": {
+   "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp213-composite-20261028/manifest.json",
+   "sha256": "ffe1c4a7a105888b61f7524be63fb1be8710b79d92a4d0c1ef67f90c8a48bd09"
+  },
+  "verification": {
+   "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp213-composite-20261028/verification.json",
+   "sha256": "4c1ec1437d8c62504adfbc7ebf2b1929165486d5029efb167639702d8daccb18"
+  },
+  "exactLimitedCompositionVerified": true,
+  "isolatedNotesInstalled": 8,
+  "unknownsRetained": 4,
+  "negativeChecks": 35,
+  "issueObjectsByteIdentical": false,
+  "issueMapping": "Three old/new issue pairs each pinned separately; current two targets independently faithful, retained unknowns permitted only with eight limits. No generic ignoring of issues.",
+  "originalStrictFalseAndSeveritiesRetained": true,
+  "onlyExisting250Writer": true,
+  "ordinaryWholeArticlePassed": false,
+  "globalAdmissionGranted": false,
+  "actualGlobalMcpArenaReadbackRequired": true,
+  "newModelCalls": 0,
+  "humanAnnotationDataUsed": false
  }
 }

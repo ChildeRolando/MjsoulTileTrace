@@ -1,0 +1,1074 @@
+{
+  "schema": "coach-textbook-corpus/1",
+  "corpusId": "d1c1d3be49947e0711883a0b9d51360cf4e556af6bbfd117e9097e1326741797",
+  "bodySha256": "18d47708de3e2dad63d850f296a2d7c1e774da29acc4b0db7aff7dae758fb1c4",
+  "reviewStatus": "batch-audited-content-review-pending",
+  "units": [
+    {
+      "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+      "chapterId": "modern-yabejp-ja-chapter03-section026-chapter",
+      "title": "逆切3",
+      "chapterTitle": "逆切3",
+      "topics": [],
+      "source": {
+        "sourceId": "modern-yabejp-ja-chapter03-section026",
+        "title": "逆切3",
+        "sha256": "dae997144794f6b4c84de50824dd2a352c9244e6dc459a046097a5ff6642bb90",
+        "pages": [],
+        "format": "web",
+        "web": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+          "articleId": "chapter03-section026",
+          "htmlSha256": "dae997144794f6b4c84de50824dd2a352c9244e6dc459a046097a5ff6642bb90"
+        }
+      },
+      "translationStatus": "batch-audited-pending-user-review",
+      "previousUnitId": null,
+      "nextUnitId": null,
+      "blocks": [
+        {
+          "type": "h2",
+          "id": "modern-yabejp-ja-chapter03-section026-b1",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section026:b0001"
+            ],
+            "domPaths": [
+              "main/h2[3]"
+            ]
+          },
+          "text": "逆切3"
+        },
+        {
+          "type": "p",
+          "id": "modern-yabejp-ja-chapter03-section026-b2",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section026:b0002"
+            ],
+            "domPaths": [
+              "main/p[5]"
+            ]
+          },
+          "text": "这是对[读牌技术论6](http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html)、[7](http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html)等内容的补充。"
+        },
+        {
+          "type": "p",
+          "id": "modern-yabejp-ja-chapter03-section026-p3",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section026:b0003",
+              "modern-yabejp-ja:chapter03-section026:b0004",
+              "modern-yabejp-ja:chapter03-section026:b0005",
+              "modern-yabejp-ja:chapter03-section026:b0006",
+              "modern-yabejp-ja:chapter03-section026:b0007",
+              "modern-yabejp-ja:chapter03-section026:b0008",
+              "modern-yabejp-ja:chapter03-section026:b0009",
+              "modern-yabejp-ja:chapter03-section026:b0010",
+              "modern-yabejp-ja:chapter03-section026:b0011",
+              "modern-yabejp-ja:chapter03-section026:b0012",
+              "modern-yabejp-ja:chapter03-section026:b0013",
+              "modern-yabejp-ja:chapter03-section026:b0014",
+              "modern-yabejp-ja:chapter03-section026:b0015",
+              "modern-yabejp-ja:chapter03-section026:b0016",
+              "modern-yabejp-ja:chapter03-section026:b0017"
+            ],
+            "domPaths": [
+              "main/p[7]"
+            ]
+          },
+          "text": "在[6](http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html)、[7](http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html)中提到过，如果按容易构成面子的牌→不易构成面子的牌的顺序手切，往往能提供很有力的信息。除了[6](http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html)、[7](http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html)中举出的例子，还有很多场合可以运用这一点。 5m → 9m 按这个顺序打出的话，即使是筋张， 8m 也相当危险；而且， 6p 被杠，或场上已经能看到4张时，却又打出 7p 而进入听牌的话，虽说已经形成了壁， 8p 、 9p 也很可疑。因为，如果听牌时打出的牌并非作为安全牌保留的，该牌附近也不属于因摸入另一张牌而完成面子的那一侧，那么其附近就是所听的牌。",
+          "inlineFigures": [
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b4",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0004"
+                ],
+                "domPaths": [
+                  "main/p[7]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "b4421145dd8991af733b5c71110b9445da8c768fcc995b35dc246d389d9ed5de",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "5a4a77aad3598a95a46e284e4425da8370c58a7c6ad7e142ceb70725897973b4"
+                ]
+              },
+              "transcription": {
+                "text": "5m"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b6",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0006"
+                ],
+                "domPaths": [
+                  "main/p[7]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "59033702a047b1628005b1203b5a3ded5251177a163486512f284331375ef402",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "d5fc796860fcbf45537080d63f7396ff45cf2a762adc59c751b37ec7ce1978ef"
+                ]
+              },
+              "transcription": {
+                "text": "9m"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b8",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0008"
+                ],
+                "domPaths": [
+                  "main/p[7]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "97424b00e2013a637ce299a5a4a639e9e25a039173ae9b656815758469278bc1",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "6720a061ff6942a14624235a8b3ae4084307fbd723821cb6aa19f69ce8a3a325"
+                ]
+              },
+              "transcription": {
+                "text": "8m"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b10",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0010"
+                ],
+                "domPaths": [
+                  "main/p[7]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "38c5185a0b58f99046f7edadab3e536c0bb08133600be495e622639aa14cca0a",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "c93fbabcbb4340f251e1d305b4c9f2176cf4140c809327f8bec09ef727216551"
+                ]
+              },
+              "transcription": {
+                "text": "6p"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b12",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0012"
+                ],
+                "domPaths": [
+                  "main/p[7]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "781b5f82fe25327868a860c265b45a7a13f9184a7decf09ac8f050a4ac86e1a3",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef"
+                ]
+              },
+              "transcription": {
+                "text": "7p"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b14",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0014"
+                ],
+                "domPaths": [
+                  "main/p[7]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "a1143210abefd418cef18d7370fc67c6f94e171c2c0ceb2caafe7a1fc8ca2fbf",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295"
+                ]
+              },
+              "transcription": {
+                "text": "8p"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b16",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0016"
+                ],
+                "domPaths": [
+                  "main/p[7]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "6f3a4bc5a5813a108733605ceae92bd0fbda33d7be17de49347acbb2f06313af",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141"
+                ]
+              },
+              "transcription": {
+                "text": "9p"
+              },
+              "requiresImageForFullExample": false
+            }
+          ]
+        },
+        {
+          "type": "p",
+          "id": "modern-yabejp-ja-chapter03-section026-p4",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section026:b0018",
+              "modern-yabejp-ja:chapter03-section026:b0019",
+              "modern-yabejp-ja:chapter03-section026:b0020",
+              "modern-yabejp-ja:chapter03-section026:b0021",
+              "modern-yabejp-ja:chapter03-section026:b0022",
+              "modern-yabejp-ja:chapter03-section026:b0023",
+              "modern-yabejp-ja:chapter03-section026:b0024",
+              "modern-yabejp-ja:chapter03-section026:b0025",
+              "modern-yabejp-ja:chapter03-section026:b0026",
+              "modern-yabejp-ja:chapter03-section026:b0027",
+              "modern-yabejp-ja:chapter03-section026:b0028",
+              "modern-yabejp-ja:chapter03-section026:b0029",
+              "modern-yabejp-ja:chapter03-section026:b0030"
+            ],
+            "domPaths": [
+              "main/p[9]"
+            ]
+          },
+          "text": "在中张牌之后才打出1、9牌的情况， 112s 等复合搭子中拆出、因为相对安全而保留之外，还可以考虑另一种情况，即从 789s 、 79s 、 89s 这样的牌形中， 6s 摸入后， 9s 被打出的情况。这种情况下，虽然还不能说其附近成为待牌的可能性会升高，但可以说，在其附近构成面子的可能性相当高（因为从复合搭子中拆出时，同样的道理也成立）。",
+          "inlineFigures": [
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b19",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0019"
+                ],
+                "domPaths": [
+                  "main/p[9]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "445a498fe085f3d7ac4d09b9e0c7741b6cb41d413030b953513801cc3e74e511",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "e5f873212057ca626b02116936b06a74e16f224340b1a98bc12b35c19d63f95b",
+                  "e5f873212057ca626b02116936b06a74e16f224340b1a98bc12b35c19d63f95b",
+                  "04fbb9d86fb607b0bf95a29422c32da0a5bf427ed6ed05a674470fa15cfa281b"
+                ]
+              },
+              "transcription": {
+                "text": "1s 1s 2s"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b21",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0021"
+                ],
+                "domPaths": [
+                  "main/p[9]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "0e08634d5c8ea41f0adcf48cc3b69a45c7e51d2498e386262e149fbd54205a5c",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "9602f1a7e5a4e6f2c98f1bedae7362e68c0bc82df76da636e15bad6c94a0d13d",
+                  "0be7ec4042b1aa0ef244a2848a2d13fab62b96c30fa730c650a64fe761440b73",
+                  "8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b"
+                ]
+              },
+              "transcription": {
+                "text": "7s 8s 9s"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b23",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0023"
+                ],
+                "domPaths": [
+                  "main/p[9]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "29b044391053e3913d74c6a900faa3e80c3d71d9beb3a4b34e33503fe3a44723",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "9602f1a7e5a4e6f2c98f1bedae7362e68c0bc82df76da636e15bad6c94a0d13d",
+                  "8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b"
+                ]
+              },
+              "transcription": {
+                "text": "7s 9s"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b25",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0025"
+                ],
+                "domPaths": [
+                  "main/p[9]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "464b60dbba9fde5f39ee6c9d2ef4713a59664f8fd44cf8cf4118e2daed791041",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "0be7ec4042b1aa0ef244a2848a2d13fab62b96c30fa730c650a64fe761440b73",
+                  "8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b"
+                ]
+              },
+              "transcription": {
+                "text": "8s 9s"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b27",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0027"
+                ],
+                "domPaths": [
+                  "main/p[9]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "e88709072125c0c5b9dd788a2b46d31d19ce478c71a3cccfb3eb5eba99dc68be",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "b3dd465d6b409b704aac6aa188d3f40982e2b03ae772971dbfc973ca90c35fcd"
+                ]
+              },
+              "transcription": {
+                "text": "6s"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b29",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0029"
+                ],
+                "domPaths": [
+                  "main/p[9]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "164f6643a34ca99f9e521ff85f4efaa1f1645261db88a7c37a4e7e5a06da1664",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b"
+                ]
+              },
+              "transcription": {
+                "text": "9s"
+              },
+              "requiresImageForFullExample": false
+            }
+          ]
+        },
+        {
+          "type": "p",
+          "id": "modern-yabejp-ja-chapter03-section026-p5",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section026:b0031",
+              "modern-yabejp-ja:chapter03-section026:b0032"
+            ],
+            "domPaths": [
+              "main/p[11]"
+            ]
+          },
+          "text": "※红线表示摸切牌 牌局画面。以下牌河均先列靠近中央的一排，再列外侧各排，并按各家自己的出牌方向记录；红线单独说明，不表示赤牌。\n\n下方本家：手牌从图像左至右为1m 2m 3m 7m 8m 9m 4p 4p 8p 9p；右侧隔开放置的摸入牌为5p。右下方副露从图像左至右为3m（横置，牌面相对画面逆时针旋转90°）4m 5m。其他这些手牌与副露牌均朝上。\n本家牌河：第1排从左至右为1z 3z 4z 5s 1p 1z；第2排从左至右为6s 3p 9s 3p 7z 2s。红线位于第1排第3张4z、第6张1z，以及第2排第1张6s、第3张9s、第4张3p的下缘。\n\n上方对家：牌河普通牌面相对画面旋转180°。第1排从图像右至左为2m 4z 1z 8m 2p [字面不清的字牌]；第2排从右至左为3s 7s 6s 9p 5z（横置）1p；第3排仅有1m，位于图像右端。红线位于第1排第6张字牌、第2排第3张6s与第6张1p、第3排1m的图像上缘。对家牌河与中央显示区之间有一根白底红点的立直棒。\n\n左家：牌面相对画面顺时针旋转90°。靠中央的右列从图像上至下为2p 1s 9s 8m 6p 3s；外侧左列从上至下为1p 7p 4s 9s 6s 2s。红线位于右列第6张3s，以及左列第1张1p、第2张7p、第4张9s、第6张2s的图像左缘。\n\n右家：牌面相对画面逆时针旋转90°。靠中央的左列从图像下至上为2z 2z 4z 1m 4m 3m；中间列从下至上为1m 2z 2p 3z 7s 6z；最外侧列从下至上为9s 4s。红线位于靠中央列第3张4z、第6张3m，以及中间列第4张3z、第5张7s、第6张6z的图像右缘。右上角副露从图像上至下为7z 7z 7z；最上方7z相对于该家的另外两张牌横置，其字面朝上，下面两张的牌面相对画面逆时针旋转90°。\n\n牌墙：左侧竖墙顶面从上至下有11个位置，第3个位置亮出的牌为6p，牌面相对画面逆时针旋转90°，其他10个位置为蓝色牌背；下方横墙可见5个蓝色牌背顶面。\n\n中央显示：东4局；下方两个小图标后的数字依次为0、1。座风为下方北、上方南、左侧西、右侧东。下方分数为20000，右侧分数为20000；上方及左侧分数无法可靠完整辨认。右上方规则文字表示东南战、允许食断、含赤牌。各家座位旁还有小号文字，无法完整辨认。\n原图未显示的信息：对家牌河第1排从其出牌方向数第6张，即图像靠中央一排最左端的字牌，其具体字面无法可靠辨认。；中央上方与左侧的完整分数无法可靠辨认。；中央数字0、1前的小图标无法辨认，无法仅凭图标确认各自所指的计数项目。；各家座位旁的小号姓名或其他附属文字无法完整辨认。 ",
+          "inlineFigures": [
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b32",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0032"
+                ],
+                "domPaths": [
+                  "main/p[11]"
+                ]
+              },
+              "caption": "根据对家保留后打出的9p，判断继续进攻是否合适。红线表示摸切牌。",
+              "imageSha256": "593c3a08d5b7a2693f3e8e140af41cff6b95de4b5e2866ecdc7eeb3bcc2370b3",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd"
+                ]
+              },
+              "transcription": {
+                "text": "牌局画面。以下牌河均先列靠近中央的一排，再列外侧各排，并按各家自己的出牌方向记录；红线单独说明，不表示赤牌。\n\n下方本家：手牌从图像左至右为1m 2m 3m 7m 8m 9m 4p 4p 8p 9p；右侧隔开放置的摸入牌为5p。右下方副露从图像左至右为3m（横置，牌面相对画面逆时针旋转90°）4m 5m。其他这些手牌与副露牌均朝上。\n本家牌河：第1排从左至右为1z 3z 4z 5s 1p 1z；第2排从左至右为6s 3p 9s 3p 7z 2s。红线位于第1排第3张4z、第6张1z，以及第2排第1张6s、第3张9s、第4张3p的下缘。\n\n上方对家：牌河普通牌面相对画面旋转180°。第1排从图像右至左为2m 4z 1z 8m 2p [字面不清的字牌]；第2排从右至左为3s 7s 6s 9p 5z（横置）1p；第3排仅有1m，位于图像右端。红线位于第1排第6张字牌、第2排第3张6s与第6张1p、第3排1m的图像上缘。对家牌河与中央显示区之间有一根白底红点的立直棒。\n\n左家：牌面相对画面顺时针旋转90°。靠中央的右列从图像上至下为2p 1s 9s 8m 6p 3s；外侧左列从上至下为1p 7p 4s 9s 6s 2s。红线位于右列第6张3s，以及左列第1张1p、第2张7p、第4张9s、第6张2s的图像左缘。\n\n右家：牌面相对画面逆时针旋转90°。靠中央的左列从图像下至上为2z 2z 4z 1m 4m 3m；中间列从下至上为1m 2z 2p 3z 7s 6z；最外侧列从下至上为9s 4s。红线位于靠中央列第3张4z、第6张3m，以及中间列第4张3z、第5张7s、第6张6z的图像右缘。右上角副露从图像上至下为7z 7z 7z；最上方7z相对于该家的另外两张牌横置，其字面朝上，下面两张的牌面相对画面逆时针旋转90°。\n\n牌墙：左侧竖墙顶面从上至下有11个位置，第3个位置亮出的牌为6p，牌面相对画面逆时针旋转90°，其他10个位置为蓝色牌背；下方横墙可见5个蓝色牌背顶面。\n\n中央显示：东4局；下方两个小图标后的数字依次为0、1。座风为下方北、上方南、左侧西、右侧东。下方分数为20000，右侧分数为20000；上方及左侧分数无法可靠完整辨认。右上方规则文字表示东南战、允许食断、含赤牌。各家座位旁还有小号文字，无法完整辨认。\n原图未显示的信息：对家牌河第1排从其出牌方向数第6张，即图像靠中央一排最左端的字牌，其具体字面无法可靠辨认。；中央上方与左侧的完整分数无法可靠辨认。；中央数字0、1前的小图标无法辨认，无法仅凭图标确认各自所指的计数项目。；各家座位旁的小号姓名或其他附属文字无法完整辨认。"
+              },
+              "requiresImageForFullExample": false
+            }
+          ]
+        },
+        {
+          "type": "p",
+          "id": "limitedjp213-1",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section026:b0032"
+            ],
+            "domPaths": [
+              "main/p[11]"
+            ]
+          },
+          "text": "【审校限制（非原文）1】保留原图，并在该具体位置标明字牌字面不清，不填入猜测的字牌。"
+        },
+        {
+          "type": "p",
+          "id": "limitedjp213-2",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section026:b0032"
+            ],
+            "domPaths": [
+              "main/p[11]"
+            ]
+          },
+          "text": "【审校限制（非原文）2】说明对家暗手被遮挡；实际听5p–8p是作者的文字陈述，不能说是从截图独立证实的。"
+        },
+        {
+          "type": "p",
+          "id": "limitedjp213-3",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section026:b0032"
+            ],
+            "domPaths": [
+              "main/p[11]"
+            ]
+          },
+          "text": "【审校限制（非原文）3】随原图保留上方和左侧完整分数无法可靠辨认的说明，不补猜数值。"
+        },
+        {
+          "type": "p",
+          "id": "limitedjp213-4",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section026:b0032"
+            ],
+            "domPaths": [
+              "main/p[11]"
+            ]
+          },
+          "text": "【审校限制（非原文）4】将弃和呈现为作者的结论，不宣称已利用完整点数证明它是最优选择。"
+        },
+        {
+          "type": "p",
+          "id": "limitedjp213-5",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section026:b0032"
+            ],
+            "domPaths": [
+              "main/p[11]"
+            ]
+          },
+          "text": "【审校限制（非原文）5】保留图标不可辨及不能仅凭图标确认计数项目的说明，不为0、1擅自指定计数名称。"
+        },
+        {
+          "type": "p",
+          "id": "limitedjp213-6",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section026:b0032"
+            ],
+            "domPaths": [
+              "main/p[11]"
+            ]
+          },
+          "text": "【审校限制（非原文）6】保留原图，避免把转录当作完整可识别的计数信息。"
+        },
+        {
+          "type": "p",
+          "id": "limitedjp213-7",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section026:b0032"
+            ],
+            "domPaths": [
+              "main/p[11]"
+            ]
+          },
+          "text": "【审校限制（非原文）7】保留座位旁小字无法完整辨认的说明和原图，不推定姓名或其他文字。"
+        },
+        {
+          "type": "p",
+          "id": "limitedjp213-8",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section026:b0032"
+            ],
+            "domPaths": [
+              "main/p[11]"
+            ]
+          },
+          "text": "【审校限制（非原文）8】不将转录描述为包含全部玩家身份及附属信息。"
+        },
+        {
+          "type": "p",
+          "id": "modern-yabejp-ja-chapter03-section026-p6",
+          "page": null,
+          "locator": {
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter03-section026:b0033",
+              "modern-yabejp-ja:chapter03-section026:b0034",
+              "modern-yabejp-ja:chapter03-section026:b0035",
+              "modern-yabejp-ja:chapter03-section026:b0036",
+              "modern-yabejp-ja:chapter03-section026:b0037",
+              "modern-yabejp-ja:chapter03-section026:b0038",
+              "modern-yabejp-ja:chapter03-section026:b0039",
+              "modern-yabejp-ja:chapter03-section026:b0040",
+              "modern-yabejp-ja:chapter03-section026:b0041",
+              "modern-yabejp-ja:chapter03-section026:b0042",
+              "modern-yabejp-ja:chapter03-section026:b0043",
+              "modern-yabejp-ja:chapter03-section026:b0044",
+              "modern-yabejp-ja:chapter03-section026:b0045",
+              "modern-yabejp-ja:chapter03-section026:b0046",
+              "modern-yabejp-ja:chapter03-section026:b0047",
+              "modern-yabejp-ja:chapter03-section026:b0048",
+              "modern-yabejp-ja:chapter03-section026:b0049",
+              "modern-yabejp-ja:chapter03-section026:b0050",
+              "modern-yabejp-ja:chapter03-section026:b0051",
+              "modern-yabejp-ja:chapter03-section026:b0052",
+              "modern-yabejp-ja:chapter03-section026:b0053"
+            ],
+            "domPaths": [
+              "main/p[13]"
+            ]
+          },
+          "text": "对家一直保留 9p ，很可能属于上面举出的情况。若是从 79p 的牌形中， 6p 摸入后打出 9p ，那么 5p − 8p 就是主要应考虑的听牌（实际上对手听的也是 5p − 8p ）；即使并非如此，对家 7p 至少持有1张的可能性也很大。这样一来， 7p 最多也只剩2张，继续进攻很勉强。因此应该弃和。",
+          "inlineFigures": [
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b34",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0034"
+                ],
+                "domPaths": [
+                  "main/p[13]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "6f3a4bc5a5813a108733605ceae92bd0fbda33d7be17de49347acbb2f06313af",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141"
+                ]
+              },
+              "transcription": {
+                "text": "9p"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b36",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0036"
+                ],
+                "domPaths": [
+                  "main/p[13]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "1043053dcf6c4cc46dec3258db2ae3473af1ff1c64eb4de6cd5d860b258b18fd",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef",
+                  "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141"
+                ]
+              },
+              "transcription": {
+                "text": "7p 9p"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b38",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0038"
+                ],
+                "domPaths": [
+                  "main/p[13]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "38c5185a0b58f99046f7edadab3e536c0bb08133600be495e622639aa14cca0a",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "c93fbabcbb4340f251e1d305b4c9f2176cf4140c809327f8bec09ef727216551"
+                ]
+              },
+              "transcription": {
+                "text": "6p"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b40",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0040"
+                ],
+                "domPaths": [
+                  "main/p[13]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "6f3a4bc5a5813a108733605ceae92bd0fbda33d7be17de49347acbb2f06313af",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141"
+                ]
+              },
+              "transcription": {
+                "text": "9p"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b42",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0042"
+                ],
+                "domPaths": [
+                  "main/p[13]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "9a73b46aa6d3935c70f57e921e044c2e53c33adccc8f0fb3e4327343b597344e",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "3a742c41a6fd13988ae765423ed55ae263fd9c7883e6f1e0dc03670077b30c78"
+                ]
+              },
+              "transcription": {
+                "text": "5p"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b44",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0044"
+                ],
+                "domPaths": [
+                  "main/p[13]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "a1143210abefd418cef18d7370fc67c6f94e171c2c0ceb2caafe7a1fc8ca2fbf",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295"
+                ]
+              },
+              "transcription": {
+                "text": "8p"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b46",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0046"
+                ],
+                "domPaths": [
+                  "main/p[13]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "9a73b46aa6d3935c70f57e921e044c2e53c33adccc8f0fb3e4327343b597344e",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "3a742c41a6fd13988ae765423ed55ae263fd9c7883e6f1e0dc03670077b30c78"
+                ]
+              },
+              "transcription": {
+                "text": "5p"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b48",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0048"
+                ],
+                "domPaths": [
+                  "main/p[13]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "a1143210abefd418cef18d7370fc67c6f94e171c2c0ceb2caafe7a1fc8ca2fbf",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "5a209c9c90f206f29018eaa34637e8035de266791461fa91fac9db5299245295"
+                ]
+              },
+              "transcription": {
+                "text": "8p"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b50",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0050"
+                ],
+                "domPaths": [
+                  "main/p[13]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "781b5f82fe25327868a860c265b45a7a13f9184a7decf09ac8f050a4ac86e1a3",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef"
+                ]
+              },
+              "transcription": {
+                "text": "7p"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "modern-yabejp-ja-chapter03-section026-b52",
+              "unitId": "modern-yabejp-ja-chapter03-section026-argument",
+              "page": null,
+              "locator": {
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026.html",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter03-section026:b0052"
+                ],
+                "domPaths": [
+                  "main/p[13]"
+                ]
+              },
+              "caption": "原文内联牌列",
+              "imageSha256": "781b5f82fe25327868a860c265b45a7a13f9184a7decf09ac8f050a4ac86e1a3",
+              "imageProvenance": {
+                "kind": "derived-source-assets",
+                "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+                "sourceAssetSha256s": [
+                  "adc310df04838bab421e90514f4109dcef34052e365c2bd251efbc1d376a19ef"
+                ]
+              },
+              "transcription": {
+                "text": "7p"
+              },
+              "requiresImageForFullExample": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b4",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b4.png",
+      "sha256": "b4421145dd8991af733b5c71110b9445da8c768fcc995b35dc246d389d9ed5de"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b6",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b6.png",
+      "sha256": "59033702a047b1628005b1203b5a3ded5251177a163486512f284331375ef402"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b8",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b8.png",
+      "sha256": "97424b00e2013a637ce299a5a4a639e9e25a039173ae9b656815758469278bc1"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b10",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b10.png",
+      "sha256": "38c5185a0b58f99046f7edadab3e536c0bb08133600be495e622639aa14cca0a"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b12",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b12.png",
+      "sha256": "781b5f82fe25327868a860c265b45a7a13f9184a7decf09ac8f050a4ac86e1a3"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b14",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b14.png",
+      "sha256": "a1143210abefd418cef18d7370fc67c6f94e171c2c0ceb2caafe7a1fc8ca2fbf"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b16",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b16.png",
+      "sha256": "6f3a4bc5a5813a108733605ceae92bd0fbda33d7be17de49347acbb2f06313af"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b19",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b19.png",
+      "sha256": "445a498fe085f3d7ac4d09b9e0c7741b6cb41d413030b953513801cc3e74e511"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b21",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b21.png",
+      "sha256": "0e08634d5c8ea41f0adcf48cc3b69a45c7e51d2498e386262e149fbd54205a5c"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b23",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b23.png",
+      "sha256": "29b044391053e3913d74c6a900faa3e80c3d71d9beb3a4b34e33503fe3a44723"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b25",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b25.png",
+      "sha256": "464b60dbba9fde5f39ee6c9d2ef4713a59664f8fd44cf8cf4118e2daed791041"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b27",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b27.png",
+      "sha256": "e88709072125c0c5b9dd788a2b46d31d19ce478c71a3cccfb3eb5eba99dc68be"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b29",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b29.png",
+      "sha256": "164f6643a34ca99f9e521ff85f4efaa1f1645261db88a7c37a4e7e5a06da1664"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b32",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b32.png",
+      "sha256": "593c3a08d5b7a2693f3e8e140af41cff6b95de4b5e2866ecdc7eeb3bcc2370b3"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b34",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b34.png",
+      "sha256": "6f3a4bc5a5813a108733605ceae92bd0fbda33d7be17de49347acbb2f06313af"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b36",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b36.png",
+      "sha256": "1043053dcf6c4cc46dec3258db2ae3473af1ff1c64eb4de6cd5d860b258b18fd"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b38",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b38.png",
+      "sha256": "38c5185a0b58f99046f7edadab3e536c0bb08133600be495e622639aa14cca0a"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b40",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b40.png",
+      "sha256": "6f3a4bc5a5813a108733605ceae92bd0fbda33d7be17de49347acbb2f06313af"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b42",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b42.png",
+      "sha256": "9a73b46aa6d3935c70f57e921e044c2e53c33adccc8f0fb3e4327343b597344e"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b44",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b44.png",
+      "sha256": "a1143210abefd418cef18d7370fc67c6f94e171c2c0ceb2caafe7a1fc8ca2fbf"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b46",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b46.png",
+      "sha256": "9a73b46aa6d3935c70f57e921e044c2e53c33adccc8f0fb3e4327343b597344e"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b48",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b48.png",
+      "sha256": "a1143210abefd418cef18d7370fc67c6f94e171c2c0ceb2caafe7a1fc8ca2fbf"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b50",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b50.png",
+      "sha256": "781b5f82fe25327868a860c265b45a7a13f9184a7decf09ac8f050a4ac86e1a3"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter03-section026-b52",
+      "path": "assets/modern-yabejp-ja-chapter03-section026-b52.png",
+      "sha256": "781b5f82fe25327868a860c265b45a7a13f9184a7decf09ac8f050a4ac86e1a3"
+    }
+  ]
+}
