@@ -1,0 +1,1857 @@
+{
+  "schema": "coac244-p257-human20-exact-stage-frozen/1",
+  "receipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p257-human20-reviewed-20261028.json",
+    "sha256": "4e1cc55ad35e0c649bd836946e1b9fddc9476bdee60da552ec212915106a2b0e"
+  },
+  "scope": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p257-human20-display-scope-20261028.json",
+    "sha256": "88f4a9dbe87eedd8618705b2d0f0caea3e70e85fa956ae49cc4b5228fc3f225d"
+  },
+  "proof": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p257-human20-inheritance-20261028.json",
+    "sha256": "f601478e92553253d3828fc67464ef75ad20e457c77651050640c3126d73c772"
+  },
+  "humanApplicationModule": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\entry.mjs",
+    "sha256": "ef108eedc6b8bcce75af582f9f64496a189072dbafd75158240d202e99ec1a58"
+  },
+  "closedPromptModule": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-cli.mjs",
+    "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+  },
+  "standardModule": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit.mjs",
+    "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+  },
+  "sourceLibrary": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\review\\knowledge-index.json",
+    "sha256": "3a1a8e5bb1097b7e27eafb72faf7f8b5fd0fc5319f89ec3824a9d857a7c846da"
+  },
+  "inventory": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\source-inventory.json",
+    "sha256": "050ad125fa0c82757e9a53279974c6bc1cc6249a8919cc33048367d52ccf8b4d"
+  },
+  "chapterMap": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\chapter-map.navigation-v3.json",
+    "sha256": "f1d2755b0cc55f50f1242c9ce17e2791b0fe58eee144ad51b65fee50400c5114"
+  },
+  "files": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p257-human20-reviewed-20261028.json",
+      "sha256": "4e1cc55ad35e0c649bd836946e1b9fddc9476bdee60da552ec212915106a2b0e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p257-human20-display-scope-20261028.json",
+      "sha256": "88f4a9dbe87eedd8618705b2d0f0caea3e70e85fa956ae49cc4b5228fc3f225d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p257-human20-inheritance-20261028.json",
+      "sha256": "f601478e92553253d3828fc67464ef75ad20e457c77651050640c3126d73c772"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\entry.mjs",
+      "sha256": "ef108eedc6b8bcce75af582f9f64496a189072dbafd75158240d202e99ec1a58",
+      "bytes": 11361
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit.mjs",
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\source-inventory.json",
+      "sha256": "050ad125fa0c82757e9a53279974c6bc1cc6249a8919cc33048367d52ccf8b4d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\chapter-map.navigation-v3.json",
+      "sha256": "f1d2755b0cc55f50f1242c9ce17e2791b0fe58eee144ad51b65fee50400c5114"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\review\\knowledge-index.json",
+      "sha256": "3a1a8e5bb1097b7e27eafb72faf7f8b5fd0fc5319f89ec3824a9d857a7c846da"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p257-human20-owner-handoff-20261028.md",
+      "sha256": "50f9ee7796bf0570ef94638e892b56fc8b865e8e9c6ebcea53fce65ff3165cf1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-review-recovery-20261028\\preservation.json",
+      "sha256": "24a5fc7e98278b33c22e4e07ff65921909cc225174be019ed924fde3f7dd88be",
+      "bytes": 12433
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-p257-human20-20261028\\attempt.json",
+      "sha256": "8cba8646bfd39ce152cde6bef198d5b5b93c9e75a9adc4e691ff9984d4bfd669",
+      "bytes": 2083
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-p257-human20-20261028\\cli-result.json",
+      "sha256": "47e61d9ea6e96c8ff5ae1f6292d027d952f6cd195f00e20d7849b9cabaa9db5f",
+      "bytes": 208188
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-p257-human20-20261028\\plan.json",
+      "sha256": "94625b5b9da7f0c662cc70aa6fd0208be01b8e3b84212d1ddcad5889f1a08105"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-p257-human20-20261028\\prepared-request.json",
+      "sha256": "eea1c8a858ffe1237d187d25c4c5e3ca26c631c7c6aa8c6c1a4f9b61e735dae2",
+      "bytes": 165015
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-p257-human20-20261028\\schema.compact.json",
+      "sha256": "f5a2b7d98f7b8a491443b3ea5d2727d0aa0a1ccf2b75c31e31466a95c0d0a36b",
+      "bytes": 1060
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-p257-human20-20261028\\stdin.txt",
+      "sha256": "78c1d533d95c48b381b54b14638f27caa0622b7b104fa0c9861545b0508b2ded",
+      "bytes": 148335
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2b216edc-24ba-4bdc-aa3c-153bdd6b9608.json",
+      "sha256": "4a6ec4819e7f86519bcba051e43f3f5149340ebe2898fe7ac10676498ff54e9b",
+      "bytes": 529188
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-review-recovery-20261028\\failed-run-messages.json",
+      "sha256": "eabdd3b9498a22d14ce569264cb8bd111a2eae806f4c4973422a32e37fbb9d06",
+      "bytes": 197537
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-review-recovery-20261028\\original-script-recovery\\.gitignore",
+      "sha256": "1e8f83475303af032d657406daafd2d8a8941458275df27d208b7d96fd60cdc6",
+      "bytes": 26
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-review-recovery-20261028\\original-script-recovery\\review.mjs",
+      "sha256": "dc77aa7afe66648506aa48aad90889731d6aa6c9237aab923d4ebfd140d62614",
+      "bytes": 14817
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-review-recovery-20261028\\original-script-recovery\\.gitattributes",
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "bytes": 8
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-review-recovery-20261028\\original-script-recovery\\verify.mjs",
+      "sha256": "24cb6957c9fdec5adef38a99cd0932ac30019ec3ca558a2b893da787e8efb3c2",
+      "bytes": 4846
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-review-recovery-20261028\\original-script-recovery\\package.py",
+      "sha256": "6b7e54c3dac43b578378ef056beb8c2109bdb40d28452d2ea7d454264922a76f",
+      "bytes": 1237
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-review-recovery-20261028\\original-script-recovery\\verify_metadata.py",
+      "sha256": "c33f249549dff115ebcbdbbcb896bff4fc46916a611bac7e873e2ed46a76bef4",
+      "bytes": 2536
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-review-recovery-20261028\\original-script-recovery\\handoff.mjs",
+      "sha256": "b0c1cf623612d816d9360d31990ac4d02fff5a5f28496662fe411b0e7b6f8544",
+      "bytes": 10251
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-review-recovery-20261028\\original-script-recovery\\dispatch.ps1",
+      "sha256": "39ede89409b2f45698bbe5b147b0521f75c5745fad2fd0eaa5cba16e7b120942",
+      "bytes": 2111
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\review-request.json",
+      "sha256": "94625b5b9da7f0c662cc70aa6fd0208be01b8e3b84212d1ddcad5889f1a08105",
+      "bytes": 161014
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\manifest.json",
+      "sha256": "45b6956cb20b1f5595f9a42d67972778da8d6f481a145f71d249201b2d46a9b3",
+      "files": 11,
+      "inputBindings": 53
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\257.human20.json",
+      "sha256": "a9ce50898c0407ecca32dc538ad208f667a0a950372acec1114263e177f000e7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\check.mjs",
+      "sha256": "e1515a1accd24d892c4a96237d45be4d9f0ff94639ce9ee140f49f7e5ad37529",
+      "bytes": 3533
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\checks.json",
+      "sha256": "9d68c7739b7b6a2333b7c49546f00954f2aecb22aea1854e6ec2df34f27838e3",
+      "bytes": 1633
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\plan.json",
+      "sha256": "e0d94d239ae43ce53dbf0940b2084022c3bcb574b45111438db86d05c3a5250e",
+      "bytes": 116723
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\prepare.py",
+      "sha256": "ec097c76bebc4529f14268b9c2641afcbbd39bb55119064c345a7376a6d98f17",
+      "bytes": 4778
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\receipt.json",
+      "sha256": "40b8fcd1255712dd8f88696d62e6b58d2724096e44b5cf6312ba0c914bfca202",
+      "bytes": 17057
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\seal.py",
+      "sha256": "e652d837a533cc9254e68a14e8a91f36f04c091600db00e94fdc71b732027061",
+      "bytes": 1762
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\snapshot\\events.jsonl",
+      "sha256": "136050642e5b68273f4751d2ccc3fd2f90d81a7f037e4f0f3f416477f5f56015"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\snapshot\\export.json",
+      "sha256": "74689c41b7bdcc766b1f01c627d32efe45c3399b546ba5bf5deca3cc9c774f4d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\candidates\\257.human-final.json",
+      "sha256": "5403cb35614b1edab17488458dbaf0571e1a48e1972d2d04c9ebc30a03da67dc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\257.json",
+      "sha256": "ca63823638f042d84419560d2618879b80972410d0e290f6b12c9860e19639a6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0257.6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88.6baa4a7e1404.json",
+      "sha256": "82b49d1750bc01c1c0bdee87ccd6190a78c7e0645fd7d738f802fb7b8b712144",
+      "bytes": 59383
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0257.json",
+      "sha256": "6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88",
+      "bytes": 25248
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-twenty-root-check-20261028\\ordered-review-context.json",
+      "sha256": "c204428c0038552d9f285f64e86a756710812d61375d82ed0524102e23829ae8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-twenty-root-check-20261028\\manifest.json",
+      "sha256": "c1a2aa4c9ed3244796afb66434b28b0d6b183865a02056ddcd858fae34339a89"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-human257261-consumed-20261028.json",
+      "sha256": "b19d4192f637f7f719e8cf63b8b59dd99ebcb975749456a489d2b243bd72f5b9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\250.json",
+      "sha256": "04bf92599fe2a60a630da080ae8a49511368ec77f22c308d30c312aa660955fa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair10-20261027-p250\\candidates\\nemata-jp\\page-0250.json",
+      "sha256": "1a3e1c8ce49532298caf98b7fabc00a91fa830a6f8a5e892db8199e457a43786",
+      "bytes": 60428
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0250.1a3e1c8ce49532298caf98b7fabc00a91fa830a6f8a5e892db8199e457a43786.6baa4a7e1404.json",
+      "sha256": "300d82bf0bd10f334e0e446b8cedfb2bfe861d665dfd2d41f39c5e9cbb23cb09",
+      "bytes": 163858
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\372a285e-181b-4c9a-b224-d4cfcde4a514.json",
+      "sha256": "5dba0c133fd97bcf3c0cccbb1ed95f8f4bbd6a3eda960e3cc5f25132b402c0c7",
+      "bytes": 148367
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\251.json",
+      "sha256": "ed9755c3a77e8bcee728b1f1e178706ebb380ed769fa3d5a11ff0d786ecd7ec5"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\candidates\\nemata-jp\\page-0251.json",
+      "sha256": "f9a76b0e4f4605a034de404d2fa95bbb914f6a00b9859cd7058e7110f70d10e2",
+      "bytes": 66313
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0251.f9a76b0e4f4605a034de404d2fa95bbb914f6a00b9859cd7058e7110f70d10e2.696268c32cdb.json",
+      "sha256": "d0c0b4db53cf9e4950a81159a7df69aea71f4fdab35608fbd0234d79158f7c3c",
+      "bytes": 176505
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\a176cefe-56bb-4361-9fec-50460e05053b.json",
+      "sha256": "5bd8b5655fa47a9fec6d9138eb5e9b2a962ed6a54fc220989e03a94d1f5971e3",
+      "bytes": 161321
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\252.json",
+      "sha256": "9cf23b88391aa532e6422651d0678d0e2f3dfac3957e799e60c9d73105083fc2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\candidates\\nemata-jp\\page-0252.json",
+      "sha256": "f0e75d84935bdcafff4ee43629406f35208b29d4e007579e5328463e91a099c8",
+      "bytes": 61282
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0252.f0e75d84935bdcafff4ee43629406f35208b29d4e007579e5328463e91a099c8.696268c32cdb.json",
+      "sha256": "8007c605c310418209d5113990bd6dac44a046d8c3f61efb4638159882adca8f",
+      "bytes": 180644
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\be972b61-0c75-4e17-904c-53ae89abbcd4.json",
+      "sha256": "0a99af1c24139f804bf672c0c9749c4f8f24ea05e2dbc601f190d3f00a61ec5b",
+      "bytes": 164788
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\253.json",
+      "sha256": "9b0a1ad0237cbe79d8b0a4500cfc5983b0c0f6fd9049bf488578da8485d7ed89"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair12-20261027-p253\\candidates\\nemata-jp\\page-0253.json",
+      "sha256": "78b98bcd25a3bec7a6facea85f01973ae17d0735a2f3de418cb39826587b9a6f",
+      "bytes": 78037
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0253.78b98bcd25a3bec7a6facea85f01973ae17d0735a2f3de418cb39826587b9a6f.6b1b0eb6efaf.json",
+      "sha256": "6084c156fdd063e77423e477e01d632762d7ee3a6617b8a8a81493ea813b2527",
+      "bytes": 214532
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\bc459068-8659-4eba-acfa-ba93472a7f5c.json",
+      "sha256": "34a7ae6dbce61a714fd6dc0c1211bef641a8cc20fc988df3c49271691398f768",
+      "bytes": 195615
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\254.json",
+      "sha256": "6738ddc707f553ddc85a40a362e03f63523bd04812d68d1ecd48e1c1e9c388f2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair9-20261027-p254nemata\\candidates\\nemata-jp\\page-0254.json",
+      "sha256": "bdc0dcb315a56712edc68450c22c1b838a315683a5d9f0650395ac5f9c03f690",
+      "bytes": 67796
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0254.bdc0dcb315a56712edc68450c22c1b838a315683a5d9f0650395ac5f9c03f690.image-binding-revalidated.json",
+      "sha256": "60e89549f35c5c4f99cf97ae5934ae0d5bbd667a917a7c408a4b5abd4349206f",
+      "bytes": 174391
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\bd5004ac-a00d-48c6-b52d-7eb1a8b9910b.json",
+      "sha256": "ce58879333e67ae30b1acf6dc5d0084ab12b8f213988ae0b492ae7ed3f42b0a0",
+      "bytes": 158975
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\255.json",
+      "sha256": "c8993104cbbfe135fbfcdd98323929c877416497c99d9015d2aca08b9616fef4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\candidates\\nemata-jp\\page-0255.json",
+      "sha256": "86e8129b8d692bed934ce99522433c8e6072ed1b9c717e22f9907b628f3fdada",
+      "bytes": 71217
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0255.86e8129b8d692bed934ce99522433c8e6072ed1b9c717e22f9907b628f3fdada.7ffa307c5cd0.json",
+      "sha256": "f61e05ede3da66303399773b3f2636c9c7c401ef7cab49cf242f1aba1f99158a",
+      "bytes": 202180
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\f709b0c4-0dca-4f0c-9bf0-b3f1ccb132c7.json",
+      "sha256": "fb57a83751b6d2652dc8d9348b84ea9b0939aa755f8b4f0666469f17f2ed4115",
+      "bytes": 183332
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\256.json",
+      "sha256": "77717438bdb22c52c04d70370ce2440054ef5c1a590fac4c84fcec6036ac8635"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair11-20261027-p256\\candidates\\nemata-jp\\page-0256.json",
+      "sha256": "bf9d64107b4b3d425c1ec16aa97baf9178799f8371f1e4879f7fde0f6489c2cf",
+      "bytes": 43189
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0256.bf9d64107b4b3d425c1ec16aa97baf9178799f8371f1e4879f7fde0f6489c2cf.6baa4a7e1404.json",
+      "sha256": "145abb2d105f7c5dee6905a206770fc08f2dbe684f852a9e12c0c212d0f57b4f",
+      "bytes": 128148
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\0adff228-bda6-4f57-a4f8-3cd20f719e16.json",
+      "sha256": "8c1617f243c2f42c4fb7d8f94dfe8a6e85230b004fee711ba34cc898d681d825",
+      "bytes": 118941
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\258.json",
+      "sha256": "5172c81050b3247930f01e2a18e5a24f4a9ddd50938f0ca4c8ba44b5e4750c01"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0258.json",
+      "sha256": "9bad063f7409d94bad026217777b1be78a5589f7c1216f6fa7a21791744189e5",
+      "bytes": 95051
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0258.9bad063f7409d94bad026217777b1be78a5589f7c1216f6fa7a21791744189e5.6baa4a7e1404.json",
+      "sha256": "8174e677aec3ecc9659b34ec03286b4b67d0d1e6b0dee3b163b657ca246248c1",
+      "bytes": 152881
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\1c1b1169-ea7e-4976-a180-8a23afdfe485.json",
+      "sha256": "c15f5a57b417a3ddfa3c627758afa4129f1d79dd62b319c5d6c931f1c0376ab7",
+      "bytes": 139099
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\259.json",
+      "sha256": "7fd8b1a9f066e3de37cd901aee4dfab647dd507f1aff5c91fdf45fd2c5120a30"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0259.json",
+      "sha256": "dcc2f619d7195d65f10db732127f4bb4d498df742741a6e52b9d6bc5442f1cda",
+      "bytes": 99703
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0259.dcc2f619d7195d65f10db732127f4bb4d498df742741a6e52b9d6bc5442f1cda.6baa4a7e1404.json",
+      "sha256": "bcd8e5e3d56092b8f178726c0b981c9b6fc92dd4fd1452c32cf2169a11fb5e04",
+      "bytes": 152941
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4201416e-c049-4087-9147-9e46882d6d22.json",
+      "sha256": "6ea27fbfa24a0225f6783abad377de7bcbe2569e8f498a86841bbdad69c6240d",
+      "bytes": 137259
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\260.json",
+      "sha256": "8c206873b295e85e961d4f47d65da4019f60d98a916e049b6374bcbecf7bf827"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair21-20261027-p260\\candidates\\nemata-jp\\page-0260.json",
+      "sha256": "8bbfb99c94116aa6b87ed1ead415406e8025329c53292e2dd5dc40b76f3bbfda",
+      "bytes": 112516
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0260.8bbfb99c94116aa6b87ed1ead415406e8025329c53292e2dd5dc40b76f3bbfda.7076217daf84.json",
+      "sha256": "231583d8e17a0828d669ab49d64927a9f43cfd93bc4d5a938f8ee1c9be252f69",
+      "bytes": 161724
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d30a1c4a-04f3-4440-914e-1c6988733f59.json",
+      "sha256": "114495702b265dcc4b84587743dd363bce5ea673470d817066b27bf9e636f5d5",
+      "bytes": 133634
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\262.json",
+      "sha256": "30347446f28a83ab764f25e0e9d840665edf35e377d0c4ac87150e5604fd698e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair19-20261027-p262\\candidates\\nemata-jp\\page-0262.json",
+      "sha256": "5c25921e229d285ea1ae30ec2baef23adbd9d7e20ee9740d7ef524809d9daba6",
+      "bytes": 72955
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0262.5c25921e229d285ea1ae30ec2baef23adbd9d7e20ee9740d7ef524809d9daba6.7076217daf84.json",
+      "sha256": "2fa72bdfc7c5e4658a6a5d2b0db0f16ba1f73edb3915bcd85d68a6dcdd4cb2da",
+      "bytes": 109661
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\6c0a8b07-3859-4493-bb5b-29946542a087.json",
+      "sha256": "7ab044d1e506cd261e86baee7ea761a3654648f6afd4028a9fd37344c704629f",
+      "bytes": 94281
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\runtime-manifest.json",
+      "sha256": "a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c",
+      "files": 28
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\capability-evidence.json",
+      "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-definition.mjs",
+      "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-legacy.mjs",
+      "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-pdf-layout.mjs",
+      "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-pdf-native-structure-corrections.mjs",
+      "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-pdf-native.mjs",
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-pdf-scope.mjs",
+      "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-verification-dependencies.mjs",
+      "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-web-batches.mjs",
+      "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-web.mjs",
+      "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit.mjs",
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-pdf-flow.mjs",
+      "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-dictionary.mjs",
+      "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-formal.mjs",
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-labels.mjs",
+      "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-sources.py",
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web.mjs",
+      "sha256": "07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production.mjs",
+      "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\verification-dependencies.json",
+      "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\production-schema.mjs",
+      "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0257-r1.png",
+      "sha256": "62a6a6c4f94a754ca7e41d82bc32964736fd525331c29eafd9cb5ce68ca05397"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0257-r2.png",
+      "sha256": "b6200260c2bafc289bc5526d92f7f2828dc4a57e272b863d1c297245e689cdde"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0257-r3.png",
+      "sha256": "de1e1c5582eb48e447c14c5c9d3af1092759aaf14b64f6a1932b92f9dbc0993c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0257-r4.png",
+      "sha256": "5a58950b9b492a8dd3cf59c60cd19f2ec3e1380942f3cbb529ac06e0f4d0db92"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+      "sha256": "b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png",
+      "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\67f94705ad5926c4b40c8179ecf021c0b88a7f0ab53438f4ffd2d81ae8d488be.png",
+      "sha256": "67f94705ad5926c4b40c8179ecf021c0b88a7f0ab53438f4ffd2d81ae8d488be"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\413f28dd6659f5b2431161d33bced3d90f19001dd9622359907de545a426b58e.png",
+      "sha256": "413f28dd6659f5b2431161d33bced3d90f19001dd9622359907de545a426b58e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\dd8931b5ee414bd8e4218fbd22bbb7bce492df2db5055ce9cfda47c1afec6aca.png",
+      "sha256": "dd8931b5ee414bd8e4218fbd22bbb7bce492df2db5055ce9cfda47c1afec6aca"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair18-20261027-p261\\candidates\\nemata-jp\\page-0261.json",
+      "sha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+      "bytes": 142025
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\261.json",
+      "sha256": "6cdfa8cefcbd8e38f618da86d9adc5ba5796f1c6f40fcb4729c0ceee4a3200a6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r1.png",
+      "sha256": "744fa455cc71db6ae552d57184feb2fd342fa6c2c62e179d09626d29342975f2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r2.png",
+      "sha256": "4a5c21256bf910f7356420e382255d72adcc431b408720b5339eec9a0e7f907d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r3.png",
+      "sha256": "8e2d69f3d24e62332bdc270f234c4cfa8117e889be5ab46fb71b4dc5b0561c42"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r4.png",
+      "sha256": "5278ef03f572c1a0e78675e0127d0fa893ccb4245f5129b084c5edce257f8480"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r5.png",
+      "sha256": "da8cf39cbee68c11319c67ae82c35b4dc0835015c5c1c87952723b5eb8342c7d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r6.png",
+      "sha256": "b43fd11e107987bb5210ab4884a0ad17ee8519169866652d56c553d3fd9d5445"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r7.png",
+      "sha256": "bf42f5577d9c01849c5de92ae54cccf6469d515e9221d1f50ac6b386186edb81"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r8.png",
+      "sha256": "e95093ffc2b7e14b7b70b9dbbe49e841abc051266aa06b12d370f342811ac226"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r9.png",
+      "sha256": "1eb2105152412cd57c80537c77b29f9e4f320476f4ed1e566be9601368641cd8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r10.png",
+      "sha256": "6c74b16492f15bf7b79662fecef3b069db616681f01d587a16f91bd7149dd926"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r11.png",
+      "sha256": "b18edb8aa6a7a89a436877ff2d5d3963de4de7ede00cd5b79977064e671ebd8f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r12.png",
+      "sha256": "8deb83cf09e43c7cfcfc11147165cd6824d557ca136ee2fdf6124607bba0baa0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r13.png",
+      "sha256": "36f483d7f4f89eb1fd1e295ebf5573e471c87e677df2f6cf191463498a9fe3e5"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r14.png",
+      "sha256": "0bdaaf0adb7964013a6c92b2e3d2423e9a9532c5a0f8294e8a8f22b4ca28f83b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r15.png",
+      "sha256": "9589c31c13dc801a3c373305d8806289ecf78c7931ab579db2f94712a444d12b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r16.png",
+      "sha256": "9a1bd4fb7445a442416cce86fa0739e49cbe0f96914e65bf82a27fe25643596f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r17.png",
+      "sha256": "3d01fd6ceac49f27947071c7152c78cb1801eb0cf5305bce824cb40a1be1bdf5"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r18.png",
+      "sha256": "019b1438dded337d4f166c3ec2d9204de1ad21b8bf9c6c9c22dfca7e5eac92f4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r19.png",
+      "sha256": "9e13c1522df893482f0b990c9345a103143b69996a7c03535b4b096fbebcabb0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r20.png",
+      "sha256": "97446fde736535839d8887cdbf8887251f7db04accff161581feeac320e06391"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r21.png",
+      "sha256": "37dd8b715c45976f4cb0457d1fc6ff7c08a09ed5f2bf4d19b58b2b8213b5d1b9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r22.png",
+      "sha256": "1e06abf5138ea58f9000a411edc0fcaa3a5fea8953b3fe3616b231befae7459b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r23.png",
+      "sha256": "22f766a143791fd39b4a56233c73cd582dedb45fcbe78ad3e4a1a1b7514bfb80"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r24.png",
+      "sha256": "26762467a3c93686971e07412ed712b544262ae4824598e036d04ae20a4990a8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r25.png",
+      "sha256": "af875065cc187742c5b8e6a7fdd94521bb331a5f49fdb471e3ae315c26d3c589"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r26.png",
+      "sha256": "82337c873cee5ab2c931e70790d24463e32eabd241d7e0d70fc951b4a90c75e0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r27.png",
+      "sha256": "fbb3dc893a7931b865af0d004031ff300199fd9abfd3040ab9cb0b12ca6b88c9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r28.png",
+      "sha256": "c98a37eab1ae98804d30fda50113329bf9c4ea995b19ae7f6bae2fe1230b8304"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r29.png",
+      "sha256": "42595d7058dcb08c2e5792344fb0426182e1bee4c5c76e3e4e1d71d32b158a1b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r30.png",
+      "sha256": "712155d6b43002ab283a242d24cdfa0016570e3147b3f957fb2e75a99f465eca"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r31.png",
+      "sha256": "14b384f811ef4d7382db4f414644284c0ee6af0786b9b753433c8c3b45bb88ce"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r32.png",
+      "sha256": "83de70d4b3bcc39bba7879be55ad96314783f9a1e388e8141e49815bc2397f1e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r33.png",
+      "sha256": "52994819acf43bda4cb624852de0df476ed00e5110e3286f7700c5168a791c95"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r34.png",
+      "sha256": "d32e4765efb4d5a4047997e5da1afa718f23b720a6873ef8e5c9cc7b97d9b74c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r35.png",
+      "sha256": "878711c0ca89862c413c5073062408c3fb165d5ad6936e319bec167b3cc33b15"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r36.png",
+      "sha256": "e0c742dcbd6010c193adb3d4776a74b740184ce4c7311458c418290be0b36aa0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r37.png",
+      "sha256": "f3e9e5a8d238df25197139682e6abc563504708ee766956edd2a0d5050748ebf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r38.png",
+      "sha256": "a4128e8a7d0ec4321e55534234adf8af8ea6790b10fb12c113f09914300aea18"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r39.png",
+      "sha256": "41eee5df51c5c80c1cfb63cfb33b1ccc4bfcc4e72fbab2f3e07aeae14d15aa5f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r40.png",
+      "sha256": "034121f7d0cd85360d7cdb477fb1eb8bf03e868715596454087eb4aca5b2818c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r41.png",
+      "sha256": "2155d720206459fe7b8d5a2160c070f366be6ab34a210227cd60942d65ca0ba6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r42.png",
+      "sha256": "56c75582bfe075779260c7fe49ec7633ae8561912fea0180a7ee19c97e138503"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r43.png",
+      "sha256": "7d4bbce77a500421dcc5890aab9439f93da7a8ffa4b1a0b862b23a7bc0688ad3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r44.png",
+      "sha256": "edc0fd9821aac1610d6cbec7d6d1fdff9f4178285e1aa77ad6972b0c4d2eb1b6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r45.png",
+      "sha256": "1950be6a117f7148f51a1da14301c12eb2f3aa986c60bf5a2abd5ee05540747b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r46.png",
+      "sha256": "48e29dcfaf2b46e657d45ae451e747516bba83e2697ac220e725dbbe93f0014e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r47.png",
+      "sha256": "54bfee180125993bbbc4aba7b515a150cccb1b23dbc7f3b433bf06aaad67c166"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r48.png",
+      "sha256": "1e10bdb2bcc9514250601c1cc45f991e074790c1a516600adad807f705678698"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r49.png",
+      "sha256": "34b062f4e5e1d8f64bdb6bf20a4556968cbf072165004770206f14b7c6424916"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r50.png",
+      "sha256": "3cdc97721f1d2158ece653f898146725db109ce4018de6918254a09251d3ca5a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0261-r51.png",
+      "sha256": "23c2dbea1ea5cf2cd0b82c26ec496ce0ac4ab9dea44d67379c39716720913849"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0250-r1.png",
+      "sha256": "5f5f8b4d2a5f3f6fe78902b3c7b70f98a824d8dee470fc9c1e680a5d7413a2b3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0250-r2.png",
+      "sha256": "c86afd41d2e52ceba60df5c646ad2b91a9c897be9a49eb8531a86b9c2fc3f5a6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0250-r3.png",
+      "sha256": "c2a2dbe8af9c33692b2898037130cfa175914f8252e83e5a8a263e0d0579cae7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0250-r4.png",
+      "sha256": "c1236f447ba3c5e4c9cf050dd919db0ca93a88c5044689f5159a3a0fd73f5f5d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0250-r5.png",
+      "sha256": "9e248468230a25a345738659afb004f8347135fe3904016951f8ef7bfab6e33c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0250-r6.png",
+      "sha256": "742282a01e6d1db26307e7e68e312817ec312e8171694d00645e6f5881fb2959"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0250-r7.png",
+      "sha256": "08a59660ca40a0b0f2f747b04b817d7f17fa466546c4af5b88ca117356212056"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0250-r8.png",
+      "sha256": "dbf4e9d6df72564e26e4aaca8cd55eb5888f0a6172129ccc92c10918f2dc7234"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0250-r9.png",
+      "sha256": "3988f36d784c99dbea0e2378637fe693a53e2ffe0abfd8e23741c8a4c95b4895"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0250-r10.png",
+      "sha256": "cdc084262c20ca6f03eb01a79952a1837e6056948bcb634835aff2ab95671e75"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0250-r11.png",
+      "sha256": "4d00b370314dee5590cb064cdda9f6d72692b3bf17f7f00bdd263e9f43aa547c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0250-r12.png",
+      "sha256": "071d51101c09f966e6a4832ff92429b191b907b57707679bc9293519b52d3f66"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0250-r13.png",
+      "sha256": "896f94d11dedbae9a2d49919a4f16cbe11034ae5b1a971e9716c9c152d17026d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0250-r14.png",
+      "sha256": "abbcec04e5f00bf95c1a7f40bebdbffa805b7fc701e353ad37b853e44a9bfb56"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0250-r15.png",
+      "sha256": "d2f9dabd1cde402bcf85fc0914231ed1faaea65c4faf4b5a0bd872af9acce299"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0250-r16.png",
+      "sha256": "b12f775098f1520e86f4806633cecebd9aabbfa8c493c244993c0994dee662af"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0250-r17.png",
+      "sha256": "f0bfd8fb92dc467f157f55ba9c7fbfa7674328e93107b1b7a16647ecc556ebc9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0250-r18.png",
+      "sha256": "f440259d597d427d6530544f32a1349f1b8f471600004beacb43c6070c1562dc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r1.png",
+      "sha256": "3c39285d936190a19d28acfbe76d5e7e33f5d412a30e258c7c8dea17867d336b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r2.png",
+      "sha256": "498f96eb4e6c6bb5af5c856e0e1c4b450c37da8e8cacd2651231aba02d8e4291"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r3.png",
+      "sha256": "e44b5c1129bb48ed3647f75ae55c8701eea72956b67e91ed867b5ed88c18df40"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r4.png",
+      "sha256": "2fca748862da10d8d4aae87173463bb0658e0c28e5f85faf4ea3a81d70d259b5"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r5.png",
+      "sha256": "0ca5c7426e5ce5832e1cc9ca25b764fc2a327d161c17b8e61d4a207bb0ab516e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r6.png",
+      "sha256": "de1d7ee8a7c60916a48a50c05695c5fd619a1e935e855b1c533c50b263a34e15"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r7.png",
+      "sha256": "6b5cb12c6a13adbfd3bb08924e586ec59b67479faa4c51e01b5d8d782083d52a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r8.png",
+      "sha256": "10509211c7f82468972953c0a4e97a5b6d2d3d6b1c14859892c2dda1223e45f2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r9.png",
+      "sha256": "28776ccabc79396e54673117aec3086119970c4760272c3b2ec4f3da7026b9a6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r10.png",
+      "sha256": "9230f6fdd1892d18a01e4fc008cb51b18a0bee73479dcd6e658e6533fd0ff4ac"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r11.png",
+      "sha256": "75de831bdc948dbbc8b565e53b98297e6403572ee349832c657c6c35551abbbf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r12.png",
+      "sha256": "d31197ea3d38f90d79817883e389a25c609bb152cd65eea95f2c2d2abe555497"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r13.png",
+      "sha256": "fb736c43c05b183255b594234e9f697331af09601e0633c7d6b692c4dfbf5bd8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r14.png",
+      "sha256": "e85d154864af6d3ded8e51bceb90a676ac5b2be166f06ec679d2051e2bf3a59f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r15.png",
+      "sha256": "e5f6df3e66ac4352919958f34fb933a4399c9bb85b6417c03e9abe6ad91f4e06"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r16.png",
+      "sha256": "c4a5c937f714a49af9ff3846159d9d181d3a10c9c517c3adcbe5fc95d9bdad24"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r17.png",
+      "sha256": "52f866b62987083c357c2c1ea9d546ca680ece831407e171a9e67f08451dafe8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r18.png",
+      "sha256": "0aa8c732f2eb54518bb8deee17de63051b605f0d897a671266038e5166a00c0c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r19.png",
+      "sha256": "b1243fb4d65fd65e08b1b49f9d00b00cec11ca669cb69cee8346fda2679f94c4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0251-r20.png",
+      "sha256": "cccf549465176fe005d6278b8f7d78a75c9b1d252e982f42b4ec3e1adce7db27"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0252-r1.png",
+      "sha256": "08faa7f32e40eb6bafba39f407b578a0902b3be1eb79a0d3d766848d19bbbc2c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0252-r2.png",
+      "sha256": "f00c8f60ab133608dbe7932c8a21d371e3ef7243df302bce4f2488cb81a3396c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0252-r3.png",
+      "sha256": "de369a582dddb1090cfd3feaaa0d30c375fa29f4aa16451b74301c163e153ed5"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0252-r4.png",
+      "sha256": "6b9af38aade07f81a52b2ac5730f32235ea540783b867254b666c60215610a62"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0252-r5.png",
+      "sha256": "1f057c1793b6994f2e747209b2f266d711225c02bacf7c5657b527f01a74c2e0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0252-r6.png",
+      "sha256": "cad1e4d5d5c67915cadd7a9a7b99aa77fbe0ddc4e881e87422e97e6bb8cb5ab1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0252-r7.png",
+      "sha256": "3cde4eb8b4fffb4d13eaa7ec891da135c4d334d7f0b9f00d8fdd7deb9dd7119d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0252-r8.png",
+      "sha256": "2b95bacf5a6df3669f6cfdf75076a8b0c9d29bca201beaf9762d91bcecbf94d8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0252-r9.png",
+      "sha256": "a8aea2251fa98f5cbe91686a88bc8b31bbf36a8ea76500328094d000f0eca8f3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0252-r10.png",
+      "sha256": "914e128a8e5a22e037f9931130e029bef9af7994e86b953e00f26240e09d2dc3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0252-r11.png",
+      "sha256": "e323466ea977f2db331499ecf11abe14411808164bdcf6440f248f9957a44dc7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0252-r12.png",
+      "sha256": "40d517a64d64cb8ac17d8ede01b3e4a53087e065a7779ef40648b65ef14535be"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0252-r13.png",
+      "sha256": "691207771ea029cbbbfdbae78beb1202a091a40dfc61479ab6fada43af9c514f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0252-r14.png",
+      "sha256": "808db0597d44854981aae88cdc0ea82248d08b1bdf41bf12d90e3a5ef037d355"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r1.png",
+      "sha256": "3d50af29833364e0b7c7257cec5932d1966afb4aed71d053eb5db5397fbaafd8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r2.png",
+      "sha256": "25a476810b7e1996256465e8439ed90fe253db166189bc42c0a9969883dd243e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r3.png",
+      "sha256": "541a8e4add9886027a92bdac506e8ab89eb1ea5f2031c11fbac002360b30b997"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r4.png",
+      "sha256": "0d0d701f7abd03dc97a1e9c3f2dbbffb055a47dc404bfba39b5d4e77af1b318a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r5.png",
+      "sha256": "0700647fa7eb3663b129cc9511618e887e11bb47c6b65eab09a1b9ad4d941820"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r6.png",
+      "sha256": "7c554e9016b1a0c6998f992207e03ed30a0568638da4e7127e9669e20b4cfac2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r7.png",
+      "sha256": "511d54451b2a2e3c11d755421905928253d618b1f0a97987c919ef1ffd2adbfd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r8.png",
+      "sha256": "26c36b00a14e44f0b91f93f58514d945ca4dc662cef7db0246cf5fcb7f3e00ea"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r9.png",
+      "sha256": "aed777da9be2e331962d998562591f8c956795e7ad16ab1dfeddb17d797103a5"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r10.png",
+      "sha256": "897c184b21409fe81aa7e20b4aa7e43c0d486d64c867b931873221f5e7ba0e3f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r11.png",
+      "sha256": "69deea2734eb77a10116ce488d091ddafc81d0149770e9e21b1443a67054bafa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r12.png",
+      "sha256": "3343b034748a85f10b3300761133d79b40b590adfe538ac43bff3cf8c4b49a48"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r13.png",
+      "sha256": "c47b0732cbc354c333912b4fb9e6efff0c86b1ee3c4c67dfb7e4ea07b34c6233"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r14.png",
+      "sha256": "db1c49efce263a58ff3c6759384d2e2d9327a846b43ac03c15e83c4e7d2b49cb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r15.png",
+      "sha256": "a2444a4daeef97ec7c79c4b49004dcf7914c8e3544420d0aa500ee5bcce93033"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r16.png",
+      "sha256": "37c9c7f5c77cda02bb2276fcf5b1e13e6450fc18c7ccdc9d03b1a6ece861408d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r17.png",
+      "sha256": "8ba6cd69cce19b3e0eb204462b4d031c31cc6a238f40f3e77645eacb744fd7a0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r18.png",
+      "sha256": "3b318cae575b3e1f94749ec6e29b20db0871042935f6da4522aa639debd8d803"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r19.png",
+      "sha256": "5a4b152de1375c9b62813a8d9f41c27af47d183fd9517c19515ba9eac358f719"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r20.png",
+      "sha256": "2378318d4f92565523d4888acac0a216b4372f36248096ab0e1892153b592480"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r21.png",
+      "sha256": "39714efd54db6136ff434b4f4a59d4c1123c1f681d2a6c084ae1274da1491887"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r22.png",
+      "sha256": "0b330883dc0d1a2799b415d74d5bd75076ff939c9efe684ccc995b532db2295e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r23.png",
+      "sha256": "92745d971898e8fc11d4e23414423946e3fefcf822ccb39ea6e0882e613ff349"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0253-r24.png",
+      "sha256": "554c90e1e64d087e89750bd1dd30fbeb734113d0f78865f2fbdfb1692d381a9e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r1.png",
+      "sha256": "5ac3ee1177dd82a11c503c029ff4bf0641f1813d7bc3ad79dcac928116a10f4d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r2.png",
+      "sha256": "b7b8353c398d4b7c482b2b6daee201a4e8941c9a8a59ff339a8be283d0da94bc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r3.png",
+      "sha256": "250e501b073b410bb7804a8e87238879d771213ca076b59f3b3fc77fa4cc4b7a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r4.png",
+      "sha256": "34d514d32db043b52a3882ad21661885bf1ca35fd82af1e42ac965990cd88c08"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r5.png",
+      "sha256": "43d17730aeb0c610c10faa84aa962ac70534c7fbabd1934255713abdd5fcc521"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r6.png",
+      "sha256": "f4f40b95c94c20026a430177e729cdff41e1332613635570a605e5c9f13d8768"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r7.png",
+      "sha256": "8319a5b2f13322d9190603bd70c0a7db981412cae8f8091b5974d4ef1d0e19f4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r8.png",
+      "sha256": "cca739aec53cfc18ebf2389f54efa80a5a913ed299b009dca41867742eff66f4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r9.png",
+      "sha256": "f9bc3a09a7081db5650708abf1492d71b7ca5b90c6c0ce2e34b97c0fd914d548"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r10.png",
+      "sha256": "532fb334bb42f9f24b15816762e3d422b032aaa02b225f627f0bc484caed324b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r11.png",
+      "sha256": "5febbb26972604a5ec188f2376efe55e9fad1a2a1f80bf3799d514d54da623f4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r12.png",
+      "sha256": "a163e66737c4da2b356777570735999c6f4220d5d5173c7e8942591c35119b21"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r13.png",
+      "sha256": "330f25270c9bcff408b7868b11af0ce10136c31c45b4f4701f4c171bd1c14a45"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r14.png",
+      "sha256": "5e0ffeab17622d71fc330c1e626cea79e580e18579a4d5839213c6af7a7cfc5e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r15.png",
+      "sha256": "b20bf5b43ea856ae682a22679fe2f6e3f0411839b13c6d548bf3c3f288814687"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r16.png",
+      "sha256": "de96576ef1cacaf1d3924b85255f67803cd569672ea7863aa3407246d1c39a91"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r17.png",
+      "sha256": "d88542119d568316588057ba971f5a093b53bedbf6df860ba5719f6315ef16c8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r18.png",
+      "sha256": "e961f0de0a4eaf6c43d9a0df486a0fc0754f6f2b8bc012bf0be5e7c35f370e50"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r19.png",
+      "sha256": "561a23fd464fca8964828755658552c2f15a5c52bcc962aca0a9b1c4fac64b35"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r20.png",
+      "sha256": "c266bfc0f21f3c836696d40e95941e746990e35d6a0e43cd1d5f1ac3a30cce6c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r21.png",
+      "sha256": "82e48bc0f971d1b4fcf6357d015618889fe797b2e7311ab5633257731c2d05c3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r22.png",
+      "sha256": "28bf390025f672e6e6ffc4b56dbba8f3181c8d317dd7ce539bdc3bc3a718a7a0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0254-r23.png",
+      "sha256": "8dca77855e9ff6d8a538640ad5034354f4a1105dd0b262bbf3cf4f2fac55bcf6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r1.png",
+      "sha256": "52da9cf6968e57a98828031aab27ff554188907f377c60e559c0506bda3f204e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r2.png",
+      "sha256": "112c22ab498cec7cf1c71fc0f698aece708f03dc76d224ac402e16dfbce78f90"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r3.png",
+      "sha256": "f02f9792642df70668971105b775b73d4be9483c5e03e60603bf74e463a17aa4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r4.png",
+      "sha256": "78241635736c5fb1b04cb0830834feab1678aea32fc18e146725c48ba3b1c7cb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r5.png",
+      "sha256": "57a93c7c6a034cfdaa20a4f9185afe348d19f99e7349820c4f38236511dd018d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r6.png",
+      "sha256": "6576bb2ab412505b10e119c5d9b44197467612325d936ad772e197b52e0c7394"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r7.png",
+      "sha256": "b2d868caaf7cc06463d854bcc5e7d53423ce050e9a19289b7f5786f1dd140555"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r8.png",
+      "sha256": "40dfe57dca8005636a60833ff32f25dd3d7c55e0cab0a2f87446abd1403523ef"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r9.png",
+      "sha256": "85a79731e8599d68dcf2f522634319cce6c27940ddf8f1aacb31518e5a1dc0eb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r10.png",
+      "sha256": "03a09551c510e17903bfdf2c3bc42dbb97e66f30def8df72786c8316717cad2c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r11.png",
+      "sha256": "5212936527dc58f65ee3bf9057121573d0f114333990bc893b627248afcee2f2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r12.png",
+      "sha256": "6eb077fac4bfbb3b682ab284d6debb408af160687821be49907598c8267395a7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r13.png",
+      "sha256": "40c09c4c906f0f994c098c497029148f4101c3e472677b64d5f74c147a692591"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r14.png",
+      "sha256": "f2e8520f78079140d04c4a9c03f32a74306b8de86cfec10b7a04ace871474db3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r15.png",
+      "sha256": "63b2f67a8256c5e006257b18ff10878697e59efd2a27e3ec6689e2bde7653ec4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r16.png",
+      "sha256": "8542a21aa39fab8f576d5ca2f4aaadf1a8826cf411540d9e73d8e25cc1fb2a9a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r17.png",
+      "sha256": "a596a3a413bdb80923633b7a25199887d0307100a949296898681352fe981597"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r18.png",
+      "sha256": "8c857fcca3d8ca33714dd86ea86b1840ff6e8914936b9a916756f1f7d2907ab8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r19.png",
+      "sha256": "813f0abed0223b40ae4e68d23c9dbec57de9c81423a3ec8bdb8bf22a1eb78504"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0255-r20.png",
+      "sha256": "709376775b74f2ea22e9afabc01f1184ec3183630d085bd3fcc70c29f6e0a934"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0256-r1.png",
+      "sha256": "1c7fa157ecdb349ce160d8c3a608344031d9ee2c262032c707731b8dbdf261f9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0256-r2.png",
+      "sha256": "30766841597bc825c63ca657f48c8686994a6fa08bef68e0dc8df040ec0b3ba0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0256-r3.png",
+      "sha256": "6efadcc3a463fa5eae7add75f28d6500d28301429a498b2c66da5fa625208bf9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0256-r4.png",
+      "sha256": "512f8b36ee0b3374c389ae18ad38e75c14507ad8b0efc16949905ed92672ef1d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0256-r5.png",
+      "sha256": "a259c9a2b2f639b38f90942138a3ad97fb29f90ad5dbd3a48ff2b2113b797679"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0256-r6.png",
+      "sha256": "2429b37912729c9b60f870e9851230434c53da5cd17f6d8b7764b30e3d3f7216"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0256-r7.png",
+      "sha256": "59de764c2d94fba30f69fbaf9d3d25f01ba559747344fdc110807ad89c2800b1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0256-r8.png",
+      "sha256": "ae7e97fcc9dfb753d773fdf282f841434619a7c42201dc6835103ee364c9f3f6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0256-r9.png",
+      "sha256": "6b2db5d2e2028fc1f30c2d8309ca9390d068669901c298fc163f98ab79a690e2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-15min-20261025\\renders\\nemata-jp\\page-0256-r10.png",
+      "sha256": "9243b44051f72be4917f3dd520b98fc36275accbeafb922f2dc3554d47b8f456"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r1.png",
+      "sha256": "c3845114535b241ecdb570ee746f6b9a48e01fbf0a53476e6d1f22c86ebb47a6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r2.png",
+      "sha256": "c207083af635d75550391549fc3515346586057be4688b254ef10866eca4cdc0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r3.png",
+      "sha256": "ea172ade39089e96a4ef8eeca69629ca98fb957f9c85b63d79f42a6338916afd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r4.png",
+      "sha256": "15f839e1a3d46ec249eab397284dc1969b84a359281bef7e0b96efef51ffe1b3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r5.png",
+      "sha256": "83f0c06175af2b0ea09b43db0e774f49b0212418d4522efff2c1b19b6b771337"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r6.png",
+      "sha256": "3b407fe6f333f70a0ac5345e20e255d006e4dd9d805487739ee8c5a7ad1fc3d6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r7.png",
+      "sha256": "ee2d8d8ec7cb9c805d6c2b477908f21489345e35751a306025acc601d691a88d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r8.png",
+      "sha256": "ad1a8d4a39155263203483e21c83c798a82c893dc93e06b1964d81178e4b2e1a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r9.png",
+      "sha256": "0a15613d15e7d67441d59dafbc8cc808fc694f0662bb6f9f80a59695501bf530"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r10.png",
+      "sha256": "ae7091463a04b70f6cfe9638bf40d400e79943d99c0294e64af0bc12d0669e6c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r11.png",
+      "sha256": "88fef4a000fd0cc38414995b81b0387f14093401409b1452906d1ef60ec12fc1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r12.png",
+      "sha256": "7adb6e855aaa45ffe5c672f83e58c7b94189ffec75711590745b062bddeba722"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r13.png",
+      "sha256": "476d22daa9d0c4e7ef536b87d82099c9d9618e26673345ab337c8b964e611d9f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r14.png",
+      "sha256": "bdf9c2d92bf7dca545b7e0ec48b61e9e928b6cb371ed9ff840432cb5e5530bc7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r15.png",
+      "sha256": "c763aa25effc9f6adad17da2904d41a8a6f715ed42fe4865189890b04d0aa876"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r16.png",
+      "sha256": "a315aef92f3077553702e3f2fb0c6b5e6db9628bc3da0c97fdafcd7cfff4adfa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r17.png",
+      "sha256": "ba3278f1a6eb297b6e3391a00a30c0ad17ce1a71008fa05213c468593d546d1f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r18.png",
+      "sha256": "24a48c3f9ddb6cfa0c5d99bc1eee7a3a9f7a066263d10ace29366e49db679a19"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r19.png",
+      "sha256": "346aa7703bed96cf6a560d6153efc68f28100090ececb9b3475c4f27c4a52873"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r20.png",
+      "sha256": "2bc5c94e7c42b20651034568285894ba5c8fa8140b4c9705e4a232ed56deb826"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r21.png",
+      "sha256": "fbc7a0c788caafc2860415638fd95cc49604de57b03c675fa88938d59f0fdf2d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r22.png",
+      "sha256": "2125d2a1a647633afdad3c5bdad2ba1e29fb9ef0237b006f7c6d58d60dc3621d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r23.png",
+      "sha256": "05759ba150e4a7136ebf5b30afcb56b92d5131fe197686ba486ed5006a36e06f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r24.png",
+      "sha256": "29092cc6951a7106e76246678acddab5f16f4e19219b4e62c7e85fe64afbb603"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r25.png",
+      "sha256": "1816f3092e3cfc2e2539812012fddd841f2375a20365acc8803ebca063a86619"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r26.png",
+      "sha256": "5323df44c15e3a2948fc2bb1848e95a530b504b1c02c96c8102e8c564b9fa79e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r27.png",
+      "sha256": "5c8246db0e3531f8d24559c8377948cc19e95391567414455825eb383966a881"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r28.png",
+      "sha256": "ebdd0dfcc0cf80dd3da6478a3c9bba2d5ac91581d0df5380e855694556625c37"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r29.png",
+      "sha256": "1adad5e12e6566b444047e78022746539cf99f663f090f23b967c97894a94940"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0258-r30.png",
+      "sha256": "e40c75051531ff33c07fff3cb5da90d9b6ba4064a9ac75c62396ea7e03619489"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r1.png",
+      "sha256": "3d37697c822d1ab0d430e10c456fbf3fabda9690bb388c764ecef172fbb776b5"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r2.png",
+      "sha256": "4693d721d87f0e03708165a5b8bbc5325f0cd5ab6e04ddb2944fef3a7bf786b8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r3.png",
+      "sha256": "5b0e0b1f55952f9a65ff0f64c650eb6a4c4563424d0b76b90fd64e1002915b63"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r4.png",
+      "sha256": "5c79bb2b8f2aa3149f92bfb240305c6ffd204f899bbdec054ce6b4d571194760"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r5.png",
+      "sha256": "4c216696a415a0b8afdf326791b8109201859152c5d1099f09b1390fb5aa60c6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r6.png",
+      "sha256": "4cb9073e279b565690a1d708fa302c0337cb280193e9793251fd1c7683e17ecd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r7.png",
+      "sha256": "aa9265f624d27e10fdb4689e76bfde5a6adadb98dfc36f3bac65c073d3898af9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r8.png",
+      "sha256": "f9a0ed8787c1705c4529b7d7dcf69387f6057dda3c0d1e451448f35f0f9edf59"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r9.png",
+      "sha256": "316ec453d272243cda780787f9e12bdd8d338cf5edcabda1d26ee22e5bf45ffc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r10.png",
+      "sha256": "ad17d8f4b81885ad41f93d8a7c9d912684a6df8b7aeb25d3c0bfdcd5d7fc4883"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r11.png",
+      "sha256": "66c9831ba938f6ac4e434b862935795214fb5e678a55a3ab875509e364c6068f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r12.png",
+      "sha256": "247a4f329aeea4406041c103d7475e35921b79107017d3bed82350f319784dc9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r13.png",
+      "sha256": "a74a60a4b9ae247191d0a96c1433ac2ea49333c1a50a90789b3f954a42ff0d79"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r14.png",
+      "sha256": "242a0d5bab7defe1448d25d0039a070f10817548749bf89040cd2b26043c3dd8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r15.png",
+      "sha256": "7d95c8eb912d79cde1930c36bf58217345c5f48a972c955c9a03350a29da7bd5"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r16.png",
+      "sha256": "71184d90709d77872ae187c24024b9449af4e35d80ff66d8652915ff3f9bc4f5"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r17.png",
+      "sha256": "f3eb891b9bb08b0c0a6901f6e148faedfcae070eba86471e78926ab180fc088a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r18.png",
+      "sha256": "691395b6efab2293530eae4c48cc1a5dc0c583a17bf221ea8b8d9eb9c9ed87aa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r19.png",
+      "sha256": "7d101d20f3794ee4857797031612b3f7692cea92b9aca814e1d008a2a5d24605"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r20.png",
+      "sha256": "952f4428188ac2aac62a08e718fdcabbf1e00d5512e203c13580a51f09d92e71"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r21.png",
+      "sha256": "e76f7daf409a37a7b65cf3afb4435c96b2281a4358bc9ec5b96a760d320546b8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r22.png",
+      "sha256": "de6c13322082450a3a53f733af40007c95316d288d94bdd9e9a60c736b9bdddd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r23.png",
+      "sha256": "def1b0d8239e516af8ce799e417c75239f636fb88d9c337f24917e69fc820cae"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r24.png",
+      "sha256": "77686b6c4759c2dff2ab326f9d0bd94feebd7214645e42cb85145a1fcfdd89ff"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r25.png",
+      "sha256": "e912c0baa2bf045a0cbf2df4d9b7ef7e60f5e6adad642eadd82bbbdd2a6da6b1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r26.png",
+      "sha256": "dda8f87a8ed4e25a018b3d431fba0b465b1af834b0c1d8cfed9bf8f4143d738b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r27.png",
+      "sha256": "53838dd640679f83965e7f713c54f77ca3cef1695548681a2ad9464ddb06aea1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r28.png",
+      "sha256": "7d07e357a29a1361c3356326c8772c152912b8b4f227db90fb1218eb54fff1a4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r29.png",
+      "sha256": "ac4379a6622d6ea1eb2b83ed07d51038c233f40d076cc4fef2f1d19b6ad3d783"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r30.png",
+      "sha256": "9e3d1e1f1e358fdd3fba74748aff093450b63b9e7a74048ff233789032ecffe6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r31.png",
+      "sha256": "f87035d51a4d21ea44675d1efc23abc98c4626408610b0ff208d59f98e0dbd0e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r32.png",
+      "sha256": "56c3941973f0a1300cb58015585a3e54f54ab4912379ef23d26f86e8e61b1eba"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0259-r33.png",
+      "sha256": "fb8215ffcb57dc53cac329ce8b500562fed1f36fcc8a9b218eccf0219441ee58"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r1.png",
+      "sha256": "bbfcb89a0c2784583312a17282e96e66efee5e32f6e47e42ad9c3ff6ddc71ca5"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r2.png",
+      "sha256": "0a09fd517ca6dc570365f42e16c5cb150d4aa696202954a758112a0f87f1eff2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r3.png",
+      "sha256": "d59f0c6eead8b254c4e2f93812463d88ed5ea80b42d7e9e8c482eab13c5a7c83"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r4.png",
+      "sha256": "9afc5590ca72efa3cbe1ca0b34420cf9be19e1b48e327126643419f625ae6e01"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r5.png",
+      "sha256": "399883643d3cd7a0f3b42c7fb4bdd63651b0a5e6910e84f2d7254c9338573089"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r6.png",
+      "sha256": "cefe61762fb6ff8ca9522bea067673a2e5da56e654a6209c606dce7e0bcfa1fb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r7.png",
+      "sha256": "4170069c242228084db425765e333a1bca2f0e3c653923dcb4f0a55c4e56e73c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r8.png",
+      "sha256": "48b77102dc7fb649455e007ef45ef0bb87f66948a994ae96a85b92692ddd037f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r9.png",
+      "sha256": "10ff084fdc646cbca4e5ba3ddb6938c95b936c16f6e852d4b69b0ef6093f624c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r10.png",
+      "sha256": "b3e00f3e6172087542e5cd17e63c3ff13b651983cdb017dc468ede1362d220d2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r11.png",
+      "sha256": "7054834fe32209aea5e14cfba54f2997185421f8554fa5c6acbab2fac1073164"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r12.png",
+      "sha256": "2de3703f4e93344998f353231f1c2690a34cab0ea4898edcf9c159e808e6b744"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r13.png",
+      "sha256": "2e71f5033bd24fb03a0f82ee24b7ff0f232338fd8d4c15248784b6f6eaa179c0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r14.png",
+      "sha256": "e7ce8e752a14ab1c0f221228512b328c380472f928d2c07167728e5981d3546c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r15.png",
+      "sha256": "709e2d0b02cfdb6fc452ef70a5994510ee135228795f156d31dfe47466097d59"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r16.png",
+      "sha256": "8aba1e275484f7a00917f14b98c9b7f0649ae5d22f94a551c91856dd902c18f8"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r17.png",
+      "sha256": "2dc0a10e705c294ce1f6958bc3b56ff8a54929dcca8d66b6f72249fe3a96d4be"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r18.png",
+      "sha256": "ca58104379278db05cb7052c0a8751edca779ae748fe0c0fc8e84ee8ce7ae91d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r19.png",
+      "sha256": "b0fb656e534796558111a6f30fbb46ebce200584075bf54fef5aac049a8f733c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r20.png",
+      "sha256": "d844789ff6c085f1288d5ee0638655118f1a79d569baf4a81fda5f47bf63ea9a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r21.png",
+      "sha256": "83c83af4020dc97b4edac699dd0554f569b37669a655be5b451d6573a970f45a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r22.png",
+      "sha256": "4775f64fefcec946e262c2df28ea2b3741a3a0b79a1a39eb994fc5e4c1ef8714"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r23.png",
+      "sha256": "f869444c64bd7f64f60e01a8b9c66670b50227a37ae26dd35f12de4697523870"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r24.png",
+      "sha256": "0dc740ce234cfeb522649c3ef2f4e929b370cfc4150ad1612fcac053aff09131"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r25.png",
+      "sha256": "a469fdf5b34edd265b394bd99590dc1ca832fd3f882c8778161a70558e0085c9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r26.png",
+      "sha256": "a98ecd3c32e941386348dc0c5e2267d4a821b90c63bfdb6f57b445c07a2ca442"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r27.png",
+      "sha256": "bbc1d2f4a5f7e4c3261a3c8002e8cdd6022702a922879c07c62268296d56c64e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r28.png",
+      "sha256": "eba4be902bacd8273445c65c72472b8e2f3699a9a3599ab81dba3351a387396d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r29.png",
+      "sha256": "1f73430433002a8bba18f071b647bf7deb5c3f11fdf1ae3c11812d8bec65cb1c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r30.png",
+      "sha256": "f7e6d701fc6882088c508dd10c2ba9e2f7b386e8c1059108912a82bda59ed94b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r31.png",
+      "sha256": "49ced22f3c83704786f4290d3dd2ff534c25bb6cc0dc10a08653f728b87e630f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r32.png",
+      "sha256": "55803a110339b5b661e2276ff65038018520468b107cdff280e7b44d3586bae2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0260-r33.png",
+      "sha256": "ae52453f4441f4e9a534ce9189bfaf9d952d8141109acb6b9bb0a032785c5a0e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r1.png",
+      "sha256": "d584576942913238eb29bbbf5a481ff571768075149fa5df63fbb620407ac219"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r2.png",
+      "sha256": "a00803ca00ad77eae0f42444fbd0da1ff14ce2b3ffb5f3bc829b6068f9e082a0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r3.png",
+      "sha256": "be7edccf4d559adce5175434ebd7d8d1f948354f7af0bb8d6927066b25813462"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r4.png",
+      "sha256": "00e25be5fab8bad1363e7271c0e762aa4ef491f3bbed510a4e93a37495e9aa55"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r5.png",
+      "sha256": "1cb0296fadcc219b0af6f14cb21ecb32ef2ca8157bedfc944df0317692484018"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r6.png",
+      "sha256": "3b458a920290dc893fab578d414e1bb6dfa611c7a490ad3cafdac415708d48e2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r7.png",
+      "sha256": "dc841f0450c7cd83689f0d654106f427b8c30ef6b00fca98bdc590fabce5d107"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r8.png",
+      "sha256": "9105f8597b3d3045df695bb435e1c46dcdcf7af78f897d73223535f934600fff"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r9.png",
+      "sha256": "9bed3b35044f754f5a485f38a456fa6a32da9128ef723dc02d3d1aad4efde738"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r10.png",
+      "sha256": "81bb00f8bcc1062a0e91a7bd0a94eea2eb837554795fd456a076c282c1d0fc0a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r11.png",
+      "sha256": "dfc106bae0d008bac4b6bbe66b4275db771f9e6cf7d4ebfa0355dc950b8b6e9c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r12.png",
+      "sha256": "2170d81d8c6de6f581f427c3162873496658fde39dc880f2caacda02e461fabe"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r13.png",
+      "sha256": "379b76a509af335b57f17ded694d21eb6cb63715f116a90769743a739722c9ea"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r14.png",
+      "sha256": "1c3a4e1d139ad093eefbdfda25164f53a6a7995d108631a008039af518d19b24"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r15.png",
+      "sha256": "5a8673b78999d87565ea9d4a04953c84eb465e4a2ffc9764e172fe8c613fec5d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r16.png",
+      "sha256": "e60f0912771dd215747031cda9e23bb426799d0fb476c35de07391fc9d37d19d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r17.png",
+      "sha256": "54b87dc2c084acbd98ff9e0c213b8d7494fe485332d2225b67e3996f27fcd422"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r18.png",
+      "sha256": "66a12b01d15f800c7a1237e21d8eb4c39122b720ca4cbb31d0217d13f724151d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r19.png",
+      "sha256": "5a25dae4f7fcab69d3908bb957eec77710da2c49fe8a7673242ed84b43fc4b81"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r20.png",
+      "sha256": "ebc82e0ba19ad7a2ea284fd9cc62d8c4e98cc66f5952298eb9f2fa3ffb203933"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r21.png",
+      "sha256": "2933f35297f87005a930151b9f10e049100acb9dade03fcc7bd4c87cf22dcc0d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r22.png",
+      "sha256": "ea622e1ab3bc3eadb2e3faa6e3b3c1b2c3b5f775c12a2114449b62c92af520b7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0262-r23.png",
+      "sha256": "95019d3a00be2d680ea22effd35c3a73c15cd81b0a7c0d7fe869ee9536b22345"
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\node_modules\\@riichi-coach\\contracts\\dist\\index.js",
+      "sha256": "3e442d9a3a08b80b92d1d11d4b04e14268232c636f8ffa7e9f2ac3a4298980c1"
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\publish-textbooks.mjs",
+      "sha256": "ffa7b575475bb3a0b65e13560081354a6adf78a9d51d09958cd0f8385bd04026"
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-inline-chunks.mjs",
+      "sha256": "c6f97f37674ef4bfaff1921a49999762a293759061f0ab0e222d1d58d670e285"
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\textbook-processing\\stage-pdf-inline-layout.mjs",
+      "sha256": "064ef34b42b78ec2192da7221ce1f32714cfd4d7fb77c3e1c90a733855baae6f"
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\compile-textbook-corpus.mjs",
+      "sha256": "b4a8fb7432847e54b3c922a5b83e88b3d957abd6a16e726c772188fa5db4a2db"
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\textbook-review.mjs",
+      "sha256": "11b3b9c1dcb41b2cdde72517dca733a84a352e75eea154edea5acc36408c7edf"
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\textbook-review.css",
+      "sha256": "6b650443592266f44273b69e40cf3aae8572d76122e56d6c4c5d35f68a0f665f"
+    },
+    {
+      "path": "E:\\AgentWorkspaces\\Coach\\mortal-rag-ablation\\coach\\scripts\\scene-study\\textbook-review-client.js",
+      "sha256": "23c064a2516a75994c70d22892ec4fcbad6cbc63912b2d08d92fd890bb73d4b2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-human20-admission-20261029\\admit.mjs",
+      "sha256": "29f2043e243f3939e03a24df9e8d3cb1787ae114305a1e084d8915d3a305ba77"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-human20-admission-20261029\\stage.mjs",
+      "sha256": "b7b8f212cbace14c690ed8265da85a9a89364952596953bfed1b2c8c7249bd04"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-human20-admission-20261029\\assembly.mjs",
+      "sha256": "dcacd8ee560df29a7e8906b89cb1d1bb61c622c386075daee5cfc793a22fef0a"
+    }
+  ],
+  "newModelCalls": 0
+}

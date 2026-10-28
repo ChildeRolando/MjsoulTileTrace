@@ -1,0 +1,69 @@
+{
+  "schema": "coac244-p257-human20-exact-display-stage-handoff/1",
+  "canonical": "nemata-jp-chapter-250-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-human20-20261028\\257.human20.json",
+    "sha256": "a9ce50898c0407ecca32dc538ad208f667a0a950372acec1114263e177f000e7"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\257.json",
+    "sha256": "ca63823638f042d84419560d2618879b80972410d0e290f6b12c9860e19639a6",
+    "bytes": 14350
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\candidates\\257.human-final.json",
+    "sha256": "5403cb35614b1edab17488458dbaf0571e1a48e1972d2d04c9ebc30a03da67dc"
+  },
+  "independentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-p257-human20-reviewed-20261028.json",
+    "sha256": "4e1cc55ad35e0c649bd836946e1b9fddc9476bdee60da552ec212915106a2b0e"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2b216edc-24ba-4bdc-aa3c-153bdd6b9608.json",
+    "sha256": "4a6ec4819e7f86519bcba051e43f3f5149340ebe2898fe7ac10676498ff54e9b",
+    "bytes": 529188
+  },
+  "package": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-human20-admission-20261029",
+  "loader": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-human20-admission-20261029\\admit.mjs",
+  "loaderFunction": "verifyLimited(root,candidatePath)",
+  "stageEntry": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-human20-admission-20261029\\stage.mjs",
+  "stageFunction": "stageLimited(options)",
+  "ownedStageFunction": "stageOwnedHuman257({processingRoot,destination,sourceLibraryPath,binding})",
+  "stageVerifierFunction": "verifyStage(root,candidatePath,stageDirectory)",
+  "postBuildFunction": "installOriginalImageLinks({processingRoot,directory})",
+  "stage": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-human20-admission-20261029\\stage",
+  "manifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-human20-admission-20261029\\manifest.json",
+    "sha256": "36017ef3de158a7454b58ea55c12d2be8f2171950858c6f1bbd4a456aa8712c7"
+  },
+  "stageSeal": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-human20-admission-20261029\\stage-files.sha256.json",
+    "sha256": "146dc6f249b70816f8df10fda3ce79f335b2c7902d99191a38d77ef991264bbe"
+  },
+  "verification": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-human20-admission-20261029\\verification.json",
+    "sha256": "920520f4a99da09d94dfde6beaa1b351e10d8f2c34cf5feb2546cc31206b72e8"
+  },
+  "browserVerification": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-p257-human20-admission-20261029\\browser-verification.json",
+    "sha256": "c108e6ae6674f1cda31a1f1612ec9f2efb1fa984191a6c59e37ba00891f3a881"
+  },
+  "sourceBlocksOwned": 945,
+  "originalOther11PageSourceBlocks": 837,
+  "selected261": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair18-20261027-p261\\candidates\\nemata-jp\\page-0261.json",
+    "sha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+    "bytes": 142025
+  },
+  "displayBlocks": 344,
+  "figures": 303,
+  "mandatoryDisplayConditions": 6,
+  "q9OrderedSourcePositions": 18,
+  "wholeChapterPassed": false,
+  "ordinaryWholePagePassed": false,
+  "globalAdmissionGranted": false,
+  "actualGlobalMcpArenaReadbackRequired": true,
+  "newModelCalls": 0,
+  "requiresNoNewReviewOrHumanAnnotation": true,
+  "routeNote": "250 must add one exact canonical PDF owned-scope route and post-build source link hook, consume sealed stage or stageOwnedHuman257, verifyStage then real MCP/Arena whole945 source/344 display/303 images/6notes and original b3/b4 links; durable rebuild must retain them. Do not fake a generic passed page for257."
+}
