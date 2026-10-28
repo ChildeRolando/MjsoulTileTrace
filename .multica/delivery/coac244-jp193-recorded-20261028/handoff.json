@@ -1,0 +1,61 @@
+{
+  "canonical": "nemata-jp-chapter-193-1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section009.r1.display.json",
+    "sha256": "af8071cfdbaabf8f469f84fa4daa6fd2d7d377c3dc2b277ef766e34a22324ba1"
+  },
+  "receipt": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-jp193-target-impact-reviewed-20261028.json",
+    "sha256": "a70006b0e912a7089bf2ae7cebd3d9e366275ca3e25cc8a3ea1356335b410b6c"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\45129550-169e-4015-a297-8726ee5cd9c5.json",
+    "sha256": "0098bd9a196c7f711cb1d953c2148ff9d9ff1a4f852333bb2efa90dab244a6a4"
+  },
+  "status": "repair-needed-not-admitted",
+  "record": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-jp193-recorded-20261028\\recorded.json",
+  "scope": "record existing failed semantic target and preserve confirmed figure/conditional unknown evidence only",
+  "nextTextTarget": {
+    "authorized": false,
+    "newCallsMaximum": 2,
+    "maker": 1,
+    "targetTextReview": 1,
+    "retry": 0,
+    "failedVoidCount": true,
+    "targetId": "modern-yabejp-ja:chapter03-section009:b0081",
+    "path": "/body/blocks/80/text",
+    "before": "面对上图这样的牌河，有人立直时，只要立直宣言牌不是使其听牌时新摸入的同种牌，且新摸入的牌没有补成宣言牌所在一侧的面子，就基本可以读出其听牌是",
+    "target": "Replace only the unsupported compound test with the original 入り目 exception; keep both following waits and modality. Exact wording remains a proposed maker target, not an output.",
+    "protectedFields": [
+      "sourceText",
+      "sourceSegments",
+      "marks",
+      "tableContext",
+      "all figure objects",
+      "all other body fields and order"
+    ],
+    "beforeAnyCall": "If later authorized, freeze a new exact single-text contract and prove its real prompt/whitelist/context offline; do not reuse the previous compound-condition expected output or use models to test the adapter.",
+    "preserveEvidence": [
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-jp193-target-impact-reviewed-20261028.json",
+        "sha256": "a70006b0e912a7089bf2ae7cebd3d9e366275ca3e25cc8a3ea1356335b410b6c"
+      },
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-jp193-scope-inheritance-20261028.json",
+        "sha256": "6195fc8abb583f795bd3e54832c26bc67aa698aa39c28c49304757104d491ecf"
+      }
+    ],
+    "inheritOnlyIfUnchanged": [
+      "complete target figure hash/unknowns",
+      "all 96 non-target blocks and 40 figures",
+      "source/parent/raw chain",
+      "all seven separately visible non-author limits"
+    ],
+    "reviewContext": "all 97 ordered source/candidate/figure pairs, especially b0080-b0097 and the adjacent inline waits; compare old/new b0081 only. Existing exact six-pip repair and unknown-impact evidence may be reused after full hash binding. No repeated tile recognition."
+  },
+  "newCalls": 0,
+  "newConsumers": 0,
+  "ordinaryWholeChapterPassed": false,
+  "limitsInstalled": false,
+  "existing250Wakeup": "01a181dc-8606-70c6-ba21-469b3dd6b677"
+}
