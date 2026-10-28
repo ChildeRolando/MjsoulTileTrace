@@ -282,3 +282,5 @@ rev2的b0785由真实制作9f557ee3产生；独审51d6b447确认12355789m34688s�
 
 本阶段0模型/0候选，只准备最多两包、逐项五问题映射、真实raw/生产输出/原图及完整v3有序题干/条件/解说。最小下一批建议仅b0785合法精确制作1+仅方位/既有未知限定影响独审1，共最多2新call，失败void计0retry；b0947模型0制作0复审。若现有装配门禁尚不支持跨分支原始输出继承，先在现有owner做精确零模型适配及拒绝回归，不借旧预算重制/整组复审，也不伪造raw或主控将旧uncertain改pass。
 
+2026-10-28 109/167精确限定显示合同：仅消费249真实4fe3048c与edf73a16，两章批准图修订repairPassed=true；原limitedUnknownOkay=false、每章1条uncertain、wholeChapterAccepted=false完整保留。原冻结pair.mjs的false来自“存在非source-note issue即拒绝”合取项，而实际每项unknownImpacts均faithfulWithExplicitUnknown=true、requiresExactTile=false且列明显示限制。新补充合同仅允许两个固定source/parent/audit/candidate/raw元组的作者条件论述展示，不认证完整逐牌转录，不扩普通unknown门禁。109三unknown与六条限制、167一unknown与三条限制，逐原始字段绑定，作为图后/相关分析前的非原文显示层安装；不改作者candidate/source/旧审/raw。原冻结prepareReview/verifyReviewExecution/生产父链须重走，完整对象hash、未知原串、图序及作者正文移除注后还原都须验证。新隔离stage不改全局pointer；250原109在途run01a181c4、167 queued run01a181cd沿单写者消费，不增消费者。109/167原maker2+审2=4/4余0，本合同阶段0新模型/制作/重审；真实MCP/Arena读回后才更新覆盖，整书尚未完成。
+

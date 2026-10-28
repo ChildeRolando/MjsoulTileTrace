@@ -1,0 +1,197 @@
+{
+  "canonical": "79-cn-chapter-167-4",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.coac269b25r1.json",
+    "sha256": "5bfa90e3e15deb0c3f868ee1811fe50cdba75357f2805b3c37ed5f1d86538a58"
+  },
+  "independentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-167-target-impact-reviewed-20261028.json",
+    "sha256": "e291ebb02ed244689be9a7060659d4214d267189eb62e868c6747b7db9b027fe"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\edf73a16-7c1c-44e2-9d22-52d2f3c0e267.json",
+    "sha256": "bcdb12b7ad333e879cf74962eed180b09ea6740025090063aa3ecb3d25e4d6cb"
+  },
+  "status": "exact-target-editorial-limits-installed-in-isolated-stage",
+  "sourceBlocks": 6,
+  "originalStageBlocks": 6,
+  "displayBlocks": 9,
+  "figures": 1,
+  "notes": 3,
+  "originalStrictVerification": {
+    "transportCompleted": true,
+    "repairPassed": true,
+    "limitedUnknownOkay": false,
+    "wholeChapterAccepted": false,
+    "modelReview": {
+      "repairChecks": [
+        {
+          "figureId": "79-bilibili-cn:cv1754620:b0005:figure",
+          "verdict": "faithful",
+          "evidence": "原图左侧北家牌河按画面第3行最左侧的7p，牌面方向与该家其他舍牌相差90°；中央显示1根立直棒，正文随后明确讨论吃7饼破一发。修订将该7p单独标为相对于北家其他舍牌横置的立直宣言牌，并将统一方向说明改为有此例外，符合原图和语境。此判断仅针对批准的修订事实。"
+        }
+      ],
+      "unknownImpacts": [
+        {
+          "figureId": "79-bilibili-cn:cv1754620:b0005:figure",
+          "unknownText": "右侧南家牌河按画面从上到下第5行、从左到右第3列：可确认是万子牌，但数字无法可靠辨清。",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1754620:b0004",
+            "79-bilibili-cn:cv1754620:b0005",
+            "79-bilibili-cn:cv1754620:b0006"
+          ],
+          "authorClaim": "b0004：立直后有人鸣牌会消除一发；作者认为一发概率不高，不必冒险去破。b0006：在零风险的条件下破一发可取；作者认为图例中强行听牌有些勉强，建议吃7饼、拆白暗刻破一发。同一段后续的干涉碰、转移或消除海底，以及非以和牌为目标的杠，是分别设定条件的一般论述。",
+          "faithfulWithExplicitUnknown": true,
+          "requiresExactTile": false,
+          "evidence": "b0004的规则和风险取舍不依赖南家该张万子的数字。图中北家7p为立直宣言牌，东家手中有5p、6p和白暗刻，北家牌河也已有白；因此所述吃7p、拆白以及白对北家的现物关系不需要该万子精确牌码。未知数字可能影响某些万子改良牌的剩余张数，但作者对强行听牌勉强的表述是定性判断，并未给出依赖该牌码的逐牌计算；可以保留为作者判断，不能据此认证精确牌效或最优选择。b0006后续各主题并非由该图中这张万子的牌码推导。上述证据也不单独证明弃白对所有家都绝对安全。",
+          "requiredDisplayLimitations": [
+            "保留原图，并在转录中明确标出南家牌河第5行第3列为数字未辨清的万子；不猜填牌码。",
+            "将零风险保留为作者建议破一发的条件，并将图例中的听牌难易和吃牌选择保留为作者判断；不得呈现为已独立证明对所有家零风险或该选择最优。",
+            "不得声称完整牌河已逐牌核准，也不得把未知万子用于精确剩余张数、概率或最优性结论。"
+          ]
+        }
+      ],
+      "contextContinuity": {
+        "faithful": true,
+        "evidence": "按给定顺序连读：b0001至b0003为免责声明、权利说明和标题；b0004提出破一发及不应冒险的前提；b0005提供牌局图；b0006先以零风险为条件解释图例中的吃7饼和拆白，再转入干涉碰、海底和杠的其他条件性论述。保留未知牌及上述展示限制后，这条论证衔接仍可忠实呈现。"
+      },
+      "completeTargetScopeCompared": true,
+      "issues": [
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1754620:b0005:figure",
+          "evidence": "南家牌河按画面第5行第3列有一张万子牌；候选将其数字标为未辨清，并在unknowns中保留。",
+          "description": "此处缺少确定牌码；所附视图不能可靠确认数字，不能判定逐牌转写完整。保留原图与未知状态；本次仅允许在明确限制下展示相关作者论述。"
+        }
+      ],
+      "summary": "批准的北家7p立直宣言牌修订忠实于原图。唯一保留的未知万子不阻断作者破一发论述的有限展示，但其牌码仍属uncertain，不能据此认证完整牌河、概率或最优选择。目标范围已比较；本次不构成全章通过。",
+      "wholeChapterAccepted": false
+    }
+  },
+  "originalIssuesPreserved": true,
+  "independentUnknownImpacts": [
+    {
+      "figureId": "79-bilibili-cn:cv1754620:b0005:figure",
+      "unknownText": "右侧南家牌河按画面从上到下第5行、从左到右第3列：可确认是万子牌，但数字无法可靠辨清。",
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1754620:b0004",
+        "79-bilibili-cn:cv1754620:b0005",
+        "79-bilibili-cn:cv1754620:b0006"
+      ],
+      "authorClaim": "b0004：立直后有人鸣牌会消除一发；作者认为一发概率不高，不必冒险去破。b0006：在零风险的条件下破一发可取；作者认为图例中强行听牌有些勉强，建议吃7饼、拆白暗刻破一发。同一段后续的干涉碰、转移或消除海底，以及非以和牌为目标的杠，是分别设定条件的一般论述。",
+      "faithfulWithExplicitUnknown": true,
+      "requiresExactTile": false,
+      "evidence": "b0004的规则和风险取舍不依赖南家该张万子的数字。图中北家7p为立直宣言牌，东家手中有5p、6p和白暗刻，北家牌河也已有白；因此所述吃7p、拆白以及白对北家的现物关系不需要该万子精确牌码。未知数字可能影响某些万子改良牌的剩余张数，但作者对强行听牌勉强的表述是定性判断，并未给出依赖该牌码的逐牌计算；可以保留为作者判断，不能据此认证精确牌效或最优选择。b0006后续各主题并非由该图中这张万子的牌码推导。上述证据也不单独证明弃白对所有家都绝对安全。",
+      "requiredDisplayLimitations": [
+        "保留原图，并在转录中明确标出南家牌河第5行第3列为数字未辨清的万子；不猜填牌码。",
+        "将零风险保留为作者建议破一发的条件，并将图例中的听牌难易和吃牌选择保留为作者判断；不得呈现为已独立证明对所有家零风险或该选择最优。",
+        "不得声称完整牌河已逐牌核准，也不得把未知万子用于精确剩余张数、概率或最优性结论。"
+      ]
+    }
+  ],
+  "actualHtmlAndCompiledCorpusChecked": true,
+  "authorBlocksImagesOrderPreserved": true,
+  "authorCandidateChanged": false,
+  "archive": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-167-target-impact-reviewed-20261028.json",
+      "sha256": "e291ebb02ed244689be9a7060659d4214d267189eb62e868c6747b7db9b027fe",
+      "copy": "evidence/167e0.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\edf73a16-7c1c-44e2-9d22-52d2f3c0e267.json",
+      "sha256": "bcdb12b7ad333e879cf74962eed180b09ea6740025090063aa3ecb3d25e4d6cb",
+      "copy": "evidence/167e1.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.coac269b25r1.json",
+      "sha256": "5bfa90e3e15deb0c3f868ee1811fe50cdba75357f2805b3c37ed5f1d86538a58",
+      "copy": "evidence/167e2.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.display.json",
+      "sha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+      "bytes": 32855,
+      "copy": "evidence/167e3.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1754620.7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737.json",
+      "sha256": "8c52da176b472a79f63b7cce50f29ce66710718beea7631b1cf3b0a2a9910c73",
+      "bytes": 12132,
+      "copy": "evidence/167e4.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-167-display-requirements-20261028.json",
+      "sha256": "89e7aeb927602908776114684f2b01bd55016483ec31ebeb37c7c31c2220810f",
+      "copy": "evidence/167e5.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-167-scope-inheritance-20261028.json",
+      "sha256": "ab99cd42314210150283d239c8a6759465f56453e836c8eb1f99eace63ff77ce",
+      "copy": "evidence/167e6.json"
+    }
+  ],
+  "stageReceipt": {
+    "schema": "coach-textbook-web-stage/1",
+    "status": "independently-audited-chapter-preview",
+    "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.coac269b25r1.json",
+    "candidateSha256": "5bfa90e3e15deb0c3f868ee1811fe50cdba75357f2805b3c37ed5f1d86538a58",
+    "sourceSha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+    "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-167-target-impact-reviewed-20261028.json",
+    "auditStatus": "admitted-exact109167-editorial-display",
+    "limitedUnknownFidelity": null,
+    "imageDerivations": [],
+    "chapters": 1,
+    "units": 1,
+    "blocks": 9,
+    "figures": 1,
+    "corpusId": "537db423afab14c037285425d4d671db4867980201250c721a9e559778988377",
+    "bodySha256": "43270390484ea668f422475783e4e82164b99ba5e07e5156aab3142a457e6301",
+    "maxUnitBytes": 8758,
+    "modelCalls": 0,
+    "activeLibraryChanged": false,
+    "humanReview": "pending",
+    "canonical": "79-cn-chapter-167-4",
+    "standardWholeArticlePassed": false,
+    "globalAdmissionGranted": false,
+    "displayLimits": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-109167-limited-display-20261028/stage167/display-limits.json",
+      "sha256": "963333742b7ec510be43be6d5c30f1fcc5ee2c8b1dfdad3bc2f70a5051b0311d"
+    }
+  },
+  "negativeChecks": [
+    "actual-parent-file",
+    "actual-wrong-root",
+    "wrong-source",
+    "author-condition-deleted",
+    "unknown-guessed",
+    "unknown-deleted",
+    "caption-changed",
+    "image-order-changed",
+    "wrong-call",
+    "repair-rejected",
+    "context-rejected",
+    "whole-pass-forged",
+    "unknown-needs-exact",
+    "contribution-not-faithful",
+    "unknown-row-missing",
+    "context-target-lost",
+    "uncertain-downgraded",
+    "uncertain-deleted",
+    "limit-missing",
+    "annotation-as-author",
+    "figure-hash-forged",
+    "wrong-canonical",
+    "display-limit-deleted",
+    "display-limit-altered",
+    "display-author-forged",
+    "display-limit-not-near",
+    "display-author-modified"
+  ],
+  "globalAdmissionGranted": false,
+  "ordinaryWholeArticlePassed": false,
+  "globalMcpArenaReadbackRequired": true,
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "newConsumers": 0
+}

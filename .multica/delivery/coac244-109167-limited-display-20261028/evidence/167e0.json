@@ -1,0 +1,501 @@
+{
+  "schema": "coac249-167-independent-target-impact/1",
+  "key": "167",
+  "recordedAt": "2026-10-28T09:15:18.038Z",
+  "issueId": "01a17471-1595-79d5-bdfa-6feaa65172c0",
+  "taskId": "01a181b5-9a69-7d72-9055-4db4597b3ef6",
+  "canonical": "79-cn-chapter-167-4",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.coac269b25r1.json",
+    "sha256": "5bfa90e3e15deb0c3f868ee1811fe50cdba75357f2805b3c37ed5f1d86538a58"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1754620\\source.json",
+    "sha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+    "bytes": 23000,
+    "copy": "evidence/cv1754620-source.json"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.display.json",
+    "sha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+    "bytes": 32855,
+    "copy": "evidence/cv1754620-parent.json"
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1754620.7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737.json",
+    "sha256": "8c52da176b472a79f63b7cce50f29ce66710718beea7631b1cf3b0a2a9910c73",
+    "bytes": 12132,
+    "copy": "evidence/cv1754620-audit.json"
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\runtime-manifest.json",
+    "sha256": "814df700d298188dea14d20fd84ac818d1ded9a706e370bc7a1714141ad6a7a9",
+    "files": 30
+  },
+  "handoff": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-109167-167-handoff-249-20261028.json",
+    "sha256": "8fba2f5d24de3012d723eed29bd8df86f255eea835503353dc7118058ba90e4b"
+  },
+  "status": "repair-passed-unknown-unresolved",
+  "modelReview": {
+    "repairChecks": [
+      {
+        "figureId": "79-bilibili-cn:cv1754620:b0005:figure",
+        "verdict": "faithful",
+        "evidence": "原图左侧北家牌河按画面第3行最左侧的7p，牌面方向与该家其他舍牌相差90°；中央显示1根立直棒，正文随后明确讨论吃7饼破一发。修订将该7p单独标为相对于北家其他舍牌横置的立直宣言牌，并将统一方向说明改为有此例外，符合原图和语境。此判断仅针对批准的修订事实。"
+      }
+    ],
+    "unknownImpacts": [
+      {
+        "figureId": "79-bilibili-cn:cv1754620:b0005:figure",
+        "unknownText": "右侧南家牌河按画面从上到下第5行、从左到右第3列：可确认是万子牌，但数字无法可靠辨清。",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1754620:b0004",
+          "79-bilibili-cn:cv1754620:b0005",
+          "79-bilibili-cn:cv1754620:b0006"
+        ],
+        "authorClaim": "b0004：立直后有人鸣牌会消除一发；作者认为一发概率不高，不必冒险去破。b0006：在零风险的条件下破一发可取；作者认为图例中强行听牌有些勉强，建议吃7饼、拆白暗刻破一发。同一段后续的干涉碰、转移或消除海底，以及非以和牌为目标的杠，是分别设定条件的一般论述。",
+        "faithfulWithExplicitUnknown": true,
+        "requiresExactTile": false,
+        "evidence": "b0004的规则和风险取舍不依赖南家该张万子的数字。图中北家7p为立直宣言牌，东家手中有5p、6p和白暗刻，北家牌河也已有白；因此所述吃7p、拆白以及白对北家的现物关系不需要该万子精确牌码。未知数字可能影响某些万子改良牌的剩余张数，但作者对强行听牌勉强的表述是定性判断，并未给出依赖该牌码的逐牌计算；可以保留为作者判断，不能据此认证精确牌效或最优选择。b0006后续各主题并非由该图中这张万子的牌码推导。上述证据也不单独证明弃白对所有家都绝对安全。",
+        "requiredDisplayLimitations": [
+          "保留原图，并在转录中明确标出南家牌河第5行第3列为数字未辨清的万子；不猜填牌码。",
+          "将零风险保留为作者建议破一发的条件，并将图例中的听牌难易和吃牌选择保留为作者判断；不得呈现为已独立证明对所有家零风险或该选择最优。",
+          "不得声称完整牌河已逐牌核准，也不得把未知万子用于精确剩余张数、概率或最优性结论。"
+        ]
+      }
+    ],
+    "contextContinuity": {
+      "faithful": true,
+      "evidence": "按给定顺序连读：b0001至b0003为免责声明、权利说明和标题；b0004提出破一发及不应冒险的前提；b0005提供牌局图；b0006先以零风险为条件解释图例中的吃7饼和拆白，再转入干涉碰、海底和杠的其他条件性论述。保留未知牌及上述展示限制后，这条论证衔接仍可忠实呈现。"
+    },
+    "completeTargetScopeCompared": true,
+    "issues": [
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1754620:b0005:figure",
+        "evidence": "南家牌河按画面第5行第3列有一张万子牌；候选将其数字标为未辨清，并在unknowns中保留。",
+        "description": "此处缺少确定牌码；所附视图不能可靠确认数字，不能判定逐牌转写完整。保留原图与未知状态；本次仅允许在明确限制下展示相关作者论述。"
+      }
+    ],
+    "summary": "批准的北家7p立直宣言牌修订忠实于原图。唯一保留的未知万子不阻断作者破一发论述的有限展示，但其牌码仍属uncertain，不能据此认证完整牌河、概率或最优选择。目标范围已比较；本次不构成全章通过。",
+    "wholeChapterAccepted": false
+  },
+  "verification": {
+    "transportCompleted": true,
+    "repairPassed": true,
+    "limitedUnknownOkay": false,
+    "wholeChapterAccepted": false,
+    "modelReview": {
+      "repairChecks": [
+        {
+          "figureId": "79-bilibili-cn:cv1754620:b0005:figure",
+          "verdict": "faithful",
+          "evidence": "原图左侧北家牌河按画面第3行最左侧的7p，牌面方向与该家其他舍牌相差90°；中央显示1根立直棒，正文随后明确讨论吃7饼破一发。修订将该7p单独标为相对于北家其他舍牌横置的立直宣言牌，并将统一方向说明改为有此例外，符合原图和语境。此判断仅针对批准的修订事实。"
+        }
+      ],
+      "unknownImpacts": [
+        {
+          "figureId": "79-bilibili-cn:cv1754620:b0005:figure",
+          "unknownText": "右侧南家牌河按画面从上到下第5行、从左到右第3列：可确认是万子牌，但数字无法可靠辨清。",
+          "sourceBlockIds": [
+            "79-bilibili-cn:cv1754620:b0004",
+            "79-bilibili-cn:cv1754620:b0005",
+            "79-bilibili-cn:cv1754620:b0006"
+          ],
+          "authorClaim": "b0004：立直后有人鸣牌会消除一发；作者认为一发概率不高，不必冒险去破。b0006：在零风险的条件下破一发可取；作者认为图例中强行听牌有些勉强，建议吃7饼、拆白暗刻破一发。同一段后续的干涉碰、转移或消除海底，以及非以和牌为目标的杠，是分别设定条件的一般论述。",
+          "faithfulWithExplicitUnknown": true,
+          "requiresExactTile": false,
+          "evidence": "b0004的规则和风险取舍不依赖南家该张万子的数字。图中北家7p为立直宣言牌，东家手中有5p、6p和白暗刻，北家牌河也已有白；因此所述吃7p、拆白以及白对北家的现物关系不需要该万子精确牌码。未知数字可能影响某些万子改良牌的剩余张数，但作者对强行听牌勉强的表述是定性判断，并未给出依赖该牌码的逐牌计算；可以保留为作者判断，不能据此认证精确牌效或最优选择。b0006后续各主题并非由该图中这张万子的牌码推导。上述证据也不单独证明弃白对所有家都绝对安全。",
+          "requiredDisplayLimitations": [
+            "保留原图，并在转录中明确标出南家牌河第5行第3列为数字未辨清的万子；不猜填牌码。",
+            "将零风险保留为作者建议破一发的条件，并将图例中的听牌难易和吃牌选择保留为作者判断；不得呈现为已独立证明对所有家零风险或该选择最优。",
+            "不得声称完整牌河已逐牌核准，也不得把未知万子用于精确剩余张数、概率或最优性结论。"
+          ]
+        }
+      ],
+      "contextContinuity": {
+        "faithful": true,
+        "evidence": "按给定顺序连读：b0001至b0003为免责声明、权利说明和标题；b0004提出破一发及不应冒险的前提；b0005提供牌局图；b0006先以零风险为条件解释图例中的吃7饼和拆白，再转入干涉碰、海底和杠的其他条件性论述。保留未知牌及上述展示限制后，这条论证衔接仍可忠实呈现。"
+      },
+      "completeTargetScopeCompared": true,
+      "issues": [
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1754620:b0005:figure",
+          "evidence": "南家牌河按画面第5行第3列有一张万子牌；候选将其数字标为未辨清，并在unknowns中保留。",
+          "description": "此处缺少确定牌码；所附视图不能可靠确认数字，不能判定逐牌转写完整。保留原图与未知状态；本次仅允许在明确限制下展示相关作者论述。"
+        }
+      ],
+      "summary": "批准的北家7p立直宣言牌修订忠实于原图。唯一保留的未知万子不阻断作者破一发论述的有限展示，但其牌码仍属uncertain，不能据此认证完整牌河、概率或最优选择。目标范围已比较；本次不构成全章通过。",
+      "wholeChapterAccepted": false
+    }
+  },
+  "verificationError": null,
+  "call": {
+    "callId": "edf73a16-7c1c-44e2-9d22-52d2f3c0e267",
+    "scope": "textbook-167-independent-bounded-review",
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1754620",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "success": true,
+    "usage": {
+      "inputTokens": 25259,
+      "cachedInputTokens": 0,
+      "outputTokens": 7447
+    },
+    "durationMs": 124318,
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "callerRequested": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-terra",
+        "--config",
+        "model_reasoning_effort=\"max\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-uQYUAS\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-uQYUAS\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-uQYUAS",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1754620\\d55d188c3661912f\\figure-0001.png",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1754620\\d55d188c3661912f\\figure-0001.png",
+          "sha256": "15dac224d26ee7b714840c547509f63bf772beb7ebc4a01716e6b812e37a6b7a",
+          "bytes": 18657
+        }
+      ],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "binding": {
+      "canonical": "79-cn-chapter-167-4",
+      "productionSha256": "5bfa90e3e15deb0c3f868ee1811fe50cdba75357f2805b3c37ed5f1d86538a58",
+      "sourceFileSha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+      "parentSha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+      "parentAuditSha256": "8c52da176b472a79f63b7cce50f29ce66710718beea7631b1cf3b0a2a9910c73",
+      "runtimeManifestSha256": "814df700d298188dea14d20fd84ac818d1ded9a706e370bc7a1714141ad6a7a9",
+      "scope": "167-independent-target-and-unknown-impact",
+      "authorizationComment": "01a181af-e1d9-7e64-8dcf-1607be707075"
+    },
+    "promptSha256": "efeb1cbf5e4dec12f2628d43d49bb986605f01d64ce5bae0ea90fbd106660c5c",
+    "semanticPromptSha256": "c106b393b67e3402e3f8f41489822efebc8191498473789773a4f5588f877f69",
+    "schemaSha256": "5fd272815fd625b88a718b61282721f9b7c0e1c4c94c07df192f503d561cf905",
+    "recordedAt": "2026-10-28T09:15:17.984Z"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\edf73a16-7c1c-44e2-9d22-52d2f3c0e267.json",
+    "sha256": "bcdb12b7ad333e879cf74962eed180b09ea6740025090063aa3ecb3d25e4d6cb"
+  },
+  "plan": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-167-target-impact-20261028\\plan.json",
+    "sha256": "a03299d2492a1c45f604480833a723f07f672bf22c7ce539df8df333e21338f5"
+  },
+  "productionProof": {
+    "passed": true,
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.coac269b25r1.json",
+      "sha256": "5bfa90e3e15deb0c3f868ee1811fe50cdba75357f2805b3c37ed5f1d86538a58"
+    },
+    "raw": {
+      "path": "E:/AgentData/Coach/knowledge/processing/web-production/v1/raw-calls/11d4590c-c1f6-4f07-9479-1bea5db990b3.json",
+      "sha256": "885e1b52935c0e59c571bf1b7dc28f543c615f31a29b6ebfd29237acb98f9d2d"
+    },
+    "call": {
+      "callId": "11d4590c-c1f6-4f07-9479-1bea5db990b3",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1754620",
+      "sourceSha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "requestExecution": {
+        "schema": "coach-textbook-cli-request/1",
+        "policy": "coac244-vision-production-schema-v2-20261028",
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max",
+        "callerRequested": {
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max"
+        },
+        "args": [
+          "exec",
+          "--model",
+          "gpt-6.1-terra",
+          "--config",
+          "model_reasoning_effort=\"max\"",
+          "--config",
+          "web_search=\"disabled\"",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox",
+          "read-only",
+          "--strict-config",
+          "--skip-git-repo-check",
+          "--json",
+          "--output-schema",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-j3fpKj\\output.schema.json",
+          "--output-last-message",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-j3fpKj\\final.json",
+          "--cd",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-j3fpKj",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1754620\\d55d188c3661912f\\figure-0001.png",
+          "--disable",
+          "apps",
+          "--disable",
+          "auth_elicitation",
+          "--disable",
+          "browser_use",
+          "--disable",
+          "browser_use_external",
+          "--disable",
+          "browser_use_full_cdp_access",
+          "--disable",
+          "computer_use",
+          "--disable",
+          "fast_mode",
+          "--disable",
+          "goals",
+          "--disable",
+          "guardian_approval",
+          "--disable",
+          "hooks",
+          "--disable",
+          "image_generation",
+          "--disable",
+          "in_app_browser",
+          "--disable",
+          "in_app_chat",
+          "--disable",
+          "in_app_dictation",
+          "--disable",
+          "in_app_local_automation",
+          "--disable",
+          "in_app_updates",
+          "--disable",
+          "memories",
+          "--disable",
+          "mentions_v2",
+          "--disable",
+          "multi_agent",
+          "--disable",
+          "plugin_sharing",
+          "--disable",
+          "plugins",
+          "--disable",
+          "remote_plugin",
+          "--disable",
+          "shell_snapshot",
+          "--disable",
+          "shell_tool",
+          "--disable",
+          "skill_mcp_dependency_install",
+          "--disable",
+          "skill_search",
+          "--disable",
+          "sleep_tool",
+          "--disable",
+          "tool_call_mcp_elicitation",
+          "--disable",
+          "tool_suggest",
+          "--disable",
+          "unbounded_connection_retries",
+          "--disable",
+          "unified_exec",
+          "--disable",
+          "unified_exec_tty",
+          "--disable",
+          "view_image",
+          "--disable",
+          "workspace_dependencies",
+          "-"
+        ],
+        "images": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1754620\\d55d188c3661912f\\figure-0001.png",
+            "sha256": "15dac224d26ee7b714840c547509f63bf772beb7ebc4a01716e6b812e37a6b7a",
+            "bytes": 18657
+          }
+        ],
+        "remoteBackend": "unverified; request arguments and returned events only"
+      },
+      "startedAt": "2026-10-28T08:57:43.101Z",
+      "durationMs": 28384,
+      "usage": {
+        "inputTokens": 23984,
+        "cachedInputTokens": 0,
+        "outputTokens": 1547
+      },
+      "success": true,
+      "transportStatus": "completed",
+      "rawArtifactPath": "raw-calls/11d4590c-c1f6-4f07-9479-1bea5db990b3.json",
+      "rawArtifactSha256": "885e1b52935c0e59c571bf1b7dc28f543c615f31a29b6ebfd29237acb98f9d2d",
+      "promptSha256": "93f570c72e4087887d834d37c144d770ba4a9f809f0fc510aecf45c44e384c29",
+      "schemaSha256": "ca99e36e536eedfa2927f3726946a8f4be6243ee9a725b4319c9da5723d5ee37",
+      "method": "coac269-exact-109167/1",
+      "targets": {
+        "textIds": [],
+        "figureIds": [
+          "79-bilibili-cn:cv1754620:b0005"
+        ]
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.display.json",
+        "sha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+        "bytes": 32855,
+        "copy": "evidence/cv1754620-parent.json"
+      },
+      "parentAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1754620.7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737.json",
+        "sha256": "8c52da176b472a79f63b7cce50f29ce66710718beea7631b1cf3b0a2a9910c73",
+        "bytes": 12132,
+        "copy": "evidence/cv1754620-audit.json"
+      },
+      "runtime": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\runtime-manifest.json",
+        "sha256": "814df700d298188dea14d20fd84ac818d1ded9a706e370bc7a1714141ad6a7a9"
+      },
+      "runner": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\pair.mjs",
+        "sha256": "9f1ec1896bf30a13cb2e9d1454d7bd8f2d60bd2158a29bfc2284d1867b299119"
+      },
+      "cliSnapshot": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-cli.mjs",
+        "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+      }
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.display.json",
+      "sha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+      "bytes": 32855,
+      "copy": "evidence/cv1754620-parent.json"
+    },
+    "parentAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1754620.7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737.json",
+      "sha256": "8c52da176b472a79f63b7cce50f29ce66710718beea7631b1cf3b0a2a9910c73",
+      "bytes": 12132,
+      "copy": "evidence/cv1754620-audit.json"
+    },
+    "unchangedBodyBlocks": 6,
+    "unchangedNonTargetFigures": 0,
+    "unknownsPreserved": true,
+    "wholeChapterAccepted": false
+  },
+  "orderedPairs": 6,
+  "images": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1754620\\d55d188c3661912f\\figure-0001.png",
+      "sha256": "15dac224d26ee7b714840c547509f63bf772beb7ebc4a01716e6b812e37a6b7a",
+      "bytes": 18657
+    }
+  ],
+  "newReviewCalls": 1,
+  "newProductionCalls": 0,
+  "chapterPhaseCalls": {
+    "maker": 1,
+    "review": 1,
+    "maximum": 2,
+    "remaining": 0,
+    "failedVoidCount": true,
+    "retry": 0
+  },
+  "batchMaximum": 4,
+  "otherBudgetNotBorrowed": true,
+  "wholeChapterPassed": false,
+  "admissionGranted": false,
+  "oldRawAuditOrCandidateChanged": false,
+  "fee": "unknown",
+  "remoteWeights": "unknown",
+  "upstreamExecutionCount": "unknown"
+}

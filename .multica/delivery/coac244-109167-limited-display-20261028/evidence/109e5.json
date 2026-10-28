@@ -1,0 +1,51 @@
+{
+  "schema": "coac249-109-exact-display-limits-proposal/1",
+  "canonical": "79-cn-chapter-109-4",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1729038.coac269b25r1.json",
+    "sha256": "3cfe3a27bd799782d6ac8e626fcf97d26e1724ce544b6ccf26bcd740bd259dcb"
+  },
+  "receipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-109-target-impact-reviewed-20261028.json",
+    "sha256": "67421d448b13f720947ca5472d7a0dfba1ee95e2f710f79ec1d5e86703baa986"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4fe3048c-dbf1-4b52-a4f2-80ab94310477.json",
+    "sha256": "bd0dbed07728d882609a06cf5e39c634c230f8153a5cf8cfe395ccfea0b80bc8"
+  },
+  "figureBindings": [
+    {
+      "figureId": "79-bilibili-cn:cv1729038:b0012:figure",
+      "fullFigureSha256": "e005d67016a1087c1c824e3b248f71ab0ab6c65d7c6602d420ec96c60e6e5480",
+      "unknowns": [
+        "上方弃牌区从左至右第4张为万子，具体点数无法可靠辨认。",
+        "左方弃牌区从上至下第1张为万子，具体点数无法可靠辨认。",
+        "右方弃牌区从上至下第6张为字牌，具体字样无法可靠辨认。"
+      ],
+      "sourceBlockIds": [
+        "79-bilibili-cn:cv1729038:b0012"
+      ],
+      "sourceNotes": [
+        "原图与2倍最近邻放大图为同一资产，仅记录一次。",
+        "三家外围的牌背与下方副露中的白板正面分别记录。"
+      ]
+    }
+  ],
+  "requiredDisplayLimitations": [
+    "保留例3原图，在转录中原位标明上方第4张为点数未知的万子，不补写或省略该弃牌。",
+    "将牌河标为不完整；不得认证依赖该点数的精确张数、安全性或概率。",
+    "将迷彩效果和切牌作为作者的有条件建议呈现，保留“少数时候”及摸3饼、假设摸4饼的区别，不认证必然效果或最优性。",
+    "保留例3原图，在转录中原位标明左方第1张为点数未知的万子，不补写或省略该弃牌。",
+    "保留例3原图，在转录中原位标明右方第6张为字样未知的字牌，不补写或省略该弃牌。",
+    "将牌河标为不完整；不得认证依赖该字样的精确张数、安全性或概率。"
+  ],
+  "label": "审校限制（非原文）",
+  "authorBodyInjection": false,
+  "proposalOnly": true,
+  "implementationVerified": false,
+  "actualReadbackRequired": true,
+  "admissionGranted": false,
+  "wholeChapterPassed": false,
+  "newModelCalls": 0,
+  "newProductionCalls": 0
+}

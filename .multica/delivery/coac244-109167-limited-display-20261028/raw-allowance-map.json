@@ -1,0 +1,365 @@
+[
+  {
+    "canonical": "79-cn-chapter-109-4",
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4fe3048c-dbf1-4b52-a4f2-80ab94310477.json",
+      "sha256": "bd0dbed07728d882609a06cf5e39c634c230f8153a5cf8cfe395ccfea0b80bc8"
+    },
+    "rawLastMessageUtf8Sha256": "7ed1fca20cf5a482868dc3b0d5887c48b7ccc1c2a08a3e7ef680a101ee2179d5",
+    "originalStrictVerification": {
+      "transportCompleted": true,
+      "repairPassed": true,
+      "limitedUnknownOkay": false,
+      "wholeChapterAccepted": false,
+      "modelReview": {
+        "repairChecks": [
+          {
+            "figureId": "79-bilibili-cn:cv1729038:b0004:figure",
+            "verdict": "faithful",
+            "evidence": "原图例1手牌左起为5m、6m、6m；其后为3s、4s、5s、6s、9s、9s、西、西，右侧为红中碰。修订后的首张5m及其顺序与原图相符，也与b0005所说切6万、保留索子连续形相接。"
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1729038:b0006:figure",
+            "verdict": "faithful",
+            "evidence": "原图手牌左起为5m、6m，右侧单独摸入2s，再右侧为红中碰。修订符合原图；与前图切去一张6m后的牌形连续。"
+          }
+        ],
+        "unknownImpacts": [
+          {
+            "figureId": "79-bilibili-cn:cv1729038:b0012:figure",
+            "unknownText": "上方弃牌区从左至右第4张为万子，具体点数无法可靠辨认。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1729038:b0011",
+              "79-bilibili-cn:cv1729038:b0012",
+              "79-bilibili-cn:cv1729038:b0013"
+            ],
+            "authorClaim": "作者称迷彩战术少数时候对混一色有效。例3中，作者认为必要面子已凑齐，为避免混一色容易被看破，建议保留6万：摸3饼时切5饼；假如摸4饼则切2饼。",
+            "faithfulWithExplicitUnknown": true,
+            "requiresExactTile": false,
+            "evidence": "该未知牌是上方玩家的第4张弃牌，不是下方玩家手中的6万或分开放置的3饼。作者没有把这张弃牌的具体点数列为上述切牌建议的条件；它仍是实际弃牌，其点数可能影响相关万子的可见张数或安全性判断。",
+            "requiredDisplayLimitations": [
+              "保留例3原图，在转录中原位标明上方第4张为点数未知的万子，不补写或省略该弃牌。",
+              "将牌河标为不完整；不得认证依赖该点数的精确张数、安全性或概率。",
+              "将迷彩效果和切牌作为作者的有条件建议呈现，保留“少数时候”及摸3饼、假设摸4饼的区别，不认证必然效果或最优性。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1729038:b0012:figure",
+            "unknownText": "左方弃牌区从上至下第1张为万子，具体点数无法可靠辨认。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1729038:b0011",
+              "79-bilibili-cn:cv1729038:b0012",
+              "79-bilibili-cn:cv1729038:b0013"
+            ],
+            "authorClaim": "作者称迷彩战术少数时候对混一色有效。例3中，作者认为必要面子已凑齐，为避免混一色容易被看破，建议保留6万：摸3饼时切5饼；假如摸4饼则切2饼。",
+            "faithfulWithExplicitUnknown": true,
+            "requiresExactTile": false,
+            "evidence": "这张是左方玩家的第一张弃牌；例3的建议针对下方玩家手中的6万及饼子。尽管本节讨论先打，作者并未以左方开河万子的具体点数作为该建议的条件；其点数仍可能影响相关万子的可见张数或安全性判断。",
+            "requiredDisplayLimitations": [
+              "保留例3原图，在转录中原位标明左方第1张为点数未知的万子，不补写或省略该弃牌。",
+              "将牌河标为不完整；不得认证依赖该点数的精确张数、安全性或概率。",
+              "将迷彩效果和切牌作为作者的有条件建议呈现，保留“少数时候”及摸3饼、假设摸4饼的区别，不认证必然效果或最优性。"
+            ]
+          },
+          {
+            "figureId": "79-bilibili-cn:cv1729038:b0012:figure",
+            "unknownText": "右方弃牌区从上至下第6张为字牌，具体字样无法可靠辨认。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1729038:b0011",
+              "79-bilibili-cn:cv1729038:b0012",
+              "79-bilibili-cn:cv1729038:b0013"
+            ],
+            "authorClaim": "作者称迷彩战术少数时候对混一色有效。例3中，作者认为必要面子已凑齐，为避免混一色容易被看破，建议保留6万：摸3饼时切5饼；假如摸4饼则切2饼。",
+            "faithfulWithExplicitUnknown": true,
+            "requiresExactTile": false,
+            "evidence": "这张字牌位于右方玩家弃牌区；作者论述的手牌形、摸牌和切牌位于下方玩家牌区，正文没有以右方第6张字牌的字样或剩余张数为条件。具体字样仍可能影响字牌的可见张数或安全性判断。",
+            "requiredDisplayLimitations": [
+              "保留例3原图，在转录中原位标明右方第6张为字样未知的字牌，不补写或省略该弃牌。",
+              "将牌河标为不完整；不得认证依赖该字样的精确张数、安全性或概率。",
+              "将迷彩效果和切牌作为作者的有条件建议呈现，保留“少数时候”及摸3饼、假设摸4饼的区别，不认证必然效果或最优性。"
+            ]
+          }
+        ],
+        "contextContinuity": {
+          "faithful": true,
+          "evidence": "按给定顺序，b0004至b0007先展示例1切6万、摸2索，并保留巡目尚早及能碰9索或西的条件；例2随后讨论听牌与摸8饼。b0011转入先打和迷彩，b0012至b0013展示例3及摸3饼、假设摸4饼的区别；其后转入让形变强及例4、例5。此判断限于目标事实和相关论述的衔接。"
+        },
+        "completeTargetScopeCompared": true,
+        "issues": [
+          {
+            "severity": "uncertain",
+            "targetId": "79-bilibili-cn:cv1729038:b0012:figure",
+            "evidence": "候选将上方弃牌区第4张、左方弃牌区第1张及右方弃牌区第6张分别记为点数不清的万子、点数不清的万子及字样不清的字牌。",
+            "description": "三处均属于实际弃牌，具有教学语义；当前无法可靠确认其具体牌码，不能作为完整逐牌转录通过。"
+          }
+        ],
+        "summary": "两项批准的图修订与原图相符。三处未知弃牌不阻断例3作者的有条件迷彩论述，可在保留原图、逐项明确未知及所列限制下展示；完整逐牌转录仍为uncertain。本次仅完成目标审，未接受全章。",
+        "wholeChapterAccepted": false
+      }
+    },
+    "fields": [
+      {
+        "pointer": "/unknownImpacts/0/unknownText",
+        "value": "上方弃牌区从左至右第4张为万子，具体点数无法可靠辨认。",
+        "valueUtf8Sha256": "93d255305a6272dd4ea025c3e7bb6df461517d6d6b1c6f0158bc322925d5c599",
+        "rawLastMessageUtf8Start": 741,
+        "rawLastMessageUtf8End": 820
+      },
+      {
+        "pointer": "/unknownImpacts/0/authorClaim",
+        "value": "作者称迷彩战术少数时候对混一色有效。例3中，作者认为必要面子已凑齐，为避免混一色容易被看破，建议保留6万：摸3饼时切5饼；假如摸4饼则切2饼。",
+        "valueUtf8Sha256": "53ee1769bd2657bfba5170adc81a0778e723e53ae7bb6dee558e4e6b5d19014e",
+        "rawLastMessageUtf8Start": 1005,
+        "rawLastMessageUtf8End": 1206
+      },
+      {
+        "pointer": "/unknownImpacts/0/evidence",
+        "value": "该未知牌是上方玩家的第4张弃牌，不是下方玩家手中的6万或分开放置的3饼。作者没有把这张弃牌的具体点数列为上述切牌建议的条件；它仍是实际弃牌，其点数可能影响相关万子的可见张数或安全性判断。",
+        "valueUtf8Sha256": "2b46c0e7db37a52bf48cb7513204aed67d89a2f863d6fb6a09a12669943202c9",
+        "rawLastMessageUtf8Start": 1305,
+        "rawLastMessageUtf8End": 1578
+      },
+      {
+        "pointer": "/unknownImpacts/0/faithfulWithExplicitUnknown",
+        "value": true
+      },
+      {
+        "pointer": "/unknownImpacts/0/requiresExactTile",
+        "value": false
+      },
+      {
+        "pointer": "/unknownImpacts/0/requiredDisplayLimitations/0",
+        "value": "保留例3原图，在转录中原位标明上方第4张为点数未知的万子，不补写或省略该弃牌。",
+        "valueUtf8Sha256": "932048c9a44e49ba6bc65cf6ea67813ea2f075c3912bc1afeed77654dde7ba81",
+        "rawLastMessageUtf8Start": 1628,
+        "rawLastMessageUtf8End": 1741
+      },
+      {
+        "pointer": "/unknownImpacts/0/requiredDisplayLimitations/1",
+        "value": "将牌河标为不完整；不得认证依赖该点数的精确张数、安全性或概率。",
+        "valueUtf8Sha256": "a93bdcb2df4a3c0a1692e7a9a835f89223ad88e0e643c0f87e1f2360a867d646",
+        "rawLastMessageUtf8Start": 1753,
+        "rawLastMessageUtf8End": 1846
+      },
+      {
+        "pointer": "/unknownImpacts/0/requiredDisplayLimitations/2",
+        "value": "将迷彩效果和切牌作为作者的有条件建议呈现，保留“少数时候”及摸3饼、假设摸4饼的区别，不认证必然效果或最优性。",
+        "valueUtf8Sha256": "50ea3587b0397ff9e451e78bede8e6be1b8b0bf7a6646bf2a43e4f6d7af6da46",
+        "rawLastMessageUtf8Start": 1858,
+        "rawLastMessageUtf8End": 2019
+      },
+      {
+        "pointer": "/unknownImpacts/1/unknownText",
+        "value": "左方弃牌区从上至下第1张为万子，具体点数无法可靠辨认。",
+        "valueUtf8Sha256": "b8a9f1d75bad583544f1bb42f4adbb11522d4fedf9ca905b618133966da2fb28",
+        "rawLastMessageUtf8Start": 2123,
+        "rawLastMessageUtf8End": 2202
+      },
+      {
+        "pointer": "/unknownImpacts/1/authorClaim",
+        "value": "作者称迷彩战术少数时候对混一色有效。例3中，作者认为必要面子已凑齐，为避免混一色容易被看破，建议保留6万：摸3饼时切5饼；假如摸4饼则切2饼。",
+        "valueUtf8Sha256": "53ee1769bd2657bfba5170adc81a0778e723e53ae7bb6dee558e4e6b5d19014e",
+        "rawLastMessageUtf8Start": 1005,
+        "rawLastMessageUtf8End": 1206
+      },
+      {
+        "pointer": "/unknownImpacts/1/evidence",
+        "value": "这张是左方玩家的第一张弃牌；例3的建议针对下方玩家手中的6万及饼子。尽管本节讨论先打，作者并未以左方开河万子的具体点数作为该建议的条件；其点数仍可能影响相关万子的可见张数或安全性判断。",
+        "valueUtf8Sha256": "a4b933307bfb7c9f3f6e01ffe4124795fa9de0e7c1d81098fa37742f158a4582",
+        "rawLastMessageUtf8Start": 2687,
+        "rawLastMessageUtf8End": 2959
+      },
+      {
+        "pointer": "/unknownImpacts/1/faithfulWithExplicitUnknown",
+        "value": true
+      },
+      {
+        "pointer": "/unknownImpacts/1/requiresExactTile",
+        "value": false
+      },
+      {
+        "pointer": "/unknownImpacts/1/requiredDisplayLimitations/0",
+        "value": "保留例3原图，在转录中原位标明左方第1张为点数未知的万子，不补写或省略该弃牌。",
+        "valueUtf8Sha256": "80f540125b7b9216ae65c69440ceb66c7059bf1ece32137bafe92f8a8f7bce39",
+        "rawLastMessageUtf8Start": 3009,
+        "rawLastMessageUtf8End": 3122
+      },
+      {
+        "pointer": "/unknownImpacts/1/requiredDisplayLimitations/1",
+        "value": "将牌河标为不完整；不得认证依赖该点数的精确张数、安全性或概率。",
+        "valueUtf8Sha256": "a93bdcb2df4a3c0a1692e7a9a835f89223ad88e0e643c0f87e1f2360a867d646",
+        "rawLastMessageUtf8Start": 1753,
+        "rawLastMessageUtf8End": 1846
+      },
+      {
+        "pointer": "/unknownImpacts/1/requiredDisplayLimitations/2",
+        "value": "将迷彩效果和切牌作为作者的有条件建议呈现，保留“少数时候”及摸3饼、假设摸4饼的区别，不认证必然效果或最优性。",
+        "valueUtf8Sha256": "50ea3587b0397ff9e451e78bede8e6be1b8b0bf7a6646bf2a43e4f6d7af6da46",
+        "rawLastMessageUtf8Start": 1858,
+        "rawLastMessageUtf8End": 2019
+      },
+      {
+        "pointer": "/unknownImpacts/2/unknownText",
+        "value": "右方弃牌区从上至下第6张为字牌，具体字样无法可靠辨认。",
+        "valueUtf8Sha256": "029a7c32b546ed4635e9e8484c9de1ac894498d3b3c0c32a4c8e910d42dc6e38",
+        "rawLastMessageUtf8Start": 3504,
+        "rawLastMessageUtf8End": 3583
+      },
+      {
+        "pointer": "/unknownImpacts/2/authorClaim",
+        "value": "作者称迷彩战术少数时候对混一色有效。例3中，作者认为必要面子已凑齐，为避免混一色容易被看破，建议保留6万：摸3饼时切5饼；假如摸4饼则切2饼。",
+        "valueUtf8Sha256": "53ee1769bd2657bfba5170adc81a0778e723e53ae7bb6dee558e4e6b5d19014e",
+        "rawLastMessageUtf8Start": 1005,
+        "rawLastMessageUtf8End": 1206
+      },
+      {
+        "pointer": "/unknownImpacts/2/evidence",
+        "value": "这张字牌位于右方玩家弃牌区；作者论述的手牌形、摸牌和切牌位于下方玩家牌区，正文没有以右方第6张字牌的字样或剩余张数为条件。具体字样仍可能影响字牌的可见张数或安全性判断。",
+        "valueUtf8Sha256": "6efbac0299274a4a8f942a94a1311980bda2b82f088cbad6f393d2dd1e9ae9e5",
+        "rawLastMessageUtf8Start": 4068,
+        "rawLastMessageUtf8End": 4318
+      },
+      {
+        "pointer": "/unknownImpacts/2/faithfulWithExplicitUnknown",
+        "value": true
+      },
+      {
+        "pointer": "/unknownImpacts/2/requiresExactTile",
+        "value": false
+      },
+      {
+        "pointer": "/unknownImpacts/2/requiredDisplayLimitations/0",
+        "value": "保留例3原图，在转录中原位标明右方第6张为字样未知的字牌，不补写或省略该弃牌。",
+        "valueUtf8Sha256": "3322081be9e6586bbfd05d12b3640f5e4d3700a1977d50914cef98184f5887d0",
+        "rawLastMessageUtf8Start": 4368,
+        "rawLastMessageUtf8End": 4481
+      },
+      {
+        "pointer": "/unknownImpacts/2/requiredDisplayLimitations/1",
+        "value": "将牌河标为不完整；不得认证依赖该字样的精确张数、安全性或概率。",
+        "valueUtf8Sha256": "cda849ab6134917512c0b815d32e4819ca80854db01ef94152fcbfed03ae8724",
+        "rawLastMessageUtf8Start": 4493,
+        "rawLastMessageUtf8End": 4586
+      },
+      {
+        "pointer": "/unknownImpacts/2/requiredDisplayLimitations/2",
+        "value": "将迷彩效果和切牌作为作者的有条件建议呈现，保留“少数时候”及摸3饼、假设摸4饼的区别，不认证必然效果或最优性。",
+        "valueUtf8Sha256": "50ea3587b0397ff9e451e78bede8e6be1b8b0bf7a6646bf2a43e4f6d7af6da46",
+        "rawLastMessageUtf8Start": 1858,
+        "rawLastMessageUtf8End": 2019
+      }
+    ],
+    "ordinaryWholeArticlePassed": false
+  },
+  {
+    "canonical": "79-cn-chapter-167-4",
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\edf73a16-7c1c-44e2-9d22-52d2f3c0e267.json",
+      "sha256": "bcdb12b7ad333e879cf74962eed180b09ea6740025090063aa3ecb3d25e4d6cb"
+    },
+    "rawLastMessageUtf8Sha256": "37a368624693cb57527eeeb129defc52aa73504bc481c8159ae2ef1a089723a8",
+    "originalStrictVerification": {
+      "transportCompleted": true,
+      "repairPassed": true,
+      "limitedUnknownOkay": false,
+      "wholeChapterAccepted": false,
+      "modelReview": {
+        "repairChecks": [
+          {
+            "figureId": "79-bilibili-cn:cv1754620:b0005:figure",
+            "verdict": "faithful",
+            "evidence": "原图左侧北家牌河按画面第3行最左侧的7p，牌面方向与该家其他舍牌相差90°；中央显示1根立直棒，正文随后明确讨论吃7饼破一发。修订将该7p单独标为相对于北家其他舍牌横置的立直宣言牌，并将统一方向说明改为有此例外，符合原图和语境。此判断仅针对批准的修订事实。"
+          }
+        ],
+        "unknownImpacts": [
+          {
+            "figureId": "79-bilibili-cn:cv1754620:b0005:figure",
+            "unknownText": "右侧南家牌河按画面从上到下第5行、从左到右第3列：可确认是万子牌，但数字无法可靠辨清。",
+            "sourceBlockIds": [
+              "79-bilibili-cn:cv1754620:b0004",
+              "79-bilibili-cn:cv1754620:b0005",
+              "79-bilibili-cn:cv1754620:b0006"
+            ],
+            "authorClaim": "b0004：立直后有人鸣牌会消除一发；作者认为一发概率不高，不必冒险去破。b0006：在零风险的条件下破一发可取；作者认为图例中强行听牌有些勉强，建议吃7饼、拆白暗刻破一发。同一段后续的干涉碰、转移或消除海底，以及非以和牌为目标的杠，是分别设定条件的一般论述。",
+            "faithfulWithExplicitUnknown": true,
+            "requiresExactTile": false,
+            "evidence": "b0004的规则和风险取舍不依赖南家该张万子的数字。图中北家7p为立直宣言牌，东家手中有5p、6p和白暗刻，北家牌河也已有白；因此所述吃7p、拆白以及白对北家的现物关系不需要该万子精确牌码。未知数字可能影响某些万子改良牌的剩余张数，但作者对强行听牌勉强的表述是定性判断，并未给出依赖该牌码的逐牌计算；可以保留为作者判断，不能据此认证精确牌效或最优选择。b0006后续各主题并非由该图中这张万子的牌码推导。上述证据也不单独证明弃白对所有家都绝对安全。",
+            "requiredDisplayLimitations": [
+              "保留原图，并在转录中明确标出南家牌河第5行第3列为数字未辨清的万子；不猜填牌码。",
+              "将零风险保留为作者建议破一发的条件，并将图例中的听牌难易和吃牌选择保留为作者判断；不得呈现为已独立证明对所有家零风险或该选择最优。",
+              "不得声称完整牌河已逐牌核准，也不得把未知万子用于精确剩余张数、概率或最优性结论。"
+            ]
+          }
+        ],
+        "contextContinuity": {
+          "faithful": true,
+          "evidence": "按给定顺序连读：b0001至b0003为免责声明、权利说明和标题；b0004提出破一发及不应冒险的前提；b0005提供牌局图；b0006先以零风险为条件解释图例中的吃7饼和拆白，再转入干涉碰、海底和杠的其他条件性论述。保留未知牌及上述展示限制后，这条论证衔接仍可忠实呈现。"
+        },
+        "completeTargetScopeCompared": true,
+        "issues": [
+          {
+            "severity": "uncertain",
+            "targetId": "79-bilibili-cn:cv1754620:b0005:figure",
+            "evidence": "南家牌河按画面第5行第3列有一张万子牌；候选将其数字标为未辨清，并在unknowns中保留。",
+            "description": "此处缺少确定牌码；所附视图不能可靠确认数字，不能判定逐牌转写完整。保留原图与未知状态；本次仅允许在明确限制下展示相关作者论述。"
+          }
+        ],
+        "summary": "批准的北家7p立直宣言牌修订忠实于原图。唯一保留的未知万子不阻断作者破一发论述的有限展示，但其牌码仍属uncertain，不能据此认证完整牌河、概率或最优选择。目标范围已比较；本次不构成全章通过。",
+        "wholeChapterAccepted": false
+      }
+    },
+    "fields": [
+      {
+        "pointer": "/unknownImpacts/0/unknownText",
+        "value": "右侧南家牌河按画面从上到下第5行、从左到右第3列：可确认是万子牌，但数字无法可靠辨清。",
+        "valueUtf8Sha256": "b55a95a54848597c1fc26865fe2a721ed0ef9f510bf44c6cc66f165c119dcdb9",
+        "rawLastMessageUtf8Start": 622,
+        "rawLastMessageUtf8End": 747
+      },
+      {
+        "pointer": "/unknownImpacts/0/authorClaim",
+        "value": "b0004：立直后有人鸣牌会消除一发；作者认为一发概率不高，不必冒险去破。b0006：在零风险的条件下破一发可取；作者认为图例中强行听牌有些勉强，建议吃7饼、拆白暗刻破一发。同一段后续的干涉碰、转移或消除海底，以及非以和牌为目标的杠，是分别设定条件的一般论述。",
+        "valueUtf8Sha256": "101b2d9e457d3f9a93ac312c1382003670cd4142a85101503725c9a7ffcb05c2",
+        "rawLastMessageUtf8Start": 932,
+        "rawLastMessageUtf8End": 1300
+      },
+      {
+        "pointer": "/unknownImpacts/0/evidence",
+        "value": "b0004的规则和风险取舍不依赖南家该张万子的数字。图中北家7p为立直宣言牌，东家手中有5p、6p和白暗刻，北家牌河也已有白；因此所述吃7p、拆白以及白对北家的现物关系不需要该万子精确牌码。未知数字可能影响某些万子改良牌的剩余张数，但作者对强行听牌勉强的表述是定性判断，并未给出依赖该牌码的逐牌计算；可以保留为作者判断，不能据此认证精确牌效或最优选择。b0006后续各主题并非由该图中这张万子的牌码推导。上述证据也不单独证明弃白对所有家都绝对安全。",
+        "valueUtf8Sha256": "17bd900d76f752154a18ff693f1808761a0122fe27dd6543a6405b070fa1ee4e",
+        "rawLastMessageUtf8Start": 1399,
+        "rawLastMessageUtf8End": 2035
+      },
+      {
+        "pointer": "/unknownImpacts/0/faithfulWithExplicitUnknown",
+        "value": true
+      },
+      {
+        "pointer": "/unknownImpacts/0/requiresExactTile",
+        "value": false
+      },
+      {
+        "pointer": "/unknownImpacts/0/requiredDisplayLimitations/0",
+        "value": "保留原图，并在转录中明确标出南家牌河第5行第3列为数字未辨清的万子；不猜填牌码。",
+        "valueUtf8Sha256": "22d4c26460a4dc6958df0cf74cae64b3c730ffa86832412cd9a4e49f50012346",
+        "rawLastMessageUtf8Start": 2085,
+        "rawLastMessageUtf8End": 2201
+      },
+      {
+        "pointer": "/unknownImpacts/0/requiredDisplayLimitations/1",
+        "value": "将零风险保留为作者建议破一发的条件，并将图例中的听牌难易和吃牌选择保留为作者判断；不得呈现为已独立证明对所有家零风险或该选择最优。",
+        "valueUtf8Sha256": "615c6d95ba0f8b5d3406b01fde9b4ced80da4cf1dc3e1ddd41a397c43f55a066",
+        "rawLastMessageUtf8Start": 2213,
+        "rawLastMessageUtf8End": 2408
+      },
+      {
+        "pointer": "/unknownImpacts/0/requiredDisplayLimitations/2",
+        "value": "不得声称完整牌河已逐牌核准，也不得把未知万子用于精确剩余张数、概率或最优性结论。",
+        "valueUtf8Sha256": "fbe1adf038a01f866a0f9e6226c6a768df07b1ce39b46c99a871275889c81ec6",
+        "rawLastMessageUtf8Start": 2420,
+        "rawLastMessageUtf8End": 2540
+      }
+    ],
+    "ordinaryWholeArticlePassed": false
+  }
+]

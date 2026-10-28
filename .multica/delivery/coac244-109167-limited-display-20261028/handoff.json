@@ -1,0 +1,45 @@
+{
+  "packagePath": "E:/AgentData/Coach/knowledge/processing/integration/coac244-109167-limited-display-20261028",
+  "manifest": "E:/AgentData/Coach/knowledge/processing/integration/coac244-109167-limited-display-20261028/manifest.json",
+  "loader": "E:/AgentData/Coach/knowledge/processing/integration/coac244-109167-limited-display-20261028/admit.mjs",
+  "loaderFunction": "verifyLimited(root,candidatePath)",
+  "stageEntry": "E:/AgentData/Coach/knowledge/processing/integration/coac244-109167-limited-display-20261028/stage.mjs",
+  "stageFunction": "stageLimited(options)",
+  "stages": [
+    {
+      "canonical": "79-cn-chapter-109-4",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1729038.coac269b25r1.json",
+        "sha256": "3cfe3a27bd799782d6ac8e626fcf97d26e1724ce544b6ccf26bcd740bd259dcb"
+      },
+      "stage": "E:/AgentData/Coach/knowledge/processing/integration/coac244-109167-limited-display-20261028/stage109",
+      "sourceBlocks": 17,
+      "displayBlocks": 23,
+      "notes": 6,
+      "figures": 7
+    },
+    {
+      "canonical": "79-cn-chapter-167-4",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.coac269b25r1.json",
+        "sha256": "5bfa90e3e15deb0c3f868ee1811fe50cdba75357f2805b3c37ed5f1d86538a58"
+      },
+      "stage": "E:/AgentData/Coach/knowledge/processing/integration/coac244-109167-limited-display-20261028/stage167",
+      "sourceBlocks": 6,
+      "displayBlocks": 9,
+      "notes": 3,
+      "figures": 1
+    }
+  ],
+  "originalStrictFalsePreserved": true,
+  "ordinaryWholeArticlePassed": false,
+  "globalAdmissionGranted": false,
+  "existing250Wakeups": [
+    "01a181ca-b11e-7bfe-b58e-32e3ad8aae60",
+    "01a181cb-dd6c-7383-93ba-7650c3d17db7"
+  ],
+  "onlyExisting250Writer": true,
+  "newConsumers": 0,
+  "newModelCalls": 0,
+  "actualGlobalReadbackRequired": true
+}

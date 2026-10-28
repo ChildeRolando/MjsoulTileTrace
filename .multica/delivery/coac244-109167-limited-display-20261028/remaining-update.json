@@ -1,0 +1,47 @@
+{
+  "scope": "two exact canonical results only; global register owned by250",
+  "items": [
+    {
+      "canonical": "79-cn-chapter-109-4",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1729038.coac269b25r1.json",
+        "sha256": "3cfe3a27bd799782d6ac8e626fcf97d26e1724ce544b6ccf26bcd740bd259dcb"
+      },
+      "sourceAndParentUnchanged": true,
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4fe3048c-dbf1-4b52-a4f2-80ab94310477.json",
+        "sha256": "bd0dbed07728d882609a06cf5e39c634c230f8153a5cf8cfe395ccfea0b80bc8"
+      },
+      "repairPassed": true,
+      "limitedUnknownOkay": false,
+      "uncertainCount": 1,
+      "remainingUnknowns": 3,
+      "limitsInstalledInIsolatedStage": 6,
+      "next": "existing250 persistent route + actual MCP/Arena all author blocks/images/limits readback",
+      "additionalModelBudgetNeeded": 0,
+      "globalCovered": false
+    },
+    {
+      "canonical": "79-cn-chapter-167-4",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.coac269b25r1.json",
+        "sha256": "5bfa90e3e15deb0c3f868ee1811fe50cdba75357f2805b3c37ed5f1d86538a58"
+      },
+      "sourceAndParentUnchanged": true,
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\edf73a16-7c1c-44e2-9d22-52d2f3c0e267.json",
+        "sha256": "bcdb12b7ad333e879cf74962eed180b09ea6740025090063aa3ecb3d25e4d6cb"
+      },
+      "repairPassed": true,
+      "limitedUnknownOkay": false,
+      "uncertainCount": 1,
+      "remainingUnknowns": 1,
+      "limitsInstalledInIsolatedStage": 3,
+      "next": "existing250 persistent route + actual MCP/Arena all author blocks/images/limits readback",
+      "additionalModelBudgetNeeded": 0,
+      "globalCovered": false
+    }
+  ],
+  "newCalls": 0,
+  "wholeBookComplete": false
+}
