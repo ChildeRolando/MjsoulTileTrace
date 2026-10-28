@@ -1,0 +1,2737 @@
+{
+  "schema": "coac244-next-pair-evidence-proposal/1",
+  "canonical": "79-cn-chapter-109-4",
+  "article": "cv1729038",
+  "selectedReadyProposal": true,
+  "status": "ready-for-root-budget-approval",
+  "authorizationForNewCalls": false,
+  "newCallsThisStage": 0,
+  "bindings": {
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1729038.display.json",
+      "sha256": "ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22",
+      "bytes": 57289,
+      "copy": "evidence/cv1729038-parent.json"
+    },
+    "audit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1729038.ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22.retry-1792943789870-ade1138e.json",
+      "sha256": "254405ec0e5e50e057a662509f8ac087e4d1ed84c0e60b40e185182585130eda",
+      "bytes": 32355,
+      "copy": "evidence/cv1729038-audit.json"
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1729038\\source.json",
+      "sha256": "b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc",
+      "bytes": 33421,
+      "copy": "evidence/cv1729038-source.json"
+    },
+    "productionRaws": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\896037d2-8f7d-49c2-88aa-29c912f857ba.json",
+        "sha256": "8f369470fe8c5552dedaea303b468fc26b5e3edb212a30f4371bed5c518fe80c",
+        "bytes": 69745,
+        "copy": "evidence/896037d2-8f7d-49c2-88aa-29c912f857ba-producer.json"
+      }
+    ],
+    "independentRaws": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7876c301-7ae9-44f7-bc42-d236a2d63c53.json",
+        "sha256": "5fb11208a1aa9f650f9427a42efaf2834e4d4259d33faf0d3d9271e7e779c0ea",
+        "bytes": 123965,
+        "copy": "evidence/7876c301-7ae9-44f7-bc42-d236a2d63c53-audit-raw.json",
+        "callId": "7876c301-7ae9-44f7-bc42-d236a2d63c53",
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      }
+    ]
+  },
+  "masterRow": {
+    "chapterId": "79-cn-chapter-109-4",
+    "originalChapterId": "79-cn-chapter-109-4",
+    "sourceId": "79-cn",
+    "title": "手役7—染手（二）",
+    "units": 1,
+    "ownedSourceBlocks": 25,
+    "adjudicationGroup": "confirmed-produced-not-covered",
+    "covered": false,
+    "coverageRoute": null,
+    "approvedWebCorrespondence": {
+      "articleId": "cv1729038",
+      "webSourceId": "79-bilibili-cn",
+      "tier": "body",
+      "evidencePath": "integration/chinese-source-body-correspondence.json",
+      "substitutionAllowed": true,
+      "bodyEquivalenceConfirmed": true,
+      "articleInPreview": false
+    },
+    "existingCandidate": {
+      "path": "web-production/v1/candidates/79-bilibili-cn/cv1729038.display.json",
+      "sha256": "ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22",
+      "bodyBlocks": 17,
+      "sourceSha256": "b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc",
+      "currentSourceSha256": "b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc",
+      "sourceBoundCurrent": true,
+      "auditStatus": "needs-repair",
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1729038.ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22.retry-1792943789870-ade1138e.json",
+      "auditRecordedAt": "2026-10-25T15:56:29.870Z",
+      "deterministicPassed": true,
+      "semanticComplete": false
+    },
+    "pdfRoute": {
+      "pagesTotal": 3,
+      "pagesWithCandidate": 1,
+      "pagesWithPassedCandidate": 1,
+      "missingPassedPages": [
+        110,
+        111
+      ],
+      "pagesDetail": [
+        {
+          "page": 109,
+          "candidates": 1,
+          "receiptStatus": "passed",
+          "sourceBound": true,
+          "selected": true,
+          "blocks": 12
+        },
+        {
+          "page": 110,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 8
+        },
+        {
+          "page": 111,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 7
+        }
+      ]
+    },
+    "gaps": {
+      "ownedSourceBlocks": 25,
+      "missingProductionBlocks": 0,
+      "producedBlocks": 25,
+      "acceptedBlocks": 0,
+      "acceptanceGapBlocks": 25,
+      "acceptanceGapPages": [
+        110,
+        111
+      ],
+      "pagesWithoutCandidate": [],
+      "pagesWithoutPassedCandidate": [
+        110,
+        111
+      ]
+    },
+    "verdict": "produced-needs-repair",
+    "coac246": {
+      "action": "repair",
+      "auditStatus": "needs-repair",
+      "candidateSha256": "ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1729038.display.json",
+      "repairErrors": 11,
+      "units": 1,
+      "blocks": 25
+    }
+  },
+  "productionLedger": [
+    {
+      "callId": "896037d2-8f7d-49c2-88aa-29c912f857ba",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1729038",
+      "sourceSha256": "b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "startedAt": "2026-10-23T22:26:54.664Z",
+      "durationMs": 159104,
+      "usage": {
+        "inputTokens": 22724,
+        "cachedInputTokens": 0,
+        "outputTokens": 5905
+      },
+      "success": true,
+      "transportStatus": "completed",
+      "rawArtifactPath": "raw-calls/896037d2-8f7d-49c2-88aa-29c912f857ba.json",
+      "rawArtifactSha256": "8f369470fe8c5552dedaea303b468fc26b5e3edb212a30f4371bed5c518fe80c",
+      "outputSha256": "95755669fe2d0936c951e8dc2a35b51f8a92cd43e126a094a5f47326defe7483",
+      "schemaSha256": "d6c0dcfea8a28b3044d1951f7dea50a97798fa005354f745fbc7aef1227da5c4",
+      "promptSha256": "0577ce147545c3e9e9585e17c06fa5ce8a5978f5be4ddc87414a87112017e740",
+      "semanticPromptSha256": "12e535b0f584b4f7aaa59686300fff677d4f8d6dd07242dc2511f7bb3206265f",
+      "cliSnapshot": {
+        "path": "web-production/v1/runners/d544c65de266a0299f64f9056c45cdd4e5fff861090a60c45d203bce36dc6deb.cli.mjs",
+        "sha256": "d544c65de266a0299f64f9056c45cdd4e5fff861090a60c45d203bce36dc6deb"
+      },
+      "targets": {
+        "textIds": [],
+        "figureIds": [
+          "79-bilibili-cn:cv1729038:b0004",
+          "79-bilibili-cn:cv1729038:b0006",
+          "79-bilibili-cn:cv1729038:b0008",
+          "79-bilibili-cn:cv1729038:b0010",
+          "79-bilibili-cn:cv1729038:b0012",
+          "79-bilibili-cn:cv1729038:b0014",
+          "79-bilibili-cn:cv1729038:b0016"
+        ]
+      },
+      "terminalEvents": [],
+      "visualInputs": [
+        {
+          "assetId": "79-bilibili-cn:c2ab9da0598af77cd61a125d",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe.png",
+          "sourceSha256": "49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe.png",
+          "sha256": "49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 494,
+          "height": 68
+        },
+        {
+          "assetId": "79-bilibili-cn:c2ab9da0598af77cd61a125d",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe.png",
+          "sourceSha256": "49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe.x4.png",
+          "sha256": "b89443c1b5c80cdad62108b2ed71b4117f456c381368f781df4f5ea88a98b646",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 1976,
+          "height": 272
+        },
+        {
+          "assetId": "79-bilibili-cn:9c5cc90e8970f4ac5331515a",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7.png",
+          "sourceSha256": "65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7.png",
+          "sha256": "65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 504,
+          "height": 67
+        },
+        {
+          "assetId": "79-bilibili-cn:9c5cc90e8970f4ac5331515a",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7.png",
+          "sourceSha256": "65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7.x4.png",
+          "sha256": "d20fac24e666ce0438ddd526d282c5ffa95087aba35cb8c746aa94e8bc619dca",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 2016,
+          "height": 268
+        },
+        {
+          "assetId": "79-bilibili-cn:9dd620e6c0e5c5e9d9254c52",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/cb976d58b86d497b912772968915590effd08bebb3d2b699947faa6ff484e1d3.png",
+          "sourceSha256": "cb976d58b86d497b912772968915590effd08bebb3d2b699947faa6ff484e1d3",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/cb976d58b86d497b912772968915590effd08bebb3d2b699947faa6ff484e1d3.png",
+          "sha256": "cb976d58b86d497b912772968915590effd08bebb3d2b699947faa6ff484e1d3",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 541,
+          "height": 61
+        },
+        {
+          "assetId": "79-bilibili-cn:9dd620e6c0e5c5e9d9254c52",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/cb976d58b86d497b912772968915590effd08bebb3d2b699947faa6ff484e1d3.png",
+          "sourceSha256": "cb976d58b86d497b912772968915590effd08bebb3d2b699947faa6ff484e1d3",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/cb976d58b86d497b912772968915590effd08bebb3d2b699947faa6ff484e1d3.x4.png",
+          "sha256": "c404fae629318569883c6772dbc7921752acd8921c9c025c0aa02ab64d4fdf69",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 2164,
+          "height": 244
+        },
+        {
+          "assetId": "79-bilibili-cn:99e97a1817211d9f2761a9ae",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/54f73f2e640dc230dfa95a478a16753f55689547ba147810b37727d813d9ba78.png",
+          "sourceSha256": "54f73f2e640dc230dfa95a478a16753f55689547ba147810b37727d813d9ba78",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/54f73f2e640dc230dfa95a478a16753f55689547ba147810b37727d813d9ba78.png",
+          "sha256": "54f73f2e640dc230dfa95a478a16753f55689547ba147810b37727d813d9ba78",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 512,
+          "height": 66
+        },
+        {
+          "assetId": "79-bilibili-cn:99e97a1817211d9f2761a9ae",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/54f73f2e640dc230dfa95a478a16753f55689547ba147810b37727d813d9ba78.png",
+          "sourceSha256": "54f73f2e640dc230dfa95a478a16753f55689547ba147810b37727d813d9ba78",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/54f73f2e640dc230dfa95a478a16753f55689547ba147810b37727d813d9ba78.x4.png",
+          "sha256": "66a7e96d399dd2486e5aa1c6cafacdcc4eada45caec10784d485e6148626dfa8",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 2048,
+          "height": 264
+        },
+        {
+          "assetId": "79-bilibili-cn:d1773cbfd3c9e335fef8535c",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/78b7f59dcfddc79a8d52b60f7567452f57f955bf5e78a0c06c8caa5bd5b19a10.png",
+          "sourceSha256": "78b7f59dcfddc79a8d52b60f7567452f57f955bf5e78a0c06c8caa5bd5b19a10",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/78b7f59dcfddc79a8d52b60f7567452f57f955bf5e78a0c06c8caa5bd5b19a10.png",
+          "sha256": "78b7f59dcfddc79a8d52b60f7567452f57f955bf5e78a0c06c8caa5bd5b19a10",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 468,
+          "height": 538
+        },
+        {
+          "assetId": "79-bilibili-cn:d1773cbfd3c9e335fef8535c",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/78b7f59dcfddc79a8d52b60f7567452f57f955bf5e78a0c06c8caa5bd5b19a10.png",
+          "sourceSha256": "78b7f59dcfddc79a8d52b60f7567452f57f955bf5e78a0c06c8caa5bd5b19a10",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/78b7f59dcfddc79a8d52b60f7567452f57f955bf5e78a0c06c8caa5bd5b19a10.x2.png",
+          "sha256": "fa9b96f685c959a200792e908195c33726b69998c1f3fbcd1cadc94366742a54",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 2,
+          "resampling": "nearest",
+          "width": 936,
+          "height": 1076
+        },
+        {
+          "assetId": "79-bilibili-cn:3146813963e73f0e64b22803",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/bb022e8ff4a5e1b5f8f291a2376e1120812babaf9702d8dc780851d584902c0f.png",
+          "sourceSha256": "bb022e8ff4a5e1b5f8f291a2376e1120812babaf9702d8dc780851d584902c0f",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/bb022e8ff4a5e1b5f8f291a2376e1120812babaf9702d8dc780851d584902c0f.png",
+          "sha256": "bb022e8ff4a5e1b5f8f291a2376e1120812babaf9702d8dc780851d584902c0f",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 499,
+          "height": 100
+        },
+        {
+          "assetId": "79-bilibili-cn:3146813963e73f0e64b22803",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/bb022e8ff4a5e1b5f8f291a2376e1120812babaf9702d8dc780851d584902c0f.png",
+          "sourceSha256": "bb022e8ff4a5e1b5f8f291a2376e1120812babaf9702d8dc780851d584902c0f",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/bb022e8ff4a5e1b5f8f291a2376e1120812babaf9702d8dc780851d584902c0f.x4.png",
+          "sha256": "33a151ae728eb34284b0af98eaea4dbfce8fde7711da3864b04a2378bcba13a9",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 1996,
+          "height": 400
+        },
+        {
+          "assetId": "79-bilibili-cn:b4387b1a3a9166dbba0beceb",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/11f71ff30d30432778243f5ded338363c0783bdba2644d5238313ca1277611b4.png",
+          "sourceSha256": "11f71ff30d30432778243f5ded338363c0783bdba2644d5238313ca1277611b4",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/11f71ff30d30432778243f5ded338363c0783bdba2644d5238313ca1277611b4.png",
+          "sha256": "11f71ff30d30432778243f5ded338363c0783bdba2644d5238313ca1277611b4",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 483,
+          "height": 94
+        },
+        {
+          "assetId": "79-bilibili-cn:b4387b1a3a9166dbba0beceb",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/11f71ff30d30432778243f5ded338363c0783bdba2644d5238313ca1277611b4.png",
+          "sourceSha256": "11f71ff30d30432778243f5ded338363c0783bdba2644d5238313ca1277611b4",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/11f71ff30d30432778243f5ded338363c0783bdba2644d5238313ca1277611b4.x4.png",
+          "sha256": "18e7b9c1d1fab9adaf2d2d6f0d5a37efe49fe8045e0698fa9f5f0c4bb8c8965b",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 4,
+          "resampling": "nearest",
+          "width": 1932,
+          "height": 376
+        }
+      ]
+    }
+  ],
+  "originalIndependentModelReview": {
+    "blockChecks": [
+      {
+        "id": "79-bilibili-cn:cv1729038:b0001",
+        "verdict": "faithful",
+        "evidence": "“免责声明：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0002",
+        "verdict": "faithful",
+        "evidence": "版权说明、译者SeventhTG（XD）及转载署名要求逐字保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0003",
+        "verdict": "faithful",
+        "evidence": "原文地址、第五章说明、混一色手筋引言及“1.过渡打牌”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0004",
+        "verdict": "needs-repair",
+        "evidence": "附图1、8中手牌首张为5m，候选误录为6m；原图起手为5m 6m 6m。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0005",
+        "verdict": "faithful",
+        "evidence": "已碰中、理论上切6万、保留索子连续形并向混一色过渡的原文完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0006",
+        "verdict": "needs-repair",
+        "evidence": "附图2、9中手牌前两张为5m 6m，候选误录为6m 6m；摸入2s及红中碰记录正确。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0007",
+        "verdict": "faithful",
+        "evidence": "巡目尚早、能够碰9索或西的条件，以及可以不听牌而做混一色的判断完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0008",
+        "verdict": "faithful",
+        "evidence": "例2手牌、摸入2p及东碰均与附图3、10一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0009",
+        "verdict": "faithful",
+        "evidence": "应选择听牌、少一张仍单骑，以及后续摸筒子或字牌形成混一色的原文完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0010",
+        "verdict": "faithful",
+        "evidence": "手牌、摸入8p及东碰均与附图4、11一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0011",
+        "verdict": "faithful",
+        "evidence": "摸8饼形成多面张的评价、“2.先打”及迷彩战术的有限适用判断完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0012",
+        "verdict": "uncertain",
+        "evidence": "牌桌、点数变化、下家手牌及副露已有记录，但三张弃牌仍未确定牌码，未达到逐牌完整核对要求。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0013",
+        "verdict": "faithful",
+        "evidence": "保留6万、摸3饼切5饼及摸4饼切2饼的条件完整；“3.让形变强”及后续说明逐字保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0014",
+        "verdict": "faithful",
+        "evidence": "例4索子手牌、摸入8s及中张横置的9s碰与附图6、13一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0015",
+        "verdict": "faithful",
+        "evidence": "切3S听147索、注意已碰牌，以及听369索仅有5张和牌的原文完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0016",
+        "verdict": "faithful",
+        "evidence": "例5万子手牌、摸入6m及白板碰与附图7、14一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0017",
+        "verdict": "faithful",
+        "evidence": "代表形、三面听、切3万听569万、一气贯通提醒及“（待续）”完整保留。"
+      }
+    ],
+    "figureChecks": [
+      {
+        "id": "79-bilibili-cn:cv1729038:b0004:figure",
+        "verdict": "needs-repair",
+        "evidence": "附图1、8应为5m 6m 6m 3s 4s 5s 6s 9s 9s 3z 3z；候选将首张5m误录为6m。例1标签、其余牌及7z（横置）7z 7z副露对应正确。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0006:figure",
+        "verdict": "needs-repair",
+        "evidence": "附图2、9应为5m 6m 3s 4s 5s 6s 9s 9s 3z 3z，摸入2s；候选将首张5m误录为6m。摸入、碰的中文翻译及红中副露方向正确。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0008:figure",
+        "verdict": "faithful",
+        "evidence": "附图3、10为1m 3m 1p 3p 4p 4p 4p 7p 7p 7p，摸入2p，副露1z（横置）1z 1z；牌码、顺序、方向及标签均对应。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0010:figure",
+        "verdict": "faithful",
+        "evidence": "附图4、11为1m 1p 2p 3p 4p 4p 4p 7p 7p 7p，摸入8p，副露1z（横置）1z 1z；记录完整。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0012:figure",
+        "verdict": "uncertain",
+        "evidence": "附图5、12的东3局0本场、立直棒0根、宝牌标签、四家方位及+5900、-3900、-200、-1800均已记录；下方6m 2p 5p 7p 8p 4z 4z 1z 1z 1z、分隔3p及白板碰有对应。三家隐手保持未知，但上方河第4张、左方河第1张和右方河第6张仍缺确定牌码，阻断完整性通过。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0014:figure",
+        "verdict": "faithful",
+        "evidence": "附图6、13为1s 2s 3s 3s 4s 4s 5s 6s 6s 7s，摸入8s，副露9s 9s（横置）9s；牌数、顺序及方向正确。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0016:figure",
+        "verdict": "faithful",
+        "evidence": "附图7、14为1m 2m 3m 3m 4m 4m 4m 7m 8m 9m，摸入6m，副露5z（横置）5z 5z；无字牌面正确识别为白板。"
+      }
+    ],
+    "imageChecks": [
+      {
+        "id": "79-bilibili-cn:cv1729038:i00001",
+        "disposition": "represented",
+        "evidence": "已对应例1图，但转录首张应为5m，须修正。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:i00002",
+        "disposition": "represented",
+        "evidence": "已对应摸入2s图，但转录首张应为5m，须修正。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:i00003",
+        "disposition": "represented",
+        "evidence": "例2牌列、摸入2p及东碰完整对应。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:i00004",
+        "disposition": "represented",
+        "evidence": "牌列、摸入8p及东碰完整对应。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:i00005",
+        "disposition": "uncertain",
+        "evidence": "例3已有牌桌转录，但三张弃牌未确定，教学图信息尚不完整。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:i00006",
+        "disposition": "represented",
+        "evidence": "例4全部手牌、摸牌及9s碰完整对应。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:i00007",
+        "disposition": "represented",
+        "evidence": "例5全部手牌、摸牌及白板碰完整对应。"
+      }
+    ],
+    "domOrder": {
+      "faithful": true,
+      "evidence": "候选17个正文块按源b0001至b0017自然顺序逐一对应，7幅图均处于原有段落位置。"
+    },
+    "semanticCompleteness": {
+      "complete": false,
+      "evidence": "中文正文、原文地址、署名、条件、判断及数字均完整保留；但例1两幅图首张5m误录为6m，例3三张弃牌未确定，图片教学语义尚未完整可靠呈现。"
+    },
+    "issues": [
+      {
+        "severity": "error",
+        "targetId": "79-bilibili-cn:cv1729038:b0004:figure",
+        "sourceEvidence": "附图1、8手牌前三张为5m 6m 6m。",
+        "description": "候选写成6m 6m 6m，将含5万的搭子结构改成6万刻子，影响切牌教学含义。",
+        "suggestedRepair": "仅将手牌首张改为5m，保留后续顺序及副露记录。"
+      },
+      {
+        "severity": "error",
+        "targetId": "79-bilibili-cn:cv1729038:b0006:figure",
+        "sourceEvidence": "附图2、9手牌前两张为5m 6m，右侧摸入2s。",
+        "description": "候选写成6m 6m，遗漏保留下来的5万，与前图切一张6万后的牌形不符。",
+        "suggestedRepair": "将手牌首张改为5m，其余牌及摸入2s保持原顺序。"
+      },
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1729038:b0012:figure",
+        "sourceEvidence": "候选将上方弃牌区第4张、左方弃牌区第1张及右方弃牌区第6张分别记为点数不清的万子、点数不清的万子及字样不清的字牌。",
+        "description": "三处均属于实际弃牌，具有教学语义；当前无法可靠确认其具体牌码，不能作为完整逐牌转录通过。",
+        "suggestedRepair": "保留原图及明确未知说明；在能够可靠辨认前维持阻断，不猜补牌码，也不将这些弃牌视为装饰。"
+      }
+    ],
+    "completeArticleCompared": true,
+    "summary": "已核对全文17块及7次图片。正文忠实；两处5万误录为6万，例3三张弃牌仍不确定，暂不通过。"
+  },
+  "originalIssues": [
+    {
+      "severity": "error",
+      "targetId": "79-bilibili-cn:cv1729038:b0004:figure",
+      "sourceEvidence": "附图1、8手牌前三张为5m 6m 6m。",
+      "description": "候选写成6m 6m 6m，将含5万的搭子结构改成6万刻子，影响切牌教学含义。",
+      "suggestedRepair": "仅将手牌首张改为5m，保留后续顺序及副露记录。"
+    },
+    {
+      "severity": "error",
+      "targetId": "79-bilibili-cn:cv1729038:b0006:figure",
+      "sourceEvidence": "附图2、9手牌前两张为5m 6m，右侧摸入2s。",
+      "description": "候选写成6m 6m，遗漏保留下来的5万，与前图切一张6万后的牌形不符。",
+      "suggestedRepair": "将手牌首张改为5m，其余牌及摸入2s保持原顺序。"
+    },
+    {
+      "severity": "uncertain",
+      "targetId": "79-bilibili-cn:cv1729038:b0012:figure",
+      "sourceEvidence": "候选将上方弃牌区第4张、左方弃牌区第1张及右方弃牌区第6张分别记为点数不清的万子、点数不清的万子及字样不清的字牌。",
+      "description": "三处均属于实际弃牌，具有教学语义；当前无法可靠确认其具体牌码，不能作为完整逐牌转录通过。",
+      "suggestedRepair": "保留原图及明确未知说明；在能够可靠辨认前维持阻断，不猜补牌码，也不将这些弃牌视为装饰。"
+    }
+  ],
+  "sameShaAuditInventory": [
+    {
+      "artifact": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1729038.ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22.json",
+        "sha256": "f98cb74b340a591cb995276addbcd4ab8991332b2676ea4139c7d0259ba50227",
+        "bytes": 22717
+      },
+      "status": "failed",
+      "issues": null,
+      "callIds": [
+        "1c34c178-c665-433c-aad2-47d407261354"
+      ]
+    },
+    {
+      "artifact": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1729038.ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22.retry-1792943789870-ade1138e.json",
+        "sha256": "254405ec0e5e50e057a662509f8ac087e4d1ed84c0e60b40e185182585130eda",
+        "bytes": 32355
+      },
+      "status": "needs-repair",
+      "issues": [
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1729038:b0004:figure",
+          "sourceEvidence": "附图1、8手牌前三张为5m 6m 6m。",
+          "description": "候选写成6m 6m 6m，将含5万的搭子结构改成6万刻子，影响切牌教学含义。",
+          "suggestedRepair": "仅将手牌首张改为5m，保留后续顺序及副露记录。"
+        },
+        {
+          "severity": "error",
+          "targetId": "79-bilibili-cn:cv1729038:b0006:figure",
+          "sourceEvidence": "附图2、9手牌前两张为5m 6m，右侧摸入2s。",
+          "description": "候选写成6m 6m，遗漏保留下来的5万，与前图切一张6万后的牌形不符。",
+          "suggestedRepair": "将手牌首张改为5m，其余牌及摸入2s保持原顺序。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "79-bilibili-cn:cv1729038:b0012:figure",
+          "sourceEvidence": "候选将上方弃牌区第4张、左方弃牌区第1张及右方弃牌区第6张分别记为点数不清的万子、点数不清的万子及字样不清的字牌。",
+          "description": "三处均属于实际弃牌，具有教学语义；当前无法可靠确认其具体牌码，不能作为完整逐牌转录通过。",
+          "suggestedRepair": "保留原图及明确未知说明；在能够可靠辨认前维持阻断，不猜补牌码，也不将这些弃牌视为装饰。"
+        }
+      ],
+      "callIds": [
+        "7876c301-7ae9-44f7-bc42-d236a2d63c53"
+      ]
+    }
+  ],
+  "reusableParentScope": {
+    "faithfulTextChecks": [
+      {
+        "id": "79-bilibili-cn:cv1729038:b0001",
+        "verdict": "faithful",
+        "evidence": "“免责声明：”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0002",
+        "verdict": "faithful",
+        "evidence": "版权说明、译者SeventhTG（XD）及转载署名要求逐字保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0003",
+        "verdict": "faithful",
+        "evidence": "原文地址、第五章说明、混一色手筋引言及“1.过渡打牌”完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0005",
+        "verdict": "faithful",
+        "evidence": "已碰中、理论上切6万、保留索子连续形并向混一色过渡的原文完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0007",
+        "verdict": "faithful",
+        "evidence": "巡目尚早、能够碰9索或西的条件，以及可以不听牌而做混一色的判断完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0008",
+        "verdict": "faithful",
+        "evidence": "例2手牌、摸入2p及东碰均与附图3、10一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0009",
+        "verdict": "faithful",
+        "evidence": "应选择听牌、少一张仍单骑，以及后续摸筒子或字牌形成混一色的原文完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0010",
+        "verdict": "faithful",
+        "evidence": "手牌、摸入8p及东碰均与附图4、11一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0011",
+        "verdict": "faithful",
+        "evidence": "摸8饼形成多面张的评价、“2.先打”及迷彩战术的有限适用判断完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0013",
+        "verdict": "faithful",
+        "evidence": "保留6万、摸3饼切5饼及摸4饼切2饼的条件完整；“3.让形变强”及后续说明逐字保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0014",
+        "verdict": "faithful",
+        "evidence": "例4索子手牌、摸入8s及中张横置的9s碰与附图6、13一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0015",
+        "verdict": "faithful",
+        "evidence": "切3S听147索、注意已碰牌，以及听369索仅有5张和牌的原文完整保留。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0016",
+        "verdict": "faithful",
+        "evidence": "例5万子手牌、摸入6m及白板碰与附图7、14一致。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0017",
+        "verdict": "faithful",
+        "evidence": "代表形、三面听、切3万听569万、一气贯通提醒及“（待续）”完整保留。"
+      }
+    ],
+    "faithfulFigureChecks": [
+      {
+        "id": "79-bilibili-cn:cv1729038:b0008:figure",
+        "verdict": "faithful",
+        "evidence": "附图3、10为1m 3m 1p 3p 4p 4p 4p 7p 7p 7p，摸入2p，副露1z（横置）1z 1z；牌码、顺序、方向及标签均对应。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0010:figure",
+        "verdict": "faithful",
+        "evidence": "附图4、11为1m 1p 2p 3p 4p 4p 4p 7p 7p 7p，摸入8p，副露1z（横置）1z 1z；记录完整。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0014:figure",
+        "verdict": "faithful",
+        "evidence": "附图6、13为1s 2s 3s 3s 4s 4s 5s 6s 6s 7s，摸入8s，副露9s 9s（横置）9s；牌数、顺序及方向正确。"
+      },
+      {
+        "id": "79-bilibili-cn:cv1729038:b0016:figure",
+        "verdict": "faithful",
+        "evidence": "附图7、14为1m 2m 3m 3m 4m 4m 4m 7m 8m 9m，摸入6m，副露5z（横置）5z 5z；无字牌面正确识别为白板。"
+      }
+    ],
+    "condition": "Only unchanged exact content/ordered context and original source/raw; never relabel original uncertain."
+  },
+  "sameShaIndependentUnknownAllowance": false,
+  "unknownImpactDecision": "not independently established; must assess contribution-specific dependencies, never assume non-core",
+  "requiredPreservation": "All author conditions, qualifiers, exceptions, sourceSegments/marks/href/tableContext, original image order, unknowns, body and other figures unchanged.",
+  "orderedContext": [
+    {
+      "position": 0,
+      "source": [
+        {
+          "id": "79-bilibili-cn:cv1729038:b0001",
+          "paragraphId": "79-bilibili-cn:cv1729038:p0001",
+          "tag": "p",
+          "domPath": "main/p[0]",
+          "tableContext": null,
+          "type": "text",
+          "text": "免责声明：",
+          "segments": [
+            {
+              "text": "免责声明：",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0001"
+        ],
+        "sourceText": "免责声明：",
+        "text": "免责声明：",
+        "paragraphId": "79-bilibili-cn:cv1729038:p0001",
+        "sourceSegments": [
+          {
+            "text": "免责声明：",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 1,
+      "source": [
+        {
+          "id": "79-bilibili-cn:cv1729038:b0002",
+          "paragraphId": "79-bilibili-cn:cv1729038:p0002",
+          "tag": "p",
+          "domPath": "main/p[1]",
+          "tableContext": null,
+          "type": "text",
+          "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+          "segments": [
+            {
+              "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0002"
+        ],
+        "sourceText": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+        "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+        "paragraphId": "79-bilibili-cn:cv1729038:p0002",
+        "sourceSegments": [
+          {
+            "text": "以下文章的著作权等各种权利归原作者所有，翻译 By SeventhTG（XD）。如果你喜欢本文并有幸让你产生了转载的想法，请注明原作者、原文地址以及译者，谢谢。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 2,
+      "source": [
+        {
+          "id": "79-bilibili-cn:cv1729038:b0003",
+          "paragraphId": "79-bilibili-cn:cv1729038:p0003",
+          "tag": "p",
+          "domPath": "main/p[2]",
+          "tableContext": null,
+          "type": "text",
+          "text": "原文地址：http://beginners.biz/teyaku/teyaku07.html ------------------------------------------------------------------------------------ 染手（二）：  染手最重要的技术其实是“鸣牌”， 这个我留到第五章再说。 这个章节我们来说说混一色的手筋。   ------------------------------------------------------------------------------------ 1.过渡打牌 ------------------------------------------------------------------------------------ ",
+          "segments": [
+            {
+              "text": "原文地址：http://beginners.biz/teyaku/teyaku07.html",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "染手（二）：",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "染手最重要的技术其实是“鸣牌”，",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "这个我留到第五章再说。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "这个章节我们来说说混一色的手筋。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "1.过渡打牌",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0003"
+        ],
+        "sourceText": "原文地址：http://beginners.biz/teyaku/teyaku07.html ------------------------------------------------------------------------------------ 染手（二）：  染手最重要的技术其实是“鸣牌”， 这个我留到第五章再说。 这个章节我们来说说混一色的手筋。   ------------------------------------------------------------------------------------ 1.过渡打牌 ------------------------------------------------------------------------------------ ",
+        "text": "原文地址：http://beginners.biz/teyaku/teyaku07.html ------------------------------------------------------------------------------------ 染手（二）：  染手最重要的技术其实是“鸣牌”， 这个我留到第五章再说。 这个章节我们来说说混一色的手筋。   ------------------------------------------------------------------------------------ 1.过渡打牌 ------------------------------------------------------------------------------------ ",
+        "paragraphId": "79-bilibili-cn:cv1729038:p0003",
+        "sourceSegments": [
+          {
+            "text": "原文地址：http://beginners.biz/teyaku/teyaku07.html",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "染手（二）：",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "染手最重要的技术其实是“鸣牌”，",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这个我留到第五章再说。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这个章节我们来说说混一色的手筋。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "1.过渡打牌",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 3,
+      "source": [
+        {
+          "id": "79-bilibili-cn:cv1729038:b0004",
+          "paragraphId": "79-bilibili-cn:cv1729038:p0004",
+          "tag": "div",
+          "domPath": "main/div[3]/div[0]/div[0]/div[0]/div[0]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "79-bilibili-cn:cv1729038:i00001",
+              "assetId": "79-bilibili-cn:c2ab9da0598af77cd61a125d",
+              "sourceUrls": [
+                "https://i0.hdslb.com/bfs/article/4f019722864ec5d1092793f546ea9fb74610bd8e.png",
+                "https://i0.hdslb.com/bfs/article/4f019722864ec5d1092793f546ea9fb74610bd8e.png@988w_136h"
+              ],
+              "alt": "",
+              "title": "",
+              "width": null,
+              "height": null,
+              "tileHint": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0004"
+        ],
+        "figureId": "79-bilibili-cn:cv1729038:b0004:figure",
+        "paragraphId": "79-bilibili-cn:cv1729038:p0004",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "79-bilibili-cn:cv1729038:b0004:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0004"
+        ],
+        "sourceOccurrenceIds": [
+          "79-bilibili-cn:cv1729038:i00001"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "79-bilibili-cn:c2ab9da0598af77cd61a125d",
+            "path": "web-sources/v1/79-bilibili-cn/assets/49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe.png",
+            "sha256": "49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe",
+            "url": "https://i0.hdslb.com/bfs/article/4f019722864ec5d1092793f546ea9fb74610bd8e.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "左侧标签：例1。\n手牌从左至右：6m 6m 6m 3s 4s 5s 6s 9s 9s 3z 3z。\n右侧标签：碰；其右侧副露从左至右：7z（横置）7z 7z。",
+        "unknowns": [],
+        "caption": "例1：已碰红中的手牌。",
+        "sourceNotes": [
+          "原图与4倍最近邻放大图为同一资产，仅记录一次。"
+        ],
+        "provenance": {
+          "method": "model-transcription",
+          "callId": "896037d2-8f7d-49c2-88aa-29c912f857ba",
+          "outputSourceBlockId": "79-bilibili-cn:cv1729038:b0004"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/79-bilibili-cn/cv1729038/9376e9b56ce8163d/figure-0001.png",
+          "sha256": "1cbf7a87e3877a7cf04182e5094fd9aa2312c71b1f18604233f64ba23cc682e8",
+          "width": 494,
+          "height": 68,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "79-bilibili-cn:c2ab9da0598af77cd61a125d",
+                "path": "web-sources/v1/79-bilibili-cn/assets/49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe.png",
+                "sha256": "49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe",
+                "url": "https://i0.hdslb.com/bfs/article/4f019722864ec5d1092793f546ea9fb74610bd8e.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 4,
+      "source": [
+        {
+          "id": "79-bilibili-cn:cv1729038:b0005",
+          "paragraphId": "79-bilibili-cn:cv1729038:p0005",
+          "tag": "p",
+          "domPath": "main/p[4]",
+          "tableContext": null,
+          "type": "text",
+          "text": "例1在已经碰了中的情况下选择切牌，理论上还是切6万。  留下索子的连续形，之后还可以向混一色过渡。 ",
+          "segments": [
+            {
+              "text": "例1在已经碰了中的情况下选择切牌，理论上还是切6万。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "留下索子的连续形，之后还可以向混一色过渡。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0005"
+        ],
+        "sourceText": "例1在已经碰了中的情况下选择切牌，理论上还是切6万。  留下索子的连续形，之后还可以向混一色过渡。 ",
+        "text": "例1在已经碰了中的情况下选择切牌，理论上还是切6万。  留下索子的连续形，之后还可以向混一色过渡。 ",
+        "paragraphId": "79-bilibili-cn:cv1729038:p0005",
+        "sourceSegments": [
+          {
+            "text": "例1在已经碰了中的情况下选择切牌，理论上还是切6万。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "留下索子的连续形，之后还可以向混一色过渡。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 5,
+      "source": [
+        {
+          "id": "79-bilibili-cn:cv1729038:b0006",
+          "paragraphId": "79-bilibili-cn:cv1729038:p0006",
+          "tag": "div",
+          "domPath": "main/div[5]/div[0]/div[0]/div[0]/div[0]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "79-bilibili-cn:cv1729038:i00002",
+              "assetId": "79-bilibili-cn:9c5cc90e8970f4ac5331515a",
+              "sourceUrls": [
+                "https://i0.hdslb.com/bfs/article/69092fcdc03ddce835a1826723193d1057477be4.png",
+                "https://i0.hdslb.com/bfs/article/69092fcdc03ddce835a1826723193d1057477be4.png@1008w_134h"
+              ],
+              "alt": "",
+              "title": "",
+              "width": null,
+              "height": null,
+              "tileHint": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0006"
+        ],
+        "figureId": "79-bilibili-cn:cv1729038:b0006:figure",
+        "paragraphId": "79-bilibili-cn:cv1729038:p0006",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "79-bilibili-cn:cv1729038:b0006:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0006"
+        ],
+        "sourceOccurrenceIds": [
+          "79-bilibili-cn:cv1729038:i00002"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "79-bilibili-cn:9c5cc90e8970f4ac5331515a",
+            "path": "web-sources/v1/79-bilibili-cn/assets/65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7.png",
+            "sha256": "65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7",
+            "url": "https://i0.hdslb.com/bfs/article/69092fcdc03ddce835a1826723193d1057477be4.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "手牌从左至右：6m 6m 3s 4s 5s 6s 9s 9s 3z 3z。\n手牌右侧标签：摸入；其右侧单独一张：2s。\n再右侧标签：碰；其右侧副露从左至右：7z（横置）7z 7z。",
+        "unknowns": [],
+        "caption": "摸入2s，右侧为红中碰。",
+        "sourceNotes": [
+          "原图与4倍最近邻放大图为同一资产，仅记录一次。"
+        ],
+        "provenance": {
+          "method": "model-transcription",
+          "callId": "896037d2-8f7d-49c2-88aa-29c912f857ba",
+          "outputSourceBlockId": "79-bilibili-cn:cv1729038:b0006"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/79-bilibili-cn/cv1729038/9376e9b56ce8163d/figure-0002.png",
+          "sha256": "8b5fbbc204f096ae4f016ab9b64b12df9be837f32f0146c8e50e5339f36feb6b",
+          "width": 504,
+          "height": 67,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "79-bilibili-cn:9c5cc90e8970f4ac5331515a",
+                "path": "web-sources/v1/79-bilibili-cn/assets/65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7.png",
+                "sha256": "65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7",
+                "url": "https://i0.hdslb.com/bfs/article/69092fcdc03ddce835a1826723193d1057477be4.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 6,
+      "source": [
+        {
+          "id": "79-bilibili-cn:cv1729038:b0007",
+          "paragraphId": "79-bilibili-cn:cv1729038:p0007",
+          "tag": "p",
+          "domPath": "main/p[6]",
+          "tableContext": null,
+          "type": "text",
+          "text": "如果巡目尚早，能够碰9索或者西的话 就可以不听牌而去作混一色。 ------------------------------------------------------------------------------------ ",
+          "segments": [
+            {
+              "text": "如果巡目尚早，能够碰9索或者西的话",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "就可以不听牌而去作混一色。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0007"
+        ],
+        "sourceText": "如果巡目尚早，能够碰9索或者西的话 就可以不听牌而去作混一色。 ------------------------------------------------------------------------------------ ",
+        "text": "如果巡目尚早，能够碰9索或者西的话 就可以不听牌而去作混一色。 ------------------------------------------------------------------------------------ ",
+        "paragraphId": "79-bilibili-cn:cv1729038:p0007",
+        "sourceSegments": [
+          {
+            "text": "如果巡目尚早，能够碰9索或者西的话",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "就可以不听牌而去作混一色。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 7,
+      "source": [
+        {
+          "id": "79-bilibili-cn:cv1729038:b0008",
+          "paragraphId": "79-bilibili-cn:cv1729038:p0008",
+          "tag": "div",
+          "domPath": "main/div[7]/div[0]/div[0]/div[0]/div[0]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "79-bilibili-cn:cv1729038:i00003",
+              "assetId": "79-bilibili-cn:9dd620e6c0e5c5e9d9254c52",
+              "sourceUrls": [
+                "https://i0.hdslb.com/bfs/article/52040a522a6f3f77f4a418540a2b85273ee75b45.png",
+                "https://i0.hdslb.com/bfs/article/52040a522a6f3f77f4a418540a2b85273ee75b45.png@1082w_122h"
+              ],
+              "alt": "",
+              "title": "",
+              "width": null,
+              "height": null,
+              "tileHint": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0008"
+        ],
+        "figureId": "79-bilibili-cn:cv1729038:b0008:figure",
+        "paragraphId": "79-bilibili-cn:cv1729038:p0008",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "79-bilibili-cn:cv1729038:b0008:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0008"
+        ],
+        "sourceOccurrenceIds": [
+          "79-bilibili-cn:cv1729038:i00003"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "79-bilibili-cn:9dd620e6c0e5c5e9d9254c52",
+            "path": "web-sources/v1/79-bilibili-cn/assets/cb976d58b86d497b912772968915590effd08bebb3d2b699947faa6ff484e1d3.png",
+            "sha256": "cb976d58b86d497b912772968915590effd08bebb3d2b699947faa6ff484e1d3",
+            "url": "https://i0.hdslb.com/bfs/article/52040a522a6f3f77f4a418540a2b85273ee75b45.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "左侧标签：例2。\n手牌从左至右：1m 3m 1p 3p 4p 4p 4p 7p 7p 7p。\n手牌右侧标签：摸入；其右侧单独一张：2p。\n再右侧标签：碰；其右侧副露从左至右：1z（横置）1z 1z。",
+        "unknowns": [],
+        "caption": "例2：摸入2p，已碰东。",
+        "sourceNotes": [
+          "原图与4倍最近邻放大图为同一资产，仅记录一次。"
+        ],
+        "provenance": {
+          "method": "model-transcription",
+          "callId": "896037d2-8f7d-49c2-88aa-29c912f857ba",
+          "outputSourceBlockId": "79-bilibili-cn:cv1729038:b0008"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/79-bilibili-cn/cv1729038/9376e9b56ce8163d/figure-0003.png",
+          "sha256": "04d44e5116c3346a1b77f44fc9417e07d798059f4b252a3bbca15dfa11495037",
+          "width": 541,
+          "height": 61,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "79-bilibili-cn:9dd620e6c0e5c5e9d9254c52",
+                "path": "web-sources/v1/79-bilibili-cn/assets/cb976d58b86d497b912772968915590effd08bebb3d2b699947faa6ff484e1d3.png",
+                "sha256": "cb976d58b86d497b912772968915590effd08bebb3d2b699947faa6ff484e1d3",
+                "url": "https://i0.hdslb.com/bfs/article/52040a522a6f3f77f4a418540a2b85273ee75b45.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 8,
+      "source": [
+        {
+          "id": "79-bilibili-cn:cv1729038:b0009",
+          "paragraphId": "79-bilibili-cn:cv1729038:p0009",
+          "tag": "p",
+          "domPath": "main/p[8]",
+          "tableContext": null,
+          "type": "text",
+          "text": "例2就应该选择听牌了。 即使张数要少一张，这里也应该单骑听牌。 再摸到任意一张饼子或者字牌就可以形成混一色，这是理所当然的选择。  ",
+          "segments": [
+            {
+              "text": "例2就应该选择听牌了。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "即使张数要少一张，这里也应该单骑听牌。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "再摸到任意一张饼子或者字牌就可以形成混一色，这是理所当然的选择。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0009"
+        ],
+        "sourceText": "例2就应该选择听牌了。 即使张数要少一张，这里也应该单骑听牌。 再摸到任意一张饼子或者字牌就可以形成混一色，这是理所当然的选择。  ",
+        "text": "例2就应该选择听牌了。 即使张数要少一张，这里也应该单骑听牌。 再摸到任意一张饼子或者字牌就可以形成混一色，这是理所当然的选择。  ",
+        "paragraphId": "79-bilibili-cn:cv1729038:p0009",
+        "sourceSegments": [
+          {
+            "text": "例2就应该选择听牌了。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "即使张数要少一张，这里也应该单骑听牌。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "再摸到任意一张饼子或者字牌就可以形成混一色，这是理所当然的选择。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 9,
+      "source": [
+        {
+          "id": "79-bilibili-cn:cv1729038:b0010",
+          "paragraphId": "79-bilibili-cn:cv1729038:p0010",
+          "tag": "div",
+          "domPath": "main/div[9]/div[0]/div[0]/div[0]/div[0]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "79-bilibili-cn:cv1729038:i00004",
+              "assetId": "79-bilibili-cn:99e97a1817211d9f2761a9ae",
+              "sourceUrls": [
+                "https://i0.hdslb.com/bfs/article/ac887ad5529e6189e84a0d80786c97519b4b5207.png",
+                "https://i0.hdslb.com/bfs/article/ac887ad5529e6189e84a0d80786c97519b4b5207.png@1024w_132h"
+              ],
+              "alt": "",
+              "title": "",
+              "width": null,
+              "height": null,
+              "tileHint": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0010"
+        ],
+        "figureId": "79-bilibili-cn:cv1729038:b0010:figure",
+        "paragraphId": "79-bilibili-cn:cv1729038:p0010",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "79-bilibili-cn:cv1729038:b0010:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0010"
+        ],
+        "sourceOccurrenceIds": [
+          "79-bilibili-cn:cv1729038:i00004"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "79-bilibili-cn:99e97a1817211d9f2761a9ae",
+            "path": "web-sources/v1/79-bilibili-cn/assets/54f73f2e640dc230dfa95a478a16753f55689547ba147810b37727d813d9ba78.png",
+            "sha256": "54f73f2e640dc230dfa95a478a16753f55689547ba147810b37727d813d9ba78",
+            "url": "https://i0.hdslb.com/bfs/article/ac887ad5529e6189e84a0d80786c97519b4b5207.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "手牌从左至右：1m 1p 2p 3p 4p 4p 4p 7p 7p 7p。\n手牌右侧标签：摸入；其右侧单独一张：8p。\n再右侧标签：碰；其右侧副露从左至右：1z（横置）1z 1z。",
+        "unknowns": [],
+        "caption": "摸入8p，右侧为东碰。",
+        "sourceNotes": [
+          "原图与4倍最近邻放大图为同一资产，仅记录一次。"
+        ],
+        "provenance": {
+          "method": "model-transcription",
+          "callId": "896037d2-8f7d-49c2-88aa-29c912f857ba",
+          "outputSourceBlockId": "79-bilibili-cn:cv1729038:b0010"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/79-bilibili-cn/cv1729038/9376e9b56ce8163d/figure-0004.png",
+          "sha256": "1382f367fb89e773fc9b494ce7ad798d6123d28592bbaffd9b95ba4bad65fa58",
+          "width": 512,
+          "height": 66,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "79-bilibili-cn:99e97a1817211d9f2761a9ae",
+                "path": "web-sources/v1/79-bilibili-cn/assets/54f73f2e640dc230dfa95a478a16753f55689547ba147810b37727d813d9ba78.png",
+                "sha256": "54f73f2e640dc230dfa95a478a16753f55689547ba147810b37727d813d9ba78",
+                "url": "https://i0.hdslb.com/bfs/article/ac887ad5529e6189e84a0d80786c97519b4b5207.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 10,
+      "source": [
+        {
+          "id": "79-bilibili-cn:cv1729038:b0011",
+          "paragraphId": "79-bilibili-cn:cv1729038:p0011",
+          "tag": "p",
+          "domPath": "main/p[10]",
+          "tableContext": null,
+          "type": "text",
+          "text": "能摸到8饼形成多面张是很理想的。   ------------------------------------------------------------------------------------ 2.先打 ------------------------------------------------------------------------------------ 迷彩战术是比较老的战术了。 少数时候能对混一色有一定的效果。  ",
+          "segments": [
+            {
+              "text": "能摸到8饼形成多面张是很理想的。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "2.先打",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "迷彩战术是比较老的战术了。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "少数时候能对混一色有一定的效果。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0011"
+        ],
+        "sourceText": "能摸到8饼形成多面张是很理想的。   ------------------------------------------------------------------------------------ 2.先打 ------------------------------------------------------------------------------------ 迷彩战术是比较老的战术了。 少数时候能对混一色有一定的效果。  ",
+        "text": "能摸到8饼形成多面张是很理想的。   ------------------------------------------------------------------------------------ 2.先打 ------------------------------------------------------------------------------------ 迷彩战术是比较老的战术了。 少数时候能对混一色有一定的效果。  ",
+        "paragraphId": "79-bilibili-cn:cv1729038:p0011",
+        "sourceSegments": [
+          {
+            "text": "能摸到8饼形成多面张是很理想的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "2.先打",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "迷彩战术是比较老的战术了。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "少数时候能对混一色有一定的效果。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 11,
+      "source": [
+        {
+          "id": "79-bilibili-cn:cv1729038:b0012",
+          "paragraphId": "79-bilibili-cn:cv1729038:p0012",
+          "tag": "div",
+          "domPath": "main/div[11]/div[0]/div[0]/div[0]/div[0]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "79-bilibili-cn:cv1729038:i00005",
+              "assetId": "79-bilibili-cn:d1773cbfd3c9e335fef8535c",
+              "sourceUrls": [
+                "https://i0.hdslb.com/bfs/article/c92070ef186632a65ac8c4c1ad4bb2c050a4d790.png",
+                "https://i0.hdslb.com/bfs/article/c92070ef186632a65ac8c4c1ad4bb2c050a4d790.png@936w_1076h"
+              ],
+              "alt": "",
+              "title": "",
+              "width": null,
+              "height": null,
+              "tileHint": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0012"
+        ],
+        "figureId": "79-bilibili-cn:cv1729038:b0012:figure",
+        "paragraphId": "79-bilibili-cn:cv1729038:p0012",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "79-bilibili-cn:cv1729038:b0012:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0012"
+        ],
+        "sourceOccurrenceIds": [
+          "79-bilibili-cn:cv1729038:i00005"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "79-bilibili-cn:d1773cbfd3c9e335fef8535c",
+            "path": "web-sources/v1/79-bilibili-cn/assets/78b7f59dcfddc79a8d52b60f7567452f57f955bf5e78a0c06c8caa5bd5b19a10.png",
+            "sha256": "78b7f59dcfddc79a8d52b60f7567452f57f955bf5e78a0c06c8caa5bd5b19a10",
+            "url": "https://i0.hdslb.com/bfs/article/c92070ef186632a65ac8c4c1ad4bb2c050a4d790.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "左上方标签：例3。\n中央文字从上至下：东3局0本场；立直棒0根；宝牌。宝牌标签旁未显示对应牌面。\n中央座风位置：左上为西（3z），右上为南（2z），左下为北（4z），右下为东（1z）；文字朝向各自座位。\n上方玩家：13张背面朝上的牌；右下方数值为+5900。\n左方玩家：13张背面朝上的牌；右上方数值为-3900。\n右方玩家：13张背面朝上的牌；左下方数值为-200。\n下方玩家：左上方数值为-1800；手牌从左至右为6m 2p 5p 7p 8p 4z 4z 1z 1z 1z；手牌右侧分隔放置3p；再右侧副露从左至右为5z 5z 5z（第三张横置）。\n上方弃牌区，按画面从左至右：9s 6p 6z ［万子，点数不清］ 3z；牌面朝向上方玩家，相对画面倒置。\n左方弃牌区，按画面从上至下：［万子，点数不清］ 3z 1p 7z 6z；牌面朝向左方玩家。\n右方弃牌区，按画面从上至下：7p 7z 8s 2s 5z ［字牌，字样不清］；牌面朝向右方玩家。\n下方弃牌区，按画面从左至右：1m 2s 3z 5s 8m；牌面朝向下方玩家。",
+        "unknowns": [
+          "上方弃牌区从左至右第4张为万子，具体点数无法可靠辨认。",
+          "左方弃牌区从上至下第1张为万子，具体点数无法可靠辨认。",
+          "右方弃牌区从上至下第6张为字牌，具体字样无法可靠辨认。"
+        ],
+        "caption": "例3：牌桌全局、各家弃牌与下方玩家手牌。",
+        "sourceNotes": [
+          "原图与2倍最近邻放大图为同一资产，仅记录一次。",
+          "三家外围的牌背与下方副露中的白板正面分别记录。"
+        ],
+        "provenance": {
+          "method": "model-transcription",
+          "callId": "896037d2-8f7d-49c2-88aa-29c912f857ba",
+          "outputSourceBlockId": "79-bilibili-cn:cv1729038:b0012"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/79-bilibili-cn/cv1729038/9376e9b56ce8163d/figure-0005.png",
+          "sha256": "f63828b8c048767f20d303f863b96ca38a34604d98a166ab1a7684bff20e5d4c",
+          "width": 468,
+          "height": 538,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "79-bilibili-cn:d1773cbfd3c9e335fef8535c",
+                "path": "web-sources/v1/79-bilibili-cn/assets/78b7f59dcfddc79a8d52b60f7567452f57f955bf5e78a0c06c8caa5bd5b19a10.png",
+                "sha256": "78b7f59dcfddc79a8d52b60f7567452f57f955bf5e78a0c06c8caa5bd5b19a10",
+                "url": "https://i0.hdslb.com/bfs/article/c92070ef186632a65ac8c4c1ad4bb2c050a4d790.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 12,
+      "source": [
+        {
+          "id": "79-bilibili-cn:cv1729038:b0013",
+          "paragraphId": "79-bilibili-cn:cv1729038:p0013",
+          "tag": "p",
+          "domPath": "main/p[12]",
+          "tableContext": null,
+          "type": "text",
+          "text": "必要的面子已经凑齐了，这里不要随便地把6万切掉，而是应该切掉5饼。 虽然混一色就差一点点了，但是这个时候很容易被对手看破。 上图是摸到3饼切掉5饼，如果是摸到4饼的话，切掉2饼就好了。  ------------------------------------------------------------------------------------ 3.让形变强 ------------------------------------------------------------------------------------ 同种花色的牌集在一起时，形就会变得很复杂。 门清的时候常常搞不清楚自己听什么牌，挺烦人的。 现在都还能看到把手牌3张3张分开看的人。 这个是需要习惯的。  ",
+          "segments": [
+            {
+              "text": "必要的面子已经凑齐了，这里不要随便地把6万切掉，而是应该切掉5饼。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "虽然混一色就差一点点了，但是这个时候很容易被对手看破。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "上图是摸到3饼切掉5饼，如果是摸到4饼的话，切掉2饼就好了。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "3.让形变强",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "同种花色的牌集在一起时，形就会变得很复杂。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "门清的时候常常搞不清楚自己听什么牌，挺烦人的。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "现在都还能看到把手牌3张3张分开看的人。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "这个是需要习惯的。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0013"
+        ],
+        "sourceText": "必要的面子已经凑齐了，这里不要随便地把6万切掉，而是应该切掉5饼。 虽然混一色就差一点点了，但是这个时候很容易被对手看破。 上图是摸到3饼切掉5饼，如果是摸到4饼的话，切掉2饼就好了。  ------------------------------------------------------------------------------------ 3.让形变强 ------------------------------------------------------------------------------------ 同种花色的牌集在一起时，形就会变得很复杂。 门清的时候常常搞不清楚自己听什么牌，挺烦人的。 现在都还能看到把手牌3张3张分开看的人。 这个是需要习惯的。  ",
+        "text": "必要的面子已经凑齐了，这里不要随便地把6万切掉，而是应该切掉5饼。 虽然混一色就差一点点了，但是这个时候很容易被对手看破。 上图是摸到3饼切掉5饼，如果是摸到4饼的话，切掉2饼就好了。  ------------------------------------------------------------------------------------ 3.让形变强 ------------------------------------------------------------------------------------ 同种花色的牌集在一起时，形就会变得很复杂。 门清的时候常常搞不清楚自己听什么牌，挺烦人的。 现在都还能看到把手牌3张3张分开看的人。 这个是需要习惯的。  ",
+        "paragraphId": "79-bilibili-cn:cv1729038:p0013",
+        "sourceSegments": [
+          {
+            "text": "必要的面子已经凑齐了，这里不要随便地把6万切掉，而是应该切掉5饼。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "虽然混一色就差一点点了，但是这个时候很容易被对手看破。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "上图是摸到3饼切掉5饼，如果是摸到4饼的话，切掉2饼就好了。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "3.让形变强",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "同种花色的牌集在一起时，形就会变得很复杂。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "门清的时候常常搞不清楚自己听什么牌，挺烦人的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "现在都还能看到把手牌3张3张分开看的人。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这个是需要习惯的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 13,
+      "source": [
+        {
+          "id": "79-bilibili-cn:cv1729038:b0014",
+          "paragraphId": "79-bilibili-cn:cv1729038:p0014",
+          "tag": "div",
+          "domPath": "main/div[13]/div[0]/div[0]/div[0]/div[0]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "79-bilibili-cn:cv1729038:i00006",
+              "assetId": "79-bilibili-cn:3146813963e73f0e64b22803",
+              "sourceUrls": [
+                "https://i0.hdslb.com/bfs/article/ebae1a4f4ee89b292e56495f59e995e5d3e1730b.png",
+                "https://i0.hdslb.com/bfs/article/ebae1a4f4ee89b292e56495f59e995e5d3e1730b.png@998w_200h"
+              ],
+              "alt": "",
+              "title": "",
+              "width": null,
+              "height": null,
+              "tileHint": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0014"
+        ],
+        "figureId": "79-bilibili-cn:cv1729038:b0014:figure",
+        "paragraphId": "79-bilibili-cn:cv1729038:p0014",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "79-bilibili-cn:cv1729038:b0014:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0014"
+        ],
+        "sourceOccurrenceIds": [
+          "79-bilibili-cn:cv1729038:i00006"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "79-bilibili-cn:3146813963e73f0e64b22803",
+            "path": "web-sources/v1/79-bilibili-cn/assets/bb022e8ff4a5e1b5f8f291a2376e1120812babaf9702d8dc780851d584902c0f.png",
+            "sha256": "bb022e8ff4a5e1b5f8f291a2376e1120812babaf9702d8dc780851d584902c0f",
+            "url": "https://i0.hdslb.com/bfs/article/ebae1a4f4ee89b292e56495f59e995e5d3e1730b.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "左上方标签：例4。\n手牌从左至右：1s 2s 3s 3s 4s 4s 5s 6s 6s 7s。\n手牌右侧标签：摸入；其右侧单独一张：8s。\n再右侧标签：碰；其右侧副露从左至右：9s 9s（横置）9s。",
+        "unknowns": [],
+        "caption": "例4：摸入8s，已碰9s。",
+        "sourceNotes": [
+          "原图与4倍最近邻放大图为同一资产，仅记录一次。"
+        ],
+        "provenance": {
+          "method": "model-transcription",
+          "callId": "896037d2-8f7d-49c2-88aa-29c912f857ba",
+          "outputSourceBlockId": "79-bilibili-cn:cv1729038:b0014"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/79-bilibili-cn/cv1729038/9376e9b56ce8163d/figure-0006.png",
+          "sha256": "3b8b3c9e450a121940beb3946cca6a2250cea94010d6ea622b79288bfbadb1f4",
+          "width": 499,
+          "height": 100,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "79-bilibili-cn:3146813963e73f0e64b22803",
+                "path": "web-sources/v1/79-bilibili-cn/assets/bb022e8ff4a5e1b5f8f291a2376e1120812babaf9702d8dc780851d584902c0f.png",
+                "sha256": "bb022e8ff4a5e1b5f8f291a2376e1120812babaf9702d8dc780851d584902c0f",
+                "url": "https://i0.hdslb.com/bfs/article/ebae1a4f4ee89b292e56495f59e995e5d3e1730b.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 14,
+      "source": [
+        {
+          "id": "79-bilibili-cn:cv1729038:b0015",
+          "paragraphId": "79-bilibili-cn:cv1729038:p0015",
+          "tag": "p",
+          "domPath": "main/p[14]",
+          "tableContext": null,
+          "type": "text",
+          "text": "这个形是不是让你很迷茫呢？ 正确答案是切掉3S，听147索。 实战中常常有人因为马虎，没有考虑自己已经碰过的牌。这一点需要注意。 这里听369索的话就只有5张和了牌了。 ------------------------------------------------------------------------------------ ",
+          "segments": [
+            {
+              "text": "这个形是不是让你很迷茫呢？",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "正确答案是切掉3S，听147索。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "实战中常常有人因为马虎，没有考虑自己已经碰过的牌。这一点需要注意。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "这里听369索的话就只有5张和了牌了。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "------------------------------------------------------------------------------------",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0015"
+        ],
+        "sourceText": "这个形是不是让你很迷茫呢？ 正确答案是切掉3S，听147索。 实战中常常有人因为马虎，没有考虑自己已经碰过的牌。这一点需要注意。 这里听369索的话就只有5张和了牌了。 ------------------------------------------------------------------------------------ ",
+        "text": "这个形是不是让你很迷茫呢？ 正确答案是切掉3S，听147索。 实战中常常有人因为马虎，没有考虑自己已经碰过的牌。这一点需要注意。 这里听369索的话就只有5张和了牌了。 ------------------------------------------------------------------------------------ ",
+        "paragraphId": "79-bilibili-cn:cv1729038:p0015",
+        "sourceSegments": [
+          {
+            "text": "这个形是不是让你很迷茫呢？",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "正确答案是切掉3S，听147索。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "实战中常常有人因为马虎，没有考虑自己已经碰过的牌。这一点需要注意。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "这里听369索的话就只有5张和了牌了。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "------------------------------------------------------------------------------------",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    },
+    {
+      "position": 15,
+      "source": [
+        {
+          "id": "79-bilibili-cn:cv1729038:b0016",
+          "paragraphId": "79-bilibili-cn:cv1729038:p0016",
+          "tag": "div",
+          "domPath": "main/div[15]/div[0]/div[0]/div[0]/div[0]",
+          "tableContext": null,
+          "type": "image-run",
+          "images": [
+            {
+              "occurrenceId": "79-bilibili-cn:cv1729038:i00007",
+              "assetId": "79-bilibili-cn:b4387b1a3a9166dbba0beceb",
+              "sourceUrls": [
+                "https://i0.hdslb.com/bfs/article/ac02f9955c52af05e797451410007f8ac886b0aa.png",
+                "https://i0.hdslb.com/bfs/article/ac02f9955c52af05e797451410007f8ac886b0aa.png@966w_188h"
+              ],
+              "alt": "",
+              "title": "",
+              "width": null,
+              "height": null,
+              "tileHint": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0016"
+        ],
+        "figureId": "79-bilibili-cn:cv1729038:b0016:figure",
+        "paragraphId": "79-bilibili-cn:cv1729038:p0016",
+        "tableContext": null
+      },
+      "figure": {
+        "figureId": "79-bilibili-cn:cv1729038:b0016:figure",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0016"
+        ],
+        "sourceOccurrenceIds": [
+          "79-bilibili-cn:cv1729038:i00007"
+        ],
+        "sourceAssetBindings": [
+          {
+            "assetId": "79-bilibili-cn:b4387b1a3a9166dbba0beceb",
+            "path": "web-sources/v1/79-bilibili-cn/assets/11f71ff30d30432778243f5ded338363c0783bdba2644d5238313ca1277611b4.png",
+            "sha256": "11f71ff30d30432778243f5ded338363c0783bdba2644d5238313ca1277611b4",
+            "url": "https://i0.hdslb.com/bfs/article/ac02f9955c52af05e797451410007f8ac886b0aa.png"
+          }
+        ],
+        "kind": "mahjong-example",
+        "transcription": "左上方标签：例5。\n手牌从左至右：1m 2m 3m 3m 4m 4m 4m 7m 8m 9m。\n手牌右侧标签：摸入；其右侧单独一张：6m。\n再右侧标签：碰；其右侧副露从左至右：5z（横置）5z 5z。",
+        "unknowns": [],
+        "caption": "例5：摸入6m，已碰白板。",
+        "sourceNotes": [
+          "原图与4倍最近邻放大图为同一资产，仅记录一次。",
+          "副露中三张无字牌面为白板。"
+        ],
+        "provenance": {
+          "method": "model-transcription",
+          "callId": "896037d2-8f7d-49c2-88aa-29c912f857ba",
+          "outputSourceBlockId": "79-bilibili-cn:cv1729038:b0016"
+        },
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/79-bilibili-cn/cv1729038/9376e9b56ce8163d/figure-0007.png",
+          "sha256": "a927e3b62e78cb274f381a08d1b3d47e5c306170cba72f279dc5cce06e4de88f",
+          "width": 483,
+          "height": 94,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "79-bilibili-cn:b4387b1a3a9166dbba0beceb",
+                "path": "web-sources/v1/79-bilibili-cn/assets/11f71ff30d30432778243f5ded338363c0783bdba2644d5238313ca1277611b4.png",
+                "sha256": "11f71ff30d30432778243f5ded338363c0783bdba2644d5238313ca1277611b4",
+                "url": "https://i0.hdslb.com/bfs/article/ac02f9955c52af05e797451410007f8ac886b0aa.png"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        }
+      }
+    },
+    {
+      "position": 16,
+      "source": [
+        {
+          "id": "79-bilibili-cn:cv1729038:b0017",
+          "paragraphId": "79-bilibili-cn:cv1729038:p0017",
+          "tag": "p",
+          "domPath": "main/p[16]",
+          "tableContext": null,
+          "type": "text",
+          "text": "不规则听牌也是一样，记住有代表形的东西为好。 现在的情况是一个三面听。 切掉3万，听569万是比较有利的。 “一气贯通”是很容易被忽视的手役，千万别把这个忘了。     （待续）",
+          "segments": [
+            {
+              "text": "不规则听牌也是一样，记住有代表形的东西为好。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "现在的情况是一个三面听。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "切掉3万，听569万是比较有利的。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "“一气贯通”是很容易被忽视的手役，千万别把这个忘了。",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": " ",
+              "marks": [],
+              "href": null
+            },
+            {
+              "text": "（待续）",
+              "marks": [],
+              "href": null
+            }
+          ]
+        }
+      ],
+      "candidate": {
+        "type": "text",
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1729038:b0017"
+        ],
+        "sourceText": "不规则听牌也是一样，记住有代表形的东西为好。 现在的情况是一个三面听。 切掉3万，听569万是比较有利的。 “一气贯通”是很容易被忽视的手役，千万别把这个忘了。     （待续）",
+        "text": "不规则听牌也是一样，记住有代表形的东西为好。 现在的情况是一个三面听。 切掉3万，听569万是比较有利的。 “一气贯通”是很容易被忽视的手役，千万别把这个忘了。     （待续）",
+        "paragraphId": "79-bilibili-cn:cv1729038:p0017",
+        "sourceSegments": [
+          {
+            "text": "不规则听牌也是一样，记住有代表形的东西为好。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "现在的情况是一个三面听。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "切掉3万，听569万是比较有利的。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "“一气贯通”是很容易被忽视的手役，千万别把这个忘了。",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": " ",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "（待续）",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      "figure": null
+    }
+  ],
+  "contextContentSha256": "00fcdf81d4e8b1f6851783e318ba1fb609967a181af60634566c80dd86c28ce9",
+  "images": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe.png",
+      "sha256": "49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe",
+      "bytes": 10724,
+      "copy": "evidence/49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe.png",
+      "width": 494,
+      "height": 68,
+      "format": "PNG",
+      "frames": 1,
+      "figureId": "79-bilibili-cn:cv1729038:b0004:figure",
+      "assetId": "79-bilibili-cn:c2ab9da0598af77cd61a125d",
+      "role": "original-source-no-invented-detail"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7.png",
+      "sha256": "65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7",
+      "bytes": 10882,
+      "copy": "evidence/65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7.png",
+      "width": 504,
+      "height": 67,
+      "format": "PNG",
+      "frames": 1,
+      "figureId": "79-bilibili-cn:cv1729038:b0006:figure",
+      "assetId": "79-bilibili-cn:9c5cc90e8970f4ac5331515a",
+      "role": "original-source-no-invented-detail"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\78b7f59dcfddc79a8d52b60f7567452f57f955bf5e78a0c06c8caa5bd5b19a10.png",
+      "sha256": "78b7f59dcfddc79a8d52b60f7567452f57f955bf5e78a0c06c8caa5bd5b19a10",
+      "bytes": 57955,
+      "copy": "evidence/78b7f59dcfddc79a8d52b60f7567452f57f955bf5e78a0c06c8caa5bd5b19a10.png",
+      "width": 468,
+      "height": 538,
+      "format": "PNG",
+      "frames": 1,
+      "figureId": "79-bilibili-cn:cv1729038:b0012:figure",
+      "assetId": "79-bilibili-cn:d1773cbfd3c9e335fef8535c",
+      "role": "original-source-no-invented-detail"
+    }
+  ],
+  "whitelist": [
+    {
+      "pointer": "/figures/0/transcription",
+      "figureId": "79-bilibili-cn:cv1729038:b0004:figure",
+      "sourceBlockId": "79-bilibili-cn:cv1729038:b0004",
+      "before": "左侧标签：例1。\n手牌从左至右：6m 6m 6m 3s 4s 5s 6s 9s 9s 3z 3z。\n右侧标签：碰；其右侧副露从左至右：7z（横置）7z 7z。",
+      "expectedAfterOnlyIfImageConfirms": "左侧标签：例1。\n手牌从左至右：5m 6m 6m 3s 4s 5s 6s 9s 9s 3z 3z。\n右侧标签：碰；其右侧副露从左至右：7z（横置）7z 7z。",
+      "beforeSha256": "fe40d0aadb91a057f807ff9fcd148095eafb9cfb8f6b59fa981cd16885b5ae68",
+      "expectedAfterSha256": "15db876a589210d77bed89095734e2281a417878dfaeb9177541a498c68a2f20"
+    },
+    {
+      "pointer": "/figures/1/transcription",
+      "figureId": "79-bilibili-cn:cv1729038:b0006:figure",
+      "sourceBlockId": "79-bilibili-cn:cv1729038:b0006",
+      "before": "手牌从左至右：6m 6m 3s 4s 5s 6s 9s 9s 3z 3z。\n手牌右侧标签：摸入；其右侧单独一张：2s。\n再右侧标签：碰；其右侧副露从左至右：7z（横置）7z 7z。",
+      "expectedAfterOnlyIfImageConfirms": "手牌从左至右：5m 6m 3s 4s 5s 6s 9s 9s 3z 3z。\n手牌右侧标签：摸入；其右侧单独一张：2s。\n再右侧标签：碰；其右侧副露从左至右：7z（横置）7z 7z。",
+      "beforeSha256": "f8a723decab9707c71f1f0fdda57a182038e3cc20da1b66180c7e3c2df22a7ae",
+      "expectedAfterSha256": "bdcac9566e0cf5b2b9b67e17657ec3ac2a4857b6c3f9879813c644853517faef"
+    }
+  ],
+  "textErrorsAlsoRequired": [],
+  "reviewTargets": {
+    "repairFigureIds": [
+      "79-bilibili-cn:cv1729038:b0004:figure",
+      "79-bilibili-cn:cv1729038:b0006:figure"
+    ],
+    "unknownImpactFigureIds": [
+      "79-bilibili-cn:cv1729038:b0012:figure"
+    ],
+    "existingUnknowns": {
+      "79-bilibili-cn:cv1729038:b0012:figure": [
+        "上方弃牌区从左至右第4张为万子，具体点数无法可靠辨认。",
+        "左方弃牌区从上至下第1张为万子，具体点数无法可靠辨认。",
+        "右方弃牌区从上至下第6张为字牌，具体字样无法可靠辨认。"
+      ]
+    },
+    "notFullArticleReReview": true,
+    "independentImageDecisionRequired": true,
+    "requirements": [
+      "Confirm the exact repaired fact from the attached original image.",
+      "Enumerate actual author claims and source block IDs; decide each unknown dependency.",
+      "Do not require recovering hidden hands or certify complete probability/optimality facts.",
+      "If unknown is acceptable, give explicit required display limitations; if not, name the blocked claim.",
+      "Return unresolved uncertain unchanged; no conversion to error/source-note or whole chapter pass."
+    ]
+  },
+  "proposedBudget": {
+    "maker": 1,
+    "independentTargetAndUnknownImpactReview": 1,
+    "maximumNewLocalInvocations": 2,
+    "retry": 0,
+    "failedVoidCount": true,
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "moneyCostKnown": false,
+    "upstreamExecutionsObservable": false
+  }
+}
