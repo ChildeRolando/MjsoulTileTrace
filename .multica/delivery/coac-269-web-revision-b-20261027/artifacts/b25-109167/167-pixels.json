@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "original": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\59c525639dcbed32f3e084b3ba249716649f8be24805394d1489cfa84cd1db88.gif",
+    "sha256": "59c525639dcbed32f3e084b3ba249716649f8be24805394d1489cfa84cd1db88",
+    "bytes": 16718,
+    "copy": "evidence/59c525639dcbed32f3e084b3ba249716649f8be24805394d1489cfa84cd1db88.gif",
+    "width": 495,
+    "height": 501,
+    "format": "GIF",
+    "frames": 1,
+    "figureId": "79-bilibili-cn:cv1754620:b0005:figure",
+    "assetId": "79-bilibili-cn:ca42baaf730487f5baed937e",
+    "role": "original-source-no-invented-detail"
+  },
+  "existingLosslessAlias": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1754620\\d55d188c3661912f\\figure-0001.png",
+    "sha256": "15dac224d26ee7b714840c547509f63bf772beb7ebc4a01716e6b812e37a6b7a",
+    "bytes": 18657,
+    "copy": "evidence/figure-0001.png",
+    "width": 495,
+    "height": 501,
+    "format": "PNG",
+    "frames": 1,
+    "pixelAliasOf": "59c525639dcbed32f3e084b3ba249716649f8be24805394d1489cfa84cd1db88",
+    "figureId": "79-bilibili-cn:cv1754620:b0005:figure",
+    "role": "existing-lossless-single-frame-presentation-alias"
+  },
+  "frames": 1,
+  "pixelsIdentical": true,
+  "imageWrites": 0
+}

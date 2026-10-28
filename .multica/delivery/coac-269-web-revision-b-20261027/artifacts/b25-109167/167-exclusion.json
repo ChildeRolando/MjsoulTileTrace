@@ -1,0 +1,121 @@
+{
+  "at": "2026-10-28T08:57:41.185420+00:00",
+  "chapterId": "79-cn-chapter-167-4",
+  "sourceId": "79-bilibili-cn",
+  "articleId": "cv1754620",
+  "registerSha256": "fc544ce02428e26c433cb1d07d6432ed1a06e2210b4d0e4769a23cbc28836c17",
+  "previewSha256": "53d88fef65a44e02210dd1a9eca6314319b15f0efec6f2d1591b6cdb908f0c1d",
+  "registerRow": {
+    "chapterId": "79-cn-chapter-167-4",
+    "originalChapterId": "79-cn-chapter-167-4",
+    "sourceId": "79-cn",
+    "title": "鸣牌15—鸣牌的技巧（3）",
+    "units": 1,
+    "ownedSourceBlocks": 13,
+    "adjudicationGroup": "confirmed-produced-not-covered",
+    "covered": false,
+    "coverageRoute": null,
+    "approvedWebCorrespondence": {
+      "articleId": "cv1754620",
+      "webSourceId": "79-bilibili-cn",
+      "tier": "body",
+      "evidencePath": "integration/chinese-source-body-correspondence.json",
+      "substitutionAllowed": true,
+      "bodyEquivalenceConfirmed": true,
+      "articleInPreview": false
+    },
+    "existingCandidate": {
+      "path": "web-production/v1/candidates/79-bilibili-cn/cv1754620.display.json",
+      "sha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+      "bodyBlocks": 6,
+      "sourceSha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+      "currentSourceSha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+      "sourceBoundCurrent": true,
+      "auditStatus": "needs-repair",
+      "auditPath": "audit/web/articles/79-bilibili-cn/cv1754620.7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737.json",
+      "auditRecordedAt": "2026-10-25T16:41:10.409Z",
+      "deterministicPassed": true,
+      "semanticComplete": false
+    },
+    "pdfRoute": {
+      "pagesTotal": 3,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        167,
+        168,
+        169
+      ],
+      "pagesDetail": [
+        {
+          "page": 167,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 9
+        },
+        {
+          "page": 168,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 3
+        },
+        {
+          "page": 169,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 3
+        }
+      ]
+    },
+    "gaps": {
+      "ownedSourceBlocks": 13,
+      "missingProductionBlocks": 0,
+      "producedBlocks": 13,
+      "acceptedBlocks": 0,
+      "acceptanceGapBlocks": 13,
+      "acceptanceGapPages": [
+        167,
+        168,
+        169
+      ],
+      "pagesWithoutCandidate": [],
+      "pagesWithoutPassedCandidate": [
+        167,
+        168,
+        169
+      ]
+    },
+    "verdict": "produced-needs-repair",
+    "coac246": {
+      "action": "repair",
+      "auditStatus": "needs-repair",
+      "candidateSha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+      "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1754620.display.json",
+      "repairErrors": 5,
+      "units": 1,
+      "blocks": 13
+    }
+  },
+  "selectedWeb": [],
+  "selectedPdf": [],
+  "boundPassedAlternatives": [],
+  "claim": {
+    "ok": true,
+    "action": "check-chapter",
+    "chapter": "79-cn-chapter-167-4",
+    "held": false
+  },
+  "existingCandidateNames": [
+    "cv1754620.display.json"
+  ],
+  "priorCallIds": [
+    "7d275047-4219-4517-bc03-bbc014955634",
+    "7f3905c9-d231-4bc3-a252-ba5f60c3517e"
+  ]
+}

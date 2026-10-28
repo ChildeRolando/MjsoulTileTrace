@@ -1698,3 +1698,91 @@ actually started at `2026-10-28T08:41:35Z` and was observed running, recorded in
 call or acceptance result is inferred from it. This executor's real production count remains one.
 The completed package's longest new Windows checkout path is207 characters at the actual
 113-character root, below the strict240 limit. PR74 remains draft and the business issue in_progress.
+
+## Batch25 —109/167 exact figure repairs and independent impact handoffs
+
+Authorization `01a181af-e1d9-7e64-8dcf-1607be707075` adds two separate bounded chapters:
+each may use one maker here and one combined repair/unknown-impact audit by existing249,
+four actual calls maximum, failed/void counted and zero automatic retries. Their allowance
+is independent of283/b0785 and248's182/201. This executor made two makers and no audits.
+Neither chapter is accepted by production or software PR review.
+
+The upstream244 ready package became available during this run; no model or slot was used
+while it was unfinished. Its45 files were individually rehashed against manifest
+`d8e012c8ca1112782678992dab142d91c51a940aa77aa39fb60702ec8dbe6d7b` in
+`integration/coac244-ready109167-zero-20261028`.244 subsequently reported pushed commit
+`eea024537dfecd396b088dc5f1ba6978b8db27da`. Its original24 negative checks are preparatory
+evidence; the executable adapter and actual production request checks below are this run's work.
+The ready templates were never submitted with a missing real candidate SHA.
+
+The frozen `coac269-109167-exact-v1-20261028` runtime has30 files and final manifest
+`814df700d298188dea14d20fd84ac818d1ded9a706e370bc7a1714141ad6a7a9`.
+Its bounded adapter recognizes only the two literal article/source/parent/audit SHA tuples,
+rehashes the full package, source HTML/main/assets, original maker/raw, auditor snapshot,
+completed original independent raw/projection/schema and unique audit ledger, and validates
+the complete parent review including every original uncertain. The unchanged generic entry's
+`web_revision_notes_scope` rejection is explicitly tested. No256 exception or generic rewrite
+permission is added; the original production/audit gates and provider configuration are unchanged.
+
+76 zero-model checks passed before either dispatch. They cover exact output leaves and complete
+context in the actual closed prompt/schema, actual terra/max argv and ordered image hashes/bytes;
+wrong source/parent/audit, missing/reordered context, removed uncertain, altered unknowns,
+extra/missing/duplicate/wrong targets, punctuation, caption/sourceNotes/kind/provenance, body,
+figures/order/table/source changes and incorrect actual transport settings are rejected.
+Two pre-call implementation checks first caught an array-valued ordered source pairing and
+the legacy projection-v2 target-mark flag; these were corrected to match the real original
+packet and frozen verifier semantics. Both unsubmitted manifests are archived, no raw/candidate
+or call was created for those failed checks. The final runtime was unchanged across real calls.
+
+109 is `79-cn-chapter-109-4` /`79-bilibili-cn:cv1729038`. Source
+`b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc`, parent
+`ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22`, original audit
+`254405ec0e5e50e057a662509f8ac087e4d1ed84c0e60b40e185182585130eda` remain bound.
+Only the first6m becomes5m in b0004/b0006 transcription, preserving every other field/character.
+All17 body blocks and five non-target figure objects remain identical. b0012's three original
+unknowns and independent uncertain are untouched; their teaching impact is explicitly pending.
+Real maker `ef137f7f-b64c-478d-befd-b3bb3f4975d0`: **terra/max, two original PNGs**,
+27133 input/0 cached/466 output,12264ms. Candidate
+`3cfe3a27bd799782d6ac8e626fcf97d26e1724ce544b6ccf26bcd740bd259dcb`.
+
+167 is `79-cn-chapter-167-4` /`79-bilibili-cn:cv1754620`. Source
+`e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9`, parent
+`7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737`, original audit
+`8c52da176b472a79f63b7cce50f29ce66710718beea7631b1cf3b0a2a9910c73` remain bound.
+Only b0005's three approved direction/declaration descriptions change: distinguish the north
+player's sideways7p riichi declaration from that player's other discards and remove the
+contradictory no-sideways-card statement. All six body blocks, source/condition/numeric fields,
+other figure fields and the south river's unknown manzu stay identical. The original single-frame
+GIF and existing PNG alias were checked equal in size and every RGBA pixel, with zero image writes.
+Real maker `11d4590c-c1f6-4f07-9479-1bea5db990b3`: **terra/max, one existing lossless PNG**,
+23984 input/0 cached/1547 output,28384ms. Candidate
+`5bfa90e3e15deb0c3f868ee1811fe50cdba75357f2805b3c37ed5f1d86538a58`.
+
+Each `collect.mjs` run validates the genuine maker/raw/ledger/provenance, unchanged body and
+non-target figures, original unknowns, closed prompt/schema/image bindings and completed session
+events, then constructs the actual independent request without invoking it.109's review has all
+17 ordered source/candidate/figure pairs and three images, including b0012;167's has all six
+pairs and the one lossless image. Conditions/tableContext/sourceSegments/order remain in place.
+The independent schema separates repair fidelity from explicit per-unknown author-claim impact
+and mandatory display limits; it never silently converts the original uncertain to source-note,
+error or ordinary chapter pass. Any limitation must be enforced by later lawful admission.
+
+Shared handoffs (both target-only and bound to their real new candidate/raw) are:
+
+- `integration/coac269-109167-109-handoff-249-20261028.json`, SHA
+  `665ff5a899ba8d4abda41a3c1abb44af8dc83ba5f3b2c923586648928937568b`;
+  existing-owner once rule `01a181ba-a13e-778c-8c22-5b546b3f18da`.
+- `integration/coac269-109167-167-handoff-249-20261028.json`, SHA
+  `8fba2f5d24de3012d723eed29bd8df86f255eea835503353dc7118058ba90e4b`;
+  existing-owner once rule `01a181bb-978a-72b2-8c2d-89d90837ef1c`.
+
+Before each handoff, the exact new SHA had no independent ledger row/receipt/checkpoint or
+duplicate rule. Existing249 activity on other authorized chapters stays serialized by its
+existing audit guard; no consumer, claim deletion, retry or duplicate independent call is added.
+Each rule reserves at most one call for its own chapter. Registration is not a completed audit.
+Both maker-B slots and chapter claims released normally before waiting for any independent result.
+Original raw/failed receipts/unknowns remain immutable. No248 chapter or283 assembly/integration,
+other branch, active switch or whole-chapter re-review was performed. Money, remote weights and
+upstream execution counts are unknown. Evidence, actual raw, candidates, exact diffs and executable
+checks are in `artifacts/b25-109167`; final Windows packaging uses strict paths below240 characters.
+Issue remains in_progress and draft PR74 is software/evidence delivery only.

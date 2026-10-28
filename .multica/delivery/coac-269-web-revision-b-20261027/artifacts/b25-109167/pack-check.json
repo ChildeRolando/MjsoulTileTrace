@@ -1,0 +1,600 @@
+{
+  "passed": true,
+  "files": 48,
+  "runtimeFilesRehashed": 30,
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\runtime-manifest.json",
+    "sha256": "814df700d298188dea14d20fd84ac818d1ded9a706e370bc7a1714141ad6a7a9",
+    "bytes": 8072
+  },
+  "preflightChecks": 76,
+  "makerCallsHere": 2,
+  "independentCallsHere": 0,
+  "automaticRetries": 0,
+  "maximumPair": 4,
+  "remainingIndependentMaximum": 2,
+  "windowsRootLength": 113,
+  "longestWindowsPath": 209,
+  "strictPathLimit": 240,
+  "calls": [
+    {
+      "callId": "ef137f7f-b64c-478d-befd-b3bb3f4975d0",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1729038",
+      "sourceSha256": "b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "requestExecution": {
+        "schema": "coach-textbook-cli-request/1",
+        "policy": "coac244-vision-production-schema-v2-20261028",
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max",
+        "callerRequested": {
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max"
+        },
+        "args": [
+          "exec",
+          "--model",
+          "gpt-6.1-terra",
+          "--config",
+          "model_reasoning_effort=\"max\"",
+          "--config",
+          "web_search=\"disabled\"",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox",
+          "read-only",
+          "--strict-config",
+          "--skip-git-repo-check",
+          "--json",
+          "--output-schema",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-QCkod8\\output.schema.json",
+          "--output-last-message",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-QCkod8\\final.json",
+          "--cd",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-QCkod8",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe.png",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7.png",
+          "--disable",
+          "apps",
+          "--disable",
+          "auth_elicitation",
+          "--disable",
+          "browser_use",
+          "--disable",
+          "browser_use_external",
+          "--disable",
+          "browser_use_full_cdp_access",
+          "--disable",
+          "computer_use",
+          "--disable",
+          "fast_mode",
+          "--disable",
+          "goals",
+          "--disable",
+          "guardian_approval",
+          "--disable",
+          "hooks",
+          "--disable",
+          "image_generation",
+          "--disable",
+          "in_app_browser",
+          "--disable",
+          "in_app_chat",
+          "--disable",
+          "in_app_dictation",
+          "--disable",
+          "in_app_local_automation",
+          "--disable",
+          "in_app_updates",
+          "--disable",
+          "memories",
+          "--disable",
+          "mentions_v2",
+          "--disable",
+          "multi_agent",
+          "--disable",
+          "plugin_sharing",
+          "--disable",
+          "plugins",
+          "--disable",
+          "remote_plugin",
+          "--disable",
+          "shell_snapshot",
+          "--disable",
+          "shell_tool",
+          "--disable",
+          "skill_mcp_dependency_install",
+          "--disable",
+          "skill_search",
+          "--disable",
+          "sleep_tool",
+          "--disable",
+          "tool_call_mcp_elicitation",
+          "--disable",
+          "tool_suggest",
+          "--disable",
+          "unbounded_connection_retries",
+          "--disable",
+          "unified_exec",
+          "--disable",
+          "unified_exec_tty",
+          "--disable",
+          "view_image",
+          "--disable",
+          "workspace_dependencies",
+          "-"
+        ],
+        "images": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe.png",
+            "sha256": "49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe",
+            "bytes": 10724
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7.png",
+            "sha256": "65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7",
+            "bytes": 10882
+          }
+        ],
+        "remoteBackend": "unverified; request arguments and returned events only"
+      },
+      "startedAt": "2026-10-28T08:55:20.170Z",
+      "durationMs": 12264,
+      "usage": {
+        "inputTokens": 27133,
+        "cachedInputTokens": 0,
+        "outputTokens": 466
+      },
+      "success": true,
+      "transportStatus": "completed",
+      "rawArtifactPath": "raw-calls/ef137f7f-b64c-478d-befd-b3bb3f4975d0.json",
+      "rawArtifactSha256": "7965bea24f2aa1171b3f677e3fdcf1b9156367341ca948a54194e3dcc9da6038",
+      "promptSha256": "e07622001d440fad5582c5ed8534a37c7051effe9cb51b68366c6fa219ff4bb2",
+      "schemaSha256": "c418381bc84fd6f0054aedbaa5bdd2f8b7cc0b405e3466e9bebd3889629e83eb",
+      "method": "coac269-exact-109167/1",
+      "targets": {
+        "textIds": [],
+        "figureIds": [
+          "79-bilibili-cn:cv1729038:b0004",
+          "79-bilibili-cn:cv1729038:b0006"
+        ]
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1729038.display.json",
+        "sha256": "ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22",
+        "bytes": 57289,
+        "copy": "evidence/cv1729038-parent.json"
+      },
+      "parentAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1729038.ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22.retry-1792943789870-ade1138e.json",
+        "sha256": "254405ec0e5e50e057a662509f8ac087e4d1ed84c0e60b40e185182585130eda",
+        "bytes": 32355,
+        "copy": "evidence/cv1729038-audit.json"
+      },
+      "runtime": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\runtime-manifest.json",
+        "sha256": "814df700d298188dea14d20fd84ac818d1ded9a706e370bc7a1714141ad6a7a9"
+      },
+      "runner": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\pair.mjs",
+        "sha256": "9f1ec1896bf30a13cb2e9d1454d7bd8f2d60bd2158a29bfc2284d1867b299119"
+      },
+      "cliSnapshot": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-cli.mjs",
+        "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+      }
+    },
+    {
+      "callId": "11d4590c-c1f6-4f07-9479-1bea5db990b3",
+      "sourceId": "79-bilibili-cn",
+      "articleId": "cv1754620",
+      "sourceSha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "requestExecution": {
+        "schema": "coach-textbook-cli-request/1",
+        "policy": "coac244-vision-production-schema-v2-20261028",
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max",
+        "callerRequested": {
+          "model": "gpt-6.1-terra",
+          "reasoningEffort": "max"
+        },
+        "args": [
+          "exec",
+          "--model",
+          "gpt-6.1-terra",
+          "--config",
+          "model_reasoning_effort=\"max\"",
+          "--config",
+          "web_search=\"disabled\"",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox",
+          "read-only",
+          "--strict-config",
+          "--skip-git-repo-check",
+          "--json",
+          "--output-schema",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-j3fpKj\\output.schema.json",
+          "--output-last-message",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-j3fpKj\\final.json",
+          "--cd",
+          "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-j3fpKj",
+          "-i",
+          "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1754620\\d55d188c3661912f\\figure-0001.png",
+          "--disable",
+          "apps",
+          "--disable",
+          "auth_elicitation",
+          "--disable",
+          "browser_use",
+          "--disable",
+          "browser_use_external",
+          "--disable",
+          "browser_use_full_cdp_access",
+          "--disable",
+          "computer_use",
+          "--disable",
+          "fast_mode",
+          "--disable",
+          "goals",
+          "--disable",
+          "guardian_approval",
+          "--disable",
+          "hooks",
+          "--disable",
+          "image_generation",
+          "--disable",
+          "in_app_browser",
+          "--disable",
+          "in_app_chat",
+          "--disable",
+          "in_app_dictation",
+          "--disable",
+          "in_app_local_automation",
+          "--disable",
+          "in_app_updates",
+          "--disable",
+          "memories",
+          "--disable",
+          "mentions_v2",
+          "--disable",
+          "multi_agent",
+          "--disable",
+          "plugin_sharing",
+          "--disable",
+          "plugins",
+          "--disable",
+          "remote_plugin",
+          "--disable",
+          "shell_snapshot",
+          "--disable",
+          "shell_tool",
+          "--disable",
+          "skill_mcp_dependency_install",
+          "--disable",
+          "skill_search",
+          "--disable",
+          "sleep_tool",
+          "--disable",
+          "tool_call_mcp_elicitation",
+          "--disable",
+          "tool_suggest",
+          "--disable",
+          "unbounded_connection_retries",
+          "--disable",
+          "unified_exec",
+          "--disable",
+          "unified_exec_tty",
+          "--disable",
+          "view_image",
+          "--disable",
+          "workspace_dependencies",
+          "-"
+        ],
+        "images": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\presentations\\79-bilibili-cn\\cv1754620\\d55d188c3661912f\\figure-0001.png",
+            "sha256": "15dac224d26ee7b714840c547509f63bf772beb7ebc4a01716e6b812e37a6b7a",
+            "bytes": 18657
+          }
+        ],
+        "remoteBackend": "unverified; request arguments and returned events only"
+      },
+      "startedAt": "2026-10-28T08:57:43.101Z",
+      "durationMs": 28384,
+      "usage": {
+        "inputTokens": 23984,
+        "cachedInputTokens": 0,
+        "outputTokens": 1547
+      },
+      "success": true,
+      "transportStatus": "completed",
+      "rawArtifactPath": "raw-calls/11d4590c-c1f6-4f07-9479-1bea5db990b3.json",
+      "rawArtifactSha256": "885e1b52935c0e59c571bf1b7dc28f543c615f31a29b6ebfd29237acb98f9d2d",
+      "promptSha256": "93f570c72e4087887d834d37c144d770ba4a9f809f0fc510aecf45c44e384c29",
+      "schemaSha256": "ca99e36e536eedfa2927f3726946a8f4be6243ee9a725b4319c9da5723d5ee37",
+      "method": "coac269-exact-109167/1",
+      "targets": {
+        "textIds": [],
+        "figureIds": [
+          "79-bilibili-cn:cv1754620:b0005"
+        ]
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.display.json",
+        "sha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+        "bytes": 32855,
+        "copy": "evidence/cv1754620-parent.json"
+      },
+      "parentAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1754620.7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737.json",
+        "sha256": "8c52da176b472a79f63b7cce50f29ce66710718beea7631b1cf3b0a2a9910c73",
+        "bytes": 12132,
+        "copy": "evidence/cv1754620-audit.json"
+      },
+      "runtime": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\runtime-manifest.json",
+        "sha256": "814df700d298188dea14d20fd84ac818d1ded9a706e370bc7a1714141ad6a7a9"
+      },
+      "runner": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\pair.mjs",
+        "sha256": "9f1ec1896bf30a13cb2e9d1454d7bd8f2d60bd2158a29bfc2284d1867b299119"
+      },
+      "cliSnapshot": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-cli.mjs",
+        "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+      }
+    }
+  ],
+  "paths": [
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/.gitattributes",
+      "fullWindowsLength": 200,
+      "sha256": "308a40fa1d89ae5ea4390b4c9b46a0108b09f171f07898f25d451fa0c69c4e9f"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/109-candidate.json",
+      "fullWindowsLength": 204,
+      "sha256": "3cfe3a27bd799782d6ac8e626fcf97d26e1724ce544b6ccf26bcd740bd259dcb"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/109-claim-release.json",
+      "fullWindowsLength": 208,
+      "sha256": "72eb48f7ac974e8067c5349fa918b1ebae717290b450fba8330136bab20e139b"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/109-dedup.json",
+      "fullWindowsLength": 200,
+      "sha256": "061c42d19ab730fda3ba58a9ade188c875258ab5cad677e9ca12f07578a5fcab"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/109-exclusion.json",
+      "fullWindowsLength": 204,
+      "sha256": "66e34daa76db233e531a150cc1e633130beee8410e5c0b367104cd0f7fd780fa"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/109-handoff-state.json",
+      "fullWindowsLength": 208,
+      "sha256": "1b876961239893c1568a4159bfcacf4be3a5cab16f4af60069d8ca5776aa297f"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/109-handoff.json",
+      "fullWindowsLength": 202,
+      "sha256": "665ff5a899ba8d4abda41a3c1abb44af8dc83ba5f3b2c923586648928937568b"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/109-instruction.md",
+      "fullWindowsLength": 204,
+      "sha256": "1bde91c318f8a36a4e7e4113d077106a3f62c78d27179ac1afe43addeeab6e41"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/109-packet.json",
+      "fullWindowsLength": 201,
+      "sha256": "4bec42b7f31093130873dda4286c50bacc0a389f9eb6f2ee469612d535126399"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/109-raw.json",
+      "fullWindowsLength": 198,
+      "sha256": "7965bea24f2aa1171b3f677e3fdcf1b9156367341ca948a54194e3dcc9da6038"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/109-request.json",
+      "fullWindowsLength": 202,
+      "sha256": "0c8e554844bca45f76078426755963898704f89b0c910941b5d9ca4b7b1a81e2"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/109-result.json",
+      "fullWindowsLength": 201,
+      "sha256": "a5e0e7a7fc8d7f547499138aa3d142aae374dd291ddc075a8aebb6420e97feb2"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/109-review.json",
+      "fullWindowsLength": 201,
+      "sha256": "548e65f76a4fccfcc7f0d651ac8670fdb8f960866cde6f8fe988a98faf88ce18"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/109-selfcheck.json",
+      "fullWindowsLength": 204,
+      "sha256": "15f174bbd68643f50587b0d9a14b4af9361b2e029baa52e05d6a6daeb02b2456"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/109-slot-release.json",
+      "fullWindowsLength": 207,
+      "sha256": "e7608db7a31f78760a881a08ba3210c098b7ab75708dfd698c96a027d82e3f2b"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/109-wakeup.json",
+      "fullWindowsLength": 201,
+      "sha256": "20209bef5bf699fca0630b1d2b6d27b61150707fa262cb7dec25cc3f32cf1439"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/167-candidate.json",
+      "fullWindowsLength": 204,
+      "sha256": "5bfa90e3e15deb0c3f868ee1811fe50cdba75357f2805b3c37ed5f1d86538a58"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/167-claim-release.json",
+      "fullWindowsLength": 208,
+      "sha256": "94e28f0ef78ce42399c51b9c667ae1500161b48a1fb7415f3104b07e1b25a983"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/167-dedup.json",
+      "fullWindowsLength": 200,
+      "sha256": "a3ea92998ea335ae4a5ced6f0ed52a714760f9f829662c1f58e9edcd8aa66ad5"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/167-exclusion.json",
+      "fullWindowsLength": 204,
+      "sha256": "c63d181f6e32262aa29406d185b0767dc6da3c95d43a39413ffa70a860644d93"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/167-handoff-state.json",
+      "fullWindowsLength": 208,
+      "sha256": "64b330797fa93ac8fef0c9abcac2eb953052cee20e89263e3d9ab6c4593b9364"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/167-handoff.json",
+      "fullWindowsLength": 202,
+      "sha256": "8fba2f5d24de3012d723eed29bd8df86f255eea835503353dc7118058ba90e4b"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/167-instruction.md",
+      "fullWindowsLength": 204,
+      "sha256": "c4e3ebd4ff8a601c265a67fc55d7f8821d44b23d16eff65d7432b64a158266cb"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/167-packet.json",
+      "fullWindowsLength": 201,
+      "sha256": "3d40a5da4437c29ba57e0b4c125e3620e966ece61a74e6c8952c5963b021888f"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/167-pixels.json",
+      "fullWindowsLength": 201,
+      "sha256": "c7fe0b0b06ca8bbb4e6a21ee0d8f698f1d4b3989c161457e76da0dad4b00ae75"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/167-raw.json",
+      "fullWindowsLength": 198,
+      "sha256": "885e1b52935c0e59c571bf1b7dc28f543c615f31a29b6ebfd29237acb98f9d2d"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/167-request.json",
+      "fullWindowsLength": 202,
+      "sha256": "d368939b8dab4efbaceca7d9012b6ac3ff0b469ea78a43d98a04f307143ae41d"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/167-result.json",
+      "fullWindowsLength": 201,
+      "sha256": "eb880a24880576046836377eb26b7ddff8cb51f6bc18d6dd9161def4e0154b4f"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/167-review.json",
+      "fullWindowsLength": 201,
+      "sha256": "d4377bd44c7b3f43fae6e948c3fb6e1d0e6866a9fdf5161839d080e2a6407542"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/167-selfcheck.json",
+      "fullWindowsLength": 204,
+      "sha256": "19ce1e8b254e33e6b5d4114bf2a1d0379ae670cd386f77cb37b73797f105aa25"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/167-slot-release.json",
+      "fullWindowsLength": 207,
+      "sha256": "e7608db7a31f78760a881a08ba3210c098b7ab75708dfd698c96a027d82e3f2b"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/167-wakeup.json",
+      "fullWindowsLength": 201,
+      "sha256": "94e3f064370b2ef3a670183a9e6b6bedd6a5d62e9cf1e2f046b78d0956754153"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/collect.mjs",
+      "fullWindowsLength": 197,
+      "sha256": "7cf2850c576579c8191d57ec726e32d5346323d40051f7b52ba109e4b32b0be5"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/contract.json",
+      "fullWindowsLength": 199,
+      "sha256": "1d183b9b5c9cda49a29b9cd5aa71ebd7fc956fe10d1d98e80c31fb534ec2462e"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/handoff.py",
+      "fullWindowsLength": 196,
+      "sha256": "10839ca54f0a18a7d7debb64f2f4458f6e87e77d376708d166dd3bdd93307785"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/locate.py",
+      "fullWindowsLength": 195,
+      "sha256": "376b807c794b00bf4447b285146a0d8dc025b9430b8e4661b8b4450f3e19da88"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/locations.json",
+      "fullWindowsLength": 200,
+      "sha256": "93691bc15ddb3bae8a8b8693d973834fa183a32d32e67ae661307aa4f041dec1"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/pair.mjs",
+      "fullWindowsLength": 194,
+      "sha256": "9f1ec1896bf30a13cb2e9d1454d7bd8f2d60bd2158a29bfc2284d1867b299119"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/pins.json",
+      "fullWindowsLength": 195,
+      "sha256": "5f5b900de3afcb08c068014a10d81177679e857a81dd031836785052fa504cae"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/precall-manifest-1.json",
+      "fullWindowsLength": 209,
+      "sha256": "2e243e05251f2493bfce1bb44d66aa6eb6837a9c3b212094bbd9b30ef09bdffb"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/precall-manifest-2.json",
+      "fullWindowsLength": 209,
+      "sha256": "d2b5922b988ddebb9b06fff626f8626f8147a35103db267f563a6e45fcfd2589"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/preflight.json",
+      "fullWindowsLength": 200,
+      "sha256": "442303fbf56444887376386677998c926fc64b0496bf8bee7480ec9123a4882a"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/preflight.mjs",
+      "fullWindowsLength": 199,
+      "sha256": "f9b23fa5d65d9ef7e0b200394a777445b09b285f508b066fe166beca683396c6"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/prepare.py",
+      "fullWindowsLength": 196,
+      "sha256": "d437d383452c06713fec2185cf0a9598de91f3e1fdd51193e2b96dcb1d3c904c"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/run.py",
+      "fullWindowsLength": 192,
+      "sha256": "8fa867c816651afb544d75c4ceb38ed2778e4018608e4d3eaaed658fdace760a"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/runtime.json",
+      "fullWindowsLength": 198,
+      "sha256": "814df700d298188dea14d20fd84ac818d1ded9a706e370bc7a1714141ad6a7a9"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/seal-precall.py",
+      "fullWindowsLength": 201,
+      "sha256": "6d2e0c774d6328f6e34a640a3a0f8a3a3de74b17793ec81ebdd5eafc8ccb424b"
+    },
+    {
+      "path": ".multica/delivery/coac-269-web-revision-b-20261027/artifacts/b25-109167/verify-pack.py",
+      "fullWindowsLength": 200,
+      "sha256": "f238f2fa26d0cbadb30193cd2796e1731ff9edd70d2a0e82719925310d131a66"
+    }
+  ],
+  "wholeChapterAccepted": false
+}

@@ -1,0 +1,115 @@
+{
+  "passed": true,
+  "count": 76,
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\runtime-manifest.json",
+    "sha256": "814df700d298188dea14d20fd84ac818d1ded9a706e370bc7a1714141ad6a7a9",
+    "bytes": 8072
+  },
+  "modelCalls": 0,
+  "candidateWrites": 0,
+  "rawWrites": 0,
+  "results": [
+    {
+      "key": "109",
+      "canonical": "79-cn-chapter-109-4",
+      "legacyRejection": "web_revision_notes_scope",
+      "bodyBlocks": 17,
+      "figures": 7,
+      "makerImages": 2,
+      "reviewImages": 3,
+      "repairIds": [
+        "79-bilibili-cn:cv1729038:b0004:figure",
+        "79-bilibili-cn:cv1729038:b0006:figure"
+      ],
+      "unknownImpactIds": [
+        "79-bilibili-cn:cv1729038:b0012:figure"
+      ],
+      "allOriginalUncertainPreserved": true,
+      "negative": [
+        "extra-text",
+        "missing-target",
+        "duplicate-target",
+        "wrong-id",
+        "old-error",
+        "punctuation",
+        "unknown-change",
+        "caption-change",
+        "source-note-change",
+        "kind-change",
+        "fake-provenance",
+        "extra-figure",
+        "wrong-source",
+        "wrong-parent",
+        "wrong-audit",
+        "drop-context",
+        "context-order",
+        "whitelist-extra-change",
+        "unknown-removed",
+        "uncertain-removed",
+        "body-change",
+        "block-order",
+        "source-change",
+        "target-unknown-change",
+        "target-other-character",
+        "figure-order",
+        "table-change",
+        "non-target-unknown-erasure",
+        "sol-label",
+        "high-effort",
+        "missing-image",
+        "false-image-SHA",
+        "prompt-diff"
+      ]
+    },
+    {
+      "key": "167",
+      "canonical": "79-cn-chapter-167-4",
+      "legacyRejection": "web_revision_notes_scope",
+      "bodyBlocks": 6,
+      "figures": 1,
+      "makerImages": 1,
+      "reviewImages": 1,
+      "repairIds": [
+        "79-bilibili-cn:cv1754620:b0005:figure"
+      ],
+      "unknownImpactIds": [
+        "79-bilibili-cn:cv1754620:b0005:figure"
+      ],
+      "allOriginalUncertainPreserved": true,
+      "negative": [
+        "extra-text",
+        "missing-target",
+        "duplicate-target",
+        "wrong-id",
+        "old-error",
+        "punctuation",
+        "unknown-change",
+        "caption-change",
+        "source-note-change",
+        "kind-change",
+        "fake-provenance",
+        "extra-figure",
+        "wrong-source",
+        "wrong-parent",
+        "wrong-audit",
+        "drop-context",
+        "context-order",
+        "whitelist-extra-change",
+        "unknown-removed",
+        "uncertain-removed",
+        "body-change",
+        "block-order",
+        "source-change",
+        "target-unknown-change",
+        "target-other-character",
+        "table-change",
+        "sol-label",
+        "high-effort",
+        "missing-image",
+        "false-image-SHA",
+        "prompt-diff"
+      ]
+    }
+  ]
+}
