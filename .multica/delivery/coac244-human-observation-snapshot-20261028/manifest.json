@@ -1,0 +1,55 @@
+{
+  "schema": "coac244-human-observation-packet/1",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    {
+      "path": "capture.json",
+      "sha256": "ac44147cf59e4e57a76e0c663140af56ce21c3fc59a91fb12f6778a686079b3e"
+    },
+    {
+      "path": "snapshot-files.json",
+      "sha256": "5fe89e18d319bb8a96f95393864a0831f82c2caac3df2be263438a7b5cbeb4ac"
+    },
+    {
+      "path": "observations.py",
+      "sha256": "1e00a0ed5db84c09fd81f8540938472338b922e39527c82f7c3bca0c605c7a3a"
+    },
+    {
+      "path": "build.py",
+      "sha256": "01ab60693da61a9b456a1d4d68d4a26b88a91fa0489a3631c4cab2c67f7d685e"
+    },
+    {
+      "path": "verify.py",
+      "sha256": "5a6ac5a04037a97001c931edf0109944334e91250cfdcda6281a4dada5b8da5f"
+    },
+    {
+      "path": "check.py",
+      "sha256": "9705eafe38050f6cabe5965814d7ee3490446c573b366470f0ee9a072d3bf9f2"
+    },
+    {
+      "path": "checks.json",
+      "sha256": "008f990786258002c28abfa1cf41b11d6821e6c68c9ebcd9a6c5b2046a37df26"
+    },
+    {
+      "path": "README.md",
+      "sha256": "384a369ca7486f15f940467e7dc5488c66f93e3cbaa398b62d8e10911a0196e9"
+    },
+    {
+      "path": "human-evidence.json",
+      "sha256": "0f04f4bd5719bc2d67f3941a6ff270e185a99f34c1e36e5c75e597217729edd2"
+    },
+    {
+      "path": "priority-paths.json",
+      "sha256": "b5bf9766195baf967b3e77ff08bb8fe4ceb4206d8a8fbf98f5a917587c5a9a3b"
+    },
+    {
+      "path": "input-bindings.json",
+      "sha256": "3f2887862934f515b75080565cd6eacc73d79ef90a86aced50bab87ec468a581"
+    }
+  ],
+  "newModelCalls": 0,
+  "rawBookOrImagesIncluded": false
+}

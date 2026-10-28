@@ -1,0 +1,383 @@
+{
+  "schema": "coac244-human-priority-closure-proposal/1",
+  "232": {
+    "canonical": "nemata-jp-chapter-232-1",
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+      "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb"
+    },
+    "readyItem": "4ce1c71647c8da4352eb117e5d2f1094",
+    "humanTile": "9m",
+    "alreadyFixedHand": [
+      "3s",
+      "4s",
+      "6s",
+      "7s",
+      "8s"
+    ],
+    "minimumEdit": "仅b0005 figure右河第二张unknown→9m及对应unknown项；保留现有3s和所有文字/原图/条件；其它计数/身份unknown不补。",
+    "reviewScope": "完整14有序块/3图作上下文，只核人工9m正确应用及作者名次/打白/条件论证，继承原两文本faithful；不再识9m。",
+    "proposalOnlyBudget": {
+      "maker": 0,
+      "targetApplicationAndArgumentReview": 1,
+      "retry": 0
+    }
+  },
+  "257": {
+    "canonical": "nemata-jp-chapter-250-1",
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0257.json",
+      "sha256": "6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88",
+      "bytes": 25248
+    },
+    "readyItems": [
+      "fa50e1c25728194fcbbb2fec9841b592",
+      "69395d14b0bb8aed53bfa51b0850ddcb",
+      "19124d6cc326a5bc70fd54b4086fa20c",
+      "ba273dc871055c6f06083a007a390ac1"
+    ],
+    "publicTilesCovered": 9,
+    "minimumEdit": "仅r1九个指定公开牌位转录与相应unknown子串；记录左河第16张用户“立直宣言牌”标注，不自动扩推其它方向、来源玩家或隐藏牌。",
+    "reviewScope": "完整257有序正文、四幅原截图、九项位置映射、全部牌河方向定义；仅核应用与论证，另外11页837源块已有passed复用。",
+    "proposalOnlyBudget": {
+      "maker": 0,
+      "targetApplicationAndArgumentReview": 1,
+      "retry": 0
+    }
+  },
+  "261": {
+    "canonical": "nemata-jp-chapter-250-1",
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair18-20261027-p261\\candidates\\nemata-jp\\page-0261.json",
+      "sha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+      "bytes": 142025
+    },
+    "humanTile": "3m",
+    "humanItem": "84791e37a95dcfa295e38dbf27855039",
+    "historicalIndependent3m": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\91507699-61d3-496d-9481-de5f38e8418c.json",
+      "sha256": "4803be122fb4d59f1bfe52f4eb8607dc5c0c897b02cb9def2604ca9e04fd3255",
+      "bytes": 7490
+    },
+    "conflictingAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.7076217daf84.json",
+      "sha256": "4ab382b1a427ca266b8aa8148eed21800be971534627f69c04379e8f83e41b06",
+      "bytes": 190907
+    },
+    "minimumEdit": "当前r50/caption/inline本来3m；不按过期5m提案改。先0call在原owner保留人工3m+旧独立3m及旧5m error，形成明确精确冲突归属/消费合同；不主控改旧审。",
+    "reviewScope": "如仍需独审，仅核b33有序条件及3m应用，不再猜牌；未授权新call。",
+    "proposalOnlyBudget": {
+      "maker": 0,
+      "ocr": 0,
+      "argumentReviewMaximumIfRequired": 1,
+      "retry": 0
+    }
+  },
+  "311": {
+    "canonical": "79-cn-chapter-311-18",
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1815400.display.json",
+      "sha256": "5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97",
+      "bytes": 279228
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1815400\\source.json",
+      "sha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+      "bytes": 215199
+    },
+    "parentAudit": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1815400.5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97.json",
+      "sha256": "12f0f3a74c5261077907d0d9218bacf1177173c64a1e2c1ceeff9eed6729e77a",
+      "bytes": 115627
+    },
+    "queueItems": 0,
+    "savedHumanObservations": 0,
+    "charts": [
+      {
+        "figureId": "79-bilibili-cn:cv1815400:b0122:figure",
+        "allowedLeafPaths": [
+          "/figures/7/transcription",
+          "/figures/7/unknowns"
+        ],
+        "pointIds": [
+          "79-bilibili-cn:cv1815400:b0122:figure/不立直·10%/turn-2",
+          "79-bilibili-cn:cv1815400:b0122:figure/不立直·10%/turn-4",
+          "79-bilibili-cn:cv1815400:b0122:figure/不立直·10%/turn-6",
+          "79-bilibili-cn:cv1815400:b0122:figure/不立直·10%/turn-8",
+          "79-bilibili-cn:cv1815400:b0122:figure/不立直·10%/turn-10",
+          "79-bilibili-cn:cv1815400:b0122:figure/不立直·10%/turn-12",
+          "79-bilibili-cn:cv1815400:b0122:figure/不立直·10%/turn-14",
+          "79-bilibili-cn:cv1815400:b0122:figure/立直·0%/turn-2",
+          "79-bilibili-cn:cv1815400:b0122:figure/立直·0%/turn-4",
+          "79-bilibili-cn:cv1815400:b0122:figure/立直·0%/turn-6",
+          "79-bilibili-cn:cv1815400:b0122:figure/立直·0%/turn-8",
+          "79-bilibili-cn:cv1815400:b0122:figure/立直·0%/turn-10",
+          "79-bilibili-cn:cv1815400:b0122:figure/立直·0%/turn-12",
+          "79-bilibili-cn:cv1815400:b0122:figure/立直·0%/turn-14"
+        ],
+        "sourceAssets": [
+          {
+            "assetId": "79-bilibili-cn:f279f128851595a5a6c5f0e3",
+            "path": "web-sources/v1/79-bilibili-cn/assets/bfe8735a4711bc2453d66751c2d6ad09ed1f177ef9246c4f84832219e68a5e88.png",
+            "sha256": "bfe8735a4711bc2453d66751c2d6ad09ed1f177ef9246c4f84832219e68a5e88",
+            "url": "https://i0.hdslb.com/bfs/article/67561f3938667acae929ff98903a9e418886fc3d.png"
+          }
+        ]
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1815400:b0124:figure",
+        "allowedLeafPaths": [
+          "/figures/8/transcription",
+          "/figures/8/unknowns"
+        ],
+        "pointIds": [
+          "79-bilibili-cn:cv1815400:b0124:figure/不立直·10%/turn-2",
+          "79-bilibili-cn:cv1815400:b0124:figure/不立直·10%/turn-4",
+          "79-bilibili-cn:cv1815400:b0124:figure/不立直·10%/turn-6",
+          "79-bilibili-cn:cv1815400:b0124:figure/不立直·10%/turn-8",
+          "79-bilibili-cn:cv1815400:b0124:figure/不立直·10%/turn-10",
+          "79-bilibili-cn:cv1815400:b0124:figure/不立直·10%/turn-12",
+          "79-bilibili-cn:cv1815400:b0124:figure/不立直·10%/turn-14",
+          "79-bilibili-cn:cv1815400:b0124:figure/立直·0%/turn-2",
+          "79-bilibili-cn:cv1815400:b0124:figure/立直·0%/turn-4",
+          "79-bilibili-cn:cv1815400:b0124:figure/立直·0%/turn-6",
+          "79-bilibili-cn:cv1815400:b0124:figure/立直·0%/turn-8",
+          "79-bilibili-cn:cv1815400:b0124:figure/立直·0%/turn-10",
+          "79-bilibili-cn:cv1815400:b0124:figure/立直·0%/turn-12",
+          "79-bilibili-cn:cv1815400:b0124:figure/立直·0%/turn-14"
+        ],
+        "sourceAssets": [
+          {
+            "assetId": "79-bilibili-cn:12ca6249535c3da56bcf5558",
+            "path": "web-sources/v1/79-bilibili-cn/assets/8e21f0df52ec2d918ba3153781d2ec004c183343b3a4229852b36ef28a46d822.png",
+            "sha256": "8e21f0df52ec2d918ba3153781d2ec004c183343b3a4229852b36ef28a46d822",
+            "url": "https://i0.hdslb.com/bfs/article/c021b1ec22179b956da9e3edb81ff965b2f92769.png"
+          }
+        ]
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1815400:b0126:figure",
+        "allowedLeafPaths": [
+          "/figures/9/transcription",
+          "/figures/9/unknowns"
+        ],
+        "pointIds": [
+          "79-bilibili-cn:cv1815400:b0126:figure/不立直·10%/turn-2",
+          "79-bilibili-cn:cv1815400:b0126:figure/不立直·10%/turn-4",
+          "79-bilibili-cn:cv1815400:b0126:figure/不立直·10%/turn-6",
+          "79-bilibili-cn:cv1815400:b0126:figure/不立直·10%/turn-8",
+          "79-bilibili-cn:cv1815400:b0126:figure/不立直·10%/turn-10",
+          "79-bilibili-cn:cv1815400:b0126:figure/不立直·10%/turn-12",
+          "79-bilibili-cn:cv1815400:b0126:figure/不立直·10%/turn-14",
+          "79-bilibili-cn:cv1815400:b0126:figure/立直·0%/turn-2",
+          "79-bilibili-cn:cv1815400:b0126:figure/立直·0%/turn-4",
+          "79-bilibili-cn:cv1815400:b0126:figure/立直·0%/turn-6",
+          "79-bilibili-cn:cv1815400:b0126:figure/立直·0%/turn-8",
+          "79-bilibili-cn:cv1815400:b0126:figure/立直·0%/turn-10",
+          "79-bilibili-cn:cv1815400:b0126:figure/立直·0%/turn-12",
+          "79-bilibili-cn:cv1815400:b0126:figure/立直·0%/turn-14"
+        ],
+        "sourceAssets": [
+          {
+            "assetId": "79-bilibili-cn:6ab2a31dce57c726e40faeb8",
+            "path": "web-sources/v1/79-bilibili-cn/assets/54e6f36c5e4c6a040f43bceaebc013b5baa2b4b356a6998ab7a28aef6eff7ccc.png",
+            "sha256": "54e6f36c5e4c6a040f43bceaebc013b5baa2b4b356a6998ab7a28aef6eff7ccc",
+            "url": "https://i0.hdslb.com/bfs/article/bf2349dd5cdefaa38faa8d12c97e39ef6e497996.png"
+          }
+        ]
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1815400:b0128:figure",
+        "allowedLeafPaths": [
+          "/figures/10/transcription",
+          "/figures/10/unknowns"
+        ],
+        "pointIds": [
+          "79-bilibili-cn:cv1815400:b0128:figure/不立直·10%/turn-2",
+          "79-bilibili-cn:cv1815400:b0128:figure/不立直·10%/turn-4",
+          "79-bilibili-cn:cv1815400:b0128:figure/不立直·10%/turn-6",
+          "79-bilibili-cn:cv1815400:b0128:figure/不立直·10%/turn-8",
+          "79-bilibili-cn:cv1815400:b0128:figure/不立直·10%/turn-10",
+          "79-bilibili-cn:cv1815400:b0128:figure/不立直·10%/turn-12",
+          "79-bilibili-cn:cv1815400:b0128:figure/不立直·10%/turn-14",
+          "79-bilibili-cn:cv1815400:b0128:figure/立直·0%/turn-2",
+          "79-bilibili-cn:cv1815400:b0128:figure/立直·0%/turn-4",
+          "79-bilibili-cn:cv1815400:b0128:figure/立直·0%/turn-6",
+          "79-bilibili-cn:cv1815400:b0128:figure/立直·0%/turn-8",
+          "79-bilibili-cn:cv1815400:b0128:figure/立直·0%/turn-10",
+          "79-bilibili-cn:cv1815400:b0128:figure/立直·0%/turn-12",
+          "79-bilibili-cn:cv1815400:b0128:figure/立直·0%/turn-14"
+        ],
+        "sourceAssets": [
+          {
+            "assetId": "79-bilibili-cn:d19fc498a011c354764247ba",
+            "path": "web-sources/v1/79-bilibili-cn/assets/cb22b10e15a8cd6d180d3e2a19f4069f67235bfa8fdd1279b732fecd94440537.png",
+            "sha256": "cb22b10e15a8cd6d180d3e2a19f4069f67235bfa8fdd1279b732fecd94440537",
+            "url": "https://i0.hdslb.com/bfs/article/4cf568a6f2c423dcb1b47dbaa65de6b974644144.png"
+          }
+        ]
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1815400:b0130:figure",
+        "allowedLeafPaths": [
+          "/figures/11/transcription",
+          "/figures/11/unknowns"
+        ],
+        "pointIds": [
+          "79-bilibili-cn:cv1815400:b0130:figure/不立直·10%/turn-2",
+          "79-bilibili-cn:cv1815400:b0130:figure/不立直·10%/turn-4",
+          "79-bilibili-cn:cv1815400:b0130:figure/不立直·10%/turn-6",
+          "79-bilibili-cn:cv1815400:b0130:figure/不立直·10%/turn-8",
+          "79-bilibili-cn:cv1815400:b0130:figure/不立直·10%/turn-10",
+          "79-bilibili-cn:cv1815400:b0130:figure/不立直·10%/turn-12",
+          "79-bilibili-cn:cv1815400:b0130:figure/不立直·10%/turn-14",
+          "79-bilibili-cn:cv1815400:b0130:figure/立直·0%/turn-2",
+          "79-bilibili-cn:cv1815400:b0130:figure/立直·0%/turn-4",
+          "79-bilibili-cn:cv1815400:b0130:figure/立直·0%/turn-6",
+          "79-bilibili-cn:cv1815400:b0130:figure/立直·0%/turn-8",
+          "79-bilibili-cn:cv1815400:b0130:figure/立直·0%/turn-10",
+          "79-bilibili-cn:cv1815400:b0130:figure/立直·0%/turn-12",
+          "79-bilibili-cn:cv1815400:b0130:figure/立直·0%/turn-14"
+        ],
+        "sourceAssets": [
+          {
+            "assetId": "79-bilibili-cn:71961d1952cf7818e615db7e",
+            "path": "web-sources/v1/79-bilibili-cn/assets/3d4b9dca119449f49f0549a55e6ae8b4cd96d916346391240fcab291b5d94385.png",
+            "sha256": "3d4b9dca119449f49f0549a55e6ae8b4cd96d916346391240fcab291b5d94385",
+            "url": "https://i0.hdslb.com/bfs/article/b12d9c3ae08a88ba53b8f1aaf395c13813e80de1.png"
+          }
+        ]
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1815400:b0132:figure",
+        "allowedLeafPaths": [
+          "/figures/12/transcription",
+          "/figures/12/unknowns"
+        ],
+        "pointIds": [
+          "79-bilibili-cn:cv1815400:b0132:figure/不立直·10%/turn-2",
+          "79-bilibili-cn:cv1815400:b0132:figure/不立直·10%/turn-4",
+          "79-bilibili-cn:cv1815400:b0132:figure/不立直·10%/turn-6",
+          "79-bilibili-cn:cv1815400:b0132:figure/不立直·10%/turn-8",
+          "79-bilibili-cn:cv1815400:b0132:figure/不立直·10%/turn-10",
+          "79-bilibili-cn:cv1815400:b0132:figure/不立直·10%/turn-12",
+          "79-bilibili-cn:cv1815400:b0132:figure/不立直·10%/turn-14",
+          "79-bilibili-cn:cv1815400:b0132:figure/立直·0%/turn-2",
+          "79-bilibili-cn:cv1815400:b0132:figure/立直·0%/turn-4",
+          "79-bilibili-cn:cv1815400:b0132:figure/立直·0%/turn-6",
+          "79-bilibili-cn:cv1815400:b0132:figure/立直·0%/turn-8",
+          "79-bilibili-cn:cv1815400:b0132:figure/立直·0%/turn-10",
+          "79-bilibili-cn:cv1815400:b0132:figure/立直·0%/turn-12",
+          "79-bilibili-cn:cv1815400:b0132:figure/立直·0%/turn-14"
+        ],
+        "sourceAssets": [
+          {
+            "assetId": "79-bilibili-cn:e01262d422d2befb5ab391be",
+            "path": "web-sources/v1/79-bilibili-cn/assets/377e7474db9bbf62f8efcaae391ae6dc5101b698b2ec968187911652c05e7db0.png",
+            "sha256": "377e7474db9bbf62f8efcaae391ae6dc5101b698b2ec968187911652c05e7db0",
+            "url": "https://i0.hdslb.com/bfs/article/7100158b241dbc2f4763824d2b3900a6d88e5458.png"
+          }
+        ]
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1815400:b0156:figure",
+        "allowedLeafPaths": [
+          "/figures/14/transcription",
+          "/figures/14/unknowns"
+        ],
+        "pointIds": [
+          "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-1",
+          "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-2",
+          "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-3",
+          "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-4",
+          "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-5",
+          "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-6",
+          "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-7",
+          "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-8",
+          "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-9",
+          "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-10",
+          "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-11",
+          "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-12",
+          "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-13",
+          "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-14",
+          "79-bilibili-cn:cv1815400:b0156:figure/和牌时的自摸比例/turn-15",
+          "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-1",
+          "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-2",
+          "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-3",
+          "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-4",
+          "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-5",
+          "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-6",
+          "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-7",
+          "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-8",
+          "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-9",
+          "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-10",
+          "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-11",
+          "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-12",
+          "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-13",
+          "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-14",
+          "79-bilibili-cn:cv1815400:b0156:figure/被自摸率/turn-15"
+        ],
+        "sourceAssets": [
+          {
+            "assetId": "79-bilibili-cn:4d85dc0dd2262ec2b1f5db7f",
+            "path": "web-sources/v1/79-bilibili-cn/assets/bfea6a4a3b1b55e9e6fbcdb8b4b4a82076715f026f64b08784d0d96b3bc5b35e.png",
+            "sha256": "bfea6a4a3b1b55e9e6fbcdb8b4b4a82076715f026f64b08784d0d96b3bc5b35e",
+            "url": "https://i0.hdslb.com/bfs/article/3773bb74f46caf0b903bc979b39ffa7d5d872be7.png"
+          }
+        ]
+      },
+      {
+        "figureId": "79-bilibili-cn:cv1815400:b0158:figure",
+        "allowedLeafPaths": [
+          "/figures/15/transcription",
+          "/figures/15/unknowns"
+        ],
+        "pointIds": [
+          "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-1",
+          "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-2",
+          "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-3",
+          "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-4",
+          "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-5",
+          "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-6",
+          "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-7",
+          "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-8",
+          "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-9",
+          "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-10",
+          "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-11",
+          "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-12",
+          "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-13",
+          "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-14",
+          "79-bilibili-cn:cv1815400:b0158:figure/和牌时的自摸比例/turn-15",
+          "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-1",
+          "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-2",
+          "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-3",
+          "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-4",
+          "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-5",
+          "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-6",
+          "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-7",
+          "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-8",
+          "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-9",
+          "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-10",
+          "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-11",
+          "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-12",
+          "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-13",
+          "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-14",
+          "79-bilibili-cn:cv1815400:b0158:figure/被自摸率/turn-15"
+        ],
+        "sourceAssets": [
+          {
+            "assetId": "79-bilibili-cn:9eda1df31824a4ce5554d83b",
+            "path": "web-sources/v1/79-bilibili-cn/assets/76efb2db059af06179fa2d2bea2a2299ef9c8ac2f2baafd8ca4afb179ff4f8e1.png",
+            "sha256": "76efb2db059af06179fa2d2bea2a2299ef9c8ac2f2baafd8ca4afb179ff4f8e1",
+            "url": "https://i0.hdslb.com/bfs/article/c44e2c10be7c6d40b13496738837beb3387574ca.png"
+          }
+        ]
+      }
+    ],
+    "minimumRemaining": "八张曲线图144个计划读数槽及模糊曲线归属，人工牌面快照没有数值证据；保留原unknown，不插值或自动分配条件。按原269准备包逐图处理，当前0call。",
+    "distinctFromAcceptedPdf311": "nemata-jp-chapter-309-1/PDF311-r5仅损坏图标unknown，未填且非本中文章，不能串用。"
+  },
+  "notFinalBatch": true,
+  "noNewBudgetAuthorized": true,
+  "candidateOrRawOrAnnotationsChanged": false
+}

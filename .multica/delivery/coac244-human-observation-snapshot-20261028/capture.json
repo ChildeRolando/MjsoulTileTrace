@@ -1,0 +1,18 @@
+{
+  "capturedAt": "2026-10-28T10:26:52.906331+00:00",
+  "url": "http://127.0.0.1:8765/api/export",
+  "method": "GET",
+  "sha256": "05e28f639c6ecc26afc6155ffa252dc873c6b3e69b9393a77e6c33e42141b377",
+  "bytes": 503044,
+  "headers": {
+    "Content-Disposition": "attachment; filename=\"human-annotations.json\"",
+    "Content-Type": "application/json; charset=utf-8",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "no-referrer",
+    "Content-Security-Policy": "default-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'",
+    "Date": "Wed, 28 Oct 2026 10:26:52 GMT",
+    "Connection": "close",
+    "Transfer-Encoding": "chunked"
+  }
+}

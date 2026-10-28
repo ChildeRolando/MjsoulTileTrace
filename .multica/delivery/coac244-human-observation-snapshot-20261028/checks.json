@@ -1,0 +1,33 @@
+{
+  "actualSnapshotHistoriesValidated": 111,
+  "latestSavedItems": 20,
+  "currentSavedItems": 17,
+  "unfilledCurrentItems": 34,
+  "negativeChecks": [
+    "wrong-targetId",
+    "wrong-imageSha256",
+    "wrong-canonical",
+    "wrong-position",
+    "wrong-originalImages",
+    "wrong-id",
+    "revision-gap",
+    "wrong-current-candidate",
+    "latest-withdrawn",
+    "latest-unclear",
+    "latest-missing",
+    "latest-skipped",
+    "new-answer-after-snapshot",
+    "application-e4d676a874f84120516fb9cabffb01d0",
+    "application-992e21f9926080a86779c0c8ef789753",
+    "application-24a2d288e3e63c5cbb80f7f6e9713a4d",
+    "application-9eeebe25961682b896ba944d95d3b966",
+    "application-1b5f06d972548151f86c1b632681fd92",
+    "application-3722e774b30167a0ec0c09ade18406b1",
+    "application-c9f0532f18c0e12b568ea5b6c3209335",
+    "application-84791e37a95dcfa295e38dbf27855039"
+  ],
+  "negativeChecksPassed": 21,
+  "noteTextNeverExecuted": true,
+  "changedUserRecords": false,
+  "newModelCalls": 0
+}
