@@ -1,0 +1,202 @@
+{
+  "canonical": "79-cn-chapter-201-6",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.r1.display.json",
+    "sha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77"
+  },
+  "receipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-201-target-impact-reviewed-20261028.json",
+    "sha256": "3a37da953a628ba7ab8bc031df939c0f168ca7e623150d7c5c4beba5a0f5a3e7"
+  },
+  "independentRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\47cad59c-6a7b-41a6-9ae5-9a977e9d34b7.json",
+    "sha256": "58e94e9b0a066c8974bff593c5f18004c4b6a1a730966b9b7cba65d65726c83d"
+  },
+  "status": "exact201-five-limit-stage-verified",
+  "independentConclusion": "target-faithful-limited-display-acceptable",
+  "originalUncertainPreserved": true,
+  "sourceNotePreserved": true,
+  "originalModelIssues": [
+    {
+      "severity": "uncertain",
+      "targetId": "79-bilibili-cn:cv1770179:b0005:figure",
+      "evidence": "北家牌河靠中央列最下方万子在转写和unknowns中标为?m。",
+      "description": "点数及相关的具体安全关系仍未独立确定。原图和明确未知的转写可在实际展示规定限制的条件下用于呈现作者论述。"
+    },
+    {
+      "severity": "source-note",
+      "targetId": "79-bilibili-cn:cv1770179:b0006",
+      "evidence": "源中文含“和亲家对日”及旧括注“这句话不好翻译，总之是形容蠢”。",
+      "description": "这两处源文字均按授权保留；新增释义独立补足日文比喻和语气。"
+    }
+  ],
+  "sourceBlocks": 7,
+  "originalStageBlocks": 7,
+  "displayBlocks": 12,
+  "figures": 1,
+  "fiveNonAuthorLimitsInstalledInStage": true,
+  "actualHtmlAndCompiledTextChecked": true,
+  "authorCandidateFileChanged": false,
+  "authorTextMarksImagesOrderPreservedAfterRemovingNotes": true,
+  "stageReceipt": {
+    "schema": "coach-textbook-web-stage/1",
+    "status": "independently-audited-chapter-preview",
+    "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.r1.display.json",
+    "candidateSha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77",
+    "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+    "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-201-target-impact-reviewed-20261028.json",
+    "auditStatus": "admitted-exact201-five-limit-display",
+    "limitedUnknownFidelity": null,
+    "imageDerivations": [],
+    "chapters": 1,
+    "units": 1,
+    "blocks": 12,
+    "figures": 1,
+    "corpusId": "85dd3643b94edab2b8b0d30729c21bddfa39ce5c8a059fa708eb3fc07248a5f7",
+    "bodySha256": "80bef1137b025b7fedf26d081eca1109a2fbbf7035da9edd3d920141cf32c392",
+    "maxUnitBytes": 8390,
+    "modelCalls": 0,
+    "activeLibraryChanged": false,
+    "humanReview": "pending",
+    "canonical": "79-cn-chapter-201-6",
+    "standardWholeArticlePassed": false,
+    "displayLimits": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-201-limited-display-20261028/stage/display-limits.json",
+      "sha256": "fad33f19f0b3c8473ee8362f3ffac8416b4d1378f01b20028da6d31e240426f7"
+    }
+  },
+  "negativeChecks": [
+    {
+      "name": "actual-wrong-parent-file",
+      "rejected": true
+    },
+    {
+      "name": "actual-wrong-processing-root",
+      "rejected": true
+    },
+    {
+      "name": "wrong-source",
+      "rejected": true
+    },
+    {
+      "name": "translation-not-faithful",
+      "rejected": true
+    },
+    {
+      "name": "unknown-requires-resolution",
+      "rejected": true
+    },
+    {
+      "name": "uncertain-downgraded",
+      "rejected": true
+    },
+    {
+      "name": "author-condition-lost",
+      "rejected": true
+    },
+    {
+      "name": "figure-guessed",
+      "rejected": true
+    },
+    {
+      "name": "unknown-deleted",
+      "rejected": true
+    },
+    {
+      "name": "unrequested-body-change",
+      "rejected": true
+    },
+    {
+      "name": "source-old-parenthetical-deleted",
+      "rejected": true
+    },
+    {
+      "name": "source-old-wording-deleted",
+      "rejected": true
+    },
+    {
+      "name": "five-limits-missing",
+      "rejected": true
+    },
+    {
+      "name": "proposal-as-author",
+      "rejected": true
+    },
+    {
+      "name": "wrong-full-object-hash",
+      "rejected": true
+    },
+    {
+      "name": "false-already-installed",
+      "rejected": true
+    },
+    {
+      "name": "display-note-deleted",
+      "rejected": true
+    },
+    {
+      "name": "display-note-text-changed",
+      "rejected": true
+    },
+    {
+      "name": "display-note-author-flag",
+      "rejected": true
+    },
+    {
+      "name": "display-note-not-near-target",
+      "rejected": true
+    },
+    {
+      "name": "display-author-marks-lost",
+      "rejected": true
+    }
+  ],
+  "archive": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-201-target-impact-reviewed-20261028.json",
+      "sha256": "3a37da953a628ba7ab8bc031df939c0f168ca7e623150d7c5c4beba5a0f5a3e7",
+      "copy": "evidence/e0.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\47cad59c-6a7b-41a6-9ae5-9a977e9d34b7.json",
+      "sha256": "58e94e9b0a066c8974bff593c5f18004c4b6a1a730966b9b7cba65d65726c83d",
+      "copy": "evidence/e1.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.r1.display.json",
+      "sha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77",
+      "copy": "evidence/e2.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.display.json",
+      "sha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+      "copy": "evidence/e3.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1770179.52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8.json",
+      "sha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+      "copy": "evidence/e4.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-201-display-requirements-20261028.json",
+      "sha256": "e80625a0088ab997f8753853f3ae6a9f752ddb8af4415638a6ac798ac243fef7",
+      "copy": "evidence/e5.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-201-scope-inheritance-20261028.json",
+      "sha256": "0d739b400c4025872070a6968180bec4642f96011467a3705d65c37a94af2258",
+      "copy": "evidence/e6.json"
+    }
+  ],
+  "sourceMeaningAndExactSafetyNotResolved": true,
+  "wholeChapterPassed": false,
+  "ordinaryWholeArticlePassed": false,
+  "globalAdmissionGranted": false,
+  "globalMcpArenaReadbackRequired": true,
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "newConsumers": 0,
+  "fee": null,
+  "remoteWeights": null,
+  "upstreamExecutions": null
+}

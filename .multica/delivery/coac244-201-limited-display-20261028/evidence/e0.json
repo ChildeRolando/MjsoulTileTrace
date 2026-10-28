@@ -1,0 +1,522 @@
+{
+  "schema": "coac249-201-independent-target-impact/1",
+  "key": "201",
+  "recordedAt": "2026-10-28T09:08:02.521Z",
+  "issueId": "01a17471-1595-79d5-bdfa-6feaa65172c0",
+  "taskId": "01a181b5-9a69-7d72-9055-4db4597b3ef6",
+  "canonical": "79-cn-chapter-201-6",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.r1.display.json",
+    "sha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1770179\\source.json",
+    "sha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.display.json",
+    "sha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8"
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1770179.52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8.json",
+    "sha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911"
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac248-182201-inline-v1-20261028\\runtime-manifest.json",
+    "sha256": "2df26827a1d13f9b9e13569b0628c987fbb3b7be04f9e0b8a186589e115c84b4",
+    "files": 19
+  },
+  "handoff": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-182201-20261028\\cv1770179-handoff249.json",
+    "sha256": "9406e5af5c7ee74f8002767528784143a16082507a8723463d23def2a0b28e46"
+  },
+  "status": "target-faithful-limited-display-evidence",
+  "modelReview": {
+    "translation": {
+      "targetId": "79-bilibili-cn:cv1770179:b0006",
+      "verdict": "faithful",
+      "evidence": "新增的“恐怕就像日本向美国挑起战争一样鲁莽吧”保留了日本向美国挑战战争的具体比喻、くらい表示的程度比较、無謀的鲁莽评价以及でしょう的推测语气。日文原句和旧括注“这句话不好翻译，总之是形容蠢”均保留。"
+    },
+    "carriedIssue": {
+      "targetId": "79-bilibili-cn:cv1770179:b0005:figure",
+      "positionConfirmed": true,
+      "currentDisplayFaithful": true,
+      "authorArgumentFaithfulWithCurrentLimitation": true,
+      "requiresResolvedMeaningOrExactTileForAuthorArgument": false,
+      "evidence": "原图及放大图中的指定位置是画面右侧北家牌河靠中央列的最下方；现有转写在该位置标为?m，unknowns也明确点数未确认。本轮不复认父审提出的具体点数。作者对弃和顺序、保留共同安全牌及手牌差时与亲家对抗的评价，均可按原文呈现；但未知牌使某些针对北家的具体安全关系不能仅凭这份转写核实。currentDisplayFaithful仅针对该位置的诚实未知展示，不认证其余逐张转写；最终展示仍须实际显示下列审校限制。",
+      "requiredDisplayLimitations": [
+        "以下限制是审校补充说明，并非原文内容。",
+        "北家牌河靠中央列最下方的万子点数未确认，转写为?m；该转写不能作为逐张确证的完整牌谱。",
+        "“5万、6索和西是安全牌”以及切西后有人追立则“安全牌就全没了”是作者对本局面的判断。未知万子使北家对5万是否为现物不能仅由这份转写独立确认，也不能据此证明后一句对每种具体追立情形必然成立。",
+        "作者将下家打出无筋3饼视为很有追立的可能；不能将可能性展示成已经追立或确定会追立。",
+        "本例不认证其他人的暗手、所有对手的安全度、追立概率或弃牌选择的最优性。"
+      ],
+      "unresolvedContributionOrMinimumGap": "指定万子的准确点数仍未解决，其对北家5万现物关系及具体追立情形的影响未获独立验证。若要验证该具体关系，至少须以可靠材料核实此牌是否为5万；若要证明具体追立情形下的安全判断，还须补足相应牌河、时序和安全条件。忠实展示作者原有论述并明确上述限制，不以完成这些验证为前提。"
+    },
+    "argumentChecks": [
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770179:b0001",
+          "79-bilibili-cn:cv1770179:b0002",
+          "79-bilibili-cn:cv1770179:b0003"
+        ],
+        "authorContribution": "免责声明、权利归属、译者署名及转载注明要求，并给出原文地址；这些是来源说明而非牌理论证。",
+        "preservedConditions": "保留译者SeventhTG、转载时注明原作者、原文地址及译者的要求，以及原文地址http://beginners.biz/mamori/mamori06.html。",
+        "faithfulWithCurrentLimitation": true,
+        "evidence": "三个文本块按原顺序保留，地址原本作为文本呈现，href为null。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770179:b0004"
+        ],
+        "authorContribution": "作者提出弃和应从安全度高的牌切起，即使拆散手牌也不要紧，并认为遵守切牌顺序会大幅降低放铳率。",
+        "preservedConditions": "有现物或场上已切三张的字牌等完全安全牌时先切；先切已通过的牌，因为一巡中现物可能增加、他家可能放铳、立直者可能自摸。有现物却先切看似能通过的牌，作者认为从防守角度有损失。",
+        "faithfulWithCurrentLimitation": true,
+        "evidence": "对应正文及强调“从安全度高地牌开始切”的标记继承未变。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770179:b0004"
+        ],
+        "authorContribution": "作者进一步给出多张现物之间的优先原则：将来可能有危险的牌先切。",
+        "preservedConditions": "该顺序以手中有多张现物为条件，指将来可能出现的危险。",
+        "faithfulWithCurrentLimitation": true,
+        "evidence": "“如果有多张现物的话”和加重的“将来可能有危险的牌先切”均保留。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770179:b0005"
+        ],
+        "authorContribution": "牌局图为后文的弃和切牌顺序示例提供局面。",
+        "preservedConditions": "图示为东1局1本场，东家27000点，其余三家各24000点；中央有一根立直棒及5p宝牌标示。原图与两倍放大图对应同一幅图；北家指定万子保留为?m。",
+        "faithfulWithCurrentLimitation": true,
+        "evidence": "图在现物优先原则之后、实例解说之前；figure对象保留原图绑定、转写和unknowns。该判断不扩展为对所有牌面转写的复核。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770179:b0006"
+        ],
+        "authorContribution": "作者评价这里手牌很烂，并以日本向美国挑起战争作比喻，认为此时与亲家对抗很鲁莽。",
+        "preservedConditions": "比喻针对这里的差手牌和与亲家对抗这一情境；保留推测语气、日文原句、源中文“和亲家对日”及原有译者括注。",
+        "faithfulWithCurrentLimitation": true,
+        "evidence": "新增中文释义完整表达具体比喻及语气；指定北家万子的精确点数不是复述这一评价所必需的条件。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770179:b0007"
+        ],
+        "authorContribution": "作者称5万、6索和西是安全牌，认为切5万或6索都没有什么问题，而切西是切牌顺序失误。",
+        "preservedConditions": "这三张牌及两个可选弃牌均按作者原文保留；将其作为作者对该局面的判断呈现。",
+        "faithfulWithCurrentLimitation": true,
+        "evidence": "正文直接列出三张牌和两种推荐选择；?m未确认会限制对北家5万现物关系的独立核验，但不妨碍有说明地转述作者选择。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770179:b0007"
+        ],
+        "authorContribution": "作者说这里若有人追立，安全牌就全没了，并指出下家突然切出无筋3饼，很有追立的可能。",
+        "preservedConditions": "保留“有人追立”这一条件、原文“全没了”的表述及下家追立只是很有可能的判断。",
+        "faithfulWithCurrentLimitation": true,
+        "evidence": "可原样呈现作者的条件判断，同时显示它尚未因本轮审校而被证明适用于每个具体追立情形。"
+      },
+      {
+        "sourceBlockIds": [
+          "79-bilibili-cn:cv1770179:b0007"
+        ],
+        "authorContribution": "作者总结：有多张现物时应保留共同的安全牌，并预告下一回讨论手牌没有安全牌时怎么办。",
+        "preservedConditions": "保留“有多张现物”的条件、共同安全牌的取舍、理论强调标记和下一回预告。",
+        "faithfulWithCurrentLimitation": true,
+        "evidence": "理论段落与后续预告按原顺序保留；展示这一总结无须认定未知万子的具体点数或证明选择最优。"
+      }
+    ],
+    "orderedContextFaithful": true,
+    "completeRequestedScopeCompared": true,
+    "conclusion": "target-faithful-limited-display-acceptable",
+    "issues": [
+      {
+        "severity": "uncertain",
+        "targetId": "79-bilibili-cn:cv1770179:b0005:figure",
+        "evidence": "北家牌河靠中央列最下方万子在转写和unknowns中标为?m。",
+        "description": "点数及相关的具体安全关系仍未独立确定。原图和明确未知的转写可在实际展示规定限制的条件下用于呈现作者论述。"
+      },
+      {
+        "severity": "source-note",
+        "targetId": "79-bilibili-cn:cv1770179:b0006",
+        "evidence": "源中文含“和亲家对日”及旧括注“这句话不好翻译，总之是形容蠢”。",
+        "description": "这两处源文字均按授权保留；新增释义独立补足日文比喻和语气。"
+      }
+    ],
+    "summary": "新增中文释义忠实。指定万子仍以?m保留；在实际显示审校限制的条件下，可以忠实呈现作者的弃和建议及其条件，但不能据此认证精确牌谱或具体安全判断。"
+  },
+  "verification": {
+    "limitedEvidenceVerified": true,
+    "errors": [],
+    "requiredDisplayLimitations": [
+      "以下限制是审校补充说明，并非原文内容。",
+      "北家牌河靠中央列最下方的万子点数未确认，转写为?m；该转写不能作为逐张确证的完整牌谱。",
+      "“5万、6索和西是安全牌”以及切西后有人追立则“安全牌就全没了”是作者对本局面的判断。未知万子使北家对5万是否为现物不能仅由这份转写独立确认，也不能据此证明后一句对每种具体追立情形必然成立。",
+      "作者将下家打出无筋3饼视为很有追立的可能；不能将可能性展示成已经追立或确定会追立。",
+      "本例不认证其他人的暗手、所有对手的安全度、追立概率或弃牌选择的最优性。"
+    ],
+    "originalIssuesPreserved": true,
+    "wholeChapterPassed": false,
+    "admissionGranted": false,
+    "meaning": "Independent bounded evidence only; all actual required limitations and any unresolved source contribution must be mapped to a legal exact display scope before 250 admission."
+  },
+  "verificationError": null,
+  "call": {
+    "callId": "47cad59c-6a7b-41a6-9ae5-9a977e9d34b7",
+    "scope": "textbook-201-independent-bounded-review",
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1770179",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "success": true,
+    "usage": {
+      "inputTokens": 22286,
+      "cachedInputTokens": 0,
+      "outputTokens": 11293
+    },
+    "durationMs": 172487,
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "callerRequested": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-terra",
+        "--config",
+        "model_reasoning_effort=\"max\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-UM6N9o\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-UM6N9o\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-UM6N9o",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.x2.png",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+          "sha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+          "bytes": 16376
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.x2.png",
+          "sha256": "fc84150fe08ef0c4cd41c7289bfb8a2137caf10dca2e558b505b81898a42f0cc",
+          "bytes": 24093
+        }
+      ],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "binding": {
+      "canonical": "79-cn-chapter-201-6",
+      "productionSha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77",
+      "sourceFileSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+      "parentSha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+      "parentAuditSha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+      "runtimeManifestSha256": "2df26827a1d13f9b9e13569b0628c987fbb3b7be04f9e0b8a186589e115c84b4",
+      "scope": "201-independent-target-and-unknown-impact",
+      "authorizationComment": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2"
+    },
+    "promptSha256": "8a7d72d931356105d2de38c8fd8bcddada38f1b152fc6f8247d831da7fef6635",
+    "semanticPromptSha256": "7223aec916e8f916256ff8453fa86fe7ab8f45aa6660963ec86b5962cabda791",
+    "schemaSha256": "96926c46d273ad21f0a61294bd0b8f300baa2de80f30dc6d68619a6b95e036ad",
+    "recordedAt": "2026-10-28T09:08:02.503Z"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\47cad59c-6a7b-41a6-9ae5-9a977e9d34b7.json",
+    "sha256": "58e94e9b0a066c8974bff593c5f18004c4b6a1a730966b9b7cba65d65726c83d"
+  },
+  "plan": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-201-target-impact-20261028\\plan.json",
+    "sha256": "7493135d97d674de41f308b29b072934e190364b5c983261b05ac373411e2cb9"
+  },
+  "productionProof": {
+    "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1770179.r1.display.json",
+    "candidateSha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77",
+    "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+    "parentSha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+    "parentAuditSha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+    "parentRawSha256": "786f61ab90fac87c0e3e1fb4b6ddfb7c3c876a0b57f87b9107da99fcdfe14339",
+    "production": {
+      "callId": "3f706cc0-63ea-4721-934e-05e8816724e7",
+      "rawArtifactPath": "raw-calls/3f706cc0-63ea-4721-934e-05e8816724e7.json",
+      "rawArtifactSha256": "ada513bd1b4413c346a98081be0171529a8f07f46041ffd8b0862574cf0eb773",
+      "revision": {
+        "inlineJapanese": {
+          "plan": {
+            "schema": "coach-inline-japanese-revision/1",
+            "authorizationCommentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+            "chapterId": "79-cn-chapter-201-6",
+            "bindings": {
+              "parentSha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+              "notesSha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+              "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb"
+            },
+            "edits": [
+              {
+                "sourceBlockId": "79-bilibili-cn:cv1770179:b0006",
+                "quotedText": "日本がアメリカに戦争を挑むくらい無謀でしょう。",
+                "operation": "gloss"
+              }
+            ]
+          },
+          "binding": {
+            "path": "integration/coac248-182201-20261028/cv1770179-plan.json",
+            "sha256": "9b1656e26dc00ffe39f2ed4bafc10b9ea4c1fce9848a5e74e0a4b67f6a0db12a",
+            "plan": {
+              "schema": "coach-inline-japanese-revision/1",
+              "authorizationCommentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+              "chapterId": "79-cn-chapter-201-6",
+              "bindings": {
+                "parentSha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+                "notesSha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+                "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb"
+              },
+              "edits": [
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1770179:b0006",
+                  "quotedText": "日本がアメリカに戦争を挑むくらい無謀でしょう。",
+                  "operation": "gloss"
+                }
+              ]
+            }
+          },
+          "sourceLanguage": "zh-CN",
+          "bodyMode": "verbatim-with-bound-inline-translation-only"
+        },
+        "revision": {
+          "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1770179.display.json",
+          "parentSha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+          "notesPath": "audit/web/articles/79-bilibili-cn/cv1770179.52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8.json",
+          "notesSha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+          "textBlockIds": [
+            "79-bilibili-cn:cv1770179:b0006"
+          ],
+          "figureIds": [],
+          "inlineJapanese": {
+            "path": "integration/coac248-182201-20261028/cv1770179-plan.json",
+            "sha256": "9b1656e26dc00ffe39f2ed4bafc10b9ea4c1fce9848a5e74e0a4b67f6a0db12a",
+            "plan": {
+              "schema": "coach-inline-japanese-revision/1",
+              "authorizationCommentId": "01a181a7-0e17-79cd-9f13-c8fe5cf060b2",
+              "chapterId": "79-cn-chapter-201-6",
+              "bindings": {
+                "parentSha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+                "notesSha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+                "sourceSha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb"
+              },
+              "edits": [
+                {
+                  "sourceBlockId": "79-bilibili-cn:cv1770179:b0006",
+                  "quotedText": "日本がアメリカに戦争を挑むくらい無謀でしょう。",
+                  "operation": "gloss"
+                }
+              ]
+            }
+          }
+        },
+        "parentAudit": {
+          "path": "audit/web/articles/79-bilibili-cn/cv1770179.52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8.json",
+          "sha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+          "originalStatus": "needs-repair"
+        },
+        "parentCall": {
+          "callId": "0eb687de-1d35-4fe2-b823-05c58912cecc",
+          "path": "audit/calls/0eb687de-1d35-4fe2-b823-05c58912cecc.json",
+          "sha256": "786f61ab90fac87c0e3e1fb4b6ddfb7c3c876a0b57f87b9107da99fcdfe14339"
+        },
+        "inheritedAssetIds": [
+          "79-bilibili-cn:17f83d84efc76a05aa889c27"
+        ],
+        "unresolvedParentIssuesPreserved": [
+          {
+            "severity": "error",
+            "targetId": "79-bilibili-cn:cv1770179:b0005:figure",
+            "sourceEvidence": "附图中，右侧北家牌河靠中央一列最下方为九万；候选将其写成?m。",
+            "description": "具体牌码被占位符替代，导致完整牌河转写缺失一张牌的点数。",
+            "suggestedRepair": "将北家牌河写为“9m 7z 5z 3m 2s 4z／9s 6z 3p”，删除相关?m解释及unknowns中的对应条目。"
+          }
+        ],
+        "productionOnlyAuthorization": true,
+        "chapterAccepted": false
+      }
+    },
+    "presentation": {
+      "parent": {
+        "path": "web-production/v1/runs/coac248-182201-cv1770179-20261028/model-output-without-display.json",
+        "sha256": "7a2e555d6a6f6338509d691bd4dbbdb22faa03bb93b2ee8474a736365ec7239c",
+        "reason": "Exact real model-authored inline translation with unchanged original-image presentations. Intermediate is not a separate review candidate."
+      },
+      "pixels": {
+        "passed": true,
+        "figures": 1,
+        "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+      }
+    },
+    "checks": {
+      "passed": true,
+      "errors": [],
+      "textBlocks": 6,
+      "imageRuns": 1,
+      "imageOccurrences": 1,
+      "figures": 1
+    },
+    "visualProof": {
+      "inputs": [
+        {
+          "assetId": "79-bilibili-cn:17f83d84efc76a05aa889c27",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+          "sourceSha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/79-bilibili-cn/assets/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+          "sha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 501,
+          "height": 500
+        },
+        {
+          "assetId": "79-bilibili-cn:17f83d84efc76a05aa889c27",
+          "sourcePath": "web-sources/v1/79-bilibili-cn/assets/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+          "sourceSha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.x2.png",
+          "sha256": "fc84150fe08ef0c4cd41c7289bfb8a2137caf10dca2e558b505b81898a42f0cc",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 2,
+          "resampling": "nearest",
+          "width": 1002,
+          "height": 1000
+        }
+      ],
+      "pixels": {
+        "passed": true,
+        "inputs": 2
+      }
+    },
+    "runtimeManifestSha256": "2df26827a1d13f9b9e13569b0628c987fbb3b7be04f9e0b8a186589e115c84b4",
+    "projectionSha256": "e1055046f20988e464f31d9ae8f93f2413b5c21c68ec2f27da30ccecf9c2d5ad"
+  },
+  "orderedPairs": 7,
+  "images": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+      "sha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+      "bytes": 16376
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.x2.png",
+      "sha256": "fc84150fe08ef0c4cd41c7289bfb8a2137caf10dca2e558b505b81898a42f0cc",
+      "bytes": 24093
+    }
+  ],
+  "newReviewCalls": 1,
+  "newProductionCalls": 0,
+  "chapterPhaseCalls": {
+    "maker": 1,
+    "review": 1,
+    "maximum": 2,
+    "remaining": 0,
+    "failedVoidCount": true,
+    "retry": 0
+  },
+  "batchMaximum": 4,
+  "otherBudgetNotBorrowed": true,
+  "wholeChapterPassed": false,
+  "admissionGranted": false,
+  "oldRawAuditOrCandidateChanged": false,
+  "fee": "unknown",
+  "remoteWeights": "unknown",
+  "upstreamExecutionCount": "unknown"
+}
