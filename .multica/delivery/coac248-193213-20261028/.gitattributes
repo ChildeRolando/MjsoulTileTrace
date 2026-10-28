@@ -1,0 +1,5 @@
+*.json -text whitespace=cr-at-eol
+*.mjs text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+evidence/** -text -whitespace

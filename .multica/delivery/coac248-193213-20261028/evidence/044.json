@@ -1,0 +1,582 @@
+{
+  "authorization": "01a181be-9dce-7647-abb5-1d0f3c67509d",
+  "job": {
+    "key": "213",
+    "chapterId": "nemata-jp-chapter-213-1",
+    "articleId": "chapter03-section026",
+    "sourceId": "modern-yabejp-ja",
+    "authorizationCommentId": "01a181be-9dce-7647-abb5-1d0f3c67509d",
+    "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.display.json",
+    "parentSha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+    "sourcePath": "web-sources/v1/modern-yabejp-ja/articles/chapter03-section026/source.json",
+    "sourceSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+    "notesPath": "audit/web/articles/modern-yabejp-ja/chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+    "notesSha256": "a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc",
+    "parentObjectSha256": "28844f568c676957337f23afe52857c7702a87bd9f314332b6b6d21537daf566",
+    "notesObjectSha256": "13c21d585a0dc4ce33f5919b2d6bfd37a9f856d57a8882335d6e2d9b8e4d7369",
+    "targetTextId": "modern-yabejp-ja:chapter03-section026:b0017",
+    "targetFigureId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+    "textBefore": "也很可疑。因为，如果听牌时打出的牌并非作为安全牌保留的，也不是因为进张而打出的，那么其附近就是所听的牌。",
+    "textSpanBefore": "也不是因为进张而打出的",
+    "sampleReplacement": "其周边也不属于进张完成面子的一侧",
+    "textPrefix": "也很可疑。因为，如果听牌时打出的牌并非作为安全牌保留的，",
+    "textSuffix": "，那么其附近就是所听的牌。",
+    "figureReplacements": [
+      {
+        "before": "1p [点数不清的筒子牌] 4s",
+        "after": "1p 7p 4s"
+      },
+      {
+        "before": "左列第1张1p、第2张筒子牌、第4张9s",
+        "after": "左列第1张1p、第2张7p、第4张9s"
+      }
+    ],
+    "expectedTranscription": "牌局画面。以下牌河均先列靠近中央的一排，再列外侧各排，并按各家自己的出牌方向记录；红线单独说明，不表示赤牌。\n\n下方本家：手牌从图像左至右为1m 2m 3m 7m 8m 9m 4p 4p 8p 9p；右侧隔开放置的摸入牌为5p。右下方副露从图像左至右为3m（横置，牌面相对画面逆时针旋转90°）4m 5m。其他这些手牌与副露牌均朝上。\n本家牌河：第1排从左至右为1z 3z 4z 5s 1p 1z；第2排从左至右为6s 3p 9s 3p 7z 2s。红线位于第1排第3张4z、第6张1z，以及第2排第1张6s、第3张9s、第4张3p的下缘。\n\n上方对家：牌河普通牌面相对画面旋转180°。第1排从图像右至左为2m 4z 1z 8m 2p [字面不清的字牌]；第2排从右至左为3s 7s 6s 9p 5z（横置）1p；第3排仅有1m，位于图像右端。红线位于第1排第6张字牌、第2排第3张6s与第6张1p、第3排1m的图像上缘。对家牌河与中央显示区之间有一根白底红点的立直棒。\n\n左家：牌面相对画面顺时针旋转90°。靠中央的右列从图像上至下为2p 1s 9s 8m 6p 3s；外侧左列从上至下为1p 7p 4s 9s 6s 2s。红线位于右列第6张3s，以及左列第1张1p、第2张7p、第4张9s、第6张2s的图像左缘。\n\n右家：牌面相对画面逆时针旋转90°。靠中央的左列从图像下至上为2z 2z 4z 1m 4m 3m；中间列从下至上为1m 2z 2p 3z 7s 6z；最外侧列从下至上为9s 4s。红线位于靠中央列第3张4z、第6张3m，以及中间列第4张3z、第5张7s、第6张6z的图像右缘。右上角副露从图像上至下为7z 7z 7z；最上方7z相对于该家的另外两张牌横置，其字面朝上，下面两张的牌面相对画面逆时针旋转90°。\n\n牌墙：左侧竖墙顶面从上至下有11个位置，第3个位置亮出的牌为6p，牌面相对画面逆时针旋转90°，其他10个位置为蓝色牌背；下方横墙可见5个蓝色牌背顶面。\n\n中央显示：东4局；下方两个小图标后的数字依次为0、1。座风为下方北、上方南、左侧西、右侧东。下方分数为20000，右侧分数为20000；上方及左侧分数无法可靠完整辨认。右上方规则文字表示东南战、允许食断、含赤牌。各家座位旁还有小号文字，无法完整辨认。",
+    "expectedUnknowns": [
+      "对家牌河第1排从其出牌方向数第6张，即图像靠中央一排最左端的字牌，其具体字面无法可靠辨认。",
+      "中央上方与左侧的完整分数无法可靠辨认。",
+      "中央数字0、1前的小图标无法辨认，无法仅凭图标确认各自所指的计数项目。",
+      "各家座位旁的小号姓名或其他附属文字无法完整辨认。"
+    ],
+    "allOriginalUnknowns": [
+      "对家牌河第1排从其出牌方向数第6张，即图像靠中央一排最左端的字牌，其具体字面无法可靠辨认。",
+      "左家牌河外侧左列自上而下第2张筒子牌的具体点数无法可靠辨认。",
+      "中央上方与左侧的完整分数无法可靠辨认。",
+      "中央数字0、1前的小图标无法辨认，无法仅凭图标确认各自所指的计数项目。",
+      "各家座位旁的小号姓名或其他附属文字无法完整辨认。"
+    ],
+    "fixedFigure": {
+      "kind": "mahjong-example",
+      "caption": "根据对家保留后打出的9p，判断继续进攻是否合适。红线表示摸切牌。",
+      "sourceNotes": [
+        "两张附件是同一张截图的原图与2倍最近邻放大图，只记录一次牌局。",
+        "青色矩形遮住了其他三家的手牌；蓝色牌背不提供牌种信息。",
+        "红色边线是摸切标记，不能据此将牌认作赤牌；5s牌面上的红色中间竹节也不表示赤牌。",
+        "黄色鼠标指针、黑色背景和画面下缘细线属于截图或布局痕迹，不是教学箭头或牌面符号。",
+        "牌墙下层有重叠和遮挡，顶面位置数不代表完整可见牌墙的总张数。"
+      ]
+    },
+    "visualInputs": [
+      {
+        "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+        "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+        "sourceSha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+        "sha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+        "role": "original",
+        "scale": 1,
+        "resampling": "none",
+        "width": 640,
+        "height": 505
+      },
+      {
+        "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+        "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+        "sourceSha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.x2.png",
+        "sha256": "0fd640eefd45747cb62c6c5c24fb46b66d52ba26ad06c987bd0f03799b932fc4",
+        "role": "nearest-neighbor-enlargement",
+        "scale": 2,
+        "resampling": "nearest",
+        "width": 1280,
+        "height": 1010
+      }
+    ],
+    "priorCallIds": [
+      "478ca8f6-cab6-4873-8cde-44bdf4f58d7f"
+    ],
+    "history": [
+      {
+        "callId": "478ca8f6-cab6-4873-8cde-44bdf4f58d7f",
+        "success": true,
+        "usage": {
+          "inputTokens": 18762,
+          "cachedInputTokens": 0,
+          "outputTokens": 11008
+        }
+      }
+    ],
+    "reviewRawPath": "audit/calls/93f4a5a8-e5fb-4b57-b5b7-c05946e951d7.json",
+    "reviewRawSha256": "ad4cf4f177742d2eff4f96a4147ddde1abdd9bf99baadd14b64d36b1a87a9b5c",
+    "bodyCount": 53,
+    "figureCount": 24
+  },
+  "parentProof": {
+    "callId": "478ca8f6-cab6-4873-8cde-44bdf4f58d7f",
+    "rawArtifactPath": "raw-calls/478ca8f6-cab6-4873-8cde-44bdf4f58d7f.json",
+    "rawArtifactSha256": "a92600d3b37530e696e011fe615defec56aa030f75c359bc88b9cfb7df8f9a5c",
+    "visualInputs": {
+      "inputs": [
+        {
+          "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+          "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+          "sourceSha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+          "sha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 640,
+          "height": 505
+        },
+        {
+          "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+          "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+          "sourceSha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.x2.png",
+          "sha256": "0fd640eefd45747cb62c6c5c24fb46b66d52ba26ad06c987bd0f03799b932fc4",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 2,
+          "resampling": "nearest",
+          "width": 1280,
+          "height": 1010
+        }
+      ],
+      "pixels": {
+        "passed": true,
+        "inputs": 2
+      }
+    }
+  },
+  "parentPresentation": {
+    "parent": {
+      "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.json",
+      "sha256": "8c8e9b06b51a50ad502d39d71a1530009d2c4c72e7e6f602c0d313f0d78aa5ec",
+      "reason": "Lossless display images only; translations and source figure sequences unchanged"
+    },
+    "pixels": {
+      "passed": true,
+      "figures": 24,
+      "method": "independent no-gap no-padding RGBA bottom-aligned concatenation, every pixel"
+    }
+  },
+  "inheritance": {
+    "revision": {
+      "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.display.json",
+      "parentSha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+      "notesPath": "audit/web/articles/modern-yabejp-ja/chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+      "notesSha256": "a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc",
+      "textBlockIds": [
+        "modern-yabejp-ja:chapter03-section026:b0017"
+      ],
+      "figureIds": [
+        "modern-yabejp-ja:chapter03-section026:b0032:figure"
+      ],
+      "exact193213": {
+        "key": "213",
+        "authorizationCommentId": "01a181be-9dce-7647-abb5-1d0f3c67509d",
+        "contractSha256": "d07d197ffce26ef08b710205f8f9dcba113c757685d79c30a0d17ad9ba5dc500"
+      }
+    },
+    "parentAudit": {
+      "path": "audit/web/articles/modern-yabejp-ja/chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+      "sha256": "a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc",
+      "originalStatus": "needs-repair"
+    },
+    "parentCall": {
+      "callId": "93f4a5a8-e5fb-4b57-b5b7-c05946e951d7",
+      "path": "audit/calls/93f4a5a8-e5fb-4b57-b5b7-c05946e951d7.json",
+      "sha256": "ad4cf4f177742d2eff4f96a4147ddde1abdd9bf99baadd14b64d36b1a87a9b5c"
+    },
+    "inheritedAssetIds": [
+      "modern-yabejp-ja:aaaa5fd72ccc12bd7da6f6aa",
+      "modern-yabejp-ja:3e03d661064b04283aeea2c5",
+      "modern-yabejp-ja:f5980e09ae04d921ed066df7",
+      "modern-yabejp-ja:3d679855094c9151924672ea",
+      "modern-yabejp-ja:c26e34d916cc6500e3469d7d",
+      "modern-yabejp-ja:a05d48eb31c8c5c04fc90864",
+      "modern-yabejp-ja:59887c6a14f55b27663151a1",
+      "modern-yabejp-ja:328555e7a72fc7783dd5d75d",
+      "modern-yabejp-ja:ff0605857cc5c60bc5c303e3",
+      "modern-yabejp-ja:9da9b8a56900c3b0b5e431c4",
+      "modern-yabejp-ja:5323955b942f8b4fbeab214c",
+      "modern-yabejp-ja:f55c3ee9049517f305f5f288",
+      "modern-yabejp-ja:ddfc65a49b12ba9eaad31799",
+      "modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71"
+    ],
+    "productionOnlyAuthorization": true,
+    "wholeChapterPassed": false,
+    "unresolvedParentIssuesPreserved": [
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter03-section026:b0032:figure",
+        "sourceEvidence": "候选将对家靠中央一排最左端字牌，以及中央上方、左侧的完整点数列为无法辨认。",
+        "description": "这些属于牌局牌码和数值数据，本次无法可靠确认其准确转录，不能作为非教学边缘残痕直接放行。",
+        "suggestedRepair": "复核附图中该字牌及两家点数，补录能够确定的内容；确实无法辨认的继续如实标未知并保留原图，但在相关歧义解决前保持阻断。"
+      }
+    ]
+  },
+  "visualProof": {
+    "inputs": [
+      {
+        "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+        "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+        "sourceSha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+        "sha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+        "role": "original",
+        "scale": 1,
+        "resampling": "none",
+        "width": 640,
+        "height": 505
+      },
+      {
+        "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+        "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+        "sourceSha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.x2.png",
+        "sha256": "0fd640eefd45747cb62c6c5c24fb46b66d52ba26ad06c987bd0f03799b932fc4",
+        "role": "nearest-neighbor-enlargement",
+        "scale": 2,
+        "resampling": "nearest",
+        "width": 1280,
+        "height": 1010
+      }
+    ],
+    "pixels": {
+      "passed": true,
+      "inputs": 2
+    }
+  },
+  "negativeChecks": [
+    {
+      "name": "missing-text",
+      "rejected": true
+    },
+    {
+      "name": "duplicate-text",
+      "rejected": true
+    },
+    {
+      "name": "missing-figure",
+      "rejected": true
+    },
+    {
+      "name": "duplicate-figure",
+      "rejected": true
+    },
+    {
+      "name": "empty-text",
+      "rejected": true
+    },
+    {
+      "name": "wrong-text-id",
+      "rejected": true
+    },
+    {
+      "name": "outside-clause",
+      "rejected": true
+    },
+    {
+      "name": "unrepaired-clause",
+      "rejected": true
+    },
+    {
+      "name": "wrong-tile",
+      "rejected": true
+    },
+    {
+      "name": "unrepaired-tile",
+      "rejected": true
+    },
+    {
+      "name": "extra-unknown-removal",
+      "rejected": true
+    },
+    {
+      "name": "unknown-duplication",
+      "rejected": true
+    },
+    {
+      "name": "caption",
+      "rejected": true
+    },
+    {
+      "name": "sourceNotes",
+      "rejected": true
+    },
+    {
+      "name": "source-sha",
+      "rejected": true
+    },
+    {
+      "name": "parent-sha",
+      "rejected": true
+    },
+    {
+      "name": "target-path",
+      "rejected": true
+    },
+    {
+      "name": "non-target-text",
+      "rejected": true
+    },
+    {
+      "name": "non-target-figure",
+      "rejected": true
+    },
+    {
+      "name": "order",
+      "rejected": true
+    },
+    {
+      "name": "unknown-deletion",
+      "rejected": true
+    }
+  ],
+  "exclusion": {
+    "at": "2026-10-28T09:18:33.911Z",
+    "previewSha256": "582a21739ba267b8954806d070de07b3fc4fb3395798fac65087d6e75c9ab74a",
+    "registerSha256": "a3f74c9fa2a206cd31c3b5074dc9efe1651ab097b0b9789bc453656fcaa25c04",
+    "registerRow": {
+      "chapterId": "nemata-jp-chapter-213-1",
+      "originalChapterId": "nemata-jp-chapter-213-1",
+      "sourceId": "nemata-jp",
+      "title": "逆切り３",
+      "units": 1,
+      "ownedSourceBlocks": 51,
+      "adjudicationGroup": "confirmed-produced-not-covered",
+      "covered": false,
+      "coverageRoute": null,
+      "approvedWebCorrespondence": {
+        "articleId": "chapter03-section026",
+        "webSourceId": "modern-yabejp-ja",
+        "tier": "url-header",
+        "evidencePath": "integration/modern-pdf-url-coverage.json",
+        "substitutionAllowed": true,
+        "bodyEquivalenceConfirmed": false,
+        "articleInPreview": false
+      },
+      "existingCandidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.display.json",
+        "sha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+        "bodyBlocks": 53,
+        "sourceSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+        "currentSourceSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+        "auditRecordedAt": "2026-10-26T13:20:26.533Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 3,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          213,
+          214,
+          215
+        ],
+        "pagesDetail": [
+          {
+            "page": 213,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 44
+          },
+          {
+            "page": 214,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 3
+          },
+          {
+            "page": 215,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 33
+          }
+        ]
+      },
+      "gaps": {
+        "ownedSourceBlocks": 51,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 51,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 51,
+        "acceptanceGapPages": [
+          213,
+          214,
+          215
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          213,
+          214,
+          215
+        ]
+      },
+      "verdict": "produced-needs-repair",
+      "coac246": {
+        "action": "repair",
+        "auditStatus": "needs-repair",
+        "candidateSha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+        "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.display.json",
+        "repairErrors": 8,
+        "units": 1,
+        "blocks": 51
+      }
+    },
+    "passed": [],
+    "candidates": [
+      "chapter03-section026.display.json",
+      "chapter03-section026.json"
+    ],
+    "priorCalls": [
+      {
+        "callId": "478ca8f6-cab6-4873-8cde-44bdf4f58d7f",
+        "success": true,
+        "usage": {
+          "inputTokens": 18762,
+          "cachedInputTokens": 0,
+          "outputTokens": 11008
+        }
+      }
+    ]
+  },
+  "claimCheck": {
+    "ok": true,
+    "action": "check-chapter",
+    "chapter": "nemata-jp-chapter-213-1",
+    "held": false
+  },
+  "request": {
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "images": [
+      {
+        "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+        "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+        "sourceSha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+        "sha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+        "role": "original",
+        "scale": 1,
+        "resampling": "none",
+        "width": 640,
+        "height": 505
+      },
+      {
+        "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+        "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+        "sourceSha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.x2.png",
+        "sha256": "0fd640eefd45747cb62c6c5c24fb46b66d52ba26ad06c987bd0f03799b932fc4",
+        "role": "nearest-neighbor-enlargement",
+        "scale": 2,
+        "resampling": "nearest",
+        "width": 1280,
+        "height": 1010
+      }
+    ],
+    "schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "translations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "sourceBlockId": {
+                "type": "string",
+                "enum": [
+                  "modern-yabejp-ja:chapter03-section026:b0017"
+                ]
+              },
+              "text": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "sourceBlockId",
+              "text"
+            ]
+          }
+        },
+        "figures": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "sourceBlockId": {
+                "type": "string",
+                "enum": [
+                  "modern-yabejp-ja:chapter03-section026:b0032"
+                ]
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "mahjong-example"
+                ]
+              },
+              "transcription": {
+                "type": "string"
+              },
+              "unknowns": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "caption": {
+                "type": "string",
+                "enum": [
+                  "根据对家保留后打出的9p，判断继续进攻是否合适。红线表示摸切牌。"
+                ]
+              },
+              "sourceNotes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "sourceBlockId",
+              "kind",
+              "transcription",
+              "unknowns",
+              "caption",
+              "sourceNotes"
+            ]
+          }
+        }
+      },
+      "required": [
+        "translations",
+        "figures"
+      ]
+    },
+    "prompt": "Execute only the two bound repairs in this Japanese Mahjong textbook: one exception-condition clause translation and one specified figure correction. Return exactly one COMPLETE target text block and one COMPLETE target figure. All other author text, inline tiles, figures, source marks, numbers, conditions, tableContext and DOM order are inherited unchanged.\n\nIndependently read the original Japanese and actual original image plus its pixel-exact2x view. Prior independent review evidence is a locator and may be wrong: never copy a controller suggestion as truth. Do not identify unknown tiles, infer red tiles, use tile logic to fill holes, or rewrite the original author strategy. The image attachments are the same source, not extra tiles.\n\nText: preserve the exact supplied prefix and suffix. Replace ONLY textSpanBefore with an accurate Chinese rendering of the 入り目 exception in the complete source argument. Distinguish the declaration/discard tile from the newly drawn tile and the side of a meld completed by that draw; retain both source exceptions and author modality. Do not add unrelated instruction, numbers or conditions. The Japanese source and ordered inline tile fragments determine the meaning, not the prior proposed translation.\n\nFigure: if the actual pixels confirm the specified repair, apply ONLY figureReplacements. Preserve all other characters and fields, caption/sourceNotes/kind. For193 retain ALL4unknown strings verbatim, including right-hand tiles4–6 and red uncertainty. For213 remove ONLY the single old unknown naming the specified outer-left second7p and retain the other4 strings verbatim; update only that tile and its matching red-line reference, retaining clockwise90° and draw-discard marking. No other unknown can be filled. If a correction cannot be supported, return the original fields rather than guessing; local validation will stop this chapter without retry.\n\n{\"canonical\":\"nemata-jp-chapter-213-1\",\"sourceSha256\":\"224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a\",\"parentSha256\":\"4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4\",\"targets\":{\"textIds\":[\"modern-yabejp-ja:chapter03-section026:b0017\"],\"figureIds\":[\"modern-yabejp-ja:chapter03-section026:b0032\"]},\"whitelist\":{\"textSpanBefore\":\"也不是因为进张而打出的\",\"prefix\":\"也很可疑。因为，如果听牌时打出的牌并非作为安全牌保留的，\",\"suffix\":\"，那么其附近就是所听的牌。\",\"figureReplacements\":[{\"before\":\"1p [点数不清的筒子牌] 4s\",\"after\":\"1p 7p 4s\"},{\"before\":\"左列第1张1p、第2张筒子牌、第4张9s\",\"after\":\"左列第1张1p、第2张7p、第4张9s\"}],\"originalUnknowns\":[\"对家牌河第1排从其出牌方向数第6张，即图像靠中央一排最左端的字牌，其具体字面无法可靠辨认。\",\"左家牌河外侧左列自上而下第2张筒子牌的具体点数无法可靠辨认。\",\"中央上方与左侧的完整分数无法可靠辨认。\",\"中央数字0、1前的小图标无法辨认，无法仅凭图标确认各自所指的计数项目。\",\"各家座位旁的小号姓名或其他附属文字无法完整辨认。\"],\"expectedUnknowns\":[\"对家牌河第1排从其出牌方向数第6张，即图像靠中央一排最左端的字牌，其具体字面无法可靠辨认。\",\"中央上方与左侧的完整分数无法可靠辨认。\",\"中央数字0、1前的小图标无法辨认，无法仅凭图标确认各自所指的计数项目。\",\"各家座位旁的小号姓名或其他附属文字无法完整辨认。\"],\"fixedFigure\":{\"kind\":\"mahjong-example\",\"caption\":\"根据对家保留后打出的9p，判断继续进攻是否合适。红线表示摸切牌。\",\"sourceNotes\":[\"两张附件是同一张截图的原图与2倍最近邻放大图，只记录一次牌局。\",\"青色矩形遮住了其他三家的手牌；蓝色牌背不提供牌种信息。\",\"红色边线是摸切标记，不能据此将牌认作赤牌；5s牌面上的红色中间竹节也不表示赤牌。\",\"黄色鼠标指针、黑色背景和画面下缘细线属于截图或布局痕迹，不是教学箭头或牌面符号。\",\"牌墙下层有重叠和遮挡，顶面位置数不代表完整可见牌墙的总张数。\"]}},\"originalParentFigure\":{\"sourceBlockId\":\"modern-yabejp-ja:chapter03-section026:b0032\",\"kind\":\"mahjong-example\",\"transcription\":\"牌局画面。以下牌河均先列靠近中央的一排，再列外侧各排，并按各家自己的出牌方向记录；红线单独说明，不表示赤牌。\\n\\n下方本家：手牌从图像左至右为1m 2m 3m 7m 8m 9m 4p 4p 8p 9p；右侧隔开放置的摸入牌为5p。右下方副露从图像左至右为3m（横置，牌面相对画面逆时针旋转90°）4m 5m。其他这些手牌与副露牌均朝上。\\n本家牌河：第1排从左至右为1z 3z 4z 5s 1p 1z；第2排从左至右为6s 3p 9s 3p 7z 2s。红线位于第1排第3张4z、第6张1z，以及第2排第1张6s、第3张9s、第4张3p的下缘。\\n\\n上方对家：牌河普通牌面相对画面旋转180°。第1排从图像右至左为2m 4z 1z 8m 2p [字面不清的字牌]；第2排从右至左为3s 7s 6s 9p 5z（横置）1p；第3排仅有1m，位于图像右端。红线位于第1排第6张字牌、第2排第3张6s与第6张1p、第3排1m的图像上缘。对家牌河与中央显示区之间有一根白底红点的立直棒。\\n\\n左家：牌面相对画面顺时针旋转90°。靠中央的右列从图像上至下为2p 1s 9s 8m 6p 3s；外侧左列从上至下为1p [点数不清的筒子牌] 4s 9s 6s 2s。红线位于右列第6张3s，以及左列第1张1p、第2张筒子牌、第4张9s、第6张2s的图像左缘。\\n\\n右家：牌面相对画面逆时针旋转90°。靠中央的左列从图像下至上为2z 2z 4z 1m 4m 3m；中间列从下至上为1m 2z 2p 3z 7s 6z；最外侧列从下至上为9s 4s。红线位于靠中央列第3张4z、第6张3m，以及中间列第4张3z、第5张7s、第6张6z的图像右缘。右上角副露从图像上至下为7z 7z 7z；最上方7z相对于该家的另外两张牌横置，其字面朝上，下面两张的牌面相对画面逆时针旋转90°。\\n\\n牌墙：左侧竖墙顶面从上至下有11个位置，第3个位置亮出的牌为6p，牌面相对画面逆时针旋转90°，其他10个位置为蓝色牌背；下方横墙可见5个蓝色牌背顶面。\\n\\n中央显示：东4局；下方两个小图标后的数字依次为0、1。座风为下方北、上方南、左侧西、右侧东。下方分数为20000，右侧分数为20000；上方及左侧分数无法可靠完整辨认。右上方规则文字表示东南战、允许食断、含赤牌。各家座位旁还有小号文字，无法完整辨认。\",\"unknowns\":[\"对家牌河第1排从其出牌方向数第6张，即图像靠中央一排最左端的字牌，其具体字面无法可靠辨认。\",\"左家牌河外侧左列自上而下第2张筒子牌的具体点数无法可靠辨认。\",\"中央上方与左侧的完整分数无法可靠辨认。\",\"中央数字0、1前的小图标无法辨认，无法仅凭图标确认各自所指的计数项目。\",\"各家座位旁的小号姓名或其他附属文字无法完整辨认。\"],\"caption\":\"根据对家保留后打出的9p，判断继续进攻是否合适。红线表示摸切牌。\",\"sourceNotes\":[\"两张附件是同一张截图的原图与2倍最近邻放大图，只记录一次牌局。\",\"青色矩形遮住了其他三家的手牌；蓝色牌背不提供牌种信息。\",\"红色边线是摸切标记，不能据此将牌认作赤牌；5s牌面上的红色中间竹节也不表示赤牌。\",\"黄色鼠标指针、黑色背景和画面下缘细线属于截图或布局痕迹，不是教学箭头或牌面符号。\",\"牌墙下层有重叠和遮挡，顶面位置数不代表完整可见牌墙的总张数。\"]},\"independentIssues\":[{\"severity\":\"error\",\"targetId\":\"modern-yabejp-ja:chapter03-section026:b0017\",\"sourceEvidence\":\"テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。\",\"description\":\"“入り目でもなければ”不是泛指“不是因为进张而打出的”。原文排除的是该牌周边属于进张完成面子一侧的情况；候选译法模糊了判断待牌位置的重要例外。\"},{\"severity\":\"error\",\"targetId\":\"modern-yabejp-ja:chapter03-section026:b0032:figure\",\"sourceEvidence\":\"附图左家牌河外侧左列从图像上至下第2张为7p；末段原文说对家很可能持有至少一张7p，因此7p最多只剩两张。\",\"description\":\"候选将这张可见7p写作“点数不清的筒子牌”，遗漏了直接影响剩余张数论证的明牌。\"},{\"severity\":\"uncertain\",\"targetId\":\"modern-yabejp-ja:chapter03-section026:b0032:figure\",\"sourceEvidence\":\"候选将对家靠中央一排最左端字牌，以及中央上方、左侧的完整点数列为无法辨认。\",\"description\":\"这些属于牌局牌码和数值数据，本次无法可靠确认其准确转录，不能作为非教学边缘残痕直接放行。\"}],\"orderedSourceCandidateFigureContext\":[{\"position\":0,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0001\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0001\",\"text\":\"逆切り３\",\"segments\":[{\"text\":\"逆切り３\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0001\"],\"sourceText\":\"逆切り３\",\"text\":\"逆切3\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0001\",\"sourceSegments\":[{\"text\":\"逆切り３\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":1,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0002\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0002\",\"text\":\"読みの技術論６，７辺りの補足になります。\",\"segments\":[{\"text\":\"読みの技術論６\",\"marks\":[],\"href\":\"http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html\"},{\"text\":\"，\",\"marks\":[],\"href\":null},{\"text\":\"７\",\"marks\":[],\"href\":\"http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html\"},{\"text\":\"辺りの補足になります。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0002\"],\"sourceText\":\"読みの技術論６，７辺りの補足になります。\",\"text\":\"这是对[读牌技术论6](http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html)、[7](http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html)等内容的补充。\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0002\",\"sourceSegments\":[{\"text\":\"読みの技術論６\",\"marks\":[],\"href\":\"http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html\"},{\"text\":\"，\",\"marks\":[],\"href\":null},{\"text\":\"７\",\"marks\":[],\"href\":\"http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html\"},{\"text\":\"辺りの補足になります。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":2,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0003\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"text\":\"面子構成しやすい牌→面子構成しにくい牌の順で手出しで切られている場合は強い情報になりやすいということは６，７で挙げました。このことは６，７で取り上げた例以外にも活用できる場面が多くあります。\",\"segments\":[{\"text\":\"面子構成しやすい牌→面子構成しにくい牌の順で手出しで切られている場合は強い情報になりやすいということは\",\"marks\":[],\"href\":null},{\"text\":\"６\",\"marks\":[],\"href\":\"http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html\"},{\"text\":\"，\",\"marks\":[],\"href\":null},{\"text\":\"７\",\"marks\":[],\"href\":\"http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html\"},{\"text\":\"で挙げました。このことは\",\"marks\":[],\"href\":null},{\"text\":\"６\",\"marks\":[],\"href\":\"http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html\"},{\"text\":\"，\",\"marks\":[],\"href\":null},{\"text\":\"７\",\"marks\":[],\"href\":\"http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html\"},{\"text\":\"で取り上げた例以外にも活用できる場面が多くあります。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0003\"],\"sourceText\":\"面子構成しやすい牌→面子構成しにくい牌の順で手出しで切られている場合は強い情報になりやすいということは６，７で挙げました。このことは６，７で取り上げた例以外にも活用できる場面が多くあります。\",\"text\":\"在[6](http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html)、[7](http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html)中提到过，如果按容易构成面子的牌→不易构成面子的牌的顺序手切，往往能提供很有力的信息。除了[6](http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html)、[7](http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html)中举出的例子，还有很多场合可以运用这一点。\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"sourceSegments\":[{\"text\":\"面子構成しやすい牌→面子構成しにくい牌の順で手出しで切られている場合は強い情報になりやすいということは\",\"marks\":[],\"href\":null},{\"text\":\"６\",\"marks\":[],\"href\":\"http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html\"},{\"text\":\"，\",\"marks\":[],\"href\":null},{\"text\":\"７\",\"marks\":[],\"href\":\"http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html\"},{\"text\":\"で挙げました。このことは\",\"marks\":[],\"href\":null},{\"text\":\"６\",\"marks\":[],\"href\":\"http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section006.html\"},{\"text\":\"，\",\"marks\":[],\"href\":null},{\"text\":\"７\",\"marks\":[],\"href\":\"http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section007.html\"},{\"text\":\"で取り上げた例以外にも活用できる場面が多くあります。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":3,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0004\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00001\",\"assetId\":\"modern-yabejp-ja:aaaa5fd72ccc12bd7da6f6aa\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/m5.png\"],\"alt\":\"五\",\"title\":\"五萬\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"5m\",\"filename\":\"m5.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"五萬\",\"alt\":\"五\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0004\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0004:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0004:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0004\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00001\"],\"kind\":\"mahjong-example\",\"transcription\":\"5m\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"5m\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":4,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0005\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"text\":\"→\",\"segments\":[{\"text\":\"→\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0005\"],\"sourceText\":\"→\",\"text\":\"→\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"sourceSegments\":[{\"text\":\"→\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":5,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0006\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00002\",\"assetId\":\"modern-yabejp-ja:3e03d661064b04283aeea2c5\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/m9.png\"],\"alt\":\"九\",\"title\":\"九萬\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"9m\",\"filename\":\"m9.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"九萬\",\"alt\":\"九\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0006\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0006:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0006:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0006\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00002\"],\"kind\":\"mahjong-example\",\"transcription\":\"9m\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"9m\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":6,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0007\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"text\":\"の順で切られていればスジでも\",\"segments\":[{\"text\":\"の順で切られていればスジでも\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0007\"],\"sourceText\":\"の順で切られていればスジでも\",\"text\":\"按这个顺序打出的话，即使是筋张，\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"sourceSegments\":[{\"text\":\"の順で切られていればスジでも\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":7,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0008\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00003\",\"assetId\":\"modern-yabejp-ja:f5980e09ae04d921ed066df7\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/m8.png\"],\"alt\":\"八\",\"title\":\"八萬\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"8m\",\"filename\":\"m8.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"八萬\",\"alt\":\"八\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0008\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0008:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0008:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0008\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00003\"],\"kind\":\"mahjong-example\",\"transcription\":\"8m\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"8m\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":8,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0009\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"text\":\"は結構危険になりますし、\",\"segments\":[{\"text\":\"は結構危険になりますし、\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0009\"],\"sourceText\":\"は結構危険になりますし、\",\"text\":\"也相当危险；而且，\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"sourceSegments\":[{\"text\":\"は結構危険になりますし、\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":9,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0010\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00004\",\"assetId\":\"modern-yabejp-ja:3d679855094c9151924672ea\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/p6.png\"],\"alt\":\"(6)\",\"title\":\"六筒\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"6p\",\"filename\":\"p6.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"六筒\",\"alt\":\"(6)\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0010\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0010:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0010:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0010\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00004\"],\"kind\":\"mahjong-example\",\"transcription\":\"6p\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"6p\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":10,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0011\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"text\":\"がカンされていたり場に４枚見えているのに\",\"segments\":[{\"text\":\"がカンされていたり場に４枚見えているのに\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0011\"],\"sourceText\":\"がカンされていたり場に４枚見えているのに\",\"text\":\"被杠，或场上已经能看到4张时，却又打出\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"sourceSegments\":[{\"text\":\"がカンされていたり場に４枚見えているのに\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":11,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0012\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00005\",\"assetId\":\"modern-yabejp-ja:c26e34d916cc6500e3469d7d\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/p7.png\"],\"alt\":\"(7)\",\"title\":\"七筒\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"7p\",\"filename\":\"p7.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"七筒\",\"alt\":\"(7)\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0012\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0012:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0012:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0012\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00005\"],\"kind\":\"mahjong-example\",\"transcription\":\"7p\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"7p\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":12,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0013\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"text\":\"が切られてテンパイとなれば壁になっているとはいえ\",\"segments\":[{\"text\":\"が切られてテンパイとなれば壁になっているとはいえ\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0013\"],\"sourceText\":\"が切られてテンパイとなれば壁になっているとはいえ\",\"text\":\"而进入听牌的话，虽说已经形成了壁，\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"sourceSegments\":[{\"text\":\"が切られてテンパイとなれば壁になっているとはいえ\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":13,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0014\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00006\",\"assetId\":\"modern-yabejp-ja:a05d48eb31c8c5c04fc90864\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/p8.png\"],\"alt\":\"(8)\",\"title\":\"八筒\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"8p\",\"filename\":\"p8.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"八筒\",\"alt\":\"(8)\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0014\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0014:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0014:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0014\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00006\"],\"kind\":\"mahjong-example\",\"transcription\":\"8p\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"8p\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":14,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0015\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"text\":\"，\",\"segments\":[{\"text\":\"，\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0015\"],\"sourceText\":\"，\",\"text\":\"、\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"sourceSegments\":[{\"text\":\"，\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":15,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0016\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00007\",\"assetId\":\"modern-yabejp-ja:59887c6a14f55b27663151a1\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png\"],\"alt\":\"(9)\",\"title\":\"九筒\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"9p\",\"filename\":\"p9.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"九筒\",\"alt\":\"(9)\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0016\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0016:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0016:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0016\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00007\"],\"kind\":\"mahjong-example\",\"transcription\":\"9p\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"9p\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":16,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0017\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"text\":\"も怪しいところです。テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。\",\"segments\":[{\"text\":\"も怪しいところです。テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0017\"],\"sourceText\":\"も怪しいところです。テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。\",\"text\":\"也很可疑。因为，如果听牌时打出的牌并非作为安全牌保留的，也不是因为进张而打出的，那么其附近就是所听的牌。\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0003\",\"sourceSegments\":[{\"text\":\"も怪しいところです。テンパイ時点で切られた牌が安牌として持たれていた訳でなく、入り目でもなければその周辺が待ちになっているからです。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":17,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0018\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"text\":\"中張牌より後に１･９牌が切られるケースは、\",\"segments\":[{\"text\":\"中張牌より後に１･９牌が切られるケースは、\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0018\"],\"sourceText\":\"中張牌より後に１･９牌が切られるケースは、\",\"text\":\"在中张牌之后才打出1、9牌的情况，\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"sourceSegments\":[{\"text\":\"中張牌より後に１･９牌が切られるケースは、\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":18,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0019\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00008\",\"assetId\":\"modern-yabejp-ja:328555e7a72fc7783dd5d75d\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/s1.png\"],\"alt\":\"１\",\"title\":\"一索\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"1s\",\"filename\":\"s1.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"一索\",\"alt\":\"１\",\"status\":\"pending-independent-image-dictionary-check\"}},{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00009\",\"assetId\":\"modern-yabejp-ja:328555e7a72fc7783dd5d75d\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/s1.png\"],\"alt\":\"１\",\"title\":\"一索\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"1s\",\"filename\":\"s1.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"一索\",\"alt\":\"１\",\"status\":\"pending-independent-image-dictionary-check\"}},{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00010\",\"assetId\":\"modern-yabejp-ja:ff0605857cc5c60bc5c303e3\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/s2.png\"],\"alt\":\"２\",\"title\":\"二索\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"2s\",\"filename\":\"s2.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"二索\",\"alt\":\"２\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0019\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0019:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0019:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0019\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00008\",\"modern-yabejp-ja:chapter03-section026:i00009\",\"modern-yabejp-ja:chapter03-section026:i00010\"],\"kind\":\"mahjong-example\",\"transcription\":\"1s 1s 2s\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"1s\",\"red\":false,\"orientation\":\"upright\"},{\"code\":\"1s\",\"red\":false,\"orientation\":\"upright\"},{\"code\":\"2s\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":19,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0020\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"text\":\"等の複合ターツからの切り出し、比較的安牌であった為に持たれていた以外にもう一つ考えられるのは、\",\"segments\":[{\"text\":\"等の複合ターツからの切り出し、比較的安牌であった為に持たれていた以外にもう一つ考えられるのは、\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0020\"],\"sourceText\":\"等の複合ターツからの切り出し、比較的安牌であった為に持たれていた以外にもう一つ考えられるのは、\",\"text\":\"等复合搭子中拆出、因为相对安全而保留之外，还可以考虑另一种情况，即从\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"sourceSegments\":[{\"text\":\"等の複合ターツからの切り出し、比較的安牌であった為に持たれていた以外にもう一つ考えられるのは、\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":20,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0021\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00011\",\"assetId\":\"modern-yabejp-ja:9da9b8a56900c3b0b5e431c4\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/s7.png\"],\"alt\":\"７\",\"title\":\"七索\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"7s\",\"filename\":\"s7.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"七索\",\"alt\":\"７\",\"status\":\"pending-independent-image-dictionary-check\"}},{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00012\",\"assetId\":\"modern-yabejp-ja:5323955b942f8b4fbeab214c\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/s8.png\"],\"alt\":\"８\",\"title\":\"八索\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"8s\",\"filename\":\"s8.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"八索\",\"alt\":\"８\",\"status\":\"pending-independent-image-dictionary-check\"}},{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00013\",\"assetId\":\"modern-yabejp-ja:f55c3ee9049517f305f5f288\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/s9.png\"],\"alt\":\"９\",\"title\":\"九索\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"9s\",\"filename\":\"s9.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"九索\",\"alt\":\"９\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0021\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0021:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0021:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0021\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00011\",\"modern-yabejp-ja:chapter03-section026:i00012\",\"modern-yabejp-ja:chapter03-section026:i00013\"],\"kind\":\"mahjong-example\",\"transcription\":\"7s 8s 9s\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"7s\",\"red\":false,\"orientation\":\"upright\"},{\"code\":\"8s\",\"red\":false,\"orientation\":\"upright\"},{\"code\":\"9s\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":21,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0022\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"text\":\"･\",\"segments\":[{\"text\":\"･\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0022\"],\"sourceText\":\"･\",\"text\":\"、\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"sourceSegments\":[{\"text\":\"･\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":22,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0023\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00014\",\"assetId\":\"modern-yabejp-ja:9da9b8a56900c3b0b5e431c4\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/s7.png\"],\"alt\":\"７\",\"title\":\"七索\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"7s\",\"filename\":\"s7.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"七索\",\"alt\":\"７\",\"status\":\"pending-independent-image-dictionary-check\"}},{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00015\",\"assetId\":\"modern-yabejp-ja:f55c3ee9049517f305f5f288\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/s9.png\"],\"alt\":\"９\",\"title\":\"九索\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"9s\",\"filename\":\"s9.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"九索\",\"alt\":\"９\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0023\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0023:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0023:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0023\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00014\",\"modern-yabejp-ja:chapter03-section026:i00015\"],\"kind\":\"mahjong-example\",\"transcription\":\"7s 9s\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"7s\",\"red\":false,\"orientation\":\"upright\"},{\"code\":\"9s\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":23,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0024\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"text\":\"･\",\"segments\":[{\"text\":\"･\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0024\"],\"sourceText\":\"･\",\"text\":\"、\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"sourceSegments\":[{\"text\":\"･\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":24,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0025\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00016\",\"assetId\":\"modern-yabejp-ja:5323955b942f8b4fbeab214c\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/s8.png\"],\"alt\":\"８\",\"title\":\"八索\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"8s\",\"filename\":\"s8.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"八索\",\"alt\":\"８\",\"status\":\"pending-independent-image-dictionary-check\"}},{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00017\",\"assetId\":\"modern-yabejp-ja:f55c3ee9049517f305f5f288\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/s9.png\"],\"alt\":\"９\",\"title\":\"九索\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"9s\",\"filename\":\"s9.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"九索\",\"alt\":\"９\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0025\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0025:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0025:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0025\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00016\",\"modern-yabejp-ja:chapter03-section026:i00017\"],\"kind\":\"mahjong-example\",\"transcription\":\"8s 9s\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"8s\",\"red\":false,\"orientation\":\"upright\"},{\"code\":\"9s\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":25,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0026\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"text\":\"の形からから\",\"segments\":[{\"text\":\"の形からから\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0026\"],\"sourceText\":\"の形からから\",\"text\":\"这样的牌形中，\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"sourceSegments\":[{\"text\":\"の形からから\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":26,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0027\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00018\",\"assetId\":\"modern-yabejp-ja:ddfc65a49b12ba9eaad31799\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/s6.png\"],\"alt\":\"６\",\"title\":\"六索\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"6s\",\"filename\":\"s6.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"六索\",\"alt\":\"６\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0027\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0027:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0027:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0027\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00018\"],\"kind\":\"mahjong-example\",\"transcription\":\"6s\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"6s\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":27,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0028\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"text\":\"を引いて\",\"segments\":[{\"text\":\"を引いて\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0028\"],\"sourceText\":\"を引いて\",\"text\":\"摸入后，\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"sourceSegments\":[{\"text\":\"を引いて\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":28,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0029\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00019\",\"assetId\":\"modern-yabejp-ja:f55c3ee9049517f305f5f288\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/s9.png\"],\"alt\":\"９\",\"title\":\"九索\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"9s\",\"filename\":\"s9.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"九索\",\"alt\":\"９\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0029\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0029:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0029:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0029\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00019\"],\"kind\":\"mahjong-example\",\"transcription\":\"9s\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"9s\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":29,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0030\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"text\":\"が切られるような場合です。この場合はその周辺が待ちになっている可能性が高くなるとまでは言えませんが、その周辺で面子が構成されている可能性はかなり高いと言えます（複合ターツからの切り出しでも同様のことが成り立つので）。\",\"segments\":[{\"text\":\"が切られるような場合です。この場合はその周辺が待ちになっている可能性が高くなるとまでは言えませんが、その周辺で面子が構成されている可能性はかなり高いと言えます（複合ターツからの切り出しでも同様のことが成り立つので）。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0030\"],\"sourceText\":\"が切られるような場合です。この場合はその周辺が待ちになっている可能性が高くなるとまでは言えませんが、その周辺で面子が構成されている可能性はかなり高いと言えます（複合ターツからの切り出しでも同様のことが成り立つので）。\",\"text\":\"被打出的情况。这种情况下，虽然还不能说其附近成为待牌的可能性会升高，但可以说，在其附近构成面子的可能性相当高（因为从复合搭子中拆出时，同样的道理也成立）。\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0004\",\"sourceSegments\":[{\"text\":\"が切られるような場合です。この場合はその周辺が待ちになっている可能性が高くなるとまでは言えませんが、その周辺で面子が構成されている可能性はかなり高いと言えます（複合ターツからの切り出しでも同様のことが成り立つので）。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":30,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0031\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0005\",\"text\":\"※赤線はツモ切り牌\",\"segments\":[{\"text\":\"※赤線はツモ切り牌\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0031\"],\"sourceText\":\"※赤線はツモ切り牌\",\"text\":\"※红线表示摸切牌\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0005\",\"sourceSegments\":[{\"text\":\"※赤線はツモ切り牌\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":31,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0032\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0005\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00020\",\"assetId\":\"modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/tactics/chapter03/section026/001.jpg\"],\"alt\":\"\",\"title\":\"\",\"width\":\"640\",\"height\":\"505\",\"tileHint\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0032\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0032:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0005\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0032:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0032\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00020\"],\"kind\":\"mahjong-example\",\"transcription\":\"牌局画面。以下牌河均先列靠近中央的一排，再列外侧各排，并按各家自己的出牌方向记录；红线单独说明，不表示赤牌。\\n\\n下方本家：手牌从图像左至右为1m 2m 3m 7m 8m 9m 4p 4p 8p 9p；右侧隔开放置的摸入牌为5p。右下方副露从图像左至右为3m（横置，牌面相对画面逆时针旋转90°）4m 5m。其他这些手牌与副露牌均朝上。\\n本家牌河：第1排从左至右为1z 3z 4z 5s 1p 1z；第2排从左至右为6s 3p 9s 3p 7z 2s。红线位于第1排第3张4z、第6张1z，以及第2排第1张6s、第3张9s、第4张3p的下缘。\\n\\n上方对家：牌河普通牌面相对画面旋转180°。第1排从图像右至左为2m 4z 1z 8m 2p [字面不清的字牌]；第2排从右至左为3s 7s 6s 9p 5z（横置）1p；第3排仅有1m，位于图像右端。红线位于第1排第6张字牌、第2排第3张6s与第6张1p、第3排1m的图像上缘。对家牌河与中央显示区之间有一根白底红点的立直棒。\\n\\n左家：牌面相对画面顺时针旋转90°。靠中央的右列从图像上至下为2p 1s 9s 8m 6p 3s；外侧左列从上至下为1p [点数不清的筒子牌] 4s 9s 6s 2s。红线位于右列第6张3s，以及左列第1张1p、第2张筒子牌、第4张9s、第6张2s的图像左缘。\\n\\n右家：牌面相对画面逆时针旋转90°。靠中央的左列从图像下至上为2z 2z 4z 1m 4m 3m；中间列从下至上为1m 2z 2p 3z 7s 6z；最外侧列从下至上为9s 4s。红线位于靠中央列第3张4z、第6张3m，以及中间列第4张3z、第5张7s、第6张6z的图像右缘。右上角副露从图像上至下为7z 7z 7z；最上方7z相对于该家的另外两张牌横置，其字面朝上，下面两张的牌面相对画面逆时针旋转90°。\\n\\n牌墙：左侧竖墙顶面从上至下有11个位置，第3个位置亮出的牌为6p，牌面相对画面逆时针旋转90°，其他10个位置为蓝色牌背；下方横墙可见5个蓝色牌背顶面。\\n\\n中央显示：东4局；下方两个小图标后的数字依次为0、1。座风为下方北、上方南、左侧西、右侧东。下方分数为20000，右侧分数为20000；上方及左侧分数无法可靠完整辨认。右上方规则文字表示东南战、允许食断、含赤牌。各家座位旁还有小号文字，无法完整辨认。\",\"unknowns\":[\"对家牌河第1排从其出牌方向数第6张，即图像靠中央一排最左端的字牌，其具体字面无法可靠辨认。\",\"左家牌河外侧左列自上而下第2张筒子牌的具体点数无法可靠辨认。\",\"中央上方与左侧的完整分数无法可靠辨认。\",\"中央数字0、1前的小图标无法辨认，无法仅凭图标确认各自所指的计数项目。\",\"各家座位旁的小号姓名或其他附属文字无法完整辨认。\"],\"caption\":\"根据对家保留后打出的9p，判断继续进攻是否合适。红线表示摸切牌。\",\"sourceNotes\":[\"两张附件是同一张截图的原图与2倍最近邻放大图，只记录一次牌局。\",\"青色矩形遮住了其他三家的手牌；蓝色牌背不提供牌种信息。\",\"红色边线是摸切标记，不能据此将牌认作赤牌；5s牌面上的红色中间竹节也不表示赤牌。\",\"黄色鼠标指针、黑色背景和画面下缘细线属于截图或布局痕迹，不是教学箭头或牌面符号。\",\"牌墙下层有重叠和遮挡，顶面位置数不代表完整可见牌墙的总张数。\"]}},{\"position\":32,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0033\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"text\":\"対面が\",\"segments\":[{\"text\":\"対面が\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0033\"],\"sourceText\":\"対面が\",\"text\":\"对家一直保留\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"sourceSegments\":[{\"text\":\"対面が\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":33,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0034\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00021\",\"assetId\":\"modern-yabejp-ja:59887c6a14f55b27663151a1\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png\"],\"alt\":\"(9)\",\"title\":\"九筒\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"9p\",\"filename\":\"p9.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"九筒\",\"alt\":\"(9)\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0034\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0034:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0034:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0034\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00021\"],\"kind\":\"mahjong-example\",\"transcription\":\"9p\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"9p\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":34,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0035\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"text\":\"を引っ張っていたのは上で挙げたケースに該当する可能性が高い。\",\"segments\":[{\"text\":\"を引っ張っていたのは上で挙げたケースに該当する可能性が高い。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0035\"],\"sourceText\":\"を引っ張っていたのは上で挙げたケースに該当する可能性が高い。\",\"text\":\"，很可能属于上面举出的情况。若是从\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"sourceSegments\":[{\"text\":\"を引っ張っていたのは上で挙げたケースに該当する可能性が高い。\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":35,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0036\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00022\",\"assetId\":\"modern-yabejp-ja:c26e34d916cc6500e3469d7d\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/p7.png\"],\"alt\":\"(7)\",\"title\":\"七筒\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"7p\",\"filename\":\"p7.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"七筒\",\"alt\":\"(7)\",\"status\":\"pending-independent-image-dictionary-check\"}},{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00023\",\"assetId\":\"modern-yabejp-ja:59887c6a14f55b27663151a1\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png\"],\"alt\":\"(9)\",\"title\":\"九筒\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"9p\",\"filename\":\"p9.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"九筒\",\"alt\":\"(9)\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0036\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0036:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0036:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0036\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00022\",\"modern-yabejp-ja:chapter03-section026:i00023\"],\"kind\":\"mahjong-example\",\"transcription\":\"7p 9p\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"7p\",\"red\":false,\"orientation\":\"upright\"},{\"code\":\"9p\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":36,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0037\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"text\":\"から\",\"segments\":[{\"text\":\"から\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0037\"],\"sourceText\":\"から\",\"text\":\"的牌形中，\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"sourceSegments\":[{\"text\":\"から\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":37,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0038\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00024\",\"assetId\":\"modern-yabejp-ja:3d679855094c9151924672ea\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/p6.png\"],\"alt\":\"(6)\",\"title\":\"六筒\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"6p\",\"filename\":\"p6.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"六筒\",\"alt\":\"(6)\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0038\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0038:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0038:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0038\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00024\"],\"kind\":\"mahjong-example\",\"transcription\":\"6p\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"6p\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":38,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0039\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"text\":\"引いての打\",\"segments\":[{\"text\":\"引いての打\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0039\"],\"sourceText\":\"引いての打\",\"text\":\"摸入后打出\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"sourceSegments\":[{\"text\":\"引いての打\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":39,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0040\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00025\",\"assetId\":\"modern-yabejp-ja:59887c6a14f55b27663151a1\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png\"],\"alt\":\"(9)\",\"title\":\"九筒\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"9p\",\"filename\":\"p9.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"九筒\",\"alt\":\"(9)\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0040\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0040:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0040:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0040\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00025\"],\"kind\":\"mahjong-example\",\"transcription\":\"9p\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"9p\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":40,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0041\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"text\":\"なら\",\"segments\":[{\"text\":\"なら\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0041\"],\"sourceText\":\"なら\",\"text\":\"，那么\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"sourceSegments\":[{\"text\":\"なら\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":41,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0042\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00026\",\"assetId\":\"modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/p5.png\"],\"alt\":\"(5)\",\"title\":\"五筒\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"5p\",\"filename\":\"p5.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"五筒\",\"alt\":\"(5)\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0042\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0042:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0042:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0042\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00026\"],\"kind\":\"mahjong-example\",\"transcription\":\"5p\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"5p\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":42,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0043\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"text\":\"−\",\"segments\":[{\"text\":\"−\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0043\"],\"sourceText\":\"−\",\"text\":\"−\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"sourceSegments\":[{\"text\":\"−\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":43,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0044\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00027\",\"assetId\":\"modern-yabejp-ja:a05d48eb31c8c5c04fc90864\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/p8.png\"],\"alt\":\"(8)\",\"title\":\"八筒\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"8p\",\"filename\":\"p8.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"八筒\",\"alt\":\"(8)\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0044\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0044:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0044:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0044\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00027\"],\"kind\":\"mahjong-example\",\"transcription\":\"8p\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"8p\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":44,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0045\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"text\":\"が本線（実際に相手の待ちは\",\"segments\":[{\"text\":\"が本線（実際に相手の待ちは\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0045\"],\"sourceText\":\"が本線（実際に相手の待ちは\",\"text\":\"就是主要应考虑的听牌（实际上对手听的也是\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"sourceSegments\":[{\"text\":\"が本線（実際に相手の待ちは\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":45,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0046\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00028\",\"assetId\":\"modern-yabejp-ja:8ff914ae9a3c43ed9fe2cd71\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/p5.png\"],\"alt\":\"(5)\",\"title\":\"五筒\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"5p\",\"filename\":\"p5.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"五筒\",\"alt\":\"(5)\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0046\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0046:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0046:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0046\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00028\"],\"kind\":\"mahjong-example\",\"transcription\":\"5p\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"5p\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":46,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0047\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"text\":\"−\",\"segments\":[{\"text\":\"−\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0047\"],\"sourceText\":\"−\",\"text\":\"−\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"sourceSegments\":[{\"text\":\"−\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":47,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0048\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00029\",\"assetId\":\"modern-yabejp-ja:a05d48eb31c8c5c04fc90864\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/p8.png\"],\"alt\":\"(8)\",\"title\":\"八筒\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"8p\",\"filename\":\"p8.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"八筒\",\"alt\":\"(8)\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0048\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0048:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0048:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0048\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00029\"],\"kind\":\"mahjong-example\",\"transcription\":\"8p\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"8p\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":48,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0049\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"text\":\"であった）になるし、そうでない場合でも対面が\",\"segments\":[{\"text\":\"であった）になるし、そうでない場合でも対面が\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0049\"],\"sourceText\":\"であった）になるし、そうでない場合でも対面が\",\"text\":\"）；即使并非如此，对家\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"sourceSegments\":[{\"text\":\"であった）になるし、そうでない場合でも対面が\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":49,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0050\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00030\",\"assetId\":\"modern-yabejp-ja:c26e34d916cc6500e3469d7d\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/p7.png\"],\"alt\":\"(7)\",\"title\":\"七筒\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"7p\",\"filename\":\"p7.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"七筒\",\"alt\":\"(7)\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0050\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0050:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0050:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0050\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00030\"],\"kind\":\"mahjong-example\",\"transcription\":\"7p\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"7p\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":50,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0051\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"text\":\"を１枚以上持っていることが濃厚。そうなると\",\"segments\":[{\"text\":\"を１枚以上持っていることが濃厚。そうなると\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0051\"],\"sourceText\":\"を１枚以上持っていることが濃厚。そうなると\",\"text\":\"至少持有1张的可能性也很大。这样一来，\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"sourceSegments\":[{\"text\":\"を１枚以上持っていることが濃厚。そうなると\",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null},{\"position\":51,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0052\",\"type\":\"image-run\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"images\":[{\"occurrenceId\":\"modern-yabejp-ja:chapter03-section026:i00031\",\"assetId\":\"modern-yabejp-ja:c26e34d916cc6500e3469d7d\",\"sourceUrls\":[\"http://yabejp.web.fc2.com/mahjong/img/tile_s/p7.png\"],\"alt\":\"(7)\",\"title\":\"七筒\",\"width\":\"18\",\"height\":\"24\",\"tileHint\":{\"proposedCode\":\"7p\",\"filename\":\"p7.png\",\"sizeVariant\":\"s\",\"suffix\":\"\",\"redStatus\":\"unverified\",\"orientation\":\"unverified\",\"title\":\"七筒\",\"alt\":\"(7)\",\"status\":\"pending-independent-image-dictionary-check\"}}],\"tableContext\":null},\"candidate\":{\"type\":\"figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0052\"],\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0052:figure\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"tableContext\":null},\"figure\":{\"figureId\":\"modern-yabejp-ja:chapter03-section026:b0052:figure\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0052\"],\"sourceOccurrenceIds\":[\"modern-yabejp-ja:chapter03-section026:i00031\"],\"kind\":\"mahjong-example\",\"transcription\":\"7p\",\"unknowns\":[],\"caption\":\"原文内联牌列\",\"sourceNotes\":[],\"tiles\":[{\"code\":\"7p\",\"red\":false,\"orientation\":\"upright\"}]}},{\"position\":52,\"source\":{\"id\":\"modern-yabejp-ja:chapter03-section026:b0053\",\"type\":\"text\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"text\":\"は最高でも残り２枚しかないので押すのは厳しい。よってオリるべき。 \",\"segments\":[{\"text\":\"は最高でも残り２枚しかないので押すのは厳しい。よってオリるべき。 \",\"marks\":[],\"href\":null}],\"tableContext\":null},\"candidate\":{\"type\":\"text\",\"sourceBlockIds\":[\"modern-yabejp-ja:chapter03-section026:b0053\"],\"sourceText\":\"は最高でも残り２枚しかないので押すのは厳しい。よってオリるべき。 \",\"text\":\"最多也只剩2张，继续进攻很勉强。因此应该弃和。\",\"paragraphId\":\"modern-yabejp-ja:chapter03-section026:p0006\",\"sourceSegments\":[{\"text\":\"は最高でも残り２枚しかないので押すのは厳しい。よってオリるべき。 \",\"marks\":[],\"href\":null}],\"tableContext\":null},\"figure\":null}],\"attachments\":[{\"attachment\":1,\"view\":\"original\",\"scale\":1,\"sha256\":\"9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd\",\"bytes\":null},{\"attachment\":2,\"view\":\"nearest-neighbor-enlargement\",\"scale\":2,\"sha256\":\"0fd640eefd45747cb62c6c5c24fb46b66d52ba26ad06c987bd0f03799b932fc4\",\"bytes\":null}]}",
+    "closedPromptSha256": "bd38d0ce3fa94be2b6250212938709af82fb2dcca7ffb68ebc5aeecdf5267f5f"
+  },
+  "runtimeManifestSha256": "722e33f454e4b739cf0fccea1c974086c1e63f2b32083048b572f2b0372fec32",
+  "modelCalls": 0,
+  "productionOnly": true,
+  "limits": {
+    "maker": 1,
+    "independentReviewFor249": 1,
+    "retry": 0,
+    "failedVoidCount": true
+  }
+}

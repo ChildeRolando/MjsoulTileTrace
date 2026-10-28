@@ -1,0 +1,206 @@
+{
+  "call": {
+    "callId": "da426322-fc53-44d7-8314-66472ff2b31f",
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter03-section009",
+    "sourceSha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "callerRequested": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-terra",
+        "--config",
+        "model_reasoning_effort=\"max\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-vqlEgl\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-vqlEgl\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-vqlEgl",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.x2.png",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+          "sha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+          "bytes": 61986
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.x2.png",
+          "sha256": "c48e2477714b9ecbd32e621e76e3603d7337f5de15a9074f2e2f3f3ed576c194",
+          "bytes": 518255
+        }
+      ],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "timeoutMs": 900000,
+    "startedAt": "2026-10-28T09:18:37.222Z",
+    "durationMs": 111834,
+    "usage": {
+      "inputTokens": 50235,
+      "cachedInputTokens": 0,
+      "outputTokens": 7505
+    },
+    "success": true,
+    "transportStatus": "completed",
+    "failureClass": null,
+    "rawArtifactPath": "raw-calls/da426322-fc53-44d7-8314-66472ff2b31f.json",
+    "rawArtifactSha256": "6acc0ca5f86e9c02c18958f508f73d4382392c18ff86a2a3e9f2bc2ccac398c6",
+    "outputSha256": "8f7b1807c1299a3dc1a79cc5cf28d9a72144c35f04c3cb8c26d450be99f63595",
+    "schemaSha256": "bdc6bdfb5f3cba9ad01f33f3f4bfb0a91b583dd364d91d0e3d872f7ec94d1fcd",
+    "promptSha256": "1816eba06fc06c83d077865a13e24358c5f695e49eddd258bd6ace25cf2eb13e",
+    "semanticPromptSha256": "8478a7d4de267c95bf1bc9164459507f5dab3c34728fef551103a3965613259f",
+    "cliSnapshot": {
+      "path": "audit/runtimes/coac248-193213-mixed-v1-20261028/textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+    },
+    "targets": {
+      "textIds": [
+        "modern-yabejp-ja:chapter03-section009:b0081"
+      ],
+      "figureIds": [
+        "modern-yabejp-ja:chapter03-section009:b0080"
+      ]
+    },
+    "terminalEvents": [],
+    "visualInputs": [
+      {
+        "assetId": "modern-yabejp-ja:59adb6484eba424a1d54a13f",
+        "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+        "sourceSha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-sources/v1/modern-yabejp-ja/assets/a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+        "sha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+        "role": "original",
+        "scale": 1,
+        "resampling": "none",
+        "width": 620,
+        "height": 565
+      },
+      {
+        "assetId": "modern-yabejp-ja:59adb6484eba424a1d54a13f",
+        "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+        "sourceSha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+        "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+        "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.x2.png",
+        "sha256": "c48e2477714b9ecbd32e621e76e3603d7337f5de15a9074f2e2f3f3ed576c194",
+        "role": "nearest-neighbor-enlargement",
+        "scale": 2,
+        "resampling": "nearest",
+        "width": 1240,
+        "height": 1130
+      }
+    ],
+    "revision": {
+      "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.display.json",
+      "parentSha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+      "notesPath": "audit/web/articles/modern-yabejp-ja/chapter03-section009.abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3.json",
+      "notesSha256": "8ce0cde5d4eb0d8a8538b6751cd8a3b35b3fa8d3a20d7929fea6d7548bb09ce0",
+      "textBlockIds": [
+        "modern-yabejp-ja:chapter03-section009:b0081"
+      ],
+      "figureIds": [
+        "modern-yabejp-ja:chapter03-section009:b0080:figure"
+      ],
+      "exact193213": {
+        "key": "193",
+        "authorizationCommentId": "01a181be-9dce-7647-abb5-1d0f3c67509d",
+        "contractSha256": "d07d197ffce26ef08b710205f8f9dcba113c757685d79c30a0d17ad9ba5dc500"
+      }
+    }
+  },
+  "newCalls": 1,
+  "retry": 0
+}

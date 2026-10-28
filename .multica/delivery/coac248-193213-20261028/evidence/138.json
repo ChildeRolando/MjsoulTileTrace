@@ -1,0 +1,173 @@
+{
+  "callId": "aa40d762-02aa-4855-a0f7-4104167d3ad9",
+  "pid": 70452,
+  "at": "2026-10-28T09:20:49.302Z",
+  "joint": {
+    "at": "2026-10-28T09:20:49.222Z",
+    "previewSha256": "582a21739ba267b8954806d070de07b3fc4fb3395798fac65087d6e75c9ab74a",
+    "registerSha256": "a3f74c9fa2a206cd31c3b5074dc9efe1651ab097b0b9789bc453656fcaa25c04",
+    "registerRow": {
+      "chapterId": "nemata-jp-chapter-213-1",
+      "originalChapterId": "nemata-jp-chapter-213-1",
+      "sourceId": "nemata-jp",
+      "title": "逆切り３",
+      "units": 1,
+      "ownedSourceBlocks": 51,
+      "adjudicationGroup": "confirmed-produced-not-covered",
+      "covered": false,
+      "coverageRoute": null,
+      "approvedWebCorrespondence": {
+        "articleId": "chapter03-section026",
+        "webSourceId": "modern-yabejp-ja",
+        "tier": "url-header",
+        "evidencePath": "integration/modern-pdf-url-coverage.json",
+        "substitutionAllowed": true,
+        "bodyEquivalenceConfirmed": false,
+        "articleInPreview": false
+      },
+      "existingCandidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.display.json",
+        "sha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+        "bodyBlocks": 53,
+        "sourceSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+        "currentSourceSha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+        "auditRecordedAt": "2026-10-26T13:20:26.533Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 3,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          213,
+          214,
+          215
+        ],
+        "pagesDetail": [
+          {
+            "page": 213,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 44
+          },
+          {
+            "page": 214,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 3
+          },
+          {
+            "page": 215,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 33
+          }
+        ]
+      },
+      "gaps": {
+        "ownedSourceBlocks": 51,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 51,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 51,
+        "acceptanceGapPages": [
+          213,
+          214,
+          215
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          213,
+          214,
+          215
+        ]
+      },
+      "verdict": "produced-needs-repair",
+      "coac246": {
+        "action": "repair",
+        "auditStatus": "needs-repair",
+        "candidateSha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+        "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section026.display.json",
+        "repairErrors": 8,
+        "units": 1,
+        "blocks": 51
+      }
+    },
+    "passed": [],
+    "candidates": [
+      "chapter03-section026.display.json",
+      "chapter03-section026.json"
+    ],
+    "priorCalls": [
+      {
+        "callId": "478ca8f6-cab6-4873-8cde-44bdf4f58d7f",
+        "success": true,
+        "usage": {
+          "inputTokens": 18762,
+          "cachedInputTokens": 0,
+          "outputTokens": 11008
+        }
+      }
+    ]
+  },
+  "slot": {
+    "ok": true,
+    "action": "acquire",
+    "slot": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-A.json",
+    "record": {
+      "schema": "coach-textbook-maker-slot/1",
+      "slot": "maker-A",
+      "lane": "A",
+      "owner": "COAC-248 Mika",
+      "pid": 70452,
+      "claimedAt": "2026-10-28T09:20:49.181Z",
+      "heartbeatAt": "2026-10-28T09:20:49.181Z",
+      "ttlMinutes": 20
+    }
+  },
+  "model": "gpt-6.1-terra",
+  "reasoningEffort": "max",
+  "images": [
+    {
+      "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+      "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+      "sourceSha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+      "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+      "path": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+      "sha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+      "role": "original",
+      "scale": 1,
+      "resampling": "none",
+      "width": 640,
+      "height": 505
+    },
+    {
+      "assetId": "modern-yabejp-ja:a9e55e7d0d5ddacf6d6713ee",
+      "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+      "sourceSha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+      "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+      "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.x2.png",
+      "sha256": "0fd640eefd45747cb62c6c5c24fb46b66d52ba26ad06c987bd0f03799b932fc4",
+      "role": "nearest-neighbor-enlargement",
+      "scale": 2,
+      "resampling": "nearest",
+      "width": 1280,
+      "height": 1010
+    }
+  ],
+  "budget": {
+    "maker": 1,
+    "reviewReservedFor249": 1,
+    "retry": 0
+  }
+}

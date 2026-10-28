@@ -1,0 +1,447 @@
+{
+  "schema": "coach-textbook-exact-asset-review-dependency/1",
+  "createdAt": "2026-10-23T20:44:49.459Z",
+  "scope": "Only the following 42 exact image URLs, byte hashes, decoded RGBA pixels, dimensions, orientation and red status; no filename-based generalization.",
+  "sourceDictionary": {
+    "path": "web-sources/root-checks/modern-ch01-s001-dictionary-acceptance.json",
+    "sha256": "5b31cf4aeb39b896a7e3c0d5b7799987b3370f48b07c953f3adecee769ab5820"
+  },
+  "parentCandidate": {
+    "path": "web-production/v1/candidates/modern-yabejp-ja/chapter01-section001.display.json",
+    "sha256": "091b4d145520b0280a5bdd7f94d91ab17c78534b0ea1cacaa1dca5f6278d9a87"
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter01-section001.091b4d145520b0280a5bdd7f94d91ab17c78534b0ea1cacaa1dca5f6278d9a87.json",
+    "sha256": "9751067422a542eb74f52bb290ab88eb057b34b168cee567690c9f3c40f07f97",
+    "status": "passed-after-specific-input-adjudication",
+    "originalStatus": "failed"
+  },
+  "inputAdjudication": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\adjudications\\modern-yabejp-ja\\chapter01-section001.091b4d145520b0280a5bdd7f94d91ab17c78534b0ea1cacaa1dca5f6278d9a87.input-contract-adjudication.json",
+    "sha256": "e7533c9f7667d505575197e7e016b6bb19812232e1fba4c02754235649ce2f71"
+  },
+  "independentCallId": "2910d9c8-b4da-45d8-af29-e47d5679d73c",
+  "acceptedAssets": [
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "2fc2600128add37eaeb6fb9c0c7839a76d7c523714cbb04250fd66770a12e771",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "1a014c9814f949815eb309d51f23ea50c8ca5fec6d91ef6069625cab78cc01e4",
+      "code": "5z",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/j5.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "2b77054498e0772e9181ac939627233c790592a3183193468d389a01ac04b498",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "2b9f5e3e2acce95e3cbac558472d48b13c26e5019965796fce0be3c4553c7b8a",
+      "code": "6z",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/j6.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "d938956d9e5251c2f64130b093b9c67028395e5bb4cb076489debeea07d85c01",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "f0fd00d98625fce60de4ba376df061c68cfa505d2a0c92fe8fbc92a250d0747c",
+      "code": "7z",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/j7.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "ee48e7fafc0316c5fe33aae14464459174ba6f90a88cec4b2c9aa04279a9661a",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "c31b7d9f4fa48bd75ce2433392e47e839340850d9aa2b7b8d58eb7baa23d77a4",
+      "code": "1m",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/m1.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "b2f9453d440c7d975dc13a9b54eecbdc5aec4fb2d42e891e1ea8949b721fccf4",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "77be92012dd03415d3f2387471d07d6b2fc50b7db8ddee1ec9b51e94e2f96777",
+      "code": "2m",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/m2.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "f87fab99a2232b209afe0be165bcb09ccfaac01fc07c27a8bf053aec93d4d1f6",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "6a4318558f4be89ec3319f3c50e3f074e0736ea485953c23a1d52676b9438594",
+      "code": "3m",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/m3.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "ff5e007e34d199e9f4344a9427a0109f00f6f211293eda1cf65535b6e7c6f183",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "2795660de462ca33ac391fce0a672cad3a1346a9e0666eacb170858b3c0e4c4b",
+      "code": "4m",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/m4.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "66f6326ad72c5680007f30881a36c767ef8644de270078d1ba2b448db28ea511",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "b4c1b2c00f52bba7061a658f91eb252d5399d3d2e49b943eec997764ef1a976b",
+      "code": "5m",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/m5.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "d69a65d80768722b2bda520b9270188f16d2b8e938aee3dd275902476b5a326b",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "2e7ed901d6ccde28ae38fe295f1d7fe6cfa4f82304cf4edd49cbe36798deaeca",
+      "code": "7m",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/m7.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "fcad80512b66fbd8ab8c8b1b58b2c373e71b941d6e2cb9f42d634a8fd223b634",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "c42d6f17ebdf34423e277a6355fe88b2be07c291a4d5777ab9de6fcbba293bb9",
+      "code": "8m",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/m8.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "fa24ea9787bdce53533174b719f8476b6c4f001e2797f0c2e84414df12e62e88",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "ddd246a2933b7eaaa0dc2bb0fc7598e6a2f186b8c8c78a7bcec5e93318557d69",
+      "code": "1p",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/p1.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "cdaf9763aa63e12520493bea3c734d7e86645bd485ff083dae935de78e972c20",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "cb3b5084179eb812e27f3fff729cc68cf1dda3bc76fa2e1f2ed95784cc30204c",
+      "code": "2p",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/p2.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "43b4212c8799144081ed8cd4bfc9a9140dedb8e5303650be2f2e6c96b52f35ba",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "7f05bd281937602f8fcd2b7311a041bbee178bb3dc4f98db59da44275dc425a8",
+      "code": "3p",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/p3.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "a16ecc9d3b6892b0ef7c28b2955941e4b4b7b9286b524bc5647eeeda92c6fcea",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "ee8d103822c0811a18107b3d4362c7fe5cfb4c302df5fd25a6b5e9fa073dc7d4",
+      "code": "4p",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/p4.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "9abd86ab10ddf5276c027d3167c3f3b19d6c67335e88d11dba9bc877b138656b",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "74a2d4d27adc2b5e61d65cb4a8e229e307a54e18465f116f52f785188f34ed17",
+      "code": "5p",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/p5.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "75b060ce1d7729be3a5a670c37919c8146f0fdf9abcc001da8857e776bec0aeb",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "d7240ad4bb1838adc9f07e8170fe80e2a09092dabc575f498c4d6839b9a3f134",
+      "code": "6p",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/p6.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "31e5fb580b82204f23ba3e8d139564e46b5eb91a65eb0a2cc95bf4099a234f1d",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "733adbd8c836262ebe55e4b7564ecbfdd28e65124322a8bdbd2e213c613ecc35",
+      "code": "7p",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/p7.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "b31bd3904a867f1e6335c59f775bea8a98c3210832f03d0c5ad799d9cca3b996",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "3e3e30f4fc96026588519d8848aa21113f9acb93bd900664443789a7f63cd533",
+      "code": "8p",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/p8.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "8b35bffd2cacc935444038fac87bf96fc7a564a12b443bfa4e1c84bb5b462f5b",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "278c56dd668522339845e13e93bbde93a6c2920a639e7dae89bf37e187200bdb",
+      "code": "9p",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/p9.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "9b8f13d33aac81f645ddc78825038c0779c37da8042feba7ee6ff7c8ed65d78c",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "9bdf897ef2e5e83f583721a6c0f02da3aa0df913ac6661cf2168b0fb47935119",
+      "code": "1s",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/s1.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "95f9dbd91455e85a707328e4f28a487cbbc5264529e98c2a3b3be26e1a9ccc1b",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "1766b8a6690e9af20c24d76a1973632cfd9ee935d03544b89da9ba345e17727a",
+      "code": "2s",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/s2.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "e0363c1814bbdf5a53a29cb4d9606166ba9bf8b40536256c8769b34a01c59754",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "f38d614043d2fde1595329cbdd4c90815ab4fda83d84d21db34f5bf406e93a27",
+      "code": "3s",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/s3.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "ee28cb662925a28c52de12744ecdc8f47750b328629cec8040caf8cfa1ac1e33",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "0873883657e93a76932d7e0eee33fa15fccb7ec1fff5dcc2b9053bb21b259b82",
+      "code": "4s",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/s4.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "de43bb63d6101c09a9f861c43dcd487c0931aa01d3a888f40512457f3147b64a",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "27f61798f4e97e2eb5bce2fb9321189c13b390812cd9a3b4626cddd06c623b47",
+      "code": "5s",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/s5.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "0df7e994db7ba884ab3c429f487fdd1daca5104e4c408af26a90973280a693c3",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "346bb333657eca75927ac24ce75b4b6f27b467ad252457a34f8cdcd890f7f6b6",
+      "code": "8s",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/s8.png"
+    },
+    {
+      "width": 24,
+      "height": 32,
+      "pixelSha256": "fed8a791f52de947c0c95429b52219a6fe3284aa1b639f0a0b3f7473270f49fb",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "7141b885e579ca25905af99ca19ae47d233cc79dab4981d72af806e4697dd3ba",
+      "code": "9s",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_m/s9.png"
+    },
+    {
+      "width": 18,
+      "height": 24,
+      "pixelSha256": "fa976e941e4d2a0ad89571f2edb093798066cf62718cbb6fed10336438cd9c7d",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "e00db918035e7ccab3985d5944c52457eb0705b2bc44b6a4e1a46ee17a81bd82",
+      "code": "2m",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m2.png"
+    },
+    {
+      "width": 18,
+      "height": 24,
+      "pixelSha256": "0e0069e964c05f3e86b14eaca8eecbe1d25ebb4903ee6daea7a34745ca38ff24",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "57e8ed0e406f0577bcbb144f4df6952fa83d2791310f73cb61bcc4b568b3793d",
+      "code": "3m",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m3.png"
+    },
+    {
+      "width": 18,
+      "height": 24,
+      "pixelSha256": "b4d33c4eb99d961fb87850ef742d469aa6df70a98c884f4c25eaa85bb7e4e0a6",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "36ab58b499cf45d306deb55158dd9fdb6d7ed23d8bce86c5df719418f12e1611",
+      "code": "4m",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m4.png"
+    },
+    {
+      "width": 18,
+      "height": 24,
+      "pixelSha256": "4d77f8cee252476ecc9bf4651f47b80ebcd5e791bcd86c5c13d7124f1a578d8a",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "5a4a77aad3598a95a46e284e4425da8370c58a7c6ad7e142ceb70725897973b4",
+      "code": "5m",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m5.png"
+    },
+    {
+      "width": 18,
+      "height": 24,
+      "pixelSha256": "b91b24fef6b57cdf25285858f1d78d104d424a77f25356163a79b98005729daf",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "e01bc8a4fc6a6cf8b459dad8909c9b82553ebdeff25dc217dce94b6c90f27890",
+      "code": "6m",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m6.png"
+    },
+    {
+      "width": 18,
+      "height": 24,
+      "pixelSha256": "6b2fa015b8c05ecda11a5f524b509543388f07d8763ad1fff29ac51f222993d2",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "8b444ba3413da7b802da2570cfa6cd10e733be710cea5f7ce6660e2bc36fe3da",
+      "code": "7m",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m7.png"
+    },
+    {
+      "width": 18,
+      "height": 24,
+      "pixelSha256": "1555cb94e60b0b8b0973edf5af60bd0160d6deb0f980d1d6263a591467a617fb",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "6720a061ff6942a14624235a8b3ae4084307fbd723821cb6aa19f69ce8a3a325",
+      "code": "8m",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/m8.png"
+    },
+    {
+      "width": 18,
+      "height": 24,
+      "pixelSha256": "7bb753a4c38a04fbab89a595eee931bebd3d13e90cc22d254b4887e78e801832",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "7f708a0ec1ad3c89e4a43b3e48ab3fcd703569e57d8926e3e0e57a9c3776c94c",
+      "code": "1p",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p1.png"
+    },
+    {
+      "width": 18,
+      "height": 24,
+      "pixelSha256": "d75a35f704d2de7d0ff691150b01a48268b8de87306bf223436cc6b4dfc7bd59",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "03718424cb16ab52db153a98f34955b5f0ab92db3c299debf341470f9debfaa1",
+      "code": "2p",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p2.png"
+    },
+    {
+      "width": 18,
+      "height": 24,
+      "pixelSha256": "88b1f1062c12400e7e2c06a5d36fdfe1449af8a7e8565db78fa77baa6e89e975",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "adda1658bdc69be1d2cc953b061e1b9b322926af81d8298b12dc803697f86a80",
+      "code": "3p",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p3.png"
+    },
+    {
+      "width": 18,
+      "height": 24,
+      "pixelSha256": "14d3aa5b472abf746bc1d788edaed67fcbd79232e7df74bf08d7bbaa334a7762",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "6a095ab935afcfd1b79e3014dd1dcee741bfc9ac5f7540568c6b22ee2e76a754",
+      "code": "4p",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p4.png"
+    },
+    {
+      "width": 18,
+      "height": 24,
+      "pixelSha256": "cdef59db463cfc9e50070b39a0eae313a6b3ab6d8ab620157898b4d62b7cacd1",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "8dba46e91289629756c6112d9aadd993bd0157ad32a4a2d55d970986a5ddd141",
+      "code": "9p",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/p9.png"
+    },
+    {
+      "width": 18,
+      "height": 24,
+      "pixelSha256": "15f0e56159887d8c46a27f6e407017fa9e9f5da3391e7e1dce453c822dc2eacb",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "664ea678d254c0a7b72e2998b7a5e7c85f8b66d01d0156a35ad56aa044247de3",
+      "code": "4s",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s4.png"
+    },
+    {
+      "width": 18,
+      "height": 24,
+      "pixelSha256": "12f93cdf1194d6d8b652be7d9572c09d935963b3c8161d05a668062e1b3233bd",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "7d2b6241f78ef93876caef972d717a33bb0ad589e2c93696dc2832f57f03944a",
+      "code": "5s",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s5.png"
+    },
+    {
+      "width": 18,
+      "height": 24,
+      "pixelSha256": "bb001e5cc76f6e656eea60d21eb084a757d7385e6ecc9ae113ac2705fd5aac7f",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "0be7ec4042b1aa0ef244a2848a2d13fab62b96c30fa730c650a64fe761440b73",
+      "code": "8s",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s8.png"
+    },
+    {
+      "width": 18,
+      "height": 24,
+      "pixelSha256": "b35dbe3397633e3c6da00e65440b7b1c62b318ffdfaed58c9e9d33527e7a670f",
+      "red": false,
+      "orientation": "upright",
+      "sha256": "8211e5743139d49e98680ef09774849b1de284c2823645e7dda538dc560d859b",
+      "code": "9s",
+      "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/s9.png"
+    }
+  ],
+  "limits": "Any unseen URL or changed bytes/pixels/orientation/red variant and any complex diagram/table requires new original-image independent review. Future text/inline semantic review remains mandatory."
+}
