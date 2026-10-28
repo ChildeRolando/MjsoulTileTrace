@@ -1,0 +1,93 @@
+{
+  "schema": "coac244-b0785-editorial-display-contract/1",
+  "canonical": "nemata-jp-chapter-283-1",
+  "candidateSha256": "ff3b1f36ffbd8daa23509a7375d0aaee533648299d636af2fa51be47657965d7",
+  "targetFigureSha256": "a5920c978ed6c4d5893f7cb017f93200e2d9de672dfe8f1c969c813d144b841d",
+  "kind": "editorial-source-limits",
+  "authorText": false,
+  "label": "来源限制（编者说明，非作者原文）",
+  "anchor": {
+    "afterSourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0784",
+    "beforeFigureId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+    "scope": "Q48 only",
+    "mustBeVisibleWithTarget": true
+  },
+  "limits": [
+    "保留三张万子数字、受遮挡副露牌、三家隐手、骰点及裁切内容为未知，不补猜。",
+    "区分正文默认条件与截图实况；不得用默认条件填补图中未知牌，或断言截图无鸣、牌河只有幺九字牌。",
+    "不得由现有转录断言精确可见张数、牌山存量、改良概率或所有实战场况下的最优选择。",
+    "本结论仅覆盖 b0785 的方位、保留未知及其对 Q48 论证呈现的影响。"
+  ],
+  "unknowns": [
+    "左侧牌河从画面上至下第4张为万子，数字未能可靠辨清。",
+    "左侧牌河从画面上至下第6张为万子，数字未能可靠辨清。",
+    "右侧牌河从画面上至下第1张为万子，数字未能可靠辨清。",
+    "右上副露区最上方竖向牌受遮挡，完整牌面及牌码未知。",
+    "上、左、右三家的隐手牌面未知；左、右侧隐手仅露出窄侧面，逐张数量未能可靠确认。",
+    "中央两枚骰子的具体点数未能可靠辨清。",
+    "右下信息栏等级文字及分数变化的右端被裁切，缺失部分未知。"
+  ],
+  "defaultConditionSourceBlocks": [
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter06-exercise003:b0003"
+      ],
+      "sourceText": "特に断りがない部分は、以下のルールと状況を適用。",
+      "text": "除非另有说明，均适用以下规则和状况。",
+      "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0003",
+      "sourceSegments": [
+        {
+          "text": "特に断りがない部分は、以下のルールと状況を適用。",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    },
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter06-exercise003:b0004"
+      ],
+      "sourceText": "ルール：アリアリ、赤なし、一発･裏ドラ･カンドラ･カン裏あり。",
+      "text": "规则：允许食断、后付，无赤宝牌，有一发、里宝牌、杠宝牌、杠里宝牌。",
+      "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0004",
+      "sourceSegments": [
+        {
+          "text": "ルール：アリアリ、赤なし、一発･裏ドラ･カンドラ･カン裏あり。",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    },
+    {
+      "type": "text",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter06-exercise003:b0005"
+      ],
+      "sourceText": " 状況：全体的に１･９･字牌しか切れてない捨て牌で、鳴きも一切なし。場に関連牌は飛んでいないものとする。",
+      "text": " 状况：所有人的牌河中都只切出了1、9和字牌，也完全没有鸣牌。假定场上没有出现相关牌。",
+      "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0004",
+      "sourceSegments": [
+        {
+          "text": " 状況：全体的に１･９･字牌しか切れてない捨て牌で、鳴きも一切なし。場に関連牌は飛んでいないものとする。",
+          "marks": [],
+          "href": null
+        }
+      ],
+      "tableContext": null
+    }
+  ],
+  "retainedRawIssue": {
+    "severity": "uncertain",
+    "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+    "description": "三张万子弃牌、受遮挡副露牌及其余列出的未知信息仍未确定。相关万子和副露牌可能影响实况可见牌的计算，但不阻断对 Q48 定性论证的呈现。",
+    "sourceEvidence": "figure.unknowns 将左河第 4、6 张和右河第 1 张的万子数字，以及右上副露最上方牌保留为未知；同时保留三家隐手、骰点和右下裁切内容。b0790 仅给出手变机会和打点的定性说明。"
+  },
+  "originalTargetPassed": false,
+  "wholeChapterAccepted": false,
+  "actualMcpArenaReadback": null,
+  "requiresActualDisplayReadback": true
+}
