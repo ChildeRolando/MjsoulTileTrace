@@ -1,0 +1,57 @@
+{
+  "schema": "coac244-web311-native-fidelity-review-boundary/1",
+  "canonical": "79-cn-chapter-311-18",
+  "proposalSha256": "ca5792a85433de54d0bfa82649a3707707ef64747d3beb5f8944a5bec372ad97",
+  "invokeAuthorized": false,
+  "newModelCallsThisPhase": 0,
+  "newMakerCallsRequired": 0,
+  "possibleNextIndependentScopeOnlyIfRootArranges": {
+    "maximumCallsProposal": 1,
+    "model": "gpt-6.1-terra",
+    "effort": "max",
+    "images": 8,
+    "retry": 0,
+    "fee": "unknown"
+  },
+  "scope": [
+    "Eight native source images, original titles/axes/legends/curves and original related author conditions/threshold statements remain faithfully presented.",
+    "The exact 24 leaf edits and 8 clearly non-original notes do not invent numbers, condition bindings or validation of author calculations.",
+    "Distinguish actual missing/mistranslated author content, wrong image or inaccessible source from optional independent numerical reconstruction.",
+    "Check inheritance of the independently confirmed two legend translations without turning old whole-target uncertain into passed."
+  ],
+  "notRequired": [
+    "Reconstruct 144 turn-by-turn values absent from original source",
+    "Prove all author computations or thresholds mathematically true",
+    "Ask user to fill 144 points",
+    "Re-OCR unrelated tiles or infer missing hand A tile"
+  ],
+  "stillHoldUntilIndependentDecision": true,
+  "wholeChapterPassed": false,
+  "admissionGranted": false,
+  "inheritedSeparateAlerts": [
+    "b0154 source hand A has 12 visible tiles and complete one-shanten shape is unestablished",
+    "historical attachment-numbering source-note"
+  ],
+  "evidenceReferences": {
+    "source": [
+      "web-sources/v1/79-bilibili-cn/articles/cv1815400/source.json",
+      "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec"
+    ],
+    "parent": [
+      "web-production/v1/candidates/79-bilibili-cn/cv1815400.coac269b33r1.json",
+      "f44231f95310e33608a596f1f4153f0e35afb55490fc3db1fdccd3fc11d3a125"
+    ],
+    "review": [
+      "integration/coac249-311-curves-reviewed-20261028.json",
+      "3d86eddcfb776a7eaf07dd8e511b71cb8d501f6d74c35930da6c486dfdd14200"
+    ],
+    "raw": [
+      "audit/calls/7777908d-0298-450a-a5f8-a3ff98af7329.json",
+      "6fbcbc785b03f84644a70f83bffb68bcf17ff41e8ab76afbbf2a1e781b64da62"
+    ],
+    "inheritance": [
+      "integration/coac249-311-curves-inheritance-20261028.json",
+      "c98fbb4c76f855fdb4353237977bde62bf52f37e50393f6cd7d23e63375714cd"
+    ]
+  }
+}

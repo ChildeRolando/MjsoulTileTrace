@@ -1,0 +1,135 @@
+{
+  "schema": "coac244-web311-native-derivation-summary/1",
+  "canonical": "79-cn-chapter-311-18",
+  "sourceSha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec",
+  "parentSha256": "f44231f95310e33608a596f1f4153f0e35afb55490fc3db1fdccd3fc11d3a125",
+  "derivedFileSha256": "ca5792a85433de54d0bfa82649a3707707ef64747d3beb5f8944a5bec372ad97",
+  "bodySha256": "19f43633c3269d5482072e4152f05db26414c2cca28619d47f55395e4fd88a8d",
+  "removedArtificialSlots": 144,
+  "originalCandidateAndHistoryChanged": false,
+  "newReadings": 0,
+  "newModelCalls": 0,
+  "admissionGranted": false,
+  "changes": [
+    {
+      "path": "/figures/7/transcription",
+      "fromSha256": "f85d340d9bd89496d4dcdd057d2c0d0fcb8d0ad10ebf7ca653cd672ceabdecb4",
+      "toSha256": "09a1e74c00dd17d21ea9ffc8d0dac53542d00d4ba201d1a03bee26c3ce0d6010"
+    },
+    {
+      "path": "/figures/7/unknowns",
+      "fromSha256": "693484d31df5f58ef15db83bcbeff240b7a4374839e697fca45be6c323a6306d",
+      "toSha256": "5e1a1c2a68f6c730e1deffb3d465e40c6a8f71d346dc2077217a3b9e2eeb36e5"
+    },
+    {
+      "path": "/figures/7/presentationAsset",
+      "fromSha256": "b40c7ad8f477af6d0751fcfaa5975fbbe651cea13aa971d12cc3d765a761b6ee",
+      "toSha256": "4c8a24ee0f5d0b8b2db441e7b6e301f21d76e1c81b005bcfa3ef4ddc48ae2e10"
+    },
+    {
+      "path": "/figures/8/transcription",
+      "fromSha256": "d012f204fde66b26384b62dd45dcb3db3119ec3748bdc45348dd2e823e4138c9",
+      "toSha256": "fc3c762551db13e2317b438eeffd1287261a898ce2d8ca418a1ad64ffafb270d"
+    },
+    {
+      "path": "/figures/8/unknowns",
+      "fromSha256": "693484d31df5f58ef15db83bcbeff240b7a4374839e697fca45be6c323a6306d",
+      "toSha256": "5e1a1c2a68f6c730e1deffb3d465e40c6a8f71d346dc2077217a3b9e2eeb36e5"
+    },
+    {
+      "path": "/figures/8/presentationAsset",
+      "fromSha256": "a2cf73461a29bb0f896b612675ccc13907e199b576f4084e8ee5925a6d446fd9",
+      "toSha256": "f61b3fa57494bbcdb912c5f766d3d83fd7559aa221bec71a829b0cf34986fb06"
+    },
+    {
+      "path": "/figures/9/transcription",
+      "fromSha256": "f58ad0673d5e5fcbf131970a4970434170d7b24a88e5a90cb8de70b689da52d3",
+      "toSha256": "3a803c96c545efa73647f93b0513042853bb52550e42354e27b12ee6ea7c96c9"
+    },
+    {
+      "path": "/figures/9/unknowns",
+      "fromSha256": "693484d31df5f58ef15db83bcbeff240b7a4374839e697fca45be6c323a6306d",
+      "toSha256": "5e1a1c2a68f6c730e1deffb3d465e40c6a8f71d346dc2077217a3b9e2eeb36e5"
+    },
+    {
+      "path": "/figures/9/presentationAsset",
+      "fromSha256": "a379a44f05b266de3b9570cffbbac9d04346c09b3f517efe8bc22a9d25729636",
+      "toSha256": "f9f9a0bd170d75fd2a76dbaaea3d0888fd35f0ab54d7e4387938cc008c315e62"
+    },
+    {
+      "path": "/figures/10/transcription",
+      "fromSha256": "b0f61485f9f8d77c4f5314c47d0ab55b7b3017054dad0adaa30d69c29d1ac8f2",
+      "toSha256": "6c1b2de5165263d76eadbe40370eba85f27ad4931334f6333c2caf23477b1e17"
+    },
+    {
+      "path": "/figures/10/unknowns",
+      "fromSha256": "693484d31df5f58ef15db83bcbeff240b7a4374839e697fca45be6c323a6306d",
+      "toSha256": "5e1a1c2a68f6c730e1deffb3d465e40c6a8f71d346dc2077217a3b9e2eeb36e5"
+    },
+    {
+      "path": "/figures/10/presentationAsset",
+      "fromSha256": "854f4b235eea4a6f1aa6a56e50068c2819bb3b486af8df5b6859547b648154f1",
+      "toSha256": "9f629790baa92a133f894c8670e26ff9b771d07c109058138059d74e426fbce9"
+    },
+    {
+      "path": "/figures/11/transcription",
+      "fromSha256": "af332b163790d1b7249c7dddb32a2e4631530cbd44a1a93edb4eeb233b0a99c8",
+      "toSha256": "e6a7953bd42489c1e13e43e22432ae6b03076246ebf8cacee90631bfe59e2017"
+    },
+    {
+      "path": "/figures/11/unknowns",
+      "fromSha256": "693484d31df5f58ef15db83bcbeff240b7a4374839e697fca45be6c323a6306d",
+      "toSha256": "5e1a1c2a68f6c730e1deffb3d465e40c6a8f71d346dc2077217a3b9e2eeb36e5"
+    },
+    {
+      "path": "/figures/11/presentationAsset",
+      "fromSha256": "437121d39c6ff9a9c3d7fa91b7ef1ac42a4cd069d94b13c3d72947f20c8f6928",
+      "toSha256": "ec35073616800d38886fb030a74e8cfac4101cf335c6f29cebf3572959f7064a"
+    },
+    {
+      "path": "/figures/12/transcription",
+      "fromSha256": "7907040d004496bbf72cf7be316822effbd6578daa3006408e5cfb759a951560",
+      "toSha256": "f91157a558520483690c39662e8d597b1ba52e7ab01377c05ac5625efd91f9ab"
+    },
+    {
+      "path": "/figures/12/unknowns",
+      "fromSha256": "4be60fb3c42999ce973c1a03fce5e7a76e39a42a884041e619fd0a20dd971264",
+      "toSha256": "99a88ae3fe3966c37947e74d9ba2610f09b10736ca28abe4f081abcca75d27e7"
+    },
+    {
+      "path": "/figures/12/presentationAsset",
+      "fromSha256": "b2b7513015b372efd263cd8acb00d0108d7d8affe6a7f0db1fa4da46df7a89bb",
+      "toSha256": "b154f8d316077a01f274f584531447fcec5954d81a50dca917662a021375d71c"
+    },
+    {
+      "path": "/figures/14/transcription",
+      "fromSha256": "254f5e9f2cbe123b0083a38aa02a66703e1dabc289372ff124cf7cef29b816a4",
+      "toSha256": "b4ca7d1e5f1397a9372908410c84404b82438f1855369714d4c3323531d12084"
+    },
+    {
+      "path": "/figures/14/unknowns",
+      "fromSha256": "a7563a2953a40d87503cce60aa64928aac162b254d5b92ffdfd1aac9101b28e1",
+      "toSha256": "f8a2378670f0842b219f06cd7089dff554f21145614e8a673789402eac7fb803"
+    },
+    {
+      "path": "/figures/14/presentationAsset",
+      "fromSha256": "327c44890c813fb400f89b7c80a16938b1c7ea60ef4d293eebf33cbf7173674f",
+      "toSha256": "375413927bd6101ffae80e8719abf344521b73523c2541865404f36f5055e9d6"
+    },
+    {
+      "path": "/figures/15/transcription",
+      "fromSha256": "cdd69a237069b77c422001ad947698259fdf2414a1263178d273899cc8bbcd34",
+      "toSha256": "c8da6080c5c94827403817ae0f8bd67b8c9ff852478ec1a602623f1b4c92f686"
+    },
+    {
+      "path": "/figures/15/unknowns",
+      "fromSha256": "a7563a2953a40d87503cce60aa64928aac162b254d5b92ffdfd1aac9101b28e1",
+      "toSha256": "f8a2378670f0842b219f06cd7089dff554f21145614e8a673789402eac7fb803"
+    },
+    {
+      "path": "/figures/15/presentationAsset",
+      "fromSha256": "054f5cc68371b37ecf0f089e9723f86858271fac0cdffdbdc109afb3b4e50f85",
+      "toSha256": "c9dcdb5d53a027f01bd20f8fd10276967006254e34f82883bbb96a30c0f31128"
+    }
+  ]
+}

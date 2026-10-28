@@ -1,0 +1,431 @@
+{
+  "canonical": "79-cn-chapter-311-18",
+  "inputs": [
+    {
+      "role": "source",
+      "path": "web-sources/v1/79-bilibili-cn/articles/cv1815400/source.json",
+      "sha256": "935bbfe6c2404ce9cd6f68fdb36db8ab6c4a20ec440d3a1a66e7ccd22c39afec"
+    },
+    {
+      "role": "parent",
+      "path": "web-production/v1/candidates/79-bilibili-cn/cv1815400.coac269b33r1.json",
+      "sha256": "f44231f95310e33608a596f1f4153f0e35afb55490fc3db1fdccd3fc11d3a125"
+    },
+    {
+      "role": "review",
+      "path": "integration/coac249-311-curves-reviewed-20261028.json",
+      "sha256": "3d86eddcfb776a7eaf07dd8e511b71cb8d501f6d74c35930da6c486dfdd14200"
+    },
+    {
+      "role": "raw",
+      "path": "audit/calls/7777908d-0298-450a-a5f8-a3ff98af7329.json",
+      "sha256": "6fbcbc785b03f84644a70f83bffb68bcf17ff41e8ab76afbbf2a1e781b64da62"
+    },
+    {
+      "role": "inheritance",
+      "path": "integration/coac249-311-curves-inheritance-20261028.json",
+      "sha256": "c98fbb4c76f855fdb4353237977bde62bf52f37e50393f6cd7d23e63375714cd"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/09838b88ac67ec75ece6a87c045082853e4befe69dcf321129b02bf0be328797.jpg",
+      "sha256": "09838b88ac67ec75ece6a87c045082853e4befe69dcf321129b02bf0be328797"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0001.png",
+      "sha256": "bbca9db14c3a80fbd5ff070c6eefd65152c97182158396f05ca373baec3a366c"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/8ccbe8352d55c98275f8e16e78b48d17646c1eb080536c5aba317228f62b6001.jpg",
+      "sha256": "8ccbe8352d55c98275f8e16e78b48d17646c1eb080536c5aba317228f62b6001"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0002.png",
+      "sha256": "42086babbd68ac15d56f9ffd9859cca672d7e3ca8d3d3492a30f29edeff6479c"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/ad1177702aa008f700b936ecee94e8182454bceab70df6065cb83a4de7b17370.png",
+      "sha256": "ad1177702aa008f700b936ecee94e8182454bceab70df6065cb83a4de7b17370"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0003.png",
+      "sha256": "2984cf32886471adbff74248de526f433d64078231de60fbc42916bf1f8de338"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/f97ed6ff98cdaf3ceea4c3c71315634c5d42cc79bfde1b378f943e4d96e6d8cb.jpg",
+      "sha256": "f97ed6ff98cdaf3ceea4c3c71315634c5d42cc79bfde1b378f943e4d96e6d8cb"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0004.png",
+      "sha256": "c3048b0d59c9b6f62dab70769c45da41ef410046a1fc81e7588fe082de4c3ea1"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/fd1d5fd7b428766c105a77c065a68377b4ddf2d14adfe4738e1b327127af292c.jpg",
+      "sha256": "fd1d5fd7b428766c105a77c065a68377b4ddf2d14adfe4738e1b327127af292c"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0005.png",
+      "sha256": "61b0283a57b1873cdc15d05de6b2f9048d1afbee5a90f1ff4b01e1fb9c8c2598"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/dc35c94b4ce63c99c782d52344190c5c63b906ba032f743c10e86a4228d8185c.jpg",
+      "sha256": "dc35c94b4ce63c99c782d52344190c5c63b906ba032f743c10e86a4228d8185c"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0006.png",
+      "sha256": "6ee9339e103b917d1047bb9d2ccd71ee948c5287ce2c7bdc985afff0b6909c0e"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/fb3e2519732acb160079ee0fea6ff4346bb7e71a9c6922e927701d1b06905c8a.jpg",
+      "sha256": "fb3e2519732acb160079ee0fea6ff4346bb7e71a9c6922e927701d1b06905c8a"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0007.png",
+      "sha256": "7b1e94ac28ed3cf3a0216fa007cde1f0a7814ff3ce5f7eddc6090ce591cac33c"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/bfe8735a4711bc2453d66751c2d6ad09ed1f177ef9246c4f84832219e68a5e88.png",
+      "sha256": "bfe8735a4711bc2453d66751c2d6ad09ed1f177ef9246c4f84832219e68a5e88"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0008.png",
+      "sha256": "807773eff7c8b5bd2adeb20aaa64a03d5fba865921a9b62cfdd40fab280d53e0"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/8e21f0df52ec2d918ba3153781d2ec004c183343b3a4229852b36ef28a46d822.png",
+      "sha256": "8e21f0df52ec2d918ba3153781d2ec004c183343b3a4229852b36ef28a46d822"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0009.png",
+      "sha256": "d9f40a0f38aebc09730c45a3ce8f829d67d8adf39e02907de324815fc8f1449a"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/54e6f36c5e4c6a040f43bceaebc013b5baa2b4b356a6998ab7a28aef6eff7ccc.png",
+      "sha256": "54e6f36c5e4c6a040f43bceaebc013b5baa2b4b356a6998ab7a28aef6eff7ccc"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0010.png",
+      "sha256": "96f4b435cb4d28d4273eeb0e24212063a95ee1cf4fe1c4aa132137e181a1111a"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/cb22b10e15a8cd6d180d3e2a19f4069f67235bfa8fdd1279b732fecd94440537.png",
+      "sha256": "cb22b10e15a8cd6d180d3e2a19f4069f67235bfa8fdd1279b732fecd94440537"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0011.png",
+      "sha256": "83f0f3c03621c73653e7f3c75c0b332f2e0c1af6430c56cc90113b673b586fc6"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/3d4b9dca119449f49f0549a55e6ae8b4cd96d916346391240fcab291b5d94385.png",
+      "sha256": "3d4b9dca119449f49f0549a55e6ae8b4cd96d916346391240fcab291b5d94385"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0012.png",
+      "sha256": "eeb30508d63817a168beb73b47916879060ddd69614015579fa71989384dffc0"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/377e7474db9bbf62f8efcaae391ae6dc5101b698b2ec968187911652c05e7db0.png",
+      "sha256": "377e7474db9bbf62f8efcaae391ae6dc5101b698b2ec968187911652c05e7db0"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0013.png",
+      "sha256": "f61757dea5a5b16117212aefc3d464132a2398c7d4566b4e89dc7114de181c5c"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/203555c05ae5772626a9ab60a777fec9adef3bfe74d2286d9200ca8cf566abf1.png",
+      "sha256": "203555c05ae5772626a9ab60a777fec9adef3bfe74d2286d9200ca8cf566abf1"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0014.png",
+      "sha256": "cf9e148f7efb214fd146eb1a4f637f7064229c9945bd9f42af49a89fe5a07cef"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/bfea6a4a3b1b55e9e6fbcdb8b4b4a82076715f026f64b08784d0d96b3bc5b35e.png",
+      "sha256": "bfea6a4a3b1b55e9e6fbcdb8b4b4a82076715f026f64b08784d0d96b3bc5b35e"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0015.png",
+      "sha256": "b6dc0ca038fd0e2c28bad11c9d89246de7c2f49a98747d347cdd128fa5be6850"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/76efb2db059af06179fa2d2bea2a2299ef9c8ac2f2baafd8ca4afb179ff4f8e1.png",
+      "sha256": "76efb2db059af06179fa2d2bea2a2299ef9c8ac2f2baafd8ca4afb179ff4f8e1"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0016.png",
+      "sha256": "35c49df81365af7861ffee43c08a65541132ba9680582c6931520ec2e7225588"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/e4eadcd4d3cd71dc3ca5fd26a8b447aca333e076191fcd7b51e33f88c0bf10dd.png",
+      "sha256": "e4eadcd4d3cd71dc3ca5fd26a8b447aca333e076191fcd7b51e33f88c0bf10dd"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0017.png",
+      "sha256": "c160aaf3d3c7b036a90addd7cb8b915bdd25321c040fb3203af4ef18703b4d92"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/00a21ae2b2e554c1a780d190c40bbe673f66eab3c625bfc026dd45d69c0c2ed8.png",
+      "sha256": "00a21ae2b2e554c1a780d190c40bbe673f66eab3c625bfc026dd45d69c0c2ed8"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0018.png",
+      "sha256": "b4906a2a9c50c289257598f663fd9df1a34fdf1d28aca292f384618a8eab46b4"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/0655d095d73e77eddd735654e04f73587a31bbd0c2d031b97f997f4914c185a1.png",
+      "sha256": "0655d095d73e77eddd735654e04f73587a31bbd0c2d031b97f997f4914c185a1"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0019.png",
+      "sha256": "3ccb3883ebb01f8a79ea50bd0049f36fdce18380be99b85a2cf1ee5c8feb9822"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/353bd63f74f8a97ed225d662e68252da29d7f420ebe71c7493ecac3f35d59522.png",
+      "sha256": "353bd63f74f8a97ed225d662e68252da29d7f420ebe71c7493ecac3f35d59522"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0020.png",
+      "sha256": "618ff97c6e12a206bb6accb24789fc73678a8bccb025f6c9196852141512d9ca"
+    },
+    {
+      "role": "original-image",
+      "path": "web-sources/v1/79-bilibili-cn/assets/e4a259c12c7dc3e31cb9a03dffec1a946269ac9d476fd8c2c3930b7135ff3c73.png",
+      "sha256": "e4a259c12c7dc3e31cb9a03dffec1a946269ac9d476fd8c2c3930b7135ff3c73"
+    },
+    {
+      "role": "original-image",
+      "path": "web-production/v1/presentations/79-bilibili-cn/cv1815400/9ddd83620c7a7fa1/figure-0021.png",
+      "sha256": "45500e50811d2dd3758c44f45da2c0bd3117578c2eaedbccf2fa3bb3e95a22c8"
+    },
+    {
+      "role": "parent",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1815400.display.json",
+      "sha256": "5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97"
+    },
+    {
+      "role": "parentAudit",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1815400.5d74d3836050c55996dee84fc35c6df4b82228c79674e9ff93065eb7aee20d97.json",
+      "sha256": "12f0f3a74c5261077907d0d9218bacf1177173c64a1e2c1ceeff9eed6729e77a"
+    },
+    {
+      "role": "parentRaw",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\5b1284f6-dcf3-4a55-92fd-9ed2aa20b6d8.json",
+      "sha256": "abce2b31d3fb704c84cf37784e1ec846fe235b2a6102a6f8b0b36b46d06b960d"
+    },
+    {
+      "role": "makerRaw",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\047c7b91-f632-4596-b964-afa026352da6.json",
+      "sha256": "50006634575e117176f43807d1803af70cd85cb1f7ec909037e3222083f2c54e"
+    },
+    {
+      "role": "runtime",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-311-curves-v1-20261028\\runtime-manifest.json",
+      "sha256": "59d7d599ae1e05f05ccdd43a8127a5c21935afc8667280930461142ca1cc644b"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\capability-evidence.json",
+      "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\pair-contract.json",
+      "sha256": "1d183b9b5c9cda49a29b9cd5aa71ebd7fc956fe10d1d98e80c31fb534ec2462e"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\pair.mjs",
+      "sha256": "9f1ec1896bf30a13cb2e9d1454d7bd8f2d60bd2158a29bfc2284d1867b299119"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\production-schema.mjs",
+      "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-definition.mjs",
+      "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-legacy.mjs",
+      "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-pdf-layout.mjs",
+      "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-pdf-native-corrections.mjs",
+      "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-pdf-native-structure-corrections.mjs",
+      "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-pdf-native.mjs",
+      "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-pdf-scope.mjs",
+      "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-pdf-source-corrections.mjs",
+      "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-tile-dictionary.mjs",
+      "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-verification-dependencies.mjs",
+      "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-web-batches.mjs",
+      "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-web-source.py",
+      "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit-web.mjs",
+      "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-audit.mjs",
+      "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-pdf-flow.mjs",
+      "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-web-batches.mjs",
+      "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-web-dictionary.mjs",
+      "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-web-formal.mjs",
+      "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-web-labels.mjs",
+      "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-web-present.py",
+      "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-web-sources.py",
+      "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-web-visual.py",
+      "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production-web.mjs",
+      "sha256": "07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\textbook-production.mjs",
+      "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\verification-dependencies.json",
+      "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-109167-exact-v1-20261028\\runtime-manifest.json",
+      "sha256": "814df700d298188dea14d20fd84ac818d1ded9a706e370bc7a1714141ad6a7a9"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-311-curves-v1-20261028\\contract.json",
+      "sha256": "7d0eea43f34f8288c3093617051f3308a9af93f10c62dc4517fcef3c38db69db"
+    },
+    {
+      "role": "historical-frozen-runtime-file",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-311-curves-v1-20261028\\curves.mjs",
+      "sha256": "707dcde802c92d5aa91abfe94915f6b078549d455db38d1815adaaed326947d6"
+    }
+  ],
+  "historicalFrozenFilesVerified": 33
+}
