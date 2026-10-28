@@ -1,0 +1,834 @@
+{
+  "schema": "coac250-cover001-readback/1",
+  "allPassed": true,
+  "preview": {
+    "chapters": 246,
+    "units": 254,
+    "blocks": 6844,
+    "figures": 5355,
+    "corpusId": "d05520874d6d617f7fcd20f3686d39f0799da8f8067d4bf16cb2182575ab11a5",
+    "bodySha256": "34b3a2e9f4a12646f64013579a2e0938e8fedf34e1da68a1b5a3795da8cdc4c6",
+    "maxUnitBytes": 358204,
+    "modelCalls": 0,
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T08-14-39-872Z",
+    "stage": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T08-14-39-872Z/stages/c1",
+    "priorUnitsUnchanged": 252,
+    "models": 0
+  },
+  "units": [
+    {
+      "chapterId": "nemata-jp-chapter-001-64",
+      "unitId": "nemata-jp-chapter-001-64-unit-1",
+      "contentRole": "argument",
+      "blocks": 85,
+      "pages": [
+        {
+          "offset": 0,
+          "blocks": 21,
+          "next": 21
+        },
+        {
+          "offset": 21,
+          "blocks": 45,
+          "next": 66
+        },
+        {
+          "offset": 66,
+          "blocks": 19,
+          "next": null
+        }
+      ]
+    },
+    {
+      "chapterId": "nemata-jp-chapter-001-64-source-notes",
+      "unitId": "nemata-jp-chapter-001-64-source-notes-unit-1",
+      "contentRole": "navigation",
+      "blocks": 5,
+      "pages": [
+        {
+          "offset": 0,
+          "blocks": 5,
+          "next": null
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "sourceBlocks": 67,
+      "compiledBlocks": 18,
+      "figures": 21,
+      "unknowns": [
+        "封面右上“January”下方的极小文字分辨率不足，无法可靠辨认。",
+        "封面右上两行宣传小字无法可靠逐字辨认，也不能确认其完整译意。",
+        "主标题旁的假名读音过小，无法可靠逐字辨认。",
+        "评委特别奖条目下方的星号夹署名模糊，无法可靠辨认完整字形。"
+      ],
+      "allAuthorSourceIdsCovered": true
+    },
+    {
+      "page": 2,
+      "sourceBlocks": 68,
+      "compiledBlocks": 41,
+      "figures": 16,
+      "unknowns": [
+        "作者名旁及封面右下方的小字分辨率不足，无法完整辨认。",
+        "底部「LOGICAL TACTICS」之后是否还有字符，无法确认。",
+        "男子所托模型中的细小麻将牌面无法逐张辨认，不能确定各牌的花色、点数或赤五状态。",
+        "缺失图片的原始内容无法辨认。",
+        "照片下方桌面处的细小牌面无法逐张辨认，不能确定各牌的花色、点数或赤五状态。",
+        "封面左下方作者署名模糊，无法可靠辨认完整字形。"
+      ],
+      "allAuthorSourceIdsCovered": true
+    },
+    {
+      "page": 3,
+      "sourceBlocks": 33,
+      "compiledBlocks": 26,
+      "figures": 3,
+      "unknowns": [
+        "作者署名上方的小字、封面底部左侧标识及其他细小文字模糊，无法可靠辨读。",
+        "封面右侧作者署名模糊，无法可靠辨认完整字形。",
+        "腰封大字下方的两行小字模糊，无法可靠辨读。",
+        "底部黑色横条中的细小文字无法可靠逐字辨认。"
+      ],
+      "allAuthorSourceIdsCovered": true
+    }
+  ],
+  "sourceBlocks": 168,
+  "authorCompiledBlocks": 85,
+  "metadataCompiledBlocks": 5,
+  "figures": 40,
+  "images": [
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r1",
+      "sha256": "f4daa1d4b778743296e5f3a546171cf7ae5b867d0121129db29fbf61dc36457b",
+      "bytes": 281141,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r2",
+      "sha256": "c4dde919f0e3989959f32326c9814e15cab0aba599550e359bef29a76a0d30ae",
+      "bytes": 432636,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r3",
+      "sha256": "9016b5bd3d5ea6f56676c7adcc08e6f8f4a107004c80381820fdc683ad31848a",
+      "bytes": 14494,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r4",
+      "sha256": "95f061b13019ed10d9b367d162b5aa59e05febefe3a2ec8415689cf3a13ad02a",
+      "bytes": 955952,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r5",
+      "sha256": "d9b8f67661843bf93149c4767f057c80b471e82ff1dd789cf5b345092b4e2f1c",
+      "bytes": 201755,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r6",
+      "sha256": "f74cf8875d92d7c623182b0a9eb82796c1799d5972fd8a90e0128d045a8fdafd",
+      "bytes": 14665,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r7",
+      "sha256": "6d03d02201affee1f57e56e02a121b666ef09ad05bdfadb4686d7a2035837c7a",
+      "bytes": 15318,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r8",
+      "sha256": "12f094f4836c3e85ba115af354fe3ad39ab407f5386411444f04096247a71678",
+      "bytes": 15319,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r9",
+      "sha256": "5582474208937f486c94a2bc3e6958f42c7f68ff5f8bcb0d70c6e70c271482f6",
+      "bytes": 14431,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r10",
+      "sha256": "b3ae10676c0a9ec1f729685f4f5ba643190bc145958495a303aa47d3ac890c65",
+      "bytes": 12259,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r11",
+      "sha256": "bb6c0d4b0310db35e519f0ef76244fc28e0b0dc35f0fad0e332213e5ef865505",
+      "bytes": 12309,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r12",
+      "sha256": "5c5e4d7ddfa2776975a28fb385593ae3eafa89f4f4522b1d18611eb103b73f1d",
+      "bytes": 12965,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r13",
+      "sha256": "39f127a33136b464ce6527b442b485dbddabb22c3225cfdb37196e5adab2b547",
+      "bytes": 12066,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r14",
+      "sha256": "ff90b1cb358934854f207c5e6d3085a8b44a5c9c54fbc3825bf4e7a29a069fb9",
+      "bytes": 10570,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r15",
+      "sha256": "c5ee441fc9eb60632d5e97995deb623ec120afdc24e6c35999bf147ace58732c",
+      "bytes": 12563,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r16",
+      "sha256": "1efdb909794a1ffd8d25a83e3d6c0a29ed8d4cf456cc1beabffde910a87770a1",
+      "bytes": 13772,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r17",
+      "sha256": "721425d42894ee5c48b1c6ec3d6a801de3a31e651a82d169e7dfd1b772bf5a88",
+      "bytes": 14049,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r18",
+      "sha256": "d92ad6d823e22e49430807e5f6b9a9dd7324bbf9ee603b84a88170de7d115ea7",
+      "bytes": 14313,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r19",
+      "sha256": "bf0d74379af294e3288a1914701f4962e83721dd20ab0c2fb441c50109031818",
+      "bytes": 14921,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r20",
+      "sha256": "42d624abf0bb78db02dc4631fd18729a962226076acd2aabe39a684350424074",
+      "bytes": 14282,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 1,
+      "figureId": "nemata-jp-p1-r21",
+      "sha256": "e7882d1a294a7ddf3fbae16e63bdb1f8c583623329d3b10ade2fbefa9a873f65",
+      "bytes": 10512,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 2,
+      "figureId": "nemata-jp-p2-r1",
+      "sha256": "8e35d8fbf2e54e44f9a002c2982ae661e820f46298b58f634aa025405bd4dd77",
+      "bytes": 9412,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 2,
+      "figureId": "nemata-jp-p2-r2",
+      "sha256": "e0baa355b891262f58bdfaa5e79ad6cb01c6d7668b05a7bece6c61ac4ab32d9a",
+      "bytes": 10932,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 2,
+      "figureId": "nemata-jp-p2-r3",
+      "sha256": "f08941d32e56d375e3ad27f71f12db518e5976b46550894e3fbe0ca8cf233445",
+      "bytes": 12430,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 2,
+      "figureId": "nemata-jp-p2-r4",
+      "sha256": "55b947bb6e87342ea8bd1377f22c37f6dbd132441d77b0b16371c243cf1ee566",
+      "bytes": 13908,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 2,
+      "figureId": "nemata-jp-p2-r5",
+      "sha256": "e7d75c6c1e8248b7714ae9359576922bdd07f8cf4f1d5f1599b9616fcf881548",
+      "bytes": 12837,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 2,
+      "figureId": "nemata-jp-p2-r6",
+      "sha256": "e1a3e5b4666e5044c4e67d40781401e4b2a19920018101300e2155ccf8cec448",
+      "bytes": 12497,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 2,
+      "figureId": "nemata-jp-p2-r7",
+      "sha256": "e646e0ff9a85c6bddcebcbc28318cce42598afab17868786f0e195e0102bc6bc",
+      "bytes": 13206,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 2,
+      "figureId": "nemata-jp-p2-r8",
+      "sha256": "e86dd1dc30783b0bfee2d332f34997ae561fba800ff9df781c1967925d0d3b88",
+      "bytes": 11492,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 2,
+      "figureId": "nemata-jp-p2-r9",
+      "sha256": "4ef0d91fe21a253dfe537a2b3e3517f0a440eef32efe4554cf34e7980bf43c87",
+      "bytes": 15191,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 2,
+      "figureId": "nemata-jp-p2-r10",
+      "sha256": "c8ed9286f1c47b4a3a829b5c6b6cbadcc666ce6885ce63f189d6e8b9784e4d26",
+      "bytes": 33527,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 2,
+      "figureId": "nemata-jp-p2-r11",
+      "sha256": "7b3a8910e06868b1b8a4f667d689fbc0624519af62a0e87c7facd70471067220",
+      "bytes": 486931,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 2,
+      "figureId": "nemata-jp-p2-r12",
+      "sha256": "b5c5480ad3db6c21094804494f48f0e1ce76fe8e18c301a434a02e310f08c414",
+      "bytes": 29829,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 2,
+      "figureId": "nemata-jp-p2-r13",
+      "sha256": "34c59117c5731d6fc1171707bb401e85a951d5cf05d698113bbf300f5ad073de",
+      "bytes": 9013,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 2,
+      "figureId": "nemata-jp-p2-r14",
+      "sha256": "b39fd053d7638d3fd3fe235a82e0f92809bb14b5cb8e7cecba7743cfa45570ce",
+      "bytes": 32383,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 2,
+      "figureId": "nemata-jp-p2-r15",
+      "sha256": "56d31116672b5ae0a7ce8ff16fd7620bb42dfeeb4e91eda2c35fc34882479b66",
+      "bytes": 416207,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 2,
+      "figureId": "nemata-jp-p2-r16",
+      "sha256": "79e99ad4cb0e9ff55d1775165c3c9818aecf85fc74859ff87eac79fd3fae2b2b",
+      "bytes": 30841,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 3,
+      "figureId": "nemata-jp-p3-r1",
+      "sha256": "ca3b8c85280a7c3fc24d7659d307cb4efe91077c951d3e46588e2ee60a596050",
+      "bytes": 453554,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 3,
+      "figureId": "nemata-jp-p3-r2",
+      "sha256": "a40f8a436dcecb453c7bd156e57872698f0d86edf6eba74913886de4933c03b9",
+      "bytes": 31196,
+      "mcpBytesExact": true
+    },
+    {
+      "page": 3,
+      "figureId": "nemata-jp-p3-r3",
+      "sha256": "d55711b945844e56eea7bd1bbf3df216c01f2bc08a5ad5c7af0c5d6313fecc42",
+      "bytes": 205538,
+      "mcpBytesExact": true
+    }
+  ],
+  "notesOutsideAuthorBody": true,
+  "notesLabel": "来源限制（编者说明，非作者原文）",
+  "mandatoryLimits": 14,
+  "notesNavigationCannotGrantTacticalCitation": true,
+  "crossPageBookReviewsComplete": true,
+  "clearBibliographiesAndOriginalFiguresPreserved": true,
+  "oldGlobalFlagsAndRawUnchanged": true,
+  "ordinaryWholePagePassed": false,
+  "existing317Unchanged": true,
+  "existingChineseTocUnchanged": true,
+  "priorUnitsUnchanged": 252,
+  "fullMcp": {
+    "units": 254,
+    "images": 5355
+  },
+  "arena": {
+    "units": 254,
+    "exactBody": true,
+    "authorCitationAfterFullRead": true,
+    "metadataNavigationRefs": 0
+  },
+  "sourceCollisions": 0,
+  "calls": [
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 0,
+        "limit": 20
+      },
+      "bytes": 4758
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 20,
+        "limit": 20
+      },
+      "bytes": 4852
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 40,
+        "limit": 20
+      },
+      "bytes": 4910
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 60,
+        "limit": 20
+      },
+      "bytes": 5054
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 80,
+        "limit": 20
+      },
+      "bytes": 5122
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 100,
+        "limit": 20
+      },
+      "bytes": 5127
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 120,
+        "limit": 20
+      },
+      "bytes": 5098
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 140,
+        "limit": 20
+      },
+      "bytes": 5011
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 160,
+        "limit": 20
+      },
+      "bytes": 5060
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 180,
+        "limit": 20
+      },
+      "bytes": 4392
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 200,
+        "limit": 20
+      },
+      "bytes": 2817
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 220,
+        "limit": 20
+      },
+      "bytes": 4575
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 240,
+        "limit": 20
+      },
+      "bytes": 1378
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "nemata-jp-chapter-001-64-unit-1",
+        "blockOffset": 0
+      },
+      "bytes": 14860
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "nemata-jp-chapter-001-64-unit-1",
+        "blockOffset": 21
+      },
+      "bytes": 14790
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "nemata-jp-chapter-001-64-unit-1",
+        "blockOffset": 66
+      },
+      "bytes": 5589
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r1"
+      },
+      "bytes": 616
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r2"
+      },
+      "bytes": 811
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r3"
+      },
+      "bytes": 568
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r4"
+      },
+      "bytes": 1695
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r5"
+      },
+      "bytes": 757
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r6"
+      },
+      "bytes": 607
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r7"
+      },
+      "bytes": 601
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r8"
+      },
+      "bytes": 607
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r9"
+      },
+      "bytes": 601
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r10"
+      },
+      "bytes": 614
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r11"
+      },
+      "bytes": 614
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r12"
+      },
+      "bytes": 611
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r13"
+      },
+      "bytes": 629
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r14"
+      },
+      "bytes": 599
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r15"
+      },
+      "bytes": 602
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r16"
+      },
+      "bytes": 599
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r17"
+      },
+      "bytes": 596
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r18"
+      },
+      "bytes": 620
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r19"
+      },
+      "bytes": 605
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r20"
+      },
+      "bytes": 599
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p1-r21"
+      },
+      "bytes": 596
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p2-r1"
+      },
+      "bytes": 587
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p2-r2"
+      },
+      "bytes": 587
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p2-r3"
+      },
+      "bytes": 587
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p2-r4"
+      },
+      "bytes": 587
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p2-r5"
+      },
+      "bytes": 587
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p2-r6"
+      },
+      "bytes": 587
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p2-r7"
+      },
+      "bytes": 587
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p2-r8"
+      },
+      "bytes": 587
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p2-r9"
+      },
+      "bytes": 587
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p2-r10"
+      },
+      "bytes": 567
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p2-r11"
+      },
+      "bytes": 1159
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p2-r12"
+      },
+      "bytes": 567
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p2-r13"
+      },
+      "bytes": 648
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p2-r14"
+      },
+      "bytes": 567
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p2-r15"
+      },
+      "bytes": 965
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p2-r16"
+      },
+      "bytes": 567
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p3-r1"
+      },
+      "bytes": 1068
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p3-r2"
+      },
+      "bytes": 656
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "nemata-jp-p3-r3"
+      },
+      "bytes": 1066
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "nemata-jp-chapter-001-64-source-notes-unit-1",
+        "blockOffset": 0
+      },
+      "bytes": 2511
+    },
+    {
+      "name": "search_textbook",
+      "args": {
+        "query": "来源限制（编者说明，非作者原文）"
+      },
+      "bytes": 3592
+    }
+  ],
+  "newModelCalls": 0,
+  "formalActiveChanged": false
+}

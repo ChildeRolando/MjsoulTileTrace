@@ -1,0 +1,61 @@
+{
+  "context": [
+    {
+      "page": 2,
+      "sourceBlockId": "nemata-jp-p2-b61",
+      "sourceText": "最強デジタル⿇雀の続編。",
+      "candidateBody": [
+        {
+          "candidateIndex": 39,
+          "sourceBlockIds": [
+            "nemata-jp-p2-b60",
+            "nemata-jp-p2-b61"
+          ],
+          "translation": "decorative（装饰）：五星图标最强职业牌手的战术第2弹！实战问题集！！这是《最强数字麻将》的续篇。",
+          "inlineContent": [
+            {
+              "type": "figure",
+              "figureId": "nemata-jp-p2-r16",
+              "text": "decorative（装饰）：五星图标"
+            },
+            {
+              "type": "text",
+              "text": "最强职业牌手的战术第2弹！实战问题集！！这是《最强数字麻将》的续篇。"
+            }
+          ]
+        }
+      ],
+      "independentCheck": {
+        "id": "nemata-jp-p2-b61",
+        "verdict": "faithful",
+        "explanation": "为《最强数字麻将》续篇的说明准确，未加入下页介绍。"
+      }
+    },
+    {
+      "page": 3,
+      "sourceBlockId": "nemata-jp-p3-b23",
+      "sourceText": "前著で紹介された⼩倉シス\nテムを実戦形式で解説す\nる。",
+      "candidateBody": [
+        {
+          "candidateIndex": 17,
+          "sourceBlockIds": [
+            "nemata-jp-p3-b23"
+          ],
+          "translation": "以实战形式讲解前作中介绍的小仓系统。",
+          "inlineContent": [
+            {
+              "type": "text",
+              "text": "以实战形式讲解前作中介绍的小仓系统。"
+            }
+          ]
+        }
+      ],
+      "independentCheck": {
+        "id": "nemata-jp-p3-b23",
+        "verdict": "faithful",
+        "explanation": "以前作介绍的小仓系统为对象、采用实战形式讲解的关系准确。"
+      }
+    }
+  ],
+  "requirement": "Preserve p2-b61 continuation into p3-b23 as author book commentary; never drop or label the prose decorative/navigation."
+}

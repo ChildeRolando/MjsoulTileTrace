@@ -1,0 +1,101 @@
+{
+  "safeToResume": true,
+  "version": 33,
+  "corpusId": "d05520874d6d617f7fcd20f3686d39f0799da8f8067d4bf16cb2182575ab11a5",
+  "coverage": {
+    "originalChaptersCovered": 244,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 276,
+    "originalUnitsTotal": 303
+  },
+  "remainingChapters": 12,
+  "remainingUnits": 27,
+  "remaining": [
+    {
+      "canonical": "79-cn-chapter-109-4",
+      "title": "手役7—染手（二）",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "复用最新同源修订和父审；b0004/b0006的5m读法与b0012三处未明牌分开，后者取更清晰同源图或定位审证；不得仅修已知两牌就放行。"
+    },
+    {
+      "canonical": "79-cn-chapter-167-4",
+      "title": "鸣牌15—鸣牌的技巧（3）",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "b0005先保留7p立直宣言牌方向修订目标，另将南家第5行第3列万子未明点数定位补证；两项均闭合后再独审。"
+    },
+    {
+      "canonical": "79-cn-chapter-182-5",
+      "title": "立直6—立直理论（2）",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "b0003日文格言可定点翻译，但b0013“对日”在原HTML与PDF183一致；需最小上游原句校勘，现不猜对应行为、不为单一格言花整章调用。"
+    },
+    {
+      "canonical": "79-cn-chapter-201-6",
+      "title": "防守6—弃和的切牌顺序（1）",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "先复用已有rev1及独审差异；b0006比喻翻译与b0005北家9m各有原定位，限定同源目标，不覆盖其它正文。"
+    },
+    {
+      "canonical": "79-cn-chapter-234-12",
+      "title": "状况判断2—要有顺位意识",
+      "units": 1,
+      "owner": "COAC-269",
+      "nextAction": "旧生产ba432ee3超时且rawLastMessage=null，完整raw无可恢复输出；上游请求数/usage未知。先明确观测边界和追加授权，最小仅b0003三个俗称，无图，不自动重试。"
+    },
+    {
+      "canonical": "79-cn-chapter-311-18",
+      "title": "第三节 攻守判断的基准",
+      "units": 16,
+      "owner": "COAC-248",
+      "nextAction": "按原独审逐target/group生成有限补丁和shared-premise闭包，保留题库225块原顺序；先核当前修订/失败ledger，不整章从头再制。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-193-1",
+      "title": "ドラ切り",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "与79-cn-193不同：b0080末三张6p/8p、右手第4-6张未明牌；b0081“入り目”需同作者原语境。补文术语不替代三张图证。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-213-1",
+      "title": "逆切り３",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "b0017入り目条件限定与b0032左家7p分别定点；对家字牌/两家点数未知仍需源图补证，不能由牌理推。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-224-1",
+      "title": "オーラスの見逃し判断",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "b0013保留7系列x15巡图，原轴坐标可机械形成空表；读数需明确约值与误差，图例自摸译名定点修，不把相关率或曲线走向替代105格定量独审。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-232-1",
+      "title": "満貫和了技術",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "b0002確和了、b0004や并列可文字定修；b0005手牌3s/2s及右家万子未明分别带图审，不能只修文字放行。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-250-1",
+      "title": "「ネマー日記」ブログ問題",
+      "units": 1,
+      "owner": "COAC-247/248",
+      "nextAction": "复用11页真实passed，只处理p257与p261；p257旧主控像素断言不作裁决，p261查现有完整raw/布局验证后限定修复，不重开258或13页整制。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-283-1",
+      "title": "「鴉〃の麻雀解説」サイト問題",
+      "units": 1,
+      "owner": "COAC-248/249",
+      "nextAction": "283当前精确工作稿b90f7c4f，原19问题有效11已补证/6阻断/2source-note；b1181据真实独审236cb892闭合，勿重复制作/复审。b1017独审53722d02确认括注小三元／大三元缩窄范围，仅删除该括注并保留三元役是后续最小修订目标，未改候选；未来需另获maker1+单目标独审1共2调用，当前4/4余0，不自动执行。剩b0785两error+河牌unknown、b0947题问error+两风牌unknown保持；六表/Q8/0168/0396/0962/batch010原证据精确继承，不重审、不合整283、不切active。"
+    }
+  ],
+  "formalActiveChanged": false,
+  "newModelCalls": 0
+}

@@ -1,0 +1,52 @@
+{
+  "schema": "coach-textbook-finite-gap-plan/1",
+  "recordedAt": "2026-10-25T15:37:30.561952+00:00",
+  "scope": "two original PDF metadata chapters absent from modern149uniqueURL body mapping; preserve all original sources",
+  "chapters": [
+    "nemata-jp-chapter-001-64",
+    "nemata-jp-chapter-317-51"
+  ],
+  "sourceInventorySha256": "050ad125fa0c82757e9a53279974c6bc1cc6249a8919cc33048367d52ccf8b4d",
+  "queue": [
+    {
+      "sourceId": "nemata-jp",
+      "page": 1,
+      "pdfSha256": "4d1c12042589a1b34d6e1f874b79b4ee1d79f4c1c26c62bda0ba94394e47250a",
+      "sourcePagePath": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\001.json",
+      "sourcePageSha256": "b5595e802d47eaef2c9815e9342771c88513d413d66222528fee9c16dc93ad71",
+      "status": "unproduced-deferred-until-finite-36-complete",
+      "contentRole": "classify actual complete units after translation; do not automatically mark author argument navigation"
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 2,
+      "pdfSha256": "4d1c12042589a1b34d6e1f874b79b4ee1d79f4c1c26c62bda0ba94394e47250a",
+      "sourcePagePath": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\002.json",
+      "sourcePageSha256": "e82df805c5631a27bb63bf13d8a7e89cd7abaf3aff15efbe732a59125459bb09",
+      "status": "unproduced-deferred-until-finite-36-complete",
+      "contentRole": "classify actual complete units after translation; do not automatically mark author argument navigation"
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 3,
+      "pdfSha256": "4d1c12042589a1b34d6e1f874b79b4ee1d79f4c1c26c62bda0ba94394e47250a",
+      "sourcePagePath": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\003.json",
+      "sourcePageSha256": "d4d6ef6ff6cb981938e65422a19ea3eab15ebf0c1febd8358b553d6ac103a7c4",
+      "status": "unproduced-deferred-until-finite-36-complete",
+      "contentRole": "classify actual complete units after translation; do not automatically mark author argument navigation"
+    },
+    {
+      "sourceId": "nemata-jp",
+      "page": 317,
+      "pdfSha256": "4d1c12042589a1b34d6e1f874b79b4ee1d79f4c1c26c62bda0ba94394e47250a",
+      "sourcePagePath": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\317.json",
+      "sourcePageSha256": "6222d0a89802f089a494a8f018e2d78abe37f8c323a463cade7f9d9eb1c42a72",
+      "status": "unproduced-deferred-until-finite-36-complete",
+      "contentRole": "classify actual complete units after translation; do not automatically mark author argument navigation"
+    }
+  ],
+  "concurrency": 1,
+  "dispatchAllowed": false,
+  "admission": "same PDF worker after current finite36 and root global concurrency release; no second PDF lane",
+  "modelCalls": 0
+}

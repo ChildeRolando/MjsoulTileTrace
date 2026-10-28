@@ -1,0 +1,133 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile} from 'node:fs/promises';
+import {dirname,resolve} from 'node:path';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';
+const here=dirname(fileURLToPath(import.meta.url)),ROOT='E:/AgentData/Coach/knowledge/processing';
+export const requestSha256='a0125aca447c11276bcc9e995dae6eab21a9900ec318e38fad5816b0a6b12451';
+const sha=b=>createHash('sha256').update(b).digest('hex');
+async function bound(ref){const b=await readFile(ref.path);assert.equal(sha(b),ref.sha256,'changed evidence: '+ref.path);return b;}
+const json=async ref=>JSON.parse(await bound(ref));
+
+export function assertDisplayConditions({request,composition,oldAudits,oldPageEvidence,matrix,map,notes,derivatives}){
+ assert.deepEqual(request.scopePages,[1,2,3]);
+ assert.equal(request.admissionGranted,false);assert.equal(request.authorBodyNoteInjection,false);
+ assert.equal(request.independentCheckRequiredBefore250Intake,true);assert.equal(request.actual250ReadbackRequiredBeforeCoverage,true);
+ assert.equal(composition.originalAStatus,'invalid-scope-evidence');
+ assert.equal(composition.originalAModelFlags.scopeVerdict,'uncertain');
+ assert.equal(composition.originalAModelFlags.completeTargetScopeCompared,false);
+ assert.equal(composition.originalAModelFlags.authorProseDirectoryEmphasisAndVersionNotesPreserved,false);
+ assert.equal(composition.originalAModelFlags.displayFaithfulWithExplicitUnknowns,false);
+ assert.equal(matrix.conditions.length,7);assert.deepEqual(matrix.unresolvedSemanticQuestions,[]);
+ assert.equal(request.additionalSemanticQuestion,null);
+ const expected=[['nemata-jp-p1-r4'],['nemata-jp-p2-r11','nemata-jp-p2-r15'],['nemata-jp-p3-r1','nemata-jp-p3-r3']];
+ for(let i=0;i<3;i++){
+  const old=oldAudits[i],m=old.modelReview;
+  assert.equal(old.status,'needs-repair');assert.equal(m.completePageCompared,true);assert.equal(m.flowCheck.verdict,'faithful');
+  assert(m.bodyChecks.every(t=>t.verdict==='faithful'),'all old body/TOC checks must already be faithful');
+  assert.deepEqual(m.figureChecks.filter(t=>t.verdict!=='faithful').map(t=>t.id),expected[i]);
+  assert.deepEqual(m.issues,oldPageEvidence[i].oldIssues);
+  assert.deepEqual(m.issues.map(t=>t.targetId),expected[i]);
+ }
+ for(let i=0;i<4;i++){
+  const page=request.pages[i],m=map.pages[i],d=derivatives[i],old=oldPageEvidence[i];
+  assert.equal(m.page,page.page);assert.deepEqual(m.source,page.source);assert.deepEqual(m.candidate,page.derivative);
+  assert.deepEqual(m.blocks.map(b=>b.sourceBlockId),old.mapping.map(b=>b.sourceBlockId));
+  for(let n=0;n<m.blocks.length;n++){
+   const x=m.blocks[n],sid=x.sourceBlockId;
+   assert.deepEqual(x.sourceIndependentCheck,old.mapping[n].independentCheck);
+   assert.deepEqual(x.body,d.body.blocks.flatMap((b,index)=>(b.sourceBlockIds??[]).includes(sid)?[{index,id:b.id??null,type:b.type,text:b.text??null}]:[]));
+   assert.deepEqual(x.figures,d.figures.flatMap((f,index)=>f.sourceImageBlockIds.includes(sid)?[{index,figureId:f.figureId,transcription:f.transcription,unknowns:f.unknowns}]:[]));
+  }
+  for(const issue of old.oldIssues){
+   const row=matrix.conditions.find(r=>r.page===page.page&&r.targetId===issue.targetId);assert(row);
+   assert.deepEqual(row.oldIssue,issue);assert.equal(row.candidate.sha256,page.derivative.sha256);
+   const target=row.actualTargetCheck,fields=composition.fieldChecks.filter(f=>f.target===issue.targetId);
+   assert.equal(target.unknownsRemainNonCoreToAdjacentAuthorArgument,true);assert(target.mandatoryLimits.length>=2);
+   assert.deepEqual(row.actualExactFields.map(f=>f.pointer),fields.map(f=>f.pointer));
+   assert.equal(row.exactCandidateFieldRepair,fields.length>0);assert.equal(row.unreadableTextRecognized,false);
+   if(issue.targetId==='nemata-jp-p2-r11')assert.equal(target.exactRepairAccepted,false);
+   else assert.equal(target.exactRepairAccepted,true);
+   if(issue.targetId.endsWith('-b5'))assert.equal(target.verdict,'faithful');
+   else{
+    assert.equal(target.verdict,'faithful-with-unknown');
+    const f=d.figures.find(f=>f.figureId===issue.targetId);assert.deepEqual(row.remainingUnknowns,f.unknowns);assert(f.unknowns.length>0);
+    assert.equal(row.effectiveDisposition,'unreadability-retained-independent-noncore-unknown-display-supported');
+   }
+  }
+ }
+ assert.equal(map.pages.reduce((n,p)=>n+p.blocks.length,0),226);assert.equal(map.semanticPassFromSourceCount,false);
+ assert.equal(notes.length,5);
+ for(const n of notes){
+  assert.equal(n.role,'processing-editorial-source-limitation');assert.equal(n.label,'来源限制（编者说明，非作者原文）');assert.equal(n.authorBodyInjection,false);
+  const check=matrix.conditions.find(r=>r.targetId===n.targetId);assert(check);assert.deepEqual(n.limits,check.actualTargetCheck.mandatoryLimits);
+ }
+ return {allExplicitConditionsSupportedByExistingIndependentEvidence:true,oldSemanticQuestionsRemaining:[],
+  oldCoverConditions:5,allHistoricalConditions:7,sourceBlocksMapped:226,
+  currentCoverFieldsAccepted:8,p2r11UnchangedWithNotApplicableRepair:true,
+  oldUncertaintyRetained:true,sourceNotesAreAuthorText:false,newModelCalls:0};
+}
+
+export async function verifyAdjudicationEvidence(){
+ const request=await json({path:resolve(here,'request.json'),sha256:requestSha256});
+ assert.equal(request.schema,'coac246-frontmatter-limited-adjudication-request/1');
+ assert.equal(request.compositionVerifier.sha256,'34b3d9dad0c417843f13d86943406146172233c9efceaba4ae03ddc1bcfca035');
+ await bound(request.owner);await bound(request.compositionContract);await bound(request.compositionVerifier);await bound(request.parentEvidenceVerifier);
+ const comp=await import(pathToFileURL(request.compositionVerifier.path));
+ const {result:composition,frame}=await comp.verifyFrontmatterComposition();
+ assert.deepEqual(request.allFourCandidateSha256,frame.contract.pages.map(p=>p.derivative.sha256));
+ assert.deepEqual(request.scopeCandidateSha256,request.allFourCandidateSha256.slice(0,3));
+ const docs=Object.fromEntries(await Promise.all(Object.entries(request.files).map(async([k,v])=>[k,await json(v)])));
+ const matrix=docs['condition-matrix.json'],map=docs['source-display-map.json'],notes=docs['source-notes.json'];
+ const parentVerifier=await import(pathToFileURL(request.parentEvidenceVerifier.path));
+ const oldAudits=[],oldPageEvidence=[],verifiedParentEvidence=[];
+ for(const p of request.pages){
+  const old=await json(p.oldAudit),oldPage=await json(p.fullOldPageEvidence);
+  await bound(p.nativeSourceFlow);await bound(p.producerRaw);
+  for(const r of p.oldReviewerRaws)assert.deepEqual((await json(r)).structuredOutput,old.modelReview);
+  oldAudits.push(old);oldPageEvidence.push(oldPage);
+  // 317 is reused from its completed250 intake, never re-reviewed here.
+  if(p.page!==317){
+   const evidence=await parentVerifier.verifyPdfAuditEvidence(ROOT,p.parent.path);
+   assert.equal(evidence.candidateSha256,p.parent.sha256);assert.deepEqual(evidence.receipt.modelReview,old.modelReview);
+   verifiedParentEvidence.push({page:p.page,candidateSha256:evidence.candidateSha256,productionLedgerSourceAndRawVerified:true});
+  }
+ }
+ for(const row of matrix.conditions){
+  const i=row.page===317?1:0,t=frame.receipts[i].modelReview.targetChecks.find(t=>t.id===row.targetId);
+  assert.deepEqual(row.actualTargetCheck,t);assert.deepEqual(row.raw,frame.contract.reviews[i].raw);assert.deepEqual(row.independentReceipt,frame.contract.reviews[i].receipt);
+ }
+ const checks=assertDisplayConditions({request,composition,oldAudits,oldPageEvidence,matrix,map,notes,derivatives:frame.derivatives});
+ const intake=docs['existing317-intake.json'];assert.equal(intake.covered,true);assert.equal(intake.staging.candidate.sha256,request.allFourCandidateSha256[3]);assert.equal(intake.staging.ordinaryWholePagePassed,false);
+ const result={schema:'coac246-frontmatter-adjudication-evidence-verification/1',requestSha256,
+  status:request.preparedStatus,checks,verifiedParentEvidence,
+  allFourCandidateSha256:request.allFourCandidateSha256,raws:frame.contract.reviews.map(r=>r.raw),
+  originalAStatus:composition.originalAStatus,originalAFlags:composition.originalAModelFlags,
+  conditionMatrixSha256:request.files['condition-matrix.json'].sha256,sourceMapSha256:request.files['source-display-map.json'].sha256,
+  sourceNotesSha256:request.files['source-notes.json'].sha256,
+  existing317Reused:true,independent249CheckComplete:false,admissionGranted:false,fullPagePassed:false,newModelCalls:0};
+ return {result,request,composition,frame,map,notes,oldAudits,oldPageEvidence,matrix};
+}
+
+/** Requires the actual independent249 zero-call receipt; absent/partial receipts fail closed. */
+export async function loadAdjudicatedCoverPages({independentCheck}={}){
+ assert(independentCheck?.path&&independentCheck.sha256,'independent249ReceiptRequired');
+ const v=await verifyAdjudicationEvidence(),r=await json(independentCheck);
+ assert.equal(r.schema,'coac249-frontmatter-zero-call-adjudication-check/1');
+ assert.equal(r.issueId,v.request.requiredIndependentIssueId);assert(r.taskId&&r.checkedAt);
+ assert.equal(r.requestSha256,requestSha256);assert.equal(r.status,'verified-bounded-limited-adjudication');
+ assert.equal(r.newModelCalls,0);assert.equal(r.newSemanticVerdict,false);assert.equal(r.fullPagePassed,false);assert.equal(r.independent249CheckComplete,true);
+ assert.deepEqual(await json(r.verification),v.result);assert.equal(r.checker.sha256,sha(await readFile(fileURLToPath(import.meta.url))));await bound(r.checker);
+ assert.deepEqual(r.displayCandidateSha256,v.request.scopeCandidateSha256);
+ const comp=await import(pathToFileURL(v.request.compositionVerifier.path));
+ const pages=await comp.loadFrontmatterPreviewPages({pages:[1,2,3]});
+ return pages.map(p=>({...p,audit:{...p.audit,status:v.request.admittedStatus,adjudication:{requestSha256,independentCheck,verification:r.verification},
+  sourceNotes:v.notes.filter(n=>n.page===p.page.page),sourceNotesAreAuthorText:false,
+  admissionGranted:true,admissionScope:'limited-explicit-unknown-display-only',fullPagePassed:false,requiresActual250Readback:true}}));
+}
+
+if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
+ const {result}=await verifyAdjudicationEvidence();
+ await writeFile(resolve(here,'verification.json'),JSON.stringify(result,null,2)+'\n');
+ console.log(JSON.stringify({status:result.status,checks:result.checks,independent249CheckComplete:false,admissionGranted:false}));
+}

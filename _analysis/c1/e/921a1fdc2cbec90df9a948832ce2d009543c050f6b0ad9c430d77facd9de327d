@@ -1,0 +1,115 @@
+{
+  "schema": "coac246-frontmatter-exact-derived-handoff/1",
+  "recordedAtUtc": "2026-10-27T22:57:06.942Z",
+  "originIssue": "COAC-246",
+  "receivers": [
+    "COAC-249",
+    "COAC-250",
+    "COAC-244"
+  ],
+  "reviewSummary": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-frontmatter-targets-summary-20261028.json",
+    "sha256": "ef3d1de1c750a027fc5c420990649976110d057b7f28c95dad67feb548aa9efa",
+    "bytes": 56677,
+    "packagePath": "review-inputs/summary.json"
+  },
+  "fieldChanges": "exact-field-changes.json",
+  "proofs": "derivation-proofs.json",
+  "limitedUnknowns": "limited-unknown-evidence.json",
+  "pages": [
+    {
+      "page": 1,
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0001.json",
+        "sha256": "195ec4e95734120c92d4bc0281512b7cb06d84fda221b68e339f020e06ddd02b",
+        "bytes": 73779,
+        "packagePath": "parents/page-0001.json"
+      },
+      "derivative": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0001.json",
+        "sha256": "e5f257621a531d26b2bb6cd546019aa4bd00912bfdcd0979cfd47dd514e9f79c",
+        "bytes": 74019,
+        "packagePath": "derived-candidates/page-0001.json"
+      },
+      "fieldsReplaced": 2,
+      "status": "exact-derived-not-admitted",
+      "admissionGranted": false
+    },
+    {
+      "page": 2,
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0002.json",
+        "sha256": "205a9a8ab2dcc7353f5d3ec2df6f6b99339ecbb4ca57c507690b6ff45397e1d6",
+        "bytes": 73791,
+        "packagePath": "parents/page-0002.json"
+      },
+      "derivative": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0002.json",
+        "sha256": "462a1bc3055842ad17233127590403bac2f64ebe00b902600e35af8d8bd84086",
+        "bytes": 73867,
+        "packagePath": "derived-candidates/page-0002.json"
+      },
+      "fieldsReplaced": 2,
+      "status": "exact-derived-not-admitted",
+      "admissionGranted": false
+    },
+    {
+      "page": 3,
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0003.json",
+        "sha256": "b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36",
+        "bytes": 34716,
+        "packagePath": "parents/page-0003.json"
+      },
+      "derivative": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0003.json",
+        "sha256": "b99906e6ce07e4d75ee02bf9d561eabaaac5713c8e104323a61238438f98bb16",
+        "bytes": 34834,
+        "packagePath": "derived-candidates/page-0003.json"
+      },
+      "fieldsReplaced": 4,
+      "status": "exact-derived-not-admitted",
+      "admissionGranted": false
+    },
+    {
+      "page": 317,
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0317.json",
+        "sha256": "e0911ad1e2ee917537c953d1d2e204120fcd3477a67baf1f26eac90f18c9efcf",
+        "bytes": 69864,
+        "packagePath": "parents/page-0317.json"
+      },
+      "derivative": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0317.json",
+        "sha256": "b3115591977d81273c795177268a00a84e0960577b0ec1a40304fd2ca515c462",
+        "bytes": 69997,
+        "packagePath": "derived-candidates/page-0317.json"
+      },
+      "fieldsReplaced": 5,
+      "status": "exact-derived-not-admitted",
+      "admissionGranted": false
+    }
+  ],
+  "newModelCalls": 0,
+  "modelProductionCalls": 0,
+  "ocrCalls": 0,
+  "paidReviewCalls": 0,
+  "historicalReviewCallsUsed": 2,
+  "remainingBudget": 0,
+  "automaticRetry": false,
+  "sourceBlockCoverage": 226,
+  "oldFaithfulTextInherited": 158,
+  "oldFaithfulFiguresInherited": 56,
+  "chineseTocInherited": 18,
+  "originalPacketChanged": false,
+  "oldAuditsChanged": false,
+  "fullPagePassed": false,
+  "chapterAccepted": false,
+  "activeChanged": false,
+  "admissionGranted": false,
+  "route": "Existing deterministic field-repair form (p309 precedent); exact independent after values only. Isolated derivatives, no production ledger or gate pass generated.",
+  "remaining": "250 must validate a legitimate exact-SHA scoped admission route over these derivatives plus parent/old raw/review/source/unchanged-scope proofs. No use of 159/242-only contract; no additional paid review authorization inferred.",
+  "fee": null,
+  "remoteWeights": null,
+  "upstreamExecutionCount": null
+}

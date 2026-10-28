@@ -1,0 +1,37 @@
+{
+  "updates": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\modern-metadata-four-page-gap-plan.json",
+      "beforeSha256": "7f656a3755cd61a4bc8780d9c841411dc73345430d43394fb72c37cba9d379b1",
+      "afterSha256": "57b1e8760c03431cd6c182ca42d5a72adbd3baad8e2d9f752d4203571997775d",
+      "acceptanceChanged": false,
+      "purpose": "existing source owner evidence/next-action pointer only"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-remaining26-closure-register-20261028.json",
+      "beforeSha256": "af573bf5810ce172ec60a595c3347a492beb87b5cf04903edcc6fed0850f5dd7",
+      "afterSha256": "f8156a485c868afd3a3a5519728ae0278d35817f49424cdc5c383b2cc136ca73",
+      "acceptanceChanged": false,
+      "purpose": "existing source owner evidence/next-action pointer only"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+      "beforeSha256": "70eac3b50dcbb326883d1f4ad1f80d859221cc4814191953c58298963f2452e3",
+      "afterSha256": "cb16fcdca7204986cec280e1cf1b822197d20af5f80d06bee7e3bf6fa7de5eb8",
+      "acceptanceChanged": false,
+      "purpose": "existing source owner evidence/next-action pointer only"
+    }
+  ],
+  "sharedHandoff": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\handoff.json",
+    "sha256": "dc19add1e6dd99f9e16ea4351b8f367c58221601223d1cfbdebf1c4ec87e88e2",
+    "pageRegister": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\page-register.json",
+    "preparedReviewItems": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\two-review-items.json",
+    "sourceBlocks": 226,
+    "mappedSourceBlocks": 226,
+    "newCalls": 0,
+    "acceptedIncrement": 0,
+    "status": "evidence-ready-existing-page-verdicts-preserved"
+  },
+  "noActiveOrAcceptanceWrite": true
+}

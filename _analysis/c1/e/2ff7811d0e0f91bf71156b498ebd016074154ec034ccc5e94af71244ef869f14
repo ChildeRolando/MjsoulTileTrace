@@ -1,0 +1,117 @@
+"""Synchronize finite evidence pointers into existing owners; never change acceptance."""
+import hashlib
+import json
+import os
+import pathlib
+import shutil
+import zipfile
+
+OUT = pathlib.Path(__file__).resolve().parent
+INTEGRATION = pathlib.Path('E:/AgentData/Coach/knowledge/processing/integration')
+SHARED = INTEGRATION / 'coac246-frontmatter-20261028'
+
+
+def digest(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def read(path):
+    return json.loads(path.read_text(encoding='utf-8-sig'))
+
+
+def write(path, data):
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+
+assert not (OUT / 'owner-sync.json').exists(), 'Already synchronized; verify instead of reapplying.'
+handoff_hash = digest((OUT / 'handoff.json').read_bytes())
+reference = {'path': str(SHARED / 'handoff.json'), 'sha256': handoff_hash,
+             'pageRegister': str(SHARED / 'page-register.json'),
+             'preparedReviewItems': str(SHARED / 'two-review-items.json'),
+             'sourceBlocks': 226, 'mappedSourceBlocks': 226,
+             'newCalls': 0, 'acceptedIncrement': 0, 'status': 'evidence-ready-existing-page-verdicts-preserved'}
+reg = read(OUT / 'page-register.json')
+updates = []
+targets = ['nemata-jp-chapter-001-64', 'nemata-jp-chapter-317-51']
+for name in ['modern-metadata-four-page-gap-plan.json',
+             'coac244-remaining26-closure-register-20261028.json',
+             'coac250-unified-chapter-register-20261027b.json']:
+    path = INTEGRATION / name
+    before = path.read_bytes()
+    data = json.loads(before.decode('utf-8-sig'))
+    backup = OUT / 'owner-before' / name
+    backup.parent.mkdir(exist_ok=True)
+    backup.write_bytes(before)
+    if name == 'modern-metadata-four-page-gap-plan.json':
+        data['sourceCoverageEvidence'] = reference
+        for item in data['queue']:
+            if item['page'] in [1, 2, 3, 317]:
+                page = next(p for p in reg['pages'] if p['page'] == item['page'])
+                item['status'] = 'produced-needs-repair-zero-model-evidence-ready'
+                item['candidate'] = page['candidate']
+                item['audit'] = page['audit']
+                item['pageEvidence'] = str(SHARED / page['detail'])
+        data['currentFacts'] = {'productionGap': 0, 'sourceBlocks': 226,
+                                'newAcceptanceVerdicts': 0, 'newModelCalls': 0,
+                                'note': 'Old unproduced queue labels corrected using existing production/raw/review evidence. Dispatch remains disabled.'}
+        assert data['dispatchAllowed'] is False
+    else:
+        count = 0
+        for row in data['rows']:
+            if row['chapterId'] not in targets:
+                continue
+            count += 1
+            assert row['covered'] is False
+            row['metadataSourceCoverageEvidence'] = reference
+            if name.startswith('coac244-'):
+                row['nextAction'] = ('Consume COAC-246 frontmatter page evidence; retain all faithful body/TOC/book-review scopes and precise cover unknowns. '
+                                     '001: scoped cover ruling (including same-asset magazine name conflict). '
+                                     '317: minimal b5 provisional-edition repair plus independent scoped review. '
+                                     'Two prepared review items; budget maker1+review2, not dispatched. Do not remove frontmatter from completion.')
+        assert count == 2
+    assert path.read_bytes() == before, 'Concurrent owner change; re-read before mutating.'
+    temp = path.with_name(path.name + '.coac246-frontmatter.tmp')
+    write(temp, data)
+    os.replace(temp, path)
+    # Verify acceptance state and all non-target rows survived unchanged.
+    after = read(path)
+    original = json.loads(before.decode('utf-8-sig'))
+    if 'rows' in data:
+        old_rows = {r['chapterId']: r for r in original['rows']}
+        for row in after['rows']:
+            old = old_rows[row['chapterId']]
+            if row['chapterId'] not in targets:
+                assert row == old
+            else:
+                for key in ['covered', 'verdict', 'baseVerdictPreserved', 'gaps', 'pdfRoute', 'pdfBoundary']:
+                    assert row.get(key) == old.get(key), key
+        for key in ['counts', 'denominator', 'baseline', 'remainingTypes']:
+            assert after.get(key) == original.get(key)
+    updates.append({'path': str(path), 'beforeSha256': digest(before),
+                    'afterSha256': digest(path.read_bytes()), 'acceptanceChanged': False,
+                    'purpose': 'existing source owner evidence/next-action pointer only'})
+write(OUT / 'owner-sync.json', {'updates': updates, 'sharedHandoff': reference,
+                              'noActiveOrAcceptanceWrite': True})
+immutable = read(OUT / 'immutable-inputs.json')
+for item in immutable['files']:
+    assert digest(pathlib.Path(item['path']).read_bytes()) == item['sha256'], item['path']
+manifest = []
+for p in sorted(OUT.rglob('*')):
+    if p.is_file() and p.name != 'files.sha256.json' and '__pycache__' not in p.parts:
+        raw = p.read_bytes()
+        manifest.append({'path': p.relative_to(OUT).as_posix(), 'bytes': len(raw), 'sha256': digest(raw)})
+write(OUT / 'files.sha256.json', {'schema': 'coach-evidence-byte-manifest/1', 'files': manifest})
+SHARED.mkdir(parents=True, exist_ok=True)
+for p in OUT.rglob('*'):
+    if p.is_file() and '__pycache__' not in p.parts:
+        dest = SHARED / p.relative_to(OUT)
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(p, dest)
+archive_path = OUT.parent / 'coac246-frontmatter-20261028.zip'
+with zipfile.ZipFile(archive_path, 'w', zipfile.ZIP_DEFLATED) as archive:
+    for p in sorted(OUT.rglob('*')):
+        if p.is_file() and '__pycache__' not in p.parts:
+            archive.write(p, p.relative_to(OUT))
+print(json.dumps({'files': len(manifest), 'ownerPointersUpdated': len(updates),
+                  'sourceCandidateRawAuditUnchanged': True, 'acceptanceChanged': False,
+                  'zipBytes': archive_path.stat().st_size, 'zipSha256': digest(archive_path.read_bytes())}))

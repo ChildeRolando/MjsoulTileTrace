@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "name": "author-note-injection",
+      "rejected": true
+    },
+    {
+      "name": "missing-note-limit",
+      "rejected": true
+    },
+    {
+      "name": "false-author-label",
+      "rejected": true
+    },
+    {
+      "name": "missing-figure",
+      "rejected": true
+    },
+    {
+      "name": "erased-unknown",
+      "rejected": true
+    },
+    {
+      "name": "changed-book-review",
+      "rejected": true
+    },
+    {
+      "name": "missing-independent249-receipt",
+      "rejected": true
+    },
+    {
+      "name": "changed-independent249-receipt",
+      "rejected": true
+    }
+  ],
+  "originalAdjudicationTests": 13,
+  "models": 0
+}

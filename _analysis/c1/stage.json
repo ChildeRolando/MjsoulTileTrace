@@ -1,0 +1,140 @@
+{
+  "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-cover001-20261028/stage-v2",
+  "schema": "coac250-cover001-stage/1",
+  "chapterId": "nemata-jp-chapter-001-64",
+  "status": "admitted-exact-frontmatter-limited-adjudication",
+  "binding": {
+    "chapterId": "nemata-jp-chapter-001-64",
+    "module": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-cover001-20261028/stage.mjs",
+      "sha256": "5a9bec9af7f2ccec59e3b4ea19c156f222d519f1abeaf57bfcfd8fa52babd098"
+    },
+    "checker": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-adjudication-20261028\\adjudication.mjs",
+      "sha256": "8e1f3824bea3fff759623b91448a639058bcfc190813b8147632c75a1b3d8a0d"
+    },
+    "independentCheck": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-zero-adjudication-20261028\\independent-check.json",
+      "sha256": "a8cfc7a7fb9ab8427951796501c559c4f1990488b428051c4c308c3e41050b13"
+    },
+    "request": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-adjudication-20261028\\request.json",
+      "sha256": "a0125aca447c11276bcc9e995dae6eab21a9900ec318e38fad5816b0a6b12451"
+    },
+    "proof": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-frontmatter-adjudication-ready-250-20261028.json",
+      "sha256": "8fb955176a6cdd6782b750ccbbab8d39cb55823b25d07a044002f6e8a9061606"
+    },
+    "inventory": {
+      "path": "E:/AgentData/Coach/knowledge/processing/source-inventory.json",
+      "sha256": "050ad125fa0c82757e9a53279974c6bc1cc6249a8919cc33048367d52ccf8b4d"
+    },
+    "chapterMap": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/chapter-map.navigation-v3.json",
+      "sha256": "f1d2755b0cc55f50f1242c9ce17e2791b0fe58eee144ad51b65fee50400c5114"
+    },
+    "ownership": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/source-block-ownership.json",
+      "sha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60"
+    },
+    "contract": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac246-frontmatter-adjudication-20261028/display-companion-contract.json",
+      "sha256": "a50621a55c8658fc1f975a53260fd0330dc8b0b21e468e2caa262c1c05a65d7b"
+    },
+    "files": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-adjudication-20261028\\request.json",
+        "sha256": "a0125aca447c11276bcc9e995dae6eab21a9900ec318e38fad5816b0a6b12451"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-adjudication-20261028\\adjudication.mjs",
+        "sha256": "8e1f3824bea3fff759623b91448a639058bcfc190813b8147632c75a1b3d8a0d"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-zero-adjudication-20261028\\independent-check.json",
+        "sha256": "a8cfc7a7fb9ab8427951796501c559c4f1990488b428051c4c308c3e41050b13"
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-adjudication-20261028\\verification.json",
+        "sha256": "b804dd4155c9c78a55394b48ff32487b68ecc2928cfeaf75bf8c948e3038070e"
+      },
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-frontmatter-adjudication-ready-250-20261028.json",
+        "sha256": "8fb955176a6cdd6782b750ccbbab8d39cb55823b25d07a044002f6e8a9061606"
+      },
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac246-frontmatter-adjudication-20261028/display-companion-contract.json",
+        "sha256": "a50621a55c8658fc1f975a53260fd0330dc8b0b21e468e2caa262c1c05a65d7b"
+      },
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/source-structure-holds.json",
+        "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+      },
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/source-block-ownership.json",
+        "sha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60"
+      },
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/chapter-map.navigation-v3.json",
+        "sha256": "f1d2755b0cc55f50f1242c9ce17e2791b0fe58eee144ad51b65fee50400c5114"
+      },
+      {
+        "path": "E:/AgentData/Coach/knowledge/processing/source-inventory.json",
+        "sha256": "050ad125fa0c82757e9a53279974c6bc1cc6249a8919cc33048367d52ccf8b4d"
+      }
+    ],
+    "scope": "Exact admitted pages1–3 only,168 author-source contributions;5 separate navigation metadata notes with14 mandatory limits. OriginalAfalse unchanged,317/ChineseTOC reused, no ordinary whole-page pass."
+  },
+  "ownedSourceBlocks": 168,
+  "pageSourceBlocks": [
+    {
+      "page": 1,
+      "sourceBlocks": 67,
+      "candidateSha256": "e5f257621a531d26b2bb6cd546019aa4bd00912bfdcd0979cfd47dd514e9f79c"
+    },
+    {
+      "page": 2,
+      "sourceBlocks": 68,
+      "candidateSha256": "462a1bc3055842ad17233127590403bac2f64ebe00b902600e35af8d8bd84086"
+    },
+    {
+      "page": 3,
+      "sourceBlocks": 33,
+      "candidateSha256": "b99906e6ce07e4d75ee02bf9d561eabaaac5713c8e104323a61238438f98bb16"
+    }
+  ],
+  "pageCandidatePaths": [
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0001.json",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0002.json",
+    "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0003.json"
+  ],
+  "sourceNotes": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-cover001-20261028/stage-v2/source-notes.json",
+    "sha256": "1a5040809ce5d6054b75435f12c1f8a313dbb1548297301b01e83baec6a23896"
+  },
+  "companion": {
+    "chapterId": "nemata-jp-chapter-001-64-source-notes",
+    "contentRole": "navigation",
+    "originalCoverageIncrement": 0
+  },
+  "sourceNotesOutsideAuthorBody": true,
+  "mandatoryLimitCounts": [
+    3,
+    3,
+    3,
+    3,
+    2
+  ],
+  "ordinaryWholePagePassed": false,
+  "oldModelFlagsUnchanged": true,
+  "existing317ReusedNotStaged": true,
+  "chapters": 2,
+  "units": 2,
+  "blocks": 90,
+  "figures": 40,
+  "corpusId": "fe00cfdd49534e8fc10c0e815ae003977807a640251e7153fce874ab8c5222f9",
+  "bodySha256": "59c97f9be00445d30f1fb4fa24dd2cdaea368decfc382d60fe5851933dc25c4a",
+  "maxUnitBytes": 33334,
+  "modelCalls": 0,
+  "newModelCalls": 0
+}

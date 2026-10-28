@@ -1,0 +1,271 @@
+{
+  "schema": "coach-frontmatter-page-evidence/1",
+  "modelCallsThisRun": 0,
+  "sourceBlocks": 226,
+  "productionGap": 0,
+  "acceptedIncrement": 0,
+  "pages": [
+    {
+      "page": 1,
+      "chapterId": "nemata-jp-chapter-001-64",
+      "sourceBlockCount": 67,
+      "mappedSourceBlockCount": 67,
+      "missingSourceBlockIds": [],
+      "textChecks": {
+        "faithful": 45
+      },
+      "figureChecks": {
+        "faithful": 20,
+        "uncertain": 1
+      },
+      "sourceImageBlocks": 22,
+      "candidateFigures": 21,
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\001.json",
+        "sha256": "b5595e802d47eaef2c9815e9342771c88513d413d66222528fee9c16dc93ad71",
+        "bytes": 90022,
+        "packagePath": "existing/p1/source.json"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0001.json",
+        "sha256": "195ec4e95734120c92d4bc0281512b7cb06d84fda221b68e339f020e06ddd02b",
+        "bytes": 73779,
+        "packagePath": "existing/p1/candidate.json"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0001.195ec4e95734120c92d4bc0281512b7cb06d84fda221b68e339f020e06ddd02b.6baa4a7e1404.json",
+        "sha256": "9619f5b27ba1b1bb6227184081d72cb599de232741d6f5ea01e7d1daa829ab91",
+        "bytes": 121240,
+        "packagePath": "existing/p1/audit.json"
+      },
+      "producerRaw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\raw-calls\\44623e39-1932-4b0b-9314-9572bfef3b08.json",
+        "sha256": "386b72b91c016d678e9270a1843ae742f12c012b16bddd16480cdffe26cd09bc",
+        "bytes": 140270,
+        "packagePath": "existing/p1/producer-raw.json"
+      },
+      "reviewerRaw": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4c6e996a-72ba-454f-ac14-f05e131b1b33.json",
+          "sha256": "8e718812297abad03db1ddf03d45965f23f9f9ec34ca33cf583d87d476b6ca24",
+          "bytes": 110564,
+          "packagePath": "existing/p1/reviewer-raw.json"
+        }
+      ],
+      "stillNotPassed": [
+        {
+          "severity": "uncertain",
+          "targetId": "nemata-jp-p1-r4",
+          "sourceEvidence": "杂志封面右上“2010 1 January”区域中，January下方另有极小文字；候选unknowns亦说明该处无法可靠辨认。",
+          "description": "主要封面信息已对应，但该处可见文字尚无可靠转录，不能判定全图内容完全核验通过。",
+          "suggestedRepair": "保留原封面及当前未知说明；依据更清晰的同源图核实该处文字后补录，无法确认时继续标为未知，不猜写。"
+        }
+      ],
+      "detail": "pages/page-0001.json",
+      "scopedDisplayEvidence": "limited-admission.json:p1",
+      "pageAcceptanceChanged": false
+    },
+    {
+      "page": 2,
+      "chapterId": "nemata-jp-chapter-001-64",
+      "sourceBlockCount": 68,
+      "mappedSourceBlockCount": 68,
+      "missingSourceBlockIds": [],
+      "textChecks": {
+        "faithful": 52
+      },
+      "figureChecks": {
+        "faithful": 14,
+        "uncertain": 2
+      },
+      "sourceImageBlocks": 16,
+      "candidateFigures": 16,
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\002.json",
+        "sha256": "e82df805c5631a27bb63bf13d8a7e89cd7abaf3aff15efbe732a59125459bb09",
+        "bytes": 94013,
+        "packagePath": "existing/p2/source.json"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0002.json",
+        "sha256": "205a9a8ab2dcc7353f5d3ec2df6f6b99339ecbb4ca57c507690b6ff45397e1d6",
+        "bytes": 73791,
+        "packagePath": "existing/p2/candidate.json"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0002.205a9a8ab2dcc7353f5d3ec2df6f6b99339ecbb4ca57c507690b6ff45397e1d6.6baa4a7e1404.json",
+        "sha256": "02b5cea0e12ad34ddf670e20cbb6071e395c2587f2d2797e6be303d1af9d442c",
+        "bytes": 125598,
+        "packagePath": "existing/p2/audit.json"
+      },
+      "producerRaw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\raw-calls\\4580aa4a-a2c1-4c68-a99a-916d815aed9a.json",
+        "sha256": "7a986c016271b592bf182a04b0f27e04e426fdda019aa81f00083f7914c92a6b",
+        "bytes": 144641,
+        "packagePath": "existing/p2/producer-raw.json"
+      },
+      "reviewerRaw": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\34ca7811-aa03-449f-919f-3d6453c26ad7.json",
+          "sha256": "258a008cd9b8d36de50ee3a3b2720825bc127d484ca81ea148e86cd98121adcc",
+          "bytes": 112645,
+          "packagePath": "existing/p2/reviewer-raw.json"
+        }
+      ],
+      "stillNotPassed": [
+        {
+          "severity": "uncertain",
+          "targetId": "nemata-jp-p2-r11",
+          "sourceEvidence": "黄色书封右侧有细小文字，人物所托模型内有细小牌面；所附局部图不足以可靠逐字、逐牌辨认。",
+          "description": "主要书封信息对应，但这些可见细节尚未核实；属于书封细节的不确定性，未发现正文教学牌例被遗漏。",
+          "suggestedRepair": "保留原书封及现有未知项，细小文字和牌面继续标为待核实；不得补猜文字或牌码。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "nemata-jp-p2-r15",
+          "sourceEvidence": "深蓝色书封照片底部的麻将桌面有细小牌面，无法从所附图可靠辨认具体花色和点数。",
+          "description": "书封主体描述对应，但桌面牌面不能逐张确认，无法给出全部图像细节通过的判断。",
+          "suggestedRepair": "保留书封原图及牌面不可辨认的说明，不将封面照片推断成确定局面或补写牌码。"
+        }
+      ],
+      "detail": "pages/page-0002.json",
+      "scopedDisplayEvidence": "limited-admission.json:p2",
+      "pageAcceptanceChanged": false
+    },
+    {
+      "page": 3,
+      "chapterId": "nemata-jp-chapter-001-64",
+      "sourceBlockCount": 33,
+      "mappedSourceBlockCount": 33,
+      "missingSourceBlockIds": [],
+      "textChecks": {
+        "faithful": 30
+      },
+      "figureChecks": {
+        "uncertain": 2,
+        "faithful": 1
+      },
+      "sourceImageBlocks": 3,
+      "candidateFigures": 3,
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\003.json",
+        "sha256": "d4d6ef6ff6cb981938e65422a19ea3eab15ebf0c1febd8358b553d6ac103a7c4",
+        "bytes": 61343,
+        "packagePath": "existing/p3/source.json"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0003.json",
+        "sha256": "b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36",
+        "bytes": 34716,
+        "packagePath": "existing/p3/candidate.json"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0003.b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36.6baa4a7e1404.json",
+        "sha256": "68037da0805fc3c947b9d3ca0ddc83576ac1ee368a3c91539243266af0f3152f",
+        "bytes": 76877,
+        "packagePath": "existing/p3/audit.json"
+      },
+      "producerRaw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\raw-calls\\c13b5f4b-6d95-4bdd-a809-984e7e7cce05.json",
+        "sha256": "33ffb67d44a3a2933b7fe85eac1700c324a8db0b02bf8249f2d0470ae79ae040",
+        "bytes": 84955,
+        "packagePath": "existing/p3/producer-raw.json"
+      },
+      "reviewerRaw": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7d4d837c-f92f-406d-9685-460bcd28cb61.json",
+          "sha256": "d7f184b880fd01d18e1e49db2bb327e8e6e1e0caa2e96a3ee5c2ea2ef4332a70",
+          "bytes": 67849,
+          "packagePath": "existing/p3/reviewer-raw.json"
+        }
+      ],
+      "stillNotPassed": [
+        {
+          "severity": "uncertain",
+          "targetId": "nemata-jp-p3-r1",
+          "sourceEvidence": "高清书封图中，作者署名上方及封面底部左侧仍有可见细小文字或标识；候选unknowns明确表示无法可靠辨读。",
+          "description": "主要书封内容对应，但全部可见文字尚未完成核验，不能判为完全忠实。",
+          "suggestedRepair": "保留原书封及现有不确定说明；取得足以辨读这些位置的图像后补录、核对细字，不凭书籍常识补写。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "nemata-jp-p3-r3",
+          "sourceEvidence": "黄绿色腰封的大字下方可见两行小字，候选仅在unknowns中说明模糊，未提供转录。",
+          "description": "腰封小字的内容无法从所附图像可靠确认，书封文字核验尚不完整。",
+          "suggestedRepair": "保留原图和不确定标记；待取得可辨读图像后完整转录并核对两行小字，避免猜写。"
+        }
+      ],
+      "detail": "pages/page-0003.json",
+      "scopedDisplayEvidence": "limited-admission.json:p3",
+      "pageAcceptanceChanged": false
+    },
+    {
+      "page": 317,
+      "chapterId": "nemata-jp-chapter-317-51",
+      "sourceBlockCount": 58,
+      "mappedSourceBlockCount": 58,
+      "missingSourceBlockIds": [],
+      "textChecks": {
+        "faithful": 31,
+        "needs-repair": 1
+      },
+      "figureChecks": {
+        "faithful": 21,
+        "uncertain": 1
+      },
+      "sourceImageBlocks": 26,
+      "candidateFigures": 22,
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\317.json",
+        "sha256": "6222d0a89802f089a494a8f018e2d78abe37f8c323a463cade7f9d9eb1c42a72",
+        "bytes": 52096,
+        "packagePath": "existing/p317/source.json"
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0317.json",
+        "sha256": "e0911ad1e2ee917537c953d1d2e204120fcd3477a67baf1f26eac90f18c9efcf",
+        "bytes": 69864,
+        "packagePath": "existing/p317/candidate.json"
+      },
+      "audit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0317.e0911ad1e2ee917537c953d1d2e204120fcd3477a67baf1f26eac90f18c9efcf.6baa4a7e1404.json",
+        "sha256": "f30bffa04d44573d0ca9fdacd3152d713d061e9503b7c97398e23146eec3f86c",
+        "bytes": 120487,
+        "packagePath": "existing/p317/audit.json"
+      },
+      "producerRaw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\raw-calls\\ab1fbac1-92f8-4795-a789-545bb0dd40c6.json",
+        "sha256": "c158435c7419084fd0b0f5141501be43c227e44d3ab040e71af59116c84526e2",
+        "bytes": 119643,
+        "packagePath": "existing/p317/producer-raw.json"
+      },
+      "reviewerRaw": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\e62c5e5f-cecc-4d6c-be96-c506125e7350.json",
+          "sha256": "fb9a89032a2f61be5971a2c5908be63cd20b76b1ac807f4adf3947b97f214c05",
+          "bytes": 113877,
+          "packagePath": "existing/p317/reviewer-raw.json"
+        }
+      ],
+      "stillNotPassed": [
+        {
+          "severity": "error",
+          "targetId": "nemata-jp-p317-b5",
+          "sourceEvidence": "最新版戦術論を暫定公開。※暫定版の為、構成やURLが変更になる場合があります。",
+          "description": "“暂时公开”将暂定版本的性质偏移为公开时间上的临时性。",
+          "suggestedRepair": "将首句改为“以暂定版形式公开正在《新现代麻将技术论》中发表的最新版战术论。”保留后面的版本变更提示。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "nemata-jp-p317-r6",
+          "sourceEvidence": "杂志封面右上存在两行蓝色小字；评委特别奖作品下方另有星号包围的署名。候选未转录前者，并将后者列为「★ぱくお★」或「★ばくお★」。",
+          "description": "这两处尚未获得完整、唯一的可确认转录，不能判定封面文字全部核对通过。",
+          "suggestedRepair": "核实右上两行小字并补充中文含义，确认署名首字的浊点或半浊点；核实前保留明确的不确定标记，不任选一种作为定论。"
+        }
+      ],
+      "detail": "pages/page-0317.json",
+      "scopedDisplayEvidence": "limited-admission.json:p317",
+      "pageAcceptanceChanged": false
+    }
+  ]
+}

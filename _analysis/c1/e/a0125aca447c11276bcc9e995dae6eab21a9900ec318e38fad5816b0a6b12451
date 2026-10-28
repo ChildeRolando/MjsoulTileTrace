@@ -1,0 +1,1511 @@
+{
+  "schema": "coac246-frontmatter-limited-adjudication-request/1",
+  "authorization": {
+    "issueId": "01a17470-e3bb-7b84-acfe-690c8ef8cbdc",
+    "commentId": "01a17fb2-48a5-73ce-92fd-42195accedc5",
+    "newModelCalls": 0,
+    "retry": 0
+  },
+  "scopePages": [
+    1,
+    2,
+    3
+  ],
+  "scopeCandidateSha256": [
+    "e5f257621a531d26b2bb6cd546019aa4bd00912bfdcd0979cfd47dd514e9f79c",
+    "462a1bc3055842ad17233127590403bac2f64ebe00b902600e35af8d8bd84086",
+    "b99906e6ce07e4d75ee02bf9d561eabaaac5713c8e104323a61238438f98bb16"
+  ],
+  "allFourCandidateSha256": [
+    "e5f257621a531d26b2bb6cd546019aa4bd00912bfdcd0979cfd47dd514e9f79c",
+    "462a1bc3055842ad17233127590403bac2f64ebe00b902600e35af8d8bd84086",
+    "b99906e6ce07e4d75ee02bf9d561eabaaac5713c8e104323a61238438f98bb16",
+    "b3115591977d81273c795177268a00a84e0960577b0ec1a40304fd2ca515c462"
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "canonical": "nemata-jp-chapter-001-64",
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\001.json",
+        "sha256": "b5595e802d47eaef2c9815e9342771c88513d413d66222528fee9c16dc93ad71",
+        "bytes": 90022
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0001.json",
+        "sha256": "195ec4e95734120c92d4bc0281512b7cb06d84fda221b68e339f020e06ddd02b",
+        "bytes": 73779,
+        "packagePath": "parents/page-0001.json"
+      },
+      "derivative": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0001.json",
+        "sha256": "e5f257621a531d26b2bb6cd546019aa4bd00912bfdcd0979cfd47dd514e9f79c",
+        "bytes": 74019,
+        "packagePath": "derived-candidates/page-0001.json"
+      },
+      "oldAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0001.195ec4e95734120c92d4bc0281512b7cb06d84fda221b68e339f020e06ddd02b.6baa4a7e1404.json",
+        "sha256": "9619f5b27ba1b1bb6227184081d72cb599de232741d6f5ea01e7d1daa829ab91",
+        "bytes": 121240
+      },
+      "exactFields": [
+        {
+          "pointer": "/figures/3/transcription",
+          "target": "nemata-jp-p1-r4",
+          "afterJsonSha256": "efe2d9cdf9fc2766532ae856d3f8b13db93396549871fd21185415fc26c60f0e",
+          "independentPackage": 0
+        },
+        {
+          "pointer": "/figures/3/unknowns",
+          "target": "nemata-jp-p1-r4",
+          "afterJsonSha256": "a43e92a2877a35e4d39b2f991f8840724ac1ce16c0a4cc7e1f919664783cb78e",
+          "independentPackage": 0
+        }
+      ],
+      "fullOldPageEvidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\pages\\page-0001.json",
+        "sha256": "3076329347f960aae67250d0c9974c87f96fd5b882505daa3ce0952fd2deb4f1",
+        "bytes": 340279
+      },
+      "nativeSourceFlow": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\native-source-flow\\nemata-jp-1.json",
+        "sha256": "de1d7eba39a8a0508f00951638c057689866d426cf7ba991c0a52aaf5604adaf",
+        "bytes": 55079,
+        "packagePath": "existing/p1/native-source-flow.json"
+      },
+      "producerRaw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\raw-calls\\44623e39-1932-4b0b-9314-9572bfef3b08.json",
+        "sha256": "386b72b91c016d678e9270a1843ae742f12c012b16bddd16480cdffe26cd09bc",
+        "bytes": 140270,
+        "packagePath": "existing/p1/producer-raw.json"
+      },
+      "oldReviewerRaws": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4c6e996a-72ba-454f-ac14-f05e131b1b33.json",
+          "sha256": "8e718812297abad03db1ddf03d45965f23f9f9ec34ca33cf583d87d476b6ca24",
+          "bytes": 110564,
+          "packagePath": "existing/p1/reviewer-raw.json"
+        }
+      ],
+      "oldCompletePageCompared": true,
+      "oldFlowCheck": {
+        "verdict": "faithful",
+        "explanation": "页眉、站名、宣传语、导航、主目录、侧栏及页脚关系正确。目录按各节左栏再右栏整理，未机械交织双栏；侧栏按自身顺序完整承接，箭头对应链接正确。本页末尾仅保留实际出现的43、44、50、51项，未混入下一页内容。"
+      },
+      "oldBodyChecks": [
+        {
+          "id": "nemata-jp-p1-b2",
+          "verdict": "faithful",
+          "explanation": "提取块为空；原图可见的宣传副标题已完整译出。"
+        },
+        {
+          "id": "nemata-jp-p1-b3",
+          "verdict": "faithful",
+          "explanation": "研究成果、强豪打法、缜密考察及最强理论的表述均保留。"
+        },
+        {
+          "id": "nemata-jp-p1-b4",
+          "verdict": "faithful",
+          "explanation": "提取块为空；原图中的“序章 麻将技术论”已补译。"
+        },
+        {
+          "id": "nemata-jp-p1-b5",
+          "verdict": "faithful",
+          "explanation": "编号及“麻将技术概述”完整对应。"
+        },
+        {
+          "id": "nemata-jp-p1-b6",
+          "verdict": "faithful",
+          "explanation": "提取块为空；原图中的“第1章 牌效率论”已补译。"
+        },
+        {
+          "id": "nemata-jp-p1-b7",
+          "verdict": "faithful",
+          "explanation": "平场、他家未进攻或进攻可以忽略的前提，以及打牌、副露、立直三类判断均保留。"
+        },
+        {
+          "id": "nemata-jp-p1-b8",
+          "verdict": "faithful",
+          "explanation": "编号及“牌效率的原则”对应准确。"
+        },
+        {
+          "id": "nemata-jp-p1-b9",
+          "verdict": "faithful",
+          "explanation": "节号及原图可见标题“牌理”均已译出。"
+        },
+        {
+          "id": "nemata-jp-p1-b10",
+          "verdict": "faithful",
+          "explanation": "牌的组合理论这一讨论范围完整保留。"
+        },
+        {
+          "id": "nemata-jp-p1-b11",
+          "verdict": "faithful",
+          "explanation": "2至20项全部保留；按左栏再右栏整理，编号、搭子类型及比较对象对应。"
+        },
+        {
+          "id": "nemata-jp-p1-b12",
+          "verdict": "faithful",
+          "explanation": "节号及原图可见标题“先制听牌判断”完整。"
+        },
+        {
+          "id": "nemata-jp-p1-b13",
+          "verdict": "faithful",
+          "explanation": "先制听牌条件及立直、默听、拆听、听口选择四项完整。"
+        },
+        {
+          "id": "nemata-jp-p1-b14",
+          "verdict": "faithful",
+          "explanation": "21-1至21-6全部对应，和牌优先与防守优先未混淆。"
+        },
+        {
+          "id": "nemata-jp-p1-b15",
+          "verdict": "faithful",
+          "explanation": "节号及原图可见标题“副露效率”完整。"
+        },
+        {
+          "id": "nemata-jp-p1-b16",
+          "verdict": "faithful",
+          "explanation": "副露与鸣牌的对应关系及讨论范围准确。"
+        },
+        {
+          "id": "nemata-jp-p1-b17",
+          "verdict": "faithful",
+          "explanation": "22-1至22-4、23、24全部保留，副露牌理、役种构想及门清牌理变化点对应。"
+        },
+        {
+          "id": "nemata-jp-p1-b18",
+          "verdict": "faithful",
+          "explanation": "节号及原图可见标题“役种构成技术”完整。"
+        },
+        {
+          "id": "nemata-jp-p1-b19",
+          "verdict": "faithful",
+          "explanation": "追求役种及处理宝牌两部分均已译出。"
+        },
+        {
+          "id": "nemata-jp-p1-b20",
+          "verdict": "faithful",
+          "explanation": "25至42项全部保留，编号、役种名称、门清与副露的宝牌处理分类对应。"
+        },
+        {
+          "id": "nemata-jp-p1-b21",
+          "verdict": "faithful",
+          "explanation": "节号及原图可见标题“一向听效率”完整。"
+        },
+        {
+          "id": "nemata-jp-p1-b22",
+          "verdict": "faithful",
+          "explanation": "一向听时的打牌选择技术译意完整。"
+        },
+        {
+          "id": "nemata-jp-p1-b23",
+          "verdict": "faithful",
+          "explanation": "本页可见的43、44、50、51项全部保留；未重复收入下一页条目。"
+        },
+        {
+          "id": "nemata-jp-p1-b25",
+          "verdict": "faithful",
+          "explanation": "站内文章及术语的搜索说明完整，并补译原图中的搜索标题。"
+        },
+        {
+          "id": "nemata-jp-p1-b26",
+          "verdict": "faithful",
+          "explanation": "提取块为空；原图可见的“免费注册的网络麻将”已译出。"
+        },
+        {
+          "id": "nemata-jp-p1-b27",
+          "verdict": "faithful",
+          "explanation": "刊载于《月刊网络麻将》2010年1月号的消息准确。"
+        },
+        {
+          "id": "nemata-jp-p1-b29",
+          "verdict": "faithful",
+          "explanation": "“幻想麻将ガチ打ちwiki”译为认真打牌wiki，含义对应。"
+        },
+        {
+          "id": "nemata-jp-p1-b31",
+          "verdict": "faithful",
+          "explanation": "“现代麻将技术论注”对应原链接名称。"
+        },
+        {
+          "id": "nemata-jp-p1-b33",
+          "verdict": "faithful",
+          "explanation": "“极真麻将博客”译名对应。"
+        },
+        {
+          "id": "nemata-jp-p1-b35",
+          "verdict": "faithful",
+          "explanation": "“最速流麻将战术论”完整对应。"
+        },
+        {
+          "id": "nemata-jp-p1-b37",
+          "verdict": "faithful",
+          "explanation": "“三麻四麻博客”对应原链接名称。"
+        },
+        {
+          "id": "nemata-jp-p1-b39",
+          "verdict": "faithful",
+          "explanation": "初学者麻将讲座及黄金牌故事副标题均保留。"
+        },
+        {
+          "id": "nemata-jp-p1-b41",
+          "verdict": "faithful",
+          "explanation": "天凤及避免末位的含义完整。"
+        },
+        {
+          "id": "nemata-jp-p1-b43",
+          "verdict": "faithful",
+          "explanation": "保留专名“なめとん”，麻将博客部分译意准确。"
+        },
+        {
+          "id": "nemata-jp-p1-b45",
+          "verdict": "faithful",
+          "explanation": "科学研究二次元与“りーりん实验室”两部分完整对应。"
+        },
+        {
+          "id": "nemata-jp-p1-b47",
+          "verdict": "faithful",
+          "explanation": "“日刊鸵鸟蛋”对应原链接名称。"
+        },
+        {
+          "id": "nemata-jp-p1-b49",
+          "verdict": "faithful",
+          "explanation": "HAZ及研究人生的链接名称含义保留。"
+        },
+        {
+          "id": "nemata-jp-p1-b51",
+          "verdict": "faithful",
+          "explanation": "“新手的好运”对应ビギナーズラック。"
+        },
+        {
+          "id": "nemata-jp-p1-b53",
+          "verdict": "faithful",
+          "explanation": "“副露海冬”名称保留。"
+        },
+        {
+          "id": "nemata-jp-p1-b55",
+          "verdict": "faithful",
+          "explanation": "兄控、女高中生、天凤反省簿各部分均对应。"
+        },
+        {
+          "id": "nemata-jp-p1-b57",
+          "verdict": "faithful",
+          "explanation": "“碰与吃的冷冻库”完整对应。"
+        },
+        {
+          "id": "nemata-jp-p1-b59",
+          "verdict": "faithful",
+          "explanation": "“麻将一番街”名称对应。"
+        },
+        {
+          "id": "nemata-jp-p1-b61",
+          "verdict": "faithful",
+          "explanation": "“麻将概论”对应准确。"
+        },
+        {
+          "id": "nemata-jp-p1-b63",
+          "verdict": "faithful",
+          "explanation": "导航各项完整，原图可见而提取遗漏的“战术论”也已保留。"
+        },
+        {
+          "id": "nemata-jp-p1-b64",
+          "verdict": "faithful",
+          "explanation": "页眉标题和网址完整，置于页首符合实际视觉位置。"
+        },
+        {
+          "id": "nemata-jp-p1-b65",
+          "verdict": "faithful",
+          "explanation": "页码、总页数及日期时间均准确保留。"
+        }
+      ],
+      "oldFigureChecks": [
+        {
+          "id": "nemata-jp-p1-r1",
+          "verdict": "faithful",
+          "explanation": "蓝色站名、灰色投影及标题文字对应；副标题已在相邻正文译出。"
+        },
+        {
+          "id": "nemata-jp-p1-r2",
+          "verdict": "faithful",
+          "explanation": "绿色获奖标牌的2009年、最高奖、站名及撰稿人与网站制作者均对应。"
+        },
+        {
+          "id": "nemata-jp-p1-r3",
+          "verdict": "faithful",
+          "explanation": "灰色搜索按钮及“検索”译文对应。"
+        },
+        {
+          "id": "nemata-jp-p1-r4",
+          "verdict": "uncertain",
+          "explanation": "刊名、期号、主要宣传文字、评选人员、特别奖、亚军奖及最高奖信息均对应；January下方极小字仍无法可靠辨认，候选也明确列为未知，尚不能完整确认该处转录。"
+        },
+        {
+          "id": "nemata-jp-p1-r5",
+          "verdict": "faithful",
+          "explanation": "友情链接横幅的文字、紫底、灰框、相向弯箭头及第一条链接箭头均对应。"
+        },
+        {
+          "id": "nemata-jp-p1-r6",
+          "verdict": "faithful",
+          "explanation": "对应“现代麻将技术论注”前的蓝底白色右箭头。"
+        },
+        {
+          "id": "nemata-jp-p1-r7",
+          "verdict": "faithful",
+          "explanation": "对应“极真麻将博客”前的蓝底白色右箭头。"
+        },
+        {
+          "id": "nemata-jp-p1-r8",
+          "verdict": "faithful",
+          "explanation": "对应“最速流麻将战术论”前的蓝底白色右箭头。"
+        },
+        {
+          "id": "nemata-jp-p1-r9",
+          "verdict": "faithful",
+          "explanation": "对应“三麻四麻博客”前的蓝底白色右箭头。"
+        },
+        {
+          "id": "nemata-jp-p1-r10",
+          "verdict": "faithful",
+          "explanation": "对应初学者麻将讲座前的蓝底白色右箭头。"
+        },
+        {
+          "id": "nemata-jp-p1-r11",
+          "verdict": "faithful",
+          "explanation": "对应天凤避免末位链接前的蓝底白色右箭头。"
+        },
+        {
+          "id": "nemata-jp-p1-r12",
+          "verdict": "faithful",
+          "explanation": "对应“なめとん的麻将博客”前的蓝底白色右箭头。"
+        },
+        {
+          "id": "nemata-jp-p1-r13",
+          "verdict": "faithful",
+          "explanation": "对应二次元科学链接前的蓝底白色右箭头。"
+        },
+        {
+          "id": "nemata-jp-p1-r14",
+          "verdict": "faithful",
+          "explanation": "对应“日刊鸵鸟蛋”前的蓝底白色右箭头。"
+        },
+        {
+          "id": "nemata-jp-p1-r15",
+          "verdict": "faithful",
+          "explanation": "对应HAZ链接前的蓝底白色右箭头。"
+        },
+        {
+          "id": "nemata-jp-p1-r16",
+          "verdict": "faithful",
+          "explanation": "对应“新手的好运”前的蓝底白色右箭头。"
+        },
+        {
+          "id": "nemata-jp-p1-r17",
+          "verdict": "faithful",
+          "explanation": "对应“副露海冬”前的蓝底白色右箭头。"
+        },
+        {
+          "id": "nemata-jp-p1-r18",
+          "verdict": "faithful",
+          "explanation": "对应兄控女高中生链接前的蓝底白色右箭头。"
+        },
+        {
+          "id": "nemata-jp-p1-r19",
+          "verdict": "faithful",
+          "explanation": "对应“碰与吃的冷冻库”前的蓝底白色右箭头。"
+        },
+        {
+          "id": "nemata-jp-p1-r20",
+          "verdict": "faithful",
+          "explanation": "对应“麻将一番街”前的蓝底白色右箭头。"
+        },
+        {
+          "id": "nemata-jp-p1-r21",
+          "verdict": "faithful",
+          "explanation": "对应“麻将概论”前的蓝底白色右箭头。"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "canonical": "nemata-jp-chapter-001-64",
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\002.json",
+        "sha256": "e82df805c5631a27bb63bf13d8a7e89cd7abaf3aff15efbe732a59125459bb09",
+        "bytes": 94013
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0002.json",
+        "sha256": "205a9a8ab2dcc7353f5d3ec2df6f6b99339ecbb4ca57c507690b6ff45397e1d6",
+        "bytes": 73791,
+        "packagePath": "parents/page-0002.json"
+      },
+      "derivative": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0002.json",
+        "sha256": "462a1bc3055842ad17233127590403bac2f64ebe00b902600e35af8d8bd84086",
+        "bytes": 73867,
+        "packagePath": "derived-candidates/page-0002.json"
+      },
+      "oldAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0002.205a9a8ab2dcc7353f5d3ec2df6f6b99339ecbb4ca57c507690b6ff45397e1d6.6baa4a7e1404.json",
+        "sha256": "02b5cea0e12ad34ddf670e20cbb6071e395c2587f2d2797e6be303d1af9d442c",
+        "bytes": 125598
+      },
+      "exactFields": [
+        {
+          "pointer": "/figures/14/transcription",
+          "target": "nemata-jp-p2-r15",
+          "afterJsonSha256": "41c6edb4f3eba41e40dce54f8743965b1566680b75ec88ad26e56b9e46121338",
+          "independentPackage": 0
+        },
+        {
+          "pointer": "/figures/14/unknowns",
+          "target": "nemata-jp-p2-r15",
+          "afterJsonSha256": "603410eb2364aedad03c79f6f8b36f21e7fea37cdacc884a59075f8cf22dbe89",
+          "independentPackage": 0
+        }
+      ],
+      "fullOldPageEvidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\pages\\page-0002.json",
+        "sha256": "8b5d0cedd767fef2cbb97dd9d29565ff777652e95f436a887ce1c33559239a63",
+        "bytes": 252675
+      },
+      "nativeSourceFlow": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\native-source-flow\\nemata-jp-2.json",
+        "sha256": "a16af45b1515b1214bb650400964ed19ca8055751cfe92e737e24f9f8c551160",
+        "bytes": 55971,
+        "packagePath": "existing/p2/native-source-flow.json"
+      },
+      "producerRaw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\raw-calls\\4580aa4a-a2c1-4c68-a99a-916d815aed9a.json",
+        "sha256": "7a986c016271b592bf182a04b0f27e04e426fdda019aa81f00083f7914c92a6b",
+        "bytes": 144641,
+        "packagePath": "existing/p2/producer-raw.json"
+      },
+      "oldReviewerRaws": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\34ca7811-aa03-449f-919f-3d6453c26ad7.json",
+          "sha256": "258a008cd9b8d36de50ee3a3b2720825bc127d484ca81ea148e86cd98121adcc",
+          "bytes": 112645,
+          "packagePath": "existing/p2/reviewer-raw.json"
+        }
+      ],
+      "oldCompletePageCompared": true,
+      "oldFlowCheck": {
+        "verdict": "faithful",
+        "explanation": "页眉、主栏目录、右侧链接与书籍介绍、页脚的顺序合理；目录按左右栏编号阅读，未交织两栏。标题、书封、推荐语及书目信息对应正确，跨页边界未补入邻页正文。"
+      },
+      "oldBodyChecks": [
+        {
+          "id": "nemata-jp-p2-b1",
+          "verdict": "faithful",
+          "explanation": "45～49、52～56项完整，术语与编号对应，按左右栏分别阅读的顺序正确。"
+        },
+        {
+          "id": "nemata-jp-p2-b2",
+          "verdict": "faithful",
+          "explanation": "提取块为空；候选依据整页可见标题恢复“第2章　押し引き論”，译义正确。"
+        },
+        {
+          "id": "nemata-jp-p2-b3",
+          "verdict": "faithful",
+          "explanation": "保留平场、他家立直或副露，以及进攻、弃和、防备的范围。"
+        },
+        {
+          "id": "nemata-jp-p2-b4",
+          "verdict": "faithful",
+          "explanation": "节号及整页可见的“非テンパイ他家への対応”标题均准确。"
+        },
+        {
+          "id": "nemata-jp-p2-b5",
+          "verdict": "faithful",
+          "explanation": "防备他家进攻及扣牌、好牌先打、防御三个方面均已译出。"
+        },
+        {
+          "id": "nemata-jp-p2-b6",
+          "verdict": "faithful",
+          "explanation": "第1～4项齐全，按目录编号恢复栏目阅读顺序正确。"
+        },
+        {
+          "id": "nemata-jp-p2-b7",
+          "verdict": "faithful",
+          "explanation": "第5～12项、先制听牌判断及移至牌效率论第21项的说明完整。"
+        },
+        {
+          "id": "nemata-jp-p2-b8",
+          "verdict": "faithful",
+          "explanation": "节号及整页可见的弃和技术标题对应。"
+        },
+        {
+          "id": "nemata-jp-p2-b9",
+          "verdict": "faithful",
+          "explanation": "弃和技术的介绍准确。"
+        },
+        {
+          "id": "nemata-jp-p2-b10",
+          "verdict": "faithful",
+          "explanation": "第13～15项完整，彻底弃和、读等待的有效局面及无安全牌时的处理均对应。"
+        },
+        {
+          "id": "nemata-jp-p2-b11",
+          "verdict": "faithful",
+          "explanation": "节号及整页可见的应对立直标题准确。"
+        },
+        {
+          "id": "nemata-jp-p2-b12",
+          "verdict": "faithful",
+          "explanation": "应对他家立直以及进攻、弃和、等待选择的范围完整。"
+        },
+        {
+          "id": "nemata-jp-p2-b13",
+          "verdict": "faithful",
+          "explanation": "第16～21项齐全，有赤规则、两家立直及一向听等条件均保留。"
+        },
+        {
+          "id": "nemata-jp-p2-b14",
+          "verdict": "faithful",
+          "explanation": "节号及整页可见的应对鸣牌副露标题对应。"
+        },
+        {
+          "id": "nemata-jp-p2-b15",
+          "verdict": "faithful",
+          "explanation": "他家副露及进攻、弃和、扣牌、迂回打法均完整译出。"
+        },
+        {
+          "id": "nemata-jp-p2-b16",
+          "verdict": "faithful",
+          "explanation": "第22～24项完整，副露特点、听牌判断及按役种应对均对应。"
+        },
+        {
+          "id": "nemata-jp-p2-b17",
+          "verdict": "faithful",
+          "explanation": "节号与整页可见的补充标题准确。"
+        },
+        {
+          "id": "nemata-jp-p2-b18",
+          "verdict": "faithful",
+          "explanation": "其他应对技术的介绍准确。"
+        },
+        {
+          "id": "nemata-jp-p2-b19",
+          "verdict": "faithful",
+          "explanation": "第25～27项完整，临近流局、迂回与扣牌、消除一发及改变海底归属均保留。"
+        },
+        {
+          "id": "nemata-jp-p2-b20",
+          "verdict": "faithful",
+          "explanation": "提取块为空；整页可见“第3章　読みの技術論”，候选恢复并翻译准确。"
+        },
+        {
+          "id": "nemata-jp-p2-b21",
+          "verdict": "faithful",
+          "explanation": "非公开信息的四项内容及预测技术的含义完整。"
+        },
+        {
+          "id": "nemata-jp-p2-b22",
+          "verdict": "faithful",
+          "explanation": "第1项读牌原则完整。"
+        },
+        {
+          "id": "nemata-jp-p2-b23",
+          "verdict": "faithful",
+          "explanation": "节号及可见的“数え上げ読み”标题译为枚举读牌，含义对应。"
+        },
+        {
+          "id": "nemata-jp-p2-b24",
+          "verdict": "faithful",
+          "explanation": "预测危险牌的技术准确译出。"
+        },
+        {
+          "id": "nemata-jp-p2-b25",
+          "verdict": "faithful",
+          "explanation": "第2、3项及十八分之一的数值准确，字牌等待判断的含义保留。"
+        },
+        {
+          "id": "nemata-jp-p2-b26",
+          "verdict": "faithful",
+          "explanation": "节号及整页可见的手牌构成解读标题准确。"
+        },
+        {
+          "id": "nemata-jp-p2-b27",
+          "verdict": "faithful",
+          "explanation": "预测他家等待与役种的范围完整。"
+        },
+        {
+          "id": "nemata-jp-p2-b28",
+          "verdict": "faithful",
+          "explanation": "第4～20项全部出现，左右栏编号、各系列的序号及读牌对象对应。"
+        },
+        {
+          "id": "nemata-jp-p2-b29",
+          "verdict": "faithful",
+          "explanation": "节号及整页可见的牌山解读标题完整；未混入下页正文。"
+        },
+        {
+          "id": "nemata-jp-p2-b30",
+          "verdict": "faithful",
+          "explanation": "网站名称及括号中的日文读音保留。"
+        },
+        {
+          "id": "nemata-jp-p2-b32",
+          "verdict": "faithful",
+          "explanation": "靠麻将获利及在散客雀庄取胜的方法均已译出。"
+        },
+        {
+          "id": "nemata-jp-p2-b34",
+          "verdict": "faithful",
+          "explanation": "网站名称与.com后缀对应。"
+        },
+        {
+          "id": "nemata-jp-p2-b36",
+          "verdict": "faithful",
+          "explanation": "网站名称及百分号保留。"
+        },
+        {
+          "id": "nemata-jp-p2-b38",
+          "verdict": "faithful",
+          "explanation": "评论麻将书和麻将游戏的两部分及强调语气均保留。"
+        },
+        {
+          "id": "nemata-jp-p2-b40",
+          "verdict": "faithful",
+          "explanation": "无气力、无关心及暂定标记均对应。"
+        },
+        {
+          "id": "nemata-jp-p2-b42",
+          "verdict": "faithful",
+          "explanation": "“眼里只剩天凤”准确表达网站名称。"
+        },
+        {
+          "id": "nemata-jp-p2-b44",
+          "verdict": "faithful",
+          "explanation": "与下一断行合并后完整表达博客名称。"
+        },
+        {
+          "id": "nemata-jp-p2-b45",
+          "verdict": "faithful",
+          "explanation": "“グ。”与上一块合并为博客名称，未遗漏或重复。"
+        },
+        {
+          "id": "nemata-jp-p2-b47",
+          "verdict": "faithful",
+          "explanation": "网站名称译义对应。"
+        },
+        {
+          "id": "nemata-jp-p2-b49",
+          "verdict": "faithful",
+          "explanation": "提取块为空白；候选补入整页可见的好题与优质何切讲解书标题，含义准确。"
+        },
+        {
+          "id": "nemata-jp-p2-b50",
+          "verdict": "faithful",
+          "explanation": "市售书中最优秀的评价力度，以及好题、详细和逻辑性均保留。"
+        },
+        {
+          "id": "nemata-jp-p2-b52",
+          "verdict": "faithful",
+          "explanation": "书名、作者、出版社及2009-10-24日期准确。"
+        },
+        {
+          "id": "nemata-jp-p2-b53",
+          "verdict": "faithful",
+          "explanation": "提取块为空白；候选准确恢复整页可见的必读及最强入门书标题。"
+        },
+        {
+          "id": "nemata-jp-p2-b54",
+          "verdict": "faithful",
+          "explanation": "为加深理解本站战术论而应一并购买阅读的判断及力度保留。"
+        },
+        {
+          "id": "nemata-jp-p2-b55",
+          "verdict": "faithful",
+          "explanation": "书名、福地诚、洋泉社及2009-02-25日期对应。"
+        },
+        {
+          "id": "nemata-jp-p2-b56",
+          "verdict": "faithful",
+          "explanation": "提取块为空白；整页可见的最强职业牌手及最优秀职业著作标题已准确恢复。"
+        },
+        {
+          "id": "nemata-jp-p2-b57",
+          "verdict": "faithful",
+          "explanation": "网络麻将出身、以最强著称，以及职业战术书中最优秀的评价均完整保留。"
+        },
+        {
+          "id": "nemata-jp-p2-b59",
+          "verdict": "faithful",
+          "explanation": "书名、系列、作者、出版社原名及2009-03-25日期完整对应。"
+        },
+        {
+          "id": "nemata-jp-p2-b60",
+          "verdict": "faithful",
+          "explanation": "提取块为空白；整页可见的第2弹、实战问题集等标题内容均已恢复。"
+        },
+        {
+          "id": "nemata-jp-p2-b61",
+          "verdict": "faithful",
+          "explanation": "为《最强数字麻将》续篇的说明准确，未加入下页介绍。"
+        },
+        {
+          "id": "nemata-jp-p2-b62",
+          "verdict": "faithful",
+          "explanation": "页眉标题与网址完整，放在视觉页首正确。"
+        },
+        {
+          "id": "nemata-jp-p2-b63",
+          "verdict": "faithful",
+          "explanation": "页码、总页数及时间戳准确。"
+        }
+      ],
+      "oldFigureChecks": [
+        {
+          "id": "nemata-jp-p2-r1",
+          "verdict": "faithful",
+          "explanation": "蓝底白色右箭头及灰色边缘对应链接图标。"
+        },
+        {
+          "id": "nemata-jp-p2-r2",
+          "verdict": "faithful",
+          "explanation": "链接箭头的颜色、方向和边缘描述对应。"
+        },
+        {
+          "id": "nemata-jp-p2-r3",
+          "verdict": "faithful",
+          "explanation": "对应第三个网站链接的蓝底白色右箭头。"
+        },
+        {
+          "id": "nemata-jp-p2-r4",
+          "verdict": "faithful",
+          "explanation": "对应麻将％链接前的箭头，无牌例内容。"
+        },
+        {
+          "id": "nemata-jp-p2-r5",
+          "verdict": "faithful",
+          "explanation": "链接箭头的可见外观描述准确。"
+        },
+        {
+          "id": "nemata-jp-p2-r6",
+          "verdict": "faithful",
+          "explanation": "对应无气力无关心链接前的箭头。"
+        },
+        {
+          "id": "nemata-jp-p2-r7",
+          "verdict": "faithful",
+          "explanation": "对应天凤链接前的箭头，描述准确。"
+        },
+        {
+          "id": "nemata-jp-p2-r8",
+          "verdict": "faithful",
+          "explanation": "对应博客链接前的箭头，描述准确。"
+        },
+        {
+          "id": "nemata-jp-p2-r9",
+          "verdict": "faithful",
+          "explanation": "对应莱拉链接前的箭头，描述准确。"
+        },
+        {
+          "id": "nemata-jp-p2-r10",
+          "verdict": "faithful",
+          "explanation": "可见五颗金黄色星横向排列，数量与描述一致。"
+        },
+        {
+          "id": "nemata-jp-p2-r11",
+          "verdict": "uncertain",
+          "explanation": "黄色书封、主要书名、作者、英文及人物插画对应；右侧细小文字和模型内牌面无法从所附图可靠逐项确认，候选也列为未知，不能判全部细节已核实。"
+        },
+        {
+          "id": "nemata-jp-p2-r12",
+          "verdict": "faithful",
+          "explanation": "五颗金黄色星的数量与排列对应。"
+        },
+        {
+          "id": "nemata-jp-p2-r13",
+          "verdict": "faithful",
+          "explanation": "原页实际显示破损图片占位图标；候选如实描述，未推测原本未显示的图片。"
+        },
+        {
+          "id": "nemata-jp-p2-r14",
+          "verdict": "faithful",
+          "explanation": "五颗金黄色星的数量与排列对应。"
+        },
+        {
+          "id": "nemata-jp-p2-r15",
+          "verdict": "uncertain",
+          "explanation": "书名、深蓝底、作者署名及西装男子坐在麻将桌旁的照片对应；桌面细小牌面无法可靠辨认，不能确认具体牌码。"
+        },
+        {
+          "id": "nemata-jp-p2-r16",
+          "verdict": "faithful",
+          "explanation": "五颗金黄色星的数量与排列对应。"
+        }
+      ]
+    },
+    {
+      "page": 3,
+      "canonical": "nemata-jp-chapter-001-64",
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\003.json",
+        "sha256": "d4d6ef6ff6cb981938e65422a19ea3eab15ebf0c1febd8358b553d6ac103a7c4",
+        "bytes": 61343
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0003.json",
+        "sha256": "b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36",
+        "bytes": 34716,
+        "packagePath": "parents/page-0003.json"
+      },
+      "derivative": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0003.json",
+        "sha256": "b99906e6ce07e4d75ee02bf9d561eabaaac5713c8e104323a61238438f98bb16",
+        "bytes": 34834,
+        "packagePath": "derived-candidates/page-0003.json"
+      },
+      "oldAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0003.b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36.6baa4a7e1404.json",
+        "sha256": "68037da0805fc3c947b9d3ca0ddc83576ac1ee368a3c91539243266af0f3152f",
+        "bytes": 76877
+      },
+      "exactFields": [
+        {
+          "pointer": "/figures/0/transcription",
+          "target": "nemata-jp-p3-r1",
+          "afterJsonSha256": "5e8267f0401a8cbb12f71ee1b66f5c0408eaef11a96f3cddc1e955cbea987789",
+          "independentPackage": 0
+        },
+        {
+          "pointer": "/figures/0/unknowns",
+          "target": "nemata-jp-p3-r1",
+          "afterJsonSha256": "a779fcbcc990d95a993f01a74f98a472c6b059e22aecc7eb012cb36b4323b822",
+          "independentPackage": 0
+        },
+        {
+          "pointer": "/figures/2/transcription",
+          "target": "nemata-jp-p3-r3",
+          "afterJsonSha256": "a93239c723d9767d498af609d131c93f45e788c37cfe3aa9904655f252eae296",
+          "independentPackage": 0
+        },
+        {
+          "pointer": "/figures/2/unknowns",
+          "target": "nemata-jp-p3-r3",
+          "afterJsonSha256": "05239c59c637266b385a399df44fec175a694b58b52ed793a76a206ea4a71db2",
+          "independentPackage": 0
+        }
+      ],
+      "fullOldPageEvidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\pages\\page-0003.json",
+        "sha256": "63e60a6a0adb51bb87d335fe05c715c6ff2bb77be079d6b5d353ab38759daa88",
+        "bytes": 147020
+      },
+      "nativeSourceFlow": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\native-source-flow\\nemata-jp-3.json",
+        "sha256": "fff57e9a8977a75b5128776279d144767b0382bd0a81d337930f345c8cff86cd",
+        "bytes": 33799,
+        "packagePath": "existing/p3/native-source-flow.json"
+      },
+      "producerRaw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\raw-calls\\c13b5f4b-6d95-4bdd-a809-984e7e7cce05.json",
+        "sha256": "33ffb67d44a3a2933b7fe85eac1700c324a8db0b02bf8249f2d0470ae79ae040",
+        "bytes": 84955,
+        "packagePath": "existing/p3/producer-raw.json"
+      },
+      "oldReviewerRaws": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7d4d837c-f92f-406d-9685-460bcd28cb61.json",
+          "sha256": "d7f184b880fd01d18e1e49db2bb327e8e6e1e0caa2e96a3ee5c2ea2ef4332a70",
+          "bytes": 67849,
+          "packagePath": "existing/p3/reviewer-raw.json"
+        }
+      ],
+      "oldCompletePageCompared": true,
+      "oldFlowCheck": {
+        "verdict": "faithful",
+        "explanation": "页眉、主栏各章各节及目录、广告、侧栏书籍推荐、页脚的阅读关系正确；双列目录按编号和栏目关系整理，没有逐行交织。三幅图均接在对应书籍或推荐语位置，没有错接，也未重复加入邻页内容。"
+      },
+      "oldBodyChecks": [
+        {
+          "id": "nemata-jp-p3-b1",
+          "verdict": "faithful",
+          "explanation": "牌山预测技术的主题完整译出。"
+        },
+        {
+          "id": "nemata-jp-p3-b2",
+          "verdict": "faithful",
+          "explanation": "第21至24项目均保留，按实际分栏关系恢复编号顺序。"
+        },
+        {
+          "id": "nemata-jp-p3-b3",
+          "verdict": "faithful",
+          "explanation": "节号及整页图中可见的“补充”标题均保留。"
+        },
+        {
+          "id": "nemata-jp-p3-b4",
+          "verdict": "faithful",
+          "explanation": "其他预测技术的主题译文完整。"
+        },
+        {
+          "id": "nemata-jp-p3-b5",
+          "verdict": "faithful",
+          "explanation": "第25至29项目及“逆切り３”的编号均保留。"
+        },
+        {
+          "id": "nemata-jp-p3-b6",
+          "verdict": "faithful",
+          "explanation": "提取文本为空；候选正确恢复整页可见的第4章标题。"
+        },
+        {
+          "id": "nemata-jp-p3-b7",
+          "verdict": "faithful",
+          "explanation": "非平场、包括倒数第二局和最终局、考虑顺位分等条件完整保留。"
+        },
+        {
+          "id": "nemata-jp-p3-b8",
+          "verdict": "faithful",
+          "explanation": "17个目录项目全部译出，分栏顺序、编号及攻守取舍1和2均正确。"
+        },
+        {
+          "id": "nemata-jp-p3-b9",
+          "verdict": "faithful",
+          "explanation": "提取文本为空；候选正确恢复整页可见的第5章标题。"
+        },
+        {
+          "id": "nemata-jp-p3-b10",
+          "verdict": "faithful",
+          "explanation": "提高麻将水平的高效学习方法这一主题完整译出。"
+        },
+        {
+          "id": "nemata-jp-p3-b11",
+          "verdict": "faithful",
+          "explanation": "三个项目完整保留，心态与专注力均有对应译文。"
+        },
+        {
+          "id": "nemata-jp-p3-b12",
+          "verdict": "faithful",
+          "explanation": "提取文本为空；候选正确恢复整页可见的第6章“实战演习”。"
+        },
+        {
+          "id": "nemata-jp-p3-b13",
+          "verdict": "faithful",
+          "explanation": "第6.1节及图中可见的切牌选择题解题论标题准确译出。"
+        },
+        {
+          "id": "nemata-jp-p3-b14",
+          "verdict": "faithful",
+          "explanation": "切牌选择题的思考方法与讨论方法均保留。"
+        },
+        {
+          "id": "nemata-jp-p3-b15",
+          "verdict": "faithful",
+          "explanation": "两个项目及编号完整、准确。"
+        },
+        {
+          "id": "nemata-jp-p3-b16",
+          "verdict": "faithful",
+          "explanation": "第6.2节及图中可见的切牌选择题研讨标题准确译出。"
+        },
+        {
+          "id": "nemata-jp-p3-b17",
+          "verdict": "faithful",
+          "explanation": "精选题目的答案与解说完整译出。"
+        },
+        {
+          "id": "nemata-jp-p3-b18",
+          "verdict": "faithful",
+          "explanation": "五个题目来源全部保留，博客与网站的区别、MJ4和MFC7标识及编号正确。"
+        },
+        {
+          "id": "nemata-jp-p3-b19",
+          "verdict": "faithful",
+          "explanation": "第6.3节及图中可见的牌谱研讨标题准确译出。"
+        },
+        {
+          "id": "nemata-jp-p3-b20",
+          "verdict": "faithful",
+          "explanation": "三项对局的参与者及公开线下、公开网络对局的区别均保留。"
+        },
+        {
+          "id": "nemata-jp-p3-b21",
+          "verdict": "faithful",
+          "explanation": "依据整页图恢复完整广告标题，免费、3D、在线及超越街机麻将等内容均正确。"
+        },
+        {
+          "id": "nemata-jp-p3-b22",
+          "verdict": "faithful",
+          "explanation": "《雀龙门》名称与三项宣传内容完整译出，未改变能力或程度表述。"
+        },
+        {
+          "id": "nemata-jp-p3-b23",
+          "verdict": "faithful",
+          "explanation": "以前作介绍的小仓系统为对象、采用实战形式讲解的关系准确。"
+        },
+        {
+          "id": "nemata-jp-p3-b25",
+          "verdict": "faithful",
+          "explanation": "系列名、书名、出版方与2009-11-25日期均保留。"
+        },
+        {
+          "id": "nemata-jp-p3-b26",
+          "verdict": "faithful",
+          "explanation": "源块仅提取到空白；候选恢复整页可见的推荐语，并在其前接入五星图标，顺序正确。"
+        },
+        {
+          "id": "nemata-jp-p3-b27",
+          "verdict": "faithful",
+          "explanation": "本站参考本书数据的说明及“可以说价值超过售价”的评价力度均准确保留。"
+        },
+        {
+          "id": "nemata-jp-p3-b29",
+          "verdict": "faithful",
+          "explanation": "书名、系列名、作者、出版社与2004-12-18日期均保留。"
+        },
+        {
+          "id": "nemata-jp-p3-b30",
+          "verdict": "faithful",
+          "explanation": "《咲-Saki-》动画特别网站的链接名称准确译出。"
+        },
+        {
+          "id": "nemata-jp-p3-b31",
+          "verdict": "faithful",
+          "explanation": "页眉标题与网址完整保留，放在视觉页首正确。"
+        },
+        {
+          "id": "nemata-jp-p3-b32",
+          "verdict": "faithful",
+          "explanation": "第3页、共4页及2014-03-02 11:35的信息均正确保留。"
+        }
+      ],
+      "oldFigureChecks": [
+        {
+          "id": "nemata-jp-p3-r1",
+          "verdict": "uncertain",
+          "explanation": "红色书封、主要书名、作者署名、英文标题及人物构图与原图对应；作者署名上方、底部左侧标识等可见细字未完整辨读，不能确认全部封面文字。"
+        },
+        {
+          "id": "nemata-jp-p3-r2",
+          "verdict": "faithful",
+          "explanation": "确为横排五颗金黄色五角星；候选正确区分图像块与裁剪范围内相邻的日期、推荐语。"
+        },
+        {
+          "id": "nemata-jp-p3-r3",
+          "verdict": "uncertain",
+          "explanation": "书名、作者、黄绿色图形、腰封大字及底部系列名与原图对应；腰封下方两行可见小字未转录，现有图像不足以可靠核验其全文。"
+        }
+      ]
+    },
+    {
+      "page": 317,
+      "canonical": "nemata-jp-chapter-317-51",
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\317.json",
+        "sha256": "6222d0a89802f089a494a8f018e2d78abe37f8c323a463cade7f9d9eb1c42a72",
+        "bytes": 52096
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0317.json",
+        "sha256": "e0911ad1e2ee917537c953d1d2e204120fcd3477a67baf1f26eac90f18c9efcf",
+        "bytes": 69864,
+        "packagePath": "parents/page-0317.json"
+      },
+      "derivative": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0317.json",
+        "sha256": "b3115591977d81273c795177268a00a84e0960577b0ec1a40304fd2ca515c462",
+        "bytes": 69997,
+        "packagePath": "derived-candidates/page-0317.json"
+      },
+      "oldAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0317.e0911ad1e2ee917537c953d1d2e204120fcd3477a67baf1f26eac90f18c9efcf.6baa4a7e1404.json",
+        "sha256": "f30bffa04d44573d0ca9fdacd3152d713d061e9503b7c97398e23146eec3f86c",
+        "bytes": 120487
+      },
+      "exactFields": [
+        {
+          "pointer": "/figures/5/transcription",
+          "target": "nemata-jp-p317-r6",
+          "afterJsonSha256": "6676852bebce6135abb05dedd4bf21194645dd2fa8b6fee702bbfc0bc7fd5315",
+          "independentPackage": 1
+        },
+        {
+          "pointer": "/figures/5/unknowns",
+          "target": "nemata-jp-p317-r6",
+          "afterJsonSha256": "c82918078842b033a268f431d7b3c394c32fb0c5c736dc8d9dcd4717e63c5a6d",
+          "independentPackage": 1
+        },
+        {
+          "pointer": "/body/blocks/4/text",
+          "target": "nemata-jp-p317-b5",
+          "afterJsonSha256": "7f5aea43c10681670bd5752981dcfb940525a01f32ebcf161b8f72cf33eec482",
+          "independentPackage": 1
+        },
+        {
+          "pointer": "/body/blocks/4/inlineContent/0/text",
+          "target": "nemata-jp-p317-b5",
+          "afterJsonSha256": "7f5aea43c10681670bd5752981dcfb940525a01f32ebcf161b8f72cf33eec482",
+          "independentPackage": 1
+        },
+        {
+          "pointer": "/body/blocks/4/rawSlotText",
+          "target": "nemata-jp-p317-b5",
+          "afterJsonSha256": "7f5aea43c10681670bd5752981dcfb940525a01f32ebcf161b8f72cf33eec482",
+          "independentPackage": 1
+        }
+      ],
+      "fullOldPageEvidence": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\pages\\page-0317.json",
+        "sha256": "8d4e9e09418c3455f13a1631d9cad9f06d5d2be0f70010ad9b98e064bba19fed",
+        "bytes": 293886
+      },
+      "nativeSourceFlow": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\native-source-flow\\nemata-jp-317.json",
+        "sha256": "7e49bd23bffe3f06c741ab152a258ae24db925aaf51a8677f00d07fc0123215f",
+        "bytes": 37122,
+        "packagePath": "existing/p317/native-source-flow.json"
+      },
+      "producerRaw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\raw-calls\\ab1fbac1-92f8-4795-a789-545bb0dd40c6.json",
+        "sha256": "c158435c7419084fd0b0f5141501be43c227e44d3ab040e71af59116c84526e2",
+        "bytes": 119643,
+        "packagePath": "existing/p317/producer-raw.json"
+      },
+      "oldReviewerRaws": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\e62c5e5f-cecc-4d6c-be96-c506125e7350.json",
+          "sha256": "fb9a89032a2f61be5971a2c5908be63cd20b76b1ac807f4adf3947b97f214c05",
+          "bytes": 113877,
+          "packagePath": "existing/p317/reviewer-raw.json"
+        }
+      ],
+      "oldCompletePageCompared": true,
+      "oldFlowCheck": {
+        "verdict": "faithful",
+        "explanation": "页眉、网站标题、导航、左栏目录与游戏宣传、右栏获奖图及搜索和友情链接、页脚的关系正确。目录按编号恢复双栏顺序合理，未机械交织左右栏；链接箭头均位于其对应链接文字之前，无牌例或结论错接。"
+      },
+      "oldBodyChecks": [
+        {
+          "id": "nemata-jp-p317-b2",
+          "verdict": "faithful",
+          "explanation": "提取块为空；候选依据整页补出的副标题与可见原文相符。"
+        },
+        {
+          "id": "nemata-jp-p317-b3",
+          "verdict": "faithful",
+          "explanation": "研究成果、强豪雀士打法、缜密考察及最强理论的构建关系均已译出。"
+        },
+        {
+          "id": "nemata-jp-p317-b4",
+          "verdict": "faithful",
+          "explanation": "提取块为空；候选补出的“新战术论”标题与整页一致。"
+        },
+        {
+          "id": "nemata-jp-p317-b5",
+          "verdict": "needs-repair",
+          "explanation": "“暫定公開”指以暂定版本公开，候选“暂时公开”偏向公开期限；其余内容及版本、结构和URL变更提示准确。"
+        },
+        {
+          "id": "nemata-jp-p317-b6",
+          "verdict": "faithful",
+          "explanation": "第1、2、5、6项均完整译出，并按双栏目录的编号关系排列。"
+        },
+        {
+          "id": "nemata-jp-p317-b7",
+          "verdict": "faithful",
+          "explanation": "第3、4、7、8项完整，搭子、多面听牌形与面子的术语对应正确。"
+        },
+        {
+          "id": "nemata-jp-p317-b8",
+          "verdict": "faithful",
+          "explanation": "源块仅为空格，无正文遗漏。"
+        },
+        {
+          "id": "nemata-jp-p317-b9",
+          "verdict": "faithful",
+          "explanation": "提取残片已结合整页恢复为完整的免费3D在线麻将游戏宣传标题。"
+        },
+        {
+          "id": "nemata-jp-p317-b10",
+          "verdict": "faithful",
+          "explanation": "《雀龙门》名称及临场感、鼠标操作、语音和手部动作三项宣传内容完整。"
+        },
+        {
+          "id": "nemata-jp-p317-b12",
+          "verdict": "faithful",
+          "explanation": "站内文章和术语等的搜索说明准确。"
+        },
+        {
+          "id": "nemata-jp-p317-b13",
+          "verdict": "faithful",
+          "explanation": "提取块为空；候选补出的站内搜索标题和免费注册宣传语均可在整页确认。"
+        },
+        {
+          "id": "nemata-jp-p317-b14",
+          "verdict": "faithful",
+          "explanation": "杂志名称、2010年1月号及获刊载的信息准确。"
+        },
+        {
+          "id": "nemata-jp-p317-b16",
+          "verdict": "faithful",
+          "explanation": "“幻想麻雀ガチ打ちwiki”译为“幻想麻将认真打wiki”，含义保留。"
+        },
+        {
+          "id": "nemata-jp-p317-b18",
+          "verdict": "faithful",
+          "explanation": "“现代麻将技术论注”与源链接名称对应。"
+        },
+        {
+          "id": "nemata-jp-p317-b20",
+          "verdict": "faithful",
+          "explanation": "“极真麻将博客”准确。"
+        },
+        {
+          "id": "nemata-jp-p317-b22",
+          "verdict": "faithful",
+          "explanation": "“最速流麻将战术论”准确。"
+        },
+        {
+          "id": "nemata-jp-p317-b24",
+          "verdict": "faithful",
+          "explanation": "“さんまよんまblog”对应“三麻四麻blog”。"
+        },
+        {
+          "id": "nemata-jp-p317-b26",
+          "verdict": "faithful",
+          "explanation": "初学者讲座及〈围绕黄金牌的故事〉副标题完整。"
+        },
+        {
+          "id": "nemata-jp-p317-b28",
+          "verdict": "faithful",
+          "explanation": "天凤及避免末位的含义完整。"
+        },
+        {
+          "id": "nemata-jp-p317-b30",
+          "verdict": "faithful",
+          "explanation": "保留“なめとん”名称并准确译出麻将博客。"
+        },
+        {
+          "id": "nemata-jp-p317-b32",
+          "verdict": "faithful",
+          "explanation": "科学研究二次元及“りーりん”实验室两部分均保留。"
+        },
+        {
+          "id": "nemata-jp-p317-b34",
+          "verdict": "faithful",
+          "explanation": "“日刊鸵鸟蛋”准确对应链接名称。"
+        },
+        {
+          "id": "nemata-jp-p317-b36",
+          "verdict": "faithful",
+          "explanation": "HAZ、研究和人生的名称要素均已保留。"
+        },
+        {
+          "id": "nemata-jp-p317-b38",
+          "verdict": "faithful",
+          "explanation": "“ビギナーズラック”译为“新手的好运”，含义准确。"
+        },
+        {
+          "id": "nemata-jp-p317-b40",
+          "verdict": "faithful",
+          "explanation": "“副露海冬”名称完整保留。"
+        },
+        {
+          "id": "nemata-jp-p317-b42",
+          "verdict": "faithful",
+          "explanation": "兄控、女高中生、天凤及反省簿的含义均已译出。"
+        },
+        {
+          "id": "nemata-jp-p317-b44",
+          "verdict": "faithful",
+          "explanation": "“碰与吃的冷冻库”准确对应原链接名称。"
+        },
+        {
+          "id": "nemata-jp-p317-b46",
+          "verdict": "faithful",
+          "explanation": "“麻将一番街”准确。"
+        },
+        {
+          "id": "nemata-jp-p317-b48",
+          "verdict": "faithful",
+          "explanation": "“麻将概论”准确。"
+        },
+        {
+          "id": "nemata-jp-p317-b50",
+          "verdict": "faithful",
+          "explanation": "导航各项完整；“研究开发资料”虽未进入提取文字，但在整页中清晰可见。"
+        },
+        {
+          "id": "nemata-jp-p317-b51",
+          "verdict": "faithful",
+          "explanation": "页眉标题和网址均保留，置于视觉页首合理。"
+        },
+        {
+          "id": "nemata-jp-p317-b52",
+          "verdict": "faithful",
+          "explanation": "第1页、共3页及2014-03-02 11:35均准确。"
+        }
+      ],
+      "oldFigureChecks": [
+        {
+          "id": "nemata-jp-p317-r1",
+          "verdict": "faithful",
+          "explanation": "网站标志文字、蓝色粗体和灰色阴影描述准确；下方副标题另由正文翻译承接。"
+        },
+        {
+          "id": "nemata-jp-p317-r2",
+          "verdict": "faithful",
+          "explanation": "2009年日本麻将博客大奖、最高奖、网站名称及两项署名均与原图相符。"
+        },
+        {
+          "id": "nemata-jp-p317-r3",
+          "verdict": "faithful",
+          "explanation": "灰色搜索按钮及按钮文字准确。"
+        },
+        {
+          "id": "nemata-jp-p317-r4",
+          "verdict": "faithful",
+          "explanation": "对应源图像块为空白横条；局部图上缘的宣传正文已由正文段落承接。"
+        },
+        {
+          "id": "nemata-jp-p317-r5",
+          "verdict": "faithful",
+          "explanation": "对应源图像块为空白占位区域；上缘扩展范围出现的正文已有完整译文。"
+        },
+        {
+          "id": "nemata-jp-p317-r6",
+          "verdict": "uncertain",
+          "explanation": "杂志期号、主要标题、奖项、人物名单、友情链接横幅及首个箭头均已承接；封面右上两行小字未译，特别奖署名仍列两种读法，不能确认完整准确。"
+        },
+        {
+          "id": "nemata-jp-p317-r7",
+          "verdict": "faithful",
+          "explanation": "现代麻将技术论注链接前的蓝底白色右箭头描述准确。"
+        },
+        {
+          "id": "nemata-jp-p317-r8",
+          "verdict": "faithful",
+          "explanation": "极真麻将博客链接前的箭头描述准确。"
+        },
+        {
+          "id": "nemata-jp-p317-r9",
+          "verdict": "faithful",
+          "explanation": "最速流麻将战术论链接前的箭头描述准确。"
+        },
+        {
+          "id": "nemata-jp-p317-r10",
+          "verdict": "faithful",
+          "explanation": "三麻四麻blog链接前的箭头描述准确。"
+        },
+        {
+          "id": "nemata-jp-p317-r11",
+          "verdict": "faithful",
+          "explanation": "初学者麻将讲座链接前的箭头描述准确。"
+        },
+        {
+          "id": "nemata-jp-p317-r12",
+          "verdict": "faithful",
+          "explanation": "天凤、避免末位的日子链接前的箭头描述准确。"
+        },
+        {
+          "id": "nemata-jp-p317-r13",
+          "verdict": "faithful",
+          "explanation": "なめとん的麻将BLOG链接前的箭头描述准确。"
+        },
+        {
+          "id": "nemata-jp-p317-r14",
+          "verdict": "faithful",
+          "explanation": "科学研究二次元链接前的箭头描述准确。"
+        },
+        {
+          "id": "nemata-jp-p317-r15",
+          "verdict": "faithful",
+          "explanation": "日刊鸵鸟蛋链接前的箭头描述准确。"
+        },
+        {
+          "id": "nemata-jp-p317-r16",
+          "verdict": "faithful",
+          "explanation": "HAZ链接前的箭头描述准确。"
+        },
+        {
+          "id": "nemata-jp-p317-r17",
+          "verdict": "faithful",
+          "explanation": "新手的好运链接前的箭头描述准确。"
+        },
+        {
+          "id": "nemata-jp-p317-r18",
+          "verdict": "faithful",
+          "explanation": "副露海冬链接前的箭头描述准确。"
+        },
+        {
+          "id": "nemata-jp-p317-r19",
+          "verdict": "faithful",
+          "explanation": "兄控女高中生的天凤反省簿链接前的箭头描述准确。"
+        },
+        {
+          "id": "nemata-jp-p317-r20",
+          "verdict": "faithful",
+          "explanation": "碰与吃的冷冻库链接前的箭头描述准确。"
+        },
+        {
+          "id": "nemata-jp-p317-r21",
+          "verdict": "faithful",
+          "explanation": "麻将一番街链接前的箭头描述准确。"
+        },
+        {
+          "id": "nemata-jp-p317-r22",
+          "verdict": "faithful",
+          "explanation": "麻将概论链接前的箭头描述准确。"
+        }
+      ]
+    }
+  ],
+  "compositionContract": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-composition-20261028\\contract.json",
+    "sha256": "ef5e4fb0fb30f5ea183fb10fb2e8cff4bb06655349f374652464d7924316ad41",
+    "bytes": 14065
+  },
+  "compositionVerifier": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-composition-20261028\\verify-composition.mjs",
+    "sha256": "34b3d9dad0c417843f13d86943406146172233c9efceaba4ae03ddc1bcfca035",
+    "bytes": 14133
+  },
+  "parentEvidenceVerifier": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-scope215-pdf193-20261028\\verification-runtime/textbook-audit.mjs",
+    "sha256": "41b359e568d786c3d5d0eb634f0144a4d5012ff93ff3ef04e0ffc8dc2c9feb9a"
+  },
+  "owner": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-adjudication-20261028\\owner.md",
+    "sha256": "1a7abf0c331fad3c7a3c30e4b884f7421146369e4cc6eaf9e8272077282b1212",
+    "bytes": 2439
+  },
+  "files": {
+    "condition-matrix.json": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-adjudication-20261028\\condition-matrix.json",
+      "sha256": "bfb674992d4a7b679826befeeeb5c8fa43d946153ac275cd3a3f84a1d39d83d9",
+      "bytes": 27743
+    },
+    "source-display-map.json": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-adjudication-20261028\\source-display-map.json",
+      "sha256": "ac60711992edebcd4c0c447f0ab1509ca78f2ec25833d82115bef16091737dc3",
+      "bytes": 196687
+    },
+    "source-notes.json": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-adjudication-20261028\\source-notes.json",
+      "sha256": "5c610194613717394fe668f29bd0b10ee8f05bd4280dc8350325c71b065f0392",
+      "bytes": 4910
+    },
+    "existing317-intake.json": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-adjudication-20261028\\existing317-intake.json",
+      "sha256": "48eb40aa4934babf00995484bec35769dbc82c01087f4d922a8c1d9dcc0f871d",
+      "bytes": 15537
+    }
+  },
+  "preparedStatus": "adjudication-ready-for-independent-zero-call-check",
+  "admittedStatus": "admitted-exact-frontmatter-limited-adjudication",
+  "requiredIndependentIssueId": "01a17471-1595-79d5-bdfa-6feaa65172c0",
+  "existing250WakeupId": "01a17fb2-4efd-7a8c-ab5b-521448b17003",
+  "additionalSemanticQuestion": null,
+  "admissionGranted": false,
+  "fullPagePassed": false,
+  "originalAuditModified": false,
+  "independentCheckRequiredBefore250Intake": true,
+  "actual250ReadbackRequiredBeforeCoverage": true,
+  "authorBodyNoteInjection": false,
+  "ordinaryLoaderChanged": false
+}

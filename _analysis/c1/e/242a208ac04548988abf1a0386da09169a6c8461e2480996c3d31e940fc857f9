@@ -1,0 +1,403 @@
+{
+  "schema": "coac249-frontmatter-independent-coverage-composition-proposal/1",
+  "recordedAt": "2026-10-27T23:17:52.649Z",
+  "rawA": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-revisions-20261028\\receipt-0.json",
+    "sha256": "d535dd7c94e5c328d1394e0e4c353ea581e4ee35d8d0a629ffe74c0af7125081"
+  },
+  "rawB": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-revisions-20261028\\receipt-1.json",
+    "sha256": "84262129d73b09456547c03a17093976ed200b64cac9fe401c1697b789d97dcc"
+  },
+  "aRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2023f495-ad40-4b97-a0b5-d25715719543.json",
+    "sha256": "59732e5b4d84ab744e64db5339b006c3d14a64d4646d02150931c7f5bf529691"
+  },
+  "bRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\542ff3c5-07fe-4fb3-96bb-68367ae9537e.json",
+    "sha256": "dc5c0fb4cc3e6f9a0e010f114050f8b79a205555dbb790013b377767d44ffe5b"
+  },
+  "aOriginalStatus": "invalid-scope-evidence",
+  "aOriginalScopeVerdict": "uncertain",
+  "aOriginalCompleteTargetScopeCompared": false,
+  "aOriginalFalseFlags": {
+    "authorProseDirectoryEmphasisAndVersionNotesPreserved": false,
+    "displayFaithfulWithExplicitUnknowns": false
+  },
+  "aOriginalSummary": "五个图例靶点均已比较：四个有修复的靶点共八处实际字段严格匹配既定修复；p2-r11沿用既有faithful-with-unknown限制。同源p317-r6所供修复后记录也保留完整署名unknown及其他三处封面unknown。未修改范围的继承仅据所供证明接受p1至p3。页317源图显示最新版战术论以暂定版形式公开，并提示结构或URL可能变化；但请求未提供p317-b5所在派生正文的三个实际字段及目录、强调的派生内容，无法核对其语义、字段一致性和完整保留情况。相关false表示尚未证实，并非已发现字段错误；因此整体限定范围判为uncertain，不宣告整页通过。",
+  "bOriginalStatus": "accepted-exact-targets-with-limited-unknown",
+  "bCompleteTargetScopeCompared": true,
+  "fieldCoverage": [
+    {
+      "page": 1,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0001.json",
+        "sha256": "e5f257621a531d26b2bb6cd546019aa4bd00912bfdcd0979cfd47dd514e9f79c",
+        "bytes": 74019,
+        "packagePath": "derived-candidates/page-0001.json"
+      },
+      "field": "/figures/3/transcription",
+      "target": "nemata-jp-p1-r4",
+      "afterJsonSha256": "efe2d9cdf9fc2766532ae856d3f8b13db93396549871fd21185415fc26c60f0e",
+      "independentReceiptPackage": 0,
+      "actualTargetCheck": {
+        "id": "nemata-jp-p1-r4",
+        "verdict": "faithful-with-unknown",
+        "exactRepairAccepted": true,
+        "sourceEvidence": "p1-b28原图及裁剪、既有独立裁决与实际派生的/figures/3/transcription和/figures/3/unknowns相符；两字段严格匹配所列修复，原有unknown未缩减。p1-b27刊载消息仍为正文。",
+        "unknownsRemainNonCoreToAdjacentAuthorArgument": true,
+        "mandatoryLimits": [
+          "评委特别奖条目下方的署名保持完整unknown，不列具体姓名或备选拼写。",
+          "右上宣传小字、January下方极小字及主标题旁假名读音保持unknown。",
+          "保留可辨封面内容和p1-b27刊载消息。"
+        ]
+      }
+    },
+    {
+      "page": 1,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0001.json",
+        "sha256": "e5f257621a531d26b2bb6cd546019aa4bd00912bfdcd0979cfd47dd514e9f79c",
+        "bytes": 74019,
+        "packagePath": "derived-candidates/page-0001.json"
+      },
+      "field": "/figures/3/unknowns",
+      "target": "nemata-jp-p1-r4",
+      "afterJsonSha256": "a43e92a2877a35e4d39b2f991f8840724ac1ce16c0a4cc7e1f919664783cb78e",
+      "independentReceiptPackage": 0,
+      "actualTargetCheck": {
+        "id": "nemata-jp-p1-r4",
+        "verdict": "faithful-with-unknown",
+        "exactRepairAccepted": true,
+        "sourceEvidence": "p1-b28原图及裁剪、既有独立裁决与实际派生的/figures/3/transcription和/figures/3/unknowns相符；两字段严格匹配所列修复，原有unknown未缩减。p1-b27刊载消息仍为正文。",
+        "unknownsRemainNonCoreToAdjacentAuthorArgument": true,
+        "mandatoryLimits": [
+          "评委特别奖条目下方的署名保持完整unknown，不列具体姓名或备选拼写。",
+          "右上宣传小字、January下方极小字及主标题旁假名读音保持unknown。",
+          "保留可辨封面内容和p1-b27刊载消息。"
+        ]
+      }
+    },
+    {
+      "page": 2,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0002.json",
+        "sha256": "462a1bc3055842ad17233127590403bac2f64ebe00b902600e35af8d8bd84086",
+        "bytes": 73867,
+        "packagePath": "derived-candidates/page-0002.json"
+      },
+      "field": "/figures/14/transcription",
+      "target": "nemata-jp-p2-r15",
+      "afterJsonSha256": "41c6edb4f3eba41e40dce54f8743965b1566680b75ec88ad26e56b9e46121338",
+      "independentReceiptPackage": 0,
+      "actualTargetCheck": {
+        "id": "nemata-jp-p2-r15",
+        "verdict": "faithful-with-unknown",
+        "exactRepairAccepted": true,
+        "sourceEvidence": "p2-b58原图及裁剪、既有独立裁决与实际派生的/figures/14/transcription和/figures/14/unknowns相符；两字段严格匹配修复，原有微牌unknown保留。p2-b57书评和p2-b59书目仍为正文。",
+        "unknownsRemainNonCoreToAdjacentAuthorArgument": true,
+        "mandatoryLimits": [
+          "封面作者署名保持unknown，不用p2-b59书目反填图中字形。",
+          "保留桌面微牌unknown，不推定牌码、花色、点数或赤五状态。",
+          "p2-b59清晰书目信息保持为正文。"
+        ]
+      }
+    },
+    {
+      "page": 2,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0002.json",
+        "sha256": "462a1bc3055842ad17233127590403bac2f64ebe00b902600e35af8d8bd84086",
+        "bytes": 73867,
+        "packagePath": "derived-candidates/page-0002.json"
+      },
+      "field": "/figures/14/unknowns",
+      "target": "nemata-jp-p2-r15",
+      "afterJsonSha256": "603410eb2364aedad03c79f6f8b36f21e7fea37cdacc884a59075f8cf22dbe89",
+      "independentReceiptPackage": 0,
+      "actualTargetCheck": {
+        "id": "nemata-jp-p2-r15",
+        "verdict": "faithful-with-unknown",
+        "exactRepairAccepted": true,
+        "sourceEvidence": "p2-b58原图及裁剪、既有独立裁决与实际派生的/figures/14/transcription和/figures/14/unknowns相符；两字段严格匹配修复，原有微牌unknown保留。p2-b57书评和p2-b59书目仍为正文。",
+        "unknownsRemainNonCoreToAdjacentAuthorArgument": true,
+        "mandatoryLimits": [
+          "封面作者署名保持unknown，不用p2-b59书目反填图中字形。",
+          "保留桌面微牌unknown，不推定牌码、花色、点数或赤五状态。",
+          "p2-b59清晰书目信息保持为正文。"
+        ]
+      }
+    },
+    {
+      "page": 3,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0003.json",
+        "sha256": "b99906e6ce07e4d75ee02bf9d561eabaaac5713c8e104323a61238438f98bb16",
+        "bytes": 34834,
+        "packagePath": "derived-candidates/page-0003.json"
+      },
+      "field": "/figures/0/transcription",
+      "target": "nemata-jp-p3-r1",
+      "afterJsonSha256": "5e8267f0401a8cbb12f71ee1b66f5c0408eaef11a96f3cddc1e955cbea987789",
+      "independentReceiptPackage": 0,
+      "actualTargetCheck": {
+        "id": "nemata-jp-p3-r1",
+        "verdict": "faithful-with-unknown",
+        "exactRepairAccepted": true,
+        "sourceEvidence": "p3-b24原图及裁剪、既有独立裁决与实际派生的/figures/0/transcription和/figures/0/unknowns相符；两字段严格匹配修复，原有细字unknown保留。p2-b61至p3-b23的续篇书评仍为正文。",
+        "unknownsRemainNonCoreToAdjacentAuthorArgument": true,
+        "mandatoryLimits": [
+          "封面右侧作者署名及其上方微字保持unknown，不借前作、书评或人物身份补字。",
+          "底部标识及其他细小文字保持unknown。",
+          "p2-b61至p3-b23的跨页书评保持为作者正文；仅五星图标为装饰。"
+        ]
+      }
+    },
+    {
+      "page": 3,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0003.json",
+        "sha256": "b99906e6ce07e4d75ee02bf9d561eabaaac5713c8e104323a61238438f98bb16",
+        "bytes": 34834,
+        "packagePath": "derived-candidates/page-0003.json"
+      },
+      "field": "/figures/0/unknowns",
+      "target": "nemata-jp-p3-r1",
+      "afterJsonSha256": "a779fcbcc990d95a993f01a74f98a472c6b059e22aecc7eb012cb36b4323b822",
+      "independentReceiptPackage": 0,
+      "actualTargetCheck": {
+        "id": "nemata-jp-p3-r1",
+        "verdict": "faithful-with-unknown",
+        "exactRepairAccepted": true,
+        "sourceEvidence": "p3-b24原图及裁剪、既有独立裁决与实际派生的/figures/0/transcription和/figures/0/unknowns相符；两字段严格匹配修复，原有细字unknown保留。p2-b61至p3-b23的续篇书评仍为正文。",
+        "unknownsRemainNonCoreToAdjacentAuthorArgument": true,
+        "mandatoryLimits": [
+          "封面右侧作者署名及其上方微字保持unknown，不借前作、书评或人物身份补字。",
+          "底部标识及其他细小文字保持unknown。",
+          "p2-b61至p3-b23的跨页书评保持为作者正文；仅五星图标为装饰。"
+        ]
+      }
+    },
+    {
+      "page": 3,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0003.json",
+        "sha256": "b99906e6ce07e4d75ee02bf9d561eabaaac5713c8e104323a61238438f98bb16",
+        "bytes": 34834,
+        "packagePath": "derived-candidates/page-0003.json"
+      },
+      "field": "/figures/2/transcription",
+      "target": "nemata-jp-p3-r3",
+      "afterJsonSha256": "a93239c723d9767d498af609d131c93f45e788c37cfe3aa9904655f252eae296",
+      "independentReceiptPackage": 0,
+      "actualTargetCheck": {
+        "id": "nemata-jp-p3-r3",
+        "verdict": "faithful-with-unknown",
+        "exactRepairAccepted": true,
+        "sourceEvidence": "p3-b28原图及裁剪、既有独立裁决与实际派生的/figures/2/transcription和/figures/2/unknowns相符；两字段严格匹配修复，原有腰封小字unknown保留。p3-b27书评及p3-b29书目仍为正文。",
+        "unknownsRemainNonCoreToAdjacentAuthorArgument": true,
+        "mandatoryLimits": [
+          "腰封大字下方两行小字及底部黑条细字保持unknown，不从相邻书目补作封面转录。",
+          "p3-b27书评及p3-b29书目保持为正文。"
+        ]
+      }
+    },
+    {
+      "page": 3,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0003.json",
+        "sha256": "b99906e6ce07e4d75ee02bf9d561eabaaac5713c8e104323a61238438f98bb16",
+        "bytes": 34834,
+        "packagePath": "derived-candidates/page-0003.json"
+      },
+      "field": "/figures/2/unknowns",
+      "target": "nemata-jp-p3-r3",
+      "afterJsonSha256": "05239c59c637266b385a399df44fec175a694b58b52ed793a76a206ea4a71db2",
+      "independentReceiptPackage": 0,
+      "actualTargetCheck": {
+        "id": "nemata-jp-p3-r3",
+        "verdict": "faithful-with-unknown",
+        "exactRepairAccepted": true,
+        "sourceEvidence": "p3-b28原图及裁剪、既有独立裁决与实际派生的/figures/2/transcription和/figures/2/unknowns相符；两字段严格匹配修复，原有腰封小字unknown保留。p3-b27书评及p3-b29书目仍为正文。",
+        "unknownsRemainNonCoreToAdjacentAuthorArgument": true,
+        "mandatoryLimits": [
+          "腰封大字下方两行小字及底部黑条细字保持unknown，不从相邻书目补作封面转录。",
+          "p3-b27书评及p3-b29书目保持为正文。"
+        ]
+      }
+    },
+    {
+      "page": 317,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0317.json",
+        "sha256": "b3115591977d81273c795177268a00a84e0960577b0ec1a40304fd2ca515c462",
+        "bytes": 69997,
+        "packagePath": "derived-candidates/page-0317.json"
+      },
+      "field": "/figures/5/transcription",
+      "target": "nemata-jp-p317-r6",
+      "afterJsonSha256": "6676852bebce6135abb05dedd4bf21194645dd2fa8b6fee702bbfc0bc7fd5315",
+      "independentReceiptPackage": 1,
+      "actualTargetCheck": {
+        "id": "nemata-jp-p317-r6",
+        "verdict": "faithful-with-unknown",
+        "exactRepairAccepted": true,
+        "sourceEvidence": "派生稿的 transcription 与 unknowns 均逐字符合后一次裁决的完整修正。同图绑定及既有独立裁决要求特别奖署名的完整字形保持 unknown；封面中的这些未知细节不影响相邻刊载消息或第316、318页作者论述的理解。",
+        "unknownsRemainNonCoreToAdjacentAuthorArgument": true,
+        "mandatoryLimits": [
+          "特别奖条目下方的署名须保持完整 unknown，不列具体姓名或备选拼写，也不从正文反填。",
+          "右上宣传小字及其完整译意、主标题旁假名读音、January 下方极小文字均保持 unknown。",
+          "保留可辨的封面内容、相邻刊载消息及图中其他已描述元素。"
+        ]
+      }
+    },
+    {
+      "page": 317,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0317.json",
+        "sha256": "b3115591977d81273c795177268a00a84e0960577b0ec1a40304fd2ca515c462",
+        "bytes": 69997,
+        "packagePath": "derived-candidates/page-0317.json"
+      },
+      "field": "/figures/5/unknowns",
+      "target": "nemata-jp-p317-r6",
+      "afterJsonSha256": "c82918078842b033a268f431d7b3c394c32fb0c5c736dc8d9dcd4717e63c5a6d",
+      "independentReceiptPackage": 1,
+      "actualTargetCheck": {
+        "id": "nemata-jp-p317-r6",
+        "verdict": "faithful-with-unknown",
+        "exactRepairAccepted": true,
+        "sourceEvidence": "派生稿的 transcription 与 unknowns 均逐字符合后一次裁决的完整修正。同图绑定及既有独立裁决要求特别奖署名的完整字形保持 unknown；封面中的这些未知细节不影响相邻刊载消息或第316、318页作者论述的理解。",
+        "unknownsRemainNonCoreToAdjacentAuthorArgument": true,
+        "mandatoryLimits": [
+          "特别奖条目下方的署名须保持完整 unknown，不列具体姓名或备选拼写，也不从正文反填。",
+          "右上宣传小字及其完整译意、主标题旁假名读音、January 下方极小文字均保持 unknown。",
+          "保留可辨的封面内容、相邻刊载消息及图中其他已描述元素。"
+        ]
+      }
+    },
+    {
+      "page": 317,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0317.json",
+        "sha256": "b3115591977d81273c795177268a00a84e0960577b0ec1a40304fd2ca515c462",
+        "bytes": 69997,
+        "packagePath": "derived-candidates/page-0317.json"
+      },
+      "field": "/body/blocks/4/text",
+      "target": "nemata-jp-p317-b5",
+      "afterJsonSha256": "7f5aea43c10681670bd5752981dcfb940525a01f32ebcf161b8f72cf33eec482",
+      "independentReceiptPackage": 1,
+      "actualTargetCheck": {
+        "id": "nemata-jp-p317-b5",
+        "verdict": "faithful",
+        "exactRepairAccepted": true,
+        "sourceEvidence": "原文以「暫定公開」和「暫定版の為」说明暂定性质。派生稿的 text、inlineContent[0].text、rawSlotText 均与指定修正一致，表达为以暂定版形式公开，并保留结构或 URL 可能变更的提示。标题及相邻八项目录均保留。",
+        "unknownsRemainNonCoreToAdjacentAuthorArgument": true,
+        "mandatoryLimits": [
+          "保留「新战术论」标题、书名及最新版和暂定版的强调。",
+          "保留完整的八项目录及结构或 URL 可能变更的提示。",
+          "三个实际文本字段须保持一致。"
+        ]
+      }
+    },
+    {
+      "page": 317,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0317.json",
+        "sha256": "b3115591977d81273c795177268a00a84e0960577b0ec1a40304fd2ca515c462",
+        "bytes": 69997,
+        "packagePath": "derived-candidates/page-0317.json"
+      },
+      "field": "/body/blocks/4/inlineContent/0/text",
+      "target": "nemata-jp-p317-b5",
+      "afterJsonSha256": "7f5aea43c10681670bd5752981dcfb940525a01f32ebcf161b8f72cf33eec482",
+      "independentReceiptPackage": 1,
+      "actualTargetCheck": {
+        "id": "nemata-jp-p317-b5",
+        "verdict": "faithful",
+        "exactRepairAccepted": true,
+        "sourceEvidence": "原文以「暫定公開」和「暫定版の為」说明暂定性质。派生稿的 text、inlineContent[0].text、rawSlotText 均与指定修正一致，表达为以暂定版形式公开，并保留结构或 URL 可能变更的提示。标题及相邻八项目录均保留。",
+        "unknownsRemainNonCoreToAdjacentAuthorArgument": true,
+        "mandatoryLimits": [
+          "保留「新战术论」标题、书名及最新版和暂定版的强调。",
+          "保留完整的八项目录及结构或 URL 可能变更的提示。",
+          "三个实际文本字段须保持一致。"
+        ]
+      }
+    },
+    {
+      "page": 317,
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0317.json",
+        "sha256": "b3115591977d81273c795177268a00a84e0960577b0ec1a40304fd2ca515c462",
+        "bytes": 69997,
+        "packagePath": "derived-candidates/page-0317.json"
+      },
+      "field": "/body/blocks/4/rawSlotText",
+      "target": "nemata-jp-p317-b5",
+      "afterJsonSha256": "7f5aea43c10681670bd5752981dcfb940525a01f32ebcf161b8f72cf33eec482",
+      "independentReceiptPackage": 1,
+      "actualTargetCheck": {
+        "id": "nemata-jp-p317-b5",
+        "verdict": "faithful",
+        "exactRepairAccepted": true,
+        "sourceEvidence": "原文以「暫定公開」和「暫定版の為」说明暂定性质。派生稿的 text、inlineContent[0].text、rawSlotText 均与指定修正一致，表达为以暂定版形式公开，并保留结构或 URL 可能变更的提示。标题及相邻八项目录均保留。",
+        "unknownsRemainNonCoreToAdjacentAuthorArgument": true,
+        "mandatoryLimits": [
+          "保留「新战术论」标题、书名及最新版和暂定版的强调。",
+          "保留完整的八项目录及结构或 URL 可能变更的提示。",
+          "三个实际文本字段须保持一致。"
+        ]
+      }
+    }
+  ],
+  "p2r11": {
+    "actualCheck": {
+      "id": "nemata-jp-p2-r11",
+      "verdict": "faithful-with-unknown",
+      "exactRepairAccepted": false,
+      "sourceEvidence": "p2-b51原图、既有faithful-with-unknown裁决及实际派生图例一致；该靶没有拟接受的修复，exactRepairAccepted为false表示不适用。p2-b50书评和p2-b52书目仍为正文。",
+      "unknownsRemainNonCoreToAdjacentAuthorArgument": true,
+      "mandatoryLimits": [
+        "保留作者名旁及封面右下方小字、英文尾部字符的现有unknown，不补写。",
+        "不指定模型中微小麻将牌的牌码、花色、点数或赤五状态。",
+        "p2-b50书评及p2-b52书目信息保持为正文。"
+      ]
+    },
+    "meaning": "unchanged inheritance; exactRepairAccepted=false explicitly means not applicable, not a new failed repair"
+  },
+  "shared317OccurrenceExactlyMatchesB": true,
+  "aLacks317BodyInputs": true,
+  "bContains317ActualBodyAndDirectory": true,
+  "contextReason": "A common prompt includes B-only demands for317 body/directory/emphasis. A independently accepts its four changed figure targets and unchanged p2-r11 but leaves global flags uncertain due to missing317 body in A. B actually compares the same317 derivative and fully accepts those B-only targets. Both original receipts and all false flags remain unchanged.",
+  "mandatoryLimits": [
+    "评委特别奖条目下方的署名保持完整unknown，不列具体姓名或备选拼写。",
+    "右上宣传小字、January下方极小字及主标题旁假名读音保持unknown。",
+    "保留可辨封面内容和p1-b27刊载消息。",
+    "保留作者名旁及封面右下方小字、英文尾部字符的现有unknown，不补写。",
+    "不指定模型中微小麻将牌的牌码、花色、点数或赤五状态。",
+    "p2-b50书评及p2-b52书目信息保持为正文。",
+    "封面作者署名保持unknown，不用p2-b59书目反填图中字形。",
+    "保留桌面微牌unknown，不推定牌码、花色、点数或赤五状态。",
+    "p2-b59清晰书目信息保持为正文。",
+    "封面右侧作者署名及其上方微字保持unknown，不借前作、书评或人物身份补字。",
+    "底部标识及其他细小文字保持unknown。",
+    "p2-b61至p3-b23的跨页书评保持为作者正文；仅五星图标为装饰。",
+    "腰封大字下方两行小字及底部黑条细字保持unknown，不从相邻书目补作封面转录。",
+    "p3-b27书评及p3-b29书目保持为正文。",
+    "保留「新战术论」标题、书名及最新版和暂定版的强调。",
+    "保留完整的八项目录及结构或 URL 可能变更的提示。",
+    "三个实际文本字段须保持一致。",
+    "特别奖条目下方的署名须保持完整 unknown，不列具体姓名或备选拼写，也不从正文反填。",
+    "右上宣传小字及其完整译意、主标题旁假名读音、January 下方极小文字均保持 unknown。",
+    "保留可辨的封面内容、相邻刊载消息及图中其他已描述元素。"
+  ],
+  "legalOwnerAction": "246/244 may assess this exact two-receipt coverage under a legitimate page-specific supplementary route. This is a concrete zero-model composition proposal, not a new model verdict or ordinary page pass. Do not retry or reread low-resolution names; if a legal loader mapping is missing, identify the exact scope contract gap.",
+  "newCalls": 0,
+  "newProductionCalls": 0,
+  "newSemanticVerdict": false,
+  "originalReceiptModified": false,
+  "admissionGranted": false,
+  "fullPagePassed": false
+}

@@ -1,0 +1,418 @@
+{
+  "files": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-frontmatter-targets-summary-20261028.json",
+      "sha256": "ef3d1de1c750a027fc5c420990649976110d057b7f28c95dad67feb548aa9efa"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-frontmatter-targets-reviewed-20261028.json",
+      "sha256": "a2336fbd04681778175b28738b0e23bb014b7243339b1601dd3cd5546766f9f0"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\verification.json",
+      "sha256": "335edd62b9fcab4eb66cfc4aebedbf62063eadf782b7c5ce14720ac66e7326e7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\runtime-manifest.json",
+      "sha256": "a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\.gitattributes",
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\build_evidence.py",
+      "sha256": "5e1a185035e926d7a7b5c39d70c809876626c9fc6fc29a5684f9f75b28ad33df"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\chinese-toc-reuse.json",
+      "sha256": "5df2608c45a9ea8f588377d031cff16819f913a7bf583417feb27da1bcc796ec"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\cross-page-review-context.json",
+      "sha256": "59924e553d645d236718bd0171b9e608144f5fb8e00a2b68b5b0e33947ffc9d9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p1\\audit.json",
+      "sha256": "9619f5b27ba1b1bb6227184081d72cb599de232741d6f5ea01e7d1daa829ab91"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p1\\candidate.json",
+      "sha256": "195ec4e95734120c92d4bc0281512b7cb06d84fda221b68e339f020e06ddd02b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p1\\native-source-flow.json",
+      "sha256": "de1d7eba39a8a0508f00951638c057689866d426cf7ba991c0a52aaf5604adaf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p1\\producer-raw.json",
+      "sha256": "386b72b91c016d678e9270a1843ae742f12c012b16bddd16480cdffe26cd09bc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p1\\reviewer-raw.json",
+      "sha256": "8e718812297abad03db1ddf03d45965f23f9f9ec34ca33cf583d87d476b6ca24"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p1\\source.json",
+      "sha256": "b5595e802d47eaef2c9815e9342771c88513d413d66222528fee9c16dc93ad71"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p2\\audit.json",
+      "sha256": "02b5cea0e12ad34ddf670e20cbb6071e395c2587f2d2797e6be303d1af9d442c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p2\\candidate.json",
+      "sha256": "205a9a8ab2dcc7353f5d3ec2df6f6b99339ecbb4ca57c507690b6ff45397e1d6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p2\\native-source-flow.json",
+      "sha256": "a16af45b1515b1214bb650400964ed19ca8055751cfe92e737e24f9f8c551160"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p2\\producer-raw.json",
+      "sha256": "7a986c016271b592bf182a04b0f27e04e426fdda019aa81f00083f7914c92a6b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p2\\reviewer-raw.json",
+      "sha256": "258a008cd9b8d36de50ee3a3b2720825bc127d484ca81ea148e86cd98121adcc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p2\\source.json",
+      "sha256": "e82df805c5631a27bb63bf13d8a7e89cd7abaf3aff15efbe732a59125459bb09"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p3\\audit.json",
+      "sha256": "68037da0805fc3c947b9d3ca0ddc83576ac1ee368a3c91539243266af0f3152f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p3\\candidate.json",
+      "sha256": "b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p3\\native-source-flow.json",
+      "sha256": "fff57e9a8977a75b5128776279d144767b0382bd0a81d337930f345c8cff86cd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p3\\producer-raw.json",
+      "sha256": "33ffb67d44a3a2933b7fe85eac1700c324a8db0b02bf8249f2d0470ae79ae040"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p3\\reviewer-raw.json",
+      "sha256": "d7f184b880fd01d18e1e49db2bb327e8e6e1e0caa2e96a3ee5c2ea2ef4332a70"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p3\\source.json",
+      "sha256": "d4d6ef6ff6cb981938e65422a19ea3eab15ebf0c1febd8358b553d6ac103a7c4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p317\\audit.json",
+      "sha256": "f30bffa04d44573d0ca9fdacd3152d713d061e9503b7c97398e23146eec3f86c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p317\\candidate.json",
+      "sha256": "e0911ad1e2ee917537c953d1d2e204120fcd3477a67baf1f26eac90f18c9efcf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p317\\native-source-flow.json",
+      "sha256": "7e49bd23bffe3f06c741ab152a258ae24db925aaf51a8677f00d07fc0123215f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p317\\producer-raw.json",
+      "sha256": "c158435c7419084fd0b0f5141501be43c227e44d3ab040e71af59116c84526e2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p317\\reviewer-raw.json",
+      "sha256": "fb9a89032a2f61be5971a2c5908be63cd20b76b1ac807f4adf3947b97f214c05"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\p317\\source.json",
+      "sha256": "6222d0a89802f089a494a8f018e2d78abe37f8c323a463cade7f9d9eb1c42a72"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\existing\\producer-calls.jsonl",
+      "sha256": "d1f236a598ab25d6d8e18d48d006dd5bc9221becf24dda9898d2b62d3e760c5f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\handoff.json",
+      "sha256": "dc19add1e6dd99f9e16ea4351b8f367c58221601223d1cfbdebf1c4ec87e88e2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p1-r4.png",
+      "sha256": "95f061b13019ed10d9b367d162b5aa59e05febefe3a2ec8415689cf3a13ad02a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p2-r11.png",
+      "sha256": "7b3a8910e06868b1b8a4f667d689fbc0624519af62a0e87c7facd70471067220"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p2-r15.png",
+      "sha256": "56d31116672b5ae0a7ce8ff16fd7620bb42dfeeb4e91eda2c35fc34882479b66"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p3-r1.png",
+      "sha256": "ca3b8c85280a7c3fc24d7659d307cb4efe91077c951d3e46588e2ee60a596050"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p3-r3.png",
+      "sha256": "d55711b945844e56eea7bd1bbf3df216c01f2bc08a5ad5c7af0c5d6313fecc42"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p317-r6.png",
+      "sha256": "8aaa46b328c426b9e2c31f0ff73c70761c05747cbc7a57c973e9d1b939d22668"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-13cf798a1d09a9a37ac0b4bcdaf71a7d82b4899ae47719f5733daf6e074c70fe.png",
+      "sha256": "13cf798a1d09a9a37ac0b4bcdaf71a7d82b4899ae47719f5733daf6e074c70fe"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-18c9a9b37ed64edb5a3d0e6f956896147ecaee5e1eb934b1ac6f57603aa1b10a.png",
+      "sha256": "18c9a9b37ed64edb5a3d0e6f956896147ecaee5e1eb934b1ac6f57603aa1b10a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6.png",
+      "sha256": "275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-47f4eaba45aab7c29bcd9fdc4fb0a8d8524021ff228d4041d0e30eaca626c8ad.png",
+      "sha256": "47f4eaba45aab7c29bcd9fdc4fb0a8d8524021ff228d4041d0e30eaca626c8ad"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-56c5e1a9799dce76ae6581480fa6b575af26d5136f11e23223a8cf71a533cf04.png",
+      "sha256": "56c5e1a9799dce76ae6581480fa6b575af26d5136f11e23223a8cf71a533cf04"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-afbe8d05e696eb91da2080cdd1dced73c7cc40d3cec0469e35131098e81791d5.png",
+      "sha256": "afbe8d05e696eb91da2080cdd1dced73c7cc40d3cec0469e35131098e81791d5"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-b0eb965c4b7d536e6d4d9932ff11f0cb09df6bac3483e0e893f4871d0406bedb.png",
+      "sha256": "b0eb965c4b7d536e6d4d9932ff11f0cb09df6bac3483e0e893f4871d0406bedb"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-b9cab06ba9d58c8a355cbbac38d792372ff347c60117618a8c8cd07a06b7aea6.png",
+      "sha256": "b9cab06ba9d58c8a355cbbac38d792372ff347c60117618a8c8cd07a06b7aea6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-d846534f2b6ea857497c8ba6972aba9d3284a30bc34d17e22da571ebd06e016a.png",
+      "sha256": "d846534f2b6ea857497c8ba6972aba9d3284a30bc34d17e22da571ebd06e016a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\p1-full.png",
+      "sha256": "007cac45189bdb74ade4f55b8099f28650001c74f2c571a747eb8a8cb62c100e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\p2-full.png",
+      "sha256": "6d3fd53ade7c603db8b0578ed327eb112c0e2eb849f932913ba6cd3ab02aca9a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\p3-full.png",
+      "sha256": "2c72198a82853cd258b5a3ed767ae3c63477723a9bc7d71d2b29446b53b4538b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\p317-full.png",
+      "sha256": "763edc0fc994b6dab0992525ec27bc169c53166fd29281ef178b86b25f63d4f9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\immutable-inputs.json",
+      "sha256": "8d304bdcda6bbebb104d3ae864ce4c814580f429bf4cb9840168d524b9656357"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\limited-admission.json",
+      "sha256": "0c3f920a718696d3ebb0fdbf4f8e10f73496890b1093c610bad056470f85672d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\owner-before\\coac244-remaining26-closure-register-20261028.json",
+      "sha256": "af573bf5810ce172ec60a595c3347a492beb87b5cf04903edcc6fed0850f5dd7"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\owner-before\\coac250-unified-chapter-register-20261027b.json",
+      "sha256": "70eac3b50dcbb326883d1f4ad1f80d859221cc4814191953c58298963f2452e3"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\owner-before\\modern-metadata-four-page-gap-plan.json",
+      "sha256": "7f656a3755cd61a4bc8780d9c841411dc73345430d43394fb72c37cba9d379b1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\owner-sync.json",
+      "sha256": "a3bbd0e9f85374dd68f85e82c98948f172b5dd50e9d826d860bf39cea8daba7e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\page-register.json",
+      "sha256": "ec4f1680db03cccb42e3b12235f265d6ca4adfab293d4c32bcb382209ce6127f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\pages\\page-0001.json",
+      "sha256": "3076329347f960aae67250d0c9974c87f96fd5b882505daa3ce0952fd2deb4f1"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\pages\\page-0002.json",
+      "sha256": "8b5d0cedd767fef2cbb97dd9d29565ff777652e95f436a887ce1c33559239a63"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\pages\\page-0003.json",
+      "sha256": "63e60a6a0adb51bb87d335fe05c715c6ff2bb77be079d6b5d353ab38759daa88"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\pages\\page-0317.json",
+      "sha256": "8d4e9e09418c3455f13a1631d9cad9f06d5d2be0f70010ad9b98e064bba19fed"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\publish_evidence.py",
+      "sha256": "2ff7811d0e0f91bf71156b498ebd016074154ec034ccc5e94af71244ef869f14"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\README.md",
+      "sha256": "777c0fe21e84a1794a4afdff0b4f459ee39041787bf6f69b84f9102eebf9dfac"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\same-image-conflict.json",
+      "sha256": "67a2a7c9426f52c236f671657fa38a4d512de5106e584ae189c3b3efd5aa8616"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\two-review-items.json",
+      "sha256": "bfd844312440e3b2ab41f35efbd6b96fe59f5697c4061c5f364b8aca6760cc8e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\verify_evidence.py",
+      "sha256": "f46e3546da7881a16447ab2a2089f5ba6c69b76c0b1acebe0a4344da971dc599"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+      "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\1ac40202-64c8-4068-92fd-fb62ea5ad4ff.json",
+      "sha256": "7d9ad8b617d396fbf79a7a48340ddbd796f7701397e8bd865399c2765f56c16f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\request-0.json",
+      "sha256": "308af19e0c466d9882ce1862e2a47803bd177c94b6e20ede98379d0d714ae89f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-1.json",
+      "sha256": "d85aa60a50c4c2dc7a70fd5bbbbf43b2bd94ea990f4a5f555791ed6df228f19d"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4b703cb1-83ef-4cb8-bac5-9fbdcaf7fbbf.json",
+      "sha256": "fa33cfbf507a17d7be7b2570a7d1b1402d39771d954be471780e7de4cb1b87b5"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\request-1.json",
+      "sha256": "030f91bb41a2ccbc6391d7d29d1affbacc521b723e34c55eba24119d0fe7f7f6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0001.json",
+      "sha256": "195ec4e95734120c92d4bc0281512b7cb06d84fda221b68e339f020e06ddd02b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0002.json",
+      "sha256": "205a9a8ab2dcc7353f5d3ec2df6f6b99339ecbb4ca57c507690b6ff45397e1d6"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0003.json",
+      "sha256": "b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0317.json",
+      "sha256": "e0911ad1e2ee917537c953d1d2e204120fcd3477a67baf1f26eac90f18c9efcf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\raw-calls\\44623e39-1932-4b0b-9314-9572bfef3b08.json",
+      "sha256": "386b72b91c016d678e9270a1843ae742f12c012b16bddd16480cdffe26cd09bc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4c6e996a-72ba-454f-ac14-f05e131b1b33.json",
+      "sha256": "8e718812297abad03db1ddf03d45965f23f9f9ec34ca33cf583d87d476b6ca24"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\native-source-flow\\nemata-jp-1.json",
+      "sha256": "de1d7eba39a8a0508f00951638c057689866d426cf7ba991c0a52aaf5604adaf"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\renders\\nemata-jp\\page-0001.png",
+      "sha256": "007cac45189bdb74ade4f55b8099f28650001c74f2c571a747eb8a8cb62c100e"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\001.json",
+      "sha256": "b5595e802d47eaef2c9815e9342771c88513d413d66222528fee9c16dc93ad71"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0001.195ec4e95734120c92d4bc0281512b7cb06d84fda221b68e339f020e06ddd02b.6baa4a7e1404.json",
+      "sha256": "9619f5b27ba1b1bb6227184081d72cb599de232741d6f5ea01e7d1daa829ab91"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\raw-calls\\4580aa4a-a2c1-4c68-a99a-916d815aed9a.json",
+      "sha256": "7a986c016271b592bf182a04b0f27e04e426fdda019aa81f00083f7914c92a6b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\34ca7811-aa03-449f-919f-3d6453c26ad7.json",
+      "sha256": "258a008cd9b8d36de50ee3a3b2720825bc127d484ca81ea148e86cd98121adcc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\native-source-flow\\nemata-jp-2.json",
+      "sha256": "a16af45b1515b1214bb650400964ed19ca8055751cfe92e737e24f9f8c551160"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\renders\\nemata-jp\\page-0002.png",
+      "sha256": "6d3fd53ade7c603db8b0578ed327eb112c0e2eb849f932913ba6cd3ab02aca9a"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\002.json",
+      "sha256": "e82df805c5631a27bb63bf13d8a7e89cd7abaf3aff15efbe732a59125459bb09"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0002.205a9a8ab2dcc7353f5d3ec2df6f6b99339ecbb4ca57c507690b6ff45397e1d6.6baa4a7e1404.json",
+      "sha256": "02b5cea0e12ad34ddf670e20cbb6071e395c2587f2d2797e6be303d1af9d442c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\raw-calls\\c13b5f4b-6d95-4bdd-a809-984e7e7cce05.json",
+      "sha256": "33ffb67d44a3a2933b7fe85eac1700c324a8db0b02bf8249f2d0470ae79ae040"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7d4d837c-f92f-406d-9685-460bcd28cb61.json",
+      "sha256": "d7f184b880fd01d18e1e49db2bb327e8e6e1e0caa2e96a3ee5c2ea2ef4332a70"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\native-source-flow\\nemata-jp-3.json",
+      "sha256": "fff57e9a8977a75b5128776279d144767b0382bd0a81d337930f345c8cff86cd"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\renders\\nemata-jp\\page-0003.png",
+      "sha256": "2c72198a82853cd258b5a3ed767ae3c63477723a9bc7d71d2b29446b53b4538b"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\003.json",
+      "sha256": "d4d6ef6ff6cb981938e65422a19ea3eab15ebf0c1febd8358b553d6ac103a7c4"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0003.b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36.6baa4a7e1404.json",
+      "sha256": "68037da0805fc3c947b9d3ca0ddc83576ac1ee368a3c91539243266af0f3152f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\raw-calls\\ab1fbac1-92f8-4795-a789-545bb0dd40c6.json",
+      "sha256": "c158435c7419084fd0b0f5141501be43c227e44d3ab040e71af59116c84526e2"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\e62c5e5f-cecc-4d6c-be96-c506125e7350.json",
+      "sha256": "fb9a89032a2f61be5971a2c5908be63cd20b76b1ac807f4adf3947b97f214c05"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\native-source-flow\\nemata-jp-317.json",
+      "sha256": "7e49bd23bffe3f06c741ab152a258ae24db925aaf51a8677f00d07fc0123215f"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\renders\\nemata-jp\\page-0317.png",
+      "sha256": "763edc0fc994b6dab0992525ec27bc169c53166fd29281ef178b86b25f63d4f9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\317.json",
+      "sha256": "6222d0a89802f089a494a8f018e2d78abe37f8c323a463cade7f9d9eb1c42a72"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0317.e0911ad1e2ee917537c953d1d2e204120fcd3477a67baf1f26eac90f18c9efcf.6baa4a7e1404.json",
+      "sha256": "f30bffa04d44573d0ca9fdacd3152d713d061e9503b7c97398e23146eec3f86c"
+    }
+  ],
+  "allUnchanged": true,
+  "newModelCalls": 0
+}

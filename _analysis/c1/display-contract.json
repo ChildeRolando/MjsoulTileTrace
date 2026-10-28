@@ -1,0 +1,28 @@
+{
+  "schema": "coac250-cover-source-metadata-display/1",
+  "existingOwner": "E:/AgentData/Coach/knowledge/processing/integration/coac246-frontmatter-adjudication-20261028/owner.md",
+  "request": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-adjudication-20261028\\request.json",
+    "sha256": "a0125aca447c11276bcc9e995dae6eab21a9900ec318e38fad5816b0a6b12451"
+  },
+  "independentCheck": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-zero-adjudication-20261028\\independent-check.json",
+    "sha256": "a8cfc7a7fb9ab8427951796501c559c4f1990488b428051c4c308c3e41050b13"
+  },
+  "scopePages": [
+    1,
+    2,
+    3
+  ],
+  "authorChapter": "nemata-jp-chapter-001-64",
+  "sourceNotesChapter": "nemata-jp-chapter-001-64-source-notes",
+  "label": "来源限制（编者说明，非作者原文）",
+  "authorBodyInjection": false,
+  "candidateBodyChanged": false,
+  "sourceNotesAreAuthorText": false,
+  "displayMethod": "Keep all sourceNotes as separate metadata and a dedicated navigation companion with originalCoverageIncrement0; add a reader link outside the author chapter-body. All limits verbatim; no note appended to author paragraphs. Actual MCP/Arena read the complete author unit and navigation notes unit; notes grant no tactical citation.",
+  "existing317Restaged": false,
+  "existingChineseTocRestaged": false,
+  "standardWholePagePassed": false,
+  "newModelCalls": 0
+}

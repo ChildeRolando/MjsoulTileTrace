@@ -1,0 +1,1256 @@
+{
+  "schema": "coach-textbook-corpus/1",
+  "corpusId": "fe00cfdd49534e8fc10c0e815ae003977807a640251e7153fce874ab8c5222f9",
+  "bodySha256": "59c97f9be00445d30f1fb4fa24dd2cdaea368decfc382d60fe5851933dc25c4a",
+  "reviewStatus": "text-extraction-accepted-content-review-pending",
+  "units": [
+    {
+      "unitId": "nemata-jp-chapter-001-64-unit-1",
+      "chapterId": "nemata-jp-chapter-001-64",
+      "title": "封面、目录与网页说明",
+      "chapterTitle": "封面、目录与网页说明",
+      "topics": [],
+      "source": {
+        "sourceId": "nemata-jp",
+        "title": "现代麻雀技术论 · 日文 PDF",
+        "sha256": "4d1c12042589a1b34d6e1f874b79b4ee1d79f4c1c26c62bda0ba94394e47250a",
+        "pages": [
+          1,
+          2,
+          3
+        ]
+      },
+      "translationStatus": "batch-audited-pending-user-review",
+      "previousUnitId": null,
+      "nextUnitId": null,
+      "blocks": [
+        {
+          "type": "p",
+          "id": "nemata-jp-p1-b64-t1",
+          "page": 1,
+          "text": "现代麻将技术论－战术论\nhttp://yabejp.web.fc2.com/mahjong/tactics.html"
+        },
+        {
+          "type": "figure",
+          "id": "nemata-jp-p1-r1",
+          "page": 1,
+          "figure": {
+            "figureId": "nemata-jp-p1-r1",
+            "unitId": "nemata-jp-chapter-001-64-unit-1",
+            "page": 1,
+            "caption": "现代麻将技术论",
+            "imageSha256": "f4daa1d4b778743296e5f3a546171cf7ae5b867d0121129db29fbf61dc36457b",
+            "transcription": {
+              "text": "蓝色粗体、灰色投影的站点标题：现代麻将技术论（原文：現代麻雀技術論）。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p1-b2-t1",
+          "page": 1,
+          "text": "～发表麻将界最强的战术理论～\n结合最前沿的研究成果与强豪牌手的打法，经过缜密考察，阐述由此构建的最强理论。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p1-b63-t1",
+          "page": 1,
+          "text": "索引｜战术论｜研究开发资料｜专栏｜参考资料｜书籍介绍"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p1-b4-t1",
+          "page": 1,
+          "text": "序章　麻将技术论\n1．麻将技术概述"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p1-b6-t1",
+          "page": 1,
+          "text": "第1章　牌效率论\n讨论在无需特别考虑点数与名次状况的平场中，其他玩家没有发动进攻（立直、副露），或其进攻可以忽略时的选择技术，包括切什么牌、副露判断和立直判断。\n1．牌效率的原则"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p1-b9-t1",
+          "page": 1,
+          "text": "第1.1节　牌理\n讨论牌的组合理论。\n2．打牌选择的方法\n3．孤立牌与单独搭子\n4．对子与愚形搭子的比较\n5．复合搭子1\n6．复合搭子2\n7．超愚形搭子与振听搭子\n8．同位牌组的比较方法\n9．边张搭子\n10．外嵌张搭子\n11．内嵌张搭子\n12．两面搭子\n13．拆对子\n14．孤立的1、9牌\n15．孤立的2、8牌\n16．孤立的3～7牌\n17．拆搭子\n18．单独搭子与复合搭子的比较\n19．孤立牌与复合搭子的比较\n20．复合面子（多面听）"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p1-b12-t1",
+          "page": 1,
+          "text": "第1.2节　先制听牌判断\n讨论先制听牌时的选择技术，包括立直、默听、拆听和听口选择。\n21-1．理解听牌效率\n21-2．先制立直判断\n21-3．以和牌为优先的默听\n21-4．以防守为优先的默听\n21-5．等待牌形变化的判断\n21-6．听口选择"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p1-b15-t1",
+          "page": 1,
+          "text": "第1.3节　副露效率\n讨论副露（鸣牌）的技术。\n22-1．副露牌理\n22-2．副露判断\n22-3．副露役种的构想\n22-4．副露役种的做法\n23．副露的原则\n24．相对于门清牌理的变化之处"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p1-b18-t1",
+          "page": 1,
+          "text": "第1.4节　役种构成技术\n讨论役种的追求与宝牌的处理方法。\n25．役种与宝牌构成的原则\n26．断幺九\n27．平和\n28．一杯口\n29．役牌对子\n30．孤立役牌\n31．三色同顺\n32．一气通贯\n33．对对和\n34．七对子\n35．染手（混一色、清一色的统称）\n36．全带幺类\n37．三暗刻\n38．国士无双、流局满贯\n39．门清手中的宝牌\n40．副露手中的宝牌\n41．后后付\n42．形式听牌"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p1-b21-t1",
+          "page": 1,
+          "text": "第1.5节　一向听效率\n讨论一向听时的打牌选择技术。\n43．重视先制听牌的原则\n44．一向听牌形的分类\n50．理解听牌机会\n51．无雀头形"
+        },
+        {
+          "type": "figure",
+          "id": "nemata-jp-p1-r2",
+          "page": 1,
+          "figure": {
+            "figureId": "nemata-jp-p1-r2",
+            "unitId": "nemata-jp-chapter-001-64-unit-1",
+            "page": 1,
+            "caption": "2009年日本麻将博客大奖获奖标牌",
+            "imageSha256": "c4dde919f0e3989959f32326c9814e15cab0aba599550e359bef29a76a0d30ae",
+            "transcription": {
+              "text": "绿色背景的获奖标牌。文字：日本麻将博客大奖2009；荣获最高奖；现代麻将技术论；撰稿人：ネマタ；网站制作者：や～べ。原文主标题为「日本麻雀ブログ大賞2009」「グランプリ受賞」「現代麻雀技術論」。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p1-b25-t1",
+          "page": 1,
+          "text": "站内搜索\n※请从这里搜索站内的文章、术语等内容。"
+        },
+        {
+          "type": "figure",
+          "id": "nemata-jp-p1-r3",
+          "page": 1,
+          "figure": {
+            "figureId": "nemata-jp-p1-r3",
+            "unitId": "nemata-jp-chapter-001-64-unit-1",
+            "page": 1,
+            "caption": "搜索按钮",
+            "imageSha256": "9016b5bd3d5ea6f56676c7adcc08e6f8f4a107004c80381820fdc683ad31848a",
+            "transcription": {
+              "text": "灰色矩形搜索按钮，文字：搜索（原文：検索）。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p1-b26-t1",
+          "page": 1,
+          "text": "免费注册的网络麻将！\n本站已被刊载于《月刊网络麻将》2010年1月号！"
+        },
+        {
+          "type": "figure",
+          "id": "nemata-jp-p1-r4",
+          "page": 1,
+          "figure": {
+            "figureId": "nemata-jp-p1-r4",
+            "unitId": "nemata-jp-chapter-001-64-unit-1",
+            "page": 1,
+            "caption": "《Net M@hjong》2010年1月号封面",
+            "imageSha256": "95f061b13019ed10d9b367d162b5aa59e05febefe3a2ec8415689cf3a13ad02a",
+            "transcription": {
+              "text": "杂志封面，背景为一名女性的面部照片。刊名：月刊网络麻将，Net M@hjong；英文副题：Monthly Online Mahjong Magazine。期号：2010年1月，January。右上有两行宣传小字，无法可靠辨认。左侧竖排：日本麻将博客大奖大特集号。右侧文字：最终评选评语；福地诚、须田良规、とつげき東北。评委特别奖：《打天凤时，会在椅子上跪坐》（原文：天鳳打つ時は椅子の上で正座です）；署名无法可靠辨认。下部文字：日本麻将博客大奖2009，荣获亚军奖；《近代麻将漫画生活》，いのけん。日本麻将博客大奖2009，荣获最高奖；《现代麻将技术论》，附有假名读音，但无法可靠辨认；撰稿人：ネマタ；网站制作者：や～べ。\n【来源未辨明项】\n封面右上“January”下方的极小文字分辨率不足，无法可靠辨认。\n封面右上两行宣传小字无法可靠逐字辨认，也不能确认其完整译意。\n主标题旁的假名读音过小，无法可靠逐字辨认。\n评委特别奖条目下方的星号夹署名模糊，无法可靠辨认完整字形。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p1-b29-inline",
+          "page": 1,
+          "text": "友情链接横幅与装饰性链接箭头幻想麻将认真打牌wiki\n装饰性链接箭头现代麻将技术论注\n装饰性链接箭头极真麻将博客\n装饰性链接箭头最速流麻将战术论\n装饰性链接箭头三麻四麻博客\n装饰性链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\n装饰性链接箭头天凤，避免末位的日子\n装饰性链接箭头なめとん的麻将博客\n装饰性链接箭头科学研究二次元｜りーりん实验室\n装饰性链接箭头日刊鸵鸟蛋\n装饰性链接箭头HAZ的研究人生\n装饰性链接箭头新手的好运\n装饰性链接箭头副露海冬\n装饰性链接箭头兄控女高中生的天凤反省簿\n装饰性链接箭头碰与吃的冷冻库\n装饰性链接箭头麻将一番街\n装饰性链接箭头麻将概论",
+          "inlineFigures": [
+            {
+              "figureId": "nemata-jp-p1-r5",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 1,
+              "caption": "友情链接横幅与装饰性链接箭头",
+              "imageSha256": "d9b8f67661843bf93149c4767f057c80b471e82ff1dd789cf5b345092b4e2f1c",
+              "transcription": {
+                "text": "友情链接横幅：灰色圆角外框、紫色斜纹底色，左侧为白色相向弯箭头，文字为“友情链接”（原文：相互リンク）。其下另有第一条链接前的蓝底白色向右箭头小图标。"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "nemata-jp-p1-r6",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 1,
+              "caption": "装饰性链接箭头",
+              "imageSha256": "f74cf8875d92d7c623182b0a9eb82796c1799d5972fd8a90e0128d045a8fdafd",
+              "transcription": {
+                "text": "“现代麻将技术论注”链接前的蓝底白色向右箭头方形小图标，无文字。"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "nemata-jp-p1-r7",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 1,
+              "caption": "装饰性链接箭头",
+              "imageSha256": "6d03d02201affee1f57e56e02a121b666ef09ad05bdfadb4686d7a2035837c7a",
+              "transcription": {
+                "text": "“极真麻将博客”链接前的蓝底白色向右箭头方形小图标，无文字。"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "nemata-jp-p1-r8",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 1,
+              "caption": "装饰性链接箭头",
+              "imageSha256": "12f094f4836c3e85ba115af354fe3ad39ab407f5386411444f04096247a71678",
+              "transcription": {
+                "text": "“最速流麻将战术论”链接前的蓝底白色向右箭头方形小图标，无文字。"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "nemata-jp-p1-r9",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 1,
+              "caption": "装饰性链接箭头",
+              "imageSha256": "5582474208937f486c94a2bc3e6958f42c7f68ff5f8bcb0d70c6e70c271482f6",
+              "transcription": {
+                "text": "“三麻四麻博客”链接前的蓝底白色向右箭头方形小图标，无文字。"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "nemata-jp-p1-r10",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 1,
+              "caption": "装饰性链接箭头",
+              "imageSha256": "b3ae10676c0a9ec1f729685f4f5ba643190bc145958495a303aa47d3ac890c65",
+              "transcription": {
+                "text": "“面向初学者的麻将讲座”链接前的蓝底白色向右箭头方形小图标，无文字。"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "nemata-jp-p1-r11",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 1,
+              "caption": "装饰性链接箭头",
+              "imageSha256": "bb6c0d4b0310db35e519f0ef76244fc28e0b0dc35f0fad0e332213e5ef865505",
+              "transcription": {
+                "text": "“天凤，避免末位的日子”链接前的蓝底白色向右箭头方形小图标，无文字。"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "nemata-jp-p1-r12",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 1,
+              "caption": "装饰性链接箭头",
+              "imageSha256": "5c5e4d7ddfa2776975a28fb385593ae3eafa89f4f4522b1d18611eb103b73f1d",
+              "transcription": {
+                "text": "“なめとん的麻将博客”链接前的蓝底白色向右箭头方形小图标，无文字。"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "nemata-jp-p1-r13",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 1,
+              "caption": "装饰性链接箭头",
+              "imageSha256": "39f127a33136b464ce6527b442b485dbddabb22c3225cfdb37196e5adab2b547",
+              "transcription": {
+                "text": "“科学研究二次元｜りーりん实验室”链接前的蓝底白色向右箭头方形小图标，无文字。"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "nemata-jp-p1-r14",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 1,
+              "caption": "装饰性链接箭头",
+              "imageSha256": "ff90b1cb358934854f207c5e6d3085a8b44a5c9c54fbc3825bf4e7a29a069fb9",
+              "transcription": {
+                "text": "“日刊鸵鸟蛋”链接前的蓝底白色向右箭头方形小图标，无文字。"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "nemata-jp-p1-r15",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 1,
+              "caption": "装饰性链接箭头",
+              "imageSha256": "c5ee441fc9eb60632d5e97995deb623ec120afdc24e6c35999bf147ace58732c",
+              "transcription": {
+                "text": "“HAZ的研究人生”链接前的蓝底白色向右箭头方形小图标，无文字。"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "nemata-jp-p1-r16",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 1,
+              "caption": "装饰性链接箭头",
+              "imageSha256": "1efdb909794a1ffd8d25a83e3d6c0a29ed8d4cf456cc1beabffde910a87770a1",
+              "transcription": {
+                "text": "“新手的好运”链接前的蓝底白色向右箭头方形小图标，无文字。"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "nemata-jp-p1-r17",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 1,
+              "caption": "装饰性链接箭头",
+              "imageSha256": "721425d42894ee5c48b1c6ec3d6a801de3a31e651a82d169e7dfd1b772bf5a88",
+              "transcription": {
+                "text": "“副露海冬”链接前的蓝底白色向右箭头方形小图标，无文字。"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "nemata-jp-p1-r18",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 1,
+              "caption": "装饰性链接箭头",
+              "imageSha256": "d92ad6d823e22e49430807e5f6b9a9dd7324bbf9ee603b84a88170de7d115ea7",
+              "transcription": {
+                "text": "“兄控女高中生的天凤反省簿”链接前的蓝底白色向右箭头方形小图标，无文字。"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "nemata-jp-p1-r19",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 1,
+              "caption": "装饰性链接箭头",
+              "imageSha256": "bf0d74379af294e3288a1914701f4962e83721dd20ab0c2fb441c50109031818",
+              "transcription": {
+                "text": "“碰与吃的冷冻库”链接前的蓝底白色向右箭头方形小图标，无文字。"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "nemata-jp-p1-r20",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 1,
+              "caption": "装饰性链接箭头",
+              "imageSha256": "42d624abf0bb78db02dc4631fd18729a962226076acd2aabe39a684350424074",
+              "transcription": {
+                "text": "“麻将一番街”链接前的蓝底白色向右箭头方形小图标，无文字。"
+              },
+              "requiresImageForFullExample": false
+            },
+            {
+              "figureId": "nemata-jp-p1-r21",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 1,
+              "caption": "装饰性链接箭头",
+              "imageSha256": "e7882d1a294a7ddf3fbae16e63bdb1f8c583623329d3b10ade2fbefa9a873f65",
+              "transcription": {
+                "text": "“麻将概论”链接前的蓝底白色向右箭头方形小图标，无文字。"
+              },
+              "requiresImageForFullExample": false
+            }
+          ]
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p1-b65-t1",
+          "page": 1,
+          "text": "第1页，共4页\n2014-03-02 11:35"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b62-t1",
+          "page": 2,
+          "text": "现代麻将技术论－战术论\nhttp://yabejp.web.fc2.com/mahjong/tactics.html"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b1-t1",
+          "page": 2,
+          "text": "45．两面子余张牌形；46．两面子完全形；47．两面子余张牌形与完全形的选择1；48．两面子余张牌形与完全形的选择2；49．两面子余张牌形与完全形的选择3。\n52．两面子余张牌形与无雀头形的选择；53．两面子完全形与无雀头形的选择；54．靠张形；55．两面子完全形与靠张形的选择；56．退回两向听。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b2-t1",
+          "page": 2,
+          "text": "第2章　攻守取舍论"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b3-t1",
+          "page": 2,
+          "text": "介绍平场中应对他家进攻（立直、副露）的技术，包括进攻、弃和与防备。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b4-t1",
+          "page": 2,
+          "text": "2.1节　对未听牌他家的应对"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b5-t1",
+          "page": 2,
+          "text": "介绍如何防备他家的进攻，包括扣牌、好牌先打与防御。条目为：1．扣牌；2．应对扣牌；3．好牌先打；4．序盘的防御。\n\n※攻守取舍论第5～12项（先制听牌判断）已移至牌效率论第21项。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b8-t1",
+          "page": 2,
+          "text": "2.2节　弃和技术"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b9-t1",
+          "page": 2,
+          "text": "介绍弃和技术。条目为：13．彻底弃和；14．判断他家听牌张的有效局面；15．没有安全牌时的应对方法。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b11-t1",
+          "page": 2,
+          "text": "2.3节　应对立直"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b12-t1",
+          "page": 2,
+          "text": "介绍应对他家立直的技术，包括进攻、弃和与听牌形的选择。条目为：16．有赤宝牌麻将的立直平均点数；17．听牌时的应对；18．面对立直时的听牌形选择；19．应对两家立直；20．微妙状况下的应对；21．一向听时的应对。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b14-t1",
+          "page": 2,
+          "text": "2.4节　应对鸣牌副露"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b15-t1",
+          "page": 2,
+          "text": "介绍应对他家副露的技术，包括进攻、弃和、扣牌与迂回打法。条目为：22．鸣牌副露的特点；23．判断鸣牌副露者是否听牌；24．按副露手的役种分别应对的方法。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b17-t1",
+          "page": 2,
+          "text": "2.5节　补充"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b18-t1",
+          "page": 2,
+          "text": "介绍其他应对技术。条目为：25．临近流局时的攻守取舍；26．迂回打法与扣牌的方法；27．为消除一发或改变海底归属而鸣牌。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b20-t1",
+          "page": 2,
+          "text": "第3章　读牌技术论"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b21-t1",
+          "page": 2,
+          "text": "介绍预测非公开信息的技术，包括他家的手牌、牌山中的牌、他家的心理与打牌风格。条目为：1．读牌的原则。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b23-t1",
+          "page": 2,
+          "text": "3.1节　枚举读牌"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b24-t1",
+          "page": 2,
+          "text": "介绍预测危险牌的技术。条目为：2．十八分之一理论；3．判断字牌听牌。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b26-t1",
+          "page": 2,
+          "text": "3.2节　手牌构成解读"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b27-t1",
+          "page": 2,
+          "text": "介绍预测他家听牌张与役种的技术。条目为：4．牌河信息的分类；5．邻近听牌立直；6．逆序切牌1；7．逆序切牌2；8．解读鸣牌副露；9．切宝牌；10．拆搭子1；11．拆搭子2；12．拆搭子3；13．拆对子1；14．拆对子2；15．役种解读1；16．役种解读2；17．判断邻近单骑听牌；18．判断七对子；19．读牌的有效局面；20．判断手牌进展。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b29-t1",
+          "page": 2,
+          "text": "3.3节　牌山解读"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b30-inline",
+          "page": 2,
+          "text": "decorative（装饰）：链接箭头麻将JOO（ジョーオー）",
+          "inlineFigures": [
+            {
+              "figureId": "nemata-jp-p2-r1",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 2,
+              "caption": "decorative（装饰）：链接箭头",
+              "imageSha256": "8e35d8fbf2e54e44f9a002c2982ae661e820f46298b58f634aa025405bd4dd77",
+              "transcription": {
+                "text": "蓝色小方框内有白色向右箭头，外沿为灰色。"
+              },
+              "requiresImageForFullExample": false
+            }
+          ]
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b32-inline",
+          "page": 2,
+          "text": "decorative（装饰）：链接箭头靠麻将大赚一笔☆在散客雀庄取胜的方法",
+          "inlineFigures": [
+            {
+              "figureId": "nemata-jp-p2-r2",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 2,
+              "caption": "decorative（装饰）：链接箭头",
+              "imageSha256": "e0baa355b891262f58bdfaa5e79ad6cb01c6d7668b05a7bece6c61ac4ab32d9a",
+              "transcription": {
+                "text": "蓝色小方框内有白色向右箭头，外沿为灰色。"
+              },
+              "requiresImageForFullExample": false
+            }
+          ]
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b34-inline",
+          "page": 2,
+          "text": "decorative（装饰）：链接箭头麻将雀龙.com",
+          "inlineFigures": [
+            {
+              "figureId": "nemata-jp-p2-r3",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 2,
+              "caption": "decorative（装饰）：链接箭头",
+              "imageSha256": "f08941d32e56d375e3ad27f71f12db518e5976b46550894e3fbe0ca8cf233445",
+              "transcription": {
+                "text": "蓝色小方框内有白色向右箭头，外沿为灰色。"
+              },
+              "requiresImageForFullExample": false
+            }
+          ]
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b36-inline",
+          "page": 2,
+          "text": "decorative（装饰）：链接箭头麻将％",
+          "inlineFigures": [
+            {
+              "figureId": "nemata-jp-p2-r4",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 2,
+              "caption": "decorative（装饰）：链接箭头",
+              "imageSha256": "55b947bb6e87342ea8bd1377f22c37f6dbd132441d77b0b16371c243cf1ee566",
+              "transcription": {
+                "text": "蓝色小方框内有白色向右箭头，外沿为灰色。"
+              },
+              "requiresImageForFullExample": false
+            }
+          ]
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b38-inline",
+          "page": 2,
+          "text": "decorative（装饰）：链接箭头锐评麻将书！锐评麻将游戏！！",
+          "inlineFigures": [
+            {
+              "figureId": "nemata-jp-p2-r5",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 2,
+              "caption": "decorative（装饰）：链接箭头",
+              "imageSha256": "e7d75c6c1e8248b7714ae9359576922bdd07f8cf4f1d5f1599b9616fcf881548",
+              "transcription": {
+                "text": "蓝色小方框内有白色向右箭头，外沿为灰色。"
+              },
+              "requiresImageForFullExample": false
+            }
+          ]
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b40-inline",
+          "page": 2,
+          "text": "decorative（装饰）：链接箭头无精打采、漠不关心（暂定）",
+          "inlineFigures": [
+            {
+              "figureId": "nemata-jp-p2-r6",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 2,
+              "caption": "decorative（装饰）：链接箭头",
+              "imageSha256": "e1a3e5b4666e5044c4e67d40781401e4b2a19920018101300e2155ccf8cec448",
+              "transcription": {
+                "text": "蓝色小方框内有白色向右箭头，外沿为灰色。"
+              },
+              "requiresImageForFullExample": false
+            }
+          ]
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b42-inline",
+          "page": 2,
+          "text": "decorative（装饰）：链接箭头眼里只剩天凤",
+          "inlineFigures": [
+            {
+              "figureId": "nemata-jp-p2-r7",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 2,
+              "caption": "decorative（装饰）：链接箭头",
+              "imageSha256": "e646e0ff9a85c6bddcebcbc28318cce42598afab17868786f0e195e0102bc6bc",
+              "transcription": {
+                "text": "蓝色小方框内有白色向右箭头，外沿为灰色。"
+              },
+              "requiresImageForFullExample": false
+            }
+          ]
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b44-inline",
+          "page": 2,
+          "text": "decorative（装饰）：链接箭头Yamashita Daichan的博客。",
+          "inlineFigures": [
+            {
+              "figureId": "nemata-jp-p2-r8",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 2,
+              "caption": "decorative（装饰）：链接箭头",
+              "imageSha256": "e86dd1dc30783b0bfee2d332f34997ae561fba800ff9df781c1967925d0d3b88",
+              "transcription": {
+                "text": "蓝色小方框内有白色向右箭头，外沿为灰色。"
+              },
+              "requiresImageForFullExample": false
+            }
+          ]
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b47-inline",
+          "page": 2,
+          "text": "decorative（装饰）：链接箭头莱拉的奋斗记",
+          "inlineFigures": [
+            {
+              "figureId": "nemata-jp-p2-r9",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 2,
+              "caption": "decorative（装饰）：链接箭头",
+              "imageSha256": "4ef0d91fe21a253dfe537a2b3e3517f0a440eef32efe4554cf34e7980bf43c87",
+              "transcription": {
+                "text": "蓝色小方框内有白色向右箭头，外沿为灰色。"
+              },
+              "requiresImageForFullExample": false
+            }
+          ]
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b49-inline",
+          "page": 2,
+          "text": "decorative（装饰）：五星图标好题齐备！优质的何切讲解书！！这是市售书籍中最优秀的何切讲解书，收录的都是好题，讲解详细且合乎逻辑。",
+          "inlineFigures": [
+            {
+              "figureId": "nemata-jp-p2-r10",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 2,
+              "caption": "decorative（装饰）：五星图标",
+              "imageSha256": "c8ed9286f1c47b4a3a829b5c6b6cbadcc666ce6885ce63f189d6e8b9784e4d26",
+              "transcription": {
+                "text": "五颗金黄色五角星横向排列。"
+              },
+              "requiresImageForFullExample": false
+            }
+          ]
+        },
+        {
+          "type": "figure",
+          "id": "nemata-jp-p2-r11",
+          "page": 2,
+          "figure": {
+            "figureId": "nemata-jp-p2-r11",
+            "unitId": "nemata-jp-chapter-001-64-unit-1",
+            "page": 2,
+            "caption": "《网络麻将·逻辑战术入门》书封",
+            "imageSha256": "7b3a8910e06868b1b8a4f667d689fbc0624519af62a0e87c7facd70471067220",
+            "transcription": {
+              "text": "黄色书封，黑色边框。大字原文为「ネット麻雀」「ロジカル戦術入門」，即《网络麻将·逻辑战术入门》；作者名「福地 誠」。下方英文为「INTERNET MAHJONG」，底部另有「LOGICAL TACTICS」字样。插画为穿蓝色西装、系红领带的男子，托着麻将桌模型。\n【来源未辨明项】\n作者名旁及封面右下方的小字分辨率不足，无法完整辨认。\n底部「LOGICAL TACTICS」之后是否还有字符，无法确认。\n男子所托模型中的细小麻将牌面无法逐张辨认，不能确定各牌的花色、点数或赤五状态。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b52-t1",
+          "page": 2,
+          "text": "《网络麻将·逻辑战术入门》，福地诚著，洋泉社，2009-10-24。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b53-inline",
+          "page": 2,
+          "text": "decorative（装饰）：五星图标必读！最强入门书！！为了加深对本站战术论的理解，也应一并购买阅读此书。",
+          "inlineFigures": [
+            {
+              "figureId": "nemata-jp-p2-r12",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 2,
+              "caption": "decorative（装饰）：五星图标",
+              "imageSha256": "b5c5480ad3db6c21094804494f48f0e1ce76fe8e18c301a434a02e310f08c414",
+              "transcription": {
+                "text": "五颗金黄色五角星横向排列。"
+              },
+              "requiresImageForFullExample": false
+            }
+          ]
+        },
+        {
+          "type": "figure",
+          "id": "nemata-jp-p2-r13",
+          "page": 2,
+          "figure": {
+            "figureId": "nemata-jp-p2-r13",
+            "unitId": "nemata-jp-chapter-001-64-unit-1",
+            "page": 2,
+            "caption": "图片缺失图标",
+            "imageSha256": "34c59117c5731d6fc1171707bb401e85a951d5cf05d698113bbf300f5ad073de",
+            "transcription": {
+              "text": "白色方框内显示灰色破损图片图标，原图片未显示。\n【来源未辨明项】\n缺失图片的原始内容无法辨认。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b55-t1",
+          "page": 2,
+          "text": "《告诉我！科学麻将》，福地诚著，洋泉社，2009-02-25。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b56-inline",
+          "page": 2,
+          "text": "decorative（装饰）：五星图标最强职业牌手的战术！最优秀的职业牌手著作！！这是出身网络麻将、以最强著称的职业牌手所写的战术书，是职业牌手战术书中最优秀的一本。",
+          "inlineFigures": [
+            {
+              "figureId": "nemata-jp-p2-r14",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 2,
+              "caption": "decorative（装饰）：五星图标",
+              "imageSha256": "b39fd053d7638d3fd3fe235a82e0f92809bb14b5cb8e7cecba7743cfa45570ce",
+              "transcription": {
+                "text": "五颗金黄色五角星横向排列。"
+              },
+              "requiresImageForFullExample": false
+            }
+          ]
+        },
+        {
+          "type": "figure",
+          "id": "nemata-jp-p2-r15",
+          "page": 2,
+          "figure": {
+            "figureId": "nemata-jp-p2-r15",
+            "unitId": "nemata-jp-chapter-001-64-unit-1",
+            "page": 2,
+            "caption": "《最强数字麻将》书封",
+            "imageSha256": "56d31116672b5ae0a7ce8ff16fd7620bb42dfeeb4e91eda2c35fc34882479b66",
+            "transcription": {
+              "text": "深蓝色书封，书名原文为「最強デジタル麻雀」，即《最强数字麻将》；封面作者署名模糊，无法可靠辨认。封面照片是一名穿深色西装、白衬衫、系领带的男子坐在麻将桌旁。\n【来源未辨明项】\n照片下方桌面处的细小牌面无法逐张辨认，不能确定各牌的花色、点数或赤五状态。\n封面左下方作者署名模糊，无法可靠辨认完整字形。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b59-t1",
+          "page": 2,
+          "text": "《最强数字麻将》（Mycom麻将BOOKS），小仓孝著，每日通讯（毎日コミュニケーションズ），2009-03-25。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b60-inline",
+          "page": 2,
+          "text": "decorative（装饰）：五星图标最强职业牌手的战术第2弹！实战问题集！！这是《最强数字麻将》的续篇。",
+          "inlineFigures": [
+            {
+              "figureId": "nemata-jp-p2-r16",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 2,
+              "caption": "decorative（装饰）：五星图标",
+              "imageSha256": "79e99ad4cb0e9ff55d1775165c3c9818aecf85fc74859ff87eac79fd3fae2b2b",
+              "transcription": {
+                "text": "五颗金黄色五角星横向排列。"
+              },
+              "requiresImageForFullExample": false
+            }
+          ]
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p2-b63-t1",
+          "page": 2,
+          "text": "第2页，共4页。\n2014-03-02 11:35"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b31-t1",
+          "page": 3,
+          "text": "现代麻将技术论—战术论\nhttp://yabejp.web.fc2.com/mahjong/tactics.html"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b1-t1",
+          "page": 3,
+          "text": "关于牌山的预测技术：21．解读牌山的好处；22．牌组解读；23．花色解读；24．反射解读。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b3-t1",
+          "page": 3,
+          "text": "第3.4节　补充"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b4-t1",
+          "page": 3,
+          "text": "关于其他预测技术：25．迷彩；26．逆序切牌3；27．延迟解读；28．理牌解读；29．对人解读。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b6-t1",
+          "page": 3,
+          "text": "第4章　点棒状况判断技术"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b7-t1",
+          "page": 3,
+          "text": "关于在非平场局面（包括倒数第二局和最终局）中考虑顺位分的打牌选择技术：1．点棒状况判断的原则；2．顺位期望值的思考方法；3．点数计算技法；4．最终局的心得与打法；5．最终局放过和牌的判断；6．最快和牌技术；7．速攻的局面；8．逆转尚不确定时的鸣牌判断；9．最终局的攻守取舍1；10．最终局的攻守取舍2；11．倒数第二局的攻守取舍；12．满贯和牌技术；13．大幅落后、处于末位的局面；14．和牌终局的技法；15．濒临被击飞的局面；16．供托与本场棒的应对；17．开杠判断。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b9-t1",
+          "page": 3,
+          "text": "第5章　提高水平的方法论"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b10-t1",
+          "page": 3,
+          "text": "关于提高麻将水平的高效学习方法：1．合理判断习得论；2．技术习得论；3．如何保持心态与专注力。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b12-t1",
+          "page": 3,
+          "text": "第6章　实战演习"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b13-t1",
+          "page": 3,
+          "text": "第6.1节　切牌选择题解题论"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b14-t1",
+          "page": 3,
+          "text": "关于切牌选择题的思考方法与讨论方法：1．切牌选择题的思考方法；2．切牌选择题讨论法。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b16-t1",
+          "page": 3,
+          "text": "第6.2节　切牌选择题研讨"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b17-t1",
+          "page": 3,
+          "text": "精选切牌选择题的答案与解说：1．“ネマー日记”博客题目；2．“数字麻将切什么？”网站题目；3．“鴉〃的麻将解说”网站题目；4．“MJ4麻将实力判定”网站题目；5．“MFC7切什么”网站题目。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b19-t1",
+          "page": 3,
+          "text": "第6.3节　牌谱研讨"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b20-t1",
+          "page": 3,
+          "text": "1．突击东北对职业牌手：公开线下对局；2．突击东北对木原职业牌手：公开网络对局；3．四大网络麻将对抗赛：公开网络对局。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b21-t1",
+          "page": 3,
+          "text": "超越街机麻将的免费3D在线麻将游戏登场！！"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b22-t1",
+          "page": 3,
+          "text": "免费3D在线麻将游戏《雀龙门》：可以体验真实麻将的临场感与紧张感；任何人只需操作鼠标，就能轻松享受激烈的对局；对局中的语音演出、手部动作等让对局气氛更加热烈的要素一应俱全。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b23-t1",
+          "page": 3,
+          "text": "以实战形式讲解前作中介绍的小仓系统。"
+        },
+        {
+          "type": "figure",
+          "id": "nemata-jp-p3-r1",
+          "page": 3,
+          "figure": {
+            "figureId": "nemata-jp-p3-r1",
+            "unitId": "nemata-jp-chapter-001-64-unit-1",
+            "page": 3,
+            "caption": "《最强数字麻将：实战问题集》书封",
+            "imageSha256": "ca3b8c85280a7c3fc24d7659d307cb4efe91077c951d3e46588e2ee60a596050",
+            "transcription": {
+              "text": "《最强数字麻将：实战问题集》的红色书封。上方书名原文为“最強デジタル麻雀”“実戦問題集”，右侧作者署名模糊，无法可靠辨认，下方英文为“THE STRONGEST DIGITAL MAHJONG”。封面照片为一名身穿深色外套的男子朝前伸手，下方可见麻将桌边缘。\n【来源未辨明项】\n作者署名上方的小字、封面底部左侧标识及其他细小文字模糊，无法可靠辨读。\n封面右侧作者署名模糊，无法可靠辨认完整字形。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b25-t1",
+          "page": 3,
+          "text": "MYCOM麻将BOOKS《最强数字麻将：实战问题集》，每日Communications，2009-11-25。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b26-inline",
+          "page": 3,
+          "text": "装饰性五星图标（decorative）必备之书！麻将史上留名的名著！！",
+          "inlineFigures": [
+            {
+              "figureId": "nemata-jp-p3-r2",
+              "unitId": "nemata-jp-chapter-001-64-unit-1",
+              "page": 3,
+              "caption": "装饰性五星图标（decorative）",
+              "imageSha256": "a40f8a436dcecb453c7bd156e57872698f0d86edf6eba74913886de4933c03b9",
+              "transcription": {
+                "text": "五颗金黄色五角星横向排列。该图像块仅包含五星图标，不包含裁剪留白区域中的日期或推荐语。"
+              },
+              "requiresImageForFullExample": false
+            }
+          ]
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b27-t1",
+          "page": 3,
+          "text": "本站的战术论也参考了本书的数据，可以说是一本价值超过售价的著作。"
+        },
+        {
+          "type": "figure",
+          "id": "nemata-jp-p3-r3",
+          "page": 3,
+          "figure": {
+            "figureId": "nemata-jp-p3-r3",
+            "unitId": "nemata-jp-chapter-001-64-unit-1",
+            "page": 3,
+            "caption": "《科学麻将》书封",
+            "imageSha256": "d55711b945844e56eea7bd1bbf3df216c01f2bc08a5ad5c7af0c5d6313fecc42",
+            "transcription": {
+              "text": "《科学麻将》的书封：白色底，上部书名原文为“科学する麻雀”，作者名为“とつげき東北”，即突击东北；中间有黄绿色方块，下半部为黄绿色腰封。腰封大字为“「数理の力」があなたの麻雀を変える！”，意为“‘数理的力量’改变你的麻将！”。底部有黑色横条，条内小字无法可靠辨读。\n【来源未辨明项】\n腰封大字下方的两行小字模糊，无法可靠辨读。\n底部黑色横条中的细小文字无法可靠逐字辨认。"
+            },
+            "requiresImageForFullExample": false
+          }
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b29-t1",
+          "page": 3,
+          "text": "《科学麻将》（讲谈社现代新书），突击东北著，讲谈社，2004-12-18。"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b30-t1",
+          "page": 3,
+          "text": "《咲-Saki-》动画特别网站"
+        },
+        {
+          "type": "p",
+          "id": "nemata-jp-p3-b32-t1",
+          "page": 3,
+          "text": "第3页，共4页。2014-03-02 11:35。"
+        }
+      ]
+    },
+    {
+      "unitId": "nemata-jp-chapter-001-64-source-notes-unit-1",
+      "chapterId": "nemata-jp-chapter-001-64-source-notes",
+      "title": "来源限制（编者说明，非作者原文）",
+      "chapterTitle": "来源限制（编者说明，非作者原文）",
+      "topics": [],
+      "contentRole": "navigation",
+      "source": {
+        "sourceId": "nemata-jp",
+        "title": "现代麻雀技术论 · 日文 PDF",
+        "sha256": "4d1c12042589a1b34d6e1f874b79b4ee1d79f4c1c26c62bda0ba94394e47250a",
+        "pages": [
+          1,
+          2,
+          3
+        ]
+      },
+      "translationStatus": "batch-audited-pending-user-review",
+      "previousUnitId": null,
+      "nextUnitId": null,
+      "blocks": [
+        {
+          "type": "p",
+          "id": "cover-source-note-1",
+          "page": 1,
+          "text": "来源限制（编者说明，非作者原文）\n1. 评委特别奖条目下方的署名保持完整unknown，不列具体姓名或备选拼写。\n2. 右上宣传小字、January下方极小字及主标题旁假名读音保持unknown。\n3. 保留可辨封面内容和p1-b27刊载消息。"
+        },
+        {
+          "type": "p",
+          "id": "cover-source-note-2",
+          "page": 2,
+          "text": "来源限制（编者说明，非作者原文）\n1. 保留作者名旁及封面右下方小字、英文尾部字符的现有unknown，不补写。\n2. 不指定模型中微小麻将牌的牌码、花色、点数或赤五状态。\n3. p2-b50书评及p2-b52书目信息保持为正文。"
+        },
+        {
+          "type": "p",
+          "id": "cover-source-note-3",
+          "page": 2,
+          "text": "来源限制（编者说明，非作者原文）\n1. 封面作者署名保持unknown，不用p2-b59书目反填图中字形。\n2. 保留桌面微牌unknown，不推定牌码、花色、点数或赤五状态。\n3. p2-b59清晰书目信息保持为正文。"
+        },
+        {
+          "type": "p",
+          "id": "cover-source-note-4",
+          "page": 3,
+          "text": "来源限制（编者说明，非作者原文）\n1. 封面右侧作者署名及其上方微字保持unknown，不借前作、书评或人物身份补字。\n2. 底部标识及其他细小文字保持unknown。\n3. p2-b61至p3-b23的跨页书评保持为作者正文；仅五星图标为装饰。"
+        },
+        {
+          "type": "p",
+          "id": "cover-source-note-5",
+          "page": 3,
+          "text": "来源限制（编者说明，非作者原文）\n1. 腰封大字下方两行小字及底部黑条细字保持unknown，不从相邻书目补作封面转录。\n2. p3-b27书评及p3-b29书目保持为正文。"
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "figureId": "nemata-jp-p1-r1",
+      "path": "assets/full-f4daa1d4b778743296e5f3a546171cf7ae5b867d0121129db29fbf61dc36457b.png",
+      "sha256": "f4daa1d4b778743296e5f3a546171cf7ae5b867d0121129db29fbf61dc36457b"
+    },
+    {
+      "figureId": "nemata-jp-p1-r2",
+      "path": "assets/full-c4dde919f0e3989959f32326c9814e15cab0aba599550e359bef29a76a0d30ae.png",
+      "sha256": "c4dde919f0e3989959f32326c9814e15cab0aba599550e359bef29a76a0d30ae"
+    },
+    {
+      "figureId": "nemata-jp-p1-r3",
+      "path": "assets/full-9016b5bd3d5ea6f56676c7adcc08e6f8f4a107004c80381820fdc683ad31848a.png",
+      "sha256": "9016b5bd3d5ea6f56676c7adcc08e6f8f4a107004c80381820fdc683ad31848a"
+    },
+    {
+      "figureId": "nemata-jp-p1-r4",
+      "path": "assets/full-95f061b13019ed10d9b367d162b5aa59e05febefe3a2ec8415689cf3a13ad02a.png",
+      "sha256": "95f061b13019ed10d9b367d162b5aa59e05febefe3a2ec8415689cf3a13ad02a"
+    },
+    {
+      "figureId": "nemata-jp-p1-r5",
+      "path": "assets/full-d9b8f67661843bf93149c4767f057c80b471e82ff1dd789cf5b345092b4e2f1c.png",
+      "sha256": "d9b8f67661843bf93149c4767f057c80b471e82ff1dd789cf5b345092b4e2f1c"
+    },
+    {
+      "figureId": "nemata-jp-p1-r6",
+      "path": "assets/full-f74cf8875d92d7c623182b0a9eb82796c1799d5972fd8a90e0128d045a8fdafd.png",
+      "sha256": "f74cf8875d92d7c623182b0a9eb82796c1799d5972fd8a90e0128d045a8fdafd"
+    },
+    {
+      "figureId": "nemata-jp-p1-r7",
+      "path": "assets/full-6d03d02201affee1f57e56e02a121b666ef09ad05bdfadb4686d7a2035837c7a.png",
+      "sha256": "6d03d02201affee1f57e56e02a121b666ef09ad05bdfadb4686d7a2035837c7a"
+    },
+    {
+      "figureId": "nemata-jp-p1-r8",
+      "path": "assets/full-12f094f4836c3e85ba115af354fe3ad39ab407f5386411444f04096247a71678.png",
+      "sha256": "12f094f4836c3e85ba115af354fe3ad39ab407f5386411444f04096247a71678"
+    },
+    {
+      "figureId": "nemata-jp-p1-r9",
+      "path": "assets/full-5582474208937f486c94a2bc3e6958f42c7f68ff5f8bcb0d70c6e70c271482f6.png",
+      "sha256": "5582474208937f486c94a2bc3e6958f42c7f68ff5f8bcb0d70c6e70c271482f6"
+    },
+    {
+      "figureId": "nemata-jp-p1-r10",
+      "path": "assets/full-b3ae10676c0a9ec1f729685f4f5ba643190bc145958495a303aa47d3ac890c65.png",
+      "sha256": "b3ae10676c0a9ec1f729685f4f5ba643190bc145958495a303aa47d3ac890c65"
+    },
+    {
+      "figureId": "nemata-jp-p1-r11",
+      "path": "assets/full-bb6c0d4b0310db35e519f0ef76244fc28e0b0dc35f0fad0e332213e5ef865505.png",
+      "sha256": "bb6c0d4b0310db35e519f0ef76244fc28e0b0dc35f0fad0e332213e5ef865505"
+    },
+    {
+      "figureId": "nemata-jp-p1-r12",
+      "path": "assets/full-5c5e4d7ddfa2776975a28fb385593ae3eafa89f4f4522b1d18611eb103b73f1d.png",
+      "sha256": "5c5e4d7ddfa2776975a28fb385593ae3eafa89f4f4522b1d18611eb103b73f1d"
+    },
+    {
+      "figureId": "nemata-jp-p1-r13",
+      "path": "assets/full-39f127a33136b464ce6527b442b485dbddabb22c3225cfdb37196e5adab2b547.png",
+      "sha256": "39f127a33136b464ce6527b442b485dbddabb22c3225cfdb37196e5adab2b547"
+    },
+    {
+      "figureId": "nemata-jp-p1-r14",
+      "path": "assets/full-ff90b1cb358934854f207c5e6d3085a8b44a5c9c54fbc3825bf4e7a29a069fb9.png",
+      "sha256": "ff90b1cb358934854f207c5e6d3085a8b44a5c9c54fbc3825bf4e7a29a069fb9"
+    },
+    {
+      "figureId": "nemata-jp-p1-r15",
+      "path": "assets/full-c5ee441fc9eb60632d5e97995deb623ec120afdc24e6c35999bf147ace58732c.png",
+      "sha256": "c5ee441fc9eb60632d5e97995deb623ec120afdc24e6c35999bf147ace58732c"
+    },
+    {
+      "figureId": "nemata-jp-p1-r16",
+      "path": "assets/full-1efdb909794a1ffd8d25a83e3d6c0a29ed8d4cf456cc1beabffde910a87770a1.png",
+      "sha256": "1efdb909794a1ffd8d25a83e3d6c0a29ed8d4cf456cc1beabffde910a87770a1"
+    },
+    {
+      "figureId": "nemata-jp-p1-r17",
+      "path": "assets/full-721425d42894ee5c48b1c6ec3d6a801de3a31e651a82d169e7dfd1b772bf5a88.png",
+      "sha256": "721425d42894ee5c48b1c6ec3d6a801de3a31e651a82d169e7dfd1b772bf5a88"
+    },
+    {
+      "figureId": "nemata-jp-p1-r18",
+      "path": "assets/full-d92ad6d823e22e49430807e5f6b9a9dd7324bbf9ee603b84a88170de7d115ea7.png",
+      "sha256": "d92ad6d823e22e49430807e5f6b9a9dd7324bbf9ee603b84a88170de7d115ea7"
+    },
+    {
+      "figureId": "nemata-jp-p1-r19",
+      "path": "assets/full-bf0d74379af294e3288a1914701f4962e83721dd20ab0c2fb441c50109031818.png",
+      "sha256": "bf0d74379af294e3288a1914701f4962e83721dd20ab0c2fb441c50109031818"
+    },
+    {
+      "figureId": "nemata-jp-p1-r20",
+      "path": "assets/full-42d624abf0bb78db02dc4631fd18729a962226076acd2aabe39a684350424074.png",
+      "sha256": "42d624abf0bb78db02dc4631fd18729a962226076acd2aabe39a684350424074"
+    },
+    {
+      "figureId": "nemata-jp-p1-r21",
+      "path": "assets/full-e7882d1a294a7ddf3fbae16e63bdb1f8c583623329d3b10ade2fbefa9a873f65.png",
+      "sha256": "e7882d1a294a7ddf3fbae16e63bdb1f8c583623329d3b10ade2fbefa9a873f65"
+    },
+    {
+      "figureId": "nemata-jp-p2-r1",
+      "path": "assets/full-8e35d8fbf2e54e44f9a002c2982ae661e820f46298b58f634aa025405bd4dd77.png",
+      "sha256": "8e35d8fbf2e54e44f9a002c2982ae661e820f46298b58f634aa025405bd4dd77"
+    },
+    {
+      "figureId": "nemata-jp-p2-r2",
+      "path": "assets/full-e0baa355b891262f58bdfaa5e79ad6cb01c6d7668b05a7bece6c61ac4ab32d9a.png",
+      "sha256": "e0baa355b891262f58bdfaa5e79ad6cb01c6d7668b05a7bece6c61ac4ab32d9a"
+    },
+    {
+      "figureId": "nemata-jp-p2-r3",
+      "path": "assets/full-f08941d32e56d375e3ad27f71f12db518e5976b46550894e3fbe0ca8cf233445.png",
+      "sha256": "f08941d32e56d375e3ad27f71f12db518e5976b46550894e3fbe0ca8cf233445"
+    },
+    {
+      "figureId": "nemata-jp-p2-r4",
+      "path": "assets/full-55b947bb6e87342ea8bd1377f22c37f6dbd132441d77b0b16371c243cf1ee566.png",
+      "sha256": "55b947bb6e87342ea8bd1377f22c37f6dbd132441d77b0b16371c243cf1ee566"
+    },
+    {
+      "figureId": "nemata-jp-p2-r5",
+      "path": "assets/full-e7d75c6c1e8248b7714ae9359576922bdd07f8cf4f1d5f1599b9616fcf881548.png",
+      "sha256": "e7d75c6c1e8248b7714ae9359576922bdd07f8cf4f1d5f1599b9616fcf881548"
+    },
+    {
+      "figureId": "nemata-jp-p2-r6",
+      "path": "assets/full-e1a3e5b4666e5044c4e67d40781401e4b2a19920018101300e2155ccf8cec448.png",
+      "sha256": "e1a3e5b4666e5044c4e67d40781401e4b2a19920018101300e2155ccf8cec448"
+    },
+    {
+      "figureId": "nemata-jp-p2-r7",
+      "path": "assets/full-e646e0ff9a85c6bddcebcbc28318cce42598afab17868786f0e195e0102bc6bc.png",
+      "sha256": "e646e0ff9a85c6bddcebcbc28318cce42598afab17868786f0e195e0102bc6bc"
+    },
+    {
+      "figureId": "nemata-jp-p2-r8",
+      "path": "assets/full-e86dd1dc30783b0bfee2d332f34997ae561fba800ff9df781c1967925d0d3b88.png",
+      "sha256": "e86dd1dc30783b0bfee2d332f34997ae561fba800ff9df781c1967925d0d3b88"
+    },
+    {
+      "figureId": "nemata-jp-p2-r9",
+      "path": "assets/full-4ef0d91fe21a253dfe537a2b3e3517f0a440eef32efe4554cf34e7980bf43c87.png",
+      "sha256": "4ef0d91fe21a253dfe537a2b3e3517f0a440eef32efe4554cf34e7980bf43c87"
+    },
+    {
+      "figureId": "nemata-jp-p2-r10",
+      "path": "assets/full-c8ed9286f1c47b4a3a829b5c6b6cbadcc666ce6885ce63f189d6e8b9784e4d26.png",
+      "sha256": "c8ed9286f1c47b4a3a829b5c6b6cbadcc666ce6885ce63f189d6e8b9784e4d26"
+    },
+    {
+      "figureId": "nemata-jp-p2-r11",
+      "path": "assets/full-7b3a8910e06868b1b8a4f667d689fbc0624519af62a0e87c7facd70471067220.png",
+      "sha256": "7b3a8910e06868b1b8a4f667d689fbc0624519af62a0e87c7facd70471067220"
+    },
+    {
+      "figureId": "nemata-jp-p2-r12",
+      "path": "assets/full-b5c5480ad3db6c21094804494f48f0e1ce76fe8e18c301a434a02e310f08c414.png",
+      "sha256": "b5c5480ad3db6c21094804494f48f0e1ce76fe8e18c301a434a02e310f08c414"
+    },
+    {
+      "figureId": "nemata-jp-p2-r13",
+      "path": "assets/full-34c59117c5731d6fc1171707bb401e85a951d5cf05d698113bbf300f5ad073de.png",
+      "sha256": "34c59117c5731d6fc1171707bb401e85a951d5cf05d698113bbf300f5ad073de"
+    },
+    {
+      "figureId": "nemata-jp-p2-r14",
+      "path": "assets/full-b39fd053d7638d3fd3fe235a82e0f92809bb14b5cb8e7cecba7743cfa45570ce.png",
+      "sha256": "b39fd053d7638d3fd3fe235a82e0f92809bb14b5cb8e7cecba7743cfa45570ce"
+    },
+    {
+      "figureId": "nemata-jp-p2-r15",
+      "path": "assets/full-56d31116672b5ae0a7ce8ff16fd7620bb42dfeeb4e91eda2c35fc34882479b66.png",
+      "sha256": "56d31116672b5ae0a7ce8ff16fd7620bb42dfeeb4e91eda2c35fc34882479b66"
+    },
+    {
+      "figureId": "nemata-jp-p2-r16",
+      "path": "assets/full-79e99ad4cb0e9ff55d1775165c3c9818aecf85fc74859ff87eac79fd3fae2b2b.png",
+      "sha256": "79e99ad4cb0e9ff55d1775165c3c9818aecf85fc74859ff87eac79fd3fae2b2b"
+    },
+    {
+      "figureId": "nemata-jp-p3-r1",
+      "path": "assets/full-ca3b8c85280a7c3fc24d7659d307cb4efe91077c951d3e46588e2ee60a596050.png",
+      "sha256": "ca3b8c85280a7c3fc24d7659d307cb4efe91077c951d3e46588e2ee60a596050"
+    },
+    {
+      "figureId": "nemata-jp-p3-r2",
+      "path": "assets/full-a40f8a436dcecb453c7bd156e57872698f0d86edf6eba74913886de4933c03b9.png",
+      "sha256": "a40f8a436dcecb453c7bd156e57872698f0d86edf6eba74913886de4933c03b9"
+    },
+    {
+      "figureId": "nemata-jp-p3-r3",
+      "path": "assets/full-d55711b945844e56eea7bd1bbf3df216c01f2bc08a5ad5c7af0c5d6313fecc42.png",
+      "sha256": "d55711b945844e56eea7bd1bbf3df216c01f2bc08a5ad5c7af0c5d6313fecc42"
+    }
+  ]
+}

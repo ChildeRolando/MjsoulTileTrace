@@ -1,0 +1,36 @@
+现代教材页1–3、317：零模型来源覆盖交接
+
+本包给COAC-249/250按页消费，保留目录、作者书评、说明和研究资料正文；没有把它们从完成标准移除，也没有把全部内容改称导航。新增制作/独审/OCR调用为0，无全文重译，无新候选或主控PASS。四页现有审核仍为needs-repair。
+
+| 页 | 完整源块→现有稿 | 旧文字独审 | 旧figure独审 | 尚未通过的确切对象 |
+| --- | --- | --- | --- | --- |
+| 1 | 67→67 | 45 faithful | 20 faithful，1 uncertain | r4杂志封面January下极小字；另与317同图署名存在候选分歧 |
+| 2 | 68→68 | 52 faithful | 14 faithful，2 uncertain | r11黄色书封细字/插画微小牌面；r15深蓝书封桌面微小牌面 |
+| 3 | 33→33 | 30 faithful | 1 faithful，2 uncertain | r1红书封署名上方/底部标识小字；r3黄绿色腰封两行小字 |
+| 317 | 58→58 | 31 faithful，1 needs-repair | 21 faithful，1 uncertain | b5“暂定版”误成“暂时公开”；r6杂志小字/署名不确定 |
+
+226个源block全部逐ID对应现有中文或figure，无生产缺口；159个文字块中158项旧独审faithful、1项明确译义错误，62个候选figure中56项旧faithful、6项uncertain（承接67个源image block）。这些是旧独审结果的复用，不能相加成整页PASS。PDF提取的空text block也保留原ID与对应恢复标题，不擅自删作空白。
+
+每页完整源对象、阅读顺序、逐block原文→中文/figure对应、原独审解释和失败理由在`pages/page-xxxx.json`。同页source/candidate/audit原字节、制作raw、独审raw及native source flow在`existing/p*/`，SHA均绑定；旧审核的structuredOutput与页审核modelReview一致，4制作+4独审真实调用均有证据。`images/`含4张完整页图、6个争议区域crop及去重原生源资产，只用于后续独立判断，本轮未进行新识图。
+
+已能复用的正文/来源证据：
+
+- 页1独审明确“正文、目录编号和阅读顺序忠实”“本页无牌例、牌河或数值图表”。
+- 页2全部52个文字块faithful；r11问题明确限定为书封细节，未发现正文教学牌例遗漏。不能把封面微小模型牌面当教学局面猜牌码。
+- 页3全部30个文字块及阅读顺序faithful。`cross-page-review-context.json`保留p2-b61“续篇”与p3-b23“小仓系统实战讲解”的接续和原独审，不能将作者推荐语降为装饰。
+- 页317独审明确其余内容/阅读顺序相符、本页无教学牌例；b5仍是独立正文修订对象，不能被封面unknown掩盖。
+
+`limited-admission.json`为250准备逐ID的限定展示/准入证据：保留所有已有faithful正文和对应原图；不可辨细字原样挂unknown与来源说明；争议figure不得提供确定出版/署名/牌码事实。文件没有发放准入或修改gate。已有证据不支持把四页清晰正文视作全部未审，也不支持把封面完整度改写为passed；应由限定scope的有效独审receipt处理边界，正文无需再全量重审。
+
+重要同图冲突：页1-b28与317-b15原始图SHA同为`275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6`（416×588）。p1-r4特别奖署名为`☆はくあ☆`，p317-r6为`★ぱくお★/★ばくお★`。这不是两张不同封面可直接互补的证据；`same-image-conflict.json`保留原候选和旧审，主控不择一。r6是复合区域，除封面还含箭头、空白图及友情链接，不能因封面unknown丢掉整个区域或其对应链接。
+
+最小后续两项见`two-review-items.json`，本轮均未派发：
+
+1. 001章页1–3：0制作+最多1次terra/max定向独审。只裁定5个争议cover的来源说明边界；同源杂志署名连同317的原读法一次核对，正文/顺序/已faithful图继承。
+2. 317页：仅b5最小合法修订1次制作，再最多1次terra/max独审；保留合并块b4+b5的标题、暂定版/结构及URL变更提示。r6使用第一项同图scope结论，不能重用旧p1结论直接猜署名。其余31文字与21图只在原范围字节未变时继承。
+
+合计建议1制作+2独审、0retry；货币额和tokens未知，保持null。这里是预算和输入包，不是授权或已冻结的派发manifest。不挪用六表/Q8额度，不派全书重译。
+
+中文目录`79-cn-chapter-001-3`已接受18块：已从当前accepted-preview选中PDF stage核对实际18个block与passed收据，完整继承证据在`chinese-toc-reuse.json`，不重复制作/审校，也不据此替代这四页日文来源。
+
+`handoff.json`为入口，`page-register.json`为页级清单。`immutable-inputs.json`验证原source/candidate/raw/audit未改；`verify_evidence.py`只做离线字节、映射、旧独审身份和unknown保留核验，不联网、不调用模型。解压后运行`python verify_evidence.py`。无应用代码修改，无需PR。

@@ -1,0 +1,18 @@
+{
+  "schema": "coac246-review-handoff-wakeup/1",
+  "wakeupId": "01a17f9e-5afd-738a-b84e-e178d5b6a70d",
+  "issueId": "01a17471-1595-79d5-bdfa-6feaa65172c0",
+  "issueIdentifier": "COAC-249",
+  "kind": "at",
+  "requestedDelay": "10s",
+  "parentCommentId": "01a17f78-7820-76a5-8d26-ae89380212df",
+  "enabledAtRegistration": true,
+  "instructionFile": "reviewer-handoff.md",
+  "authorizationCommentId": "01a17f97-a338-7198-813b-4bf67969aaaa",
+  "status": "durably-registered-for-independent-review",
+  "sourceTurnNewModelCalls": 0,
+  "maximumReviewCallsInHandoff": 2,
+  "retry": 0,
+  "notAReviewReceipt": true,
+  "ordinaryFullPagePassed": false
+}

@@ -1,0 +1,27 @@
+{
+  "constructedThroughActualFrozenCli": true,
+  "results": [
+    {
+      "scopeId": "frontmatter-revised-cover-exact-targets-v1",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "actualImageCount": 19,
+      "compactSchemaSha256": "b76a13fd44289382be9f4584f032bf6857eb925ba085a09bcb6b766331e9838f",
+      "closedPromptSha256": "b6fe42c1031c42a3cd97476c34ef1aa3c70761bd989d9cc8c244c010d835eb5f",
+      "boundaryPath": "prepared-cli-0/boundary.json",
+      "newModelCalls": 0
+    },
+    {
+      "scopeId": "research317-revised-b5-and-cover-exact-targets-v1",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "actualImageCount": 7,
+      "compactSchemaSha256": "3ab2e6558285dceac1367a0a678d90efc80b7380c1cae1fc86546ef9cb70276a",
+      "closedPromptSha256": "0ebe47510c91ccfe4a80cf7dca1d986680869280f26e41e9612e53b2ef3fd433",
+      "boundaryPath": "prepared-cli-1/boundary.json",
+      "newModelCalls": 0
+    }
+  ],
+  "newModelCalls": 0,
+  "notModelReceipts": true
+}

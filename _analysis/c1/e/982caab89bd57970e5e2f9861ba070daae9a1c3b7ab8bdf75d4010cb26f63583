@@ -1,0 +1,36 @@
+{
+  "updates": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-remaining26-closure-register-20261028.json",
+      "beforeSha256": "d983f311a63eec4696b0a3ab305ad00557fddb383bb735b26daf82ca8beaa1a6",
+      "afterSha256": "c6cb2d395c1b2b038ffcd544bb07be4499dda3e63ee10ea96f737216a48d6f45",
+      "acceptanceChanged": false
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+      "beforeSha256": "7c6dcc009d73bf47081b45f1d6858c61dceff2d2b9e67e7deca4290812efe0f0",
+      "afterSha256": "62eb96da5559d8e01f592677495f909f032824a5a340dc925619007408e773c0",
+      "acceptanceChanged": false
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\modern-metadata-four-page-gap-plan.json",
+      "beforeSha256": "7400a2e769f30c70b3d63aff25e9f72e193398279f2a1dcb33b906c2f10974e5",
+      "afterSha256": "28afe840264e8cc5c6d1169b2a8acc66ca71d280fb8398703ba0bbacf00b2a09",
+      "acceptanceChanged": false
+    }
+  ],
+  "reference": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-revision-dispatch-20261028\\dispatch-contract.json",
+    "sha256": "514fdfd198d6d6705a70bebe61abec3a54d53b1be828b38be2169428464dc21d",
+    "authorizationCommentId": "01a17f97-a338-7198-813b-4bf67969aaaa",
+    "packages": 2,
+    "newMakerCalls": 0,
+    "maximumNewReviewCalls": 2,
+    "failedOrVoidConsumesBudget": true,
+    "retry": 0,
+    "reviewStatus": "ready-for-249-new-derivative-sha-review",
+    "admissionGranted": false
+  },
+  "newIssueCreated": false,
+  "ordinaryGatesChanged": false
+}

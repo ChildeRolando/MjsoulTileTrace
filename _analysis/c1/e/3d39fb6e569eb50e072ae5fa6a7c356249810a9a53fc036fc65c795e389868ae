@@ -1,0 +1,31 @@
+// Construct actual argv/stdin/schema through the frozen CLI without spawning a model.
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {dirname,join} from 'node:path';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import {createHash} from 'node:crypto';
+import {isDeepStrictEqual} from 'node:util';
+const out=dirname(fileURLToPath(import.meta.url));
+const runtime='E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac244-vision-production-schema-v2-20261028';
+const {prepareTextbookCliRequest}=await import(pathToFileURL(join(runtime,'textbook-production-cli.mjs')));
+const sha=b=>createHash('sha256').update(b).digest('hex');
+const dispatch=JSON.parse(await readFile(join(out,'dispatch-contract.json'),'utf8'));
+const results=[];
+for(let i=0;i<2;i++){
+ const req=JSON.parse(await readFile(join(out,`review-request-${i}.json`),'utf8'));
+ const work=join(out,`prepared-cli-${i}`);await mkdir(work,{recursive:true});
+ let prepared;
+ try{prepared=await prepareTextbookCliRequest({...req,work});await writeFile(join(work,'boundary.json'),JSON.stringify(prepared,null,2)+'\n');}
+ catch(e){if(e.code!=='EEXIST')throw e;prepared=JSON.parse(await readFile(join(work,'boundary.json'),'utf8'));}
+ const bytes=await readFile(prepared.schemaPath),images=prepared.requestExecution.images;
+ if(prepared.requestExecution.model!=='gpt-6.1-terra'||prepared.requestExecution.reasoningEffort!=='max'||sha(bytes)!==sha(JSON.stringify(req.schema)))throw Error('actual_cli_model_schema');
+ const paths=prepared.args.flatMap((x,j,a)=>x==='-i'?[a[j+1]]:[]);
+ if(!isDeepStrictEqual(paths,req.images)||images.length!==[19,7][i])throw Error('image_order');
+ for(let j=0;j<images.length;j++)if(images[j].sha256!==dispatch.packages[i].imageBindings[j].sha256)throw Error('image_hash');
+ await writeFile(join(work,'closed-prompt.txt'),prepared.closedPrompt);
+ results.push({scopeId:dispatch.packages[i].scopeId,model:prepared.requestExecution.model,
+   reasoningEffort:prepared.requestExecution.reasoningEffort,actualImageCount:images.length,
+   compactSchemaSha256:sha(bytes),closedPromptSha256:sha(prepared.closedPrompt),
+   boundaryPath:`prepared-cli-${i}/boundary.json`,newModelCalls:0});
+}
+await writeFile(join(out,'cli-preflight.json'),JSON.stringify({constructedThroughActualFrozenCli:true,results,newModelCalls:0,notModelReceipts:true},null,2)+'\n');
+console.log(JSON.stringify({preparedCliBoundaries:2,actualImages:[19,7],model:'gpt-6.1-terra',effort:'max',newModelCalls:0}));

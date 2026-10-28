@@ -1,0 +1,48 @@
+{
+  "schema": "coach-frontmatter-source-coverage-handoff/1",
+  "recordedAtUtc": "2026-10-27T22:18:04.628695+00:00",
+  "originIssue": "COAC-246",
+  "receivers": [
+    "COAC-249",
+    "COAC-250"
+  ],
+  "chapters": [
+    "nemata-jp-chapter-001-64",
+    "nemata-jp-chapter-317-51"
+  ],
+  "pages": [
+    1,
+    2,
+    3,
+    317
+  ],
+  "pageRegister": "page-register.json",
+  "scopedAdmissionEvidence": "limited-admission.json",
+  "twoFiniteReviewItems": "two-review-items.json",
+  "chineseTocInherited": "chinese-toc-reuse.json",
+  "sourceBlocks": 226,
+  "mappedSourceBlocks": 226,
+  "productionGap": 0,
+  "existingTextVerdicts": {
+    "faithful": 158,
+    "needs-repair": 1
+  },
+  "existingFigureVerdicts": {
+    "faithful": 56,
+    "uncertain": 6
+  },
+  "newModelCalls": 0,
+  "newCandidateBytes": 0,
+  "newAcceptanceVerdicts": 0,
+  "completionDenominatorChanged": false,
+  "activeChanged": false,
+  "for249": "Consume exactly the two prepared items after applicable authorization; reuse faithful scopes and old raw. No dispatch in this handoff.",
+  "for250": "Record source coverage separately from semantic acceptance. Preserve clear body/TOC/book-review content with original order and precise source-note limits; use a valid scoped receipt before altering admission. Do not turn cover uncertainties into a claim that 226 clear blocks are untranslated, or omit frontmatter from completion.",
+  "historicalCalls": {
+    "producer": 4,
+    "independentReview": 4,
+    "status": "all raw preserved and linked"
+  },
+  "cost": null,
+  "scopeWarning": "All four old page verdicts remain needs-repair; no self-issued pass."
+}

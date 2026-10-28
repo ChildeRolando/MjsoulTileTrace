@@ -1,0 +1,25 @@
+{
+  "schema": "coac249-frontmatter-zero-call-adjudication-check/1",
+  "issueId": "01a17471-1595-79d5-bdfa-6feaa65172c0",
+  "taskId": "01a1817e-b027-7def-9898-86ffc6fd3dd4",
+  "checkedAt": "2026-10-28T07:59:09.730Z",
+  "requestSha256": "a0125aca447c11276bcc9e995dae6eab21a9900ec318e38fad5816b0a6b12451",
+  "status": "verified-bounded-limited-adjudication",
+  "independent249CheckComplete": true,
+  "newModelCalls": 0,
+  "newSemanticVerdict": false,
+  "fullPagePassed": false,
+  "checker": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-adjudication-20261028\\adjudication.mjs",
+    "sha256": "8e1f3824bea3fff759623b91448a639058bcfc190813b8147632c75a1b3d8a0d"
+  },
+  "verification": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-adjudication-20261028\\verification.json",
+    "sha256": "b804dd4155c9c78a55394b48ff32487b68ecc2928cfeaf75bf8c948e3038070e"
+  },
+  "displayCandidateSha256": [
+    "e5f257621a531d26b2bb6cd546019aa4bd00912bfdcd0979cfd47dd514e9f79c",
+    "462a1bc3055842ad17233127590403bac2f64ebe00b902600e35af8d8bd84086",
+    "b99906e6ce07e4d75ee02bf9d561eabaaac5713c8e104323a61238438f98bb16"
+  ]
+}

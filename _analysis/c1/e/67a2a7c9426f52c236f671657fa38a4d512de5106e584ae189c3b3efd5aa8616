@@ -1,0 +1,188 @@
+{
+  "sourceImageSha256": "275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6",
+  "occurrences": [
+    {
+      "figure": {
+        "figureId": "nemata-jp-p1-r4",
+        "bbox": [
+          429.3599853515625,
+          397.44000244140625,
+          565.199951171875,
+          574.5599975585938
+        ],
+        "pageImageSha256": "007cac45189bdb74ade4f55b8099f28650001c74f2c571a747eb8a8cb62c100e",
+        "croppedImagePath": "production/sol-high-metadata-four-pages-inline-20261026/renders/nemata-jp/page-0001-r4.png",
+        "croppedImageSha256": "95f061b13019ed10d9b367d162b5aa59e05febefe3a2ec8415689cf3a13ad02a",
+        "chapterId": "nemata-jp-chapter-001-64",
+        "unitId": "nemata-jp-chapter-001-64-unit-1",
+        "sourceImageBlockIds": [
+          "nemata-jp-p1-b28"
+        ],
+        "sourceImageSha256s": [
+          "275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6"
+        ],
+        "inlineWithTextBlockIds": [
+          "nemata-jp-p1-b11",
+          "nemata-jp-p1-b12",
+          "nemata-jp-p1-b13",
+          "nemata-jp-p1-b14",
+          "nemata-jp-p1-b15",
+          "nemata-jp-p1-b16",
+          "nemata-jp-p1-b17",
+          "nemata-jp-p1-b27"
+        ],
+        "kind": "other-meaningful-figure",
+        "transcription": "杂志封面，背景为一名女性的面部照片。刊名：月刊网络麻将，Net M@hjong；英文副题：Monthly Online Mahjong Magazine。期号：2010年1月，January。右上宣传语：为舒适的网络麻将生活提供支持的杂志。左侧竖排：日本麻将博客大奖大特集号。右侧文字：最终评选评语；福地诚、须田良规、とつげき東北。评委特别奖：《打天凤时，会在椅子上跪坐》（原文：天鳳打つ時は椅子の上で正座です）；☆はくあ☆。下部文字：日本麻将博客大奖2009，荣获亚军奖；《近代麻将漫画生活》，いのけん。日本麻将博客大奖2009，荣获最高奖；《现代麻将技术论》，附假名读音「げんだいまーじゃんぎじゅつろん」；撰稿人：ネマタ；网站制作者：や～べ。",
+        "unknowns": [
+          "封面右上“January”下方的极小文字分辨率不足，无法可靠辨认。"
+        ],
+        "caption": "《Net M@hjong》2010年1月号封面"
+      },
+      "oldCheck": {
+        "id": "nemata-jp-p1-r4",
+        "verdict": "uncertain",
+        "explanation": "刊名、期号、主要宣传文字、评选人员、特别奖、亚军奖及最高奖信息均对应；January下方极小字仍无法可靠辨认，候选也明确列为未知，尚不能完整确认该处转录。"
+      },
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\renders\\nemata-jp\\page-0001-r4.png",
+        "sha256": "95f061b13019ed10d9b367d162b5aa59e05febefe3a2ec8415689cf3a13ad02a",
+        "bytes": 955952,
+        "packagePath": "images/nemata-jp-p1-r4.png"
+      },
+      "originalAssets": [
+        {
+          "sourceBlockId": "nemata-jp-p1-b28",
+          "width": 416,
+          "height": 588,
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6.png",
+          "sha256": "275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6",
+          "bytes": 597109,
+          "packagePath": "images/original-275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6.png"
+        }
+      ],
+      "issues": [
+        {
+          "severity": "uncertain",
+          "targetId": "nemata-jp-p1-r4",
+          "sourceEvidence": "杂志封面右上“2010 1 January”区域中，January下方另有极小文字；候选unknowns亦说明该处无法可靠辨认。",
+          "description": "主要封面信息已对应，但该处可见文字尚无可靠转录，不能判定全图内容完全核验通过。",
+          "suggestedRepair": "保留原封面及当前未知说明；依据更清晰的同源图核实该处文字后补录，无法确认时继续标为未知，不猜写。"
+        }
+      ]
+    },
+    {
+      "figure": {
+        "figureId": "nemata-jp-p317-r6",
+        "bbox": [
+          39.84000015258789,
+          397.44000244140625,
+          565.4400024414062,
+          626.1599731445312
+        ],
+        "pageImageSha256": "763edc0fc994b6dab0992525ec27bc169c53166fd29281ef178b86b25f63d4f9",
+        "croppedImagePath": "production/sol-high-metadata-four-pages-inline-20261026/renders/nemata-jp/page-0317-r6.png",
+        "croppedImageSha256": "8aaa46b328c426b9e2c31f0ff73c70761c05747cbc7a57c973e9d1b939d22668",
+        "chapterId": "nemata-jp-chapter-317-51",
+        "unitId": "nemata-jp-chapter-317-51-unit-1",
+        "sourceImageBlockIds": [
+          "nemata-jp-p317-b15",
+          "nemata-jp-p317-b56",
+          "nemata-jp-p317-b57",
+          "nemata-jp-p317-b58",
+          "nemata-jp-p317-b17"
+        ],
+        "sourceImageSha256s": [
+          "275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6",
+          "b0eb965c4b7d536e6d4d9932ff11f0cb09df6bac3483e0e893f4871d0406bedb",
+          "47f4eaba45aab7c29bcd9fdc4fb0a8d8524021ff228d4041d0e30eaca626c8ad",
+          "13cf798a1d09a9a37ac0b4bcdaf71a7d82b4899ae47719f5733daf6e074c70fe",
+          "afbe8d05e696eb91da2080cdd1dced73c7cc40d3cec0469e35131098e81791d5"
+        ],
+        "inlineWithTextBlockIds": [
+          "nemata-jp-p317-b14",
+          "nemata-jp-p317-b16",
+          "nemata-jp-p317-b18",
+          "nemata-jp-p317-b20",
+          "nemata-jp-p317-b22"
+        ],
+        "kind": "other-meaningful-figure",
+        "transcription": "本区域包含杂志封面、两块左栏空白图像、友情链接横幅及第一条链接前的箭头图标。\n杂志封面以一名女性的面部照片为背景，刊名为《月刊网络麻将》，英文标志为「Net M@hjong」，英文说明为「Monthly Online Mahjong Magazine」；期号为2010年1月，另标「January」。左侧竖排文字为「日本麻将博客大奖大特集号」。右侧文字为「最终评选评语」，列出福地诚、须田良规、とつげき東北；其下为「评委特别奖」「打天凤时跪坐在椅子上」，署名可读作「★ぱくお★」或「★ばくお★」。封面下部依次写有：「日本麻将博客大奖2009　荣获亚军」「近代麻将漫画生活　いのけん」「日本麻将博客大奖2009　荣获最高奖」「现代麻将技术论」「撰稿人：ネマタ　网站制作者：や～べ」。主标题旁还印有日语读音「げんだいまーじゃんぎじゅつろん」。封面右上角另有两行细小宣传文字，无法可靠逐字辨认。\n左栏两块图像均为空白。紫色圆角横幅左侧有白色相互连接的箭头图案，文字为「友情链接」。第一条链接前有一个带灰色边框的蓝色方形图标，内为白色向右箭头。",
+        "unknowns": [
+          "杂志封面右上角两行宣传小字过小，无法可靠逐字辨认。",
+          "评委特别奖作品署名的首字半浊点或浊点不清，无法确定是「ぱ」还是「ば」。"
+        ],
+        "caption": "2010年1月杂志封面与友情链接横幅"
+      },
+      "oldCheck": {
+        "id": "nemata-jp-p317-r6",
+        "verdict": "uncertain",
+        "explanation": "杂志期号、主要标题、奖项、人物名单、友情链接横幅及首个箭头均已承接；封面右上两行小字未译，特别奖署名仍列两种读法，不能确认完整准确。"
+      },
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\renders\\nemata-jp\\page-0317-r6.png",
+        "sha256": "8aaa46b328c426b9e2c31f0ff73c70761c05747cbc7a57c973e9d1b939d22668",
+        "bytes": 1062020,
+        "packagePath": "images/nemata-jp-p317-r6.png"
+      },
+      "originalAssets": [
+        {
+          "sourceBlockId": "nemata-jp-p317-b15",
+          "width": 416,
+          "height": 588,
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6.png",
+          "sha256": "275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6",
+          "bytes": 597109,
+          "packagePath": "images/original-275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6.png"
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b56",
+          "width": 1299,
+          "height": 93,
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\b0eb965c4b7d536e6d4d9932ff11f0cb09df6bac3483e0e893f4871d0406bedb.png",
+          "sha256": "b0eb965c4b7d536e6d4d9932ff11f0cb09df6bac3483e0e893f4871d0406bedb",
+          "bytes": 641,
+          "packagePath": "images/original-b0eb965c4b7d536e6d4d9932ff11f0cb09df6bac3483e0e893f4871d0406bedb.png"
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b57",
+          "width": 431,
+          "height": 93,
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\47f4eaba45aab7c29bcd9fdc4fb0a8d8524021ff228d4041d0e30eaca626c8ad.png",
+          "sha256": "47f4eaba45aab7c29bcd9fdc4fb0a8d8524021ff228d4041d0e30eaca626c8ad",
+          "bytes": 54983,
+          "packagePath": "images/original-47f4eaba45aab7c29bcd9fdc4fb0a8d8524021ff228d4041d0e30eaca626c8ad.png"
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b58",
+          "width": 1299,
+          "height": 106,
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\13cf798a1d09a9a37ac0b4bcdaf71a7d82b4899ae47719f5733daf6e074c70fe.png",
+          "sha256": "13cf798a1d09a9a37ac0b4bcdaf71a7d82b4899ae47719f5733daf6e074c70fe",
+          "bytes": 716,
+          "packagePath": "images/original-13cf798a1d09a9a37ac0b4bcdaf71a7d82b4899ae47719f5733daf6e074c70fe.png"
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b17",
+          "width": 25,
+          "height": 25,
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\afbe8d05e696eb91da2080cdd1dced73c7cc40d3cec0469e35131098e81791d5.png",
+          "sha256": "afbe8d05e696eb91da2080cdd1dced73c7cc40d3cec0469e35131098e81791d5",
+          "bytes": 1772,
+          "packagePath": "images/original-afbe8d05e696eb91da2080cdd1dced73c7cc40d3cec0469e35131098e81791d5.png"
+        }
+      ],
+      "issues": [
+        {
+          "severity": "uncertain",
+          "targetId": "nemata-jp-p317-r6",
+          "sourceEvidence": "杂志封面右上存在两行蓝色小字；评委特别奖作品下方另有星号包围的署名。候选未转录前者，并将后者列为「★ぱくお★」或「★ばくお★」。",
+          "description": "这两处尚未获得完整、唯一的可确认转录，不能判定封面文字全部核对通过。",
+          "suggestedRepair": "核实右上两行小字并补充中文含义，确认署名首字的浊点或半浊点；核实前保留明确的不确定标记，不任选一种作为定论。"
+        }
+      ]
+    }
+  ],
+  "reason": "p1-r4 names ☆はくあ☆; p317-r6 lists ★ぱくお★/★ばくお★. Same exact source asset, differing candidate readings and old scope judgments.",
+  "controllerDecision": "unknown; no transcription selected or corrected",
+  "nonTransferable": "Do not transplant p1 whole-figure faithful subclaims to resolve p317 name uncertainty without scoped independent receipt."
+}

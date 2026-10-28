@@ -1,0 +1,37 @@
+import {readFile} from 'node:fs/promises';
+import {dirname,join,resolve,relative} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {createHash} from 'node:crypto';
+import {isDeepStrictEqual} from 'node:util';
+const root=dirname(fileURLToPath(import.meta.url));
+const sha=b=>createHash('sha256').update(b).digest('hex');
+const parse=async p=>JSON.parse(await readFile(join(root,p),'utf8'));
+const manifest=await parse('files.sha256.json');
+for(const e of manifest.files){const p=resolve(root,e.path);if(relative(root,p).startsWith('..'))throw Error('path');const b=await readFile(p);if(b.length!==e.bytes||sha(b)!==e.sha256)throw Error('file_changed:'+e.path);}
+function at(o,p){const parts=p.slice(1).split('/');const key=parts.pop();for(const t of parts)o=o[t];return {o,key};}
+const proof=await parse('derivation-proofs.json'),changes=await parse('exact-field-changes.json');
+if(changes.inputEvidenceRecords!==17||changes.changes.length!==13)throw Error('field_count');
+for(const row of proof.rows){
+ const p=await parse(`parents/page-${String(row.page).padStart(4,'0')}.json`);
+ const d=await parse(row.derivative.packagePath);
+ if(row.admissionGranted||row.wholePagePassed||!row.untouchedTreeIdenticalAfterMasking||!row.checks.passed)throw Error('false_pass');
+ const h=structuredClone(d);delete h.candidateSha256;if(sha(JSON.stringify(h))!==d.candidateSha256)throw Error('internal_candidate_hash');
+ const restored=structuredClone(d);
+ for(const c of row.fields){
+  const old=at(p,c.jsonPointer),now=at(d,c.jsonPointer);
+  if(!isDeepStrictEqual(old.o[old.key],c.before)||!isDeepStrictEqual(now.o[now.key],c.after))throw Error('field_mismatch');
+  const x=at(restored,c.jsonPointer);x.o[x.key]=c.before;
+ }
+ restored.candidateSha256=p.candidateSha256;
+ if(!isDeepStrictEqual(restored,p))throw Error('unlisted_change');
+ if(row.page===2&&!isDeepStrictEqual(p.figures[10],d.figures[10]))throw Error('p2_r11_mutated');
+ if(row.page===317){const b=d.body.blocks[4];if(b.text!==b.inlineContent[0].text||b.text!==b.rawSlotText||!b.text.includes('以暂定版形式公开'))throw Error('b5_sync');}
+}
+for(let i=0;i<2;i++){
+ const r=await parse(`review-inputs/receipt-${i}.json`),raw=await parse(`review-inputs/raw-${i}.json`),q=await parse(`review-inputs/request-${i}.json`);
+ if(!raw.success||!isDeepStrictEqual(raw.output,r.modelReview)||!isDeepStrictEqual(raw.usage,r.call.usage)||sha(raw.requestPrompt)!==raw.requestPromptSha256||sha(JSON.stringify(q.schema))!==raw.schemaSha256)throw Error('review_identity');
+ const images=raw.requestExecution.args.flatMap((s,n,a)=>s==='-i'?[a[n+1]]:[]);if(images.length!==[19,7][i]||!isDeepStrictEqual(images,q.images))throw Error('image_bindings');
+}
+const handoff=await parse('handoff.json');
+if(handoff.newModelCalls!==0||handoff.remainingBudget!==0||handoff.admissionGranted||handoff.fullPagePassed)throw Error('state');
+console.log(JSON.stringify({filesVerified:manifest.files.length,uniqueFields:13,derivedPages:proof.rows.length,newModelCalls:0,admissionGranted:false}));

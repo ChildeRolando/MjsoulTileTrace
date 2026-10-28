@@ -1,0 +1,13 @@
+COAC-246：四页已修订候选交249新SHA限定独审
+
+复用`integration/coac246-frontmatter-exact-20261028`四份已实际修正的派生候选，13字段修正与原父稿/源页/raw/旧审均已复验。没有再次制作，也没有重写原raw。原31项派生包及原65项来源包全量SHA重核，现有未知不再作为识字待办。
+
+本次授权为COAC-246评论`01a17f97-a338-7198-813b-4bf67969aaaa`，区别于已耗尽的上一批2次独审。上限两包、每包1制作+1独审、共最多4新calls；实际方案复用机械派生，0制作，仅保留每包最多1限定独审，共最多2新review，failed/void计、0retry。省下制作额度不挪用为重复审校。
+
+`dispatch-contract.json`绑定新candidate SHA、两个实际请求、图片顺序/原字节SHA和目标字段。A为页1–3封面修订，B为317-b5三个实际字段及r6来源限制。p2-r11原对象按既有faithful-with-unknown证据继承；158项旧文字、56项其它图、中文目录18块及跨页书评不重审。两处共享杂志署名完整unknown，不列确定名或旧备选，不借书目正文补封面字。
+
+`review-request-0.json`/`review-request-1.json`是交249的真实prompt/schema/images参数，分别19图/7图；`preflight-cli.mjs`仅调用冻结schema-v2的prepareTextbookCliRequest构造实际argv/stdin/schema，没有启动模型。`cli-preflight.json`及`prepared-cli-*/`保存真实零调用边界，不能冒充模型回执。249临派仍须用既有guard检查同SHA终态、失败、在途和quota STOP，并保留实际requestExecution/raw/usage/ledger。
+
+`reviewer-handoff.md`为一次性249执行指令。有效限定结果出即交250按页合法精确准入并做真实MCP/Arena回读；未通过不得整页/整章pass。普通native-inline页审批列表、旧生产raw、159/242专属合同没有扩大或借用。不能把派生稿伪装为原模型输出，不能以226源块齐替代语义审核。249执行及250回读的后续状态以真实收据为准。
+
+本轮生成请求和交接使用0模型；无应用代码更改，无需PR。现有remaining/source owner仅增加新授权与交接指针，covered/active/准入未改。`wakeup-registration.json`记录实际登记后的一次性249执行入口，不能把排队写成已审完成。

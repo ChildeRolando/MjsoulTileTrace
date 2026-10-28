@@ -1,0 +1,348 @@
+{
+  "schema": "coac246-reviewed-exact-fields/1",
+  "summary": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-frontmatter-targets-summary-20261028.json",
+    "sha256": "ef3d1de1c750a027fc5c420990649976110d057b7f28c95dad67feb548aa9efa",
+    "bytes": 56677,
+    "packagePath": "review-inputs/summary.json"
+  },
+  "inputEvidenceRecords": 17,
+  "uniqueFieldReplacements": 13,
+  "changes": [
+    {
+      "targetId": "nemata-jp-p1-r4",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0001.json",
+        "sha256": "195ec4e95734120c92d4bc0281512b7cb06d84fda221b68e339f020e06ddd02b",
+        "bytes": 73779,
+        "packagePath": "existing/p1/candidate.json"
+      },
+      "jsonPointer": "/figures/3/transcription",
+      "before": "杂志封面，背景为一名女性的面部照片。刊名：月刊网络麻将，Net M@hjong；英文副题：Monthly Online Mahjong Magazine。期号：2010年1月，January。右上宣传语：为舒适的网络麻将生活提供支持的杂志。左侧竖排：日本麻将博客大奖大特集号。右侧文字：最终评选评语；福地诚、须田良规、とつげき東北。评委特别奖：《打天凤时，会在椅子上跪坐》（原文：天鳳打つ時は椅子の上で正座です）；☆はくあ☆。下部文字：日本麻将博客大奖2009，荣获亚军奖；《近代麻将漫画生活》，いのけん。日本麻将博客大奖2009，荣获最高奖；《现代麻将技术论》，附假名读音「げんだいまーじゃんぎじゅつろん」；撰稿人：ネマタ；网站制作者：や～べ。",
+      "after": "杂志封面，背景为一名女性的面部照片。刊名：月刊网络麻将，Net M@hjong；英文副题：Monthly Online Mahjong Magazine。期号：2010年1月，January。右上有两行宣传小字，无法可靠辨认。左侧竖排：日本麻将博客大奖大特集号。右侧文字：最终评选评语；福地诚、须田良规、とつげき東北。评委特别奖：《打天凤时，会在椅子上跪坐》（原文：天鳳打つ時は椅子の上で正座です）；署名无法可靠辨认。下部文字：日本麻将博客大奖2009，荣获亚军奖；《近代麻将漫画生活》，いのけん。日本麻将博客大奖2009，荣获最高奖；《现代麻将技术论》，附有假名读音，但无法可靠辨认；撰稿人：ネマタ；网站制作者：や～べ。",
+      "beforeJsonSha256": "1d2a655184c3819c3b1cfb7fdf498e57a1b2f10b5675bd9de2474152b4641717",
+      "afterJsonSha256": "efe2d9cdf9fc2766532ae856d3f8b13db93396549871fd21185415fc26c60f0e",
+      "sourceReceipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+        "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+      },
+      "selectedRecordIndex": 0,
+      "evidenceRecordIndices": [
+        0,
+        8
+      ],
+      "resolution": "identical-evidence-deduplicated"
+    },
+    {
+      "targetId": "nemata-jp-p1-r4",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0001.json",
+        "sha256": "195ec4e95734120c92d4bc0281512b7cb06d84fda221b68e339f020e06ddd02b",
+        "bytes": 73779,
+        "packagePath": "existing/p1/candidate.json"
+      },
+      "jsonPointer": "/figures/3/unknowns",
+      "before": [
+        "封面右上“January”下方的极小文字分辨率不足，无法可靠辨认。"
+      ],
+      "after": [
+        "封面右上“January”下方的极小文字分辨率不足，无法可靠辨认。",
+        "封面右上两行宣传小字无法可靠逐字辨认，也不能确认其完整译意。",
+        "主标题旁的假名读音过小，无法可靠逐字辨认。",
+        "评委特别奖条目下方的星号夹署名模糊，无法可靠辨认完整字形。"
+      ],
+      "beforeJsonSha256": "ede2faac760d383e0344846781ad713e3b67ae6007bc3fd6380e5860ae3aaff1",
+      "afterJsonSha256": "a43e92a2877a35e4d39b2f991f8840724ac1ce16c0a4cc7e1f919664783cb78e",
+      "sourceReceipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+        "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+      },
+      "selectedRecordIndex": 1,
+      "evidenceRecordIndices": [
+        1,
+        9
+      ],
+      "resolution": "identical-evidence-deduplicated"
+    },
+    {
+      "targetId": "nemata-jp-p2-r15",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0002.json",
+        "sha256": "205a9a8ab2dcc7353f5d3ec2df6f6b99339ecbb4ca57c507690b6ff45397e1d6",
+        "bytes": 73791,
+        "packagePath": "existing/p2/candidate.json"
+      },
+      "jsonPointer": "/figures/14/transcription",
+      "before": "深蓝色书封，书名原文为「最強デジタル麻雀」，即《最强数字麻将》；作者署名「小倉 孝 著」，即小仓孝著。封面照片是一名穿深色西装、白衬衫、系领带的男子坐在麻将桌旁。",
+      "after": "深蓝色书封，书名原文为「最強デジタル麻雀」，即《最强数字麻将》；封面作者署名模糊，无法可靠辨认。封面照片是一名穿深色西装、白衬衫、系领带的男子坐在麻将桌旁。",
+      "beforeJsonSha256": "271b31f9237847a342ba0c3c59ebc6d31b1104547ef593a39b16ba5d499ea800",
+      "afterJsonSha256": "41c6edb4f3eba41e40dce54f8743965b1566680b75ec88ad26e56b9e46121338",
+      "sourceReceipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+        "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+      },
+      "selectedRecordIndex": 2,
+      "evidenceRecordIndices": [
+        2
+      ],
+      "resolution": "single-independent-proposal"
+    },
+    {
+      "targetId": "nemata-jp-p2-r15",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0002.json",
+        "sha256": "205a9a8ab2dcc7353f5d3ec2df6f6b99339ecbb4ca57c507690b6ff45397e1d6",
+        "bytes": 73791,
+        "packagePath": "existing/p2/candidate.json"
+      },
+      "jsonPointer": "/figures/14/unknowns",
+      "before": [
+        "照片下方桌面处的细小牌面无法逐张辨认，不能确定各牌的花色、点数或赤五状态。"
+      ],
+      "after": [
+        "照片下方桌面处的细小牌面无法逐张辨认，不能确定各牌的花色、点数或赤五状态。",
+        "封面左下方作者署名模糊，无法可靠辨认完整字形。"
+      ],
+      "beforeJsonSha256": "453091120af469e22683d32e345d4e438b579ba12f2638065d6b51f5ab8dd0ff",
+      "afterJsonSha256": "603410eb2364aedad03c79f6f8b36f21e7fea37cdacc884a59075f8cf22dbe89",
+      "sourceReceipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+        "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+      },
+      "selectedRecordIndex": 3,
+      "evidenceRecordIndices": [
+        3
+      ],
+      "resolution": "single-independent-proposal"
+    },
+    {
+      "targetId": "nemata-jp-p3-r1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0003.json",
+        "sha256": "b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36",
+        "bytes": 34716,
+        "packagePath": "existing/p3/candidate.json"
+      },
+      "jsonPointer": "/figures/0/transcription",
+      "before": "《最强数字麻将：实战问题集》的红色书封。上方书名原文为“最強デジタル麻雀”“実戦問題集”，右侧作者署名可辨为“小倉 孝 著”，下方英文为“THE STRONGEST DIGITAL MAHJONG”。封面照片为一名身穿深色外套的男子朝前伸手，下方可见麻将桌边缘。",
+      "after": "《最强数字麻将：实战问题集》的红色书封。上方书名原文为“最強デジタル麻雀”“実戦問題集”，右侧作者署名模糊，无法可靠辨认，下方英文为“THE STRONGEST DIGITAL MAHJONG”。封面照片为一名身穿深色外套的男子朝前伸手，下方可见麻将桌边缘。",
+      "beforeJsonSha256": "0f94a200de9263c61ecae62ee6929dee436daa5e742848b13cccadac726e59e6",
+      "afterJsonSha256": "5e8267f0401a8cbb12f71ee1b66f5c0408eaef11a96f3cddc1e955cbea987789",
+      "sourceReceipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+        "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+      },
+      "selectedRecordIndex": 4,
+      "evidenceRecordIndices": [
+        4
+      ],
+      "resolution": "single-independent-proposal"
+    },
+    {
+      "targetId": "nemata-jp-p3-r1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0003.json",
+        "sha256": "b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36",
+        "bytes": 34716,
+        "packagePath": "existing/p3/candidate.json"
+      },
+      "jsonPointer": "/figures/0/unknowns",
+      "before": [
+        "作者署名上方的小字、封面底部左侧标识及其他细小文字模糊，无法可靠辨读。"
+      ],
+      "after": [
+        "作者署名上方的小字、封面底部左侧标识及其他细小文字模糊，无法可靠辨读。",
+        "封面右侧作者署名模糊，无法可靠辨认完整字形。"
+      ],
+      "beforeJsonSha256": "a414da76fa095a9035bff321587ca3d823a0655a513853b1873c901be57a5d1f",
+      "afterJsonSha256": "a779fcbcc990d95a993f01a74f98a472c6b059e22aecc7eb012cb36b4323b822",
+      "sourceReceipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+        "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+      },
+      "selectedRecordIndex": 5,
+      "evidenceRecordIndices": [
+        5
+      ],
+      "resolution": "single-independent-proposal"
+    },
+    {
+      "targetId": "nemata-jp-p3-r3",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0003.json",
+        "sha256": "b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36",
+        "bytes": 34716,
+        "packagePath": "existing/p3/candidate.json"
+      },
+      "jsonPointer": "/figures/2/transcription",
+      "before": "《科学麻将》的书封：白色底，上部书名原文为“科学する麻雀”，作者名为“とつげき東北”，即突击东北；中间有黄绿色方块，下半部为黄绿色腰封。腰封大字为“「数理の力」があなたの麻雀を変える！”，意为“‘数理的力量’改变你的麻将！”。底部黑色横条内可辨“講談社現代新書”，即“讲谈社现代新书”。",
+      "after": "《科学麻将》的书封：白色底，上部书名原文为“科学する麻雀”，作者名为“とつげき東北”，即突击东北；中间有黄绿色方块，下半部为黄绿色腰封。腰封大字为“「数理の力」があなたの麻雀を変える！”，意为“‘数理的力量’改变你的麻将！”。底部有黑色横条，条内小字无法可靠辨读。",
+      "beforeJsonSha256": "a06cc63a111529378859414aa3a01198636f500fd092866760caf00cb4879feb",
+      "afterJsonSha256": "a93239c723d9767d498af609d131c93f45e788c37cfe3aa9904655f252eae296",
+      "sourceReceipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+        "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+      },
+      "selectedRecordIndex": 6,
+      "evidenceRecordIndices": [
+        6
+      ],
+      "resolution": "single-independent-proposal"
+    },
+    {
+      "targetId": "nemata-jp-p3-r3",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0003.json",
+        "sha256": "b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36",
+        "bytes": 34716,
+        "packagePath": "existing/p3/candidate.json"
+      },
+      "jsonPointer": "/figures/2/unknowns",
+      "before": [
+        "腰封大字下方的两行小字模糊，无法可靠辨读。"
+      ],
+      "after": [
+        "腰封大字下方的两行小字模糊，无法可靠辨读。",
+        "底部黑色横条中的细小文字无法可靠逐字辨认。"
+      ],
+      "beforeJsonSha256": "8535f228dc538c6890ef4c0d7aca166812aec7533b6f245427f342dbe28bbe81",
+      "afterJsonSha256": "05239c59c637266b385a399df44fec175a694b58b52ed793a76a206ea4a71db2",
+      "sourceReceipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+        "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+      },
+      "selectedRecordIndex": 7,
+      "evidenceRecordIndices": [
+        7
+      ],
+      "resolution": "single-independent-proposal"
+    },
+    {
+      "targetId": "nemata-jp-p317-r6",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0317.json",
+        "sha256": "e0911ad1e2ee917537c953d1d2e204120fcd3477a67baf1f26eac90f18c9efcf",
+        "bytes": 69864,
+        "packagePath": "existing/p317/candidate.json"
+      },
+      "jsonPointer": "/figures/5/transcription",
+      "before": "本区域包含杂志封面、两块左栏空白图像、友情链接横幅及第一条链接前的箭头图标。\n杂志封面以一名女性的面部照片为背景，刊名为《月刊网络麻将》，英文标志为「Net M@hjong」，英文说明为「Monthly Online Mahjong Magazine」；期号为2010年1月，另标「January」。左侧竖排文字为「日本麻将博客大奖大特集号」。右侧文字为「最终评选评语」，列出福地诚、须田良规、とつげき東北；其下为「评委特别奖」「打天凤时跪坐在椅子上」，署名可读作「★ぱくお★」或「★ばくお★」。封面下部依次写有：「日本麻将博客大奖2009　荣获亚军」「近代麻将漫画生活　いのけん」「日本麻将博客大奖2009　荣获最高奖」「现代麻将技术论」「撰稿人：ネマタ　网站制作者：や～べ」。主标题旁还印有日语读音「げんだいまーじゃんぎじゅつろん」。封面右上角另有两行细小宣传文字，无法可靠逐字辨认。\n左栏两块图像均为空白。紫色圆角横幅左侧有白色相互连接的箭头图案，文字为「友情链接」。第一条链接前有一个带灰色边框的蓝色方形图标，内为白色向右箭头。",
+      "after": "本区域包含杂志封面、两块左栏空白图像、友情链接横幅及第一条链接前的箭头图标。\n杂志封面以一名女性的面部照片为背景，刊名为《月刊网络麻将》，英文标志为「Net M@hjong」，英文说明为「Monthly Online Mahjong Magazine」；期号为2010年1月，另标「January」。左侧竖排文字为「日本麻将博客大奖大特集号」。右侧文字为「最终评选评语」，列出福地诚、须田良规、とつげき東北；其下为「评委特别奖」「打天凤时跪坐在椅子上」，署名无法可靠辨认。封面下部依次写有：「日本麻将博客大奖2009　荣获亚军」「近代麻将漫画生活　いのけん」「日本麻将博客大奖2009　荣获最高奖」「现代麻将技术论」「撰稿人：ネマタ　网站制作者：や～べ」。主标题旁还印有假名读音，但无法可靠逐字辨认。封面右上角另有两行细小宣传文字，无法可靠逐字辨认。\n左栏两块图像均为空白。紫色圆角横幅左侧有白色相互连接的箭头图案，文字为「友情链接」。第一条链接前有一个带灰色边框的蓝色方形图标，内为白色向右箭头。",
+      "beforeJsonSha256": "15987ca2fe9285330d6f0ed7d0db1adec127c32a035d6ca3fdba5f32bd32fec7",
+      "afterJsonSha256": "6676852bebce6135abb05dedd4bf21194645dd2fa8b6fee702bbfc0bc7fd5315",
+      "sourceReceipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-1.json",
+        "sha256": "d85aa60a50c4c2dc7a70fd5bbbbf43b2bd94ea990f4a5f555791ed6df228f19d"
+      },
+      "selectedRecordIndex": 12,
+      "evidenceRecordIndices": [
+        10,
+        12
+      ],
+      "resolution": "second-receipt-shared-image-limitations-supersede-narrow-first-proposal"
+    },
+    {
+      "targetId": "nemata-jp-p317-r6",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0317.json",
+        "sha256": "e0911ad1e2ee917537c953d1d2e204120fcd3477a67baf1f26eac90f18c9efcf",
+        "bytes": 69864,
+        "packagePath": "existing/p317/candidate.json"
+      },
+      "jsonPointer": "/figures/5/unknowns",
+      "before": [
+        "杂志封面右上角两行宣传小字过小，无法可靠逐字辨认。",
+        "评委特别奖作品署名的首字半浊点或浊点不清，无法确定是「ぱ」还是「ば」。"
+      ],
+      "after": [
+        "杂志封面右上角两行宣传小字过小，无法可靠逐字辨认。",
+        "评委特别奖条目下方的星号夹署名模糊，无法可靠辨认完整字形。",
+        "主标题旁的假名读音过小，无法可靠逐字辨认。",
+        "封面右上“January”下方的极小文字分辨率不足，无法可靠辨认。"
+      ],
+      "beforeJsonSha256": "642a322e052d74f56133b945fecedc8f3a0c16342624489259c5aedc797f0d83",
+      "afterJsonSha256": "c82918078842b033a268f431d7b3c394c32fb0c5c736dc8d9dcd4717e63c5a6d",
+      "sourceReceipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-1.json",
+        "sha256": "d85aa60a50c4c2dc7a70fd5bbbbf43b2bd94ea990f4a5f555791ed6df228f19d"
+      },
+      "selectedRecordIndex": 13,
+      "evidenceRecordIndices": [
+        11,
+        13
+      ],
+      "resolution": "second-receipt-shared-image-limitations-supersede-narrow-first-proposal"
+    },
+    {
+      "targetId": "nemata-jp-p317-b5",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0317.json",
+        "sha256": "e0911ad1e2ee917537c953d1d2e204120fcd3477a67baf1f26eac90f18c9efcf",
+        "bytes": 69864,
+        "packagePath": "existing/p317/candidate.json"
+      },
+      "jsonPointer": "/body/blocks/4/text",
+      "before": "新战术论\n暂时公开正在《新现代麻将技术论》中发表的最新版战术论。\n※由于是暂定版，结构或URL可能发生变更。",
+      "after": "新战术论\n以暂定版形式公开正在《新现代麻将技术论》中发表的最新版战术论。\n※由于是暂定版，结构或URL可能发生变更。",
+      "beforeJsonSha256": "d5f21a17d029aa0799822cb63391b31eea3a8a7b32dee96dd9a99eafcdf54a8a",
+      "afterJsonSha256": "7f5aea43c10681670bd5752981dcfb940525a01f32ebcf161b8f72cf33eec482",
+      "sourceReceipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-1.json",
+        "sha256": "d85aa60a50c4c2dc7a70fd5bbbbf43b2bd94ea990f4a5f555791ed6df228f19d"
+      },
+      "selectedRecordIndex": 14,
+      "evidenceRecordIndices": [
+        14
+      ],
+      "resolution": "single-independent-proposal"
+    },
+    {
+      "targetId": "nemata-jp-p317-b5",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0317.json",
+        "sha256": "e0911ad1e2ee917537c953d1d2e204120fcd3477a67baf1f26eac90f18c9efcf",
+        "bytes": 69864,
+        "packagePath": "existing/p317/candidate.json"
+      },
+      "jsonPointer": "/body/blocks/4/inlineContent/0/text",
+      "before": "新战术论\n暂时公开正在《新现代麻将技术论》中发表的最新版战术论。\n※由于是暂定版，结构或URL可能发生变更。",
+      "after": "新战术论\n以暂定版形式公开正在《新现代麻将技术论》中发表的最新版战术论。\n※由于是暂定版，结构或URL可能发生变更。",
+      "beforeJsonSha256": "d5f21a17d029aa0799822cb63391b31eea3a8a7b32dee96dd9a99eafcdf54a8a",
+      "afterJsonSha256": "7f5aea43c10681670bd5752981dcfb940525a01f32ebcf161b8f72cf33eec482",
+      "sourceReceipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-1.json",
+        "sha256": "d85aa60a50c4c2dc7a70fd5bbbbf43b2bd94ea990f4a5f555791ed6df228f19d"
+      },
+      "selectedRecordIndex": 15,
+      "evidenceRecordIndices": [
+        15
+      ],
+      "resolution": "single-independent-proposal"
+    },
+    {
+      "targetId": "nemata-jp-p317-b5",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0317.json",
+        "sha256": "e0911ad1e2ee917537c953d1d2e204120fcd3477a67baf1f26eac90f18c9efcf",
+        "bytes": 69864,
+        "packagePath": "existing/p317/candidate.json"
+      },
+      "jsonPointer": "/body/blocks/4/rawSlotText",
+      "before": "新战术论\n暂时公开正在《新现代麻将技术论》中发表的最新版战术论。\n※由于是暂定版，结构或URL可能发生变更。",
+      "after": "新战术论\n以暂定版形式公开正在《新现代麻将技术论》中发表的最新版战术论。\n※由于是暂定版，结构或URL可能发生变更。",
+      "beforeJsonSha256": "d5f21a17d029aa0799822cb63391b31eea3a8a7b32dee96dd9a99eafcdf54a8a",
+      "afterJsonSha256": "7f5aea43c10681670bd5752981dcfb940525a01f32ebcf161b8f72cf33eec482",
+      "sourceReceipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-1.json",
+        "sha256": "d85aa60a50c4c2dc7a70fd5bbbbf43b2bd94ea990f4a5f555791ed6df228f19d"
+      },
+      "selectedRecordIndex": 16,
+      "evidenceRecordIndices": [
+        16
+      ],
+      "resolution": "single-independent-proposal"
+    }
+  ],
+  "modelCalls": 0,
+  "admissionGranted": false
+}

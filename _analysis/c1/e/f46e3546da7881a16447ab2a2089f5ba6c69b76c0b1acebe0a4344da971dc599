@@ -1,0 +1,59 @@
+"""Offline checks only; does not authorize or execute reviews/admission."""
+import hashlib
+import json
+import pathlib
+
+ROOT = pathlib.Path(__file__).resolve().parent
+
+
+def load(name):
+    return json.loads((ROOT / name).read_text(encoding='utf-8-sig'))
+
+
+manifest = load('files.sha256.json')
+for entry in manifest['files']:
+    p = (ROOT / entry['path']).resolve()
+    assert p.is_relative_to(ROOT)
+    raw = p.read_bytes()
+    assert len(raw) == entry['bytes'], entry['path']
+    assert hashlib.sha256(raw).hexdigest() == entry['sha256'], entry['path']
+reg = load('page-register.json')
+mapped = 0
+for page in reg['pages']:
+    evidence = load(page['detail'])
+    src = load(evidence['source']['packagePath'])
+    cand = load(evidence['candidate']['packagePath'])
+    audit = load(evidence['audit']['packagePath'])
+    assert audit['status'] == 'needs-repair'
+    assert cand['source']['pageDataSha256'] == evidence['source']['sha256']
+    assert audit['production']['sha256'] == evidence['candidate']['sha256']
+    ids = [b['id'] for b in src['blocks']]
+    assert len(set(ids)) == len(ids)
+    assert ids == [m['sourceBlockId'] for m in evidence['mapping']]
+    for m in evidence['mapping']:
+        assert m['candidateBody'] or m['candidateFigures'], m['sourceBlockId']
+    for raw_ref in evidence['reviewerRaw']:
+        raw = load(raw_ref['packagePath'])
+        assert raw['success'] and raw['structuredOutput'] == audit['modelReview']
+    assert len(audit['modelReview']['bodyChecks']) == len([b for b in src['blocks'] if b['type'] == 'text'])
+    assert len(audit['modelReview']['imageChecks']) == len([b for b in src['blocks'] if b['type'] == 'image'])
+    mapped += len(ids)
+assert mapped == 226
+assert len(load('chinese-toc-reuse.json')['blocks']) == 18
+admission = load('limited-admission.json')
+assert admission['gateChangeExecuted'] is False
+assert all(p['autoAdmission'] is False for p in admission['pages'])
+assert sum(len(p['bodySourceIdsWithExistingFaithfulCheck']) for p in admission['pages']) == 158
+assert sum(len(p['bodySourceIdsStillHeld']) for p in admission['pages']) == 1
+assert sum(len(p['figuresWithUnknownsHeldAsSourceNotesPendingScopeAdjudication']) for p in admission['pages']) == 6
+conflict = load('same-image-conflict.json')
+assert all(conflict['sourceImageSha256'] in t['figure']['sourceImageSha256s'] for t in conflict['occurrences'])
+assert conflict['controllerDecision'].startswith('unknown')
+items = load('two-review-items.json')
+assert len(items['items']) == 2 and items['modelCallsThisRun'] == 0
+assert items['totalProposedCalls'] == {'producer': 1, 'reviewer': 2, 'total': 3, 'retry': 0}
+handoff = load('handoff.json')
+assert handoff['newModelCalls'] == 0 and handoff['newAcceptanceVerdicts'] == 0
+print(json.dumps({'shaVerifiedFiles': len(manifest['files']), 'mappedSourceBlocks': mapped,
+                  'inheritedChineseTocBlocks': 18, 'newModelCalls': 0,
+                  'wholePageAcceptanceChanged': False, 'finiteReviewItems': 2}))

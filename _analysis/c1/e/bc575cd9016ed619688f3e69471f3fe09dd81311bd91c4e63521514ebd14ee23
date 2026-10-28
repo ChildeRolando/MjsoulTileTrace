@@ -1,0 +1,118 @@
+"""Sync evidence into the existing owners without changing coverage or admission."""
+import hashlib
+import json
+import os
+import pathlib
+import shutil
+import zipfile
+
+OUT = pathlib.Path(__file__).resolve().parent
+BASE = pathlib.Path('E:/AgentData/Coach/knowledge/processing/integration')
+SHARED = BASE / 'coac246-frontmatter-exact-20261028'
+
+
+def sha(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+
+def load(path):
+    return json.loads(path.read_text(encoding='utf-8-sig'))
+
+
+def dump(path, value):
+    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+
+assert not (OUT / 'owner-sync.json').exists(), 'Owner already synchronized; verify rather than reapply.'
+handoff = load(OUT / 'handoff.json')
+ref = {'path': str(SHARED / 'handoff.json'), 'sha256': sha((OUT / 'handoff.json').read_bytes()),
+       'proofs': str(SHARED / 'derivation-proofs.json'),
+       'fields': str(SHARED / 'exact-field-changes.json'),
+       'reviewSummary': handoff['reviewSummary'], 'newModelCalls': 0,
+       'reviewCallsUsed': 2, 'reviewCallsRemaining': 0, 'uniqueFieldsReplaced': 13,
+       'recognitionTodo': False, 'admissionGranted': False, 'coveredIncrement': 0,
+       'status': 'exact-derived-awaiting-legitimate-scoped-admission'}
+proof = load(OUT / 'derivation-proofs.json')
+targets = ['nemata-jp-chapter-001-64', 'nemata-jp-chapter-317-51']
+snapshots, updates = [], []
+for name in ['coac244-remaining26-closure-register-20261028.json',
+             'coac250-unified-chapter-register-20261027b.json',
+             'modern-metadata-four-page-gap-plan.json']:
+    path = BASE / name
+    before = path.read_bytes()
+    old = json.loads(before.decode('utf-8-sig'))
+    data = json.loads(before.decode('utf-8-sig'))
+    if 'rows' in data:
+        before_rows = [r for r in old['rows'] if r['chapterId'] in targets]
+        assert len(before_rows) == 2
+        snapshots.append({'path': str(path), 'wholeFileBeforeSha256': sha(before), 'targetRowsBefore': before_rows})
+        for row in data['rows']:
+            if row['chapterId'] not in targets:
+                continue
+            assert row['covered'] is False
+            row['frontmatterExactRepairEvidence'] = ref
+            if name.startswith('coac244-'):
+                row['nextAction'] = ('COAC-246 consumed two real independent receipts as 13 exact field replacements in four isolated derivatives. '
+                                     'All six cover unknown scopes are independently non-core; no more recognition todo. '
+                                     'p2-r11 faithful-with-unknown unchanged; keep adjacent author prose and Chinese TOC18. '
+                                     'COAC-250 must validate exact-SHA limited admission over derivative+parent+old raw+new receipts+unchanged-scope proof. '
+                                     'No whole-page pass granted, no additional model/production/retry authorization; budget remaining 0.')
+    else:
+        snapshots.append({'path': str(path), 'wholeFileBeforeSha256': sha(before), 'queueBefore': old['queue']})
+        data['frontmatterExactRepairEvidence'] = ref
+        for entry in data['queue']:
+            page = next((r for r in proof['rows'] if r['page'] == entry['page']), None)
+            if page:
+                entry['pendingExactDerivative'] = {
+                    **page['derivative'],
+                    'path': str(SHARED / page['derivative']['packagePath'])}
+                entry['status'] = 'exact-derived-awaiting-legitimate-scoped-admission'
+                entry['recognitionTodo'] = False
+        data['currentFacts'] = {'sourceBlocks': 226, 'productionGap': 0, 'newModelCalls': 0,
+                                'realReviewCallsUsed': 2, 'reviewCallsRemaining': 0,
+                                'exactFieldsReplaced': 13, 'newAcceptanceVerdicts': 0,
+                                'note': 'Do not rerun maker/OCR/review. Old needs-repair pages and acceptance denominator preserved.'}
+        assert data['dispatchAllowed'] is False
+    assert path.read_bytes() == before, 'Concurrent owner change; re-read first.'
+    tmp = path.with_name(path.name + '.coac246-exact.tmp')
+    dump(tmp, data)
+    os.replace(tmp, path)
+    after = load(path)
+    if 'rows' in data:
+        by_old = {r['chapterId']: r for r in old['rows']}
+        for row in after['rows']:
+            old_row = by_old[row['chapterId']]
+            if row['chapterId'] not in targets:
+                assert row == old_row
+            else:
+                for key in ['covered', 'verdict', 'baseVerdictPreserved', 'gaps', 'pdfRoute', 'pdfBoundary']:
+                    assert row.get(key) == old_row.get(key), key
+        for key in ['counts', 'denominator', 'baseline', 'remainingTypes']:
+            assert after.get(key) == old.get(key), key
+    updates.append({'path': str(path), 'beforeSha256': sha(before), 'afterSha256': sha(path.read_bytes()),
+                    'acceptanceAndCountsUnchanged': True})
+dump(OUT / 'owner-before-target-rows.json', {'snapshots': snapshots})
+dump(OUT / 'owner-sync.json', {'existingOwnerUpdates': updates, 'reference': ref,
+                             'processIssuesCreated': 0, 'acceptanceGranted': False})
+for entry in load(OUT / 'immutable-inputs.json')['files']:
+    assert sha(pathlib.Path(entry['path']).read_bytes()) == entry['sha256'], entry['path']
+files = []
+for p in sorted(OUT.rglob('*')):
+    if p.is_file() and p.name != 'files.sha256.json' and '__pycache__' not in p.parts:
+        raw = p.read_bytes()
+        files.append({'path': p.relative_to(OUT).as_posix(), 'bytes': len(raw), 'sha256': sha(raw)})
+dump(OUT / 'files.sha256.json', {'schema': 'coach-evidence-byte-manifest/1', 'files': files})
+SHARED.mkdir(parents=True, exist_ok=True)
+for p in OUT.rglob('*'):
+    if p.is_file() and '__pycache__' not in p.parts:
+        dest = SHARED / p.relative_to(OUT)
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(p, dest)
+zip_path = OUT.parent / 'coac246-frontmatter-exact-20261028.zip'
+with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as archive:
+    for p in sorted(OUT.rglob('*')):
+        if p.is_file() and '__pycache__' not in p.parts:
+            archive.write(p, p.relative_to(OUT))
+print(json.dumps({'packagedFiles': len(files), 'zipBytes': zip_path.stat().st_size,
+                  'zipSha256': sha(zip_path.read_bytes()), 'ownerUpdates': len(updates),
+                  'originalsUnchanged': True, 'newModelCalls': 0, 'admissionGranted': False}))

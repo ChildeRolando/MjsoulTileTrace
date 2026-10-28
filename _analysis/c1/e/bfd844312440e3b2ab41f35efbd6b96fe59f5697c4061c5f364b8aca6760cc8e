@@ -1,0 +1,78 @@
+{
+  "schema": "coach-finite-review-preparation/1",
+  "status": "not-dispatched",
+  "modelCallsThisRun": 0,
+  "items": [
+    {
+      "id": "frontmatter-001-pages1-3-scoped-cover-ruling",
+      "pages": [
+        1,
+        2,
+        3
+      ],
+      "producerCallsRequired": 0,
+      "independentReviewCallsBudget": 1,
+      "retryBudget": 0,
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "targets": [
+        "nemata-jp-p1-r4",
+        "nemata-jp-p2-r11",
+        "nemata-jp-p2-r15",
+        "nemata-jp-p3-r1",
+        "nemata-jp-p3-r3"
+      ],
+      "input": [
+        "pages/page-0001.json",
+        "pages/page-0002.json",
+        "pages/page-0003.json",
+        "images/p1-full.png",
+        "images/p2-full.png",
+        "images/p3-full.png",
+        "all five target crops and original source assets",
+        "same-image-conflict.json (include p317-r6 context)",
+        "cross-page-review-context.json",
+        "limited-admission.json"
+      ],
+      "question": "Determine whether each precise unreadable cover detail is non-core to the already-faithful text and may remain unknown in a retained source-note display. Explicitly rule on the shared magazine conflicting name; never guess it. Inherit existing text/flow/other-figure checks; do not review the book again.",
+      "output": "SHA-bound scope receipt with per-target source-note/uncertain outcome and explicit allowed source IDs. No automatic whole-page pass."
+    },
+    {
+      "id": "research317-b5-repair-and-limited-cover-scope",
+      "pages": [
+        317
+      ],
+      "producerCallsRequired": 1,
+      "independentReviewCallsBudget": 1,
+      "retryBudget": 0,
+      "producerModel": "gpt-6.1-sol",
+      "producerReasoningEffort": "high",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "targets": [
+        "nemata-jp-p317-b5 (combined candidate block b4+b5)",
+        "nemata-jp-p317-r6"
+      ],
+      "input": [
+        "pages/page-0317.json",
+        "images/p317-full.png",
+        "r6 actual crop and original assets",
+        "same-image-conflict.json",
+        "item1 scoped shared-image receipt when available",
+        "SHA-bound new b4+b5 repair candidate and producer raw, once separately authorized/created"
+      ],
+      "repairScope": "Use old independent suggested repair of 暫定公開 only. Preserve b4 heading, b5 structure/URL change warning, directory items, links, order and all other bytes. No candidate written this run.",
+      "question": "Verify revised b5 means provisional edition rather than temporary publication and preserves full context. Decide r6 source-note scope using the same-asset ruling, without inferring name/publication metadata; otherwise retain unknown. Inherit other 31 faithful text and 21 faithful figure checks only for unchanged scopes.",
+      "output": "Independent revised-text receipt plus exact limited cover admissibility; full page not accepted while a relevant issue remains."
+    }
+  ],
+  "totalProposedCalls": {
+    "producer": 1,
+    "reviewer": 2,
+    "total": 3,
+    "retry": 0
+  },
+  "money": null,
+  "tokens": null,
+  "note": "Budget proposal only, not authorization or a frozen dispatch manifest. Cost/usage unknown, not zero. No six-table/Q8 budget used."
+}

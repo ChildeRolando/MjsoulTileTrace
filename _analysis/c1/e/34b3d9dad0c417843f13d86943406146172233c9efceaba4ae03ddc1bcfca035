@@ -1,0 +1,161 @@
+import {readFile, writeFile} from 'node:fs/promises';
+import {resolve, dirname, relative, isAbsolute, sep} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {createHash} from 'node:crypto';
+import {isDeepStrictEqual as equal} from 'node:util';
+
+const here=dirname(fileURLToPath(import.meta.url));
+const processingRoot='E:/AgentData/Coach/knowledge/processing';
+export const contractSha256='ef5e4fb0fb30f5ea183fb10fb2e8cff4bb06655349f374652464d7924316ad41';
+const sha=b=>createHash('sha256').update(b).digest('hex');
+const must=(ok,code)=>{if(!ok)throw Error(code);};
+const get=(o,p)=>p.slice(1).split('/').reduce((v,k)=>v[k],o);
+function set(o,p,v){const parts=p.slice(1).split('/'),k=parts.pop();parts.reduce((a,b)=>a[b],o)[k]=v;}
+
+/** Mechanical scope composition only. Neither original review is rewritten. */
+export function checkComposition(f){
+ const {contract:c,receipts:[a,b],raws,requests,contexts:[ca,cb],proof,parents,derivatives,proposal}=f;
+ must(c.schema==='coac246-exact-frontmatter-composition-scope/1'&&c.scopedPreviewAuthorized===true,'contract_scope');
+ must(c.admissionGranted===false&&c.fullPagePassed===false&&c.wholeChapterPassed===false,'contract_no_full_pass');
+ must(c.authorization.newModelCalls===0&&c.authorization.remainingReviews===0&&c.authorization.retry===0,'budget');
+ must(equal(c.pages.map(p=>p.page),[1,2,3,317])&&proof.rows.length===4,'finite_pages');
+ const am=a.modelReview,bm=b.modelReview;
+ for(const [k,v] of Object.entries(c.originalARequired))must((k==='status'?a[k]:am[k])===v,'a_original_flag:'+k);
+ must(equal(a.checks,{passed:false,accepted:false,errors:['target scope']}),'a_only_scope_error');
+ must(am.exactRepairsAccepted===true&&am.unchangedScopeInheritanceAccepted===true&&am.sharedImageNameRemainsUnknown===true,'a_target_or_inheritance_failure');
+ must(b.status==='accepted-exact-targets-with-limited-unknown'&&b.checks.passed===true&&b.checks.accepted===true&&b.checks.errors.length===0,'b_terminal');
+ for(const k of ['completeTargetScopeCompared','exactRepairsAccepted','sharedImageNameRemainsUnknown','unchangedScopeInheritanceAccepted','authorProseDirectoryEmphasisAndVersionNotesPreserved','displayFaithfulWithExplicitUnknowns'])must(bm[k]===true,'b_incomplete:'+k);
+ for(const r of [a,b]){
+  must(r.modelReview.additionalExactRepairs.length===0,'additional_repairs');
+  must(r.modelReview.fullPagePassed===false&&r.fullPagePassed===false&&r.admissionGranted===false,'original_false_pass');
+  must(r.inheritedTextChecks===158&&r.inheritedOtherFigureChecks===56&&r.inheritedChineseTocBlocks===18,'inheritance_counts');
+ }
+ for(let i=0;i<2;i++){
+  const r=f.receipts[i],raw=raws[i],q=requests[i];
+  must(raw.success===true&&raw.exitCode===0&&!raw.timedOut&&!raw.outputOverflow&&!raw.unexpectedTool,'transport');
+  must(equal(raw.output,r.modelReview)&&equal(raw.usage,r.call.usage)&&raw.callId===c.reviews[i].callId&&raw.callId===r.call.callId,'raw_receipt_binding');
+  must(raw.model==='gpt-6.1-terra'&&raw.reasoningEffort==='max'&&q.model===raw.model&&q.reasoningEffort===raw.reasoningEffort,'actual_model');
+  must(equal(q.schema,raw.schema)&&q.prompt===raw.prompt&&sha(q.prompt)===raw.semanticPromptSha256,'actual_prompt');
+  must(sha(raw.requestPrompt)===raw.requestPromptSha256&&sha(JSON.stringify(q.schema))===raw.schemaSha256,'closed_prompt_schema');
+  must(raw.requestPrompt.includes(q.prompt),'closed_prompt_contains_semantic_prompt');
+  const args=raw.requestExecution.args,images=args.flatMap((s,n)=>s==='-i'?[args[n+1]]:[]);
+  must(equal(images,q.images)&&images.length===c.reviews[i].expectedImageCount,'actual_images_order');
+  must(raw.requestExecution.model===q.model&&raw.requestExecution.reasoningEffort===q.reasoningEffort&&args[args.indexOf('--model')+1]===q.model&&args.includes('model_reasoning_effort="max"'),'actual_cli');
+  const marker='引用的完整上下文和独立证据如下：\n';
+  must(q.prompt.includes(marker)&&equal(JSON.parse(q.prompt.split(marker)[1]),f.contexts[i]),'context_actual_prompt');
+ }
+ must(equal(ca.pages.map(p=>p.page),[1,2,3])&&equal(cb.pages.map(p=>p.page),[317])&&!('candidateBody' in ca.shared317OccurrenceAfterRepair),'exact_context_scope');
+ must(equal(ca.shared317OccurrenceAfterRepair,derivatives[3].figures[5])&&equal(cb.pages[0].candidateFigures,derivatives[3].figures),'same317_full_figure');
+ must(equal(cb.pages[0].candidateBody,derivatives[3].body),'b_actual_full_body');
+ must(am.summary.includes('未提供p317-b5')&&am.summary.includes('并非已发现字段错误'),'a_specific_missing_obligation');
+ const expectedA=['nemata-jp-p1-r4','nemata-jp-p2-r11','nemata-jp-p2-r15','nemata-jp-p3-r1','nemata-jp-p3-r3'];
+ must(equal(am.targetChecks.map(t=>t.id),expectedA),'a_target_set');
+ must(equal(bm.targetChecks.map(t=>t.id),['nemata-jp-p317-b5','nemata-jp-p317-r6']),'b_target_set');
+ const p2=am.targetChecks[1];
+ must(p2.verdict==='faithful-with-unknown'&&p2.exactRepairAccepted===false&&p2.sourceEvidence.includes('不适用'),'p2r11_not_applicable');
+ const limits=[];
+ for(const t of [...am.targetChecks,...bm.targetChecks]){
+  must(t.unknownsRemainNonCoreToAdjacentAuthorArgument===true&&t.mandatoryLimits.length>=2,'missing_noncore_limits');
+  if(t!==p2)must(t.exactRepairAccepted===true&&['faithful','faithful-with-unknown'].includes(t.verdict),'target_not_accepted');
+  limits.push(...t.mandatoryLimits);
+ }
+ let count=0;const fieldChecks=[];
+ for(let i=0;i<4;i++){
+  const row=proof.rows[i],p=c.pages[i],parent=parents[i],d=derivatives[i],restored=structuredClone(d);
+  must(row.page===p.page&&equal(row.derivative,p.derivative)&&equal(row.parent,p.parent)&&equal(row.source,p.source)&&equal(row.oldAudit,p.oldAudit),'proof_scope');
+  must(row.checks.passed===true&&row.untouchedTreeIdenticalAfterMasking===true&&row.admissionGranted===false&&row.wholePagePassed===false,'parent_proof');
+  const hashed=structuredClone(d);delete hashed.candidateSha256;must(sha(JSON.stringify(hashed))===d.candidateSha256,'internal_candidate_sha');
+  must(equal(p.exactFields.map(x=>x.pointer),row.fields.map(x=>x.jsonPointer)),'field_scope');
+  must(equal(d.body,i===3?cb.pages[0].candidateBody:ca.pages[i].candidateBody)&&equal(d.figures,i===3?cb.pages[0].candidateFigures:ca.pages[i].candidateFigures),'reviewed_candidate_tree');
+  for(let j=0;j<row.fields.length;j++){
+   const field=row.fields[j],pin=p.exactFields[j],t=(i===3?bm:am).targetChecks.find(t=>t.id===field.targetId);
+   must(pin.target===field.targetId&&pin.afterJsonSha256===field.afterJsonSha256&&pin.independentPackage===(i===3?1:0),'exact_field_pin');
+   must(equal(get(parent,field.jsonPointer),field.before)&&equal(get(d,field.jsonPointer),field.after)&&sha(JSON.stringify(field.after))===field.afterJsonSha256,'actual_before_after');
+   must(t?.exactRepairAccepted===true,'uncovered_field');
+   const coverage=proposal.fieldCoverage.filter(x=>x.page===p.page&&x.field===field.jsonPointer);
+   must(coverage.length===1&&equal(coverage[0].actualTargetCheck,t)&&coverage[0].candidate.sha256===p.derivative.sha256&&coverage[0].afterJsonSha256===pin.afterJsonSha256,'proposal_real_target');
+   set(restored,field.jsonPointer,field.before);count++;
+   fieldChecks.push({page:p.page,pointer:field.jsonPointer,target:field.targetId,independentPackage:pin.independentPackage,afterJsonSha256:field.afterJsonSha256,verdict:t.verdict,mandatoryLimits:t.mandatoryLimits});
+  }
+  restored.candidateSha256=parent.candidateSha256;must(equal(restored,parent),'non_target_changed');
+ }
+ must(count===13&&proposal.fieldCoverage.length===13,'thirteen_fields');
+ must(equal(parents[1].figures[10],derivatives[1].figures[10])&&equal(proposal.p2r11.actualCheck,p2),'p2r11_unchanged');
+ const b5=derivatives[3].body.blocks[4];must(b5.text===b5.inlineContent[0].text&&b5.text===b5.rawSlotText&&b5.text.includes('以暂定版形式公开'),'b5_actual_fields');
+ must(proposal.shared317OccurrenceExactlyMatchesB===true&&proposal.aLacks317BodyInputs===true&&proposal.bContains317ActualBodyAndDirectory===true&&proposal.admissionGranted===false&&proposal.fullPagePassed===false,'proposal_not_admission');
+ must(equal([...new Set(limits)],proposal.mandatoryLimits),'all_limits_retained');
+ return {schema:'coac246-frontmatter-bounded-composition-verification/1',status:c.outputStatus,
+  contractSha256,exactFieldCount:count,fieldChecks,mandatoryLimits:proposal.mandatoryLimits,
+  originalAStatus:a.status,originalAModelFlags:Object.fromEntries(Object.keys(c.originalARequired).filter(k=>k!=='status').map(k=>[k,am[k]])),
+  gapDischargedBy:'B independent complete317 body/TOC/emphasis and exact same candidate/figure; A target checks only',
+  eligibleForScoped250Readback:true,newModelCalls:0,newSemanticVerdict:false,
+  admissionGranted:false,fullPagePassed:false,wholeChapterPassed:false,formalActiveChanged:false};
+}
+
+export async function verifyFrontmatterComposition({root=processingRoot,contractPath=resolve(here,'contract.json')}={}){
+ const seen=new Map();
+ async function bound(ref){
+  must(ref?.path&&/^[a-f0-9]{64}$/.test(ref.sha256),'invalid_reference');
+  const p=resolve(ref.path),rel=relative(resolve(root),p);
+  // Only package files may be outside the processing root when run from the git worktree.
+  must(!isAbsolute(rel)&&rel!=='..'&&!rel.startsWith('..'+sep)||p===resolve(here,'scope-owner.md'),'reference_outside_processing');
+  const bytes=await readFile(p);must(sha(bytes)===ref.sha256&&(!('bytes'in ref)||ref.bytes===bytes.length),'bound_file_changed:'+p);
+  if(seen.has(p))must(seen.get(p).sha256===ref.sha256,'conflicting_reference');
+  seen.set(p,{path:p,sha256:ref.sha256,bytes:bytes.length});return bytes;
+ }
+ const cb=await readFile(contractPath);must(sha(cb)===contractSha256,'contract_changed');
+ const c=JSON.parse(cb);await bound(c.owner);
+ const read=async r=>JSON.parse(await bound(r));
+ const inputs=Object.fromEntries(await Promise.all(Object.entries(c.inputs).map(async([k,v])=>[k,await read(v)])));
+ const receipts=[],raws=[],requests=[],contexts=[];
+ for(const review of c.reviews){receipts.push(await read(review.receipt));raws.push(await read(review.raw));requests.push(await read(review.request));contexts.push(await read(review.context));}
+ async function walk(v){
+  if(!v||typeof v!=='object')return;
+  if(typeof v.path==='string'&&/^[a-f0-9]{64}$/.test(v.sha256??''))await bound(v);
+  for(const x of Object.values(v))await walk(x);
+ }
+ for(const doc of [c,...receipts,...contexts,...Object.values(inputs)])await walk(doc);
+ const runtime=await read(receipts[0].runtime);
+ for(const item of runtime.files)await bound({...item,path:resolve(dirname(receipts[0].runtime.path),item.path)});
+ // Rehash every file in the three frozen source/derivation/dispatch packages as well.
+ for(const folder of ['coac246-frontmatter-20261028','coac246-frontmatter-exact-20261028','coac246-frontmatter-revision-dispatch-20261028']){
+  const base=resolve(root,'integration',folder),manifest=JSON.parse(await readFile(resolve(base,'files.sha256.json'),'utf8'));
+  for(const item of manifest.files)await bound({...item,path:resolve(base,item.path)});
+ }
+ const parents=[],derivatives=[],sources=[];
+ for(const page of c.pages){parents.push(await read(page.parent));derivatives.push(await read(page.derivative));sources.push(await read(page.source));}
+ const frame={contract:c,receipts,raws,requests,contexts,proof:inputs.derivationProofs,parents,derivatives,proposal:inputs.coverageProposal};
+ const result=checkComposition(frame);result.boundFiles=[...seen.values()].sort((a,b)=>a.path<b.path?-1:a.path>b.path?1:0);result.boundFileCount=seen.size;
+ return {result,frame,sources};
+}
+
+/** Explicit finite loader for the existing250 preview assembler; no generic gate fallback. */
+export async function loadFrontmatterPreviewPages({root=processingRoot,pages=[1,2,3]}={}){
+ must(pages.length>0&&new Set(pages).size===pages.length&&pages.every(p=>[1,2,3,317].includes(p)),'preview_page_scope');
+ const {result,frame,sources}=await verifyFrontmatterComposition({root});
+ return pages.map(page=>{
+  const i=frame.contract.pages.findIndex(p=>p.page===page),p=frame.contract.pages[i],candidate=frame.derivatives[i];
+  return {sourceId:'nemata-jp',source:{sourceId:'nemata-jp',sha256:candidate.source.pdfSha256},
+   candidate,candidatePath:p.derivative.path,page:sources[i],
+   audit:{schema:'coac246-frontmatter-preview-only-composite-audit/1',status:result.status,
+    production:p.derivative,source:p.source,originalAudit:p.oldAudit,
+    independentEvidence:frame.contract.reviews.map(r=>({receipt:r.receipt,raw:r.raw,callId:r.callId})),
+    fieldChecks:result.fieldChecks.filter(x=>x.page===page),mandatoryLimits:result.mandatoryLimits,
+    unchangedP2R11:page===2?frame.receipts[0].modelReview.targetChecks[1]:undefined,
+    originalAStatus:result.originalAStatus,originalAModelFlags:result.originalAModelFlags,
+    admissionGranted:false,fullPagePassed:false,requiresActual250Readback:true}};
+ });
+}
+
+if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
+ const {result,frame,sources}=await verifyFrontmatterComposition();
+ const checklist=frame.contract.pages.map((p,i)=>({page:p.page,canonical:p.canonical,candidate:p.derivative,
+  originalAStatus:result.originalAStatus,originalAModelFlags:result.originalAModelFlags,
+  blocks:sources[i].blocks.map(block=>({sourceBlockId:block.id,type:block.type,
+   body:frame.derivatives[i].body.blocks.flatMap((b,n)=>(b.sourceBlockIds??[]).includes(block.id)?[{index:n,id:b.id,type:b.type}]:[]),
+   figures:frame.derivatives[i].figures.flatMap((f,n)=>(f.sourceImageBlockIds??[]).includes(block.id)?[{index:n,id:f.figureId,unknowns:f.unknowns}]:[])})),
+  mandatoryLimits:result.mandatoryLimits,actualMcpArenaReadbackComplete:false,covered:false}));
+ await writeFile(resolve(here,'verification.json'),JSON.stringify(result,null,2)+'\n');
+ await writeFile(resolve(here,'page-readback-checklist.json'),JSON.stringify(checklist,null,2)+'\n');
+ console.log(JSON.stringify({status:result.status,boundFiles:result.boundFileCount,exactFields:result.exactFieldCount,sourceBlocks:checklist.reduce((n,p)=>n+p.blocks.length,0),newModelCalls:0,admissionGranted:false}));
+}

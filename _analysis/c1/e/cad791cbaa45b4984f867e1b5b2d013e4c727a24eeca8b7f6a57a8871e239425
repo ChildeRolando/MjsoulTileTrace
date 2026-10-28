@@ -1,0 +1,169 @@
+// Offline deterministic field repair, following the existing p309 field-repair form.
+// Copies only independently supplied after values; no OCR, model, gate or selection write.
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+import {isDeepStrictEqual} from 'node:util';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import {dirname,join,basename} from 'node:path';
+
+const out=dirname(fileURLToPath(import.meta.url));
+const root='E:/AgentData/Coach/knowledge/processing';
+const previous=join(root,'integration/coac246-frontmatter-20261028');
+const supplement=join(root,'audit/supplements/coac249-frontmatter-targets-20261028');
+const hash=b=>createHash('sha256').update(b).digest('hex');
+const jsonHash=x=>hash(JSON.stringify(x));
+const parse=async p=>JSON.parse(await readFile(p,'utf8'));
+const save=async(name,data)=>{await mkdir(dirname(join(out,name)),{recursive:true});await writeFile(join(out,name),JSON.stringify(data,null,2)+'\n');};
+const immutable=new Map();
+async function bound(path,expected,copy){
+ const b=await readFile(path),sha256=hash(b);if(expected&&sha256!==expected)throw Error('changed_input:'+path);
+ immutable.set(path,sha256);
+ if(copy){await mkdir(dirname(join(out,copy)),{recursive:true});await writeFile(join(out,copy),b);}
+ return {path,sha256,bytes:b.length,...(copy?{packagePath:copy}:{})};
+}
+function pointer(obj,path){let node=obj;const parts=path.slice(1).split('/').map(x=>x.replaceAll('~1','/').replaceAll('~0','~'));const key=parts.pop();for(const part of parts)node=node[part];if(!Object.hasOwn(node,key))throw Error('missing_pointer:'+path);return {node,key};}
+function diff(a,b,path=''){
+ if(isDeepStrictEqual(a,b))return [];
+ if(a&&b&&typeof a==='object'&&typeof b==='object'&&Array.isArray(a)===Array.isArray(b)){
+  if(Array.isArray(a)&&a.length!==b.length)return [path];
+  const keys=new Set([...Object.keys(a),...Object.keys(b)]);return [...keys].flatMap(k=>diff(a[k],b[k],path+'/'+k));
+ }
+ return [path];
+}
+
+const summaryPath=join(root,'integration/coac249-frontmatter-targets-summary-20261028.json');
+const summaryRef=await bound(summaryPath,null,'review-inputs/summary.json');
+const summary=await parse(summaryPath);
+if(summary.callsRemaining!==0||summary.admissionGranted!==false||summary.currentScopeStatus!=='needs-repair')throw Error('unexpected_scope_state');
+await bound(summary.fullResults.path,summary.fullResults.sha256,'review-inputs/full-results.json');
+await bound(summary.verification.path,summary.verification.sha256,'review-inputs/verification.json');
+await bound(summary.runtime.path,'a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c','review-inputs/runtime-manifest.json');
+const oldManifest=await parse(join(previous,'files.sha256.json'));
+for(const f of oldManifest.files)await bound(join(previous,f.path),f.sha256);
+
+const reviewed=[];
+for(let i=0;i<2;i++){
+ const path=join(supplement,`receipt-${i}.json`);
+ const expected=['36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6','d85aa60a50c4c2dc7a70fd5bbbbf43b2bd94ea990f4a5f555791ed6df228f19d'][i];
+ const ref=await bound(path,expected,`review-inputs/receipt-${i}.json`),r=await parse(path);
+ const rawRef=await bound(r.raw.path,r.raw.sha256,`review-inputs/raw-${i}.json`);
+ const raw=await parse(r.raw.path);
+ const requestPath=join(supplement,`request-${i}.json`);
+ const reqRef=await bound(requestPath,r.request.sha256,`review-inputs/request-${i}.json`);
+ const req=await parse(requestPath);
+ if(!raw.success||raw.model!=='gpt-6.1-terra'||raw.reasoningEffort!=='max'||!isDeepStrictEqual(raw.output,r.modelReview)||!isDeepStrictEqual(raw.usage,r.call.usage))throw Error('real_review_binding');
+ if(raw.requestPromptSha256!==hash(raw.requestPrompt)||raw.schemaSha256!==jsonHash(req.schema)||raw.prompt!==req.prompt||!isDeepStrictEqual(raw.schema,req.schema))throw Error('request_identity');
+ const imageArgs=raw.requestExecution.args.flatMap((s,n,a)=>s==='-i'?[a[n+1]]:[]);
+ if(!isDeepStrictEqual(imageArgs,req.images)||imageArgs.length!==[19,7][i])throw Error('actual_image_args');
+ const images=[];
+ for(const image of imageArgs)images.push(await bound(image));
+ if(r.status!=='needs-repair'||r.admissionGranted!==false||r.standardWholePagePassed!==false)throw Error('review_pass_claim');
+ reviewed.push({receipt:ref,raw:rawRef,request:reqRef,callId:r.call.callId,actualImages:images,
+                usage:r.call.usage,durationMs:r.call.durationMs,status:r.status,admissionGranted:false});
+}
+
+// Every evidence record is checked against its original parent, including duplicates.
+const records=summary.repairFieldMappings;
+if(records.length!==17)throw Error('scope_record_count');
+const grouped=new Map(),parents=new Map();
+for(let i=0;i<records.length;i++){
+ const r=records[i];
+ await bound(r.sourceReceipt.path,r.sourceReceipt.sha256);
+ if(!parents.has(r.candidate.path)){
+  const ref=await bound(r.candidate.path,r.candidate.sha256,`parents/page-${String((await parse(r.candidate.path)).source.page).padStart(4,'0')}.json`);
+  parents.set(r.candidate.path,{ref,candidate:await parse(r.candidate.path)});
+ }
+ const parent=parents.get(r.candidate.path).candidate,{node,key}=pointer(parent,r.jsonPointer);
+ if(!isDeepStrictEqual(node[key],r.before)||jsonHash(r.before)!==r.beforeJsonSha256)throw Error('before_mismatch:'+i);
+ const k=r.candidate.path+'#'+r.jsonPointer;
+ if(!grouped.has(k))grouped.set(k,[]);grouped.get(k).push({index:i,...r});
+}
+const changes=[];
+for(const alternatives of grouped.values()){
+ let selected=alternatives[0],resolution='single-independent-proposal';
+ if(alternatives.every(r=>isDeepStrictEqual(r.proposedAfter,selected.proposedAfter)))resolution=alternatives.length>1?'identical-evidence-deduplicated':resolution;
+ else{
+  const expanded=alternatives.filter(r=>r.sourceSection==='secondScopeSameImageReuse');
+  if(expanded.length!==1||expanded[0].targetId!=='nemata-jp-p317-r6')throw Error('unresolved_review_proposal_conflict');
+  selected=expanded[0];resolution='second-receipt-shared-image-limitations-supersede-narrow-first-proposal';
+ }
+ changes.push({targetId:selected.targetId,candidate:selected.candidate,jsonPointer:selected.jsonPointer,
+               before:selected.before,after:selected.proposedAfter,beforeJsonSha256:selected.beforeJsonSha256,
+               afterJsonSha256:jsonHash(selected.proposedAfter),sourceReceipt:selected.sourceReceipt,
+               selectedRecordIndex:selected.index,evidenceRecordIndices:alternatives.map(r=>r.index),resolution});
+}
+if(changes.length!==13)throw Error('unique_field_count');
+await save('exact-field-changes.json',{schema:'coac246-reviewed-exact-fields/1',summary:summaryRef,
+ inputEvidenceRecords:17,uniqueFieldReplacements:13,changes,modelCalls:0,admissionGranted:false});
+
+const auditModule='E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/scene-study/textbook-audit.mjs';
+const {deterministicChecks}=await import(pathToFileURL(auditModule).href);
+const inventory=await parse(join(root,'source-inventory.json'));
+const rows=[];
+for(const [path,{ref,candidate:parent}] of parents){
+ const n=parent.source.page,candidate=structuredClone(parent),pageChanges=changes.filter(c=>c.candidate.path===path);
+ const pageProof=await parse(join(previous,`pages/page-${String(n).padStart(4,'0')}.json`));
+ for(const original of [pageProof.producerRaw,...pageProof.reviewerRaw,pageProof.nativeSourceFlow,pageProof.fullPage])await bound(original.path,original.sha256);
+ const oldAudit=await parse(pageProof.audit.path);
+ for(const original of pageProof.reviewerRaw){const raw=await parse(original.path);if(!isDeepStrictEqual(raw.structuredOutput,oldAudit.modelReview))throw Error('old_review_raw_binding');}
+ for(const c of pageChanges){const {node,key}=pointer(candidate,c.jsonPointer);node[key]=c.after;}
+ // Use the existing deterministic field-repair hash convention, preserving other provenance.
+ delete candidate.candidateSha256;candidate.candidateSha256=jsonHash(candidate);
+ const allowed=pageChanges.map(c=>c.jsonPointer);
+ const masked=structuredClone(candidate),base=structuredClone(parent);
+ for(const c of pageChanges){const {node,key}=pointer(masked,c.jsonPointer);node[key]=c.before;}
+ masked.candidateSha256=parent.candidateSha256;
+ if(!isDeepStrictEqual(masked,base))throw Error('unlisted_candidate_change');
+ const actualDiff=diff(parent,candidate);
+ for(const p of actualDiff)if(p!=='/candidateSha256'&&!allowed.some(a=>p===a||p.startsWith(a+'/')))throw Error('undeclared_diff:'+p);
+ const filename=`derived-candidates/page-${String(n).padStart(4,'0')}.json`;
+ await save(filename,candidate);const derivative=await bound(join(out,filename),null);
+ derivative.packagePath=filename;
+ derivative.path=join(root,'integration/coac246-frontmatter-exact-20261028',filename);
+ const sourceRef=await bound(pageProof.source.path,pageProof.source.sha256);
+ const oldAuditRef=await bound(pageProof.audit.path,pageProof.audit.sha256);
+ const page=await parse(sourceRef.path),source=inventory.sources.find(s=>s.sourceId==='nemata-jp');
+ const checks=deterministicChecks(candidate,source,page,sourceRef.sha256,pageProof.fullPage.sha256);
+ if(!checks.passed)throw Error('derivative_deterministic_checks:'+JSON.stringify(checks));
+ if(n===317){const b=candidate.body.blocks[4];if(b.text!==b.rawSlotText||b.text!==b.inlineContent[0].text||!b.text.includes('新战术论\n以暂定版形式公开')||!b.text.includes('结构或URL可能发生变更'))throw Error('b5_three_field_sync');}
+ if(n===2&& !isDeepStrictEqual(candidate.figures[10],parent.figures[10]))throw Error('p2_r11_changed');
+ rows.push({page:n,parent:ref,derivative,source:sourceRef,oldAudit:oldAuditRef,fields:pageChanges,
+  checks,untouchedTreeIdenticalAfterMasking:true,actualDiffPointers:actualDiff,
+  fieldRepairModelCalls:0,status:'exact-derived-not-admitted',admissionGranted:false,
+  wholePagePassed:false,oldAuditStatus:'needs-repair',
+  preservedSourceBlockIds:pageProof.mapping.map(b=>b.sourceBlockId)});
+}
+rows.sort((a,b)=>a.page-b.page);
+await save('derivation-proofs.json',{schema:'coac246-exact-field-derivation-proof/1',rows,
+ parentAndAllNonlistedFieldsPreserved:true,newModelCalls:0,newSemanticVerdicts:0,admissionGranted:false});
+await save('limited-unknown-evidence.json',{perFigure:summary.perFigure,
+ sharedImage:summary.sameImage,limitedEvidenceOnly:summary.limitedEvidenceOnly,
+ status:'independently-noncore-cover-unknowns-confirmed',
+ requiresMoreOcr:false,admissionGranted:false,
+ caution:'No further recognition work item. Retain original image/unknowns, all adjacent clear prose and cross-page book reviews. This is not whole-page acceptance.'});
+await save('budget-and-review-verification.json',{reviewed,existingPackageFilesRehashed:oldManifest.files.length,
+ originalIndependentReviews:2,reviewCallsRemaining:0,paidRetriesAuthorized:0,newCallsThisRun:0,
+ summedKnownUsage:{inputTokens:202543,cachedInputTokens:0,outputTokens:23404,durationMs:277123},
+ fee:null,remoteWeights:null,upstreamExecutionCount:null,admissionGranted:false});
+
+const immutableParents=[];
+for(const [p,sha256] of immutable)if(!p.startsWith(out)){
+ if(hash(await readFile(p))!==sha256)throw Error('input_changed_during_run:'+p);
+ immutableParents.push({path:p,sha256});
+}
+await save('immutable-inputs.json',{files:immutableParents,allUnchanged:true,newModelCalls:0});
+await save('handoff.json',{schema:'coac246-frontmatter-exact-derived-handoff/1',
+ recordedAtUtc:new Date().toISOString(),originIssue:'COAC-246',receivers:['COAC-249','COAC-250','COAC-244'],
+ reviewSummary:summaryRef,fieldChanges:'exact-field-changes.json',proofs:'derivation-proofs.json',
+ limitedUnknowns:'limited-unknown-evidence.json',pages:rows.map(r=>({page:r.page,parent:r.parent,derivative:r.derivative,
+ fieldsReplaced:r.fields.length,status:r.status,admissionGranted:false})),
+ newModelCalls:0,modelProductionCalls:0,ocrCalls:0,paidReviewCalls:0,
+ historicalReviewCallsUsed:2,remainingBudget:0,automaticRetry:false,
+ sourceBlockCoverage:226,oldFaithfulTextInherited:158,oldFaithfulFiguresInherited:56,chineseTocInherited:18,
+ originalPacketChanged:false,oldAuditsChanged:false,fullPagePassed:false,chapterAccepted:false,
+ activeChanged:false,admissionGranted:false,
+ route:'Existing deterministic field-repair form (p309 precedent); exact independent after values only. Isolated derivatives, no production ledger or gate pass generated.',
+ remaining:'250 must validate a legitimate exact-SHA scoped admission route over these derivatives plus parent/old raw/review/source/unchanged-scope proofs. No use of 159/242-only contract; no additional paid review authorization inferred.',
+ fee:null,remoteWeights:null,upstreamExecutionCount:null});
+console.log(JSON.stringify({sourceRecords:records.length,uniqueFields:changes.length,derivedPages:rows.map(r=>r.page),
+ newModelCalls:0,newGatePasses:0,immutableFiles:immutableParents.length}));

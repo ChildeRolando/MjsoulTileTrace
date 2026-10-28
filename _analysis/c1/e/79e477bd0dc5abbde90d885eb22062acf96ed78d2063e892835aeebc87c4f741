@@ -1,0 +1,30 @@
+COAC-246：消费249两份真实独审的精确字段修订
+
+本轮新增模型/OCR/收费复审/模型制作调用均为0。只把两份既有terra/max收据给定的after值精确复制到独立派生稿，未重译、重识字，未改原稿、原raw、旧needs-repair审或原246的65文件包。原有四页needs-repair记录保留；没有生成passed收据、没有修改gate、选择清单、active或covered。
+
+`handoff.json`给249/250/244消费，`exact-field-changes.json`记录17条输入证据→13个唯一替换字段。重复的p1-r4记录合并但保留全部证据索引；p317-r6采用第二收据补全假名/January限制的精确提案，保留第一收据较窄提案，未用较早提案漏掉必需unknown。
+
+| 页 | 派生稿替换字段 | 已落实内容 | 准入 |
+| --- | --- | --- | --- |
+| 1 | r4 transcription、unknowns，共2字段 | 撤确定署名、宣传微字、假名；补完整unknown | 未授予 |
+| 2 | r15 transcription、unknowns，共2字段 | 撤模糊封面署名，保留桌面微牌unknown；清晰书目作者不动 | 未授予 |
+| 3 | r1、r3各transcription、unknowns，共4字段 | 撤红书封模糊署名及黑条小字的确定系列名，补unknown；书评/书目不动 | 未授予 |
+| 317 | r6 transcription、unknowns；b5对应text、inlineContent[0].text、rawSlotText，共5字段 | 撤署名备选与确定假名，保留宣传小字/January未知；“暂时公开”改为“以暂定版形式公开”，保留标题与结构/URL变更提示 | 未授予 |
+
+两处共享杂志源图SHA `275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6`。署名完整字形无法可靠辨认，不选p1旧确定读法、不选p317两个备选、不从附近身份推人名。六项封面unknown已被独立确认非邻近作者论证核心；不再把微字识别列为待办。
+
+p2-r11不改：独审已给当前对象faithful-with-unknown限定证据。保留微字、英文尾部和插画微牌未知，禁止补牌码；p2-b50书评及b52书目仍是正文。p2-b61→p3-b23跨页书评、其它158项已faithful文字、56项其它图、中文目录已接受18块继承，不重审。
+
+`derivation-proofs.json`逐页绑定父稿SHA、派生文件SHA、源页/旧审、字段before/after、全部未列字段复原后树相同证明及实际native确定性检查。仅另行重算每页candidateSha256完整性字段，其余provenance继承父稿，不能将旧制作模型误称为本轮新调用。派生稿在`derived-candidates/`，是隔离的补证文件，不是生产队列或已准入内容。
+
+复用的真实审校：
+
+- call `1ac40202-64c8-4068-92fd-fb62ea5ad4ff`，19图，收据SHA `36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6`。
+- call `4b703cb1-83ef-4cb8-bac5-9fbdcaf7fbbf`，7图，收据SHA `d85aa60a50c4c2dc7a70fd5bbbbf43b2bd94ea990f4a5f555791ed6df228f19d`。
+- 实际均gpt-6.1-terra/max；两次额度2/2已用，余0，0retry，0制作调用。合计已知202543 input、0cache、23404 output，277123ms；费用、远端权重、上游执行总数未知，保持null。
+
+`review-inputs/`保存原摘要、完整结果、原收据、raw和实际请求副本；原始运行schema-v2 manifest SHA为`a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c`。本轮重核实际-i参数、图片路径/字节、prompt/schema、raw output/usage与收据一致，并重算原246包65项SHA。此为真实性和精确修订核验，不冒充新的语义PASS。
+
+沿用已有p309确定性字段修订形式：父稿SHA锁定、精确before断言、仅指定字段变更、重算内部hash。该形式能产生修订文件，不能自动赋予准入。249结果明确admissionGranted=false；159/242专属限定unknown合同不覆盖本四页，不能借用。250后续须在合法的本页精确SHA限定准入契约中消费派生稿、父稿/原审raw、两份真实裁决和未改范围证明；未完成前不放行四页。不因226源块齐就宣告整页/整章通过，不追加识字或收费复审，也不改普通门禁。
+
+解压运行`node verify-exact.mjs`可离线核验本包及13字段派生关系，不联网、不调用模型。`consume-exact.mjs`是本次确定性修订的可检查实现；默认不要重跑生产。原输入在`immutable-inputs.json`中保留精确SHA。没有应用代码更改，无需PR。

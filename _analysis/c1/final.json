@@ -1,0 +1,287 @@
+{
+  "schema": "coac250-cover001-final/1",
+  "allPassed": true,
+  "preview": {
+    "chapters": 246,
+    "units": 254,
+    "blocks": 6844,
+    "figures": 5355,
+    "corpusId": "d05520874d6d617f7fcd20f3686d39f0799da8f8067d4bf16cb2182575ab11a5",
+    "bodySha256": "34b3a2e9f4a12646f64013579a2e0938e8fedf34e1da68a1b5a3795da8cdc4c6",
+    "maxUnitBytes": 358204,
+    "modelCalls": 0,
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T08-14-39-872Z",
+    "stage": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T08-14-39-872Z/stages/c1",
+    "priorUnitsUnchanged": 252,
+    "models": 0
+  },
+  "coverage": {
+    "originalChaptersCovered": 244,
+    "originalChaptersTotal": 256,
+    "originalUnitsCovered": 276,
+    "originalUnitsTotal": 303
+  },
+  "remainingChapters": 12,
+  "remainingOriginalUnits": 27,
+  "remaining": [
+    {
+      "canonical": "79-cn-chapter-109-4",
+      "title": "手役7—染手（二）",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "复用最新同源修订和父审；b0004/b0006的5m读法与b0012三处未明牌分开，后者取更清晰同源图或定位审证；不得仅修已知两牌就放行。"
+    },
+    {
+      "canonical": "79-cn-chapter-167-4",
+      "title": "鸣牌15—鸣牌的技巧（3）",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "b0005先保留7p立直宣言牌方向修订目标，另将南家第5行第3列万子未明点数定位补证；两项均闭合后再独审。"
+    },
+    {
+      "canonical": "79-cn-chapter-182-5",
+      "title": "立直6—立直理论（2）",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "b0003日文格言可定点翻译，但b0013“对日”在原HTML与PDF183一致；需最小上游原句校勘，现不猜对应行为、不为单一格言花整章调用。"
+    },
+    {
+      "canonical": "79-cn-chapter-201-6",
+      "title": "防守6—弃和的切牌顺序（1）",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "先复用已有rev1及独审差异；b0006比喻翻译与b0005北家9m各有原定位，限定同源目标，不覆盖其它正文。"
+    },
+    {
+      "canonical": "79-cn-chapter-234-12",
+      "title": "状况判断2—要有顺位意识",
+      "units": 1,
+      "owner": "COAC-269",
+      "nextAction": "旧生产ba432ee3超时且rawLastMessage=null，完整raw无可恢复输出；上游请求数/usage未知。先明确观测边界和追加授权，最小仅b0003三个俗称，无图，不自动重试。"
+    },
+    {
+      "canonical": "79-cn-chapter-311-18",
+      "title": "第三节 攻守判断的基准",
+      "units": 16,
+      "owner": "COAC-248",
+      "nextAction": "按原独审逐target/group生成有限补丁和shared-premise闭包，保留题库225块原顺序；先核当前修订/失败ledger，不整章从头再制。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-193-1",
+      "title": "ドラ切り",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "与79-cn-193不同：b0080末三张6p/8p、右手第4-6张未明牌；b0081“入り目”需同作者原语境。补文术语不替代三张图证。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-213-1",
+      "title": "逆切り３",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "b0017入り目条件限定与b0032左家7p分别定点；对家字牌/两家点数未知仍需源图补证，不能由牌理推。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-224-1",
+      "title": "オーラスの見逃し判断",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "b0013保留7系列x15巡图，原轴坐标可机械形成空表；读数需明确约值与误差，图例自摸译名定点修，不把相关率或曲线走向替代105格定量独审。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-232-1",
+      "title": "満貫和了技術",
+      "units": 1,
+      "owner": "COAC-248",
+      "nextAction": "b0002確和了、b0004や并列可文字定修；b0005手牌3s/2s及右家万子未明分别带图审，不能只修文字放行。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-250-1",
+      "title": "「ネマー日記」ブログ問題",
+      "units": 1,
+      "owner": "COAC-247/248",
+      "nextAction": "复用11页真实passed，只处理p257与p261；p257旧主控像素断言不作裁决，p261查现有完整raw/布局验证后限定修复，不重开258或13页整制。"
+    },
+    {
+      "canonical": "nemata-jp-chapter-283-1",
+      "title": "「鴉〃の麻雀解説」サイト問題",
+      "units": 1,
+      "owner": "COAC-248/249",
+      "nextAction": "283当前精确工作稿b90f7c4f，原19问题有效11已补证/6阻断/2source-note；b1181据真实独审236cb892闭合，勿重复制作/复审。b1017独审53722d02确认括注小三元／大三元缩窄范围，仅删除该括注并保留三元役是后续最小修订目标，未改候选；未来需另获maker1+单目标独审1共2调用，当前4/4余0，不自动执行。剩b0785两error+河牌unknown、b0947题问error+两风牌unknown保持；六表/Q8/0168/0396/0962/batch010原证据精确继承，不重审、不合整283、不切active。"
+    }
+  ],
+  "addedOriginalChapters": [
+    "nemata-jp-chapter-001-64"
+  ],
+  "selection": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v33.json",
+    "sha256": "600a898d1329ab92f0e5ae2e304f91f96d01f311e531f95a538d57f24560e3f5",
+    "version": 33,
+    "rollbackVersion": 32
+  },
+  "v32ByteCompatibility": {
+    "actualSha256": "da59ba7de0fb1a6f033b5936a89cc7dd6fc578e88f39c4fd6464cf32d03b1c8e",
+    "declaredSha256": "176dea7139b585c826681e0e173c623eaabcee2f7f17672a72c71259685c518d",
+    "lfSha256": "176dea7139b585c826681e0e173c623eaabcee2f7f17672a72c71259685c518d",
+    "onlyCrLfDifference": true,
+    "oldSelectionPreserved": true
+  },
+  "v32RollbackBuilder": {
+    "path": "_analysis/c1/v32-rollback-builder.mjs",
+    "sha256": "747c79c2c63721d46bebde1a4a2c11cb60622e58e4108b3e5faf60c9e5c7351b"
+  },
+  "intake": {
+    "status": "admitted-exact-frontmatter-limited-adjudication",
+    "binding": {
+      "chapterId": "nemata-jp-chapter-001-64",
+      "module": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-cover001-20261028/stage.mjs",
+        "sha256": "5a9bec9af7f2ccec59e3b4ea19c156f222d519f1abeaf57bfcfd8fa52babd098"
+      },
+      "checker": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-adjudication-20261028\\adjudication.mjs",
+        "sha256": "8e1f3824bea3fff759623b91448a639058bcfc190813b8147632c75a1b3d8a0d"
+      },
+      "independentCheck": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-zero-adjudication-20261028\\independent-check.json",
+        "sha256": "a8cfc7a7fb9ab8427951796501c559c4f1990488b428051c4c308c3e41050b13"
+      },
+      "request": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-adjudication-20261028\\request.json",
+        "sha256": "a0125aca447c11276bcc9e995dae6eab21a9900ec318e38fad5816b0a6b12451"
+      },
+      "proof": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-frontmatter-adjudication-ready-250-20261028.json",
+        "sha256": "8fb955176a6cdd6782b750ccbbab8d39cb55823b25d07a044002f6e8a9061606"
+      },
+      "inventory": {
+        "path": "E:/AgentData/Coach/knowledge/processing/source-inventory.json",
+        "sha256": "050ad125fa0c82757e9a53279974c6bc1cc6249a8919cc33048367d52ccf8b4d"
+      },
+      "chapterMap": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/chapter-map.navigation-v3.json",
+        "sha256": "f1d2755b0cc55f50f1242c9ce17e2791b0fe58eee144ad51b65fee50400c5114"
+      },
+      "ownership": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/source-block-ownership.json",
+        "sha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60"
+      },
+      "contract": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac246-frontmatter-adjudication-20261028/display-companion-contract.json",
+        "sha256": "a50621a55c8658fc1f975a53260fd0330dc8b0b21e468e2caa262c1c05a65d7b"
+      },
+      "files": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-adjudication-20261028\\request.json",
+          "sha256": "a0125aca447c11276bcc9e995dae6eab21a9900ec318e38fad5816b0a6b12451"
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-adjudication-20261028\\adjudication.mjs",
+          "sha256": "8e1f3824bea3fff759623b91448a639058bcfc190813b8147632c75a1b3d8a0d"
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-zero-adjudication-20261028\\independent-check.json",
+          "sha256": "a8cfc7a7fb9ab8427951796501c559c4f1990488b428051c4c308c3e41050b13"
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-adjudication-20261028\\verification.json",
+          "sha256": "b804dd4155c9c78a55394b48ff32487b68ecc2928cfeaf75bf8c948e3038070e"
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-frontmatter-adjudication-ready-250-20261028.json",
+          "sha256": "8fb955176a6cdd6782b750ccbbab8d39cb55823b25d07a044002f6e8a9061606"
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac246-frontmatter-adjudication-20261028/display-companion-contract.json",
+          "sha256": "a50621a55c8658fc1f975a53260fd0330dc8b0b21e468e2caa262c1c05a65d7b"
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/source-structure-holds.json",
+          "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/source-block-ownership.json",
+          "sha256": "dd17f7e88c24afaecef4f500f6d23a5f07cb9c2e1d2bb4f8041f2498aebadf60"
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/chapter-map.navigation-v3.json",
+          "sha256": "f1d2755b0cc55f50f1242c9ce17e2791b0fe58eee144ad51b65fee50400c5114"
+        },
+        {
+          "path": "E:/AgentData/Coach/knowledge/processing/source-inventory.json",
+          "sha256": "050ad125fa0c82757e9a53279974c6bc1cc6249a8919cc33048367d52ccf8b4d"
+        }
+      ],
+      "scope": "Exact admitted pages1–3 only,168 author-source contributions;5 separate navigation metadata notes with14 mandatory limits. OriginalAfalse unchanged,317/ChineseTOC reused, no ordinary whole-page pass."
+    },
+    "independent249Check": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-zero-adjudication-20261028\\independent-check.json",
+      "sha256": "a8cfc7a7fb9ab8427951796501c559c4f1990488b428051c4c308c3e41050b13"
+    },
+    "previewOutput": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T08-14-39-872Z",
+    "corpusId": "d05520874d6d617f7fcd20f3686d39f0799da8f8067d4bf16cb2182575ab11a5",
+    "previewChapterId": "nemata-jp-chapter-001-64",
+    "stageReceiptPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T08-14-39-872Z/stages/c1/pdf-stage-receipt.json",
+    "readback": {
+      "path": "_analysis/c1/readback.json",
+      "sha256": "3df109d13ba781815906af9c0a3c8052b0174a6b3dd1e198a7d97776e569f75c"
+    },
+    "sourceBlocks": 168,
+    "pageSourceBlocks": [
+      67,
+      68,
+      33
+    ],
+    "authorCompiledBlocks": 85,
+    "metadataCompiledBlocks": 5,
+    "figures": 40,
+    "mandatoryLimits": 14,
+    "sourceNotes": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T08-14-39-872Z/stages/c1/source-notes.json",
+      "sha256": "1a5040809ce5d6054b75435f12c1f8a313dbb1548297301b01e83baec6a23896"
+    },
+    "sourceNotesOutsideAuthorBody": true,
+    "metadataCompanion": {
+      "chapterId": "nemata-jp-chapter-001-64-source-notes",
+      "contentRole": "navigation",
+      "originalCoverageIncrement": 0,
+      "tacticalCitationAllowed": false
+    },
+    "ordinaryWholePagePassed": false,
+    "originalAFalseAndUncertainPreserved": true,
+    "existing317Reused": true,
+    "newModelCalls": 0
+  },
+  "ordinaryWholePagePassed": false,
+  "priorUnitsUnchanged": 252,
+  "displayRefusalTests": 8,
+  "persistedRoute": {
+    "passed": true,
+    "version": 33,
+    "actualBuilderBranchExecuted": true,
+    "coverRebuiltExact": true,
+    "oldStagesRebuilt": 0,
+    "refusalChecks": 3,
+    "notesCompanionNavigation": true,
+    "models": 0
+  },
+  "register": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+    "beforeSha256": "7fa48f42237d7bd9ce9d36313138ee8d44754650210e67c2866954b1e8ff5c6d",
+    "afterSha256": "275c653595af96d1562039eff3fa3ecedbdf9589bf3797cc7e89171b3938aab1"
+  },
+  "owner": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+    "beforeSha256": "7d8cd9a52938f53a93039b1f03f8860f05084256ebbda7932a90120fe1900205",
+    "afterSha256": "47585c465bbc05af3ec6b7563129c376c2a6cbdf7b0fa8df051e23487a12ae2a"
+  },
+  "readback": {
+    "path": "_analysis/c1/readback.json",
+    "sha256": "3df109d13ba781815906af9c0a3c8052b0174a6b3dd1e198a7d97776e569f75c"
+  },
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "newConsumerStarted": false,
+  "formalActiveChanged": false,
+  "safeToResume": true,
+  "bookComplete": false
+}

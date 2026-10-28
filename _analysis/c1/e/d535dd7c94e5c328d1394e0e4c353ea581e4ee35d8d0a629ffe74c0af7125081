@@ -1,0 +1,983 @@
+{
+  "schema": "coac249-frontmatter-revision-scoped-independent-receipt/1",
+  "recordedAt": "2026-10-27T23:15:57.930Z",
+  "packageIndex": 0,
+  "scopeId": "frontmatter-revised-cover-exact-targets-v1",
+  "pages": [
+    1,
+    2,
+    3
+  ],
+  "candidates": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0001.json",
+      "sha256": "e5f257621a531d26b2bb6cd546019aa4bd00912bfdcd0979cfd47dd514e9f79c",
+      "bytes": 74019
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0002.json",
+      "sha256": "462a1bc3055842ad17233127590403bac2f64ebe00b902600e35af8d8bd84086",
+      "bytes": 73867
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0003.json",
+      "sha256": "b99906e6ce07e4d75ee02bf9d561eabaaac5713c8e104323a61238438f98bb16",
+      "bytes": 34834
+    }
+  ],
+  "status": "invalid-scope-evidence",
+  "modelReview": {
+    "scopeId": "frontmatter-revised-cover-exact-targets-v1",
+    "completeTargetScopeCompared": false,
+    "targetChecks": [
+      {
+        "id": "nemata-jp-p1-r4",
+        "verdict": "faithful-with-unknown",
+        "exactRepairAccepted": true,
+        "sourceEvidence": "p1-b28原图及裁剪、既有独立裁决与实际派生的/figures/3/transcription和/figures/3/unknowns相符；两字段严格匹配所列修复，原有unknown未缩减。p1-b27刊载消息仍为正文。",
+        "unknownsRemainNonCoreToAdjacentAuthorArgument": true,
+        "mandatoryLimits": [
+          "评委特别奖条目下方的署名保持完整unknown，不列具体姓名或备选拼写。",
+          "右上宣传小字、January下方极小字及主标题旁假名读音保持unknown。",
+          "保留可辨封面内容和p1-b27刊载消息。"
+        ]
+      },
+      {
+        "id": "nemata-jp-p2-r11",
+        "verdict": "faithful-with-unknown",
+        "exactRepairAccepted": false,
+        "sourceEvidence": "p2-b51原图、既有faithful-with-unknown裁决及实际派生图例一致；该靶没有拟接受的修复，exactRepairAccepted为false表示不适用。p2-b50书评和p2-b52书目仍为正文。",
+        "unknownsRemainNonCoreToAdjacentAuthorArgument": true,
+        "mandatoryLimits": [
+          "保留作者名旁及封面右下方小字、英文尾部字符的现有unknown，不补写。",
+          "不指定模型中微小麻将牌的牌码、花色、点数或赤五状态。",
+          "p2-b50书评及p2-b52书目信息保持为正文。"
+        ]
+      },
+      {
+        "id": "nemata-jp-p2-r15",
+        "verdict": "faithful-with-unknown",
+        "exactRepairAccepted": true,
+        "sourceEvidence": "p2-b58原图及裁剪、既有独立裁决与实际派生的/figures/14/transcription和/figures/14/unknowns相符；两字段严格匹配修复，原有微牌unknown保留。p2-b57书评和p2-b59书目仍为正文。",
+        "unknownsRemainNonCoreToAdjacentAuthorArgument": true,
+        "mandatoryLimits": [
+          "封面作者署名保持unknown，不用p2-b59书目反填图中字形。",
+          "保留桌面微牌unknown，不推定牌码、花色、点数或赤五状态。",
+          "p2-b59清晰书目信息保持为正文。"
+        ]
+      },
+      {
+        "id": "nemata-jp-p3-r1",
+        "verdict": "faithful-with-unknown",
+        "exactRepairAccepted": true,
+        "sourceEvidence": "p3-b24原图及裁剪、既有独立裁决与实际派生的/figures/0/transcription和/figures/0/unknowns相符；两字段严格匹配修复，原有细字unknown保留。p2-b61至p3-b23的续篇书评仍为正文。",
+        "unknownsRemainNonCoreToAdjacentAuthorArgument": true,
+        "mandatoryLimits": [
+          "封面右侧作者署名及其上方微字保持unknown，不借前作、书评或人物身份补字。",
+          "底部标识及其他细小文字保持unknown。",
+          "p2-b61至p3-b23的跨页书评保持为作者正文；仅五星图标为装饰。"
+        ]
+      },
+      {
+        "id": "nemata-jp-p3-r3",
+        "verdict": "faithful-with-unknown",
+        "exactRepairAccepted": true,
+        "sourceEvidence": "p3-b28原图及裁剪、既有独立裁决与实际派生的/figures/2/transcription和/figures/2/unknowns相符；两字段严格匹配修复，原有腰封小字unknown保留。p3-b27书评及p3-b29书目仍为正文。",
+        "unknownsRemainNonCoreToAdjacentAuthorArgument": true,
+        "mandatoryLimits": [
+          "腰封大字下方两行小字及底部黑条细字保持unknown，不从相邻书目补作封面转录。",
+          "p3-b27书评及p3-b29书目保持为正文。"
+        ]
+      }
+    ],
+    "sharedImageNameRemainsUnknown": true,
+    "unchangedScopeInheritanceAccepted": true,
+    "authorProseDirectoryEmphasisAndVersionNotesPreserved": false,
+    "displayFaithfulWithExplicitUnknowns": false,
+    "exactRepairsAccepted": true,
+    "additionalExactRepairs": [],
+    "scopeVerdict": "uncertain",
+    "fullPagePassed": false,
+    "summary": "五个图例靶点均已比较：四个有修复的靶点共八处实际字段严格匹配既定修复；p2-r11沿用既有faithful-with-unknown限制。同源p317-r6所供修复后记录也保留完整署名unknown及其他三处封面unknown。未修改范围的继承仅据所供证明接受p1至p3。页317源图显示最新版战术论以暂定版形式公开，并提示结构或URL可能变化；但请求未提供p317-b5所在派生正文的三个实际字段及目录、强调的派生内容，无法核对其语义、字段一致性和完整保留情况。相关false表示尚未证实，并非已发现字段错误；因此整体限定范围判为uncertain，不宣告整页通过。"
+  },
+  "checks": {
+    "passed": false,
+    "accepted": false,
+    "errors": [
+      "target scope"
+    ]
+  },
+  "call": {
+    "callId": "2023f495-ad40-4b97-a0b5-d25715719543",
+    "scope": "textbook-frontmatter-exact-revision-scope-audit",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "success": true,
+    "usage": {
+      "inputTokens": 96622,
+      "cachedInputTokens": 0,
+      "outputTokens": 7000
+    },
+    "durationMs": 109476,
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "callerRequested": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-terra",
+        "--config",
+        "model_reasoning_effort=\"max\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-fPnFrO\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-fPnFrO\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-fPnFrO",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\p1-full.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\p2-full.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\p3-full.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\p317-full.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p1-r4.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p2-r11.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-56c5e1a9799dce76ae6581480fa6b575af26d5136f11e23223a8cf71a533cf04.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p2-r15.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-d846534f2b6ea857497c8ba6972aba9d3284a30bc34d17e22da571ebd06e016a.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p3-r1.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-b9cab06ba9d58c8a355cbbac38d792372ff347c60117618a8c8cd07a06b7aea6.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p3-r3.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-18c9a9b37ed64edb5a3d0e6f956896147ecaee5e1eb934b1ac6f57603aa1b10a.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p317-r6.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-b0eb965c4b7d536e6d4d9932ff11f0cb09df6bac3483e0e893f4871d0406bedb.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-47f4eaba45aab7c29bcd9fdc4fb0a8d8524021ff228d4041d0e30eaca626c8ad.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-13cf798a1d09a9a37ac0b4bcdaf71a7d82b4899ae47719f5733daf6e074c70fe.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-afbe8d05e696eb91da2080cdd1dced73c7cc40d3cec0469e35131098e81791d5.png",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\p1-full.png",
+          "sha256": "007cac45189bdb74ade4f55b8099f28650001c74f2c571a747eb8a8cb62c100e",
+          "bytes": 599008
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\p2-full.png",
+          "sha256": "6d3fd53ade7c603db8b0578ed327eb112c0e2eb849f932913ba6cd3ab02aca9a",
+          "bytes": 512091
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\p3-full.png",
+          "sha256": "2c72198a82853cd258b5a3ed767ae3c63477723a9bc7d71d2b29446b53b4538b",
+          "bytes": 381940
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\p317-full.png",
+          "sha256": "763edc0fc994b6dab0992525ec27bc169c53166fd29281ef178b86b25f63d4f9",
+          "bytes": 499919
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p1-r4.png",
+          "sha256": "95f061b13019ed10d9b367d162b5aa59e05febefe3a2ec8415689cf3a13ad02a",
+          "bytes": 955952
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6.png",
+          "sha256": "275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6",
+          "bytes": 597109
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p2-r11.png",
+          "sha256": "7b3a8910e06868b1b8a4f667d689fbc0624519af62a0e87c7facd70471067220",
+          "bytes": 486931
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-56c5e1a9799dce76ae6581480fa6b575af26d5136f11e23223a8cf71a533cf04.png",
+          "sha256": "56c5e1a9799dce76ae6581480fa6b575af26d5136f11e23223a8cf71a533cf04",
+          "bytes": 320388
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p2-r15.png",
+          "sha256": "56d31116672b5ae0a7ce8ff16fd7620bb42dfeeb4e91eda2c35fc34882479b66",
+          "bytes": 416207
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-d846534f2b6ea857497c8ba6972aba9d3284a30bc34d17e22da571ebd06e016a.png",
+          "sha256": "d846534f2b6ea857497c8ba6972aba9d3284a30bc34d17e22da571ebd06e016a",
+          "bytes": 276321
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p3-r1.png",
+          "sha256": "ca3b8c85280a7c3fc24d7659d307cb4efe91077c951d3e46588e2ee60a596050",
+          "bytes": 453554
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-b9cab06ba9d58c8a355cbbac38d792372ff347c60117618a8c8cd07a06b7aea6.png",
+          "sha256": "b9cab06ba9d58c8a355cbbac38d792372ff347c60117618a8c8cd07a06b7aea6",
+          "bytes": 303845
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p3-r3.png",
+          "sha256": "d55711b945844e56eea7bd1bbf3df216c01f2bc08a5ad5c7af0c5d6313fecc42",
+          "bytes": 205538
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-18c9a9b37ed64edb5a3d0e6f956896147ecaee5e1eb934b1ac6f57603aa1b10a.png",
+          "sha256": "18c9a9b37ed64edb5a3d0e6f956896147ecaee5e1eb934b1ac6f57603aa1b10a",
+          "bytes": 127654
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p317-r6.png",
+          "sha256": "8aaa46b328c426b9e2c31f0ff73c70761c05747cbc7a57c973e9d1b939d22668",
+          "bytes": 1062020
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-b0eb965c4b7d536e6d4d9932ff11f0cb09df6bac3483e0e893f4871d0406bedb.png",
+          "sha256": "b0eb965c4b7d536e6d4d9932ff11f0cb09df6bac3483e0e893f4871d0406bedb",
+          "bytes": 641
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-47f4eaba45aab7c29bcd9fdc4fb0a8d8524021ff228d4041d0e30eaca626c8ad.png",
+          "sha256": "47f4eaba45aab7c29bcd9fdc4fb0a8d8524021ff228d4041d0e30eaca626c8ad",
+          "bytes": 54983
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-13cf798a1d09a9a37ac0b4bcdaf71a7d82b4899ae47719f5733daf6e074c70fe.png",
+          "sha256": "13cf798a1d09a9a37ac0b4bcdaf71a7d82b4899ae47719f5733daf6e074c70fe",
+          "bytes": 716
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-afbe8d05e696eb91da2080cdd1dced73c7cc40d3cec0469e35131098e81791d5.png",
+          "sha256": "afbe8d05e696eb91da2080cdd1dced73c7cc40d3cec0469e35131098e81791d5",
+          "bytes": 1772
+        }
+      ],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "binding": {
+      "scopeId": "frontmatter-revised-cover-exact-targets-v1",
+      "candidates": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0001.json",
+          "sha256": "e5f257621a531d26b2bb6cd546019aa4bd00912bfdcd0979cfd47dd514e9f79c",
+          "bytes": 74019
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0002.json",
+          "sha256": "462a1bc3055842ad17233127590403bac2f64ebe00b902600e35af8d8bd84086",
+          "bytes": 73867
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0003.json",
+          "sha256": "b99906e6ce07e4d75ee02bf9d561eabaaac5713c8e104323a61238438f98bb16",
+          "bytes": 34834
+        }
+      ],
+      "requestSha256": "b3d635a5cc07872e40e4e6e7d663fcb219c7e7ca9ff77b550fdd466c5a94efe5",
+      "runtimeManifestSha256": "a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c",
+      "authorizationComment": "01a17f97-a338-7198-813b-4bf67969aaaa",
+      "dispatchContractSha256": "514fdfd198d6d6705a70bebe61abec3a54d53b1be828b38be2169428464dc21d"
+    },
+    "semanticPromptSha256": "a9bd6ca91496cd46d8b962f7acb07361cac0e492d2d99417353af1fe2d66dd44",
+    "promptSha256": "b6fe42c1031c42a3cd97476c34ef1aa3c70761bd989d9cc8c244c010d835eb5f",
+    "schemaSha256": "b76a13fd44289382be9f4584f032bf6857eb925ba085a09bcb6b766331e9838f",
+    "recordedAt": "2026-10-27T23:15:57.859Z"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2023f495-ad40-4b97-a0b5-d25715719543.json",
+    "sha256": "59732e5b4d84ab744e64db5339b006c3d14a64d4646d02150931c7f5bf529691"
+  },
+  "request": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-revisions-20261028\\request-0.json",
+    "sha256": "b3d635a5cc07872e40e4e6e7d663fcb219c7e7ca9ff77b550fdd466c5a94efe5"
+  },
+  "runtime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\runtime-manifest.json",
+    "sha256": "a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c"
+  },
+  "dispatchContract": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-revision-dispatch-20261028\\dispatch-contract.json",
+    "sha256": "514fdfd198d6d6705a70bebe61abec3a54d53b1be828b38be2169428464dc21d"
+  },
+  "derivationProofs": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derivation-proofs.json",
+    "sha256": "5f28e0b159b5952769358b338e831311c9b9ac81cbe4ef012dfb23cd160b0dde",
+    "bytes": 39362
+  },
+  "derivationHandoff": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\handoff.json",
+    "sha256": "921a1fdc2cbec90df9a948832ce2d009543c050f6b0ad9c430d77facd9de327d",
+    "bytes": 5068
+  },
+  "fieldChanges": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\exact-field-changes.json",
+    "sha256": "a8baecc01f999a74986ca01685aa6e92e6ccf59b1a1766aa398bf64366de4d58",
+    "bytes": 23530
+  },
+  "sourceParentDerivativeOldAudit": [
+    {
+      "page": 1,
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0001.json",
+        "sha256": "195ec4e95734120c92d4bc0281512b7cb06d84fda221b68e339f020e06ddd02b",
+        "bytes": 73779,
+        "packagePath": "parents/page-0001.json"
+      },
+      "derivative": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0001.json",
+        "sha256": "e5f257621a531d26b2bb6cd546019aa4bd00912bfdcd0979cfd47dd514e9f79c",
+        "bytes": 74019,
+        "packagePath": "derived-candidates/page-0001.json"
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\001.json",
+        "sha256": "b5595e802d47eaef2c9815e9342771c88513d413d66222528fee9c16dc93ad71",
+        "bytes": 90022
+      },
+      "oldAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0001.195ec4e95734120c92d4bc0281512b7cb06d84fda221b68e339f020e06ddd02b.6baa4a7e1404.json",
+        "sha256": "9619f5b27ba1b1bb6227184081d72cb599de232741d6f5ea01e7d1daa829ab91",
+        "bytes": 121240
+      },
+      "fields": [
+        {
+          "targetId": "nemata-jp-p1-r4",
+          "candidate": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0001.json",
+            "sha256": "195ec4e95734120c92d4bc0281512b7cb06d84fda221b68e339f020e06ddd02b",
+            "bytes": 73779,
+            "packagePath": "existing/p1/candidate.json"
+          },
+          "jsonPointer": "/figures/3/transcription",
+          "before": "杂志封面，背景为一名女性的面部照片。刊名：月刊网络麻将，Net M@hjong；英文副题：Monthly Online Mahjong Magazine。期号：2010年1月，January。右上宣传语：为舒适的网络麻将生活提供支持的杂志。左侧竖排：日本麻将博客大奖大特集号。右侧文字：最终评选评语；福地诚、须田良规、とつげき東北。评委特别奖：《打天凤时，会在椅子上跪坐》（原文：天鳳打つ時は椅子の上で正座です）；☆はくあ☆。下部文字：日本麻将博客大奖2009，荣获亚军奖；《近代麻将漫画生活》，いのけん。日本麻将博客大奖2009，荣获最高奖；《现代麻将技术论》，附假名读音「げんだいまーじゃんぎじゅつろん」；撰稿人：ネマタ；网站制作者：や～べ。",
+          "after": "杂志封面，背景为一名女性的面部照片。刊名：月刊网络麻将，Net M@hjong；英文副题：Monthly Online Mahjong Magazine。期号：2010年1月，January。右上有两行宣传小字，无法可靠辨认。左侧竖排：日本麻将博客大奖大特集号。右侧文字：最终评选评语；福地诚、须田良规、とつげき東北。评委特别奖：《打天凤时，会在椅子上跪坐》（原文：天鳳打つ時は椅子の上で正座です）；署名无法可靠辨认。下部文字：日本麻将博客大奖2009，荣获亚军奖；《近代麻将漫画生活》，いのけん。日本麻将博客大奖2009，荣获最高奖；《现代麻将技术论》，附有假名读音，但无法可靠辨认；撰稿人：ネマタ；网站制作者：や～べ。",
+          "beforeJsonSha256": "1d2a655184c3819c3b1cfb7fdf498e57a1b2f10b5675bd9de2474152b4641717",
+          "afterJsonSha256": "efe2d9cdf9fc2766532ae856d3f8b13db93396549871fd21185415fc26c60f0e",
+          "sourceReceipt": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+            "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+          },
+          "selectedRecordIndex": 0,
+          "evidenceRecordIndices": [
+            0,
+            8
+          ],
+          "resolution": "identical-evidence-deduplicated"
+        },
+        {
+          "targetId": "nemata-jp-p1-r4",
+          "candidate": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0001.json",
+            "sha256": "195ec4e95734120c92d4bc0281512b7cb06d84fda221b68e339f020e06ddd02b",
+            "bytes": 73779,
+            "packagePath": "existing/p1/candidate.json"
+          },
+          "jsonPointer": "/figures/3/unknowns",
+          "before": [
+            "封面右上“January”下方的极小文字分辨率不足，无法可靠辨认。"
+          ],
+          "after": [
+            "封面右上“January”下方的极小文字分辨率不足，无法可靠辨认。",
+            "封面右上两行宣传小字无法可靠逐字辨认，也不能确认其完整译意。",
+            "主标题旁的假名读音过小，无法可靠逐字辨认。",
+            "评委特别奖条目下方的星号夹署名模糊，无法可靠辨认完整字形。"
+          ],
+          "beforeJsonSha256": "ede2faac760d383e0344846781ad713e3b67ae6007bc3fd6380e5860ae3aaff1",
+          "afterJsonSha256": "a43e92a2877a35e4d39b2f991f8840724ac1ce16c0a4cc7e1f919664783cb78e",
+          "sourceReceipt": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+            "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+          },
+          "selectedRecordIndex": 1,
+          "evidenceRecordIndices": [
+            1,
+            9
+          ],
+          "resolution": "identical-evidence-deduplicated"
+        }
+      ],
+      "checks": {
+        "passed": true,
+        "errors": [],
+        "textBlocks": 45,
+        "imageBlocks": 22,
+        "figures": 21
+      },
+      "untouchedTreeIdenticalAfterMasking": true,
+      "actualDiffPointers": [
+        "/figures/3/transcription",
+        "/figures/3/unknowns",
+        "/candidateSha256"
+      ],
+      "fieldRepairModelCalls": 0,
+      "status": "exact-derived-not-admitted",
+      "admissionGranted": false,
+      "wholePagePassed": false,
+      "oldAuditStatus": "needs-repair",
+      "preservedSourceBlockIds": [
+        "nemata-jp-p1-b1",
+        "nemata-jp-p1-b2",
+        "nemata-jp-p1-b3",
+        "nemata-jp-p1-b4",
+        "nemata-jp-p1-b5",
+        "nemata-jp-p1-b6",
+        "nemata-jp-p1-b7",
+        "nemata-jp-p1-b8",
+        "nemata-jp-p1-b9",
+        "nemata-jp-p1-b10",
+        "nemata-jp-p1-b11",
+        "nemata-jp-p1-b12",
+        "nemata-jp-p1-b13",
+        "nemata-jp-p1-b14",
+        "nemata-jp-p1-b15",
+        "nemata-jp-p1-b16",
+        "nemata-jp-p1-b17",
+        "nemata-jp-p1-b18",
+        "nemata-jp-p1-b19",
+        "nemata-jp-p1-b20",
+        "nemata-jp-p1-b21",
+        "nemata-jp-p1-b22",
+        "nemata-jp-p1-b23",
+        "nemata-jp-p1-b24",
+        "nemata-jp-p1-b25",
+        "nemata-jp-p1-b26",
+        "nemata-jp-p1-b27",
+        "nemata-jp-p1-b28",
+        "nemata-jp-p1-b29",
+        "nemata-jp-p1-b30",
+        "nemata-jp-p1-b31",
+        "nemata-jp-p1-b32",
+        "nemata-jp-p1-b33",
+        "nemata-jp-p1-b34",
+        "nemata-jp-p1-b35",
+        "nemata-jp-p1-b36",
+        "nemata-jp-p1-b37",
+        "nemata-jp-p1-b38",
+        "nemata-jp-p1-b39",
+        "nemata-jp-p1-b40",
+        "nemata-jp-p1-b41",
+        "nemata-jp-p1-b42",
+        "nemata-jp-p1-b43",
+        "nemata-jp-p1-b44",
+        "nemata-jp-p1-b45",
+        "nemata-jp-p1-b46",
+        "nemata-jp-p1-b47",
+        "nemata-jp-p1-b48",
+        "nemata-jp-p1-b49",
+        "nemata-jp-p1-b50",
+        "nemata-jp-p1-b51",
+        "nemata-jp-p1-b52",
+        "nemata-jp-p1-b53",
+        "nemata-jp-p1-b54",
+        "nemata-jp-p1-b55",
+        "nemata-jp-p1-b56",
+        "nemata-jp-p1-b57",
+        "nemata-jp-p1-b58",
+        "nemata-jp-p1-b59",
+        "nemata-jp-p1-b60",
+        "nemata-jp-p1-b61",
+        "nemata-jp-p1-b62",
+        "nemata-jp-p1-b63",
+        "nemata-jp-p1-b64",
+        "nemata-jp-p1-b65",
+        "nemata-jp-p1-b66",
+        "nemata-jp-p1-b67"
+      ]
+    },
+    {
+      "page": 2,
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0002.json",
+        "sha256": "205a9a8ab2dcc7353f5d3ec2df6f6b99339ecbb4ca57c507690b6ff45397e1d6",
+        "bytes": 73791,
+        "packagePath": "parents/page-0002.json"
+      },
+      "derivative": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0002.json",
+        "sha256": "462a1bc3055842ad17233127590403bac2f64ebe00b902600e35af8d8bd84086",
+        "bytes": 73867,
+        "packagePath": "derived-candidates/page-0002.json"
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\002.json",
+        "sha256": "e82df805c5631a27bb63bf13d8a7e89cd7abaf3aff15efbe732a59125459bb09",
+        "bytes": 94013
+      },
+      "oldAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0002.205a9a8ab2dcc7353f5d3ec2df6f6b99339ecbb4ca57c507690b6ff45397e1d6.6baa4a7e1404.json",
+        "sha256": "02b5cea0e12ad34ddf670e20cbb6071e395c2587f2d2797e6be303d1af9d442c",
+        "bytes": 125598
+      },
+      "fields": [
+        {
+          "targetId": "nemata-jp-p2-r15",
+          "candidate": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0002.json",
+            "sha256": "205a9a8ab2dcc7353f5d3ec2df6f6b99339ecbb4ca57c507690b6ff45397e1d6",
+            "bytes": 73791,
+            "packagePath": "existing/p2/candidate.json"
+          },
+          "jsonPointer": "/figures/14/transcription",
+          "before": "深蓝色书封，书名原文为「最強デジタル麻雀」，即《最强数字麻将》；作者署名「小倉 孝 著」，即小仓孝著。封面照片是一名穿深色西装、白衬衫、系领带的男子坐在麻将桌旁。",
+          "after": "深蓝色书封，书名原文为「最強デジタル麻雀」，即《最强数字麻将》；封面作者署名模糊，无法可靠辨认。封面照片是一名穿深色西装、白衬衫、系领带的男子坐在麻将桌旁。",
+          "beforeJsonSha256": "271b31f9237847a342ba0c3c59ebc6d31b1104547ef593a39b16ba5d499ea800",
+          "afterJsonSha256": "41c6edb4f3eba41e40dce54f8743965b1566680b75ec88ad26e56b9e46121338",
+          "sourceReceipt": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+            "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+          },
+          "selectedRecordIndex": 2,
+          "evidenceRecordIndices": [
+            2
+          ],
+          "resolution": "single-independent-proposal"
+        },
+        {
+          "targetId": "nemata-jp-p2-r15",
+          "candidate": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0002.json",
+            "sha256": "205a9a8ab2dcc7353f5d3ec2df6f6b99339ecbb4ca57c507690b6ff45397e1d6",
+            "bytes": 73791,
+            "packagePath": "existing/p2/candidate.json"
+          },
+          "jsonPointer": "/figures/14/unknowns",
+          "before": [
+            "照片下方桌面处的细小牌面无法逐张辨认，不能确定各牌的花色、点数或赤五状态。"
+          ],
+          "after": [
+            "照片下方桌面处的细小牌面无法逐张辨认，不能确定各牌的花色、点数或赤五状态。",
+            "封面左下方作者署名模糊，无法可靠辨认完整字形。"
+          ],
+          "beforeJsonSha256": "453091120af469e22683d32e345d4e438b579ba12f2638065d6b51f5ab8dd0ff",
+          "afterJsonSha256": "603410eb2364aedad03c79f6f8b36f21e7fea37cdacc884a59075f8cf22dbe89",
+          "sourceReceipt": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+            "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+          },
+          "selectedRecordIndex": 3,
+          "evidenceRecordIndices": [
+            3
+          ],
+          "resolution": "single-independent-proposal"
+        }
+      ],
+      "checks": {
+        "passed": true,
+        "errors": [],
+        "textBlocks": 52,
+        "imageBlocks": 16,
+        "figures": 16
+      },
+      "untouchedTreeIdenticalAfterMasking": true,
+      "actualDiffPointers": [
+        "/figures/14/transcription",
+        "/figures/14/unknowns",
+        "/candidateSha256"
+      ],
+      "fieldRepairModelCalls": 0,
+      "status": "exact-derived-not-admitted",
+      "admissionGranted": false,
+      "wholePagePassed": false,
+      "oldAuditStatus": "needs-repair",
+      "preservedSourceBlockIds": [
+        "nemata-jp-p2-b1",
+        "nemata-jp-p2-b2",
+        "nemata-jp-p2-b3",
+        "nemata-jp-p2-b4",
+        "nemata-jp-p2-b5",
+        "nemata-jp-p2-b6",
+        "nemata-jp-p2-b7",
+        "nemata-jp-p2-b8",
+        "nemata-jp-p2-b9",
+        "nemata-jp-p2-b10",
+        "nemata-jp-p2-b11",
+        "nemata-jp-p2-b12",
+        "nemata-jp-p2-b13",
+        "nemata-jp-p2-b14",
+        "nemata-jp-p2-b15",
+        "nemata-jp-p2-b16",
+        "nemata-jp-p2-b17",
+        "nemata-jp-p2-b18",
+        "nemata-jp-p2-b19",
+        "nemata-jp-p2-b20",
+        "nemata-jp-p2-b21",
+        "nemata-jp-p2-b22",
+        "nemata-jp-p2-b23",
+        "nemata-jp-p2-b24",
+        "nemata-jp-p2-b25",
+        "nemata-jp-p2-b26",
+        "nemata-jp-p2-b27",
+        "nemata-jp-p2-b28",
+        "nemata-jp-p2-b29",
+        "nemata-jp-p2-b30",
+        "nemata-jp-p2-b31",
+        "nemata-jp-p2-b32",
+        "nemata-jp-p2-b33",
+        "nemata-jp-p2-b34",
+        "nemata-jp-p2-b35",
+        "nemata-jp-p2-b36",
+        "nemata-jp-p2-b37",
+        "nemata-jp-p2-b38",
+        "nemata-jp-p2-b39",
+        "nemata-jp-p2-b40",
+        "nemata-jp-p2-b41",
+        "nemata-jp-p2-b42",
+        "nemata-jp-p2-b43",
+        "nemata-jp-p2-b44",
+        "nemata-jp-p2-b45",
+        "nemata-jp-p2-b46",
+        "nemata-jp-p2-b47",
+        "nemata-jp-p2-b48",
+        "nemata-jp-p2-b49",
+        "nemata-jp-p2-b50",
+        "nemata-jp-p2-b51",
+        "nemata-jp-p2-b52",
+        "nemata-jp-p2-b53",
+        "nemata-jp-p2-b54",
+        "nemata-jp-p2-b55",
+        "nemata-jp-p2-b56",
+        "nemata-jp-p2-b57",
+        "nemata-jp-p2-b58",
+        "nemata-jp-p2-b59",
+        "nemata-jp-p2-b60",
+        "nemata-jp-p2-b61",
+        "nemata-jp-p2-b62",
+        "nemata-jp-p2-b63",
+        "nemata-jp-p2-b64",
+        "nemata-jp-p2-b65",
+        "nemata-jp-p2-b66",
+        "nemata-jp-p2-b67",
+        "nemata-jp-p2-b68"
+      ]
+    },
+    {
+      "page": 3,
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0003.json",
+        "sha256": "b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36",
+        "bytes": 34716,
+        "packagePath": "parents/page-0003.json"
+      },
+      "derivative": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0003.json",
+        "sha256": "b99906e6ce07e4d75ee02bf9d561eabaaac5713c8e104323a61238438f98bb16",
+        "bytes": 34834,
+        "packagePath": "derived-candidates/page-0003.json"
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\003.json",
+        "sha256": "d4d6ef6ff6cb981938e65422a19ea3eab15ebf0c1febd8358b553d6ac103a7c4",
+        "bytes": 61343
+      },
+      "oldAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0003.b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36.6baa4a7e1404.json",
+        "sha256": "68037da0805fc3c947b9d3ca0ddc83576ac1ee368a3c91539243266af0f3152f",
+        "bytes": 76877
+      },
+      "fields": [
+        {
+          "targetId": "nemata-jp-p3-r1",
+          "candidate": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0003.json",
+            "sha256": "b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36",
+            "bytes": 34716,
+            "packagePath": "existing/p3/candidate.json"
+          },
+          "jsonPointer": "/figures/0/transcription",
+          "before": "《最强数字麻将：实战问题集》的红色书封。上方书名原文为“最強デジタル麻雀”“実戦問題集”，右侧作者署名可辨为“小倉 孝 著”，下方英文为“THE STRONGEST DIGITAL MAHJONG”。封面照片为一名身穿深色外套的男子朝前伸手，下方可见麻将桌边缘。",
+          "after": "《最强数字麻将：实战问题集》的红色书封。上方书名原文为“最強デジタル麻雀”“実戦問題集”，右侧作者署名模糊，无法可靠辨认，下方英文为“THE STRONGEST DIGITAL MAHJONG”。封面照片为一名身穿深色外套的男子朝前伸手，下方可见麻将桌边缘。",
+          "beforeJsonSha256": "0f94a200de9263c61ecae62ee6929dee436daa5e742848b13cccadac726e59e6",
+          "afterJsonSha256": "5e8267f0401a8cbb12f71ee1b66f5c0408eaef11a96f3cddc1e955cbea987789",
+          "sourceReceipt": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+            "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+          },
+          "selectedRecordIndex": 4,
+          "evidenceRecordIndices": [
+            4
+          ],
+          "resolution": "single-independent-proposal"
+        },
+        {
+          "targetId": "nemata-jp-p3-r1",
+          "candidate": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0003.json",
+            "sha256": "b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36",
+            "bytes": 34716,
+            "packagePath": "existing/p3/candidate.json"
+          },
+          "jsonPointer": "/figures/0/unknowns",
+          "before": [
+            "作者署名上方的小字、封面底部左侧标识及其他细小文字模糊，无法可靠辨读。"
+          ],
+          "after": [
+            "作者署名上方的小字、封面底部左侧标识及其他细小文字模糊，无法可靠辨读。",
+            "封面右侧作者署名模糊，无法可靠辨认完整字形。"
+          ],
+          "beforeJsonSha256": "a414da76fa095a9035bff321587ca3d823a0655a513853b1873c901be57a5d1f",
+          "afterJsonSha256": "a779fcbcc990d95a993f01a74f98a472c6b059e22aecc7eb012cb36b4323b822",
+          "sourceReceipt": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+            "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+          },
+          "selectedRecordIndex": 5,
+          "evidenceRecordIndices": [
+            5
+          ],
+          "resolution": "single-independent-proposal"
+        },
+        {
+          "targetId": "nemata-jp-p3-r3",
+          "candidate": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0003.json",
+            "sha256": "b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36",
+            "bytes": 34716,
+            "packagePath": "existing/p3/candidate.json"
+          },
+          "jsonPointer": "/figures/2/transcription",
+          "before": "《科学麻将》的书封：白色底，上部书名原文为“科学する麻雀”，作者名为“とつげき東北”，即突击东北；中间有黄绿色方块，下半部为黄绿色腰封。腰封大字为“「数理の力」があなたの麻雀を変える！”，意为“‘数理的力量’改变你的麻将！”。底部黑色横条内可辨“講談社現代新書”，即“讲谈社现代新书”。",
+          "after": "《科学麻将》的书封：白色底，上部书名原文为“科学する麻雀”，作者名为“とつげき東北”，即突击东北；中间有黄绿色方块，下半部为黄绿色腰封。腰封大字为“「数理の力」があなたの麻雀を変える！”，意为“‘数理的力量’改变你的麻将！”。底部有黑色横条，条内小字无法可靠辨读。",
+          "beforeJsonSha256": "a06cc63a111529378859414aa3a01198636f500fd092866760caf00cb4879feb",
+          "afterJsonSha256": "a93239c723d9767d498af609d131c93f45e788c37cfe3aa9904655f252eae296",
+          "sourceReceipt": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+            "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+          },
+          "selectedRecordIndex": 6,
+          "evidenceRecordIndices": [
+            6
+          ],
+          "resolution": "single-independent-proposal"
+        },
+        {
+          "targetId": "nemata-jp-p3-r3",
+          "candidate": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0003.json",
+            "sha256": "b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36",
+            "bytes": 34716,
+            "packagePath": "existing/p3/candidate.json"
+          },
+          "jsonPointer": "/figures/2/unknowns",
+          "before": [
+            "腰封大字下方的两行小字模糊，无法可靠辨读。"
+          ],
+          "after": [
+            "腰封大字下方的两行小字模糊，无法可靠辨读。",
+            "底部黑色横条中的细小文字无法可靠逐字辨认。"
+          ],
+          "beforeJsonSha256": "8535f228dc538c6890ef4c0d7aca166812aec7533b6f245427f342dbe28bbe81",
+          "afterJsonSha256": "05239c59c637266b385a399df44fec175a694b58b52ed793a76a206ea4a71db2",
+          "sourceReceipt": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+            "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+          },
+          "selectedRecordIndex": 7,
+          "evidenceRecordIndices": [
+            7
+          ],
+          "resolution": "single-independent-proposal"
+        }
+      ],
+      "checks": {
+        "passed": true,
+        "errors": [],
+        "textBlocks": 30,
+        "imageBlocks": 3,
+        "figures": 3
+      },
+      "untouchedTreeIdenticalAfterMasking": true,
+      "actualDiffPointers": [
+        "/figures/0/transcription",
+        "/figures/0/unknowns",
+        "/figures/2/transcription",
+        "/figures/2/unknowns",
+        "/candidateSha256"
+      ],
+      "fieldRepairModelCalls": 0,
+      "status": "exact-derived-not-admitted",
+      "admissionGranted": false,
+      "wholePagePassed": false,
+      "oldAuditStatus": "needs-repair",
+      "preservedSourceBlockIds": [
+        "nemata-jp-p3-b1",
+        "nemata-jp-p3-b2",
+        "nemata-jp-p3-b3",
+        "nemata-jp-p3-b4",
+        "nemata-jp-p3-b5",
+        "nemata-jp-p3-b6",
+        "nemata-jp-p3-b7",
+        "nemata-jp-p3-b8",
+        "nemata-jp-p3-b9",
+        "nemata-jp-p3-b10",
+        "nemata-jp-p3-b11",
+        "nemata-jp-p3-b12",
+        "nemata-jp-p3-b13",
+        "nemata-jp-p3-b14",
+        "nemata-jp-p3-b15",
+        "nemata-jp-p3-b16",
+        "nemata-jp-p3-b17",
+        "nemata-jp-p3-b18",
+        "nemata-jp-p3-b19",
+        "nemata-jp-p3-b20",
+        "nemata-jp-p3-b21",
+        "nemata-jp-p3-b22",
+        "nemata-jp-p3-b23",
+        "nemata-jp-p3-b24",
+        "nemata-jp-p3-b25",
+        "nemata-jp-p3-b26",
+        "nemata-jp-p3-b27",
+        "nemata-jp-p3-b28",
+        "nemata-jp-p3-b29",
+        "nemata-jp-p3-b30",
+        "nemata-jp-p3-b31",
+        "nemata-jp-p3-b32",
+        "nemata-jp-p3-b33"
+      ]
+    }
+  ],
+  "priorIndependentReceipts": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+      "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6",
+      "bytes": 37618
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-1.json",
+      "sha256": "d85aa60a50c4c2dc7a70fd5bbbbf43b2bd94ea990f4a5f555791ed6df228f19d",
+      "bytes": 18151
+    }
+  ],
+  "mandatoryLimits": [
+    "评委特别奖条目下方的署名保持完整unknown，不列具体姓名或备选拼写。",
+    "右上宣传小字、January下方极小字及主标题旁假名读音保持unknown。",
+    "保留可辨封面内容和p1-b27刊载消息。",
+    "保留作者名旁及封面右下方小字、英文尾部字符的现有unknown，不补写。",
+    "不指定模型中微小麻将牌的牌码、花色、点数或赤五状态。",
+    "p2-b50书评及p2-b52书目信息保持为正文。",
+    "封面作者署名保持unknown，不用p2-b59书目反填图中字形。",
+    "保留桌面微牌unknown，不推定牌码、花色、点数或赤五状态。",
+    "p2-b59清晰书目信息保持为正文。",
+    "封面右侧作者署名及其上方微字保持unknown，不借前作、书评或人物身份补字。",
+    "底部标识及其他细小文字保持unknown。",
+    "p2-b61至p3-b23的跨页书评保持为作者正文；仅五星图标为装饰。",
+    "腰封大字下方两行小字及底部黑条细字保持unknown，不从相邻书目补作封面转录。",
+    "p3-b27书评及p3-b29书目保持为正文。"
+  ],
+  "inheritedTextChecks": 158,
+  "inheritedOtherFigureChecks": 56,
+  "inheritedChineseTocBlocks": 18,
+  "newModelCalls": 1,
+  "newProductionCalls": 0,
+  "retry": 0,
+  "remaining": 0,
+  "oldCandidateRawOrAuditChanged": false,
+  "fullPagePassed": false,
+  "wholeChapterPassed": false,
+  "admissionGranted": false,
+  "fee": "unknown",
+  "remoteWeights": "unknown",
+  "upstreamExecutionCount": "unknown"
+}

@@ -1,0 +1,253 @@
+{
+  "schema": "coac246-frontmatter-two-revision-review-dispatch/1",
+  "recordedAtUtc": "2026-10-27T23:04:57.951488+00:00",
+  "authorization": {
+    "issueId": "01a17470-e3bb-7b84-acfe-690c8ef8cbdc",
+    "commentId": "01a17f97-a338-7198-813b-4bf67969aaaa",
+    "maximumTargetPackages": 2,
+    "maximumProductionPerPackage": 1,
+    "maximumIndependentReviewPerPackage": 1,
+    "maximumTotalNewCalls": 4,
+    "selectedPlan": {
+      "newProductionCalls": 0,
+      "maximumNewReviewCalls": 2,
+      "maximumNewCalls": 2
+    },
+    "failedOrVoidConsumesBudget": true,
+    "automaticRetries": 0,
+    "priorTwoReviewCalls": "Already exhausted under previous authorization; these requests concern new derivative SHAs under the new comment."
+  },
+  "packages": [
+    {
+      "scopeId": "frontmatter-revised-cover-exact-targets-v1",
+      "pages": [
+        1,
+        2,
+        3
+      ],
+      "targetIds": [
+        "nemata-jp-p1-r4",
+        "nemata-jp-p2-r11",
+        "nemata-jp-p2-r15",
+        "nemata-jp-p3-r1",
+        "nemata-jp-p3-r3"
+      ],
+      "candidates": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0001.json",
+          "sha256": "e5f257621a531d26b2bb6cd546019aa4bd00912bfdcd0979cfd47dd514e9f79c",
+          "bytes": 74019
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0002.json",
+          "sha256": "462a1bc3055842ad17233127590403bac2f64ebe00b902600e35af8d8bd84086",
+          "bytes": 73867
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0003.json",
+          "sha256": "b99906e6ce07e4d75ee02bf9d561eabaaac5713c8e104323a61238438f98bb16",
+          "bytes": 34834
+        }
+      ],
+      "request": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-revision-dispatch-20261028\\review-request-0.json",
+        "sha256": "b3d635a5cc07872e40e4e6e7d663fcb219c7e7ca9ff77b550fdd466c5a94efe5",
+        "bytes": 217217
+      },
+      "imageBindings": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\p1-full.png",
+          "sha256": "007cac45189bdb74ade4f55b8099f28650001c74f2c571a747eb8a8cb62c100e",
+          "bytes": 599008
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\p2-full.png",
+          "sha256": "6d3fd53ade7c603db8b0578ed327eb112c0e2eb849f932913ba6cd3ab02aca9a",
+          "bytes": 512091
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\p3-full.png",
+          "sha256": "2c72198a82853cd258b5a3ed767ae3c63477723a9bc7d71d2b29446b53b4538b",
+          "bytes": 381940
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\p317-full.png",
+          "sha256": "763edc0fc994b6dab0992525ec27bc169c53166fd29281ef178b86b25f63d4f9",
+          "bytes": 499919
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p1-r4.png",
+          "sha256": "95f061b13019ed10d9b367d162b5aa59e05febefe3a2ec8415689cf3a13ad02a",
+          "bytes": 955952
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6.png",
+          "sha256": "275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6",
+          "bytes": 597109
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p2-r11.png",
+          "sha256": "7b3a8910e06868b1b8a4f667d689fbc0624519af62a0e87c7facd70471067220",
+          "bytes": 486931
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-56c5e1a9799dce76ae6581480fa6b575af26d5136f11e23223a8cf71a533cf04.png",
+          "sha256": "56c5e1a9799dce76ae6581480fa6b575af26d5136f11e23223a8cf71a533cf04",
+          "bytes": 320388
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p2-r15.png",
+          "sha256": "56d31116672b5ae0a7ce8ff16fd7620bb42dfeeb4e91eda2c35fc34882479b66",
+          "bytes": 416207
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-d846534f2b6ea857497c8ba6972aba9d3284a30bc34d17e22da571ebd06e016a.png",
+          "sha256": "d846534f2b6ea857497c8ba6972aba9d3284a30bc34d17e22da571ebd06e016a",
+          "bytes": 276321
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p3-r1.png",
+          "sha256": "ca3b8c85280a7c3fc24d7659d307cb4efe91077c951d3e46588e2ee60a596050",
+          "bytes": 453554
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-b9cab06ba9d58c8a355cbbac38d792372ff347c60117618a8c8cd07a06b7aea6.png",
+          "sha256": "b9cab06ba9d58c8a355cbbac38d792372ff347c60117618a8c8cd07a06b7aea6",
+          "bytes": 303845
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p3-r3.png",
+          "sha256": "d55711b945844e56eea7bd1bbf3df216c01f2bc08a5ad5c7af0c5d6313fecc42",
+          "bytes": 205538
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-18c9a9b37ed64edb5a3d0e6f956896147ecaee5e1eb934b1ac6f57603aa1b10a.png",
+          "sha256": "18c9a9b37ed64edb5a3d0e6f956896147ecaee5e1eb934b1ac6f57603aa1b10a",
+          "bytes": 127654
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p317-r6.png",
+          "sha256": "8aaa46b328c426b9e2c31f0ff73c70761c05747cbc7a57c973e9d1b939d22668",
+          "bytes": 1062020
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-b0eb965c4b7d536e6d4d9932ff11f0cb09df6bac3483e0e893f4871d0406bedb.png",
+          "sha256": "b0eb965c4b7d536e6d4d9932ff11f0cb09df6bac3483e0e893f4871d0406bedb",
+          "bytes": 641
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-47f4eaba45aab7c29bcd9fdc4fb0a8d8524021ff228d4041d0e30eaca626c8ad.png",
+          "sha256": "47f4eaba45aab7c29bcd9fdc4fb0a8d8524021ff228d4041d0e30eaca626c8ad",
+          "bytes": 54983
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-13cf798a1d09a9a37ac0b4bcdaf71a7d82b4899ae47719f5733daf6e074c70fe.png",
+          "sha256": "13cf798a1d09a9a37ac0b4bcdaf71a7d82b4899ae47719f5733daf6e074c70fe",
+          "bytes": 716
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-afbe8d05e696eb91da2080cdd1dced73c7cc40d3cec0469e35131098e81791d5.png",
+          "sha256": "afbe8d05e696eb91da2080cdd1dced73c7cc40d3cec0469e35131098e81791d5",
+          "bytes": 1772
+        }
+      ],
+      "imageCount": 19,
+      "productionCalls": 0,
+      "maximumIndependentCalls": 1,
+      "failedOrVoidCounts": true,
+      "retry": 0,
+      "status": "ready-for-249-independent-targeted-review"
+    },
+    {
+      "scopeId": "research317-revised-b5-and-cover-exact-targets-v1",
+      "pages": [
+        317
+      ],
+      "targetIds": [
+        "nemata-jp-p317-b5",
+        "nemata-jp-p317-r6"
+      ],
+      "candidates": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0317.json",
+          "sha256": "b3115591977d81273c795177268a00a84e0960577b0ec1a40304fd2ca515c462",
+          "bytes": 69997
+        }
+      ],
+      "request": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-revision-dispatch-20261028\\review-request-1.json",
+        "sha256": "e6457c51fd0f0073e98c6ca6a743d83b217f4da573f75bf68b70c7a4cff925d9",
+        "bytes": 88871
+      },
+      "imageBindings": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\p317-full.png",
+          "sha256": "763edc0fc994b6dab0992525ec27bc169c53166fd29281ef178b86b25f63d4f9",
+          "bytes": 499919
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6.png",
+          "sha256": "275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6",
+          "bytes": 597109
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\nemata-jp-p317-r6.png",
+          "sha256": "8aaa46b328c426b9e2c31f0ff73c70761c05747cbc7a57c973e9d1b939d22668",
+          "bytes": 1062020
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-b0eb965c4b7d536e6d4d9932ff11f0cb09df6bac3483e0e893f4871d0406bedb.png",
+          "sha256": "b0eb965c4b7d536e6d4d9932ff11f0cb09df6bac3483e0e893f4871d0406bedb",
+          "bytes": 641
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-47f4eaba45aab7c29bcd9fdc4fb0a8d8524021ff228d4041d0e30eaca626c8ad.png",
+          "sha256": "47f4eaba45aab7c29bcd9fdc4fb0a8d8524021ff228d4041d0e30eaca626c8ad",
+          "bytes": 54983
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-13cf798a1d09a9a37ac0b4bcdaf71a7d82b4899ae47719f5733daf6e074c70fe.png",
+          "sha256": "13cf798a1d09a9a37ac0b4bcdaf71a7d82b4899ae47719f5733daf6e074c70fe",
+          "bytes": 716
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-20261028\\images\\original-afbe8d05e696eb91da2080cdd1dced73c7cc40d3cec0469e35131098e81791d5.png",
+          "sha256": "afbe8d05e696eb91da2080cdd1dced73c7cc40d3cec0469e35131098e81791d5",
+          "bytes": 1772
+        }
+      ],
+      "imageCount": 7,
+      "productionCalls": 0,
+      "maximumIndependentCalls": 1,
+      "failedOrVoidCounts": true,
+      "retry": 0,
+      "status": "ready-for-249-independent-targeted-review"
+    }
+  ],
+  "derivationHandoff": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\handoff.json",
+    "sha256": "921a1fdc2cbec90df9a948832ce2d009543c050f6b0ad9c430d77facd9de327d",
+    "bytes": 5068
+  },
+  "derivationProofs": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derivation-proofs.json",
+    "sha256": "5f28e0b159b5952769358b338e831311c9b9ac81cbe4ef012dfb23cd160b0dde",
+    "bytes": 39362
+  },
+  "fieldChanges": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\exact-field-changes.json",
+    "sha256": "a8baecc01f999a74986ca01685aa6e92e6ccf59b1a1766aa398bf64366de4d58",
+    "bytes": 23530
+  },
+  "runtimeManifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\runtime-manifest.json",
+    "sha256": "a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c"
+  },
+  "producerCallsThisTurn": 0,
+  "reviewCallsThisTurn": 0,
+  "dedupe": "Before dispatch check candidate+scope+request hash in raw/ledger/checkpoints and active claims, including failed/void; no retries.",
+  "reviewerAction": "COAC-249 executes through existing schema-v2 frozen CLI and guard, actual ordered image bytes. Do not reinterpret old raw as new output; bind receipt to exact derivative hashes.",
+  "afterReview": "After collecting actual terminal results, give COAC-250 exact accepted scope/unknown limits with source-parent-derivative-raw-receipt binding and real page readback requirement; return failed target to246 only, no automatic retry.",
+  "fullPagePassed": false,
+  "admissionGranted": false
+}

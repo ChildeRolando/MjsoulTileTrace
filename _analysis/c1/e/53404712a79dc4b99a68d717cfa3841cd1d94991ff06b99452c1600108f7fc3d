@@ -1,0 +1,32 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {verifyAdjudicationEvidence,assertDisplayConditions,loadAdjudicatedCoverPages} from './adjudication.mjs';
+const v=await verifyAdjudicationEvidence();
+const inputs={request:v.request,composition:v.composition,oldAudits:v.oldAudits,
+ oldPageEvidence:v.oldPageEvidence,matrix:v.matrix,map:v.map,notes:v.notes,derivatives:v.frame.derivatives};
+test('the exact existing evidence supports only the bounded display',()=>{
+ assert.equal(v.result.checks.allExplicitConditionsSupportedByExistingIndependentEvidence,true);
+ assert.deepEqual(v.result.checks.oldSemanticQuestionsRemaining,[]);
+ assert.equal(v.result.verifiedParentEvidence.length,3);
+ assert.equal(v.result.admissionGranted,false);
+ assert.equal(v.result.existing317Reused,true);
+});
+const mutations=[
+ ['a new old-body error',x=>x.oldAudits[0].modelReview.bodyChecks[0].verdict='uncertain'],
+ ['an unsupported extra old cover issue',x=>x.oldAudits[0].modelReview.issues.push({targetId:'unsupported'})],
+ ['a source block dropped',x=>x.map.pages[1].blocks.pop()],
+ ['a field accepted without the real check',x=>x.matrix.conditions[0].actualTargetCheck.exactRepairAccepted=false],
+ ['an unknown removed',x=>x.derivatives[0].figures[3].unknowns.pop()],
+ ['a note treated as author text',x=>x.notes[0].authorBodyInjection=true],
+ ['a note labelled as author text',x=>x.notes[0].label='作者原文'],
+ ['A original false flipped',x=>x.composition.originalAModelFlags.displayFaithfulWithExplicitUnknowns=true],
+ ['an unresolved semantic question hidden',x=>x.matrix.unresolvedSemanticQuestions.push('unsupported field')],
+ ['p2r11 falsely repaired',x=>x.matrix.conditions.find(c=>c.targetId==='nemata-jp-p2-r11').actualTargetCheck.exactRepairAccepted=true],
+ ['admission without independent checking',x=>x.request.independentCheckRequiredBefore250Intake=false],
+];
+for(const [name,mutate] of mutations)test('reject '+name,()=>{
+ const input=structuredClone(inputs);mutate(input);assert.throws(()=>assertDisplayConditions(input));
+});
+test('no249 receipt means no adjudicated loader output',async()=>{
+ await assert.rejects(loadAdjudicatedCoverPages(),/independent249ReceiptRequired/);
+});

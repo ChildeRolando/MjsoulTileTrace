@@ -1,0 +1,4384 @@
+{
+  "pages": [
+    {
+      "page": 1,
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\001.json",
+        "sha256": "b5595e802d47eaef2c9815e9342771c88513d413d66222528fee9c16dc93ad71",
+        "bytes": 90022
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0001.json",
+        "sha256": "e5f257621a531d26b2bb6cd546019aa4bd00912bfdcd0979cfd47dd514e9f79c",
+        "bytes": 74019,
+        "packagePath": "derived-candidates/page-0001.json"
+      },
+      "blocks": [
+        {
+          "sourceBlockId": "nemata-jp-p1-b1",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b1",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r1"
+            ],
+            "explanation": "站名图片由r1承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 0,
+              "figureId": "nemata-jp-p1-r1",
+              "transcription": "蓝色粗体、灰色投影的站点标题：现代麻将技术论（原文：現代麻雀技術論）。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b2",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b2",
+            "verdict": "faithful",
+            "explanation": "提取块为空；原图可见的宣传副标题已完整译出。"
+          },
+          "body": [
+            {
+              "index": 2,
+              "id": null,
+              "type": "text",
+              "text": "～发表麻将界最强的战术理论～\n结合最前沿的研究成果与强豪牌手的打法，经过缜密考察，阐述由此构建的最强理论。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b3",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b3",
+            "verdict": "faithful",
+            "explanation": "研究成果、强豪打法、缜密考察及最强理论的表述均保留。"
+          },
+          "body": [
+            {
+              "index": 2,
+              "id": null,
+              "type": "text",
+              "text": "～发表麻将界最强的战术理论～\n结合最前沿的研究成果与强豪牌手的打法，经过缜密考察，阐述由此构建的最强理论。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b4",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b4",
+            "verdict": "faithful",
+            "explanation": "提取块为空；原图中的“序章 麻将技术论”已补译。"
+          },
+          "body": [
+            {
+              "index": 4,
+              "id": null,
+              "type": "text",
+              "text": "序章　麻将技术论\n1．麻将技术概述"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b5",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b5",
+            "verdict": "faithful",
+            "explanation": "编号及“麻将技术概述”完整对应。"
+          },
+          "body": [
+            {
+              "index": 4,
+              "id": null,
+              "type": "text",
+              "text": "序章　麻将技术论\n1．麻将技术概述"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b6",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b6",
+            "verdict": "faithful",
+            "explanation": "提取块为空；原图中的“第1章 牌效率论”已补译。"
+          },
+          "body": [
+            {
+              "index": 5,
+              "id": null,
+              "type": "text",
+              "text": "第1章　牌效率论\n讨论在无需特别考虑点数与名次状况的平场中，其他玩家没有发动进攻（立直、副露），或其进攻可以忽略时的选择技术，包括切什么牌、副露判断和立直判断。\n1．牌效率的原则"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b7",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b7",
+            "verdict": "faithful",
+            "explanation": "平场、他家未进攻或进攻可以忽略的前提，以及打牌、副露、立直三类判断均保留。"
+          },
+          "body": [
+            {
+              "index": 5,
+              "id": null,
+              "type": "text",
+              "text": "第1章　牌效率论\n讨论在无需特别考虑点数与名次状况的平场中，其他玩家没有发动进攻（立直、副露），或其进攻可以忽略时的选择技术，包括切什么牌、副露判断和立直判断。\n1．牌效率的原则"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b8",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b8",
+            "verdict": "faithful",
+            "explanation": "编号及“牌效率的原则”对应准确。"
+          },
+          "body": [
+            {
+              "index": 5,
+              "id": null,
+              "type": "text",
+              "text": "第1章　牌效率论\n讨论在无需特别考虑点数与名次状况的平场中，其他玩家没有发动进攻（立直、副露），或其进攻可以忽略时的选择技术，包括切什么牌、副露判断和立直判断。\n1．牌效率的原则"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b9",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b9",
+            "verdict": "faithful",
+            "explanation": "节号及原图可见标题“牌理”均已译出。"
+          },
+          "body": [
+            {
+              "index": 6,
+              "id": null,
+              "type": "text",
+              "text": "第1.1节　牌理\n讨论牌的组合理论。\n2．打牌选择的方法\n3．孤立牌与单独搭子\n4．对子与愚形搭子的比较\n5．复合搭子1\n6．复合搭子2\n7．超愚形搭子与振听搭子\n8．同位牌组的比较方法\n9．边张搭子\n10．外嵌张搭子\n11．内嵌张搭子\n12．两面搭子\n13．拆对子\n14．孤立的1、9牌\n15．孤立的2、8牌\n16．孤立的3～7牌\n17．拆搭子\n18．单独搭子与复合搭子的比较\n19．孤立牌与复合搭子的比较\n20．复合面子（多面听）"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b10",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b10",
+            "verdict": "faithful",
+            "explanation": "牌的组合理论这一讨论范围完整保留。"
+          },
+          "body": [
+            {
+              "index": 6,
+              "id": null,
+              "type": "text",
+              "text": "第1.1节　牌理\n讨论牌的组合理论。\n2．打牌选择的方法\n3．孤立牌与单独搭子\n4．对子与愚形搭子的比较\n5．复合搭子1\n6．复合搭子2\n7．超愚形搭子与振听搭子\n8．同位牌组的比较方法\n9．边张搭子\n10．外嵌张搭子\n11．内嵌张搭子\n12．两面搭子\n13．拆对子\n14．孤立的1、9牌\n15．孤立的2、8牌\n16．孤立的3～7牌\n17．拆搭子\n18．单独搭子与复合搭子的比较\n19．孤立牌与复合搭子的比较\n20．复合面子（多面听）"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b11",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b11",
+            "verdict": "faithful",
+            "explanation": "2至20项全部保留；按左栏再右栏整理，编号、搭子类型及比较对象对应。"
+          },
+          "body": [
+            {
+              "index": 6,
+              "id": null,
+              "type": "text",
+              "text": "第1.1节　牌理\n讨论牌的组合理论。\n2．打牌选择的方法\n3．孤立牌与单独搭子\n4．对子与愚形搭子的比较\n5．复合搭子1\n6．复合搭子2\n7．超愚形搭子与振听搭子\n8．同位牌组的比较方法\n9．边张搭子\n10．外嵌张搭子\n11．内嵌张搭子\n12．两面搭子\n13．拆对子\n14．孤立的1、9牌\n15．孤立的2、8牌\n16．孤立的3～7牌\n17．拆搭子\n18．单独搭子与复合搭子的比较\n19．孤立牌与复合搭子的比较\n20．复合面子（多面听）"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b12",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b12",
+            "verdict": "faithful",
+            "explanation": "节号及原图可见标题“先制听牌判断”完整。"
+          },
+          "body": [
+            {
+              "index": 7,
+              "id": null,
+              "type": "text",
+              "text": "第1.2节　先制听牌判断\n讨论先制听牌时的选择技术，包括立直、默听、拆听和听口选择。\n21-1．理解听牌效率\n21-2．先制立直判断\n21-3．以和牌为优先的默听\n21-4．以防守为优先的默听\n21-5．等待牌形变化的判断\n21-6．听口选择"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b13",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b13",
+            "verdict": "faithful",
+            "explanation": "先制听牌条件及立直、默听、拆听、听口选择四项完整。"
+          },
+          "body": [
+            {
+              "index": 7,
+              "id": null,
+              "type": "text",
+              "text": "第1.2节　先制听牌判断\n讨论先制听牌时的选择技术，包括立直、默听、拆听和听口选择。\n21-1．理解听牌效率\n21-2．先制立直判断\n21-3．以和牌为优先的默听\n21-4．以防守为优先的默听\n21-5．等待牌形变化的判断\n21-6．听口选择"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b14",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b14",
+            "verdict": "faithful",
+            "explanation": "21-1至21-6全部对应，和牌优先与防守优先未混淆。"
+          },
+          "body": [
+            {
+              "index": 7,
+              "id": null,
+              "type": "text",
+              "text": "第1.2节　先制听牌判断\n讨论先制听牌时的选择技术，包括立直、默听、拆听和听口选择。\n21-1．理解听牌效率\n21-2．先制立直判断\n21-3．以和牌为优先的默听\n21-4．以防守为优先的默听\n21-5．等待牌形变化的判断\n21-6．听口选择"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b15",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b15",
+            "verdict": "faithful",
+            "explanation": "节号及原图可见标题“副露效率”完整。"
+          },
+          "body": [
+            {
+              "index": 8,
+              "id": null,
+              "type": "text",
+              "text": "第1.3节　副露效率\n讨论副露（鸣牌）的技术。\n22-1．副露牌理\n22-2．副露判断\n22-3．副露役种的构想\n22-4．副露役种的做法\n23．副露的原则\n24．相对于门清牌理的变化之处"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b16",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b16",
+            "verdict": "faithful",
+            "explanation": "副露与鸣牌的对应关系及讨论范围准确。"
+          },
+          "body": [
+            {
+              "index": 8,
+              "id": null,
+              "type": "text",
+              "text": "第1.3节　副露效率\n讨论副露（鸣牌）的技术。\n22-1．副露牌理\n22-2．副露判断\n22-3．副露役种的构想\n22-4．副露役种的做法\n23．副露的原则\n24．相对于门清牌理的变化之处"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b17",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b17",
+            "verdict": "faithful",
+            "explanation": "22-1至22-4、23、24全部保留，副露牌理、役种构想及门清牌理变化点对应。"
+          },
+          "body": [
+            {
+              "index": 8,
+              "id": null,
+              "type": "text",
+              "text": "第1.3节　副露效率\n讨论副露（鸣牌）的技术。\n22-1．副露牌理\n22-2．副露判断\n22-3．副露役种的构想\n22-4．副露役种的做法\n23．副露的原则\n24．相对于门清牌理的变化之处"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b18",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b18",
+            "verdict": "faithful",
+            "explanation": "节号及原图可见标题“役种构成技术”完整。"
+          },
+          "body": [
+            {
+              "index": 9,
+              "id": null,
+              "type": "text",
+              "text": "第1.4节　役种构成技术\n讨论役种的追求与宝牌的处理方法。\n25．役种与宝牌构成的原则\n26．断幺九\n27．平和\n28．一杯口\n29．役牌对子\n30．孤立役牌\n31．三色同顺\n32．一气通贯\n33．对对和\n34．七对子\n35．染手（混一色、清一色的统称）\n36．全带幺类\n37．三暗刻\n38．国士无双、流局满贯\n39．门清手中的宝牌\n40．副露手中的宝牌\n41．后后付\n42．形式听牌"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b19",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b19",
+            "verdict": "faithful",
+            "explanation": "追求役种及处理宝牌两部分均已译出。"
+          },
+          "body": [
+            {
+              "index": 9,
+              "id": null,
+              "type": "text",
+              "text": "第1.4节　役种构成技术\n讨论役种的追求与宝牌的处理方法。\n25．役种与宝牌构成的原则\n26．断幺九\n27．平和\n28．一杯口\n29．役牌对子\n30．孤立役牌\n31．三色同顺\n32．一气通贯\n33．对对和\n34．七对子\n35．染手（混一色、清一色的统称）\n36．全带幺类\n37．三暗刻\n38．国士无双、流局满贯\n39．门清手中的宝牌\n40．副露手中的宝牌\n41．后后付\n42．形式听牌"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b20",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b20",
+            "verdict": "faithful",
+            "explanation": "25至42项全部保留，编号、役种名称、门清与副露的宝牌处理分类对应。"
+          },
+          "body": [
+            {
+              "index": 9,
+              "id": null,
+              "type": "text",
+              "text": "第1.4节　役种构成技术\n讨论役种的追求与宝牌的处理方法。\n25．役种与宝牌构成的原则\n26．断幺九\n27．平和\n28．一杯口\n29．役牌对子\n30．孤立役牌\n31．三色同顺\n32．一气通贯\n33．对对和\n34．七对子\n35．染手（混一色、清一色的统称）\n36．全带幺类\n37．三暗刻\n38．国士无双、流局满贯\n39．门清手中的宝牌\n40．副露手中的宝牌\n41．后后付\n42．形式听牌"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b21",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b21",
+            "verdict": "faithful",
+            "explanation": "节号及原图可见标题“一向听效率”完整。"
+          },
+          "body": [
+            {
+              "index": 10,
+              "id": null,
+              "type": "text",
+              "text": "第1.5节　一向听效率\n讨论一向听时的打牌选择技术。\n43．重视先制听牌的原则\n44．一向听牌形的分类\n50．理解听牌机会\n51．无雀头形"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b22",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b22",
+            "verdict": "faithful",
+            "explanation": "一向听时的打牌选择技术译意完整。"
+          },
+          "body": [
+            {
+              "index": 10,
+              "id": null,
+              "type": "text",
+              "text": "第1.5节　一向听效率\n讨论一向听时的打牌选择技术。\n43．重视先制听牌的原则\n44．一向听牌形的分类\n50．理解听牌机会\n51．无雀头形"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b23",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b23",
+            "verdict": "faithful",
+            "explanation": "本页可见的43、44、50、51项全部保留；未重复收入下一页条目。"
+          },
+          "body": [
+            {
+              "index": 10,
+              "id": null,
+              "type": "text",
+              "text": "第1.5节　一向听效率\n讨论一向听时的打牌选择技术。\n43．重视先制听牌的原则\n44．一向听牌形的分类\n50．理解听牌机会\n51．无雀头形"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b24",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b24",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r2"
+            ],
+            "explanation": "2009年获奖标牌由r2承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 1,
+              "figureId": "nemata-jp-p1-r2",
+              "transcription": "绿色背景的获奖标牌。文字：日本麻将博客大奖2009；荣获最高奖；现代麻将技术论；撰稿人：ネマタ；网站制作者：や～べ。原文主标题为「日本麻雀ブログ大賞2009」「グランプリ受賞」「現代麻雀技術論」。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b25",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b25",
+            "verdict": "faithful",
+            "explanation": "站内文章及术语的搜索说明完整，并补译原图中的搜索标题。"
+          },
+          "body": [
+            {
+              "index": 12,
+              "id": null,
+              "type": "text",
+              "text": "站内搜索\n※请从这里搜索站内的文章、术语等内容。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b26",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b26",
+            "verdict": "faithful",
+            "explanation": "提取块为空；原图可见的“免费注册的网络麻将”已译出。"
+          },
+          "body": [
+            {
+              "index": 14,
+              "id": null,
+              "type": "text",
+              "text": "免费注册的网络麻将！\n本站已被刊载于《月刊网络麻将》2010年1月号！"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b27",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b27",
+            "verdict": "faithful",
+            "explanation": "刊载于《月刊网络麻将》2010年1月号的消息准确。"
+          },
+          "body": [
+            {
+              "index": 14,
+              "id": null,
+              "type": "text",
+              "text": "免费注册的网络麻将！\n本站已被刊载于《月刊网络麻将》2010年1月号！"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b28",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b28",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r4"
+            ],
+            "explanation": "杂志封面由r4承接；极小字的可辨认性问题另记uncertain。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 3,
+              "figureId": "nemata-jp-p1-r4",
+              "transcription": "杂志封面，背景为一名女性的面部照片。刊名：月刊网络麻将，Net M@hjong；英文副题：Monthly Online Mahjong Magazine。期号：2010年1月，January。右上有两行宣传小字，无法可靠辨认。左侧竖排：日本麻将博客大奖大特集号。右侧文字：最终评选评语；福地诚、须田良规、とつげき東北。评委特别奖：《打天凤时，会在椅子上跪坐》（原文：天鳳打つ時は椅子の上で正座です）；署名无法可靠辨认。下部文字：日本麻将博客大奖2009，荣获亚军奖；《近代麻将漫画生活》，いのけん。日本麻将博客大奖2009，荣获最高奖；《现代麻将技术论》，附有假名读音，但无法可靠辨认；撰稿人：ネマタ；网站制作者：や～べ。",
+              "unknowns": [
+                "封面右上“January”下方的极小文字分辨率不足，无法可靠辨认。",
+                "封面右上两行宣传小字无法可靠逐字辨认，也不能确认其完整译意。",
+                "主标题旁的假名读音过小，无法可靠逐字辨认。",
+                "评委特别奖条目下方的星号夹署名模糊，无法可靠辨认完整字形。"
+              ]
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b29",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b29",
+            "verdict": "faithful",
+            "explanation": "“幻想麻将ガチ打ちwiki”译为认真打牌wiki，含义对应。"
+          },
+          "body": [
+            {
+              "index": 16,
+              "id": null,
+              "type": "text",
+              "text": "友情链接横幅与装饰性链接箭头幻想麻将认真打牌wiki\n装饰性链接箭头现代麻将技术论注\n装饰性链接箭头极真麻将博客\n装饰性链接箭头最速流麻将战术论\n装饰性链接箭头三麻四麻博客\n装饰性链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\n装饰性链接箭头天凤，避免末位的日子\n装饰性链接箭头なめとん的麻将博客\n装饰性链接箭头科学研究二次元｜りーりん实验室\n装饰性链接箭头日刊鸵鸟蛋\n装饰性链接箭头HAZ的研究人生\n装饰性链接箭头新手的好运\n装饰性链接箭头副露海冬\n装饰性链接箭头兄控女高中生的天凤反省簿\n装饰性链接箭头碰与吃的冷冻库\n装饰性链接箭头麻将一番街\n装饰性链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b30",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b30",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r5"
+            ],
+            "explanation": "第一条链接的装饰箭头由r5承接，无牌例信息。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 4,
+              "figureId": "nemata-jp-p1-r5",
+              "transcription": "友情链接横幅：灰色圆角外框、紫色斜纹底色，左侧为白色相向弯箭头，文字为“友情链接”（原文：相互リンク）。其下另有第一条链接前的蓝底白色向右箭头小图标。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b31",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b31",
+            "verdict": "faithful",
+            "explanation": "“现代麻将技术论注”对应原链接名称。"
+          },
+          "body": [
+            {
+              "index": 16,
+              "id": null,
+              "type": "text",
+              "text": "友情链接横幅与装饰性链接箭头幻想麻将认真打牌wiki\n装饰性链接箭头现代麻将技术论注\n装饰性链接箭头极真麻将博客\n装饰性链接箭头最速流麻将战术论\n装饰性链接箭头三麻四麻博客\n装饰性链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\n装饰性链接箭头天凤，避免末位的日子\n装饰性链接箭头なめとん的麻将博客\n装饰性链接箭头科学研究二次元｜りーりん实验室\n装饰性链接箭头日刊鸵鸟蛋\n装饰性链接箭头HAZ的研究人生\n装饰性链接箭头新手的好运\n装饰性链接箭头副露海冬\n装饰性链接箭头兄控女高中生的天凤反省簿\n装饰性链接箭头碰与吃的冷冻库\n装饰性链接箭头麻将一番街\n装饰性链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b32",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b32",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r6"
+            ],
+            "explanation": "第二条链接的装饰箭头由r6承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 5,
+              "figureId": "nemata-jp-p1-r6",
+              "transcription": "“现代麻将技术论注”链接前的蓝底白色向右箭头方形小图标，无文字。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b33",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b33",
+            "verdict": "faithful",
+            "explanation": "“极真麻将博客”译名对应。"
+          },
+          "body": [
+            {
+              "index": 16,
+              "id": null,
+              "type": "text",
+              "text": "友情链接横幅与装饰性链接箭头幻想麻将认真打牌wiki\n装饰性链接箭头现代麻将技术论注\n装饰性链接箭头极真麻将博客\n装饰性链接箭头最速流麻将战术论\n装饰性链接箭头三麻四麻博客\n装饰性链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\n装饰性链接箭头天凤，避免末位的日子\n装饰性链接箭头なめとん的麻将博客\n装饰性链接箭头科学研究二次元｜りーりん实验室\n装饰性链接箭头日刊鸵鸟蛋\n装饰性链接箭头HAZ的研究人生\n装饰性链接箭头新手的好运\n装饰性链接箭头副露海冬\n装饰性链接箭头兄控女高中生的天凤反省簿\n装饰性链接箭头碰与吃的冷冻库\n装饰性链接箭头麻将一番街\n装饰性链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b34",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b34",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r7"
+            ],
+            "explanation": "第三条链接的装饰箭头由r7承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 6,
+              "figureId": "nemata-jp-p1-r7",
+              "transcription": "“极真麻将博客”链接前的蓝底白色向右箭头方形小图标，无文字。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b35",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b35",
+            "verdict": "faithful",
+            "explanation": "“最速流麻将战术论”完整对应。"
+          },
+          "body": [
+            {
+              "index": 16,
+              "id": null,
+              "type": "text",
+              "text": "友情链接横幅与装饰性链接箭头幻想麻将认真打牌wiki\n装饰性链接箭头现代麻将技术论注\n装饰性链接箭头极真麻将博客\n装饰性链接箭头最速流麻将战术论\n装饰性链接箭头三麻四麻博客\n装饰性链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\n装饰性链接箭头天凤，避免末位的日子\n装饰性链接箭头なめとん的麻将博客\n装饰性链接箭头科学研究二次元｜りーりん实验室\n装饰性链接箭头日刊鸵鸟蛋\n装饰性链接箭头HAZ的研究人生\n装饰性链接箭头新手的好运\n装饰性链接箭头副露海冬\n装饰性链接箭头兄控女高中生的天凤反省簿\n装饰性链接箭头碰与吃的冷冻库\n装饰性链接箭头麻将一番街\n装饰性链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b36",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b36",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r8"
+            ],
+            "explanation": "第四条链接的装饰箭头由r8承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 7,
+              "figureId": "nemata-jp-p1-r8",
+              "transcription": "“最速流麻将战术论”链接前的蓝底白色向右箭头方形小图标，无文字。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b37",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b37",
+            "verdict": "faithful",
+            "explanation": "“三麻四麻博客”对应原链接名称。"
+          },
+          "body": [
+            {
+              "index": 16,
+              "id": null,
+              "type": "text",
+              "text": "友情链接横幅与装饰性链接箭头幻想麻将认真打牌wiki\n装饰性链接箭头现代麻将技术论注\n装饰性链接箭头极真麻将博客\n装饰性链接箭头最速流麻将战术论\n装饰性链接箭头三麻四麻博客\n装饰性链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\n装饰性链接箭头天凤，避免末位的日子\n装饰性链接箭头なめとん的麻将博客\n装饰性链接箭头科学研究二次元｜りーりん实验室\n装饰性链接箭头日刊鸵鸟蛋\n装饰性链接箭头HAZ的研究人生\n装饰性链接箭头新手的好运\n装饰性链接箭头副露海冬\n装饰性链接箭头兄控女高中生的天凤反省簿\n装饰性链接箭头碰与吃的冷冻库\n装饰性链接箭头麻将一番街\n装饰性链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b38",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b38",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r9"
+            ],
+            "explanation": "第五条链接的装饰箭头由r9承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 8,
+              "figureId": "nemata-jp-p1-r9",
+              "transcription": "“三麻四麻博客”链接前的蓝底白色向右箭头方形小图标，无文字。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b39",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b39",
+            "verdict": "faithful",
+            "explanation": "初学者麻将讲座及黄金牌故事副标题均保留。"
+          },
+          "body": [
+            {
+              "index": 16,
+              "id": null,
+              "type": "text",
+              "text": "友情链接横幅与装饰性链接箭头幻想麻将认真打牌wiki\n装饰性链接箭头现代麻将技术论注\n装饰性链接箭头极真麻将博客\n装饰性链接箭头最速流麻将战术论\n装饰性链接箭头三麻四麻博客\n装饰性链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\n装饰性链接箭头天凤，避免末位的日子\n装饰性链接箭头なめとん的麻将博客\n装饰性链接箭头科学研究二次元｜りーりん实验室\n装饰性链接箭头日刊鸵鸟蛋\n装饰性链接箭头HAZ的研究人生\n装饰性链接箭头新手的好运\n装饰性链接箭头副露海冬\n装饰性链接箭头兄控女高中生的天凤反省簿\n装饰性链接箭头碰与吃的冷冻库\n装饰性链接箭头麻将一番街\n装饰性链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b40",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b40",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r10"
+            ],
+            "explanation": "第六条链接的装饰箭头由r10承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 9,
+              "figureId": "nemata-jp-p1-r10",
+              "transcription": "“面向初学者的麻将讲座”链接前的蓝底白色向右箭头方形小图标，无文字。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b41",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b41",
+            "verdict": "faithful",
+            "explanation": "天凤及避免末位的含义完整。"
+          },
+          "body": [
+            {
+              "index": 16,
+              "id": null,
+              "type": "text",
+              "text": "友情链接横幅与装饰性链接箭头幻想麻将认真打牌wiki\n装饰性链接箭头现代麻将技术论注\n装饰性链接箭头极真麻将博客\n装饰性链接箭头最速流麻将战术论\n装饰性链接箭头三麻四麻博客\n装饰性链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\n装饰性链接箭头天凤，避免末位的日子\n装饰性链接箭头なめとん的麻将博客\n装饰性链接箭头科学研究二次元｜りーりん实验室\n装饰性链接箭头日刊鸵鸟蛋\n装饰性链接箭头HAZ的研究人生\n装饰性链接箭头新手的好运\n装饰性链接箭头副露海冬\n装饰性链接箭头兄控女高中生的天凤反省簿\n装饰性链接箭头碰与吃的冷冻库\n装饰性链接箭头麻将一番街\n装饰性链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b42",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b42",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r11"
+            ],
+            "explanation": "第七条链接的装饰箭头由r11承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 10,
+              "figureId": "nemata-jp-p1-r11",
+              "transcription": "“天凤，避免末位的日子”链接前的蓝底白色向右箭头方形小图标，无文字。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b43",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b43",
+            "verdict": "faithful",
+            "explanation": "保留专名“なめとん”，麻将博客部分译意准确。"
+          },
+          "body": [
+            {
+              "index": 16,
+              "id": null,
+              "type": "text",
+              "text": "友情链接横幅与装饰性链接箭头幻想麻将认真打牌wiki\n装饰性链接箭头现代麻将技术论注\n装饰性链接箭头极真麻将博客\n装饰性链接箭头最速流麻将战术论\n装饰性链接箭头三麻四麻博客\n装饰性链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\n装饰性链接箭头天凤，避免末位的日子\n装饰性链接箭头なめとん的麻将博客\n装饰性链接箭头科学研究二次元｜りーりん实验室\n装饰性链接箭头日刊鸵鸟蛋\n装饰性链接箭头HAZ的研究人生\n装饰性链接箭头新手的好运\n装饰性链接箭头副露海冬\n装饰性链接箭头兄控女高中生的天凤反省簿\n装饰性链接箭头碰与吃的冷冻库\n装饰性链接箭头麻将一番街\n装饰性链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b44",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b44",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r12"
+            ],
+            "explanation": "第八条链接的装饰箭头由r12承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 11,
+              "figureId": "nemata-jp-p1-r12",
+              "transcription": "“なめとん的麻将博客”链接前的蓝底白色向右箭头方形小图标，无文字。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b45",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b45",
+            "verdict": "faithful",
+            "explanation": "科学研究二次元与“りーりん实验室”两部分完整对应。"
+          },
+          "body": [
+            {
+              "index": 16,
+              "id": null,
+              "type": "text",
+              "text": "友情链接横幅与装饰性链接箭头幻想麻将认真打牌wiki\n装饰性链接箭头现代麻将技术论注\n装饰性链接箭头极真麻将博客\n装饰性链接箭头最速流麻将战术论\n装饰性链接箭头三麻四麻博客\n装饰性链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\n装饰性链接箭头天凤，避免末位的日子\n装饰性链接箭头なめとん的麻将博客\n装饰性链接箭头科学研究二次元｜りーりん实验室\n装饰性链接箭头日刊鸵鸟蛋\n装饰性链接箭头HAZ的研究人生\n装饰性链接箭头新手的好运\n装饰性链接箭头副露海冬\n装饰性链接箭头兄控女高中生的天凤反省簿\n装饰性链接箭头碰与吃的冷冻库\n装饰性链接箭头麻将一番街\n装饰性链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b46",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b46",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r13"
+            ],
+            "explanation": "第九条链接的装饰箭头由r13承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 12,
+              "figureId": "nemata-jp-p1-r13",
+              "transcription": "“科学研究二次元｜りーりん实验室”链接前的蓝底白色向右箭头方形小图标，无文字。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b47",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b47",
+            "verdict": "faithful",
+            "explanation": "“日刊鸵鸟蛋”对应原链接名称。"
+          },
+          "body": [
+            {
+              "index": 16,
+              "id": null,
+              "type": "text",
+              "text": "友情链接横幅与装饰性链接箭头幻想麻将认真打牌wiki\n装饰性链接箭头现代麻将技术论注\n装饰性链接箭头极真麻将博客\n装饰性链接箭头最速流麻将战术论\n装饰性链接箭头三麻四麻博客\n装饰性链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\n装饰性链接箭头天凤，避免末位的日子\n装饰性链接箭头なめとん的麻将博客\n装饰性链接箭头科学研究二次元｜りーりん实验室\n装饰性链接箭头日刊鸵鸟蛋\n装饰性链接箭头HAZ的研究人生\n装饰性链接箭头新手的好运\n装饰性链接箭头副露海冬\n装饰性链接箭头兄控女高中生的天凤反省簿\n装饰性链接箭头碰与吃的冷冻库\n装饰性链接箭头麻将一番街\n装饰性链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b48",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b48",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r14"
+            ],
+            "explanation": "第十条链接的装饰箭头由r14承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 13,
+              "figureId": "nemata-jp-p1-r14",
+              "transcription": "“日刊鸵鸟蛋”链接前的蓝底白色向右箭头方形小图标，无文字。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b49",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b49",
+            "verdict": "faithful",
+            "explanation": "HAZ及研究人生的链接名称含义保留。"
+          },
+          "body": [
+            {
+              "index": 16,
+              "id": null,
+              "type": "text",
+              "text": "友情链接横幅与装饰性链接箭头幻想麻将认真打牌wiki\n装饰性链接箭头现代麻将技术论注\n装饰性链接箭头极真麻将博客\n装饰性链接箭头最速流麻将战术论\n装饰性链接箭头三麻四麻博客\n装饰性链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\n装饰性链接箭头天凤，避免末位的日子\n装饰性链接箭头なめとん的麻将博客\n装饰性链接箭头科学研究二次元｜りーりん实验室\n装饰性链接箭头日刊鸵鸟蛋\n装饰性链接箭头HAZ的研究人生\n装饰性链接箭头新手的好运\n装饰性链接箭头副露海冬\n装饰性链接箭头兄控女高中生的天凤反省簿\n装饰性链接箭头碰与吃的冷冻库\n装饰性链接箭头麻将一番街\n装饰性链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b50",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b50",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r15"
+            ],
+            "explanation": "第十一条链接的装饰箭头由r15承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 14,
+              "figureId": "nemata-jp-p1-r15",
+              "transcription": "“HAZ的研究人生”链接前的蓝底白色向右箭头方形小图标，无文字。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b51",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b51",
+            "verdict": "faithful",
+            "explanation": "“新手的好运”对应ビギナーズラック。"
+          },
+          "body": [
+            {
+              "index": 16,
+              "id": null,
+              "type": "text",
+              "text": "友情链接横幅与装饰性链接箭头幻想麻将认真打牌wiki\n装饰性链接箭头现代麻将技术论注\n装饰性链接箭头极真麻将博客\n装饰性链接箭头最速流麻将战术论\n装饰性链接箭头三麻四麻博客\n装饰性链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\n装饰性链接箭头天凤，避免末位的日子\n装饰性链接箭头なめとん的麻将博客\n装饰性链接箭头科学研究二次元｜りーりん实验室\n装饰性链接箭头日刊鸵鸟蛋\n装饰性链接箭头HAZ的研究人生\n装饰性链接箭头新手的好运\n装饰性链接箭头副露海冬\n装饰性链接箭头兄控女高中生的天凤反省簿\n装饰性链接箭头碰与吃的冷冻库\n装饰性链接箭头麻将一番街\n装饰性链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b52",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b52",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r16"
+            ],
+            "explanation": "第十二条链接的装饰箭头由r16承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 15,
+              "figureId": "nemata-jp-p1-r16",
+              "transcription": "“新手的好运”链接前的蓝底白色向右箭头方形小图标，无文字。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b53",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b53",
+            "verdict": "faithful",
+            "explanation": "“副露海冬”名称保留。"
+          },
+          "body": [
+            {
+              "index": 16,
+              "id": null,
+              "type": "text",
+              "text": "友情链接横幅与装饰性链接箭头幻想麻将认真打牌wiki\n装饰性链接箭头现代麻将技术论注\n装饰性链接箭头极真麻将博客\n装饰性链接箭头最速流麻将战术论\n装饰性链接箭头三麻四麻博客\n装饰性链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\n装饰性链接箭头天凤，避免末位的日子\n装饰性链接箭头なめとん的麻将博客\n装饰性链接箭头科学研究二次元｜りーりん实验室\n装饰性链接箭头日刊鸵鸟蛋\n装饰性链接箭头HAZ的研究人生\n装饰性链接箭头新手的好运\n装饰性链接箭头副露海冬\n装饰性链接箭头兄控女高中生的天凤反省簿\n装饰性链接箭头碰与吃的冷冻库\n装饰性链接箭头麻将一番街\n装饰性链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b54",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b54",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r17"
+            ],
+            "explanation": "第十三条链接的装饰箭头由r17承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 16,
+              "figureId": "nemata-jp-p1-r17",
+              "transcription": "“副露海冬”链接前的蓝底白色向右箭头方形小图标，无文字。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b55",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b55",
+            "verdict": "faithful",
+            "explanation": "兄控、女高中生、天凤反省簿各部分均对应。"
+          },
+          "body": [
+            {
+              "index": 16,
+              "id": null,
+              "type": "text",
+              "text": "友情链接横幅与装饰性链接箭头幻想麻将认真打牌wiki\n装饰性链接箭头现代麻将技术论注\n装饰性链接箭头极真麻将博客\n装饰性链接箭头最速流麻将战术论\n装饰性链接箭头三麻四麻博客\n装饰性链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\n装饰性链接箭头天凤，避免末位的日子\n装饰性链接箭头なめとん的麻将博客\n装饰性链接箭头科学研究二次元｜りーりん实验室\n装饰性链接箭头日刊鸵鸟蛋\n装饰性链接箭头HAZ的研究人生\n装饰性链接箭头新手的好运\n装饰性链接箭头副露海冬\n装饰性链接箭头兄控女高中生的天凤反省簿\n装饰性链接箭头碰与吃的冷冻库\n装饰性链接箭头麻将一番街\n装饰性链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b56",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b56",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r18"
+            ],
+            "explanation": "第十四条链接的装饰箭头由r18承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 17,
+              "figureId": "nemata-jp-p1-r18",
+              "transcription": "“兄控女高中生的天凤反省簿”链接前的蓝底白色向右箭头方形小图标，无文字。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b57",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b57",
+            "verdict": "faithful",
+            "explanation": "“碰与吃的冷冻库”完整对应。"
+          },
+          "body": [
+            {
+              "index": 16,
+              "id": null,
+              "type": "text",
+              "text": "友情链接横幅与装饰性链接箭头幻想麻将认真打牌wiki\n装饰性链接箭头现代麻将技术论注\n装饰性链接箭头极真麻将博客\n装饰性链接箭头最速流麻将战术论\n装饰性链接箭头三麻四麻博客\n装饰性链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\n装饰性链接箭头天凤，避免末位的日子\n装饰性链接箭头なめとん的麻将博客\n装饰性链接箭头科学研究二次元｜りーりん实验室\n装饰性链接箭头日刊鸵鸟蛋\n装饰性链接箭头HAZ的研究人生\n装饰性链接箭头新手的好运\n装饰性链接箭头副露海冬\n装饰性链接箭头兄控女高中生的天凤反省簿\n装饰性链接箭头碰与吃的冷冻库\n装饰性链接箭头麻将一番街\n装饰性链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b58",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b58",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r19"
+            ],
+            "explanation": "第十五条链接的装饰箭头由r19承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 18,
+              "figureId": "nemata-jp-p1-r19",
+              "transcription": "“碰与吃的冷冻库”链接前的蓝底白色向右箭头方形小图标，无文字。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b59",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b59",
+            "verdict": "faithful",
+            "explanation": "“麻将一番街”名称对应。"
+          },
+          "body": [
+            {
+              "index": 16,
+              "id": null,
+              "type": "text",
+              "text": "友情链接横幅与装饰性链接箭头幻想麻将认真打牌wiki\n装饰性链接箭头现代麻将技术论注\n装饰性链接箭头极真麻将博客\n装饰性链接箭头最速流麻将战术论\n装饰性链接箭头三麻四麻博客\n装饰性链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\n装饰性链接箭头天凤，避免末位的日子\n装饰性链接箭头なめとん的麻将博客\n装饰性链接箭头科学研究二次元｜りーりん实验室\n装饰性链接箭头日刊鸵鸟蛋\n装饰性链接箭头HAZ的研究人生\n装饰性链接箭头新手的好运\n装饰性链接箭头副露海冬\n装饰性链接箭头兄控女高中生的天凤反省簿\n装饰性链接箭头碰与吃的冷冻库\n装饰性链接箭头麻将一番街\n装饰性链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b60",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b60",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r20"
+            ],
+            "explanation": "第十六条链接的装饰箭头由r20承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 19,
+              "figureId": "nemata-jp-p1-r20",
+              "transcription": "“麻将一番街”链接前的蓝底白色向右箭头方形小图标，无文字。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b61",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b61",
+            "verdict": "faithful",
+            "explanation": "“麻将概论”对应准确。"
+          },
+          "body": [
+            {
+              "index": 16,
+              "id": null,
+              "type": "text",
+              "text": "友情链接横幅与装饰性链接箭头幻想麻将认真打牌wiki\n装饰性链接箭头现代麻将技术论注\n装饰性链接箭头极真麻将博客\n装饰性链接箭头最速流麻将战术论\n装饰性链接箭头三麻四麻博客\n装饰性链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\n装饰性链接箭头天凤，避免末位的日子\n装饰性链接箭头なめとん的麻将博客\n装饰性链接箭头科学研究二次元｜りーりん实验室\n装饰性链接箭头日刊鸵鸟蛋\n装饰性链接箭头HAZ的研究人生\n装饰性链接箭头新手的好运\n装饰性链接箭头副露海冬\n装饰性链接箭头兄控女高中生的天凤反省簿\n装饰性链接箭头碰与吃的冷冻库\n装饰性链接箭头麻将一番街\n装饰性链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b62",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b62",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r21"
+            ],
+            "explanation": "第十七条链接的装饰箭头由r21承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 20,
+              "figureId": "nemata-jp-p1-r21",
+              "transcription": "“麻将概论”链接前的蓝底白色向右箭头方形小图标，无文字。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b63",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b63",
+            "verdict": "faithful",
+            "explanation": "导航各项完整，原图可见而提取遗漏的“战术论”也已保留。"
+          },
+          "body": [
+            {
+              "index": 3,
+              "id": null,
+              "type": "text",
+              "text": "索引｜战术论｜研究开发资料｜专栏｜参考资料｜书籍介绍"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b64",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b64",
+            "verdict": "faithful",
+            "explanation": "页眉标题和网址完整，置于页首符合实际视觉位置。"
+          },
+          "body": [
+            {
+              "index": 0,
+              "id": null,
+              "type": "text",
+              "text": "现代麻将技术论－战术论\nhttp://yabejp.web.fc2.com/mahjong/tactics.html"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b65",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b65",
+            "verdict": "faithful",
+            "explanation": "页码、总页数及日期时间均准确保留。"
+          },
+          "body": [
+            {
+              "index": 17,
+              "id": null,
+              "type": "text",
+              "text": "第1页，共4页\n2014-03-02 11:35"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b66",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b66",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r3"
+            ],
+            "explanation": "搜索按钮由r3承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 2,
+              "figureId": "nemata-jp-p1-r3",
+              "transcription": "灰色矩形搜索按钮，文字：搜索（原文：検索）。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p1-b67",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p1-b67",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p1-r5"
+            ],
+            "explanation": "友情链接横幅由r5承接。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 4,
+              "figureId": "nemata-jp-p1-r5",
+              "transcription": "友情链接横幅：灰色圆角外框、紫色斜纹底色，左侧为白色相向弯箭头，文字为“友情链接”（原文：相互リンク）。其下另有第一条链接前的蓝底白色向右箭头小图标。",
+              "unknowns": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\002.json",
+        "sha256": "e82df805c5631a27bb63bf13d8a7e89cd7abaf3aff15efbe732a59125459bb09",
+        "bytes": 94013
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0002.json",
+        "sha256": "462a1bc3055842ad17233127590403bac2f64ebe00b902600e35af8d8bd84086",
+        "bytes": 73867,
+        "packagePath": "derived-candidates/page-0002.json"
+      },
+      "blocks": [
+        {
+          "sourceBlockId": "nemata-jp-p2-b1",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b1",
+            "verdict": "faithful",
+            "explanation": "45～49、52～56项完整，术语与编号对应，按左右栏分别阅读的顺序正确。"
+          },
+          "body": [
+            {
+              "index": 1,
+              "id": null,
+              "type": "text",
+              "text": "45．两面子余张牌形；46．两面子完全形；47．两面子余张牌形与完全形的选择1；48．两面子余张牌形与完全形的选择2；49．两面子余张牌形与完全形的选择3。\n52．两面子余张牌形与无雀头形的选择；53．两面子完全形与无雀头形的选择；54．靠张形；55．两面子完全形与靠张形的选择；56．退回两向听。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b2",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b2",
+            "verdict": "faithful",
+            "explanation": "提取块为空；候选依据整页可见标题恢复“第2章　押し引き論”，译义正确。"
+          },
+          "body": [
+            {
+              "index": 2,
+              "id": null,
+              "type": "text",
+              "text": "第2章　攻守取舍论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b3",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b3",
+            "verdict": "faithful",
+            "explanation": "保留平场、他家立直或副露，以及进攻、弃和、防备的范围。"
+          },
+          "body": [
+            {
+              "index": 3,
+              "id": null,
+              "type": "text",
+              "text": "介绍平场中应对他家进攻（立直、副露）的技术，包括进攻、弃和与防备。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b4",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b4",
+            "verdict": "faithful",
+            "explanation": "节号及整页可见的“非テンパイ他家への対応”标题均准确。"
+          },
+          "body": [
+            {
+              "index": 4,
+              "id": null,
+              "type": "text",
+              "text": "2.1节　对未听牌他家的应对"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b5",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b5",
+            "verdict": "faithful",
+            "explanation": "防备他家进攻及扣牌、好牌先打、防御三个方面均已译出。"
+          },
+          "body": [
+            {
+              "index": 5,
+              "id": null,
+              "type": "text",
+              "text": "介绍如何防备他家的进攻，包括扣牌、好牌先打与防御。条目为：1．扣牌；2．应对扣牌；3．好牌先打；4．序盘的防御。\n\n※攻守取舍论第5～12项（先制听牌判断）已移至牌效率论第21项。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b6",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b6",
+            "verdict": "faithful",
+            "explanation": "第1～4项齐全，按目录编号恢复栏目阅读顺序正确。"
+          },
+          "body": [
+            {
+              "index": 5,
+              "id": null,
+              "type": "text",
+              "text": "介绍如何防备他家的进攻，包括扣牌、好牌先打与防御。条目为：1．扣牌；2．应对扣牌；3．好牌先打；4．序盘的防御。\n\n※攻守取舍论第5～12项（先制听牌判断）已移至牌效率论第21项。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b7",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b7",
+            "verdict": "faithful",
+            "explanation": "第5～12项、先制听牌判断及移至牌效率论第21项的说明完整。"
+          },
+          "body": [
+            {
+              "index": 5,
+              "id": null,
+              "type": "text",
+              "text": "介绍如何防备他家的进攻，包括扣牌、好牌先打与防御。条目为：1．扣牌；2．应对扣牌；3．好牌先打；4．序盘的防御。\n\n※攻守取舍论第5～12项（先制听牌判断）已移至牌效率论第21项。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b8",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b8",
+            "verdict": "faithful",
+            "explanation": "节号及整页可见的弃和技术标题对应。"
+          },
+          "body": [
+            {
+              "index": 6,
+              "id": null,
+              "type": "text",
+              "text": "2.2节　弃和技术"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b9",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b9",
+            "verdict": "faithful",
+            "explanation": "弃和技术的介绍准确。"
+          },
+          "body": [
+            {
+              "index": 7,
+              "id": null,
+              "type": "text",
+              "text": "介绍弃和技术。条目为：13．彻底弃和；14．判断他家听牌张的有效局面；15．没有安全牌时的应对方法。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b10",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b10",
+            "verdict": "faithful",
+            "explanation": "第13～15项完整，彻底弃和、读等待的有效局面及无安全牌时的处理均对应。"
+          },
+          "body": [
+            {
+              "index": 7,
+              "id": null,
+              "type": "text",
+              "text": "介绍弃和技术。条目为：13．彻底弃和；14．判断他家听牌张的有效局面；15．没有安全牌时的应对方法。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b11",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b11",
+            "verdict": "faithful",
+            "explanation": "节号及整页可见的应对立直标题准确。"
+          },
+          "body": [
+            {
+              "index": 8,
+              "id": null,
+              "type": "text",
+              "text": "2.3节　应对立直"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b12",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b12",
+            "verdict": "faithful",
+            "explanation": "应对他家立直以及进攻、弃和、等待选择的范围完整。"
+          },
+          "body": [
+            {
+              "index": 9,
+              "id": null,
+              "type": "text",
+              "text": "介绍应对他家立直的技术，包括进攻、弃和与听牌形的选择。条目为：16．有赤宝牌麻将的立直平均点数；17．听牌时的应对；18．面对立直时的听牌形选择；19．应对两家立直；20．微妙状况下的应对；21．一向听时的应对。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b13",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b13",
+            "verdict": "faithful",
+            "explanation": "第16～21项齐全，有赤规则、两家立直及一向听等条件均保留。"
+          },
+          "body": [
+            {
+              "index": 9,
+              "id": null,
+              "type": "text",
+              "text": "介绍应对他家立直的技术，包括进攻、弃和与听牌形的选择。条目为：16．有赤宝牌麻将的立直平均点数；17．听牌时的应对；18．面对立直时的听牌形选择；19．应对两家立直；20．微妙状况下的应对；21．一向听时的应对。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b14",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b14",
+            "verdict": "faithful",
+            "explanation": "节号及整页可见的应对鸣牌副露标题对应。"
+          },
+          "body": [
+            {
+              "index": 10,
+              "id": null,
+              "type": "text",
+              "text": "2.4节　应对鸣牌副露"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b15",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b15",
+            "verdict": "faithful",
+            "explanation": "他家副露及进攻、弃和、扣牌、迂回打法均完整译出。"
+          },
+          "body": [
+            {
+              "index": 11,
+              "id": null,
+              "type": "text",
+              "text": "介绍应对他家副露的技术，包括进攻、弃和、扣牌与迂回打法。条目为：22．鸣牌副露的特点；23．判断鸣牌副露者是否听牌；24．按副露手的役种分别应对的方法。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b16",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b16",
+            "verdict": "faithful",
+            "explanation": "第22～24项完整，副露特点、听牌判断及按役种应对均对应。"
+          },
+          "body": [
+            {
+              "index": 11,
+              "id": null,
+              "type": "text",
+              "text": "介绍应对他家副露的技术，包括进攻、弃和、扣牌与迂回打法。条目为：22．鸣牌副露的特点；23．判断鸣牌副露者是否听牌；24．按副露手的役种分别应对的方法。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b17",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b17",
+            "verdict": "faithful",
+            "explanation": "节号与整页可见的补充标题准确。"
+          },
+          "body": [
+            {
+              "index": 12,
+              "id": null,
+              "type": "text",
+              "text": "2.5节　补充"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b18",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b18",
+            "verdict": "faithful",
+            "explanation": "其他应对技术的介绍准确。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "介绍其他应对技术。条目为：25．临近流局时的攻守取舍；26．迂回打法与扣牌的方法；27．为消除一发或改变海底归属而鸣牌。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b19",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b19",
+            "verdict": "faithful",
+            "explanation": "第25～27项完整，临近流局、迂回与扣牌、消除一发及改变海底归属均保留。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "介绍其他应对技术。条目为：25．临近流局时的攻守取舍；26．迂回打法与扣牌的方法；27．为消除一发或改变海底归属而鸣牌。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b20",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b20",
+            "verdict": "faithful",
+            "explanation": "提取块为空；整页可见“第3章　読みの技術論”，候选恢复并翻译准确。"
+          },
+          "body": [
+            {
+              "index": 14,
+              "id": null,
+              "type": "text",
+              "text": "第3章　读牌技术论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b21",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b21",
+            "verdict": "faithful",
+            "explanation": "非公开信息的四项内容及预测技术的含义完整。"
+          },
+          "body": [
+            {
+              "index": 15,
+              "id": null,
+              "type": "text",
+              "text": "介绍预测非公开信息的技术，包括他家的手牌、牌山中的牌、他家的心理与打牌风格。条目为：1．读牌的原则。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b22",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b22",
+            "verdict": "faithful",
+            "explanation": "第1项读牌原则完整。"
+          },
+          "body": [
+            {
+              "index": 15,
+              "id": null,
+              "type": "text",
+              "text": "介绍预测非公开信息的技术，包括他家的手牌、牌山中的牌、他家的心理与打牌风格。条目为：1．读牌的原则。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b23",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b23",
+            "verdict": "faithful",
+            "explanation": "节号及可见的“数え上げ読み”标题译为枚举读牌，含义对应。"
+          },
+          "body": [
+            {
+              "index": 16,
+              "id": null,
+              "type": "text",
+              "text": "3.1节　枚举读牌"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b24",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b24",
+            "verdict": "faithful",
+            "explanation": "预测危险牌的技术准确译出。"
+          },
+          "body": [
+            {
+              "index": 17,
+              "id": null,
+              "type": "text",
+              "text": "介绍预测危险牌的技术。条目为：2．十八分之一理论；3．判断字牌听牌。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b25",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b25",
+            "verdict": "faithful",
+            "explanation": "第2、3项及十八分之一的数值准确，字牌等待判断的含义保留。"
+          },
+          "body": [
+            {
+              "index": 17,
+              "id": null,
+              "type": "text",
+              "text": "介绍预测危险牌的技术。条目为：2．十八分之一理论；3．判断字牌听牌。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b26",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b26",
+            "verdict": "faithful",
+            "explanation": "节号及整页可见的手牌构成解读标题准确。"
+          },
+          "body": [
+            {
+              "index": 18,
+              "id": null,
+              "type": "text",
+              "text": "3.2节　手牌构成解读"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b27",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b27",
+            "verdict": "faithful",
+            "explanation": "预测他家等待与役种的范围完整。"
+          },
+          "body": [
+            {
+              "index": 19,
+              "id": null,
+              "type": "text",
+              "text": "介绍预测他家听牌张与役种的技术。条目为：4．牌河信息的分类；5．邻近听牌立直；6．逆序切牌1；7．逆序切牌2；8．解读鸣牌副露；9．切宝牌；10．拆搭子1；11．拆搭子2；12．拆搭子3；13．拆对子1；14．拆对子2；15．役种解读1；16．役种解读2；17．判断邻近单骑听牌；18．判断七对子；19．读牌的有效局面；20．判断手牌进展。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b28",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b28",
+            "verdict": "faithful",
+            "explanation": "第4～20项全部出现，左右栏编号、各系列的序号及读牌对象对应。"
+          },
+          "body": [
+            {
+              "index": 19,
+              "id": null,
+              "type": "text",
+              "text": "介绍预测他家听牌张与役种的技术。条目为：4．牌河信息的分类；5．邻近听牌立直；6．逆序切牌1；7．逆序切牌2；8．解读鸣牌副露；9．切宝牌；10．拆搭子1；11．拆搭子2；12．拆搭子3；13．拆对子1；14．拆对子2；15．役种解读1；16．役种解读2；17．判断邻近单骑听牌；18．判断七对子；19．读牌的有效局面；20．判断手牌进展。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b29",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b29",
+            "verdict": "faithful",
+            "explanation": "节号及整页可见的牌山解读标题完整；未混入下页正文。"
+          },
+          "body": [
+            {
+              "index": 20,
+              "id": null,
+              "type": "text",
+              "text": "3.3节　牌山解读"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b30",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b30",
+            "verdict": "faithful",
+            "explanation": "网站名称及括号中的日文读音保留。"
+          },
+          "body": [
+            {
+              "index": 21,
+              "id": null,
+              "type": "text",
+              "text": "decorative（装饰）：链接箭头麻将JOO（ジョーオー）"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b31",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b31",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p2-r1"
+            ],
+            "explanation": "已由r1表示，为网站链接箭头，无教学牌例。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 0,
+              "figureId": "nemata-jp-p2-r1",
+              "transcription": "蓝色小方框内有白色向右箭头，外沿为灰色。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b32",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b32",
+            "verdict": "faithful",
+            "explanation": "靠麻将获利及在散客雀庄取胜的方法均已译出。"
+          },
+          "body": [
+            {
+              "index": 22,
+              "id": null,
+              "type": "text",
+              "text": "decorative（装饰）：链接箭头靠麻将大赚一笔☆在散客雀庄取胜的方法"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b33",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b33",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p2-r2"
+            ],
+            "explanation": "已由r2表示，为网站链接箭头。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 1,
+              "figureId": "nemata-jp-p2-r2",
+              "transcription": "蓝色小方框内有白色向右箭头，外沿为灰色。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b34",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b34",
+            "verdict": "faithful",
+            "explanation": "网站名称与.com后缀对应。"
+          },
+          "body": [
+            {
+              "index": 23,
+              "id": null,
+              "type": "text",
+              "text": "decorative（装饰）：链接箭头麻将雀龙.com"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b35",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b35",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p2-r3"
+            ],
+            "explanation": "已由r3表示，为网站链接箭头。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 2,
+              "figureId": "nemata-jp-p2-r3",
+              "transcription": "蓝色小方框内有白色向右箭头，外沿为灰色。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b36",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b36",
+            "verdict": "faithful",
+            "explanation": "网站名称及百分号保留。"
+          },
+          "body": [
+            {
+              "index": 24,
+              "id": null,
+              "type": "text",
+              "text": "decorative（装饰）：链接箭头麻将％"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b37",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b37",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p2-r4"
+            ],
+            "explanation": "已由r4表示，为网站链接箭头。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 3,
+              "figureId": "nemata-jp-p2-r4",
+              "transcription": "蓝色小方框内有白色向右箭头，外沿为灰色。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b38",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b38",
+            "verdict": "faithful",
+            "explanation": "评论麻将书和麻将游戏的两部分及强调语气均保留。"
+          },
+          "body": [
+            {
+              "index": 25,
+              "id": null,
+              "type": "text",
+              "text": "decorative（装饰）：链接箭头锐评麻将书！锐评麻将游戏！！"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b39",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b39",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p2-r5"
+            ],
+            "explanation": "已由r5表示，为网站链接箭头。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 4,
+              "figureId": "nemata-jp-p2-r5",
+              "transcription": "蓝色小方框内有白色向右箭头，外沿为灰色。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b40",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b40",
+            "verdict": "faithful",
+            "explanation": "无气力、无关心及暂定标记均对应。"
+          },
+          "body": [
+            {
+              "index": 26,
+              "id": null,
+              "type": "text",
+              "text": "decorative（装饰）：链接箭头无精打采、漠不关心（暂定）"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b41",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b41",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p2-r6"
+            ],
+            "explanation": "已由r6表示，为网站链接箭头。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 5,
+              "figureId": "nemata-jp-p2-r6",
+              "transcription": "蓝色小方框内有白色向右箭头，外沿为灰色。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b42",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b42",
+            "verdict": "faithful",
+            "explanation": "“眼里只剩天凤”准确表达网站名称。"
+          },
+          "body": [
+            {
+              "index": 27,
+              "id": null,
+              "type": "text",
+              "text": "decorative（装饰）：链接箭头眼里只剩天凤"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b43",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b43",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p2-r7"
+            ],
+            "explanation": "已由r7表示，为网站链接箭头。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 6,
+              "figureId": "nemata-jp-p2-r7",
+              "transcription": "蓝色小方框内有白色向右箭头，外沿为灰色。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b44",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b44",
+            "verdict": "faithful",
+            "explanation": "与下一断行合并后完整表达博客名称。"
+          },
+          "body": [
+            {
+              "index": 28,
+              "id": null,
+              "type": "text",
+              "text": "decorative（装饰）：链接箭头Yamashita Daichan的博客。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b45",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b45",
+            "verdict": "faithful",
+            "explanation": "“グ。”与上一块合并为博客名称，未遗漏或重复。"
+          },
+          "body": [
+            {
+              "index": 28,
+              "id": null,
+              "type": "text",
+              "text": "decorative（装饰）：链接箭头Yamashita Daichan的博客。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b46",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b46",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p2-r8"
+            ],
+            "explanation": "已由r8表示，为网站链接箭头。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 7,
+              "figureId": "nemata-jp-p2-r8",
+              "transcription": "蓝色小方框内有白色向右箭头，外沿为灰色。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b47",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b47",
+            "verdict": "faithful",
+            "explanation": "网站名称译义对应。"
+          },
+          "body": [
+            {
+              "index": 29,
+              "id": null,
+              "type": "text",
+              "text": "decorative（装饰）：链接箭头莱拉的奋斗记"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b48",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b48",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p2-r9"
+            ],
+            "explanation": "已由r9表示，为网站链接箭头。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 8,
+              "figureId": "nemata-jp-p2-r9",
+              "transcription": "蓝色小方框内有白色向右箭头，外沿为灰色。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b49",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b49",
+            "verdict": "faithful",
+            "explanation": "提取块为空白；候选补入整页可见的好题与优质何切讲解书标题，含义准确。"
+          },
+          "body": [
+            {
+              "index": 30,
+              "id": null,
+              "type": "text",
+              "text": "decorative（装饰）：五星图标好题齐备！优质的何切讲解书！！这是市售书籍中最优秀的何切讲解书，收录的都是好题，讲解详细且合乎逻辑。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b50",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b50",
+            "verdict": "faithful",
+            "explanation": "市售书中最优秀的评价力度，以及好题、详细和逻辑性均保留。"
+          },
+          "body": [
+            {
+              "index": 30,
+              "id": null,
+              "type": "text",
+              "text": "decorative（装饰）：五星图标好题齐备！优质的何切讲解书！！这是市售书籍中最优秀的何切讲解书，收录的都是好题，讲解详细且合乎逻辑。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b51",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b51",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p2-r11"
+            ],
+            "explanation": "黄色书封由r11承接；细小文字及插画牌面存在辨识限制，见对应figure检查。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 10,
+              "figureId": "nemata-jp-p2-r11",
+              "transcription": "黄色书封，黑色边框。大字原文为「ネット麻雀」「ロジカル戦術入門」，即《网络麻将·逻辑战术入门》；作者名「福地 誠」。下方英文为「INTERNET MAHJONG」，底部另有「LOGICAL TACTICS」字样。插画为穿蓝色西装、系红领带的男子，托着麻将桌模型。",
+              "unknowns": [
+                "作者名旁及封面右下方的小字分辨率不足，无法完整辨认。",
+                "底部「LOGICAL TACTICS」之后是否还有字符，无法确认。",
+                "男子所托模型中的细小麻将牌面无法逐张辨认，不能确定各牌的花色、点数或赤五状态。"
+              ]
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b52",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b52",
+            "verdict": "faithful",
+            "explanation": "书名、作者、出版社及2009-10-24日期准确。"
+          },
+          "body": [
+            {
+              "index": 32,
+              "id": null,
+              "type": "text",
+              "text": "《网络麻将·逻辑战术入门》，福地诚著，洋泉社，2009-10-24。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b53",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b53",
+            "verdict": "faithful",
+            "explanation": "提取块为空白；候选准确恢复整页可见的必读及最强入门书标题。"
+          },
+          "body": [
+            {
+              "index": 33,
+              "id": null,
+              "type": "text",
+              "text": "decorative（装饰）：五星图标必读！最强入门书！！为了加深对本站战术论的理解，也应一并购买阅读此书。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b54",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b54",
+            "verdict": "faithful",
+            "explanation": "为加深理解本站战术论而应一并购买阅读的判断及力度保留。"
+          },
+          "body": [
+            {
+              "index": 33,
+              "id": null,
+              "type": "text",
+              "text": "decorative（装饰）：五星图标必读！最强入门书！！为了加深对本站战术论的理解，也应一并购买阅读此书。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b55",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b55",
+            "verdict": "faithful",
+            "explanation": "书名、福地诚、洋泉社及2009-02-25日期对应。"
+          },
+          "body": [
+            {
+              "index": 35,
+              "id": null,
+              "type": "text",
+              "text": "《告诉我！科学麻将》，福地诚著，洋泉社，2009-02-25。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b56",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b56",
+            "verdict": "faithful",
+            "explanation": "提取块为空白；整页可见的最强职业牌手及最优秀职业著作标题已准确恢复。"
+          },
+          "body": [
+            {
+              "index": 36,
+              "id": null,
+              "type": "text",
+              "text": "decorative（装饰）：五星图标最强职业牌手的战术！最优秀的职业牌手著作！！这是出身网络麻将、以最强著称的职业牌手所写的战术书，是职业牌手战术书中最优秀的一本。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b57",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b57",
+            "verdict": "faithful",
+            "explanation": "网络麻将出身、以最强著称，以及职业战术书中最优秀的评价均完整保留。"
+          },
+          "body": [
+            {
+              "index": 36,
+              "id": null,
+              "type": "text",
+              "text": "decorative（装饰）：五星图标最强职业牌手的战术！最优秀的职业牌手著作！！这是出身网络麻将、以最强著称的职业牌手所写的战术书，是职业牌手战术书中最优秀的一本。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b58",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b58",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p2-r15"
+            ],
+            "explanation": "深蓝色书封由r15承接；桌面细小牌面存在辨识限制，见对应figure检查。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 14,
+              "figureId": "nemata-jp-p2-r15",
+              "transcription": "深蓝色书封，书名原文为「最強デジタル麻雀」，即《最强数字麻将》；封面作者署名模糊，无法可靠辨认。封面照片是一名穿深色西装、白衬衫、系领带的男子坐在麻将桌旁。",
+              "unknowns": [
+                "照片下方桌面处的细小牌面无法逐张辨认，不能确定各牌的花色、点数或赤五状态。",
+                "封面左下方作者署名模糊，无法可靠辨认完整字形。"
+              ]
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b59",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b59",
+            "verdict": "faithful",
+            "explanation": "书名、系列、作者、出版社原名及2009-03-25日期完整对应。"
+          },
+          "body": [
+            {
+              "index": 38,
+              "id": null,
+              "type": "text",
+              "text": "《最强数字麻将》（Mycom麻将BOOKS），小仓孝著，每日通讯（毎日コミュニケーションズ），2009-03-25。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b60",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b60",
+            "verdict": "faithful",
+            "explanation": "提取块为空白；整页可见的第2弹、实战问题集等标题内容均已恢复。"
+          },
+          "body": [
+            {
+              "index": 39,
+              "id": null,
+              "type": "text",
+              "text": "decorative（装饰）：五星图标最强职业牌手的战术第2弹！实战问题集！！这是《最强数字麻将》的续篇。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b61",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b61",
+            "verdict": "faithful",
+            "explanation": "为《最强数字麻将》续篇的说明准确，未加入下页介绍。"
+          },
+          "body": [
+            {
+              "index": 39,
+              "id": null,
+              "type": "text",
+              "text": "decorative（装饰）：五星图标最强职业牌手的战术第2弹！实战问题集！！这是《最强数字麻将》的续篇。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b62",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b62",
+            "verdict": "faithful",
+            "explanation": "页眉标题与网址完整，放在视觉页首正确。"
+          },
+          "body": [
+            {
+              "index": 0,
+              "id": null,
+              "type": "text",
+              "text": "现代麻将技术论－战术论\nhttp://yabejp.web.fc2.com/mahjong/tactics.html"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b63",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b63",
+            "verdict": "faithful",
+            "explanation": "页码、总页数及时间戳准确。"
+          },
+          "body": [
+            {
+              "index": 40,
+              "id": null,
+              "type": "text",
+              "text": "第2页，共4页。\n2014-03-02 11:35"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b64",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b64",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p2-r10"
+            ],
+            "explanation": "已由r10表示，为书籍推荐的五星图标。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 9,
+              "figureId": "nemata-jp-p2-r10",
+              "transcription": "五颗金黄色五角星横向排列。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b65",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b65",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p2-r12"
+            ],
+            "explanation": "已由r12表示，为书籍推荐的五星图标。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 11,
+              "figureId": "nemata-jp-p2-r12",
+              "transcription": "五颗金黄色五角星横向排列。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b66",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b66",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p2-r13"
+            ],
+            "explanation": "已由r13表示；源页本身仅显示破损图片占位图标。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 12,
+              "figureId": "nemata-jp-p2-r13",
+              "transcription": "白色方框内显示灰色破损图片图标，原图片未显示。",
+              "unknowns": [
+                "缺失图片的原始内容无法辨认。"
+              ]
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b67",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b67",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p2-r14"
+            ],
+            "explanation": "已由r14表示，为书籍推荐的五星图标。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 13,
+              "figureId": "nemata-jp-p2-r14",
+              "transcription": "五颗金黄色五角星横向排列。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p2-b68",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p2-b68",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p2-r16"
+            ],
+            "explanation": "已由r16表示，为书籍推荐的五星图标。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 15,
+              "figureId": "nemata-jp-p2-r16",
+              "transcription": "五颗金黄色五角星横向排列。",
+              "unknowns": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page": 3,
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\003.json",
+        "sha256": "d4d6ef6ff6cb981938e65422a19ea3eab15ebf0c1febd8358b553d6ac103a7c4",
+        "bytes": 61343
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0003.json",
+        "sha256": "b99906e6ce07e4d75ee02bf9d561eabaaac5713c8e104323a61238438f98bb16",
+        "bytes": 34834,
+        "packagePath": "derived-candidates/page-0003.json"
+      },
+      "blocks": [
+        {
+          "sourceBlockId": "nemata-jp-p3-b1",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b1",
+            "verdict": "faithful",
+            "explanation": "牌山预测技术的主题完整译出。"
+          },
+          "body": [
+            {
+              "index": 1,
+              "id": null,
+              "type": "text",
+              "text": "关于牌山的预测技术：21．解读牌山的好处；22．牌组解读；23．花色解读；24．反射解读。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b2",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b2",
+            "verdict": "faithful",
+            "explanation": "第21至24项目均保留，按实际分栏关系恢复编号顺序。"
+          },
+          "body": [
+            {
+              "index": 1,
+              "id": null,
+              "type": "text",
+              "text": "关于牌山的预测技术：21．解读牌山的好处；22．牌组解读；23．花色解读；24．反射解读。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b3",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b3",
+            "verdict": "faithful",
+            "explanation": "节号及整页图中可见的“补充”标题均保留。"
+          },
+          "body": [
+            {
+              "index": 2,
+              "id": null,
+              "type": "text",
+              "text": "第3.4节　补充"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b4",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b4",
+            "verdict": "faithful",
+            "explanation": "其他预测技术的主题译文完整。"
+          },
+          "body": [
+            {
+              "index": 3,
+              "id": null,
+              "type": "text",
+              "text": "关于其他预测技术：25．迷彩；26．逆序切牌3；27．延迟解读；28．理牌解读；29．对人解读。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b5",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b5",
+            "verdict": "faithful",
+            "explanation": "第25至29项目及“逆切り３”的编号均保留。"
+          },
+          "body": [
+            {
+              "index": 3,
+              "id": null,
+              "type": "text",
+              "text": "关于其他预测技术：25．迷彩；26．逆序切牌3；27．延迟解读；28．理牌解读；29．对人解读。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b6",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b6",
+            "verdict": "faithful",
+            "explanation": "提取文本为空；候选正确恢复整页可见的第4章标题。"
+          },
+          "body": [
+            {
+              "index": 4,
+              "id": null,
+              "type": "text",
+              "text": "第4章　点棒状况判断技术"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b7",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b7",
+            "verdict": "faithful",
+            "explanation": "非平场、包括倒数第二局和最终局、考虑顺位分等条件完整保留。"
+          },
+          "body": [
+            {
+              "index": 5,
+              "id": null,
+              "type": "text",
+              "text": "关于在非平场局面（包括倒数第二局和最终局）中考虑顺位分的打牌选择技术：1．点棒状况判断的原则；2．顺位期望值的思考方法；3．点数计算技法；4．最终局的心得与打法；5．最终局放过和牌的判断；6．最快和牌技术；7．速攻的局面；8．逆转尚不确定时的鸣牌判断；9．最终局的攻守取舍1；10．最终局的攻守取舍2；11．倒数第二局的攻守取舍；12．满贯和牌技术；13．大幅落后、处于末位的局面；14．和牌终局的技法；15．濒临被击飞的局面；16．供托与本场棒的应对；17．开杠判断。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b8",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b8",
+            "verdict": "faithful",
+            "explanation": "17个目录项目全部译出，分栏顺序、编号及攻守取舍1和2均正确。"
+          },
+          "body": [
+            {
+              "index": 5,
+              "id": null,
+              "type": "text",
+              "text": "关于在非平场局面（包括倒数第二局和最终局）中考虑顺位分的打牌选择技术：1．点棒状况判断的原则；2．顺位期望值的思考方法；3．点数计算技法；4．最终局的心得与打法；5．最终局放过和牌的判断；6．最快和牌技术；7．速攻的局面；8．逆转尚不确定时的鸣牌判断；9．最终局的攻守取舍1；10．最终局的攻守取舍2；11．倒数第二局的攻守取舍；12．满贯和牌技术；13．大幅落后、处于末位的局面；14．和牌终局的技法；15．濒临被击飞的局面；16．供托与本场棒的应对；17．开杠判断。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b9",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b9",
+            "verdict": "faithful",
+            "explanation": "提取文本为空；候选正确恢复整页可见的第5章标题。"
+          },
+          "body": [
+            {
+              "index": 6,
+              "id": null,
+              "type": "text",
+              "text": "第5章　提高水平的方法论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b10",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b10",
+            "verdict": "faithful",
+            "explanation": "提高麻将水平的高效学习方法这一主题完整译出。"
+          },
+          "body": [
+            {
+              "index": 7,
+              "id": null,
+              "type": "text",
+              "text": "关于提高麻将水平的高效学习方法：1．合理判断习得论；2．技术习得论；3．如何保持心态与专注力。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b11",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b11",
+            "verdict": "faithful",
+            "explanation": "三个项目完整保留，心态与专注力均有对应译文。"
+          },
+          "body": [
+            {
+              "index": 7,
+              "id": null,
+              "type": "text",
+              "text": "关于提高麻将水平的高效学习方法：1．合理判断习得论；2．技术习得论；3．如何保持心态与专注力。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b12",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b12",
+            "verdict": "faithful",
+            "explanation": "提取文本为空；候选正确恢复整页可见的第6章“实战演习”。"
+          },
+          "body": [
+            {
+              "index": 8,
+              "id": null,
+              "type": "text",
+              "text": "第6章　实战演习"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b13",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b13",
+            "verdict": "faithful",
+            "explanation": "第6.1节及图中可见的切牌选择题解题论标题准确译出。"
+          },
+          "body": [
+            {
+              "index": 9,
+              "id": null,
+              "type": "text",
+              "text": "第6.1节　切牌选择题解题论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b14",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b14",
+            "verdict": "faithful",
+            "explanation": "切牌选择题的思考方法与讨论方法均保留。"
+          },
+          "body": [
+            {
+              "index": 10,
+              "id": null,
+              "type": "text",
+              "text": "关于切牌选择题的思考方法与讨论方法：1．切牌选择题的思考方法；2．切牌选择题讨论法。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b15",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b15",
+            "verdict": "faithful",
+            "explanation": "两个项目及编号完整、准确。"
+          },
+          "body": [
+            {
+              "index": 10,
+              "id": null,
+              "type": "text",
+              "text": "关于切牌选择题的思考方法与讨论方法：1．切牌选择题的思考方法；2．切牌选择题讨论法。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b16",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b16",
+            "verdict": "faithful",
+            "explanation": "第6.2节及图中可见的切牌选择题研讨标题准确译出。"
+          },
+          "body": [
+            {
+              "index": 11,
+              "id": null,
+              "type": "text",
+              "text": "第6.2节　切牌选择题研讨"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b17",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b17",
+            "verdict": "faithful",
+            "explanation": "精选题目的答案与解说完整译出。"
+          },
+          "body": [
+            {
+              "index": 12,
+              "id": null,
+              "type": "text",
+              "text": "精选切牌选择题的答案与解说：1．“ネマー日记”博客题目；2．“数字麻将切什么？”网站题目；3．“鴉〃的麻将解说”网站题目；4．“MJ4麻将实力判定”网站题目；5．“MFC7切什么”网站题目。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b18",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b18",
+            "verdict": "faithful",
+            "explanation": "五个题目来源全部保留，博客与网站的区别、MJ4和MFC7标识及编号正确。"
+          },
+          "body": [
+            {
+              "index": 12,
+              "id": null,
+              "type": "text",
+              "text": "精选切牌选择题的答案与解说：1．“ネマー日记”博客题目；2．“数字麻将切什么？”网站题目；3．“鴉〃的麻将解说”网站题目；4．“MJ4麻将实力判定”网站题目；5．“MFC7切什么”网站题目。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b19",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b19",
+            "verdict": "faithful",
+            "explanation": "第6.3节及图中可见的牌谱研讨标题准确译出。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "第6.3节　牌谱研讨"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b20",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b20",
+            "verdict": "faithful",
+            "explanation": "三项对局的参与者及公开线下、公开网络对局的区别均保留。"
+          },
+          "body": [
+            {
+              "index": 14,
+              "id": null,
+              "type": "text",
+              "text": "1．突击东北对职业牌手：公开线下对局；2．突击东北对木原职业牌手：公开网络对局；3．四大网络麻将对抗赛：公开网络对局。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b21",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b21",
+            "verdict": "faithful",
+            "explanation": "依据整页图恢复完整广告标题，免费、3D、在线及超越街机麻将等内容均正确。"
+          },
+          "body": [
+            {
+              "index": 15,
+              "id": null,
+              "type": "text",
+              "text": "超越街机麻将的免费3D在线麻将游戏登场！！"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b22",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b22",
+            "verdict": "faithful",
+            "explanation": "《雀龙门》名称与三项宣传内容完整译出，未改变能力或程度表述。"
+          },
+          "body": [
+            {
+              "index": 16,
+              "id": null,
+              "type": "text",
+              "text": "免费3D在线麻将游戏《雀龙门》：可以体验真实麻将的临场感与紧张感；任何人只需操作鼠标，就能轻松享受激烈的对局；对局中的语音演出、手部动作等让对局气氛更加热烈的要素一应俱全。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b23",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b23",
+            "verdict": "faithful",
+            "explanation": "以前作介绍的小仓系统为对象、采用实战形式讲解的关系准确。"
+          },
+          "body": [
+            {
+              "index": 17,
+              "id": null,
+              "type": "text",
+              "text": "以实战形式讲解前作中介绍的小仓系统。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b24",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b24",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p3-r1"
+            ],
+            "explanation": "红色《最强数字麻将：实战问题集》书封由r1承接；细字核验仍有不确定项。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 0,
+              "figureId": "nemata-jp-p3-r1",
+              "transcription": "《最强数字麻将：实战问题集》的红色书封。上方书名原文为“最強デジタル麻雀”“実戦問題集”，右侧作者署名模糊，无法可靠辨认，下方英文为“THE STRONGEST DIGITAL MAHJONG”。封面照片为一名身穿深色外套的男子朝前伸手，下方可见麻将桌边缘。",
+              "unknowns": [
+                "作者署名上方的小字、封面底部左侧标识及其他细小文字模糊，无法可靠辨读。",
+                "封面右侧作者署名模糊，无法可靠辨认完整字形。"
+              ]
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b25",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b25",
+            "verdict": "faithful",
+            "explanation": "系列名、书名、出版方与2009-11-25日期均保留。"
+          },
+          "body": [
+            {
+              "index": 19,
+              "id": null,
+              "type": "text",
+              "text": "MYCOM麻将BOOKS《最强数字麻将：实战问题集》，每日Communications，2009-11-25。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b26",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b26",
+            "verdict": "faithful",
+            "explanation": "源块仅提取到空白；候选恢复整页可见的推荐语，并在其前接入五星图标，顺序正确。"
+          },
+          "body": [
+            {
+              "index": 20,
+              "id": null,
+              "type": "text",
+              "text": "装饰性五星图标（decorative）必备之书！麻将史上留名的名著！！"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b27",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b27",
+            "verdict": "faithful",
+            "explanation": "本站参考本书数据的说明及“可以说价值超过售价”的评价力度均准确保留。"
+          },
+          "body": [
+            {
+              "index": 21,
+              "id": null,
+              "type": "text",
+              "text": "本站的战术论也参考了本书的数据，可以说是一本价值超过售价的著作。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b28",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b28",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p3-r3"
+            ],
+            "explanation": "《科学麻将》书封由r3承接；腰封小字尚未完整辨读。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 2,
+              "figureId": "nemata-jp-p3-r3",
+              "transcription": "《科学麻将》的书封：白色底，上部书名原文为“科学する麻雀”，作者名为“とつげき東北”，即突击东北；中间有黄绿色方块，下半部为黄绿色腰封。腰封大字为“「数理の力」があなたの麻雀を変える！”，意为“‘数理的力量’改变你的麻将！”。底部有黑色横条，条内小字无法可靠辨读。",
+              "unknowns": [
+                "腰封大字下方的两行小字模糊，无法可靠辨读。",
+                "底部黑色横条中的细小文字无法可靠逐字辨认。"
+              ]
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b29",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b29",
+            "verdict": "faithful",
+            "explanation": "书名、系列名、作者、出版社与2004-12-18日期均保留。"
+          },
+          "body": [
+            {
+              "index": 23,
+              "id": null,
+              "type": "text",
+              "text": "《科学麻将》（讲谈社现代新书），突击东北著，讲谈社，2004-12-18。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b30",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b30",
+            "verdict": "faithful",
+            "explanation": "《咲-Saki-》动画特别网站的链接名称准确译出。"
+          },
+          "body": [
+            {
+              "index": 24,
+              "id": null,
+              "type": "text",
+              "text": "《咲-Saki-》动画特别网站"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b31",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b31",
+            "verdict": "faithful",
+            "explanation": "页眉标题与网址完整保留，放在视觉页首正确。"
+          },
+          "body": [
+            {
+              "index": 0,
+              "id": null,
+              "type": "text",
+              "text": "现代麻将技术论—战术论\nhttp://yabejp.web.fc2.com/mahjong/tactics.html"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b32",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b32",
+            "verdict": "faithful",
+            "explanation": "第3页、共4页及2014-03-02 11:35的信息均正确保留。"
+          },
+          "body": [
+            {
+              "index": 25,
+              "id": null,
+              "type": "text",
+              "text": "第3页，共4页。2014-03-02 11:35。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p3-b33",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p3-b33",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p3-r2"
+            ],
+            "explanation": "五星推荐图标由r2准确表示，属于书籍推荐装饰，不是牌例或教学图表。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 1,
+              "figureId": "nemata-jp-p3-r2",
+              "transcription": "五颗金黄色五角星横向排列。该图像块仅包含五星图标，不包含裁剪留白区域中的日期或推荐语。",
+              "unknowns": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "page": 317,
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\317.json",
+        "sha256": "6222d0a89802f089a494a8f018e2d78abe37f8c323a463cade7f9d9eb1c42a72",
+        "bytes": 52096
+      },
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derived-candidates\\page-0317.json",
+        "sha256": "b3115591977d81273c795177268a00a84e0960577b0ec1a40304fd2ca515c462",
+        "bytes": 69997,
+        "packagePath": "derived-candidates/page-0317.json"
+      },
+      "blocks": [
+        {
+          "sourceBlockId": "nemata-jp-p317-b1",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b1",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r1"
+            ],
+            "explanation": "网站标志已由r1表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 0,
+              "figureId": "nemata-jp-p317-r1",
+              "transcription": "蓝色粗体、灰色阴影的网站标志文字：「现代麻将技术论」。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b2",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b2",
+            "verdict": "faithful",
+            "explanation": "提取块为空；候选依据整页补出的副标题与可见原文相符。"
+          },
+          "body": [
+            {
+              "index": 2,
+              "id": null,
+              "type": "text",
+              "text": "～麻将界最强战术论发表～\n结合最前沿的研究成果与强豪雀士的打法，通过缜密考察，展开由此构建的最强理论。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b3",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b3",
+            "verdict": "faithful",
+            "explanation": "研究成果、强豪雀士打法、缜密考察及最强理论的构建关系均已译出。"
+          },
+          "body": [
+            {
+              "index": 2,
+              "id": null,
+              "type": "text",
+              "text": "～麻将界最强战术论发表～\n结合最前沿的研究成果与强豪雀士的打法，通过缜密考察，展开由此构建的最强理论。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b4",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b4",
+            "verdict": "faithful",
+            "explanation": "提取块为空；候选补出的“新战术论”标题与整页一致。"
+          },
+          "body": [
+            {
+              "index": 4,
+              "id": null,
+              "type": "text",
+              "text": "新战术论\n以暂定版形式公开正在《新现代麻将技术论》中发表的最新版战术论。\n※由于是暂定版，结构或URL可能发生变更。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b5",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b5",
+            "verdict": "needs-repair",
+            "explanation": "“暫定公開”指以暂定版本公开，候选“暂时公开”偏向公开期限；其余内容及版本、结构和URL变更提示准确。"
+          },
+          "body": [
+            {
+              "index": 4,
+              "id": null,
+              "type": "text",
+              "text": "新战术论\n以暂定版形式公开正在《新现代麻将技术论》中发表的最新版战术论。\n※由于是暂定版，结构或URL可能发生变更。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b6",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b6",
+            "verdict": "faithful",
+            "explanation": "第1、2、5、6项均完整译出，并按双栏目录的编号关系排列。"
+          },
+          "body": [
+            {
+              "index": 5,
+              "id": null,
+              "type": "text",
+              "text": "1．麻将技术论\n2．牌理概要\n3．独立搭子理论\n4．复合搭子理论\n5．搭子理论补充\n6．孤立牌理论\n7．多面听牌形理论\n8．面子理论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b7",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b7",
+            "verdict": "faithful",
+            "explanation": "第3、4、7、8项完整，搭子、多面听牌形与面子的术语对应正确。"
+          },
+          "body": [
+            {
+              "index": 5,
+              "id": null,
+              "type": "text",
+              "text": "1．麻将技术论\n2．牌理概要\n3．独立搭子理论\n4．复合搭子理论\n5．搭子理论补充\n6．孤立牌理论\n7．多面听牌形理论\n8．面子理论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b8",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b8",
+            "verdict": "faithful",
+            "explanation": "源块仅为空格，无正文遗漏。"
+          },
+          "body": [
+            {
+              "index": 5,
+              "id": null,
+              "type": "text",
+              "text": "1．麻将技术论\n2．牌理概要\n3．独立搭子理论\n4．复合搭子理论\n5．搭子理论补充\n6．孤立牌理论\n7．多面听牌形理论\n8．面子理论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b9",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b9",
+            "verdict": "faithful",
+            "explanation": "提取残片已结合整页恢复为完整的免费3D在线麻将游戏宣传标题。"
+          },
+          "body": [
+            {
+              "index": 6,
+              "id": null,
+              "type": "text",
+              "text": "超越街机麻将的免费3D在线麻将游戏登场！！\n免费3D在线麻将游戏《雀龙门》\n・可以体验真实麻将的临场感与紧张感。\n・仅用鼠标操作，任何人都能轻松享受激烈的对局。\n・对局中的语音演出、手部动作等，为对局增添气氛的要素一应俱全。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b10",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b10",
+            "verdict": "faithful",
+            "explanation": "《雀龙门》名称及临场感、鼠标操作、语音和手部动作三项宣传内容完整。"
+          },
+          "body": [
+            {
+              "index": 6,
+              "id": null,
+              "type": "text",
+              "text": "超越街机麻将的免费3D在线麻将游戏登场！！\n免费3D在线麻将游戏《雀龙门》\n・可以体验真实麻将的临场感与紧张感。\n・仅用鼠标操作，任何人都能轻松享受激烈的对局。\n・对局中的语音演出、手部动作等，为对局增添气氛的要素一应俱全。"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b11",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b11",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r2"
+            ],
+            "explanation": "获奖宣传图已由r2表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 1,
+              "figureId": "nemata-jp-p317-r2",
+              "transcription": "绿色背景的获奖宣传图，文字为：「日本麻将博客大奖2009」「荣获最高奖」「现代麻将技术论」「撰稿人：ネマタ　网站制作者：や～べ」。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b12",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b12",
+            "verdict": "faithful",
+            "explanation": "站内文章和术语等的搜索说明准确。"
+          },
+          "body": [
+            {
+              "index": 10,
+              "id": null,
+              "type": "text",
+              "text": "站内搜索\n※请从这里搜索本站的文章、术语等。搜索按钮\n免费注册的网络麻将！"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b13",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b13",
+            "verdict": "faithful",
+            "explanation": "提取块为空；候选补出的站内搜索标题和免费注册宣传语均可在整页确认。"
+          },
+          "body": [
+            {
+              "index": 10,
+              "id": null,
+              "type": "text",
+              "text": "站内搜索\n※请从这里搜索本站的文章、术语等。搜索按钮\n免费注册的网络麻将！"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b14",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b14",
+            "verdict": "faithful",
+            "explanation": "杂志名称、2010年1月号及获刊载的信息准确。"
+          },
+          "body": [
+            {
+              "index": 11,
+              "id": null,
+              "type": "text",
+              "text": "获《月刊网络麻将》2010年1月号刊载！"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b15",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b15",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r6"
+            ],
+            "explanation": "杂志封面已由r6表示；小字及署名仍存在所列不确定项。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 5,
+              "figureId": "nemata-jp-p317-r6",
+              "transcription": "本区域包含杂志封面、两块左栏空白图像、友情链接横幅及第一条链接前的箭头图标。\n杂志封面以一名女性的面部照片为背景，刊名为《月刊网络麻将》，英文标志为「Net M@hjong」，英文说明为「Monthly Online Mahjong Magazine」；期号为2010年1月，另标「January」。左侧竖排文字为「日本麻将博客大奖大特集号」。右侧文字为「最终评选评语」，列出福地诚、须田良规、とつげき東北；其下为「评委特别奖」「打天凤时跪坐在椅子上」，署名无法可靠辨认。封面下部依次写有：「日本麻将博客大奖2009　荣获亚军」「近代麻将漫画生活　いのけん」「日本麻将博客大奖2009　荣获最高奖」「现代麻将技术论」「撰稿人：ネマタ　网站制作者：や～べ」。主标题旁还印有假名读音，但无法可靠逐字辨认。封面右上角另有两行细小宣传文字，无法可靠逐字辨认。\n左栏两块图像均为空白。紫色圆角横幅左侧有白色相互连接的箭头图案，文字为「友情链接」。第一条链接前有一个带灰色边框的蓝色方形图标，内为白色向右箭头。",
+              "unknowns": [
+                "杂志封面右上角两行宣传小字过小，无法可靠逐字辨认。",
+                "评委特别奖条目下方的星号夹署名模糊，无法可靠辨认完整字形。",
+                "主标题旁的假名读音过小，无法可靠逐字辨认。",
+                "封面右上“January”下方的极小文字分辨率不足，无法可靠辨认。"
+              ]
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b16",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b16",
+            "verdict": "faithful",
+            "explanation": "“幻想麻雀ガチ打ちwiki”译为“幻想麻将认真打wiki”，含义保留。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "幻想麻将认真打wiki\ndecorative：友情链接箭头现代麻将技术论注\ndecorative：友情链接箭头极真麻将博客\ndecorative：友情链接箭头最速流麻将战术论\ndecorative：友情链接箭头三麻四麻blog\ndecorative：友情链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\ndecorative：友情链接箭头天凤，避免末位的日子\ndecorative：友情链接箭头なめとん的麻将BLOG\ndecorative：友情链接箭头科学研究二次元 | りーりん实验室\ndecorative：友情链接箭头日刊鸵鸟蛋\ndecorative：友情链接箭头HAZ的研究人生\ndecorative：友情链接箭头新手的好运\ndecorative：友情链接箭头副露海冬\ndecorative：友情链接箭头兄控女高中生的天凤反省簿\ndecorative：友情链接箭头碰与吃的冷冻库\ndecorative：友情链接箭头麻将一番街\ndecorative：友情链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b17",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b17",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r6"
+            ],
+            "explanation": "第一条友情链接前的装饰箭头由r6表示，无牌例或教学信息。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 5,
+              "figureId": "nemata-jp-p317-r6",
+              "transcription": "本区域包含杂志封面、两块左栏空白图像、友情链接横幅及第一条链接前的箭头图标。\n杂志封面以一名女性的面部照片为背景，刊名为《月刊网络麻将》，英文标志为「Net M@hjong」，英文说明为「Monthly Online Mahjong Magazine」；期号为2010年1月，另标「January」。左侧竖排文字为「日本麻将博客大奖大特集号」。右侧文字为「最终评选评语」，列出福地诚、须田良规、とつげき東北；其下为「评委特别奖」「打天凤时跪坐在椅子上」，署名无法可靠辨认。封面下部依次写有：「日本麻将博客大奖2009　荣获亚军」「近代麻将漫画生活　いのけん」「日本麻将博客大奖2009　荣获最高奖」「现代麻将技术论」「撰稿人：ネマタ　网站制作者：や～べ」。主标题旁还印有假名读音，但无法可靠逐字辨认。封面右上角另有两行细小宣传文字，无法可靠逐字辨认。\n左栏两块图像均为空白。紫色圆角横幅左侧有白色相互连接的箭头图案，文字为「友情链接」。第一条链接前有一个带灰色边框的蓝色方形图标，内为白色向右箭头。",
+              "unknowns": [
+                "杂志封面右上角两行宣传小字过小，无法可靠逐字辨认。",
+                "评委特别奖条目下方的星号夹署名模糊，无法可靠辨认完整字形。",
+                "主标题旁的假名读音过小，无法可靠逐字辨认。",
+                "封面右上“January”下方的极小文字分辨率不足，无法可靠辨认。"
+              ]
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b18",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b18",
+            "verdict": "faithful",
+            "explanation": "“现代麻将技术论注”与源链接名称对应。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "幻想麻将认真打wiki\ndecorative：友情链接箭头现代麻将技术论注\ndecorative：友情链接箭头极真麻将博客\ndecorative：友情链接箭头最速流麻将战术论\ndecorative：友情链接箭头三麻四麻blog\ndecorative：友情链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\ndecorative：友情链接箭头天凤，避免末位的日子\ndecorative：友情链接箭头なめとん的麻将BLOG\ndecorative：友情链接箭头科学研究二次元 | りーりん实验室\ndecorative：友情链接箭头日刊鸵鸟蛋\ndecorative：友情链接箭头HAZ的研究人生\ndecorative：友情链接箭头新手的好运\ndecorative：友情链接箭头副露海冬\ndecorative：友情链接箭头兄控女高中生的天凤反省簿\ndecorative：友情链接箭头碰与吃的冷冻库\ndecorative：友情链接箭头麻将一番街\ndecorative：友情链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b19",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b19",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r7"
+            ],
+            "explanation": "装饰性链接箭头由r7表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 6,
+              "figureId": "nemata-jp-p317-r7",
+              "transcription": "「现代麻将技术论注」链接前的蓝色方形图标，带灰色边框，内为白色向右箭头。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b20",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b20",
+            "verdict": "faithful",
+            "explanation": "“极真麻将博客”准确。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "幻想麻将认真打wiki\ndecorative：友情链接箭头现代麻将技术论注\ndecorative：友情链接箭头极真麻将博客\ndecorative：友情链接箭头最速流麻将战术论\ndecorative：友情链接箭头三麻四麻blog\ndecorative：友情链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\ndecorative：友情链接箭头天凤，避免末位的日子\ndecorative：友情链接箭头なめとん的麻将BLOG\ndecorative：友情链接箭头科学研究二次元 | りーりん实验室\ndecorative：友情链接箭头日刊鸵鸟蛋\ndecorative：友情链接箭头HAZ的研究人生\ndecorative：友情链接箭头新手的好运\ndecorative：友情链接箭头副露海冬\ndecorative：友情链接箭头兄控女高中生的天凤反省簿\ndecorative：友情链接箭头碰与吃的冷冻库\ndecorative：友情链接箭头麻将一番街\ndecorative：友情链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b21",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b21",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r8"
+            ],
+            "explanation": "装饰性链接箭头由r8表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 7,
+              "figureId": "nemata-jp-p317-r8",
+              "transcription": "「极真麻将博客」链接前的蓝色方形图标，带灰色边框，内为白色向右箭头。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b22",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b22",
+            "verdict": "faithful",
+            "explanation": "“最速流麻将战术论”准确。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "幻想麻将认真打wiki\ndecorative：友情链接箭头现代麻将技术论注\ndecorative：友情链接箭头极真麻将博客\ndecorative：友情链接箭头最速流麻将战术论\ndecorative：友情链接箭头三麻四麻blog\ndecorative：友情链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\ndecorative：友情链接箭头天凤，避免末位的日子\ndecorative：友情链接箭头なめとん的麻将BLOG\ndecorative：友情链接箭头科学研究二次元 | りーりん实验室\ndecorative：友情链接箭头日刊鸵鸟蛋\ndecorative：友情链接箭头HAZ的研究人生\ndecorative：友情链接箭头新手的好运\ndecorative：友情链接箭头副露海冬\ndecorative：友情链接箭头兄控女高中生的天凤反省簿\ndecorative：友情链接箭头碰与吃的冷冻库\ndecorative：友情链接箭头麻将一番街\ndecorative：友情链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b23",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b23",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r9"
+            ],
+            "explanation": "装饰性链接箭头由r9表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 8,
+              "figureId": "nemata-jp-p317-r9",
+              "transcription": "「最速流麻将战术论」链接前的蓝色方形图标，带灰色边框，内为白色向右箭头。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b24",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b24",
+            "verdict": "faithful",
+            "explanation": "“さんまよんまblog”对应“三麻四麻blog”。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "幻想麻将认真打wiki\ndecorative：友情链接箭头现代麻将技术论注\ndecorative：友情链接箭头极真麻将博客\ndecorative：友情链接箭头最速流麻将战术论\ndecorative：友情链接箭头三麻四麻blog\ndecorative：友情链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\ndecorative：友情链接箭头天凤，避免末位的日子\ndecorative：友情链接箭头なめとん的麻将BLOG\ndecorative：友情链接箭头科学研究二次元 | りーりん实验室\ndecorative：友情链接箭头日刊鸵鸟蛋\ndecorative：友情链接箭头HAZ的研究人生\ndecorative：友情链接箭头新手的好运\ndecorative：友情链接箭头副露海冬\ndecorative：友情链接箭头兄控女高中生的天凤反省簿\ndecorative：友情链接箭头碰与吃的冷冻库\ndecorative：友情链接箭头麻将一番街\ndecorative：友情链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b25",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b25",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r10"
+            ],
+            "explanation": "装饰性链接箭头由r10表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 9,
+              "figureId": "nemata-jp-p317-r10",
+              "transcription": "「三麻四麻blog」链接前的蓝色方形图标，带灰色边框，内为白色向右箭头。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b26",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b26",
+            "verdict": "faithful",
+            "explanation": "初学者讲座及〈围绕黄金牌的故事〉副标题完整。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "幻想麻将认真打wiki\ndecorative：友情链接箭头现代麻将技术论注\ndecorative：友情链接箭头极真麻将博客\ndecorative：友情链接箭头最速流麻将战术论\ndecorative：友情链接箭头三麻四麻blog\ndecorative：友情链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\ndecorative：友情链接箭头天凤，避免末位的日子\ndecorative：友情链接箭头なめとん的麻将BLOG\ndecorative：友情链接箭头科学研究二次元 | りーりん实验室\ndecorative：友情链接箭头日刊鸵鸟蛋\ndecorative：友情链接箭头HAZ的研究人生\ndecorative：友情链接箭头新手的好运\ndecorative：友情链接箭头副露海冬\ndecorative：友情链接箭头兄控女高中生的天凤反省簿\ndecorative：友情链接箭头碰与吃的冷冻库\ndecorative：友情链接箭头麻将一番街\ndecorative：友情链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b27",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b27",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r11"
+            ],
+            "explanation": "装饰性链接箭头由r11表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 10,
+              "figureId": "nemata-jp-p317-r11",
+              "transcription": "「面向初学者的麻将讲座〈围绕黄金牌的故事〉」链接前的蓝色方形图标，带灰色边框，内为白色向右箭头。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b28",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b28",
+            "verdict": "faithful",
+            "explanation": "天凤及避免末位的含义完整。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "幻想麻将认真打wiki\ndecorative：友情链接箭头现代麻将技术论注\ndecorative：友情链接箭头极真麻将博客\ndecorative：友情链接箭头最速流麻将战术论\ndecorative：友情链接箭头三麻四麻blog\ndecorative：友情链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\ndecorative：友情链接箭头天凤，避免末位的日子\ndecorative：友情链接箭头なめとん的麻将BLOG\ndecorative：友情链接箭头科学研究二次元 | りーりん实验室\ndecorative：友情链接箭头日刊鸵鸟蛋\ndecorative：友情链接箭头HAZ的研究人生\ndecorative：友情链接箭头新手的好运\ndecorative：友情链接箭头副露海冬\ndecorative：友情链接箭头兄控女高中生的天凤反省簿\ndecorative：友情链接箭头碰与吃的冷冻库\ndecorative：友情链接箭头麻将一番街\ndecorative：友情链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b29",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b29",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r12"
+            ],
+            "explanation": "装饰性链接箭头由r12表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 11,
+              "figureId": "nemata-jp-p317-r12",
+              "transcription": "「天凤，避免末位的日子」链接前的蓝色方形图标，带灰色边框，内为白色向右箭头。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b30",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b30",
+            "verdict": "faithful",
+            "explanation": "保留“なめとん”名称并准确译出麻将博客。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "幻想麻将认真打wiki\ndecorative：友情链接箭头现代麻将技术论注\ndecorative：友情链接箭头极真麻将博客\ndecorative：友情链接箭头最速流麻将战术论\ndecorative：友情链接箭头三麻四麻blog\ndecorative：友情链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\ndecorative：友情链接箭头天凤，避免末位的日子\ndecorative：友情链接箭头なめとん的麻将BLOG\ndecorative：友情链接箭头科学研究二次元 | りーりん实验室\ndecorative：友情链接箭头日刊鸵鸟蛋\ndecorative：友情链接箭头HAZ的研究人生\ndecorative：友情链接箭头新手的好运\ndecorative：友情链接箭头副露海冬\ndecorative：友情链接箭头兄控女高中生的天凤反省簿\ndecorative：友情链接箭头碰与吃的冷冻库\ndecorative：友情链接箭头麻将一番街\ndecorative：友情链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b31",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b31",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r13"
+            ],
+            "explanation": "装饰性链接箭头由r13表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 12,
+              "figureId": "nemata-jp-p317-r13",
+              "transcription": "「なめとん的麻将BLOG」链接前的蓝色方形图标，带灰色边框，内为白色向右箭头。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b32",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b32",
+            "verdict": "faithful",
+            "explanation": "科学研究二次元及“りーりん”实验室两部分均保留。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "幻想麻将认真打wiki\ndecorative：友情链接箭头现代麻将技术论注\ndecorative：友情链接箭头极真麻将博客\ndecorative：友情链接箭头最速流麻将战术论\ndecorative：友情链接箭头三麻四麻blog\ndecorative：友情链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\ndecorative：友情链接箭头天凤，避免末位的日子\ndecorative：友情链接箭头なめとん的麻将BLOG\ndecorative：友情链接箭头科学研究二次元 | りーりん实验室\ndecorative：友情链接箭头日刊鸵鸟蛋\ndecorative：友情链接箭头HAZ的研究人生\ndecorative：友情链接箭头新手的好运\ndecorative：友情链接箭头副露海冬\ndecorative：友情链接箭头兄控女高中生的天凤反省簿\ndecorative：友情链接箭头碰与吃的冷冻库\ndecorative：友情链接箭头麻将一番街\ndecorative：友情链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b33",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b33",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r14"
+            ],
+            "explanation": "装饰性链接箭头由r14表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 13,
+              "figureId": "nemata-jp-p317-r14",
+              "transcription": "「科学研究二次元 | りーりん实验室」链接前的蓝色方形图标，带灰色边框，内为白色向右箭头。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b34",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b34",
+            "verdict": "faithful",
+            "explanation": "“日刊鸵鸟蛋”准确对应链接名称。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "幻想麻将认真打wiki\ndecorative：友情链接箭头现代麻将技术论注\ndecorative：友情链接箭头极真麻将博客\ndecorative：友情链接箭头最速流麻将战术论\ndecorative：友情链接箭头三麻四麻blog\ndecorative：友情链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\ndecorative：友情链接箭头天凤，避免末位的日子\ndecorative：友情链接箭头なめとん的麻将BLOG\ndecorative：友情链接箭头科学研究二次元 | りーりん实验室\ndecorative：友情链接箭头日刊鸵鸟蛋\ndecorative：友情链接箭头HAZ的研究人生\ndecorative：友情链接箭头新手的好运\ndecorative：友情链接箭头副露海冬\ndecorative：友情链接箭头兄控女高中生的天凤反省簿\ndecorative：友情链接箭头碰与吃的冷冻库\ndecorative：友情链接箭头麻将一番街\ndecorative：友情链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b35",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b35",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r15"
+            ],
+            "explanation": "装饰性链接箭头由r15表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 14,
+              "figureId": "nemata-jp-p317-r15",
+              "transcription": "「日刊鸵鸟蛋」链接前的蓝色方形图标，带灰色边框，内为白色向右箭头。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b36",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b36",
+            "verdict": "faithful",
+            "explanation": "HAZ、研究和人生的名称要素均已保留。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "幻想麻将认真打wiki\ndecorative：友情链接箭头现代麻将技术论注\ndecorative：友情链接箭头极真麻将博客\ndecorative：友情链接箭头最速流麻将战术论\ndecorative：友情链接箭头三麻四麻blog\ndecorative：友情链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\ndecorative：友情链接箭头天凤，避免末位的日子\ndecorative：友情链接箭头なめとん的麻将BLOG\ndecorative：友情链接箭头科学研究二次元 | りーりん实验室\ndecorative：友情链接箭头日刊鸵鸟蛋\ndecorative：友情链接箭头HAZ的研究人生\ndecorative：友情链接箭头新手的好运\ndecorative：友情链接箭头副露海冬\ndecorative：友情链接箭头兄控女高中生的天凤反省簿\ndecorative：友情链接箭头碰与吃的冷冻库\ndecorative：友情链接箭头麻将一番街\ndecorative：友情链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b37",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b37",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r16"
+            ],
+            "explanation": "装饰性链接箭头由r16表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 15,
+              "figureId": "nemata-jp-p317-r16",
+              "transcription": "「HAZ的研究人生」链接前的蓝色方形图标，带灰色边框，内为白色向右箭头。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b38",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b38",
+            "verdict": "faithful",
+            "explanation": "“ビギナーズラック”译为“新手的好运”，含义准确。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "幻想麻将认真打wiki\ndecorative：友情链接箭头现代麻将技术论注\ndecorative：友情链接箭头极真麻将博客\ndecorative：友情链接箭头最速流麻将战术论\ndecorative：友情链接箭头三麻四麻blog\ndecorative：友情链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\ndecorative：友情链接箭头天凤，避免末位的日子\ndecorative：友情链接箭头なめとん的麻将BLOG\ndecorative：友情链接箭头科学研究二次元 | りーりん实验室\ndecorative：友情链接箭头日刊鸵鸟蛋\ndecorative：友情链接箭头HAZ的研究人生\ndecorative：友情链接箭头新手的好运\ndecorative：友情链接箭头副露海冬\ndecorative：友情链接箭头兄控女高中生的天凤反省簿\ndecorative：友情链接箭头碰与吃的冷冻库\ndecorative：友情链接箭头麻将一番街\ndecorative：友情链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b39",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b39",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r17"
+            ],
+            "explanation": "装饰性链接箭头由r17表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 16,
+              "figureId": "nemata-jp-p317-r17",
+              "transcription": "「新手的好运」链接前的蓝色方形图标，带灰色边框，内为白色向右箭头。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b40",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b40",
+            "verdict": "faithful",
+            "explanation": "“副露海冬”名称完整保留。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "幻想麻将认真打wiki\ndecorative：友情链接箭头现代麻将技术论注\ndecorative：友情链接箭头极真麻将博客\ndecorative：友情链接箭头最速流麻将战术论\ndecorative：友情链接箭头三麻四麻blog\ndecorative：友情链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\ndecorative：友情链接箭头天凤，避免末位的日子\ndecorative：友情链接箭头なめとん的麻将BLOG\ndecorative：友情链接箭头科学研究二次元 | りーりん实验室\ndecorative：友情链接箭头日刊鸵鸟蛋\ndecorative：友情链接箭头HAZ的研究人生\ndecorative：友情链接箭头新手的好运\ndecorative：友情链接箭头副露海冬\ndecorative：友情链接箭头兄控女高中生的天凤反省簿\ndecorative：友情链接箭头碰与吃的冷冻库\ndecorative：友情链接箭头麻将一番街\ndecorative：友情链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b41",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b41",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r18"
+            ],
+            "explanation": "装饰性链接箭头由r18表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 17,
+              "figureId": "nemata-jp-p317-r18",
+              "transcription": "「副露海冬」链接前的蓝色方形图标，带灰色边框，内为白色向右箭头。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b42",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b42",
+            "verdict": "faithful",
+            "explanation": "兄控、女高中生、天凤及反省簿的含义均已译出。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "幻想麻将认真打wiki\ndecorative：友情链接箭头现代麻将技术论注\ndecorative：友情链接箭头极真麻将博客\ndecorative：友情链接箭头最速流麻将战术论\ndecorative：友情链接箭头三麻四麻blog\ndecorative：友情链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\ndecorative：友情链接箭头天凤，避免末位的日子\ndecorative：友情链接箭头なめとん的麻将BLOG\ndecorative：友情链接箭头科学研究二次元 | りーりん实验室\ndecorative：友情链接箭头日刊鸵鸟蛋\ndecorative：友情链接箭头HAZ的研究人生\ndecorative：友情链接箭头新手的好运\ndecorative：友情链接箭头副露海冬\ndecorative：友情链接箭头兄控女高中生的天凤反省簿\ndecorative：友情链接箭头碰与吃的冷冻库\ndecorative：友情链接箭头麻将一番街\ndecorative：友情链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b43",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b43",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r19"
+            ],
+            "explanation": "装饰性链接箭头由r19表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 18,
+              "figureId": "nemata-jp-p317-r19",
+              "transcription": "「兄控女高中生的天凤反省簿」链接前的蓝色方形图标，带灰色边框，内为白色向右箭头。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b44",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b44",
+            "verdict": "faithful",
+            "explanation": "“碰与吃的冷冻库”准确对应原链接名称。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "幻想麻将认真打wiki\ndecorative：友情链接箭头现代麻将技术论注\ndecorative：友情链接箭头极真麻将博客\ndecorative：友情链接箭头最速流麻将战术论\ndecorative：友情链接箭头三麻四麻blog\ndecorative：友情链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\ndecorative：友情链接箭头天凤，避免末位的日子\ndecorative：友情链接箭头なめとん的麻将BLOG\ndecorative：友情链接箭头科学研究二次元 | りーりん实验室\ndecorative：友情链接箭头日刊鸵鸟蛋\ndecorative：友情链接箭头HAZ的研究人生\ndecorative：友情链接箭头新手的好运\ndecorative：友情链接箭头副露海冬\ndecorative：友情链接箭头兄控女高中生的天凤反省簿\ndecorative：友情链接箭头碰与吃的冷冻库\ndecorative：友情链接箭头麻将一番街\ndecorative：友情链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b45",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b45",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r20"
+            ],
+            "explanation": "装饰性链接箭头由r20表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 19,
+              "figureId": "nemata-jp-p317-r20",
+              "transcription": "「碰与吃的冷冻库」链接前的蓝色方形图标，带灰色边框，内为白色向右箭头。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b46",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b46",
+            "verdict": "faithful",
+            "explanation": "“麻将一番街”准确。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "幻想麻将认真打wiki\ndecorative：友情链接箭头现代麻将技术论注\ndecorative：友情链接箭头极真麻将博客\ndecorative：友情链接箭头最速流麻将战术论\ndecorative：友情链接箭头三麻四麻blog\ndecorative：友情链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\ndecorative：友情链接箭头天凤，避免末位的日子\ndecorative：友情链接箭头なめとん的麻将BLOG\ndecorative：友情链接箭头科学研究二次元 | りーりん实验室\ndecorative：友情链接箭头日刊鸵鸟蛋\ndecorative：友情链接箭头HAZ的研究人生\ndecorative：友情链接箭头新手的好运\ndecorative：友情链接箭头副露海冬\ndecorative：友情链接箭头兄控女高中生的天凤反省簿\ndecorative：友情链接箭头碰与吃的冷冻库\ndecorative：友情链接箭头麻将一番街\ndecorative：友情链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b47",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b47",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r21"
+            ],
+            "explanation": "装饰性链接箭头由r21表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 20,
+              "figureId": "nemata-jp-p317-r21",
+              "transcription": "「麻将一番街」链接前的蓝色方形图标，带灰色边框，内为白色向右箭头。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b48",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b48",
+            "verdict": "faithful",
+            "explanation": "“麻将概论”准确。"
+          },
+          "body": [
+            {
+              "index": 13,
+              "id": null,
+              "type": "text",
+              "text": "幻想麻将认真打wiki\ndecorative：友情链接箭头现代麻将技术论注\ndecorative：友情链接箭头极真麻将博客\ndecorative：友情链接箭头最速流麻将战术论\ndecorative：友情链接箭头三麻四麻blog\ndecorative：友情链接箭头面向初学者的麻将讲座〈围绕黄金牌的故事〉\ndecorative：友情链接箭头天凤，避免末位的日子\ndecorative：友情链接箭头なめとん的麻将BLOG\ndecorative：友情链接箭头科学研究二次元 | りーりん实验室\ndecorative：友情链接箭头日刊鸵鸟蛋\ndecorative：友情链接箭头HAZ的研究人生\ndecorative：友情链接箭头新手的好运\ndecorative：友情链接箭头副露海冬\ndecorative：友情链接箭头兄控女高中生的天凤反省簿\ndecorative：友情链接箭头碰与吃的冷冻库\ndecorative：友情链接箭头麻将一番街\ndecorative：友情链接箭头麻将概论"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b49",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b49",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r22"
+            ],
+            "explanation": "装饰性链接箭头由r22表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 21,
+              "figureId": "nemata-jp-p317-r22",
+              "transcription": "「麻将概论」链接前的蓝色方形图标，带灰色边框，内为白色向右箭头。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b50",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b50",
+            "verdict": "faithful",
+            "explanation": "导航各项完整；“研究开发资料”虽未进入提取文字，但在整页中清晰可见。"
+          },
+          "body": [
+            {
+              "index": 3,
+              "id": null,
+              "type": "text",
+              "text": "索引　战术论　研究开发资料　专栏　参考资料　书籍介绍"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b51",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b51",
+            "verdict": "faithful",
+            "explanation": "页眉标题和网址均保留，置于视觉页首合理。"
+          },
+          "body": [
+            {
+              "index": 0,
+              "id": null,
+              "type": "text",
+              "text": "现代麻将技术论－战术论\nhttp://yabejp.web.fc2.com/mahjong/archives.html"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b52",
+          "sourceType": "text",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b52",
+            "verdict": "faithful",
+            "explanation": "第1页、共3页及2014-03-02 11:35均准确。"
+          },
+          "body": [
+            {
+              "index": 14,
+              "id": null,
+              "type": "text",
+              "text": "第1页，共3页\n2014-03-02 11:35"
+            }
+          ],
+          "figures": []
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b53",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b53",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r3"
+            ],
+            "explanation": "搜索按钮由r3表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 2,
+              "figureId": "nemata-jp-p317-r3",
+              "transcription": "灰色矩形按钮，按钮文字为「搜索」。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b54",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b54",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r4"
+            ],
+            "explanation": "空白横条由r4表示，无教学内容。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 3,
+              "figureId": "nemata-jp-p317-r4",
+              "transcription": "所分配的图像块为空白横条，没有可见文字或图案。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b55",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b55",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r5"
+            ],
+            "explanation": "左栏空白区域由r5表示，无教学内容。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 4,
+              "figureId": "nemata-jp-p317-r5",
+              "transcription": "所分配的图像块为大幅白色空白区域，没有可见文字或图案。",
+              "unknowns": []
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b56",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b56",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r6"
+            ],
+            "explanation": "左栏空白块由r6说明，无教学内容。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 5,
+              "figureId": "nemata-jp-p317-r6",
+              "transcription": "本区域包含杂志封面、两块左栏空白图像、友情链接横幅及第一条链接前的箭头图标。\n杂志封面以一名女性的面部照片为背景，刊名为《月刊网络麻将》，英文标志为「Net M@hjong」，英文说明为「Monthly Online Mahjong Magazine」；期号为2010年1月，另标「January」。左侧竖排文字为「日本麻将博客大奖大特集号」。右侧文字为「最终评选评语」，列出福地诚、须田良规、とつげき東北；其下为「评委特别奖」「打天凤时跪坐在椅子上」，署名无法可靠辨认。封面下部依次写有：「日本麻将博客大奖2009　荣获亚军」「近代麻将漫画生活　いのけん」「日本麻将博客大奖2009　荣获最高奖」「现代麻将技术论」「撰稿人：ネマタ　网站制作者：や～べ」。主标题旁还印有假名读音，但无法可靠逐字辨认。封面右上角另有两行细小宣传文字，无法可靠逐字辨认。\n左栏两块图像均为空白。紫色圆角横幅左侧有白色相互连接的箭头图案，文字为「友情链接」。第一条链接前有一个带灰色边框的蓝色方形图标，内为白色向右箭头。",
+              "unknowns": [
+                "杂志封面右上角两行宣传小字过小，无法可靠逐字辨认。",
+                "评委特别奖条目下方的星号夹署名模糊，无法可靠辨认完整字形。",
+                "主标题旁的假名读音过小，无法可靠逐字辨认。",
+                "封面右上“January”下方的极小文字分辨率不足，无法可靠辨认。"
+              ]
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b57",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b57",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r6"
+            ],
+            "explanation": "紫色友情链接横幅及白色连接箭头由r6表示。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 5,
+              "figureId": "nemata-jp-p317-r6",
+              "transcription": "本区域包含杂志封面、两块左栏空白图像、友情链接横幅及第一条链接前的箭头图标。\n杂志封面以一名女性的面部照片为背景，刊名为《月刊网络麻将》，英文标志为「Net M@hjong」，英文说明为「Monthly Online Mahjong Magazine」；期号为2010年1月，另标「January」。左侧竖排文字为「日本麻将博客大奖大特集号」。右侧文字为「最终评选评语」，列出福地诚、须田良规、とつげき東北；其下为「评委特别奖」「打天凤时跪坐在椅子上」，署名无法可靠辨认。封面下部依次写有：「日本麻将博客大奖2009　荣获亚军」「近代麻将漫画生活　いのけん」「日本麻将博客大奖2009　荣获最高奖」「现代麻将技术论」「撰稿人：ネマタ　网站制作者：や～べ」。主标题旁还印有假名读音，但无法可靠逐字辨认。封面右上角另有两行细小宣传文字，无法可靠逐字辨认。\n左栏两块图像均为空白。紫色圆角横幅左侧有白色相互连接的箭头图案，文字为「友情链接」。第一条链接前有一个带灰色边框的蓝色方形图标，内为白色向右箭头。",
+              "unknowns": [
+                "杂志封面右上角两行宣传小字过小，无法可靠逐字辨认。",
+                "评委特别奖条目下方的星号夹署名模糊，无法可靠辨认完整字形。",
+                "主标题旁的假名读音过小，无法可靠逐字辨认。",
+                "封面右上“January”下方的极小文字分辨率不足，无法可靠辨认。"
+              ]
+            }
+          ]
+        },
+        {
+          "sourceBlockId": "nemata-jp-p317-b58",
+          "sourceType": "image",
+          "sourceIndependentCheck": {
+            "id": "nemata-jp-p317-b58",
+            "disposition": "represented",
+            "figureIds": [
+              "nemata-jp-p317-r6"
+            ],
+            "explanation": "左栏另一空白块由r6说明，无教学内容。"
+          },
+          "body": [],
+          "figures": [
+            {
+              "index": 5,
+              "figureId": "nemata-jp-p317-r6",
+              "transcription": "本区域包含杂志封面、两块左栏空白图像、友情链接横幅及第一条链接前的箭头图标。\n杂志封面以一名女性的面部照片为背景，刊名为《月刊网络麻将》，英文标志为「Net M@hjong」，英文说明为「Monthly Online Mahjong Magazine」；期号为2010年1月，另标「January」。左侧竖排文字为「日本麻将博客大奖大特集号」。右侧文字为「最终评选评语」，列出福地诚、须田良规、とつげき東北；其下为「评委特别奖」「打天凤时跪坐在椅子上」，署名无法可靠辨认。封面下部依次写有：「日本麻将博客大奖2009　荣获亚军」「近代麻将漫画生活　いのけん」「日本麻将博客大奖2009　荣获最高奖」「现代麻将技术论」「撰稿人：ネマタ　网站制作者：や～べ」。主标题旁还印有假名读音，但无法可靠逐字辨认。封面右上角另有两行细小宣传文字，无法可靠逐字辨认。\n左栏两块图像均为空白。紫色圆角横幅左侧有白色相互连接的箭头图案，文字为「友情链接」。第一条链接前有一个带灰色边框的蓝色方形图标，内为白色向右箭头。",
+              "unknowns": [
+                "杂志封面右上角两行宣传小字过小，无法可靠逐字辨认。",
+                "评委特别奖条目下方的星号夹署名模糊，无法可靠辨认完整字形。",
+                "主标题旁的假名读音过小，无法可靠逐字辨认。",
+                "封面右上“January”下方的极小文字分辨率不足，无法可靠辨认。"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sourceBlocks": 226,
+  "semanticPassFromSourceCount": false
+}

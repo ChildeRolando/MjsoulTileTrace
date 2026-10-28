@@ -1,0 +1,94 @@
+{
+  "schema": "coac249-frontmatter-authentic-two-scope-verification/1",
+  "recordedAt": "2026-10-27T22:49:48.241Z",
+  "results": [
+    {
+      "scopeId": "frontmatter-001-pages1-3-scoped-cover-ruling",
+      "status": "needs-repair",
+      "candidates": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0001.json",
+          "sha256": "195ec4e95734120c92d4bc0281512b7cb06d84fda221b68e339f020e06ddd02b",
+          "bytes": 73779,
+          "packagePath": "existing/p1/candidate.json"
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0002.json",
+          "sha256": "205a9a8ab2dcc7353f5d3ec2df6f6b99339ecbb4ca57c507690b6ff45397e1d6",
+          "bytes": 73791,
+          "packagePath": "existing/p2/candidate.json"
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0003.json",
+          "sha256": "b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36",
+          "bytes": 34716,
+          "packagePath": "existing/p3/candidate.json"
+        }
+      ],
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-0.json",
+        "sha256": "36246d0d58987b99e50797ab36e382740aa87da4cec28eed6761b139c06d04c6"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\1ac40202-64c8-4068-92fd-fb62ea5ad4ff.json",
+        "sha256": "7d9ad8b617d396fbf79a7a48340ddbd796f7701397e8bd865399c2765f56c16f"
+      },
+      "requestCopy": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\request-0.json",
+        "sha256": "308af19e0c466d9882ce1862e2a47803bd177c94b6e20ede98379d0d714ae89f"
+      },
+      "actualImages": 19,
+      "callId": "1ac40202-64c8-4068-92fd-fb62ea5ad4ff",
+      "usage": {
+        "inputTokens": 154803,
+        "cachedInputTokens": 0,
+        "outputTokens": 15291
+      },
+      "durationMs": 191920,
+      "scopeChecked": true
+    },
+    {
+      "scopeId": "research317-b5-repair-and-limited-cover-scope",
+      "status": "needs-repair",
+      "candidates": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-metadata-four-pages-inline-20261026\\candidates\\nemata-jp\\page-0317.json",
+          "sha256": "e0911ad1e2ee917537c953d1d2e204120fcd3477a67baf1f26eac90f18c9efcf",
+          "bytes": 69864,
+          "packagePath": "existing/p317/candidate.json"
+        }
+      ],
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\receipt-1.json",
+        "sha256": "d85aa60a50c4c2dc7a70fd5bbbbf43b2bd94ea990f4a5f555791ed6df228f19d"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4b703cb1-83ef-4cb8-bac5-9fbdcaf7fbbf.json",
+        "sha256": "fa33cfbf507a17d7be7b2570a7d1b1402d39771d954be471780e7de4cb1b87b5"
+      },
+      "requestCopy": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-targets-20261028\\request-1.json",
+        "sha256": "030f91bb41a2ccbc6391d7d29d1affbacc521b723e34c55eba24119d0fe7f7f6"
+      },
+      "actualImages": 7,
+      "callId": "4b703cb1-83ef-4cb8-bac5-9fbdcaf7fbbf",
+      "usage": {
+        "inputTokens": 47740,
+        "cachedInputTokens": 0,
+        "outputTokens": 8113
+      },
+      "durationMs": 85203,
+      "scopeChecked": true
+    }
+  ],
+  "packageFiles": 65,
+  "sourceBlocksMapped": 226,
+  "oldFaithfulTextChecksInherited": 158,
+  "oldFaithfulFigureChecksInherited": 56,
+  "chineseTocBlocksNotReReviewed": 18,
+  "sameImageRulingReusedBySecond": true,
+  "originalWholePageNonpassPreserved": true,
+  "newModelCallsDuringVerification": 0,
+  "wholeChapterAccepted": false,
+  "admissionGranted": false
+}

@@ -1,0 +1,242 @@
+"""Offline finite evidence binding. No model calls or acceptance mutation."""
+import collections
+import datetime
+import hashlib
+import json
+import pathlib
+import shutil
+
+OUT = pathlib.Path(__file__).resolve().parent
+ROOT = pathlib.Path('E:/AgentData/Coach/knowledge/processing')
+RUN = ROOT / 'production/sol-high-metadata-four-pages-inline-20261026'
+INTEGRATION = ROOT / 'integration'
+PAGES = [1, 2, 3, 317]
+snapshots = {}
+
+
+def load(path):
+    return json.loads(pathlib.Path(path).read_text(encoding='utf-8-sig'))
+
+
+def digest(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def write(name, value):
+    p = OUT / name
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+
+def bind(path, package_path=None, expected=None):
+    p = pathlib.Path(path)
+    data = p.read_bytes()
+    h = digest(data)
+    if expected:
+        assert h == expected, str(p)
+    snapshots[str(p)] = h
+    result = {'path': str(p), 'sha256': h, 'bytes': len(data)}
+    if package_path:
+        dest = OUT / package_path
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_bytes(data)
+        result['packagePath'] = pathlib.Path(package_path).as_posix()
+    return result
+
+
+register = load(INTEGRATION / 'coac244-remaining26-closure-register-20261028.json')
+rows = [r for r in register['rows'] if r['chapterId'] in ['nemata-jp-chapter-001-64', 'nemata-jp-chapter-317-51']]
+ledger = [json.loads(line) for line in (RUN / 'calls.jsonl').read_text(encoding='utf-8-sig').splitlines() if line.strip()]
+bind(RUN / 'calls.jsonl', 'existing/producer-calls.jsonl')
+source_bindings, page_rows, scoped, evidence_pages = [], [], [], {}
+for row in rows:
+    for entry in row['pdfEvidence']:
+        n = entry['page']
+        if n not in PAGES:
+            continue
+        sb = bind(entry['source']['path'], f'existing/p{n}/source.json', entry['source']['sha256'])
+        cb = bind(entry['candidate']['path'], f'existing/p{n}/candidate.json', entry['candidate']['sha256'])
+        ab = bind(entry['audit']['path'], f'existing/p{n}/audit.json', entry['audit']['sha256'])
+        source, candidate, audit = load(sb['path']), load(cb['path']), load(ab['path'])
+        assert candidate['source']['pageDataSha256'] == sb['sha256']
+        assert audit['production']['sha256'] == cb['sha256']
+        review = audit['modelReview']
+        assert review['completePageCompared'] and audit['deterministicChecks']['passed']
+        text_checks = {b['id']: b for b in review['bodyChecks']}
+        figure_checks = {f['id']: f for f in review['figureChecks']}
+        image_checks = {i['id']: i for i in review['imageChecks']}
+        assert len(text_checks) == len(review['bodyChecks'])
+        assert len(figure_checks) == len(review['figureChecks'])
+        assert len(image_checks) == len(review['imageChecks'])
+        maker = next(l for l in ledger if l['page'] == n)
+        assert maker['pageDataSha256'] == sb['sha256'] and maker['success']
+        maker_raw = bind(RUN / f"raw-calls/{maker['callId']}.json", f"existing/p{n}/producer-raw.json")
+        maker_data = load(maker_raw['path'])
+        assert maker_data['callId'] == maker['callId']
+        assert maker_data['usage'] == maker['usage']
+        audit_raws = []
+        for call in audit['calls']:
+            ar = bind(ROOT / f"audit/calls/{call['callId']}.json", f"existing/p{n}/reviewer-raw.json")
+            raw = load(ar['path'])
+            assert raw['success'] and raw['structuredOutput'] == review
+            assert raw['productionSha256'] == cb['sha256']
+            audit_raws.append(ar)
+        full_page = bind(RUN / f'renders/nemata-jp/page-{n:04d}.png', f'images/p{n}-full.png', audit['pageImageSha256'])
+        native = candidate['provenance']['nativeSourceFlow']
+        flow = bind(ROOT / native['path'], f'existing/p{n}/native-source-flow.json', native['sha256'])
+        mapping, targets = [], []
+        for block in source['blocks']:
+            bid = block['id']
+            body_refs = [{'candidateIndex': i, 'sourceBlockIds': b.get('sourceBlockIds', []),
+                          'translation': b.get('text', ''), 'inlineContent': b.get('inlineContent', [])}
+                         for i, b in enumerate(candidate['body']['blocks']) if bid in b.get('sourceBlockIds', [])]
+            figure_refs = [{'figureId': f['figureId'], 'caption': f.get('caption'),
+                            'transcription': f.get('transcription'), 'unknowns': f.get('unknowns', []),
+                            'sourceImageBlockIds': f.get('sourceImageBlockIds'), 'oldCheck': figure_checks[f['figureId']]}
+                           for f in candidate['figures'] if bid in f.get('sourceImageBlockIds', [])]
+            assert body_refs or figure_refs, bid
+            if block['type'] == 'text':
+                assert bid in text_checks
+            else:
+                assert bid in image_checks
+            mapping.append({'sourceBlockId': bid, 'sourceType': block['type'], 'bbox': block.get('bbox'),
+                            'sourceText': '\n'.join(line['text'] for line in block.get('lines', [])),
+                            'sourceImageSha256': block.get('imageSha256'), 'candidateBody': body_refs,
+                            'candidateFigures': figure_refs,
+                            'independentCheck': text_checks.get(bid) if block['type'] == 'text' else image_checks[bid]})
+        uncertain_ids = [f['id'] for f in review['figureChecks'] if f['verdict'] == 'uncertain']
+        for fid in uncertain_ids:
+            fig = next(f for f in candidate['figures'] if f['figureId'] == fid)
+            crop = bind(ROOT / fig['croppedImagePath'], f'images/{fid}.png', fig['croppedImageSha256'])
+            originals = []
+            for bid in fig['sourceImageBlockIds']:
+                original = next(b for b in source['blocks'] if b['id'] == bid)
+                orig = bind(ROOT / original['asset'], f"images/original-{original['imageSha256']}.png", original['imageSha256'])
+                originals.append({'sourceBlockId': bid, 'width': original['width'], 'height': original['height'], **orig})
+            targets.append({'figure': fig, 'oldCheck': figure_checks[fid], 'crop': crop, 'originalAssets': originals,
+                            'issues': [x for x in review['issues'] if x['targetId'] == fid]})
+        nonfaithful_body = [b['id'] for b in review['bodyChecks'] if b['verdict'] != 'faithful']
+        evidence = {'page': n, 'chapterId': row['chapterId'], 'source': sb, 'candidate': cb, 'audit': ab,
+                    'producerLedgerEntry': maker, 'producerRaw': maker_raw, 'reviewerRaw': audit_raws,
+                    'fullPage': full_page, 'nativeSourceFlow': flow, 'sourceBlocks': source['blocks'],
+                    'mapping': mapping, 'candidateReadingFlow': candidate['body']['blocks'],
+                    'allCandidateFigures': candidate['figures'], 'uncertainFigures': targets,
+                    'independentSummary': review['summary'], 'independentFlow': review['flowCheck'],
+                    'oldIssues': review['issues'], 'neighboringContext': audit['neighboringContext'],
+                    'status': 'existing-needs-repair-no-new-verdict'}
+        write(f'pages/page-{n:04d}.json', evidence)
+        evidence_pages[n] = evidence
+        page_rows.append({'page': n, 'chapterId': row['chapterId'], 'sourceBlockCount': len(source['blocks']),
+                          'mappedSourceBlockCount': len(mapping), 'missingSourceBlockIds': [],
+                          'textChecks': dict(collections.Counter(b['verdict'] for b in review['bodyChecks'])),
+                          'figureChecks': dict(collections.Counter(b['verdict'] for b in review['figureChecks'])),
+                          'sourceImageBlocks': len(image_checks), 'candidateFigures': len(figure_checks),
+                          'source': sb, 'candidate': cb, 'audit': ab,
+                          'producerRaw': maker_raw, 'reviewerRaw': audit_raws,
+                          'stillNotPassed': review['issues'], 'detail': f'pages/page-{n:04d}.json',
+                          'scopedDisplayEvidence': f'limited-admission.json:p{n}',
+                          'pageAcceptanceChanged': False})
+        scoped.append({'page': n, 'bodySourceIdsWithExistingFaithfulCheck': [b['id'] for b in review['bodyChecks'] if b['verdict'] == 'faithful'],
+                       'bodySourceIdsStillHeld': nonfaithful_body,
+                       'figureIdsWithExistingFaithfulCheck': [f['id'] for f in review['figureChecks'] if f['verdict'] == 'faithful'],
+                       'figuresWithUnknownsHeldAsSourceNotesPendingScopeAdjudication': targets,
+                       'independentEvidence': {'audit': ab, 'summary': review['summary'], 'flow': review['flowCheck']},
+                       'proposal': 'Retain all clear text including TOC/research descriptions, author reviews and bibliography in original reading flow; show original covers with precise existing unknown notes. No cover detail may supply tactical tile facts or guessed publication/name text.',
+                       'currentGateStatus': audit['status'], 'autoAdmission': False,
+                       'needsIndependentScopeRuling': uncertain_ids,
+                       'notAllowed': ['whole-page passed substitution', 'relabel all prose as navigation', 'delete TOC/preface from completion denominator', 'erase unknowns', 'guess cover text or tile codes']})
+        source_bindings.extend([sb, cb, ab, maker_raw, *audit_raws, full_page, flow])
+
+assert sum(r['sourceBlockCount'] for r in page_rows) == 226
+assert sum(r['textChecks'].get('faithful', 0) for r in page_rows) == 158
+assert sum(r['textChecks'].get('needs-repair', 0) for r in page_rows) == 1
+assert sum(r['figureChecks'].get('uncertain', 0) for r in page_rows) == 6
+write('page-register.json', {'schema': 'coach-frontmatter-page-evidence/1',
+      'modelCallsThisRun': 0, 'sourceBlocks': 226, 'productionGap': 0, 'acceptedIncrement': 0, 'pages': page_rows})
+write('limited-admission.json', {'schema': 'coach-prepared-scoped-admission-evidence/1',
+      'status': 'prepared-evidence-not-an-acceptance-receipt', 'pages': scoped,
+      'gateChangeExecuted': False, 'allWholePageVerdictsPreserved': True})
+
+# Existing accepted Chinese TOC: receipt and actual staged block identities, no new audit.
+preview_path = INTEGRATION / 'accepted-preview-current.json'
+preview = load(preview_path)
+cn_stage = next(s for s in preview['selectedPdf']['stages'] if '79-cn-chapter-001-3' in s.get('receipt', {}).get('chapterIds', []))
+assert cn_stage['receipt']['blocks'] == 18
+cn_corpus_path = pathlib.Path(cn_stage['stagePath']) / 'textbook-corpus.json'
+cn_corpus = load(cn_corpus_path)
+cn_units = cn_corpus['units']
+cn_blocks = [b for u in cn_units for b in u['blocks']]
+assert len(cn_blocks) == 18
+cn_bindings = []
+for p in cn_stage['receipt']['pages']:
+    cn_bindings.extend([bind(p['candidatePath'], expected=p['candidateSha256']), bind(p['auditPath'])])
+write('chinese-toc-reuse.json', {'chapterId': '79-cn-chapter-001-3', 'alreadyAcceptedBlocks': 18,
+      'previewPointer': {'path': str(preview_path), 'sha256AtRead': digest(preview_path.read_bytes())},
+      'stageCorpus': bind(cn_corpus_path), 'stageReceipt': cn_stage['receipt'],
+      'blocks': cn_blocks, 'bindings': cn_bindings, 'newCalls': 0, 'changed': False,
+      'warning': 'Chinese accepted TOC is separate evidence, not a replacement for Japanese source pages 1–3/317.'})
+
+# Same-source cover: preserve contradictory existing name readings for independent judgment.
+magazine_hash = '275de30a14f23f51d30e29b86baeec0fefd137d45e091ff0717f0b41c5da05d6'
+magazine_targets = [evidence_pages[n]['uncertainFigures'][0] for n in [1, 317]]
+assert all(magazine_hash in t['figure']['sourceImageSha256s'] for t in magazine_targets)
+write('same-image-conflict.json', {'sourceImageSha256': magazine_hash, 'occurrences': magazine_targets,
+      'reason': 'p1-r4 names ☆はくあ☆; p317-r6 lists ★ぱくお★/★ばくお★. Same exact source asset, differing candidate readings and old scope judgments.',
+      'controllerDecision': 'unknown; no transcription selected or corrected',
+      'nonTransferable': 'Do not transplant p1 whole-figure faithful subclaims to resolve p317 name uncertainty without scoped independent receipt.'})
+cross = []
+for n, bid in [(2, 'nemata-jp-p2-b61'), (3, 'nemata-jp-p3-b23')]:
+    m = next(b for b in evidence_pages[n]['mapping'] if b['sourceBlockId'] == bid)
+    cross.append({'page': n, 'sourceBlockId': bid, 'sourceText': m['sourceText'],
+                  'candidateBody': m['candidateBody'], 'independentCheck': m['independentCheck']})
+write('cross-page-review-context.json', {'context': cross,
+      'requirement': 'Preserve p2-b61 continuation into p3-b23 as author book commentary; never drop or label the prose decorative/navigation.'})
+
+write('two-review-items.json', {'schema': 'coach-finite-review-preparation/1', 'status': 'not-dispatched',
+      'modelCallsThisRun': 0, 'items': [
+        {'id': 'frontmatter-001-pages1-3-scoped-cover-ruling', 'pages': [1, 2, 3],
+         'producerCallsRequired': 0, 'independentReviewCallsBudget': 1, 'retryBudget': 0,
+         'model': 'gpt-6.1-terra', 'reasoningEffort': 'max',
+         'targets': ['nemata-jp-p1-r4', 'nemata-jp-p2-r11', 'nemata-jp-p2-r15', 'nemata-jp-p3-r1', 'nemata-jp-p3-r3'],
+         'input': ['pages/page-0001.json', 'pages/page-0002.json', 'pages/page-0003.json',
+                   'images/p1-full.png', 'images/p2-full.png', 'images/p3-full.png',
+                   'all five target crops and original source assets', 'same-image-conflict.json (include p317-r6 context)',
+                   'cross-page-review-context.json', 'limited-admission.json'],
+         'question': 'Determine whether each precise unreadable cover detail is non-core to the already-faithful text and may remain unknown in a retained source-note display. Explicitly rule on the shared magazine conflicting name; never guess it. Inherit existing text/flow/other-figure checks; do not review the book again.',
+         'output': 'SHA-bound scope receipt with per-target source-note/uncertain outcome and explicit allowed source IDs. No automatic whole-page pass.'},
+        {'id': 'research317-b5-repair-and-limited-cover-scope', 'pages': [317],
+         'producerCallsRequired': 1, 'independentReviewCallsBudget': 1, 'retryBudget': 0,
+         'producerModel': 'gpt-6.1-sol', 'producerReasoningEffort': 'high',
+         'model': 'gpt-6.1-terra', 'reasoningEffort': 'max',
+         'targets': ['nemata-jp-p317-b5 (combined candidate block b4+b5)', 'nemata-jp-p317-r6'],
+         'input': ['pages/page-0317.json', 'images/p317-full.png', 'r6 actual crop and original assets',
+                   'same-image-conflict.json', 'item1 scoped shared-image receipt when available',
+                   'SHA-bound new b4+b5 repair candidate and producer raw, once separately authorized/created'],
+         'repairScope': 'Use old independent suggested repair of 暫定公開 only. Preserve b4 heading, b5 structure/URL change warning, directory items, links, order and all other bytes. No candidate written this run.',
+         'question': 'Verify revised b5 means provisional edition rather than temporary publication and preserves full context. Decide r6 source-note scope using the same-asset ruling, without inferring name/publication metadata; otherwise retain unknown. Inherit other 31 faithful text and 21 faithful figure checks only for unchanged scopes.',
+         'output': 'Independent revised-text receipt plus exact limited cover admissibility; full page not accepted while a relevant issue remains.'}],
+      'totalProposedCalls': {'producer': 1, 'reviewer': 2, 'total': 3, 'retry': 0},
+      'money': None, 'tokens': None, 'note': 'Budget proposal only, not authorization or a frozen dispatch manifest. Cost/usage unknown, not zero. No six-table/Q8 budget used.'})
+
+write('handoff.json', {'schema': 'coach-frontmatter-source-coverage-handoff/1',
+      'recordedAtUtc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+      'originIssue': 'COAC-246', 'receivers': ['COAC-249', 'COAC-250'],
+      'chapters': [r['chapterId'] for r in rows], 'pages': PAGES,
+      'pageRegister': 'page-register.json', 'scopedAdmissionEvidence': 'limited-admission.json',
+      'twoFiniteReviewItems': 'two-review-items.json', 'chineseTocInherited': 'chinese-toc-reuse.json',
+      'sourceBlocks': 226, 'mappedSourceBlocks': 226, 'productionGap': 0,
+      'existingTextVerdicts': {'faithful': 158, 'needs-repair': 1},
+      'existingFigureVerdicts': {'faithful': 56, 'uncertain': 6},
+      'newModelCalls': 0, 'newCandidateBytes': 0, 'newAcceptanceVerdicts': 0,
+      'completionDenominatorChanged': False, 'activeChanged': False,
+      'for249': 'Consume exactly the two prepared items after applicable authorization; reuse faithful scopes and old raw. No dispatch in this handoff.',
+      'for250': 'Record source coverage separately from semantic acceptance. Preserve clear body/TOC/book-review content with original order and precise source-note limits; use a valid scoped receipt before altering admission. Do not turn cover uncertainties into a claim that 226 clear blocks are untranslated, or omit frontmatter from completion.',
+      'historicalCalls': {'producer': 4, 'independentReview': 4, 'status': 'all raw preserved and linked'},
+      'cost': None, 'scopeWarning': 'All four old page verdicts remain needs-repair; no self-issued pass.'})
+after = {p: digest(pathlib.Path(p).read_bytes()) for p in snapshots}
+assert after == snapshots
+write('immutable-inputs.json', {'files': [{'path': p, 'sha256': h} for p, h in snapshots.items()],
+                              'allUnchanged': True, 'newCalls': 0})
+print(json.dumps({'pages': len(page_rows), 'mappedSourceBlocks': 226, 'oldFaithfulText': 158,
+                  'oldTextErrors': 1, 'oldUncertainFigures': 6, 'chineseAcceptedReused': 18,
+                  'newCalls': 0, 'immutableInputFiles': len(snapshots)}))

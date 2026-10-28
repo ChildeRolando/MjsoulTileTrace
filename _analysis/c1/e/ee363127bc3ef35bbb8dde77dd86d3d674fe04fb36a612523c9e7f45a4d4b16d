@@ -1,0 +1,58 @@
+{
+  "schema": "coac249-frontmatter-revisions-authentic-terminal-verification/1",
+  "recordedAt": "2026-10-27T23:17:52.583Z",
+  "checks": [
+    {
+      "scope": "frontmatter-revised-cover-exact-targets-v1",
+      "status": "invalid-scope-evidence",
+      "callId": "2023f495-ad40-4b97-a0b5-d25715719543",
+      "accepted": false,
+      "recordedChecks": {
+        "passed": false,
+        "accepted": false,
+        "errors": [
+          "target scope"
+        ]
+      },
+      "rawScopeVerdict": "uncertain",
+      "images": 19,
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-revisions-20261028\\receipt-0.json",
+        "sha256": "d535dd7c94e5c328d1394e0e4c353ea581e4ee35d8d0a629ffe74c0af7125081"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2023f495-ad40-4b97-a0b5-d25715719543.json",
+        "sha256": "59732e5b4d84ab744e64db5339b006c3d14a64d4646d02150931c7f5bf529691"
+      }
+    },
+    {
+      "scope": "research317-revised-b5-and-cover-exact-targets-v1",
+      "status": "accepted-exact-targets-with-limited-unknown",
+      "callId": "542ff3c5-07fe-4fb3-96bb-68367ae9537e",
+      "accepted": true,
+      "recordedChecks": {
+        "passed": true,
+        "accepted": true,
+        "errors": []
+      },
+      "rawScopeVerdict": "accepted-exact-targets-with-limited-unknown",
+      "images": 7,
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-frontmatter-revisions-20261028\\receipt-1.json",
+        "sha256": "84262129d73b09456547c03a17093976ed200b64cac9fe401c1697b789d97dcc"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\542ff3c5-07fe-4fb3-96bb-68367ae9537e.json",
+        "sha256": "dc5c0fb4cc3e6f9a0e010f114050f8b79a205555dbb790013b377767d44ffe5b"
+      }
+    }
+  ],
+  "boundFiles": 187,
+  "modelCallsDuringVerification": 0,
+  "actualReviewCalls": 2,
+  "remaining": 0,
+  "retry": 0,
+  "originalInputsUnchanged": true,
+  "ordinaryFullPagePass": false,
+  "meaning": "Verifies actual inputs, transport, raw and recorded pass/nonpass flags. Does not upgrade A uncertain or grant admission."
+}

@@ -1,0 +1,44 @@
+{
+  "existingOwnerUpdates": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-remaining26-closure-register-20261028.json",
+      "beforeSha256": "15de92316409735d2fc8a0367fad910f45b719c224a9aec22686da2fbecca01d",
+      "afterSha256": "d983f311a63eec4696b0a3ab305ad00557fddb383bb735b26daf82ca8beaa1a6",
+      "acceptanceAndCountsUnchanged": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+      "beforeSha256": "4ed23af2a7a890e6e958fefba36e88844d6f55d5f25615f050a721196abbbf02",
+      "afterSha256": "7c6dcc009d73bf47081b45f1d6858c61dceff2d2b9e67e7deca4290812efe0f0",
+      "acceptanceAndCountsUnchanged": true
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\modern-metadata-four-page-gap-plan.json",
+      "beforeSha256": "57b1e8760c03431cd6c182ca42d5a72adbd3baad8e2d9f752d4203571997775d",
+      "afterSha256": "7400a2e769f30c70b3d63aff25e9f72e193398279f2a1dcb33b906c2f10974e5",
+      "acceptanceAndCountsUnchanged": true
+    }
+  ],
+  "reference": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\handoff.json",
+    "sha256": "921a1fdc2cbec90df9a948832ce2d009543c050f6b0ad9c430d77facd9de327d",
+    "proofs": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\derivation-proofs.json",
+    "fields": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac246-frontmatter-exact-20261028\\exact-field-changes.json",
+    "reviewSummary": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-frontmatter-targets-summary-20261028.json",
+      "sha256": "ef3d1de1c750a027fc5c420990649976110d057b7f28c95dad67feb548aa9efa",
+      "bytes": 56677,
+      "packagePath": "review-inputs/summary.json"
+    },
+    "newModelCalls": 0,
+    "reviewCallsUsed": 2,
+    "reviewCallsRemaining": 0,
+    "uniqueFieldsReplaced": 13,
+    "recognitionTodo": false,
+    "admissionGranted": false,
+    "coveredIncrement": 0,
+    "status": "exact-derived-awaiting-legitimate-scoped-admission"
+  },
+  "processIssuesCreated": 0,
+  "acceptanceGranted": false
+}

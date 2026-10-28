@@ -1,0 +1,65 @@
+{
+  "schema": "coac246-frontmatter-adjudication-evidence-verification/1",
+  "requestSha256": "a0125aca447c11276bcc9e995dae6eab21a9900ec318e38fad5816b0a6b12451",
+  "status": "adjudication-ready-for-independent-zero-call-check",
+  "checks": {
+    "allExplicitConditionsSupportedByExistingIndependentEvidence": true,
+    "oldSemanticQuestionsRemaining": [],
+    "oldCoverConditions": 5,
+    "allHistoricalConditions": 7,
+    "sourceBlocksMapped": 226,
+    "currentCoverFieldsAccepted": 8,
+    "p2r11UnchangedWithNotApplicableRepair": true,
+    "oldUncertaintyRetained": true,
+    "sourceNotesAreAuthorText": false,
+    "newModelCalls": 0
+  },
+  "verifiedParentEvidence": [
+    {
+      "page": 1,
+      "candidateSha256": "195ec4e95734120c92d4bc0281512b7cb06d84fda221b68e339f020e06ddd02b",
+      "productionLedgerSourceAndRawVerified": true
+    },
+    {
+      "page": 2,
+      "candidateSha256": "205a9a8ab2dcc7353f5d3ec2df6f6b99339ecbb4ca57c507690b6ff45397e1d6",
+      "productionLedgerSourceAndRawVerified": true
+    },
+    {
+      "page": 3,
+      "candidateSha256": "b4c7a236ae6b3854d1c989f7504af4b4271d7172dedef408d1150ac2e1a75a36",
+      "productionLedgerSourceAndRawVerified": true
+    }
+  ],
+  "allFourCandidateSha256": [
+    "e5f257621a531d26b2bb6cd546019aa4bd00912bfdcd0979cfd47dd514e9f79c",
+    "462a1bc3055842ad17233127590403bac2f64ebe00b902600e35af8d8bd84086",
+    "b99906e6ce07e4d75ee02bf9d561eabaaac5713c8e104323a61238438f98bb16",
+    "b3115591977d81273c795177268a00a84e0960577b0ec1a40304fd2ca515c462"
+  ],
+  "raws": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2023f495-ad40-4b97-a0b5-d25715719543.json",
+      "sha256": "59732e5b4d84ab744e64db5339b006c3d14a64d4646d02150931c7f5bf529691"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\542ff3c5-07fe-4fb3-96bb-68367ae9537e.json",
+      "sha256": "dc5c0fb4cc3e6f9a0e010f114050f8b79a205555dbb790013b377767d44ffe5b"
+    }
+  ],
+  "originalAStatus": "invalid-scope-evidence",
+  "originalAFlags": {
+    "scopeVerdict": "uncertain",
+    "completeTargetScopeCompared": false,
+    "authorProseDirectoryEmphasisAndVersionNotesPreserved": false,
+    "displayFaithfulWithExplicitUnknowns": false
+  },
+  "conditionMatrixSha256": "bfb674992d4a7b679826befeeeb5c8fa43d946153ac275cd3a3f84a1d39d83d9",
+  "sourceMapSha256": "ac60711992edebcd4c0c447f0ab1509ca78f2ec25833d82115bef16091737dc3",
+  "sourceNotesSha256": "5c610194613717394fe668f29bd0b10ee8f05bd4280dc8350325c71b065f0392",
+  "existing317Reused": true,
+  "independent249CheckComplete": false,
+  "admissionGranted": false,
+  "fullPagePassed": false,
+  "newModelCalls": 0
+}

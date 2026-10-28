@@ -1,0 +1,97 @@
+import hashlib
+import json
+import os
+import pathlib
+import shutil
+import zipfile
+
+OUT = pathlib.Path(__file__).resolve().parent
+BASE = pathlib.Path('E:/AgentData/Coach/knowledge/processing/integration')
+SHARED = BASE / OUT.name
+
+
+def sha(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+
+def load(p):
+    return json.loads(p.read_text(encoding='utf-8-sig'))
+
+
+def save(p, data):
+    p.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+
+dispatch = load(OUT / 'dispatch-contract.json')
+ref = {'path': str(SHARED / 'dispatch-contract.json'),
+       'sha256': sha((OUT / 'dispatch-contract.json').read_bytes()),
+       'authorizationCommentId': dispatch['authorization']['commentId'],
+       'packages': 2, 'newMakerCalls': 0, 'maximumNewReviewCalls': 2,
+       'failedOrVoidConsumesBudget': True, 'retry': 0,
+       'reviewStatus': 'ready-for-249-new-derivative-sha-review',
+       'admissionGranted': False}
+if not (OUT / 'owner-sync.json').exists():
+    updates = []
+    for name in ['coac244-remaining26-closure-register-20261028.json',
+                 'coac250-unified-chapter-register-20261027b.json',
+                 'modern-metadata-four-page-gap-plan.json']:
+        path = BASE / name
+        before = path.read_bytes()
+        old = json.loads(before.decode('utf-8-sig'))
+        data = json.loads(before.decode('utf-8-sig'))
+        if 'rows' in data:
+            for row in data['rows']:
+                if row['chapterId'] in ['nemata-jp-chapter-001-64', 'nemata-jp-chapter-317-51']:
+                    row['frontmatterRevisionReviewDispatch'] = ref
+                    if name.startswith('coac244-'):
+                        row['nextAction'] = ('13 exact fields already corrected in four pinned derivatives; no maker required. '
+                                             'New comment 01a17f97 authorizes two new-SHA targeted independent review packages, max1 review each, failed/void count, 0retry. '
+                                             'Old two-call authorization exhausted separately. COAC-249 consumes actual prepared terra/max requests; '
+                                             'COAC-250 receives each valid result for exact scoped admission plus actual page readback. '
+                                             'No more low-resolution recognition todo; keep unknowns and clear prose, no whole-page pass assumed.')
+        else:
+            data['frontmatterRevisionReviewDispatch'] = ref
+        assert path.read_bytes() == before
+        tmp = path.with_name(path.name + '.coac246-dispatch.tmp')
+        save(tmp, data)
+        os.replace(tmp, path)
+        if 'rows' in data:
+            old_rows = {r['chapterId']: r for r in old['rows']}
+            for row in data['rows']:
+                prior = old_rows[row['chapterId']]
+                for key in ['covered', 'verdict', 'gaps', 'pdfRoute', 'pdfBoundary']:
+                    assert row.get(key) == prior.get(key)
+            for key in ['counts', 'denominator', 'baseline']:
+                assert data.get(key) == old.get(key)
+        updates.append({'path': str(path), 'beforeSha256': sha(before),
+                        'afterSha256': sha(path.read_bytes()), 'acceptanceChanged': False})
+    save(OUT / 'owner-sync.json', {'updates': updates, 'reference': ref,
+                                  'newIssueCreated': False, 'ordinaryGatesChanged': False})
+for f in load(OUT / 'preflight.json')['dependencies']:
+    assert sha(pathlib.Path(f['path']).read_bytes()) == f['sha256'], f['path']
+for package in dispatch['packages']:
+    for c in package['candidates']:
+        assert sha(pathlib.Path(c['path']).read_bytes()) == c['sha256']
+    for image in package['imageBindings']:
+        assert sha(pathlib.Path(image['path']).read_bytes()) == image['sha256']
+    request = OUT / pathlib.Path(package['request']['path']).name
+    assert sha(request.read_bytes()) == package['request']['sha256']
+manifest = []
+for p in sorted(OUT.rglob('*')):
+    if p.is_file() and p.name != 'files.sha256.json' and '__pycache__' not in p.parts:
+        raw = p.read_bytes()
+        manifest.append({'path': p.relative_to(OUT).as_posix(), 'bytes': len(raw), 'sha256': sha(raw)})
+save(OUT / 'files.sha256.json', {'schema': 'coach-evidence-byte-manifest/1', 'files': manifest})
+for p in OUT.rglob('*'):
+    if p.is_file() and '__pycache__' not in p.parts:
+        dest = SHARED / p.relative_to(OUT)
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(p, dest)
+zip_path = OUT.parent / (OUT.name + '.zip')
+with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as z:
+    for p in sorted(OUT.rglob('*')):
+        if p.is_file() and '__pycache__' not in p.parts:
+            z.write(p, p.relative_to(OUT))
+print(json.dumps({'files': len(manifest), 'packages': 2, 'productionCalls': 0,
+                  'newReviewCallsExecuted': 0, 'zipBytes': zip_path.stat().st_size,
+                  'dispatchContractSha256': ref['sha256']}))
