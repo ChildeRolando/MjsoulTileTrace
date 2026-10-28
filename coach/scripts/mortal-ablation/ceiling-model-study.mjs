@@ -16,6 +16,11 @@ export function modelServiceFailureStreak(previous,row,fresh,model){
   if(fresh&&model==='deepseek_via_claude'&&row.failureCode==='claude_invalid_model_response')return 0;
   return serviceFailureStreak(previous,row,fresh);
 }
+export function routeIdentityFailure(row,fresh,proof){
+  if(!fresh)return false;
+  if(['claude_proxy_route_changed','claude_runtime_changed'].includes(row.failureCode))return true;
+  return row.failureCode==='claude_backend_not_verified'&&!(proof?.httpStatus>=400);
+}
 const newFiles=['scripts/mortal-ablation/ceiling-model-study.mjs','scripts/mortal-ablation/ceiling-claude.mjs','bin/scene-pattern-models.mjs','scripts/mortal-ablation/ceiling-deepseek-debug.mjs','bin/scene-pattern-deepseek-debug.mjs'];
 async function currentExecution(){return [...await executionFiles(),...await Promise.all(newFiles.map(async p=>[p,hash(await readFile(join(ROOT,p)))]))].sort((a,b)=>a[0].localeCompare(b[0]));}
 export function modelRunKey(phase,c,arm,model){return phase==='evaluation'&&model!=='sol'?`${phase}-${model}-${c.id}-${arm}`:`${phase}-${c.id}-${arm}`;}
@@ -70,23 +75,24 @@ export async function verifyModelStudy(out){
   const topup=await read(join(out,'engineering-runtime-amendment-approved.json'));
   if(topup.approved!==true||topup.totalLimit!==6141||topup.additionalEngineeringCalls!==1||topup.engineeringLimit!==151||f.engineeringTopupHash!==hash(topup))throw Error('runtime_engineering_topup_not_authorized');
   const single=await read(join(out,'engineering-single-response-amendment-approved.json'));
-  if(single.approved!==true||single.totalLimit!==6144||single.additionalEngineeringCalls!==3||single.engineeringLimit!==154||f.singleResponseTopupHash!==hash(single)||![4,5,6,7].includes(f.engineeringRevision))throw Error('single_response_engineering_topup_not_authorized');
+  if(single.approved!==true||single.totalLimit!==6144||single.additionalEngineeringCalls!==3||single.engineeringLimit!==154||f.singleResponseTopupHash!==hash(single)||![4,5,6,7,8].includes(f.engineeringRevision))throw Error('single_response_engineering_topup_not_authorized');
   if(f.codeDigest!==hash(await currentExecution())||hash(f.models)!==hash(STUDY_MODELS)||hash(f.budgets)!==hash(MODEL_BUDGETS)||hash(f.concurrency)!==hash(MODEL_CONCURRENCY))throw Error('model_execution_changed');
   if(hash(await read(join(out,'selected-version.json')))!==f.selectedHash)throw Error('model_selection_changed');
   const ledger=new BudgetLedger(out,f.budgets);if(ledger.rows[f.ledgerBaseline.rows-1]?.digest!==f.ledgerBaseline.head)throw Error('model_legacy_ledger_changed');
   if(hash(await readFile(f.claudeRuntime.executable))!==f.claudeRuntime.sha256)throw Error('model_claude_runtime_changed');
-  if([5,6,7].includes(f.engineeringRevision)){
+  if([5,6,7,8].includes(f.engineeringRevision)){
     const stop=await read(join(out,'model-route-stop.json')),sol=await read(join(out,'smoke-ready.json')),terra=await read(join(out,'calls',stop.terraKey+'.json'));
     if(f.routeStopHash!==hash(stop)||stop.stoppedModel!=='deepseek_via_claude'||stop.noFurtherDeepSeekRequests!==true||hash(sol)!==stop.solGateHash||sol.freezeHash!==f.originalFreezeHash||sol.submitted/sol.planned<.95||hash(terra)!==stop.terraCallHash||terra.response.status!=='ready'||hash(await read(join(out,'calls',stop.failedKey+'.json')))!==stop.failedCallHash)throw Error('ready_route_gate_changed');
   }
-  if([6,7].includes(f.engineeringRevision)){
+  if([6,7,8].includes(f.engineeringRevision)){
     const resume=await read(join(out,'model-route-resume.json')),approval=await read(join(out,'deepseek-debug-resume-approved.json')),debug=await read(join(out,'deepseek-debug-freeze.json')),receipt=await read(join(out,'deepseek-debug-result.json'));
     if(f.routeResumeHash!==hash(resume)||resume.approvalHash!==hash(approval)||approval.approved!==true||approval.revokesPreviousDeepSeekStop!==true||approval.totalLimit!==6144||resume.debugFreezeHash!==hash(debug)||resume.debugReceiptHash!==hash(receipt)||receipt.submitted!==2||receipt.planned!==2||receipt.freezeHash!==hash(debug)||hash(debug.model)!==hash(f.models.deepseek_via_claude))throw Error('deepseek_resume_gate_changed');
     if(f.engineeringRevision===6)for(const [p,h]of debug.sourceFiles)if(hash(await readFile(join(ROOT,p)))!==h)throw Error('deepseek_debug_source_changed');
-    if(f.engineeringRevision===7){
+    if([7,8].includes(f.engineeringRevision)){
       const repair=await read(join(out,'model-protocol-repair.json')),replay=await read(join(out,'qa/deepseek-protocol-v6-replay.json'));
       if(f.protocolRepairHash!==hash(repair)||repair.approvalHash!==hash(approval)||repair.replayHash!==hash(replay)||replay.newModelRequests!==0||!replay.originalValidPreserved||!replay.originalFailuresUnchanged)throw Error('protocol_repair_binding_changed');
     }
+    if(f.engineeringRevision===8&&f.executionGuardRepairHash!==hash(await read(join(out,'model-execution-guard-repair.json'))))throw Error('execution_guard_repair_binding_changed');
   }
   await validateFrozenInputs(out,original);return f;
 }
@@ -153,6 +159,17 @@ export async function repairProtocolMetadata(out){
   await writeOnce(join(out,'model-revisions','before-protocol-v6-'+hash(previous)+'.json'),previous);await writeOnce(join(out,'model-revisions','before-protocol-v6-gate.json'),gate);await writeOnce(join(out,'model-protocol-repair.json'),repair);
   await save(join(out,'model-freeze.json'),f);await save(join(out,'model-freeze-binding.json'),{freezeHash:hash(f)});await save(join(out,'model-smoke-ready.json'),{...gate,freezeHash:hash(f),protocolRepairHash:hash(repair)});return f;
 }
+export async function repairExecutionGuard(out){
+  const previous=await read(join(out,'model-freeze.json')),binding=await read(join(out,'model-freeze-binding.json')),ledger=new BudgetLedger(out,MODEL_BUDGETS),gate=await read(join(out,'model-smoke-ready.json')),original=await read(join(out,'freeze.json'));
+  if(previous.engineeringRevision!==7||binding.freezeHash!==hash(previous)||gate.freezeHash!==hash(previous)||ledger.snapshot().unsettled||ledger.snapshot().buckets.smoke!==154||await exists(join(out,'run.lock')))throw Error('execution_guard_repair_not_applicable');
+  const files=await currentExecution(),allowed=new Set(['scripts/mortal-ablation/ceiling-model-study.mjs','bin/scene-pattern-models.mjs']);
+  for(const [p,h]of previous.executionFiles)if(!allowed.has(p)&&files.find(x=>x[0]===p)?.[1]!==h)throw Error('execution_guard_changed_generation');
+  await validateFrozenInputs(out,original);
+  const repair={version:'ceiling-execution-guard-repair/v1',at:new Date().toISOString(),previousFreezeHash:hash(previous),ledgerHead:ledger.rows.at(-1).digest,newModelRequests:0,archivedFailuresNeverReissued:true,httpErrorIsServiceFailureNotRouteChange:true,successfulWrongBackendStillStopsImmediately:true,modelRequestAndSubmissionParsingUnchanged:true};
+  const generationCommit=(await exec('git',['rev-parse','HEAD'],{cwd:ROOT,windowsHide:true})).stdout.trim(),f={...previous,engineeringRevision:8,generationCommit,previousModelFreezeHash:hash(previous),executionGuardRepairHash:hash(repair),executionFiles:files,codeDigest:hash(files)};
+  await writeOnce(join(out,'model-revisions','before-guard-repair-'+hash(previous)+'.json'),previous);await writeOnce(join(out,'model-revisions','before-guard-repair-gate.json'),gate);await writeOnce(join(out,'model-execution-guard-repair.json'),repair);
+  await save(join(out,'model-freeze.json'),f);await save(join(out,'model-freeze-binding.json'),{freezeHash:hash(f)});await save(join(out,'model-smoke-ready.json'),{...gate,freezeHash:hash(f),executionGuardRepairHash:hash(repair)});return f;
+}
 function factory(f,model){
   if(model==='deepseek_via_claude')return createCompatibleDeepSeekProvider({runtime:f.claudeRuntime});
   return createArenaToolCallProvider({settings:null,arenaCodex:{...f.models[model],timeoutMs:GENERATION_TIMEOUT_MS},credentials:{readKey:async()=>null},fetchImpl:fetch});
@@ -189,7 +206,8 @@ export async function runModelPhase(out,phase){
       const row=await runDecision({out,ledger,...j,version:'V0',index,bucket,modelKind:j.model,modelOverride:f.models[j.model],override,providerFactory:()=>factory(f,j.model)});rows.push(row);
       streaks[j.model]=modelServiceFailureStreak(streaks[j.model]??0,row,fresh,j.model);
       if(phase==='smoke'&&row.status!=='submitted')throw Error('model_engineering_gate_failed');
-      if(row.failureCode==='claude_backend_not_verified'||row.failureCode==='claude_proxy_route_changed'||row.failureCode==='claude_runtime_changed')throw Error('model_route_identity_changed');
+      const proof=fresh&&row.failureCode==='claude_backend_not_verified'?(await read(join(out,'calls',j.key+'.json'))).transportProof:undefined;
+      if(routeIdentityFailure(row,fresh,proof))throw Error('model_route_identity_changed');
       if(streaks[j.model]>=3)throw Error('model_service_unavailable_resume_unstarted_after_recovery');
     });
     const receipt={phase:readyOnly?'evaluation-ready':phase,freezeHash:hash(f),planned:jobs.length,submitted:rows.filter(r=>r.status==='submitted').length,rowsDigest:hash([...rows].sort((a,b)=>a.key.localeCompare(b.key)))};

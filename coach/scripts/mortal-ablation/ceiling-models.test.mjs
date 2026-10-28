@@ -4,7 +4,7 @@ import {createHash} from 'node:crypto';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {claudeUsage,parseClaudeResult,collectClaudeResponse,verifyClaudeRuntime,DEEPSEEK_PREFIX} from './ceiling-claude.mjs';
-import {MODEL_BUDGETS,STUDY_MODELS,MODEL_CONCURRENCY,allocateModelCases,assertModelPlan,studyCells,runModelJobs,modelServiceFailureStreak} from './ceiling-model-study.mjs';
+import {MODEL_BUDGETS,STUDY_MODELS,MODEL_CONCURRENCY,allocateModelCases,assertModelPlan,studyCells,runModelJobs,modelServiceFailureStreak,routeIdentityFailure} from './ceiling-model-study.mjs';
 import {BudgetLedger,read} from './ceiling-protocol.mjs';
 import {runDecision} from './ceiling-run.mjs';
 import {indexTextbook} from './ceiling-textbook.mjs';
@@ -13,6 +13,13 @@ import {adjustModelComparisons,modelDecision} from './ceiling-model-report.mjs';
 const request={tools:[{type:'function',function:{name:'submit_decision',strict:true}}],maxOutputBytes:16384};
 const event={type:'result',subtype:'success',is_error:false,num_turns:1,result:JSON.stringify({call:{name:'submit_decision',arguments:{actionRef:'x'}},decisionSummary:'公开说明。'}),usage:{input_tokens:30,cache_read_input_tokens:20,cache_creation_input_tokens:10,output_tokens:4}};
 describe('bounded model-amendment transport and accounting',()=>{
+  it('does not stop on archived route failures or mislabel an HTTP error as an actual provider switch',()=>{
+    const row={failureCode:'claude_backend_not_verified'};
+    expect(routeIdentityFailure(row,false,{httpStatus:200})).toBe(false);
+    expect(routeIdentityFailure(row,true,{httpStatus:502})).toBe(false);
+    expect(routeIdentityFailure(row,true,{httpStatus:200})).toBe(true);
+    expect(routeIdentityFailure({failureCode:'claude_proxy_route_changed'},true,{})).toBe(true);
+  });
   it('scores malformed completed model answers as failures without misclassifying them as a service outage',()=>{
     const malformed={status:'provider_error',failureCode:'claude_invalid_model_response'};
     expect(modelServiceFailureStreak(2,malformed,true,'deepseek_via_claude')).toBe(0);
