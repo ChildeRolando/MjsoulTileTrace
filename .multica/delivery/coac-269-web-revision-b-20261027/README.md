@@ -2575,3 +2575,75 @@ admission; this turn does not dispatch it. Q10, other figures and11 pages/837 bl
 Root handoff, delivery receipts and check results live in the same b36 owner folder. No249/250
 consumer or paid review is started; chapter/book acceptance remains pending. Model/production/
 independent review calls0, retry0; no budget reset or ordinary passed claim.
+
+## Batch37 — PDF257 final second-human-batch deterministic application
+
+User trigger01a182cc-2503-7d2e-a234-b3d032ee426b explicitly authorizes application of
+the completed270 second batch and one249-owned **sol/high, images=[]** application/Q9
+review, failed/void counted, retry0. This owner performs no production, OCR or self-review.
+`artifacts/b37-p257-human20` owns the fixed application code, metadata and real handoffs.
+
+Read-only HTTP export14:00:15.693Z was captured as original UTF-8 bytes, independently
+matched to the on-disk230-event history and frozen in the shared packet. An earlier
+PowerShell-decoded capture was not used. Exactly20 new stable itemIDs map to the final v2
+source SHA/target ordinals/rectangles. All20 latest saves are answered with one explicit tile:
+**determinate20, unclear0, missing0, withdrawn0**; all40 second-batch historical events and
+their notes are retained, including revisions and per-event SHA. Latest and historical notes
+are empty. No human webpage, queue or service is edited/restarted; the prior four saved items/
+nine human positions remain exact and their current state is reverified by the original entry.
+
+New candidate **a9ce50898c0407ecca32dc538ad208f667a0a950372acec1114263e177f000e7**
+is `integration/coac269-p257-human20-20261028/257.human20.json`, directly derived from
+5403cb35, which retains6283c249 original production/raw/independent audit. Ten human values
+change old fields, ten confirm their old values:
+
+| Region | Ordinal | Old → human |
+|---|---:|---|
+| CPU hand | 6 | 4p → 6p |
+| CPU hand | 9 | 8s → 6s |
+| upper river | 5 | 9s → 5s |
+| right river | 4 | 9s → 5s |
+| right river | 9 | 1s → 2z |
+| right river | 10 | 4p → 6p |
+| right river | 16 | 8s → 6s |
+| bottom river | 5 | 4p → 6p |
+| bottom river | 6 | 4p → 6p |
+| bottom river | 14 | 9s → 7s |
+
+Only those tokens withinr1 transcription and explicit `humanSecondBatch257` provenance
+are new. Model-produced isfalse; old production provenance describes the parent producer.
+Inverse verification restores the entire parent exactly. Author body, three other figures,
+all image objects and four retained unknown strings are unchanged. Old candidate, raw/audits,
+four-label count diagnostics and v1/v2 checklist history are preserved.
+
+Recount keeps87 named public display positions, partitioned13 hand/3 exposed/1 indicator/
+17+18+17+18 rivers; other panels/enlargements, captions, backs and sticks are excluded.
+The old4p/9s/1s/8s excess-label diagnostics disappear. The current count has **6p×5**:
+four explicit new human observations (hand6, right10, bottom5/6) plus **upper15 old machine6p**,
+which was not in either human batch. No human value is changed to balance counts; upper15 is
+not newly read or called an error. Displayed-slot counting does not certify simultaneous
+mutually exclusive physical entities, a legal full record or source error. This is the minimum
+remaining label/argument dependency for independent consideration, not another whole-page task.
+
+`check.mjs` passes19 negative cases for changed/revoked/unclear/missing saves, wrong image/
+target/code/note/revision, altered human/body/other figure/unknown/source/provenance/hash and
+wrong owner. The actual fixed request is sol/high with no images and contains current full257
+ordered body/figures, all accepted facts, Q9's18 original source positions across256/257,
+the original independent context and specific count limits. Request SHA94625b5b…;
+prompt e086241d… / schema f5a2b7d9…. No screenshot is sent as an image payload by this request.
+Frozen shared manifest45b6956cb20b1f5595f9a42d67972778da8d6f481a145f71d249201b2d46a9b3
+binds input/raw/history/plan/candidate/request/checks/code. Full book material/history stay
+outside Git and public attachments; repository artifacts contain paths, IDs, hashes and results.
+
+261's unchanged376c71a3 is again verified **passed-after-source-adjudication** with original
+91507699 source3m adjudication; old5m error/b33 history remain. All11 reused pages and837
+source blocks rehash and actually pass the frozen original PDF verifier, without new review.
+
+After exact-SHA/queue/run dedup,249 once-rule01a182d5-46f5-77ce-8604-e7b9fbdfa308
+actually started run01a182d6-e5fb-78d2-a797-6c869ff3839f.250 once-rule
+01a182d6-b3d1-7ce1-b38a-67732651d599 hands the same candidate to its existing single writer
+for pending-review bookkeeping only; real independent raw and legal exact-scope installation/
+MCP-Arena readback must precede admission. These are platform handoffs, not this owner's
+semantic judgment or completed review. Result delivery stays on the current user thread.
+This owner new production/vision/independent calls0, retry0;249 alone has at most1 new
+text-only call. Whole chapter/book remain unaccepted, active unchanged; fees/upstream counts unknown.
