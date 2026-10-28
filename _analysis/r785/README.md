@@ -1,0 +1,9 @@
+本次仅接收b0785真实独审结果，未合283整章。共享收据49dc8c91、raw15d6f153、继承证明bd8e0407和34文件冻结runtime均重新核SHA；实际执行原冻结prepare0785Review及verify0785ReviewExecution的只读路径，核完整真实请求、四图顺序/字节、生产/两个父链和标准ledger唯一记录。没有调用produce或模型。
+
+原始269交接也单独重算为d9fb437f24d6c446c969be4abb7b519b50be7b7e5ad5c703488571a11a95646c，原字节副本maker-handoff.json随包保留。
+
+三个结论分账：方位faithful；contextFaithful且unknown影响nonblocking-with-limits；严格targetPassed仍false并保留原1条uncertain。未知字段7条、作者1195块和其它523完整图均未改。b0947本分支未装配，保留既有ec43d8af精确装配和15上下文hash约束。
+
+mapping.json逐条绑定原raw的四条mandatoryLimits与当前稿字段。unknown已存在，但当前caption/sourceNotes没有安装四条完整的非原文显示限制，尤其没有明确区分b0003–b0005的默认条件和截图实况。没有准入、没有整章显示读回。下一步仅现有COAC-244 owner零模型补合法精确显示scope/loader，不再次识字、制作、审校或支付。
+
+原19有效问题仍14项已有补证/3项限定准入待核/2source-note；原issue hash、原状态和旧raw不改。现行三行的操作待办改为显示合同待核，旧逐张识别建议保留在历史而不再派发。e000等为原字节短副本，archive.json记录路径/SHA映射；图片i编号也是原字节，没有编辑。所有其它章节及顶层计数未变，v33/244章/276原单元和正式active未变。登记幂等，唯一写锁正常释放。

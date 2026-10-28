@@ -1,0 +1,160 @@
+{
+  "schema": "coac250-0785-display-limit-mapping/1",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0785r1.json",
+    "sha256": "434120af284195ddf27b491a1c2c4cd9ea25072d40e9c6a366bcd8ac3cb03b9b"
+  },
+  "figureSha256": "a5920c978ed6c4d5893f7cb017f93200e2d9de672dfe8f1c969c813d144b841d",
+  "mandatoryLimits": [
+    {
+      "index": 1,
+      "text": "保留三张万子数字、受遮挡副露牌、三家隐手、骰点及裁切内容为未知，不补猜。",
+      "rawOutputPath": "/output/mandatoryLimits/0",
+      "candidateSha256": "434120af284195ddf27b491a1c2c4cd9ea25072d40e9c6a366bcd8ac3cb03b9b",
+      "targetFigureSha256": "a5920c978ed6c4d5893f7cb017f93200e2d9de672dfe8f1c969c813d144b841d",
+      "currentObjectEvidence": {
+        "unknowns": [
+          "左侧牌河从画面上至下第4张为万子，数字未能可靠辨清。",
+          "左侧牌河从画面上至下第6张为万子，数字未能可靠辨清。",
+          "右侧牌河从画面上至下第1张为万子，数字未能可靠辨清。",
+          "右上副露区最上方竖向牌受遮挡，完整牌面及牌码未知。",
+          "上、左、右三家的隐手牌面未知；左、右侧隐手仅露出窄侧面，逐张数量未能可靠确认。",
+          "中央两枚骰子的具体点数未能可靠辨清。",
+          "右下信息栏等级文字及分数变化的右端被裁切，缺失部分未知。"
+        ],
+        "unknownsSha256": "993452fb644a035195865a0ea425401eed621752254bcedbba904cbd7952491b",
+        "sourceNotes": [
+          "原图与最近邻放大图是同一画面的两种视图，不代表额外牌张或额外出现次数。",
+          "画面四周及下方存在黑色遮挡区域；右上副露最上方牌受遮挡，右下信息栏右端被裁切。",
+          "其他三家边缘位置的牌背或侧面属于隐手，中央翻开9s附近的叠放牌属于牌墙。",
+          "三张公开万子弃牌的数字仍未可靠辨清，牌河转录尚有明确未知项。"
+        ]
+      },
+      "currentUnknownMarkersPreserved": true,
+      "editorialDisplaySlotInstalled": false,
+      "actualMcpArenaDisplayVerified": false,
+      "status": "unknown-fields-present-final-display-unverified",
+      "requiredNextAction": "Existing COAC-244 owner: bind these verbatim model limitations to this exact SHA/scope in a legal non-author display contract. Preserve body/raw/uncertain; no OCR/maker/review call."
+    },
+    {
+      "index": 2,
+      "text": "区分正文默认条件与截图实况；不得用默认条件填补图中未知牌，或断言截图无鸣、牌河只有幺九字牌。",
+      "rawOutputPath": "/output/mandatoryLimits/1",
+      "candidateSha256": "434120af284195ddf27b491a1c2c4cd9ea25072d40e9c6a366bcd8ac3cb03b9b",
+      "targetFigureSha256": "a5920c978ed6c4d5893f7cb017f93200e2d9de672dfe8f1c969c813d144b841d",
+      "currentObjectEvidence": {
+        "defaultBody": [
+          {
+            "type": "text",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter06-exercise003:b0003"
+            ],
+            "sourceText": "特に断りがない部分は、以下のルールと状況を適用。",
+            "text": "除非另有说明，均适用以下规则和状况。",
+            "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0003",
+            "sourceSegments": [
+              {
+                "text": "特に断りがない部分は、以下のルールと状況を適用。",
+                "marks": [],
+                "href": null
+              }
+            ],
+            "tableContext": null
+          },
+          {
+            "type": "text",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter06-exercise003:b0004"
+            ],
+            "sourceText": "ルール：アリアリ、赤なし、一発･裏ドラ･カンドラ･カン裏あり。",
+            "text": "规则：允许食断、后付，无赤宝牌，有一发、里宝牌、杠宝牌、杠里宝牌。",
+            "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0004",
+            "sourceSegments": [
+              {
+                "text": "ルール：アリアリ、赤なし、一発･裏ドラ･カンドラ･カン裏あり。",
+                "marks": [],
+                "href": null
+              }
+            ],
+            "tableContext": null
+          },
+          {
+            "type": "text",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter06-exercise003:b0005"
+            ],
+            "sourceText": " 状況：全体的に１･９･字牌しか切れてない捨て牌で、鳴きも一切なし。場に関連牌は飛んでいないものとする。",
+            "text": " 状况：所有人的牌河中都只切出了1、9和字牌，也完全没有鸣牌。假定场上没有出现相关牌。",
+            "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0004",
+            "sourceSegments": [
+              {
+                "text": " 状況：全体的に１･９･字牌しか切れてない捨て牌で、鳴きも一切なし。場に関連牌は飛んでいないものとする。",
+                "marks": [],
+                "href": null
+              }
+            ],
+            "tableContext": null
+          }
+        ],
+        "caption": "问题48：下方手牌摸入5s后的牌局画面。",
+        "sourceNotes": [
+          "原图与最近邻放大图是同一画面的两种视图，不代表额外牌张或额外出现次数。",
+          "画面四周及下方存在黑色遮挡区域；右上副露最上方牌受遮挡，右下信息栏右端被裁切。",
+          "其他三家边缘位置的牌背或侧面属于隐手，中央翻开9s附近的叠放牌属于牌墙。",
+          "三张公开万子弃牌的数字仍未可靠辨清，牌河转录尚有明确未知项。"
+        ]
+      },
+      "currentUnknownMarkersPreserved": true,
+      "editorialDisplaySlotInstalled": false,
+      "actualMcpArenaDisplayVerified": false,
+      "status": "explicit-editorial-display-limitation-pending",
+      "requiredNextAction": "Existing COAC-244 owner: bind these verbatim model limitations to this exact SHA/scope in a legal non-author display contract. Preserve body/raw/uncertain; no OCR/maker/review call."
+    },
+    {
+      "index": 3,
+      "text": "不得由现有转录断言精确可见张数、牌山存量、改良概率或所有实战场况下的最优选择。",
+      "rawOutputPath": "/output/mandatoryLimits/2",
+      "candidateSha256": "434120af284195ddf27b491a1c2c4cd9ea25072d40e9c6a366bcd8ac3cb03b9b",
+      "targetFigureSha256": "a5920c978ed6c4d5893f7cb017f93200e2d9de672dfe8f1c969c813d144b841d",
+      "currentObjectEvidence": {
+        "caption": "问题48：下方手牌摸入5s后的牌局画面。",
+        "sourceNotes": [
+          "原图与最近邻放大图是同一画面的两种视图，不代表额外牌张或额外出现次数。",
+          "画面四周及下方存在黑色遮挡区域；右上副露最上方牌受遮挡，右下信息栏右端被裁切。",
+          "其他三家边缘位置的牌背或侧面属于隐手，中央翻开9s附近的叠放牌属于牌墙。",
+          "三张公开万子弃牌的数字仍未可靠辨清，牌河转录尚有明确未知项。"
+        ]
+      },
+      "currentUnknownMarkersPreserved": true,
+      "editorialDisplaySlotInstalled": false,
+      "actualMcpArenaDisplayVerified": false,
+      "status": "explicit-editorial-display-limitation-pending",
+      "requiredNextAction": "Existing COAC-244 owner: bind these verbatim model limitations to this exact SHA/scope in a legal non-author display contract. Preserve body/raw/uncertain; no OCR/maker/review call."
+    },
+    {
+      "index": 4,
+      "text": "本结论仅覆盖 b0785 的方位、保留未知及其对 Q48 论证呈现的影响。",
+      "rawOutputPath": "/output/mandatoryLimits/3",
+      "candidateSha256": "434120af284195ddf27b491a1c2c4cd9ea25072d40e9c6a366bcd8ac3cb03b9b",
+      "targetFigureSha256": "a5920c978ed6c4d5893f7cb017f93200e2d9de672dfe8f1c969c813d144b841d",
+      "currentObjectEvidence": {
+        "caption": "问题48：下方手牌摸入5s后的牌局画面。",
+        "sourceNotes": [
+          "原图与最近邻放大图是同一画面的两种视图，不代表额外牌张或额外出现次数。",
+          "画面四周及下方存在黑色遮挡区域；右上副露最上方牌受遮挡，右下信息栏右端被裁切。",
+          "其他三家边缘位置的牌背或侧面属于隐手，中央翻开9s附近的叠放牌属于牌墙。",
+          "三张公开万子弃牌的数字仍未可靠辨清，牌河转录尚有明确未知项。"
+        ]
+      },
+      "currentUnknownMarkersPreserved": true,
+      "editorialDisplaySlotInstalled": false,
+      "actualMcpArenaDisplayVerified": false,
+      "status": "explicit-editorial-display-limitation-pending",
+      "requiredNextAction": "Existing COAC-244 owner: bind these verbatim model limitations to this exact SHA/scope in a legal non-author display contract. Preserve body/raw/uncertain; no OCR/maker/review call."
+    }
+  ],
+  "allFourDisplayLimitsInstalled": false,
+  "admissionGranted": false,
+  "defaultConditionVersusScreenshotGap": true,
+  "newModelCalls": 0
+}

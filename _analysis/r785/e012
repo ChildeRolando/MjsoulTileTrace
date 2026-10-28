@@ -1,0 +1,408 @@
+{
+  "schema": "coac269-exact-0785-seat/1",
+  "authorizationComment": "01a18193-7e18-7193-8ca8-89c80dae4edd",
+  "canonical": "nemata-jp-chapter-283-1",
+  "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter06-exercise003\\source.v3.json",
+    "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+    "bytes": 1998292
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t1017r2.json",
+    "sha256": "de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c",
+    "bytes": 2132086
+  },
+  "parentAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c.json",
+    "sha256": "6c0de2ee947e3867fbd32e9cc89d23cb9a47c99c5e9521e7e46972ce50f1e4b5"
+  },
+  "donor": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev2.json",
+    "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+    "bytes": 2147441
+  },
+  "donorAudit": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter06-exercise003.849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3.json",
+    "sha256": "21d909b832c28e62a76f453863ed24d8fc8738adbb54b36bfd8117b9395d5aea"
+  },
+  "donorMaker": {
+    "callId": "9f557ee3-0c5e-4b7e-9f17-013466f46aa3",
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\9f557ee3-0c5e-4b7e-9f17-013466f46aa3.json",
+      "sha256": "85787a240047dadad8ca2c39785027f7b6c8953b3d8abb6269a90b164c8f5b9e",
+      "bytes": 153117
+    },
+    "record": {
+      "callId": "9f557ee3-0c5e-4b7e-9f17-013466f46aa3",
+      "sourceId": "modern-yabejp-ja",
+      "articleId": "chapter06-exercise003",
+      "sourceSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "timeoutMs": 900000,
+      "startedAt": "2026-10-27T06:13:53.950Z",
+      "durationMs": 335259,
+      "usage": {
+        "inputTokens": 30642,
+        "cachedInputTokens": 0,
+        "outputTokens": 5499
+      },
+      "success": true,
+      "failureClass": null,
+      "transportStatus": "completed",
+      "rawArtifactPath": "raw-calls/9f557ee3-0c5e-4b7e-9f17-013466f46aa3.json",
+      "rawArtifactSha256": "85787a240047dadad8ca2c39785027f7b6c8953b3d8abb6269a90b164c8f5b9e",
+      "outputSha256": "a259cfb7298b7109a4430b05fab8b1c3f3a9b85467e7cd462c75be243d792ddd",
+      "schemaSha256": "95c8653d0f76520f949656ed3d381a46a2dcce25d234f3a2115c15a27e9bce57",
+      "promptSha256": "b4d25f94c4d0922792875cb494afe27af538d484e102440eceda69d84dae8dfa",
+      "semanticPromptSha256": "65da090dd7ae290d9280e36c873b3f8e83ad66ca5e290491c36c2ac35db96996",
+      "cliSnapshot": {
+        "path": "web-production/v1/runners/3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1.cli.mjs",
+        "sha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1"
+      },
+      "targets": {
+        "textIds": [],
+        "figureIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0785"
+        ]
+      },
+      "terminalEvents": [
+        {
+          "type": "error",
+          "code": null,
+          "message": "Reconnecting... 2/5 (stream disconnected before completion: IO error: cannot decrypt peer's message)",
+          "param": null
+        },
+        {
+          "type": "error",
+          "code": null,
+          "message": "Reconnecting... 3/5 (stream disconnected before completion: tls handshake eof)",
+          "param": null
+        }
+      ],
+      "visualInputs": [
+        {
+          "assetId": "modern-yabejp-ja:817cde2d79dae92dca2e0c63",
+          "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d.jpg",
+          "sourceSha256": "d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-sources/v1/modern-yabejp-ja/assets/d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d.jpg",
+          "sha256": "d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d",
+          "role": "original",
+          "scale": 1,
+          "resampling": "none",
+          "width": 621,
+          "height": 565
+        },
+        {
+          "assetId": "modern-yabejp-ja:817cde2d79dae92dca2e0c63",
+          "sourcePath": "web-sources/v1/modern-yabejp-ja/assets/d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d.jpg",
+          "sourceSha256": "d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d",
+          "rendererSha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+          "path": "web-production/v1/reading-views/28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528/d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d.x2.png",
+          "sha256": "708b401ab3f9c4b1ab1b3fa066f3c07501597035600ce5ea086a87ff623577e9",
+          "role": "nearest-neighbor-enlargement",
+          "scale": 2,
+          "resampling": "nearest",
+          "width": 1242,
+          "height": 1130
+        }
+      ],
+      "batchId": "chapter06-exercise003-batch-007",
+      "batchBinding": {
+        "planPath": "web-production/v1/batch-plans/554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421.json",
+        "planSha256": "554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421",
+        "unitMap": {
+          "path": "web-production/v1/batch-plans/3a37034f9f4db9474e37a94cfc02bc001e68e37ba1c1e74ab86ecf78897cc228.units.json",
+          "sha256": "3a37034f9f4db9474e37a94cfc02bc001e68e37ba1c1e74ab86ecf78897cc228"
+        },
+        "helper": {
+          "path": "web-production/v1/runners/b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb.batches.mjs",
+          "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb"
+        },
+        "sourceSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+        "batchId": "chapter06-exercise003-batch-007",
+        "revision": "group-targeted",
+        "revisionTargetsSha256": "7b23b4893a965afef2a2c54ce1c90cb83d8a8dce02f75b6487fd868dd8b8332f"
+      },
+      "revision": {
+        "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter06-exercise003.rev1.json",
+        "parentSha256": "dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899",
+        "notesPath": "audit/web/articles/modern-yabejp-ja/chapter06-exercise003.dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899.json",
+        "notesSha256": "749e242c54019cb6b855a03e6df4fe465bed86e1cf50d7869be548a3b0144d40",
+        "figureIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+          "modern-yabejp-ja:chapter06-exercise003:b0947:figure"
+        ],
+        "textBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0168",
+          "modern-yabejp-ja:chapter06-exercise003:b0396",
+          "modern-yabejp-ja:chapter06-exercise003:b0962",
+          "modern-yabejp-ja:chapter06-exercise003:b1017",
+          "modern-yabejp-ja:chapter06-exercise003:b1179",
+          "modern-yabejp-ja:chapter06-exercise003:b1181"
+        ],
+        "groupRevision": {
+          "groups": [
+            "chapter06-exercise003-batch-002",
+            "chapter06-exercise003-batch-004",
+            "chapter06-exercise003-batch-007",
+            "chapter06-exercise003-batch-009",
+            "chapter06-exercise003-batch-011"
+          ],
+          "deferred": [
+            {
+              "batchId": "chapter06-exercise003-batch-001",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:b0099",
+              "severity": "uncertain",
+              "issueSha256": "ebc185ca1cdb9cbc960fa244aebb327c614eff2de9a32a2fdb4d40e005b8ffa3",
+              "reason": "outside the five revised groups"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-003",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[179]/table[3]",
+              "severity": "error",
+              "issueSha256": "436b899a4562361e876abd0136d9f0c088c05b492e22fcea94b73467389a3886",
+              "reason": "outside the five revised groups"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-003",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[189]/table[21]",
+              "severity": "error",
+              "issueSha256": "e64b38ad0f1b35a0ac42e77cf1ef7ffad33588f0a918885a180bed0798c7328d",
+              "reason": "outside the five revised groups"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-003",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[209]/table[21]",
+              "severity": "error",
+              "issueSha256": "c0e2e07e9a0ec7f3e18a2eaac002025b3f3a82b50d42dfc335892dd0dc5bd880",
+              "reason": "outside the five revised groups"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-005",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:b0502",
+              "severity": "error",
+              "issueSha256": "ef68b9277f648ef0096cf407ca8857af8c420ba28d2032aab215eea2540061e4",
+              "reason": "outside the five revised groups"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-006",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[395]/table[29]",
+              "severity": "error",
+              "issueSha256": "99d6ea21d837d54dd3d9520de49feb7ef6c39a722257fac5088c2951738354cf",
+              "reason": "outside the five revised groups"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-007",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+              "severity": "uncertain",
+              "issueSha256": "d3c5278fc47e6d40b97380a3386e039632af2ad3b4eb806f7113e3ef708de019",
+              "reason": "unresolved unknown kept as evidence, not cleared"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-008",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:table:main/div[505]/table[23]",
+              "severity": "error",
+              "issueSha256": "6eefa362aa4eff0b8a6c01124327671789207b6fc7fa45d8a7f6a08f74953c54",
+              "reason": "outside the five revised groups"
+            },
+            {
+              "batchId": "chapter06-exercise003-batch-009",
+              "targetId": "modern-yabejp-ja:chapter06-exercise003:b0947:figure",
+              "severity": "uncertain",
+              "issueSha256": "6cd3acb48f43e89ddeb0fb6401683764e4be22e446d99b8e8d47171339b8c21c",
+              "reason": "unresolved unknown kept as evidence, not cleared"
+            }
+          ]
+        },
+        "targets": {
+          "path": "integration/coac248-283-1-group-revision-targets-20261027.json",
+          "sha256": "7b23b4893a965afef2a2c54ce1c90cb83d8a8dce02f75b6487fd868dd8b8332f"
+        }
+      }
+    }
+  },
+  "donorReview": {
+    "callId": "51d6b447-2446-4afa-9c30-5d1d1b4dfcc5",
+    "checkpoint": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-007.json",
+      "sha256": "9fa518acb13dbdfac78129917d547b1ad38a7e54c53cd8938a83de66c0b9af85",
+      "bytes": 21564
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\51d6b447-2446-4afa-9c30-5d1d1b4dfcc5.json",
+      "sha256": "38527d316659248b36da9b0429a18d455c4aeb683b19cf3b9532d1df15932ec7",
+      "bytes": 316132
+    },
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "usage": {
+      "inputTokens": 52091,
+      "cachedInputTokens": 0,
+      "outputTokens": 1482
+    },
+    "durationMs": 83289,
+    "evidenceBoundary": "Historical raw has frozen prompt/image asset bindings and completed semantic result; no structured requestExecution/argv captured. Do not invent old transport or remote-weight proof."
+  },
+  "recoveryManifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-recovery-20261028\\files.sha256.json",
+    "sha256": "e72683343d3dae50758617467c2d1edfb25876a6ca886c66ef763a1325560c1d"
+  },
+  "packet": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-recovery-20261028\\complex-original\\b0785-packet.json",
+    "sha256": "fc7da7408411b6870f378e0407842048cd5905cbf0ecd6da902357acf1b001c3"
+  },
+  "parentRuntime": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-1017-v2-20261028\\runtime-manifest.json",
+    "sha256": "0f0c2846f961e12c12aaee72c5c06cfef3166087f0da21219cb9c609f13b7715"
+  },
+  "b1017Pass": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-283-1017-r2-reviewed-20261028.json",
+    "sha256": "1f2bc2c66d5d2021823f80547186a2431294eb3b9082af4f0af96aa59800034f"
+  },
+  "expected": {
+    "figureId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+    "sourceBlockIds": [
+      "modern-yabejp-ja:chapter06-exercise003:b0785"
+    ],
+    "sourceOccurrenceIds": [
+      "modern-yabejp-ja:chapter06-exercise003:i00939"
+    ],
+    "sourceAssetBindings": [
+      {
+        "assetId": "modern-yabejp-ja:817cde2d79dae92dca2e0c63",
+        "path": "web-sources/v1/modern-yabejp-ja/assets/d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d.jpg",
+        "sha256": "d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d",
+        "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter06/exercise003/001.jpg"
+      }
+    ],
+    "kind": "mahjong-example",
+    "transcription": "下方手牌，从画面左至右：1m 2m 3m 5m 5m 7m 8m 9m 3s 4s 6s 8s 8s；右侧分开的摸入牌：5s。上述牌均未见赤牌标记。\n下方牌河，从画面左至右：6z 2z 8m 3p 7m。\n上方牌河，从画面左至右：6s 5z 2m 6z 2z；牌面朝向上方玩家。\n左侧牌河，从画面上至下：6m 4m 9s [万子，数字未辨清] 9s [万子，数字未辨清]；牌面横向，数字端朝画面右侧。\n右侧牌河，从画面上至下：[万子，数字未辨清] 2m 6s 8m 6z 4z；牌面横向，数字端朝画面左侧。\n右上副露区，从画面上至下：[竖向牌，受黑色区域遮挡，仅下部可见，牌码未知]、1z（横向）、1z（横向）。\n其他三家的隐手分别位于画面顶部、左侧及右侧，显示牌背或窄侧面，牌面均未知；顶部可见13张牌背。\n中央上方另有牌墙，与三家隐手分开：从画面左至右可见7个牌位，第3个牌位翻开的指示牌为9s，其余牌位显示牌背，下方露出叠层边缘。\n中央显示：东4局，剩余47张；立直棒计数1，本场计数1。中央两枚骰子的点数未可靠辨清。四角方位字样按画面位置为：左上西、右上北、左下南、右下东。下方手牌上方另有橙色“东”标记。\n左上信息栏：见习10级，24000，(+2000)。右上信息栏：见习10级，24000，(+2000)。左下信息栏：见习10级，22000，第4名。右下信息栏：等级文字可见部分为“见习10”，右端裁切；分数29000；分数变化可见“(+7000”，右端裁切。",
+    "unknowns": [
+      "左侧牌河从画面上至下第4张为万子，数字未能可靠辨清。",
+      "左侧牌河从画面上至下第6张为万子，数字未能可靠辨清。",
+      "右侧牌河从画面上至下第1张为万子，数字未能可靠辨清。",
+      "右上副露区最上方竖向牌受遮挡，完整牌面及牌码未知。",
+      "上、左、右三家的隐手牌面未知；左、右侧隐手仅露出窄侧面，逐张数量未能可靠确认。",
+      "中央两枚骰子的具体点数未能可靠辨清。",
+      "右下信息栏等级文字及分数变化的右端被裁切，缺失部分未知。"
+    ],
+    "caption": "问题48：下方手牌摸入5s后的牌局画面。",
+    "sourceNotes": [
+      "原图与最近邻放大图是同一画面的两种视图，不代表额外牌张或额外出现次数。",
+      "画面四周及下方存在黑色遮挡区域；右上副露最上方牌受遮挡，右下信息栏右端被裁切。",
+      "其他三家边缘位置的牌背或侧面属于隐手，中央翻开9s附近的叠放牌属于牌墙。",
+      "三张公开万子弃牌的数字仍未可靠辨清，牌河转录尚有明确未知项。"
+    ],
+    "provenance": {
+      "method": "model-transcription",
+      "callId": "9f557ee3-0c5e-4b7e-9f17-013466f46aa3",
+      "outputSourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0785"
+    }
+  },
+  "images": [
+    {
+      "role": "ordered-original",
+      "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0785",
+      "occurrenceId": "modern-yabejp-ja:chapter06-exercise003:i00939",
+      "assetId": "modern-yabejp-ja:817cde2d79dae92dca2e0c63",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-d3b908cf0a30.jpg",
+      "sha256": "d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d",
+      "bytes": 53525,
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d.jpg"
+    },
+    {
+      "role": "ordered-original",
+      "sourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0788",
+      "occurrenceId": "modern-yabejp-ja:chapter06-exercise003:i00940",
+      "assetId": "modern-yabejp-ja:865231b0b04f914254e01fc9",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-346bb333657e.png",
+      "sha256": "346bb333657eca75927ac24ce75b4b6f27b467ad252457a34f8cdcd890f7f6b6",
+      "bytes": 787,
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\346bb333657eca75927ac24ce75b4b6f27b467ad252457a34f8cdcd890f7f6b6.png"
+    },
+    {
+      "role": "whole-original-nearest-x2",
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-original-x2.png",
+      "sha256": "708b401ab3f9c4b1ab1b3fa066f3c07501597035600ce5ea086a87ff623577e9",
+      "bytes": 475368,
+      "originalPath": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d.x2.png"
+    },
+    {
+      "role": "seat-panel-nearest-x4",
+      "bbox": [
+        239,
+        232,
+        386,
+        322
+      ],
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-seat-panel-x4.png",
+      "sha256": "359cd22cc33637c746698adf27a6d9652af198696d383f6b82a7678c172c4814",
+      "bytes": 48444,
+      "sourceSha256": "d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d",
+      "resampling": "nearest"
+    }
+  ],
+  "figureFields": [
+    "kind",
+    "transcription",
+    "unknowns",
+    "caption",
+    "sourceNotes"
+  ],
+  "parentOriginalIssueGroup": {
+    "ebc185ca1cdb9cbc960fa244aebb327c614eff2de9a32a2fdb4d40e005b8ffa3": "chapter06-exercise003-batch-001",
+    "01dde9804888dc311fbe9ebfc3ca747dcc7463fe945752d2b530b34663c4cbd6": "chapter06-exercise003-batch-002",
+    "436b899a4562361e876abd0136d9f0c088c05b492e22fcea94b73467389a3886": "chapter06-exercise003-batch-003",
+    "e64b38ad0f1b35a0ac42e77cf1ef7ffad33588f0a918885a180bed0798c7328d": "chapter06-exercise003-batch-003",
+    "c0e2e07e9a0ec7f3e18a2eaac002025b3f3a82b50d42dfc335892dd0dc5bd880": "chapter06-exercise003-batch-003",
+    "c31ac57262de40b3b035f3ad062b6e050c86743e2fcf567011600a655baeacf6": "chapter06-exercise003-batch-004",
+    "ef68b9277f648ef0096cf407ca8857af8c420ba28d2032aab215eea2540061e4": "chapter06-exercise003-batch-005",
+    "99d6ea21d837d54dd3d9520de49feb7ef6c39a722257fac5088c2951738354cf": "chapter06-exercise003-batch-006",
+    "feed6d512d4fec8d15f46265c3473629c7553adb1adeff4fece490eadfac4acb": "chapter06-exercise003-batch-007",
+    "20d6f61af624a83fef7882e3fd9da39449b16b4c92edff67f3fd9134fe66d085": "chapter06-exercise003-batch-007",
+    "d3c5278fc47e6d40b97380a3386e039632af2ad3b4eb806f7113e3ef708de019": "chapter06-exercise003-batch-007",
+    "44d8dcbb0b947b5bcaa97f4ac9587c0ab9c1519d7e30c13af91a96eb82522b80": "chapter06-exercise003-batch-007",
+    "6eefa362aa4eff0b8a6c01124327671789207b6fc7fa45d8a7f6a08f74953c54": "chapter06-exercise003-batch-008",
+    "e6be649aaee9e4da2c0e399415841c68d7923ce7f186151584a2b7c346d2ae89": "chapter06-exercise003-batch-009",
+    "6cd3acb48f43e89ddeb0fb6401683764e4be22e446d99b8e8d47171339b8c21c": "chapter06-exercise003-batch-009",
+    "1d779179f2e8f5fdee2c3b4ec9f6998e5016876e0714ccd447aab3c8f9260eab": "chapter06-exercise003-batch-009",
+    "6073a735d8306cdca382542f31cdb1359d2af7c8d8a7ff93caf8dfc5c496dc3d": "chapter06-exercise003-batch-009",
+    "0b64e1ce9aae098f34994eaefe07f7676d1f399accb2a295da8d5794b8fe211e": "chapter06-exercise003-batch-009",
+    "a9f6001a46e729e44587190fbffd36f7e9cd9b0762f898cbf9f27517c4df6b8f": "chapter06-exercise003-batch-011",
+    "55b1617dcbfcffe22ac3fdac37a4884d72a104cd00dea339ed23840a49f0fe1a": "chapter06-exercise003-batch-009"
+  },
+  "maximumProductionCalls": 1,
+  "maximumIndependentCalls": 1,
+  "maximumTotalCalls": 2,
+  "retry": 0,
+  "assembly": "All parent fields inherit unchanged except the exact target figure fields emitted by the real maker and its actual provenance. Reviewed donor hand/hidden-area/unknown fields are explicitly supplied as fixed output, with only its two independently identified east/west characters changed. No other donor figure or body block is imported.",
+  "priorAcceptedEvidence": [
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-283-1017-r2-scope-inheritance-20261028.json",
+      "sha256": "abeba1a639979c4dd62a10b2e6dc5511a6676fc34d0a70a2242a0f41ca4c6fcc"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-283-10171181-scope-inheritance-20261028.json",
+      "sha256": "a5765f56d01f99f16a54819a0c2ff674e2828a861acf234e8cc1d148336efae9"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-283-396962-scope-inheritance-20261028.json",
+      "sha256": "1c18b7ff26e7b9ab1a697e7d842934ce3b5a64b2e9e37813bb0cd0c8f0955e28"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-b0168-reviewed-target-20261028.json",
+      "sha256": "3e718558ce87ec9476d1965defc9d3d81d1c5b98644ca5f1d44e95cc218db98c"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-283-six-table-supplement-20261028.json",
+      "sha256": "984eb65c84e40842bc0b0db324e715df309915b3907860a255a149415b3ff946"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-283-effective-issues-with-q8-20261028.json",
+      "sha256": "d4026baa2839fde5692aaae971ec2194dba4bb29797ec10d2f4a1d7c379abe9c"
+    }
+  ]
+}
