@@ -159,6 +159,8 @@ def validate(out):
     expected_models['model-smoke-deepseek_via_claude-' + pilot[3]['id'] + '-D'] = 'deepseek_via_claude'
     for i, arm in enumerate(('A', 'C', 'D')):
         expected_models['model-smoke-deepseek_via_claude-' + pilot[i + 4]['id'] + '-' + arm] = 'deepseek_via_claude'
+    for key in f.get('engineeringDebugKeys', []):
+        expected_models[key] = 'deepseek_via_claude'
     previous, claims, settled, buckets = None, {}, set(), {k: 0 for k in f['budgets']}
     formal_models = {k: 0 for k in MODELS}
     for seq, line in enumerate((out / 'calls.jsonl').read_text(encoding='utf-8').splitlines()):
@@ -189,6 +191,16 @@ def validate(out):
                     assert proof['nativeTurnCount'] == 1 or proof['nativeTurnCount'] == 2 and proof['structuredOutput'] and proof['outputToolCalls'] == 1
                 assert proof['observedBackend'].startswith(f['models'][model]['expectedBackendPrefix'])
                 assert proof['requestedApiEffort'] == 'high'
+                if proof.get('normalization'):
+                    assert proof['normalization']['removedField'] == 'call.decisionSummary' and proof['normalization']['argumentsUnchanged']
+                    visible = proof['visibleResultText'].strip()
+                    fence = re.fullmatch(r'```(?:json)?\s*\n([\s\S]*?)\n```', visible)
+                    raw_answer = json.loads(fence.group(1) if fence else visible)
+                    assert set(raw_answer) == {'call', 'decisionSummary'} and set(raw_answer['call']) == {'name', 'arguments', 'decisionSummary'}
+                    assert raw_answer['call']['arguments'] == json.loads(call['response']['call']['arguments'])
+                    assert raw_answer['decisionSummary'] == call['response']['decisionSummary']
+                    del raw_answer['call']['decisionSummary']
+                    assert raw_answer == json.loads(proof['normalizedVisibleResultText'])
                 raw = proof.get('nativeUsage', {})
                 if all(k in raw for k in ('input_tokens', 'cache_read_input_tokens', 'cache_creation_input_tokens', 'output_tokens')):
                     usage = call['response']['usage']
