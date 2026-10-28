@@ -55,7 +55,10 @@ def validate(out):
     topup = read(out / 'engineering-runtime-amendment-approved.json')
     assert topup['approved'] is True and topup['totalLimit'] == 6141 and topup['additionalEngineeringCalls'] == 1
     assert f['engineeringTopupHash'] == digest(topup)
-    assert sum(f['budgets'].values()) == 6141 and f['budgets']['evaluation'] == 4090 and f['budgets']['smoke'] == 151
+    single = read(out / 'engineering-single-response-amendment-approved.json')
+    assert single['approved'] is True and single['totalLimit'] == 6144 and single['additionalEngineeringCalls'] == 3
+    assert f['singleResponseTopupHash'] == digest(single)
+    assert sum(f['budgets'].values()) == 6144 and f['budgets']['evaluation'] == 4090 and f['budgets']['smoke'] == 154
     cases = [c for c in d['cases'] if c['split'] == 'evaluation']
     assert len(cases) == 800 and len({c['gameId'] for c in d['cases']}) == 980
     assert len(f['legacyPrimaryKeys']) == 255 and len(f['legacySupplementalKeys']) == 90
@@ -154,6 +157,8 @@ def validate(out):
     for i, (model, arm) in enumerate((('deepseek_via_claude', 'A'), ('terra', 'D'), ('deepseek_via_claude', 'D'))):
         expected_models['model-smoke-' + model + '-' + pilot[i]['id'] + '-' + arm] = model
     expected_models['model-smoke-deepseek_via_claude-' + pilot[3]['id'] + '-D'] = 'deepseek_via_claude'
+    for i, arm in enumerate(('A', 'C', 'D')):
+        expected_models['model-smoke-deepseek_via_claude-' + pilot[i + 4]['id'] + '-' + arm] = 'deepseek_via_claude'
     previous, claims, settled, buckets = None, {}, set(), {k: 0 for k in f['budgets']}
     formal_models = {k: 0 for k in MODELS}
     for seq, line in enumerate((out / 'calls.jsonl').read_text(encoding='utf-8').splitlines()):
@@ -177,7 +182,11 @@ def validate(out):
             if model == 'deepseek_via_claude' and call['response']['status'] == 'ready':
                 proof = call['transportProof']
                 assert proof['forwardedModelRequests'] == 1
-                assert proof['nativeTurnCount'] == 1 or proof['nativeTurnCount'] == 2 and proof['structuredOutput'] and proof['outputToolCalls'] == 1
+                if proof.get('acceptedResponseSource') == 'first_model_response':
+                    assert proof['firstResponseComplete'] and proof['firstResponseStopReason'] in ('end_turn', 'tool_use')
+                    assert proof['outputToolCalls'] <= 1 and proof['cliStoppedAfterFirstResponse']
+                else:
+                    assert proof['nativeTurnCount'] == 1 or proof['nativeTurnCount'] == 2 and proof['structuredOutput'] and proof['outputToolCalls'] == 1
                 assert proof['observedBackend'].startswith(f['models'][model]['expectedBackendPrefix'])
                 assert proof['requestedApiEffort'] == 'high'
                 raw = proof.get('nativeUsage', {})
@@ -192,7 +201,7 @@ def validate(out):
             assert call['requestDigest'] == claims[key]['requestDigest']
             if 'callDigest' in row['result']:
                 assert digest(call) == row['result']['callDigest']
-    assert len(claims) == len(settled) <= 6141
+    assert len(claims) == len(settled) <= 6144
     assert all(buckets[k] <= n for k, n in f['budgets'].items())
     assert all(formal_models[k] <= n for k, n in {'sol': 1090, 'deepseek_via_claude': 2000, 'terra': 1000}.items())
     review = out / 'review'

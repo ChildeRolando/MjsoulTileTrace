@@ -80,7 +80,7 @@ describe('bounded model-amendment transport and accounting',()=>{
     expect(()=>assertModelPlan(d,p,approval,ledger)).not.toThrow();expect(()=>assertModelPlan(d,p,{...approval,approved:false},ledger)).toThrow('not_authorized');
     expect(allocateModelCases({cases:cases.map(c=>({...c,privateAnswer:'different'})).reverse()},keys)).toEqual(assignment);
     expect(studyCells(d,assignment,'evaluation')).toHaveLength(4000);
-    expect(Object.values(MODEL_BUDGETS).reduce((a,b)=>a+b,0)).toBe(6141);
+    expect(Object.values(MODEL_BUDGETS).reduce((a,b)=>a+b,0)).toBe(6144);
     expect(MODEL_CONCURRENCY.sol+MODEL_CONCURRENCY.terra+MODEL_CONCURRENCY.deepseek_via_claude).toBe(8);
     const swapped=structuredClone(p),a=cases.find(c=>c.split==='evaluation'&&c.stratum==='random'&&assignment[c.id].model==='sol'),b=cases.find(c=>c.split==='evaluation'&&c.stratum==='random'&&assignment[c.id].model==='terra');[swapped.assignment[a.id],swapped.assignment[b.id]]=[swapped.assignment[b.id],swapped.assignment[a.id]];
     expect(()=>assertModelPlan(d,swapped,approval,ledger)).toThrow('not_blind_rule');
