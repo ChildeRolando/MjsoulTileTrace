@@ -1,0 +1,231 @@
+{
+  "schema": "coac248-232-human-application-map/1",
+  "canonical": "nemata-jp-chapter-232-1",
+  "candidate": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+    "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+    "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+    "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+    "bytes": 23933
+  },
+  "acceptedHumanFact": {
+    "itemId": "4ce1c71647c8da4352eb117e5d2f1094",
+    "targetId": "modern-yabejp-ja:chapter04-section012:b0005:unknown:cd7c88dbdfde5bcc",
+    "position": "右侧牌河从上数第2张为万子，但无法可靠辨认具体点数。",
+    "imageSha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135",
+    "originalImages": [
+      {
+        "path": "web-sources/v1/modern-yabejp-ja/assets/c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg",
+        "sha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135"
+      }
+    ],
+    "tiles": [
+      "9m"
+    ],
+    "orientation": "",
+    "timestamp": "2026-10-28T10:04:57.255Z",
+    "revision": 2,
+    "eventSha256": "ff8a1be9e06189c487559b4d5ea497a528edac2f64a6fa9009eb2f28ffb0eceb"
+  },
+  "contentDiffFields": [
+    "/figures/0/transcription",
+    "/figures/0/unknowns"
+  ],
+  "independentParentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\0dae5b1a-76be-45d5-b2f0-410bc5853cb3.json",
+    "sha256": "426d49b11f72317b32fdf1b6b7a14ba6308ec8db9da9ae7706079933304eea3c",
+    "callId": "0dae5b1a-76be-45d5-b2f0-410bc5853cb3"
+  },
+  "bodyObjectSha256": "5f71c21d931c172127c1aafec77b401ca09f8eabd408c43ee907a32673dfed42",
+  "figureObjectSha256": "65b278a1f692ab370a91546c53fa6645059a39344d47c85fcbfcb3ebd52e081e",
+  "orderedContext": [
+    {
+      "position": 0,
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0001"
+      ],
+      "sha256": "c899dc7e4112d55ca292486d1d4553f802431b2e513b077d7e87e640ca0f30b5"
+    },
+    {
+      "position": 1,
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0002"
+      ],
+      "sha256": "61548592af4724382f259a44cf765e7e38f37963dc6e2a2fac71b7ce1834ba93"
+    },
+    {
+      "position": 2,
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0003"
+      ],
+      "sha256": "7a2a84114ab5ddf2d30661c8c90e95a94490defaa00700426b8802ac8a575447"
+    },
+    {
+      "position": 3,
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0004"
+      ],
+      "sha256": "1fe6c5562f0698a32a04fc60f2aa4998f21b4bcb5c44c8625b30610bedeadc7b"
+    },
+    {
+      "position": 4,
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0005"
+      ],
+      "sha256": "6ca16565905a557e96ca974029d5dc6ec5e9b60d795218f0ec567e92c5e0daa9"
+    },
+    {
+      "position": 5,
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0006"
+      ],
+      "sha256": "0ef1d11a865b1efb261143e22ec4371d86e84bc097a3b2df9e603b2a001637ce"
+    },
+    {
+      "position": 6,
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0007"
+      ],
+      "sha256": "ba3048e0cf88e0ebf144b24ca4bc8fff5c1d585995fed5a0781863f482384ec5"
+    },
+    {
+      "position": 7,
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0008"
+      ],
+      "sha256": "16cf793d1f366617109962e536639800f174a9d881273b177807b98b7033aa5e"
+    },
+    {
+      "position": 8,
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0009"
+      ],
+      "sha256": "e4b71675dd87f3e2ab0bd29697121f6f6b8f2503cf6e18df3fbffbe4156c7a12"
+    },
+    {
+      "position": 9,
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0010"
+      ],
+      "sha256": "01746af6adbe920a1296ff2264871d6588026a19fd6eae0484f2e6ef4454be00"
+    },
+    {
+      "position": 10,
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0011"
+      ],
+      "sha256": "790ff7407b6eb8ff5b51cfa9873230f83e11673b0bfe2f53af711978f0a423e2"
+    },
+    {
+      "position": 11,
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0012"
+      ],
+      "sha256": "50b90e68744b9ec49026fe87901a055cdbe0e0e0a010381ba21e39010a8c5b86"
+    },
+    {
+      "position": 12,
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0013"
+      ],
+      "sha256": "6aef9e8123be40eb744090b8f8ad6bc7f608933a9434ee40f4e8b81db3e8fd5e"
+    },
+    {
+      "position": 13,
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0014"
+      ],
+      "sha256": "ebfc7462441a2ee51e33c7e4488d9d62db767747817cac2690010c7b90f18929"
+    }
+  ],
+  "inheritedTargets": [
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:b0002",
+      "verdict": "faithful",
+      "evidenceSha256": "876542b9b2ae15328bb9dfa9199065d81d8aa4b63dd9d2c7013d943b3a173049"
+    },
+    {
+      "id": "modern-yabejp-ja:chapter04-section012:b0004",
+      "verdict": "faithful",
+      "evidenceSha256": "808a8e17a38437786728aaff3cfd81cf6c783ee8fd82de7143cb3eb56c64131b"
+    }
+  ],
+  "inherited3sEvidence": {
+    "reviewTargetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+    "verdictPreserved": "uncertain",
+    "evidenceSha256": "fb30763229c47b24ac89d0e043990164fad4ea7acd557c94824a3a1e3b9c90de",
+    "specific3sFaithfulInOriginalEvidence": true
+  },
+  "remainingUnknowns": [
+    {
+      "path": "/figures/0/unknowns/0",
+      "text": "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+      "disposition": "nonblocking-with-limits",
+      "independentImpactSha256": "2ac21eaee96b6a1abfe5f0d9fdade4bdfe9ff7c5407e7db1128ab93daa67d540",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0004",
+        "modern-yabejp-ja:chapter04-section012:b0005",
+        "modern-yabejp-ja:chapter04-section012:b0006",
+        "modern-yabejp-ja:chapter04-section012:b0008",
+        "modern-yabejp-ja:chapter04-section012:b0010"
+      ]
+    },
+    {
+      "path": "/figures/0/unknowns/1",
+      "text": "中央分数周围的玩家名及段位小字无法完整可靠辨认。",
+      "disposition": "nonblocking-with-limits",
+      "independentImpactSha256": "f0e2c19c5fcac06a3e3f553e69ed1db624d27cbaef2da5b8a94995083fbf21b5",
+      "sourceBlockIds": [
+        "modern-yabejp-ja:chapter04-section012:b0004",
+        "modern-yabejp-ja:chapter04-section012:b0005",
+        "modern-yabejp-ja:chapter04-section012:b0006",
+        "modern-yabejp-ja:chapter04-section012:b0008",
+        "modern-yabejp-ja:chapter04-section012:b0010"
+      ]
+    }
+  ],
+  "displayProposal": {
+    "label": "审校限制（非原文）",
+    "anchor": {
+      "afterSourceBlock": "modern-yabejp-ja:chapter04-section012:b0005",
+      "beforeSourceBlock": "modern-yabejp-ja:chapter04-section012:b0006",
+      "figureSha256": "65b278a1f692ab370a91546c53fa6645059a39344d47c85fcbfcb3ebd52e081e"
+    },
+    "notes": [
+      "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+      "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+      "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+      "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+    ],
+    "installed": false,
+    "actualReadbackRequired": true
+  },
+  "resolvedTileHistoricalLimits": {
+    "independentImpactSha256": "5393c6c2621062a6ae15d9ef389ab13c7c571cc392394d8b86c412844af0d9b3",
+    "originalDisposition": "blocking",
+    "originalRequiredDisplayLimitations": [
+      "保留原图，并明确标示右侧牌河第二张万子的点数未知；不得猜测具体牌码或赤色情况。",
+      "不得将该图标示为已完成逐牌核验的完整牌例，也不得依据该未知牌给出牌数或效率结论。",
+      "可引用作者明示的策略，但须同时保留牌例仍有逐牌核验缺口的提示。"
+    ],
+    "preserved": true,
+    "newFactIsHuman9m": true,
+    "oldUnknownTextMustNotBeInstalledAsCurrentFact": true,
+    "applicationArgumentReviewRequired": true
+  },
+  "originalFalseAndIssues": {
+    "verificationSha256": "fa62031a52a0807bea95518c2787cbe8654d91f2cb7839b4cff1ac9cc7397cc9",
+    "issuesSha256": "50f5781e9a58770e4926e8a9903ad14e899e4c99d307dd48da67d1250eaa038c",
+    "modified": false
+  },
+  "semanticReviewAuthorized": false,
+  "admissionGranted": false,
+  "wholeChapterPassed": false,
+  "newModelCalls": 0
+}

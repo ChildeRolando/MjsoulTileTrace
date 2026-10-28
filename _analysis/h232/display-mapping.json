@@ -1,0 +1,44 @@
+{
+  "candidate": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+    "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+  },
+  "bodySha256": "5f71c21d931c172127c1aafec77b401ca09f8eabd408c43ee907a32673dfed42",
+  "figureSha256": "65b278a1f692ab370a91546c53fa6645059a39344d47c85fcbfcb3ebd52e081e",
+  "anchor": {
+    "afterSourceBlock": "modern-yabejp-ja:chapter04-section012:b0005",
+    "beforeSourceBlock": "modern-yabejp-ja:chapter04-section012:b0006",
+    "figureSha256": "65b278a1f692ab370a91546c53fa6645059a39344d47c85fcbfcb3ebd52e081e"
+  },
+  "label": "审校限制（非原文）",
+  "notes": [
+    {
+      "id": "limited232-1",
+      "text": "【审校限制（非原文）1】只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+      "authorText": false
+    },
+    {
+      "id": "limited232-2",
+      "text": "【审校限制（非原文）2】不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+      "authorText": false
+    },
+    {
+      "id": "limited232-3",
+      "text": "【审校限制（非原文）3】保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+      "authorText": false
+    },
+    {
+      "id": "limited232-4",
+      "text": "【审校限制（非原文）4】只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。",
+      "authorText": false
+    }
+  ],
+  "unknowns": [
+    "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+    "中央分数周围的玩家名及段位小字无法完整可靠辨认。"
+  ],
+  "installed": false,
+  "actualReadback": false,
+  "authorBodyChanged": false,
+  "newModelCalls": 0
+}

@@ -1,0 +1,87 @@
+{
+  "schema": "coac250-existing244-owner-exact232-display-interface-request/1",
+  "owner": "COAC-244",
+  "parentIssue": "01a1746d-cf4a-7ecc-9fae-3d4c2b55c39f",
+  "canonical": "nemata-jp-chapter-232-1",
+  "candidate": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+    "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+  },
+  "receipt": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-human-reviewed-20261028.json",
+    "sha256": "2280884a55df3ba010ceac36c5c4832deb2b4dc15b15f2e07d8db554a8f3a94c"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d1640db7-8722-4d0d-bdba-da5c2ba54f84.json",
+    "sha256": "f84280661530678891d4d11ab4c00ff0b4f3542c435ed5e3b8716af8ac8ccd7b"
+  },
+  "independentApplicationFaithful": true,
+  "independentAuthorArgumentFaithful": true,
+  "conditionalLimitsSufficient": true,
+  "originalTechnicalLimitedUnknownOkay": false,
+  "originalModelUncertainPreserved": true,
+  "reason": "Existing stage rejects the truthful conditional status at web_stage_audit_identity; no exact232 verify/stage callback is available. This is an interface/installation gap, not a new tile or author argument gap.",
+  "missingEntryOnly": {
+    "verify": "verify232Conditional(processingRoot,candidatePath)",
+    "stage": "stage232Conditional(options)",
+    "stagedVerify": "verifyStaged(processingRoot,stagePath)"
+  },
+  "exactPins": {
+    "candidateSha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c",
+    "sourceSha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+    "parentSha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb",
+    "figureSha256": "65b278a1f692ab370a91546c53fa6645059a39344d47c85fcbfcb3ebd52e081e",
+    "humanEventSha256": "ff8a1be9e06189c487559b4d5ea497a528edac2f64a6fa9009eb2f28ffb0eceb",
+    "rawSha256": "f84280661530678891d4d11ab4c00ff0b4f3542c435ed5e3b8716af8ac8ccd7b"
+  },
+  "requirements": {
+    "label": "审校限制（非原文）",
+    "anchor": {
+      "afterSourceBlock": "modern-yabejp-ja:chapter04-section012:b0005",
+      "beforeSourceBlock": "modern-yabejp-ja:chapter04-section012:b0006",
+      "figureSha256": "65b278a1f692ab370a91546c53fa6645059a39344d47c85fcbfcb3ebd52e081e"
+    },
+    "notes": [
+      {
+        "id": "limited232-1",
+        "text": "【审校限制（非原文）1】只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+        "authorText": false
+      },
+      {
+        "id": "limited232-2",
+        "text": "【审校限制（非原文）2】不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+        "authorText": false
+      },
+      {
+        "id": "limited232-3",
+        "text": "【审校限制（非原文）3】保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+        "authorText": false
+      },
+      {
+        "id": "limited232-4",
+        "text": "【审校限制（非原文）4】只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。",
+        "authorText": false
+      }
+    ],
+    "unknowns": [
+      "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+      "中央分数周围的玩家名及段位小字无法完整可靠辨认。"
+    ],
+    "sourcePositions": 14,
+    "figures": 3,
+    "authorBodyUnchanged": true,
+    "sourceNoteB0008Preserved": true,
+    "latestSavedHumanEventMustStillMatch": true,
+    "ordinaryFullArticlePassed": false,
+    "originalFalseUnchanged": true,
+    "oldRightRiverUnknownNotReinstalled": true,
+    "readbackRequired": true
+  },
+  "newSemanticVerdict": false,
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "newIssueOrConsumer": false,
+  "stageInstalled": false,
+  "actualReadback": false,
+  "formalActiveChanged": false
+}

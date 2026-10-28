@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-10-28T11:18:41.421Z",
+  "candidateSha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c",
+  "acceptedSelectionMatches": 0,
+  "registerCovered": false,
+  "registerRowSha256": "8213a20163caed1fe2e7943f741231238c8710e63176207ec7e2738b054974ca",
+  "preview": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-preview-current.json",
+    "sha256": "e1762fd222864db2322f5f1de17ada43ed8301e9ec48071a0fc0f1d9a4172639",
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T11-15-39-549Z"
+  },
+  "register": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+    "sha256": "93d224d96e8a8482eb65a7d09bc4365a6e5bd649af4c307b5c471ce9a8d2c452"
+  },
+  "standardAuditLedgerNewCandidateMatches": 0,
+  "chapterClaimHeld": false,
+  "chapterClaimCheck": "slots.mjs check-chapter --chapter nemata-jp-chapter-232-1 --owner \"COAC-248 Mika\" returned held=false",
+  "noNewConsumerCreated": true
+}

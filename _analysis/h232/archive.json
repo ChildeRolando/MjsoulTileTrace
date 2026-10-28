@@ -1,0 +1,2086 @@
+[
+  {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-human-reviewed-20261028.json",
+    "sha256": "2280884a55df3ba010ceac36c5c4832deb2b4dc15b15f2e07d8db554a8f3a94c",
+    "bytes": 30809,
+    "copy": "e000"
+  },
+  {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-human-inheritance-20261028.json",
+    "sha256": "8b85184a17332b8f0edca95acdecd8f4b96b864c7d68613861a721b8102ac949",
+    "bytes": 93097,
+    "copy": "e001"
+  },
+  {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-human-display-scope-20261028.json",
+    "sha256": "fdb1e1196023764a5ac571f9ff0175102416848b39332862ca2fb6748b018d84",
+    "bytes": 20050,
+    "copy": "e002"
+  },
+  {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-human-owner-handoff-20261028.md",
+    "sha256": "57e74739bb231b1214da0145c7b9f359652c0255ac6fcebc2d469e1758680244",
+    "bytes": 11152,
+    "copy": "e003"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-jp232-human-20261028\\manifest.json",
+    "sha256": "64302d7331baaa802614b1456d228c3b4d793a07fbff4d76049a0f33c49d2965",
+    "bytes": 1764,
+    "copy": "e004"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-jp232-human-20261028\\.gitattributes",
+    "sha256": "b3de1df2cd42c724f0ad2916314180fbd9b75873bcf48ce382762ab0a00b758f",
+    "bytes": 69,
+    "copy": "e005"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-jp232-human-20261028\\application-map.json",
+    "sha256": "f490c429b3c8ab2ef9abbeae647c08d503945325e7fb4b0a12a7cf731e0eaefa",
+    "bytes": 9087,
+    "copy": "e006"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-jp232-human-20261028\\dedupe.json",
+    "sha256": "172d286f62509503d4a03a83fe14605f517760626262478e0645201a0c83521c",
+    "bytes": 1059,
+    "copy": "e007"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-jp232-human-20261028\\handoff.json",
+    "sha256": "d00d3d29b812bb3db34631b23b73f7884a69e671b9a79c308de431de9be2dd01",
+    "bytes": 3511,
+    "copy": "e008"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-jp232-human-20261028\\negative-checks.json",
+    "sha256": "788c20e0b755699364b3d6da22bc75881e1fa1f2a3a2995e1b140ef4b9b36e16",
+    "bytes": 1872,
+    "copy": "e009"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-jp232-human-20261028\\prepare.mjs",
+    "sha256": "6cd145278dc3efd53278521d6d2bc563c7b6f199451be0df168607470a6caa29",
+    "bytes": 6964,
+    "copy": "e010"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-jp232-human-20261028\\README.md",
+    "sha256": "6ff1c644cb0626533e906575f5af1741b43ff3eb3f50ce67bb5d66e32a427571",
+    "bytes": 2293,
+    "copy": "e011"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-jp232-human-20261028\\verification.json",
+    "sha256": "7e045ba528e61e1336c83932749a6e69d3c448eb5ea015fd36482c99909d0987",
+    "bytes": 5810,
+    "copy": "e012"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-jp232-human-20261028\\verify-packet.mjs",
+    "sha256": "d3ca01cdbc09365483843aa1600b92579879fd3de1e72da8a9dda64355807992",
+    "bytes": 1115,
+    "copy": "e013"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-jp232-human-20261028\\verify.mjs",
+    "sha256": "907547494c2ea03697ff846249a47640b2997ebc0e66f44d0cdbd80134fcb1d2",
+    "bytes": 9395,
+    "copy": "e014"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\manifest.json",
+    "sha256": "1afdf2dfebb8c2801130e996beb9fd4ded396f04b482012f800ede04ab0b6dd2",
+    "bytes": 1012,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\entry.mjs",
+    "sha256": "a7ff01b70e8e9b960e9f0c8f163465c134032145702d0511ec770fa6ba76110a",
+    "bytes": 13378,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\prepare.py",
+    "sha256": "85a6cd46a97fb58257fc24d438fd25a3c4721c6ad8b3b01e059fc3663eee0a86",
+    "bytes": 7934,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\final-evidence.json",
+    "sha256": "40e44645a84f72b7729036b191c2c80fe2f0948b3df65c2a0016f235f4308915",
+    "bytes": 249940,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\plans.json",
+    "sha256": "8330c415df917f8430a83ceb6821a5f382cc2188a515fa4fd2907d897c139fc1",
+    "bytes": 4677,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\input-bindings.json",
+    "sha256": "5d48ad321792896380bacdbbff8bc8d6d55132e73e989614e2025692a5b97f3a",
+    "bytes": 43772,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\capture.json",
+    "sha256": "9cc29e6b2944c3df8c55b106c128f6559d13a14371ccbfd2f9427c0e32e75e30",
+    "bytes": 343,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\check.mjs",
+    "sha256": "2b5432c9d5f53fd2a79e6b1c180b58d92233b7afa1e12a99153c53f2cc463785",
+    "bytes": 5847,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\snapshot\\export.raw.json",
+    "sha256": "7e145d4d902ef5cec36603e2af2b8842b277007d9cdc9a2c191105d6255785a0",
+    "bytes": 591791,
+    "archived": false,
+    "reason": "Full unrelated human exports/queue remain at bound original data root; current232 scoped event separately archived."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\snapshot\\events.raw.jsonl",
+    "sha256": "39285ab2582cd7d2f27314b3fa3a23e3d6c176baef0d55fc8ee886636681f13e",
+    "bytes": 204646,
+    "archived": false,
+    "reason": "Full unrelated human exports/queue remain at bound original data root; current232 scoped event separately archived."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\snapshot\\queues\\queue.json",
+    "sha256": "26d1ad2828810247e75ae86306c3cc5c718a2f38037b7f548f82d0c72d47f29a",
+    "bytes": 439123,
+    "archived": false,
+    "reason": "Full unrelated human exports/queue remain at bound original data root; current232 scoped event separately archived."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\snapshot\\queues\\26d1ad2828810247e75ae86306c3cc5c718a2f38037b7f548f82d0c72d47f29a.json",
+    "sha256": "26d1ad2828810247e75ae86306c3cc5c718a2f38037b7f548f82d0c72d47f29a",
+    "bytes": 439123,
+    "archived": false,
+    "reason": "Full unrelated human exports/queue remain at bound original data root; current232 scoped event separately archived."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\snapshot\\queues\\3c4a7311ddfccddbc062b69d07a2af5f1660e712bd79ba965f079bc53ef6c63c.json",
+    "sha256": "3c4a7311ddfccddbc062b69d07a2af5f1660e712bd79ba965f079bc53ef6c63c",
+    "bytes": 466937,
+    "archived": false,
+    "reason": "Full unrelated human exports/queue remain at bound original data root; current232 scoped event separately archived."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\snapshot\\queues\\796cc3a2653982bf77587e13ff55fd95058f1c048083f4efe494a22a3b6d2e8e.json",
+    "sha256": "796cc3a2653982bf77587e13ff55fd95058f1c048083f4efe494a22a3b6d2e8e",
+    "bytes": 466937,
+    "archived": false,
+    "reason": "Full unrelated human exports/queue remain at bound original data root; current232 scoped event separately archived."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\snapshot\\queues\\7ec1b8fb47ef8a1f80f9a5098904170432d44c6d81ac042b34aa622d6c97f58b.json",
+    "sha256": "7ec1b8fb47ef8a1f80f9a5098904170432d44c6d81ac042b34aa622d6c97f58b",
+    "bytes": 456004,
+    "archived": false,
+    "reason": "Full unrelated human exports/queue remain at bound original data root; current232 scoped event separately archived."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\snapshot\\queues\\8cf1e8da76fee598f6917e27da507e86edc91879984253775cf437dab35f1ff2.json",
+    "sha256": "8cf1e8da76fee598f6917e27da507e86edc91879984253775cf437dab35f1ff2",
+    "bytes": 467045,
+    "archived": false,
+    "reason": "Full unrelated human exports/queue remain at bound original data root; current232 scoped event separately archived."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-observation-snapshot-20261028\\snapshot\\export.raw.json",
+    "sha256": "05e28f639c6ecc26afc6155ffa252dc873c6b3e69b9393a77e6c33e42141b377",
+    "bytes": 503044,
+    "archived": false,
+    "reason": "Full unrelated human exports/queue remain at bound original data root; current232 scoped event separately archived."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe.png",
+    "sha256": "49be1692c1731e2816f6ac84aa1f348500b574332d4970fcfd746b0dd3212bfe",
+    "bytes": 10724,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-109-target-impact-reviewed-20261028.json",
+    "sha256": "67421d448b13f720947ca5472d7a0dfba1ee95e2f710f79ec1d5e86703baa986",
+    "bytes": 30032,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1729038.coac269b25r1.json",
+    "sha256": "3cfe3a27bd799782d6ac8e626fcf97d26e1724ce544b6ccf26bcd740bd259dcb",
+    "bytes": 54499,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1729038\\source.json",
+    "sha256": "b41f36cb12ccdfe98e4cde9633aa5b55a11fbb6931fcd11da475ac6d4fe3bdbc",
+    "bytes": 33421,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1729038.display.json",
+    "sha256": "ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22",
+    "bytes": 57289,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1729038.ba8f4468945fda73ed357ba1ec879fdcf2a1db5770fa490ee085e7af4fa00e22.retry-1792943789870-ade1138e.json",
+    "sha256": "254405ec0e5e50e057a662509f8ac087e4d1ed84c0e60b40e185182585130eda",
+    "bytes": 32355,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\4fe3048c-dbf1-4b52-a4f2-80ab94310477.json",
+    "sha256": "bd0dbed07728d882609a06cf5e39c634c230f8153a5cf8cfe395ccfea0b80bc8",
+    "bytes": 167833,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-109-target-impact-20261028\\plan.json",
+    "sha256": "a5848f57fc21e3de2c283bb176f4d89e6c0212bab15489561232bbca7e0971f0",
+    "bytes": 78183,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7.png",
+    "sha256": "65eccdb62e593a95a8734ad73a7065ae649d0544896ed20983104b133dedc3a7",
+    "bytes": 10882,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\78b7f59dcfddc79a8d52b60f7567452f57f955bf5e78a0c06c8caa5bd5b19a10.png",
+    "sha256": "78b7f59dcfddc79a8d52b60f7567452f57f955bf5e78a0c06c8caa5bd5b19a10",
+    "bytes": 57955,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\59c525639dcbed32f3e084b3ba249716649f8be24805394d1489cfa84cd1db88.gif",
+    "sha256": "59c525639dcbed32f3e084b3ba249716649f8be24805394d1489cfa84cd1db88",
+    "bytes": 16718,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-167-target-impact-reviewed-20261028.json",
+    "sha256": "e291ebb02ed244689be9a7060659d4214d267189eb62e868c6747b7db9b027fe",
+    "bytes": 23176,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.coac269b25r1.json",
+    "sha256": "5bfa90e3e15deb0c3f868ee1811fe50cdba75357f2805b3c37ed5f1d86538a58",
+    "bytes": 39556,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1754620\\source.json",
+    "sha256": "e844d2f6c325b3cf0c2e23e23d92d5a2708b4c7ee73f9d56c9ca7118c442a3b9",
+    "bytes": 23000,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1754620.display.json",
+    "sha256": "7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737",
+    "bytes": 32855,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1754620.7279ba3604f55bb2fe84a8210b4d7f222f8391b284e8603f6cff4d79e6f30737.json",
+    "sha256": "8c52da176b472a79f63b7cce50f29ce66710718beea7631b1cf3b0a2a9910c73",
+    "bytes": 12132,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\edf73a16-7c1c-44e2-9d22-52d2f3c0e267.json",
+    "sha256": "bcdb12b7ad333e879cf74962eed180b09ea6740025090063aa3ecb3d25e4d6cb",
+    "bytes": 125404,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-167-target-impact-20261028\\plan.json",
+    "sha256": "a03299d2492a1c45f604480833a723f07f672bf22c7ce539df8df333e21338f5",
+    "bytes": 61080,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6.png",
+    "sha256": "c227241731e43daa39dda5d2564add0c470c54f7eeaadf36a7253b1336a16ff6",
+    "bytes": 16376,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-201-target-impact-reviewed-20261028.json",
+    "sha256": "3a37da953a628ba7ab8bc031df939c0f168ca7e623150d7c5c4beba5a0f5a3e7",
+    "bytes": 26942,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.r1.display.json",
+    "sha256": "de5da8288a2af771e2eb3a421d2460d31e3024b6591679d9661f2c55b522da77",
+    "bytes": 33859,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1770179\\source.json",
+    "sha256": "fafa213e1995f8bc2ff6f8b12ee421a9e3d5212e537ee726ac5c8a4bfec398cb",
+    "bytes": 18914,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770179.display.json",
+    "sha256": "52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8",
+    "bytes": 26992,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1770179.52cf8e02d3418e6587acd964a6b784bc51badc1d4a0d15c3229da24822eb89d8.json",
+    "sha256": "0d15827cbe532a21534b80263177db5768484007d240c6d7a6af4c24aaf24911",
+    "bytes": 11973,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\47cad59c-6a7b-41a6-9ae5-9a977e9d34b7.json",
+    "sha256": "58e94e9b0a066c8974bff593c5f18004c4b6a1a730966b9b7cba65d65726c83d",
+    "bytes": 115876,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-201-target-impact-20261028\\plan.json",
+    "sha256": "7493135d97d674de41f308b29b072934e190364b5c983261b05ac373411e2cb9",
+    "bytes": 95997,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e.jpg",
+    "sha256": "a7dc51323167c0886fc91d3561283813e220c2b61845e67451c6a008a908c79e",
+    "bytes": 61986,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-jp193-text-r2-target-reviewed-20261028.json",
+    "sha256": "0d908f3ae536e17b12380e7394f26eef64bf75afe2e910aa000797eb24b8f219",
+    "bytes": 46937,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section009.r2.display.json",
+    "sha256": "f3c960182adb5913b82f22504b703cc8fe6d69561acc8c7f43c19e364184e7d7",
+    "bytes": 203377,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter03-section009\\source.json",
+    "sha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+    "bytes": 123896,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section009.r1.display.json",
+    "sha256": "af8071cfdbaabf8f469f84fa4daa6fd2d7d377c3dc2b277ef766e34a22324ba1",
+    "bytes": 207848,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-jp193-target-impact-reviewed-20261028.json",
+    "sha256": "a70006b0e912a7089bf2ae7cebd3d9e366275ca3e25cc8a3ea1356335b410b6c",
+    "bytes": 37844,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\45129550-169e-4015-a297-8726ee5cd9c5.json",
+    "sha256": "0098bd9a196c7f711cb1d953c2148ff9d9ff1a4f852333bb2efa90dab244a6a4",
+    "bytes": 395893,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2c4e7f59-a462-4759-87be-30e8632ee206.json",
+    "sha256": "521e522337d5ef45d7c5d3347b87a953d0a266874960ee517527452ebf38b568",
+    "bytes": 402536,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-jp193-text-r2-target-20261028\\plan.json",
+    "sha256": "d45fcdf55ab69723882d37f63383d0a0370187db7443d476544eeb391970a546",
+    "bytes": 415442,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd.jpg",
+    "sha256": "9dce8de385ca5b1337289bdb410525dac02820fd0c4cd7f90b11dacb807617cd",
+    "bytes": 54287,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-213-target-impact-reviewed-20261028.json",
+    "sha256": "a91fd5ef0e13a880d32e0036c87f34f341d54b4c7afa9088f636b3dc857321d8",
+    "bytes": 32487,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.r1.display.json",
+    "sha256": "a667937d4e119a1b22659fc60987f07d3eea9d246c8b2b6ddabcdacb4fe5dd47",
+    "bytes": 113296,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter03-section026\\source.json",
+    "sha256": "224ab80edc484ba26f112cb27a150486d2adaba30d1291fdf3c451baaae7631a",
+    "bytes": 62908,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter03-section026.display.json",
+    "sha256": "4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4",
+    "bytes": 107372,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter03-section026.4be53c73b7042cf060892d650a0d7b17c644b6537e80b39c8c58fc8d00fab9f4.json",
+    "sha256": "a62d14aee33507486cff8ba945d3174fad43fa2423245fe56acef5f16b45eedc",
+    "bytes": 37129,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\c0d77d4f-25ea-401b-939e-c956e81e1713.json",
+    "sha256": "0f401fb2bdba23993719062663b69b6ddcc9df2c268727ebe94d1e9041d867ea",
+    "bytes": 247827,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-213-target-impact-20261028\\plan.json",
+    "sha256": "d75fa455ffcc4d9d61312394c5bb5e6d13658fbe942ea0340ed6889dfcb7ad2e",
+    "bytes": 223062,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg",
+    "sha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135",
+    "bytes": 58290,
+    "copy": "e075"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-232-target-impact-reviewed-20261028.json",
+    "sha256": "5ed3b5117151b9cf5555d223d714131c5593f1f9042c6e91a9bb005a68fbb9ea",
+    "bytes": 29674,
+    "copy": "e076"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+    "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb",
+    "bytes": 42615,
+    "copy": "e077"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+    "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+    "bytes": 23933,
+    "copy": "e078"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.display.json",
+    "sha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+    "bytes": 35623,
+    "copy": "e079"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+    "sha256": "24293aa4da6b71079ed47600d45229e972e1f8b1256a9dcc573af827c05514f6",
+    "bytes": 21102,
+    "copy": "e080"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\0dae5b1a-76be-45d5-b2f0-410bc5853cb3.json",
+    "sha256": "426d49b11f72317b32fdf1b6b7a14ba6308ec8db9da9ae7706079933304eea3c",
+    "bytes": 143838,
+    "copy": "e081"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-232-target-impact-20261028\\plan.json",
+    "sha256": "c4395af144111c28b50718d4b8262499ed92fde9dded5b49b2697a080f57acab",
+    "bytes": 65897,
+    "copy": "e082"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0257-r1.png",
+    "sha256": "62a6a6c4f94a754ca7e41d82bc32964736fd525331c29eafd9cb5ce68ca05397",
+    "bytes": 5032426,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+    "sha256": "b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03",
+    "bytes": 1365217,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png",
+    "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8",
+    "bytes": 2077873,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\257.json",
+    "sha256": "ca63823638f042d84419560d2618879b80972410d0e290f6b12c9860e19639a6",
+    "bytes": 14350,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0257.6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88.6baa4a7e1404.json",
+    "sha256": "82b49d1750bc01c1c0bdee87ccd6190a78c7e0645fd7d738f802fb7b8b712144",
+    "bytes": 59383,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0257.json",
+    "sha256": "6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88",
+    "bytes": 25248,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-311250-zero-preparation-20261028\\257-context.json",
+    "sha256": "8ee743e7fe3dce2679adb5799aafa435792dc8bc10b3b6e6d4a213b37644fd7a",
+    "bytes": 222201,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\f502bc2382ccc4076a54928cec3588aa60096ff42b7f221abba1e074ad7045a9.png",
+    "sha256": "f502bc2382ccc4076a54928cec3588aa60096ff42b7f221abba1e074ad7045a9",
+    "bytes": 8433,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\261.json",
+    "sha256": "6cdfa8cefcbd8e38f618da86d9adc5ba5796f1c6f40fcb4729c0ceee4a3200a6",
+    "bytes": 90416,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.7076217daf84.json",
+    "sha256": "4ab382b1a427ca266b8aa8148eed21800be971534627f69c04379e8f83e41b06",
+    "bytes": 190907,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair18-20261027-p261\\candidates\\nemata-jp\\page-0261.json",
+    "sha256": "376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359",
+    "bytes": 142025,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-311250-zero-preparation-20261028\\261-context.json",
+    "sha256": "034c864c5a658d667445a408272244478015b5bde79498bb0ed71b620b291924",
+    "bytes": 397108,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952.png",
+    "sha256": "e0a1029661b1825a3f6f8ff08b261a30eefee2825b934bad8f2ec8431d49d952",
+    "bytes": 67226,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1751292.display.json",
+    "sha256": "5f2555f1ad90b99581f054974c7bc29b6536896926cc7c33a3f9574cf51c3373",
+    "bytes": 46828,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1751292\\source.json",
+    "sha256": "a007bfceffd854f07ce1780474a74cff32b0c7837b39c822c5392df5bd681cf7",
+    "bytes": 28679,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-159-limited-fidelity-evidence-20261028.json",
+    "sha256": "86bc78028f01c2fd7a277f0c2de1ce5fb2cbf51aff72ba00376fc5e7e0c178ba",
+    "bytes": 14191,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\09f2d1d029d2e7562c9abb19c1f693e9c25b9c005dfb7d20a736b593aa7618de.png",
+    "sha256": "09f2d1d029d2e7562c9abb19c1f693e9c25b9c005dfb7d20a736b593aa7618de",
+    "bytes": 42093,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1765377.display.json",
+    "sha256": "e08cf7cfef4777643809971a71347c587ffe14534873d7cac2be65be42885e5e",
+    "bytes": 46610,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1765377\\source.json",
+    "sha256": "75b3eae5938bd5e635089891d6ee721575cf9d8fddce050dadcb90a5f47f48c5",
+    "bytes": 38311,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-193208276-20261028\\current-binding-193.json",
+    "sha256": "b20806e6404367ba672785f97e1558c3b4fbdec4eaf4ab7a86543023809c6da0",
+    "bytes": 39461,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b.png",
+    "sha256": "ef5923b2d3fb5319704a1b4a3f4d07e5273041d0648a3d5f8d77ad3c831a031b",
+    "bytes": 56822,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1770245.display.json",
+    "sha256": "0fc086828eb0fb2784e45d60e4a0585af477877c71b2b82630747a87755f6e97",
+    "bytes": 46718,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1770245\\source.json",
+    "sha256": "0d6849d5bb4cb250ce9070a883fa072f9025c8411563b9f74fe9fd9d616fa17c",
+    "bytes": 29676,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-193208276-20261028\\current-binding-208.json",
+    "sha256": "d48e56626a3f7d1542da066bdb3f23629bc800555050db2c0fcb72a926de0016",
+    "bytes": 42429,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985.png",
+    "sha256": "fce493ca7a7fc4a77b99d06f805bd7dc4e07fa9137488f0a839a77d643b65985",
+    "bytes": 56712,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978.png",
+    "sha256": "64038b63bc4470d69f21b42e68d8285cf98d69b001dcf3bd9a250155da5f6978",
+    "bytes": 24419,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac248-p217-admitted-20261028\\page-0217.rev6.json",
+    "sha256": "a3b8eaf8576355b0d4737cd57e1bb49a1db1ceb3a5943ff992630aed9da5cd54",
+    "bytes": 18460,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\217.json",
+    "sha256": "f8de2eddd4ba2939ae40796ffd8d1d1f971d49474dede72d108e61809ef1d6f8",
+    "bytes": 18715,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\ba8ea48f2506c224d0272995ac4cc9e6fdfc4686c9b0dc88b11445b88eff19fe.png",
+    "sha256": "ba8ea48f2506c224d0272995ac4cc9e6fdfc4686c9b0dc88b11445b88eff19fe",
+    "bytes": 24124,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218-consistent-unknown-20261028\\candidates\\79-cn\\page-0218.json",
+    "sha256": "df8f2de33d1baf5141533810f22b59855aef0145729d612f003ae123c4e24157",
+    "bytes": 31370,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\218.json",
+    "sha256": "83d1909e9e92a9622c46c9ba0ea46efca12bef60cb27ec5b35d72fcbd8f92abd",
+    "bytes": 19761,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\e5a78b89436107a1281cea19f3224752f20e09c4106b883054909c03168a7dbf.png",
+    "sha256": "e5a78b89436107a1281cea19f3224752f20e09c4106b883054909c03168a7dbf",
+    "bytes": 21463,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\coac247-pdf218219-target-fix-v2-20261028\\candidates\\79-cn\\page-0219.json",
+    "sha256": "464c607a262b415dece3f35b213aef19b632266f7c4917f3107a04d5e1971bc9",
+    "bytes": 26837,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\79-cn\\pages\\219.json",
+    "sha256": "27ae7567c1ba544cf5b5bdbf3a75abeb95e650c84ba9ce2114b2143340d99a28",
+    "bytes": 19039,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\fe9214ed1d4cb16f1a0d857c1f08093f5038203abc349f1b89f1ce054c734618.jpg",
+    "sha256": "fe9214ed1d4cb16f1a0d857c1f08093f5038203abc349f1b89f1ce054c734618",
+    "bytes": 60370,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1780438.display.json",
+    "sha256": "62987619296c7f7ef775b41967e69f84802a17c08146df9ffd436f51f84b19aa",
+    "bytes": 58219,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1780438\\source.json",
+    "sha256": "3cac4b7103309b092edada33aa8f698b606aa283ae1ce18f8ce9ba9e8428f6e0",
+    "bytes": 45228,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-next3-242-limited-fidelity-evidence-20261028.json",
+    "sha256": "8af5dfab278fb5a6da46c571f68d6a6a034bf025677842e955530ef3cc769436",
+    "bytes": 12008,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce.png",
+    "sha256": "1f763b6fa772080e64a8d6e4e11d6f85d2147bfd1a8aacce6216e2f1e3054dce",
+    "bytes": 16584,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1785770.r2.display.json",
+    "sha256": "0877ccd8c34fed1b2728eec6c8dd912559e852d653b5fedda8f5b6e4469aa0bd",
+    "bytes": 53572,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1785770\\source.json",
+    "sha256": "53bbca13df84b169a751041b20f080d244b21684ce896128e5ad8f07b0cd4b23",
+    "bytes": 37778,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-256-impact-20261028\\receipt.json",
+    "sha256": "f2de18998185283ea785048f65e5b406ae100549a569eefa82c4214dc8cf43e2",
+    "bytes": 17427,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\assets\\4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c.jpg",
+    "sha256": "4f38c87492c98f76c294f14e6139c7f35df374d97c8050df73cdb6fc15b0864c",
+    "bytes": 50751,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1793434.r2.display.json",
+    "sha256": "94b2d56a65a3c253fcefd88c59c1f8363c71afeda8b957fd35c20b2ad6040abd",
+    "bytes": 51494,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1793434\\source.json",
+    "sha256": "db1218e9226ef5ccaf978ec6b6801bd07498017b821973647d0e551ed518439f",
+    "bytes": 36683,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-193208276-20261028\\current-binding-276.json",
+    "sha256": "36bca9cc89860830d5b4128759eeb3c73c00ba10340cd4887dd29762d7149a42",
+    "bytes": 62137,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d.jpg",
+    "sha256": "d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d",
+    "bytes": 53525,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac244bounded.json",
+    "sha256": "ff3b1f36ffbd8daa23509a7375d0aaee533648299d636af2fa51be47657965d7",
+    "bytes": 2112414,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter06-exercise003\\source.v3.json",
+    "sha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+    "bytes": 1998292,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-bounded-merge-20261028\\proof.json",
+    "sha256": "aaa94ae21945476fd8dc9eb0ba7cd1a3748b20ee83cd2476cc9ec26f725a962d",
+    "bytes": 7404,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9.jpg",
+    "sha256": "29f6152249911e0672cea6c66317deded768a366695a9e0c1770a6eaacd65ec9",
+    "bytes": 56076,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0310-r16.png",
+    "sha256": "6ec96097cdbadf20047ede8b314c634ef5efef5ca0b6b0f8c3daad5d9469474b",
+    "bytes": 53644,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\ba66c5e6ce88dea27bc69579213149c8cffa43195b84283830cbb6674d03bcc0.png",
+    "sha256": "ba66c5e6ce88dea27bc69579213149c8cffa43195b84283830cbb6674d03bcc0",
+    "bytes": 482,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\c027ca6945de2e1fb305a3862020d3a4698ebe32ad76bcf2b2bbdd5aa8df14a7.png",
+    "sha256": "c027ca6945de2e1fb305a3862020d3a4698ebe32ad76bcf2b2bbdd5aa8df14a7",
+    "bytes": 5542,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\b0e8311e9321d49e5d255e87d1bc46efc301341ca6a74447436ba21bb4ce8b12.png",
+    "sha256": "b0e8311e9321d49e5d255e87d1bc46efc301341ca6a74447436ba21bb4ce8b12",
+    "bytes": 3452,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\f3286d6d9c6ae34f382f196825af56a13e4c379ae28a4e7eb48db1c72279cfa6.png",
+    "sha256": "f3286d6d9c6ae34f382f196825af56a13e4c379ae28a4e7eb48db1c72279cfa6",
+    "bytes": 177,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\f8297e576fc4db8921a6cd5bc70403fbfb233a3d278b2cfb5d7b9dbbf23c87e5.png",
+    "sha256": "f8297e576fc4db8921a6cd5bc70403fbfb233a3d278b2cfb5d7b9dbbf23c87e5",
+    "bytes": 7818,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\62ad36d0285ebfd23cc8dd1a24d6eb524dc3c2aee51921af139a51d90483af98.png",
+    "sha256": "62ad36d0285ebfd23cc8dd1a24d6eb524dc3c2aee51921af139a51d90483af98",
+    "bytes": 4308,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\87c68b81dd5ea62937613698ca37a4aaf620b99cd2badaccd50c1019fb8e107d.png",
+    "sha256": "87c68b81dd5ea62937613698ca37a4aaf620b99cd2badaccd50c1019fb8e107d",
+    "bytes": 1148,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0310.json",
+    "sha256": "d605e842bec56aeb408d33815ce7e3847a03a9bd03e0c300d096f82f47590296",
+    "bytes": 93463,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\310.json",
+    "sha256": "302abdfd20637315dfe932e1893ed0bfec8211cbf8f467c8f817f6d65e3895da",
+    "bytes": 105732,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0310.d605e842bec56aeb408d33815ce7e3847a03a9bd03e0c300d096f82f47590296.6baa4a7e1404.json",
+    "sha256": "4fc1a4116485a54310e298fca00d2f37b911e6c5adf7636af942e7fe7e2a4ddc",
+    "bytes": 157637,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0311-r5.png",
+    "sha256": "0c248750948f0d43d2f96aef79b5f17464cd8b59e0e3c73b7f94ddd2a9e174f4",
+    "bytes": 111871,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\ec39465841624e10739c361be6d80ea217fcc9aa93c967bad81cc8455ffee3c9.png",
+    "sha256": "ec39465841624e10739c361be6d80ea217fcc9aa93c967bad81cc8455ffee3c9",
+    "bytes": 2725,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\bae918ec626875a81d628a6f23348d849e12458dc7dbcd1c920b9bf692c44f43.png",
+    "sha256": "bae918ec626875a81d628a6f23348d849e12458dc7dbcd1c920b9bf692c44f43",
+    "bytes": 11429,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\402acb537aa0a32083440d027a3d2fdfb7f0379584f320f461a689ab15204be6.png",
+    "sha256": "402acb537aa0a32083440d027a3d2fdfb7f0379584f320f461a689ab15204be6",
+    "bytes": 7465,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\59efcc8584cc25fc2443696fa2c605cbc21d44016a465712b91bc3f91ece2460.png",
+    "sha256": "59efcc8584cc25fc2443696fa2c605cbc21d44016a465712b91bc3f91ece2460",
+    "bytes": 3523,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\d58d4ba089f9a23c75227e3efe18d84166c7b7e100a19a26e3909b58e8251a73.png",
+    "sha256": "d58d4ba089f9a23c75227e3efe18d84166c7b7e100a19a26e3909b58e8251a73",
+    "bytes": 6071,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\7993c4409af7cf329bb4ea594d75d815f36746cdc26855cd5a8abf0fbb508966.png",
+    "sha256": "7993c4409af7cf329bb4ea594d75d815f36746cdc26855cd5a8abf0fbb508966",
+    "bytes": 1776,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\d0fc7e34a3601020d4a62475ce31e568d07001b8c44bc84097804223aa308c2b.png",
+    "sha256": "d0fc7e34a3601020d4a62475ce31e568d07001b8c44bc84097804223aa308c2b",
+    "bytes": 8079,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\9603d6973312c00a0b0d90c3de8500e96bbb60740164e3c097165424c58f99ac.png",
+    "sha256": "9603d6973312c00a0b0d90c3de8500e96bbb60740164e3c097165424c58f99ac",
+    "bytes": 7457,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\1fec530dd9fa95051d8327893aee2fef681da2494e702e5581a5dee3a52f3226.png",
+    "sha256": "1fec530dd9fa95051d8327893aee2fef681da2494e702e5581a5dee3a52f3226",
+    "bytes": 3906,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\30bc484e2d0e2bd967e4d2d5f17fc0d69fee51d677b54992d75c095da4f30b2c.png",
+    "sha256": "30bc484e2d0e2bd967e4d2d5f17fc0d69fee51d677b54992d75c095da4f30b2c",
+    "bytes": 1135,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\6e153fd8e1e0414e5df09adaa7bb71f4acb713b64a03a62eae70f4c72827559d.png",
+    "sha256": "6e153fd8e1e0414e5df09adaa7bb71f4acb713b64a03a62eae70f4c72827559d",
+    "bytes": 7831,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0311.json",
+    "sha256": "9eccb98ba1d9112c7e1177b1d43c0a70ebdcf28710508c787850350d5a2db940",
+    "bytes": 79214,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\311.json",
+    "sha256": "43ac24c98935a5c1363c6f48c2056bd5f44d9916302192a275ce7d17b040a83a",
+    "bytes": 96412,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0311.9eccb98ba1d9112c7e1177b1d43c0a70ebdcf28710508c787850350d5a2db940.6baa4a7e1404.json",
+    "sha256": "9edbe75d3ccd20c2a7fd751bd8d6be39d901a6ebcfacb90a138a4bf8c1b431c3",
+    "bytes": 140086,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\renders\\nemata-jp\\page-0315-r17.png",
+    "sha256": "739578e63d0e308af89edfd391732a173ce220854f6c3cbd97f2bdb7e60bf137",
+    "bytes": 63045,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\cc292012325caef8338142420f2a2db4d359e4f32f2af9d5b2c9536f43d8beba.png",
+    "sha256": "cc292012325caef8338142420f2a2db4d359e4f32f2af9d5b2c9536f43d8beba",
+    "bytes": 3983,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\fa21b4ac1c5be9b5d2af7ecb93e36c170863cee598feac50edbc11be513a5f88.png",
+    "sha256": "fa21b4ac1c5be9b5d2af7ecb93e36c170863cee598feac50edbc11be513a5f88",
+    "bytes": 3523,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\6ced2854e8a17652b94625b31323681a8ee82728e13e576aee9b94b73dd2e895.png",
+    "sha256": "6ced2854e8a17652b94625b31323681a8ee82728e13e576aee9b94b73dd2e895",
+    "bytes": 6520,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\e000f03943d6593931b9434cb35b42fe75695706677ab0201f5092facce7582f.png",
+    "sha256": "e000f03943d6593931b9434cb35b42fe75695706677ab0201f5092facce7582f",
+    "bytes": 3745,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\3dc9f54878667fbe3f0419ed0451cbcc2d4a42a4206715fb1e9ed2f653a6e54d.png",
+    "sha256": "3dc9f54878667fbe3f0419ed0451cbcc2d4a42a4206715fb1e9ed2f653a6e54d",
+    "bytes": 6502,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\6b953ca0492558da65d3a98deb8b3a081a3f4562839d8a6be60c0e2903741a3d.png",
+    "sha256": "6b953ca0492558da65d3a98deb8b3a081a3f4562839d8a6be60c0e2903741a3d",
+    "bytes": 5023,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\44b936f98062c99328b16d72aa54ebdf7af68e21c0503019d1d073c1503db5bf.png",
+    "sha256": "44b936f98062c99328b16d72aa54ebdf7af68e21c0503019d1d073c1503db5bf",
+    "bytes": 1163,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair15-20261027-p315\\candidates\\nemata-jp\\page-0315.json",
+    "sha256": "bc2afae254cbb243aa04ba23b73b4a13aa6513d17445c2b895bb7528d43469e3",
+    "bytes": 109331,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\315.json",
+    "sha256": "f4e9bf667b0bc8bfe1c618669aea96bf7428add1789cc09a7f03e15f7d64d386",
+    "bytes": 103252,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0315.bc2afae254cbb243aa04ba23b73b4a13aa6513d17445c2b895bb7528d43469e3.7076217daf84.json",
+    "sha256": "96725bffc7ac5e97777e40f2355eeab26288639ce6c1e029a57aa3a24723c758",
+    "bytes": 167639,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair20-20261027-p330\\renders\\nemata-jp\\page-0330-ex1-pon.png",
+    "sha256": "a5720074f78ca9dbd14a21b24c049971dc2d1c99af46fd8402b208fbd9e90d4e",
+    "bytes": 23393,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\373e3f9ac57beb5b211d03a052433ab8bf520dccb0fac829b1c3fb653c7941b3.png",
+    "sha256": "373e3f9ac57beb5b211d03a052433ab8bf520dccb0fac829b1c3fb653c7941b3",
+    "bytes": 10890,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\5445aa302be4438d181bb2277650f7c4978a0827a3b0e9c9ece8f64b7ad6ea7a.png",
+    "sha256": "5445aa302be4438d181bb2277650f7c4978a0827a3b0e9c9ece8f64b7ad6ea7a",
+    "bytes": 2352,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\82541735ae2622e538aa8b445c159f08eaeaf0a4482662c31f8efa8f44ff5340.png",
+    "sha256": "82541735ae2622e538aa8b445c159f08eaeaf0a4482662c31f8efa8f44ff5340",
+    "bytes": 8479,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\f43c1180cdf7cbbbce139ca692ff6242abfc0952c52f1d2e3c473f81afc87b6f.png",
+    "sha256": "f43c1180cdf7cbbbce139ca692ff6242abfc0952c52f1d2e3c473f81afc87b6f",
+    "bytes": 2043,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair20-20261027-p330\\candidates\\nemata-jp\\page-0330.json",
+    "sha256": "314cb19f1b1cf8ed7d420cbccb00cdea1c8ae8210fd5bcdb88953d90f42c25f6",
+    "bytes": 84903,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\nemata-jp\\pages\\330.json",
+    "sha256": "cff2992d62c7bc51fd7d9c29413d05578854a06f6d9211d6dc2d275f891fcc6a",
+    "bytes": 64258,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\pages\\nemata-jp\\page-0330.314cb19f1b1cf8ed7d420cbccb00cdea1c8ae8210fd5bcdb88953d90f42c25f6.7076217daf84.json",
+    "sha256": "374b0ec7e08d9a0f1f64a4563a29f483fecb13dbd40ee65e2e3d581205d74993",
+    "bytes": 135044,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-field-repair20-20261027-p330\\renders\\nemata-jp\\page-0330-ex2-pon.png",
+    "sha256": "d393c0a3732931c53f292074e455518b84340149a9d4c81379f7f586a8232974",
+    "bytes": 23210,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\cc2c810226e0fa9cb78b370aa2a7fdb98a29dcf3440832b8f626bbf6eaa1698b.png",
+    "sha256": "cc2c810226e0fa9cb78b370aa2a7fdb98a29dcf3440832b8f626bbf6eaa1698b",
+    "bytes": 4974,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\825c9028363cd34be5f9b88fc8266d38a1371eb081b2bcdc3cd69e59681ae94e.png",
+    "sha256": "825c9028363cd34be5f9b88fc8266d38a1371eb081b2bcdc3cd69e59681ae94e",
+    "bytes": 6025,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\9b9d56058f468d6fce506c2ad5a1c6f895c602fabdd60d6768791362ba347607.png",
+    "sha256": "9b9d56058f468d6fce506c2ad5a1c6f895c602fabdd60d6768791362ba347607",
+    "bytes": 2214,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\6492aaa7108c9024d7a8bc0c1db801f805e1e26d99b44606772937d4793ef2ef.png",
+    "sha256": "6492aaa7108c9024d7a8bc0c1db801f805e1e26d99b44606772937d4793ef2ef",
+    "bytes": 8191,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\981f3ecfae416ab467725c9c79d80489cca258f2e08ccd3182f2ecd3c708e537.png",
+    "sha256": "981f3ecfae416ab467725c9c79d80489cca258f2e08ccd3182f2ecd3c708e537",
+    "bytes": 2094,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-311250-zero-preparation-20261028\\plan.json",
+    "sha256": "540d8adf5caf86df2cba6798090ce2134d75cca7730d3104cf34a38eef83cb16",
+    "bytes": 56686,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\adjudications\\nemata-jp\\page-0261.376c71a39de29653b0ba59c947d777832aa2af3623885cf1f8f451b9f29cf359.source-3m-adjudication.json",
+    "sha256": "5248fba6665bdc8928b5460921dcf173297913262459828a17dab52e0de04c58",
+    "bytes": 7160,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\91507699-61d3-496d-9481-de5f38e8418c.json",
+    "sha256": "4803be122fb4d59f1bfe52f4eb8607dc5c0c897b02cb9def2604ca9e04fd3255",
+    "bytes": 7490,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\native-repair-d0782d5041cfb2\\verification-dependencies.json",
+    "sha256": "c507222a5a746392fbfea9e331fbdb31fc5fcb50cd301ab001a82828d6178051",
+    "bytes": 3166,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\native-repair-d0782d5041cfb2\\textbook-audit-pdf-layout.mjs",
+    "sha256": "d2cf0816da02eed3b745e213d1f39544e24fa61a1bcdac9bdaac27da46164c34",
+    "bytes": 20603,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\native-repair-d0782d5041cfb2\\textbook-audit-pdf-native-corrections.mjs",
+    "sha256": "31b8c8022ab00e8f3f89d85d8889ad9f1fd61269d6449da736c0ab142b90f74b",
+    "bytes": 14152,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\native-repair-d0782d5041cfb2\\textbook-audit-pdf-native-structure-corrections.mjs",
+    "sha256": "a7079d3bf1114377dc5d2a2bcab317ad96f4dbd500b3414eb5687560b7d7cf2d",
+    "bytes": 22303,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\native-repair-d0782d5041cfb2\\textbook-audit-pdf-native.mjs",
+    "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa",
+    "bytes": 9877,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\native-repair-d0782d5041cfb2\\textbook-audit-pdf-scope.mjs",
+    "sha256": "4ed349d6db48eb4f5a8ff3893b6530050142aa6c7869efb2b3422539a7735239",
+    "bytes": 3783,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\native-repair-d0782d5041cfb2\\textbook-audit-pdf-source-corrections.mjs",
+    "sha256": "b775bde390bf71b12bb3c14c6092f6ef89d888ce857ce39d6b8b142fcf7715cb",
+    "bytes": 1982,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\native-repair-d0782d5041cfb2\\textbook-audit.mjs",
+    "sha256": "8660208dbb9ab80bff445d84402e169a0294b5485316c3ef1c080b42ea095893",
+    "bytes": 83272,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\native-repair-d0782d5041cfb2\\textbook-production-cli.mjs",
+    "sha256": "3da98f5f723abb4ef7a85e30e194e2fdbc67d93d58c79b73af97c9adcacbf5e1",
+    "bytes": 11118,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\cc38d8492ce1d13e511fc927877c2757dec56ed051f9dc57c92982a4e0c82c5c.png",
+    "sha256": "cc38d8492ce1d13e511fc927877c2757dec56ed051f9dc57c92982a4e0c82c5c",
+    "bytes": 8514,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\7a88959550a28c8d85174e3b9d1e5467b3d024fd39cc54c4238e912a37e89234.png",
+    "sha256": "7a88959550a28c8d85174e3b9d1e5467b3d024fd39cc54c4238e912a37e89234",
+    "bytes": 8430,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\2c730d58e72fe6756e3320a8b0df1891a72b009a264f47632dbd0a7a48f268b8.png",
+    "sha256": "2c730d58e72fe6756e3320a8b0df1891a72b009a264f47632dbd0a7a48f268b8",
+    "bytes": 8439,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\8da455ae2dd9b0fe3ad2ed68b41c06f894343f9115ff4fbf3c5e7b85aa143176.png",
+    "sha256": "8da455ae2dd9b0fe3ad2ed68b41c06f894343f9115ff4fbf3c5e7b85aa143176",
+    "bytes": 9380,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\183da1d552afaabdfa833545c3d958bbbecf4170c1681eeace822960fc46de0b.png",
+    "sha256": "183da1d552afaabdfa833545c3d958bbbecf4170c1681eeace822960fc46de0b",
+    "bytes": 9430,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\assets\\909943e9f9918ff23f8925bab6e7ae2f6c3fbc404ed5bc36d156fd710448a35c.png",
+    "sha256": "909943e9f9918ff23f8925bab6e7ae2f6c3fbc404ed5bc36d156fd710448a35c",
+    "bytes": 9358,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\runtime-manifest.json",
+    "sha256": "a5cff9c38466a76030b5269ac4367f07695fa3ddb43fb4cbf374069fa852125c",
+    "bytes": 6776,
+    "copy": "e203"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\capability-evidence.json",
+    "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2",
+    "bytes": 594,
+    "copy": "e204"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-definition.mjs",
+    "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711",
+    "bytes": 5213,
+    "copy": "e205"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-legacy.mjs",
+    "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619",
+    "bytes": 19381,
+    "copy": "e206"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-pdf-layout.mjs",
+    "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06",
+    "bytes": 20673,
+    "copy": "e207"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-pdf-native-corrections.mjs",
+    "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05",
+    "bytes": 14311,
+    "copy": "e208"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-pdf-native-structure-corrections.mjs",
+    "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b",
+    "bytes": 22532,
+    "copy": "e209"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-pdf-native.mjs",
+    "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa",
+    "bytes": 9877,
+    "copy": "e210"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-pdf-scope.mjs",
+    "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf",
+    "bytes": 3802,
+    "copy": "e211"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-pdf-source-corrections.mjs",
+    "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff",
+    "bytes": 1990,
+    "copy": "e212"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-tile-dictionary.mjs",
+    "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30",
+    "bytes": 15858,
+    "copy": "e213"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-verification-dependencies.mjs",
+    "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08",
+    "bytes": 7384,
+    "copy": "e214"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-web-batches.mjs",
+    "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69",
+    "bytes": 7061,
+    "copy": "e215"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-web-source.py",
+    "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221",
+    "bytes": 20969,
+    "copy": "e216"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit-web.mjs",
+    "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b",
+    "bytes": 165915,
+    "copy": "e217"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-audit.mjs",
+    "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838",
+    "bytes": 84017,
+    "copy": "e218"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-cli.mjs",
+    "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7",
+    "bytes": 14045,
+    "copy": "e219"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-pdf-flow.mjs",
+    "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3",
+    "bytes": 8112,
+    "copy": "e220"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-batches.mjs",
+    "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb",
+    "bytes": 5297,
+    "copy": "e221"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-dictionary.mjs",
+    "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824",
+    "bytes": 7251,
+    "copy": "e222"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-formal.mjs",
+    "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd",
+    "bytes": 9385,
+    "copy": "e223"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-labels.mjs",
+    "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274",
+    "bytes": 3726,
+    "copy": "e224"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-present.py",
+    "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1",
+    "bytes": 2781,
+    "copy": "e225"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-sources.py",
+    "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f",
+    "bytes": 19235,
+    "copy": "e226"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web-visual.py",
+    "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+    "bytes": 2089,
+    "copy": "e227"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production-web.mjs",
+    "sha256": "07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf",
+    "bytes": 36385,
+    "copy": "e228"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\textbook-production.mjs",
+    "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355",
+    "bytes": 54676,
+    "copy": "e229"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\verification-dependencies.json",
+    "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68",
+    "bytes": 1404,
+    "copy": "e230"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028\\production-schema.mjs",
+    "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9",
+    "bytes": 3961,
+    "copy": "e231"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\candidates\\232.human-final.v2.json",
+    "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c",
+    "bytes": 44480,
+    "copy": "e232"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-232-scope-inheritance-20261028.json",
+    "sha256": "5b951df43fbd4becb26d5d3767641cf5ae68db2f71875acf89d1d6668bb50324",
+    "bytes": 57751,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-232-display-and-residual-20261028.json",
+    "sha256": "ec96eb728673aedb18fbaf9c8a801c7eb99b692690545311959577fddbc9071c",
+    "bytes": 15826,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\runtime-manifest.json",
+    "sha256": "0d890d3bbfd3fe1dbe588f068e17de41312916c1d068d246d080d0ec6feaa973",
+    "bytes": 8403,
+    "copy": "e235"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-224232-232-handoff-249-20261028.json",
+    "sha256": "0af4be67d999a663006c0b01faaa260801c4e3ed1cd7b3967af08a18bd386a63",
+    "bytes": 17350,
+    "copy": "e236"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\raw-calls\\3002a835-2cff-4bcf-b07b-2b03d1968e5b.json",
+    "sha256": "b8c7a62d41f076c47d07963388a5ee917183e334c9f13a1a3e910d5253b0c0ae",
+    "bytes": 134122,
+    "copy": "e237"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\request-232.json",
+    "sha256": "c3ac33626fa5edbf01b645bfc89f8fb04074fd819cbed949d157532668a9b6a0",
+    "bytes": 45117,
+    "copy": "e238"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.x2.png",
+    "sha256": "aaf1ac188c4b7660d0f533c9eef0e6aac07d1b91a7c35f7c03c647b450ad1563",
+    "bytes": 346476,
+    "copy": "e239"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\pair.mjs",
+    "sha256": "1b6579d6eed480d955d82bbad0279756d415421c1b5482a66d9d82c002c38909",
+    "bytes": 23606,
+    "copy": "e240"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-cli.mjs",
+    "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7",
+    "bytes": 14045,
+    "copy": "e241"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\224-packet.json",
+    "sha256": "b2edbadd419cf327c241845ec7978181a97f750c23e62e34e2f499011ae84e61",
+    "bytes": 67575,
+    "copy": "e242"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\232-packet.json",
+    "sha256": "f4b4a8858af471b02322a29c405108098ad18de16a7f8f6d66e0e36574647cb8",
+    "bytes": 71487,
+    "copy": "e243"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\capability-evidence.json",
+    "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2",
+    "bytes": 594,
+    "copy": "e244"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\pair-contract.json",
+    "sha256": "12002152e29b720166e3355fa2f9f030b59491e63a57230f84a4f72d3afa27f4",
+    "bytes": 4538,
+    "copy": "e245"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\production-schema.mjs",
+    "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9",
+    "bytes": 3961,
+    "copy": "e246"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-definition.mjs",
+    "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711",
+    "bytes": 5213,
+    "copy": "e247"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-legacy.mjs",
+    "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619",
+    "bytes": 19381,
+    "copy": "e248"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-pdf-layout.mjs",
+    "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06",
+    "bytes": 20673,
+    "copy": "e249"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-pdf-native-corrections.mjs",
+    "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05",
+    "bytes": 14311,
+    "copy": "e250"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-pdf-native-structure-corrections.mjs",
+    "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b",
+    "bytes": 22532,
+    "copy": "e251"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-pdf-native.mjs",
+    "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa",
+    "bytes": 9877,
+    "copy": "e252"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-pdf-scope.mjs",
+    "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf",
+    "bytes": 3802,
+    "copy": "e253"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-pdf-source-corrections.mjs",
+    "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff",
+    "bytes": 1990,
+    "copy": "e254"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-tile-dictionary.mjs",
+    "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30",
+    "bytes": 15858,
+    "copy": "e255"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-verification-dependencies.mjs",
+    "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08",
+    "bytes": 7384,
+    "copy": "e256"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-web-batches.mjs",
+    "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69",
+    "bytes": 7061,
+    "copy": "e257"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-web-source.py",
+    "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221",
+    "bytes": 20969,
+    "copy": "e258"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit-web.mjs",
+    "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b",
+    "bytes": 165915,
+    "copy": "e259"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-audit.mjs",
+    "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838",
+    "bytes": 84017,
+    "copy": "e260"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-pdf-flow.mjs",
+    "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3",
+    "bytes": 8112,
+    "copy": "e261"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-batches.mjs",
+    "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb",
+    "bytes": 5297,
+    "copy": "e262"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-dictionary.mjs",
+    "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824",
+    "bytes": 7251,
+    "copy": "e263"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-formal.mjs",
+    "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd",
+    "bytes": 9385,
+    "copy": "e264"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-labels.mjs",
+    "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274",
+    "bytes": 3726,
+    "copy": "e265"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-present.py",
+    "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1",
+    "bytes": 2781,
+    "copy": "e266"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-sources.py",
+    "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f",
+    "bytes": 19235,
+    "copy": "e267"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web-visual.py",
+    "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+    "bytes": 2089,
+    "copy": "e268"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production-web.mjs",
+    "sha256": "07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf",
+    "bytes": 36385,
+    "copy": "e269"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\textbook-production.mjs",
+    "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355",
+    "bytes": 54676,
+    "copy": "e270"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\verification-dependencies.json",
+    "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68",
+    "bytes": 1404,
+    "copy": "e271"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots.mjs",
+    "sha256": "360298d7302fa17972f2460b93717ff274047624d80a7bef0bc7862c196bb077",
+    "bytes": 12728,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\CONTRACT.md",
+    "sha256": "05fc5c81bee7718d4e806245525a5d9aefaffb46865db3aae09c19e589afd080",
+    "bytes": 5270,
+    "archived": false,
+    "reason": "Dependency verified at original data root; packaging restricted to232 scoped evidence/runtime. Unrelated human exports, images and other chapters are not copied."
+  },
+  {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+    "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c",
+    "bytes": 44480,
+    "copy": "e274"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d1640db7-8722-4d0d-bdba-da5c2ba54f84.json",
+    "sha256": "f84280661530678891d4d11ab4c00ff0b4f3542c435ed5e3b8716af8ac8ccd7b",
+    "bytes": 213981,
+    "copy": "e275"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-232-human-20261028\\plan.json",
+    "sha256": "0d1cff2776826c89c6835c2a46f87c91d36b241ce607f64f4e4d4c42021948df",
+    "bytes": 63305,
+    "copy": "e276"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/capability-evidence.json",
+    "sha256": "223b8977391bb5cb2e38a311867f51e25b5790294ea268c83e3e385b2930ada2",
+    "bytes": 594,
+    "copy": "e277"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-audit-definition.mjs",
+    "sha256": "e776714965cf114ece99ad4b4373a314c8dc4fa240c314d3b536a37f46471711",
+    "bytes": 5213,
+    "copy": "e278"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-audit-legacy.mjs",
+    "sha256": "6badc5ecc67521a10ccb204a8ad3f73c9064b6945523974285ba53515faef619",
+    "bytes": 19381,
+    "copy": "e279"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-audit-pdf-layout.mjs",
+    "sha256": "53b28c3918f9df0052d9f0c4de7708c5a8be99e4fffcb48a591ec665a25bef06",
+    "bytes": 20673,
+    "copy": "e280"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-audit-pdf-native-corrections.mjs",
+    "sha256": "76c30d5fa8cb83eb05fb92cd70334708cdaa76ba0f8c03bd8119242d78a21f05",
+    "bytes": 14311,
+    "copy": "e281"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-audit-pdf-native-structure-corrections.mjs",
+    "sha256": "30fe722bd46a695bcbdc5fbd3817e1010f41c17803b4df7c22d0dfbdfbf1f72b",
+    "bytes": 22532,
+    "copy": "e282"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-audit-pdf-native.mjs",
+    "sha256": "9bd811a46da8490854bd7fb4d551e19985524c08e58f818562b2a31395cf61aa",
+    "bytes": 9877,
+    "copy": "e283"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-audit-pdf-scope.mjs",
+    "sha256": "5d2265a82bc39cb669a97568810e6085eefad41e7d8216138478d3f7e50fe9cf",
+    "bytes": 3802,
+    "copy": "e284"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-audit-pdf-source-corrections.mjs",
+    "sha256": "500b6925384e69ffc036642c9c90c974246f1ec33ee11d02cbb8b9603735ecff",
+    "bytes": 1990,
+    "copy": "e285"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-audit-tile-dictionary.mjs",
+    "sha256": "0533d549f9ef394eb32b04febeca079fab33bb33ce87d7827dbe6cc33b177f30",
+    "bytes": 15858,
+    "copy": "e286"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-audit-verification-dependencies.mjs",
+    "sha256": "f4d6514edb16647659bdd3992abd3c8db19cb8ba10d705a9004058a3f9657e08",
+    "bytes": 7384,
+    "copy": "e287"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-audit-web-batches.mjs",
+    "sha256": "a26cf2cec2000035bd29285a39180de97c6e9e439f666ce3cdea74cf32755f69",
+    "bytes": 7061,
+    "copy": "e288"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-audit-web-source.py",
+    "sha256": "fe714ee3f9490d7bb14760daaede1a7f11bcbc83ba34d8172e57a50cb51ab221",
+    "bytes": 20969,
+    "copy": "e289"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-audit-web.mjs",
+    "sha256": "a8d902b88f81248e42776bf6c16bda68f2484f3dcd3ff79a39b54e6d9ea5038b",
+    "bytes": 165915,
+    "copy": "e290"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-audit.mjs",
+    "sha256": "6e04b9cf296239e5f10a11c7af54d47b2cda01e1a880f46012c2ab5fd682a838",
+    "bytes": 84017,
+    "copy": "e291"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-production-cli.mjs",
+    "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7",
+    "bytes": 14045,
+    "copy": "e292"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-production-pdf-flow.mjs",
+    "sha256": "f1365ed38cf21df1952005355f29eef3ffd8cb528e2783a0a134c9cedf1bacd3",
+    "bytes": 8112,
+    "copy": "e293"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-production-web-batches.mjs",
+    "sha256": "b290104bc833b8013aa5e15e619a40eb8c67824a9f02280afa185432ccb0caeb",
+    "bytes": 5297,
+    "copy": "e294"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-production-web-dictionary.mjs",
+    "sha256": "cb2bfa78a6ee8739cba4d381173d1de568592d2b4b597f7c50aebbcee7f94824",
+    "bytes": 7251,
+    "copy": "e295"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-production-web-formal.mjs",
+    "sha256": "2e0400afc64ed3fc282b914622a7c1008fa84d0396ca23e455b7e41575c4f8bd",
+    "bytes": 9385,
+    "copy": "e296"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-production-web-labels.mjs",
+    "sha256": "0c51e14f94234a350e6f12ef299388fc9c56f48b7029fa22f2f6dad0da0f8274",
+    "bytes": 3726,
+    "copy": "e297"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-production-web-present.py",
+    "sha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1",
+    "bytes": 2781,
+    "copy": "e298"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-production-web-sources.py",
+    "sha256": "a9152591c98074699d66bd858d5172cc81950abf66adb02f18dcbe751961c82f",
+    "bytes": 19235,
+    "copy": "e299"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-production-web-visual.py",
+    "sha256": "28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528",
+    "bytes": 2089,
+    "copy": "e300"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-production-web.mjs",
+    "sha256": "07e12cbea036f165f80b0906b75918ed4d8156ec85b4d04877f42df735d332cf",
+    "bytes": 36385,
+    "copy": "e301"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/textbook-production.mjs",
+    "sha256": "30e38d3a0c15e6bf08cf3794c4a64381d839fe4ef66d47066323af6edaf90355",
+    "bytes": 54676,
+    "copy": "e302"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/verification-dependencies.json",
+    "sha256": "1537cfe9ca9afcb8abde99f6d6ac77bc61bc28f01dccf4f9735bf7cb6a034b68",
+    "bytes": 1404,
+    "copy": "e303"
+  },
+  {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac244-vision-production-schema-v2-20261028/production-schema.mjs",
+    "sha256": "c6eeb89c6a867ea11f5b7967ac43f4d16a711219081a5fe6b5288cbef1abada9",
+    "bytes": 3961,
+    "copy": "e304"
+  },
+  {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp232-human-20261028/.gitattributes",
+    "sha256": "b3de1df2cd42c724f0ad2916314180fbd9b75873bcf48ce382762ab0a00b758f",
+    "bytes": 69,
+    "copy": "e305"
+  },
+  {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp232-human-20261028/application-map.json",
+    "sha256": "f490c429b3c8ab2ef9abbeae647c08d503945325e7fb4b0a12a7cf731e0eaefa",
+    "bytes": 9087,
+    "copy": "e306"
+  },
+  {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp232-human-20261028/dedupe.json",
+    "sha256": "172d286f62509503d4a03a83fe14605f517760626262478e0645201a0c83521c",
+    "bytes": 1059,
+    "copy": "e307"
+  },
+  {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp232-human-20261028/handoff.json",
+    "sha256": "d00d3d29b812bb3db34631b23b73f7884a69e671b9a79c308de431de9be2dd01",
+    "bytes": 3511,
+    "copy": "e308"
+  },
+  {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp232-human-20261028/negative-checks.json",
+    "sha256": "788c20e0b755699364b3d6da22bc75881e1fa1f2a3a2995e1b140ef4b9b36e16",
+    "bytes": 1872,
+    "copy": "e309"
+  },
+  {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp232-human-20261028/prepare.mjs",
+    "sha256": "6cd145278dc3efd53278521d6d2bc563c7b6f199451be0df168607470a6caa29",
+    "bytes": 6964,
+    "copy": "e310"
+  },
+  {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp232-human-20261028/README.md",
+    "sha256": "6ff1c644cb0626533e906575f5af1741b43ff3eb3f50ce67bb5d66e32a427571",
+    "bytes": 2293,
+    "copy": "e311"
+  },
+  {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp232-human-20261028/verification.json",
+    "sha256": "7e045ba528e61e1336c83932749a6e69d3c448eb5ea015fd36482c99909d0987",
+    "bytes": 5810,
+    "copy": "e312"
+  },
+  {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp232-human-20261028/verify-packet.mjs",
+    "sha256": "d3ca01cdbc09365483843aa1600b92579879fd3de1e72da8a9dda64355807992",
+    "bytes": 1115,
+    "copy": "e313"
+  },
+  {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac248-jp232-human-20261028/verify.mjs",
+    "sha256": "907547494c2ea03697ff846249a47640b2997ebc0e66f44d0cdbd80134fcb1d2",
+    "bytes": 9395,
+    "copy": "e314"
+  },
+  {
+    "path": "E:/AgentData/Coach/knowledge/processing/audit/supplements/coac249-232-human-20261028/request-contract.json",
+    "sha256": "8a6887538fce81e23cc143757b76090e42fb5760384aefc3789c429b844f59f7",
+    "copy": "e315"
+  },
+  {
+    "path": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/stage-web-textbook.mjs",
+    "sha256": "a540880eaa62ef85ecb5e834b82ff6ed44ec181c1fa5f8a113e7a3e0db24e27a",
+    "copy": "e316"
+  }
+]

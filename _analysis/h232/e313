@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+import {inspect,validateMapping,sha} from './verify.mjs';
+const directory=fileURLToPath(new URL('.',import.meta.url));
+const read=async name=>JSON.parse(await readFile(directory+name));
+const manifest=await read('manifest.json');
+for(const f of manifest.files)assert.equal(sha(await readFile(directory+f.path)),f.sha256,f.path);
+const current=await inspect();
+validateMapping(await read('application-map.json'),current.mapping);
+assert.deepEqual(await read('verification.json'),current.report,'frozen application proof changed');
+const handoff=await read('handoff.json');
+assert.equal(handoff.candidate.sha256,current.report.candidate.sha256);
+assert.equal(handoff.authorizedNewCalls,0);assert.equal(handoff.admissionGranted,false);
+assert.equal((await read('negative-checks.json')).passed,true);
+console.log(JSON.stringify({packetVerified:true,latestHumanEventRechecked:true,candidateSha256:handoff.candidate.sha256,admissionGranted:false,newModelCalls:0,semanticReviewDispatched:false}));

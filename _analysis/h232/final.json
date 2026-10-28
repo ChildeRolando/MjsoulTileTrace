@@ -1,0 +1,90 @@
+{
+  "schema": "coac250-232-human-conditional-intake-result/1",
+  "recordedAt": "2026-10-28T11:41:22.978Z",
+  "candidate": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+    "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+  },
+  "verifiedIndependentEvidence": true,
+  "authorSemanticGap": false,
+  "originalTechnicalLimitedUnknownOkay": false,
+  "implementationGap": {
+    "stageModule": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/stage-web-textbook.mjs",
+    "actualError": "web_stage_audit_identity",
+    "existing248Entry": "inspect(): deterministic application and old evidence metadata; no verifyLimited/stageLimited entry",
+    "missingExactContract": "232-only conditional evidence callback + display stage route, pinned to candidate/source/parent/human latest event/real raw and four non-author notes; preserve original false and all author content",
+    "owner": "COAC-244",
+    "notARequestForNewModel": true
+  },
+  "ownerRequest": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-232-human-display-interface-request-20261028.json",
+    "sha256": "b784063001cca79d16047c19e9b5b8cab07e2d2a2a82610edf8acebf9b279d0b"
+  },
+  "fourLimitMappingPrepared": true,
+  "actualLimitsInstalled": false,
+  "actualMcpArenaReadback": false,
+  "coverageChanged": false,
+  "coverage": {
+    "originalChapters": 253,
+    "totalChapters": 256,
+    "originalUnits": 285,
+    "totalUnits": 303,
+    "remainingChapters": 3,
+    "remainingUnits": 18
+  },
+  "preview": {
+    "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T11-15-39-549Z",
+    "corpusId": "e2fbd3aea58502937e15f2282e227a583e7eed231945ec347b7169208513257c",
+    "version": 40
+  },
+  "protectedBefore": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-preview-current.json",
+      "sha256": "e1762fd222864db2322f5f1de17ada43ed8301e9ec48071a0fc0f1d9a4172639"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-web-candidate-selection.json",
+      "sha256": "b3e815feb034646155e0f776b31988d49a9243d07f6dead850c89a6146cf629f"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v40.json",
+      "sha256": "b8b397d674e8892099c53454c8d9bba74aa178deff579c01a0a7ce794f8b57bd"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.mjs",
+      "sha256": "4b144086e847f975ba38bee6783f7159146763bb9a5167c469e34b5b6500ba93"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-candidate-selection.json",
+      "sha256": "82c654fc34a4e509c9878065684306246f61324879f64eef1dc7f9aef964f4f2"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/../review/textbook-corpus.json",
+      "sha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/source-structure-holds.json",
+      "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+    }
+  ],
+  "registers": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+      "sha256": "a7d15b32ca3f2a8cc3e8ff4682510904ac1d9b83663f8577ce71811f6be7aca2"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+      "sha256": "159056779f88e76ae32272259d8498f0a33a4cc81174f3d9262164380fd44b92"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-uncovered-chapter-continuation-register-20261027b.json",
+      "sha256": "cbeb36bca6002ee312c36dcb4e985e81e6b10bab9c354de32cb89a8dbbaf94b6"
+    }
+  ],
+  "otherChapterRowsUnchanged": true,
+  "formalActiveChanged": false,
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "needsAdditionalModelAuthorization": false,
+  "safeToResumeWithExact244DisplayContract": true
+}
