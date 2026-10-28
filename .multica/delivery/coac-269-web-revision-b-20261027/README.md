@@ -1696,5 +1696,5 @@ The249 once-only wakeup fired exactly once. Task `01a181aa-2362-75a5-b519-20a4a7
 actually started at `2026-10-28T08:41:35Z` and was observed running, recorded in
 `artifacts/b24-0785/handoff-dispatched.json`. This is startup evidence only; no independent
 call or acceptance result is inferred from it. This executor's real production count remains one.
-The completed package's longest new Windows checkout path is205 characters at the actual
+The completed package's longest new Windows checkout path is207 characters at the actual
 113-character root, below the strict240 limit. PR74 remains draft and the business issue in_progress.
