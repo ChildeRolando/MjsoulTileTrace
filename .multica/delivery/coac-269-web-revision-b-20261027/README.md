@@ -2458,3 +2458,84 @@ queue.261 may reuse its original exact adjudication route when legal staging/rea
 created. Actual display limitations are proposals only and no MCP/Arena readback is claimed here.
 `wholeChapterPassed=false / admissionGranted=false`; active is unchanged. Existing budgets are
 not reset; costs/remote weights/upstream total executions remain unknown. Wider issue in_progress.
+
+## Batch35 —257 counter-object boundary and completed311 independent review
+
+User comment01a18233-e466-7c66-beec-255c40c3ee12 requires counting displayed objects before
+applying a four-tile entity limit. The current244 final package and human-derived257 SHA5403cb35…
+were read and reverified, never changed concurrently with244. The original87 counter entries
+are **13 CPU hand +3 CPU upper exposed +1 indicator +17 upper/18 left/17 right/18 bottom
+river positions**. The fixed counter does not traverse the image list or concatenate captions:
+only the right CPU result in source image block257b4 is used. Source257b3 contains the two
+initial screens and is excluded;257b4's left winning-result screen is also excluded. Combined
+r1 render/enlargements are alternate representations, not extra counts; hidden orange backs,
+unflipped indicators, other-time/alternative-hand panels, prose and Q10 examples are not counted.
+Local source inspection was used only for panel/layout attribution, **not new tile-code evidence**.
+
+There are87 unique named display positions. This does **not** independently establish87 mutually
+exclusive physical tile entities or resolve all called-discard representation semantics. The prior
+four-tile totals and original `fullRecordMultiplicityPassed=false` remain verbatim historical
+**display-label diagnostics**, not proof that the source or a specific old machine field is wrong.
+Batch34's wording about a legal-record failure must be read with this correction: physical tile
+limits cannot be used here as a semantic failure verdict without the missing entity attestation.
+Merely deleting the existing3×9m exposed-set row or6z indicator row cannot change the reported
+4p/1s/8s/9s counts; that is string arithmetic, not a fresh visual claim.
+
+No zero-model parser/frame-binding error was found that changes these label totals. The20
+**nonhuman** suspect positions are now isolated, with old raw pointers/fragments and the original
+257b4 image SHA; none has a new tile verdict or correction permission:
+
+| Old display label | Nonhuman positions only, original CPU transcription ordinal |
+|---|---|
+|4p|hand6;upper3/8;left11;right10/12;bottom5/6|
+|9s|hand10/11;upper5;right4;bottom14|
+|1s|hand7;left7;right9|
+|8s|hand9;left9;right16/17|
+
+Upper6/17=1s and right7=8s remain trusted human observations and are explicitly excluded from
+relabeling. The other six human positions are unchanged too. Existing genuine reviewf860de79
+did not individually resolve the20 fields/physical identities. No old label is changed by this
+diagnostic; if a later precise reconciliation is necessary, it is limited to these ordinals, not a
+whole-page annotation request or another model/OCR pass. Human page/queue and261 are untouched.
+Shared sidecar: `integration/coac269-p257-counter-scope-20261028.json`,
+SHAabb3e2cbc9b6a459e41c31ddf79fecbc7d9507e593eaf6e8573a39c48b2a90a7.
+
+Joined wakeup01a18238-9592-7794-99f4-38a47f0e5484 delivered the completed311 review.
+Exact candidatef44231f9…, source935bbfe6…, parent5d74d383…, parent audit/raw and maker/raw
+were verified through the unchanged33-file runtime59d7d599…. Original `verifyProduction`,
+`prepareReview`, `verifyReviewExecution` actually replayed; actual schema/closed prompt/8-image
+order/SHA/bytes and unique standard ledger match the published boundary. Receipt3d86eddc…,
+raw6fbcbc78…, inheritancec98fbb4c… and complete handoff2f51f6c9… were read and rehashed.
+73 immutable proof references were rehashed. Four historical private admission-preview/register
+snapshots are no longer at their old249 worktree paths, and current pointers have advanced to
+different bytes; they were **not** substituted or claimed validated. Their original paths/SHAs
+remain listed. Actual source/candidate/raw/plan/runtime/session evidence is available and verified;
+the missing old admission observations do not become new pass or retry authority.
+
+The actual independent7777908d-0298-450a-a5f8-a3ff98af7329 used **gpt-6.1-terra/max,
+8 original PNGs,225 ordered pairs;130941in/0cache/18093out,199033ms**. All8 targetChecks
+are **uncertain**; contextContinuity isfaithful.40 unknownImpacts split12 nonblocking-with-limits,
+24 blocking and4 uncertain. **repairPassed=false / limitedUnknownOkay=false / wholeChapterPassed=false**
+are preserved. The two self-draw legend names are confirmed corrected;16 series/144 slots still
+have no new numerical reading. b0132's cross-shaped array remains unbound.225 body blocks,
+13 non-target figures and21 original image objects are inherited without alteration.
+
+All80 verbatim raw display requirements are mapped by raw pointer, figure, unknown string,
+source blocks and actual author contribution in `artifacts/b35-count311/311-consumed.json`.
+They are proposals, not installed/read-back permissions. First-six-graph missing condition/turn
+thresholds remain blocked; b0156's22% and b0158's20%/approximately7000-point statements may
+be attributed to the author but are not independently confirmed graph inputs. No fabricated
+precision, interpolation, formula reconstruction or blanket unknown-to-error conversion occurs.
+The model's inherited12-tile hand-A issue has raw targetIdb0156 but description/sourceEvidence
+exactly match original non-targetb0154. A separate attribution note records that fact; original
+raw issue/target/severity are unchanged and no new missing-tile error is assigned to a curve.
+Original attachment-number source-note also stays intact.
+
+Shared311 result: `integration/coac269-311-review-consumed-20261028.json`,
+SHA14dff04cbb6d123dd37dda8b5021a2c3cbff962ccd8fdcfdca57b51ee550ce27.
+The existing244/250311 consumers are already queued, so no replacement consumer/wakeup is
+created. Existing250 human-evidence work is already running; it is not cancelled or rewritten.
+This sidecar qualifies the old counter interpretation without mutating the bound original receipt.
+Current once wakeup fired once and is disabled. No new calls, production, review or budget;
+311's existingmaker1+review1=**2/2 remaining0**,0retry, failed/void counted. Money/remote weights/
+upstream totals unknown. Both scopes remain unadmitted; no active switch or full-book pass.
