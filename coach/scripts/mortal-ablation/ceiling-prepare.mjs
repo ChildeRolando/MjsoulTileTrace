@@ -11,7 +11,7 @@ import { projectArenaLocalMortalRuleScoring } from '@riichi-coach/desktop/blind-
 import { mapMjaiRecord } from '../replay-corpus/canonical.mjs';
 import { tenhouRules } from '../scene-study/prepare.mjs';
 import { snapshotTextbook,VERSIONS } from './ceiling-textbook.mjs';
-import { ROOT,VERSION,SEED,QUOTAS,BUDGETS,MODELS,BudgetLedger,hash,read,save,writeOnce,exists,ordered,assertDataset,executionFiles,verify,DEFAULT_DATABASE,DEFAULT_SNAPSHOT } from './ceiling-protocol.mjs';
+import { ROOT,VERSION,SEED,QUOTAS,BUDGETS,MODELS,GENERATION_TIMEOUT_MS,BudgetLedger,hash,read,save,writeOnce,exists,ordered,assertDataset,executionFiles,verify,DEFAULT_DATABASE,DEFAULT_SNAPSHOT } from './ceiling-protocol.mjs';
 
 export async function priorSources(parent,out){
   const games=new Set(),hashes=new Set(),files=[];
@@ -141,7 +141,7 @@ export async function freezeCeiling(out,{repair=false}={}){
   const index=await read(join(out,'textbook/index.json')),manifest=await read(join(out,'textbook/manifest.json')),files=await executionFiles();
   const basis={X01:index.passages.filter(p=>(p.title+' '+p.chapterTitle).includes('牌效率')||(p.title+' '+p.chapterTitle).includes('牌效')).map(p=>p.id),X02:['nemata-direction'],X03:'missing-data guard from strict visible-facts contract; not a teaching rule'};
   if(!basis.X01.length||!index.passages.some(p=>p.id==='nemata-direction'))throw Error('new_pattern_textbook_basis_missing');
-  const f={version:VERSION,datasetHash:hash(d),textbookDigest:hash(index),textbookManifestHash:hash(manifest),codeDigest:hash(files),executionFiles:files,versions:VERSIONS,newPatternBasis:basis,budgets:BUDGETS,models:MODELS,limits:{maxPassages:6,maxCharacters:6000,maxOutputTokens:32768,timeoutMs:120000,maxInputBytes:65536,maxOutputBytes:16384,concurrency:2},primary:'D-A, natural 600 planned attempts, native Mortal preferred top1',secondary:['D-V0','D-B','D-C'],statistics:{pairedBootstrap:2000,secondaryCorrection:'Holm',minUsefulGain:.05,minSuccessRate:.95},promptVersion:'ceiling-single-decision/v1'};
+  const f={version:VERSION,datasetHash:hash(d),textbookDigest:hash(index),textbookManifestHash:hash(manifest),codeDigest:hash(files),executionFiles:files,versions:VERSIONS,newPatternBasis:basis,budgets:BUDGETS,models:MODELS,limits:{maxPassages:6,maxCharacters:6000,maxOutputTokens:32768,timeoutMs:GENERATION_TIMEOUT_MS,maxInputBytes:65536,maxOutputBytes:16384,concurrency:2},primary:'D-A, natural 600 planned attempts, native Mortal preferred top1',secondary:['D-V0','D-B','D-C'],statistics:{pairedBootstrap:2000,secondaryCorrection:'Holm',minUsefulGain:.05,minSuccessRate:.95},promptVersion:'ceiling-single-decision/v1'};
   f.executionCommit=execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim();
   f.nodeVersion=process.version;
   if(repair){

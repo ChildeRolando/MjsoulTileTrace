@@ -19,6 +19,7 @@ const MAX_STDIO_BYTES = 2 * 1024 * 1024;
 const MAX_EVENT_LINE_BYTES = 1024 * 1024;
 const MAX_STATUS_OUTPUT_BYTES = 8 * 1024;
 const DEFAULT_TURN_TIMEOUT_MS = 120_000;
+const MAX_ARENA_TURN_TIMEOUT_MS = 600_000;
 const DEFAULT_STATUS_TIMEOUT_MS = 5_000;
 const KILL_GRACE_MS = 1_000;
 
@@ -782,7 +783,9 @@ async function runCodexStructuredTurn(input: {
     port, executable, request: { prompt: input.prompt }, outputSchema: input.outputSchema,
     arenaStructuredOutput: true,
     modelName: input.modelName, reasoningEffort: input.reasoningEffort,
-    timeoutMs: Math.max(1, Math.min(input.timeoutMs ?? DEFAULT_TURN_TIMEOUT_MS, DEFAULT_TURN_TIMEOUT_MS)),
+    timeoutMs: Number.isFinite(input.timeoutMs ?? DEFAULT_TURN_TIMEOUT_MS)
+      ? Math.max(1, Math.min(Math.floor(input.timeoutMs ?? DEFAULT_TURN_TIMEOUT_MS), MAX_ARENA_TURN_TIMEOUT_MS))
+      : DEFAULT_TURN_TIMEOUT_MS,
     maxOutputBytes: MAX_STDIO_BYTES, signal: input.signal, cancelled: () => input.signal.aborted,
   });
 }

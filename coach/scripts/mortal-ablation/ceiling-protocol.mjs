@@ -8,6 +8,7 @@ export { hash, read, ordered, exists };
 export const ROOT=resolve(fileURLToPath(new URL('../..',import.meta.url)));
 export const VERSION='mortal-scene-ceiling/v1';
 export const SEED='coach-ceiling-20261028-v1';
+export const GENERATION_TIMEOUT_MS=300000;
 export const BUDGETS=Object.freeze({development:800,evaluation:4000,oracle:600,practical:400,stability:100,smoke:100});
 export const MODELS=Object.freeze({strong:{modelName:'gpt-6.1-sol',reasoningEffort:'high'},practical:{modelName:'gpt-6-luna',reasoningEffort:'max'}});
 export const QUOTAS=Object.freeze({pilot:{random:20,challenge:0},development:{random:120,challenge:40},evaluation:{random:600,challenge:200}});

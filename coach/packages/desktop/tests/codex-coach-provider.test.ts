@@ -67,6 +67,24 @@ it("Arena uses the authorized Luna/high structured turn with observed tools, no 
   expect(fake.records[0]!.options.windowsHide).toBe(true);
 });
 
+it("Arena keeps the default deadline and permits a bounded explicit offline deadline", async () => {
+  const timer = vi.spyOn(globalThis, "setTimeout");
+  const input = { messages: [{ role: "system" as const, content: "Arena" }, { role: "user" as const, content: "observation" }],
+    tools: [{ type: "function" as const, function: { name: "submit_decision", description: "Lock", parameters: {} } }],
+    maxInputBytes: 65536, maxOutputBytes: 16384, maxOutputTokens: 2048 };
+  try {
+    for (const [requested, expected] of [[undefined, 120000], [300000, 300000], [Number.MAX_SAFE_INTEGER, 600000], [NaN, 120000]] as const) {
+      timer.mockClear();
+      const fake = fakePort({ onExec: successfulTranscript(JSON.stringify({ call: { name: "submit_decision", arguments: "{}" }, decisionSummary: "Bounded offline turn." })) });
+      const provider = createCodexArenaToolCallProvider({ modelName: "gpt-6-luna", reasoningEffort: "high", processPort: fake.port,
+        ...(requested === undefined ? {} : { timeoutMs: requested }) });
+      expect(await provider.request(input, new AbortController().signal)).toMatchObject({ status: "ready" });
+      expect(timer.mock.calls.some(call => call[1] === expected)).toBe(true);
+      expect(fake.execCount).toBe(1);
+    }
+  } finally { timer.mockRestore(); }
+});
+
 it("Arena fails a non-offered tool and timeout without another paid call", async () => {
   const request = { messages: [{ role: "system" as const, content: "Arena only" }, { role: "user" as const, content: "observation" }],
     tools: [{ type: "function" as const, function: { name: "submit_decision", description: "Lock choice", parameters: {} } }],

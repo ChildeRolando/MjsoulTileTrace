@@ -28,7 +28,7 @@ export function createPackageReferenceReader(userData: string) {
 /** Main-owned factory for the isolated Arena loop; it does not alter report generation. */
 export function createArenaToolCallProvider(input: {
   settings: CoachProviderConfig | null;
-  arenaCodex?: { modelName: string; reasoningEffort: "low" | "medium" | "high" | "xhigh" | "max" };
+  arenaCodex?: { modelName: string; reasoningEffort: "low" | "medium" | "high" | "xhigh" | "max"; timeoutMs?: number };
   credentials: Pick<ProviderCredentials, "readKey">;
   fetchImpl: typeof fetch;
 }): ArenaToolCallProvider | null {
