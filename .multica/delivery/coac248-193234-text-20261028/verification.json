@@ -1,0 +1,62 @@
+{
+  "schema": "coac248-193234-real-request-and-exact-chain-verification/1",
+  "recordedAt": "2026-10-28T10:01:10.230Z",
+  "modelCalls": 0,
+  "results": [
+    {
+      "canonical": "nemata-jp-chapter-193-1",
+      "candidateSha256": "f3c960182adb5913b82f22504b703cc8fe6d69561acc8c7f43c19e364184e7d7",
+      "actualCallId": "1f923bbe-3124-4975-be79-4551ea607ab3",
+      "actualModel": "gpt-6.1-sol",
+      "actualEffort": "high",
+      "actualImages": [],
+      "argvModelAndEffortVerified": true,
+      "actualClosedPromptSha256": "95f322a8e6cb1d999af158d3dd69fcee5ac214deb833e4396c3a6e76b17691dc",
+      "actualRunnerSha256": "b7dd831b8500005bc843493e46aed52cd0da81816b909bfe3d1361cd464f110d",
+      "rawSha256": "9abc9cf1d41efafa369e22bf2588ee3c50b3763e86678e18e2a36a73234780b8",
+      "strictRawOutputUsedVerbatim": true,
+      "standardLedgerRows": 1,
+      "negativeInheritanceRejections": [
+        "wrong-parent-sha",
+        "wrong-review-sha",
+        "wrong-source-sha",
+        "figure-change",
+        "body-order",
+        "target-change",
+        "wrong-authorization"
+      ],
+      "completeFiguresUnchanged": 41,
+      "nonTargetBlocksUnchanged": 96,
+      "proofVerified": true,
+      "wholeChapterPassed": false
+    },
+    {
+      "canonical": "79-cn-chapter-234-12",
+      "candidateSha256": "7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae",
+      "actualCallId": "997c8aa4-7101-4c1e-9a9f-9af76deb1e70",
+      "actualModel": "gpt-6.1-sol",
+      "actualEffort": "high",
+      "actualImages": [],
+      "argvModelAndEffortVerified": true,
+      "actualClosedPromptSha256": "73bf8f932740e9eea0b0e311c50c4b40a7ca4983a0fa594698fcd0b253f8f8d4",
+      "actualRunnerSha256": "64cc07b31753cc95572f62bdafe6aa566c4712ac12644b7fa0ae95fc962b01fe",
+      "rawSha256": "d6925ea556f2fe9d9ad8e9175981907541f1823b7b9a96a6ac13b3911ce4600c",
+      "strictRawOutputUsedVerbatim": true,
+      "standardLedgerRows": 1,
+      "negativeInheritanceRejections": [
+        "wrong-parent-sha",
+        "wrong-review-sha",
+        "wrong-source-sha",
+        "figure-change",
+        "body-order",
+        "target-change",
+        "wrong-inline-plan-sha",
+        "unlisted-quote"
+      ],
+      "completeFiguresUnchanged": 1,
+      "nonTargetBlocksUnchanged": 4,
+      "proofVerified": true,
+      "wholeChapterPassed": false
+    }
+  ]
+}

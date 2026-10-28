@@ -1,0 +1,147 @@
+{
+  "callId": "1f923bbe-3124-4975-be79-4551ea607ab3",
+  "at": "2026-10-28T09:56:07.690Z",
+  "pid": 59768,
+  "joint": {
+    "at": "2026-10-28T09:56:07.611Z",
+    "previewSha256": "2db05389143a2ef2580d348b892403b48a769c812fdcff6764a191521965fbf0",
+    "registerSha256": "ff68bc08229c88f747366ec13a5841b2c5f2ee8e8bd2e44d1c485d3f3f552063",
+    "registerRow": {
+      "chapterId": "nemata-jp-chapter-193-1",
+      "originalChapterId": "nemata-jp-chapter-193-1",
+      "sourceId": "nemata-jp",
+      "title": "ドラ切り",
+      "units": 1,
+      "ownedSourceBlocks": 82,
+      "adjudicationGroup": "confirmed-produced-not-covered",
+      "covered": false,
+      "coverageRoute": null,
+      "approvedWebCorrespondence": {
+        "articleId": "chapter03-section009",
+        "webSourceId": "modern-yabejp-ja",
+        "tier": "url-header",
+        "evidencePath": "integration/modern-pdf-url-coverage.json",
+        "substitutionAllowed": true,
+        "bodyEquivalenceConfirmed": false,
+        "articleInPreview": false
+      },
+      "existingCandidate": {
+        "path": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.display.json",
+        "sha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+        "bodyBlocks": 97,
+        "sourceSha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+        "currentSourceSha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/modern-yabejp-ja/chapter03-section009.abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3.json",
+        "auditRecordedAt": "2026-10-26T13:16:13.262Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 2,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          193,
+          194
+        ],
+        "pagesDetail": [
+          {
+            "page": 193,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 67
+          },
+          {
+            "page": 194,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 15
+          }
+        ]
+      },
+      "gaps": {
+        "ownedSourceBlocks": 82,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 82,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 82,
+        "acceptanceGapPages": [
+          193,
+          194
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          193,
+          194
+        ]
+      },
+      "verdict": "produced-needs-repair",
+      "coac246": {
+        "action": "repair",
+        "auditStatus": "needs-repair",
+        "candidateSha256": "abaeede080b3d413e2ead7708a8278ba39dfb2cd21bfebeac5c61726873887c3",
+        "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.display.json",
+        "repairErrors": 7,
+        "units": 1,
+        "blocks": 82
+      }
+    },
+    "passed": [],
+    "candidates": [
+      "chapter03-section009.display.json",
+      "chapter03-section009.json",
+      "chapter03-section009.r1.display.json"
+    ],
+    "callHistory": [
+      {
+        "callId": "bba0071e-a273-465a-a5bb-7abe1faa7f1a",
+        "success": true,
+        "usage": {
+          "inputTokens": 23811,
+          "cachedInputTokens": 0,
+          "outputTokens": 10583
+        },
+        "transportStatus": "completed"
+      },
+      {
+        "callId": "da426322-fc53-44d7-8314-66472ff2b31f",
+        "success": true,
+        "usage": {
+          "inputTokens": 50235,
+          "cachedInputTokens": 0,
+          "outputTokens": 7505
+        },
+        "transportStatus": "completed"
+      }
+    ]
+  },
+  "slot": {
+    "ok": true,
+    "action": "acquire",
+    "slot": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-A.json",
+    "record": {
+      "schema": "coach-textbook-maker-slot/1",
+      "slot": "maker-A",
+      "lane": "A",
+      "owner": "COAC-248 Mika",
+      "pid": 59768,
+      "claimedAt": "2026-10-28T09:56:07.570Z",
+      "heartbeatAt": "2026-10-28T09:56:07.570Z",
+      "ttlMinutes": 20
+    }
+  },
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "images": [],
+  "budget": {
+    "maker": 1,
+    "reviewReservedFor249": 1,
+    "retry": 0
+  }
+}

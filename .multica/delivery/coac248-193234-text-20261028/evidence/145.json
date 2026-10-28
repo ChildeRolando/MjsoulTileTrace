@@ -1,0 +1,151 @@
+{
+  "callId": "997c8aa4-7101-4c1e-9a9f-9af76deb1e70",
+  "at": "2026-10-28T09:59:25.933Z",
+  "pid": 56872,
+  "joint": {
+    "at": "2026-10-28T09:59:25.858Z",
+    "previewSha256": "2db05389143a2ef2580d348b892403b48a769c812fdcff6764a191521965fbf0",
+    "registerSha256": "ff68bc08229c88f747366ec13a5841b2c5f2ee8e8bd2e44d1c485d3f3f552063",
+    "registerRow": {
+      "chapterId": "79-cn-chapter-234-12",
+      "originalChapterId": "79-cn-chapter-234-12",
+      "sourceId": "79-cn",
+      "title": "状况判断2—要有顺位意识",
+      "units": 1,
+      "ownedSourceBlocks": 11,
+      "adjudicationGroup": "confirmed-produced-not-covered",
+      "covered": false,
+      "coverageRoute": null,
+      "approvedWebCorrespondence": {
+        "articleId": "cv1780400",
+        "webSourceId": "79-bilibili-cn",
+        "tier": "body",
+        "evidencePath": "integration/chinese-source-body-correspondence.json",
+        "substitutionAllowed": true,
+        "bodyEquivalenceConfirmed": true,
+        "articleInPreview": false
+      },
+      "existingCandidate": {
+        "path": "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+        "sha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+        "bodyBlocks": 5,
+        "sourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+        "currentSourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+        "sourceBoundCurrent": true,
+        "auditStatus": "needs-repair",
+        "auditPath": "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+        "auditRecordedAt": "2026-10-25T22:26:34.154Z",
+        "deterministicPassed": true,
+        "semanticComplete": false
+      },
+      "pdfRoute": {
+        "pagesTotal": 2,
+        "pagesWithCandidate": 0,
+        "pagesWithPassedCandidate": 0,
+        "missingPassedPages": [
+          234,
+          235
+        ],
+        "pagesDetail": [
+          {
+            "page": 234,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 14
+          },
+          {
+            "page": 235,
+            "candidates": 0,
+            "receiptStatus": null,
+            "sourceBound": null,
+            "selected": false,
+            "blocks": 7
+          }
+        ]
+      },
+      "gaps": {
+        "ownedSourceBlocks": 11,
+        "missingProductionBlocks": 0,
+        "producedBlocks": 11,
+        "acceptedBlocks": 0,
+        "acceptanceGapBlocks": 11,
+        "acceptanceGapPages": [
+          234,
+          235
+        ],
+        "pagesWithoutCandidate": [],
+        "pagesWithoutPassedCandidate": [
+          234,
+          235
+        ]
+      },
+      "verdict": "produced-needs-repair",
+      "coac246": {
+        "action": "repair",
+        "auditStatus": "needs-repair",
+        "candidateSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+        "candidatePath": "E:/AgentData/Coach/knowledge/processing/web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+        "repairErrors": 3,
+        "units": 1,
+        "blocks": 11
+      }
+    },
+    "passed": [],
+    "candidates": [
+      "cv1780400.display.json",
+      "cv1780400.json"
+    ],
+    "callHistory": [
+      {
+        "callId": "8221a1c6-2607-4677-b96e-b8e175f35617",
+        "success": false,
+        "usage": null,
+        "transportStatus": "failed",
+        "durationMs": 20227
+      },
+      {
+        "callId": "f885b72e-7a54-47e5-b3de-64bf028ff548",
+        "success": true,
+        "usage": {
+          "inputTokens": 14407,
+          "cachedInputTokens": 0,
+          "outputTokens": 864
+        },
+        "transportStatus": "completed",
+        "durationMs": 52935
+      },
+      {
+        "callId": "ba432ee3-0d28-42b9-ad34-cde09c97313e",
+        "success": false,
+        "usage": null,
+        "transportStatus": "timeout",
+        "durationMs": 900007
+      }
+    ]
+  },
+  "slot": {
+    "ok": true,
+    "action": "acquire",
+    "slot": "E:\\AgentData\\Coach\\knowledge\\processing\\parallel\\slots\\maker-A.json",
+    "record": {
+      "schema": "coach-textbook-maker-slot/1",
+      "slot": "maker-A",
+      "lane": "A",
+      "owner": "COAC-248 Mika",
+      "pid": 56872,
+      "claimedAt": "2026-10-28T09:59:25.819Z",
+      "heartbeatAt": "2026-10-28T09:59:25.819Z",
+      "ttlMinutes": 20
+    }
+  },
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "images": [],
+  "budget": {
+    "maker": 1,
+    "reviewReservedFor249": 1,
+    "retry": 0
+  }
+}

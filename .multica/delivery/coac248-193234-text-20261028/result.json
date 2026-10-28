@@ -1,0 +1,186 @@
+{
+  "schema": "coac248-193234-bounded-text-recovery-stage/1",
+  "recordedAt": "2026-10-28T10:02:16.401611+00:00",
+  "authorizationCommentId": "01a181e7-d3dc-76f2-adb8-00cbb4f4e332",
+  "branch": "agent/mika/coac-248",
+  "startingCommit": "0c7a9a3a44e0f33d7175b633a1633070616d0eb3",
+  "newCallsThisTicket": {
+    "maker": 2,
+    "independentReview": 0,
+    "failed": 0,
+    "void": 0,
+    "retry": 0
+  },
+  "combinedBudgetMaximum": 4,
+  "perItemBudgetMaximum": 2,
+  "independentReviewsHandedToExisting249": 2,
+  "budgetNotBorrowed": true,
+  "runtimeManifestSha256": "aa0239b728832854641f964760f2affa4efd9e6eb6f960e69b17ee9f0d0c08c2",
+  "frozenLocalFiles": 21,
+  "frozenParentRuntimeDependencies": 33,
+  "preDispatchNegativeChecks": 31,
+  "additionalInheritanceNegativeChecks": 15,
+  "chapters": [
+    {
+      "canonical": "nemata-jp-chapter-193-1",
+      "candidatePath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.r2.display.json",
+      "candidateSha256": "f3c960182adb5913b82f22504b703cc8fe6d69561acc8c7f43c19e364184e7d7",
+      "parentPath": "web-production/v1/candidates/modern-yabejp-ja/chapter03-section009.r1.display.json",
+      "parentSha256": "af8071cfdbaabf8f469f84fa4daa6fd2d7d377c3dc2b277ef766e34a22324ba1",
+      "sourceSha256": "0eb1e386149771dad7604fd1e13bcf06a81afbe07e2846cdc5cbfc24a9ee9743",
+      "parentReviewSha256": "a70006b0e912a7089bf2ae7cebd3d9e366275ca3e25cc8a3ea1356335b410b6c",
+      "callId": "1f923bbe-3124-4975-be79-4551ea607ab3",
+      "actualModel": "gpt-6.1-sol",
+      "actualEffort": "high",
+      "images": [],
+      "usage": {
+        "inputTokens": 161992,
+        "cachedInputTokens": 0,
+        "outputTokens": 138
+      },
+      "durationMs": 11975,
+      "diff": {
+        "path": "/body/blocks/80/text",
+        "from": "面对上图这样的牌河，有人立直时，只要立直宣言牌不是使其听牌时新摸入的同种牌，且新摸入的牌没有补成宣言牌所在一侧的面子，就基本可以读出其听牌是",
+        "to": "面对上图这样的牌河，有人立直时，若排除入り目的情形，就基本可以读出其听牌是"
+      },
+      "preservation": {
+        "allNonTargetBodyBytes": true,
+        "allCompleteFiguresBytes": true,
+        "unknownsUnchanged": true,
+        "captionAndSourceNotesUnchanged": true,
+        "orderUnchanged": true
+      },
+      "allCompleteFiguresInherited": 41,
+      "nonTargetBlocksInherited": 96,
+      "history": [
+        {
+          "callId": "bba0071e-a273-465a-a5bb-7abe1faa7f1a",
+          "success": true,
+          "usage": {
+            "inputTokens": 23811,
+            "cachedInputTokens": 0,
+            "outputTokens": 10583
+          },
+          "transportStatus": "completed"
+        },
+        {
+          "callId": "da426322-fc53-44d7-8314-66472ff2b31f",
+          "success": true,
+          "usage": {
+            "inputTokens": 50235,
+            "cachedInputTokens": 0,
+            "outputTokens": 7505
+          },
+          "transportStatus": "completed"
+        }
+      ],
+      "oldTimeout": null,
+      "old193PriorBudgetConsumed": 2,
+      "thisItemNewBudgetMaximum": 2,
+      "makerConsumed": 1,
+      "independentTextReviewHandedTo249": 1,
+      "retry": 0,
+      "failedVoidCount": true,
+      "handoff249Path": "integration/coac248-193234-text-20261028/193-handoff249.json",
+      "handoff249Sha256": "6cb4614763065d74593ac2763f5d49afb29604578094ecd8a0762857c1677059",
+      "wakeup249": "01a181f2-ed0c-73f2-bcdf-d4fef18628f9",
+      "slotReleased": true,
+      "chapterClaimReleased": true,
+      "wholeChapterPassed": false,
+      "admissionGranted": false
+    },
+    {
+      "canonical": "79-cn-chapter-234-12",
+      "candidatePath": "web-production/v1/candidates/79-bilibili-cn/cv1780400.r1.display.json",
+      "candidateSha256": "7b5f2c2866bc39dc4e375f063d560765a8acd1a6078d34e583d03a1eae8866ae",
+      "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+      "parentSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+      "sourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+      "parentReviewSha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+      "callId": "997c8aa4-7101-4c1e-9a9f-9af76deb1e70",
+      "actualModel": "gpt-6.1-sol",
+      "actualEffort": "high",
+      "images": [],
+      "usage": {
+        "inputTokens": 24546,
+        "cachedInputTokens": 0,
+        "outputTokens": 414
+      },
+      "durationMs": 14582,
+      "diff": {
+        "path": "/body/blocks/2/text",
+        "from": "原文地址：http://beginners.biz/joukyou/joukyou02.html ------------------------------------------------------------------------------------ ※要有顺位意识：   为什么点棒状况很重要呢？ 这是因为麻将中有 马和头名奖两个顺位点的原因。  马  马其实就是，半庄结束时根据顺位每人必须支付的点数。 大多数的场合，采用以下3种形式。  ·5-10  ゴットー（四位支付给一位10000点，三位支付给二位5000点） ·10-20 ワンツー （四位支付给一位20000点，三位支付给二位10000点） ·10-30 ワンスリー （四位支付给一位30000点，三位支付给二位10000点）  头名奖  头名奖是麻将中一次比赛给予TOP的奖励点数。 麻将中30000点原点，一般情况下每人所持点都是从25000点开始的。 这中间所差得5000点就全部由TOP获得。 简单的说，拿到TOP的话，就可以额外获得5000*4=20000点的点数。  这样一来的话： ",
+        "to": "原文地址：http://beginners.biz/joukyou/joukyou02.html ------------------------------------------------------------------------------------ ※要有顺位意识：   为什么点棒状况很重要呢？ 这是因为麻将中有 马和头名奖两个顺位点的原因。  马  马其实就是，半庄结束时根据顺位每人必须支付的点数。 大多数的场合，采用以下3种形式。  ·5-10  ゴットー（五—十）（四位支付给一位10000点，三位支付给二位5000点） ·10-20 ワンツー（一—二） （四位支付给一位20000点，三位支付给二位10000点） ·10-30 ワンスリー（一—三） （四位支付给一位30000点，三位支付给二位10000点）  头名奖  头名奖是麻将中一次比赛给予TOP的奖励点数。 麻将中30000点原点，一般情况下每人所持点都是从25000点开始的。 这中间所差得5000点就全部由TOP获得。 简单的说，拿到TOP的话，就可以额外获得5000*4=20000点的点数。  这样一来的话： "
+      },
+      "preservation": {
+        "allNonTargetBodyBytes": true,
+        "allCompleteFiguresBytes": true,
+        "unknownsUnchanged": true,
+        "captionAndSourceNotesUnchanged": true,
+        "orderUnchanged": true
+      },
+      "allCompleteFiguresInherited": 1,
+      "nonTargetBlocksInherited": 4,
+      "history": [
+        {
+          "callId": "8221a1c6-2607-4677-b96e-b8e175f35617",
+          "success": false,
+          "usage": null,
+          "transportStatus": "failed",
+          "durationMs": 20227
+        },
+        {
+          "callId": "f885b72e-7a54-47e5-b3de-64bf028ff548",
+          "success": true,
+          "usage": {
+            "inputTokens": 14407,
+            "cachedInputTokens": 0,
+            "outputTokens": 864
+          },
+          "transportStatus": "completed",
+          "durationMs": 52935
+        },
+        {
+          "callId": "ba432ee3-0d28-42b9-ad34-cde09c97313e",
+          "success": false,
+          "usage": null,
+          "transportStatus": "timeout",
+          "durationMs": 900007
+        }
+      ],
+      "oldTimeout": {
+        "callId": "ba432ee3-0d28-42b9-ad34-cde09c97313e",
+        "rawPath": "web-production/v1/raw-calls/ba432ee3-0d28-42b9-ad34-cde09c97313e.json",
+        "rawSha256": "0c73fb1bf6957c0cc44f1b2ec5d705f4cd7152c425f311f28168492b62e47734",
+        "localInvocations": 1,
+        "reconnectionNotices": 2,
+        "upstreamExecutions": "unknown",
+        "usage": null,
+        "fee": "unknown",
+        "recoverableOutput": false,
+        "newAttemptIsNewCall": true
+      },
+      "old193PriorBudgetConsumed": null,
+      "thisItemNewBudgetMaximum": 2,
+      "makerConsumed": 1,
+      "independentTextReviewHandedTo249": 1,
+      "retry": 0,
+      "failedVoidCount": true,
+      "handoff249Path": "integration/coac248-193234-text-20261028/234-handoff249.json",
+      "handoff249Sha256": "9f01f4ed8909af4bd6e6ecd80c0905adde55e94afe99907fbfd0f574ec83b9c9",
+      "wakeup249": "01a181f4-3749-7bed-8f70-4925767e0dd5",
+      "slotReleased": true,
+      "chapterClaimReleased": true,
+      "wholeChapterPassed": false,
+      "admissionGranted": false
+    }
+  ],
+  "wholeChapterPassed": false,
+  "admissionGranted": false,
+  "wholeBookComplete": false,
+  "activeChanged": false,
+  "fee": "unknown",
+  "remoteWeights": "unknown",
+  "upstreamExecutionCount": "unknown"
+}

@@ -1,0 +1,186 @@
+{
+  "call": {
+    "callId": "997c8aa4-7101-4c1e-9a9f-9af76deb1e70",
+    "sourceId": "79-bilibili-cn",
+    "articleId": "cv1780400",
+    "sourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57",
+    "model": "gpt-6.1-sol",
+    "reasoningEffort": "high",
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "callerRequested": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-sol",
+        "--config",
+        "model_reasoning_effort=\"high\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-9L0TDz\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-9L0TDz\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-9L0TDz",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "timeoutMs": 900000,
+    "startedAt": "2026-10-28T09:59:25.935Z",
+    "durationMs": 14582,
+    "usage": {
+      "inputTokens": 24546,
+      "cachedInputTokens": 0,
+      "outputTokens": 414
+    },
+    "success": true,
+    "transportStatus": "completed",
+    "failureClass": null,
+    "rawArtifactPath": "raw-calls/997c8aa4-7101-4c1e-9a9f-9af76deb1e70.json",
+    "rawArtifactSha256": "d6925ea556f2fe9d9ad8e9175981907541f1823b7b9a96a6ac13b3911ce4600c",
+    "outputSha256": "b7827022257063d2a9f2c3319beb961fdcc173fc6c5e0247c6b79af1dadbc484",
+    "schemaSha256": "37fc36fb055a5b23097ef052383a7227a550ee3d889f563c45d4c4df314a4d19",
+    "promptSha256": "73bf8f932740e9eea0b0e311c50c4b40a7ca4983a0fa594698fcd0b253f8f8d4",
+    "semanticPromptSha256": "51babc475c905d50168bd2f11930947c23be38f41bc6ef2fb924f3dcf39c3994",
+    "cliSnapshot": {
+      "path": "audit/runtimes/coac248-193234-text-v1-20261028/textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+    },
+    "targets": {
+      "textIds": [
+        "79-bilibili-cn:cv1780400:b0003"
+      ],
+      "figureIds": []
+    },
+    "terminalEvents": [],
+    "visualInputs": [],
+    "revision": {
+      "parentPath": "web-production/v1/candidates/79-bilibili-cn/cv1780400.display.json",
+      "parentSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+      "notesPath": "audit/web/articles/79-bilibili-cn/cv1780400.e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110.json",
+      "notesSha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+      "textBlockIds": [
+        "79-bilibili-cn:cv1780400:b0003"
+      ],
+      "figureIds": [],
+      "inlineJapanese": {
+        "path": "web-production/v1/runs/coac244-inline-japanese-20261027/plan-234.json",
+        "sha256": "7b6381704a680a91012cca7f248d9a8524a9a248829c39a8c4decc26dbdaf504",
+        "plan": {
+          "schema": "coach-inline-japanese-revision/1",
+          "authorizationCommentId": "01a17e4c-8ec2-73f3-8c59-92bb3f8910db",
+          "chapterId": "79-cn-chapter-234-12",
+          "bindings": {
+            "parentSha256": "e6424e8c99c01ac0d344af26374e0fc57ee656c5c72f19902010bb1c2618d110",
+            "notesSha256": "87d822baddef33cd01535f7b5b0fd000c8a23d2adc5382170f85af3945f7ac60",
+            "sourceSha256": "7c68b1e68b499637d7ebf6178beb31840f0925cf670a34f21dfd112454c49c57"
+          },
+          "edits": [
+            {
+              "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+              "quotedText": "ゴットー",
+              "operation": "gloss"
+            },
+            {
+              "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+              "quotedText": "ワンツー",
+              "operation": "gloss"
+            },
+            {
+              "sourceBlockId": "79-bilibili-cn:cv1780400:b0003",
+              "quotedText": "ワンスリー",
+              "operation": "gloss"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "newProductionCalls": 1,
+  "retries": 0
+}
