@@ -1,0 +1,226 @@
+{
+  "canonical": "79-cn-chapter-182-5",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1760573.r1.display.json",
+    "sha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\79-bilibili-cn\\articles\\cv1760573\\source.json",
+    "sha256": "92a3914e246ee8c807791fc6d4690831ce8d8ff23aac7be41d63e42889ef7381"
+  },
+  "independentReceipt": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-182-target-impact-reviewed-20261028.json",
+    "sha256": "14442a0ef1dfa65e159ec3e887a56c9d83beb2fb7d32ffdf114a547c31248a62"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2c5124ed-ccb2-41e0-90db-cbb6e80141fa.json",
+    "sha256": "667ec48a9f8132ebde5277f56bc4e98bbdf5d6b5d2d2c6a2fdabe1f6c62c3482"
+  },
+  "independentVerdict": "faithful-translation-and-bounded-source-ambiguity",
+  "originalUncertainPreserved": true,
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "actualRequestImages": [],
+  "usage": {
+    "inputTokens": 21947,
+    "cachedInputTokens": 0,
+    "outputTokens": 2850
+  },
+  "durationMs": 92994,
+  "originalRuntimeFiles": 19,
+  "existing250Loader": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-182-limited-display-20261028/admit.mjs",
+    "sha256": "7dba2290a49cb7818c07cb0aaba0fafe362f58011d586d1cc0ec1182c88fde15"
+  },
+  "existing250Stage": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-182-limited-display-20261028/stage.mjs",
+    "sha256": "4bd0f8db726e5398f1c510e504720fa385b3ae056f280548d52e0af3b1390c44"
+  },
+  "displayInstalledInActualStage": true,
+  "displayStage": "E:/AgentData/Coach/knowledge/processing/integration/coac250-182-limited-display-20261028/stage",
+  "sourceBlocks": 13,
+  "authorBlocks": 13,
+  "displayBlocks": 18,
+  "nonAuthorNotes": 4,
+  "figures": 5,
+  "allAuthorBytesMarksAndImagesRestoredAfterRemovingNotes": true,
+  "allFourLimitsVisibleInActualStageHtmlAndCorpus": true,
+  "requiredNeighborAnnotation": {
+    "label": "非原文审校注",
+    "text": "源文‘这样的立直话，对手只能对日’语义不明，现照录；不能据此确定对手只能采取何种行动。",
+    "copiedFrom": "modelReview.carriedIssue.requiredDisplayLimitations[0]",
+    "authorText": false,
+    "authorBodyInjection": false,
+    "placement": "adjacent to the exact ambiguous source sentence; preserve author text and emphasis"
+  },
+  "requiredDisplayLimitations": [
+    "须在该句邻近实际展示并标明为非原文审校注：“源文‘这样的立直话，对手只能对日’语义不明，现照录；不能据此确定对手只能采取何种行动。”",
+    "不得补写、翻译性改写或讲解“对日”为任何确定战术行为，也不得把“只能”扩展成已确认的对手行动限制。",
+    "后文“强大的河”更容易荣和须作为作者明确提出的主张展示，不得声称歧义句已经证明其机制、概率或最优性。",
+    "本次有限允许不认证精确牌谱、隐藏手牌、所有对手的安全度、概率或最优打法。"
+  ],
+  "unresolvedSourceMeaning": "尚未确认的是“对手只能对日”这一局部句子具体断言了什么应对行为。展示其他明确论述无需先解决它；若要完整解释或引用该局部命题，最小补证是能明确其谓语及所指行为的可靠校勘原句，不能靠猜牌或推测意图补足。",
+  "standardWholeArticlePassed": false,
+  "sourceMeaningResolved": false,
+  "globalAcceptanceNotInferred": true,
+  "actualGlobalMcpArenaReadback": "await-existing250-final-readback-artifact",
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "newConsumers": 0,
+  "budget": "182 maker1+review1=2/2; no retries or transferred allowance",
+  "negativeChecks": [
+    {
+      "name": "wrong-translation",
+      "rejected": true
+    },
+    {
+      "name": "meaning-required",
+      "rejected": true
+    },
+    {
+      "name": "uncertain-converted",
+      "rejected": true
+    },
+    {
+      "name": "argument-condition-missing",
+      "rejected": true
+    },
+    {
+      "name": "wrong-anchor-offset",
+      "rejected": true
+    },
+    {
+      "name": "wrong-source-quote",
+      "rejected": true
+    },
+    {
+      "name": "missing-limit",
+      "rejected": true
+    },
+    {
+      "name": "annotation-missing",
+      "rejected": true
+    },
+    {
+      "name": "annotation-as-author",
+      "rejected": true
+    },
+    {
+      "name": "body-ambiguity-rewritten",
+      "rejected": true
+    },
+    {
+      "name": "other-author-text-changed",
+      "rejected": true
+    },
+    {
+      "name": "figure-changed",
+      "rejected": true
+    },
+    {
+      "name": "note-deleted",
+      "rejected": true
+    },
+    {
+      "name": "note-unlabelled",
+      "rejected": true
+    },
+    {
+      "name": "note-author-flag",
+      "rejected": true
+    },
+    {
+      "name": "note-not-near-anchor",
+      "rejected": true
+    },
+    {
+      "name": "author-marks-changed",
+      "rejected": true
+    }
+  ],
+  "archive": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-182-target-impact-reviewed-20261028.json",
+      "sha256": "14442a0ef1dfa65e159ec3e887a56c9d83beb2fb7d32ffdf114a547c31248a62",
+      "copy": "evidence/e00.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2c5124ed-ccb2-41e0-90db-cbb6e80141fa.json",
+      "sha256": "667ec48a9f8132ebde5277f56bc4e98bbdf5d6b5d2d2c6a2fdabe1f6c62c3482",
+      "copy": "evidence/e01.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1760573.r1.display.json",
+      "sha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc",
+      "copy": "evidence/e02.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1760573.display.json",
+      "sha256": "d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270",
+      "copy": "evidence/e03.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\79-bilibili-cn\\cv1760573.d098083d392a466cb5ad9f894c54164980ac8d5738eb3e4d0479c57372e1b270.json",
+      "sha256": "8c955cf37bd627bd495e19c38c4a1056f59e4eaa938ce4e7768c0aa07157cff8",
+      "copy": "evidence/e04.json"
+    },
+    {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\7cbb6bf1-006b-4a2f-af51-6e923fd11242.json",
+      "sha256": "3b65106ad0d28b7f61161058781fb69a2d722b805f34a2113595896905b5a8bf",
+      "copy": "evidence/e05.json"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-182-display-requirements-20261028.json",
+      "sha256": "93f8864e139223dbe9dcb8607bcdd52ae2b799d2b867501fd3bd1ff283fa03c2",
+      "copy": "evidence/e06.json"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-182-scope-inheritance-20261028.json",
+      "sha256": "b981c50527728b1eb654c43892536566835ac65374686e9f3dfd4dc173bea7b8",
+      "copy": "evidence/e07.json"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-182-limited-display-20261028/admit.mjs",
+      "sha256": "7dba2290a49cb7818c07cb0aaba0fafe362f58011d586d1cc0ec1182c88fde15",
+      "copy": "evidence/e08.mjs"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-182-limited-display-20261028/stage.mjs",
+      "sha256": "4bd0f8db726e5398f1c510e504720fa385b3ae056f280548d52e0af3b1390c44",
+      "copy": "evidence/e09.mjs"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-182-limited-display-20261028/manifest.json",
+      "sha256": "382cf583429f1f0b27fb86336897e9ffb4a397377db0aa8fdb63532c7f116af5",
+      "copy": "evidence/e10.json"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-182-limited-display-20261028/stage/display-limits.json",
+      "sha256": "f3fd593a126de002a4971746f7137c396461141f94376da7267c444bf9fe4139",
+      "copy": "evidence/e11.json"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-182-limited-display-20261028/stage/textbook-bodies.json",
+      "sha256": "8810dfc7a33d591d82c9fc714b6d73a804bc345d4ba518328dda0592f1b55d3c",
+      "copy": "evidence/e12.json"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-182-limited-display-20261028/stage/textbook-corpus.json",
+      "sha256": "26560c6c68945f8375677565221b2291d7407d324d1c7a7baed170b3247d0cad",
+      "copy": "evidence/e13.json"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-182-limited-display-20261028/stage/web-stage-receipt.json",
+      "sha256": "f1a12cc19937b5117d7626032d2f9142cf78225483ab5f34211d7a5d611e6606",
+      "copy": "evidence/e14.json"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-182-limited-display-20261028/stage/knowledge.html",
+      "sha256": "24c05c88909339d5c495d2ec206d369e98917a3a1342a08c0cc490844f5b0969",
+      "copy": "evidence/e15.html"
+    }
+  ],
+  "fee": null,
+  "remoteWeights": null,
+  "upstreamExecutions": null
+}

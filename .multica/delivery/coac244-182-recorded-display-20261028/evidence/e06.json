@@ -1,0 +1,48 @@
+{
+  "schema": "coac249-182-exact-display-limitation-proposal/1",
+  "recordedAt": "2026-10-28T08:57:11.449Z",
+  "canonical": "79-cn-chapter-182-5",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\79-bilibili-cn\\cv1760573.r1.display.json",
+    "sha256": "32e040ae1683015cc92dac03381af964842eeef8ad6dcb54b2c38fc26480cabc"
+  },
+  "independentReceipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\supplements\\coac249-182-target-impact-20261028\\receipt.json",
+    "sha256": "14442a0ef1dfa65e159ec3e887a56c9d83beb2fb7d32ffdf114a547c31248a62"
+  },
+  "independentRaw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\2c5124ed-ccb2-41e0-90db-cbb6e80141fa.json",
+    "sha256": "667ec48a9f8132ebde5277f56bc4e98bbdf5d6b5d2d2c6a2fdabe1f6c62c3482"
+  },
+  "targetId": "79-bilibili-cn:cv1760573:b0013",
+  "authorBodyPath": "/body/blocks/12/text",
+  "authorBodyFieldSha256": "a3bd7750a89b1c2af8e43579730b7c8e09da20d209aed69b8dfe0f84020b0f95",
+  "anchor": {
+    "text": "这样的立直话，对手只能对日",
+    "utf8Start": 0,
+    "utf8End": 39,
+    "anchorSha256": "b99875f43fcc0576d5bb3a33e5e87383ef26e6506b405635c6bb90101ff37bc3"
+  },
+  "requiredNeighborAnnotation": {
+    "label": "非原文审校注",
+    "text": "源文‘这样的立直话，对手只能对日’语义不明，现照录；不能据此确定对手只能采取何种行动。",
+    "copiedFrom": "modelReview.carriedIssue.requiredDisplayLimitations[0]",
+    "authorText": false,
+    "authorBodyInjection": false,
+    "placement": "adjacent to the exact ambiguous source sentence; preserve author text and emphasis"
+  },
+  "allRequiredDisplayLimitations": [
+    "须在该句邻近实际展示并标明为非原文审校注：“源文‘这样的立直话，对手只能对日’语义不明，现照录；不能据此确定对手只能采取何种行动。”",
+    "不得补写、翻译性改写或讲解“对日”为任何确定战术行为，也不得把“只能”扩展成已确认的对手行动限制。",
+    "后文“强大的河”更容易荣和须作为作者明确提出的主张展示，不得声称歧义句已经证明其机制、概率或最优性。",
+    "本次有限允许不认证精确牌谱、隐藏手牌、所有对手的安全度、概率或最优打法。"
+  ],
+  "currentCandidateContainsRequiredAnnotation": false,
+  "implementationRequired": true,
+  "displayReadbackRequired": true,
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "proposalOnly": true,
+  "admissionGranted": false,
+  "wholeChapterPassed": false
+}
