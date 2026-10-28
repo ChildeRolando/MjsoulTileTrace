@@ -1,0 +1,69 @@
+{
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "bytes": 8
+    },
+    {
+      "path": "admit.mjs",
+      "sha256": "d0895d44ad3603f4f65e97fb802a9089548b4b50f236a6a33715bea228834805",
+      "bytes": 7614
+    },
+    {
+      "path": "check.mjs",
+      "sha256": "17eca7c557706abbaaa4dade3a1ebe7f2ea477bfa40efac74b4cf8f0e82c94f1",
+      "bytes": 7406
+    },
+    {
+      "path": "handoff.json",
+      "sha256": "ef018c8dd89f31ee59652d49609674ff81ec178b0ea81948ef994096e8ce744a",
+      "bytes": 2630
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "40cdc98a74cd8cdb4488b97fc8a55c5517553015e755d63af06808d16bae98dd",
+      "bytes": 42339
+    },
+    {
+      "path": "prepare.py",
+      "sha256": "a3cd9f54f41a367a8f17f0e14164a8e6a10cb847882b739d77dbe1b9c99be8d6",
+      "bytes": 2970
+    },
+    {
+      "path": "README.md",
+      "sha256": "ddae7a63618a38b57a66b9d388854947275f60664299b75a421d97bf95638095",
+      "bytes": 2843
+    },
+    {
+      "path": "register-update.json",
+      "sha256": "45562bcaaa304dde0684ff2027f5ae31b7ac7814311458150bd70b35225eea7c",
+      "bytes": 261
+    },
+    {
+      "path": "seal.py",
+      "sha256": "b57e74cf2edeaa79a26f352b053eea5d85914e6d5e81a13a8c5f6bf4eed87698",
+      "bytes": 3343
+    },
+    {
+      "path": "stage-base.mjs",
+      "sha256": "ebf01ceda0c3d6848f7ae93b1cdb9560fcfb28a4a66d43e6dbe3600be8d4089d",
+      "bytes": 21375
+    },
+    {
+      "path": "stage-files.sha256.json",
+      "sha256": "19845284d5509c88e643a515e8e1ed310e91636a57033704ed25f2a38790d2b6",
+      "bytes": 5130
+    },
+    {
+      "path": "stage.mjs",
+      "sha256": "a34a8dc9a483dbb8b300222e6024f02c143ec58dc772ac244838c5da40d19c4e",
+      "bytes": 6893
+    },
+    {
+      "path": "verification.json",
+      "sha256": "b5960003990935d5bb7c7e14bc858c6e0179cc5a1c5c9fdbe11dd4785e0faf70",
+      "bytes": 2810
+    }
+  ]
+}
