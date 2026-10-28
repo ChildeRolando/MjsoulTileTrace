@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "wrong candidateSha256",
+      "rejected": true
+    },
+    {
+      "name": "wrong module",
+      "rejected": true
+    },
+    {
+      "name": "wrong stage",
+      "rejected": true
+    },
+    {
+      "name": "wrong manifest",
+      "rejected": true
+    }
+  ],
+  "persistentExternalCandidatePathPinned": true,
+  "persistentEarlyRoutePassed": true,
+  "ordinarySidecarAccesses": 0,
+  "owner27RefusalsHashVerified": true,
+  "newModelCalls": 0
+}

@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "selectionVersion": 41,
+  "corpusId": "86a5fc6fb2a18dbfdf4eef60251759e1f7ea567f3c447cecc2fc5e90d5200ed5",
+  "originalCoverage": {
+    "chapters": 254,
+    "totalChapters": 256,
+    "units": 286,
+    "totalUnits": 303
+  },
+  "display": {
+    "chapters": 256,
+    "units": 264,
+    "blocks": 7687,
+    "figures": 5964
+  },
+  "newChapter": {
+    "canonical": "nemata-jp-chapter-232-1",
+    "sourcePositions": 14,
+    "authorPresentationBlocks": 10,
+    "visibleNonAuthorLimits": 4,
+    "displayBlocks": 14,
+    "figures": 3,
+    "unknowns": 2
+  },
+  "realMcpAndArenaPassed": true,
+  "persistentRouteRebuiltAndActuallyRead": true,
+  "priorUnitsUnchanged": 263,
+  "originalTechnicalFalseAndUncertainPreserved": true,
+  "ordinaryWholeArticlePassed": false,
+  "formalActiveChanged": false,
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "remainingChapters": [
+    {
+      "canonical": "79-cn-chapter-311-18",
+      "units": 16
+    },
+    {
+      "canonical": "nemata-jp-chapter-250-1",
+      "units": 1
+    }
+  ],
+  "safeToResume": true
+}

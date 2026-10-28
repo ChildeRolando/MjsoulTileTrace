@@ -1,0 +1,212 @@
+{
+  "allPassed": true,
+  "corpusId": "86a5fc6fb2a18dbfdf4eef60251759e1f7ea567f3c447cecc2fc5e90d5200ed5",
+  "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T12-15-55-686Z",
+  "canonical": "nemata-jp-chapter-232-1",
+  "candidate": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+    "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+    "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+    "bytes": 23933
+  },
+  "sourceBlocks": 14,
+  "authorPresentationBlocks": 10,
+  "nonAuthorLimits": 4,
+  "displayBlocks": 14,
+  "figures": 3,
+  "pages": [
+    {
+      "offset": 0,
+      "count": 14,
+      "next": null
+    }
+  ],
+  "images": [
+    {
+      "figureId": "modern-yabejp-ja-chapter04-section012-b5",
+      "sha256": "0f67b4f982a8c595ea02056fcb5e0114836874b0d44b5580a7dcd33b29f22dbb",
+      "bytes": 316130
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter04-section012-b7",
+      "sha256": "0451a0485d80cc39894e45893af64671c62fe2cc413455a38e8fa8a3dd312f3e",
+      "bytes": 114
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter04-section012-b9",
+      "sha256": "0451a0485d80cc39894e45893af64671c62fe2cc413455a38e8fa8a3dd312f3e",
+      "bytes": 114
+    }
+  ],
+  "allFourLimitsActuallyDisplayed": true,
+  "b0005AfterB0006BeforeAnchorVerified": true,
+  "human9mAndInherited3sPreserved": true,
+  "bothCurrentUnknownsDisplayed": true,
+  "obsoleteTileUnknownNotRestored": true,
+  "allOrderedAuthorBlocksMarksLinksConditionsAndFiguresUnchanged": true,
+  "sourceNotesPreservedInBoundCandidate": [
+    {
+      "figureId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+      "sourceNotes": [
+        "原图和最近邻放大图是同一画面的两个视图，仅转录一次。",
+        "左右两侧牌河的横向朝向随座位而定，不据此认定为立直宣言牌。",
+        "桌布上的人物、书法、圆形商标及英文字样属于背景装饰。"
+      ]
+    },
+    {
+      "figureId": "modern-yabejp-ja:chapter04-section012:b0007:figure",
+      "sourceNotes": []
+    },
+    {
+      "figureId": "modern-yabejp-ja:chapter04-section012:b0009:figure",
+      "sourceNotes": []
+    }
+  ],
+  "b0008HistoricalSourceNoteRecordPreserved": true,
+  "originalStrictFalseAndUncertainPreserved": true,
+  "ordinaryWholeArticlePassed": false,
+  "priorUnitsUnchanged": 263,
+  "completeCanonicalCatalog": true,
+  "arena": {
+    "units": 264,
+    "exactBody": true,
+    "fullReadRequiredBeforeCitation": true
+  },
+  "fullMcp": {
+    "units": 264,
+    "images": 5964
+  },
+  "sourceDedupPassed": true,
+  "calls": [
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 0,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 20,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 40,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 60,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 80,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 100,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 120,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 140,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 160,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 180,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 200,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 220,
+        "limit": 20
+      }
+    },
+    {
+      "name": "catalog_textbook",
+      "args": {
+        "offset": 240,
+        "limit": 20
+      }
+    },
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "modern-yabejp-ja-chapter04-section012-argument",
+        "blockOffset": 0
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter04-section012-b5"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter04-section012-b7"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter04-section012-b9"
+      }
+    },
+    {
+      "name": "search_textbook",
+      "args": {
+        "query": "满贯和牌技术",
+        "chapterId": "modern-yabejp-ja-chapter04-section012-chapter",
+        "limit": 5
+      }
+    }
+  ],
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "formalActiveChanged": false
+}

@@ -1,0 +1,104 @@
+{
+  "schema": "coac244-exact232-conditional-display-interface/1",
+  "canonical": "nemata-jp-chapter-232-1",
+  "candidate": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+    "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+  },
+  "receipt": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-232-human-reviewed-20261028.json",
+    "sha256": "2280884a55df3ba010ceac36c5c4832deb2b4dc15b15f2e07d8db554a8f3a94c"
+  },
+  "raw": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d1640db7-8722-4d0d-bdba-da5c2ba54f84.json",
+    "sha256": "f84280661530678891d4d11ab4c00ff0b4f3542c435ed5e3b8716af8ac8ccd7b"
+  },
+  "manifest": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\manifest.json",
+    "sha256": "8330bcbd79d6721a3602b0484814ed786686240a9b590d92b657f217719e96f6"
+  },
+  "verify": {
+    "module": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\admit.mjs",
+    "export": "verify232Conditional"
+  },
+  "stage": {
+    "module": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\stage.mjs",
+    "export": "stage232Conditional"
+  },
+  "stagedVerify": {
+    "module": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\stage.mjs",
+    "export": "verifyStaged"
+  },
+  "sealedStage": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\stage",
+  "sealedOutputFiles": [
+    {
+      "path": "assets/modern-yabejp-ja-chapter04-section012-b5.png",
+      "sha256": "0f67b4f982a8c595ea02056fcb5e0114836874b0d44b5580a7dcd33b29f22dbb"
+    },
+    {
+      "path": "assets/modern-yabejp-ja-chapter04-section012-b7.png",
+      "sha256": "0451a0485d80cc39894e45893af64671c62fe2cc413455a38e8fa8a3dd312f3e"
+    },
+    {
+      "path": "assets/modern-yabejp-ja-chapter04-section012-b9.png",
+      "sha256": "0451a0485d80cc39894e45893af64671c62fe2cc413455a38e8fa8a3dd312f3e"
+    },
+    {
+      "path": "display-limits.json",
+      "sha256": "34b26aa1d56a50029dd937eadde5526652872bc376f2c564f93b326ccab81d0c"
+    },
+    {
+      "path": "knowledge-index.json",
+      "sha256": "01466740a20ab7ee581e4e88175c0f1d4baa238b8db7b0dc912b47473583dd07"
+    },
+    {
+      "path": "knowledge.html",
+      "sha256": "a2319047de2ceb1a7b0ee369487cb61ff612a72131cc0b64270ba54e3e81f1d8"
+    },
+    {
+      "path": "mcp-build.json",
+      "sha256": "983b8ff976d85f2d3381f9bc330b7e8d2fc82920dbc2145a6d3643c5415b0259"
+    },
+    {
+      "path": "textbook-bodies.json",
+      "sha256": "a316939eb09046ea82320e1a421a6b03c03e44ed3ccfa492f1cdd22a15d346d3"
+    },
+    {
+      "path": "textbook-corpus.json",
+      "sha256": "3ff1532dd6a68114b9cf4723262f481506ed2af8d8aaa4e144ba21797a564329"
+    },
+    {
+      "path": "textbook-unit-map.json",
+      "sha256": "6a16d81846e128825b342a34461e365856e5794d2e6429f464d41aafad75a991"
+    }
+  ],
+  "actualIsolatedVerification": {
+    "canonical": "nemata-jp-chapter-232-1",
+    "candidate": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+      "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+    },
+    "sourcePositions": 14,
+    "sourceFigures": 3,
+    "visibleBlocks": 14,
+    "notes": 4,
+    "editorialAnchorVerified": true,
+    "authorBodyPreserved": true,
+    "htmlAndCompiledCorpusVerified": true,
+    "technicalLimitedUnknownOkayUnchanged": false,
+    "ordinaryWholeArticlePassed": false,
+    "globalAdmissionGranted": false,
+    "actualGlobalMcpArenaReadbackCompleted": false,
+    "newModelCalls": 0
+  },
+  "conditionalEvidenceAlreadyIndependentlySufficient": true,
+  "originalTechnicalLimitedUnknownOkay": false,
+  "originalIssuesRawAndSeverityUnchanged": true,
+  "fullAuthorCandidateUnchanged": true,
+  "ordinaryWholeArticlePassed": false,
+  "globalAdmissionGranted": false,
+  "globalMcpArenaReadbackCompleted": false,
+  "newModelCalls": 0,
+  "newProductionCalls": 0,
+  "same250ExistingConsumerWakeup": "01a18249-0354-7cf1-a6bd-8811cf79798d"
+}

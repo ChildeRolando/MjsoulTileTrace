@@ -1,0 +1,137 @@
+{
+  "schema": "coac244-exact232-conditional-display-verification/1",
+  "stage": {
+    "canonical": "nemata-jp-chapter-232-1",
+    "candidate": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+      "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+    },
+    "sourcePositions": 14,
+    "sourceFigures": 3,
+    "visibleBlocks": 14,
+    "notes": 4,
+    "editorialAnchorVerified": true,
+    "authorBodyPreserved": true,
+    "htmlAndCompiledCorpusVerified": true,
+    "technicalLimitedUnknownOkayUnchanged": false,
+    "ordinaryWholeArticlePassed": false,
+    "globalAdmissionGranted": false,
+    "actualGlobalMcpArenaReadbackCompleted": false,
+    "newModelCalls": 0
+  },
+  "negativeChecks": [
+    {
+      "name": "wrong author text",
+      "rejected": true
+    },
+    {
+      "name": "changed source",
+      "rejected": true
+    },
+    {
+      "name": "wrong9m",
+      "rejected": true
+    },
+    {
+      "name": "deleted unrelated unknown",
+      "rejected": true
+    },
+    {
+      "name": "changed figure caption",
+      "rejected": true
+    },
+    {
+      "name": "changed non-target figure",
+      "rejected": true
+    },
+    {
+      "name": "missing limitation",
+      "rejected": true
+    },
+    {
+      "name": "moved anchor",
+      "rejected": true
+    },
+    {
+      "name": "wrong object hash",
+      "rejected": true
+    },
+    {
+      "name": "wrong candidate SHA",
+      "rejected": true
+    },
+    {
+      "name": "pretend installed old proposal",
+      "rejected": true
+    },
+    {
+      "name": "technical false rewritten",
+      "rejected": true
+    },
+    {
+      "name": "ordinary whole pass forged",
+      "rejected": true
+    },
+    {
+      "name": "new unresolved semantic issue",
+      "rejected": true
+    },
+    {
+      "name": "application not faithful",
+      "rejected": true
+    },
+    {
+      "name": "argument not faithful",
+      "rejected": true
+    },
+    {
+      "name": "unknown not conditionally sufficient",
+      "rejected": true
+    },
+    {
+      "name": "limitation not sufficient",
+      "rejected": true
+    },
+    {
+      "name": "remove required note",
+      "rejected": true
+    },
+    {
+      "name": "mark annotation as author",
+      "rejected": true
+    },
+    {
+      "name": "change note text",
+      "rejected": true
+    },
+    {
+      "name": "move note",
+      "rejected": true
+    },
+    {
+      "name": "duplicate annotation",
+      "rejected": true
+    },
+    {
+      "name": "rewrite author block",
+      "rejected": true
+    },
+    {
+      "name": "restore obsolete right-river unknown",
+      "rejected": true
+    },
+    {
+      "name": "wrong root",
+      "rejected": true
+    },
+    {
+      "name": "old different SHA",
+      "rejected": true
+    }
+  ],
+  "negativeChecksPassed": 27,
+  "ordinaryWholeArticlePassed": false,
+  "globalAdmissionGranted": false,
+  "actualGlobalMcpArenaReadbackCompleted": false,
+  "newModelCalls": 0
+}

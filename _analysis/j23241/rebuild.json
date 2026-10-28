@@ -1,0 +1,74 @@
+{
+  "passed": true,
+  "selectionVersion": 41,
+  "candidate": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+    "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+  },
+  "persistedBinding": {
+    "module": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\admit.mjs",
+      "sha256": "535b27670e9608602b1a382c2cb68e4c6818fcfd0f523595d409d7bd1f0707ff"
+    },
+    "stage": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\stage.mjs",
+      "sha256": "4c6419d7662a313c1eef862b1fff7d58aeb6afc91b3bfef86815bf48182105da"
+    },
+    "manifest": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\manifest.json",
+      "sha256": "8330bcbd79d6721a3602b0484814ed786686240a9b590d92b657f217719e96f6"
+    },
+    "candidateSha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+  },
+  "actualBuilderExternalPathBranchVerified": true,
+  "destination": "E:/AgentData/Coach/knowledge/processing/integration/coac250-232-human-display-20261028/rebuild-check",
+  "corpusId": "c3efdb3b4026065cdaecebe44d5ed59463a4ae3f20dd4a9f2e2517da47451c58",
+  "sealed10CoreOutputHashesVerified": true,
+  "actualMcpDisplayBlocks": 14,
+  "actualImages": [
+    {
+      "figureId": "modern-yabejp-ja-chapter04-section012-b5",
+      "sha256": "0f67b4f982a8c595ea02056fcb5e0114836874b0d44b5580a7dcd33b29f22dbb"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter04-section012-b7",
+      "sha256": "0451a0485d80cc39894e45893af64671c62fe2cc413455a38e8fa8a3dd312f3e"
+    },
+    {
+      "figureId": "modern-yabejp-ja-chapter04-section012-b9",
+      "sha256": "0451a0485d80cc39894e45893af64671c62fe2cc413455a38e8fa8a3dd312f3e"
+    }
+  ],
+  "visibleIndependentLimits": 4,
+  "bothUnknownsPreserved": true,
+  "ordinaryWholeArticlePassed": false,
+  "originalTechnicalLimitedUnknownOkay": false,
+  "newModelCalls": 0,
+  "calls": [
+    {
+      "name": "read_textbook",
+      "args": {
+        "unitId": "modern-yabejp-ja-chapter04-section012-argument",
+        "blockOffset": 0
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter04-section012-b5"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter04-section012-b7"
+      }
+    },
+    {
+      "name": "view_textbook_figure",
+      "args": {
+        "figureId": "modern-yabejp-ja-chapter04-section012-b9"
+      }
+    }
+  ]
+}

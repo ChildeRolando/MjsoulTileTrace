@@ -1,0 +1,2468 @@
+[
+  {
+    "chapterId": "nemata-jp-chapter-232-1",
+    "covered": true,
+    "baseVerdictPreserved": "produced-needs-repair",
+    "category": "accepted-exact232-conditional-display-and-real-readback",
+    "owner": "COAC-248",
+    "nextAction": "Exact232 bounded author presentation accepted after four visible non-author limits and full real MCP/Arena readback. Reuse93fdd682 and saved v41 route; do not re-read9m or re-review inherited3s/text. Original technical false and issues remain immutable.",
+    "baseEvidence": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.display.json",
+        "sha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+        "bytes": 35623
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+        "sha256": "24293aa4da6b71079ed47600d45229e972e1f8b1256a9dcc573af827c05514f6",
+        "bytes": 21102
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+        "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+        "bytes": 23933
+      }
+    ],
+    "blockingIssues": [],
+    "existingVariants": [
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.display.json",
+        "sha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+        "audits": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+            "sha256": "24293aa4da6b71079ed47600d45229e972e1f8b1256a9dcc573af827c05514f6",
+            "status": "needs-repair",
+            "blockingIssues": [
+              {
+                "severity": "error",
+                "targetId": "modern-yabejp-ja:chapter04-section012:b0002",
+                "sourceEvidence": "“確和了でも構わないようなケース”",
+                "description": "“确保和牌也无妨”把名次不变的结束和牌误译成确保能够和牌，改变了最快和牌策略的适用情形。",
+                "suggestedRepair": "改为“允许以不改变当前名次的和牌结束比赛的情况”，保留原有判断技术7链接。"
+              },
+              {
+                "severity": "error",
+                "targetId": "modern-yabejp-ja:chapter04-section012:b0004",
+                "sourceEvidence": "“運良く配牌やツモに恵まれたら逆転手を目指し”",
+                "description": "“起手牌和摸牌都不错”增加了两者必须同时有利的条件。",
+                "suggestedRepair": "改为“运气好，起手牌或摸牌有利时，就争取做出反超牌”。"
+              },
+              {
+                "severity": "error",
+                "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+                "sourceEvidence": "附图本家手牌从左数第7张可见上方一根、下方两根索子，为3s。",
+                "description": "手牌中的3s被误记为2s，影响手牌结构及做牌分析。",
+                "suggestedRepair": "将手牌序列修正为“3m 4m 6m 7m 4p 4p 3s 4s 6s 7s 8s 5z 5z”，摸入牌仍为3p。"
+              },
+              {
+                "severity": "uncertain",
+                "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+                "sourceEvidence": "右侧牌河从上数第2张有可见万子牌面；候选仅记录“［万子，点数无法辨认］”。",
+                "description": "该张明示弃牌的具体点数尚未可靠确定，逐牌核对仍有缺口。",
+                "suggestedRepair": "保留原图和当前未知说明；可靠确认后补齐具体牌码及赤色情况，在此之前保持阻断状态。"
+              }
+            ]
+          }
+        ],
+        "notAutomaticallySelected": true
+      },
+      {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.json",
+        "sha256": "d2153000245c219122ccbaeb51a6bce00b38dc06e46f063b81c4b10d8d0e6c56",
+        "audits": [],
+        "notAutomaticallySelected": true
+      }
+    ],
+    "pdfBoundary": {
+      "pagesTotal": 2,
+      "pagesWithCandidate": 0,
+      "pagesWithPassedCandidate": 0,
+      "missingPassedPages": [
+        232,
+        233
+      ],
+      "pagesDetail": [
+        {
+          "page": 232,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 26
+        },
+        {
+          "page": 233,
+          "candidates": 0,
+          "receiptStatus": null,
+          "sourceBound": null,
+          "selected": false,
+          "blocks": 18
+        }
+      ]
+    },
+    "modelCallsThisStage": 0,
+    "historicalBefore232Jp193r2": {
+      "blockingIssues": [
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0002",
+          "sourceEvidence": "“確和了でも構わないようなケース”",
+          "description": "“确保和牌也无妨”把名次不变的结束和牌误译成确保能够和牌，改变了最快和牌策略的适用情形。",
+          "suggestedRepair": "改为“允许以不改变当前名次的和牌结束比赛的情况”，保留原有判断技术7链接。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0004",
+          "sourceEvidence": "“運良く配牌やツモに恵まれたら逆転手を目指し”",
+          "description": "“起手牌和摸牌都不错”增加了两者必须同时有利的条件。",
+          "suggestedRepair": "改为“运气好，起手牌或摸牌有利时，就争取做出反超牌”。"
+        },
+        {
+          "severity": "error",
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+          "sourceEvidence": "附图本家手牌从左数第7张可见上方一根、下方两根索子，为3s。",
+          "description": "手牌中的3s被误记为2s，影响手牌结构及做牌分析。",
+          "suggestedRepair": "将手牌序列修正为“3m 4m 6m 7m 4p 4p 3s 4s 6s 7s 8s 5z 5z”，摸入牌仍为3p。"
+        },
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+          "sourceEvidence": "右侧牌河从上数第2张有可见万子牌面；候选仅记录“［万子，点数无法辨认］”。",
+          "description": "该张明示弃牌的具体点数尚未可靠确定，逐牌核对仍有缺口。",
+          "suggestedRepair": "保留原图和当前未知说明；可靠确认后补齐具体牌码及赤色情况，在此之前保持阻断状态。"
+        }
+      ],
+      "nextAction": "b0002確和了、b0004や并列可文字定修；b0005手牌3s/2s及右家万子未明分别带图审，不能只修文字放行。"
+    },
+    "currentTargetEvidence": {
+      "key": "232",
+      "canonical": "nemata-jp-chapter-232-1",
+      "candidate": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+        "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb"
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+        "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+        "bytes": 23933
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.display.json",
+        "sha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+        "bytes": 35623
+      },
+      "parentAudit": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+        "sha256": "24293aa4da6b71079ed47600d45229e972e1f8b1256a9dcc573af827c05514f6",
+        "bytes": 21102
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\0dae5b1a-76be-45d5-b2f0-410bc5853cb3.json",
+        "sha256": "426d49b11f72317b32fdf1b6b7a14ba6308ec8db9da9ae7706079933304eea3c"
+      },
+      "refs": {
+        "receipt": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-target-impact-reviewed-20261028.json",
+          "sha256": "5ed3b5117151b9cf5555d223d714131c5593f1f9042c6e91a9bb005a68fbb9ea"
+        },
+        "scope": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-scope-inheritance-20261028.json",
+          "sha256": "5b951df43fbd4becb26d5d3767641cf5ae68db2f71875acf89d1d6668bb50324"
+        },
+        "display": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-display-and-residual-20261028.json",
+          "sha256": "ec96eb728673aedb18fbaf9c8a801c7eb99b692690545311959577fddbc9071c"
+        }
+      },
+      "reviewer": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028/pair.mjs",
+        "sha256": "1b6579d6eed480d955d82bbad0279756d415421c1b5482a66d9d82c002c38909"
+      },
+      "runtime": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\runtime-manifest.json",
+        "sha256": "0d890d3bbfd3fe1dbe588f068e17de41312916c1d068d246d080d0ec6feaa973",
+        "files": 32
+      },
+      "orderedPairs": 14,
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg",
+          "sha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135",
+          "bytes": 58290
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.x2.png",
+          "sha256": "aaf1ac188c4b7660d0f533c9eef0e6aac07d1b91a7c35f7c03c647b450ad1563",
+          "bytes": 346476
+        }
+      ],
+      "verification": {
+        "transportCompleted": true,
+        "repairPassed": false,
+        "limitedUnknownOkay": false,
+        "wholeChapterAccepted": false,
+        "modelReview": {
+          "targetChecks": [
+            {
+              "id": "modern-yabejp-ja:chapter04-section012:b0002",
+              "verdict": "faithful",
+              "evidence": "译文保留了不考虑打点、以最快和牌为目标的技术及其使用频率和成功率较高的理由。“確和了でも構わない”已译为以不改变当前名次的和牌结束比赛也无妨，未误作确保能够和牌；平均四次一次及判断技术7链接也保留。"
+            },
+            {
+              "id": "modern-yabejp-ja:chapter04-section012:b0004",
+              "verdict": "faithful",
+              "evidence": "译文保留第二名自摸满贯可升第一、但与第三及第四名分差很小的条件；起手牌或摸牌有利时争取反超，否则追求最快和牌。下位者自摸满贯仍不改变名次时尽量争取反超，以及庄家优先一次反超的判断均保留。"
+            },
+            {
+              "id": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+              "verdict": "uncertain",
+              "evidence": "本家手牌从左数第7张已正确修为3s，分开的摸入牌仍为3p；可见席位分数及牌例与原图一致。右侧牌河第二张仍只标为点数无法辨认的万子，原审对该逐牌缺口的阻断尚未解除。"
+            }
+          ],
+          "unknownImpacts": [
+            {
+              "unknownText": "右侧牌河从上数第2张为万子，但无法可靠辨认具体点数。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0004",
+                "modern-yabejp-ja:chapter04-section012:b0005",
+                "modern-yabejp-ja:chapter04-section012:b0006",
+                "modern-yabejp-ja:chapter04-section012:b0007",
+                "modern-yabejp-ja:chapter04-section012:b0008",
+                "modern-yabejp-ja:chapter04-section012:b0009",
+                "modern-yabejp-ja:chapter04-section012:b0010"
+              ],
+              "authorClaim": "作者借牌例说明：下位者自摸满贯也无法反超时，打白并尽量门清争取反超；与下位者分差很小时，同样打白，但可鸣牌做食断。图中的可见牌还承载牌型分析。",
+              "disposition": "blocking",
+              "evidence": "该未知不改写作者明示的名次条件或打白建议，但阻断右侧牌河的完整逐牌核对，以及任何依赖该张点数或赤色情况的可见牌数量和牌效率结论。父审要求该缺口确认前保持阻断。",
+              "requiredDisplayLimitations": [
+                "保留原图，并明确标示右侧牌河第二张万子的点数未知；不得猜测具体牌码或赤色情况。",
+                "不得将该图标示为已完成逐牌核验的完整牌例，也不得依据该未知牌给出牌数或效率结论。",
+                "可引用作者明示的策略，但须同时保留牌例仍有逐牌核验缺口的提示。"
+              ]
+            },
+            {
+              "unknownText": "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0004",
+                "modern-yabejp-ja:chapter04-section012:b0005",
+                "modern-yabejp-ja:chapter04-section012:b0006",
+                "modern-yabejp-ja:chapter04-section012:b0008",
+                "modern-yabejp-ja:chapter04-section012:b0010"
+              ],
+              "authorClaim": "作者根据名次及下位者自摸满贯是否会反超，区分争取反超和优先快速和牌的做牌路线；图例用于说明该判断。",
+              "disposition": "nonblocking-with-limits",
+              "evidence": "图中可记录两个显示为0的计数，但小图标的身份未确认，不能据此确定各自对应的计数项目。作者给出的名次条件和策略仍可作为原文判断呈现。",
+              "requiredDisplayLimitations": [
+                "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+                "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。"
+              ]
+            },
+            {
+              "unknownText": "中央分数周围的玩家名及段位小字无法完整可靠辨认。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0004",
+                "modern-yabejp-ja:chapter04-section012:b0005",
+                "modern-yabejp-ja:chapter04-section012:b0006",
+                "modern-yabejp-ja:chapter04-section012:b0008",
+                "modern-yabejp-ja:chapter04-section012:b0010"
+              ],
+              "authorClaim": "作者以席位、分数、手牌和名次条件说明打白及不同分差下的做牌选择，并不依赖玩家姓名或段位。",
+              "disposition": "nonblocking-with-limits",
+              "evidence": "玩家名及段位小字未能完整辨认，不影响按图中可见席位与分数呈现作者的条件性策略；但不能据此补写玩家身份或段位。",
+              "requiredDisplayLimitations": [
+                "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+                "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+              ]
+            }
+          ],
+          "contextContinuity": {
+            "verdict": "faithful",
+            "evidence": "按顺序连读后，b0004先区分下位反超风险，图例展示本家及各席分数，b0006至b0010通过两处打白分别说明门清争取反超与鸣牌食断。未改文本和非目标图沿用父审；b0008的既有source-note按原审继承，不改判为翻译错误或重算作者数字。图例的未知牌仍按父审保持阻断。"
+          },
+          "issues": [
+            {
+              "severity": "uncertain",
+              "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+              "description": "右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。",
+              "sourceEvidence": "原图右侧牌河从上数第二张可辨为万子；候选保留“［万子，点数无法辨认］”。原审要求可靠确认前保持阻断。"
+            }
+          ],
+          "scopeComplete": "yes",
+          "summary": "两个目标文本修订忠实，本家3s已修正。图例的右侧未知万子仍阻断完整逐牌核验；其余未知项可在明确限制下展示。未改范围继承父审，本次不宣告整章通过。"
+        }
+      },
+      "facts": {
+        "twoTextTargetsFaithful": true,
+        "hand3sRepairExplicitlyCorrectInRaw": true,
+        "wholeFigureTargetStillUncertain": true,
+        "rightRiverSecondManzuUnknownStillBlocking": true,
+        "remainingUnknownLimitsNotInstalled": true,
+        "originalStrictFalsePreserved": true,
+        "admissionGranted": false
+      },
+      "modelReview": {
+        "targetChecks": [
+          {
+            "id": "modern-yabejp-ja:chapter04-section012:b0002",
+            "verdict": "faithful",
+            "evidence": "译文保留了不考虑打点、以最快和牌为目标的技术及其使用频率和成功率较高的理由。“確和了でも構わない”已译为以不改变当前名次的和牌结束比赛也无妨，未误作确保能够和牌；平均四次一次及判断技术7链接也保留。"
+          },
+          {
+            "id": "modern-yabejp-ja:chapter04-section012:b0004",
+            "verdict": "faithful",
+            "evidence": "译文保留第二名自摸满贯可升第一、但与第三及第四名分差很小的条件；起手牌或摸牌有利时争取反超，否则追求最快和牌。下位者自摸满贯仍不改变名次时尽量争取反超，以及庄家优先一次反超的判断均保留。"
+          },
+          {
+            "id": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+            "verdict": "uncertain",
+            "evidence": "本家手牌从左数第7张已正确修为3s，分开的摸入牌仍为3p；可见席位分数及牌例与原图一致。右侧牌河第二张仍只标为点数无法辨认的万子，原审对该逐牌缺口的阻断尚未解除。"
+          }
+        ],
+        "unknownImpacts": [
+          {
+            "unknownText": "右侧牌河从上数第2张为万子，但无法可靠辨认具体点数。",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0004",
+              "modern-yabejp-ja:chapter04-section012:b0005",
+              "modern-yabejp-ja:chapter04-section012:b0006",
+              "modern-yabejp-ja:chapter04-section012:b0007",
+              "modern-yabejp-ja:chapter04-section012:b0008",
+              "modern-yabejp-ja:chapter04-section012:b0009",
+              "modern-yabejp-ja:chapter04-section012:b0010"
+            ],
+            "authorClaim": "作者借牌例说明：下位者自摸满贯也无法反超时，打白并尽量门清争取反超；与下位者分差很小时，同样打白，但可鸣牌做食断。图中的可见牌还承载牌型分析。",
+            "disposition": "blocking",
+            "evidence": "该未知不改写作者明示的名次条件或打白建议，但阻断右侧牌河的完整逐牌核对，以及任何依赖该张点数或赤色情况的可见牌数量和牌效率结论。父审要求该缺口确认前保持阻断。",
+            "requiredDisplayLimitations": [
+              "保留原图，并明确标示右侧牌河第二张万子的点数未知；不得猜测具体牌码或赤色情况。",
+              "不得将该图标示为已完成逐牌核验的完整牌例，也不得依据该未知牌给出牌数或效率结论。",
+              "可引用作者明示的策略，但须同时保留牌例仍有逐牌核验缺口的提示。"
+            ]
+          },
+          {
+            "unknownText": "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0004",
+              "modern-yabejp-ja:chapter04-section012:b0005",
+              "modern-yabejp-ja:chapter04-section012:b0006",
+              "modern-yabejp-ja:chapter04-section012:b0008",
+              "modern-yabejp-ja:chapter04-section012:b0010"
+            ],
+            "authorClaim": "作者根据名次及下位者自摸满贯是否会反超，区分争取反超和优先快速和牌的做牌路线；图例用于说明该判断。",
+            "disposition": "nonblocking-with-limits",
+            "evidence": "图中可记录两个显示为0的计数，但小图标的身份未确认，不能据此确定各自对应的计数项目。作者给出的名次条件和策略仍可作为原文判断呈现。",
+            "requiredDisplayLimitations": [
+              "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+              "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。"
+            ]
+          },
+          {
+            "unknownText": "中央分数周围的玩家名及段位小字无法完整可靠辨认。",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0004",
+              "modern-yabejp-ja:chapter04-section012:b0005",
+              "modern-yabejp-ja:chapter04-section012:b0006",
+              "modern-yabejp-ja:chapter04-section012:b0008",
+              "modern-yabejp-ja:chapter04-section012:b0010"
+            ],
+            "authorClaim": "作者以席位、分数、手牌和名次条件说明打白及不同分差下的做牌选择，并不依赖玩家姓名或段位。",
+            "disposition": "nonblocking-with-limits",
+            "evidence": "玩家名及段位小字未能完整辨认，不影响按图中可见席位与分数呈现作者的条件性策略；但不能据此补写玩家身份或段位。",
+            "requiredDisplayLimitations": [
+              "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+              "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+            ]
+          }
+        ],
+        "contextContinuity": {
+          "verdict": "faithful",
+          "evidence": "按顺序连读后，b0004先区分下位反超风险，图例展示本家及各席分数，b0006至b0010通过两处打白分别说明门清争取反超与鸣牌食断。未改文本和非目标图沿用父审；b0008的既有source-note按原审继承，不改判为翻译错误或重算作者数字。图例的未知牌仍按父审保持阻断。"
+        },
+        "issues": [
+          {
+            "severity": "uncertain",
+            "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+            "description": "右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。",
+            "sourceEvidence": "原图右侧牌河从上数第二张可辨为万子；候选保留“［万子，点数无法辨认］”。原审要求可靠确认前保持阻断。"
+          }
+        ],
+        "scopeComplete": "yes",
+        "summary": "两个目标文本修订忠实，本家3s已修正。图例的右侧未知万子仍阻断完整逐牌核验；其余未知项可在明确限制下展示。未改范围继承父审，本次不宣告整章通过。"
+      },
+      "originalStatus": "needs-repair-or-uncertain",
+      "requiredDisplayLimitations": [
+        "保留原图，并明确标示右侧牌河第二张万子的点数未知；不得猜测具体牌码或赤色情况。",
+        "不得将该图标示为已完成逐牌核验的完整牌例，也不得依据该未知牌给出牌数或效率结论。",
+        "可引用作者明示的策略，但须同时保留牌例仍有逐牌核验缺口的提示。",
+        "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+        "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+        "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+        "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+      ],
+      "historicalObservations": [
+        {
+          "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-a2c2cdc48b56\\worktree\\artifacts\\a249-213-224232\\232\\admission-0-preview.json",
+          "sha256": "2db05389143a2ef2580d348b892403b48a769c812fdcff6764a191521965fbf0",
+          "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+          "bytes": 6314871
+        },
+        {
+          "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-a2c2cdc48b56\\worktree\\artifacts\\a249-213-224232\\232\\admission-0-register.json",
+          "sha256": "ff68bc08229c88f747366ec13a5841b2c5f2ee8e8bd2e44d1c485d3f3f552063",
+          "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+          "bytes": 691861
+        },
+        {
+          "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-a2c2cdc48b56\\worktree\\artifacts\\a249-213-224232\\232\\admission-1-preview.json",
+          "sha256": "2db05389143a2ef2580d348b892403b48a769c812fdcff6764a191521965fbf0",
+          "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+          "bytes": 6314871
+        },
+        {
+          "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-a2c2cdc48b56\\worktree\\artifacts\\a249-213-224232\\232\\admission-1-register.json",
+          "sha256": "ff68bc08229c88f747366ec13a5841b2c5f2ee8e8bd2e44d1c485d3f3f552063",
+          "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+          "bytes": 691861
+        }
+      ],
+      "displayImplementationVerified": false,
+      "actual250ReadbackPerformed": false,
+      "admissionGranted": false,
+      "wholeChapterPassed": false,
+      "newModelCalls": 0,
+      "residual": {
+        "kind": "unresolved-original-figure-scope",
+        "scope": "modern-yabejp-ja:chapter04-section012:b0005:figure / 右侧牌河第2张万子",
+        "description": "b0002、b0004真实faithful；原raw明确3s修订正确，但整图靶仍uncertain，首项unknownImpact为blocking。右侧万子点数/赤色情况及依赖它的逐牌/数量/效率核验未覆盖。另两未知仅可在7条实际限制下展示。",
+        "nextAction": "保留真实未通过和未知；原2/2额度耗尽，不再制作/识图/审校。现有owner只核后续是否有精确合法补充scope，未有时维持未准入；不因文字/3s正确自动合章。"
+      },
+      "disposition": "verified-exact-evidence-only-not-admitted"
+    },
+    "latestScopedCandidate": {
+      "candidate": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+        "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+      },
+      "status": "limited-presentation-accepted-after-real-readback",
+      "limitedChapterPresentationAccepted": true,
+      "ordinaryWholeArticlePassed": false,
+      "originalTechnicalLimitedUnknownOkay": false
+    },
+    "effectiveBlockingIssues": [],
+    "historicalBeforeHuman232Application": {
+      "blockingIssues": [
+        {
+          "kind": "unresolved-original-figure-scope",
+          "scope": "modern-yabejp-ja:chapter04-section012:b0005:figure / 右侧牌河第2张万子",
+          "description": "b0002、b0004真实faithful；原raw明确3s修订正确，但整图靶仍uncertain，首项unknownImpact为blocking。右侧万子点数/赤色情况及依赖它的逐牌/数量/效率核验未覆盖。另两未知仅可在7条实际限制下展示。",
+          "receipt": {
+            "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-target-impact-reviewed-20261028.json",
+            "sha256": "5ed3b5117151b9cf5555d223d714131c5593f1f9042c6e91a9bb005a68fbb9ea"
+          },
+          "notANewModelIssue": true
+        }
+      ],
+      "nextAction": "保留真实未通过和未知；原2/2额度耗尽，不再制作/识图/审校。现有owner只核后续是否有精确合法补充scope，未有时维持未准入；不因文字/3s正确自动合章。"
+    },
+    "humanFinal232Application": {
+      "candidateSha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c",
+      "humanStableId": "4ce1c71647c8da4352eb117e5d2f1094",
+      "tile": "9m",
+      "deterministicVerified": true,
+      "newCalls": 0,
+      "semanticReviewAuthorized": false,
+      "proposedTextReviewMaximum": 1,
+      "admissionGranted": false,
+      "evidence": {
+        "path": "integration/coac248-jp232-human-20261028/handoff.json",
+        "sha256": "d00d3d29b812bb3db34631b23b73f7884a69e671b9a79c308de431de9be2dd01",
+        "manifestSha256": "64302d7331baaa802614b1456d228c3b4d793a07fbff4d76049a0f33c49d2965"
+      },
+      "remainingUnknowns": 2,
+      "remainingVisibleLimitations": 4
+    },
+    "historicalBefore232ConditionalHumanReview": {
+      "effectiveBlockingIssues": [
+        {
+          "kind": "unresolved-original-figure-scope",
+          "scope": "modern-yabejp-ja:chapter04-section012:b0005:figure / 右侧牌河第2张万子",
+          "description": "b0002、b0004真实faithful；原raw明确3s修订正确，但整图靶仍uncertain，首项unknownImpact为blocking。右侧万子点数/赤色情况及依赖它的逐牌/数量/效率核验未覆盖。另两未知仅可在7条实际限制下展示。",
+          "receipt": {
+            "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-target-impact-reviewed-20261028.json",
+            "sha256": "5ed3b5117151b9cf5555d223d714131c5593f1f9042c6e91a9bb005a68fbb9ea"
+          },
+          "notANewModelIssue": true
+        }
+      ],
+      "currentTargetEvidence": {
+        "key": "232",
+        "canonical": "nemata-jp-chapter-232-1",
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+          "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb"
+        },
+        "source": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+          "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+          "bytes": 23933
+        },
+        "parent": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.display.json",
+          "sha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+          "bytes": 35623
+        },
+        "parentAudit": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+          "sha256": "24293aa4da6b71079ed47600d45229e972e1f8b1256a9dcc573af827c05514f6",
+          "bytes": 21102
+        },
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\0dae5b1a-76be-45d5-b2f0-410bc5853cb3.json",
+          "sha256": "426d49b11f72317b32fdf1b6b7a14ba6308ec8db9da9ae7706079933304eea3c"
+        },
+        "refs": {
+          "receipt": {
+            "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-target-impact-reviewed-20261028.json",
+            "sha256": "5ed3b5117151b9cf5555d223d714131c5593f1f9042c6e91a9bb005a68fbb9ea"
+          },
+          "scope": {
+            "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-scope-inheritance-20261028.json",
+            "sha256": "5b951df43fbd4becb26d5d3767641cf5ae68db2f71875acf89d1d6668bb50324"
+          },
+          "display": {
+            "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-display-and-residual-20261028.json",
+            "sha256": "ec96eb728673aedb18fbaf9c8a801c7eb99b692690545311959577fddbc9071c"
+          }
+        },
+        "reviewer": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028/pair.mjs",
+          "sha256": "1b6579d6eed480d955d82bbad0279756d415421c1b5482a66d9d82c002c38909"
+        },
+        "runtime": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\runtime-manifest.json",
+          "sha256": "0d890d3bbfd3fe1dbe588f068e17de41312916c1d068d246d080d0ec6feaa973",
+          "files": 32
+        },
+        "orderedPairs": 14,
+        "images": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg",
+            "sha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135",
+            "bytes": 58290
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.x2.png",
+            "sha256": "aaf1ac188c4b7660d0f533c9eef0e6aac07d1b91a7c35f7c03c647b450ad1563",
+            "bytes": 346476
+          }
+        ],
+        "verification": {
+          "transportCompleted": true,
+          "repairPassed": false,
+          "limitedUnknownOkay": false,
+          "wholeChapterAccepted": false,
+          "modelReview": {
+            "targetChecks": [
+              {
+                "id": "modern-yabejp-ja:chapter04-section012:b0002",
+                "verdict": "faithful",
+                "evidence": "译文保留了不考虑打点、以最快和牌为目标的技术及其使用频率和成功率较高的理由。“確和了でも構わない”已译为以不改变当前名次的和牌结束比赛也无妨，未误作确保能够和牌；平均四次一次及判断技术7链接也保留。"
+              },
+              {
+                "id": "modern-yabejp-ja:chapter04-section012:b0004",
+                "verdict": "faithful",
+                "evidence": "译文保留第二名自摸满贯可升第一、但与第三及第四名分差很小的条件；起手牌或摸牌有利时争取反超，否则追求最快和牌。下位者自摸满贯仍不改变名次时尽量争取反超，以及庄家优先一次反超的判断均保留。"
+              },
+              {
+                "id": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+                "verdict": "uncertain",
+                "evidence": "本家手牌从左数第7张已正确修为3s，分开的摸入牌仍为3p；可见席位分数及牌例与原图一致。右侧牌河第二张仍只标为点数无法辨认的万子，原审对该逐牌缺口的阻断尚未解除。"
+              }
+            ],
+            "unknownImpacts": [
+              {
+                "unknownText": "右侧牌河从上数第2张为万子，但无法可靠辨认具体点数。",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter04-section012:b0004",
+                  "modern-yabejp-ja:chapter04-section012:b0005",
+                  "modern-yabejp-ja:chapter04-section012:b0006",
+                  "modern-yabejp-ja:chapter04-section012:b0007",
+                  "modern-yabejp-ja:chapter04-section012:b0008",
+                  "modern-yabejp-ja:chapter04-section012:b0009",
+                  "modern-yabejp-ja:chapter04-section012:b0010"
+                ],
+                "authorClaim": "作者借牌例说明：下位者自摸满贯也无法反超时，打白并尽量门清争取反超；与下位者分差很小时，同样打白，但可鸣牌做食断。图中的可见牌还承载牌型分析。",
+                "disposition": "blocking",
+                "evidence": "该未知不改写作者明示的名次条件或打白建议，但阻断右侧牌河的完整逐牌核对，以及任何依赖该张点数或赤色情况的可见牌数量和牌效率结论。父审要求该缺口确认前保持阻断。",
+                "requiredDisplayLimitations": [
+                  "保留原图，并明确标示右侧牌河第二张万子的点数未知；不得猜测具体牌码或赤色情况。",
+                  "不得将该图标示为已完成逐牌核验的完整牌例，也不得依据该未知牌给出牌数或效率结论。",
+                  "可引用作者明示的策略，但须同时保留牌例仍有逐牌核验缺口的提示。"
+                ]
+              },
+              {
+                "unknownText": "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter04-section012:b0004",
+                  "modern-yabejp-ja:chapter04-section012:b0005",
+                  "modern-yabejp-ja:chapter04-section012:b0006",
+                  "modern-yabejp-ja:chapter04-section012:b0008",
+                  "modern-yabejp-ja:chapter04-section012:b0010"
+                ],
+                "authorClaim": "作者根据名次及下位者自摸满贯是否会反超，区分争取反超和优先快速和牌的做牌路线；图例用于说明该判断。",
+                "disposition": "nonblocking-with-limits",
+                "evidence": "图中可记录两个显示为0的计数，但小图标的身份未确认，不能据此确定各自对应的计数项目。作者给出的名次条件和策略仍可作为原文判断呈现。",
+                "requiredDisplayLimitations": [
+                  "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+                  "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。"
+                ]
+              },
+              {
+                "unknownText": "中央分数周围的玩家名及段位小字无法完整可靠辨认。",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter04-section012:b0004",
+                  "modern-yabejp-ja:chapter04-section012:b0005",
+                  "modern-yabejp-ja:chapter04-section012:b0006",
+                  "modern-yabejp-ja:chapter04-section012:b0008",
+                  "modern-yabejp-ja:chapter04-section012:b0010"
+                ],
+                "authorClaim": "作者以席位、分数、手牌和名次条件说明打白及不同分差下的做牌选择，并不依赖玩家姓名或段位。",
+                "disposition": "nonblocking-with-limits",
+                "evidence": "玩家名及段位小字未能完整辨认，不影响按图中可见席位与分数呈现作者的条件性策略；但不能据此补写玩家身份或段位。",
+                "requiredDisplayLimitations": [
+                  "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+                  "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+                ]
+              }
+            ],
+            "contextContinuity": {
+              "verdict": "faithful",
+              "evidence": "按顺序连读后，b0004先区分下位反超风险，图例展示本家及各席分数，b0006至b0010通过两处打白分别说明门清争取反超与鸣牌食断。未改文本和非目标图沿用父审；b0008的既有source-note按原审继承，不改判为翻译错误或重算作者数字。图例的未知牌仍按父审保持阻断。"
+            },
+            "issues": [
+              {
+                "severity": "uncertain",
+                "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+                "description": "右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。",
+                "sourceEvidence": "原图右侧牌河从上数第二张可辨为万子；候选保留“［万子，点数无法辨认］”。原审要求可靠确认前保持阻断。"
+              }
+            ],
+            "scopeComplete": "yes",
+            "summary": "两个目标文本修订忠实，本家3s已修正。图例的右侧未知万子仍阻断完整逐牌核验；其余未知项可在明确限制下展示。未改范围继承父审，本次不宣告整章通过。"
+          }
+        },
+        "facts": {
+          "twoTextTargetsFaithful": true,
+          "hand3sRepairExplicitlyCorrectInRaw": true,
+          "wholeFigureTargetStillUncertain": true,
+          "rightRiverSecondManzuUnknownStillBlocking": true,
+          "remainingUnknownLimitsNotInstalled": true,
+          "originalStrictFalsePreserved": true,
+          "admissionGranted": false
+        },
+        "modelReview": {
+          "targetChecks": [
+            {
+              "id": "modern-yabejp-ja:chapter04-section012:b0002",
+              "verdict": "faithful",
+              "evidence": "译文保留了不考虑打点、以最快和牌为目标的技术及其使用频率和成功率较高的理由。“確和了でも構わない”已译为以不改变当前名次的和牌结束比赛也无妨，未误作确保能够和牌；平均四次一次及判断技术7链接也保留。"
+            },
+            {
+              "id": "modern-yabejp-ja:chapter04-section012:b0004",
+              "verdict": "faithful",
+              "evidence": "译文保留第二名自摸满贯可升第一、但与第三及第四名分差很小的条件；起手牌或摸牌有利时争取反超，否则追求最快和牌。下位者自摸满贯仍不改变名次时尽量争取反超，以及庄家优先一次反超的判断均保留。"
+            },
+            {
+              "id": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+              "verdict": "uncertain",
+              "evidence": "本家手牌从左数第7张已正确修为3s，分开的摸入牌仍为3p；可见席位分数及牌例与原图一致。右侧牌河第二张仍只标为点数无法辨认的万子，原审对该逐牌缺口的阻断尚未解除。"
+            }
+          ],
+          "unknownImpacts": [
+            {
+              "unknownText": "右侧牌河从上数第2张为万子，但无法可靠辨认具体点数。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0004",
+                "modern-yabejp-ja:chapter04-section012:b0005",
+                "modern-yabejp-ja:chapter04-section012:b0006",
+                "modern-yabejp-ja:chapter04-section012:b0007",
+                "modern-yabejp-ja:chapter04-section012:b0008",
+                "modern-yabejp-ja:chapter04-section012:b0009",
+                "modern-yabejp-ja:chapter04-section012:b0010"
+              ],
+              "authorClaim": "作者借牌例说明：下位者自摸满贯也无法反超时，打白并尽量门清争取反超；与下位者分差很小时，同样打白，但可鸣牌做食断。图中的可见牌还承载牌型分析。",
+              "disposition": "blocking",
+              "evidence": "该未知不改写作者明示的名次条件或打白建议，但阻断右侧牌河的完整逐牌核对，以及任何依赖该张点数或赤色情况的可见牌数量和牌效率结论。父审要求该缺口确认前保持阻断。",
+              "requiredDisplayLimitations": [
+                "保留原图，并明确标示右侧牌河第二张万子的点数未知；不得猜测具体牌码或赤色情况。",
+                "不得将该图标示为已完成逐牌核验的完整牌例，也不得依据该未知牌给出牌数或效率结论。",
+                "可引用作者明示的策略，但须同时保留牌例仍有逐牌核验缺口的提示。"
+              ]
+            },
+            {
+              "unknownText": "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0004",
+                "modern-yabejp-ja:chapter04-section012:b0005",
+                "modern-yabejp-ja:chapter04-section012:b0006",
+                "modern-yabejp-ja:chapter04-section012:b0008",
+                "modern-yabejp-ja:chapter04-section012:b0010"
+              ],
+              "authorClaim": "作者根据名次及下位者自摸满贯是否会反超，区分争取反超和优先快速和牌的做牌路线；图例用于说明该判断。",
+              "disposition": "nonblocking-with-limits",
+              "evidence": "图中可记录两个显示为0的计数，但小图标的身份未确认，不能据此确定各自对应的计数项目。作者给出的名次条件和策略仍可作为原文判断呈现。",
+              "requiredDisplayLimitations": [
+                "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+                "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。"
+              ]
+            },
+            {
+              "unknownText": "中央分数周围的玩家名及段位小字无法完整可靠辨认。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0004",
+                "modern-yabejp-ja:chapter04-section012:b0005",
+                "modern-yabejp-ja:chapter04-section012:b0006",
+                "modern-yabejp-ja:chapter04-section012:b0008",
+                "modern-yabejp-ja:chapter04-section012:b0010"
+              ],
+              "authorClaim": "作者以席位、分数、手牌和名次条件说明打白及不同分差下的做牌选择，并不依赖玩家姓名或段位。",
+              "disposition": "nonblocking-with-limits",
+              "evidence": "玩家名及段位小字未能完整辨认，不影响按图中可见席位与分数呈现作者的条件性策略；但不能据此补写玩家身份或段位。",
+              "requiredDisplayLimitations": [
+                "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+                "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+              ]
+            }
+          ],
+          "contextContinuity": {
+            "verdict": "faithful",
+            "evidence": "按顺序连读后，b0004先区分下位反超风险，图例展示本家及各席分数，b0006至b0010通过两处打白分别说明门清争取反超与鸣牌食断。未改文本和非目标图沿用父审；b0008的既有source-note按原审继承，不改判为翻译错误或重算作者数字。图例的未知牌仍按父审保持阻断。"
+          },
+          "issues": [
+            {
+              "severity": "uncertain",
+              "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+              "description": "右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。",
+              "sourceEvidence": "原图右侧牌河从上数第二张可辨为万子；候选保留“［万子，点数无法辨认］”。原审要求可靠确认前保持阻断。"
+            }
+          ],
+          "scopeComplete": "yes",
+          "summary": "两个目标文本修订忠实，本家3s已修正。图例的右侧未知万子仍阻断完整逐牌核验；其余未知项可在明确限制下展示。未改范围继承父审，本次不宣告整章通过。"
+        },
+        "originalStatus": "needs-repair-or-uncertain",
+        "requiredDisplayLimitations": [
+          "保留原图，并明确标示右侧牌河第二张万子的点数未知；不得猜测具体牌码或赤色情况。",
+          "不得将该图标示为已完成逐牌核验的完整牌例，也不得依据该未知牌给出牌数或效率结论。",
+          "可引用作者明示的策略，但须同时保留牌例仍有逐牌核验缺口的提示。",
+          "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+          "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+          "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+          "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+        ],
+        "historicalObservations": [
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-a2c2cdc48b56\\worktree\\artifacts\\a249-213-224232\\232\\admission-0-preview.json",
+            "sha256": "2db05389143a2ef2580d348b892403b48a769c812fdcff6764a191521965fbf0",
+            "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+            "bytes": 6314871
+          },
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-a2c2cdc48b56\\worktree\\artifacts\\a249-213-224232\\232\\admission-0-register.json",
+            "sha256": "ff68bc08229c88f747366ec13a5841b2c5f2ee8e8bd2e44d1c485d3f3f552063",
+            "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+            "bytes": 691861
+          },
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-a2c2cdc48b56\\worktree\\artifacts\\a249-213-224232\\232\\admission-1-preview.json",
+            "sha256": "2db05389143a2ef2580d348b892403b48a769c812fdcff6764a191521965fbf0",
+            "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+            "bytes": 6314871
+          },
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-a2c2cdc48b56\\worktree\\artifacts\\a249-213-224232\\232\\admission-1-register.json",
+            "sha256": "ff68bc08229c88f747366ec13a5841b2c5f2ee8e8bd2e44d1c485d3f3f552063",
+            "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+            "bytes": 691861
+          }
+        ],
+        "displayImplementationVerified": false,
+        "actual250ReadbackPerformed": false,
+        "admissionGranted": false,
+        "wholeChapterPassed": false,
+        "newModelCalls": 0,
+        "residual": {
+          "kind": "unresolved-original-figure-scope",
+          "scope": "modern-yabejp-ja:chapter04-section012:b0005:figure / 右侧牌河第2张万子",
+          "description": "b0002、b0004真实faithful；原raw明确3s修订正确，但整图靶仍uncertain，首项unknownImpact为blocking。右侧万子点数/赤色情况及依赖它的逐牌/数量/效率核验未覆盖。另两未知仅可在7条实际限制下展示。",
+          "nextAction": "保留真实未通过和未知；原2/2额度耗尽，不再制作/识图/审校。现有owner只核后续是否有精确合法补充scope，未有时维持未准入；不因文字/3s正确自动合章。"
+        },
+        "disposition": "verified-exact-evidence-only-not-admitted"
+      },
+      "latestScopedCandidate": {
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+          "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb"
+        },
+        "receipt": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-target-impact-reviewed-20261028.json",
+          "sha256": "5ed3b5117151b9cf5555d223d714131c5593f1f9042c6e91a9bb005a68fbb9ea"
+        },
+        "status": "needs-repair-or-uncertain",
+        "originalVerification": {
+          "transportCompleted": true,
+          "repairPassed": false,
+          "limitedUnknownOkay": false,
+          "wholeChapterAccepted": false,
+          "modelReview": {
+            "targetChecks": [
+              {
+                "id": "modern-yabejp-ja:chapter04-section012:b0002",
+                "verdict": "faithful",
+                "evidence": "译文保留了不考虑打点、以最快和牌为目标的技术及其使用频率和成功率较高的理由。“確和了でも構わない”已译为以不改变当前名次的和牌结束比赛也无妨，未误作确保能够和牌；平均四次一次及判断技术7链接也保留。"
+              },
+              {
+                "id": "modern-yabejp-ja:chapter04-section012:b0004",
+                "verdict": "faithful",
+                "evidence": "译文保留第二名自摸满贯可升第一、但与第三及第四名分差很小的条件；起手牌或摸牌有利时争取反超，否则追求最快和牌。下位者自摸满贯仍不改变名次时尽量争取反超，以及庄家优先一次反超的判断均保留。"
+              },
+              {
+                "id": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+                "verdict": "uncertain",
+                "evidence": "本家手牌从左数第7张已正确修为3s，分开的摸入牌仍为3p；可见席位分数及牌例与原图一致。右侧牌河第二张仍只标为点数无法辨认的万子，原审对该逐牌缺口的阻断尚未解除。"
+              }
+            ],
+            "unknownImpacts": [
+              {
+                "unknownText": "右侧牌河从上数第2张为万子，但无法可靠辨认具体点数。",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter04-section012:b0004",
+                  "modern-yabejp-ja:chapter04-section012:b0005",
+                  "modern-yabejp-ja:chapter04-section012:b0006",
+                  "modern-yabejp-ja:chapter04-section012:b0007",
+                  "modern-yabejp-ja:chapter04-section012:b0008",
+                  "modern-yabejp-ja:chapter04-section012:b0009",
+                  "modern-yabejp-ja:chapter04-section012:b0010"
+                ],
+                "authorClaim": "作者借牌例说明：下位者自摸满贯也无法反超时，打白并尽量门清争取反超；与下位者分差很小时，同样打白，但可鸣牌做食断。图中的可见牌还承载牌型分析。",
+                "disposition": "blocking",
+                "evidence": "该未知不改写作者明示的名次条件或打白建议，但阻断右侧牌河的完整逐牌核对，以及任何依赖该张点数或赤色情况的可见牌数量和牌效率结论。父审要求该缺口确认前保持阻断。",
+                "requiredDisplayLimitations": [
+                  "保留原图，并明确标示右侧牌河第二张万子的点数未知；不得猜测具体牌码或赤色情况。",
+                  "不得将该图标示为已完成逐牌核验的完整牌例，也不得依据该未知牌给出牌数或效率结论。",
+                  "可引用作者明示的策略，但须同时保留牌例仍有逐牌核验缺口的提示。"
+                ]
+              },
+              {
+                "unknownText": "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter04-section012:b0004",
+                  "modern-yabejp-ja:chapter04-section012:b0005",
+                  "modern-yabejp-ja:chapter04-section012:b0006",
+                  "modern-yabejp-ja:chapter04-section012:b0008",
+                  "modern-yabejp-ja:chapter04-section012:b0010"
+                ],
+                "authorClaim": "作者根据名次及下位者自摸满贯是否会反超，区分争取反超和优先快速和牌的做牌路线；图例用于说明该判断。",
+                "disposition": "nonblocking-with-limits",
+                "evidence": "图中可记录两个显示为0的计数，但小图标的身份未确认，不能据此确定各自对应的计数项目。作者给出的名次条件和策略仍可作为原文判断呈现。",
+                "requiredDisplayLimitations": [
+                  "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+                  "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。"
+                ]
+              },
+              {
+                "unknownText": "中央分数周围的玩家名及段位小字无法完整可靠辨认。",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter04-section012:b0004",
+                  "modern-yabejp-ja:chapter04-section012:b0005",
+                  "modern-yabejp-ja:chapter04-section012:b0006",
+                  "modern-yabejp-ja:chapter04-section012:b0008",
+                  "modern-yabejp-ja:chapter04-section012:b0010"
+                ],
+                "authorClaim": "作者以席位、分数、手牌和名次条件说明打白及不同分差下的做牌选择，并不依赖玩家姓名或段位。",
+                "disposition": "nonblocking-with-limits",
+                "evidence": "玩家名及段位小字未能完整辨认，不影响按图中可见席位与分数呈现作者的条件性策略；但不能据此补写玩家身份或段位。",
+                "requiredDisplayLimitations": [
+                  "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+                  "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+                ]
+              }
+            ],
+            "contextContinuity": {
+              "verdict": "faithful",
+              "evidence": "按顺序连读后，b0004先区分下位反超风险，图例展示本家及各席分数，b0006至b0010通过两处打白分别说明门清争取反超与鸣牌食断。未改文本和非目标图沿用父审；b0008的既有source-note按原审继承，不改判为翻译错误或重算作者数字。图例的未知牌仍按父审保持阻断。"
+            },
+            "issues": [
+              {
+                "severity": "uncertain",
+                "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+                "description": "右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。",
+                "sourceEvidence": "原图右侧牌河从上数第二张可辨为万子；候选保留“［万子，点数无法辨认］”。原审要求可靠确认前保持阻断。"
+              }
+            ],
+            "scopeComplete": "yes",
+            "summary": "两个目标文本修订忠实，本家3s已修正。图例的右侧未知万子仍阻断完整逐牌核验；其余未知项可在明确限制下展示。未改范围继承父审，本次不宣告整章通过。"
+          }
+        },
+        "admissionGranted": false,
+        "wholeChapterPassed": false,
+        "residual": {
+          "kind": "unresolved-original-figure-scope",
+          "scope": "modern-yabejp-ja:chapter04-section012:b0005:figure / 右侧牌河第2张万子",
+          "description": "b0002、b0004真实faithful；原raw明确3s修订正确，但整图靶仍uncertain，首项unknownImpact为blocking。右侧万子点数/赤色情况及依赖它的逐牌/数量/效率核验未覆盖。另两未知仅可在7条实际限制下展示。",
+          "nextAction": "保留真实未通过和未知；原2/2额度耗尽，不再制作/识图/审校。现有owner只核后续是否有精确合法补充scope，未有时维持未准入；不因文字/3s正确自动合章。"
+        }
+      },
+      "nextAction": "现有244 owner安排是否采用已提案的唯一sol/high无图应用/论证审，未经安排不invoke、不追加maker/识图。证据齐后交249/250原单写者组合、安装四条剩余unknown限制并实际读回；当前不准入。"
+    },
+    "human232ConditionalIntake": {
+      "schema": "coac250-exact232-human-conditional-intake/1",
+      "recordedAt": "2026-10-28T11:40:02.434Z",
+      "canonical": "nemata-jp-chapter-232-1",
+      "candidate": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+        "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+        "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+        "bytes": 23933
+      },
+      "parent": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+        "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb"
+      },
+      "receipt": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-human-reviewed-20261028.json",
+        "sha256": "2280884a55df3ba010ceac36c5c4832deb2b4dc15b15f2e07d8db554a8f3a94c"
+      },
+      "raw": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d1640db7-8722-4d0d-bdba-da5c2ba54f84.json",
+        "sha256": "f84280661530678891d4d11ab4c00ff0b4f3542c435ed5e3b8716af8ac8ccd7b"
+      },
+      "applicationMap": {
+        "schema": "coac248-232-human-application-map/1",
+        "canonical": "nemata-jp-chapter-232-1",
+        "candidate": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+          "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+        },
+        "parent": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+          "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb"
+        },
+        "source": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+          "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+          "bytes": 23933
+        },
+        "acceptedHumanFact": {
+          "itemId": "4ce1c71647c8da4352eb117e5d2f1094",
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0005:unknown:cd7c88dbdfde5bcc",
+          "position": "右侧牌河从上数第2张为万子，但无法可靠辨认具体点数。",
+          "imageSha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135",
+          "originalImages": [
+            {
+              "path": "web-sources/v1/modern-yabejp-ja/assets/c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg",
+              "sha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135"
+            }
+          ],
+          "tiles": [
+            "9m"
+          ],
+          "orientation": "",
+          "timestamp": "2026-10-28T10:04:57.255Z",
+          "revision": 2,
+          "eventSha256": "ff8a1be9e06189c487559b4d5ea497a528edac2f64a6fa9009eb2f28ffb0eceb"
+        },
+        "contentDiffFields": [
+          "/figures/0/transcription",
+          "/figures/0/unknowns"
+        ],
+        "independentParentReceipt": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\0dae5b1a-76be-45d5-b2f0-410bc5853cb3.json",
+          "sha256": "426d49b11f72317b32fdf1b6b7a14ba6308ec8db9da9ae7706079933304eea3c",
+          "callId": "0dae5b1a-76be-45d5-b2f0-410bc5853cb3"
+        },
+        "bodyObjectSha256": "5f71c21d931c172127c1aafec77b401ca09f8eabd408c43ee907a32673dfed42",
+        "figureObjectSha256": "65b278a1f692ab370a91546c53fa6645059a39344d47c85fcbfcb3ebd52e081e",
+        "orderedContext": [
+          {
+            "position": 0,
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0001"
+            ],
+            "sha256": "c899dc7e4112d55ca292486d1d4553f802431b2e513b077d7e87e640ca0f30b5"
+          },
+          {
+            "position": 1,
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0002"
+            ],
+            "sha256": "61548592af4724382f259a44cf765e7e38f37963dc6e2a2fac71b7ce1834ba93"
+          },
+          {
+            "position": 2,
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0003"
+            ],
+            "sha256": "7a2a84114ab5ddf2d30661c8c90e95a94490defaa00700426b8802ac8a575447"
+          },
+          {
+            "position": 3,
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0004"
+            ],
+            "sha256": "1fe6c5562f0698a32a04fc60f2aa4998f21b4bcb5c44c8625b30610bedeadc7b"
+          },
+          {
+            "position": 4,
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0005"
+            ],
+            "sha256": "6ca16565905a557e96ca974029d5dc6ec5e9b60d795218f0ec567e92c5e0daa9"
+          },
+          {
+            "position": 5,
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0006"
+            ],
+            "sha256": "0ef1d11a865b1efb261143e22ec4371d86e84bc097a3b2df9e603b2a001637ce"
+          },
+          {
+            "position": 6,
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0007"
+            ],
+            "sha256": "ba3048e0cf88e0ebf144b24ca4bc8fff5c1d585995fed5a0781863f482384ec5"
+          },
+          {
+            "position": 7,
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0008"
+            ],
+            "sha256": "16cf793d1f366617109962e536639800f174a9d881273b177807b98b7033aa5e"
+          },
+          {
+            "position": 8,
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0009"
+            ],
+            "sha256": "e4b71675dd87f3e2ab0bd29697121f6f6b8f2503cf6e18df3fbffbe4156c7a12"
+          },
+          {
+            "position": 9,
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0010"
+            ],
+            "sha256": "01746af6adbe920a1296ff2264871d6588026a19fd6eae0484f2e6ef4454be00"
+          },
+          {
+            "position": 10,
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0011"
+            ],
+            "sha256": "790ff7407b6eb8ff5b51cfa9873230f83e11673b0bfe2f53af711978f0a423e2"
+          },
+          {
+            "position": 11,
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0012"
+            ],
+            "sha256": "50b90e68744b9ec49026fe87901a055cdbe0e0e0a010381ba21e39010a8c5b86"
+          },
+          {
+            "position": 12,
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0013"
+            ],
+            "sha256": "6aef9e8123be40eb744090b8f8ad6bc7f608933a9434ee40f4e8b81db3e8fd5e"
+          },
+          {
+            "position": 13,
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0014"
+            ],
+            "sha256": "ebfc7462441a2ee51e33c7e4488d9d62db767747817cac2690010c7b90f18929"
+          }
+        ],
+        "inheritedTargets": [
+          {
+            "id": "modern-yabejp-ja:chapter04-section012:b0002",
+            "verdict": "faithful",
+            "evidenceSha256": "876542b9b2ae15328bb9dfa9199065d81d8aa4b63dd9d2c7013d943b3a173049"
+          },
+          {
+            "id": "modern-yabejp-ja:chapter04-section012:b0004",
+            "verdict": "faithful",
+            "evidenceSha256": "808a8e17a38437786728aaff3cfd81cf6c783ee8fd82de7143cb3eb56c64131b"
+          }
+        ],
+        "inherited3sEvidence": {
+          "reviewTargetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+          "verdictPreserved": "uncertain",
+          "evidenceSha256": "fb30763229c47b24ac89d0e043990164fad4ea7acd557c94824a3a1e3b9c90de",
+          "specific3sFaithfulInOriginalEvidence": true
+        },
+        "remainingUnknowns": [
+          {
+            "path": "/figures/0/unknowns/0",
+            "text": "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+            "disposition": "nonblocking-with-limits",
+            "independentImpactSha256": "2ac21eaee96b6a1abfe5f0d9fdade4bdfe9ff7c5407e7db1128ab93daa67d540",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0004",
+              "modern-yabejp-ja:chapter04-section012:b0005",
+              "modern-yabejp-ja:chapter04-section012:b0006",
+              "modern-yabejp-ja:chapter04-section012:b0008",
+              "modern-yabejp-ja:chapter04-section012:b0010"
+            ]
+          },
+          {
+            "path": "/figures/0/unknowns/1",
+            "text": "中央分数周围的玩家名及段位小字无法完整可靠辨认。",
+            "disposition": "nonblocking-with-limits",
+            "independentImpactSha256": "f0e2c19c5fcac06a3e3f553e69ed1db624d27cbaef2da5b8a94995083fbf21b5",
+            "sourceBlockIds": [
+              "modern-yabejp-ja:chapter04-section012:b0004",
+              "modern-yabejp-ja:chapter04-section012:b0005",
+              "modern-yabejp-ja:chapter04-section012:b0006",
+              "modern-yabejp-ja:chapter04-section012:b0008",
+              "modern-yabejp-ja:chapter04-section012:b0010"
+            ]
+          }
+        ],
+        "displayProposal": {
+          "label": "审校限制（非原文）",
+          "anchor": {
+            "afterSourceBlock": "modern-yabejp-ja:chapter04-section012:b0005",
+            "beforeSourceBlock": "modern-yabejp-ja:chapter04-section012:b0006",
+            "figureSha256": "65b278a1f692ab370a91546c53fa6645059a39344d47c85fcbfcb3ebd52e081e"
+          },
+          "notes": [
+            "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+            "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+            "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+            "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+          ],
+          "installed": false,
+          "actualReadbackRequired": true
+        },
+        "resolvedTileHistoricalLimits": {
+          "independentImpactSha256": "5393c6c2621062a6ae15d9ef389ab13c7c571cc392394d8b86c412844af0d9b3",
+          "originalDisposition": "blocking",
+          "originalRequiredDisplayLimitations": [
+            "保留原图，并明确标示右侧牌河第二张万子的点数未知；不得猜测具体牌码或赤色情况。",
+            "不得将该图标示为已完成逐牌核验的完整牌例，也不得依据该未知牌给出牌数或效率结论。",
+            "可引用作者明示的策略，但须同时保留牌例仍有逐牌核验缺口的提示。"
+          ],
+          "preserved": true,
+          "newFactIsHuman9m": true,
+          "oldUnknownTextMustNotBeInstalledAsCurrentFact": true,
+          "applicationArgumentReviewRequired": true
+        },
+        "originalFalseAndIssues": {
+          "verificationSha256": "fa62031a52a0807bea95518c2787cbe8654d91f2cb7839b4cff1ac9cc7397cc9",
+          "issuesSha256": "50f5781e9a58770e4926e8a9903ad14e899e4c99d307dd48da67d1250eaa038c",
+          "modified": false
+        },
+        "semanticReviewAuthorized": false,
+        "admissionGranted": false,
+        "wholeChapterPassed": false,
+        "newModelCalls": 0
+      },
+      "actualExecutionVerified": true,
+      "independentApplicationFaithful": true,
+      "independentAuthorArgumentFaithful": true,
+      "conditionalLimitsSufficient": true,
+      "originalTechnicalLimitedUnknownOkay": false,
+      "originalIssues": [
+        {
+          "targetId": "nemata-jp-chapter-232-1",
+          "severity": "uncertain",
+          "description": "四条限制尚未安装，实际展示与读回验收仍待完成。",
+          "evidence": "displayProposal.installed=false、actualReadbackRequired=true。须以“审校限制（非原文）”在b0005之后、b0006之前逐字展示四条限制，并通过真实MCP/Arena读回确认文字、顺序、位置及两个当前unknown均正确呈现；本次未执行安装或读回。"
+        },
+        {
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+          "severity": "source-note",
+          "description": "父审的历史否定结果、uncertain及原始证据继续保留，与本次人标应用结论分开。",
+          "evidence": "原repairPassed=false、limitedUnknownOkay=false及图例verdict=uncertain不改写。原issue“右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。”仅作历史证据保留；其中旧点数未知不再描述当前右河第2张，当前采用用户输入9m。3s只继承，不重新判读；原semanticReviewAuthorized=false、admissionGranted=false及wholeChapterPassed=false也不据此改写。"
+        },
+        {
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0008",
+          "severity": "source-note",
+          "description": "既有source-note按父审继承。",
+          "evidence": "所供contextContinuity明确要求继承b0008既有source-note；本次不将其改判为翻译错误，也不重算作者数字。请求未提供该source-note全文，不补造其内容。"
+        }
+      ],
+      "originalVerification": {
+        "executionVerified": true,
+        "applicationPassed": true,
+        "authorArgumentFaithful": true,
+        "limitedUnknownOkay": false,
+        "wholeChapterPassed": false,
+        "modelReview": {
+          "applications": [
+            {
+              "itemId": "4ce1c71647c8da4352eb117e5d2f1094",
+              "faithful": true,
+              "evidence": "应用证据：接受用户观察的9m为输入事实。稳定targetId对应b0005右侧牌河从上第2张；当前有序转录为“8s 9m 7z 1z 5z 4z”，9m位置正确，当前unknowns已删除该位置的旧点数未知项，仅保留两个非牌码unknown。未从空orientation补推朝向或赤色情况。语义证据：顺序比对所供b0001至b0014及候选正文，标题、满贯技术的重要性及跳满以上成功率降低的理由均保留；b0002、b0004已确认译句及3s仅继承。b0004的下位反超风险条件，经b0005牌例接至b0006—b0010两处打白：风险低时尽量门清争取反超，与下位僅差时可鸣牌做食断，条件和分支未因右河9m改变。b0011保留三宝牌优先速度、宝牌对子可鸣、单张宝牌原则上保留及无宝牌先顺势推进、不强求两翻役的层次；b0012保留慢手且宝牌或役种不明确时考虑混一色、清一色，尤其适用于被下位反超风险低的条件；b0013—b0014参考说明及名次分保持对应。此为文字条件与论证一致性复核，没有图像验收或独立计分验算。"
+            }
+          ],
+          "authorArgumentFaithful": true,
+          "completeOrderedScopeCompared": true,
+          "inheritedCountConflictsAddressed": "采用所供机械核验结果，不重算：已知牌38→39，9m计数2→3，overFour前后均为空；手牌13、分开摸牌1、牌河24及宝牌指示牌1未变，无所供记录中的超四张冲突。该结果仅支持此次应用的记录一致性，不证明逐牌图像正确或作者计分前提已获独立验证。旧右河未知及其blocking限制作为历史保留，不再作为当前牌码事实或重新安装；原父审false、uncertain及raw证据不被此次结论覆写。",
+          "issues": [
+            {
+              "targetId": "nemata-jp-chapter-232-1",
+              "severity": "uncertain",
+              "description": "四条限制尚未安装，实际展示与读回验收仍待完成。",
+              "evidence": "displayProposal.installed=false、actualReadbackRequired=true。须以“审校限制（非原文）”在b0005之后、b0006之前逐字展示四条限制，并通过真实MCP/Arena读回确认文字、顺序、位置及两个当前unknown均正确呈现；本次未执行安装或读回。"
+            },
+            {
+              "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+              "severity": "source-note",
+              "description": "父审的历史否定结果、uncertain及原始证据继续保留，与本次人标应用结论分开。",
+              "evidence": "原repairPassed=false、limitedUnknownOkay=false及图例verdict=uncertain不改写。原issue“右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。”仅作历史证据保留；其中旧点数未知不再描述当前右河第2张，当前采用用户输入9m。3s只继承，不重新判读；原semanticReviewAuthorized=false、admissionGranted=false及wholeChapterPassed=false也不据此改写。"
+            },
+            {
+              "targetId": "modern-yabejp-ja:chapter04-section012:b0008",
+              "severity": "source-note",
+              "description": "既有source-note按父审继承。",
+              "evidence": "所供contextContinuity明确要求继承b0008既有source-note；本次不将其改判为翻译错误，也不重算作者数字。请求未提供该source-note全文，不补造其内容。"
+            }
+          ],
+          "unknownAndLimits": {
+            "unknownChecks": [
+              {
+                "unknownText": "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+                "sufficientWithLimits": true,
+                "evidence": "保留该unknown并实际展示前两条限制后，可记录两个未命名的0，同时阻止推定本场、供托身份或据此宣称完成计分验证。下位者无法反超仍仅作为作者明示前提，足以支持条件性策略的文字呈现。"
+              },
+              {
+                "unknownText": "中央分数周围的玩家名及段位小字无法完整可靠辨认。",
+                "sufficientWithLimits": true,
+                "evidence": "保留该unknown并实际展示后两条限制后，不补写身份或段位，也不据其推导结论。作者关于打白、门清争取反超及鸣牌食断的条件性论证不依赖这些小字。"
+              }
+            ],
+            "limitChecks": [
+              {
+                "limitText": "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+                "sufficient": true,
+                "evidence": "准确限制两个0的记录范围，并要求保留计数项目未知；与第二条共同使用时足够。当前仅为待安装文本。"
+              },
+              {
+                "limitText": "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+                "sufficient": true,
+                "evidence": "明确区分作者前提与独立计分验证，防止由未知图标身份推出已核实的名次结论。实际安装并遵守后足够，尚未完成展示验收。"
+              },
+              {
+                "limitText": "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+                "sufficient": true,
+                "evidence": "直接保留第二个unknown并禁止补写；与第四条共同使用时足以约束身份小字的不确定性。当前尚未安装。"
+              },
+              {
+                "limitText": "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。",
+                "sufficient": true,
+                "evidence": "将牌例说明限定于所供席位、分数及作者条件，排除身份或段位推论；不构成对图像或计分的重新验收。实际安装并遵守后足够。"
+              }
+            ],
+            "overallSufficient": true,
+            "requiresActualDisplayAndReadback": true
+          },
+          "evidenceBasis": {
+            "acceptedHumanFactUsed": true,
+            "noImagesCompared": true,
+            "mechanicalApplicationOnly": false,
+            "semanticArgumentReviewed": true,
+            "wholeChapterPassed": false
+          },
+          "summary": "右河从上第2张9m的人标应用忠实，所供完整有序文字中的条件及作者论证保持一致。两个当前unknown配合四条限制，在实际安装并遵守后足够；此为条件性充分性判断，四限制仍未安装，真实MCP/Arena展示与读回仍必需。此次不构成全章通过或准入。"
+        }
+      },
+      "sourcePositions": 14,
+      "figures": 3,
+      "unknowns": [
+        "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+        "中央分数周围的玩家名及段位小字无法完整可靠辨认。"
+      ],
+      "limits": [
+        "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+        "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+        "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+        "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+      ],
+      "label": "审校限制（非原文）",
+      "anchor": {
+        "afterSourceBlock": "modern-yabejp-ja:chapter04-section012:b0005",
+        "beforeSourceBlock": "modern-yabejp-ja:chapter04-section012:b0006",
+        "figureSha256": "65b278a1f692ab370a91546c53fa6645059a39344d47c85fcbfcb3ebd52e081e"
+      },
+      "sourceNoteB0008Preserved": true,
+      "noNewTileOrAuthorSemanticGap": true,
+      "installed": true,
+      "actualReadback": true,
+      "admissionGranted": false,
+      "wholeChapterPassed": false,
+      "loaderBoundary": {
+        "stageModule": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/stage-web-textbook.mjs",
+        "actualError": "web_stage_audit_identity",
+        "existing248Entry": "inspect(): deterministic application and old evidence metadata; no verifyLimited/stageLimited entry",
+        "missingExactContract": "232-only conditional evidence callback + display stage route, pinned to candidate/source/parent/human latest event/real raw and four non-author notes; preserve original false and all author content",
+        "owner": "COAC-244",
+        "notARequestForNewModel": true
+      },
+      "previewUnchanged": {
+        "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T11-15-39-549Z",
+        "corpusId": "e2fbd3aea58502937e15f2282e227a583e7eed231945ec347b7169208513257c",
+        "version": 40
+      },
+      "newModelCalls": 0,
+      "newProductionCalls": 0,
+      "historicalDedupeSnapshots": [
+        {
+          "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-da129fcb4aae\\worktree\\artifacts\\a249-232-human\\admission-0-preview.json",
+          "sha256": "e1762fd222864db2322f5f1de17ada43ed8301e9ec48071a0fc0f1d9a4172639",
+          "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+          "bytes": 6323335,
+          "replayed": false,
+          "reason": "Private historical dedupe snapshot intentionally excluded from249 archive; not a source/candidate/production/review dependency. Current pointer/register/selection are independently checked below."
+        },
+        {
+          "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-da129fcb4aae\\worktree\\artifacts\\a249-232-human\\admission-0-register.json",
+          "sha256": "93d224d96e8a8482eb65a7d09bc4365a6e5bd649af4c307b5c471ce9a8d2c452",
+          "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+          "bytes": 991846,
+          "replayed": false,
+          "reason": "Private historical dedupe snapshot intentionally excluded from249 archive; not a source/candidate/production/review dependency. Current pointer/register/selection are independently checked below."
+        },
+        {
+          "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-da129fcb4aae\\worktree\\artifacts\\a249-232-human\\admission-1-preview.json",
+          "sha256": "e1762fd222864db2322f5f1de17ada43ed8301e9ec48071a0fc0f1d9a4172639",
+          "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+          "bytes": 6323335,
+          "replayed": false,
+          "reason": "Private historical dedupe snapshot intentionally excluded from249 archive; not a source/candidate/production/review dependency. Current pointer/register/selection are independently checked below."
+        },
+        {
+          "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-da129fcb4aae\\worktree\\artifacts\\a249-232-human\\admission-1-register.json",
+          "sha256": "93d224d96e8a8482eb65a7d09bc4365a6e5bd649af4c307b5c471ce9a8d2c452",
+          "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+          "bytes": 991846,
+          "replayed": false,
+          "reason": "Private historical dedupe snapshot intentionally excluded from249 archive; not a source/candidate/production/review dependency. Current pointer/register/selection are independently checked below."
+        }
+      ],
+      "displayMapping": {
+        "candidate": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+          "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+        },
+        "bodySha256": "5f71c21d931c172127c1aafec77b401ca09f8eabd408c43ee907a32673dfed42",
+        "figureSha256": "65b278a1f692ab370a91546c53fa6645059a39344d47c85fcbfcb3ebd52e081e",
+        "anchor": {
+          "afterSourceBlock": "modern-yabejp-ja:chapter04-section012:b0005",
+          "beforeSourceBlock": "modern-yabejp-ja:chapter04-section012:b0006",
+          "figureSha256": "65b278a1f692ab370a91546c53fa6645059a39344d47c85fcbfcb3ebd52e081e"
+        },
+        "label": "审校限制（非原文）",
+        "notes": [
+          {
+            "id": "limited232-1",
+            "text": "【审校限制（非原文）1】只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+            "authorText": false
+          },
+          {
+            "id": "limited232-2",
+            "text": "【审校限制（非原文）2】不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+            "authorText": false
+          },
+          {
+            "id": "limited232-3",
+            "text": "【审校限制（非原文）3】保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+            "authorText": false
+          },
+          {
+            "id": "limited232-4",
+            "text": "【审校限制（非原文）4】只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。",
+            "authorText": false
+          }
+        ],
+        "unknowns": [
+          "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+          "中央分数周围的玩家名及段位小字无法完整可靠辨认。"
+        ],
+        "installed": false,
+        "actualReadback": false,
+        "authorBodyChanged": false,
+        "newModelCalls": 0
+      },
+      "ownerInterfaceRequest": "E:/AgentData/Coach/knowledge/processing/integration/coac250-232-human-display-interface-request-20261028.json",
+      "implementationGapResolvedBy": {
+        "module": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\admit.mjs",
+          "sha256": "535b27670e9608602b1a382c2cb68e4c6818fcfd0f523595d409d7bd1f0707ff"
+        },
+        "stage": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\stage.mjs",
+          "sha256": "4c6419d7662a313c1eef862b1fff7d58aeb6afc91b3bfef86815bf48182105da"
+        },
+        "manifest": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\manifest.json",
+          "sha256": "8330bcbd79d6721a3602b0484814ed786686240a9b590d92b657f217719e96f6"
+        },
+        "candidateSha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+      },
+      "limitedPresentationAcceptedAfterReadback": true,
+      "ordinaryWholeArticlePassed": false
+    },
+    "historicalBeforeHuman232IndependentIntake": {
+      "blockingIssues": [
+        {
+          "kind": "human-application-argument-review-and-exact-composition-pending",
+          "scope": "nemata-jp-chapter-232-1 / b0005右河第2张9m",
+          "description": "用户最终人标9m已依法确定性应用并通过24项负例；不再挂识字待办。旧false/uncertain保持。仅缺未获安排的纯文字应用/完整原文论证复核，随后两unknown四条非原文限制安装、合法组合及250实际读回。",
+          "evidence": {
+            "path": "integration/coac248-jp232-human-20261028/handoff.json",
+            "sha256": "d00d3d29b812bb3db34631b23b73f7884a69e671b9a79c308de431de9be2dd01",
+            "manifestSha256": "64302d7331baaa802614b1456d228c3b4d793a07fbff4d76049a0f33c49d2965"
+          },
+          "newModelCallAuthorized": false
+        }
+      ],
+      "nextAction": "既有244 owner仅零模型补此精确232 verify/stage与四条非原文显示slot，绑定当前9m人标事件及真实新raw/完整父链。独立应用、作者论证和条件性充分性已验真，无新牌码/语义缺口；保留原false/uncertain，不重新识9m、不重审旧译句/3s。250合法装配并真实MCP/Arena读全14块/3图/两unknown/四限制后才增加覆盖。"
+    },
+    "humanFinal232IndependentEvidence": {
+      "candidateSha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c",
+      "receiptSha256": "2280884a55df3ba010ceac36c5c4832deb2b4dc15b15f2e07d8db554a8f3a94c",
+      "callId": "d1640db7-8722-4d0d-bdba-da5c2ba54f84",
+      "applicationFaithful": true,
+      "authorArgumentFaithful": true,
+      "unknownAndLimitsSufficientWhenInstalled": true,
+      "originalTechnicalLimitedUnknownOkay": false,
+      "semanticScopeComplete": true,
+      "remainingUnknowns": 2,
+      "visibleLimitations": 4,
+      "installedByThisRun": false,
+      "newModelCallsThisRun": 0,
+      "newConsumerCreated": false,
+      "existing250Run": "01a1824a-58ab-79eb-bfb3-b07d11dba72e",
+      "evidence": {
+        "path": "integration/coac248-jp232-reviewed-intake-20261028/handoff.json",
+        "sha256": "7f46078c10abe9aa36cf0330c99d83687a2b3e9a01471d28c24f11066ef15a88",
+        "manifestSha256": "b33214e78b18c97b46b6426f441313255dd8383234da30012b4b0793a6b90415"
+      },
+      "displayImplementationVerified": true,
+      "actual250ReadbackPerformed": true,
+      "limitedPresentationAcceptedAfterReadback": true
+    },
+    "humanConditionalDisplayContract": {
+      "candidate": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+        "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+      },
+      "receipt": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-232-human-reviewed-20261028.json",
+        "sha256": "2280884a55df3ba010ceac36c5c4832deb2b4dc15b15f2e07d8db554a8f3a94c"
+      },
+      "handoff": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\handoff250.json",
+        "sha256": "4bbf1e98fa5231e24a203623a2d81f5f01f5e09d770b6be61e42e92769bf43ee"
+      },
+      "applicationAndArgumentIndependentlyFaithful": true,
+      "fourLimitsConditionallySufficient": true,
+      "originalTechnicalLimitedUnknownOkay": false,
+      "isolatedStageInstalledAndVerified": true,
+      "globalMcpArenaReadback": false,
+      "covered": false,
+      "newModelCalls": 0
+    },
+    "historyBefore232ConditionalDisplay": {
+      "blockingIssues": [
+        {
+          "kind": "conditional-display-installation-and-readback-only",
+          "scope": "nemata-jp-chapter-232-1 / b0005后-b0006前四条限制",
+          "description": "真实独审已确认9m应用、作者论证及两unknown/四限制实施后充分；唯一当前uncertain为限制未安装与MCP/Arena未读回，无新牌码或语义缺口，不追加模型。原technical false/issues/raw保持。",
+          "evidence": {
+            "path": "integration/coac248-jp232-reviewed-intake-20261028/handoff.json",
+            "sha256": "7f46078c10abe9aa36cf0330c99d83687a2b3e9a01471d28c24f11066ef15a88",
+            "manifestSha256": "b33214e78b18c97b46b6426f441313255dd8383234da30012b4b0793a6b90415"
+          }
+        }
+      ],
+      "effectiveBlockingIssues": [
+        {
+          "kind": "exact-232-display-contract-and-installation-pending",
+          "scope": "four non-author limits afterb0005 beforeb0006, two retained unknowns, full14-source/3-figure readback",
+          "owner": "COAC-244",
+          "stageError": "web_stage_audit_identity",
+          "newSemanticGap": false,
+          "notANewModelIssue": true,
+          "noAdditionalModelAuthorized": true
+        }
+      ],
+      "currentTargetEvidence": {
+        "key": "232",
+        "canonical": "nemata-jp-chapter-232-1",
+        "candidate": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+          "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb"
+        },
+        "source": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+          "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+          "bytes": 23933
+        },
+        "parent": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.display.json",
+          "sha256": "2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37",
+          "bytes": 35623
+        },
+        "parentAudit": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\articles\\modern-yabejp-ja\\chapter04-section012.2d04a0ecd6cd8fa5d0b2d5daa187c7ce7df1aa00482b56c7abb386383cbada37.json",
+          "sha256": "24293aa4da6b71079ed47600d45229e972e1f8b1256a9dcc573af827c05514f6",
+          "bytes": 21102
+        },
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\0dae5b1a-76be-45d5-b2f0-410bc5853cb3.json",
+          "sha256": "426d49b11f72317b32fdf1b6b7a14ba6308ec8db9da9ae7706079933304eea3c"
+        },
+        "refs": {
+          "receipt": {
+            "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-target-impact-reviewed-20261028.json",
+            "sha256": "5ed3b5117151b9cf5555d223d714131c5593f1f9042c6e91a9bb005a68fbb9ea"
+          },
+          "scope": {
+            "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-scope-inheritance-20261028.json",
+            "sha256": "5b951df43fbd4becb26d5d3767641cf5ae68db2f71875acf89d1d6668bb50324"
+          },
+          "display": {
+            "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-display-and-residual-20261028.json",
+            "sha256": "ec96eb728673aedb18fbaf9c8a801c7eb99b692690545311959577fddbc9071c"
+          }
+        },
+        "reviewer": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028/pair.mjs",
+          "sha256": "1b6579d6eed480d955d82bbad0279756d415421c1b5482a66d9d82c002c38909"
+        },
+        "runtime": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-224232-exact-v1-20261028\\runtime-manifest.json",
+          "sha256": "0d890d3bbfd3fe1dbe588f068e17de41312916c1d068d246d080d0ec6feaa973",
+          "files": 32
+        },
+        "orderedPairs": 14,
+        "images": [
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\assets\\c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg",
+            "sha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135",
+            "bytes": 58290
+          },
+          {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\reading-views\\28fabbcb7d66073c5c66f9829ffeb960108c8ae39abdc7638c500cc2c9e64528\\c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.x2.png",
+            "sha256": "aaf1ac188c4b7660d0f533c9eef0e6aac07d1b91a7c35f7c03c647b450ad1563",
+            "bytes": 346476
+          }
+        ],
+        "verification": {
+          "transportCompleted": true,
+          "repairPassed": false,
+          "limitedUnknownOkay": false,
+          "wholeChapterAccepted": false,
+          "modelReview": {
+            "targetChecks": [
+              {
+                "id": "modern-yabejp-ja:chapter04-section012:b0002",
+                "verdict": "faithful",
+                "evidence": "译文保留了不考虑打点、以最快和牌为目标的技术及其使用频率和成功率较高的理由。“確和了でも構わない”已译为以不改变当前名次的和牌结束比赛也无妨，未误作确保能够和牌；平均四次一次及判断技术7链接也保留。"
+              },
+              {
+                "id": "modern-yabejp-ja:chapter04-section012:b0004",
+                "verdict": "faithful",
+                "evidence": "译文保留第二名自摸满贯可升第一、但与第三及第四名分差很小的条件；起手牌或摸牌有利时争取反超，否则追求最快和牌。下位者自摸满贯仍不改变名次时尽量争取反超，以及庄家优先一次反超的判断均保留。"
+              },
+              {
+                "id": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+                "verdict": "uncertain",
+                "evidence": "本家手牌从左数第7张已正确修为3s，分开的摸入牌仍为3p；可见席位分数及牌例与原图一致。右侧牌河第二张仍只标为点数无法辨认的万子，原审对该逐牌缺口的阻断尚未解除。"
+              }
+            ],
+            "unknownImpacts": [
+              {
+                "unknownText": "右侧牌河从上数第2张为万子，但无法可靠辨认具体点数。",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter04-section012:b0004",
+                  "modern-yabejp-ja:chapter04-section012:b0005",
+                  "modern-yabejp-ja:chapter04-section012:b0006",
+                  "modern-yabejp-ja:chapter04-section012:b0007",
+                  "modern-yabejp-ja:chapter04-section012:b0008",
+                  "modern-yabejp-ja:chapter04-section012:b0009",
+                  "modern-yabejp-ja:chapter04-section012:b0010"
+                ],
+                "authorClaim": "作者借牌例说明：下位者自摸满贯也无法反超时，打白并尽量门清争取反超；与下位者分差很小时，同样打白，但可鸣牌做食断。图中的可见牌还承载牌型分析。",
+                "disposition": "blocking",
+                "evidence": "该未知不改写作者明示的名次条件或打白建议，但阻断右侧牌河的完整逐牌核对，以及任何依赖该张点数或赤色情况的可见牌数量和牌效率结论。父审要求该缺口确认前保持阻断。",
+                "requiredDisplayLimitations": [
+                  "保留原图，并明确标示右侧牌河第二张万子的点数未知；不得猜测具体牌码或赤色情况。",
+                  "不得将该图标示为已完成逐牌核验的完整牌例，也不得依据该未知牌给出牌数或效率结论。",
+                  "可引用作者明示的策略，但须同时保留牌例仍有逐牌核验缺口的提示。"
+                ]
+              },
+              {
+                "unknownText": "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter04-section012:b0004",
+                  "modern-yabejp-ja:chapter04-section012:b0005",
+                  "modern-yabejp-ja:chapter04-section012:b0006",
+                  "modern-yabejp-ja:chapter04-section012:b0008",
+                  "modern-yabejp-ja:chapter04-section012:b0010"
+                ],
+                "authorClaim": "作者根据名次及下位者自摸满贯是否会反超，区分争取反超和优先快速和牌的做牌路线；图例用于说明该判断。",
+                "disposition": "nonblocking-with-limits",
+                "evidence": "图中可记录两个显示为0的计数，但小图标的身份未确认，不能据此确定各自对应的计数项目。作者给出的名次条件和策略仍可作为原文判断呈现。",
+                "requiredDisplayLimitations": [
+                  "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+                  "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。"
+                ]
+              },
+              {
+                "unknownText": "中央分数周围的玩家名及段位小字无法完整可靠辨认。",
+                "sourceBlockIds": [
+                  "modern-yabejp-ja:chapter04-section012:b0004",
+                  "modern-yabejp-ja:chapter04-section012:b0005",
+                  "modern-yabejp-ja:chapter04-section012:b0006",
+                  "modern-yabejp-ja:chapter04-section012:b0008",
+                  "modern-yabejp-ja:chapter04-section012:b0010"
+                ],
+                "authorClaim": "作者以席位、分数、手牌和名次条件说明打白及不同分差下的做牌选择，并不依赖玩家姓名或段位。",
+                "disposition": "nonblocking-with-limits",
+                "evidence": "玩家名及段位小字未能完整辨认，不影响按图中可见席位与分数呈现作者的条件性策略；但不能据此补写玩家身份或段位。",
+                "requiredDisplayLimitations": [
+                  "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+                  "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+                ]
+              }
+            ],
+            "contextContinuity": {
+              "verdict": "faithful",
+              "evidence": "按顺序连读后，b0004先区分下位反超风险，图例展示本家及各席分数，b0006至b0010通过两处打白分别说明门清争取反超与鸣牌食断。未改文本和非目标图沿用父审；b0008的既有source-note按原审继承，不改判为翻译错误或重算作者数字。图例的未知牌仍按父审保持阻断。"
+            },
+            "issues": [
+              {
+                "severity": "uncertain",
+                "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+                "description": "右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。",
+                "sourceEvidence": "原图右侧牌河从上数第二张可辨为万子；候选保留“［万子，点数无法辨认］”。原审要求可靠确认前保持阻断。"
+              }
+            ],
+            "scopeComplete": "yes",
+            "summary": "两个目标文本修订忠实，本家3s已修正。图例的右侧未知万子仍阻断完整逐牌核验；其余未知项可在明确限制下展示。未改范围继承父审，本次不宣告整章通过。"
+          }
+        },
+        "facts": {
+          "twoTextTargetsFaithful": true,
+          "hand3sRepairExplicitlyCorrectInRaw": true,
+          "wholeFigureTargetStillUncertain": true,
+          "rightRiverSecondManzuUnknownStillBlocking": true,
+          "remainingUnknownLimitsNotInstalled": true,
+          "originalStrictFalsePreserved": true,
+          "admissionGranted": false
+        },
+        "modelReview": {
+          "targetChecks": [
+            {
+              "id": "modern-yabejp-ja:chapter04-section012:b0002",
+              "verdict": "faithful",
+              "evidence": "译文保留了不考虑打点、以最快和牌为目标的技术及其使用频率和成功率较高的理由。“確和了でも構わない”已译为以不改变当前名次的和牌结束比赛也无妨，未误作确保能够和牌；平均四次一次及判断技术7链接也保留。"
+            },
+            {
+              "id": "modern-yabejp-ja:chapter04-section012:b0004",
+              "verdict": "faithful",
+              "evidence": "译文保留第二名自摸满贯可升第一、但与第三及第四名分差很小的条件；起手牌或摸牌有利时争取反超，否则追求最快和牌。下位者自摸满贯仍不改变名次时尽量争取反超，以及庄家优先一次反超的判断均保留。"
+            },
+            {
+              "id": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+              "verdict": "uncertain",
+              "evidence": "本家手牌从左数第7张已正确修为3s，分开的摸入牌仍为3p；可见席位分数及牌例与原图一致。右侧牌河第二张仍只标为点数无法辨认的万子，原审对该逐牌缺口的阻断尚未解除。"
+            }
+          ],
+          "unknownImpacts": [
+            {
+              "unknownText": "右侧牌河从上数第2张为万子，但无法可靠辨认具体点数。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0004",
+                "modern-yabejp-ja:chapter04-section012:b0005",
+                "modern-yabejp-ja:chapter04-section012:b0006",
+                "modern-yabejp-ja:chapter04-section012:b0007",
+                "modern-yabejp-ja:chapter04-section012:b0008",
+                "modern-yabejp-ja:chapter04-section012:b0009",
+                "modern-yabejp-ja:chapter04-section012:b0010"
+              ],
+              "authorClaim": "作者借牌例说明：下位者自摸满贯也无法反超时，打白并尽量门清争取反超；与下位者分差很小时，同样打白，但可鸣牌做食断。图中的可见牌还承载牌型分析。",
+              "disposition": "blocking",
+              "evidence": "该未知不改写作者明示的名次条件或打白建议，但阻断右侧牌河的完整逐牌核对，以及任何依赖该张点数或赤色情况的可见牌数量和牌效率结论。父审要求该缺口确认前保持阻断。",
+              "requiredDisplayLimitations": [
+                "保留原图，并明确标示右侧牌河第二张万子的点数未知；不得猜测具体牌码或赤色情况。",
+                "不得将该图标示为已完成逐牌核验的完整牌例，也不得依据该未知牌给出牌数或效率结论。",
+                "可引用作者明示的策略，但须同时保留牌例仍有逐牌核验缺口的提示。"
+              ]
+            },
+            {
+              "unknownText": "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0004",
+                "modern-yabejp-ja:chapter04-section012:b0005",
+                "modern-yabejp-ja:chapter04-section012:b0006",
+                "modern-yabejp-ja:chapter04-section012:b0008",
+                "modern-yabejp-ja:chapter04-section012:b0010"
+              ],
+              "authorClaim": "作者根据名次及下位者自摸满贯是否会反超，区分争取反超和优先快速和牌的做牌路线；图例用于说明该判断。",
+              "disposition": "nonblocking-with-limits",
+              "evidence": "图中可记录两个显示为0的计数，但小图标的身份未确认，不能据此确定各自对应的计数项目。作者给出的名次条件和策略仍可作为原文判断呈现。",
+              "requiredDisplayLimitations": [
+                "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+                "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。"
+              ]
+            },
+            {
+              "unknownText": "中央分数周围的玩家名及段位小字无法完整可靠辨认。",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0004",
+                "modern-yabejp-ja:chapter04-section012:b0005",
+                "modern-yabejp-ja:chapter04-section012:b0006",
+                "modern-yabejp-ja:chapter04-section012:b0008",
+                "modern-yabejp-ja:chapter04-section012:b0010"
+              ],
+              "authorClaim": "作者以席位、分数、手牌和名次条件说明打白及不同分差下的做牌选择，并不依赖玩家姓名或段位。",
+              "disposition": "nonblocking-with-limits",
+              "evidence": "玩家名及段位小字未能完整辨认，不影响按图中可见席位与分数呈现作者的条件性策略；但不能据此补写玩家身份或段位。",
+              "requiredDisplayLimitations": [
+                "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+                "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+              ]
+            }
+          ],
+          "contextContinuity": {
+            "verdict": "faithful",
+            "evidence": "按顺序连读后，b0004先区分下位反超风险，图例展示本家及各席分数，b0006至b0010通过两处打白分别说明门清争取反超与鸣牌食断。未改文本和非目标图沿用父审；b0008的既有source-note按原审继承，不改判为翻译错误或重算作者数字。图例的未知牌仍按父审保持阻断。"
+          },
+          "issues": [
+            {
+              "severity": "uncertain",
+              "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+              "description": "右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。",
+              "sourceEvidence": "原图右侧牌河从上数第二张可辨为万子；候选保留“［万子，点数无法辨认］”。原审要求可靠确认前保持阻断。"
+            }
+          ],
+          "scopeComplete": "yes",
+          "summary": "两个目标文本修订忠实，本家3s已修正。图例的右侧未知万子仍阻断完整逐牌核验；其余未知项可在明确限制下展示。未改范围继承父审，本次不宣告整章通过。"
+        },
+        "originalStatus": "needs-repair-or-uncertain",
+        "requiredDisplayLimitations": [
+          "保留原图，并明确标示右侧牌河第二张万子的点数未知；不得猜测具体牌码或赤色情况。",
+          "不得将该图标示为已完成逐牌核验的完整牌例，也不得依据该未知牌给出牌数或效率结论。",
+          "可引用作者明示的策略，但须同时保留牌例仍有逐牌核验缺口的提示。",
+          "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+          "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+          "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+          "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+        ],
+        "historicalObservations": [
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-a2c2cdc48b56\\worktree\\artifacts\\a249-213-224232\\232\\admission-0-preview.json",
+            "sha256": "2db05389143a2ef2580d348b892403b48a769c812fdcff6764a191521965fbf0",
+            "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+            "bytes": 6314871
+          },
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-a2c2cdc48b56\\worktree\\artifacts\\a249-213-224232\\232\\admission-0-register.json",
+            "sha256": "ff68bc08229c88f747366ec13a5841b2c5f2ee8e8bd2e44d1c485d3f3f552063",
+            "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+            "bytes": 691861
+          },
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-a2c2cdc48b56\\worktree\\artifacts\\a249-213-224232\\232\\admission-1-preview.json",
+            "sha256": "2db05389143a2ef2580d348b892403b48a769c812fdcff6764a191521965fbf0",
+            "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+            "bytes": 6314871
+          },
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-a2c2cdc48b56\\worktree\\artifacts\\a249-213-224232\\232\\admission-1-register.json",
+            "sha256": "ff68bc08229c88f747366ec13a5841b2c5f2ee8e8bd2e44d1c485d3f3f552063",
+            "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+            "bytes": 691861
+          }
+        ],
+        "displayImplementationVerified": false,
+        "actual250ReadbackPerformed": false,
+        "admissionGranted": false,
+        "wholeChapterPassed": false,
+        "newModelCalls": 0,
+        "residual": {
+          "kind": "unresolved-original-figure-scope",
+          "scope": "modern-yabejp-ja:chapter04-section012:b0005:figure / 右侧牌河第2张万子",
+          "description": "b0002、b0004真实faithful；原raw明确3s修订正确，但整图靶仍uncertain，首项unknownImpact为blocking。右侧万子点数/赤色情况及依赖它的逐牌/数量/效率核验未覆盖。另两未知仅可在7条实际限制下展示。",
+          "nextAction": "保留真实未通过和未知；原2/2额度耗尽，不再制作/识图/审校。现有owner只核后续是否有精确合法补充scope，未有时维持未准入；不因文字/3s正确自动合章。"
+        },
+        "disposition": "verified-exact-evidence-only-not-admitted"
+      },
+      "nextAction": "复用250同SHA/receipt现有接收run，依法组合原父链及真实条件性证据，安装四条“审校限制（非原文）”后真实MCP/Arena读回；不再挂语义/识字审，不新增消费者或模型。缺精确loader仅由现有244零模型适配。",
+      "human232ConditionalIntake": {
+        "schema": "coac250-exact232-human-conditional-intake/1",
+        "recordedAt": "2026-10-28T11:40:02.434Z",
+        "canonical": "nemata-jp-chapter-232-1",
+        "candidate": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+          "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+        },
+        "source": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+          "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+          "bytes": 23933
+        },
+        "parent": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+          "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb"
+        },
+        "receipt": {
+          "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-232-human-reviewed-20261028.json",
+          "sha256": "2280884a55df3ba010ceac36c5c4832deb2b4dc15b15f2e07d8db554a8f3a94c"
+        },
+        "raw": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d1640db7-8722-4d0d-bdba-da5c2ba54f84.json",
+          "sha256": "f84280661530678891d4d11ab4c00ff0b4f3542c435ed5e3b8716af8ac8ccd7b"
+        },
+        "applicationMap": {
+          "schema": "coac248-232-human-application-map/1",
+          "canonical": "nemata-jp-chapter-232-1",
+          "candidate": {
+            "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+            "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+          },
+          "parent": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+            "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb"
+          },
+          "source": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+            "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+            "bytes": 23933
+          },
+          "acceptedHumanFact": {
+            "itemId": "4ce1c71647c8da4352eb117e5d2f1094",
+            "targetId": "modern-yabejp-ja:chapter04-section012:b0005:unknown:cd7c88dbdfde5bcc",
+            "position": "右侧牌河从上数第2张为万子，但无法可靠辨认具体点数。",
+            "imageSha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135",
+            "originalImages": [
+              {
+                "path": "web-sources/v1/modern-yabejp-ja/assets/c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg",
+                "sha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135"
+              }
+            ],
+            "tiles": [
+              "9m"
+            ],
+            "orientation": "",
+            "timestamp": "2026-10-28T10:04:57.255Z",
+            "revision": 2,
+            "eventSha256": "ff8a1be9e06189c487559b4d5ea497a528edac2f64a6fa9009eb2f28ffb0eceb"
+          },
+          "contentDiffFields": [
+            "/figures/0/transcription",
+            "/figures/0/unknowns"
+          ],
+          "independentParentReceipt": {
+            "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\0dae5b1a-76be-45d5-b2f0-410bc5853cb3.json",
+            "sha256": "426d49b11f72317b32fdf1b6b7a14ba6308ec8db9da9ae7706079933304eea3c",
+            "callId": "0dae5b1a-76be-45d5-b2f0-410bc5853cb3"
+          },
+          "bodyObjectSha256": "5f71c21d931c172127c1aafec77b401ca09f8eabd408c43ee907a32673dfed42",
+          "figureObjectSha256": "65b278a1f692ab370a91546c53fa6645059a39344d47c85fcbfcb3ebd52e081e",
+          "orderedContext": [
+            {
+              "position": 0,
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0001"
+              ],
+              "sha256": "c899dc7e4112d55ca292486d1d4553f802431b2e513b077d7e87e640ca0f30b5"
+            },
+            {
+              "position": 1,
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0002"
+              ],
+              "sha256": "61548592af4724382f259a44cf765e7e38f37963dc6e2a2fac71b7ce1834ba93"
+            },
+            {
+              "position": 2,
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0003"
+              ],
+              "sha256": "7a2a84114ab5ddf2d30661c8c90e95a94490defaa00700426b8802ac8a575447"
+            },
+            {
+              "position": 3,
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0004"
+              ],
+              "sha256": "1fe6c5562f0698a32a04fc60f2aa4998f21b4bcb5c44c8625b30610bedeadc7b"
+            },
+            {
+              "position": 4,
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0005"
+              ],
+              "sha256": "6ca16565905a557e96ca974029d5dc6ec5e9b60d795218f0ec567e92c5e0daa9"
+            },
+            {
+              "position": 5,
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0006"
+              ],
+              "sha256": "0ef1d11a865b1efb261143e22ec4371d86e84bc097a3b2df9e603b2a001637ce"
+            },
+            {
+              "position": 6,
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0007"
+              ],
+              "sha256": "ba3048e0cf88e0ebf144b24ca4bc8fff5c1d585995fed5a0781863f482384ec5"
+            },
+            {
+              "position": 7,
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0008"
+              ],
+              "sha256": "16cf793d1f366617109962e536639800f174a9d881273b177807b98b7033aa5e"
+            },
+            {
+              "position": 8,
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0009"
+              ],
+              "sha256": "e4b71675dd87f3e2ab0bd29697121f6f6b8f2503cf6e18df3fbffbe4156c7a12"
+            },
+            {
+              "position": 9,
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0010"
+              ],
+              "sha256": "01746af6adbe920a1296ff2264871d6588026a19fd6eae0484f2e6ef4454be00"
+            },
+            {
+              "position": 10,
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0011"
+              ],
+              "sha256": "790ff7407b6eb8ff5b51cfa9873230f83e11673b0bfe2f53af711978f0a423e2"
+            },
+            {
+              "position": 11,
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0012"
+              ],
+              "sha256": "50b90e68744b9ec49026fe87901a055cdbe0e0e0a010381ba21e39010a8c5b86"
+            },
+            {
+              "position": 12,
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0013"
+              ],
+              "sha256": "6aef9e8123be40eb744090b8f8ad6bc7f608933a9434ee40f4e8b81db3e8fd5e"
+            },
+            {
+              "position": 13,
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0014"
+              ],
+              "sha256": "ebfc7462441a2ee51e33c7e4488d9d62db767747817cac2690010c7b90f18929"
+            }
+          ],
+          "inheritedTargets": [
+            {
+              "id": "modern-yabejp-ja:chapter04-section012:b0002",
+              "verdict": "faithful",
+              "evidenceSha256": "876542b9b2ae15328bb9dfa9199065d81d8aa4b63dd9d2c7013d943b3a173049"
+            },
+            {
+              "id": "modern-yabejp-ja:chapter04-section012:b0004",
+              "verdict": "faithful",
+              "evidenceSha256": "808a8e17a38437786728aaff3cfd81cf6c783ee8fd82de7143cb3eb56c64131b"
+            }
+          ],
+          "inherited3sEvidence": {
+            "reviewTargetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+            "verdictPreserved": "uncertain",
+            "evidenceSha256": "fb30763229c47b24ac89d0e043990164fad4ea7acd557c94824a3a1e3b9c90de",
+            "specific3sFaithfulInOriginalEvidence": true
+          },
+          "remainingUnknowns": [
+            {
+              "path": "/figures/0/unknowns/0",
+              "text": "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+              "disposition": "nonblocking-with-limits",
+              "independentImpactSha256": "2ac21eaee96b6a1abfe5f0d9fdade4bdfe9ff7c5407e7db1128ab93daa67d540",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0004",
+                "modern-yabejp-ja:chapter04-section012:b0005",
+                "modern-yabejp-ja:chapter04-section012:b0006",
+                "modern-yabejp-ja:chapter04-section012:b0008",
+                "modern-yabejp-ja:chapter04-section012:b0010"
+              ]
+            },
+            {
+              "path": "/figures/0/unknowns/1",
+              "text": "中央分数周围的玩家名及段位小字无法完整可靠辨认。",
+              "disposition": "nonblocking-with-limits",
+              "independentImpactSha256": "f0e2c19c5fcac06a3e3f553e69ed1db624d27cbaef2da5b8a94995083fbf21b5",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0004",
+                "modern-yabejp-ja:chapter04-section012:b0005",
+                "modern-yabejp-ja:chapter04-section012:b0006",
+                "modern-yabejp-ja:chapter04-section012:b0008",
+                "modern-yabejp-ja:chapter04-section012:b0010"
+              ]
+            }
+          ],
+          "displayProposal": {
+            "label": "审校限制（非原文）",
+            "anchor": {
+              "afterSourceBlock": "modern-yabejp-ja:chapter04-section012:b0005",
+              "beforeSourceBlock": "modern-yabejp-ja:chapter04-section012:b0006",
+              "figureSha256": "65b278a1f692ab370a91546c53fa6645059a39344d47c85fcbfcb3ebd52e081e"
+            },
+            "notes": [
+              "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+              "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+              "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+              "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+            ],
+            "installed": false,
+            "actualReadbackRequired": true
+          },
+          "resolvedTileHistoricalLimits": {
+            "independentImpactSha256": "5393c6c2621062a6ae15d9ef389ab13c7c571cc392394d8b86c412844af0d9b3",
+            "originalDisposition": "blocking",
+            "originalRequiredDisplayLimitations": [
+              "保留原图，并明确标示右侧牌河第二张万子的点数未知；不得猜测具体牌码或赤色情况。",
+              "不得将该图标示为已完成逐牌核验的完整牌例，也不得依据该未知牌给出牌数或效率结论。",
+              "可引用作者明示的策略，但须同时保留牌例仍有逐牌核验缺口的提示。"
+            ],
+            "preserved": true,
+            "newFactIsHuman9m": true,
+            "oldUnknownTextMustNotBeInstalledAsCurrentFact": true,
+            "applicationArgumentReviewRequired": true
+          },
+          "originalFalseAndIssues": {
+            "verificationSha256": "fa62031a52a0807bea95518c2787cbe8654d91f2cb7839b4cff1ac9cc7397cc9",
+            "issuesSha256": "50f5781e9a58770e4926e8a9903ad14e899e4c99d307dd48da67d1250eaa038c",
+            "modified": false
+          },
+          "semanticReviewAuthorized": false,
+          "admissionGranted": false,
+          "wholeChapterPassed": false,
+          "newModelCalls": 0
+        },
+        "actualExecutionVerified": true,
+        "independentApplicationFaithful": true,
+        "independentAuthorArgumentFaithful": true,
+        "conditionalLimitsSufficient": true,
+        "originalTechnicalLimitedUnknownOkay": false,
+        "originalIssues": [
+          {
+            "targetId": "nemata-jp-chapter-232-1",
+            "severity": "uncertain",
+            "description": "四条限制尚未安装，实际展示与读回验收仍待完成。",
+            "evidence": "displayProposal.installed=false、actualReadbackRequired=true。须以“审校限制（非原文）”在b0005之后、b0006之前逐字展示四条限制，并通过真实MCP/Arena读回确认文字、顺序、位置及两个当前unknown均正确呈现；本次未执行安装或读回。"
+          },
+          {
+            "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+            "severity": "source-note",
+            "description": "父审的历史否定结果、uncertain及原始证据继续保留，与本次人标应用结论分开。",
+            "evidence": "原repairPassed=false、limitedUnknownOkay=false及图例verdict=uncertain不改写。原issue“右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。”仅作历史证据保留；其中旧点数未知不再描述当前右河第2张，当前采用用户输入9m。3s只继承，不重新判读；原semanticReviewAuthorized=false、admissionGranted=false及wholeChapterPassed=false也不据此改写。"
+          },
+          {
+            "targetId": "modern-yabejp-ja:chapter04-section012:b0008",
+            "severity": "source-note",
+            "description": "既有source-note按父审继承。",
+            "evidence": "所供contextContinuity明确要求继承b0008既有source-note；本次不将其改判为翻译错误，也不重算作者数字。请求未提供该source-note全文，不补造其内容。"
+          }
+        ],
+        "originalVerification": {
+          "executionVerified": true,
+          "applicationPassed": true,
+          "authorArgumentFaithful": true,
+          "limitedUnknownOkay": false,
+          "wholeChapterPassed": false,
+          "modelReview": {
+            "applications": [
+              {
+                "itemId": "4ce1c71647c8da4352eb117e5d2f1094",
+                "faithful": true,
+                "evidence": "应用证据：接受用户观察的9m为输入事实。稳定targetId对应b0005右侧牌河从上第2张；当前有序转录为“8s 9m 7z 1z 5z 4z”，9m位置正确，当前unknowns已删除该位置的旧点数未知项，仅保留两个非牌码unknown。未从空orientation补推朝向或赤色情况。语义证据：顺序比对所供b0001至b0014及候选正文，标题、满贯技术的重要性及跳满以上成功率降低的理由均保留；b0002、b0004已确认译句及3s仅继承。b0004的下位反超风险条件，经b0005牌例接至b0006—b0010两处打白：风险低时尽量门清争取反超，与下位僅差时可鸣牌做食断，条件和分支未因右河9m改变。b0011保留三宝牌优先速度、宝牌对子可鸣、单张宝牌原则上保留及无宝牌先顺势推进、不强求两翻役的层次；b0012保留慢手且宝牌或役种不明确时考虑混一色、清一色，尤其适用于被下位反超风险低的条件；b0013—b0014参考说明及名次分保持对应。此为文字条件与论证一致性复核，没有图像验收或独立计分验算。"
+              }
+            ],
+            "authorArgumentFaithful": true,
+            "completeOrderedScopeCompared": true,
+            "inheritedCountConflictsAddressed": "采用所供机械核验结果，不重算：已知牌38→39，9m计数2→3，overFour前后均为空；手牌13、分开摸牌1、牌河24及宝牌指示牌1未变，无所供记录中的超四张冲突。该结果仅支持此次应用的记录一致性，不证明逐牌图像正确或作者计分前提已获独立验证。旧右河未知及其blocking限制作为历史保留，不再作为当前牌码事实或重新安装；原父审false、uncertain及raw证据不被此次结论覆写。",
+            "issues": [
+              {
+                "targetId": "nemata-jp-chapter-232-1",
+                "severity": "uncertain",
+                "description": "四条限制尚未安装，实际展示与读回验收仍待完成。",
+                "evidence": "displayProposal.installed=false、actualReadbackRequired=true。须以“审校限制（非原文）”在b0005之后、b0006之前逐字展示四条限制，并通过真实MCP/Arena读回确认文字、顺序、位置及两个当前unknown均正确呈现；本次未执行安装或读回。"
+              },
+              {
+                "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+                "severity": "source-note",
+                "description": "父审的历史否定结果、uncertain及原始证据继续保留，与本次人标应用结论分开。",
+                "evidence": "原repairPassed=false、limitedUnknownOkay=false及图例verdict=uncertain不改写。原issue“右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。”仅作历史证据保留；其中旧点数未知不再描述当前右河第2张，当前采用用户输入9m。3s只继承，不重新判读；原semanticReviewAuthorized=false、admissionGranted=false及wholeChapterPassed=false也不据此改写。"
+              },
+              {
+                "targetId": "modern-yabejp-ja:chapter04-section012:b0008",
+                "severity": "source-note",
+                "description": "既有source-note按父审继承。",
+                "evidence": "所供contextContinuity明确要求继承b0008既有source-note；本次不将其改判为翻译错误，也不重算作者数字。请求未提供该source-note全文，不补造其内容。"
+              }
+            ],
+            "unknownAndLimits": {
+              "unknownChecks": [
+                {
+                  "unknownText": "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+                  "sufficientWithLimits": true,
+                  "evidence": "保留该unknown并实际展示前两条限制后，可记录两个未命名的0，同时阻止推定本场、供托身份或据此宣称完成计分验证。下位者无法反超仍仅作为作者明示前提，足以支持条件性策略的文字呈现。"
+                },
+                {
+                  "unknownText": "中央分数周围的玩家名及段位小字无法完整可靠辨认。",
+                  "sufficientWithLimits": true,
+                  "evidence": "保留该unknown并实际展示后两条限制后，不补写身份或段位，也不据其推导结论。作者关于打白、门清争取反超及鸣牌食断的条件性论证不依赖这些小字。"
+                }
+              ],
+              "limitChecks": [
+                {
+                  "limitText": "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+                  "sufficient": true,
+                  "evidence": "准确限制两个0的记录范围，并要求保留计数项目未知；与第二条共同使用时足够。当前仅为待安装文本。"
+                },
+                {
+                  "limitText": "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+                  "sufficient": true,
+                  "evidence": "明确区分作者前提与独立计分验证，防止由未知图标身份推出已核实的名次结论。实际安装并遵守后足够，尚未完成展示验收。"
+                },
+                {
+                  "limitText": "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+                  "sufficient": true,
+                  "evidence": "直接保留第二个unknown并禁止补写；与第四条共同使用时足以约束身份小字的不确定性。当前尚未安装。"
+                },
+                {
+                  "limitText": "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。",
+                  "sufficient": true,
+                  "evidence": "将牌例说明限定于所供席位、分数及作者条件，排除身份或段位推论；不构成对图像或计分的重新验收。实际安装并遵守后足够。"
+                }
+              ],
+              "overallSufficient": true,
+              "requiresActualDisplayAndReadback": true
+            },
+            "evidenceBasis": {
+              "acceptedHumanFactUsed": true,
+              "noImagesCompared": true,
+              "mechanicalApplicationOnly": false,
+              "semanticArgumentReviewed": true,
+              "wholeChapterPassed": false
+            },
+            "summary": "右河从上第2张9m的人标应用忠实，所供完整有序文字中的条件及作者论证保持一致。两个当前unknown配合四条限制，在实际安装并遵守后足够；此为条件性充分性判断，四限制仍未安装，真实MCP/Arena展示与读回仍必需。此次不构成全章通过或准入。"
+          }
+        },
+        "sourcePositions": 14,
+        "figures": 3,
+        "unknowns": [
+          "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+          "中央分数周围的玩家名及段位小字无法完整可靠辨认。"
+        ],
+        "limits": [
+          "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+          "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+          "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+          "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+        ],
+        "label": "审校限制（非原文）",
+        "anchor": {
+          "afterSourceBlock": "modern-yabejp-ja:chapter04-section012:b0005",
+          "beforeSourceBlock": "modern-yabejp-ja:chapter04-section012:b0006",
+          "figureSha256": "65b278a1f692ab370a91546c53fa6645059a39344d47c85fcbfcb3ebd52e081e"
+        },
+        "sourceNoteB0008Preserved": true,
+        "noNewTileOrAuthorSemanticGap": true,
+        "installed": false,
+        "actualReadback": false,
+        "admissionGranted": false,
+        "wholeChapterPassed": false,
+        "loaderBoundary": {
+          "stageModule": "E:/AgentWorkspaces/Coach/mortal-rag-ablation/coach/scripts/textbook-processing/stage-web-textbook.mjs",
+          "actualError": "web_stage_audit_identity",
+          "existing248Entry": "inspect(): deterministic application and old evidence metadata; no verifyLimited/stageLimited entry",
+          "missingExactContract": "232-only conditional evidence callback + display stage route, pinned to candidate/source/parent/human latest event/real raw and four non-author notes; preserve original false and all author content",
+          "owner": "COAC-244",
+          "notARequestForNewModel": true
+        },
+        "previewUnchanged": {
+          "output": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T11-15-39-549Z",
+          "corpusId": "e2fbd3aea58502937e15f2282e227a583e7eed231945ec347b7169208513257c",
+          "version": 40
+        },
+        "newModelCalls": 0,
+        "newProductionCalls": 0,
+        "historicalDedupeSnapshots": [
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-da129fcb4aae\\worktree\\artifacts\\a249-232-human\\admission-0-preview.json",
+            "sha256": "e1762fd222864db2322f5f1de17ada43ed8301e9ec48071a0fc0f1d9a4172639",
+            "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+            "bytes": 6323335,
+            "replayed": false,
+            "reason": "Private historical dedupe snapshot intentionally excluded from249 archive; not a source/candidate/production/review dependency. Current pointer/register/selection are independently checked below."
+          },
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-da129fcb4aae\\worktree\\artifacts\\a249-232-human\\admission-0-register.json",
+            "sha256": "93d224d96e8a8482eb65a7d09bc4365a6e5bd649af4c307b5c471ce9a8d2c452",
+            "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+            "bytes": 991846,
+            "replayed": false,
+            "reason": "Private historical dedupe snapshot intentionally excluded from249 archive; not a source/candidate/production/review dependency. Current pointer/register/selection are independently checked below."
+          },
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-da129fcb4aae\\worktree\\artifacts\\a249-232-human\\admission-1-preview.json",
+            "sha256": "e1762fd222864db2322f5f1de17ada43ed8301e9ec48071a0fc0f1d9a4172639",
+            "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\accepted-preview-current.json",
+            "bytes": 6323335,
+            "replayed": false,
+            "reason": "Private historical dedupe snapshot intentionally excluded from249 archive; not a source/candidate/production/review dependency. Current pointer/register/selection are independently checked below."
+          },
+          {
+            "path": "C:\\Users\\Roland\\multica_workspaces_desktop-api.multica.ai\\coach-rolan-2123e9a3b805\\coac-249-da129fcb4aae\\worktree\\artifacts\\a249-232-human\\admission-1-register.json",
+            "sha256": "93d224d96e8a8482eb65a7d09bc4365a6e5bd649af4c307b5c471ce9a8d2c452",
+            "observedPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac250-unified-chapter-register-20261027b.json",
+            "bytes": 991846,
+            "replayed": false,
+            "reason": "Private historical dedupe snapshot intentionally excluded from249 archive; not a source/candidate/production/review dependency. Current pointer/register/selection are independently checked below."
+          }
+        ],
+        "displayMapping": {
+          "candidate": {
+            "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+            "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+          },
+          "bodySha256": "5f71c21d931c172127c1aafec77b401ca09f8eabd408c43ee907a32673dfed42",
+          "figureSha256": "65b278a1f692ab370a91546c53fa6645059a39344d47c85fcbfcb3ebd52e081e",
+          "anchor": {
+            "afterSourceBlock": "modern-yabejp-ja:chapter04-section012:b0005",
+            "beforeSourceBlock": "modern-yabejp-ja:chapter04-section012:b0006",
+            "figureSha256": "65b278a1f692ab370a91546c53fa6645059a39344d47c85fcbfcb3ebd52e081e"
+          },
+          "label": "审校限制（非原文）",
+          "notes": [
+            {
+              "id": "limited232-1",
+              "text": "【审校限制（非原文）1】只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+              "authorText": false
+            },
+            {
+              "id": "limited232-2",
+              "text": "【审校限制（非原文）2】不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+              "authorText": false
+            },
+            {
+              "id": "limited232-3",
+              "text": "【审校限制（非原文）3】保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+              "authorText": false
+            },
+            {
+              "id": "limited232-4",
+              "text": "【审校限制（非原文）4】只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。",
+              "authorText": false
+            }
+          ],
+          "unknowns": [
+            "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+            "中央分数周围的玩家名及段位小字无法完整可靠辨认。"
+          ],
+          "installed": false,
+          "actualReadback": false,
+          "authorBodyChanged": false,
+          "newModelCalls": 0
+        },
+        "ownerInterfaceRequest": "E:/AgentData/Coach/knowledge/processing/integration/coac250-232-human-display-interface-request-20261028.json"
+      }
+    },
+    "human232DisplayIntake": {
+      "candidate": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+        "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+      },
+      "source": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+        "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+        "bytes": 23933
+      },
+      "route": {
+        "module": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\admit.mjs",
+          "sha256": "535b27670e9608602b1a382c2cb68e4c6818fcfd0f523595d409d7bd1f0707ff"
+        },
+        "stage": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\stage.mjs",
+          "sha256": "4c6419d7662a313c1eef862b1fff7d58aeb6afc91b3bfef86815bf48182105da"
+        },
+        "manifest": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\manifest.json",
+          "sha256": "8330bcbd79d6721a3602b0484814ed786686240a9b590d92b657f217719e96f6"
+        },
+        "candidateSha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+      },
+      "previewOutput": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T12-15-55-686Z",
+      "corpusId": "86a5fc6fb2a18dbfdf4eef60251759e1f7ea567f3c447cecc2fc5e90d5200ed5",
+      "stageReceiptPath": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T12-15-55-686Z/stages/human232/web-stage-receipt.json",
+      "displayLimits": {
+        "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-content-preview-2026-10-28T12-15-55-686Z/stages/human232/display-limits.json",
+        "sha256": "34b26aa1d56a50029dd937eadde5526652872bc376f2c564f93b326ccab81d0c"
+      },
+      "requiredDisplayLimitations": [
+        "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+        "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+        "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+        "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+      ],
+      "retainedUnknowns": [
+        "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+        "中央分数周围的玩家名及段位小字无法完整可靠辨认。"
+      ],
+      "originalStrictVerification": {
+        "executionVerified": true,
+        "applicationPassed": true,
+        "authorArgumentFaithful": true,
+        "limitedUnknownOkay": false,
+        "wholeChapterPassed": false,
+        "modelReview": {
+          "applications": [
+            {
+              "itemId": "4ce1c71647c8da4352eb117e5d2f1094",
+              "faithful": true,
+              "evidence": "应用证据：接受用户观察的9m为输入事实。稳定targetId对应b0005右侧牌河从上第2张；当前有序转录为“8s 9m 7z 1z 5z 4z”，9m位置正确，当前unknowns已删除该位置的旧点数未知项，仅保留两个非牌码unknown。未从空orientation补推朝向或赤色情况。语义证据：顺序比对所供b0001至b0014及候选正文，标题、满贯技术的重要性及跳满以上成功率降低的理由均保留；b0002、b0004已确认译句及3s仅继承。b0004的下位反超风险条件，经b0005牌例接至b0006—b0010两处打白：风险低时尽量门清争取反超，与下位僅差时可鸣牌做食断，条件和分支未因右河9m改变。b0011保留三宝牌优先速度、宝牌对子可鸣、单张宝牌原则上保留及无宝牌先顺势推进、不强求两翻役的层次；b0012保留慢手且宝牌或役种不明确时考虑混一色、清一色，尤其适用于被下位反超风险低的条件；b0013—b0014参考说明及名次分保持对应。此为文字条件与论证一致性复核，没有图像验收或独立计分验算。"
+            }
+          ],
+          "authorArgumentFaithful": true,
+          "completeOrderedScopeCompared": true,
+          "inheritedCountConflictsAddressed": "采用所供机械核验结果，不重算：已知牌38→39，9m计数2→3，overFour前后均为空；手牌13、分开摸牌1、牌河24及宝牌指示牌1未变，无所供记录中的超四张冲突。该结果仅支持此次应用的记录一致性，不证明逐牌图像正确或作者计分前提已获独立验证。旧右河未知及其blocking限制作为历史保留，不再作为当前牌码事实或重新安装；原父审false、uncertain及raw证据不被此次结论覆写。",
+          "issues": [
+            {
+              "targetId": "nemata-jp-chapter-232-1",
+              "severity": "uncertain",
+              "description": "四条限制尚未安装，实际展示与读回验收仍待完成。",
+              "evidence": "displayProposal.installed=false、actualReadbackRequired=true。须以“审校限制（非原文）”在b0005之后、b0006之前逐字展示四条限制，并通过真实MCP/Arena读回确认文字、顺序、位置及两个当前unknown均正确呈现；本次未执行安装或读回。"
+            },
+            {
+              "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+              "severity": "source-note",
+              "description": "父审的历史否定结果、uncertain及原始证据继续保留，与本次人标应用结论分开。",
+              "evidence": "原repairPassed=false、limitedUnknownOkay=false及图例verdict=uncertain不改写。原issue“右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。”仅作历史证据保留；其中旧点数未知不再描述当前右河第2张，当前采用用户输入9m。3s只继承，不重新判读；原semanticReviewAuthorized=false、admissionGranted=false及wholeChapterPassed=false也不据此改写。"
+            },
+            {
+              "targetId": "modern-yabejp-ja:chapter04-section012:b0008",
+              "severity": "source-note",
+              "description": "既有source-note按父审继承。",
+              "evidence": "所供contextContinuity明确要求继承b0008既有source-note；本次不将其改判为翻译错误，也不重算作者数字。请求未提供该source-note全文，不补造其内容。"
+            }
+          ],
+          "unknownAndLimits": {
+            "unknownChecks": [
+              {
+                "unknownText": "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+                "sufficientWithLimits": true,
+                "evidence": "保留该unknown并实际展示前两条限制后，可记录两个未命名的0，同时阻止推定本场、供托身份或据此宣称完成计分验证。下位者无法反超仍仅作为作者明示前提，足以支持条件性策略的文字呈现。"
+              },
+              {
+                "unknownText": "中央分数周围的玩家名及段位小字无法完整可靠辨认。",
+                "sufficientWithLimits": true,
+                "evidence": "保留该unknown并实际展示后两条限制后，不补写身份或段位，也不据其推导结论。作者关于打白、门清争取反超及鸣牌食断的条件性论证不依赖这些小字。"
+              }
+            ],
+            "limitChecks": [
+              {
+                "limitText": "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+                "sufficient": true,
+                "evidence": "准确限制两个0的记录范围，并要求保留计数项目未知；与第二条共同使用时足够。当前仅为待安装文本。"
+              },
+              {
+                "limitText": "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+                "sufficient": true,
+                "evidence": "明确区分作者前提与独立计分验证，防止由未知图标身份推出已核实的名次结论。实际安装并遵守后足够，尚未完成展示验收。"
+              },
+              {
+                "limitText": "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+                "sufficient": true,
+                "evidence": "直接保留第二个unknown并禁止补写；与第四条共同使用时足以约束身份小字的不确定性。当前尚未安装。"
+              },
+              {
+                "limitText": "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。",
+                "sufficient": true,
+                "evidence": "将牌例说明限定于所供席位、分数及作者条件，排除身份或段位推论；不构成对图像或计分的重新验收。实际安装并遵守后足够。"
+              }
+            ],
+            "overallSufficient": true,
+            "requiresActualDisplayAndReadback": true
+          },
+          "evidenceBasis": {
+            "acceptedHumanFactUsed": true,
+            "noImagesCompared": true,
+            "mechanicalApplicationOnly": false,
+            "semanticArgumentReviewed": true,
+            "wholeChapterPassed": false
+          },
+          "summary": "右河从上第2张9m的人标应用忠实，所供完整有序文字中的条件及作者论证保持一致。两个当前unknown配合四条限制，在实际安装并遵守后足够；此为条件性充分性判断，四限制仍未安装，真实MCP/Arena展示与读回仍必需。此次不构成全章通过或准入。"
+        }
+      },
+      "originalIssues": [
+        {
+          "severity": "uncertain",
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+          "description": "右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。",
+          "sourceEvidence": "原图右侧牌河从上数第二张可辨为万子；候选保留“［万子，点数无法辨认］”。原审要求可靠确认前保持阻断。"
+        }
+      ],
+      "independentIssues": [
+        {
+          "targetId": "nemata-jp-chapter-232-1",
+          "severity": "uncertain",
+          "description": "四条限制尚未安装，实际展示与读回验收仍待完成。",
+          "evidence": "displayProposal.installed=false、actualReadbackRequired=true。须以“审校限制（非原文）”在b0005之后、b0006之前逐字展示四条限制，并通过真实MCP/Arena读回确认文字、顺序、位置及两个当前unknown均正确呈现；本次未执行安装或读回。"
+        },
+        {
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+          "severity": "source-note",
+          "description": "父审的历史否定结果、uncertain及原始证据继续保留，与本次人标应用结论分开。",
+          "evidence": "原repairPassed=false、limitedUnknownOkay=false及图例verdict=uncertain不改写。原issue“右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。”仅作历史证据保留；其中旧点数未知不再描述当前右河第2张，当前采用用户输入9m。3s只继承，不重新判读；原semanticReviewAuthorized=false、admissionGranted=false及wholeChapterPassed=false也不据此改写。"
+        },
+        {
+          "targetId": "modern-yabejp-ja:chapter04-section012:b0008",
+          "severity": "source-note",
+          "description": "既有source-note按父审继承。",
+          "evidence": "所供contextContinuity明确要求继承b0008既有source-note；本次不将其改判为翻译错误，也不重算作者数字。请求未提供该source-note全文，不补造其内容。"
+        }
+      ],
+      "sourceBlocks": 14,
+      "authorPresentationBlocks": 10,
+      "displayBlocks": 14,
+      "figures": 3,
+      "nonAuthorLimitCount": 4,
+      "human9mApplied": true,
+      "inherited3sUnchanged": true,
+      "sourceNoteB0008HistoricalRecordPreserved": true,
+      "ordinaryWholeArticlePassed": false,
+      "limitedAuthorPresentationAccepted": true,
+      "readback": {
+        "path": "_analysis/b232/readback.json",
+        "sha256": "8fe64048132b5807e665bcd2853a8747e1ecbc0e014a125213b2c792cc2b88d3"
+      },
+      "newModelCalls": 0
+    }
+  }
+]

@@ -1,0 +1,1029 @@
+{
+  "before": {
+    "pointer": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-preview-current.json",
+      "sha256": "e1762fd222864db2322f5f1de17ada43ed8301e9ec48071a0fc0f1d9a4172639"
+    },
+    "variants": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/specific-web-variant-selection.v40.json",
+      "sha256": "b8b397d674e8892099c53454c8d9bba74aa178deff579c01a0a7ce794f8b57bd"
+    },
+    "builder": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/build-accepted-preview.mjs",
+      "sha256": "4b144086e847f975ba38bee6783f7159146763bb9a5167c469e34b5b6500ba93"
+    },
+    "webSelection": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-web-candidate-selection.json",
+      "sha256": "b3e815feb034646155e0f776b31988d49a9243d07f6dead850c89a6146cf629f"
+    },
+    "register": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-unified-chapter-register-20261027b.json",
+      "sha256": "a7d15b32ca3f2a8cc3e8ff4682510904ac1d9b83663f8577ce71811f6be7aca2"
+    },
+    "owner": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-remaining26-closure-register-20261028.json",
+      "sha256": "407b1021599a9fe3037a95cc595877289b4953d3e58c174e6945f3fcdc0b872b"
+    },
+    "continuation": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-uncovered-chapter-continuation-register-20261027b.json",
+      "sha256": "cbeb36bca6002ee312c36dcb4e985e81e6b10bab9c354de32cb89a8dbbaf94b6"
+    }
+  },
+  "binding": {
+    "module": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\admit.mjs",
+      "sha256": "535b27670e9608602b1a382c2cb68e4c6818fcfd0f523595d409d7bd1f0707ff"
+    },
+    "stage": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\stage.mjs",
+      "sha256": "4c6419d7662a313c1eef862b1fff7d58aeb6afc91b3bfef86815bf48182105da"
+    },
+    "manifest": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\manifest.json",
+      "sha256": "8330bcbd79d6721a3602b0484814ed786686240a9b590d92b657f217719e96f6"
+    },
+    "candidateSha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+  },
+  "addition": {
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter04-section012",
+    "candidatePath": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+    "candidateSha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c",
+    "sourceSha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+    "human232Review": {
+      "module": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\admit.mjs",
+        "sha256": "535b27670e9608602b1a382c2cb68e4c6818fcfd0f523595d409d7bd1f0707ff"
+      },
+      "stage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\stage.mjs",
+        "sha256": "4c6419d7662a313c1eef862b1fff7d58aeb6afc91b3bfef86815bf48182105da"
+      },
+      "manifest": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\manifest.json",
+        "sha256": "8330bcbd79d6721a3602b0484814ed786686240a9b590d92b657f217719e96f6"
+      },
+      "candidateSha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+    },
+    "selectionReason": "Exact232 human9m application and real conditional independent evidence, two unknowns/four visible non-author limits. Original technical false/uncertain unchanged; not ordinary full-article pass."
+  },
+  "package": "E:/AgentData/Coach/knowledge/processing/integration/coac244-232-human-conditional-20261028",
+  "originalStage": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-232-human-conditional-20261028\\stage",
+  "gate": {
+    "schema": "coac244-exact232-conditional-render/1",
+    "status": "admitted-exact232-human-four-limit-display",
+    "production": {
+      "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+    },
+    "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-232-human-reviewed-20261028.json",
+    "auditSha256": "2280884a55df3ba010ceac36c5c4832deb2b4dc15b15f2e07d8db554a8f3a94c",
+    "canonical": "nemata-jp-chapter-232-1",
+    "candidate": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+      "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+    },
+    "source": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+      "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+      "bytes": 23933
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter04-section012.coac269b27r1.json",
+      "sha256": "d01f86961149215b82d5664f4dbda0bf29046ef87b11de8aa1b50ba9271d19fb"
+    },
+    "independentReceipt": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-232-human-reviewed-20261028.json",
+      "sha256": "2280884a55df3ba010ceac36c5c4832deb2b4dc15b15f2e07d8db554a8f3a94c"
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d1640db7-8722-4d0d-bdba-da5c2ba54f84.json",
+      "sha256": "f84280661530678891d4d11ab4c00ff0b4f3542c435ed5e3b8716af8ac8ccd7b"
+    },
+    "anchor": {
+      "afterSourceBlock": "modern-yabejp-ja:chapter04-section012:b0005",
+      "beforeSourceBlock": "modern-yabejp-ja:chapter04-section012:b0006",
+      "figureSha256": "65b278a1f692ab370a91546c53fa6645059a39344d47c85fcbfcb3ebd52e081e"
+    },
+    "requiredDisplayLimitations": [
+      "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+      "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+      "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+      "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。"
+    ],
+    "retainedUnknowns": [
+      "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+      "中央分数周围的玩家名及段位小字无法完整可靠辨认。"
+    ],
+    "originalStrictVerification": {
+      "executionVerified": true,
+      "applicationPassed": true,
+      "authorArgumentFaithful": true,
+      "limitedUnknownOkay": false,
+      "wholeChapterPassed": false,
+      "modelReview": {
+        "applications": [
+          {
+            "itemId": "4ce1c71647c8da4352eb117e5d2f1094",
+            "faithful": true,
+            "evidence": "应用证据：接受用户观察的9m为输入事实。稳定targetId对应b0005右侧牌河从上第2张；当前有序转录为“8s 9m 7z 1z 5z 4z”，9m位置正确，当前unknowns已删除该位置的旧点数未知项，仅保留两个非牌码unknown。未从空orientation补推朝向或赤色情况。语义证据：顺序比对所供b0001至b0014及候选正文，标题、满贯技术的重要性及跳满以上成功率降低的理由均保留；b0002、b0004已确认译句及3s仅继承。b0004的下位反超风险条件，经b0005牌例接至b0006—b0010两处打白：风险低时尽量门清争取反超，与下位僅差时可鸣牌做食断，条件和分支未因右河9m改变。b0011保留三宝牌优先速度、宝牌对子可鸣、单张宝牌原则上保留及无宝牌先顺势推进、不强求两翻役的层次；b0012保留慢手且宝牌或役种不明确时考虑混一色、清一色，尤其适用于被下位反超风险低的条件；b0013—b0014参考说明及名次分保持对应。此为文字条件与论证一致性复核，没有图像验收或独立计分验算。"
+          }
+        ],
+        "authorArgumentFaithful": true,
+        "completeOrderedScopeCompared": true,
+        "inheritedCountConflictsAddressed": "采用所供机械核验结果，不重算：已知牌38→39，9m计数2→3，overFour前后均为空；手牌13、分开摸牌1、牌河24及宝牌指示牌1未变，无所供记录中的超四张冲突。该结果仅支持此次应用的记录一致性，不证明逐牌图像正确或作者计分前提已获独立验证。旧右河未知及其blocking限制作为历史保留，不再作为当前牌码事实或重新安装；原父审false、uncertain及raw证据不被此次结论覆写。",
+        "issues": [
+          {
+            "targetId": "nemata-jp-chapter-232-1",
+            "severity": "uncertain",
+            "description": "四条限制尚未安装，实际展示与读回验收仍待完成。",
+            "evidence": "displayProposal.installed=false、actualReadbackRequired=true。须以“审校限制（非原文）”在b0005之后、b0006之前逐字展示四条限制，并通过真实MCP/Arena读回确认文字、顺序、位置及两个当前unknown均正确呈现；本次未执行安装或读回。"
+          },
+          {
+            "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+            "severity": "source-note",
+            "description": "父审的历史否定结果、uncertain及原始证据继续保留，与本次人标应用结论分开。",
+            "evidence": "原repairPassed=false、limitedUnknownOkay=false及图例verdict=uncertain不改写。原issue“右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。”仅作历史证据保留；其中旧点数未知不再描述当前右河第2张，当前采用用户输入9m。3s只继承，不重新判读；原semanticReviewAuthorized=false、admissionGranted=false及wholeChapterPassed=false也不据此改写。"
+          },
+          {
+            "targetId": "modern-yabejp-ja:chapter04-section012:b0008",
+            "severity": "source-note",
+            "description": "既有source-note按父审继承。",
+            "evidence": "所供contextContinuity明确要求继承b0008既有source-note；本次不将其改判为翻译错误，也不重算作者数字。请求未提供该source-note全文，不补造其内容。"
+          }
+        ],
+        "unknownAndLimits": {
+          "unknownChecks": [
+            {
+              "unknownText": "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+              "sufficientWithLimits": true,
+              "evidence": "保留该unknown并实际展示前两条限制后，可记录两个未命名的0，同时阻止推定本场、供托身份或据此宣称完成计分验证。下位者无法反超仍仅作为作者明示前提，足以支持条件性策略的文字呈现。"
+            },
+            {
+              "unknownText": "中央分数周围的玩家名及段位小字无法完整可靠辨认。",
+              "sufficientWithLimits": true,
+              "evidence": "保留该unknown并实际展示后两条限制后，不补写身份或段位，也不据其推导结论。作者关于打白、门清争取反超及鸣牌食断的条件性论证不依赖这些小字。"
+            }
+          ],
+          "limitChecks": [
+            {
+              "limitText": "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+              "sufficient": true,
+              "evidence": "准确限制两个0的记录范围，并要求保留计数项目未知；与第二条共同使用时足够。当前仅为待安装文本。"
+            },
+            {
+              "limitText": "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+              "sufficient": true,
+              "evidence": "明确区分作者前提与独立计分验证，防止由未知图标身份推出已核实的名次结论。实际安装并遵守后足够，尚未完成展示验收。"
+            },
+            {
+              "limitText": "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+              "sufficient": true,
+              "evidence": "直接保留第二个unknown并禁止补写；与第四条共同使用时足以约束身份小字的不确定性。当前尚未安装。"
+            },
+            {
+              "limitText": "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。",
+              "sufficient": true,
+              "evidence": "将牌例说明限定于所供席位、分数及作者条件，排除身份或段位推论；不构成对图像或计分的重新验收。实际安装并遵守后足够。"
+            }
+          ],
+          "overallSufficient": true,
+          "requiresActualDisplayAndReadback": true
+        },
+        "evidenceBasis": {
+          "acceptedHumanFactUsed": true,
+          "noImagesCompared": true,
+          "mechanicalApplicationOnly": false,
+          "semanticArgumentReviewed": true,
+          "wholeChapterPassed": false
+        },
+        "summary": "右河从上第2张9m的人标应用忠实，所供完整有序文字中的条件及作者论证保持一致。两个当前unknown配合四条限制，在实际安装并遵守后足够；此为条件性充分性判断，四限制仍未安装，真实MCP/Arena展示与读回仍必需。此次不构成全章通过或准入。"
+      }
+    },
+    "originalIssues": [
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+        "description": "右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。",
+        "sourceEvidence": "原图右侧牌河从上数第二张可辨为万子；候选保留“［万子，点数无法辨认］”。原审要求可靠确认前保持阻断。"
+      }
+    ],
+    "independentIssues": [
+      {
+        "targetId": "nemata-jp-chapter-232-1",
+        "severity": "uncertain",
+        "description": "四条限制尚未安装，实际展示与读回验收仍待完成。",
+        "evidence": "displayProposal.installed=false、actualReadbackRequired=true。须以“审校限制（非原文）”在b0005之后、b0006之前逐字展示四条限制，并通过真实MCP/Arena读回确认文字、顺序、位置及两个当前unknown均正确呈现；本次未执行安装或读回。"
+      },
+      {
+        "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+        "severity": "source-note",
+        "description": "父审的历史否定结果、uncertain及原始证据继续保留，与本次人标应用结论分开。",
+        "evidence": "原repairPassed=false、limitedUnknownOkay=false及图例verdict=uncertain不改写。原issue“右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。”仅作历史证据保留；其中旧点数未知不再描述当前右河第2张，当前采用用户输入9m。3s只继承，不重新判读；原semanticReviewAuthorized=false、admissionGranted=false及wholeChapterPassed=false也不据此改写。"
+      },
+      {
+        "targetId": "modern-yabejp-ja:chapter04-section012:b0008",
+        "severity": "source-note",
+        "description": "既有source-note按父审继承。",
+        "evidence": "所供contextContinuity明确要求继承b0008既有source-note；本次不将其改判为翻译错误，也不重算作者数字。请求未提供该source-note全文，不补造其内容。"
+      }
+    ],
+    "ordinaryWholeArticlePassed": false,
+    "globalAdmissionGranted": false,
+    "requiresActualDisplayAndReadback": true,
+    "newModelCalls": 0
+  },
+  "stage": {
+    "schema": "coach-textbook-web-stage/1",
+    "status": "independently-audited-chapter-preview",
+    "candidatePath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-human-final-20261028\\candidates\\232.human-final.v2.json",
+    "candidateSha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c",
+    "sourceSha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+    "auditPath": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-232-human-reviewed-20261028.json",
+    "auditStatus": "admitted-exact232-human-four-limit-display",
+    "limitedUnknownFidelity": null,
+    "imageDerivations": [],
+    "chapters": 1,
+    "units": 1,
+    "blocks": 14,
+    "figures": 3,
+    "corpusId": "c3efdb3b4026065cdaecebe44d5ed59463a4ae3f20dd4a9f2e2517da47451c58",
+    "bodySha256": "a316939eb09046ea82320e1a421a6b03c03e44ed3ccfa492f1cdd22a15d346d3",
+    "maxUnitBytes": 12330,
+    "modelCalls": 0,
+    "activeLibraryChanged": false,
+    "humanReview": "pending",
+    "canonical": "nemata-jp-chapter-232-1",
+    "standardWholeArticlePassed": false,
+    "globalAdmissionGranted": false,
+    "displayLimits": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-232-human-conditional-20261028/stage/display-limits.json",
+      "sha256": "34b26aa1d56a50029dd937eadde5526652872bc376f2c564f93b326ccab81d0c"
+    }
+  },
+  "display": {
+    "schema": "coac244-exact232-installed-four-limits/1",
+    "canonical": "nemata-jp-chapter-232-1",
+    "candidate": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+      "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+    },
+    "receipt": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac249-232-human-reviewed-20261028.json",
+      "sha256": "2280884a55df3ba010ceac36c5c4832deb2b4dc15b15f2e07d8db554a8f3a94c"
+    },
+    "raw": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\calls\\d1640db7-8722-4d0d-bdba-da5c2ba54f84.json",
+      "sha256": "f84280661530678891d4d11ab4c00ff0b4f3542c435ed5e3b8716af8ac8ccd7b"
+    },
+    "anchor": {
+      "afterSourceBlock": "modern-yabejp-ja:chapter04-section012:b0005",
+      "beforeSourceBlock": "modern-yabejp-ja:chapter04-section012:b0006",
+      "figureSha256": "65b278a1f692ab370a91546c53fa6645059a39344d47c85fcbfcb3ebd52e081e"
+    },
+    "originalBlocks": [
+      {
+        "type": "h2",
+        "id": "modern-yabejp-ja-chapter04-section012-b1",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section012:b0001"
+          ],
+          "domPaths": [
+            "main/h2[3]"
+          ]
+        },
+        "text": "满贯和牌技术",
+        "paragraphId": "modern-yabejp-ja:chapter04-section012:p0001",
+        "sourceSegments": [
+          {
+            "text": "満貫和了技術",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "displaySegments": [],
+        "tableContext": null
+      },
+      {
+        "type": "p",
+        "id": "modern-yabejp-ja-chapter04-section012-b2",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section012:b0002"
+          ],
+          "domPaths": [
+            "main/p[5]"
+          ]
+        },
+        "text": "在末局的做牌中，重要性最高（使用频率高，技术优劣容易反映在战绩上）的，是不考虑打点、以最快和牌为目标的“和牌即可获得第一”的技术。因为平均每四次就有一次是在末局处于第一，而且在与第一分差很小的第二名，以及[判断技术7](http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section007.html)中提到过的、以不改变当前名次的和牌结束比赛也无妨的情况下，也会用到这种技术，所以使用频率非常高，并且成功（和牌）的概率也高。",
+        "paragraphId": "modern-yabejp-ja:chapter04-section012:p0002",
+        "sourceSegments": [
+          {
+            "text": "オーラスにおける手作りで重要度が最も高い（利用頻度が多く、巧拙が戦績に反映されやすい）のは、打点は考慮せず最速の和了を目指すアガリトップの技術です。平均で四回に一回はオーラスでトップですし、トップと僅差の二位や、",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "判断技術７",
+            "marks": [],
+            "href": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section007.html"
+          },
+          {
+            "text": "でも述べたような確和了でも構わないようなケースでも用いることになるので非常に頻度が高く、且つ成功（和了）する確率も高いからです。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "displaySegments": [],
+        "tableContext": null
+      },
+      {
+        "type": "p",
+        "id": "modern-yabejp-ja-chapter04-section012-b3",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section012:b0003"
+          ],
+          "domPaths": [
+            "main/p[7]"
+          ]
+        },
+        "text": "其次重要的是做出满贯牌的技术。这是因为靠满贯（荣和或自摸）就能反超的情况很多，而且受麻将计分制度（达到满贯后便停止逐翻加倍计算）的影响，满贯牌的出现率较高；若目标只是满贯，也比较容易有意识地做出来。（如果条件变成跳满以上，成功率就会骤然大幅下降，因此，做出跳满以上牌型的技术，重要性也就较低。当然，无论哪种技术，能够掌握总归是最好的。）",
+        "paragraphId": "modern-yabejp-ja:chapter04-section012:p0003",
+        "sourceSegments": [
+          {
+            "text": "次いで重要度が高いのが満貫手を作る技術です。満貫（出アガリまたはツモ）で逆転というケースが多く、麻雀の点数計算のシステム（満貫以降は倍倍計算を打ち切る）上満貫手の出現率が高く、満貫までなら狙って作りやすい為です。（これが跳満以上が条件になると途端成功率は大きく下がる為、跳満以上の手作りをする技術の重要度は低くなります。もちろん、どのような技術でも身に付けていればそれに越したことはありませんが。）",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "displaySegments": [],
+        "tableContext": null
+      },
+      {
+        "type": "p",
+        "id": "modern-yabejp-ja-chapter04-section012-b4",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section012:b0004"
+          ],
+          "domPaths": [
+            "main/p[9]"
+          ]
+        },
+        "text": "不过，正如此前所说，如果自己处于第二，自摸满贯就能升至第一，但与第三、第四的分差也很小，那么运气好、起手牌或摸牌有利时，就争取做出反超牌；否则，应当像和牌即可获得第一时一样，朝着最快和牌的方向打。反过来，如果即使下位者自摸满贯，自己的名次也不会改变，就应尽量以能够反超为目标做牌。即使自己是庄家，也优先考虑靠一次和牌反超，而不是争取连庄。",
+        "paragraphId": "modern-yabejp-ja:chapter04-section012:p0004",
+        "sourceSegments": [
+          {
+            "text": "ただ、これまで述べてきたように、満貫ツモでトップの２位だけども３位４位とも僅差のような場合は、運良く配牌やツモに恵まれたら逆転手を目指し、そうでなければアガリトップの場合と同様に最速でアガリに向かうように打つべきです。逆に、下位に満貫ツモられても順位が変わらないなら、なるべく逆転できるように手作りをすべきです。親であっても連荘狙いよりも一発で捲くることを優先して考えます。 ",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "displaySegments": [],
+        "tableContext": null
+      },
+      {
+        "type": "figure",
+        "id": "modern-yabejp-ja-chapter04-section012-b5",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section012:b0005"
+          ],
+          "domPaths": [
+            "main/p[11]"
+          ]
+        },
+        "src": "assets/modern-yabejp-ja-chapter04-section012-b5.png",
+        "caption": "东4局的末局牌例，本家摸入3p。",
+        "paragraphId": "modern-yabejp-ja:chapter04-section012:p0005",
+        "transcriptionText": "右上方规则标签，自上而下：特上级；东风战；允许食断；有赤牌；末局。\n中央：东4局。东家（本家，下方）31400分；南家（右方）10300分；西家（上方）39300分；北家（左方）19000分。局数下方两个计数均为0。\n本家手牌，按画面从左到右：3m 4m 6m 7m 4p 4p 3s 4s 6s 7s 8s 5z 5z。右端分开的摸入牌：3p。手牌与摸入牌均直立。\n右下方牌墙中翻开的宝牌指示牌：9m，直立。\n下方牌河，从左到右：6s 9s 2z 6z 2z 9m，均朝向本家。\n上方牌河，按画面从左到右：4z 1p 9s 4z 7z 6z，牌面朝向对家，相对画面倒置。\n左侧牌河，按画面从上到下：6z 1z 5p 8p 8p 6p，牌面随左侧座位横向排列。\n右侧牌河，按画面从上到下：8s 9m 7z 1z 5z 4z，牌面随右侧座位横向排列。\n其余三家的手牌及未翻开的牌墙显示牌背。\n原图未显示的信息：中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。；中央分数周围的玩家名及段位小字无法完整可靠辨认。",
+        "sourceAssetBindings": [
+          {
+            "assetId": "modern-yabejp-ja:068e112356939113bfe8f0e4",
+            "path": "web-sources/v1/modern-yabejp-ja/assets/c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg",
+            "sha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135",
+            "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012/001.jpg"
+          }
+        ],
+        "sourceOccurrenceIds": [
+          "modern-yabejp-ja:chapter04-section012:i00001"
+        ],
+        "presentationAsset": {
+          "path": "web-production/v1/presentations/modern-yabejp-ja/chapter04-section012/d2153000245c2191/figure-0001.png",
+          "sha256": "0f67b4f982a8c595ea02056fcb5e0114836874b0d44b5580a7dcd33b29f22dbb",
+          "width": 640,
+          "height": 449,
+          "derivation": {
+            "kind": "single-source-image-rgba-to-png",
+            "alignment": "original-size",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:068e112356939113bfe8f0e4",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135.jpg",
+                "sha256": "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135",
+                "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012/001.jpg"
+              }
+            ],
+            "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+          }
+        },
+        "transcriptionProvenance": {
+          "method": "model-transcription",
+          "callId": "3002a835-2cff-4bcf-b07b-2b03d1968e5b",
+          "outputSourceBlockId": "modern-yabejp-ja:chapter04-section012:b0005"
+        },
+        "imageProvenance": {
+          "kind": "derived-source-assets",
+          "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+          "sourceAssetSha256s": [
+            "c943abb9c076af6e1f10a756c99a3cb205fe0d7afc19cb7323517a2f5e959135"
+          ]
+        }
+      },
+      {
+        "type": "p",
+        "id": "modern-yabejp-ja-chapter04-section012-p6",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section012:b0006",
+            "modern-yabejp-ja:chapter04-section012:b0007",
+            "modern-yabejp-ja:chapter04-section012:b0008",
+            "modern-yabejp-ja:chapter04-section012:b0009",
+            "modern-yabejp-ja:chapter04-section012:b0010"
+          ],
+          "domPaths": [
+            "main/p[13]"
+          ]
+        },
+        "text": "即使下位者自摸满贯也不会被反超，因此打 5z ，尽量保持门清，争取立直、断幺九、平和（顺利的话，摸入赤牌或做成三色，就能成为确定可以反超的牌）。与下位者分差很小时也打 5z ，但这时只要有人打出能鸣的牌，就鸣牌，只做食断即可。",
+        "paragraphId": "modern-yabejp-ja:chapter04-section012:p0006",
+        "inlineFigures": [
+          {
+            "type": "figure",
+            "id": "modern-yabejp-ja-chapter04-section012-b7",
+            "page": null,
+            "locator": {
+              "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0007"
+              ],
+              "domPaths": [
+                "main/p[13]"
+              ]
+            },
+            "src": "assets/modern-yabejp-ja-chapter04-section012-b7.png",
+            "caption": "原文内联牌列",
+            "paragraphId": "modern-yabejp-ja:chapter04-section012:p0006",
+            "transcriptionText": "5z",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:cd5d183cae88a0cb2d844d20",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/3059ee18f98fbb2f36a914b6f55601e22cf5545c312ccbbad399d1efab6722bd.png",
+                "sha256": "3059ee18f98fbb2f36a914b6f55601e22cf5545c312ccbbad399d1efab6722bd",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/j5.png"
+              }
+            ],
+            "sourceOccurrenceIds": [
+              "modern-yabejp-ja:chapter04-section012:i00002"
+            ],
+            "presentationAsset": {
+              "path": "web-production/v1/presentations/modern-yabejp-ja/chapter04-section012/d2153000245c2191/figure-0002.png",
+              "sha256": "0451a0485d80cc39894e45893af64671c62fe2cc413455a38e8fa8a3dd312f3e",
+              "width": 18,
+              "height": 24,
+              "derivation": {
+                "kind": "single-source-image-rgba-to-png",
+                "alignment": "original-size",
+                "sourceAssetBindings": [
+                  {
+                    "assetId": "modern-yabejp-ja:cd5d183cae88a0cb2d844d20",
+                    "path": "web-sources/v1/modern-yabejp-ja/assets/3059ee18f98fbb2f36a914b6f55601e22cf5545c312ccbbad399d1efab6722bd.png",
+                    "sha256": "3059ee18f98fbb2f36a914b6f55601e22cf5545c312ccbbad399d1efab6722bd",
+                    "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/j5.png"
+                  }
+                ],
+                "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+              }
+            },
+            "transcriptionProvenance": {
+              "method": "independently-verified-exact-tile-assets",
+              "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+              "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+            },
+            "imageProvenance": {
+              "kind": "derived-source-assets",
+              "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+              "sourceAssetSha256s": [
+                "3059ee18f98fbb2f36a914b6f55601e22cf5545c312ccbbad399d1efab6722bd"
+              ]
+            }
+          },
+          {
+            "type": "figure",
+            "id": "modern-yabejp-ja-chapter04-section012-b9",
+            "page": null,
+            "locator": {
+              "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0009"
+              ],
+              "domPaths": [
+                "main/p[13]"
+              ]
+            },
+            "src": "assets/modern-yabejp-ja-chapter04-section012-b9.png",
+            "caption": "原文内联牌列",
+            "paragraphId": "modern-yabejp-ja:chapter04-section012:p0006",
+            "transcriptionText": "5z",
+            "sourceAssetBindings": [
+              {
+                "assetId": "modern-yabejp-ja:cd5d183cae88a0cb2d844d20",
+                "path": "web-sources/v1/modern-yabejp-ja/assets/3059ee18f98fbb2f36a914b6f55601e22cf5545c312ccbbad399d1efab6722bd.png",
+                "sha256": "3059ee18f98fbb2f36a914b6f55601e22cf5545c312ccbbad399d1efab6722bd",
+                "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/j5.png"
+              }
+            ],
+            "sourceOccurrenceIds": [
+              "modern-yabejp-ja:chapter04-section012:i00003"
+            ],
+            "presentationAsset": {
+              "path": "web-production/v1/presentations/modern-yabejp-ja/chapter04-section012/d2153000245c2191/figure-0003.png",
+              "sha256": "0451a0485d80cc39894e45893af64671c62fe2cc413455a38e8fa8a3dd312f3e",
+              "width": 18,
+              "height": 24,
+              "derivation": {
+                "kind": "single-source-image-rgba-to-png",
+                "alignment": "original-size",
+                "sourceAssetBindings": [
+                  {
+                    "assetId": "modern-yabejp-ja:cd5d183cae88a0cb2d844d20",
+                    "path": "web-sources/v1/modern-yabejp-ja/assets/3059ee18f98fbb2f36a914b6f55601e22cf5545c312ccbbad399d1efab6722bd.png",
+                    "sha256": "3059ee18f98fbb2f36a914b6f55601e22cf5545c312ccbbad399d1efab6722bd",
+                    "url": "http://yabejp.web.fc2.com/mahjong/img/tile_s/j5.png"
+                  }
+                ],
+                "rendererSha256": "17b6160a479c0f30bc4213d04cfe742bd23708b4e1e996dca957e402b42596e1"
+              }
+            },
+            "transcriptionProvenance": {
+              "method": "independently-verified-exact-tile-assets",
+              "dictionaryPath": "web-production/v1/dictionaries/modern-accepted-tiles-c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a.json",
+              "dictionarySha256": "c33800d79e603fff8d31dfccb7cf26b648f8f9765af7ec01e8beb0f10805ed2a"
+            },
+            "imageProvenance": {
+              "kind": "derived-source-assets",
+              "method": "source-order-horizontal-RGBA-bottom-aligned-no-gap",
+              "sourceAssetSha256s": [
+                "3059ee18f98fbb2f36a914b6f55601e22cf5545c312ccbbad399d1efab6722bd"
+              ]
+            }
+          }
+        ],
+        "inlineContent": [
+          {
+            "text": "即使下位者自摸满贯也不会被反超，因此打",
+            "displaySegments": [],
+            "sourceSegments": [
+              {
+                "text": "下位に満貫ツモでも捲くられないので、打",
+                "marks": [],
+                "href": null
+              }
+            ],
+            "locator": {
+              "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0006"
+              ],
+              "domPaths": [
+                "main/p[13]"
+              ]
+            }
+          },
+          {
+            "figureId": "modern-yabejp-ja-chapter04-section012-b7",
+            "text": " 5z ",
+            "locator": {
+              "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0007"
+              ],
+              "domPaths": [
+                "main/p[13]"
+              ]
+            }
+          },
+          {
+            "text": "，尽量保持门清，争取立直、断幺九、平和（顺利的话，摸入赤牌或做成三色，就能成为确定可以反超的牌）。与下位者分差很小时也打",
+            "displaySegments": [],
+            "sourceSegments": [
+              {
+                "text": "としてなるだけメンゼンでメンタンピン（うまく行けば赤引きや三色で確定捲くり手に）狙い。下位と僅差の場合も打",
+                "marks": [],
+                "href": null
+              }
+            ],
+            "locator": {
+              "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0008"
+              ],
+              "domPaths": [
+                "main/p[13]"
+              ]
+            }
+          },
+          {
+            "figureId": "modern-yabejp-ja-chapter04-section012-b9",
+            "text": " 5z ",
+            "locator": {
+              "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0009"
+              ],
+              "domPaths": [
+                "main/p[13]"
+              ]
+            }
+          },
+          {
+            "text": "，但这时只要有人打出能鸣的牌，就鸣牌，只做食断即可。",
+            "displaySegments": [],
+            "sourceSegments": [
+              {
+                "text": "だが、今度は鳴ける牌が出たら鳴いてクイタンのみで良い。",
+                "marks": [],
+                "href": null
+              }
+            ],
+            "locator": {
+              "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+              "sourceBlockIds": [
+                "modern-yabejp-ja:chapter04-section012:b0010"
+              ],
+              "domPaths": [
+                "main/p[13]"
+              ]
+            }
+          }
+        ],
+        "sourceSegments": [
+          {
+            "text": "下位に満貫ツモでも捲くられないので、打",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "としてなるだけメンゼンでメンタンピン（うまく行けば赤引きや三色で確定捲くり手に）狙い。下位と僅差の場合も打",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "だが、今度は鳴ける牌が出たら鳴いてクイタンのみで良い。",
+            "marks": [],
+            "href": null
+          }
+        ]
+      },
+      {
+        "type": "p",
+        "id": "modern-yabejp-ja-chapter04-section012-b11",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section012:b0011"
+          ],
+          "domPaths": [
+            "main/p[15]"
+          ]
+        },
+        "text": "争取满贯牌时，尤其关键的是宝牌。有3张宝牌就已经确定达到满贯，因此无论如何都应朝着最快和牌的方向打，能够鸣牌的手牌就积极鸣牌。即使只有宝牌对子，只要是能够鸣牌推进的手牌（例如役牌已有对子或刻子等），基本上也可以鸣牌。因为途中摸入明宝牌或赤牌、变成3张宝牌，或是附加其他役种的情况并不少见，比起限定门清推进，反超的可能性也更高。如果只有1张宝牌，除非即使打掉它，也有其他役种，仍足以争取做出反超牌，否则即使这张宝牌难以利用，也希望将它留下。只要再摸到一张组成对子，之后仅靠立直和自摸就能反超；即使只有1张宝牌，自摸再中1张里宝牌，也能满足条件。即使没有宝牌，只要途中摸到宝牌，或是做出断幺九、一杯口这样的1翻役，即使顺着牌势自然推进，也会有望反超，所以暂且顺着牌势推进也不坏。当然，如果看得到三色或一气通贯这样的2翻役，就会加以留意，但没有必要勉强追求（例如不惜拆掉其他一副面子来追求）。",
+        "paragraphId": "modern-yabejp-ja:chapter04-section012:p0007",
+        "sourceSegments": [
+          {
+            "text": "満貫手を狙う場合に特に鍵となるのがドラです。ドラが３枚あればもう満貫は確定なのでとにかく最速で和了に向かい、仕掛けられる手であればどんどん仕掛けていきます。ドラトイツで仕掛けていける（役牌がトイツ以上等）手でも基本的に仕掛けていって構いません。途中で表ドラや赤を引いてドラ３になることや他に手役がつくことは少なくなく、メンゼン限定で手を進めるよりは捲くれる可能性も高いからです。ドラが１枚の場合は、ドラを切っても他に手役があって十分捲くり手が目指せるというのでなければ使いづらいドラであっても残しておきたいです。重なりさえすれば後はリーチとツモだけでも逆転できますし、ドラが１枚だけでもツモ裏１で条件を満たします。ドラが無い場合でも、途中でドラを引くなり、タンヤオ、イーペーコーの１翻役がつくなりすれば手なりでも逆転が見込めるようになるのでとりあえずは手なりで手を進めても悪くありません。もちろん、三色やイッツーの２翻役が見えるようであれば意識しますが、無理してまで狙う（他の一面子を落としてまで狙う等）必要はありません。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "displaySegments": [],
+        "tableContext": null
+      },
+      {
+        "type": "p",
+        "id": "modern-yabejp-ja-chapter04-section012-b12",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section012:b0012"
+          ],
+          "domPaths": [
+            "main/p[17]"
+          ]
+        },
+        "text": "然而，有些手牌即使保持门清、顺着牌势推进，也别说做出反超牌了，连听牌本身都很困难。手牌进展缓慢，而且宝牌和役种都没有明确着落时（也包括持有宝牌但难以利用的情况），就是如此。这时，明知勉强，仍争取做宝牌所在花色的混一色（若宝牌是字牌，就选择手中最多的花色），或手中最多花色的清一色，也是一种办法。尤其在被下位者反超的风险较小时，这种强行鸣牌的做法有时也能奏效。",
+        "paragraphId": "modern-yabejp-ja:chapter04-section012:p0008",
+        "sourceSegments": [
+          {
+            "text": "しかし、メンゼンで手なりで進めても捲くり手はおろかそもそもテンパイすること自体困難な手であることもあります。手が遅い上にドラも手役もはっきり見えない（ドラを持っているが使いづらい場合も含む）場合がそうです。このような場合は、無理を承知でドラ色（字牌がドラなら最も多い色の）ホンイツや最も多い色のチンイツを目指すのも手です。特に下位に捲くられるリスクが小さい場合は、このような強引な仕掛けが有効になることもあるのです。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "displaySegments": [],
+        "tableContext": null
+      },
+      {
+        "type": "p",
+        "id": "modern-yabejp-ja-chapter04-section012-b13",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section012:b0013"
+          ],
+          "domPaths": [
+            "main/p[19]"
+          ]
+        },
+        "text": "Napa笔记《基于名次的攻守判断》",
+        "paragraphId": "modern-yabejp-ja:chapter04-section012:p0009",
+        "sourceSegments": [
+          {
+            "text": "ナパノート 「順位的押し引き」",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "displaySegments": [],
+        "tableContext": null
+      },
+      {
+        "type": "p",
+        "id": "modern-yabejp-ja-chapter04-section012-b14",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section012:b0014"
+          ],
+          "domPaths": [
+            "main/p[21]"
+          ]
+        },
+        "text": "这个网站结合实战场景，讲解了此前讨论过的末局、倒数第二局的局势判断。此外，该网站的“[何切讨论板](http://mahjong.xrea.jp/mahjong/mahjong.cgi)”也发布了许多有助于学习末局、倒数第二局做牌及攻守判断的题目。若能供各位参考，我会很高兴。另外，东风庄的名次分相当于：第1名3，第2名1，第3名−1，第4名−3。",
+        "paragraphId": "modern-yabejp-ja:chapter04-section012:p0010",
+        "sourceSegments": [
+          {
+            "text": "こちらのサイトで、これまで取り上げてきたオーラス、ラス前の状況判断について実戦の場面を取り上げて説明されています。また、同サイトの「",
+            "marks": [],
+            "href": null
+          },
+          {
+            "text": "何切る掲示板",
+            "marks": [],
+            "href": "http://mahjong.xrea.jp/mahjong/mahjong.cgi"
+          },
+          {
+            "text": "」でもオーラス、ラス前の手作り、押し引き判断の勉強になる問題が数多く投稿されています。参考にして頂ければ幸いです。尚、東風荘の順位点は、１位３　２位１　３位−１　４位−３　に相当します。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "displaySegments": [],
+        "tableContext": null
+      }
+    ],
+    "originalBlocksSha256": "10a8a46fd9525d503de353421bac4f3971f1f06d22fae5be0face0fd385d57b7",
+    "notes": [
+      {
+        "id": "limited232-1",
+        "type": "p",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section012:b0005"
+          ],
+          "domPaths": [
+            "main/p[11]"
+          ]
+        },
+        "text": "【审校限制（非原文）1】只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+        "authorText": false
+      },
+      {
+        "id": "limited232-2",
+        "type": "p",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section012:b0005"
+          ],
+          "domPaths": [
+            "main/p[11]"
+          ]
+        },
+        "text": "【审校限制（非原文）2】不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+        "authorText": false
+      },
+      {
+        "id": "limited232-3",
+        "type": "p",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section012:b0005"
+          ],
+          "domPaths": [
+            "main/p[11]"
+          ]
+        },
+        "text": "【审校限制（非原文）3】保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+        "authorText": false
+      },
+      {
+        "id": "limited232-4",
+        "type": "p",
+        "page": null,
+        "locator": {
+          "url": "http://yabejp.web.fc2.com/mahjong/tactics/chapter04/section012.html",
+          "sourceBlockIds": [
+            "modern-yabejp-ja:chapter04-section012:b0005"
+          ],
+          "domPaths": [
+            "main/p[11]"
+          ]
+        },
+        "text": "【审校限制（非原文）4】只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。",
+        "authorText": false
+      }
+    ],
+    "authorCandidateChanged": false,
+    "originalStrictVerification": {
+      "executionVerified": true,
+      "applicationPassed": true,
+      "authorArgumentFaithful": true,
+      "limitedUnknownOkay": false,
+      "wholeChapterPassed": false,
+      "modelReview": {
+        "applications": [
+          {
+            "itemId": "4ce1c71647c8da4352eb117e5d2f1094",
+            "faithful": true,
+            "evidence": "应用证据：接受用户观察的9m为输入事实。稳定targetId对应b0005右侧牌河从上第2张；当前有序转录为“8s 9m 7z 1z 5z 4z”，9m位置正确，当前unknowns已删除该位置的旧点数未知项，仅保留两个非牌码unknown。未从空orientation补推朝向或赤色情况。语义证据：顺序比对所供b0001至b0014及候选正文，标题、满贯技术的重要性及跳满以上成功率降低的理由均保留；b0002、b0004已确认译句及3s仅继承。b0004的下位反超风险条件，经b0005牌例接至b0006—b0010两处打白：风险低时尽量门清争取反超，与下位僅差时可鸣牌做食断，条件和分支未因右河9m改变。b0011保留三宝牌优先速度、宝牌对子可鸣、单张宝牌原则上保留及无宝牌先顺势推进、不强求两翻役的层次；b0012保留慢手且宝牌或役种不明确时考虑混一色、清一色，尤其适用于被下位反超风险低的条件；b0013—b0014参考说明及名次分保持对应。此为文字条件与论证一致性复核，没有图像验收或独立计分验算。"
+          }
+        ],
+        "authorArgumentFaithful": true,
+        "completeOrderedScopeCompared": true,
+        "inheritedCountConflictsAddressed": "采用所供机械核验结果，不重算：已知牌38→39，9m计数2→3，overFour前后均为空；手牌13、分开摸牌1、牌河24及宝牌指示牌1未变，无所供记录中的超四张冲突。该结果仅支持此次应用的记录一致性，不证明逐牌图像正确或作者计分前提已获独立验证。旧右河未知及其blocking限制作为历史保留，不再作为当前牌码事实或重新安装；原父审false、uncertain及raw证据不被此次结论覆写。",
+        "issues": [
+          {
+            "targetId": "nemata-jp-chapter-232-1",
+            "severity": "uncertain",
+            "description": "四条限制尚未安装，实际展示与读回验收仍待完成。",
+            "evidence": "displayProposal.installed=false、actualReadbackRequired=true。须以“审校限制（非原文）”在b0005之后、b0006之前逐字展示四条限制，并通过真实MCP/Arena读回确认文字、顺序、位置及两个当前unknown均正确呈现；本次未执行安装或读回。"
+          },
+          {
+            "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+            "severity": "source-note",
+            "description": "父审的历史否定结果、uncertain及原始证据继续保留，与本次人标应用结论分开。",
+            "evidence": "原repairPassed=false、limitedUnknownOkay=false及图例verdict=uncertain不改写。原issue“右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。”仅作历史证据保留；其中旧点数未知不再描述当前右河第2张，当前采用用户输入9m。3s只继承，不重新判读；原semanticReviewAuthorized=false、admissionGranted=false及wholeChapterPassed=false也不据此改写。"
+          },
+          {
+            "targetId": "modern-yabejp-ja:chapter04-section012:b0008",
+            "severity": "source-note",
+            "description": "既有source-note按父审继承。",
+            "evidence": "所供contextContinuity明确要求继承b0008既有source-note；本次不将其改判为翻译错误，也不重算作者数字。请求未提供该source-note全文，不补造其内容。"
+          }
+        ],
+        "unknownAndLimits": {
+          "unknownChecks": [
+            {
+              "unknownText": "中央两个0旁的小图标无法可靠辨认，不能据此确定各自对应的计数项目。",
+              "sufficientWithLimits": true,
+              "evidence": "保留该unknown并实际展示前两条限制后，可记录两个未命名的0，同时阻止推定本场、供托身份或据此宣称完成计分验证。下位者无法反超仍仅作为作者明示前提，足以支持条件性策略的文字呈现。"
+            },
+            {
+              "unknownText": "中央分数周围的玩家名及段位小字无法完整可靠辨认。",
+              "sufficientWithLimits": true,
+              "evidence": "保留该unknown并实际展示后两条限制后，不补写身份或段位，也不据其推导结论。作者关于打白、门清争取反超及鸣牌食断的条件性论证不依赖这些小字。"
+            }
+          ],
+          "limitChecks": [
+            {
+              "limitText": "只将两处显示为未命名的0，并保留计数项目未知的说明；不得自行指定为本场数、供托数等项目。",
+              "sufficient": true,
+              "evidence": "准确限制两个0的记录范围，并要求保留计数项目未知；与第二条共同使用时足够。当前仅为待安装文本。"
+            },
+            {
+              "limitText": "不得把未知计数身份当作已验证的计分计算；下位者无法反超的条件应表述为作者给出的前提。",
+              "sufficient": true,
+              "evidence": "明确区分作者前提与独立计分验证，防止由未知图标身份推出已核实的名次结论。实际安装并遵守后足够，尚未完成展示验收。"
+            },
+            {
+              "limitText": "保留玩家名及段位无法完整辨认的说明，不猜测或补写这些小字。",
+              "sufficient": true,
+              "evidence": "直接保留第二个unknown并禁止补写；与第四条共同使用时足以约束身份小字的不确定性。当前尚未安装。"
+            },
+            {
+              "limitText": "只使用可见席位、分数和作者明示的条件说明牌例，不作依赖玩家身份或段位的结论。",
+              "sufficient": true,
+              "evidence": "将牌例说明限定于所供席位、分数及作者条件，排除身份或段位推论；不构成对图像或计分的重新验收。实际安装并遵守后足够。"
+            }
+          ],
+          "overallSufficient": true,
+          "requiresActualDisplayAndReadback": true
+        },
+        "evidenceBasis": {
+          "acceptedHumanFactUsed": true,
+          "noImagesCompared": true,
+          "mechanicalApplicationOnly": false,
+          "semanticArgumentReviewed": true,
+          "wholeChapterPassed": false
+        },
+        "summary": "右河从上第2张9m的人标应用忠实，所供完整有序文字中的条件及作者论证保持一致。两个当前unknown配合四条限制，在实际安装并遵守后足够；此为条件性充分性判断，四限制仍未安装，真实MCP/Arena展示与读回仍必需。此次不构成全章通过或准入。"
+      }
+    },
+    "originalIssues": [
+      {
+        "severity": "uncertain",
+        "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+        "description": "右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。",
+        "sourceEvidence": "原图右侧牌河从上数第二张可辨为万子；候选保留“［万子，点数无法辨认］”。原审要求可靠确认前保持阻断。"
+      }
+    ],
+    "independentIssues": [
+      {
+        "targetId": "nemata-jp-chapter-232-1",
+        "severity": "uncertain",
+        "description": "四条限制尚未安装，实际展示与读回验收仍待完成。",
+        "evidence": "displayProposal.installed=false、actualReadbackRequired=true。须以“审校限制（非原文）”在b0005之后、b0006之前逐字展示四条限制，并通过真实MCP/Arena读回确认文字、顺序、位置及两个当前unknown均正确呈现；本次未执行安装或读回。"
+      },
+      {
+        "targetId": "modern-yabejp-ja:chapter04-section012:b0005:figure",
+        "severity": "source-note",
+        "description": "父审的历史否定结果、uncertain及原始证据继续保留，与本次人标应用结论分开。",
+        "evidence": "原repairPassed=false、limitedUnknownOkay=false及图例verdict=uncertain不改写。原issue“右侧牌河第二张的点数及赤色情况尚未可靠确认，逐牌核对维持原审阻断；本家3s的修订本身正确。”仅作历史证据保留；其中旧点数未知不再描述当前右河第2张，当前采用用户输入9m。3s只继承，不重新判读；原semanticReviewAuthorized=false、admissionGranted=false及wholeChapterPassed=false也不据此改写。"
+      },
+      {
+        "targetId": "modern-yabejp-ja:chapter04-section012:b0008",
+        "severity": "source-note",
+        "description": "既有source-note按父审继承。",
+        "evidence": "所供contextContinuity明确要求继承b0008既有source-note；本次不将其改判为翻译错误，也不重算作者数字。请求未提供该source-note全文，不补造其内容。"
+      }
+    ],
+    "ordinaryWholeArticlePassed": false,
+    "globalAdmissionGranted": false,
+    "globalMcpArenaReadbackCompleted": false,
+    "newModelCalls": 0
+  },
+  "source": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-sources\\v1\\modern-yabejp-ja\\articles\\chapter04-section012\\source.json",
+    "sha256": "893e14abcb3f68a7a22fac37d62387f6775e09d6d3ba706a4ffadb04746ae214",
+    "bytes": 23933
+  },
+  "candidate": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/232.human-final.v2.json",
+    "sha256": "93fdd682bea663f000059057925e39c226c682507b9299eb9c9312a611a6c18c"
+  },
+  "protectedFiles": [
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/source-structure-holds.json",
+      "sha256": "28185cb2b7e50c803b3c3a24962516dc93fdee6bb8167e7227148dd0088c2922"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/candidate-exclusions.json",
+      "sha256": "4835655ad7fa323e2acc94d4e04824dc1c56b4b67ceec1b1449617c79c3411a3"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/current-candidate-selection.json",
+      "sha256": "82c654fc34a4e509c9878065684306246f61324879f64eef1dc7f9aef964f4f2"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-human257261-cn311-intake-20261028.json",
+      "sha256": "45ee27ca8e8784b48073df4a1b4b3db58f9d4761720521955c5585f6ec63311f"
+    },
+    {
+      "path": "E:/AgentData/Coach/knowledge/review/textbook-corpus.json",
+      "sha256": "9836ee5b7043a1f9d9b13bc36e2dcb653d16b883ccb1975d71945365bc759af2"
+    }
+  ]
+}
