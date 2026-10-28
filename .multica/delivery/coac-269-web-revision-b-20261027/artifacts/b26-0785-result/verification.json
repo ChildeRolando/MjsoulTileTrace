@@ -1,0 +1,759 @@
+{
+  "schema": "coac269-b0785-real-review-consumption/1",
+  "recordedAt": "2026-10-28T09:08:04.584Z",
+  "canonical": "nemata-jp-chapter-283-1",
+  "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+  "candidate": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0785r1.json",
+    "sha256": "434120af284195ddf27b491a1c2c4cd9ea25072d40e9c6a366bcd8ac3cb03b9b"
+  },
+  "refs": {
+    "receipt": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-283-0785-reviewed-20261028.json",
+      "sha256": "49dc8c91614a3a4b726b41e69f3c2ddcdbd581c31973763930b222c11bd88b36"
+    },
+    "raw": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/calls/4690455a-50a9-4675-8572-27e789204cc6.json",
+      "sha256": "15d6f153d54e1beb35b2405caa8943d6cf79ccb180a8badfd58917a676b1b9c5"
+    },
+    "inheritance": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac249-283-0785-scope-inheritance-20261028.json",
+      "sha256": "bd8e040789cef358c4b615a3a97a2e6ee4edf896a8b7353ab418a4a56b4191a7"
+    },
+    "handoff": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac269-283-0785-handoff-249-20261028.json",
+      "sha256": "d9fb437f24d6c446c969be4abb7b519b50be7b7e5ad5c703488571a11a95646c"
+    },
+    "candidate": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269b0785r1.json",
+      "sha256": "434120af284195ddf27b491a1c2c4cd9ea25072d40e9c6a366bcd8ac3cb03b9b"
+    },
+    "runtime": {
+      "path": "E:/AgentData/Coach/knowledge/processing/audit/runtimes/coac269-283-0785-v1-20261028/runtime-manifest.json",
+      "sha256": "d167ab2e2beab21dda23336b40e341e1972ffbd894b2413702f04f8d08b3a4bb"
+    },
+    "overlay": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-bounded-merge-20261028/b0785-display-contract.json",
+      "sha256": "1c8fefac153094fbde93e234961ef4475259ba38dbae3298779e542d271905ba"
+    },
+    "compositionProof": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-bounded-merge-20261028/proof.json",
+      "sha256": "aaa94ae21945476fd8dc9eb0ba7cd1a3748b20ee83cd2476cc9ec26f725a962d"
+    },
+    "mergeManifest": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-bounded-merge-20261028/files.sha256.json",
+      "sha256": "a3add2f3ab242b48d083c28f21b943aff570a2da397d46ada2d0a59248bc8193"
+    },
+    "existing250Intake": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac250-b0785-evidence-intake-20261028.json",
+      "sha256": "a29759e2926ac003964d74e63aed74da54ef64335ac0f847b287367c5191a0a3"
+    },
+    "preview": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/accepted-preview-current.json",
+      "sha256": "53d88fef65a44e02210dd1a9eca6314319b15f0efec6f2d1591b6cdb908f0c1d"
+    }
+  },
+  "conclusions": {
+    "seatVerdict": "faithful",
+    "contextFaithful": true,
+    "unknownTeachingImpact": "nonblocking-with-limits",
+    "limitedUnknownOkay": true,
+    "strictTargetPassed": false,
+    "status": "needs-repair-or-uncertain",
+    "retainedUncertain": {
+      "severity": "uncertain",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "description": "三张万子弃牌、受遮挡副露牌及其余列出的未知信息仍未确定。相关万子和副露牌可能影响实况可见牌的计算，但不阻断对 Q48 定性论证的呈现。",
+      "sourceEvidence": "figure.unknowns 将左河第 4、6 张和右河第 1 张的万子数字，以及右上副露最上方牌保留为未知；同时保留三家隐手、骰点和右下裁切内容。b0790 仅给出手变机会和打点的定性说明。"
+    },
+    "wholeChapterAccepted": false,
+    "admissionGranted": false
+  },
+  "actualCall": {
+    "callId": "4690455a-50a9-4675-8572-27e789204cc6",
+    "scope": "textbook-b0785-independent-target-impact-review",
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter06-exercise003",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "success": true,
+    "usage": {
+      "inputTokens": 25359,
+      "cachedInputTokens": 0,
+      "outputTokens": 9786
+    },
+    "durationMs": 178648,
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "callerRequested": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-terra",
+        "--config",
+        "model_reasoning_effort=\"max\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-mvoYRQ\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-mvoYRQ\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-mvoYRQ",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-d3b908cf0a30.jpg",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-346bb333657e.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-original-x2.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-seat-panel-x4.png",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-d3b908cf0a30.jpg",
+          "sha256": "d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d",
+          "bytes": 53525
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-346bb333657e.png",
+          "sha256": "346bb333657eca75927ac24ce75b4b6f27b467ad252457a34f8cdcd890f7f6b6",
+          "bytes": 787
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-original-x2.png",
+          "sha256": "708b401ab3f9c4b1ab1b3fa066f3c07501597035600ce5ea086a87ff623577e9",
+          "bytes": 475368
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-seat-panel-x4.png",
+          "sha256": "359cd22cc33637c746698adf27a6d9652af198696d383f6b82a7678c172c4814",
+          "bytes": 48444
+        }
+      ],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "binding": {
+      "canonical": "nemata-jp-chapter-283-1",
+      "productionSha256": "434120af284195ddf27b491a1c2c4cd9ea25072d40e9c6a366bcd8ac3cb03b9b",
+      "sourceFileSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+      "parentSha256": "de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c",
+      "parentAuditSha256": "6c0de2ee947e3867fbd32e9cc89d23cb9a47c99c5e9521e7e46972ce50f1e4b5",
+      "reviewedDonorSha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+      "donorAuditSha256": "21d909b832c28e62a76f453863ed24d8fc8738adbb54b36bfd8117b9395d5aea",
+      "runtimeManifestSha256": "d167ab2e2beab21dda23336b40e341e1972ffbd894b2413702f04f8d08b3a4bb",
+      "scope": "b0785-seat-and-retained-unknown-teaching-impact",
+      "targetId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "authorizationComment": "01a18193-7e18-7193-8ca8-89c80dae4edd"
+    },
+    "promptSha256": "2dc7d631857ac9821ed68679d143f5d7252de1bb36d6a1612e8b1359ce48ba4d",
+    "semanticPromptSha256": "8d27fc03151ad6b266ae181857340350ffbb8f756ca5a9b3232d467383c2a47c",
+    "schemaSha256": "35b9adfb537a1309f28ce599ec4fecb8469f7dc3b4a14328137bf2d83e0c4bb3",
+    "recordedAt": "2026-10-28T08:48:07.949Z"
+  },
+  "actualMaker": {
+    "callId": "2969ad28-e823-41dc-8b63-45523e78c4b5",
+    "sourceId": "modern-yabejp-ja",
+    "articleId": "chapter06-exercise003",
+    "sourceSha256": "8e7eff57a85e84fb963209117689b07fec5efd9b5d7ee81c12f1fd3a44b497de",
+    "model": "gpt-6.1-terra",
+    "reasoningEffort": "max",
+    "requestExecution": {
+      "schema": "coach-textbook-cli-request/1",
+      "policy": "coac244-vision-production-schema-v2-20261028",
+      "model": "gpt-6.1-terra",
+      "reasoningEffort": "max",
+      "callerRequested": {
+        "model": "gpt-6.1-terra",
+        "reasoningEffort": "max"
+      },
+      "args": [
+        "exec",
+        "--model",
+        "gpt-6.1-terra",
+        "--config",
+        "model_reasoning_effort=\"max\"",
+        "--config",
+        "web_search=\"disabled\"",
+        "--ephemeral",
+        "--ignore-user-config",
+        "--ignore-rules",
+        "--sandbox",
+        "read-only",
+        "--strict-config",
+        "--skip-git-repo-check",
+        "--json",
+        "--output-schema",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-poXFhg\\output.schema.json",
+        "--output-last-message",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-poXFhg\\final.json",
+        "--cd",
+        "C:\\Users\\Roland\\AppData\\Local\\Temp\\textbook-page-poXFhg",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-d3b908cf0a30.jpg",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-346bb333657e.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-original-x2.png",
+        "-i",
+        "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-seat-panel-x4.png",
+        "--disable",
+        "apps",
+        "--disable",
+        "auth_elicitation",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "fast_mode",
+        "--disable",
+        "goals",
+        "--disable",
+        "guardian_approval",
+        "--disable",
+        "hooks",
+        "--disable",
+        "image_generation",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_chat",
+        "--disable",
+        "in_app_dictation",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "in_app_updates",
+        "--disable",
+        "memories",
+        "--disable",
+        "mentions_v2",
+        "--disable",
+        "multi_agent",
+        "--disable",
+        "plugin_sharing",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "shell_snapshot",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "skill_search",
+        "--disable",
+        "sleep_tool",
+        "--disable",
+        "tool_call_mcp_elicitation",
+        "--disable",
+        "tool_suggest",
+        "--disable",
+        "unbounded_connection_retries",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "unified_exec_tty",
+        "--disable",
+        "view_image",
+        "--disable",
+        "workspace_dependencies",
+        "-"
+      ],
+      "images": [
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-d3b908cf0a30.jpg",
+          "sha256": "d3b908cf0a30ca29f61443e06d7254b9bec9601c4d006885dd2af0dfc465020d",
+          "bytes": 53525
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-346bb333657e.png",
+          "sha256": "346bb333657eca75927ac24ce75b4b6f27b467ad252457a34f8cdcd890f7f6b6",
+          "bytes": 787
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-original-x2.png",
+          "sha256": "708b401ab3f9c4b1ab1b3fa066f3c07501597035600ce5ea086a87ff623577e9",
+          "bytes": 475368
+        },
+        {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-complex-two-zero-20261028\\b0785-seat-panel-x4.png",
+          "sha256": "359cd22cc33637c746698adf27a6d9652af198696d383f6b82a7678c172c4814",
+          "bytes": 48444
+        }
+      ],
+      "remoteBackend": "unverified; request arguments and returned events only"
+    },
+    "startedAt": "2026-10-28T08:31:03.198Z",
+    "durationMs": 32623,
+    "usage": {
+      "inputTokens": 30456,
+      "cachedInputTokens": 0,
+      "outputTokens": 1634
+    },
+    "success": true,
+    "transportStatus": "completed",
+    "rawArtifactPath": "raw-calls/2969ad28-e823-41dc-8b63-45523e78c4b5.json",
+    "rawArtifactSha256": "a47e36013f7de9811cc0f37fb5b4c369bd3088e77e06e85a4b9953f81543bd43",
+    "promptSha256": "cb94fc36b7ed29d59f5642e1a5158eb62d354f97ad1ac381b5b90bb24152a5ff",
+    "schemaSha256": "28c321ec1e7ad6f0a2d04ba2ff975c6a0fe8e11f5b5ab3d830904058d787c6ed",
+    "method": "coac269-exact-0785-seat/1",
+    "batchId": "chapter06-exercise003-batch-007",
+    "targets": {
+      "textIds": [],
+      "figureIds": [
+        "modern-yabejp-ja:chapter06-exercise003:b0785"
+      ]
+    },
+    "parent": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.coac269t1017r2.json",
+      "sha256": "de3c0fa24705cbe88a7a7fd3b0da8de5b09d009db43227776aef4d90e444f95c",
+      "bytes": 2132086
+    },
+    "donor": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\web-production\\v1\\candidates\\modern-yabejp-ja\\chapter06-exercise003.rev2.json",
+      "sha256": "849267b84c85544fc8378ec8e462be1a2101766c40726dbd77ce7558c67c50f3",
+      "bytes": 2147441
+    },
+    "runtime": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-0785-v1-20261028\\runtime-manifest.json",
+      "sha256": "d167ab2e2beab21dda23336b40e341e1972ffbd894b2413702f04f8d08b3a4bb"
+    },
+    "runner": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-0785-v1-20261028\\b0785.mjs",
+      "sha256": "634413b049d4f2eb9388ddcdb825ce303656a87c4cc8b1d7cea2071a2dcdf852"
+    },
+    "cliSnapshot": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\runtimes\\coac269-283-0785-v1-20261028\\textbook-production-cli.mjs",
+      "sha256": "35466a60c4647d482faec2577517c21bd763c7afbd56435ffdeada484d8299b7"
+    }
+  },
+  "budget": {
+    "maker": 1,
+    "independent": 1,
+    "consumed": 2,
+    "maximum": 2,
+    "remaining": 0,
+    "newCallsThisRun": 0,
+    "retries": 0,
+    "fee": null,
+    "remoteWeights": null,
+    "upstreamExecutionCount": null
+  },
+  "ownerDedup": {
+    "alreadyConsumedBy250": true,
+    "intakeStatus": "evidence-verified-display-contract-pending",
+    "existingContractOwner": "COAC-244",
+    "existingDisplayWriter": "COAC-250",
+    "duplicateConsumersStarted": 0,
+    "contractReused": true,
+    "otherScopeNotReassembled": true
+  },
+  "display": {
+    "contractPrepared": true,
+    "contractCandidate": {
+      "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-283-bounded-merge-20261028/chapter06-exercise003.bounded-composed.json",
+      "sha256": "ff3b1f36ffbd8daa23509a7375d0aaee533648299d636af2fa51be47657965d7"
+    },
+    "targetObjectHash": "a5920c978ed6c4d5893f7cb017f93200e2d9de672dfe8f1c969c813d144b841d",
+    "originalCandidate": "434120af284195ddf27b491a1c2c4cd9ea25072d40e9c6a366bcd8ac3cb03b9b",
+    "originalTargetObjectPreserved": true,
+    "authorTextChanged": false,
+    "originalUnknowns": [
+      "左侧牌河从画面上至下第4张为万子，数字未能可靠辨清。",
+      "左侧牌河从画面上至下第6张为万子，数字未能可靠辨清。",
+      "右侧牌河从画面上至下第1张为万子，数字未能可靠辨清。",
+      "右上副露区最上方竖向牌受遮挡，完整牌面及牌码未知。",
+      "上、左、右三家的隐手牌面未知；左、右侧隐手仅露出窄侧面，逐张数量未能可靠确认。",
+      "中央两枚骰子的具体点数未能可靠辨清。",
+      "右下信息栏等级文字及分数变化的右端被裁切，缺失部分未知。"
+    ],
+    "limits": [
+      {
+        "index": 1,
+        "text": "保留三张万子数字、受遮挡副露牌、三家隐手、骰点及裁切内容为未知，不补猜。",
+        "rawField": "/output/mandatoryLimits/0",
+        "exactContractTextMatched": true,
+        "rawQuoteBinding": {
+          "field": "/mandatoryLimits/0",
+          "text": "保留三张万子数字、受遮挡副露牌、三家隐手、骰点及裁切内容为未知，不补猜。",
+          "rawLastMessageUtf8Start": 1823,
+          "rawLastMessageUtf8Length": 110,
+          "quotedJsonSha256": "3055709db6e77db1ca508eb21bac3df9fead10688de010ca5a0ae9bc7ae1c8c3"
+        },
+        "installed": false,
+        "actualDisplayVerified": false
+      },
+      {
+        "index": 2,
+        "text": "区分正文默认条件与截图实况；不得用默认条件填补图中未知牌，或断言截图无鸣、牌河只有幺九字牌。",
+        "rawField": "/output/mandatoryLimits/1",
+        "exactContractTextMatched": true,
+        "rawQuoteBinding": {
+          "field": "/mandatoryLimits/1",
+          "text": "区分正文默认条件与截图实况；不得用默认条件填补图中未知牌，或断言截图无鸣、牌河只有幺九字牌。",
+          "rawLastMessageUtf8Start": 1939,
+          "rawLastMessageUtf8Length": 140,
+          "quotedJsonSha256": "4387996126695a7fd9d7200ec00ddd7d57682802c2a9cb75abc5a8d2e19bcae9"
+        },
+        "installed": false,
+        "actualDisplayVerified": false
+      },
+      {
+        "index": 3,
+        "text": "不得由现有转录断言精确可见张数、牌山存量、改良概率或所有实战场况下的最优选择。",
+        "rawField": "/output/mandatoryLimits/2",
+        "exactContractTextMatched": true,
+        "rawQuoteBinding": {
+          "field": "/mandatoryLimits/2",
+          "text": "不得由现有转录断言精确可见张数、牌山存量、改良概率或所有实战场况下的最优选择。",
+          "rawLastMessageUtf8Start": 2085,
+          "rawLastMessageUtf8Length": 119,
+          "quotedJsonSha256": "4a44a2794e2be72cf20eef6a17ecb93bca29e47d2d1ac1f663bd90477d45e456"
+        },
+        "installed": false,
+        "actualDisplayVerified": false
+      },
+      {
+        "index": 4,
+        "text": "本结论仅覆盖 b0785 的方位、保留未知及其对 Q48 论证呈现的影响。",
+        "rawField": "/output/mandatoryLimits/3",
+        "exactContractTextMatched": true,
+        "rawQuoteBinding": {
+          "field": "/mandatoryLimits/3",
+          "text": "本结论仅覆盖 b0785 的方位、保留未知及其对 Q48 论证呈现的影响。",
+          "rawLastMessageUtf8Start": 2210,
+          "rawLastMessageUtf8Length": 89,
+          "quotedJsonSha256": "aec1f0e8b584e4a07e5d8e9977e84675f4a48118852e245ac6b14a510a47def7"
+        },
+        "installed": false,
+        "actualDisplayVerified": false
+      }
+    ],
+    "defaultConditionSourceBlocks": [
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0003"
+        ],
+        "sourceText": "特に断りがない部分は、以下のルールと状況を適用。",
+        "text": "除非另有说明，均适用以下规则和状况。",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0003",
+        "sourceSegments": [
+          {
+            "text": "特に断りがない部分は、以下のルールと状況を適用。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0004"
+        ],
+        "sourceText": "ルール：アリアリ、赤なし、一発･裏ドラ･カンドラ･カン裏あり。",
+        "text": "规则：允许食断、后付，无赤宝牌，有一发、里宝牌、杠宝牌、杠里宝牌。",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0004",
+        "sourceSegments": [
+          {
+            "text": "ルール：アリアリ、赤なし、一発･裏ドラ･カンドラ･カン裏あり。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      },
+      {
+        "type": "text",
+        "sourceBlockIds": [
+          "modern-yabejp-ja:chapter06-exercise003:b0005"
+        ],
+        "sourceText": " 状況：全体的に１･９･字牌しか切れてない捨て牌で、鳴きも一切なし。場に関連牌は飛んでいないものとする。",
+        "text": " 状况：所有人的牌河中都只切出了1、9和字牌，也完全没有鸣牌。假定场上没有出现相关牌。",
+        "paragraphId": "modern-yabejp-ja:chapter06-exercise003:p0004",
+        "sourceSegments": [
+          {
+            "text": " 状況：全体的に１･９･字牌しか切れてない捨て牌で、鳴きも一切なし。場に関連牌は飛んでいないものとする。",
+            "marks": [],
+            "href": null
+          }
+        ],
+        "tableContext": null
+      }
+    ],
+    "anchor": {
+      "afterSourceBlockId": "modern-yabejp-ja:chapter06-exercise003:b0784",
+      "beforeFigureId": "modern-yabejp-ja:chapter06-exercise003:b0785:figure",
+      "scope": "Q48 only",
+      "mustBeVisibleWithTarget": true
+    },
+    "label": "来源限制（编者说明，非作者原文）",
+    "currentPreviewSelected": false,
+    "currentPreviewCreatedAt": "2026-10-28T08:15:10.354Z",
+    "actualMcpArenaReadback": null,
+    "status": "existing-contract-ready-display-install-and-readback-pending",
+    "nextAction": "Existing250 writer installs the verbatim non-author contract with Q48 and verifies all four limits, default-condition versus screenshot distinction, full unknowns and prior scope restrictions through actual MCP/Arena readback. No new model, OCR, maker or consumer."
+  },
+  "inheritance": {
+    "bodyBlocksUnchanged": 1195,
+    "nonTargetFiguresUnchanged": 523,
+    "passedBlocks": [
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0168",
+        "sha256": "d55a000d40ba7be635ee8db036b5b0dcec0d36c4cc0148c05fda30565bbaaaba",
+        "unchanged": true
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0396",
+        "sha256": "09a2a5d026ce9a92ab44c4ab0b8e68b2b4a4cadb7473eb1badc8dd02180966fc",
+        "unchanged": true
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b0962",
+        "sha256": "22c862616d1bed99329a582db501ddc1d84d7f13c7ec57560ac102452bc8a004",
+        "unchanged": true
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b1181",
+        "sha256": "2bf969f12f251fa3c14835b143977ce3a4919ff96b78ad7d88123e335c71e54b",
+        "unchanged": true
+      },
+      {
+        "id": "modern-yabejp-ja:chapter06-exercise003:b1017",
+        "sha256": "68e9f7906522bf84011129825a472911f426f0e743471c2049677ecd27979c06",
+        "unchanged": true
+      }
+    ],
+    "sixTables": {
+      "blocks": 137,
+      "figures": 94,
+      "unchanged": true,
+      "prior": {
+        "oldTableVerified": {
+          "schema": "coac244-283-table-reuse-verified/1",
+          "passed": true,
+          "scope": "66 previous geometry target figures and6 tables only; other28 table figures inherited independently",
+          "candidateSha256": "b2417de19a50ec85609f75a4e07f07e002cf636785e1427948c06000a0967c2f",
+          "supplementSha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c",
+          "chapterAccepted": false,
+          "newModelCalls": 0
+        },
+        "blocks": 137,
+        "figures": 94,
+        "exactObjects": true,
+        "presentationAndOriginalOrderInherited": true,
+        "supplement": {
+          "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac244-283-convergence-20261028\\table-reuse-supplement.json",
+          "sha256": "e4c53883946db51d87c318da05035187cb442a968436bae8ab8834017d8fdf3c"
+        }
+      }
+    },
+    "Q8": {
+      "blocks": 21,
+      "figures": 7,
+      "unchanged": true,
+      "mandatoryLimits": {
+        "notFullMeldTranscription": true,
+        "unknownEastMeldOtherTwoManzuDigits": true,
+        "otherUnknownDiscardsAndTsumogiriMarkers": true,
+        "htmlAndJpegDifferentArchiveCaptureDates": true,
+        "linkedCommentary2sSafetyConflict": true,
+        "noExactSafetyOrHiddenHandInference": true
+      },
+      "fieldsStillUnknown": [
+        {
+          "value": "东家吃牌中除8m外的两张万子的具体数字",
+          "status": "unknown",
+          "evidence": "可辨万字，但数码不足以可靠辨认。",
+          "coordinates": "原JPEG x=[454,491), y=[31,69)",
+          "teachingImpact": "无法完整转写顺子；不影响1s和2s的副露计数。"
+        },
+        {
+          "value": "东、西牌河中各一张筒子的点数，以及东家第二列一张多根索子的点数",
+          "status": "unknown",
+          "evidence": "原始像素不能可靠数清图案；4倍最近邻不产生新细节。",
+          "coordinates": "原JPEG东家 x=[329,365), y=[168,187)及x=[365,401), y=[206,225)；西家 x=[131,168), y=[187,206)",
+          "teachingImpact": "不能用这些牌确定具体安全牌；已辨类别和图案不增加1s或2s。"
+        },
+        {
+          "value": "西家一张万子的数字及若干弃牌的明暗标识",
+          "status": "unknown",
+          "evidence": "数字或灰度不足以可靠判定；各弃牌条目已注明明暗unknown。",
+          "coordinates": "原JPEG西家数字unknown：x=[131,168), y=[225,245)；其余明暗范围见各座位牌河条目。",
+          "teachingImpact": "不能完整还原这些牌的手出、摸切信息。"
+        },
+        {
+          "value": "链接解说中2s对上家是否为现物",
+          "status": "source-conflict",
+          "evidence": "同一解说先称2s可能打中“カミチャ”，后又称2s是“カミチャ、トイメンの現物”。JPEG中的两张2s弃牌位于东家和南家，未在西家现存牌河见到2s。解说与JPEG可能并非同一版本，不能据此选择其中一句作为确定事实。",
+          "coordinates": "原JPEG东家 x=[329,365), y=[225,245)；南家 x=[274,301), y=[96,121)；西家牌河 x=[94,168), y=[149,264)",
+          "teachingImpact": "不能依该解说断定对上家的安全性；Q8教材的“1s、2s薄”仍有独立图像计数支持。"
+        }
+      ]
+    },
+    "batch010": {
+      "passed": true,
+      "checkpoint": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\audit\\web\\batches\\dea1ba2453139b1ce13725be3bb195e85133a80c3a744db0166a247ca79f5899\\554a60a61861e50b108cb6488263bf449ca03a152f5b8b176b8ea7ac481d8421\\chapter06-exercise003-batch-010.json",
+        "sha256": "0f7ba48598f4f46d5d0bc1de613a288633346559ee3ce089d6f0accb699646aa"
+      },
+      "unchanged": true
+    }
+  },
+  "compositionReadOnlyVerification": {
+    "passed": true,
+    "scopedCompositionVerified": true,
+    "independentLimitedAllowance": true,
+    "originalTargetPassed": false,
+    "originalUncertainPreserved": true,
+    "authorBlocksUnchanged": 1195,
+    "nonTargetFiguresUnchanged": 522,
+    "b0785ExactObjectPreserved": true,
+    "b0947ExactObjectPreserved": true,
+    "mandatoryLimits": 4,
+    "newModelCalls": 0,
+    "displayContractPrepared": true,
+    "displayInstalled": false,
+    "admissionGranted": false,
+    "wholeChapterAccepted": false,
+    "standardWholeArticlePassed": false
+  },
+  "negativeChecks": [
+    {
+      "name": "target-pass-forged",
+      "rejected": true
+    },
+    {
+      "name": "uncertain-removed",
+      "rejected": true
+    },
+    {
+      "name": "uncertain-relabelled",
+      "rejected": true
+    },
+    {
+      "name": "chapter-pass-forged",
+      "rejected": true
+    },
+    {
+      "name": "missing-limit",
+      "rejected": true
+    },
+    {
+      "name": "limit-paraphrase",
+      "rejected": true
+    },
+    {
+      "name": "author-note",
+      "rejected": true
+    },
+    {
+      "name": "guess-unknown",
+      "rejected": true
+    },
+    {
+      "name": "unanchored",
+      "rejected": true
+    },
+    {
+      "name": "default-conditions-removed",
+      "rejected": true
+    },
+    {
+      "name": "readback-invented",
+      "rejected": true
+    }
+  ]
+}

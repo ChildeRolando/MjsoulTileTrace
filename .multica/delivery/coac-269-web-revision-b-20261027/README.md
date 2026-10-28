@@ -1786,3 +1786,80 @@ other branch, active switch or whole-chapter re-review was performed. Money, rem
 upstream execution counts are unknown. Evidence, actual raw, candidates, exact diffs and executable
 checks are in `artifacts/b25-109167`; final Windows packaging uses strict paths below240 characters.
 Issue remains in_progress and draft PR74 is software/evidence delivery only.
+
+## Batch26 — consume b0785's real independent result, zero new calls
+
+Wakeup `01a181b4-1e4a-7250-94cc-4fc9494e8813` delivers only the existing249 result to
+the original authorization thread `01a18193-7e18-7193-8ca8-89c80dae4edd`. It is a completed
+once rule, already disabled, and grants no new production/review/OCR calls. The earlier batch24
+pending result is now replaced by the following three distinct actual outcomes:
+
+- `seatVerdict=faithful`: upper-left west, upper-right north, lower-left south, lower-right east.
+- `contextFaithful=true`, `unknownTeachingImpact=nonblocking-with-limits`,
+  `limitedUnknownOkay=true`: the known hand and Q48 text support presenting the author's
+  qualitative cut8s-riichi argument under the four exact display limitations.
+- The original one `uncertain` remains unchanged, so the frozen verifier returns
+  **`targetPassed=false`**, status `needs-repair-or-uncertain`. There is no ordinary target,
+  whole-chapter or admission pass. No issue or verifier was edited to produce a better result.
+
+Exact evidence was rehashed and actually verified: receipt
+`49dc8c91614a3a4b726b41e69f3c2ddcdbd581c31973763930b222c11bd88b36`, raw
+`15d6f153d54e1beb35b2405caa8943d6cf79ccb180a8badfd58917a676b1b9c5`, and inheritance
+`bd8e040789cef358c4b615a3a97a2e6ee4edf896a8b7353ab418a4a56b4191a7`.
+Candidate remains `434120af284195ddf27b491a1c2c4cd9ea25072d40e9c6a366bcd8ac3cb03b9b`.
+The actual independent call `4690455a-50a9-4675-8572-27e789204cc6` used
+**gpt-6.1-terra/max**, four ordered real images,25359 input/0 cached/9786 output,178648ms.
+Exactly one standard audit ledger row exists for this new SHA. Actual argv/images/hash/bytes,
+closed prompt/schema, full completed session and output match the frozen request. The original
+maker `2969ad28-e823-41dc-8b63-45523e78c4b5` remains30456/0/1634 tokens,32623ms.
+The batch is therefore maker1+review1=2/2, remaining0, retries0. This registration run adds0
+model calls. Money, remote weights and upstream execution counts remain unknown.
+
+`artifacts/b26-0785-result/consume.mjs` calls the original frozen `verify0785Production`,
+`prepare0785Review` and `verify0785ReviewExecution` as read-only verifiers, matches the real
+plan/raw/ledger, verifies all34 runtime files and original handoff, and authenticates the existing
+inheritance references.1195 body blocks and523 non-target figure objects are identical to the
+parent;0168/0396/0962/1181/1017, six tables137 blocks94 figures, Q8 and its limits, and batch010
+retain their exact evidence. The candidate, source, parent/raw/audit, unknown/caption/sourceNotes
+and runtime remain unchanged. No other chapter, in-flight109/167 work or283 source is produced.
+
+Dedup found250 had already consumed this exact receipt in
+`integration/coac250-b0785-evidence-intake-20261028.json`; it records display-contract pending,
+not accepted.244 has already prepared the lawful non-author display contract at
+`integration/coac244-283-bounded-merge-20261028/b0785-display-contract.json`, SHA
+`1c8fefac153094fbde93e234961ef4475259ba38dbae3298779e542d271905ba`.
+This run reuses its contract and read-only verifier; it does not rerun its builder, reassemble
+b0947, write another branch or create a consumer/wakeup. That contract binds the unchanged
+b0785 target object `a5920c978ed6c4d5893f7cb017f93200e2d9de672dfe8f1c969c813d144b841d`
+on244's existing derived candidate `ff3b1f36ffbd8daa23509a7375d0aaee533648299d636af2fa51be47657965d7`.
+The derived SHA is an explicit separately proven composition, not an alias for this production SHA.
+
+All four actual `mandatoryLimits` are matched verbatim to the raw JSON fields and UTF8 quote
+bindings. The existing contract labels them `来源限制（编者说明，非作者原文）`, anchors them
+after Q48 heading b0784 and before target figure b0785, and binds unchanged default-condition
+source blocks b0003–b0005. It preserves the full seven unknowns and original uncertain. The limits are:
+
+1. 保留三张万子数字、受遮挡副露牌、三家隐手、骰点及裁切内容为未知，不补猜。
+2. 区分正文默认条件与截图实况；不得用默认条件填补图中未知牌，或断言截图无鸣、牌河只有幺九字牌。
+3. 不得由现有转录断言精确可见张数、牌山存量、改良概率或所有实战场况下的最优选择。
+4. 本结论仅覆盖 b0785 的方位、保留未知及其对 Q48 论证呈现的影响。
+
+The current accepted preview does not select this source chapter. The existing contract explicitly
+has `actualMcpArenaReadback=null`; the read-only composition verifier returns
+`displayInstalled=false`, `admissionGranted=false`, `wholeChapterAccepted=false`. Contract
+mapping is ready, actual display is **not verified**. The next action belongs to existing250:
+install all four exact non-author strings with Q48, verify defaults are distinguished from the
+screenshot, preserve every unknown and inherited restriction, and perform real MCP/Arena readback
+before any lawful chapter admission. This is display acceptance work, not another low-resolution
+tile-reading or paid semantic task. Existing244's proof separates16 independently evidenced
+original issues, one limited-unknown display acceptance item and two source-notes; this run does
+not rewrite its account or convert the original raw issue to a different severity.
+
+11 additional zero-model negative checks reject forged target/chapter pass, deleted/relabelled
+uncertain, missing/paraphrased limits, author-note mislabelling, guessed unknowns, unanchored
+notes, removed default conditions and invented readback. `verify-pack.py` rehashes the protected
+evidence/runtime, validates artifact syntax and checks strict Windows paths below240 characters.
+The own-namespace consumption report is `integration/coac269-b0785-result-consumed-20261028.json`;
+its repo copy and immutable input copies are in `artifacts/b26-0785-result`. Status stays
+in_progress; PR74 remains draft. Neither display installation nor independent textbook acceptance
+is inferred from this successful zero-model registration.
