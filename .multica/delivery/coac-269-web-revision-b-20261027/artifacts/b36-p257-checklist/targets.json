@@ -1,0 +1,991 @@
+{
+  "schema": "coac269-p257-20-source-pixel-targets/1",
+  "authorization": "01a1824e-b1cf-73f6-b1dd-72f1a33a3bf5",
+  "candidate": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/257.human-final.json",
+    "sha256": "5403cb35614b1edab17488458dbaf0571e1a48e1972d2d04c9ebc30a03da67dc"
+  },
+  "parent": {
+    "path": "E:\\AgentData\\Coach\\knowledge\\processing\\production\\sol-high-fallback-inline-20261026\\candidates\\nemata-jp\\page-0257.json",
+    "sha256": "6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88",
+    "bytes": 25248
+  },
+  "sourceImages": {
+    "257-start": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-start.png",
+      "sha256": "b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03"
+    },
+    "257-results": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+      "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+    },
+    "full-comparison": {
+      "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-full-comparison.png",
+      "sha256": "62a6a6c4f94a754ca7e41d82bc32964736fd525331c29eafd9cb5ce68ca05397"
+    }
+  },
+  "regions": [
+    {
+      "id": "CPU hand",
+      "label": "本家可见手牌",
+      "box": [
+        1317,
+        986,
+        1900,
+        1048
+      ],
+      "displayedSlots": 13,
+      "meaning": "CPU结果底边手牌列，仅此时点；不计上排起始手牌。"
+    },
+    {
+      "id": "CPU upper exposed set",
+      "label": "上方公开副露",
+      "box": [
+        1118,
+        74,
+        1269,
+        137
+      ],
+      "displayedSlots": 3,
+      "meaning": "上方左端三张公开牌，旧转录9m×3；不重复计入上方暗手。"
+    },
+    {
+      "id": "CPU dora indicator",
+      "label": "中央宝牌指示显示",
+      "box": [
+        1496,
+        519,
+        1545,
+        580
+      ],
+      "displayedSlots": 1,
+      "meaning": "中央一张公开指示显示，旧转录6z；四张背面不计。此项不当作CPU手牌或牌河中的另一张。"
+    },
+    {
+      "id": "upper",
+      "label": "上方牌河",
+      "box": [
+        1474,
+        222,
+        1743,
+        407
+      ],
+      "displayedSlots": 17,
+      "meaning": "最靠中央一排从画面右向左，再向上；上层起始列有空位，不算牌。"
+    },
+    {
+      "id": "left",
+      "label": "左方牌河",
+      "box": [
+        1267,
+        429,
+        1452,
+        699
+      ],
+      "displayedSlots": 18,
+      "meaning": "从最靠中央列开始，每列自上而下，再向画面左侧。"
+    },
+    {
+      "id": "right",
+      "label": "右方牌河",
+      "box": [
+        1764,
+        410,
+        1949,
+        699
+      ],
+      "displayedSlots": 17,
+      "meaning": "从最靠中央列开始，每列自下而上，再向画面右侧；最外列顶部空位不算牌。第12显示位为不同长宽方向，独立框取，不套普通行高；不据此新增立直或鸣牌推断。"
+    },
+    {
+      "id": "bottom",
+      "label": "下方牌河",
+      "box": [
+        1473,
+        717,
+        1742,
+        901
+      ],
+      "displayedSlots": 18,
+      "meaning": "每排自左至右，各排由上到下。"
+    }
+  ],
+  "countedSourceView": "source257b4/right CPU result only",
+  "targetCount": 20,
+  "targets": [
+    {
+      "id": "T01",
+      "scope": "CPU hand",
+      "regionLabel": "本家可见手牌",
+      "ordinal": 6,
+      "oldTile": "4p",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1541,
+        986,
+        1586,
+        1048
+      ],
+      "cropBox": [
+        1533,
+        978,
+        1594,
+        1056
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T01.png",
+        "sha256": "675f24b3776cbde9b3305dd0add41679f470f1aa9a223dc0c6c2ba31461a475f"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签4p在单一CPU展示中合计8次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    },
+    {
+      "id": "T02",
+      "scope": "upper",
+      "regionLabel": "上方牌河",
+      "ordinal": 3,
+      "oldTile": "4p",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1608,
+        345,
+        1653,
+        406
+      ],
+      "cropBox": [
+        1600,
+        337,
+        1661,
+        414
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T02.png",
+        "sha256": "fc2c1bb229c1e6a5af83a0eeb0d1aae6442cdde10bc421a8e70cb9e30f96eebc"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签4p在单一CPU展示中合计8次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    },
+    {
+      "id": "T03",
+      "scope": "upper",
+      "regionLabel": "上方牌河",
+      "ordinal": 8,
+      "oldTile": "4p",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1653,
+        284,
+        1698,
+        345
+      ],
+      "cropBox": [
+        1645,
+        276,
+        1706,
+        353
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T03.png",
+        "sha256": "2497eafa189d0b0833f2589a0baaf55458a8405b15cfb5472bbea7ecf641fc80"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签4p在单一CPU展示中合计8次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    },
+    {
+      "id": "T04",
+      "scope": "left",
+      "regionLabel": "左方牌河",
+      "ordinal": 11,
+      "oldTile": "4p",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1328,
+        608,
+        1390,
+        653
+      ],
+      "cropBox": [
+        1320,
+        600,
+        1398,
+        661
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T04.png",
+        "sha256": "e546bb8e1340183479a0342c97b7a78d74ea7808e7a7d76a70412f70f9d2aea1"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签4p在单一CPU展示中合计8次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    },
+    {
+      "id": "T05",
+      "scope": "right",
+      "regionLabel": "右方牌河",
+      "ordinal": 10,
+      "oldTile": "4p",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1826,
+        519,
+        1887,
+        563
+      ],
+      "cropBox": [
+        1818,
+        511,
+        1895,
+        571
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T05.png",
+        "sha256": "6b8a9bbfeb42a867d6740b42bb06719b3cf8430008c5cdf88cfdd5c0a62c5bad"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签4p在单一CPU展示中合计8次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    },
+    {
+      "id": "T06",
+      "scope": "right",
+      "regionLabel": "右方牌河",
+      "ordinal": 12,
+      "oldTile": "4p",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1825,
+        410,
+        1873,
+        474
+      ],
+      "cropBox": [
+        1817,
+        402,
+        1881,
+        482
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T06.png",
+        "sha256": "345d27fcf830fc7f074b0885435ec2c14070c32e2eb2c0cd51825aeb76a2b088"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签4p在单一CPU展示中合计8次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    },
+    {
+      "id": "T07",
+      "scope": "bottom",
+      "regionLabel": "下方牌河",
+      "ordinal": 5,
+      "oldTile": "4p",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1652,
+        717,
+        1697,
+        778
+      ],
+      "cropBox": [
+        1644,
+        709,
+        1705,
+        786
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T07.png",
+        "sha256": "1df4fcbc1ba943d6f1e898e1d90c880e800d48cac60fb79ad17b905713885d88"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签4p在单一CPU展示中合计8次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    },
+    {
+      "id": "T08",
+      "scope": "bottom",
+      "regionLabel": "下方牌河",
+      "ordinal": 6,
+      "oldTile": "4p",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1697,
+        717,
+        1742,
+        778
+      ],
+      "cropBox": [
+        1689,
+        709,
+        1750,
+        786
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T08.png",
+        "sha256": "460aeed58b83aa9a2b2f3ab54766054236a1cffd6bebda999ad3f83ba4bf8906"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签4p在单一CPU展示中合计8次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    },
+    {
+      "id": "T09",
+      "scope": "CPU hand",
+      "regionLabel": "本家可见手牌",
+      "ordinal": 7,
+      "oldTile": "1s",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1586,
+        986,
+        1631,
+        1048
+      ],
+      "cropBox": [
+        1578,
+        978,
+        1639,
+        1056
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T09.png",
+        "sha256": "020a8c72c700180331549248f500410004df0785c32c72b8b442fd16ecbf23af"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签1s在单一CPU展示中合计5次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    },
+    {
+      "id": "T10",
+      "scope": "left",
+      "regionLabel": "左方牌河",
+      "ordinal": 7,
+      "oldTile": "1s",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1328,
+        429,
+        1390,
+        474
+      ],
+      "cropBox": [
+        1320,
+        421,
+        1398,
+        482
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T10.png",
+        "sha256": "a615ff3b05d76023aab6211d36f64348c45a85a6bc7961e3818e6eebd6e6437e"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签1s在单一CPU展示中合计5次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    },
+    {
+      "id": "T11",
+      "scope": "right",
+      "regionLabel": "右方牌河",
+      "ordinal": 9,
+      "oldTile": "1s",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1826,
+        563,
+        1887,
+        608
+      ],
+      "cropBox": [
+        1818,
+        555,
+        1895,
+        616
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T11.png",
+        "sha256": "8c96fd7625ebb8903a92a574447da92a629293b1303baf78958c1274d01f3996"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签1s在单一CPU展示中合计5次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    },
+    {
+      "id": "T12",
+      "scope": "CPU hand",
+      "regionLabel": "本家可见手牌",
+      "ordinal": 9,
+      "oldTile": "8s",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1675,
+        986,
+        1720,
+        1048
+      ],
+      "cropBox": [
+        1667,
+        978,
+        1728,
+        1056
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T12.png",
+        "sha256": "3adf26d467a8a67b122e33d215b40edf61f4821e7f4777b9bf4369331748eb28"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签8s在单一CPU展示中合计5次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    },
+    {
+      "id": "T13",
+      "scope": "left",
+      "regionLabel": "左方牌河",
+      "ordinal": 9,
+      "oldTile": "8s",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1328,
+        519,
+        1390,
+        563
+      ],
+      "cropBox": [
+        1320,
+        511,
+        1398,
+        571
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T13.png",
+        "sha256": "c418798144a5726cb030d8c1b8a17fb396cbe47eb35b0b3e7adab6f13cad5306"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签8s在单一CPU展示中合计5次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    },
+    {
+      "id": "T14",
+      "scope": "right",
+      "regionLabel": "右方牌河",
+      "ordinal": 16,
+      "oldTile": "8s",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1887,
+        519,
+        1948,
+        563
+      ],
+      "cropBox": [
+        1879,
+        511,
+        1956,
+        571
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T14.png",
+        "sha256": "f28d35f6304095e3a839435174bc306041f4fa6ff4f0fe94b4339b4800608683"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签8s在单一CPU展示中合计5次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    },
+    {
+      "id": "T15",
+      "scope": "right",
+      "regionLabel": "右方牌河",
+      "ordinal": 17,
+      "oldTile": "8s",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1887,
+        474,
+        1948,
+        519
+      ],
+      "cropBox": [
+        1879,
+        466,
+        1956,
+        527
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T15.png",
+        "sha256": "f6217a14efa102f52e2fd959f91c30ed17f353300406693a1b5dc0212bf8154e"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签8s在单一CPU展示中合计5次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    },
+    {
+      "id": "T16",
+      "scope": "CPU hand",
+      "regionLabel": "本家可见手牌",
+      "ordinal": 10,
+      "oldTile": "9s",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1720,
+        986,
+        1765,
+        1048
+      ],
+      "cropBox": [
+        1712,
+        978,
+        1773,
+        1056
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T16.png",
+        "sha256": "2362869fab9cf4ddee1b886b09fb4ecf5445b4f4515f30431e30574d4924f883"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签9s在单一CPU展示中合计5次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    },
+    {
+      "id": "T17",
+      "scope": "CPU hand",
+      "regionLabel": "本家可见手牌",
+      "ordinal": 11,
+      "oldTile": "9s",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1765,
+        986,
+        1810,
+        1048
+      ],
+      "cropBox": [
+        1757,
+        978,
+        1818,
+        1056
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T17.png",
+        "sha256": "ee849ecc643dcc99c1fbdc6c34883f7d78bb204d3c7e8c776318eaea3bd8cc54"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签9s在单一CPU展示中合计5次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    },
+    {
+      "id": "T18",
+      "scope": "upper",
+      "regionLabel": "上方牌河",
+      "ordinal": 5,
+      "oldTile": "9s",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1519,
+        345,
+        1564,
+        406
+      ],
+      "cropBox": [
+        1511,
+        337,
+        1572,
+        414
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T18.png",
+        "sha256": "a5d3382f8f782579f85b4ed7a67985f9459317b4348b817e371b32aebac33646"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签9s在单一CPU展示中合计5次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    },
+    {
+      "id": "T19",
+      "scope": "right",
+      "regionLabel": "右方牌河",
+      "ordinal": 4,
+      "oldTile": "9s",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1764,
+        519,
+        1826,
+        563
+      ],
+      "cropBox": [
+        1756,
+        511,
+        1834,
+        571
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T19.png",
+        "sha256": "c6db242a5321c04bc14018573abe0c0d5cb9a811bc2cb0d0be6b0d4bf6b7e081"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签9s在单一CPU展示中合计5次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    },
+    {
+      "id": "T20",
+      "scope": "bottom",
+      "regionLabel": "下方牌河",
+      "ordinal": 14,
+      "oldTile": "9s",
+      "sourceImage": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\source\\257-results.png",
+        "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8"
+      },
+      "sourceImageBlockId": "nemata-jp-p257-b4",
+      "coordinateOrigin": "top-left; [left,top,right,bottom), original2109x1210 pixels",
+      "targetBox": [
+        1518,
+        840,
+        1563,
+        901
+      ],
+      "cropBox": [
+        1510,
+        832,
+        1571,
+        909
+      ],
+      "crop": {
+        "path": "E:\\AgentData\\Coach\\knowledge\\processing\\integration\\coac269-p257-twenty-check-v2-20261028\\crops\\T20.png",
+        "sha256": "d15003c105dbd4ed71552e9bbcd763937d9eb0e2c86e41ad0db67fd5a30b7a24"
+      },
+      "cropPixels": "unmodified original pixels, no enlargement/denoise/sharpen/AI reconstruction",
+      "suspicion": "旧标签9s在单一CPU展示中合计5次；该非人标字段缺少逐位确认。总数仅作定位诊断，不证明此位错。",
+      "newTile": null,
+      "confirmationStatus": "unanswered-draft-not-submitted",
+      "existingHumanItem": false,
+      "originalMachineEvidence": {
+        "path": "E:/AgentData/Coach/knowledge/processing/production/sol-high-fallback-inline-20261026/raw-calls/08715337-9169-4e72-a855-f8d71c32ba53.json",
+        "sha256": "75029d732b0a48352bec6e003b6e7ece8fd0bd2add344dbf5f1d94d50d066256",
+        "pointer": "/parsedOutput/figures/0/transcription"
+      }
+    }
+  ],
+  "protectedHumanPositions": [
+    {
+      "scope": "upper",
+      "ordinal": 1,
+      "box": [
+        1698,
+        345,
+        1743,
+        406
+      ]
+    },
+    {
+      "scope": "upper",
+      "ordinal": 6,
+      "box": [
+        1474,
+        345,
+        1519,
+        406
+      ]
+    },
+    {
+      "scope": "upper",
+      "ordinal": 17,
+      "box": [
+        1519,
+        222,
+        1564,
+        283
+      ]
+    },
+    {
+      "scope": "left",
+      "ordinal": 16,
+      "box": [
+        1267,
+        563,
+        1328,
+        608
+      ]
+    },
+    {
+      "scope": "right",
+      "ordinal": 1,
+      "box": [
+        1764,
+        653,
+        1826,
+        698
+      ]
+    },
+    {
+      "scope": "right",
+      "ordinal": 2,
+      "box": [
+        1764,
+        608,
+        1826,
+        653
+      ]
+    },
+    {
+      "scope": "right",
+      "ordinal": 7,
+      "box": [
+        1826,
+        653,
+        1887,
+        698
+      ]
+    },
+    {
+      "scope": "right",
+      "ordinal": 13,
+      "box": [
+        1887,
+        653,
+        1948,
+        698
+      ]
+    },
+    {
+      "scope": "right",
+      "ordinal": 14,
+      "box": [
+        1887,
+        608,
+        1948,
+        653
+      ]
+    }
+  ],
+  "noCandidateOrAnnotationChange": true,
+  "newModelCalls": 0
+}

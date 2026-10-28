@@ -1,0 +1,227 @@
+{
+  "schema": "coac269-p257-trusted-only-display-proposal/1",
+  "proposalOnly": true,
+  "appliedToCandidate": false,
+  "candidate": {
+    "path": "E:/AgentData/Coach/knowledge/processing/integration/coac244-human-final-20261028/candidates/257.human-final.json",
+    "sha256": "5403cb35614b1edab17488458dbaf0571e1a48e1972d2d04c9ebc30a03da67dc"
+  },
+  "scope": "r1 CPU-result public tile transcription only; author body and other figures untouched",
+  "sourceImageMustRemainComplete": true,
+  "trustedHumanFacts": [
+    {
+      "itemId": "fa50e1c25728194fcbbb2fec9841b592",
+      "targetId": "nemata-jp-p257-b3,nemata-jp-p257-b4:unknown:2feb5e02f9816a91",
+      "position": "CPU结果右方牌河第7张的绿色细节模糊，无法可靠区分8s与6z。",
+      "imageSha256": "62a6a6c4f94a754ca7e41d82bc32964736fd525331c29eafd9cb5ce68ca05397",
+      "originalImages": [
+        {
+          "path": "assets/b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+          "sha256": "b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03",
+          "sourceBlockId": "nemata-jp-p257-b3"
+        },
+        {
+          "path": "assets/6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png",
+          "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8",
+          "sourceBlockId": "nemata-jp-p257-b4"
+        }
+      ],
+      "tiles": [
+        "8s"
+      ],
+      "orientation": "",
+      "timestamp": "2026-10-28T10:06:02.564Z",
+      "revision": 2,
+      "eventSha256": "45934b573076c70a5a4be1d1a56cf730ba0a63c18e61d1a34737010334acac0c"
+    },
+    {
+      "itemId": "69395d14b0bb8aed53bfa51b0850ddcb",
+      "targetId": "nemata-jp-p257-b3,nemata-jp-p257-b4:unknown:973cbbb8d03f05db",
+      "position": "CPU结果上方牌河第1张无法可靠区分1s与6z；第6、17张图案模糊，花色、点数及赤五状态不能可靠确定。",
+      "imageSha256": "62a6a6c4f94a754ca7e41d82bc32964736fd525331c29eafd9cb5ce68ca05397",
+      "originalImages": [
+        {
+          "path": "assets/b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+          "sha256": "b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03",
+          "sourceBlockId": "nemata-jp-p257-b3"
+        },
+        {
+          "path": "assets/6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png",
+          "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8",
+          "sourceBlockId": "nemata-jp-p257-b4"
+        }
+      ],
+      "tiles": [
+        "2z",
+        "1s",
+        "1s"
+      ],
+      "orientation": "",
+      "timestamp": "2026-10-28T10:06:50.399Z",
+      "revision": 12,
+      "eventSha256": "fd08085eb80264f64ad887fb8e367f4188dea41c2586e630fdf7f2a20768538c"
+    },
+    {
+      "itemId": "19124d6cc326a5bc70fd54b4086fa20c",
+      "targetId": "nemata-jp-p257-b3,nemata-jp-p257-b4:unknown:e4ed38c230294df7",
+      "position": "CPU结果右方牌河第1、2、13、14张均能辨认为万子，但旋转后的小字笔画粘连，点数及赤五状态不能可靠确定。",
+      "imageSha256": "62a6a6c4f94a754ca7e41d82bc32964736fd525331c29eafd9cb5ce68ca05397",
+      "originalImages": [
+        {
+          "path": "assets/b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+          "sha256": "b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03",
+          "sourceBlockId": "nemata-jp-p257-b3"
+        },
+        {
+          "path": "assets/6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png",
+          "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8",
+          "sourceBlockId": "nemata-jp-p257-b4"
+        }
+      ],
+      "tiles": [
+        "1m",
+        "4m",
+        "1m",
+        "3m"
+      ],
+      "orientation": "",
+      "timestamp": "2026-10-28T10:07:37.781Z",
+      "revision": 7,
+      "eventSha256": "68074c29b44e27c84499b5043c2b0ad268a4c20c9ba88482b240b2a609ab0917"
+    },
+    {
+      "itemId": "ba273dc871055c6f06083a007a390ac1",
+      "targetId": "nemata-jp-p257-b3,nemata-jp-p257-b4:unknown:eb863331517aa225",
+      "position": "CPU结果左方牌河第16张的数字笔画模糊，无法可靠区分2m与3m。",
+      "imageSha256": "62a6a6c4f94a754ca7e41d82bc32964736fd525331c29eafd9cb5ce68ca05397",
+      "originalImages": [
+        {
+          "path": "assets/b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03.png",
+          "sha256": "b355aa01cd296c152a22fa2f8d5a623cc999e222b5727b5b8a855a7aef3d4f03",
+          "sourceBlockId": "nemata-jp-p257-b3"
+        },
+        {
+          "path": "assets/6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8.png",
+          "sha256": "6ab134ee5d55cbcf278be7c54723dd0eabb760c811762e5dbd7a7eb4bd3781e8",
+          "sourceBlockId": "nemata-jp-p257-b4"
+        }
+      ],
+      "tiles": [
+        "2m"
+      ],
+      "orientation": "立直宣言牌",
+      "timestamp": "2026-10-28T10:08:25.128Z",
+      "revision": 3,
+      "eventSha256": "04705f72aac1de8e00ba3f4372ef71aa99573e028d6c39f288983cc0f5258ea6"
+    }
+  ],
+  "trustedPublicPositions": [
+    {
+      "scope": "upper",
+      "ordinal": 1,
+      "tile": "2z",
+      "orientation": null
+    },
+    {
+      "scope": "upper",
+      "ordinal": 6,
+      "tile": "1s",
+      "orientation": null
+    },
+    {
+      "scope": "upper",
+      "ordinal": 17,
+      "tile": "1s",
+      "orientation": null
+    },
+    {
+      "scope": "left",
+      "ordinal": 16,
+      "tile": "2m",
+      "orientation": "立直宣言牌"
+    },
+    {
+      "scope": "right",
+      "ordinal": 1,
+      "tile": "1m",
+      "orientation": null
+    },
+    {
+      "scope": "right",
+      "ordinal": 2,
+      "tile": "4m",
+      "orientation": null
+    },
+    {
+      "scope": "right",
+      "ordinal": 7,
+      "tile": "8s",
+      "orientation": null
+    },
+    {
+      "scope": "right",
+      "ordinal": 13,
+      "tile": "1m",
+      "orientation": null
+    },
+    {
+      "scope": "right",
+      "ordinal": 14,
+      "tile": "3m",
+      "orientation": null
+    }
+  ],
+  "displayedPublicPositionCount": 87,
+  "trustedPositionCount": 9,
+  "remaining78Positions": "Explicitly unverified/unknown in conservative CPU-result text; original machine codes retained only in audit. This is not78 new human questions or OCR tasks.",
+  "handAndExposedAndIndicatorLabelPolicy": "Separate regions, preserve position existence/count without asserting unconfirmed faces; indicator remains a named display region, not invented duplicate physical tile.",
+  "variants": [
+    {
+      "id": "strict-nine-only",
+      "description": "完整原图＋九项人工表；其余CPU牌面文字逐位未知。不得把此表称完整牌谱。",
+      "limitation": "失去CPU逐牌可访问转录；保留图像并不自动等于文字教学完整性通过，必须独立复核参考比较的贡献。"
+    },
+    {
+      "id": "inherit-reviewed-context",
+      "description": "九项人工表＋原独审已明确确认且未改的四画面关系、起始牌/和牌展示、役与点数说明；CPU未核字段仍逐位未知。",
+      "limitation": "只能按原真实独审明确范围与精确SHA继承；不得以整体faithful措辞覆盖CPU20位或其余未独立核定牌面。"
+    }
+  ],
+  "authorArgumentImpact": {
+    "sourceBlockIds": [
+      "nemata-jp-p256-b27",
+      "nemata-jp-p256-b28",
+      "nemata-jp-p256-b29",
+      "nemata-jp-p256-b30",
+      "nemata-jp-p256-b31",
+      "nemata-jp-p256-b32",
+      "nemata-jp-p256-b33",
+      "nemata-jp-p256-b34",
+      "nemata-jp-p256-b35",
+      "nemata-jp-p256-b36",
+      "nemata-jp-p256-b37",
+      "nemata-jp-p256-b38",
+      "nemata-jp-p256-b39",
+      "nemata-jp-p256-b40",
+      "nemata-jp-p257-b1",
+      "nemata-jp-p257-b2",
+      "nemata-jp-p257-b3",
+      "nemata-jp-p257-b4"
+    ],
+    "contribution": "Q9条件性鸣牌/一色手及CPU参考结果比较，诈唬为次要、和牌为主；不是仅凭一副截图证明概率或最优性。",
+    "canPreserveWithoutNewNumbers": "作者原有条件、措辞、结论和完整源图保持；九人标仅为所指定位置的可信观察。",
+    "cannotCertify": "完整合法CPU牌谱、精确可见/剩余张数、受入、概率、安全度或最佳打法；不据未知补数。",
+    "Q10Boundary": "b5以后Q10及r2/r3/r4按原独审和未改hash继承，不因CPU字段未决扩大重审。",
+    "notAnIndependentSemanticVerdict": true
+  },
+  "independentReviewRequiredBeforeAnyAdmission": true,
+  "independentReviewRequest": "Only proposal, no call authorization: compare exact trusted-human application, author ordered Q9 context, preserved image and declared unknown omissions. Do not guess new tile codes or change human facts. Decide whether retained original-image contribution is sufficient or identify exact lost proposition.",
+  "reviewInputs": {
+    "context": "E:/AgentData/Coach/knowledge/processing/integration/coac269-311250-zero-preparation-20261028/257-context.json",
+    "parentAudit": "E:/AgentData/Coach/knowledge/processing/audit/pages/nemata-jp/page-0257.6283c24943ac239fad731dd356b7c2da4097ecb9b48bcd9b652a242a8919ee88.6baa4a7e1404.json"
+  },
+  "reviewDispatched": false,
+  "wholeChapterPassed": false,
+  "admissionGranted": false,
+  "newModelCalls": 0
+}

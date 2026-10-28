@@ -2539,3 +2539,39 @@ This sidecar qualifies the old counter interpretation without mutating the bound
 Current once wakeup fired once and is disabled. No new calls, production, review or budget;
 311's existingmaker1+review1=**2/2 remaining0**,0retry, failed/void counted. Money/remote weights/
 upstream totals unknown. Both scopes remain unadmitted; no active switch or full-book pass.
+
+## Batch36 — PDF257 source-pixel checklist for20 nonhuman fields, zero calls
+
+Trigger01a1824e-b1cf-73f6-b1dd-72f1a33a3bf5 requests a readable selective checklist,
+root first. `artifacts/b36-p257-checklist` binds the unchanged5403cb35 candidate,
+6283c249 parent, prior counter scope, four human events/nine protected positions and
+original source257b4 (2109×1210). No candidate, human webpage/queue/service, raw or active
+pointer is changed. No new tile values or physical-tile validity conclusion is produced.
+
+The final shared package is `integration/coac269-p257-twenty-check-v2-20261028`,
+manifest862165cc57520ad90b426a523850ef51cb1b235b0b90f1f54ea4c32649075c4a.
+One A3 page contains20 blank selective fields with old code, specific river/hand ordinal,
+original-image target box and original-pixel crop. Nine confirmed human positions are excluded.
+Complete initial/result source images and four-panel comparison are preserved by byte SHA;
+annotated region overview is a derivative, not a replacement source.87 public display slots
+are partitioned as13 hand,3 exposed,1 indicator and17/18/17/18 rivers; indicator old6z,
+other result/start panels, captions, backs and sticks do not explain the four excess old labels.
+The20 labels remain unconfirmed, not20 proven wrong values or a whole-page reannotation.
+
+Visual QA found differently oriented right-river position12 does not fit a uniform row box.
+The first v1 crop is retained as a draft and must not be consumed. FinalT06 explicitly binds
+[1825,410,1873,474]; its correction is geometry only, not a new face/riichi/call conclusion.
+`verify.py` rejects regression to that wrong uniform box, source swaps, human-position reuse,
+new tile conclusions and proposal-to-pass/application/dispatch changes.67 checks including9
+negatives pass; all20 crop pixels match their source rectangles; final rendered PDF is one
+page with20 blank fields. Original candidate/parent and all sealed package files rehash.
+
+`trusted-only-proposal.json` considers full original image plus9 trusted human positions,
+remaining78 public fields explicitly unverified/unknown (not78 new questions), optionally
+inheriting only original independently faithful context by exact scope. Q9 conditional calling/
+one-suit/CPU-reference argument and preserved image are distinguished from a complete accessible
+tile record or quantitative proof. An independent application/argument review is required before
+admission; this turn does not dispatch it. Q10, other figures and11 pages/837 blocks are reused.
+Root handoff, delivery receipts and check results live in the same b36 owner folder. No249/250
+consumer or paid review is started; chapter/book acceptance remains pending. Model/production/
+independent review calls0, retry0; no budget reset or ordinary passed claim.
